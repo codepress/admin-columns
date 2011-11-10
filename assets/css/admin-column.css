@@ -1,0 +1,78 @@
+#general-cpac-settings {}
+#general-cpac-settings > .inside {
+	padding: 0;
+	margin: 0;
+}
+#general-cpac-settings table.form-table {
+	margin: 0;
+	padding: 0;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+#general-cpac-settings table th,
+#general-cpac-settings table td {
+	border-right: 1px solid #EBEBEB;
+    vertical-align: top;
+	border-bottom: 1px solid #DFDFDF;
+    border-top: 1px solid #FFFFFF;
+}
+#general-cpac-settings table th.cpac_post_type {
+	width: 18%;
+	font-weight: bold;	
+}
+#general-cpac-settings .cpac-option-list {
+	overflow: hidden;
+}
+#general-cpac-settings .cpac-option-list li {
+	margin: 4px 0;
+	position: relative;
+	overflow: hidden;
+	width: 280px;
+    box-shadow: 0 1px 0 #FFFFFF;
+    text-shadow: 0 1px 0 #FFFFFF;
+	background-color: #F1F1F1;
+    background-image: -moz-linear-gradient(center top , #F9F9F9, #ECECEC);
+	border-radius: 3px 3px 3px 3px;
+    border: 1px solid #DFDFDF;    
+}
+#general-cpac-settings .cpac-option-list li .cpac-sort-handle {
+	background: transparent url('../images/sort.png') no-repeat 50% 50%;
+	width: 36px;
+	height: 26px;
+	float: left;
+	cursor: move;
+	visibility: hidden;
+}
+#general-cpac-settings .cpac-option-list li:hover .cpac-sort-handle {
+	visibility: visible;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-options {
+	float: left;
+	padding: 5px 0;
+	position: relative;
+	width: 240px;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-options label {
+	position: absolute;
+	left: 22px;
+	top: 2px;
+	line-height: 22px;
+	display: block;
+	margin-right: 30px;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-options div.cpac-meta-title {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	color: #999999;
+}
+#general-cpac-settings .cpac-add-column a {
+	display: block;
+}
+
+#general-cpac-settings .cpac-option-list li.cpac-placeholder {
+	border: 1px dashed #666;
+	border-radius: 0;
+	width: 280px;
+	background: transparent;
+}
