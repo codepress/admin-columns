@@ -4,6 +4,7 @@
  */
 jQuery(document).ready(function(){	
 	cpac_sortable();
+	cpac_checked();
 	//cpac_add_custom_column();
 });
 
@@ -25,6 +26,22 @@ function cpac_sortable()
 		placeholder: 	'cpac-placeholder',
 		forcePlaceholderSize: true,
 		helper: 		fixHelper
+	});
+}
+
+/**
+ *	checked
+ *
+ */
+function cpac_checked() 
+{
+	jQuery('.cpac-option-list li input').click( function(){
+		if( jQuery(this).is(':checked') ) {
+			jQuery(this).parents('li').addClass('active');
+		} 
+		else {
+			jQuery(this).parents('li').removeClass('active');
+		}
 	});
 }
 

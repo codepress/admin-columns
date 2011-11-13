@@ -24,16 +24,21 @@
 	overflow: hidden;
 }
 #general-cpac-settings .cpac-option-list li {
-	margin: 4px 0;
+	margin: 5px 0;
 	position: relative;
 	overflow: hidden;
 	width: 280px;
-    box-shadow: 0 1px 0 #FFFFFF;
+    box-shadow: 1px #FFFFFF;
     text-shadow: 0 1px 0 #FFFFFF;
 	background-color: #F1F1F1;
     background-image: -moz-linear-gradient(center top , #F9F9F9, #ECECEC);
 	border-radius: 3px 3px 3px 3px;
     border: 1px solid #DFDFDF;    
+	margin-top: 1px;
+}
+#general-cpac-settings .cpac-option-list li.active {
+	background-image: -moz-linear-gradient(center top , #f0f0f0, #d8d8d8);
+	border-color: #c5c5c5;
 }
 #general-cpac-settings .cpac-option-list li .cpac-sort-handle {
 	background: transparent url('../images/sort.png') no-repeat 50% 50%;
@@ -48,15 +53,14 @@
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options {
 	float: left;
-	padding: 5px 0;
+	padding: 6px 0;
 	position: relative;
 	width: 240px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options label {
 	position: absolute;
 	left: 22px;
-	top: 2px;
-	line-height: 22px;
+	top: 5px;
 	display: block;
 	margin-right: 30px;
 }
@@ -66,13 +70,26 @@
 	top: 5px;
 	color: #999999;
 }
+#general-cpac-settings .cpac-option-list li .cpac-type-inside {
+	display: none;
+	float: none;
+	clear: both;
+	background: #fbfbfb;
+	border-top: 1px solid #DFDFDF;
+	padding: 5px 10px;
+}
 #general-cpac-settings .cpac-add-column a {
 	display: block;
 }
-
 #general-cpac-settings .cpac-option-list li.cpac-placeholder {
 	border: 1px dashed #666;
 	border-radius: 0;
 	width: 280px;
 	background: transparent;
+}
+#restore-cpac-settings .inside {
+	padding: 10px;
+}
+#restore-cpac-settings .inside .button {
+	margin: 0 0 10px;
 }

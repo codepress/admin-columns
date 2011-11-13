@@ -6,13 +6,37 @@ x sorting
 - add filters
 - ajax adding of columns 
 - OOP
+- bug: custom added columns by theme are removed
+- request orderby filtering
 
-class setColumns
 class adminColumns
 
+	// methods
+	function __construct() {}
+	function get() {}
+	function get() {}
 */
 
-update_option( 'cpac_options', '');
+/**
+ *	Hook testing
+ */
+function cpac_hook_column($type, $value, $post_id){
+	if ( $type == 'column-test' ) {
+		echo 'Use the type: $type and the post->ID: $post_id for custom output';
+		return;
+	}
+} 
+add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
+
+function cpac_filter_add_column($columns) {
+	$columns['column-test'] = array (
+		'state' 		=> '',
+		'label'			=> 'My column',
+		'description'	=> 'Theme'
+	);
+	return $columns;
+} 
+add_filter('cpac-custom-columns', 'cpac_filter_add_column');
 
 /**
  * Admin Menu.
@@ -20,10 +44,12 @@ update_option( 'cpac_options', '');
  * Create the admin menu link for the settings page.
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
+
 function cpac_settings_menu() 
-{	
+{
+	//print_r(cpac_get_wp_default_columns('post'));
 	$page = add_options_page(
 		esc_html__( 'Admin Columns Settings', 'cpac' ), /* HTML <title> tag. */
 		esc_html__( 'Admin Columns', 'cpac' ), /* Link text in admin menu. */
@@ -32,11 +58,13 @@ function cpac_settings_menu()
 		'cpac_plugin_settings_page'
 		);
 	
+	// handle file upload
+	add_action("load-$page", 'cpac_handle_requests', 10);
+	
 	// css scripts
 	add_action( "admin_print_styles-$page", 'cpac_admin_styles' );
 }
 add_action('admin_menu', 'cpac_settings_menu');
-
 
 /**
  * Settings Page Template.
@@ -60,8 +88,8 @@ function cpac_plugin_settings_page()
 		$posttype_obj 	= get_post_type_object($post_type);
 		$label 			= $posttype_obj->labels->singular_name;
 		
-		// build options
-		$checkboxes = cpac_get_column_options($post_type);
+		// build draggable boxes
+		$boxes = cpac_get_column_options($post_type);
 		
 		$rows .= "
 			<tr valign='top'>
@@ -69,7 +97,7 @@ function cpac_plugin_settings_page()
 					{$label}
 				</th>
 				<td>
-					{$checkboxes}
+					{$boxes}
 				</td>
 			</tr>
 		";
@@ -83,7 +111,7 @@ function cpac_plugin_settings_page()
 				<div class="meta-box-sortables">		
 					<div id="general-cpac-settings" class="postbox">
 						<h3 class="hndle">
-							<span>Columns</span>
+							<span><?php _e('Admin Columns') ?></span>
 						</h3>
 						<div class="inside">
 							<form method="post" action="options.php">
@@ -103,9 +131,21 @@ function cpac_plugin_settings_page()
 									</td>
 								</tr>				
 							</table>			
-							</form>	
+							</form>						
 						</div>						
 					</div><!-- general-settings -->
+					
+					<div id="restore-cpac-settings" class="postbox">
+						<h3 class="hndle">
+							<span><?php _e('Restore defaults') ?></span>
+						</h3>
+						<div class="inside">
+							<form method="post" action="">					
+								<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings') ?>" />
+							</form>
+							<div class="description"><?php _e('This will delete all column settings and restore the default settings.'); ?></div>
+						</div>
+					</div>
 				
 				</div>
 			</div>
@@ -118,7 +158,7 @@ function cpac_plugin_settings_page()
  * Get a list of Column options per post type
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_get_column_options($post_type) 
 {	
@@ -126,25 +166,25 @@ function cpac_get_column_options($post_type)
 	$options 		= (array) get_option('cpac_options');
 	
 	// get saved columns
-	$saved_columns = '';
+	$db_columns = '';
 	if ( isset($options['columns'][$post_type]) )
-		$saved_columns 	= $options['columns'][$post_type];	
+		$db_columns 	= $options['columns'][$post_type];	
 	
 	// get wp default columns
 	$wp_default_columns = cpac_get_wp_default_columns($post_type);
 	
-	// get extra columns
-	$wp_extra_columns 	= cpac_get_extra_columns($post_type);
+	// get custom columns
+	$wp_custom_columns 	= cpac_get_custom_columns($post_type);
 	
 	// merge default columns
-	$default_columns = wp_parse_args($wp_extra_columns, $wp_default_columns);
+	$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
 		
 	// define
 	$list = '';
 	
 	// loop throught the active columns
-	if ( $saved_columns ) {
-		foreach ( $saved_columns as $key => $values ) {			
+	if ( $db_columns ) {
+		foreach ( $db_columns as $key => $values ) {			
 			
 			// add items to the list
 			$list .= cpac_get_box($post_type, $key, $values);
@@ -169,7 +209,7 @@ function cpac_get_column_options($post_type)
  * Get checkbox
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_get_box($post_type, $key, $values) 
 {	
@@ -182,11 +222,14 @@ function cpac_get_box($post_type, $key, $values)
 	// set description
 	$description = isset($values['description']) && $values['description'] ? $values['description'] : '' ;
 	
-	// label		
+	// set label		
 	$label = $values['label'];
 	
+	// class
+	$class = $checked ? ' class="active"': '';
+	
 	$list = "
-		<li>
+		<li{$class}>
 			<div class='cpac-sort-handle'></div>
 			<div class='cpac-type-options'>
 				<input id='cpac-{$post_type}-{$key}' name='cpac_options[columns][{$post_type}][{$key}][state]' type='checkbox'{$checked}>
@@ -196,7 +239,8 @@ function cpac_get_box($post_type, $key, $values)
 				<label for='cpac-{$post_type}-{$key}'>{$label}</label>
 				<div class='cpac-meta-title'>{$description}</div>
 			</div>
-			<div class='cpac-type-inside' style='display:none'>
+			<div class='cpac-type-inside'>
+				Lorem ipsum text from wordpress input field
 			</div>
 		</li>
 	";
@@ -208,7 +252,7 @@ function cpac_get_box($post_type, $key, $values)
  * Register admin scripts
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_admin_enqueue_scripts() 
 {
@@ -240,7 +284,7 @@ function cpac_get_post_types()
  * Register admin css
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_admin_styles()
 {
@@ -267,7 +311,7 @@ add_action( 'admin_init', 'cpac_register_settings' );
  * Returns the default plugin options.
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_get_default_plugin_options() 
 {
@@ -293,22 +337,41 @@ function cpac_options_callback($options)
  * Handle requests.
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
-function cpac_take_action() 
-{		
-	// update User Info
-	/* if ( isset($_REQUEST['update-coordinates']) && $_REQUEST['update-coordinates'] ) {
-		cpac_update_users();
-	} */	
+function cpac_handle_requests() 
+{	
+	// settings updated
+	if ( isset($_REQUEST['settings-updated']) && $_REQUEST['settings-updated'] ) {
+		$wp_default_columns = array();
+		foreach ( cpac_get_post_types() as $post_type ) {
+			$wp_default_columns[$post_type] = cpac_get_wp_default_columns($post_type);
+		}
+		update_option( 'cpac_options_default', $wp_default_columns );
+	}
 	
+	// restore defaults 
+	if ( isset($_REQUEST['cpac-restore-defaults']) && $_REQUEST['cpac-restore-defaults'] ) {
+		cpac_restore_defaults();
+	}	
+}
+
+/**
+ * Restore defaults
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_restore_defaults() 
+{	
+	update_option( 'cpac_options', '');
 }
 
 /**
  * Returns excerpt
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_get_the_excerpt($post_id) {
 	global $post;  
@@ -320,21 +383,28 @@ function cpac_get_the_excerpt($post_id) {
 }
 
 /**
- * Custom Columns for Post Types.
+ * Manage custom column for Post Types.
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
-function cpac_add_column_value($type, $post_id) 
+function cpac_manage_column_value($value, $post_id) 
 {
-	// save type as value
-	$value = $type;
+	// Check for taxonomies, such as column-taxonomy-[taxname]
+	$type = $value;
+	if ( strpos($type, 'column-taxonomy-') !== false )
+		$type = 'column-taxonomy';
 	
-	// check for taxonomy
-	if ( strpos($type, 'column-taxonomy') !== false )
-		$type = 'taxonomy'; 
+	// Hook 
+	do_action('cpac-manage-column', $type, $value, $post_id);
 	
+	// Switch Types
 	switch ($type) :			
+		
+		// Post ID
+		case "column-postid" :
+			echo $post_id;
+			break;
 		
 		// Excerpt
 		case "column-excerpt" :
@@ -374,7 +444,7 @@ function cpac_add_column_value($type, $post_id)
 			break;
 		
 		// Taxonomy
-		case "taxonomy" :
+		case "column-taxonomy" :
 			$tax 	= str_replace('column-taxonomy-','',$value);
 			$tags 	= get_the_terms($post_id, $tax);
 			$tarr 	= array();
@@ -385,53 +455,98 @@ function cpac_add_column_value($type, $post_id)
 				echo implode(', ', $tarr);
 			}			
 			break;
-		
+						
 		default :
 			$value = get_post_meta( $post_id, $value, true );
 			echo $value;
 		
 	endswitch;
 }	
-add_action( 'manage_pages_custom_column', 'cpac_add_column_value', 10, 2 );	
-add_action( 'manage_posts_custom_column', 'cpac_add_column_value', 10, 2 );	
-
+add_action( 'manage_pages_custom_column', 'cpac_manage_column_value', 10, 2 );	
+add_action( 'manage_posts_custom_column', 'cpac_manage_column_value', 10, 2 );	
+ 
 /**
  *	Set Columns for Registering
+ *
+ * 	@access    private
+ * 	@since     0.1
  */
 function cpac_set_column($columns, $post_type) 
 {
-	$options = get_option('cpac_options');	
+	$options 		= get_option('cpac_options');
 	
 	if ( !$options )
 		return $columns;
 	
-	if ( isset($options['columns'][$post_type]) ) {
-		
-		$selected_columns   = $options['columns'][$post_type];			
-		if ( !empty($selected_columns)) {
+	// options from db
+	$db_columns 	= $options['columns'];
 
-			// add the default checkbox
-			$set_columns['cb'] = $columns['cb'];
+	// set already loaded columns by plugins
+	$set_columns = cpac_filter_preset_columns($columns, $post_type);
+	
+	if ( isset($db_columns[$post_type]) && !empty($db_columns[$post_type]) ) {
+		
+		// loop through columns
+		foreach ( $db_columns[$post_type] as $key => $values ) {
 			
-			// loop through columns
-			foreach ( $selected_columns as $key => $values ) {
+			// is active
+			if ( isset($values['state']) && $values['state'] == 'on' ){				
 				
-				// is active
-				if ( isset($values['state']) && $values['state'] == 'on' ){				
-					
-					// register format
-					$set_columns[$key] = $values['label'];				
-				}
+				// register format
+				$set_columns[$key] = $values['label'];				
 			}
-			return $set_columns;
 		}
+		return $set_columns;		
 	}
 	
 	return $columns;
 }
 
 /**
+ *	Set columns. These columns apply either for every post or set by a plugin.
+ * 	@access    private
+ * 	@since     0.1
+ */
+function cpac_filter_preset_columns($columns, $post_type = 'post') 
+{
+
+	$options 	= get_option('cpac_options_default');
+	
+	if ( !$options )
+		return $columns;
+	
+	// we use the wp default columns for filtering...
+	$db_columns 	= $options[$post_type];		
+	
+	// ... the ones that are set by plugins, theme functions and such.
+	$dif_columns 	= array_diff(array_keys($columns), array_keys($db_columns));
+	
+	// we add those to the columns
+	$pre_columns = array();
+	if ( $dif_columns ) {
+		foreach ( $dif_columns as $column ) {
+			$pre_columns[$column] = $columns[$column];
+		}
+	}
+	
+	/*
+	deprecated
+	// add the default checkbox
+	$pre_columns['cb'] = $columns['cb'];
+			
+	// add WPML
+	if ( isset($columns['icl_translations']) )
+		$pre_columns['icl_translations'] = $columns['icl_translations']; 
+	*/
+	
+	return $pre_columns;
+}
+
+/**
  *	Set sortable columns
+ *
+ * 	@access    private
+ * 	@since     0.1
  */
 function cpac_set_sortable($columns, $post_type) 
 {
@@ -463,6 +578,9 @@ function cpac_set_sortable($columns, $post_type)
 
 /**
  *	Register Columns
+ *
+ * 	@access    private
+ * 	@since     0.1
  */
 function cpac_register_columns() 
 {	
@@ -478,8 +596,7 @@ function cpac_register_columns()
 			$columns = cpac_set_column($columns, $post_type);
 			
 			return $columns;			
-		}); 
-		
+		});		
 		
 		// register column as sortable
 		add_filter( "manage_edit-{$post_type}_sortable_columns", function($columns) {
@@ -489,18 +606,16 @@ function cpac_register_columns()
 			$columns = cpac_set_sortable($columns, $post_type);
 						
 			return $columns;
-		}); 
-		
-		
+		});
 	}
 }
 add_action('admin_init','cpac_register_columns');
 
 /**
- * Get WP default supported admin columns per post type.
+ * 	Get WP default supported admin columns per post type.
  *
- * @access    private
- * @since     0.3
+ * 	@access    private
+ * 	@since     0.1
  */
 function cpac_get_wp_default_columns($post_type = 'post') 
 {
@@ -539,56 +654,56 @@ function cpac_get_wp_default_columns($post_type = 'post')
  * Add extra columns
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
-function cpac_get_extra_columns($post_type) 
+function cpac_get_custom_columns($post_type) 
 {
-	$extra_columns = array();
+	$custom_columns = array();
 	
 	// Thumbnail support
 	if ( post_type_supports($post_type, 'thumbnail') ) {
-		$extra_columns['column-featured_image'] = array(
-			'state' => '',
-			'label'	=> __('Featured Image'),
-			'description' => 'Custom'
+		$custom_columns['column-featured_image'] = array(
+			'state' 		=> '',
+			'label'			=> 'Featured Image',
+			'description' 	=> 'Custom'
 		);
 	}
 	
 	// Excerpt support
 	if ( post_type_supports($post_type, 'editor') ) {
-		$extra_columns['column-excerpt'] = array(
-			'state' 	=> '',
-			'label'		=> __('Excerpt'),
-			'sortable'	=> 'on',
-			'description' => 'Custom'
+		$custom_columns['column-excerpt'] = array(
+			'state' 		=> '',
+			'label'			=> 'Excerpt',
+			'sortable'		=> 'on',
+			'description' 	=> 'Custom'
 		);
 	}
 	
 	// Sticky support
 	if ( $post_type == 'post' ) {		
-		$extra_columns['column-sticky'] = array(
-			'state' 	=> '',
-			'label'		=> __('Sticky'),
-			'sortable'	=> 'on',
-			'description' => 'Custom'			
+		$custom_columns['column-sticky'] = array(
+			'state' 		=> '',
+			'label'			=> 'Sticky',
+			'sortable'		=> 'on',
+			'description' 	=> 'Custom'			
 		);
 	}
 	
 	// Order support
 	if ( post_type_supports($post_type, 'page-attributes') ) {
-		$extra_columns['column-order'] = array(
-			'state' 	=> '',
-			'label'		=> __('Order'),
-			'sortable'	=> 'on',
-			'description' => 'Custom'
+		$custom_columns['column-order'] = array(
+			'state' 		=> '',
+			'label'			=> 'Order',
+			'sortable'		=> 'on',
+			'description' 	=> 'Custom'
 		);
 	}
 	
 	// Page Template
 	if ( $post_type == 'page' ) { 
-		$extra_columns['column-page-template'] = array(
+		$custom_columns['column-page-template'] = array(
 			'state' 		=> '',
-			'label'			=> __('Template'),
+			'label'			=> 'Template',
 			'description'	=> 'Custom'			
 		);		
 	}
@@ -596,32 +711,74 @@ function cpac_get_extra_columns($post_type)
 	// Taxonomy support
 	$taxonomies = get_object_taxonomies($post_type, 'objects');
 	if ( $taxonomies ) {
-		foreach ( $taxonomies as $tax ) {
-			$extra_columns['column-taxonomy-'.$tax->name] = array(
-				'state' 		=> '',
-				'label'			=> $tax->label,
-				'description'	=> 'Taxonomy'
-			);			
+		foreach ( $taxonomies as $tax_slug => $tax ) {
+			// exclude wp default taxonomies
+			if ( $tax_slug != 'post_tag' && $tax_slug != 'category' ) {			
+				$custom_columns['column-taxonomy-'.$tax->name] = array(
+					'state' 		=> '',
+					'label'			=> $tax->label,
+					'description'	=> 'Taxonomy'
+				);			
+			}
 		}
 	}
 	
-	// Slug support
-	$extra_columns['column-page-slug'] = array(
-		'state' => '',
-		'label'	=> 'Slug',
-		'description' => 'Custom'		
-	);		
+	// Post ID support
+	$custom_columns['column-postid'] = array(
+		'state' 		=> '',
+		'label'			=> 'ID',
+		'description' 	=> 'Custom',
+		'sortable'		=> 'on'
+	);
 	
-	return $extra_columns;
+	// Slug support
+	$custom_columns['column-page-slug'] = array(
+		'state' 		=> '',
+		'label'			=> 'Slug',
+		'description' 	=> 'Custom',	
+		'sortable'		=> ''
+	);
+	
+	// Post Meta support
+	$custom_columns['column-meta'] = array(
+		'state' 		=> '',
+		'label'			=> 'Meta',
+		'description' 	=> 'Custom',
+		'sortable'		=> ''
+	);
+	
+	return apply_filters('cpac-custom-columns', $custom_columns);
 }
+
+/**
+ * Admin requests for orderby column
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_requests_orderby_column( $vars ) 
+{
+	//print_r($vars);
+	
+	// check for orderby request
+	if ( isset( $vars['orderby'] ) ) {		
+		
+		// Order
+		if ( $vars['orderby'] == 'Order' ) {
+			$vars['orderby'] = 'menu_order';
+		}		
+	} 
+	return $vars;
+}
+add_filter( 'request', 'cpac_requests_orderby_column' );
 
 /**
  * Add custom column through AJAX
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
-function cpac_ajax_add_custom_column() 
+/* function cpac_ajax_add_custom_column() 
 {	
 	// get query variable
 	$key 		= isset($_POST['column_type']) ? $_POST['column_type'] : '';
@@ -640,6 +797,7 @@ function cpac_ajax_add_custom_column()
 	exit;
 }
 add_action('wp_ajax_nopriv_cpac_add_custom_column','cpac_ajax_add_custom_column', 10, 2);
-add_action('wp_ajax_cpac_add_custom_column','cpac_ajax_add_custom_column', 10, 2);
+add_action('wp_ajax_cpac_add_custom_column','cpac_ajax_add_custom_column', 10, 2); 
+*/
 
 ?>
