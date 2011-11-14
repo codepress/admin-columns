@@ -53,9 +53,10 @@
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options {
 	float: left;
-	padding: 6px 0;
+	padding: 0;
 	position: relative;
-	width: 240px;
+	width: 242px;
+	height: 26px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options label {
 	position: absolute;
@@ -63,12 +64,31 @@
 	top: 5px;
 	display: block;
 	margin-right: 30px;
+	overflow: hidden;
+	height: 15px;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-options input {
+	margin-top: 6px;
+	cursor: pointer;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options div.cpac-meta-title {
 	position: absolute;
-	right: 5px;
-	top: 5px;
+	right: 0;
+	top: 0;
 	color: #999999;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-options div.cpac-meta-title span {
+	display: inline-block;
+	margin: 5px 5px 0 0;
+}
+#general-cpac-settings .cpac-option-list li a.cpac-action {
+	background: transparent url('../images/arrows.png') no-repeat scroll 50% 5px;
+	height: 26px;
+    width: 24px;
+	float: right;
+	display: block;
+	text-indent: -999em;
+	overflow: hidden;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-inside {
 	display: none;
@@ -77,6 +97,13 @@
 	background: #fbfbfb;
 	border-top: 1px solid #DFDFDF;
 	padding: 5px 10px;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-inside label {
+	width: 100px;
+	display: inline-block;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-inside input.text {
+	width: 154px;
 }
 #general-cpac-settings .cpac-add-column a {
 	display: block;

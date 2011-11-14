@@ -18,25 +18,25 @@ class adminColumns
 */
 
 /**
- *	Hook testing
+ *	Hook testing for theme
  */
+ //add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
+//add_filter('cpac-custom-columns', 'cpac_filter_add_column');
 function cpac_hook_column($type, $value, $post_id){
 	if ( $type == 'column-test' ) {
 		echo 'Use the type: $type and the post->ID: $post_id for custom output';
 		return;
 	}
 } 
-add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
-
 function cpac_filter_add_column($columns) {
 	$columns['column-test'] = array (
 		'state' 		=> '',
 		'label'			=> 'My column',
-		'description'	=> 'Theme'
+		'type_label'	=> 'Theme'
 	);
 	return $columns;
 } 
-add_filter('cpac-custom-columns', 'cpac_filter_add_column');
+
 
 /**
  * Admin Menu.
@@ -162,13 +162,8 @@ function cpac_plugin_settings_page()
  */
 function cpac_get_column_options($post_type) 
 {	
-	// get plugin options
-	$options 		= (array) get_option('cpac_options');
-	
-	// get saved columns
-	$db_columns = '';
-	if ( isset($options['columns'][$post_type]) )
-		$db_columns 	= $options['columns'][$post_type];	
+	//get saved database columns
+	$db_columns 		= cpac_get_db_columns($post_type);
 	
 	// get wp default columns
 	$wp_default_columns = cpac_get_wp_default_columns($post_type);
@@ -214,39 +209,121 @@ function cpac_get_column_options($post_type)
 function cpac_get_box($post_type, $key, $values) 
 {	
 	// set checked state
-	$checked = isset($values['state']) && $values['state'] == 'on' ? " checked='yes'" : '';
+	$checked 	= isset($values['state']) && $values['state'] == 'on' ? " checked='yes'" : '';
 	
-	// set sortable
-	$sortable = isset($values['sortable']) && $values['sortable'] == 'on' ? 'on' : '';
+	// set sortorder
+	$sortorder 	= isset($values['sortorder']) && $values['sortorder'] == 'on' ? 'on' : '';
 	
-	// set description
-	$description = isset($values['description']) && $values['description'] ? $values['description'] : '' ;
+	// set type_label
+	$type_label = isset($values['type_label']) && $values['type_label'] ? $values['type_label'] : '' ;
 	
 	// set label		
-	$label = $values['label'];
+	$label = $values['label'];	
 	
 	// class
 	$class = $checked ? ' class="active"': '';
+	
+	// postmeta fields
+	$postmeta_fields 	= cpac_get_inside_custom_fields($post_type, $key, $values);
 	
 	$list = "
 		<li{$class}>
 			<div class='cpac-sort-handle'></div>
 			<div class='cpac-type-options'>
 				<input id='cpac-{$post_type}-{$key}' name='cpac_options[columns][{$post_type}][{$key}][state]' type='checkbox'{$checked}>
-				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][label]' value='{$label}'/>
-				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][sortable]' value='{$sortable}'/>
-				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][description]' value='{$description}'/>
+				
+				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][sortorder]' value='{$sortorder}'/>				
+				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][type_label]' value='{$type_label}'/>
 				<label for='cpac-{$post_type}-{$key}'>{$label}</label>
-				<div class='cpac-meta-title'>{$description}</div>
+				<div class='cpac-meta-title'>
+					<span>{$type_label}</span>					
+					<a class='cpac-action' href='#open'>open</a>
+				</div>				
 			</div>
 			<div class='cpac-type-inside'>
-				Lorem ipsum text from wordpress input field
+				{$postmeta_fields}
+				<label for='cpac_options[columns][{$post_type}][{$key}][label]'>Label: </label>
+				<input type='text' name='cpac_options[columns][{$post_type}][{$key}][label]' value='{$label}' class='text'/>
 			</div>
 		</li>
 	";
 	
 	return $list;
 }
+
+/**
+ * Get inside meta values
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_get_inside_custom_fields($post_type, $key, $values) 
+{
+	if ( strpos($key, 'column-meta-') === false )
+		return false;
+	
+	// get post meta fields	
+	$fields = cpac_get_postmeta_by_posttype($post_type);
+	
+	if ( empty($fields) ) 
+		return false;
+	
+	// current
+	$current = isset($values['field']) && $values['field'] ? $values['field'] : '' ;
+	
+	// set options
+	$options = '';
+	foreach ($fields as $field) {	
+		$options .= sprintf
+		(
+			'<option value="%s"%s>%s</option>',
+			$field,
+			$field == $current? ' selected="selected"':'',
+			$field
+		);		
+    }
+	
+	if ( empty($options) )
+		return false;
+	
+	$select = "
+		<label for='cpac_options[columns][{$post_type}][{$key}][field]'>Custom Field: </label>
+		<select name='cpac_options[columns][{$post_type}][{$key}][field]'>{$options}</select>
+	";
+	
+	return $select;	
+}
+
+
+/**
+ * Get post meta fields by post type
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_get_postmeta_by_posttype($post_type) 
+{
+	global $wpdb;
+	// get mata fields
+	$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->postmeta.' pm	JOIN '.$wpdb->posts.' p	ON pm.post_id = p.ID WHERE p.post_type = "' . mysql_real_escape_string($post_type) . '" ORDER BY 1';
+	$fields = $wpdb->get_results($sql, ARRAY_N);	
+	
+	// postmeta	
+	if ( $fields ) {
+		$meta_fields = array();
+		foreach ($fields as $field) {
+			// filter out hidden meta fields
+			if (substr($field[0],0,1) != "_") {
+				$meta_fields[] = $field[0];
+			}
+		}
+		
+		return $meta_fields;
+	}	
+	
+	return false;
+}
+
 
 /**
  * Register admin scripts
@@ -388,43 +465,49 @@ function cpac_get_the_excerpt($post_id) {
  * @access    private
  * @since     0.1
  */
-function cpac_manage_column_value($value, $post_id) 
+function cpac_manage_column_value($key, $post_id) 
 {
-	// Check for taxonomies, such as column-taxonomy-[taxname]
-	$type = $value;
+	$type = $key;
+	
+	// Check for taxonomies, such as column-taxonomy-[taxname]	
 	if ( strpos($type, 'column-taxonomy-') !== false )
 		$type = 'column-taxonomy';
 	
+	// Check for custom fields, such as column-meta-[customfieldname]
+	if ( strpos($type, 'column-meta-') !== false )
+		$type = 'column-meta';
+	
 	// Hook 
-	do_action('cpac-manage-column', $type, $value, $post_id);
+	do_action('cpac-manage-column', $type, $key, $post_id);
 	
 	// Switch Types
+	$result = '';
 	switch ($type) :			
 		
 		// Post ID
 		case "column-postid" :
-			echo $post_id;
+			$result = $post_id;
 			break;
 		
 		// Excerpt
 		case "column-excerpt" :
-			echo cpac_get_the_excerpt($post_id);
+			$result = cpac_get_the_excerpt($post_id);
 			break;
 		
 		// Featured Image
 		case "column-featured_image" :
-			echo get_the_post_thumbnail($post_id, array(80,80));			
+			$result = get_the_post_thumbnail($post_id, array(80,80));			
 			break;
 			
 		// Sticky Post
 		case "column-sticky" :
 			if ( is_sticky($post_id) )			
-				echo '<img alt="sticky" src="' . CPAC_URL . 'assets/images/checkmark.png" />';
+				$result = '<img alt="sticky" src="' . CPAC_URL . 'assets/images/checkmark.png" />';
 			break;
 		
 		// Order
 		case "column-order" :
-			echo get_post_field('menu_order', $post_id);			
+			$result = get_post_field('menu_order', $post_id);			
 			break;
 		
 		// Page template
@@ -434,33 +517,43 @@ function cpac_manage_column_value($value, $post_id)
 			// all page templates
 			$templates 		= get_page_templates();
 			// template name
-			echo array_search($page_template, $templates);			
+			$result = array_search($page_template, $templates);			
 			break;
 		
 		// Slug
 		case "column-page-slug" :
-			$p = get_post($post_id);
-			echo $p->post_name;
+			$result = get_post($post_id)->post_name;			
 			break;
 		
 		// Taxonomy
 		case "column-taxonomy" :
-			$tax 	= str_replace('column-taxonomy-','',$value);
+			$tax 	= str_replace('column-taxonomy-','',$key);
 			$tags 	= get_the_terms($post_id, $tax);
 			$tarr 	= array();
 			if ( !empty($tags) ) {
 				foreach($tags as $tag) {				
 					$tarr[] = $tag->name;	
 				}
-				echo implode(', ', $tarr);
+				$result = implode(', ', $tarr);
 			}			
 			break;
-						
-		default :
-			$value = get_post_meta( $post_id, $value, true );
-			echo $value;
 		
+		// Custom Field
+		case "column-meta" :
+			$columns = cpac_get_db_columns( get_post_type($post_id) );
+			$field	 = isset($columns[$key]['field']) ? $columns[$key]['field'] : '';
+			echo get_post_meta($post_id, $field, true);
+			break;
+		
+		default :
+			$result = get_post_meta( $post_id, $key, true );
+					
 	endswitch;
+	
+	if ( empty($result) )
+		echo '&nbsp;';
+	
+	echo $result;	
 }	
 add_action( 'manage_pages_custom_column', 'cpac_manage_column_value', 10, 2 );	
 add_action( 'manage_posts_custom_column', 'cpac_manage_column_value', 10, 2 );	
@@ -473,33 +566,25 @@ add_action( 'manage_posts_custom_column', 'cpac_manage_column_value', 10, 2 );
  */
 function cpac_set_column($columns, $post_type) 
 {
-	$options 		= get_option('cpac_options');
+	$db_columns	= cpac_get_db_columns($post_type);
 	
-	if ( !$options )
+	if ( !$db_columns )
 		return $columns;
-	
-	// options from db
-	$db_columns 	= $options['columns'];
 
 	// set already loaded columns by plugins
 	$set_columns = cpac_filter_preset_columns($columns, $post_type);
-	
-	if ( isset($db_columns[$post_type]) && !empty($db_columns[$post_type]) ) {
-		
-		// loop through columns
-		foreach ( $db_columns[$post_type] as $key => $values ) {
 			
-			// is active
-			if ( isset($values['state']) && $values['state'] == 'on' ){				
-				
-				// register format
-				$set_columns[$key] = $values['label'];				
-			}
+	// loop through columns
+	foreach ( $db_columns as $key => $values ) {
+		
+		// is active
+		if ( isset($values['state']) && $values['state'] == 'on' ){				
+			
+			// register format
+			$set_columns[$key] = $values['label'];				
 		}
-		return $set_columns;		
 	}
-	
-	return $columns;
+	return $set_columns;		
 }
 
 /**
@@ -509,7 +594,6 @@ function cpac_set_column($columns, $post_type)
  */
 function cpac_filter_preset_columns($columns, $post_type = 'post') 
 {
-
 	$options 	= get_option('cpac_options_default');
 	
 	if ( !$options )
@@ -529,16 +613,6 @@ function cpac_filter_preset_columns($columns, $post_type = 'post')
 		}
 	}
 	
-	/*
-	deprecated
-	// add the default checkbox
-	$pre_columns['cb'] = $columns['cb'];
-			
-	// add WPML
-	if ( isset($columns['icl_translations']) )
-		$pre_columns['icl_translations'] = $columns['icl_translations']; 
-	*/
-	
 	return $pre_columns;
 }
 
@@ -548,31 +622,23 @@ function cpac_filter_preset_columns($columns, $post_type = 'post')
  * 	@access    private
  * 	@since     0.1
  */
-function cpac_set_sortable($columns, $post_type) 
+function cpac_set_sortable_filter($columns, $post_type) 
 {
-	$options = get_option('cpac_options');	
+	$db_columns	= cpac_get_db_columns($post_type);
 		
-	if ( !$options )
+	if ( !$db_columns )
 		return $columns;
 	
-	if ( isset($options['columns'][$post_type]) ) {
+	// loop through columns
+	foreach ( $db_columns as $key => $values ) {
 		
-		$selected_columns = $options['columns'][$post_type];			
-		if ( !empty($selected_columns)) {
+		// is active
+		if ( isset($values['sortorder']) && $values['sortorder'] == 'on' ){				
 			
-			// loop through columns
-			foreach ( $selected_columns as $key => $values ) {
-				
-				// is active
-				if ( isset($values['sortable']) && $values['sortable'] == 'on' ){				
-					
-					// register format
-					$columns[$key] = $values['label'];				
-				}
-			}
+			// register format
+			$columns[$key] = cpac_sanitize_label($values['label']);			
 		}
-	}
-	
+	}	
 	return $columns;
 }
 
@@ -588,8 +654,6 @@ function cpac_register_columns()
 		
 		// register column per post type... and we trigger an anonymous callback function
 		add_filter("manage_edit-{$post_type}_columns", function($columns) {
-			
-			// we need the post type
 			global $post_type;
 			
 			// set activated columns
@@ -603,7 +667,7 @@ function cpac_register_columns()
 			global $post_type;
 			
 			// set sortable columns
-			$columns = cpac_set_sortable($columns, $post_type);
+			$columns = cpac_set_sortable_filter($columns, $post_type);
 						
 			return $columns;
 		});
@@ -640,8 +704,11 @@ function cpac_get_wp_default_columns($post_type = 'post')
 	// change to uniform format
 	$uniform_columns = array();
 	foreach ( $columns as $key => $label ) {
-		$uniform_colums[$key]['label'] = $label;
-		$uniform_colums[$key]['state'] = 'on';
+		$uniform_colums[$key] = array(
+			'label'		=> $label,
+			'state'		=> 'on',
+			'filter'	=> ''
+		);
 	}
 	
 	// reset current screen
@@ -660,52 +727,55 @@ function cpac_get_custom_columns($post_type)
 {
 	$custom_columns = array();
 	
+	// deafult arguments
+	$defaults = array(		
+		'label'			=> '',
+		'type_label' 	=> 'Custom',
+		'sortorder'		=> '',
+		'filter' 		=> '',
+		'state' 		=> '',
+	);	
+	
 	// Thumbnail support
 	if ( post_type_supports($post_type, 'thumbnail') ) {
-		$custom_columns['column-featured_image'] = array(
-			'state' 		=> '',
+		$custom_columns['column-featured_image'] = wp_parse_args( array(
 			'label'			=> 'Featured Image',
-			'description' 	=> 'Custom'
-		);
+			'type_label' 	=> 'Image',
+		), $defaults);
 	}
 	
 	// Excerpt support
 	if ( post_type_supports($post_type, 'editor') ) {
-		$custom_columns['column-excerpt'] = array(
-			'state' 		=> '',
+		$custom_columns['column-excerpt'] = wp_parse_args( array(
 			'label'			=> 'Excerpt',
-			'sortable'		=> 'on',
-			'description' 	=> 'Custom'
-		);
+			'type_label' 	=> 'Excerpt',
+		), $defaults);
 	}
 	
 	// Sticky support
 	if ( $post_type == 'post' ) {		
-		$custom_columns['column-sticky'] = array(
-			'state' 		=> '',
+		$custom_columns['column-sticky'] = wp_parse_args( array(
 			'label'			=> 'Sticky',
-			'sortable'		=> 'on',
-			'description' 	=> 'Custom'			
-		);
+			'type_label' 	=> 'Sticky',
+		), $defaults);
 	}
 	
 	// Order support
 	if ( post_type_supports($post_type, 'page-attributes') ) {
-		$custom_columns['column-order'] = array(
-			'state' 		=> '',
-			'label'			=> 'Order',
-			'sortable'		=> 'on',
-			'description' 	=> 'Custom'
-		);
+		$custom_columns['column-order'] = wp_parse_args( array(
+			'label'			=> 'Page Order',
+			'type_label' 	=> 'Order',
+			'sortorder'		=> 'on',
+		), $defaults);
 	}
 	
 	// Page Template
 	if ( $post_type == 'page' ) { 
-		$custom_columns['column-page-template'] = array(
-			'state' 		=> '',
-			'label'			=> 'Template',
-			'description'	=> 'Custom'			
-		);		
+		$custom_columns['column-page-template'] = wp_parse_args( array(
+			'label'			=> 'Page Template',
+			'type_label' 	=> 'Template',
+			'sortorder'		=> 'on',
+		), $defaults);	
 	}
 	
 	// Taxonomy support
@@ -713,39 +783,37 @@ function cpac_get_custom_columns($post_type)
 	if ( $taxonomies ) {
 		foreach ( $taxonomies as $tax_slug => $tax ) {
 			// exclude wp default taxonomies
-			if ( $tax_slug != 'post_tag' && $tax_slug != 'category' ) {			
-				$custom_columns['column-taxonomy-'.$tax->name] = array(
-					'state' 		=> '',
+			if ( $tax_slug != 'post_tag' && $tax_slug != 'category' ) {
+				$custom_columns['column-taxonomy-'.$tax->name] = wp_parse_args( array(
 					'label'			=> $tax->label,
-					'description'	=> 'Taxonomy'
-				);			
+					'type_label'	=> 'Taxonomy',
+				), $defaults);
 			}
 		}
 	}
 	
+	// Custom Field support
+	if ( cpac_get_postmeta_by_posttype($post_type) ) {
+		$custom_columns['column-meta-1'] = wp_parse_args( array(
+			'label'			=> 'Custom Field #1',
+			'type_label'	=> 'Field',
+			'field'			=> ''
+		), $defaults);
+	}
+	
 	// Post ID support
-	$custom_columns['column-postid'] = array(
-		'state' 		=> '',
+	$custom_columns['column-postid'] = wp_parse_args( array(
 		'label'			=> 'ID',
-		'description' 	=> 'Custom',
-		'sortable'		=> 'on'
-	);
+		'type_label' 	=> 'ID',
+		'sortorder'		=> 'on',
+	), $defaults);
 	
 	// Slug support
-	$custom_columns['column-page-slug'] = array(
-		'state' 		=> '',
+	$custom_columns['column-page-slug'] = wp_parse_args( array(
 		'label'			=> 'Slug',
-		'description' 	=> 'Custom',	
-		'sortable'		=> ''
-	);
-	
-	// Post Meta support
-	$custom_columns['column-meta'] = array(
-		'state' 		=> '',
-		'label'			=> 'Meta',
-		'description' 	=> 'Custom',
-		'sortable'		=> ''
-	);
+		'type_label' 	=> 'Slug',
+		'sortorder'		=> 'on',
+	), $defaults);		
 	
 	return apply_filters('cpac-custom-columns', $custom_columns);
 }
@@ -756,21 +824,109 @@ function cpac_get_custom_columns($post_type)
  * @access    private
  * @since     0.1
  */
+function cpac_get_db_columns($post_type)
+{ 
+	// get plugin options
+	$options 		= (array) get_option('cpac_options');
+	
+	// get saved columns
+	if ( isset($options['columns'][$post_type]) )
+		return $options['columns'][$post_type];
+	
+	return false;
+}
+
+/**
+ * Admin requests for orderby column
+ *
+ * @access    private
+ * @since     0.1
+ */
 function cpac_requests_orderby_column( $vars ) 
 {
-	//print_r($vars);
-	
-	// check for orderby request
-	if ( isset( $vars['orderby'] ) ) {		
+	if ( isset( $vars['orderby'] ) ) {	
+		// get saved columns
+		$db_columns = cpac_get_db_columns($vars['post_type']);
 		
-		// Order
-		if ( $vars['orderby'] == 'Order' ) {
+		// sanitizing label
+		$label 		= cpac_sanitize_label($db_columns['column-order']['label']);
+		
+		// Check for Page Order
+		if ( $vars['orderby'] == $label ) {
 			$vars['orderby'] = 'menu_order';
-		}		
+		}
 	} 
 	return $vars;
 }
 add_filter( 'request', 'cpac_requests_orderby_column' );
+
+/**
+ * Sanitize label
+ * Uses intern wordpress function esc_url so it matches the label sorting url.
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_sanitize_label($string) {	
+	$string = esc_url($string);
+	return str_replace('http://','', $string);
+}
+/**
+ * Manage post filtering: parse query
+ *
+ * @access    private
+ * @since     for feature release
+ */
+/* 
+function cpac_parse_query_filter( $query )
+{
+    global $pagenow;
+	$form_name = 'cpac_column_filter';
+	
+    if ( is_admin() && $pagenow=='edit.php' && isset($_REQUEST[$form_name]) && $_REQUEST[$form_name] != '') {
+        // set query...
+		// example: $query->query_vars['meta_key'] = $_REQUEST[$form_name];
+	}
+
+}
+add_filter( 'parse_query', 'cpac_parse_query_filter' ); 
+*/
+
+/**
+ * Manage post filtering: add dropdown filter
+ *
+ * @access    private
+ * @since     for feature release
+ */
+
+/* 
+add_action( 'restrict_manage_posts', 'cpac_restrict_manage_posts' );
+function cpac_restrict_manage_posts()
+{	
+	$form_name = 'cpac_column_filter';
+	
+	// request
+	$current_name 	= isset($_REQUEST[$form_name]) 	? $_REQUEST[$form_name] : '';
+	
+	// set options
+	$options = '';	
+	foreach ( $fields as $field ) {	
+		// selected
+		$selected = $field[0] == $current_name ? 'selected' : '';
+		
+		$options .= "<option value='{$field}'>{$field}</option>";
+	}
+	
+    $select = "
+	<select name='{$form_name}'>
+		<option value=''>{$title}</option>
+		{$options}
+	</select>
+	";
+	
+	echo $select;
+} */
+
 
 /**
  * Add custom column through AJAX
