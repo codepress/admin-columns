@@ -6,6 +6,7 @@ jQuery(document).ready(function(){
 	cpac_sortable();
 	cpac_checked();
 	cpac_open_box();
+	cpac_menu();
 	//cpac_add_custom_column();
 });
 
@@ -47,7 +48,7 @@ function cpac_checked()
 }
 
 /**
- *	add columns through ajax
+ *	Open and close box
  *
  */
 function cpac_open_box()
@@ -58,6 +59,28 @@ function cpac_open_box()
 		
 	});
 } 
+
+/**
+ *	Menu
+ *
+ */
+function cpac_menu()
+{
+	jQuery('#cpac .cpac-menu a').click( function(e, el) {
+		e.preventDefault();
+		var id = jQuery(this).attr('href');
+		console.log(id);
+		if ( id ) {
+			// hide rest
+			jQuery('#cpac .cpac-menu a').removeClass('current');
+			jQuery('#cpac .cpac-box-row').hide().removeClass('current');
+			
+			// set current
+			jQuery(this).addClass('current');
+			jQuery(id).show().addClass('current');			
+		}
+	});
+}
 
 /**
  *	add columns through ajax

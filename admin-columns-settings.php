@@ -6,7 +6,6 @@ x sorting
 - add filters
 - ajax adding of columns 
 - OOP
-- bug: custom added columns by theme are removed
 - request orderby filtering
 
 class adminColumns
@@ -20,11 +19,11 @@ class adminColumns
 /**
  *	Hook testing for theme
  */
- //add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
+//add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
 //add_filter('cpac-custom-columns', 'cpac_filter_add_column');
 function cpac_hook_column($type, $value, $post_id){
 	if ( $type == 'column-test' ) {
-		echo 'Use the type: $type and the post->ID: $post_id for custom output';
+		echo "Use the type: {$type} and the post->ID: {$post_id} for custom output";
 		return;
 	}
 } 
@@ -37,7 +36,6 @@ function cpac_filter_add_column($columns) {
 	return $columns;
 } 
 
-
 /**
  * Admin Menu.
  *
@@ -46,10 +44,8 @@ function cpac_filter_add_column($columns) {
  * @access    private
  * @since     0.1
  */
-
 function cpac_settings_menu() 
 {
-	//print_r(cpac_get_wp_default_columns('post'));
 	$page = add_options_page(
 		esc_html__( 'Admin Columns Settings', 'cpac' ), /* HTML <title> tag. */
 		esc_html__( 'Admin Columns', 'cpac' ), /* Link text in admin menu. */
@@ -78,21 +74,25 @@ add_action('admin_menu', 'cpac_settings_menu');
  */
 function cpac_plugin_settings_page() 
 {
-	// build form rows
-	$rows = '';	
-	
 	// loop through post types
+	$rows = '';
+	$count = 1;
 	foreach ( cpac_get_post_types() as $post_type ) {
 		
 		// post type label
-		$posttype_obj 	= get_post_type_object($post_type);
-		$label 			= $posttype_obj->labels->singular_name;
+		$label = cpac_get_post_type_label($post_type);
+				
+		// id
+		$id = cpac_sanitize_string($post_type); 
 		
 		// build draggable boxes
 		$boxes = cpac_get_column_options($post_type);
 		
+		// class
+		$class = $count++ == 1 ? ' current' : ' hidden';
+		
 		$rows .= "
-			<tr valign='top'>
+			<tr id='cpac-box-{$id}' valign='top' class='cpac-box-row{$class}'>
 				<th class='cpac_post_type' scope='row'>
 					{$label}
 				</th>
@@ -103,13 +103,19 @@ function cpac_plugin_settings_page()
 		";
 	}
 	
+	// Post Type Menu
+	$menu = cpac_get_post_type_menu();
+	
 ?>
-	<div class="wrap">
+	<div id="cpac" class="wrap">
 		<h2>Advanced Admin Columns</h2>
-		<div class="postbox-container" style="width:100%;">
+		<?php echo $menu ?>
+		<div class="postbox-container" style="width:70%;">
 			<div class="metabox-holder">	
-				<div class="meta-box-sortables">		
+				<div class="meta-box-sortables">
+				
 					<div id="general-cpac-settings" class="postbox">
+						<div title="Click to toggle" class="handlediv"><br></div>
 						<h3 class="hndle">
 							<span><?php _e('Admin Columns') ?></span>
 						</h3>
@@ -118,9 +124,9 @@ function cpac_plugin_settings_page()
 							
 							<?php settings_fields( 'cpac-settings-group' ); ?>
 							
-							<table class="form-table">				
-								
-								<?php echo $rows ?>
+							<table class="form-table">
+							
+								<?php echo $rows ?>								
 								
 								<tr valign="top">
 									<th scope="row"></th>
@@ -136,20 +142,61 @@ function cpac_plugin_settings_page()
 					</div><!-- general-settings -->
 					
 					<div id="restore-cpac-settings" class="postbox">
+						<div title="Click to toggle" class="handlediv"><br></div>
 						<h3 class="hndle">
 							<span><?php _e('Restore defaults') ?></span>
 						</h3>
 						<div class="inside">
 							<form method="post" action="">					
-								<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings') ?>" />
+								<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings') ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", "cpac"); ?>');" />
 							</form>
 							<div class="description"><?php _e('This will delete all column settings and restore the default settings.'); ?></div>
 						</div>
-					</div>
+					</div><!-- restore-cpac-settings -->
 				
 				</div>
 			</div>
-		</div>
+		</div><!-- .postbox-container -->
+		
+		<div class="postbox-container" style="width:20%;">
+			<div class="metabox-holder">	
+				<div class="meta-box-sortables">
+				
+					<div id="side-cpac-settings" class="postbox">
+						<div title="Click to toggle" class="handlediv"><br></div>
+						<h3 class="hndle">
+							<span><?php _e('Need support?') ?></span>
+						</h3>
+						<div class="inside">
+							<p>If you are having problems with this plugin, please talk about them in the Support forums.</p>
+							<p>If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.</p>
+						</div>
+					</div><!-- side-cpac-settings -->
+					
+					<div id="donation-cpac-settings" class="postbox hidden">
+						<div title="Click to toggle" class="handlediv"><br></div>
+						<h3 class="hndle">
+							<span><?php _e('Donate $5, $10 or $20!') ?></span>
+						</h3>
+						<div class="inside">
+							<p>
+								<?php _e('You can support us by making a donation.') ?>
+							</p>
+							<p>
+								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+								<input type="hidden" name="cmd" value="_s-xclick">
+								<input type="hidden" name="hosted_button_id" value="RUCY5GX4FNYFC">
+								<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+								<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
+								</form>
+							</p>
+						</div>
+					</div><!-- side-cpac-settings -->
+				
+				</div>
+			</div>
+		</div><!-- .postbox-container -->
+		
 	</div>
 <?php
 }
@@ -294,7 +341,6 @@ function cpac_get_inside_custom_fields($post_type, $key, $values)
 	return $select;	
 }
 
-
 /**
  * Get post meta fields by post type
  *
@@ -324,7 +370,6 @@ function cpac_get_postmeta_by_posttype($post_type)
 	return false;
 }
 
-
 /**
  * Register admin scripts
  *
@@ -339,7 +384,6 @@ function cpac_admin_enqueue_scripts()
 }
 add_action( 'admin_enqueue_scripts', 'cpac_admin_enqueue_scripts' );
 
-
 /**
  * Get post types
  *
@@ -351,8 +395,8 @@ function cpac_get_post_types()
 	$post_types = get_post_types(array(
 		'_builtin' => false
 	));
-	$post_types[] = 'post';
-	$post_types[] = 'page';
+	$post_types['post'] = 'post';
+	$post_types['page'] = 'page';
 	
 	return $post_types;
 }
@@ -441,7 +485,8 @@ function cpac_handle_requests()
  */
 function cpac_restore_defaults() 
 {	
-	update_option( 'cpac_options', '');
+	delete_option( 'cpac_options' );
+	delete_option( 'cpac_options_default' );
 }
 
 /**
@@ -450,7 +495,8 @@ function cpac_restore_defaults()
  * @access    private
  * @since     0.1
  */
-function cpac_get_the_excerpt($post_id) {
+function cpac_get_the_excerpt($post_id) 
+{
 	global $post;  
 	$save_post 	= $post;
 	$post 		= get_post($post_id);
@@ -636,7 +682,7 @@ function cpac_set_sortable_filter($columns, $post_type)
 		if ( isset($values['sortorder']) && $values['sortorder'] == 'on' ){				
 			
 			// register format
-			$columns[$key] = cpac_sanitize_label($values['label']);			
+			$columns[$key] = cpac_sanitize_string($values['label']);			
 		}
 	}	
 	return $columns;
@@ -837,6 +883,50 @@ function cpac_get_db_columns($post_type)
 }
 
 /**
+ * Post Type Menu
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_get_post_type_menu() 
+{
+	$post_types = cpac_get_post_types();
+	$menu 	= '';
+	$count 	= 1;
+	foreach ( $post_types as $post_type ) {
+		$label 		= cpac_get_post_type_label($post_type);
+		$href 		= cpac_sanitize_string($post_type);
+		$divider 	= $count == 1 ? '' : ' | ';
+		$current 	= $count++ == 1 ? ' class="current"' : '';
+		
+		$menu .= "
+			<li>{$divider}<a{$current} href='#cpac-box-{$href}'>{$label}</a></li>
+		";
+	}
+
+	return "
+	<div class='cpac-menu'>
+		<ul class='subsubsub'>
+			{$menu}
+		</ul>
+	</div>
+	";
+}
+
+/**
+ * Get Post Type Label
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_get_post_type_label( $post_type ) 
+{
+	$posttype_obj 	= get_post_type_object($post_type);
+	$label 			= $posttype_obj->labels->singular_name;
+	return $label;
+}
+
+/**
  * Admin requests for orderby column
  *
  * @access    private
@@ -849,7 +939,7 @@ function cpac_requests_orderby_column( $vars )
 		$db_columns = cpac_get_db_columns($vars['post_type']);
 		
 		// sanitizing label
-		$label 		= cpac_sanitize_label($db_columns['column-order']['label']);
+		$label 		= cpac_sanitize_string($db_columns['column-order']['label']);
 		
 		// Check for Page Order
 		if ( $vars['orderby'] == $label ) {
@@ -867,10 +957,12 @@ add_filter( 'request', 'cpac_requests_orderby_column' );
  * @access    private
  * @since     0.1
  */
-function cpac_sanitize_label($string) {	
+function cpac_sanitize_string($string) 
+{	
 	$string = esc_url($string);
 	return str_replace('http://','', $string);
 }
+
 /**
  * Manage post filtering: parse query
  *
@@ -887,7 +979,6 @@ function cpac_parse_query_filter( $query )
         // set query...
 		// example: $query->query_vars['meta_key'] = $_REQUEST[$form_name];
 	}
-
 }
 add_filter( 'parse_query', 'cpac_parse_query_filter' ); 
 */

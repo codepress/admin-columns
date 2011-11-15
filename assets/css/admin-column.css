@@ -1,4 +1,12 @@
 #general-cpac-settings {}
+#cpac .postbox {
+	margin: 0 10px 10px 0;
+}
+#cpac .cpac-menu {
+	clear: both;
+	float: left;
+	width: 100%;
+}
 #general-cpac-settings > .inside {
 	padding: 0;
 	margin: 0;
@@ -117,6 +125,20 @@
 #restore-cpac-settings .inside {
 	padding: 10px;
 }
+#restore-cpac-settings.postbox {
+	background: #FAF2F5;
+    border: 1px solid #CFADB3;
+    color: #832525;	
+}
+#restore-cpac-settings.postbox h3 {
+	color: #832525;
+	background: #FAF2F5;
+}
 #restore-cpac-settings .inside .button {
 	margin: 0 0 10px;
+	border: 1px solid #CFADB3;
+    color: #832525;
+}
+#restore-cpac-settings .inside .description {
+    color: #832525;
 }
