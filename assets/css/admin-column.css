@@ -19,7 +19,7 @@
 }
 #general-cpac-settings table th,
 #general-cpac-settings table td {
-	border-right: 1px solid #EBEBEB;
+	/* border-right: 1px solid #EBEBEB; */
     vertical-align: top;
 	border-bottom: 1px solid #DFDFDF;
     border-top: 1px solid #FFFFFF;
@@ -28,9 +28,14 @@
 	width: 18%;
 	font-weight: bold;	
 }
+#general-cpac-settings table.form-table tr.bottom th,
+#general-cpac-settings table.form-table tr.bottom td {
+	border-bottom: none;
+}
 #general-cpac-settings .cpac-option-list {
 	overflow: hidden;
 }
+
 #general-cpac-settings .cpac-option-list li {
 	margin: 5px 0;
 	position: relative;
@@ -49,15 +54,21 @@
 	border-color: #c5c5c5;
 }
 #general-cpac-settings .cpac-option-list li .cpac-sort-handle {
-	background: transparent url('../images/sort.png') no-repeat 50% 50%;
-	width: 36px;
+	background: transparent url('../images/sort.png') no-repeat 7px -20px;
+	width: 28px;
 	height: 26px;
 	float: left;
 	cursor: move;
-	visibility: hidden;
+
 }
-#general-cpac-settings .cpac-option-list li:hover .cpac-sort-handle {
-	visibility: visible;
+#general-cpac-settings .cpac-option-list li .cpac-checkbox {
+	margin-top: 5px;
+	width: 16px;
+	height: 15px;
+	background: transparent url('../images/checkbox.png') no-repeat 0 0;
+}
+#general-cpac-settings .cpac-option-list li.active .cpac-checkbox {
+	background-position: 0 -15px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options {
 	float: left;
@@ -79,13 +90,13 @@
 	margin-top: 6px;
 	cursor: pointer;
 }
-#general-cpac-settings .cpac-option-list li .cpac-type-options div.cpac-meta-title {
+#general-cpac-settings .cpac-option-list li div.cpac-meta-title {
 	position: absolute;
 	right: 0;
 	top: 0;
 	color: #999999;
 }
-#general-cpac-settings .cpac-option-list li .cpac-type-options div.cpac-meta-title span {
+#general-cpac-settings .cpac-option-list li div.cpac-meta-title span {
 	display: inline-block;
 	margin: 5px 5px 0 0;
 }

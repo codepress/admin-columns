@@ -2,8 +2,7 @@
 
 /* 
 To do:
-x sorting
-- add filters
+- add hooks/filters
 - ajax adding of columns 
 - OOP
 - request orderby filtering
@@ -15,26 +14,6 @@ class adminColumns
 	function get() {}
 	function get() {}
 */
-
-/**
- *	Hook testing for theme
- */
-//add_action('cpac-manage-column', 'cpac_hook_column', 10, 3);
-//add_filter('cpac-custom-columns', 'cpac_filter_add_column');
-function cpac_hook_column($type, $value, $post_id){
-	if ( $type == 'column-test' ) {
-		echo "Use the type: {$type} and the post->ID: {$post_id} for custom output";
-		return;
-	}
-} 
-function cpac_filter_add_column($columns) {
-	$columns['column-test'] = array (
-		'state' 		=> '',
-		'label'			=> 'My column',
-		'type_label'	=> 'Theme'
-	);
-	return $columns;
-} 
 
 /**
  * Admin Menu.
@@ -76,7 +55,6 @@ function cpac_plugin_settings_page()
 {
 	// loop through post types
 	$rows = '';
-	$count = 1;
 	foreach ( cpac_get_post_types() as $post_type ) {
 		
 		// post type label
@@ -89,7 +67,7 @@ function cpac_plugin_settings_page()
 		$boxes = cpac_get_column_options($post_type);
 		
 		// class
-		$class = $count++ == 1 ? ' current' : ' hidden';
+		$class = cpac_menu_type_is_current($post_type) ? ' current' : ' hidden';
 		
 		$rows .= "
 			<tr id='cpac-box-{$id}' valign='top' class='cpac-box-row{$class}'>
@@ -97,6 +75,7 @@ function cpac_plugin_settings_page()
 					{$label}
 				</th>
 				<td>
+					<h3 class='cpac_post_type hidden'>{$label}</h3>
 					{$boxes}
 				</td>
 			</tr>
@@ -128,7 +107,7 @@ function cpac_plugin_settings_page()
 							
 								<?php echo $rows ?>								
 								
-								<tr valign="top">
+								<tr class="bottom" valign="top">
 									<th scope="row"></th>
 									<td>
 										<p class="submit">
@@ -150,7 +129,7 @@ function cpac_plugin_settings_page()
 							<form method="post" action="">					
 								<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings') ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", "cpac"); ?>');" />
 							</form>
-							<div class="description"><?php _e('This will delete all column settings and restore the default settings.'); ?></div>
+							<p class="description"><?php _e('This will delete all column settings and restore the default settings.'); ?></p>
 						</div>
 					</div><!-- restore-cpac-settings -->
 				
@@ -168,8 +147,8 @@ function cpac_plugin_settings_page()
 							<span><?php _e('Need support?') ?></span>
 						</h3>
 						<div class="inside">
-							<p>If you are having problems with this plugin, please talk about them in the Support forums.</p>
-							<p>If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.</p>
+							<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a>.', 'cpac'), 'http://wordpress.org' );?></p>
+							<p><?php _e("If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.");?></p>
 						</div>
 					</div><!-- side-cpac-settings -->
 					
@@ -180,7 +159,7 @@ function cpac_plugin_settings_page()
 						</h3>
 						<div class="inside">
 							<p>
-								<?php _e('You can support us by making a donation.') ?>
+								<?php _e('Please donate a token of your appreciation if you like this plugin.') ?>
 							</p>
 							<p>
 								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -254,9 +233,9 @@ function cpac_get_column_options($post_type)
  * @since     0.1
  */
 function cpac_get_box($post_type, $key, $values) 
-{	
-	// set checked state
-	$checked 	= isset($values['state']) && $values['state'] == 'on' ? " checked='yes'" : '';
+{		
+	// set state
+	$state 	= isset($values['state']) ? $values['state'] : '';
 	
 	// set sortorder
 	$sortorder 	= isset($values['sortorder']) && $values['sortorder'] == 'on' ? 'on' : '';
@@ -268,29 +247,31 @@ function cpac_get_box($post_type, $key, $values)
 	$label = $values['label'];	
 	
 	// class
-	$class = $checked ? ' class="active"': '';
+	$class = $state ? 'active': '';
 	
-	// postmeta fields
-	$postmeta_fields 	= cpac_get_inside_custom_fields($post_type, $key, $values);
+	// more box options
+	$more_options 	= cpac_get_additional_box_options($post_type, $key, $values);
 	
 	$list = "
-		<li{$class}>
-			<div class='cpac-sort-handle'></div>
+		<li class='{$class}'>
+			<div class='cpac-sort-handle'></div>			
 			<div class='cpac-type-options'>
-				<input id='cpac-{$post_type}-{$key}' name='cpac_options[columns][{$post_type}][{$key}][state]' type='checkbox'{$checked}>
+				
+				<div class='cpac-checkbox'></div>
+				<input type='hidden' class='cpac-state' name='cpac_options[columns][{$post_type}][{$key}][state]' value='{$state}'/>
 				
 				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][sortorder]' value='{$sortorder}'/>				
 				<input type='hidden' name='cpac_options[columns][{$post_type}][{$key}][type_label]' value='{$type_label}'/>
-				<label for='cpac-{$post_type}-{$key}'>{$label}</label>
-				<div class='cpac-meta-title'>
-					<span>{$type_label}</span>					
-					<a class='cpac-action' href='#open'>open</a>
-				</div>				
+				<label class='main-label'>{$label}</label>								
 			</div>
-			<div class='cpac-type-inside'>
-				{$postmeta_fields}
+			<div class='cpac-meta-title'>
+				<span>{$type_label}</span>					
+				<a class='cpac-action' href='#open'>open</a>
+			</div>
+			<div class='cpac-type-inside'>				
 				<label for='cpac_options[columns][{$post_type}][{$key}][label]'>Label: </label>
 				<input type='text' name='cpac_options[columns][{$post_type}][{$key}][label]' value='{$label}' class='text'/>
+				{$more_options}
 			</div>
 		</li>
 	";
@@ -299,16 +280,30 @@ function cpac_get_box($post_type, $key, $values)
 }
 
 /**
- * Get inside meta values
+ * Get additional box option fields
  *
  * @access    private
  * @since     0.1
  */
-function cpac_get_inside_custom_fields($post_type, $key, $values) 
+function cpac_get_additional_box_options($post_type, $key, $values) 
 {
-	if ( strpos($key, 'column-meta-') === false )
-		return false;
+	$fields = '';
 	
+	// Custom Fields	
+	if ( strpos($key, 'column-meta-') !== false )
+		$fields .= cpac_get_box_options_customfields($post_type, $key, $values);
+	
+	return $fields;
+}
+
+/**
+ * Box Options: Custom Fields
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_get_box_options_customfields($post_type, $key, $values) 
+{
 	// get post meta fields	
 	$fields = cpac_get_postmeta_by_posttype($post_type);
 	
@@ -338,7 +333,7 @@ function cpac_get_inside_custom_fields($post_type, $key, $values)
 		<select name='cpac_options[columns][{$post_type}][{$key}][field]'>{$options}</select>
 	";
 	
-	return $select;	
+	return $select;
 }
 
 /**
@@ -388,7 +383,7 @@ add_action( 'admin_enqueue_scripts', 'cpac_admin_enqueue_scripts' );
  * Get post types
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_get_post_types()
 {
@@ -416,7 +411,7 @@ function cpac_admin_styles()
  * Register plugin options
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_register_settings() 
 {
@@ -447,7 +442,7 @@ function cpac_get_default_plugin_options()
  * Save geocode coordinates of focus location.
  *
  * @access    private
- * @since     0.3
+ * @since     0.1
  */
 function cpac_options_callback($options)
 {	
@@ -469,7 +464,7 @@ function cpac_handle_requests()
 			$wp_default_columns[$post_type] = cpac_get_wp_default_columns($post_type);
 		}
 		update_option( 'cpac_options_default', $wp_default_columns );
-	}
+	}		
 	
 	// restore defaults 
 	if ( isset($_REQUEST['cpac-restore-defaults']) && $_REQUEST['cpac-restore-defaults'] ) {
@@ -495,15 +490,56 @@ function cpac_restore_defaults()
  * @access    private
  * @since     0.1
  */
-function cpac_get_the_excerpt($post_id) 
+function cpac_get_the_excerpt($post_id, $charlength = 100) 
 {
 	global $post;  
 	$save_post 	= $post;
 	$post 		= get_post($post_id);
-	$output 	= get_the_excerpt();
+	$excerpt 	= get_the_excerpt();
 	$post 		= $save_post;
+	
+	$output = '';
+	if ( strlen($excerpt) > $charlength ) {
+		$subex 		= substr($excerpt,0,$charlength-5);
+		$exwords 	= explode(" ",$subex);
+		$excut 		= -(strlen($exwords[count($exwords)-1]));
+		if ( $excut < 0 ) {
+			$output .= substr($subex,0,$excut);
+		} else {
+			$output .= $subex;
+		}
+		$output .= "[...]";
+	} else {
+		$output .= $excerpt;
+	}
+	
 	return $output;
 }
+
+/**
+ * Returns excerpt by charlength
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_the_excerpt_max_charlength($charlength) {
+   $excerpt = get_the_excerpt();
+   $charlength++;
+   if(strlen($excerpt)>$charlength) {
+       $subex = substr($excerpt,0,$charlength-5);
+       $exwords = explode(" ",$subex);
+       $excut = -(strlen($exwords[count($exwords)-1]));
+       if($excut<0) {
+            echo substr($subex,0,$excut);
+       } else {
+       	    echo $subex;
+       }
+       echo "[...]";
+   } else {
+	   echo $excerpt;
+   }
+}
+
 
 /**
  * Manage custom column for Post Types.
@@ -588,7 +624,21 @@ function cpac_manage_column_value($key, $post_id)
 		case "column-meta" :
 			$columns = cpac_get_db_columns( get_post_type($post_id) );
 			$field	 = isset($columns[$key]['field']) ? $columns[$key]['field'] : '';
-			echo get_post_meta($post_id, $field, true);
+			$meta 	 = get_post_meta($post_id, $field);
+			// multiple meta values
+			if ( is_array($meta) ) {
+				$array = array();
+				foreach ( $meta as $m ) {
+					if ( is_string($m) && $m )
+						$array[] = $m;
+				}
+				echo implode(', ',$array);
+			}
+			// single meta value
+			else {
+				echo $meta;
+			}
+			
 			break;
 		
 		default :
@@ -750,10 +800,14 @@ function cpac_get_wp_default_columns($post_type = 'post')
 	// change to uniform format
 	$uniform_columns = array();
 	foreach ( $columns as $key => $label ) {
+		// comment label
+		$type_label = strpos( $label, 'comment-grey-bubble.png') ? 'Comments' : $label;
+		
 		$uniform_colums[$key] = array(
-			'label'		=> $label,
-			'state'		=> 'on',
-			'filter'	=> ''
+			'label'			=> $label,
+			'state'			=> 'on',
+			'filter'		=> '',
+			'type_label' 	=> $type_label
 		);
 	}
 	
@@ -845,6 +899,11 @@ function cpac_get_custom_columns($post_type)
 			'type_label'	=> 'Field',
 			'field'			=> ''
 		), $defaults);
+		$custom_columns['column-meta-2'] = wp_parse_args( array(
+			'label'			=> 'Custom Field #2',
+			'type_label'	=> 'Field',
+			'field'			=> ''
+		), $defaults);
 	}
 	
 	// Post ID support
@@ -890,17 +949,31 @@ function cpac_get_db_columns($post_type)
  */
 function cpac_get_post_type_menu() 
 {
-	$post_types = cpac_get_post_types();
+	// set
 	$menu 	= '';
 	$count 	= 1;
-	foreach ( $post_types as $post_type ) {
-		$label 		= cpac_get_post_type_label($post_type);
-		$href 		= cpac_sanitize_string($post_type);
-		$divider 	= $count == 1 ? '' : ' | ';
-		$current 	= $count++ == 1 ? ' class="current"' : '';
+	
+	// referer
+	$referer = '';
+	if ( isset($_REQUEST['cpac_type']) && $_REQUEST['cpac_type'] )
+		$referer = $_REQUEST['cpac_type'];
 		
+	// loop
+	foreach ( cpac_get_post_types() as $post_type ) {
+		$label 		 = cpac_get_post_type_label($post_type);
+		$clean_label = cpac_sanitize_string($post_type);
+		
+		// divider
+		$divider 	= $count++ == 1 ? '' : ' | ';
+		
+		// current		
+		$current = '';
+		if ( cpac_menu_type_is_current($post_type) )
+			$current = ' class="current"';
+		
+		// menu list
 		$menu .= "
-			<li>{$divider}<a{$current} href='#cpac-box-{$href}'>{$label}</a></li>
+			<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$label}</a></li>
 		";
 	}
 
@@ -911,6 +984,40 @@ function cpac_get_post_type_menu()
 		</ul>
 	</div>
 	";
+}
+
+/**
+ * Get Current Box Type
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_menu_type_is_current( $post_type ) 
+{
+	// referer
+	$referer = '';
+	if ( isset($_REQUEST['cpac_type']) && $_REQUEST['cpac_type'] )
+		$referer = $_REQUEST['cpac_type'];
+	
+	// get label
+	$label 		 = cpac_get_post_type_label($post_type);
+	$clean_label = cpac_sanitize_string($post_type);
+	
+	// first element in post type array
+	$first 		= current(cpac_get_post_types());
+	
+	// current
+	$count = 1;
+	$current = '';
+	if ( $referer ) {
+		if ( $referer == 'cpac-box-'.$clean_label ) {
+			return true;
+		}			
+	} elseif ( $first == $post_type  ) {
+		return true;
+	}
+	
+	return false;	
 }
 
 /**
@@ -962,89 +1069,5 @@ function cpac_sanitize_string($string)
 	$string = esc_url($string);
 	return str_replace('http://','', $string);
 }
-
-/**
- * Manage post filtering: parse query
- *
- * @access    private
- * @since     for feature release
- */
-/* 
-function cpac_parse_query_filter( $query )
-{
-    global $pagenow;
-	$form_name = 'cpac_column_filter';
-	
-    if ( is_admin() && $pagenow=='edit.php' && isset($_REQUEST[$form_name]) && $_REQUEST[$form_name] != '') {
-        // set query...
-		// example: $query->query_vars['meta_key'] = $_REQUEST[$form_name];
-	}
-}
-add_filter( 'parse_query', 'cpac_parse_query_filter' ); 
-*/
-
-/**
- * Manage post filtering: add dropdown filter
- *
- * @access    private
- * @since     for feature release
- */
-
-/* 
-add_action( 'restrict_manage_posts', 'cpac_restrict_manage_posts' );
-function cpac_restrict_manage_posts()
-{	
-	$form_name = 'cpac_column_filter';
-	
-	// request
-	$current_name 	= isset($_REQUEST[$form_name]) 	? $_REQUEST[$form_name] : '';
-	
-	// set options
-	$options = '';	
-	foreach ( $fields as $field ) {	
-		// selected
-		$selected = $field[0] == $current_name ? 'selected' : '';
-		
-		$options .= "<option value='{$field}'>{$field}</option>";
-	}
-	
-    $select = "
-	<select name='{$form_name}'>
-		<option value=''>{$title}</option>
-		{$options}
-	</select>
-	";
-	
-	echo $select;
-} */
-
-
-/**
- * Add custom column through AJAX
- *
- * @access    private
- * @since     0.1
- */
-/* function cpac_ajax_add_custom_column() 
-{	
-	// get query variable
-	$key 		= isset($_POST['column_type']) ? $_POST['column_type'] : '';
-	$post_type 	= isset($_POST['post_type']) ? $_POST['post_type'] : '';
-	$label 		= isset($_POST['label']) ? $_POST['label'] : '';
-	
-	// set values
-	$values = array(
-		'state'	=> 'on',
-		'label'	=> $label
-	);
-	
-	$list = cpac_get_box($post_type, $key, $values);	
-
-	echo json_encode($list);
-	exit;
-}
-add_action('wp_ajax_nopriv_cpac_add_custom_column','cpac_ajax_add_custom_column', 10, 2);
-add_action('wp_ajax_cpac_add_custom_column','cpac_ajax_add_custom_column', 10, 2); 
-*/
 
 ?>

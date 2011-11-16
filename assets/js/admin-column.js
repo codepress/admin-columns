@@ -36,14 +36,27 @@ function cpac_sortable()
  *
  */
 function cpac_checked() 
-{
-	jQuery('.cpac-option-list li input').click( function(){
-		if( jQuery(this).is(':checked') ) {
-			jQuery(this).closest('li').addClass('active');
-		} 
-		else {
-			jQuery(this).closest('li').removeClass('active');
-		}
+{	
+	
+	jQuery('.cpac-option-list li .cpac-type-options').live({
+		click: function() {
+			var li 		= jQuery(this).closest('li');
+			var state	= jQuery('.cpac-state', li);
+			var value 	= state.attr('value');
+			
+			// toggle on
+			if ( value != 'on') {
+				li.addClass('active');
+				state.attr('value', 'on');
+				
+			} 
+			
+			// toggle off
+			else {
+				li.removeClass('active');
+				state.attr('value', '');
+			}			
+		}		
 	});
 }
 
@@ -55,7 +68,7 @@ function cpac_open_box()
 {
 	jQuery('.cpac-option-list .cpac-action').click(function(e){
 		e.preventDefault();
-		jQuery(this).closest('li').find('.cpac-type-inside').slideToggle(300);
+		jQuery(this).closest('li').find('.cpac-type-inside').slideToggle(150);
 		
 	});
 } 
@@ -66,18 +79,27 @@ function cpac_open_box()
  */
 function cpac_menu()
 {
+	// referer
+	var referer 		= jQuery("input[type='hidden'][name='_wp_http_referer']");
+	var referer_value 	= referer.attr('value');
+	
+	// click
 	jQuery('#cpac .cpac-menu a').click( function(e, el) {
 		e.preventDefault();
 		var id = jQuery(this).attr('href');
-		console.log(id);
+
 		if ( id ) {
-			// hide rest
+			// remove current
 			jQuery('#cpac .cpac-menu a').removeClass('current');
 			jQuery('#cpac .cpac-box-row').hide().removeClass('current');
 			
 			// set current
 			jQuery(this).addClass('current');
-			jQuery(id).show().addClass('current');			
+			jQuery(id).show().addClass('current');
+
+			// set refere
+			var querystring = '&cpac_type=' + id.replace('#','');
+			referer.attr('value', referer_value + querystring );			
 		}
 	});
 }
