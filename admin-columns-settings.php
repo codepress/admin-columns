@@ -523,23 +523,22 @@ function cpac_get_the_excerpt($post_id, $charlength = 100)
  * @since     0.1
  */
 function cpac_the_excerpt_max_charlength($charlength) {
-   $excerpt = get_the_excerpt();
-   $charlength++;
-   if(strlen($excerpt)>$charlength) {
-       $subex = substr($excerpt,0,$charlength-5);
-       $exwords = explode(" ",$subex);
-       $excut = -(strlen($exwords[count($exwords)-1]));
-       if($excut<0) {
-            echo substr($subex,0,$excut);
-       } else {
-       	    echo $subex;
-       }
-       echo "[...]";
-   } else {
-	   echo $excerpt;
-   }
+	$excerpt = get_the_excerpt();
+	$charlength++;
+	if(strlen($excerpt)>$charlength) {
+		$subex = substr($excerpt,0,$charlength-5);
+		$exwords = explode(" ",$subex);
+		$excut = -(strlen($exwords[count($exwords)-1]));
+		if($excut<0) {
+			echo substr($subex,0,$excut);
+		} else {
+			echo $subex;
+		}
+		echo "[...]";
+	} else {
+		echo $excerpt;
+	}
 }
-
 
 /**
  * Manage custom column for Post Types.
@@ -1015,8 +1014,7 @@ function cpac_menu_type_is_current( $post_type )
 		}			
 	} elseif ( $first == $post_type  ) {
 		return true;
-	}
-	
+	}	
 	return false;	
 }
 

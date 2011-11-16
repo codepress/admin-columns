@@ -40,7 +40,7 @@
 	margin: 5px 0;
 	position: relative;
 	overflow: hidden;
-	width: 280px;
+	width: 300px;
     box-shadow: 1px #FFFFFF;
     text-shadow: 0 1px 0 #FFFFFF;
 	background-color: #F1F1F1;
@@ -74,7 +74,7 @@
 	float: left;
 	padding: 0;
 	position: relative;
-	width: 242px;
+	width: 262px;
 	height: 26px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options label {
@@ -130,7 +130,7 @@
 #general-cpac-settings .cpac-option-list li.cpac-placeholder {
 	border: 1px dashed #666;
 	border-radius: 0;
-	width: 280px;
+	width: 300px;
 	background: transparent;
 }
 #restore-cpac-settings .inside {
