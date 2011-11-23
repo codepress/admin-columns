@@ -1,7 +1,7 @@
 === Embed Share ===
 Contributors: codepress
 Tags: plugins, wordpress, admin, columns
-Requires at least: 2.9
+Requires at least: 3.1
 Tested up to: 3.2.1
 Stable tag: 0.1
 
@@ -12,3 +12,5 @@ Add admin columns to post, pages and custom post types.
 == Installation ==
 
 1. Upload embed-share to the /wp-content/plugins/ directory
+
+Todo: timthumb, filtering columns

@@ -8,7 +8,6 @@ jQuery(document).ready(function(){
 	cpac_box_events();
 	cpac_menu();
 	cpac_add_custom_column();
-	cpac_remove_custom_column();
 });
 
 /**

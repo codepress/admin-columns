@@ -4,33 +4,43 @@
  * Advanced Admin Columns Class
  *
  * @since     0.1
+ *
  */
 class Codepress_Admin_Columns 
 {	
-	private $post_types;
+	private $post_types, $options, $options_default;
 	
 	/**
 	 * Construct
+	 *
+	 * We make sure WP is ready.
 	 *
 	 * @access    public
 	 * @since     0.1
 	 */
 	function __construct()
-	{		
-		add_action( 'wp_loaded', array( &$this, 'init') );				
+	{	
+		add_action( 'wp_loaded', array( &$this, 'init') );		
 	}
 	
 	/**
 	 * Initilize plugin.
 	 *
+	 * Loading sequence is determined and intialized.
+	 *
 	 * @access    public
 	 * @since     0.1
 	 */
 	function init()
-	{
-		$this->post_types = $this->get_post_types();
+	{	
+		$this->post_types 		= $this->get_post_types();	
 		
-		// load
+		$this->handle_requests();	
+		
+		$this->options 			= get_option('cpac_options');		
+		$this->options_default 	= get_option('cpac_options_default');		
+		
+		// and we continue loading the rest
 		add_action( 'admin_menu', array( &$this, 'settings_menu') );
 		add_action( 'admin_init', array( &$this, 'register_settings') );
 		add_action( 'admin_init', array( &$this, 'register_columns' ) );
@@ -49,18 +59,15 @@ class Codepress_Admin_Columns
 	 * @since     0.1
 	 */
 	function settings_menu() 
-	{		
+	{
 		$page = add_options_page(
 			esc_html__( 'Admin Columns Settings', 'cpac' ), 
 			esc_html__( 'Admin Columns', 'cpac' ), 
 			'manage_options',
 			'cpac_plugin_settings',
 			array( &$this, 'plugin_settings_page')
-			);
-		
-		// handle file upload
-		add_action("load-$page", array( &$this, 'handle_requests'), 10);
-		
+		);		
+
 		// css scripts
 		add_action( "admin_print_styles-$page", array( &$this, 'admin_styles') );
 	}	
@@ -75,26 +82,40 @@ class Codepress_Admin_Columns
 	{	
 		foreach ( $this->post_types as $post_type ) {
 			
-			// register column per post type... and we trigger an anonymous callback function
-			add_filter("manage_edit-{$post_type}_columns", function($columns) {
-				global $post_type;
-				
-				// set activated columns
-				$columns = $this->set_column($columns, $post_type);
-				
-				return $columns;			
-			});		
-			
+			// register column per post type
+			add_filter("manage_edit-{$post_type}_columns", array(&$this, 'callback_set_column'));
+					
 			// register column as sortable
-			add_filter( "manage_edit-{$post_type}_sortable_columns", function($columns) {
-				global $post_type;
-				
-				// set sortable columns
-				$columns = $this->set_sortable_filter($columns, $post_type);
-							
-				return $columns;
-			});
+			add_filter( "manage_edit-{$post_type}_sortable_columns", array(&$this, 'callback_set_sortable_column'));
 		}
+	}
+	
+	/**
+	 *	Callback Set Column
+	 *
+	 * 	@access    private
+	 * 	@since     0.1
+	 */
+	function callback_set_column($columns) 
+	{	
+		global $post_type;
+		$columns = $this->set_column($columns, $post_type);
+		
+		return $columns;
+	}
+	
+	/**
+	 *	Callback Set Sortable Column
+	 *
+	 * 	@access    private
+	 * 	@since     0.1
+	 */
+	function callback_set_sortable_column($columns) 
+	{	
+		global $post_type;
+		$columns = $this->set_sortable_filter($columns, $post_type);
+					
+		return $columns;
 	}
 	
 	/**
@@ -114,7 +135,7 @@ class Codepress_Admin_Columns
 		foreach ( $this->post_types as $post_type ) {
 			
 			// post type label
-			$label = $this->get_post_type_label($post_type);
+			$label = $this->get_singular_name($post_type);
 					
 			// id
 			$id = $this->sanitize_string($post_type); 
@@ -143,7 +164,7 @@ class Codepress_Admin_Columns
 		
 	?>
 		<div id="cpac" class="wrap">
-			<h2>Advanced Admin Columns</h2>
+			<h2><?php _e('Codepress Admin Columns')?></h2>
 			<?php echo $menu ?>
 			<div class="postbox-container" style="width:70%;">
 				<div class="metabox-holder">	
@@ -204,7 +225,7 @@ class Codepress_Admin_Columns
 							</h3>
 							<div class="inside">
 								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a>.', 'cpac'), 'http://wordpress.org' );?></p>
-								<p><?php _e("If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.");?></p>
+								<p><?php _e("If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.", 'cpac');?></p>
 							</div>
 						</div><!-- side-cpac-settings -->
 						
@@ -454,7 +475,7 @@ class Codepress_Admin_Columns
 		if ( $key != 'column-meta-1') {
 			$remove = "
 				<p>
-					<a href='javascript:;' class='cpac-delete-custom-field-box'>".__('Remove','cpac')."</a>
+					<a href='javascript:;' class='cpac-delete-custom-field-box'>".__('Remove')."</a>
 				</p>
 			";
 		}
@@ -510,8 +531,7 @@ class Codepress_Admin_Columns
 		wp_enqueue_script( 'dashboard' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'cpac', CPAC_URL . '/assets/js/admin-column.js', array('jquery', 'jquery-ui-sortable'), '1.0' );	
-	}
-	
+	}	
 
 	/**
 	 * Get post types
@@ -550,10 +570,10 @@ class Codepress_Admin_Columns
 	function register_settings() 
 	{
 		// If we have no options in the database, let's add them now.
-		if ( false === get_option('cpac_options') )
-			add_option( 'cpac_options', 'Codepress_Admin_Columns::get_default_plugin_options' );
+		if ( false === $this->options )
+			add_option( 'cpac_options', array(&$this, 'get_default_plugin_options') );
 		
-		register_setting( 'cpac-settings-group', 'cpac_options', 'Codepress_Admin_Columns::options_callback' );
+		register_setting( 'cpac-settings-group', 'cpac_options', array(&$this, 'options_callback') );
 	}	
 
 	/**
@@ -649,15 +669,11 @@ class Codepress_Admin_Columns
 		
 		$output = '';
 		if ( strlen($string) > $charlength ) {
-			$subex 		= substr($string,0,$charlength-5);
-			$exwords 	= explode(" ",$subex);
-			$excut 		= -(strlen($exwords[count($exwords)-1]));
-			if ( $excut < 0 ) {
-				$output .= substr($subex,0,$excut);
-			} else {
-				$output .= $subex;
-			}
-			$output .= "[...]";
+			$subex 		 = substr($string,0,$charlength-5);
+			$exwords 	 = explode(" ",$subex);
+			$excut 		 = -(strlen($exwords[count($exwords)-1]));			
+			$output 	.= $excut < 0 ? substr($subex,0,$excut) : $subex;			
+			$output 	.= "[...]";
 		} else {
 			$output = $string;
 		}
@@ -789,7 +805,7 @@ class Codepress_Admin_Columns
 
 		// multiple meta values
 		if ( is_array($meta) ) {			
-			$meta = $this->implode(', ', $meta);
+			$meta = $this->recursive_implode(', ', $meta);
 		}	
 		
 		// single meta value
@@ -825,11 +841,11 @@ class Codepress_Admin_Columns
 	 * 	@access    private
 	 * 	@since     0.1
 	 */
-	function implode( $glue, $pieces ) 
+	function recursive_implode( $glue, $pieces ) 
 	{
 		foreach( $pieces as $r_pieces )	{
 			if( is_array( $r_pieces ) ) {
-				$retVal[] = $this->implode( $glue, $r_pieces );
+				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
 			}
 			else {
 				$retVal[] = $r_pieces;
@@ -874,7 +890,7 @@ class Codepress_Admin_Columns
 	 */
 	function filter_preset_columns($columns, $post_type = 'post') 
 	{
-		$options 	= get_option('cpac_options_default');
+		$options 	= $this->options_default;
 		
 		if ( !$options )
 			return $columns;
@@ -1121,8 +1137,8 @@ class Codepress_Admin_Columns
 	function get_db_columns($post_type)
 	{ 
 		// get plugin options
-		$options 		= (array) get_option('cpac_options');
-		
+		$options 		= $this->options;
+
 		// get saved columns
 		if ( isset($options['columns'][$post_type]) )
 			return $options['columns'][$post_type];
@@ -1149,7 +1165,7 @@ class Codepress_Admin_Columns
 			
 		// loop
 		foreach ( $this->post_types as $post_type ) {
-			$label 		 = $this->get_post_type_label($post_type);
+			$label 		 = $this->get_singular_name($post_type);
 			$clean_label = $this->sanitize_string($post_type);
 			
 			// divider
@@ -1183,38 +1199,41 @@ class Codepress_Admin_Columns
 	 */
 	function menu_type_is_current( $post_type ) 
 	{
+		//print_r($post_type);
+	
 		// referer
 		$referer = '';
 		if ( isset($_REQUEST['cpac_type']) && $_REQUEST['cpac_type'] )
 			$referer = $_REQUEST['cpac_type'];
 		
 		// get label
-		$label 		 = $this->get_post_type_label($post_type);
+		$label 		 = $this->get_singular_name($post_type);
 		$clean_label = $this->sanitize_string($post_type);
 		
-		// first element in post type array
-		$first 		= current($this->post_types);
+		// get first element from post-types
+		$first 		= array_shift(array_values($this->post_types));
 		
-		// current
-		$count = 1;
-		$current = '';
+		// display the page that was being viewed before saving
 		if ( $referer ) {
 			if ( $referer == 'cpac-box-'.$clean_label ) {
 				return true;
-			}			
+			}
+		
+		// settings page has not yet been saved
 		} elseif ( $first == $post_type  ) {
 			return true;
-		}	
+		}
+		
 		return false;	
 	}
 
 	/**
-	 * Get Post Type Label
+	 * Get singular name of post type
 	 *
 	 * @access    private
 	 * @since     0.1
 	 */
-	function get_post_type_label( $post_type ) 
+	function get_singular_name( $post_type ) 
 	{
 		$posttype_obj 	= get_post_type_object($post_type);
 		$label 			= $posttype_obj->labels->singular_name;
