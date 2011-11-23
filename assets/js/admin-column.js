@@ -5,9 +5,10 @@
 jQuery(document).ready(function(){	
 	cpac_sortable();
 	cpac_checked();
-	cpac_open_box();
+	cpac_box_events();
 	cpac_menu();
-	//cpac_add_custom_column();
+	cpac_add_custom_column();
+	cpac_remove_custom_column();
 });
 
 /**
@@ -16,18 +17,10 @@ jQuery(document).ready(function(){
  */
 function cpac_sortable() 
 {
-	var fixHelper = function(e, ui) {
-		ui.children().each(function() {
-			jQuery(this).width(jQuery(this).width());
-		});
-		return ui;
-	};
-	
 	jQuery('ul.cpac-option-list').sortable({
 		handle: 		'div.cpac-sort-handle',
 		placeholder: 	'cpac-placeholder',
 		forcePlaceholderSize: true,
-		helper: 		fixHelper
 	});
 }
 
@@ -37,8 +30,7 @@ function cpac_sortable()
  */
 function cpac_checked() 
 {	
-	
-	jQuery('.cpac-option-list li .cpac-type-options').live({
+	jQuery('#cpac .cpac-option-list li .cpac-type-options').live({
 		click: function() {
 			var li 		= jQuery(this).closest('li');
 			var state	= jQuery('.cpac-state', li);
@@ -64,11 +56,25 @@ function cpac_checked()
  *	Open and close box
  *
  */
-function cpac_open_box()
+function cpac_box_events()
 {
-	jQuery('.cpac-option-list .cpac-action').click(function(e){
+	// fold in/out
+	jQuery('#cpac .cpac-option-list .cpac-action').unbind('click').click(function(e){
 		e.preventDefault();
-		jQuery(this).closest('li').find('.cpac-type-inside').slideToggle(150);
+		jQuery(this).closest('li').find('.cpac-type-inside').slideToggle(150);		
+	});
+	
+	// remove custom field box
+	jQuery('#cpac .cpac-delete-custom-field-box').unbind('click').click(function(e){
+		e.preventDefault();		
+		var el = jQuery(this).closest('li');
+		
+		el.addClass('deleting').animate({
+			opacity : 0,
+			height: 0
+		}, 350, function() {
+			el.remove();
+		});
 		
 	});
 } 
@@ -105,40 +111,81 @@ function cpac_menu()
 }
 
 /**
- *	add columns through ajax
+ *	add custom columns 
  *
  */
-/* function cpac_add_custom_column() 
+function cpac_add_custom_column() 
 {
-	jQuery('.cpac-add-column a').click(function(e){
+	jQuery('#cpac-add-customfield-column').click(function(e){
+		e.preventDefault();
+				
+		var list 		= jQuery(this).closest('td').find('ul.cpac-option-list');		
+		var metafields 	= jQuery('li.cpac-box-metafield', list);
 		
-		e.preventDefault();		
-		
-		var a = jQuery(this);
-		
-		var column_type = a.attr('class').replace('cpac-add-column-', '');
-		var post_type 	= a.parents('tr').find('.cpac_post_type').text().trim();
-		var label 		= a.attr('title');
-		var list 		= a.parents('tr').find('.cpac-option-list');
-		
-		console.log(column_type);
-		console.log(post_type);
-		console.log(label);
-		
-		jQuery.ajax({
-			url 	 : ajaxurl,
-			type 	 : 'POST',
-			dataType : 'json',
-			data  	 : {
-				action  	: 'cpac_add_custom_column',
-				column_type	: column_type,
-				post_type	: post_type,
-				label		: label
-			},
-			success: function(data) {
-				jQuery(list).append(data);
-				a.hide();
-			}
+		// get unique ID number...
+		var ids = [];		
+		metafields.each(function(k,v) { 
+			var _class = jQuery(v).attr('class');
+			var classes = _class.split(' ');
+			jQuery.each(classes, function(kc,vc){
+				if ( vc.indexOf('cpac-box-column-meta-') === 0 ) {
+					var id = vc.replace('cpac-box-column-meta-','');
+					if ( id )
+						ids.push(id);
+				}
+			});			
 		});
+
+		// ...and sort them
+		ids.sort(sortNumber);
+	
+		if ( !ids )
+			return;		
+		
+		function sortNumber(a,b) {
+			return b - a;
+		}		
+		
+		// ID's
+		var id 		= parseFloat(ids[0]);
+		var new_id 	= id + 1;
+			
+		// Clone
+		var clone = jQuery( '#cpac .cpac-box-column-meta-' + id ).clone();
+		
+		// Toggle class
+		jQuery(clone).removeClass('cpac-box-column-meta-' + id);
+		jQuery(clone).addClass('cpac-box-column-meta-' + new_id);
+		
+		// Replace inputs ID's 
+		var inputs = jQuery(clone).find('input');
+		jQuery(inputs).each(function(ik, iv){	
+			jQuery(iv).attr('name', jQuery(iv).attr('name').replace(id, new_id) );
+		});
+		
+		// Replace label ID's
+		var labels = jQuery(clone).find('labels');
+		jQuery(labels).each(function(ik, iv){	
+			jQuery(iv).attr('for', jQuery(iv).attr('for').replace(id, new_id) );
+		});		
+		
+		// remove description
+		clone.find('.remove-description').remove();
+		
+		// change label text
+		clone.find('label.main-label, .cpac-type-inside input.text').text('Custom Field');
+		clone.find('.cpac-type-inside input.text').val('Custom Field');
+		
+		// add remove button
+		if ( clone.find('.cpac-delete-custom-field-box').length == 0 ) {
+			var remove = '<p><a href="javascript:;" class="cpac-delete-custom-field-box">Remove</a>';
+			clone.find('.cpac-type-inside').append(remove);
+		}
+				
+		// add cloned box to the list
+		list.append(clone);
+		
+		// retrigger click events
+		cpac_box_events();
 	});
-}	 */	
+}

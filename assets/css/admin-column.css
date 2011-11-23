@@ -19,7 +19,6 @@
 }
 #general-cpac-settings table th,
 #general-cpac-settings table td {
-	/* border-right: 1px solid #EBEBEB; */
     vertical-align: top;
 	border-bottom: 1px solid #DFDFDF;
     border-top: 1px solid #FFFFFF;
@@ -34,13 +33,22 @@
 }
 #general-cpac-settings .cpac-option-list {
 	overflow: hidden;
+	width: 360px;	
+	float: left;
 }
-
+#general-cpac-settings .cpac-reorder-msg {
+	background: transparent url('../images/reorder.png') no-repeat scroll 0 0;
+	margin-left: 5px;
+	height: 23px;
+	width: 171px;
+	clear: both;
+	float: left;
+}
 #general-cpac-settings .cpac-option-list li {
 	margin: 5px 0;
 	position: relative;
 	overflow: hidden;
-	width: 300px;
+	width: 320px;
     box-shadow: 1px #FFFFFF;
     text-shadow: 0 1px 0 #FFFFFF;
 	background-color: #F1F1F1;
@@ -54,17 +62,17 @@
 	border-color: #c5c5c5;
 }
 #general-cpac-settings .cpac-option-list li .cpac-sort-handle {
-	background: transparent url('../images/sort.png') no-repeat 7px -20px;
-	width: 28px;
+	background: transparent url('../images/sort.png') no-repeat 5px 5px;
+	width: 20px;
 	height: 26px;
 	float: left;
 	cursor: move;
-
 }
 #general-cpac-settings .cpac-option-list li .cpac-checkbox {
 	margin-top: 5px;
 	width: 16px;
 	height: 15px;
+	cursor: pointer;
 	background: transparent url('../images/checkbox.png') no-repeat 0 0;
 }
 #general-cpac-settings .cpac-option-list li.active .cpac-checkbox {
@@ -74,7 +82,8 @@
 	float: left;
 	padding: 0;
 	position: relative;
-	width: 262px;
+	width: 222px;
+	overflow: hidden;
 	height: 26px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options label {
@@ -117,6 +126,20 @@
 	border-top: 1px solid #DFDFDF;
 	padding: 5px 10px;
 }
+#general-cpac-settings .cpac-option-list li a.cpac-delete-custom-field-box {
+	display: inline-block;
+	border-bottom: 1px solid #FF0000;
+    color: #FF0000;
+	text-decoration: none;
+	text-shadow: none;
+	padding: 0 3px;
+}
+#general-cpac-settings .cpac-option-list li a.cpac-delete-custom-field-box:hover {
+	background-color: #FF0000;
+    border-bottom-color: #FF0000;
+    color: #FFFFFF;
+	text-decoration: none;	
+}
 #general-cpac-settings .cpac-option-list li .cpac-type-inside label {
 	width: 100px;
 	display: inline-block;
@@ -129,9 +152,26 @@
 }
 #general-cpac-settings .cpac-option-list li.cpac-placeholder {
 	border: 1px dashed #666;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
 	border-radius: 0;
-	width: 300px;
+	width: 320px;
 	background: transparent;
+}
+#general-cpac-settings .cpac-box {
+	position: relative;
+	overflow: hidden;
+}
+#cpac-add-customfield-column {
+	position: absolute;
+	bottom: 30px;
+	left: 360px;
+}
+#general-cpac-settings .cpac-option-list li.deleting {
+	background: #CFADB3;
+    border: 1px solid #CFADB3;
+    color: #832525;
+	text-shadow: none;
 }
 #restore-cpac-settings .inside {
 	padding: 10px;

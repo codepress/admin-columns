@@ -33,4 +33,23 @@ define( 'CPAC_BASENAME', plugin_basename( __FILE__ ) );
 // Settings
 require CPAC_PATH.'admin-columns-settings.php';
 
+// Init
+$cpac = new Codepress_Admin_Columns;
+
+/**
+ * Add Settings link to plugin page
+ *
+ * @access    private
+ * @since     0.1
+ */
+function cpac_add_settings_link( $links, $file ) 
+{
+	if ( $file != plugin_basename( __FILE__ ))
+		return $links;
+
+	array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=cpac_plugin_settings">' . __( 'Settings' ) . '</a>');
+	return $links;
+}
+add_filter('plugin_action_links', 'cpac_add_settings_link',10, 2);
+
 ?>
