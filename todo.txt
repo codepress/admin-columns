@@ -1,0 +1,4 @@
+user columns
+taxonomy columns
+filtering
+sortable columns

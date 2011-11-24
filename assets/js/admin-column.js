@@ -19,7 +19,7 @@ function cpac_sortable()
 	jQuery('ul.cpac-option-list').sortable({
 		handle: 		'div.cpac-sort-handle',
 		placeholder: 	'cpac-placeholder',
-		forcePlaceholderSize: true,
+		forcePlaceholderSize: true
 	});
 }
 
@@ -38,8 +38,7 @@ function cpac_checked()
 			// toggle on
 			if ( value != 'on') {
 				li.addClass('active');
-				state.attr('value', 'on');
-				
+				state.attr('value', 'on');				
 			} 
 			
 			// toggle off
@@ -157,15 +156,18 @@ function cpac_add_custom_column()
 		jQuery(clone).addClass('cpac-box-column-meta-' + new_id);
 		
 		// Replace inputs ID's 
-		var inputs = jQuery(clone).find('input');
+		var inputs = jQuery(clone).find('input, select');		
 		jQuery(inputs).each(function(ik, iv){	
 			jQuery(iv).attr('name', jQuery(iv).attr('name').replace(id, new_id) );
 		});
 		
 		// Replace label ID's
-		var labels = jQuery(clone).find('labels');
+		var labels = jQuery(clone).find('label');
 		jQuery(labels).each(function(ik, iv){	
-			jQuery(iv).attr('for', jQuery(iv).attr('for').replace(id, new_id) );
+			var attr_for = jQuery(iv).attr('for');
+			if ( attr_for ) {
+				jQuery(iv).attr('for', attr_for.replace(id, new_id) );
+			}
 		});		
 		
 		// remove description
