@@ -2,3 +2,7 @@ user columns
 taxonomy columns
 filtering
 sortable columns
+column: attachments
+
+Options page for:
+be able to choose hidden custom fields

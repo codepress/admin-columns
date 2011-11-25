@@ -41,7 +41,7 @@ $cpac = new Codepress_Admin_Columns;
  */
 class Codepress_Admin_Columns 
 {	
-	private $post_types, $options, $options_default;
+	private $post_types, $options, $options_default, $slug;
 	
 	/**
 	 * Construct
@@ -65,9 +65,12 @@ class Codepress_Admin_Columns
 		$this->post_types 		= $this->get_post_types();
 		$this->handle_requests();		
 		$this->options 			= get_option('cpac_options');		
-		$this->options_default 	= get_option('cpac_options_default');		
+		$this->options_default 	= get_option('cpac_options_default');				
 		
-		// and we continue loading
+		// Slug
+		$this->slug				= 'cpac-plugin-settings';
+		
+		// Actions and hooks
 		add_action( 'admin_menu', array( &$this, 'settings_menu') );
 		add_action( 'admin_init', array( &$this, 'register_settings') );
 		add_action( 'admin_init', array( &$this, 'register_columns' ) );
@@ -88,10 +91,15 @@ class Codepress_Admin_Columns
 	public function settings_menu() 
 	{
 		$page = add_options_page(
+			// Page title
 			esc_html__( 'Admin Columns Settings', 'cpac' ), 
+			// Menu Title
 			esc_html__( 'Admin Columns', 'cpac' ), 
+			// Capability
 			'manage_options',
-			'cpac_plugin_settings',
+			// Menu slug
+			$this->slug,
+			// Callback
 			array( &$this, 'plugin_settings_page')
 		);		
 
@@ -201,6 +209,7 @@ class Codepress_Admin_Columns
 		
 	?>
 		<div id="cpac" class="wrap">
+			<?php screen_icon($this->slug) ?>
 			<h2><?php _e('Codepress Admin Columns')?></h2>
 			<?php echo $menu ?>
 			<div class="postbox-container" style="width:70%;">
@@ -261,7 +270,7 @@ class Codepress_Admin_Columns
 								<span><?php _e('Need support?') ?></span>
 							</h3>
 							<div class="inside">
-								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a>.', 'cpac'), 'http://wordpress.org' );?></p>
+								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a>.', 'cpac'), 'http://wordpress.org/tags/codepress-admin-columns' );?></p>
 								<p><?php _e("If you're sure you've found a bug, or have a feature request, please submit it in the bug tracker.", 'cpac');?></p>
 							</div>
 						</div><!-- side-cpac-settings -->
@@ -300,7 +309,7 @@ class Codepress_Admin_Columns
 		// custom field button
 		$button_add_column = '';
 		if ( $this->get_postmeta_by_posttype($post_type) )
-			$button_add_column = "<a href='javacript:;' id='cpac-add-customfield-column' class='button'>+ Add Custom Field Column</a>";
+			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ Add Custom Field Column</a>";
 		
 		return "
 			<div class='cpac-box'>
@@ -404,6 +413,7 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-inside'>				
 					<label for='cpac_options[columns][{$post_type}][{$key}][label]'>Label: </label>
 					<input type='text' name='cpac_options[columns][{$post_type}][{$key}][label]' value='{$values['label']}' class='text'/>
+					<br/>
 					{$more_options}
 				</div>
 			</li>
@@ -494,8 +504,10 @@ class Codepress_Admin_Columns
 		$inside = "
 			<label for='cpac_options[columns][{$post_type}][{$key}][field]'>Custom Field: </label>
 			<select name='cpac_options[columns][{$post_type}][{$key}][field]'>{$field_options}</select>
+			<br/>
 			<label for='cpac_options[columns][{$post_type}][{$key}][field_type]'>Field Type: </label>
 			<select name='cpac_options[columns][{$post_type}][{$key}][field_type]'>{$fieldtype_options}</select>
+			<br/>
 			{$remove}
 		";
 		

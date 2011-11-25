@@ -7,11 +7,11 @@ Stable tag: 0.1
 
 == Description ==
 
-This plugin makes it easy to add Admin Columns to your Posts, Pages and Custom Post Type Screens. 
+This plugin makes it easy to customize Admin Columns for your Posts, Pages and Custom Post Type Screens. 
 
 = Intro = 
 
-This plugin let's you visually customize the Admin Columns. You can add or remove any column, change it's label and sort them in any order.
+This plugin let's you visually customize the Admin Columns. You can add or remove columns, change their label and reorder them.
 
 =Additional Columns=
 
@@ -56,8 +56,8 @@ I will be adding more in coming releases. You can leave any requests or feedback
 
 1. Upload codepress-admin-columns to the /wp-content/plugins/ directory
 2. Activate Codepress Admin Columns through the ‘Plugins’ menu in WordPress
+3. Configure the plugin by going to the Admin Column settings that appears under the Settings menu.
 
-A new Admin Columns menu will be available under the Settings menu. Go here to customize your Admin Columns.
 
 == Frequently Asked Questions ==
 
@@ -68,7 +68,9 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/#
 
 == Screenshots ==
 
-1. The Codepress Admin Columns settings page.
+1. Settings page of the Codepress Admin columns plugin.
+2. Options for the Custom Field Column.
+3. Posts Screen with custom columns.
 
 == Changelog ==
 

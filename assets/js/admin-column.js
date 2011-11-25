@@ -113,10 +113,10 @@ function cpac_menu()
  *
  */
 function cpac_add_custom_column() 
-{
-	jQuery('#cpac-add-customfield-column').click(function(e){
-		e.preventDefault();
-				
+{	
+	jQuery('.cpac-add-customfield-column').click(function(e){
+		e.preventDefault();		
+			
 		var list 		= jQuery(this).closest('td').find('ul.cpac-option-list');		
 		var metafields 	= jQuery('li.cpac-box-metafield', list);
 		
@@ -149,11 +149,11 @@ function cpac_add_custom_column()
 		var new_id 	= id + 1;
 			
 		// Clone
-		var clone = jQuery( '#cpac .cpac-box-column-meta-' + id ).clone();
+		var clone = jQuery( '.cpac-box-column-meta-' + id, list ).clone();
 		
 		// Toggle class
-		jQuery(clone).removeClass('cpac-box-column-meta-' + id);
-		jQuery(clone).addClass('cpac-box-column-meta-' + new_id);
+		jQuery(clone).removeClass('cpac-box-column-meta-' + id );
+		jQuery(clone).addClass('cpac-box-column-meta-' + new_id );
 		
 		// Replace inputs ID's 
 		var inputs = jQuery(clone).find('input, select');		

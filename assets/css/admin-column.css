@@ -7,6 +7,9 @@
 	float: left;
 	width: 100%;
 }
+#icon-cpac-plugin-settings {
+	background: transparent url('../images/icon.png') no-repeat 0 0;
+}
 #general-cpac-settings > .inside {
 	padding: 0;
 	margin: 0;
@@ -31,6 +34,9 @@
 #general-cpac-settings table.form-table tr.bottom td {
 	border-bottom: none;
 }
+#general-cpac-settings .cpac-box {
+	position: relative;
+}
 #general-cpac-settings .cpac-option-list {
 	overflow: hidden;
 	width: 360px;	
@@ -42,7 +48,6 @@
 	height: 23px;
 	width: 171px;
 	clear: both;
-	float: left;
 }
 #general-cpac-settings .cpac-option-list li {
 	margin: 5px 0;
@@ -170,11 +175,7 @@
 	width: 320px;
 	background: transparent;
 }
-#general-cpac-settings .cpac-box {
-	position: relative;
-	overflow: hidden;
-}
-#cpac-add-customfield-column {
+#general-cpac-settings .cpac-add-customfield-column {
 	position: absolute;
 	bottom: 30px;
 	left: 360px;
