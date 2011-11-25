@@ -813,7 +813,7 @@ class Codepress_Admin_Columns
 		$meta 	 	= get_post_meta($post_id, $field, true);
 		
 		// multiple meta values
-		if ( $fieldtype == 'array' || is_array($meta) ) {
+		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {			
 			$meta 	= get_post_meta($post_id, $field);
 			$meta 	= $this->recursive_implode(', ', $meta);
 		}
@@ -831,8 +831,10 @@ class Codepress_Admin_Columns
 				break;
 				
 			// Media Library ID
-			case "library_id" :				
-				$meta = wp_get_attachment_image( $meta, array(80,80), true );
+			case "library_id" :			
+				// check if media exists
+				if ( wp_get_attachment_metadata($meta) )
+					$meta = wp_get_attachment_image( $meta, array(80,80), true );
 				break;
 			
 			// Excerpt

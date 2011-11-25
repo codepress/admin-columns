@@ -161,8 +161,9 @@
 	width: 100px;
 	display: inline-block;
 }
-#general-cpac-settings .cpac-option-list li .cpac-type-inside input.text {
-	width: 154px;
+#general-cpac-settings .cpac-option-list li .cpac-type-inside input,
+#general-cpac-settings .cpac-option-list li .cpac-type-inside select {
+	min-width: 184px;
 }
 #general-cpac-settings .cpac-add-column a {
 	display: block;

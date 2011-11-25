@@ -4,5 +4,5 @@ filtering
 sortable columns
 column: attachments
 
-Options page for:
+Options page:
 be able to choose hidden custom fields
