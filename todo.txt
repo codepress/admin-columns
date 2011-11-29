@@ -1,8 +1,13 @@
-user columns
+media columns
 taxonomy columns
 filtering
 sortable columns
-column: attachments
+contextual help
+multi site
+user sortables
+go to [posts] screen button/link
+scribu mailen
 
 Options page:
 be able to choose hidden custom fields
+thumb size

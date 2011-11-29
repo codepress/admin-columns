@@ -1,0 +1,388 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Codepress Admin Columns\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-29 15:16+0100\n"
+"PO-Revision-Date: 2011-11-29 15:17+0100\n"
+"Last-Translator: Tobias <tschutter@gmail.com>\n"
+"Language-Team: Codepress <info@codepress.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../codepress-admin-columns.php:133
+#: ../_codepress-admin-columns.php:132
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../codepress-admin-columns.php:280
+#: ../_codepress-admin-columns.php:325
+msgid "Add Custom Field Column"
+msgstr "Voeg custom field kolom toe"
+
+#: ../codepress-admin-columns.php:440
+#: ../_codepress-admin-columns.php:480
+msgid "Default"
+msgstr ""
+
+#: ../codepress-admin-columns.php:441
+#: ../codepress-admin-columns.php:1106
+#: ../_codepress-admin-columns.php:481
+#: ../_codepress-admin-columns.php:1131
+msgid "Image"
+msgstr "Afbeelding"
+
+#: ../codepress-admin-columns.php:442
+#: ../_codepress-admin-columns.php:482
+msgid "Media Library Icon"
+msgstr "Media bibliotheek Icoon"
+
+#: ../codepress-admin-columns.php:443
+#: ../codepress-admin-columns.php:1114
+#: ../codepress-admin-columns.php:1116
+#: ../_codepress-admin-columns.php:483
+#: ../_codepress-admin-columns.php:1139
+#: ../_codepress-admin-columns.php:1141
+msgid "Excerpt"
+msgstr "Samenvatting"
+
+#: ../codepress-admin-columns.php:444
+#: ../_codepress-admin-columns.php:484
+msgid "Multiple Values"
+msgstr "Meerdere waarden"
+
+#: ../codepress-admin-columns.php:445
+#: ../_codepress-admin-columns.php:485
+msgid "Numeric"
+msgstr "Numerieke"
+
+#: ../codepress-admin-columns.php:470
+#: ../_codepress-admin-columns.php:510
+msgid "This field can not be removed"
+msgstr "Dit veld kan niet worden verwijderd"
+
+#: ../codepress-admin-columns.php:474
+#: ../_codepress-admin-columns.php:514
+msgid "Remove"
+msgstr "Verwijder"
+
+#: ../codepress-admin-columns.php:790
+#: ../_codepress-admin-columns.php:806
+msgid "Standard"
+msgstr "Standaard"
+
+#: ../codepress-admin-columns.php:1075
+#: ../_codepress-admin-columns.php:1086
+msgid "Comments"
+msgstr "Reacties"
+
+#: ../codepress-admin-columns.php:1104
+#: ../_codepress-admin-columns.php:1129
+msgid "Featured Image"
+msgstr "Uitgelichte afbeelding"
+
+#: ../codepress-admin-columns.php:1124
+#: ../codepress-admin-columns.php:1126
+#: ../_codepress-admin-columns.php:1149
+#: ../_codepress-admin-columns.php:1151
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../codepress-admin-columns.php:1134
+#: ../_codepress-admin-columns.php:1159
+msgid "Page Order"
+msgstr "Pagina Volgorde"
+
+#: ../codepress-admin-columns.php:1136
+#: ../_codepress-admin-columns.php:1161
+msgid "Order"
+msgstr "Volgorde"
+
+#: ../codepress-admin-columns.php:1145
+#: ../codepress-admin-columns.php:1147
+#: ../_codepress-admin-columns.php:1170
+#: ../_codepress-admin-columns.php:1172
+msgid "Page Template"
+msgstr "Pagina Template"
+
+#: ../codepress-admin-columns.php:1156
+#: ../codepress-admin-columns.php:1158
+#: ../_codepress-admin-columns.php:1181
+#: ../_codepress-admin-columns.php:1183
+msgid "Post Format"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1171
+#: ../_codepress-admin-columns.php:1196
+msgid "Taxonomy"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1189
+#: ../codepress-admin-columns.php:1191
+#: ../_codepress-admin-columns.php:1214
+#: ../_codepress-admin-columns.php:1216
+msgid "Slug"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1198
+#: ../codepress-admin-columns.php:1200
+msgid "Word count"
+msgstr "Aantal woorden"
+
+#: ../codepress-admin-columns.php:1206
+#: ../codepress-admin-columns.php:1208
+#: ../_codepress-admin-columns.php:1223
+#: ../_codepress-admin-columns.php:1225
+msgid "Attachment"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1216
+#: ../_codepress-admin-columns.php:1233
+msgid "Custom Field"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1222
+#: ../_codepress-admin-columns.php:1239
+msgid "Field"
+msgstr "Veld"
+
+#: ../codepress-admin-columns.php:1246
+#: ../codepress-admin-columns.php:1248
+msgid "User ID"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1255
+#: ../codepress-admin-columns.php:1257
+msgid "First name"
+msgstr "Voornaam"
+
+#: ../codepress-admin-columns.php:1263
+#: ../codepress-admin-columns.php:1265
+msgid "Last name"
+msgstr "Achternaam"
+
+#: ../codepress-admin-columns.php:1271
+#: ../codepress-admin-columns.php:1273
+msgid "Url"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1279
+#: ../codepress-admin-columns.php:1281
+msgid "Registered"
+msgstr "Registratie"
+
+#: ../codepress-admin-columns.php:1307
+#: ../_codepress-admin-columns.php:1119
+msgid "Custom"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1596
+#: ../_codepress-admin-columns.php:226
+msgid "Codepress Admin Columns"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1605
+#: ../_codepress-admin-columns.php:235
+msgid "Admin Columns"
+msgstr ""
+
+#: ../codepress-admin-columns.php:1620
+#: ../_codepress-admin-columns.php:250
+msgid "Save Changes"
+msgstr "Wijzigingen opslaan"
+
+#: ../codepress-admin-columns.php:1632
+#: ../_codepress-admin-columns.php:262
+msgid "Restore defaults"
+msgstr "Herstel instellingen"
+
+#: ../codepress-admin-columns.php:1636
+#: ../_codepress-admin-columns.php:266
+msgid "Restore default settings"
+msgstr "Herstel standaard instellingen"
+
+#: ../codepress-admin-columns.php:1636
+#: ../_codepress-admin-columns.php:266
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
+
+#: ../codepress-admin-columns.php:1638
+#: ../_codepress-admin-columns.php:268
+msgid "This will delete all column settings and restore the default settings."
+msgstr "Hiermee worden alle kolommen instellingen verwijderd en de standaardinstellingen hersteld."
+
+#: ../codepress-admin-columns.php:1653
+#: ../_codepress-admin-columns.php:283
+msgid "Need support?"
+msgstr "Hulp nodig?"
+
+#: ../codepress-admin-columns.php:1656
+#, php-format
+msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
+msgstr "Als je problem hebt met deze plugin, stel je vragen dan in de <a href=\"%s\">Support forums</a> of stuur me een email %s."
+
+#: ../codepress-admin-columns.php:1657
+#: ../_codepress-admin-columns.php:287
+#, php-format
+msgid "If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>."
+msgstr "Als een bug bent tegen gekomen, of een feature wil aanvragen, stuur ons dan <a href='%s'>je feedback</a>."
+
+#: ../_codepress-admin-columns.php:286
+#, php-format
+msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a>."
+msgstr "Als je problem hebt met deze plugin, stel je vragen dan in de <a href=\"%s\">Support forums</a>."
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Description"
+#~ msgstr "Beschrijving"
+
+#~ msgid "Latitude"
+#~ msgstr "Breedtegraad"
+
+#~ msgid "Longitude"
+#~ msgstr "Lengtegraad"
+
+#~ msgid "Width"
+#~ msgstr "Breedte"
+
+#~ msgid "Height"
+#~ msgstr "Hoogte"
+
+#~ msgid "Dynamic"
+#~ msgstr "Dynamisch"
+
+#~ msgid "Geocoder - Pronamic Google Maps"
+#~ msgstr "Geocoder - Pronamic Google Maps"
+
+#~ msgid "Number posts to geocode: %s"
+#~ msgstr "Aantel berichten te geocoderen: %s"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Address"
+#~ msgstr "Adres"
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "Location"
+#~ msgstr "Locatie"
+
+#~ msgid "Geocode"
+#~ msgstr "Geocodeer"
+
+#~ msgid "Zero results"
+#~ msgstr "Geen resultaten"
+
+#~ msgid ""
+#~ "We found no geocoding results for the following %s posts, adjust them "
+#~ "manually if needed."
+#~ msgstr ""
+#~ "We konden geen gecode resultaten vinden voor de volgende%s berichten, pas "
+#~ "deze handmatig aan wanneer nodig."
+
+#~ msgid "Configuration - Pronamic Google Maps"
+#~ msgstr "Configuratie - Pronamic Google Maps"
+
+#~ msgid "Active"
+#~ msgstr "Actief"
+
+#~ msgid "Activate Google Maps"
+#~ msgstr "Activeer Google Maps"
+
+#~ msgid "Show Google Maps"
+#~ msgstr "Google Maps weergeven"
+
+#~ msgid "Geocoder"
+#~ msgstr "Geocoder"
+
+#~ msgid "Geocode &darr;"
+#~ msgstr "Geocoderen &darr;"
+
+#~ msgid "Reverse Geocode &uarr;"
+#~ msgstr "Omgekeerd geocoderen &uarr;"
+
+#~ msgid "Tip: Change the zoom level and map type to your own wishes."
+#~ msgstr "Tip: wijzig het zoomniveau en map type naar je eigen wens."
+
+#~ msgid "Delete plugin"
+#~ msgstr "Verwijder plugin"
+
+#~ msgid "Warning! This will delete all Pronamic Google Maps data and options."
+#~ msgstr ""
+#~ "Waarschuwing! Dit zal alle Pronamic Google Maps data en opties "
+#~ "verwijderen."
+
+#~ msgid "Uninstall"
+#~ msgstr "Verwijderen"
+
+#~ msgid "Google Maps"
+#~ msgstr "Google Maps"
+
+#~ msgid "General"
+#~ msgstr "Algemeen"
+
+#~ msgid "Use this widget to add an Google Maps as a widget."
+#~ msgstr "Gebruik deze widget om Google Maps toe te voegen."
+
+#~ msgid "pixels"
+#~ msgstr "pixels"
+
+#~ msgid "percent"
+#~ msgstr "procent"
+
+#~ msgid "Search"
+#~ msgstr "Zoeken"
+
+#~ msgid "Click to toggle"
+#~ msgstr "Klik om te wisselen"
+
+#~ msgid "Donate $10, $20 or $50!"
+#~ msgstr "Doneer $10, $20 of $50!"
+
+#~ msgid ""
+#~ "This plugin has cost us countless hours of work, if you use it, please "
+#~ "donate a token of your appreciation!"
+#~ msgstr ""
+#~ "Het ons veel uren werken gekost om deze plugin te ontwikkelen, als je het "
+#~ "gebruikt, doneer a.u.b. voor je waardering!"
+
+#~ msgid "Latest news from Pronamic"
+#~ msgstr "Laatste nieuws van Pronamic"
+
+#~ msgid "no news items, feed might be broken..."
+#~ msgstr "geen nieuws items, feed is waarschijnlijk niet bereikbaar..."
+
+#~ msgid "Subscribe with RSS"
+#~ msgstr "Aanmelden voor RSS"
+
+#~ msgid "Subscribe by e-mail"
+#~ msgstr "Aanmelden via e-mail"
+
+#~ msgid "Why not do any or all of the following:"
+#~ msgstr "Waarom doe je niet één van de volgende dingen:"
+
+#~ msgid "Link to it so other folks can find out about it."
+#~ msgstr "Link naar ons zodat anderen deze plugin ook ontdekken."
+
+#~ msgid "Give it a good rating on WordPress.org."
+#~ msgstr "Geef het een goede score op WordPress.org."
+
+#~ msgid "Let other people know that it works with your WordPress setup."
+#~ msgstr "Laat anderen weten dat het werk op je WordPress installatie."
+
+#~ msgid "Found a bug?"
+#~ msgstr "Bug gevonden?"
+
+#~ msgid "Configuration"
+#~ msgstr "Configuratie"

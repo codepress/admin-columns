@@ -7,7 +7,7 @@
 	float: left;
 	width: 100%;
 }
-#icon-cpac-plugin-settings {
+#icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
 }
 #general-cpac-settings > .inside {
@@ -40,7 +40,6 @@
 #general-cpac-settings .cpac-option-list {
 	overflow: hidden;
 	width: 360px;	
-	float: left;
 }
 #general-cpac-settings .cpac-reorder-msg {
 	background: transparent url('../images/reorder.png') no-repeat scroll 0 0;
@@ -83,6 +82,7 @@
 	height: 26px;
 	float: left;
 	cursor: move;
+	position: relative; z-index: 10;
 }
 #general-cpac-settings .cpac-option-list li .cpac-checkbox {
 	margin-top: 5px;
