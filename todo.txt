@@ -3,11 +3,24 @@ taxonomy columns
 filtering
 sortable columns
 contextual help
-multi site
+multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 user sortables
 go to [posts] screen button/link
 scribu mailen
+date icon
+
 
 Options page:
 be able to choose hidden custom fields
 thumb size
+
+test on wp 3.0
+
+Contact Author of
+http://wordpress.org/extend/plugins/custom-taxonomy-columns/
+
+old readme:
+This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens.
+
+Intro
+This plugin let's you visually customize the Admin Columns. You can add or remove columns, change their label and reorder them.

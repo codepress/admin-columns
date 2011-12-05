@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.1.2
+Version: 			1.1.3
 Description: 		This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,14 +26,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.1.2' );
+define( 'CPAC_VERSION', '1.1.3' );
 
 /**
  * Init Class
  *
  * @since     1.0
  */
-$cpac = new Codepress_Admin_Columns;
+new Codepress_Admin_Columns();
 
 /**
  * Advanced Admin Columns Class
@@ -85,7 +85,6 @@ class Codepress_Admin_Columns
 		add_action( 'admin_menu', array( &$this, 'settings_menu') );
 		add_action( 'admin_init', array( &$this, 'register_settings') );
 		add_action( 'admin_init', array( &$this, 'register_columns' ) );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts') );
 		add_action( 'manage_pages_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );	
 		add_action( 'manage_posts_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );
 		add_action( 'manage_users_custom_column', array( &$this, 'manage_users_column_value'), 10, 3 );
@@ -115,9 +114,10 @@ class Codepress_Admin_Columns
 			// Callback
 			array( &$this, 'plugin_settings_page')
 		);		
-
-		// css scripts
+				
+		// settings page specific styles and scripts
 		add_action( "admin_print_styles-$page", array( &$this, 'admin_styles') );
+		add_action( "admin_print_scripts-$page", array( &$this, 'admin_scripts') );
 	}	
 	
 	/**
@@ -324,7 +324,7 @@ class Codepress_Admin_Columns
 					$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];			
 				
 				// add static options
-				else	
+				elseif ( isset($posts_columns[$id]['options']) )
 					$db_columns[$id]['options'] = $posts_columns[$id]['options'];
 				
 				unset($posts_columns[$id]);			
@@ -366,6 +366,12 @@ class Codepress_Admin_Columns
 			$action = $more_options = '';
 		}
 		
+		// type label
+		$type_label = isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
+		
+		// label
+		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
+		
 		$list = "
 			<li class='{$class}'>
 				<div class='cpac-sort-handle'></div>			
@@ -373,15 +379,15 @@ class Codepress_Admin_Columns
 					
 					<div class='cpac-checkbox'></div>
 					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$post_type}][{$id}][state]' value='{$state}'/>				
-					<label class='main-label'>{$values['label']}</label>								
+					<label class='main-label'>{$label}</label>								
 				</div>
 				<div class='cpac-meta-title'>
 					{$action}
-					<span>{$values['options']['type_label']}</span>
+					<span>{$type_label}</span>
 				</div>
 				<div class='cpac-type-inside'>				
 					<label for='cpac_options[columns][{$post_type}][{$id}][label]'>Label: </label>
-					<input type='text' name='cpac_options[columns][{$post_type}][{$id}][label]' value='{$values['label']}' class='text'/>
+					<input type='text' name='cpac_options[columns][{$post_type}][{$id}][label]' value='{$label}' class='text'/>
 					<br/>
 					{$more_options}
 				</div>
@@ -528,11 +534,9 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	public function admin_enqueue_scripts() 
+	public function admin_scripts() 
 	{
-		wp_enqueue_script( 'dashboard' );
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'cpac-admin', $this->plugin_url('/assets/js/admin-column.js'), array('jquery', 'jquery-ui-sortable'), CPAC_VERSION );		
+		wp_enqueue_script( 'cpac-admin', $this->plugin_url('/assets/js/admin-column.js'), array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
 	}	
 	
 	/**
@@ -613,7 +617,7 @@ class Codepress_Admin_Columns
 	}
 
 	/**
-	 * Save geocode coordinates of focus location.
+	 * Optional callback.
 	 *
 	 * @since     1.0
 	 */
@@ -982,10 +986,10 @@ class Codepress_Admin_Columns
 			return $columns;
 		
 		// we use the wp default columns for filtering...
-		$db_columns 	= $options[$type];		
+		$stored_wp_default_columns 	= $options[$type];		
 		
 		// ... the ones that are set by plugins, theme functions and such.
-		$dif_columns 	= array_diff(array_keys($columns), array_keys($db_columns));
+		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
 		
 		// we add those to the columns
 		$pre_columns = array();
@@ -1005,10 +1009,18 @@ class Codepress_Admin_Columns
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
 	{
-		// load some dependencies
-		require_once(ABSPATH . 'wp-admin/includes/template.php');
-		require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
+		// load dependencies		
+		// deprecated sinces wp3.3
+		if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
+			require_once(ABSPATH . 'wp-admin/includes/template.php');
+		// introduced since wp3.3
+		if ( file_exists(ABSPATH . 'wp-admin/includes/screen.php') )
+			require_once(ABSPATH . 'wp-admin/includes/screen.php');
+		// used for getting columns
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
 		
 		// we need to change the current screen
 		global $current_screen;
@@ -1645,8 +1657,23 @@ class Codepress_Admin_Columns
 			
 			<div class="postbox-container" style="width:20%;">
 				<div class="metabox-holder">	
-					<div class="meta-box-sortables">
-					
+					<div class="meta-box-sortables">						
+						
+						<div id="likethisplugin-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Like this plugin?', $this->textdomain) ?></span>
+							</h3>
+							<div class="inside">
+								<p><?php _e('Why not do any or all of the following', $this->textdomain) ?>:</p>
+								<ul>
+									<li><a href="http://www.codepress.nl/plugins/codepress-admin-columns/"><?php _e('Link to it so other folks can find out about it.', $this->textdomain) ?></a></li>
+									<li><a href="http://wordpress.org/extend/plugins/codepress-admin-columns/"><?php _e('Give it a 5 star rating on WordPress.org.', $this->textdomain) ?></a></li>
+									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', $this->textdomain) ?></a></li>
+								</ul>								
+							</div>
+						</div><!-- likethisplugin-cpac-settings -->
+						
 						<div id="side-cpac-settings" class="postbox">
 							<div title="Click to toggle" class="handlediv"><br></div>
 							<h3 class="hndle">

@@ -1,21 +1,19 @@
 === Codepress Admin Columns ===
 Contributors: codepress, tschutter
-Tags: plugins, wordpress, admin, column, columns, dashboard, sortable, filters, wp-admin
+Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, wp-admin
 Requires at least: 3.1
-Tested up to: 3.2.1
-Stable tag: 1.1.2
+Tested up to: 3.3-RC1
+Stable tag: 1.1.3
 
 == Description ==
 
-This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens. 
+Completely Customise your Custom Columns with a nice drag and drop interface. 
 
-= Intro = 
+By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes and users. You can add or remove columns, change their label and reorder them.
 
-This plugin let's you visually customize the Admin Columns. You can add or remove columns, change their label and reorder them.
+= Custom Columns  =
 
-= Custom Columns =
-
-The following custom columns are supported:
+The following custom columns are added:
 
 * Featured Image
 * Excerpt
@@ -26,19 +24,18 @@ The following custom columns are supported:
 * Taxonomies
 * ID
 * Slug
-* Word count
 * Sticky
 * Custom Fields
 
 = Custom Fields =
 
-With the custom field column you can display custom field values. It will show the value as a default. You can also set your own type:
+With the custom field column you can display any custom field values. It can show its default value but also handle it as an image or icon. Thsese types are added:
 
 * Image thumbnails
 * Icons for Media Library items
 * Excerpt
 * Multiple Values
-* Numeric
+* Numeric value ( this also works for sorting by meta_value_num )
 
 = Sortable Custom Columns =
 
@@ -48,7 +45,7 @@ A nice feature is that it will make some of the new columns support sorting. By 
 * page order
 * slug 
 * page template
-* custom fields
+* custom fields ( both meta_value and meta_value_num are supported )
 
 = User Columns =
 
@@ -87,6 +84,10 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#f
 3. Options for the Custom Field Column.
 
 == Changelog ==
+
+= 1.1.3 =
+
+* added bug fix for WP3.3beta ( thanks to raonip and ronbme for pointing this out )
 
 = 1.1.2 =
 

@@ -207,3 +207,23 @@
 #restore-cpac-settings .inside .description {
     color: #832525;
 }
+#likethisplugin-cpac-settings {
+	padding: 0 0 10px;
+}
+#likethisplugin-cpac-settings ul {
+	margin-left: 20px;
+}
+#likethisplugin-cpac-settings li {
+	list-style: square;
+	line-height: 16px;
+}
+#likethisplugin-cpac-settings li a {
+	text-decoration: none;
+}
+#likethisplugin-cpac-settings li.donate_link a {
+	color: green;
+	text-decoration: underline;
+}
+#likethisplugin-cpac-settings li.donate_link a:hover {
+	color: darkgreen;
+}
