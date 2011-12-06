@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.1.3
+Version: 			1.2
 Description: 		This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.1.3' );
+define( 'CPAC_VERSION', '1.2' );
 
 /**
  * Init Class
@@ -47,7 +47,8 @@ class Codepress_Admin_Columns
 			$options, 
 			$options_default, 
 			$slug,
-			$textdomain;
+			$textdomain,
+			$excerpt_length;
 	
 	/**
 	 * Construct
@@ -60,37 +61,42 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Initilize plugin.
+	 * Initialize plugin.
 	 *
 	 * Loading sequence is determined and intialized.
 	 *
 	 * @since     1.0
 	 */
 	function init()
-	{			
+	{	
 		// vars
 		$this->post_types 		= $this->get_post_types();
-		$this->handle_requests();		
-		$this->options 			= get_option('cpac_options');		
-		$this->options_default 	= get_option('cpac_options_default');				
 
 		// slug
 		$this->slug				= 'codepress-admin-columns';
 		$this->textdomain		= 'codepress-admin-columns';
 		
+		// set excerpt length
+		$this->excerpt_length	= 100;
+		
 		// translations
 		load_plugin_textdomain( $this->textdomain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
-		// actions and hooks
-		add_action( 'admin_menu', array( &$this, 'settings_menu') );
+		// actions
+		add_action( 'admin_menu', array( &$this, 'settings_menu') );		
 		add_action( 'admin_init', array( &$this, 'register_settings') );
-		add_action( 'admin_init', array( &$this, 'register_columns' ) );
+		add_action( 'admin_init', array( &$this, 'register_columns' ) );		
 		add_action( 'manage_pages_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );	
 		add_action( 'manage_posts_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );
 		add_action( 'manage_users_custom_column', array( &$this, 'manage_users_column_value'), 10, 3 );
-		add_action( 'admin_print_styles' , array( &$this, 'column_styles') );		
+		add_action( 'admin_print_styles' , array( &$this, 'column_styles') );
+		
+		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
+		add_action( 'admin_init', array( &$this, 'handle_requests' ), 1000 ); 
+		
+		// filters		
 		add_filter( 'request', array( &$this, 'handle_requests_orderby_column') );
-		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 10, 2);				
+		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 1, 2);
 	}
 
 	/**
@@ -142,18 +148,18 @@ class Codepress_Admin_Columns
 	public function register_columns()
 	{	
 		/** Posts */
-		foreach ( $this->post_types as $post_type ) {
-			
+	 	foreach ( $this->post_types as $post_type ) {
+
 			// register column per post type
 			add_filter("manage_edit-{$post_type}_columns", array(&$this, 'callback_add_posts_column'));
 					
 			// register column as sortable
 			add_filter( "manage_edit-{$post_type}_sortable_columns", array(&$this, 'callback_add_sortable_posts_column'));
-		}
+		} 
 		
 		/** Users */
 		add_filter( "manage_users_columns", array(&$this, 'callback_add_users_column'));
-		add_filter( "manage_users_sortable_columns", array(&$this, 'callback_add_sortable_users_column') );		
+		add_filter( "manage_users_sortable_columns", array(&$this, 'callback_add_sortable_users_column'));		
 	}
 	
 	/**
@@ -162,11 +168,11 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	public function callback_add_posts_column($columns) 
-	{	
+	{
 		global $post_type;
-		
-		return $this->add_managed_columns($post_type, $columns);
-	}	
+
+		return $this->add_managed_columns($post_type, $columns);		
+	}
 	
 	/**
 	 *	Callback add Users column
@@ -174,7 +180,7 @@ class Codepress_Admin_Columns
 	 * 	@since     1.1
 	 */
 	public function callback_add_users_column($columns) 
-	{		
+	{
 		return $this->add_managed_columns('wp-users', $columns);
 	}
 	
@@ -184,13 +190,14 @@ class Codepress_Admin_Columns
 	 * 	@since     1.1
 	 */
 	private function add_managed_columns( $type = 'post', $columns ) 
-	{	
+	{
+		// only get stored columns.. the rest we don't need
 		$db_columns	= $this->get_stored_columns($type);
 		
 		if ( !$db_columns )
 			return $columns;
-
-		// set already loaded columns by plugins
+		
+		// filter already loaded columns by plugins
 		$set_columns = $this->filter_preset_columns($columns, $type);
 				
 		// loop through columns
@@ -213,11 +220,11 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	public function callback_add_sortable_posts_column($columns) 
-	{	
+	{
 		global $post_type;
 		
 		return $this->add_managed_sortable_columns($post_type, $columns);		
-	}	
+	}
 
 	/**
 	 *	Callback add Users sortable column
@@ -227,7 +234,7 @@ class Codepress_Admin_Columns
 	public function callback_add_sortable_users_column($columns) 
 	{
 		return $this->add_managed_sortable_columns('wp-users', $columns);
-	}	
+	}
 	
 	/**
 	 *	Add managed sortable columns by Type
@@ -235,7 +242,7 @@ class Codepress_Admin_Columns
 	 * 	@since     1.1
 	 */
 	private function add_managed_sortable_columns( $type = 'post', $columns ) 
-	{	
+	{
 		$display_columns	= $this->get_merged_columns($type);
 			
 		if ( ! $display_columns )
@@ -260,7 +267,7 @@ class Codepress_Admin_Columns
 	{	
 		// merge all columns
 		$display_columns 	= $this->get_merged_columns($type);
-		
+
 		// define
 		$list = '';	
 		
@@ -276,7 +283,7 @@ class Codepress_Admin_Columns
 		
 		// custom field button
 		$button_add_column = '';
-		if ( $this->get_postmeta_by_posttype($type) )
+		if ( $this->get_meta_by_type($type) )
 			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ " . __('Add Custom Field Column') . "</a>";
 		
 		return "
@@ -299,7 +306,7 @@ class Codepress_Admin_Columns
 	{	
 		//get saved database columns
 		$db_columns 		= $this->get_stored_columns($type);
-		
+
 		/** Users */
 		if ( $type == 'wp-users' ) {
 			$wp_default_columns = $this->get_wp_default_users_columns();
@@ -311,12 +318,16 @@ class Codepress_Admin_Columns
 			$wp_default_columns = $this->get_wp_default_posts_columns($type);
 			$wp_custom_columns  = $this->get_custom_posts_columns($type);
 		}
-	
-		// merge columns
-		$posts_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
 			
+		// merge columns
+		$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
+				
 		// loop throught the active columns
 		if ( $db_columns ) {
+			
+			// let's remove any unavailable columns.. such as disabled plugins
+			$db_columns 	 = $this->remove_unavailable_columns($db_columns, $default_columns);
+			
 			foreach ( $db_columns as $id => $values ) {
 			
 				// get column meta options from custom columns
@@ -324,17 +335,41 @@ class Codepress_Admin_Columns
 					$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];			
 				
 				// add static options
-				elseif ( isset($posts_columns[$id]['options']) )
-					$db_columns[$id]['options'] = $posts_columns[$id]['options'];
+				elseif ( isset($default_columns[$id]['options']) )
+					$db_columns[$id]['options'] = $default_columns[$id]['options'];
 				
-				unset($posts_columns[$id]);			
+				unset($default_columns[$id]);			
 			}
 		}	
 		
 		// merge all
-		$display_columns = wp_parse_args($db_columns, $posts_columns);		
+		$display_columns = wp_parse_args($db_columns, $default_columns);		
 		
 		return $display_columns;		
+	}
+	
+	/**
+	 * Remove deactivated (plugin) columns
+	 *
+	 * This will remove any columns that have been stored, but are no longer available. This happends
+	 * when plugins are deactivated or when they are removed from the theme functions.
+	 *
+	 * @since     1.2
+	 */
+	private function remove_unavailable_columns( array $db_columns, array $default_columns)
+	{
+		// check or differences
+		$diff = array_diff( array_keys($db_columns), array_keys($default_columns) );
+		if ( ! empty($diff) && is_array($diff) ) {						
+			foreach ( $diff as $column_name ){				
+				// make an exception for column-meta-xxx
+				if ( ! $this->is_column_meta($column_name) ) {
+					unset($db_columns[$column_name]);
+				}
+			}
+		}
+		
+		return $db_columns;
 	}
 	
 	/**
@@ -342,7 +377,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_box($post_type, $id, $values) 
+	private function get_box($type, $id, $values) 
 	{
 		$classes = array();
 
@@ -358,19 +393,19 @@ class Codepress_Admin_Columns
 		$class = implode(' ', $classes);
 			
 		// more box options	
-		$more_options 	= $this->get_additional_box_options($post_type, $id, $values);
+		$more_options 	= $this->get_additional_box_options($type, $id, $values);
 		$action 		= "<a class='cpac-action' href='#open'>open</a>";
-		
-		// hide box options
-		if ( ! empty($values['options']['hide_options']) ) {
-			$action = $more_options = '';
-		}
-		
+				
 		// type label
 		$type_label = isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
 		
 		// label
 		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
+		
+		// hide box options
+		if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
+			$action = $more_options = '';
+		}
 		
 		$list = "
 			<li class='{$class}'>
@@ -378,16 +413,16 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-options'>
 					
 					<div class='cpac-checkbox'></div>
-					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$post_type}][{$id}][state]' value='{$state}'/>				
-					<label class='main-label'>{$label}</label>								
+					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>				
+					<label class='main-label'>{$values['label']}</label>								
 				</div>
 				<div class='cpac-meta-title'>
 					{$action}
 					<span>{$type_label}</span>
 				</div>
 				<div class='cpac-type-inside'>				
-					<label for='cpac_options[columns][{$post_type}][{$id}][label]'>Label: </label>
-					<input type='text' name='cpac_options[columns][{$post_type}][{$id}][label]' value='{$label}' class='text'/>
+					<label for='cpac_options[columns][{$type}][{$id}][label]'>Label: </label>
+					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' value='{$label}' class='text'/>
 					<br/>
 					{$more_options}
 				</div>
@@ -418,10 +453,10 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_box_options_customfields($post_type, $id, $values) 
+	private function get_box_options_customfields($type, $id, $values) 
 	{
 		// get post meta fields	
-		$fields = $this->get_postmeta_by_posttype($post_type);
+		$fields = $this->get_meta_by_type($type);
 		
 		if ( empty($fields) ) 
 			return false;
@@ -483,17 +518,17 @@ class Codepress_Admin_Columns
 		}
 		
 		$inside = "
-			<label for='cpac_options[columns][{$post_type}][{$id}][field]'>Custom Field: </label>
-			<select name='cpac_options[columns][{$post_type}][{$id}][field]'>{$field_options}</select>
+			<label for='cpac_options[columns][{$type}][{$id}][field]'>Custom Field: </label>
+			<select name='cpac_options[columns][{$type}][{$id}][field]'>{$field_options}</select>
 			<br/>
-			<label for='cpac_options[columns][{$post_type}][{$id}][field_type]'>Field Type: </label>
-			<select name='cpac_options[columns][{$post_type}][{$id}][field_type]'>{$fieldtype_options}</select>
+			<label for='cpac_options[columns][{$type}][{$id}][field_type]'>Field Type: </label>
+			<select name='cpac_options[columns][{$type}][{$id}][field_type]'>{$fieldtype_options}</select>
 			<br/>
-			<label for='cpac_options[columns][{$post_type}][{$id}][before]'>Before: </label>
-			<input type='text' class='cpac-before' name='cpac_options[columns][{$post_type}][{$id}][before]' value='{$before}'/>				
+			<label for='cpac_options[columns][{$type}][{$id}][before]'>Before: </label>
+			<input type='text' class='cpac-before' name='cpac_options[columns][{$type}][{$id}][before]' value='{$before}'/>				
 			<br/>	
-			<label for='cpac_options[columns][{$post_type}][{$id}][before]'>After: </label>
-			<input type='text' class='cpac-after' name='cpac_options[columns][{$post_type}][{$id}][after]' value='{$after}'/>				
+			<label for='cpac_options[columns][{$type}][{$id}][before]'>After: </label>
+			<input type='text' class='cpac-after' name='cpac_options[columns][{$type}][{$id}][after]' value='{$after}'/>				
 			<br/>		
 			{$remove}
 		";
@@ -502,17 +537,27 @@ class Codepress_Admin_Columns
 	}
 
 	/**
-	 * Get post meta fields by post type
+	 * Get post meta fields by type; post(types) or users.
 	 *
 	 * @since     1.0
 	 */
-	private function get_postmeta_by_posttype($post_type) 
+	private function get_meta_by_type($type = 'post') 
 	{
 		global $wpdb;
-		// get mata fields
-		$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->postmeta.' pm	JOIN '.$wpdb->posts.' p	ON pm.post_id = p.ID WHERE p.post_type = "' . mysql_real_escape_string($post_type) . '" ORDER BY 1';
-		$fields = $wpdb->get_results($sql, ARRAY_N);	
 		
+		/** Users */
+		if ( $type == 'wp-users') {
+			$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->usermeta.' ORDER BY 1';
+		}
+		
+		/** Posts */
+		else {
+			$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->postmeta.' pm	JOIN '.$wpdb->posts.' p	ON pm.post_id = p.ID WHERE p.post_type = "' . mysql_real_escape_string($type) . '" ORDER BY 1';
+		}
+		
+		// run sql
+		$fields = $wpdb->get_results($sql, ARRAY_N);
+
 		// postmeta	
 		if ( $fields ) {
 			$meta_fields = array();
@@ -522,9 +567,8 @@ class Codepress_Admin_Columns
 					$meta_fields[] = $field[0];
 				}
 			}
-			
 			return $meta_fields;
-		}	
+		}
 		
 		return false;
 	}
@@ -536,7 +580,7 @@ class Codepress_Admin_Columns
 	 */
 	public function admin_scripts() 
 	{
-		wp_enqueue_script( 'cpac-admin', $this->plugin_url('/assets/js/admin-column.js'), array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-admin', $this->plugin_url('/assets/js/admin-column.js'), array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );	
 	}	
 	
 	/**
@@ -596,7 +640,7 @@ class Codepress_Admin_Columns
 	public function register_settings() 
 	{
 		// If we have no options in the database, let's add them now.
-		if ( false === $this->options )
+		if ( false === get_option('cpac_options') )
 			add_option( 'cpac_options', array(&$this, 'get_default_plugin_options') );
 		
 		register_setting( 'cpac-settings-group', 'cpac_options', array(&$this, 'options_callback') );
@@ -631,29 +675,40 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function handle_requests() 
+	public function handle_requests() 
 	{	
 		// settings updated
-		if ( ! empty($_REQUEST['settings-updated']) ) {
-			
-			// stores the default columns that are set by WP or set in the theme.
-			$wp_default_columns = array();
-			
-			// Posts
-			foreach ( $this->post_types as $post_type ) {
-				$wp_default_columns[$post_type] = $this->get_wp_default_posts_columns($post_type);
-			}
-			
-			// Users
-			$wp_default_columns['wp-users'] = $this->get_wp_default_users_columns();
-			
-			update_option( 'cpac_options_default', $wp_default_columns );
-		}		
+		if ( ! empty($_REQUEST['settings-updated']) )
+			$this->store_wp_default_columns();			
 		
 		// restore defaults 
-		if ( ! empty($_REQUEST['cpac-restore-defaults']) ) {
+		if ( ! empty($_REQUEST['cpac-restore-defaults']) )
 			$this->restore_defaults();
-		}	
+
+	}
+	
+	/**
+	 * Stores WP default columns
+	 *
+	 * This will store columns that are set by WordPress core or
+	 * set by the theme for page, post(types) and user columns
+	 *
+	 * @since     1.2
+	 */
+	private function store_wp_default_columns() 
+	{	
+	// stores the default columns that are set by WP or set in the theme.
+		$wp_default_columns = array();
+		
+		// Posts
+		foreach ( $this->post_types as $post_type ) {
+			$wp_default_columns[$post_type] = $this->get_wp_default_posts_columns($post_type);
+		}
+		
+		// Users
+		$wp_default_columns['wp-users'] = $this->get_wp_default_users_columns();
+		
+		update_option( 'cpac_options_default', $wp_default_columns );
 	}
 
 	/**
@@ -672,15 +727,16 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_post_excerpt($post_id, $charlength = 100) 
+	private function get_post_excerpt($post_id) 
 	{
-		global $post;  
+		global $post;
+			
 		$save_post 	= $post;
 		$post 		= get_post($post_id);
 		$excerpt 	= get_the_excerpt();
 		$post 		= $save_post;
 		
-		$output = $this->get_shortened_string($excerpt, $charlength );	
+		$output = $this->get_shortened_string($excerpt, $this->excerpt_length );	
 		
 		return $output;
 	}
@@ -723,10 +779,10 @@ class Codepress_Admin_Columns
 		
 		// Check for custom fields, such as column-meta-[customfieldname]
 		if ( $this->is_column_meta($type) )
-			$type = 'column-meta';
+			$type = 'column-post-meta';
 		
 		// Hook 
-		do_action('cpac-manage-column', $type, $column_name, $post_id);
+		do_action('cpac-manage-posts-column', $type, $column_name, $post_id);
 		
 		// Switch Types
 		$result = '';
@@ -802,8 +858,8 @@ class Codepress_Admin_Columns
 				break;
 			
 			// Custom Field
-			case "column-meta" :
-				$result = $this->get_column_value_custom_field($post_id, $column_name);		
+			case "column-post-meta" :
+				$result = $this->get_column_value_custom_field($post_id, $column_name, 'post');		
 				break;
 			
 			// Attachment
@@ -827,7 +883,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.1
 	 */
-	public function manage_users_column_value( $val, $column_name, $user_id )
+	public function manage_users_column_value( $value, $column_name, $user_id )
 	{
 		$type = $column_name;
 		
@@ -835,6 +891,13 @@ class Codepress_Admin_Columns
 
 		if ( ! $userdata )
 			return false;
+		
+		// Check for user custom fields, such as column-meta-[customfieldname]
+		if ( $this->is_column_meta($type) )
+			$type = 'column-user-meta';
+		
+		// Hook 
+		do_action('cpac-manage-users-column', $type, $column_name, $user_id);
 		
 		$result = '';
 		switch ($type) :			
@@ -859,9 +922,19 @@ class Codepress_Admin_Columns
 				$result = $userdata->user_url;
 				break;
 				
-			// user url
+			// user registration date
 			case "column-user_registered" :
 				$result = $userdata->user_registered;
+				break;
+				
+			// user description
+			case "column-user_description" :
+				$result = $this->get_shortened_string( get_the_author_meta('user_description', $user_id), $this->excerpt_length );
+				break;
+			
+			// user meta data ( custom field )
+			case "column-user-meta" :
+				$result = $this->get_column_value_custom_field($user_id, $column_name, 'user');
 				break;
 			
 			default :
@@ -901,23 +974,34 @@ class Codepress_Admin_Columns
 	 *	Get column value of Custom Field
 	 *
 	 * 	@since     1.0
-	 */
-	private function get_column_value_custom_field($post_id, $id) 
+	 */	
+	private function get_column_value_custom_field($object_id, $column_name, $meta_type = 'post') 
 	{
-		$columns 	= $this->get_stored_columns( get_post_type($post_id) );
+		/** Users */
+		if ( $meta_type == 'user' ) {
+			$type = 'wp-users';
+		}
+		
+		/** Posts */
+		else {
+			$type 	= get_post_type($object_id);
+		}
+		
+		// get column
+		$columns 	= $this->get_stored_columns($type);
 		
 		// inputs
-		$field	 	= isset($columns[$id]['field']) 	 ? $columns[$id]['field'] 		: '';
-		$fieldtype	= isset($columns[$id]['field_type']) ? $columns[$id]['field_type'] 	: '';
-		$before 	= isset($columns[$id]['before']) 	 ? $columns[$id]['before'] 		: '';
-		$after 		= isset($columns[$id]['after']) 	 ? $columns[$id]['after'] 		: '';
+		$field	 	= isset($columns[$column_name]['field']) 	  ? $columns[$column_name]['field'] 		: '';
+		$fieldtype	= isset($columns[$column_name]['field_type']) ? $columns[$column_name]['field_type'] 	: '';
+		$before 	= isset($columns[$column_name]['before']) 	  ? $columns[$column_name]['before'] 		: '';
+		$after 		= isset($columns[$column_name]['after']) 	  ? $columns[$column_name]['after'] 		: '';
 		
 		// Get meta field value
-		$meta 	 	= get_post_meta($post_id, $field, true);
+		$meta 	 	= get_metadata($meta_type, $object_id, $field, true);
 		
 		// multiple meta values
 		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {			
-			$meta 	= get_post_meta($post_id, $field);
+			$meta 	= get_metadata($meta_type, $object_id, $field, true);
 			$meta 	= $this->recursive_implode(', ', $meta);
 		}
 		
@@ -941,7 +1025,61 @@ class Codepress_Admin_Columns
 			
 			// Excerpt
 			case "excerpt" :
-				$meta = $this->get_shortened_string($meta, 100);
+				$meta = $this->get_shortened_string($meta, $this->excerpt_length);
+				break;
+								
+		endswitch;		
+		
+		// add before and after string
+		$meta = "{$before}{$meta}{$after}";
+		
+		return $meta;
+	}
+	
+	/**
+	 *	Get column value of Custom Field
+	 *
+	 * 	@since     1.2
+	 */
+	private function get_user_column_value_custom_field($user_id, $id) 
+	{		
+		$columns 	= $this->get_stored_columns('wp-users');
+		
+		// inputs
+		$field	 	= isset($columns[$id]['field']) 	 ? $columns[$id]['field'] 		: '';
+		$fieldtype	= isset($columns[$id]['field_type']) ? $columns[$id]['field_type'] 	: '';
+		$before 	= isset($columns[$id]['before']) 	 ? $columns[$id]['before'] 		: '';
+		$after 		= isset($columns[$id]['after']) 	 ? $columns[$id]['after'] 		: '';
+		
+		// Get meta field value
+		$meta 	 	= get_user_meta($user_id, $field, true);
+		
+		// multiple meta values
+		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {			
+			$meta 	= get_user_meta($user_id, $field);
+			$meta 	= $this->recursive_implode(', ', $meta);
+		}
+		
+		// make sure there are no serialized arrays or empty meta data
+		if ( empty($meta) || !is_string($meta) )	
+			return false;
+					
+		// handles each field type differently..
+		switch ($fieldtype) :			
+		
+			// Image
+			case "image" :				
+				$meta = $this->get_thumbnail($meta);
+				break;
+				
+			// Media Library ID
+			case "library_id" :
+				$meta = wp_get_attachment_url($meta) ? wp_get_attachment_image( $meta, array(80,80), true ) : '';				
+				break;
+			
+			// Excerpt
+			case "excerpt" :
+				$meta = $this->get_shortened_string($meta, $this->excerpt_length);
 				break;
 								
 		endswitch;		
@@ -980,7 +1118,7 @@ class Codepress_Admin_Columns
 	 */
 	private function filter_preset_columns($columns, $type = 'post') 
 	{
-		$options 	= $this->options_default;
+		$options 	= get_option('cpac_options_default');
 		
 		if ( !$options )
 			return $columns;
@@ -990,7 +1128,7 @@ class Codepress_Admin_Columns
 		
 		// ... the ones that are set by plugins, theme functions and such.
 		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
-		
+			
 		// we add those to the columns
 		$pre_columns = array();
 		if ( $dif_columns ) {
@@ -1037,7 +1175,7 @@ class Codepress_Admin_Columns
 		
 		// change to uniform format
 		$posts_columns = $this->get_uniform_format($columns);		
-		
+
 		// reset current screen
 		$current_screen = $org_current_screen;
 		
@@ -1047,19 +1185,21 @@ class Codepress_Admin_Columns
 	/**
 	 * 	Get WP default users columns per post type.
 	 *
-	 * 	@since     1.0
+	 * 	@since     1.1
 	 */
 	private function get_wp_default_users_columns()
 	{
-		require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		require_once(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php');
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php');
 		
 		// turn off site users
 		$this->is_site_users = false;
 		
 		// get users columns
 		$columns = WP_Users_List_Table::get_columns();
-		
+
 		// change to uniform format
 		$users_columns = $this->get_uniform_format($columns);
 		
@@ -1074,7 +1214,8 @@ class Codepress_Admin_Columns
 	private function get_uniform_format($columns) 
 	{
 		// we remove the checkbox column as an option... 
-		unset($columns['cb']);
+		if ( isset($columns['cb']) )
+			unset($columns['cb']);
 		
 		// change to uniform format
 		$uniform_columns = array();
@@ -1223,7 +1364,7 @@ class Codepress_Admin_Columns
 		);
 		
 		// Custom Field support
-		if ( $this->get_postmeta_by_posttype($post_type) ) {
+		if ( $this->get_meta_by_type($post_type) ) {
 			$custom_columns['column-meta-1'] = array(
 				'label'			=> __('Custom Field', $this->textdomain),
 				'field'			=> '',
@@ -1286,13 +1427,35 @@ class Codepress_Admin_Columns
 			)			
 		);
 		
-		// User url
+		// User registration date
 		$custom_columns['column-user_registered'] = array(
 			'label'			=> __('Registered', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Registered', $this->textdomain),
 			)			
 		);
+		
+		// User description
+		$custom_columns['column-user_description'] = array(
+			'label'			=> __('Description', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Description', $this->textdomain),
+			)			
+		);
+		
+		// Custom Field support
+		$custom_columns['column-meta-1'] = array(
+			'label'			=> __('Custom Field', $this->textdomain),
+			'field'			=> '',
+			'field_type'	=> '',
+			'before'		=> '',
+			'after'			=> '',
+			'options'		=> array(
+				'type_label'	=> __('Field', $this->textdomain),
+				'class'			=> 'cpac-box-metafield',
+				'sortorder'		=> '',
+			)			
+		);	
 		
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
@@ -1338,7 +1501,7 @@ class Codepress_Admin_Columns
 	private function get_stored_columns($type)
 	{ 
 		// get plugin options
-		$options 		= $this->options;
+		$options 		= get_option('cpac_options');
 
 		// get saved columns
 		if ( isset($options['columns'][$type]) )
@@ -1487,9 +1650,9 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.1
 	 */
-	private function get_orderby_type($orderby, $post_type)
+	private function get_orderby_type($orderby, $type)
 	{
-		$db_columns = $this->get_stored_columns($post_type);
+		$db_columns = $this->get_stored_columns($type);
 
 		if ( $db_columns ) {
 			foreach ( $db_columns as $id => $vars ) {
@@ -1513,8 +1676,7 @@ class Codepress_Admin_Columns
 	 */
 	private function sanitize_string($string) 
 	{	
-		$string = esc_url($string);
-		return str_replace('http://','', $string);
+		return str_replace('http://','', esc_url($string) );
 	}
 	
 	/**
@@ -1549,14 +1711,37 @@ class Codepress_Admin_Columns
 	{		
 		if ( empty($image) )
 			return false;
-			
-		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $image);
-		$new		= image_resize( $image_path, 120, 80, true);
 		
-		if ( ! is_wp_error( $new ) )
-			$image  = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $new);
+		// get correct image path
+		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $image);
+		
+		// resize image		
+		if ( file_exists($image_path) && $this->is_image($image_path) ) {
+			$resized = image_resize( $image_path, 120, 80, true);
 			
-		return "<img src='{$image}' alt='' width='120' height='80' />";
+			if ( ! is_wp_error( $resized ) ) {
+				$image  = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized);
+				
+				return "<img src='{$image}' alt='' width='120' height='80' />";
+			}
+			
+			return $resized->get_error_message();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Checks an URL for image extension
+	 *
+	 * @since     1.2
+	 */
+	private function is_image($url) 
+	{
+		$validExt  	= array('.jpg', '.jpeg', '.gif', '.png', '.bmp');
+		$ext    	= strrchr($url, '.');
+		
+		return in_array($ext, $validExt);
 	}
 	
 	/**
@@ -1570,6 +1755,7 @@ class Codepress_Admin_Columns
 	 */
 	public function plugin_settings_page() 
 	{
+
 		// loop through post types
 		$rows = '';
 		foreach ( $this->get_types() as $type ) {
@@ -1582,7 +1768,7 @@ class Codepress_Admin_Columns
 			
 			// build draggable boxes
 			$boxes = $this->get_column_boxes($type);
-			
+
 			// class
 			$class = $this->is_menu_type_current($type) ? ' current' : ' hidden';
 			

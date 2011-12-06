@@ -3,11 +3,11 @@ Contributors: codepress, tschutter
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, wp-admin
 Requires at least: 3.1
 Tested up to: 3.3-RC1
-Stable tag: 1.1.3
+Stable tag: 1.2
 
 == Description ==
 
-Completely Customise your Custom Columns with a nice drag and drop interface. 
+Completely customise your Custom Columns with a nice drag and drop interface. 
 
 By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes and users. You can add or remove columns, change their label and reorder them.
 
@@ -25,6 +25,7 @@ The following custom columns are added:
 * ID
 * Slug
 * Sticky
+* Word count
 * Custom Fields
 
 = Custom Fields =
@@ -49,15 +50,26 @@ A nice feature is that it will make some of the new columns support sorting. By 
 
 = User Columns =
 
-You can also change the User Columns. I have added a few additional custom columns:
+You can also change the User Columns. The following user column are added:
 
 * User ID
 * First name
 * Last name
 * Url
 * Register date
+* Biographical Info ( description )
+* User Custom Fields
 
-I will be adding more in coming releases. You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns#feedback'>requests or feedback</a>.
+Some of the user custom fields that are included: user level, capabilities, admin color, nickname... many more.
+
+
+= Third party plugin support =
+
+It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access).
+
+**Feeback**
+
+You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns#feedback'>requests or feedback</a>.
 
 **Related Links:**
 
@@ -84,6 +96,13 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#f
 3. Options for the Custom Field Column.
 
 == Changelog ==
+
+= 1.2 =
+
+* added support for third party plugins
+* added user custom fields
+* added extra image check
+* bug fix with javascript (jquery) enqueue
 
 = 1.1.3 =
 

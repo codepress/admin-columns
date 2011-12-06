@@ -1,4 +1,3 @@
-#general-cpac-settings {}
 #cpac .postbox {
 	margin: 0 10px 10px 0;
 }
@@ -109,7 +108,7 @@
 	display: block;
 	margin-right: 30px;
 	overflow: hidden;
-	height: 15px;
+	height: 17px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-options input {
 	margin-top: 6px;

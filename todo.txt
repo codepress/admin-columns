@@ -1,13 +1,16 @@
 media columns
 taxonomy columns
 filtering
-sortable columns
+more sortable posts columns
+sortable user columns
 contextual help
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 user sortables
 go to [posts] screen button/link
 scribu mailen
 date icon
+third party user columns
+sort-here-image to a font-family for translation
 
 
 Options page:

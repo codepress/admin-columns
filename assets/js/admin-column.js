@@ -2,7 +2,11 @@
  *	fires when the dom is ready
  *
  */
-jQuery(document).ready(function(){	
+jQuery(document).ready(function()
+{	
+	if (jQuery('#cpac').length == 0)
+		return false;
+	
 	cpac_sortable();
 	cpac_checked();
 	cpac_box_events();
@@ -15,7 +19,7 @@ jQuery(document).ready(function(){
  *
  */
 function cpac_sortable() 
-{
+{	
 	jQuery('ul.cpac-option-list').sortable({
 		handle: 		'div.cpac-sort-handle',
 		placeholder: 	'cpac-placeholder',
@@ -38,7 +42,7 @@ function cpac_checked()
 			// toggle on
 			if ( value != 'on') {
 				li.addClass('active');
-				state.attr('value', 'on');				
+				state.attr('value', 'on');
 			} 
 			
 			// toggle off
@@ -72,8 +76,7 @@ function cpac_box_events()
 			height: 0
 		}, 350, function() {
 			el.remove();
-		});
-		
+		});		
 	});
 } 
 
@@ -131,7 +134,7 @@ function cpac_add_custom_column()
 					if ( id )
 						ids.push(id);
 				}
-			});			
+			});
 		});
 
 		// ...and sort them
@@ -168,7 +171,7 @@ function cpac_add_custom_column()
 			if ( attr_for ) {
 				jQuery(iv).attr('for', attr_for.replace(id, new_id) );
 			}
-		});		
+		});
 		
 		// remove description
 		clone.find('.remove-description').remove();
@@ -182,7 +185,7 @@ function cpac_add_custom_column()
 			var remove = '<p><a href="javascript:;" class="cpac-delete-custom-field-box">Remove</a>';
 			clone.find('.cpac-type-inside').append(remove);
 		}
-				
+		
 		// add cloned box to the list
 		list.append(clone);
 		
