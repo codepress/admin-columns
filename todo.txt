@@ -11,6 +11,7 @@ scribu mailen
 date icon
 third party user columns
 sort-here-image to a font-family for translation
+import/export configuration
 
 
 Options page:

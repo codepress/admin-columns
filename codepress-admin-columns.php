@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.2
+Version: 			1.2.1
 Description: 		This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.2' );
+define( 'CPAC_VERSION', '1.2.1' );
 
 /**
  * Init Class
@@ -44,8 +44,6 @@ new Codepress_Admin_Columns();
 class Codepress_Admin_Columns 
 {	
 	private $post_types, 
-			$options, 
-			$options_default, 
 			$slug,
 			$textdomain,
 			$excerpt_length;
@@ -72,11 +70,9 @@ class Codepress_Admin_Columns
 		// vars
 		$this->post_types 		= $this->get_post_types();
 
-		// slug
+		// set
 		$this->slug				= 'codepress-admin-columns';
 		$this->textdomain		= 'codepress-admin-columns';
-		
-		// set excerpt length
 		$this->excerpt_length	= 100;
 		
 		// translations
@@ -95,10 +91,10 @@ class Codepress_Admin_Columns
 		add_action( 'admin_init', array( &$this, 'handle_requests' ), 1000 ); 
 		
 		// filters		
-		add_filter( 'request', array( &$this, 'handle_requests_orderby_column') );
-		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 1, 2);
+		add_filter( 'request', array( &$this, 'handle_requests_orderby_column') );		
+		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 1, 2);		
 	}
-
+	
 	/**
 	 * Admin Menu.
 	 *
@@ -1147,13 +1143,16 @@ class Codepress_Admin_Columns
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
 	{
-		// load dependencies		
-		// deprecated sinces wp3.3
+		// load dependencies
+		
+		// deprecated as of wp3.3
 		if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
 			require_once(ABSPATH . 'wp-admin/includes/template.php');
+			
 		// introduced since wp3.3
 		if ( file_exists(ABSPATH . 'wp-admin/includes/screen.php') )
 			require_once(ABSPATH . 'wp-admin/includes/screen.php');
+			
 		// used for getting columns
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -1351,6 +1350,7 @@ class Codepress_Admin_Columns
 			'label'			=> __('Word count', $this->textdomain),		
 			'options'		=> array(
 				'type_label' 	=> __('Word count', $this->textdomain),
+				'sortorder'		=> 'on'
 			)
 		);
 		
@@ -1359,7 +1359,6 @@ class Codepress_Admin_Columns
 			'label'			=> __('Attachment', $this->textdomain),
 			'options'		=> array(
 				'type_label' 	=> __('Attachment', $this->textdomain),
-				'sortorder'		=> 'on',
 			)
 		);
 		
@@ -1614,34 +1613,68 @@ class Codepress_Admin_Columns
 	 */
 	public function handle_requests_orderby_column( $vars ) 
 	{
-		if ( isset( $vars['orderby'] ) ) {						
-			$column = $this->get_orderby_type( $vars['orderby'], $vars['post_type'] );
+		if ( ! isset( $vars['orderby'] ) )
+			return $vars;
 			
-			if ( $column ) {
-				$id = key($column);
-				
-				// Page Order
-				if ( $id == 'column-order' ) {
-					$vars['orderby'] = 'menu_order';
-				}
-				
-				// Custom Fields
-				if ( $this->is_column_meta($id) ) {
-					$field 		= $column[$id]['field'];
-					
-					// orderby type
-					$field_type = 'meta_value';
-					if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' )
-						$field_type = 'meta_value_num';
-					
-					// set vars
-					$vars = array_merge( $vars, array(
-						'meta_key' 	=> $field,
-						'orderby' 	=> $field_type
-					) );
-				}
+		$column = $this->get_orderby_type( $vars['orderby'], $vars['post_type'] );
+		
+		if ( $column ) {
+			$id = key($column);
+			
+			// Page Order
+			if ( $id == 'column-order' ) {
+				$vars['orderby'] = 'menu_order';
 			}
-		} 
+			
+			// Custom Fields
+			if ( $this->is_column_meta($id) ) {
+				$field 		= $column[$id]['field'];
+				
+				// orderby type
+				$field_type = 'meta_value';
+				if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' )
+					$field_type = 'meta_value_num';
+				
+				// set vars
+				$vars = array_merge( $vars, array(
+					'meta_key' 	=> $field,
+					'orderby' 	=> $field_type
+				) );
+			}
+			
+			// Wordcount
+			if ( $id == 'column-word-count' ) {
+				// get all posts from this post type
+				$all_posts = get_posts(array(
+					'numberposts'	=> -1,
+					'post_status'	=> 'any', // force all 
+					'post_type'		=> $vars['post_type']
+				));
+				
+				// add wordcount to the post ids
+				$wordcount_posts = array();
+				foreach ( $all_posts as $p ) {
+					$wordcount_posts[$p->ID] = str_word_count( strip_tags( $p->post_content ) );
+				}
+				
+				// sort post ids by wordcount
+				if ( $vars['order'] == 'asc' )
+					asort($wordcount_posts, SORT_NUMERIC);
+				else
+					arsort($wordcount_posts, SORT_NUMERIC);
+					
+				// add the sorted post ids to the query with the use of post__in
+				$vars['post__in'] = array_keys($wordcount_posts);
+				
+				// this will make sure WP_Query will use the order of the ids that we have just set in 'post__in'
+				add_filter('posts_orderby', array( &$this, 'filter_orderby_post__in'), 10, 2 );
+				
+				// cleanup the vars we dont need
+				unset($vars['order']);
+				unset($vars['orderby']);
+			}
+		}
+		
 		return $vars;
 	}	
 
@@ -1665,6 +1698,28 @@ class Codepress_Admin_Columns
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Maintain order of ids that are set in the post__in var. 
+	 *
+	 * This will force the returned posts to use the order of the ID's that 
+	 * have been set in post__in. Without this the ID's will be set in numeric order.
+	 * See the WP_Query object for more info about the use of post__in.
+	 *
+	 * @since     1.2.1
+	 */
+	public function filter_orderby_post__in($orderby, $wp) 
+	{	
+		// we need the query vars
+		$vars = $wp->query_vars;		
+		if ( ! empty ( $vars['post__in'] ) ) {			
+			// now we can get the ids
+			$ids = implode(',', $vars['post__in']);
+			
+			// by adding FIELD to the SQL query we are forcing the order of the ID's
+			return "FIELD (wp_posts.ID,{$ids})";
+		}
 	}
 	
 	/**
