@@ -1,4 +1,5 @@
 media columns
+esc_html
 taxonomy columns
 filtering
 more sortable posts columns
@@ -7,12 +8,12 @@ contextual help
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 user sortables
 go to [posts] screen button/link
-scribu mailen
 date icon
 third party user columns
 sort-here-image to a font-family for translation
 import/export configuration
-
+introduction tour
+set column width
 
 Options page:
 be able to choose hidden custom fields

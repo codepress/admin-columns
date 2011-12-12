@@ -63,7 +63,10 @@ function cpac_box_events()
 	// fold in/out
 	jQuery('#cpac .cpac-option-list .cpac-action').unbind('click').click(function(e){
 		e.preventDefault();
-		jQuery(this).closest('li').find('.cpac-type-inside').slideToggle(150);		
+		var li = jQuery(this).closest('li');
+		li.find('.cpac-type-inside').slideToggle(150, function() {
+			li.toggleClass('opened');
+		});		
 	});
 	
 	// remove custom field box

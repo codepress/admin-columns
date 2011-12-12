@@ -3,7 +3,7 @@ Contributors: codepress, tschutter
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, wp-admin
 Requires at least: 3.1
 Tested up to: 3.3-RC1
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 == Description ==
 
@@ -26,6 +26,7 @@ The following custom columns are added:
 * Slug
 * Sticky
 * Word count
+* Number of Attachments
 * Custom Fields
 
 = Custom Fields =
@@ -46,6 +47,8 @@ A nice feature is that it will make some of the new columns support sorting. By 
 * page order
 * slug 
 * page template
+* word count
+* attachment count
 * custom fields ( both meta_value and meta_value_num are supported )
 
 = User Columns =
@@ -99,8 +102,12 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#f
 
 = 1.2.1 =
 
-* added wordcount sorting
-* removed attachment sorting
+* added word count sorting
+* added attachment count sorting
+* added template name sorting
+* minor styling changes
+* bug fix with sorting by slug
+* bug fix with sorting by attachment
 
 = 1.2 =
 
