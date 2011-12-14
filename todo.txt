@@ -1,7 +1,7 @@
 Prio #1
 ---------------------------------------------------------
-make screen of media and users screens
 check readme for typo's
+twitter update 1.3
 
 Prio #2
 ---------------------------------------------------------
@@ -12,6 +12,8 @@ contextual help
 introduction tour
 set column width
 filter posts ( example: media by type )
+@param
+@return
 
 Prio #3
 ---------------------------------------------------------

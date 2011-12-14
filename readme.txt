@@ -65,6 +65,17 @@ You can also change the User Columns. The following user columns are added:
 
 Some of the user custom fields that are included: user level, capabilities, admin color, nickname... many more.
 
+= Media Columns =
+
+Customise the Media Library Columns. The following media columns are added:
+
+* Media ID
+* File name
+* Height
+* Width
+* Dimensions ( width x height )
+* Description, Caption and Alternate tekst
+* Mime-Type
 
 = Third party plugin support =
 
@@ -83,7 +94,6 @@ You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-colum
 1. Upload codepress-admin-columns to the /wp-content/plugins/ directory
 2. Activate Codepress Admin Columns through the 'Plugins' menu in WordPress
 3. Configure the plugin by going to the Admin Column settings that appears under the Settings menu.
-
 
 == Frequently Asked Questions ==
 
