@@ -1,25 +1,35 @@
-media columns
+Prio #1
+---------------------------------------------------------
+make screen of media and users screens
+check readme for typo's
+
+Prio #2
+---------------------------------------------------------
+set column width
 esc_html
-taxonomy columns
-filtering
-more sortable posts columns
-sortable user columns
+nonce
 contextual help
+introduction tour
+set column width
+filter posts ( example: media by type )
+
+Prio #3
+---------------------------------------------------------
+taxonomy columns
+comment columns
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
-user sortables
 go to [posts] screen button/link
 date icon
 third party user columns
-sort-here-image to a font-family for translation
 import/export configuration
-introduction tour
-set column width
-
-Options page:
-be able to choose hidden custom fields
-thumb size
-
+Options page; choose hidden custom fields, thumb size, show_all_posts_results
 test on wp 3.0
+
+Payment wall Ideas
+---------------------------------------------------------
+import/export settings
+
+
 
 Contact Author of
 http://wordpress.org/extend/plugins/custom-taxonomy-columns/
