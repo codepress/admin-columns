@@ -31,6 +31,8 @@ test on wp 3.0
 Payment wall Ideas
 ---------------------------------------------------------
 import/export settings
+sorting columns
+filtering columns
 
 
 

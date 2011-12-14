@@ -1,3 +1,6 @@
+#cpac {
+	overflow: hidden;
+}
 #cpac .postbox {
 	margin: 0 10px 10px 0;
 }
@@ -5,6 +8,12 @@
 	clear: both;
 	float: left;
 	width: 100%;
+}
+#cpac .cpac-col-left {
+	width: 70%;
+}
+#cpac .cpac-col-right {
+	width: 20%;
 }
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
