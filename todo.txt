@@ -19,6 +19,7 @@ Prio #3
 ---------------------------------------------------------
 taxonomy columns
 comment columns
+change the default ordering when you open up a overview screen ( example by date / title )
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 go to [posts] screen button/link
 date icon

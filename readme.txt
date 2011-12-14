@@ -3,11 +3,11 @@ Contributors: codepress, tschutter
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.3
-Stable tag: 1.2.1
+Stable tag: 1.3
 
 == Description ==
 
-Completely customise the columns on the administration screens for posts, pages, posttypes, media and users with a nice drag and drop interface. 
+Completely customise the columns on the administration screens with a nice drag and drop interface. 
 
 By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes, media and users. You can add or remove columns, change their label and reorder them.
 
