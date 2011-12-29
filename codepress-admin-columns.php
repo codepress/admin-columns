@@ -103,6 +103,7 @@ class Codepress_Admin_Columns
 		add_filter( 'manage_users_custom_column', array( &$this, 'manage_users_column_value'), 10, 3 );
 		add_action( 'manage_media_custom_column', array( &$this, 'manage_media_column_value'), 10, 2 );
 		add_action( 'admin_enqueue_scripts' , array( &$this, 'column_styles') );
+		add_action( 'wp_ajax_cpac_addon_activation', array( &$this, 'ajax_activation'));
 		
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( &$this, 'handle_requests' ), 1000 );		
@@ -112,7 +113,8 @@ class Codepress_Admin_Columns
 		
 		// dev		
 		// $this->set_license_key('sortable', 'empty');
-		$this->set_license_key('sortable', 'YTU7-5F6I-LKZ2-RE9V');
+		//$this->set_license_key('sortable', 'YTU7-5F6I-LKZ2-RE9V');
+		$this->set_license_key('sortable', 'xx');
 	}	
 	
 	/**
@@ -2152,11 +2154,11 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.3
 	 */
-	protected function is_unlocked($type) 
+	protected function is_unlocked($type)
 	{
 		switch ($type) :
-			case 'sortable':
-				if( md5($this->get_license_key($type) ) == "6a8d49fe80f7509251ef9aeda37872cf")
+			case 'sortable':				
+				if( md5( $this->get_license_key($type) ) == "6a8d49fe80f7509251ef9aeda37872cf")
 					return true;
 				break;
 			
@@ -2182,8 +2184,41 @@ class Codepress_Admin_Columns
 	 */
 	private function set_license_key($type, $key)
 	{
-		update_option( "cpac_{$type}_ac", trim($key) );
-	}		
+		update_option( "cpac_{$type}_ac", wp_filter_nohtml_kses( trim($key) ) );
+	}
+	
+	/**
+	 * Set masked license key
+	 *
+	 * @since     1.3.1
+	 */
+	private function get_masked_license_key($type) 
+	{
+		return 'XXXX-XXXX-XXXX-' . substr( $this->get_license_key($type), -4);
+	}
+	
+	/**
+	 * Ajax activation
+	 *
+	 * @since     1.3.1
+	 */
+	public function ajax_activation()
+	{
+		$json 	= '';
+		
+		// keys
+		$key 	= $_POST['key'];
+		$type 	= $_POST['type'];
+		
+		// update key
+		$this->set_license_key($type, $key);
+
+		// validate and return masked key
+		if ( $this->is_unlocked($type) )
+			echo json_encode( $this->get_masked_license_key($type) );
+
+		exit;
+	}
 	
 	/**
 	 * Strip tags and trim
@@ -2216,7 +2251,7 @@ class Codepress_Admin_Columns
 	public function callback_admin_notice()
 	{
 		echo "<div class='{$this->notice_type}' id='message'><p>{$this->notice_message}</p></div>";
-	}	
+	}
 	
 	/**
 	 * Add help tabs
@@ -2300,21 +2335,35 @@ class Codepress_Admin_Columns
 	{
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
 		
-		/** Sortorder addon */
-		$activation = "
-			<input type='text' value='" . __('Fill in your activation code', $this->textdomain) . "' name='cpac-sortable-key'>
-			<a href='javascript:;' class='button'>" . __('Activate', $this->textdomain) . "</a>
-		";
+		/** Sortable */
 		$sortorder_state = __('Inactive', $this->textdomain);
-		
-		// active
+		$masked_key = '';
+		$class_sortorder_activate 	= '';
+		$class_sortorder_deactivate = ' hidden';
 		if ( $this->is_unlocked('sortable') ) {
-			$key = substr( $this->get_license_key('sortable'), -4);
-			$activation = "
-				<span class='activation_code'>{$key}</span>
-				<a href='javascript:;' class='button'>" . __('Deactivate', $this->textdomain) . "</a>";
-			$sortorder_state = __('Active', $this->textdomain);
+			$masked_key 	 = $this->get_masked_license_key('sortable');
+			$sortorder_state = __('Inactive', $this->textdomain);
+			$class_sortorder_deactivate = '';
 		}
+		
+		$sortable = "
+		<tr id='cpac-activation-sortorder'>
+			<td class='activation_type'>
+				<span>" . __('Sortorder', $this->textdomain) . "</span>
+			</td>
+			<td class='activation_status'>{$sortorder_state}</td>
+			<td class='activation_code'>
+				<div class='activate{$class_sortorder_activate}'>
+					<input type='text' value='" . __('Fill in your activation code', $this->textdomain) . "' name='cpac-sortable-key'>
+					<a href='javascript:;' class='button'>" . __('Activate', $this->textdomain) . "</a>
+				</div>
+				<div class='deactivate{$class_sortorder_deactivate}'>
+					<span class='activation_code'>{$masked_key}</span>
+					<a href='javascript:;' class='button'>" . __('Deactivate', $this->textdomain) . "</a>
+				</div>
+			</td>
+		</tr>";
+
 		
 		// settings
 		$row = "
@@ -2332,15 +2381,7 @@ class Codepress_Admin_Columns
 						</tr>
 					</thead>
 					<tbody>
-						<tr id='cpac-activation-sortorder'>
-							<td class='activation_type'>
-								<span>" . __('Sortorder', $this->textdomain) . "</span>
-							</td>
-							<td class='activation_status'>{$sortorder_state}</td>
-							<td class='activation_code'>
-								{$activation}
-							</td>
-						</tr>
+						{$sortable}
 					</tbody>
 				</table>
 			</td>

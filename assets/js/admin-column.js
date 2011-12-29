@@ -14,6 +14,7 @@ jQuery(document).ready(function()
 	cpac_add_custom_column();
 	cpac_clear_input_defaults();
 	cpac_tooltips();
+	cpac_addon_activation();
 });
 
 /**
@@ -216,9 +217,9 @@ function cpac_clear_input_defaults()
 			}
 		});
 	};
-	jQuery("#cpac-activation-sortorder input").cleardefault();
-	
+	jQuery("#cpac-activation-sortorder input").cleardefault();	
 }
+
 
 /**
  *	Tooltip
@@ -266,4 +267,41 @@ function cpac_tooltips()
    });
 }
 
-
+/**
+ *	Addon actviate/deactivate
+ *
+ */
+function cpac_addon_activation() 
+{
+	jQuery('#cpac-activation-sortorder div.activate a.button').click(function(e) {
+		e.preventDefault();
+		
+		// get input values
+		var row			= jQuery(this).closest('.activation_code');
+		var input 		= jQuery('input', row);
+		var default_val = jQuery(input)[0].defaultValue;
+		
+		// get activation key
+		var key 		= input.val();
+		
+		if ( key != default_val ) {		
+			jQuery.ajax({
+				url 		: ajaxurl,
+				type 		: 'POST',
+				dataType 	: 'json',
+				data : {
+					action  : 'cpac_addon_activation',
+					type	: 'sortable',
+					key		: key
+				},
+				success: function(data) {
+					if ( data != null ) {
+						jQuery('div.activate', row).hide();
+						jQuery('div.deactivate', row).show();
+						jQuery('div.deactivate span', row).text(data);						
+					}
+				}
+			});
+		}
+	});
+}
