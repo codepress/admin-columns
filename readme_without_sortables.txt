@@ -38,6 +38,8 @@ With the custom field column you can display any custom field values. It can sho
 * Excerpt
 * Multiple Values
 * Numeric value ( this also works for sorting by meta_value_num )
+* Date
+* Post Titles
 
 = Sortable Custom Columns =
 
@@ -118,8 +120,6 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#f
 
 * added support for Media columns
 * added Media columns: filename, width, height, dimensions, description, alt, caption and mime-type
-* added sorting for Media columns
-* added sorting for Users columns
 * added date type to posts custom fields
 * added title type to posts custom fields
 * sorting has changed. when sorting; only results are shown which contain a value

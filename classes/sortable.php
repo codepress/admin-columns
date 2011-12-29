@@ -19,7 +19,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			$show_all_results;
 	
 	/**
-	 * Construct
+	 * Constructor
 	 *
 	 * @since     1.0
 	 */
@@ -29,32 +29,38 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Initialize plugin.
+	 * Initialize
 	 *
 	 * @since     1.0
 	 */
 	public function init()
 	{
 		// vars
-		$this->post_types 		= parent::get_post_types();
-		$this->is_unlocked 		= parent::is_unlocked('sortable');
+		$this->is_unlocked 		= $this->is_unlocked('sortable');
+		$this->post_types 		= $this->get_post_types();
 		$this->show_all_results = false;
 
 		add_action( 'admin_init', array( &$this, 'register_sortable_columns' ) );
+		
 		// handle requests for sorting columns
 		add_filter( 'request', array( &$this, 'handle_requests_orderby_column'), 1 );
 		add_action( 'pre_user_query', array( &$this, 'handle_requests_orderby_users_column'), 1 );
 	}
 	
+	/**
+	 * Register sortable columns
+	 *
+	 * @since     1.0
+	 */
 	function register_sortable_columns()
-	{
-		if ( ! $this->is_unlocked )
-			return false;
-			
+	{		
 		/** Posts */
 	 	foreach ( $this->post_types as $post_type )
 			add_filter( "manage_edit-{$post_type}_sortable_columns", array(&$this, 'callback_add_sortable_posts_column'));
-				
+		
+		if ( ! $this->is_unlocked )
+			return false;		
+		
 		/** Users */
 		add_filter( "manage_users_sortable_columns", array(&$this, 'callback_add_sortable_users_column'));
 		
@@ -101,7 +107,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function add_managed_sortable_columns( $type = 'post', $columns ) 
 	{
-		$display_columns	= parent::get_merged_columns($type);
+		$display_columns	= $this->get_merged_columns($type);
 			
 		if ( ! $display_columns )
 			return $columns;
@@ -110,7 +116,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){			
 				
 				// register format
-				$columns[$id] = parent::sanitize_string($vars['label']);			
+				$columns[$id] = $this->sanitize_string($vars['label']);			
 			}
 		}	
 		return $columns;
@@ -153,14 +159,28 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$vars = $user_query->query_vars;
 		
 		// Column
-		$column = $this->get_orderby_type( $vars['orderby'], 'wp-users' );		
+		$column = $this->get_orderby_type( $vars['orderby'], 'wp-users' );
 
 		if ( empty($column) )
 			return $vars;		
 		
+		// id
+		$id = key($column);
+		
+		// type
+		$type = $id;
+		
+		// Check for user custom fields: column-meta-[customfieldname]
+		if ( $this->is_column_meta($type) )
+			$type = 'column-user-meta';
+		
+		// Check for post count: column-user_postcount-[posttype]
+		if ( $this->get_posttype_by_postcount_column($type) )
+			$type = 'column-user_postcount';
+		
 		// var
 		$cusers = array();		
-		switch( key($column) ) :
+		switch( $type ) :
 			
 			case 'column-user_id':
 				$user_query->query_vars['orderby'] = 'ID';
@@ -200,6 +220,35 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					if ($u->user_description || $this->show_all_results )
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->user_description);
 				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+				break;
+			
+			case 'column-user_postcount' :				
+				$post_type 	= $this->get_posttype_by_postcount_column($id);
+				if ( $post_type ) {
+					foreach ( $this->get_users_data() as $u ) {
+						$count = $this->get_post_count( $post_type, $u->ID );
+						$cusers[$u->ID] = $this->prepare_sort_string_value($count);
+					}
+					$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+				}
+				break;
+			
+			case 'column-user-meta' :				
+				$field = $column[$id]['field'];
+				if ( $field ) {
+				
+					// order numeric or string
+					$order = SORT_REGULAR;
+					if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' )
+						$order = SORT_NUMERIC;
+					
+					// sort by metavalue
+					foreach ( $this->get_users_data() as $u ) {
+						$value = get_metadata('user', $u->ID, $field, true);
+						$cusers[$u->ID] = $this->prepare_sort_string_value($value);
+					}
+					$this->set_users_query_vars( &$user_query, $cusers, $order );
+				}
 				break;
 		
 		endswitch;
@@ -361,7 +410,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$type = $id;
 		
 		// custom fields
-		if ( parent::is_column_meta($type) )
+		if ( $this->is_column_meta($type) )
 			$type = 'column-post-meta';
 		
 		// attachments
@@ -428,7 +477,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				
 			case 'column-attachment' : 
 				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p )				
-					$cposts[$p->ID] = count( parent::get_attachment_ids($p->ID) );
+					$cposts[$p->ID] = count( $this->get_attachment_ids($p->ID) );
 				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
 				break;
 				
@@ -477,13 +526,13 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function get_orderby_type($orderby, $type)
 	{
-		$db_columns = parent::get_stored_columns($type);
+		$db_columns = $this->get_stored_columns($type);
 
 		if ( $db_columns ) {
 			foreach ( $db_columns as $id => $vars ) {
 			
 				// check which custom column was clicked
-				if ( isset( $vars['label'] ) && $orderby ==  parent::sanitize_string( $vars['label'] ) ) {
+				if ( isset( $vars['label'] ) && $orderby ==  $this->sanitize_string( $vars['label'] ) ) {
 					$column[$id] = $vars;
 					return $column;
 				}
@@ -564,7 +613,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	private function prepare_sort_string_value($string)
 	{
 		// remove tags and only get the first 20 chars and force lowercase.
-		$string = strtolower( substr( parent::strip_trim($string),0 ,20 ) );
+		$string = strtolower( substr( $this->strip_trim($string),0 ,20 ) );
 		
 		return $string;
 	}

@@ -7,7 +7,14 @@
 #cpac .cpac-menu {
 	clear: both;
 	float: left;
-	width: 100%;
+	width: 70%;
+}
+#cpac .cpac-settings-link {
+	float: right;
+	margin: 8px 14px 5px 10px;
+	background: transparent url('../images/settings.png') no-repeat 0 0;
+	padding-left: 20px;
+	text-decoration: none;
 }
 #cpac .cpac-col-left {
 	width: 70%;
@@ -15,9 +22,15 @@
 #cpac .cpac-col-right {
 	width: 20%;
 }
+#cpac .cpac-col-right .inside {
+	padding: 0 10px;
+}
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
 }
+
+/* =General settings
+-------------------------------------------------------------- */
 #general-cpac-settings > .inside {
 	padding: 0;
 	margin: 0;
@@ -41,6 +54,12 @@
 #general-cpac-settings table.form-table tr.bottom th,
 #general-cpac-settings table.form-table tr.bottom td {
 	border-bottom: none;
+}
+#general-cpac-settings a.go-to-screen {
+	display: block;
+	padding: 5px 0;	
+	font-weight: normal;
+	text-decoration: none;
 }
 #general-cpac-settings .cpac-box {
 	position: relative;
@@ -216,6 +235,29 @@
 #general-cpac-settings .cpac-option-list li.active div.cpac-meta-title span {
 	color: #5c5c5c
 }
+
+/* =Plugin settings
+-------------------------------------------------------------- */
+#cpac-box-plugin_settings {}
+#cpac-box-plugin_settings table th.activation_type {
+	width: 60px;
+}
+#cpac-box-plugin_settings table th.activation_status {
+	width: 60px;
+}
+#cpac-box-plugin_settings table td.activation_type span {
+
+	display: inline-block;
+	background: transparent url('../images/information.png') no-repeat right 50%;
+	padding-right: 20px;
+}
+#cpac-box-plugin_settings table td.activation_code input {
+	width: 200px;
+	color: #555555;
+}
+
+/* =Restore settings
+-------------------------------------------------------------- */
 #restore-cpac-settings .inside {
 	padding: 10px;
 }
@@ -236,8 +278,11 @@
 #restore-cpac-settings .inside .description {
     color: #832525;
 }
+
+/* =Like this plugin settings
+-------------------------------------------------------------- */
 #likethisplugin-cpac-settings {
-	padding: 0 0 10px;
+	padding: 0;
 }
 #likethisplugin-cpac-settings ul {
 	margin-left: 20px;
@@ -255,4 +300,50 @@
 }
 #likethisplugin-cpac-settings li.donate_link a:hover {
 	color: darkgreen;
+}
+
+/* =Tooltip
+-------------------------------------------------------------- */
+
+.qtip .qtip-tip {
+	left: 74px !important;
+}
+.qtip .qtip-wrapper {
+	background: #fff;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #dfdfdf;
+	border-color: rgba(0,0,0,.125);
+	border-top: none;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.19);
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.19);
+	box-shadow: 0 2px 4px rgba(0,0,0,.19);
+
+}
+.qtip .qtip-wrapper .qtip_title {
+	padding: 15px 18px 14px 15px;
+	clear: both;
+	line-height: 1.4em;
+	font-size: 14px;
+	color: #fff;
+	border-radius: 3px 3px 0 0;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+	background-color: #8cc1e9;
+	background-image: -webkit-linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
+	background-image: linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
+}
+.qtip .qtip-wrapper .qtip_content {
+	padding: 0 14px;
+	margin: 0;
+	overflow: hidden;
+	clear: both;
+	min-height: 100px;
+	font-size: 13px;
+	background: #fff;
 }

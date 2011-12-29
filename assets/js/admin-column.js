@@ -12,6 +12,8 @@ jQuery(document).ready(function()
 	cpac_box_events();
 	cpac_menu();
 	cpac_add_custom_column();
+	cpac_clear_input_defaults();
+	cpac_tooltips();
 });
 
 /**
@@ -196,3 +198,72 @@ function cpac_add_custom_column()
 		cpac_box_events();
 	});
 }
+
+/**
+ *	Clear Input Defaults
+ *
+ */
+function cpac_clear_input_defaults() 
+{	
+	jQuery.fn.cleardefault = function() {
+		return this.focus(function() {
+			if( this.value == this.defaultValue ) {
+				this.value = "";
+			}
+		}).blur(function() {
+			if( !this.value.length ) {
+				this.value = this.defaultValue;
+			}
+		});
+	};
+	jQuery("#cpac-activation-sortorder input").cleardefault();
+	
+}
+
+/**
+ *	Tooltip
+ *
+ */
+function cpac_tooltips() 
+{	
+	var info = '<div class="qtip_title">Sortorder</div><div class="qtip_content"><p>Tekst en uitleg.</p></div>';
+	jQuery('#cpac .activation_type span').qtip({
+		content: info,
+		title: 'title',
+		style: { 
+			width: 		280,
+			padding: 	0,
+			background: 'transparent',
+			color: 		'black',
+			textAlign: 	'left',
+			border: {
+				width: 	0,
+				radius: 0
+			},
+			tip: {
+				corner: 'topMiddle', 
+				color: '#8cc1e9',
+				size: {
+					x: 32,
+					y : 15
+				}
+			}
+		},
+		position: {
+			corner: {
+				target: 'bottomRight'				
+			},
+			adjust: { 
+				x: -80,
+				y: 0
+			}
+		},
+		hide: { 
+			when: 'mouseout', 
+			fixed: true ,
+			delay: 100
+		}
+   });
+}
+
+
