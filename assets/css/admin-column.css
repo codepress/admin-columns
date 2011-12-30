@@ -302,9 +302,27 @@
 	color: darkgreen;
 }
 
+/* =Activation
+-------------------------------------------------------------- */
+#cpac-box-plugin_settings .addons .activation_code .activate,
+#cpac-box-plugin_settings .addons .activation_code .deactivate {
+	min-height: 25px;
+}
+#cpac-box-plugin_settings .activation_status .activate {
+	color: #CC0000;
+}
+#cpac-box-plugin_settings .activation_status .deactivate {
+	color: darkgreen;
+}
+#cpac-box-plugin_settings .activation-error-msg {
+	color: #CC0000;
+	line-height: 20px;
+	padding: 0 6px;
+}
+
+
 /* =Tooltip
 -------------------------------------------------------------- */
-
 .qtip .qtip-tip {
 	left: 74px !important;
 }

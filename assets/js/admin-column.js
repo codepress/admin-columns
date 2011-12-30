@@ -217,7 +217,7 @@ function cpac_clear_input_defaults()
 			}
 		});
 	};
-	jQuery("#cpac-activation-sortorder input").cleardefault();	
+	jQuery("#cpac-box-plugin_settings .addons input").cleardefault();	
 }
 
 
@@ -273,18 +273,38 @@ function cpac_tooltips()
  */
 function cpac_addon_activation() 
 {
-	jQuery('#cpac-activation-sortorder div.activate a.button').click(function(e) {
+	jQuery('#cpac-box-plugin_settings .addons .activation_code a.button').click(function(e) {
 		e.preventDefault();
 		
+		// reset
+		jQuery(msg).empty();
+		
 		// get input values
-		var row			= jQuery(this).closest('.activation_code');
-		var input 		= jQuery('input', row);
-		var default_val = jQuery(input)[0].defaultValue;
+		var row			 = jQuery(this).closest('tr');
+		var type		 = jQuery(row).attr('id').replace('cpac-activation-','');
+		var parent_class = jQuery(this).parent('div');
+		var msg 		 = jQuery(row).find('.activation-error-msg');
 		
-		// get activation key
-		var key 		= input.val();
+		// get translated string
+		var translations 	 = jQuery('#cpac-box-plugin_settings .addon-translation-string');
+		var msg_fillin		 = jQuery('.tstring-fill-in',translations).text();
+		var msg_unrecognised = jQuery('.tstring-unrecognised',translations).text();
 		
-		if ( key != default_val ) {		
+		// Activate
+		if ( parent_class.hasClass('activate') ) {
+		
+			// input values
+			var input 		= jQuery('.activate input', row);
+			var key 		= input.val();
+			var default_val = jQuery(input)[0].defaultValue;
+			
+			// make sure the input value has changed
+			if ( key == default_val ) {
+				jQuery(msg).text(msg_fillin).hide().fadeIn();
+				return false;
+			}
+			
+			// update key
 			jQuery.ajax({
 				url 		: ajaxurl,
 				type 		: 'POST',
@@ -295,11 +315,33 @@ function cpac_addon_activation()
 					key		: key
 				},
 				success: function(data) {
-					if ( data != null ) {
+					if ( data != null ) {						
 						jQuery('div.activate', row).hide();
 						jQuery('div.deactivate', row).show();
-						jQuery('div.deactivate span', row).text(data);						
+						jQuery('div.deactivate span', row).text(data);					
+					} else {
+						jQuery(msg).text(msg_unrecognised).hide().fadeIn();
 					}
+				}
+			});
+		}
+		
+		// Deactivate
+		if ( parent_class.hasClass('deactivate') ) {
+			// update key
+			jQuery.ajax({
+				url 		: ajaxurl,
+				type 		: 'POST',
+				dataType 	: 'json',
+				data : {
+					action  : 'cpac_addon_activation',
+					type	: 'sortable',
+					key		: 'empty'
+				},
+				success: function(data) {					
+					jQuery('div.activate', row).show();
+					jQuery('div.deactivate', row).hide();
+					jQuery('div.deactivate span', row).empty();					
 				}
 			});
 		}

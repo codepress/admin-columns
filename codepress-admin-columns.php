@@ -114,7 +114,7 @@ class Codepress_Admin_Columns
 		// dev		
 		// $this->set_license_key('sortable', 'empty');
 		//$this->set_license_key('sortable', 'YTU7-5F6I-LKZ2-RE9V');
-		$this->set_license_key('sortable', 'xx');
+		//$this->set_license_key('sortable', 'xx');
 	}	
 	
 	/**
@@ -2336,34 +2336,41 @@ class Codepress_Admin_Columns
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
 		
 		/** Sortable */
-		$sortorder_state = __('Inactive', $this->textdomain);
+
 		$masked_key = '';
 		$class_sortorder_activate 	= '';
 		$class_sortorder_deactivate = ' hidden';
 		if ( $this->is_unlocked('sortable') ) {
 			$masked_key 	 = $this->get_masked_license_key('sortable');
-			$sortorder_state = __('Inactive', $this->textdomain);
+			$class_sortorder_activate = ' hidden';
 			$class_sortorder_deactivate = '';
 		}
 		
 		$sortable = "
-		<tr id='cpac-activation-sortorder'>
+		<tr id='cpac-activation-sortable'>
 			<td class='activation_type'>
 				<span>" . __('Sortorder', $this->textdomain) . "</span>
 			</td>
-			<td class='activation_status'>{$sortorder_state}</td>
+			<td class='activation_status'>
+				<div class='activate{$class_sortorder_activate}'>
+					" . __('Inactive', $this->textdomain) . "
+				</div>
+				<div class='deactivate{$class_sortorder_deactivate}'>
+					" . __('Active', $this->textdomain) . "
+				</div>
+			</td>
 			<td class='activation_code'>
 				<div class='activate{$class_sortorder_activate}'>
 					<input type='text' value='" . __('Fill in your activation code', $this->textdomain) . "' name='cpac-sortable-key'>
 					<a href='javascript:;' class='button'>" . __('Activate', $this->textdomain) . "</a>
 				</div>
 				<div class='deactivate{$class_sortorder_deactivate}'>
-					<span class='activation_code'>{$masked_key}</span>
+					<span class='masked_key'>{$masked_key}</span>
 					<a href='javascript:;' class='button'>" . __('Deactivate', $this->textdomain) . "</a>
 				</div>
+				<div class='activation-error-msg'></div>
 			</td>
 		</tr>";
-
 		
 		// settings
 		$row = "
@@ -2372,7 +2379,7 @@ class Codepress_Admin_Columns
 				" . __('Activate Addons', $this->textdomain) . "
 			</th>
 			<td>											
-				<table class='widefat'>
+				<table class='widefat addons'>
 					<thead>
 						<tr>
 							<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
@@ -2382,8 +2389,12 @@ class Codepress_Admin_Columns
 					</thead>
 					<tbody>
 						{$sortable}
-					</tbody>
+					</tbody>					
 				</table>
+				<div class='addon-translation-string hidden'>
+					<span class='tstring-fill-in'>" . __('Fill in your activation code', $this->textdomain) . "</span>
+					<span class='tstring-unrecognised'>" . __('License key unrecognised', $this->textdomain) . "</span>
+				</div>
 			</td>
 		</tr>
 		";
