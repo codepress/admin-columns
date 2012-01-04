@@ -4,28 +4,31 @@ done: make links out of taxonomies
 done: sorting user custom fields
 done: see how many posts of a given type an author has published
 
+parse_defaults set sortorder on.
+
 Payment wall
 Textual help
-make option to set default ordering 
+sortable links columns
 
+test helpscreen/plugin in 3.1
+test IE7/IE8 tooltip
 
 Prio #2
 ---------------------------------------------------------
-user roles
+comment columns
+make option to set default ordering
 set column width
-esc_html
 nonce
-contextual help
 introduction tour
-set column width
 filter posts ( example: media by type )
 @param
 @return
+@alter?
 
 Prio #3
 ---------------------------------------------------------
+user roles
 taxonomy columns
-comment columns
 change the default ordering when you open up a overview screen ( example by date / title )
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 go to [posts] screen button/link

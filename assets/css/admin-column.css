@@ -236,7 +236,7 @@
 	color: #5c5c5c
 }
 
-/* =Plugin settings
+/* =Plugin settings (Options)
 -------------------------------------------------------------- */
 #cpac-box-plugin_settings {}
 #cpac-box-plugin_settings table th.activation_type {
@@ -246,7 +246,7 @@
 	width: 60px;
 }
 #cpac-box-plugin_settings table td.activation_type span {
-
+	font-size: 14px;
 	display: inline-block;
 	background: transparent url('../images/information.png') no-repeat right 50%;
 	padding-right: 20px;
@@ -254,6 +254,12 @@
 #cpac-box-plugin_settings table td.activation_code input {
 	width: 200px;
 	color: #555555;
+}
+#cpac-box-plugin_settings table tr.last td {
+	border-bottom: none;
+}
+#cpac-box-plugin_settings table .masked_key {
+	padding: 0 8px 0 0;
 }
 
 /* =Restore settings
@@ -325,6 +331,7 @@
 -------------------------------------------------------------- */
 .qtip .qtip-tip {
 	left: 74px !important;
+	top: 1px !important;
 }
 .qtip .qtip-wrapper {
 	background: #fff;
@@ -357,11 +364,14 @@
 	background-image: linear-gradient(bottom, rgb(114,167,207) 0%, rgb(140,193,233) 100%);
 }
 .qtip .qtip-wrapper .qtip_content {
-	padding: 0 14px;
+	padding: 0 14px 14px;
 	margin: 0;
 	overflow: hidden;
 	clear: both;
-	min-height: 100px;
+	min-height: 40px;
 	font-size: 13px;
 	background: #fff;
+}
+.qtip .qtip-wrapper .qtip_content .button-primary {
+	margin: 6px 0 0;
 }

@@ -226,45 +226,51 @@ function cpac_clear_input_defaults()
  *
  */
 function cpac_tooltips() 
-{	
-	var info = '<div class="qtip_title">Sortorder</div><div class="qtip_content"><p>Tekst en uitleg.</p></div>';
-	jQuery('#cpac .activation_type span').qtip({
-		content: info,
-		title: 'title',
-		style: { 
-			width: 		280,
-			padding: 	0,
-			background: 'transparent',
-			color: 		'black',
-			textAlign: 	'left',
-			border: {
-				width: 	0,
-				radius: 0
-			},
-			tip: {
-				corner: 'topMiddle', 
-				color: '#8cc1e9',
-				size: {
-					x: 32,
-					y : 15
+{		
+	jQuery('#cpac .activation_type span').each(function() {	
+		var info = jQuery(this).next('.cpac-tooltip').html();
+		
+		if ( ! info )
+			return;
+		
+		jQuery('#cpac .activation_type span').qtip({
+			content: info,
+			title: 'title',
+			style: { 
+				width: 		400,
+				padding: 	0,
+				background: 'transparent',
+				color: 		'black',
+				textAlign: 	'left',
+				border: {
+					width: 	0,
+					radius: 0
+				},
+				tip: {
+					corner: 'topMiddle', 
+					color: '#8cc1e9',
+					size: {
+						x: 32,
+						y : 15
+					}
 				}
-			}
-		},
-		position: {
-			corner: {
-				target: 'bottomRight'				
 			},
-			adjust: { 
-				x: -80,
-				y: 0
+			position: {
+				corner: {
+					target: 'bottomRight'				
+				},
+				adjust: { 
+					x: -80,
+					y: 0
+				}
+			},
+			hide: { 
+				when: 'mouseout', 
+				fixed: true ,
+				delay: 100
 			}
-		},
-		hide: { 
-			when: 'mouseout', 
-			fixed: true ,
-			delay: 100
-		}
-   });
+	   });
+	});
 }
 
 /**
@@ -274,10 +280,7 @@ function cpac_tooltips()
 function cpac_addon_activation() 
 {
 	jQuery('#cpac-box-plugin_settings .addons .activation_code a.button').click(function(e) {
-		e.preventDefault();
-		
-		// reset
-		jQuery(msg).empty();
+		e.preventDefault();		
 		
 		// get input values
 		var row			 = jQuery(this).closest('tr');
@@ -289,6 +292,9 @@ function cpac_addon_activation()
 		var translations 	 = jQuery('#cpac-box-plugin_settings .addon-translation-string');
 		var msg_fillin		 = jQuery('.tstring-fill-in',translations).text();
 		var msg_unrecognised = jQuery('.tstring-unrecognised',translations).text();
+		
+		// reset
+		jQuery(msg).empty();
 		
 		// Activate
 		if ( parent_class.hasClass('activate') ) {
@@ -336,7 +342,7 @@ function cpac_addon_activation()
 				data : {
 					action  : 'cpac_addon_activation',
 					type	: 'sortable',
-					key		: 'empty'
+					key		: 'remove'
 				},
 				success: function(data) {					
 					jQuery('div.activate', row).show();
