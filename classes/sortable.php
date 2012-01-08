@@ -24,7 +24,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	function __construct()
-	{	
+	{
 		add_action( 'wp_loaded', array( &$this, 'init') );
 	}
 	
@@ -45,15 +45,19 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// handle requests for sorting columns
 		add_filter( 'request', array( &$this, 'handle_requests_orderby_column'), 1 );
 		add_action( 'pre_user_query', array( &$this, 'handle_requests_orderby_users_column'), 1 );
+		add_action( 'admin_init', array( &$this, 'handle_requests_orderby_links_column'), 1 );
+		add_action( 'admin_init', array( &$this, 'handle_requests_orderby_comments_column'), 1 );
 	}
 	
 	/**
-	 * Register sortable columns
+	 * 	Register sortable columns
 	 *
-	 * @since     1.0
+	 *	Hooks into apply_filters( "manage_{$screen->id}_sortable_columns" ) which is found in class-wp-list-table.php
+	 *
+	 * 	@since     1.0
 	 */
 	function register_sortable_columns()
-	{		
+	{
 		/** Posts */
 	 	foreach ( $this->post_types as $post_type )
 			add_filter( "manage_edit-{$post_type}_sortable_columns", array(&$this, 'callback_add_sortable_posts_column'));
@@ -66,6 +70,12 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		
 		/** Media */
 		add_filter( "manage_upload_sortable_columns", array(&$this, 'callback_add_sortable_media_column'));
+		
+		/** Links */
+		add_filter( "manage_link-manager_sortable_columns", array(&$this, 'callback_add_sortable_links_column'));
+		
+		/** Comments */
+		add_filter( "manage_edit-comments_sortable_columns", array(&$this, 'callback_add_sortable_comments_column'));
 	}
 	
 	/**
@@ -101,6 +111,26 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	}
 	
 	/**
+	 *	Callback add Links sortable column
+	 *
+	 * 	@since     1.3.1
+	 */
+	public function callback_add_sortable_links_column($columns) 
+	{
+		return $this->add_managed_sortable_columns('wp-links', $columns);
+	}
+	
+	/**
+	 *	Callback add Comments sortable column
+	 *
+	 * 	@since     1.3.1
+	 */
+	public function callback_add_sortable_comments_column($columns) 
+	{
+		return $this->add_managed_sortable_columns('wp-comments', $columns);
+	}
+	
+	/**
 	 *	Add managed sortable columns by Type
 	 *
 	 * 	@since     1.1
@@ -125,6 +155,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	/**
 	 * Admin requests for orderby column
 	 *
+	 * Only works for WP_Query objects ( such as posts and media )
+	 *
 	 * @since     1.0
 	 */
 	public function handle_requests_orderby_column( $vars ) 
@@ -136,9 +168,9 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// You would expect to see get_orderby_users_vars(), but sorting for 
 		// users is handled through a different filter. Not 'request', but 'pre_user_query'.
 		// See handle_requests_orderby_users_column().
-		
+						
 		/** Media */
-		elseif ( $this->request_uri_is_media() )
+		elseif ( $this->request_uri_is('upload') )
 			$vars = $this->get_orderby_media_vars($vars);
 		
 		/** Posts */
@@ -254,7 +286,177 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		endswitch;
 
 		return $user_query;
+	}
+	
+	/**
+	 * 	Orderby Links column
+	 *
+	 *	Makes use of filter 'get_bookmarks' from bookmark.php to change the result set of the links	 
+	 *
+	 * 	@since     1.3.1
+	 */
+	public function handle_requests_orderby_links_column()
+	{
+		// fire only when we are in the admins link-manager
+		if ( $this->request_uri_is('link-manager') )
+			add_filter( 'get_bookmarks', array( &$this, 'callback_requests_orderby_links_column'), 10, 2);
 	}	
+	
+	/**
+	 * 	Orderby Links column
+	 *	
+	 * 	@since     1.3.1
+	 */
+	public function callback_requests_orderby_links_column($results, $vars) 
+	{	
+		global $wpdb;		
+		
+		// Column
+		$column = $this->get_orderby_type( $vars['orderby'], 'wp-links' );
+
+		if ( empty($column) )
+			return $results;		
+		
+		// id
+		$id = key($column);
+		
+		// type
+		$type = $id;
+		
+		// var
+		$length = '';		
+		switch( $type ) :
+			
+			case 'column-link_id':
+				if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
+					$vars['orderby'] = 'link_id';
+				else
+					$vars['orderby'] = 'id';
+				break;
+				
+			case 'column-owner':
+				$vars['orderby'] = 'link_owner';
+				break;
+			
+			case 'column-length':
+				$vars['orderby'] = 'length';
+				$length = ", CHAR_LENGTH(link_name) AS length";
+				break;
+			
+			case 'column-target':
+				$vars['orderby'] = 'link_target';
+				break;
+			
+			case 'column-description':
+				$vars['orderby'] = 'link_description';
+				break;
+				
+			case 'column-notes':
+				$vars['orderby'] = 'link_notes';
+				break;
+			
+			case 'column-rss':
+				$vars['orderby'] = 'link_rss';
+				break;
+			
+			default:
+				$vars['orderby'] = '';			
+		
+		endswitch;
+		
+		// get bookmarks by orderby vars
+		if ( $vars['orderby'] ) {
+			$vars['order'] 	= mysql_escape_string($vars['order']);			
+			$sql 			= "SELECT * {$length} FROM {$wpdb->links} WHERE 1=1 ORDER BY {$vars['orderby']} {$vars['order']}";	
+			$results		= $wpdb->get_results($sql);
+			
+			// check for errors
+			if( is_wp_error($results) )
+				return false;
+		}
+
+		return $results;
+	}
+	
+	/**
+	 * 	Orderby Comments column
+	 *	
+	 * 	@since     1.3.1
+	 */
+	public function callback_requests_orderby_comments_column($pieces, $ref_comment) 
+	{
+		// get query vars		
+		$vars = $ref_comment->query_vars;
+		
+		// Column
+		$column = $this->get_orderby_type( $vars['orderby'], 'wp-comments' );
+
+		if ( empty($column) )
+			return $pieces;		
+		
+		// id
+		$id = key($column);
+		
+		// type
+		$type = $id;
+		
+		// var	
+		switch( $type ) :
+			
+			case 'column-comment_id':
+				$pieces['orderby'] = 'comment_ID';
+				break;
+			
+			case 'column-author':
+				$pieces['orderby'] = 'comment_author';
+				break;
+			
+			case 'column-author_ip':
+				$pieces['orderby'] = 'comment_author_IP';
+				break;
+				
+			case 'column-author_url':
+				$pieces['orderby'] = 'comment_author_url';
+				break;
+			
+			case 'column-author_email':
+				$pieces['orderby'] = 'comment_author_email';
+				break;
+			
+			case 'column-reply_to':
+				break;
+			
+			case 'column-approved':
+				$pieces['orderby'] = 'comment_approved';
+				break;
+			
+			case 'column-date':
+				$pieces['orderby'] = 'comment_date';
+				break;
+			
+			case 'column-date_gmt':
+				// is default
+				break;
+			
+			default:
+				$vars['orderby'] = '';			
+		
+		endswitch;
+
+		return $pieces;
+	}
+	
+	/**
+	 * 	Orderby Comments column
+	 *
+	 * 	@since     1.3.1
+	 */
+	public function handle_requests_orderby_comments_column()
+	{		
+		// fire only when we are in the admins edit-comments
+		if ( $this->request_uri_is('edit-comments') )
+			add_filter('comments_clauses', array( &$this, 'callback_requests_orderby_comments_column'), 10, 2);
+	}
 	
 	/**
 	 * Set sorting vars in User Query Object
@@ -579,27 +781,15 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		));
 		return $allposts;		
 	}
-	/**
-	 * Request URI is Media
-	 *
-	 * @since     1.3
-	 */
-	private function request_uri_is_media()
-	{
-		if (strpos( $_SERVER['REQUEST_URI'], '/upload.php' ) !== false ) 
-			return true;
-		
-		return false;
-	}
 	
 	/**
-	 * Request URI is Users
+	 * Request URI is
 	 *
-	 * @since     1.3
+	 * @since     1.3.1
 	 */
-	private function request_uri_is_users()
+	private function request_uri_is( $screen_id = '' )
 	{
-		if (strpos( $_SERVER['REQUEST_URI'], '/users.php' ) !== false ) 
+		if (strpos( $_SERVER['REQUEST_URI'], "/{$screen_id}.php" ) !== false ) 
 			return true;
 		
 		return false;

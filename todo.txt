@@ -15,15 +15,17 @@ test IE7/IE8 tooltip
 
 Prio #2
 ---------------------------------------------------------
+put column types in its own class
 comment columns
+users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
 make option to set default ordering
 set column width
 nonce
+admin columns in search of wordpress ( payment wall )
 introduction tour
 filter posts ( example: media by type )
 @param
 @return
-@alter?
 
 Prio #3
 ---------------------------------------------------------

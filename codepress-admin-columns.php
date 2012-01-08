@@ -66,7 +66,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	function __construct()
-	{	
+	{		
 		add_action( 'wp_loaded', array( &$this, 'init') );
 	}
 	
@@ -79,6 +79,10 @@ class Codepress_Admin_Columns
 	 */
 	public function init()
 	{	
+		// only run plugin in the admin interface
+		if ( !is_admin() )
+			return false;
+			
 		// vars
 		$this->post_types 		= $this->get_post_types();
 
@@ -106,6 +110,7 @@ class Codepress_Admin_Columns
 		add_filter( 'manage_users_custom_column', array( &$this, 'manage_users_column_value'), 10, 3 );
 		add_action( 'manage_media_custom_column', array( &$this, 'manage_media_column_value'), 10, 2 );		
 		add_action( 'manage_link_custom_column', array( &$this, 'manage_link_column_value'), 10, 2 );		
+		add_action( 'manage_comments_custom_column', array( &$this, 'manage_comments_column_value'), 10, 2 );		
 		
 		// action ajax
 		add_action( 'wp_ajax_cpac_addon_activation', array( &$this, 'ajax_activation'));
@@ -170,7 +175,7 @@ class Codepress_Admin_Columns
 	/**
 	 *	Register Columns
 	 *
-	 *	WP apply_filters can be found in class-wp-list-table.
+	 *	WP apply_filters can be found in the contructor of class-wp-list-table.
 	 *
 	 * 	@since     1.0
 	 */
@@ -191,6 +196,9 @@ class Codepress_Admin_Columns
 		
 		/** Links */
 		add_filter( "manage_link-manager_columns", array(&$this, 'callback_add_links_column_headings'));
+		
+		/** Comments */
+		add_filter( "manage_edit-comments_columns", array(&$this, 'callback_add_comments_column_headings'));
 	}
 	
 	/**
@@ -233,6 +241,16 @@ class Codepress_Admin_Columns
 	public function callback_add_links_column_headings($columns) 
 	{
 		return $this->add_columns_headings('wp-links', $columns);
+	}
+	
+	/**
+	 *	Callback add Comments column
+	 *
+	 * 	@since     1.3.1
+	 */
+	public function callback_add_comments_column_headings($columns) 
+	{
+		return $this->add_columns_headings('wp-comments', $columns);
 	}
 	
 	/**
@@ -364,8 +382,14 @@ class Codepress_Admin_Columns
 		//get saved database columns
 		$db_columns 		= $this->get_stored_columns($type);
 
+		/** Comments */
+		if ( $type == 'wp-comments' ) {
+			$wp_default_columns = $this->get_wp_default_comments_columns();
+			$wp_custom_columns  = $this->get_custom_comments_columns();
+		}
+		
 		/** Links */
-		if ( $type == 'wp-links' ) {
+		elseif ( $type == 'wp-links' ) {
 			$wp_default_columns = $this->get_wp_default_links_columns();
 			$wp_custom_columns  = $this->get_custom_links_columns();
 		}
@@ -507,13 +531,13 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_additional_box_options($post_type, $id, $values) 
+	private function get_additional_box_options($type, $id, $values) 
 	{
 		$fields = '';
 		
-		// Custom Fields	
+		// Custom Fields
 		if ( $this->is_column_meta($id) )
-			$fields .= $this->get_box_options_customfields($post_type, $id, $values);
+			$fields = $this->get_box_options_customfields($type, $id, $values);
 		
 		return $fields;
 	}
@@ -616,15 +640,20 @@ class Codepress_Admin_Columns
 	private function get_meta_by_type($type = 'post') 
 	{
 		global $wpdb;
+
+		/** Comments */
+		if ( $type == 'wp-comments') {
+			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1";
+		}
 		
 		/** Users */
-		if ( $type == 'wp-users') {
-			$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->usermeta.' ORDER BY 1';
+		elseif ( $type == 'wp-users') {
+			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1";
 		}
 		
 		/** Posts */
 		else {
-			$sql 	= 'SELECT DISTINCT meta_key	FROM '.$wpdb->postmeta.' pm	JOIN '.$wpdb->posts.' p	ON pm.post_id = p.ID WHERE p.post_type = "' . mysql_real_escape_string($type) . '" ORDER BY 1';
+			$sql = $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $type);
 		}
 		
 		// run sql
@@ -663,10 +692,11 @@ class Codepress_Admin_Columns
 	 */
 	private function get_types() 
 	{
-		$types 				= $this->post_types;
-		$types['wp-users'] 	= 'wp-users';
-		$types['wp-media'] 	= 'wp-media';
-		$types['wp-links'] 	= 'wp-links';
+		$types 					= $this->post_types;
+		$types['wp-users'] 		= 'wp-users';
+		$types['wp-media'] 		= 'wp-media';
+		$types['wp-links'] 		= 'wp-links';
+		$types['wp-comments'] 	= 'wp-comments';
 		
 		return $types;
 	}
@@ -789,6 +819,9 @@ class Codepress_Admin_Columns
 		// Links
 		$wp_default_columns['wp-links'] = $this->get_wp_default_links_columns();
 		
+		// Comments
+		$wp_default_columns['wp-comments'] = $this->get_wp_default_comments_columns();
+		
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
 
@@ -871,15 +904,14 @@ class Codepress_Admin_Columns
 			
 			// Featured Image
 			case "column-featured_image" :
-				$result = get_the_post_thumbnail($post_id, array(80,80));			
+				if ( has_post_thumbnail($post_id) )
+					$result = get_the_post_thumbnail($post_id, array(80,80));			
 				break;
 				
 			// Sticky Post
 			case "column-sticky" :
-				if ( is_sticky($post_id) ) {		
-					$src 	= $this->plugin_url('assets/images/checkmark.png');
-					$result = "<img alt='sticky' src='{$src}' />";
-				}
+				if ( is_sticky($post_id) )					
+					$result = $this->get_asset_image('checkmark.png');
 				break;
 			
 			// Order
@@ -1057,11 +1089,11 @@ class Codepress_Admin_Columns
 	 */
 	public function manage_media_column_value( $column_name, $media_id )
 	{
-		$type = $column_name;
+		$type 	= $column_name;
 		
 		$meta 	= wp_get_attachment_metadata($media_id);
-		$p 		= get_post($media_id); 
-		
+		$p 		= get_post($media_id);
+
 		// Hook 
 		do_action('cpac-manage-media-column', $type, $column_name, $media_id);
 		
@@ -1151,40 +1183,163 @@ class Codepress_Admin_Columns
 				break;
 			
 			// description
-			case "column-link_description" :
+			case "column-description" :
 				$result = $bookmark->link_description;
 				break;
 			
 			// target
-			case "column-link_target" :
+			case "column-target" :
 				$result = $bookmark->link_target;
 				break;
 			
 			// notes
-			case "column-link_notes" :
+			case "column-notes" :
 				$result = $this->get_shortened_string($bookmark->link_notes, $this->excerpt_length);
 				break;
 			
 			// rss
-			case "column-link_rss" :
-				$short_url 	= url_shorten( $bookmark->link_rss );
-				$result 	= "<a href='{$bookmark->link_rss}'>{$short_url}</a>";
+			case "column-rss" :
+				$result 	= $this->get_shorten_url($bookmark->link_rss);
 				break;
 				
 			// image
-			case "column-link_image" :
+			case "column-image" :
 				$result = $this->get_thumbnail($bookmark->link_image);
 				break;
 				
+			// name length
+			case "column-length" :				
+				$result = strlen($bookmark->link_name);
+				break;
+				
 			// owner
-			case "column-link_owner" :
+			case "column-owner" :
 				$result = $bookmark->link_owner;
 				
 				// add user link
 				$userdata = get_userdata( $bookmark->link_owner );				
-				if (!empty($userdata->data))
-					$result = "<a href='user-edit.php?user_id={$bookmark->link_owner}'>{$userdata->data->user_nicename}</a>";
+				if (!empty($userdata->data)) {
+					$result = $userdata->data->user_nicename;
+					//$result = "<a href='user-edit.php?user_id={$bookmark->link_owner}'>{$result}</a>";
+				}
 				break;
+			
+			default:
+				$result = '';
+			
+		endswitch;
+		
+		if ( empty($result) && '0' != $result )
+			$result = '&nbsp;';
+		
+		echo $result;
+	}
+	
+	/**
+	 * Manage custom column for Comments
+	 *
+	 * @since     1.3.1
+	 */
+	public function manage_comments_column_value( $column_name, $comment_id )
+	{
+		$type = $column_name;
+		
+		// comments object
+		$comment = get_comment($comment_id);
+		
+		// Check for custom fields, such as column-meta-[customfieldname]
+		if ( $this->is_column_meta($type) )
+			$type = 'column-comment-meta';
+		
+		// Hook 
+		do_action('cpac-manage-comments-column', $type, $column_name, $comment_id);
+		
+		$result = '';
+		switch ($type) :			
+			
+			// comment id
+			case "column-comment_id" :
+				$result = $comment_id;
+				break;
+			
+			// author
+			case "column-author" :
+				$result = $comment->comment_author;
+				break;
+				
+			// avatar
+			case "column-author_avatar" :
+				$result = get_avatar( $comment, 80 );				
+				break;
+				
+			// url
+			case "column-author_url" :				
+				$result	= $this->get_shorten_url($comment->comment_author_url);				
+				break;
+				
+			// ip
+			case "column-author_ip" :
+				$result = $comment->comment_author_IP;
+				break;
+				
+			// email
+			case "column-author_email" :
+				$result = $comment->comment_author_email;
+				break;
+				
+			// parent
+			case "column-reply_to" :
+				if ( $comment->comment_approved ) {				
+					$parent 		= get_comment( $comment->comment_parent );
+					$parent_link 	= esc_url( get_comment_link( $comment->comment_parent ) );
+					$name 			= get_comment_author( $parent->comment_ID );
+					$result 		= sprintf( '<a href="%1$s">%2$s</a>', $parent_link, $name );
+				}
+				break;	
+			
+			// approved
+			case "column-approved" :
+				$result = $this->get_asset_image('no.png');
+				if ( $comment->comment_approved )
+					$result = $this->get_asset_image('checkmark.png');
+				break;
+			
+			// date
+			case "column-date" :
+				$comment_url = esc_url( get_comment_link( $comment_id ) );
+				$result 	 = sprintf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ), 
+					$comment_url,
+					$this->get_date($comment->comment_date),
+					$this->get_time($comment->comment_date)
+				);
+				$result 	 = "<div class='submitted-on'>{$result}</div>";
+				break;
+			
+			// date GMT
+			case "column-date_gmt" :
+				$comment_url = esc_url( get_comment_link( $comment_id ) );
+				$result 	 = sprintf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ), 
+					$comment_url,
+					$this->get_date($comment->comment_date_gmt),
+					$this->get_time($comment->comment_date_gmt)
+				);
+				$result 	 = "<div class='submitted-on'>{$result}</div>";
+				break;
+				
+			// custom field
+			case "column-comment-meta" :
+				$result = $this->get_column_value_custom_field($comment_id, $column_name, 'comment');		
+				break;
+			
+/* 			
+[comment_post_ID] => 160
+[comment_author] => tobias
+[comment_content] => Maecenas ultrices nulla ligula. Etiam mi arcu, porttitor quis varius sed, suscipit vitae turpis. Nulla pellentesque bibendum rhoncus.
+[comment_agent] => Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+[comment_type] => 
+[comment_parent] => 0
+[user_id] => 0 
+*/	
 			
 			default:
 				$result = '';
@@ -1250,6 +1405,32 @@ class Codepress_Admin_Columns
 		return count($user_posts);
 	}
 	
+	/**
+	 *	Get checkmark image
+	 *
+	 * 	@since     1.3.1
+	 */
+	protected function get_asset_image($name = '')
+	{
+		if ( $name )
+			return sprintf("<img alt='' src='%s' />", $this->plugin_url("assets/images/{$name}") );
+	}
+	
+	/**
+	 *	Shorten URL
+	 *
+	 * 	@since     1.3.1
+	 */
+	protected function get_shorten_url($url = '')
+	{
+		if ( !$url )
+			return false;
+			
+		// shorten url
+		$short_url 	= url_shorten( $url );
+		
+		return "<a title='{$url}' href='{$url}'>{$short_url}</a>";		
+	}
 	/**
 	 *	Get column value of Custom Field
 	 *
@@ -1521,9 +1702,9 @@ class Codepress_Admin_Columns
 		$current_screen->id = 'upload';
 		
 		// init media class
-		$wp_media = new WP_Media_List_Table;		
+		$wp_media = new WP_Media_List_Table;
 		
-		// get users columns		
+		// get media columns		
 		$columns = $wp_media->get_columns();
 		
 		// reset current screen
@@ -1551,6 +1732,38 @@ class Codepress_Admin_Columns
 
 		// change to uniform format
 		return $this->get_uniform_format($columns);
+	}
+	
+	/**
+	 * 	Get WP default links columns.
+	 *
+	 * 	@since     1.3.1
+	 */
+	private function get_wp_default_comments_columns()
+	{
+		// dependencies
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php');
+		
+		global $current_screen;
+		$org_current_screen = $current_screen;
+		
+		// overwrite current_screen global with our media id...
+		$current_screen->id = 'edit-comments';
+		
+		// init table object
+		$wp_comment = new WP_Comments_List_Table;		
+		
+		// get comments
+		$columns = $wp_comment->get_columns();
+		
+		// reset current screen
+		$current_screen = $org_current_screen;
+		
+		// change to uniform format
+		return $this->get_uniform_format($columns);		
 	}
 
 	/**
@@ -1859,7 +2072,7 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Custom users columns
+	 * Custom media columns
 	 *
 	 * @since     1.3
 	 */
@@ -1965,15 +2178,15 @@ class Codepress_Admin_Columns
 		
 		// Link ID
 		$custom_columns['column-link_id'] = array(
-			'label'			=> __('Link ID', $this->textdomain),
+			'label'			=> __('ID', $this->textdomain),
 			'options'		=> array(
-				'type_label'	=> __('Link ID', $this->textdomain),
+				'type_label'	=> __('ID', $this->textdomain),
 				'sortorder'		=> 'on'
 			)
 		);
 		
 		// Link description
-		$custom_columns['column-link_description'] = array(
+		$custom_columns['column-description'] = array(
 			'label'			=> __('Description', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Description', $this->textdomain),
@@ -1982,7 +2195,7 @@ class Codepress_Admin_Columns
 		);
 		
 		// Link image
-		$custom_columns['column-link_image'] = array(
+		$custom_columns['column-image'] = array(
 			'label'			=> __('Image', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Image', $this->textdomain)
@@ -1990,7 +2203,7 @@ class Codepress_Admin_Columns
 		);
 		
 		// Link target
-		$custom_columns['column-link_target'] = array(
+		$custom_columns['column-target'] = array(
 			'label'			=> __('Target', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Target', $this->textdomain),
@@ -1999,7 +2212,7 @@ class Codepress_Admin_Columns
 		);
 		
 		// Link owner
-		$custom_columns['column-link_owner'] = array(
+		$custom_columns['column-owner'] = array(
 			'label'			=> __('Owner', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Owner', $this->textdomain),
@@ -2008,7 +2221,7 @@ class Codepress_Admin_Columns
 		);
 		
 		// Link notes
-		$custom_columns['column-link_notes'] = array(
+		$custom_columns['column-notes'] = array(
 			'label'			=> __('Notes', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Notes', $this->textdomain),
@@ -2017,10 +2230,19 @@ class Codepress_Admin_Columns
 		);
 		
 		// Link rss
-		$custom_columns['column-link_rss'] = array(
+		$custom_columns['column-rss'] = array(
 			'label'			=> __('Rss', $this->textdomain),
 			'options'		=> array(
 				'type_label'	=> __('Rss', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link name length
+		$custom_columns['column-length'] = array(
+			'label'			=> __('Name length', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Name length', $this->textdomain),
 				'sortorder'		=> 'on'
 			)
 		);
@@ -2029,6 +2251,127 @@ class Codepress_Admin_Columns
 		$custom_columns = $this->parse_defaults($custom_columns);
 		
 		return apply_filters('cpac-custom-links-columns', $custom_columns);
+	}
+	
+	/**
+	 * Custom comments columns
+	 *
+	 * @since     1.3.1
+	 */
+	private function get_custom_comments_columns() 
+	{
+		$custom_columns = array();
+		
+		// Comment ID
+		$custom_columns['column-comment_id'] = array(
+			'label'			=> __('ID', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('ID', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author
+		$custom_columns['column-author'] = array(
+			'label'			=> __('Author', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author
+		$custom_columns['column-author_avatar'] = array(
+			'label'			=> __('Avatar', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Avatar', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author url
+		$custom_columns['column-author_url'] = array(
+			'label'			=> __('Author url', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author url', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author IP
+		$custom_columns['column-author_ip'] = array(
+			'label'			=> __('Author IP', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author IP', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author email
+		$custom_columns['column-author_email'] = array(
+			'label'			=> __('Author email', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author email', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment reply to ( parent comment id )
+		$custom_columns['column-reply_to'] = array(
+			'label'			=> __('In Reply To', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('In Reply To', $this->textdomain),
+				'sortorder'		=> ''
+			)
+		);
+		
+		// Comment approved
+		$custom_columns['column-approved'] = array(
+			'label'			=> __('Approved', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Approved', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment date
+		$custom_columns['column-date'] = array(
+			'label'			=> __('Date', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Date', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment date GMT
+		$custom_columns['column-date_gmt'] = array(
+			'label'			=> __('Date GMT', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Date GMT', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Custom Field support
+		if ( $this->get_meta_by_type('wp-comments') ) {
+			$custom_columns['column-meta-1'] = array(
+				'label'			=> __('Custom Field', $this->textdomain),
+				'field'			=> '',
+				'field_type'	=> '',
+				'before'		=> '',
+				'after'			=> '',
+				'options'		=> array(
+					'type_label'	=> __('Field', $this->textdomain),
+					'class'			=> 'cpac-box-metafield',
+					'sortorder'		=> '',
+				)
+			);
+		}
+		
+		// merge with defaults
+		$custom_columns = $this->parse_defaults($custom_columns);
+		
+		return apply_filters('cpac-custom-comments-columns', $custom_columns);
 	}
 	
 	/**
@@ -2165,6 +2508,10 @@ class Codepress_Admin_Columns
 		if ( $type == 'wp-links' )
 			$label = 'Links';
 			
+		// Comments
+		elseif ( $type == 'wp-comments' )
+			$label = 'Comments';
+			
 		// Users
 		elseif ( $type == 'wp-users' )
 			$label = 'Users';
@@ -2203,7 +2550,11 @@ class Codepress_Admin_Columns
 	 */
 	private function get_type_screen_link( $type ) 
 	{		
-		// Users
+		// Links
+		if ( $type == 'wp-comments' )
+			$link = get_admin_url() . 'edit-comments.php';
+			
+			// Links
 		if ( $type == 'wp-links' )
 			$link = get_admin_url() . 'link-manager.php';
 		
@@ -2447,6 +2798,21 @@ class Codepress_Admin_Columns
 		return date_i18n( get_option('date_format'), $date );
 	}
 	
+	/**
+	 * Get time
+	 *
+	 * @since     1.3.1
+	 */
+	protected function get_time($date) 
+	{
+		if ( ! $date )
+			return false;
+			
+		if ( ! is_numeric($date) )
+			$date = strtotime($date);
+		
+		return date_i18n( get_option('time_format'), $date );
+	}	
 	
 	/**
 	 * Admin notices
