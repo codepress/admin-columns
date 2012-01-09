@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.3.3
+Version: 			1.3.2
 Description: 		This plugin makes it easy to customise the columns on the administration screens for post(types), pages, media library and users.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -168,7 +168,7 @@ class Codepress_Admin_Columns
 		if ( $file != plugin_basename( __FILE__ ))
 			return $links;
 
-		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . $this->slug . '">' . __( 'Settings' ) . '</a>');
+		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . $this->slug . '">' . __( 'Options' ) . '</a>');
 		return $links;
 	}	
 		
@@ -378,7 +378,10 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	protected function get_merged_columns( $type ) 
-	{
+	{	
+		//get saved database columns
+		$db_columns 		= $this->get_stored_columns($type);
+
 		/** Comments */
 		if ( $type == 'wp-comments' ) {
 			$wp_default_columns = $this->get_wp_default_comments_columns();
@@ -408,30 +411,16 @@ class Codepress_Admin_Columns
 			$wp_default_columns = $this->get_wp_default_posts_columns($type);
 			$wp_custom_columns  = $this->get_custom_posts_columns($type);
 		}
-		
-		// merge columns
-		$display_columns = $this->parse_columns($wp_custom_columns, $wp_default_columns, $type);
-		
-		return $display_columns;		
-	}
-	
-	/**
-	 * Merge the default columns (set by WordPress) and the added custom columns (set by plugins, theme etc.)
-	 *
-	 * @since     1.3.3
-	 */
-	function parse_columns($wp_custom_columns, $wp_default_columns, $type) {
+			
 		// merge columns
 		$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
-		
-		//get saved database columns
-		$db_columns = $this->get_stored_columns($type);
+				
+		// loop throught the active columns
 		if ( $db_columns ) {
 			
 			// let's remove any unavailable columns.. such as disabled plugins
 			$db_columns 	 = $this->remove_unavailable_columns($db_columns, $default_columns);
 			
-			// loop throught the active columns
 			foreach ( $db_columns as $id => $values ) {
 			
 				// get column meta options from custom columns
@@ -447,7 +436,9 @@ class Codepress_Admin_Columns
 		}	
 		
 		// merge all
-		return wp_parse_args($db_columns, $default_columns);
+		$display_columns = wp_parse_args($db_columns, $default_columns);		
+		
+		return $display_columns;		
 	}
 	
 	/**
@@ -512,11 +503,12 @@ class Codepress_Admin_Columns
 		
 		$list = "
 			<li class='{$class}'>
-				<div class='cpac-sort-handle'></div>
-				<div class='cpac-type-options'>					
+				<div class='cpac-sort-handle'></div>			
+				<div class='cpac-type-options'>
+					
 					<div class='cpac-checkbox'></div>
-					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>
-					<label class='main-label'>{$values['label']}</label>
+					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>				
+					<label class='main-label'>{$values['label']}</label>								
 				</div>
 				<div class='cpac-meta-title'>
 					{$action}
@@ -2709,16 +2701,13 @@ class Codepress_Admin_Columns
 			$class_sortorder_deactivate = '';
 		}
 		
-		// find out more
-		$find_out_more = "<a href='{$this->codepress_url}' class='button-primary alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
-		
 		// info box
 		$sortable_tooltip = "
-			<p>".__('This will make all of the new columns support sorting', $this->textdomain).".</p>
-			<p>".__('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', $this->textdomain)."</p>
-			<p>".__('Perfect for sorting your articles, media files, comments, links and users', $this->textdomain).".</p>			
+			<p>This will make all of the new columns support sorting.</p>
+			<p>By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong></p>
+			<p>Perfect for sorting your articles, media files and users.</p>			
 			<img src='" . $this->plugin_url('/assets/images/addon_sortable_1.png') . "' alt='' />
-			{$find_out_more}
+			<a href='{$this->codepress_url}' class='button-primary alignright' target='_blank'>find out more &raquo;</a>
 		";
 		
 		// markup
@@ -2752,61 +2741,32 @@ class Codepress_Admin_Columns
 				</div>
 				<div class='activation-error-msg'></div>
 			</td>
-			<td class='activation_more'>
-				{$find_out_more}
-			</td>
 		</tr><!-- #cpac-activation-sortable -->
 		";
 		
 		// settings
 		$row = "
 		<tr id='cpac-box-plugin_settings' valign='top' class='cpac-box-row {$class_current_settings}'>
-			<!--<th class='cpac_post_type' scope='row'>
+			<th class='cpac_post_type' scope='row'>
 				" . __('Activate Addons', $this->textdomain) . "
-			</th>-->
-			<td colspan='2'>
-				<table class='nopadding'>
-					<tr>
-						<td>
-							<h2>Activate Add-ons</h2>
-							<p>Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites. <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
-							<table class='widefat addons'>
-								<thead>
-									<tr>
-										<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
-										<th class='activation_status'>" . __('Status', $this->textdomain) . "</th>
-										<th class='activation_code'>" . __('Activation Code', $this->textdomain) . "</th>
-										<th class='activation_more'></th>
-									</tr>
-								</thead>
-								<tbody>
-									{$sortable}
-								</tbody>					
-							</table>
-							<div class='addon-translation-string hidden'>
-								<span class='tstring-fill-in'>" . __('Enter your activation code', $this->textdomain) . "</span>
-								<span class='tstring-unrecognised'>" . __('Activation code unrecognised', $this->textdomain) . "</span>
-							</div>
-						</td>
-					</tr>
-					<tr class='last'>
-						<td colspan='2'>
-							<h2>Options</h2>
-							<p>
-								<span class='cpac-option-label'>Thumbnail size</span>
-								<label for='thumbnail_size_w'>Width</label>
-								<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_w]' value='80'/>
-								<label for='thumbnail_size_h'>Height</label>
-								<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_h]' value='80'/>
-							</p>
-							<p>
-								<span class='cpac-option-label'>Excerpt length</span>
-								<label for='excerpt_length'>Wordcount</label>
-								<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='80'/>
-							</p>
-						</td>
-					</tr>
+			</th>
+			<td>											
+				<table class='widefat addons'>
+					<thead>
+						<tr>
+							<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
+							<th class='activation_status'>" . __('Status', $this->textdomain) . "</th>
+							<th class='activation_code'>" . __('Activation Code', $this->textdomain) . "</th>
+						</tr>
+					</thead>
+					<tbody>
+						{$sortable}
+					</tbody>					
 				</table>
+				<div class='addon-translation-string hidden'>
+					<span class='tstring-fill-in'>" . __('Fill in your activation code', $this->textdomain) . "</span>
+					<span class='tstring-unrecognised'>" . __('License key unrecognised', $this->textdomain) . "</span>
+				</div>
 			</td>
 		</tr><!-- #cpac-box-plugin_settings -->
 		";
@@ -2865,11 +2825,6 @@ class Codepress_Admin_Columns
 		
 		// Post Type Menu
 		$menu = $this->get_menu();
-		
-		// Help screen message
-		$help_text = '';
-		if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
-			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain).'</p>';
 		
 	?>
 		<div id="cpac" class="wrap">
@@ -2952,7 +2907,7 @@ class Codepress_Admin_Columns
 								<span><?php _e('Need support?', $this->textdomain) ?></span>
 							</h3>
 							<div class="inside">								
-								<?php echo $help_text ?>
+								<p><?php _e('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain);?></p>
 								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', $this->textdomain), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
 								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}#feedback");?></p>
 							</div>

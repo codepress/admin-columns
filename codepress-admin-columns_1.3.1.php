@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.3.3
+Version: 			1.3.1
 Description: 		This plugin makes it easy to customise the columns on the administration screens for post(types), pages, media library and users.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -168,7 +168,7 @@ class Codepress_Admin_Columns
 		if ( $file != plugin_basename( __FILE__ ))
 			return $links;
 
-		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . $this->slug . '">' . __( 'Settings' ) . '</a>');
+		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . $this->slug . '">' . __( 'Options' ) . '</a>');
 		return $links;
 	}	
 		
@@ -378,7 +378,10 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	protected function get_merged_columns( $type ) 
-	{
+	{	
+		//get saved database columns
+		$db_columns 		= $this->get_stored_columns($type);
+
 		/** Comments */
 		if ( $type == 'wp-comments' ) {
 			$wp_default_columns = $this->get_wp_default_comments_columns();
@@ -408,30 +411,16 @@ class Codepress_Admin_Columns
 			$wp_default_columns = $this->get_wp_default_posts_columns($type);
 			$wp_custom_columns  = $this->get_custom_posts_columns($type);
 		}
-		
-		// merge columns
-		$display_columns = $this->parse_columns($wp_custom_columns, $wp_default_columns, $type);
-		
-		return $display_columns;		
-	}
-	
-	/**
-	 * Merge the default columns (set by WordPress) and the added custom columns (set by plugins, theme etc.)
-	 *
-	 * @since     1.3.3
-	 */
-	function parse_columns($wp_custom_columns, $wp_default_columns, $type) {
+			
 		// merge columns
 		$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
-		
-		//get saved database columns
-		$db_columns = $this->get_stored_columns($type);
+				
+		// loop throught the active columns
 		if ( $db_columns ) {
 			
 			// let's remove any unavailable columns.. such as disabled plugins
 			$db_columns 	 = $this->remove_unavailable_columns($db_columns, $default_columns);
 			
-			// loop throught the active columns
 			foreach ( $db_columns as $id => $values ) {
 			
 				// get column meta options from custom columns
@@ -447,7 +436,9 @@ class Codepress_Admin_Columns
 		}	
 		
 		// merge all
-		return wp_parse_args($db_columns, $default_columns);
+		$display_columns = wp_parse_args($db_columns, $default_columns);		
+		
+		return $display_columns;		
 	}
 	
 	/**
@@ -512,11 +503,12 @@ class Codepress_Admin_Columns
 		
 		$list = "
 			<li class='{$class}'>
-				<div class='cpac-sort-handle'></div>
-				<div class='cpac-type-options'>					
+				<div class='cpac-sort-handle'></div>			
+				<div class='cpac-type-options'>
+					
 					<div class='cpac-checkbox'></div>
-					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>
-					<label class='main-label'>{$values['label']}</label>
+					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>				
+					<label class='main-label'>{$values['label']}</label>								
 				</div>
 				<div class='cpac-meta-title'>
 					{$action}
@@ -1822,40 +1814,37 @@ class Codepress_Admin_Columns
 	 */
 	private function get_custom_posts_columns($post_type) 
 	{
-		$custom_columns = array(
-			'column-featured_image' => array(
-				'label'	=> __('Featured Image', $this->textdomain),
-				'options' => array(
-					'sortorder' => false
+		$custom_columns = array();
+		
+		// Thumbnail support
+		if ( post_type_supports($post_type, 'thumbnail') ) {
+			$custom_columns['column-featured_image'] = array(
+				'label'			=> __('Featured Image', $this->textdomain),
+				'options'		=> array(
+					'type_label' 	=> __('Image', $this->textdomain)
 				)
-			),
-			'column-excerpt' => array(
-				'label'	=> __('Excerpt', $this->textdomain)
-			),
-			'column-order' => array(
-				'label'	=> __('Page Order', $this->textdomain)
-			),
-			'column-post_formats' => array(
-				'label'	=> __('Post Format', $this->textdomain)
-			),
-			'column-postid' => array(
-				'label'	=> 'ID'
-			),
-			'column-page-slug' => array(
-				'label'	=> __('Slug', $this->textdomain)
-			),
-			'column-attachment' => array(
-				'label'	=> __('Attachment', $this->textdomain)
-			),
-			'column-attachment-count' => array(
-				'label'	=> __('No. of Attachments', $this->textdomain)
-			),
-		);
+			);
+		}
+		
+		// Excerpt support
+		if ( post_type_supports($post_type, 'editor') ) {
+			$custom_columns['column-excerpt'] = array(
+				'label'			=> __('Excerpt', $this->textdomain),
+				'options'		=> array(
+					'type_label' 	=> __('Excerpt', $this->textdomain),
+					'sortorder'		=> 'on'
+				)
+			);
+		}
 		
 		// Word count support
 		if ( post_type_supports($post_type, 'editor') ) {
 			$custom_columns['column-word-count'] = array(
-				'label'	=> __('Word count', $this->textdomain)
+				'label'			=> __('Word count', $this->textdomain),		
+				'options'		=> array(
+					'type_label' 	=> __('Word count', $this->textdomain),
+					'sortorder'		=> 'on'
+				)
 			);
 		}
 		
@@ -1864,7 +1853,7 @@ class Codepress_Admin_Columns
 			$custom_columns['column-sticky'] = array(
 				'label'			=> __('Sticky', $this->textdomain),
 				'options'		=> array(
-					'sortorder' => false
+					'type_label' 	=> __('Sticky', $this->textdomain)
 				)
 			);
 		}
@@ -1874,7 +1863,8 @@ class Codepress_Admin_Columns
 			$custom_columns['column-order'] = array(
 				'label'			=> __('Page Order', $this->textdomain),				
 				'options'		=> array(
-					'type_label' 	=> __('Order', $this->textdomain)
+					'type_label' 	=> __('Order', $this->textdomain),
+					'sortorder'		=> 'on',
 				)			
 			);
 		}
@@ -1882,14 +1872,22 @@ class Codepress_Admin_Columns
 		// Page Template
 		if ( $post_type == 'page' ) { 
 			$custom_columns['column-page-template'] = array(
-				'label'	=> __('Page Template', $this->textdomain)
+				'label'			=> __('Page Template', $this->textdomain),
+				'options'		=> array(
+					'type_label' 	=> __('Page Template', $this->textdomain),
+					'sortorder'		=> 'on',
+				)
 			);	
 		}
 		
 		// Post Formats
 		if ( post_type_supports($post_type, 'post-formats') ) {
 			$custom_columns['column-post_formats'] = array(
-				'label'	=> __('Post Format', $this->textdomain)
+				'label'			=> __('Post Format', $this->textdomain),
+				'options'		=> array(
+					'type_label' 	=> __('Post Format', $this->textdomain),
+					'sortorder'		=> 'on'
+				)
 			);
 		}
 		
@@ -1901,13 +1899,48 @@ class Codepress_Admin_Columns
 					$custom_columns['column-taxonomy-'.$tax->name] = array(
 						'label'			=> $tax->label,
 						'options'		=> array(
-							'type_label'	=> __('Taxonomy', $this->textdomain),
-							'sortorder'		=> false
+							'type_label'	=> __('Taxonomy', $this->textdomain)
 						)
 					);				
 				}
 			}
 		}
+		
+		// Post ID support
+		$custom_columns['column-postid'] = array(
+			'label'			=> 'ID',			
+			'options'		=> array(
+				'type_label' 	=> 'ID',
+				'sortorder'		=> 'on',
+			)
+		);
+		
+		// Slug support
+		$custom_columns['column-page-slug'] = array(
+			'label'			=> __('Slug', $this->textdomain),		
+			'options'		=> array(
+				'type_label' 	=> __('Slug', $this->textdomain),
+				'sortorder'		=> 'on',
+			)
+		);		
+		
+		// Attachment support
+		$custom_columns['column-attachment'] = array(
+			'label'			=> __('Attachment', $this->textdomain),
+			'options'		=> array(
+				'type_label' 	=> __('Attachment', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Attachment count support
+		$custom_columns['column-attachment-count'] = array(
+			'label'			=> __('No. of Attachments', $this->textdomain),
+			'options'		=> array(
+				'type_label' 	=> __('No. of Attachments', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
 		
 		// Custom Field support
 		if ( $this->get_meta_by_type($post_type) ) {
@@ -1919,7 +1952,8 @@ class Codepress_Admin_Columns
 				'after'			=> '',
 				'options'		=> array(
 					'type_label'	=> __('Field', $this->textdomain),
-					'class'			=> 'cpac-box-metafield'
+					'class'			=> 'cpac-box-metafield',
+					'sortorder'		=> 'on',
 				)			
 			);
 		}	
@@ -1937,38 +1971,81 @@ class Codepress_Admin_Columns
 	 */
 	private function get_custom_users_columns() 
 	{
-		$custom_columns = array(
-			'column-user_id' => array(
-				'label'	=> __('User ID', $this->textdomain)
-			),
-			'column-nickname' => array(
-				'label'	=> __('Nickname', $this->textdomain)
-			),
-			'column-first_name' => array(
-				'label'	=> __('First name', $this->textdomain)
-			),
-			'column-last_name' => array(
-				'label'	=> __('Last name', $this->textdomain)
-			),
-			'column-user_url' => array(
-				'label'	=> __('Url', $this->textdomain)
-			),
-			'column-user_registered' => array(
-				'label'	=> __('Registered', $this->textdomain)
-			),
-			'column-user_description' => array(
-				'label'	=> __('Description', $this->textdomain)
-			),
+		$custom_columns = array();
+		
+		// User ID
+		$custom_columns['column-user_id'] = array(
+			'label'			=> __('User ID', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('User ID', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Nickname
+		$custom_columns['column-nickname'] = array(
+			'label'			=> __('Nickname', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Nickname', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// First name
+		$custom_columns['column-first_name'] = array(
+			'label'			=> __('First name', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('First name', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Last name
+		$custom_columns['column-last_name'] = array(
+			'label'			=> __('Last name', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Last name', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// User url
+		$custom_columns['column-user_url'] = array(
+			'label'			=> __('Url', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Url', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// User registration date
+		$custom_columns['column-user_registered'] = array(
+			'label'			=> __('Registered', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Registered', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// User description
+		$custom_columns['column-user_description'] = array(
+			'label'			=> __('Description', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Description', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
 		);
 		
 		// User total number of posts
+		$this->get_post_types();
 		if ($this->get_post_types()) {
 			foreach ( $this->get_post_types() as $post_type ) {
 				$label = $this->get_plural_name($post_type);
 				$custom_columns['column-user_postcount-'.$post_type] = array(
 					'label'			=> __( sprintf('No. of %s',$label), $this->textdomain),
 					'options'		=> array(
-						'type_label'	=> __('Postcount', $this->textdomain)
+						'type_label'	=> __('Postcount', $this->textdomain),
+						'sortorder'		=> 'on'
 					)
 				);
 			}
@@ -1983,7 +2060,8 @@ class Codepress_Admin_Columns
 			'after'			=> '',
 			'options'		=> array(
 				'type_label'	=> __('Field', $this->textdomain),
-				'class'			=> 'cpac-box-metafield'
+				'class'			=> 'cpac-box-metafield',
+				'sortorder'		=> 'on',
 			)
 		);	
 		
@@ -2000,35 +2078,88 @@ class Codepress_Admin_Columns
 	 */
 	private function get_custom_media_columns() 
 	{
-		$custom_columns = array(
-			'column-mediaid' => array(
-				'label'	=> __('ID', $this->textdomain)
-			),
-			'column-mime_type' => array(
-				'label'	=> __('Mime type', $this->textdomain)
-			),
-			'column-file_name' => array(
-				'label'	=> __('File name', $this->textdomain)
-			),
-			'column-dimensions' => array(
-				'label'	=> __('Dimensions', $this->textdomain)
-			),
-			'column-height' => array(
-				'label'	=> __('Height', $this->textdomain)
-			),
-			'column-width' => array(
-				'label'	=> __('Width', $this->textdomain)
-			),
-			'column-caption' => array(
-				'label'	=> __('Caption', $this->textdomain)
-			),
-			'column-description' => array(
-				'label'	=> __('Description', $this->textdomain)
-			),
-			'column-alternate_text' => array(
-				'label'	=> __('Alt', $this->textdomain)
-			),
-		);		
+		$custom_columns = array();
+		
+		// Media ID
+		$custom_columns['column-mediaid'] = array(
+			'label'			=> __('ID', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('ID', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// File type
+		$custom_columns['column-mime_type'] = array(
+			'label'			=> __('Mime type', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Mime type', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// File name
+		$custom_columns['column-file_name'] = array(
+			'label'			=> __('File name', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('File name', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Dimensions
+		$custom_columns['column-dimensions'] = array(
+			'label'			=> __('Dimensions', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Dimensions', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Height
+		$custom_columns['column-height'] = array(
+			'label'			=> __('Height', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Height', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Width
+		$custom_columns['column-width'] = array(
+			'label'			=> __('Width', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Width', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Caption
+		$custom_columns['column-caption'] = array(
+			'label'			=> __('Caption', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Caption', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Description
+		$custom_columns['column-description'] = array(
+			'label'			=> __('Description', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Description', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
+		
+		// Alt
+		$custom_columns['column-alternate_text'] = array(
+			'label'			=> __('Alt', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Alt', $this->textdomain),
+				'sortorder'		=> 'on'
+			)			
+		);
 		
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
@@ -2043,32 +2174,78 @@ class Codepress_Admin_Columns
 	 */
 	private function get_custom_links_columns() 
 	{
-		$custom_columns = array(
-			'column-link_id' => array (
-				'label'	=> __('ID', $this->textdomain)
-			),
-			'column-description' => array (
-				'label'	=> __('Description', $this->textdomain)
-			),
-			'column-image' => array(
-				'label'	=> __('Image', $this->textdomain)
-			),
-			'column-target' => array(
-				'label'	=> __('Target', $this->textdomain)
-			),
-			'column-owner' => array(
-				'label'	=> __('Owner', $this->textdomain)
-			),
-			'column-notes' => array(
-				'label'	=> __('Notes', $this->textdomain)
-			),
-			'column-rss' => array(
-				'label'	=> __('Rss', $this->textdomain)
-			),
-			'column-length' => array(
-				'label'	=> __('Length', $this->textdomain)
+		$custom_columns = array();
+		
+		// Link ID
+		$custom_columns['column-link_id'] = array(
+			'label'			=> __('ID', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('ID', $this->textdomain),
+				'sortorder'		=> 'on'
 			)
-		);	
+		);
+		
+		// Link description
+		$custom_columns['column-description'] = array(
+			'label'			=> __('Description', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Description', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link image
+		$custom_columns['column-image'] = array(
+			'label'			=> __('Image', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Image', $this->textdomain)
+			)
+		);
+		
+		// Link target
+		$custom_columns['column-target'] = array(
+			'label'			=> __('Target', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Target', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link owner
+		$custom_columns['column-owner'] = array(
+			'label'			=> __('Owner', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Owner', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link notes
+		$custom_columns['column-notes'] = array(
+			'label'			=> __('Notes', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Notes', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link rss
+		$custom_columns['column-rss'] = array(
+			'label'			=> __('Rss', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Rss', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Link name length
+		$custom_columns['column-length'] = array(
+			'label'			=> __('Name length', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Name length', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
 		
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
@@ -2083,42 +2260,96 @@ class Codepress_Admin_Columns
 	 */
 	private function get_custom_comments_columns() 
 	{
-		$custom_columns = array(
-			'column-comment_id' => array(
-				'label'	=> __('ID', $this->textdomain)
-			),
-			'column-author' => array(
-				'label'	=> __('Author', $this->textdomain)
-			),
-			'column-author_avatar' => array(
-				'label'	=> __('Avatar', $this->textdomain)
-			),
-			'column-author_url' => array(
-				'label'	=> __('Author url', $this->textdomain)
-			),
-			'column-author_ip' => array(
-				'label'	=> __('Author IP', $this->textdomain)
-			),
-			'column-author_email' => array(
-				'label'	=> __('Author email', $this->textdomain)
-			),
-			'column-reply_to' => array(
-				'label'			=> __('In Reply To', $this->textdomain),
-				
-				// options
-				'options'		=> array(					
-					'sortorder'		=> false
-				)
-			),
-			'column-approved' => array(
-				'label'	=> __('Approved', $this->textdomain)
-			),
-			'column-date' => array(
-				'label'	=> __('Date', $this->textdomain)
-			),
-			'column-date_gmt' => array(
-				'label'	=> __('Date GMT', $this->textdomain)
-			),
+		$custom_columns = array();
+		
+		// Comment ID
+		$custom_columns['column-comment_id'] = array(
+			'label'			=> __('ID', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('ID', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author
+		$custom_columns['column-author'] = array(
+			'label'			=> __('Author', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author
+		$custom_columns['column-author_avatar'] = array(
+			'label'			=> __('Avatar', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Avatar', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author url
+		$custom_columns['column-author_url'] = array(
+			'label'			=> __('Author url', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author url', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author IP
+		$custom_columns['column-author_ip'] = array(
+			'label'			=> __('Author IP', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author IP', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment author email
+		$custom_columns['column-author_email'] = array(
+			'label'			=> __('Author email', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Author email', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment reply to ( parent comment id )
+		$custom_columns['column-reply_to'] = array(
+			'label'			=> __('In Reply To', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('In Reply To', $this->textdomain),
+				'sortorder'		=> ''
+			)
+		);
+		
+		// Comment approved
+		$custom_columns['column-approved'] = array(
+			'label'			=> __('Approved', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Approved', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment date
+		$custom_columns['column-date'] = array(
+			'label'			=> __('Date', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Date', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
+		);
+		
+		// Comment date GMT
+		$custom_columns['column-date_gmt'] = array(
+			'label'			=> __('Date GMT', $this->textdomain),
+			'options'		=> array(
+				'type_label'	=> __('Date GMT', $this->textdomain),
+				'sortorder'		=> 'on'
+			)
 		);
 		
 		// Custom Field support
@@ -2132,7 +2363,7 @@ class Codepress_Admin_Columns
 				'options'		=> array(
 					'type_label'	=> __('Field', $this->textdomain),
 					'class'			=> 'cpac-box-metafield',
-					'sortorder'		=> false,
+					'sortorder'		=> '',
 				)
 			);
 		}
@@ -2158,25 +2389,16 @@ class Codepress_Admin_Columns
 			'state' 		=> '',
 			
 			// static values
-			'options'		=> array(				
-				'type_label'	=> __('Custom', $this->textdomain),
+			'options'		=> array(
+				'type_label' 	=> __('Custom', $this->textdomain),
 				'hide_options'	=> false,
 				'class'			=> 'cpac-box-custom',
-				'sortorder'		=> 'on',
+				'sortorder'		=> '',
 			)
 		);
 		
-		// parse args
 		foreach ( $columns as $k => $column ) {
 			$c[$k] = wp_parse_args( $column, $defaults);
-			
-			// pasrse options args
-			if ( isset($column['options']) )
-				$c[$k]['options'] = wp_parse_args( $column['options'], $defaults['options']);
-				
-			// set type label
-			if ( empty($column['options']['type_label']) && !empty($column['label']) )
-				$c[$k]['options']['type_label']	= $column['label'];
 		}
 		
 		return $c;
@@ -2709,16 +2931,13 @@ class Codepress_Admin_Columns
 			$class_sortorder_deactivate = '';
 		}
 		
-		// find out more
-		$find_out_more = "<a href='{$this->codepress_url}' class='button-primary alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
-		
 		// info box
 		$sortable_tooltip = "
-			<p>".__('This will make all of the new columns support sorting', $this->textdomain).".</p>
-			<p>".__('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', $this->textdomain)."</p>
-			<p>".__('Perfect for sorting your articles, media files, comments, links and users', $this->textdomain).".</p>			
+			<p>This will make all of the new columns support sorting.</p>
+			<p>By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong></p>
+			<p>Perfect for sorting your articles, media files and users.</p>			
 			<img src='" . $this->plugin_url('/assets/images/addon_sortable_1.png') . "' alt='' />
-			{$find_out_more}
+			<a href='{$this->codepress_url}' class='button-primary alignright' target='_blank'>find out more &raquo;</a>
 		";
 		
 		// markup
@@ -2752,61 +2971,32 @@ class Codepress_Admin_Columns
 				</div>
 				<div class='activation-error-msg'></div>
 			</td>
-			<td class='activation_more'>
-				{$find_out_more}
-			</td>
 		</tr><!-- #cpac-activation-sortable -->
 		";
 		
 		// settings
 		$row = "
 		<tr id='cpac-box-plugin_settings' valign='top' class='cpac-box-row {$class_current_settings}'>
-			<!--<th class='cpac_post_type' scope='row'>
+			<th class='cpac_post_type' scope='row'>
 				" . __('Activate Addons', $this->textdomain) . "
-			</th>-->
-			<td colspan='2'>
-				<table class='nopadding'>
-					<tr>
-						<td>
-							<h2>Activate Add-ons</h2>
-							<p>Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites. <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
-							<table class='widefat addons'>
-								<thead>
-									<tr>
-										<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
-										<th class='activation_status'>" . __('Status', $this->textdomain) . "</th>
-										<th class='activation_code'>" . __('Activation Code', $this->textdomain) . "</th>
-										<th class='activation_more'></th>
-									</tr>
-								</thead>
-								<tbody>
-									{$sortable}
-								</tbody>					
-							</table>
-							<div class='addon-translation-string hidden'>
-								<span class='tstring-fill-in'>" . __('Enter your activation code', $this->textdomain) . "</span>
-								<span class='tstring-unrecognised'>" . __('Activation code unrecognised', $this->textdomain) . "</span>
-							</div>
-						</td>
-					</tr>
-					<tr class='last'>
-						<td colspan='2'>
-							<h2>Options</h2>
-							<p>
-								<span class='cpac-option-label'>Thumbnail size</span>
-								<label for='thumbnail_size_w'>Width</label>
-								<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_w]' value='80'/>
-								<label for='thumbnail_size_h'>Height</label>
-								<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_h]' value='80'/>
-							</p>
-							<p>
-								<span class='cpac-option-label'>Excerpt length</span>
-								<label for='excerpt_length'>Wordcount</label>
-								<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='80'/>
-							</p>
-						</td>
-					</tr>
+			</th>
+			<td>											
+				<table class='widefat addons'>
+					<thead>
+						<tr>
+							<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
+							<th class='activation_status'>" . __('Status', $this->textdomain) . "</th>
+							<th class='activation_code'>" . __('Activation Code', $this->textdomain) . "</th>
+						</tr>
+					</thead>
+					<tbody>
+						{$sortable}
+					</tbody>					
 				</table>
+				<div class='addon-translation-string hidden'>
+					<span class='tstring-fill-in'>" . __('Fill in your activation code', $this->textdomain) . "</span>
+					<span class='tstring-unrecognised'>" . __('License key unrecognised', $this->textdomain) . "</span>
+				</div>
 			</td>
 		</tr><!-- #cpac-box-plugin_settings -->
 		";
@@ -2865,11 +3055,6 @@ class Codepress_Admin_Columns
 		
 		// Post Type Menu
 		$menu = $this->get_menu();
-		
-		// Help screen message
-		$help_text = '';
-		if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
-			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain).'</p>';
 		
 	?>
 		<div id="cpac" class="wrap">
@@ -2952,7 +3137,7 @@ class Codepress_Admin_Columns
 								<span><?php _e('Need support?', $this->textdomain) ?></span>
 							</h3>
 							<div class="inside">								
-								<?php echo $help_text ?>
+								<p><?php _e('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain);?></p>
 								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', $this->textdomain), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
 								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}#feedback");?></p>
 							</div>

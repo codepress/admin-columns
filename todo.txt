@@ -3,23 +3,23 @@ Prio #1
 done: make links out of taxonomies
 done: sorting user custom fields
 done: see how many posts of a given type an author has published
-
-parse_defaults set sortorder on.
+done: comment columns
+done: parse_defaults set sortorder on.
+done: sortable links columns
+done: Textual help
+done: test IE7/IE8 tooltip
 
 Payment wall
-Textual help
-sortable links columns
 
 test helpscreen/plugin in 3.1
-test IE7/IE8 tooltip
 
 Prio #2
 ---------------------------------------------------------
-put column types in its own class
-comment columns
-users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
 make option to set default ordering
+put column types in its own class
+users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
 set column width
+import/export configuration
 nonce
 admin columns in search of wordpress ( payment wall )
 introduction tour
@@ -36,7 +36,7 @@ multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add
 go to [posts] screen button/link
 date icon
 third party user columns
-import/export configuration
+
 Options page; choose hidden custom fields, thumb size, excerpt_size, show_all_posts_results
 test on wp 3.0
 
