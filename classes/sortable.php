@@ -434,6 +434,10 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$pieces['orderby'] = 'comment_date';
 				break;
 			
+			case 'column-agent':
+				$pieces['orderby'] = 'comment_agent';
+				break;
+			
 			case 'column-date_gmt':
 				// is default
 				break;
@@ -596,7 +600,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.3
 	 */
 	private function get_orderby_posts_vars($vars)
-	{		
+	{	
 		$post_type = $vars['post_type'];
 		
 		// Column

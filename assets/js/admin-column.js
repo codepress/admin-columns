@@ -278,11 +278,11 @@ function cpac_tooltips()
  *
  */
 function cpac_addon_activation() 
-{
+{	
 	jQuery('#cpac-box-plugin_settings .addons .activation_code a.button').click(function(e) {
 		e.preventDefault();		
 		
-		// get input values
+		// get input values		
 		var row			 = jQuery(this).closest('tr');
 		var type		 = jQuery(row).attr('id').replace('cpac-activation-','');
 		var parent_class = jQuery(this).parent('div');
@@ -297,18 +297,22 @@ function cpac_addon_activation()
 		jQuery(msg).empty();
 		
 		// Activate
-		if ( parent_class.hasClass('activate') ) {
+		if ( parent_class.hasClass('activate') ) {			
 		
 			// input values
 			var input 		= jQuery('.activate input', row);
+			var button 		= jQuery('.activate .button', row);
 			var key 		= input.val();
-			var default_val = jQuery(input)[0].defaultValue;
+			var default_val = jQuery(input)[0].defaultValue;			
 			
 			// make sure the input value has changed
 			if ( key == default_val ) {
 				jQuery(msg).text(msg_fillin).hide().fadeIn();
 				return false;
 			}
+			
+			// set loading icon			
+			button.addClass('loading');
 			
 			// update key
 			jQuery.ajax({
@@ -328,12 +332,25 @@ function cpac_addon_activation()
 					} else {
 						jQuery(msg).text(msg_unrecognised).hide().fadeIn();
 					}
+				},
+                error: function(xhr, ajaxOptions, thrownError) {
+                    jQuery(msg).text(msg_unrecognised).hide().fadeIn();
+                },
+				complete: function() {
+					button.removeClass('loading');
 				}
 			});
 		}
 		
 		// Deactivate
-		if ( parent_class.hasClass('deactivate') ) {
+		if ( parent_class.hasClass('deactivate') ) {			
+			
+			var button = jQuery('.deactivate .button', row);
+			var input  = jQuery('.activate input', row);
+			
+			// set loading icon
+			button.addClass('loading');
+			
 			// update key
 			jQuery.ajax({
 				url 		: ajaxurl,
@@ -344,10 +361,17 @@ function cpac_addon_activation()
 					type	: 'sortable',
 					key		: 'remove'
 				},
-				success: function(data) {					
+				success: function(data) {
 					jQuery('div.activate', row).show();
 					jQuery('div.deactivate', row).hide();
-					jQuery('div.deactivate span', row).empty();					
+					jQuery('div.deactivate span', row).empty();
+					input.val('');
+				},
+                error: function(xhr, ajaxOptions, thrownError) {
+					// log
+				},
+				complete: function() {
+					button.removeClass('loading');
 				}
 			});
 		}

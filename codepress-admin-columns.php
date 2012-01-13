@@ -28,6 +28,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define( 'CPAC_VERSION', '1.3.1' );
 
+// only run plugin in the admin interface
+if ( !is_admin() )
+	return false;
+
 /**
  * Dependencies
  *
@@ -78,11 +82,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	public function init()
-	{	
-		// only run plugin in the admin interface
-		if ( !is_admin() )
-			return false;
-			
+	{			
 		// vars
 		$this->post_types 		= $this->get_post_types();
 
@@ -123,6 +123,7 @@ class Codepress_Admin_Columns
 		
 		// dev
 		//$this->set_license_key('sortable', 'YTU7-5F6I-LKZ2-RE9V');
+		//$this->get_remote_key('sortable');
 	}	
 
 	/**
@@ -1338,16 +1339,11 @@ class Codepress_Admin_Columns
 			case "column-comment-meta" :
 				$result = $this->get_column_value_custom_field($comment_id, $column_name, 'comment');		
 				break;
-			
-/* 			
-[comment_post_ID] => 160
-[comment_author] => tobias
-[comment_content] => Maecenas ultrices nulla ligula. Etiam mi arcu, porttitor quis varius sed, suscipit vitae turpis. Nulla pellentesque bibendum rhoncus.
-[comment_agent] => Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
-[comment_type] => 
-[comment_parent] => 0
-[user_id] => 0 
-*/	
+				
+			// agent
+			case "column-agent" :
+				$result = $comment->comment_agent;		
+				break;	
 			
 			default:
 				$result = '';
@@ -2119,6 +2115,9 @@ class Codepress_Admin_Columns
 			'column-date_gmt' => array(
 				'label'	=> __('Date GMT', $this->textdomain)
 			),
+			'column-agent' => array(
+				'label'	=> __('Agent', $this->textdomain)
+			)
 		);
 		
 		// Custom Field support
@@ -2234,13 +2233,17 @@ class Codepress_Admin_Columns
 		
 		// settings url
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
-
+		
+		// options button
+		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Addons')."</a>";
+		//$options_btn = '';
+		
 		return "
 		<div class='cpac-menu'>
 			<ul class='subsubsub'>
 				{$menu}
 			</ul>
-			<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Options')."</a>
+			{$options_btn}
 		</div>
 		";
 	}
@@ -2475,13 +2478,11 @@ class Codepress_Admin_Columns
 	 */
 	protected function is_unlocked($type)
 	{
-		switch ($type) :
-			case 'sortable':				
-				if( md5( $this->get_license_key($type) ) == "6a8d49fe80f7509251ef9aeda37872cf")
-					return true;
-				break;
-			
-		endswitch;		
+		$remote_key = $this->get_remote_key($type);
+		$key  		= $this->get_license_key($type);
+		
+		if ( $remote_key  && $key && $remote_key == $key )
+			return true;
 		
 		return false;
 	}
@@ -2493,17 +2494,17 @@ class Codepress_Admin_Columns
 	 */
 	private function get_license_key($type)
 	{
-		return get_option('cpac_' . $type . '_ac');
+		return get_option("cpac_{$type}_ac");
 	}
-
+	
 	/**
 	 * Set license key
 	 *
 	 * @since     1.3
 	 */
 	private function set_license_key($type, $key)
-	{
-		update_option( "cpac_{$type}_ac", wp_filter_nohtml_kses( trim($key) ) );
+	{			
+		update_option( "cpac_{$type}_ac", md5($key));
 	}
 	
 	/**
@@ -2514,6 +2515,45 @@ class Codepress_Admin_Columns
 	private function remove_license_key($type)
 	{
 		delete_option( "cpac_{$type}_ac" );
+		delete_transient("cpac_{$type}_trnsnt");
+	}
+	
+	/**
+	 * Get remote license key ( DEV )
+	 *
+	 * @since     1.3.3
+	 */
+	private function get_remote_key($type)
+	{	
+		$result = false;
+		
+		// set
+		$key = $this->get_license_key($type);
+		$url = get_bloginfo('url') . '/api';
+		
+		// get transient
+ 		$transient  = get_transient("cpac_{$type}_trnsnt");
+		
+		if ( $transient != false )
+			return true;
+		
+		// check key with remote API		
+		$response = wp_remote_post( $url, array(
+			'body'	=> array(
+				'key'	=> $key,
+				'type'	=> $type,
+				'url'	=> get_bloginfo('url')
+			)
+		));
+		
+		// license will be valid in case of WP error or succes
+		if ( is_wp_error($response) || json_decode($response['body']) == 'valid' )
+			$result = true;
+		
+		// set transient
+		set_transient("cpac_{$type}_trnsnt", $result, 86400);		
+	
+		return $result;
 	}
 	
 	/**
@@ -2523,7 +2563,7 @@ class Codepress_Admin_Columns
 	 */
 	private function get_masked_license_key($type) 
 	{
-		return 'XXXX-XXXX-XXXX-' . substr( $this->get_license_key($type), -4);
+		return '';
 	}
 	
 	/**
@@ -2536,6 +2576,8 @@ class Codepress_Admin_Columns
 		// keys
 		$key 	= $_POST['key'];
 		$type 	= $_POST['type'];
+		
+		//print_r(); echo "($key & $type)";
 		
 		// update key
 		if ( $key == 'remove' )
@@ -2744,29 +2786,24 @@ class Codepress_Admin_Columns
 			<td class='activation_code'>
 				<div class='activate{$class_sortorder_activate}'>
 					<input type='text' value='" . __('Fill in your activation code', $this->textdomain) . "' name='cpac-sortable-key'>
-					<a href='javascript:;' class='button'>" . __('Activate', $this->textdomain) . "</a>
+					<a href='javascript:;' class='button'>" . __('Activate', $this->textdomain) . "<span></span></a>
 				</div>
 				<div class='deactivate{$class_sortorder_deactivate}'>
 					<span class='masked_key'>{$masked_key}</span>
-					<a href='javascript:;' class='button'>" . __('Deactivate', $this->textdomain) . "</a>
+					<a href='javascript:;' class='button'>" . __('Deactivate', $this->textdomain) . "<span></span></a>
 				</div>
 				<div class='activation-error-msg'></div>
 			</td>
-			<td class='activation_more'>
-				{$find_out_more}
-			</td>
+			<td class='activation_more'>{$find_out_more}</td>
 		</tr><!-- #cpac-activation-sortable -->
 		";
 		
 		// settings
 		$row = "
 		<tr id='cpac-box-plugin_settings' valign='top' class='cpac-box-row {$class_current_settings}'>
-			<!--<th class='cpac_post_type' scope='row'>
-				" . __('Activate Addons', $this->textdomain) . "
-			</th>-->
 			<td colspan='2'>
 				<table class='nopadding'>
-					<tr>
+					<tr class='last'>
 						<td>
 							<h2>Activate Add-ons</h2>
 							<p>Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites. <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
@@ -2789,23 +2826,33 @@ class Codepress_Admin_Columns
 							</div>
 						</td>
 					</tr>
+					<!--
 					<tr class='last'>
 						<td colspan='2'>
 							<h2>Options</h2>
-							<p>
-								<span class='cpac-option-label'>Thumbnail size</span>
-								<label for='thumbnail_size_w'>Width</label>
-								<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_w]' value='80'/>
-								<label for='thumbnail_size_h'>Height</label>
-								<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_h]' value='80'/>
-							</p>
-							<p>
-								<span class='cpac-option-label'>Excerpt length</span>
-								<label for='excerpt_length'>Wordcount</label>
-								<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='80'/>
-							</p>
+							<ul class='cpac-options'>
+								<li>
+									<div class='cpac-option-label'>Thumbnail size</div>
+									<div class='cpac-option-inputs'>										
+										<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_width]' value='80'/>
+										<label for='thumbnail_size_w'>Width</label>
+										<br/>										
+										<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_height]' value='80'/>
+										<label for='thumbnail_size_h'>Height</label>
+									</div>
+								</li>
+								<li>
+									<div class='cpac-option-label'>Excerpt length</div>
+									<div class='cpac-option-inputs'>										
+										
+										<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='15'/>
+										<label for='excerpt_length'>Number of words</label>
+									</div>
+								</li>
+							</ul>						
 						</td>
 					</tr>
+					-->
 				</table>
 			</td>
 		</tr><!-- #cpac-box-plugin_settings -->
@@ -2876,6 +2923,42 @@ class Codepress_Admin_Columns
 			<?php screen_icon($this->slug) ?>
 			<h2><?php _e('Codepress Admin Columns', $this->textdomain); ?></h2>
 			<?php echo $menu ?>
+			
+			<div class="postbox-container cpac-col-right">
+				<div class="metabox-holder">	
+					<div class="meta-box-sortables">						
+						
+						<div id="likethisplugin-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Like this plugin?', $this->textdomain) ?></span>
+							</h3>
+							<div class="inside">
+								<p><?php _e('Why not do any or all of the following', $this->textdomain) ?>:</p>
+								<ul>
+									<li><a href="<?php echo $this->codepress_url ?>/"><?php _e('Link to it so other folks can find out about it.', $this->textdomain) ?></a></li>
+									<li><a href="<?php echo $this->wordpress_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', $this->textdomain) ?></a></li>
+									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', $this->textdomain) ?></a></li>
+								</ul>								
+							</div>
+						</div><!-- likethisplugin-cpac-settings -->
+						
+						<div id="side-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Need support?', $this->textdomain) ?></span>
+							</h3>
+							<div class="inside">								
+								<?php echo $help_text ?>
+								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', $this->textdomain), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
+								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}#feedback");?></p>
+							</div>
+						</div><!-- side-cpac-settings -->
+					
+					</div>
+				</div>
+			</div><!-- .postbox-container -->
+			
 			<div class="postbox-container cpac-col-left">
 				<div class="metabox-holder">	
 					<div class="meta-box-sortables">
@@ -2925,43 +3008,7 @@ class Codepress_Admin_Columns
 					
 					</div>
 				</div>
-			</div><!-- .postbox-container -->
-			
-			<div class="postbox-container cpac-col-right">
-				<div class="metabox-holder">	
-					<div class="meta-box-sortables">						
-						
-						<div id="likethisplugin-cpac-settings" class="postbox">
-							<div title="Click to toggle" class="handlediv"><br></div>
-							<h3 class="hndle">
-								<span><?php _e('Like this plugin?', $this->textdomain) ?></span>
-							</h3>
-							<div class="inside">
-								<p><?php _e('Why not do any or all of the following', $this->textdomain) ?>:</p>
-								<ul>
-									<li><a href="<?php echo $this->codepress_url ?>/"><?php _e('Link to it so other folks can find out about it.', $this->textdomain) ?></a></li>
-									<li><a href="<?php echo $this->wordpress_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', $this->textdomain) ?></a></li>
-									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', $this->textdomain) ?></a></li>
-								</ul>								
-							</div>
-						</div><!-- likethisplugin-cpac-settings -->
-						
-						<div id="side-cpac-settings" class="postbox">
-							<div title="Click to toggle" class="handlediv"><br></div>
-							<h3 class="hndle">
-								<span><?php _e('Need support?', $this->textdomain) ?></span>
-							</h3>
-							<div class="inside">								
-								<?php echo $help_text ?>
-								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', $this->textdomain), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
-								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}#feedback");?></p>
-							</div>
-						</div><!-- side-cpac-settings -->
-					
-					</div>
-				</div>
-			</div><!-- .postbox-container -->
-			
+			</div><!-- .postbox-container -->			
 		</div>
 	<?php
 	}

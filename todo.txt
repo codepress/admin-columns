@@ -8,13 +8,15 @@ done: parse_defaults set sortorder on.
 done: sortable links columns
 done: Textual help
 done: test IE7/IE8 tooltip
+done: test helpscreen/plugin in 3.1
 
-Payment wall
+Payment wall + shopp
 
-test helpscreen/plugin in 3.1
+
 
 Prio #2
 ---------------------------------------------------------
+website how to contrubite, such as translating
 make option to set default ordering
 put column types in its own class
 users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
@@ -30,6 +32,7 @@ filter posts ( example: media by type )
 Prio #3
 ---------------------------------------------------------
 user roles
+taxonmies column ID (see mail bartosz )
 taxonomy columns
 change the default ordering when you open up a overview screen ( example by date / title )
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
