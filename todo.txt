@@ -12,10 +12,35 @@ done: test helpscreen/plugin in 3.1
 
 Payment wall + shopp
 
+bug: quick edit chages column layout.
+solution: wp-posts-list-table.php line 481. Added columns are loaded into $columns. ( dependencies admin-ajax.php, list-table.php, inline-edit-post.dev.js )
+fixed: changed callback_add_posts_column_headings().
 
+track 
+Click AJAX UPDATE: 
+-> action: inline-save								inline-edit-post.dev.js
+-> inline-save 										admin_ajax.php 
+-> _get_list_table('WP_Posts_List_Table')			list-table.php
+-> $wp_list_table->display_rows()					list-table.php
+-> $this->_display_rows( $posts )					class-wp-posts-list-table.php 
+-> $this->single_row( $post )						class-wp-posts-list-table.php
+-> get_column_info() 								class-wp-list-table.php 
+-> get_column_headers() 							screen.php
+
+OVERVIEW SCREEN:
+_get_list_table('WP_Posts_List_Table'); 			edit.php
+$wp_list_table->display()							edit.php
+$this->print_column_headers();						class-wp-list-table.php 725
+$this->get_column_info();							class-wp-list-table.php 725
 
 Prio #2
 ---------------------------------------------------------
+named class for the custom admin columns
+doesn't work with columns from shopp 1.2
+optional field to set the shown value as an edit-link for the entry (so you don't have to tick the checkbox and choose "edit" over the dropdown), because there's no link to click, if you unset the title
+add an role column to the all posts screen
+nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
+specify column width as a percentage. A percentage value or a small, medium or large option would be great.
 website how to contrubite, such as translating
 make option to set default ordering
 put column types in its own class
@@ -26,8 +51,11 @@ nonce
 admin columns in search of wordpress ( payment wall )
 introduction tour
 filter posts ( example: media by type )
-@param
-@return
+media library custom fields
+all in one SEO plugin; Once I active Codepress Admin Columns, the SEO column automatic show in the left side (like below image) and I have no option to adjust the SEO column in the setting page. I would like them to show at the right side.
+post column: private en protected
+add @param
+add @return
 
 Prio #3
 ---------------------------------------------------------
@@ -43,6 +71,14 @@ third party user columns
 Options page; choose hidden custom fields, thumb size, excerpt_size, show_all_posts_results
 test on wp 3.0
 
+Third Party Plugins
+---------------------------------------------------------
+http://wordpress.org/extend/plugins/attachments/
+problem: The only thing not working for me is attachments: the count doesn't show up, and the attachments themselves don't show up.
+solution: images are saved in hidden custom fields. Make an option which let you choose hidden fields.
+
+
+
 Payment wall Ideas
 ---------------------------------------------------------
 import/export settings
@@ -56,6 +92,9 @@ Personalized keys + server
 Unlock button + field
 Webpage with buy form
 
+Unresolved Bugs
+---------------------------------------------------------
+bug: sorry I'm not great with debugging PHP all I did was install a fresh version of wordpress 3.31 and the downloaded your plugin for the 'add plugins menu' it downloads fine but when I go to activate it my wordpress install falls over (white screen nothing loads). The only way I can fix is to remove the plugin from the plugins folder.
 
 Contact Author of
 http://wordpress.org/extend/plugins/custom-taxonomy-columns/

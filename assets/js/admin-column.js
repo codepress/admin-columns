@@ -304,12 +304,12 @@ function cpac_addon_activation()
 			var button 		= jQuery('.activate .button', row);
 			var key 		= input.val();
 			var default_val = jQuery(input)[0].defaultValue;			
-			
-			// make sure the input value has changed
+				
+			// make sure the input value has changed			
 			if ( key == default_val ) {
 				jQuery(msg).text(msg_fillin).hide().fadeIn();
 				return false;
-			}
+			}			
 			
 			// set loading icon			
 			button.addClass('loading');
@@ -328,7 +328,7 @@ function cpac_addon_activation()
 					if ( data != null ) {						
 						jQuery('div.activate', row).hide();
 						jQuery('div.deactivate', row).show();
-						jQuery('div.deactivate span', row).text(data);					
+						jQuery('div.deactivate span.masked_key', row).text(data);					
 					} else {
 						jQuery(msg).text(msg_unrecognised).hide().fadeIn();
 					}
@@ -344,7 +344,7 @@ function cpac_addon_activation()
 		
 		// Deactivate
 		if ( parent_class.hasClass('deactivate') ) {			
-			
+
 			var button = jQuery('.deactivate .button', row);
 			var input  = jQuery('.activate input', row);
 			
@@ -364,7 +364,7 @@ function cpac_addon_activation()
 				success: function(data) {
 					jQuery('div.activate', row).show();
 					jQuery('div.deactivate', row).hide();
-					jQuery('div.deactivate span', row).empty();
+					jQuery('div.deactivate span.masked_key', row).empty();
 					input.val('');
 				},
                 error: function(xhr, ajaxOptions, thrownError) {

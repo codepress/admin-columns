@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.3.3
+Version: 			1.4
 Description: 		This plugin makes it easy to customise the columns on the administration screens for post(types), pages, media library and users.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.3.1' );
+define( 'CPAC_VERSION', '1.4' );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -38,13 +38,6 @@ if ( !is_admin() )
  * @since     1.3
  */
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
-
-/**
- * Init Class
- *
- * @since     1.0
- */
-new Codepress_Admin_Columns();
 
 /**
  * Codepress Admin Columns Class
@@ -62,7 +55,8 @@ class Codepress_Admin_Columns
 			$excerpt_length,
 			$admin_page,
 			$notice_message,
-			$notice_type;
+			$notice_type,
+			$api_url;
 	
 	/**
 	 * Constructor
@@ -70,8 +64,11 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	function __construct()
-	{		
-		add_action( 'wp_loaded', array( &$this, 'init') );
+	{
+		$this->api_url = 'http://codepress.lan/codepress.nl/';
+		
+		// wp is loaded
+		add_action( 'wp_loaded', array( &$this, 'init') );		
 	}
 	
 	/**
@@ -90,7 +87,7 @@ class Codepress_Admin_Columns
 		$this->slug				= 'codepress-admin-columns';
 		$this->textdomain		= 'codepress-admin-columns';
 		$this->codepress_url	= 'http://www.codepress.nl/plugins/codepress-admin-columns';
-		$this->wordpress_url	= 'http://wordpress.org/tags/codepress-admin-columns';
+		$this->wordpress_url	= 'http://wordpress.org/tags/codepress-admin-columns';	
 		
 		// number of words
 		$this->excerpt_length	= 15; 
@@ -98,11 +95,13 @@ class Codepress_Admin_Columns
 		// translations
 		load_plugin_textdomain( $this->textdomain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
-		// actions init
+		// register settings
 		add_action( 'admin_menu', array( &$this, 'settings_menu') );		
-		add_action( 'admin_init', array( &$this, 'register_settings') );
+		add_action( 'admin_init', array( &$this, 'register_settings') );		
+		add_action( 'admin_enqueue_scripts' , array( &$this, 'column_styles') );
+		
+		// register column headers
 		add_action( 'admin_init', array( &$this, 'register_columns' ) );
-		add_action( 'admin_enqueue_scripts' , array( &$this, 'column_styles') );		
 		
 		// actions columns
 		add_action( 'manage_pages_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );	
@@ -114,7 +113,7 @@ class Codepress_Admin_Columns
 		
 		// action ajax
 		add_action( 'wp_ajax_cpac_addon_activation', array( &$this, 'ajax_activation'));
-		
+				
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( &$this, 'handle_requests' ), 1000 );		
 		
@@ -122,8 +121,8 @@ class Codepress_Admin_Columns
 		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 1, 2);
 		
 		// dev
-		//$this->set_license_key('sortable', 'YTU7-5F6I-LKZ2-RE9V');
-		//$this->get_remote_key('sortable');
+		//$this->set_license_key('sortable', '06e50442656977091616881f7538fc066cc05b43');
+		//$this->check_remote_key('sortable');
 	}	
 
 	/**
@@ -174,15 +173,15 @@ class Codepress_Admin_Columns
 	}	
 		
 	/**
-	 *	Register Columns
+	 *	Register Columns	
 	 *
-	 *	WP apply_filters can be found in the contructor of class-wp-list-table.
+	 *	apply_filters location in includes/screen.php
 	 *
 	 * 	@since     1.0
 	 */
 	public function register_columns()
 	{	
-		/** Posts */
+		/** Posts */		
 	 	foreach ( $this->post_types as $post_type ) {
 
 			// register column per post type
@@ -209,9 +208,9 @@ class Codepress_Admin_Columns
 	 */
 	public function callback_add_posts_column_headings($columns) 
 	{
-		global $post_type;
+		global $post;
 
-		return $this->add_columns_headings($post_type, $columns);		
+		return $this->add_columns_headings($post->post_type, $columns);		
 	}
 	
 	/**
@@ -259,7 +258,7 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.1
 	 */
-	private function add_columns_headings( $type = 'post', $columns ) 
+	private function add_columns_headings( $type, $columns ) 
 	{
 		// only get stored columns.. the rest we don't need
 		$db_columns	= $this->get_stored_columns($type);
@@ -288,7 +287,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	private function filter_preset_columns( $type = 'post', $columns ) 
+	private function filter_preset_columns( $type, $columns ) 
 	{
 		$options 	= get_option('cpac_options_default');
 		
@@ -317,7 +316,7 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.1
 	 */
-	private function add_managed_sortable_columns( $type = 'post', $columns ) 
+	private function add_managed_sortable_columns( $type, $columns ) 
 	{
 		$display_columns	= $this->get_merged_columns($type);
 			
@@ -524,8 +523,8 @@ class Codepress_Admin_Columns
 					<span>{$type_label}</span>
 				</div>
 				<div class='cpac-type-inside'>				
-					<label for='cpac_options[columns][{$type}][{$id}][label]'>Label: </label>
-					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' value='{$label}' class='text'/>
+					<label for='cpac_options-{$type}-{$id}-label'>Label: </label>
+					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'/>
 					<br/>
 					{$more_options}
 				</div>
@@ -623,17 +622,17 @@ class Codepress_Admin_Columns
 		}
 		
 		$inside = "
-			<label for='cpac_options[columns][{$type}][{$id}][field]'>Custom Field: </label>
-			<select name='cpac_options[columns][{$type}][{$id}][field]'>{$field_options}</select>
+			<label for='cpac-{$type}-{$id}-field'>Custom Field: </label>
+			<select name='cpac_options[columns][{$type}][{$id}][field]' id='cpac-{$type}-{$id}-field'>{$field_options}</select>
 			<br/>
-			<label for='cpac_options[columns][{$type}][{$id}][field_type]'>Field Type: </label>
-			<select name='cpac_options[columns][{$type}][{$id}][field_type]'>{$fieldtype_options}</select>
+			<label for='cpac-{$type}-{$id}-field_type'>Field Type: </label>
+			<select name='cpac_options[columns][{$type}][{$id}][field_type]' id='cpac-{$type}-{$id}-field_type'>{$fieldtype_options}</select>
 			<br/>
-			<label for='cpac_options[columns][{$type}][{$id}][before]'>Before: </label>
-			<input type='text' class='cpac-before' name='cpac_options[columns][{$type}][{$id}][before]' value='{$before}'/>				
+			<label for='cpac-{$type}-{$id}-before'>Before: </label>
+			<input type='text' class='cpac-before' name='cpac_options[columns][{$type}][{$id}][before]' id='cpac-{$type}-{$id}-before' value='{$before}'/>				
 			<br/>	
-			<label for='cpac_options[columns][{$type}][{$id}][before]'>After: </label>
-			<input type='text' class='cpac-after' name='cpac_options[columns][{$type}][{$id}][after]' value='{$after}'/>				
+			<label for='cpac-{$type}-{$id}-after'>After: </label>
+			<input type='text' class='cpac-after' name='cpac_options[columns][{$type}][{$id}][after]' id='cpac-{$type}-{$id}-after' value='{$after}'/>				
 			<br/>		
 			{$remove}
 		";
@@ -2477,11 +2476,8 @@ class Codepress_Admin_Columns
 	 * @since     1.3
 	 */
 	protected function is_unlocked($type)
-	{
-		$remote_key = $this->get_remote_key($type);
-		$key  		= $this->get_license_key($type);
-		
-		if ( $remote_key  && $key && $remote_key == $key )
+	{		
+		if ( $this->check_remote_key($type) )
 			return true;
 		
 		return false;
@@ -2504,7 +2500,7 @@ class Codepress_Admin_Columns
 	 */
 	private function set_license_key($type, $key)
 	{			
-		update_option( "cpac_{$type}_ac", md5($key));
+		update_option( "cpac_{$type}_ac", $key);
 	}
 	
 	/**
@@ -2519,17 +2515,18 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Get remote license key ( DEV )
+	 * Check license key with API ( DEV )
 	 *
 	 * @since     1.3.3
 	 */
-	private function get_remote_key($type)
+	private function check_remote_key($type)
 	{	
 		$result = false;
 		
 		// set
-		$key = $this->get_license_key($type);
-		$url = get_bloginfo('url') . '/api';
+		$key = $this->get_license_key($type);		
+		$url = $this->api_url;	
+		$url = 'http://codepress.lan/codepress.nl/';	
 		
 		// get transient
  		$transient  = get_transient("cpac_{$type}_trnsnt");
@@ -2538,8 +2535,9 @@ class Codepress_Admin_Columns
 			return true;
 		
 		// check key with remote API		
-		$response = wp_remote_post( $url, array(
+ 		$response = wp_remote_post( $url, array(			
 			'body'	=> array(
+				'api'	=> 'addon',
 				'key'	=> $key,
 				'type'	=> $type,
 				'url'	=> get_bloginfo('url')
@@ -2547,7 +2545,7 @@ class Codepress_Admin_Columns
 		));
 		
 		// license will be valid in case of WP error or succes
-		if ( is_wp_error($response) || json_decode($response['body']) == 'valid' )
+		if ( is_wp_error($response) || ( isset($response['body']) && json_decode($response['body']) == 'valid' ) )
 			$result = true;
 		
 		// set transient
@@ -2563,7 +2561,7 @@ class Codepress_Admin_Columns
 	 */
 	private function get_masked_license_key($type) 
 	{
-		return '';
+		return '**************************'.substr( $this->get_license_key($type), -4 );		
 	}
 	
 	/**
@@ -2572,12 +2570,10 @@ class Codepress_Admin_Columns
 	 * @since     1.3.1
 	 */
 	public function ajax_activation()
-	{	
+	{		
 		// keys
 		$key 	= $_POST['key'];
-		$type 	= $_POST['type'];
-		
-		//print_r(); echo "($key & $type)";
+		$type 	= $_POST['type'];	
 		
 		// update key
 		if ( $key == 'remove' )
@@ -3013,4 +3009,12 @@ class Codepress_Admin_Columns
 	<?php
 	}
 }
+
+/**
+ * Init Class Codepress_Admin_Columns
+ *
+ * @since     1.0
+ */
+new Codepress_Admin_Columns();
+
 ?>

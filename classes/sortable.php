@@ -1,10 +1,4 @@
 <?php
-/**
- * Init Class
- *
- * @since     1.3
- */
-new Codepress_Sortable_Columns();
 
 /**
  * Coderess Sortable Columns Class
@@ -829,3 +823,12 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		return $userdatas;
 	}
 }
+
+/**
+ * Init Class Codepress_Sortable_Columns
+ *
+ * @since     1.3
+ */
+new Codepress_Sortable_Columns();
+
+?>
