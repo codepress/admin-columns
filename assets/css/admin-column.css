@@ -216,6 +216,14 @@
 #general-cpac-settings .cpac-option-list li .cpac-type-inside select {
 	min-width: 184px;
 }
+#general-cpac-settings .cpac-option-list li .cpac-type-inside input.input-width {
+	min-width: 40px;
+	width: 40px;
+}
+#general-cpac-settings .cpac-option-list li .cpac-type-inside span.description {
+	font-size: 11px;
+	padding-left: 5px;
+}
 #general-cpac-settings .cpac-add-column a {
 	display: block;
 }

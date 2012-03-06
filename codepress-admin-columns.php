@@ -97,8 +97,12 @@ class Codepress_Admin_Columns
 		
 		// register settings
 		add_action( 'admin_menu', array( &$this, 'settings_menu') );		
-		add_action( 'admin_init', array( &$this, 'register_settings') );		
+		add_action( 'admin_init', array( &$this, 'register_settings') );
+
+		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( &$this, 'column_styles') );
+		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
+		add_action( 'admin_head', array( &$this, 'admin_css') );
 		
 		// register column headers
 		add_action( 'admin_init', array( &$this, 'register_columns' ) );
@@ -359,7 +363,7 @@ class Codepress_Admin_Columns
 		// custom field button
 		$button_add_column = '';
 		if ( $this->get_meta_by_type($type) )
-			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ " . __('Add Custom Field Column') . "</a>";
+			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ " . __('Add Custom Field Column', $this->textdomain) . "</a>";
 		
 		return "
 			<div class='cpac-box'>
@@ -505,6 +509,9 @@ class Codepress_Admin_Columns
 		// label
 		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
 		
+		// width
+		$width 	= isset($values['width']) ? $values['width'] : '';
+		
 		// hide box options
 		if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
 			$action = $more_options = '';
@@ -525,6 +532,8 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-inside'>				
 					<label for='cpac_options-{$type}-{$id}-label'>Label: </label>
 					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'/>
+					<label for='cpac_options-{$type}-{$id}-width'>Column width: </label>
+					<input type='text' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' class='text'/><span class='description'>" . __('number between 1 and 9999', $this->textdomain) . "</span>
 					<br/>
 					{$more_options}
 				</div>
@@ -780,6 +789,8 @@ class Codepress_Admin_Columns
 	 */
 	public function options_callback($options)
 	{	
+		//$this->validate_column_width($options);
+		
 		return $options;
 	}
 
@@ -1799,7 +1810,7 @@ class Codepress_Admin_Columns
 			
 			$uniform_colums[$id] = array(
 				'label'			=> $label,
-				'state'			=> 'on',		
+				'state'			=> 'on',
 				'options'		=> array(
 					'type_label' 	=> $type_label,
 					'hide_options'	=> $hide_options,
@@ -2154,6 +2165,7 @@ class Codepress_Admin_Columns
 			// stored values
 			'label'			=> '',
 			'state' 		=> '',
+			'width' 		=> '',
 			
 			// static values
 			'options'		=> array(				
@@ -2168,7 +2180,7 @@ class Codepress_Admin_Columns
 		foreach ( $columns as $k => $column ) {
 			$c[$k] = wp_parse_args( $column, $defaults);
 			
-			// pasrse options args
+			// parse options args
 			if ( isset($column['options']) )
 				$c[$k]['options'] = wp_parse_args( $column['options'], $defaults['options']);
 				
@@ -2468,7 +2480,58 @@ class Codepress_Admin_Columns
 		$ext    	= strrchr($url, '.');
 		
 		return in_array($ext, $validExt);
+	}	
+	
+	/**
+	 * Admin body class
+	 *
+	 * @since     1.4
+	 */
+	function admin_class() 
+	{		
+		global $current_screen;
+		
+		// we dont need the 'edit-' part
+		$screen = str_replace('edit-', '', $current_screen->id);
+		
+		// loop the available types
+		foreach ( $this->get_types() as $type => $label ) {
+		
+			// match against screen or wp-screen
+			if ( $type == $screen || $type == "wp-{$screen}" )
+				return "cp-{$type}";
+		}
+		return false;
 	}
+	
+	/**
+	 * Admin CSS for Column width
+	 *
+	 * @since     1.4
+	 */
+	function admin_css() 
+	{	
+		$css = '';
+		
+		// loop throug the available types...
+		foreach ( $this->get_types() as $type ) {
+			$cols = $this->get_stored_columns($type);			
+			if ( $cols ) {
+			
+				// loop through each available column...
+				foreach ( $cols as $col_name => $col ) {
+				
+					// and check for stored width and add it to the css
+					if (!empty($col['width']) && is_numeric($col['width']) ) {
+						$css .= ".cp-{$type} .wp-list-table th.column-{$col_name} { width: {$col['width']}px; }";
+					}
+				}
+			}
+		}
+		
+		echo "<style type='text/css'>{$css}</style>";
+	}
+
 
 	/**
 	 * Unlocks
