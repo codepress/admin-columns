@@ -15,6 +15,7 @@ jQuery(document).ready(function()
 	cpac_clear_input_defaults();
 	cpac_tooltips();
 	cpac_addon_activation();
+	cpac_width_range();
 });
 
 /**
@@ -271,6 +272,37 @@ function cpac_tooltips()
 			}
 	   });
 	});
+}
+
+/**
+ *	Width range
+ *
+ */
+function cpac_width_range() 
+{
+	if ( jQuery('.input-width-range').length == false )
+		return;
+		
+	jQuery( '.input-width-range' ).each( function(){
+		
+		var input = jQuery(this).next('.input-width');
+		
+		jQuery(this).slider({
+			range: 	'min',
+			value: 	1,
+			min: 	0,
+			max: 	100,
+			slide: function( event, ui ) {				
+				
+				// set default
+				var value = ui.value > 0 ? ui.value : 'default';
+				
+				jQuery(input).val( value );
+			}
+		});
+		
+	});
+
 }
 
 /**

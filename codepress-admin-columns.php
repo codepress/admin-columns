@@ -533,7 +533,8 @@ class Codepress_Admin_Columns
 					<label for='cpac_options-{$type}-{$id}-label'>Label: </label>
 					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'/>
 					<label for='cpac_options-{$type}-{$id}-width'>Column width: </label>
-					<input type='text' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' class='text'/><span class='description'>" . __('number between 1 and 9999', $this->textdomain) . "</span>
+					<!--<div class='input-width-range'></div>-->
+					<input type='text' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' class='text'/><span class='description'>" . __('in percentages (1-100)', $this->textdomain) . "</span>
 					<br/>
 					{$more_options}
 				</div>
@@ -698,6 +699,7 @@ class Codepress_Admin_Columns
 	 */
 	public function admin_scripts() 
 	{
+		wp_enqueue_script( 'jquery-ui-slider' );		
 		wp_enqueue_script( 'cpac-qtip2', $this->plugin_url('/assets/js/jquery.qtip.js'), array('jquery'), CPAC_VERSION );
 		wp_enqueue_script( 'cpac-admin', $this->plugin_url('/assets/js/admin-column.js'), array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
 	}	
@@ -741,6 +743,7 @@ class Codepress_Admin_Columns
 	 */
 	public function admin_styles()
 	{
+		wp_enqueue_style( 'jquery-ui-lightness', $this->plugin_url('/assets/ui-theme/jquery-ui-1.8.18.custom.css'), array(), CPAC_VERSION, 'all' );	
 		wp_enqueue_style( 'cpac-admin', $this->plugin_url('/assets/css/admin-column.css'), array(), CPAC_VERSION, 'all' );	
 	}
 	
@@ -788,9 +791,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	public function options_callback($options)
-	{	
-		//$this->validate_column_width($options);
-		
+	{			
 		return $options;
 	}
 
@@ -2523,7 +2524,7 @@ class Codepress_Admin_Columns
 				
 					// and check for stored width and add it to the css
 					if (!empty($col['width']) && is_numeric($col['width']) ) {
-						$css .= ".cp-{$type} .wp-list-table th.column-{$col_name} { width: {$col['width']}px; }";
+						$css .= ".cp-{$type} .wp-list-table th.column-{$col_name} { width: {$col['width']}%; }";
 					}
 				}
 			}

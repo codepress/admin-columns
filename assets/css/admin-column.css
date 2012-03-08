@@ -220,6 +220,12 @@
 	min-width: 40px;
 	width: 40px;
 }
+#general-cpac-settings .cpac-option-list li .cpac-type-inside div.input-width-range {
+	display: inline-block;
+	min-width: 186px;
+	width: 186px;
+}
+
 #general-cpac-settings .cpac-option-list li .cpac-type-inside span.description {
 	font-size: 11px;
 	padding-left: 5px;
@@ -412,7 +418,6 @@
 	line-height: 20px;
 	padding: 0 6px;
 }
-
 
 /* =Tooltip
 -------------------------------------------------------------- */
