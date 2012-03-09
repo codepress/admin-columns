@@ -217,18 +217,26 @@
 	min-width: 184px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-inside input.input-width {
-	min-width: 40px;
-	width: 40px;
+	min-width: 25px;
+	width: 25px;
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin-left: 0px;
+	text-align: right;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-inside div.input-width-range {
 	display: inline-block;
-	min-width: 186px;
-	width: 186px;
+	min-width: 136px;
+	width: 136px;
+	margin: 8px 0 0;
+	position: relative;	
 }
-
-#general-cpac-settings .cpac-option-list li .cpac-type-inside span.description {
+#general-cpac-settings .cpac-option-list li .cpac-type-inside div.description {
+	display: inline-block;
 	font-size: 11px;
-	padding-left: 5px;
+	padding: 0 4px 0 0;
+	width: 36px;
 }
 #general-cpac-settings .cpac-add-column a {
 	display: block;

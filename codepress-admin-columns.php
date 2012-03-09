@@ -68,7 +68,7 @@ class Codepress_Admin_Columns
 		$this->api_url = 'http://codepress.lan/codepress.nl/';
 		
 		// wp is loaded
-		add_action( 'wp_loaded', array( &$this, 'init') );		
+		add_action( 'wp_loaded', array( &$this, 'init') );
 	}
 	
 	/**
@@ -510,7 +510,7 @@ class Codepress_Admin_Columns
 		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
 		
 		// width
-		$width 	= isset($values['width']) ? $values['width'] : '';
+		$width 	= isset($values['width']) ? $values['width'] : 0;
 		
 		// hide box options
 		if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
@@ -532,9 +532,10 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-inside'>				
 					<label for='cpac_options-{$type}-{$id}-label'>Label: </label>
 					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'/>
-					<label for='cpac_options-{$type}-{$id}-width'>Column width: </label>
-					<!--<div class='input-width-range'></div>-->
-					<input type='text' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' class='text'/><span class='description'>" . __('in percentages (1-100)', $this->textdomain) . "</span>
+					<label for='cpac_options-{$type}-{$id}-width'>Column width:</label>			
+					<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
+					<div class='description'>{$width}%</div>
+					<div class='input-width-range'></div>
 					<br/>
 					{$more_options}
 				</div>
@@ -791,7 +792,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	public function options_callback($options)
-	{			
+	{	
 		return $options;
 	}
 
@@ -2523,7 +2524,7 @@ class Codepress_Admin_Columns
 				foreach ( $cols as $col_name => $col ) {
 				
 					// and check for stored width and add it to the css
-					if (!empty($col['width']) && is_numeric($col['width']) ) {
+					if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
 						$css .= ".cp-{$type} .wp-list-table th.column-{$col_name} { width: {$col['width']}%; }";
 					}
 				}

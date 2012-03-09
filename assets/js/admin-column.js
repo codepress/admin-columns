@@ -283,26 +283,28 @@ function cpac_width_range()
 	if ( jQuery('.input-width-range').length == false )
 		return;
 		
-	jQuery( '.input-width-range' ).each( function(){
+	jQuery('.input-width-range').each( function(){
 		
-		var input = jQuery(this).next('.input-width');
+		var input 			= jQuery(this).closest('.cpac-type-inside').find('.input-width');
+		var descr 			= jQuery(this).closest('.cpac-type-inside').find('.description');
+		var input_default 	= jQuery(input)[0].defaultValue;
 		
 		jQuery(this).slider({
 			range: 	'min',
 			value: 	1,
 			min: 	0,
 			max: 	100,
-			slide: function( event, ui ) {				
+			value:  input_default,
+			slide: function( event, ui ) {	
 				
 				// set default
-				var value = ui.value > 0 ? ui.value : 'default';
-				
-				jQuery(input).val( value );
+				var descr_value = ui.value > 0 ? ui.value + '%' : 'default';
+	
+				jQuery(input).val( ui.value );
+				jQuery(descr).text( descr_value );
 			}
-		});
-		
+		});		
 	});
-
 }
 
 /**
