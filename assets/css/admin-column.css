@@ -232,6 +232,9 @@
 	margin: 8px 0 0;
 	position: relative;	
 }
+#general-cpac-settings .cpac-option-list li .cpac-type-inside div.input-width-range .ui-slider-handle {
+	cursor:e-resize;
+}
 #general-cpac-settings .cpac-option-list li .cpac-type-inside div.description {
 	display: inline-block;
 	font-size: 11px;
@@ -299,7 +302,7 @@
 	border-top: none;
 }
 #cpac-box-plugin_settings table.addons {
-	max-width: 620px;
+	/* max-width: 620px; */	
 }
 #cpac-box-plugin_settings table.addons th.activation_type {
 	width: 110px;
@@ -308,11 +311,13 @@
 	width: 90px;
 }
 #cpac-box-plugin_settings table.addons th.activation_code {
-	width: auto;
-	min-width: 270px;
+	/* width: auto; */
+	min-width: 260px;
 }
 #cpac-box-plugin_settings table.addons th.activation_more {
-	width: 120px;
+	/* min-width: 120px; */
+	text-align: left;
+	width: auto;
 }
 #cpac-box-plugin_settings table.addons td.activation_type span {
 	font-size: 14px;
@@ -322,12 +327,22 @@
 }
 #cpac-box-plugin_settings table.addons td {
 	background: #ffffff;
+	/* vertical-align: middle; */
+	padding: 18px 10px;
 }
 #cpac-box-plugin_settings table.addons td.activation_code input {
 	width: 176px;
 	color: #555555;
 	font-family: Arial;
 	font-size: 12px;
+}
+#cpac-box-plugin_settings table.addons td.activation_more {
+	text-align: left;	
+}
+#cpac-box-plugin_settings table.addons td.activation_more  a{
+	float: none;
+	display: inline-block;
+	margin-top: 1px;
 }
 #cpac-box-plugin_settings table.addons tr.last td {
 	border-bottom: none;
@@ -384,6 +399,22 @@
 }
 #restore-cpac-settings .inside .description {
     color: #832525;
+}
+
+/* =Addons settings
+-------------------------------------------------------------- */
+#addons-cpac-settings {
+	overflow: hidden;
+}
+#addons-cpac-settings h2 {
+	font-size: 14px;
+	line-height: 14px;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+#addons-cpac-settings a {
+	padding: 0 10px 10px;
+	text-decoration: none;
 }
 
 /* =Like this plugin settings
@@ -474,4 +505,13 @@
 }
 .qtip .qtip-wrapper .qtip_content .button-primary {
 	margin: 6px 0 0;
+}
+
+/* =Responsive Design
+-------------------------------------------------------------- */
+body.folded #cpac .cpac-col-left .metabox-holder {
+	margin-right: 0;
+}
+body.folded #cpac .cpac-col-right {
+	display: none;
 }

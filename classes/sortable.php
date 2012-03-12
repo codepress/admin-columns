@@ -9,7 +9,7 @@
 class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 {	
 	private $post_types, 
-			$is_unlocked, 
+			$unlocked, 
 			$show_all_results;
 	
 	/**
@@ -19,7 +19,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	function __construct()
 	{
-		add_action( 'wp_loaded', array( &$this, 'init') );
+		add_action( 'wp_loaded', array( $this, 'init') );
 	}
 	
 	/**
@@ -30,17 +30,17 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	public function init()
 	{
 		// vars
-		$this->is_unlocked 		= $this->is_unlocked('sortable');
+		$this->unlocked 		= $this->is_unlocked('sortable');
 		$this->post_types 		= $this->get_post_types();
 		$this->show_all_results = false;
 
-		add_action( 'admin_init', array( &$this, 'register_sortable_columns' ) );
+		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
 		
 		// handle requests for sorting columns
-		add_filter( 'request', array( &$this, 'handle_requests_orderby_column'), 1 );
-		add_action( 'pre_user_query', array( &$this, 'handle_requests_orderby_users_column'), 1 );
-		add_action( 'admin_init', array( &$this, 'handle_requests_orderby_links_column'), 1 );
-		add_action( 'admin_init', array( &$this, 'handle_requests_orderby_comments_column'), 1 );
+		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
+		add_action( 'pre_user_query', array( $this, 'handle_requests_orderby_users_column'), 1 );
+		add_action( 'admin_init', array( $this, 'handle_requests_orderby_links_column'), 1 );
+		add_action( 'admin_init', array( $this, 'handle_requests_orderby_comments_column'), 1 );
 	}
 	
 	/**
@@ -52,24 +52,24 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	function register_sortable_columns()
 	{
+		if ( ! $this->unlocked )
+			return false;
+	
 		/** Posts */
 	 	foreach ( $this->post_types as $post_type )
-			add_filter( "manage_edit-{$post_type}_sortable_columns", array(&$this, 'callback_add_sortable_posts_column'));
-		
-		if ( ! $this->is_unlocked )
-			return false;		
+			add_filter( "manage_edit-{$post_type}_sortable_columns", array($this, 'callback_add_sortable_posts_column'));				
 		
 		/** Users */
-		add_filter( "manage_users_sortable_columns", array(&$this, 'callback_add_sortable_users_column'));
+		add_filter( "manage_users_sortable_columns", array($this, 'callback_add_sortable_users_column'));
 		
 		/** Media */
-		add_filter( "manage_upload_sortable_columns", array(&$this, 'callback_add_sortable_media_column'));
+		add_filter( "manage_upload_sortable_columns", array($this, 'callback_add_sortable_media_column'));
 		
 		/** Links */
-		add_filter( "manage_link-manager_sortable_columns", array(&$this, 'callback_add_sortable_links_column'));
+		add_filter( "manage_link-manager_sortable_columns", array($this, 'callback_add_sortable_links_column'));
 		
 		/** Comments */
-		add_filter( "manage_edit-comments_sortable_columns", array(&$this, 'callback_add_sortable_comments_column'));
+		add_filter( "manage_edit-comments_sortable_columns", array($this, 'callback_add_sortable_comments_column'));
 	}
 	
 	/**
@@ -143,6 +143,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$columns[$id] = $this->sanitize_string($vars['label']);			
 			}
 		}	
+
 		return $columns;
 	}
 	
@@ -293,7 +294,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	{
 		// fire only when we are in the admins link-manager
 		if ( $this->request_uri_is('link-manager') )
-			add_filter( 'get_bookmarks', array( &$this, 'callback_requests_orderby_links_column'), 10, 2);
+			add_filter( 'get_bookmarks', array( $this, 'callback_requests_orderby_links_column'), 10, 2);
 	}	
 	
 	/**
@@ -312,11 +313,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			return $results;		
 		
 		// id
-		$id = key($column);
-		
-		// type
-		$type = $id;
-		
+		$type = $id = key($column);
+
 		// var
 		$length = '';		
 		switch( $type ) :
@@ -351,6 +349,13 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			
 			case 'column-rss':
 				$vars['orderby'] = 'link_rss';
+				break;
+			
+			/** native WP columns */
+			
+			// Relationship
+			case 'rel':				
+				$vars['orderby'] = 'link_rel';
 				break;
 			
 			default:
@@ -389,11 +394,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			return $pieces;		
 		
 		// id
-		$id = key($column);
-		
-		// type
-		$type = $id;
-		
+		$type = $id = key($column);
+
 		// var	
 		switch( $type ) :
 			
@@ -401,7 +403,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$pieces['orderby'] = 'comment_ID';
 				break;
 			
-			case 'column-author':
+			case 'column-author_author':
 				$pieces['orderby'] = 'comment_author';
 				break;
 			
@@ -432,8 +434,19 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$pieces['orderby'] = 'comment_agent';
 				break;
 			
+			case 'column-excerpt':
+				$pieces['orderby'] = 'comment_content';
+				break;
+			
 			case 'column-date_gmt':
 				// is default
+				break;
+			
+			/** native WP columns */
+			
+			// Relationship
+			case 'comment':				
+				$pieces['orderby'] = 'comment_content';
 				break;
 			
 			default:
@@ -453,7 +466,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	{		
 		// fire only when we are in the admins edit-comments
 		if ( $this->request_uri_is('edit-comments') )
-			add_filter('comments_clauses', array( &$this, 'callback_requests_orderby_comments_column'), 10, 2);
+			add_filter('comments_clauses', array( $this, 'callback_requests_orderby_comments_column'), 10, 2);
 	}
 	
 	/**
@@ -686,7 +699,29 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p )				
 					$cposts[$p->ID] = $p->post_name;
 				$this->set_vars_post__in( &$vars, $cposts );
-				break;	
+				break;
+			
+			case 'column-sticky' : 
+				$stickies = get_option('sticky_posts');
+				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+					$cposts[$p->ID] = $p->ID;
+					if ( !empty($stickies) && in_array($p->ID, $stickies ) ) {
+						$cposts[$p->ID] = 0;
+					}
+				}
+				$this->set_vars_post__in( &$vars, $cposts );
+				break;
+			
+			case 'column-featured_image' : 
+				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+					$cposts[$p->ID] = $p->ID;
+					$thumb = get_the_post_thumbnail($p->ID);
+					if ( !empty($thumb) ) {
+						$cposts[$p->ID] = 0;
+					}
+				}
+				$this->set_vars_post__in( &$vars, $cposts );
+				break;
 		
 		endswitch;
 		
@@ -709,7 +744,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			arsort($sortposts, $sort_flags);
 		
 		// this will make sure WP_Query will use the order of the ids that we have just set in 'post__in'
-		add_filter('posts_orderby', array( &$this, 'filter_orderby_post__in'), 10, 2 );
+		add_filter('posts_orderby', array( $this, 'filter_orderby_post__in'), 10, 2 );
 
 		// cleanup the vars we dont need
 		$vars['order']		= '';
@@ -823,12 +858,5 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		return $userdatas;
 	}
 }
-
-/**
- * Init Class Codepress_Sortable_Columns
- *
- * @since     1.3
- */
-new Codepress_Sortable_Columns();
 
 ?>

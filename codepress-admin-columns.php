@@ -68,7 +68,7 @@ class Codepress_Admin_Columns
 		$this->api_url = 'http://codepress.lan/codepress.nl/';
 		
 		// wp is loaded
-		add_action( 'wp_loaded', array( &$this, 'init') );
+		add_action( 'wp_loaded', array( $this, 'init') );
 	}
 	
 	/**
@@ -90,39 +90,39 @@ class Codepress_Admin_Columns
 		$this->wordpress_url	= 'http://wordpress.org/tags/codepress-admin-columns';	
 		
 		// number of words
-		$this->excerpt_length	= 15; 
+		$this->excerpt_length	= 20; 
 		
 		// translations
 		load_plugin_textdomain( $this->textdomain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
 		// register settings
-		add_action( 'admin_menu', array( &$this, 'settings_menu') );		
-		add_action( 'admin_init', array( &$this, 'register_settings') );
+		add_action( 'admin_menu', array( $this, 'settings_menu') );		
+		add_action( 'admin_init', array( $this, 'register_settings') );
 
 		// styling & scripts
-		add_action( 'admin_enqueue_scripts' , array( &$this, 'column_styles') );
+		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
-		add_action( 'admin_head', array( &$this, 'admin_css') );
+		add_action( 'admin_head', array( $this, 'admin_css') );
 		
 		// register column headers
-		add_action( 'admin_init', array( &$this, 'register_columns' ) );
+		add_action( 'admin_init', array( $this, 'register_columns' ) );
 		
 		// actions columns
-		add_action( 'manage_pages_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );	
-		add_action( 'manage_posts_custom_column', array( &$this, 'manage_posts_column_value'), 10, 2 );
-		add_filter( 'manage_users_custom_column', array( &$this, 'manage_users_column_value'), 10, 3 );
-		add_action( 'manage_media_custom_column', array( &$this, 'manage_media_column_value'), 10, 2 );		
-		add_action( 'manage_link_custom_column', array( &$this, 'manage_link_column_value'), 10, 2 );		
-		add_action( 'manage_comments_custom_column', array( &$this, 'manage_comments_column_value'), 10, 2 );		
+		add_action( 'manage_pages_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );	
+		add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
+		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value'), 10, 3 );
+		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value'), 10, 2 );		
+		add_action( 'manage_link_custom_column', array( $this, 'manage_link_column_value'), 10, 2 );		
+		add_action( 'manage_comments_custom_column', array( $this, 'manage_comments_column_value'), 10, 2 );		
 		
 		// action ajax
-		add_action( 'wp_ajax_cpac_addon_activation', array( &$this, 'ajax_activation'));
+		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation'));
 				
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
-		add_action( 'admin_init', array( &$this, 'handle_requests' ), 1000 );		
+		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );		
 		
 		// filters
-		add_filter( 'plugin_action_links',  array( &$this, 'add_settings_link'), 1, 2);
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 		
 		// dev
 		//$this->set_license_key('sortable', '06e50442656977091616881f7538fc066cc05b43');
@@ -148,18 +148,18 @@ class Codepress_Admin_Columns
 			// Menu slug
 			$this->slug,
 			// Callback
-			array( &$this, 'plugin_settings_page')
+			array( $this, 'plugin_settings_page')
 		);		
 
 		// set admin page
 		$this->admin_page = $page;
 		
 		// settings page specific styles and scripts
-		add_action( "admin_print_styles-$page", array( &$this, 'admin_styles') );
-		add_action( "admin_print_scripts-$page", array( &$this, 'admin_scripts') );
+		add_action( "admin_print_styles-$page", array( $this, 'admin_styles') );
+		add_action( "admin_print_scripts-$page", array( $this, 'admin_scripts') );
 		
 		// add help tabs
-		add_action("load-$page", array( &$this, 'help_tabs'));
+		add_action("load-$page", array( $this, 'help_tabs'));
 	}
 	
 	/**
@@ -189,20 +189,20 @@ class Codepress_Admin_Columns
 	 	foreach ( $this->post_types as $post_type ) {
 
 			// register column per post type
-			add_filter("manage_edit-{$post_type}_columns", array(&$this, 'callback_add_posts_column_headings'));
+			add_filter("manage_edit-{$post_type}_columns", array($this, 'callback_add_posts_column_headings'));
 		} 
 		
 		/** Users */
-		add_filter( "manage_users_columns", array(&$this, 'callback_add_users_column_headings'));
+		add_filter( "manage_users_columns", array($this, 'callback_add_users_column_headings'));
 		
 		/** Media */
-		add_filter( "manage_upload_columns", array(&$this, 'callback_add_media_column_headings'));
+		add_filter( "manage_upload_columns", array($this, 'callback_add_media_column_headings'));
 		
 		/** Links */
-		add_filter( "manage_link-manager_columns", array(&$this, 'callback_add_links_column_headings'));
+		add_filter( "manage_link-manager_columns", array($this, 'callback_add_links_column_headings'));
 		
 		/** Comments */
-		add_filter( "manage_edit-comments_columns", array(&$this, 'callback_add_comments_column_headings'));
+		add_filter( "manage_edit-comments_columns", array($this, 'callback_add_comments_column_headings'));
 	}
 	
 	/**
@@ -510,11 +510,13 @@ class Codepress_Admin_Columns
 		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
 		
 		// width
-		$width 	= isset($values['width']) ? $values['width'] : 0;
+		$width			= isset($values['width']) ? $values['width'] : 0;
+		$width_descr	= isset($values['width']) && $values['width'] > 0 ? $values['width'] . '%' : __('default', $this->textdomain);
 		
 		// hide box options
+		$label_hidden = '';
 		if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
-			$action = $more_options = '';
+			$label_hidden = ' style="display:none"';
 		}
 		
 		$list = "
@@ -530,11 +532,11 @@ class Codepress_Admin_Columns
 					<span>{$type_label}</span>
 				</div>
 				<div class='cpac-type-inside'>				
-					<label for='cpac_options-{$type}-{$id}-label'>Label: </label>
-					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'/>
-					<label for='cpac_options-{$type}-{$id}-width'>Column width:</label>			
+					<label for='cpac_options-{$type}-{$id}-label'{$label_hidden}>Label: </label>
+					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'{$label_hidden}/>
+					<label for='cpac_options-{$type}-{$id}-width'>".__('Width', $this->textdomain).":</label>			
 					<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
-					<div class='description'>{$width}%</div>
+					<div class='description' title='".__('default', $this->textdomain)."'>{$width_descr}</div>
 					<div class='input-width-range'></div>
 					<br/>
 					{$more_options}
@@ -767,9 +769,9 @@ class Codepress_Admin_Columns
 	{
 		// If we have no options in the database, let's add them now.
 		if ( false === get_option('cpac_options') )
-			add_option( 'cpac_options', array(&$this, 'get_default_plugin_options') );
+			add_option( 'cpac_options', array($this, 'get_default_plugin_options') );
 		
-		register_setting( 'cpac-settings-group', 'cpac_options', array(&$this, 'options_callback') );
+		register_setting( 'cpac-settings-group', 'cpac_options', array($this, 'options_callback') );
 	}	
 
 	/**
@@ -1284,7 +1286,7 @@ class Codepress_Admin_Columns
 				break;
 			
 			// author
-			case "column-author" :
+			case "column-author_author" :
 				$result = $comment->comment_author;
 				break;
 				
@@ -1355,6 +1357,12 @@ class Codepress_Admin_Columns
 			// agent
 			case "column-agent" :
 				$result = $comment->comment_agent;		
+				break;	
+				
+			// excerpt
+			case "column-excerpt" :
+				$comment 	= get_comment($comment_id);
+				$result 	= $this->get_shortened_string($comment->comment_content, $this->excerpt_length);
 				break;	
 			
 			default:
@@ -1747,7 +1755,26 @@ class Codepress_Admin_Columns
 		$columns = WP_Links_List_Table::get_columns();
 
 		// change to uniform format
-		return $this->get_uniform_format($columns);
+		$columns = $this->get_uniform_format($columns);
+		
+		// add sorting to some of the default links columns
+		$columns = $this->set_sorting_to_default_links_columns($columns);
+		
+		return apply_filters('cpac-default-links-columns', $columns);
+	}
+	
+	/**
+	 * 	Add Sorting to WP default links columns
+	 *
+	 * 	@since     1.4
+	 */
+	private function set_sorting_to_default_links_columns($columns)
+	{
+		// Relationship
+		if ( !empty($columns['rel']) ) {
+			$columns['rel']['options']['sortorder'] = 'on';
+		}
+		return $columns;
 	}
 	
 	/**
@@ -1779,7 +1806,26 @@ class Codepress_Admin_Columns
 		$current_screen = $org_current_screen;
 		
 		// change to uniform format
-		return $this->get_uniform_format($columns);		
+		$columns = $this->get_uniform_format($columns);
+		
+		// add sorting to some of the default links columns
+		$columns = $this->set_sorting_to_default_comments_columns($columns);
+		
+		return apply_filters('cpac-default-comments-columns', $columns);
+	}
+	
+	/**
+	 * 	Add Sorting to WP default comments columns
+	 *
+	 * 	@since     1.4
+	 */
+	private function set_sorting_to_default_comments_columns($columns)
+	{
+		// Comment
+		if ( !empty($columns['comment']) ) {
+			$columns['comment']['options']['sortorder'] = 'on';
+		}
+		return $columns;
 	}
 
 	/**
@@ -1832,10 +1878,7 @@ class Codepress_Admin_Columns
 	{
 		$custom_columns = array(
 			'column-featured_image' => array(
-				'label'	=> __('Featured Image', $this->textdomain),
-				'options' => array(
-					'sortorder' => false
-				)
+				'label'	=> __('Featured Image', $this->textdomain)
 			),
 			'column-excerpt' => array(
 				'label'	=> __('Excerpt', $this->textdomain)
@@ -1847,7 +1890,7 @@ class Codepress_Admin_Columns
 				'label'	=> __('Post Format', $this->textdomain)
 			),
 			'column-postid' => array(
-				'label'	=> 'ID'
+				'label'	=> __('ID', $this->textdomain)
 			),
 			'column-page-slug' => array(
 				'label'	=> __('Slug', $this->textdomain)
@@ -1870,10 +1913,7 @@ class Codepress_Admin_Columns
 		// Sticky support
 		if ( $post_type == 'post' ) {		
 			$custom_columns['column-sticky'] = array(
-				'label'			=> __('Sticky', $this->textdomain),
-				'options'		=> array(
-					'sortorder' => false
-				)
+				'label'			=> __('Sticky', $this->textdomain)
 			);
 		}
 		
@@ -2075,7 +2115,7 @@ class Codepress_Admin_Columns
 			),
 			'column-length' => array(
 				'label'	=> __('Length', $this->textdomain)
-			)
+			)			
 		);	
 		
 		// merge with defaults
@@ -2095,8 +2135,8 @@ class Codepress_Admin_Columns
 			'column-comment_id' => array(
 				'label'	=> __('ID', $this->textdomain)
 			),
-			'column-author' => array(
-				'label'	=> __('Author', $this->textdomain)
+			'column-author_author' => array(
+				'label'	=> __('Author Name', $this->textdomain)
 			),
 			'column-author_avatar' => array(
 				'label'	=> __('Avatar', $this->textdomain)
@@ -2129,8 +2169,11 @@ class Codepress_Admin_Columns
 			),
 			'column-agent' => array(
 				'label'	=> __('Agent', $this->textdomain)
+			),
+			'column-excerpt' => array(
+				'label'	=> __('Excerpt', $this->textdomain)
 			)
-		);
+		);		
 		
 		// Custom Field support
 		if ( $this->get_meta_by_type('wp-comments') ) {
@@ -2146,7 +2189,7 @@ class Codepress_Admin_Columns
 					'sortorder'		=> false,
 				)
 			);
-		}
+		}		
 		
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
@@ -2492,13 +2535,20 @@ class Codepress_Admin_Columns
 	function admin_class() 
 	{		
 		global $current_screen;
-		
+				
 		// we dont need the 'edit-' part
 		$screen = str_replace('edit-', '', $current_screen->id);
 		
+		// media library exception
+		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' ) {
+			$screen = 'media';
+		}
+
 		// loop the available types
 		foreach ( $this->get_types() as $type => $label ) {
-		
+			
+			
+			
 			// match against screen or wp-screen
 			if ( $type == $screen || $type == "wp-{$screen}" )
 				return "cp-{$type}";
@@ -2525,7 +2575,7 @@ class Codepress_Admin_Columns
 				
 					// and check for stored width and add it to the css
 					if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-						$css .= ".cp-{$type} .wp-list-table th.column-{$col_name} { width: {$col['width']}%; }";
+						$css .= ".cp-{$type} .wrap table th.column-{$col_name} { width: {$col['width']}%; }";
 					}
 				}
 			}
@@ -2635,10 +2685,10 @@ class Codepress_Admin_Columns
 	 * @since     1.3.1
 	 */
 	public function ajax_activation()
-	{		
+	{
 		// keys
 		$key 	= $_POST['key'];
-		$type 	= $_POST['type'];	
+		$type 	= $_POST['type'];		
 		
 		// update key
 		if ( $key == 'remove' )
@@ -2705,7 +2755,7 @@ class Codepress_Admin_Columns
 		$this->notice_message 	= $message;
 		$this->notice_type 		= $type; // updated, error
 
-		add_action('admin_notices', array( &$this, 'callback_admin_notice' ) );		
+		add_action('admin_notices', array( $this, 'callback_admin_notice' ) );		
 	}
 	
 	/**
@@ -2866,14 +2916,14 @@ class Codepress_Admin_Columns
 				<table class='nopadding'>
 					<tr class='last'>
 						<td>
-							<h2>Activate Add-ons</h2>
-							<p>Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites. <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
+							<h2>".__('Activate Add-ons', $this->textdomain)."</h2>
+							<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', $this->textdomain)." <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
 							<table class='widefat addons'>
 								<thead>
 									<tr>
-										<th class='activation_type'>" . __('Addon', $this->textdomain) . "</th>
-										<th class='activation_status'>" . __('Status', $this->textdomain) . "</th>
-										<th class='activation_code'>" . __('Activation Code', $this->textdomain) . "</th>
+										<th class='activation_type'>".__('Addon', $this->textdomain)."</th>
+										<th class='activation_status'>".__('Status', $this->textdomain)."</th>
+										<th class='activation_code'>".__('Activation Code', $this->textdomain)."</th>
 										<th class='activation_more'></th>
 									</tr>
 								</thead>
@@ -2979,6 +3029,9 @@ class Codepress_Admin_Columns
 		if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
 			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain).'</p>';
 		
+		// find out more
+		$find_out_more = "<a href='{$this->codepress_url}' class='alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
+		
 	?>
 		<div id="cpac" class="wrap">
 			<?php screen_icon($this->slug) ?>
@@ -2988,6 +3041,17 @@ class Codepress_Admin_Columns
 			<div class="postbox-container cpac-col-right">
 				<div class="metabox-holder">	
 					<div class="meta-box-sortables">						
+						
+						<div id="addons-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Addons', $this->textdomain) ?></span>
+							</h3>
+							<div class="inside">
+								<p><?php _e('Make all of the additional columns support sorting &#8212; for all types!', $this->textdomain) ?></p>
+								<?php echo $find_out_more ?>
+							</div>
+						</div><!-- addons-cpac-settings -->
 						
 						<div id="likethisplugin-cpac-settings" class="postbox">
 							<div title="Click to toggle" class="handlediv"><br></div>
@@ -3081,5 +3145,13 @@ class Codepress_Admin_Columns
  * @since     1.0
  */
 new Codepress_Admin_Columns();
+
+
+/**
+ * Init Class Codepress_Sortable_Columns
+ *
+ * @since     1.3
+ */
+new Codepress_Sortable_Columns();
 
 ?>

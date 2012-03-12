@@ -285,9 +285,10 @@ function cpac_width_range()
 		
 	jQuery('.input-width-range').each( function(){
 		
-		var input 			= jQuery(this).closest('.cpac-type-inside').find('.input-width');
-		var descr 			= jQuery(this).closest('.cpac-type-inside').find('.description');
-		var input_default 	= jQuery(input)[0].defaultValue;
+		var input 				= jQuery(this).closest('.cpac-type-inside').find('.input-width');
+		var descr 				= jQuery(this).closest('.cpac-type-inside').find('.description');
+		var input_default 		= jQuery(input)[0].defaultValue;
+		var translation_default = descr.attr('title');
 		
 		jQuery(this).slider({
 			range: 	'min',
@@ -298,7 +299,7 @@ function cpac_width_range()
 			slide: function( event, ui ) {	
 				
 				// set default
-				var descr_value = ui.value > 0 ? ui.value + '%' : 'default';
+				var descr_value = ui.value > 0 ? ui.value + '%' : translation_default;
 	
 				jQuery(input).val( ui.value );
 				jQuery(descr).text( descr_value );
@@ -402,7 +403,9 @@ function cpac_addon_activation()
 					input.val('');
 				},
                 error: function(xhr, ajaxOptions, thrownError) {
-					// log
+					console.log(xhr);
+					console.log(ajaxOptions);
+					console.log(thrownError);
 				},
 				complete: function() {
 					button.removeClass('loading');

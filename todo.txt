@@ -10,6 +10,7 @@ done: Textual help
 done: test IE7/IE8 tooltip
 done: test helpscreen/plugin in 3.1
 done: set column width
+done: specify column width as a percentage. A percentage value or a small, medium or large option would be great.
 
 Payment wall + shopp
 
@@ -36,17 +37,16 @@ $this->get_column_info();							class-wp-list-table.php 725
 
 Prio #2
 ---------------------------------------------------------
+make option to set default ordering
+user sorting by role.
+comment wordcount + sorting by wordcount
 width columns via http://quocity.com/colresizable/ (http://www.flexigrid.info/)
 named class for the custom admin columns
 doesn't work with columns from shopp 1.2
 optional field to set the shown value as an edit-link for the entry (so you don't have to tick the checkbox and choose "edit" over the dropdown), because there's no link to click, if you unset the title
 add an role column to the all posts screen
 nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
-
-specify column width as a percentage. A percentage value or a small, medium or large option would be great.
-
 website how to contrubite, such as translating
-make option to set default ordering
 put column types in its own class
 users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
 
