@@ -2,7 +2,7 @@
 Contributors: codepress, tschutter
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
-Tested up to: 3.3.1
+Tested up to: 3.3
 Stable tag: 1.4
 
 == Description ==
@@ -28,6 +28,16 @@ The following custom columns are added:
 * Word count
 * Number of Attachments
 * Custom Fields
+
+= Custom Fields =
+
+With the custom field column you can display any custom field values. It can show its default value but also handle it as an image or icon. Thsese types are added:
+
+* Image thumbnails
+* Icons for Media Library items
+* Excerpt
+* Multiple Values
+* Numeric value ( this also works for sorting by meta_value_num )
 
 = User Columns =
 
@@ -55,42 +65,17 @@ Customise the Media Library Columns. The following media columns are added:
 * Description, Caption and Alternate tekst
 * Mime-Type
 
-= Comment Columns =
+= Sortable Custom Columns for Post and Pages =
 
-A lot more comment colums are added, here are a few examples:
-
-* Avatar
-* Author IP
-* Agent
-* ID
-* Comment excerpt
-* Comment Meta data
-
-= Link Columns =
-
-A few examples of added Link columns:
+A nice feature is that it will make some of the new columns support sorting. By default WordPress let's you sort by Title, Date, Comments and Author. This will make you be able to sort by:
 
 * ID
-* Target
-* Description
-* Notes
-* Owner
-
-= Custom Fields =
-
-With the custom field column you can display any custom field values. It can show its default value but also handle it as an image or icon. Thsese types are added:
-
-* Image thumbnails
-* Icons for Media Library items
-* Excerpt
-* Multiple Values
-* Numeric value ( this also works for sorting by meta_value_num )
-
-= Sortable Custom Columns for all Screens =
-
-All of the new columns will have support for sorting with <a href="http://www.codepress.nl/plugins/codepress-admin-columns/sortorder-addon/">sorting addon</a>.
-
-By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>.
+* page order
+* slug 
+* page template
+* word count
+* attachment count
+* custom fields ( both meta_value and meta_value_num are supported )
 
 = Third party plugin support =
 
@@ -98,7 +83,7 @@ It will work nice with other plugins and support their additional custom columns
 
 = Upcoming releases =
 
-The next upcoming release will have the option to set default sorting per screen.
+The next upcoming release will support sorting by Media and User columns.
 
 **Feedback**
 
@@ -132,24 +117,6 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#f
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
-
-= 1.4 =
-
-* added support for comment columns
-* added support for link columns
-* added links to taxonomies
-* added sorting user custom fields
-* added sorting to links columns
-* added user columns so you can see how many articles an author has published of a certain post type
-* added Textual help
-* added the option to specify column width
-* added role column to all posts screens
-* added posts status column to all posts screens
-* added image path to media library
-* added added apply_filters('cpac-get-post-types', $post_types) to filter out certain post types
-* added option to enter license key for activating sorting on ALL columns
-* fixed a php5 warning
-* fixed a conflict with the Co-Authors plugin
 
 = 1.3 =
 

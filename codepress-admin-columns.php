@@ -65,7 +65,6 @@ class Codepress_Admin_Columns
 	 */
 	function __construct()
 	{
-		//$this->api_url = 'http://codepress.lan/codepress.nl/';
 		$this->api_url = 'http://www.codepress.nl/';
 		
 		// wp is loaded
@@ -734,7 +733,7 @@ class Codepress_Admin_Columns
 		$post_types['post'] = 'post';
 		$post_types['page'] = 'page';
 		
-		return $post_types;
+		return apply_filters('cpac-get-post-types', $post_types);
 	}
 
 	/**
@@ -1180,26 +1179,28 @@ class Codepress_Admin_Columns
 				break;
 			
 			// file name
-			case "column-file_name" :				
-				$file 	= get_post_meta($media_id, '_wp_attached_file', true);
-				$result = basename($file);
+			case "column-file_name" :
+				$file 		= wp_get_attachment_url($p->ID);
+				$filename 	= basename($file);
+				$result 	= "<a title='{$filename}' href='{$file}'>{$filename}</a>";
 				break;
 				
-			// file path
-			case "column-paths" :				
-				//$result = wp_get_attachment_link( $id, $size, $permalink, $icon, $text );
-				$sizes = get_intermediate_image_sizes();
-				$result = false;
+			// file paths
+			case "column-file_paths" :
+				$sizes 		= get_intermediate_image_sizes();
+				$url 		= wp_get_attachment_url($p->ID);
+				$filename 	= basename($url);				
+				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __('original', $this->textdomain) . "</a>";
 				if ( $sizes ) {
 					foreach ( $sizes as $size ) {
-						$src = wp_get_attachment_image_src( $media_id, $size );
+						$src 	= wp_get_attachment_image_src( $media_id, $size );						
 						if (!empty($src[0])) {
-							$result .= "<span>{$size}</span><a href='$src[0]'>{$src[0]}</a>";
+							$filename = basename($src[0]);
+							$paths[] = "<a title='{$filename}' href='{$src[0]}'>{$size}</a>";
 						}
 					}
-				}
-				//print_r($sizes);
-				//print_r($result);
+				}				
+				$result = implode('<span class="cpac-divider"></span>', $paths);
 				break;
 			
 			default:
@@ -2132,7 +2133,7 @@ class Codepress_Admin_Columns
 			'column-alternate_text' => array(
 				'label'	=> __('Alt', $this->textdomain)
 			),
-			'column-paths' => array(
+			'column-file_paths' => array(
 				'label'	=> __('Upload paths', $this->textdomain),
 				'options'	=> array(
 					'sortorder'	=> false
