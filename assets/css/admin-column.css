@@ -415,7 +415,13 @@
 #addons-cpac-settings a {
 	padding: 0 10px 10px;
 	text-decoration: none;
+	color: green;
+	text-decoration: underline;
 }
+#addons-cpac-settings a:hover {
+	color: darkgreen;
+}
+
 
 /* =Like this plugin settings
 -------------------------------------------------------------- */
@@ -433,8 +439,8 @@
 	text-decoration: none;
 }
 #likethisplugin-cpac-settings li.donate_link a {
-	color: green;
-	text-decoration: underline;
+	/* color: green;
+	text-decoration: underline; */
 }
 #likethisplugin-cpac-settings li.donate_link a:hover {
 	color: darkgreen;

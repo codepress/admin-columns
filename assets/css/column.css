@@ -3,7 +3,18 @@
 	padding-right: 5px;
 	padding-bottom: 4px;
 }
-
+td.column-column-paths span {
+	font-style: italic;
+	display: block;
+}
+td.column-column-paths a {	
+	display: block;
+	background: #fff;
+	padding: 3px;
+	border: 1px dotted #999;
+	margin-bottom: 4px;
+	font-style: normal;
+}
 .cpac-divider {
 	display: inline-block;
 	width: 14px;

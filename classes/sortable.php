@@ -259,6 +259,16 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
 				}
 				break;
+				
+			case 'role' :	
+				foreach ( $this->get_users_data() as $u ) {
+					$role = !empty($u->roles[0]) ? $u->roles[0] : '';
+					if ($role || $this->show_all_results ) {
+						$cusers[$u->ID] = $this->prepare_sort_string_value($role);
+					}
+				}
+				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+				break;
 			
 			case 'column-user-meta' :				
 				$field = $column[$id]['field'];
@@ -721,6 +731,24 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					}
 				}
 				$this->set_vars_post__in( &$vars, $cposts );
+				break;
+			
+			case 'column-roles' : 
+				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+					$cposts[$p->ID] = 0;
+					$userdata = get_userdata($p->post_author);
+					if ( !empty($userdata->roles[0]) ) {
+						$cposts[$p->ID] = $userdata->roles[0];
+					}
+				}
+				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
+				break;
+			
+			case 'column-status' : 
+				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+					$cposts[$p->ID] = $p->post_status.strtotime($p->post_date);
+				}
+				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;
 		
 		endswitch;

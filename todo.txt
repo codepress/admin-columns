@@ -11,8 +11,12 @@ done: test IE7/IE8 tooltip
 done: test helpscreen/plugin in 3.1
 done: set column width
 done: specify column width as a percentage. A percentage value or a small, medium or large option would be great.
-
+done: add an role column to the all posts screen
+done: add Posts Status column
+done: Co-Authors Plus conflict: When any custom columns are set (Users columns or not), an extra empty 'Posts' column is added to the Users list table. solution is to give add_filter( "manage_users_columns") a higher priority.
 Payment wall + shopp
+
+put in readme that default sorting will be next in addon
 
 bug: quick edit chages column layout.
 solution: wp-posts-list-table.php line 481. Added columns are loaded into $columns. ( dependencies admin-ajax.php, list-table.php, inline-edit-post.dev.js )
@@ -38,13 +42,15 @@ $this->get_column_info();							class-wp-list-table.php 725
 Prio #2
 ---------------------------------------------------------
 make option to set default ordering
+
+Meta data for Library, such as image_meta. There's an option to display meta data for Post, Pages and Users; but there's no equivalent for Media Gallery attachments.
 user sorting by role.
 comment wordcount + sorting by wordcount
 width columns via http://quocity.com/colresizable/ (http://www.flexigrid.info/)
 named class for the custom admin columns
 doesn't work with columns from shopp 1.2
 optional field to set the shown value as an edit-link for the entry (so you don't have to tick the checkbox and choose "edit" over the dropdown), because there's no link to click, if you unset the title
-add an role column to the all posts screen
+
 nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
 website how to contrubite, such as translating
 put column types in its own class

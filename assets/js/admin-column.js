@@ -286,7 +286,7 @@ function cpac_width_range()
 	jQuery('.input-width-range').each( function(){
 		
 		var input 				= jQuery(this).closest('.cpac-type-inside').find('.input-width');
-		var descr 				= jQuery(this).closest('.cpac-type-inside').find('.description');
+		var descr 				= jQuery(this).closest('.cpac-type-inside').find('.width-decription');
 		var input_default 		= jQuery(input)[0].defaultValue;
 		var translation_default = descr.attr('title');
 		

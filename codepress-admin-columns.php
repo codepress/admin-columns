@@ -65,7 +65,8 @@ class Codepress_Admin_Columns
 	 */
 	function __construct()
 	{
-		$this->api_url = 'http://codepress.lan/codepress.nl/';
+		//$this->api_url = 'http://codepress.lan/codepress.nl/';
+		$this->api_url = 'http://www.codepress.nl/';
 		
 		// wp is loaded
 		add_action( 'wp_loaded', array( $this, 'init') );
@@ -123,10 +124,6 @@ class Codepress_Admin_Columns
 		
 		// filters
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
-		
-		// dev
-		//$this->set_license_key('sortable', '06e50442656977091616881f7538fc066cc05b43');
-		//$this->check_remote_key('sortable');
 	}	
 
 	/**
@@ -193,7 +190,8 @@ class Codepress_Admin_Columns
 		} 
 		
 		/** Users */
-		add_filter( "manage_users_columns", array($this, 'callback_add_users_column_headings'));
+		add_filter( "manage_users_columns", array($this, 'callback_add_users_column_headings'), 9); 
+		// give higher priority, so it will load just before other plugins to prevent conflicts
 		
 		/** Media */
 		add_filter( "manage_upload_columns", array($this, 'callback_add_media_column_headings'));
@@ -536,7 +534,7 @@ class Codepress_Admin_Columns
 					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'{$label_hidden}/>
 					<label for='cpac_options-{$type}-{$id}-width'>".__('Width', $this->textdomain).":</label>			
 					<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
-					<div class='description' title='".__('default', $this->textdomain)."'>{$width_descr}</div>
+					<div class='description width-decription' title='".__('default', $this->textdomain)."'>{$width_descr}</div>
 					<div class='input-width-range'></div>
 					<br/>
 					{$more_options}
@@ -958,7 +956,7 @@ class Codepress_Admin_Columns
 			
 			// Slug
 			case "column-page-slug" :
-				$result = get_post($post_id)->post_name;			
+				$result = get_post($post_id)->post_name;
 				break;
 			
 			// Slug
@@ -1002,6 +1000,22 @@ class Codepress_Admin_Columns
 			// Attachment count
 			case "column-attachment-count" :
 				$result = count($this->get_attachment_ids($post_id));
+				break;
+				
+			// Roles
+			case "column-roles" :
+				$user_id 	= get_post($post_id)->post_author;
+				$userdata 	= get_userdata( $user_id );
+				if ( !empty($userdata->roles[0]) )
+					echo implode(', ',$userdata->roles);
+				break;
+			
+			// Post status
+			case "column-status" :
+				$p 		= get_post($post_id);
+				$result = $p->post_status;
+				if ( $result == 'future')
+					$result = $result . " <p class='description'>" . date_i18n( get_option('date_format') . ' ' . get_option('time_format') , strtotime($p->post_date) ) . "</p>";
 				break;
 			
 			default :
@@ -1116,7 +1130,7 @@ class Codepress_Admin_Columns
 		
 		$meta 	= wp_get_attachment_metadata($media_id);
 		$p 		= get_post($media_id);
-
+		
 		// Hook 
 		do_action('cpac-manage-media-column', $type, $column_name, $media_id);
 		
@@ -1169,6 +1183,23 @@ class Codepress_Admin_Columns
 			case "column-file_name" :				
 				$file 	= get_post_meta($media_id, '_wp_attached_file', true);
 				$result = basename($file);
+				break;
+				
+			// file path
+			case "column-paths" :				
+				//$result = wp_get_attachment_link( $id, $size, $permalink, $icon, $text );
+				$sizes = get_intermediate_image_sizes();
+				$result = false;
+				if ( $sizes ) {
+					foreach ( $sizes as $size ) {
+						$src = wp_get_attachment_image_src( $media_id, $size );
+						if (!empty($src[0])) {
+							$result .= "<span>{$size}</span><a href='$src[0]'>{$src[0]}</a>";
+						}
+					}
+				}
+				//print_r($sizes);
+				//print_r($result);
 				break;
 			
 			default:
@@ -1703,7 +1734,26 @@ class Codepress_Admin_Columns
 		$columns = WP_Users_List_Table::get_columns();
 
 		// change to uniform format
-		return $this->get_uniform_format($columns);
+		$columns = $this->get_uniform_format($columns);
+
+		// add sorting to some of the default links columns
+		$columns = $this->set_sorting_to_default_users_columns($columns);
+
+		return apply_filters('cpac-default-users-columns', $columns);
+	}
+	
+	/**
+	 * 	Add Sorting to WP default Users columns
+	 *
+	 * 	@since     1.4
+	 */
+	private function set_sorting_to_default_users_columns($columns)
+	{
+		// Comment
+		if ( !empty($columns['role']) ) {
+			$columns['role']['options']['sortorder'] = 'on';
+		}
+		return $columns;
 	}
 	
 	/**
@@ -1901,6 +1951,12 @@ class Codepress_Admin_Columns
 			'column-attachment-count' => array(
 				'label'	=> __('No. of Attachments', $this->textdomain)
 			),
+			'column-roles' => array(
+				'label'	=> __('Roles', $this->textdomain)
+			),
+			'column-status' => array(
+				'label'	=> __('Status', $this->textdomain)
+			),
 		);
 		
 		// Word count support
@@ -2075,6 +2131,12 @@ class Codepress_Admin_Columns
 			),
 			'column-alternate_text' => array(
 				'label'	=> __('Alt', $this->textdomain)
+			),
+			'column-paths' => array(
+				'label'	=> __('Upload paths', $this->textdomain),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
 			),
 		);		
 		
@@ -2543,11 +2605,14 @@ class Codepress_Admin_Columns
 		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' ) {
 			$screen = 'media';
 		}
+		
+		// link exception
+		if ( $current_screen->base == 'link-manager' && $current_screen->id == 'link-manager' ) {
+			$screen = 'links';
+		}
 
 		// loop the available types
-		foreach ( $this->get_types() as $type => $label ) {
-			
-			
+		foreach ( $this->get_types() as $type => $label ) {			
 			
 			// match against screen or wp-screen
 			if ( $type == $screen || $type == "wp-{$screen}" )
@@ -3030,7 +3095,7 @@ class Codepress_Admin_Columns
 			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain).'</p>';
 		
 		// find out more
-		$find_out_more = "<a href='{$this->codepress_url}' class='alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
+		$find_out_more = "<a href='{$this->codepress_url}' class='alignright green' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
 		
 	?>
 		<div id="cpac" class="wrap">
