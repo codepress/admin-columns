@@ -9,9 +9,9 @@ Stable tag: 1.4
 
 Completely customise the columns on the administration screens with a nice drag and drop interface. 
 
-By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes, media and users. You can add or remove columns, change their label and reorder them.
+By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes, media and users. You can add or remove columns, change their label, change their width and reorder them..
 
-= Post Columns  =
+= Post Types Columns  =
 
 The following custom columns are added:
 
@@ -26,6 +26,8 @@ The following custom columns are added:
 * Slug
 * Sticky
 * Word count
+* Roles
+* Status
 * Number of Attachments
 * Custom Fields
 
@@ -40,6 +42,7 @@ You can also change the User Columns. The following user columns are added:
 * Register date
 * Biographical Info ( description )
 * User Custom Fields
+* Number of Posts Types
 
 Some of the user custom fields that are included: user level, capabilities, admin color, nickname... many more.
 
@@ -88,13 +91,13 @@ With the custom field column you can display any custom field values. It can sho
 
 = Sortable Custom Columns for all Screens =
 
-All of the new columns will have support for sorting with <a href="http://www.codepress.nl/plugins/codepress-admin-columns/sortorder-addon/">sorting addon</a>.
+All of the new columns will have support for sorting with the <a href="http://www.codepress.nl/plugins/codepress-admin-columns/sortorder-addon/">sorting addon</a>.
 
 By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>.
 
 = Third party plugin support =
 
-It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), Advanced Custom Fields.
+It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), Co-Authors Plus and Advanced Custom Fields.
 
 = Upcoming releases =
 
@@ -102,7 +105,7 @@ The next upcoming release will have the option to set default sorting per screen
 
 **Feedback**
 
-You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns#feedback'>requests or feedback</a>.
+You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns/feedback'>requests or feedback</a>.
 
 **Related Links:**
 
@@ -119,7 +122,7 @@ You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-colum
 = I have an idea for a great way to improve this plugin =
 
 Great! I'd love to hear from you.
-Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns#feedback.
+Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/feedback.
 
 == Screenshots ==
 

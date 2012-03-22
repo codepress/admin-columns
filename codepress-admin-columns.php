@@ -2641,7 +2641,7 @@ class Codepress_Admin_Columns
 				
 					// and check for stored width and add it to the css
 					if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-						$css .= ".cp-{$type} .wrap table th.column-{$col_name} { width: {$col['width']}%; }";
+						$css .= ".cp-{$type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 					}
 				}
 			}
@@ -2696,7 +2696,7 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Check license key with API ( DEV )
+	 * Check license key with API
 	 *
 	 * @since     1.3.3
 	 */
@@ -2706,8 +2706,9 @@ class Codepress_Admin_Columns
 		
 		// set
 		$key = $this->get_license_key($type);		
-		$url = $this->api_url;	
-		$url = 'http://codepress.lan/codepress.nl/';	
+		
+		if ( empty($key) )
+			return false;
 		
 		// get transient
  		$transient  = get_transient("cpac_{$type}_trnsnt");
@@ -2716,7 +2717,7 @@ class Codepress_Admin_Columns
 			return true;
 		
 		// check key with remote API		
- 		$response = wp_remote_post( $url, array(			
+ 		$response = wp_remote_post( $this->api_url, array(			
 			'body'	=> array(
 				'api'	=> 'addon',
 				'key'	=> $key,
@@ -2855,7 +2856,7 @@ class Codepress_Admin_Columns
 				'content'	=> "
 					<h5>Codepress Admin Columns</h5>
 					<p>
-						This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library and users. Change the column's label and reorder them.
+						This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.
 					</p>	
 					
 				"
@@ -2875,6 +2876,10 @@ class Codepress_Admin_Columns
 					<p>
 						By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.
 					</p>
+					<h5>Change coluimn width</h5>
+					<p>
+						By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.
+					</p>
 				"
 			),
 			array(
@@ -2888,11 +2893,11 @@ class Codepress_Admin_Columns
 						<li><strong>Default</strong><br/>Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.</li>
 						<li><strong>Image</strong><br/>Value: should only contain an image URL.</li>
 						<li><strong>Media Library Icon</strong><br/>Value: should only contain Attachment IDs ( seperated by ',' ).</li>
-						<li><strong>Excerpt</strong><br/>Value: This will show the first 15 words of the Post content.</li>
-						<li><strong>Multiple Values</strong><br/>Value: This will flatten any ( multi dimensional ) array.</li>
-						<li><strong>Numeric</strong><br/>Value: Integers only.<br/>This will be used by sorting, so you can sort your posts on numeric (custom field) values.</li>
+						<li><strong>Excerpt</strong><br/>Value: This will show the first 20 words of the Post content.</li>
+						<li><strong>Multiple Values</strong><br/>Value: should be an array. This will flatten any ( multi dimensional ) array.</li>
+						<li><strong>Numeric</strong><br/>Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.</li>
 						<li><strong>Date</strong><br/>Value: Can be unix time stamp of date format as described in the <a href='http://codex.wordpress.org/Formatting_Date_and_Time'>Codex</a>. You can change the outputted date format at the <a href='{$admin_url}options-general.php'>general settings</a> page.</li>
-						<li><strong>Post Titles</strong><br/>Value: should be one or more only contain Post ID's ( seperated by ',' ).</li>
+						<li><strong>Post Titles</strong><br/>Value: can be one or more Post ID's (seperated by ',').</li>
 					</ul>
 				"
 			)			
@@ -2929,7 +2934,7 @@ class Codepress_Admin_Columns
 		}
 		
 		// find out more
-		$find_out_more = "<a href='{$this->codepress_url}' class='button-primary alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
+		$find_out_more = "<a href='{$this->codepress_url}/sortorder-addon/' class='button-primary alignright' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
 		
 		// info box
 		$sortable_tooltip = "
@@ -2983,7 +2988,7 @@ class Codepress_Admin_Columns
 					<tr class='last'>
 						<td>
 							<h2>".__('Activate Add-ons', $this->textdomain)."</h2>
-							<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', $this->textdomain)." <a target='_blank' href='{$this->codepress_url}'>Visit the Plugin Store</a>.</p>
+							<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', $this->textdomain)." <a target='_blank' href='{$this->codepress_url}/sortorder-addon/'>Visit the Plugin Store</a>.</p>
 							<table class='widefat addons'>
 								<thead>
 									<tr>
@@ -3096,7 +3101,7 @@ class Codepress_Admin_Columns
 			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', $this->textdomain).'</p>';
 		
 		// find out more
-		$find_out_more = "<a href='{$this->codepress_url}' class='alignright green' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
+		$find_out_more = "<a href='{$this->codepress_url}/sortorder-addon/' class='alignright green' target='_blank'>".__('find out more', $this->textdomain)." &raquo</a>";
 		
 	?>
 		<div id="cpac" class="wrap">
@@ -3114,7 +3119,8 @@ class Codepress_Admin_Columns
 								<span><?php _e('Addons', $this->textdomain) ?></span>
 							</h3>
 							<div class="inside">
-								<p><?php _e('Make all of the additional columns support sorting &#8212; for all types!', $this->textdomain) ?></p>
+								<p><?php _e('By default WordPress let\'s you only sort by title, date, comments and author.', $this->textdomain) ?></p>
+								<p><?php _e('Make <strong>all columns</strong> of <strong>all types</strong> support sorting &#8212; with the sorting addon.', $this->textdomain) ?></p>
 								<?php echo $find_out_more ?>
 							</div>
 						</div><!-- addons-cpac-settings -->
@@ -3142,7 +3148,7 @@ class Codepress_Admin_Columns
 							<div class="inside">								
 								<?php echo $help_text ?>
 								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', $this->textdomain), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
-								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}#feedback");?></p>
+								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", $this->textdomain), "{$this->codepress_url}/feedback");?></p>
 							</div>
 						</div><!-- side-cpac-settings -->
 					
