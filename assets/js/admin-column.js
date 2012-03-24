@@ -403,9 +403,9 @@ function cpac_addon_activation()
 					input.val('');
 				},
                 error: function(xhr, ajaxOptions, thrownError) {
-					console.log(xhr);
-					console.log(ajaxOptions);
-					console.log(thrownError);
+					//console.log(xhr);
+					//console.log(ajaxOptions);
+					//console.log(thrownError);
 				},
 				complete: function() {
 					button.removeClass('loading');

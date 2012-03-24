@@ -113,7 +113,7 @@ class Codepress_Admin_Columns
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value'), 10, 3 );
 		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value'), 10, 2 );		
 		add_action( 'manage_link_custom_column', array( $this, 'manage_link_column_value'), 10, 2 );		
-		add_action( 'manage_comments_custom_column', array( $this, 'manage_comments_column_value'), 10, 2 );		
+		add_action( 'manage_comments_custom_column', array( $this, 'manage_comments_column_value'), 10, 2 );
 		
 		// action ajax
 		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation'));
@@ -2755,7 +2755,7 @@ class Codepress_Admin_Columns
 	{
 		// keys
 		$key 	= $_POST['key'];
-		$type 	= $_POST['type'];		
+		$type 	= $_POST['type'];
 		
 		// update key
 		if ( $key == 'remove' )

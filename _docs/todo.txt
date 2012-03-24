@@ -43,7 +43,7 @@ $this->get_column_info();							class-wp-list-table.php 725
 
 Prio #2
 ---------------------------------------------------------
-make option to set default ordering
+make option to set default ordering: Ikraav, I could also use a feature that would save the order you last used as the default.
 
 Copy to clipboard for image paths
 answer: http://wordpress.org/support/topic/plugin-codepress-admin-columns-ignore-specific-post-types?replies=1
