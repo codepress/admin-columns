@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4
+Version: 			1.4.2
 Description: 		This plugin makes it easy to customise the columns on the administration screens for post(types), pages, media library and users.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.4' );
+define( 'CPAC_VERSION', '1.4.1' );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -64,7 +64,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	function __construct()
-	{
+	{		
 		$this->api_url = 'http://www.codepress.nl/';
 		
 		// wp is loaded
@@ -840,7 +840,7 @@ class Codepress_Admin_Columns
 		$wp_default_columns['wp-links'] = $this->get_wp_default_links_columns();
 		
 		// Comments
-		$wp_default_columns['wp-comments'] = $this->get_wp_default_comments_columns();
+		$wp_default_columns['wp-comments'] = $this->get_wp_default_comments_columns();		
 		
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
@@ -853,7 +853,7 @@ class Codepress_Admin_Columns
 	private function restore_defaults() 
 	{	
 		delete_option( 'cpac_options' );
-		delete_option( 'cpac_options_default' );
+		delete_option( 'cpac_options_default' );		
 	}
 
 	/**
@@ -1018,12 +1018,9 @@ class Codepress_Admin_Columns
 				break;
 			
 			default :
-				$result = $this->strip_trim(get_post_meta( $post_id, $column_name, true ));
+				$result = '';
 						
 		endswitch;
-		
-		if ( empty($result) )
-			echo '&nbsp;';
 		
 		echo $result;	
 	}		
@@ -1108,12 +1105,9 @@ class Codepress_Admin_Columns
 				break;
 			
 			default :
-				$result = get_user_meta( $user_id, $column_name, true );
+				$result = '';
 				
 		endswitch;
-		
-		if ( empty($result) && '0' != $result )
-			$result = '&nbsp;';
 		
 		return $result;
 	}
@@ -1203,13 +1197,10 @@ class Codepress_Admin_Columns
 				$result = implode('<span class="cpac-divider"></span>', $paths);
 				break;
 			
-			default:
+			default :
 				$result = '';
 			
 		endswitch;
-		
-		if ( empty($result) && '0' != $result )
-			$result = '&nbsp;';
 		
 		echo $result;
 	}
@@ -1279,13 +1270,10 @@ class Codepress_Admin_Columns
 				}
 				break;
 			
-			default:
+			default :
 				$result = '';
 			
 		endswitch;
-		
-		if ( empty($result) && '0' != $result )
-			$result = '&nbsp;';
 		
 		echo $result;
 	}
@@ -1397,13 +1385,10 @@ class Codepress_Admin_Columns
 				$result 	= $this->get_shortened_string($comment->comment_content, $this->excerpt_length);
 				break;	
 			
-			default:
+			default :
 				$result = '';
 			
 		endswitch;
-		
-		if ( empty($result) && '0' != $result )
-			$result = '&nbsp;';
 		
 		echo $result;
 	}
@@ -2006,8 +1991,7 @@ class Codepress_Admin_Columns
 					$custom_columns['column-taxonomy-'.$tax->name] = array(
 						'label'			=> $tax->label,
 						'options'		=> array(
-							'type_label'	=> __('Taxonomy', $this->textdomain),
-							'sortorder'		=> false
+							'type_label'	=> __('Taxonomy', $this->textdomain)
 						)
 					);				
 				}
@@ -2650,18 +2634,79 @@ class Codepress_Admin_Columns
 		echo "<style type='text/css'>{$css}</style>";
 	}
 
-
 	/**
 	 * Unlocks
 	 *
 	 * @since     1.3
 	 */
 	protected function is_unlocked($type)
-	{		
-		if ( $this->check_remote_key($type) )
-			return true;
+	{
+		return preg_match('/^[a-f0-9]{40}$/i', $this->get_license_key($type));
+	}	
+	
+	/**
+	 * Check license key with API
+	 *
+	 * @since     1.3.3
+	 */
+	private function check_remote_key($type, $key)
+	{	
+		if ( empty($type) || empty($key) )
+			return false;
 		
+		// check key with remote API		
+ 		$response = wp_remote_post( $this->api_url, array(			
+			'body'	=> array(
+				'api'	=> 'addon',
+				'key'	=> $key,
+				'type'	=> $type				
+			)
+		));
+
+		// license will be valid in case of WP error or succes
+		if ( is_wp_error($response) || ( isset($response['body']) && json_decode($response['body']) == 'valid' ) )
+			return true;
+	
 		return false;
+	}
+	
+	/**
+	 * Set masked license key
+	 *
+	 * @since     1.3.1
+	 */
+	private function get_masked_license_key($type) 
+	{
+		return '**************************'.substr( $this->get_license_key($type), -4 );		
+	}
+	
+	/**
+	 * Ajax activation
+	 *
+	 * @since     1.3.1
+	 */
+	public function ajax_activation()
+	{
+		// keys
+		$key 	= $_POST['key'];
+		$type 	= $_POST['type'];
+		
+		// update key
+		if ( $key == 'remove' ) {
+			$this->remove_license_key($type);
+		}
+			
+		// set license key
+		elseif ( $this->check_remote_key($type, $key) ) {
+		
+			// set key
+			$this->set_license_key($type, $key);
+			
+			// returned masked key
+			echo json_encode( $this->get_masked_license_key($type) );
+		}
+
+		exit;
 	}
 	
 	/**
@@ -2693,81 +2738,6 @@ class Codepress_Admin_Columns
 	{
 		delete_option( "cpac_{$type}_ac" );
 		delete_transient("cpac_{$type}_trnsnt");
-	}
-	
-	/**
-	 * Check license key with API
-	 *
-	 * @since     1.3.3
-	 */
-	private function check_remote_key($type)
-	{	
-		$result = false;
-		
-		// set
-		$key = $this->get_license_key($type);		
-		
-		if ( empty($key) )
-			return false;
-		
-		// get transient
- 		$transient  = get_transient("cpac_{$type}_trnsnt");
-		
-		if ( $transient != false )
-			return true;
-		
-		// check key with remote API		
- 		$response = wp_remote_post( $this->api_url, array(			
-			'body'	=> array(
-				'api'	=> 'addon',
-				'key'	=> $key,
-				'type'	=> $type,
-				'url'	=> get_bloginfo('url')
-			)
-		));
-		
-		// license will be valid in case of WP error or succes
-		if ( is_wp_error($response) || ( isset($response['body']) && json_decode($response['body']) == 'valid' ) )
-			$result = true;
-		
-		// set transient
-		set_transient("cpac_{$type}_trnsnt", $result, 86400);		
-	
-		return $result;
-	}
-	
-	/**
-	 * Set masked license key
-	 *
-	 * @since     1.3.1
-	 */
-	private function get_masked_license_key($type) 
-	{
-		return '**************************'.substr( $this->get_license_key($type), -4 );		
-	}
-	
-	/**
-	 * Ajax activation
-	 *
-	 * @since     1.3.1
-	 */
-	public function ajax_activation()
-	{
-		// keys
-		$key 	= $_POST['key'];
-		$type 	= $_POST['type'];
-		
-		// update key
-		if ( $key == 'remove' )
-			$this->remove_license_key($type);
-		else
-			$this->set_license_key($type, $key);
-
-		// validate and return masked key
-		if ( $this->is_unlocked($type) )
-			echo json_encode( $this->get_masked_license_key($type) );
-
-		exit;
 	}
 	
 	/**

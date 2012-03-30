@@ -282,7 +282,8 @@ function cpac_width_range()
 {
 	if ( jQuery('.input-width-range').length == false )
 		return;
-		
+	
+	// loop through all width-range-sliders
 	jQuery('.input-width-range').each( function(){
 		
 		var input 				= jQuery(this).closest('.cpac-type-inside').find('.input-width');
@@ -290,6 +291,7 @@ function cpac_width_range()
 		var input_default 		= jQuery(input)[0].defaultValue;
 		var translation_default = descr.attr('title');
 		
+		// add slider
 		jQuery(this).slider({
 			range: 	'min',
 			value: 	1,
@@ -300,8 +302,11 @@ function cpac_width_range()
 				
 				// set default
 				var descr_value = ui.value > 0 ? ui.value + '%' : translation_default;
-	
+				
+				// set input value
 				jQuery(input).val( ui.value );
+				
+				// set description
 				jQuery(descr).text( descr_value );
 			}
 		});		
@@ -334,7 +339,7 @@ function cpac_addon_activation()
 		// Activate
 		if ( parent_class.hasClass('activate') ) {			
 		
-			// input values
+			// get input values
 			var input 		= jQuery('.activate input', row);
 			var button 		= jQuery('.activate .button', row);
 			var key 		= input.val();
@@ -359,16 +364,19 @@ function cpac_addon_activation()
 					type	: 'sortable',
 					key		: key
 				},
-				success: function(data) {
-					if ( data != null ) {						
-						jQuery('div.activate', row).hide();
-						jQuery('div.deactivate', row).show();
-						jQuery('div.deactivate span.masked_key', row).text(data);					
+				success: function(data) {					
+					if ( data != null ) {				
+						jQuery('div.activate', row).hide(); // hide activation button
+						jQuery('div.deactivate', row).show(); // show deactivation button
+						jQuery('div.deactivate span.masked_key', row).text(data); // display the returned masked key			
 					} else {
 						jQuery(msg).text(msg_unrecognised).hide().fadeIn();
 					}
 				},
                 error: function(xhr, ajaxOptions, thrownError) {
+					//console.log(xhr);
+					//console.log(ajaxOptions);
+					//console.log(thrownError);
                     jQuery(msg).text(msg_unrecognised).hide().fadeIn();
                 },
 				complete: function() {
@@ -397,9 +405,9 @@ function cpac_addon_activation()
 					key		: 'remove'
 				},
 				success: function(data) {
-					jQuery('div.activate', row).show();
-					jQuery('div.deactivate', row).hide();
-					jQuery('div.deactivate span.masked_key', row).empty();
+					jQuery('div.activate', row).show(); // show activation button
+					jQuery('div.deactivate', row).hide(); // hide deactivation button
+					jQuery('div.deactivate span.masked_key', row).empty(); // remove masked key
 					input.val('');
 				},
                 error: function(xhr, ajaxOptions, thrownError) {

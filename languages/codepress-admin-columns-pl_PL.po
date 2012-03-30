@@ -2,123 +2,123 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-27 12:13+0100\n"
-"PO-Revision-Date: 2012-03-27 12:54+0100\n"
-"Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Codepress <info@codepress.nl>\n"
+"POT-Creation-Date: 2012-03-23 13:35+0100\n"
+"PO-Revision-Date: 2012-03-23 13:45+0100\n"
+"Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
+"Language-Team: Digital Factory <info@digitalfactory.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
 #: ../codepress-admin-columns.php:171
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "Ustawienia"
 
 #: ../codepress-admin-columns.php:363
 msgid "Add Custom Field Column"
-msgstr "Voeg custom field kolom toe"
+msgstr "Dodaj kolumnę Własne pole"
 
 #: ../codepress-admin-columns.php:371
 msgid "drag and drop to reorder"
-msgstr "sleep om de volgorde te veranderen"
+msgstr "przeciągnij i opuść aby zmienić kolejność"
 
 #: ../codepress-admin-columns.php:511
 #: ../codepress-admin-columns.php:536
-#, fuzzy
 msgid "default"
-msgstr "Herstel instellingen"
+msgstr "domyśłny"
 
 #: ../codepress-admin-columns.php:534
 #: ../codepress-admin-columns.php:2125
 msgid "Width"
-msgstr "Breedte"
+msgstr "Szerokość"
 
 #: ../codepress-admin-columns.php:593
 msgid "Default"
-msgstr ""
+msgstr "Domyślny"
 
 #: ../codepress-admin-columns.php:594
 #: ../codepress-admin-columns.php:2165
 msgid "Image"
-msgstr "Afbeelding"
+msgstr "Obrazek"
 
 #: ../codepress-admin-columns.php:595
 msgid "Media Library Icon"
-msgstr "Media bibliotheek Icoon"
+msgstr "Ikona Biblioteki mediów"
 
 #: ../codepress-admin-columns.php:596
 #: ../codepress-admin-columns.php:1935
 #: ../codepress-admin-columns.php:2237
 msgid "Excerpt"
-msgstr "Samenvatting"
+msgstr "Wypis"
 
 #: ../codepress-admin-columns.php:597
 msgid "Multiple Values"
-msgstr "Meerdere waarden"
+msgstr "Wielokrotne wartości"
 
 #: ../codepress-admin-columns.php:598
 msgid "Numeric"
-msgstr "Numerieke"
+msgstr "Numeryczny"
 
 #: ../codepress-admin-columns.php:599
 #: ../codepress-admin-columns.php:2228
 msgid "Date"
-msgstr "Datum"
+msgstr "Data"
 
 #: ../codepress-admin-columns.php:600
 msgid "Post Title (Post ID's)"
-msgstr "Post Titel (Post ID's)"
+msgstr "Tytył wpisu (ID wpisu)"
 
 #: ../codepress-admin-columns.php:625
 msgid "This field can not be removed"
-msgstr "Dit veld kan niet worden verwijderd"
+msgstr "To własne pole nie może być usunięte"
 
 #: ../codepress-admin-columns.php:629
 msgid "Remove"
-msgstr "Verwijder"
+msgstr "Usuń"
 
 #: ../codepress-admin-columns.php:974
 msgid "Standard"
-msgstr "Standaard"
+msgstr "Standardowe"
 
 #: ../codepress-admin-columns.php:1193
 msgid "original"
-msgstr ""
+msgstr "oryginalny"
 
 #: ../codepress-admin-columns.php:1365
 #: ../codepress-admin-columns.php:1376
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr "Verstuurd op <a href=\"%1$s\">%2$s op %3$s</a>"
+msgstr "Opublikowany dnia <a href=\"%1$s\">%2$s o godz. %3$s</a>"
 
 #: ../codepress-admin-columns.php:1901
 msgid "Comments"
-msgstr "Reacties"
+msgstr "Komentarze"
 
 #: ../codepress-admin-columns.php:1907
 msgid "Icon"
-msgstr "icoon"
+msgstr "Ikona"
 
 #: ../codepress-admin-columns.php:1932
 msgid "Featured Image"
-msgstr "Uitgelichte afbeelding"
+msgstr "Ikona wpisu"
 
 #: ../codepress-admin-columns.php:1938
 #: ../codepress-admin-columns.php:1980
 msgid "Page Order"
-msgstr "Pagina Volgorde"
+msgstr "Kolejność stron"
 
 #: ../codepress-admin-columns.php:1941
 #: ../codepress-admin-columns.php:1997
 msgid "Post Format"
-msgstr ""
+msgstr "Format wpisu"
 
 #: ../codepress-admin-columns.php:1944
 #: ../codepress-admin-columns.php:2110
@@ -129,332 +129,323 @@ msgstr "ID"
 
 #: ../codepress-admin-columns.php:1947
 msgid "Slug"
-msgstr ""
+msgstr "Bezpośredni odnośnik"
 
 #: ../codepress-admin-columns.php:1950
 msgid "Attachment"
-msgstr "Bijlage"
+msgstr "Załącznik"
 
 #: ../codepress-admin-columns.php:1953
 msgid "No. of Attachments"
-msgstr "Aantal attachments"
+msgstr "Liczba załączników"
 
 #: ../codepress-admin-columns.php:1956
 msgid "Roles"
-msgstr ""
+msgstr "Role"
 
 #: ../codepress-admin-columns.php:1959
-#: ../codepress-admin-columns.php:2982
+#: ../codepress-admin-columns.php:2996
 msgid "Status"
 msgstr "Status"
 
 #: ../codepress-admin-columns.php:1966
 msgid "Word count"
-msgstr "Aantal woorden"
+msgstr "Liczba słów"
 
 #: ../codepress-admin-columns.php:1973
 msgid "Sticky"
-msgstr "Sticky"
+msgstr "Przyklejone"
 
 #: ../codepress-admin-columns.php:1982
 msgid "Order"
-msgstr "Volgorde"
+msgstr "Kolejność"
 
 #: ../codepress-admin-columns.php:1990
 msgid "Page Template"
-msgstr "Pagina Template"
+msgstr "Szablon strony"
 
 #: ../codepress-admin-columns.php:2009
 msgid "Taxonomy"
-msgstr ""
+msgstr "Taksonomia"
 
 #: ../codepress-admin-columns.php:2020
 #: ../codepress-admin-columns.php:2084
 #: ../codepress-admin-columns.php:2244
 msgid "Custom Field"
-msgstr ""
+msgstr "Własne pole"
 
 #: ../codepress-admin-columns.php:2026
 #: ../codepress-admin-columns.php:2090
 #: ../codepress-admin-columns.php:2250
 msgid "Field"
-msgstr "Veld"
+msgstr "Pole"
 
 #: ../codepress-admin-columns.php:2047
 msgid "User ID"
-msgstr ""
+msgstr "ID użytkownika"
 
 #: ../codepress-admin-columns.php:2050
 msgid "Nickname"
-msgstr ""
+msgstr "Ksywa"
 
 #: ../codepress-admin-columns.php:2053
 msgid "First name"
-msgstr "Voornaam"
+msgstr "Imię"
 
 #: ../codepress-admin-columns.php:2056
 msgid "Last name"
-msgstr "Achternaam"
+msgstr "Nazwisko"
 
 #: ../codepress-admin-columns.php:2059
 msgid "Url"
-msgstr ""
+msgstr "Adres URL"
 
 #: ../codepress-admin-columns.php:2062
 msgid "Registered"
-msgstr "Registratie"
+msgstr "Zarejestrowany"
 
 #: ../codepress-admin-columns.php:2065
 #: ../codepress-admin-columns.php:2131
 #: ../codepress-admin-columns.php:2162
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "Opis"
 
 #: ../codepress-admin-columns.php:2076
-#, fuzzy
 msgid "Postcount"
-msgstr "Aantal woorden"
+msgstr "Liczba wpisów"
 
 #: ../codepress-admin-columns.php:2113
 msgid "Mime type"
-msgstr ""
+msgstr "Typ pliku"
 
 #: ../codepress-admin-columns.php:2116
-#, fuzzy
 msgid "File name"
-msgstr "Voornaam"
+msgstr "Nazwa pliku"
 
 #: ../codepress-admin-columns.php:2119
 msgid "Dimensions"
-msgstr "Afmetingen"
+msgstr "Wymiary"
 
 #: ../codepress-admin-columns.php:2122
 msgid "Height"
-msgstr "Hoogte"
+msgstr "Wysokość"
 
 #: ../codepress-admin-columns.php:2128
-#, fuzzy
 msgid "Caption"
-msgstr "Locatie"
+msgstr "Tytuł"
 
 #: ../codepress-admin-columns.php:2134
 msgid "Alt"
-msgstr ""
+msgstr "Tekst alternatywny"
 
 #: ../codepress-admin-columns.php:2137
 msgid "Upload paths"
-msgstr "Bestands-URLs"
+msgstr "Ścieżki plików"
 
 #: ../codepress-admin-columns.php:2168
 msgid "Target"
-msgstr ""
+msgstr "Cel"
 
 #: ../codepress-admin-columns.php:2171
-#, fuzzy
 msgid "Owner"
-msgstr "Volgorde"
+msgstr "Właściciel"
 
 #: ../codepress-admin-columns.php:2174
 msgid "Notes"
-msgstr "Beschrijving"
+msgstr "Notatki"
 
 #: ../codepress-admin-columns.php:2177
 msgid "Rss"
-msgstr ""
+msgstr "Rss"
 
 #: ../codepress-admin-columns.php:2180
 msgid "Length"
-msgstr "Lengte"
+msgstr "Długość"
 
 #: ../codepress-admin-columns.php:2202
 msgid "Author Name"
-msgstr "Auteur"
+msgstr "Imię Autora"
 
 #: ../codepress-admin-columns.php:2205
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: ../codepress-admin-columns.php:2208
 msgid "Author url"
-msgstr "Auteurs url"
+msgstr "URL Autora"
 
 #: ../codepress-admin-columns.php:2211
 msgid "Author IP"
-msgstr "Auteur IP"
+msgstr "IP Autora"
 
 #: ../codepress-admin-columns.php:2214
 msgid "Author email"
-msgstr "Auteurs email"
+msgstr "Email Autora"
 
 #: ../codepress-admin-columns.php:2217
 msgid "In Reply To"
-msgstr ""
+msgstr "W odpowiedzi na"
 
 #: ../codepress-admin-columns.php:2225
 msgid "Approved"
-msgstr "Geodgekeurd"
+msgstr "Zatwierdzony"
 
 #: ../codepress-admin-columns.php:2231
 msgid "Date GMT"
-msgstr ""
+msgstr "Data GMT"
 
 #: ../codepress-admin-columns.php:2234
 msgid "Agent"
-msgstr ""
+msgstr "Agent"
 
 #: ../codepress-admin-columns.php:2280
 msgid "Custom"
-msgstr ""
+msgstr "Włąsne"
 
 #: ../codepress-admin-columns.php:2357
-#: ../codepress-admin-columns.php:3105
-#, fuzzy
+#: ../codepress-admin-columns.php:3119
 msgid "Addons"
-msgstr "Adres"
+msgstr "Dodatki"
 
-#: ../codepress-admin-columns.php:2923
-#: ../codepress-admin-columns.php:3090
+#: ../codepress-admin-columns.php:2937
+#: ../codepress-admin-columns.php:3104
 msgid "find out more"
-msgstr "meer informatie"
+msgstr "dowiedz się więcej"
 
-#: ../codepress-admin-columns.php:2927
+#: ../codepress-admin-columns.php:2941
 msgid "This will make all of the new columns support sorting"
-msgstr "Dit maakt dat sorteren ondersteund wordt door alle nieuwe kolommen"
+msgstr "Dzięki temu wszystkie nowe kolumny będą sortowalne"
 
-#: ../codepress-admin-columns.php:2928
+#: ../codepress-admin-columns.php:2942
 msgid "By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>"
-msgstr "Standaard laat WordPress je sorteren bij titel, datum, reakties en auteur. De addon zorgt ervoor dat je kunt sorteren bij <strong>alle kolommen van alle typen!</strong>"
+msgstr "Domyślnie, WordPress pozwala na sortowanie po tytule, dacie, komentarzu i autorze. Dzięi temu będziesz mógł <strong>sortować każdą kolumnę, każdego rodzaju!</strong>"
 
-#: ../codepress-admin-columns.php:2929
+#: ../codepress-admin-columns.php:2943
 msgid "Perfect for sorting your articles, media files, comments, links and users"
-msgstr "Perfect voor het sorteren van je artikelen, media bestanden, reakties, links en gebruikers"
+msgstr "Idealne rozwiązanie do sortowania wpisów, mediów, komentarzy, linków i użytkowników"
 
-#: ../codepress-admin-columns.php:2938
-#: ../codepress-admin-columns.php:2940
+#: ../codepress-admin-columns.php:2952
+#: ../codepress-admin-columns.php:2954
 msgid "Sortorder"
-msgstr ""
+msgstr "Kierunek sortowania"
 
-#: ../codepress-admin-columns.php:2948
-#, fuzzy
+#: ../codepress-admin-columns.php:2962
 msgid "Inactive"
-msgstr "Actief"
+msgstr "Nieaktywny"
 
-#: ../codepress-admin-columns.php:2951
+#: ../codepress-admin-columns.php:2965
 msgid "Active"
 msgstr "Actief"
 
-#: ../codepress-admin-columns.php:2956
+#: ../codepress-admin-columns.php:2970
 msgid "Fill in your activation code"
-msgstr "Vul je activatiecode in"
+msgstr "Wpisz kod aktywacyjny"
 
-#: ../codepress-admin-columns.php:2957
-#, fuzzy
+#: ../codepress-admin-columns.php:2971
 msgid "Activate"
-msgstr "Actief"
+msgstr "Aktywuj"
 
-#: ../codepress-admin-columns.php:2961
-#, fuzzy
+#: ../codepress-admin-columns.php:2975
 msgid "Deactivate"
-msgstr "Actief"
+msgstr "Deaktywuj"
 
-#: ../codepress-admin-columns.php:2976
-#, fuzzy
+#: ../codepress-admin-columns.php:2990
 msgid "Activate Add-ons"
-msgstr "Activeer Google Maps"
+msgstr "Aktywuj dodatki"
 
-#: ../codepress-admin-columns.php:2977
+#: ../codepress-admin-columns.php:2991
 msgid "Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites"
-msgstr "Addons kunnen worden geactiveerd door een licentie sleutel aan te schaffen. De licentie sleutel kan gebruikt worden voor meerdere websites"
+msgstr "Dodatki mągą być aktywowane po zakupie licencji. Każdy klucz licencji może być sotsowany na wielu stronach"
 
-#: ../codepress-admin-columns.php:2981
+#: ../codepress-admin-columns.php:2995
 msgid "Addon"
-msgstr ""
+msgstr "Dodatek"
 
-#: ../codepress-admin-columns.php:2983
+#: ../codepress-admin-columns.php:2997
 msgid "Activation Code"
-msgstr "Activatie code"
+msgstr "Kod aktywacyjny"
 
-#: ../codepress-admin-columns.php:2992
+#: ../codepress-admin-columns.php:3006
 msgid "Enter your activation code"
-msgstr "Vul je activatie code in"
+msgstr "Wpisz kod aktywacyjny"
 
-#: ../codepress-admin-columns.php:2993
+#: ../codepress-admin-columns.php:3007
 msgid "Activation code unrecognised"
-msgstr "Activatie code niet herkend"
+msgstr "Kod aktywacyjny nie został rozpoznany"
 
-#: ../codepress-admin-columns.php:3087
+#: ../codepress-admin-columns.php:3101
 msgid "You will find a short overview at the <strong>Help</strong> section in the top-right screen."
-msgstr "Je vindt een korte samenvatting in de <strong>Help</strong> sectie in de rechter bovenkant van het scherm."
-
-#: ../codepress-admin-columns.php:3095
-msgid "Codepress Admin Columns"
-msgstr ""
-
-#: ../codepress-admin-columns.php:3108
-msgid "By default WordPress let's you only sort by title, date, comments and author."
-msgstr "Standaard laat WordPress je sorteren bij titel, datum, reakties en auteur."
+msgstr "Krótkie podsumowanie znajdziesz w dziale <strong>Pomocy</strong>, w prawym, górnym rogu ekranu."
 
 #: ../codepress-admin-columns.php:3109
-msgid "Make <strong>all columns</strong> of <strong>all types</strong> support sorting &#8212; with the sorting addon."
-msgstr "Zorg ervoor dat <strong>alle kolommen</strong> van <strong>alle typen</strong> sorteren ondersteund &#8212; met de sorting addon."
-
-#: ../codepress-admin-columns.php:3117
-msgid "Like this plugin?"
-msgstr "Leuke plugin?"
-
-#: ../codepress-admin-columns.php:3120
-msgid "Why not do any or all of the following"
-msgstr "Waarom doe je niet één van de volgende dingen:"
+msgid "Codepress Admin Columns"
+msgstr "Edytor kolumn"
 
 #: ../codepress-admin-columns.php:3122
-msgid "Link to it so other folks can find out about it."
-msgstr "Link naar ons zodat anderen deze plugin ook ontdekken."
+msgid "By default WordPress let's you only sort by title, date, comments and author."
+msgstr "Domyślnie WordPress pozwala na sortowanie po tytule, dacie, komentarzu i autorze."
 
 #: ../codepress-admin-columns.php:3123
-msgid "Give it a 5 star rating on WordPress.org."
-msgstr "Geef het een goede score op WordPress.org."
+msgid "Make <strong>all columns</strong> of <strong>all types</strong> support sorting &#8212; with the sorting addon."
+msgstr "Włącz sortowanie <strong>wszystkich kolumn, wszystkich typów</strong> &#8212; uaktywniając dodatek."
 
-#: ../codepress-admin-columns.php:3124
-msgid "Donate a token of your appreciation."
-msgstr "Doneer een blijk van uw waardering."
+#: ../codepress-admin-columns.php:3131
+msgid "Like this plugin?"
+msgstr "Lubisz tę wtyczkę?"
 
-#: ../codepress-admin-columns.php:3132
-msgid "Need support?"
-msgstr "Hulp nodig?"
+#: ../codepress-admin-columns.php:3134
+msgid "Why not do any or all of the following"
+msgstr "Dlaczego by nie zrobić jednej lub wszystkich z poniższych rzeczy"
 
 #: ../codepress-admin-columns.php:3136
-#, php-format
-msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
-msgstr "Als je problem hebt met deze plugin, stel je vragen dan in de <a href=\"%s\">Support forums</a> of stuur me een email %s."
+msgid "Link to it so other folks can find out about it."
+msgstr "Dodaj link aby inni mogli się o niej dowiedzieć."
 
 #: ../codepress-admin-columns.php:3137
+msgid "Give it a 5 star rating on WordPress.org."
+msgstr "Przyznaj jej 5 gwaizdek na stronie WordPress.org."
+
+#: ../codepress-admin-columns.php:3138
+msgid "Donate a token of your appreciation."
+msgstr "Wspomóż drobną dotacją."
+
+#: ../codepress-admin-columns.php:3146
+msgid "Need support?"
+msgstr "Potrzebujesz pomocy?"
+
+#: ../codepress-admin-columns.php:3150
+#, php-format
+msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
+msgstr "Jeśli masz jakieś problemy z tą wtyczką, proszę napisz o tym na stronie <a href=\"%s\">Forum pomocy</a> lub wyślij do mnie maila na adres %s."
+
+#: ../codepress-admin-columns.php:3151
 #, php-format
 msgid "If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>."
-msgstr "Als een bug bent tegen gekomen, of een feature wil aanvragen, stuur ons dan <a href='%s'>je feedback</a>."
+msgstr "Jeśli jeste przekonany, że znalazłeś bug'a lub masz prośbę o dodanie nowej funkcji, proszę <a href='%s'>wyślij do mnie maila.</a>."
 
-#: ../codepress-admin-columns.php:3152
+#: ../codepress-admin-columns.php:3166
 msgid "Admin Columns"
-msgstr ""
+msgstr "Edytor kolumn"
 
-#: ../codepress-admin-columns.php:3170
+#: ../codepress-admin-columns.php:3184
 msgid "Save Changes"
-msgstr "Wijzigingen opslaan"
+msgstr "Zapisz zmiany"
 
-#: ../codepress-admin-columns.php:3182
+#: ../codepress-admin-columns.php:3196
 msgid "Restore defaults"
-msgstr "Herstel instellingen"
+msgstr "Przywróć domyślne"
 
-#: ../codepress-admin-columns.php:3186
+#: ../codepress-admin-columns.php:3200
 msgid "Restore default settings"
-msgstr "Herstel standaard instellingen"
+msgstr "Przywróć ustawienia domyślne"
 
-#: ../codepress-admin-columns.php:3186
+#: ../codepress-admin-columns.php:3200
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
+msgstr "Uwaga! WSZYSTKIE zapisane ustawienia kolumn zostaną usunięte. Tej operacji nie można przywrócić. Kliknij \\'OK\\' aby usunąć lub \\'Anuluj\\' aby przerwać."
 
-#: ../codepress-admin-columns.php:3188
+#: ../codepress-admin-columns.php:3202
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Hiermee worden alle kolommen instellingen verwijderd en de standaardinstellingen hersteld."
+msgstr "Ta operacja usunie wszystkie ustawienia kolumn u przywróci je do ustawień domyślnych."
 
 #~ msgid "User Field"
 #~ msgstr "Veld"

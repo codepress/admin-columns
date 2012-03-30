@@ -632,6 +632,10 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// type
 		$type = $id;
 		
+		// Check for taxonomies, such as column-taxonomy-[taxname]	
+		if ( strpos($type, 'column-taxonomy-') !== false )
+			$type = 'column-taxonomy';
+		
 		// custom fields
 		if ( $this->is_column_meta($type) )
 			$type = 'column-post-meta';
@@ -639,7 +643,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// attachments
 		if ( $type == 'column-attachment-count' )
 			$type = 'column-attachment';
-		
+				
 		// var
 		$cposts = array();		
 		switch( $type ) :
@@ -747,6 +751,23 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-status' : 
 				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->post_status.strtotime($p->post_date);
+				}
+				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
+				break;
+			
+			case 'column-taxonomy' :
+				$tax 	= str_replace('column-taxonomy-', '', $id);
+				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+					if ( $this->show_all_results )
+						$cposts[$p->ID] = '';
+						
+					$terms = get_the_terms($p->ID, $tax);					
+					if ( !is_wp_error($terms) && !empty($terms) ) {
+						$term = current($terms);						
+						if ( $term ) {
+							$cposts[$p->ID] = esc_html(sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'edit'));
+						}						
+					}
 				}
 				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;

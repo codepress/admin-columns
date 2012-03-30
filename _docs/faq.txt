@@ -1,1 +1,6 @@
-How to set column width?
+Lsoing options with serialized data
+
+WordPress stores many options as "serialized data", which contains both the string content of things and their length. So when you modify the URL and the length changes, then the serialized data is no longer correct, and PHP rejects it.
+
+see: http://wordpress.stackexchange.com/questions/9076/why-is-my-database-import-losing-text-widget-data
+and: http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
