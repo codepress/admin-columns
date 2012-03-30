@@ -45,6 +45,8 @@ Prio #2
 ---------------------------------------------------------
 done: sorting taxonomies ( only on first one )
 
+filtering by taxonomy
+sorting post category and tags
 
 make option to set default ordering: Ikraav, I could also use a feature that would save the order you last used as the default.
 

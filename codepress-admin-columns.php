@@ -979,8 +979,10 @@ class Codepress_Admin_Columns
 					$post_type = get_post_type($post_id);
 					foreach($tags as $tag) {
 						// sanatize title
-						$tax_title 	= esc_html(sanitize_term_field('name', $tag->name, $tag->term_id, $tag->taxonomy, 'edit'));
-						$tarr[] 	= "<a href='edit.php?post_type={$post_type}&{$tag->taxonomy}={$tag->slug}'>{$tax_title}</a>";
+						if ( isset($tag->term_id) ) {
+							$tax_title 	= esc_html(sanitize_term_field('name', $tag->name, $tag->term_id, $tag->taxonomy, 'edit'));
+							$tarr[] 	= "<a href='edit.php?post_type={$post_type}&{$tag->taxonomy}={$tag->slug}'>{$tax_title}</a>";
+						}
 					}
 					$result = implode(', ', $tarr);
 				}			

@@ -33,8 +33,13 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$this->unlocked 		= $this->is_unlocked('sortable');
 		$this->post_types 		= $this->get_post_types();
 		$this->show_all_results = false;
-
+		$this->textdomain		= 'codepress-admin-columns';
+		
+		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
+		
+		// init filtering
+		add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
 		
 		// handle requests for sorting columns
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
@@ -71,6 +76,73 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		/** Comments */
 		add_filter( "manage_edit-comments_sortable_columns", array($this, 'callback_add_sortable_comments_column'));
 	}
+	
+	/**
+	 * 	Register filtering columns
+	 *
+	 * 	@since     1.4.2
+	 */
+	function register_filtering_columns()
+	{
+		// hook into wordpress
+		add_action('restrict_manage_posts', array($this, 'callback_restrict_posts'));
+	}
+	
+	/**
+	 * 	Add taxonomy filters to posts
+	 *
+	 * 	@since     1.4.2
+	 */
+	function callback_restrict_posts()
+	{
+		global $post_type_object;
+		
+		// make a filter foreach taxonomy
+		$taxonomies = get_object_taxonomies($post_type_object->name, 'names');
+		if ( $taxonomies ) {
+			foreach ( $taxonomies as $tax ) {
+				if ( !in_array($tax, array('post_tag','category','post_format') ) ) {
+			
+					$terms = get_terms($tax);
+					$terms = $this->indent($terms, 0, 'parent', 'term_id');
+					$terms = $this->apply_dropdown_markup($terms);
+					 
+					$select = "<option value=''>".__('Show all ', $this->textdomain)."{$tax}</option>";
+					if (!empty($terms)) {
+						foreach( $terms as $term_slug => $term) {
+							$selected = isset($_GET[$tax]) && $term_slug == $_GET[$tax] ? " selected='selected'" : '';
+							$select .= "<option value='{$term_slug}'{$selected}>{$term}</option>";
+						}
+					}
+					echo "<select class='postform' name='properties'>{$select}</select>";				
+				}
+			}
+		}
+	}
+	
+	/**
+	 *	Applies dropdown markup for taxonomy dropdown
+	 *
+	 *  @since     1.4.2
+	 */
+	private function apply_dropdown_markup($array, $level = 0, $output = array())
+    {                
+        foreach($array as $v) {
+            
+            $prefix = '';        
+            for($i=0; $i<$level; $i++) {
+                $prefix .= '&nbsp;&nbsp;';  
+            }
+            
+            $output[$v->slug] = $prefix . htmlentities($v->name, ENT_QUOTES, 'UTF-8');
+            
+            if ( !empty($v->children) ) {
+                $output = $this->apply_dropdown_markup($v->children, ($level + 1), $output);
+            }
+        }
+        
+        return $output;
+    }
 	
 	/**
 	 *	Callback add Posts sortable column
@@ -756,16 +828,15 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 			
 			case 'column-taxonomy' :
-				$tax 	= str_replace('column-taxonomy-', '', $id);
+				$tax = str_replace('column-taxonomy-', '', $id);
 				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
-					if ( $this->show_all_results )
-						$cposts[$p->ID] = '';
-						
-					$terms = get_the_terms($p->ID, $tax);					
+					$cposts[$p->ID] = '';						
+					$terms = get_the_terms($p->ID, $tax);
 					if ( !is_wp_error($terms) && !empty($terms) ) {
-						$term = current($terms);						
-						if ( $term ) {
-							$cposts[$p->ID] = esc_html(sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'edit'));
+						// only use the first term to sort
+						$term = array_shift(array_values($terms));
+						if ( isset($term->term_id) ) {
+							$cposts[$p->ID] = sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'db');
 						}						
 					}
 				}
@@ -905,6 +976,31 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			$userdatas[$u->ID] = get_userdata($u->ID);
 		}
 		return $userdatas;
+	}
+	
+	/**
+	 * Indents any object as long as it has a unique id and that of its parent.
+	 *
+	 * @since     1.4.2
+	 */
+	private function indent($array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children') 
+    {
+		$indent = array();
+        
+        // clean counter
+        $i = 0;
+        
+		foreach($array as $v) {
+
+			if ($v->$parentKey == $parentId) {
+				$indent[$i] = $v;
+				$indent[$i]->$childrenKey = $this->indent($array, $v->$selfKey, $parentKey, $selfKey);
+                
+                $i++;
+			}
+		}
+
+		return $indent;
 	}
 }
 
