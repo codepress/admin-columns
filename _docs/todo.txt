@@ -48,7 +48,10 @@ done: sorting taxonomies ( only on first one )
 done: fixed sortable bug ( see http://bugs.mysql.com/bug.php?id=18786 )
 done: column that shows "Comment status"
 done: column that shows "Ping status"
+done: column posts actions
+done: column users actions
 
+add actions column for media, links, comments.
 filtering by taxonomy
 screencast how to use
 add donate link to repository page ( see "Admin Management Xtended" )
@@ -84,7 +87,7 @@ filter posts ( example: media by type )
 media library custom fields
 all in one SEO plugin; Once I active Codepress Admin Columns, the SEO column automatic show in the left side (like below image) and I have no option to adjust the SEO column in the setting page. I would like them to show at the right side.
 post column: private en protected
-add control column with edit button etc.
+
 add @param
 add @return
 

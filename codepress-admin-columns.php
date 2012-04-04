@@ -1022,13 +1022,22 @@ class Codepress_Admin_Columns
 			// Post comment status
 			case "column-comment-status" :
 				$p 		= get_post($post_id);
-				$result = "<span class='status-{$p->comment_status}'>{$p->comment_status}</span>";
+				$result = $this->get_asset_image('no.png', $p->comment_status);
+				if ( $p->comment_status == 'open' )
+					$result = $this->get_asset_image('checkmark.png', $p->comment_status);
 				break;
 				
 			// Post ping status
 			case "column-ping-status" :
 				$p 		= get_post($post_id);
-				$result = "<span class='status-{$p->ping_status}'>{$p->ping_status}</span>";
+				$result = $this->get_asset_image('no.png', $p->ping_status);
+				if ( $p->ping_status == 'open' )
+					$result = $this->get_asset_image('checkmark.png', $p->ping_status);
+				break;
+			
+			// Post actions ( delete, edit etc. )
+			case "column-actions" :
+				$result = $this->get_column_value_actions($post_id, 'posts');
 				break;
 			
 			default :
@@ -1112,6 +1121,11 @@ class Codepress_Admin_Columns
 				// set result
 				$result 	= $count > 0 ? "<a href='edit.php?post_type={$post_type}&author={$user_id}'>{$count}</a>" : (string) $count;
 				break; 
+			
+			// user actions
+			case "column-actions" :
+				$result = $this->get_column_value_actions($user_id, 'users');
+				break;
 			
 			// user meta data ( custom field )
 			case "column-user-meta" :
@@ -1426,6 +1440,82 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
+	 *	Get column value of post actions
+	 *
+	 *	This part has been taken from the following classes
+	 *	Posts List Table
+	 *	
+	 *
+	 * 	@since     1.4.2
+	 */
+	private function get_column_value_actions( $id, $type = 'posts' ) 
+	{	
+		$actions = array();
+		
+		/** Posts */
+		if ( $type == 'posts') {
+			$post_id			= $id;
+			$post 				= get_post($post_id);
+			$title 				= _draft_or_post_title();
+			$post_type_object 	= get_post_type_object( $post->post_type );
+			$can_edit_post 		= current_user_can( $post_type_object->cap->edit_post, $post->ID );
+			
+			if ( $can_edit_post && 'trash' != $post->post_status ) {
+				$actions['edit'] = '<a href="' . get_edit_post_link( $post->ID, true ) . '" title="' . esc_attr( __( 'Edit this item' ) ) . '">' . __( 'Edit' ) . '</a>';
+				$actions['inline hide-if-no-js'] = '<a href="#" class="editinline" title="' . esc_attr( __( 'Edit this item inline' ) ) . '">' . __( 'Quick&nbsp;Edit' ) . '</a>';
+			}
+			if ( current_user_can( $post_type_object->cap->delete_post, $post->ID ) ) {
+				if ( 'trash' == $post->post_status )
+					$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore this item from the Trash' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-' . $post->post_type . '_' . $post->ID ) . "'>" . __( 'Restore' ) . "</a>";
+				elseif ( EMPTY_TRASH_DAYS )
+					$actions['trash'] = "<a class='submitdelete' title='" . esc_attr( __( 'Move this item to the Trash' ) ) . "' href='" . get_delete_post_link( $post->ID ) . "'>" . __( 'Trash' ) . "</a>";
+				if ( 'trash' == $post->post_status || !EMPTY_TRASH_DAYS )
+					$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete this item permanently' ) ) . "' href='" . get_delete_post_link( $post->ID, '', true ) . "'>" . __( 'Delete Permanently' ) . "</a>";
+			}
+			if ( $post_type_object->public ) {
+				if ( in_array( $post->post_status, array( 'pending', 'draft', 'future' ) ) ) {
+					if ( $can_edit_post )
+						$actions['view'] = '<a href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) . '" title="' . esc_attr( sprintf( __( 'Preview &#8220;%s&#8221;' ), $title ) ) . '" rel="permalink">' . __( 'Preview' ) . '</a>';
+				} elseif ( 'trash' != $post->post_status ) {
+					$actions['view'] = '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
+				}
+			}
+		}
+		
+		/** Users */
+		elseif ( $type == 'users' ) {
+			
+			$user_object = new WP_User( $id );
+			$screen 	 = get_current_screen();
+			
+			if ( 'site-users-network' == $screen->id )
+				$url = "site-users.php?id={$this->site_id}&amp;";
+			else
+				$url = 'users.php?';
+			
+			if ( get_current_user_id() == $user_object->ID ) {
+				$edit_link = 'profile.php';
+			} else {
+				$edit_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=$user_object->ID" ) );
+			}
+			
+			if ( current_user_can( 'edit_user',  $user_object->ID ) ) {
+				$edit = "<strong><a href=\"$edit_link\">$user_object->user_login</a></strong><br />";
+				$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
+			} else {
+				$edit = "<strong>$user_object->user_login</strong><br />";
+			}
+
+			if ( !is_multisite() && get_current_user_id() != $user_object->ID && current_user_can( 'delete_user', $user_object->ID ) )
+				$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( "users.php?action=delete&amp;user=$user_object->ID", 'bulk-users' ) . "'>" . __( 'Delete' ) . "</a>";
+			if ( is_multisite() && get_current_user_id() != $user_object->ID && current_user_can( 'remove_user', $user_object->ID ) )
+				$actions['remove'] = "<a class='submitdelete' href='" . wp_nonce_url( $url."action=remove&amp;user=$user_object->ID", 'bulk-users' ) . "'>" . __( 'Remove' ) . "</a>";
+		}
+		
+		return implode(' | ', $actions);
+	}
+	
+	/**
 	 *	Get column value of post attachments
 	 *
 	 * 	@since     1.2.1
@@ -1461,14 +1551,14 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 *	Get checkmark image
+	 *	Get image from assets folder
 	 *
 	 * 	@since     1.3.1
 	 */
-	protected function get_asset_image($name = '')
+	protected function get_asset_image($name = '', $title = '')
 	{
 		if ( $name )
-			return sprintf("<img alt='' src='%s' />", $this->plugin_url("assets/images/{$name}") );
+			return sprintf("<img alt='' src='%s' title='%s'/>", $this->plugin_url("assets/images/{$name}"), $title);
 	}
 	
 	/**
@@ -1963,6 +2053,12 @@ class Codepress_Admin_Columns
 			'column-ping-status' => array(
 				'label'	=> __('Ping status', $this->textdomain)
 			),
+			'column-actions' => array(
+				'label'	=> __('Actions', $this->textdomain),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
+			)
 		);
 		
 		// Word count support
@@ -2067,6 +2163,12 @@ class Codepress_Admin_Columns
 			),
 			'column-user_description' => array(
 				'label'	=> __('Description', $this->textdomain)
+			),
+			'column-actions' => array(
+				'label'	=> __('Actions', $this->textdomain),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
 			),
 		);
 		
