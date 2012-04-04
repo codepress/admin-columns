@@ -17,6 +17,7 @@ done: Co-Authors Plus conflict: When any custom columns are set (Users columns o
 Payment wall + shopp
 done: Image paths
 done: added apply_filters('cpac-get-post-types', $post_types) to filter out some post types
+done: user sorting by role.
 
 put in readme that default sorting will be next in addon
 
@@ -44,9 +45,16 @@ $this->get_column_info();							class-wp-list-table.php 725
 Prio #2
 ---------------------------------------------------------
 done: sorting taxonomies ( only on first one )
+done: fixed sortable bug ( see http://bugs.mysql.com/bug.php?id=18786 )
+done: column that shows "Comment status"
+done: column that shows "Ping status"
 
 filtering by taxonomy
+screencast how to use
+add donate link to repository page ( see "Admin Management Xtended" )
 sorting post category and tags
+change description of plugin.: Customise the columns on the administration screens for post(types), pages, media library, comments, links and users with an easy to use drag-and-drop interface.
+german version -> 
 
 make option to set default ordering: Ikraav, I could also use a feature that would save the order you last used as the default.
 
@@ -59,7 +67,7 @@ select option for showing all results when using sorting
 Copy to clipboard for image paths
 answer: http://wordpress.org/support/topic/plugin-codepress-admin-columns-ignore-specific-post-types?replies=1
 Meta data for Library, such as image_meta. There's an option to display meta data for Post, Pages and Users; but there's no equivalent for Media Gallery attachments.
-user sorting by role.
+
 comment wordcount + sorting by wordcount
 width columns via http://quocity.com/colresizable/ (http://www.flexigrid.info/)
 named class for the custom admin columns
@@ -82,6 +90,7 @@ add @return
 
 Prio #3
 ---------------------------------------------------------
+ajaxify quick edit of column values
 user roles
 taxonmies column ID (see mail bartosz )
 taxonomy columns

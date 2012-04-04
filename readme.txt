@@ -99,9 +99,18 @@ By default WordPress let's you only sort by Title, Date, Comments and Author. Th
 
 It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), Co-Authors Plus and Advanced Custom Fields.
 
+= Translations = 
+
+If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
+
+* Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
+
+
 = Upcoming releases =
 
 The next upcoming release will have the option to set default sorting per screen.
+
+
 
 **Feedback**
 

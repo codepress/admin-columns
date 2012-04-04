@@ -907,7 +907,7 @@ class Codepress_Admin_Columns
 		
 		// Hook 
 		do_action('cpac-manage-posts-column', $type, $column_name, $post_id);
-		
+	
 		// Switch Types
 		$result = '';
 		switch ($type) :			
@@ -1017,6 +1017,18 @@ class Codepress_Admin_Columns
 				$result = $p->post_status;
 				if ( $result == 'future')
 					$result = $result . " <p class='description'>" . date_i18n( get_option('date_format') . ' ' . get_option('time_format') , strtotime($p->post_date) ) . "</p>";
+				break;
+				
+			// Post comment status
+			case "column-comment-status" :
+				$p 		= get_post($post_id);
+				$result = "<span class='status-{$p->comment_status}'>{$p->comment_status}</span>";
+				break;
+				
+			// Post ping status
+			case "column-ping-status" :
+				$p 		= get_post($post_id);
+				$result = "<span class='status-{$p->ping_status}'>{$p->ping_status}</span>";
 				break;
 			
 			default :
@@ -1944,6 +1956,12 @@ class Codepress_Admin_Columns
 			),
 			'column-status' => array(
 				'label'	=> __('Status', $this->textdomain)
+			),
+			'column-comment-status' => array(
+				'label'	=> __('Comment status', $this->textdomain)
+			),
+			'column-ping-status' => array(
+				'label'	=> __('Ping status', $this->textdomain)
 			),
 		);
 		

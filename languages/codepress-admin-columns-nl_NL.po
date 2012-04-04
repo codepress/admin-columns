@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-27 12:13+0100\n"
-"PO-Revision-Date: 2012-03-27 12:54+0100\n"
+"PO-Revision-Date: 2012-04-04 22:03+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "Standaard"
 
 #: ../codepress-admin-columns.php:1193
 msgid "original"
-msgstr ""
+msgstr "origineel"
 
 #: ../codepress-admin-columns.php:1365
 #: ../codepress-admin-columns.php:1376
@@ -288,15 +288,15 @@ msgstr "Auteurs email"
 
 #: ../codepress-admin-columns.php:2217
 msgid "In Reply To"
-msgstr ""
+msgstr "Antwoord op"
 
 #: ../codepress-admin-columns.php:2225
 msgid "Approved"
-msgstr "Geodgekeurd"
+msgstr "Goedgekeurd"
 
 #: ../codepress-admin-columns.php:2231
 msgid "Date GMT"
-msgstr ""
+msgstr "Datum GMT"
 
 #: ../codepress-admin-columns.php:2234
 msgid "Agent"
