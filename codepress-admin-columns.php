@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.2
+Version: 			1.4.1.3
 Description: 		This plugin makes it easy to customise the columns on the administration screens for post(types), pages, media library and users.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.4.1' );
+define( 'CPAC_VERSION', '1.4.2' );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -1782,6 +1782,13 @@ class Codepress_Admin_Columns
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
+		
+		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
+		$_GET['post_type'] = $post_type;
+		
+		// for 3rd party plugin support we will call load-edit.php so all the 
+		// additional columns that are set by them will be avaible for us
+		do_action('load-edit.php');
 		
 		// we need to change the current screen
 		global $current_screen;
