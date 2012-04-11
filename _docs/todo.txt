@@ -59,6 +59,7 @@ sorting post category and tags
 change description of plugin.: Customise the columns on the administration screens for post(types), pages, media library, comments, links and users with an easy to use drag-and-drop interface.
 german version -> 
 
+bug report tool ( see custom-content-type-manager )
 make option to set default ordering: Ikraav, I could also use a feature that would save the order you last used as the default.
 
 make a combination of salt and md5 to validate the license key locallly

@@ -9,7 +9,9 @@ Stable tag: 1.4.2
 
 Completely customise the columns on the administration screens with a nice drag and drop interface. 
 
-By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns and you will have full control over all custom columns for pages, posts, posttypes, media and users. You can add or remove columns, change their label, change their width and reorder them..
+By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns. You will have full control over all columns for pages, posts, posttypes, media, links, comments and users. 
+
+Add or remove columns, change their label, change their width and reorder them.
 
 = Post Types Columns  =
 
@@ -111,7 +113,6 @@ If you like to contrinute a language, please send them to <a href="mailto:info@c
 The next upcoming release will have the option to set default sorting per screen.
 
 
-
 **Feedback**
 
 You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns/feedback'>requests or feedback</a>.
@@ -147,6 +148,13 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 = 1.4.2 =
 * added fix for unexpected output in the column value
+* added fix for better 3rd party plugin support
+* added column for Comment status
+* added column for Ping/Trackback status
+* added column for Posts Actions (delete, view etc.)
+* added column for Users Actions (delete, view etc.)
+* added sorting taxonomies ( only on first one )
+* added bug fix for sorting
 
 = 1.4.1 =
 * added polish translation, thanks to Bartosz.
