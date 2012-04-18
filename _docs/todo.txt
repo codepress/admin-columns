@@ -51,8 +51,11 @@ done: column that shows "Ping status"
 done: column posts actions
 done: column users actions
 
+needs work: filtering by taxonomy and set behind payment wall
+
+bug: Hi, "Custom Field: Field Type: image" not preview for png file.
+filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
 add actions column for media, links, comments.
-filtering by taxonomy
 screencast how to use
 add donate link to repository page ( see "Admin Management Xtended" )
 sorting post category and tags
@@ -95,6 +98,7 @@ add @return
 Prio #3
 ---------------------------------------------------------
 ajaxify quick edit of column values
+make uploading a featured image possible from post screen
 user roles
 taxonmies column ID (see mail bartosz )
 taxonomy columns

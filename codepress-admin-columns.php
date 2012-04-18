@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.2
-Description: 		Customise the columns on the administration screens for post(types), pages, media library, comments, links and users with an easy to use drag-and-drop interface.
+Version: 			1.4.3.1
+Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
 Plugin URI: 		http://www.codepress.nl/plugins/codepress-admin-columns/
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', '1.4.2' );
+define( 'CPAC_VERSION', '1.4.3.1' );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -2113,6 +2113,7 @@ class Codepress_Admin_Columns
 				if ( $tax_slug != 'post_tag' && $tax_slug != 'category' && $tax_slug != 'post_format' ) {
 					$custom_columns['column-taxonomy-'.$tax->name] = array(
 						'label'			=> $tax->label,
+						'show_filter'	=> true,
 						'options'		=> array(
 							'type_label'	=> __('Taxonomy', $this->textdomain)
 						)

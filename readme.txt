@@ -3,7 +3,7 @@ Contributors: codepress, tschutter
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 1.4.2
+Stable tag: 1.4.3.1
 
 == Description ==
 
@@ -146,6 +146,9 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 == Changelog ==
 
+= 1.4.3 =
+* removed taxonomy filtering ( this will return in next patch with an option to show/hide )
+
 = 1.4.2 =
 * added fix for unexpected output in the column value
 * added fix for better 3rd party plugin support
@@ -155,6 +158,7 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 * added column for Users Actions (delete, view etc.)
 * added sorting taxonomies ( only on first one )
 * added bug fix for sorting
+* added taxonomy filtering
 
 = 1.4.1 =
 * added polish translation, thanks to Bartosz.

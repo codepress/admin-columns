@@ -39,7 +39,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
 		
 		// init filtering
-		add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
+		// add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
 		
 		// handle requests for sorting columns
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
@@ -187,6 +187,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	public function handle_requests_orderby_users_column($user_query)
 	{
+		//print_r($user_query); exit;
+		
 		// query vars
 		$vars = $user_query->query_vars;
 		
@@ -215,15 +217,20 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		switch( $type ) :
 			
 			case 'column-user_id':
+				$user_query->query_orderby = "ORDER BY ID {$user_query->query_vars['order']}";
 				$user_query->query_vars['orderby'] = 'ID';
 				break;
 				
-			case 'column-user_registered':
+			case 'column-user_registered':				
+				$user_query->query_orderby = "ORDER BY user_registered {$user_query->query_vars['order']}";
 				$user_query->query_vars['orderby'] = 'registered';
 				break;
 			
 			case 'column-nickname':
-				$user_query->query_vars['orderby'] = 'nickname';
+				foreach ( $this->get_users_data() as $u )
+					if ($u->nickname || $this->show_all_results )
+						$cusers[$u->ID] = $this->prepare_sort_string_value($u->nickname);
+				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
 				break;
 			
 			case 'column-first_name':
@@ -294,7 +301,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 		
 		endswitch;
-
+//print_r($user_query); exit;
 		return $user_query;
 	}
 	
@@ -506,7 +513,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		if ( ! empty ( $sortusers ) ) {			
 			$ids = implode(',', array_keys($sortusers));
 			$user_query->query_where 	.= " AND {$wpdb->prefix}users.ID IN ({$ids})";
-			$user_query->query_orderby 	= "ORDER BY FIELD ({$wpdb->prefix}users.ID,{$ids})";
+			$user_query->query_orderby 	= "ORDER BY FIELD({$wpdb->prefix}users.ID,{$ids})";
 		}
 		
 		// cleanup the vars we dont need
@@ -934,6 +941,9 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	function register_filtering_columns()
 	{
+		if ( ! $this->unlocked )
+			return false;
+		
 		// hook into wordpress
 		add_action('restrict_manage_posts', array($this, 'callback_restrict_posts'));
 	}
