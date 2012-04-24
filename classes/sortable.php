@@ -33,7 +33,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$this->unlocked 		= $this->is_unlocked('sortable');
 		$this->post_types 		= $this->get_post_types();
 		$this->show_all_results = false;
-		$this->textdomain		= 'codepress-admin-columns';
 		
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
@@ -226,60 +225,70 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$user_query->query_vars['orderby'] = 'registered';
 				break;
 			
-			case 'column-nickname':
-				foreach ( $this->get_users_data() as $u )
-					if ($u->nickname || $this->show_all_results )
+			case 'column-nickname' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					if ($u->nickname || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->nickname);
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}
+				}				
 				break;
 			
-			case 'column-first_name':
-				foreach ( $this->get_users_data() as $u )
-					if ($u->first_name || $this->show_all_results )
+			case 'column-first_name' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					if ($u->first_name || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->first_name);
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}
+				}				
 				break;
 			
-			case 'column-last_name':
-				foreach ( $this->get_users_data() as $u )
-					if ($u->last_name || $this->show_all_results )
+			case 'column-last_name' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					if ($u->last_name || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->last_name);
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}
+				}				
 				break;
 				
-			case 'column-user_url':
-				foreach ( $this->get_users_data() as $u )
-					if ($u->user_url || $this->show_all_results )
+			case 'column-user_url' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					if ($u->user_url || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->user_url);
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}
+				}				
 				break;
 			
-			case 'column-user_description':
-				foreach ( $this->get_users_data() as $u )
-					if ($u->user_description || $this->show_all_results )
+			case 'column-user_description' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					if ($u->user_description || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($u->user_description);
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}
+				}				
 				break;
 			
 			case 'column-user_postcount' :				
 				$post_type 	= $this->get_posttype_by_postcount_column($id);
 				if ( $post_type ) {
+					$sort_flag = SORT_REGULAR;
 					foreach ( $this->get_users_data() as $u ) {
 						$count = $this->get_post_count( $post_type, $u->ID );
 						$cusers[$u->ID] = $this->prepare_sort_string_value($count);
-					}
-					$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
+					}					
 				}
 				break;
 				
-			case 'role' :	
+			case 'role' :
+				$sort_flag = SORT_REGULAR;
 				foreach ( $this->get_users_data() as $u ) {
 					$role = !empty($u->roles[0]) ? $u->roles[0] : '';
 					if ($role || $this->show_all_results ) {
 						$cusers[$u->ID] = $this->prepare_sort_string_value($role);
 					}
 				}
-				$this->set_users_query_vars( &$user_query, $cusers, SORT_REGULAR );
 				break;
 			
 			case 'column-user-meta' :				
@@ -287,21 +296,25 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				if ( $field ) {
 				
 					// order numeric or string
-					$order = SORT_REGULAR;
-					if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' )
-						$order = SORT_NUMERIC;
+					$sort_flag = SORT_REGULAR;
+					if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' ) {
+						$sort_flag = SORT_NUMERIC;
+					}
 					
 					// sort by metavalue
 					foreach ( $this->get_users_data() as $u ) {
 						$value = get_metadata('user', $u->ID, $field, true);
 						$cusers[$u->ID] = $this->prepare_sort_string_value($value);
-					}
-					$this->set_users_query_vars( &$user_query, $cusers, $order );
+					}					
 				}
 				break;
 		
 		endswitch;
-//print_r($user_query); exit;
+		
+		if ( isset($sort_flag) ) {
+			$user_query = $this->get_users_query_vars( $user_query, $cusers, $sort_flag );
+		}
+		
 		return $user_query;
 	}
 	
@@ -487,16 +500,17 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	public function handle_requests_orderby_comments_column()
 	{		
 		// fire only when we are in the admins edit-comments
-		if ( $this->request_uri_is('edit-comments') )
+		if ( $this->request_uri_is('edit-comments') ) {
 			add_filter('comments_clauses', array( $this, 'callback_requests_orderby_comments_column'), 10, 2);
+		}
 	}
 	
 	/**
-	 * Set sorting vars in User Query Object
+	 * Get sorting vars in User Query Object
 	 *
 	 * @since     1.3
 	 */
-	private function set_users_query_vars(&$user_query, $sortusers, $sort_flags = SORT_REGULAR )
+	private function get_users_query_vars( $user_query, $sortusers, $sort_flags = SORT_REGULAR )
 	{	
 		global $wpdb;
 		
@@ -519,8 +533,11 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// cleanup the vars we dont need
 		$vars['order']		= '';
 		$vars['orderby'] 	= '';
-
+		
+		// set query vars
 		$user_query->query_vars = $vars;
+		
+		return $user_query;
 	}	
 	
 	/**
@@ -545,27 +562,28 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 			
 			case 'column-width' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p ) {
+				$sort_flag = SORT_NUMERIC;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
 					$meta 	= wp_get_attachment_metadata($p->ID);
 					$width 	= !empty($meta['width']) ? $meta['width'] : 0;
 					if ( $width || $this->show_all_results )
 						$cposts[$p->ID] = $width;
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
 				break;
 				
 			case 'column-height' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p ) {
+				$sort_flag = SORT_NUMERIC;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
 					$meta 	= wp_get_attachment_metadata($p->ID);
 					$height	= !empty($meta['height']) ? $meta['height'] : 0;
 					if ( $height || $this->show_all_results )
 						$cposts[$p->ID] = $height;
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
 				break;
 			
 			case 'column-dimensions' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p ) {
+				$sort_flag = SORT_NUMERIC;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
 					$meta 	 = wp_get_attachment_metadata($p->ID);
 					$height	 = !empty($meta['height']) 	? $meta['height'] 	: 0;
 					$width	 = !empty($meta['width']) 	? $meta['width'] 	: 0;
@@ -574,51 +592,62 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					if ( $surface || $this->show_all_results )
 						$cposts[$p->ID] = $surface;
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
 				break;
 			
 			case 'column-caption' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p )
-					if ( $p->post_excerpt || $this->show_all_results )
-						$cposts[$p->ID] = $this->prepare_sort_string_value($p->post_excerpt);					
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING);
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
+					if ( $p->post_excerpt || $this->show_all_results ) {
+						$cposts[$p->ID] = $this->prepare_sort_string_value($p->post_excerpt);
+					}
+				}
 				break;
 				
 			case 'column-description' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p )
-					if ( $p->post_content || $this->show_all_results )
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
+					if ( $p->post_content || $this->show_all_results ) {
 						$cposts[$p->ID] = $this->prepare_sort_string_value( $p->post_content );
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING);
+					}
+				}
 				break;
 			
 			case 'column-mime_type' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p )
-					if ( $p->post_mime_type || $this->show_all_results )
-						$cposts[$p->ID] = $this->prepare_sort_string_value( $p->post_mime_type );		
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING);
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
+					if ( $p->post_mime_type || $this->show_all_results ) {
+						$cposts[$p->ID] = $this->prepare_sort_string_value( $p->post_mime_type );
+					}
+				}		
 				break;
 			
 			case 'column-file_name' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p ) {					
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {			
 					$meta 	= get_post_meta($p->ID, '_wp_attached_file', true);					
 					$file	= !empty($meta) ? basename($meta) : '';
-					if ( $file || $this->show_all_results )
+					if ( $file || $this->show_all_results ) {
 						$cposts[$p->ID] = $file;
-				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING);
+					}
+				}				
 				break;
 
 			case 'column-alternate_text' :
-				foreach ( (array) $this->get_any_posts_by_posttype('attachment') as $p ) {
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype('attachment') as $p ) {
 					$alt = get_post_meta($p->ID, '_wp_attachment_image_alt', true);
 					if ( $alt || $this->show_all_results ) {
 						$cposts[$p->ID] = $this->prepare_sort_string_value( $alt );
 					}
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING);
 				break;			
 		
 		endswitch;
+		
+		// we will add the sorted post ids to vars['post__in'] and remove unused vars
+		if ( isset($sort_flag) ) {
+			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
+		}
 
 		return $vars;
 	}
@@ -682,108 +711,108 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				));
 				break;
 				
-			case 'column-excerpt' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
-				
-					// add excerpt to the post ids				
+			case 'column-excerpt' :
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $this->prepare_sort_string_value($p->post_content);
-				}	
-				// we will add the sorted post ids to vars['post__in'] and remove unused vars
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
+				}				
 				break;
 				
-			case 'column-word-count' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p )				
+			case 'column-word-count' :
+				$sort_flag = SORT_NUMERIC;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {		
 					$cposts[$p->ID] = str_word_count( $this->strip_trim( $p->post_content ) );
-				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
+				}
 				break;
 				
-			case 'column-page-template' : 
+			case 'column-page-template' :
+				$sort_flag = SORT_STRING;
 				$templates 		= get_page_templates();
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {					
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {					
 					$page_template  = get_post_meta($p->ID, '_wp_page_template', true);
 					$cposts[$p->ID] = array_search($page_template, $templates);
-				}
-				$this->set_vars_post__in( &$vars, $cposts );				
+				}				
 				break;
 			
-			case 'column-post_formats' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {					
+			case 'column-post_formats' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {					
 					$cposts[$p->ID] = get_post_format($p->ID);
 				}
-				$this->set_vars_post__in( &$vars, $cposts );				
 				break;
 				
-			case 'column-attachment' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p )				
+			case 'column-attachment' :
+				$sort_flag = SORT_NUMERIC;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = count( $this->get_attachment_ids($p->ID) );
-				$this->set_vars_post__in( &$vars, $cposts, SORT_NUMERIC );
-				break;
+				}
+				break;				
 				
-				
-			case 'column-page-slug' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p )				
+			case 'column-page-slug' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->post_name;
-				$this->set_vars_post__in( &$vars, $cposts );
+				}				
 				break;
 			
-			case 'column-sticky' : 
+			case 'column-sticky' :
+				$sort_flag = SORT_REGULAR;
 				$stickies = get_option('sticky_posts');
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->ID;
 					if ( !empty($stickies) && in_array($p->ID, $stickies ) ) {
 						$cposts[$p->ID] = 0;
 					}
 				}
-				$this->set_vars_post__in( &$vars, $cposts );
 				break;
 			
-			case 'column-featured_image' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+			case 'column-featured_image' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->ID;
 					$thumb = get_the_post_thumbnail($p->ID);
 					if ( !empty($thumb) ) {
 						$cposts[$p->ID] = 0;
 					}
 				}
-				$this->set_vars_post__in( &$vars, $cposts );
 				break;
 			
-			case 'column-roles' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+			case 'column-roles' :
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = 0;
 					$userdata = get_userdata($p->post_author);
 					if ( !empty($userdata->roles[0]) ) {
 						$cposts[$p->ID] = $userdata->roles[0];
 					}
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;
 			
-			case 'column-status' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+			case 'column-status' :
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->post_status.strtotime($p->post_date);
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;
 			
 			case 'column-comment-status' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->comment_status;
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;
 			
 			case 'column-ping-status' : 
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = $p->ping_status;
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
 				break;
 			
 			case 'column-taxonomy' :
+				$sort_flag = SORT_STRING;
 				$tax = str_replace('column-taxonomy-', '', $id);
-				foreach ( (array) $this->get_any_posts_by_posttype($post_type) as $p ) {
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = '';						
 					$terms = get_the_terms($p->ID, $tax);
 					if ( !is_wp_error($terms) && !empty($terms) ) {
@@ -794,12 +823,15 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 						}						
 					}
 				}
-				$this->set_vars_post__in( &$vars, $cposts, SORT_STRING );
-
 				break;
 		
 		endswitch;
-
+		
+		// we will add the sorted post ids to vars['post__in'] and remove unused vars
+		if ( isset($sort_flag) ) {
+			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
+		}
+		
 		return $vars;
 	}
 	
@@ -810,7 +842,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 *
 	 * @since     1.2.1
 	 */
-	private function set_vars_post__in( &$vars, $sortposts, $sort_flags = SORT_REGULAR )
+	private function get_vars_post__in( &$vars, $sortposts, $sort_flags = SORT_REGULAR )
 	{
 		// sort post ids by value
 		if ( $vars['order'] == 'asc' )
@@ -828,6 +860,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		
 		// add the sorted post ids to the query with the use of post__in
 		$vars['post__in'] = array_keys($sortposts);
+		
+		return $vars;
 	}
 	
 	/**
@@ -888,7 +922,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			'post_status'	=> 'any',
 			'post_type'		=> $post_type
 		));
-		return $allposts;		
+		return (array) $allposts;		
 	}
 	
 	/**
@@ -968,7 +1002,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					$terms = $this->indent($terms, 0, 'parent', 'term_id');
 					$terms = $this->apply_dropdown_markup($terms);
 					 
-					$select = "<option value=''>".__('Show all ', $this->textdomain)."{$tax}</option>";
+					$select = "<option value=''>".__('Show all ', CPAC_TEXTDOMAIN)."{$tax}</option>";
 					if (!empty($terms)) {
 						foreach( $terms as $term_slug => $term) {
 							$selected = isset($_GET[$tax]) && $term_slug == $_GET[$tax] ? " selected='selected'" : '';

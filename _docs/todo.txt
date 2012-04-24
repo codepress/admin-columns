@@ -50,12 +50,17 @@ done: column that shows "Comment status"
 done: column that shows "Ping status"
 done: column posts actions
 done: column users actions
+done: Warning: Call-time pass-by-reference has been deprecated in /var/www/vhosts/heelhelder.nl/httpdocs/kompaan/wp-content/plugins/codepress-admin-columns/classes/sortable.php on line 790
 
 needs work: filtering by taxonomy and set behind payment wall
 
 bug: Hi, "Custom Field: Field Type: image" not preview for png file.
 filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
+
 add actions column for media, links, comments.
+
+
+add suport for custom fields, also in Media Library and Users
 screencast how to use
 add donate link to repository page ( see "Admin Management Xtended" )
 sorting post category and tags
@@ -88,7 +93,6 @@ nonce
 admin columns in search of wordpress ( payment wall )
 introduction tour
 filter posts ( example: media by type )
-media library custom fields
 all in one SEO plugin; Once I active Codepress Admin Columns, the SEO column automatic show in the left side (like below image) and I have no option to adjust the SEO column in the setting page. I would like them to show at the right side.
 post column: private en protected
 
