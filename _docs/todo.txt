@@ -51,20 +51,22 @@ done: column that shows "Ping status"
 done: column posts actions
 done: column users actions
 done: Warning: Call-time pass-by-reference has been deprecated in /var/www/vhosts/heelhelder.nl/httpdocs/kompaan/wp-content/plugins/codepress-admin-columns/classes/sortable.php on line 790
+done: adding Image EXIF and IPTC columns
+done: change description of plugin. (Customise the columns on the administration screens for post(types), pages, media library, comments, links and users with an easy to use drag-and-drop interface.)
 
+needs testing: add suport for custom fields, also in Media Library and Users
 needs work: filtering by taxonomy and set behind payment wall
 
 bug: Hi, "Custom Field: Field Type: image" not preview for png file.
 filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
 
+is_column_meta() and get_stored_columns() and get_post_types() and get_meta_by_type() need to be in a utility class ( now they are double declared )
+
 add actions column for media, links, comments.
-
-
-add suport for custom fields, also in Media Library and Users
 screencast how to use
 add donate link to repository page ( see "Admin Management Xtended" )
 sorting post category and tags
-change description of plugin.: Customise the columns on the administration screens for post(types), pages, media library, comments, links and users with an easy to use drag-and-drop interface.
+
 german version -> 
 
 bug report tool ( see custom-content-type-manager )
