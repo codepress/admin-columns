@@ -696,6 +696,14 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-order' : 
 				$vars['orderby'] = 'menu_order';
 				break;
+				
+			case 'column-modified' : 
+				$vars['orderby'] = 'modified';
+				break;
+			
+			case 'column-comment-count' : 
+				$vars['orderby'] = 'comment_count';
+				break;
 			
 			case 'column-post-meta' : 				
 				$field 		= $column[$id]['field'];

@@ -113,6 +113,4 @@ class CPAC_Users_Values extends CPAC_Values
 	}
 }
 
-new CPAC_Users_Values();
-
 ?>

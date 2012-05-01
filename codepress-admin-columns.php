@@ -41,6 +41,12 @@ if ( !is_admin() )
  * @since     1.3
  */
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
+require_once dirname( __FILE__ ) . '/classes/values.php';		
+require_once dirname( __FILE__ ) . '/classes/values/posts.php';
+require_once dirname( __FILE__ ) . '/classes/values/users.php';
+require_once dirname( __FILE__ ) . '/classes/values/media.php';
+require_once dirname( __FILE__ ) . '/classes/values/link.php';
+require_once dirname( __FILE__ ) . '/classes/values/comments.php';
 
 /**
  * Codepress Admin Columns Class
@@ -166,12 +172,11 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
-		require_once dirname( __FILE__ ) . '/classes/values.php';		
-		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
-		require_once dirname( __FILE__ ) . '/classes/values/users.php';
-		require_once dirname( __FILE__ ) . '/classes/values/media.php';
-		require_once dirname( __FILE__ ) . '/classes/values/link.php';
-		require_once dirname( __FILE__ ) . '/classes/values/comments.php';
+		new CPAC_Posts_Values();
+		new CPAC_Link_Values();
+		new CPAC_Media_Values();
+		new CPAC_Users_Values();
+		new CPAC_Comments_Values();
 	}
 	/**
 	 *	Register Columns Headings
@@ -1145,6 +1150,12 @@ class Codepress_Admin_Columns
 				'options'	=> array(
 					'sortorder'	=> false
 				)
+			),
+			'column-modified' => array(
+				'label'	=> __('Last modified', CPAC_TEXTDOMAIN)
+			),
+			'column-comment-count' => array(
+				'label'	=> __('Comment count', CPAC_TEXTDOMAIN)
 			)
 		);
 		
@@ -1943,38 +1954,6 @@ class Codepress_Admin_Columns
 		delete_option( "cpac_{$type}_ac" );
 		delete_transient("cpac_{$type}_trnsnt");
 	}
-	
-	/**
-	 * Get date
-	 *
-	 * @since     1.3.1
-	 */
-	protected function get_date($date) 
-	{
-		if ( ! $date )
-			return false;
-			
-		if ( ! is_numeric($date) )
-			$date = strtotime($date);
-			
-		return date_i18n( get_option('date_format'), $date );
-	}
-	
-	/**
-	 * Get time
-	 *
-	 * @since     1.3.1
-	 */
-	protected function get_time($date) 
-	{
-		if ( ! $date )
-			return false;
-			
-		if ( ! is_numeric($date) )
-			$date = strtotime($date);
-		
-		return date_i18n( get_option('time_format'), $date );
-	}	
 	
 	/**
 	 * Add help tabs

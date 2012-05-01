@@ -94,6 +94,4 @@ class CPAC_Link_Values extends CPAC_Values
 	}
 }
 
-new CPAC_Link_Values();
-
 ?>

@@ -436,6 +436,38 @@ class CPAC_Values
 	}
 	
 	/**
+	 * Get date
+	 *
+	 * @since     1.3.1
+	 */
+	protected function get_date($date) 
+	{
+		if ( ! $date )
+			return false;
+			
+		if ( ! is_numeric($date) )
+			$date = strtotime($date);
+			
+		return date_i18n( get_option('date_format'), $date );
+	}
+	
+	/**
+	 * Get time
+	 *
+	 * @since     1.3.1
+	 */
+	protected function get_time($date) 
+	{
+		if ( ! $date )
+			return false;
+			
+		if ( ! is_numeric($date) )
+			$date = strtotime($date);
+		
+		return date_i18n( get_option('time_format'), $date );
+	}
+	
+	/**
 	 *	Get column value of post actions
 	 *
 	 *	This part is copied from the Posts List Table class

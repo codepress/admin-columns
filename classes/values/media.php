@@ -167,6 +167,4 @@ class CPAC_Media_Values extends CPAC_Values
 	}	
 }
 
-new CPAC_Media_Values();
-
 ?>
