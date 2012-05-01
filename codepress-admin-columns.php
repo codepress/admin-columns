@@ -84,7 +84,7 @@ class Codepress_Admin_Columns
 	public function init()
 	{			
 		// vars
-		$this->post_types 		= $this->get_post_types();
+		$this->post_types 		= self::get_post_types();
 
 		// set
 		$this->codepress_url	= 'http://www.codepress.nl/plugins/codepress-admin-columns';
@@ -268,7 +268,7 @@ class Codepress_Admin_Columns
 	protected function add_columns_headings( $type, $columns ) 
 	{
 		// only get stored columns.. the rest we don't need
-		$db_columns	= $this->get_stored_columns($type);
+		$db_columns	= self::get_stored_columns($type);
 
 		if ( !$db_columns )
 			return $columns;
@@ -411,7 +411,7 @@ class Codepress_Admin_Columns
 		$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
 		
 		//get saved database columns
-		$db_columns = $this->get_stored_columns($type);
+		$db_columns = self::get_stored_columns($type);
 		if ( $db_columns ) {
 			
 			// let's remove any unavailable columns.. such as disabled plugins
@@ -715,7 +715,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	protected function get_post_types()
+	public static function get_post_types()
 	{
 		$post_types = get_post_types(array(
 			'_builtin' => false
@@ -1272,16 +1272,14 @@ class Codepress_Admin_Columns
 		);
 		
 		// User total number of posts
-		if ($this->get_post_types()) {
-			foreach ( $this->get_post_types() as $post_type ) {
-				$label = $this->get_plural_name($post_type);
-				$custom_columns['column-user_postcount-'.$post_type] = array(
-					'label'			=> __( sprintf('No. of %s',$label), CPAC_TEXTDOMAIN),
-					'options'		=> array(
-						'type_label'	=> __('Postcount', CPAC_TEXTDOMAIN)
-					)
-				);
-			}
+		foreach ( self::get_post_types() as $post_type ) {
+			$label = $this->get_plural_name($post_type);
+			$custom_columns['column-user_postcount-'.$post_type] = array(
+				'label'			=> __( sprintf('No. of %s',$label), CPAC_TEXTDOMAIN),
+				'options'		=> array(
+					'type_label'	=> __('Postcount', CPAC_TEXTDOMAIN)
+				)
+			);
 		}
 		
 		// Custom Field support
@@ -1592,7 +1590,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	public function get_stored_columns($type)
+	public static function get_stored_columns($type)
 	{ 
 		// get plugin options
 		$options 		= get_option('cpac_options');
@@ -1781,13 +1779,39 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.0
 	 */
-	protected function is_column_meta( $id = '' ) 
+	public static function is_column_meta( $id = '' ) 
 	{
 		if ( strpos($id, 'column-meta-') !== false )
 			return true;
 		
 		return false;
-	}	
+	}
+	
+	/**
+	 *	Get column value of post attachments
+	 *
+	 * 	@since     1.2.1
+	 */
+	public static function get_attachment_ids( $post_id ) 
+	{
+		return get_posts(array(
+			'post_type' 	=> 'attachment',
+			'numberposts' 	=> -1,
+			'post_status' 	=> null,
+			'post_parent' 	=> $post_id,
+			'fields' 		=> 'ids'
+		));
+	}
+	
+	/**
+	 * Strip tags and trim
+	 *
+	 * @since     1.3
+	 */
+	public static function strip_trim($string) 
+	{
+		return trim(strip_tags($string));
+	}
 	
 	/**
 	 * Admin body class
@@ -1832,7 +1856,7 @@ class Codepress_Admin_Columns
 		
 		// loop throug the available types...
 		foreach ( $this->get_types() as $type ) {
-			$cols = $this->get_stored_columns($type);			
+			$cols = self::get_stored_columns($type);	
 			if ( $cols ) {
 			
 				// loop through each available column...

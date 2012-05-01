@@ -31,7 +31,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	{
 		// vars
 		$this->unlocked 		= $this->is_unlocked('sortable');
-		$this->post_types 		= $this->get_post_types();
+		$this->post_types 		= Codepress_Admin_Columns::get_post_types();
 		$this->show_all_results = false;
 		
 		// init sorting
@@ -204,7 +204,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$type = $id;
 		
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( $this->is_column_meta($type) )
+		if ( Codepress_Admin_Columns::is_column_meta($type) )
 			$type = 'column-user-meta';
 		
 		// Check for post count: column-user_postcount-[posttype]
@@ -401,7 +401,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// get bookmarks by orderby vars
 		if ( $vars['orderby'] ) {
 			$vars['order'] 	= mysql_escape_string($vars['order']);			
-			$sql 			= "SELECT * {$length} FROM {$wpdb->links} WHERE 1=1 ORDER BY{$vars['orderby']} {$vars['order']}";	
+			$sql 			= "SELECT * {$length} FROM {$wpdb->links} WHERE 1=1 ORDER BY {$vars['orderby']} {$vars['order']}";	
 			$results		= $wpdb->get_results($sql);
 			
 			// check for errors
@@ -678,7 +678,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			$type = 'column-taxonomy';
 		
 		// custom fields
-		if ( $this->is_column_meta($type) )
+		if ( Codepress_Admin_Columns::is_column_meta($type) )
 			$type = 'column-post-meta';
 		
 		// attachments
@@ -729,7 +729,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-word-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {		
-					$cposts[$p->ID] = str_word_count( $this->strip_trim( $p->post_content ) );
+					$cposts[$p->ID] = str_word_count( Codepress_Admin_Columns::strip_trim( $p->post_content ) );
 				}
 				break;
 				
@@ -752,7 +752,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-attachment' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
-					$cposts[$p->ID] = count( $this->get_attachment_ids($p->ID) );
+					$cposts[$p->ID] = count( Codepress_Admin_Columns::get_attachment_ids($p->ID) );
 				}
 				break;				
 				
@@ -879,7 +879,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function get_orderby_type($orderby, $type)
 	{
-		$db_columns = $this->get_stored_columns($type);
+		$db_columns = Codepress_Admin_Columns::get_stored_columns($type);
 
 		if ( $db_columns ) {
 			foreach ( $db_columns as $id => $vars ) {
@@ -954,7 +954,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	private function prepare_sort_string_value($string)
 	{
 		// remove tags and only get the first 20 chars and force lowercase.
-		$string = strtolower( substr( $this->strip_trim($string),0 ,20 ) );
+		$string = strtolower( substr( Codepress_Admin_Columns::strip_trim($string),0 ,20 ) );
 		
 		return $string;
 	}

@@ -8,7 +8,7 @@
  */
 class CPAC_Values
 {	
-	private $excerpt_length;
+	protected $excerpt_length;
 	
 	/**
 	 * Constructor
@@ -28,14 +28,7 @@ class CPAC_Values
 	 */
 	public function get_stored_columns($type)
 	{ 
-		// get plugin options
-		$options 		= get_option('cpac_options');
-
-		// get saved columns
-		if ( isset($options['columns'][$type]) )
-			return $options['columns'][$type];
-		
-		return false;
+		return Codepress_Admin_Columns::get_stored_columns($type);
 	}
 	
 	/**
@@ -43,12 +36,9 @@ class CPAC_Values
 	 *
 	 * @since     1.0
 	 */
-	protected function is_column_meta( $id = '' ) 
+	public static function is_column_meta( $id = '' ) 
 	{
-		if ( strpos($id, 'column-meta-') !== false )
-			return true;
-		
-		return false;
+		return Codepress_Admin_Columns::is_column_meta( $id );
 	}
 	
 	/**
@@ -135,13 +125,7 @@ class CPAC_Values
 	 */
 	protected function get_attachment_ids( $post_id ) 
 	{
-		return get_posts(array(
-			'post_type' 	=> 'attachment',
-			'numberposts' 	=> -1,
-			'post_status' 	=> null,
-			'post_parent' 	=> $post_id,
-			'fields' 		=> 'ids'
-		));
+		return Codepress_Admin_Columns::get_attachment_ids( $post_id );
 	}
 	
 	/**
@@ -432,7 +416,7 @@ class CPAC_Values
 	 */
 	protected function strip_trim($string) 
 	{
-		return trim(strip_tags($string));
+		return Codepress_Admin_Columns::strip_trim($string);
 	}
 	
 	/**

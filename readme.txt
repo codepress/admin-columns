@@ -31,6 +31,8 @@ The following custom columns are added:
 * Roles
 * Status
 * Number of Attachments
+* Last Modified 
+* Comment count
 * Custom Fields
 
 = User Columns =
@@ -57,6 +59,7 @@ Customise the Media Library Columns. The following media columns are added:
 * Height
 * Width
 * Dimensions ( width x height )
+* EXIF and IPTC image data
 * Description, Caption and Alternate tekst
 * Mime-Type
 
@@ -110,7 +113,7 @@ If you like to contrinute a language, please send them to <a href="mailto:info@c
 
 = Upcoming releases =
 
-The next upcoming release will have the option to set default sorting per screen.
+The next major release (1.5) will have the option to set default sorting per screen.
 
 
 **Feedback**
@@ -145,6 +148,14 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
+
+= 1.4.4 =
+* added posts columns Last Modified and Comment count
+* added media columns for EXIF and IPTC image data
+* added custom fields columns to the Media Library
+* given column values it's own class
+* added bug fix for sorting bookmarks/links
+* added fix for possible php warning
 
 = 1.4.3 =
 * removed taxonomy filtering ( this will return in next patch with an option to show/hide )
