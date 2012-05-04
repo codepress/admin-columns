@@ -1,9 +1,10 @@
 === Codepress Admin Columns ===
 Contributors: codepress, tschutter
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
-Tested up to: 3.3.1
-Stable tag: 1.4.3.1
+Tested up to: 3.3.2
+Stable tag: 1.4.4
 
 == Description ==
 
@@ -45,8 +46,8 @@ You can also change the User Columns. The following user columns are added:
 * Url
 * Register date
 * Biographical Info ( description )
-* User Custom Fields
 * Number of Posts Types
+* User Custom Fields
 
 Some of the user custom fields that are included: user level, capabilities, admin color, nickname... many more.
 
@@ -62,6 +63,7 @@ Customise the Media Library Columns. The following media columns are added:
 * EXIF and IPTC image data
 * Description, Caption and Alternate tekst
 * Mime-Type
+* Media Custom Fields
 
 = Comment Columns =
 

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.4
+Version: 			1.4.5
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.4' );
+define( 'CPAC_VERSION', 	'1.4.5' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -88,6 +88,7 @@ class Codepress_Admin_Columns
 
 		// set
 		$this->codepress_url	= 'http://www.codepress.nl/plugins/codepress-admin-columns';
+		$this->plugins_url		= 'http://wordpress.org/extend/plugins/codepress-admin-columns/';				
 		$this->wordpress_url	= 'http://wordpress.org/tags/codepress-admin-columns';				
 		
 		// translations
@@ -166,7 +167,7 @@ class Codepress_Admin_Columns
 	/**
 	 *	Register Column Values	
 	 *
-	 *	apply_filters location in includes/screen.php
+	 *	initializes each Class per type
 	 *
 	 * 	@since     1.0
 	 */
@@ -215,9 +216,10 @@ class Codepress_Admin_Columns
 	 */
 	public function callback_add_posts_column_headings($columns) 
 	{
-		global $post;
+		//global $post;
+		//return $this->add_columns_headings($post->post_type, $columns);		
 
-		return $this->add_columns_headings($post->post_type, $columns);		
+		return $this->add_columns_headings( get_query_var('post_type'), $columns);		
 	}
 	
 	/**
@@ -851,23 +853,7 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
-	{
-		// load dependencies
-		
-		// deprecated as of wp3.3
-		if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
-			require_once(ABSPATH . 'wp-admin/includes/template.php');
-			
-		// introduced since wp3.3
-		if ( file_exists(ABSPATH . 'wp-admin/includes/screen.php') )
-			require_once(ABSPATH . 'wp-admin/includes/screen.php');
-			
-		// used for getting columns
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
-		
+	{		
 		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
 		$_GET['post_type'] = $post_type;
 		
@@ -875,26 +861,67 @@ class Codepress_Admin_Columns
 		// additional columns that are set by them will be avaible for us
 		do_action('load-edit.php');
 		
-		// we need to change the current screen
-		global $current_screen;
-		$org_current_screen = $current_screen;
-		
-		// overwrite current_screen global with our post type of choose...
-		$current_screen->post_type = $post_type;
-		
-		// ...so we can get its columns
-		$columns = WP_Posts_List_Table::get_columns();
+		// since WP 3.3 plugins can directly hook into get_column_headers, such as woocommerce
+		$columns = get_column_headers( 'edit-'.$post_type );
+
+		if ( empty($columns) ) {		
+			
+			// deprecated as of wp3.3
+			if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
+				require_once(ABSPATH . 'wp-admin/includes/template.php');
+				
+			// introduced since wp3.3
+			if ( file_exists(ABSPATH . 'wp-admin/includes/screen.php') )
+				require_once(ABSPATH . 'wp-admin/includes/screen.php');
+				
+			// used for getting columns
+			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
+				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
+				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
+			
+			// we need to change the current screen
+			global $current_screen;
+			$org_current_screen = $current_screen;
+			
+			// overwrite current_screen global with our post type of choose...
+			$current_screen->post_type = $post_type;
+			
+			// ...so we can get its columns		
+			$columns = WP_Posts_List_Table::get_columns();				
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
+		}
 		
 		if ( empty ( $columns ) )
 			return false;
-		
+			
 		// change to uniform format
-		$posts_columns = $this->get_uniform_format($columns);		
+		$columns = $this->get_uniform_format($columns);		
 
-		// reset current screen
-		$current_screen = $org_current_screen;
+		// add sorting to some of the default links columns
+		$columns = $this->set_sorting_to_default_posts_columns($columns);
 		
-		return $posts_columns;
+		return $columns;
+	}
+	
+	/**
+	 * 	Add Sorting to WP default Posts columns
+	 *
+	 * 	@since     1.4.5
+	 */
+	private function set_sorting_to_default_posts_columns($columns)
+	{	
+		//	categories
+		if ( !empty($columns['categories']) ) {
+			$columns['categories']['options']['sortorder'] = 'on';
+		}
+		// tags
+		if ( !empty($columns['tags']) ) {
+			$columns['tags']['options']['sortorder'] = 'on';
+		}
+		return $columns;
 	}
 	
 	/**
@@ -918,7 +945,7 @@ class Codepress_Admin_Columns
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
 
-		// add sorting to some of the default links columns
+		// add sorting to some of the default users columns
 		$columns = $this->set_sorting_to_default_users_columns($columns);
 
 		return apply_filters('cpac-default-users-columns', $columns);
@@ -1083,7 +1110,7 @@ class Codepress_Admin_Columns
 				$hide_options 	= true;
 			}
 			
-			// user icon excerption
+			// user icon exception
 			if ( $id == 'icon' ) {
 				$type_label 	= __('Icon', CPAC_TEXTDOMAIN);
 			}
@@ -1341,7 +1368,13 @@ class Codepress_Admin_Columns
 				'options'	=> array(
 					'sortorder'	=> false
 				)
-			)					
+			),
+			'column-actions' => array(
+				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
+			)			
 		);
 		
 		// Get extended image metadata, exif or iptc as available.
@@ -1463,6 +1496,12 @@ class Codepress_Admin_Columns
 			),
 			'column-length' => array(
 				'label'	=> __('Length', CPAC_TEXTDOMAIN)
+			),
+			'column-actions' => array(
+				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
 			)			
 		);	
 		
@@ -1520,6 +1559,12 @@ class Codepress_Admin_Columns
 			),
 			'column-excerpt' => array(
 				'label'	=> __('Excerpt', CPAC_TEXTDOMAIN)
+			),
+			'column-actions' => array(
+				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
+				'options'	=> array(
+					'sortorder'	=> false
+				)
 			)
 		);		
 		
@@ -2278,7 +2323,7 @@ class Codepress_Admin_Columns
 								<p><?php _e('Why not do any or all of the following', CPAC_TEXTDOMAIN) ?>:</p>
 								<ul>
 									<li><a href="<?php echo $this->codepress_url ?>/"><?php _e('Link to it so other folks can find out about it.', CPAC_TEXTDOMAIN) ?></a></li>
-									<li><a href="<?php echo $this->wordpress_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', CPAC_TEXTDOMAIN) ?></a></li>
+									<li><a href="<?php echo $this->plugins_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', CPAC_TEXTDOMAIN) ?></a></li>
 									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', CPAC_TEXTDOMAIN) ?></a></li>
 								</ul>								
 							</div>
@@ -2291,7 +2336,7 @@ class Codepress_Admin_Columns
 							</h3>
 							<div class="inside">								
 								<?php echo $help_text ?>
-								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', CPAC_TEXTDOMAIN), 'http://wordpress.org/tags/codepress-admin-columns', '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
+								<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', CPAC_TEXTDOMAIN), $this->wordpress_url, '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
 								<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", CPAC_TEXTDOMAIN), "{$this->codepress_url}/feedback");?></p>
 							</div>
 						</div><!-- side-cpac-settings -->

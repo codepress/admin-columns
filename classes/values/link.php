@@ -85,12 +85,36 @@ class CPAC_Link_Values extends CPAC_Values
 				}
 				break;
 			
+			// link actions
+			case "column-actions" :
+				$result = $this->get_column_value_actions($bookmark);
+				break;
+			
 			default :
 				$result = '';
 			
 		endswitch;
 		
 		echo $result;
+	}
+	
+	/**
+	 *	Get column value of link actions
+	 *
+	 *	This part is copied from the Link List Table class
+	 *
+	 * 	@since     1.4.2
+	 */
+	private function get_column_value_actions( $link ) 
+	{
+		$actions = array();
+		
+		$edit_link = get_edit_bookmark_link( $link );
+		
+		$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
+		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( "link.php?action=delete&amp;link_id=$link->link_id", 'delete-bookmark_' . $link->link_id ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "You are about to delete this link '%s'\n  'Cancel' to stop, 'OK' to delete." ), $link->link_name ) ) . "' ) ) { return true;}return false;\">" . __( 'Delete' ) . "</a>";
+		
+		return implode(' | ', $actions);
 	}
 }
 

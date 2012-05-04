@@ -64,19 +64,24 @@ done: is_column_meta() and get_stored_columns() and get_post_types() get_attachm
 
 Prio #2
 ---------------------------------------------------------
+done: filtering by taxonomy ( only displays when column is used )
+done: add compatibility with woocommerce
+done: fix value media meta column ID
+done: add actions column for media
+done: add actions column for link
+done: add actions column for comments
+done: add donate link to readme.txt
+
+
+sorting post category and tags
+
 needs testing: add suport for custom fields, also in Media Library and Users
-
-
-needs work: filtering by taxonomy and set behind payment wall
 
 bug: Hi, "Custom Field: Field Type: image" not preview for png file.
 filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
 
-add compatibility with woocommerce
-add actions column for media, links, comments.
+
 screencast how to use
-add donate link to repository page ( see "Admin Management Xtended" )
-sorting post category and tags
 
 german version -> 
 

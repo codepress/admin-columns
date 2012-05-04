@@ -38,7 +38,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
 		
 		// init filtering
-		// add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
+		add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
 		
 		// handle requests for sorting columns
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
@@ -136,7 +136,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	private function add_managed_sortable_columns( $type = 'post', $columns ) 
 	{
 		$display_columns	= $this->get_merged_columns($type);
-			
+		
 		if ( ! $display_columns )
 			return $columns;
 		
@@ -186,8 +186,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	public function handle_requests_orderby_users_column($user_query)
 	{
-		//print_r($user_query); exit;
-		
 		// query vars
 		$vars = $user_query->query_vars;
 		
@@ -280,16 +278,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					}					
 				}
 				break;
-				
-			case 'role' :
-				$sort_flag = SORT_REGULAR;
-				foreach ( $this->get_users_data() as $u ) {
-					$role = !empty($u->roles[0]) ? $u->roles[0] : '';
-					if ($role || $this->show_all_results ) {
-						$cusers[$u->ID] = $this->prepare_sort_string_value($role);
-					}
-				}
-				break;
 			
 			case 'column-user-meta' :				
 				$field = $column[$id]['field'];
@@ -308,6 +296,19 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					}					
 				}
 				break;
+			
+			/** native WP columns */
+			
+			// role column
+			case 'role' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					$role = !empty($u->roles[0]) ? $u->roles[0] : '';
+					if ($role || $this->show_all_results ) {
+						$cusers[$u->ID] = $this->prepare_sort_string_value($role);
+					}
+				}
+				break;			
 		
 		endswitch;
 		
@@ -818,21 +819,25 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 			
 			case 'column-taxonomy' :
-				$sort_flag = SORT_STRING;
-				$tax = str_replace('column-taxonomy-', '', $id);
-				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
-					$cposts[$p->ID] = '';						
-					$terms = get_the_terms($p->ID, $tax);
-					if ( !is_wp_error($terms) && !empty($terms) ) {
-						// only use the first term to sort
-						$term = array_shift(array_values($terms));
-						if ( isset($term->term_id) ) {
-							$cposts[$p->ID] = sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'db');
-						}						
-					}
-				}
+				$sort_flag 	= SORT_STRING; // needed to sort
+				$taxonomy 	= str_replace('column-taxonomy-', '', $id);
+				$cposts 	= $this->get_posts_sorted_by_taxonomy($post_type, $taxonomy);
 				break;
-		
+			
+			/** native WP columns */
+			
+			// categories
+			case 'categories' :
+				$sort_flag 	= SORT_STRING; // needed to sort
+				$cposts 	= $this->get_posts_sorted_by_taxonomy($post_type, 'category');
+				break;
+				
+			// tags
+			case 'tags' :
+				$sort_flag 	= SORT_STRING; // needed to sort
+				$cposts 	= $this->get_posts_sorted_by_taxonomy($post_type, 'post_tag');
+				break;
+			
 		endswitch;
 		
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
@@ -841,6 +846,30 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		}
 		
 		return $vars;
+	}
+	
+	/**
+	 * Get posts sorted by taxonomy
+	 *
+	 * This will post ID's by the first term in the taxonomy
+	 *
+	 * @since     1.4.5
+	 */
+	function get_posts_sorted_by_taxonomy($post_type, $taxonomy = 'category') 
+	{
+		$cposts 	= array();
+		foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
+			$cposts[$p->ID] = '';						
+			$terms = get_the_terms($p->ID, $taxonomy);
+			if ( !is_wp_error($terms) && !empty($terms) ) {
+				// only use the first term to sort
+				$term = array_shift(array_values($terms));
+				if ( isset($term->term_id) ) {
+					$cposts[$p->ID] = sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'db');
+				}						
+			}
+		}
+		return $cposts;
 	}
 	
 	/**
@@ -999,13 +1028,26 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	{
 		global $post_type_object;
 		
+		if ( !isset($post_type_object->name) )
+			return false;
+
 		// make a filter foreach taxonomy
 		$taxonomies = get_object_taxonomies($post_type_object->name, 'names');
+		
+		// get stored columns
+		$db_columns = Codepress_Admin_Columns::get_stored_columns($post_type_object->name);
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax ) {
-				if ( !in_array($tax, array('post_tag','category','post_format') ) ) {
 			
+				// ignore core taxonomies
+				if ( in_array($tax, array('post_tag','category','post_format') ) ) {
+					continue;
+				}
+				
+				// only display taxonomy that is active as a column
+				if ( isset($db_columns['column-taxonomy-'.$tax]) && $db_columns['column-taxonomy-'.$tax]['state'] == 'on' ) {
+					
 					$terms = get_terms($tax);
 					$terms = $this->indent($terms, 0, 'parent', 'term_id');
 					$terms = $this->apply_dropdown_markup($terms);
@@ -1016,8 +1058,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 							$selected = isset($_GET[$tax]) && $term_slug == $_GET[$tax] ? " selected='selected'" : '';
 							$select .= "<option value='{$term_slug}'{$selected}>{$term}</option>";
 						}
-					}
-					echo "<select class='postform' name='{$tax}'>{$select}</select>";				
+						echo "<select class='postform' name='{$tax}'>{$select}</select>";
+					}					
 				}
 			}
 		}

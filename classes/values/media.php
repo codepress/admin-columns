@@ -110,9 +110,13 @@ class CPAC_Media_Values extends CPAC_Values
 				$result = implode('<span class="cpac-divider"></span>', $paths);
 				break;
 			
+			case "column-actions" :
+				$result = $this->get_column_value_actions($media_id);
+				break;
+			
 			// Custom Field
 			case "column-meta" :
-				$result = $this->get_column_value_custom_field($post_id, $column_name, 'post');		
+				$result = $this->get_column_value_custom_field($media_id, $column_name, 'post');		
 				break;
 			
 			// Image metadata EXIF or IPTC data			
@@ -157,14 +161,41 @@ class CPAC_Media_Values extends CPAC_Values
 			case "column-image-title" :
 				$result = !empty( $meta['image_meta']['title'] ) ? $meta['image_meta']['title'] : '';				
 				break;
-			
+				
 			default :
 				$result = '';
 			
 		endswitch;
 		
 		echo $result;
-	}	
+	}
+	
+	/**
+	 *	Get column value of media actions
+	 *
+	 *	This part is copied from the Media List Table class
+	 *
+	 * 	@since     1.4.2
+	 */
+	private function get_column_value_actions( $id ) 
+	{	
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
+			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
+		
+		// we need class to get the object actions
+		$m = new WP_Media_List_Table;
+		
+		// prevent php notice
+		$m->is_trash = isset( $_REQUEST['status'] ) && 'trash' == $_REQUEST['status'];
+		
+		// get media actions
+		$media 		= get_post($id);
+		$actions 	= $m->_get_row_actions( $media, _draft_or_post_title($id) );
+		
+		return implode(' | ', $actions);
+	}
 }
 
 ?>
