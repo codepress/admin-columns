@@ -3,8 +3,8 @@ Contributors: codepress, tschutter
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
-Tested up to: 3.3.2
-Stable tag: 1.4.4
+Tested up to: 3.4
+Stable tag: 1.4.5
 
 == Description ==
 
@@ -64,6 +64,7 @@ Customise the Media Library Columns. The following media columns are added:
 * Description, Caption and Alternate tekst
 * Mime-Type
 * Media Custom Fields
+* Filesize
 
 = Comment Columns =
 
@@ -100,7 +101,7 @@ With the custom field column you can display any custom field values. It can sho
 
 All of the new columns will have support for sorting with the <a href="http://www.codepress.nl/plugins/codepress-admin-columns/sortorder-addon/">sorting addon</a>.
 
-By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>.
+By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>. (columns that are added by other plugins are not supported)
 
 = Third party plugin support =
 
@@ -111,12 +112,12 @@ It will work nice with other plugins and support their additional custom columns
 If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
 
 * Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
-
+* French (fr_FR) - Thanks for contributing the french language goes to Alexandre Girard
 
 = Upcoming releases =
 
-The next major release (1.5) will have the option to set default sorting per screen.
-
+* support for default sorting for users, links and comments
+* support for hidden custom fields
 
 **Feedback**
 
@@ -151,7 +152,24 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 == Changelog ==
 
+= 1.4.5 =
+
+* added french language ( thanks to Alexandre Girard )
+* filtering by taxonomy ( only displays when column is used )
+* added compatibility with woocommerce
+* fix value media meta column ID
+* fixed bug with sorting users by postcount
+* added Actions column for Media (delete, view etc.)
+* added Actions column for Link (delete, view etc.)
+* added Actions column for Comments (delete, view etc.)
+* added Wordcount column for Comments
+* added Filesize column for Media ( supports sorting )
+* added default sorting for posts ( remembers your last sorting, only with addon )
+* added default sorting for media ( remembers your last sorting, only with addon )
+* added filters to the result output
+
 = 1.4.4 =
+
 * added posts columns Last Modified and Comment count
 * added media columns for EXIF and IPTC image data
 * added custom fields columns to the Media Library
@@ -160,9 +178,11 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 * added fix for possible php warning
 
 = 1.4.3 =
+
 * removed taxonomy filtering ( this will return in next patch with an option to show/hide )
 
 = 1.4.2 =
+
 * added fix for unexpected output in the column value
 * added fix for better 3rd party plugin support
 * added column for Comment status
@@ -174,6 +194,7 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 * added taxonomy filtering
 
 = 1.4.1 =
+
 * added polish translation, thanks to Bartosz.
 * changed the license key validation proces
 * removed non-breaking-space-character from column output

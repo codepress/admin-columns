@@ -405,6 +405,14 @@
 -------------------------------------------------------------- */
 #addons-cpac-settings {
 	overflow: hidden;
+	background-color: #CCFFCC;
+	background-image: -moz-linear-gradient(center top , #c3f5c2, #CCFFCC );
+    border-color: green;
+}
+#addons-cpac-settings h3 {
+	background: transparent;
+	border-bottom: none;
+	box-shadow: none;
 }
 #addons-cpac-settings h2 {
 	font-size: 14px;
@@ -417,6 +425,7 @@
 	text-decoration: none;
 	color: green;
 	text-decoration: underline;
+	font-size: 15px;
 }
 #addons-cpac-settings a:hover {
 	color: darkgreen;

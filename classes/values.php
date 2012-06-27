@@ -129,19 +129,6 @@ class CPAC_Values
 	}
 	
 	/**
-	 * Get the posttype from columnname
-	 *
-	 * @since     1.3.1
-	 */
-	protected function get_posttype_by_postcount_column( $id = '' ) 
-	{
-		if ( strpos($id, 'column-user_postcount-') !== false )			
-			return str_replace('column-user_postcount-', '', $id);
-				
-		return false;
-	}
-	
-	/**
 	 * Get a thumbnail
 	 *
 	 * @since     1.0
@@ -226,6 +213,17 @@ class CPAC_Values
 	}
 	
 	/**
+	 *	Convert file size to readable format
+	 *
+	 * 	@since     1.4.5
+	 */
+	function get_readable_filesize($size)
+    {
+		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
+    }
+	
+	/**
 	 *	Get column value of Custom Field
 	 *
 	 * 	@since     1.0
@@ -295,6 +293,9 @@ class CPAC_Values
 				break;
 			
 		endswitch;		
+		
+		// filter for customization
+		$meta = apply_filters('cpac_get_column_value_custom_field', $meta, $fieldtype, $field );
 		
 		// add before and after string
 		$meta = "{$before}{$meta}{$after}";
@@ -381,6 +382,9 @@ class CPAC_Values
 				break;
 								
 		endswitch;		
+		
+		// filter for customization
+		$meta = apply_filters('cpac_get_user_column_value_custom_field', $meta, $fieldtype, $field );
 		
 		// add before and after string
 		$meta = "{$before}{$meta}{$after}";

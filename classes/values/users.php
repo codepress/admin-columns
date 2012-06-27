@@ -39,7 +39,7 @@ class CPAC_Users_Values extends CPAC_Values
 			$type = 'column-user-meta';
 			
 		// Check for post count: column-user_postcount-[posttype]
-		if ( $this->get_posttype_by_postcount_column($type) )
+		if ( Codepress_Admin_Columns::get_posttype_by_postcount_column($type) )
 			$type = 'column-user_postcount';
 		
 		// Hook 
@@ -85,7 +85,7 @@ class CPAC_Users_Values extends CPAC_Values
 				
 			// user description
 			case "column-user_postcount" :
-				$post_type 	= $this->get_posttype_by_postcount_column($column_name);
+				$post_type 	= Codepress_Admin_Columns::get_posttype_by_postcount_column($column_name);
 				
 				// get post count
 				$count 		= $this->get_post_count( $post_type, $user_id );
@@ -108,6 +108,9 @@ class CPAC_Users_Values extends CPAC_Values
 				$result = '';
 				
 		endswitch;
+		
+		// Filter for customizing the result output
+		apply_filters('cpac-users-column-result', $result, $type, $column_name, $user_id);
 		
 		return $result;
 	}

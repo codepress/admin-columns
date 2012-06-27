@@ -95,6 +95,9 @@ class CPAC_Link_Values extends CPAC_Values
 			
 		endswitch;
 		
+		// Filter for customizing the result output
+		apply_filters('cpac-link-column-result', $result, $type, $column_name, $link_id);
+		
 		echo $result;
 	}
 	

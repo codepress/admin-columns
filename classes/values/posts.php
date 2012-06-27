@@ -58,7 +58,7 @@ class CPAC_Posts_Values extends CPAC_Values
 			// Featured Image
 			case "column-featured_image" :
 				if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post_id) )
-					$result = get_the_post_thumbnail($post_id, array(80,80));			
+					$result = get_the_post_thumbnail($post_id, array(80,80));
 				break;
 				
 			// Sticky Post
@@ -147,8 +147,8 @@ class CPAC_Posts_Values extends CPAC_Values
 			// Post status
 			case "column-status" :
 				$p 		= get_post($post_id);
-				$result = $p->post_status;
-				if ( $result == 'future')
+				$result = $this->get_post_status_friendly_name( $p->post_status );
+				if ( $p->post_status == 'future')
 					$result = $result . " <p class='description'>" . date_i18n( get_option('date_format') . ' ' . get_option('time_format') , strtotime($p->post_date) ) . "</p>";
 				break;
 				
@@ -191,7 +191,32 @@ class CPAC_Posts_Values extends CPAC_Values
 						
 		endswitch;
 		
+		// Filter for customizing the result output
+		apply_filters('cpac-posts-column-result', $result, $type, $column_name, $post_id);
+		
 		echo $result;	
+	}
+	
+	/**
+	 * Returns the friendly name for a given status
+	 *
+	 * @since     1.4.4
+	 */
+	private function get_post_status_friendly_name( $status ) 
+	{
+		$builtin = array(
+			'publish' 	=> __( 'Published', CPAC_TEXTDOMAIN ),
+			'draft' 	=> __( 'Draft', CPAC_TEXTDOMAIN ),
+			'future' 	=> __( 'Scheduled', CPAC_TEXTDOMAIN ),
+			'private' 	=> __( 'Private', CPAC_TEXTDOMAIN ),
+			'pending' 	=> __( 'Pending Review', CPAC_TEXTDOMAIN ),
+			'trash' 	=> __( 'Trash', CPAC_TEXTDOMAIN )
+		);
+		
+		if ( isset($builtin[$status]) )
+			$status = $builtin[$status];
+		
+		return $status;			
 	}
 	
 	/**

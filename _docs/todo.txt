@@ -25,22 +25,6 @@ bug: quick edit chages column layout.
 solution: wp-posts-list-table.php line 481. Added columns are loaded into $columns. ( dependencies admin-ajax.php, list-table.php, inline-edit-post.dev.js )
 fixed: changed callback_add_posts_column_headings().
 
-track 
-Click AJAX UPDATE: 
--> action: inline-save								inline-edit-post.dev.js
--> inline-save 										admin_ajax.php 
--> _get_list_table('WP_Posts_List_Table')			list-table.php
--> $wp_list_table->display_rows()					list-table.php
--> $this->_display_rows( $posts )					class-wp-posts-list-table.php 
--> $this->single_row( $post )						class-wp-posts-list-table.php
--> get_column_info() 								class-wp-list-table.php 
--> get_column_headers() 							screen.php
-
-OVERVIEW SCREEN:
-_get_list_table('WP_Posts_List_Table'); 			edit.php
-$wp_list_table->display()							edit.php
-$this->print_column_headers();						class-wp-list-table.php 725
-$this->get_column_info();							class-wp-list-table.php 725
 
 1.4.2
 ---------------------------------------------------------
@@ -62,7 +46,7 @@ done: rewritten value classes
 done: buf fix with sorting by bookmarks
 done: is_column_meta() and get_stored_columns() and get_post_types() get_attachment_ids() strip_trim() are static
 
-Prio #2
+1.4.5
 ---------------------------------------------------------
 done: filtering by taxonomy ( only displays when column is used )
 done: add compatibility with woocommerce
@@ -71,47 +55,59 @@ done: add actions column for media
 done: add actions column for link
 done: add actions column for comments
 done: add donate link to readme.txt
+done: added support for sorting native taxonomies, such as categories and tags
+done: added column comment wordcount
+done: actions -> optional field to set the shown value as an edit-link for the entry (so you don't have to tick the checkbox and choose "edit" over the dropdown), because there's no link to click, if you unset the title
+done: make option to set default ordering
+done: adding filters to the result output
+done: adding media filesize column and support for sorting
+done: default sorting for posts
+done: default sorting for media
 
-
-sorting post category and tags
+# Upcoming release
+---------------------------------------------------------
 
 needs testing: add suport for custom fields, also in Media Library and Users
 
-bug: Hi, "Custom Field: Field Type: image" not preview for png file.
-filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
+default sorting for users
+default sorting for links
+default sorting for comments
 
+Fatal error: Call to undefined method Codepress_Sortable_Columns::get_posttype_by_postcount_column() in /var/www/vhosts/svedesidentro.it/httpdocs/wp-content/plugins/codepress-admin-columns/classes/sortable.php on line 211
+
+I get an error on any custom field. Each row under the custom field outputs: The name column-meta-1 is already in use (I use the Custom Content Type plugin)
+
+support custom fields hidden. fields that start with _ are saved without it. so _iamhidden will get stored in the options as plain iamhidden.
+add share facebook, twitter icon in settings
+
+bug: Hi, "Custom Field: Field Type: image" not preview for png file.
+
+put column types in its own class
 
 screencast how to use
 
-german version -> 
-
 bug report tool ( see custom-content-type-manager )
-make option to set default ordering: Ikraav, I could also use a feature that would save the order you last used as the default.
+
+I would like to know if the 'Restore defaults' button applies to all the Post Types or only the current one.
+If it is not possible to restore defaults for a post type only (Antoine)
 
 make a combination of salt and md5 to validate the license key locallly
 
-import/export configuration
- - array2xml.php see plugin Types
-
 select option for showing all results when using sorting
-Copy to clipboard for image paths
+
 answer: http://wordpress.org/support/topic/plugin-codepress-admin-columns-ignore-specific-post-types?replies=1
 Meta data for Library, such as image_meta. There's an option to display meta data for Post, Pages and Users; but there's no equivalent for Media Gallery attachments.
 
-comment wordcount + sorting by wordcount
+comment sorting by wordcount
 width columns via http://quocity.com/colresizable/ (http://www.flexigrid.info/)
 named class for the custom admin columns
 doesn't work with columns from shopp 1.2
-optional field to set the shown value as an edit-link for the entry (so you don't have to tick the checkbox and choose "edit" over the dropdown), because there's no link to click, if you unset the title
-nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
+
 website how to contrubite, such as translating
-put column types in its own class
 users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
-nonce
 admin columns in search of wordpress ( payment wall )
 introduction tour
 filter posts ( example: media by type )
-all in one SEO plugin; Once I active Codepress Admin Columns, the SEO column automatic show in the left side (like below image) and I have no option to adjust the SEO column in the setting page. I would like them to show at the right side.
 post column: private en protected
 
 add @param
@@ -119,7 +115,11 @@ add @return
 
 Prio #3
 ---------------------------------------------------------
+nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
+filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
 ajaxify quick edit of column values
+import/export configuration: http://wordpress.stackexchange.com/questions/50744/what-is-the-best-way-to-export-and-import-theme-options
+Copy to clipboard for image paths
 make uploading a featured image possible from post screen
 user roles
 taxonmies column ID (see mail bartosz )
@@ -141,13 +141,12 @@ http://wordpress.org/extend/plugins/attachments/
 problem: The only thing not working for me is attachments: the count doesn't show up, and the attachments themselves don't show up.
 solution: images are saved in hidden custom fields. Make an option which let you choose hidden fields.
 
-
-
 Payment wall Ideas
 ---------------------------------------------------------
 import/export settings
 sorting columns
 filtering columns
+search columns
 
 Payment wall: sortable
 ---------------------------------------------------------
@@ -163,8 +162,6 @@ bug: sorry I'm not great with debugging PHP all I did was install a fresh versio
 Contact Author of
 http://wordpress.org/extend/plugins/custom-taxonomy-columns/
 
-old readme:
-This plugin makes it easy to Manage Custom Columns for your Posts, Pages and Custom Post Type Screens.
 
 Intro
 This plugin let's you visually customize the Admin Columns. You can add or remove columns, change their label and reorder them.

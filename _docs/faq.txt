@@ -4,3 +4,19 @@ WordPress stores many options as "serialized data", which contains both the stri
 
 see: http://wordpress.stackexchange.com/questions/9076/why-is-my-database-import-losing-text-widget-data
 and: http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
+
+
+Is there a way to filter each field before it gets outputted?
+
+You can use the build in filters. Each column value is available though the 'cpac-link-column-result' filter. Example:
+
+add_filter('cpac-posts-column-result', ' my_posts_result_filter ', 10, 4). 
+function my_posts_result_filter( $result, $type, $column_name, $post_id) 
+{
+	if ( $result = 'yes' )
+		$result = '<img src="' . get_bloginfo('template_url'). '/images/yes.jpg" alt="" />';
+	
+	return $result;
+}
+
+Above example will return an image (must be in your theme folder under images) instead of the word 'yes'.

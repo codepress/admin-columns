@@ -127,15 +127,23 @@ class CPAC_Comments_Values extends CPAC_Values
 				$result 	= $this->get_shortened_string($comment->comment_content, $this->excerpt_length);
 				break;	
 			
-			// user actions
+			// actions
 			case "column-actions" :
 				$result = $this->get_column_value_actions($comment);
+				break;
+			
+			// word count
+			case "column-word-count" :
+				$result = str_word_count( $this->strip_trim( $comment->comment_content ) );
 				break;
 			
 			default :
 				$result = '';
 			
 		endswitch;
+		
+		// Filter for customizing the result output
+		apply_filters('cpac-comments-column-result', $result, $type, $column_name, $comment_id);
 		
 		echo $result;
 	}

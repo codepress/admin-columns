@@ -113,6 +113,12 @@ class CPAC_Media_Values extends CPAC_Values
 			case "column-actions" :
 				$result = $this->get_column_value_actions($media_id);
 				break;
+				
+			case "column-filesize" :
+				$file 	= wp_get_attachment_url($p->ID);
+				$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file);			
+				$result = $this->get_readable_filesize(filesize($abs));
+				break;
 			
 			// Custom Field
 			case "column-meta" :
@@ -166,6 +172,9 @@ class CPAC_Media_Values extends CPAC_Values
 				$result = '';
 			
 		endswitch;
+		
+		// Filter for customizing the result output
+		apply_filters('cpac-media-column-result', $result, $type, $column_name, $media_id);
 		
 		echo $result;
 	}
