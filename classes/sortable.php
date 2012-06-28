@@ -38,7 +38,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
 		
 		// init filtering
-		add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
+		// add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
 		
 		// handle requests for sorting columns
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
@@ -1143,6 +1143,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					$select = "<option value=''>".__('Show all ', CPAC_TEXTDOMAIN)."{$tax}</option>";
 					if (!empty($terms)) {
 						foreach( $terms as $term_slug => $term) {
+							
 							$selected = isset($_GET[$tax]) && $term_slug == $_GET[$tax] ? " selected='selected'" : '';
 							$select .= "<option value='{$term_slug}'{$selected}>{$term}</option>";
 						}
@@ -1166,8 +1167,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
             for($i=0; $i<$level; $i++) {
                 $prefix .= '&nbsp;&nbsp;';  
             }
-            
-            $output[$v->slug] = $prefix . htmlentities($v->name, ENT_QUOTES, 'UTF-8');
+
+            $output[$v->slug] = $prefix . $v->name;
             
             if ( !empty($v->children) ) {
                 $output = $this->apply_dropdown_markup($v->children, ($level + 1), $output);

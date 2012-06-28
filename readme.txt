@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.4
-Stable tag: 1.4.5
+Stable tag: 1.4.5.1
 
 == Description ==
 
@@ -152,6 +152,10 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 == Changelog ==
 
+= 1.4.5.1 =
+
+* removed taxonomy filtering ( will implement show/hide option )
+
 = 1.4.5 =
 
 * added french language ( thanks to Alexandre Girard )
@@ -179,7 +183,7 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 = 1.4.3 =
 
-* removed taxonomy filtering ( this will return in next patch with an option to show/hide )
+* removed taxonomy filtering
 
 = 1.4.2 =
 

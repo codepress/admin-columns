@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.5
+Version: 			1.4.5.1
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.5' );
+define( 'CPAC_VERSION', 	'1.4.5.1' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -2338,6 +2338,20 @@ class Codepress_Admin_Columns
 								<?php echo $find_out_more ?>
 							</div>
 						</div><!-- addons-cpac-settings -->
+						
+						<div id="latest-news-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Latest news', CPAC_TEXTDOMAIN) ?></span>
+							</h3>
+							<div class="inside">								
+								<ul>
+									<li class="twitter"><a href="http://twitter.com/codepressNL"><?php _e('Follow Codepress on Twitter.', CPAC_TEXTDOMAIN) ?></a></li>
+									<li class="facebook"><a href="https://www.facebook.com/codepressNL"><?php _e('Like Codepress on Facebook.', CPAC_TEXTDOMAIN) ?></a></li>
+						
+								</ul>								
+							</div>
+						</div><!-- latest-news-cpac-settings -->
 						
 						<div id="likethisplugin-cpac-settings" class="postbox">
 							<div title="Click to toggle" class="handlediv"><br></div>

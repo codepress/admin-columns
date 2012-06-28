@@ -455,6 +455,34 @@
 	color: darkgreen;
 }
 
+/* =Latest News
+-------------------------------------------------------------- */
+#latest-news-cpac-settings {
+	padding: 0;
+}
+#latest-news-cpac-settings ul {
+	margin-left: 0;
+}
+#latest-news-cpac-settings li {
+	list-style: none;
+	line-height: 16px;
+}
+#latest-news-cpac-settings li a {
+	text-decoration: none;
+	padding-left: 24px;
+	display: inline-block;
+	lie-height: 20px;
+}
+#latest-news-cpac-settings li.twitter a {
+	background: transparent url('../images/twitter.png') no-repeat 0 ;
+}
+#latest-news-cpac-settings li.facebook a {
+	background: transparent url('../images/facebook.png') no-repeat 0 ;
+}
+#likethisplugin-cpac-settings li.donate_link a:hover {
+	color: darkgreen;
+}
+
 /* =Activation
 -------------------------------------------------------------- */
 #cpac-box-plugin_settings .addons .activation_code .activate,
