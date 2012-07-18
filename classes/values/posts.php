@@ -58,7 +58,7 @@ class CPAC_Posts_Values extends CPAC_Values
 			// Featured Image
 			case "column-featured_image" :
 				if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post_id) )
-					$result = get_the_post_thumbnail($post_id, array(80,80));
+					$result = get_the_post_thumbnail($post_id, $this->thumbnail_size);
 				break;
 				
 			// Sticky Post
@@ -141,7 +141,7 @@ class CPAC_Posts_Values extends CPAC_Values
 				$user_id 	= get_post($post_id)->post_author;
 				$userdata 	= get_userdata( $user_id );
 				if ( !empty($userdata->roles[0]) )
-					echo implode(', ',$userdata->roles);
+					$result = implode(', ',$userdata->roles);
 				break;
 			
 			// Post status

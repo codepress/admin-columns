@@ -1,0 +1,700 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Codepress Admin Columns\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-28 09:25+0100\n"
+"PO-Revision-Date: 2012-06-28 16:22+0100\n"
+"Last-Translator: Uli Sobers\n"
+"Language-Team: robotect <info@codepress.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../codepress-admin-columns.php:164
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: ../codepress-admin-columns.php:347
+msgid "Add Custom Field Column"
+msgstr "Custom Field Spalte hinzufügen"
+
+#: ../codepress-admin-columns.php:355
+msgid "drag and drop to reorder"
+msgstr "Ordnen per drag & drop"
+
+#: ../codepress-admin-columns.php:497
+#: ../codepress-admin-columns.php:522
+msgid "default"
+msgstr "Vorgabe"
+
+#: ../codepress-admin-columns.php:520
+#: ../codepress-admin-columns.php:1357
+msgid "Width"
+msgstr "Breite"
+
+#: ../codepress-admin-columns.php:579
+msgid "Default"
+msgstr "Vorgabe"
+
+#: ../codepress-admin-columns.php:580
+#: ../codepress-admin-columns.php:1488
+msgid "Image"
+msgstr "Bild"
+
+#: ../codepress-admin-columns.php:581
+msgid "Media Library Icon"
+msgstr "Mediathek Icon"
+
+#: ../codepress-admin-columns.php:582
+#: ../codepress-admin-columns.php:1145
+#: ../codepress-admin-columns.php:1564
+msgid "Excerpt"
+msgstr "Auszug"
+
+#: ../codepress-admin-columns.php:583
+msgid "Multiple Values"
+msgstr "Multiple Werte"
+
+#: ../codepress-admin-columns.php:584
+msgid "Numeric"
+msgstr "Numerisch"
+
+#: ../codepress-admin-columns.php:585
+#: ../codepress-admin-columns.php:1555
+msgid "Date"
+msgstr "Datum"
+
+#: ../codepress-admin-columns.php:586
+msgid "Post Title (Post ID's)"
+msgstr "Post Titel (Post ID's)"
+
+#: ../codepress-admin-columns.php:611
+msgid "This field can not be removed"
+msgstr "Dieses Feld kann nicht entfernt werden"
+
+#: ../codepress-admin-columns.php:615
+#: ../classes/values/users.php:153
+msgid "Remove"
+msgstr "Entfernen"
+
+#: ../codepress-admin-columns.php:1111
+msgid "Comments"
+msgstr "Kommentare"
+
+#: ../codepress-admin-columns.php:1117
+msgid "Icon"
+msgstr "Icon"
+
+#: ../codepress-admin-columns.php:1142
+msgid "Featured Image"
+msgstr "Benutzerdefiniertes Bild"
+
+#: ../codepress-admin-columns.php:1148
+#: ../codepress-admin-columns.php:1208
+msgid "Page Order"
+msgstr "Seitenreihenfolge"
+
+#: ../codepress-admin-columns.php:1151
+#: ../codepress-admin-columns.php:1225
+msgid "Post Format"
+msgstr "Post Format"
+
+#: ../codepress-admin-columns.php:1154
+#: ../codepress-admin-columns.php:1342
+#: ../codepress-admin-columns.php:1482
+#: ../codepress-admin-columns.php:1528
+msgid "ID"
+msgstr "ID"
+
+#: ../codepress-admin-columns.php:1157
+msgid "Slug"
+msgstr "Kurz URL"
+
+#: ../codepress-admin-columns.php:1160
+msgid "Attachment"
+msgstr "Anlage"
+
+#: ../codepress-admin-columns.php:1163
+msgid "No. of Attachments"
+msgstr "Zahl der Anlagen"
+
+#: ../codepress-admin-columns.php:1166
+msgid "Roles"
+msgstr "Rollen"
+
+#: ../codepress-admin-columns.php:1169
+#: ../codepress-admin-columns.php:2209
+msgid "Status"
+msgstr "Status"
+
+#: ../codepress-admin-columns.php:1172
+msgid "Comment status"
+msgstr "Kommentar Status"
+
+#: ../codepress-admin-columns.php:1175
+msgid "Ping status"
+msgstr "Ping Status"
+
+#: ../codepress-admin-columns.php:1178
+#: ../codepress-admin-columns.php:1296
+#: ../codepress-admin-columns.php:1375
+#: ../codepress-admin-columns.php:1506
+#: ../codepress-admin-columns.php:1567
+msgid "Actions"
+msgstr "Aktionen"
+
+#: ../codepress-admin-columns.php:1184
+msgid "Last modified"
+msgstr "Zuletzt geändert"
+
+#: ../codepress-admin-columns.php:1187
+msgid "Comment count"
+msgstr "Anzahl Kommentare"
+
+#: ../codepress-admin-columns.php:1194
+#: ../codepress-admin-columns.php:1573
+msgid "Word count"
+msgstr "Anzahl Worte"
+
+#: ../codepress-admin-columns.php:1201
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../codepress-admin-columns.php:1210
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: ../codepress-admin-columns.php:1218
+msgid "Page Template"
+msgstr "Page Template"
+
+#: ../codepress-admin-columns.php:1238
+msgid "Taxonomy"
+msgstr "Klassifizierung"
+
+#: ../codepress-admin-columns.php:1248
+#: ../codepress-admin-columns.php:1316
+#: ../codepress-admin-columns.php:1455
+#: ../codepress-admin-columns.php:1583
+msgid "Custom Field"
+msgstr "Benutzerdefiniertes Feld"
+
+#: ../codepress-admin-columns.php:1254
+#: ../codepress-admin-columns.php:1322
+#: ../codepress-admin-columns.php:1461
+#: ../codepress-admin-columns.php:1589
+msgid "Field"
+msgstr "Feld"
+
+#: ../codepress-admin-columns.php:1275
+msgid "User ID"
+msgstr "User ID"
+
+#: ../codepress-admin-columns.php:1278
+msgid "Nickname"
+msgstr "Nick"
+
+#: ../codepress-admin-columns.php:1281
+msgid "First name"
+msgstr "Vorname"
+
+#: ../codepress-admin-columns.php:1284
+msgid "Last name"
+msgstr "Nachname"
+
+#: ../codepress-admin-columns.php:1287
+msgid "Url"
+msgstr "URL"
+
+#: ../codepress-admin-columns.php:1290
+msgid "Registered"
+msgstr "Registriert"
+
+#: ../codepress-admin-columns.php:1293
+#: ../codepress-admin-columns.php:1363
+#: ../codepress-admin-columns.php:1485
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ../codepress-admin-columns.php:1309
+msgid "Postcount"
+msgstr "Anzahl an Posts"
+
+#: ../codepress-admin-columns.php:1345
+msgid "Mime type"
+msgstr "mime type"
+
+#: ../codepress-admin-columns.php:1348
+msgid "File name"
+msgstr "File Name"
+
+#: ../codepress-admin-columns.php:1351
+msgid "Dimensions"
+msgstr "Abmessungen"
+
+#: ../codepress-admin-columns.php:1354
+msgid "Height"
+msgstr "Höhe"
+
+#: ../codepress-admin-columns.php:1360
+#: ../codepress-admin-columns.php:1408
+msgid "Caption"
+msgstr "Untertitel"
+
+#: ../codepress-admin-columns.php:1366
+msgid "Alt"
+msgstr "alt Attribut"
+
+#: ../codepress-admin-columns.php:1369
+msgid "Upload paths"
+msgstr "Upload Pfad"
+
+#: ../codepress-admin-columns.php:1381
+msgid "File size"
+msgstr "File Größe"
+
+#: ../codepress-admin-columns.php:1390
+msgid "Aperture"
+msgstr "Blende"
+
+#: ../codepress-admin-columns.php:1392
+msgid "Aperture EXIF"
+msgstr "Blende EXIF"
+
+#: ../codepress-admin-columns.php:1396
+msgid "Credit"
+msgstr "Name"
+
+#: ../codepress-admin-columns.php:1398
+msgid "Credit EXIF"
+msgstr "Name EXIF"
+
+#: ../codepress-admin-columns.php:1402
+msgid "Camera"
+msgstr "Kamera"
+
+#: ../codepress-admin-columns.php:1404
+msgid "Camera EXIF"
+msgstr "Kamera EXIF"
+
+#: ../codepress-admin-columns.php:1410
+msgid "Caption EXIF"
+msgstr "Untertitel EXIF"
+
+#: ../codepress-admin-columns.php:1414
+msgid "Timestamp"
+msgstr "Zeitangabe"
+
+#: ../codepress-admin-columns.php:1416
+msgid "Timestamp EXIF"
+msgstr "Zeitangabe EXIF"
+
+#: ../codepress-admin-columns.php:1420
+msgid "Copyright"
+msgstr "Copyright"
+
+#: ../codepress-admin-columns.php:1422
+msgid "Copyright EXIF"
+msgstr "Copyright EXIF"
+
+#: ../codepress-admin-columns.php:1426
+msgid "Focal Length"
+msgstr "Brennweite"
+
+#: ../codepress-admin-columns.php:1428
+msgid "Focal Length EXIF"
+msgstr "Brennweite EXIF"
+
+#: ../codepress-admin-columns.php:1432
+msgid "ISO"
+msgstr "ISO"
+
+#: ../codepress-admin-columns.php:1434
+msgid "ISO EXIF"
+msgstr "ISO EXIF"
+
+#: ../codepress-admin-columns.php:1438
+msgid "Shutter Speed"
+msgstr "Verschlusszeit"
+
+#: ../codepress-admin-columns.php:1440
+msgid "Shutter Speed EXIF"
+msgstr "Verschlusszeit EXIF"
+
+#: ../codepress-admin-columns.php:1444
+msgid "Title"
+msgstr "Titel"
+
+#: ../codepress-admin-columns.php:1446
+msgid "Title EXIF"
+msgstr "Titel EXIF"
+
+#: ../codepress-admin-columns.php:1491
+msgid "Target"
+msgstr "Ziel"
+
+#: ../codepress-admin-columns.php:1494
+msgid "Owner"
+msgstr "Eigentümer"
+
+#: ../codepress-admin-columns.php:1497
+msgid "Notes"
+msgstr "Notizen"
+
+#: ../codepress-admin-columns.php:1500
+msgid "Rss"
+msgstr "RSS"
+
+#: ../codepress-admin-columns.php:1503
+msgid "Length"
+msgstr "Länge"
+
+#: ../codepress-admin-columns.php:1531
+msgid "Author Name"
+msgstr "Name des Autors"
+
+#: ../codepress-admin-columns.php:1534
+msgid "Avatar"
+msgstr "Avatar"
+
+#: ../codepress-admin-columns.php:1537
+msgid "Author url"
+msgstr "URL des Autors"
+
+#: ../codepress-admin-columns.php:1540
+msgid "Author IP"
+msgstr "IP des Autors"
+
+#: ../codepress-admin-columns.php:1543
+msgid "Author email"
+msgstr "Mail Adresse des Autors"
+
+#: ../codepress-admin-columns.php:1546
+msgid "In Reply To"
+msgstr "In Beantwortung"
+
+#: ../codepress-admin-columns.php:1552
+msgid "Approved"
+msgstr "Genehmigt"
+
+#: ../codepress-admin-columns.php:1558
+msgid "Date GMT"
+msgstr "Datum (GMT)"
+
+#: ../codepress-admin-columns.php:1561
+msgid "Agent"
+msgstr "Verfasser"
+
+#: ../codepress-admin-columns.php:1620
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: ../codepress-admin-columns.php:1697
+msgid "Addons"
+msgstr "Add Ons"
+
+#: ../codepress-admin-columns.php:2149
+#: ../codepress-admin-columns.php:2317
+msgid "find out more"
+msgstr "mehr erfahren"
+
+#: ../codepress-admin-columns.php:2153
+msgid "This will make all of the new columns support sorting"
+msgstr "Unterstützt das Sortieren neuer Spalten"
+
+#: ../codepress-admin-columns.php:2154
+msgid "By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>"
+msgstr "WordPress ermöglicht das Sortieren nach Titel, Datum, Kommentar und Autor. Dieses Plugin ermöglicht die Sortierung <strong>spaltenweise bei beliebigem Typ!</strong>"
+
+#: ../codepress-admin-columns.php:2155
+msgid "Perfect for sorting your articles, media files, comments, links and users"
+msgstr "Perfekt um Ihre Artikel, Mediathek, Kommentare, Links und Nutzer zu sortieren."
+
+#: ../codepress-admin-columns.php:2156
+#: ../codepress-admin-columns.php:2337
+msgid "(columns that are added by other plugins are not supported)"
+msgstr "(Benutzerdefinierte Spalten die durch andere Plugins erzeugt werden, werden nicht unterstützt)"
+
+#: ../codepress-admin-columns.php:2165
+#: ../codepress-admin-columns.php:2167
+msgid "Sortorder"
+msgstr "Sortierreihenfolge"
+
+#: ../codepress-admin-columns.php:2175
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: ../codepress-admin-columns.php:2178
+msgid "Active"
+msgstr "Aktiv"
+
+#: ../codepress-admin-columns.php:2183
+msgid "Fill in your activation code"
+msgstr "Aktivierungscode eingeben"
+
+#: ../codepress-admin-columns.php:2184
+msgid "Activate"
+msgstr "Aktivieren"
+
+#: ../codepress-admin-columns.php:2188
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+#: ../codepress-admin-columns.php:2203
+msgid "Activate Add-ons"
+msgstr "Add Ons aktivieren"
+
+#: ../codepress-admin-columns.php:2204
+msgid "Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites"
+msgstr "Add Ons können durch Kauf eines Lizenz Schlüssels aktiviert und auf beliebigen WebSites genutzt werden"
+
+#: ../codepress-admin-columns.php:2208
+msgid "Addon"
+msgstr "Add On"
+
+#: ../codepress-admin-columns.php:2210
+msgid "Activation Code"
+msgstr "Aktivierungscode"
+
+#: ../codepress-admin-columns.php:2219
+msgid "Enter your activation code"
+msgstr "Aktivierungscode eingeben"
+
+#: ../codepress-admin-columns.php:2220
+msgid "Activation code unrecognised"
+msgstr "Aktivierungscode nicht angenommen"
+
+#: ../codepress-admin-columns.php:2314
+msgid "You will find a short overview at the <strong>Help</strong> section in the top-right screen."
+msgstr "Eine kurze Übersicht finden Sie im <strong>Hilfe</strong> Bereich oben rechts auf dem Screen."
+
+#: ../codepress-admin-columns.php:2322
+msgid "Codepress Admin Columns"
+msgstr "Codepress Admin Columns"
+
+#: ../codepress-admin-columns.php:2332
+msgid "Get the Addon"
+msgstr "Hol Dir das Add On"
+
+#: ../codepress-admin-columns.php:2335
+msgid "By default WordPress let's you only sort by title, date, comments and author."
+msgstr "WordPress ermöglicht per Vorgabe lediglich das Sortieren nach Titel, Datum, Kommentar und Autor."
+
+#: ../codepress-admin-columns.php:2336
+msgid "Make <strong>all columns</strong> of <strong>all types</strong> within the plugin support sorting &#8212; with the sorting addon."
+msgstr "Das Sortier Add On ermöglicht das Sortieren  <strong>aller Spalten</strong> und <strong>aller Typen</strong> innerhalb des Plugins gemäß &#8212;."
+
+#: ../codepress-admin-columns.php:2345
+msgid "Like this plugin?"
+msgstr "Gefällt mir!"
+
+#: ../codepress-admin-columns.php:2348
+msgid "Why not do any or all of the following"
+msgstr "Dies und Das"
+
+#: ../codepress-admin-columns.php:2350
+msgid "Link to it so other folks can find out about it."
+msgstr "Verlinken, damit andere das Plugin finden können."
+
+#: ../codepress-admin-columns.php:2351
+msgid "Give it a 5 star rating on WordPress.org."
+msgstr "Gib dem Plugin eine 5-Sterne Bewertung auf WordPress.org."
+
+#: ../codepress-admin-columns.php:2352
+msgid "Donate a token of your appreciation."
+msgstr "Spenden nach eigenem Dafürhalten."
+
+#: ../codepress-admin-columns.php:2360
+msgid "Need support?"
+msgstr "Sie benötigen Hilfe ?"
+
+#: ../codepress-admin-columns.php:2364
+#, php-format
+msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
+msgstr "Probleme mit dem Plugin, dann sprechen Sie mich über das <a href=\"%s\">Support Forum</a> an oder senden eine Mail %s."
+
+#: ../codepress-admin-columns.php:2365
+#, php-format
+msgid "If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>."
+msgstr "BUG gefunden, oder eine Frage zu Features, bitte <a href='%s'>schreiben sie mir Ihr Feedback</a>."
+
+#: ../codepress-admin-columns.php:2380
+msgid "Admin Columns"
+msgstr "Admin Spalten"
+
+#: ../codepress-admin-columns.php:2398
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: ../codepress-admin-columns.php:2410
+msgid "Restore defaults"
+msgstr "Voreinstellungen wiederherstellen"
+
+#: ../codepress-admin-columns.php:2414
+msgid "Restore default settings"
+msgstr "Vorgabewerte wiederherstellen"
+
+#: ../codepress-admin-columns.php:2414
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "Warnung! Alle Admin Spalteneinstellungen werden endgültig gelöscht. \\'OK\\' zum Löschen, \\'Cancel\\' für Abbruch"
+
+#: ../codepress-admin-columns.php:2416
+msgid "This will delete all column settings and restore the default settings."
+msgstr "Alle Einstellungen werden gelöscht und die Voreinstellungen wiederhergestellt."
+
+#: ../classes/sortable.php:1143
+#: ../classes/_org.sortable.php:1134
+#: ../classes/_sortable.php:1140
+msgid "Show all "
+msgstr "Alles anzeigen"
+
+#: ../classes/values/comments.php:95
+#: ../classes/values/comments.php:106
+#, php-format
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr "Übetragen per <a href=\"%1$s\">%2$s at %3$s</a>"
+
+#: ../classes/values/comments.php:195
+#: ../classes/values/comments.php:200
+msgid "Unapprove"
+msgstr "Nicht zustimmen"
+
+#: ../classes/values/comments.php:197
+#: ../classes/values/comments.php:199
+msgid "Approve"
+msgstr "Zustimmen"
+
+#: ../classes/values/comments.php:208
+#: ../classes/values/posts.php:277
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+#: ../classes/values/comments.php:212
+#: ../classes/values/posts.php:281
+msgid "Delete Permanently"
+msgstr "Endgültig Löschen"
+
+#: ../classes/values/comments.php:218
+#: ../classes/values/link.php:117
+#: ../classes/values/posts.php:272
+#: ../classes/values/users.php:145
+msgid "Edit"
+msgstr "Editieren"
+
+#: ../classes/values/comments.php:219
+#: ../classes/values/posts.php:273
+msgid "Quick&nbsp;Edit"
+msgstr "Schnelleinstellungen"
+
+#: ../classes/values/comments.php:220
+msgid "Reply"
+msgstr "Antworten"
+
+#: ../classes/values/link.php:118
+#, php-format
+msgid ""
+"You are about to delete this link '%s'\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Sie sind dabei diesen Link zu löschen '%s'\n"
+"  'Cancel' um Abzubrechen, 'OK' zum Löschen."
+
+#: ../classes/values/link.php:118
+#: ../classes/values/users.php:151
+msgid "Delete"
+msgstr "Löschen"
+
+#: ../classes/values/media.php:100
+msgid "original"
+msgstr "original"
+
+#: ../classes/values/posts.php:107
+msgid "Standard"
+msgstr "Standard"
+
+#: ../classes/values/posts.php:208
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: ../classes/values/posts.php:209
+msgid "Draft"
+msgstr "Entwurf"
+
+#: ../classes/values/posts.php:210
+msgid "Scheduled"
+msgstr "Geplant"
+
+#: ../classes/values/posts.php:211
+msgid "Private"
+msgstr "Privat"
+
+#: ../classes/values/posts.php:212
+msgid "Pending Review"
+msgstr "Ausstehende Revision"
+
+#: ../classes/values/posts.php:213
+#: ../classes/values/posts.php:279
+msgid "Trash"
+msgstr "Papierkorb"
+
+#: ../classes/values/posts.php:234
+msgid "approved"
+msgstr "genehmigt"
+
+#: ../classes/values/posts.php:238
+msgid "pending"
+msgstr "ausstehend"
+
+#: ../classes/values/posts.php:242
+msgid "spam"
+msgstr "SPAM"
+
+#: ../classes/values/posts.php:246
+msgid "trash"
+msgstr "Papierkorb"
+
+#: ../classes/values/posts.php:272
+msgid "Edit this item"
+msgstr "Dieses Element editieren"
+
+#: ../classes/values/posts.php:273
+msgid "Edit this item inline"
+msgstr "Element Inline editieren "
+
+#: ../classes/values/posts.php:277
+msgid "Restore this item from the Trash"
+msgstr "Element wiederherstellen"
+
+#: ../classes/values/posts.php:279
+msgid "Move this item to the Trash"
+msgstr "Element in den Papierkorb verschieben"
+
+#: ../classes/values/posts.php:281
+msgid "Delete this item permanently"
+msgstr "Element endgültig löschen"
+
+#: ../classes/values/posts.php:286
+#, php-format
+msgid "Preview &#8220;%s&#8221;"
+msgstr "Vorschau &#8220;%s&#8221;"
+
+#: ../classes/values/posts.php:286
+msgid "Preview"
+msgstr "Vorschau"
+
+#: ../classes/values/posts.php:288
+#, php-format
+msgid "View &#8220;%s&#8221;"
+msgstr "Ansicht &#8220;%s&#8221;"
+
+#: ../classes/values/posts.php:288
+msgid "View"
+msgstr "Ansicht"
+

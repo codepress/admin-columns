@@ -105,7 +105,7 @@ class CPAC_Users_Values extends CPAC_Values
 				break;
 			
 			default :
-				$result = '';
+				$result = $value;
 				
 		endswitch;
 		

@@ -111,6 +111,7 @@ It will work nice with other plugins and support their additional custom columns
 
 If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
 
+* German (de_DE) - Thanks for contributing the german language goes to Uli
 * Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
 * French (fr_FR) - Thanks for contributing the french language goes to Alexandre Girard
 
@@ -140,6 +141,35 @@ You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-colum
 Great! I'd love to hear from you.
 Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/feedback.
 
+= How can I change the thumbnail size of images? =
+
+You can use the build in filter to set your own thumbnail size. Just add this piece of code to your
+theme's  functions.php.
+
+To set a custom size use, for example 30 by 30 pixels:
+
+`
+<?php
+add_filter('cpac_thumbnail_size','my_custom_thumbsize');
+function my_custom_thumbsize() 
+{	
+	return array(30,30); // width, height
+}
+?>
+`
+
+Or use a preset size, for example WordPress' thumbnail size:
+
+`
+<?php
+add_filter('cpac_thumbnail_size','my_custom_thumbsize');
+function my_custom_thumbsize() 
+{	
+	return 'thumbnail'; 
+}
+?>
+`
+
 == Screenshots ==
 
 1. Settings page for Post(type) columns.
@@ -151,6 +181,10 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
+
+= 1.4.6 =
+
+* added german language ( thanks to Uli )
 
 = 1.4.5.1 =
 

@@ -76,7 +76,9 @@ default sorting for users
 default sorting for links
 default sorting for comments
 
-Fatal error: Call to undefined method Codepress_Sortable_Columns::get_posttype_by_postcount_column() in /var/www/vhosts/svedesidentro.it/httpdocs/wp-content/plugins/codepress-admin-columns/classes/sortable.php on line 211
+Feature request (stevenglick@gmail.com):I would like to be able to set the columns while in the edit screen for any post type. Or at least a link to the settings page for the columns plugin.
+I would also like to save different views of the different edit screens and quickly switch back and forth between views. Different views of the same edit tables would be useful for different purposes. 
+
 
 I get an error on any custom field. Each row under the custom field outputs: The name column-meta-1 is already in use (I use the Custom Content Type plugin)
 

@@ -953,7 +953,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				// only use the first term to sort
 				$term = array_shift(array_values($terms));
 				if ( isset($term->term_id) ) {
-					$cposts[$p->ID] = sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'db');
+					$cposts[$p->ID] = sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display');
 				}						
 			}
 		}

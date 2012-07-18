@@ -8,7 +8,7 @@
  */
 class CPAC_Values
 {	
-	protected $excerpt_length;
+	protected $excerpt_length, $thumbnail_size;
 	
 	/**
 	 * Constructor
@@ -19,6 +19,7 @@ class CPAC_Values
 	{	
 		// number of words
 		$this->excerpt_length	= 20;		
+		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );		
 	}
 	
 	/**
@@ -112,7 +113,7 @@ class CPAC_Values
 		if ( $attachment_ids ) {
 			foreach ( $attachment_ids as $attach_id ) {
 				if ( wp_get_attachment_image($attach_id) )
-					$result .= wp_get_attachment_image( $attach_id, array(80,80), true );
+					$result .= wp_get_attachment_image( $attach_id, $this->thumbnail_size, true );
 			}
 		}
 		return $result;
