@@ -116,8 +116,10 @@ class CPAC_Media_Values extends CPAC_Values
 				
 			case "column-filesize" :
 				$file 	= wp_get_attachment_url($p->ID);
-				$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file);			
-				$result = $this->get_readable_filesize(filesize($abs));
+				$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file);
+				if ( file_exists($abs) ) {
+					$result = $this->get_readable_filesize(filesize($abs));
+				}
 				break;
 			
 			// Custom Field

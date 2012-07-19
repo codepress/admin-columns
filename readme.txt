@@ -96,6 +96,8 @@ With the custom field column you can display any custom field values. It can sho
 * Excerpt
 * Multiple Values
 * Numeric value ( this also works for sorting by meta_value_num )
+* Post Titles
+* Checkmark Image ( for true or false values )
 
 = Sortable Custom Columns for all Screens =
 
@@ -170,6 +172,19 @@ function my_custom_thumbsize()
 ?>
 `
 
+= How can I enable the use of Hidden Custom Fields? =
+
+I am currently working on settings page where you can enable this feature. In the meanwhile you can enable this by adding
+this piece of code to your theme's functions.php to:
+
+`
+<?php
+add_filter('cpac_use_hidden_custom_fields', '__return_true'); // enables the use hidden custom fields
+?>
+`
+
+Now you can select your HIDDEN custom fields in de dropdown menu under "Custom Field:".
+
 == Screenshots ==
 
 1. Settings page for Post(type) columns.
@@ -185,6 +200,8 @@ function my_custom_thumbsize()
 = 1.4.6 =
 
 * added german language ( thanks to Uli )
+* added filter for setting thumbnail size ( see FAQ on how to use it )
+* added support for hidden custom fields ( see FAQ on how to enable this )
 
 = 1.4.5.1 =
 

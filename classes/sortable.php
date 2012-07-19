@@ -302,7 +302,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				}
 				break;
 			
-			case 'column-user-meta' :				
+			case 'column-user-meta' :	
 				$field = $column[$id]['field'];
 				if ( $field ) {
 				
@@ -763,7 +763,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 			
 			case 'column-post-meta' : 				
-				$field 		= $column[$id]['field'];
+				$field 		= $column[$id]['field'];				
 				
 				// orderby type
 				$field_type = 'meta_value';

@@ -250,6 +250,9 @@ class CPAC_Values
 		$before 	= isset($columns[$column_name]['before']) 	  ? $columns[$column_name]['before'] 		: '';
 		$after 		= isset($columns[$column_name]['after']) 	  ? $columns[$column_name]['after'] 		: '';
 		
+		// rename hidden custom fields to their original name
+		$field = substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field;
+		
 		// Get meta field value
 		$meta 	 	= get_metadata($meta_type, $object_id, $field, true);
 
@@ -258,16 +261,16 @@ class CPAC_Values
 			$meta 	= get_metadata($meta_type, $object_id, $field, true);
 			$meta 	= $this->recursive_implode(', ', $meta);
 		}
-		
-		// make sure there are no serialized arrays or empty meta data
-		if ( empty($meta) || !is_string($meta) )	
+
+		// make sure there are no serialized arrays or null data
+		if ( !is_string($meta) )	
 			return false;
-					
+		
 		// handles each field type differently..
 		switch ($fieldtype) :			
 		
 			// Image
-			case "image" :				
+			case "image" :			
 				$meta = $this->get_thumbnail($meta);
 				break;
 				
@@ -291,6 +294,17 @@ class CPAC_Values
 				$titles = $this->get_custom_field_value_title($meta);
 				if ( $titles )
 					$meta = $titles;
+				break;
+				
+			// Checkmark
+			case "checkmark" :
+				$checkmark = $this->get_asset_image('checkmark.png');
+				
+				if ( empty($meta) || 'false' === $meta || '0' === $meta ) {
+					$checkmark = '';
+				}
+				
+				$meta = $checkmark;				
 				break;
 			
 		endswitch;		

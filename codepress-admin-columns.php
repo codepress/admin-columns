@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.5.1
+Version: 			1.4.5.2
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.5.1' );
+define( 'CPAC_VERSION', 	'1.4.5.2' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -60,7 +60,8 @@ class Codepress_Admin_Columns
 			$codepress_url,
 			$wordpress_url,
 			$api_url,
-			$admin_page;
+			$admin_page,
+			$use_hidden_custom_fields;
 	
 	/**
 	 * Constructor
@@ -91,6 +92,9 @@ class Codepress_Admin_Columns
 		$this->codepress_url	= 'http://www.codepress.nl/plugins/codepress-admin-columns';
 		$this->plugins_url		= 'http://wordpress.org/extend/plugins/codepress-admin-columns/';			
 		$this->wordpress_url	= 'http://wordpress.org/tags/codepress-admin-columns';				
+		
+		// enable the use of custom hidden fields
+		$this->use_hidden_custom_fields = apply_filters('cpac_use_hidden_custom_fields', false);
 		
 		// translations
 		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -562,13 +566,16 @@ class Codepress_Admin_Columns
 		// set meta field options
 		$current = ! empty($values['field']) ? $values['field'] : '' ;
 		$field_options = '';
-		foreach ($fields as $field) {	
+		foreach ($fields as $field) {
+			
 			$field_options .= sprintf
 			(
 				'<option value="%s"%s>%s</option>',
 				$field,
 				$field == $current? ' selected="selected"':'',
-				$field
+				
+				// change label on hidden fields
+				substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field		
 			);		
 		}
 		
@@ -584,6 +591,7 @@ class Codepress_Admin_Columns
 			'numeric'		=> __('Numeric', CPAC_TEXTDOMAIN),
 			'date'			=> __('Date', CPAC_TEXTDOMAIN),
 			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
+			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
 		);
 		
 		// add filter
@@ -667,15 +675,21 @@ class Codepress_Admin_Columns
 		
 		// run sql
 		$fields = $wpdb->get_results($sql, ARRAY_N);
-			
-		// postmeta
+		
+		// filter out hidden meta fields
 		$meta_fields = array();
 		if ( $fields ) {			
 			foreach ($fields as $field) {
-				// filter out hidden meta fields
-				if (substr($field[0],0,1) != "_") {
-					$meta_fields[] = $field[0];
+				
+				// give hidden fields a prefix for identifaction
+				if ( $this->use_hidden_custom_fields && substr($field[0],0,1) == "_") {
+					$meta_fields[] = 'cpachidden'.$field[0];
 				}
+				
+				// non hidden fields are saved as is
+				elseif ( substr($field[0],0,1) != "_" ) {
+					$meta_fields[] = $field[0];
+				}	
 			}			
 		}
 		
@@ -2338,11 +2352,26 @@ class Codepress_Admin_Columns
 								<?php echo $find_out_more ?>
 							</div>
 						</div><!-- addons-cpac-settings -->
+												
+						<div id="likethisplugin-cpac-settings" class="postbox">
+							<div title="Click to toggle" class="handlediv"><br></div>
+							<h3 class="hndle">
+								<span><?php _e('Like this plugin?', CPAC_TEXTDOMAIN) ?></span>
+							</h3>
+							<div class="inside">
+								<p><?php _e('Why not do any or all of the following', CPAC_TEXTDOMAIN) ?>:</p>
+								<ul>
+									<li><a href="<?php echo $this->plugins_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', CPAC_TEXTDOMAIN) ?></a></li>
+									<li><a href="<?php echo $this->codepress_url ?>/"><?php _e('Link to it so other folks can find out about it.', CPAC_TEXTDOMAIN) ?></a></li>									
+									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', CPAC_TEXTDOMAIN) ?></a></li>
+								</ul>								
+							</div>
+						</div><!-- likethisplugin-cpac-settings -->
 						
 						<div id="latest-news-cpac-settings" class="postbox">
 							<div title="Click to toggle" class="handlediv"><br></div>
 							<h3 class="hndle">
-								<span><?php _e('Latest news', CPAC_TEXTDOMAIN) ?></span>
+								<span><?php _e('Follow us', CPAC_TEXTDOMAIN) ?></span>
 							</h3>
 							<div class="inside">								
 								<ul>
@@ -2352,21 +2381,6 @@ class Codepress_Admin_Columns
 								</ul>								
 							</div>
 						</div><!-- latest-news-cpac-settings -->
-						
-						<div id="likethisplugin-cpac-settings" class="postbox">
-							<div title="Click to toggle" class="handlediv"><br></div>
-							<h3 class="hndle">
-								<span><?php _e('Like this plugin?', CPAC_TEXTDOMAIN) ?></span>
-							</h3>
-							<div class="inside">
-								<p><?php _e('Why not do any or all of the following', CPAC_TEXTDOMAIN) ?>:</p>
-								<ul>
-									<li><a href="<?php echo $this->codepress_url ?>/"><?php _e('Link to it so other folks can find out about it.', CPAC_TEXTDOMAIN) ?></a></li>
-									<li><a href="<?php echo $this->plugins_url ?>"><?php _e('Give it a 5 star rating on WordPress.org.', CPAC_TEXTDOMAIN) ?></a></li>
-									<li class="donate_link"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J"><?php _e('Donate a token of your appreciation.', CPAC_TEXTDOMAIN) ?></a></li>
-								</ul>								
-							</div>
-						</div><!-- likethisplugin-cpac-settings -->
 						
 						<div id="side-cpac-settings" class="postbox">
 							<div title="Click to toggle" class="handlediv"><br></div>
