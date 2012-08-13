@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-28 09:25+0100\n"
-"PO-Revision-Date: 2012-06-28 09:25+0100\n"
+"POT-Creation-Date: 2012-08-13 18:59+0100\n"
+"PO-Revision-Date: 2012-08-13 18:59+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "MIME-Version: 1.0\n"
@@ -15,579 +15,580 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../codepress-admin-columns.php:164
+#: ../codepress-admin-columns.php:168
 msgid "Settings"
 msgstr ""
 
-#: ../codepress-admin-columns.php:347
+#: ../codepress-admin-columns.php:351
 msgid "Add Custom Field Column"
 msgstr ""
 
-#: ../codepress-admin-columns.php:355
+#: ../codepress-admin-columns.php:359
 msgid "drag and drop to reorder"
 msgstr ""
 
-#: ../codepress-admin-columns.php:497
-#: ../codepress-admin-columns.php:522
+#: ../codepress-admin-columns.php:501 ../codepress-admin-columns.php:526
 msgid "default"
 msgstr ""
 
-#: ../codepress-admin-columns.php:520
-#: ../codepress-admin-columns.php:1357
+#: ../codepress-admin-columns.php:524 ../codepress-admin-columns.php:1371
 msgid "Width"
 msgstr ""
 
-#: ../codepress-admin-columns.php:579
+#: ../codepress-admin-columns.php:586
 msgid "Default"
 msgstr ""
 
-#: ../codepress-admin-columns.php:580
-#: ../codepress-admin-columns.php:1488
+#: ../codepress-admin-columns.php:587 ../codepress-admin-columns.php:1502
 msgid "Image"
 msgstr ""
 
-#: ../codepress-admin-columns.php:581
+#: ../codepress-admin-columns.php:588
 msgid "Media Library Icon"
 msgstr ""
 
-#: ../codepress-admin-columns.php:582
-#: ../codepress-admin-columns.php:1145
-#: ../codepress-admin-columns.php:1564
+#: ../codepress-admin-columns.php:589 ../codepress-admin-columns.php:1159
+#: ../codepress-admin-columns.php:1578
 msgid "Excerpt"
 msgstr ""
 
-#: ../codepress-admin-columns.php:583
+#: ../codepress-admin-columns.php:590
 msgid "Multiple Values"
 msgstr ""
 
-#: ../codepress-admin-columns.php:584
+#: ../codepress-admin-columns.php:591
 msgid "Numeric"
 msgstr ""
 
-#: ../codepress-admin-columns.php:585
-#: ../codepress-admin-columns.php:1555
+#: ../codepress-admin-columns.php:592 ../codepress-admin-columns.php:1569
 msgid "Date"
 msgstr ""
 
-#: ../codepress-admin-columns.php:586
+#: ../codepress-admin-columns.php:593
 msgid "Post Title (Post ID's)"
 msgstr ""
 
-#: ../codepress-admin-columns.php:611
+#: ../codepress-admin-columns.php:594
+msgid "Checkmark (true/false)"
+msgstr ""
+
+#: ../codepress-admin-columns.php:619
 msgid "This field can not be removed"
 msgstr ""
 
-#: ../codepress-admin-columns.php:615
-#: ../classes/values/users.php:153
+#: ../codepress-admin-columns.php:623 ../classes/values/users.php:153
 msgid "Remove"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1111
+#: ../codepress-admin-columns.php:1125
 msgid "Comments"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1117
+#: ../codepress-admin-columns.php:1131
 msgid "Icon"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1142
+#: ../codepress-admin-columns.php:1156
 msgid "Featured Image"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1148
-#: ../codepress-admin-columns.php:1208
+#: ../codepress-admin-columns.php:1162 ../codepress-admin-columns.php:1222
 msgid "Page Order"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1151
-#: ../codepress-admin-columns.php:1225
+#: ../codepress-admin-columns.php:1165 ../codepress-admin-columns.php:1239
 msgid "Post Format"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1154
-#: ../codepress-admin-columns.php:1342
-#: ../codepress-admin-columns.php:1482
-#: ../codepress-admin-columns.php:1528
+#: ../codepress-admin-columns.php:1168 ../codepress-admin-columns.php:1356
+#: ../codepress-admin-columns.php:1496 ../codepress-admin-columns.php:1542
 msgid "ID"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1157
+#: ../codepress-admin-columns.php:1171
 msgid "Slug"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1160
+#: ../codepress-admin-columns.php:1174
 msgid "Attachment"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1163
+#: ../codepress-admin-columns.php:1177
 msgid "No. of Attachments"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1166
+#: ../codepress-admin-columns.php:1180
 msgid "Roles"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1169
-#: ../codepress-admin-columns.php:2209
+#: ../codepress-admin-columns.php:1183 ../codepress-admin-columns.php:2223
 msgid "Status"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1172
+#: ../codepress-admin-columns.php:1186
 msgid "Comment status"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1175
+#: ../codepress-admin-columns.php:1189
 msgid "Ping status"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1178
-#: ../codepress-admin-columns.php:1296
-#: ../codepress-admin-columns.php:1375
-#: ../codepress-admin-columns.php:1506
-#: ../codepress-admin-columns.php:1567
+#: ../codepress-admin-columns.php:1192 ../codepress-admin-columns.php:1310
+#: ../codepress-admin-columns.php:1389 ../codepress-admin-columns.php:1520
+#: ../codepress-admin-columns.php:1581
 msgid "Actions"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1184
+#: ../codepress-admin-columns.php:1198
 msgid "Last modified"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1187
+#: ../codepress-admin-columns.php:1201
 msgid "Comment count"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1194
-#: ../codepress-admin-columns.php:1573
+#: ../codepress-admin-columns.php:1208 ../codepress-admin-columns.php:1587
 msgid "Word count"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1201
+#: ../codepress-admin-columns.php:1215
 msgid "Sticky"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1210
+#: ../codepress-admin-columns.php:1224
 msgid "Order"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1218
+#: ../codepress-admin-columns.php:1232
 msgid "Page Template"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1238
+#: ../codepress-admin-columns.php:1252
 msgid "Taxonomy"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1248
-#: ../codepress-admin-columns.php:1316
-#: ../codepress-admin-columns.php:1455
-#: ../codepress-admin-columns.php:1583
+#: ../codepress-admin-columns.php:1262 ../codepress-admin-columns.php:1330
+#: ../codepress-admin-columns.php:1469 ../codepress-admin-columns.php:1597
 msgid "Custom Field"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1254
-#: ../codepress-admin-columns.php:1322
-#: ../codepress-admin-columns.php:1461
-#: ../codepress-admin-columns.php:1589
+#: ../codepress-admin-columns.php:1268 ../codepress-admin-columns.php:1336
+#: ../codepress-admin-columns.php:1475 ../codepress-admin-columns.php:1603
 msgid "Field"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1275
+#: ../codepress-admin-columns.php:1289
 msgid "User ID"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1278
+#: ../codepress-admin-columns.php:1292
 msgid "Nickname"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1281
+#: ../codepress-admin-columns.php:1295
 msgid "First name"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1284
+#: ../codepress-admin-columns.php:1298
 msgid "Last name"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1287
+#: ../codepress-admin-columns.php:1301
 msgid "Url"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1290
+#: ../codepress-admin-columns.php:1304
 msgid "Registered"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1293
-#: ../codepress-admin-columns.php:1363
-#: ../codepress-admin-columns.php:1485
+#: ../codepress-admin-columns.php:1307 ../codepress-admin-columns.php:1377
+#: ../codepress-admin-columns.php:1499
 msgid "Description"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1309
+#: ../codepress-admin-columns.php:1323
 msgid "Postcount"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1345
+#: ../codepress-admin-columns.php:1359
 msgid "Mime type"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1348
+#: ../codepress-admin-columns.php:1362
 msgid "File name"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1351
+#: ../codepress-admin-columns.php:1365
 msgid "Dimensions"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1354
+#: ../codepress-admin-columns.php:1368
 msgid "Height"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1360
-#: ../codepress-admin-columns.php:1408
+#: ../codepress-admin-columns.php:1374 ../codepress-admin-columns.php:1422
 msgid "Caption"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1366
+#: ../codepress-admin-columns.php:1380
 msgid "Alt"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1369
+#: ../codepress-admin-columns.php:1383
 msgid "Upload paths"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1381
+#: ../codepress-admin-columns.php:1395
 msgid "File size"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1390
+#: ../codepress-admin-columns.php:1404
 msgid "Aperture"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1392
+#: ../codepress-admin-columns.php:1406
 msgid "Aperture EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1396
+#: ../codepress-admin-columns.php:1410
 msgid "Credit"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1398
+#: ../codepress-admin-columns.php:1412
 msgid "Credit EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1402
+#: ../codepress-admin-columns.php:1416
 msgid "Camera"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1404
+#: ../codepress-admin-columns.php:1418
 msgid "Camera EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1410
+#: ../codepress-admin-columns.php:1424
 msgid "Caption EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1414
+#: ../codepress-admin-columns.php:1428
 msgid "Timestamp"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1416
+#: ../codepress-admin-columns.php:1430
 msgid "Timestamp EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1420
+#: ../codepress-admin-columns.php:1434
 msgid "Copyright"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1422
+#: ../codepress-admin-columns.php:1436
 msgid "Copyright EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1426
+#: ../codepress-admin-columns.php:1440
 msgid "Focal Length"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1428
+#: ../codepress-admin-columns.php:1442
 msgid "Focal Length EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1432
+#: ../codepress-admin-columns.php:1446
 msgid "ISO"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1434
+#: ../codepress-admin-columns.php:1448
 msgid "ISO EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1438
+#: ../codepress-admin-columns.php:1452
 msgid "Shutter Speed"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1440
+#: ../codepress-admin-columns.php:1454
 msgid "Shutter Speed EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1444
+#: ../codepress-admin-columns.php:1458
 msgid "Title"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1446
+#: ../codepress-admin-columns.php:1460
 msgid "Title EXIF"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1491
+#: ../codepress-admin-columns.php:1505
 msgid "Target"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1494
+#: ../codepress-admin-columns.php:1508
 msgid "Owner"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1497
+#: ../codepress-admin-columns.php:1511
 msgid "Notes"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1500
+#: ../codepress-admin-columns.php:1514
 msgid "Rss"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1503
+#: ../codepress-admin-columns.php:1517
 msgid "Length"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1531
+#: ../codepress-admin-columns.php:1545
 msgid "Author Name"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1534
+#: ../codepress-admin-columns.php:1548
 msgid "Avatar"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1537
+#: ../codepress-admin-columns.php:1551
 msgid "Author url"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1540
+#: ../codepress-admin-columns.php:1554
 msgid "Author IP"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1543
+#: ../codepress-admin-columns.php:1557
 msgid "Author email"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1546
+#: ../codepress-admin-columns.php:1560
 msgid "In Reply To"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1552
+#: ../codepress-admin-columns.php:1566
 msgid "Approved"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1558
+#: ../codepress-admin-columns.php:1572
 msgid "Date GMT"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1561
+#: ../codepress-admin-columns.php:1575
 msgid "Agent"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1620
+#: ../codepress-admin-columns.php:1634
 msgid "Custom"
 msgstr ""
 
-#: ../codepress-admin-columns.php:1697
+#: ../codepress-admin-columns.php:1711
 msgid "Addons"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2149
-#: ../codepress-admin-columns.php:2317
+#: ../codepress-admin-columns.php:2163 ../codepress-admin-columns.php:2331
 msgid "find out more"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2153
+#: ../codepress-admin-columns.php:2167
 msgid "This will make all of the new columns support sorting"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2154
-msgid "By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>"
+#: ../codepress-admin-columns.php:2168
+msgid ""
+"By default WordPress let's you sort by title, date, comments and author. "
+"This will make you be able to <strong>sort by any column of any type!</"
+"strong>"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2155
-msgid "Perfect for sorting your articles, media files, comments, links and users"
+#: ../codepress-admin-columns.php:2169
+msgid ""
+"Perfect for sorting your articles, media files, comments, links and users"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2156
-#: ../codepress-admin-columns.php:2337
+#: ../codepress-admin-columns.php:2170 ../codepress-admin-columns.php:2351
 msgid "(columns that are added by other plugins are not supported)"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2165
-#: ../codepress-admin-columns.php:2167
+#: ../codepress-admin-columns.php:2179 ../codepress-admin-columns.php:2181
 msgid "Sortorder"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2175
+#: ../codepress-admin-columns.php:2189
 msgid "Inactive"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2178
+#: ../codepress-admin-columns.php:2192
 msgid "Active"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2183
+#: ../codepress-admin-columns.php:2197
 msgid "Fill in your activation code"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2184
+#: ../codepress-admin-columns.php:2198
 msgid "Activate"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2188
+#: ../codepress-admin-columns.php:2202
 msgid "Deactivate"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2203
+#: ../codepress-admin-columns.php:2217
 msgid "Activate Add-ons"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2204
-msgid "Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites"
+#: ../codepress-admin-columns.php:2218
+msgid ""
+"Add-ons can be unlocked by purchasing a license key. Each key can be used on "
+"multiple sites"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2208
+#: ../codepress-admin-columns.php:2222
 msgid "Addon"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2210
+#: ../codepress-admin-columns.php:2224
 msgid "Activation Code"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2219
+#: ../codepress-admin-columns.php:2233
 msgid "Enter your activation code"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2220
+#: ../codepress-admin-columns.php:2234
 msgid "Activation code unrecognised"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2314
-msgid "You will find a short overview at the <strong>Help</strong> section in the top-right screen."
-msgstr ""
-
-#: ../codepress-admin-columns.php:2322
-msgid "Codepress Admin Columns"
-msgstr ""
-
-#: ../codepress-admin-columns.php:2332
-msgid "Get the Addon"
-msgstr ""
-
-#: ../codepress-admin-columns.php:2335
-msgid "By default WordPress let's you only sort by title, date, comments and author."
+#: ../codepress-admin-columns.php:2328
+msgid ""
+"You will find a short overview at the <strong>Help</strong> section in the "
+"top-right screen."
 msgstr ""
 
 #: ../codepress-admin-columns.php:2336
-msgid "Make <strong>all columns</strong> of <strong>all types</strong> within the plugin support sorting &#8212; with the sorting addon."
+msgid "Codepress Admin Columns"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2345
-msgid "Like this plugin?"
+#: ../codepress-admin-columns.php:2346
+msgid "Get the Addon"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2348
-msgid "Why not do any or all of the following"
+#: ../codepress-admin-columns.php:2349
+msgid ""
+"By default WordPress let's you only sort by title, date, comments and author."
 msgstr ""
 
 #: ../codepress-admin-columns.php:2350
-msgid "Link to it so other folks can find out about it."
+msgid ""
+"Make <strong>all columns</strong> of <strong>all types</strong> within the "
+"plugin support sorting &#8212; with the sorting addon."
 msgstr ""
 
-#: ../codepress-admin-columns.php:2351
-msgid "Give it a 5 star rating on WordPress.org."
+#: ../codepress-admin-columns.php:2359
+msgid "Like this plugin?"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2352
-msgid "Donate a token of your appreciation."
-msgstr ""
-
-#: ../codepress-admin-columns.php:2360
-msgid "Need support?"
+#: ../codepress-admin-columns.php:2362
+msgid "Why not do any or all of the following"
 msgstr ""
 
 #: ../codepress-admin-columns.php:2364
-#, php-format
-msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
+msgid "Give it a 5 star rating on WordPress.org."
 msgstr ""
 
 #: ../codepress-admin-columns.php:2365
-#, php-format
-msgid "If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>."
+msgid "Link to it so other folks can find out about it."
 msgstr ""
 
-#: ../codepress-admin-columns.php:2380
+#: ../codepress-admin-columns.php:2366
+msgid "Donate a token of your appreciation."
+msgstr ""
+
+#: ../codepress-admin-columns.php:2374
+msgid "Follow us"
+msgstr ""
+
+#: ../codepress-admin-columns.php:2378
+msgid "Follow Codepress on Twitter."
+msgstr ""
+
+#: ../codepress-admin-columns.php:2379
+msgid "Like Codepress on Facebook."
+msgstr ""
+
+#: ../codepress-admin-columns.php:2388
+msgid "Need support?"
+msgstr ""
+
+#: ../codepress-admin-columns.php:2392
+#, php-format
+msgid ""
+"If you are having problems with this plugin, please talk about them in the "
+"<a href=\"%s\">Support forums</a> or send me an email %s."
+msgstr ""
+
+#: ../codepress-admin-columns.php:2393
+#, php-format
+msgid ""
+"If you're sure you've found a bug, or have a feature request, please <a "
+"href='%s'>submit your feedback</a>."
+msgstr ""
+
+#: ../codepress-admin-columns.php:2408
 msgid "Admin Columns"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2398
+#: ../codepress-admin-columns.php:2426
 msgid "Save Changes"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2410
+#: ../codepress-admin-columns.php:2438
 msgid "Restore defaults"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2414
+#: ../codepress-admin-columns.php:2442
 msgid "Restore default settings"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2414
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+#: ../codepress-admin-columns.php:2442
+msgid ""
+"Warning! ALL saved admin columns data will be deleted. This cannot be "
+"undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
-#: ../codepress-admin-columns.php:2416
+#: ../codepress-admin-columns.php:2444
 msgid "This will delete all column settings and restore the default settings."
 msgstr ""
 
-#: ../classes/sortable.php:1143
-#: ../classes/_org.sortable.php:1134
+#: ../classes/sortable.php:1143 ../classes/_org.sortable.php:1134
 #: ../classes/_sortable.php:1140
 msgid "Show all "
 msgstr ""
 
-#: ../classes/values/comments.php:95
-#: ../classes/values/comments.php:106
+#: ../classes/values/comments.php:95 ../classes/values/comments.php:106
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr ""
 
-#: ../classes/values/comments.php:195
-#: ../classes/values/comments.php:200
+#: ../classes/values/comments.php:195 ../classes/values/comments.php:200
 msgid "Unapprove"
 msgstr ""
 
-#: ../classes/values/comments.php:197
-#: ../classes/values/comments.php:199
+#: ../classes/values/comments.php:197 ../classes/values/comments.php:199
 msgid "Approve"
 msgstr ""
 
-#: ../classes/values/comments.php:208
-#: ../classes/values/posts.php:277
+#: ../classes/values/comments.php:208 ../classes/values/posts.php:277
 msgid "Restore"
 msgstr ""
 
-#: ../classes/values/comments.php:212
-#: ../classes/values/posts.php:281
+#: ../classes/values/comments.php:212 ../classes/values/posts.php:281
 msgid "Delete Permanently"
 msgstr ""
 
-#: ../classes/values/comments.php:218
-#: ../classes/values/link.php:117
-#: ../classes/values/posts.php:272
-#: ../classes/values/users.php:145
+#: ../classes/values/comments.php:218 ../classes/values/link.php:117
+#: ../classes/values/posts.php:272 ../classes/values/users.php:145
 msgid "Edit"
 msgstr ""
 
-#: ../classes/values/comments.php:219
-#: ../classes/values/posts.php:273
+#: ../classes/values/comments.php:219 ../classes/values/posts.php:273
 msgid "Quick&nbsp;Edit"
 msgstr ""
 
@@ -602,8 +603,7 @@ msgid ""
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ../classes/values/link.php:118
-#: ../classes/values/users.php:151
+#: ../classes/values/link.php:118 ../classes/values/users.php:151
 msgid "Delete"
 msgstr ""
 
@@ -635,8 +635,7 @@ msgstr ""
 msgid "Pending Review"
 msgstr ""
 
-#: ../classes/values/posts.php:213
-#: ../classes/values/posts.php:279
+#: ../classes/values/posts.php:213 ../classes/values/posts.php:279
 msgid "Trash"
 msgstr ""
 
@@ -693,4 +692,3 @@ msgstr ""
 #: ../classes/values/posts.php:288
 msgid "View"
 msgstr ""
-

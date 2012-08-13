@@ -116,6 +116,7 @@ If you like to contrinute a language, please send them to <a href="mailto:info@c
 * German (de_DE) - Thanks for contributing the german language goes to Uli
 * Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
 * French (fr_FR) - Thanks for contributing the french language goes to Alexandre Girard
+* Danish (da_DK) - Thanks for contributing the danish language goes to Morten Dalgaard Johansen
 
 = Upcoming releases =
 
@@ -200,6 +201,7 @@ Now you can select your HIDDEN custom fields in de dropdown menu under "Custom F
 = 1.4.6 =
 
 * added german language ( thanks to Uli )
+* added danish language ( thanks to Morten Dalgaard Johansen )
 * added filter for setting thumbnail size ( see FAQ on how to use it )
 * added support for hidden custom fields ( see FAQ on how to enable this )
 

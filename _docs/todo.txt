@@ -70,6 +70,8 @@ taxonomy filter dropdown with option to turn it on/off
 
 setting custom thumbnail size
 
+When I use the search box on a custom post type, the added columns disappear when the results are shown
+
 needs testing: add suport for custom fields, also in Media Library and Users
 
 default sorting for users
