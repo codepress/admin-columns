@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.5.2
+Version: 			1.4.6
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.5.2' );
+define( 'CPAC_VERSION', 	'1.4.6' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -47,6 +47,7 @@ require_once dirname( __FILE__ ) . '/classes/values/users.php';
 require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
+require_once dirname( __FILE__ ) . '/classes/wordpress_seo_fix.php';
 
 /**
  * Codepress Admin Columns Class
@@ -70,7 +71,7 @@ class Codepress_Admin_Columns
 	 */
 	function __construct()
 	{		
-		$this->api_url = 'http://www.codepress.nl/';
+		$this->api_url = 'http://www.codepress.nl/';	
 		
 		// wp is loaded
 		add_action( 'wp_loaded', array( $this, 'init') );
@@ -84,7 +85,7 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	public function init()
-	{			
+	{
 		// vars
 		$this->post_types 		= self::get_post_types();
 
@@ -119,7 +120,7 @@ class Codepress_Admin_Columns
 		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );		
 		
 		// filters
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);		
 	}	
 
 	/**
@@ -220,7 +221,7 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	public function callback_add_posts_column_headings($columns) 
-	{
+	{		
 		return $this->add_columns_headings( get_query_var('post_type'), $columns);		
 	}
 	
@@ -2273,7 +2274,7 @@ class Codepress_Admin_Columns
 	/**
 	 * Settings Page Template.
 	 *
-	 * This function in conjunction with others usei the WordPress
+	 * This function in conjunction with others uses the WordPress
 	 * Settings API to create a settings page where users can adjust
 	 * the behaviour of this plugin. 
 	 *
@@ -2281,7 +2282,6 @@ class Codepress_Admin_Columns
 	 */
 	public function plugin_settings_page() 
 	{
-
 		// loop through post types
 		$rows = '';
 		foreach ( $this->get_types() as $type ) {

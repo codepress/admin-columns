@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.4
-Stable tag: 1.4.5.1
+Stable tag: 1.4.6
 
 == Description ==
 
@@ -113,15 +113,14 @@ It will work nice with other plugins and support their additional custom columns
 
 If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
 
+* Danish (da_DK) - Thanks for contributing the danish language goes to Morten Dalgaard Johansen
 * German (de_DE) - Thanks for contributing the german language goes to Uli
 * Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
 * French (fr_FR) - Thanks for contributing the french language goes to Alexandre Girard
-* Danish (da_DK) - Thanks for contributing the danish language goes to Morten Dalgaard Johansen
 
 = Upcoming releases =
 
 * support for default sorting for users, links and comments
-* support for hidden custom fields
 
 **Feedback**
 
@@ -204,6 +203,7 @@ Now you can select your HIDDEN custom fields in de dropdown menu under "Custom F
 * added danish language ( thanks to Morten Dalgaard Johansen )
 * added filter for setting thumbnail size ( see FAQ on how to use it )
 * added support for hidden custom fields ( see FAQ on how to enable this )
+* added fix for WordPress SEO by Yoast Columns
 
 = 1.4.5.1 =
 
