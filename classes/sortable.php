@@ -879,6 +879,20 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$taxonomy 	= str_replace('column-taxonomy-', '', $id);
 				$cposts 	= $this->get_posts_sorted_by_taxonomy($post_type, $taxonomy);
 				break;
+				
+			case 'column-author-name' :
+				$sort_flag  = SORT_STRING;
+				$display_as = $column[$id]['display_as'];
+				if( 'userid' == $display_as ) {
+					$sort_flag  = SORT_NUMERIC;
+				}
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
+					if ( !empty($p->post_author) ) {
+						$name = Codepress_Admin_Columns::get_author_field_by_nametype($display_as, $p->post_author);							
+						$cposts[$p->ID] = $name;
+					}
+				}
+				break;
 			
 			/** native WP columns */
 			

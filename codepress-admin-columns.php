@@ -221,8 +221,8 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	public function callback_add_posts_column_headings($columns) 
-	{		
-		return $this->add_columns_headings( get_query_var('post_type'), $columns);		
+	{
+		return $this->add_columns_headings( get_post_type(), $columns);		
 	}
 	
 	/**
@@ -545,8 +545,14 @@ class Codepress_Admin_Columns
 		$fields = '';
 		
 		// Custom Fields
-		if ( $this->is_column_meta($id) )
+		if( $this->is_column_meta($id) ) {
 			$fields = $this->get_box_options_customfields($type, $id, $values);
+		}
+			
+		// Author Fields
+		if( 'column-author-name' == $id) {
+			$fields = $this->get_box_options_author($type, $id, $values);
+		}
 		
 		return $fields;
 	}
@@ -627,19 +633,53 @@ class Codepress_Admin_Columns
 		}
 		
 		$inside = "
-			<label for='cpac-{$type}-{$id}-field'>Custom Field: </label>
+			<label for='cpac-{$type}-{$id}-field'>".__('Custom Field', CPAC_TEXTDOMAIN).": </label>
 			<select name='cpac_options[columns][{$type}][{$id}][field]' id='cpac-{$type}-{$id}-field'>{$field_options}</select>
 			<br/>
-			<label for='cpac-{$type}-{$id}-field_type'>Field Type: </label>
+			<label for='cpac-{$type}-{$id}-field_type'>".__('Field Type', CPAC_TEXTDOMAIN).": </label>
 			<select name='cpac_options[columns][{$type}][{$id}][field_type]' id='cpac-{$type}-{$id}-field_type'>{$fieldtype_options}</select>
 			<br/>
-			<label for='cpac-{$type}-{$id}-before'>Before: </label>
+			<label for='cpac-{$type}-{$id}-before'>".__('Before', CPAC_TEXTDOMAIN).": </label>
 			<input type='text' class='cpac-before' name='cpac_options[columns][{$type}][{$id}][before]' id='cpac-{$type}-{$id}-before' value='{$before}'/>				
 			<br/>	
-			<label for='cpac-{$type}-{$id}-after'>After: </label>
+			<label for='cpac-{$type}-{$id}-after'>".__('After', CPAC_TEXTDOMAIN).": </label>
 			<input type='text' class='cpac-after' name='cpac_options[columns][{$type}][{$id}][after]' id='cpac-{$type}-{$id}-after' value='{$after}'/>				
 			<br/>		
 			{$remove}
+		";
+		
+		return $inside;
+	}
+	
+	/**
+	 * Box Options: Custom Fields
+	 *
+	 * @since     1.0
+	 */
+	private function get_box_options_author($type, $id, $values) 
+	{
+		$options = '';
+		$author_types = array(
+			'display_name'		=> __('Display Name', CPAC_TEXTDOMAIN),
+			'first_name'		=> __('First Name', CPAC_TEXTDOMAIN),
+			'last_name'			=> __('Last Name', CPAC_TEXTDOMAIN),
+			'first_last_name' 	=> __('First &amp; Last Name', CPAC_TEXTDOMAIN),
+			'nickname'			=> __('Nickname', CPAC_TEXTDOMAIN),
+			'username'			=> __('Username', CPAC_TEXTDOMAIN),
+			'email'				=> __('Email', CPAC_TEXTDOMAIN),
+			'userid'			=> __('User ID', CPAC_TEXTDOMAIN)
+		);
+		$currentname = ! empty($values['display_as']) ? $values['display_as'] : '' ;
+		foreach ( $author_types as $k => $name ) {
+			$selected = selected( $k, $currentname, false);
+			$options .= "<option value='{$k}' {$selected}>{$name}</option>";
+		}
+		
+		$inside = "
+			<label for='cpac-{$type}-{$id}-display_as'>".__('Display name as', CPAC_TEXTDOMAIN).": </label>
+			<select name='cpac_options[columns][{$type}][{$id}][display_as]' id='cpac-{$type}-{$id}-display_as'>
+				{$options}
+			</select>			
 		";
 		
 		return $inside;
@@ -862,6 +902,61 @@ class Codepress_Admin_Columns
 		delete_option( 'cpac_options' );
 		delete_option( 'cpac_options_default' );		
 	}	
+	
+	/**
+	 * Get author field by nametype
+	 *
+	 * Used by posts and sortable
+	 *
+	 * @since     1.4.6.1
+	 */
+	public function get_author_field_by_nametype( $nametype, $user_id)
+	{
+		$userdata = get_userdata( $user_id );
+	
+		switch ( $nametype ) :
+			
+			case "display_name" :
+				$name = $userdata->display_name;
+				break;
+				
+			case "first_name" :
+				$name = $userdata->first_name;
+				break;		
+				
+			case "last_name" :
+				$name = $userdata->last_name;
+				break;
+				
+			case "first_last_name" :
+				$first = !empty($userdata->first_name) ? $userdata->first_name : '';
+				$last = !empty($userdata->last_name) ? " {$userdata->last_name}" : '';
+				$name = $first.$last;
+				break;
+				
+			case "nickname" :
+				$name = $userdata->nickname;
+				break;		
+				
+			case "username" :
+				$name = $userdata->user_login;
+				break;
+			
+			case "email" :
+				$name = $userdata->user_email;
+				break;
+				
+			case "userid" :
+				$name = $userdata->ID;
+				break;
+				
+			default :
+				$name = $userdata->display_name;
+			
+		endswitch;
+		
+		return $name;
+	}
 	
 	/**
 	 * 	Get WP default supported admin columns per post type.
@@ -1200,6 +1295,10 @@ class Codepress_Admin_Columns
 			),
 			'column-comment-count' => array(
 				'label'	=> __('Comment count', CPAC_TEXTDOMAIN)
+			),
+			'column-author-name' => array(
+				'label'			=> __('Display Author As', CPAC_TEXTDOMAIN),
+				'display_as'	=> ''
 			)
 		);
 		

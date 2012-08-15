@@ -148,27 +148,20 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 You can use the build in filter to set your own thumbnail size. Just add this piece of code to your
 theme's  functions.php.
 
-To set a custom size use, for example 30 by 30 pixels:
+To set a custom size use, for example 194 width by 63 height pixels:
 
 `
 <?php
-add_filter('cpac_thumbnail_size','my_custom_thumbsize');
-function my_custom_thumbsize() 
-{	
-	return array(30,30); // width, height
-}
-?>
-`
 
-Or use a preset size, for example WordPress' thumbnail size:
+// edit here: fill in your thumbnail height and width
+$my_height = 63;
+$my_width  = 194;
+// stop editing
 
-`
-<?php
-add_filter('cpac_thumbnail_size','my_custom_thumbsize');
-function my_custom_thumbsize() 
-{	
-	return 'thumbnail'; 
-}
+add_image_size( 'admin-columns', $my_width, $my_height, true );
+add_filter('cpac_thumbnail_size', function() { 
+	return 'admin-columns';
+});
 ?>
 `
 
@@ -196,6 +189,12 @@ Now you can select your HIDDEN custom fields in de dropdown menu under "Custom F
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
+
+= 1.4.7 =
+
+* added fix for possible warning when using Custompress ( props to scottsalisbury for the fix! )
+* added 'Display Author As' column for post(types)
+* added sorting support for 'Display Author As' column
 
 = 1.4.6 =
 

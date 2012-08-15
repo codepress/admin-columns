@@ -81,6 +81,8 @@ default sorting for comments
 Feature request (stevenglick@gmail.com):I would like to be able to set the columns while in the edit screen for any post type. Or at least a link to the settings page for the columns plugin.
 I would also like to save different views of the different edit screens and quickly switch back and forth between views. Different views of the same edit tables would be useful for different purposes. 
 
+http://wordpress.org/support/topic/plugin-codepress-admin-columns-show-extra-user-fields-from-diffrent-table?replies=2
+
 on/off swicth per type
 
 I get an error on any custom field. Each row under the custom field outputs: The name column-meta-1 is already in use (I use the Custom Content Type plugin)

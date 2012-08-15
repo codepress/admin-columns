@@ -182,8 +182,12 @@ class CPAC_Posts_Values extends CPAC_Values
 			// Post Comment count
 			case "column-comment-count" :
 				$result = WP_List_Table::comments_bubble( $post_id, get_pending_comments_num( $post_id ) );					
-				$result .= $this->get_comment_count_details( $post_id );
-				
+				$result .= $this->get_comment_count_details( $post_id );				
+				break;			
+			
+			// Author Name
+			case "column-author-name" :
+				$result = $this->get_column_value_authorname($post_id, $column_name);					
 				break;
 			
 			default :
@@ -287,10 +291,42 @@ class CPAC_Posts_Values extends CPAC_Values
 			} elseif ( 'trash' != $post->post_status ) {
 				$actions['view'] = '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
 			}
-		}
-	
+		}	
 		
 		return implode(' | ', $actions);
+	}
+	
+	/**
+	 *	Get column value of Custom Field
+	 *
+	 * 	@since     1.4.6.1
+	 */	
+	protected function get_column_value_authorname($post_id, $column_name) 
+	{		
+		$type = get_post_type($post_id);
+		
+		// get column
+		$columns 	= $this->get_stored_columns($type);
+		
+		// get the type of author name
+		$display_as	= isset($columns[$column_name]['display_as']) ? $columns[$column_name]['display_as'] : '';
+		
+		// get the author
+		$post = get_post($post_id);
+		if ( !isset( $post->post_author) )
+			return false;
+		
+		$name = Codepress_Admin_Columns::get_author_field_by_nametype($display_as, $post->post_author);
+		
+		// filter for customization
+		$name = apply_filters('cpac_get_column_value_authorname', $name, $column_name, $post_id );
+		
+		// add link filter
+		$class  = isset( $_GET['author'] ) && $_GET['author'] == $userdata->ID ? ' class="current"' : '';
+		
+		$name = "<a href='edit.php?post_type={$type}&author={$post->post_author}'{$class}>{$name}</a>";
+		
+		return $name;
 	}
 }
 
