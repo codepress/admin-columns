@@ -1,10 +1,12 @@
 === Codepress Admin Columns ===
-Contributors: codepress, tschutter
+Contributors: codepress, tschutter, davidmosterd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.4
-Stable tag: 1.4.6
+Stable tag: 1.4.6.3
+
+Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
 == Description ==
 
@@ -97,6 +99,7 @@ With the custom field column you can display any custom field values. It can sho
 * Multiple Values
 * Numeric value ( this also works for sorting by meta_value_num )
 * Post Titles
+* Usernames
 * Checkmark Image ( for true or false values )
 
 = Sortable Custom Columns for all Screens =
@@ -168,7 +171,7 @@ add_filter('cpac_thumbnail_size', function() {
 = How can I enable the use of Hidden Custom Fields? =
 
 I am currently working on settings page where you can enable this feature. In the meanwhile you can enable this by adding
-this piece of code to your theme's functions.php to:
+this piece of code to your theme's functions.php:
 
 `
 <?php
@@ -177,6 +180,54 @@ add_filter('cpac_use_hidden_custom_fields', '__return_true'); // enables the use
 `
 
 Now you can select your HIDDEN custom fields in de dropdown menu under "Custom Field:".
+
+= How can I add the dropdown menu for taxonomy filtering? =
+
+This will also be included in the upcoming settings page, in the meanwhile you can enable this by adding
+this piece of code to your theme's functions.php:
+
+`
+<?php
+add_filter( 'cpac-remove-filtering-columns', '__return_false' ); // add dropdown taxonomy filtering to the overview pages
+?>
+`
+
+= How can I display a custom value in the Custom Fields Column? =
+
+With this filter 'cpac_get_column_value_custom_field' you can control what the value will be for any Custom Field Column.
+
+Filter explained:
+**$value** is the orgignal value which would otherwise be displayed
+**$internal_field_key** is only used internally to store the column
+**$custom_field** is the name of your custom field
+**$type** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
+**$object_id** will return the ID of the object.
+
+
+For example if you have a custom posttype 'Demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
+
+`
+<?php
+function my_custom_field_value( $value, $internal_field_key, $custom_field, $type, $object_id )
+{
+	$my_post_type  = 'faq';
+	$my_field_name = 'products';
+	
+	// make sure we have the correct posttype and fieldname
+	if ( $my_post_type == $type && $my_field_name == $custom_field ) {
+		
+		if ( '33' == $value )
+			$value = 'Amsterdam';
+		
+		elseif ( '34' == $value )
+			$value = 'New York';	
+	}
+	return $value;	
+}
+add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5 );
+?>
+`
+
 
 == Screenshots ==
 
@@ -190,9 +241,21 @@ Now you can select your HIDDEN custom fields in de dropdown menu under "Custom F
 
 == Changelog ==
 
-= 1.4.7 =
+= 1.4.6.3 =
 
-* added fix for possible warning when using Custompress ( props to scottsalisbury for the fix! )
+* Added new custom field type: User by User ID
+* Added values to filter 'cpac_get_column_value_custom_field' for better control of the output
+* Added an example for above filter to FAQ section
+
+= 1.4.6.2 =
+
+* bug fix with a static function which could cause an error in some cases
+* added filter to enable taxonomy filtering. add this to your functions.php to enable taxonomy filtering: `add_filter( 'cpac-remove-filtering-columns', '__return_false' );`
+
+= 1.4.6.1 =
+
+* bug fix for possible warning when using Custompress ( props to scottsalisbury for the fix! )
+* bug fix for sorting by postcount for users
 * added 'Display Author As' column for post(types)
 * added sorting support for 'Display Author As' column
 

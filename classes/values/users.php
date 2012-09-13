@@ -88,7 +88,7 @@ class CPAC_Users_Values extends CPAC_Values
 				$post_type 	= Codepress_Admin_Columns::get_posttype_by_postcount_column($column_name);
 				
 				// get post count
-				$count 		= $this->get_post_count( $post_type, $user_id );
+				$count 		= Codepress_Admin_Columns::get_post_count( $post_type, $user_id );
 				
 				// set result
 				$result 	= $count > 0 ? "<a href='edit.php?post_type={$post_type}&author={$user_id}'>{$count}</a>" : (string) $count;

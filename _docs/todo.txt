@@ -66,13 +66,26 @@ done: default sorting for media
 
 # Upcoming release
 ---------------------------------------------------------
-taxonomy filter dropdown with option to turn it on/off
+reset to default button for each type!!
+
+taxonomy filter dropdown with option to turn it on/off. See: http://wordpress.org/support/topic/plugin-codepress-admin-columns-taxonomy-filter-being-added-to-custom-post-type?replies=4#post-3091966
+added filter cpac-remove-filtering-columns
+
+add user link to user_by_id value
+
+add_filter('cpac-remove-filtering-columns', false);
+
+Custom Post Fields are sortable but the Taxonomies aren't
+
+Default sorting werkt niet goed voor post types, pages en posts!
 
 setting custom thumbnail size
 
 When I use the search box on a custom post type, the added columns disappear when the results are shown
 
 needs testing: add suport for custom fields, also in Media Library and Users
+
+is it possible to disable sorting for some columns where it doesn't make sense (like postcodes, etc.)?
 
 default sorting for users
 default sorting for links
@@ -126,6 +139,9 @@ add @return
 
 Prio #3
 ---------------------------------------------------------
+
+Any chance of adding the ability to sort by multiple columns? I am building an event website, so it would be great to sort by "session day" then "start time", kinda of like the "Album by Artist" sorting that you see in iTunes.
+
 nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
 filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
 ajaxify quick edit of column values

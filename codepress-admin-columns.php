@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.6
+Version: 			1.4.6.3
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.6' );
+define( 'CPAC_VERSION', 	'1.4.6.3' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -40,6 +40,7 @@ if ( !is_admin() )
  *
  * @since     1.3
  */
+require_once dirname( __FILE__ ) . '/classes/utility.php';
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
 require_once dirname( __FILE__ ) . '/classes/values.php';		
 require_once dirname( __FILE__ ) . '/classes/values/posts.php';
@@ -47,7 +48,6 @@ require_once dirname( __FILE__ ) . '/classes/values/users.php';
 require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
-require_once dirname( __FILE__ ) . '/classes/wordpress_seo_fix.php';
 
 /**
  * Codepress Admin Columns Class
@@ -598,6 +598,7 @@ class Codepress_Admin_Columns
 			'numeric'		=> __('Numeric', CPAC_TEXTDOMAIN),
 			'date'			=> __('Date', CPAC_TEXTDOMAIN),
 			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
+			'user_by_id'	=> __('Username (User ID\'s)', CPAC_TEXTDOMAIN),
 			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
 		);
 		
@@ -1765,7 +1766,7 @@ class Codepress_Admin_Columns
 		$options 		= get_option('cpac_options');
 
 		// get saved columns
-		if ( isset($options['columns'][$type]) )
+		if ( !empty($options['columns'][$type]) )
 			return $options['columns'][$type];
 		
 		return false;
@@ -1808,7 +1809,7 @@ class Codepress_Admin_Columns
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 		
 		// options button
-		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Addons')."</a>";
+		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Addons', CPAC_TEXTDOMAIN)."</a>";
 		//$options_btn = '';
 		
 		return "
@@ -1860,19 +1861,19 @@ class Codepress_Admin_Columns
 	{
 		// Links
 		if ( $type == 'wp-links' )
-			$label = 'Links';
+			$label = __('Links');
 			
 		// Comments
 		elseif ( $type == 'wp-comments' )
-			$label = 'Comments';
+			$label = __('Comments');
 			
 		// Users
 		elseif ( $type == 'wp-users' )
-			$label = 'Users';
+			$label = __('Users');
 		
 		// Media
 		elseif ( $type == 'wp-media' )
-			$label = 'Media Library';
+			$label = __('Media Library');
 		
 		// Posts
 		else {
@@ -2368,6 +2369,25 @@ class Codepress_Admin_Columns
 		";
 		
 		return $row;
+	}
+	
+	/**
+	 *	Get post count
+	 *
+	 * 	@since     1.3.1
+	 */
+	public static function get_post_count( $post_type, $user_id )
+	{
+		if ( ! post_type_exists($post_type) || ! get_userdata($user_id) )
+			return false;
+			
+		$user_posts = get_posts(array(
+			'post_type'		=> $post_type,
+			'numberposts' 	=> -1,
+			'author' 		=> $user_id,
+			'post_status' 	=> 'publish'
+		));
+		return count($user_posts);
 	}
 	
 	/**
