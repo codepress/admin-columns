@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
-Tested up to: 3.4
-Stable tag: 1.4.6.3
+Tested up to: 3.4.2
+Stable tag: 1.4.6.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -168,6 +168,10 @@ add_filter('cpac_thumbnail_size', function() {
 ?>
 `
 
+**my columns thumbnails still have the wrong size**
+
+If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. Use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
+
 = How can I enable the use of Hidden Custom Fields? =
 
 I am currently working on settings page where you can enable this feature. In the meanwhile you can enable this by adding
@@ -197,12 +201,12 @@ add_filter( 'cpac-remove-filtering-columns', '__return_false' ); // add dropdown
 With this filter 'cpac_get_column_value_custom_field' you can control what the value will be for any Custom Field Column.
 
 Filter explained:
-**$value** is the orgignal value which would otherwise be displayed
-**$internal_field_key** is only used internally to store the column
-**$custom_field** is the name of your custom field
-**$type** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
-**$object_id** will return the ID of the object.
 
+* **$value** is the original value which would otherwise be displayed
+* **$internal_field_key** is only used internally to store the column
+* **$custom_field** is the name of your custom field
+* **$type** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
+* **$object_id** will return the ID of the object.
 
 For example if you have a custom posttype 'Demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
 
@@ -210,8 +214,8 @@ For example if you have a custom posttype 'Demo' with a custom_field that is cal
 <?php
 function my_custom_field_value( $value, $internal_field_key, $custom_field, $type, $object_id )
 {
-	$my_post_type  = 'faq';
-	$my_field_name = 'products';
+	$my_post_type  = 'demo';
+	$my_field_name = 'city';
 	
 	// make sure we have the correct posttype and fieldname
 	if ( $my_post_type == $type && $my_field_name == $custom_field ) {
@@ -246,6 +250,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * Added new custom field type: User by User ID
 * Added values to filter 'cpac_get_column_value_custom_field' for better control of the output
 * Added an example for above filter to FAQ section
+* Added fix where trash posts did not show with the sorting addon activated
 
 = 1.4.6.2 =
 

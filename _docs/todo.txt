@@ -71,6 +71,8 @@ reset to default button for each type!!
 taxonomy filter dropdown with option to turn it on/off. See: http://wordpress.org/support/topic/plugin-codepress-admin-columns-taxonomy-filter-being-added-to-custom-post-type?replies=4#post-3091966
 added filter cpac-remove-filtering-columns
 
+I purchased the sort add-on. I have a custom taxonomy, course_type. This displays and I can click a type to filter. However the sort up down does not work. ( Luke Hoyer Millar  )
+
 add user link to user_by_id value
 
 add_filter('cpac-remove-filtering-columns', false);
@@ -139,6 +141,9 @@ add @return
 
 Prio #3
 ---------------------------------------------------------
+
+http://wordpress.org/support/topic/plugin-codepress-admin-columns-post-title-with-custom-field-type?replies=2#post-3178024
+So you would like to select the custom field type which describes the input, so let's say Post ID. And then control which output will be displayed, so in your case it would be the edit-link to your post(type), instead of the Post Title which is the default. But this could also be the post's author, number of comments, post date, edit-link etc etc.
 
 Any chance of adding the ability to sort by multiple columns? I am building an event website, so it would be great to sort by "session day" then "start time", kinda of like the "Album by Artist" sorting that you see in iTunes.
 

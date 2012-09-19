@@ -172,7 +172,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		
 		/** Posts */
 		elseif ( !empty($vars['post_type']) ) {
-			$vars = $this->get_orderby_posts_vars($vars);
+			$vars = $this->get_orderby_posts_vars($vars);	
 		}
 				
 		return $vars;
@@ -742,7 +742,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		// attachments
 		if ( $type == 'column-attachment-count' )
 			$type = 'column-attachment';
-		
+				
 		// var
 		$cposts = array();		
 		switch( $type ) :
@@ -1057,12 +1057,22 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function get_any_posts_by_posttype( $post_type )
 	{
-		$allposts = get_posts(array(
+		$any_posts = (array) get_posts(array(
 			'numberposts'	=> -1,
 			'post_status'	=> 'any',
 			'post_type'		=> $post_type
 		));
-		return (array) $allposts;		
+		
+		// trash posts are not included in the posts_status 'any' by default
+		$trash_posts = (array) get_posts(array(
+			'numberposts'	=> -1,
+			'post_status'	=> 'trash',
+			'post_type'		=> $post_type
+		));		
+		
+		$all_posts = array_merge($any_posts, $trash_posts);
+		
+		return (array) $all_posts;		
 	}
 	
 	/**

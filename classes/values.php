@@ -139,20 +139,41 @@ class CPAC_Values
 		if ( empty($image) )
 			return false;
 		
+		// get thumbnail image size
+		$image_size = $this->thumbnail_size; // w, h
+		
+		// incase the thumbnail dimension is set by name
+		if ( !is_array($image_size) ) {
+			global $_wp_additional_image_sizes;
+			if ( isset($_wp_additional_image_sizes[$image_size]) ) {
+				$_size 		= $_wp_additional_image_sizes[$image_size];
+				$image_size = array( $_size['width'], $_size['height'] );
+			}
+		}
+		
+		// fallback for image size incase the passed size name does not exists
+		if ( !isset($image_size[0]) || !isset($image_size[1]) ) {
+			$image_size = array(80, 80);
+		}
+		
 		// get correct image path
 		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $image);
 		
 		// resize image		
 		if ( file_exists($image_path) && $this->is_image($image_path) ) {
-			$resized = image_resize( $image_path, 80, 80, true);
+			$resized = image_resize( $image_path, $image_size[0], $image_size[1], true);
 			
+			// resize worked
 			if ( ! is_wp_error( $resized ) ) {
 				$image  = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized);
 				
-				return "<img src='{$image}' alt='' width='80' height='80' />";
+				return "<img src='{$image}' alt='' width='{$image_size[0]}' height='{$image_size[1]}' />";
 			}
 			
-			return $resized->get_error_message();
+			// resizing failed so let's return full image with maxed dimensions
+			else {
+				return "<img src='{$image}' alt='' style='max-width:{$image_size[0]}px;max-height:{$image_size[1]}px' />";				
+			}			
 		}
 		
 		return false;
