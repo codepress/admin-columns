@@ -19,7 +19,7 @@ class CPAC_Values
 	{	
 		// number of words
 		$this->excerpt_length	= 20;		
-		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );		
+		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );
 	}
 	
 	/**

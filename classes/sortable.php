@@ -894,6 +894,15 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 					}
 				}
 				break;
+				
+			case 'column-before-moretag' :
+				$sort_flag = SORT_STRING;
+				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
+					$extended 	= get_extended($p->post_content);
+					$content  	= !empty($extended['extended']) ? $extended['main'] : '';					
+					$cposts[$p->ID] = $this->prepare_sort_string_value($content);
+				}
+				break;
 			
 			/** native WP columns */
 			

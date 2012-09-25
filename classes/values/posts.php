@@ -190,6 +190,16 @@ class CPAC_Posts_Values extends CPAC_Values
 				$result = $this->get_column_value_authorname($post_id, $column_name);					
 				break;
 			
+			// Before More Tag
+			case "column-before-moretag" :
+				$p 			= get_post($post_id);
+				$extended 	= get_extended($p->post_content);
+				
+				if ( !empty($extended['extended']) ) {
+					$result = $this->get_shortened_string($extended['main'], $this->excerpt_length );
+				}
+				break;
+			
 			default :
 				$result = '';
 						

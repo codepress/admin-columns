@@ -36,6 +36,7 @@ The following custom columns are added:
 * Number of Attachments
 * Last Modified 
 * Comment count
+* Before More Tag Content
 * Custom Fields
 
 = User Columns =
@@ -232,7 +233,6 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 ?>
 `
 
-
 == Screenshots ==
 
 1. Settings page for Post(type) columns.
@@ -244,6 +244,11 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
+
+= 1.4.6.4 =
+* Added 'before more tag' column, which will show the content which is placed before the more-tag
+* bug fix: file images will now also be displayed when they can not be resized.
+* bug fix: the checkbox disappeared when resetting columns and resaving them.
 
 = 1.4.6.3 =
 

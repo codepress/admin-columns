@@ -12,10 +12,12 @@
 function pre_load_wordpress_seo_class_metabox()
 {
 	global $pagenow;
-	
+
 	if ( 
-		isset($_REQUEST['page']) && 'codepress-admin-columns' == $_REQUEST['page'] && 
-		'options-general.php' == $pagenow && defined('WPSEO_PATH') && 
+		isset($_REQUEST['page']) && 
+		'codepress-admin-columns' == $_REQUEST['page'] && 
+		'options-general.php' == $pagenow && 
+		defined('WPSEO_PATH') && 
 		file_exists(WPSEO_PATH.'admin/class-metabox.php')
 		) {
 		require_once WPSEO_PATH.'admin/class-metabox.php';

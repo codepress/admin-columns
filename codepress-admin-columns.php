@@ -1,5 +1,6 @@
 <?php
 /*
+
 Plugin Name: 		Codepress Admin Columns
 Version: 			1.4.6.4
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -850,15 +851,20 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	public function handle_requests() 
-	{	
-		// settings updated
-		if ( ! empty($_REQUEST['settings-updated']) )
-			$this->store_wp_default_columns();			
-		
-		// restore defaults 
-		if ( ! empty($_REQUEST['cpac-restore-defaults']) )
-			$this->restore_defaults();
-
+	{
+		// only handle updates from the admin columns page
+		if ( isset($_REQUEST['page']) && CPAC_SLUG == $_REQUEST['page'] ) {
+				
+			// settings updated
+			if ( ! empty($_REQUEST['settings-updated']) ) {
+				$this->store_wp_default_columns();
+			}
+			
+			// restore defaults 
+			if ( ! empty($_REQUEST['cpac-restore-defaults']) ) {
+				$this->restore_defaults();
+			}
+		}
 	}
 	
 	/**
@@ -965,9 +971,7 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
-	{
-		global $current_screen;
-		
+	{		
 		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
 		$_GET['post_type'] = $post_type;
 		
@@ -978,8 +982,8 @@ class Codepress_Admin_Columns
 		// some plugins directly hook into get_column_headers, such as woocommerce
 		$columns = get_column_headers( 'edit-'.$post_type );
 		
-		// get default columns
-		if ( empty($columns) && isset($current_screen) ) {		
+		// get default columns		
+		if ( empty($columns) ) {		
 			
 			// deprecated as of wp3.3
 			if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
@@ -997,8 +1001,13 @@ class Codepress_Admin_Columns
 			
 			// we need to change the current screen
 			global $current_screen;
+			
+			// save original
 			$org_current_screen = $current_screen;
-				
+			
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
 			// overwrite current_screen global with our post type of choose...
 			$current_screen->post_type = $post_type;
 			
@@ -1007,6 +1016,7 @@ class Codepress_Admin_Columns
 			
 			// reset current screen
 			$current_screen = $org_current_screen;
+
 		}
 		
 		if ( empty ( $columns ) )
@@ -1086,20 +1096,20 @@ class Codepress_Admin_Columns
 	 * 	@since     1.2.1
 	 */
 	private function get_wp_default_media_columns()
-	{
-		global $current_screen;
-		
+	{		
 		// @todo could use _get_list_table('WP_Media_List_Table') ?
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
 		
-		if ( !isset($current_screen) )
-			return false;
-		
+		global $current_screen;
+
 		// save original
 		$org_current_screen = $current_screen;
+		
+		// prevent php warning 
+		if ( !isset($current_screen) ) $current_screen = new stdClass;
 		
 		// overwrite current_screen global with our media id...
 		$current_screen->id = 'upload';
@@ -1162,19 +1172,20 @@ class Codepress_Admin_Columns
 	 * 	@since     1.3.1
 	 */
 	private function get_wp_default_comments_columns()
-	{
-		global $current_screen;
-		
+	{		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php');
 		
-		if ( !isset($current_screen) )
-			return false;
-			
+		global $current_screen;
+
+		// save original		
 		$org_current_screen = $current_screen;
+		
+		// prevent php warning 
+		if ( !isset($current_screen) ) $current_screen = new stdClass;
 		
 		// overwrite current_screen global with our media id...
 		$current_screen->id = 'edit-comments';
@@ -1311,6 +1322,9 @@ class Codepress_Admin_Columns
 			'column-author-name' => array(
 				'label'			=> __('Display Author As', CPAC_TEXTDOMAIN),
 				'display_as'	=> ''
+			),
+			'column-before-moretag' => array(
+				'label'	=> __('Before More Tag', CPAC_TEXTDOMAIN)				
 			)
 		);
 		
@@ -2015,7 +2029,7 @@ class Codepress_Admin_Columns
 	function admin_class() 
 	{		
 		global $current_screen;
-				
+		
 		// we dont need the 'edit-' part
 		$screen = str_replace('edit-', '', $current_screen->id);
 		

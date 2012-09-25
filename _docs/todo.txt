@@ -63,8 +63,11 @@ done: adding filters to the result output
 done: adding media filesize column and support for sorting
 done: default sorting for posts
 done: default sorting for media
+done: add_filter('cpac-remove-filtering-columns', false);
+done: support custom fields hidden. fields that start with _ are saved without it. so _iamhidden will get stored in the options as plain iamhidden.
+done: add share facebook, twitter icon in settings
 
-# Upcoming release
+# Upcoming release ( All tickets are in CodeBaseHQ)
 ---------------------------------------------------------
 reset to default button for each type!!
 
@@ -75,15 +78,11 @@ I purchased the sort add-on. I have a custom taxonomy, course_type. This display
 
 add user link to user_by_id value
 
-add_filter('cpac-remove-filtering-columns', false);
-
 Custom Post Fields are sortable but the Taxonomies aren't
 
 Default sorting werkt niet goed voor post types, pages en posts!
 
 setting custom thumbnail size
-
-When I use the search box on a custom post type, the added columns disappear when the results are shown
 
 needs testing: add suport for custom fields, also in Media Library and Users
 
@@ -102,10 +101,6 @@ on/off swicth per type
 
 I get an error on any custom field. Each row under the custom field outputs: The name column-meta-1 is already in use (I use the Custom Content Type plugin)
 
-support custom fields hidden. fields that start with _ are saved without it. so _iamhidden will get stored in the options as plain iamhidden.
-
-add share facebook, twitter icon in settings
-
 bug: Hi, "Custom Field: Field Type: image" not preview for png file.
 
 put column types in its own class
@@ -122,19 +117,23 @@ make a combination of salt and md5 to validate the license key locallly
 select option for showing all results when using sorting
 
 answer: http://wordpress.org/support/topic/plugin-codepress-admin-columns-ignore-specific-post-types?replies=1
+
 Meta data for Library, such as image_meta. There's an option to display meta data for Post, Pages and Users; but there's no equivalent for Media Gallery attachments.
 
 comment sorting by wordcount
+
 width columns via http://quocity.com/colresizable/ (http://www.flexigrid.info/)
-named class for the custom admin columns
-doesn't work with columns from shopp 1.2
 
 website how to contrubite, such as translating
-users last login date (http://wordpress.org/support/topic/capture-users-last-login-datetime)
+
 admin columns in search of wordpress ( payment wall )
 introduction tour
+
 filter posts ( example: media by type )
 post column: private en protected
+
+
+The Admin Columns+Addon is working OK, but I just noticed the error messages below when selecting 'Screen Options' in admin. Warning: array_keys() [function.array-keys]: The first argument should be an array in /var/www/vhosts/grumpyclient.com/httpdocs/members/wp-content/plugins/codepress-admin-columns/codepress-admin-columns.php on line 313 Warning: array_diff() [function.array-diff]: Argument #2 is not an array in /var/www/vhosts/grumpyclient.com/httpdocs/members/wp-content/plugins/codepress-admin-columns/codepress-admin-columns.php on line 313
 
 add @param
 add @return
@@ -148,30 +147,33 @@ So you would like to select the custom field type which describes the input, so 
 Any chance of adding the ability to sort by multiple columns? I am building an event website, so it would be great to sort by "session day" then "start time", kinda of like the "Album by Artist" sorting that you see in iTunes.
 
 nice name for a numeric value. E.G. if 1 display open, if 2 display closed.
+
 filtering by custom field: http://wpsnipp.com/index.php/functions-php/add-select-menu-to-filter-by-custom-field-in-admin/
+
 ajaxify quick edit of column values
+
 import/export configuration: http://wordpress.stackexchange.com/questions/50744/what-is-the-best-way-to-export-and-import-theme-options
 Copy to clipboard for image paths
+
 make uploading a featured image possible from post screen
+
 user roles
 taxonmies column ID (see mail bartosz )
-taxonomy columns
+
 change the default ordering when you open up a overview screen ( example by date / title )
 multi user site testing ( http://wordpress.stackexchange.com/questions/30431/add-new-column-to-sites-page )
 go to [posts] screen button/link
+
 date icon
+
 third party user columns
+
 filter columns on each unique value
 
 Options page; choose hidden custom fields, thumb size, excerpt_size, show_all_posts_results
 filter certain post types
 test on wp 3.0
 
-Third Party Plugins
----------------------------------------------------------
-http://wordpress.org/extend/plugins/attachments/
-problem: The only thing not working for me is attachments: the count doesn't show up, and the attachments themselves don't show up.
-solution: images are saved in hidden custom fields. Make an option which let you choose hidden fields.
 
 Payment wall Ideas
 ---------------------------------------------------------
@@ -179,21 +181,3 @@ import/export settings
 sorting columns
 filtering columns
 search columns
-
-Payment wall: sortable
----------------------------------------------------------
-key: YTU7-5F6I-LKZ2-RE9V
-Personalized keys + server
-Unlock button + field
-Webpage with buy form
-
-Unresolved Bugs
----------------------------------------------------------
-bug: sorry I'm not great with debugging PHP all I did was install a fresh version of wordpress 3.31 and the downloaded your plugin for the 'add plugins menu' it downloads fine but when I go to activate it my wordpress install falls over (white screen nothing loads). The only way I can fix is to remove the plugin from the plugins folder.
-
-Contact Author of
-http://wordpress.org/extend/plugins/custom-taxonomy-columns/
-
-
-Intro
-This plugin let's you visually customize the Admin Columns. You can add or remove columns, change their label and reorder them.
