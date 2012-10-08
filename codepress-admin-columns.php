@@ -971,12 +971,21 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
-	{		
+	{
+		// we need to change the current screen
+		global $current_screen;
+			
 		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
 		$_GET['post_type'] = $post_type;
 		
+		// to prevent possible warning from initializing load-edit.php 
+		// we will set a dummy screen object
+		if ( empty($current_screen->post_type) ) {
+			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '' );			
+		}		
+		
 		// for 3rd party plugin support we will call load-edit.php so all the 
-		// additional columns that are set by them will be avaible for us
+		// additional columns that are set by them will be avaible for us		
 		do_action('load-edit.php');
 		
 		// some plugins directly hook into get_column_headers, such as woocommerce
@@ -998,11 +1007,8 @@ class Codepress_Admin_Columns
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
-			
-			// we need to change the current screen
-			global $current_screen;
-			
-			// save original
+						
+			// we need to change the current screen... first lets save original
 			$org_current_screen = $current_screen;
 			
 			// prevent php warning 
