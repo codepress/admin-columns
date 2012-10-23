@@ -2409,16 +2409,20 @@ class Codepress_Admin_Columns
 	 */
 	public static function get_post_count( $post_type, $user_id )
 	{
-		if ( ! post_type_exists($post_type) || ! get_userdata($user_id) )
+		global $wpdb;
+		
+		if ( ! post_type_exists($post_type) || empty($user_id) )
 			return false;
-			
-		$user_posts = get_posts(array(
-			'post_type'		=> $post_type,
-			'numberposts' 	=> -1,
-			'author' 		=> $user_id,
-			'post_status' 	=> 'publish'
-		));
-		return count($user_posts);
+		
+		$sql = "
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_status = 'publish'
+			AND post_author = %d
+			AND post_type = %s
+		";
+		
+		return $wpdb->get_var( $wpdb->prepare($sql, $user_id, $post_type) );
 	}
 	
 	/**
