@@ -124,7 +124,7 @@ class CPAC_Media_Values extends CPAC_Values
 			
 			// Custom Field
 			case "column-meta" :
-				$result = $this->get_column_value_custom_field($media_id, $column_name, 'post');		
+				$result = $this->get_column_value_custom_field($media_id, $column_name, 'media');		
 				break;
 			
 			// Image metadata EXIF or IPTC data			

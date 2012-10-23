@@ -60,8 +60,9 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			return false;
 	
 		/** Posts */
-	 	foreach ( $this->post_types as $post_type )
+	 	foreach ( $this->post_types as $post_type ) {
 			add_filter( "manage_edit-{$post_type}_sortable_columns", array($this, 'callback_add_sortable_posts_column'));				
+		}
 		
 		/** Users */
 		add_filter( "manage_users_sortable_columns", array($this, 'callback_add_sortable_users_column'));
@@ -84,6 +85,10 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	public function callback_add_sortable_posts_column($columns) 
 	{
 		global $post_type;
+		
+		// in some cases post_type is an array ( when clicking a tag inside the overview screen icm CCTM ), then we use this as a fallback so we get a string
+		if ( is_array($post_type) )
+			$post_type = $_REQUEST['post_type'];
 		
 		return $this->add_managed_sortable_columns($post_type, $columns);
 	}
@@ -134,7 +139,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * 	@since     1.1
 	 */
 	private function add_managed_sortable_columns( $type = 'post', $columns ) 
-	{
+	{		
 		$display_columns	= $this->get_merged_columns($type);
 		
 		if ( ! $display_columns )

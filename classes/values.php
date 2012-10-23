@@ -238,6 +238,12 @@ class CPAC_Values
 			$type = 'wp-users';
 		}
 		
+		/** Media */
+		if ( $meta_type == 'media' ) {
+			$type = 'wp-media';
+			$meta_type = 'post';
+		}
+		
 		/** Posts */
 		else {
 			$type 	= get_post_type($object_id);

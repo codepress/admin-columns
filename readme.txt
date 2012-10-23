@@ -163,9 +163,10 @@ $my_width  = 194;
 // stop editing
 
 add_image_size( 'admin-columns', $my_width, $my_height, true );
-add_filter('cpac_thumbnail_size', function() { 
+add_filter('cpac_thumbnail_size', 'cb_cpac_thumbnail_size' );
+function cb_cpac_thumbnail_size() { 
 	return 'admin-columns';
-});
+};
 ?>
 `
 

@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.6.4
+Version: 			1.4.6.5
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -1256,7 +1256,7 @@ class Codepress_Admin_Columns
 				$type_label 	= __('Icon', CPAC_TEXTDOMAIN);
 			}
 			
-			$uniform_colums[$id] = array(
+			$uniform_columns[$id] = array(
 				'label'			=> $label,
 				'state'			=> 'on',
 				'options'		=> array(
@@ -1266,7 +1266,7 @@ class Codepress_Admin_Columns
 				)
 			);
 		}
-		return $uniform_colums;
+		return $uniform_columns;
 	}
 	
 	/**
