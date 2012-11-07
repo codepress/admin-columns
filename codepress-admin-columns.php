@@ -981,7 +981,7 @@ class Codepress_Admin_Columns
 		// to prevent possible warning from initializing load-edit.php 
 		// we will set a dummy screen object
 		if ( empty($current_screen->post_type) ) {
-			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '' );			
+			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '', 'base' => '' );			
 		}		
 		
 		// for 3rd party plugin support we will call load-edit.php so all the 
@@ -2032,7 +2032,7 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.4
 	 */
-	function admin_class() 
+	function admin_class( $classes ) 
 	{		
 		global $current_screen;
 		
@@ -2054,10 +2054,12 @@ class Codepress_Admin_Columns
 			
 			// match against screen or wp-screen
 			if ( $type == $screen || $type == "wp-{$screen}" )
-				return "cp-{$type}";
+				$classes .= " cp-{$type}";
 		}
-		return false;
+
+		return $classes;
 	}
+
 	
 	/**
 	 * Admin CSS for Column width

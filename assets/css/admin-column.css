@@ -214,7 +214,7 @@
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-inside input,
 #general-cpac-settings .cpac-option-list li .cpac-type-inside select {
-	min-width: 184px;
+	width: 184px;
 }
 #general-cpac-settings .cpac-option-list li .cpac-type-inside input.input-width {
 	min-width: 25px;
@@ -405,8 +405,14 @@
 -------------------------------------------------------------- */
 #addons-cpac-settings {
 	overflow: hidden;
-	background-color: #CCFFCC;
-	background-image: -moz-linear-gradient(center top , #c3f5c2, #CCFFCC );
+	background: #ccffcc;
+	background: -moz-linear-gradient(top,  #c3f5c2 1%, #ccffcc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#c3f5c2), color-stop(100%,#ccffcc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #c3f5c2 1%,#ccffcc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #c3f5c2 1%,#ccffcc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #c3f5c2 1%,#ccffcc 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #c3f5c2 1%,#ccffcc 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c3f5c2', endColorstr='#ccffcc',GradientType=0 ); /* IE6-9 */
     border-color: green;
 }
 #addons-cpac-settings h3 {

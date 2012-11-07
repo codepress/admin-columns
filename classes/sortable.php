@@ -10,7 +10,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 {	
 	private $post_types, 
 			$unlocked, 
-			$show_all_results;
+			$show_all_results,
+			$current_user_id;
 	
 	/**
 	 * Constructor
@@ -33,6 +34,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$this->unlocked 		= $this->is_unlocked('sortable');
 		$this->post_types 		= Codepress_Admin_Columns::get_post_types();
 		$this->show_all_results = false;
+		$this->current_user_id  = get_current_user_id();
 		
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
@@ -182,33 +184,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				
 		return $vars;
 	}	
-
-	/**
-	 * 	Get the default sorting of the column
-	 *
-	 *	The default sorting of the column is saved to it's property default_order.
-	 *	We will overwrite the requested 'order' and 'orderby' variables with the default_order.
-	 *
-	 * 	@since     1.4.5
-	 */
-	function get_default_sorting_vars( $type, $vars )
-	{			
-		// retrieve the default_order of this type
-		$db_columns = Codepress_Admin_Columns::get_stored_columns($type);
-		
-		if ( $db_columns ) {
-			foreach ( $db_columns as $column ) {
-				if ( empty($column['default_order'] ) )
-					continue;
-				
-				// overwrite with the new defaults
-				$vars['orderby'] = $this->sanitize_string($column['label']);
-				$vars['order'] = $column['default_order'];				
-			}
-		}
-
-		return $vars;
-	}
 	
 	/**
 	 * Orderby Users column
@@ -216,9 +191,9 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.3
 	 */
 	public function handle_requests_orderby_users_column($user_query)
-	{
+	{		
 		// query vars
-		$vars = $user_query->query_vars;
+		$vars = $user_query->query_vars;	
 		
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], 'wp-users' );
@@ -340,9 +315,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		
 		endswitch;		
 		
-		// save the order you last used as the default
-		// $this->save_sorting_preference( 'wp-users', $type, strtolower($vars['order']) );
-		
 		if ( isset($sort_flag) ) {
 			$user_query = $this->get_users_query_vars( $user_query, $cusers, $sort_flag );
 		}
@@ -372,6 +344,9 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	public function callback_requests_orderby_links_column($results, $vars) 
 	{	
 		global $wpdb;		
+		
+		// apply sorting preference
+		$this->apply_sorting_preference( $vars, 'wp-links' );
 		
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], 'wp-links' );
@@ -577,15 +552,13 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.3
 	 */
 	private function get_orderby_media_vars($vars)
-	{
-		// apply default sorting when it has been set
-		if ( empty( $vars['orderby'] ) ) {
-			$vars = $this->get_default_sorting_vars( 'wp-media', $vars );
-			
-			// when sorting still isn't set we will just return the requested vars
-			if ( empty( $vars['orderby'] ) )
-				return $vars;
-		}
+	{		
+		// apply sorting preference
+		$this->apply_sorting_preference( $vars, 'wp-media' );
+		
+		// when sorting still isn't set we will just return the requested vars
+		if ( empty( $vars['orderby'] ) )
+			return $vars;
 		
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], 'wp-media' );		
@@ -697,9 +670,6 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		
 		endswitch;
 		
-		// save the order you last used as the default
-		$this->save_sorting_preference( 'wp-media', $id, $vars['order'] );
-		
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
 		if ( isset($sort_flag) ) {
 			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
@@ -714,17 +684,15 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.3
 	 */
 	private function get_orderby_posts_vars($vars)
-	{		
+	{
 		$post_type = $vars['post_type'];
 		
-		// todo: fix default sorting
-		// apply default sorting when it has been set
-		if ( empty( $vars['orderby'] ) ) {
-			$vars = $this->get_default_sorting_vars( $post_type, $vars );
-			
-			// when sorting still isn't set we will just return the requested vars
-			if ( empty( $vars['orderby'] ) )
-				return $vars;
+		// apply sorting preference
+		$this->apply_sorting_preference( $vars, $post_type );
+	
+		// no sorting
+		if ( empty( $vars['orderby'] ) ) {				
+			return $vars;		
 		}
 		
 		// Column
@@ -740,14 +708,10 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		if ( strpos($type, 'column-taxonomy-') !== false )
 			$type = 'column-taxonomy';
 		
-		// custom fields
+		// Check for Custom Field
 		if ( Codepress_Admin_Columns::is_column_meta($type) )
 			$type = 'column-post-meta';
-		
-		// attachments
-		if ( $type == 'column-attachment-count' )
-			$type = 'column-attachment';
-				
+
 		// var
 		$cposts = array();		
 		switch( $type ) :
@@ -813,6 +777,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 				
 			case 'column-attachment' :
+			case 'column-attachment-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					$cposts[$p->ID] = count( Codepress_Admin_Columns::get_attachment_ids($p->ID) );
@@ -923,45 +888,82 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$cposts 	= $this->get_posts_sorted_by_taxonomy($post_type, 'post_tag');
 				break;
 			
-		endswitch;
+		endswitch;			
 		
-		// save the order you last used as the default
-		$this->save_sorting_preference( $post_type, $type, $vars['order'] );
-				
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
 		if ( isset($sort_flag) ) {
 			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
 		}
-		
+
 		return $vars;
 	}
 	
 	/**
-	 * Save sorting preference
+	 * Set sorting preference
 	 *
 	 * after sorting we will save this sorting preference to the column item
 	 * we set the default_order to either asc, desc or empty. 
 	 * only ONE column item PER type can have a default_order
 	 *
-	 * @since     1.4.5
+	 * @since     1.4.6.5
 	 */
-	function save_sorting_preference( $type, $column_type, $order = 'asc' )
+	function set_sorting_preference( $type, $orderby = '', $order = 'asc' )
 	{
-		$options = get_option('cpac_options');				
-		if ( isset($options['columns'][$type][$column_type]) ) {
-			
-			// remove the old default_order
-			foreach ($options['columns'][$type] as $k => $v) {
-				if ( isset( $options['columns'][$type][$k]['default_order'] ) ) {
-					unset($options['columns'][$type][$k]['default_order']);
-				}
+		if ( !$orderby )
+			return false;
+				
+		$options = get_user_meta( $this->current_user_id, 'cpac_sorting_preference', true );
+		
+		$options[$type] = array(
+			'orderby'	=> $orderby,
+			'order'		=> $order
+		);
+		
+		update_user_meta( $this->current_user_id, 'cpac_sorting_preference', $options );
+	}
+	
+	/**
+	 * 	Get sorting preference
+	 *
+	 *	The default sorting of the column is saved to it's property default_order.
+	 *	Returns the orderby and order value of that column.
+	 *
+	 * 	@since     1.4.6.5
+	 */
+	function get_sorting_preference( $type )
+	{
+		$options = get_user_meta( $this->current_user_id, 'cpac_sorting_preference', true );
+		
+		if ( empty($options[$type]) ) 
+			return false;
+		
+		return $options[$type];
+	}
+	
+	/**
+	 * Apply sorting preference
+	 *
+	 * @since     1.4.6.5
+	 */
+	function apply_sorting_preference( &$vars, $type )
+	{
+		// user has not sorted
+		if ( empty( $vars['orderby'] ) ) {
+		
+			// did the user sorted this column some other time?
+			if ( $preference = $this->get_sorting_preference($type) ) {
+				$vars['orderby'] 	= $preference['orderby'];
+				$vars['order'] 		= $preference['order'];
+				
+				// used by active state in column header
+				$_GET['orderby'] = $preference['orderby'];
+				$_GET['order']	 = $preference['order'];
 			}
-			
-			// set the new default order
-			$options['columns'][$type][$column_type]['default_order'] = $order;
-			
-			// save to DB
-			update_option('cpac_options', $options);
+		}
+
+		// save the order preference
+		if ( !empty( $vars['orderby'] ) ) {
+			$this->set_sorting_preference( $type, $vars['orderby'], $vars['order'] );
 		}
 	}
 	
@@ -1024,7 +1026,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 * @since     1.1
 	 */
 	private function get_orderby_type($orderby, $type)
-	{
+	{		
 		$db_columns = Codepress_Admin_Columns::get_stored_columns($type);
 
 		if ( $db_columns ) {
