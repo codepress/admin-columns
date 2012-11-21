@@ -498,10 +498,7 @@ class CPAC_Values
 		if ( ! $date )
 			return false;
 			
-		if ( ! is_numeric($date) )
-			$date = strtotime($date);
-			
-		return date_i18n( get_option('date_format'), $date );
+		return date_i18n( get_option('date_format'), strtotime($date) );
 	}
 	
 	/**

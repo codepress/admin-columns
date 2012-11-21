@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.6.4' );
+define( 'CPAC_VERSION', 	'1.4.6.5' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -1758,8 +1758,7 @@ class Codepress_Admin_Columns
 			// stored values
 			'label'			=> '', // custom label
 			'state' 		=> '', // display state
-			'width' 		=> '', // column width
-			'default_order'	=> '', // set default sorting: asc, desc or empty
+			'width' 		=> '', // column width			
 			
 			// static values
 			'options'		=> array(				

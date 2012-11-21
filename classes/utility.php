@@ -4,7 +4,7 @@
  * Fix for getting the columns loaded by WordPress SEO Yoast
  *
  * The added columns from WordPress SEO by Yoast weren't available on
- * the admin columns settings page. The eason was that class-metabox.php was prevented
+ * the admin columns settings page. The reason was that class-metabox.php was prevented
  * from loading. This fix will also load this class when admin columns is loaded.
  *
  * @since     1.4.6
