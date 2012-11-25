@@ -14,6 +14,25 @@ span.status-closed {
 	color: red;
 }
 
+/* =Color Column
+-------------------------------------------------------------- */
+div.cpac-color {
+	line-height: 26px;
+}
+div.cpac-color span {
+    border: 1px solid #CCCCCC;
+	display: block;
+	-webkit-border-radius: 3px;
+    border-radius: 3px;
+	color: #ffffff;
+    float: left;
+    height: 16px;
+    margin-right: 12px;
+    min-width: 30px;
+    overflow: hidden;
+    padding: 4px 5px;
+}
+
 /* =Comment Counts column
 -------------------------------------------------------------- */
 .column-comment-count a.post-com-count {

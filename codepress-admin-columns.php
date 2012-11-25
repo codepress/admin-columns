@@ -601,6 +601,7 @@ class Codepress_Admin_Columns
 			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
 			'user_by_id'	=> __('Username (User ID\'s)', CPAC_TEXTDOMAIN),
 			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
+			'color'			=> __('Color', CPAC_TEXTDOMAIN),
 		);
 		
 		// add filter
@@ -1007,7 +1008,11 @@ class Codepress_Admin_Columns
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
-						
+			
+			// #48 - In WP Release v3.5 we can use the following.
+			// $table = new WP_Posts_List_Table(array( 'screen' => $post_type ));
+			// $columns = $table->get_columns();
+			
 			// we need to change the current screen... first lets save original
 			$org_current_screen = $current_screen;
 			
@@ -1108,6 +1113,10 @@ class Codepress_Admin_Columns
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
+		
+		// #48 - In WP Release v3.5 we can use the following.
+		// $table = new WP_Media_List_Table(array( 'screen' => 'upload' ));
+		// $columns = $table->get_columns();
 		
 		global $current_screen;
 

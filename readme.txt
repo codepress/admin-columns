@@ -248,6 +248,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 = 1.4.6.5 =
 * added support for custom fields for Media
+* added color to the custom field types
 * fixed default sorting for Post(types) and Media
 * fixed problem with different date formats in custom fields. all dates will parsed by strtotime() now.
 * fixed bug which could trigger a conflict when saving the setting on other plugins

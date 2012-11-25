@@ -322,6 +322,13 @@ class CPAC_Values
 				$meta = $checkmark;				
 				break;
 			
+			// Color
+			case "color" :
+				if ( !empty($meta) && is_string($meta) ) {
+					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
+				}
+				break;
+			
 		endswitch;		
 
 		// filter for customization
