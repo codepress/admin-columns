@@ -198,6 +198,9 @@ function cpac_add_custom_column()
 		
 		// retrigger click events
 		cpac_box_events();
+		
+		// re-init width range slider
+		cpac_width_range();
 	});
 }
 

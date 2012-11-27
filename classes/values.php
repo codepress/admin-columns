@@ -278,7 +278,7 @@ class CPAC_Values
 		switch ($fieldtype) :			
 		
 			// Image
-			case "image" :			
+			case "image" :
 				$meta = $this->get_thumbnail($meta);
 				break;
 				
@@ -324,7 +324,7 @@ class CPAC_Values
 			
 			// Color
 			case "color" :
-				if ( !empty($meta) && is_string($meta) ) {
+				if ( !empty($meta) ) {
 					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
 				}
 				break;
@@ -335,7 +335,9 @@ class CPAC_Values
 		$meta = apply_filters('cpac_get_column_value_custom_field', $meta, $fieldtype, $field, $type, $object_id );
 		
 		// add before and after string
-		$meta = "{$before}{$meta}{$after}";
+		if ( $meta ) {
+			$meta = "{$before}{$meta}{$after}";
+		}
 		
 		return $meta;
 	}
