@@ -52,7 +52,7 @@ class CPAC_Export_Import
 			exit;
 		}
 		
-		echo json_encode( array( 'status' => 1, 'msg' => "<!*!* START admin columns Export Code !*!*>\n" . base64_encode( serialize( $columns ) ) . "\n<!*!* END admin columns Export Code !*!*>" ) );		
+		echo json_encode( array( 'status' => 1, 'msg' => "<!-- START: Admin Columns export -->\n" . base64_encode( serialize( $columns ) ) . "\n<!-- END: Admin Columns export -->" ) );		
 		exit;
 	}
 	
@@ -74,10 +74,10 @@ class CPAC_Export_Import
 		$import_code = $_POST['import_code'];
 		
 		// decode
-		$import_code 	= str_replace( "<!*!* START admin columns Export Code !*!*>\n", "", $import_code );
-		$import_code 	= str_replace( "\n<!*!* END admin columns Export Code !*!*>", "", $import_code );
-		$import_code 	= base64_decode( $import_code );
-		$import_code  	= unserialize( $import_code );
+		$import_code 	= str_replace( "<!-- START: Admin Columns export -->\n", "", $import_code );
+		$import_code 	= str_replace( "\n<!-- END: Admin Columns export -->", "", $import_code );
+		$import_code 	= base64_decode( trim( $import_code ) );
+		$import_code  	= maybe_unserialize( $import_code );
 		
 		// validate code
 		if ( empty( $import_code ) || ! is_array( $import_code ) ) {
