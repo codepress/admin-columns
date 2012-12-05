@@ -781,6 +781,7 @@ class Codepress_Admin_Columns
 	 */
 	public function admin_scripts() 
 	{
+		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_script( 'jquery-ui-slider' );		
 		wp_enqueue_script( 'cpac-qtip2', CPAC_URL.'/assets/js/jquery.qtip.js', array('jquery'), CPAC_VERSION );
 		wp_enqueue_script( 'cpac-admin', CPAC_URL.'/assets/js/admin-column.js', array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
@@ -825,6 +826,7 @@ class Codepress_Admin_Columns
 	 */
 	public function admin_styles()
 	{
+		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL.'/assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );	
 		wp_enqueue_style( 'cpac-admin', CPAC_URL.'/assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );	
 	}
@@ -2411,13 +2413,17 @@ class Codepress_Admin_Columns
 				<td class='first-col'>
 					<h2>" . __('Export Settings.', CPAC_TEXTDOMAIN ) . "</h2>
 					<p>" . __('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ) . ":</p>
-					<p>" . __('Instructions', CPAC_TEXTDOMAIN ) . ":</p>
-					<ol>
-						<li>" . __('Select one or more types.', CPAC_TEXTDOMAIN ) . "</li>
-						<li>" . __('Click Export.', CPAC_TEXTDOMAIN ) . "</li>
-						<li>" . __('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ) . "</li>
-						<li>" . __('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ) . "</li>						
-					</ol>
+					<p><a href='#' class='cpac-pointer' rel='cpac-import-instructions-html'>" . __('Instructions', CPAC_TEXTDOMAIN ) . "</a></p>
+					<div id='cpac-import-instructions-html' style='display:none;'>
+						<h3>" . __('Import Columns Types', CPAC_TEXTDOMAIN ) . "</h3>
+						<p>" . __('Instructions', CPAC_TEXTDOMAIN ) . ":</p>						
+						<ol>
+							<li>" . __('Select one or more types.', CPAC_TEXTDOMAIN ) . "</li>
+							<li>" . __('Click Export.', CPAC_TEXTDOMAIN ) . "</li>
+							<li>" . __('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ) . "</li>
+							<li>" . __('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ) . "</li>					
+						</ol>						
+					</div>
 				</td>
 				<td>
 					<div class='cpac_export'>

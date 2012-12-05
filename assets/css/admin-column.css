@@ -550,6 +550,13 @@ div.cpac_export {
 	display: none;
 }
 
+/* =WP Pointer
+-------------------------------------------------------------- */
+.wp-pointer-content ol {
+    margin-left: 1.5em;
+    padding: 0 15px;
+}
+
 /* =Tooltip
 -------------------------------------------------------------- */
 .qtip .qtip-tip {
