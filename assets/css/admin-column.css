@@ -301,6 +301,27 @@
 	border-bottom: none;
 	border-top: none;
 }
+#cpac-box-plugin_settings .button {
+	position: relative;
+}
+#cpac-box-plugin_settings .button.loading {
+	padding-right: 25px;
+}
+#cpac-box-plugin_settings .button.loading span {
+	position: absolute;
+	top: 2px;
+	right: 6px;
+	background: transparent url('../images/loading.gif') no-repeat right 50%;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+#cpac-box-plugin_settings td.first-col {
+	width: 18%;
+}
+
+/* =Addon settings
+-------------------------------------------------------------- */
 #cpac-box-plugin_settings table.addons {
 	/* max-width: 620px; */	
 }
@@ -361,21 +382,6 @@
 #cpac-box-plugin_settings .cpac-option-inputs {
 	float: left;
 	width: 220px;
-}
-#cpac-box-plugin_settings table.addons .button {
-	position: relative;
-}
-#cpac-box-plugin_settings table.addons .button.loading {
-	padding-right: 25px;
-}
-#cpac-box-plugin_settings table.addons .button.loading span {
-	position: absolute;
-	top: 2px;
-	right: 6px;
-	background: transparent url('../images/loading.gif') no-repeat right 50%;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
 }
 
 /* =Restore settings
@@ -505,6 +511,43 @@
 	color: #CC0000;
 	line-height: 20px;
 	padding: 0 6px;
+}
+
+/* =Import / Export
+-------------------------------------------------------------- */
+div.cpac_export {
+	width: 20%;
+	float: left;
+}
+#cpac_export_output {
+	width: 80%;
+	float: left;	
+	display: none;
+}
+#cpac_export_output textarea {
+	width: 100%;
+	height: 80%;	
+}
+#cpac_export_submit {
+	display: inline-block;
+	margin: 10px 0;
+}
+#cpac_import_input {}
+#cpac_import_input textarea {
+	width: 100%;
+	height: 80%;	
+}
+#cpac_import_submit {
+	display: inline-block;
+	margin: 10px 0;
+}
+.export-message,
+.import-message {
+	background-color: #FFFFE0;
+    border: 1px solid #E6DB55;
+	padding: 4px 6px;
+	border-radius: 3px;
+	display: none;
 }
 
 /* =Tooltip

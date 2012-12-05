@@ -49,6 +49,7 @@ require_once dirname( __FILE__ ) . '/classes/values/users.php';
 require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
+require_once dirname( __FILE__ ) . '/classes/export_import.php';
 
 /**
  * Codepress Admin Columns Class
@@ -160,7 +161,10 @@ class Codepress_Admin_Columns
 	/**
 	 * Add Settings link to plugin page
 	 *
-	 * @since     1.0
+	 * @since	1.0
+	 * @param	$links string - all settings links
+	 * @param	$file string - plugin filename
+	 * @return	string - link to settings page
 	 */
 	function add_settings_link( $links, $file ) 
 	{
@@ -266,6 +270,18 @@ class Codepress_Admin_Columns
 		return $this->add_columns_headings('wp-comments', $columns);
 	}
 	
+	
+	
+	/**
+	 *	Add managed columns by Type
+	 *
+	 * 	@since 1.4.6.5
+	 */
+	private function get_comment_icon() 
+	{
+		return "<span class='vers'><img src='" . trailingslashit( get_admin_url() ) . 'images/comment-grey-bubble.png' . "' alt='Comments'></span>";
+	}
+	
 	/**
 	 *	Add managed columns by Type
 	 *
@@ -287,8 +303,15 @@ class Codepress_Admin_Columns
 			// is active
 			if ( isset($values['state']) && $values['state'] == 'on' ){				
 				
+				$label = $values['label'];
+				
+				// exception for comments
+				if( 'comments' == $id ) {
+					$label = $this->get_comment_icon();
+				}
+				
 				// register format
-				$set_columns[$id] = $values['label'];				
+				$set_columns[$id] = $label;
 			}
 		}
 		
@@ -498,6 +521,14 @@ class Codepress_Admin_Columns
 		// label
 		$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
 		
+		// main label
+		$main_label = $values['label'];	
+		
+		// main label exception for comments
+		if ( 'comments' == $id ) {
+			$main_label = $this->get_comment_icon();
+		}
+		
 		// width
 		$width			= isset($values['width']) ? $values['width'] : 0;
 		$width_descr	= isset($values['width']) && $values['width'] > 0 ? $values['width'] . '%' : __('default', CPAC_TEXTDOMAIN);
@@ -514,7 +545,7 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-options'>					
 					<div class='cpac-checkbox'></div>
 					<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>
-					<label class='main-label'>{$values['label']}</label>
+					<label class='main-label'>{$main_label}</label>
 				</div>
 				<div class='cpac-meta-title'>
 					{$action}
@@ -523,9 +554,9 @@ class Codepress_Admin_Columns
 				<div class='cpac-type-inside'>				
 					<label for='cpac_options-{$type}-{$id}-label'{$label_hidden}>Label: </label>
 					<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'{$label_hidden}/>
-					<label for='cpac_options-{$type}-{$id}-width'>".__('Width', CPAC_TEXTDOMAIN).":</label>			
+					<label for='cpac_options-{$type}-{$id}-width'>" . __('Width', CPAC_TEXTDOMAIN) . ":</label>			
 					<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
-					<div class='description width-decription' title='".__('default', CPAC_TEXTDOMAIN)."'>{$width_descr}</div>
+					<div class='description width-decription' title='" . __('default', CPAC_TEXTDOMAIN) . "'>{$width_descr}</div>
 					<div class='input-width-range'></div>
 					<br/>
 					{$more_options}
@@ -816,8 +847,9 @@ class Codepress_Admin_Columns
 	public function register_settings() 
 	{
 		// If we have no options in the database, let's add them now.
-		if ( false === get_option('cpac_options') )
-			add_option( 'cpac_options', array($this, 'get_default_plugin_options') );
+		if ( false === get_option('cpac_options') ) {
+			add_option( 'cpac_options', $this->get_default_plugin_options() );
+		}
 		
 		register_setting( 'cpac-settings-group', 'cpac_options', array($this, 'options_callback') );
 	}	
@@ -829,11 +861,7 @@ class Codepress_Admin_Columns
 	 */
 	public function get_default_plugin_options() 
 	{
-		$default_plugin_options = array(		
-			'post'	=> '',
-			'page'	=> ''
-		);
-		return apply_filters( 'cpac_default_plugin_options', $default_plugin_options );
+		return apply_filters( 'cpac_default_plugin_options', array() );
 	}
 
 	/**
@@ -1254,8 +1282,9 @@ class Codepress_Admin_Columns
 			$hide_options 	= false;
 			$type_label 	= $label;
 			
-			// comment exception				
-			if ( strpos( $label, 'comment-grey-bubble.png') ) {
+			// comment exception		
+			if ( 'comments' == $id ) {					
+				$label 			= '';
 				$type_label 	= __('Comments', CPAC_TEXTDOMAIN);
 				$hide_options 	= true;
 			}
@@ -1848,7 +1877,7 @@ class Codepress_Admin_Columns
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 		
 		// options button
-		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Addons', CPAC_TEXTDOMAIN)."</a>";
+		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";
 		//$options_btn = '';
 		
 		return "
@@ -2281,11 +2310,11 @@ class Codepress_Admin_Columns
 	}
 	
 	/**
-	 * Activation settings
+	 * Plugin Settings
 	 *
 	 * @since     1.3.1
 	 */
-	private function activation_settings() 
+	private function plugin_settings() 
 	{
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
 		
@@ -2314,39 +2343,141 @@ class Codepress_Admin_Columns
 			{$find_out_more}
 		";
 		
-		// markup
-		$sortable = "
-		<tr id='cpac-activation-sortable' class='last'>
-			<td class='activation_type'>
-				<span>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</span>
-				<div class='cpac-tooltip hidden'>
-					<div class='qtip_title'>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</div>
-					<div class='qtip_content'>
-						<p>" . __($sortable_tooltip, CPAC_TEXTDOMAIN) . "</p>
+		// addons 
+		$addons = "
+			<tr>
+				<td colspan='2'>
+					<h2>".__('Activate Add-ons', CPAC_TEXTDOMAIN)."</h2>
+					<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', CPAC_TEXTDOMAIN)." <a target='_blank' href='{$this->codepress_url}/sortorder-addon/'>Visit the Plugin Store</a>.</p>
+					<table class='widefat addons'>
+						<thead>
+							<tr>
+								<th class='activation_type'>".__('Addon', CPAC_TEXTDOMAIN)."</th>
+								<th class='activation_status'>".__('Status', CPAC_TEXTDOMAIN)."</th>
+								<th class='activation_code'>".__('Activation Code', CPAC_TEXTDOMAIN)."</th>
+								<th class='activation_more'></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='cpac-activation-sortable' class='last'>
+								<td class='activation_type'>
+									<span>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</span>
+									<div class='cpac-tooltip hidden'>
+										<div class='qtip_title'>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</div>
+										<div class='qtip_content'>
+											<p>" . __($sortable_tooltip, CPAC_TEXTDOMAIN) . "</p>
+										</div>
+									</div>
+								</td>
+								<td class='activation_status'>
+									<div class='activate{$class_sortorder_activate}'>
+										" . __('Inactive', CPAC_TEXTDOMAIN) . "
+									</div>
+									<div class='deactivate{$class_sortorder_deactivate}'>
+										" . __('Active', CPAC_TEXTDOMAIN) . "
+									</div>
+								</td>
+								<td class='activation_code'>
+									<div class='activate{$class_sortorder_activate}'>
+										<input type='text' value='" . __('Fill in your activation code', CPAC_TEXTDOMAIN) . "' name='cpac-sortable-key'>
+										<a href='javascript:;' class='button'>" . __('Activate', CPAC_TEXTDOMAIN) . "<span></span></a>
+									</div>
+									<div class='deactivate{$class_sortorder_deactivate}'>
+										<span class='masked_key'>{$masked_key}</span>
+										<a href='javascript:;' class='button'>" . __('Deactivate', CPAC_TEXTDOMAIN) . "<span></span></a>
+									</div>
+									<div class='activation-error-msg'></div>
+								</td>
+								<td class='activation_more'>{$find_out_more}</td>
+							</tr><!-- #cpac-activation-sortable -->
+						</tbody>					
+					</table>
+					<div class='addon-translation-string hidden'>
+						<span class='tstring-fill-in'>" . __('Enter your activation code', CPAC_TEXTDOMAIN) . "</span>
+						<span class='tstring-unrecognised'>" . __('Activation code unrecognised', CPAC_TEXTDOMAIN) . "</span>
 					</div>
-				</div>
-			</td>
-			<td class='activation_status'>
-				<div class='activate{$class_sortorder_activate}'>
-					" . __('Inactive', CPAC_TEXTDOMAIN) . "
-				</div>
-				<div class='deactivate{$class_sortorder_deactivate}'>
-					" . __('Active', CPAC_TEXTDOMAIN) . "
-				</div>
-			</td>
-			<td class='activation_code'>
-				<div class='activate{$class_sortorder_activate}'>
-					<input type='text' value='" . __('Fill in your activation code', CPAC_TEXTDOMAIN) . "' name='cpac-sortable-key'>
-					<a href='javascript:;' class='button'>" . __('Activate', CPAC_TEXTDOMAIN) . "<span></span></a>
-				</div>
-				<div class='deactivate{$class_sortorder_deactivate}'>
-					<span class='masked_key'>{$masked_key}</span>
-					<a href='javascript:;' class='button'>" . __('Deactivate', CPAC_TEXTDOMAIN) . "<span></span></a>
-				</div>
-				<div class='activation-error-msg'></div>
-			</td>
-			<td class='activation_more'>{$find_out_more}</td>
-		</tr><!-- #cpac-activation-sortable -->
+				</td>
+			</tr>
+		";
+		
+		// import / export
+		$export_selections = array();		
+		foreach ( $this->get_types() as $type ) {			
+			$export_selections[] = "<option value='{$type}'>" . $this->get_singular_name($type) . "</option>";
+		}
+		
+		$export_import = "
+			<tr>
+				<td class='first-col'>
+					<h2>" . __('Export Settings.', CPAC_TEXTDOMAIN ) . "</h2>
+					<p>" . __('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ) . ":</p>
+					<p>" . __('Instructions', CPAC_TEXTDOMAIN ) . ":</p>
+					<ol>
+						<li>" . __('Select one or more types.', CPAC_TEXTDOMAIN ) . "</li>
+						<li>" . __('Click Export.', CPAC_TEXTDOMAIN ) . "</li>
+						<li>" . __('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ) . "</li>
+						<li>" . __('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ) . "</li>						
+					</ol>
+				</td>
+				<td>
+					<div class='cpac_export'>
+						<select size='" . count($export_selections) . "' multiple='multiple' class='select' id='cpac_export_types'>
+							" . implode( $export_selections ) . "
+						</select>
+						<br/>						
+						<a id='cpac_export_submit' class='button' href='javascript:;'>" . __('Export', CPAC_TEXTDOMAIN ) . "</a>
+						<div class='export-message'></div>
+					</div>
+					<div id='cpac_export_output'>						
+						<textarea rows='" . count($export_selections) . "'></textarea>
+						<p class='description'>" . __('Copy the following code to your clipboard. Then you can use this code for importing.', CPAC_TEXTDOMAIN ) . "</p>
+					</div>
+				</td>
+			</tr>
+			<tr class='last'>
+				<td class='first-col'>
+					<h2>" . __('Import settings', CPAC_TEXTDOMAIN ) . "</h2>
+					<p>" . __('Copy and paste your import settings here.', CPAC_TEXTDOMAIN ) . "</p>
+				</td>
+				<td>
+					<div id='cpac_import_input'>
+						<textarea rows='10'></textarea>
+						<a id='cpac_import_submit' class='button' href='javascript:;'>" . __('Import', CPAC_TEXTDOMAIN ) . "<span></span></a>
+						<div class='import-message'></div>
+					</div>
+				</td>
+			</tr>
+		";
+		
+		// general options
+		$general_options = "
+			<!--
+			<tr class='last'>
+				<td colspan='2'>
+					<h2>Options</h2>
+					<ul class='cpac-options'>
+						<li>
+							<div class='cpac-option-label'>Thumbnail size</div>
+							<div class='cpac-option-inputs'>										
+								<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_width]' value='80'/>
+								<label for='thumbnail_size_w'>Width</label>
+								<br/>										
+								<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_height]' value='80'/>
+								<label for='thumbnail_size_h'>Height</label>
+							</div>
+						</li>
+						<li>
+							<div class='cpac-option-label'>Excerpt length</div>
+							<div class='cpac-option-inputs'>										
+								
+								<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='15'/>
+								<label for='excerpt_length'>Number of words</label>
+							</div>
+						</li>
+					</ul>						
+				</td>
+			</tr>
+			-->
 		";
 		
 		// settings
@@ -2354,56 +2485,9 @@ class Codepress_Admin_Columns
 		<tr id='cpac-box-plugin_settings' valign='top' class='cpac-box-row {$class_current_settings}'>
 			<td colspan='2'>
 				<table class='nopadding'>
-					<tr class='last'>
-						<td>
-							<h2>".__('Activate Add-ons', CPAC_TEXTDOMAIN)."</h2>
-							<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', CPAC_TEXTDOMAIN)." <a target='_blank' href='{$this->codepress_url}/sortorder-addon/'>Visit the Plugin Store</a>.</p>
-							<table class='widefat addons'>
-								<thead>
-									<tr>
-										<th class='activation_type'>".__('Addon', CPAC_TEXTDOMAIN)."</th>
-										<th class='activation_status'>".__('Status', CPAC_TEXTDOMAIN)."</th>
-										<th class='activation_code'>".__('Activation Code', CPAC_TEXTDOMAIN)."</th>
-										<th class='activation_more'></th>
-									</tr>
-								</thead>
-								<tbody>
-									{$sortable}
-								</tbody>					
-							</table>
-							<div class='addon-translation-string hidden'>
-								<span class='tstring-fill-in'>" . __('Enter your activation code', CPAC_TEXTDOMAIN) . "</span>
-								<span class='tstring-unrecognised'>" . __('Activation code unrecognised', CPAC_TEXTDOMAIN) . "</span>
-							</div>
-						</td>
-					</tr>
-					<!--
-					<tr class='last'>
-						<td colspan='2'>
-							<h2>Options</h2>
-							<ul class='cpac-options'>
-								<li>
-									<div class='cpac-option-label'>Thumbnail size</div>
-									<div class='cpac-option-inputs'>										
-										<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_width]' value='80'/>
-										<label for='thumbnail_size_w'>Width</label>
-										<br/>										
-										<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_height]' value='80'/>
-										<label for='thumbnail_size_h'>Height</label>
-									</div>
-								</li>
-								<li>
-									<div class='cpac-option-label'>Excerpt length</div>
-									<div class='cpac-option-inputs'>										
-										
-										<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='15'/>
-										<label for='excerpt_length'>Number of words</label>
-									</div>
-								</li>
-							</ul>						
-						</td>
-					</tr>
-					-->
+					{$addons}
+					{$export_import}
+					{$general_options}
 				</table>
 			</td>
 		</tr><!-- #cpac-box-plugin_settings -->
@@ -2480,8 +2564,8 @@ class Codepress_Admin_Columns
 			";
 		}
 		
-		// Activation 
-		$activation_settings = $this->activation_settings();
+		// General Setttings
+		$general_settings = $this->plugin_settings();
 		
 		// Post Type Menu
 		$menu = $this->get_menu();
@@ -2581,7 +2665,7 @@ class Codepress_Admin_Columns
 									<?php echo $rows; ?>								
 									
 									<!-- activation -->
-									<?php echo $activation_settings; ?>
+									<?php echo $general_settings; ?>
 									
 									<tr class="bottom" valign="top">
 										<th scope="row"></th>

@@ -16,6 +16,8 @@ jQuery(document).ready(function()
 	cpac_tooltips();
 	cpac_addon_activation();
 	cpac_width_range();
+	cpac_export();
+	cpac_import();
 });
 
 /**
@@ -423,5 +425,152 @@ function cpac_addon_activation()
 				}
 			});
 		}
+	});
+}
+
+/**
+ *	Export Settings
+ *
+ */
+function cpac_export()
+{
+	// Submit Export
+	jQuery('#cpac_export_submit').click( function(e){
+		
+		var values = [];			
+		
+		// get selected values
+		jQuery('#cpac_export_types :selected').each(function(i, selected){ 
+			values[i] = jQuery(selected).val(); 
+		});
+		
+		var btn 			 = jQuery(this);
+		var export_container = jQuery('#cpac_export_output');
+		var export_textarea  = jQuery('textarea', export_container);
+		var msg 			 = btn.next('.export-message');
+		
+		// reset
+		export_container.hide();
+		export_textarea.empty();
+		msg.hide();
+		
+		// get export code		
+		if ( values ) {
+			
+			jQuery.ajax({
+				url 		: ajaxurl,
+				type 		: 'POST',
+				dataType 	: 'json',
+				data : {
+					action  : 'cpac_get_export',
+					types	: values				
+				},
+				success: function(data) {					
+					if ( data != null ) {
+						
+						// succes						
+						if ( 1 == data.status ) {
+							export_textarea.text(data.msg);					
+							export_container.show();							
+						}
+						
+						// fail					
+						else if ( data.msg ) {
+							msg.text(data.msg).show();
+						}							
+						
+					} else {
+						// error msg						
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {},
+				complete: function() {}
+			});
+		}
+		
+		e.preventDefault;
+	});
+	
+	// Select Export Code
+	jQuery('#cpac_export_output textarea').focus(function() {
+		var t = jQuery(this);
+		t.select();
+		
+		t.mouseup(function() { // Work around Chrome's little problem
+			
+			t.unbind("mouseup"); // Prevent further mouseup intervention
+			return false;
+		});
+	});
+}
+
+/**
+ *	Import Settings
+ *
+ */
+function cpac_import()
+{
+	jQuery('#cpac_import_submit'). click( function(e){
+		
+		var btn 		= jQuery(this);		
+		var import_code = jQuery('#cpac_import_input textarea').val();
+		var msg 		= btn.next('.import-message');
+		
+		btn.addClass('loading');		
+		msg.hide();
+		
+		if ( import_code ) {
+		
+			jQuery.ajax({
+				url 		: ajaxurl,
+				type 		: 'POST',
+				dataType 	: 'json',
+				data : {
+					action  	: 'cpac_import',
+					import_code	: import_code
+				},
+				success: function(data) {					
+					if ( data != null ) {
+										
+						// succes						
+						if ( 1 == data.status ) {
+							msg.text(data.msg).show();
+						}
+						
+						// fail					
+						else if ( data.msg ) {
+							msg.text(data.msg).show();
+						}						
+					} 
+					
+					else {
+						msg.text('error').show();
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {},
+				complete: function() {
+					btn.removeClass('loading');
+				}
+			});
+		}
+
+		else {
+			btn.removeClass('loading');
+			msg.text('empty').show();
+		}
+		
+		e.preventDefault;
+	});
+	
+	// Select Import Code
+	jQuery('#cpac_import_input textarea').focus(function() {
+		var t = jQuery(this);
+		t.select();
+		
+		t.mouseup(function() { // Work around Chrome's little problem
+			
+			t.unbind("mouseup"); // Prevent further mouseup intervention
+			return false;
+		});
 	});
 }
