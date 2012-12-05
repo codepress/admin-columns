@@ -102,7 +102,8 @@ class CPAC_Export_Import
 		$result = update_option( 'cpac_options', $options );
 		
 		if ( $result ) {
-			echo json_encode( array( 'status' => 1, 'msg' => __('Imported succesfully',  CPAC_TEXTDOMAIN ) ) );			
+			
+			echo json_encode( array( 'status' => 1, 'msg' => __( sprintf( 'Imported succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $import_code ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) ) );			
 		}
 		
 		else {

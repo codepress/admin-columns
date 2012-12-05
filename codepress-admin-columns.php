@@ -2431,7 +2431,7 @@ class Codepress_Admin_Columns
 							" . implode( $export_selections ) . "
 						</select>
 						<br/>						
-						<a id='cpac_export_submit' class='button' href='javascript:;'>" . __('Export', CPAC_TEXTDOMAIN ) . "</a>
+						<a id='cpac_export_submit' class='button' href='javascript:;'>" . __('Export', CPAC_TEXTDOMAIN ) . "<span></span></a>
 						<div class='export-message'></div>
 					</div>
 					<div id='cpac_export_output'>						

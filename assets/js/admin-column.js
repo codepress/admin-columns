@@ -460,6 +460,9 @@
 			// get export code		
 			if ( values ) {
 				
+				// set loading icon			
+				btn.addClass('loading');
+				
 				$.ajax({
 					url 		: ajaxurl,
 					type 		: 'POST',
@@ -487,7 +490,9 @@
 						}
 					},
 					error: function(xhr, ajaxOptions, thrownError) {},
-					complete: function() {}
+					complete: function() {
+						btn.removeClass('loading');
+					}
 				});
 			}
 			
@@ -537,7 +542,7 @@
 											
 							// succes						
 							if ( 1 == data.status ) {
-								msg.text(data.msg).show();
+								msg.html(data.msg).show();
 							}
 							
 							// fail					
