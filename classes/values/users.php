@@ -35,7 +35,7 @@ class CPAC_Users_Values extends CPAC_Values
 			return false;
 		
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( $this->is_column_meta($type) )
+		if ( cpac_static::is_column_meta($type) )
 			$type = 'column-user-meta';
 			
 		// Check for post count: column-user_postcount-[posttype]

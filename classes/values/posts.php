@@ -35,7 +35,7 @@ class CPAC_Posts_Values extends CPAC_Values
 			$type = 'column-taxonomy';
 		
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( $this->is_column_meta($type) )
+		if ( cpac_static::is_column_meta($type) )
 			$type = 'column-post-meta';
 		
 		// Hook 
@@ -316,7 +316,7 @@ class CPAC_Posts_Values extends CPAC_Values
 		$type = get_post_type($post_id);
 		
 		// get column
-		$columns 	= $this->get_stored_columns($type);
+		$columns 	= cpac_static::get_stored_columns($type);
 		
 		// get the type of author name
 		$display_as	= isset($columns[$column_name]['display_as']) ? $columns[$column_name]['display_as'] : '';

@@ -29,17 +29,7 @@ class CPAC_Values
 	 */
 	public function get_stored_columns($type)
 	{ 
-		return Codepress_Admin_Columns::get_stored_columns($type);
-	}
-	
-	/**
-	 * Checks if column-meta key exists
-	 *
-	 * @since     1.0
-	 */
-	public static function is_column_meta( $id = '' ) 
-	{
-		return Codepress_Admin_Columns::is_column_meta( $id );
+		return cpac_static::get_stored_columns($type);
 	}
 	
 	/**

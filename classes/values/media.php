@@ -34,7 +34,7 @@ class CPAC_Media_Values extends CPAC_Values
 		$p 		= get_post($media_id);
 		
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( $this->is_column_meta($type) )
+		if ( cpac_static::is_column_meta($type) )
 			$type = 'column-meta';
 		
 		// Hook 

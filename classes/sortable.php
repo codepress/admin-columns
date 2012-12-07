@@ -34,7 +34,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
         
 		// vars
 		$this->unlocked 		= $licence->is_unlocked();
-		$this->post_types 		= Codepress_Admin_Columns::get_post_types();
+		$this->post_types 		= cpac_static::get_post_types();
 		$this->show_all_results = false;
 		$this->current_user_id  = get_current_user_id();
 		
@@ -153,7 +153,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){			
 				
 				// register format
-				$columns[$id] = $this->sanitize_string($vars['label']);			
+				$columns[$id] = cpac_static::sanitize_string($vars['label']);			
 			}
 		}	
 
@@ -207,11 +207,11 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$type = $id = key($column);
 		
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( Codepress_Admin_Columns::is_column_meta($type) )
+		if ( cpac_static::is_column_meta($type) )
 			$type = 'column-user-meta';
 		
 		// Check for post count: column-user_postcount-[posttype]
-		if ( Codepress_Admin_Columns::get_posttype_by_postcount_column($type) )
+		if ( cpac_static::get_posttype_by_postcount_column($type) )
 			$type = 'column-user_postcount';
 		
 		// var
@@ -1035,7 +1035,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			foreach ( $db_columns as $id => $vars ) {
 			
 				// check which custom column was clicked
-				if ( isset( $vars['label'] ) && $orderby ==  $this->sanitize_string( $vars['label'] ) ) {
+				if ( isset( $vars['label'] ) && $orderby == cpac_static::sanitize_string( $vars['label'] ) ) {
 					$column[$id] = $vars;
 					return $column;
 				}
@@ -1166,7 +1166,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$taxonomies = get_object_taxonomies($post_type_object->name, 'names');
 		
 		// get stored columns
-		$db_columns = Codepress_Admin_Columns::get_stored_columns($post_type_object->name);
+		$db_columns = cpac_static::get_stored_columns($post_type_object->name);
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax ) {

@@ -20,16 +20,6 @@ class CPAC_Export_Import
 	}
 	
 	/**
-	 * Admin requests for orderby column
-	 *
-	 * @since     1.0
-	 */
-	public function get_stored_columns($type)
-	{ 
-		return Codepress_Admin_Columns::get_stored_columns($type);
-	}
-	
-	/**
 	 * Get Export
 	 *
 	 * @since 1.4.6.5
@@ -41,7 +31,7 @@ class CPAC_Export_Import
 	
 		$columns = array();
 		foreach ( $_POST['types'] as $type ) {
-			$columns[$type] = $this->get_stored_columns( $type );			
+			$columns[$type] = cpac_static::get_stored_columns( $type );			
 		}	
 		
 		// make sure the array is not empty
