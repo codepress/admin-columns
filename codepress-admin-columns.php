@@ -365,9 +365,73 @@ class Codepress_Admin_Columns
 		if ( $display_columns ) {
 			foreach ( $display_columns as $id => $values ) {		
 				
-				// add items to the list
-				$list .= $this->get_box($type, $id, $values);
-			
+				$classes = array();
+
+				// set state
+				$state 	= isset($values['state']) ? $values['state'] : '';
+				
+				// class
+				$classes[] = "cpac-box-{$id}";
+				if ( $state ) {
+					$classes[] = 'active';
+				}
+				if ( ! empty($values['options']['class']) ) {
+					$classes[] = $values['options']['class'];
+				}
+				$class = implode(' ', $classes);
+					
+				// more box options	
+				$more_options 	= $this->get_additional_box_options($type, $id, $values);
+				$action 		= "<a class='cpac-action' href='#open'>open</a>";
+						
+				// type label
+				$type_label = isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
+				
+				// label
+				$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
+				
+				// main label
+				$main_label = $values['label'];	
+				
+				// main label exception for comments
+				if ( 'comments' == $id ) {
+					$main_label = $this->get_comment_icon();
+				}
+				
+				// width
+				$width			= isset($values['width']) ? $values['width'] : 0;
+				$width_descr	= isset($values['width']) && $values['width'] > 0 ? $values['width'] . '%' : __('default', CPAC_TEXTDOMAIN);
+				
+				// hide box options
+				$label_hidden = '';
+				if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
+					$label_hidden = ' style="display:none"';
+				}
+				
+				$list .= "
+					<li class='{$class}'>
+						<div class='cpac-sort-handle'></div>
+						<div class='cpac-type-options'>					
+							<div class='cpac-checkbox'></div>
+							<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>
+							<label class='main-label'>{$main_label}</label>
+						</div>
+						<div class='cpac-meta-title'>
+							{$action}
+							<span>{$type_label}</span>
+						</div>
+						<div class='cpac-type-inside'>				
+							<label for='cpac_options-{$type}-{$id}-label'{$label_hidden}>Label: </label>
+							<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'{$label_hidden}/>
+							<label for='cpac_options-{$type}-{$id}-width'>" . __('Width', CPAC_TEXTDOMAIN) . ":</label>			
+							<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
+							<div class='description width-decription' title='" . __('default', CPAC_TEXTDOMAIN) . "'>{$width_descr}</div>
+							<div class='input-width-range'></div>
+							<br/>
+							{$more_options}
+						</div>
+					</li>
+				";			
 			}
 		}
 		
@@ -506,10 +570,12 @@ class Codepress_Admin_Columns
 		
 		// class
 		$classes[] = "cpac-box-{$id}";
-		if ( $state )
+		if ( $state ) {
 			$classes[] = 'active';
-		if ( ! empty($values['options']['class']) )
+		}
+		if ( ! empty($values['options']['class']) ) {
 			$classes[] = $values['options']['class'];
+		}
 		$class = implode(' ', $classes);
 			
 		// more box options	
@@ -793,7 +859,7 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.1
 	 */
-	private function get_types() 
+	private function get_types()
 	{
 		$types 					= $this->post_types;
 		$types['wp-users'] 		= 'wp-users';
@@ -2454,12 +2520,7 @@ class Codepress_Admin_Columns
 		foreach ( $this->get_types() as $type ) {
 			
 			// post type label
-			$label = $this->get_singular_name($type);			
-			
-			// screen link
-			$screen_link = '';
-			//$screen_link = $this->get_type_screen_link($type);
-			//$screen_link = "<a href='{$screen_link}' class='go-to-screen'>" . sprintf( __('go to %s screen'), strtolower($label) ) . "</a>";	
+			$label = $this->get_singular_name($type);
 			
 			// id
 			$id = $this->sanitize_string($type); 
@@ -2473,7 +2534,7 @@ class Codepress_Admin_Columns
 			$rows .= "
 				<tr id='cpac-box-{$id}' valign='top' class='cpac-box-row{$class}'>
 					<th class='cpac_post_type' scope='row'>
-						{$label}{$screen_link}
+						{$label}
 					</th>
 					<td>
 						<h3 class='cpac_post_type hidden'>{$label}</h3>
