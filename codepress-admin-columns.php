@@ -1107,28 +1107,11 @@ class Codepress_Admin_Columns
 		
 		// get users columns
 		$columns = WP_Users_List_Table::get_columns();
-
+		
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
 
-		// add sorting to some of the default users columns
-		$columns = $this->set_sorting_to_default_users_columns($columns);
-
 		return apply_filters('cpac-default-users-columns', $columns);
-	}
-	
-	/**
-	 * 	Add Sorting to WP default Users columns
-	 *
-	 * 	@since     1.4
-	 */
-	private function set_sorting_to_default_users_columns($columns)
-	{
-		// Comment
-		if ( !empty($columns['role']) ) {
-			$columns['role']['options']['sortorder'] = 'on';
-		}
-		return $columns;
 	}
 	
 	/**
@@ -1169,7 +1152,9 @@ class Codepress_Admin_Columns
 		$current_screen = $org_current_screen;
 		
 		// change to uniform format
-		return $this->get_uniform_format($columns);
+		$columns = $this->get_uniform_format($columns);
+		
+		return apply_filters('cpac-default-media-columns', $columns);
 	}
 	
 	/**
