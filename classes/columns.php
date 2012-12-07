@@ -5,7 +5,7 @@ class cpac_columns
 	private $type,
 			$use_hidden_custom_fields;
 	
-	function __construct( $type )
+	function __construct( $type = '' )
 	{
 		$this->type = $type;
 		
@@ -201,7 +201,7 @@ class cpac_columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	private function get_wp_default_comments_columns()
+	function get_wp_default_comments_columns()
 	{		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
@@ -245,7 +245,7 @@ class cpac_columns
 	 *
 	 * @since     1.3.1
 	 */
-	private function get_custom_comments_columns() 
+	function get_custom_comments_columns() 
 	{
 		$custom_columns = array(
 			'column-comment_id' => array(
@@ -328,7 +328,7 @@ class cpac_columns
 	 *
 	 * @since     1.3.1
 	 */
-	private function get_custom_links_columns() 
+	function get_custom_links_columns() 
 	{
 		$custom_columns = array(
 			'column-link_id' => array (
@@ -374,7 +374,7 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_custom_posts_columns($post_type) 
+	function get_custom_posts_columns($post_type) 
 	{
 		$custom_columns = array(
 			'column-featured_image' => array(
@@ -514,7 +514,7 @@ class cpac_columns
 	 *
 	 * @since     1.1
 	 */
-	private function get_custom_users_columns() 
+	function get_custom_users_columns() 
 	{
 		$custom_columns = array(
 			'column-user_id' => array(
@@ -588,7 +588,7 @@ class cpac_columns
 	 *
 	 * @since     1.3
 	 */
-	private function get_custom_media_columns() 
+	function get_custom_media_columns() 
 	{
 		$custom_columns = array(
 			'column-mediaid' => array(
@@ -721,69 +721,15 @@ class cpac_columns
 		$custom_columns = $this->parse_defaults($custom_columns);
 		
 		return apply_filters('cpac-custom-media-columns', $custom_columns);
-	}
+	}	
 	
-	/**
-	 * Get author field by nametype
-	 *
-	 * Used by posts and sortable
-	 *
-	 * @since     1.4.6.1
-	 */
-	public function get_author_field_by_nametype( $nametype, $user_id)
-	{
-		$userdata = get_userdata( $user_id );
-	
-		switch ( $nametype ) :
-			
-			case "display_name" :
-				$name = $userdata->display_name;
-				break;
-				
-			case "first_name" :
-				$name = $userdata->first_name;
-				break;		
-				
-			case "last_name" :
-				$name = $userdata->last_name;
-				break;
-				
-			case "first_last_name" :
-				$first = !empty($userdata->first_name) ? $userdata->first_name : '';
-				$last = !empty($userdata->last_name) ? " {$userdata->last_name}" : '';
-				$name = $first.$last;
-				break;
-				
-			case "nickname" :
-				$name = $userdata->nickname;
-				break;		
-				
-			case "username" :
-				$name = $userdata->user_login;
-				break;
-			
-			case "email" :
-				$name = $userdata->user_email;
-				break;
-				
-			case "userid" :
-				$name = $userdata->ID;
-				break;
-				
-			default :
-				$name = $userdata->display_name;
-			
-		endswitch;
-		
-		return $name;
-	}
 	
 	/**
 	 * 	Get WP default supported admin columns per post type.
 	 *
 	 * 	@since     1.0
 	 */
-	private function get_wp_default_posts_columns($post_type = 'post') 
+	function get_wp_default_posts_columns($post_type = 'post') 
 	{
 		// we need to change the current screen
 		global $current_screen;
@@ -867,7 +813,7 @@ class cpac_columns
 	 *
 	 * 	@since     1.1
 	 */
-	private function get_wp_default_users_columns()
+	function get_wp_default_users_columns()
 	{
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -891,7 +837,7 @@ class cpac_columns
 	 *
 	 * 	@since     1.2.1
 	 */
-	private function get_wp_default_media_columns()
+	function get_wp_default_media_columns()
 	{		
 		// @todo could use _get_list_table('WP_Media_List_Table') ?
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
@@ -934,7 +880,7 @@ class cpac_columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	private function get_wp_default_links_columns()
+	function get_wp_default_links_columns()
 	{
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )

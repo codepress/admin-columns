@@ -6,7 +6,7 @@
  * @since     1.3
  *
  */
-class Codepress_Sortable_Columns extends Codepress_Admin_Columns
+class Codepress_Sortable_Columns
 {	
 	private $post_types, 
 			$unlocked, 
@@ -37,6 +37,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 		$this->post_types 		= cpac_static::get_post_types();
 		$this->show_all_results = false;
 		$this->current_user_id  = get_current_user_id();
+		$this->post_types 		= cpac_static::get_post_types();
 		
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
@@ -144,7 +145,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function add_managed_sortable_columns( $type = 'post', $columns ) 
 	{		
-		$display_columns	= $this->get_merged_columns($type);
+		$cpac_columns = new cpac_columns($type);
+		$display_columns = $cpac_columns->get_merged_columns($type);
 		
 		if ( ! $display_columns )
 			return $columns;
@@ -274,11 +276,11 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				break;
 			
 			case 'column-user_postcount' :				
-				$post_type 	= Codepress_Admin_Columns::get_posttype_by_postcount_column($id);
+				$post_type 	= cpac_static::get_posttype_by_postcount_column($id);
 				if ( $post_type ) {
 					$sort_flag = SORT_REGULAR;
 					foreach ( $this->get_users_data() as $u ) {
-						$count = Codepress_Admin_Columns::get_post_count( $post_type, $u->ID );
+						$count = cpac_static::get_post_count( $post_type, $u->ID );
 						$cusers[$u->ID] = $this->prepare_sort_string_value($count);
 					}					
 				}
@@ -711,7 +713,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			$type = 'column-taxonomy';
 		
 		// Check for Custom Field
-		if ( Codepress_Admin_Columns::is_column_meta($type) )
+		if ( cpac_static::is_column_meta($type) )
 			$type = 'column-post-meta';
 
 		// var
@@ -758,7 +760,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-word-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {		
-					$cposts[$p->ID] = str_word_count( Codepress_Admin_Columns::strip_trim( $p->post_content ) );
+					$cposts[$p->ID] = str_word_count( cpac_static::strip_trim( $p->post_content ) );
 				}
 				break;
 				
@@ -782,7 +784,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 			case 'column-attachment-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
-					$cposts[$p->ID] = count( Codepress_Admin_Columns::get_attachment_ids($p->ID) );
+					$cposts[$p->ID] = count( cpac_static::get_attachment_ids($p->ID) );
 				}
 				break;				
 				
@@ -861,7 +863,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				}
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					if ( !empty($p->post_author) ) {
-						$name = Codepress_Admin_Columns::get_author_field_by_nametype($display_as, $p->post_author);							
+						$name = cpac_static::get_author_field_by_nametype($display_as, $p->post_author);							
 						$cposts[$p->ID] = $name;
 					}
 				}
@@ -1029,7 +1031,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	private function get_orderby_type($orderby, $type)
 	{		
-		$db_columns = Codepress_Admin_Columns::get_stored_columns($type);
+		$db_columns = cpac_static::get_stored_columns($type);
 
 		if ( $db_columns ) {
 			foreach ( $db_columns as $id => $vars ) {
@@ -1114,7 +1116,7 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	private function prepare_sort_string_value($string)
 	{
 		// remove tags and only get the first 20 chars and force lowercase.
-		$string = strtolower( substr( Codepress_Admin_Columns::strip_trim($string),0 ,20 ) );
+		$string = strtolower( substr( cpac_static::strip_trim($string),0 ,20 ) );
 		
 		return $string;
 	}

@@ -93,7 +93,7 @@ class CPAC_Posts_Values extends CPAC_Values
 			
 			// Slug
 			case "column-word-count" :
-				$result = str_word_count( $this->strip_trim( get_post($post_id)->post_content ) );
+				$result = str_word_count( cpac_static::strip_trim( get_post($post_id)->post_content ) );
 				break;
 			
 			// Taxonomy
@@ -133,7 +133,7 @@ class CPAC_Posts_Values extends CPAC_Values
 				
 			// Attachment count
 			case "column-attachment-count" :
-				$result = count($this->get_attachment_ids($post_id));
+				$result = count( cpac_static::get_attachment_ids($post_id) );
 				break;
 				
 			// Roles
@@ -326,7 +326,7 @@ class CPAC_Posts_Values extends CPAC_Values
 		if ( !isset( $post->post_author) )
 			return false;
 		
-		$name = Codepress_Admin_Columns::get_author_field_by_nametype($display_as, $post->post_author);
+		$name = cpac_static::get_author_field_by_nametype($display_as, $post->post_author);
 		
 		// filter for customization
 		$name = apply_filters('cpac_get_column_value_authorname', $name, $column_name, $post_id );

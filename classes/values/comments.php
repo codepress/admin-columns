@@ -134,7 +134,7 @@ class CPAC_Comments_Values extends CPAC_Values
 			
 			// word count
 			case "column-word-count" :
-				$result = str_word_count( $this->strip_trim( $comment->comment_content ) );
+				$result = str_word_count( cpac_static::strip_trim( $comment->comment_content ) );
 				break;
 			
 			default :

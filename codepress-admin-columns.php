@@ -42,16 +42,9 @@ if ( !is_admin() )
  * @since     1.3
  */
 require_once dirname( __FILE__ ) . '/static.php';
-require_once dirname( __FILE__ ) . '/columns.php';
-require_once dirname( __FILE__ ) . '/classes/third_party.php';
+require_once dirname( __FILE__ ) . '/classes/columns.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
-require_once dirname( __FILE__ ) . '/classes/values.php';		
-require_once dirname( __FILE__ ) . '/classes/values/posts.php';
-require_once dirname( __FILE__ ) . '/classes/values/users.php';
-require_once dirname( __FILE__ ) . '/classes/values/media.php';
-require_once dirname( __FILE__ ) . '/classes/values/link.php';
-require_once dirname( __FILE__ ) . '/classes/values/comments.php';
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 
@@ -184,6 +177,14 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
+		require_once dirname( __FILE__ ) . '/classes/values.php';		
+		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
+		require_once dirname( __FILE__ ) . '/classes/values/users.php';
+		require_once dirname( __FILE__ ) . '/classes/values/media.php';
+		require_once dirname( __FILE__ ) . '/classes/values/link.php';
+		require_once dirname( __FILE__ ) . '/classes/values/comments.php';
+		
+		// Init
 		new CPAC_Posts_Values();
 		new CPAC_Link_Values();
 		new CPAC_Media_Values();
@@ -304,10 +305,7 @@ class Codepress_Admin_Columns
 		}
 		
 		return $set_columns;
-	}
-	
-	
-	
+	}	
 	
 	/**
 	 * Get checkbox
@@ -509,23 +507,26 @@ class Codepress_Admin_Columns
 	{	
 		// stores the default columns that are set by WP or theme.
 		$wp_default_columns = array();
-		
+				
 		// Posts
 		foreach ( $this->post_types as $post_type ) {
-			$wp_default_columns[$post_type] = $this->get_wp_default_posts_columns($post_type);
+			$cpac_columns = new cpac_columns( $post_type );
+			$wp_default_columns[$post_type] = $cpac_columns->get_wp_default_posts_columns();
 		}
+				
+		$cpac_columns = new cpac_columns();
 		
 		// Users
-		$wp_default_columns['wp-users'] = $this->get_wp_default_users_columns();
+		$wp_default_columns['wp-users'] = $cpac_columns->get_wp_default_users_columns();
 		
 		// Media
-		$wp_default_columns['wp-media'] = $this->get_wp_default_media_columns();
+		$wp_default_columns['wp-media'] = $cpac_columns->get_wp_default_media_columns();
 		
 		// Links
-		$wp_default_columns['wp-links'] = $this->get_wp_default_links_columns();
+		$wp_default_columns['wp-links'] = $cpac_columns->get_wp_default_links_columns();
 		
 		// Comments
-		$wp_default_columns['wp-comments'] = $this->get_wp_default_comments_columns();		
+		$wp_default_columns['wp-comments'] = $cpac_columns->get_wp_default_comments_columns();		
 		
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
@@ -649,50 +650,7 @@ class Codepress_Admin_Columns
 			$link = get_admin_url() . "edit.php?post_type={$type}";		
 				
 		return $link;
-	}
-
-	
-	
-	
-	
-	/**
-	 * Get the posttype from columnname
-	 *
-	 * @since     1.3.1
-	 */
-	public static function get_posttype_by_postcount_column( $id = '' ) 
-	{
-		if ( strpos($id, 'column-user_postcount-') !== false )			
-			return str_replace('column-user_postcount-', '', $id);
-				
-		return false;
-	}
-	
-	/**
-	 *	Get column value of post attachments
-	 *
-	 * 	@since     1.2.1
-	 */
-	public static function get_attachment_ids( $post_id ) 
-	{
-		return get_posts(array(
-			'post_type' 	=> 'attachment',
-			'numberposts' 	=> -1,
-			'post_status' 	=> null,
-			'post_parent' 	=> $post_id,
-			'fields' 		=> 'ids'
-		));
-	}
-	
-	/**
-	 * Strip tags and trim
-	 *
-	 * @since     1.3
-	 */
-	public static function strip_trim($string) 
-	{
-		return trim(strip_tags($string));
-	}
+	}	
 	
 	/**
 	 * Admin body class
@@ -1055,30 +1013,8 @@ class Codepress_Admin_Columns
 		";
 		
 		return $row;
-	}
+	}	
 	
-	/**
-	 *	Get post count
-	 *
-	 * 	@since     1.3.1
-	 */
-	public static function get_post_count( $post_type, $user_id )
-	{
-		global $wpdb;
-		
-		if ( ! post_type_exists($post_type) || empty($user_id) )
-			return false;
-		
-		$sql = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_status = 'publish'
-			AND post_author = %d
-			AND post_type = %s
-		";
-		
-		return $wpdb->get_var( $wpdb->prepare($sql, $user_id, $post_type) );
-	}
 	
 	/**
 	 * Settings Page Template.

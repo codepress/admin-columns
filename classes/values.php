@@ -19,7 +19,7 @@ class CPAC_Values
 	{	
 		// number of words
 		$this->excerpt_length	= 20;		
-		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );
+		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );			
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class CPAC_Values
 	protected function get_column_value_attachments( $post_id ) 
 	{
 		$result 	 	= '';
-		$attachment_ids = $this->get_attachment_ids($post_id);
+		$attachment_ids = cpac_static::get_attachment_ids($post_id);
 		if ( $attachment_ids ) {
 			foreach ( $attachment_ids as $attach_id ) {
 				if ( wp_get_attachment_image($attach_id) )
@@ -107,16 +107,6 @@ class CPAC_Values
 			}
 		}
 		return $result;
-	}
-	
-	/**
-	 *	Get column value of post attachments
-	 *
-	 * 	@since     1.2.1
-	 */
-	protected function get_attachment_ids( $post_id ) 
-	{
-		return Codepress_Admin_Columns::get_attachment_ids( $post_id );
 	}
 	
 	/**
@@ -189,8 +179,8 @@ class CPAC_Values
 	 */
 	protected function get_media_thumbnails($meta) 
 	{
-		$meta = $this->strip_trim( str_replace(' ','', $meta) );
-		
+		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );
+
 		// split media ids
 		$media_ids = array($meta);
 		if ( strpos($meta, ',') !== false )			
@@ -340,8 +330,7 @@ class CPAC_Values
 	protected function get_custom_field_value_title($meta) 
 	{
 		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace(' ','', $meta) );
-		
+		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );		
 		// var
 		$ids = $titles = array();
 		
@@ -372,7 +361,7 @@ class CPAC_Values
 	protected function get_custom_field_value_user($meta) 
 	{
 		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace(' ','', $meta) );
+		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );
 		
 		// var
 		$ids = $names = array();
@@ -475,16 +464,6 @@ class CPAC_Values
 			return implode( $glue, $retVal );
 		
 		return false;
-	}
-	
-	/**
-	 * Strip tags and trim
-	 *
-	 * @since     1.3
-	 */
-	protected function strip_trim($string) 
-	{
-		return Codepress_Admin_Columns::strip_trim($string);
 	}
 	
 	/**

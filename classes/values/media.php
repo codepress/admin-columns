@@ -77,7 +77,7 @@ class CPAC_Media_Values extends CPAC_Values
 			// alternate text
 			case "column-alternate_text" :
 				$alt 	= get_post_meta($media_id, '_wp_attachment_image_alt', true);
-				$result = $this->strip_trim($alt);
+				$result = cpac_static::strip_trim($alt);
 				break;
 				
 			// mime type
