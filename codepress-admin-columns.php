@@ -50,6 +50,7 @@ require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
+require_once dirname( __FILE__ ) . '/classes/license.php';
 
 /**
  * Codepress Admin Columns Class
@@ -117,7 +118,7 @@ class Codepress_Admin_Columns
 		
 		// action ajax
 		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation'));
-				
+		
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );		
 		
@@ -2112,52 +2113,6 @@ class Codepress_Admin_Columns
 		
 		echo "<style type='text/css'>{$css}</style>";
 	}
-
-	/**
-	 * Unlocks
-	 *
-	 * @since     1.3
-	 */
-	protected function is_unlocked($type)
-	{
-		return preg_match('/^[a-f0-9]{40}$/i', $this->get_license_key($type));
-	}	
-	
-	/**
-	 * Check license key with API
-	 *
-	 * @since     1.3.3
-	 */
-	private function check_remote_key($type, $key)
-	{	
-		if ( empty($type) || empty($key) )
-			return false;
-		
-		// check key with remote API		
- 		$response = wp_remote_post( $this->api_url, array(			
-			'body'	=> array(
-				'api'	=> 'addon',
-				'key'	=> $key,
-				'type'	=> $type				
-			)
-		));
-
-		// license will be valid in case of WP error or succes
-		if ( is_wp_error($response) || ( isset($response['body']) && json_decode($response['body']) == 'valid' ) )
-			return true;
-	
-		return false;
-	}
-	
-	/**
-	 * Set masked license key
-	 *
-	 * @since     1.3.1
-	 */
-	private function get_masked_license_key($type) 
-	{
-		return '**************************'.substr( $this->get_license_key($type), -4 );		
-	}
 	
 	/**
 	 * Ajax activation
@@ -2170,53 +2125,24 @@ class Codepress_Admin_Columns
 		$key 	= $_POST['key'];
 		$type 	= $_POST['type'];
 		
+		$licence = new cpac_licence( $type );
+		
 		// update key
 		if ( $key == 'remove' ) {
-			$this->remove_license_key($type);
+			$licence->remove_license_key();
 		}
 			
 		// set license key
-		elseif ( $this->check_remote_key($type, $key) ) {
+		elseif ( $licence->check_remote_key( $key ) ) {
 		
 			// set key
-			$this->set_license_key($type, $key);
+			$licence->set_license_key( $key );
 			
 			// returned masked key
-			echo json_encode( $this->get_masked_license_key($type) );
+			echo json_encode( $licence->get_masked_license_key() );
 		}
 
 		exit;
-	}
-	
-	/**
-	 * Get license key
-	 *
-	 * @since     1.3
-	 */
-	private function get_license_key($type)
-	{
-		return get_option("cpac_{$type}_ac");
-	}
-	
-	/**
-	 * Set license key
-	 *
-	 * @since     1.3
-	 */
-	private function set_license_key($type, $key)
-	{
-		update_option( "cpac_{$type}_ac", trim($key) );
-	}
-	
-	/**
-	 * Remove license key
-	 *
-	 * @since     1.3.1
-	 */
-	private function remove_license_key($type)
-	{
-		delete_option( "cpac_{$type}_ac" );
-		delete_transient("cpac_{$type}_trnsnt");
 	}
 	
 	/**
@@ -2311,8 +2237,10 @@ class Codepress_Admin_Columns
 		$class_sortorder_deactivate = ' hidden';
 		
 		// is unlocked
-		if ( $this->is_unlocked('sortable') ) {
-			$masked_key 	 = $this->get_masked_license_key('sortable');
+		$licence = new cpac_licence('sortable');
+		
+		if ( $licence->is_unlocked() ) {
+			$masked_key 	 = $licence->get_masked_license_key('sortable');
 			$class_sortorder_activate = ' hidden';
 			$class_sortorder_deactivate = '';
 		}

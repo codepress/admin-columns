@@ -30,8 +30,10 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 	 */
 	public function init()
 	{
+		$licence = new cpac_licence('sortable');
+        
 		// vars
-		$this->unlocked 		= $this->is_unlocked('sortable');
+		$this->unlocked 		= $licence->is_unlocked();
 		$this->post_types 		= Codepress_Admin_Columns::get_post_types();
 		$this->show_all_results = false;
 		$this->current_user_id  = get_current_user_id();
