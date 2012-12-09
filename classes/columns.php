@@ -2,16 +2,7 @@
 
 class cpac_columns
 {
-	private $type,
-			$use_hidden_custom_fields;
-	
-	function __construct( $type = '' )
-	{
-		$this->type = $type;
-		
-		// enable the use of custom hidden fields
-		$this->use_hidden_custom_fields = apply_filters('cpac_use_hidden_custom_fields', false);
-	}
+	public $type;
 	
 	/**
 	 * Get a list of Column options per post type
@@ -125,789 +116,55 @@ class cpac_columns
 	 */
 	function get_merged_columns() 
 	{
-		/** Comments */
-		if ( $this->type == 'wp-comments' ) {
-			$wp_default_columns = $this->get_wp_default_comments_columns();
-			$wp_custom_columns  = $this->get_custom_comments_columns();
-		}
+		// get added and WP columns
+		$wp_default_columns = $this->get_default_columns();
+		$wp_added_columns  	= $this->get_added_columns();
 		
-		/** Links */
-		elseif ( $this->type == 'wp-links' ) {
-			$wp_default_columns = $this->get_wp_default_links_columns();
-			$wp_custom_columns  = $this->get_custom_links_columns();
-		}
+		// merge
+		$default_columns	= wp_parse_args($wp_added_columns, $wp_default_columns);
 		
-		/** Users */
-		elseif ( $this->type == 'wp-users' ) {
-			$wp_default_columns = $this->get_wp_default_users_columns();
-			$wp_custom_columns  = $this->get_custom_users_columns();
-		}
-		
-		/** Media */
-		elseif ( $this->type == 'wp-media' ) {
-			$wp_default_columns = $this->get_wp_default_media_columns();
-			$wp_custom_columns  = $this->get_custom_media_columns();
-		}
-		
-		/** Posts */
-		else {
-			$wp_default_columns = $this->get_wp_default_posts_columns($this->type);
-			$wp_custom_columns  = $this->get_custom_posts_columns($this->type);
-		}
-		
-		// merge columns
-		$default_columns = wp_parse_args($wp_custom_columns, $wp_default_columns);
-		
-		//get saved database columns		
-		if ( $db_columns = cpac_static::get_stored_columns( $this->type ) ) {
+		// Gget saved columns
+		if ( ! $db_columns = cpac_static::get_stored_columns( $this->type ) )
+			return $default_columns;
 			
-			// let's remove any unavailable columns.. such as disabled plugins			
-			$diff = array_diff( array_keys($db_columns), array_keys($default_columns) );
-			
-			// check or differences
-			if ( ! empty($diff) && is_array($diff) ) {						
-				foreach ( $diff as $column_name ){				
-					// make an exception for column-meta-xxx
-					if ( ! cpac_static::is_column_meta($column_name) ) {
-						unset($db_columns[$column_name]);
-					}
+		// let's remove any unavailable columns.. such as disabled plugins			
+		$diff = array_diff( array_keys($db_columns), array_keys($default_columns) );
+		
+		// check for differences
+		if ( ! empty($diff) && is_array($diff) ) {						
+			foreach ( $diff as $column_name ){				
+				// make an exception for column-meta-xxx
+				if ( ! cpac_static::is_column_meta($column_name) ) {
+					unset($db_columns[$column_name]);
 				}
-			}	
-			
-			// loop throught the active columns
-			foreach ( $db_columns as $id => $values ) {
-			
-				// get column meta options from custom columns
-				if ( cpac_static::is_column_meta($id) && !empty($wp_custom_columns['column-meta-1']['options']) ) {					
-					$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];			
-				}
-				
-				// add static options
-				elseif ( isset($default_columns[$id]['options']) )
-					$db_columns[$id]['options'] = $default_columns[$id]['options'];
-				
-				unset($default_columns[$id]);			
 			}
 		}	
+		
+		// loop throught the active columns
+		foreach ( $db_columns as $id => $values ) {
+		
+			// get column meta options from custom columns
+			if ( cpac_static::is_column_meta($id) && !empty($wp_custom_columns['column-meta-1']['options']) ) {					
+				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];			
+			}
+			
+			// add static options
+			elseif ( isset($default_columns[$id]['options']) )
+				$db_columns[$id]['options'] = $default_columns[$id]['options'];
+			
+			unset($default_columns[$id]);			
+		}
 		
 		// merge all
-		$display_columns = wp_parse_args($db_columns, $default_columns);		
+		return wp_parse_args($db_columns, $default_columns);
+	}		
 		
-		return $display_columns;		
-	}
-	
-	/**
-	 * 	Get WP default links columns.
-	 *
-	 * 	@since     1.3.1
-	 */
-	function get_wp_default_comments_columns()
-	{		
-		// dependencies
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php');
-		
-		global $current_screen;
-
-		// save original		
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'edit-comments';
-		
-		// init table object
-		$wp_comment = new WP_Comments_List_Table;		
-		
-		// get comments
-		$columns = $wp_comment->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
-		
-		// change to uniform format
-		$columns = $this->get_uniform_format($columns);
-		
-		// add sorting to some of the default links columns
-		if ( !empty($columns['comment']) ) {
-			$columns['comment']['options']['sortorder'] = 'on';
-		}
-		
-		return apply_filters('cpac-default-comments-columns', $columns);
-	}
-	
-	/**
-	 * Custom comments columns
-	 *
-	 * @since     1.3.1
-	 */
-	function get_custom_comments_columns() 
-	{
-		$custom_columns = array(
-			'column-comment_id' => array(
-				'label'	=> __('ID', CPAC_TEXTDOMAIN)
-			),
-			'column-author_author' => array(
-				'label'	=> __('Author Name', CPAC_TEXTDOMAIN)
-			),
-			'column-author_avatar' => array(
-				'label'	=> __('Avatar', CPAC_TEXTDOMAIN)
-			),
-			'column-author_url' => array(
-				'label'	=> __('Author url', CPAC_TEXTDOMAIN)
-			),
-			'column-author_ip' => array(
-				'label'	=> __('Author IP', CPAC_TEXTDOMAIN)
-			),
-			'column-author_email' => array(
-				'label'	=> __('Author email', CPAC_TEXTDOMAIN)
-			),
-			'column-reply_to' => array(
-				'label'			=> __('In Reply To', CPAC_TEXTDOMAIN),	
-				'options'		=> array(					
-					'sortorder'		=> false
-				)
-			),
-			'column-approved' => array(
-				'label'	=> __('Approved', CPAC_TEXTDOMAIN)
-			),
-			'column-date' => array(
-				'label'	=> __('Date', CPAC_TEXTDOMAIN)
-			),
-			'column-date_gmt' => array(
-				'label'	=> __('Date GMT', CPAC_TEXTDOMAIN)
-			),
-			'column-agent' => array(
-				'label'	=> __('Agent', CPAC_TEXTDOMAIN)
-			),
-			'column-excerpt' => array(
-				'label'	=> __('Excerpt', CPAC_TEXTDOMAIN)
-			),
-			'column-actions' => array(
-				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			),
-			'column-word-count' => array(
-				'label'	=> __('Word count', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			)
-		);		
-		
-		// Custom Field support
-		if ( $this->get_meta_by_type('wp-comments') ) {
-			$custom_columns['column-meta-1'] = array(
-				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
-				'field'			=> '',
-				'field_type'	=> '',
-				'before'		=> '',
-				'after'			=> '',
-				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
-					'class'			=> 'cpac-box-metafield',
-					'sortorder'		=> false,
-				)
-			);
-		}		
-		
-		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
-		
-		return apply_filters('cpac-custom-comments-columns', $custom_columns);
-	}
-	
-	/**
-	 * Custom links columns
-	 *
-	 * @since     1.3.1
-	 */
-	function get_custom_links_columns() 
-	{
-		$custom_columns = array(
-			'column-link_id' => array (
-				'label'	=> __('ID', CPAC_TEXTDOMAIN)
-			),
-			'column-description' => array (
-				'label'	=> __('Description', CPAC_TEXTDOMAIN)
-			),
-			'column-image' => array(
-				'label'	=> __('Image', CPAC_TEXTDOMAIN)
-			),
-			'column-target' => array(
-				'label'	=> __('Target', CPAC_TEXTDOMAIN)
-			),
-			'column-owner' => array(
-				'label'	=> __('Owner', CPAC_TEXTDOMAIN)
-			),
-			'column-notes' => array(
-				'label'	=> __('Notes', CPAC_TEXTDOMAIN)
-			),
-			'column-rss' => array(
-				'label'	=> __('Rss', CPAC_TEXTDOMAIN)
-			),
-			'column-length' => array(
-				'label'	=> __('Length', CPAC_TEXTDOMAIN)
-			),
-			'column-actions' => array(
-				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			)			
-		);	
-		
-		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
-		
-		return apply_filters('cpac-custom-links-columns', $custom_columns);
-	}
-	
-	/**
-	 * Custom posts columns
-	 *
-	 * @since     1.0
-	 */
-	function get_custom_posts_columns($post_type) 
-	{
-		$custom_columns = array(
-			'column-featured_image' => array(
-				'label'	=> __('Featured Image', CPAC_TEXTDOMAIN)
-			),
-			'column-excerpt' => array(
-				'label'	=> __('Excerpt', CPAC_TEXTDOMAIN)
-			),
-			'column-order' => array(
-				'label'	=> __('Page Order', CPAC_TEXTDOMAIN)
-			),
-			'column-post_formats' => array(
-				'label'	=> __('Post Format', CPAC_TEXTDOMAIN)
-			),
-			'column-postid' => array(
-				'label'	=> __('ID', CPAC_TEXTDOMAIN)
-			),
-			'column-page-slug' => array(
-				'label'	=> __('Slug', CPAC_TEXTDOMAIN)
-			),
-			'column-attachment' => array(
-				'label'	=> __('Attachment', CPAC_TEXTDOMAIN)
-			),
-			'column-attachment-count' => array(
-				'label'	=> __('No. of Attachments', CPAC_TEXTDOMAIN)
-			),
-			'column-roles' => array(
-				'label'	=> __('Roles', CPAC_TEXTDOMAIN)
-			),
-			'column-status' => array(
-				'label'	=> __('Status', CPAC_TEXTDOMAIN)
-			),
-			'column-comment-status' => array(
-				'label'	=> __('Comment status', CPAC_TEXTDOMAIN)
-			),
-			'column-ping-status' => array(
-				'label'	=> __('Ping status', CPAC_TEXTDOMAIN)
-			),
-			'column-actions' => array(
-				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			),
-			'column-modified' => array(
-				'label'	=> __('Last modified', CPAC_TEXTDOMAIN)
-			),
-			'column-comment-count' => array(
-				'label'	=> __('Comment count', CPAC_TEXTDOMAIN)
-			),
-			'column-author-name' => array(
-				'label'			=> __('Display Author As', CPAC_TEXTDOMAIN),
-				'display_as'	=> ''
-			),
-			'column-before-moretag' => array(
-				'label'	=> __('Before More Tag', CPAC_TEXTDOMAIN)				
-			)
-		);
-		
-		// Word count support
-		if ( post_type_supports($post_type, 'editor') ) {
-			$custom_columns['column-word-count'] = array(
-				'label'	=> __('Word count', CPAC_TEXTDOMAIN)
-			);
-		}
-		
-		// Sticky support
-		if ( $post_type == 'post' ) {		
-			$custom_columns['column-sticky'] = array(
-				'label'			=> __('Sticky', CPAC_TEXTDOMAIN)
-			);
-		}
-		
-		// Order support
-		if ( post_type_supports($post_type, 'page-attributes') ) {
-			$custom_columns['column-order'] = array(
-				'label'			=> __('Page Order', CPAC_TEXTDOMAIN),				
-				'options'		=> array(
-					'type_label' 	=> __('Order', CPAC_TEXTDOMAIN)
-				)			
-			);
-		}
-		
-		// Page Template
-		if ( $post_type == 'page' ) { 
-			$custom_columns['column-page-template'] = array(
-				'label'	=> __('Page Template', CPAC_TEXTDOMAIN)
-			);	
-		}
-		
-		// Post Formats
-		if ( post_type_supports($post_type, 'post-formats') ) {
-			$custom_columns['column-post_formats'] = array(
-				'label'	=> __('Post Format', CPAC_TEXTDOMAIN)
-			);
-		}
-		
-		// Taxonomy support
-		$taxonomies = get_object_taxonomies($post_type, 'objects');
-		if ( $taxonomies ) {
-			foreach ( $taxonomies as $tax_slug => $tax ) {
-				if ( $tax_slug != 'post_tag' && $tax_slug != 'category' && $tax_slug != 'post_format' ) {
-					$custom_columns['column-taxonomy-'.$tax->name] = array(
-						'label'			=> $tax->label,
-						'show_filter'	=> true,
-						'options'		=> array(
-							'type_label'	=> __('Taxonomy', CPAC_TEXTDOMAIN)
-						)
-					);				
-				}
-			}
-		}
-		
-		// Custom Field support
-		if ( $this->get_meta_by_type($post_type) ) {
-			$custom_columns['column-meta-1'] = array(
-				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
-				'field'			=> '',
-				'field_type'	=> '',
-				'before'		=> '',
-				'after'			=> '',
-				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
-					'class'			=> 'cpac-box-metafield'
-				)			
-			);
-		}	
-		
-		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
-		
-		return apply_filters('cpac-custom-posts-columns', $custom_columns);
-	}
-	
-	/**
-	 * Custom users columns
-	 *
-	 * @since     1.1
-	 */
-	function get_custom_users_columns() 
-	{
-		$custom_columns = array(
-			'column-user_id' => array(
-				'label'	=> __('User ID', CPAC_TEXTDOMAIN)
-			),
-			'column-nickname' => array(
-				'label'	=> __('Nickname', CPAC_TEXTDOMAIN)
-			),
-			'column-first_name' => array(
-				'label'	=> __('First name', CPAC_TEXTDOMAIN)
-			),
-			'column-last_name' => array(
-				'label'	=> __('Last name', CPAC_TEXTDOMAIN)
-			),
-			'column-user_url' => array(
-				'label'	=> __('Url', CPAC_TEXTDOMAIN)
-			),
-			'column-user_registered' => array(
-				'label'	=> __('Registered', CPAC_TEXTDOMAIN)
-			),
-			'column-user_description' => array(
-				'label'	=> __('Description', CPAC_TEXTDOMAIN)
-			),
-			'column-actions' => array(
-				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			),
-		);
-		
-		// User total number of posts
-		foreach ( cpac_static::get_post_types() as $post_type ) {
-			$label = '';
-			
-			// get plural label
-			$posttype_obj = get_post_type_object( $post_type );
-			if ( $posttype_obj ) {
-				$label = $posttype_obj->labels->name;
-			}			
-
-			$custom_columns['column-user_postcount-'.$post_type] = array(
-				'label'			=> __( sprintf('No. of %s',$label), CPAC_TEXTDOMAIN),
-				'options'		=> array(
-					'type_label'	=> __('Postcount', CPAC_TEXTDOMAIN)
-				)
-			);
-		}
-		
-		// Custom Field support
-		$custom_columns['column-meta-1'] = array(
-			'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
-			'field'			=> '',
-			'field_type'	=> '',
-			'before'		=> '',
-			'after'			=> '',
-			'options'		=> array(
-				'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
-				'class'			=> 'cpac-box-metafield'
-			)
-		);	
-		
-		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
-		
-		return apply_filters('cpac-custom-users-columns', $custom_columns);
-	}
-	
-	/**
-	 * Custom media columns
-	 *
-	 * @since     1.3
-	 */
-	function get_custom_media_columns() 
-	{
-		$custom_columns = array(
-			'column-mediaid' => array(
-				'label'	=> __('ID', CPAC_TEXTDOMAIN)
-			),
-			'column-mime_type' => array(
-				'label'	=> __('Mime type', CPAC_TEXTDOMAIN)
-			),
-			'column-file_name' => array(
-				'label'	=> __('File name', CPAC_TEXTDOMAIN)
-			),
-			'column-dimensions' => array(
-				'label'	=> __('Dimensions', CPAC_TEXTDOMAIN)
-			),
-			'column-height' => array(
-				'label'	=> __('Height', CPAC_TEXTDOMAIN)
-			),
-			'column-width' => array(
-				'label'	=> __('Width', CPAC_TEXTDOMAIN)
-			),
-			'column-caption' => array(
-				'label'	=> __('Caption', CPAC_TEXTDOMAIN)
-			),
-			'column-description' => array(
-				'label'	=> __('Description', CPAC_TEXTDOMAIN)
-			),
-			'column-alternate_text' => array(
-				'label'	=> __('Alt', CPAC_TEXTDOMAIN)
-			),
-			'column-file_paths' => array(
-				'label'	=> __('Upload paths', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			),
-			'column-actions' => array(
-				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
-				'options'	=> array(
-					'sortorder'	=> false
-				)
-			),
-			'column-filesize' => array(
-				'label'	=> __('File size', CPAC_TEXTDOMAIN)
-			)			
-		);
-		
-		// Get extended image metadata, exif or iptc as available.
-		// uses exif_read_data()
-		if ( function_exists('exif_read_data') ) {
-			$custom_columns = array_merge( $custom_columns, array(
-				'column-image-aperture' => array(
-					'label'		=> __('Aperture', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Aperture EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-credit' => array(
-					'label'		=> __('Credit', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Credit EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-camera' => array(
-					'label'		=> __('Camera', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Camera EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-caption' => array(
-					'label'		=> __('Caption', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Caption EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-created_timestamp' => array(
-					'label'		=> __('Timestamp', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Timestamp EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-copyright' => array(
-					'label'		=> __('Copyright', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Copyright EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-focal_length' => array(
-					'label'		=> __('Focal Length', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Focal Length EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-iso' => array(
-					'label'		=> __('ISO', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('ISO EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-shutter_speed' => array(
-					'label'		=> __('Shutter Speed', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Shutter Speed EXIF', CPAC_TEXTDOMAIN)
-					)
-				),
-				'column-image-title' => array(
-					'label'		=> __('Title', CPAC_TEXTDOMAIN),
-					'options'	=> array(
-						'type_label'	=> __('Title EXIF', CPAC_TEXTDOMAIN)
-					)
-				)
-			));
-		}
-		
-		// Custom Field support
-		if ( $this->get_meta_by_type('wp-media') ) {
-			$custom_columns['column-meta-1'] = array(
-				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
-				'field'			=> '',
-				'field_type'	=> '',
-				'before'		=> '',
-				'after'			=> '',
-				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
-					'class'			=> 'cpac-box-metafield'
-				)
-			);
-		}
-		
-		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
-		
-		return apply_filters('cpac-custom-media-columns', $custom_columns);
-	}	
-	
-	
-	/**
-	 * 	Get WP default supported admin columns per post type.
-	 *
-	 * 	@since     1.0
-	 */
-	function get_wp_default_posts_columns($post_type = 'post') 
-	{
-		// we need to change the current screen
-		global $current_screen;
-			
-		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
-		$_GET['post_type'] = $post_type;
-		
-		// to prevent possible warning from initializing load-edit.php 
-		// we will set a dummy screen object
-		if ( empty($current_screen->post_type) ) {
-			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '', 'base' => '' );			
-		}		
-		
-		// for 3rd party plugin support we will call load-edit.php so all the 
-		// additional columns that are set by them will be avaible for us		
-		do_action('load-edit.php');
-		
-		// some plugins directly hook into get_column_headers, such as woocommerce
-		$columns = get_column_headers( 'edit-'.$post_type );
-		
-		// get default columns		
-		if ( empty($columns) ) {		
-			
-			// deprecated as of wp3.3
-			if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
-				require_once(ABSPATH . 'wp-admin/includes/template.php');
-				
-			// introduced since wp3.3
-			if ( file_exists(ABSPATH . 'wp-admin/includes/screen.php') )
-				require_once(ABSPATH . 'wp-admin/includes/screen.php');
-				
-			// used for getting columns
-			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
-				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
-			
-			// #48 - In WP Release v3.5 we can use the following.
-			// $table = new WP_Posts_List_Table(array( 'screen' => $post_type ));
-			// $columns = $table->get_columns();
-			
-			// we need to change the current screen... first lets save original
-			$org_current_screen = $current_screen;
-			
-			// prevent php warning 
-			if ( !isset($current_screen) ) $current_screen = new stdClass;
-			
-			// overwrite current_screen global with our post type of choose...
-			$current_screen->post_type = $post_type;
-			
-			// ...so we can get its columns		
-			$columns = WP_Posts_List_Table::get_columns();				
-			
-			// reset current screen
-			$current_screen = $org_current_screen;
-
-		}
-		
-		if ( empty ( $columns ) )
-			return false;
-			
-		// change to uniform format
-		$columns = $this->get_uniform_format($columns);		
-
-		// add sorting to some of the default links columns
-		
-		//	categories
-		if ( !empty($columns['categories']) ) {
-			$columns['categories']['options']['sortorder'] = 'on';
-		}
-		// tags
-		if ( !empty($columns['tags']) ) {
-			$columns['tags']['options']['sortorder'] = 'on';
-		}
-		
-		return $columns;
-	}
-	
-	/**
-	 * 	Get WP default users columns per post type.
-	 *
-	 * 	@since     1.1
-	 */
-	function get_wp_default_users_columns()
-	{
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php');
-		
-		// turn off site users
-		$this->is_site_users = false;
-		
-		// get users columns
-		$columns = WP_Users_List_Table::get_columns();
-		
-		// change to uniform format
-		$columns = $this->get_uniform_format($columns);
-
-		return apply_filters('cpac-default-users-columns', $columns);
-	}
-	
-	/**
-	 * 	Get WP default media columns.
-	 *
-	 * 	@since     1.2.1
-	 */
-	function get_wp_default_media_columns()
-	{		
-		// @todo could use _get_list_table('WP_Media_List_Table') ?
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
-		
-		// #48 - In WP Release v3.5 we can use the following.
-		// $table = new WP_Media_List_Table(array( 'screen' => 'upload' ));
-		// $columns = $table->get_columns();
-		
-		global $current_screen;
-
-		// save original
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'upload';
-		
-		// init media class
-		$wp_media = new WP_Media_List_Table;
-		
-		// get media columns		
-		$columns = $wp_media->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
-		
-		// change to uniform format
-		$columns = $this->get_uniform_format($columns);
-		
-		return apply_filters('cpac-default-media-columns', $columns);
-	}
-	
-	/**
-	 * 	Get WP default links columns.
-	 *
-	 * 	@since     1.3.1
-	 */
-	function get_wp_default_links_columns()
-	{
-		// dependencies
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php') )
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php');
-		
-		// get links columns
-		$columns = WP_Links_List_Table::get_columns();
-
-		// change to uniform format
-		$columns = $this->get_uniform_format($columns);
-		
-		// add sorting support to rel-tag
-		if ( !empty($columns['rel']) ) {
-			$columns['rel']['options']['sortorder'] = 'on';
-		}
-		
-		return apply_filters('cpac-default-links-columns', $columns);
-	}
-	
 	/**
 	 * Build uniform format for all columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_uniform_format($columns) 
+	public function get_uniform_format($columns) 
 	{
 		// we remove the checkbox column as an option... 
 		if ( isset($columns['cb']) )
@@ -951,7 +208,7 @@ class cpac_columns
 	 *
 	 * @since     1.1
 	 */
-	private function parse_defaults($columns) 
+	public function parse_defaults($columns) 
 	{
 		// default arguments
 		$defaults = array(	
@@ -987,36 +244,11 @@ class cpac_columns
 	}	
 	
 	/**
-	 * Remove deactivated (plugin) columns
-	 *
-	 * This will remove any columns that have been stored, but are no longer available. This happends
-	 * when plugins are deactivated or when they are removed from the theme functions.
-	 *
-	 * @since     1.2
-	 */
-	private function remove_unavailable_columns( array $db_columns, array $default_columns)
-	{
-		// check or differences
-		$diff = array_diff( array_keys($db_columns), array_keys($default_columns) );
-		
-		if ( ! empty($diff) && is_array($diff) ) {						
-			foreach ( $diff as $column_name ){				
-				// make an exception for column-meta-xxx
-				if ( ! cpac_static::is_column_meta($column_name) ) {
-					unset($db_columns[$column_name]);
-				}
-			}
-		}
-		
-		return $db_columns;
-	}
-	
-	/**
 	 * Get additional box option fields
 	 *
 	 * @since     1.0
 	 */
-	private function get_additional_box_options($type, $id, $values) 
+	function get_additional_box_options($type, $id, $values) 
 	{
 		$fields = '';
 		
@@ -1038,7 +270,7 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_box_options_customfields($type, $id, $values) 
+	function get_box_options_customfields($type, $id, $values) 
 	{
 		// get post meta fields	
 		$fields = $this->get_meta_by_type($type);
@@ -1134,7 +366,7 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_box_options_author($type, $id, $values) 
+	function get_box_options_author($type, $id, $values) 
 	{
 		$options = '';
 		$author_types = array(
@@ -1168,10 +400,13 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	private function get_meta_by_type($type = 'post') 
+	function get_meta_by_type($type = 'post') 
 	{
 		global $wpdb;
-
+		
+		// enable the use of custom hidden fields
+		$use_hidden_custom_fields = apply_filters('cpac_use_hidden_custom_fields', false);
+		
 		/** Comments */
 		if ( $type == 'wp-comments') {
 			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1";
@@ -1201,7 +436,7 @@ class cpac_columns
 			foreach ($fields as $field) {
 				
 				// give hidden fields a prefix for identifaction
-				if ( $this->use_hidden_custom_fields && substr($field[0],0,1) == "_") {
+				if ( $use_hidden_custom_fields && substr($field[0],0,1) == "_") {
 					$meta_fields[] = 'cpachidden'.$field[0];
 				}
 				

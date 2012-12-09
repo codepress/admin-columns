@@ -11,7 +11,7 @@ class cpac_licence
     
     public function __construct($type) 
     {
-        $this->type = $type;
+        $this->type 	= $type;	
     }
     
     /**
@@ -36,7 +36,7 @@ class cpac_licence
         }
 		
 		// check key with remote API		
- 		$response = wp_remote_post( $this->api_url, array(			
+ 		$response = wp_remote_post( 'http://www.codepress.nl/', array(			
 			'body'	=> array(
 				'api'	=> 'addon',
 				'key'	=> $key,

@@ -113,7 +113,7 @@ class cpac_static
 	 * @since     1.0
 	 */
 	public static function get_stored_columns( $type )
-	{ 
+	{
 		// get plugin options
 		$options = get_option('cpac_options');
 
@@ -249,5 +249,56 @@ class cpac_static
 		endswitch;
 		
 		return $name;
+	}
+	
+	/**
+	 *	Get column types
+	 *
+	 * 	@since     1.1
+	 */
+	function get_types()
+	{
+		$types = array();
+		
+		foreach ( cpac_static::get_post_types() as $post_type ) {
+			$types[] = new cpac_columns_posttype( $post_type );
+		}
+		
+		$types[] 	= new cpac_columns_users();
+		$types[] 	= new cpac_columns_media();
+		$types[] 	= new cpac_columns_links();
+		$types[] 	= new cpac_columns_comments();
+		
+		return $types;
+	}
+	
+	/**
+	 * Checks if menu type is currently viewed
+	 *
+	 * @since     1.0
+	 */
+	function is_menu_type_current( $type ) 
+	{	
+		// referer
+		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
+		
+		// get label
+		$clean_label = cpac_static::sanitize_string($type);
+		
+		// get first element from post-types
+		$first 		= array_shift( array_values( cpac_static::get_post_types() ) );
+		
+		// display the page that was being viewed before saving
+		if ( $referer ) {
+			if ( $referer == 'cpac-box-'.$clean_label ) {
+				return true;
+			}
+		
+		// settings page has not yet been saved
+		} elseif ( $first == $type  ) {
+			return true;
+		}
+		
+		return false;	
 	}
 }
