@@ -36,7 +36,7 @@ class cpac_columns_users extends cpac_columns
 	 *
 	 * @since     1.1
 	 */
-	function get_added_columns() 
+	function get_custom_columns() 
 	{
 		$custom_columns = array(
 			'column-user_id' => array(
@@ -104,6 +104,20 @@ class cpac_columns_users extends cpac_columns
 		
 		return apply_filters('cpac-custom-users-columns', $custom_columns);
 	}
+	
+	/**
+     * Get Meta Keys
+     * 
+	 * @since 1.5
+     */
+    protected function get_meta_keys()
+    {
+        global $wpdb;
+        
+		$fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
+		
+		return $this->maybe_add_hidden_meta($fields);
+    }
 	
 	/**
 	 * Get label

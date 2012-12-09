@@ -39,7 +39,7 @@ class cpac_columns_links extends cpac_columns
 	 *
 	 * @since     1.3.1
 	 */
-	function get_added_columns() 
+	function get_custom_columns() 
 	{
 		$custom_columns = array(
 			'column-link_id' => array (
@@ -79,6 +79,13 @@ class cpac_columns_links extends cpac_columns
 		
 		return apply_filters('cpac-custom-links-columns', $custom_columns);
 	}
+	
+	/**
+     * Get Meta Keys
+     * 
+	 * @since 1.5
+     */
+    protected function get_meta_keys() {}
 	
 	/**
 	 * Get Label

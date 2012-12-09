@@ -1,8 +1,46 @@
 <?php
 
-class cpac_columns
+abstract class cpac_columns
 {
-	public $type;
+	/**
+     * Used for queries and associative arrays.
+     * 
+     * @var string
+     * @since 1.5
+     */
+    public $type;
+
+	/**
+     * Get the custom columns for this type
+     * 
+     * @since 1.3 
+     */
+    abstract protected function get_custom_columns();
+	
+	/**
+     * Get the label for this type
+     * 
+     * @since 1.3 
+     */
+    abstract protected function get_label();
+    
+    /**
+	 * 	Get default WordPress columns for this type
+	 *
+	 * 	@since     1.2.1
+	 */
+	abstract protected function get_default_columns();
+	
+	/**
+     * Returns the meta keys that are associated with an attachment.
+     * 
+     * Ignores keys prefixed by a '_', as they are meant to be private.
+     * 
+     * @since 1.0
+     * @global object $wpdb
+     * @return array|boolean 
+     */
+    abstract protected function get_meta_keys();
 	
 	/**
 	 * Get a list of Column options per post type
@@ -10,11 +48,11 @@ class cpac_columns
 	 * @since     1.0
 	 */
 	public function get_column_boxes() 
-	{		
+	{
 		$type = $this->type;
 		
 		// merge all columns
-		$display_columns 	= self::get_merged_columns( $type );
+		$display_columns 	= $this->get_merged_columns( $this->type );
 		
 		// define
 		$list = '';	
@@ -37,9 +75,20 @@ class cpac_columns
 					$classes[] = $values['options']['class'];
 				}
 				$class = implode(' ', $classes);
+				
+				$more_options = '';
+				
+				// Custom Fields
+				if( cpac_static::is_column_meta($id) ) {
+					$more_options 	= $this->get_box_options_customfields($id, $values);
+				}
 					
-				// more box options	
-				$more_options 	= $this->get_additional_box_options($this->type, $id, $values);
+				// Author Fields
+				elseif( 'column-author-name' == $id) {
+					$more_options 	= $this->get_box_options_author($id, $values);
+				}
+				
+				// more box options
 				$action 		= "<a class='cpac-action' href='#open'>open</a>";
 						
 				// type label
@@ -95,7 +144,7 @@ class cpac_columns
 		
 		// custom field button
 		$button_add_column = '';
-		if ( $this->get_meta_by_type($type) )
+		if ( $this->get_meta_keys() )
 			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ " . __('Add Custom Field Column', CPAC_TEXTDOMAIN) . "</a>";
 		
 		return "
@@ -118,7 +167,7 @@ class cpac_columns
 	{
 		// get added and WP columns
 		$wp_default_columns = $this->get_default_columns();
-		$wp_added_columns  	= $this->get_added_columns();
+		$wp_added_columns  	= $this->get_custom_columns();
 		
 		// merge
 		$default_columns	= wp_parse_args($wp_added_columns, $wp_default_columns);
@@ -201,8 +250,6 @@ class cpac_columns
 		return $uniform_columns;
 	}
 	
-	
-	
 	/**
 	 * Parse defaults
 	 *
@@ -241,28 +288,6 @@ class cpac_columns
 		}
 		
 		return $c;
-	}	
-	
-	/**
-	 * Get additional box option fields
-	 *
-	 * @since     1.0
-	 */
-	function get_additional_box_options($type, $id, $values) 
-	{
-		$fields = '';
-		
-		// Custom Fields
-		if( cpac_static::is_column_meta($id) ) {
-			$fields = $this->get_box_options_customfields($type, $id, $values);
-		}
-			
-		// Author Fields
-		if( 'column-author-name' == $id) {
-			$fields = $this->get_box_options_author($type, $id, $values);
-		}
-		
-		return $fields;
 	}
 
 	/**
@@ -270,16 +295,19 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	function get_box_options_customfields($type, $id, $values) 
+	function get_box_options_customfields($id, $values) 
 	{
-		// get post meta fields	
-		$fields = $this->get_meta_by_type($type);
+		$type = $this->type;
 		
+		// get post meta fields	
+		$fields = $this->get_meta_keys();
+				
 		if ( empty($fields) ) 
 			return false;
 		
 		// set meta field options
 		$current = ! empty($values['field']) ? $values['field'] : '' ;
+		
 		$field_options = '';
 		foreach ($fields as $field) {
 			
@@ -366,8 +394,10 @@ class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	function get_box_options_author($type, $id, $values) 
+	function get_box_options_author( $id, $values) 
 	{
+		$type = $this->type;
+		
 		$options = '';
 		$author_types = array(
 			'display_name'		=> __('Display Name', CPAC_TEXTDOMAIN),
@@ -396,60 +426,36 @@ class cpac_columns
 	}
 	
 	/**
-	 * Get post meta fields by type; post(types) or users.
+	 * Maybe add hidden meta
 	 *
-	 * @since     1.0
+	 * @since     1.5
 	 */
-	function get_meta_by_type($type = 'post') 
+	function maybe_add_hidden_meta( $fields ) 
 	{
-		global $wpdb;
+		if ( ! $fields )
+			return false;
 		
-		// enable the use of custom hidden fields
-		$use_hidden_custom_fields = apply_filters('cpac_use_hidden_custom_fields', false);
+		$meta_fields = array();
 		
-		/** Comments */
-		if ( $type == 'wp-comments') {
-			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1";
-		}
-		
-		/** Users */
-		elseif ( $type == 'wp-users') {
-			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1";
-		}
-		
-		/** Media */
-		elseif ( $type == 'wp-media') {
-			$sql = $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1");
-		}
-		
-		/** Posts */
-		else {
-			$sql = $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $type);
-		}
-		
-		// run sql
-		$fields = $wpdb->get_results($sql, ARRAY_N);
+		$use_hidden_meta = apply_filters('cpac_use_hidden_custom_fields', false);
 		
 		// filter out hidden meta fields
-		$meta_fields = array();
-		if ( $fields ) {			
-			foreach ($fields as $field) {
-				
-				// give hidden fields a prefix for identifaction
-				if ( $use_hidden_custom_fields && substr($field[0],0,1) == "_") {
-					$meta_fields[] = 'cpachidden'.$field[0];
-				}
-				
-				// non hidden fields are saved as is
-				elseif ( substr($field[0],0,1) != "_" ) {
-					$meta_fields[] = $field[0];
-				}	
-			}			
-		}
+		foreach ($fields as $field) {
+			
+			// give hidden fields a prefix for identifaction
+			if ( $use_hidden_meta && substr($field[0],0,1) == "_") {
+				$meta_fields[] = 'cpachidden'.$field[0];
+			}
+			
+			// non hidden fields are saved as is
+			elseif ( substr($field[0],0,1) != "_" ) {
+				$meta_fields[] = $field[0];
+			}	
+		}	
 		
-		if ( !empty($meta_fields) )
-			return $meta_fields;
+		if ( empty($meta_fields) )
+			return false;
 		
-		return false;
+		return $meta_fields;
 	}
 }

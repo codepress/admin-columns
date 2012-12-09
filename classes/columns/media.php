@@ -55,7 +55,7 @@ class cpac_columns_media extends cpac_columns
 	 *
 	 * @since     1.3
 	 */
-	function get_added_columns() 
+	function get_custom_columns() 
 	{
 		$custom_columns = array(
 			'column-mediaid' => array(
@@ -170,7 +170,7 @@ class cpac_columns_media extends cpac_columns
 		}
 		
 		// Custom Field support
-		if ( $this->get_meta_by_type('wp-media') ) {
+		if ( $this->get_meta_keys() ) {
 			$custom_columns['column-meta-1'] = array(
 				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
 				'field'			=> '',
@@ -189,6 +189,20 @@ class cpac_columns_media extends cpac_columns
 		
 		return apply_filters('cpac-custom-media-columns', $custom_columns);
 	}
+	
+	/**
+     * Get Meta Keys
+     * 
+	 * @since 1.5
+     */
+    protected function get_meta_keys()
+    {
+        global $wpdb;
+			
+        $fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
+		
+		return $this->maybe_add_hidden_meta($fields);
+    }
 	
 	/**
 	 * Get Label

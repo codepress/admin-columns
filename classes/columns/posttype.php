@@ -12,7 +12,7 @@ class cpac_columns_posttype extends cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	function get_added_columns() 
+	function get_custom_columns() 
 	{
 		$custom_columns = array(
 			'column-featured_image' => array(
@@ -127,7 +127,7 @@ class cpac_columns_posttype extends cpac_columns
 		}
 		
 		// Custom Field support
-		if ( $this->get_meta_by_type( $this->type ) ) {
+		if ( $this->get_meta_keys() ) {
 			$custom_columns['column-meta-1'] = array(
 				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
 				'field'			=> '',
@@ -230,6 +230,20 @@ class cpac_columns_posttype extends cpac_columns
 		
 		return $columns;
 	}
+	
+	/**
+     * Get Meta Keys
+     * 
+	 * @since 1.5
+     */
+    protected function get_meta_keys()
+    {
+        global $wpdb;
+        		
+		$fields = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->type ), ARRAY_N );
+		
+		return $this->maybe_add_hidden_meta($fields);
+    }
 	
 	/**
 	 * Get Label

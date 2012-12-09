@@ -56,7 +56,7 @@ class cpac_columns_comments extends cpac_columns
 	 *
 	 * @since     1.3.1
 	 */
-	function get_added_columns() 
+	function get_custom_columns() 
 	{
 		$custom_columns = array(
 			'column-comment_id' => array(
@@ -113,7 +113,7 @@ class cpac_columns_comments extends cpac_columns
 		);		
 		
 		// Custom Field support
-		if ( $this->get_meta_by_type('wp-comments') ) {
+		if ( $this->get_meta_keys() ) {
 			$custom_columns['column-meta-1'] = array(
 				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
 				'field'			=> '',
@@ -133,6 +133,20 @@ class cpac_columns_comments extends cpac_columns
 		
 		return apply_filters('cpac-custom-comments-columns', $custom_columns);
 	}
+	
+	/**
+     * Get Meta Keys
+     * 
+	 * @since 1.5
+     */
+    protected function get_meta_keys()
+    {
+        global $wpdb;
+		
+		$fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
+		
+		return $this->maybe_add_hidden_meta($fields);
+    }
 	
 	/**
 	 * Get Label
