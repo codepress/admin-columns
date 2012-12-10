@@ -195,7 +195,7 @@ class cpac_columns_media extends cpac_columns
      * 
 	 * @since 1.5
      */
-    protected function get_meta_keys()
+    public function get_meta_keys()
     {
         global $wpdb;
 			

@@ -85,7 +85,7 @@ class cpac_columns_links extends cpac_columns
      * 
 	 * @since 1.5
      */
-    protected function get_meta_keys() {}
+    public function get_meta_keys() {}
 	
 	/**
 	 * Get Label

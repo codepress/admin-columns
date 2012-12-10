@@ -40,7 +40,7 @@ abstract class cpac_columns
      * @global object $wpdb
      * @return array|boolean 
      */
-    abstract protected function get_meta_keys();
+    abstract public function get_meta_keys();
 	
 	/**
 	 * Get a list of Column options per post type
@@ -48,114 +48,87 @@ abstract class cpac_columns
 	 * @since     1.0
 	 */
 	public function get_column_boxes() 
-	{
-		// merge all columns
-		$display_columns = $this->get_merged_columns();
-		
-		// define
-		$list = '';	
-		
+	{		
 		// loop throught the active columns
-		if ( $display_columns ) {
-			foreach ( $display_columns as $id => $values ) {		
+		if ( ! $display_columns = $this->get_merged_columns() )
+			return array();
 				
-				$classes = array();
-
-				// set state
-				$state 	= isset($values['state']) ? $values['state'] : '';
+		$boxes = array();
+		
+		foreach ( $display_columns as $id => $values ) {		
+			
+			$box = new stdClass;
+			$box->state 	 	= isset($values['state']) ? $values['state'] : '';
+			$box->classes 	 	= implode( ' ', array( "cpac-box-{$id}", $values['options']['class'], !empty($values['state']) ? 'active' : ''  ) );
+			$box->id		 	= $id;
+			$box->type_label 	= isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
+			$box->label 	 	= isset($values['label']) ? $values['label'] : ''; // esc_attr
+			$box->width		 	= isset($values['width']) ? $values['width'] : 0;
+			$box->width_descr 	= $box->width > 0 ? $box->width . '%' : __('default', CPAC_TEXTDOMAIN);
+			$box->hide_options  = ! empty($values['options']['hide_options']) || strpos($box->label, '<img') !== false;
+			$box->attr_name		= "cpac_options[columns][{$this->type}][{$id}]";
+			$box->attr_for		= "cpac-{$this->type}-{$id}";
+			
+			// Custom Fields
+			if ( cpac_utility::is_column_meta( $box->id ) && $this->get_meta_keys() ) {
+				$box->field  = ! empty($values['field']) ? $values['field'] : '' ;$box->fields = $this->get_meta_keys();				
+				$box->fields = $this->get_meta_keys();
+				$box->field_type = ! empty($values['field_type']) ? $values['field_type'] : '' ;
+				$box->before = ! empty($values['before']) ? $values['before'] : '' ;
+				$box->after = ! empty($values['after']) ? $values['after'] : '' ;
 				
-				// class
-				$classes[] = "cpac-box-{$id}";
-				if ( $state ) {
-					$classes[] = 'active';
-				}
-				if ( ! empty($values['options']['class']) ) {
-					$classes[] = $values['options']['class'];
-				}
-				$class = implode(' ', $classes);
-				
-				$more_options = '';
-				
-				// Custom Fields
-				if( cpac_utility::is_column_meta($id) ) {
-					$more_options 	= $this->get_box_options_customfields($id, $values);
-				}
-					
-				// Author Fields
-				elseif( 'column-author-name' == $id) {
-					$more_options 	= $this->get_box_options_author($id, $values);
-				}
-				
-				// more box options
-				$action = "<a class='cpac-action' href='#open'>open</a>";
-						
-				// type label
-				$type_label = isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
-				
-				// label
-				$label = isset($values['label']) ? str_replace("'", '"', $values['label']) : '';
-				
-				// main label
-				$main_label = $values['label'];	
-				
-				// main label exception for comments
-				if ( 'comments' == $id ) {
-					$main_label = $this->get_comment_icon();
-				}
-				
-				// width
-				$width			= isset($values['width']) ? $values['width'] : 0;
-				$width_descr	= isset($values['width']) && $values['width'] > 0 ? $values['width'] . '%' : __('default', CPAC_TEXTDOMAIN);
-				
-				// hide box options
-				$label_hidden = '';
-				if ( ! empty($values['options']['hide_options']) || strpos($label, '<img') !== false ) {
-					$label_hidden = ' style="display:none"';
-				}
-				
-				$type = $this->type;
-				
-				$list .= "
-					<li class='{$class}'>
-						<div class='cpac-sort-handle'></div>
-						<div class='cpac-type-options'>					
-							<div class='cpac-checkbox'></div>
-							<input type='hidden' class='cpac-state' name='cpac_options[columns][{$type}][{$id}][state]' value='{$state}'/>
-							<label class='main-label'>{$main_label}</label>
-						</div>
-						<div class='cpac-meta-title'>
-							{$action}
-							<span>{$type_label}</span>
-						</div>
-						<div class='cpac-type-inside'>				
-							<label for='cpac_options-{$type}-{$id}-label'{$label_hidden}>Label: </label>
-							<input type='text' name='cpac_options[columns][{$type}][{$id}][label]' id='cpac_options-{$type}-{$id}-label' value='{$label}' class='text'{$label_hidden}/>
-							<label for='cpac_options-{$type}-{$id}-width'>" . __('Width', CPAC_TEXTDOMAIN) . ":</label>			
-							<input type='hidden' maxlength='4' class='input-width' name='cpac_options[columns][{$type}][{$id}][width]' id='cpac_options-{$type}-{$id}-width' value='{$width}' />
-							<div class='description width-decription' title='" . __('default', CPAC_TEXTDOMAIN) . "'>{$width_descr}</div>
-							<div class='input-width-range'></div>
-							<br/>
-							{$more_options}
-						</div>
-					</li>
-				";			
 			}
+			
+			// Author Names
+			elseif ( 'column-author-name' == $box->id ) {
+				$box->display_as = ! empty($values['display_as']) ? $values['display_as'] : '' ;
+			}
+			
+			$boxes[] = $box;
 		}
 		
-		// custom field button
-		$button_add_column = '';
-		if ( $this->get_meta_keys() )
-			$button_add_column = "<a href='javacript:;' class='cpac-add-customfield-column button'>+ " . __('Add Custom Field Column', CPAC_TEXTDOMAIN) . "</a>";
-		
-		return "
-			<div class='cpac-box'>
-				<ul class='cpac-option-list'>
-					{$list}			
-				</ul>
-				{$button_add_column}
-				<div class='cpac-reorder-msg'>" . __('drag and drop to reorder', CPAC_TEXTDOMAIN) . "</div>		
-			</div>
-			";
+		return $boxes;
+	}
+	
+	/**
+	 * Get Custom FieldType Options
+	 *
+	 * @since     1.5
+	 */
+	public function get_custom_field_types() 
+	{
+		return apply_filters('cpac-field-types', array(
+			''				=> __('Default'),
+			'image'			=> __('Image'),
+			'library_id'	=> __('Media Library Icon', CPAC_TEXTDOMAIN),
+			'excerpt'		=> __('Excerpt'),
+			'array'			=> __('Multiple Values', CPAC_TEXTDOMAIN),
+			'numeric'		=> __('Numeric', CPAC_TEXTDOMAIN),
+			'date'			=> __('Date', CPAC_TEXTDOMAIN),
+			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
+			'user_by_id'	=> __('Username (User ID\'s)', CPAC_TEXTDOMAIN),
+			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
+			'color'			=> __('Color', CPAC_TEXTDOMAIN),
+		));
+	}
+	
+	/**
+	 * Get Author Name Types
+	 *
+	 * @since     1.5
+	 */
+	public function get_authorname_types() 
+	{
+		return apply_filters( 'cpac-authorname-types', array(
+			'display_name'		=> __('Display Name', CPAC_TEXTDOMAIN),
+			'first_name'		=> __('First Name', CPAC_TEXTDOMAIN),
+			'last_name'			=> __('Last Name', CPAC_TEXTDOMAIN),
+			'first_last_name' 	=> __('First &amp; Last Name', CPAC_TEXTDOMAIN),
+			'nickname'			=> __('Nickname', CPAC_TEXTDOMAIN),
+			'username'			=> __('Username', CPAC_TEXTDOMAIN),
+			'email'				=> __('Email', CPAC_TEXTDOMAIN),
+			'userid'			=> __('User ID', CPAC_TEXTDOMAIN)
+		));
 	}
 	
 	/**
@@ -288,141 +261,6 @@ abstract class cpac_columns
 		}
 		
 		return $c;
-	}
-
-	/**
-	 * Box Options: Custom Fields
-	 *
-	 * @since     1.0
-	 */
-	function get_box_options_customfields($id, $values) 
-	{
-		$type = $this->type;
-		
-		// get post meta fields	
-		$fields = $this->get_meta_keys();
-				
-		if ( empty($fields) ) 
-			return false;
-		
-		// set meta field options
-		$current = ! empty($values['field']) ? $values['field'] : '' ;
-		
-		$field_options = '';
-		foreach ($fields as $field) {
-			
-			$field_options .= sprintf
-			(
-				'<option value="%s"%s>%s</option>',
-				$field,
-				$field == $current? ' selected="selected"':'',
-				
-				// change label on hidden fields
-				substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field		
-			);		
-		}
-		
-		// set meta fieldtype options
-		$currenttype = ! empty($values['field_type']) ? $values['field_type'] : '' ;
-		$fieldtype_options = '';
-		$fieldtypes = array(
-			''				=> __('Default'),
-			'image'			=> __('Image'),
-			'library_id'	=> __('Media Library Icon', CPAC_TEXTDOMAIN),
-			'excerpt'		=> __('Excerpt'),
-			'array'			=> __('Multiple Values', CPAC_TEXTDOMAIN),
-			'numeric'		=> __('Numeric', CPAC_TEXTDOMAIN),
-			'date'			=> __('Date', CPAC_TEXTDOMAIN),
-			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
-			'user_by_id'	=> __('Username (User ID\'s)', CPAC_TEXTDOMAIN),
-			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
-			'color'			=> __('Color', CPAC_TEXTDOMAIN),
-		);
-		
-		// add filter
-		$fieldtypes = apply_filters('cpac-field-types', $fieldtypes );
-		
-		// set select options
-		foreach ( $fieldtypes as $fkey => $fieldtype ) {
-			$fieldtype_options .= sprintf
-			(
-				'<option value="%s"%s>%s</option>',
-				$fkey,
-				$fkey == $currenttype? ' selected="selected"':'',
-				$fieldtype
-			);
-		}
-		
-		// before and after string
-		$before = ! empty($values['before']) 	? $values['before'] : '' ;
-		$after 	= ! empty($values['after']) 	? $values['after'] 	: '' ;
-		
-		if ( empty($field_options) )
-			return false;
-		
-		// add remove button
-		$remove = '<p class="remove-description description">'.__('This field can not be removed', CPAC_TEXTDOMAIN).'</p>';
-		if ( $id != 'column-meta-1') {
-			$remove = "
-				<p>
-					<a href='javascript:;' class='cpac-delete-custom-field-box'>".__('Remove')."</a>
-				</p>
-			";
-		}
-		
-		$inside = "
-			<label for='cpac-{$type}-{$id}-field'>".__('Custom Field', CPAC_TEXTDOMAIN).": </label>
-			<select name='cpac_options[columns][{$type}][{$id}][field]' id='cpac-{$type}-{$id}-field'>{$field_options}</select>
-			<br/>
-			<label for='cpac-{$type}-{$id}-field_type'>".__('Field Type', CPAC_TEXTDOMAIN).": </label>
-			<select name='cpac_options[columns][{$type}][{$id}][field_type]' id='cpac-{$type}-{$id}-field_type'>{$fieldtype_options}</select>
-			<br/>
-			<label for='cpac-{$type}-{$id}-before'>".__('Before', CPAC_TEXTDOMAIN).": </label>
-			<input type='text' class='cpac-before' name='cpac_options[columns][{$type}][{$id}][before]' id='cpac-{$type}-{$id}-before' value='{$before}'/>				
-			<br/>	
-			<label for='cpac-{$type}-{$id}-after'>".__('After', CPAC_TEXTDOMAIN).": </label>
-			<input type='text' class='cpac-after' name='cpac_options[columns][{$type}][{$id}][after]' id='cpac-{$type}-{$id}-after' value='{$after}'/>				
-			<br/>		
-			{$remove}
-		";
-		
-		return $inside;
-	}
-	
-	/**
-	 * Box Options: Custom Fields
-	 *
-	 * @since     1.0
-	 */
-	function get_box_options_author( $id, $values) 
-	{
-		$type = $this->type;
-		
-		$options = '';
-		$author_types = array(
-			'display_name'		=> __('Display Name', CPAC_TEXTDOMAIN),
-			'first_name'		=> __('First Name', CPAC_TEXTDOMAIN),
-			'last_name'			=> __('Last Name', CPAC_TEXTDOMAIN),
-			'first_last_name' 	=> __('First &amp; Last Name', CPAC_TEXTDOMAIN),
-			'nickname'			=> __('Nickname', CPAC_TEXTDOMAIN),
-			'username'			=> __('Username', CPAC_TEXTDOMAIN),
-			'email'				=> __('Email', CPAC_TEXTDOMAIN),
-			'userid'			=> __('User ID', CPAC_TEXTDOMAIN)
-		);
-		$currentname = ! empty($values['display_as']) ? $values['display_as'] : '' ;
-		foreach ( $author_types as $k => $name ) {
-			$selected = selected( $k, $currentname, false);
-			$options .= "<option value='{$k}' {$selected}>{$name}</option>";
-		}
-		
-		$inside = "
-			<label for='cpac-{$type}-{$id}-display_as'>".__('Display name as', CPAC_TEXTDOMAIN).": </label>
-			<select name='cpac_options[columns][{$type}][{$id}][display_as]' id='cpac-{$type}-{$id}-display_as'>
-				{$options}
-			</select>			
-		";
-		
-		return $inside;
 	}
 	
 	/**

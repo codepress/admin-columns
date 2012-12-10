@@ -55,7 +55,7 @@ new Codepress_Sortable_Columns();
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';
-new cpac_settings;	
+new Cpac_Settings;	
 
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
