@@ -41,21 +41,25 @@ if ( !is_admin() )
  *
  * @since     1.3
  */
-require_once dirname( __FILE__ ) . '/static.php';
+require_once dirname( __FILE__ ) . '/classes/utility.php';
 require_once dirname( __FILE__ ) . '/classes/columns.php';
 require_once dirname( __FILE__ ) . '/classes/columns/posttype.php';
 require_once dirname( __FILE__ ) . '/classes/columns/links.php';
 require_once dirname( __FILE__ ) . '/classes/columns/users.php';
 require_once dirname( __FILE__ ) . '/classes/columns/media.php';
 require_once dirname( __FILE__ ) . '/classes/columns/comments.php';
-require_once dirname( __FILE__ ) . '/classes/third_party.php';
 
 // Sortable columns
-//require_once dirname( __FILE__ ) . '/classes/sortable.php';
-//new Codepress_Sortable_Columns();
+require_once dirname( __FILE__ ) . '/classes/sortable.php';
+new Codepress_Sortable_Columns();
+
+// Settings page
+include_once dirname( __FILE__ ) . '/classes/settings.php';
+new cpac_settings;	
 
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
+require_once dirname( __FILE__ ) . '/classes/third_party.php';
 
 /**
  * Codepress Admin Columns Class
@@ -94,32 +98,8 @@ class Codepress_Admin_Columns
 		
 		// register columns
 		add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
-		add_action( 'admin_init', array( $this, 'register_columns_values' ) );	
-		
-		// filters
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
-		
-		// Settings page
-		include_once dirname( __FILE__ ) . '/classes/settings.php';
-		new cpac_settings;		
+		add_action( 'admin_init', array( $this, 'register_columns_values' ) );		
 	}
-	
-	/**
-	 * Add Settings link to plugin page
-	 *
-	 * @since	1.0
-	 * @param	$links string - all settings links
-	 * @param	$file string - plugin filename
-	 * @return	string - link to settings page
-	 */
-	function add_settings_link( $links, $file ) 
-	{
-		if ( $file != plugin_basename( __FILE__ ))
-			return $links;
-
-		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
-		return $links;
-	}	
 		
 	/**
 	 *	Register Column Values	
@@ -130,7 +110,7 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
-		require_once dirname( __FILE__ ) . '/classes/values.php';		
+		require_once dirname( __FILE__ ) . '/classes/values.php';	
 		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
 		require_once dirname( __FILE__ ) . '/classes/values/users.php';
 		require_once dirname( __FILE__ ) . '/classes/values/media.php';
@@ -154,24 +134,22 @@ class Codepress_Admin_Columns
 	public function register_columns_headings()
 	{	
 		/** Posts */		
-	 	foreach ( cpac_static::get_post_types() as $post_type ) {
-
-			// register column per post type
-			add_filter("manage_edit-{$post_type}_columns", array($this, 'callback_add_posts_column_headings'));
+	 	foreach ( cpac_utility::get_post_types() as $post_type ) {
+			add_filter("manage_edit-{$post_type}_columns",  array( $this, 'add_columns_headings_posts' ) );
 		} 
 		
 		/** Users */
-		add_filter( "manage_users_columns", array($this, 'callback_add_users_column_headings'), 9); 
 		// give higher priority, so it will load just before other plugins to prevent conflicts
+		add_filter( "manage_users_columns",  array( $this, 'add_columns_headings_users' ), 9 );		
 		
 		/** Media */
-		add_filter( "manage_upload_columns", array($this, 'callback_add_media_column_headings'));
+		add_filter( "manage_upload_columns",  array( $this, 'add_columns_headings_media' ) );
 		
 		/** Links */
-		add_filter( "manage_link-manager_columns", array($this, 'callback_add_links_column_headings'));
+		add_filter( "manage_link-manager_columns",  array( $this, 'add_columns_headings_links' ) );
 		
 		/** Comments */
-		add_filter( "manage_edit-comments_columns", array($this, 'callback_add_comments_column_headings'));
+		add_filter( "manage_edit-comments_columns", array( $this, 'add_columns_headings_comments' ) );
 	}
 	
 	/**
@@ -179,9 +157,11 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.0
 	 */
-	public function callback_add_posts_column_headings($columns) 
+	public function add_columns_headings_posts( $columns ) 
 	{
-		return $this->add_columns_headings( get_post_type(), $columns);		
+		$type = new cpac_columns_posttype( get_post_type() );
+		
+		return $type->add_columns_headings( $columns );
 	}
 	
 	/**
@@ -189,9 +169,11 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.1
 	 */
-	public function callback_add_users_column_headings($columns) 
+	public function add_columns_headings_users( $columns ) 
 	{
-		return $this->add_columns_headings('wp-users', $columns);
+		$type = new cpac_columns_users;
+		
+		return $type->add_columns_headings( $columns );
 	}
 	
 	/**
@@ -199,9 +181,11 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.3
 	 */
-	public function callback_add_media_column_headings($columns) 
+	public function add_columns_headings_media( $columns ) 
 	{
-		return $this->add_columns_headings('wp-media', $columns);
+		$type = new cpac_columns_media;
+		
+		return $type->add_columns_headings( $columns );
 	}
 	
 	/**
@@ -209,9 +193,11 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function callback_add_links_column_headings($columns) 
+	public function add_columns_headings_links( $columns ) 
 	{
-		return $this->add_columns_headings('wp-links', $columns);
+		$type = new cpac_columns_links;
+		
+		return $type->add_columns_headings( $columns );
 	}
 	
 	/**
@@ -223,43 +209,7 @@ class Codepress_Admin_Columns
 	{
 		return $this->add_columns_headings('wp-comments', $columns);
 	}
-	
-	/**
-	 *	Add managed columns by Type
-	 *
-	 * 	@since     1.1
-	 */
-	protected function add_columns_headings( $type, $columns ) 
-	{		
-		// only get stored columns.. the rest we don't need
-		$db_columns	= cpac_static::get_stored_columns($type);
-
-		if ( !$db_columns )
-			return $columns;
 		
-		// filter already loaded columns by plugins
-		$set_columns = cpac_static::filter_preset_columns( $type, $columns );
-
-		// loop through columns
-		foreach ( $db_columns as $id => $values ) {			
-			// is active
-			if ( isset($values['state']) && $values['state'] == 'on' ){				
-				
-				$label = $values['label'];
-				
-				// exception for comments
-				if( 'comments' == $id ) {
-					$label = cpac_static::get_comment_icon();
-				}
-				
-				// register format
-				$set_columns[$id] = $label;
-			}
-		}
-		
-		return $set_columns;
-	}	
-	
 	/**
 	 * Register column css
 	 *
@@ -295,11 +245,11 @@ class Codepress_Admin_Columns
 		}
 
 		// loop the available types
-		foreach ( cpac_static::get_types() as $type ) {			
+		foreach ( cpac_utility::get_types() as $type ) {			
 			
 			// match against screen or wp-screen
 			if ( $type->type == $screen || $type->type == "wp-{$screen}" )
-				$classes .= " cp-{$type}";
+				$classes .= " cp-{$type->type}";
 		}
 
 		return $classes;
@@ -316,9 +266,9 @@ class Codepress_Admin_Columns
 		$css = '';
 		
 		// loop throug the available types...
-		foreach ( cpac_static::get_types() as $type ) {
+		foreach ( cpac_utility::get_types() as $type ) {
 			
-			if ( ! $cols = cpac_static::get_stored_columns($type->type) )
+			if ( ! $cols = cpac_utility::get_stored_columns($type->type) )
 				continue;
 			
 			// loop through each available column...
@@ -341,6 +291,5 @@ class Codepress_Admin_Columns
  * @since     1.0
  */
 new Codepress_Admin_Columns();
-
 
 ?>

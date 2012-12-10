@@ -34,10 +34,10 @@ class Codepress_Sortable_Columns
         
 		// vars
 		$this->unlocked 		= $licence->is_unlocked();
-		$this->post_types 		= cpac_static::get_post_types();
+		$this->post_types 		= cpac_utility::get_post_types();
 		$this->show_all_results = false;
 		$this->current_user_id  = get_current_user_id();
-		$this->post_types 		= cpac_static::get_post_types();
+		$this->post_types 		= cpac_utility::get_post_types();
 		
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
@@ -95,7 +95,8 @@ class Codepress_Sortable_Columns
 		if ( is_array($post_type) )
 			$post_type = $_REQUEST['post_type'];
 		
-		return $this->add_managed_sortable_columns($post_type, $columns);
+		$type = new cpac_columns_posttype( $post_type );
+		return $type->add_managed_sortable_columns( $columns );
 	}
 
 	/**
@@ -105,7 +106,9 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_users_column($columns) 
 	{
-		return $this->add_managed_sortable_columns('wp-users', $columns);
+		$type = new cpac_columns_users();
+		
+		return $type->add_managed_sortable_columns( $columns );
 	}
 	
 	/**
@@ -115,7 +118,9 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_media_column($columns) 
 	{
-		return $this->add_managed_sortable_columns('wp-media', $columns);
+		$type = new cpac_columns_media();
+		
+		return $type->add_managed_sortable_columns( $columns );
 	}
 	
 	/**
@@ -125,7 +130,9 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_links_column($columns) 
 	{
-		return $this->add_managed_sortable_columns('wp-links', $columns);
+		$type = new cpac_columns_links();
+		
+		return $type->add_managed_sortable_columns( $columns );
 	}
 	
 	/**
@@ -133,33 +140,11 @@ class Codepress_Sortable_Columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function callback_add_sortable_comments_column($columns) 
+	public function callback_add_sortable_comments_column( $columns ) 
 	{
-		return $this->add_managed_sortable_columns('wp-comments', $columns);
-	}
-	
-	/**
-	 *	Add managed sortable columns by Type
-	 *
-	 * 	@since     1.1
-	 */
-	private function add_managed_sortable_columns( $type = 'post', $columns ) 
-	{		
-		$cpac_columns = new cpac_columns($type);
-		$display_columns = $cpac_columns->get_merged_columns($type);
+		$type = new cpac_columns_comments();
 		
-		if ( ! $display_columns )
-			return $columns;
-		
-		foreach ( $display_columns as $id => $vars ) {
-			if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){			
-				
-				// register format
-				$columns[$id] = cpac_static::sanitize_string($vars['label']);			
-			}
-		}	
-
-		return $columns;
+		return $type->add_managed_sortable_columns( $columns );
 	}
 	
 	/**
@@ -209,11 +194,11 @@ class Codepress_Sortable_Columns
 		$type = $id = key($column);
 		
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( cpac_static::is_column_meta($type) )
+		if ( cpac_utility::is_column_meta($type) )
 			$type = 'column-user-meta';
 		
 		// Check for post count: column-user_postcount-[posttype]
-		if ( cpac_static::get_posttype_by_postcount_column($type) )
+		if ( cpac_utility::get_posttype_by_postcount_column($type) )
 			$type = 'column-user_postcount';
 		
 		// var
@@ -276,11 +261,11 @@ class Codepress_Sortable_Columns
 				break;
 			
 			case 'column-user_postcount' :				
-				$post_type 	= cpac_static::get_posttype_by_postcount_column($id);
+				$post_type 	= cpac_utility::get_posttype_by_postcount_column($id);
 				if ( $post_type ) {
 					$sort_flag = SORT_REGULAR;
 					foreach ( $this->get_users_data() as $u ) {
-						$count = cpac_static::get_post_count( $post_type, $u->ID );
+						$count = cpac_utility::get_post_count( $post_type, $u->ID );
 						$cusers[$u->ID] = $this->prepare_sort_string_value($count);
 					}					
 				}
@@ -335,9 +320,12 @@ class Codepress_Sortable_Columns
 	 */
 	public function handle_requests_orderby_links_column()
 	{
+		// @todo replace with global $page_now
 		// fire only when we are in the admins link-manager
-		if ( $this->request_uri_is('link-manager') )
-			add_filter( 'get_bookmarks', array( $this, 'callback_requests_orderby_links_column'), 10, 2);
+		if ( ! $this->request_uri_is('link-manager') )
+			return false;
+		
+		add_filter( 'get_bookmarks', array( $this, 'callback_requests_orderby_links_column'), 10, 2);
 	}	
 	
 	/**
@@ -555,7 +543,7 @@ class Codepress_Sortable_Columns
 	 *
 	 * @since     1.3
 	 */
-	private function get_orderby_media_vars($vars)
+	private function get_orderby_media_vars( $vars )
 	{		
 		// apply sorting preference
 		$this->apply_sorting_preference( $vars, 'wp-media' );
@@ -693,7 +681,7 @@ class Codepress_Sortable_Columns
 		
 		// apply sorting preference
 		$this->apply_sorting_preference( $vars, $post_type );
-	
+
 		// no sorting
 		if ( empty( $vars['orderby'] ) ) {				
 			return $vars;		
@@ -713,7 +701,7 @@ class Codepress_Sortable_Columns
 			$type = 'column-taxonomy';
 		
 		// Check for Custom Field
-		if ( cpac_static::is_column_meta($type) )
+		if ( cpac_utility::is_column_meta($type) )
 			$type = 'column-post-meta';
 
 		// var
@@ -760,7 +748,7 @@ class Codepress_Sortable_Columns
 			case 'column-word-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {		
-					$cposts[$p->ID] = str_word_count( cpac_static::strip_trim( $p->post_content ) );
+					$cposts[$p->ID] = str_word_count( cpac_utility::strip_trim( $p->post_content ) );
 				}
 				break;
 				
@@ -784,7 +772,7 @@ class Codepress_Sortable_Columns
 			case 'column-attachment-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
-					$cposts[$p->ID] = count( cpac_static::get_attachment_ids($p->ID) );
+					$cposts[$p->ID] = count( cpac_utility::get_attachment_ids($p->ID) );
 				}
 				break;				
 				
@@ -863,7 +851,7 @@ class Codepress_Sortable_Columns
 				}
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
 					if ( !empty($p->post_author) ) {
-						$name = cpac_static::get_author_field_by_nametype($display_as, $p->post_author);							
+						$name = cpac_utility::get_author_field_by_nametype($display_as, $p->post_author);							
 						$cposts[$p->ID] = $name;
 					}
 				}
@@ -1031,13 +1019,13 @@ class Codepress_Sortable_Columns
 	 */
 	private function get_orderby_type($orderby, $type)
 	{		
-		$db_columns = cpac_static::get_stored_columns($type);
+		$db_columns = cpac_utility::get_stored_columns($type);
 
 		if ( $db_columns ) {
 			foreach ( $db_columns as $id => $vars ) {
 			
 				// check which custom column was clicked
-				if ( isset( $vars['label'] ) && $orderby == cpac_static::sanitize_string( $vars['label'] ) ) {
+				if ( isset( $vars['label'] ) && $orderby == cpac_utility::sanitize_string( $vars['label'] ) ) {
 					$column[$id] = $vars;
 					return $column;
 				}
@@ -1116,7 +1104,7 @@ class Codepress_Sortable_Columns
 	private function prepare_sort_string_value($string)
 	{
 		// remove tags and only get the first 20 chars and force lowercase.
-		$string = strtolower( substr( cpac_static::strip_trim($string),0 ,20 ) );
+		$string = strtolower( substr( cpac_utility::strip_trim($string),0 ,20 ) );
 		
 		return $string;
 	}
@@ -1168,7 +1156,7 @@ class Codepress_Sortable_Columns
 		$taxonomies = get_object_taxonomies($post_type_object->name, 'names');
 		
 		// get stored columns
-		$db_columns = cpac_static::get_stored_columns($post_type_object->name);
+		$db_columns = cpac_utility::get_stored_columns($post_type_object->name);
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax ) {

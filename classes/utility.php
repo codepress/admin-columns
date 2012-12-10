@@ -1,5 +1,5 @@
 <?php 
-class cpac_static
+class cpac_utility
 {
 	/**
 	 * Get post types
@@ -17,35 +17,6 @@ class cpac_static
 		return apply_filters('cpac-get-post-types', $post_types);
 	}
 	
-	/**
-	 * Filter preset columns. These columns apply either for every post or set by a plugin.
-	 *
-	 * @since     1.0
-	 */
-	public function filter_preset_columns( $type, $columns ) 
-	{
-		$options = get_option('cpac_options_default');
-		
-		if ( !$options )
-			return $columns;
-		
-		// we use the wp default columns for filtering...
-		$stored_wp_default_columns 	= $options[$type];
-
-		// ... the ones that are set by plugins, theme functions and such.
-		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
-			
-		// we add those to the columns
-		$pre_columns = array();
-		if ( $dif_columns ) {
-			foreach ( $dif_columns as $column ) {
-				$pre_columns[$column] = $columns[$column];
-			}
-		}
-		
-		return $pre_columns;
-	}
-
 	/**
 	 * Checks if column-meta key exists
 	 *
@@ -76,38 +47,6 @@ class cpac_static
 	}
 	
 	/**
-	 * Get singular name of post type
-	 *
-	 * @since     1.0
-	 */
-	public function get_singular_name( $type ) 
-	{
-		// Links
-		if ( $type == 'wp-links' )
-			$label = __('Links');
-			
-		// Comments
-		elseif ( $type == 'wp-comments' )
-			$label = __('Comments');
-			
-		// Users
-		elseif ( $type == 'wp-users' )
-			$label = __('Users');
-		
-		// Media
-		elseif ( $type == 'wp-media' )
-			$label = __('Media Library');
-		
-		// Posts
-		else {
-			$posttype_obj 	= get_post_type_object($type);
-			$label 			= $posttype_obj->labels->singular_name;
-		}
-		
-		return $label;
-	}
-	
-	/**
 	 * Admin requests for orderby column
 	 *
 	 * @since     1.0
@@ -122,16 +61,6 @@ class cpac_static
 			return $options['columns'][$type];
 		
 		return false;
-	}
-	
-	/**
-	 *	Add managed columns by Type
-	 *
-	 * 	@since 1.4.6.5
-	 */
-	function get_comment_icon() 
-	{
-		return "<span class='vers'><img src='" . trailingslashit( get_admin_url() ) . 'images/comment-grey-bubble.png' . "' alt='Comments'></span>";
 	}
 	
 	/**
@@ -260,7 +189,7 @@ class cpac_static
 	{
 		$types = array();
 		
-		foreach ( cpac_static::get_post_types() as $post_type ) {
+		foreach ( cpac_utility::get_post_types() as $post_type ) {
 			$types[] = new cpac_columns_posttype( $post_type );
 		}
 		
@@ -270,35 +199,5 @@ class cpac_static
 		$types[] 	= new cpac_columns_comments();
 		
 		return $types;
-	}
-	
-	/**
-	 * Checks if menu type is currently viewed
-	 *
-	 * @since     1.0
-	 */
-	function is_menu_type_current( $type ) 
-	{	
-		// referer
-		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
-		
-		// get label
-		$clean_label = cpac_static::sanitize_string($type);
-		
-		// get first element from post-types
-		$first 		= array_shift( array_values( cpac_static::get_post_types() ) );
-		
-		// display the page that was being viewed before saving
-		if ( $referer ) {
-			if ( $referer == 'cpac-box-'.$clean_label ) {
-				return true;
-			}
-		
-		// settings page has not yet been saved
-		} elseif ( $first == $type  ) {
-			return true;
-		}
-		
-		return false;	
 	}
 }

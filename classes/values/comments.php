@@ -33,7 +33,7 @@ class CPAC_Comments_Values extends CPAC_Values
 		$comment = get_comment($comment_id);
 		
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( cpac_static::is_column_meta($type) )
+		if ( cpac_utility::is_column_meta($type) )
 			$type = 'column-comment-meta';
 		
 		// Hook 
@@ -134,7 +134,7 @@ class CPAC_Comments_Values extends CPAC_Values
 			
 			// word count
 			case "column-word-count" :
-				$result = str_word_count( cpac_static::strip_trim( $comment->comment_content ) );
+				$result = str_word_count( cpac_utility::strip_trim( $comment->comment_content ) );
 				break;
 			
 			default :

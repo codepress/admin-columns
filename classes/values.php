@@ -29,7 +29,7 @@ class CPAC_Values
 	 */
 	public function get_stored_columns($type)
 	{ 
-		return cpac_static::get_stored_columns($type);
+		return cpac_utility::get_stored_columns($type);
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class CPAC_Values
 	protected function get_column_value_attachments( $post_id ) 
 	{
 		$result 	 	= '';
-		$attachment_ids = cpac_static::get_attachment_ids($post_id);
+		$attachment_ids = cpac_utility::get_attachment_ids($post_id);
 		if ( $attachment_ids ) {
 			foreach ( $attachment_ids as $attach_id ) {
 				if ( wp_get_attachment_image($attach_id) )
@@ -179,7 +179,7 @@ class CPAC_Values
 	 */
 	protected function get_media_thumbnails($meta) 
 	{
-		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );
+		$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );
 
 		// split media ids
 		$media_ids = array($meta);
@@ -330,7 +330,7 @@ class CPAC_Values
 	protected function get_custom_field_value_title($meta) 
 	{
 		//remove white spaces and strip tags
-		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );		
+		$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );		
 		// var
 		$ids = $titles = array();
 		
@@ -361,7 +361,7 @@ class CPAC_Values
 	protected function get_custom_field_value_user($meta) 
 	{
 		//remove white spaces and strip tags
-		$meta = cpac_static::strip_trim( str_replace(' ','', $meta) );
+		$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );
 		
 		// var
 		$ids = $names = array();

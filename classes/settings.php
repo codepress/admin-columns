@@ -9,7 +9,27 @@ class cpac_settings
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu') );		
 		add_action( 'admin_init', array( $this, 'register_settings') );
+		
+		// filters
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 	}
+	
+	/**
+	 * Add Settings link to plugin page
+	 *
+	 * @since	1.0
+	 * @param	$links string - all settings links
+	 * @param	$file string - plugin filename
+	 * @return	string - link to settings page
+	 */
+	function add_settings_link( $links, $file ) 
+	{
+		if ( $file != plugin_basename( __FILE__ ))
+			return $links;
+
+		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
+		return $links;
+	}	
 	
 	/**
 	 * Admin Menu.
@@ -151,24 +171,26 @@ class cpac_settings
 		$wp_default_columns = array();
 				
 		// Posts
-		foreach ( cpac_static::get_post_types() as $post_type ) {
-			$cpac_columns = new cpac_columns( $post_type );
-			$wp_default_columns[$post_type] = $cpac_columns->get_wp_default_posts_columns();
+		foreach ( cpac_utility::get_post_types() as $post_type ) {
+			$type = new cpac_columns_posttype( $post_type );
+			$wp_default_columns[$type->type] = $type->get_default_columns();
 		}
-				
-		$cpac_columns = new cpac_columns();
 		
 		// Users
-		$wp_default_columns['wp-users'] = $cpac_columns->get_wp_default_users_columns();
+		$type = new cpac_columns_users();
+		$wp_default_columns[$type->type] = $type->get_default_columns();
 		
 		// Media
-		$wp_default_columns['wp-media'] = $cpac_columns->get_wp_default_media_columns();
+		$type = new cpac_columns_media();
+		$wp_default_columns[$type->type] = $type->get_default_columns();
 		
 		// Links
-		$wp_default_columns['wp-links'] = $cpac_columns->get_wp_default_links_columns();
+		$type = new cpac_columns_links();
+		$wp_default_columns[$type->type] = $type->get_default_columns();
 		
 		// Comments
-		$wp_default_columns['wp-comments'] = $cpac_columns->get_wp_default_comments_columns();		
+		$type = new cpac_columns_comments();
+		$wp_default_columns[$type->type] = $type->get_default_columns();
 		
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
@@ -269,6 +291,36 @@ class cpac_settings
 				'content'	=> $tab['content'], // body
 			));
 		}
+	}
+
+	/**
+	 * Checks if menu type is currently viewed
+	 *
+	 * @since     1.0
+	 */
+	function is_menu_type_current( $type ) 
+	{	
+		// referer
+		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
+		
+		// get label
+		$clean_label = cpac_utility::sanitize_string($type);
+		
+		// get first element from post-types
+		$first 		= array_shift( array_values( cpac_utility::get_post_types() ) );
+		
+		// display the page that was being viewed before saving
+		if ( $referer ) {
+			if ( $referer == 'cpac-box-'.$clean_label ) {
+				return true;
+			}
+		
+		// settings page has not yet been saved
+		} elseif ( $first == $type  ) {
+			return true;
+		}
+		
+		return false;	
 	}	
 	
 	/**
@@ -292,22 +344,22 @@ class cpac_settings
 		// loop through post types
 		$rows = '';
 		
-		$types = cpac_static::get_types();
+		$types = cpac_utility::get_types();
 
 		
-		foreach ( cpac_static::get_types() as $type ) {
+		foreach ( cpac_utility::get_types() as $type ) {
 			
 			// post type label
 			$label = $type->get_label();
 			
 			// id
-			$id = cpac_static::sanitize_string($type->type); 
+			$id = cpac_utility::sanitize_string($type->type); 
 			
 			// build draggable boxes			
 			$boxes = $type->get_column_boxes();
 
 			// class
-			$class = cpac_static::is_menu_type_current($type->type) ? ' current' : ' hidden';
+			$class = $this->is_menu_type_current($type->type) ? ' current' : ' hidden';
 			
 			$rows .= "
 				<tr id='cpac-box-{$id}' valign='top' class='cpac-box-row{$class}'>
@@ -322,7 +374,7 @@ class cpac_settings
 			";
 		}
 		
-		$class_current_settings = cpac_static::is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
+		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
 		
 		/** Sortable */
 		$masked_key 				= '';
@@ -410,7 +462,7 @@ class cpac_settings
 		
 		// import / export
 		$export_selections = array();		
-		foreach ( cpac_static::get_types() as $type ) {			
+		foreach ( cpac_utility::get_types() as $type ) {			
 			$export_selections[] = "<option value='{$type->type}'>" . $type->get_label() . "</option>";
 		}
 		
@@ -513,17 +565,17 @@ class cpac_settings
 		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
 			
 		// loop
-		foreach ( cpac_static::get_types() as $type ) {
+		foreach ( cpac_utility::get_types() as $type ) {
 		
 			$label 		 = $type->get_label();
-			$clean_label = cpac_static::sanitize_string($type->type);
+			$clean_label = cpac_utility::sanitize_string($type->type);
 			
 			// divider
 			$divider 	= $count++ == 1 ? '' : ' | ';
 			
 			// current		
 			$current = '';
-			if ( cpac_static::is_menu_type_current($type->type) )
+			if ( $this->is_menu_type_current($type->type) )
 				$current = ' class="current"';
 			
 			// menu list
@@ -533,7 +585,7 @@ class cpac_settings
 		}
 		
 		// settings url
-		$class_current_settings = cpac_static::is_menu_type_current('plugin_settings') ? ' current': '';
+		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 		
 		// options button
 		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";

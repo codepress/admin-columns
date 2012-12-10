@@ -79,7 +79,7 @@ abstract class cpac_columns
 				$more_options = '';
 				
 				// Custom Fields
-				if( cpac_static::is_column_meta($id) ) {
+				if( cpac_utility::is_column_meta($id) ) {
 					$more_options 	= $this->get_box_options_customfields($id, $values);
 				}
 					
@@ -89,7 +89,7 @@ abstract class cpac_columns
 				}
 				
 				// more box options
-				$action 		= "<a class='cpac-action' href='#open'>open</a>";
+				$action = "<a class='cpac-action' href='#open'>open</a>";
 						
 				// type label
 				$type_label = isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
@@ -102,7 +102,7 @@ abstract class cpac_columns
 				
 				// main label exception for comments
 				if ( 'comments' == $id ) {
-					$main_label = cpac_static::get_comment_icon();
+					$main_label = $this->get_comment_icon();
 				}
 				
 				// width
@@ -172,8 +172,8 @@ abstract class cpac_columns
 		// merge
 		$default_columns	= wp_parse_args($wp_added_columns, $wp_default_columns);
 		
-		// Gget saved columns
-		if ( ! $db_columns = cpac_static::get_stored_columns( $this->type ) )
+		// Get saved columns
+		if ( ! $db_columns = cpac_utility::get_stored_columns( $this->type ) )
 			return $default_columns;
 			
 		// let's remove any unavailable columns.. such as disabled plugins			
@@ -183,7 +183,7 @@ abstract class cpac_columns
 		if ( ! empty($diff) && is_array($diff) ) {						
 			foreach ( $diff as $column_name ){				
 				// make an exception for column-meta-xxx
-				if ( ! cpac_static::is_column_meta($column_name) ) {
+				if ( ! cpac_utility::is_column_meta($column_name) ) {
 					unset($db_columns[$column_name]);
 				}
 			}
@@ -193,7 +193,7 @@ abstract class cpac_columns
 		foreach ( $db_columns as $id => $values ) {
 		
 			// get column meta options from custom columns
-			if ( cpac_static::is_column_meta($id) && !empty($wp_custom_columns['column-meta-1']['options']) ) {					
+			if ( cpac_utility::is_column_meta($id) && !empty($wp_custom_columns['column-meta-1']['options']) ) {					
 				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];			
 			}
 			
@@ -457,5 +457,103 @@ abstract class cpac_columns
 			return false;
 		
 		return $meta_fields;
+	}
+	
+	/**
+	 *	Add managed columns by Type
+	 *
+	 * 	@since     1.1
+	 */
+	public function add_columns_headings( $columns ) 
+	{
+		// only get stored columns.. the rest we don't need
+		$db_columns	= cpac_utility::get_stored_columns($this->type);
+
+		if ( !$db_columns )
+			return $columns;
+		
+		// filter already loaded columns by plugins
+		$set_columns = $this->filter_preset_columns( $this->type, $columns );
+
+		// loop through columns
+		foreach ( $db_columns as $id => $values ) {			
+			// is active
+			if ( isset($values['state']) && $values['state'] == 'on' ){				
+				
+				$label = $values['label'];
+				
+				// exception for comments
+				if( 'comments' == $id ) {
+					$label = $this->get_comment_icon();
+				}
+				
+				// register format
+				$set_columns[$id] = $label;
+			}
+		}
+		
+		return $set_columns;
+	}
+	
+	/**
+	 * Filter preset columns. These columns apply either for every post or set by a plugin.
+	 *
+	 * @since     1.0
+	 */
+	public function filter_preset_columns( $type, $columns ) 
+	{
+		$options = get_option('cpac_options_default');
+		
+		if ( !$options )
+			return $columns;
+		
+		// we use the wp default columns for filtering...
+		$stored_wp_default_columns 	= $options[$type];
+
+		// ... the ones that are set by plugins, theme functions and such.
+		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
+			
+		// we add those to the columns
+		$pre_columns = array();
+		if ( $dif_columns ) {
+			foreach ( $dif_columns as $column ) {
+				$pre_columns[$column] = $columns[$column];
+			}
+		}
+		
+		return $pre_columns;
+	}
+	
+	/**
+	 *	Add managed columns by Type
+	 *
+	 * 	@since 1.4.6.5
+	 */
+	function get_comment_icon() 
+	{
+		return "<span class='vers'><img src='" . trailingslashit( get_admin_url() ) . 'images/comment-grey-bubble.png' . "' alt='Comments'></span>";
+	}
+	
+	/**
+	 *	Add managed sortable columns by Type
+	 *
+	 * 	@since     1.1
+	 */
+	public function add_managed_sortable_columns( $columns ) 
+	{		
+		$display_columns = $this->get_merged_columns();
+		
+		if ( ! $display_columns )
+			return $columns;
+		
+		foreach ( $display_columns as $id => $vars ) {
+			if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){			
+				
+				// register format
+				$columns[$id] = cpac_utility::sanitize_string($vars['label']);			
+			}
+		}	
+
+		return $columns;
 	}
 }

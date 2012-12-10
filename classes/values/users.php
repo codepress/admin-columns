@@ -35,12 +35,12 @@ class CPAC_Users_Values extends CPAC_Values
 			return false;
 		
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( cpac_static::is_column_meta($type) ) {
+		if ( cpac_utility::is_column_meta($type) ) {
 			$type = 'column-user-meta';
 		}
 			
 		// Check for post count: column-user_postcount-[posttype]
-		if ( cpac_static::get_posttype_by_postcount_column($type) ) {
+		if ( cpac_utility::get_posttype_by_postcount_column($type) ) {
 			$type = 'column-user_postcount';
 		}
 		
@@ -87,10 +87,10 @@ class CPAC_Users_Values extends CPAC_Values
 				
 			// user description
 			case "column-user_postcount" :
-				$post_type 	= cpac_static::get_posttype_by_postcount_column($column_name);
+				$post_type 	= cpac_utility::get_posttype_by_postcount_column($column_name);
 				
 				// get post count
-				$count 		= cpac_static::get_post_count( $post_type, $user_id );
+				$count 		= cpac_utility::get_post_count( $post_type, $user_id );
 				
 				// set result
 				$result 	= $count > 0 ? "<a href='edit.php?post_type={$post_type}&author={$user_id}'>{$count}</a>" : (string) $count;

@@ -31,7 +31,7 @@ class CPAC_Export_Import
 	
 		$columns = array();
 		foreach ( $_POST['types'] as $type ) {
-			$columns[$type] = cpac_static::get_stored_columns( $type );			
+			$columns[$type] = cpac_utility::get_stored_columns( $type );			
 		}	
 		
 		// make sure the array is not empty

@@ -69,7 +69,7 @@ class cpac_columns_users extends cpac_columns
 		);
 		
 		// User total number of posts
-		foreach ( cpac_static::get_post_types() as $post_type ) {
+		foreach ( cpac_utility::get_post_types() as $post_type ) {
 			$label = '';
 			
 			// get plural label
