@@ -2,6 +2,27 @@
 class cpac_utility
 {
 	/**
+	 *	Get column types
+	 *
+	 * 	@since     1.1
+	 */
+	function get_types()
+	{
+		$types = array();
+		
+		foreach ( cpac_utility::get_post_types() as $post_type ) {
+			$types[] = new cpac_columns_posttype( $post_type );
+		}
+		
+		$types[] 	= new cpac_columns_users();
+		$types[] 	= new cpac_columns_media();
+		$types[] 	= new cpac_columns_links();
+		$types[] 	= new cpac_columns_comments();
+		
+		return $types;
+	}
+	
+	/**
 	 * Get post types
 	 *
 	 * @since     1.0
@@ -178,26 +199,5 @@ class cpac_utility
 		endswitch;
 		
 		return $name;
-	}
-	
-	/**
-	 *	Get column types
-	 *
-	 * 	@since     1.1
-	 */
-	function get_types()
-	{
-		$types = array();
-		
-		foreach ( cpac_utility::get_post_types() as $post_type ) {
-			$types[] = new cpac_columns_posttype( $post_type );
-		}
-		
-		$types[] 	= new cpac_columns_users();
-		$types[] 	= new cpac_columns_media();
-		$types[] 	= new cpac_columns_links();
-		$types[] 	= new cpac_columns_comments();
-		
-		return $types;
-	}
+	}	
 }

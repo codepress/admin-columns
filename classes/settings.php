@@ -344,9 +344,6 @@ class cpac_settings
 		// loop through post types
 		$rows = '';
 		
-		$types = cpac_utility::get_types();
-
-		
 		foreach ( cpac_utility::get_types() as $type ) {
 			
 			// post type label
