@@ -49,10 +49,8 @@ abstract class cpac_columns
 	 */
 	public function get_column_boxes() 
 	{
-		$type = $this->type;
-		
 		// merge all columns
-		$display_columns 	= $this->get_merged_columns( $this->type );
+		$display_columns = $this->get_merged_columns();
 		
 		// define
 		$list = '';	
@@ -115,6 +113,8 @@ abstract class cpac_columns
 					$label_hidden = ' style="display:none"';
 				}
 				
+				$type = $this->type;
+				
 				$list .= "
 					<li class='{$class}'>
 						<div class='cpac-sort-handle'></div>
@@ -166,7 +166,7 @@ abstract class cpac_columns
 	function get_merged_columns() 
 	{
 		// get added and WP columns
-		$wp_default_columns = $this->get_default_columns();
+		$wp_default_columns = $this->get_default_columns();		
 		$wp_added_columns  	= $this->get_custom_columns();
 		
 		// merge

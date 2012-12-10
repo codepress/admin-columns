@@ -152,18 +152,18 @@ class cpac_columns_posttype extends cpac_columns
 	 *
 	 * 	@since     1.0
 	 */
-	function get_default_columns($post_type = 'post') 
+	function get_default_columns() 
 	{
 		// we need to change the current screen
 		global $current_screen;
 			
 		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
-		$_GET['post_type'] = $post_type;
+		$_GET['post_type'] = $this->type;
 		
 		// to prevent possible warning from initializing load-edit.php 
 		// we will set a dummy screen object
 		if ( empty($current_screen->post_type) ) {
-			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '', 'base' => '' );			
+			$current_screen = (object) array( 'post_type' => $this->type, 'id' => '', 'base' => '' );			
 		}		
 		
 		// for 3rd party plugin support we will call load-edit.php so all the 
@@ -171,7 +171,7 @@ class cpac_columns_posttype extends cpac_columns
 		do_action('load-edit.php');
 		
 		// some plugins directly hook into get_column_headers, such as woocommerce
-		$columns = get_column_headers( 'edit-'.$post_type );
+		$columns = get_column_headers( 'edit-' . $this->type );
 		
 		// get default columns		
 		if ( empty($columns) ) {		
@@ -201,7 +201,7 @@ class cpac_columns_posttype extends cpac_columns
 			if ( !isset($current_screen) ) $current_screen = new stdClass;
 			
 			// overwrite current_screen global with our post type of choose...
-			$current_screen->post_type = $post_type;
+			$current_screen->post_type = $this->type;
 			
 			// ...so we can get its columns		
 			$columns = WP_Posts_List_Table::get_columns();				

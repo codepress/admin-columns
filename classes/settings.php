@@ -333,7 +333,8 @@ class cpac_settings
 	 * @since     1.0
 	 */
 	public function plugin_settings_page() 
-	{
+	{	
+		// external urls
 		$urls = array(
 			'codepress'	=> 'http://www.codepress.nl/plugins/codepress-admin-columns',
 			'plugins'	=> 'http://wordpress.org/extend/plugins/codepress-admin-columns',
