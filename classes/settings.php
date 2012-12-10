@@ -338,8 +338,7 @@ class cpac_settings
 			'codepress'	=> 'http://www.codepress.nl/plugins/codepress-admin-columns',
 			'plugins'	=> 'http://wordpress.org/extend/plugins/codepress-admin-columns',
 			'wordpress'	=> 'http://wordpress.org/tags/codepress-admin-columns'
-		);
-		
+		);		
 		
 		// loop through post types
 		$rows = '';
