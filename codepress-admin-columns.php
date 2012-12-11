@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.6.5
+Version: 			1.4.7
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.6.5' );
+define( 'CPAC_VERSION', 	'1.4.7' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -49,7 +49,7 @@ require_once dirname( __FILE__ ) . '/classes/values/users.php';
 require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
-require_once dirname( __FILE__ ) . '/classes/export_import.php';
+//require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 
 /**
@@ -1104,27 +1104,33 @@ class Codepress_Admin_Columns
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
-				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
+				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
 			
-			// #48 - In WP Release v3.5 we can use the following.
-			// $table = new WP_Posts_List_Table(array( 'screen' => $post_type ));
-			// $columns = $table->get_columns();
+			// As of WP Release 3.5 we can use the following.
+			if ( version_compare( get_bloginfo('version'), '3.5', '>=' ) ) {
+				
+				$table 		= new WP_Posts_List_Table(array( 'screen' => $post_type ));
+				$columns 	= $table->get_columns();
+			}
 			
-			// we need to change the current screen... first lets save original
-			$org_current_screen = $current_screen;
+			// WP versions older then 3.5
+			else {			
 			
-			// prevent php warning 
-			if ( !isset($current_screen) ) $current_screen = new stdClass;
-			
-			// overwrite current_screen global with our post type of choose...
-			$current_screen->post_type = $post_type;
-			
-			// ...so we can get its columns		
-			$columns = WP_Posts_List_Table::get_columns();				
-			
-			// reset current screen
-			$current_screen = $org_current_screen;
-
+				// we need to change the current screen... first lets save original
+				$org_current_screen = $current_screen;
+				
+				// prevent php warning 
+				if ( !isset($current_screen) ) $current_screen = new stdClass;
+				
+				// overwrite current_screen global with our post type of choose...
+				$current_screen->post_type = $post_type;
+				
+				// ...so we can get its columns		
+				$columns = WP_Posts_List_Table::get_columns();				
+				
+				// reset current screen
+				$current_screen = $org_current_screen;
+			}
 		}
 		
 		if ( empty ( $columns ) )
@@ -1931,7 +1937,7 @@ class Codepress_Admin_Columns
 		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 		
 		// options button
-		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";
+		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Addons', CPAC_TEXTDOMAIN)."</a>";
 		//$options_btn = '';
 		
 		return "
@@ -2470,8 +2476,7 @@ class Codepress_Admin_Columns
 		<tr id='cpac-box-plugin_settings' valign='top' class='cpac-box-row {$class_current_settings}'>
 			<td colspan='2'>
 				<table class='nopadding'>
-					{$addons}
-					{$export_import}
+					{$addons}					
 					{$general_options}
 				</table>
 			</td>
