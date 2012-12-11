@@ -13,36 +13,44 @@ class cpac_columns_media extends cpac_columns
 	 * 	@since     1.2.1
 	 */
 	function get_default_columns()
-	{		
+	{
 		// @todo could use _get_list_table('WP_Media_List_Table') ?
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
 		
-		// #48 - In WP Release v3.5 we can use the following.
-		// $table = new WP_Media_List_Table(array( 'screen' => 'upload' ));
-		// $columns = $table->get_columns();
+		// As of WP Release 3.5 we can use the following.
+		if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
+			
+			$table 		= new WP_Media_List_Table(array( 'screen' => 'upload' ));
+			$columns 	= $table->get_columns();
+		}
 		
-		global $current_screen;
+		// WP versions older then 3.5
+		// @todo: make this deprecated
+		else {	
+		
+			global $current_screen;
 
-		// save original
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'upload';
-		
-		// init media class
-		$wp_media = new WP_Media_List_Table;
-		
-		// get media columns		
-		$columns = $wp_media->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
+			// save original
+			$org_current_screen = $current_screen;
+			
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
+			// overwrite current_screen global with our media id...
+			$current_screen->id = 'upload';
+			
+			// init media class
+			$wp_media = new WP_Media_List_Table;
+			
+			// get media columns		
+			$columns = $wp_media->get_columns();
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
+		}
 		
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);

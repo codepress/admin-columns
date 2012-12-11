@@ -340,7 +340,7 @@ class Cpac_Settings
 			'wordpress'	=> 'http://wordpress.org/tags/codepress-admin-columns'
 		);		
 		
-		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden'; '';
+		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden';
 		
 		/** Sortable */
 		$masked_key 				= '';
@@ -533,10 +533,10 @@ class Cpac_Settings
 		}
 		
 		// settings url
-		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current': '';
+		$class_current = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 		
 		// options button
-		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current_settings}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";
+		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";
 		//$options_btn = '';
 		
 		$menu = "
@@ -743,7 +743,7 @@ class Cpac_Settings
 											
 									<?php endforeach; ?>							
 									
-									<tr id="cpac-box-plugin_settings" valign="top" class="cpac-box-row {$class_current_settings}">
+									<tr id="cpac-box-plugin_settings" valign="top" class="cpac-box-row <?php echo $class_current_settings ?>">
 										<td colspan="2">
 											<table class="nopadding">
 											 <?php echo $addons ?>
