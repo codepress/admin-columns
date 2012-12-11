@@ -13,7 +13,7 @@ class cpac_columns_media extends cpac_columns
 	 * 	@since     1.2.1
 	 */
 	function get_default_columns()
-	{		
+	{
 		// @todo could use _get_list_table('WP_Media_List_Table') ?
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
