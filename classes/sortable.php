@@ -92,9 +92,8 @@ class Codepress_Sortable_Columns
 		global $post_type;
 		
 		// in some cases post_type is an array ( when clicking a tag inside the overview screen icm CCTM ), then we use this as a fallback so we get a string
-		if ( is_array($post_type) ) {
+		if ( is_array($post_type) )
 			$post_type = $_REQUEST['post_type'];
-		}
 		
 		$type = new cpac_columns_posttype( $post_type );
 		return $type->add_managed_sortable_columns( $columns );

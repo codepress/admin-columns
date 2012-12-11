@@ -248,7 +248,6 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 = 1.5 =
 * added settings import/export 
-* fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu
 * extensive refactoring of the code
 
 = 1.4.6.5 =

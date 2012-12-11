@@ -190,32 +190,24 @@ class cpac_columns_posttype extends cpac_columns
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
 			
-			// As of WP Release 3.5 we can use the following.
-			if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
-				
-				$table 		= new WP_Posts_List_Table( array( 'screen' => $this->type ) );
-				$columns 	= $table->get_columns();
-			}
+			// #48 - In WP Release v3.5 we can use the following.
+			// $table = new WP_Posts_List_Table(array( 'screen' => $post_type ));
+			// $columns = $table->get_columns();
 			
-			// WP versions older then 3.5
-			// @todo: make this deprecated
-			else {			
+			// we need to change the current screen... first lets save original
+			$org_current_screen = $current_screen;
 			
-				// we need to change the current screen... first lets save original
-				$org_current_screen = $current_screen;
-				
-				// prevent php warning 
-				if ( !isset($current_screen) ) $current_screen = new stdClass;
-				
-				// overwrite current_screen global with our post type of choose...
-				$current_screen->post_type = $this->type;
-				
-				// ...so we can get its columns		
-				$columns = WP_Posts_List_Table::get_columns();				
-				
-				// reset current screen
-				$current_screen = $org_current_screen;
-			}
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
+			// overwrite current_screen global with our post type of choose...
+			$current_screen->post_type = $this->type;
+			
+			// ...so we can get its columns		
+			$columns = WP_Posts_List_Table::get_columns();				
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
 
 		}
 		

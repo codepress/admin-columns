@@ -24,18 +24,3 @@ function pre_load_wordpress_seo_class_metabox()
 	}
 }
 add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
-
-/**
- * Fix which remove the Advanced Custom Fields Type from the settings menu
- *
- * @since     1.5
- */
-function remove_acf_from_cpac_post_types( $post_types )
-{
-	if ( class_exists('Acf') ) {		
-		unset( $post_types['acf'] );
-	}
-	
-	return $post_types;
-}
-add_filter( 'cpac-get-post-types', 'remove_acf_from_cpac_post_types' );
