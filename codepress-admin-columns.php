@@ -807,7 +807,7 @@ class Codepress_Admin_Columns
 		
 		/** Media */
 		elseif ( $type == 'wp-media') {
-			$sql = $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1");
+			$sql = "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1";
 		}
 		
 		/** Posts */
@@ -1104,27 +1104,34 @@ class Codepress_Admin_Columns
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 				require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 			if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php') )
-				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');			
+				require_once(ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php');
+						
+			// As of WP Release 3.5 we can use the following.
+			if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
+				
+				$table 		= new WP_Posts_List_Table( array( 'screen' => $post_type ) );
+				$columns 	= $table->get_columns();
+			}
 			
-			// #48 - In WP Release v3.5 we can use the following.
-			// $table = new WP_Posts_List_Table(array( 'screen' => $post_type ));
-			// $columns = $table->get_columns();
+			// WP versions older then 3.5
+			// @todo: make this deprecated
+			else {			
 			
-			// we need to change the current screen... first lets save original
-			$org_current_screen = $current_screen;
-			
-			// prevent php warning 
-			if ( !isset($current_screen) ) $current_screen = new stdClass;
-			
-			// overwrite current_screen global with our post type of choose...
-			$current_screen->post_type = $post_type;
-			
-			// ...so we can get its columns		
-			$columns = WP_Posts_List_Table::get_columns();				
-			
-			// reset current screen
-			$current_screen = $org_current_screen;
-
+				// we need to change the current screen... first lets save original
+				$org_current_screen = $current_screen;
+				
+				// prevent php warning 
+				if ( !isset($current_screen) ) $current_screen = new stdClass;
+				
+				// overwrite current_screen global with our post type of choose...
+				$current_screen->post_type = $post_type;
+				
+				// ...so we can get its columns		
+				$columns = WP_Posts_List_Table::get_columns();				
+				
+				// reset current screen
+				$current_screen = $org_current_screen;
+			}
 		}
 		
 		if ( empty ( $columns ) )
@@ -1194,29 +1201,37 @@ class Codepress_Admin_Columns
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
 		
-		// #48 - In WP Release v3.5 we can use the following.
-		// $table = new WP_Media_List_Table(array( 'screen' => 'upload' ));
-		// $columns = $table->get_columns();
+		// As of WP Release 3.5 we can use the following.
+		if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
+			
+			$table 		= new WP_Media_List_Table(array( 'screen' => 'upload' ));
+			$columns 	= $table->get_columns();
+		}
 		
-		global $current_screen;
+		// WP versions older then 3.5
+		// @todo: make this deprecated
+		else {	
+		
+			global $current_screen;
 
-		// save original
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'upload';
-		
-		// init media class
-		$wp_media = new WP_Media_List_Table;
-		
-		// get media columns		
-		$columns = $wp_media->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
+			// save original
+			$org_current_screen = $current_screen;
+			
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
+			// overwrite current_screen global with our media id...
+			$current_screen->id = 'upload';
+			
+			// init media class
+			$wp_media = new WP_Media_List_Table;
+			
+			// get media columns		
+			$columns = $wp_media->get_columns();
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
+		}
 		
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
@@ -1276,25 +1291,37 @@ class Codepress_Admin_Columns
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php');
 		
-		global $current_screen;
+		// As of WP Release 3.5 we can use the following.
+		if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
+			
+			$table 		= new WP_Comments_List_Table( array( 'screen' => 'edit-comments' ) );
+			$columns 	= $table->get_columns();
+		}
+		
+		// WP versions older then 3.5
+		// @todo: make this deprecated
+		else {
+		
+			global $current_screen;
 
-		// save original		
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'edit-comments';
-		
-		// init table object
-		$wp_comment = new WP_Comments_List_Table;		
-		
-		// get comments
-		$columns = $wp_comment->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
+			// save original		
+			$org_current_screen = $current_screen;
+			
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
+			// overwrite current_screen global with our media id...
+			$current_screen->id = 'edit-comments';
+			
+			// init table object
+			$wp_comment = new WP_Comments_List_Table;		
+			
+			// get comments
+			$columns = $wp_comment->get_columns();
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
+		}
 		
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
