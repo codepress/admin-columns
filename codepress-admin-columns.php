@@ -49,7 +49,6 @@ require_once dirname( __FILE__ ) . '/classes/values/users.php';
 require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
-//require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 
 /**
@@ -2407,60 +2406,7 @@ class Codepress_Admin_Columns
 				</td>
 			</tr>
 		";
-		
-		// import / export
-		$export_selections = array();		
-		foreach ( $this->get_types() as $type ) {			
-			$export_selections[] = "<option value='{$type}'>" . $this->get_singular_name($type) . "</option>";
-		}
-		
-		$export_import = "
-			<tr>
-				<td class='first-col'>
-					<h2>" . __('Export Settings.', CPAC_TEXTDOMAIN ) . "</h2>
-					<p>" . __('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ) . ":</p>
-					<p><a href='#' class='cpac-pointer' rel='cpac-import-instructions-html'>" . __('Instructions', CPAC_TEXTDOMAIN ) . "</a></p>
-					<div id='cpac-import-instructions-html' style='display:none;'>
-						<h3>" . __('Import Columns Types', CPAC_TEXTDOMAIN ) . "</h3>
-						<p>" . __('Instructions', CPAC_TEXTDOMAIN ) . ":</p>						
-						<ol>
-							<li>" . __('Select one or more types.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Click Export.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ) . "</li>					
-						</ol>						
-					</div>
-				</td>
-				<td>
-					<div class='cpac_export'>
-						<select size='" . count($export_selections) . "' multiple='multiple' class='select' id='cpac_export_types'>
-							" . implode( $export_selections ) . "
-						</select>
-						<br/>						
-						<a id='cpac_export_submit' class='button' href='javascript:;'>" . __('Export', CPAC_TEXTDOMAIN ) . "<span></span></a>
-						<div class='export-message'></div>
-					</div>
-					<div id='cpac_export_output'>						
-						<textarea rows='" . count($export_selections) . "'></textarea>
-						<p class='description'>" . __('Copy the following code to your clipboard. Then you can use this code for importing.', CPAC_TEXTDOMAIN ) . "</p>
-					</div>
-				</td>
-			</tr>
-			<tr class='last'>
-				<td class='first-col'>
-					<h2>" . __('Import settings', CPAC_TEXTDOMAIN ) . "</h2>
-					<p>" . __('Copy and paste your import settings here.', CPAC_TEXTDOMAIN ) . "</p>
-				</td>
-				<td>
-					<div id='cpac_import_input'>
-						<textarea rows='10'></textarea>
-						<a id='cpac_import_submit' class='button' href='javascript:;'>" . __('Import', CPAC_TEXTDOMAIN ) . "<span></span></a>
-						<div class='import-message'></div>
-					</div>
-				</td>
-			</tr>
-		";
-		
+				
 		// general options
 		$general_options = "
 			<!--
