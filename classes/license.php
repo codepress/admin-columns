@@ -7,7 +7,7 @@ class cpac_licence
      * 
      * @var string $type
      */
-    private $type;
+    public $type;
     
     public function __construct($type) 
     {
@@ -29,14 +29,14 @@ class cpac_licence
 	 *
 	 * @since 1.3.3
 	 */
-	private function check_remote_key( $key )
+	public function check_remote_key( $key )
 	{	
 		if ( empty( $key ) ) {
 			return false;
         }
 		
 		// check key with remote API		
- 		$response = wp_remote_post( $this->api_url, array(			
+ 		$response = wp_remote_post( 'http://www.codepress.nl/', array(			
 			'body'	=> array(
 				'api'	=> 'addon',
 				'key'	=> $key,
@@ -67,7 +67,7 @@ class cpac_licence
 	 *
 	 * @since 1.3
 	 */
-	private function get_license_key()
+	public function get_license_key()
 	{
 		return get_option("cpac_{$this->type}_ac");
 	}
@@ -77,7 +77,7 @@ class cpac_licence
 	 *
 	 * @since 1.3
 	 */
-	private function set_license_key( $key )
+	public function set_license_key( $key )
 	{			
 		update_option( "cpac_{$this->type}_ac", trim( $key ) );
 	}
@@ -87,7 +87,7 @@ class cpac_licence
 	 *
 	 * @since 1.3.1
 	 */
-	private function remove_license_key()
+	public function remove_license_key()
 	{
 		delete_option( "cpac_{$this->type}_ac" );
 		delete_transient("cpac_{$this->type}_trnsnt");

@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.7
+Version: 			1.4.8
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.7' );
+define( 'CPAC_VERSION', 	'1.4.8' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -62,7 +62,6 @@ class Codepress_Admin_Columns
 	private $post_types,
 			$codepress_url,
 			$wordpress_url,
-			$api_url,
 			$admin_page,
 			$use_hidden_custom_fields;
 	
@@ -73,8 +72,6 @@ class Codepress_Admin_Columns
 	 */
 	function __construct()
 	{		
-		$this->api_url = 'http://www.codepress.nl/';	
-		
 		// wp is loaded
 		add_action( 'wp_loaded', array( $this, 'init') );
 	}

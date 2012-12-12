@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.1
 Tested up to: 3.5
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -245,6 +245,11 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 7. Settings page showing the different displaying types for custom field.
 
 == Changelog ==
+
+= 1.4.8 =
+* fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu
+* fixed bug: removed bbPress posttypes topic, forum and reply from admin columns settings menu
+* fixed bug: license key could not activate properly
 
 = 1.4.7 =
 * ready for WP 3.5
