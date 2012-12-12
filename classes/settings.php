@@ -143,9 +143,20 @@ class Cpac_Settings
 	 */
 	public function handle_requests() 
 	{	
-		// restore defaults 
-		if ( ! empty( $_POST['cpac-restore-defaults'] ) && wp_verify_nonce( $_POST['_cpac_restore_nonce'], 'restore' ) ) {
-			$this->restore_defaults();
+		// only handle updates from the admin columns page
+		if ( isset($_REQUEST['page']) && CPAC_SLUG == $_REQUEST['page'] ) {
+				
+			// Store default columns on 'updated settings'. 
+			// This needs to be fired on 'admin_init', before all additional plugin columns are loaded.
+			// @todo: nonce security
+			if ( ! empty($_REQUEST['settings-updated']) ) {
+				$this->store_wp_default_columns();
+			}
+			
+			// restore defaults 
+			if ( ! empty( $_POST['cpac-restore-defaults'] ) && wp_verify_nonce( $_POST['_cpac_restore_nonce'], 'restore' ) ) {
+				$this->restore_defaults();
+			}
 		}
 	}
 	
@@ -204,9 +215,6 @@ class Cpac_Settings
 	 */
 	public function options_callback($options)
 	{	
-		// store default columns on 'update changes'
-		$this->store_wp_default_columns();
-		
 		return $options;
 	}
 	
