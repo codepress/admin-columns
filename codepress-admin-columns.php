@@ -1074,9 +1074,11 @@ class Codepress_Admin_Columns
 		
 		// to prevent possible warning from initializing load-edit.php 
 		// we will set a dummy screen object
-		if ( empty($current_screen->post_type) ) {
-			$current_screen = (object) array( 'post_type' => $post_type, 'id' => '', 'base' => '' );			
-		}		
+		//
+		// @12-12-2012 removed this because of too many warnings in WP 3.5
+		//if ( empty($current_screen->post_type) ) {
+		//	$current_screen = (object) array( 'post_type' => $post_type, 'id' => '', 'base' => '' );			
+		//}		
 		
 		// for 3rd party plugin support we will call load-edit.php so all the 
 		// additional columns that are set by them will be avaible for us		
