@@ -162,9 +162,11 @@ class cpac_columns_posttype extends cpac_columns
 		
 		// to prevent possible warning from initializing load-edit.php 
 		// we will set a dummy screen object
-		if ( empty($current_screen->post_type) ) {
-			$current_screen = (object) array( 'post_type' => $this->type, 'id' => '', 'base' => '' );			
-		}		
+		//
+		// @12-12-2012 removed this because too many errors in WP 3.5
+		//if ( empty($current_screen->post_type) ) {
+		//	$current_screen = (object) array( 'post_type' => $this->type, 'id' => '', 'base' => '' );			
+		//}		
 		
 		// for 3rd party plugin support we will call load-edit.php so all the 
 		// additional columns that are set by them will be avaible for us		
