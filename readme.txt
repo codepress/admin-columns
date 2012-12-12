@@ -248,10 +248,15 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 = 1.5 =
 * added settings import/export 
-* fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu
 * extensive refactoring of the code
 
-= 1.4.6.5 =
+= 1.4.8 =
+* fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu
+* fixed bug: removed bbPress posttypes topic, forum and reply from admin columns settings menu
+* fixed bug: license key could not activate properly
+
+= 1.4.7 =
+* ready for WP 3.5
 * added support for custom fields for Media
 * added color to the custom field types
 * fixed default sorting for Post(types) and Media
