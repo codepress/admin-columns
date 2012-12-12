@@ -246,6 +246,9 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 == Changelog ==
 
+= 1.4.9
+* fixed bug: current_screen global is overwritten bu convert_to_screen on posttypes
+
 = 1.4.8 =
 * fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu
 * fixed bug: removed bbPress posttypes topic, forum and reply from admin columns settings menu
