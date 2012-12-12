@@ -20,25 +20,37 @@ class cpac_columns_comments extends cpac_columns
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php');
 		
-		global $current_screen;
+		// As of WP Release 3.5 we can use the following.
+		if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
+			
+			$table 		= new WP_Comments_List_Table(array( 'screen' => 'edit-comments' ));
+			$columns 	= $table->get_columns();
+		}
+		
+		// WP versions older then 3.5
+		// @todo: make this deprecated
+		else {	
+		
+			global $current_screen;
 
-		// save original		
-		$org_current_screen = $current_screen;
-		
-		// prevent php warning 
-		if ( !isset($current_screen) ) $current_screen = new stdClass;
-		
-		// overwrite current_screen global with our media id...
-		$current_screen->id = 'edit-comments';
-		
-		// init table object
-		$wp_comment = new WP_Comments_List_Table;		
-		
-		// get comments
-		$columns = $wp_comment->get_columns();
-		
-		// reset current screen
-		$current_screen = $org_current_screen;
+			// save original		
+			$org_current_screen = $current_screen;
+			
+			// prevent php warning 
+			if ( !isset($current_screen) ) $current_screen = new stdClass;
+			
+			// overwrite current_screen global with our media id...
+			$current_screen->id = 'edit-comments';
+			
+			// init table object
+			$wp_comment = new WP_Comments_List_Table;		
+			
+			// get comments
+			$columns = $wp_comment->get_columns();
+			
+			// reset current screen
+			$current_screen = $org_current_screen;
+		}		
 		
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
