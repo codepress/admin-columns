@@ -139,7 +139,7 @@ abstract class cpac_columns
 	function get_merged_columns() 
 	{
 		// get added and WP columns
-		$wp_default_columns = $this->get_default_columns();		
+		$wp_default_columns = $this->get_default_columns();
 		$wp_added_columns  	= $this->get_custom_columns();
 		
 		// merge
