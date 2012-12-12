@@ -26,7 +26,7 @@ function pre_load_wordpress_seo_class_metabox()
 add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
 
 /**
- * Fix which remove the Advanced Custom Fields Type from the settings menu
+ * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
  *
  * @since     1.5
  */
@@ -39,3 +39,20 @@ function remove_acf_from_cpac_post_types( $post_types )
 	return $post_types;
 }
 add_filter( 'cpac-get-post-types', 'remove_acf_from_cpac_post_types' );
+
+/**
+ * Fix which removes bbPress Posttypes ( forum, reply and topic ) from the admin columns settings page
+ *
+ * @since     1.5
+ */
+function remove_bbpress_from_cpac_post_types( $post_types )
+{
+	if ( class_exists('bbPress') ) {		
+		unset( $post_types['topic'] );
+		unset( $post_types['reply'] );
+		unset( $post_types['forum'] );
+	}
+	
+	return $post_types;
+}
+add_filter( 'cpac-get-post-types', 'remove_bbpress_from_cpac_post_types' );
