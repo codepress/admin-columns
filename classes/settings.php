@@ -102,7 +102,7 @@ class Cpac_Settings
 			add_option( 'cpac_options', apply_filters( 'cpac_default_plugin_options', array() ) );
 		}
 		
-		register_setting( 'cpac-settings-group', 'cpac_options', array($this, 'options_callback') );
+		register_setting( 'cpac-settings-group', 'cpac_options', array( $this, 'options_callback' ) );
 	}
 	
 	/**
@@ -142,19 +142,10 @@ class Cpac_Settings
 	 * @since     1.0
 	 */
 	public function handle_requests() 
-	{
-		// only handle updates from the admin columns page
-		if ( isset($_REQUEST['page']) && CPAC_SLUG == $_REQUEST['page'] ) {
-				
-			// settings updated
-			if ( ! empty($_REQUEST['settings-updated']) ) {
-				$this->store_wp_default_columns();
-			}
-			
-			// restore defaults 
-			if ( ! empty($_REQUEST['cpac-restore-defaults']) ) {
-				$this->restore_defaults();
-			}
+	{	
+		// restore defaults 
+		if ( ! empty( $_POST['cpac-restore-defaults'] ) && wp_verify_nonce( $_POST['_cpac_restore_nonce'], 'restore' ) ) {
+			$this->restore_defaults();
 		}
 	}
 	
@@ -213,6 +204,9 @@ class Cpac_Settings
 	 */
 	public function options_callback($options)
 	{	
+		// store default columns on 'update changes'
+		$this->store_wp_default_columns();
+		
 		return $options;
 	}
 	
@@ -772,7 +766,8 @@ class Cpac_Settings
 								<span><?php _e('Restore defaults', CPAC_TEXTDOMAIN) ?></span>
 							</h3>
 							<div class="inside">
-								<form method="post" action="">					
+								<form method="post" action="">
+									<?php wp_nonce_field( 'restore','_cpac_restore_nonce'); ?>
 									<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN); ?>');" />
 								</form>
 								<p class="description"><?php _e('This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN); ?></p>
