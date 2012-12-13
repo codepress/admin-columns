@@ -232,14 +232,14 @@ class CPAC_Values
 	 * 	@since     1.0
 	 */	
 	protected function get_column_value_custom_field($object_id, $column_name, $meta_type = 'post') 
-	{
+	{		
 		/** Users */
-		if ( $meta_type == 'user' ) {
+		if ( 'user' == $meta_type ) {
 			$type = 'wp-users';
 		}
 		
 		/** Media */
-		if ( $meta_type == 'media' ) {
+		elseif ( 'media' == $meta_type ) {
 			$type = 'wp-media';
 			$meta_type = 'post';
 		}
