@@ -4,16 +4,16 @@ class cpac_licence
 {
     /**
      * The type of licence to check or activate
-     * 
+     *
      * @var string $type
      */
     public $type;
-    
-    public function __construct($type) 
+
+    public function __construct($type)
     {
         $this->type = $type;
     }
-    
+
     /**
 	 * Unlocks
 	 *
@@ -22,25 +22,25 @@ class cpac_licence
 	public function is_unlocked()
 	{
 		return preg_match( '/^[a-f0-9]{40}$/i', $this->get_license_key( $this->type ) );
-	}	
-	
+	}
+
 	/**
 	 * Check license key with API
 	 *
 	 * @since 1.3.3
 	 */
 	public function check_remote_key( $key )
-	{	
+	{
 		if ( empty( $key ) ) {
 			return false;
         }
-		
-		// check key with remote API		
- 		$response = wp_remote_post( 'http://www.codepress.nl/', array(			
+
+		// check key with remote API
+ 		$response = wp_remote_post( 'http://www.codepress.nl/', array(
 			'body'	=> array(
 				'api'	=> 'addon',
 				'key'	=> $key,
-				'type'	=> $this->type				
+				'type'	=> $this->type
 			)
 		));
 
@@ -48,20 +48,20 @@ class cpac_licence
 		if ( is_wp_error($response) || ( isset($response['body']) && json_decode($response['body']) == 'valid' ) ) {
 			return true;
         }
-	
+
 		return false;
 	}
-	
+
 	/**
 	 * Set masked license key
 	 *
 	 * @since 1.3.1
 	 */
-	public function get_masked_license_key() 
+	public function get_masked_license_key()
 	{
-		return '**************************'.substr( $this->get_license_key(), -4 );		
-	}	
-		
+		return '**************************'.substr( $this->get_license_key(), -4 );
+	}
+
 	/**
 	 * Get license key
 	 *
@@ -71,17 +71,17 @@ class cpac_licence
 	{
 		return get_option("cpac_{$this->type}_ac");
 	}
-	
+
 	/**
 	 * Set license key
 	 *
 	 * @since 1.3
 	 */
 	public function set_license_key( $key )
-	{			
+	{
 		update_option( "cpac_{$this->type}_ac", trim( $key ) );
 	}
-	
+
 	/**
 	 * Remove license key
 	 *
@@ -91,5 +91,5 @@ class cpac_licence
 	{
 		delete_option( "cpac_{$this->type}_ac" );
 		delete_transient("cpac_{$this->type}_trnsnt");
-	}    
+	}
 }

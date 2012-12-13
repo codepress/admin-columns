@@ -10,9 +10,9 @@ Customise columns on the administration screens for post(types), pages, media, c
 
 == Description ==
 
-Completely customise the columns on the administration screens with a nice drag and drop interface. 
+Completely customise the columns on the administration screens with a nice drag and drop interface.
 
-By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns. You will have full control over all columns for pages, posts, posttypes, media, links, comments and users. 
+By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns. You will have full control over all columns for pages, posts, posttypes, media, links, comments and users.
 
 Add or remove columns, change their label, change their width and reorder them.
 
@@ -34,7 +34,7 @@ The following custom columns are added:
 * Roles
 * Status
 * Number of Attachments
-* Last Modified 
+* Last Modified
 * Comment count
 * Before More Tag Content
 * Custom Fields
@@ -113,7 +113,7 @@ By default WordPress let's you only sort by Title, Date, Comments and Author. Th
 
 It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), Co-Authors Plus and Advanced Custom Fields.
 
-= Translations = 
+= Translations =
 
 If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
 
@@ -164,7 +164,7 @@ $my_width  = 194;
 
 add_image_size( 'admin-columns', $my_width, $my_height, true );
 add_filter('cpac_thumbnail_size', 'cb_cpac_thumbnail_size' );
-function cb_cpac_thumbnail_size() { 
+function cb_cpac_thumbnail_size() {
 	return 'admin-columns';
 };
 ?>
@@ -218,17 +218,17 @@ function my_custom_field_value( $value, $internal_field_key, $custom_field, $typ
 {
 	$my_post_type  = 'demo';
 	$my_field_name = 'city';
-	
+
 	// make sure we have the correct posttype and fieldname
 	if ( $my_post_type == $type && $my_field_name == $custom_field ) {
-		
+
 		if ( '33' == $value )
 			$value = 'Amsterdam';
-		
+
 		elseif ( '34' == $value )
-			$value = 'New York';	
+			$value = 'New York';
 	}
-	return $value;	
+	return $value;
 }
 add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5 );
 ?>
