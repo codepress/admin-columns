@@ -242,11 +242,10 @@ class CPAC_Values
 		$field = substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field;
 		
 		// Get meta field value
-		$meta 	 	= get_metadata($meta_type, $object_id, $field, true);
+		$meta = get_metadata( $meta_type, $object_id, $field, true );
 
 		// multiple meta values
-		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {			
-			$meta 	= get_metadata($meta_type, $object_id, $field, true);
+		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {						
 			$meta 	= $this->recursive_implode(', ', $meta);
 		}
 

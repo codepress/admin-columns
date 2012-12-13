@@ -137,7 +137,7 @@ abstract class cpac_columns
 	 * @since     1.0
 	 */
 	function get_merged_columns() 
-	{
+	{	
 		// get added and WP columns
 		$wp_default_columns = $this->get_default_columns();
 		$wp_added_columns  	= $this->get_custom_columns();
@@ -300,6 +300,8 @@ abstract class cpac_columns
 	/**
 	 *	Add managed columns by Type
 	 *
+	 *  Triggerd by WordPress apply_filters( manage_{$screen->id}_columns, $columns );
+	 *
 	 * 	@since     1.1
 	 */
 	public function add_columns_headings( $columns ) 
@@ -311,7 +313,7 @@ abstract class cpac_columns
 			return $columns;
 		
 		// filter already loaded columns by plugins
-		$set_columns = $this->filter_preset_columns( $this->type, $columns );
+		$set_columns = $this->filter_preset_columns( $columns );
 
 		// loop through columns
 		foreach ( $db_columns as $id => $values ) {			
@@ -338,18 +340,16 @@ abstract class cpac_columns
 	 *
 	 * @since     1.0
 	 */
-	public function filter_preset_columns( $type, $columns ) 
+	public function filter_preset_columns( $columns ) 
 	{
-		$options = get_option('cpac_options_default');
-		
-		if ( !$options )
+		if ( ! $options = get_option('cpac_options_default') )
 			return $columns;
 		
 		// we use the wp default columns for filtering...
-		$stored_wp_default_columns 	= $options[$type];
+		$stored_wp_default_columns 	= $options[$this->type];
 
 		// ... the ones that are set by plugins, theme functions and such.
-		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
+		$dif_columns = array_diff( array_keys($columns), array_keys($stored_wp_default_columns) );
 			
 		// we add those to the columns
 		$pre_columns = array();

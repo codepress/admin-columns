@@ -14,6 +14,10 @@ class cpac_columns_users extends cpac_columns
 	 */
 	function get_default_columns()
 	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-users' );	
+		
+		// Dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php') )

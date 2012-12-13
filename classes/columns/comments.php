@@ -13,7 +13,10 @@ class cpac_columns_comments extends cpac_columns
 	 * 	@since     1.3.1
 	 */
 	function get_default_columns()
-	{		
+	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-comments' );
+		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');

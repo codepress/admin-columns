@@ -14,6 +14,9 @@ class cpac_columns_links extends cpac_columns
 	 */
 	function get_default_columns()
 	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-links' );
+		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');

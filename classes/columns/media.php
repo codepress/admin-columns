@@ -14,7 +14,9 @@ class cpac_columns_media extends cpac_columns
 	 */
 	function get_default_columns()
 	{
-		// @todo could use _get_list_table('WP_Media_List_Table') ?
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-media' );
+		
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )

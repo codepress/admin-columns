@@ -154,26 +154,14 @@ class cpac_columns_posttype extends cpac_columns
 	 */
 	function get_default_columns() 
 	{
-		// we need to change the current screen
-		global $current_screen;
-			
-		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
-		$_GET['post_type'] = $this->type;
+		// You can use this filter to add thirdparty columns by hooking into this. See classes/third_party.php for an example.
+		do_action( 'cpac-get-default-columns-posts', $this->type );
 		
-		// to prevent possible warning from initializing load-edit.php 
-		// we will set a dummy screen object
-		// we need to change the current screen... first lets save original
-		$current_screen = convert_to_screen( $this->type );
-		
-		// for 3rd party plugin support we will call load-edit.php so all the 
-		// additional columns that are set by them will be available for us		
-		do_action('load-edit.php');
-		
-		// some plugins directly hook into get_column_headers, such as woocommerce
+		// some plugins directly hook into get_column_headers, such as: WooCommerce.
 		$columns = get_column_headers( 'edit-' . $this->type );
 		
 		// get default columns		
-		if ( empty($columns) ) {		
+		if ( empty($columns) ) {
 			
 			// deprecated as of wp3.3
 			if ( file_exists(ABSPATH . 'wp-admin/includes/template.php') )
