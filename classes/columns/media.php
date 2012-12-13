@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class cpac_columns_media extends cpac_columns
 {
@@ -6,7 +6,7 @@ class cpac_columns_media extends cpac_columns
     {
 		$this->type = 'wp-media';
     }
-	
+
 	/**
 	 * 	Get WP default media columns.
 	 *
@@ -16,56 +16,56 @@ class cpac_columns_media extends cpac_columns
 	{
 		// You can use this filter to add third_party columns by hooking into this.
 		do_action( 'cpac-get-default-columns-media' );
-		
+
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
-		
+
 		// As of WP Release 3.5 we can use the following.
 		if ( version_compare( get_bloginfo('version'), '3.4.10', '>=' ) ) {
-			
+
 			$table 		= new WP_Media_List_Table(array( 'screen' => 'upload' ));
 			$columns 	= $table->get_columns();
 		}
-		
+
 		// WP versions older then 3.5
 		// @todo: make this deprecated
-		else {	
-		
+		else {
+
 			global $current_screen;
 
 			// save original
 			$org_current_screen = $current_screen;
-			
-			// prevent php warning 
+
+			// prevent php warning
 			if ( !isset($current_screen) ) $current_screen = new stdClass;
-			
+
 			// overwrite current_screen global with our media id...
 			$current_screen->id = 'upload';
-			
+
 			// init media class
 			$wp_media = new WP_Media_List_Table;
-			
-			// get media columns		
+
+			// get media columns
 			$columns = $wp_media->get_columns();
-			
+
 			// reset current screen
 			$current_screen = $org_current_screen;
 		}
-		
+
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
-		
+
 		return apply_filters('cpac-default-media-columns', $columns);
 	}
-	
+
 	/**
 	 * Custom media columns
 	 *
 	 * @since     1.3
 	 */
-	function get_custom_columns() 
+	function get_custom_columns()
 	{
 		$custom_columns = array(
 			'column-mediaid' => array(
@@ -109,9 +109,9 @@ class cpac_columns_media extends cpac_columns
 			),
 			'column-filesize' => array(
 				'label'	=> __('File size', CPAC_TEXTDOMAIN)
-			)			
+			)
 		);
-		
+
 		// Get extended image metadata, exif or iptc as available.
 		// uses exif_read_data()
 		if ( function_exists('exif_read_data') ) {
@@ -178,7 +178,7 @@ class cpac_columns_media extends cpac_columns
 				)
 			));
 		}
-		
+
 		// Custom Field support
 		if ( $this->get_meta_keys() ) {
 			$custom_columns['column-meta-1'] = array(
@@ -193,30 +193,30 @@ class cpac_columns_media extends cpac_columns
 				)
 			);
 		}
-		
+
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
-		
+
 		return apply_filters('cpac-custom-media-columns', $custom_columns);
 	}
-	
+
 	/**
      * Get Meta Keys
-     * 
+     *
 	 * @since 1.5
      */
     public function get_meta_keys()
     {
         global $wpdb;
-			
+
         $fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
-		
+
 		if ( is_wp_error( $fields ) )
 			$fields = false;
-		
+
 		return apply_filters( 'cpac-get-meta-keys-media', $this->maybe_add_hidden_meta($fields) );
     }
-	
+
 	/**
 	 * Get Label
 	 *

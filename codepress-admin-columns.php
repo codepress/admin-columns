@@ -55,7 +55,7 @@ new Codepress_Sortable_Columns();
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';
-new Cpac_Settings;	
+new Cpac_Settings;
 
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
@@ -67,7 +67,7 @@ require_once dirname( __FILE__ ) . '/classes/third_party.php';
  * @since     1.0
  *
  */
-class Codepress_Admin_Columns 
+class Codepress_Admin_Columns
 {
 	/**
 	 * Constructor
@@ -75,10 +75,10 @@ class Codepress_Admin_Columns
 	 * @since     1.0
 	 */
 	function __construct()
-	{	
+	{
 		add_action( 'wp_loaded', array( $this, 'init') );
 	}
-	
+
 	/**
 	 * Initialize plugin.
 	 *
@@ -95,14 +95,14 @@ class Codepress_Admin_Columns
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
-		
+
 		// register columns
 		add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
-		add_action( 'admin_init', array( $this, 'register_columns_values' ) );		
+		add_action( 'admin_init', array( $this, 'register_columns_values' ) );
 	}
-		
+
 	/**
-	 *	Register Column Values	
+	 *	Register Column Values
 	 *
 	 *	initializes each Class per type
 	 *
@@ -110,13 +110,13 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
-		require_once dirname( __FILE__ ) . '/classes/values.php';	
+		require_once dirname( __FILE__ ) . '/classes/values.php';
 		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
 		require_once dirname( __FILE__ ) . '/classes/values/users.php';
 		require_once dirname( __FILE__ ) . '/classes/values/media.php';
 		require_once dirname( __FILE__ ) . '/classes/values/link.php';
 		require_once dirname( __FILE__ ) . '/classes/values/comments.php';
-		
+
 		// Init
 		new CPAC_Posts_Values();
 		new CPAC_Link_Values();
@@ -132,84 +132,84 @@ class Codepress_Admin_Columns
 	 * 	@since     1.0
 	 */
 	public function register_columns_headings()
-	{	
-		/** Posts */		
+	{
+		/** Posts */
 	 	foreach ( cpac_utility::get_post_types() as $post_type ) {
 			add_filter("manage_edit-{$post_type}_columns",  array( $this, 'add_columns_headings_posts' ) );
-		} 
-		
+		}
+
 		/** Users */
 		// give higher priority, so it will load just before other plugins to prevent conflicts
-		add_filter( "manage_users_columns",  array( $this, 'add_columns_headings_users' ), 9 );		
-		
+		add_filter( "manage_users_columns",  array( $this, 'add_columns_headings_users' ), 9 );
+
 		/** Media */
 		add_filter( "manage_upload_columns",  array( $this, 'add_columns_headings_media' ) );
-		
+
 		/** Links */
 		add_filter( "manage_link-manager_columns",  array( $this, 'add_columns_headings_links' ) );
-		
+
 		/** Comments */
 		add_filter( "manage_edit-comments_columns", array( $this, 'add_columns_headings_comments' ) );
 	}
-	
+
 	/**
 	 *	Callback add Posts Column
 	 *
 	 * 	@since     1.0
 	 */
-	public function add_columns_headings_posts( $columns ) 
+	public function add_columns_headings_posts( $columns )
 	{
 		$type = new cpac_columns_posttype( get_post_type() );
-		
+
 		return $type->add_columns_headings( $columns );
 	}
-	
+
 	/**
 	 *	Callback add Users column
 	 *
 	 * 	@since     1.1
 	 */
-	public function add_columns_headings_users( $columns ) 
+	public function add_columns_headings_users( $columns )
 	{
 		$type = new cpac_columns_users;
-		
+
 		return $type->add_columns_headings( $columns );
 	}
-	
+
 	/**
 	 *	Callback add Media column
 	 *
 	 * 	@since     1.3
 	 */
-	public function add_columns_headings_media( $columns ) 
+	public function add_columns_headings_media( $columns )
 	{
 		$type = new cpac_columns_media;
-		
+
 		return $type->add_columns_headings( $columns );
 	}
-	
+
 	/**
 	 *	Callback add Links column
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function add_columns_headings_links( $columns ) 
+	public function add_columns_headings_links( $columns )
 	{
 		$type = new cpac_columns_links;
-		
+
 		return $type->add_columns_headings( $columns );
 	}
-	
+
 	/**
 	 *	Callback add Comments column
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function callback_add_comments_column_headings($columns) 
+	public function callback_add_comments_column_headings($columns)
 	{
 		return $this->add_columns_headings('wp-comments', $columns);
 	}
-		
+
 	/**
 	 * Register column css
 	 *
@@ -217,9 +217,9 @@ class Codepress_Admin_Columns
 	 */
 	public function column_styles()
 	{
-		wp_enqueue_style( 'cpac-columns', CPAC_URL.'/assets/css/column.css', array(), CPAC_VERSION, 'all' );	
-	}	
-	
+		wp_enqueue_style( 'cpac-columns', CPAC_URL.'/assets/css/column.css', array(), CPAC_VERSION, 'all' );
+	}
+
 	/**
 	 * Admin body class
 	 *
@@ -227,26 +227,26 @@ class Codepress_Admin_Columns
 	 *
 	 * @since     1.4
 	 */
-	function admin_class( $classes ) 
-	{		
+	function admin_class( $classes )
+	{
 		global $current_screen;
-		
+
 		// we dont need the 'edit-' part
 		$screen = str_replace('edit-', '', $current_screen->id);
-		
+
 		// media library exception
 		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' ) {
 			$screen = 'media';
 		}
-		
+
 		// link exception
 		if ( $current_screen->base == 'link-manager' && $current_screen->id == 'link-manager' ) {
 			$screen = 'links';
 		}
 
 		// loop the available types
-		foreach ( cpac_utility::get_types() as $type ) {			
-			
+		foreach ( cpac_utility::get_types() as $type ) {
+
 			// match against screen or wp-screen
 			if ( $type->type == $screen || $type->type == "wp-{$screen}" )
 				$classes .= " cp-{$type->type}";
@@ -255,34 +255,34 @@ class Codepress_Admin_Columns
 		return $classes;
 	}
 
-	
+
 	/**
 	 * Admin CSS for Column width
 	 *
 	 * @since     1.4
 	 */
-	function admin_css() 
-	{	
+	function admin_css()
+	{
 		$css = '';
-		
+
 		// loop throug the available types...
 		foreach ( cpac_utility::get_types() as $type ) {
-			
+
 			if ( ! $cols = cpac_utility::get_stored_columns($type->type) )
 				continue;
-			
+
 			// loop through each available column...
 			foreach ( $cols as $col_name => $col ) {
-			
+
 				// and check for stored width and add it to the css
 				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
 					$css .= ".cp-{$type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
 		}
-		
+
 		echo "<style type='text/css'>{$css}</style>";
-	}	
+	}
 }
 
 /**

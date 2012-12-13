@@ -6,7 +6,7 @@ class cpac_columns_links extends cpac_columns
     {
 		$this->type = 'wp-links';
     }
-	
+
 	/**
 	 * 	Get WP default links columns.
 	 *
@@ -16,33 +16,33 @@ class cpac_columns_links extends cpac_columns
 	{
 		// You can use this filter to add third_party columns by hooking into this.
 		do_action( 'cpac-get-default-columns-links' );
-		
+
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php');
-		
+
 		// get links columns
 		$columns = WP_Links_List_Table::get_columns();
 
 		// change to uniform format
 		$columns = $this->get_uniform_format($columns);
-		
+
 		// add sorting support to rel-tag
 		if ( !empty($columns['rel']) ) {
 			$columns['rel']['options']['sortorder'] = 'on';
 		}
-		
+
 		return apply_filters('cpac-default-links-columns', $columns);
 	}
-	
+
 	/**
 	 * Custom links columns
 	 *
 	 * @since     1.3.1
 	 */
-	function get_custom_columns() 
+	function get_custom_columns()
 	{
 		$custom_columns = array(
 			'column-link_id' => array (
@@ -74,22 +74,22 @@ class cpac_columns_links extends cpac_columns
 				'options'	=> array(
 					'sortorder'	=> false
 				)
-			)			
-		);	
-		
+			)
+		);
+
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);
-		
+
 		return apply_filters('cpac-custom-links-columns', $custom_columns);
 	}
-	
+
 	/**
      * Get Meta Keys
-     * 
+     *
 	 * @since 1.5
      */
     public function get_meta_keys() {}
-	
+
 	/**
 	 * Get Label
 	 *
