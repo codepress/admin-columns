@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.4.8
+Version: 			1.4.9
 Description: 		Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -831,10 +831,10 @@ class Codepress_Admin_Columns
 			}			
 		}
 		
-		if ( !empty($meta_fields) )
-			return $meta_fields;
-		
-		return false;
+		if ( empty($meta_fields) )
+			$meta_fields = false;
+
+		return apply_filters( 'cpac-get-meta-by-type', $meta_fields, $type );
 	}
 
 	/**
@@ -972,7 +972,7 @@ class Codepress_Admin_Columns
 	{	
 		// stores the default columns that are set by WP or theme.
 		$wp_default_columns = array();
-		
+		var_dump( $this->post_types );
 		// Posts
 		foreach ( $this->post_types as $post_type ) {
 			$wp_default_columns[$post_type] = $this->get_wp_default_posts_columns($post_type);
