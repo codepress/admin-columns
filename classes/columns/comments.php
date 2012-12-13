@@ -160,7 +160,10 @@ class cpac_columns_comments extends cpac_columns
 		
 		$fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
 		
-		return $this->maybe_add_hidden_meta($fields);
+		if ( is_wp_error( $fields ) )
+			$fields = false;
+		
+		return apply_filters( 'cpac-get-meta-keys-comments', $this->maybe_add_hidden_meta($fields) );
     }
 	
 	/**

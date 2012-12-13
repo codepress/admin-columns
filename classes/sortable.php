@@ -1027,11 +1027,11 @@ class Codepress_Sortable_Columns
 				// check which custom column was clicked
 				if ( isset( $vars['label'] ) && $orderby == cpac_utility::sanitize_string( $vars['label'] ) ) {
 					$column[$id] = $vars;
-					return $column;
+					return apply_filters( 'cpac-get-orderby-type', $column, $orderby, $type );
 				}
 			}
 		}
-		return false;
+		return apply_filters( 'cpac-get-orderby-type', false, $orderby, $type );
 	}
 	
 	/**

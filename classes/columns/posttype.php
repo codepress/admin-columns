@@ -237,7 +237,10 @@ class cpac_columns_posttype extends cpac_columns
         		
 		$fields = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->type ), ARRAY_N );
 		
-		return $this->maybe_add_hidden_meta($fields);
+		if ( is_wp_error( $fields ) )
+			$fields = false;
+		
+		return apply_filters( 'cpac-get-meta-keys-posts', $this->maybe_add_hidden_meta($fields), $this->type );
     }
 	
 	/**
