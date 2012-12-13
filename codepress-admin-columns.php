@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.4.8' );
+define( 'CPAC_VERSION', 	'1.4.9' );
 define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 		plugins_url('', __FILE__) );
@@ -41,7 +41,6 @@ if ( !is_admin() )
  *
  * @since     1.3
  */
-require_once dirname( __FILE__ ) . '/classes/utility.php';
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
 require_once dirname( __FILE__ ) . '/classes/values.php';		
 require_once dirname( __FILE__ ) . '/classes/values/posts.php';
@@ -50,6 +49,7 @@ require_once dirname( __FILE__ ) . '/classes/values/media.php';
 require_once dirname( __FILE__ ) . '/classes/values/link.php';
 require_once dirname( __FILE__ ) . '/classes/values/comments.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
+require_once dirname( __FILE__ ) . '/classes/third_party.php';
 
 /**
  * Codepress Admin Columns Class
@@ -1066,19 +1066,8 @@ class Codepress_Admin_Columns
 	 */
 	private function get_wp_default_posts_columns($post_type = 'post') 
 	{
-		// we need to change the current screen
-		global $current_screen;
-			
-		// some plugins depend on settings the $_GET['post_type'] variable such as ALL in One SEO
-		$_GET['post_type'] = $post_type;
-		
-		// to prevent possible warning from initializing load-edit.php 
-		// we will set a dummy screen object
-		$current_screen = convert_to_screen( $post_type );
-		
-		// for 3rd party plugin support we will call load-edit.php so all the 
-		// additional columns that are set by them will be avaible for us		
-		do_action('load-edit.php');
+		// You can use this filter to add thirdparty columns by hooking into this. See classes/third_party.php for an example.
+		do_action( 'cpac-get-default-columns-posts', $post_type );
 		
 		// some plugins directly hook into get_column_headers, such as woocommerce
 		$columns = get_column_headers( 'edit-'.$post_type );
@@ -1165,6 +1154,9 @@ class Codepress_Admin_Columns
 	 */
 	private function get_wp_default_users_columns()
 	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-users' );
+		
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php') )
@@ -1188,7 +1180,10 @@ class Codepress_Admin_Columns
 	 * 	@since     1.2.1
 	 */
 	private function get_wp_default_media_columns()
-	{		
+	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-media' );
+		
 		// @todo could use _get_list_table('WP_Media_List_Table') ?
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -1240,6 +1235,9 @@ class Codepress_Admin_Columns
 	 */
 	private function get_wp_default_links_columns()
 	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-links' );
+		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -1278,7 +1276,10 @@ class Codepress_Admin_Columns
 	 * 	@since     1.3.1
 	 */
 	private function get_wp_default_comments_columns()
-	{		
+	{
+		// You can use this filter to add third_party columns by hooking into this.
+		do_action( 'cpac-get-default-columns-comments' );
+		
 		// dependencies
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
