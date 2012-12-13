@@ -23,16 +23,6 @@ class CPAC_Values
 	}
 	
 	/**
-	 * Admin requests for orderby column
-	 *
-	 * @since     1.0
-	 */
-	public function get_stored_columns($type)
-	{ 
-		return cpac_utility::get_stored_columns($type);
-	}
-	
-	/**
 	 * Returns excerpt
 	 *
 	 * @since     1.0
@@ -211,15 +201,15 @@ class CPAC_Values
 	 *
 	 * 	@since     1.0
 	 */	
-	protected function get_column_value_custom_field($object_id, $column_name, $meta_type = 'post') 
+	protected function get_column_value_custom_field( $object_id, $column_name, $meta_type = 'post' ) 
 	{
 		/** Users */
-		if ( $meta_type == 'user' ) {
+		if ( 'user' == $meta_type ) {
 			$type = 'wp-users';
 		}
 		
 		/** Media */
-		if ( $meta_type == 'media' ) {
+		elseif ( 'media' == $meta_type ) {
 			$type = 'wp-media';
 			$meta_type = 'post';
 		}
@@ -230,7 +220,7 @@ class CPAC_Values
 		}
 		
 		// get column
-		$columns 	= $this->get_stored_columns($type);
+		$columns 	= cpac_utility::get_stored_columns($type);
 		
 		// inputs
 		$field	 	= isset($columns[$column_name]['field']) 	  ? $columns[$column_name]['field'] 		: '';
@@ -394,7 +384,7 @@ class CPAC_Values
 	 */
 	protected function get_user_column_value_custom_field($user_id, $id) 
 	{		
-		$columns 	= $this->get_stored_columns('wp-users');
+		$columns 	= cpac_utility::get_stored_columns('wp-users');
 		
 		// inputs
 		$field	 	= isset($columns[$id]['field']) 	 ? $columns[$id]['field'] 		: '';
