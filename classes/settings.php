@@ -682,14 +682,15 @@ class Cpac_Settings
 															</div>
 															<div class="input-width-range"></div>
 															<br/>
-															<?php if ( isset( $box->field ) ) : ?>
+															
+															<?php 
+															// Custom Fields
+															if ( isset( $box->field ) ) : ?>
 
 															<label for="<?php echo $box->attr_for; ?>-field"><?php _e("Custom Field", CPAC_TEXTDOMAIN) ?>: </label>
 															<select name="<?php echo $box->attr_name; ?>[field]" id="<?php echo $box->attr_for; ?>-field">
 
-															<?php
-															// Custom Fields
-															foreach ( $box->fields as $field ) : ?>
+															<?php foreach ( $box->fields as $field ) : ?>
 																<option value="<?php echo $field ?>"<?php selected( $field, $box->field ) ?>><?php echo substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field; ?></option>
 															<?php endforeach; ?>
 

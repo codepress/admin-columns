@@ -58,6 +58,7 @@ abstract class cpac_columns
 		foreach ( $display_columns as $id => $values ) {
 
 			$box = new stdClass;
+			
 			$box->state 	 	= isset($values['state']) ? $values['state'] : '';
 			$box->classes 	 	= implode( ' ', array( "cpac-box-{$id}", $values['options']['class'], !empty($values['state']) ? 'active' : ''  ) );
 			$box->id		 	= $id;
@@ -71,12 +72,12 @@ abstract class cpac_columns
 
 			// Custom Fields
 			if ( cpac_utility::is_column_meta( $box->id ) && $this->get_meta_keys() ) {
-				$box->field  = ! empty($values['field']) ? $values['field'] : '' ;$box->fields = $this->get_meta_keys();
-				$box->fields = $this->get_meta_keys();
+			
+				$box->field  	= ! empty($values['field']) ? $values['field'] : '' ;$box->fields = $this->get_meta_keys();
+				$box->fields 	= $this->get_meta_keys();
 				$box->field_type = ! empty($values['field_type']) ? $values['field_type'] : '' ;
-				$box->before = ! empty($values['before']) ? $values['before'] : '' ;
-				$box->after = ! empty($values['after']) ? $values['after'] : '' ;
-
+				$box->before 	= ! empty($values['before']) ? $values['before'] : '' ;
+				$box->after 	= ! empty($values['after']) ? $values['after'] : '' ;
 			}
 
 			// Author Names
@@ -140,10 +141,10 @@ abstract class cpac_columns
 	{
 		// get added and WP columns
 		$wp_default_columns = $this->get_default_columns();
-		$wp_added_columns  	= $this->get_custom_columns();
+		$wp_custom_columns  = $this->get_custom_columns();
 
 		// merge
-		$default_columns	= wp_parse_args($wp_added_columns, $wp_default_columns);
+		$default_columns	= wp_parse_args($wp_custom_columns, $wp_default_columns);
 
 		// Get saved columns
 		if ( ! $db_columns = cpac_utility::get_stored_columns( $this->type ) )
@@ -306,10 +307,7 @@ abstract class cpac_columns
 	 */
 	public function add_columns_headings( $columns )
 	{
-		// only get stored columns.. the rest we don't need
-		$db_columns	= cpac_utility::get_stored_columns($this->type);
-
-		if ( !$db_columns )
+		if ( ! $db_columns	= cpac_utility::get_stored_columns( $this->type ) )
 			return $columns;
 
 		// filter already loaded columns by plugins
@@ -373,22 +371,22 @@ abstract class cpac_columns
 	}
 
 	/**
-	 *	Add managed sortable columns by Type
+	 *	Get sortable columns
 	 *
 	 * 	@since     1.1
 	 */
-	public function add_managed_sortable_columns( $columns )
+	public function get_sortable_columns()
 	{
-		$display_columns = $this->get_merged_columns();
+		$columns = array();
 
-		if ( ! $display_columns )
-			return $columns;
+		if ( $display_columns = $this->get_merged_columns() ) {
 
-		foreach ( $display_columns as $id => $vars ) {
-			if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){
+			foreach ( $display_columns as $id => $vars ) {
 
-				// register format
-				$columns[$id] = cpac_utility::sanitize_string($vars['label']);
+				if ( isset($vars['options']['sortorder']) && $vars['options']['sortorder'] == 'on' ){
+
+					$columns[$id] = cpac_utility::sanitize_string( $vars['label'] );
+				}
 			}
 		}
 

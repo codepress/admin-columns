@@ -205,9 +205,11 @@ class Codepress_Admin_Columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function callback_add_comments_column_headings($columns)
+	public function add_columns_headings_comments($columns)
 	{
-		return $this->add_columns_headings('wp-comments', $columns);
+		$type = new cpac_columns_comments;
+
+		return $type->add_columns_headings( $columns );
 	}
 
 	/**
@@ -291,5 +293,3 @@ class Codepress_Admin_Columns
  * @since     1.0
  */
 new Codepress_Admin_Columns();
-
-?>

@@ -37,7 +37,6 @@ class Codepress_Sortable_Columns
 		$this->post_types 		= cpac_utility::get_post_types();
 		$this->show_all_results = false;
 		$this->current_user_id  = get_current_user_id();
-		$this->post_types 		= cpac_utility::get_post_types();
 
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
@@ -87,16 +86,19 @@ class Codepress_Sortable_Columns
 	 *
 	 * 	@since     1.0
 	 */
-	public function callback_add_sortable_posts_column($columns)
+	public function callback_add_sortable_posts_column( $columns )
 	{
 		global $post_type;
 
-		// in some cases post_type is an array ( when clicking a tag inside the overview screen icm CCTM ), then we use this as a fallback so we get a string
-		if ( is_array($post_type) )
+		// in some cases post_type is an array ( when clicking a tag inside the overview screen icm CCTM )
+		// then we use this as a fallback so we get a string
+		if ( is_array($post_type) ) {
 			$post_type = $_REQUEST['post_type'];
+		}
 
 		$type = new cpac_columns_posttype( $post_type );
-		return $type->add_managed_sortable_columns( $columns );
+		
+		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
 	/**
@@ -108,7 +110,7 @@ class Codepress_Sortable_Columns
 	{
 		$type = new cpac_columns_users();
 
-		return $type->add_managed_sortable_columns( $columns );
+		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
 	/**
@@ -120,7 +122,7 @@ class Codepress_Sortable_Columns
 	{
 		$type = new cpac_columns_media();
 
-		return $type->add_managed_sortable_columns( $columns );
+		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
 	/**
@@ -132,7 +134,7 @@ class Codepress_Sortable_Columns
 	{
 		$type = new cpac_columns_links();
 
-		return $type->add_managed_sortable_columns( $columns );
+		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
 	/**
@@ -144,7 +146,7 @@ class Codepress_Sortable_Columns
 	{
 		$type = new cpac_columns_comments();
 
-		return $type->add_managed_sortable_columns( $columns );
+		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
 	/**
@@ -320,12 +322,12 @@ class Codepress_Sortable_Columns
 	 */
 	public function handle_requests_orderby_links_column()
 	{
-		// @todo replace with global $page_now
-		// fire only when we are in the admins link-manager
-		if ( ! $this->request_uri_is('link-manager') )
-			return false;
+		global $pagenow;
 
-		add_filter( 'get_bookmarks', array( $this, 'callback_requests_orderby_links_column'), 10, 2);
+		// fire only when we are in the admins link-manager
+		if ( 'link-manager.php ' == $pagenow ) {
+			add_filter( 'get_bookmarks', array( $this, 'callback_requests_orderby_links_column'), 10, 2);
+		}
 	}
 
 	/**
@@ -333,7 +335,7 @@ class Codepress_Sortable_Columns
 	 *
 	 * 	@since     1.3.1
 	 */
-	public function callback_requests_orderby_links_column($results, $vars)
+	public function callback_requests_orderby_links_column( $results, $vars )
 	{
 		global $wpdb;
 
@@ -497,8 +499,10 @@ class Codepress_Sortable_Columns
 	 */
 	public function handle_requests_orderby_comments_column()
 	{
+		global $pagenow;
+		
 		// fire only when we are in the admins edit-comments
-		if ( $this->request_uri_is('edit-comments') ) {
+		if ( 'edit-comments.php' == $pagenow ) {
 			add_filter('comments_clauses', array( $this, 'callback_requests_orderby_comments_column'), 10, 2);
 		}
 	}
@@ -1236,5 +1240,3 @@ class Codepress_Sortable_Columns
 		return $indent;
 	}
 }
-
-?>
