@@ -99,8 +99,28 @@ class Codepress_Admin_Columns
 		// register columns
 		add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
 		add_action( 'admin_init', array( $this, 'register_columns_values' ) );
+		
+		// add settings link
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 	}
+	
+	/**
+	 * Add Settings link to plugin page
+	 *
+	 * @since	1.0
+	 * @param	$links string - all settings links
+	 * @param	$file string - plugin filename
+	 * @return	string - link to settings page
+	 */
+	function add_settings_link( $links, $file )
+	{
+		if ( $file != plugin_basename( __FILE__ ) )
+			return $links;
 
+		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
+		return $links;
+	}
+	
 	/**
 	 *	Register Column Values
 	 *
