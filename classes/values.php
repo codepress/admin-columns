@@ -27,7 +27,7 @@ class CPAC_Values
 	 *
 	 * @since     1.0
 	 */
-	protected function get_post_excerpt($post_id)
+	protected function get_post_excerpt( $post_id )
 	{
 		global $post;
 
@@ -48,7 +48,7 @@ class CPAC_Values
 	 */
 	protected function get_shortened_string($string = '', $num_words = 55, $more = null)
 	{
-		if (!$string)
+		if ( ! $string )
 			return false;
 
 		return wp_trim_words( $string, $num_words, $more );
@@ -61,8 +61,10 @@ class CPAC_Values
 	 */
 	protected function get_asset_image($name = '', $title = '')
 	{
-		if ( $name )
-			return sprintf("<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title);
+		if ( ! $name )
+			return false;
+			
+		return sprintf("<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title);		
 	}
 
 	/**
@@ -461,11 +463,20 @@ class CPAC_Values
 	 * @since     1.3.1
 	 */
 	protected function get_date( $date )
-	{
+	{		
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
-
-		return date_i18n( get_option('date_format'), strtotime($date) );
+		
+		// Parse with strtotime if it's:
+		// - not numeric ( like a unixtimestamp )
+		// - date format: yyyymmdd ( format used by ACF ) must start with 19xx or 20xx and is 8 long
+		
+		// @todo: in theory a numeric string of 8 can also be a unixtimestamp. 
+		// we need to replace this with an option to mark a date as unixtimestamp.
+		if ( ! is_numeric($date) || ( is_numeric( $date ) && strlen( trim($date) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) )
+			$date = strtotime($date);
+		
+		return date_i18n( get_option('date_format'), $date );
 	}
 
 	/**
