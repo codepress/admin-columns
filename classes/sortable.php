@@ -1137,7 +1137,7 @@ class Codepress_Sortable_Columns
 	 */
 	function register_filtering_columns()
 	{
-		if ( ! $this->unlocked || apply_filters( 'cpac-remove-filtering-columns', true ) )
+		if ( apply_filters( 'cpac-remove-filtering-columns', true ) )
 			return false;
 
 		// hook into wordpress
@@ -1157,14 +1157,16 @@ class Codepress_Sortable_Columns
 			return false;
 
 		// make a filter foreach taxonomy
-		$taxonomies = get_object_taxonomies($post_type_object->name, 'names');
+		$taxonomies = get_object_taxonomies($post_type_object->name);
 
 		// get stored columns
 		$db_columns = cpac_utility::get_stored_columns($post_type_object->name);
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax ) {
-
+				
+				$tax_obj = get_taxonomy($tax);				
+				
 				// ignore core taxonomies
 				if ( in_array($tax, array('post_tag','category','post_format') ) ) {
 					continue;
@@ -1177,7 +1179,7 @@ class Codepress_Sortable_Columns
 					$terms = $this->indent($terms, 0, 'parent', 'term_id');
 					$terms = $this->apply_dropdown_markup($terms);
 
-					$select = "<option value=''>".__('Show all ', CPAC_TEXTDOMAIN)."{$tax}</option>";
+					$select = "<option value=''>".__('Show all ', CPAC_TEXTDOMAIN)."{$tax_obj->label}</option>";
 					if (!empty($terms)) {
 						foreach( $terms as $term_slug => $term) {
 

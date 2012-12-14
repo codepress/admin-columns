@@ -278,7 +278,7 @@ class Codepress_Admin_Columns
 
 				// and check for stored width and add it to the css
 				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-					$css .= ".cp-{$type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
+					$css .= ".cp-{$type->type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
 		}
