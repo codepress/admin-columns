@@ -503,13 +503,6 @@ class CPAC_Values
 	 * @since     1.3.1
 	 */
 	protected function get_date( $date )
-	{
-		/**
-	 * Get date
-	 *
-	 * @since     1.3.1
-	 */
-	protected function get_date( $date )
 	{		
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
@@ -524,7 +517,6 @@ class CPAC_Values
 			$date = strtotime($date);
 		
 		return date_i18n( get_option('date_format'), $date );
-	}
 	}
 
 	/**
