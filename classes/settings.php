@@ -285,7 +285,7 @@ class Cpac_Settings
 		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
 
 		// get label
-		$clean_label = cpac_utility::sanitize_string($type);
+		$clean_label = cpac_utility::sanitize_string( $type );
 
 		// get first element from post-types
 		$first 		= array_shift( array_values( cpac_utility::get_post_types() ) );
@@ -333,7 +333,7 @@ class Cpac_Settings
 		$licence = new cpac_licence('sortable');
 
 		if ( $licence->is_unlocked() ) {
-			$masked_key 	 = $licence->get_masked_license_key('sortable');
+			$masked_key 	 = $licence->get_masked_license_key();
 			$class_sortorder_activate = ' hidden';
 			$class_sortorder_deactivate = '';
 		}
@@ -517,19 +517,6 @@ class Cpac_Settings
 		// settings url
 		$class_current = $this->is_menu_type_current('plugin_settings') ? ' current': '';
 
-		// options button
-		$options_btn = "<a href='#cpac-box-plugin_settings' class='cpac-settings-link{$class_current}'>".__('Settings / Addons', CPAC_TEXTDOMAIN)."</a>";
-		//$options_btn = '';
-
-		$menu = "
-		<div class='cpac-menu'>
-			<ul class='subsubsub'>
-				{$menu}
-			</ul>
-			{$options_btn}
-		</div>
-		";
-
 		// Help screen message
 		$help_text = '';
 		if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
@@ -542,8 +529,233 @@ class Cpac_Settings
 		<div id="cpac" class="wrap">
 			<?php screen_icon(CPAC_SLUG) ?>
 			<h2><?php _e('Codepress Admin Columns', CPAC_TEXTDOMAIN); ?></h2>
-			<?php echo $menu ?>
+			
+			<div class="cpac-menu">
+				<ul class="subsubsub">
+					<?php echo $menu ?>
+				</ul>
+				<a href="#cpac-box-plugin_settings" class="cpac-settings-link<?php echo $class_current?>"><?php _e('Settings / Addons', CPAC_TEXTDOMAIN) ?></a>
+			</div>
+			
+			<div id="cpac-columns">
+				
+				<div id="cpac-columns-right">
+					
+					<?php foreach ( cpac_utility::get_types() as $type ) : ?>
+					
+					<div class="form-actions" data-type="<?php echo $type->type ?>">						
+						<a href="" class="reset-column-type"><?php _e('Reset', CPAC_TEXTDOMAIN); ?> <?php echo $type->get_label(); ?></a>						
+						<input class="button-primary submit-update" type="submit" form="cpac-submit-<?php echo $type->type; ?>" value="<?php _e('Update') ?>" accesskey="p" >
+					</div>
+					
+					<?php endforeach; ?>
+					
+				</div><!--cpac-columns-right-->
+				
+				<div id="cpac-columns-left">
+				
+				<?php foreach ( cpac_utility::get_types() as $type ) : ?>
+					
+					<div id="cpac-box-<?php echo cpac_utility::sanitize_string($type->type); ?>" class="cpac-boxes<?php echo $this->is_menu_type_current( $type->type ) ? ' current' : ' hidden'; ?>">
+						
+						<h2><?php echo $type->get_label(); ?></h2>
+						
+						<form id="cpac-submit-<?php echo cpac_utility::sanitize_string($type->type); ?>" action="" method="post">
+						
+						<div class="cpac-columns">
+							
+							<?php foreach ( $type->get_column_boxes() as $box ) : ?>
+							
+							<div class="cpac-column<?php $box->state ? 'active' : ''; ?>">
+								<div class="column-meta">
+									<table class="widefat">
+										<tbody>
+											<tr>
+												<td class="column_sort"></td>
+												<td class="column_status"></td>
+												<td class="column_label"><?php echo $box->label; ?></td>
+												<td class="column_type"><?php echo $box->type_label; ?></td>
+												<td class="column_edit">
+													<a href="javascript:;"></a>
+												</td>									
+											</tr>
+										</tbody>
+									</table>
+								</div><!--.column-meta-->
+								
+								<div class="column-form">
+									<table class="widefat">
+										<tbody>
+											<tr class="column_label<?php echo $box->hide_options ? ' hidden' : '' ?>">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-label"><?php _e('Label', CPAC_TEXTDOMAIN);?></label>
+													<p class="description"><?php _e('This is the name which will appear on the EDIT page', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td>
+													<input type="text" name="<?php echo $box->attr_name; ?>[label]" id="<?php echo $box->attr_for; ?>-label" value="<?php echo $box->label ?>" class="text"/>				
+												</td>								
+											</tr>
+											<tr class="column_label">
+												<td class="label">													
+													<label for="<?php echo $box->attr_for; ?>-width"><?php _e("Width", CPAC_TEXTDOMAIN); ?></label>
+													
+												</td>
+												<td>
+													<div class="description width-decription" title="<?php _e('default', CPAC_TEXTDOMAIN); ?>">
+														<?php echo $box->width_descr; ?>
+													</div>
+													<div class="input-width-range"></div>
+													<input type="hidden" maxlength="4" class="input-width" name="<?php echo $box->attr_name; ?>[width]" id="<?php echo $box->attr_for; ?>-width" value="<?php echo $box->width; ?>" />
+												</td>								
+											</tr>											
+										</tbody>									
+									</table>
+								</div><!--.column-form-->
+							</div><!--.cpac-column-->
+							
+							<?php endforeach // get_column_boxes() ?>
+							
+						</div><!--.cpac-columns-->
+						
+						<div class="column-footer">
+						
+							<div class="order-message"><?php _e( 'Drag and drop to reorder', CPAC_TEXTDOMAIN ); ?></div>
+							
+							<?php if ( true || $type->get_meta_keys() ) : ?>
+								<a href="javacript:;" class="add-customfield-column button">+ <?php _e('Add Custom Field Column', CPAC_TEXTDOMAIN);?></a>
+							<?php endif; ?>
+							
+						</div><!--.cpac-column-footer-->
+						
+						</form>						
+						
+					</div><!--.cpac-boxes-->
+					
+					<?php endforeach; // get_types() ?>
+					
+				</div><!--cpac-columns-left-->
+				
+			</div><!--cpac-columns-->
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!--
+						<ul class="cpac-option-list">
+						
+							<?php foreach ( $type->get_column_boxes() as $box ) : ?>
+
+							<li class="<?php echo $box->classes ?>">
+								<div class="cpac-sort-handle"></div>
+								<div class="cpac-type-options">
+									<div class="cpac-checkbox"></div>
+									<input type="hidden" class="cpac-state" name="<?php echo $box->attr_name; ?>[state]" value="<?php echo $box->state; ?>"/>
+									<label class="main-label"><?php echo $box->label; ?></label>
+								</div>
+								<div class="cpac-meta-title">
+									<a class="cpac-action" href="#open">open</a>
+									<span><?php echo $box->type_label; ?></span>
+								</div>
+								<div class="cpac-type-inside">
+									<label for="<?php echo $box->attr_for; ?>-label"<?php echo $box->hide_options ? ' style="display:none"' : '' ?>>Label: </label>
+									<input type="text" name="<?php echo $box->attr_name; ?>[label]" id="<?php echo $box->attr_for; ?>-label" value="<?php echo $box->label ?>" class="text"<?php echo $box->hide_options ? ' style="display:none"' : '' ?>/>
+									<label for="<?php echo $box->attr_for; ?>-width"><?php _e("Width", CPAC_TEXTDOMAIN); ?>:</label>
+									<input type="hidden" maxlength="4" class="input-width" name="<?php echo $box->attr_name; ?>[width]" id="<?php echo $box->attr_for; ?>-width" value="<?php echo $box->width; ?>" />
+									<div class="description width-decription" title="<?php _e('default', CPAC_TEXTDOMAIN); ?>">
+										<?php echo $box->width_descr; ?>
+									</div>
+									<div class="input-width-range"></div>
+									<br/>
+									
+									<?php 
+									// Custom Fields
+									if ( isset( $box->field ) ) : ?>
+
+									<label for="<?php echo $box->attr_for; ?>-field"><?php _e("Custom Field", CPAC_TEXTDOMAIN) ?>: </label>
+									<select name="<?php echo $box->attr_name; ?>[field]" id="<?php echo $box->attr_for; ?>-field">
+
+									<?php foreach ( $box->fields as $field ) : ?>
+										<option value="<?php echo $field ?>"<?php selected( $field, $box->field ) ?>><?php echo substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field; ?></option>
+									<?php endforeach; ?>
+
+									</select>
+									<br/>
+									<label for="<?php echo $box->attr_for; ?>-field_type"><?php _e("Field Type", CPAC_TEXTDOMAIN); ?>: </label>
+									<select name="<?php echo $box->attr_name; ?>[field_type]" id="<?php echo $box->attr_for; ?>-field_type">
+
+									<?php
+									// Custom Field Types
+									foreach ( $type->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
+										<option value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $box->field_type ) ?>><?php echo $fieldtype; ?></option>
+									<?php endforeach; ?>
+
+									</select>
+									<br/>
+									<label for="<?php echo $box->attr_for; ?>-before"><?php _e("Before", CPAC_TEXTDOMAIN); ?>: </label>
+									<input type="text" class="cpac-before" name="<?php echo $box->attr_name; ?>[before]" id="<?php echo $box->attr_for; ?>-before" value="<?php echo $box->before; ?>"/>
+									<br/>
+									<label for="<?php echo $box->attr_for; ?>-after"><?php _e("After", CPAC_TEXTDOMAIN); ?>: </label>
+									<input type="text" class="cpac-after" name="<?php echo $box->attr_name; ?>[after]" id="<?php echo $box->attr_for; ?>-after" value="<?php echo $box->after; ?>"/>
+									<br/>
+									<?php if ( 'column-meta-1' == $box->id ) : ?>
+										<p class="remove-description description"><?php _e('This field can not be removed', CPAC_TEXTDOMAIN); ?></p>
+									<?php else : ?>
+										<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e('Remove');?></a></p>
+									<?php endif; ?>
+
+								<?php
+								// Authorname Types
+								elseif ( 'column-author-name' == $box->id ) : ?>
+									<label for="<?php echo $box->attr_for; ?>-display_as"><?php _e("Display name as", CPAC_TEXTDOMAIN); ?>: </label>
+									<select name="<?php echo $box->attr_name; ?>[display_as]" id="<?php echo $box->attr_for; ?>-display_as">
+									<?php foreach ( $type->get_authorname_types() as $authortype => $authorlabel ) : ?>
+										<option value=""<?php selected( $authortype, $box->display_as )?>><?php echo $authorlabel ?></option>
+									<?php endforeach; ?>
+									</select>
+								<?php endif; ?>
+
+								</div>
+							</li>
+
+							<?php endforeach ?>
+
+						</ul>
+						<?php if ( $type->get_meta_keys() ) : ?>
+							<a href="javacript:;" class="cpac-add-customfield-column button">+ <?php _e('Add Custom Field Column', CPAC_TEXTDOMAIN);?></a>
+						<?php endif; ?>
+			-->
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<div class="postbox-container cpac-col-right">
 				<div class="metabox-holder">
 					<div class="meta-box-sortables">
@@ -641,7 +853,7 @@ class Cpac_Settings
 
 													<?php foreach ( $type->get_column_boxes() as $box ) : ?>
 
-													<li class="<?php echo $box->classes ?>">
+													<li class="">
 														<div class="cpac-sort-handle"></div>
 														<div class="cpac-type-options">
 															<div class="cpac-checkbox"></div>

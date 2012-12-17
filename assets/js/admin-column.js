@@ -294,8 +294,8 @@
 		// loop through all width-range-sliders
 		$('.input-width-range').each( function(){
 			
-			var input 				= $(this).closest('.cpac-type-inside').find('.input-width');
-			var descr 				= $(this).closest('.cpac-type-inside').find('.width-decription');
+			var input 				= $(this).closest('td').find('.input-width');
+			var descr 				= $(this).closest('td').find('.width-decription');
 			var input_default 		= $(input)[0].defaultValue;
 			var translation_default = descr.attr('title');
 			

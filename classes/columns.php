@@ -60,7 +60,6 @@ abstract class cpac_columns
 			$box = new stdClass;
 			
 			$box->state 	 	= isset($values['state']) ? $values['state'] : '';
-			$box->classes 	 	= implode( ' ', array( "cpac-box-{$id}", $values['options']['class'], !empty($values['state']) ? 'active' : ''  ) );
 			$box->id		 	= $id;
 			$box->type_label 	= isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
 			$box->label 	 	= isset($values['label']) ? $values['label'] : ''; // esc_attr
