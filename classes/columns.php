@@ -56,11 +56,12 @@ abstract class cpac_columns
 		$boxes = array();
 
 		foreach ( $display_columns as $id => $values ) {
-
+			
 			$box = new stdClass;
 			
 			$box->state 	 	= isset($values['state']) ? $values['state'] : '';
 			$box->id		 	= $id;
+			$box->sortorder	 	= isset($values['options']['sortorder']) && 'on' == $values['options']['sortorder'] ? true : false;
 			$box->type_label 	= isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
 			$box->label 	 	= isset($values['label']) ? $values['label'] : ''; // esc_attr
 			$box->width		 	= isset($values['width']) ? $values['width'] : 0;
@@ -273,7 +274,7 @@ abstract class cpac_columns
 		if ( ! $fields )
 			return false;
 
-		$meta_fields = array();
+		$combined_fields = array();
 
 		$use_hidden_meta = apply_filters('cpac_use_hidden_custom_fields', false);
 
@@ -282,21 +283,21 @@ abstract class cpac_columns
 
 			// give hidden fields a prefix for identifaction
 			if ( $use_hidden_meta && substr($field[0],0,1) == "_") {
-				$meta_fields[] = 'cpachidden'.$field[0];
+				$combined_fields[] = 'cpachidden'.$field[0];
 			}
 
 			// non hidden fields are saved as is
 			elseif ( substr($field[0],0,1) != "_" ) {
-				$meta_fields[] = $field[0];
+				$combined_fields[] = $field[0];
 			}
 		}
 
-		if ( empty($meta_fields) )
+		if ( empty($combined_fields) )
 			return false;
 
-		return $meta_fields;
+		return $combined_fields;
 	}
-
+	
 	/**
 	 *	Add managed columns by Type
 	 *

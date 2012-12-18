@@ -49,6 +49,11 @@
 .cpac-boxes form {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.cpac-placeholder {	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+	background: rgba(0,0,0,0.075);
+	visibility: visible !important;
+}
 
 /* =Column Meta
 -------------------------------------------------------------- */
@@ -56,16 +61,15 @@
 	border-style: solid;
 	border-color: #dfdfdf;
 	border-width: 1px 1px 0;
-}
-.cpac-column .column-meta table {
-	border: none;
 	background: #fcfcfc;
 }
-.cpac-column:nth-child(2n) .column-meta table {
+.cpac-column:nth-child(2n) .column-meta {
 	background: #f9f9f9;
 }
-.column-meta tr {
-	
+.cpac-column .column-meta table {
+	border: none;	
+	background: transparent;
+	border-radius: 0;
 }
 .column-meta tr td {
 	vertical-align: top;
@@ -76,6 +80,7 @@
 .column-meta .column_sort {
 	width: 10px;
 	background: transparent url(../images/drag.png) no-repeat 8px 8px;
+	cursor: move;
 }
 .column-meta .column_status {
 	width: 20px;
@@ -87,6 +92,11 @@
 	vertical-align: middle;
 	padding-left: 20px;
 }
+.column-meta .column_label .meta-label {
+	font-size: 11px;
+	font-weight: normal;
+	padding-left: 14px;
+}
 .column-meta .column_type {
 	width: auto;
 	text-align: right;
@@ -96,12 +106,39 @@
 .column-meta .column_edit {
 	width: 38px;
 	background: transparent url(../images/arrow.png) no-repeat 23px 18px;
-	border-left: 1px solid #dfdfdf;
+	border-color: #dfdfdf;
+	border-style: solid;
+	border-width:  0 0 0 1px;
+}
+
+/* active state */
+.cpac-column.active .column-meta {
+	border-color: #565656;
+	background: transparent url(../images/bg.png) repeat-x 0 0;
+}
+.cpac-column.active .column-meta table {
+	background: transparent;
+}
+.cpac-column.active .column-meta td,
+.cpac-column.active .column-meta td a{
+	color: #fff;
+	text-shadow: 0 1px 0 #000000;
+}
+.cpac-column.active .column-meta .column_sort {
+	background-position: 8px -38px;	
+}
+.cpac-column.active .column-meta .column_status {	
+	background-position: center -40px;
+}
+.cpac-column.active .column-meta .column_edit {
+	background-position: 23px -26px;
+	border-color: #565656;
 }
 
 /* =Column Form
 -------------------------------------------------------------- */
 .column-form {
+	display: none;
 	border-width: 1px 1px 0;
 	border-style: solid;
 	border-color: #dfdfdf;
@@ -114,9 +151,10 @@
 	vertical-align: top;
 	border: none;
 	padding: 8px;
+	background: #ffffff;
 }
 .column-form tr td.label {
-	background: none repeat scroll 0 0 #F9F9F9;
+	background: #F9F9F9;
     border-right: 1px solid #E1E1E1;
     vertical-align: top;
     width: 24%;
@@ -142,13 +180,15 @@
     margin: 0 !important;
     padding: 6px 0 !important;
 }
+.column-form tr td select,
 .column-form tr td input[type=text] {
-	width: 100%;
+	width: 99.95%; /* excl padding */
 }
 .column-form div.description {
 	font-size: 11px;
 	width: 12%;
 	float: left;
+	text-align: middle;
 }
 .column-form div.input-width-range {
 	float: left;

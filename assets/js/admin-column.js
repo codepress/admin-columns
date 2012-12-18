@@ -1,16 +1,28 @@
 (function($){
-
-	/**
-	 *	fires when the dom is ready
+	
+	/*
+	 *  Exists
+	 *  
+	 *  @since 			1.5
+	 *  @description	returns true or false on a element's existance
+	 */
+	
+	$.fn.exists = function()
+	{
+		return $(this).length>0;
+	};
+	
+	/*
+	 *	Fires when the dom is ready
 	 *
 	 */
 	$(document).ready(function()
 	{	
-		if ($('#cpac').length == 0)
+		if ( ! $('#cpac').exists )
 			return false;
 		
 		cpac_sortable();
-		cpac_checked();
+		cpac_state();
 		cpac_box_events();
 		cpac_menu();
 		cpac_add_custom_column();
@@ -23,44 +35,49 @@
 		cpac_pointer();
 	});
 
-	/**
-	 *	sortable
+	/*
+	 * Sortable
 	 *
+	 * @since 1.5
 	 */
 	function cpac_sortable() 
 	{	
-		$('ul.cpac-option-list').sortable({
-			handle: 		'div.cpac-sort-handle',
-			placeholder: 	'cpac-placeholder',
+		$('.cpac-columns').sortable({
+			handle: 'td.column_sort',
+			placeholder: 'cpac-placeholder',
 			forcePlaceholderSize: true
 		});
 	}
 
-	/**
-	 *	checked
+	/*
+	 * State
 	 *
+	 * @since 1.5
 	 */
-	function cpac_checked() 
-	{	
-		$('#cpac .cpac-option-list li .cpac-type-options').live({
-			click: function() {
-				var li 		= $(this).closest('li');
-				var state	= $('.cpac-state', li);
-				var value 	= state.attr('value');
-				
-				// toggle on
-				if ( value != 'on') {
-					li.addClass('active');
-					state.attr('value', 'on');
-				} 
-				
-				// toggle off
-				else {
-					li.removeClass('active');
-					state.attr('value', '');
-				}			
-			}		
-		});
+	function cpac_state() 
+	{
+		$('.column-meta td').not('.column_edit, .column_sort').click( function(e) {
+		
+			// make sure the TD itself is clicked and not a child element
+			if ( this != e.target )
+				return;
+			
+			var box 	= $(this).closest('.cpac-column');				
+			var state	= $('.cpac-state', box);
+			var value 	= state.attr('value');
+			
+			// toggle on
+			if ( value != 'on') {
+				box.addClass('active');
+				state.attr('value', 'on');
+			} 
+			
+			// toggle off
+			else {
+				box.removeClass('active');
+				state.attr('value', '');
+			}			
+		});		
 	}
 
 	/**
@@ -69,14 +86,22 @@
 	 */
 	function cpac_box_events()
 	{
-		// fold in/out
-		$('#cpac .cpac-option-list .cpac-action').unbind('click').click(function(e){
-			e.preventDefault();
-			var li = $(this).closest('li');
-			li.find('.cpac-type-inside').slideToggle(150, function() {
-				li.toggleClass('opened');
-			});		
+		// fold in/out		
+		$('.column_edit').live('click', function(){			
+			open_form( this );					
 		});
+		
+		$('.column_label a').live('click', function(){			
+			open_form( this );					
+		});		
+		
+		function open_form( e ) {
+			var box = $(e).closest('.cpac-column');
+			
+			$('.column-form', box).slideToggle(150, function() {
+				box.toggleClass('opened');
+			});
+		}
 		
 		// remove custom field box
 		$('#cpac .cpac-delete-custom-field-box').unbind('click').click(function(e){
