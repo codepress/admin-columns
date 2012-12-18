@@ -1,3 +1,8 @@
+/* =General
+-------------------------------------------------------------- */
+#icon-codepress-admin-columns {
+	background: transparent url('../images/icon.png') no-repeat 0 0;
+}
 
 /* =Menu
 -------------------------------------------------------------- */
@@ -87,7 +92,7 @@
 	background: transparent url(../images/status.png) no-repeat center 8px;
 }
 .column-meta .column_label {
-	width: 60%;
+	width: 50%;
 	font-weight: bold;
 	vertical-align: middle;
 	padding-left: 20px;
@@ -224,6 +229,15 @@
 .column-footer .add-customfield-column {
 	float: right;
 }
+.column-footer .add-customfield-column.disabled {
+	color: #BBBBBB;
+	cursor: help;	
+}
+.column-footer .add-customfield-column.disabled:hover ,
+.column-footer .add-customfield-column.disabled:focus {
+	border-color: #BBBBBB;
+	box-shadow: none;
+}
 
 /* =Sidebar
 -------------------------------------------------------------- */
@@ -234,20 +248,25 @@
     border-radius: 0 0 0 0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: relative;
-	padding: 8px;
 }
-#cpac-columns-right .form-actions .submit-update {
-	width: 100%;
-	height: 28px;
-	line-height: 28px;
+#cpac-columns-right .form-actions .form-reset {
+	border-bottom: 1px solid #F5F5F5;
+	padding: 8px;
 }
 #cpac-columns-right .form-actions .reset-column-type {
 	text-decoration: none;
 	color: #BC0B0B;
 	line-height: 25px;
 	display: inline-block;
-	margin-bottom: 5px;
 }
 #cpac-columns-right .form-actions .reset-column-type:hover {
 	color: #FF0000
+}
+#cpac-columns-right .form-actions .form-update {
+	padding: 8px;
+}
+#cpac-columns-right .form-actions .submit-update {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
 }

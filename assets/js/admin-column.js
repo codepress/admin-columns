@@ -21,8 +21,7 @@
 		if ( ! $('#cpac').exists )
 			return false;
 		
-		cpac_sortable();
-		cpac_state();
+		cpac_sortable();		
 		cpac_box_events();
 		cpac_menu();
 		cpac_add_custom_column();
@@ -47,16 +46,54 @@
 			placeholder: 'cpac-placeholder',
 			forcePlaceholderSize: true
 		});
-	}
-
+	}	
+	
 	/*
-	 * State
+	 * Open Form
 	 *
 	 * @since 1.5
 	 */
-	function cpac_state() 
+	function open_form( e ) {
+		var box = $(e).closest('.cpac-column');
+		
+		$('.column-form', box).slideToggle(150, function() {
+			box.toggleClass('opened');
+		});
+	}
+	
+	/*
+	 * Open and close box
+	 *
+	 * @since 1.5
+	 */
+	function cpac_box_events()
 	{
-		$('.column-meta td').not('.column_edit, .column_sort').click( function(e) {
+		// fold in/out		
+		$('.column_edit').unbind('click').click( function(){			
+			open_form( this );					
+		});
+		
+		$('.column_label a').unbind('click').click( function(){
+			open_form( this );					
+		});		
+		
+		// remove custom field box
+		$('#cpac .cpac-delete-custom-field-box').unbind('click').click(function(e){
+			
+			var el = $(this).closest('div.cpac-column');
+			
+			el.addClass('deleting').animate({
+				opacity : 0,
+				height: 0
+			}, 350, function() {
+				el.remove();
+			});
+			
+			e.preventDefault();
+		});		
+		
+		// set state
+		$('.column-meta td').not('.column_edit, .column_sort').unbind('click').click( function(e) {
 		
 			// make sure the TD itself is clicked and not a child element
 			if ( this != e.target )
@@ -78,48 +115,12 @@
 				state.attr('value', '');
 			}			
 		});		
-	}
-
-	/**
-	 *	Open and close box
-	 *
-	 */
-	function cpac_box_events()
-	{
-		// fold in/out		
-		$('.column_edit').live('click', function(){			
-			open_form( this );					
-		});
-		
-		$('.column_label a').live('click', function(){			
-			open_form( this );					
-		});		
-		
-		function open_form( e ) {
-			var box = $(e).closest('.cpac-column');
-			
-			$('.column-form', box).slideToggle(150, function() {
-				box.toggleClass('opened');
-			});
-		}
-		
-		// remove custom field box
-		$('#cpac .cpac-delete-custom-field-box').unbind('click').click(function(e){
-			e.preventDefault();		
-			var el = $(this).closest('li');
-			
-			el.addClass('deleting').animate({
-				opacity : 0,
-				height: 0
-			}, 350, function() {
-				el.remove();
-			});		
-		});
 	} 
 
-	/**
-	 *	Menu
+	/*
+	 * Menu
 	 *
+	 * @since 1.5
 	 */
 	function cpac_menu()
 	{
@@ -129,22 +130,28 @@
 		
 		// click
 		$('#cpac .cpac-menu a').click( function(e, el) {
-			e.preventDefault();
+			
 			var id = $(this).attr('href');
-
+			
 			if ( id ) {
+	
 				// remove current
-				$('#cpac .cpac-menu a').removeClass('current');
-				$('#cpac .cpac-box-row').hide().removeClass('current');
+				$('.cpac-menu a').removeClass('current');
+				$('.cpac-boxes').hide().removeClass('current');
+				$('.form-actions').hide();
+				
 				
 				// set current
 				$(this).addClass('current');
 				$(id).show().addClass('current');
-
-				// set refere
+				$('.form-actions[data-type="' + id.replace('#cpac-box-','') + '"]').show();
+				
+				// set referer
 				var querystring = '&cpac_type=' + id.replace('#','');
 				referer.attr('value', referer_value + querystring );			
 			}
+			
+			e.preventDefault();
 		});
 	}
 
@@ -154,17 +161,17 @@
 	 */
 	function cpac_add_custom_column() 
 	{	
-		$('.cpac-add-customfield-column').click(function(e){
+		$('.add-customfield-column').click(function(e){
 			e.preventDefault();		
 				
-			var list 		= $(this).closest('td').find('ul.cpac-option-list');		
-			var metafields 	= $('li.cpac-box-metafield', list);
+			var list 		= $(this).closest('.cpac-boxes').find('.cpac-columns');		
+			var metafields 	= $('.cpac-box-metafield', list);
 			
 			// get unique ID number...
 			var ids = [];		
-			metafields.each(function(k,v) { 
-				var _class = $(v).attr('class');
-				var classes = _class.split(' ');
+			metafields.each(function(k,v) {	
+				var classes = $(v).attr('class').split(' ');
+				
 				$.each(classes, function(kc,vc){
 					if ( vc.indexOf('cpac-box-column-meta-') === 0 ) {
 						var id = vc.replace('cpac-box-column-meta-','');
@@ -214,13 +221,13 @@
 			clone.find('.remove-description').remove();
 			
 			// change label text
-			clone.find('label.main-label, .cpac-type-inside input.text').text('Custom Field');
-			clone.find('.cpac-type-inside input.text').val('Custom Field');
+			clone.find('td.column_label a, tr.column_label input.text').text('Custom Field');
+			clone.find('tr.column_label input.text').val('Custom Field');
 			
 			// add remove button
 			if ( clone.find('.cpac-delete-custom-field-box').length == 0 ) {
 				var remove = '<p><a href="javascript:;" class="cpac-delete-custom-field-box">Remove</a>';
-				clone.find('.cpac-type-inside').append(remove);
+				clone.find('tr.column_action td.input').append(remove);
 			}
 					
 			// add cloned box to the list
@@ -231,6 +238,9 @@
 			
 			// re-init width range slider
 			cpac_width_range();
+			
+			// open 
+			open_form( clone );
 		});
 	}
 

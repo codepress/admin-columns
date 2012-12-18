@@ -69,6 +69,7 @@ abstract class cpac_columns
 			$box->hide_options  = ! empty($values['options']['hide_options']) || strpos($box->label, '<img') !== false;
 			$box->attr_name		= "cpac_options[columns][{$this->type}][{$id}]";
 			$box->attr_for		= "cpac-{$this->type}-{$id}";
+			$box->classes		= implode( ' ', array_filter( array( "cpac-box-{$id}", 'on' == $box->state ? 'active' : '', isset($values['options']['class']) ? $values['options']['class'] : '' ) ) );
 
 			// Custom Fields
 			if ( cpac_utility::is_column_meta( $box->id ) && $this->get_meta_keys() ) {
