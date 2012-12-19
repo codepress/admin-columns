@@ -3,22 +3,7 @@
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
 }
-
-/* =Menu
--------------------------------------------------------------- */
-#cpac .postbox {
-	margin: 0 10px 10px 0;
-}
-#cpac .cpac-menu {
-	clear: both;
-	overflow: hidden;
-	margin-right: 276px;
-}
-#cpac .cpac-menu .subsubsub {
-	white-space: normal;
-	margin-right: 14px;
-}
-#cpac .cpac-settings-link {
+.cpac-settings-link {
 	float: right;
 	float: right;
 	margin: 12px 14px 5px 0;
@@ -28,8 +13,25 @@
 	display: inline-block;
 	line-height: 16px;
 }
-#cpac .cpac-settings-link.current {
+.cpac-settings-link.current {
 	font-weight: bold;
+}
+a.help {
+	background: transparent url(../images/help.png) no-repeat 0 0;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+/* =Menu
+-------------------------------------------------------------- */
+.cpac-menu {
+	clear: both;
+	overflow: hidden;
+}
+.cpac-menu .subsubsub {
+	white-space: normal;
+	margin-right: 14px;
 }
 
 /* =Structure
@@ -50,6 +52,12 @@
 
 /* =Responsive
 -------------------------------------------------------------- */
+.columns-right-inside.fixed {
+	position: fixed;
+	top: 40px;
+	width: 280px;
+}
+
 @media only screen and (max-width: 850px) {		
 	.columns-container {
 		margin-right: 0;
@@ -57,6 +65,14 @@
 	.columns-right {
 		margin-right: 0;
 		width: 100%;
+	}	
+	.columns-right-inside.fixed {
+		position: relative;
+		top: 0;
+		width: 100%;
+	}
+	.columns-right #addon-state {
+		display: none;
 	}
 }
 
@@ -186,6 +202,7 @@
 	font-weight: bold;
 	color: #333333;
 	display: block;
+	display: inline;
 }
 .column-form tr td.label p {
 	color: #666666;
@@ -217,6 +234,10 @@
 }
 .column-form tr td.input label {
 	padding-right: 10px;
+}
+.column-form a.help {
+	vertical-align: middle;
+	float: right;
 }
 
 /* =Column Footer
@@ -258,7 +279,7 @@
 .columns-right {
 	margin-top: 20px;
 }
-.columns-right .form-actions {
+.sidebox {
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #E1E1E1;
     border-radius: 0 0 0 0;
@@ -266,7 +287,11 @@
     position: relative;
 	margin-bottom: 14px;
 }
-.columns-right .form-actions h3 {
+.sidebox h3 {
+	padding: 10px;
+	margin: 0;
+}
+.sidebox h3.title {
 	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
 	font-size: 15px;
     font-weight: normal;
@@ -286,24 +311,42 @@
 	border-bottom-style: solid;
     border-bottom-width: 1px;
 }
-.columns-right .form-actions .form-reset {
+.sidebox .inside {
+	padding: 10px;
+}
+#form-actions .form-reset {
 	border-bottom: 1px solid #F5F5F5;
 	padding: 8px;
 }
-.columns-right .form-actions .reset-column-type {
+#form-actions .reset-column-type {
 	text-decoration: none;
 	color: #BC0B0B;
 	line-height: 25px;
 	display: inline-block;
 }
-.columns-right .form-actions .reset-column-type:hover {
+#form-actions .reset-column-type:hover {
 	color: #FF0000
 }
-.columns-right .form-actions .form-update {
+#form-actions .form-update {
 	padding: 8px;
 }
-.columns-right .form-actions .submit-update {
+#form-actions .submit-update {
 	width: 100%;
 	height: 28px;
 	line-height: 28px;
+}
+#addon-state {}
+#addon-state .addon {
+	background: transparent url(../images/no.png) no-repeat 0 0;
+	padding-left: 25px;
+	margin-bottom: 4px;
+}
+#addon-state .addon.enabled {
+	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;	
+}
+#addon-state .addon a.activate {
+	float: right;
+}
+#addon-state .addon.enabled a.activate {
+	display: none;
 }

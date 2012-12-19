@@ -32,6 +32,8 @@
 		cpac_export();
 		cpac_import();
 		cpac_pointer();
+		cpac_help();
+		cpac_sidebar_scroll();
 	});
 
 	/*
@@ -146,7 +148,7 @@
 		});
 	}
 
-	/**
+	/*
 	 *	add custom columns 
 	 *
 	 */
@@ -218,7 +220,7 @@
 			
 			// add remove button
 			if ( clone.find('.cpac-delete-custom-field-box').length == 0 ) {
-				var remove = '<p><a href="javascript:;" class="cpac-delete-custom-field-box">Remove</a>';
+				var remove = '<p><a href="javascript:;" class="cpac-delete-custom-field-box button">Remove</a>';
 				clone.find('tr.column_action td.input').append(remove);
 			}
 					
@@ -233,10 +235,13 @@
 			
 			// open 
 			open_form( clone );
+			
+			// focus on clone
+			$('html,body').animate({ scrollTop: clone.offset().top }, 'slow');
 		});
 	}
 
-	/**
+	/*
 	 *	Clear Input Defaults
 	 *
 	 */
@@ -257,7 +262,7 @@
 	}
 
 
-	/**
+	/*
 	 *	Tooltip
 	 *
 	 */
@@ -309,7 +314,7 @@
 		});
 	}
 
-	/**
+	/*
 	 *	Width range
 	 *
 	 */
@@ -348,7 +353,7 @@
 		});
 	}
 
-	/**
+	/*
 	 *	Addon actviate/deactivate
 	 *
 	 */
@@ -458,7 +463,7 @@
 		});
 	}
 
-	/**
+	/*
 	 *	Export Settings
 	 *
 	 */
@@ -539,7 +544,7 @@
 		});
 	}
 
-	/**
+	/*
 	 *	Import Settings
 	 *
 	 */
@@ -610,7 +615,27 @@
 		});
 	}
 	
-	/**
+	/*
+	 * Help
+	 *	 
+	 * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
+	 */
+	function cpac_help()
+	{
+		$('#cpac a.help').click( function(e) {
+			e.preventDefault();
+			
+			var panel = $('#contextual-help-wrap');
+			
+			panel.parent().show();			
+			$('a[href="#tab-panel-cpac-' + $(this).attr('data-help') + '"]', panel).trigger('click');
+			panel.slideDown( 'fast', function() {				
+				panel.focus();				
+			});			
+		});		
+	}
+	
+	/*
 	 * WP Pointer
 	 *
 	 * credits to ACF ( Elliot Condon )
@@ -656,6 +681,35 @@
 			    
 		    });
 		});
+	}
+	
+	
+	/*
+	 * Sidebar Fixed Scroll
+	 *
+	 * @since 1.5
+	 */
+	function cpac_sidebar_scroll()
+	{
+		var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  
+		if (!msie6) {
+			var top = $('.columns-right-inside:visible').offset().top - parseFloat($('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0));
+			
+			$(window).scroll(function (event) {
+				// what the y position of the scroll is
+				var y = $(this).scrollTop() + 40;
+
+				// whether that's below the form
+				if (y >= top) {
+					// if so, ad the fixed class
+					$('.columns-right-inside:visible').addClass('fixed');
+				} else {
+					// otherwise remove it
+					$('.columns-right-inside:visible').removeClass('fixed');
+				}
+			});
+		}  
 	}
 	
 })(jQuery);
