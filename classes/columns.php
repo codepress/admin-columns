@@ -60,8 +60,7 @@ abstract class cpac_columns
 			$box = new stdClass;
 			
 			$box->state 	 	= isset($values['state']) ? $values['state'] : '';
-			$box->id		 	= $id;
-			$box->sortorder	 	= isset($values['options']['sortorder']) && 'on' == $values['options']['sortorder'] ? true : false;
+			$box->id		 	= $id;			
 			$box->type_label 	= isset($values['options']['type_label']) ? $values['options']['type_label'] : '';
 			$box->label 	 	= isset($values['label']) ? $values['label'] : ''; // esc_attr
 			$box->width		 	= isset($values['width']) ? $values['width'] : 0;
@@ -70,6 +69,21 @@ abstract class cpac_columns
 			$box->attr_name		= "cpac_options[columns][{$this->type}][{$id}]";
 			$box->attr_for		= "cpac-{$this->type}-{$id}";
 			$box->classes		= implode( ' ', array_filter( array( "cpac-box-{$id}", 'on' == $box->state ? 'active' : '', isset($values['options']['class']) ? $values['options']['class'] : '' ) ) );
+			$box->sortorder	 	= isset($values['options']['sortorder']) && 'on' == $values['options']['sortorder'] ? true : false;
+			
+			// Set sort
+			$box->sort = false;
+			if ( $box->sortorder ) {
+				if ( isset($values['sort']) ) {
+					if ( 'off' != $values['sort'] ) {
+						$box->sort = true;
+					}
+				}
+				else {
+					$box->sort = true;
+				}
+			}
+			
 
 			// Custom Fields
 			if ( cpac_utility::is_column_meta( $box->id ) && $this->get_meta_keys() ) {

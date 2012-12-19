@@ -16,7 +16,7 @@ function pre_load_wordpress_seo_class_metabox()
 	if (
 		isset($_REQUEST['page']) &&
 		'codepress-admin-columns' == $_REQUEST['page'] &&
-		'options-general.php' == $pagenow &&
+		'admin.php' == $pagenow &&
 		defined('WPSEO_PATH') &&
 		file_exists(WPSEO_PATH.'admin/class-metabox.php')
 		) {

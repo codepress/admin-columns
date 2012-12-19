@@ -101,7 +101,7 @@ class Codepress_Admin_Columns
 		add_action( 'admin_init', array( $this, 'register_columns_values' ) );
 		
 		// add settings link
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);		
 	}
 	
 	/**
@@ -119,7 +119,7 @@ class Codepress_Admin_Columns
 
 		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
 		return $links;
-	}
+	}	
 	
 	/**
 	 *	Register Column Values
@@ -279,13 +279,13 @@ class Codepress_Admin_Columns
 
 
 	/**
-	 * Admin CSS for Column width
+	 * Admin CSS for Column width and Settings Icon
 	 *
 	 * @since     1.4
 	 */
 	function admin_css()
 	{
-		$css = '';
+		$css_column_width = '';
 
 		// loop throug the available types...
 		foreach ( cpac_utility::get_types() as $type ) {
@@ -298,12 +298,22 @@ class Codepress_Admin_Columns
 
 				// and check for stored width and add it to the css
 				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-					$css .= ".cp-{$type->type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
+					$css_column_width .= ".cp-{$type->type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
 		}
 
-		echo "<style type='text/css'>{$css}</style>";
+		echo 
+		"<style type='text/css'>
+			{$css_column_width}	
+			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
+				background: transparent url(" . CPAC_URL . "/assets/images/icon_20.png) no-repeat 6px -24px;
+			}
+			#adminmenu #toplevel_page_codepress-admin-columns:hover .wp-menu-image,
+			#adminmenu #toplevel_page_codepress-admin-columns.wp-menu-open .wp-menu-image {
+				background-position: 6px 6px;
+			}
+		</style>";
 	}
 }
 

@@ -4,7 +4,7 @@ class cpac_columns_posttype extends cpac_columns
 {
 	function __construct( $post_type )
 	{
-		$this->type = $post_type;
+		$this->type = $post_type;	
 	}
 
 	/**

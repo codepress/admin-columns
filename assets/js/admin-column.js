@@ -123,32 +123,23 @@
 	 * @since 1.5
 	 */
 	function cpac_menu()
-	{
-		// referer
-		var referer 		= $("input[type='hidden'][name='_wp_http_referer']");
-		var referer_value 	= referer.attr('value');
-		
+	{		
 		// click
 		$('#cpac .cpac-menu a').click( function(e, el) {
 			
 			var id = $(this).attr('href');
 			
 			if ( id ) {
-	
+				
+				var type = id.replace('#cpac-box-','');
+								
 				// remove current
 				$('.cpac-menu a').removeClass('current');
-				$('.cpac-boxes').hide().removeClass('current');
-				$('.form-actions').hide();
-				
+				$('.columns-container').hide();		
 				
 				// set current
 				$(this).addClass('current');
-				$(id).show().addClass('current');
-				$('.form-actions[data-type="' + id.replace('#cpac-box-','') + '"]').show();
-				
-				// set referer
-				var querystring = '&cpac_type=' + id.replace('#','');
-				referer.attr('value', referer_value + querystring );			
+				$('.columns-container[data-type="' + type + '"]').show();		
 			}
 			
 			e.preventDefault();
@@ -204,15 +195,16 @@
 			
 			// Replace inputs ID's 
 			var inputs = $(clone).find('input, select');		
-			$(inputs).each(function(ik, iv){	
-				$(iv).attr('name', $(iv).attr('name').replace(id, new_id) );
+			$(inputs).each(function(ik, iv){
+				$(iv).attr('name', $(iv).attr('name').replace(id, new_id) );		
+				$(iv).attr('id', $(iv).attr('id').replace(id, new_id) );
 			});
 			
 			// Replace label ID's
-			var labels = $(clone).find('label');
+			var labels = $(clone).find('label');			
 			$(labels).each(function(ik, iv){	
-				var attr_for = $(iv).attr('for');
-				if ( attr_for ) {
+				var attr_for = $(iv).attr('for');		
+				if ( attr_for ) {					
 					$(iv).attr('for', attr_for.replace(id, new_id) );
 				}
 			});		

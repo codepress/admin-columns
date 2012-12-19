@@ -34,19 +34,30 @@
 
 /* =Structure
 -------------------------------------------------------------- */
-#cpac-columns {
+.columns-container {
 	margin-right: 300px;
+	max-width: 900px;
 }
-#cpac-columns-left {
+.columns-left {
 	float: left;
 	width: 100%;
-/* 	max-width: 700px;
-	margin-right: 20px; */
 }
-#cpac-columns-right {
+.columns-right {
 	float: right;
     margin-right: -300px;
     width: 280px;
+}
+
+/* =Responsive
+-------------------------------------------------------------- */
+@media only screen and (max-width: 850px) {		
+	.columns-container {
+		margin-right: 0;
+	}
+	.columns-right {
+		margin-right: 0;
+		width: 100%;
+	}
 }
 
 /* =Columns
@@ -119,7 +130,7 @@
 /* active state */
 .cpac-column.active .column-meta {
 	border-color: #565656;
-	background: transparent url(../images/bg.png) repeat-x 0 0;
+	background: #6e6e6e url(../images/bg.png) repeat-x 0 0;
 }
 .cpac-column.active .column-meta table {
 	background: transparent;
@@ -204,6 +215,9 @@
 .column-form div.input-width-range .ui-slider-handle {
 	cursor:e-resize;
 }
+.column-form tr td.input label {
+	padding-right: 10px;
+}
 
 /* =Column Footer
 -------------------------------------------------------------- */
@@ -241,31 +255,54 @@
 
 /* =Sidebar
 -------------------------------------------------------------- */
-#cpac-columns-right {}
-#cpac-columns-right .form-actions {
+.columns-right {
+	margin-top: 20px;
+}
+.columns-right .form-actions {
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #E1E1E1;
     border-radius: 0 0 0 0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: relative;
+	margin-bottom: 14px;
 }
-#cpac-columns-right .form-actions .form-reset {
+.columns-right .form-actions h3 {
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font-size: 15px;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0;
+    padding: 7px 10px;
+	background: #f1f1f1;
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#ececec), to(#f9f9f9));
+	background-image: -webkit-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image:    -moz-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image:      -o-linear-gradient(bottom, #ececec, #f9f9f9);
+	background-image: linear-gradient(to top, #ececec, #f9f9f9);
+	border-bottom-color: #dfdfdf;
+	text-shadow: #fff 0 1px 0;
+	-webkit-box-shadow: 0 1px 0 #fff;
+	box-shadow: 0 1px 0 #fff;
+	border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.columns-right .form-actions .form-reset {
 	border-bottom: 1px solid #F5F5F5;
 	padding: 8px;
 }
-#cpac-columns-right .form-actions .reset-column-type {
+.columns-right .form-actions .reset-column-type {
 	text-decoration: none;
 	color: #BC0B0B;
 	line-height: 25px;
 	display: inline-block;
 }
-#cpac-columns-right .form-actions .reset-column-type:hover {
+.columns-right .form-actions .reset-column-type:hover {
 	color: #FF0000
 }
-#cpac-columns-right .form-actions .form-update {
+.columns-right .form-actions .form-update {
 	padding: 8px;
 }
-#cpac-columns-right .form-actions .submit-update {
+.columns-right .form-actions .submit-update {
 	width: 100%;
 	height: 28px;
 	line-height: 28px;
