@@ -375,3 +375,50 @@ a.help {
 #addon-state .addon.enabled a.activate {
 	display: none;
 }
+
+/* =Settings Page
+-------------------------------------------------------------- */
+
+/* =Import / Export
+-------------------------------------------------------------- */
+div.cpac_export {
+	width: 20%;
+	float: left;
+}
+#cpac_export_output {
+	width: 80%;
+	float: left;	
+	display: none;
+}
+#cpac_export_output textarea {
+	width: 100%;
+	height: 80%;	
+}
+#cpac_export_submit {
+	display: inline-block;
+	margin: 10px 0;
+}
+#cpac_import_input {}
+#cpac_import_input textarea {
+	width: 100%;
+	height: 80%;	
+}
+#cpac_import_submit {
+	display: inline-block;
+	margin: 10px 0;
+}
+.export-message,
+.import-message {
+	background-color: #FFFFE0;
+    border: 1px solid #E6DB55;
+	padding: 4px 6px;
+	border-radius: 3px;
+	display: none;
+}
+
+/* =WP Pointer
+-------------------------------------------------------------- */
+.wp-pointer-content ol {
+    margin-left: 1.5em;
+    padding: 0 15px;
+}

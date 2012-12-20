@@ -54,6 +54,9 @@ class Cpac_Settings
 			'cpac-settings',
 			array( $this, 'general_settings' )
 		);
+		
+		add_action( "admin_print_styles-{$this->settings_page}", array( $this, 'admin_styles') );
+		add_action( "admin_print_scripts-{$this->settings_page}", array( $this, 'admin_scripts') );
 	}
 
 	/**
@@ -436,9 +439,9 @@ class Cpac_Settings
 		}
 		
 		// Licenses
-		$licences = array();
-		$licences['sortable'] 		= new cpac_licence('sortable');
-		$licences['customfields'] 	= new cpac_licence('sortable');
+		$licenses = array();
+		$licenses['sortable'] 		= new cpac_licence('sortable');
+		$licenses['customfields'] 	= new cpac_licence('sortable');
 
 	?>
 		<div id="cpac" class="wrap">
@@ -486,11 +489,11 @@ class Cpac_Settings
 						<div class="sidebox" id="addon-state">						
 							<h3><?php _e( 'Addons', CPAC_TEXTDOMAIN ) ?></h3>
 							<div class="inside">
-								<div class="addon <?php echo $licences['sortable']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
+								<div class="addon <?php echo $licenses['sortable']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
 									<?php _e( 'Sortable Columns', CPAC_TEXTDOMAIN ); ?>
 									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="activate"><?php _e( 'activate', CPAC_TEXTDOMAIN ); ?></a>
 								</div>
-								<div class="addon <?php echo $licences['customfields']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
+								<div class="addon <?php echo $licenses['customfields']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
 									<?php _e( 'Multiple Custom Fields', CPAC_TEXTDOMAIN ); ?>
 									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="activate"><?php _e( 'activate', CPAC_TEXTDOMAIN ); ?></a>
 								</div>
@@ -558,7 +561,7 @@ class Cpac_Settings
 												</td>								
 											</tr>
 											
-											<?php if ( $box->sortorder && $licences['sortable']->is_unlocked() ) : ?>
+											<?php if ( $box->sortorder && $licenses['sortable']->is_unlocked() ) : ?>
 											<tr class="column_sorting">
 												<td class="label">													
 													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN); ?></label>
@@ -671,192 +674,187 @@ class Cpac_Settings
 		$urls = array(
 			'codepress'	=> 'http://www.codepress.nl/plugins/codepress-admin-columns',
 			'plugins'	=> 'http://wordpress.org/extend/plugins/codepress-admin-columns',
-			'wordpress'	=> 'http://wordpress.org/tags/codepress-admin-columns'
+			'wordpress'	=> 'http://wordpress.org/tags/codepress-admin-columns',
+			'addons'	=> 'http://www.admincolumns.com/addons/'
 		);	
 		
-		$class_current_settings = $this->is_menu_type_current('plugin_settings') ? ' current' : ' hidden';
-
-		/** Sortable */
-		$masked_key 				= '';
-		$class_sortorder_activate 	= '';
-		$class_sortorder_deactivate = ' hidden';
-
-		// is unlocked
-		$licence = new cpac_licence('sortable');
-
-		if ( $licence->is_unlocked() ) {
-			$masked_key 	 = $licence->get_masked_license_key();
-			$class_sortorder_activate = ' hidden';
-			$class_sortorder_deactivate = '';
-		}
-
-		// find out more
-		$find_out_more = "<a href='{$urls['codepress']}/sortorder-addon/' class='button-primary alignright' target='_blank'>".__('find out more', CPAC_TEXTDOMAIN)." &raquo</a>";
-		
-		// Help screen message
-		$help_text = '';
-		if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
-			$help_text = '<p>'.__('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN).'</p>';
-
-		// find out more
-		$find_out_more = "<a href='{$urls['codepress']}/sortorder-addon/' class='alignright green' target='_blank'>".__('find out more', CPAC_TEXTDOMAIN)." &raquo</a>";
-		
-		// addons
-		$addons = "
-			<tr>
-				<td colspan='2'>
-					<h2>".__('Activate Add-ons', CPAC_TEXTDOMAIN)."</h2>
-					<p>".__('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites', CPAC_TEXTDOMAIN)." <a target='_blank' href='{$urls['codepress']}/sortorder-addon/'>Visit the Plugin Store</a>.</p>
-					<table class='widefat addons'>
-						<thead>
-							<tr>
-								<th class='activation_type'>".__('Addon', CPAC_TEXTDOMAIN)."</th>
-								<th class='activation_status'>".__('Status', CPAC_TEXTDOMAIN)."</th>
-								<th class='activation_code'>".__('Activation Code', CPAC_TEXTDOMAIN)."</th>
-								<th class='activation_more'></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr id='cpac-activation-sortable' class='last'>
-								<td class='activation_type'>
-									<span>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</span>
-									<div class='cpac-tooltip hidden'>
-										<div class='qtip_title'>" . __('Sortorder', CPAC_TEXTDOMAIN) . "</div>
-										<div class='qtip_content'>
-											<p>".__('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN).".</p>
-											<p>".__('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN)."</p>
-											<p>".__('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN).".</p>
-											<p class='description'>".__('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN).".</p>
-											<img src='" . CPAC_URL.'/assets/images/addon_sortable_1.png' . "' alt='' />
-											{$find_out_more}
-										</div>
-									</div>
-								</td>
-								<td class='activation_status'>
-									<div class='activate{$class_sortorder_activate}'>
-										" . __('Inactive', CPAC_TEXTDOMAIN) . "
-									</div>
-									<div class='deactivate{$class_sortorder_deactivate}'>
-										" . __('Active', CPAC_TEXTDOMAIN) . "
-									</div>
-								</td>
-								<td class='activation_code'>
-									<div class='activate{$class_sortorder_activate}'>
-										<input type='text' value='" . __('Fill in your activation code', CPAC_TEXTDOMAIN) . "' name='cpac-sortable-key'>
-										<a href='javascript:;' class='button'>" . __('Activate', CPAC_TEXTDOMAIN) . "<span></span></a>
-									</div>
-									<div class='deactivate{$class_sortorder_deactivate}'>
-										<span class='masked_key'>{$masked_key}</span>
-										<a href='javascript:;' class='button'>" . __('Deactivate', CPAC_TEXTDOMAIN) . "<span></span></a>
-									</div>
-									<div class='activation-error-msg'></div>
-								</td>
-								<td class='activation_more'>{$find_out_more}</td>
-							</tr><!-- #cpac-activation-sortable -->
-						</tbody>
-					</table>
-					<div class='addon-translation-string hidden'>
-						<span class='tstring-fill-in'>" . __('Enter your activation code', CPAC_TEXTDOMAIN) . "</span>
-						<span class='tstring-unrecognised'>" . __('Activation code unrecognised', CPAC_TEXTDOMAIN) . "</span>
-					</div>
-				</td>
-			</tr>
-		";
+		/** Addon Licenses */
+		$licenses = array(
+			'sortable'	=> new cpac_licence('sortable')
+		);
 
 		// import / export
 		$export_selections = array();
 		foreach ( cpac_utility::get_types() as $type ) {
 			$export_selections[] = "<option value='{$type->type}'>" . $type->get_label() . "</option>";
 		}
-
-		$export_import = "
-			<tr>
-				<td class='first-col'>
-					<h2>" . __('Export Settings.', CPAC_TEXTDOMAIN ) . "</h2>
-					<p>" . __('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ) . ":</p>
-					<p><a href='#' class='cpac-pointer' rel='cpac-import-instructions-html'>" . __('Instructions', CPAC_TEXTDOMAIN ) . "</a></p>
-					<div id='cpac-import-instructions-html' style='display:none;'>
-						<h3>" . __('Import Columns Types', CPAC_TEXTDOMAIN ) . "</h3>
-						<p>" . __('Instructions', CPAC_TEXTDOMAIN ) . ":</p>
-						<ol>
-							<li>" . __('Select one or more types.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Click Export.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ) . "</li>
-							<li>" . __('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ) . "</li>
-						</ol>
-					</div>
-				</td>
-				<td>
-					<div class='cpac_export'>
-						<select size='" . count($export_selections) . "' multiple='multiple' class='select' id='cpac_export_types'>
-							" . implode( $export_selections ) . "
-						</select>
-						<br/>
-						<a id='cpac_export_submit' class='button' href='javascript:;'>" . __('Export', CPAC_TEXTDOMAIN ) . "<span></span></a>
-						<div class='export-message'></div>
-					</div>
-					<div id='cpac_export_output'>
-						<textarea rows='" . count($export_selections) . "'></textarea>
-						<p class='description'>" . __('Copy the following code to your clipboard. Then you can use this code for importing.', CPAC_TEXTDOMAIN ) . "</p>
-					</div>
-				</td>
-			</tr>
-			<tr class='last'>
-				<td class='first-col'>
-					<h2>" . __('Import settings', CPAC_TEXTDOMAIN ) . "</h2>
-					<p>" . __('Copy and paste your import settings here.', CPAC_TEXTDOMAIN ) . "</p>
-				</td>
-				<td>
-					<div id='cpac_import_input'>
-						<textarea rows='10'></textarea>
-						<a id='cpac_import_submit' class='button' href='javascript:;'>" . __('Import', CPAC_TEXTDOMAIN ) . "<span></span></a>
-						<div class='import-message'></div>
-					</div>
-				</td>
-			</tr>
-		";
-
-		// general options
-		$general_options = "
-			<!--
-			<tr class='last'>
-				<td colspan='2'>
-					<h2>Options</h2>
-					<ul class='cpac-options'>
-						<li>
-							<div class='cpac-option-label'>Thumbnail size</div>
-							<div class='cpac-option-inputs'>
-								<input type='text' id='thumbnail_size_w' class='small-text' name='cpac_options[settings][thumb_width]' value='80'/>
-								<label for='thumbnail_size_w'>Width</label>
-								<br/>
-								<input type='text' id='thumbnail_size_h' class='small-text' name='cpac_options[settings][thumb_height]' value='80'/>
-								<label for='thumbnail_size_h'>Height</label>
-							</div>
-						</li>
-						<li>
-							<div class='cpac-option-label'>Excerpt length</div>
-							<div class='cpac-option-inputs'>
-
-								<input type='text' id='excerpt_length' class='small-text' name='cpac_options[settings][excerpt_length]' value='15'/>
-								<label for='excerpt_length'>Number of words</label>
-							</div>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			-->
-		";
 	?>
 	<div id="cpac-settings" class="wrap">
 		
 		<?php screen_icon(CPAC_SLUG) ?>
 		<h2><?php _e('Admin Columns Settings', CPAC_TEXTDOMAIN); ?></h2>
 		
+		<table class="form-table cpac-form-table">
+			<tbody>
+				<tr>
+					<th scope="row">
+						<h3><?php _e('Activate Add-ons.', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="http://www.admincolumns.com/addons/" target="_blank"><?php _e('Find Add-ons', CPAC_TEXTDOMAIN ); ?></a></p>
+					</th>
+					<td>
+						<table class="widefat addons">
+							<thead>
+								<tr>
+									<th class="activation_type"><?php _e('Addon', CPAC_TEXTDOMAIN); ?></th>
+									<th class="activation_status"><?php _e('Status', CPAC_TEXTDOMAIN); ?></th>
+									<th class="activation_code"><?php _e('Activation Code', CPAC_TEXTDOMAIN); ?></th>
+									<th class="activation_more"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="cpac-activation-sortable" class="last">
+									<td class="activation_type">
+										<span><?php _e('Sortorder', CPAC_TEXTDOMAIN); ?></span>
+										<div class="cpac-tooltip hidden">
+											<div class="qtip_title"><?php _e('Sortorder', CPAC_TEXTDOMAIN); ?></div>
+											<div class="qtip_content">
+												<p><?php _e('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN); ?></p>
+												<p><?php _e('By default WordPress let\"s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN); ?></p>
+												<p><?php _e('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN); ?></p>
+												<p class="description"><?php _e('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN); ?></p>
+												<img src="<?php echo CPAC_URL; ?>/assets/images/addon_sortable_1.png" alt="" />
+												<a href="<?php echo $urls['codepress']; ?>/sortorder-addon/" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
+											</div>
+										</div>
+									</td>
+									<td class="activation_status">
+										<div class="activate<?php echo $licenses['sortable']->is_unlocked() ? ' hidden' : ''; ?>">
+											<?php _e('Inactive', CPAC_TEXTDOMAIN); ?>
+										</div>
+										<div class="deactivate<?php echo $licenses['sortable']->is_unlocked() ? '' : ' hidden'; ?>">
+											<?php _e('Active', CPAC_TEXTDOMAIN); ?>
+									</td>
+									<td class="activation_code">
+										<div class="activate <?php echo $licenses['sortable']->is_unlocked() ? '' : ' hidden'; ?>">
+											<input type="text" value="<?php _e('Fill in your activation code', CPAC_TEXTDOMAIN) ?>" name="cpac-sortable-key">
+											<a href="javascript:;" class="button"><?php _e('Activate', CPAC_TEXTDOMAIN); ?><span></span></a>
+										</div>
+										<div class="deactivate<?php echo $licenses['sortable']->is_unlocked() ? ' hidden' : ''; ?>">
+											<span class="masked_key"><?php echo $licenses['sortable']->get_masked_license_key(); ?></span>
+											<a href="javascript:;" class="button"><?php _e('Deactivate', CPAC_TEXTDOMAIN); ?><span></span></a>
+										</div>
+										<div class="activation-error-msg"></div>
+									</td>
+									<td class="activation_more">
+										<a href="<?php echo $urls['codepress']; ?>/sortorder-addon/" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
+									</td>
+								</tr><!-- #cpac-activation-sortable -->
+							</tbody>
+						</table>
+						<div class="addon-translation-string hidden">
+							<span class="tstring-fill-in"><?php _e('Enter your activation code', CPAC_TEXTDOMAIN); ?></span>
+							<span class="tstring-unrecognised"><?php _e('Activation code unrecognised', CPAC_TEXTDOMAIN); ?></span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<h3><?php _e('General options', CPAC_TEXTDOMAIN ); ?></h3>
+					</th>
+					<td>
+						<ul class="cpac-options">
+							<li>
+								<div class="cpac-option-label">Thumbnail size</div>
+								<div class="cpac-option-inputs">
+									<input type="text" id="thumbnail_size_w" class="small-text" name="cpac_options[settings][thumb_width]" value="80"/>
+									<label for="thumbnail_size_w">Width</label>
+									<br/>
+									<input type="text" id="thumbnail_size_h" class="small-text" name="cpac_options[settings][thumb_height]" value="80"/>
+									<label for="thumbnail_size_h">Height</label>
+								</div>
+							</li>
+							<li>
+								<div class="cpac-option-label">Excerpt length</div>
+								<div class="cpac-option-inputs">
+
+									<input type="text" id="excerpt_length" class="small-text" name="cpac_options[settings][excerpt_length]" value="15"/>
+									<label for="excerpt_length">Number of words</label>
+								</div>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<h3><?php _e('Export Settings.', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e('Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<div id="cpac-import-instructions-html" style="display:none;">
+							<h3><?php _e('Export Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
+							<p><?php _e('Instructions', CPAC_TEXTDOMAIN ); ?></p>
+							<ol>
+								<li><?php _e('Select one or more types.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e('Click Export.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
+							</ol>
+						</div>
+					</th>
+					<td>
+						<div class="cpac_export">
+							<select size="<?php echo count($export_selections); ?>" multiple="multiple" class="select" id="cpac_export_types">
+								<?php echo implode( $export_selections ); ?>
+							</select>
+							<br/>
+							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e('Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
+							<div class="export-message"></div>
+						</div>
+						<div id="cpac_export_output">
+							<textarea rows="<?php echo count($export_selections); ?>"></textarea>
+							<p class="description"><?php _e('Copy the following code to your clipboard. Then use this code for importing.', CPAC_TEXTDOMAIN ); ?></p>
+						</div>
+					</td>
+				</tr>				
+				<tr>
+					<th scope="row">
+						<h3><?php _e('Import settings', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e('Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
+					</th>
+					<td>
+						<div id="cpac_import_input">
+							<textarea rows="10"></textarea>
+							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e('Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
+							<div class='import-message'></div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<h3 class="hndle">
 			<span><?php _e('Need support?', CPAC_TEXTDOMAIN) ?></span>
 		</h3>
-		<div class="inside">
-			<?php echo $help_text ?>
+		<div class="inside">			
+			<?php if ( version_compare( get_bloginfo('version'), '3.2', '>' ) ) : ?>
+			<p><?php _e('You will find a short overview at the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN); ?></p>
+			<?php endif; ?>			
 			<p><?php printf(__('If you are having problems with this plugin, please talk about them in the <a href="%s">Support forums</a> or send me an email %s.', CPAC_TEXTDOMAIN), $urls['wordpress'], '<a href="mailto:info@codepress.nl">info@codepress.nl</a>' );?></p>
 			<p><?php printf(__("If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>.", CPAC_TEXTDOMAIN), "{$urls['codepress']}/feedback");?></p>
 		</div>
@@ -868,20 +866,7 @@ class Cpac_Settings
 			<p><?php _e('By default WordPress let\'s you only sort by title, date, comments and author.', CPAC_TEXTDOMAIN) ?></p>
 			<p><?php _e('Make <strong>all columns</strong> of <strong>all types</strong> within the plugin support sorting &#8212; with the sorting addon.', CPAC_TEXTDOMAIN) ?></p>
 			<p class="description"><?php _e('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN) ?>.</p>
-			<?php echo $find_out_more ?>
-		</div>
-		
-		<ul>
-			<li class="twitter"><a href="http://twitter.com/codepressNL"><?php _e('Follow Codepress on Twitter.', CPAC_TEXTDOMAIN) ?></a></li>
-			<li class="facebook"><a href="https://www.facebook.com/codepressNL"><?php _e('Like Codepress on Facebook.', CPAC_TEXTDOMAIN) ?></a></li>
-
-		</ul>
-		
-		<table class="nopadding">
-			<?php echo $addons ?>
-			<?php echo $export_import ?>
-			<?php echo $general_options ?>
-		</table>
+		</div>		
 		
 		<form method="post" action="">
 			<?php wp_nonce_field( 'restore','_cpac_restore_nonce'); ?>

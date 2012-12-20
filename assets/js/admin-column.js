@@ -693,7 +693,7 @@
 	{
 		var msie6 = $.browser == 'msie' && $.browser.version < 7;
   
-		if (!msie6) {
+		if (!msie6 && $('.columns-right-inside').length != 0 ) {
 			var top = $('.columns-right-inside:visible').offset().top - parseFloat($('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0));
 			
 			$(window).scroll(function (event) {
