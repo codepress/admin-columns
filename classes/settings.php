@@ -221,7 +221,7 @@ class Cpac_Settings
 			$options['columns'][$type] = stripslashes_deep( $_POST['cpac_options']['columns'][$type] );	
 			
 			// place active columns on top
-			$options = $this->reorder_by_state( $options );
+			$options['columns'][$type] = $this->reorder_by_state( $options['columns'][$type] );
 			
 			// save settings
 			update_option( 'cpac_options', $options );
@@ -279,27 +279,22 @@ class Cpac_Settings
 	 * @since 1.5
 	 */
 	public function reorder_by_state( $options )
-	{		
-		if ( empty( $options['columns'] ) )
-			return $options;
-		
-		// reorder by state
-		foreach ( $options['columns'] as $type => $boxes ) {
-		
-			$active = $inactive = array();
+	{	
+		if ( empty($options) )
+			return array();
 			
-			foreach ( $boxes as $label => $box ) {
-				if ( 'on' == $box['state'] ) {
-					$active['columns'][$type][$label] = $box;
-				}				
-				else {
-					$inactive['columns'][$type][$label] = $box;
-				}
-			}			
-			$options['columns'][$type] = array_merge( $active['columns'][$type], $inactive['columns'][$type]);
-		}
+		$active = $inactive = array();
 		
-		return $options;
+		foreach ( $options as $label => $box ) {
+			if ( 'on' == $box['state'] ) {
+				$active[$label] = $box;
+			}				
+			else {
+				$inactive[$label] = $box;
+			}
+		}			
+		
+		return array_merge( $active, $inactive);
 	}
 	
 	/**
@@ -507,7 +502,7 @@ class Cpac_Settings
 				<div class="columns-left">
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
-							
+				
 							<?php foreach ( $type->get_column_boxes() as $box ) : ?>
 									
 							<div class="cpac-column <?php echo $box->classes; ?>">
