@@ -492,7 +492,7 @@ class Cpac_Settings
 							<h3><?php _e( 'Addons', CPAC_TEXTDOMAIN ) ?></h3>
 							<div class="inside">
 								<div class="addon <?php echo $licences['sortable']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
-									<?php _e( 'Sorting', CPAC_TEXTDOMAIN ); ?>
+									<?php _e( 'Sortable Columns', CPAC_TEXTDOMAIN ); ?>
 									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="activate"><?php _e( 'activate', CPAC_TEXTDOMAIN ); ?></a>
 								</div>
 								<div class="addon <?php echo $licences['customfields']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
@@ -525,7 +525,7 @@ class Cpac_Settings
 													</a>
 													<span class="meta-label">
 													<?php if ( $box->sort || in_array( $box->id, array( 'title', 'date' ) ) ) : ?>
-														<span class="sorting enable">sorting</span>
+														<span class="sorting enable"><?php _e('sorting',  CPAC_TEXTDOMAIN )?></span>
 													<?php endif ?>
 													</span>
 												</td>
