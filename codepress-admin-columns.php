@@ -287,9 +287,7 @@ class Codepress_Admin_Columns
 	protected function add_columns_headings( $type, $columns )
 	{
 		// only get stored columns.. the rest we don't need
-		$db_columns	= self::get_stored_columns($type);
-
-		if ( !$db_columns )
+		if ( ! $db_columns	= self::get_stored_columns($type) || ! $columns )
 			return $columns;
 
 		// filter already loaded columns by plugins
@@ -322,13 +320,14 @@ class Codepress_Admin_Columns
 	 */
 	private function filter_preset_columns( $type, $columns )
 	{
-		$options 	= get_option('cpac_options_default');
+		$options = get_option('cpac_options_default');
 
-		if ( !$options )
+		if ( empty( $options ) || empty( $columns ) )
 			return $columns;
 
 		// we use the wp default columns for filtering...
-		$stored_wp_default_columns 	= $options[$type];
+		if ( ! $stored_wp_default_columns = $options[$type] )
+			return $columns;
 
 		// ... the ones that are set by plugins, theme functions and such.
 		$dif_columns 	= array_diff(array_keys($columns), array_keys($stored_wp_default_columns));
