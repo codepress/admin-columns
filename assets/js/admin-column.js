@@ -34,6 +34,7 @@
 		cpac_pointer();
 		cpac_help();
 		cpac_sidebar_scroll();
+		cpac_change_label();
 	});
 
 	/*
@@ -227,10 +228,9 @@
 			// add cloned box to the list
 			list.append(clone);
 			
-			// retrigger click events
+			// retrigger events
 			cpac_box_events();
-			
-			// re-init width range slider
+			cpac_change_label();
 			cpac_width_range();
 			
 			// open 
@@ -359,7 +359,7 @@
 	 */
 	function cpac_addon_activation() 
 	{	
-		$('#cpac-box-plugin_settings .addons .activation_code a.button').click(function(e) {
+		$('.addons .activation_code a.button').click(function(e) {
 			e.preventDefault();		
 			
 			// get input values		
@@ -710,6 +710,32 @@
 				}
 			});
 		}  
+	}
+	
+	/*
+	 * Change Label
+	 *
+	 * @since 1.5
+	 */
+	function cpac_change_label()
+	{
+		var fields = jQuery('.column_label .input input');
+		
+		// on change
+		fields.keyup(function() {
+			updatePreview( $(this) );
+		});
+		fields.change(function() {
+			updatePreview( $(this) );
+		});
+		
+		// set preview
+		function updatePreview( el ) {
+			var value = $(el).val();
+			var label = $(el).closest('.cpac-column').find('td.column_label > a');
+			
+			label.text( value );			
+		};
 	}
 	
 })(jQuery);

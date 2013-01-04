@@ -24,6 +24,18 @@ a.help {
 #cpac a:focus, #cpac a:active {
 	outline: none;
 }
+.button.loading {
+	padding-right: 25px;
+}
+.button.loading span {
+	position: absolute;
+	top: 2px;
+	right: 6px;
+	background: transparent url('../images/loading.gif') no-repeat right 50%;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
 
 /* =Menu
 -------------------------------------------------------------- */
@@ -378,6 +390,26 @@ a.help {
 
 /* =Settings Page
 -------------------------------------------------------------- */
+table.cpac-form-table {
+	max-width: 1100px;
+}
+th.activation_type {
+	width: 20%;
+}
+th.activation_status {
+	width: 10%;
+}
+th.activation_code {
+	width: auto;
+}
+th.activation_more {
+	width: 100px;
+}
+td.activation_code input[type="text"] {
+	width: 240px;
+	height: 30px;
+	line-height: 30px;
+}
 
 /* =Import / Export
 -------------------------------------------------------------- */

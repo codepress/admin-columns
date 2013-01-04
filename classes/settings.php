@@ -439,9 +439,10 @@ class Cpac_Settings
 		}
 		
 		// Licenses
-		$licenses = array();
-		$licenses['sortable'] 		= new cpac_licence('sortable');
-		$licenses['customfields'] 	= new cpac_licence('sortable');
+		$licenses = array(
+			'sortable' 		=> new cpac_licence('sortable'),
+			'customfields' 	=> new cpac_licence('sortable')
+		);
 
 	?>
 		<div id="cpac" class="wrap">
@@ -678,9 +679,32 @@ class Cpac_Settings
 			'addons'	=> 'http://www.admincolumns.com/addons/'
 		);	
 		
-		/** Addon Licenses */
+		// addons			
 		$licenses = array(
-			'sortable'	=> new cpac_licence('sortable')
+			'sortable'	=> array(				
+				'label'		=> __('Sortorder', CPAC_TEXTDOMAIN),
+				'license' 	=> new cpac_licence('sortable'),
+				'more_link'	=> 'http://www.admincolumns.com/addons',
+				'qtip'		=> "
+					<p>" . __('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN) . "</p>
+					<p class='description'>" . __('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN) . "</p>
+					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
+				"				
+			),
+			'customfields'	=> array(				
+				'label'		=> __('Custom Fields', CPAC_TEXTDOMAIN),
+				'license' 	=> new cpac_licence('customfields'),
+				'more_link'	=> 'http://www.admincolumns.com/addons',
+				'qtip'		=> "
+					<p>" . __('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN) . "</p>
+					<p class='description'>" . __('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN) . "</p>
+					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
+				"				
+			)
 		);
 
 		// import / export
@@ -689,11 +713,11 @@ class Cpac_Settings
 			$export_selections[] = "<option value='{$type->type}'>" . $type->get_label() . "</option>";
 		}
 	?>
-	<div id="cpac-settings" class="wrap">
+	<div id="cpac" class="wrap">
 		
 		<?php screen_icon(CPAC_SLUG) ?>
 		<h2><?php _e('Admin Columns Settings', CPAC_TEXTDOMAIN); ?></h2>
-		
+	
 		<table class="form-table cpac-form-table">
 			<tbody>
 				<tr>
@@ -713,43 +737,42 @@ class Cpac_Settings
 								</tr>
 							</thead>
 							<tbody>
-								<tr id="cpac-activation-sortable" class="last">
+								
+								<?php foreach ( $licenses as $id => $license ) : ?>
+								<tr class="last">
 									<td class="activation_type">
-										<span><?php _e('Sortorder', CPAC_TEXTDOMAIN); ?></span>
+										<span><?php echo $license['label']; ?></span>
 										<div class="cpac-tooltip hidden">
-											<div class="qtip_title"><?php _e('Sortorder', CPAC_TEXTDOMAIN); ?></div>
+											<div class="qtip_title"><?php echo $license['label']; ?></div>
 											<div class="qtip_content">
-												<p><?php _e('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN); ?></p>
-												<p><?php _e('By default WordPress let\"s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN); ?></p>
-												<p><?php _e('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN); ?></p>
-												<p class="description"><?php _e('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN); ?></p>
-												<img src="<?php echo CPAC_URL; ?>/assets/images/addon_sortable_1.png" alt="" />
-												<a href="<?php echo $urls['codepress']; ?>/sortorder-addon/" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
+												<?php echo $license['qtip']; ?>
 											</div>
 										</div>
 									</td>
 									<td class="activation_status">
-										<div class="activate<?php echo $licenses['sortable']->is_unlocked() ? ' hidden' : ''; ?>">
+										<div class="activate<?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
 											<?php _e('Inactive', CPAC_TEXTDOMAIN); ?>
 										</div>
-										<div class="deactivate<?php echo $licenses['sortable']->is_unlocked() ? '' : ' hidden'; ?>">
+										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
 											<?php _e('Active', CPAC_TEXTDOMAIN); ?>
 									</td>
 									<td class="activation_code">
-										<div class="activate <?php echo $licenses['sortable']->is_unlocked() ? '' : ' hidden'; ?>">
-											<input type="text" value="<?php _e('Fill in your activation code', CPAC_TEXTDOMAIN) ?>" name="cpac-sortable-key">
+										<div class="activate <?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
+											<input type="text" value="<?php _e('Fill in your activation code', CPAC_TEXTDOMAIN) ?>" name="cpac-<?php echo $id; ?>-key">
 											<a href="javascript:;" class="button"><?php _e('Activate', CPAC_TEXTDOMAIN); ?><span></span></a>
 										</div>
-										<div class="deactivate<?php echo $licenses['sortable']->is_unlocked() ? ' hidden' : ''; ?>">
-											<span class="masked_key"><?php echo $licenses['sortable']->get_masked_license_key(); ?></span>
+										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
+											<span class="masked_key"><?php echo $license['license']->get_masked_license_key(); ?></span>
 											<a href="javascript:;" class="button"><?php _e('Deactivate', CPAC_TEXTDOMAIN); ?><span></span></a>
 										</div>
 										<div class="activation-error-msg"></div>
 									</td>
 									<td class="activation_more">
-										<a href="<?php echo $urls['codepress']; ?>/sortorder-addon/" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
+										<a href="<?php echo $license['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
 									</td>
-								</tr><!-- #cpac-activation-sortable -->
+								</tr>
+								<?php endforeach; ?>
+								
 							</tbody>
 						</table>
 						<div class="addon-translation-string hidden">
@@ -760,7 +783,7 @@ class Cpac_Settings
 				</tr>
 				<tr>
 					<th scope="row">
-						<h3><?php _e('General options', CPAC_TEXTDOMAIN ); ?></h3>
+						<h3><?php _e('General Settings.', CPAC_TEXTDOMAIN ); ?></h3>
 					</th>
 					<td>
 						<ul class="cpac-options">
