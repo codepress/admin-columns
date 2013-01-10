@@ -16,7 +16,9 @@ class CPAC_Posts_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
-
+		
+		$this->type = 'post';
+		
 		add_action( 'manage_pages_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
 	}
@@ -26,7 +28,7 @@ class CPAC_Posts_Values extends CPAC_Values
 	 *
 	 * @since     1.0
 	 */
-	public function manage_posts_column_value($column_name, $post_id)
+	public function manage_posts_column_value( $column_name, $post_id )
 	{
 		$type = $column_name;
 
@@ -123,7 +125,7 @@ class CPAC_Posts_Values extends CPAC_Values
 
 			// Custom Field
 			case "column-post-meta" :
-				$result = $this->get_column_value_custom_field($post_id, $column_name, 'post');
+				$result = $this->get_column_value_custom_field( $post_id, $column_name );
 				break;
 
 			// Attachment
@@ -206,9 +208,7 @@ class CPAC_Posts_Values extends CPAC_Values
 		endswitch;
 
 		// Filter for customizing the result output
-		apply_filters('cpac-posts-column-result', $result, $type, $column_name, $post_id);
-
-		echo $result;
+		echo apply_filters('cpac-posts-column-result', $result, $type, $column_name, $post_id);
 	}
 
 	/**

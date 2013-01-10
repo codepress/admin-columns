@@ -31,7 +31,7 @@ class cpac_columns_links extends cpac_columns
 
 		// add sorting support to rel-tag
 		if ( !empty($columns['rel']) ) {
-			$columns['rel']['options']['sortorder'] = 'on';
+			$columns['rel']['options']['enable_sorting'] = false;
 		}
 
 		return apply_filters('cpac-default-links-columns', $columns);
@@ -72,7 +72,7 @@ class cpac_columns_links extends cpac_columns
 			'column-actions' => array(
 				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting' => false
 				)
 			)
 		);

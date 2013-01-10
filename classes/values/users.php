@@ -16,6 +16,8 @@ class CPAC_Users_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
+		
+		$this->type = 'user';
 
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value'), 10, 3 );
 	}
@@ -85,6 +87,14 @@ class CPAC_Users_Values extends CPAC_Values
 				$result = $this->get_shortened_string( get_the_author_meta('user_description', $user_id), $this->excerpt_length );
 				break;
 
+			// user comment count
+			case "column-user_commentcount" :
+				$result = get_comments( array(
+					'user_id'	=> $userdata->ID,
+					'count'		=> true
+				));
+				break;
+
 			// user description
 			case "column-user_postcount" :
 				$post_type 	= cpac_utility::get_posttype_by_postcount_column($column_name);
@@ -103,7 +113,7 @@ class CPAC_Users_Values extends CPAC_Values
 
 			// user meta data ( custom field )
 			case "column-user-meta" :
-				$result = $this->get_column_value_custom_field($user_id, $column_name, 'user');
+				$result = $this->get_column_value_custom_field( $user_id, $column_name );
 				break;
 
 			default :
@@ -111,10 +121,7 @@ class CPAC_Users_Values extends CPAC_Values
 
 		endswitch;
 
-		// Filter for customizing the result output
-		apply_filters('cpac-users-column-result', $result, $type, $column_name, $user_id);
-
-		return $result;
+		echo apply_filters('cpac-users-column-result', $result, $type, $column_name, $user_id);
 	}
 
 	/**

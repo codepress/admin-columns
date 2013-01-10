@@ -16,7 +16,9 @@ class CPAC_Media_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
-
+		
+		$this->type = 'media';
+		
 		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value'), 10, 2 );
 	}
 
@@ -124,7 +126,7 @@ class CPAC_Media_Values extends CPAC_Values
 
 			// Custom Field
 			case "column-meta" :
-				$result = $this->get_column_value_custom_field($media_id, $column_name, 'media');
+				$result = $this->get_column_value_custom_field( $media_id, $column_name );
 				break;
 
 			// Image metadata EXIF or IPTC data
@@ -176,9 +178,7 @@ class CPAC_Media_Values extends CPAC_Values
 		endswitch;
 
 		// Filter for customizing the result output
-		apply_filters('cpac-media-column-result', $result, $type, $column_name, $media_id);
-
-		echo $result;
+		echo apply_filters('cpac-media-column-result', $result, $type, $column_name, $media_id);
 	}
 
 	/**

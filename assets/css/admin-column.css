@@ -26,6 +26,7 @@ a.help {
 }
 .button.loading {
 	padding-right: 25px;
+	position: relative;
 }
 .button.loading span {
 	position: absolute;
@@ -72,14 +73,14 @@ a.help {
 	width: 280px;
 }
 
-@media only screen and (max-width: 850px) {		
+@media only screen and (max-width: 850px) {
 	.columns-container {
 		margin-right: 0;
 	}
 	.columns-right {
 		margin-right: 0;
 		width: 100%;
-	}	
+	}
 	.columns-right-inside.fixed {
 		position: relative;
 		top: 0;
@@ -95,7 +96,7 @@ a.help {
 .cpac-boxes form {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.cpac-placeholder {	
+.cpac-placeholder {
 	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 	background: rgba(0,0,0,0.075);
 	visibility: visible !important;
@@ -120,7 +121,7 @@ a.help {
 	background: #f9f9f9;
 }
 .cpac-column .column-meta table {
-	border: none;	
+	border: none;
 	background: transparent;
 	border-radius: 0;
 }
@@ -165,23 +166,19 @@ a.help {
 .column-meta .column_edit {
 	width: 38px;
 	background: transparent url(../images/arrow.png) no-repeat 23px 16px;
-	
+
 }
 
 /* active state */
 .cpac-column.active .column-meta {
-	/* 
-	border-color: #565656;
-	background: #6e6e6e url(../images/bg.png) repeat-x 0 0;
-	*/	
-	background-color: #c7c7c7;	
+	background-color: #c7c7c7;
  	background-image: -ms-linear-gradient(top, #e9e9e9, #c7c7c7);
 	background-image: -moz-linear-gradient(top, #e9e9e9, #c7c7c7);
 	background-image: -o-linear-gradient(top, #e9e9e9, #c7c7c7);
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#e9e9e9), to(#c7c7c7));
-	background-image: -webkit-linear-gradient(top, #e9e9e9, #c7c7c7);	
-	background-image: linear-gradient(top, #e9e9e9, #c7c7c7);	
-	border-color: #aeaeae;	
+	background-image: -webkit-linear-gradient(top, #e9e9e9, #c7c7c7);
+	background-image: linear-gradient(top, #e9e9e9, #c7c7c7);
+	border-color: #aeaeae;
 }
 .cpac-column.active .column-meta table {
 	background: transparent;
@@ -192,16 +189,42 @@ a.help {
 .cpac-column.active .column-meta td,
 .cpac-column.active .column-meta td a{
 	color: #333;
-	text-shadow: 0 1px 0 #FFFFFF;	
+	text-shadow: 0 1px 0 #FFFFFF;
 }
 .cpac-column.active .column-meta .column_sort {
-	background-position: 8px -40px;	
+	background-position: 8px -40px;
 }
-.cpac-column.active .column-meta .column_status {	
+.cpac-column.active .column-meta .column_status {
 	background-position: center -42px;
 }
-.cpac-column.active .column-meta .column_type {	
+.cpac-column.active .column-meta .column_type {
 	color: #5C5C5C;
+}
+tr.column_image_size td.input .custom_image_size {
+	display: inline-block;
+}
+tr.column_image_size td.input label {
+	display: inline-block;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+tr.column_image_size td.input label input {
+	margin-right: 3px;
+}
+tr.column_image_size td.input label.custom-size-w,
+tr.column_image_size td.input label.custom-size-h {
+	margin: 0;
+}
+tr.column_image_size td.input label.custom-size-w.hidden,
+tr.column_image_size td.input label.custom-size-h.hidden {
+	display: none;
+}
+tr.column_image_size td.input label.custom-size-w input,
+tr.column_image_size td.input label.custom-size-h input {
+	width: 30px;
+}
+tr.column_image_size.hidden {
+	display: none;
 }
 
 /* =Column Form
@@ -298,12 +321,20 @@ a.help {
     text-shadow: 0 1px 0 #FFFFFF;
 	display: inline-block;
 }
+.column-footer .add-customfield-column-container {
+	float: right;
+	display: inline-block;
+}
+.column-footer .add-customfield-column-container p {
+	margin: 4px;
+	color: #7A9BBE;
+}
 .column-footer .add-customfield-column {
 	float: right;
 }
 .column-footer .add-customfield-column.disabled {
 	color: #BBBBBB;
-	cursor: help;	
+	cursor: help;
 }
 .column-footer .add-customfield-column.disabled:hover ,
 .column-footer .add-customfield-column.disabled:focus {
@@ -351,6 +382,9 @@ a.help {
 .sidebox .inside {
 	padding: 10px;
 }
+.sidebox .inside p {
+	margin-top: 0;
+}
 #form-actions .form-reset {
 	border-bottom: 1px solid #F5F5F5;
 	padding: 8px;
@@ -379,7 +413,7 @@ a.help {
 	margin-bottom: 4px;
 }
 #addon-state .addon.enabled {
-	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;	
+	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;
 }
 #addon-state .addon a.activate {
 	float: right;
@@ -392,6 +426,21 @@ a.help {
 -------------------------------------------------------------- */
 table.cpac-form-table {
 	max-width: 1100px;
+	margin-top: 20px;
+}
+table.cpac-form-table > tbody > tr > td,
+table.cpac-form-table > tbody > tr > th {
+	vertical-align: top;
+	padding-bottom: 20px;
+}
+table.addons tr {
+	background: #fff;
+}
+table.addons tr:nth-child(2n) {
+	background: #f9f9f9;
+}
+table.addons tr:last-child td {
+	border-bottom: none;
 }
 th.activation_type {
 	width: 20%;
@@ -410,6 +459,13 @@ td.activation_code input[type="text"] {
 	height: 30px;
 	line-height: 30px;
 }
+td.activation_type span {
+	background: transparent url('../images/information.png') no-repeat right 50%;
+	padding-right: 20px;
+}
+tr.restore td {
+	padding-top: 22px;
+}
 
 /* =Import / Export
 -------------------------------------------------------------- */
@@ -419,12 +475,12 @@ div.cpac_export {
 }
 #cpac_export_output {
 	width: 80%;
-	float: left;	
+	float: left;
 	display: none;
 }
 #cpac_export_output textarea {
 	width: 100%;
-	height: 80%;	
+	height: 80%;
 }
 #cpac_export_submit {
 	display: inline-block;
@@ -433,7 +489,7 @@ div.cpac_export {
 #cpac_import_input {}
 #cpac_import_input textarea {
 	width: 100%;
-	height: 80%;	
+	height: 80%;
 }
 #cpac_import_submit {
 	display: inline-block;
@@ -450,6 +506,9 @@ div.cpac_export {
 
 /* =WP Pointer
 -------------------------------------------------------------- */
+.wp-pointer-content {
+	overflow: hidden;
+}
 .wp-pointer-content ol {
     margin-left: 1.5em;
     padding: 0 15px;

@@ -67,8 +67,11 @@ class cpac_columns_users extends cpac_columns
 			'column-actions' => array(
 				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting' => false
 				)
+			),
+			'column-user_commentcount' => array(
+				'label'		=> __('Comment Count', CPAC_TEXTDOMAIN)
 			),
 		);
 
@@ -98,7 +101,7 @@ class cpac_columns_users extends cpac_columns
 			'before'		=> '',
 			'after'			=> '',
 			'options'		=> array(
-				'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
+				'type_label'	=> __('Custom Field', CPAC_TEXTDOMAIN),
 				'class'			=> 'cpac-box-metafield'
 			)
 		);

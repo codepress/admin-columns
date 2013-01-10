@@ -2,11 +2,11 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			1.5
+Version: 			2.0
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
-Author URI: 		http://www.codepress.nl
-Plugin URI: 		http://www.codepress.nl/plugins/codepress-admin-columns/
+Author URI: 		http://www.admincolumns.com
+Plugin URI: 		http://www.admincolumns.com
 Text Domain: 		codepress-admin-columns
 Domain Path: 		/languages
 License:			GPLv2
@@ -27,10 +27,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	'1.5' );
-define( 'CPAC_TEXTDOMAIN', 	'codepress-admin-columns' );
-define( 'CPAC_SLUG', 		'codepress-admin-columns' );
-define( 'CPAC_URL', 		plugins_url('', __FILE__) );
+define( 'CPAC_VERSION', 	 	'2.0' );
+define( 'CPAC_TEXTDOMAIN', 	 	'codepress-admin-columns' );
+define( 'CPAC_SLUG', 		 	'codepress-admin-columns' );
+define( 'CPAC_SETTINGS_SLUG', 	'cpac-settings' );
+define( 'CPAC_URL', 			plugins_url('', __FILE__) );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -41,6 +42,7 @@ if ( !is_admin() )
  *
  * @since     1.3
  */
+require_once dirname( __FILE__ ) . '/classes/upgrade.php';
 require_once dirname( __FILE__ ) . '/classes/utility.php';
 require_once dirname( __FILE__ ) . '/classes/columns.php';
 require_once dirname( __FILE__ ) . '/classes/columns/posttype.php';
@@ -77,6 +79,9 @@ class Codepress_Admin_Columns
 	function __construct()
 	{
 		add_action( 'wp_loaded', array( $this, 'init') );
+		
+		// upgrade
+		register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
 	}
 
 	/**
@@ -99,11 +104,11 @@ class Codepress_Admin_Columns
 		// register columns
 		add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
 		add_action( 'admin_init', array( $this, 'register_columns_values' ) );
-		
+
 		// add settings link
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);		
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 	}
-	
+
 	/**
 	 * Add Settings link to plugin page
 	 *
@@ -119,8 +124,8 @@ class Codepress_Admin_Columns
 
 		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
 		return $links;
-	}	
-	
+	}
+
 	/**
 	 *	Register Column Values
 	 *
@@ -303,9 +308,9 @@ class Codepress_Admin_Columns
 			}
 		}
 
-		echo 
+		echo
 		"<style type='text/css'>
-			{$css_column_width}	
+			{$css_column_width}
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
 				background: transparent url(" . CPAC_URL . "/assets/images/icon_20.png) no-repeat 6px -24px;
 			}

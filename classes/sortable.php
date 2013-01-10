@@ -121,7 +121,7 @@ class Codepress_Sortable_Columns
 	public function callback_add_sortable_media_column($columns)
 	{
 		$type = new cpac_columns_media();
-
+		
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
@@ -261,6 +261,17 @@ class Codepress_Sortable_Columns
 					}
 				}
 				break;
+			
+			case 'column-user_commentcount' :
+				$sort_flag = SORT_REGULAR;
+				foreach ( $this->get_users_data() as $u ) {
+					$count = get_comments( array(
+						'user_id'	=> $u->ID,
+						'count'		=> true
+					));
+					$cusers[$u->ID] = $this->prepare_sort_string_value($count);
+				}
+				break;
 
 			case 'column-user_postcount' :
 				$post_type 	= cpac_utility::get_posttype_by_postcount_column($id);
@@ -279,7 +290,7 @@ class Codepress_Sortable_Columns
 
 					// order numeric or string
 					$sort_flag = SORT_REGULAR;
-					if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' ) {
+					if ( $column[$id]['field_type'] == 'numeric' ) {
 						$sort_flag = SORT_NUMERIC;
 					}
 
@@ -733,7 +744,7 @@ class Codepress_Sortable_Columns
 
 				// orderby type
 				$field_type = 'meta_value';
-				if ( $column[$id]['field_type'] == 'numeric' || $column[$id]['field_type'] == 'library_id' )
+				if ( $column[$id]['field_type'] == 'numeric' )
 					$field_type = 'meta_value_num';
 
 				$vars = array_merge($vars, array(

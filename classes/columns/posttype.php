@@ -4,7 +4,7 @@ class cpac_columns_posttype extends cpac_columns
 {
 	function __construct( $post_type )
 	{
-		$this->type = $post_type;	
+		$this->type = $post_type;
 	}
 
 	/**
@@ -16,7 +16,10 @@ class cpac_columns_posttype extends cpac_columns
 	{
 		$custom_columns = array(
 			'column-featured_image' => array(
-				'label'	=> __('Featured Image', CPAC_TEXTDOMAIN)
+				'label'	     => __('Featured Image', CPAC_TEXTDOMAIN),
+				'options'	 => array(
+					'is_image'	=> true
+				)
 			),
 			'column-excerpt' => array(
 				'label'	=> __('Excerpt', CPAC_TEXTDOMAIN)
@@ -54,7 +57,7 @@ class cpac_columns_posttype extends cpac_columns
 			'column-actions' => array(
 				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting' => false
 				)
 			),
 			'column-modified' => array(
@@ -132,10 +135,11 @@ class cpac_columns_posttype extends cpac_columns
 				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
 				'field'			=> '',
 				'field_type'	=> '',
+				'image_size'	=> '',
 				'before'		=> '',
 				'after'			=> '',
 				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
+					'type_label'	=> __('Custom Field', CPAC_TEXTDOMAIN),
 					'class'			=> 'cpac-box-metafield'
 				)
 			);
@@ -154,7 +158,8 @@ class cpac_columns_posttype extends cpac_columns
 	 */
 	function get_default_columns()
 	{
-		// You can use this filter to add thirdparty columns by hooking into this. See classes/third_party.php for an example.
+		// You can use this filter to add thirdparty columns by hooking into this. 
+		// See classes/third_party.php for an example.
 		do_action( 'cpac-get-default-columns-posts', $this->type );
 
 		// some plugins directly hook into get_column_headers, such as: WooCommerce.
@@ -216,11 +221,11 @@ class cpac_columns_posttype extends cpac_columns
 
 		//	categories
 		if ( !empty($columns['categories']) ) {
-			$columns['categories']['options']['sortorder'] = 'on';
+			$columns['categories']['options']['enable_sorting'] = true;
 		}
 		// tags
 		if ( !empty($columns['tags']) ) {
-			$columns['tags']['options']['sortorder'] = 'on';
+			$columns['tags']['options']['enable_sorting'] = true;
 		}
 
 		return $columns;

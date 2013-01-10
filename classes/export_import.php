@@ -26,8 +26,10 @@ class CPAC_Export_Import
 	 */
 	function get_export()
 	{
-		if ( empty( $_POST['types'] ) )
+		if ( empty( $_POST['types'] ) ) {
+			echo json_encode( array( 'status' => 0, 'msg' => __('No types selected.',  CPAC_TEXTDOMAIN ) ) );
 			exit;
+		}
 
 		$columns = array();
 		foreach ( $_POST['types'] as $type ) {
@@ -38,7 +40,7 @@ class CPAC_Export_Import
 		$columns = array_filter( $columns );
 
 		if ( empty( $columns ) ) {
-			echo json_encode( array( 'status' => 0, 'msg' => __('No settings founds.',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __('No settings founds. Did you save the columns settings for these types?',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 

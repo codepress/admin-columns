@@ -98,13 +98,13 @@ class cpac_columns_media extends cpac_columns
 			'column-file_paths' => array(
 				'label'	=> __('Upload paths', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting' => false
 				)
 			),
 			'column-actions' => array(
 				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting' => false
 				)
 			),
 			'column-filesize' => array(
@@ -188,7 +188,7 @@ class cpac_columns_media extends cpac_columns
 				'before'		=> '',
 				'after'			=> '',
 				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
+					'type_label'	=> __('Custom Field', CPAC_TEXTDOMAIN),
 					'class'			=> 'cpac-box-metafield'
 				)
 			);

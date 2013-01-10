@@ -60,7 +60,7 @@ class cpac_columns_comments extends cpac_columns
 
 		// add sorting to some of the default links columns
 		if ( !empty($columns['comment']) ) {
-			$columns['comment']['options']['sortorder'] = 'on';
+			$columns['comment']['options']['enable_sorting'] = true;
 		}
 
 		return apply_filters('cpac-default-comments-columns', $columns);
@@ -95,7 +95,7 @@ class cpac_columns_comments extends cpac_columns
 			'column-reply_to' => array(
 				'label'			=> __('In Reply To', CPAC_TEXTDOMAIN),
 				'options'		=> array(
-					'sortorder'		=> false
+					'enable_sorting' => false
 				)
 			),
 			'column-approved' => array(
@@ -116,32 +116,16 @@ class cpac_columns_comments extends cpac_columns
 			'column-actions' => array(
 				'label'	=> __('Actions', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting'	=> false
 				)
 			),
 			'column-word-count' => array(
 				'label'	=> __('Word count', CPAC_TEXTDOMAIN),
 				'options'	=> array(
-					'sortorder'	=> false
+					'enable_sorting'	=> false
 				)
 			)
 		);
-
-		// Custom Field support
-		if ( $this->get_meta_keys() ) {
-			$custom_columns['column-meta-1'] = array(
-				'label'			=> __('Custom Field', CPAC_TEXTDOMAIN),
-				'field'			=> '',
-				'field_type'	=> '',
-				'before'		=> '',
-				'after'			=> '',
-				'options'		=> array(
-					'type_label'	=> __('Field', CPAC_TEXTDOMAIN),
-					'class'			=> 'cpac-box-metafield',
-					'sortorder'		=> false,
-				)
-			);
-		}
 
 		// merge with defaults
 		$custom_columns = $this->parse_defaults($custom_columns);

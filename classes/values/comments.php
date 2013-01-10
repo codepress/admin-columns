@@ -16,7 +16,9 @@ class CPAC_Comments_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
-
+		
+		$this->type = 'comment';
+		
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_comments_column_value'), 10, 2 );
 	}
 
@@ -113,7 +115,7 @@ class CPAC_Comments_Values extends CPAC_Values
 
 			// custom field
 			case "column-comment-meta" :
-				$result = $this->get_column_value_custom_field($comment_id, $column_name, 'comment');
+				$result = $this->get_column_value_custom_field($comment_id, $column_name);
 				break;
 
 			// agent
@@ -143,9 +145,7 @@ class CPAC_Comments_Values extends CPAC_Values
 		endswitch;
 
 		// Filter for customizing the result output
-		apply_filters('cpac-comments-column-result', $result, $type, $column_name, $comment_id);
-
-		echo $result;
+		echo apply_filters('cpac-comments-column-result', $result, $type, $column_name, $comment_id);
 	}
 
 	/**
