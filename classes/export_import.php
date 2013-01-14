@@ -27,7 +27,7 @@ class CPAC_Export_Import
 	function get_export()
 	{
 		if ( empty( $_POST['types'] ) ) {
-			echo json_encode( array( 'status' => 0, 'msg' => __('No types selected.',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __( 'No types selected.',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 
@@ -40,7 +40,7 @@ class CPAC_Export_Import
 		$columns = array_filter( $columns );
 
 		if ( empty( $columns ) ) {
-			echo json_encode( array( 'status' => 0, 'msg' => __('No settings founds. Did you save the columns settings for these types?',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __( 'No settings founds. Did you save the columns settings for these types?',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 
@@ -58,7 +58,7 @@ class CPAC_Export_Import
 		// @todo: add wp_nonce_verify (ajax)
 
 		if ( empty( $_POST['import_code'] ) ) {
-			echo json_encode( array( 'status' => 0, 'msg' => __('No import code found',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __( 'No import code found',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 
@@ -73,7 +73,7 @@ class CPAC_Export_Import
 
 		// validate code
 		if ( empty( $import_code ) || ! is_array( $import_code ) ) {
-			echo json_encode( array( 'status' => 0, 'msg' => __('Invalid import code',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __( 'Invalid import code',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 
@@ -94,12 +94,11 @@ class CPAC_Export_Import
 		$result = update_option( 'cpac_options', $options );
 
 		if ( $result ) {
-
 			echo json_encode( array( 'status' => 1, 'msg' => __( sprintf( 'Imported succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $import_code ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) ) );
 		}
 
 		else {
-			echo json_encode( array( 'status' => 0, 'msg' => __('Import aborted. Are you trying to store the same settings?',  CPAC_TEXTDOMAIN ) ) );
+			echo json_encode( array( 'status' => 0, 'msg' => __( 'Import aborted. Are you trying to store the same settings?',  CPAC_TEXTDOMAIN ) ) );
 		}
 		exit;
 	}

@@ -3,20 +3,60 @@
 /**
  * CPAC_Values Class
  *
- * @since     1.4.4
+ * @since 1.4.4
  *
  */
-class CPAC_Values
-{
-	protected $type, $excerpt_length, $thumbnail_size;
+class CPAC_Values {
+
+	/**
+     * Storage key
+	 *
+	 * Key by which the settings are saved to the Database. Every WordPress Column type has it's unique key.
+	 * Supported types are comments, links, users, media and posts. The first 4 get prefixed with 'wp-', except
+	 * for posts. They have their posttype as storage key.
+	 *
+	 * @since 1.4.4
+	 *
+     * @var string Storage Key.
+     */
+	protected $storage_key;
+
+	/**
+     * Meta type
+     *
+	 * Used for retrieving custom metadata.
+	 *
+	 * @since 2.0
+	 *
+     * @var string Column Meta Type.
+     */
+	protected $meta_type;
+
+	/**
+     * Excerpt length
+     *
+	 * @since 1.4.4
+	 *
+     * @var int Excerpt Length
+     */
+	protected $excerpt_length;
+
+	/**
+     * Thumbnail Size ( Width, Height )
+     *
+	 * @since 1.4.4
+	 *
+     * @var array Thumbnail Size.
+     */
+	protected $thumbnail_size;
+
 
 	/**
 	 * Constructor
 	 *
-	 * @since     1.0
+	 * @since 1.4.4
 	 */
-	function __construct()
-	{
+	function __construct() {
 		// number of words
 		$this->excerpt_length	= 20;
 		$this->thumbnail_size	= apply_filters( 'cpac_thumbnail_size', array(80,80) );
@@ -25,18 +65,20 @@ class CPAC_Values
 	/**
 	 * Returns excerpt
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param int $post_id Post ID
+	 * @return string Post Excerpt.
 	 */
-	protected function get_post_excerpt( $post_id )
-	{
+	protected function get_post_excerpt( $post_id )	{
 		global $post;
 
 		$save_post 	= $post;
-		$post 		= get_post($post_id);
+		$post 		= get_post( $post_id );
 		$excerpt 	= get_the_excerpt();
 		$post 		= $save_post;
 
-		$output = $this->get_shortened_string($excerpt, $this->excerpt_length );
+		$output = $this->get_shortened_string( $excerpt, $this->excerpt_length );
 
 		return $output;
 	}
@@ -44,14 +86,16 @@ class CPAC_Values
 	/**
 	 * Returns shortened string
 	 *
-	 * @since     1.0
+	 * @see wp_trim_words();
+	 * @since 1.0.0
+	 *
+	 * @return string Trimmed text.
 	 */
-	protected function get_shortened_string($string = '', $num_words = 55, $more = null)
-	{
-		if ( ! $string )
+	protected function get_shortened_string( $text = '', $num_words = 55, $more = null ) {
+		if ( ! $text )
 			return false;
 
-		return wp_trim_words( $string, $num_words, $more );
+		return wp_trim_words( $text, $num_words, $more );
 	}
 
 	/**
@@ -59,12 +103,11 @@ class CPAC_Values
 	 *
 	 * 	@since     1.3.1
 	 */
-	protected function get_asset_image($name = '', $title = '')
-	{
+	protected function get_asset_image( $name = '', $title = '' ) {
 		if ( ! $name )
 			return false;
 
-		return sprintf("<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title);
+		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title );
 	}
 
 	/**
@@ -72,8 +115,7 @@ class CPAC_Values
 	 *
 	 * 	@since     1.3.1
 	 */
-	protected function get_shorten_url($url = '')
-	{
+	protected function get_shorten_url( $url = '' ) {
 		if ( !$url )
 			return false;
 
@@ -88,11 +130,10 @@ class CPAC_Values
 	 *
 	 * 	@since     1.0
 	 */
-	protected function get_column_value_attachments( $post_id )
-	{
+	protected function get_column_value_attachments( $post_id ) {
 		$result 	 	= '';
-		$attachment_ids = cpac_utility::get_attachment_ids($post_id);
-		if ( $attachment_ids ) {
+
+		if ( $attachment_ids = cpac_utility::get_attachment_ids($post_id) ) {
 			foreach ( $attachment_ids as $attach_id ) {
 				if ( wp_get_attachment_image($attach_id) )
 					$result .= wp_get_attachment_image( $attach_id, $this->thumbnail_size, true );
@@ -102,136 +143,167 @@ class CPAC_Values
 	}
 
 	/**
+	 * Get Image Sizes by name;
+	 *
+	 * @since 1.5
+	 */
+	function get_image_size_by_name( $name = '' ) {
+		if ( ! $name )
+			return false;
+
+		global $_wp_additional_image_sizes;
+
+		if ( !isset($_wp_additional_image_sizes[$name]) )
+			return false;
+
+		return $_wp_additional_image_sizes[$name];
+	}
+
+	/**
 	 * Get a thumbnail
 	 *
 	 * @since     1.0
 	 */
-	protected function get_thumbnail( $meta, $args = '' )
-	{
-		if ( empty($meta) || 'false' == $meta )
+	protected function get_thumbnail( $meta, $args = '' ) {
+		if ( empty( $meta ) || 'false' == $meta )
 			return false;
 
 		$output = '';
-		
+
 		// Image size
 		$defaults = array(
-			'image_size'	=> 'cpac-custom',
+			'image_size'	=> 'thumbnail',
 			'width'			=> 80,
 			'height'		=> 80,
 		);
 		$args = wp_parse_args( $args, $defaults );
-		
-		print_r( $args );
-		
+
 		// Image
-		if ( $this->is_image($meta) ) {
-		
-			// custom image size
-			if ( 'cpac-custom' == $args['image_size'] ) {
-			
-				global $_wp_additional_image_sizes;
-				if ( isset($_wp_additional_image_sizes[$image_size]) ) {
-					$sizes = $_wp_additional_image_sizes[$image_size];
-					
-					$args['width'] 	= $sizes['width'];
-					$args['height'] = $sizes['height'];
-				}
+		if ( $this->is_image( $meta ) ) {
+
+			if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
+				$args['width'] 	= $sizes['width'];
+				$args['height'] = $sizes['width'];
 			}
-			
+
 			// get correct image path
-			$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $meta);
+			$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $meta );
 
 			// resize image
 			if ( file_exists($image_path) ) {
-				
-				$resized = $this->image_resize( $image_path, $args['width'], $args['height'], true);
-				
-				// resize worked
-				if ( ! is_wp_error( $resized ) && $resized ) {
-					$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized) .  "' alt='' width='{$image_size[0]}' height='{$image_size[1]}' />";
+
+				// try to resize image
+				if ( $resized = $this->image_resize( $image_path, $args['width'], $args['height'], true ) ) {
+					$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$args['width']}' height='{$args['height']}' />";
 				}
 
 				// resizing failed so let's return full image with maxed dimensions
 				else {
-					$output = "<img src='{$meta}' alt='' style='max-width:{$image_size[0]}px;max-height:{$image_size[1]}px' />";
+					$output = "<img src='{$meta}' alt='' style='max-width:{$args['width']}px;max-height:{$args['height']}px' />";
 				}
-			}			
+			}
 		}
-		
+
 		// Media Attachment
 		else {
-			
-			$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );
 
-			// image size
-			$size = $args['image_size'];		
-			if ( 'cpac-custom' == $args['image_size'] ) {
-				$size = array( $args['width'], $args['height'] );
-			}
-			
-			// split media ids
+			$meta = cpac_utility::strip_trim( str_replace( ' ', '', $meta ) );
+
 			$media_ids = array($meta);
-			if ( strpos($meta, ',') !== false ) {
-				$media_ids = array_filter( explode(',', $meta) );
+
+			// split media ids
+			if ( strpos( $meta, ',' ) !== false ) {
+				$media_ids = array_filter( explode( ',', $meta ) );
 			}
-			
-			// check if media exists
-			$thumbs = '';
+
 			foreach ( $media_ids as $media_id ) {
-				if ( is_numeric($media_id) ) {
-					$output .= wp_get_attachment_url($media_id) ? "<span class='cpac-column-value-image'>" . wp_get_attachment_image( $media_id, $size, true ) . "</span>" : '';
+
+				// valid image?
+				if ( ! is_numeric($media_id) || ! wp_get_attachment_url( $media_id ) )
+					continue;
+
+				// image attributes
+				$attributes = wp_get_attachment_image_src( $media_id, $args['image_size'] );
+				$src 		= $attributes[0];
+				$width		= $attributes[1];
+				$height		= $attributes[2];
+
+				// image size by name
+				if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
+					$width 	= $sizes['width'];
+					$height	= $sizes['height'];
 				}
+
+				// custom image size
+				if ( 'cpac-custom' == $args['image_size'] ) {
+					$width 	= $args['width'];
+					$height = $args['height'];
+				}
+
+				// maximum dimensions
+				$max = max( array( $width, $height ) );
+
+				$output .= "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$attributes[0]}' alt=''/></span>";
 			}
 		}
 
 		return $output;
 	}
-	
+
 	/**
 	 * Image Resize
 	 *
 	 * @since 1.5
 	 */
-	function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) 
-	{
+	function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+		$resized = false;
+
 		// WP 3.5 or higher
-		if ( function_exists('wp_get_image_editor') ) { 
-		
+		if ( function_exists( 'wp_get_image_editor' ) ) {
+
 			$editor = wp_get_image_editor( $file );
+
 			if ( is_wp_error( $editor ) )
-				return $editor;
+				return false;
+
 			$editor->set_quality( $jpeg_quality );
 
 			$resized = $editor->resize( $max_w, $max_h, $crop );
 			if ( is_wp_error( $resized ) )
-				return $resized;
+				return false;
 
 			$dest_file = $editor->generate_filename( $suffix, $dest_path );
+
 			$saved = $editor->save( $dest_file );
 
 			if ( is_wp_error( $saved ) )
-				return $saved;
+				return false;
 
-			return $dest_file;
+			$resized = $dest_file;
 		}
-		
+
 		// WP 3.4 or lower
 		else {
-			return image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+			$result = image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+
+			if ( ! is_wp_error( $result ) && $result ) {
+				$resized = $result;
+			}
 		}
+
+		return $resized;
 	}
-	
+
 	/**
 	 * Checks an URL for image extension
 	 *
 	 * @since     1.2
 	 */
-	protected function is_image($url)
-	{
+	protected function is_image( $url ) {
 		$validExt  	= array('.jpg', '.jpeg', '.gif', '.png', '.bmp');
-		$ext    	= strrchr($url, '.');
+		$ext    	= strrchr( $url, '.' );
 
-		return in_array($ext, $validExt);
+		return in_array( $ext, $validExt );
 	}
 
 	/**
@@ -239,10 +311,9 @@ class CPAC_Values
 	 *
 	 * 	@since     1.4.5
 	 */
-	function get_readable_filesize($size)
-    {
+	function get_readable_filesize( $size ) {
 		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
+		return $size ? round( $size/pow( 1024, ( $i = floor( log( $size, 1024 ) ) ) ), 2) . $filesizename[$i] : '0 Bytes';
     }
 
 	/**
@@ -250,29 +321,13 @@ class CPAC_Values
 	 *
 	 * 	@since     1.0
 	 */
-	protected function get_column_value_custom_field( $object_id, $column_name )
-	{
-		/** Users */
-		if ( 'user' == $this->type ) {
-			$key = 'wp-users';
-		}
-
-		/** Media */
-		elseif ( 'media' == $this->type ) {
-			$key = 'wp-media';
-		}
-
-		/** Posts */
-		else {
-			$key = get_post_type( $object_id );
-		}
-
+	protected function get_column_value_custom_field( $object_id, $column_name ) {
 		// get column
-		$columns = cpac_utility::get_stored_columns( $key );
-		
-		if( ! isset($columns[$column_name]) )
+		$columns = cpac_utility::get_stored_columns( $this->storage_key );
+
+		if ( ! isset( $columns[$column_name] ) )
 			return false;
-		
+
 		// values
 		$defaults = array(
 			'field'			=> '',
@@ -283,16 +338,16 @@ class CPAC_Values
 			'image_size_w'	=> 80,
 			'image_size_h'	=> 80,
 		);
-		
+
 		$values = (object) wp_parse_args( $columns[$column_name], $defaults );
 
 		// rename hidden custom fields to their original name
 		if ( 'cpachidden' == substr( $values->field, 0, 10 ) ) {
 			$values->field = str_replace( 'cpachidden', '', $values->field );
-		}		
+		}
 
 		// Get meta field value
-		$meta = get_metadata( $this->type, $object_id, $values->field, true );
+		$meta = get_metadata( $this->meta_type, $object_id, $values->field, true );
 
 		// multiple meta values
 		if ( ( 'array' == $values->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
@@ -326,7 +381,7 @@ class CPAC_Values
 				break;
 
 			// Post Title
-			case "title_by_id" :				
+			case "title_by_id" :
 				if ( $titles = $this->get_custom_field_value_title( $meta ) ) {
 					$meta = $titles;
 				}
@@ -360,7 +415,7 @@ class CPAC_Values
 		endswitch;
 
 		// filter for customization
-		$meta = apply_filters('cpac_get_column_value_custom_field', $meta, $values->field_type, $values->field, $object_id );
+		$meta = apply_filters( 'cpac_get_column_value_custom_field', $meta, $values->field_type, $values->field, $object_id );
 
 		// add before and after string
 		if ( $meta ) {
@@ -375,24 +430,23 @@ class CPAC_Values
 	 *
 	 * 	@since     1.3
 	 */
-	protected function get_custom_field_value_title($meta)
-	{
+	protected function get_custom_field_value_title( $meta ) {
 		//remove white spaces and strip tags
-		$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );
+		$meta = cpac_utility::strip_trim( str_replace( ' ','', $meta ) );
 		// var
 		$ids = $titles = array();
 
 		// check for multiple id's
-		if ( strpos($meta, ',') !== false )
-			$ids = explode(',',$meta);
-		elseif ( is_numeric($meta) )
+		if ( strpos( $meta, ',' ) !== false )
+			$ids = explode( ',',$meta );
+		elseif ( is_numeric( $meta ) )
 			$ids[] = $meta;
 
 		// display title with link
-		if ( $ids && is_array($ids) ) {
+		if ( $ids && is_array( $ids ) ) {
 			foreach ( $ids as $id ) {
-				$title = is_numeric($id) ? get_the_title($id) : '';
-				$link  = get_edit_post_link($id);
+				$title = is_numeric( $id ) ? get_the_title( $id ) : '';
+				$link  = get_edit_post_link( $id );
 				if ( $title )
 					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
 			}
@@ -406,34 +460,36 @@ class CPAC_Values
 	 *
 	 * 	@since     1.4.6.3
 	 */
-	protected function get_custom_field_value_user($meta)
+	protected function get_custom_field_value_user( $meta )
 	{
 		//remove white spaces and strip tags
-		$meta = cpac_utility::strip_trim( str_replace(' ','', $meta) );
+		$meta = cpac_utility::strip_trim( str_replace( ' ','', $meta ) );
 
 		// var
 		$ids = $names = array();
 
 		// check for multiple id's
-		if ( strpos($meta, ',') !== false )
-			$ids = explode(',',$meta);
-		elseif ( is_numeric($meta) )
+		if ( strpos( $meta, ',' ) !== false ) {
+			$ids = explode( ',',$meta );
+		}
+		elseif ( is_numeric( $meta ) ) {
 			$ids[] = $meta;
+		}
 
 		// display username
-		if ( $ids && is_array($ids) ) {
+		if ( $ids && is_array( $ids ) ) {
 			foreach ( $ids as $id ) {
-				if ( !is_numeric($id) )
+				if ( ! is_numeric( $id ) )
 					continue;
 
-				$userdata = get_userdata($id);
-				if ( is_object($userdata) && !empty( $userdata->display_name ) ) {
+				$userdata = get_userdata( $id );
+				if ( is_object( $userdata ) && ! empty( $userdata->display_name ) ) {
 					$names[] = $userdata->display_name;
 				}
 			}
 		}
 
-		return implode('<span class="cpac-divider"></span>', $names);
+		return implode( '<span class="cpac-divider"></span>', $names );
 	}
 
 	/**
@@ -441,46 +497,45 @@ class CPAC_Values
 	 *
 	 * 	@since     1.2
 	 */
-	protected function get_user_column_value_custom_field($user_id, $id)
-	{
-		$columns 	= cpac_utility::get_stored_columns('wp-users');
+	protected function get_user_column_value_custom_field( $user_id, $id ) {
+		$columns 	= cpac_utility::get_stored_columns( 'wp-users' );
 
 		// inputs
-		$field	 	= isset($columns[$id]['field']) 	 ? $columns[$id]['field'] 		: '';
-		$fieldtype	= isset($columns[$id]['field_type']) ? $columns[$id]['field_type'] 	: '';
-		$before 	= isset($columns[$id]['before']) 	 ? $columns[$id]['before'] 		: '';
-		$after 		= isset($columns[$id]['after']) 	 ? $columns[$id]['after'] 		: '';
+		$field	 	= isset( $columns[$id]['field'] )		? $columns[$id]['field'] 		: '';
+		$fieldtype	= isset( $columns[$id]['field_type'] )	? $columns[$id]['field_type'] 	: '';
+		$before 	= isset( $columns[$id]['before'] )		? $columns[$id]['before'] 		: '';
+		$after 		= isset( $columns[$id]['after'] )		? $columns[$id]['after'] 		: '';
 
 		// Get meta field value
-		$meta 	 	= get_user_meta($user_id, $field, true);
+		$meta = get_user_meta( $user_id, $field, true );
 
 		// multiple meta values
-		if ( ( $fieldtype == 'array' && is_array($meta) ) || is_array($meta) ) {
-			$meta 	= get_user_meta($user_id, $field);
-			$meta 	= $this->recursive_implode(', ', $meta);
+		if ( ( $fieldtype == 'array' && is_array( $meta ) ) || is_array( $meta ) ) {
+			$meta 	= get_user_meta( $user_id, $field );
+			$meta 	= $this->recursive_implode( ', ', $meta );
 		}
 
 		// make sure there are no serialized arrays or empty meta data
-		if ( empty($meta) || !is_string($meta) )
+		if ( empty( $meta ) || ! is_string( $meta ) )
 			return false;
 
 		// handles each field type differently..
-		switch ($fieldtype) :
+		switch ( $fieldtype ) :
 
 			// Image
 			case "image" :
-				$meta = $this->get_thumbnail($meta);
+				$meta = $this->get_thumbnail( $meta );
 				break;
 
 			// Excerpt
 			case "excerpt" :
-				$meta = $this->get_shortened_string($meta, $this->excerpt_length);
+				$meta = $this->get_shortened_string( $meta, $this->excerpt_length );
 				break;
 
 		endswitch;
 
 		// filter for customization
-		$meta = apply_filters('cpac_get_user_column_value_custom_field', $meta, $fieldtype, $field );
+		$meta = apply_filters( 'cpac_get_user_column_value_custom_field', $meta, $fieldtype, $field );
 
 		// add before and after string
 		$meta = "{$before}{$meta}{$after}";
@@ -496,15 +551,16 @@ class CPAC_Values
 	protected function recursive_implode( $glue, $pieces )
 	{
 		foreach( $pieces as $r_pieces )	{
-			if( is_array( $r_pieces ) ) {
+			if ( is_array( $r_pieces ) ) {
 				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
 			}
 			else {
 				$retVal[] = $r_pieces;
 			}
 		}
-		if ( isset($retVal) && is_array($retVal) )
+		if ( isset($retVal) && is_array( $retVal ) ) {
 			return implode( $glue, $retVal );
+		}
 
 		return false;
 	}
@@ -514,8 +570,7 @@ class CPAC_Values
 	 *
 	 * @since     1.3.1
 	 */
-	protected function get_date( $date )
-	{
+	protected function get_date( $date ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
 
@@ -525,10 +580,10 @@ class CPAC_Values
 
 		// @todo: in theory a numeric string of 8 can also be a unixtimestamp.
 		// we need to replace this with an option to mark a date as unixtimestamp.
-		if ( ! is_numeric($date) || ( is_numeric( $date ) && strlen( trim($date) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) )
+		if ( ! is_numeric( $date ) || ( is_numeric( $date ) && strlen( trim($date) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) )
 			$date = strtotime($date);
 
-		return date_i18n( get_option('date_format'), $date );
+		return date_i18n( get_option( 'date_format' ), $date );
 	}
 
 	/**
@@ -536,15 +591,15 @@ class CPAC_Values
 	 *
 	 * @since     1.3.1
 	 */
-	protected function get_time($date)
-	{
+	protected function get_time( $date ) {
 		if ( ! $date )
 			return false;
 
-		if ( ! is_numeric($date) )
-			$date = strtotime($date);
+		if ( ! is_numeric( $date ) ) {
+			$date = strtotime( $date );
+		}
 
-		return date_i18n( get_option('time_format'), $date );
+		return date_i18n( get_option( 'time_format' ), $date );
 	}
 }
 

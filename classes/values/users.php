@@ -16,8 +16,9 @@ class CPAC_Users_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
-		
-		$this->type = 'user';
+
+		$this->storage_key	= 'wp-user';
+		$this->meta_type	= 'user';
 
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value'), 10, 3 );
 	}

@@ -48,8 +48,8 @@ class Cpac_Settings
 		// Settings Page
 		$page = add_submenu_page(
 			'codepress-admin-columns',
-			__('Settings', CPAC_TEXTDOMAIN),
-			__('Settings', CPAC_TEXTDOMAIN),
+			__( 'Settings', CPAC_TEXTDOMAIN ),
+			__( 'Settings', CPAC_TEXTDOMAIN ),
 			'manage_options',
 			'cpac-settings',
 			array( $this, 'general_settings' )
@@ -83,7 +83,7 @@ class Cpac_Settings
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
-		
+
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
 			'fill_in' 		=> __( 'Enter your activation code', CPAC_TEXTDOMAIN ),
@@ -153,11 +153,11 @@ class Cpac_Settings
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( CPAC_SLUG, CPAC_SETTINGS_SLUG ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
-		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';		
+		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
 		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
 		$type 	= isset( $_REQUEST['cpac_type'] ) 	? $_REQUEST['cpac_type'] 	: '';
 
-		switch( $action ) :
+		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
@@ -172,7 +172,7 @@ class Cpac_Settings
 				}
 				break;
 
-			case 'restore_all' :	
+			case 'restore_all' :
 				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
 					$this->restore_settings();
 				}
@@ -195,25 +195,25 @@ class Cpac_Settings
 
 		// Posts
 		foreach ( cpac_utility::get_post_types() as $post_type ) {
-			$type = new cpac_columns_posttype( $post_type );
-			$wp_default_columns[$type->type] = $type->get_default_columns();
+			$type = new CPAC_Columns_Posttype( $post_type );
+			$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 		}
 
 		// Users
-		$type = new cpac_columns_users();
-		$wp_default_columns[$type->type] = $type->get_default_columns();
+		$type = new CPAC_Columns_Users();
+		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 
 		// Media
-		$type = new cpac_columns_media();
-		$wp_default_columns[$type->type] = $type->get_default_columns();
+		$type = new CPAC_Columns_Media();
+		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 
 		// Links
-		$type = new cpac_columns_links();
-		$wp_default_columns[$type->type] = $type->get_default_columns();
+		$type = new CPAC_Columns_Links();
+		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 
 		// Comments
-		$type = new cpac_columns_comments();
-		$wp_default_columns[$type->type] = $type->get_default_columns();
+		$type = new CPAC_Columns_Comments();
+		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
@@ -240,7 +240,7 @@ class Cpac_Settings
 			update_option( 'cpac_options', $options );
 
 			// set admin notice
-			$this->admin_message( "<p>" . __('Settings updated.',  CPAC_TEXTDOMAIN) . "</p>", 'updated');
+			$this->admin_message( "<p>" . __( 'Settings updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 		}
 	}
 
@@ -270,7 +270,7 @@ class Cpac_Settings
 		}
 		update_option( 'cpac_options_default', $options );
 
-		$this->admin_message( "<p>" . __('Settings succesfully restored.',  CPAC_TEXTDOMAIN) . "</p>", 'updated');
+		$this->admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 	}
 
 	/**
@@ -282,8 +282,8 @@ class Cpac_Settings
 	{
 		delete_option( 'cpac_options' );
 		delete_option( 'cpac_options_default' );
-		
-		$this->admin_message( "<p>" . __('Default settings succesfully restored.',  CPAC_TEXTDOMAIN) . "</p>", 'updated');
+
+		$this->admin_message( "<p>" . __( 'Default settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 	}
 
 	/**
@@ -328,13 +328,13 @@ class Cpac_Settings
 		$tabs = array(
 			array(
 				'title'		=> __( "Overview", CPAC_TEXTDOMAIN ),
-				'content'	=> 
+				'content'	=>
 					"<h5>Codepress Admin Columns</h5>
 					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", CPAC_TEXTDOMAIN ) . "</p>"
 			),
 			array(
 				'title'		=> __( "Basics", CPAC_TEXTDOMAIN ),
-				'content'	=> 
+				'content'	=>
 					"<h5>". __( "Show / Hide", CPAC_TEXTDOMAIN ) . "</h5>
 					<p>". __( "You can switch columns on or off by clicking on the checkbox. This will show or hide each column heading.", CPAC_TEXTDOMAIN ) . "</p>
 					<h5>". __( "Change order", CPAC_TEXTDOMAIN ) . "</h5>
@@ -342,16 +342,16 @@ class Cpac_Settings
 					<h5>". __( "Change label", CPAC_TEXTDOMAIN ) . "</h5>
 					<p>". __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", CPAC_TEXTDOMAIN ) . "</p>
 					<h5>". __( "Change column width", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", CPAC_TEXTDOMAIN ) . "</p>"	
+					<p>". __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", CPAC_TEXTDOMAIN ) . "</p>"
 			),
 			array(
 				'title'		=> __( "Custom Field", CPAC_TEXTDOMAIN ),
-				'content'	=> 
+				'content'	=>
 					"<h5>". __( "'Custom Field' column", CPAC_TEXTDOMAIN ) . "</h5>
 					<p>". __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", CPAC_TEXTDOMAIN ) . "</p>
 					<ul>
 						<li><strong>". __( "Default", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Image", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", CPAC_TEXTDOMAIN ) . "</li>						
+						<li><strong>". __( "Image", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", CPAC_TEXTDOMAIN ) . "</li>
 						<li><strong>". __( "Excerpt", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: This will show the first 20 words of the Post content.", CPAC_TEXTDOMAIN ) . "</li>
 						<li><strong>". __( "Multiple Values", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", CPAC_TEXTDOMAIN ) . "</li>
 						<li><strong>". __( "Numeric", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", CPAC_TEXTDOMAIN ) . "</li>
@@ -409,10 +409,10 @@ class Cpac_Settings
 	function get_all_image_sizes()
 	{
 		$image_sizes = array(
-			'thumbnail'	=>	__("Thumbnail", CPAC_TEXTDOMAIN),
-			'medium'	=>	__("Medium", CPAC_TEXTDOMAIN),
-			'large'		=>	__("Large", CPAC_TEXTDOMAIN),
-			'full'		=>	__("Full", CPAC_TEXTDOMAIN)
+			'thumbnail'	=>	__("Thumbnail", CPAC_TEXTDOMAIN ),
+			'medium'	=>	__("Medium", CPAC_TEXTDOMAIN ),
+			'large'		=>	__("Large", CPAC_TEXTDOMAIN ),
+			'full'		=>	__("Full", CPAC_TEXTDOMAIN )
 		);
 
 		foreach( get_intermediate_image_sizes() as $size) {
@@ -440,13 +440,13 @@ class Cpac_Settings
 			'documentation'	=> 'http://www.admincolumns.com/documentation/',
 			'feedback'		=> 'http://www.admincolumns.com/feedback/',
 		);
-		
+
 		if ( !isset($urls[$type]) )
 			return false;
-			
+
 		return $urls[$type];
 	}
-	 
+
 	/**
 	 * Column Settings.
 	 *
@@ -465,14 +465,14 @@ class Cpac_Settings
 		foreach ( cpac_utility::get_types() as $type ) {
 
 			$label 		 = $type->get_label();
-			$clean_label = cpac_utility::sanitize_string($type->type);
+			$clean_label = cpac_utility::sanitize_string( $type->storage_key );
 
 			// divider
 			$divider 	= $count++ == 1 ? '' : ' | ';
 
 			// current
 			$current = '';
-			if ( $this->is_menu_type_current($type->type) ) {
+			if ( $this->is_menu_type_current( $type->storage_key ) ) {
 				$current = ' class="current"';
 			}
 
@@ -492,7 +492,7 @@ class Cpac_Settings
 		<div id="cpac" class="wrap">
 
 			<?php screen_icon(CPAC_SLUG) ?>
-			<h2><?php _e('Admin Columns', CPAC_TEXTDOMAIN); ?></h2>
+			<h2><?php _e( 'Admin Columns', CPAC_TEXTDOMAIN ); ?></h2>
 
 			<div class="cpac-menu">
 				<ul class="subsubsub">
@@ -502,11 +502,11 @@ class Cpac_Settings
 
 			<?php foreach ( cpac_utility::get_types() as $type ) : ?>
 
-			<div class="columns-container" data-type="<?php echo $type->type ?>"<?php echo $this->is_menu_type_current( $type->type ) ? '' : ' style="display:none"'; ?>>
+			<div class="columns-container" data-type="<?php echo $type->storage_key ?>"<?php echo $this->is_menu_type_current( $type->storage_key ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">
 
 				<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
-				<input type="hidden" name="cpac_type" value="<?php echo $type->type; ?>" />
+				<input type="hidden" name="cpac_type" value="<?php echo $type->storage_key; ?>" />
 
 				<div class="columns-left">
 					<div id="titlediv">
@@ -521,13 +521,13 @@ class Cpac_Settings
 								<?php _e( 'Publish', CPAC_TEXTDOMAIN ) ?>
 							</h3>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_type' => $type->type, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
-									<?php _e('Restore', CPAC_TEXTDOMAIN); ?> <?php echo $type->get_label(); ?> <?php _e('columns', CPAC_TEXTDOMAIN); ?>
+								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_type' => $type->storage_key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $type->get_label(); ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
 								</a>
 							</div>
 							<div class="form-update">
 								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php _e('Update') ?>" accesskey="u" >
+								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update') ?>" accesskey="u" >
 							</div>
 						</div><!--form-actions-->
 
@@ -544,18 +544,18 @@ class Cpac_Settings
 								</div>
 							</div>
 						</div><!--addon-state-->
-						
-						<div class="sidebox" id="plugin-credits">							
-							<h3><?php _e('Support', CPAC_TEXTDOMAIN ); ?></h3>
+
+						<div class="sidebox" id="plugin-credits">
+							<h3><?php _e( 'Support', CPAC_TEXTDOMAIN ); ?></h3>
 							<div class="inside">
 								<?php if ( version_compare( get_bloginfo('version'), '3.2', '>' ) ) : ?>
-									<p><?php _e('Check the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN); ?></p>
-								<?php endif; ?>								
-								<p><?php printf( __("If you're sure you've found a bug, please <a href='%s'>submit your bug.</a>", CPAC_TEXTDOMAIN), add_query_arg( array( 'page' => 'cpac-settings' ), admin_url('admin.php') ) ); ?></p>
-								<p><?php printf( __("For full documentation, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", CPAC_TEXTDOMAIN), $this->get_url('documentation') ); ?></p>					
+									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN ); ?></p>
+								<?php endif; ?>
+								<p><?php printf( __("If you're sure you've found a bug, please <a href='%s'>submit your bug.</a>", CPAC_TEXTDOMAIN ), add_query_arg( array( 'page' => 'cpac-settings' ), admin_url('admin.php') ) ); ?></p>
+								<p><?php printf( __("For full documentation, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", CPAC_TEXTDOMAIN ), $this->get_url('documentation') ); ?></p>
 							</div>
 						</div><!--.form-actions-->
-						
+
 					</div><!--.columns-right-inside-->
 				</div><!--.columns-right-->
 
@@ -580,7 +580,7 @@ class Cpac_Settings
 													</a>
 													<span class="meta-label">
 													<?php if ( $box->sort || in_array( $box->id, array( 'title', 'date' ) ) ) : ?>
-														<span class="sorting enable"><?php _e('sorting',  CPAC_TEXTDOMAIN )?></span>
+														<span class="sorting enable"><?php _e( 'sorting',  CPAC_TEXTDOMAIN )?></span>
 													<?php endif; ?>
 													</span>
 												</td>
@@ -598,8 +598,8 @@ class Cpac_Settings
 										<tbody>
 											<tr class="column_label<?php echo $box->hide_options ? ' hidden' : '' ?>">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-label"><?php _e('Label', CPAC_TEXTDOMAIN);?></label>
-													<p class="description"><?php _e('This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ); ?></p>
+													<label for="<?php echo $box->attr_for; ?>-label"><?php _e( 'Label', CPAC_TEXTDOMAIN );?></label>
+													<p class="description"><?php _e( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ); ?></p>
 												</td>
 												<td class="input">
 													<input type="text" name="<?php echo $box->attr_name; ?>[label]" id="<?php echo $box->attr_for; ?>-label" value="<?php echo $box->label ?>" class="text"/>
@@ -607,10 +607,10 @@ class Cpac_Settings
 											</tr>
 											<tr class="column_width">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-width"><?php _e("Width", CPAC_TEXTDOMAIN); ?></label>
+													<label for="<?php echo $box->attr_for; ?>-width"><?php _e("Width", CPAC_TEXTDOMAIN ); ?></label>
 												</td>
 												<td class="input">
-													<div class="description width-decription" title="<?php _e('default', CPAC_TEXTDOMAIN); ?>">
+													<div class="description width-decription" title="<?php _e( 'default', CPAC_TEXTDOMAIN ); ?>">
 														<?php echo $box->width_descr; ?>
 													</div>
 													<div class="input-width-range"></div>
@@ -621,17 +621,17 @@ class Cpac_Settings
 											<?php if ( $box->enable_sorting && $licenses['sortable']->is_unlocked() ) : ?>
 											<tr class="column_sorting">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN); ?></label>
-													<p class="description"><?php _e('This will make the column support sorting.', CPAC_TEXTDOMAIN ); ?></p>
+													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This will make the column support sorting.', CPAC_TEXTDOMAIN ); ?></p>
 												</td>
 												<td class="input">
 													<label for="<?php echo $box->attr_for; ?>-sort-on">
 														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-on"<?php checked( $box->sort, true ); ?>>
-														<?php _e('Yes'); ?>
+														<?php _e( 'Yes'); ?>
 													</label>
 													<label for="<?php echo $box->attr_for; ?>-sort-off">
 														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-off"<?php checked( $box->sort, false ); ?>>
-														<?php _e('No'); ?>
+														<?php _e( 'No'); ?>
 													</label>
 												</td>
 											</tr>
@@ -640,7 +640,7 @@ class Cpac_Settings
 											<?php if ( $box->is_field ) : // is custom field ?>
 											<tr class="column_field">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-field"><?php _e("Custom Field", CPAC_TEXTDOMAIN) ?></label>
+													<label for="<?php echo $box->attr_for; ?>-field"><?php _e("Custom Field", CPAC_TEXTDOMAIN ) ?></label>
 												</td>
 												<td class="input">
 													<select name="<?php echo $box->attr_name; ?>[field]" id="<?php echo $box->attr_for; ?>-field">
@@ -651,11 +651,11 @@ class Cpac_Settings
 												</td>
 											</tr>
 											<?php endif; ?>
-											
+
 											<?php if ( $box->is_field ) : // is custom field ?>
 											<tr class="column_field_type">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-field_type"><?php _e("Field Type", CPAC_TEXTDOMAIN); ?></label>
+													<label for="<?php echo $box->attr_for; ?>-field_type"><?php _e("Field Type", CPAC_TEXTDOMAIN ); ?></label>
 												</td>
 												<td class="input">
 													<select name="<?php echo $box->attr_name; ?>[field_type]" id="<?php echo $box->attr_for; ?>-field_type">
@@ -666,68 +666,68 @@ class Cpac_Settings
 												</td>
 											</tr>
 											<?php endif; ?>
-		
+
 											<?php if ( $box->is_image || $box->is_field ) : // is image or custom field ?>
 											<tr class="column_image_size<?php echo $box->is_field && ! $box->is_image ? ' hidden' : ''; ?>">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-image_size"><?php _e("Preview size", CPAC_TEXTDOMAIN); ?></label>
+													<label for="<?php echo $box->attr_for; ?>-image_size"><?php _e("Preview size", CPAC_TEXTDOMAIN ); ?></label>
 												</td>
-												<td class="input">												
+												<td class="input">
 													<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : ?>
-														
-														<?php if( !in_array( $box->image_size, array_keys($sizes) ) && $box->image_size != 'cpac-custom' ) $box->image_size = key($sizes); ?>
-														
+
+														<?php if ( !in_array( $box->image_size, array_keys($sizes) ) && $box->image_size != 'cpac-custom' ) $box->image_size = key($sizes); ?>
+
 														<label for="<?php echo $box->attr_for; ?>-image-size-<?php echo $id ?>" class="custom-size">
 														<input type="radio" value="<?php echo $id; ?>" name="<?php echo $box->attr_name; ?>[image_size]" id="<?php echo $box->attr_for; ?>-image-size-<?php echo $id ?>"<?php checked( $box->image_size, $id ); ?>><?php echo $image_label; ?>
 														</label>
 													<?php endforeach; ?>
 													<div class="custom_image_size">
 														<label for="<?php echo $box->attr_for; ?>-image-size-custom" class="custom-size image-size-custom" >
-															<input type="radio" value="cpac-custom" name="<?php echo $box->attr_name; ?>[image_size]" id="<?php echo $box->attr_for; ?>-image-size-custom"<?php checked( $box->image_size, 'cpac-custom' ); ?>><?php _e('Custom', CPAC_TEXTDOMAIN); ?>
+															<input type="radio" value="cpac-custom" name="<?php echo $box->attr_name; ?>[image_size]" id="<?php echo $box->attr_for; ?>-image-size-custom"<?php checked( $box->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', CPAC_TEXTDOMAIN ); ?>
 														</label>
-														
+
 														<label for="<?php echo $box->attr_for; ?>-image-size-w" class="custom-size-w<?php echo $box->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_w]" id="<?php echo $box->attr_for; ?>-image-size-w" value="<?php echo $box->image_size_w; ?>" /><?php _e('width', CPAC_TEXTDOMAIN); ?>
+															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_w]" id="<?php echo $box->attr_for; ?>-image-size-w" value="<?php echo $box->image_size_w; ?>" /><?php _e( 'width', CPAC_TEXTDOMAIN ); ?>
 														</label>
 														<label for="<?php echo $box->attr_for; ?>-image-size-h" class="custom-size-h<?php echo $box->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_h]" id="<?php echo $box->attr_for; ?>-image-size-h" value="<?php echo $box->image_size_h; ?>" /><?php _e('height', CPAC_TEXTDOMAIN); ?>
+															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_h]" id="<?php echo $box->attr_for; ?>-image-size-h" value="<?php echo $box->image_size_h; ?>" /><?php _e( 'height', CPAC_TEXTDOMAIN ); ?>
 														</label>
 													</div>
 												</td>
 											</tr>
 											<?php endif;?>
-											
+
 											<?php if ( $box->is_field ) :  // is custom field ?>
 											<tr class="column_before">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-before"><?php _e("Before", CPAC_TEXTDOMAIN); ?></label>
+													<label for="<?php echo $box->attr_for; ?>-before"><?php _e("Before", CPAC_TEXTDOMAIN ); ?></label>
 												</td>
 												<td class="input">
 													<input type="text" class="cpac-before" name="<?php echo $box->attr_name; ?>[before]" id="<?php echo $box->attr_for; ?>-before" value="<?php echo $box->before; ?>"/>
 												</td>
 											</tr>
 											<?php endif; ?>
-											
+
 											<?php if ( $box->is_field ) : // is custom field ?>
 											<tr class="column_after">
 												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-after"><?php _e("After", CPAC_TEXTDOMAIN); ?></label>
+													<label for="<?php echo $box->attr_for; ?>-after"><?php _e("After", CPAC_TEXTDOMAIN ); ?></label>
 												</td>
 												<td class="input">
 													<input type="text" class="cpac-after" name="<?php echo $box->attr_name; ?>[after]" id="<?php echo $box->attr_for; ?>-after" value="<?php echo $box->after; ?>"/>
 												</td>
 											</tr>
 											<?php endif; ?>
-											
+
 											<?php if ( $box->is_field ) : // is custom field ?>
 											<tr class="column_action">
 												<td class="label">
 												</td>
 												<td class="input">
 													<?php if ( 'column-meta-1' == $box->id ) : ?>
-														<p class="remove-description description"><?php _e('This field can not be removed', CPAC_TEXTDOMAIN); ?></p>
+														<p class="remove-description description"><?php _e( 'This field can not be removed', CPAC_TEXTDOMAIN ); ?></p>
 													<?php else : ?>
-														<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e('Remove');?></a></p>
+														<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e( 'Remove');?></a></p>
 													<?php endif; ?>
 												</td>
 											</tr>
@@ -744,11 +744,11 @@ class Cpac_Settings
 
 						<div class="column-footer">
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', CPAC_TEXTDOMAIN ); ?></div>
-							
+
 							<div class="add-customfield-column-container">
 							<?php if ( $type->get_meta_keys() ) : ?>
 								<?php if ( $licenses['customfields']->is_unlocked() ) : ?>
-									<a href="javascript:;" class="add-customfield-column button">+ <?php _e('Add Custom Field Column', CPAC_TEXTDOMAIN);?></a>
+									<a href="javascript:;" class="add-customfield-column button">+ <?php _e( 'Add Custom Field Column', CPAC_TEXTDOMAIN );?></a>
 								<?php else : ?>
 									<p><?php _e( 'Multipe Custom Fields is not activated.', CPAC_TEXTDOMAIN ); ?>
 								<?php endif; ?>
@@ -764,12 +764,12 @@ class Cpac_Settings
 
 				</form>
 
-			</div><!--.columns-container-->			
+			</div><!--.columns-container-->
 
 			<?php endforeach; // get_types() ?>
-			
+
 			<div class="clear"></div>
-			
+
 		</div><!--.wrap-->
 	<?php
 	}
@@ -784,26 +784,26 @@ class Cpac_Settings
 		// addons
 		$licenses = array(
 			'sortable'	=> array(
-				'label'		=> __('Sortorder', CPAC_TEXTDOMAIN),
+				'label'		=> __( 'Sortorder', CPAC_TEXTDOMAIN ),
 				'license' 	=> new cpac_licence('sortable'),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN) . "</p>
-					<p>" . __('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN) . "</p>
-					<p>" . __('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN) . "</p>
-					<p class='description'>" . __('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
+					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
 					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
 				"
 			),
 			'customfields'	=> array(
-				'label'		=> __('Multiple Custom Fields', CPAC_TEXTDOMAIN),
+				'label'		=> __( 'Multiple Custom Fields', CPAC_TEXTDOMAIN ),
 				'license' 	=> new cpac_licence('customfields'),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __('This will make all of the new columns support sorting', CPAC_TEXTDOMAIN) . "</p>
-					<p>" . __('By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN) . "</p>
-					<p>" . __('Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN) . "</p>
-					<p class='description'>" . __('(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN) . "</p>
+					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
+					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
 					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
 				"
 			)
@@ -812,29 +812,29 @@ class Cpac_Settings
 		// import / export
 		$export_selections = array();
 		foreach ( cpac_utility::get_types() as $type ) {
-			$export_selections[] = "<option value='{$type->type}'>" . $type->get_label() . "</option>";
+			$export_selections[] = "<option value='{$type->storage_key}'>" . $type->get_label() . "</option>";
 		}
 	?>
 	<div id="cpac" class="wrap">
 
 		<?php screen_icon(CPAC_SLUG) ?>
-		<h2><?php _e('Admin Columns Settings', CPAC_TEXTDOMAIN); ?></h2>
+		<h2><?php _e( 'Admin Columns Settings', CPAC_TEXTDOMAIN ); ?></h2>
 
 		<table class="form-table cpac-form-table">
 			<tbody>
 				<tr>
 					<th scope="row">
-						<h3><?php _e('Activate Add-ons', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e('Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="http://www.admincolumns.com/addons/" target="_blank"><?php _e('Find Add-ons', CPAC_TEXTDOMAIN ); ?></a></p>
+						<h3><?php _e( 'Activate Add-ons', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e( 'Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="http://www.admincolumns.com/addons/" target="_blank"><?php _e( 'Find Add-ons', CPAC_TEXTDOMAIN ); ?></a></p>
 					</th>
 					<td>
 						<table class="widefat addons">
 							<thead>
 								<tr>
-									<th class="activation_type"><?php _e('Addon', CPAC_TEXTDOMAIN); ?></th>
-									<th class="activation_status"><?php _e('Status', CPAC_TEXTDOMAIN); ?></th>
-									<th class="activation_code"><?php _e('Activation Code', CPAC_TEXTDOMAIN); ?></th>
+									<th class="activation_type"><?php _e( 'Addon', CPAC_TEXTDOMAIN ); ?></th>
+									<th class="activation_status"><?php _e( 'Status', CPAC_TEXTDOMAIN ); ?></th>
+									<th class="activation_code"><?php _e( 'Activation Code', CPAC_TEXTDOMAIN ); ?></th>
 									<th class="activation_more"></th>
 								</tr>
 							</thead>
@@ -851,24 +851,24 @@ class Cpac_Settings
 									</td>
 									<td class="activation_status">
 										<div class="activate<?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
-											<?php _e('Inactive', CPAC_TEXTDOMAIN); ?>
+											<?php _e( 'Inactive', CPAC_TEXTDOMAIN ); ?>
 										</div>
 										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
-											<?php _e('Active', CPAC_TEXTDOMAIN); ?>
+											<?php _e( 'Active', CPAC_TEXTDOMAIN ); ?>
 									</td>
 									<td class="activation_code">
 										<div class="activate <?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
-											<input type="text" placeholder="<?php _e('Fill in your activation code', CPAC_TEXTDOMAIN) ?>" name="cpac-<?php echo $id; ?>-key">
-											<a href="javascript:;" class="button"><?php _e('Activate', CPAC_TEXTDOMAIN); ?><span></span></a>
+											<input type="text" placeholder="<?php _e( 'Fill in your activation code', CPAC_TEXTDOMAIN ) ?>" name="cpac-<?php echo $id; ?>-key">
+											<a href="javascript:;" class="button"><?php _e( 'Activate', CPAC_TEXTDOMAIN ); ?><span></span></a>
 										</div>
 										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
 											<span class="masked_key"><?php echo $license['license']->get_masked_license_key(); ?></span>
-											<a href="javascript:;" class="button"><?php _e('Deactivate', CPAC_TEXTDOMAIN); ?><span></span></a>
+											<a href="javascript:;" class="button"><?php _e( 'Deactivate', CPAC_TEXTDOMAIN ); ?><span></span></a>
 										</div>
 										<div class="activation-error-msg"></div>
 									</td>
 									<td class="activation_more">
-										<a href="<?php echo $license['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e('find out more', CPAC_TEXTDOMAIN); ?> &raquo </a>
+										<a href="<?php echo $license['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e( 'find out more', CPAC_TEXTDOMAIN ); ?> &raquo </a>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -876,20 +876,20 @@ class Cpac_Settings
 							</tbody>
 						</table>
 					</td>
-				</tr>				
+				</tr>
 				<tr>
 					<th scope="row">
-						<h3><?php _e('Export Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e('You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e('Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<h3><?php _e( 'Export Settings', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e( 'You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
 						<div id="cpac-import-instructions-html" style="display:none;">
-							<h3><?php _e('Export Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
-							<p><?php _e('Instructions', CPAC_TEXTDOMAIN ); ?></p>
+							<h3><?php _e( 'Export Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
+							<p><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></p>
 							<ol>
-								<li><?php _e('Select one or more types.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e('Click Export.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e('Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e('Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Select one or more types.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Click Export.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
 							</ol>
 						</div>
 					</th>
@@ -899,38 +899,38 @@ class Cpac_Settings
 								<?php echo implode( $export_selections ); ?>
 							</select>
 							<br/>
-							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e('Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
+							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e( 'Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class="export-message"></div>
 						</div>
 						<div id="cpac_export_output">
 							<textarea rows="<?php echo count($export_selections); ?>"></textarea>
-							<p class="description"><?php _e('Copy the following code to your clipboard. Then use this code for importing.', CPAC_TEXTDOMAIN ); ?></p>
+							<p class="description"><?php _e( 'Copy the following code to your clipboard. Then use this code for importing.', CPAC_TEXTDOMAIN ); ?></p>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<h3><?php _e('Import Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e('Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
+						<h3><?php _e( 'Import Settings', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e( 'Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
 					<td>
 						<div id="cpac_import_input">
 							<textarea rows="10"></textarea>
-							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e('Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
+							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e( 'Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class='import-message'></div>
 						</div>
 					</td>
 				</tr>
 				<tr class="restore">
 					<th scope="row">
-						<h3><?php _e('Restore Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e('This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN ); ?></p>
+						<h3><?php _e( 'Restore Settings', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e( 'This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
 					<td>
 						<form method="post" action="">
 							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
 							<input type="hidden" name="cpac_action" value="restore_all" />
-							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e('Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN); ?>');" />
+							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN ); ?>');" />
 						</form>
 					</td>
 				</tr>

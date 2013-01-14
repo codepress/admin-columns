@@ -11,7 +11,7 @@ Text Domain: 		codepress-admin-columns
 Domain Path: 		/languages
 License:			GPLv2
 
-Copyright 2011-2012  Codepress  info@codepress.nl
+Copyright 2011-2013  Codepress  info@codepress.nl
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
@@ -40,7 +40,7 @@ if ( !is_admin() )
 /**
  * Dependencies
  *
- * @since     1.3
+ * @since 1.3.0
  */
 require_once dirname( __FILE__ ) . '/classes/upgrade.php';
 require_once dirname( __FILE__ ) . '/classes/utility.php';
@@ -64,9 +64,9 @@ require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
 
 /**
- * Codepress Admin Columns Class
+ * The Codepress Admin Columns Class
  *
- * @since     1.0
+ * @since 1.0.0
  *
  */
 class Codepress_Admin_Columns
@@ -74,12 +74,12 @@ class Codepress_Admin_Columns
 	/**
 	 * Constructor
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
 		add_action( 'wp_loaded', array( $this, 'init') );
-		
+
 		// upgrade
 		register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
 	}
@@ -89,7 +89,7 @@ class Codepress_Admin_Columns
 	 *
 	 * Loading sequence is determined and intialized.
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
 	public function init()
 	{
@@ -112,10 +112,11 @@ class Codepress_Admin_Columns
 	/**
 	 * Add Settings link to plugin page
 	 *
-	 * @since	1.0
-	 * @param	$links string - all settings links
-	 * @param	$file string - plugin filename
-	 * @return	string - link to settings page
+	 * @since 1.0.0
+	 *
+	 * @param string $links All settings links.
+	 * @param string $file Plugin filename.
+	 * @return string Link to settings page
 	 */
 	function add_settings_link( $links, $file )
 	{
@@ -127,11 +128,11 @@ class Codepress_Admin_Columns
 	}
 
 	/**
-	 *	Register Column Values
+	 * Register Column Values
 	 *
-	 *	initializes each Class per type
+	 * Initializes each Class per type
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
 	 */
 	public function register_columns_values()
 	{
@@ -150,11 +151,11 @@ class Codepress_Admin_Columns
 		new CPAC_Comments_Values();
 	}
 	/**
-	 *	Register Columns Headings
+	 * Register Columns Headings
 	 *
-	 *	apply_filters location in includes/screen.php
+	 * Register column headings for posttypes, users, media, links and comments
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
 	 */
 	public function register_columns_headings()
 	{
@@ -178,61 +179,76 @@ class Codepress_Admin_Columns
 	}
 
 	/**
-	 *	Callback add Posts Column
+	 * Callback add Posts Column
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param array $columns Registered columns
+	 * @return array Register columns with CPAC columns
 	 */
 	public function add_columns_headings_posts( $columns )
 	{
-		$type = new cpac_columns_posttype( get_post_type() );
+		$type = new CPAC_Columns_Posttype( get_post_type() );
 
 		return $type->add_columns_headings( $columns );
 	}
 
 	/**
-	 *	Callback add Users column
+	 * Callback add Users column
 	 *
-	 * 	@since     1.1
+	 * @since 1.1.0
+	 *
+	 * @param array $columns Registered columns
+	 * @return array Register columns with CPAC columns
 	 */
 	public function add_columns_headings_users( $columns )
 	{
-		$type = new cpac_columns_users;
+		$type = new CPAC_Columns_Users;
 
 		return $type->add_columns_headings( $columns );
 	}
 
 	/**
-	 *	Callback add Media column
+	 * Callback add Media column
 	 *
-	 * 	@since     1.3
+	 * @since 1.3.0
+	 *
+	 * @param array $columns Registered columns
+	 * @return array Register columns with CPAC columns
 	 */
 	public function add_columns_headings_media( $columns )
 	{
-		$type = new cpac_columns_media;
+		$type = new CPAC_Columns_Media;
 
 		return $type->add_columns_headings( $columns );
 	}
 
 	/**
-	 *	Callback add Links column
+	 * Callback add Links column
 	 *
-	 * 	@since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @param array $columns Registered columns
+	 * @return array Register columns with CPAC columns
 	 */
 	public function add_columns_headings_links( $columns )
 	{
-		$type = new cpac_columns_links;
+		$type = new CPAC_Columns_Links;
 
 		return $type->add_columns_headings( $columns );
 	}
 
 	/**
-	 *	Callback add Comments column
+	 * Callback add Comments column
 	 *
-	 * 	@since     1.3.1
+	 * @since  1.3.1
+	 *
+	 * @param array $columns Registered columns
+	 * @return array Register columns with CPAC columns
 	 */
 	public function add_columns_headings_comments($columns)
 	{
-		$type = new cpac_columns_comments;
+		$type = new CPAC_Columns_Comments;
 
 		return $type->add_columns_headings( $columns );
 	}
@@ -240,7 +256,7 @@ class Codepress_Admin_Columns
 	/**
 	 * Register column css
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
 	public function column_styles()
 	{
@@ -250,9 +266,12 @@ class Codepress_Admin_Columns
 	/**
 	 * Admin body class
 	 *
-	 * @description: Adds a body class which is used to set individual column widths
+	 * Adds a body class which is used to set individual column widths
 	 *
-	 * @since     1.4
+	 * @since 1.4.0
+	 *
+	 * @param string $classes body classes
+	 * @return string
 	 */
 	function admin_class( $classes )
 	{
@@ -275,8 +294,8 @@ class Codepress_Admin_Columns
 		foreach ( cpac_utility::get_types() as $type ) {
 
 			// match against screen or wp-screen
-			if ( $type->type == $screen || $type->type == "wp-{$screen}" )
-				$classes .= " cp-{$type->type}";
+			if ( $type->storage_key == $screen || $type->storage_key == "wp-{$screen}" )
+				$classes .= " cp-{$type->storage_key}";
 		}
 
 		return $classes;
@@ -286,7 +305,7 @@ class Codepress_Admin_Columns
 	/**
 	 * Admin CSS for Column width and Settings Icon
 	 *
-	 * @since     1.4
+	 * @since 1.4.0
 	 */
 	function admin_css()
 	{
@@ -295,7 +314,7 @@ class Codepress_Admin_Columns
 		// loop throug the available types...
 		foreach ( cpac_utility::get_types() as $type ) {
 
-			if ( ! $cols = cpac_utility::get_stored_columns($type->type) )
+			if ( ! $cols = cpac_utility::get_stored_columns( $type->storage_key ) )
 				continue;
 
 			// loop through each available column...
@@ -303,7 +322,7 @@ class Codepress_Admin_Columns
 
 				// and check for stored width and add it to the css
 				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-					$css_column_width .= ".cp-{$type->type} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
+					$css_column_width .= ".cp-{$type->storage_key} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
 		}
@@ -325,6 +344,6 @@ class Codepress_Admin_Columns
 /**
  * Init Class Codepress_Admin_Columns
  *
- * @since     1.0
+ * @since 1.0.0
  */
 new Codepress_Admin_Columns();

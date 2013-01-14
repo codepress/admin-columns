@@ -6,20 +6,19 @@
  * @since     1.4.4
  *
  */
-class CPAC_Media_Values extends CPAC_Values
-{
+class CPAC_Media_Values extends CPAC_Values {
 	/**
 	 * Constructor
 	 *
 	 * @since     1.4.4
 	 */
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
-		
-		$this->type = 'media';
-		
-		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value'), 10, 2 );
+
+		$this->storage_key	= 'wp-media';
+		$this->meta_type	= 'media';
+
+		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value' ), 10, 2 );
 	}
 
 	/**
@@ -36,14 +35,14 @@ class CPAC_Media_Values extends CPAC_Values
 		$p 		= get_post($media_id);
 
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( cpac_utility::is_column_meta($type) )
+		if ( cpac_utility::is_column_meta( $type ) )
 			$type = 'column-meta';
 
 		// Hook
-		do_action('cpac-manage-media-column', $type, $column_name, $media_id);
+		do_action( 'cpac-manage-media-column', $type, $column_name, $media_id );
 
 		$result = '';
-		switch ($type) :
+		switch ( $type ) :
 
 			// media id
 			case "column-mediaid" :
@@ -52,7 +51,7 @@ class CPAC_Media_Values extends CPAC_Values
 
 			// dimensions
 			case "column-dimensions" :
-				if ( !empty($meta['width']) &&  !empty($meta['height']) )
+				if ( !empty( $meta['width'] ) &&  !empty( $meta['height'] ) )
 					$result = "{$meta['width']} x {$meta['height']}";
 				break;
 
@@ -78,7 +77,7 @@ class CPAC_Media_Values extends CPAC_Values
 
 			// alternate text
 			case "column-alternate_text" :
-				$alt 	= get_post_meta($media_id, '_wp_attachment_image_alt', true);
+				$alt 	= get_post_meta( $media_id, '_wp_attachment_image_alt', true );
 				$result = cpac_utility::strip_trim($alt);
 				break;
 
@@ -89,7 +88,7 @@ class CPAC_Media_Values extends CPAC_Values
 
 			// file name
 			case "column-file_name" :
-				$file 		= wp_get_attachment_url($p->ID);
+				$file 		= wp_get_attachment_url( $p->ID );
 				$filename 	= basename($file);
 				$result 	= "<a title='{$filename}' href='{$file}'>{$filename}</a>";
 				break;
@@ -97,9 +96,9 @@ class CPAC_Media_Values extends CPAC_Values
 			// file paths
 			case "column-file_paths" :
 				$sizes 		= get_intermediate_image_sizes();
-				$url 		= wp_get_attachment_url($p->ID);
+				$url 		= wp_get_attachment_url( $p->ID );
 				$filename 	= basename($url);
-				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __('original', CPAC_TEXTDOMAIN) . "</a>";
+				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'original', CPAC_TEXTDOMAIN ) . "</a>";
 				if ( $sizes ) {
 					foreach ( $sizes as $size ) {
 						$src 	= wp_get_attachment_image_src( $media_id, $size );
@@ -117,7 +116,7 @@ class CPAC_Media_Values extends CPAC_Values
 				break;
 
 			case "column-filesize" :
-				$file 	= wp_get_attachment_url($p->ID);
+				$file 	= wp_get_attachment_url( $p->ID );
 				$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file);
 				if ( file_exists($abs) ) {
 					$result = $this->get_readable_filesize(filesize($abs));

@@ -11,13 +11,13 @@ class cpac_utility
 		$types = array();
 
 		foreach ( cpac_utility::get_post_types() as $post_type ) {
-			$types[] = new cpac_columns_posttype( $post_type );
+			$types[] = new CPAC_Columns_Posttype( $post_type );
 		}
 
-		$types[] 	= new cpac_columns_users();
-		$types[] 	= new cpac_columns_media();
-		$types[] 	= new cpac_columns_links();
-		$types[] 	= new cpac_columns_comments();
+		$types[] 	= new CPAC_Columns_Users();
+		$types[] 	= new CPAC_Columns_Media();
+		$types[] 	= new CPAC_Columns_Links();
+		$types[] 	= new CPAC_Columns_Comments();
 
 		return $types;
 	}

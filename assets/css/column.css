@@ -1,8 +1,5 @@
-.cpac-column-value-image,
-.column-column-attachment img {
-	padding-right: 5px;
-	padding-bottom: 4px;
-}
+/* =General
+-------------------------------------------------------------- */
 .cpac-divider {
 	display: inline-block;
 	width: 14px;
@@ -12,6 +9,23 @@
 span.status-open {}
 span.status-closed {
 	color: red;
+}
+
+/* =Images Column
+-------------------------------------------------------------- */
+.cpac-column-value-image {
+	display: inline-block;
+	background: #fff;
+	margin-right: 2px;
+	overflow: hidden;
+}
+.cpac-column-value-image img {
+	display: block;
+	margin: 0 auto;
+}
+.column-column-attachment img {
+	padding-right: 5px;
+	padding-bottom: 4px;
 }
 
 /* =Color Column

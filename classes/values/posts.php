@@ -16,9 +16,9 @@ class CPAC_Posts_Values extends CPAC_Values
 	function __construct()
 	{
 		parent::__construct();
-		
-		$this->type = 'post';
-		
+
+		$this->meta_type = 'post';
+
 		add_action( 'manage_pages_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
 	}
@@ -39,6 +39,9 @@ class CPAC_Posts_Values extends CPAC_Values
 		// Check for custom fields, such as column-meta-[customfieldname]
 		if ( cpac_utility::is_column_meta($type) )
 			$type = 'column-post-meta';
+
+		// set type
+		$this->storage_key = get_post_type( $post_id );
 
 		// Hook
 		do_action('cpac-manage-posts-column', $type, $column_name, $post_id);
@@ -106,7 +109,7 @@ class CPAC_Posts_Values extends CPAC_Values
 
 				// for post formats we will display standard instead of empty
 				if ( $tax == 'post_format' && empty($tags) ) {
-					$result = __('Standard');
+					$result = __( 'Standard');
 				}
 
 				// add name with link
@@ -245,19 +248,19 @@ class CPAC_Posts_Values extends CPAC_Values
 		$details = '';
 		if ( $c->approved ) {
 			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'approved'), admin_url( 'edit-comments.php' ) ) );
-			$details .= "<a href='{$url}' class='cp-approved' title='".__('approved', CPAC_TEXTDOMAIN) . "'>{$c->approved}</a>";
+			$details .= "<a href='{$url}' class='cp-approved' title='".__( 'approved', CPAC_TEXTDOMAIN ) . "'>{$c->approved}</a>";
 		}
 		if ( $c->moderated ) {
 			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'moderated'), admin_url( 'edit-comments.php' ) ) );
-			$details .= "<a href='{$url}' class='cp-moderated' title='".__('pending', CPAC_TEXTDOMAIN) . "'>{$c->moderated}</a>";
+			$details .= "<a href='{$url}' class='cp-moderated' title='".__( 'pending', CPAC_TEXTDOMAIN ) . "'>{$c->moderated}</a>";
 		}
 		if ( $c->spam ) {
 			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'spam'), admin_url( 'edit-comments.php' ) ) );
-			$details .= "<a href='{$url}' class='cp-spam' title='".__('spam', CPAC_TEXTDOMAIN) . "'>{$c->spam}</a>";
+			$details .= "<a href='{$url}' class='cp-spam' title='".__( 'spam', CPAC_TEXTDOMAIN ) . "'>{$c->spam}</a>";
 		}
 		if ( $c->trash ) {
 			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'trash'), admin_url( 'edit-comments.php' ) ) );
-			$details .= "<a href='{$url}' class='cp-trash' title='".__('trash', CPAC_TEXTDOMAIN) . "'>{$c->trash}</a>";
+			$details .= "<a href='{$url}' class='cp-trash' title='".__( 'trash', CPAC_TEXTDOMAIN ) . "'>{$c->trash}</a>";
 		}
 
 		if ( $details )

@@ -1,74 +1,86 @@
 <?php
 
-abstract class cpac_columns
+abstract class CPAC_Columns
 {
 	/**
-     * Used for queries and associative arrays.
-     *
-     * @var string
-     * @since 1.5
+     * Storage key
+	 *
+	 * Key by which the settings are saved to the Database. Every WordPress Column type has it's unique key.
+	 * Supported types are comments, links, users, media and posts. The first 4 get prefixed with 'wp-', except
+	 * for posts. They have their posttype as storage key.
+	 *
+	 * @since 1.5.0
+	 *
+     * @var string Storage Key.
      */
-    public $type;
-	
+    public $storage_key;
+
 	/**
      * Get the custom columns for this type
      *
-     * @since 1.3
+     * @since 1.3.0
+	 *
+	 * @return array Custom Columns.
      */
     abstract protected function get_custom_columns();
 
 	/**
-     * Get the label for this type
-     *
-     * @since 1.3
-     */
-    abstract protected function get_label();
-
-    /**
-	 * 	Get default WordPress columns for this type
+	 * Get default WordPress columns for this type
 	 *
-	 * 	@since     1.2.1
+	 * @since 1.2.1
+	 *
+	 * @return array WordPress Default Columns.
 	 */
 	abstract protected function get_default_columns();
 
 	/**
-     * Returns the meta keys that are associated with an attachment.
+     * Get the label for this type
      *
+     * @since 1.3.0
+	 *
+	 * @return string Singular Name.
+     */
+    abstract protected function get_label();
+
+	/**
+     * Returns the meta keys that are associated with an attachment.
+	 *      *
      * Ignores keys prefixed by a '_', as they are meant to be private.
      *
-     * @since 1.0
-     * @global object $wpdb
-     * @return array|boolean
+     * @since 1.0.0
+	 *
+	 * @return array Meta Keys.
      */
     abstract public function get_meta_keys();
 
 	/**
 	 * Get a list of Column options per post type
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
+	 *
+	 * @return array List that contains each box settings for this type
 	 */
-	public function get_column_boxes()
-	{
+	public function get_column_boxes() {
 		// loop throught the active columns
 		if ( ! $display_columns = $this->get_merged_columns() )
 			return array();
 
-		$boxes = array();		
-		
+		$boxes = array();
+
 		foreach ( $display_columns as $id => $values ) {
-			
+
 			// defaults
 			$box = (object) array(
-				'id' 			=> $id,	
-				'attr_name'		=> "cpac_options[columns][{$this->type}][{$id}]",
-				'attr_for'		=> "cpac-{$this->type}-{$id}",
+				'id' 			=> $id,
+				'attr_name'		=> "cpac_options[columns][{$this->storage_key}][{$id}]",
+				'attr_for'		=> "cpac-{$this->storage_key}-{$id}",
 				'classes'		=> array( "cpac-box-{$id}" ),
 				'state' 		=> false,
 				'type_label' 	=> '',
 				'label' 		=> '',
 				'width' 		=> 0,
-				'width_descr' 	=> __('default', CPAC_TEXTDOMAIN),
-				'hide_options'	=> false,				
+				'width_descr' 	=> __( 'default', CPAC_TEXTDOMAIN ),
+				'hide_options'	=> false,
 				'sort'			=> false,
 				'enable_sorting'=> false,
 				'is_image'		=> false,
@@ -82,12 +94,12 @@ abstract class cpac_columns
 				'before'		=> '',
 				'after'			=> '',
 				'display_as'	=> '',
-				'source_type'	=> ''	
+				'source_type'	=> ''
 			);
-			
+
 			if ( isset($values['state']) && 'on' == $values['state'] ) {
 				$box->state 	= 'on';
-				$box->classes[] = 'active';	
+				$box->classes[] = 'active';
 			}
 			if ( isset($values['options']['type_label']) ) {
 				$box->type_label = $values['options']['type_label'];
@@ -103,17 +115,17 @@ abstract class cpac_columns
 			}
 			if ( ! empty($values['options']['hide_options']) || strpos($box->label, '<img') !== false ) {
 				$box->hide_options = true;
-			}			
-			if ( ! empty($values['options']['class']) ) {				
-				$box->classes[] = $values['options']['class'];				
 			}
-			
-			$box->classes = implode(' ', $box->classes);	
-			
+			if ( ! empty($values['options']['class']) ) {
+				$box->classes[] = $values['options']['class'];
+			}
+
+			$box->classes = implode(' ', $box->classes);
+
 			// Sortorder
 			if ( isset($values['options']['enable_sorting']) && $values['options']['enable_sorting'] ) {
 				$box->enable_sorting = true;
-			
+
 				if ( isset($values['sort']) ) {
 					if ( 'off' != $values['sort'] ) {
 						$box->sort = true;
@@ -128,9 +140,9 @@ abstract class cpac_columns
 			if ( isset($values['options']['is_image']) && $values['options']['is_image'] ) {
 				$box->is_image = true;
 			}
-			
+
 			// Image Size
-			if ( isset($values['image_size']) ) {				
+			if ( isset($values['image_size']) ) {
 				$box->image_size = !empty($values['image_size']) ? $values['image_size'] : 'thumbnail';
 				if ( !empty($values['image_size_w']) ) {
 					$box->image_size_w 	= $values['image_size_w'];
@@ -139,13 +151,13 @@ abstract class cpac_columns
 					$box->image_size_h 	= $values['image_size_h'];
 				}
 			}
-			
+
 			// Custom Fields
 			if ( cpac_utility::is_column_meta( $box->id ) && $keys = $this->get_meta_keys() ) {
-				
+
 				$box->is_field 	= true;
-				$box->fields 	= $keys;				
-				
+				$box->fields 	= $keys;
+
 				if ( ! empty($values['field']) ) {
 					$box->field = $values['field'];
 				}
@@ -167,7 +179,7 @@ abstract class cpac_columns
 			elseif ( 'column-author-name' == $box->id && ! empty($values['display_as']) ) {
 				$box->display_as = $values['display_as'];
 			}
-			
+
 			$boxes[] = $box;
 		}
 
@@ -177,72 +189,77 @@ abstract class cpac_columns
 	/**
 	 * Get Custom FieldType Options
 	 *
-	 * @since     1.5
+	 * @since 1.5.0
+	 *
+	 * @return array Customfield types.
 	 */
-	public function get_custom_field_types()
-	{
+	public function get_custom_field_types() {
 		return apply_filters('cpac-field-types', array(
-			''				=> __('Default'),
-			'image'			=> __('Image', CPAC_TEXTDOMAIN),			
-			'excerpt'		=> __('Excerpt'),
-			'array'			=> __('Multiple Values', CPAC_TEXTDOMAIN),
-			'numeric'		=> __('Numeric', CPAC_TEXTDOMAIN),
-			'date'			=> __('Date', CPAC_TEXTDOMAIN),
-			'title_by_id'	=> __('Post Title (Post ID\'s)', CPAC_TEXTDOMAIN),
-			'user_by_id'	=> __('Username (User ID\'s)', CPAC_TEXTDOMAIN),
-			'checkmark'		=> __('Checkmark (true/false)', CPAC_TEXTDOMAIN),
-			'color'			=> __('Color', CPAC_TEXTDOMAIN),
+			''				=> __( 'Default'),
+			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
+			'excerpt'		=> __( 'Excerpt'),
+			'array'			=> __( 'Multiple Values', CPAC_TEXTDOMAIN ),
+			'numeric'		=> __( 'Numeric', CPAC_TEXTDOMAIN ),
+			'date'			=> __( 'Date', CPAC_TEXTDOMAIN ),
+			'title_by_id'	=> __( 'Post Title (Post ID\'s)', CPAC_TEXTDOMAIN ),
+			'user_by_id'	=> __( 'Username (User ID\'s)', CPAC_TEXTDOMAIN ),
+			'checkmark'		=> __( 'Checkmark (true/false)', CPAC_TEXTDOMAIN ),
+			'color'			=> __( 'Color', CPAC_TEXTDOMAIN ),
 		));
 	}
 
 	/**
 	 * Get Author Name Types
 	 *
-	 * @since     1.5
+	 * @since 1.5.0
+	 *
+	 * @return array Authorname types.
 	 */
-	public function get_authorname_types()
-	{
+	public function get_authorname_types() {
 		return apply_filters( 'cpac-authorname-types', array(
-			'display_name'		=> __('Display Name', CPAC_TEXTDOMAIN),
-			'first_name'		=> __('First Name', CPAC_TEXTDOMAIN),
-			'last_name'			=> __('Last Name', CPAC_TEXTDOMAIN),
-			'first_last_name' 	=> __('First &amp; Last Name', CPAC_TEXTDOMAIN),
-			'nickname'			=> __('Nickname', CPAC_TEXTDOMAIN),
-			'username'			=> __('Username', CPAC_TEXTDOMAIN),
-			'email'				=> __('Email', CPAC_TEXTDOMAIN),
-			'userid'			=> __('User ID', CPAC_TEXTDOMAIN)
+			'display_name'		=> __( 'Display Name', CPAC_TEXTDOMAIN ),
+			'first_name'		=> __( 'First Name', CPAC_TEXTDOMAIN ),
+			'last_name'			=> __( 'Last Name', CPAC_TEXTDOMAIN ),
+			'first_last_name' 	=> __( 'First &amp; Last Name', CPAC_TEXTDOMAIN ),
+			'nickname'			=> __( 'Nickname', CPAC_TEXTDOMAIN ),
+			'username'			=> __( 'Username', CPAC_TEXTDOMAIN ),
+			'email'				=> __( 'Email', CPAC_TEXTDOMAIN ),
+			'userid'			=> __( 'User ID', CPAC_TEXTDOMAIN )
 		));
 	}
 
 	/**
 	 * Get merged columns
 	 *
-	 * @since     1.0
+	 * Contains a combination of WordPress default columns, CPAC custom columns and Stored columns.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Columns.
 	 */
-	function get_merged_columns()
-	{
+	function get_merged_columns() {
 		// get added and WP columns
 		$wp_default_columns = $this->get_default_columns();
 		$wp_custom_columns  = $this->get_custom_columns();
 
 		// merge
-		$default_columns	= wp_parse_args($wp_custom_columns, $wp_default_columns);
+		$default_columns	= wp_parse_args( $wp_custom_columns, $wp_default_columns );
 
 		// Get saved columns
-		if ( ! $db_columns = cpac_utility::get_stored_columns( $this->type ) )
+		if ( ! $db_columns = cpac_utility::get_stored_columns( $this->storage_key ) )
 			return $default_columns;
 
 		// let's remove any unavailable columns.. such as disabled plugins
-		$diff = array_diff( array_keys($db_columns), array_keys($default_columns) );
+		$diff = array_diff( array_keys( $db_columns ), array_keys( $default_columns ) );
 
 		// check for differences
-		if ( ! empty($diff) && is_array($diff) ) {
+		if ( ! empty( $diff ) && is_array( $diff ) ) {
 			foreach ( $diff as $column_name ){
 				// make an exception for column-meta-xxx
-				if ( cpac_utility::is_column_meta($column_name) )
+				if ( cpac_utility::is_column_meta( $column_name ) )
 					continue;
-				
-				unset($db_columns[$column_name]);			
+
+				unset( $db_columns[$column_name] );
 			}
 		}
 
@@ -250,32 +267,34 @@ abstract class cpac_columns
 		foreach ( $db_columns as $id => $values ) {
 
 			// get column meta options from custom columns
-			if ( cpac_utility::is_column_meta($id) && !empty($wp_custom_columns['column-meta-1']['options']) ) {
+			if ( cpac_utility::is_column_meta( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
 				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
 			}
 
 			// add static options
-			elseif ( isset($default_columns[$id]['options']) ) {
+			elseif ( isset( $default_columns[$id]['options'] ) ) {
 				$db_columns[$id]['options'] = $default_columns[$id]['options'];
 			}
 
-			unset($default_columns[$id]);
+			unset( $default_columns[$id] );
 		}
-		
+
 		// merge all
-		return wp_parse_args($db_columns, $default_columns);
+		return wp_parse_args( $db_columns, $default_columns );
 	}
 
 	/**
 	 * Build uniform format for all columns
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param array $columns WordPress default columns.
+	 * @return array CPAC Columns format.
 	 */
-	public function get_uniform_format($columns)
-	{
+	public function get_uniform_format( $columns ) {
 		// we remove the checkbox column as an option...
-		if ( isset($columns['cb']) )
-			unset($columns['cb']);
+		if ( isset( $columns['cb'] ) )
+			unset( $columns['cb'] );
 
 		// change to uniform format
 		$uniform_columns = array();
@@ -286,13 +305,13 @@ abstract class cpac_columns
 			// comment exception
 			if ( 'comments' == $id ) {
 				$label 			= '';
-				$type_label 	= __('Comments', CPAC_TEXTDOMAIN);
+				$type_label 	= __( 'Comments', CPAC_TEXTDOMAIN );
 				$hide_options 	= true;
 			}
 
 			// user icon exception
 			if ( $id == 'icon' ) {
-				$type_label 	= __('Icon', CPAC_TEXTDOMAIN);
+				$type_label 	= __( 'Icon', CPAC_TEXTDOMAIN );
 			}
 
 			$uniform_columns[$id] = array(
@@ -311,10 +330,12 @@ abstract class cpac_columns
 	/**
 	 * Parse defaults
 	 *
-	 * @since     1.1
+	 * @since 1.1.0
+	 *
+	 * @param array $columns Columns raw.
+	 * @return array Columns with merged defaults.
 	 */
-	public function parse_defaults($columns)
-	{
+	public function parse_defaults( $columns ) {
 		// default arguments
 		$defaults = array(
 
@@ -325,7 +346,7 @@ abstract class cpac_columns
 
 			// static values
 			'options'		=> array(
-				'type_label'	=> __('Custom', CPAC_TEXTDOMAIN),
+				'type_label'	=> __( 'Custom', CPAC_TEXTDOMAIN ),
 				'hide_options'	=> false,
 				'class'			=> 'cpac-box-custom',
 				'enable_sorting'=> true,
@@ -351,27 +372,29 @@ abstract class cpac_columns
 	/**
 	 * Maybe add hidden meta
 	 *
-	 * @since     1.5
+	 * @since 1.5
+	 *
+	 * @param array $fields Custom fields.
+	 * @return array Custom fields.
 	 */
-	function maybe_add_hidden_meta( $fields )
-	{
+	function maybe_add_hidden_meta( $fields ) {
 		if ( ! $fields )
 			return false;
 
 		$combined_fields = array();
 
-		$use_hidden_meta = apply_filters('cpac_use_hidden_custom_fields', false);
+		$use_hidden_meta = apply_filters( 'cpac_use_hidden_custom_fields', false );
 
 		// filter out hidden meta fields
-		foreach ($fields as $field) {
+		foreach ( $fields as $field ) {
 
 			// give hidden fields a prefix for identifaction
-			if ( $use_hidden_meta && substr($field[0],0,1) == "_") {
+			if ( $use_hidden_meta && substr( $field[0], 0, 1 ) == "_") {
 				$combined_fields[] = 'cpachidden'.$field[0];
 			}
 
 			// non hidden fields are saved as is
-			elseif ( substr($field[0],0,1) != "_" ) {
+			elseif ( substr( $field[0], 0, 1 ) != "_" ) {
 				$combined_fields[] = $field[0];
 			}
 		}
@@ -383,15 +406,17 @@ abstract class cpac_columns
 	}
 
 	/**
-	 *	Add managed columns by Type
+	 * Add managed columns by Type
 	 *
-	 *  Triggerd by WordPress apply_filters( manage_{$screen->id}_columns, $columns );
+	 * Triggerd by WordPress apply_filters( manage_{$screen->id}_columns, $columns );
 	 *
-	 * 	@since     1.1
+	 * @since 1.1
+	 *
+	 * @param array $columns Column Headings.
+	 * @return array CPAC Column Headings.
 	 */
-	public function add_columns_headings( $columns )
-	{
-		if ( ! $db_columns	= cpac_utility::get_stored_columns( $this->type ) )
+	public function add_columns_headings( $columns ) {
+		if ( ! $db_columns	= cpac_utility::get_stored_columns( $this->storage_key ) )
 			return $columns;
 
 		// filter already loaded columns by plugins
@@ -405,7 +430,7 @@ abstract class cpac_columns
 				$label = $values['label'];
 
 				// exception for comments
-				if( 'comments' == $id ) {
+				if ( 'comments' == $id ) {
 					$label = $this->get_comment_icon();
 				}
 
@@ -418,17 +443,21 @@ abstract class cpac_columns
 	}
 
 	/**
-	 * Filter preset columns. These columns apply either for every post or set by a plugin.
+	 * Filter preset columns.
 	 *
-	 * @since     1.0
+	 * Returns the difference from the stored WordPress default columns and the current loading columns.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $columns Columns
+	 * @todo: refactor
 	 */
-	public function filter_preset_columns( $columns )
-	{
+	public function filter_preset_columns( $columns ) {
 		if ( ! $options = get_option('cpac_options_default') )
 			return $columns;
 
 		// we use the wp default columns for filtering...
-		$stored_wp_default_columns 	= $options[$this->type];
+		$stored_wp_default_columns = $options[$this->storage_key];
 
 		// ... the ones that are set by plugins, theme functions and such.
 		$dif_columns = array_diff( array_keys($columns), array_keys($stored_wp_default_columns) );
@@ -445,22 +474,24 @@ abstract class cpac_columns
 	}
 
 	/**
-	 *	Add managed columns by Type
+	 * Add managed columns by Type
 	 *
-	 * 	@since 1.4.6.5
+	 * @since 1.4.6.5
+	 *
+	 * @return string
 	 */
-	function get_comment_icon()
-	{
+	function get_comment_icon() {
 		return "<span class='vers'><img src='" . trailingslashit( get_admin_url() ) . 'images/comment-grey-bubble.png' . "' alt='Comments'></span>";
 	}
 
 	/**
-	 *	Get sortable columns
+	 * Get sortable columns
 	 *
-	 * 	@since     1.1
+	 * @since 1.1
+	 *
+	 * @return array Columns that support sorting.
 	 */
-	public function get_sortable_columns()
-	{
+	public function get_sortable_columns() {
 		$columns = array();
 
 		if ( $display_columns = $this->get_merged_columns() ) {

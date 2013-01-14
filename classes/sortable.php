@@ -96,8 +96,8 @@ class Codepress_Sortable_Columns
 			$post_type = $_REQUEST['post_type'];
 		}
 
-		$type = new cpac_columns_posttype( $post_type );
-		
+		$type = new CPAC_Columns_Posttype( $post_type );
+
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
@@ -108,7 +108,7 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_users_column($columns)
 	{
-		$type = new cpac_columns_users();
+		$type = new CPAC_Columns_Users();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -120,8 +120,8 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_media_column($columns)
 	{
-		$type = new cpac_columns_media();
-		
+		$type = new CPAC_Columns_Media();
+
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
 
@@ -132,7 +132,7 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_links_column($columns)
 	{
-		$type = new cpac_columns_links();
+		$type = new CPAC_Columns_Links();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -144,7 +144,7 @@ class Codepress_Sortable_Columns
 	 */
 	public function callback_add_sortable_comments_column( $columns )
 	{
-		$type = new cpac_columns_comments();
+		$type = new CPAC_Columns_Comments();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -205,7 +205,7 @@ class Codepress_Sortable_Columns
 
 		// var
 		$cusers = array();
-		switch( $type ) :
+		switch ( $type ) :
 
 			case 'column-user_id':
 				$user_query->query_orderby = "ORDER BY ID {$user_query->query_vars['order']}";
@@ -261,7 +261,7 @@ class Codepress_Sortable_Columns
 					}
 				}
 				break;
-			
+
 			case 'column-user_commentcount' :
 				$sort_flag = SORT_REGULAR;
 				foreach ( $this->get_users_data() as $u ) {
@@ -364,7 +364,7 @@ class Codepress_Sortable_Columns
 
 		// var
 		$length = '';
-		switch( $type ) :
+		switch ( $type ) :
 
 			case 'column-link_id':
 				if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
@@ -417,7 +417,7 @@ class Codepress_Sortable_Columns
 			$results		= $wpdb->get_results($sql);
 
 			// check for errors
-			if( is_wp_error($results) )
+			if ( is_wp_error($results) )
 				return false;
 		}
 
@@ -444,7 +444,7 @@ class Codepress_Sortable_Columns
 		$type = $id = key($column);
 
 		// var
-		switch( $type ) :
+		switch ( $type ) :
 
 			case 'column-comment_id':
 				$pieces['orderby'] = 'comment_ID';
@@ -511,7 +511,7 @@ class Codepress_Sortable_Columns
 	public function handle_requests_orderby_comments_column()
 	{
 		global $pagenow;
-		
+
 		// fire only when we are in the admins edit-comments
 		if ( 'edit-comments.php' == $pagenow ) {
 			add_filter('comments_clauses', array( $this, 'callback_requests_orderby_comments_column'), 10, 2);
@@ -577,7 +577,7 @@ class Codepress_Sortable_Columns
 
 		// var
 		$cposts = array();
-		switch( $id ) :
+		switch ( $id ) :
 
 			case 'column-mediaid' :
 				$vars['orderby'] = 'ID';
@@ -721,7 +721,7 @@ class Codepress_Sortable_Columns
 
 		// var
 		$cposts = array();
-		switch( $type ) :
+		switch ( $type ) :
 
 			case 'column-postid' :
 				$vars['orderby'] = 'ID';
@@ -861,7 +861,7 @@ class Codepress_Sortable_Columns
 			case 'column-author-name' :
 				$sort_flag  = SORT_STRING;
 				$display_as = $column[$id]['display_as'];
-				if( 'userid' == $display_as ) {
+				if ( 'userid' == $display_as ) {
 					$sort_flag  = SORT_NUMERIC;
 				}
 				foreach ( $this->get_any_posts_by_posttype($post_type) as $p ) {
@@ -1175,9 +1175,9 @@ class Codepress_Sortable_Columns
 
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax ) {
-				
-				$tax_obj = get_taxonomy($tax);				
-				
+
+				$tax_obj = get_taxonomy($tax);
+
 				// ignore core taxonomies
 				if ( in_array($tax, array('post_tag','category','post_format') ) ) {
 					continue;
@@ -1190,7 +1190,7 @@ class Codepress_Sortable_Columns
 					$terms = $this->indent($terms, 0, 'parent', 'term_id');
 					$terms = $this->apply_dropdown_markup($terms);
 
-					$select = "<option value=''>".__('Show all ', CPAC_TEXTDOMAIN)."{$tax_obj->label}</option>";
+					$select = "<option value=''>".__( 'Show all ', CPAC_TEXTDOMAIN )."{$tax_obj->label}</option>";
 					if (!empty($terms)) {
 						foreach( $terms as $term_slug => $term) {
 
