@@ -64,7 +64,7 @@ class CPAC_Link_Values extends CPAC_Values {
 
 			// image
 			case "column-image" :
-				$result = $this->get_thumbnail( $bookmark->link_image );
+				$result = $this->get_thumbnails( $bookmark->link_image );
 				break;
 
 			// name length
@@ -116,5 +116,3 @@ class CPAC_Link_Values extends CPAC_Values {
 		return implode( ' | ', $actions );
 	}
 }
-
-?>

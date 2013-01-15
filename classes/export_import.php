@@ -3,18 +3,17 @@
 /**
  * CPAC_Export_Import Class
  *
- * @since     1.4.6.5
+ * @since 1.4.6.5
  *
  */
-class CPAC_Export_Import
-{
+class CPAC_Export_Import {
+
 	/**
 	 * Constructor
 	 *
 	 * @since 1.4.6.5
 	 */
-	function __construct()
-	{
+	function __construct() {
 		add_action( 'wp_ajax_cpac_get_export', array( $this, 'get_export' ) );
 		add_action( 'wp_ajax_cpac_import', array( $this, 'run_import' ) );
 	}
@@ -23,9 +22,10 @@ class CPAC_Export_Import
 	 * Get Export
 	 *
 	 * @since 1.4.6.5
+	 *
+	 * @return string Export (JSON encode).
 	 */
-	function get_export()
-	{
+	function get_export() {
 		if ( empty( $_POST['types'] ) ) {
 			echo json_encode( array( 'status' => 0, 'msg' => __( 'No types selected.',  CPAC_TEXTDOMAIN ) ) );
 			exit;
@@ -33,7 +33,7 @@ class CPAC_Export_Import
 
 		$columns = array();
 		foreach ( $_POST['types'] as $type ) {
-			$columns[$type] = cpac_utility::get_stored_columns( $type );
+			$columns[$type] = CPAC_Utility::get_stored_columns( $type );
 		}
 
 		// make sure the array is not empty
@@ -52,9 +52,10 @@ class CPAC_Export_Import
 	 * Run Import
 	 *
 	 * @since 1.4.6.5
+	 *
+	 * @return string Message ( JSON encode ).
 	 */
-	function run_import()
-	{
+	function run_import() {
 		// @todo: add wp_nonce_verify (ajax)
 
 		if ( empty( $_POST['import_code'] ) ) {
@@ -66,10 +67,9 @@ class CPAC_Export_Import
 		$import_code = $_POST['import_code'];
 
 		// decode
-		$import_code 	= str_replace( "<!-- START: Admin Columns export -->\n", "", $import_code );
-		$import_code 	= str_replace( "\n<!-- END: Admin Columns export -->", "", $import_code );
-		$import_code 	= base64_decode( trim( $import_code ) );
-		$import_code  	= maybe_unserialize( $import_code );
+		$import_code = str_replace( "<!-- START: Admin Columns export -->\n", "", $import_code );
+		$import_code = str_replace( "\n<!-- END: Admin Columns export -->", "", $import_code );
+		$import_code = maybe_unserialize( base64_decode( trim( $import_code ) ) );
 
 		// validate code
 		if ( empty( $import_code ) || ! is_array( $import_code ) ) {
@@ -81,7 +81,7 @@ class CPAC_Export_Import
 		$options = (array) get_option( 'cpac_options' );
 
 		// merge saved setting if they exist..
-		if ( !empty( $options['columns'] ) ) {
+		if ( ! empty( $options['columns'] ) ) {
 			$options['columns'] = array_merge( $options['columns'], $import_code );
 		}
 
@@ -105,5 +105,3 @@ class CPAC_Export_Import
 }
 
 new CPAC_Export_Import;
-
-?>

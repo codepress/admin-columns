@@ -3,33 +3,42 @@
 /**
  * CPAC_Users_Values Class
  *
- * @since     1.4.4
- *
+ * @since 1.4.4
  */
 class CPAC_Users_Values extends CPAC_Values
 {
 	/**
 	 * Constructor
 	 *
-	 * @since     1.4.4
+	 * @since 1.4.4
 	 */
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
 
-		$this->storage_key	= 'wp-user';
-		$this->meta_type	= 'user';
+		/**
+		 * @see CPAC_Values::storage_key
+		 */
+		$this->storage_key = 'wp-user';
 
-		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value'), 10, 3 );
+		/**
+		 * @see CPAC_Values::meta_type
+		 */
+		$this->meta_type = 'user';
+
+		add_filter( 'manage_users_custom_column', array( $this, 'manage_users_column_value' ), 10, 3 );
 	}
 
 	/**
 	 * Manage custom column for Users.
 	 *
-	 * @since     1.1
+	 * @since 1.1
+	 *
+	 * @param string $value Current Column value
+	 * @param string $column_name Column name
+	 * @param int $user_id User ID
+	 * @return string Column value
 	 */
-	public function manage_users_column_value( $value, $column_name, $user_id )
-	{
+	public function manage_users_column_value( $value, $column_name, $user_id ) {
 		$type = $column_name;
 
 		$userdata = get_userdata( $user_id );
@@ -38,17 +47,17 @@ class CPAC_Users_Values extends CPAC_Values
 			return false;
 
 		// Check for user custom fields: column-meta-[customfieldname]
-		if ( cpac_utility::is_column_meta($type) ) {
+		if ( CPAC_Utility::is_column_meta( $type ) ) {
 			$type = 'column-user-meta';
 		}
 
 		// Check for post count: column-user_postcount-[posttype]
-		if ( cpac_utility::get_posttype_by_postcount_column($type) ) {
+		if ( CPAC_Utility::get_posttype_by_postcount_column( $type ) ) {
 			$type = 'column-user_postcount';
 		}
 
 		// Hook
-		do_action('cpac-manage-users-column', $type, $column_name, $user_id);
+		do_action( 'cpac-manage-users-column', $type, $column_name, $user_id );
 
 		$result = '';
 		switch ($type) :
@@ -85,7 +94,7 @@ class CPAC_Users_Values extends CPAC_Values
 
 			// user description
 			case "column-user_description" :
-				$result = $this->get_shortened_string( get_the_author_meta('user_description', $user_id), $this->excerpt_length );
+				$result = $this->get_shortened_string( get_the_author_meta('user_description', $user_id ), $this->excerpt_length );
 				break;
 
 			// user comment count
@@ -98,10 +107,10 @@ class CPAC_Users_Values extends CPAC_Values
 
 			// user description
 			case "column-user_postcount" :
-				$post_type 	= cpac_utility::get_posttype_by_postcount_column($column_name);
+				$post_type 	= CPAC_Utility::get_posttype_by_postcount_column($column_name);
 
 				// get post count
-				$count 		= cpac_utility::get_post_count( $post_type, $user_id );
+				$count 		= CPAC_Utility::get_post_count( $post_type, $user_id );
 
 				// set result
 				$result 	= $count > 0 ? "<a href='edit.php?post_type={$post_type}&author={$user_id}'>{$count}</a>" : (string) $count;
@@ -109,7 +118,7 @@ class CPAC_Users_Values extends CPAC_Values
 
 			// user actions
 			case "column-actions" :
-				$result = $this->get_column_value_actions($user_id, 'users');
+				$result = $this->get_column_value_actions( $user_id, 'users' );
 				break;
 
 			// user meta data ( custom field )
@@ -122,18 +131,20 @@ class CPAC_Users_Values extends CPAC_Values
 
 		endswitch;
 
-		echo apply_filters('cpac-users-column-result', $result, $type, $column_name, $user_id);
+		return apply_filters( 'cpac-users-column-result', $result, $type, $column_name, $user_id );
 	}
 
 	/**
-	 *	Get column value of user actions
+	 * Get column value of user actions
 	 *
-	 *	This part is copied from the Users List Table class
+	 * This part is copied from the Users List Table class
 	 *
-	 * 	@since     1.4.2
+	 * @since 1.4.2
+	 *
+	 * @param int $id User ID
+	 * @return string Actions
 	 */
-	private function get_column_value_actions( $id )
-	{
+	private function get_column_value_actions( $id ) {
 		$actions = array();
 
 		$user_object = new WP_User( $id );
@@ -165,5 +176,3 @@ class CPAC_Users_Values extends CPAC_Values
 		return implode(' | ', $actions);
 	}
 }
-
-?>

@@ -97,23 +97,23 @@ abstract class CPAC_Columns
 				'source_type'	=> ''
 			);
 
-			if ( isset($values['state']) && 'on' == $values['state'] ) {
+			if ( isset( $values['state'] ) && 'on' == $values['state'] ) {
 				$box->state 	= 'on';
 				$box->classes[] = 'active';
 			}
-			if ( isset($values['options']['type_label']) ) {
+			if ( isset( $values['options']['type_label'] ) ) {
 				$box->type_label = $values['options']['type_label'];
 			}
-			if ( isset($values['label']) ) {
+			if ( isset( $values['label'] ) ) {
 				$box->label = $values['label'];
 			}
-			if ( isset($values['width']) ) {
+			if ( isset( $values['width'] ) ) {
 				$box->width	= $values['width'];
 			}
 			if ( $box->width > 0 ) {
 				$box->width_descr = $box->width . '%';
 			}
-			if ( ! empty($values['options']['hide_options']) || strpos($box->label, '<img') !== false ) {
+			if ( ! empty( $values['options']['hide_options'] ) || strpos( $box->label, '<img' ) !== false ) {
 				$box->hide_options = true;
 			}
 			if ( ! empty($values['options']['class']) ) {
@@ -123,10 +123,10 @@ abstract class CPAC_Columns
 			$box->classes = implode(' ', $box->classes);
 
 			// Sortorder
-			if ( isset($values['options']['enable_sorting']) && $values['options']['enable_sorting'] ) {
+			if ( isset( $values['options']['enable_sorting'] ) && $values['options']['enable_sorting'] ) {
 				$box->enable_sorting = true;
 
-				if ( isset($values['sort']) ) {
+				if ( isset( $values['sort'] ) ) {
 					if ( 'off' != $values['sort'] ) {
 						$box->sort = true;
 					}
@@ -137,46 +137,46 @@ abstract class CPAC_Columns
 			}
 
 			// Image
-			if ( isset($values['options']['is_image']) && $values['options']['is_image'] ) {
+			if ( isset( $values['options']['is_image'] ) && $values['options']['is_image'] ) {
 				$box->is_image = true;
 			}
 
 			// Image Size
 			if ( isset($values['image_size']) ) {
-				$box->image_size = !empty($values['image_size']) ? $values['image_size'] : 'thumbnail';
-				if ( !empty($values['image_size_w']) ) {
+				$box->image_size = ! empty( $values['image_size'] ) ? $values['image_size'] : 'thumbnail';
+				if ( ! empty( $values['image_size_w'] ) ) {
 					$box->image_size_w 	= $values['image_size_w'];
 				}
-				if ( !empty($values['image_size_h']) ) {
+				if ( ! empty( $values['image_size_h'] ) ) {
 					$box->image_size_h 	= $values['image_size_h'];
 				}
 			}
 
 			// Custom Fields
-			if ( cpac_utility::is_column_meta( $box->id ) && $keys = $this->get_meta_keys() ) {
+			if ( CPAC_Utility::is_column_meta( $box->id ) && $keys = $this->get_meta_keys() ) {
 
 				$box->is_field 	= true;
 				$box->fields 	= $keys;
 
-				if ( ! empty($values['field']) ) {
+				if ( ! empty( $values['field'] ) ) {
 					$box->field = $values['field'];
 				}
-				if ( ! empty($values['field_type']) ) {
+				if ( ! empty( $values['field_type'] ) ) {
 					$box->field_type = $values['field_type'];
 				}
-				if ( ! empty($values['before']) ) {
+				if ( ! empty( $values['before'] ) ) {
 					$box->before = $values['before'];
 				}
-				if ( ! empty($values['after']) ) {
+				if ( ! empty( $values['after'] ) ) {
 					$box->after  = $values['after'];
 				}
-				if ( ! empty($values['field_type']) && 'image' == $values['field_type'] ) {
+				if ( ! empty( $values['field_type'] ) && 'image' == $values['field_type'] ) {
 					$box->is_image = true;
 				}
 			}
 
 			// Author Names
-			elseif ( 'column-author-name' == $box->id && ! empty($values['display_as']) ) {
+			elseif ( 'column-author-name' == $box->id && ! empty( $values['display_as'] ) ) {
 				$box->display_as = $values['display_as'];
 			}
 
@@ -194,7 +194,7 @@ abstract class CPAC_Columns
 	 * @return array Customfield types.
 	 */
 	public function get_custom_field_types() {
-		return apply_filters('cpac-field-types', array(
+		return apply_filters( 'cpac-field-types', array(
 			''				=> __( 'Default'),
 			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
 			'excerpt'		=> __( 'Excerpt'),
@@ -246,7 +246,7 @@ abstract class CPAC_Columns
 		$default_columns	= wp_parse_args( $wp_custom_columns, $wp_default_columns );
 
 		// Get saved columns
-		if ( ! $db_columns = cpac_utility::get_stored_columns( $this->storage_key ) )
+		if ( ! $db_columns = CPAC_Utility::get_stored_columns( $this->storage_key ) )
 			return $default_columns;
 
 		// let's remove any unavailable columns.. such as disabled plugins
@@ -256,7 +256,7 @@ abstract class CPAC_Columns
 		if ( ! empty( $diff ) && is_array( $diff ) ) {
 			foreach ( $diff as $column_name ){
 				// make an exception for column-meta-xxx
-				if ( cpac_utility::is_column_meta( $column_name ) )
+				if ( CPAC_Utility::is_column_meta( $column_name ) )
 					continue;
 
 				unset( $db_columns[$column_name] );
@@ -267,7 +267,7 @@ abstract class CPAC_Columns
 		foreach ( $db_columns as $id => $values ) {
 
 			// get column meta options from custom columns
-			if ( cpac_utility::is_column_meta( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
+			if ( CPAC_Utility::is_column_meta( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
 				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
 			}
 
@@ -355,15 +355,16 @@ abstract class CPAC_Columns
 
 		// parse args
 		foreach ( $columns as $k => $column ) {
-			$c[$k] = wp_parse_args( $column, $defaults);
+			$c[$k] = wp_parse_args( $column, $defaults );
 
 			// parse options args
-			if ( isset($column['options']) )
-				$c[$k]['options'] = wp_parse_args( $column['options'], $defaults['options']);
+			if ( isset( $column['options'] ) )
+				$c[$k]['options'] = wp_parse_args( $column['options'], $defaults['options'] );
 
 			// set type label
-			if ( empty($column['options']['type_label']) && !empty($column['label']) )
+			if ( empty( $column['options']['type_label'] ) && ! empty( $column['label'] ) ) {
 				$c[$k]['options']['type_label']	= $column['label'];
+			}
 		}
 
 		return $c;
@@ -399,7 +400,7 @@ abstract class CPAC_Columns
 			}
 		}
 
-		if ( empty($combined_fields) )
+		if ( empty( $combined_fields ) )
 			return false;
 
 		return $combined_fields;
@@ -416,7 +417,7 @@ abstract class CPAC_Columns
 	 * @return array CPAC Column Headings.
 	 */
 	public function add_columns_headings( $columns ) {
-		if ( ! $db_columns	= cpac_utility::get_stored_columns( $this->storage_key ) )
+		if ( ! $db_columns	= CPAC_Utility::get_stored_columns( $this->storage_key ) )
 			return $columns;
 
 		// filter already loaded columns by plugins
@@ -453,14 +454,14 @@ abstract class CPAC_Columns
 	 * @todo: refactor
 	 */
 	public function filter_preset_columns( $columns ) {
-		if ( ! $options = get_option('cpac_options_default') )
+		if ( ! $options = get_option( 'cpac_options_default' ) )
 			return $columns;
 
 		// we use the wp default columns for filtering...
 		$stored_wp_default_columns = $options[$this->storage_key];
 
 		// ... the ones that are set by plugins, theme functions and such.
-		$dif_columns = array_diff( array_keys($columns), array_keys($stored_wp_default_columns) );
+		$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );
 
 		// we add those to the columns
 		$pre_columns = array();
@@ -496,9 +497,9 @@ abstract class CPAC_Columns
 
 		if ( $display_columns = $this->get_merged_columns() ) {
 			foreach ( $display_columns as $id => $vars ) {
-				if ( isset($vars['options']['enable_sorting']) && $vars['options']['enable_sorting'] ){
+				if ( isset( $vars['options']['enable_sorting'] ) && $vars['options']['enable_sorting'] ){
 
-					$columns[$id] = cpac_utility::sanitize_string( $vars['label'] );
+					$columns[$id] = CPAC_Utility::sanitize_string( $vars['label'] );
 				}
 			}
 		}

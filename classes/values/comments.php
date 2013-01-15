@@ -16,8 +16,15 @@ class CPAC_Comments_Values extends CPAC_Values {
 	function __construct() {
 		parent::__construct();
 
-		$this->storage_key	= 'wp-comment';
-		$this->meta_type	= 'comment';
+		/**
+		 * @see CPAC_Values::storage_key
+		 */
+		$this->storage_key = 'wp-comment';
+
+		/**
+		 * @see CPAC_Values::meta_type
+		 */
+		$this->meta_type = 'comment';
 
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_comments_column_value' ), 10, 2 );
 	}
@@ -34,7 +41,7 @@ class CPAC_Comments_Values extends CPAC_Values {
 		$comment = get_comment( $comment_id );
 
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( cpac_utility::is_column_meta( $type ) )
+		if ( CPAC_Utility::is_column_meta( $type ) )
 			$type = 'column-comment-meta';
 
 		// Hook
@@ -136,7 +143,7 @@ class CPAC_Comments_Values extends CPAC_Values {
 
 			// word count
 			case "column-word-count" :
-				$result = str_word_count( cpac_utility::strip_trim( $comment->comment_content ) );
+				$result = str_word_count( CPAC_Utility::strip_trim( $comment->comment_content ) );
 				break;
 
 			default :
@@ -245,5 +252,3 @@ class CPAC_Comments_Values extends CPAC_Values {
 		// end copied
 	}
 }
-
-?>

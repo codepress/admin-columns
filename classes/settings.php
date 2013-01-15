@@ -1,16 +1,32 @@
 <?php
 
-class Cpac_Settings
-{
-	private $column_page;
+/**
+ * CPAC_Settings Class
+ *
+ * @since 2.0.0
+ */
+class CPAC_Settings {
 
-	function __construct()
-	{
+	/**
+	 * Column Settings slug
+	 *
+	 * @since 2.0.0
+	 *
+	 * @var string Page slug.
+	 */
+	private $column_settings_slug;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 2.0.0
+	 */
+	function __construct() {
 		// register settings
-		add_action( 'admin_menu', array( $this, 'settings_menu') );
+		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
 		// action ajax
-		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation'));
+		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation' ) );
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );
@@ -21,29 +37,28 @@ class Cpac_Settings
 	 *
 	 * Create the admin menu link for the settings page.
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	public function settings_menu()
-	{
+	public function settings_menu() {
 		// Utility Page
 		$page = add_menu_page(
 			__( 'Admin Columns Settings', CPAC_TEXTDOMAIN ),
 			__( 'Admin Columns', CPAC_TEXTDOMAIN ),
 			'manage_options',
 			CPAC_SLUG,
-			array( $this, 'column_settings'),
+			array( $this, 'column_settings' ),
 			false
 		);
 
 		// set admin page
-		$this->column_page = $page;
+		$this->column_settings_slug = $page;
 
 		// settings page specific styles and scripts
-		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles') );
-		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts') );
+		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
 
 		// add help tabs
-		add_action("load-{$page}", array( $this, 'help_tabs'));
+		add_action( "load-{$page}", array( $this, 'help_tabs' ) );
 
 		// Settings Page
 		$page = add_submenu_page(
@@ -55,17 +70,16 @@ class Cpac_Settings
 			array( $this, 'general_settings' )
 		);
 
-		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles') );
-		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts') );
+		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
 	 * Register admin css
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	public function admin_styles()
-	{
+	public function admin_styles() {
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL.'/assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL.'/assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
@@ -74,15 +88,14 @@ class Cpac_Settings
 	/**
 	 * Register admin scripts
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	public function admin_scripts()
-	{
+	public function admin_scripts() {
 		wp_enqueue_script( 'wp-pointer' );
 
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array('jquery', 'dashboard', 'jquery-ui-sortable'), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable' ), CPAC_VERSION );
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
@@ -95,34 +108,44 @@ class Cpac_Settings
 	}
 
 	/**
-	 * Admin message.
+	 * Admin message
 	 *
-	 * @since 1.5
+	 * @since 1.5.0
+	 *
+	 * @param string $message Message.
+	 * @param string $type Update Type.
 	 */
-	public function admin_message( $message = "", $type = 'updated' )
-	{
-		$GLOBALS['cpac_message'] = $message;
+	public function admin_message( $message = '', $type = 'updated' ) {
+		$GLOBALS['cpac_message']	  = $message;
 		$GLOBALS['cpac_message_type'] = $type;
 
-		add_action('admin_notices', array( $this, 'admin_notice') );
+		add_action('admin_notices', array( $this, 'admin_notice' ) );
 	}
-	public function admin_notice()
-	{
-	    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message">'.$GLOBALS['cpac_message'].'</div>';
+
+	/**
+	 * Admin Notice
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string Message.
+	 */
+	public function admin_notice() {
+	    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message">' . $GLOBALS['cpac_message'] . '</div>';
 	}
 
 	/**
 	 * Ajax activation
 	 *
-	 * @since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @return string Masked key ( JSON encode ).
 	 */
-	public function ajax_activation()
-	{
+	public function ajax_activation() {
 		// keys
 		$key 	= $_POST['key'];
 		$type 	= $_POST['type'];
 
-		$licence = new cpac_licence( $type );
+		$licence = new CPAC_Licence( $type );
 
 		// update key
 		if ( $key == 'remove' ) {
@@ -145,10 +168,9 @@ class Cpac_Settings
 	/**
 	 * Handle requests.
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	public function handle_requests()
-	{
+	public function handle_requests() {
 		// only handle updates from the admin columns page
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( CPAC_SLUG, CPAC_SETTINGS_SLUG ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
@@ -186,15 +208,14 @@ class Cpac_Settings
 	 *
 	 * This will store columns that are set by WordPress core or theme
 	 *
-	 * @since     1.2
+	 * @since 1.2.0
 	 */
-	private function store_wp_default_columns()
-	{
+	private function store_wp_default_columns() {
 		// stores the default columns that are set by WP or theme.
 		$wp_default_columns = array();
 
 		// Posts
-		foreach ( cpac_utility::get_post_types() as $post_type ) {
+		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
 			$type = new CPAC_Columns_Posttype( $post_type );
 			$wp_default_columns[$type->storage_key] = $type->get_default_columns();
 		}
@@ -223,12 +244,11 @@ class Cpac_Settings
 	 *
 	 * @since     1.5
 	 */
-	private function update_settings_by_type( $type )
-	{
+	private function update_settings_by_type( $type ) {
 		if ( ! $type )
 			return false;
 
-		$options = (array) get_option('cpac_options');
+		$options = (array) get_option( 'cpac_options' );
 
 		if ( ! empty( $_POST['cpac_options'] ) ) {
 			$options['columns'][$type] = stripslashes_deep( $_POST['cpac_options']['columns'][$type] );
@@ -247,10 +267,9 @@ class Cpac_Settings
 	/**
 	 * Restore Defaults by Type
 	 *
-	 * @since     1.5
+	 * @since 1.5.0
 	 */
-	private function restore_settings_by_type( $type )
-	{
+	private function restore_settings_by_type( $type ) {
 		if ( ! $type )
 			return false;
 
@@ -270,16 +289,15 @@ class Cpac_Settings
 		}
 		update_option( 'cpac_options_default', $options );
 
-		$this->admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
+		$this->admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
 	}
 
 	/**
 	 * Restore defaults
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	private function restore_settings()
-	{
+	private function restore_settings() {
 		delete_option( 'cpac_options' );
 		delete_option( 'cpac_options_default' );
 
@@ -291,10 +309,12 @@ class Cpac_Settings
 	 *
 	 * Active columns are set on top of the list.
 	 *
-	 * @since 1.5
+	 * @since 1.5.0
+	 *
+	 * @param string $options Columns Options.
+	 * @return array Reordered Columns Options.
 	 */
-	public function reorder_by_state( $options )
-	{
+	public function reorder_by_state( $options ) {
 		if ( empty($options) )
 			return array();
 
@@ -315,13 +335,12 @@ class Cpac_Settings
 	/**
 	 * Add help tabs
 	 *
-	 * @since     1.3
+	 * @since 1.3.0
 	 */
-	public function help_tabs()
-	{
+	public function help_tabs() {
 		$screen = get_current_screen();
 
-		if ( $screen->id != $this->column_page || ! method_exists($screen,'add_help_tab') )
+		if ( $screen->id != $this->column_settings_slug || ! method_exists( $screen,'add_help_tab' ) )
 			return;
 
 		// add help content
@@ -366,7 +385,7 @@ class Cpac_Settings
 		);
 
 		foreach ( $tabs as $k => $tab ) {
-			$screen->add_help_tab(array(
+			$screen->add_help_tab( array(
 				'id'		=> 'cpac-tab-'.$k, 	// unique id
 				'title'		=> $tab['title'],	// label
 				'content'	=> $tab['content'], // body
@@ -377,24 +396,26 @@ class Cpac_Settings
 	/**
 	 * Checks if menu type is currently viewed
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param string $storage_key
+	 * @return bool
 	 */
-	function is_menu_type_current( $type )
-	{
+	function is_menu_type_current( $storage_key ) {
 		// referer
 		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
 
 		// get first element from post-types
-		$first = array_shift( array_values( cpac_utility::get_post_types() ) );
+		$first = array_shift( array_values( CPAC_Utility::get_post_types() ) );
 
 		// display the page that was being viewed before saving
 		if ( $referer ) {
-			if ( $referer == cpac_utility::sanitize_string( $type ) ) {
+			if ( $referer == CPAC_Utility::sanitize_string( $storage_key ) ) {
 				return true;
 			}
 
 		// settings page has not yet been saved
-		} elseif ( $first == $type  ) {
+		} elseif ( $first == $storage_key  ) {
 			return true;
 		}
 
@@ -402,22 +423,23 @@ class Cpac_Settings
 	}
 
 	/**
-	 * get_all_image_sizes
+	 * Get all image sizes
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
+	 *
+	 * @return array Image Sizes.
 	 */
-	function get_all_image_sizes()
-	{
+	function get_all_image_sizes() {
 		$image_sizes = array(
-			'thumbnail'	=>	__("Thumbnail", CPAC_TEXTDOMAIN ),
-			'medium'	=>	__("Medium", CPAC_TEXTDOMAIN ),
-			'large'		=>	__("Large", CPAC_TEXTDOMAIN ),
-			'full'		=>	__("Full", CPAC_TEXTDOMAIN )
+			'thumbnail'	=>	__( "Thumbnail", CPAC_TEXTDOMAIN ),
+			'medium'	=>	__( "Medium", CPAC_TEXTDOMAIN ),
+			'large'		=>	__( "Large", CPAC_TEXTDOMAIN ),
+			'full'		=>	__( "Full", CPAC_TEXTDOMAIN )
 		);
 
-		foreach( get_intermediate_image_sizes() as $size) {
-			if (!isset($image_sizes[$size])) {
-				$image_sizes[$size] = ucwords( str_replace('-', ' ', $size) );
+		foreach( get_intermediate_image_sizes() as $size ) {
+			if ( ! isset( $image_sizes[$size] ) ) {
+				$image_sizes[$size] = ucwords( str_replace( '-', ' ', $size) );
 			}
 		}
 
@@ -427,10 +449,12 @@ class Cpac_Settings
 	/**
 	 * External Urls
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
+	 *
+	 * @param string $type URL type.
+	 * @return string Url.
 	 */
-	function get_url( $type = '' )
-	{
+	function get_url( $type = '' ) {
 		$urls = array(
 			'codepress'		=> 'http://www.codepress.nl/',
 			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
@@ -450,22 +474,21 @@ class Cpac_Settings
 	/**
 	 * Column Settings.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public function column_settings()
-	{
+	public function column_settings() {
 		// Menu
 		$menu 	= '';
 		$count 	= 1;
 
 		// referer
-		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
+		$referer = ! empty( $_REQUEST['cpac_type'] ) ? $_REQUEST['cpac_type'] : '';
 
 		// loop
-		foreach ( cpac_utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_types() as $type ) {
 
 			$label 		 = $type->get_label();
-			$clean_label = cpac_utility::sanitize_string( $type->storage_key );
+			$clean_label = CPAC_Utility::sanitize_string( $type->storage_key );
 
 			// divider
 			$divider 	= $count++ == 1 ? '' : ' | ';
@@ -477,21 +500,19 @@ class Cpac_Settings
 			}
 
 			// menu list
-			$menu .= "
-				<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$label}</a></li>
-			";
+			$menu .= "<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$label}</a></li>\n";
 		}
 
 		// Licenses
 		$licenses = array(
-			'sortable' 		=> new cpac_licence('sortable'),
-			'customfields' 	=> new cpac_licence('sortable')
+			'sortable' 		=> new CPAC_Licence( 'sortable' ),
+			'customfields' 	=> new CPAC_Licence( 'sortable' )
 		);
 
 	?>
 		<div id="cpac" class="wrap">
 
-			<?php screen_icon(CPAC_SLUG) ?>
+			<?php screen_icon( CPAC_SLUG ); ?>
 			<h2><?php _e( 'Admin Columns', CPAC_TEXTDOMAIN ); ?></h2>
 
 			<div class="cpac-menu">
@@ -500,7 +521,7 @@ class Cpac_Settings
 				</ul>
 			</div>
 
-			<?php foreach ( cpac_utility::get_types() as $type ) : ?>
+			<?php foreach ( CPAC_Utility::get_types() as $type ) : ?>
 
 			<div class="columns-container" data-type="<?php echo $type->storage_key ?>"<?php echo $this->is_menu_type_current( $type->storage_key ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">
@@ -527,7 +548,7 @@ class Cpac_Settings
 							</div>
 							<div class="form-update">
 								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update') ?>" accesskey="u" >
+								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update' ) ?>" accesskey="u" >
 							</div>
 						</div><!--form-actions-->
 
@@ -548,7 +569,7 @@ class Cpac_Settings
 						<div class="sidebox" id="plugin-credits">
 							<h3><?php _e( 'Support', CPAC_TEXTDOMAIN ); ?></h3>
 							<div class="inside">
-								<?php if ( version_compare( get_bloginfo('version'), '3.2', '>' ) ) : ?>
+								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
 									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN ); ?></p>
 								<?php endif; ?>
 								<p><?php printf( __("If you're sure you've found a bug, please <a href='%s'>submit your bug.</a>", CPAC_TEXTDOMAIN ), add_query_arg( array( 'page' => 'cpac-settings' ), admin_url('admin.php') ) ); ?></p>
@@ -777,15 +798,14 @@ class Cpac_Settings
 	/**
 	 * General Settings.
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
 	 */
-	public function general_settings()
-	{
+	public function general_settings() {
 		// addons
 		$licenses = array(
 			'sortable'	=> array(
 				'label'		=> __( 'Sortorder', CPAC_TEXTDOMAIN ),
-				'license' 	=> new cpac_licence('sortable'),
+				'license' 	=> new CPAC_Licence('sortable'),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
 					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
@@ -797,27 +817,27 @@ class Cpac_Settings
 			),
 			'customfields'	=> array(
 				'label'		=> __( 'Multiple Custom Fields', CPAC_TEXTDOMAIN ),
-				'license' 	=> new cpac_licence('customfields'),
+				'license' 	=> new CPAC_Licence( 'customfields' ),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
 					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
 					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
 					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
 					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
-					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
+					<img src='" . CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
 				"
 			)
 		);
 
 		// import / export
 		$export_selections = array();
-		foreach ( cpac_utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_types() as $type ) {
 			$export_selections[] = "<option value='{$type->storage_key}'>" . $type->get_label() . "</option>";
 		}
 	?>
 	<div id="cpac" class="wrap">
 
-		<?php screen_icon(CPAC_SLUG) ?>
+		<?php screen_icon( CPAC_SLUG ); ?>
 		<h2><?php _e( 'Admin Columns Settings', CPAC_TEXTDOMAIN ); ?></h2>
 
 		<table class="form-table cpac-form-table">
@@ -942,5 +962,3 @@ class Cpac_Settings
 	<?php
 	}
 }
-
-?>

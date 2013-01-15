@@ -124,7 +124,7 @@ class CPAC_Columns_Media extends CPAC_Columns {
 
 		// Get extended image metadata, exif or iptc as available.
 		// uses exif_read_data()
-		if ( function_exists('exif_read_data') ) {
+		if ( function_exists( 'exif_read_data' ) ) {
 			$custom_columns = array_merge( $custom_columns, array(
 				'column-image-aperture' => array(
 					'label'		=> __( 'Aperture', CPAC_TEXTDOMAIN ),
@@ -205,9 +205,9 @@ class CPAC_Columns_Media extends CPAC_Columns {
 		}
 
 		// merge with defaults
-		$custom_columns = $this->parse_defaults($custom_columns);
+		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters('cpac-custom-media-columns', $custom_columns);
+		return apply_filters( 'cpac-custom-media-columns', $custom_columns );
 	}
 
 	/**
@@ -226,7 +226,7 @@ class CPAC_Columns_Media extends CPAC_Columns {
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( 'cpac-get-meta-keys-media', $this->maybe_add_hidden_meta($fields) );
+		return apply_filters( 'cpac-get-meta-keys-media', $this->maybe_add_hidden_meta( $fields ) );
     }
 
 	/**

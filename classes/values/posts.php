@@ -17,6 +17,9 @@ class CPAC_Posts_Values extends CPAC_Values
 	{
 		parent::__construct();
 
+		/**
+		 * @see CPAC_Values::meta_type
+		 */
 		$this->meta_type = 'post';
 
 		add_action( 'manage_pages_custom_column', array( $this, 'manage_posts_column_value'), 10, 2 );
@@ -37,7 +40,7 @@ class CPAC_Posts_Values extends CPAC_Values
 			$type = 'column-taxonomy';
 
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( cpac_utility::is_column_meta($type) )
+		if ( CPAC_Utility::is_column_meta($type) )
 			$type = 'column-post-meta';
 
 		// set type
@@ -98,7 +101,7 @@ class CPAC_Posts_Values extends CPAC_Values
 
 			// Slug
 			case "column-word-count" :
-				$result = str_word_count( cpac_utility::strip_trim( get_post($post_id)->post_content ) );
+				$result = str_word_count( CPAC_Utility::strip_trim( get_post($post_id)->post_content ) );
 				break;
 
 			// Taxonomy
@@ -138,7 +141,7 @@ class CPAC_Posts_Values extends CPAC_Values
 
 			// Attachment count
 			case "column-attachment-count" :
-				$result = count( cpac_utility::get_attachment_ids($post_id) );
+				$result = count( CPAC_Utility::get_attachment_ids($post_id) );
 				break;
 
 			// Roles
@@ -319,7 +322,7 @@ class CPAC_Posts_Values extends CPAC_Values
 		$type = get_post_type($post_id);
 
 		// get column
-		$columns 	= cpac_utility::get_stored_columns($type);
+		$columns 	= CPAC_Utility::get_stored_columns($type);
 
 		// get the type of author name
 		$display_as	= isset($columns[$column_name]['display_as']) ? $columns[$column_name]['display_as'] : '';
@@ -329,7 +332,7 @@ class CPAC_Posts_Values extends CPAC_Values
 		if ( !isset( $post->post_author) )
 			return false;
 
-		$name = cpac_utility::get_author_field_by_nametype($display_as, $post->post_author);
+		$name = CPAC_Utility::get_author_field_by_nametype($display_as, $post->post_author);
 
 		// filter for customization
 		$name = apply_filters('cpac_get_column_value_authorname', $name, $column_name, $post_id );
@@ -342,5 +345,3 @@ class CPAC_Posts_Values extends CPAC_Values
 		return $name;
 	}
 }
-
-?>

@@ -82,7 +82,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		);
 
 		// Word count support
-		if ( post_type_supports( $this->storage_key, 'editor') ) {
+		if ( post_type_supports( $this->storage_key, 'editor' ) ) {
 			$custom_columns['column-word-count'] = array(
 				'label'	=> __( 'Word count', CPAC_TEXTDOMAIN )
 			);
@@ -96,7 +96,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		}
 
 		// Order support
-		if ( post_type_supports( $this->storage_key, 'page-attributes') ) {
+		if ( post_type_supports( $this->storage_key, 'page-attributes' ) ) {
 			$custom_columns['column-order'] = array(
 				'label'			=> __( 'Page Order', CPAC_TEXTDOMAIN ),
 				'options'		=> array(
@@ -113,14 +113,14 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		}
 
 		// Post Formats
-		if ( post_type_supports( $this->storage_key, 'post-formats') ) {
+		if ( post_type_supports( $this->storage_key, 'post-formats' ) ) {
 			$custom_columns['column-post_formats'] = array(
 				'label'	=> __( 'Post Format', CPAC_TEXTDOMAIN )
 			);
 		}
 
 		// Taxonomy support
-		$taxonomies = get_object_taxonomies( $this->storage_key, 'objects');
+		$taxonomies = get_object_taxonomies( $this->storage_key, 'objects' );
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax_slug => $tax ) {
 				if ( $tax_slug != 'post_tag' && $tax_slug != 'category' && $tax_slug != 'post_format' ) {

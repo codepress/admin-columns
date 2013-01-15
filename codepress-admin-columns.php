@@ -53,11 +53,11 @@ require_once dirname( __FILE__ ) . '/classes/columns/comments.php';
 
 // Sortable columns
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
-new Codepress_Sortable_Columns();
+new CPAC_Sortable_Columns();
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';
-new Cpac_Settings;
+new CPAC_Settings;
 
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
@@ -160,7 +160,7 @@ class Codepress_Admin_Columns
 	public function register_columns_headings()
 	{
 		/** Posts */
-	 	foreach ( cpac_utility::get_post_types() as $post_type ) {
+	 	foreach ( CPAC_Utility::get_post_types() as $post_type ) {
 			add_filter("manage_edit-{$post_type}_columns",  array( $this, 'add_columns_headings_posts' ) );
 		}
 
@@ -291,7 +291,7 @@ class Codepress_Admin_Columns
 		}
 
 		// loop the available types
-		foreach ( cpac_utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_types() as $type ) {
 
 			// match against screen or wp-screen
 			if ( $type->storage_key == $screen || $type->storage_key == "wp-{$screen}" )
@@ -312,9 +312,9 @@ class Codepress_Admin_Columns
 		$css_column_width = '';
 
 		// loop throug the available types...
-		foreach ( cpac_utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_types() as $type ) {
 
-			if ( ! $cols = cpac_utility::get_stored_columns( $type->storage_key ) )
+			if ( ! $cols = CPAC_Utility::get_stored_columns( $type->storage_key ) )
 				continue;
 
 			// loop through each available column...

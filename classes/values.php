@@ -99,9 +99,13 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Get image from assets folder
+	 * Get image from assets folder
 	 *
-	 * 	@since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @param string $name
+	 * @param string $title
+	 * @return string HTML img element
 	 */
 	protected function get_asset_image( $name = '', $title = '' ) {
 		if ( ! $name )
@@ -111,9 +115,12 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Shorten URL
+	 * Shorten URL
 	 *
-	 * 	@since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @param string $url
+	 * @return string HTML anchor element
 	 */
 	protected function get_shorten_url( $url = '' ) {
 		if ( !$url )
@@ -126,26 +133,33 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Get column value of post attachments
+	 * Get column value of post attachments
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param int $post_id
+	 * @return string HTML images
 	 */
 	protected function get_column_value_attachments( $post_id ) {
-		$result 	 	= '';
+		$result = '';
 
-		if ( $attachment_ids = cpac_utility::get_attachment_ids($post_id) ) {
+		if ( $attachment_ids = CPAC_Utility::get_attachment_ids( $post_id ) ) {
 			foreach ( $attachment_ids as $attach_id ) {
-				if ( wp_get_attachment_image($attach_id) )
-					$result .= wp_get_attachment_image( $attach_id, $this->thumbnail_size, true );
+				if ( $image = wp_get_attachment_image( $attach_id, $this->thumbnail_size, true ) ) {
+					$result .= $image;
+				}
 			}
 		}
 		return $result;
 	}
 
 	/**
-	 * Get Image Sizes by name;
+	 * Get Image Sizes by name
 	 *
-	 * @since 1.5
+	 * @since 1.5.0
+	 *
+	 * @param string $name
+	 * @return array Image Sizes
 	 */
 	function get_image_size_by_name( $name = '' ) {
 		if ( ! $name )
@@ -153,7 +167,7 @@ class CPAC_Values {
 
 		global $_wp_additional_image_sizes;
 
-		if ( !isset($_wp_additional_image_sizes[$name]) )
+		if ( ! isset( $_wp_additional_image_sizes[$name] ) )
 			return false;
 
 		return $_wp_additional_image_sizes[$name];
@@ -162,9 +176,13 @@ class CPAC_Values {
 	/**
 	 * Get a thumbnail
 	 *
-	 * @since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param string $meta
+	 * @param array $args
+	 * @return string HTML img elements
 	 */
-	protected function get_thumbnail( $meta, $args = '' ) {
+	protected function get_thumbnails( $meta, $args = '' ) {
 		if ( empty( $meta ) || 'false' == $meta )
 			return false;
 
@@ -190,7 +208,7 @@ class CPAC_Values {
 			$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $meta );
 
 			// resize image
-			if ( file_exists($image_path) ) {
+			if ( file_exists( $image_path ) ) {
 
 				// try to resize image
 				if ( $resized = $this->image_resize( $image_path, $args['width'], $args['height'], true ) ) {
@@ -207,7 +225,7 @@ class CPAC_Values {
 		// Media Attachment
 		else {
 
-			$meta = cpac_utility::strip_trim( str_replace( ' ', '', $meta ) );
+			$meta = CPAC_Utility::strip_trim( str_replace( ' ', '', $meta ) );
 
 			$media_ids = array($meta);
 
@@ -253,7 +271,10 @@ class CPAC_Values {
 	/**
 	 * Image Resize
 	 *
+	 * @see image_resize()
 	 * @since 1.5
+	 *
+	 * @return string Image URL
 	 */
 	function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$resized = false;
@@ -297,7 +318,10 @@ class CPAC_Values {
 	/**
 	 * Checks an URL for image extension
 	 *
-	 * @since     1.2
+	 * @since 1.2.0
+	 *
+	 * @param string $url
+	 * @return bool
 	 */
 	protected function is_image( $url ) {
 		$validExt  	= array('.jpg', '.jpeg', '.gif', '.png', '.bmp');
@@ -307,9 +331,12 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Convert file size to readable format
+	 * Convert file size to readable format
 	 *
-	 * 	@since     1.4.5
+	 * @since 1.4.5
+	 *
+	 * @param string $size
+	 * @return string Readable filesize
 	 */
 	function get_readable_filesize( $size ) {
 		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
@@ -317,13 +344,17 @@ class CPAC_Values {
     }
 
 	/**
-	 *	Get column value of Custom Field
+	 * Get column value of Custom Field
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param int $object_id
+	 * @param string $column_name
+	 * @return string Customfield value
 	 */
 	protected function get_column_value_custom_field( $object_id, $column_name ) {
 		// get column
-		$columns = cpac_utility::get_stored_columns( $this->storage_key );
+		$columns = CPAC_Utility::get_stored_columns( $this->storage_key );
 
 		if ( ! isset( $columns[$column_name] ) )
 			return false;
@@ -363,7 +394,7 @@ class CPAC_Values {
 
 			// Image
 			case "image" :
-				$meta = $this->get_thumbnail( $meta, array(
+				$meta = $this->get_thumbnails( $meta, array(
 					'image_size'	=> $values->image_size,
 					'width' 		=> $values->image_size_w,
 					'height' 		=> $values->image_size_h,
@@ -398,7 +429,7 @@ class CPAC_Values {
 			case "checkmark" :
 				$checkmark = $this->get_asset_image( 'checkmark.png' );
 
-				if ( empty($meta) || 'false' === $meta || '0' === $meta ) {
+				if ( empty( $meta ) || 'false' === $meta || '0' === $meta ) {
 					$checkmark = '';
 				}
 
@@ -407,7 +438,7 @@ class CPAC_Values {
 
 			// Color
 			case "color" :
-				if ( !empty($meta) ) {
+				if ( ! empty( $meta ) ) {
 					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
 				}
 				break;
@@ -426,13 +457,16 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Get custom field value 'Title by ID'
+	 * Get custom field value 'Title by ID'
 	 *
-	 * 	@since     1.3
+	 * @since 1.3.0
+	 *
+	 * @param string $meta
+	 * @return string Titles
 	 */
 	protected function get_custom_field_value_title( $meta ) {
 		//remove white spaces and strip tags
-		$meta = cpac_utility::strip_trim( str_replace( ' ','', $meta ) );
+		$meta = CPAC_Utility::strip_trim( str_replace( ' ','', $meta ) );
 		// var
 		$ids = $titles = array();
 
@@ -456,14 +490,17 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Get custom field value 'User by ID'
+	 * Get custom field value 'User by ID'
 	 *
-	 * 	@since     1.4.6.3
+	 * @since 1.4.6.3
+	 *
+	 * @param string $meta
+	 * @return string Users
 	 */
 	protected function get_custom_field_value_user( $meta )
 	{
 		//remove white spaces and strip tags
-		$meta = cpac_utility::strip_trim( str_replace( ' ','', $meta ) );
+		$meta = CPAC_Utility::strip_trim( str_replace( ' ','', $meta ) );
 
 		// var
 		$ids = $names = array();
@@ -493,12 +530,16 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Get column value of Custom Field
+	 * Get column value of Custom Field
 	 *
-	 * 	@since     1.2
+	 * @since 1.2.0
+	 *
+	 * @param int $user_id
+	 * @param string $id Column Type
+	 * @return string User Customfield value
 	 */
 	protected function get_user_column_value_custom_field( $user_id, $id ) {
-		$columns 	= cpac_utility::get_stored_columns( 'wp-users' );
+		$columns 	= CPAC_Utility::get_stored_columns( 'wp-users' );
 
 		// inputs
 		$field	 	= isset( $columns[$id]['field'] )		? $columns[$id]['field'] 		: '';
@@ -524,7 +565,7 @@ class CPAC_Values {
 
 			// Image
 			case "image" :
-				$meta = $this->get_thumbnail( $meta );
+				$meta = $this->get_thumbnails( $meta );
 				break;
 
 			// Excerpt
@@ -544,9 +585,13 @@ class CPAC_Values {
 	}
 
 	/**
-	 *	Implode for multi dimensional array
+	 * Implode for multi dimensional array
 	 *
-	 * 	@since     1.0
+	 * @since 1.0.0
+	 *
+	 * @param string $glue
+	 * @param array $pieces
+	 * @return string Imploded array
 	 */
 	protected function recursive_implode( $glue, $pieces )
 	{
@@ -568,7 +613,10 @@ class CPAC_Values {
 	/**
 	 * Get date
 	 *
-	 * @since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 * @return string Formatted date
 	 */
 	protected function get_date( $date ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
@@ -580,8 +628,9 @@ class CPAC_Values {
 
 		// @todo: in theory a numeric string of 8 can also be a unixtimestamp.
 		// we need to replace this with an option to mark a date as unixtimestamp.
-		if ( ! is_numeric( $date ) || ( is_numeric( $date ) && strlen( trim($date) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) )
-			$date = strtotime($date);
+		if ( ! is_numeric( $date ) || ( is_numeric( $date ) && strlen( trim( $date ) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) ) {
+			$date = strtotime( $date );
+		}
 
 		return date_i18n( get_option( 'date_format' ), $date );
 	}
@@ -589,7 +638,10 @@ class CPAC_Values {
 	/**
 	 * Get time
 	 *
-	 * @since     1.3.1
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 * @return string Formatted time
 	 */
 	protected function get_time( $date ) {
 		if ( ! $date )

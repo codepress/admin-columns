@@ -15,7 +15,14 @@ class CPAC_Media_Values extends CPAC_Values {
 	function __construct() {
 		parent::__construct();
 
+		/**
+		 * @see CPAC_Values::storage_key
+		 */
 		$this->storage_key	= 'wp-media';
+
+		/**
+		 * @see CPAC_Values::meta_type
+		 */
 		$this->meta_type	= 'media';
 
 		add_action( 'manage_media_custom_column', array( $this, 'manage_media_column_value' ), 10, 2 );
@@ -35,7 +42,7 @@ class CPAC_Media_Values extends CPAC_Values {
 		$p 		= get_post($media_id);
 
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( cpac_utility::is_column_meta( $type ) )
+		if ( CPAC_Utility::is_column_meta( $type ) )
 			$type = 'column-meta';
 
 		// Hook
@@ -78,7 +85,7 @@ class CPAC_Media_Values extends CPAC_Values {
 			// alternate text
 			case "column-alternate_text" :
 				$alt 	= get_post_meta( $media_id, '_wp_attachment_image_alt', true );
-				$result = cpac_utility::strip_trim($alt);
+				$result = CPAC_Utility::strip_trim($alt);
 				break;
 
 			// mime type
@@ -207,5 +214,3 @@ class CPAC_Media_Values extends CPAC_Values {
 		return implode(' | ', $actions);
 	}
 }
-
-?>
