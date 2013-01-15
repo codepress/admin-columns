@@ -111,7 +111,7 @@ class CPAC_Export_Import {
 		$file = wp_import_handle_upload();
 		
 		// any errors?
-		$error = '';
+		$error = false;
 		if ( isset( $file['error'] ) ) {
 			$error = '<p><strong>' . __( 'Sorry, there has been an error.', CPAC_TEXTDOMAIN ) . '</strong><br />' . esc_html( $file['error'] ) . '</p>';
 		} else if ( ! file_exists( $file['file'] ) ) {
@@ -126,7 +126,10 @@ class CPAC_Export_Import {
 		$content = file_get_contents( $file['file'] );
 		
 		// decode file contents
-		$columns = $this->get_decoded_settings( $content );
+		if ( ! $columns = $this->get_decoded_settings( $content ) ) {
+			CPAC_Utility::admin_message( "<p>" . __( 'Import failed. File does not contain Admin Column settings.',  CPAC_TEXTDOMAIN ) . "</p>", 'error' );
+			return false;
+		}			
 		
 		// store settings
 		if ( ! $result = $this->update_settings( $columns ) ) {
