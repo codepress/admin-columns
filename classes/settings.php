@@ -108,32 +108,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Admin message
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $message Message.
-	 * @param string $type Update Type.
-	 */
-	public function admin_message( $message = '', $type = 'updated' ) {
-		$GLOBALS['cpac_message']	  = $message;
-		$GLOBALS['cpac_message_type'] = $type;
-
-		add_action('admin_notices', array( $this, 'admin_notice' ) );
-	}
-
-	/**
-	 * Admin Notice
-	 *
-	 * @since 1.5.0
-	 *
-	 * @return string Message.
-	 */
-	public function admin_notice() {
-	    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message">' . $GLOBALS['cpac_message'] . '</div>';
-	}
-
-	/**
 	 * Ajax activation
 	 *
 	 * @since 1.3.1
@@ -260,7 +234,7 @@ class CPAC_Settings {
 			update_option( 'cpac_options', $options );
 
 			// set admin notice
-			$this->admin_message( "<p>" . __( 'Settings updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
+			CPAC_Utility::admin_message( "<p>" . __( 'Settings updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 		}
 	}
 
@@ -289,7 +263,7 @@ class CPAC_Settings {
 		}
 		update_option( 'cpac_options_default', $options );
 
-		$this->admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
+		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
 	}
 
 	/**
@@ -301,7 +275,7 @@ class CPAC_Settings {
 		delete_option( 'cpac_options' );
 		delete_option( 'cpac_options_default' );
 
-		$this->admin_message( "<p>" . __( 'Default settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
+		CPAC_Utility::admin_message( "<p>" . __( 'Default settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 	}
 
 	/**
@@ -914,7 +888,7 @@ class CPAC_Settings {
 						</div>
 					</th>
 					<td>
-						<div class="cpac_export col-25">
+						<div class="cpac_export col-30">
 							<select size="<?php echo count($export_selections); ?>" multiple="multiple" class="select" id="cpac_export_types">
 								<?php echo implode( $export_selections ); ?>
 							</select>
@@ -922,7 +896,7 @@ class CPAC_Settings {
 							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e( 'Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class="export-message"></div>
 						</div>
-						<div id="cpac_export_output" class="col-75">
+						<div id="cpac_export_output" class="col-70">
 							<textarea rows="<?php echo count( $export_selections ); ?>"></textarea>
 							<p class="description">
 								<a class="button" href="javascript:;"><?php _e( 'Download', CPAC_TEXTDOMAIN ); ?></a>
@@ -936,15 +910,15 @@ class CPAC_Settings {
 						<h3><?php _e( 'Import Settings', CPAC_TEXTDOMAIN ); ?></h3>
 						<p><?php _e( 'Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
-					<td>
-						<div class="cpac_export col-25">
+					<td class="padding-22">
+						<div class="cpac_export col-30">
 							<form method="post" action="" enctype="multipart/form-data">
 								<input type="file" size="25" name="import" id="upload">
 								<?php wp_nonce_field( 'file-import', '_cpac_nonce' ); ?>
 								<input type="submit" value="<?php _e( 'Upload file and import', CPAC_TEXTDOMAIN ); ?>" class="button" id="import-submit" name="file-submit">
 							</form>
 						</div>
-						<div id="cpac_import_input" class="col-75">
+						<div id="cpac_import_input" class="col-70">
 							<textarea rows="10"></textarea>
 							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e( 'Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class='import-message'></div>

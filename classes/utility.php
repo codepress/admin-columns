@@ -219,4 +219,30 @@ class CPAC_Utility {
 
 		return $name;
 	}
+	
+	/**
+	 * Admin message
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $message Message.
+	 * @param string $type Update Type.
+	 */
+	public function admin_message( $message = '', $type = 'updated' ) {
+		$GLOBALS['cpac_message']	  = $message;
+		$GLOBALS['cpac_message_type'] = $type;
+
+		add_action('admin_notices', array( 'CPAC_Utility', 'admin_notice' ) );
+	}
+
+	/**
+	 * Admin Notice
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string Message.
+	 */
+	public function admin_notice() {
+	    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message">' . $GLOBALS['cpac_message'] . '</div>';
+	}
 }

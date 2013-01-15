@@ -116,15 +116,76 @@ class CPAC_Export_Import {
 			$error = '<p><strong>' . __( 'Sorry, there has been an error.', CPAC_TEXTDOMAIN ) . '</strong><br />' . esc_html( $file['error'] ) . '</p>';
 		} else if ( ! file_exists( $file['file'] ) ) {
 			$error = '<p><strong>' . __( 'Sorry, there has been an error.', CPAC_TEXTDOMAIN ) . '</strong><br />' . sprintf( __( 'The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem.', CPAC_TEXTDOMAIN ), esc_html( $file['file'] ) ) . '</p>';
-		} else {
-			$file_id = (int) $file['id'];
+		} 
+		
+		if ( $error ) {
+			CPAC_Utility::admin_message( $error, 'error' );
+			return false;
+		}
+		// read file contents and start the import
+		$content = file_get_contents( $file['file'] );
+		
+		// decode file contents
+		$columns = $this->get_decoded_settings( $content );
+		
+		// store settings
+		if ( ! $result = $this->update_settings( $columns ) ) {
+			CPAC_Utility::admin_message( "<p>" . __( 'Import aborted. Are you trying to store the same settings?',  CPAC_TEXTDOMAIN ) . "</p>", 'error' );
+			return false;
 		}
 		
-		// @todo read file contents and start the import
-		print_r($result);
-		exit;
+		CPAC_Utility::admin_message( "<p>" . __( sprintf( 'Import succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $columns ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
 	}
+	
+	/**
+	 * Get decoded settings
+	 *
+	 * @since 1.5
+	 *
+	 * @param string $encoded_string
+	 * @return array Columns
+	 */
+	function get_decoded_settings( $encoded_string = '' ) {
+		if( ! $encoded_string || ! is_string( $encoded_string ) || strpos( $encoded_string, '<!-- START: Admin Columns export -->' ) === false )
+			return false;
+		
+		// decode
+		$encoded_string = str_replace( "<!-- START: Admin Columns export -->\n", "", $encoded_string );
+		$encoded_string = str_replace( "\n<!-- END: Admin Columns export -->", "", $encoded_string);
+		$decoded 	 	= maybe_unserialize( base64_decode( trim( $encoded_string ) ) );
+		
+		if ( empty( $decoded ) || ! is_array( $decoded ) )
+			return false;
+		
+		return $decoded;
+	}
+	
+	/**
+	 * Update settings
+	 *
+	 * @since 1.5
+	 *
+	 * @param array $columns Columns
+	 * @return bool
+	 */
+	function update_settings( $columns ) {
+		$options = get_option( 'cpac_options' );
 
+		// merge saved setting if they exist..
+		if ( ! empty( $options['columns'] ) ) {
+			$options['columns'] = array_merge( $options['columns'], $columns );
+		}
+
+		// .. if there are no setting yet use the import
+		else {
+			$options = array(
+				'columns' => $columns
+			);
+		}
+		
+		return update_option( 'cpac_options', array_filter( $options ) );
+	}
+	
 	/**
 	 * Run Import
 	 *
@@ -141,37 +202,17 @@ class CPAC_Export_Import {
 		}
 
 		// get code
-		$import_code = $_POST['import_code'];
-
-		// decode
-		$import_code = str_replace( "<!-- START: Admin Columns export -->\n", "", $import_code );
-		$import_code = str_replace( "\n<!-- END: Admin Columns export -->", "", $import_code );
-		$import_code = maybe_unserialize( base64_decode( trim( $import_code ) ) );
+		$import_code = $this->get_decoded_settings( $_POST['import_code'] );
 
 		// validate code
-		if ( empty( $import_code ) || ! is_array( $import_code ) ) {
+		if ( ! $import_code ) {
 			echo json_encode( array( 'status' => 0, 'msg' => __( 'Invalid import code',  CPAC_TEXTDOMAIN ) ) );
 			exit;
 		}
 
-		// get current options
-		$options = (array) get_option( 'cpac_options' );
-
-		// merge saved setting if they exist..
-		if ( ! empty( $options['columns'] ) ) {
-			$options['columns'] = array_merge( $options['columns'], $import_code );
-		}
-
-		// .. if there are no setting yet use the import
-		else {
-			$options['columns'] = $import_code;
-		}
-
-		// save to DB
-		$result = update_option( 'cpac_options', $options );
-
-		if ( $result ) {
-			echo json_encode( array( 'status' => 1, 'msg' => __( sprintf( 'Imported succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $import_code ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) ) );
+		// save settings
+		if ( $result = $this->update_settings( $import_code ) ) {
+			echo json_encode( array( 'status' => 1, 'msg' => __( sprintf( 'Import succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $import_code ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) ) );
 		}
 
 		else {
