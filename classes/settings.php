@@ -566,7 +566,7 @@ class CPAC_Settings {
 							</div>
 						</div><!--addon-state-->
 
-						<div class="sidebox" id="plugin-credits">
+						<div class="sidebox" id="plugin-support">
 							<h3><?php _e( 'Support', CPAC_TEXTDOMAIN ); ?></h3>
 							<div class="inside">
 								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
@@ -914,7 +914,7 @@ class CPAC_Settings {
 						</div>
 					</th>
 					<td>
-						<div class="cpac_export">
+						<div class="cpac_export col-25">
 							<select size="<?php echo count($export_selections); ?>" multiple="multiple" class="select" id="cpac_export_types">
 								<?php echo implode( $export_selections ); ?>
 							</select>
@@ -922,9 +922,12 @@ class CPAC_Settings {
 							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e( 'Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class="export-message"></div>
 						</div>
-						<div id="cpac_export_output">
-							<textarea rows="<?php echo count($export_selections); ?>"></textarea>
-							<p class="description"><?php _e( 'Copy the following code to your clipboard. Then use this code for importing.', CPAC_TEXTDOMAIN ); ?></p>
+						<div id="cpac_export_output" class="col-75">
+							<textarea rows="<?php echo count( $export_selections ); ?>"></textarea>
+							<p class="description">
+								<a class="button" href="javascript:;"><?php _e( 'Download', CPAC_TEXTDOMAIN ); ?></a>
+								<?php _e( 'or copy the code above to your clipboard and then paste that into import settings.', CPAC_TEXTDOMAIN ); ?>
+							</p>
 						</div>
 					</td>
 				</tr>
@@ -934,7 +937,14 @@ class CPAC_Settings {
 						<p><?php _e( 'Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
 					<td>
-						<div id="cpac_import_input">
+						<div class="cpac_export col-25">
+							<form method="post" action="" enctype="multipart/form-data">
+								<input type="file" size="25" name="import" id="upload">
+								<?php wp_nonce_field( 'file-import', '_cpac_nonce' ); ?>
+								<input type="submit" value="<?php _e( 'Upload file and import', CPAC_TEXTDOMAIN ); ?>" class="button" id="import-submit" name="file-submit">
+							</form>
+						</div>
+						<div id="cpac_import_input" class="col-75">
 							<textarea rows="10"></textarea>
 							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e( 'Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
 							<div class='import-message'></div>
@@ -946,7 +956,20 @@ class CPAC_Settings {
 						<h3><?php _e( 'Restore Settings', CPAC_TEXTDOMAIN ); ?></h3>
 						<p><?php _e( 'This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
-					<td>
+					<td class="padding-22">
+						<form method="post" action="">
+							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
+							<input type="hidden" name="cpac_action" value="restore_all" />
+							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN ); ?>');" />
+						</form>
+					</td>
+				</tr>
+				<tr class="submit-bug">
+					<th scope="row">
+						<h3><?php _e( 'Submit bug', CPAC_TEXTDOMAIN ); ?></h3>
+						<p><?php _e( 'Submit your bug report directly.', CPAC_TEXTDOMAIN ); ?></p>
+					</th>
+					<td class="padding-22">
 						<form method="post" action="">
 							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
 							<input type="hidden" name="cpac_action" value="restore_all" />

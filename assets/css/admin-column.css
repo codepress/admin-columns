@@ -428,6 +428,11 @@ table.cpac-form-table {
 	max-width: 1100px;
 	margin-top: 20px;
 }
+.col-25, .col-75 {
+	float: left;
+}
+.col-25 { width: 25%; }
+.col-75 { width: 75%; }
 table.cpac-form-table > tbody > tr > td,
 table.cpac-form-table > tbody > tr > th {
 	vertical-align: top;
@@ -463,19 +468,16 @@ td.activation_type span {
 	background: transparent url('../images/information.png') no-repeat right 50%;
 	padding-right: 20px;
 }
-tr.restore td {
+tr td.padding-22 {
 	padding-top: 22px;
 }
 
 /* =Import / Export
 -------------------------------------------------------------- */
-div.cpac_export {
-	width: 20%;
-	float: left;
+#cpac_export_types {
+	width: 95%;
 }
 #cpac_export_output {
-	width: 80%;
-	float: left;
 	display: none;
 }
 #cpac_export_output textarea {

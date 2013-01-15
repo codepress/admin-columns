@@ -497,7 +497,7 @@ abstract class CPAC_Columns
 
 		if ( $display_columns = $this->get_merged_columns() ) {
 			foreach ( $display_columns as $id => $vars ) {
-				if ( isset( $vars['options']['enable_sorting'] ) && $vars['options']['enable_sorting'] ){
+				if ( isset( $vars['options']['enable_sorting'] ) && $vars['options']['enable_sorting'] && isset( $vars['sort'] ) && 'on' == $vars['sort'] ){
 
 					$columns[$id] = CPAC_Utility::sanitize_string( $vars['label'] );
 				}

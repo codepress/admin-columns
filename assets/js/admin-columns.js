@@ -425,6 +425,7 @@
 			var btn 			 = $(this);
 			var export_container = $('#cpac_export_output');
 			var export_textarea  = $('textarea', export_container);
+			var export_download  = $('.description a.button', export_container);
 			var msg 			 = btn.next('.export-message');
 
 			// reset
@@ -451,8 +452,9 @@
 
 							// succes
 							if ( 1 == data.status ) {
-								export_textarea.text(data.msg);
+								export_textarea.text( data.msg );
 								export_container.show();
+								export_download.attr( 'href', data.download_uri );				
 							}
 
 							// fail
