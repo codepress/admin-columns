@@ -62,6 +62,7 @@ new CPAC_Settings;
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
+require_once dirname( __FILE__ ) . '/classes/deprecated.php';
 
 /**
  * The Codepress Admin Columns Class
@@ -188,7 +189,10 @@ class Codepress_Admin_Columns
 	 */
 	public function add_columns_headings_posts( $columns )
 	{
-		$type = new CPAC_Columns_Posttype( get_post_type() );
+		if( ! $post_type = get_post_type() )
+			return $columns;
+
+		$type = new CPAC_Columns_Posttype( $post_type );
 
 		return $type->add_columns_headings( $columns );
 	}

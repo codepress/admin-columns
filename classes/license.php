@@ -5,6 +5,8 @@ class CPAC_Licence {
     /**
      * The type of licence to check or activate
      *
+	 * @since 1.3.0
+	 * 
      * @var string $type License Type
      */
     private $type;
@@ -12,7 +14,7 @@ class CPAC_Licence {
 	/**
 	 * Constructor
 	 *
-	 * @param string $type License Type
+	 * @since 1.3.0
 	 */
     public function __construct( $type ) {
         $this->type = $type;

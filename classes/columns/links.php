@@ -8,7 +8,9 @@ class CPAC_Columns_Links extends CPAC_Columns {
 	 * @since 1.3.1
 	 */
 	public function __construct() {
-		$this->storage_key = 'wp-links';
+
+		$this->storage_key 	= 'wp-links';
+		$this->label 		= __( 'Links' );
     }
 
 	/**
@@ -21,7 +23,7 @@ class CPAC_Columns_Links extends CPAC_Columns {
 	 */
 	function get_default_columns() {
 		// You can use this filter to add third_party columns by hooking into this.
-		do_action( 'cpac-get-default-columns-links' );
+		do_action( "cpac_before_default_columns_{$this->storage_key}" );
 
 		// dependencies
 		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
@@ -40,7 +42,7 @@ class CPAC_Columns_Links extends CPAC_Columns {
 			$columns['rel']['options']['enable_sorting'] = false;
 		}
 
-		return apply_filters( 'cpac-default-links-columns', $columns );
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
 	}
 
 	/**
@@ -88,7 +90,7 @@ class CPAC_Columns_Links extends CPAC_Columns {
 		// merge with defaults
 		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters( 'cpac-custom-links-columns', $custom_columns );
+		return apply_filters( "cpac_custom_{$this->storage_key}_columns", $custom_columns );
 	}
 
 	/**
@@ -100,16 +102,4 @@ class CPAC_Columns_Links extends CPAC_Columns {
 	 * @return array
      */
     public function get_meta_keys() {}
-
-	/**
-	 * Get Label
-	 *
-	 * @see CPAC_Columns::get_label()
-	 * @since 1.5.0
-	 *
-	 * @return string
-	 */
-	function get_label() {
-		return __( 'Links' );
-	}
 }

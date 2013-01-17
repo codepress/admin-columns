@@ -8,7 +8,9 @@ class CPAC_Columns_Users extends CPAC_Columns
 	 * @since 1.1.0
 	 */
 	public function __construct() {
-		$this->storage_key = 'wp-users';
+
+		$this->storage_key 	= 'wp-users';
+		$this->label 		= __( 'Users');
     }
 
 	/**
@@ -21,7 +23,7 @@ class CPAC_Columns_Users extends CPAC_Columns
 	 */
 	function get_default_columns() {
 		// You can use this filter to add third_party columns by hooking into this.
-		do_action( 'cpac-get-default-columns-users' );
+		do_action( "cpac_before_default_columns_{$this->storage_key}" );
 
 		// Dependencies
 		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
@@ -38,7 +40,7 @@ class CPAC_Columns_Users extends CPAC_Columns
 		// change to uniform format
 		$columns = $this->get_uniform_format( $cols );
 
-		return apply_filters( 'cpac-default-users-columns', $columns );
+		return apply_filters( 'cpac_default_users_columns', $columns );
 	}
 
 	/**
@@ -117,7 +119,7 @@ class CPAC_Columns_Users extends CPAC_Columns
 		// merge with defaults
 		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters( 'cpac-custom-users-columns', $custom_columns );
+		return apply_filters( "cpac_custom_{$this->storage_key}_columns", $custom_columns );
 	}
 
 	/**
@@ -136,18 +138,6 @@ class CPAC_Columns_Users extends CPAC_Columns
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( 'cpac-get-meta-keys-users', $this->maybe_add_hidden_meta( $fields ) );
+		return apply_filters( "cpac_get_meta_keys_{$this->storage_key}", $this->maybe_add_hidden_meta( $fields ) );
     }
-
-	/**
-	 * Get label
-	 *
-	 * @see CPAC_Columns::get_label()
-	 * @since 1.5
-	 *
-	 * @return string
-	 */
-	public function get_label() {
-		return __( 'Users');
-	}
 }

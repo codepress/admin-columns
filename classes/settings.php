@@ -83,6 +83,7 @@ class CPAC_Settings {
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL.'/assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL.'/assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-multi-select', CPAC_URL.'/assets/css/multi-select.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -96,12 +97,12 @@ class CPAC_Settings {
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL.'/assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
 			'fill_in' 		=> __( 'Enter your activation code', CPAC_TEXTDOMAIN ),
 			'unrecognised'	=> __( 'Activation code unrecognised', CPAC_TEXTDOMAIN ),
-			'import_empty'	=> __( 'Import field is empty. Please insert your export code.', CPAC_TEXTDOMAIN ),
 			'remove'		=> __( 'Remove', CPAC_TEXTDOMAIN ),
 			'customfield'	=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
 		));
@@ -175,6 +176,36 @@ class CPAC_Settings {
 				break;
 
 		endswitch;
+	}
+
+	/**
+	 * Get export multiselect options
+	 *
+	 * Gets multi select options to use in a HTML select element
+	 *
+	 * @since 1.5.0
+	 * @return array Multiselect options
+	 */
+	public function get_export_multiselect_options() {
+		$options = array();
+
+		foreach ( CPAC_Utility::get_types() as $type ) {
+
+			if ( ! CPAC_Utility::get_stored_columns( $type->storage_key ) )
+				continue;
+
+			// General group
+			if ( in_array( $type->storage_key, array( 'wp-comments', 'wp-links', 'wp-users', 'wp-media' ) ) ) {
+				$options['general'][] = $type;
+			}
+
+			// Post(types) group
+			else {
+				$options['posts'][] = $type;
+			}
+		}
+
+		return $options;
 	}
 
 	/**
@@ -461,7 +492,6 @@ class CPAC_Settings {
 		// loop
 		foreach ( CPAC_Utility::get_types() as $type ) {
 
-			$label 		 = $type->get_label();
 			$clean_label = CPAC_Utility::sanitize_string( $type->storage_key );
 
 			// divider
@@ -474,13 +504,13 @@ class CPAC_Settings {
 			}
 
 			// menu list
-			$menu .= "<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$label}</a></li>\n";
+			$menu .= "<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$type->label}</a></li>\n";
 		}
 
 		// Licenses
 		$licenses = array(
 			'sortable' 		=> new CPAC_Licence( 'sortable' ),
-			'customfields' 	=> new CPAC_Licence( 'sortable' )
+			'customfields' 	=> new CPAC_Licence( 'customfields' )
 		);
 
 	?>
@@ -505,7 +535,7 @@ class CPAC_Settings {
 
 				<div class="columns-left">
 					<div id="titlediv">
-						<h2><?php echo $type->get_label(); ?></h2>
+						<h2><?php echo $type->label; ?></h2>
 					</div>
 				</div>
 
@@ -517,7 +547,7 @@ class CPAC_Settings {
 							</h3>
 							<div class="form-reset">
 								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_type' => $type->storage_key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
-									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $type->get_label(); ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
+									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $type->label; ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
 								</a>
 							</div>
 							<div class="form-update">
@@ -574,7 +604,7 @@ class CPAC_Settings {
 														<?php echo $box->label; ?>
 													</a>
 													<span class="meta-label">
-													<?php if ( $box->sort || in_array( $box->id, array( 'title', 'date' ) ) ) : ?>
+													<?php if ( $licenses['sortable']->is_unlocked() && ( $box->sort || in_array( $box->id, array( 'title', 'date' ) ) ) ) : ?>
 														<span class="sorting enable"><?php _e( 'sorting',  CPAC_TEXTDOMAIN )?></span>
 													<?php endif; ?>
 													</span>
@@ -696,6 +726,7 @@ class CPAC_Settings {
 											<tr class="column_before">
 												<td class="label">
 													<label for="<?php echo $box->attr_for; ?>-before"><?php _e("Before", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This text will appear before the custom field value.', CPAC_TEXTDOMAIN ); ?></p>
 												</td>
 												<td class="input">
 													<input type="text" class="cpac-before" name="<?php echo $box->attr_name; ?>[before]" id="<?php echo $box->attr_for; ?>-before" value="<?php echo $box->before; ?>"/>
@@ -707,6 +738,7 @@ class CPAC_Settings {
 											<tr class="column_after">
 												<td class="label">
 													<label for="<?php echo $box->attr_for; ?>-after"><?php _e("After", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This text will appear after the custom field value.', CPAC_TEXTDOMAIN ); ?></p>
 												</td>
 												<td class="input">
 													<input type="text" class="cpac-after" name="<?php echo $box->attr_name; ?>[after]" id="<?php echo $box->attr_for; ?>-after" value="<?php echo $box->after; ?>"/>
@@ -782,7 +814,7 @@ class CPAC_Settings {
 				'license' 	=> new CPAC_Licence('sortable'),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'This will make all of the new columns support sorting.', CPAC_TEXTDOMAIN ) . "</p>
 					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
 					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
 					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
@@ -794,20 +826,13 @@ class CPAC_Settings {
 				'license' 	=> new CPAC_Licence( 'customfields' ),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __( 'This will make all of the new columns support sorting', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
-					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
-					<img src='" . CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
+					<p>" . __( 'This add support for Multiple custom columns.', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'Add as many custom columns as you want!</strong>', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'It support custom fields from Posts, Media and Users.', CPAC_TEXTDOMAIN ) . "</p>
+					<img src='" . CPAC_URL . "/assets/images/addon_multiplecustomfields.png' alt='' />
 				"
 			)
 		);
-
-		// import / export
-		$export_selections = array();
-		foreach ( CPAC_Utility::get_types() as $type ) {
-			$export_selections[] = "<option value='{$type->storage_key}'>" . $type->get_label() . "</option>";
-		}
 	?>
 	<div id="cpac" class="wrap">
 
@@ -874,34 +899,45 @@ class CPAC_Settings {
 				<tr>
 					<th scope="row">
 						<h3><?php _e( 'Export Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'You this export to migrate your admin column settings from one WordPress site to another.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
-						<div id="cpac-import-instructions-html" style="display:none;">
+						<p><?php _e( 'Pick the types for export from the left column. Click export to download your column settings.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-export-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<div id="cpac-export-instructions-html" style="display:none;">
 							<h3><?php _e( 'Export Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
 							<p><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></p>
 							<ol>
-								<li><?php _e( 'Select one or more types.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Click Export.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Copy the generated code to your clipboard.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Go to you other site and paste it under Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Select one or more Column Types from the left section by clicking them.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Click export.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Save the export file when prompted.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Upload and import your settings file through Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
 							</ol>
 						</div>
 					</th>
 					<td>
-						<div class="cpac_export col-30">
-							<select size="<?php echo count($export_selections); ?>" multiple="multiple" class="select" id="cpac_export_types">
-								<?php echo implode( $export_selections ); ?>
-							</select>
-							<br/>
-							<a id="cpac_export_submit" class="button" href="javascript:;"><?php _e( 'Export', CPAC_TEXTDOMAIN ); ?><span></span></a>
-							<div class="export-message"></div>
-						</div>
-						<div id="cpac_export_output" class="col-70">
-							<textarea rows="<?php echo count( $export_selections ); ?>"></textarea>
-							<p class="description">
-								<a class="button" href="javascript:;"><?php _e( 'Download', CPAC_TEXTDOMAIN ); ?></a>
-								<?php _e( 'or copy the code above to your clipboard and then paste that into import settings.', CPAC_TEXTDOMAIN ); ?>
-							</p>
+						<div class="cpac_export">
+							<?php if ( $groups = $this->get_export_multiselect_options() ) : ?>
+							<form method="post" action="">
+								<?php wp_nonce_field( 'download-export', '_cpac_nonce' ); ?>
+								<select name="export_types[]" multiple="multiple" class="select" id="cpac_export_types">
+									<?php
+									$labels = array(
+										'general'	=> __( 'General', CPAC_TEXTDOMAIN ),
+										'posts'		=> __( 'Posts', CPAC_TEXTDOMAIN )
+									);
+									?>
+									<?php foreach ( $groups as $group_key => $group ) : ?>
+									<optgroup label="<?php echo $labels[$group_key];?>">
+										<?php foreach ( $group as $type ) : ?>
+										<option value="<?php echo $type->storage_key; ?>"><?php echo $type->label; ?></option>
+										<?php endforeach; ?>
+									</optgroup>
+									<?php endforeach; ?>
+								</select>
+								<a id="export-select-all" class="export-select" href="javascript:;"><?php _e( 'select all', CPAC_TEXTDOMAIN ); ?></a>
+								<input type="submit" id="cpac_export_submit" class="button-primary alignright" value="<?php _e( 'Export', CPAC_TEXTDOMAIN ); ?>">
+							</form>
+							<?php else : ?>
+								<?php _e( 'No saved data found.', CPAC_TEXDOMAIN ); ?>
+							<?php endif; ?>
 						</div>
 					</td>
 				</tr>
@@ -909,19 +945,24 @@ class CPAC_Settings {
 					<th scope="row">
 						<h3><?php _e( 'Import Settings', CPAC_TEXTDOMAIN ); ?></h3>
 						<p><?php _e( 'Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<div id="cpac-import-instructions-html" style="display:none;">
+							<h3><?php _e( 'Import Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
+							<p><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></p>
+							<ol>
+								<li><?php _e( 'Choose a Admin Columns Export file to upload.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Click upload file and import.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( "That's it! You imported settings are now active.", CPAC_TEXTDOMAIN ); ?></li>
+							</ol>
+						</div>
 					</th>
 					<td class="padding-22">
-						<div class="cpac_export col-30">
+						<div id="cpac_import_input">
 							<form method="post" action="" enctype="multipart/form-data">
 								<input type="file" size="25" name="import" id="upload">
 								<?php wp_nonce_field( 'file-import', '_cpac_nonce' ); ?>
 								<input type="submit" value="<?php _e( 'Upload file and import', CPAC_TEXTDOMAIN ); ?>" class="button" id="import-submit" name="file-submit">
 							</form>
-						</div>
-						<div id="cpac_import_input" class="col-70">
-							<textarea rows="10"></textarea>
-							<a id="cpac_import_submit" class="button" href="javascript:;"><?php _e( 'Import', CPAC_TEXTDOMAIN ); ?><span></span></a>
-							<div class='import-message'></div>
 						</div>
 					</td>
 				</tr>
@@ -929,19 +970,6 @@ class CPAC_Settings {
 					<th scope="row">
 						<h3><?php _e( 'Restore Settings', CPAC_TEXTDOMAIN ); ?></h3>
 						<p><?php _e( 'This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN ); ?></p>
-					</th>
-					<td class="padding-22">
-						<form method="post" action="">
-							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
-							<input type="hidden" name="cpac_action" value="restore_all" />
-							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN ); ?>');" />
-						</form>
-					</td>
-				</tr>
-				<tr class="submit-bug">
-					<th scope="row">
-						<h3><?php _e( 'Submit bug', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'Submit your bug report directly.', CPAC_TEXTDOMAIN ); ?></p>
 					</th>
 					<td class="padding-22">
 						<form method="post" action="">

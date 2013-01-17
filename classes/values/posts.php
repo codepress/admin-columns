@@ -6,15 +6,13 @@
  * @since     1.4.4
  *
  */
-class CPAC_Posts_Values extends CPAC_Values
-{
+class CPAC_Posts_Values extends CPAC_Values {
 	/**
 	 * Constructor
 	 *
-	 * @since     1.4.4
+	 * @since 1.4.4
 	 */
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
 
 		/**
@@ -29,162 +27,140 @@ class CPAC_Posts_Values extends CPAC_Values
 	/**
 	 * Manage custom column for Post Types.
 	 *
-	 * @since     1.0
+	 * @since 1.0
+	 *
+	 * @param string $column_name
+	 * @param int $post_id
 	 */
-	public function manage_posts_column_value( $column_name, $post_id )
-	{
-		$type = $column_name;
-
-		// Check for taxonomies, such as column-taxonomy-[taxname]
-		if ( strpos($type, 'column-taxonomy-') !== false )
-			$type = 'column-taxonomy';
-
-		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta($type) )
-			$type = 'column-post-meta';
-
+	public function manage_posts_column_value( $column_name, $post_id ) {
 		// set type
 		$this->storage_key = get_post_type( $post_id );
 
-		// Hook
-		do_action('cpac-manage-posts-column', $type, $column_name, $post_id);
+		$column_name_type = $column_name;
+
+		// Check for taxonomies, such as column-taxonomy-[taxname]
+		if ( strpos( $column_name, 'column-taxonomy-' ) !== false ) {
+			$column_name_type = 'column-taxonomy';
+		}
+
+		// Check for custom fields, such as column-meta-[customfieldname]
+		if ( CPAC_Utility::is_column_meta( $column_name ) ) {
+			$column_name_type = 'column-post-meta';
+		}
 
 		// Switch Types
-		$result = '';
-		switch ($type) :
+		switch ( $column_name_type ) :
 
-			// Post ID
 			case "column-postid" :
 				$result = $post_id;
 				break;
 
-			// Excerpt
 			case "column-excerpt" :
-				$result = $this->get_post_excerpt($post_id);
+				$result = $this->get_post_excerpt( $post_id );
 				break;
 
-			// Featured Image
 			case "column-featured_image" :
-				if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post_id) )
-					$result = get_the_post_thumbnail($post_id, $this->thumbnail_size);
+				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $post_id ) )
+					$result = get_the_post_thumbnail( $post_id, $this->thumbnail_size );
 				break;
 
-			// Sticky Post
 			case "column-sticky" :
 				if ( is_sticky($post_id) )
-					$result = $this->get_asset_image('checkmark.png');
+					$result = $this->get_asset_image( 'checkmark.png' );
 				break;
 
-			// Order
 			case "column-order" :
-				$result = get_post_field('menu_order', $post_id);
+				$result = get_post_field( 'menu_order', $post_id );
 				break;
 
-			// Post Formats
 			case "column-post_formats" :
-				$result = get_post_format($post_id);
+				$result = get_post_format( $post_id );
 				break;
 
-			// Page template
 			case "column-page-template" :
 				// file name
-				$page_template 	= get_post_meta($post_id, '_wp_page_template', true);
+				$page_template 	= get_post_meta( $post_id, '_wp_page_template', true );
 
 				// get template nice name
-				$result = array_search($page_template, get_page_templates());
+				$result = array_search( $page_template, get_page_templates() );
 				break;
 
-			// Slug
 			case "column-page-slug" :
-				$result = get_post($post_id)->post_name;
+				$result = get_post( $post_id )->post_name;
 				break;
 
-			// Slug
 			case "column-word-count" :
-				$result = str_word_count( CPAC_Utility::strip_trim( get_post($post_id)->post_content ) );
+				$result = str_word_count( CPAC_Utility::strip_trim( get_post( $post_id )->post_content ) );
 				break;
 
-			// Taxonomy
 			case "column-taxonomy" :
-				$tax 	= str_replace('column-taxonomy-', '', $column_name);
-				$tags 	= get_the_terms($post_id, $tax);
+				$tax 	= str_replace( 'column-taxonomy-', '', $column_name );
+				$tags 	= get_the_terms( $post_id, $tax );
 				$tarr 	= array();
 
 				// for post formats we will display standard instead of empty
-				if ( $tax == 'post_format' && empty($tags) ) {
+				if ( 'post_format' == $tax && empty( $tags ) ) {
 					$result = __( 'Standard');
 				}
 
 				// add name with link
 				elseif ( !empty($tags) ) {
-					$post_type = get_post_type($post_id);
-					foreach($tags as $tag) {
+					$post_type = get_post_type( $post_id );
+					foreach ( $tags as $tag ) {
 						// sanatize title
 						if ( isset($tag->term_id) ) {
-							$tax_title 	= esc_html(sanitize_term_field('name', $tag->name, $tag->term_id, $tag->taxonomy, 'edit'));
+							$tax_title 	= esc_html( sanitize_term_field( 'name', $tag->name, $tag->term_id, $tag->taxonomy, 'edit' ) );
 							$tarr[] 	= "<a href='edit.php?post_type={$post_type}&{$tag->taxonomy}={$tag->slug}'>{$tax_title}</a>";
 						}
 					}
-					$result = implode(', ', $tarr);
+					$result = implode( ', ', $tarr );
 				}
 				break;
 
-			// Custom Field
-			case "column-post-meta" :
-				$result = $this->get_column_value_custom_field( $post_id, $column_name );
-				break;
-
-			// Attachment
 			case "column-attachment" :
-				$result = $this->get_column_value_attachments($post_id);
+				$result = $this->get_column_value_attachments( $post_id );
 				break;
 
-			// Attachment count
 			case "column-attachment-count" :
-				$result = count( CPAC_Utility::get_attachment_ids($post_id) );
+				$result = count( CPAC_Utility::get_attachment_ids( $post_id ) );
 				break;
 
-			// Roles
 			case "column-roles" :
-				$user_id 	= get_post($post_id)->post_author;
+				$user_id 	= get_post( $post_id )->post_author;
 				$userdata 	= get_userdata( $user_id );
-				if ( !empty($userdata->roles[0]) )
-					$result = implode(', ',$userdata->roles);
+				if ( ! empty( $userdata->roles[0] ) )
+					$result = implode( ', ',$userdata->roles );
 				break;
 
-			// Post status
 			case "column-status" :
-				$p 		= get_post($post_id);
+				$p 		= get_post( $post_id );
 				$result = $this->get_post_status_friendly_name( $p->post_status );
-				if ( $p->post_status == 'future')
-					$result = $result . " <p class='description'>" . date_i18n( get_option('date_format') . ' ' . get_option('time_format') , strtotime($p->post_date) ) . "</p>";
+				if ( 'future' == $p->post_status )
+					$result = $result . " <p class='description'>" . date_i18n( get_option( 'date_format' ) . ' ' . get_option('time_format') , strtotime($p->post_date) ) . "</p>";
 				break;
 
-			// Post comment status
 			case "column-comment-status" :
-				$p 		= get_post($post_id);
-				$result = $this->get_asset_image('no.png', $p->comment_status);
-				if ( $p->comment_status == 'open' )
-					$result = $this->get_asset_image('checkmark.png', $p->comment_status);
+				$p 		= get_post( $post_id );
+				$result = $this->get_asset_image( 'no.png', $p->comment_status );
+				if ( 'open' == $p->comment_status )
+					$result = $this->get_asset_image( 'checkmark.png', $p->comment_status );
 				break;
 
-			// Post ping status
 			case "column-ping-status" :
-				$p 		= get_post($post_id);
-				$result = $this->get_asset_image('no.png', $p->ping_status);
-				if ( $p->ping_status == 'open' )
-					$result = $this->get_asset_image('checkmark.png', $p->ping_status);
+				$p 		= get_post( $post_id );
+				$result = $this->get_asset_image( 'no.png', $p->ping_status );
+				if ( 'open' == $p->ping_status )
+					$result = $this->get_asset_image( 'checkmark.png', $p->ping_status );
 				break;
 
 			// Post actions ( delete, edit etc. )
 			case "column-actions" :
-				$result = $this->get_column_value_actions($post_id);
+				$result = $this->get_column_value_actions( $post_id );
 				break;
 
-			// Post Last modified
 			case "column-modified" :
-				$p 		= get_post($post_id);
-				$result = $this->get_date($p->post_modified) . ' ' . $this->get_time($p->post_modified);
+				$p 		= get_post( $post_id );
+				$result = $this->get_date( $p->post_modified ) . ' ' . $this->get_time( $p->post_modified );
 				break;
 
 			// Post Comment count
@@ -193,19 +169,21 @@ class CPAC_Posts_Values extends CPAC_Values
 				$result .= $this->get_comment_count_details( $post_id );
 				break;
 
-			// Author Name
 			case "column-author-name" :
-				$result = $this->get_column_value_authorname($post_id, $column_name);
+				$result = $this->get_column_value_authorname( $post_id, $column_name );
 				break;
 
-			// Before More Tag
 			case "column-before-moretag" :
-				$p 			= get_post($post_id);
-				$extended 	= get_extended($p->post_content);
+				$p 			= get_post( $post_id );
+				$extended 	= get_extended( $p->post_content );
 
-				if ( !empty($extended['extended']) ) {
-					$result = $this->get_shortened_string($extended['main'], $this->excerpt_length );
+				if ( ! empty( $extended['extended'] ) ) {
+					$result = $this->get_shortened_string( $extended['main'], $this->excerpt_length );
 				}
+				break;
+
+			case "column-post-meta" :
+				$result = $this->get_column_value_custom_field( $column_name, $post_id );
 				break;
 
 			default :
@@ -213,17 +191,30 @@ class CPAC_Posts_Values extends CPAC_Values
 
 		endswitch;
 
-		// Filter for customizing the result output
-		echo apply_filters('cpac-posts-column-result', $result, $type, $column_name, $post_id);
+
+		/**
+		 * Apply Filters
+		 *
+		 * @param string $result Column value
+		 * @param string $column_id Column ID
+		 * @param $column_name Column Heading
+		 * @param $post_id Post ID
+		 */
+		$result = apply_filters( "cpac_posts_column_value", $result, $column_name_type, $column_name, $post_id );
+		$result = apply_filters( "cpac_{$this->storage_key}_column_value", $result, $column_name_type, $column_name, $post_id );
+
+		echo $result;
 	}
 
 	/**
 	 * Returns the friendly name for a given status
 	 *
-	 * @since     1.4.4
+	 * @since 1.4.4
+	 *
+	 * @param string $status
+	 * @return string Status nicename
 	 */
-	private function get_post_status_friendly_name( $status )
-	{
+	private function get_post_status_friendly_name( $status ) {
 		$builtin = array(
 			'publish' 	=> __( 'Published', CPAC_TEXTDOMAIN ),
 			'draft' 	=> __( 'Draft', CPAC_TEXTDOMAIN ),
@@ -242,27 +233,29 @@ class CPAC_Posts_Values extends CPAC_Values
 	/**
 	 * Comment count extended
 	 *
-	 * @since     1.4.4
+	 * @since 1.4.4
+	 *
+	 * @param int $post_id
+	 * @return string Comment details
 	 */
-	private function get_comment_count_details( $post_id )
-	{
-		$c = wp_count_comments($post_id);
+	private function get_comment_count_details( $post_id ) {
+		$c = wp_count_comments( $post_id );
 
 		$details = '';
 		if ( $c->approved ) {
-			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'approved'), admin_url( 'edit-comments.php' ) ) );
+			$url 	  = esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'approved'), admin_url( 'edit-comments.php' ) ) );
 			$details .= "<a href='{$url}' class='cp-approved' title='".__( 'approved', CPAC_TEXTDOMAIN ) . "'>{$c->approved}</a>";
 		}
 		if ( $c->moderated ) {
-			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'moderated'), admin_url( 'edit-comments.php' ) ) );
+			$url 	  = esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'moderated'), admin_url( 'edit-comments.php' ) ) );
 			$details .= "<a href='{$url}' class='cp-moderated' title='".__( 'pending', CPAC_TEXTDOMAIN ) . "'>{$c->moderated}</a>";
 		}
 		if ( $c->spam ) {
-			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'spam'), admin_url( 'edit-comments.php' ) ) );
+			$url 	  = esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'spam'), admin_url( 'edit-comments.php' ) ) );
 			$details .= "<a href='{$url}' class='cp-spam' title='".__( 'spam', CPAC_TEXTDOMAIN ) . "'>{$c->spam}</a>";
 		}
 		if ( $c->trash ) {
-			$url 		= esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'trash'), admin_url( 'edit-comments.php' ) ) );
+			$url 	  = esc_url( add_query_arg( array('p' => $post_id, 'comment_status' => 'trash'), admin_url( 'edit-comments.php' ) ) );
 			$details .= "<a href='{$url}' class='cp-trash' title='".__( 'trash', CPAC_TEXTDOMAIN ) . "'>{$c->trash}</a>";
 		}
 
@@ -273,14 +266,16 @@ class CPAC_Posts_Values extends CPAC_Values
 	}
 
 	/**
-	 *	Get column value of post actions
+	 * Get column value of post actions
 	 *
-	 *	This part is copied from the Posts List Table class
+	 * This part is copied from the Posts List Table class
 	 *
-	 * 	@since     1.4.2
+	 * @since 1.4.2
+	 *
+	 * @param int $post_id
+	 * @return string Actions
 	 */
-	protected function get_column_value_actions( $post_id )
-	{
+	protected function get_column_value_actions( $post_id ) {
 		$actions = array();
 
 		$post 				= get_post($post_id);
@@ -313,34 +308,37 @@ class CPAC_Posts_Values extends CPAC_Values
 	}
 
 	/**
-	 *	Get column value of Custom Field
+	 * Get column value of Custom Field
 	 *
-	 * 	@since     1.4.6.1
+	 * @since 1.4.6.1
+	 *
+	 * @param int $post_id
+	 * @param $column_name
+	 * @return string Authorname
 	 */
-	protected function get_column_value_authorname($post_id, $column_name)
-	{
-		$type = get_post_type($post_id);
+	protected function get_column_value_authorname( $post_id, $column_name ) {
+		$post_type = get_post_type( $post_id );
 
 		// get column
-		$columns 	= CPAC_Utility::get_stored_columns($type);
+		$columns 	= CPAC_Utility::get_stored_columns( $post_type );
 
 		// get the type of author name
-		$display_as	= isset($columns[$column_name]['display_as']) ? $columns[$column_name]['display_as'] : '';
+		$display_as	= isset( $columns[$column_name]['display_as'] ) ? $columns[$column_name]['display_as'] : '';
 
 		// get the author
-		$post = get_post($post_id);
+		$post = get_post( $post_id );
 		if ( !isset( $post->post_author) )
 			return false;
 
-		$name = CPAC_Utility::get_author_field_by_nametype($display_as, $post->post_author);
+		$name = CPAC_Utility::get_author_field_by_nametype( $display_as, $post->post_author );
 
 		// filter for customization
-		$name = apply_filters('cpac_get_column_value_authorname', $name, $column_name, $post_id );
+		$name = apply_filters( "cpac_get_column_value_authorname", $name, $column_name, $post_id );
 
 		// add link filter
 		$class  = isset( $_GET['author'] ) && $_GET['author'] == $userdata->ID ? ' class="current"' : '';
 
-		$name = "<a href='edit.php?post_type={$type}&author={$post->post_author}'{$class}>{$name}</a>";
+		$name = "<a href='edit.php?post_type={$post_type}&author={$post->post_author}'{$class}>{$name}</a>";
 
 		return $name;
 	}

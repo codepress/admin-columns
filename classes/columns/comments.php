@@ -8,7 +8,9 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 	 * @since 1.3.1
 	 */
 	public function __construct() {
-		$this->storage_key = 'wp-comments';
+
+		$this->storage_key 	= 'wp-comments';
+		$this->label 		= __( 'Comments' );
     }
 
 	/**
@@ -21,7 +23,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 	 */
 	function get_default_columns() {
 		// You can use this filter to add third_party columns by hooking into this.
-		do_action( 'cpac-get-default-columns-comments' );
+		do_action( "cpac_get_default_columns_{$this->storage_key}" );
 
 		// dependencies
 		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
@@ -71,7 +73,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 			$columns['comment']['options']['enable_sorting'] = true;
 		}
 
-		return apply_filters( 'cpac-default-comments-columns', $columns );
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
 	}
 
 	/**
@@ -140,7 +142,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 		// merge with defaults
 		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters( 'cpac-custom-comments-columns', $custom_columns );
+		return apply_filters( "cpac_custom_{$this->storage_key}_columns", $custom_columns );
 	}
 
 	/**
@@ -159,18 +161,6 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( 'cpac-get-meta-keys-comments', $this->maybe_add_hidden_meta( $fields ) );
+		return apply_filters( "cpac_get_meta_keys_{$this->storage_key}", $this->maybe_add_hidden_meta( $fields ) );
     }
-
-	/**
-	 * Get Label
-	 *
-	 * @see CPAC_Columns::get_label()
-	 * @since 1.5.0
-	 *
-	 * @return string
-	 */
-	function get_label() {
-		return __( 'Comments' );
-	}
 }

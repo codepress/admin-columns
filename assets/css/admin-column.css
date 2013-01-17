@@ -345,7 +345,7 @@ tr.column_image_size.hidden {
 /* =Sidebar
 -------------------------------------------------------------- */
 .columns-right {
-	margin-top: 50px;
+	margin-top: 52px;
 }
 .sidebox {
 	background: none repeat scroll 0 0 #FFFFFF;
@@ -490,7 +490,9 @@ tr td.padding-22 {
 }
 #cpac_export_submit {
 	display: inline-block;
-	margin: 10px 0;
+	margin: 10px 8px;
+	padding: 4px 14px;
+	height: auto;
 }
 #cpac_import_input {}
 #cpac_import_input textarea {
@@ -510,8 +512,29 @@ tr td.padding-22 {
 	display: none;
 }
 #import-submit {
-	margin-top: 20px;
+	margin-top: 10px;
+	display: block;
 }
+.cpac_export .ms-container {
+	background: transparent url(../images/switch_bw.png) no-repeat 50% 50%;
+}
+.cpac_export .ms-container .ms-selectable {
+	width: 48%;
+	margin-right: 0;
+}
+.cpac_export .ms-container .ms-selection {
+	float: right;
+	width: 48%;
+}
+.cpac_export .ms-container ul.ms-list {
+	width: 100%;
+}
+a.export-select {
+	display: inline-block;
+	padding: 8px 8px;
+	text-decoration: none;
+}
+
 
 /* =WP Pointer
 -------------------------------------------------------------- */

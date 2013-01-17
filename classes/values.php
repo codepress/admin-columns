@@ -26,7 +26,7 @@ class CPAC_Values {
      *
 	 * Used for retrieving custom metadata.
 	 *
-	 * @since 2.0
+	 * @since 2.0.0
 	 *
      * @var string Column Meta Type.
      */
@@ -352,7 +352,7 @@ class CPAC_Values {
 	 * @param string $column_name
 	 * @return string Customfield value
 	 */
-	protected function get_column_value_custom_field( $object_id, $column_name ) {
+	protected function get_column_value_custom_field( $column_name, $object_id ) {
 		// get column
 		$columns = CPAC_Utility::get_stored_columns( $this->storage_key );
 
@@ -361,6 +361,9 @@ class CPAC_Values {
 
 		// values
 		$defaults = array(
+			'id'			=> $column_name,
+			'storage_key'	=> $this->storage_key,
+			'label'			=> '',
 			'field'			=> '',
 			'field_type'	=> '',
 			'before'		=> '',
@@ -370,34 +373,34 @@ class CPAC_Values {
 			'image_size_h'	=> 80,
 		);
 
-		$values = (object) wp_parse_args( $columns[$column_name], $defaults );
+		$settings = (object) wp_parse_args( $columns[$column_name], $defaults );
 
 		// rename hidden custom fields to their original name
-		if ( 'cpachidden' == substr( $values->field, 0, 10 ) ) {
-			$values->field = str_replace( 'cpachidden', '', $values->field );
+		if ( 'cpachidden' == substr( $settings->field, 0, 10 ) ) {
+			$settings->field = str_replace( 'cpachidden', '', $settings->field );
 		}
 
 		// Get meta field value
-		$meta = get_metadata( $this->meta_type, $object_id, $values->field, true );
+		$meta = get_metadata( $this->meta_type, $object_id, $settings->field, true );
 
 		// multiple meta values
-		if ( ( 'array' == $values->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
+		if ( ( 'array' == $settings->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
 			$meta = $this->recursive_implode( ', ', $meta );
 		}
 
 		// make sure there are no serialized arrays or null data
-		if ( !is_string( $meta ) )
+		if ( ! is_string( $meta ) )
 			return false;
 
 		// handles each field type differently..
-		switch ( $values->field_type ) :
+		switch ( $settings->field_type ) :
 
 			// Image
 			case "image" :
 				$meta = $this->get_thumbnails( $meta, array(
-					'image_size'	=> $values->image_size,
-					'width' 		=> $values->image_size_w,
-					'height' 		=> $values->image_size_h,
+					'image_size'	=> $settings->image_size,
+					'width' 		=> $settings->image_size_w,
+					'height' 		=> $settings->image_size_h,
 				));
 				break;
 
@@ -445,15 +448,22 @@ class CPAC_Values {
 
 		endswitch;
 
-		// filter for customization
-		$meta = apply_filters( 'cpac_get_column_value_custom_field', $meta, $values->field_type, $values->field, $object_id );
-
 		// add before and after string
 		if ( $meta ) {
-			$meta = "{$values->before}{$meta}{$values->after}";
+			$meta = "{$settings->before}{$meta}{$settings->after}";
 		}
 
-		return $meta;
+		/**
+		 * Filter
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param string $meta Column value
+		 * @param string $object_id Object ID
+		 * @param object $settings All custom field settings
+		 * @return string Column value
+		 */
+		return apply_filters( 'cpac_get_column_value_custom_field', $meta, $object_id, $settings );
 	}
 
 	/**
@@ -654,5 +664,3 @@ class CPAC_Values {
 		return date_i18n( get_option( 'time_format' ), $date );
 	}
 }
-
-?>

@@ -8,7 +8,9 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	 * @since 1.0.0
 	 */
 	function __construct( $post_type ) {
-		$this->storage_key = $post_type;
+
+		$this->storage_key 	= $post_type;
+		$this->label 		= $this->get_label();
 	}
 
 	/**
@@ -154,7 +156,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		// merge with defaults
 		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters( 'cpac-custom-posts-columns', $custom_columns );
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $custom_columns );
 	}
 
 	/**
@@ -168,7 +170,8 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	function get_default_columns() {
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
-		do_action( 'cpac-get-default-columns-posts', $this->storage_key );
+		do_action( "cpac_before_default_columns_posts", $this->storage_key );
+		do_action( "cpac_before_default_columns_{$this->storage_key}" );
 
 		// some plugins directly hook into get_column_headers, such as: WooCommerce.
 		$columns = get_column_headers( 'edit-' . $this->storage_key );
@@ -238,7 +241,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 			$columns['tags']['options']['enable_sorting'] = true;
 		}
 
-		return $columns;
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
 	}
 
 	/**
@@ -257,16 +260,15 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( 'cpac-get-meta-keys-posts', $this->maybe_add_hidden_meta( $fields ), $this->storage_key );
+		return apply_filters( "cpac_get_meta_keys_{$this->storage_key}", $this->maybe_add_hidden_meta( $fields ), $this->storage_key );
     }
 
 	/**
 	 * Get Label
 	 *
-	 * @see CPAC_Columns::get_label()
 	 * @since 1.5.0
 	 *
-	 * @return string
+	 * @return string Singular posttype name
 	 */
 	function get_label() {
 		$posttype_obj = get_post_type_object( $this->storage_key );

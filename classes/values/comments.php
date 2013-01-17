@@ -33,54 +33,46 @@ class CPAC_Comments_Values extends CPAC_Values {
 	 * Manage custom column for Comments
 	 *
 	 * @since 1.3.1
+	 *
+	 * @param string $column_name
+	 * @param int $comment_id
 	 */
 	public function manage_comments_column_value( $column_name, $comment_id ) {
-		$type = $column_name;
+		$column_name_type = $column_name;
 
 		// comments object
 		$comment = get_comment( $comment_id );
 
 		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $type ) )
-			$type = 'column-comment-meta';
+		if ( CPAC_Utility::is_column_meta( $column_name ) )
+			$column_name_type = 'column-comment-meta';
 
-		// Hook
-		do_action( 'cpac-manage-comments-column', $type, $column_name, $comment_id );
+		switch ( $column_name_type ) :
 
-		$result = '';
-		switch ( $type ) :
-
-			// comment id
 			case "column-comment_id" :
 				$result = $comment_id;
 				break;
 
-			// author
 			case "column-author_author" :
 				$result = $comment->comment_author;
 				break;
 
-			// avatar
 			case "column-author_avatar" :
 				$result = get_avatar( $comment, 80 );
 				break;
 
-			// url
 			case "column-author_url" :
 				$result	= $this->get_shorten_url( $comment->comment_author_url );
 				break;
 
-			// ip
 			case "column-author_ip" :
 				$result = $comment->comment_author_IP;
 				break;
 
-			// email
 			case "column-author_email" :
 				$result = $comment->comment_author_email;
 				break;
 
-			// parent
 			case "column-reply_to" :
 				if ( $comment->comment_approved ) {
 					$parent 		= get_comment( $comment->comment_parent );
@@ -90,7 +82,6 @@ class CPAC_Comments_Values extends CPAC_Values {
 				}
 				break;
 
-			// approved
 			case "column-approved" :
 				$result = $this->get_asset_image( 'no.png' );
 				if ( $comment->comment_approved ) {
@@ -98,7 +89,6 @@ class CPAC_Comments_Values extends CPAC_Values {
 				}
 				break;
 
-			// date
 			case "column-date" :
 				$comment_url = esc_url( get_comment_link( $comment_id ) );
 				$result 	 = sprintf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ),
@@ -109,7 +99,6 @@ class CPAC_Comments_Values extends CPAC_Values {
 				$result 	 = "<div class='submitted-on'>{$result}</div>";
 				break;
 
-			// date GMT
 			case "column-date_gmt" :
 				$comment_url = esc_url( get_comment_link( $comment_id ) );
 				$result 	 = sprintf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ),
@@ -120,28 +109,23 @@ class CPAC_Comments_Values extends CPAC_Values {
 				$result 	 = "<div class='submitted-on'>{$result}</div>";
 				break;
 
-			// custom field
 			case "column-comment-meta" :
-				$result = $this->get_column_value_custom_field( $comment_id, $column_name );
+				$result = $this->get_column_value_custom_field( $column_name, $comment_id );
 				break;
 
-			// agent
 			case "column-agent" :
 				$result = $comment->comment_agent;
 				break;
 
-			// excerpt
 			case "column-excerpt" :
 				$comment 	= get_comment( $comment_id );
 				$result 	= $this->get_shortened_string( $comment->comment_content, $this->excerpt_length );
 				break;
 
-			// actions
 			case "column-actions" :
 				$result = $this->get_column_value_actions( $comment );
 				break;
 
-			// word count
 			case "column-word-count" :
 				$result = str_word_count( CPAC_Utility::strip_trim( $comment->comment_content ) );
 				break;
@@ -152,7 +136,7 @@ class CPAC_Comments_Values extends CPAC_Values {
 		endswitch;
 
 		// Filter for customizing the result output
-		echo apply_filters('cpac-comments-column-result', $result, $type, $column_name, $comment_id);
+		echo apply_filters( "cpac_{$this->storage_key}_column_value", $result, $column_name_type, $column_name, $comment_id );
 	}
 
 	/**

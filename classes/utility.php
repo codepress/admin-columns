@@ -16,10 +16,10 @@ class CPAC_Utility {
 			$types[] = new CPAC_Columns_Posttype( $post_type );
 		}
 
-		$types[] 	= new CPAC_Columns_Users();
-		$types[] 	= new CPAC_Columns_Media();
-		$types[] 	= new CPAC_Columns_Links();
-		$types[] 	= new CPAC_Columns_Comments();
+		$types[] = new CPAC_Columns_Users();
+		$types[] = new CPAC_Columns_Media();
+		$types[] = new CPAC_Columns_Links();
+		$types[] = new CPAC_Columns_Comments();
 
 		return $types;
 	}
@@ -32,13 +32,13 @@ class CPAC_Utility {
 	 * @return array Posttypes
 	 */
 	public function get_post_types() {
-		$post_types = get_post_types(array(
+		$post_types = get_post_types( array(
 			'_builtin' => false
 		));
 		$post_types['post'] = 'post';
 		$post_types['page'] = 'page';
 
-		return apply_filters('cpac-get-post-types', $post_types);
+		return apply_filters( 'cpac_get_post_types', $post_types );
 	}
 
 	/**
@@ -219,7 +219,7 @@ class CPAC_Utility {
 
 		return $name;
 	}
-	
+
 	/**
 	 * Admin message
 	 *

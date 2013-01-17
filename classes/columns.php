@@ -34,15 +34,6 @@ abstract class CPAC_Columns
 	abstract protected function get_default_columns();
 
 	/**
-     * Get the label for this type
-     *
-     * @since 1.3.0
-	 *
-	 * @return string Singular Name.
-     */
-    abstract protected function get_label();
-
-	/**
      * Returns the meta keys that are associated with an attachment.
 	 *      *
      * Ignores keys prefixed by a '_', as they are meant to be private.
@@ -194,7 +185,7 @@ abstract class CPAC_Columns
 	 * @return array Customfield types.
 	 */
 	public function get_custom_field_types() {
-		return apply_filters( 'cpac-field-types', array(
+		return apply_filters( 'cpac_field_types', array(
 			''				=> __( 'Default'),
 			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
 			'excerpt'		=> __( 'Excerpt'),
@@ -216,7 +207,7 @@ abstract class CPAC_Columns
 	 * @return array Authorname types.
 	 */
 	public function get_authorname_types() {
-		return apply_filters( 'cpac-authorname-types', array(
+		return apply_filters( 'cpac_authorname_types', array(
 			'display_name'		=> __( 'Display Name', CPAC_TEXTDOMAIN ),
 			'first_name'		=> __( 'First Name', CPAC_TEXTDOMAIN ),
 			'last_name'			=> __( 'Last Name', CPAC_TEXTDOMAIN ),

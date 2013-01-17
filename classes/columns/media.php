@@ -8,7 +8,9 @@ class CPAC_Columns_Media extends CPAC_Columns {
 	 * @since 1.2.1
 	 */
 	public function __construct() {
-		$this->storage_key = 'wp-media';
+
+		$this->storage_key 	= 'wp-media';
+		$this->label 		= __( 'Media Library' );
     }
 
 	/**
@@ -21,7 +23,7 @@ class CPAC_Columns_Media extends CPAC_Columns {
 	 */
 	function get_default_columns() {
 		// You can use this filter to add third_party columns by hooking into this.
-		do_action( 'cpac-get-default-columns-media' );
+		do_action( "cpac_before_default_columns_{$this->storage_key}" );
 
 		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
@@ -65,7 +67,7 @@ class CPAC_Columns_Media extends CPAC_Columns {
 		// change to uniform format
 		$columns = $this->get_uniform_format( $columns );
 
-		return apply_filters( 'cpac-default-media-columns', $columns );
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
 	}
 
 	/**
@@ -207,7 +209,7 @@ class CPAC_Columns_Media extends CPAC_Columns {
 		// merge with defaults
 		$custom_columns = $this->parse_defaults( $custom_columns );
 
-		return apply_filters( 'cpac-custom-media-columns', $custom_columns );
+		return apply_filters( "cpac_custom_{$this->storage_key}_columns", $custom_columns );
 	}
 
 	/**
@@ -226,18 +228,6 @@ class CPAC_Columns_Media extends CPAC_Columns {
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( 'cpac-get-meta-keys-media', $this->maybe_add_hidden_meta( $fields ) );
+		return apply_filters( "cpac_get_meta_keys_{$this->storage_key}", $this->maybe_add_hidden_meta( $fields ) );
     }
-
-	/**
-	 * Get Label
-	 *
-	 * @see CPAC_Columns::get_label()
-	 * @since 1.5.0
-	 *
-	 * @return string
-	 */
-	function get_label() {
-		return __( 'Media Library');
-	}
 }

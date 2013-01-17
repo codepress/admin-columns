@@ -1112,11 +1112,11 @@ class CPAC_Sortable_Columns {
 				// check which custom column was clicked
 				if ( isset( $vars['label'] ) && $orderby == CPAC_Utility::sanitize_string( $vars['label'] ) ) {
 					$column[$id] = $vars;
-					return apply_filters( 'cpac-get-orderby-type', $column, $orderby, $type );
+					return apply_filters( 'cpac_get_orderby_type', $column, $orderby, $type );
 				}
 			}
 		}
-		return apply_filters( 'cpac-get-orderby-type', false, $orderby, $type );
+		return apply_filters( 'cpac_get_orderby_type', false, $orderby, $type );
 	}
 
 	/**
@@ -1227,7 +1227,7 @@ class CPAC_Sortable_Columns {
 	 * @since 1.4.2
 	 */
 	function register_filtering_columns() {
-		if ( apply_filters( 'cpac-remove-filtering-columns', true ) )
+		if ( apply_filters( 'cpac_remove_filtering_columns', true ) )
 			return false;
 
 		// hook into wordpress

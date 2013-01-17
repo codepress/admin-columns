@@ -39,7 +39,7 @@ function remove_acf_from_cpac_post_types( $post_types )
 
 	return $post_types;
 }
-add_filter( 'cpac-get-post-types', 'remove_acf_from_cpac_post_types' );
+add_filter( 'cpac_get_post_types', 'remove_acf_from_cpac_post_types' );
 
 /**
  * Fix which removes bbPress Posttypes ( forum, reply and topic ) from the admin columns settings page
@@ -58,7 +58,7 @@ function remove_bbpress_from_cpac_post_types( $post_types )
 
 	return $post_types;
 }
-add_filter( 'cpac-get-post-types', 'remove_bbpress_from_cpac_post_types' );
+add_filter( 'cpac_get_post_types', 'remove_bbpress_from_cpac_post_types' );
 
 /**
  * Add support for All in SEO columns
@@ -71,4 +71,4 @@ function cpac_load_aioseop_addmycolumns()
 		aioseop_addmycolumns();
 	}
 }
-add_action( 'cpac-get-default-columns-posts', 'cpac_load_aioseop_addmycolumns' );
+add_action( 'cpac_before_default_columns_posts', 'cpac_load_aioseop_addmycolumns' );

@@ -28,13 +28,13 @@
 		cpac_clear_input_defaults();
 		cpac_addon_activation();
 		cpac_width_range();
-		cpac_export();
-		cpac_import();
 		cpac_pointer();
 		cpac_help();
 		cpac_sidebar_scroll();
 		cpac_change_label();
 		cpac_custom_image_size();
+		cpac_export_multiselect();
+		cpac_import();
 	});
 
 	/*
@@ -405,161 +405,7 @@
 			}
 		});
 	}
-
-	/*
-	 *	Export Settings
-	 *
-	 */
-	function cpac_export()
-	{
-		// Submit Export
-		$('#cpac_export_submit').click( function(e){
-
-			var values = [];
-
-			// get selected values
-			$('#cpac_export_types :selected').each(function(i, selected){
-				values[i] = $(selected).val();
-			});
-
-			var btn 			 = $(this);
-			var export_container = $('#cpac_export_output');
-			var export_textarea  = $('textarea', export_container);
-			var export_download  = $('.description a.button', export_container);
-			var msg 			 = btn.next('.export-message');
-
-			// reset
-			export_container.hide();
-			export_textarea.empty();
-			msg.hide();
-
-			// get export code
-			if ( values ) {
-
-				// set loading icon
-				btn.addClass('loading');
-
-				$.ajax({
-					url 		: ajaxurl,
-					type 		: 'POST',
-					dataType 	: 'json',
-					data : {
-						action  : 'cpac_get_export',
-						types	: values
-					},
-					success: function(data) {
-						if ( data != null ) {
-
-							// succes
-							if ( 1 == data.status ) {
-								export_textarea.text( data.msg );
-								export_container.show();
-								export_download.attr( 'href', data.download_uri );				
-							}
-
-							// fail
-							else if ( data.msg ) {
-								msg.text(data.msg).show();
-							}
-
-						} else {
-							// error msg
-						}
-					},
-					error: function(xhr, ajaxOptions, thrownError) {},
-					complete: function() {
-						btn.removeClass('loading');
-					}
-				});
-			}
-
-			e.preventDefault;
-		});
-
-		// Select Export Code
-		$('#cpac_export_output textarea').focus(function() {
-			var t = $(this);
-			t.select();
-
-			t.mouseup(function() { // Work around Chrome's little problem
-
-				t.unbind("mouseup"); // Prevent further mouseup intervention
-				return false;
-			});
-		});
-	}
-
-	/*
-	 *	Import Settings
-	 *
-	 */
-	function cpac_import()
-	{
-		$('#cpac_import_submit'). click( function(e){
-
-			var btn 		= $(this);
-			var import_code = $('#cpac_import_input textarea').val();
-			var msg 		= btn.next('.import-message');
-
-			btn.addClass('loading');
-			msg.hide();
-
-			if ( import_code ) {
-
-				$.ajax({
-					url 		: ajaxurl,
-					type 		: 'POST',
-					dataType 	: 'json',
-					data : {
-						action  	: 'cpac_import',
-						import_code	: import_code
-					},
-					success: function(data) {
-						if ( data != null ) {
-
-							// succes
-							if ( 1 == data.status ) {
-								msg.html(data.msg).show();
-							}
-
-							// fail
-							else if ( data.msg ) {
-								msg.text(data.msg).show();
-							}
-						}
-
-						else {
-							msg.text('error').show();
-						}
-					},
-					error: function(xhr, ajaxOptions, thrownError) {},
-					complete: function() {
-						btn.removeClass('loading');
-					}
-				});
-			}
-
-			else {
-				btn.removeClass('loading');
-				msg.text(cpac_i18n.import_empty).show();
-			}
-
-			e.preventDefault;
-		});
-
-		// Select Import Code
-		$('#cpac_import_input textarea').focus(function() {
-			var t = $(this);
-			t.select();
-
-			t.mouseup(function() { // Work around Chrome's little problem
-
-				t.unbind("mouseup"); // Prevent further mouseup intervention
-				return false;
-			});
-		});
-	}
-
+		
 	/*
 	 * Help
 	 *
@@ -733,6 +579,46 @@
 				image_size.hide();
 			}
 		})
+	}
+	
+	
+	/*
+	 * Export Multiselect
+	 *
+	 * @since 1.5
+	 */
+	function cpac_export_multiselect()
+	{
+		if( $('#cpac_export_types').length == 0 )
+			return;
+			
+		var export_types = $('#cpac_export_types');
+		
+		// init
+		export_types.multiSelect();
+		
+		// click events
+		$('#export-select-all').click( function(e){
+			export_types.multiSelect('select_all');			
+			e.preventDefault();
+		});	
+	}
+	
+	/*
+	 * Custom Image Size
+	 *
+	 * @since 1.5
+	 */
+	function cpac_import()
+	{
+		var container = $('#cpac_import_input');
+		
+		$('#upload', container).change(function () {
+			if ( $(this).val() )
+				$('#import-submit', container).addClass('button-primary');
+			else
+				$('#import-submit', container).removeClass('button-primary');
+		});
 	}
 
 })(jQuery);

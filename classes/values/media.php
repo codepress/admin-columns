@@ -3,14 +3,14 @@
 /**
  * CPAC_Media_Values Class
  *
- * @since     1.4.4
+ * @since 1.4.4
  *
  */
 class CPAC_Media_Values extends CPAC_Values {
 	/**
 	 * Constructor
 	 *
-	 * @since     1.4.4
+	 * @since 1.4.4
 	 */
 	function __construct() {
 		parent::__construct();
@@ -31,76 +31,65 @@ class CPAC_Media_Values extends CPAC_Values {
 	/**
 	 * Manage custom column for Media.
 	 *
-	 * @since     1.3
+	 * @since 1.3.0
+	 *
+	 * @param string $column_name
+	 * @param int $media_id
 	 */
-	public function manage_media_column_value( $column_name, $media_id )
-	{
-		$type 	= $column_name;
+	public function manage_media_column_value( $column_name, $media_id ) {
+		$column_name_type = $column_name;
 
-		//$meta 	= wp_get_attachment_metadata($media_id);
+		// Check for custom fields, such as column-meta-[customfieldname]
+		if ( CPAC_Utility::is_column_meta( $column_name ) )
+			$column_name_type = 'column-meta';
+
+		// set vars
 		$meta 	= get_post_meta( $media_id, '_wp_attachment_metadata', true );
 		$p 		= get_post($media_id);
 
-		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $type ) )
-			$type = 'column-meta';
+		// set column value
+		switch ( $column_name_type ) :
 
-		// Hook
-		do_action( 'cpac-manage-media-column', $type, $column_name, $media_id );
-
-		$result = '';
-		switch ( $type ) :
-
-			// media id
 			case "column-mediaid" :
 				$result = $media_id;
 				break;
 
-			// dimensions
 			case "column-dimensions" :
 				if ( !empty( $meta['width'] ) &&  !empty( $meta['height'] ) )
 					$result = "{$meta['width']} x {$meta['height']}";
 				break;
 
-			// width
 			case "column-width" :
 				$result	= !empty($meta['width']) ? $meta['width'] : '';
 				break;
 
-			// height
 			case "column-height" :
 				$result	= !empty($meta['height']) ? $meta['height'] : '';
 				break;
 
-			// description
 			case "column-description" :
 				$result	= $p->post_content;
 				break;
 
-			// caption
 			case "column-caption" :
 				$result	= $p->post_excerpt;
 				break;
 
-			// alternate text
 			case "column-alternate_text" :
 				$alt 	= get_post_meta( $media_id, '_wp_attachment_image_alt', true );
 				$result = CPAC_Utility::strip_trim($alt);
 				break;
 
-			// mime type
 			case "column-mime_type" :
 				$result = $p->post_mime_type;
 				break;
 
-			// file name
 			case "column-file_name" :
 				$file 		= wp_get_attachment_url( $p->ID );
 				$filename 	= basename($file);
 				$result 	= "<a title='{$filename}' href='{$file}'>{$filename}</a>";
 				break;
 
-			// file paths
 			case "column-file_paths" :
 				$sizes 		= get_intermediate_image_sizes();
 				$url 		= wp_get_attachment_url( $p->ID );
@@ -132,7 +121,7 @@ class CPAC_Media_Values extends CPAC_Values {
 
 			// Custom Field
 			case "column-meta" :
-				$result = $this->get_column_value_custom_field( $media_id, $column_name );
+				$result = $this->get_column_value_custom_field( $column_name, $media_id );
 				break;
 
 			// Image metadata EXIF or IPTC data
@@ -184,18 +173,20 @@ class CPAC_Media_Values extends CPAC_Values {
 		endswitch;
 
 		// Filter for customizing the result output
-		echo apply_filters('cpac-media-column-result', $result, $type, $column_name, $media_id);
+		echo apply_filters( "cpac_{$this->storage_key}_column_value", $result, $column_name_type, $column_name, $media_id );
 	}
 
 	/**
-	 *	Get column value of media actions
+	 * Get column value of media actions
 	 *
-	 *	This part is copied from the Media List Table class
+	 * This part is copied from the Media List Table class
 	 *
-	 * 	@since     1.4.2
+	 * @since 1.4.2
+	 *
+	 * @param int $id
+	 * @return string Actions
 	 */
-	private function get_column_value_actions( $id )
-	{
+	private function get_column_value_actions( $id ) {
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )
