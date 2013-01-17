@@ -286,8 +286,10 @@ class Codepress_Admin_Columns
 	 */
 	protected function add_columns_headings( $type, $columns )
 	{
+		$db_columns	= self::get_stored_columns($type);
+
 		// only get stored columns.. the rest we don't need
-		if ( ! $db_columns	= self::get_stored_columns($type) || ! $columns )
+		if ( ! $db_columns || ! $columns )
 			return $columns;
 
 		// filter already loaded columns by plugins
