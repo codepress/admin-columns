@@ -47,7 +47,8 @@ class CPAC_Settings {
 			'manage_options',
 			CPAC_SLUG,
 			array( $this, 'column_settings' ),
-			false
+			false,
+			98 // at the end of the settings menu
 		);
 
 		// set admin page
@@ -576,8 +577,7 @@ class CPAC_Settings {
 								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
 									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN ); ?></p>
 								<?php endif; ?>
-								<p><?php printf( __("If you're sure you've found a bug, please <a href='%s'>submit your bug.</a>", CPAC_TEXTDOMAIN ), add_query_arg( array( 'page' => 'cpac-settings' ), admin_url('admin.php') ) ); ?></p>
-								<p><?php printf( __("For full documentation, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", CPAC_TEXTDOMAIN ), $this->get_url('documentation') ); ?></p>
+								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", CPAC_TEXTDOMAIN ), $this->get_url('documentation') ); ?></p>
 							</div>
 						</div><!--.form-actions-->
 
@@ -760,6 +760,27 @@ class CPAC_Settings {
 											</tr>
 											<?php endif; ?>
 
+											<?php if ( $box->enable_filtering ) : ?>
+											<tr class="column_filtering">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-filtering"><?php _e( 'Enable filtering?', CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This will add a dropdown for filtering.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<label for="<?php echo $box->attr_for; ?>-filtering-on">
+														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[filtering]" id="<?php echo $box->attr_for; ?>-filtering-on"<?php checked( $box->filtering, true ); ?>>
+														<?php _e( 'Yes'); ?>
+													</label>
+													<label for="<?php echo $box->attr_for; ?>-filtering-off">
+														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[filtering]" id="<?php echo $box->attr_for; ?>-filtering-off"<?php checked( $box->filtering, false ); ?>>
+														<?php _e( 'No'); ?>
+													</label>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php do_action( 'cpac_column_fields', $box ); ?>
+
 										</tbody>
 									</table>
 								</div><!--.column-form-->
@@ -808,7 +829,7 @@ class CPAC_Settings {
 	 */
 	public function general_settings() {
 		// addons
-		$licenses = array(
+		$addons = array(
 			'sortable'	=> array(
 				'label'		=> __( 'Sortorder', CPAC_TEXTDOMAIN ),
 				'license' 	=> new CPAC_Licence('sortable'),
@@ -859,35 +880,35 @@ class CPAC_Settings {
 							</thead>
 							<tbody>
 
-								<?php foreach ( $licenses as $id => $license ) : ?>
+								<?php foreach ( $addons as $id => $addon ) : ?>
 								<tr id="activation-<?php echo $id; ?>">
 									<td class="activation_type">
-										<span class="cpac-pointer" rel="cpac-addon-instructions-<?php echo $id; ?>" data-pointer-position="bottom"><?php echo $license['label']; ?></span>
+										<span class="cpac-pointer" rel="cpac-addon-instructions-<?php echo $id; ?>" data-pointer-position="bottom"><?php echo $addon['label']; ?></span>
 										<div id="cpac-addon-instructions-<?php echo $id; ?>" style="display:none;">
-											<h3><?php echo $license['label']; ?></h3>
-											<?php echo $license['qtip']; ?>
+											<h3><?php echo $addon['label']; ?></h3>
+											<?php echo $addon['qtip']; ?>
 										</div>
 									</td>
 									<td class="activation_status">
-										<div class="activate<?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
+										<div class="activate<?php echo $addon['license']->is_unlocked() ? ' hidden' : ''; ?>">
 											<?php _e( 'Inactive', CPAC_TEXTDOMAIN ); ?>
 										</div>
-										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
+										<div class="deactivate<?php echo $addon['license']->is_unlocked() ? '' : ' hidden'; ?>">
 											<?php _e( 'Active', CPAC_TEXTDOMAIN ); ?>
 									</td>
 									<td class="activation_code">
-										<div class="activate <?php echo $license['license']->is_unlocked() ? ' hidden' : ''; ?>">
+										<div class="activate <?php echo $addon['license']->is_unlocked() ? ' hidden' : ''; ?>">
 											<input type="text" placeholder="<?php _e( 'Fill in your activation code', CPAC_TEXTDOMAIN ) ?>" name="cpac-<?php echo $id; ?>-key">
 											<a href="javascript:;" class="button"><?php _e( 'Activate', CPAC_TEXTDOMAIN ); ?><span></span></a>
 										</div>
-										<div class="deactivate<?php echo $license['license']->is_unlocked() ? '' : ' hidden'; ?>">
-											<span class="masked_key"><?php echo $license['license']->get_masked_license_key(); ?></span>
+										<div class="deactivate<?php echo $addon['license']->is_unlocked() ? '' : ' hidden'; ?>">
+											<span class="masked_key"><?php echo $addon['license']->get_masked_license_key(); ?></span>
 											<a href="javascript:;" class="button"><?php _e( 'Deactivate', CPAC_TEXTDOMAIN ); ?><span></span></a>
 										</div>
 										<div class="activation-error-msg"></div>
 									</td>
 									<td class="activation_more">
-										<a href="<?php echo $license['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e( 'find out more', CPAC_TEXTDOMAIN ); ?> &raquo </a>
+										<a href="<?php echo $addon['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e( 'find out more', CPAC_TEXTDOMAIN ); ?> &raquo </a>
 									</td>
 								</tr>
 								<?php endforeach; ?>

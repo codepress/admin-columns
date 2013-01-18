@@ -182,7 +182,7 @@ class CPAC_Values {
 	 * @param array $args
 	 * @return string HTML img elements
 	 */
-	protected function get_thumbnails( $meta, $args = '' ) {
+	protected function get_thumbnails( $meta, $args = array() ) {
 		if ( empty( $meta ) || 'false' == $meta )
 			return false;
 
@@ -190,7 +190,7 @@ class CPAC_Values {
 
 		// Image size
 		$defaults = array(
-			'image_size'	=> 'thumbnail',
+			'image_size'	=> 'cpac-custom',
 			'width'			=> 80,
 			'height'		=> 80,
 		);
@@ -395,8 +395,8 @@ class CPAC_Values {
 		// handles each field type differently..
 		switch ( $settings->field_type ) :
 
-			// Image
 			case "image" :
+			case "library_id" :
 				$meta = $this->get_thumbnails( $meta, array(
 					'image_size'	=> $settings->image_size,
 					'width' 		=> $settings->image_size_w,
@@ -404,31 +404,26 @@ class CPAC_Values {
 				));
 				break;
 
-			// Excerpt
 			case "excerpt" :
 				$meta = $this->get_shortened_string( $meta, $this->excerpt_length );
 				break;
 
-			// Date
 			case "date" :
 				$meta = $this->get_date( $meta );
 				break;
 
-			// Post Title
 			case "title_by_id" :
 				if ( $titles = $this->get_custom_field_value_title( $meta ) ) {
 					$meta = $titles;
 				}
 				break;
 
-			// User Name
 			case "user_by_id" :
 				if ( $names = $this->get_custom_field_value_user( $meta ) ) {
 					$meta = $names;
 				}
 				break;
 
-			// Checkmark
 			case "checkmark" :
 				$checkmark = $this->get_asset_image( 'checkmark.png' );
 
@@ -439,7 +434,6 @@ class CPAC_Values {
 				$meta = $checkmark;
 				break;
 
-			// Color
 			case "color" :
 				if ( ! empty( $meta ) ) {
 					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
@@ -460,10 +454,14 @@ class CPAC_Values {
 		 *
 		 * @param string $meta Column value
 		 * @param string $object_id Object ID
+		 * @param string $settings->field Custom Field ( Meta Key )
 		 * @param object $settings All custom field settings
 		 * @return string Column value
 		 */
-		return apply_filters( 'cpac_get_column_value_custom_field', $meta, $object_id, $settings );
+		$meta = apply_filters( 'cpac_get_column_value_custom_field', $meta, $object_id, $settings->field, $settings );
+		$meta = apply_filters( "cpac_get_column_value_custom_field_{$this->storage_key}", $meta, $object_id, $settings->field, $settings );
+
+		return $meta;
 	}
 
 	/**
@@ -537,61 +535,6 @@ class CPAC_Values {
 		}
 
 		return implode( '<span class="cpac-divider"></span>', $names );
-	}
-
-	/**
-	 * Get column value of Custom Field
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param int $user_id
-	 * @param string $id Column Type
-	 * @return string User Customfield value
-	 */
-	protected function get_user_column_value_custom_field( $user_id, $id ) {
-		$columns 	= CPAC_Utility::get_stored_columns( 'wp-users' );
-
-		// inputs
-		$field	 	= isset( $columns[$id]['field'] )		? $columns[$id]['field'] 		: '';
-		$fieldtype	= isset( $columns[$id]['field_type'] )	? $columns[$id]['field_type'] 	: '';
-		$before 	= isset( $columns[$id]['before'] )		? $columns[$id]['before'] 		: '';
-		$after 		= isset( $columns[$id]['after'] )		? $columns[$id]['after'] 		: '';
-
-		// Get meta field value
-		$meta = get_user_meta( $user_id, $field, true );
-
-		// multiple meta values
-		if ( ( $fieldtype == 'array' && is_array( $meta ) ) || is_array( $meta ) ) {
-			$meta 	= get_user_meta( $user_id, $field );
-			$meta 	= $this->recursive_implode( ', ', $meta );
-		}
-
-		// make sure there are no serialized arrays or empty meta data
-		if ( empty( $meta ) || ! is_string( $meta ) )
-			return false;
-
-		// handles each field type differently..
-		switch ( $fieldtype ) :
-
-			// Image
-			case "image" :
-				$meta = $this->get_thumbnails( $meta );
-				break;
-
-			// Excerpt
-			case "excerpt" :
-				$meta = $this->get_shortened_string( $meta, $this->excerpt_length );
-				break;
-
-		endswitch;
-
-		// filter for customization
-		$meta = apply_filters( 'cpac_get_user_column_value_custom_field', $meta, $fieldtype, $field );
-
-		// add before and after string
-		$meta = "{$before}{$meta}{$after}";
-
-		return $meta;
 	}
 
 	/**

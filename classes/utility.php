@@ -8,7 +8,7 @@ class CPAC_Utility {
 	 *
 	 * @return array CPAC types objects
 	 */
-	function get_types()
+	public static function get_types()
 	{
 		$types = array();
 
@@ -31,7 +31,7 @@ class CPAC_Utility {
 	 *
 	 * @return array Posttypes
 	 */
-	public function get_post_types() {
+	public static function get_post_types() {
 		$post_types = get_post_types( array(
 			'_builtin' => false
 		));
@@ -42,18 +42,93 @@ class CPAC_Utility {
 	}
 
 	/**
-	 * Checks if column-meta key exists
+	 * Checks if column name is a csutom field
+	 *
+	 * Check for custom fields, such as column-meta-[customfieldname]
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $id Meta Key
+	 * @param string $column_name Column name
 	 * @return bool
 	 */
-	public function is_column_meta( $id = '' ) {
-		if ( strpos( $id, 'column-meta-' ) !== false )
+	public static function is_column_customfield( $column_name = '' ) {
+		if ( strpos( $column_name, 'column-meta-' ) !== false )
 			return true;
 
 		return false;
+	}
+
+	/**
+	 * Checks if column name is a taxonomy
+	 *
+	 * Check for taxonomies, such as column-taxonomy-[taxname]
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $column_name Column name
+	 * @return bool
+	 */
+	public static function is_column_taxonomy( $column_name = '' ) {
+		if ( 0 === strpos( $column_name, 'column-taxonomy-' ) || 0 === strpos( $column_name, 'taxonomy-' ) )
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * Get column name type
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $column_name Column name
+	 * @return string Column Name Type
+	 */
+	public static function get_column_name_type( $column_name ) {
+
+		if ( CPAC_Utility::is_column_taxonomy( $column_name ) ) {
+			$column_name = 'column-taxonomy';
+		}
+
+		if ( CPAC_Utility::is_column_customfield( $column_name ) ) {
+			$column_name = 'column-meta';
+		}
+
+		return $column_name;
+	}
+
+	/**
+	 * Get the posttype from columnname
+	 *
+	 * Check for post count: column-user_postcount-[posttype]
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param string $id
+	 * @return string Posttype
+	 */
+	public static function get_posttype_by_postcount_column( $column_name = '' ) {
+		if ( strpos( $column_name, 'column-user_postcount-' ) !== false ) {
+			return str_replace( 'column-user_postcount-', '', $column_name );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the taxonomy from columnname
+	 *
+	 * Return the taxonomy: column-taxonomy-[taxonomy]
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $id
+	 * @return string Posttype
+	 */
+	public static function get_taxonomy_by_column_name( $column_name = '' ) {
+		if ( ! CPAC_Utility::is_column_taxonomy( $column_name ) )
+			return false;
+
+		return str_replace( array( 'column-taxonomy-', 'taxonomy-' ), '', $column_name );
 	}
 
 	/**
@@ -66,7 +141,7 @@ class CPAC_Utility {
 	 * @param string $string
 	 * @return string Sanitized string
 	 */
-	public function sanitize_string( $string ) {
+	public static function sanitize_string( $string ) {
 		$string = esc_url( $string );
 		$string = str_replace( 'http://','', $string );
 		$string = str_replace( 'https://','', $string );
@@ -94,21 +169,6 @@ class CPAC_Utility {
 	}
 
 	/**
-	 * Get the posttype from columnname
-	 *
-	 * @since 1.3.1
-	 *
-	 * @param string $id
-	 * @return string Posttype
-	 */
-	function get_posttype_by_postcount_column( $id = '' ) {
-		if ( strpos( $id, 'column-user_postcount-' ) !== false )
-			return str_replace( 'column-user_postcount-', '', $id );
-
-		return false;
-	}
-
-	/**
 	 * Get post count
 	 *
 	 * @since 1.3.1
@@ -117,7 +177,7 @@ class CPAC_Utility {
 	 * @param int $user_id
 	 * @return int Postcount
 	 */
-	function get_post_count( $post_type, $user_id ) {
+	public static function get_post_count( $post_type, $user_id ) {
 		global $wpdb;
 
 		if ( ! post_type_exists( $post_type ) || empty( $user_id ) )
@@ -173,7 +233,7 @@ class CPAC_Utility {
 	 * @param int $user_id
 	 * @return string Author
 	 */
-	public function get_author_field_by_nametype( $nametype, $user_id ) {
+	public static function get_author_field_by_nametype( $nametype, $user_id ) {
 		$userdata = get_userdata( $user_id );
 
 		switch ( $nametype ) :
@@ -228,7 +288,7 @@ class CPAC_Utility {
 	 * @param string $message Message.
 	 * @param string $type Update Type.
 	 */
-	public function admin_message( $message = '', $type = 'updated' ) {
+	public static function admin_message( $message = '', $type = 'updated' ) {
 		$GLOBALS['cpac_message']	  = $message;
 		$GLOBALS['cpac_message_type'] = $type;
 
@@ -242,7 +302,7 @@ class CPAC_Utility {
 	 *
 	 * @return string Message.
 	 */
-	public function admin_notice() {
+	public static function admin_notice() {
 	    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message">' . $GLOBALS['cpac_message'] . '</div>';
 	}
 }

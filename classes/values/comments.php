@@ -38,14 +38,12 @@ class CPAC_Comments_Values extends CPAC_Values {
 	 * @param int $comment_id
 	 */
 	public function manage_comments_column_value( $column_name, $comment_id ) {
-		$column_name_type = $column_name;
+		
+		$comment			= get_comment( $comment_id );
+		$column_name_type	= CPAC_Utility::get_column_name_type( $column_name );
 
-		// comments object
-		$comment = get_comment( $comment_id );
-
-		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $column_name ) )
-			$column_name_type = 'column-comment-meta';
+		// define
+		$result = '';
 
 		switch ( $column_name_type ) :
 
@@ -109,7 +107,7 @@ class CPAC_Comments_Values extends CPAC_Values {
 				$result 	 = "<div class='submitted-on'>{$result}</div>";
 				break;
 
-			case "column-comment-meta" :
+			case "column-meta" :
 				$result = $this->get_column_value_custom_field( $column_name, $comment_id );
 				break;
 

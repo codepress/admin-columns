@@ -64,31 +64,10 @@ a.help {
     margin-right: -300px;
     width: 280px;
 }
-
-/* =Responsive
--------------------------------------------------------------- */
 .columns-right-inside.fixed {
 	position: fixed;
 	top: 40px;
 	width: 280px;
-}
-
-@media only screen and (max-width: 850px) {
-	.columns-container {
-		margin-right: 0;
-	}
-	.columns-right {
-		margin-right: 0;
-		width: 100%;
-	}
-	.columns-right-inside.fixed {
-		position: relative;
-		top: 0;
-		width: 100%;
-	}
-	.columns-right #addon-state {
-		display: none;
-	}
 }
 
 /* =Columns
@@ -535,7 +514,6 @@ a.export-select {
 	text-decoration: none;
 }
 
-
 /* =WP Pointer
 -------------------------------------------------------------- */
 .wp-pointer-content {
@@ -544,4 +522,28 @@ a.export-select {
 .wp-pointer-content ol {
     margin-left: 1.5em;
     padding: 0 15px;
+}
+
+/* =Responsive
+-------------------------------------------------------------- */
+@media only screen and (max-width: 850px) {
+	.columns-container {
+		margin-right: 0;
+	}
+	.columns-right {
+		margin-top: 0;
+		margin-right: 0;
+		width: 100%;
+	}
+	.columns-right-inside.fixed {
+		position: relative;
+		top: 0;
+		width: 100%;
+	}
+	.columns-right #addon-state {
+		display: none;
+	}
+	.columns-right #plugin-support {
+		display: none;
+	}
 }

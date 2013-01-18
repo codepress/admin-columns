@@ -405,7 +405,7 @@
 			}
 		});
 	}
-		
+
 	/*
 	 * Help
 	 *
@@ -496,17 +496,17 @@
 		var msie6 = $.browser == 'msie' && $.browser.version < 7;
 
 		if (!msie6 && $('.columns-right-inside').length != 0 ) {
-			
+
 			// top position of the sidebar on loading
 			var top = $('.columns-right-inside:visible').offset().top - parseFloat( $('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
 
 			$(window).scroll(function (event) {
 				// y position of the scroll
 				var y 	= $(this).scrollTop();
-				
+
 				// top position of div#cpac is calculated everytime incase of an opened help screen
 				var offset = $('#cpac').offset().top - parseFloat( $('#cpac').css('margin-top').replace(/auto/, 0) );
-				
+
 				// whether that's below
 				if (y >= top + offset ) {
 					// if so, ad the fixed class
@@ -544,7 +544,7 @@
 			label.text( value );
 		};
 	}
-	
+
 	/*
 	 * Custom Image Size
 	 *
@@ -554,25 +554,26 @@
 	{
 		// display custom image size
 		$('.column_image_size label.custom-size').click(function(){
-			
+
 			var parent = $(this).closest('.input');
-			
+
 			if ( $(this).hasClass('image-size-custom') ) {
 				$('.custom-size-w', parent).removeClass('hidden');
 				$('.custom-size-h', parent).removeClass('hidden');
 			}
-			
+
 			else {
 				$('.custom-size-w', parent).addClass('hidden');
 				$('.custom-size-h', parent).addClass('hidden');
-			}			
+			}
 		});
-		
+
 		// select image custom field type
 		$('.column_field_type .input select option').click( function(){
 			var image_size = $(this).closest('table').find('.column_image_size').show();
-			
-			if( 'image' == $(this).attr('value') ) {
+			var value = $(this).attr('value');
+
+			if( 'image' == value || 'library_id' == value ) {
 				image_size.show();
 			}
 			else {
@@ -580,8 +581,8 @@
 			}
 		})
 	}
-	
-	
+
+
 	/*
 	 * Export Multiselect
 	 *
@@ -591,19 +592,19 @@
 	{
 		if( $('#cpac_export_types').length == 0 )
 			return;
-			
+
 		var export_types = $('#cpac_export_types');
-		
+
 		// init
 		export_types.multiSelect();
-		
+
 		// click events
 		$('#export-select-all').click( function(e){
-			export_types.multiSelect('select_all');			
+			export_types.multiSelect('select_all');
 			e.preventDefault();
-		});	
+		});
 	}
-	
+
 	/*
 	 * Custom Image Size
 	 *
@@ -612,7 +613,7 @@
 	function cpac_import()
 	{
 		var container = $('#cpac_import_input');
-		
+
 		$('#upload', container).change(function () {
 			if ( $(this).val() )
 				$('#import-submit', container).addClass('button-primary');

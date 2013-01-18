@@ -247,11 +247,10 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 = 2.0 =
+* new UI with responsive design
 * added settings import/export
+* hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
 * extensive refactoring of the code
-* This list filters has been replaced with one that follows the correct naming conventions with underscores.
-...
-* Added filters: cpac_default_{$this->storage_key}_columns
 
 = 1.4.8 =
 * fixed bug: removed acf posttype placed by Advaced Custom Fields from settings menu

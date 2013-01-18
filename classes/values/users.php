@@ -43,17 +43,14 @@ class CPAC_Users_Values extends CPAC_Values
 		if ( ! $userdata = get_userdata( $user_id ) )
 			return $value;
 
-		$column_name_type = $column_name;
-
-		// Check for user custom fields: column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $column_name ) ) {
-			$column_name_type = 'column-user-meta';
-		}
+		$column_name_type = CPAC_Utility::get_column_name_type( $column_name );
 
 		// Check for post count: column-user_postcount-[posttype]
 		if ( CPAC_Utility::get_posttype_by_postcount_column( $column_name ) ) {
 			$column_name_type = 'column-user_postcount';
 		}
+
+		$result = '';
 
 		switch ( $column_name_type ) :
 
@@ -103,7 +100,7 @@ class CPAC_Users_Values extends CPAC_Values
 				$result = $this->get_column_value_actions( $user_id, 'users' );
 				break;
 
-			case "column-user-meta" :
+			case "column-meta" :
 				$result = $this->get_column_value_custom_field( $column_name, $user_id );
 				break;
 

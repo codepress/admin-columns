@@ -31,7 +31,7 @@ define( 'CPAC_VERSION', 	 	'2.0' );
 define( 'CPAC_TEXTDOMAIN', 	 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		 	'codepress-admin-columns' );
 define( 'CPAC_SETTINGS_SLUG', 	'cpac-settings' );
-define( 'CPAC_URL', 			plugins_url('', __FILE__) );
+define( 'CPAC_URL', 			plugins_url( '', __FILE__) );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -54,6 +54,10 @@ require_once dirname( __FILE__ ) . '/classes/columns/comments.php';
 // Sortable columns
 require_once dirname( __FILE__ ) . '/classes/sortable.php';
 new CPAC_Sortable_Columns();
+
+// Filtering columns
+require_once dirname( __FILE__ ) . '/classes/filtering.php';
+new CPAC_Filtering_Columns();
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';

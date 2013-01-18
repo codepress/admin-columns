@@ -91,7 +91,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		}
 
 		// Sticky support
-		if ( $this->storage_key == 'post' ) {
+		if ( 'post' == $this->storage_key ) {
 			$custom_columns['column-sticky'] = array(
 				'label'			=> __( 'Sticky', CPAC_TEXTDOMAIN )
 			);
@@ -108,7 +108,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		}
 
 		// Page Template
-		if ( $this->storage_key == 'page' ) {
+		if ( 'page' == $this->storage_key ) {
 			$custom_columns['column-page-template'] = array(
 				'label'	=> __( 'Page Template', CPAC_TEXTDOMAIN )
 			);
@@ -125,15 +125,23 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		$taxonomies = get_object_taxonomies( $this->storage_key, 'objects' );
 		if ( $taxonomies ) {
 			foreach ( $taxonomies as $tax_slug => $tax ) {
-				if ( $tax_slug != 'post_tag' && $tax_slug != 'category' && $tax_slug != 'post_format' ) {
-					$custom_columns['column-taxonomy-'.$tax->name] = array(
-						'label'			=> $tax->label,
-						'show_filter'	=> true,
-						'options'		=> array(
-							'type_label'	=> __( 'Taxonomy', CPAC_TEXTDOMAIN )
-						)
-					);
-				}
+
+				// Since WP 3.5 user can define whether to allow automatic creation of taxonomy columns.
+				// When this is the case, we can assume the column has already been added by WP.
+				if ( isset( $tax->show_admin_column ) && $tax->show_admin_column )
+					continue;
+
+				// skip core taxonomies
+				if ( in_array( $tax_slug, array('post_tag', 'category', 'post_format') ) )
+					continue;
+
+				$custom_columns['column-taxonomy-'.$tax->name] = array(
+					'label'			=> $tax->label,
+					'options'		=> array(
+						'type_label'		=> __( 'Taxonomy', CPAC_TEXTDOMAIN ) . ': ' . $tax->label,
+						'enable_filtering'	=> true // adds a dropdown filter
+					)
+				);
 			}
 		}
 
@@ -141,14 +149,10 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		if ( $this->get_meta_keys() ) {
 			$custom_columns['column-meta-1'] = array(
 				'label'			=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
-				'field'			=> '',
-				'field_type'	=> '',
-				'image_size'	=> '',
-				'before'		=> '',
-				'after'			=> '',
 				'options'		=> array(
-					'type_label'	=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
-					'class'			=> 'cpac-box-metafield'
+					'type_label'		=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
+					'class'				=> 'cpac-box-metafield',
+					'enable_filtering'	=> true // adds a dropdown filter
 				)
 			);
 		}
@@ -230,15 +234,19 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 		// change to uniform format
 		$columns = $this->get_uniform_format( $columns );
 
-		// add sorting to some of the default links columns
+		// add sorting to some of the default columns
+		foreach ( $columns as $column_name => $column ) {
 
-		//	categories
-		if ( ! empty( $columns['categories'] ) ) {
-			$columns['categories']['options']['enable_sorting'] = true;
-		}
-		// tags
-		if ( ! empty( $columns['tags'] ) ) {
-			$columns['tags']['options']['enable_sorting'] = true;
+			// categories, tags
+			if ( 'categories' == $column_name || 'tags' == $column_name ){
+				$columns[$column_name]['options']['enable_sorting'] = true;
+			}
+
+			// custom taxonomies
+			if ( CPAC_Utility::is_column_taxonomy( $column_name ) ) {
+				$columns[$column_name]['options']['enable_sorting'] = true;
+				$columns[$column_name]['options']['enable_filtering'] = true;
+			}
 		}
 
 		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );

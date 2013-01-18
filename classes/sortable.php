@@ -10,6 +10,9 @@ class CPAC_Sortable_Columns {
 	/**
 	 * Show all results when sorting
 	 *
+	 * By default only fields that contain data will be sorted. If you want
+	 * to show empty records set this variable to return bool true.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @var bool
@@ -46,9 +49,6 @@ class CPAC_Sortable_Columns {
 
 		// init sorting
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
-
-		// init filtering
-		add_action( 'admin_init', array( $this, 'register_filtering_columns' ) );
 
 		// handle requests for sorting columns
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
@@ -213,20 +213,16 @@ class CPAC_Sortable_Columns {
 		if ( empty( $column ) )
 			return $user_query;
 
-		// id
-		$type = $id = key( $column );
-
-		// Check for user custom fields: column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $type ) )
-			$type = 'column-user-meta';
+		$column_name		= key( $column );
+		$column_name_type	= CPAC_Utility::get_column_name_type( $column_name );
 
 		// Check for post count: column-user_postcount-[posttype]
-		if ( CPAC_Utility::get_posttype_by_postcount_column( $type ) )
-			$type = 'column-user_postcount';
+		if ( CPAC_Utility::get_posttype_by_postcount_column( $column_name ) )
+			$column_name_type = 'column-user_postcount';
 
 		// var
 		$cusers = array();
-		switch ( $type ) :
+		switch ( $column_name_type ) :
 
 			case 'column-user_id' :
 				$user_query->query_orderby = "ORDER BY ID {$user_query->query_vars['order']}";
@@ -295,7 +291,7 @@ class CPAC_Sortable_Columns {
 				break;
 
 			case 'column-user_postcount' :
-				$post_type 	= CPAC_Utility::get_posttype_by_postcount_column( $id );
+				$post_type 	= CPAC_Utility::get_posttype_by_postcount_column( $column_name );
 				if ( $post_type ) {
 					$sort_flag = SORT_REGULAR;
 					foreach ( $this->get_users_data() as $u ) {
@@ -305,13 +301,13 @@ class CPAC_Sortable_Columns {
 				}
 				break;
 
-			case 'column-user-meta' :
-				$field = $column[$id]['field'];
+			case 'column-meta' :
+				$field = $column[$column_name]['field'];
 				if ( $field ) {
 
 					// order numeric or string
 					$sort_flag = SORT_REGULAR;
-					if ( 'numeric' == $column[$id]['field_type'] ) {
+					if ( in_array( $column[$column_name]['field_type'], array( 'numeric', 'library_id' ) ) ) {
 						$sort_flag = SORT_NUMERIC;
 					}
 
@@ -348,9 +344,9 @@ class CPAC_Sortable_Columns {
 			// alter orderby SQL
 			global $wpdb;
 			if ( ! empty( $cusers ) ) {
-				$ids = implode( ',', array_keys( $cusers ) );
-				$user_query->query_where 	.= " AND {$wpdb->prefix}users.ID IN ({$ids})";
-				$user_query->query_orderby 	= "ORDER BY FIELD({$wpdb->prefix}users.ID,{$ids})";
+				$column_names = implode( ',', array_keys( $cusers ) );
+				$user_query->query_where 	.= " AND {$wpdb->prefix}users.ID IN ({$column_names})";
+				$user_query->query_orderby 	= "ORDER BY FIELD({$wpdb->prefix}users.ID,{$column_names})";
 			}
 
 			// cleanup the vars we dont need
@@ -398,12 +394,10 @@ class CPAC_Sortable_Columns {
 		if ( empty($column) )
 			return $results;
 
-		// id
-		$type = $id = key($column);
-
 		// var
 		$length = '';
-		switch ( $type ) :
+
+		switch ( key( $column ) ) :
 
 			case 'column-link_id':
 				if ( version_compare( get_bloginfo('version'), '3.2', '>' ) )
@@ -475,20 +469,13 @@ class CPAC_Sortable_Columns {
 	 * @return array Pieces.
 	 */
 	public function callback_requests_orderby_comments_column( $pieces, $ref_comment ) {
-		// get query vars
-		$vars = $ref_comment->query_vars;
 
-		// Column
-		$column = $this->get_orderby_type( $vars['orderby'], 'wp-comments' );
+		$column = $this->get_orderby_type( $ref_comment->query_vars['orderby'], 'wp-comments' );
 
 		if ( empty( $column ) )
 			return $pieces;
 
-		// id
-		$type = $id = key( $column );
-
-		// var
-		switch ( $type ) :
+		switch ( key( $column ) ) :
 
 			case 'column-comment_id':
 				$pieces['orderby'] = 'comment_ID';
@@ -539,9 +526,6 @@ class CPAC_Sortable_Columns {
 				$pieces['orderby'] = 'comment_content';
 				break;
 
-			default:
-				$vars['orderby'] = '';
-
 		endswitch;
 
 		return $pieces;
@@ -579,13 +563,13 @@ class CPAC_Sortable_Columns {
 
 		// sorting
 		if ( $vars['order'] == 'ASC' )
-			asort($sortusers, $sort_flags);
+			asort( $sortusers, $sort_flags );
 		else
-			arsort($sortusers, $sort_flags);
+			arsort( $sortusers, $sort_flags );
 
 		// alter orderby SQL
 		if ( ! empty ( $sortusers ) ) {
-			$ids = implode(',', array_keys($sortusers));
+			$ids = implode( ',', array_keys( $sortusers ) );
 			$user_query->query_where 	.= " AND {$wpdb->prefix}users.ID IN ({$ids})";
 			$user_query->query_orderby 	= "ORDER BY FIELD({$wpdb->prefix}users.ID,{$ids})";
 		}
@@ -619,14 +603,13 @@ class CPAC_Sortable_Columns {
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], 'wp-media' );
 
-		if ( empty($column) )
+		if ( empty( $column ) )
 			return $vars;
 
-		$id = key($column);
-
-		// var
+		// unsorted Attachment Posts
 		$cposts = array();
-		switch ( $id ) :
+
+		switch ( key( $column ) ) :
 
 			case 'column-mediaid' :
 				$vars['orderby'] = 'ID';
@@ -727,7 +710,7 @@ class CPAC_Sortable_Columns {
 		endswitch;
 
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
-		if ( isset($sort_flag) ) {
+		if ( isset( $sort_flag ) ) {
 			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
 		}
 
@@ -756,23 +739,17 @@ class CPAC_Sortable_Columns {
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], $post_type );
 
-		if ( empty($column) )
+		if ( empty( $column ) )
 			return $vars;
 
-		// id
-		$type = $id = key($column);
+		// column_name
+		$column_name		= key( $column );
+		$column_name_type	= CPAC_Utility::get_column_name_type( key( $column ) );
 
-		// Check for taxonomies, such as column-taxonomy-[taxname]
-		if ( strpos($type, 'column-taxonomy-') !== false )
-			$type = 'column-taxonomy';
-
-		// Check for Custom Field
-		if ( CPAC_Utility::is_column_meta( $type ) )
-			$type = 'column-post-meta';
-
-		// var
+		// unsorted Posts
 		$cposts = array();
-		switch ( $type ) :
+
+		switch ( $column_name_type ) :
 
 			case 'column-postid' :
 				$vars['orderby'] = 'ID';
@@ -790,12 +767,12 @@ class CPAC_Sortable_Columns {
 				$vars['orderby'] = 'comment_count';
 				break;
 
-			case 'column-post-meta' :
-				$field 		= $column[$id]['field'];
+			case 'column-meta' :
+				$field = $column[$column_name]['field'];
 
 				// orderby type
 				$field_type = 'meta_value';
-				if ( $column[$id]['field_type'] == 'numeric' )
+				if ( in_array( $column[$column_name]['field_type'], array( 'numeric', 'library_id') ) )
 					$field_type = 'meta_value_num';
 
 				$vars = array_merge($vars, array(
@@ -807,7 +784,7 @@ class CPAC_Sortable_Columns {
 			case 'column-excerpt' :
 				$sort_flag = SORT_STRING;
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$cposts[$p->ID] = $this->prepare_sort_string_value($p->post_content);
+					$cposts[$p->ID] = $this->prepare_sort_string_value( $p->post_content );
 				}
 				break;
 
@@ -820,17 +797,17 @@ class CPAC_Sortable_Columns {
 
 			case 'column-page-template' :
 				$sort_flag = SORT_STRING;
-				$templates 		= get_page_templates();
+				$templates = get_page_templates();
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$page_template  = get_post_meta($p->ID, '_wp_page_template', true);
-					$cposts[$p->ID] = array_search($page_template, $templates);
+					$page_template  = get_post_meta( $p->ID, '_wp_page_template', true );
+					$cposts[$p->ID] = array_search( $page_template, $templates );
 				}
 				break;
 
 			case 'column-post_formats' :
 				$sort_flag = SORT_REGULAR;
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$cposts[$p->ID] = get_post_format($p->ID);
+					$cposts[$p->ID] = get_post_format( $p->ID );
 				}
 				break;
 
@@ -838,7 +815,7 @@ class CPAC_Sortable_Columns {
 			case 'column-attachment-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$cposts[$p->ID] = count( CPAC_Utility::get_attachment_ids($p->ID) );
+					$cposts[$p->ID] = count( CPAC_Utility::get_attachment_ids( $p->ID ) );
 				}
 				break;
 
@@ -905,13 +882,13 @@ class CPAC_Sortable_Columns {
 
 			case 'column-taxonomy' :
 				$sort_flag 	= SORT_STRING; // needed to sort
-				$taxonomy 	= str_replace( 'column-taxonomy-', '', $id );
+				$taxonomy 	= CPAC_Utility::get_taxonomy_by_column_name( $column_name );
 				$cposts 	= $this->get_posts_sorted_by_taxonomy( $post_type, $taxonomy );
 				break;
 
 			case 'column-author-name' :
 				$sort_flag  = SORT_STRING;
-				$display_as = $column[$id]['display_as'];
+				$display_as = $column[$column_name]['display_as'];
 				if ( 'userid' == $display_as ) {
 					$sort_flag  = SORT_NUMERIC;
 				}
@@ -946,10 +923,13 @@ class CPAC_Sortable_Columns {
 				$cposts 	= $this->get_posts_sorted_by_taxonomy( $post_type, 'post_tag' );
 				break;
 
+			// custom taxonomies
+			// see: case 'column-taxonomy'
+
 		endswitch;
 
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
-		if ( isset($sort_flag) ) {
+		if ( isset( $sort_flag ) ) {
 			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
 		}
 
@@ -967,7 +947,7 @@ class CPAC_Sortable_Columns {
 	 *
 	 * @param string $type
 	 * @param string $orderby
-	 * @param string $order
+	 * @param string $order asc|desc
 	 */
 	function set_sorting_preference( $type, $orderby = '', $order = 'asc' ) {
 		if ( !$orderby )
@@ -1219,125 +1199,5 @@ class CPAC_Sortable_Columns {
 			$userdatas[$u->ID] = get_userdata($u->ID);
 		}
 		return $userdatas;
-	}
-
-	/**
-	 * Register filtering columns
-	 *
-	 * @since 1.4.2
-	 */
-	function register_filtering_columns() {
-		if ( apply_filters( 'cpac_remove_filtering_columns', true ) )
-			return false;
-
-		// hook into wordpress
-		add_action('restrict_manage_posts', array($this, 'callback_restrict_posts'));
-	}
-
-	/**
-	 * Add taxonomy filters to posts
-	 *
-	 * @since 1.4.2
-	 */
-	function callback_restrict_posts() {
-		global $post_type_object;
-
-		if ( !isset($post_type_object->name) )
-			return false;
-
-		// make a filter foreach taxonomy
-		$taxonomies = get_object_taxonomies($post_type_object->name);
-
-		// get stored columns
-		$db_columns = CPAC_Utility::get_stored_columns($post_type_object->name);
-
-		if ( $taxonomies ) {
-			foreach ( $taxonomies as $tax ) {
-
-				$tax_obj = get_taxonomy($tax);
-
-				// ignore core taxonomies
-				if ( in_array($tax, array('post_tag','category','post_format') ) ) {
-					continue;
-				}
-
-				// only display taxonomy that is active as a column
-				if ( isset($db_columns['column-taxonomy-'.$tax]) && $db_columns['column-taxonomy-'.$tax]['state'] == 'on' ) {
-
-					$terms = get_terms($tax);
-					$terms = $this->indent($terms, 0, 'parent', 'term_id');
-					$terms = $this->apply_dropdown_markup($terms);
-
-					$select = "<option value=''>".__( 'Show all ', CPAC_TEXTDOMAIN )."{$tax_obj->label}</option>";
-					if (!empty($terms)) {
-						foreach( $terms as $term_slug => $term) {
-
-							$selected = isset($_GET[$tax]) && $term_slug == $_GET[$tax] ? " selected='selected'" : '';
-							$select .= "<option value='{$term_slug}'{$selected}>{$term}</option>";
-						}
-						echo "<select class='postform' name='{$tax}'>{$select}</select>";
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Applies dropdown markup for taxonomy dropdown
-	 *
-	 * @since 1.4.2
-	 *
-	 * @param array $array
-	 * @param int $level
-	 * @param array $ouput
-	 * @return array Output
-	 */
-	private function apply_dropdown_markup( $array, $level = 0, $output = array() ) {
-        foreach( $array as $v ) {
-
-            $prefix = '';
-            for( $i=0; $i<$level; $i++ ) {
-                $prefix .= '&nbsp;&nbsp;';
-            }
-
-            $output[$v->slug] = $prefix . $v->name;
-
-            if ( ! empty( $v->children ) ) {
-                $output = $this->apply_dropdown_markup( $v->children, ( $level + 1 ), $output );
-            }
-        }
-
-        return $output;
-    }
-
-	/**
-	 * Indents any object as long as it has a unique id and that of its parent.
-	 *
-	 * @since 1.4.2
-	 *
-	 * @param type $array
-	 * @param type $parentId
-	 * @param type $parentKey
-	 * @param type $selfKey
-	 * @param type $childrenKey
-	 * @return array Indented Array
-	 */
-	private function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
-		$indent = array();
-
-        // clean counter
-        $i = 0;
-
-		foreach($array as $v) {
-
-			if ($v->$parentKey == $parentId) {
-				$indent[$i] = $v;
-				$indent[$i]->$childrenKey = $this->indent($array, $v->$selfKey, $parentKey, $selfKey);
-
-                $i++;
-			}
-		}
-
-		return $indent;
 	}
 }

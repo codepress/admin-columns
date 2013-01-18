@@ -37,15 +37,15 @@ class CPAC_Media_Values extends CPAC_Values {
 	 * @param int $media_id
 	 */
 	public function manage_media_column_value( $column_name, $media_id ) {
-		$column_name_type = $column_name;
 
-		// Check for custom fields, such as column-meta-[customfieldname]
-		if ( CPAC_Utility::is_column_meta( $column_name ) )
-			$column_name_type = 'column-meta';
+		$column_name_type = CPAC_Utility::get_column_name_type( $column_name );
 
 		// set vars
 		$meta 	= get_post_meta( $media_id, '_wp_attachment_metadata', true );
 		$p 		= get_post($media_id);
+
+		// define
+		$result = '';
 
 		// set column value
 		switch ( $column_name_type ) :
@@ -166,9 +166,6 @@ class CPAC_Media_Values extends CPAC_Values {
 			case "column-image-title" :
 				$result = !empty( $meta['image_meta']['title'] ) ? $meta['image_meta']['title'] : '';
 				break;
-
-			default :
-				$result = '';
 
 		endswitch;
 

@@ -62,30 +62,32 @@ abstract class CPAC_Columns
 
 			// defaults
 			$box = (object) array(
-				'id' 			=> $id,
-				'attr_name'		=> "cpac_options[columns][{$this->storage_key}][{$id}]",
-				'attr_for'		=> "cpac-{$this->storage_key}-{$id}",
-				'classes'		=> array( "cpac-box-{$id}" ),
-				'state' 		=> false,
-				'type_label' 	=> '',
-				'label' 		=> '',
-				'width' 		=> 0,
-				'width_descr' 	=> __( 'default', CPAC_TEXTDOMAIN ),
-				'hide_options'	=> false,
-				'sort'			=> false,
-				'enable_sorting'=> false,
-				'is_image'		=> false,
-				'image_size'	=> false,
-				'image_size_w'	=> 80,
-				'image_size_h'	=> 80,
-				'is_field'		=> false,
-				'field'			=> '',
-				'fields'		=> '',
-				'field_type'	=> '',
-				'before'		=> '',
-				'after'			=> '',
-				'display_as'	=> '',
-				'source_type'	=> ''
+				'id'				=> $id,
+				'attr_name'			=> "cpac_options[columns][{$this->storage_key}][{$id}]",
+				'attr_for'			=> "cpac-{$this->storage_key}-{$id}",
+				'classes'			=> array( "cpac-box-{$id}" ),
+				'state'				=> false,
+				'type_label'		=> '',
+				'label'				=> '',
+				'width'				=> 0,
+				'width_descr'		=> __( 'default', CPAC_TEXTDOMAIN ),
+				'hide_options'		=> false,
+				'sort'				=> false,
+				'enable_sorting'	=> false,
+				'filtering'			=> false,
+				'enable_filtering'	=> false,
+				'is_image'			=> false,
+				'image_size'		=> false,
+				'image_size_w'		=> 80,
+				'image_size_h'		=> 80,
+				'is_field'			=> false,
+				'field'				=> '',
+				'fields'			=> '',
+				'field_type'		=> '',
+				'before'			=> '',
+				'after'				=> '',
+				'display_as'		=> '',
+				'source_type'		=> ''
 			);
 
 			if ( isset( $values['state'] ) && 'on' == $values['state'] ) {
@@ -117,6 +119,7 @@ abstract class CPAC_Columns
 			if ( isset( $values['options']['enable_sorting'] ) && $values['options']['enable_sorting'] ) {
 				$box->enable_sorting = true;
 
+				// User defined value needs to be set
 				if ( isset( $values['sort'] ) ) {
 					if ( 'off' != $values['sort'] ) {
 						$box->sort = true;
@@ -124,6 +127,16 @@ abstract class CPAC_Columns
 				}
 				else {
 					$box->sort = true;
+				}
+			}
+
+			// Filtering ( Dropdown )
+			if ( isset( $values['options']['enable_filtering'] ) && $values['options']['enable_filtering'] ) {
+				$box->enable_filtering = true;
+
+				// User defined value needs to be set
+				if ( isset( $values['filtering'] ) && 'off' != $values['filtering'] ) {
+					$box->filtering = true;
 				}
 			}
 
@@ -144,7 +157,7 @@ abstract class CPAC_Columns
 			}
 
 			// Custom Fields
-			if ( CPAC_Utility::is_column_meta( $box->id ) && $keys = $this->get_meta_keys() ) {
+			if ( CPAC_Utility::is_column_customfield( $box->id ) && $keys = $this->get_meta_keys() ) {
 
 				$box->is_field 	= true;
 				$box->fields 	= $keys;
@@ -161,7 +174,7 @@ abstract class CPAC_Columns
 				if ( ! empty( $values['after'] ) ) {
 					$box->after  = $values['after'];
 				}
-				if ( ! empty( $values['field_type'] ) && 'image' == $values['field_type'] ) {
+				if ( ! empty( $values['field_type'] ) && in_array( $values['field_type'], array( 'image', 'library_id' ) ) ) {
 					$box->is_image = true;
 				}
 			}
@@ -188,6 +201,7 @@ abstract class CPAC_Columns
 		return apply_filters( 'cpac_field_types', array(
 			''				=> __( 'Default'),
 			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
+			'library_id'	=> __( 'Media Library', CPAC_TEXTDOMAIN ),
 			'excerpt'		=> __( 'Excerpt'),
 			'array'			=> __( 'Multiple Values', CPAC_TEXTDOMAIN ),
 			'numeric'		=> __( 'Numeric', CPAC_TEXTDOMAIN ),
@@ -247,7 +261,7 @@ abstract class CPAC_Columns
 		if ( ! empty( $diff ) && is_array( $diff ) ) {
 			foreach ( $diff as $column_name ){
 				// make an exception for column-meta-xxx
-				if ( CPAC_Utility::is_column_meta( $column_name ) )
+				if ( CPAC_Utility::is_column_customfield( $column_name ) )
 					continue;
 
 				unset( $db_columns[$column_name] );
@@ -258,7 +272,7 @@ abstract class CPAC_Columns
 		foreach ( $db_columns as $id => $values ) {
 
 			// get column meta options from custom columns
-			if ( CPAC_Utility::is_column_meta( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
+			if ( CPAC_Utility::is_column_customfield( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
 				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
 			}
 
@@ -289,23 +303,28 @@ abstract class CPAC_Columns
 
 		// change to uniform format
 		$uniform_columns = array();
-		foreach ( (array) $columns as $id => $label ) {
+		foreach ( (array) $columns as $column_name => $label ) {
 			$hide_options 	= false;
 			$type_label 	= $label;
 
 			// comment exception
-			if ( 'comments' == $id ) {
+			if ( 'comments' == $column_name ) {
 				$label 			= '';
 				$type_label 	= __( 'Comments', CPAC_TEXTDOMAIN );
 				$hide_options 	= true;
 			}
 
 			// user icon exception
-			if ( $id == 'icon' ) {
+			if ( 'icon' == $column_name ) {
 				$type_label 	= __( 'Icon', CPAC_TEXTDOMAIN );
 			}
 
-			$uniform_columns[$id] = array(
+			// taxonomy exception
+			if ( CPAC_Utility::is_column_taxonomy( $column_name ) ) {
+				$type_label 	= __( 'Taxonomy', CPAC_TEXTDOMAIN ) . ': ' . $label;
+			}
+
+			$uniform_columns[$column_name] = array(
 				'label'			=> $label,
 				'state'			=> 'on',
 				'options'		=> array(
