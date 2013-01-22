@@ -643,25 +643,6 @@ class CPAC_Settings {
 												</td>
 											</tr>
 
-											<?php if ( $box->enable_sorting && $licenses['sortable']->is_unlocked() ) : ?>
-											<tr class="column_sorting">
-												<td class="label">
-													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN ); ?></label>
-													<p class="description"><?php _e( 'This will make the column support sorting.', CPAC_TEXTDOMAIN ); ?></p>
-												</td>
-												<td class="input">
-													<label for="<?php echo $box->attr_for; ?>-sort-on">
-														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-on"<?php checked( $box->sort, true ); ?>>
-														<?php _e( 'Yes'); ?>
-													</label>
-													<label for="<?php echo $box->attr_for; ?>-sort-off">
-														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-off"<?php checked( $box->sort, false ); ?>>
-														<?php _e( 'No'); ?>
-													</label>
-												</td>
-											</tr>
-											<?php endif; ?>
-
 											<?php if ( $box->is_field ) : // is custom field ?>
 											<tr class="column_field">
 												<td class="label">
@@ -746,16 +727,21 @@ class CPAC_Settings {
 											</tr>
 											<?php endif; ?>
 
-											<?php if ( $box->is_field ) : // is custom field ?>
-											<tr class="column_action">
+											<?php if ( $box->enable_sorting && $licenses['sortable']->is_unlocked() ) : ?>
+											<tr class="column_sorting">
 												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This will make the column support sorting.', CPAC_TEXTDOMAIN ); ?></p>
 												</td>
 												<td class="input">
-													<?php if ( 'column-meta-1' == $box->id ) : ?>
-														<p class="remove-description description"><?php _e( 'This field can not be removed', CPAC_TEXTDOMAIN ); ?></p>
-													<?php else : ?>
-														<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e( 'Remove');?></a></p>
-													<?php endif; ?>
+													<label for="<?php echo $box->attr_for; ?>-sort-on">
+														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-on"<?php checked( $box->sort, true ); ?>>
+														<?php _e( 'Yes'); ?>
+													</label>
+													<label for="<?php echo $box->attr_for; ?>-sort-off">
+														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-off"<?php checked( $box->sort, false ); ?>>
+														<?php _e( 'No'); ?>
+													</label>
 												</td>
 											</tr>
 											<?php endif; ?>
@@ -775,6 +761,20 @@ class CPAC_Settings {
 														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[filtering]" id="<?php echo $box->attr_for; ?>-filtering-off"<?php checked( $box->filtering, false ); ?>>
 														<?php _e( 'No'); ?>
 													</label>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->is_field ) : // is custom field ?>
+											<tr class="column_action">
+												<td class="label">
+												</td>
+												<td class="input">
+													<?php if ( 'column-meta-1' == $box->id ) : ?>
+														<p class="remove-description description"><?php _e( 'This field can not be removed', CPAC_TEXTDOMAIN ); ?></p>
+													<?php else : ?>
+														<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e( 'Remove');?></a></p>
+													<?php endif; ?>
 												</td>
 											</tr>
 											<?php endif; ?>
@@ -847,8 +847,7 @@ class CPAC_Settings {
 				'license' 	=> new CPAC_Licence( 'customfields' ),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __( 'This add support for Multiple custom columns.', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'Add as many custom columns as you want!</strong>', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'Add as many Custom Fields columns as you want.', CPAC_TEXTDOMAIN ) . "</p>
 					<p>" . __( 'It support custom fields from Posts, Media and Users.', CPAC_TEXTDOMAIN ) . "</p>
 					<img src='" . CPAC_URL . "/assets/images/addon_multiplecustomfields.png' alt='' />
 				"

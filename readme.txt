@@ -249,6 +249,8 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 = 2.0 =
 * new UI with responsive design
 * added settings import/export
+* added filtering for Custom Fields and Taxonomies
+* removed Multiple Custom Fields and made it available as an addon
 * hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
 * extensive refactoring of the code
 

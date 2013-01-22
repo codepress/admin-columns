@@ -546,45 +546,6 @@ class CPAC_Sortable_Columns {
 	}
 
 	/**
-	 * Get sorting vars in User Query Object
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param object $user_query
-	 * @param string $sortusers
-	 * @param const $sort_flags
-	 * @return User Query
-	 */
-	private function get_users_query_vars( $user_query, $sortusers, $sort_flags = SORT_REGULAR ) {
-		global $wpdb;
-
-		// vars
-		$vars = $user_query->query_vars;
-
-		// sorting
-		if ( $vars['order'] == 'ASC' )
-			asort( $sortusers, $sort_flags );
-		else
-			arsort( $sortusers, $sort_flags );
-
-		// alter orderby SQL
-		if ( ! empty ( $sortusers ) ) {
-			$ids = implode( ',', array_keys( $sortusers ) );
-			$user_query->query_where 	.= " AND {$wpdb->prefix}users.ID IN ({$ids})";
-			$user_query->query_orderby 	= "ORDER BY FIELD({$wpdb->prefix}users.ID,{$ids})";
-		}
-
-		// cleanup the vars we dont need
-		$vars['order']		= '';
-		$vars['orderby'] 	= '';
-
-		// set query vars
-		$user_query->query_vars = $vars;
-
-		return $user_query;
-	}
-
-	/**
 	 * Orderby Media column
 	 *
 	 * @since 1.3.0

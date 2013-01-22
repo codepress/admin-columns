@@ -283,4 +283,26 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 
 		return $posttype_obj->labels->singular_name;
 	}
+
+	/**
+     * Get Meta Values
+     *
+	 * @since 2.0.0
+	 *
+	 * @param Post Type
+	 * @return array
+     */
+    public function get_meta_values( $meta_key = '' ) {
+        if ( ! $meta_key )
+			return false;
+
+		global $wpdb;
+
+		$values = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_value FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value != '' ORDER BY 1", $this->storage_key, $meta_key ), ARRAY_N );
+
+		if ( is_wp_error( $values ) )
+			$values = false;
+
+		return $values;
+    }
 }
