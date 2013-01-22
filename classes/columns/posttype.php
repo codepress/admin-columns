@@ -174,7 +174,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	function get_default_columns() {
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
-		do_action( "cpac_before_default_columns_posts", $this->storage_key );
+		do_action( "cpac_before_default_columns_posts" );
 		do_action( "cpac_before_default_columns_{$this->storage_key}" );
 
 		// some plugins directly hook into get_column_headers, such as: WooCommerce.

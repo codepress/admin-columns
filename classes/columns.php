@@ -198,7 +198,7 @@ abstract class CPAC_Columns
 	 * @return array Customfield types.
 	 */
 	public function get_custom_field_types() {
-		return apply_filters( 'cpac_field_types', array(
+		$custom_field_types = array(
 			''				=> __( 'Default'),
 			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
 			'library_id'	=> __( 'Media Library', CPAC_TEXTDOMAIN ),
@@ -210,7 +210,9 @@ abstract class CPAC_Columns
 			'user_by_id'	=> __( 'Username (User ID\'s)', CPAC_TEXTDOMAIN ),
 			'checkmark'		=> __( 'Checkmark (true/false)', CPAC_TEXTDOMAIN ),
 			'color'			=> __( 'Color', CPAC_TEXTDOMAIN ),
-		));
+		);
+
+		return apply_filters( 'cpac_field_types', $custom_field_types );
 	}
 
 	/**
@@ -221,7 +223,7 @@ abstract class CPAC_Columns
 	 * @return array Authorname types.
 	 */
 	public function get_authorname_types() {
-		return apply_filters( 'cpac_authorname_types', array(
+		$authorname_types = array(
 			'display_name'		=> __( 'Display Name', CPAC_TEXTDOMAIN ),
 			'first_name'		=> __( 'First Name', CPAC_TEXTDOMAIN ),
 			'last_name'			=> __( 'Last Name', CPAC_TEXTDOMAIN ),
@@ -230,7 +232,9 @@ abstract class CPAC_Columns
 			'username'			=> __( 'Username', CPAC_TEXTDOMAIN ),
 			'email'				=> __( 'Email', CPAC_TEXTDOMAIN ),
 			'userid'			=> __( 'User ID', CPAC_TEXTDOMAIN )
-		));
+		);
+
+		return apply_filters( 'cpac_authorname_types', $authorname_types );
 	}
 
 	/**
