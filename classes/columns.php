@@ -90,7 +90,7 @@ abstract class CPAC_Columns
 				'source_type'		=> ''
 			);
 
-			if ( isset( $values['state'] ) && 'on' == $values['state'] ) {
+			if ( $this->is_column_active( $values ) ) {
 				$box->state 	= 'on';
 				$box->classes[] = 'active';
 			}
@@ -252,44 +252,53 @@ abstract class CPAC_Columns
 		$wp_custom_columns  = $this->get_custom_columns();
 
 		// merge
-		$default_columns	= wp_parse_args( $wp_custom_columns, $wp_default_columns );
+		$available_columns	= wp_parse_args( $wp_custom_columns, $wp_default_columns );
 
-		// Get saved columns
-		if ( ! $db_columns = CPAC_Utility::get_stored_columns( $this->storage_key ) )
-			return $default_columns;
+		// get stored columns
+		$stored_columns		= CPAC_Utility::get_stored_columns( $this->storage_key );
 
-		// let's remove any unavailable columns.. such as disabled plugins
-		$diff = array_diff( array_keys( $db_columns ), array_keys( $default_columns ) );
+		if ( ! $stored_columns ) {
+			return $available_columns;
+		}
 
-		// check for differences
+		// All column settings are stored in de DB. We retrieved the stored columns settings
+		// and we will match them against the available columns.
+		// When there is a difference between the available columns and the stored columns
+		// we will need to remove these, such as disabled plugins.
+		// Loop through these column_names and unset them.
+		$diff = array_diff( array_keys( $stored_columns ), array_keys( $available_columns ) );
+
 		if ( ! empty( $diff ) && is_array( $diff ) ) {
 			foreach ( $diff as $column_name ){
-				// make an exception for column-meta-xxx
+
+				// Columns that can have multiple instances should
+				// Custom Field Columns can have multiple column names ( column-meta-xxx ).
+				// These should not be removed.
 				if ( CPAC_Utility::is_column_customfield( $column_name ) )
 					continue;
 
-				unset( $db_columns[$column_name] );
+				unset( $stored_columns[$column_name] );
 			}
 		}
 
-		// loop throught the active columns
-		foreach ( $db_columns as $id => $values ) {
+		// Add the static options to the Columns.
+		foreach ( $stored_columns as $id => $values ) {
 
 			// get column meta options from custom columns
 			if ( CPAC_Utility::is_column_customfield( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
-				$db_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
+				$stored_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
 			}
 
 			// add static options
-			elseif ( isset( $default_columns[$id]['options'] ) ) {
-				$db_columns[$id]['options'] = $default_columns[$id]['options'];
+			elseif ( isset( $available_columns[$id]['options'] ) ) {
+				$stored_columns[$id]['options'] = $available_columns[$id]['options'];
 			}
 
-			unset( $default_columns[$id] );
+			unset( $available_columns[$id] );
 		}
 
 		// merge all
-		return wp_parse_args( $db_columns, $default_columns );
+		return wp_parse_args( $stored_columns, $available_columns );
 	}
 
 	/**
@@ -360,10 +369,12 @@ abstract class CPAC_Columns
 
 			// static values
 			'options'		=> array(
-				'type_label'	=> __( 'Custom', CPAC_TEXTDOMAIN ),
-				'hide_options'	=> false,
-				'class'			=> 'cpac-box-custom',
-				'enable_sorting'=> true,
+				'type_label'		=> __( 'Custom', CPAC_TEXTDOMAIN ),
+				'hide_options'		=> false,
+				'class'				=> 'cpac-box-custom',
+				'enable_sorting'	=> true,
+				'enable_filtering'	=> false,
+				'is_dynamic'		=> false // custom fields and taxonomies
 			)
 		);
 
@@ -425,67 +436,70 @@ abstract class CPAC_Columns
 	 *
 	 * Triggerd by WordPress apply_filters( manage_{$screen->id}_columns, $columns );
 	 *
+	 * @todo: filter_preset_columns?
 	 * @since 1.1
 	 *
 	 * @param array $columns Column Headings.
 	 * @return array CPAC Column Headings.
 	 */
 	public function add_columns_headings( $columns ) {
-		if ( ! $db_columns	= CPAC_Utility::get_stored_columns( $this->storage_key ) )
+
+		$stored_columns	= CPAC_Utility::get_stored_columns( $this->storage_key );
+
+		if ( ! $stored_columns ) {
 			return $columns;
+		}
 
-		// filter already loaded columns by plugins
-		$set_columns = $this->filter_preset_columns( $columns );
+		$columns_headings = array();
 
-		// loop through columns
-		foreach ( $db_columns as $id => $values ) {
-			// is active
-			if ( isset($values['state']) && $values['state'] == 'on' ){
+		// Make sure the checkbox is add the beginning of the Column Headings when it is available
+		if ( isset( $columns['cb'] ) ) {
+			$columns_headings = array( 'cb' => $columns['cb'] ) + $columns_headings;
+			unset( $columns['cb'] );
+		}
 
-				$label = $values['label'];
+		// Add the stored columns to the Columns headings.
+		foreach ( $stored_columns as $column_name => $values ) {
+			if ( ! $this->is_column_active( $values ) )
+				continue;
 
-				// exception for comments
-				if ( 'comments' == $id ) {
-					$label = $this->get_comment_icon();
+			$columns_headings[$column_name] = $values['label'];
+		}
+
+		// Some 3rd parth columns will no be stored. These still need to be added
+		// to the column headings. We check the default stored columns and every columns
+		// that is new will be added.
+		if ( $options = get_option( 'cpac_options_default' ) ) {
+
+			// Get the default columns that have been stored on the settings page.
+			$stored_wp_default_columns = $options[$this->storage_key];
+
+			// ... get the 3rd party columns that have not been saved...
+			$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );
+
+			// ... add those columns to the column headings
+			if ( $dif_columns ) {
+				foreach ( $dif_columns as $column_name ) {
+					$columns_headings[$column_name] = $columns[$column_name];
 				}
-
-				// register format
-				$set_columns[$id] = $label;
 			}
 		}
 
-		return $set_columns;
+		return $columns_headings;
 	}
 
 	/**
-	 * Filter preset columns.
+	 * is_column_active
 	 *
-	 * Returns the difference from the stored WordPress default columns and the current loading columns.
+	 * @since 2.0.0
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $columns Columns
-	 * @todo: refactor
+	 * @return bool true|false
 	 */
-	public function filter_preset_columns( $columns ) {
-		if ( ! $options = get_option( 'cpac_options_default' ) )
-			return $columns;
+	function is_column_active( $column ) {
+		if( isset( $column['state'] ) && 'on' == $column['state'] )
+			return true;
 
-		// we use the wp default columns for filtering...
-		$stored_wp_default_columns = $options[$this->storage_key];
-
-		// ... the ones that are set by plugins, theme functions and such.
-		$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );
-
-		// we add those to the columns
-		$pre_columns = array();
-		if ( $dif_columns ) {
-			foreach ( $dif_columns as $column ) {
-				$pre_columns[$column] = $columns[$column];
-			}
-		}
-
-		return $pre_columns;
+		return false;
 	}
 
 	/**

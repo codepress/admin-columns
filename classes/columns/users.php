@@ -112,7 +112,8 @@ class CPAC_Columns_Users extends CPAC_Columns
 			'after'			=> '',
 			'options'		=> array(
 				'type_label'	=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
-				'class'			=> 'cpac-box-metafield'
+				'class'			=> 'cpac-box-metafield',
+				'is_dynamic'	=> true // can have multiple instances
 			)
 		);
 

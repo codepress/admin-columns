@@ -68,6 +68,9 @@ require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
 require_once dirname( __FILE__ ) . '/classes/deprecated.php';
 
+// DEV
+require_once dirname( __FILE__ ) . '/classes/addon_buddypress.php';
+
 /**
  * The Codepress Admin Columns Class
  *

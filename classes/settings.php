@@ -62,7 +62,7 @@ class CPAC_Settings {
 		add_action( "load-{$page}", array( $this, 'help_tabs' ) );
 
 		// Settings Page
-		$page = add_submenu_page(
+		$general_page = add_submenu_page(
 			'codepress-admin-columns',
 			__( 'Settings', CPAC_TEXTDOMAIN ),
 			__( 'Settings', CPAC_TEXTDOMAIN ),
@@ -71,8 +71,8 @@ class CPAC_Settings {
 			array( $this, 'general_settings' )
 		);
 
-		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$general_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$general_page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -98,6 +98,7 @@ class CPAC_Settings {
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-custom-fields', CPAC_URL.'/assets/js/custom-fields.js', array( 'cpac-admin-columns' ), CPAC_VERSION );
 		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL.'/assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
 
 		// javascript translations

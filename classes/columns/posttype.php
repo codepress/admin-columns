@@ -139,7 +139,8 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 					'label'			=> $tax->label,
 					'options'		=> array(
 						'type_label'		=> __( 'Taxonomy', CPAC_TEXTDOMAIN ) . ': ' . $tax->label,
-						'enable_filtering'	=> true // adds a dropdown filter
+						'enable_filtering'	=> true, // adds a dropdown filter
+						'is_dynamic'		=> true // can have multiple instances
 					)
 				);
 			}
@@ -152,7 +153,8 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 				'options'		=> array(
 					'type_label'		=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
 					'class'				=> 'cpac-box-metafield',
-					'enable_filtering'	=> true // adds a dropdown filter
+					'enable_filtering'	=> true, // adds a dropdown filter,
+					'is_dynamic'		=> true // can have multiple instances
 				)
 			);
 		}
