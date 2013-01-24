@@ -21,7 +21,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 	 *
 	 * @return array
 	 */
-	function get_default_columns() {
+	function get_default() {
 		// You can use this filter to add third_party columns by hooking into this.
 		do_action( "cpac_get_default_columns_{$this->storage_key}" );
 
@@ -73,7 +73,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 			$columns['comment']['options']['enable_sorting'] = true;
 		}
 
-		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
+		return $columns;
 	}
 
 	/**
@@ -84,7 +84,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 	 *
 	 * @return array
 	 */
-	function get_custom_columns() {
+	function get_custom() {
 		$custom_columns = array(
 			'column-comment_id' => array(
 				'label'	=> __( 'ID', CPAC_TEXTDOMAIN )
@@ -139,10 +139,7 @@ class CPAC_Columns_Comments extends CPAC_Columns {
 			)
 		);
 
-		// merge with defaults
-		$custom_columns = $this->parse_defaults( $custom_columns );
-
-		return apply_filters( "cpac_custom_{$this->storage_key}_columns", $custom_columns );
+		return $custom_columns;
 	}
 
 	/**

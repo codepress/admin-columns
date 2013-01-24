@@ -22,7 +22,7 @@ abstract class CPAC_Columns
 	 *
 	 * @return array Custom Columns.
      */
-    abstract protected function get_custom_columns();
+    abstract protected function get_custom();
 
 	/**
 	 * Get default WordPress columns for this type
@@ -31,7 +31,7 @@ abstract class CPAC_Columns
 	 *
 	 * @return array WordPress Default Columns.
 	 */
-	abstract protected function get_default_columns();
+	abstract protected function get_default();
 
 	/**
      * Returns the meta keys that are associated with an attachment.
@@ -43,6 +43,30 @@ abstract class CPAC_Columns
 	 * @return array Meta Keys.
      */
     abstract public function get_meta_keys();
+
+	/**
+	 * Get Custom Columns
+	 *
+	 * @since 2.0.0
+	 */
+	function get_custom_columns() {
+
+		// merge with defaults
+		$columns = $this->parse_defaults( $this->get_custom() );
+
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
+	}
+
+	/**
+	 * Get Default columns
+	 *
+	 * @since 2.0.0
+	 */
+	function get_default_columns() {
+		$columns = $this->get_default();
+
+		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
+	}
 
 	/**
 	 * Get a list of Column options per post type
@@ -282,19 +306,19 @@ abstract class CPAC_Columns
 		}
 
 		// Add the static options to the Columns.
-		foreach ( $stored_columns as $id => $values ) {
+		foreach ( $stored_columns as $column_name => $v ) {
 
 			// get column meta options from custom columns
-			if ( CPAC_Utility::is_column_customfield( $id ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
-				$stored_columns[$id]['options'] = $wp_custom_columns['column-meta-1']['options'];
+			if ( CPAC_Utility::is_column_customfield( $column_name ) && ! empty( $wp_custom_columns['column-meta-1']['options'] ) ) {
+				$stored_columns[$column_name]['options'] = $wp_custom_columns['column-meta-1']['options'];
 			}
 
 			// add static options
-			elseif ( isset( $available_columns[$id]['options'] ) ) {
-				$stored_columns[$id]['options'] = $available_columns[$id]['options'];
+			elseif ( isset( $available_columns[$column_name]['options'] ) ) {
+				$stored_columns[$column_name]['options'] = $available_columns[$column_name]['options'];
 			}
 
-			unset( $available_columns[$id] );
+			unset( $available_columns[$column_name] );
 		}
 
 		// merge all

@@ -16,12 +16,12 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	/**
 	 * Custom posts columns
 	 *
-	 * @see CPAC_Columns::get_custom_columns()
+	 * @see CPAC_Columns::get_custom()
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
-	function get_custom_columns() {
+	function get_custom() {
 		$custom_columns = array(
 			'column-featured_image' => array(
 				'label'	     => __( 'Featured Image', CPAC_TEXTDOMAIN ),
@@ -159,10 +159,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 			);
 		}
 
-		// merge with defaults
-		$custom_columns = $this->parse_defaults( $custom_columns );
-
-		return apply_filters( "cpac_default_{$this->storage_key}_columns", $custom_columns );
+		return $custom_columns;
 	}
 
 	/**
@@ -173,7 +170,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	 *
 	 * @return array
 	 */
-	function get_default_columns() {
+	function get_default() {
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cpac_before_default_columns_posts" );
@@ -232,7 +229,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 
 		if ( empty ( $columns ) )
 			return false;
-
+		
 		// change to uniform format
 		$columns = $this->get_uniform_format( $columns );
 
@@ -251,7 +248,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 			}
 		}
 
-		return apply_filters( "cpac_default_{$this->storage_key}_columns", $columns );
+		return $columns;
 	}
 
 	/**
