@@ -807,6 +807,8 @@ class CPAC_Sortable_Columns {
 						$cposts[$p->ID] = 0;
 					}
 				}
+
+				$vars['orderby'] = 'post_in';
 				break;
 
 			case 'column-roles' :
@@ -1014,25 +1016,37 @@ class CPAC_Sortable_Columns {
 	 * @param const $sort_flags
 	 * @return array Posts Variables
 	 */
-	private function get_vars_post__in( &$vars, $sortposts, $sort_flags = SORT_REGULAR ) {
-		// sort post ids by value
-		if ( $vars['order'] == 'asc' )
-			asort($sortposts, $sort_flags);
-		else
-			arsort($sortposts, $sort_flags);
+	public static function get_vars_post__in( $vars, $sortposts, $sort_flags = SORT_REGULAR ) {
+		if ( $vars['order'] == 'asc' ) {
+			asort( $unsorted, SORT_REGULAR );
+		}
+		else {
+			arsort( $unsorted, SORT_REGULAR );
+		}
 
-		// this will make sure WP_Query will use the order of the ids that we have just set in 'post__in'
-		// set priority higher then default to prevent conflicts with 3rd party plugins
-		add_filter('posts_orderby', array( $this, 'filter_orderby_post__in' ), 10, 2 );
-
-		// cleanup the vars we dont need
-		$vars['order']		= '';
-		$vars['orderby'] 	= '';
-
-		// add the sorted post ids to the query with the use of post__in
-		$vars['post__in'] = array_keys( $sortposts );
+		$vars['orderby']	= 'post__in';
+		$vars['post__in']	 = array_keys( $unsorted );
 
 		return $vars;
+
+//		// sort post ids by value
+//		if ( $vars['order'] == 'asc' )
+//			asort( $sortposts, $sort_flags );
+//		else
+//			arsort( $sortposts, $sort_flags );
+//
+//		// this will make sure WP_Query will use the order of the ids that we have just set in 'post__in'
+//		// set priority higher then default to prevent conflicts with 3rd party plugins
+//		add_filter( 'posts_orderby', array( $this, 'filter_orderby_post__in' ), 10, 2 );
+//
+//		// cleanup the vars we dont need
+//		$vars['order']		= '';
+//		$vars['orderby'] 	= '';
+//
+//		// add the sorted post ids to the query with the use of post__in
+//		$vars['post__in'] = array_keys( $sortposts );
+
+		//return $vars;
 	}
 
 	/**
@@ -1095,7 +1109,7 @@ class CPAC_Sortable_Columns {
 	 * @param string $post_type
 	 * @return array Posts
 	 */
-	private function get_any_posts_by_posttype( $post_type ) {
+	public function get_any_posts_by_posttype( $post_type ) {
 		$any_posts = (array) get_posts(array(
 			'numberposts'	=> -1,
 			'post_status'	=> 'any',

@@ -58,12 +58,13 @@ class CPAC_Posts_Values extends CPAC_Values {
 				break;
 
 			case "column-featured_image" :
-				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $post_id ) )
+				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $post_id ) ) {
 					$result = get_the_post_thumbnail( $post_id, $this->thumbnail_size );
+				}
 				break;
 
 			case "column-sticky" :
-				if ( is_sticky($post_id) )
+				if ( is_sticky( $post_id ) )
 					$result = $this->get_asset_image( 'checkmark.png' );
 				break;
 

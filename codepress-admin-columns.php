@@ -44,6 +44,7 @@ if ( !is_admin() )
  */
 require_once dirname( __FILE__ ) . '/classes/upgrade.php';
 require_once dirname( __FILE__ ) . '/classes/utility.php';
+require_once dirname( __FILE__ ) . '/classes/column.php';
 require_once dirname( __FILE__ ) . '/classes/columns.php';
 require_once dirname( __FILE__ ) . '/classes/columns/posttype.php';
 require_once dirname( __FILE__ ) . '/classes/columns/links.php';

@@ -22,6 +22,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	 * @return array
 	 */
 	function get_custom() {
+		
 		$custom_columns = array(
 			'column-featured_image' => array(
 				'label'	     => __( 'Featured Image', CPAC_TEXTDOMAIN ),
@@ -229,7 +230,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 
 		if ( empty ( $columns ) )
 			return false;
-		
+
 		// change to uniform format
 		$columns = $this->get_uniform_format( $columns );
 
