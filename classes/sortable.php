@@ -105,7 +105,7 @@ class CPAC_Sortable_Columns {
 			$post_type = $_REQUEST['post_type'];
 		}
 
-		$type = new CPAC_Columns_Posttype( $post_type );
+		$type = new CPAC_Columns_Post( $post_type );
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -119,7 +119,7 @@ class CPAC_Sortable_Columns {
 	 * @return array Sortable Columns
 	 */
 	public function callback_add_sortable_users_column( $columns ) {
-		$type = new CPAC_Columns_Users();
+		$type = new CPAC_Columns_User();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -147,7 +147,7 @@ class CPAC_Sortable_Columns {
 	 * @return array Sortable Columns
 	 */
 	public function callback_add_sortable_links_column( $columns ) {
-		$type = new CPAC_Columns_Links();
+		$type = new CPAC_Columns_Link();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}
@@ -161,7 +161,7 @@ class CPAC_Sortable_Columns {
 	 * @return array Sortable Columns
 	 */
 	public function callback_add_sortable_comments_column( $columns ) {
-		$type = new CPAC_Columns_Comments();
+		$type = new CPAC_Columns_Comment();
 
 		return array_merge( $columns, $type->get_sortable_columns() );
 	}

@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.0
+Version: 			2.0.0
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.admincolumns.com
@@ -27,11 +27,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	 	'2.0' );
+define( 'CPAC_VERSION', 	 	'2.0.0' );
 define( 'CPAC_TEXTDOMAIN', 	 	'codepress-admin-columns' );
 define( 'CPAC_SLUG', 		 	'codepress-admin-columns' );
 define( 'CPAC_SETTINGS_SLUG', 	'cpac-settings' );
-define( 'CPAC_URL', 			plugins_url( '', __FILE__) );
+define( 'CPAC_URL', 			plugins_url( '', __FILE__ ) );
+define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
 // only run plugin in the admin interface
 if ( !is_admin() )
@@ -44,21 +45,22 @@ if ( !is_admin() )
  */
 require_once dirname( __FILE__ ) . '/classes/upgrade.php';
 require_once dirname( __FILE__ ) . '/classes/utility.php';
+
+// columns
 require_once dirname( __FILE__ ) . '/classes/column.php';
+require_once dirname( __FILE__ ) . '/classes/column/post.php';
+
+// column-types
+require_once dirname( __FILE__ ) . '/classes/type.php';
+require_once dirname( __FILE__ ) . '/classes/type/post.php';
+/* 
 require_once dirname( __FILE__ ) . '/classes/columns.php';
-require_once dirname( __FILE__ ) . '/classes/columns/posttype.php';
-require_once dirname( __FILE__ ) . '/classes/columns/links.php';
-require_once dirname( __FILE__ ) . '/classes/columns/users.php';
+require_once dirname( __FILE__ ) . '/classes/columns/post.php';
+require_once dirname( __FILE__ ) . '/classes/columns/link.php';
+require_once dirname( __FILE__ ) . '/classes/columns/user.php';
 require_once dirname( __FILE__ ) . '/classes/columns/media.php';
-require_once dirname( __FILE__ ) . '/classes/columns/comments.php';
-
-// Sortable columns
-require_once dirname( __FILE__ ) . '/classes/sortable.php';
-new CPAC_Sortable_Columns();
-
-// Filtering columns
-require_once dirname( __FILE__ ) . '/classes/filtering.php';
-new CPAC_Filtering_Columns();
+require_once dirname( __FILE__ ) . '/classes/columns/comment.php'; 
+*/
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';
@@ -70,7 +72,11 @@ require_once dirname( __FILE__ ) . '/classes/third_party.php';
 require_once dirname( __FILE__ ) . '/classes/deprecated.php';
 
 // DEV
+/* 
 require_once dirname( __FILE__ ) . '/classes/addon_buddypress.php';
+require_once dirname( __FILE__ ) . '/classes/addon_sorting.php';
+require_once dirname( __FILE__ ) . '/classes/addon_filtering.php'; 
+*/
 
 /**
  * The Codepress Admin Columns Class
@@ -200,7 +206,7 @@ class Codepress_Admin_Columns
 		if( ! $post_type = get_post_type() )
 			return $columns;
 
-		$type = new CPAC_Columns_Posttype( $post_type );
+		$type = new CPAC_Columns_Post( $post_type );
 
 		return $type->add_columns_headings( $columns );
 	}
@@ -215,7 +221,7 @@ class Codepress_Admin_Columns
 	 */
 	public function add_columns_headings_users( $columns )
 	{
-		$type = new CPAC_Columns_Users;
+		$type = new CPAC_Columns_User;
 
 		return $type->add_columns_headings( $columns );
 	}
@@ -245,7 +251,7 @@ class Codepress_Admin_Columns
 	 */
 	public function add_columns_headings_links( $columns )
 	{
-		$type = new CPAC_Columns_Links;
+		$type = new CPAC_Columns_Link;
 
 		return $type->add_columns_headings( $columns );
 	}
@@ -260,7 +266,7 @@ class Codepress_Admin_Columns
 	 */
 	public function add_columns_headings_comments($columns)
 	{
-		$type = new CPAC_Columns_Comments;
+		$type = new CPAC_Columns_Comment;
 
 		return $type->add_columns_headings( $columns );
 	}
@@ -316,11 +322,15 @@ class Codepress_Admin_Columns
 
 	/**
 	 * Admin CSS for Column width and Settings Icon
-	 *
+	 * 
+	 * @todo: let column object determine width
 	 * @since 1.4.0
 	 */
 	function admin_css()
 	{
+		// @todo: REMOVE
+		return;
+		
 		$css_column_width = '';
 
 		// loop throug the available types...

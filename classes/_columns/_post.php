@@ -1,6 +1,6 @@
 <?php
 
-class CPAC_Columns_Posttype extends CPAC_Columns {
+class CPAC_Columns_Post extends CPAC_Columns {
 
 	/**
 	 * Constructor
@@ -10,9 +10,10 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	function __construct( $post_type ) {
 
 		$this->storage_key 	= $post_type;
+		$this->meta_type 	= 'post';
 		$this->label 		= $this->get_label();
 	}
-
+		
 	/**
 	 * Custom posts columns
 	 *
@@ -21,7 +22,7 @@ class CPAC_Columns_Posttype extends CPAC_Columns {
 	 *
 	 * @return array
 	 */
-	function get_custom() {
+	function get_custom() {		
 		
 		$custom_columns = array(
 			'column-featured_image' => array(

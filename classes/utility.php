@@ -11,19 +11,28 @@ class CPAC_Utility {
 	public static function get_types()
 	{
 		$types = array();
-
+		
 		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$types[] = new CPAC_Columns_Posttype( $post_type );
+			$types[] = new CPAC_Type_Post( $post_type );
 		}
 
-		$types[] = new CPAC_Columns_Users();
-		$types[] = new CPAC_Columns_Media();
-		$types[] = new CPAC_Columns_Links();
-		$types[] = new CPAC_Columns_Comments();
-
 		return $types;
-	}
+		
+		
+		/* $types = array();
 
+		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
+			$types[] = new CPAC_Columns_Post( $post_type );
+		}
+
+		$types[] = new CPAC_Columns_User();
+		$types[] = new CPAC_Columns_Media();
+		$types[] = new CPAC_Columns_Link();
+		$types[] = new CPAC_Columns_Comment();
+
+		return $types; */
+	} 	
+	
 	/**
 	 * Get post types
 	 *
@@ -221,7 +230,22 @@ class CPAC_Utility {
 			'fields' 		=> 'ids'
 		));
 	}
-
+	
+	/**
+	 * Get licenses
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Licenses.
+	 */
+	function get_licenses() {		
+		
+		return array(
+			'sortable' 		=> new CPAC_Licence( 'sortable' ),
+			'customfields' 	=> new CPAC_Licence( 'customfields' )
+		);
+	}	
+	
 	/**
 	 * Get author field by nametype
 	 *

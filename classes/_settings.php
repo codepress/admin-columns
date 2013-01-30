@@ -249,7 +249,7 @@ class CPAC_Settings {
 	/**
 	 * Update Settings by Type
 	 *
-	 * @since 1.5.0
+	 * @since     1.5
 	 */
 	private function update_settings_by_type( $type ) {
 		if ( ! $type )
@@ -430,6 +430,30 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * Get all image sizes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Image Sizes.
+	 */
+	function get_all_image_sizes() {
+		$image_sizes = array(
+			'thumbnail'	=>	__( "Thumbnail", CPAC_TEXTDOMAIN ),
+			'medium'	=>	__( "Medium", CPAC_TEXTDOMAIN ),
+			'large'		=>	__( "Large", CPAC_TEXTDOMAIN ),
+			'full'		=>	__( "Full", CPAC_TEXTDOMAIN )
+		);
+
+		foreach( get_intermediate_image_sizes() as $size ) {
+			if ( ! isset( $image_sizes[$size] ) ) {
+				$image_sizes[$size] = ucwords( str_replace( '-', ' ', $size) );
+			}
+		}
+
+		return $image_sizes;
+	}
+
+	/**
 	 * External Urls
 	 *
 	 * @since 1.0.0
@@ -460,6 +484,30 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function column_settings() {
+		// Menu
+		$menu 	= '';
+		$count 	= 1;
+
+		// referer
+		$referer = ! empty( $_REQUEST['cpac_type'] ) ? $_REQUEST['cpac_type'] : '';
+
+		// loop
+		foreach ( CPAC_Utility::get_types() as $type ) {
+
+			$clean_label = CPAC_Utility::sanitize_string( $type->storage_key );
+
+			// divider
+			$divider 	= $count++ == 1 ? '' : ' | ';
+
+			// current
+			$current = '';
+			if ( $this->is_menu_type_current( $type->storage_key ) ) {
+				$current = ' class="current"';
+			}
+
+			// menu list
+			$menu .= "<li>{$divider}<a{$current} href='#cpac-box-{$clean_label}'>{$type->label}</a></li>\n";
+		}
 
 		// Licenses
 		$licenses = array(
@@ -475,9 +523,7 @@ class CPAC_Settings {
 
 			<div class="cpac-menu">
 				<ul class="subsubsub">
-					<?php foreach ( CPAC_Utility::get_types() as $k => $type ) : ?>
-					<li><?php echo $k != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $type->storage_key; ?>" <?php echo $this->is_menu_type_current( $type->storage_key ) ? ' class="current"' : '';?> ><?php echo $type->label; ?></a></li>
-					<?php endforeach; ?>
+					<?php echo $menu ?>
 				</ul>
 			</div>
 
@@ -543,9 +589,203 @@ class CPAC_Settings {
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
 
-							<?php foreach ( $type->get_columns() as $column ) : ?>
-	
-								<?php $column->display(); ?>
+							<?php foreach ( $type->get_column_boxes() as $box ) : ?>
+
+							<div class="cpac-column <?php echo $box->classes; ?>">
+								<div class="column-meta">
+									<table class="widefat">
+										<tbody>
+											<tr>
+												<td class="column_sort"></td>
+												<td class="column_status">
+													<input type="hidden" class="cpac-state" name="<?php echo $box->attr_name; ?>[state]" value="<?php echo $box->state; ?>" id="<?php echo $box->attr_for; ?>-state"/>
+												</td>
+												<td class="column_label">
+													<a href="javascript:;">
+														<?php echo $box->label; ?>
+													</a>
+													<span class="meta-label">
+													<?php if ( $licenses['sortable']->is_unlocked() && ( $box->sort || in_array( $box->id, array( 'title', 'date' ) ) ) ) : ?>
+														<span class="sorting enable"><?php _e( 'sorting',  CPAC_TEXTDOMAIN )?></span>
+													<?php endif; ?>
+													</span>
+												</td>
+												<td class="column_type">
+													<?php echo $box->type_label; ?>
+												</td>
+												<td class="column_edit"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div><!--.column-meta-->
+
+								<div class="column-form">
+									<table class="widefat">
+										<tbody>
+											<tr class="column_label<?php echo $box->hide_options ? ' hidden' : '' ?>">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-label"><?php _e( 'Label', CPAC_TEXTDOMAIN );?></label>
+													<p class="description"><?php _e( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<input type="text" name="<?php echo $box->attr_name; ?>[label]" id="<?php echo $box->attr_for; ?>-label" value="<?php echo $box->label ?>" class="text"/>
+												</td>
+											</tr>
+											<tr class="column_width">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-width"><?php _e("Width", CPAC_TEXTDOMAIN ); ?></label>
+												</td>
+												<td class="input">
+													<div class="description width-decription" title="<?php _e( 'default', CPAC_TEXTDOMAIN ); ?>">
+														<?php echo $box->width_descr; ?>
+													</div>
+													<div class="input-width-range"></div>
+													<input type="hidden" maxlength="4" class="input-width" name="<?php echo $box->attr_name; ?>[width]" id="<?php echo $box->attr_for; ?>-width" value="<?php echo $box->width; ?>" />
+												</td>
+											</tr>
+
+											<?php if ( $box->is_field ) : // is custom field ?>
+											<tr class="column_field">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-field"><?php _e("Custom Field", CPAC_TEXTDOMAIN ) ?></label>
+												</td>
+												<td class="input">
+													<select name="<?php echo $box->attr_name; ?>[field]" id="<?php echo $box->attr_for; ?>-field">
+													<?php foreach ( $box->fields as $field ) : ?>
+														<option value="<?php echo $field ?>"<?php selected( $field, $box->field ) ?>><?php echo substr($field,0,10) == "cpachidden" ? str_replace('cpachidden','',$field) : $field; ?></option>
+													<?php endforeach; ?>
+													</select>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->is_field ) : // is custom field ?>
+											<tr class="column_field_type">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-field_type"><?php _e("Field Type", CPAC_TEXTDOMAIN ); ?></label>
+												</td>
+												<td class="input">
+													<select name="<?php echo $box->attr_name; ?>[field_type]" id="<?php echo $box->attr_for; ?>-field_type">
+													<?php foreach ( $type->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
+														<option value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $box->field_type ) ?>><?php echo $fieldtype; ?></option>
+													<?php endforeach; ?>
+													</select>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->is_image || $box->is_field ) : // is image or custom field ?>
+											<tr class="column_image_size<?php echo $box->is_field && ! $box->is_image ? ' hidden' : ''; ?>">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-image_size"><?php _e("Preview size", CPAC_TEXTDOMAIN ); ?></label>
+												</td>
+												<td class="input">
+													<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : ?>
+
+														<?php if ( !in_array( $box->image_size, array_keys($sizes) ) && $box->image_size != 'cpac-custom' ) $box->image_size = key($sizes); ?>
+
+														<label for="<?php echo $box->attr_for; ?>-image-size-<?php echo $id ?>" class="custom-size">
+														<input type="radio" value="<?php echo $id; ?>" name="<?php echo $box->attr_name; ?>[image_size]" id="<?php echo $box->attr_for; ?>-image-size-<?php echo $id ?>"<?php checked( $box->image_size, $id ); ?>><?php echo $image_label; ?>
+														</label>
+													<?php endforeach; ?>
+													<div class="custom_image_size">
+														<label for="<?php echo $box->attr_for; ?>-image-size-custom" class="custom-size image-size-custom" >
+															<input type="radio" value="cpac-custom" name="<?php echo $box->attr_name; ?>[image_size]" id="<?php echo $box->attr_for; ?>-image-size-custom"<?php checked( $box->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', CPAC_TEXTDOMAIN ); ?>
+														</label>
+
+														<label for="<?php echo $box->attr_for; ?>-image-size-w" class="custom-size-w<?php echo $box->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_w]" id="<?php echo $box->attr_for; ?>-image-size-w" value="<?php echo $box->image_size_w; ?>" /><?php _e( 'width', CPAC_TEXTDOMAIN ); ?>
+														</label>
+														<label for="<?php echo $box->attr_for; ?>-image-size-h" class="custom-size-h<?php echo $box->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+															<input type="text" name="<?php echo $box->attr_name; ?>[image_size_h]" id="<?php echo $box->attr_for; ?>-image-size-h" value="<?php echo $box->image_size_h; ?>" /><?php _e( 'height', CPAC_TEXTDOMAIN ); ?>
+														</label>
+													</div>
+												</td>
+											</tr>
+											<?php endif;?>
+
+											<?php if ( $box->is_field ) :  // is custom field ?>
+											<tr class="column_before">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-before"><?php _e("Before", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This text will appear before the custom field value.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<input type="text" class="cpac-before" name="<?php echo $box->attr_name; ?>[before]" id="<?php echo $box->attr_for; ?>-before" value="<?php echo $box->before; ?>"/>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->is_field ) : // is custom field ?>
+											<tr class="column_after">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-after"><?php _e("After", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This text will appear after the custom field value.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<input type="text" class="cpac-after" name="<?php echo $box->attr_name; ?>[after]" id="<?php echo $box->attr_for; ?>-after" value="<?php echo $box->after; ?>"/>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->enable_sorting && $licenses['sortable']->is_unlocked() ) : ?>
+											<tr class="column_sorting">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-sort-1"><?php _e("Enable sorting?", CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This will make the column support sorting.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<label for="<?php echo $box->attr_for; ?>-sort-on">
+														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-on"<?php checked( $box->sort, true ); ?>>
+														<?php _e( 'Yes'); ?>
+													</label>
+													<label for="<?php echo $box->attr_for; ?>-sort-off">
+														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[sort]" id="<?php echo $box->attr_for; ?>-sort-off"<?php checked( $box->sort, false ); ?>>
+														<?php _e( 'No'); ?>
+													</label>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->enable_filtering ) : ?>
+											<tr class="column_filtering">
+												<td class="label">
+													<label for="<?php echo $box->attr_for; ?>-filtering"><?php _e( 'Enable filtering?', CPAC_TEXTDOMAIN ); ?></label>
+													<p class="description"><?php _e( 'This will add a dropdown for filtering.', CPAC_TEXTDOMAIN ); ?></p>
+												</td>
+												<td class="input">
+													<label for="<?php echo $box->attr_for; ?>-filtering-on">
+														<input type="radio" value="on" name="<?php echo $box->attr_name; ?>[filtering]" id="<?php echo $box->attr_for; ?>-filtering-on"<?php checked( $box->filtering, true ); ?>>
+														<?php _e( 'Yes'); ?>
+													</label>
+													<label for="<?php echo $box->attr_for; ?>-filtering-off">
+														<input type="radio" value="off" name="<?php echo $box->attr_name; ?>[filtering]" id="<?php echo $box->attr_for; ?>-filtering-off"<?php checked( $box->filtering, false ); ?>>
+														<?php _e( 'No'); ?>
+													</label>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php if ( $box->is_field ) : // is custom field ?>
+											<tr class="column_action">
+												<td class="label">
+												</td>
+												<td class="input">
+													<?php if ( 'column-meta-1' == $box->id ) : ?>
+														<p class="remove-description description"><?php _e( 'This field can not be removed', CPAC_TEXTDOMAIN ); ?></p>
+													<?php else : ?>
+														<p><a href="javascript:;" class="cpac-delete-custom-field-box"><?php _e( 'Remove');?></a></p>
+													<?php endif; ?>
+												</td>
+											</tr>
+											<?php endif; ?>
+
+											<?php do_action( 'cpac_column_fields', $box ); ?>
+
+										</tbody>
+									</table>
+								</div><!--.column-form-->
+							</div><!--.cpac-column-->
 
 							<?php endforeach // get_column_boxes() ?>
 
@@ -555,8 +795,7 @@ class CPAC_Settings {
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', CPAC_TEXTDOMAIN ); ?></div>
 
 							<div class="add-customfield-column-container">
-							<?php if ( false ) : ?>
-							<?php // @todo: fix placement of buttons if ( $type->get_meta_keys() ) : ?>
+							<?php if ( $type->get_meta_keys() ) : ?>
 								<?php if ( $licenses['customfields']->is_unlocked() ) : ?>
 									<a href="javascript:;" class="add-customfield-column button">+ <?php _e( 'Add Custom Field Column', CPAC_TEXTDOMAIN );?></a>
 								<?php else : ?>

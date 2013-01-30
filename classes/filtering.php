@@ -159,7 +159,29 @@ class CPAC_Filtering_Columns {
 
 		return $vars;
 	}
+	
+	/**
+     * Get Meta Values
+     *
+	 * @since 2.0.0
+	 *
+	 * @param Post Type
+	 * @return array
+     */
+    public function get_meta_values( $meta_key = '', $storage_key = '' ) {
+        if ( ! $meta_key )
+			return false;
 
+		global $wpdb;
+
+		$values = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_value FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value != '' ORDER BY 1", $storage_key, $meta_key ), ARRAY_N );
+
+		if ( is_wp_error( $values ) )
+			$values = false;
+
+		return $values;
+    }
+	
 	/**
 	 * Add taxonomy filters to posts
 	 *
@@ -199,10 +221,10 @@ class CPAC_Filtering_Columns {
 
 				case 'column-meta' :
 
-					$type = new CPAC_Columns_Posttype( $post_type_object->name );
+					$type = new CPAC_Columns_Post( $post_type_object->name );
 
 					$options = array();
-					if ( $values = $type->get_meta_values( $column['field'] ) ) {
+					if ( $values = $this->get_meta_values( $column['field'], $type->properties->storage_key ) ) {
 						foreach ( $values as $value ) {
 							$field_value = $value[0];
 

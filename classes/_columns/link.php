@@ -1,6 +1,6 @@
 <?php
 
-class CPAC_Columns_Links extends CPAC_Columns {
+class CPAC_Columns_Link extends CPAC_Columns {
 
 	/**
 	 * Constructor
