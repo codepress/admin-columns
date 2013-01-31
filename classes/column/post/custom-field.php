@@ -7,7 +7,7 @@
  */
 class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 
-	function __construct( $storage_key ) {		
+	function __construct( $storage_key, $column_name ) {		
 				
 		// define additional options
 		$this->options['field']			= '';
@@ -21,11 +21,12 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 		$this->options['image_size_h']	= 80;
 		
 		// define properties
-		$this->properties['column_name'] = 'custom-field';
-		$this->properties['type_label']	 = __( 'Custom Field', CPAC_TEXTDOMAIN );
-		$this->properties['classes']	 = 'cpac-box-metafield';
+		$this->properties['column_name'] 	= 'column-meta';
+		$this->properties['type_label']	 	= __( 'Custom Field', CPAC_TEXTDOMAIN );
+		$this->properties['classes']	 	= 'cpac-box-metafield';
+		$this->properties['is_cloneable'] 	= true;
 		
-		parent::__construct( $storage_key );
+		parent::__construct( $storage_key, $column_name );
 	}
 	
 	/**
@@ -35,8 +36,7 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		
-		
+	
 	}
 	
 	/**

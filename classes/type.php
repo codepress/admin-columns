@@ -26,52 +26,11 @@ abstract class CPAC_Type {
 	public $label;
 	
 	/**
-	 * Get Class Names
+	 * Columns 
 	 *
-	 * @since 2.0.0
-	 */
-	function get_classinfo_columns() {
-		
-		if ( ! $column_files = get_transient( 'cpac_classnames' ) ) {
-		
-			// Column directory
-			$directory = CPAC_DIR . 'classes/column';
+	 */	 
+	protected $columns;
 
-			$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $directory ) );
-
-			while( $file->valid() ) {
-
-				if ( ! $file->isDot() ) {
-					
-					// details
-					$dir 		= $file->getSubPath();
-					$file_name  = pathinfo( $file->getSubPathName(), PATHINFO_FILENAME );
-					$file_path 	= $file->key();
-					
-					// class name
-					$parts 		= explode( '-', $file_name );
-					$parts 		= array_map( 'ucfirst', $parts );
-					$class_name = 'CPAC_Column_' . ucfirst( $dir ). '_' . implode( '_', $parts );					
-					
-					// create instance	
-					$column_files[$dir][] = array(
-						'classname'	=> $class_name,
-						'path'		=> $file_path
-					);
-				}
-				
-				$file->next();
-			}
-			
-			set_transient( 'cpac_classnames', $column_files, 3600 );
-		}
-		
-		if ( ! isset( $column_files[$this->meta_type] ) )
-			return array();
-
-		return $column_files[$this->meta_type];
-	}
-	
 	/**
 	 * Get default columns
 	 *
@@ -80,35 +39,124 @@ abstract class CPAC_Type {
 	abstract function get_default_columns();
 	
 	/**
-	 * Get stored columns
+	 * Constructor
+	 *
+	 */
+	function __construct() {		
+		$this->set_columns();
+	}
+	
+	/**
+	 * Get Class Names
 	 *
 	 * @since 2.0.0
 	 */
-	function get_stored_columns() {
-		$columns = array();
+	function set_columns() {
 		
-		// get plugin options
-		$options = get_option('cpac_options');
+		$columns = get_transient( "cpac_classnames_{$this->meta_type}" );			
+		$columns = '';			
+		
+		if ( ! $columns ) {
+		
+			$directory = CPAC_DIR . 'classes/column';
 
-		// get saved columns
-		if ( empty( $options['columns'][$this->storage_key] ) )
-			return false;
+			$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $directory ) );
 
-		return $options['columns'][$this->storage_key];		
-	}	
+			while( $file->valid() ) {
+
+				if ( ! $file->isDot() ) {
+
+					$dir = $file->getSubPath();
+					
+					if ( $dir == $this->meta_type ) {
+						
+						// file details
+						$file_name  = pathinfo( $file->getSubPathName(), PATHINFO_FILENAME );
+						$file_path 	= $file->key();
+						
+						// class name
+						$parts 		= explode( '-', $file_name );
+						$parts 		= array_map( 'ucfirst', $parts );
+						$class_name = 'CPAC_Column_' . ucfirst( $dir ). '_' . implode( '_', $parts );
+						
+						// create instance
+						include_once $file_path;
+						$col = new $class_name( $this->storage_key );
+			
+						$columns[$col->properties->column_name] = array(
+							'class_name'	=> $class_name,
+							'path'			=> $file_path
+						);
+					}
+				}
+				
+				$file->next();
+			}
+			
+			set_transient( 'cpac_classnames', $columns, 3600 );
+		}
+	
+		// include files and set columns
+		foreach ( $columns as $column_name => $info ) {
+			
+			include_once $info['path'];
+			$this->columns[$column_name] = $info['class_name'];			
+		}
+
+		foreach ( $this->get_default_columns() as $column_name => $label ) {
+			$this->columns[$column_name] = 'CPAC_Column_Default';
+		}
+	}
 	
 	/**
-	 * Get custom columns
+	 * Get column options from DB
 	 *
+	 * @since 1.0.0
+	 *
+	 * @paran string $storage_key
+	 * @return array Column options
+	 */
+	private function get_stored_columns() {
+	
+		$columns = get_option( "cpac_options_{$this->storage_key}" );
+		
+		if ( ! $columns )
+			return array();
+			
+		return $columns;
+	}
+	
+	/**
+	 * Save columns
+	 *
+	 * @since 2.0.0
+	 */
+	function save_columns() {
+		
+		if ( empty( $_POST['cpac_options'][$this->storage_key] ) )
+			return false;
+		
+		update_option( "cpac_options_{$this->storage_key}", array_filter( $_POST['cpac_options'][$this->storage_key] ) );
+
+		print_r( get_option( "cpac_options_{$this->storage_key}" ) );
+	}
+	
+	/**
+	 * Get columns
+	 *
+	 * @since 2.0.0
 	 */
 	public function get_columns( $is_active = false ) {
 		
-		$columns = array();
+		/* $columns = array();
 		
 		// get default columns		
-		if( $default_columns = $this->get_default_columns() )
-			foreach ( $default_columns as $column_name => $column_label ) {		
-				$columns[] = new CPAC_Column( $this->storage_key, $column_name, $column_label );			
+		if( $wp_default_columns = $this->get_default_columns() ) {
+			foreach ( $wp_default_columns as $column_name => $column_label ) {	
+
+				$column = new CPAC_Column_Default( $this->storage_key, $column_name, $column_label );
+
+				$columns[$column->properties->column_name] = $column;				
 			}
 		}
 		
@@ -117,12 +165,32 @@ abstract class CPAC_Type {
 			foreach	( $files as $file ) {
 						
 				require_once $file['path'];
-				$columns[] = new $file['classname']( $this->storage_key );						
+				$column = new $file['classname']( $this->storage_key );
+				
+				$columns[$column->properties->column_name] = $column;
 			}
-		}
+		} */
+		
+		$stored_columns = $this->get_stored_columns();
+		
+		$diff = array_diff( array_keys( $stored_columns ), array_keys( $this->columns ) );
+		
+		print_r( $this->columns );
+		print_r( $diff );
+		exit;
+		
+		
 		
 		// get stored columns
-		$stored_columns = CPAC_Utility::get_stored_columns();
+		if ( $stored_columns = $this->get_stored_columns() ) {
+			foreach ( $stored_columns as $column_name => $column_clones ) {
+				foreach ( $column_clones as $clone_key => $options ) {
+					
+					
+					
+				}			
+			}
+		}		
 		
 		return $columns;		
 	}

@@ -7,7 +7,7 @@
  */
 class CPAC_Column_Post_Featured_Image extends CPAC_Column_Post {
 
-	function __construct( $storage_key ) {		
+	function __construct( $storage_key, $column_name ) {		
 
 		// define additional options
 		$this->options['image_size']	= '';
@@ -18,7 +18,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column_Post {
 		$this->properties['column_name'] = 'column-featured_image';
 		$this->properties['type_label']	 = __( 'Featured Image', CPAC_TEXTDOMAIN );
 		
-		parent::__construct( $storage_key );
+		parent::__construct( $storage_key, $column_name );
 	}
 	
 	/**

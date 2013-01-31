@@ -8,29 +8,24 @@ class CPAC_Utility {
 	 *
 	 * @return array CPAC types objects
 	 */
-	public static function get_types()
+	public static function get_types( $storage_key = '' )
 	{
 		$types = array();
 		
+		// Post
 		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$types[] = new CPAC_Type_Post( $post_type );
+			$type = new CPAC_Type_Post( $post_type );
+			
+			$types[$type->storage_key] = $type;
 		}
-
+		
+		// @todo: register type function
+		
+		if ( isset( $types[$storage_key] ) ) {
+			return $types[$storage_key];
+		}
+		
 		return $types;
-		
-		
-		/* $types = array();
-
-		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$types[] = new CPAC_Columns_Post( $post_type );
-		}
-
-		$types[] = new CPAC_Columns_User();
-		$types[] = new CPAC_Columns_Media();
-		$types[] = new CPAC_Columns_Link();
-		$types[] = new CPAC_Columns_Comment();
-
-		return $types; */
 	} 	
 	
 	/**

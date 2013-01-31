@@ -7,13 +7,13 @@ class CPAC_Type_Post extends CPAC_Type {
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct( $post_type ) {
-
-		$this->storage_key 	= $post_type;
+	function __construct( $post_type ) {		
 		
-		$this->meta_type	= 'post';
-		
+		$this->storage_key 	= $post_type;		
+		$this->meta_type	= 'post';		
 		$this->label 		= $this->get_label();
+		
+		parent::__construct();
 	}
 	
 	/**

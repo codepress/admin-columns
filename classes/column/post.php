@@ -7,8 +7,8 @@
  */
 class CPAC_Column_Post extends CPAC_Column {
 	
-	function __construct( $storage_key ) {		
-		parent::__construct( $storage_key );
+	function __construct( $storage_key, $column_name ) {		
+		parent::__construct( $storage_key, $column_name );
 	}
 	
 	/**

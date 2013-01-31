@@ -78,7 +78,7 @@ function cpac_box_events()
 
 	/** set state */
 	jQuery('.column-meta td').not('.column_edit, .column_sort').unbind('click').click( function(e) {
-
+				
 		// make sure the TD itself is clicked and not a child element
 		if ( this != e.target )
 			return;
@@ -86,7 +86,7 @@ function cpac_box_events()
 		var box 	= jQuery(this).closest('.cpac-column');
 		var state	= jQuery('.cpac-state', box);
 		var value 	= state.attr('value');
-
+	
 		// toggle on
 		if ( value != 'on') {
 			box.addClass('active');
@@ -172,6 +172,9 @@ function cpac_box_events()
 			image_size.hide();
 		}
 	});
+	
+	/** checkbox label */
+	jQuery('.column_label a input').prop('disabled', true);
 }
 
 /*

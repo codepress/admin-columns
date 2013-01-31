@@ -152,16 +152,17 @@ class CPAC_Settings {
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( CPAC_SLUG, CPAC_SETTINGS_SLUG ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
-		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
-		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
-		$type 	= isset( $_REQUEST['cpac_type'] ) 	? $_REQUEST['cpac_type'] 	: '';
+		$action 		= isset( $_REQUEST['cpac_action'] ) 		? $_REQUEST['cpac_action'] 	: '';
+		$nonce  		= isset( $_REQUEST['_cpac_nonce'] ) 		? $_REQUEST['_cpac_nonce'] 	: '';
+		$storage_key 	= isset( $_REQUEST['cpac_storage_key'] ) 	? $_REQUEST['cpac_storage_key'] 	: '';
 
 		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-					$this->store_wp_default_columns();
-					$this->update_settings_by_type( $type );
+				
+					$type = CPAC_Utility::get_types( $storage_key );
+					$type->save_columns();
 				}
 				break;
 
@@ -410,7 +411,7 @@ class CPAC_Settings {
 	 */
 	function is_menu_type_current( $storage_key ) {
 		// referer
-		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
+		$referer = ! empty($_REQUEST['cpac_storage_key']) ? $_REQUEST['cpac_storage_key'] : '';
 
 		// get first element from post-types
 		$first = array_shift( array_values( CPAC_Utility::get_post_types() ) );
@@ -475,8 +476,9 @@ class CPAC_Settings {
 
 			<div class="cpac-menu">
 				<ul class="subsubsub">
-					<?php foreach ( CPAC_Utility::get_types() as $k => $type ) : ?>
-					<li><?php echo $k != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $type->storage_key; ?>" <?php echo $this->is_menu_type_current( $type->storage_key ) ? ' class="current"' : '';?> ><?php echo $type->label; ?></a></li>
+					<?php $count = 0; ?>
+					<?php foreach ( CPAC_Utility::get_types() as $type ) : ?>
+					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $type->storage_key; ?>" <?php echo $this->is_menu_type_current( $type->storage_key ) ? ' class="current"' : '';?> ><?php echo $type->label; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
@@ -487,7 +489,7 @@ class CPAC_Settings {
 				<form method="post" action="">
 
 				<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
-				<input type="hidden" name="cpac_type" value="<?php echo $type->storage_key; ?>" />
+				<input type="hidden" name="cpac_storage_key" value="<?php echo $type->storage_key; ?>" />
 
 				<div class="columns-left">
 					<div id="titlediv">
@@ -502,7 +504,7 @@ class CPAC_Settings {
 								<?php _e( 'Publish', CPAC_TEXTDOMAIN ) ?>
 							</h3>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_type' => $type->storage_key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_storage_key' => $type->storage_key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
 									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $type->label; ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
 								</a>
 							</div>

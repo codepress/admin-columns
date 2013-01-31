@@ -1,4 +1,8 @@
 <?php
+
+//delete_option( "cpac_options_slider" );
+
+
 /*
 
 Plugin Name: 		Codepress Admin Columns
@@ -48,7 +52,10 @@ require_once dirname( __FILE__ ) . '/classes/utility.php';
 
 // columns
 require_once dirname( __FILE__ ) . '/classes/column.php';
+
+// @todo: autoload
 require_once dirname( __FILE__ ) . '/classes/column/post.php';
+require_once dirname( __FILE__ ) . '/classes/column/default.php';
 
 // column-types
 require_once dirname( __FILE__ ) . '/classes/type.php';
@@ -84,8 +91,12 @@ require_once dirname( __FILE__ ) . '/classes/addon_filtering.php';
  * @since 1.0.0
  *
  */
-class Codepress_Admin_Columns
+class CPAC
 {
+	public $types;
+	
+	public $columns;
+	
 	/**
 	 * Constructor
 	 *
@@ -94,9 +105,9 @@ class Codepress_Admin_Columns
 	function __construct()
 	{
 		add_action( 'wp_loaded', array( $this, 'init') );
-
+		
 		// upgrade
-		register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
+		//register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
 	}
 
 	/**
@@ -107,10 +118,10 @@ class Codepress_Admin_Columns
 	 * @since 1.0.0
 	 */
 	public function init()
-	{
+	{		
 		// translations
 		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
+		
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
@@ -123,7 +134,7 @@ class Codepress_Admin_Columns
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 	}
-
+	
 	/**
 	 * Add Settings link to plugin page
 	 *
@@ -151,6 +162,7 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
+		/* 
 		require_once dirname( __FILE__ ) . '/classes/values.php';
 		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
 		require_once dirname( __FILE__ ) . '/classes/values/users.php';
@@ -163,8 +175,10 @@ class Codepress_Admin_Columns
 		new CPAC_Link_Values();
 		new CPAC_Media_Values();
 		new CPAC_Users_Values();
-		new CPAC_Comments_Values();
+		new CPAC_Comments_Values(); 
+		*/
 	}
+	
 	/**
 	 * Register Columns Headings
 	 *
@@ -368,4 +382,4 @@ class Codepress_Admin_Columns
  *
  * @since 1.0.0
  */
-new Codepress_Admin_Columns();
+new CPAC();
