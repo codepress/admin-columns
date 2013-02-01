@@ -1,4 +1,8 @@
 <?php
+
+//delete_option( "cpac_options_slider" );
+
+
 /*
 
 Plugin Name: 		Codepress Admin Columns
@@ -38,6 +42,9 @@ define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 if ( !is_admin() )
 	return false;
 
+// DEV
+require_once dirname( __FILE__ ) . '/addons/multiple-fields/multiple-fields.php';
+	
 /**
  * Dependencies
  *
@@ -48,19 +55,9 @@ require_once dirname( __FILE__ ) . '/classes/utility.php';
 
 // columns
 require_once dirname( __FILE__ ) . '/classes/column.php';
-require_once dirname( __FILE__ ) . '/classes/column/post.php';
+require_once dirname( __FILE__ ) . '/classes/storage_model.php';
+require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
 
-// column-types
-require_once dirname( __FILE__ ) . '/classes/type.php';
-require_once dirname( __FILE__ ) . '/classes/type/post.php';
-/* 
-require_once dirname( __FILE__ ) . '/classes/columns.php';
-require_once dirname( __FILE__ ) . '/classes/columns/post.php';
-require_once dirname( __FILE__ ) . '/classes/columns/link.php';
-require_once dirname( __FILE__ ) . '/classes/columns/user.php';
-require_once dirname( __FILE__ ) . '/classes/columns/media.php';
-require_once dirname( __FILE__ ) . '/classes/columns/comment.php'; 
-*/
 
 // Settings page
 include_once dirname( __FILE__ ) . '/classes/settings.php';
@@ -71,7 +68,8 @@ require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
 require_once dirname( __FILE__ ) . '/classes/deprecated.php';
 
-// DEV
+
+
 /* 
 require_once dirname( __FILE__ ) . '/classes/addon_buddypress.php';
 require_once dirname( __FILE__ ) . '/classes/addon_sorting.php';
@@ -84,8 +82,12 @@ require_once dirname( __FILE__ ) . '/classes/addon_filtering.php';
  * @since 1.0.0
  *
  */
-class Codepress_Admin_Columns
+class CPAC
 {
+	public $types;
+	
+	public $columns;
+	
 	/**
 	 * Constructor
 	 *
@@ -94,9 +96,9 @@ class Codepress_Admin_Columns
 	function __construct()
 	{
 		add_action( 'wp_loaded', array( $this, 'init') );
-
+		
 		// upgrade
-		register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
+		//register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
 	}
 
 	/**
@@ -107,10 +109,10 @@ class Codepress_Admin_Columns
 	 * @since 1.0.0
 	 */
 	public function init()
-	{
+	{		
 		// translations
 		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
+		
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
@@ -123,7 +125,7 @@ class Codepress_Admin_Columns
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 	}
-
+	
 	/**
 	 * Add Settings link to plugin page
 	 *
@@ -151,6 +153,7 @@ class Codepress_Admin_Columns
 	 */
 	public function register_columns_values()
 	{
+		/* 
 		require_once dirname( __FILE__ ) . '/classes/values.php';
 		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
 		require_once dirname( __FILE__ ) . '/classes/values/users.php';
@@ -163,8 +166,10 @@ class Codepress_Admin_Columns
 		new CPAC_Link_Values();
 		new CPAC_Media_Values();
 		new CPAC_Users_Values();
-		new CPAC_Comments_Values();
+		new CPAC_Comments_Values(); 
+		*/
 	}
+	
 	/**
 	 * Register Columns Headings
 	 *
@@ -309,11 +314,11 @@ class Codepress_Admin_Columns
 		}
 
 		// loop the available types
-		foreach ( CPAC_Utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_storage_models() as $type ) {
 
 			// match against screen or wp-screen
-			if ( $type->storage_key == $screen || $type->storage_key == "wp-{$screen}" )
-				$classes .= " cp-{$type->storage_key}";
+			if ( $type->key == $screen || $type->key == "wp-{$screen}" )
+				$classes .= " cp-{$type->key}";
 		}
 
 		return $classes;
@@ -334,9 +339,9 @@ class Codepress_Admin_Columns
 		$css_column_width = '';
 
 		// loop throug the available types...
-		foreach ( CPAC_Utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_storage_models() as $type ) {
 
-			if ( ! $cols = CPAC_Utility::get_stored_columns( $type->storage_key ) )
+			if ( ! $cols = CPAC_Utility::get_stored_columns( $type->key ) )
 				continue;
 
 			// loop through each available column...
@@ -344,7 +349,7 @@ class Codepress_Admin_Columns
 
 				// and check for stored width and add it to the css
 				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-					$css_column_width .= ".cp-{$type->storage_key} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
+					$css_column_width .= ".cp-{$type->key} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
 		}
@@ -368,4 +373,4 @@ class Codepress_Admin_Columns
  *
  * @since 1.0.0
  */
-new Codepress_Admin_Columns();
+new CPAC();

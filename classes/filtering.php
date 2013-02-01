@@ -105,12 +105,12 @@ class CPAC_Filtering_Columns {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $storage_key
+	 * @param string $key
 	 * @return array Columns
 	 */
-	function get_columns_with_enabled_filtering( $storage_key ) {
+	function get_columns_with_enabled_filtering( $key ) {
 		// get stored columns
-		if( ! $columns = CPAC_Utility::get_stored_columns( $storage_key ) )
+		if( ! $columns = CPAC_Utility::get_stored_columns( $key ) )
 			return false;
 
 		foreach ( $columns as $column_name => $column ){
@@ -168,13 +168,13 @@ class CPAC_Filtering_Columns {
 	 * @param Post Type
 	 * @return array
      */
-    public function get_meta_values( $meta_key = '', $storage_key = '' ) {
+    public function get_meta_values( $meta_key = '', $key = '' ) {
         if ( ! $meta_key )
 			return false;
 
 		global $wpdb;
 
-		$values = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_value FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value != '' ORDER BY 1", $storage_key, $meta_key ), ARRAY_N );
+		$values = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_value FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s AND pm.meta_key = %s AND pm.meta_value != '' ORDER BY 1", $key, $meta_key ), ARRAY_N );
 
 		if ( is_wp_error( $values ) )
 			$values = false;
@@ -224,7 +224,7 @@ class CPAC_Filtering_Columns {
 					$type = new CPAC_Columns_Post( $post_type_object->name );
 
 					$options = array();
-					if ( $values = $this->get_meta_values( $column['field'], $type->properties->storage_key ) ) {
+					if ( $values = $this->get_meta_values( $column['field'], $type->properties->key ) ) {
 						foreach ( $values as $value ) {
 							$field_value = $value[0];
 

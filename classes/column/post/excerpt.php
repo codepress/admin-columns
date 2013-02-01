@@ -4,18 +4,18 @@
  *
  * @since 2.0.0
  */
-class CPAC_Column_Post_Excerpt extends CPAC_Column_Post {
+class CPAC_Column_Post_Excerpt extends CPAC_Column {
 
-	function __construct( $storage_key ) {		
-
-		// define additional options
-		$this->options['excerpt_length'] = 30;
-						
-		// define properties	
-		$this->properties['column_name'] = 'column-excerpt';		
-		$this->properties['type_label']	 = __( 'Excerpt', CPAC_TEXTDOMAIN );		
+	function __construct( $storage_model ) {		
 		
-		parent::__construct( $storage_key );
+		// define properties		
+		$this->properties['type']	 	= 'column-excerpt';
+		$this->properties['label']	 	= __( 'Excerpt', CPAC_TEXTDOMAIN );
+			
+		// define additional options
+		$this->options['excerpt_length'] = 30;		
+		
+		parent::__construct( $storage_model );
 	}
 	
 	/**

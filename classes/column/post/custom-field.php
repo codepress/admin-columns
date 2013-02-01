@@ -5,10 +5,15 @@
  *
  * @since 2.0.0
  */
-class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
+class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 
-	function __construct( $storage_key ) {		
-				
+	function __construct( $storage_model ) {		
+		
+		// define properties		
+		$this->properties['type']	 	= 'column-meta';
+		$this->properties['label']	 	= __( 'Custom Field', CPAC_TEXTDOMAIN );
+		$this->properties['classes']	= 'cpac-box-metafield';		
+		
 		// define additional options
 		$this->options['field']			= '';
 		$this->options['field_type']	= '';
@@ -21,11 +26,10 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 		$this->options['image_size_h']	= 80;
 		
 		// define properties
-		$this->properties['column_name'] = 'custom-field';
-		$this->properties['type_label']	 = __( 'Custom Field', CPAC_TEXTDOMAIN );
-		$this->properties['classes']	 = 'cpac-box-metafield';
+		$this->properties['label']	 		= __( 'Custom Field', CPAC_TEXTDOMAIN );
+		$this->properties['classes']	 	= 'cpac-box-metafield';		
 		
-		parent::__construct( $storage_key );
+		parent::__construct( $storage_model );
 	}
 	
 	/**
@@ -36,14 +40,6 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 	 */
 	function get_value( $post_id ) {
 		
-		
-	}
-	
-	/**
-	 * @see CPAC_Column::get_sortable_vars()
-	 * @since 2.0.0
-	 */
-	function get_sortable_vars( $vars, $posts = array() ) {		
 	}
 	
 	/**
@@ -77,22 +73,23 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column_Post {
 	 * @since 2.0.0
 	 */
 	function display_settings() {
+				
+		?>
 		
-		// only display if there are meta keys available
-		if ( ! $this->get_meta_keys() )
-			return false;
-		
-		?>			
 		<tr class="column_field">			
 			<?php $this->label_view( __( "Custom Field", CPAC_TEXTDOMAIN ), '', 'field' ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
-				
-				<?php foreach ( $this->get_meta_keys( $this->options->storage_key ) as $field ) : ?>
+			<td class="input">				
+			
+				<?php if ( $meta_keys = $this->storage_model->get_meta_keys() ) : ?>				
+				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">				
+				<?php foreach ( $meta_keys as $field ) : ?>
 					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace('cpachidden','', $field ) : $field; ?></option>
-				<?php endforeach; ?>
-				
+				<?php endforeach; ?>				
 				</select>
+				<?php else : ?>
+					<?php _e( 'No custom fields available.', CPAC_TEXTDOMAIN ); ?>
+				<?php endif; ?>
+				
 			</td>
 		</tr>
 		

@@ -97,8 +97,7 @@ class CPAC_Settings {
 
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable' ), CPAC_VERSION );
-		wp_enqueue_script( 'cpac-custom-fields', CPAC_URL.'/assets/js/custom-fields.js', array( 'cpac-admin-columns' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );		
 		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL.'/assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
 
 		// javascript translations
@@ -120,9 +119,9 @@ class CPAC_Settings {
 	public function ajax_activation() {
 		// keys
 		$key 	= $_POST['key'];
-		$type 	= $_POST['type'];
+		$storage_model 	= $_POST['type'];
 
-		$licence = new CPAC_Licence( $type );
+		$licence = new CPAC_Licence( $storage_model );
 
 		// update key
 		if ( $key == 'remove' ) {
@@ -152,22 +151,25 @@ class CPAC_Settings {
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( CPAC_SLUG, CPAC_SETTINGS_SLUG ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
-		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
-		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
-		$type 	= isset( $_REQUEST['cpac_type'] ) 	? $_REQUEST['cpac_type'] 	: '';
+		$action 		= isset( $_REQUEST['cpac_action'] ) 		? $_REQUEST['cpac_action'] 	: '';
+		$nonce  		= isset( $_REQUEST['_cpac_nonce'] ) 		? $_REQUEST['_cpac_nonce'] 	: '';
+		$key 	= isset( $_REQUEST['cpac_key'] ) 	? $_REQUEST['cpac_key'] 	: '';
 
 		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-					$this->store_wp_default_columns();
-					$this->update_settings_by_type( $type );
+				
+					$storage_model = CPAC_Utility::get_storage_model( $key );
+					$storage_model->store();
 				}
 				break;
 
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
-					$this->restore_settings_by_type( $type );
+					
+					$storage_model = CPAC_Utility::get_storage_model( $key );
+					$storage_model->restore();
 				}
 				break;
 
@@ -191,19 +193,19 @@ class CPAC_Settings {
 	public function get_export_multiselect_options() {
 		$options = array();
 
-		foreach ( CPAC_Utility::get_types() as $type ) {
+		foreach ( CPAC_Utility::get_storage_models() as $storage_model ) {
 
-			if ( ! CPAC_Utility::get_stored_columns( $type->storage_key ) )
+			if ( ! CPAC_Utility::get_stored_columns( $storage_model->key ) )
 				continue;
 
 			// General group
-			if ( in_array( $type->storage_key, array( 'wp-comments', 'wp-links', 'wp-users', 'wp-media' ) ) ) {
-				$options['general'][] = $type;
+			if ( in_array( $storage_model->key, array( 'wp-comments', 'wp-links', 'wp-users', 'wp-media' ) ) ) {
+				$options['general'][] = $storage_model;
 			}
 
 			// Post(types) group
 			else {
-				$options['posts'][] = $type;
+				$options['posts'][] = $storage_model;
 			}
 		}
 
@@ -223,25 +225,25 @@ class CPAC_Settings {
 
 		// Posts
 		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$type = new CPAC_Columns_Post( $post_type );
-			$wp_default_columns[$type->storage_key] = $type->get_default_columns();
+			$storage_model = new CPAC_Columns_Post( $post_type );
+			$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
 		}
 
 		// Users
-		$type = new CPAC_Columns_User();
-		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
+		$storage_model = new CPAC_Columns_User();
+		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
 
 		// Media
-		$type = new CPAC_Columns_Media();
-		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
+		$storage_model = new CPAC_Columns_Media();
+		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
 
 		// Links
-		$type = new CPAC_Columns_Link();
-		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
+		$storage_model = new CPAC_Columns_Link();
+		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
 
 		// Comments
-		$type = new CPAC_Columns_Comment();
-		$wp_default_columns[$type->storage_key] = $type->get_default_columns();
+		$storage_model = new CPAC_Columns_Comment();
+		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
 
 		update_option( 'cpac_options_default', $wp_default_columns );
 	}
@@ -251,17 +253,17 @@ class CPAC_Settings {
 	 *
 	 * @since 1.5.0
 	 */
-	private function update_settings_by_type( $type ) {
-		if ( ! $type )
+	private function update_settings_by_type( $storage_model ) {
+		if ( ! $storage_model )
 			return false;
 
 		$options = (array) get_option( 'cpac_options' );
 
 		if ( ! empty( $_POST['cpac_options'] ) ) {
-			$options['columns'][$type] = stripslashes_deep( $_POST['cpac_options']['columns'][$type] );
+			$options['columns'][$storage_model] = stripslashes_deep( $_POST['cpac_options']['columns'][$storage_model] );
 
 			// place active columns on top
-			$options['columns'][$type] = $this->reorder_by_state( $options['columns'][$type] );
+			$options['columns'][$storage_model] = $this->reorder_by_state( $options['columns'][$storage_model] );
 
 			// save settings
 			update_option( 'cpac_options', $options );
@@ -272,41 +274,14 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Restore Defaults by Type
-	 *
-	 * @since 1.5.0
-	 */
-	private function restore_settings_by_type( $type ) {
-		if ( ! $type )
-			return false;
-
-		// restore stored options
-		$options = get_option( 'cpac_options' );
-
-		if ( isset(  $options['columns'][$type] ) ) {
-			unset( $options['columns'][$type] );
-		}
-		update_option( 'cpac_options', $options );
-
-		// restore default options
-		$options = get_option( 'cpac_options_default' );
-
-		if ( isset(  $options['columns'][$type] ) ) {
-			unset( $options['columns'][$type] );
-		}
-		update_option( 'cpac_options_default', $options );
-
-		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
-	}
-
-	/**
 	 * Restore defaults
 	 *
 	 * @since 1.0.0
 	 */
 	private function restore_settings() {
-		delete_option( 'cpac_options' );
-		delete_option( 'cpac_options_default' );
+		global $wpdb;
+		
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
 
 		CPAC_Utility::admin_message( "<p>" . __( 'Default settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
 	}
@@ -405,24 +380,24 @@ class CPAC_Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $storage_key
+	 * @param string $key
 	 * @return bool
 	 */
-	function is_menu_type_current( $storage_key ) {
+	function is_menu_type_current( $key ) {
 		// referer
-		$referer = ! empty($_REQUEST['cpac_type']) ? $_REQUEST['cpac_type'] : '';
+		$referer = ! empty($_REQUEST['cpac_key']) ? $_REQUEST['cpac_key'] : '';
 
 		// get first element from post-types
 		$first = array_shift( array_values( CPAC_Utility::get_post_types() ) );
 
 		// display the page that was being viewed before saving
 		if ( $referer ) {
-			if ( $referer == CPAC_Utility::sanitize_string( $storage_key ) ) {
+			if ( $referer == CPAC_Utility::sanitize_string( $key ) ) {
 				return true;
 			}
 
 		// settings page has not yet been saved
-		} elseif ( $first == $storage_key  ) {
+		} elseif ( $first == $key  ) {
 			return true;
 		}
 
@@ -434,10 +409,10 @@ class CPAC_Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $type URL type.
+	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
-	function get_url( $type = '' ) {
+	function get_url( $storage_model = '' ) {
 		$urls = array(
 			'codepress'		=> 'http://www.codepress.nl/',
 			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
@@ -448,10 +423,10 @@ class CPAC_Settings {
 			'feedback'		=> 'http://www.admincolumns.com/feedback/',
 		);
 
-		if ( !isset($urls[$type]) )
+		if ( !isset($urls[$storage_model]) )
 			return false;
 
-		return $urls[$type];
+		return $urls[$storage_model];
 	}
 
 	/**
@@ -460,7 +435,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function column_settings() {
-
+		
 		// Licenses
 		$licenses = array(
 			'sortable' 		=> new CPAC_Licence( 'sortable' ),
@@ -475,23 +450,24 @@ class CPAC_Settings {
 
 			<div class="cpac-menu">
 				<ul class="subsubsub">
-					<?php foreach ( CPAC_Utility::get_types() as $k => $type ) : ?>
-					<li><?php echo $k != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $type->storage_key; ?>" <?php echo $this->is_menu_type_current( $type->storage_key ) ? ' class="current"' : '';?> ><?php echo $type->label; ?></a></li>
+					<?php $count = 0; ?>
+					<?php foreach ( CPAC_Utility::get_storage_models() as $storage_model ) : ?>
+					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $this->is_menu_type_current( $storage_model->key ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
 
-			<?php foreach ( CPAC_Utility::get_types() as $type ) : ?>
+			<?php foreach ( CPAC_Utility::get_storage_models() as $storage_model ) : ?>
 
-			<div class="columns-container" data-type="<?php echo $type->storage_key ?>"<?php echo $this->is_menu_type_current( $type->storage_key ) ? '' : ' style="display:none"'; ?>>
+			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $this->is_menu_type_current( $storage_model->key ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">
 
 				<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
-				<input type="hidden" name="cpac_type" value="<?php echo $type->storage_key; ?>" />
+				<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
 
 				<div class="columns-left">
 					<div id="titlediv">
-						<h2><?php echo $type->label; ?></h2>
+						<h2><?php echo $storage_model->label; ?></h2>
 					</div>
 				</div>
 
@@ -502,8 +478,8 @@ class CPAC_Settings {
 								<?php _e( 'Publish', CPAC_TEXTDOMAIN ) ?>
 							</h3>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_type' => $type->storage_key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
-									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $type->label; ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
+								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
 								</a>
 							</div>
 							<div class="form-update">
@@ -542,30 +518,23 @@ class CPAC_Settings {
 				<div class="columns-left">
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
-
-							<?php foreach ( $type->get_columns() as $column ) : ?>
-	
-								<?php $column->display(); ?>
-
-							<?php endforeach // get_column_boxes() ?>
+							
+							<?php $storage_model->render(); ?>
 
 						</div><!--.cpac-columns-->
 
 						<div class="column-footer">
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', CPAC_TEXTDOMAIN ); ?></div>
-
-							<div class="add-customfield-column-container">
-							<?php if ( false ) : ?>
-							<?php // @todo: fix placement of buttons if ( $type->get_meta_keys() ) : ?>
-								<?php if ( $licenses['customfields']->is_unlocked() ) : ?>
-									<a href="javascript:;" class="add-customfield-column button">+ <?php _e( 'Add Custom Field Column', CPAC_TEXTDOMAIN );?></a>
-								<?php else : ?>
-									<p><?php _e( 'Multipe Custom Fields is not activated.', CPAC_TEXTDOMAIN ); ?>
-								<?php endif; ?>
-							<?php else : ?>
-								<p><?php _e( 'No meta data available', CPAC_TEXTDOMAIN ); ?>
-							<?php endif; ?>
-							</div><!--.a-right-->
+							
+							<?php 
+							/**
+							 * Use this hook to add stuff to the footer
+							 *
+							 * @since 2.0.0
+							 */
+							do_action( 'cpac_column_footer', $storage_model ); 
+							
+							?>							
 
 						</div><!--.cpac-column-footer-->
 					</div><!--.cpac-boxes-->
@@ -708,8 +677,8 @@ class CPAC_Settings {
 									?>
 									<?php foreach ( $groups as $group_key => $group ) : ?>
 									<optgroup label="<?php echo $labels[$group_key];?>">
-										<?php foreach ( $group as $type ) : ?>
-										<option value="<?php echo $type->storage_key; ?>"><?php echo $type->label; ?></option>
+										<?php foreach ( $group as $storage_model ) : ?>
+										<option value="<?php echo $storage_model->key; ?>"><?php echo $storage_model->label; ?></option>
 										<?php endforeach; ?>
 									</optgroup>
 									<?php endforeach; ?>

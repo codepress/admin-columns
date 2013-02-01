@@ -3,6 +3,12 @@
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
 }
+#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
+	background: transparent url('../images/icon_20.png') no-repeat 6px 6px;
+}
+#adminmenu #toplevel_page_codepress-admin-columns:hover .wp-menu-image {
+	background-position: 6px -24px;
+}
 .cpac-settings-link {
 	float: right;
 	margin: 12px 14px 5px 0;
@@ -278,20 +284,6 @@ tr.column_image_size.hidden {
 	vertical-align: middle;
 	float: right;
 }
-.column-form tr.column_action td a.cpac-delete-custom-field-box {
-	border-bottom: 1px solid #FF0000;
-    color: #FF0000;
-    display: inline-block;
-    padding: 0 3px;
-    text-decoration: none;
-    text-shadow: none;
-}
-.column-form tr.column_action td a.cpac-delete-custom-field-box:hover {
-    background-color: #FF0000;
-    border-bottom-color: #FF0000;
-    color: #FFFFFF;
-    text-decoration: none;
-}
 
 /* =Column Footer
 -------------------------------------------------------------- */
@@ -313,26 +305,6 @@ tr.column_image_size.hidden {
     padding: 7px 0 0 22px;
     text-shadow: 0 1px 0 #FFFFFF;
 	display: inline-block;
-}
-.column-footer .add-customfield-column-container {
-	float: right;
-	display: inline-block;
-}
-.column-footer .add-customfield-column-container p {
-	margin: 4px;
-	color: #7A9BBE;
-}
-.column-footer .add-customfield-column {
-	float: right;
-}
-.column-footer .add-customfield-column.disabled {
-	color: #BBBBBB;
-	cursor: help;
-}
-.column-footer .add-customfield-column.disabled:hover ,
-.column-footer .add-customfield-column.disabled:focus {
-	border-color: #BBBBBB;
-	box-shadow: none;
 }
 
 /* =Sidebar

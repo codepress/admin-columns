@@ -1,47 +1,22 @@
 <?php
 /**
- * _codepress_get_column_class
- *
- * @todo: turn into some factory class
- * @since 2.0.0
- *
- * @param string $storage_key
- * @param string $column_name
- * @param string $args
- *
- * @return object Column
- */
-/* 
-function _codepress_get_column_class( $column_name, $storage_key, $args ) {
-	
-	$classes = array(		
-		'column-featured_image'	=> 'CPAC_Column_Post_Featured_Image',
-		'column-excerpt'		=> 'CPAC_Column_Post_Excerpt',		
-		
-		// @todo: for each column-meta-XXXX we need to add an instance of CPAC_Column_Post_Custom_Field
-		'column-meta-1'			=> 'CPAC_Column_Post_Custom_Field'		
-	);
-	
-	// default Class
-	$class = 'CPAC_Column';
-	
-	// defined Class
-	if ( isset( $classes[$column_name] ) ) {
-		$class = $classes[$column_name];
-	}
-
-	return new $class( $column_name, $storage_key, $args );
-} 
-*/
-
-
-/**
  * CPAC_Column class
  *
  * @since 2.0.0
+ *
+ * @param string $key Unique key for the Type which this columns belongs too.
+ * @param string $column_name Unique name for this column.	
+ * @param string $id		  Unique ID for this column instance.	
  */
 class CPAC_Column {
-		
+	
+	/**
+	 * Storage Model
+	 *
+	 * @since 2.0.0
+	 */
+	protected $storage_model;
+	
 	/**
 	 * Options set by User
 	 *
@@ -57,26 +32,6 @@ class CPAC_Column {
 	public $properties = array();
 	
 	/**
-	 * Get Value
-	 *
-	 * @todo make interface
-	 * @since 2.0.0
-	 */
-	function get_value( $post_id ) {}
-
-	/**
-	 * Get Sortable vars
-	 *
-	 * @todo make interface
-	 * @since 2.0.0
-	 *
-	 * @param array $vars Requested WP_Query vars
-	 * @param array $posts Posts
-	 * @return array WP_Query vars
-	 */
-	function get_sortable_vars( $vars, $posts = array() ) {}
-	
-	/**
 	 * Display_settings
 	 *
 	 * @since 2.0.0	
@@ -88,57 +43,107 @@ class CPAC_Column {
 	 *
 	 * @since 2.0.0
 	 */
-	public function __construct( $storage_key, $column_name = '', $label = '' ) {
+	public function __construct( CPAC_Storage_Model $storage_model ) {
+		
+		// set storage model
+		$this->storage_model = $storage_model;
 		
 		// every column contains these default properties
-		$default_properties = apply_filters( 'cpac_column_default_properties', array(
-			'storage_key'	=> $storage_key,	// Unique key for the Type which this columns belongs too.
-			'column_name'	=> $column_name, 	// Unique name for this column.
-			'type_label'	=> $label,			// Label which describes this column.
-			'classes'		=> '',				// Custom CSS classes for this column.
-		));
+		$default_properties = array(						
+			'type'				=> null,  	// Unique type
+			'name'				=> null,  	// Unique name
+			'clone'				=> null,	// Unique clone ID
+			'label'				=> null,  	// Label which describes this column.			
+			'classes'			=> null,	// Custom CSS classes for this column.
+			'editable_label'	=> true,	// Should the Label be editable?
+		);
 		
 		// merge arguments with defaults. turn into object for easy handling
-		$this->properties = (object) array_merge( $default_properties, $this->properties );
-
+		$this->properties = (object) apply_filters( 'cpac_column_properties', array_merge( $default_properties, $this->properties ), $this );
+		
+		// set column name to column type
+		$this->properties->name = $this->properties->type;
+		
 		// every column contains these default options
 		$default_options = apply_filters( 'cpac_column_default_options', array(
-			'label'			=> $label,	// Label for this column.
-			'width'			=> null,	// Width for this column.
-			'state'			=> false,	// Active state for this column.
+			'label'			=> $this->properties->label,	// Label for this column.
+			'width'			=> null,						// Width for this column.
+			'state'			=> 'off',						// Active state for this column.
 		));
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
-		$this->options = (object) array_merge( $default_options, $this->options, $this->get_options() );
+		$this->options = (object) array_merge( $default_options, $this->options, $this->read() );
 	}
 	
 	/**
-	 * Set Column Name
+	 * Set Label
 	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $column_name	 
+	 * @param string $label
+	 * @return object
 	 */
-	function set_column_name( $column_name ) {
-	
-		$this->properties->column_name = $column_name;
+	function set_label( $label ) {
+		
+		$this->properties->label 	= $label;
+		$this->options->label 		= $label;
+		
+		return $this;
 	}
 	
 	/**
-	 * Get Column options
+	 * Set Type
 	 *
-	 * @since 2.0.0
-	 *
-	 * @return array Column options
+	 * @param string $type
+	 * @return object
 	 */
-	function get_options() {
+	function set_type( $type ) {
 		
-		$options = get_option('cpac_options');
+		$this->properties->type = $type;
+		$this->properties->name = $type;
 		
-		if ( empty( $options['columns'] ) || empty( $options['columns'][$this->properties->storage_key] ) || empty( $options['columns'][$this->properties->storage_key][$this->properties->column_name] ) )
-			return array();
+		return $this;
+	}
+	
+	/**
+	 * Set Clone
+	 *
+	 * @param int $id
+	 * @return object
+	 */
+	function set_clone( $id = null ) {
 		
-		return $options['columns'][$this->properties->storage_key][$this->properties->column_name];
+		if ( $id !== null && $id > 0 ) {
+
+			$this->properties->name = "{$this->properties->type}-{$id}";
+			$this->properties->clone = $id;
+		}	
+				
+		return $this;
+	}
+	
+	/**
+	 * Set Editable Label
+	 *
+	 * @param string $label
+	 * @return object
+	 */
+	function set_editable_label( $label ) {
+		
+		$this->properties->editable_label = false;
+
+		return $this;
+	}
+	
+	/**
+	 * Set State
+	 *
+	 * @param string $state on | off
+	 * @return object
+	 */
+	function set_state( $state = 'off' ) {
+				
+		$this->options->state = $state;
+		
+		return $this->storage_model;
 	}
 	
 	/**
@@ -147,8 +152,8 @@ class CPAC_Column {
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
-	function attr_name( $field_key ) {
-		echo "cpac_options[columns][{$this->properties->storage_key}][{$this->properties->column_name}][{$field_key}]";
+	function attr_name( $field_name ) {
+		echo "columns[{$this->properties->name}][{$field_name}]";
 	}
 	
 	/**
@@ -157,8 +162,25 @@ class CPAC_Column {
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
-	function attr_id( $field_key ) {
-		echo "cpac-{$this->properties->storage_key}-{$this->properties->column_name}-{$field_key}";
+	function attr_id( $field_name ) {
+		echo "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
+	}
+	
+	/**
+	 * Read options
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Column options
+	 */
+	function read() {
+		
+		$options = (array) get_option( "cpac_options_{$this->storage_model->key}" );
+
+		if ( empty( $options[$this->properties->name] ) )
+			return array();
+
+		return $options[$this->properties->name];
 	}
 	
 	/**
@@ -183,7 +205,7 @@ class CPAC_Column {
 		}
 
 		return $image_sizes;
-	}
+	} 
 	
 	/**
 	 * Get Image Sizes by name
@@ -309,7 +331,7 @@ class CPAC_Column {
 	function label_view( $label, $description = '', $pointer = '' ) {		
 		?>
 		<td class="label">
-			<label for="cpac-<?php echo "{$this->properties->storage_key}-{$this->properties->column_name}-{$pointer}"; ?>">
+			<label for="<?php $this->attr_id( $pointer ); ?>">
 				<?php echo $label; ?>
 			</label>
 			<?php if( $description ) : ?>
@@ -364,13 +386,16 @@ class CPAC_Column {
 		
 		// classes
 		$active 	= 'on' == $this->options->state ? 'active' : '';
-		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->column_name}", $this->properties->classes, $active ) ) );
+		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
 		
 		$licenses = CPAC_Utility::get_licenses();
-		
+
 		?>
-		<div class="cpac-column <?php echo $classes; ?>">
+				
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>" data-clone="<?php echo $this->properties->clone; ?>">
 			<div class="column-meta">
+				<input type="hidden" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>" />
+				<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>" />
 				<table class="widefat">
 					<tbody>
 						<tr>
@@ -383,13 +408,13 @@ class CPAC_Column {
 									<?php echo $this->options->label; ?>
 								</a>
 								<span class="meta-label">
-								<?php //if ( $licenses['sortable']->is_unlocked() && ( $this->options->sort || in_array( $this->properties->column_name, array( 'title', 'date' ) ) ) ) : ?>
+								<?php //if ( $licenses['sortable']->is_unlocked() && ( $this->options->sort || in_array( $this->properties->name, array( 'title', 'date' ) ) ) ) : ?>
 									<span class="sorting enable"><?php _e( 'sorting',  CPAC_TEXTDOMAIN )?></span>
 								<?php //endif; ?>
 								</span>
 							</td>
 							<td class="column_type">
-								<?php echo $this->properties->type_label; ?>
+								<?php echo $this->properties->label; ?>
 							</td>
 							<td class="column_edit"></td>
 						</tr>
@@ -400,12 +425,16 @@ class CPAC_Column {
 			<div class="column-form">
 				<table class="widefat">
 					<tbody>
+						
+						<?php if ( $this->properties->editable_label ) : ?>
 						<tr class="column_label">						
 							<?php $this->label_view( __( 'Label', CPAC_TEXTDOMAIN ), __( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ), 'label' ); ?>							
 							<td class="input">
 								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); ?>" />
 							</td>
-						</tr>
+						</tr><!--.column_label-->
+						<?php endif; ?>
+						
 						<tr class="column_width">						
 							<?php $this->label_view( __( 'Width', CPAC_TEXTDOMAIN ), '', 'width' ); ?>
 							<td class="input">
@@ -416,7 +445,7 @@ class CPAC_Column {
 								<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />
 								
 							</td>
-						</tr>
+						</tr><!--.column_width-->
 						
 						<?php do_action( 'cpac_before_column_settings', $this ); ?>
 						

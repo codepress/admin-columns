@@ -8,7 +8,6 @@ jQuery(document).ready(function()
 		return false;
 
 	cpac_sortable();
-	cpac_box_events();
 	cpac_menu();
 	cpac_clear_input_defaults();
 	cpac_addon_activation();
@@ -17,68 +16,35 @@ jQuery(document).ready(function()
 	cpac_sidebar_scroll();
 	cpac_export_multiselect();
 	cpac_import();
+	
+	/** init form events */
+	jQuery( '.cpac-column' ).cpac_form_events();
+	
+	/** checkbox label */
+	jQuery('.column_label a input').prop('disabled', true);
 });
 
 /*
- * Sortable
+ * Form Events
  *
- * @since 1.5
+ * @since 2.0.0
  */
-function cpac_sortable()
-{
-	jQuery('.cpac-columns').sortable({
-		handle: 'td.column_sort',
-		placeholder: 'cpac-placeholder',
-		forcePlaceholderSize: true
-	});
-}
-
-/*
- * Open Form
- *
- * @since 1.5
- */
-function open_form( e ) {
-	var box = jQuery(e).closest('.cpac-column');
-
-	jQuery('.column-form', box).slideToggle(150, function() {
-		box.toggleClass('opened');
-	});
-}
-
-/*
- * Open and close box
- *
- * @since 1.5
- */
-function cpac_box_events()
-{
+jQuery.fn.cpac_form_events = function() {
+	
+	var column = jQuery( this );
+	
 	/** fold in/out */
-	jQuery('.column_edit').unbind('click').click( function(){
-		open_form( this );
-	});
-	jQuery('.column_label a').unbind('click').click( function(){
-		open_form( this );
-	});
+	jQuery( '.column_edit, .column_label a', column ).click( function(){
+		var box = jQuery( this ).closest( '.cpac-column' );
 
-	/** remove custom field box */
-	jQuery('#cpac .cpac-delete-custom-field-box').unbind('click').click(function(e){
-
-		var el = jQuery(this).closest('div.cpac-column');
-
-		el.addClass('deleting').animate({
-			opacity : 0,
-			height: 0
-		}, 350, function() {
-			el.remove();
+		jQuery( '.column-form', box ).slideToggle( 150, function() {
+			box.toggleClass( 'opened' );
 		});
-
-		e.preventDefault();
 	});
-
+		
 	/** set state */
-	jQuery('.column-meta td').not('.column_edit, .column_sort').unbind('click').click( function(e) {
-
+	jQuery( '.column-meta td', column ).not( '.column_edit, .column_sort' ).click( function(e) {
+				
 		// make sure the TD itself is clicked and not a child element
 		if ( this != e.target )
 			return;
@@ -86,7 +52,7 @@ function cpac_box_events()
 		var box 	= jQuery(this).closest('.cpac-column');
 		var state	= jQuery('.cpac-state', box);
 		var value 	= state.attr('value');
-
+	
 		// toggle on
 		if ( value != 'on') {
 			box.addClass('active');
@@ -99,24 +65,17 @@ function cpac_box_events()
 			state.attr('value', '');
 		}
 	});
+	
+	/** change label */	
+	jQuery( '.column_label .input input', column ).bind( 'keyup change', function() {
+		var value = jQuery( this ).val();
+		var label = jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label > a' );
 
-	/** change label */
-	var fields = jQuery('.column_label .input input');
-	fields.keyup(function() {
-		updatePreview( jQuery(this) );
+		label.text( value );		
 	});
-	fields.change(function() {
-		updatePreview( jQuery(this) );
-	});
-	function updatePreview( el ) {
-		var value = jQuery(el).val();
-		var label = jQuery(el).closest('.cpac-column').find('td.column_label > a');
-
-		label.text( value );
-	};
-
+	
 	/** init width slider */
-	jQuery('.input-width-range').each( function(){
+	jQuery( '.input-width-range', column ).each( function(){
 
 		var input 				= jQuery(this).closest('td').find('.input-width');
 		var descr 				= jQuery(this).closest('td').find('.width-decription');
@@ -143,9 +102,9 @@ function cpac_box_events()
 			}
 		});
 	});
-
+	
 	/** display custom image size */
-	jQuery('.column_image_size label.custom-size').click(function(){
+	jQuery( '.column_image_size label.custom-size', column ).click( function(){
 
 		var parent = jQuery(this).closest('.input');
 
@@ -158,12 +117,12 @@ function cpac_box_events()
 			jQuery('.custom-size-w', parent).addClass('hidden');
 			jQuery('.custom-size-h', parent).addClass('hidden');
 		}
-	});
-
+	});	
+	
 	/** select image custom field type */
-	jQuery('.column_field_type .input select option').click( function(){
-		var image_size = jQuery(this).closest('table').find('.column_image_size').show();
-		var value = jQuery(this).attr('value');
+	jQuery( '.column_field_type .input select option', column ).click( function(){
+		var image_size 	= jQuery(this).closest('table').find('.column_image_size').show();
+		var value 		= jQuery(this).attr('value');
 
 		if( 'image' == value || 'library_id' == value ) {
 			image_size.show();
@@ -171,6 +130,21 @@ function cpac_box_events()
 		else {
 			image_size.hide();
 		}
+	});
+	
+}
+
+/*
+ * Sortable
+ *
+ * @since 1.5
+ */
+function cpac_sortable()
+{
+	jQuery('.cpac-columns').sortable({
+		handle				 : 'td.column_sort',
+		placeholder			 : 'cpac-placeholder',
+		forcePlaceholderSize : true
 	});
 }
 
@@ -222,7 +196,6 @@ function cpac_clear_input_defaults()
 	};
 	jQuery("#cpac-box-plugin_settings .addons input").cleardefault();
 }
-
 
 /*
  *	Addon actviate/deactivate
@@ -283,7 +256,7 @@ function cpac_addon_activation()
 					//console.log(xhr);
 					//console.log(ajaxOptions);
 					//console.log(thrownError);
-					jQuery(msg).text(cpac_i18n.unrecognised).hide().fadeIn();
+					jQuery(msg).text( cpac_i18n.unrecognised ).hide().fadeIn();
 				},
 				complete: function() {
 					button.removeClass('loading');
@@ -409,7 +382,7 @@ function cpac_pointer()
 }
 
 /*
- * Sidebar Fixed Scroll
+ * Sidebar Scroll
  *
  * @since 1.5
  */
@@ -464,7 +437,7 @@ function cpac_export_multiselect()
 }
 
 /*
- * Custom Image Size
+ * Import
  *
  * @since 1.5
  */

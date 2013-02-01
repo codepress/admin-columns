@@ -8,30 +8,33 @@ class CPAC_Utility {
 	 *
 	 * @return array CPAC types objects
 	 */
-	public static function get_types()
-	{
-		$types = array();
+	public static function get_storage_models() {	
+		$storage_models = array();
 		
 		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$types[] = new CPAC_Type_Post( $post_type );
+			$storage_model = new CPAC_Storage_Model_Post( $post_type );
+			
+			$storage_models[ $storage_model->key ] = $storage_model;
 		}
-
-		return $types;
 		
+		return $storage_models;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array CPAC types objects
+	 */
+	public static function get_storage_model( $key ) {
+		$storage_models = CPAC_Utility::get_storage_models();
+				
+		if ( ! isset( $storage_models[ $key ] ) )
+			return false;
 		
-		/* $types = array();
-
-		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$types[] = new CPAC_Columns_Post( $post_type );
-		}
-
-		$types[] = new CPAC_Columns_User();
-		$types[] = new CPAC_Columns_Media();
-		$types[] = new CPAC_Columns_Link();
-		$types[] = new CPAC_Columns_Comment();
-
-		return $types; */
-	} 	
+		return $storage_models[ $key ];
+	}
 	
 	/**
 	 * Get post types
@@ -163,18 +166,18 @@ class CPAC_Utility {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @paran string $storage_key
+	 * @paran string $key
 	 * @return array Column options
 	 */
-	public static function get_stored_columns( $storage_key ) {
+	public static function get_stored_columns( $key ) {
 		// get plugin options
 		$options = get_option('cpac_options');
 
 		// get saved columns
-		if ( empty( $options['columns'][$storage_key] ) )
+		if ( empty( $options['columns'][$key] ) )
 			return false;
 
-		return $options['columns'][$storage_key];
+		return $options['columns'][$key];
 	}
 
 	/**
