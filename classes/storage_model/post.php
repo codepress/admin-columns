@@ -5,12 +5,14 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	function __construct( $post_type ) {		
 		
 		$this->key 		= $post_type;		
 		$this->label 	= $this->get_label();
+		
+		add_filter( "manage_edit-{$post_type}_columns",  array( $this, 'add_headings' ) );
 		
 		parent::__construct();
 	}
@@ -190,5 +192,5 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$output = $this->get_shortened_string( $excerpt, 20 );
 
 		return $output;
-	}	
+	}
 }

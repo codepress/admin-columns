@@ -2,13 +2,7 @@
 -------------------------------------------------------------- */
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
-}
-#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
-	background: transparent url('../images/icon_20.png') no-repeat 6px 6px;
-}
-#adminmenu #toplevel_page_codepress-admin-columns:hover .wp-menu-image {
-	background-position: 6px -24px;
-}
+} 
 .cpac-settings-link {
 	float: right;
 	margin: 12px 14px 5px 0;
@@ -290,8 +284,9 @@ tr.column_image_size.hidden {
 .column-footer {
 	background: #EAF2FA;
 	border: 1px solid #c7d7e2;
-	height: 26px;
+	min-height: 26px;
 	padding: 8px;
+	overflow: hidden;
 }
 .column-footer .order-message {
 	background: transparent url(../images/order_arrow.png) no-repeat 0 0;

@@ -1,40 +1,6 @@
 <?php
 class CPAC_Utility {
 
-	/**
-	 * Get column types
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return array CPAC types objects
-	 */
-	public static function get_storage_models() {	
-		$storage_models = array();
-		
-		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$storage_model = new CPAC_Storage_Model_Post( $post_type );
-			
-			$storage_models[ $storage_model->key ] = $storage_model;
-		}
-		
-		return $storage_models;
-	}
-
-	/**
-	 * Get type
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return array CPAC types objects
-	 */
-	public static function get_storage_model( $key ) {
-		$storage_models = CPAC_Utility::get_storage_models();
-				
-		if ( ! isset( $storage_models[ $key ] ) )
-			return false;
-		
-		return $storage_models[ $key ];
-	}
 	
 	/**
 	 * Get post types

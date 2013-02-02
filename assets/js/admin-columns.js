@@ -21,7 +21,7 @@ jQuery(document).ready(function()
 	jQuery( '.cpac-column' ).cpac_form_events();
 	
 	/** checkbox label */
-	jQuery('.column_label a input').prop('disabled', true);
+	jQuery( '.column-meta .column_label input, .column-meta .column_type input' ).prop( 'disabled', true );
 });
 
 /*

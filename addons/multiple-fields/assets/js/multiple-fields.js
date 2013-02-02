@@ -62,8 +62,6 @@ function cpac_cloning() {
 			}			
 		});	
 		
-		
-		
 		// increment clone
 		clone.find( 'input.clone' ).val( id );
 		
@@ -71,8 +69,9 @@ function cpac_cloning() {
 		clone.find('.remove-description').remove();
 		
 		// change label text
-		clone.find( 'td.column_label a, tr.column_label input.text' ).text( cpac_i18n.customfield );
-		clone.find( 'tr.column_label input.text' ).val( cpac_i18n.customfield );
+		var label = jQuery( '.column-meta .column_type', clone ).text().trim();
+		clone.find( 'td.column_label a, tr.column_label input.text' ).text( label );
+		clone.find( 'tr.column_label input.text' ).val( label );
 		
 		// add remove button	
 		if ( clone.find( '.remove-button' ).length == 0 ) {			
@@ -112,80 +111,4 @@ jQuery.fn.cpac_remove_button = function() {
 		
 		e.preventDefault();
 	});
-}
-
-
-function _____cpac_cloning() {
-	
-	jQuery( '.clone-button' ).click( function(e) {
-		
-		var column_name		= jQuery( this ).attr( 'data-column_name' );
-		var all_columns		= jQuery( this ).closest( '.cpac-boxes' ).find( '.cpac-columns' );
-		var columns 		= jQuery( all_columns ).find( '.cpac-box-' + column_name );
-		
-		if ( columns.length == 0 )
-			return;
-		
-		// get an unique id
-		var id 		= 0;
-		var ids 	= jQuery.map( columns, function(val, i) { return parseInt( jQuery( val ).attr( 'data-id' ) ); }); // get all data-ids in an array
-		var max_id 	= Math.max.apply( null, ids ) + 1;
-		for ( var i=0; i<=max_id; i++ ) {
-			if ( jQuery.inArray( i + "", ids ) < 0 ) {
-				id = i;
-			}			
-		}		
-		
-		// create a clone
-		var clone = all_columns.find( '.cpac-box-' + column_name + '[data-id="0"]' ).clone().attr( 'data-id', id );
-		
-		// replace column identifier				
-		var inputs = jQuery( clone ).find( 'input, select', 'label' );
-		jQuery( inputs ).each( function( i, v ) {
-
-			// name		
-			if( jQuery(v).attr( 'name' ) ) {				
-				jQuery(v).attr( 'name', jQuery(v).attr( 'name' ).replace( '[0]', '[' + id + ']' ) );
-			}
-			
-			// for 
-			if( jQuery(v).attr( 'for' ) ) {
-				jQuery(v).attr( 'for', jQuery(v).attr( 'for' ).replace( '-0-', '-' + id + '-' ) );
-			}
-			
-			// id
-			if( jQuery(v).attr( 'id' ) ) {
-				jQuery(v).attr( 'id', jQuery(v).attr( 'id' ).replace( '-0-', '-' + id + '-' ) );
-			}			
-		});
-		
-		// remove description
-		clone.find('.remove-description').remove();
-		
-		// change label text
-		clone.find( 'td.column_label a, tr.column_label input.text' ).text( cpac_i18n.customfield );
-		clone.find( 'tr.column_label input.text' ).val( cpac_i18n.customfield );
-		
-		// add remove button	
-		if ( clone.find('.cpac-remove-column').length == 0 ) {			
-			clone.find('tr.column_action td.input').append( '<a href="javascript:;" class="remove-button">' + cpac_i18n.remove + '</a>' ).wrap('<p>');
-		}
-		
-		// add remove event
-		clone.find( '.remove-button' ).cpac_remove_button();		
-		
-		// add clone to columns
-		all_columns.append( clone );
-		
-		// rebind events
-		clone.cpac_form_events();		
-		
-		// open settings
-		clone.slideDown( 150, function() { clone.addClass( 'opened' ); });
-		
-		// focus on clone
-		jQuery('html,body').animate({ scrollTop: clone.offset().top }, 'slow');
-		
-		e.preventDefault();
-	});	
 }

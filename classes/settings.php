@@ -6,7 +6,12 @@
  * @since 2.0.0
  */
 class CPAC_Settings {
-
+	
+	/**
+	 * CPAC class
+	 */
+	private $parent;
+	
 	/**
 	 * Column Settings slug
 	 *
@@ -20,8 +25,12 @@ class CPAC_Settings {
 	 * Constructor
 	 *
 	 * @since 2.0.0
+	 * @param object CPAC
 	 */
-	function __construct() {
+	function __construct( $parent ) {	
+		
+		$this->parent = $parent;
+		
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
@@ -160,7 +169,7 @@ class CPAC_Settings {
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
 				
-					$storage_model = CPAC_Utility::get_storage_model( $key );
+					$storage_model = $this->parent->get_storage_model( $key );
 					$storage_model->store();
 				}
 				break;
@@ -168,7 +177,7 @@ class CPAC_Settings {
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
 					
-					$storage_model = CPAC_Utility::get_storage_model( $key );
+					$storage_model = $this->parent->get_storage_model( $key );
 					$storage_model->restore();
 				}
 				break;
@@ -193,9 +202,9 @@ class CPAC_Settings {
 	public function get_export_multiselect_options() {
 		$options = array();
 
-		foreach ( CPAC_Utility::get_storage_models() as $storage_model ) {
+		foreach ( $this->parent->storage_models as $storage_model ) {
 
-			if ( ! CPAC_Utility::get_stored_columns( $storage_model->key ) )
+			if ( ! $storage_model->get_stored_columns() )
 				continue;
 
 			// General group
@@ -451,13 +460,13 @@ class CPAC_Settings {
 			<div class="cpac-menu">
 				<ul class="subsubsub">
 					<?php $count = 0; ?>
-					<?php foreach ( CPAC_Utility::get_storage_models() as $storage_model ) : ?>
+					<?php foreach ( $this->parent->storage_models as $storage_model ) : ?>
 					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $this->is_menu_type_current( $storage_model->key ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
 
-			<?php foreach ( CPAC_Utility::get_storage_models() as $storage_model ) : ?>
+			<?php foreach ( $this->parent->storage_models as $storage_model ) : ?>
 
 			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $this->is_menu_type_current( $storage_model->key ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">

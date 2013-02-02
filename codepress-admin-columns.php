@@ -1,8 +1,4 @@
 <?php
-
-//delete_option( "cpac_options_slider" );
-
-
 /*
 
 Plugin Name: 		Codepress Admin Columns
@@ -59,10 +55,6 @@ require_once dirname( __FILE__ ) . '/classes/storage_model.php';
 require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
 
 
-// Settings page
-include_once dirname( __FILE__ ) . '/classes/settings.php';
-new CPAC_Settings;
-
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
@@ -84,9 +76,7 @@ require_once dirname( __FILE__ ) . '/classes/addon_filtering.php';
  */
 class CPAC
 {
-	public $types;
-	
-	public $columns;
+	public $storage_models;
 	
 	/**
 	 * Constructor
@@ -112,19 +102,81 @@ class CPAC
 	{		
 		// translations
 		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		
+				
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
 
 		// register columns
-		add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
-		add_action( 'admin_init', array( $this, 'register_columns_values' ) );
-
+		//add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
+		//add_action( 'admin_init', array( $this, 'register_columns_values' ) );		
+		
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
+		
+		// init
+		$this->set_storage_models();
+		
+		$this->init_controllers();
 	}
+	
+	/**
+	 * Get storage models
+	 *
+	 * @since 2.0.0
+	 *
+	 */
+	private function set_storage_models() {
+	
+		$storage_models = array();
+		
+		// include parent and childs
+		require_once dirname( __FILE__ ) . '/classes/storage_model.php';
+		require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
+		
+		// add models
+		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
+			$storage_model = new CPAC_Storage_Model_Post( $post_type );
+			
+			$storage_models[ $storage_model->key ] = $storage_model;
+		}
+		
+		// @todo: hook to add more models		
+		
+		$this->storage_models = $storage_models;
+	}
+	
+	/**
+	 * Get storage model
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array object Storage Model
+	 */
+	public function get_storage_model( $key ) {
+
+		if ( ! isset( $this->storage_models[ $key ] ) )
+			return false;
+		
+		return $this->storage_models[ $key ];
+	}
+	
+	/**
+	 * Init controllers
+	 *
+	 * @since 2.0.0
+	 *
+	 */
+	 function init_controllers() {
+		
+		// Includes
+		include_once CPAC_DIR . '/classes/settings.php';
+		
+		// Setup settings
+		new CPAC_Settings( $this );
+	 }
+	
 	
 	/**
 	 * Add Settings link to plugin page
@@ -145,145 +197,17 @@ class CPAC
 	}
 
 	/**
-	 * Register Column Values
-	 *
-	 * Initializes each Class per type
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_columns_values()
-	{
-		/* 
-		require_once dirname( __FILE__ ) . '/classes/values.php';
-		require_once dirname( __FILE__ ) . '/classes/values/posts.php';
-		require_once dirname( __FILE__ ) . '/classes/values/users.php';
-		require_once dirname( __FILE__ ) . '/classes/values/media.php';
-		require_once dirname( __FILE__ ) . '/classes/values/link.php';
-		require_once dirname( __FILE__ ) . '/classes/values/comments.php';
-
-		// Init
-		new CPAC_Posts_Values();
-		new CPAC_Link_Values();
-		new CPAC_Media_Values();
-		new CPAC_Users_Values();
-		new CPAC_Comments_Values(); 
-		*/
-	}
-	
-	/**
-	 * Register Columns Headings
-	 *
-	 * Register column headings for posttypes, users, media, links and comments
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_columns_headings()
-	{
-		/** Posts */
-	 	foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			add_filter("manage_edit-{$post_type}_columns",  array( $this, 'add_columns_headings_posts' ) );
-		}
-
-		/** Users */
-		// give higher priority, so it will load just before other plugins to prevent conflicts
-		add_filter( "manage_users_columns",  array( $this, 'add_columns_headings_users' ), 9 );
-
-		/** Media */
-		add_filter( "manage_upload_columns",  array( $this, 'add_columns_headings_media' ) );
-
-		/** Links */
-		add_filter( "manage_link-manager_columns",  array( $this, 'add_columns_headings_links' ) );
-
-		/** Comments */
-		add_filter( "manage_edit-comments_columns", array( $this, 'add_columns_headings_comments' ) );
-	}
-
-	/**
-	 * Callback add Posts Column
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $columns Registered columns
-	 * @return array Register columns with CPAC columns
-	 */
-	public function add_columns_headings_posts( $columns )
-	{
-		if( ! $post_type = get_post_type() )
-			return $columns;
-
-		$type = new CPAC_Columns_Post( $post_type );
-
-		return $type->add_columns_headings( $columns );
-	}
-
-	/**
-	 * Callback add Users column
-	 *
-	 * @since 1.1.0
-	 *
-	 * @param array $columns Registered columns
-	 * @return array Register columns with CPAC columns
-	 */
-	public function add_columns_headings_users( $columns )
-	{
-		$type = new CPAC_Columns_User;
-
-		return $type->add_columns_headings( $columns );
-	}
-
-	/**
-	 * Callback add Media column
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param array $columns Registered columns
-	 * @return array Register columns with CPAC columns
-	 */
-	public function add_columns_headings_media( $columns )
-	{
-		$type = new CPAC_Columns_Media;
-
-		return $type->add_columns_headings( $columns );
-	}
-
-	/**
-	 * Callback add Links column
-	 *
-	 * @since 1.3.1
-	 *
-	 * @param array $columns Registered columns
-	 * @return array Register columns with CPAC columns
-	 */
-	public function add_columns_headings_links( $columns )
-	{
-		$type = new CPAC_Columns_Link;
-
-		return $type->add_columns_headings( $columns );
-	}
-
-	/**
-	 * Callback add Comments column
-	 *
-	 * @since  1.3.1
-	 *
-	 * @param array $columns Registered columns
-	 * @return array Register columns with CPAC columns
-	 */
-	public function add_columns_headings_comments($columns)
-	{
-		$type = new CPAC_Columns_Comment;
-
-		return $type->add_columns_headings( $columns );
-	}
-
-	/**
 	 * Register column css
 	 *
 	 * @since 1.0.0
 	 */
 	public function column_styles()
 	{
-		wp_enqueue_style( 'cpac-columns', CPAC_URL.'/assets/css/column.css', array(), CPAC_VERSION, 'all' );
+		global $pagenow;
+		
+		if ( in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php' ) ) ) {
+			wp_enqueue_style( 'cpac-columns', CPAC_URL.'/assets/css/column.css', array(), CPAC_VERSION, 'all' );
+		}
 	}
 
 	/**
@@ -314,12 +238,12 @@ class CPAC
 		}
 
 		// loop the available types
-		foreach ( CPAC_Utility::get_storage_models() as $type ) {
+		/* foreach ( CPAC_Utility::get_storage_models() as $type ) {
 
 			// match against screen or wp-screen
 			if ( $type->key == $screen || $type->key == "wp-{$screen}" )
 				$classes .= " cp-{$type->key}";
-		}
+		} */
 
 		return $classes;
 	}
@@ -333,13 +257,10 @@ class CPAC
 	 */
 	function admin_css()
 	{
-		// @todo: REMOVE
-		return;
-		
 		$css_column_width = '';
 
 		// loop throug the available types...
-		foreach ( CPAC_Utility::get_storage_models() as $type ) {
+		/* foreach ( CPAC_Utility::get_storage_models() as $type ) {
 
 			if ( ! $cols = CPAC_Utility::get_stored_columns( $type->key ) )
 				continue;
@@ -352,7 +273,7 @@ class CPAC
 					$css_column_width .= ".cp-{$type->key} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
 				}
 			}
-		}
+		} */
 
 		echo
 		"<style type='text/css'>

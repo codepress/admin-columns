@@ -15,13 +15,24 @@
     text-decoration: none;
 }
 
+/* =Action
+-------------------------------------------------------------- */
+.column-form tr.column_action td {
+	background: #f9f9f9;
+}
+
 /* =Footer
 -------------------------------------------------------------- */
 .column-footer .button-container {
 	float: right;
 	display: inline-block;
+	margin-top: -5px;
 }
 .column-footer .button-container p {
 	margin: 4px;
 	color: #7A9BBE;
+}
+.column-footer .button-container a {
+	display: inline-block;
+	margin-top: 5px;
 }

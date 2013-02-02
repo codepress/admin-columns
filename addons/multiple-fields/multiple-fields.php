@@ -89,9 +89,11 @@ class CAC_Addon_Multiple_Columns {
 	 */
 	function set_column_properties( $properties ) {
 		
-		$properties['is_cloneable'] = in_array( $properties['type'], array( 'column-meta' ) ) ? true : false;
+		$cloneable_types = array( 'column-meta', 'column-excerpt' );
 		
-		return $properties;		
+		$properties['is_cloneable'] = in_array( $properties['type'], $cloneable_types ) ? true : false;
+		
+		return $properties;	
 	}
 	
 	/**
@@ -100,11 +102,14 @@ class CAC_Addon_Multiple_Columns {
 	 * @since 0.1
 	 */
 	function add_remove_button( $column ) {
-	
+		
+		if ( ! $column->properties->is_cloneable )
+			return false;
+		
 		?>
 		<tr class="column_action">
-			<td class="input" colspan="2">
-				<?php if ( ! $column->properties->is_cloneable || $column->properties->clone === 0 ) : ?>
+			<td colspan="2">
+				<?php if ( null === $column->properties->clone ) : ?>
 					<p class="remove-description description"><?php _e( 'This field can not be removed', CPAC_TEXTDOMAIN ); ?></p>
 				<?php else : ?>
 					<p><a href="javascript:;" class="remove-button"><?php _e( 'Remove');?></a></p>
@@ -126,15 +131,18 @@ class CAC_Addon_Multiple_Columns {
 		foreach ( $storage_model->get_registered_columns() as $column ) {
 		
 			if ( $column->properties->is_cloneable ) {				
-				$buttons[] = $column->properties->type;				
+				$buttons[ $column->properties->type ] = array( 
+					'type'	=> $column->properties->type,				
+					'label'	=> $column->properties->label
+				);
 			}
 		}
 		
 		?>
 		
 		<div class="button-container">		
-		<?php foreach ( array_unique( $buttons ) as $button ) : ?>
-			<a href="javascript:;" data-type="<?php echo $button; ?>" class="clone-button button">+ <?php _e( 'Add Custom Field Column', CPAC_TEXTDOMAIN );?></a>
+		<?php foreach ( $buttons as $button ) : ?>
+			<a href="javascript:;" data-type="<?php echo $button['type']; ?>" class="clone-button button">+ <?php _e( sprintf( 'Add %s Column', $button['label'] ), CPAC_TEXTDOMAIN ); ?></a><br/>
 		<?php endforeach; ?>		
 		</div>
 		

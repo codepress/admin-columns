@@ -44,8 +44,7 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 */
 	public function __construct( CPAC_Storage_Model $storage_model ) {
-		
-		// set storage model
+
 		$this->storage_model = $storage_model;
 		
 		// every column contains these default properties
@@ -55,25 +54,39 @@ class CPAC_Column {
 			'clone'				=> null,	// Unique clone ID
 			'label'				=> null,  	// Label which describes this column.			
 			'classes'			=> null,	// Custom CSS classes for this column.
-			'editable_label'	=> true,	// Should the Label be editable?
+			'hide_label'		=> false,	// Should the Label be hidden?
 		);
 		
+		
 		// merge arguments with defaults. turn into object for easy handling
-		$this->properties = (object) apply_filters( 'cpac_column_properties', array_merge( $default_properties, $this->properties ), $this );
+		$this->properties = (object) apply_filters( 'cpac_column_properties', array_merge( $default_properties, $this->properties ) );
 		
 		// set column name to column type
-		$this->properties->name = $this->properties->type;
+		$this->properties->name = $this->properties->type;		
 		
 		// every column contains these default options
-		$default_options = apply_filters( 'cpac_column_default_options', array(
+		$default_options = array(
 			'label'			=> $this->properties->label,	// Label for this column.
 			'width'			=> null,						// Width for this column.
 			'state'			=> 'off',						// Active state for this column.
-		));
+		);
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
-		$this->options = (object) array_merge( $default_options, $this->options, $this->read() );
+		$this->options = (object) array_merge( $default_options, $this->options );
+		
+		$this->populate_options();
 	}
+	
+	/**
+	 * Populate Options
+	 *
+	 * @since 2.0.0
+	 * @return object
+	 */
+	 function populate_options() {	
+
+		$this->options = (object) array_merge( (array) $this->options, $this->read() );
+	 }
 	
 	/**
 	 * Set Label
@@ -121,14 +134,14 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Set Editable Label
+	 * Set Hide Label
 	 *
 	 * @param string $label
 	 * @return object
 	 */
-	function set_editable_label( $label ) {
+	function set_hide_label() {
 		
-		$this->properties->editable_label = false;
+		$this->properties->hide_label = true;
 
 		return $this;
 	}
@@ -177,10 +190,10 @@ class CPAC_Column {
 		
 		$options = (array) get_option( "cpac_options_{$this->storage_model->key}" );
 
-		if ( empty( $options[$this->properties->name] ) )
+		if ( empty( $options[ $this->properties->name ] ) )
 			return array();
 
-		return $options[$this->properties->name];
+		return $options[ $this->properties->name ];
 	}
 	
 	/**
@@ -382,8 +395,13 @@ class CPAC_Column {
 <?php
 	}	
 	
+	/**
+	 * Display
+	 *
+	 * @since 2.0.0
+	 */
 	public function display() {
-		
+				
 		// classes
 		$active 	= 'on' == $this->options->state ? 'active' : '';
 		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
@@ -426,14 +444,12 @@ class CPAC_Column {
 				<table class="widefat">
 					<tbody>
 						
-						<?php if ( $this->properties->editable_label ) : ?>
-						<tr class="column_label">						
+						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">						
 							<?php $this->label_view( __( 'Label', CPAC_TEXTDOMAIN ), __( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ), 'label' ); ?>							
 							<td class="input">
 								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); ?>" />
 							</td>
 						</tr><!--.column_label-->
-						<?php endif; ?>
 						
 						<tr class="column_width">						
 							<?php $this->label_view( __( 'Width', CPAC_TEXTDOMAIN ), '', 'width' ); ?>
@@ -466,4 +482,19 @@ class CPAC_Column {
 		
 		<?php	
 	}
+	
+	/**
+	 * Clone method
+	 *
+	 * An object copy is created by using the clone keyword which calls the object's __clone() method.
+	 *
+	 * @since 2.0.0
+	 */
+	function __clone()
+    {
+        // Force a copy of this->object, otherwise it will point to same object.		
+		$this->options 		= clone $this->options;
+		$this->properties 	= clone $this->properties;
+		
+    }
 }

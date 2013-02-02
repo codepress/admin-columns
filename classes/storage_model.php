@@ -64,10 +64,6 @@ abstract class CPAC_Storage_Model {
 		update_option( "cpac_options_{$this->key}", array_filter( $_POST['columns'] ) );
 		
 		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );	
-		
-		// DEV @todo: Remove dev
-		print_r( $_POST['columns'] );
-		print_r( get_option( "cpac_options_{$this->key}" ) );
 	}
 	
 	/**
@@ -88,7 +84,7 @@ abstract class CPAC_Storage_Model {
 				->set_state( 'on' );
 			
 			if ( 'cb' == $column_name )
-				$column->set_editable_label( false );
+				$column->set_hide_label();
 			
 			$columns[ $column->properties->name ] = $column;			
 		}
@@ -120,12 +116,12 @@ abstract class CPAC_Storage_Model {
 	}
 	
 	/**
-	 * Render
+	 * Get Columns
 	 *
 	 * @since 2.0.0
 	 */	 
-	function render() {		
-		
+	function get_columns() {
+	
 		$columns = array();
 		
 		// get columns
@@ -142,10 +138,9 @@ abstract class CPAC_Storage_Model {
 				if ( ! isset( $options['type'] ) )
 					continue;
 				
-				// column type
 				$type = $options['type'];
 				
-				// remember which types has been used
+				// remember which types has been used, so we can filter them later
 				$stored_types[] = $type;
 				
 				// In case of a disabled plugin, we will skip column.
@@ -153,19 +148,25 @@ abstract class CPAC_Storage_Model {
 				if ( ! in_array( $type, array_keys( $registered_columns ) ) )
 					continue;
 				
-				// create clone			
+				// create clone				
 				$column = clone $registered_columns[ $type ];
+				
+				// add an clone number which defines the instance
 				$column->set_clone( $options['clone'] );
 				
-				print_R( $column );
-				
+				// repopulate the options, so they contains the right stored options
+				$column->populate_options();
+					
 				$columns[] = $column;								
+			}
+			
+			// In case of a enabled plugin or added custom column, we will add that column.
+			// When $diff contains items, it means an available column has not been stored.
+			if ( $diff = array_diff( array_keys( $registered_columns ), $stored_types ) ) {
+				foreach ( $diff as $type ) {					
+					$columns[] = clone $registered_columns[ $type ];
+				}
 			}			
-			
-			
-			// @todo: set_clone() seems to overwrite all instance of $column....
-			print_r( $columns );
-			exit;
 		}
 		
 		// When nothing has been saved yet, we return the available columns.
@@ -173,13 +174,70 @@ abstract class CPAC_Storage_Model {
 		
 			$columns = $registered_columns;
 		}
+
+		return $columns;		
+	}
+	
+	/**
+	 * Render
+	 *
+	 * @since 2.0.0
+	 */	 
+	function render() {		
 		
-		// render		
-		foreach ( $columns as $column ) {			
+		foreach ( $this->get_columns() as $column ) {	
 			$column->display();
 		}	
 	}
 	
+	/**
+	 * Add Headings
+	 *
+	 * @todo: add column headings that could not be stored from some reason.
+	 * @since 2.0.0
+	 */
+	function add_headings( $columns ) {
+		
+		global $pagenow;
+		
+		// only add headings on overview screens, to prevent turning off columns in the Storage Model.
+		if ( 'admin.php' == $pagenow )
+			return $columns;
+		
+		if ( ! $stored_columns = get_option( "cpac_options_{$this->key}" ) )
+			return $columns;
+		
+		$column_headings = array();
+		
+		foreach( $stored_columns as $column_name => $options ) {
+			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {				
+				$column_headings[ $column_name ] = $options['label'];
+			}
+		}
+		
+		// Some 3rd parth columns will no be stored. These still need to be added
+		// to the column headings. We check the default stored columns and every columns
+		// that is new will be added.
+		/* 
+		if ( $options = get_option( 'cpac_options_default' ) ) {
+
+			// Get the default columns that have been stored on the settings page.
+			$stored_wp_default_columns = $options[$this->storage_key];
+
+			// ... get the 3rd party columns that have not been saved...
+			$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );
+
+			// ... add those columns to the column headings
+			if ( $dif_columns ) {
+				foreach ( $dif_columns as $column_name ) {
+					$columns_headings[$column_name] = $columns[$column_name];
+				}
+			}
+		} 
+		*/
+
+		return $column_headings;
+	}
 	
 	
 	
