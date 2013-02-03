@@ -61,7 +61,26 @@ abstract class CPAC_Storage_Model {
 		if ( empty( $_POST['columns'] ) )
 			return false;
 		
-		update_option( "cpac_options_{$this->key}", array_filter( $_POST['columns'] ) );
+		$columns = array_filter( $_POST['columns'] );
+		
+		// reorder by active state
+		// @todo make a general setting to reorder
+		if ( true ) {
+			$active = $inactive = array();
+			
+			foreach ( $columns as $column_name => $options ) {
+				if ( 'on' == $options['state'] ) {
+					$active[ $column_name ] = $options;
+				}
+				else {
+					$inactive[ $column_name ] = $options;
+				}
+			}
+
+			$columns = array_merge( $active, $inactive );
+		}
+		
+		update_option( "cpac_options_{$this->key}", $columns );
 		
 		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );	
 	}
@@ -83,7 +102,7 @@ abstract class CPAC_Storage_Model {
 				->set_label( $label )
 				->set_state( 'on' );
 			
-			if ( 'cb' == $column_name )
+			if ( in_array( $column_name, array( 'cb', 'comments' ) ) )
 				$column->set_hide_label();
 			
 			$columns[ $column->properties->name ] = $column;			
@@ -157,14 +176,14 @@ abstract class CPAC_Storage_Model {
 				// repopulate the options, so they contains the right stored options
 				$column->populate_options();
 					
-				$columns[] = $column;								
+				$columns[ $name ] = $column;								
 			}
 			
 			// In case of a enabled plugin or added custom column, we will add that column.
 			// When $diff contains items, it means an available column has not been stored.
 			if ( $diff = array_diff( array_keys( $registered_columns ), $stored_types ) ) {
 				foreach ( $diff as $type ) {					
-					$columns[] = clone $registered_columns[ $type ];
+					$columns[ $name ] = clone $registered_columns[ $type ];
 				}
 			}			
 		}
@@ -176,6 +195,21 @@ abstract class CPAC_Storage_Model {
 		}
 
 		return $columns;		
+	}
+	
+	/**
+	 * Get Column by name
+	 *
+	 * @since 2.0.0
+	 */	 
+	function get_column_by_name( $name ) {
+		
+		$columns = $this->get_columns();
+		
+		if ( ! isset( $columns[ $name ] ) )
+			return false;
+		
+		return $columns[ $name ];
 	}
 	
 	/**
@@ -204,14 +238,20 @@ abstract class CPAC_Storage_Model {
 		if ( 'admin.php' == $pagenow )
 			return $columns;
 		
+		// stored columns exists?
 		if ( ! $stored_columns = get_option( "cpac_options_{$this->key}" ) )
 			return $columns;
 		
+		// build the headings
 		$column_headings = array();
 		
 		foreach( $stored_columns as $column_name => $options ) {
-			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {				
-				$column_headings[ $column_name ] = $options['label'];
+			
+			// columns is active
+			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {
+			
+				// label needs stripslashes() for HTML taged labels, like comments icon
+				$column_headings[ $column_name ] = stripslashes(  $options['label'] );				
 			}
 		}
 		

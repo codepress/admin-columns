@@ -197,6 +197,73 @@ class CPAC_Column {
 	}
 	
 	/**
+	 * Returns excerpt
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $post_id Post ID
+	 * @return string Post Excerpt.
+	 */
+	protected function get_post_excerpt( $post_id )	{
+		global $post;
+
+		$save_post 	= $post;
+		$post 		= get_post( $post_id );
+		$excerpt 	= get_the_excerpt();
+		$post 		= $save_post;
+
+		$output = $this->get_shortened_string( $excerpt, $this->excerpt_length );
+
+		return $output;
+	}
+	
+	/**
+	 * Returns shortened string
+	 *
+	 * @see wp_trim_words();
+	 * @since 1.0.0
+	 *
+	 * @return string Trimmed text.
+	 */
+	protected function get_shortened_string( $text = '', $num_words = 55, $more = null ) {
+		if ( ! $text )
+			return false;
+
+		return wp_trim_words( $text, $num_words, $more );
+	}
+	
+	/**
+	 * Get image from assets folder
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param string $name
+	 * @param string $title
+	 * @return string HTML img element
+	 */
+	protected function get_asset_image( $name = '', $title = '' ) {
+		if ( ! $name )
+			return false;
+
+		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title );
+	}
+	
+	/**
+	 * Checks an URL for image extension
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param string $url
+	 * @return bool
+	 */
+	protected function is_image( $url ) {
+		$validExt  	= array('.jpg', '.jpeg', '.gif', '.png', '.bmp');
+		$ext    	= strrchr( $url, '.' );
+
+		return in_array( $ext, $validExt );
+	}
+	
+	/**
 	 * Get all image sizes
 	 *
 	 * @since 1.0.0
@@ -239,7 +306,54 @@ class CPAC_Column {
 
 		return $_wp_additional_image_sizes[$name];
 	}
+	
+	/**
+	 * Image Resize
+	 *
+	 * @see image_resize()
+	 * @since 1.5
+	 *
+	 * @return string Image URL
+	 */
+	function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+		$resized = false;
 
+		// WP 3.5 or higher
+		if ( function_exists( 'wp_get_image_editor' ) ) {
+
+			$editor = wp_get_image_editor( $file );
+
+			if ( is_wp_error( $editor ) )
+				return false;
+
+			$editor->set_quality( $jpeg_quality );
+
+			$resized = $editor->resize( $max_w, $max_h, $crop );
+			if ( is_wp_error( $resized ) )
+				return false;
+
+			$dest_file = $editor->generate_filename( $suffix, $dest_path );
+
+			$saved = $editor->save( $dest_file );
+
+			if ( is_wp_error( $saved ) )
+				return false;
+
+			$resized = $dest_file;
+		}
+
+		// WP 3.4 or lower
+		else {
+			$result = image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+
+			if ( ! is_wp_error( $result ) && $result ) {
+				$resized = $result;
+			}
+		}
+
+		return $resized;
+	}
+	
 	/**
 	 * Get a thumbnail
 	 *
@@ -333,7 +447,77 @@ class CPAC_Column {
 		}
 
 		return $output;
-	}	
+	}
+	
+	/**
+	 * Implode for multi dimensional array
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $glue
+	 * @param array $pieces
+	 * @return string Imploded array
+	 */
+	protected function recursive_implode( $glue, $pieces )
+	{
+		foreach( $pieces as $r_pieces )	{
+			if ( is_array( $r_pieces ) ) {
+				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+			}
+			else {
+				$retVal[] = $r_pieces;
+			}
+		}
+		if ( isset($retVal) && is_array( $retVal ) ) {
+			return implode( $glue, $retVal );
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Get date
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 * @return string Formatted date
+	 */
+	protected function get_date( $date ) {
+		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
+			return false;
+
+		// Parse with strtotime if it's:
+		// - not numeric ( like a unixtimestamp )
+		// - date format: yyyymmdd ( format used by ACF ) must start with 19xx or 20xx and is 8 long
+
+		// @todo: in theory a numeric string of 8 can also be a unixtimestamp.
+		// we need to replace this with an option to mark a date as unixtimestamp.
+		if ( ! is_numeric( $date ) || ( is_numeric( $date ) && strlen( trim( $date ) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) ) {
+			$date = strtotime( $date );
+		}
+
+		return date_i18n( get_option( 'date_format' ), $date );
+	}
+
+	/**
+	 * Get time
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 * @return string Formatted time
+	 */
+	protected function get_time( $date ) {
+		if ( ! $date )
+			return false;
+
+		if ( ! is_numeric( $date ) ) {
+			$date = strtotime( $date );
+		}
+
+		return date_i18n( get_option( 'time_format' ), $date );
+	}
 	
 	/**
 	 * Label view
@@ -345,7 +529,7 @@ class CPAC_Column {
 		?>
 		<td class="label">
 			<label for="<?php $this->attr_id( $pointer ); ?>">
-				<?php echo $label; ?>
+				<?php echo stripslashes( $label ); ?>
 			</label>
 			<?php if( $description ) : ?>
 			<p class="description"><?php echo $description; ?></p>
@@ -423,16 +607,11 @@ class CPAC_Column {
 							</td>
 							<td class="column_label">
 								<a href="javascript:;">
-									<?php echo $this->options->label; ?>
+									<?php echo stripslashes( $this->options->label ); ?>
 								</a>
-								<span class="meta-label">
-								<?php //if ( $licenses['sortable']->is_unlocked() && ( $this->options->sort || in_array( $this->properties->name, array( 'title', 'date' ) ) ) ) : ?>
-									<span class="sorting enable"><?php _e( 'sorting',  CPAC_TEXTDOMAIN )?></span>
-								<?php //endif; ?>
-								</span>
 							</td>
 							<td class="column_type">
-								<?php echo $this->properties->label; ?>
+								<?php echo wp_specialchars_decode( $this->properties->label ); ?>
 							</td>
 							<td class="column_edit"></td>
 						</tr>
@@ -446,8 +625,8 @@ class CPAC_Column {
 						
 						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">						
 							<?php $this->label_view( __( 'Label', CPAC_TEXTDOMAIN ), __( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ), 'label' ); ?>							
-							<td class="input">
-								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); ?>" />
+							<td class="input">								
+								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo htmlspecialchars( stripslashes( $this->options->label ) ); ?>" />
 							</td>
 						</tr><!--.column_label-->
 						

@@ -170,10 +170,8 @@ class CPAC
 	 */
 	 function init_controllers() {
 		
-		// Includes
+		// Settings
 		include_once CPAC_DIR . '/classes/settings.php';
-		
-		// Setup settings
 		new CPAC_Settings( $this );
 	 }
 	

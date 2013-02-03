@@ -128,13 +128,8 @@ a.help {
 	vertical-align: middle;
 	padding-left: 20px;
 }
-.column-meta .column_label .meta-label {
-	font-size: 11px;
-	font-weight: normal;
-	padding-left: 14px;
-}
-.column-meta .column_label .meta-label span {
-	float: right;
+.column-meta .column_label > a {
+	float: left;
 }
 .column-meta .column_type {
 	width: auto;
@@ -204,6 +199,15 @@ tr.column_image_size td.input label.custom-size-h input {
 }
 tr.column_image_size.hidden {
 	display: none;
+}
+
+/* =Column Meta: WP Default columns
+-------------------------------------------------------------- */
+.column-meta span.vers .comment-grey-bubble {
+	background: transparent url("../images/comment-grey-bubble.png") no-repeat 0 0;
+    height: 12px;
+    width: 12px;
+	float: right;
 }
 
 /* =Column Form

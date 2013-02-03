@@ -88,7 +88,7 @@ function cpac_cloning() {
 		clone.cpac_form_events();		
 		
 		// open settings
-		clone.slideDown( 150, function() { clone.addClass( 'opened' ); });
+		jQuery( '.column-form', clone ).slideDown( 150, function() { clone.addClass( 'opened' ); });
 		
 		// focus on clone
 		jQuery('html,body').animate({ scrollTop: clone.offset().top }, 'slow');

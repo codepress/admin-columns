@@ -33,16 +33,6 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	}
 	
 	/**
-	 * @see CPAC_Column::get_value()
-	 *
-	 * @todo image size
-	 * @since 2.0.0
-	 */
-	function get_value( $post_id ) {
-		
-	}
-	
-	/**
 	 * Get Custom FieldType Options
 	 *
 	 * @since 1.5.0
@@ -50,6 +40,7 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	 * @return array Customfield types.
 	 */
 	public function get_custom_field_types() {
+	
 		$custom_field_types = array(
 			''				=> __( 'Default'),
 			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
@@ -66,6 +57,156 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 
 		return apply_filters( 'cpac_field_types', $custom_field_types );
 	}
+	
+	/**
+	 * Get Title by ID
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param string $meta
+	 * @return string Titles
+	 */
+	protected function get_titles_by_id( $meta ) {
+		//remove white spaces and strip tags
+		$meta = CPAC_Utility::strip_trim( str_replace( ' ','', $meta ) );
+		// var
+		$ids = $titles = array();
+
+		// check for multiple id's
+		if ( strpos( $meta, ',' ) !== false )
+			$ids = explode( ',', $meta );
+		elseif ( is_numeric( $meta ) )
+			$ids[] = $meta;
+
+		// display title with link
+		if ( $ids && is_array( $ids ) ) {
+			foreach ( $ids as $id ) {
+				$title = is_numeric( $id ) ? get_the_title( $id ) : '';
+				$link  = get_edit_post_link( $id );
+				if ( $title )
+					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
+			}
+		}
+
+		return implode('<span class="cpac-divider"></span>', $titles);
+	}
+
+	/**
+	 * Get Users by ID
+	 *
+	 * @since 1.4.6.3
+	 *
+	 * @param string $meta
+	 * @return string Users
+	 */
+	protected function get_users_by_id( $meta )
+	{
+		//remove white spaces and strip tags
+		$meta = CPAC_Utility::strip_trim( str_replace( ' ', '', $meta ) );
+
+		// var
+		$ids = $names = array();
+
+		// check for multiple id's
+		if ( strpos( $meta, ',' ) !== false ) {
+			$ids = explode( ',',$meta );
+		}
+		elseif ( is_numeric( $meta ) ) {
+			$ids[] = $meta;
+		}
+
+		// display username
+		if ( $ids && is_array( $ids ) ) {
+			foreach ( $ids as $id ) {
+				if ( ! is_numeric( $id ) )
+					continue;
+
+				$userdata = get_userdata( $id );
+				if ( is_object( $userdata ) && ! empty( $userdata->display_name ) ) {
+					$names[] = $userdata->display_name;
+				}
+			}
+		}
+
+		return implode( '<span class="cpac-divider"></span>', $names );
+	}
+	
+	/**
+	 * @see CPAC_Column::get_value()
+	 *
+	 * @todo image size
+	 * @since 2.0.0
+	 */
+	function get_value( $post_id ) {
+		
+		// rename hidden custom fields to their original name
+		$field = substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
+		
+		// get metadata
+		$meta = get_metadata( $this->storage_model->key, $post_id, $this->options->field, true );
+		
+		// implode meta array
+		if ( ( 'array' == $this->options->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
+			$meta = $this->recursive_implode( ', ', $meta);
+		}
+		
+		if ( ! is_string( $meta ) )	
+			return false;
+		
+		switch ( $this->options->field_type ) :			
+
+			case "image" :
+			case "library_id" :
+				$meta = $this->get_thumbnails( $meta );
+				break;
+	
+	
+			// @todo: excerpt length
+			case "excerpt" :
+				$meta = $this->get_shortened_string( $meta, $excerpt_length = 30 );
+				break;
+
+			case "date" :
+				$meta = $this->get_date( $meta );
+				break;
+
+			case "title_by_id" :
+				$titles = $this->get_titles_by_id( $meta );
+				if ( $titles )
+					$meta = $titles;
+				break;
+
+			case "user_by_id" :
+				$names = $this->get_users_by_id( $meta );
+				if ( $names )
+					$meta = $names;		
+				break;
+
+			case "checkmark" :
+				$checkmark = $this->get_asset_image( 'checkmark.png' );
+				
+				if ( empty($meta) || 'false' === $meta || '0' === $meta ) {
+					$checkmark = '';
+				}
+				
+				$meta = $checkmark;				
+				break;
+
+			case "color" :
+				if ( !empty($meta) ) {
+					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
+				}
+				break;
+			
+		endswitch;		
+		
+		// add before and after string
+		if ( $meta ) {
+			$meta = "{$this->options->before}{$meta}{$this->options->after}";
+		}
+		
+		return $meta;
+	}	
 	
 	/**
 	 * Display Settings

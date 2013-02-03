@@ -12,9 +12,35 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->key 		= $post_type;		
 		$this->label 	= $this->get_label();
 		
+		// headings
 		add_filter( "manage_edit-{$post_type}_columns",  array( $this, 'add_headings' ) );
 		
+		// values
+		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
+		
 		parent::__construct();
+	}
+	
+	/**
+	 * Get custom columns.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Column Class | Include path
+	 */
+	function get_custom_columns() {
+		
+		$columns = array(
+			'CPAC_Column_Post_Custom_Field' 	=> CPAC_DIR . '/classes/column/post/custom-field.php',
+			'CPAC_Column_Post_Excerpt'			=> CPAC_DIR . '/classes/column/post/excerpt.php',
+			'CPAC_Column_Post_Featured_Image'	=> CPAC_DIR . '/classes/column/post/featured-image.php',
+		);
+		
+		// hooks for adding custom columns by addons
+		$columns = apply_filters( "cpac_custom_columns_post", $columns );
+		$columns = apply_filters( "cpac_custom_columns_{$this->key}", $columns );
+		
+		return $columns;
 	}
 	
 	/**
@@ -65,57 +91,14 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 				require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
 			// As of WP Release 3.5 we can use the following.
-			if ( version_compare( get_bloginfo( 'version' ), '3.4.10', '>=' ) ) {
-
-				$table 		= new WP_Posts_List_Table( array( 'screen' => $this->key ) );
-				$columns 	= $table->get_columns();
-			}
-
-			// WP versions older then 3.5
-			// @todo: make this deprecated
-			else {
-
-				// we need to change the current screen... first lets save original
-				$org_current_screen = $current_screen;
-
-				// prevent php warning
-				if ( ! isset( $current_screen ) ) {
-					$current_screen = new stdClass;
-				}
-
-				// overwrite current_screen global with our post type of choose...
-				$current_screen->post_type = $this->key;
-
-				// ...so we can get its columns
-				$columns = WP_Posts_List_Table::get_columns();
-
-				// reset current screen
-				$current_screen = $org_current_screen;
-			}
-
+			$table 		= new WP_Posts_List_Table( array( 'screen' => $this->key ) );
+			$columns 	= $table->get_columns();
 		}
 
 		if ( empty( $columns ) )
 			return false;
 		
 		return $columns;
-	}
-	
-	/**
-	 * Get custom columns.
-	 *
-	 * @see CPAC_Storage_Model::get_custom_columns()
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-	function get_custom_columns() {
-		
-		return array(
-			'CPAC_Column_Post_Custom_Field' 	=> CPAC_DIR . '/classes/column/post/custom-field.php',
-			'CPAC_Column_Post_Excerpt'			=> CPAC_DIR . '/classes/column/post/excerpt.php',
-			'CPAC_Column_Post_Featured_Image'	=> CPAC_DIR . '/classes/column/post/featured-image.php',
-		);		
 	}
 	
 	/**
@@ -192,5 +175,28 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$output = $this->get_shortened_string( $excerpt, 20 );
 
 		return $output;
+	}
+	
+	/**
+	 * Manage value
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $column_name
+	 * @param int $post_id
+	 */
+	function manage_value( $column_name, $post_id ) {
+		
+		// get column instance
+		$column = $this->get_column_by_name( $column_name );
+		
+		// get value
+		$value = $column->get_value( $post_id );
+		
+		// add hook
+		$value = apply_filters( "cpac_value_post", $value, $column );
+		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );
+		
+		echo $value;		
 	}
 }
