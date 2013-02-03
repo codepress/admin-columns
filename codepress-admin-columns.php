@@ -40,6 +40,7 @@ if ( !is_admin() )
 
 // DEV
 require_once dirname( __FILE__ ) . '/addons/multiple-fields/multiple-fields.php';
+require_once dirname( __FILE__ ) . '/addons/sortable/sortable.php';
 	
 /**
  * Dependencies
@@ -292,4 +293,4 @@ class CPAC
  *
  * @since 1.0.0
  */
-new CPAC();
+$cpac = new CPAC();

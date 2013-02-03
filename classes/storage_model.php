@@ -20,6 +20,12 @@ abstract class CPAC_Storage_Model {
 	public $key;
 	
 	/**
+	 * Type
+	 *
+	 */
+	public $type;
+	
+	/**
 	 * Get default columns
 	 *
 	 * @return array Column Name | Column Label

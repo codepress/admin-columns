@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 define( 'CAC_MC_VERSION', 	 	'0.1' );
-define( 'CAC_MC_TEXTDOMAIN', 	'cpac-multiple-columns' );
+define( 'CAC_MC_TEXTDOMAIN', 	'cac-addon-multiple-columns' );
 define( 'CAC_MC_URL', 			plugins_url( '', __FILE__ ) );
 define( 'CAC_MC_DIR', 			plugin_dir_path( __FILE__ ) );
 
@@ -60,7 +60,7 @@ class CAC_Addon_Multiple_Columns {
 		// add column properties
 		add_filter( 'cpac_column_properties', array( $this, 'set_column_properties' ) );
 		
-		// add column field
+		// add remove button
 		add_action( 'cpac_after_column_settings' , array( $this, 'add_remove_button') );
 		
 		// add buttons
@@ -89,9 +89,12 @@ class CAC_Addon_Multiple_Columns {
 	 */
 	function set_column_properties( $properties ) {
 		
-		$cloneable_types = array( 'column-meta', 'column-excerpt' );
+		$include_types = array( 
+			'column-meta', 
+			'column-excerpt' 
+		);
 		
-		$properties['is_cloneable'] = in_array( $properties['type'], $cloneable_types ) ? true : false;
+		$properties['is_cloneable'] = in_array( $properties['type'], $include_types ) ? true : false;
 		
 		return $properties;	
 	}
@@ -153,7 +156,7 @@ class CAC_Addon_Multiple_Columns {
 }
 
 /**
- * Init Class Codepress_Admin_Columns
+ * Init Class CAC_Addon_Multiple_Columns
  *
  * @since 1.0.0
  */

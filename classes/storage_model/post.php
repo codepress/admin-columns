@@ -11,6 +11,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		
 		$this->key 		= $post_type;		
 		$this->label 	= $this->get_label();
+		$this->type 	= 'post';
 		
 		// headings
 		add_filter( "manage_edit-{$post_type}_columns",  array( $this, 'add_headings' ) );

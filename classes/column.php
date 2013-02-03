@@ -65,11 +65,11 @@ class CPAC_Column {
 		$this->properties->name = $this->properties->type;		
 		
 		// every column contains these default options
-		$default_options = array(
+		$default_options = apply_filters( 'cpac_column_default_options', array(
 			'label'			=> $this->properties->label,	// Label for this column.
 			'width'			=> null,						// Width for this column.
 			'state'			=> 'off',						// Active state for this column.
-		);
+		));
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
 		$this->options = (object) array_merge( $default_options, $this->options );
