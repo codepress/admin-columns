@@ -15,7 +15,7 @@ span.status-closed {
 -------------------------------------------------------------- */
 .cpac-column-value-image {
 	display: inline-block;
-	background: #fff;
+	background: transparent;
 	margin-right: 2px;
 	overflow: hidden;
 }

@@ -52,22 +52,17 @@ require_once dirname( __FILE__ ) . '/classes/utility.php';
 
 // columns
 require_once dirname( __FILE__ ) . '/classes/column.php';
+
+// storage models
 require_once dirname( __FILE__ ) . '/classes/storage_model.php';
 require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
 
-
+// includes
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
 require_once dirname( __FILE__ ) . '/classes/license.php';
 require_once dirname( __FILE__ ) . '/classes/third_party.php';
 require_once dirname( __FILE__ ) . '/classes/deprecated.php';
 
-
-
-/* 
-require_once dirname( __FILE__ ) . '/classes/addon_buddypress.php';
-require_once dirname( __FILE__ ) . '/classes/addon_sorting.php';
-require_once dirname( __FILE__ ) . '/classes/addon_filtering.php'; 
-*/
 
 /**
  * The Codepress Admin Columns Class
@@ -120,6 +115,9 @@ class CPAC
 		$this->set_storage_models();
 		
 		$this->init_controllers();
+		
+		// Hook
+		do_action( 'cpac_loaded', $this );
 	}
 	
 	/**

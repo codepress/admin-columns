@@ -108,7 +108,7 @@ class CPAC_Utility {
 
 		return str_replace( array( 'column-taxonomy-', 'taxonomy-' ), '', $column_name );
 	}
-
+	
 	/**
 	 * Sanitize label
 	 *

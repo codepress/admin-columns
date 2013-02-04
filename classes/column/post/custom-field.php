@@ -138,7 +138,7 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		
+
 		// rename hidden custom fields to their original name
 		$field = substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
 		

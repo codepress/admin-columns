@@ -393,15 +393,13 @@ class CPAC_Settings {
 	 * @return bool
 	 */
 	function is_menu_type_current( $key ) {
-		// referer
-		$referer = ! empty($_REQUEST['cpac_key']) ? $_REQUEST['cpac_key'] : '';
 
 		// get first element from post-types
 		$first = array_shift( array_values( CPAC_Utility::get_post_types() ) );
 
 		// display the page that was being viewed before saving
-		if ( $referer ) {
-			if ( $referer == CPAC_Utility::sanitize_string( $key ) ) {
+		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
+			if ( $_REQUEST['cpac_key'] == CPAC_Utility::sanitize_string( $key ) ) {
 				return true;
 			}
 

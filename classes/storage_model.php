@@ -10,38 +10,37 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Label
 	 *
+	 * @since 2.0.0
 	 */
 	public $label;
 		
 	/**
 	 * Key
 	 *
+	 * @since 2.0.0
 	 */
 	public $key;
 	
 	/**
 	 * Type
 	 *
+	 * @since 2.0.0
 	 */
 	public $type;
 	
 	/**
 	 * Get default columns
 	 *
+	 * @since 2.0.0
+	 *
 	 * @return array Column Name | Column Label
 	 */
 	abstract function get_default_columns();
 	
 	/**
-	 * Get custom columns
-	 *
-	 * @return array Classname | Path
-	 */
-	abstract function get_custom_columns();
-	
-	/**
 	 * Constructor
 	 *
+	 * @since 2.0.0
 	 */
 	function __construct() {}
 	
@@ -92,7 +91,46 @@ abstract class CPAC_Storage_Model {
 	}
 	
 	/**
+	 * Get custom columns
+	 *
+	 * Goes through all files in 'classes/column' and includes each file.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Column Classnames
+	 */
+	function get_custom_columns() {			
+		$columns = array();
+		
+		$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( CPAC_DIR . 'classes/column' ) );
+
+		while( $file->valid() ) {
+
+			if ( ! $file->isDot() && $this->type == $file->getSubPath() ) {
+				
+				include_once $file->key();
+		
+				// build classname from filename
+				$type = ucfirst( $file->getSubPath() );
+				$name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
+				
+				$columns[] = "CPAC_Column_{$type}_{$name}";
+			}
+
+			$file->next();
+		}
+		
+		// hooks for adding custom columns by addons
+		$columns = apply_filters( "cpac_custom_columns_posts", $columns );
+		$columns = apply_filters( "cpac_custom_columns_{$this->key}", $columns );
+		
+		return $columns;
+	}
+	
+	/**
 	 * Get registered columns
+	 *
+	 * @since 2.0.0
 	 *
 	 * @return array Column Type | Column Instance
 	 */
@@ -100,6 +138,7 @@ abstract class CPAC_Storage_Model {
 		
 		$columns = array();
 		
+		// Defaults
 		foreach ( $this->get_default_columns() as $column_name => $label ) {
 			
 			$column = new CPAC_Column( $this );			
@@ -114,8 +153,8 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;			
 		}
 		
-		foreach ( $this->get_custom_columns() as $classname => $path ) {
-			include_once $path;	
+		// Custom
+		foreach ( $this->get_custom_columns() as $classname ) {
 			
 			$column = new $classname( $this );
 			$columns[ $column->properties->name ] = $column;
@@ -132,7 +171,7 @@ abstract class CPAC_Storage_Model {
 	 * @paran string $key
 	 * @return array Column options
 	 */
-	private function get_stored_columns() {
+	public function get_stored_columns() {
 
 		if ( ! $columns = get_option( "cpac_options_{$this->key}" ) )
 			return array();
@@ -284,26 +323,4 @@ abstract class CPAC_Storage_Model {
 
 		return $column_headings;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

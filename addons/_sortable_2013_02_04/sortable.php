@@ -35,10 +35,9 @@ define( 'CAC_SC_DIR', 			plugin_dir_path( __FILE__ ) );
 // only run plugin in the admin interface
 if ( ! is_admin() )
 	return false;
-
+	
 // Includes
-include_once 'classes/post.php';
-
+include_once 'classes/post.php';	
 	
 /**
  * Addon class
@@ -46,7 +45,7 @@ include_once 'classes/post.php';
  * @since 0.1
  *
  */
-class CAC_Addon_Sortable_Settings {	
+class CAC_Addon_Sortable {	
 	
 	/**
 	 * Constructor
@@ -136,4 +135,4 @@ class CAC_Addon_Sortable_Settings {
 	}
 }
 
-new CAC_Addon_Sortable_Settings;
+new CAC_Addon_Sortable;

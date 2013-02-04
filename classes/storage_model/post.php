@@ -23,28 +23,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 	
 	/**
-	 * Get custom columns.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return array Column Class | Include path
-	 */
-	function get_custom_columns() {
-		
-		$columns = array(
-			'CPAC_Column_Post_Custom_Field' 	=> CPAC_DIR . '/classes/column/post/custom-field.php',
-			'CPAC_Column_Post_Excerpt'			=> CPAC_DIR . '/classes/column/post/excerpt.php',
-			'CPAC_Column_Post_Featured_Image'	=> CPAC_DIR . '/classes/column/post/featured-image.php',
-		);
-		
-		// hooks for adding custom columns by addons
-		$columns = apply_filters( "cpac_custom_columns_post", $columns );
-		$columns = apply_filters( "cpac_custom_columns_{$this->key}", $columns );
-		
-		return $columns;
-	}
-	
-	/**
 	 * Get Label
 	 *
 	 * @since 1.5.0

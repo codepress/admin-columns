@@ -32,6 +32,13 @@ class CPAC_Column {
 	public $properties = array();
 	
 	/**
+	 * Get value
+	 *
+	 * @since 2.0.0	
+	 */
+	function get_value() {}
+	
+	/**
 	 * Display_settings
 	 *
 	 * @since 2.0.0	
@@ -55,8 +62,7 @@ class CPAC_Column {
 			'label'				=> null,  	// Label which describes this column.			
 			'classes'			=> null,	// Custom CSS classes for this column.
 			'hide_label'		=> false,	// Should the Label be hidden?
-		);
-		
+		);		
 		
 		// merge arguments with defaults. turn into object for easy handling
 		$this->properties = (object) apply_filters( 'cpac_column_properties', array_merge( $default_properties, $this->properties ) );
@@ -669,11 +675,10 @@ class CPAC_Column {
 	 *
 	 * @since 2.0.0
 	 */
-	function __clone()
+	public function __clone()
     {
         // Force a copy of this->object, otherwise it will point to same object.		
 		$this->options 		= clone $this->options;
-		$this->properties 	= clone $this->properties;
-		
+		$this->properties 	= clone $this->properties;		
     }
 }

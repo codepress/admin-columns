@@ -1,14 +1,4 @@
 <?php
-/**
- * Register Addons
- *
- * @since 2.0.0
- */
-
-function load_addons( $cpac ) {	
-	new CAC_Addon_Sortable_Post( $cpac );
-}
-add_action( 'cpac_loaded', 'load_addons' );
 
 /**
  * Addon class
@@ -18,24 +8,20 @@ add_action( 'cpac_loaded', 'load_addons' );
  */
 class CAC_Addon_Sortable_Post {	
 	
-	protected $cpac;
-	
 	/**
 	 * Constructor
 	 *
 	 * @since 0.1
 	 */
-	function __construct( $cpac ) {
-		
-		$this->cpac = $cpac;
-		
+	function __construct() {
+
 		// register sortable
 		add_action( 'admin_init', array( $this, 'register_sortable_columns' ) );
 		
 		// handle sortable request
 		add_filter( 'request', array( $this, 'handle_requests_orderby_column'), 1 );
 	}
-		
+	
 	/**
 	 * 	Register sortable columns
 	 *
@@ -44,35 +30,36 @@ class CAC_Addon_Sortable_Post {
 	 * 	@since 0.1
 	 */
 	function register_sortable_columns() {
+
+		global $cpac;
 		
-		foreach ( $this->cpac->storage_models as $storage_model ) {
-					
-			if ( 'post' !== $storage_model->type )
-				continue;
+		foreach ( $cpac->storage_models as $storage_model ) {
 			
-			add_filter( "manage_edit-{$storage_model->key}_sortable_columns", array( $this, 'manage_sortable_columns' ) );			
+			if ( 'post' == $storage_model->type ) {
+				add_filter( "manage_edit-{$storage_model->key}_sortable_columns", array( $this, 'manage_sortable_columns' ) );
+			}
 		}
 	}
 	
 	/**
-	 * Manage Headings
+	 * Callback add Posts sortable column
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param array $columns
-	 * @return array Column name | Sanitized Label
+	 * @return array Sortable Columns
 	 */
 	public function manage_sortable_columns( $columns ) {
 		
-		global $post_type;
-		
+		global $post_type, $cpac;
+ 
 		// in some cases post_type is an array ( when clicking a tag inside the overview screen icm CCTM )
 		// then we use this as a fallback so we get a string
 		if ( is_array( $post_type ) )
 			$post_type = $_REQUEST['post_type'];
 		
 		// storage model exists?
-		if ( ! $storage_model = $this->cpac->get_storage_model( $post_type ) )
+		if ( ! $storage_model = $cpac->get_storage_model( $post_type ) )
 			return $columns;
 
 		if ( $_columns = $storage_model->get_columns() ) {
@@ -178,37 +165,23 @@ class CAC_Addon_Sortable_Post {
 	}
 	
 	/**
-	 * Prepare the value for being by sorting
-	 *
-	 * Removes tags and only get the first 20 chars and force lowercase.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param string $string
-	 * @return string String
-	 */
-	private function prepare_sort_string_value( $string ) {
-
-		return strtolower( substr( CPAC_Utility::strip_trim( $string ), 0, 20 ) );
-	}
-	
-	/**
 	 * Get orderby type
 	 *
 	 * @since 1.1.0
 	 *
 	 * @param string $orderby
-	 * @param object $storage_model
+	 * @param string $type
 	 * @return array Column
 	 */
 	private function get_orderby_type( $orderby, $storage_model ) {
+		global $cpac;
 		
-		$column = false;
+		$column = array();
 
-		if ( $columns = $storage_model->get_columns() ) {			
-			foreach ( $columns as $_column ) {	
-				if ( $orderby == CPAC_Utility::sanitize_string( $_column->options->label ) ) {
-					$column = $_column;
+		if ( $columns = $storage_model->get_stored_columns() ) {			
+			foreach ( $columns as $name => $options ) {
+				if ( isset( $options['label'] ) && $orderby == esc_url( $options['label'] ) ) {
+					$column[ $name ] = $options;
 				}
 			}
 		}
@@ -244,32 +217,6 @@ class CAC_Addon_Sortable_Post {
 	}
 	
 	/**
-	 * Set post__in for use in WP_Query
-	 *
-	 * This will order the ID's asc or desc and set the appropriate filters.
-	 *
-	 * @since 1.2.1
-	 *
-	 * @param array &$vars
-	 * @param array $sortposts
-	 * @param const $sort_flags
-	 * @return array Posts Variables
-	 */
-	function cpac_get_vars_post__in( $vars, $sortposts, $sort_flags = SORT_REGULAR ) {
-		if ( $vars['order'] == 'asc' ) {
-			asort( $unsorted, SORT_REGULAR );
-		}
-		else {
-			arsort( $unsorted, SORT_REGULAR );
-		}
-
-		$vars['orderby']	= 'post__in';
-		$vars['post__in']	 = array_keys( $unsorted );
-
-		return $vars;
-	}
-	
-	/**
 	 * Admin requests for orderby column
 	 *
 	 * Only works for WP_Query objects ( such as posts and media )
@@ -293,16 +240,18 @@ class CAC_Addon_Sortable_Post {
 		if ( empty( $vars['orderby'] ) )
 			return $vars;
 		
+		global $cpac;
+		
 		// storage model exists?
-		if ( ! $storage_model = $this->cpac->get_storage_model( $post_type ) )
+		if ( ! $storage_model = $cpac->get_storage_model( $post_type ) )
 			return $columns;
-			
+
 		// Column
 		$column = $this->get_orderby_type( $vars['orderby'], $storage_model );
 
 		if ( empty( $column ) )
 			return $vars;
-			
+
 		// unsorted Posts
 		$cposts = array();
 
@@ -310,7 +259,6 @@ class CAC_Addon_Sortable_Post {
 
 			case 'column-postid' :
 				$vars['orderby'] = 'ID';
-				
 				break;
 
 			case 'column-order' :
@@ -340,14 +288,14 @@ class CAC_Addon_Sortable_Post {
 			case 'column-excerpt' :
 				$sort_flag = SORT_STRING;
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$cposts[ $p->ID ] = $this->prepare_sort_string_value( $p->post_content );
+					$cposts[$p->ID] = $this->prepare_sort_string_value( $p->post_content );
 				}
 				break;
 
 			case 'column-word-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_any_posts_by_posttype( $post_type ) as $p ) {
-					$cposts[ $p->ID ] = str_word_count( CPAC_Utility::strip_trim( $p->post_content ) );
+					$cposts[$p->ID] = str_word_count( CPAC_Utility::strip_trim( $p->post_content ) );
 				}
 				break;
 
@@ -486,12 +434,21 @@ class CAC_Addon_Sortable_Post {
 
 		endswitch;
 
-
 		// we will add the sorted post ids to vars['post__in'] and remove unused vars
 		if ( isset( $sort_flag ) ) {
 			$vars = $this->get_vars_post__in( $vars, $cposts, $sort_flag );
-		}		
+		}
+
+		return $vars;
+		
 
 		return $vars;
 	}
 }
+
+/**
+ * Init Class CAC_Addon_Sorting
+ *
+ * @since 0.1
+ */
+new CAC_Addon_Sortable_Post();
