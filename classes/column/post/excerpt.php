@@ -20,22 +20,9 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	
 	/**
 	 * @see CPAC_Column::get_value()
-	 *
-	 * @todo image size
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
 		$this->get_post_excerpt( $post_id );	
-	}	
-	
-	/**
-	 * Display Settings
-	 *
-	 * @todo: add field excerpt length
-	 * @since 2.0.0
-	 */
-	function display_settings() {
-	
-		//$this->display_excerpt_length();
 	}
 }

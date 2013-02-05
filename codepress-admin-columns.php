@@ -39,8 +39,8 @@ if ( !is_admin() )
 	return false;
 
 // DEV
-require_once dirname( __FILE__ ) . '/addons/multiple-fields/multiple-fields.php';
-require_once dirname( __FILE__ ) . '/addons/sortable/sortable.php';
+require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
+require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
 	
 /**
  * Dependencies
@@ -103,17 +103,14 @@ class CPAC
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
-
-		// register columns
-		//add_action( 'admin_init', array( $this, 'register_columns_headings' ) );
-		//add_action( 'admin_init', array( $this, 'register_columns_values' ) );		
 		
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 		
-		// init
+		// set storage models
 		$this->set_storage_models();
 		
+		// ini controllers
 		$this->init_controllers();
 		
 		// Hook

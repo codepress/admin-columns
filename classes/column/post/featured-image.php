@@ -23,8 +23,6 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	
 	/**
 	 * @see CPAC_Column::get_value()
-	 *
-	 * @todo image size
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {

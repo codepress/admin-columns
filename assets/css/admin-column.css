@@ -127,9 +127,18 @@ a.help {
 	font-weight: bold;
 	vertical-align: middle;
 	padding-left: 20px;
+	position: relative;
 }
-.column-meta .column_label > a {
+.column-meta .column_label .inner {
+	position: relative;
+}
+.column-meta .column_label .inner > a {
 	float: left;
+}
+.column-meta .column_label .inner .column_label_meta {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 .column-meta .column_type {
 	width: auto;

@@ -20,15 +20,11 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 		$this->options['before']		= '';
 		$this->options['after']			= '';
 		
-		// image
 		$this->options['image_size']	= '';
 		$this->options['image_size_w']	= 80;
-		$this->options['image_size_h']	= 80;
+		$this->options['image_size_h']	= 80;	
 		
-		// define properties
-		$this->properties['label']	 		= __( 'Custom Field', CPAC_TEXTDOMAIN );
-		$this->properties['classes']	 	= 'cpac-box-metafield';		
-		
+		// call contruct
 		parent::__construct( $storage_model );
 	}
 	
@@ -55,7 +51,7 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 			'color'			=> __( 'Color', CPAC_TEXTDOMAIN ),
 		);
 
-		return apply_filters( 'cpac_field_types', $custom_field_types );
+		return apply_filters( 'cpac_custom_field_types', $custom_field_types );
 	}
 	
 	/**
@@ -133,8 +129,6 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	
 	/**
 	 * @see CPAC_Column::get_value()
-	 *
-	 * @todo image size
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
@@ -211,6 +205,7 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	/**
 	 * Display Settings
 	 *
+	 * @see CPAC_Column::display_settings()
 	 * @since 2.0.0
 	 */
 	function display_settings() {

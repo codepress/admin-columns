@@ -141,14 +141,16 @@ abstract class CPAC_Storage_Model {
 		// Defaults
 		foreach ( $this->get_default_columns() as $column_name => $label ) {
 			
-			$column = new CPAC_Column( $this );			
+			$column = new CPAC_Column( $this );
 			$column
-				->set_type( $column_name )
-				->set_label( $label )
-				->set_state( 'on' );
+				->set_properties( 'type', $column_name )
+				->set_properties( 'name', $column_name )				
+				->set_properties( 'label', $label )
+				->set_options( 'label', $label )				
+				->set_options( 'state', 'on' );
 			
 			if ( in_array( $column_name, array( 'cb', 'comments' ) ) )
-				$column->set_hide_label();
+				$column->set_properties( 'hide_label', true );
 			
 			$columns[ $column->properties->name ] = $column;			
 		}
@@ -160,8 +162,11 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;
 		}
 		
+		do_action( "cpac_get_columns", $columns );
+		do_action( "cpac_get_columns_{$this->key}", $columns );
+		
 		return $columns;
-	}
+	}	
 	
 	/**
 	 * Get column options from DB
@@ -296,7 +301,7 @@ abstract class CPAC_Storage_Model {
 			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {
 			
 				// label needs stripslashes() for HTML taged labels, like comments icon
-				$column_headings[ $column_name ] = stripslashes(  $options['label'] );				
+				$column_headings[ $column_name ] = stripslashes( $options['label'] );				
 			}
 		}
 		

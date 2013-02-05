@@ -4,21 +4,24 @@
  *
  * @since 2.0.0
  *
- * @param string $key Unique key for the Type which this columns belongs too.
- * @param string $column_name Unique name for this column.	
- * @param string $id		  Unique ID for this column instance.	
+ * @param object $storage_model CPAC_Storage_Model
  */
 class CPAC_Column {
 	
 	/**
 	 * Storage Model
 	 *
+	 * $storage_model contains a CPAC_Storage_Model object which the column belongs too. 
+	 * A Storage Model can be a Posttype, User, Comment, Link or Media storage type.
+	 *
 	 * @since 2.0.0
 	 */
 	protected $storage_model;
 	
 	/**
-	 * Options set by User
+	 * Options
+	 *
+	 * $options contains the user set options for the CPAC_Column object.
 	 *
 	 * @since 2.0.0
 	 */
@@ -27,6 +30,8 @@ class CPAC_Column {
 	/**
 	 * Properties
 	 *
+	 * $properties describes the fixed properties for the CPAC_Column object.
+	 *
 	 * @since 2.0.0
 	 */
 	public $properties = array();
@@ -34,9 +39,13 @@ class CPAC_Column {
 	/**
 	 * Get value
 	 *
+	 * Returns the value for the column.
+	 * 
 	 * @since 2.0.0	
+	 * @param int $postid Post ID
+	 * @return string Value
 	 */
-	function get_value() {}
+	function get_value( $postid ) {}
 	
 	/**
 	 * Display_settings
@@ -49,6 +58,8 @@ class CPAC_Column {
 	 * Defaults
 	 *
 	 * @since 2.0.0
+	 *
+	 * @param object $storage_model CPAC_Storage_Model
 	 */
 	public function __construct( CPAC_Storage_Model $storage_model ) {
 
@@ -63,20 +74,31 @@ class CPAC_Column {
 			'classes'			=> null,	// Custom CSS classes for this column.
 			'hide_label'		=> false,	// Should the Label be hidden?
 		);		
-		
+
 		// merge arguments with defaults. turn into object for easy handling
-		$this->properties = (object) apply_filters( 'cpac_column_properties', array_merge( $default_properties, $this->properties ) );
-		
+		$properties = array_merge( $default_properties, $this->properties );
+				
 		// set column name to column type
-		$this->properties->name = $this->properties->type;		
+		$properties['name'] = $properties['type'];
+		
+		// add filters
+		$properties = apply_filters( 'cpac_column_properties', $properties );
+		$properties = apply_filters( "cpac_column_properties_{$this->storage_model->key}", $properties );
+		
+		// convert to object for easy handling
+		$this->properties = (object) $properties;
 		
 		// every column contains these default options
-		$default_options = apply_filters( 'cpac_column_default_options', array(
+		$default_options = array(
 			'label'			=> $this->properties->label,	// Label for this column.
 			'width'			=> null,						// Width for this column.
 			'state'			=> 'off',						// Active state for this column.
-		));
-
+		);
+		
+		// add filters
+		$default_options = apply_filters( 'cpac_column_default_options', $default_options, $this );
+		$default_options = apply_filters( "cpac_column_default_options_{$this->storage_model->key}", $default_options, $this );
+		
 		// merge arguments with defaults and stored options. turn into object for easy handling
 		$this->options = (object) array_merge( $default_options, $this->options );
 		
@@ -92,36 +114,34 @@ class CPAC_Column {
 	 function populate_options() {	
 
 		$this->options = (object) array_merge( (array) $this->options, $this->read() );
-	 }
+	}
 	
 	/**
-	 * Set Label
+	 * Set Properties
 	 *
-	 * @param string $label
-	 * @return object
+	 * @param string $property
+	 * @return mixed $value
 	 */
-	function set_label( $label ) {
-		
-		$this->properties->label 	= $label;
-		$this->options->label 		= $label;
+	function set_properties( $property, $value ) {
+				
+		$this->properties->{$property} = $value;
 		
 		return $this;
 	}
 	
 	/**
-	 * Set Type
+	 * Set Options
 	 *
-	 * @param string $type
-	 * @return object
+	 * @param string $option
+	 * @return mixed $value
 	 */
-	function set_type( $type ) {
-		
-		$this->properties->type = $type;
-		$this->properties->name = $type;
+	function set_options( $option, $value ) {
+
+		$this->options->{$option} = $value;
 		
 		return $this;
 	}
-	
+		
 	/**
 	 * Set Clone
 	 *
@@ -137,32 +157,6 @@ class CPAC_Column {
 		}	
 				
 		return $this;
-	}
-	
-	/**
-	 * Set Hide Label
-	 *
-	 * @param string $label
-	 * @return object
-	 */
-	function set_hide_label() {
-		
-		$this->properties->hide_label = true;
-
-		return $this;
-	}
-	
-	/**
-	 * Set State
-	 *
-	 * @param string $state on | off
-	 * @return object
-	 */
-	function set_state( $state = 'off' ) {
-				
-		$this->options->state = $state;
-		
-		return $this->storage_model;
 	}
 	
 	/**
@@ -205,6 +199,7 @@ class CPAC_Column {
 	/**
 	 * Returns excerpt
 	 *
+	 * @todo: options for excerpt length
 	 * @since 1.0.0
 	 *
 	 * @param int $post_id Post ID
@@ -218,7 +213,7 @@ class CPAC_Column {
 		$excerpt 	= get_the_excerpt();
 		$post 		= $save_post;
 
-		$output = $this->get_shortened_string( $excerpt, $this->excerpt_length );
+		$output = $this->get_shortened_string( $excerpt, 20 );
 
 		return $output;
 	}
@@ -528,6 +523,8 @@ class CPAC_Column {
 	/**
 	 * Label view
 	 *
+	 * @since 2.0.0
+	 *
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
@@ -553,6 +550,7 @@ class CPAC_Column {
 	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
 	 */
 	function display_field_preview_size( $is_hidden = false ) {
+	
 		$field_key		= 'image_size';
 		$label			= __( 'Preview size', CPAC_TEXTDOMAIN );
 		
@@ -595,8 +593,6 @@ class CPAC_Column {
 		// classes
 		$active 	= 'on' == $this->options->state ? 'active' : '';
 		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
-		
-		$licenses = CPAC_Utility::get_licenses();
 
 		?>
 				
@@ -612,12 +608,19 @@ class CPAC_Column {
 								<input type="hidden" class="cpac-state" name="<?php echo $this->attr_name( 'state' ); ?>" value="<?php echo $this->options->state; ?>" id="<?php echo $this->attr_id( 'state' ); ?>"/>
 							</td>
 							<td class="column_label">
-								<a href="javascript:;">
-									<?php echo stripslashes( $this->options->label ); ?>
-								</a>
+								<div class="inner">
+									<a href="javascript:;">
+										<?php echo stripslashes( $this->options->label ); ?>
+									</a>
+									<div class="column_label_meta">
+									
+									<?php do_action( 'cpac_column_label_meta', $this ); ?>
+									
+									</div>
+								</div>
 							</td>
 							<td class="column_type">
-								<?php echo wp_specialchars_decode( $this->properties->label ); ?>
+								<?php echo stripslashes( $this->properties->label ); ?>
 							</td>
 							<td class="column_edit"></td>
 						</tr>
@@ -671,7 +674,7 @@ class CPAC_Column {
 	/**
 	 * Clone method
 	 *
-	 * An object copy is created by using the clone keyword which calls the object's __clone() method.
+	 * An object copy is created by using the clone keyword which calls the object's __clone() method.	 
 	 *
 	 * @since 2.0.0
 	 */

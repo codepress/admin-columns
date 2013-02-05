@@ -35,10 +35,6 @@ define( 'CAC_SC_DIR', 			plugin_dir_path( __FILE__ ) );
 // only run plugin in the admin interface
 if ( ! is_admin() )
 	return false;
-
-// Includes
-include_once 'classes/post.php';
-
 	
 /**
  * Addon class
@@ -57,21 +53,37 @@ class CAC_Addon_Sortable_Settings {
 
 		load_plugin_textdomain( CAC_SC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );	
 		
-		// define which column types are sortable
-		$this->sortable_columns = array(
-			'column-meta', 
-			'column-excerpt' 
-		);
+		// styling & scripts
+		add_action( 'admin_enqueue_scripts' , array( $this, 'scripts') );
 		
 		// add column properties
-		add_filter( 'cpac_column_properties', array( $this, 'set_column_properties' ) );
+		add_filter( 'cpac_column_properties', array( $this, 'set_column_default_properties' ) );
 		
 		// add column options
 		add_filter( 'cpac_column_default_options', array( $this, 'set_column_default_options' ) );
 		
 		// add setting field
 		add_action( 'cpac_after_column_settings', array( $this, 'add_settings_field' ), 9 );
-
+		
+		// add setting sort indicator
+		add_action( 'cpac_column_label_meta', array( $this, 'add_label_sort_indicator' ), 9 );
+		
+		// init addons
+		add_action( 'cpac_loaded', array( $this, 'init_addon_sortables' ) );
+	}
+	
+	/**
+	 * Register scripts
+	 *
+	 * @since 0.1
+	 */
+	public function scripts() {
+	
+		if ( isset( $_REQUEST['page'] ) && 'codepress-admin-columns' == $_REQUEST['page'] ) {
+		
+			wp_enqueue_style( 'cac-addon-sortable-columns-css', CAC_SC_URL . '/assets/css/sortable.css', array(), CAC_SC_VERSION, 'all' );			
+			
+		}
 	}
 	
 	/**
@@ -79,15 +91,9 @@ class CAC_Addon_Sortable_Settings {
 	 *
 	 * @since 0.1
 	 */
-	function set_column_properties( $properties ) {
-		
-		$sortable_columns = array(
-			'column-meta', 
-			'column-excerpt',
-			'column-postid'
-		);
-		
-		$properties['is_sortable'] = in_array( $properties['type'], $sortable_columns ) ? true : false;
+	function set_column_default_properties( $properties ) {
+
+		$properties['is_sortable'] = false;
 		
 		return $properties;	
 	}
@@ -126,13 +132,51 @@ class CAC_Addon_Sortable_Settings {
 					<?php _e( 'Yes'); ?>
 				</label>
 				<label for="<?php $column->attr_id( 'sort' ); ?>-off">
-					<input type="radio" value="" name="<?php $column->attr_name( 'sort' ); ?>" id="<?php $column->attr_id( 'sort' ); ?>-off"<?php checked( $column->options->sort, '' ); ?><?php checked( $column->options->sort, 'off' ); ?>>
+					<input type="radio" value="off" name="<?php $column->attr_name( 'sort' ); ?>" id="<?php $column->attr_id( 'sort' ); ?>-off"<?php checked( $column->options->sort, '' ); ?><?php checked( $column->options->sort, 'off' ); ?>>
 					<?php _e( 'No'); ?>
 				</label>
 			</td>
 		</tr>
 		
 	<?php
+	}
+	
+	/**
+	 * Meta Label
+	 *
+	 * @since 2.0.0
+	 */
+	function add_label_sort_indicator( $column ) {
+		
+		if ( ! $column->properties->is_sortable )
+			return false;			
+		?>		
+		
+		<span class="sorting <?php echo $column->options->sort; ?>"><?php _e( 'sorting', CPAC_TEXTDOMAIN ); ?></span>
+		
+		<?php		
+	}
+	
+	/**
+	 * Init Addons
+	 *
+	 * @since 2.0.0
+	 */
+	function init_addon_sortables( $cpac ) {
+		
+		// Abstract		
+		include_once 'classes/model.php';
+		
+		// Childs
+		include_once 'classes/post.php';
+		
+		// Instances	
+		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
+			
+			$storage_model = $cpac->get_storage_model( $post_type );
+			
+			new CAC_Sortable_Model_Post( $storage_model );
+		}
 	}
 }
 

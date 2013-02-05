@@ -1,0 +1,10 @@
+/* =Button
+-------------------------------------------------------------- */
+.column-meta .column_label .inner .column_label_meta .sorting {
+	font-weight: normal;
+	color: #808080;
+}
+.column-meta .column_label .inner .column_label_meta .sorting.on {
+	font-weight: bold;
+	color: #333333;
+}
