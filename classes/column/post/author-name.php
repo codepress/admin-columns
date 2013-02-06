@@ -49,9 +49,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		
-		echo "<br/>!!!!!!!!!!!!!!!!!!!!";
-		
+			
 		$value = '';
 
 		$nametypes = $this->get_nametypes();
@@ -61,8 +59,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 				
 				$display_as = $this->options->display_author_as;
 				$userdata 	= get_userdata( $author );
-				
-				var_dump( ! empty( $userdata->{$display_as} ) );
 				
 				// first check variables in userdata
 				if ( ! empty( $userdata->{$display_as} ) ) {

@@ -153,10 +153,7 @@ abstract class CPAC_Storage_Model {
 				$column->set_properties( 'hide_label', true );
 			
 			$columns[ $column->properties->name ] = $column;			
-		}
-		
-		echo '@todo:fix, cloned columns get loaded into default_columns.';
-		print_R( $columns ); exit;
+		}		
 		
 		// Custom
 		foreach ( $this->get_custom_columns() as $classname ) {
@@ -204,9 +201,6 @@ abstract class CPAC_Storage_Model {
 		// get columns
 		$registered_columns = $this->get_registered_columns();
 		$stored_columns 	= $this->get_stored_columns();	
-		
-		print_R( $registered_columns );
-		exit;
 		
 		// Stored columns
 		if ( $stored_columns ) {

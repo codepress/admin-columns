@@ -51,23 +51,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		do_action( "cpac_before_default_columns_{$this->key}" );
 
 		// some plugins directly hook into get_column_headers, such as: WooCommerce.
-		$columns = get_column_headers( 'edit-' . $this->key );
+		// @todo: create conflicts, where the stored admin columns columns get included as default columns.
+		// $columns = get_column_headers( 'edit-' . $this->key );
 		
-		// @todo: does this if statement cause any conflicts??
-		// get default columns
-		if ( empty( $columns ) ) {
+		// used for getting columns
+		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' ) )
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
-			// used for getting columns
-			if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
-				require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-			if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' ) )
-				require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
-
-			// As of WP Release 3.5 we can use the following.
-			$table 		= new WP_Posts_List_Table( array( 'screen' => $this->key ) );
-			$columns 	= $table->get_columns();
-		}
-
+		// As of WP Release 3.5 we can use the following.
+		$table 		= new WP_Posts_List_Table( array( 'screen' => $this->key ) );
+		$columns 	= $table->get_columns();
+	
 		if ( empty( $columns ) )
 			return false;
 		
