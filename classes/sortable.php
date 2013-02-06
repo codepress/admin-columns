@@ -958,8 +958,8 @@ class Codepress_Sortable_Columns extends Codepress_Admin_Columns
 				$vars['order'] 		= $preference['order'];
 
 				// used by active state in column header
-				$_GET['orderby'] = $preference['orderby'];
-				$_GET['order']	 = $preference['order'];
+				//$_GET['orderby'] = $preference['orderby'];
+				//$_GET['order']	 = $preference['order'];
 			}
 		}
 
