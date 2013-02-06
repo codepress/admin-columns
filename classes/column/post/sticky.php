@@ -17,6 +17,18 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	}
 	
 	/**
+	 * @see CPAC_Column::apply_conditional()
+	 * @since 2.0.0
+	 */
+	function apply_conditional() {
+		
+		if ( 'post' == $this->storage_model->key )
+			return true;
+		
+		return false;
+	}
+	
+	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */

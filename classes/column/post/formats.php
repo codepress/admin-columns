@@ -17,6 +17,18 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	}
 	
 	/**
+	 * @see CPAC_Column::apply_conditional()
+	 * @since 2.0.0
+	 */
+	function apply_conditional() {
+		
+		if ( post_type_supports( $this->storage_model->key, 'post-formats' ) )
+			return true;
+		
+		return false;
+	}
+	
+	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */

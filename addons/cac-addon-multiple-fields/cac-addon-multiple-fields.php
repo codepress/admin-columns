@@ -111,7 +111,7 @@ class CAC_Addon_Multiple_Columns {
 	 */
 	function add_remove_button( $column ) {
 		
-		if ( ! $column->properties->is_cloneable )
+		if ( ! ( $column->properties->is_cloneable || ( isset( $column->options->clone ) && $column->options->clone ) ) )
 			return false;
 		
 		?>

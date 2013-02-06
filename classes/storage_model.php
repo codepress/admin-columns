@@ -149,8 +149,10 @@ abstract class CPAC_Storage_Model {
 				->set_options( 'label', $label )				
 				->set_options( 'state', 'on' );
 			
-			if ( in_array( $column_name, array( 'cb', 'comments' ) ) )
+			// exceptions for checkbox and comments
+			if ( in_array( $column_name, array( 'cb', 'comments' ) ) ) {
 				$column->set_properties( 'hide_label', true );
+			}
 			
 			$columns[ $column->properties->name ] = $column;			
 		}		

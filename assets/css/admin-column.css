@@ -108,14 +108,14 @@ a.help {
 	vertical-align: top;
 	height: 16px;
 	border: none;
-	padding: 10px 8px;
+	padding: 8px 8px;
 	border-width: 1px 0 0;
 	border-style: solid;
 	border-color: transparent;
 }
 .column-meta .column_sort {
 	width: 10px;
-	background: transparent url(../images/drag.png) no-repeat 8px 8px;
+	background: transparent url(../images/drag.png) no-repeat 8px 7px;
 	cursor: move;
 }
 .column-meta .column_status {

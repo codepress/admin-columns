@@ -22,11 +22,9 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 *
 	 * Used by posts and sortable
 	 *
-	 * @since 1.4.6.1
+	 * @since 2.0.0
 	 *
-	 * @param string $nametype
-	 * @param int $user_id
-	 * @return string Author
+	 * @return array Authortypes
 	 */
 	private function get_nametypes() {
 		

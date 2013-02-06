@@ -31,9 +31,8 @@ class CPAC_Column_Post_Page_Template extends CPAC_Column {
 	 */
 	function apply_conditional() {
 		
-		if ( 'page' == $this->storage_model->key ) {
+		if ( 'page' == $this->storage_model->key )
 			return true;
-		}
 		
 		return false;
 	}

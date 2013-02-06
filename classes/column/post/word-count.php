@@ -20,7 +20,7 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 	
-		return str_word_count( trim( strip_tags( get_post_field( 'post_content', $post_id ) ) ) );
+		return str_word_count( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
 	}
 	
 	/**

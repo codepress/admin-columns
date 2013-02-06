@@ -235,7 +235,16 @@ class CAC_Sortable_Model_Post extends CAC_Sortable_Model {
 			case 'column-attachment-count' :
 				$sort_flag = SORT_NUMERIC;
 				foreach ( $this->get_posts_by_posttype( $post_type, 'ids' ) as $id ) {
-					$posts[ $id ] = count( CPAC_Utility::get_attachment_ids( $id ) );
+					
+					$attachments = get_posts( array(
+						'post_type' 	=> 'attachment',
+						'numberposts' 	=> -1,
+						'post_status' 	=> null,
+						'post_parent' 	=> $id,
+						'fields' 		=> 'ids'
+					));
+					
+					$posts[ $id ] = count( $attachments );
 				}
 				break;
 

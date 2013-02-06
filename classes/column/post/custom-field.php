@@ -62,9 +62,9 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	 * @param string $meta
 	 * @return string Titles
 	 */
-	protected function get_titles_by_id( $meta ) {
+	private function get_titles_by_id( $meta ) {
 		//remove white spaces and strip tags
-		$meta = CPAC_Utility::strip_trim( str_replace( ' ','', $meta ) );
+		$meta = $this->strip_trim( str_replace( ' ','', $meta ) );
 		// var
 		$ids = $titles = array();
 

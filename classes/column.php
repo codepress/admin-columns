@@ -166,20 +166,6 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Maybe display
-	 *
-	 * Use this function to apply conditional logic for when a column should be shown.
-	 * Example: see post/page-template.php
-	 *
-	 * @since 2.0.0
-	 * @return object
-	 */
-	 function maybe_display() {	
-
-		return true;
-	}
-	
-	/**
 	 * Get Attribute Name
 	 *
 	 * @param string $field_key
@@ -217,7 +203,17 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Returns excerpt
+	 * Strip tags and trim - Value method
+	 *
+	 * @since 1.3
+	 */
+	protected function strip_trim( $string )
+	{
+		return trim( strip_tags( $string ) );
+	}
+	
+	/**
+	 * Returns excerpt - Value method
 	 *
 	 * @todo: options for excerpt length
 	 * @since 1.0.0
@@ -239,7 +235,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Returns shortened string
+	 * Returns shortened string - Value method
 	 *
 	 * @see wp_trim_words();
 	 * @since 1.0.0
@@ -254,7 +250,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Get image from assets folder
+	 * Get image from assets folder - Value method
 	 *
 	 * @since 1.3.1
 	 *
@@ -270,7 +266,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Checks an URL for image extension
+	 * Checks an URL for image extension - Value method
 	 *
 	 * @since 1.2.0
 	 *
@@ -285,7 +281,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Get all image sizes
+	 * Get all image sizes - Value method
 	 *
 	 * @since 1.0.0
 	 *
@@ -309,7 +305,7 @@ class CPAC_Column {
 	} 
 	
 	/**
-	 * Get Image Sizes by name
+	 * Get Image Sizes by name - Value method
 	 *
 	 * @since 1.5.0
 	 *
@@ -329,7 +325,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Image Resize
+	 * Image Resize - Value method
 	 *
 	 * @see image_resize()
 	 * @since 1.5
@@ -365,7 +361,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Get a thumbnail
+	 * Get a thumbnails - Value method
 	 *
 	 * @since 1.0.0
 	 *
@@ -416,7 +412,7 @@ class CPAC_Column {
 		// Media Attachment
 		else {
 
-			$meta = trim( strip_tags( str_replace( ' ', '', $meta ) ) );
+			$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
 
 			$media_ids = array( $meta );
 
@@ -460,7 +456,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Implode for multi dimensional array
+	 * Implode for multi dimensional array - Value method
 	 *
 	 * @since 1.0.0
 	 *
@@ -486,7 +482,7 @@ class CPAC_Column {
 	}
 	
 	/**
-	 * Get date
+	 * Get date - Value method
 	 *
 	 * @since 1.3.1
 	 *
@@ -511,7 +507,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get time
+	 * Get time - Value method
 	 *
 	 * @since 1.3.1
 	 *
