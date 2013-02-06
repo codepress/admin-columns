@@ -137,13 +137,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @param int $post_id
 	 */
 	public function manage_value( $column_name, $post_id ) {		
-
+		
+		//$cols = $this->get_columns();
+		
+		//print_R( $cols );
+		//exit;
+		
+		
 		$value = '';
+		
+		//echo $column_name . "<br/>";
+		//echo $post_id . "<br/>";
 		
 		// get column instance
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
+			//print_R( $column );
+			
 			$value = $column->get_value( $post_id );
 		}
+		
+		
 		
 		$value = apply_filters( "cpac_value_posts", $value, $column );
 		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );

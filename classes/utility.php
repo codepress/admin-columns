@@ -128,25 +128,6 @@ class CPAC_Utility {
 	}
 
 	/**
-	 * Get column options from DB
-	 *
-	 * @since 1.0.0
-	 *
-	 * @paran string $key
-	 * @return array Column options
-	 */
-	public static function get_stored_columns( $key ) {
-		// get plugin options
-		$options = get_option('cpac_options');
-
-		// get saved columns
-		if ( empty( $options['columns'][$key] ) )
-			return false;
-
-		return $options['columns'][$key];
-	}
-
-	/**
 	 * Get post count
 	 *
 	 * @since 1.3.1
@@ -214,64 +195,6 @@ class CPAC_Utility {
 			'customfields' 	=> new CPAC_Licence( 'customfields' )
 		);
 	}	
-	
-	/**
-	 * Get author field by nametype
-	 *
-	 * Used by posts and sortable
-	 *
-	 * @since 1.4.6.1
-	 *
-	 * @param string $nametype
-	 * @param int $user_id
-	 * @return string Author
-	 */
-	public static function get_author_field_by_nametype( $nametype, $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		switch ( $nametype ) :
-
-			case "display_name" :
-				$name = $userdata->display_name;
-				break;
-
-			case "first_name" :
-				$name = $userdata->first_name;
-				break;
-
-			case "last_name" :
-				$name = $userdata->last_name;
-				break;
-
-			case "first_last_name" :
-				$first = !empty($userdata->first_name) ? $userdata->first_name : '';
-				$last = !empty($userdata->last_name) ? " {$userdata->last_name}" : '';
-				$name = $first.$last;
-				break;
-
-			case "nickname" :
-				$name = $userdata->nickname;
-				break;
-
-			case "username" :
-				$name = $userdata->user_login;
-				break;
-
-			case "email" :
-				$name = $userdata->user_email;
-				break;
-
-			case "userid" :
-				$name = $userdata->ID;
-				break;
-
-			default :
-				$name = $userdata->display_name;
-
-		endswitch;
-
-		return $name;
-	}
 
 	/**
 	 * Admin message

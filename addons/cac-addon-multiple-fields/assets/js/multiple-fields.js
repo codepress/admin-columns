@@ -41,7 +41,7 @@ function cpac_cloning() {
 		var clone = all_columns.find( '.cpac-box-' + type + '[data-clone=""]' ).clone().attr( 'data-clone', id );
 		
 		// replace column identifier				
-		var inputs = jQuery( clone ).find( 'input, select', 'label' );
+		var inputs = jQuery( clone ).find( 'input, select, label' );
 		jQuery( inputs ).each( function( i, v ) {
 			
 			var new_name = type + '-' + id;
@@ -61,7 +61,7 @@ function cpac_cloning() {
 				jQuery(v).attr( 'id', jQuery(v).attr( 'id' ).replace( type, new_name ) );
 			}			
 		});	
-		
+
 		// increment clone
 		clone.find( 'input.clone' ).val( id );
 		
@@ -73,9 +73,9 @@ function cpac_cloning() {
 		clone.find( 'td.column_label a, tr.column_label input.text' ).text( label );
 		clone.find( 'tr.column_label input.text' ).val( label );
 		
-		// add remove button	
-		if ( clone.find( '.remove-button' ).length == 0 ) {			
-			clone.find( 'tr.column_action td.input' ).append( '<p><a href="javascript:;" class="remove-button">' + cpac_i18n.remove + '</a></p>' );
+		// add remove button		
+		if ( clone.find( 'tr.column_action td .remove-button' ).length == 0 ) {			
+			clone.find( 'tr.column_action td' ).append( '<p><a href="javascript:;" class="remove-button">' + cpac_i18n.remove + '</a></p>' );
 		}
 		
 		// add click event

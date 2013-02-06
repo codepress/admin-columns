@@ -1,6 +1,6 @@
 <?php
 /**
- * Post ID
+ * CPAC_Column_Post_ID
  *
  * @since 2.0.0
  */
@@ -9,7 +9,7 @@ class CPAC_Column_Post_ID extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-postid';
-		$this->properties['label']	 	= __( 'Post ID', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'ID', CPAC_TEXTDOMAIN );
 		
 		parent::__construct( $storage_model );
 	}

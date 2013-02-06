@@ -104,11 +104,11 @@ a.help {
 	background: transparent;
 	border-radius: 0;
 }
-.column-meta tr td {
+.cpac-column .column-meta table tr td {
 	vertical-align: top;
-	height: 20px;
+	height: 16px;
 	border: none;
-	padding: 8px;
+	padding: 10px 8px;
 	border-width: 1px 0 0;
 	border-style: solid;
 	border-color: transparent;
@@ -123,10 +123,10 @@ a.help {
 	background: transparent url(../images/status.png) no-repeat center 8px;
 }
 .column-meta .column_label {
-	width: 50%;
+	width: 55%;
 	font-weight: bold;
 	vertical-align: middle;
-	padding-left: 20px;
+	padding-left: 16px;
 	position: relative;
 }
 .column-meta .column_label .inner {
@@ -134,6 +134,8 @@ a.help {
 }
 .column-meta .column_label .inner > a {
 	float: left;
+	height: 20px;
+	overflow: hidden;
 }
 .column-meta .column_label .inner .column_label_meta {
 	position: absolute;
@@ -167,7 +169,7 @@ a.help {
 	background: transparent;
 }
 .cpac-column.active .column-meta td {
-	border-color: #f8f8f8;
+	border-color: #f8f8f8;	
 }
 .cpac-column.active .column-meta td,
 .cpac-column.active .column-meta td a{

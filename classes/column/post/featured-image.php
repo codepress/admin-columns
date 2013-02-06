@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Post Featured Image column
+ * CPAC_Column_Post_Featured_Image
  *
  * @since 2.0.0
  */
@@ -33,26 +33,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	}
 	
 	/**
-	 * @see CPAC_Column::get_sortable_vars()
-	 * @since 2.0.0
-	 */
-	function get_sortable_vars( $vars, $posts = array() ) {
-		$unsorted = array();
-
-		foreach ( $posts as $p ) {
-			$unsorted[$p->ID] = $p->ID;
-			
-			if ( ! has_post_thumbnail( $p->ID ) ) {
-				$unsorted[$p->ID] = 0;
-			}
-		}
-
-		return CPAC_Sortable::get_vars_post__in( $vars, $unsorted, SORT_REGULAR );
-	}
-	
-	/**
-	 * Display Settings
-	 *
+	 * @see CPAC_Column::display_settings()
 	 * @since 2.0.0
 	 */
 	function display_settings() {

@@ -66,7 +66,7 @@ class CAC_Addon_Sortable_Settings {
 		add_action( 'cpac_after_column_settings', array( $this, 'add_settings_field' ), 9 );
 		
 		// add setting sort indicator
-		add_action( 'cpac_column_label_meta', array( $this, 'add_label_sort_indicator' ), 9 );
+		add_action( 'cpac_column_label', array( $this, 'add_label_sort_indicator' ), 9 );
 		
 		// init addons
 		add_action( 'cpac_loaded', array( $this, 'init_addon_sortables' ) );

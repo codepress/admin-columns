@@ -155,10 +155,18 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;			
 		}
 		
+		echo '@todo:fix, cloned columns get loaded into default_columns.';
+		print_R( $columns ); exit;
+		
 		// Custom
 		foreach ( $this->get_custom_columns() as $classname ) {
 			
 			$column = new $classname( $this );
+			
+			// some column are not registered based on conditional logic within the child column
+			if ( ! $column->properties->is_registered )
+				continue;
+			
 			$columns[ $column->properties->name ] = $column;
 		}
 		
@@ -197,6 +205,9 @@ abstract class CPAC_Storage_Model {
 		$registered_columns = $this->get_registered_columns();
 		$stored_columns 	= $this->get_stored_columns();	
 		
+		print_R( $registered_columns );
+		exit;
+		
 		// Stored columns
 		if ( $stored_columns ) {
 			
@@ -206,19 +217,17 @@ abstract class CPAC_Storage_Model {
 								
 				if ( ! isset( $options['type'] ) )
 					continue;
-				
-				$type = $options['type'];
-				
+					
 				// remember which types has been used, so we can filter them later
-				$stored_types[] = $type;
+				$stored_types[] = $options['type'];
 				
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
-				if ( ! in_array( $type, array_keys( $registered_columns ) ) )
+				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) )
 					continue;
 				
 				// create clone				
-				$column = clone $registered_columns[ $type ];
+				$column = clone $registered_columns[ $options['type'] ];
 				
 				// add an clone number which defines the instance
 				$column->set_clone( $options['clone'] );
@@ -232,12 +241,12 @@ abstract class CPAC_Storage_Model {
 			// In case of a enabled plugin or added custom column, we will add that column.
 			// When $diff contains items, it means an available column has not been stored.
 			if ( $diff = array_diff( array_keys( $registered_columns ), $stored_types ) ) {
-				foreach ( $diff as $type ) {					
-					$columns[ $name ] = clone $registered_columns[ $type ];
+				foreach ( $diff as $type ) {
+					$columns[ $type ] = clone $registered_columns[ $type ];
 				}
 			}			
 		}
-		
+				
 		// When nothing has been saved yet, we return the available columns.
 		else {
 		
@@ -269,7 +278,7 @@ abstract class CPAC_Storage_Model {
 	 */	 
 	function render() {		
 		
-		foreach ( $this->get_columns() as $column ) {	
+		foreach ( $this->get_columns() as $column ) {			
 			$column->display();
 		}	
 	}

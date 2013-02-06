@@ -73,6 +73,7 @@ class CPAC_Column {
 			'label'				=> null,  	// Label which describes this column.			
 			'classes'			=> null,	// Custom CSS classes for this column.
 			'hide_label'		=> false,	// Should the Label be hidden?
+			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 		);		
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -80,6 +81,10 @@ class CPAC_Column {
 				
 		// set column name to column type
 		$properties['name'] = $properties['type'];
+		
+		// show
+		if ( method_exists( $this, 'apply_conditional' ) )
+			$properties['is_registered'] = $this->apply_conditional();
 		
 		// add filters
 		$properties = apply_filters( 'cpac_column_properties', $properties );
@@ -102,6 +107,7 @@ class CPAC_Column {
 		// merge arguments with defaults and stored options. turn into object for easy handling
 		$this->options = (object) array_merge( $default_options, $this->options );
 		
+		// add stored options
 		$this->populate_options();
 	}
 	
@@ -157,6 +163,20 @@ class CPAC_Column {
 		}	
 				
 		return $this;
+	}
+	
+	/**
+	 * Maybe display
+	 *
+	 * Use this function to apply conditional logic for when a column should be shown.
+	 * Example: see post/page-template.php
+	 *
+	 * @since 2.0.0
+	 * @return object
+	 */
+	 function maybe_display() {	
+
+		return true;
 	}
 	
 	/**
@@ -317,40 +337,29 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+		
 		$resized = false;
 
-		// WP 3.5 or higher
-		if ( function_exists( 'wp_get_image_editor' ) ) {
+		$editor = wp_get_image_editor( $file );
 
-			$editor = wp_get_image_editor( $file );
+		if ( is_wp_error( $editor ) )
+			return false;
 
-			if ( is_wp_error( $editor ) )
-				return false;
+		$editor->set_quality( $jpeg_quality );
 
-			$editor->set_quality( $jpeg_quality );
+		$resized = $editor->resize( $max_w, $max_h, $crop );
+		if ( is_wp_error( $resized ) )
+			return false;
 
-			$resized = $editor->resize( $max_w, $max_h, $crop );
-			if ( is_wp_error( $resized ) )
-				return false;
+		$dest_file = $editor->generate_filename( $suffix, $dest_path );
 
-			$dest_file = $editor->generate_filename( $suffix, $dest_path );
+		$saved = $editor->save( $dest_file );
 
-			$saved = $editor->save( $dest_file );
+		if ( is_wp_error( $saved ) )
+			return false;
 
-			if ( is_wp_error( $saved ) )
-				return false;
+		$resized = $dest_file;
 
-			$resized = $dest_file;
-		}
-
-		// WP 3.4 or lower
-		else {
-			$result = image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
-
-			if ( ! is_wp_error( $result ) && $result ) {
-				$resized = $result;
-			}
-		}
 
 		return $resized;
 	}
@@ -407,9 +416,9 @@ class CPAC_Column {
 		// Media Attachment
 		else {
 
-			$meta = CPAC_Utility::strip_trim( str_replace( ' ', '', $meta ) );
+			$meta = trim( strip_tags( str_replace( ' ', '', $meta ) ) );
 
-			$media_ids = array($meta);
+			$media_ids = array( $meta );
 
 			// split media ids
 			if ( strpos( $meta, ',' ) !== false ) {
@@ -589,7 +598,7 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 */
 	public function display() {
-				
+
 		// classes
 		$active 	= 'on' == $this->options->state ? 'active' : '';
 		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
@@ -607,16 +616,12 @@ class CPAC_Column {
 							<td class="column_status">
 								<input type="hidden" class="cpac-state" name="<?php echo $this->attr_name( 'state' ); ?>" value="<?php echo $this->options->state; ?>" id="<?php echo $this->attr_id( 'state' ); ?>"/>
 							</td>
-							<td class="column_label">
+							<td class="column_label">		
 								<div class="inner">
 									<a href="javascript:;">
-										<?php echo stripslashes( $this->options->label ); ?>
+										<?php echo stripslashes( $this->options->label ); ?>										
 									</a>
-									<div class="column_label_meta">
-									
-									<?php do_action( 'cpac_column_label_meta', $this ); ?>
-									
-									</div>
+									<?php do_action( 'cpac_column_label', $this ); ?>
 								</div>
 							</td>
 							<td class="column_type">

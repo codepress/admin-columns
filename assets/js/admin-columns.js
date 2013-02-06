@@ -68,8 +68,9 @@ jQuery.fn.cpac_form_events = function() {
 	
 	/** change label */	
 	jQuery( '.column_label .input input', column ).bind( 'keyup change', function() {
+		
 		var value = jQuery( this ).val();
-		var label = jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label > a' );
+		var label = jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a' );
 
 		label.text( value );		
 	});

@@ -1,6 +1,6 @@
 <?php
 /**
- * Post Excerpt
+ * CPAC_Column_Post_Excerpt
  *
  * @since 2.0.0
  */

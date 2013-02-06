@@ -58,7 +58,7 @@ class CAC_Addon_Multiple_Columns {
 		add_action( 'admin_enqueue_scripts' , array( $this, 'scripts') );
 		
 		// add column properties
-		add_filter( 'cpac_column_properties', array( $this, 'set_column_properties' ) );
+		add_filter( 'cpac_column_properties', array( $this, 'add_sortable_column_types' ) );
 		
 		// add remove button
 		add_action( 'cpac_after_column_settings' , array( $this, 'add_remove_button') );
@@ -83,18 +83,23 @@ class CAC_Addon_Multiple_Columns {
 	}
 	
 	/**
-	 * Set column properties
+	 * Add sortable column types
 	 *
 	 * @since 0.1
 	 */
-	function set_column_properties( $properties ) {
+	function add_sortable_column_types( $properties ) {
 		
-		$include_types = array( 
+		$include_types = apply_filters( 'cpac_sortable_column_types', array( 
 			'column-meta', 
-			'column-excerpt' 
-		);
+			'column-taxonomy',
+			'column-comment-count',
+			'column-author-name',
+		));
 		
-		$properties['is_cloneable'] = in_array( $properties['type'], $include_types ) ? true : false;
+		// only add property is_cloneable when it has not yet been set.
+		if ( ! isset( $properties['is_cloneable'] ) ) {		
+			$properties['is_cloneable'] = in_array( $properties['type'], $include_types ) ? true : false;
+		}
 		
 		return $properties;	
 	}
@@ -132,7 +137,7 @@ class CAC_Addon_Multiple_Columns {
 		$buttons = array();
 		
 		foreach ( $storage_model->get_registered_columns() as $column ) {
-		
+			
 			if ( $column->properties->is_cloneable ) {				
 				$buttons[ $column->properties->type ] = array( 
 					'type'	=> $column->properties->type,				
@@ -145,7 +150,7 @@ class CAC_Addon_Multiple_Columns {
 		
 		<div class="button-container">		
 		<?php foreach ( $buttons as $button ) : ?>
-			<a href="javascript:;" data-type="<?php echo $button['type']; ?>" class="clone-button button">+ <?php _e( sprintf( 'Add %s Column', $button['label'] ), CPAC_TEXTDOMAIN ); ?></a><br/>
+			<a href="javascript:;" data-type="<?php echo $button['type']; ?>" class="clone-button button">+ <?php _e( 'Add', CPAC_TEXTDOMAIN );?> <?php echo $button['label']; ?></a><br/>
 		<?php endforeach; ?>		
 		</div>
 		

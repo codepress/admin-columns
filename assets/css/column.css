@@ -46,30 +46,3 @@ div.cpac-color span {
     overflow: hidden;
     padding: 4px 5px;
 }
-
-/* =Comment Counts column
--------------------------------------------------------------- */
-.column-comment-count a.post-com-count {
-	display: inline-block;
-}
-.column-comment-count .description a {
-	display: inline-block;
-	height: 16px;
-	line-height: 16px;
-	padding: 3px 5px 3px 22px;
-	margin: 0 4px 4px 0;
-	background: #e4e4e4;
-	border-radius: 3px;
-}
-.column-comment-count a.cp-approved {	
-	background: #e4e4e4 url(../images/checkmark.png) no-repeat 3px 50%;
-}
-.column-comment-count a.cp-moderated {	
-	background: #e4e4e4 url(../images/comment_edit.png) no-repeat 3px 50%;
-}
-.column-comment-count a.cp-spam {
-	background: #e4e4e4 url(../images/no.png) no-repeat 3px 50%;	
-}
-.column-comment-count a.cp-trash {
-	background: #e4e4e4 url(../images/trash.png) no-repeat 3px 50%;
-}

@@ -1,11 +1,17 @@
 /* =Button
 -------------------------------------------------------------- */
-.column-meta .column_label .inner .column_label_meta .sorting {
+.column-meta .column_label .inner > a {
+	margin-right: 40px;
+}
+.column-meta .column_label .inner .sorting {
+	position: absolute;
+	top: 0;
+	right: 0;
 	font-weight: normal;
 	color: #808080;
 	font-size: 11px;
 }
-.column-meta .column_label .inner .column_label_meta .sorting.on {
+.column-meta .column_label .inner .sorting.on {
 	font-weight: bold;
 	color: #333333;
 }

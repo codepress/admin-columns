@@ -39,8 +39,8 @@ if ( !is_admin() )
 	return false;
 
 // DEV
-//require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
-//require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
+require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
+require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
 	
 /**
  * Dependencies
