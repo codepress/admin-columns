@@ -39,8 +39,8 @@ if ( !is_admin() )
 	return false;
 
 // DEV
-require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
-require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
+//require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
+//require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
 	
 /**
  * Dependencies
@@ -52,10 +52,6 @@ require_once dirname( __FILE__ ) . '/classes/utility.php';
 
 // columns
 require_once dirname( __FILE__ ) . '/classes/column.php';
-
-// storage models
-require_once dirname( __FILE__ ) . '/classes/storage_model.php';
-require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
 
 // includes
 require_once dirname( __FILE__ ) . '/classes/export_import.php';
@@ -130,15 +126,35 @@ class CPAC
 		// include parent and childs
 		require_once dirname( __FILE__ ) . '/classes/storage_model.php';
 		require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
+		require_once dirname( __FILE__ ) . '/classes/storage_model/user.php';
+		require_once dirname( __FILE__ ) . '/classes/storage_model/media.php';		
+		require_once dirname( __FILE__ ) . '/classes/storage_model/comment.php';
+		require_once dirname( __FILE__ ) . '/classes/storage_model/link.php';
 		
-		// add models
+		// add Posts
 		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$storage_model = new CPAC_Storage_Model_Post( $post_type );
-			
+			$storage_model = new CPAC_Storage_Model_Post( $post_type );			
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 		
-		// @todo: hook to add more models		
+		// add User
+		$storage_model = new CPAC_Storage_Model_User();
+		$storage_models[ $storage_model->key ] = $storage_model;
+		
+		// add Media
+		$storage_model = new CPAC_Storage_Model_Media();
+		$storage_models[ $storage_model->key ] = $storage_model;
+		
+		// add Comment
+		$storage_model = new CPAC_Storage_Model_Comment();
+		$storage_models[ $storage_model->key ] = $storage_model;
+		
+		// add Link
+		$storage_model = new CPAC_Storage_Model_Link();
+		$storage_models[ $storage_model->key ] = $storage_model;
+		
+		// Hook to add more models		
+		do_action( 'cpac_set_storage_models', $storage_models );
 		
 		$this->storage_models = $storage_models;
 	}

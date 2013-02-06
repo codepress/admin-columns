@@ -305,14 +305,14 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 		
-		// Some 3rd parth columns will no be stored. These still need to be added
+		// Some 3rd party columns will no be stored. These still need to be added
 		// to the column headings. We check the default stored columns and every columns
 		// that is new will be added.
 		/* 
 		if ( $options = get_option( 'cpac_options_default' ) ) {
 
 			// Get the default columns that have been stored on the settings page.
-			$stored_wp_default_columns = $options[$this->storage_key];
+			$stored_wp_default_columns = $options[$this->key];
 
 			// ... get the 3rd party columns that have not been saved...
 			$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );

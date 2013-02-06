@@ -29,7 +29,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 *
 	 * @return string Singular posttype name
 	 */
-	function get_label() {
+	private function get_label() {
 		$posttype_obj = get_post_type_object( $this->key );
 
 		return $posttype_obj->labels->singular_name;
@@ -43,7 +43,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 *
 	 * @return array
 	 */
-	function get_default_columns() {
+	public function get_default_columns() {
+		
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cpac_before_default_columns_posts" );
@@ -51,17 +52,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// some plugins directly hook into get_column_headers, such as: WooCommerce.
 		$columns = get_column_headers( 'edit-' . $this->key );
-
+		
+		// @todo: does this if statement cause any conflicts??
 		// get default columns
 		if ( empty( $columns ) ) {
-
-			// deprecated as of wp3.3
-			if ( file_exists( ABSPATH . 'wp-admin/includes/template.php' ) )
-				require_once( ABSPATH . 'wp-admin/includes/template.php' );
-
-			// introduced since wp3.3
-			if ( file_exists( ABSPATH . 'wp-admin/includes/screen.php' ) )
-				require_once( ABSPATH . 'wp-admin/includes/screen.php' );
 
 			// used for getting columns
 			if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
@@ -135,28 +129,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
     }
 	
 	/**
-	 * Returns excerpt
-	 *
-	 * @todo: excerpt length
-	 * @since 1.0.0
-	 *
-	 * @param int $post_id Post ID
-	 * @return string Post Excerpt.
-	 */
-	protected function get_post_excerpt( $post_id )	{
-		global $post;
-
-		$save_post 	= $post;
-		$post 		= get_post( $post_id );
-		$excerpt 	= get_the_excerpt();
-		$post 		= $save_post;
-
-		$output = $this->get_shortened_string( $excerpt, 20 );
-
-		return $output;
-	}
-	
-	/**
 	 * Manage value
 	 *
 	 * @since 2.0.0
@@ -164,18 +136,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @param string $column_name
 	 * @param int $post_id
 	 */
-	function manage_value( $column_name, $post_id ) {
+	public function manage_value( $column_name, $post_id ) {		
+
+		$value = '';
 		
 		// get column instance
-		$column = $this->get_column_by_name( $column_name );
+		if ( $column = $this->get_column_by_name( $column_name ) ) {
+			$value = $column->get_value( $post_id );
+		}
 		
-		// get value
-		$value = $column->get_value( $post_id );
-		
-		// add hook
-		$value = apply_filters( "cpac_value_post", $value, $column );
+		$value = apply_filters( "cpac_value_posts", $value, $column );
 		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );
 		
-		echo $value;		
+		echo $value;
 	}
 }

@@ -222,42 +222,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Stores WP default columns
-	 *
-	 * This will store columns that are set by WordPress core or theme
-	 *
-	 * @since 1.2.0
-	 */
-	private function store_wp_default_columns() {
-		// stores the default columns that are set by WP or theme.
-		$wp_default_columns = array();
-
-		// Posts
-		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
-			$storage_model = new CPAC_Columns_Post( $post_type );
-			$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
-		}
-
-		// Users
-		$storage_model = new CPAC_Columns_User();
-		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
-
-		// Media
-		$storage_model = new CPAC_Columns_Media();
-		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
-
-		// Links
-		$storage_model = new CPAC_Columns_Link();
-		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
-
-		// Comments
-		$storage_model = new CPAC_Columns_Comment();
-		$wp_default_columns[$storage_model->key] = $storage_model->get_default_columns();
-
-		update_option( 'cpac_options_default', $wp_default_columns );
-	}
-
-	/**
 	 * Update Settings by Type
 	 *
 	 * @since 1.5.0
