@@ -45,6 +45,42 @@ abstract class CPAC_Storage_Model {
 	function __construct() {}
 	
 	/**
+	 * Maybe add hidden meta - Utility Method
+	 *
+	 * @since 1.5
+	 *
+	 * @param array $fields Custom fields.
+	 * @return array Custom fields.
+	 */
+	protected function maybe_add_hidden_meta( $fields ) {
+		if ( ! $fields )
+			return false;
+
+		$combined_fields = array();
+
+		$use_hidden_meta = apply_filters( 'cpac_use_hidden_custom_fields', false );
+
+		// filter out hidden meta fields
+		foreach ( $fields as $field ) {
+
+			// give hidden fields a prefix for identifaction
+			if ( $use_hidden_meta && substr( $field[0], 0, 1 ) == "_") {
+				$combined_fields[] = 'cpachidden'.$field[0];
+			}
+
+			// non hidden fields are saved as is
+			elseif ( substr( $field[0], 0, 1 ) != "_" ) {
+				$combined_fields[] = $field[0];
+			}
+		}
+
+		if ( empty( $combined_fields ) )
+			return false;
+
+		return $combined_fields;
+	}
+	
+	/**
 	 * Restore
 	 *
 	 * @since 2.0.0
@@ -141,6 +177,10 @@ abstract class CPAC_Storage_Model {
 		// Defaults
 		foreach ( $this->get_default_columns() as $column_name => $label ) {
 			
+			// checkboxes are mandatory
+			if ( 'cb' == $column_name )
+				continue;			
+			
 			$column = new CPAC_Column( $this );
 			$column
 				->set_properties( 'type', $column_name )
@@ -149,11 +189,14 @@ abstract class CPAC_Storage_Model {
 				->set_options( 'label', $label )				
 				->set_options( 'state', 'on' );
 			
-			// exceptions for checkbox and comments
-			if ( in_array( $column_name, array( 'cb', 'comments' ) ) ) {
+			// Exceptions for: Checkbox, Comments and Icon
+			if ( in_array( $column_name, array( 'comments', 'icon' ) ) ) {
 				$column->set_properties( 'hide_label', true );
+				if ( 'icon' == $column_name ) {
+					$column->set_properties( 'label', 'Icon' );
+				}
 			}
-			
+		
 			$columns[ $column->properties->name ] = $column;			
 		}		
 		
@@ -234,8 +277,8 @@ abstract class CPAC_Storage_Model {
 				$columns[ $name ] = $column;								
 			}
 			
-			// In case of a enabled plugin or added custom column, we will add that column.
-			// When $diff contains items, it means an available column has not been stored.
+			// In case of an enabled plugin or added custom column, we will add that column.
+			// When $diff contains items, it means an registered column has not been stored.
 			if ( $diff = array_diff( array_keys( $registered_columns ), $stored_types ) ) {
 				foreach ( $diff as $type ) {
 					$columns[ $type ] = clone $registered_columns[ $type ];
@@ -300,36 +343,27 @@ abstract class CPAC_Storage_Model {
 		// build the headings
 		$column_headings = array();
 		
-		foreach( $stored_columns as $column_name => $options ) {
-			
-			// columns is active
+		// add mandatory checkbox
+		if ( isset( $columns['cb'] ) )
+			$column_headings['cb'] = $columns['cb'];
+		
+		// add active stored headings
+		foreach( $stored_columns as $column_name => $options ) {			
 			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {
 			
-				// label needs stripslashes() for HTML taged labels, like comments icon
+				// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
 				$column_headings[ $column_name ] = stripslashes( $options['label'] );				
 			}
 		}
 		
-		// Some 3rd party columns will no be stored. These still need to be added
-		// to the column headings. We check the default stored columns and every columns
-		// that is new will be added.
-		/* 
-		if ( $options = get_option( 'cpac_options_default' ) ) {
-
-			// Get the default columns that have been stored on the settings page.
-			$stored_wp_default_columns = $options[$this->key];
-
-			// ... get the 3rd party columns that have not been saved...
-			$dif_columns = array_diff( array_keys( $columns ), array_keys( $stored_wp_default_columns ) );
-
-			// ... add those columns to the column headings
-			if ( $dif_columns ) {
-				foreach ( $dif_columns as $column_name ) {
-					$columns_headings[$column_name] = $columns[$column_name];
-				}
+		// Add 3rd party columns that have ( or could ) not been stored. 
+		// For example when a plugin has been activated.
+		// When $diff contains items, it means an available column has not been stored.
+		if ( $diff = array_diff( array_keys( $columns ), array_keys( $stored_columns ) ) ) {	
+			foreach ( $diff as $column_name ) {
+				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}
-		} 
-		*/
+		}
 
 		return $column_headings;
 	}

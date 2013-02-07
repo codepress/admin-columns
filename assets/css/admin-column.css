@@ -115,12 +115,12 @@ a.help {
 }
 .column-meta .column_sort {
 	width: 10px;
-	background: transparent url(../images/drag.png) no-repeat 8px 7px;
+	background: transparent url(../images/drag.png) no-repeat 8px 5px;
 	cursor: move;
 }
 .column-meta .column_status {
 	width: 20px;
-	background: transparent url(../images/status.png) no-repeat center 8px;
+	background: transparent url(../images/status.png) no-repeat center 5px;
 }
 .column-meta .column_label {
 	width: 55%;
@@ -133,8 +133,6 @@ a.help {
 	position: relative;
 }
 .column-meta .column_label .inner > a {
-	float: left;
-	height: 20px;
 	overflow: hidden;
 }
 .column-meta .column_label .inner .column_label_meta {
@@ -150,7 +148,7 @@ a.help {
 }
 .column-meta .column_edit {
 	width: 38px;
-	background: transparent url('../images/arrow.png') no-repeat 23px 16px;
+	background: transparent url('../images/arrow.png') no-repeat 23px 14px;
 
 }
 
@@ -177,10 +175,10 @@ a.help {
 	text-shadow: 0 1px 0 #FFFFFF;
 }
 .cpac-column.active .column-meta .column_sort {
-	background-position: 8px -40px;
+	background-position: 8px -42px;
 }
 .cpac-column.active .column-meta .column_status {
-	background-position: center -42px;
+	background-position: center -44px;
 }
 .cpac-column.active .column-meta .column_type {
 	color: #5C5C5C;
@@ -214,11 +212,17 @@ tr.column_image_size.hidden {
 
 /* =Column Meta: WP Default columns
 -------------------------------------------------------------- */
+.column-meta span.vers {
+	padding-top: 2px;
+}
 .column-meta span.vers .comment-grey-bubble {
 	background: transparent url("../images/comment-grey-bubble.png") no-repeat 0 0;
     height: 12px;
     width: 12px;
 	float: right;
+}
+.column-meta .column_label span.vers {
+	float: left;
 }
 
 /* =Column Form

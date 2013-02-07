@@ -81,7 +81,8 @@ class CAC_Addon_Sortable_Settings {
 	
 		if ( isset( $_REQUEST['page'] ) && 'codepress-admin-columns' == $_REQUEST['page'] ) {
 		
-			wp_enqueue_style( 'cac-addon-sortable-columns-css', CAC_SC_URL . '/assets/css/sortable.css', array(), CAC_SC_VERSION, 'all' );			
+			wp_enqueue_style( 'cac-addon-sortable-columns-css', CAC_SC_URL . '/assets/css/sortable.css', array(), CAC_SC_VERSION, 'all' );
+			wp_enqueue_script( 'cac-addon-sortable-columns-js', CAC_SC_URL . '/assets/js/sortable.js', array( 'jquery' ), CAC_SC_VERSION, 'all' );
 			
 		}
 	}

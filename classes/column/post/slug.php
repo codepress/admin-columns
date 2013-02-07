@@ -1,14 +1,14 @@
 <?php
 /**
- * CPAC_Column_Post_Page_Slug
+ * CPAC_Column_Post_Slug
  *
  * @since 2.0.0
  */
-class CPAC_Column_Post_Page_Slug extends CPAC_Column {
+class CPAC_Column_Post_Slug extends CPAC_Column {
 
 	function __construct( $storage_model ) {		
 		
-		$this->properties['type']	 	= 'column-page-slug';
+		$this->properties['type']	 	= 'column-slug';
 		$this->properties['label']	 	= __( 'Slug', CPAC_TEXTDOMAIN );
 		
 		parent::__construct( $storage_model );

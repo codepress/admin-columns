@@ -46,3 +46,9 @@ div.cpac-color span {
     overflow: hidden;
     padding: 4px 5px;
 }
+
+/* =Available Sizes column
+-------------------------------------------------------------- */
+div.missing_sizes span {
+	color: red;
+}

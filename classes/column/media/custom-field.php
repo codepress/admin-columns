@@ -1,11 +1,11 @@
 <?php
 
 /**
- * CPAC_Column_Post_Custom_Field
+ * CPAC_Column_Media_Custom_Field
  *
  * @since 2.0.0
  */
-class CPAC_Column_Post_Custom_Field extends CPAC_Column {
+class CPAC_Column_Media_Custom_Field extends CPAC_Column {
 
 	function __construct( $storage_model ) {		
 		
@@ -32,9 +32,9 @@ class CPAC_Column_Post_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
-	function get_value( $post_id ) {
+	function get_value( $id ) {
 	
-		return $this->get_value_custom_field( $post_id );
+		return $this->get_value_custom_field( $id );
 	}	
 	
 	/**

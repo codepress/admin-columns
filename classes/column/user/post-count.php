@@ -11,7 +11,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-user-postcount';
-		$this->properties['label']	 = __( 'Postcount', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Post Count', CPAC_TEXTDOMAIN );
 		
 		// define additional options
 		$this->options['post_type'] = '';

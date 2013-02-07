@@ -85,7 +85,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		?>
 		
 		<tr class="column-author-name">			
-			<?php $this->label_view( $this->properties->label, '', 'display_author_as' ); ?>
+			<?php $this->label_view( $this->properties->label, __( 'This is the format of the author name.', CPAC_TEXTDOMAIN ), 'display_author_as' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'display_author_as' ); ?>" id="<?php $this->attr_id( 'display_author_as' ); ?>">				
 				<?php foreach ( $this->get_nametypes() as $key => $label ) : ?>

@@ -68,43 +68,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			return false;
 		
 		return $columns;
-	}
-	
-	/**
-	 * Maybe add hidden meta
-	 *
-	 * @since 1.5
-	 *
-	 * @param array $fields Custom fields.
-	 * @return array Custom fields.
-	 */
-	private function maybe_add_hidden_meta( $fields ) {
-		if ( ! $fields )
-			return false;
-
-		$combined_fields = array();
-
-		$use_hidden_meta = apply_filters( 'cpac_use_hidden_custom_fields', false );
-
-		// filter out hidden meta fields
-		foreach ( $fields as $field ) {
-
-			// give hidden fields a prefix for identifaction
-			if ( $use_hidden_meta && substr( $field[0], 0, 1 ) == "_") {
-				$combined_fields[] = 'cpachidden'.$field[0];
-			}
-
-			// non hidden fields are saved as is
-			elseif ( substr( $field[0], 0, 1 ) != "_" ) {
-				$combined_fields[] = $field[0];
-			}
-		}
-
-		if ( empty( $combined_fields ) )
-			return false;
-
-		return $combined_fields;
-	}
+	}	
 	
 	/**
      * Get Meta Keys
@@ -121,7 +85,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		if ( is_wp_error( $fields ) )
 			$fields = false;
 
-		return apply_filters( "cpac_get_meta_keys_{$this->key}", $this->maybe_add_hidden_meta( $fields ), $this->key );
+		return apply_filters( "cpac_get_meta_keys_{$this->key}", $this->maybe_add_hidden_meta( $fields ), $this );
     }
 	
 	/**
@@ -133,26 +97,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @param int $post_id
 	 */
 	public function manage_value( $column_name, $post_id ) {		
-		
-		//$cols = $this->get_columns();
-		
-		//print_R( $cols );
-		//exit;
-		
-		
+	
 		$value = '';
 		
-		//echo $column_name . "<br/>";
-		//echo $post_id . "<br/>";
-		
 		// get column instance
-		if ( $column = $this->get_column_by_name( $column_name ) ) {
-			//print_R( $column );
-			
+		if ( $column = $this->get_column_by_name( $column_name ) ) {		
 			$value = $column->get_value( $post_id );
-		}
-		
-		
+		}		
 		
 		$value = apply_filters( "cpac_value_posts", $value, $column );
 		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );

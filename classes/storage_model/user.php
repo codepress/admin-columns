@@ -77,4 +77,23 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 				
 		return apply_filters( "cpac_value_{$this->key}", $value, $column );
 	}
+	
+	/**
+     * Get Meta Keys
+     *
+	 * @see CPAC_Columns::get_meta_keys()
+	 * @since 1.5.0
+	 *
+	 * @return array
+     */
+    public function get_meta_keys() {
+        global $wpdb;
+
+		$fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
+
+		if ( is_wp_error( $fields ) )
+			$fields = false;
+
+		return apply_filters( "cpac_get_meta_keys_{$this->key}", $this->maybe_add_hidden_meta( $fields ), $this );
+    }
 }

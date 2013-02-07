@@ -42,15 +42,15 @@ function remove_acf_from_cpac_post_types( $post_types )
 add_filter( 'cpac_get_post_types', 'remove_acf_from_cpac_post_types' );
 
 /**
- * Fix which removes bbPress Posttypes ( forum, reply and topic ) from the admin columns settings page
+ * bbPress - remove posttypes: forum, reply and topic
  *
  * @since 1.5
  *
  * @return array Posttypes
  */
-function remove_bbpress_from_cpac_post_types( $post_types )
+function cpac_posttypes_remove_bbpress( $post_types )
 {
-	if ( class_exists('bbPress') ) {
+	if ( class_exists( 'bbPress' ) ) {
 		unset( $post_types['topic'] );
 		unset( $post_types['reply'] );
 		unset( $post_types['forum'] );
@@ -58,7 +58,7 @@ function remove_bbpress_from_cpac_post_types( $post_types )
 
 	return $post_types;
 }
-add_filter( 'cpac_get_post_types', 'remove_bbpress_from_cpac_post_types' );
+add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_bbpress' );
 
 /**
  * Add support for All in SEO columns
@@ -72,3 +72,18 @@ function cpac_load_aioseop_addmycolumns()
 	}
 }
 add_action( 'cpac_before_default_columns_posts', 'cpac_load_aioseop_addmycolumns' );
+
+/**
+ * WooCommerce - remove posttypes: product_variations
+ *
+ * @since 1.5
+ */
+function cpac_posttypes_remove_woocommerce( $post_types )
+{
+	if ( class_exists( 'Woocommerce' ) ) {
+		unset( $post_types['product_variation'] );
+	}
+
+	return $post_types;
+}
+add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_woocommerce' );

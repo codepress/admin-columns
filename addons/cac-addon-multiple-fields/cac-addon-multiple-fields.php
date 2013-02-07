@@ -77,7 +77,7 @@ class CAC_Addon_Multiple_Columns {
 		if ( isset( $_REQUEST['page'] ) && 'codepress-admin-columns' == $_REQUEST['page'] ) {
 		
 			wp_enqueue_style( 'cac-mc-multiple_fields-css', CAC_MC_URL . '/assets/css/multiple-fields.css', array(), CAC_MC_VERSION, 'all' );
-			wp_enqueue_script( 'cac-mc-multiple_fields-js', CAC_MC_URL . '/assets/js/multiple-fields.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable', 'cpac-admin-columns' ), CAC_MC_VERSION, 'all' );
+			wp_enqueue_script( 'cac-mc-multiple_fields-js', CAC_MC_URL . '/assets/js/multiple-fields.js', array( 'jquery', 'dashboard', 'jquery-ui-sortable' ), CAC_MC_VERSION, 'all' );
 			
 		}
 	}

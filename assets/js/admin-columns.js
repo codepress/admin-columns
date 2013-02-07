@@ -43,7 +43,7 @@ jQuery.fn.cpac_form_events = function() {
 	});
 		
 	/** set state */
-	jQuery( '.column-meta td', column ).not( '.column_edit, .column_sort' ).click( function(e) {
+	jQuery( '.column-meta td, .column-meta td .inner', column ).not( '.column_edit, .column_sort' ).click( function(e) {
 				
 		// make sure the TD itself is clicked and not a child element
 		if ( this != e.target )
