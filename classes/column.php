@@ -320,7 +320,7 @@ class CPAC_Column {
 	/**
 	 * Get Image Sizes by name - Value method
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0
 	 *
 	 * @param string $name
 	 * @return array Image Sizes
@@ -341,7 +341,7 @@ class CPAC_Column {
 	 * Image Resize - Value method
 	 *
 	 * @see image_resize()
-	 * @since 1.5
+	 * @since 2.0.0
 	 *
 	 * @return string Image URL
 	 */
@@ -541,7 +541,7 @@ class CPAC_Column {
 	/**
 	 * Get Custom FieldType Options - Value method
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 *
 	 * @return array Customfield types.
 	 */
@@ -867,13 +867,17 @@ class CPAC_Column {
 							<td class="column_label">		
 								<div class="inner">
 									<a href="javascript:;">
-										<?php echo stripslashes( $this->options->label ); ?>										
+										<?php echo stripslashes( $this->options->label ); ?>									
 									</a>
-									<?php do_action( 'cpac_column_label', $this ); ?>
+									<div class="meta">
+									<?php do_action( 'cpac_column_label_meta', $this ); ?>
+									</div>
 								</div>
 							</td>
 							<td class="column_type">
-								<?php echo stripslashes( $this->properties->label ); ?>
+								<div class="inner">
+									<?php echo stripslashes( $this->properties->label ); ?>
+								</div>
 							</td>
 							<td class="column_edit"></td>
 						</tr>

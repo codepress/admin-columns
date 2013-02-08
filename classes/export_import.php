@@ -115,7 +115,7 @@ class CPAC_Export_Import {
 	/**
 	 * Get decoded settings
 	 *
-	 * @since 1.5
+	 * @since 2.0.0
 	 *
 	 * @param string $encoded_string
 	 * @return array Columns
@@ -138,7 +138,7 @@ class CPAC_Export_Import {
 	/**
 	 * Update settings
 	 *
-	 * @since 1.5
+	 * @since 2.0.0
 	 *
 	 * @param array $columns Columns
 	 * @return bool

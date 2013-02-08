@@ -55,7 +55,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 		
 		// get posttypes and name
 		$post_types = array();		
-		foreach ( CPAC_Utility::get_post_types() as $type ) {
+		foreach ( get_post_types() as $type ) {
 			$obj = get_post_type_object( $type );			
 			$post_types[ $type ] = $obj->labels->singular_name;
 		}		

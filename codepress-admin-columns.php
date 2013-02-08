@@ -37,28 +37,17 @@ define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 // only run plugin in the admin interface
 if ( !is_admin() )
 	return false;
-
-// DEV
-require_once dirname( __FILE__ ) . '/addons/cac-addon-multiple-fields/cac-addon-multiple-fields.php';
-require_once dirname( __FILE__ ) . '/addons/cac-addon-sortable/cac-addon-sortable.php';
 	
 /**
  * Dependencies
  *
  * @since 1.3.0
  */
-require_once dirname( __FILE__ ) . '/classes/upgrade.php';
-require_once dirname( __FILE__ ) . '/classes/utility.php';
-
-// columns
-require_once dirname( __FILE__ ) . '/classes/column.php';
-
-// includes
-require_once dirname( __FILE__ ) . '/classes/export_import.php';
-require_once dirname( __FILE__ ) . '/classes/license.php';
-require_once dirname( __FILE__ ) . '/classes/third_party.php';
-require_once dirname( __FILE__ ) . '/classes/deprecated.php';
-
+require_once CPAC_DIR . 'classes/utility.php';
+require_once CPAC_DIR . 'classes/export_import.php';
+require_once CPAC_DIR . 'classes/license.php';
+require_once CPAC_DIR . 'classes/third_party.php';
+require_once CPAC_DIR . 'classes/deprecated.php';
 
 /**
  * The Codepress Admin Columns Class
@@ -79,10 +68,10 @@ class CPAC
 	{
 		add_action( 'wp_loaded', array( $this, 'init') );
 		
-		// upgrade
-		//register_activation_hook( __FILE__, array( 'CPAC_Upgrade', 'upgrade' ) );
+		// upgrade hook
+		register_activation_hook( __FILE__, array( $this, 'upgrade' ) );
 	}
-
+	
 	/**
 	 * Initialize plugin.
 	 *
@@ -114,6 +103,19 @@ class CPAC
 	}
 	
 	/**
+	 * Upgrade.
+	 *
+	 * Is triggered on plugin activation.
+	 *
+	 * @since 2.0.0
+	 */
+	public function upgrade()
+	{
+		include_once CPAC_DIR . 'classes/upgrade.php';
+		new CPAC_Upgrade( $this );		
+	}
+	
+	/**
 	 * Get storage models
 	 *
 	 * @since 2.0.0
@@ -124,15 +126,16 @@ class CPAC
 		$storage_models = array();
 		
 		// include parent and childs
-		require_once dirname( __FILE__ ) . '/classes/storage_model.php';
-		require_once dirname( __FILE__ ) . '/classes/storage_model/post.php';
-		require_once dirname( __FILE__ ) . '/classes/storage_model/user.php';
-		require_once dirname( __FILE__ ) . '/classes/storage_model/media.php';		
-		require_once dirname( __FILE__ ) . '/classes/storage_model/comment.php';
-		require_once dirname( __FILE__ ) . '/classes/storage_model/link.php';
+		require_once CPAC_DIR . 'classes/column.php';
+		require_once CPAC_DIR . 'classes/storage_model.php';
+		require_once CPAC_DIR . 'classes/storage_model/post.php';
+		require_once CPAC_DIR . 'classes/storage_model/user.php';
+		require_once CPAC_DIR . 'classes/storage_model/media.php';		
+		require_once CPAC_DIR . 'classes/storage_model/comment.php';
+		require_once CPAC_DIR . 'classes/storage_model/link.php';
 		
 		// add Posts
-		foreach ( CPAC_Utility::get_post_types() as $post_type ) {
+		foreach ( $this->get_post_types() as $post_type ) {
 			$storage_model = new CPAC_Storage_Model_Post( $post_type );			
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
@@ -183,10 +186,45 @@ class CPAC
 	 function init_controllers() {
 		
 		// Settings
-		include_once CPAC_DIR . '/classes/settings.php';
+		include_once CPAC_DIR . 'classes/settings.php';
 		new CPAC_Settings( $this );
-	 }
+	}
 	
+	/**
+	 * Get post types - Utility Method
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Posttypes
+	 */
+	public function get_post_types() {
+	
+		$post_types = get_post_types( array(
+			'_builtin' => false
+		));
+		$post_types['post'] = 'post';
+		$post_types['page'] = 'page';
+
+		return apply_filters( 'cpac_get_post_types', $post_types );
+	}
+	
+	/**
+	 * Sanitize label - Utility Method
+	 *
+	 * Uses intern wordpress function esc_url so it matches the label sorting url.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $string
+	 * @return string Sanitized string
+	 */
+	public function sanitize_string( $string ) {
+		$string = esc_url( $string );
+		$string = str_replace( 'http://','', $string );
+		$string = str_replace( 'https://','', $string );
+
+		return $string;
+	}
 	
 	/**
 	 * Add Settings link to plugin page
@@ -235,7 +273,7 @@ class CPAC
 		global $current_screen;
 
 		// we dont need the 'edit-' part
-		$screen = str_replace('edit-', '', $current_screen->id);
+		$screen = str_replace( 'edit-', '', $current_screen->id );
 
 		// media library exception
 		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' ) {
@@ -248,12 +286,12 @@ class CPAC
 		}
 
 		// loop the available types
-		/* foreach ( CPAC_Utility::get_storage_models() as $type ) {
+		foreach ( $this->storage_models as $storage_model ) {
 
 			// match against screen or wp-screen
-			if ( $type->key == $screen || $type->key == "wp-{$screen}" )
-				$classes .= " cp-{$type->key}";
-		} */
+			if ( $storage_model->key == $screen || $storage_model->key == "wp-{$screen}" )
+				$classes .= " cp-{$storage_model->key}";
+		}
 
 		return $classes;
 	}
@@ -270,32 +308,38 @@ class CPAC
 		$css_column_width = '';
 
 		// loop throug the available types...
-		/* foreach ( CPAC_Utility::get_storage_models() as $type ) {
+		foreach ( $this->storage_models as $storage_model ) {
 
-			if ( ! $cols = CPAC_Utility::get_stored_columns( $type->key ) )
+			if ( ! $columns = $storage_model->get_stored_columns() )
 				continue;
 
 			// loop through each available column...
-			foreach ( $cols as $col_name => $col ) {
+			foreach ( $columns as $name => $options ) {
 
 				// and check for stored width and add it to the css
-				if (!empty($col['width']) && is_numeric($col['width']) && $col['width'] > 0 ) {
-					$css_column_width .= ".cp-{$type->key} .wrap table th.column-{$col_name} { width: {$col['width']}% !important; }";
+				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
+					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
 				}
 			}
-		} */
-
-		echo
-		"<style type='text/css'>
-			{$css_column_width}
+		}
+		
+		?>
+		
+		<style type="text/css">
+						
+			<?php echo $css_column_width; ?>
+			
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
-				background: transparent url(" . CPAC_URL . "/assets/images/icon_20.png) no-repeat 6px -24px;
+				background: transparent url("<?php echo CPAC_URL; ?>/assets/images/icon_20.png") no-repeat 6px -24px;
 			}
 			#adminmenu #toplevel_page_codepress-admin-columns:hover .wp-menu-image,
 			#adminmenu #toplevel_page_codepress-admin-columns.wp-menu-open .wp-menu-image {
 				background-position: 6px 6px;
 			}
-		</style>";
+		</style>
+
+		<?php
+	
 	}
 }
 
@@ -304,4 +348,4 @@ class CPAC
  *
  * @since 1.0.0
  */
-$cpac = new CPAC();
+new CPAC();

@@ -7,7 +7,7 @@
  * the admin columns settings page. The reason was that class-metabox.php was prevented
  * from loading. This fix will also load this class when admin columns is loaded.
  *
- * @since     1.4.6
+ * @since 1.4.6
  */
 function pre_load_wordpress_seo_class_metabox() {
 	global $pagenow;
@@ -27,7 +27,7 @@ add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
 /**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
  *
- * @since 1.5
+* @since 2.0.0
  *
  * @return array Posttypes
  */
@@ -44,7 +44,7 @@ add_filter( 'cpac_get_post_types', 'remove_acf_from_cpac_post_types' );
 /**
  * bbPress - remove posttypes: forum, reply and topic
  *
- * @since 1.5
+* @since 2.0.0
  *
  * @return array Posttypes
  */
@@ -63,7 +63,7 @@ add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_bbpress' );
 /**
  * Add support for All in SEO columns
  *
- * @since 1.5
+* @since 2.0.0
  */
 function cpac_load_aioseop_addmycolumns()
 {
@@ -76,7 +76,7 @@ add_action( 'cpac_before_default_columns_posts', 'cpac_load_aioseop_addmycolumns
 /**
  * WooCommerce - remove posttypes: product_variations
  *
- * @since 1.5
+ * @since 2.0.0
  */
 function cpac_posttypes_remove_woocommerce( $post_types )
 {
@@ -87,3 +87,27 @@ function cpac_posttypes_remove_woocommerce( $post_types )
 	return $post_types;
 }
 add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_woocommerce' );
+
+/**
+ * WooCommerce - add product columns
+ *
+ * WooCommerce hooks directly into get_column_headers().
+ *
+ * @since 2.0.0
+ */
+function cpac_default_columns_product( $columns, $storage_model ) {
+	
+	$post_type = $storage_model->key;
+	
+	if ( class_exists( 'Woocommerce' ) ) {	
+		
+		// WooCommerce Post Types
+		if ( in_array( $post_type, array( 'product', 'shop_order', 'shop_coupon' ) ) ) {
+		
+			$columns = get_column_headers( "edit-{$post_type}" );
+		}
+	}
+	
+	return $columns;
+}
+add_filter( 'cpac_default_columns_posts', 'cpac_default_columns_product', 10, 2 );

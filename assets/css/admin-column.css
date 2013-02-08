@@ -134,11 +134,19 @@ a.help {
 }
 .column-meta .column_label .inner > a {
 	overflow: hidden;
+	color: #5a5a5a;
 }
-.column-meta .column_label .inner .column_label_meta {
+.column-meta .column_label .inner > a:hover {
+	color: #333333;
+}
+.column-meta .column_label .inner .meta {
+	display: inline-block;
 	position: absolute;
 	top: 0;
 	right: 0;
+	font-weight: normal;
+	color: #999999;
+	font-size: 12px;
 }
 .column-meta .column_type {
 	width: auto;
@@ -182,6 +190,9 @@ a.help {
 }
 .cpac-column.active .column-meta .column_type {
 	color: #5C5C5C;
+}
+.cpac-column.active .column-meta .column_label .inner .meta {
+	color: #808080;
 }
 tr.column_image_size td.input .custom_image_size {
 	display: inline-block;

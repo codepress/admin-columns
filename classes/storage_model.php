@@ -38,16 +38,9 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_columns();
 	
 	/**
-	 * Constructor
-	 *
-	 * @since 2.0.0
-	 */
-	function __construct() {}
-	
-	/**
 	 * Maybe add hidden meta - Utility Method
 	 *
-	 * @since 1.5
+	 * @since 2.0.0
 	 *
 	 * @param array $fields Custom fields.
 	 * @return array Custom fields.
@@ -136,30 +129,41 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column Classnames
 	 */
 	function get_custom_columns() {			
-		$columns = array();
 		
-		$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( CPAC_DIR . 'classes/column' ) );
+		$columns = get_transient( 'cpac_custom_columns' );
 
-		while( $file->valid() ) {
-
-			if ( ! $file->isDot() && $this->type == $file->getSubPath() ) {
-				
-				include_once $file->key();
+		if ( ! $columns )
+			$columns = array();
 		
-				// build classname from filename
-				$type = ucfirst( $file->getSubPath() );
-				$name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
-				
-				$columns[] = "CPAC_Column_{$type}_{$name}";
+		// retrieve columns from directory
+		if ( empty( $columns[ $this->type ] ) ) {
+						
+			$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( CPAC_DIR . 'classes/column' ) );
+
+			while( $file->valid() ) {
+
+				if ( ! $file->isDot() && $this->type == $file->getSubPath() ) {
+			
+					// build classname from filename
+					$type = ucfirst( $file->getSubPath() );
+					$name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
+					
+					$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $file->key();
+				}
+
+				$file->next();
 			}
-
-			$file->next();
+			
+			set_transient( 'cpac_custom_columns', $columns );
 		}
 		
-		// hooks for adding custom columns by addons
-		$columns = apply_filters( "cpac_custom_columns_posts", $columns );
-		$columns = apply_filters( "cpac_custom_columns_{$this->key}", $columns );
+		if ( empty( $columns[ $this->type ] ) )
+			return array();
 		
+		// hooks for adding custom columns by addons
+		// $columns classname | include_path
+		$columns = apply_filters( "cpac_custom_columns_{$this->type}", $columns[ $this->type ], $this );
+
 		return $columns;
 	}
 	
@@ -189,19 +193,26 @@ abstract class CPAC_Storage_Model {
 				->set_options( 'label', $label )				
 				->set_options( 'state', 'on' );
 			
-			// Exceptions for: Checkbox, Comments and Icon
-			if ( in_array( $column_name, array( 'comments', 'icon' ) ) ) {
+			// Hide Label when it contains HTML elements
+			if( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
 				$column->set_properties( 'hide_label', true );
-				if ( 'icon' == $column_name ) {
-					$column->set_properties( 'label', 'Icon' );
-				}
 			}
+			
+			// Label empty? Use column_name.
+			if ( ! $label ) {
+				$column->set_properties( 'label', ucfirst( $column_name ) );
+			}			
 		
 			$columns[ $column->properties->name ] = $column;			
 		}		
 		
 		// Custom
-		foreach ( $this->get_custom_columns() as $classname ) {
+		foreach ( $this->get_custom_columns() as $classname => $path ) {
+			
+			include_once $path;
+			
+			if ( ! class_exists( $classname ) )
+				continue;
 			
 			$column = new $classname( $this );
 			

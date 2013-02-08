@@ -18,8 +18,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		
 		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 10, 3 );
-		
-		parent::__construct();
 	}
 	
 	/**
@@ -34,19 +32,12 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		
 		// You can use this filter to add third_party columns by hooking into this.
 		do_action( "cpac_before_default_columns_{$this->key}" );
-
-		// Dependencies
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
 		
-		
-		// @todo set 'screen'
-		$table 		= new WP_Users_List_Table( array( 'screen' => 'users' ) );
+		// get columns
+		$table 		= _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
 		$columns 	= $table->get_columns();
 		
-		return $columns;
+		return apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 	}
 	
 	/**
@@ -82,7 +73,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
      * Get Meta Keys
      *
 	 * @see CPAC_Columns::get_meta_keys()
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 *
 	 * @return array
      */

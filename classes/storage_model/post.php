@@ -18,14 +18,12 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
-		
-		parent::__construct();
 	}
 	
 	/**
 	 * Get Label
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 *
 	 * @return string Singular posttype name
 	 */
@@ -47,25 +45,15 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
-		do_action( "cpac_before_default_columns_posts" );
-		do_action( "cpac_before_default_columns_{$this->key}" );
-
-		// some plugins directly hook into get_column_headers, such as: WooCommerce.
-		// @todo: create conflicts, where the stored admin columns columns get included as default columns.
-		// $columns = get_column_headers( 'edit-' . $this->key );
+		do_action( "cpac_before_default_columns_posts", $this );
+		do_action( "cpac_before_default_columns_{$this->key}", $this );
 		
-		// used for getting columns
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
-
-		// As of WP Release 3.5 we can use the following.
-		$table 		= new WP_Posts_List_Table( array( 'screen' => $this->key ) );
+		// get columns
+		$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
 		$columns 	= $table->get_columns();
-	
-		if ( empty( $columns ) )
-			return false;
+		
+		$columns = apply_filters( 'cpac_default_columns_posts', $columns, $this );
+		$columns = apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 		
 		return $columns;
 	}	
@@ -73,7 +61,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
      * Get Meta Keys
      *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 *
 	 * @return array
      */

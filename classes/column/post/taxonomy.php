@@ -23,7 +23,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 		
-		$value = '';
+		$values = array();
 
 		if ( $terms = get_the_terms( $post_id, $this->options->taxonomy ) ) {
 			$values = array();
@@ -60,8 +60,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 	 */
 	function display_settings() {
 			
-		$taxonomies = get_object_taxonomies( $this->storage_model->key, 'objects' );
-		
+		$taxonomies = get_object_taxonomies( $this->storage_model->key, 'objects' );		
 		?>
 		
 		<tr class="column_taxonomy">			
@@ -73,7 +72,8 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 				<?php endforeach; ?>				
 				</select>
 			</td>
-		</tr>		
+		</tr>
+		
 		<?php 
 	}
 }

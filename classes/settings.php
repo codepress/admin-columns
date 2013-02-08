@@ -10,7 +10,7 @@ class CPAC_Settings {
 	/**
 	 * CPAC class
 	 */
-	private $parent;
+	private $cpac;
 	
 	/**
 	 * Column Settings slug
@@ -27,9 +27,9 @@ class CPAC_Settings {
 	 * @since 2.0.0
 	 * @param object CPAC
 	 */
-	function __construct( $parent ) {	
+	function __construct( $cpac ) {	
 		
-		$this->parent = $parent;
+		$this->cpac = $cpac;
 		
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
@@ -169,7 +169,7 @@ class CPAC_Settings {
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
 				
-					$storage_model = $this->parent->get_storage_model( $key );
+					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->store();
 				}
 				break;
@@ -177,7 +177,7 @@ class CPAC_Settings {
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
 					
-					$storage_model = $this->parent->get_storage_model( $key );
+					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->restore();
 				}
 				break;
@@ -196,7 +196,7 @@ class CPAC_Settings {
 	 *
 	 * Gets multi select options to use in a HTML select element
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 * @return array Multiselect options
 	 */
 	public function get_export_multiselect_options() {
@@ -224,7 +224,7 @@ class CPAC_Settings {
 	/**
 	 * Update Settings by Type
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 */
 	private function update_settings_by_type( $storage_model ) {
 		if ( ! $storage_model )
@@ -264,7 +264,7 @@ class CPAC_Settings {
 	 *
 	 * Active columns are set on top of the list.
 	 *
-	 * @since 1.5.0
+	 * @since 2.0.0.0
 	 *
 	 * @param string $options Columns Options.
 	 * @return array Reordered Columns Options.
@@ -359,11 +359,11 @@ class CPAC_Settings {
 	function is_menu_type_current( $key ) {
 
 		// get first element from post-types
-		$first = array_shift( array_values( CPAC_Utility::get_post_types() ) );
+		$first = array_shift( array_values( $this->cpac->get_post_types() ) );
 
 		// display the page that was being viewed before saving
 		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
-			if ( $_REQUEST['cpac_key'] == CPAC_Utility::sanitize_string( $key ) ) {
+			if ( $_REQUEST['cpac_key'] == $this->cpac->sanitize_string( $key ) ) {
 				return true;
 			}
 
@@ -422,13 +422,13 @@ class CPAC_Settings {
 			<div class="cpac-menu">
 				<ul class="subsubsub">
 					<?php $count = 0; ?>
-					<?php foreach ( $this->parent->storage_models as $storage_model ) : ?>
+					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $this->is_menu_type_current( $storage_model->key ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
 
-			<?php foreach ( $this->parent->storage_models as $storage_model ) : ?>
+			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 
 			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $this->is_menu_type_current( $storage_model->key ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">

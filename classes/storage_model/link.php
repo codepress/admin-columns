@@ -18,8 +18,6 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		
 		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 10, 2 );
-		
-		parent::__construct();
 	}
 	
 	/**
@@ -33,21 +31,12 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cpac_before_default_columns_{$this->key}" );
-		
-		// dependencies
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php' ) )
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-links-list-table.php' );
 
-		// As of WP Release 3.5 we can use the following.
-		$table 		= new WP_Links_List_Table( array( 'screen' => 'link-manager' ) );
+		// get columns
+		$table 		= _get_list_table( 'WP_Links_List_Table', array( 'screen' => 'link-manager' ) );
 		$columns 	= $table->get_columns();
 
-		if ( empty( $columns ) )
-			return false;
-		
-		return $columns;
+		return apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 	}
 	
 	/**
