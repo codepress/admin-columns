@@ -866,12 +866,12 @@ class CPAC_Column {
 							</td>
 							<td class="column_label">		
 								<div class="inner">
-									<a href="javascript:;">
-										<?php echo stripslashes( $this->options->label ); ?>									
-									</a>
 									<div class="meta">
 									<?php do_action( 'cpac_column_label_meta', $this ); ?>
 									</div>
+									<a href="javascript:;">
+										<?php echo stripslashes( $this->options->label ); ?>
+									</a>
 								</div>
 							</td>
 							<td class="column_type">
