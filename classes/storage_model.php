@@ -82,7 +82,7 @@ abstract class CPAC_Storage_Model {
 	
 		delete_option( "cpac_options_{$this->key}" );
 		
-		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );	
+		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully restored.',  'cpac' ) . "</p>", 'updated' );	
 	}
 	
 	/**
@@ -116,7 +116,7 @@ abstract class CPAC_Storage_Model {
 		
 		update_option( "cpac_options_{$this->key}", $columns );
 		
-		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );	
+		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully updated.',  'cpac' ) . "</p>", 'updated' );	
 	}
 	
 	/**
@@ -202,7 +202,7 @@ abstract class CPAC_Storage_Model {
 			if ( ! $label ) {
 				$column->set_properties( 'label', ucfirst( $column_name ) );
 			}			
-		
+
 			$columns[ $column->properties->name ] = $column;			
 		}		
 		

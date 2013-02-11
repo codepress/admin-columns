@@ -302,10 +302,10 @@ class CPAC_Column {
 	 */
 	function get_all_image_sizes() {
 		$image_sizes = array(
-			'thumbnail'	=>	__( "Thumbnail", CPAC_TEXTDOMAIN ),
-			'medium'	=>	__( "Medium", CPAC_TEXTDOMAIN ),
-			'large'		=>	__( "Large", CPAC_TEXTDOMAIN ),
-			'full'		=>	__( "Full", CPAC_TEXTDOMAIN )
+			'thumbnail'	=>	__( "Thumbnail", 'cpac' ),
+			'medium'	=>	__( "Medium", 'cpac' ),
+			'large'		=>	__( "Large", 'cpac' ),
+			'full'		=>	__( "Full", 'cpac' )
 		);
 
 		foreach( get_intermediate_image_sizes() as $size ) {
@@ -549,16 +549,16 @@ class CPAC_Column {
 	
 		$custom_field_types = array(
 			''				=> __( 'Default'),
-			'image'			=> __( 'Image', CPAC_TEXTDOMAIN ),
-			'library_id'	=> __( 'Media Library', CPAC_TEXTDOMAIN ),
+			'image'			=> __( 'Image', 'cpac' ),
+			'library_id'	=> __( 'Media Library', 'cpac' ),
 			'excerpt'		=> __( 'Excerpt'),
-			'array'			=> __( 'Multiple Values', CPAC_TEXTDOMAIN ),
-			'numeric'		=> __( 'Numeric', CPAC_TEXTDOMAIN ),
-			'date'			=> __( 'Date', CPAC_TEXTDOMAIN ),
-			'title_by_id'	=> __( 'Post Title (Post ID\'s)', CPAC_TEXTDOMAIN ),
-			'user_by_id'	=> __( 'Username (User ID\'s)', CPAC_TEXTDOMAIN ),
-			'checkmark'		=> __( 'Checkmark (true/false)', CPAC_TEXTDOMAIN ),
-			'color'			=> __( 'Color', CPAC_TEXTDOMAIN ),
+			'array'			=> __( 'Multiple Values', 'cpac' ),
+			'numeric'		=> __( 'Numeric', 'cpac' ),
+			'date'			=> __( 'Date', 'cpac' ),
+			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
+			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
+			'checkmark'		=> __( 'Checkmark (true/false)', 'cpac' ),
+			'color'			=> __( 'Color', 'cpac' ),
 		);
 
 		return apply_filters( 'cpac_custom_field_types', $custom_field_types );
@@ -746,7 +746,7 @@ class CPAC_Column {
 		?>
 		
 		<tr class="column_field">			
-			<?php $this->label_view( __( "Custom Field", CPAC_TEXTDOMAIN ), '', 'field' ); ?>
+			<?php $this->label_view( __( "Custom Field", 'cpac' ), '', 'field' ); ?>
 			<td class="input">				
 			
 				<?php if ( $meta_keys = $this->storage_model->get_meta_keys() ) : ?>				
@@ -756,14 +756,14 @@ class CPAC_Column {
 				<?php endforeach; ?>				
 				</select>
 				<?php else : ?>
-					<?php _e( 'No custom fields available.', CPAC_TEXTDOMAIN ); ?>
+					<?php _e( 'No custom fields available.', 'cpac' ); ?>
 				<?php endif; ?>
 				
 			</td>
 		</tr>
 		
 		<tr class="column_field_type">			
-			<?php $this->label_view( __( "Field Type", CPAC_TEXTDOMAIN ), __( 'This will determine how the value will be displayed.', CPAC_TEXTDOMAIN ), 'field_type' ); ?>			
+			<?php $this->label_view( __( "Field Type", 'cpac' ), __( 'This will determine how the value will be displayed.', 'cpac' ), 'field_type' ); ?>			
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
 				<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
@@ -784,13 +784,13 @@ class CPAC_Column {
 		?>	
 		
 		<tr class="column_before">		
-			<?php $this->label_view( __( "Before", CPAC_TEXTDOMAIN ), __( 'This text will appear before the custom field value.', CPAC_TEXTDOMAIN ), 'before' ); ?>			
+			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>			
 			<td class="input">
 				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo $this->options->before; ?>"/>
 			</td>
 		</tr>
 		<tr class="column_after">			
-			<?php $this->label_view( __( "After", CPAC_TEXTDOMAIN ), __( 'This text will appear after the custom field value.', CPAC_TEXTDOMAIN ), 'after' ); ?>
+			<?php $this->label_view( __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ), 'after' ); ?>
 			<td class="input">
 				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo $this->options->after; ?>"/>
 			</td>
@@ -809,7 +809,7 @@ class CPAC_Column {
 	function display_field_preview_size( $is_hidden = false ) {
 	
 		$field_key		= 'image_size';
-		$label			= __( 'Preview size', CPAC_TEXTDOMAIN );
+		$label			= __( 'Preview size', 'cpac' );
 		
 		?>
 		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
@@ -826,13 +826,13 @@ class CPAC_Column {
 				
 				<div class="custom_image_size">
 					<label for="<?php $this->attr_id( $field_key ); ?>-custom" class="custom-size image-size-custom" >
-						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $this->options->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', CPAC_TEXTDOMAIN ); ?>
+						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $this->options->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'cpac' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-w" class="custom-size-w<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->options->image_size_w; ?>" /><?php _e( 'width', CPAC_TEXTDOMAIN ); ?>
+						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->options->image_size_w; ?>" /><?php _e( 'width', 'cpac' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-h" class="custom-size-h<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->options->image_size_h; ?>" /><?php _e( 'height', CPAC_TEXTDOMAIN ); ?>
+						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->options->image_size_h; ?>" /><?php _e( 'height', 'cpac' ); ?>
 					</label>
 				</div>
 			</td>
@@ -890,17 +890,17 @@ class CPAC_Column {
 					<tbody>
 						
 						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">						
-							<?php $this->label_view( __( 'Label', CPAC_TEXTDOMAIN ), __( 'This is the name which will appear as the column header.', CPAC_TEXTDOMAIN ), 'label' ); ?>							
+							<?php $this->label_view( __( 'Label', 'cpac' ), __( 'This is the name which will appear as the column header.', 'cpac' ), 'label' ); ?>							
 							<td class="input">								
 								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo htmlspecialchars( stripslashes( $this->options->label ) ); ?>" />
 							</td>
 						</tr><!--.column_label-->
 						
 						<tr class="column_width">						
-							<?php $this->label_view( __( 'Width', CPAC_TEXTDOMAIN ), '', 'width' ); ?>
+							<?php $this->label_view( __( 'Width', 'cpac' ), '', 'width' ); ?>
 							<td class="input">
-								<div class="description width-decription" title="<?php _e( 'default', CPAC_TEXTDOMAIN ); ?>">
-									<?php echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', CPAC_TEXTDOMAIN ); ?>
+								<div class="description width-decription" title="<?php _e( 'default', 'cpac' ); ?>">
+									<?php echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', 'cpac' ); ?>
 								</div>
 								<div class="input-width-range"></div>
 								<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />

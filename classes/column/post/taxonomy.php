@@ -9,7 +9,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	= 'column-taxonomy';
-		$this->properties['label']	= __( 'Taxonomy', CPAC_TEXTDOMAIN );
+		$this->properties['label']	= __( 'Taxonomy', 'cpac' );
 		
 		// define additional options
 		$this->options['taxonomy']	= ''; // taxonomy slug
@@ -64,7 +64,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 		?>
 		
 		<tr class="column_taxonomy">			
-			<?php $this->label_view( __( "Taxonomy", CPAC_TEXTDOMAIN ), '', 'taxonomy' ); ?>
+			<?php $this->label_view( __( "Taxonomy", 'cpac' ), '', 'taxonomy' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'taxonomy' ); ?>" id="<?php $this->attr_id( 'taxonomy' ); ?>">				
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>

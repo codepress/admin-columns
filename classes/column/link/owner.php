@@ -9,7 +9,7 @@ class CPAC_Column_Link_Owner extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-owner';
-		$this->properties['label']	 	= __( 'Owner', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Owner', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

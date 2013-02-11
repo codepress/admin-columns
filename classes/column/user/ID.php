@@ -11,7 +11,7 @@ class CPAC_Column_User_ID extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-user-id';
-		$this->properties['label']	 = __( 'User ID', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'User ID', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

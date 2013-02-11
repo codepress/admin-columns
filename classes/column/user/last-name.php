@@ -11,7 +11,7 @@ class CPAC_Column_User_Last_Name extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-last-name';
-		$this->properties['label']	 = __( 'Last name', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Last name', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

@@ -9,7 +9,7 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-exif-data';
-		$this->properties['label']	 = __( 'EXIF data', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'EXIF data', 'cpac' );
 		
 		// define options
 		$this->options['exif_datatype']	 = '';
@@ -29,16 +29,16 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	private function get_exif_types() {
 		
 		$exif_types = array(
-			'aperture'			=> __( 'Aperture', CPAC_TEXTDOMAIN ),
-			'credit'			=> __( 'Credit', CPAC_TEXTDOMAIN ),
-			'camera'			=> __( 'Camera', CPAC_TEXTDOMAIN ),
-			'caption'			=> __( 'Caption', CPAC_TEXTDOMAIN ),
-			'created_timestamp'	=> __( 'Timestamp', CPAC_TEXTDOMAIN ),
-			'copyright'			=> __( 'Copyright EXIF', CPAC_TEXTDOMAIN ),
-			'focal_length'		=> __( 'Focal Length', CPAC_TEXTDOMAIN ),
-			'iso'				=> __( 'ISO', CPAC_TEXTDOMAIN ),
-			'shutter_speed'		=> __( 'Shutter Speed', CPAC_TEXTDOMAIN ),
-			'title'				=> __( 'Title', CPAC_TEXTDOMAIN ),
+			'aperture'			=> __( 'Aperture', 'cpac' ),
+			'credit'			=> __( 'Credit', 'cpac' ),
+			'camera'			=> __( 'Camera', 'cpac' ),
+			'caption'			=> __( 'Caption', 'cpac' ),
+			'created_timestamp'	=> __( 'Timestamp', 'cpac' ),
+			'copyright'			=> __( 'Copyright EXIF', 'cpac' ),
+			'focal_length'		=> __( 'Focal Length', 'cpac' ),
+			'iso'				=> __( 'ISO', 'cpac' ),
+			'shutter_speed'		=> __( 'Shutter Speed', 'cpac' ),
+			'title'				=> __( 'Title', 'cpac' ),
 		);
 		
 		return $exif_types;		

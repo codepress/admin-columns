@@ -11,7 +11,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-available-sizes';
-		$this->properties['label']	 	= __( 'Available Sizes', CPAC_TEXTDOMAIN );	
+		$this->properties['label']	 	= __( 'Available Sizes', 'cpac' );	
 		
 		// call contruct
 		parent::__construct( $storage_model );
@@ -41,7 +41,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 			
 			// image does not these additional sizes rendered
 			if ( $diff = array_diff( $additional_sizes, $image_sizes ) ) {
-				$value .= "<br/><div class='missing_sizes'><span>" . implode( ', ', $diff ) . "</span> (" . __( 'missing', CPAC_TEXTDOMAIN ) . ")</div>";
+				$value .= "<br/><div class='missing_sizes'><span>" . implode( ', ', $diff ) . "</span> (" . __( 'missing', 'cpac' ) . ")</div>";
 			}
 		}
 				

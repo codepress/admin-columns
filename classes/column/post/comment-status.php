@@ -11,7 +11,7 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-comment-status';
-		$this->properties['label']	 	= __( 'Comment status', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Comment status', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

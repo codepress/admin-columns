@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Date extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-date';
-		$this->properties['label']	 = __( 'Date', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Date', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

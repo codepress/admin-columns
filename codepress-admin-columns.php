@@ -7,7 +7,7 @@ Description: 		Customize columns on the administration screens for post(types), 
 Author: 			Codepress
 Author URI: 		http://www.admincolumns.com
 Plugin URI: 		http://www.admincolumns.com
-Text Domain: 		codepress-admin-columns
+Text Domain: 		cpac
 Domain Path: 		/languages
 License:			GPLv2
 
@@ -28,10 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 define( 'CPAC_VERSION', 	 	'2.0.0' );
-define( 'CPAC_TEXTDOMAIN', 	 	'codepress-admin-columns' );
-define( 'CPAC_SLUG', 		 	'codepress-admin-columns' );
-define( 'CPAC_SETTINGS_SLUG', 	'cpac-settings' );
-define( 'CPAC_URL', 			plugins_url( '', __FILE__ ) );
+define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
 // only run plugin in the admin interface
@@ -82,7 +79,7 @@ class CPAC
 	public function init()
 	{		
 		// translations
-		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 				
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
@@ -200,7 +197,8 @@ class CPAC
 	public function get_post_types() {
 	
 		$post_types = get_post_types( array(
-			'_builtin' => false
+			'_builtin' 	=> false,
+			'show_ui'	=> true
 		));
 		$post_types['post'] = 'post';
 		$post_types['page'] = 'page';

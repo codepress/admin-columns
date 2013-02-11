@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Author_Url extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-author_url';
-		$this->properties['label']	 = __( 'Author url', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Author url', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

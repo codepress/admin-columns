@@ -9,7 +9,7 @@ class CPAC_Column_Post_Slug extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-slug';
-		$this->properties['label']	 	= __( 'Slug', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Slug', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

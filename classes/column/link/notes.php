@@ -9,7 +9,7 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-notes';
-		$this->properties['label']	 	= __( 'Notes', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Notes', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

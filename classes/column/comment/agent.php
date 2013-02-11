@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Agent extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-agent';
-		$this->properties['label']	 = __( 'Agent', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Agent', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

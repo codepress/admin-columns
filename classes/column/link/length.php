@@ -9,7 +9,7 @@ class CPAC_Column_Link_Length extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-length';
-		$this->properties['label']	 	= __( 'Length', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Length', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

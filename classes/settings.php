@@ -11,15 +11,6 @@ class CPAC_Settings {
 	 * CPAC class
 	 */
 	private $cpac;
-	
-	/**
-	 * Column Settings slug
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var string Page slug.
-	 */
-	private $column_settings_slug;
 
 	/**
 	 * Constructor
@@ -49,39 +40,21 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function settings_menu() {
-		// Utility Page
-		$page = add_menu_page(
-			__( 'Admin Columns Settings', CPAC_TEXTDOMAIN ),
-			__( 'Admin Columns', CPAC_TEXTDOMAIN ),
-			'manage_options',
-			CPAC_SLUG,
-			array( $this, 'column_settings' ),
-			false,
-			98 // at the end of the settings menu
-		);
-
-		// set admin page
-		$this->column_settings_slug = $page;
-
-		// settings page specific styles and scripts
-		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
+		
+		global $cpac_columns_page, $cpac_settings_page;
+		
+		// add pages
+		$cpac_columns_page 	= add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_options', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
+		$cpac_settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_options', 'cpac-settings',	array( $this, 'general_settings' ) );
 
 		// add help tabs
-		add_action( "load-{$page}", array( $this, 'help_tabs' ) );
+		add_action( "load-{$cpac_columns_page}", array( $this, 'help_tabs' ) );
 
-		// Settings Page
-		$general_page = add_submenu_page(
-			'codepress-admin-columns',
-			__( 'Settings', CPAC_TEXTDOMAIN ),
-			__( 'Settings', CPAC_TEXTDOMAIN ),
-			'manage_options',
-			'cpac-settings',
-			array( $this, 'general_settings' )
-		);
-
-		add_action( "admin_print_styles-{$general_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$general_page}", array( $this, 'admin_scripts' ) );
+		// add scripts & styles
+		add_action( "admin_print_styles-{$cpac_columns_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$cpac_columns_page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$cpac_settings_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$cpac_settings_page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -102,6 +75,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function admin_scripts() {
+	
 		wp_enqueue_script( 'wp-pointer' );
 
 		// columns
@@ -111,10 +85,10 @@ class CPAC_Settings {
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
-			'fill_in' 		=> __( 'Enter your activation code', CPAC_TEXTDOMAIN ),
-			'unrecognised'	=> __( 'Activation code unrecognised', CPAC_TEXTDOMAIN ),
-			'remove'		=> __( 'Remove', CPAC_TEXTDOMAIN ),
-			'customfield'	=> __( 'Custom Field', CPAC_TEXTDOMAIN ),
+			'fill_in' 		=> __( 'Enter your activation code', 'cpac' ),
+			'unrecognised'	=> __( 'Activation code unrecognised', 'cpac' ),
+			'remove'		=> __( 'Remove', 'cpac' ),
+			'customfield'	=> __( 'Custom Field', 'cpac' ),
 		));
 	}
 
@@ -156,8 +130,11 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function handle_requests() {
+	
+		global $cpac_columns_page, $cpac_settings_page;
+		
 		// only handle updates from the admin columns page
-		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( CPAC_SLUG, CPAC_SETTINGS_SLUG ) ) && isset( $_REQUEST['cpac_action'] ) ) )
+		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( $cpac_columns_page, $cpac_settings_page ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
 		$action 		= isset( $_REQUEST['cpac_action'] ) 		? $_REQUEST['cpac_action'] 	: '';
@@ -202,7 +179,7 @@ class CPAC_Settings {
 	public function get_export_multiselect_options() {
 		$options = array();
 
-		foreach ( $this->parent->storage_models as $storage_model ) {
+		foreach ( $this->cpac->storage_models as $storage_model ) {
 
 			if ( ! $storage_model->get_stored_columns() )
 				continue;
@@ -242,7 +219,7 @@ class CPAC_Settings {
 			update_option( 'cpac_options', $options );
 
 			// set admin notice
-			CPAC_Utility::admin_message( "<p>" . __( 'Settings updated.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
+			CPAC_Utility::admin_message( "<p>" . __( 'Settings updated.',  'cpac' ) . "</p>", 'updated');
 		}
 	}
 
@@ -256,7 +233,7 @@ class CPAC_Settings {
 		
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
 
-		CPAC_Utility::admin_message( "<p>" . __( 'Default settings succesfully restored.',  CPAC_TEXTDOMAIN ) . "</p>", 'updated');
+		CPAC_Utility::admin_message( "<p>" . __( 'Default settings succesfully restored.',  'cpac' ) . "</p>", 'updated');
 	}
 
 	/**
@@ -293,47 +270,50 @@ class CPAC_Settings {
 	 * @since 1.3.0
 	 */
 	public function help_tabs() {
+		
+		global $cpac_columns_page;
+		
 		$screen = get_current_screen();
 
-		if ( $screen->id != $this->column_settings_slug || ! method_exists( $screen,'add_help_tab' ) )
+		if ( $screen->id != $cpac_columns_page || ! method_exists( $screen,'add_help_tab' ) )
 			return;
 
 		// add help content
 		$tabs = array(
 			array(
-				'title'		=> __( "Overview", CPAC_TEXTDOMAIN ),
+				'title'		=> __( "Overview", 'cpac' ),
 				'content'	=>
 					"<h5>Codepress Admin Columns</h5>
-					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", CPAC_TEXTDOMAIN ) . "</p>"
+					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'cpac' ) . "</p>"
 			),
 			array(
-				'title'		=> __( "Basics", CPAC_TEXTDOMAIN ),
+				'title'		=> __( "Basics", 'cpac' ),
 				'content'	=>
-					"<h5>". __( "Show / Hide", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "You can switch columns on or off by clicking on the checkbox. This will show or hide each column heading.", CPAC_TEXTDOMAIN ) . "</p>
-					<h5>". __( "Change order", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "By dragging the columns you can change the order which they will appear in.", CPAC_TEXTDOMAIN ) . "</p>
-					<h5>". __( "Change label", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", CPAC_TEXTDOMAIN ) . "</p>
-					<h5>". __( "Change column width", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", CPAC_TEXTDOMAIN ) . "</p>"
+					"<h5>". __( "Show / Hide", 'cpac' ) . "</h5>
+					<p>". __( "You can switch columns on or off by clicking on the checkbox. This will show or hide each column heading.", 'cpac' ) . "</p>
+					<h5>". __( "Change order", 'cpac' ) . "</h5>
+					<p>". __( "By dragging the columns you can change the order which they will appear in.", 'cpac' ) . "</p>
+					<h5>". __( "Change label", 'cpac' ) . "</h5>
+					<p>". __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'cpac' ) . "</p>
+					<h5>". __( "Change column width", 'cpac' ) . "</h5>
+					<p>". __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", 'cpac' ) . "</p>"
 			),
 			array(
-				'title'		=> __( "Custom Field", CPAC_TEXTDOMAIN ),
+				'title'		=> __( "Custom Field", 'cpac' ),
 				'content'	=>
-					"<h5>". __( "'Custom Field' column", CPAC_TEXTDOMAIN ) . "</h5>
-					<p>". __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", CPAC_TEXTDOMAIN ) . "</p>
+					"<h5>". __( "'Custom Field' column", 'cpac' ) . "</h5>
+					<p>". __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", 'cpac' ) . "</p>
 					<ul>
-						<li><strong>". __( "Default", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Image", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Excerpt", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: This will show the first 20 words of the Post content.", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Multiple Values", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Numeric", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Date", CPAC_TEXTDOMAIN ) . "</strong><br/>". sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", CPAC_TEXTDOMAIN ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
-						<li><strong>". __( "Post Titles", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: can be one or more Post ID's (seperated by ',').", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Usernames", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: can be one or more User ID's (seperated by ',').", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Checkmark", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: should be a 1 (one) or 0 (zero).", CPAC_TEXTDOMAIN ) . "</li>
-						<li><strong>". __( "Color", CPAC_TEXTDOMAIN ) . "</strong><br/>". __( "Value: hex value color, such as #808080.", CPAC_TEXTDOMAIN ) . "</li>
+						<li><strong>". __( "Default", 'cpac' ) . "</strong><br/>". __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'cpac' ) . "</li>
+						<li><strong>". __( "Image", 'cpac' ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'cpac' ) . "</li>
+						<li><strong>". __( "Excerpt", 'cpac' ) . "</strong><br/>". __( "Value: This will show the first 20 words of the Post content.", 'cpac' ) . "</li>
+						<li><strong>". __( "Multiple Values", 'cpac' ) . "</strong><br/>". __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'cpac' ) . "</li>
+						<li><strong>". __( "Numeric", 'cpac' ) . "</strong><br/>". __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'cpac' ) . "</li>
+						<li><strong>". __( "Date", 'cpac' ) . "</strong><br/>". sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'cpac' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
+						<li><strong>". __( "Post Titles", 'cpac' ) . "</strong><br/>". __( "Value: can be one or more Post ID's (seperated by ',').", 'cpac' ) . "</li>
+						<li><strong>". __( "Usernames", 'cpac' ) . "</strong><br/>". __( "Value: can be one or more User ID's (seperated by ',').", 'cpac' ) . "</li>
+						<li><strong>". __( "Checkmark", 'cpac' ) . "</strong><br/>". __( "Value: should be a 1 (one) or 0 (zero).", 'cpac' ) . "</li>
+						<li><strong>". __( "Color", 'cpac' ) . "</strong><br/>". __( "Value: hex value color, such as #808080.", 'cpac' ) . "</li>
 					</ul>
 				"
 			)
@@ -407,17 +387,13 @@ class CPAC_Settings {
 	 */
 	public function column_settings() {
 		
-		// Licenses
-		$licenses = array(
-			'sortable' 		=> new CPAC_Licence( 'sortable' ),
-			'customfields' 	=> new CPAC_Licence( 'customfields' )
-		);
-
+		global $cpac_columns_page;
+		
 	?>
 		<div id="cpac" class="wrap">
 
-			<?php screen_icon( CPAC_SLUG ); ?>
-			<h2><?php _e( 'Admin Columns', CPAC_TEXTDOMAIN ); ?></h2>
+			<?php screen_icon( 'codepress-admin-columns' ); ?>
+			<h2><?php _e( 'Admin Columns', 'cpac' ); ?></h2>
 
 			<div class="cpac-menu">
 				<ul class="subsubsub">
@@ -446,11 +422,11 @@ class CPAC_Settings {
 					<div class="columns-right-inside">
 						<div class="sidebox" id="form-actions">
 							<h3>
-								<?php _e( 'Publish', CPAC_TEXTDOMAIN ) ?>
+								<?php _e( 'Publish', 'cpac' ) ?>
 							</h3>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => CPAC_SLUG, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
-									<?php _e( 'Restore', CPAC_TEXTDOMAIN ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', CPAC_TEXTDOMAIN ); ?>
+								<a href="<?php echo add_query_arg( array( 'page' => $cpac_columns_page, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 								</a>
 							</div>
 							<div class="form-update">
@@ -460,26 +436,33 @@ class CPAC_Settings {
 						</div><!--form-actions-->
 
 						<div class="sidebox" id="addon-state">
-							<h3><?php _e( 'Addons', CPAC_TEXTDOMAIN ) ?></h3>
+							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
-								<div class="addon <?php echo $licenses['sortable']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
-									<?php _e( 'Sortable Columns', CPAC_TEXTDOMAIN ); ?>
-									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="activate"><?php _e( 'activate', CPAC_TEXTDOMAIN ); ?></a>
-								</div>
-								<div class="addon <?php echo $licenses['customfields']->is_unlocked() ? 'enabled' : 'disabled'; ?>">
-									<?php _e( 'Multiple Custom Fields', CPAC_TEXTDOMAIN ); ?>
-									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="activate"><?php _e( 'activate', CPAC_TEXTDOMAIN ); ?></a>
-								</div>
+								
+								<?php 
+								$addons = array(
+									'CAC_SC_VERSION'	=> __( 'Sortable Columns', 'cpac' ),
+									'CAC_FC_VERSION'	=> __( 'Filtering Columns', 'cpac' ),
+									'CAC_MC_VERSION'	=> __( 'Multiple Columns', 'cpac' ),
+									'CAC_??_VERSION'	=> __( '???', 'cpac' ),
+								);
+								?>								
+								<?php foreach ( $addons as $version => $label ) : ?>
+								<div class="addon <?php echo defined( $version ) ? 'enabled' : 'disabled'; ?>">
+									<?php echo $label; ?>
+									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="find-out-more"><?php _e( 'find out more', 'cpac' ); ?></a>
+								</div>								
+								<?php endforeach; ?>								
 							</div>
 						</div><!--addon-state-->
 
 						<div class="sidebox" id="plugin-support">
-							<h3><?php _e( 'Support', CPAC_TEXTDOMAIN ); ?></h3>
+							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
 							<div class="inside">
 								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', CPAC_TEXTDOMAIN ); ?></p>
+									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
 								<?php endif; ?>
-								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", CPAC_TEXTDOMAIN ), $this->get_url('documentation') ); ?></p>
+								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?></p>
 							</div>
 						</div><!--.form-actions-->
 
@@ -495,7 +478,7 @@ class CPAC_Settings {
 						</div><!--.cpac-columns-->
 
 						<div class="column-footer">
-							<div class="order-message"><?php _e( 'Drag and drop to reorder', CPAC_TEXTDOMAIN ); ?></div>
+							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
 							
 							<?php 
 							/**
@@ -533,24 +516,24 @@ class CPAC_Settings {
 		// addons
 		$addons = array(
 			'sortable'	=> array(
-				'label'		=> __( 'Sortorder', CPAC_TEXTDOMAIN ),
+				'label'		=> __( 'Sortorder', 'cpac' ),
 				'license' 	=> new CPAC_Licence('sortable'),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __( 'This will make all of the new columns support sorting.', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', CPAC_TEXTDOMAIN ) . "</p>
-					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'This will make all of the new columns support sorting.', 'cpac' ) . "</p>
+					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', 'cpac' ) . "</p>
+					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', 'cpac' ) . "</p>
+					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', 'cpac' ) . "</p>
 					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
 				"
 			),
 			'customfields'	=> array(
-				'label'		=> __( 'Multiple Custom Fields', CPAC_TEXTDOMAIN ),
+				'label'		=> __( 'Multiple Custom Fields', 'cpac' ),
 				'license' 	=> new CPAC_Licence( 'customfields' ),
 				'more_link'	=> 'http://www.admincolumns.com/addons',
 				'qtip'		=> "
-					<p>" . __( 'Add as many Custom Fields columns as you want.', CPAC_TEXTDOMAIN ) . "</p>
-					<p>" . __( 'It support custom fields from Posts, Media and Users.', CPAC_TEXTDOMAIN ) . "</p>
+					<p>" . __( 'Add as many Custom Fields columns as you want.', 'cpac' ) . "</p>
+					<p>" . __( 'It support custom fields from Posts, Media and Users.', 'cpac' ) . "</p>
 					<img src='" . CPAC_URL . "/assets/images/addon_multiplecustomfields.png' alt='' />
 				"
 			)
@@ -558,79 +541,24 @@ class CPAC_Settings {
 	?>
 	<div id="cpac" class="wrap">
 
-		<?php screen_icon( CPAC_SLUG ); ?>
-		<h2><?php _e( 'Admin Columns Settings', CPAC_TEXTDOMAIN ); ?></h2>
+		<?php screen_icon( 'codepress-admin-columns' ); ?>
+		<h2><?php _e( 'Admin Columns Settings', 'cpac' ); ?></h2>
 
 		<table class="form-table cpac-form-table">
 			<tbody>
 				<tr>
 					<th scope="row">
-						<h3><?php _e( 'Activate Add-ons', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="http://www.admincolumns.com/addons/" target="_blank"><?php _e( 'Find Add-ons', CPAC_TEXTDOMAIN ); ?></a></p>
-					</th>
-					<td>
-						<table class="widefat addons">
-							<thead>
-								<tr>
-									<th class="activation_type"><?php _e( 'Addon', CPAC_TEXTDOMAIN ); ?></th>
-									<th class="activation_status"><?php _e( 'Status', CPAC_TEXTDOMAIN ); ?></th>
-									<th class="activation_code"><?php _e( 'Activation Code', CPAC_TEXTDOMAIN ); ?></th>
-									<th class="activation_more"></th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<?php foreach ( $addons as $id => $addon ) : ?>
-								<tr id="activation-<?php echo $id; ?>">
-									<td class="activation_type">
-										<span class="cpac-pointer" rel="cpac-addon-instructions-<?php echo $id; ?>" data-pointer-position="bottom"><?php echo $addon['label']; ?></span>
-										<div id="cpac-addon-instructions-<?php echo $id; ?>" style="display:none;">
-											<h3><?php echo $addon['label']; ?></h3>
-											<?php echo $addon['qtip']; ?>
-										</div>
-									</td>
-									<td class="activation_status">
-										<div class="activate<?php echo $addon['license']->is_unlocked() ? ' hidden' : ''; ?>">
-											<?php _e( 'Inactive', CPAC_TEXTDOMAIN ); ?>
-										</div>
-										<div class="deactivate<?php echo $addon['license']->is_unlocked() ? '' : ' hidden'; ?>">
-											<?php _e( 'Active', CPAC_TEXTDOMAIN ); ?>
-									</td>
-									<td class="activation_code">
-										<div class="activate <?php echo $addon['license']->is_unlocked() ? ' hidden' : ''; ?>">
-											<input type="text" placeholder="<?php _e( 'Fill in your activation code', CPAC_TEXTDOMAIN ) ?>" name="cpac-<?php echo $id; ?>-key">
-											<a href="javascript:;" class="button"><?php _e( 'Activate', CPAC_TEXTDOMAIN ); ?><span></span></a>
-										</div>
-										<div class="deactivate<?php echo $addon['license']->is_unlocked() ? '' : ' hidden'; ?>">
-											<span class="masked_key"><?php echo $addon['license']->get_masked_license_key(); ?></span>
-											<a href="javascript:;" class="button"><?php _e( 'Deactivate', CPAC_TEXTDOMAIN ); ?><span></span></a>
-										</div>
-										<div class="activation-error-msg"></div>
-									</td>
-									<td class="activation_more">
-										<a href="<?php echo $addon['more_link']; ?>" class="button-primary alignright" target="_blank"><?php _e( 'find out more', CPAC_TEXTDOMAIN ); ?> &raquo </a>
-									</td>
-								</tr>
-								<?php endforeach; ?>
-
-							</tbody>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">
-						<h3><?php _e( 'Export Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'Pick the types for export from the left column. Click export to download your column settings.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-export-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<h3><?php _e( 'Export Settings', 'cpac' ); ?></h3>
+						<p><?php _e( 'Pick the types for export from the left column. Click export to download your column settings.', 'cpac' ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-export-instructions-html"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
 						<div id="cpac-export-instructions-html" style="display:none;">
-							<h3><?php _e( 'Export Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
-							<p><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></p>
+							<h3><?php _e( 'Export Columns Types', 'cpac' ); ?></h3>
+							<p><?php _e( 'Instructions', 'cpac' ); ?></p>
 							<ol>
-								<li><?php _e( 'Select one or more Column Types from the left section by clicking them.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Click export.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Save the export file when prompted.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Upload and import your settings file through Import Settings.', CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Select one or more Column Types from the left section by clicking them.', 'cpac' ); ?></li>
+								<li><?php _e( 'Click export.', 'cpac' ); ?></li>
+								<li><?php _e( 'Save the export file when prompted.', 'cpac' ); ?></li>
+								<li><?php _e( 'Upload and import your settings file through Import Settings.', 'cpac' ); ?></li>
 							</ol>
 						</div>
 					</th>
@@ -642,8 +570,8 @@ class CPAC_Settings {
 								<select name="export_types[]" multiple="multiple" class="select" id="cpac_export_types">
 									<?php
 									$labels = array(
-										'general'	=> __( 'General', CPAC_TEXTDOMAIN ),
-										'posts'		=> __( 'Posts', CPAC_TEXTDOMAIN )
+										'general'	=> __( 'General', 'cpac' ),
+										'posts'		=> __( 'Posts', 'cpac' )
 									);
 									?>
 									<?php foreach ( $groups as $group_key => $group ) : ?>
@@ -654,8 +582,8 @@ class CPAC_Settings {
 									</optgroup>
 									<?php endforeach; ?>
 								</select>
-								<a id="export-select-all" class="export-select" href="javascript:;"><?php _e( 'select all', CPAC_TEXTDOMAIN ); ?></a>
-								<input type="submit" id="cpac_export_submit" class="button-primary alignright" value="<?php _e( 'Export', CPAC_TEXTDOMAIN ); ?>">
+								<a id="export-select-all" class="export-select" href="javascript:;"><?php _e( 'select all', 'cpac' ); ?></a>
+								<input type="submit" id="cpac_export_submit" class="button-primary alignright" value="<?php _e( 'Export', 'cpac' ); ?>">
 							</form>
 							<?php else : ?>
 								<?php _e( 'No saved data found.', CPAC_TEXDOMAIN ); ?>
@@ -665,16 +593,16 @@ class CPAC_Settings {
 				</tr>
 				<tr>
 					<th scope="row">
-						<h3><?php _e( 'Import Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'Copy and paste your import settings here.', CPAC_TEXTDOMAIN ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></a></p>
+						<h3><?php _e( 'Import Settings', 'cpac' ); ?></h3>
+						<p><?php _e( 'Copy and paste your import settings here.', 'cpac' ); ?></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
 						<div id="cpac-import-instructions-html" style="display:none;">
-							<h3><?php _e( 'Import Columns Types', CPAC_TEXTDOMAIN ); ?></h3>
-							<p><?php _e( 'Instructions', CPAC_TEXTDOMAIN ); ?></p>
+							<h3><?php _e( 'Import Columns Types', 'cpac' ); ?></h3>
+							<p><?php _e( 'Instructions', 'cpac' ); ?></p>
 							<ol>
-								<li><?php _e( 'Choose a Admin Columns Export file to upload.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( 'Click upload file and import.', CPAC_TEXTDOMAIN ); ?></li>
-								<li><?php _e( "That's it! You imported settings are now active.", CPAC_TEXTDOMAIN ); ?></li>
+								<li><?php _e( 'Choose a Admin Columns Export file to upload.', 'cpac' ); ?></li>
+								<li><?php _e( 'Click upload file and import.', 'cpac' ); ?></li>
+								<li><?php _e( "That's it! You imported settings are now active.", 'cpac' ); ?></li>
 							</ol>
 						</div>
 					</th>
@@ -683,29 +611,62 @@ class CPAC_Settings {
 							<form method="post" action="" enctype="multipart/form-data">
 								<input type="file" size="25" name="import" id="upload">
 								<?php wp_nonce_field( 'file-import', '_cpac_nonce' ); ?>
-								<input type="submit" value="<?php _e( 'Upload file and import', CPAC_TEXTDOMAIN ); ?>" class="button" id="import-submit" name="file-submit">
+								<input type="submit" value="<?php _e( 'Upload file and import', 'cpac' ); ?>" class="button" id="import-submit" name="file-submit">
 							</form>
 						</div>
 					</td>
 				</tr>
 				<tr class="restore">
 					<th scope="row">
-						<h3><?php _e( 'Restore Settings', CPAC_TEXTDOMAIN ); ?></h3>
-						<p><?php _e( 'This will delete all column settings and restore the default settings.', CPAC_TEXTDOMAIN ); ?></p>
+						<h3><?php _e( 'Restore Settings', 'cpac' ); ?></h3>
+						<p><?php _e( 'This will delete all column settings and restore the default settings.', 'cpac' ); ?></p>
 					</th>
 					<td class="padding-22">
 						<form method="post" action="">
 							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
 							<input type="hidden" name="cpac_action" value="restore_all" />
-							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', CPAC_TEXTDOMAIN ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", CPAC_TEXTDOMAIN ); ?>');" />
+							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'cpac' ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ); ?>');" />
 						</form>
 					</td>
 				</tr>
+				
+				<?php $this->do_settings_groups(); ?>
+								
 			</tbody>
 		</table>
 
 	</div>
 
 	<?php
+	}
+	
+	/**
+	 * Add settings groups
+	 *
+	 * @since 2.0.0
+	 */
+	function do_settings_groups() {
+		
+		// Hook groups here
+		$groups = apply_filters( 'cpac_settings_groups', array() );
+		
+		// Display each group
+		foreach ( $groups as $id => $group ) {
+			
+			$title 			= isset( $group['title'] ) ? $group['title'] : '';
+			$description 	= isset( $group['description'] ) ? $group['description'] : '';
+			
+			?>
+			<tr>
+				<th scope="row">
+					<h3><?php echo $title; ?></h3>
+					<p><?php echo $description; ?></p>					
+				</th>			
+				<td class="padding-22">
+					<?php do_action( "cpac_settings_row_{$id}" ); ?>
+				</td>
+			</tr>
+			<?php
+		}		
 	}
 }

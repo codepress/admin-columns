@@ -11,7 +11,7 @@ class CPAC_Column_User_Custom_Field extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-meta';
-		$this->properties['label']	 	= __( 'Custom Field', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Custom Field', 'cpac' );
 		$this->properties['classes']	= 'cpac-box-metafield';		
 		
 		// define additional options

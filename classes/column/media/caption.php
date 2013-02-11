@@ -9,7 +9,7 @@ class CPAC_Column_Media_Caption extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-caption';
-		$this->properties['label']	 = __( 'Caption', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Caption', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

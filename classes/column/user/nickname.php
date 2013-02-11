@@ -11,7 +11,7 @@ class CPAC_Column_User_Nickname extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-nickname';
-		$this->properties['label']	 = __( 'Nickname', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Nickname', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

@@ -9,7 +9,7 @@ class CPAC_Column_Media_Mime_Type extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-mime-type';
-		$this->properties['label']	 	= __( 'Mime type', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Mime type', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

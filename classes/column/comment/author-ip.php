@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Author_Ip extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-author_ip';
-		$this->properties['label']	 = __( 'Author IP', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Author IP', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

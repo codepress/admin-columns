@@ -9,7 +9,7 @@ class CPAC_Column_Media_File_Paths extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-file-paths';
-		$this->properties['label']	 = __( 'Upload paths', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Upload paths', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}
@@ -22,7 +22,7 @@ class CPAC_Column_Media_File_Paths extends CPAC_Column {
 				
 		$url 		= wp_get_attachment_url( $id );
 		$filename 	= basename( $url );
-		$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'original', CPAC_TEXTDOMAIN ) . "</a>";
+		$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'original', 'cpac' ) . "</a>";
 		
 		if ( $sizes = get_intermediate_image_sizes() ) {
 			foreach ( $sizes as $size ) {

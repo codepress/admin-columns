@@ -9,7 +9,7 @@ class CPAC_Column_Media_Dimensions extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-dimensions';
-		$this->properties['label']	 	= __( 'Dimensions', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Dimensions', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

@@ -10,7 +10,7 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-excerpt';
-		$this->properties['label']	 	= __( 'Excerpt', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Excerpt', 'cpac' );
 			
 		// define additional options
 		$this->options['excerpt_length'] = 30;		

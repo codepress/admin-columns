@@ -11,7 +11,7 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-user-registered';
-		$this->properties['label']	 = __( 'Registered', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Registered', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

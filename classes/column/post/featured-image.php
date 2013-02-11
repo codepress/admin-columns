@@ -11,7 +11,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-featured-image';
-		$this->properties['label']	 	= __( 'Featured Image', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Featured Image', 'cpac' );
 				
 		// define additional options
 		$this->options['image_size']	= '';

@@ -9,7 +9,7 @@ class CPAC_Column_Media_Height extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-height';
-		$this->properties['label']	 	= __( 'Height', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Height', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

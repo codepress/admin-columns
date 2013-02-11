@@ -9,7 +9,7 @@ class CPAC_Column_Link_Rss extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-rss';
-		$this->properties['label']	 	= __( 'Rss', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Rss', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

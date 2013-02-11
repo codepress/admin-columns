@@ -9,7 +9,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-author-name';
-		$this->properties['label']	 	= __( 'Display Author As', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Display Author As', 'cpac' );
 		
 		// define additional options
 		$this->options['display_author_as'] = '';
@@ -29,14 +29,14 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	private function get_nametypes() {
 		
 		$nametypes = array(
-			'display_name'		=> __( 'Display Name', CPAC_TEXTDOMAIN ),
-			'first_name'		=> __( 'First Name', CPAC_TEXTDOMAIN ),
-			'last_name'			=> __( 'Last Name', CPAC_TEXTDOMAIN ),
-			'nickname'			=> __( 'Nickname', CPAC_TEXTDOMAIN ),
-			'user_login'		=> __( 'User Login', CPAC_TEXTDOMAIN ),
-			'user_email'		=> __( 'User Email', CPAC_TEXTDOMAIN ),
-			'ID'				=> __( 'User ID', CPAC_TEXTDOMAIN ),
-			'first_last_name'	=> __( 'First and Last Name', CPAC_TEXTDOMAIN ),
+			'display_name'		=> __( 'Display Name', 'cpac' ),
+			'first_name'		=> __( 'First Name', 'cpac' ),
+			'last_name'			=> __( 'Last Name', 'cpac' ),
+			'nickname'			=> __( 'Nickname', 'cpac' ),
+			'user_login'		=> __( 'User Login', 'cpac' ),
+			'user_email'		=> __( 'User Email', 'cpac' ),
+			'ID'				=> __( 'User ID', 'cpac' ),
+			'first_last_name'	=> __( 'First and Last Name', 'cpac' ),
 		);
 		
 		return $nametypes;		
@@ -85,7 +85,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		?>
 		
 		<tr class="column-author-name">			
-			<?php $this->label_view( $this->properties->label, __( 'This is the format of the author name.', CPAC_TEXTDOMAIN ), 'display_author_as' ); ?>
+			<?php $this->label_view( $this->properties->label, __( 'This is the format of the author name.', 'cpac' ), 'display_author_as' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'display_author_as' ); ?>" id="<?php $this->attr_id( 'display_author_as' ); ?>">				
 				<?php foreach ( $this->get_nametypes() as $key => $label ) : ?>

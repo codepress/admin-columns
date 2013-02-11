@@ -9,7 +9,7 @@ class CPAC_Column_Link_Image extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-image';
-		$this->properties['label']	 	= __( 'Image', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Image', 'cpac' );
 		
 		// define additional options
 		$this->options['image_size']	= '';

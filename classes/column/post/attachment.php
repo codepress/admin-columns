@@ -9,7 +9,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-attachment';
-		$this->properties['label']	 = __( 'Attachment', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Attachment', 'cpac' );
 		
 		// define additional options
 		$this->options['image_size']	= '';

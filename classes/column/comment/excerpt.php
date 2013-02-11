@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-excerpt';
-		$this->properties['label']	 = __( 'Excerpt', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Excerpt', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

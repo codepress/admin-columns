@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-approved';
-		$this->properties['label']	 = __( 'Approved', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Approved', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

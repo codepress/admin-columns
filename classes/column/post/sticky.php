@@ -11,7 +11,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-sticky';
-		$this->properties['label']	 	= __( 'Sticky', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Sticky', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

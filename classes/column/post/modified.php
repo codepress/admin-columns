@@ -11,7 +11,7 @@ class CPAC_Column_Post_Modified extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-modified';
-		$this->properties['label']	 	= __( 'Last modified', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Last modified', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

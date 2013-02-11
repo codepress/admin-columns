@@ -11,7 +11,7 @@ class CPAC_Column_User_Url extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-user-url';
-		$this->properties['label']	 = __( 'Url', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Url', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

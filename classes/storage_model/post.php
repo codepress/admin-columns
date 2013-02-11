@@ -48,9 +48,16 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		do_action( "cpac_before_default_columns_posts", $this );
 		do_action( "cpac_before_default_columns_{$this->key}", $this );
 		
-		// get columns
-		$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
-		$columns 	= $table->get_columns();
+		// Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
+		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
+		$columns = get_column_headers( "edit-{$this->key}" );
+		
+		// Get the WP default columns if there is no 3rd party plugin trying to set columns using the hook above.
+		if ( ! $columns ) {
+		
+			$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
+			$columns 	= $table->get_columns();
+		}
 		
 		$columns = apply_filters( 'cpac_default_columns_posts', $columns, $this );
 		$columns = apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );

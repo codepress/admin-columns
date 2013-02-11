@@ -11,7 +11,7 @@ class CPAC_Column_User_Description extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-user-description';
-		$this->properties['label']	 = __( 'Description', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Description', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

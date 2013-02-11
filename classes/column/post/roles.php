@@ -11,7 +11,7 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-roles';
-		$this->properties['label']	 	= __( 'Roles', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Roles', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

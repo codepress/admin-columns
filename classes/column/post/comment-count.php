@@ -11,7 +11,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-comment-count';
-		$this->properties['label']	 	= __( 'Comment count', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Comment count', 'cpac' );
 		
 		// define additional options
 		$this->options['comment_status'] = '';
@@ -26,11 +26,11 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	function get_comment_stati() {
 		
 		return array(
-			'total_comments'	=> __( 'Total', CPAC_TEXTDOMAIN ),
-			'approved'			=> __( 'Approved', CPAC_TEXTDOMAIN ),
-			'moderated'			=> __( 'Pending', CPAC_TEXTDOMAIN ),
-			'spam'				=> __( 'Spam', CPAC_TEXTDOMAIN ),
-			'trash'				=> __( 'Trash', CPAC_TEXTDOMAIN ),
+			'total_comments'	=> __( 'Total', 'cpac' ),
+			'approved'			=> __( 'Approved', 'cpac' ),
+			'moderated'			=> __( 'Pending', 'cpac' ),
+			'spam'				=> __( 'Spam', 'cpac' ),
+			'trash'				=> __( 'Trash', 'cpac' ),
 		);
 	}
 	

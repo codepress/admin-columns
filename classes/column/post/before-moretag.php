@@ -11,7 +11,7 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 = 'column-before-moretag';
-		$this->properties['label']	 = __( 'Before More Tag', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Before More Tag', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

@@ -9,7 +9,7 @@ class CPAC_Column_Post_Attachment_Count extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-attachment-count';
-		$this->properties['label']	 = __( 'No. of Attachments', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'No. of Attachments', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

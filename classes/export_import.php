@@ -51,7 +51,7 @@ class CPAC_Export_Import {
 			return false;
 
 		if ( empty( $_REQUEST['export_types'] ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Export field is empty. Please select your types from the left column.',  CPAC_TEXTDOMAIN ) . "</p>", 'error' );
+			CPAC_Utility::admin_message( "<p>" . __( 'Export field is empty. Please select your types from the left column.',  'cpac' ) . "</p>", 'error' );
 			return false;
 		}
 
@@ -85,9 +85,9 @@ class CPAC_Export_Import {
 		// any errors?
 		$error = false;
 		if ( isset( $file['error'] ) ) {
-			$error = '<p><strong>' . __( 'Sorry, there has been an error.', CPAC_TEXTDOMAIN ) . '</strong><br />' . esc_html( $file['error'] ) . '</p>';
+			$error = '<p><strong>' . __( 'Sorry, there has been an error.', 'cpac' ) . '</strong><br />' . esc_html( $file['error'] ) . '</p>';
 		} else if ( ! file_exists( $file['file'] ) ) {
-			$error = '<p><strong>' . __( 'Sorry, there has been an error.', CPAC_TEXTDOMAIN ) . '</strong><br />' . sprintf( __( 'The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem.', CPAC_TEXTDOMAIN ), esc_html( $file['file'] ) ) . '</p>';
+			$error = '<p><strong>' . __( 'Sorry, there has been an error.', 'cpac' ) . '</strong><br />' . sprintf( __( 'The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem.', 'cpac' ), esc_html( $file['file'] ) ) . '</p>';
 		}
 
 		if ( $error ) {
@@ -96,20 +96,23 @@ class CPAC_Export_Import {
 		}
 		// read file contents and start the import
 		$content = file_get_contents( $file['file'] );
-
+		
+		// cleanup
+		wp_delete_attachment( $file['id'] );
+		
 		// decode file contents
 		if ( ! $columns = $this->get_decoded_settings( $content ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Import failed. File does not contain Admin Column settings.',  CPAC_TEXTDOMAIN ) . "</p>", 'error' );
+			CPAC_Utility::admin_message( "<p>" . __( 'Import failed. File does not contain Admin Column settings.',  'cpac' ) . "</p>", 'error' );
 			return false;
 		}
 
 		// store settings
 		if ( ! $result = $this->update_settings( $columns ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Import aborted. Are you trying to store the same settings?',  CPAC_TEXTDOMAIN ) . "</p>", 'error' );
+			CPAC_Utility::admin_message( "<p>" . __( 'Import aborted. Are you trying to store the same settings?',  'cpac' ) . "</p>", 'error' );
 			return false;
 		}
 
-		CPAC_Utility::admin_message( "<p>" . __( sprintf( 'Import succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $columns ) ) . '</strong>' ) ,  CPAC_TEXTDOMAIN ) . "</p>", 'updated' );
+		CPAC_Utility::admin_message( "<p>" . __( sprintf( 'Import succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $columns ) ) . '</strong>' ) ,  'cpac' ) . "</p>", 'updated' );
 	}
 
 	/**

@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Date_Gmt extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 = 'column-date_gmt';
-		$this->properties['label']	 = __( 'Date GMT', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 = __( 'Date GMT', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

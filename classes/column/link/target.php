@@ -9,7 +9,7 @@ class CPAC_Column_Link_Target extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-target';
-		$this->properties['label']	 	= __( 'Target', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Target', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}

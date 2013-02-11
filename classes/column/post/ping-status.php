@@ -11,7 +11,7 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 		
 		// define properties		
 		$this->properties['type']	 	= 'column-ping-status';
-		$this->properties['label']	 	= __( 'Ping status', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Ping status', 'cpac' );
 			
 		parent::__construct( $storage_model );
 	}

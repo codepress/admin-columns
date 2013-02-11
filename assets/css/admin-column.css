@@ -403,10 +403,10 @@ tr.column_image_size.hidden {
 #addon-state .addon.enabled {
 	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;
 }
-#addon-state .addon a.activate {
+#addon-state .addon a.find-out-more {
 	float: right;
 }
-#addon-state .addon.enabled a.activate {
+#addon-state .addon.enabled a.find-out-more {
 	display: none;
 }
 

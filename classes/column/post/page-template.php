@@ -9,7 +9,7 @@ class CPAC_Column_Post_Page_Template extends CPAC_Column {
 	function __construct( $storage_model ) {		
 		
 		$this->properties['type']	 	= 'column-page-template';
-		$this->properties['label']	 	= __( 'Page Template', CPAC_TEXTDOMAIN );
+		$this->properties['label']	 	= __( 'Page Template', 'cpac' );
 		
 		parent::__construct( $storage_model );
 	}
