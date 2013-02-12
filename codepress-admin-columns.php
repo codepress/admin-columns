@@ -40,9 +40,7 @@ if ( !is_admin() )
  *
  * @since 1.3.0
  */
-require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/export_import.php';
-require_once CPAC_DIR . 'classes/license.php';
 require_once CPAC_DIR . 'classes/third_party.php';
 require_once CPAC_DIR . 'classes/deprecated.php';
 
@@ -85,9 +83,13 @@ class CPAC
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
+		add_action( 'admin_head', array( $this, 'admin_js') );
 		
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
+		
+		// handle admin notices
+		add_action( 'admin_notices', array( $this, 'notices' ) );
 		
 		// set storage models
 		$this->set_storage_models();
@@ -97,6 +99,16 @@ class CPAC
 		
 		// Hook
 		do_action( 'cpac_loaded', $this );
+	}
+	
+	/**
+	 * Display Notices.
+	 *
+	 * @since 2.0.0
+	 */
+	function notices() {
+	
+		settings_errors( 'cpac-notices' );
 	}
 	
 	/**
@@ -185,6 +197,14 @@ class CPAC
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
 		new CPAC_Settings( $this );
+		
+		// Addons
+		require_once CPAC_DIR . 'classes/addons.php';
+		new CPAC_Addons;
+		
+		// Export Import
+		require_once CPAC_DIR . 'classes/export_import.php';		
+		new CPAC_Export_Import( $this );
 	}
 	
 	/**
@@ -233,12 +253,12 @@ class CPAC
 	 * @param string $file Plugin filename.
 	 * @return string Link to settings page
 	 */
-	function add_settings_link( $links, $file )
-	{
+	function add_settings_link( $links, $file ) {
+	
 		if ( $file != plugin_basename( __FILE__ ) )
 			return $links;
 
-		array_unshift($links, '<a href="' . admin_url("admin.php") . '?page=' . CPAC_SLUG . '">' . __( 'Settings' ) . '</a>');
+		array_unshift( $links, '<a href="' . admin_url("admin.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
 		return $links;
 	}
 
@@ -247,12 +267,12 @@ class CPAC
 	 *
 	 * @since 1.0.0
 	 */
-	public function column_styles()
-	{
+	public function column_styles() {
+	
 		global $pagenow;
 		
 		if ( in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php' ) ) ) {
-			wp_enqueue_style( 'cpac-columns', CPAC_URL.'/assets/css/column.css', array(), CPAC_VERSION, 'all' );
+			wp_enqueue_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
 		}
 	}
 
@@ -266,8 +286,8 @@ class CPAC
 	 * @param string $classes body classes
 	 * @return string
 	 */
-	function admin_class( $classes )
-	{
+	function admin_class( $classes ) {
+	
 		global $current_screen;
 
 		// we dont need the 'edit-' part
@@ -298,37 +318,34 @@ class CPAC
 	/**
 	 * Admin CSS for Column width and Settings Icon
 	 * 
-	 * @todo: let column object determine width
 	 * @since 1.4.0
 	 */
-	function admin_css()
-	{
+	function admin_css() {		
+	
+		// CSS column widths		
 		$css_column_width = '';
-
-		// loop throug the available types...
+		
 		foreach ( $this->storage_models as $storage_model ) {
 
 			if ( ! $columns = $storage_model->get_stored_columns() )
 				continue;
 
-			// loop through each available column...
 			foreach ( $columns as $name => $options ) {
 
-				// and check for stored width and add it to the css
 				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
 					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
 				}
 			}
-		}
+		}		
 		
 		?>
 		
 		<style type="text/css">
 						
 			<?php echo $css_column_width; ?>
-			
+						
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
-				background: transparent url("<?php echo CPAC_URL; ?>/assets/images/icon_20.png") no-repeat 6px -24px;
+				background: transparent url("<?php echo CPAC_URL; ?>assets/images/icon_20.png") no-repeat 6px -24px;
 			}
 			#adminmenu #toplevel_page_codepress-admin-columns:hover .wp-menu-image,
 			#adminmenu #toplevel_page_codepress-admin-columns.wp-menu-open .wp-menu-image {
@@ -337,6 +354,30 @@ class CPAC
 		</style>
 
 		<?php
+	
+	}
+	
+	/**
+	 * Admin JS
+	 * 
+	 * @since 2.0.0
+	 */
+	function admin_js() {		
+				
+		// Will add an active state to addon list.
+		if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : 
+		
+		?>
+		<script type="text/javascript">	
+			jQuery(document).ready( function() {
+				<?php foreach ( $addons as $id => $label ) : ?>
+				jQuery('#cpac ul.addons').find('.<?php echo $id; ?>').addClass('active').appendTo( '#cpac ul.addons' );		
+				<?php endforeach; ?>
+			});
+		</script>
+
+		<?php
+		endif;
 	
 	}
 }

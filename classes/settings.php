@@ -25,9 +25,6 @@ class CPAC_Settings {
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
-		// action ajax
-		add_action( 'wp_ajax_cpac_addon_activation', array( $this, 'ajax_activation' ) );
-
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );
 	}
@@ -40,8 +37,6 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function settings_menu() {
-		
-		global $cpac_columns_page, $cpac_settings_page;
 		
 		// add pages
 		$cpac_columns_page 	= add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_options', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
@@ -64,9 +59,9 @@ class CPAC_Settings {
 	 */
 	public function admin_styles() {
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL.'/assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-admin', CPAC_URL.'/assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-multi-select', CPAC_URL.'/assets/css/multi-select.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-multi-select', CPAC_URL . 'assets/css/multi-select.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -80,48 +75,8 @@ class CPAC_Settings {
 
 		// columns
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL.'/assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );		
-		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL.'/assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
-
-		// javascript translations
-		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
-			'fill_in' 		=> __( 'Enter your activation code', 'cpac' ),
-			'unrecognised'	=> __( 'Activation code unrecognised', 'cpac' ),
-			'remove'		=> __( 'Remove', 'cpac' ),
-			'customfield'	=> __( 'Custom Field', 'cpac' ),
-		));
-	}
-
-	/**
-	 * Ajax activation
-	 *
-	 * @since 1.3.1
-	 *
-	 * @return string Masked key ( JSON encode ).
-	 */
-	public function ajax_activation() {
-		// keys
-		$key 	= $_POST['key'];
-		$storage_model 	= $_POST['type'];
-
-		$licence = new CPAC_Licence( $storage_model );
-
-		// update key
-		if ( $key == 'remove' ) {
-			$licence->remove_license_key();
-		}
-
-		// set license key
-		elseif ( $licence->check_remote_key( $key ) ) {
-
-			// set key
-			$licence->set_license_key( $key );
-
-			// returned masked key
-			echo json_encode( $licence->get_masked_license_key() );
-		}
-
-		exit;
+		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );		
+		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL . 'assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
 	}
 
 	/**
@@ -130,15 +85,13 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function handle_requests() {
-	
-		global $cpac_columns_page, $cpac_settings_page;
 		
 		// only handle updates from the admin columns page
-		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( $cpac_columns_page, $cpac_settings_page ) ) && isset( $_REQUEST['cpac_action'] ) ) )
+		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
-		$action 		= isset( $_REQUEST['cpac_action'] ) 		? $_REQUEST['cpac_action'] 	: '';
-		$nonce  		= isset( $_REQUEST['_cpac_nonce'] ) 		? $_REQUEST['_cpac_nonce'] 	: '';
+		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
+		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
 		$key 	= isset( $_REQUEST['cpac_key'] ) 	? $_REQUEST['cpac_key'] 	: '';
 
 		switch ( $action ) :
@@ -219,7 +172,7 @@ class CPAC_Settings {
 			update_option( 'cpac_options', $options );
 
 			// set admin notice
-			CPAC_Utility::admin_message( "<p>" . __( 'Settings updated.',  'cpac' ) . "</p>", 'updated');
+			add_settings_error( 'cpac-notices', 'cpac-update-settings', __( 'Settings updated.',  'cpac' ), 'updated' );
 		}
 	}
 
@@ -232,8 +185,8 @@ class CPAC_Settings {
 		global $wpdb;
 		
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-
-		CPAC_Utility::admin_message( "<p>" . __( 'Default settings succesfully restored.',  'cpac' ) . "</p>", 'updated');
+		
+		add_settings_error( 'cpac-notices', 'cpac-restore-settings', __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
 	}
 
 	/**
@@ -271,13 +224,11 @@ class CPAC_Settings {
 	 */
 	public function help_tabs() {
 		
-		global $cpac_columns_page;
-		
 		$screen = get_current_screen();
 
-		if ( $screen->id != $cpac_columns_page || ! method_exists( $screen,'add_help_tab' ) )
+		if ( ! method_exists( $screen,'add_help_tab' ) )
 			return;
-
+		
 		// add help content
 		$tabs = array(
 			array(
@@ -387,8 +338,6 @@ class CPAC_Settings {
 	 */
 	public function column_settings() {
 		
-		global $cpac_columns_page;
-		
 	?>
 		<div id="cpac" class="wrap">
 
@@ -425,7 +374,7 @@ class CPAC_Settings {
 								<?php _e( 'Publish', 'cpac' ) ?>
 							</h3>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => $cpac_columns_page, '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+								<a href="<?php echo add_query_arg( array( 'page' => 'codepress-admin-columns', '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
 									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 								</a>
 							</div>
@@ -439,20 +388,18 @@ class CPAC_Settings {
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
 								
-								<?php 
-								$addons = array(
-									'CAC_SC_VERSION'	=> __( 'Sortable Columns', 'cpac' ),
-									'CAC_FC_VERSION'	=> __( 'Filtering Columns', 'cpac' ),
-									'CAC_MC_VERSION'	=> __( 'Multiple Columns', 'cpac' ),
-									'CAC_??_VERSION'	=> __( '???', 'cpac' ),
-								);
-								?>								
-								<?php foreach ( $addons as $version => $label ) : ?>
-								<div class="addon <?php echo defined( $version ) ? 'enabled' : 'disabled'; ?>">
-									<?php echo $label; ?>
-									<a href="<?php echo add_query_arg( array('page' => 'cpac-settings'), admin_url('admin.php') );?>" class="find-out-more"><?php _e( 'find out more', 'cpac' ); ?></a>
-								</div>								
-								<?php endforeach; ?>								
+								<?php if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : ?>								
+								<ul>
+								<?php foreach ( $addons as $label ) : ?>
+									<li><?php echo $label; ?></li>
+									<?php endforeach; ?>
+								</ul>
+								<a href="<?php echo add_query_arg( array('page' => 'cpac-addons'), admin_url('admin.php') );?>" class="find-more-addons"><?php _e( 'find more addons', 'cpac' ); ?></a>
+								<?php else : ?>
+									<p>
+										<?php printf( __( 'Check the <a href="%s">Add-on section</a> for more details.', 'cpac' ), add_query_arg( array('page' => 'cpac-addons'), admin_url('admin.php') ) ); ?>
+									</p>
+								<?php endif; ?>								
 							</div>
 						</div><!--addon-state-->
 
@@ -513,31 +460,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function general_settings() {
-		// addons
-		$addons = array(
-			'sortable'	=> array(
-				'label'		=> __( 'Sortorder', 'cpac' ),
-				'license' 	=> new CPAC_Licence('sortable'),
-				'more_link'	=> 'http://www.admincolumns.com/addons',
-				'qtip'		=> "
-					<p>" . __( 'This will make all of the new columns support sorting.', 'cpac' ) . "</p>
-					<p>" . __( 'By default WordPress let\'s you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>', 'cpac' ) . "</p>
-					<p>" . __( 'Perfect for sorting your articles, media files, comments, links and users', 'cpac' ) . "</p>
-					<p class='description'>" . __( '(columns that are added by other plugins are not supported)', 'cpac' ) . "</p>
-					<img src='" .  CPAC_URL . "/assets/images/addon_sortable_1.png' alt='' />
-				"
-			),
-			'customfields'	=> array(
-				'label'		=> __( 'Multiple Custom Fields', 'cpac' ),
-				'license' 	=> new CPAC_Licence( 'customfields' ),
-				'more_link'	=> 'http://www.admincolumns.com/addons',
-				'qtip'		=> "
-					<p>" . __( 'Add as many Custom Fields columns as you want.', 'cpac' ) . "</p>
-					<p>" . __( 'It support custom fields from Posts, Media and Users.', 'cpac' ) . "</p>
-					<img src='" . CPAC_URL . "/assets/images/addon_multiplecustomfields.png' alt='' />
-				"
-			)
-		);
+		
 	?>
 	<div id="cpac" class="wrap">
 
@@ -546,6 +469,9 @@ class CPAC_Settings {
 
 		<table class="form-table cpac-form-table">
 			<tbody>
+				
+				<?php $this->do_settings_groups(); ?>
+				
 				<tr>
 					<th scope="row">
 						<h3><?php _e( 'Export Settings', 'cpac' ); ?></h3>
@@ -629,8 +555,6 @@ class CPAC_Settings {
 						</form>
 					</td>
 				</tr>
-				
-				<?php $this->do_settings_groups(); ?>
 								
 			</tbody>
 		</table>

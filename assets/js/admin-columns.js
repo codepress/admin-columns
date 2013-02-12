@@ -10,7 +10,6 @@ jQuery(document).ready(function()
 	cpac_sortable();
 	cpac_menu();
 	cpac_clear_input_defaults();
-	cpac_addon_activation();
 	cpac_pointer();
 	cpac_help();
 	cpac_sidebar_scroll();
@@ -131,8 +130,7 @@ jQuery.fn.cpac_form_events = function() {
 		else {
 			image_size.hide();
 		}
-	});
-	
+	});	
 }
 
 /*
@@ -199,111 +197,6 @@ function cpac_clear_input_defaults()
 }
 
 /*
- *	Addon actviate/deactivate
- *
- */
-function cpac_addon_activation()
-{
-	jQuery('.addons .activation_code a.button').click(function(e) {
-		e.preventDefault();
-
-		// get input values
-		var row			 = jQuery(this).closest('tr');
-		var type		 = jQuery(row).attr('id').replace('activation-','');
-		var parent_class = jQuery(this).parent('div');
-		var msg 		 = jQuery(row).find('.activation-error-msg');
-
-		// reset
-		jQuery(msg).empty();
-
-		// Activate
-		if ( parent_class.hasClass('activate') ) {
-
-			// get input values
-			var input 		= jQuery('.activate input', row);
-			var button 		= jQuery('.activate .button', row);
-			var key 		= input.val();
-			var default_val = jQuery(input)[0].defaultValue;
-
-			// make sure the input value has changed
-			if ( key == default_val ) {
-				jQuery(msg).text(cpac_i18n.fill_in).hide().fadeIn();
-				return false;
-			}
-
-			// set loading icon
-			button.addClass('loading');
-
-			// update key
-			jQuery.ajax({
-				url 		: ajaxurl,
-				type 		: 'POST',
-				dataType 	: 'json',
-				data : {
-					action  : 'cpac_addon_activation',
-					type	: 'sortable',
-					key		: key
-				},
-				success: function(data) {
-					if ( data != null ) {
-						jQuery('div.activate', row).hide(); // hide activation button
-						jQuery('div.deactivate', row).show(); // show deactivation button
-						jQuery('div.deactivate span.masked_key', row).text(data); // display the returned masked key
-					} else {
-						jQuery(msg).text(cpac_i18n.unrecognised).hide().fadeIn();
-					}
-				},
-				error: function(xhr, ajaxOptions, thrownError) {
-					//console.log(xhr);
-					//console.log(ajaxOptions);
-					//console.log(thrownError);
-					jQuery(msg).text( cpac_i18n.unrecognised ).hide().fadeIn();
-				},
-				complete: function() {
-					button.removeClass('loading');
-				}
-			});
-		}
-
-		// Deactivate
-		if ( parent_class.hasClass('deactivate') ) {
-
-			var button = jQuery('.deactivate .button', row);
-			var input  = jQuery('.activate input', row);
-
-			// set loading icon
-			button.addClass('loading');
-
-			// update key
-			jQuery.ajax({
-				url 		: ajaxurl,
-				type 		: 'POST',
-				dataType 	: 'json',
-				data : {
-					action  : 'cpac_addon_activation',
-					type	: 'sortable',
-					key		: 'remove'
-				},
-				success: function(data) {
-					jQuery('div.activate', row).show(); // show activation button
-					jQuery('div.deactivate', row).hide(); // hide deactivation button
-					jQuery('div.deactivate span.masked_key', row).empty(); // remove masked key
-					input.val('');
-				},
-				error: function(xhr, ajaxOptions, thrownError) {
-					//console.log(xhr);
-					//console.log(ajaxOptions);
-					//console.log(thrownError);
-				},
-				complete: function() {
-					button.removeClass('loading');
-				}
-			});
-		}
-	});
-}
-
-/*
  * Help
  *
  * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
@@ -331,33 +224,31 @@ function cpac_help()
 function cpac_pointer()
 {
 	jQuery('.cpac-pointer').each(function(){
-
+		
 		// vars
 		var el 	 = jQuery(this),
 			html = el.attr('rel'),
 			pos  = el.attr('data-pointer-position');
 
-		var position = {
-			my: 'left bottom',
-			at: 'left top',
-			edge: 'bottom',
+		var position = {				
+			at: 	'left top', 	// position of wp-pointer relative to the element which triggers the pointer event
+			my: 	'right top', 	// position of wp-pointer relative to the at-coordinates
+			edge: 	'right', 		// position of arrow
+			offset: '0 0',			// offset for wp-pointer
 		};
-
-		if ( 'bottom' == pos ) {
-			position = {
-				my: 'left top',
-				at: 'left bottom',
-				edge: 'top',
-			};
-		}
 
 		// create pointer
 		el.pointer({
 			content: jQuery('#' + html).html(),
 			position: position,
+			pointerWidth: 250,
 			close: function() {
 				el.removeClass('open');
-			}
+			},
+			
+			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
+			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
+			pointerClass: 'wp-pointer wp-pointer-' + position.edge
 		});
 
 		// click

@@ -81,8 +81,8 @@ abstract class CPAC_Storage_Model {
 	function restore() {	
 	
 		delete_option( "cpac_options_{$this->key}" );
-		
-		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully restored.',  'cpac' ) . "</p>", 'updated' );	
+				
+		add_settings_error( 'cpac-notices', 'cpac-settings-restored', __( 'Settings succesfully restored.',  'cpac' ), 'updated' );
 	}
 	
 	/**
@@ -90,13 +90,16 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 2.0.0
 	 */
-	function store() {
-
-		if ( empty( $_POST['columns'] ) )
+	function store( $columns = '' ) {
+		
+		if ( ! empty( $_POST['columns'] ) )
+			$columns = array_filter( $_POST['columns'] );
+		
+		if( ! $columns ) {
+			add_settings_error( 'cpac-notices', 'cpac-store-settings', __( 'No columns to store.',  'cpac' ), 'error' );
 			return false;
-		
-		$columns = array_filter( $_POST['columns'] );
-		
+		}
+				
 		// reorder by active state
 		// @todo make a general setting to reorder
 		if ( true ) {
@@ -114,9 +117,17 @@ abstract class CPAC_Storage_Model {
 			$columns = array_merge( $active, $inactive );
 		}
 		
-		update_option( "cpac_options_{$this->key}", $columns );
+		$result = update_option( "cpac_options_{$this->key}", $columns );
 		
-		CPAC_Utility::admin_message( "<p>" . __( 'Settings succesfully updated.',  'cpac' ) . "</p>", 'updated' );	
+		// error
+		if( ! $result ) {
+			add_settings_error( 'cpac-notices', 'cpac-store-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
+			return false;
+		}
+				
+		add_settings_error( 'cpac-notices', 'cpac-store-settings', sprintf( __( 'Settings for %s updated succesfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		
+		return true;
 	}
 	
 	/**

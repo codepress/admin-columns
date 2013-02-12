@@ -37,6 +37,9 @@ a.help {
 	height: 16px;
 	display: inline-block;
 }
+#cpac .settings-error > p > strong {
+	font-weight: normal;
+}
 
 /* =Menu
 -------------------------------------------------------------- */
@@ -395,19 +398,19 @@ tr.column_image_size.hidden {
 	line-height: 28px;
 }
 #addon-state {}
-#addon-state .addon {
-	background: transparent url(../images/no.png) no-repeat 0 0;
+#addon-state .inside {
+	overflow: hidden;
+}
+#addon-state ul {
+	margin: 0 0 8px;
+}
+#addon-state ul li {
+	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;
 	padding-left: 25px;
 	margin-bottom: 4px;
 }
-#addon-state .addon.enabled {
-	background: transparent url(../images/checkmark_single.png) no-repeat 0 0;
-}
-#addon-state .addon a.find-out-more {
+#addon-state a.find-more-addons {
 	float: right;
-}
-#addon-state .addon.enabled a.find-out-more {
-	display: none;
 }
 
 /* =Settings Page
@@ -432,33 +435,6 @@ table.cpac-form-table > tbody > tr > th {
 }
 table.addons tr {
 	background: #fff;
-}
-table.addons tr:nth-child(2n) {
-	background: #f9f9f9;
-}
-table.addons tr:last-child td {
-	border-bottom: none;
-}
-th.activation_type {
-	width: 20%;
-}
-th.activation_status {
-	width: 10%;
-}
-th.activation_code {
-	width: auto;
-}
-th.activation_more {
-	width: 100px;
-}
-td.activation_code input[type="text"] {
-	width: 240px;
-	height: 30px;
-	line-height: 30px;
-}
-td.activation_type span {
-	background: transparent url('../images/information.png') no-repeat right 50%;
-	padding-right: 20px;
 }
 tr td.padding-22 {
 	padding-top: 22px;
@@ -523,6 +499,56 @@ a.export-select {
 	text-decoration: none;
 }
 
+/* =Addons Page
+-------------------------------------------------------------- */
+ul.addons {
+    margin-bottom: 0;
+    padding: 0;
+	overflow: hidden;
+}
+ul.addons li {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E1E1E1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;	
+    float: left;
+    margin: 10px 15px 20px;
+    min-height: 230px;
+    padding: 13px;
+    width: 180px;
+}
+ul.addons li h3 {
+	font-size: 13px;
+}
+ul.addons li p {
+    color: #666666;
+}
+ul.addons li .button {
+    bottom: 15px;
+    right: 15px;
+    position: absolute;
+}
+ul.addons li span.state {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-indent: 29px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: -13px;
+	background: #73a8d0 url( ../images/checkmark_white.png ) no-repeat 6px 7px;
+	color: #fff;
+	font-weight: bold;
+	
+}
+ul.addons li.active .button {
+	display: none;
+}
+ul.addons li.active span.state {
+	display: block;
+}
+
 /* =WP Pointer
 -------------------------------------------------------------- */
 .wp-pointer-content {
@@ -531,6 +557,9 @@ a.export-select {
 .wp-pointer-content ol {
     margin-left: 1.5em;
     padding: 0 15px;
+}
+.wp-pointer-right { 
+	margin-right: 15px;
 }
 
 /* =Responsive

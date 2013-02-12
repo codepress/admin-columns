@@ -271,11 +271,11 @@ class CPAC_Column {
 	 * @param string $title
 	 * @return string HTML img element
 	 */
-	protected function get_asset_image( $name = '', $title = '' ) {
+	public function get_asset_image( $name = '', $title = '' ) {
 		if ( ! $name )
 			return false;
 
-		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL."/assets/images/{$name}", $title );
+		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", $title );
 	}
 	
 	/**

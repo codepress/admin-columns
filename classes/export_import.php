@@ -7,13 +7,18 @@
  *
  */
 class CPAC_Export_Import {
-
+	
+	private $cpac;
+	
 	/**
 	 * Constructor
 	 *
 	 * @since 1.4.6.5
 	 */
-	function __construct() {
+	function __construct( $cpac ) {
+		
+		$this->cpac = $cpac;
+		
 		add_action( 'admin_init', array( $this, 'download_export' ) );
 		add_action( 'admin_init', array( $this, 'handle_file_import' ) );
 	}
@@ -29,16 +34,17 @@ class CPAC_Export_Import {
 			return false;
 
 		$columns = array();
-		foreach ( $types as $type ) {
-			$columns[$type] = CPAC_Utility::get_stored_columns( $type );
+		
+		// get stored columns
+		foreach ( $this->cpac->storage_models as $storage_model ) {		
+		
+			$columns[ $storage_model->key ] = $storage_model->get_stored_columns();
 		}
-
-		$columns = array_filter( $columns );
-
+		
 		if ( empty( $columns ) )
 			return false;
 
-		return "<!-- START: Admin Columns export -->\n" . base64_encode( serialize( $columns ) ) . "\n<!-- END: Admin Columns export -->";
+		return "<!-- START: Admin Columns export -->\n" . base64_encode( serialize( array_filter( $columns ) ) ) . "\n<!-- END: Admin Columns export -->";
 	}
 
 	/**
@@ -51,10 +57,12 @@ class CPAC_Export_Import {
 			return false;
 
 		if ( empty( $_REQUEST['export_types'] ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Export field is empty. Please select your types from the left column.',  'cpac' ) . "</p>", 'error' );
+			
+			add_settings_error( 'cpac-notices', 'cpac-export-fail', __( 'Export field is empty. Please select your types from the left column.',  'cpac' ), 'error' );
+			
 			return false;
 		}
-
+		
 		$single_type = '';
 		if ( 1 == count( $_REQUEST['export_types'] ) ) {
 			$single_type = '_' . $_REQUEST['export_types'][0];
@@ -85,13 +93,14 @@ class CPAC_Export_Import {
 		// any errors?
 		$error = false;
 		if ( isset( $file['error'] ) ) {
-			$error = '<p><strong>' . __( 'Sorry, there has been an error.', 'cpac' ) . '</strong><br />' . esc_html( $file['error'] ) . '</p>';
+			$error = __( 'Sorry, there has been an error.', 'cpac' ) . '<br />' . esc_html( $file['error'] );
 		} else if ( ! file_exists( $file['file'] ) ) {
-			$error = '<p><strong>' . __( 'Sorry, there has been an error.', 'cpac' ) . '</strong><br />' . sprintf( __( 'The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem.', 'cpac' ), esc_html( $file['file'] ) ) . '</p>';
+			$error = __( 'Sorry, there has been an error.', 'cpac' ) . '<br />' . sprintf( __( 'The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem.', 'cpac' ), esc_html( $file['file'] ) );
 		}
 
 		if ( $error ) {
-			CPAC_Utility::admin_message( $error, 'error' );
+			add_settings_error( 'cpac-notices', 'cpac-import-fail', $error, 'error' );
+			
 			return false;
 		}
 		// read file contents and start the import
@@ -101,18 +110,19 @@ class CPAC_Export_Import {
 		wp_delete_attachment( $file['id'] );
 		
 		// decode file contents
-		if ( ! $columns = $this->get_decoded_settings( $content ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Import failed. File does not contain Admin Column settings.',  'cpac' ) . "</p>", 'error' );
+		$columns = $this->get_decoded_settings( $content );
+			
+		if ( ! $columns ) {
+			add_settings_error( 'cpac-notices', 'cpac-import-fail', __( 'Import failed. File does not contain Admin Column settings.',  'cpac' ), 'error' );		
 			return false;
 		}
-
+		
 		// store settings
-		if ( ! $result = $this->update_settings( $columns ) ) {
-			CPAC_Utility::admin_message( "<p>" . __( 'Import aborted. Are you trying to store the same settings?',  'cpac' ) . "</p>", 'error' );
-			return false;
+		foreach( $columns as $type => $cols ) {
+			
+			$storage_model = $this->cpac->get_storage_model( $type );			
+			$storage_model->store( $cols );	
 		}
-
-		CPAC_Utility::admin_message( "<p>" . __( sprintf( 'Import succesfully. You have imported the following types: %s', '<strong>' . implode( ', ', array_keys( $columns ) ) . '</strong>' ) ,  'cpac' ) . "</p>", 'updated' );
 	}
 
 	/**
@@ -164,5 +174,3 @@ class CPAC_Export_Import {
 		return update_option( 'cpac_options', array_filter( $options ) );
 	}
 }
-
-new CPAC_Export_Import;
