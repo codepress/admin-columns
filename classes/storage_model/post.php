@@ -7,19 +7,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 *
 	 * @since 2.0.0
 	 */
-	function __construct( $post_type ) {		
-		
-		$this->key 		= $post_type;		
+	function __construct( $post_type ) {
+
+		$this->key 		= $post_type;
 		$this->label 	= $this->get_label();
 		$this->type 	= 'post';
-		
+
 		// headings
 		add_filter( "manage_edit-{$post_type}_columns",  array( $this, 'add_headings' ) );
-		
+
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
 	}
-	
+
 	/**
 	 * Get Label
 	 *
@@ -31,8 +31,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$posttype_obj = get_post_type_object( $this->key );
 
 		return $posttype_obj->labels->singular_name;
-	}	
-	
+	}
+
 	/**
 	 * Get WP default supported admin columns per post type.
 	 *
@@ -42,29 +42,29 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_default_columns() {
-		
+
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cpac_before_default_columns_posts", $this );
 		do_action( "cpac_before_default_columns_{$this->key}", $this );
-		
+
 		// Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
 		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
 		$columns = get_column_headers( "edit-{$this->key}" );
-		
+
 		// Get the WP default columns if there is no 3rd party plugin trying to set columns using the hook above.
 		if ( ! $columns ) {
-		
+
 			$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
 			$columns 	= $table->get_columns();
 		}
-		
+
 		$columns = apply_filters( 'cpac_default_columns_posts', $columns, $this );
 		$columns = apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
-		
+
 		return $columns;
-	}	
-	
+	}
+
 	/**
      * Get Meta Keys
      *
@@ -82,7 +82,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		return apply_filters( "cpac_get_meta_keys_{$this->key}", $this->maybe_add_hidden_meta( $fields ), $this );
     }
-	
+
 	/**
 	 * Manage value
 	 *
@@ -91,18 +91,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @param string $column_name
 	 * @param int $post_id
 	 */
-	public function manage_value( $column_name, $post_id ) {		
-	
+	public function manage_value( $column_name, $post_id ) {
+
 		$value = '';
-		
+
 		// get column instance
-		if ( $column = $this->get_column_by_name( $column_name ) ) {		
+		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $post_id );
-		}		
-		
+		}
+
 		$value = apply_filters( "cpac_value_posts", $value, $column );
 		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );
-		
+
 		echo $value;
 	}
 }

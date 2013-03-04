@@ -7,19 +7,19 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	 *
 	 * @since 2.0.0
 	 */
-	function __construct() {		
-		
+	function __construct() {
+
 		$this->key 		= 'wp-links';
 		$this->label 	= __( 'Links' );
 		$this->type 	= 'link';
-		
+
 		// headings
 		add_filter( "manage_link-manager_columns",  array( $this, 'add_headings' ) );
-		
+
 		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 10, 2 );
 	}
-	
+
 	/**
 	 * Get WP default supported admin columns per post type.
 	 *
@@ -38,7 +38,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 
 		return apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 	}
-	
+
 	/**
 	 * Manage value
 	 *
@@ -48,16 +48,16 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	 * @param int $post_id
 	 */
 	public function manage_value( $column_name, $link_id ) {
-		
+
 		$value = '';
-		
+
 		// get column instance
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $link_id );
 		}
-		
-		// add hook		
+
+		// add hook
 		echo apply_filters( "cpac_value_{$this->key}", $value, $column );
 	}
-	
+
 }

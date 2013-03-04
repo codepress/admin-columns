@@ -7,19 +7,19 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 *
 	 * @since 2.0.0
 	 */
-	function __construct() {		
+	function __construct() {
 
 		$this->key 		= 'wp-users';
 		$this->label 	= __( 'Users' );
 		$this->type 	= 'user';
-		
+
 		// headings; give higher priority, so it will load just before other plugins to prevent conflicts
-		add_filter( "manage_users_columns",  array( $this, 'add_headings' ), 9 );	
-		
+		add_filter( "manage_users_columns",  array( $this, 'add_headings' ), 9 );
+
 		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 10, 3 );
 	}
-	
+
 	/**
 	 * Get WP default supported admin columns per post type.
 	 *
@@ -29,17 +29,17 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_default_columns() {
-		
+
 		// You can use this filter to add third_party columns by hooking into this.
 		do_action( "cpac_before_default_columns_{$this->key}" );
-		
+
 		// get columns
 		$table 		= _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
 		$columns 	= $table->get_columns();
-		
+
 		return apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 	}
-	
+
 	/**
 	 * Manage value
 	 *
@@ -50,25 +50,25 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @param int $post_id
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
-		
+
 		// get column instance
 		$column = $this->get_column_by_name( $column_name );
-		
+
 		if ( ! $column )
 			return $value;
-		
+
 		// get value
-		$custom_value = $column->get_value( $user_id );	
-		
+		$custom_value = $column->get_value( $user_id );
+
 		// get value
 		// make sure it absolutely empty and check for (string) 0
 		if ( ! empty( $custom_value ) || $custom_value === '0' ) {
 			$value = $custom_value;
 		}
-				
+
 		return apply_filters( "cpac_value_{$this->key}", $value, $column );
 	}
-	
+
 	/**
      * Get Meta Keys
      *

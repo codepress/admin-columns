@@ -7,15 +7,15 @@
  */
 class CPAC_Column_Media_Actions extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-actions';
 		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-			
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
@@ -24,7 +24,7 @@ class CPAC_Column_Media_Actions extends CPAC_Column {
 
 		return $this->get_column_value_actions( $id );
 	}
-	
+
 	/**
 	 * Get column value of media actions
 	 *
@@ -36,7 +36,7 @@ class CPAC_Column_Media_Actions extends CPAC_Column {
 	 * @return string Actions
 	 */
 	private function get_column_value_actions( $id ) {
-	
+
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') )
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') )

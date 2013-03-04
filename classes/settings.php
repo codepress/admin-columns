@@ -6,7 +6,7 @@
  * @since 2.0.0
  */
 class CPAC_Settings {
-	
+
 	/**
 	 * CPAC class
 	 */
@@ -18,10 +18,10 @@ class CPAC_Settings {
 	 * @since 2.0.0
 	 * @param object CPAC
 	 */
-	function __construct( $cpac ) {	
-		
+	function __construct( $cpac ) {
+
 		$this->cpac = $cpac;
-		
+
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
@@ -37,19 +37,19 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function settings_menu() {
-		
+
 		// add pages
-		$cpac_columns_page 	= add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_options', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
-		$cpac_settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_options', 'cpac-settings',	array( $this, 'general_settings' ) );
+		$columns_page  = add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_options', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
+		$settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_options', 'cpac-settings',	array( $this, 'general_settings' ) );
 
 		// add help tabs
-		add_action( "load-{$cpac_columns_page}", array( $this, 'help_tabs' ) );
+		add_action( "load-{$columns_page}", array( $this, 'help_tabs' ) );
 
 		// add scripts & styles
-		add_action( "admin_print_styles-{$cpac_columns_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$cpac_columns_page}", array( $this, 'admin_scripts' ) );
-		add_action( "admin_print_styles-{$cpac_settings_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$cpac_settings_page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$columns_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$columns_page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$settings_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$settings_page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -70,12 +70,12 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function admin_scripts() {
-	
+
 		wp_enqueue_script( 'wp-pointer' );
+		wp_enqueue_script( 'jquery-ui-slider' );
 
 		// columns
-		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );		
+		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
 		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL . 'assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
 	}
 
@@ -85,7 +85,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function handle_requests() {
-		
+
 		// only handle updates from the admin columns page
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
@@ -98,7 +98,7 @@ class CPAC_Settings {
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-				
+
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->store();
 				}
@@ -106,7 +106,7 @@ class CPAC_Settings {
 
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
-					
+
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->restore();
 				}
@@ -172,7 +172,7 @@ class CPAC_Settings {
 			update_option( 'cpac_options', $options );
 
 			// set admin notice
-			add_settings_error( 'cpac-notices', 'cpac-update-settings', __( 'Settings updated.',  'cpac' ), 'updated' );
+			cpac_admin_message( __( 'Settings updated.',  'cpac' ), 'updated' );
 		}
 	}
 
@@ -183,10 +183,10 @@ class CPAC_Settings {
 	 */
 	private function restore_settings() {
 		global $wpdb;
-		
+
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-		
-		add_settings_error( 'cpac-notices', 'cpac-restore-settings', __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
+
+		cpac_admin_message( __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
 	}
 
 	/**
@@ -223,12 +223,12 @@ class CPAC_Settings {
 	 * @since 1.3.0
 	 */
 	public function help_tabs() {
-		
+
 		$screen = get_current_screen();
 
 		if ( ! method_exists( $screen,'add_help_tab' ) )
 			return;
-		
+
 		// add help content
 		$tabs = array(
 			array(
@@ -325,10 +325,10 @@ class CPAC_Settings {
 			'feedback'		=> 'http://www.admincolumns.com/feedback/',
 		);
 
-		if ( !isset($urls[$storage_model]) )
+		if ( ! isset( $urls[ $storage_model ] ) )
 			return false;
 
-		return $urls[$storage_model];
+		return $urls[ $storage_model ];
 	}
 
 	/**
@@ -337,7 +337,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function column_settings() {
-		
+
 	?>
 		<div id="cpac" class="wrap">
 
@@ -387,8 +387,8 @@ class CPAC_Settings {
 						<div class="sidebox" id="addon-state">
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
-								
-								<?php if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : ?>								
+
+								<?php if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : ?>
 								<ul>
 								<?php foreach ( $addons as $label ) : ?>
 									<li><?php echo $label; ?></li>
@@ -399,7 +399,7 @@ class CPAC_Settings {
 									<p>
 										<?php printf( __( 'Check the <a href="%s">Add-on section</a> for more details.', 'cpac' ), add_query_arg( array('page' => 'cpac-addons'), admin_url('admin.php') ) ); ?>
 									</p>
-								<?php endif; ?>								
+								<?php endif; ?>
 							</div>
 						</div><!--addon-state-->
 
@@ -419,23 +419,23 @@ class CPAC_Settings {
 				<div class="columns-left">
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
-							
+
 							<?php $storage_model->render(); ?>
 
 						</div><!--.cpac-columns-->
 
 						<div class="column-footer">
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
-							
-							<?php 
+
+							<?php
 							/**
 							 * Use this hook to add stuff to the footer
 							 *
 							 * @since 2.0.0
 							 */
-							do_action( 'cpac_column_footer', $storage_model ); 
-							
-							?>							
+							do_action( 'cpac_column_footer', $storage_model );
+
+							?>
 
 						</div><!--.cpac-column-footer-->
 					</div><!--.cpac-boxes-->
@@ -460,7 +460,7 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function general_settings() {
-		
+
 	?>
 	<div id="cpac" class="wrap">
 
@@ -469,10 +469,15 @@ class CPAC_Settings {
 
 		<table class="form-table cpac-form-table">
 			<tbody>
-				
-				<?php $this->do_settings_groups(); ?>
-				
-				<tr>
+
+				<?php
+
+				/** See do_settings_groups() for the actual hooks for addings settings fields. */
+				$this->do_settings_groups();
+
+				?>
+
+				<tr class="export">
 					<th scope="row">
 						<h3><?php _e( 'Export Settings', 'cpac' ); ?></h3>
 						<p><?php _e( 'Pick the types for export from the left column. Click export to download your column settings.', 'cpac' ); ?></p>
@@ -512,12 +517,13 @@ class CPAC_Settings {
 								<input type="submit" id="cpac_export_submit" class="button-primary alignright" value="<?php _e( 'Export', 'cpac' ); ?>">
 							</form>
 							<?php else : ?>
-								<?php _e( 'No saved data found.', CPAC_TEXDOMAIN ); ?>
+								<p><?php _e( 'No stored column settings are found.', 'cpac' ); ?></p>
 							<?php endif; ?>
 						</div>
 					</td>
-				</tr>
-				<tr>
+				</tr><!--.export-->
+
+				<tr class="import">
 					<th scope="row">
 						<h3><?php _e( 'Import Settings', 'cpac' ); ?></h3>
 						<p><?php _e( 'Copy and paste your import settings here.', 'cpac' ); ?></p>
@@ -541,7 +547,8 @@ class CPAC_Settings {
 							</form>
 						</div>
 					</td>
-				</tr>
+				</tr><!--.import-->
+
 				<tr class="restore">
 					<th scope="row">
 						<h3><?php _e( 'Restore Settings', 'cpac' ); ?></h3>
@@ -554,8 +561,8 @@ class CPAC_Settings {
 							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'cpac' ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ); ?>');" />
 						</form>
 					</td>
-				</tr>
-								
+				</tr><!--.restore-->
+
 			</tbody>
 		</table>
 
@@ -563,34 +570,41 @@ class CPAC_Settings {
 
 	<?php
 	}
-	
+
 	/**
 	 * Add settings groups
+	 *
+	 * Plugins can add table rows to the settings page.
 	 *
 	 * @since 2.0.0
 	 */
 	function do_settings_groups() {
-		
+
 		// Hook groups here
 		$groups = apply_filters( 'cpac_settings_groups', array() );
-		
+
 		// Display each group
 		foreach ( $groups as $id => $group ) {
-			
+
 			$title 			= isset( $group['title'] ) ? $group['title'] : '';
 			$description 	= isset( $group['description'] ) ? $group['description'] : '';
-			
+
 			?>
 			<tr>
 				<th scope="row">
 					<h3><?php echo $title; ?></h3>
-					<p><?php echo $description; ?></p>					
-				</th>			
+					<p><?php echo $description; ?></p>
+				</th>
 				<td class="padding-22">
-					<?php do_action( "cpac_settings_row_{$id}" ); ?>
+					<?php
+
+					/** Use this Hook to add additonal fields to the group */
+					do_action( "cpac_settings_row_{$id}" );
+
+					?>
 				</td>
 			</tr>
 			<?php
-		}		
+		}
 	}
 }

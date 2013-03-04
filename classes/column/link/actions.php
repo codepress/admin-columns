@@ -7,26 +7,26 @@
  */
 class CPAC_Column_Link_Actions extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-actions';
 		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-			
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $id ) {
-		
+
 		$bookmark = get_bookmark( $id );
-		
+
 		return $this->get_column_value_actions( $bookmark );
 	}
-	
+
 	/**
 	 * Get column value of link actions
 	 *

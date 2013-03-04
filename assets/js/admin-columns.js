@@ -15,10 +15,10 @@ jQuery(document).ready(function()
 	cpac_sidebar_scroll();
 	cpac_export_multiselect();
 	cpac_import();
-	
+
 	/** init form events */
 	jQuery( '.cpac-column' ).cpac_form_events();
-	
+
 	/** checkbox label */
 	jQuery( '.column-meta .column_label input, .column-meta .column_type input' ).prop( 'disabled', true );
 });
@@ -29,9 +29,9 @@ jQuery(document).ready(function()
  * @since 2.0.0
  */
 jQuery.fn.cpac_form_events = function() {
-	
+
 	var column = jQuery( this );
-	
+
 	/** fold in/out */
 	jQuery( '.column_edit, .column_label a', column ).click( function(){
 		var box = jQuery( this ).closest( '.cpac-column' );
@@ -40,10 +40,10 @@ jQuery.fn.cpac_form_events = function() {
 			box.toggleClass( 'opened' );
 		});
 	});
-		
+
 	/** set state */
 	jQuery( '.column-meta td, .column-meta td .inner', column ).not( '.column_edit, .column_sort' ).click( function(e) {
-				
+
 		// make sure the TD itself is clicked and not a child element
 		if ( this != e.target )
 			return;
@@ -51,7 +51,7 @@ jQuery.fn.cpac_form_events = function() {
 		var box 	= jQuery(this).closest('.cpac-column');
 		var state	= jQuery('.cpac-state', box);
 		var value 	= state.attr('value');
-	
+
 		// toggle on
 		if ( value != 'on') {
 			box.addClass('active');
@@ -64,16 +64,16 @@ jQuery.fn.cpac_form_events = function() {
 			state.attr('value', '');
 		}
 	});
-	
-	/** change label */	
+
+	/** change label */
 	jQuery( '.column_label .input input', column ).bind( 'keyup change', function() {
-		
+
 		var value = jQuery( this ).val();
 		var label = jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a' );
 
-		label.text( value );		
+		label.text( value );
 	});
-	
+
 	/** init width slider */
 	jQuery( '.input-width-range', column ).each( function(){
 
@@ -102,7 +102,7 @@ jQuery.fn.cpac_form_events = function() {
 			}
 		});
 	});
-	
+
 	/** display custom image size */
 	jQuery( '.column_image_size label.custom-size', column ).click( function(){
 
@@ -117,8 +117,8 @@ jQuery.fn.cpac_form_events = function() {
 			jQuery('.custom-size-w', parent).addClass('hidden');
 			jQuery('.custom-size-h', parent).addClass('hidden');
 		}
-	});	
-	
+	});
+
 	/** select image custom field type */
 	jQuery( '.column_field_type .input select option', column ).click( function(){
 		var image_size 	= jQuery(this).closest('table').find('.column_image_size').show();
@@ -130,7 +130,7 @@ jQuery.fn.cpac_form_events = function() {
 		else {
 			image_size.hide();
 		}
-	});	
+	});
 }
 
 /*
@@ -219,18 +219,16 @@ function cpac_help()
 /*
  * WP Pointer
  *
- * credits to ACF ( Elliot Condon )
  */
 function cpac_pointer()
 {
 	jQuery('.cpac-pointer').each(function(){
-		
+
 		// vars
 		var el 	 = jQuery(this),
-			html = el.attr('rel'),
-			pos  = el.attr('data-pointer-position');
+			html = el.attr('rel');
 
-		var position = {				
+		var position = {
 			at: 	'left top', 	// position of wp-pointer relative to the element which triggers the pointer event
 			my: 	'right top', 	// position of wp-pointer relative to the at-coordinates
 			edge: 	'right', 		// position of arrow
@@ -245,7 +243,7 @@ function cpac_pointer()
 			close: function() {
 				el.removeClass('open');
 			},
-			
+
 			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
 			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
 			pointerClass: 'wp-pointer wp-pointer-' + position.edge

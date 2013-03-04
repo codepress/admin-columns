@@ -7,15 +7,15 @@
  */
 class CPAC_Column_Post_Actions extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-actions';
 		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-			
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
@@ -24,7 +24,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 
 		return $this->get_column_value_actions( $post_id );
 	}
-	
+
 	/**
 	 * Get column value of post actions
 	 *
@@ -36,7 +36,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 	 * @return string Actions
 	 */
 	private function get_column_value_actions( $post_id ) {
-	
+
 		$actions = array();
 
 		$post 				= get_post($post_id);

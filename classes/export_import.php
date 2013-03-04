@@ -7,18 +7,18 @@
  *
  */
 class CPAC_Export_Import {
-	
+
 	private $cpac;
-	
+
 	/**
 	 * Constructor
 	 *
 	 * @since 1.4.6.5
 	 */
 	function __construct( $cpac ) {
-		
+
 		$this->cpac = $cpac;
-		
+
 		add_action( 'admin_init', array( $this, 'download_export' ) );
 		add_action( 'admin_init', array( $this, 'handle_file_import' ) );
 	}
@@ -34,13 +34,13 @@ class CPAC_Export_Import {
 			return false;
 
 		$columns = array();
-		
+
 		// get stored columns
-		foreach ( $this->cpac->storage_models as $storage_model ) {		
-		
+		foreach ( $this->cpac->storage_models as $storage_model ) {
+
 			$columns[ $storage_model->key ] = $storage_model->get_stored_columns();
 		}
-		
+
 		if ( empty( $columns ) )
 			return false;
 
@@ -57,12 +57,12 @@ class CPAC_Export_Import {
 			return false;
 
 		if ( empty( $_REQUEST['export_types'] ) ) {
-			
-			add_settings_error( 'cpac-notices', 'cpac-export-fail', __( 'Export field is empty. Please select your types from the left column.',  'cpac' ), 'error' );
-			
+
+			cpac_admin_message( __( 'Export field is empty. Please select your types from the left column.',  'cpac' ), 'error' );
+
 			return false;
 		}
-		
+
 		$single_type = '';
 		if ( 1 == count( $_REQUEST['export_types'] ) ) {
 			$single_type = '_' . $_REQUEST['export_types'][0];
@@ -99,29 +99,29 @@ class CPAC_Export_Import {
 		}
 
 		if ( $error ) {
-			add_settings_error( 'cpac-notices', 'cpac-import-fail', $error, 'error' );
-			
+			cpac_admin_message( $error, 'error' );
+
 			return false;
 		}
 		// read file contents and start the import
 		$content = file_get_contents( $file['file'] );
-		
+
 		// cleanup
 		wp_delete_attachment( $file['id'] );
-		
+
 		// decode file contents
 		$columns = $this->get_decoded_settings( $content );
-			
+
 		if ( ! $columns ) {
-			add_settings_error( 'cpac-notices', 'cpac-import-fail', __( 'Import failed. File does not contain Admin Column settings.',  'cpac' ), 'error' );		
+			cpac_admin_message( __( 'Import failed. File does not contain Admin Column settings.',  'cpac' ), 'error' );
 			return false;
 		}
-		
+
 		// store settings
 		foreach( $columns as $type => $cols ) {
-			
-			$storage_model = $this->cpac->get_storage_model( $type );			
-			$storage_model->store( $cols );	
+
+			$storage_model = $this->cpac->get_storage_model( $type );
+			$storage_model->store( $cols );
 		}
 	}
 

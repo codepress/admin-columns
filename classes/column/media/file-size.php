@@ -6,32 +6,32 @@
  */
 class CPAC_Column_Media_File_Size extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
+	function __construct( $storage_model ) {
+
 		$this->properties['type']	 = 'column-filesize';
 		$this->properties['label']	 = __( 'File size', 'cpac' );
-		
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $id ) {
-		
+
 		$value = '';
-		
+
 		$file 	= wp_get_attachment_url( $id );
 		$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file );
-		
+
 		if ( file_exists( $abs ) ) {
 			$value = $this->get_readable_filesize( filesize( $abs ) );
 		}
-		
+
 		return $value;
 	}
-	
+
 	/**
 	 * Convert file size to readable format
 	 *

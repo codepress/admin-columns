@@ -7,44 +7,44 @@
  */
 class CPAC_Column_User_Post_Count extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
-		$this->properties['type']	 = 'column-user-postcount';
+	function __construct( $storage_model ) {
+
+		// define properties
+		$this->properties['type']	 = 'column-user_postcount';
 		$this->properties['label']	 = __( 'Post Count', 'cpac' );
-		
+
 		// define additional options
 		$this->options['post_type'] = '';
-		
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $user_id ) {
-		
+
 		global $wpdb;
-		
+
 		$value = '0';
-		
+
 		$sql = "
-			SELECT COUNT(ID) 
-			FROM {$wpdb->posts} 
-			WHERE post_status = 'publish' 
-			AND post_author = %d 
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_status = 'publish'
+			AND post_author = %d
 			AND post_type = %s
 		";
-		
+
 		$count = $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $this->options->post_type ) );
 
-		if ( $count > 0 ) 
+		if ( $count > 0 )
 			$value = "<a href='edit.php?post_type={$this->options->post_type}&author={$user_id}'>{$count}</a>";
-		
+
 		return $value;
 	}
-	
+
 	/**
 	 * Display Settings
 	 *
@@ -52,26 +52,33 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function display_settings() {
-		
+
+		$ptypes = get_post_types( array(
+			'_builtin'	=> false
+		));
+
+		$ptypes['post'] = 'post';
+		$ptypes['page'] = 'page';
+
 		// get posttypes and name
-		$post_types = array();		
-		foreach ( get_post_types() as $type ) {
-			$obj = get_post_type_object( $type );			
+		$post_types = array();
+		foreach ( $ptypes as $type ) {
+			$obj = get_post_type_object( $type );
 			$post_types[ $type ] = $obj->labels->singular_name;
-		}		
-		
+		}
+
 		?>
-		
-		<tr class="<?php $this->properties->type; ?>">			
+
+		<tr class="<?php $this->properties->type; ?>">
 			<?php $this->label_view( __( 'Post Type', 'cpac' ), '', 'post_type' ); ?>
 			<td class="input">
-				<select name="<?php $this->attr_name( 'post_type' ); ?>" id="<?php $this->attr_id( 'post_type' ); ?>">				
+				<select name="<?php $this->attr_name( 'post_type' ); ?>" id="<?php $this->attr_id( 'post_type' ); ?>">
 				<?php foreach ( $post_types as $key => $label ) : ?>
 					<option value="<?php echo $key; ?>"<?php selected( $key, $this->options->post_type ) ?>><?php echo $label; ?></option>
-				<?php endforeach; ?>				
+				<?php endforeach; ?>
 				</select>
 			</td>
-		</tr>		
-		<?php 
+		</tr>
+		<?php
 	}
 }

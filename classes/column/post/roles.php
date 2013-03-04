@@ -7,26 +7,26 @@
  */
 class CPAC_Column_Post_Roles extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-roles';
 		$this->properties['label']	 	= __( 'Roles', 'cpac' );
-			
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		
+
 		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
-		
+
 		if ( empty( $userdata->roles[0] ) )
 			return false;
-		
+
 		return implode( ', ',$userdata->roles );
 	}
 }

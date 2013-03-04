@@ -256,6 +256,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Removed] Comment column: Actions
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Added Addon] Addon for filtering for Custom Fields and Taxonomies
+* [Added] default sorting for Users
 
 = 1.4.8 =
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu

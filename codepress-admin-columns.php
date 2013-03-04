@@ -27,20 +27,21 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPAC_VERSION', 	 	'2.0.0' );
+define( 'CPAC_VERSION', 	 	'2.0.0' ); // current plugin version
+define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
 // only run plugin in the admin interface
-if ( !is_admin() )
+if ( ! is_admin() )
 	return false;
-	
+
 /**
  * Dependencies
  *
  * @since 1.3.0
  */
-require_once CPAC_DIR . 'classes/export_import.php';
+require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
 require_once CPAC_DIR . 'classes/deprecated.php';
 
@@ -50,23 +51,19 @@ require_once CPAC_DIR . 'classes/deprecated.php';
  * @since 1.0.0
  *
  */
-class CPAC
-{
+class CPAC {
+
 	public $storage_models;
-	
+
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
-	{
+	function __construct() {
 		add_action( 'wp_loaded', array( $this, 'init') );
-		
-		// upgrade hook
-		register_activation_hook( __FILE__, array( $this, 'upgrade' ) );
 	}
-	
+
 	/**
 	 * Initialize plugin.
 	 *
@@ -74,56 +71,30 @@ class CPAC
 	 *
 	 * @since 1.0.0
 	 */
-	public function init()
-	{		
+	public function init() {
+
 		// translations
 		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-				
+
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
 		add_action( 'admin_head', array( $this, 'admin_js') );
-		
+
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
-		
-		// handle admin notices
-		add_action( 'admin_notices', array( $this, 'notices' ) );
-		
+
 		// set storage models
 		$this->set_storage_models();
-		
+
 		// ini controllers
 		$this->init_controllers();
-		
+
 		// Hook
 		do_action( 'cpac_loaded', $this );
 	}
-	
-	/**
-	 * Display Notices.
-	 *
-	 * @since 2.0.0
-	 */
-	function notices() {
-	
-		settings_errors( 'cpac-notices' );
-	}
-	
-	/**
-	 * Upgrade.
-	 *
-	 * Is triggered on plugin activation.
-	 *
-	 * @since 2.0.0
-	 */
-	public function upgrade()
-	{
-		include_once CPAC_DIR . 'classes/upgrade.php';
-		new CPAC_Upgrade( $this );		
-	}
-	
+
 	/**
 	 * Get storage models
 	 *
@@ -131,46 +102,46 @@ class CPAC
 	 *
 	 */
 	private function set_storage_models() {
-	
+
 		$storage_models = array();
-		
+
 		// include parent and childs
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/storage_model.php';
 		require_once CPAC_DIR . 'classes/storage_model/post.php';
 		require_once CPAC_DIR . 'classes/storage_model/user.php';
-		require_once CPAC_DIR . 'classes/storage_model/media.php';		
+		require_once CPAC_DIR . 'classes/storage_model/media.php';
 		require_once CPAC_DIR . 'classes/storage_model/comment.php';
 		require_once CPAC_DIR . 'classes/storage_model/link.php';
-		
+
 		// add Posts
 		foreach ( $this->get_post_types() as $post_type ) {
-			$storage_model = new CPAC_Storage_Model_Post( $post_type );			
+			$storage_model = new CPAC_Storage_Model_Post( $post_type );
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
-		
+
 		// add User
 		$storage_model = new CPAC_Storage_Model_User();
 		$storage_models[ $storage_model->key ] = $storage_model;
-		
+
 		// add Media
 		$storage_model = new CPAC_Storage_Model_Media();
 		$storage_models[ $storage_model->key ] = $storage_model;
-		
+
 		// add Comment
 		$storage_model = new CPAC_Storage_Model_Comment();
 		$storage_models[ $storage_model->key ] = $storage_model;
-		
+
 		// add Link
 		$storage_model = new CPAC_Storage_Model_Link();
 		$storage_models[ $storage_model->key ] = $storage_model;
-		
-		// Hook to add more models		
+
+		// Hook to add more models
 		do_action( 'cpac_set_storage_models', $storage_models );
-		
+
 		$this->storage_models = $storage_models;
 	}
-	
+
 	/**
 	 * Get storage model
 	 *
@@ -182,10 +153,10 @@ class CPAC
 
 		if ( ! isset( $this->storage_models[ $key ] ) )
 			return false;
-		
+
 		return $this->storage_models[ $key ];
 	}
-	
+
 	/**
 	 * Init controllers
 	 *
@@ -193,20 +164,24 @@ class CPAC
 	 *
 	 */
 	 function init_controllers() {
-		
+
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
 		new CPAC_Settings( $this );
-		
+
+		// Upgrade
+		require_once CPAC_DIR . 'classes/upgrade.php';
+		new CPAC_Upgrade;
+
 		// Addons
 		require_once CPAC_DIR . 'classes/addons.php';
 		new CPAC_Addons;
-		
+
 		// Export Import
-		require_once CPAC_DIR . 'classes/export_import.php';		
+		require_once CPAC_DIR . 'classes/export_import.php';
 		new CPAC_Export_Import( $this );
 	}
-	
+
 	/**
 	 * Get post types - Utility Method
 	 *
@@ -215,7 +190,7 @@ class CPAC
 	 * @return array Posttypes
 	 */
 	public function get_post_types() {
-	
+
 		$post_types = get_post_types( array(
 			'_builtin' 	=> false,
 			'show_ui'	=> true
@@ -225,7 +200,7 @@ class CPAC
 
 		return apply_filters( 'cpac_get_post_types', $post_types );
 	}
-	
+
 	/**
 	 * Sanitize label - Utility Method
 	 *
@@ -243,7 +218,7 @@ class CPAC
 
 		return $string;
 	}
-	
+
 	/**
 	 * Add Settings link to plugin page
 	 *
@@ -254,7 +229,7 @@ class CPAC
 	 * @return string Link to settings page
 	 */
 	function add_settings_link( $links, $file ) {
-	
+
 		if ( $file != plugin_basename( __FILE__ ) )
 			return $links;
 
@@ -268,9 +243,9 @@ class CPAC
 	 * @since 1.0.0
 	 */
 	public function column_styles() {
-	
+
 		global $pagenow;
-		
+
 		if ( in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php' ) ) ) {
 			wp_enqueue_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
 		}
@@ -287,7 +262,7 @@ class CPAC
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-	
+
 		global $current_screen;
 
 		// we dont need the 'edit-' part
@@ -317,14 +292,14 @@ class CPAC
 
 	/**
 	 * Admin CSS for Column width and Settings Icon
-	 * 
+	 *
 	 * @since 1.4.0
 	 */
-	function admin_css() {		
-	
-		// CSS column widths		
+	function admin_css() {
+
+		// CSS column widths
 		$css_column_width = '';
-		
+
 		foreach ( $this->storage_models as $storage_model ) {
 
 			if ( ! $columns = $storage_model->get_stored_columns() )
@@ -336,14 +311,14 @@ class CPAC
 					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
 				}
 			}
-		}		
-		
+		}
+
 		?>
-		
+
 		<style type="text/css">
-						
+
 			<?php echo $css_column_width; ?>
-						
+
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
 				background: transparent url("<?php echo CPAC_URL; ?>assets/images/icon_20.png") no-repeat 6px -24px;
 			}
@@ -354,31 +329,31 @@ class CPAC
 		</style>
 
 		<?php
-	
+
 	}
-	
+
 	/**
 	 * Admin JS
-	 * 
+	 *
 	 * @since 2.0.0
 	 */
-	function admin_js() {		
-				
+	function admin_js() {
+
 		// Will add an active state to addon list.
-		if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : 
-		
+		if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) :
+
 		?>
-		<script type="text/javascript">	
+		<script type="text/javascript">
 			jQuery(document).ready( function() {
 				<?php foreach ( $addons as $id => $label ) : ?>
-				jQuery('#cpac ul.addons').find('.<?php echo $id; ?>').addClass('active').appendTo( '#cpac ul.addons' );		
+				jQuery('#cpac ul.addons').find('.<?php echo $id; ?>').addClass('active').appendTo( '#cpac ul.addons' );
 				<?php endforeach; ?>
 			});
 		</script>
 
 		<?php
 		endif;
-	
+
 	}
 }
 

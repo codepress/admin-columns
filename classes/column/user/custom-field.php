@@ -7,36 +7,36 @@
  */
 class CPAC_Column_User_Custom_Field extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-meta';
 		$this->properties['label']	 	= __( 'Custom Field', 'cpac' );
-		$this->properties['classes']	= 'cpac-box-metafield';		
-		
+		$this->properties['classes']	= 'cpac-box-metafield';
+
 		// define additional options
 		$this->options['field']			= '';
 		$this->options['field_type']	= '';
 		$this->options['before']		= '';
 		$this->options['after']			= '';
-		
+
 		$this->options['image_size']	= '';
 		$this->options['image_size_w']	= 80;
-		$this->options['image_size_h']	= 80;	
-		
+		$this->options['image_size_h']	= 80;
+
 		// call contruct
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $user_id ) {
-	
+
 		return $this->get_value_custom_field( $user_id );
-	}	
-	
+	}
+
 	/**
 	 * Display Settings
 	 *
@@ -44,7 +44,7 @@ class CPAC_Column_User_Custom_Field extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function display_settings() {
-				
+
 		$this->display_custom_field();
 	}
 }

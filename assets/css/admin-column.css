@@ -2,7 +2,7 @@
 -------------------------------------------------------------- */
 #icon-codepress-admin-columns {
 	background: transparent url('../images/icon.png') no-repeat 0 0;
-} 
+}
 .cpac-settings-link {
 	float: right;
 	margin: 12px 14px 5px 0;
@@ -36,9 +36,6 @@ a.help {
 	width: 16px;
 	height: 16px;
 	display: inline-block;
-}
-#cpac .settings-error > p > strong {
-	font-weight: normal;
 }
 
 /* =Menu
@@ -138,7 +135,7 @@ a.help {
 	height: 16px;
 }
 .column-meta .column_label .inner > a {
-	color: #5a5a5a;	
+	color: #5a5a5a;
 }
 .column-meta .column_label .inner > a:hover {
 	color: #333333;
@@ -176,7 +173,7 @@ a.help {
 	background: transparent;
 }
 .cpac-column.active .column-meta td {
-	border-color: #f8f8f8;	
+	border-color: #f8f8f8;
 }
 .cpac-column.active .column-meta td,
 .cpac-column.active .column-meta td a{
@@ -510,7 +507,7 @@ ul.addons li {
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #E1E1E1;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    position: relative;	
+    position: relative;
     float: left;
     margin: 10px 15px 20px;
     min-height: 230px;
@@ -540,7 +537,7 @@ ul.addons li span.state {
 	background: #73a8d0 url( ../images/checkmark_white.png ) no-repeat 6px 7px;
 	color: #fff;
 	font-weight: bold;
-	
+
 }
 ul.addons li.active .button {
 	display: none;
@@ -558,7 +555,7 @@ ul.addons li.active span.state {
     margin-left: 1.5em;
     padding: 0 15px;
 }
-.wp-pointer-right { 
+.wp-pointer-right {
 	margin-right: 15px;
 }
 

@@ -6,23 +6,23 @@
  */
 class CPAC_Column_Post_Excerpt extends CPAC_Column {
 
-	function __construct( $storage_model ) {		
-		
-		// define properties		
+	function __construct( $storage_model ) {
+
+		// define properties
 		$this->properties['type']	 	= 'column-excerpt';
 		$this->properties['label']	 	= __( 'Excerpt', 'cpac' );
-			
+
 		// define additional options
-		$this->options['excerpt_length'] = 30;		
-		
+		$this->options['excerpt_length'] = 30;
+
 		parent::__construct( $storage_model );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		$this->get_post_excerpt( $post_id );	
+		$this->get_post_excerpt( $post_id );
 	}
 }
