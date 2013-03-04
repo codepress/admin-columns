@@ -8,7 +8,7 @@ class CPAC_Column_Media_File_Size extends CPAC_Column {
 
 	function __construct( $storage_model ) {
 
-		$this->properties['type']	 = 'column-filesize';
+		$this->properties['type']	 = 'column-file_size';
 		$this->properties['label']	 = __( 'File size', 'cpac' );
 
 		parent::__construct( $storage_model );

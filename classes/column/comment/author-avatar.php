@@ -8,7 +8,7 @@ class CPAC_Column_Comment_Author_Avatar extends CPAC_Column {
 
 	function __construct( $storage_model ) {
 
-		$this->properties['type']	 = 'column-author_avater';
+		$this->properties['type']	 = 'column-author_avatar';
 		$this->properties['label']	 = __( 'Avatar', 'cpac' );
 
 		parent::__construct( $storage_model );

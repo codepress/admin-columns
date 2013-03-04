@@ -116,37 +116,139 @@ class CPAC_Upgrade {
 
 			case '2.0.0' :
 
+				$old_settings = get_option( 'cpac_options' );
+
 				// old settings
-				if ( $old_settings = get_option( 'cpac_options' ) ) {
+				if ( ! empty( $old_settings['columns'] ) ) {
 
-					print_r( $old_settings );
-
-					foreach ( $old_settings as $storage_key => $old_columns ){
+					foreach ( $old_settings['columns'] as $storage_key => $old_columns ){
 
 						$columns = array();
 
 						if ( $old_columns ) {
-							foreach ( $old_columns as $old_column_name => $old_column ) {
 
-								// rename type
-								$type = '';
+							// used to determine clone ID
+							$tax_count 	= 1;
+							$post_count = 1;
 
-								// set clone
-								$clone = '';
+							foreach ( $old_columns as $old_column_name => $old_column_settings ) {
 
 								// convert old settings to new
-								$columns[ $type ] = array(
-									'type' 	=> $type,
-						            'clone' => $clone,
-						            'state' => $old_column['state'],
-						            'label' => $old_column['label'],
-						            'width' => $old_column['width']
-								);
+								$settings = array_merge( $old_column_settings, array(
+									'type' 	=> $old_column_name,
+						            'clone' => ''
+								) );
+
+								// set name
+								$name  = $old_column_name;
+
+								// convert: Users
+								if ( 'wp-users' == $storage_key ) {
+
+									// is user postcount?
+									if ( strpos( $old_column_name, 'column-user_postcount-' ) !== false ) {
+										$settings['type']  		= 'column-user_postcount';
+										$settings['clone'] 		= $post_count++;
+										$settings['post_type'] 	= str_replace( 'column-user_postcount-', '', $old_column_name );
+
+										$name = $settings['type'] . '-' . $settings['clone'];
+									}
+								}
+
+								// convert: Media
+								elseif ( 'wp-media' == $storage_key ) {
+
+									if ( 'column-filesize' == $old_column_name ) {
+										$name = 'column-file_size';
+										$settings['type'] = $name;
+									}
+									// is EXIF data?
+									elseif ( strpos( $old_column_name, 'column-image-' ) !== false ) {
+										$name = 'column-exif_data';
+										$settings['type'] = $name;
+										$settings['exif_datatype'] = str_replace( 'column-image-', '', $old_column_name );
+									}
+									elseif ( 'column-file_paths' == $old_column_name ) {
+										$name = 'column-available_sizes';
+										$settings['type'] = $name;
+									}
+								}
+
+								// convert: Comments
+								elseif ( 'wp-comments' == $storage_key ) {
+
+									if ( 'column-author_author' == $old_column_name ) {
+										$name = 'column-author';
+										$settings['type'] = $name;
+									}
+
+								}
+
+								// convert: Posts
+								else {
+
+									if ( 'column-attachment-count' == $old_column_name ) {
+										$name = 'column-attachment_count';
+										$settings['type'] = $name;
+									}
+									elseif ( 'column-author-name' == $old_column_name ) {
+										$name = 'column-author_name';
+										$settings['type'] = $name;
+										$settings['display_author_as'] = $old_column_settings['display_as'];
+									}
+									elseif ( 'column-before-moretag' == $old_column_name ) {
+										$name = 'column-before_moretag';
+										$settings['type'] = $name;
+									}
+									elseif ( 'column-comment-count' == $old_column_name ) {
+										$name = 'column-comment_count';
+										$settings['type'] = $name;
+										$settings['comment_status'] = 'total_comments';
+									}
+									elseif ( 'column-comment-status' == $old_column_name ) {
+										$name = 'column-comment_status';
+										$settings['type'] = $name;
+									}
+									elseif ( 'column-ping-status' == $old_column_name ) {
+										$name = 'column-ping_status';
+										$settings['type'] = $name;
+									}
+									elseif ( 'column-page-slug' == $old_column_name ) {
+										$name = 'column-slug';
+										$settings['type'] = $name;
+									}
+									elseif ( 'column-page-template' == $old_column_name ) {
+										$name = 'column-page_template';
+										$settings['type'] = $name;
+									}
+								}
+
+								// convert: Applies to all storage types
+
+								// is taxonomy?
+								if ( strpos( $old_column_name, 'column-taxonomy-' ) !== false ) {
+									$settings['type']  		= 'column-taxonomy';
+									$settings['clone'] 		= $tax_count++;
+									$settings['taxonomy'] 	= str_replace( 'column-taxonomy-', '', $old_column_name );
+
+									$name = $settings['type'] . '-' . $settings['clone'];
+								}
+								// is custom field?
+								elseif ( strpos( $old_column_name, 'column-meta-' ) !== false ) {
+									$settings['type']  = 'column-meta';
+									$settings['clone'] = str_replace( 'column-meta-', '', $old_column_name );
+								}
+								elseif ( 'column-word-count' == $old_column_name ) {
+									$name = 'column-word_count';
+									$settings['type'] = $name;
+								}
+
+								// add to column set
+								$columns[ $name ] = $settings;
 							}
+
+							update_option( "cpac_options_{$storage_key}", $columns );
 						}
-
-						//update_option( "cpac_options_{$storage_key}", $columns );
-
 					}
 				}
 
@@ -176,9 +278,23 @@ class CPAC_Upgrade {
 	* @since 2.0.0
 	*/
 	public function start_upgrade() {
+$key = 'wp-users';
+$current = get_option( "cpac_options_{$key}" );
+$old_settings = get_option( 'cpac_options' );
 
-$current = get_option( "cpac_options_post" );
+
+		echo '<pre>';
+		echo 'Different:<br/>';
+		$diff = array_diff_key( $current, $old_settings['columns'][ $key ] );
+		print_r( $diff );
+		echo 'Current:<br/>';
 		print_r( $current );
+		echo 'Old:<br/>';
+		print_r( $old_settings['columns'][ $key ] );
+		echo '<br/>';
+		echo '</pre>';
+
+		//print_r($diff);
 		//exit;
 
 		$version 	= get_option( 'cpac_version', '1.0.0' );
