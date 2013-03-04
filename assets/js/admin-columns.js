@@ -48,9 +48,9 @@ jQuery.fn.cpac_form_events = function() {
 		if ( this != e.target )
 			return;
 
-		var box 	= jQuery(this).closest('.cpac-column');
+		var box		= jQuery(this).closest('.cpac-column');
 		var state	= jQuery('.cpac-state', box);
-		var value 	= state.attr('value');
+		var value	= state.attr('value');
 
 		// toggle on
 		if ( value != 'on') {
@@ -77,18 +77,17 @@ jQuery.fn.cpac_form_events = function() {
 	/** init width slider */
 	jQuery( '.input-width-range', column ).each( function(){
 
-		var input 				= jQuery(this).closest('td').find('.input-width');
-		var descr 				= jQuery(this).closest('td').find('.width-decription');
-		var input_default 		= jQuery(input)[0].defaultValue;
+		var input				= jQuery(this).closest('td').find('.input-width');
+		var descr				= jQuery(this).closest('td').find('.width-decription');
+		var input_default		= jQuery(input)[0].defaultValue;
 		var translation_default = descr.attr('title');
 
 		// add slider
 		jQuery(this).slider({
-			range: 	'min',
-			value: 	1,
-			min: 	0,
-			max: 	100,
-			value:  input_default,
+			range:	'min',
+			min:	0,
+			max:	100,
+			value:	input_default,
 			slide: function( event, ui ) {
 
 				// set default
@@ -120,9 +119,9 @@ jQuery.fn.cpac_form_events = function() {
 	});
 
 	/** select image custom field type */
-	jQuery( '.column_field_type .input select option', column ).click( function(){
-		var image_size 	= jQuery(this).closest('table').find('.column_image_size').show();
-		var value 		= jQuery(this).attr('value');
+	jQuery( '.column_field_type .input select option', column ).click( function() {
+		var image_size	= jQuery(this).closest('table').find('.column_image_size').show();
+		var value		= jQuery(this).attr('value');
 
 		if( 'image' == value || 'library_id' == value ) {
 			image_size.show();
@@ -141,9 +140,9 @@ jQuery.fn.cpac_form_events = function() {
 function cpac_sortable()
 {
 	jQuery('.cpac-columns').sortable({
-		handle				 : 'td.column_sort',
-		placeholder			 : 'cpac-placeholder',
-		forcePlaceholderSize : true
+		handle					: 'td.column_sort',
+		placeholder				: 'cpac-placeholder',
+		forcePlaceholderSize	: true
 	});
 }
 
@@ -225,14 +224,14 @@ function cpac_pointer()
 	jQuery('.cpac-pointer').each(function(){
 
 		// vars
-		var el 	 = jQuery(this),
-			html = el.attr('rel');
+		var el		= jQuery(this),
+			html	= el.attr('rel');
 
 		var position = {
-			at: 	'left top', 	// position of wp-pointer relative to the element which triggers the pointer event
-			my: 	'right top', 	// position of wp-pointer relative to the at-coordinates
-			edge: 	'right', 		// position of arrow
-			offset: '0 0',			// offset for wp-pointer
+			at:		'left top',		// position of wp-pointer relative to the element which triggers the pointer event
+			my:		'right top',	// position of wp-pointer relative to the at-coordinates
+			edge:	'right',		// position of arrow
+			offset: '0 0'			// offset for wp-pointer
 		};
 
 		// create pointer
@@ -280,14 +279,14 @@ function cpac_sidebar_scroll()
 {
 	var msie6 = jQuery.browser == 'msie' && jQuery.browser.version < 7;
 
-	if (!msie6 && jQuery('.columns-right-inside').length != 0 ) {
+	if (!msie6 && jQuery('.columns-right-inside').length !== 0 ) {
 
 		// top position of the sidebar on loading
 		var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
 
 		jQuery(window).scroll(function (event) {
 			// y position of the scroll
-			var y 	= jQuery(this).scrollTop();
+			var y = jQuery(this).scrollTop();
 
 			// top position of div#cpac is calculated everytime incase of an opened help screen
 			var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
@@ -311,7 +310,7 @@ function cpac_sidebar_scroll()
  */
 function cpac_export_multiselect()
 {
-	if( jQuery('#cpac_export_types').length == 0 )
+	if( jQuery('#cpac_export_types').length === 0 )
 		return;
 
 	var export_types = jQuery('#cpac_export_types');

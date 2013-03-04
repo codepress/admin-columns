@@ -12,9 +12,10 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->key 		= 'wp-media';
 		$this->label 	= __( 'Media Library' );
 		$this->type 	= 'media';
+		$this->page 	= 'upload';
 
 		// headings
-		add_filter( "manage_upload_columns",  array( $this, 'add_headings' ) );
+		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 10, 2 );

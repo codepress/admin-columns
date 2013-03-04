@@ -49,6 +49,6 @@ div.cpac-color span {
 
 /* =Available Sizes column
 -------------------------------------------------------------- */
-div.missing_sizes span {
+div.sizes span.not-available {
 	color: red;
 }

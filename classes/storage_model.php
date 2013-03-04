@@ -29,6 +29,13 @@ abstract class CPAC_Storage_Model {
 	public $type;
 
 	/**
+	 * Page
+	 *
+	 * @since 2.0.0
+	 */
+	public $page;
+
+	/**
 	 * Get default columns
 	 *
 	 * @since 2.0.0

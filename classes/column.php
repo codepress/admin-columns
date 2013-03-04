@@ -287,6 +287,10 @@ class CPAC_Column {
 	 * @return bool
 	 */
 	protected function is_image( $url ) {
+
+		if ( ! is_string( $url ) )
+			return false;
+
 		$validExt  	= array('.jpg', '.jpeg', '.gif', '.png', '.bmp');
 		$ext    	= strrchr( $url, '.' );
 
@@ -374,11 +378,11 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get a thumbnails - Value method
+	 * Get thumbnails - Value method
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $meta
+	 * @param mixed $meta Image files or Image ID's
 	 * @param array $args
 	 * @return string HTML img elements
 	 */
@@ -396,52 +400,53 @@ class CPAC_Column {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		// Image
-		if ( $this->is_image( $meta ) ) {
-
-			if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
-				$args['image_size_w'] = $sizes['image_size_w'];
-				$args['image_size_h'] = $sizes['image_size_w'];
+		// turn string to array
+		if ( is_string( $meta ) ) {
+			if ( strpos( $meta, ',' ) !== false ) {
+				$meta = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $meta ) ) ) );
 			}
-
-			// get correct image path
-			$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $meta );
-
-			// resize image
-			if ( file_exists( $image_path ) ) {
-
-				// try to resize image
-				if ( $resized = $this->image_resize( $image_path, $args['image_size_w'], $args['image_size_h'], true ) ) {
-					$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$args['image_size_w']}' height='{$args['image_size_h']}' />";
-				}
-
-				// resizing failed so let's return full image with maxed dimensions
-				else {
-					$output = "<img src='{$meta}' alt='' style='max-width:{$args['image_size_w']}px;max-height:{$args['image_size_h']}px' />";
-				}
+			else  {
+				$meta = array( $meta );
 			}
 		}
 
-		// Media Attachment
-		else {
+		foreach( $meta as $value ) {
 
-			$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
+			// Image
+			if ( $this->is_image( $value ) ) {
 
-			$media_ids = array( $meta );
+				if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
+					$args['image_size_w'] = $sizes['image_size_w'];
+					$args['image_size_h'] = $sizes['image_size_w'];
+				}
 
-			// split media ids
-			if ( strpos( $meta, ',' ) !== false ) {
-				$media_ids = array_filter( explode( ',', $meta ) );
+				// get correct image path
+				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
+
+				// resize image
+				if ( file_exists( $image_path ) ) {
+
+					// try to resize image
+					if ( $resized = $this->image_resize( $image_path, $args['image_size_w'], $args['image_size_h'], true ) ) {
+						$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$args['image_size_w']}' height='{$args['image_size_h']}' />";
+					}
+
+					// resizing failed so let's return full image with maxed dimensions
+					else {
+						$output = "<img src='{$value}' alt='' style='max-width:{$args['image_size_w']}px;max-height:{$args['image_size_h']}px' />";
+					}
+				}
 			}
 
-			foreach ( $media_ids as $media_id ) {
+			// Media Attachment
+			else {
 
 				// valid image?
-				if ( ! is_numeric($media_id) || ! wp_get_attachment_url( $media_id ) )
+				if ( ! is_numeric( $value ) || ! wp_get_attachment_url( $value ) )
 					continue;
 
 				// image attributes
-				$attributes = wp_get_attachment_image_src( $media_id, $args['image_size'] );
+				$attributes = wp_get_attachment_image_src( $value, $args['image_size'] );
 				$src 		= $attributes[0];
 				$width		= $attributes[1];
 				$height		= $attributes[2];
@@ -752,7 +757,7 @@ class CPAC_Column {
 				<?php if ( $meta_keys = $this->storage_model->get_meta_keys() ) : ?>
 				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
 				<?php foreach ( $meta_keys as $field ) : ?>
-					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace('cpachidden','', $field ) : $field; ?></option>
+					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden','', $field ) : $field; ?></option>
 				<?php endforeach; ?>
 				</select>
 				<?php else : ?>
@@ -778,7 +783,7 @@ class CPAC_Column {
 		 * Add Preview size
 		 *
 		 */
-		$is_hidden = 'image' == $this->options->field_type ? false : true;
+		$is_hidden = in_array( $this->options->field_type, array( 'image', 'library_id' ) ) ? false : true;
 
 		$this->display_field_preview_size( $is_hidden );
 		?>

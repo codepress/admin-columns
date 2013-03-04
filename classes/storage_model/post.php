@@ -12,9 +12,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->key 		= $post_type;
 		$this->label 	= $this->get_label();
 		$this->type 	= 'post';
+		$this->page 	= 'edit';
 
 		// headings
-		add_filter( "manage_edit-{$post_type}_columns",  array( $this, 'add_headings' ) );
+		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );

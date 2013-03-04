@@ -36,7 +36,7 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 		);
 
 		if ( isset( $builtin_status[ $p->post_status ] ) )
-			$value = $builtin_status[ $post_status ];
+			$value = $builtin_status[ $p->post_status ];
 
 		return $value;
 	}

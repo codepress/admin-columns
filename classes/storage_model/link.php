@@ -12,9 +12,10 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->key 		= 'wp-links';
 		$this->label 	= __( 'Links' );
 		$this->type 	= 'link';
+		$this->page 	= 'link-manager';
 
 		// headings
-		add_filter( "manage_link-manager_columns",  array( $this, 'add_headings' ) );
+		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 10, 2 );

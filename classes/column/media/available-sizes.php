@@ -25,7 +25,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
 		global $_wp_additional_image_sizes;
 
-		$value = '';
+		$paths = array();
 
 		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
 
@@ -41,29 +41,26 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
 				$url 		= wp_get_attachment_url( $id );
 				$filename 	= basename( $url );
-				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'original', 'cpac' ) . "</a>";
+				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'cpac' ) . "</a>";
 
 				foreach ( $intersect as $size ) {
 					$src = wp_get_attachment_image_src( $id, $size );
 
 					if ( ! empty( $src[0] ) ) {
 						$filename 	= basename( $src[0] );
-						$paths[] 	= "<a title='{$filename}' href='{$src[0]}'>{$size}</a>";
+						$paths[] 	= "<a title='{$filename}' href='{$src[0]}' class='available'>{$size}</a>";
 					}
 				}
-
-				$value .= "<div class='available_sizes'>" . implode( '<span class="cpac-divider"></span>', $paths ) . "</div>";
 			}
 
 			// image does not have these additional sizes rendered yet
-			if ( $diff = array_diff( $additional_sizes, $image_sizes ) ) {
-				$value .= "<br/><div class='missing_sizes'><span>" . implode( ', ', $diff ) . "</span> (" . __( 'missing', 'cpac' ) . ")</div>";
+			if ( $missing = array_diff( $additional_sizes, $image_sizes ) ) {
+				foreach  ( $missing as $size ) {
+					$paths[] = "<span title='Missing size! Try regenerate thumbnails with the plugin: force-regenerate-thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
+				}
 			}
-
-
-			//http://wordpress.org/extend/plugins/force-regenerate-thumbnails/
 		}
 
-		return $value;
+		return "<div class='sizes'>" . implode( '<span class="cpac-divider"></span>', $paths ) . "</div>";
 	}
 }

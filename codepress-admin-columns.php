@@ -297,12 +297,17 @@ class CPAC {
 	 */
 	function admin_css() {
 
+		global $pagenow;
+
 		// CSS column widths
 		$css_column_width = '';
 
 		foreach ( $this->storage_models as $storage_model ) {
 
 			if ( ! $columns = $storage_model->get_stored_columns() )
+				continue;
+
+			if ( $storage_model->page !== $pagenow )
 				continue;
 
 			foreach ( $columns as $name => $options ) {
@@ -314,11 +319,8 @@ class CPAC {
 		}
 
 		?>
-
 		<style type="text/css">
-
 			<?php echo $css_column_width; ?>
-
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
 				background: transparent url("<?php echo CPAC_URL; ?>assets/images/icon_20.png") no-repeat 6px -24px;
 			}
@@ -326,8 +328,10 @@ class CPAC {
 			#adminmenu #toplevel_page_codepress-admin-columns.wp-menu-open .wp-menu-image {
 				background-position: 6px 6px;
 			}
+			#adminmenu #toplevel_page_codepress-admin-columns a[href="admin.php?page=cpac-upgrade"] {
+				display: none;
+			}
 		</style>
-
 		<?php
 
 	}

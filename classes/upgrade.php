@@ -262,14 +262,13 @@ class CPAC_Upgrade {
 					'next'		=>	false,
 			    );
 
-				break;
+			break;
 
 		}
 
 		// return json
 		echo json_encode( $return );
 		die;
-
 	}
 
 	/*
@@ -278,24 +277,6 @@ class CPAC_Upgrade {
 	* @since 2.0.0
 	*/
 	public function start_upgrade() {
-$key = 'wp-users';
-$current = get_option( "cpac_options_{$key}" );
-$old_settings = get_option( 'cpac_options' );
-
-
-		echo '<pre>';
-		echo 'Different:<br/>';
-		$diff = array_diff_key( $current, $old_settings['columns'][ $key ] );
-		print_r( $diff );
-		echo 'Current:<br/>';
-		print_r( $current );
-		echo 'Old:<br/>';
-		print_r( $old_settings['columns'][ $key ] );
-		echo '<br/>';
-		echo '</pre>';
-
-		//print_r($diff);
-		//exit;
 
 		$version 	= get_option( 'cpac_version', '1.0.0' );
 		$next 		= false;
