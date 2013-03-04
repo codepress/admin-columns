@@ -105,12 +105,12 @@ abstract class CPAC_Storage_Model {
 		if ( true ) {
 			$active = $inactive = array();
 
-			foreach ( $columns as $column_name => $options ) {
+			foreach ( $columns as $type => $options ) {
 				if ( 'on' == $options['state'] ) {
-					$active[ $column_name ] = $options;
+					$active[ $type ] = $options;
 				}
 				else {
-					$inactive[ $column_name ] = $options;
+					$inactive[ $type ] = $options;
 				}
 			}
 

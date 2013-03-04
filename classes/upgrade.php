@@ -117,10 +117,42 @@ class CPAC_Upgrade {
 			case '2.0.0' :
 
 				// old settings
-				$old_settings = get_option( 'cpac_options' );
+				if ( $old_settings = get_option( 'cpac_options' ) ) {
+
+					print_r( $old_settings );
+
+					foreach ( $old_settings as $storage_key => $old_columns ){
+
+						$columns = array();
+
+						if ( $old_columns ) {
+							foreach ( $old_columns as $old_column_name => $old_column ) {
+
+								// rename type
+								$type = '';
+
+								// set clone
+								$clone = '';
+
+								// convert old settings to new
+								$columns[ $type ] = array(
+									'type' 	=> $type,
+						            'clone' => $clone,
+						            'state' => $old_column['state'],
+						            'label' => $old_column['label'],
+						            'width' => $old_column['width']
+								);
+							}
+						}
+
+						//update_option( "cpac_options_{$storage_key}", $columns );
+
+					}
+				}
+
 
 				// update version
-				update_option( 'cpac_version', $version );
+				// update_option( 'cpac_version', $version );
 
 				$return = array(
 			    	'status'	=>	true,
@@ -144,6 +176,10 @@ class CPAC_Upgrade {
 	* @since 2.0.0
 	*/
 	public function start_upgrade() {
+
+$current = get_option( "cpac_options_post" );
+		print_r( $current );
+		//exit;
 
 		$version 	= get_option( 'cpac_version', '1.0.0' );
 		$next 		= false;
