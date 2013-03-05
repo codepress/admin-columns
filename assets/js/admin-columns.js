@@ -4,7 +4,7 @@
  */
 jQuery(document).ready(function()
 {
-	if ( jQuery('#cpac').length == 0 )
+	if ( jQuery('#cpac').length === 0 )
 		return false;
 
 	cpac_sortable();
@@ -74,7 +74,7 @@ jQuery.fn.cpac_form_events = function() {
 		label.text( value );
 	});
 
-	/** init width slider */
+	/** width slider */
 	jQuery( '.input-width-range', column ).each( function(){
 
 		var input				= jQuery(this).closest('td').find('.input-width');
@@ -115,19 +115,6 @@ jQuery.fn.cpac_form_events = function() {
 		else {
 			jQuery('.custom-size-w', parent).addClass('hidden');
 			jQuery('.custom-size-h', parent).addClass('hidden');
-		}
-	});
-
-	/** select image custom field type */
-	jQuery( '.column_field_type .input select option', column ).click( function() {
-		var image_size	= jQuery(this).closest('table').find('.column_image_size').show();
-		var value		= jQuery(this).attr('value');
-
-		if( 'image' == value || 'library_id' == value ) {
-			image_size.show();
-		}
-		else {
-			image_size.hide();
 		}
 	});
 }

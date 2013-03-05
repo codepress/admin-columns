@@ -58,8 +58,8 @@ class CPAC_Addons {
 	function get_feed() {
 
 		$addons = array(
-			'cac-addon-sortable'	=> (object) array(
-				'title'		=> __( 'Sortable Columns' ),
+			'cac-addon-sortable' => (object) array(
+				'title'		=> __( 'Sortable add-on' ),
 				'intro'		=> "
 					<p>By default WordPress let's you only sort by title, date and comments.</p>
 					<p>This will let you sort any added column.</p>
@@ -71,8 +71,21 @@ class CPAC_Addons {
 					<p class='description'>(columns that are added by other plugins are not supported)</p>
 				"
 			),
-			'cac-addon-filtering'	=> (object) array(
-				'title'		=> __( 'Filtering Columns' ),
+			'cac-addon-filtering' => (object) array(
+				'title'		=> __( 'Filtering add-on' ),
+				'intro'		=> "
+					<p>By default WordPress let's you only sort by title, date and comments.</p>
+					<p>This will let you sort any added column.</p>
+				",
+				'content'	=> "
+					<p>This will make all of the new columns support sorting.</p>
+					<p>By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong></p>
+					<p>Perfect for sorting your articles, media files, comments, links and users.</p>
+					<p class='description'>(columns that are added by other plugins are not supported)</p>
+				"
+			),
+			'cac-addon-custom-fields' => (object) array(
+				'title'		=> __( 'Custom Fields add-on' ),
 				'intro'		=> "
 					<p>By default WordPress let's you only sort by title, date and comments.</p>
 					<p>This will let you sort any added column.</p>
@@ -115,6 +128,8 @@ class CPAC_Addons {
 
 		<?php
 		endforeach;
+
+		// @todo dev;
 		return;
 
 		$feed = get_transient( 'cpac_addons_feed' );

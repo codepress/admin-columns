@@ -297,7 +297,7 @@ tr.column_image_size.hidden {
 	margin-top: 4px;
 }
 .column-form div.input-width-range .ui-slider-handle {
-	cursor:e-resize;
+	cursor:ew-resize;
 }
 .column-form tr td.input label {
 	padding-right: 10px;

@@ -140,7 +140,7 @@ class CPAC_Upgrade {
 								) );
 
 								// set name
-								$name  = $old_column_name;
+								$name = $old_column_name;
 
 								// convert: Users
 								if ( 'wp-users' == $storage_key ) {
@@ -254,7 +254,7 @@ class CPAC_Upgrade {
 
 
 				// update version
-				// update_option( 'cpac_version', $version );
+				update_option( 'cpac_version', $version );
 
 				$return = array(
 			    	'status'	=>	true,

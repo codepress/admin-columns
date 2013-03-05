@@ -178,7 +178,9 @@ abstract class CPAC_Storage_Model {
 
 		// hooks for adding custom columns by addons
 		// $columns classname | include_path
-		return apply_filters( "cpac_custom_columns_{$this->type}", $columns[ $this->type ], $this );
+		$columns = apply_filters( "cpac_custom_columns_{$this->type}", $columns[ $this->type ], $this );
+
+		return $columns;
 	}
 
 	/**

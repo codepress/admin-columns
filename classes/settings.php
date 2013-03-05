@@ -62,6 +62,7 @@ class CPAC_Settings {
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-multi-select', CPAC_URL . 'assets/css/multi-select.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-multiple-fields-css', CPAC_URL . 'assets/css/multiple-fields.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -77,6 +78,12 @@ class CPAC_Settings {
 		// columns
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
 		wp_enqueue_script( 'cpac-jquery-multi-select', CPAC_URL . 'assets/js/jquery.multi-select.js', array( 'jquery' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-multiple-fields-js', CPAC_URL . 'assets/js/multiple-fields.js', array( 'jquery' ), CPAC_VERSION );
+
+		// javascript translations
+		wp_localize_script( 'cpac-multiple-fields-js', 'cpac_i18n', array(
+			'remove'	=> __( 'Remove', CPAC_VERSION )
+		));
 	}
 
 	/**
@@ -426,6 +433,25 @@ class CPAC_Settings {
 
 						<div class="column-footer">
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
+
+							<?php
+							$buttons = array();
+
+							foreach ( $storage_model->get_registered_columns() as $column ) {
+								if ( $column->properties->is_cloneable ) {
+									$buttons[ $column->properties->type ] = array(
+										'type'	=> $column->properties->type,
+										'label'	=> $column->properties->label
+									);
+								}
+							}
+							?>
+
+							<div class="button-container">
+							<?php foreach ( $buttons as $button ) : ?>
+								<a href="javascript:;" data-type="<?php echo $button['type']; ?>" class="clone-button button">+ <?php _e( 'Add', 'cpac' );?> <?php echo $button['label']; ?></a><br/>
+							<?php endforeach; ?>
+							</div>
 
 							<?php
 							/**

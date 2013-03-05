@@ -74,6 +74,7 @@ class CPAC_Column {
 			'classes'			=> null,	// Custom CSS classes for this column.
 			'hide_label'		=> false,	// Should the Label be hidden?
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
+			'is_cloneable'		=> false,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 		);
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -109,6 +110,20 @@ class CPAC_Column {
 
 		// add stored options
 		$this->populate_options();
+	}
+
+	/**
+	 * Is active?
+	 *
+	 * @since 2.0.0
+	 * @return bool true | false
+	 */
+	function is_active() {
+
+		if ( 'on' !== $this->options->state )
+			return false;
+
+		return true;
 	}
 
 	/**
@@ -643,85 +658,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get column value of Custom Field - Value method
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $object_id
-	 * @param string $column_name
-	 * @return string Customfield value
-	 */
-	 protected function get_value_custom_field( $id ) {
-
-		// rename hidden custom fields to their original name
-		$field = substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
-
-		// get metadata
-		$meta = get_metadata( $this->storage_model->type, $id, $this->options->field, true );
-
-		// implode meta array
-		if ( ( 'array' == $this->options->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
-			$meta = $this->recursive_implode( ', ', $meta);
-		}
-
-		if ( ! is_string( $meta ) )
-			return false;
-
-		switch ( $this->options->field_type ) :
-
-			case "image" :
-			case "library_id" :
-				$meta = $this->get_thumbnails( $meta );
-				break;
-
-			// @todo: excerpt length
-			case "excerpt" :
-				$meta = $this->get_shortened_string( $meta, $excerpt_length = 30 );
-				break;
-
-			case "date" :
-				$meta = $this->get_date( $meta );
-				break;
-
-			case "title_by_id" :
-				$titles = $this->get_titles_by_id( $meta );
-				if ( $titles )
-					$meta = $titles;
-				break;
-
-			case "user_by_id" :
-				$names = $this->get_users_by_id( $meta );
-				if ( $names )
-					$meta = $names;
-				break;
-
-			case "checkmark" :
-				$checkmark = $this->get_asset_image( 'checkmark.png' );
-
-				if ( empty($meta) || 'false' === $meta || '0' === $meta ) {
-					$checkmark = '';
-				}
-
-				$meta = $checkmark;
-				break;
-
-			case "color" :
-				if ( !empty($meta) ) {
-					$meta = "<div class='cpac-color'><span style='background-color:{$meta}'></span>{$meta}</div>";
-				}
-				break;
-
-		endswitch;
-
-		// add before and after string
-		if ( $meta ) {
-			$meta = "{$this->options->before}{$meta}{$this->options->after}";
-		}
-
-		return $meta;
-	 }
-
-	/**
 	 * Label view
 	 *
 	 * @since 2.0.0
@@ -925,6 +861,18 @@ class CPAC_Column {
 
 						<?php do_action( 'cpac_after_column_settings', $this ); ?>
 
+						<?php if ( $this->properties->is_cloneable || ( isset( $this->options->clone ) && $this->options->clone ) ) :	?>
+						<tr class="column_action">
+							<td colspan="2">
+								<?php if ( null === $this->properties->clone ) : ?>
+									<p class="remove-description description"><?php _e( 'This field can not be removed', 'cpac' ); ?></p>
+								<?php else : ?>
+									<p><a href="javascript:;" class="remove-button"><?php _e( 'Remove');?></a></p>
+								<?php endif; ?>
+							</td>
+						</tr>
+						<?php endif; ?>
+
 					</tbody>
 				</table>
 			</div><!--.column-form-->
@@ -940,8 +888,8 @@ class CPAC_Column {
 	 *
 	 * @since 2.0.0
 	 */
-	public function __clone()
-    {
+	public function __clone() {
+
         // Force a copy of this->object, otherwise it will point to same object.
 		$this->options 		= clone $this->options;
 		$this->properties 	= clone $this->properties;

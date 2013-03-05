@@ -22,42 +22,37 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $id ) {
-
-		global $_wp_additional_image_sizes;
-
 		$paths = array();
 
 		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
 
-		if ( isset( $meta['sizes'] ) ) {
+		if ( ! isset( $meta['sizes'] ) )
+			return false;
 
-			unset( $_wp_additional_image_sizes['post-thumbnail'] );
+		// available sizes
+		if ( $intersect = array_intersect( array_keys( $meta['sizes'] ), get_intermediate_image_sizes() ) ) {
 
-			$image_sizes 		= array_keys( $meta['sizes'] );
-			$additional_sizes 	= array_keys( $_wp_additional_image_sizes );
+			$url 		= wp_get_attachment_url( $id );
+			$filename 	= basename( $url );
+			$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'cpac' ) . "</a>";
 
-			// available size
-			if ( $intersect = array_intersect( $image_sizes, get_intermediate_image_sizes() ) ) {
+			foreach ( $intersect as $size ) {
+				$src = wp_get_attachment_image_src( $id, $size );
 
-				$url 		= wp_get_attachment_url( $id );
-				$filename 	= basename( $url );
-				$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'cpac' ) . "</a>";
-
-				foreach ( $intersect as $size ) {
-					$src = wp_get_attachment_image_src( $id, $size );
-
-					if ( ! empty( $src[0] ) ) {
-						$filename 	= basename( $src[0] );
-						$paths[] 	= "<a title='{$filename}' href='{$src[0]}' class='available'>{$size}</a>";
-					}
+				if ( ! empty( $src[0] ) ) {
+					$filename 	= basename( $src[0] );
+					$paths[] 	= "<a title='{$filename}' href='{$src[0]}' class='available'>{$size}</a>";
 				}
 			}
+		}
 
-			// image does not have these additional sizes rendered yet
-			if ( $missing = array_diff( $additional_sizes, $image_sizes ) ) {
-				foreach  ( $missing as $size ) {
-					$paths[] = "<span title='Missing size! Try regenerate thumbnails with the plugin: force-regenerate-thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
-				}
+		global $_wp_additional_image_sizes;
+		unset( $_wp_additional_image_sizes['post-thumbnail'] );
+
+		// image does not have these additional sizes rendered yet
+		if ( $missing = array_diff( array_keys( $_wp_additional_image_sizes), array_keys( $meta['sizes'] ) ) ) {
+			foreach  ( $missing as $size ) {
+				$paths[] = "<span title='Missing size! Try regenerate thumbnails with the plugin: force-regenerate-thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
 			}
 		}
 

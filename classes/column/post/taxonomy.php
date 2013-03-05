@@ -8,8 +8,9 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 
 	function __construct( $storage_model ) {
 
-		$this->properties['type']	= 'column-taxonomy';
-		$this->properties['label']	= __( 'Taxonomy', 'cpac' );
+		$this->properties['type']			= 'column-taxonomy';
+		$this->properties['label']			= __( 'Taxonomy', 'cpac' );
+		$this->properties['is_cloneable']	= true;
 
 		// define additional options
 		$this->options['taxonomy']	= ''; // taxonomy slug

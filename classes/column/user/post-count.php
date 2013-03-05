@@ -10,8 +10,9 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 	function __construct( $storage_model ) {
 
 		// define properties
-		$this->properties['type']	 = 'column-user_postcount';
-		$this->properties['label']	 = __( 'Post Count', 'cpac' );
+		$this->properties['type']	 		= 'column-user_postcount';
+		$this->properties['label']	 		= __( 'Post Count', 'cpac' );
+		$this->properties['is_cloneable']	= true;
 
 		// define additional options
 		$this->options['post_type'] = '';
@@ -68,7 +69,6 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 		}
 
 		?>
-
 		<tr class="<?php $this->properties->type; ?>">
 			<?php $this->label_view( __( 'Post Type', 'cpac' ), '', 'post_type' ); ?>
 			<td class="input">

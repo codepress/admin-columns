@@ -10,8 +10,9 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	function __construct( $storage_model ) {
 
 		// define properties
-		$this->properties['type']	 	= 'column-comment_count';
-		$this->properties['label']	 	= __( 'Comment count', 'cpac' );
+		$this->properties['type']	 		= 'column-comment_count';
+		$this->properties['label']	 		= __( 'Comment count', 'cpac' );
+		$this->properties['is_cloneable']	= true;
 
 		// define additional options
 		$this->options['comment_status'] = '';
@@ -72,11 +73,9 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function display_settings() {
-
 		?>
-
 		<tr class="column_comment-count">
-			<?php $this->label_view( $this->properties->label, '', 'comment-status' ); ?>
+			<?php $this->label_view( __( 'Comment status', 'cpac' ), __( 'Select which comment status you like to display.', 'cpac' ), 'comment-status' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'comment_status' ); ?>" id="<?php $this->attr_id( 'comment-status' ); ?>">
 				<?php foreach ( $this->get_comment_stati() as $key => $label ) : ?>
