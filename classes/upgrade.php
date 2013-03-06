@@ -12,7 +12,7 @@ class CPAC_Upgrade {
 	function __construct() {
 
 		// DEV
-		update_option( 'cpac_version', '1.0.0' );
+		//update_option( 'cpac_version', '1.0.0' );
 
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
@@ -128,8 +128,8 @@ class CPAC_Upgrade {
 						if ( $old_columns ) {
 
 							// used to determine clone ID
-							$tax_count 	= 1;
-							$post_count = 1;
+							$tax_count 	= 0;
+							$post_count = 0;
 
 							foreach ( $old_columns as $old_column_name => $old_column_settings ) {
 
@@ -148,10 +148,11 @@ class CPAC_Upgrade {
 									// is user postcount?
 									if ( strpos( $old_column_name, 'column-user_postcount-' ) !== false ) {
 										$settings['type']  		= 'column-user_postcount';
-										$settings['clone'] 		= $post_count++;
+										$settings['clone'] 		= $post_count;
 										$settings['post_type'] 	= str_replace( 'column-user_postcount-', '', $old_column_name );
 
-										$name = $settings['type'] . '-' . $settings['clone'];
+										$name = $post_count ? $settings['type'] . '-' . $settings['clone'] : $settings['type'];
+										$post_count++;
 									}
 								}
 
@@ -181,7 +182,6 @@ class CPAC_Upgrade {
 										$name = 'column-author';
 										$settings['type'] = $name;
 									}
-
 								}
 
 								// convert: Posts
@@ -228,10 +228,11 @@ class CPAC_Upgrade {
 								// is taxonomy?
 								if ( strpos( $old_column_name, 'column-taxonomy-' ) !== false ) {
 									$settings['type']  		= 'column-taxonomy';
-									$settings['clone'] 		= $tax_count++;
+									$settings['clone'] 		= $tax_count;
 									$settings['taxonomy'] 	= str_replace( 'column-taxonomy-', '', $old_column_name );
 
-									$name = $settings['type'] . '-' . $settings['clone'];
+									$name = $tax_count ? $settings['type'] . '-' . $settings['clone'] : $settings['type'];
+									$tax_count++;
 								}
 								// is custom field?
 								elseif ( strpos( $old_column_name, 'column-meta-' ) !== false ) {
@@ -251,7 +252,6 @@ class CPAC_Upgrade {
 						}
 					}
 				}
-
 
 				// update version
 				update_option( 'cpac_version', $version );

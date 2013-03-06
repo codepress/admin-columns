@@ -39,7 +39,7 @@ function cpac_cloning() {
 
 		// create a clone and set new id
 		var clone = all_columns.find( '.cpac-box-' + type + '[data-clone=""]' ).clone( true ).attr( 'data-clone', id );
-
+console.log( clone );
 		// replace column identifier
 		var inputs = jQuery( clone ).find( 'input, select, label' );
 		jQuery( inputs ).each( function( i, v ) {
