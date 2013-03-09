@@ -13,6 +13,9 @@ class CPAC_Column_User_Description extends CPAC_Column {
 		$this->properties['type']	 = 'column-user_description';
 		$this->properties['label']	 = __( 'Description', 'cpac' );
 
+		// define additional options
+		$this->options['excerpt_length'] = 30;
+
 		parent::__construct( $storage_model );
 	}
 
@@ -22,6 +25,15 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 */
 	function get_value( $user_id ) {
 
-		return $this->get_shortened_string( get_the_author_meta( 'user_description', $user_id ), 20 );
+		return $this->get_shortened_string( get_the_author_meta( 'user_description', $user_id ), $this->options->excerpt_length );
+	}
+
+	/**
+	 * @see CPAC_Column::display_settings()
+	 * @since 2.0.0
+	 */
+	function display_settings() {
+
+		$this->display_field_excerpt_length();
 	}
 }

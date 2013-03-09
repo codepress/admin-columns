@@ -13,6 +13,9 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 		$this->properties['type']	 = 'column-before_moretag';
 		$this->properties['label']	 = __( 'Before More Tag', 'cpac' );
 
+		// define additional options
+		$this->options['excerpt_length'] = 15;
+
 		parent::__construct( $storage_model );
 	}
 
@@ -28,9 +31,18 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 		$extended = get_extended( $p->post_content );
 
 		if ( ! empty( $extended['extended'] ) ) {
-			$value = $this->get_shortened_string( $extended['main'], 20 );
+			$value = $this->get_shortened_string( $extended['main'], $this->options->excerpt_length );
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @see CPAC_Column::display_settings()
+	 * @since 2.0.0
+	 */
+	function display_settings() {
+
+		$this->display_field_excerpt_length();
 	}
 }

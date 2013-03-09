@@ -11,28 +11,34 @@ class CPAC_Column {
 	/**
 	 * Storage Model
 	 *
-	 * $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 * A Storage Model can be a Posttype, User, Comment, Link or Media storage type.
 	 *
 	 * @since 2.0.0
+	 * @var object $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
 	protected $storage_model;
 
 	/**
 	 * Options
 	 *
-	 * $options contains the user set options for the CPAC_Column object.
-	 *
 	 * @since 2.0.0
+	 * @var array $options contains the user set options for the CPAC_Column object.
 	 */
 	public $options = array();
 
 	/**
-	 * Properties
-	 *
-	 * $properties describes the fixed properties for the CPAC_Column object.
+	 * Options - Default
 	 *
 	 * @since 2.0.0
+	 * @var object $options_default contains the options for the CPAC_Column object before they are populated with user input.
+	 */
+	protected $options_default;
+
+	/**
+	 * Properties
+	 *
+	 * @since 2.0.0
+	 * @var array $properties describes the fixed properties for the CPAC_Column object.
 	 */
 	public $properties = array();
 
@@ -42,17 +48,31 @@ class CPAC_Column {
 	 * Returns the value for the column.
 	 *
 	 * @since 2.0.0
-	 * @param int $postid Post ID
+	 * @param int $id ID
 	 * @return string Value
 	 */
-	function get_value( $postid ) {}
+	public function get_value( $id ) {}
 
 	/**
 	 * Display_settings
 	 *
 	 * @since 2.0.0
 	 */
-	function display_settings() {}
+	protected function display_settings() {}
+
+	/**
+	 * Sanitize_options
+	 *
+	 * Overwrite this function in child class to sanitize
+	 * user submitted values.
+	 *
+	 * @since 2.0.0
+	 * @param $options array User submitted column options
+	 * @return array Options
+	 */
+	protected function sanitize_options( $options ) {
+		return $options;
+	}
 
 	/**
 	 * Defaults
@@ -61,7 +81,7 @@ class CPAC_Column {
 	 *
 	 * @param object $storage_model CPAC_Storage_Model
 	 */
-	public function __construct( CPAC_Storage_Model $storage_model ) {
+	function __construct( CPAC_Storage_Model $storage_model ) {
 
 		$this->storage_model = $storage_model;
 
@@ -108,6 +128,9 @@ class CPAC_Column {
 		// merge arguments with defaults and stored options. turn into object for easy handling
 		$this->options = (object) array_merge( $default_options, $this->options );
 
+		// set default options before populating
+		$this->options_default = $this->options;
+
 		// add stored options
 		$this->populate_options();
 	}
@@ -118,7 +141,7 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 * @return bool true | false
 	 */
-	function is_active() {
+	public function is_active() {
 
 		if ( 'on' !== $this->options->state )
 			return false;
@@ -132,7 +155,7 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 * @return object
 	 */
-	 function populate_options() {
+	public function populate_options() {
 
 		$this->options = (object) array_merge( (array) $this->options, $this->read() );
 	}
@@ -143,7 +166,7 @@ class CPAC_Column {
 	 * @param string $property
 	 * @return mixed $value
 	 */
-	function set_properties( $property, $value ) {
+	public function set_properties( $property, $value ) {
 
 		$this->properties->{$property} = $value;
 
@@ -156,7 +179,7 @@ class CPAC_Column {
 	 * @param string $option
 	 * @return mixed $value
 	 */
-	function set_options( $option, $value ) {
+	public function set_options( $option, $value ) {
 
 		$this->options->{$option} = $value;
 
@@ -169,7 +192,7 @@ class CPAC_Column {
 	 * @param int $id
 	 * @return object
 	 */
-	function set_clone( $id = null ) {
+	public function set_clone( $id = null ) {
 
 		if ( $id !== null && $id > 0 ) {
 
@@ -186,7 +209,7 @@ class CPAC_Column {
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
-	function attr_name( $field_name ) {
+	public function attr_name( $field_name ) {
 		echo "columns[{$this->properties->name}][{$field_name}]";
 	}
 
@@ -196,7 +219,7 @@ class CPAC_Column {
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
-	function attr_id( $field_name ) {
+	public function attr_id( $field_name ) {
 		echo "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
 	}
 
@@ -207,8 +230,7 @@ class CPAC_Column {
 	 *
 	 * @return array Column options
 	 */
-	function read() {
-
+	public function read() {
 		$options = (array) get_option( "cpac_options_{$this->storage_model->key}" );
 
 		if ( empty( $options[ $this->properties->name ] ) )
@@ -218,12 +240,36 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Sanitize
+	 *
+	 * Sanitizes options.
+	 *
+	 * @since 2.0.0
+	 * @param $options array User submitted column options
+	 * @return array Options
+	 */
+	public function sanitize( $options ) {
+
+		// excerpt length must be numeric, else we will return it's default
+		if ( isset( $options['excerpt_length'] ) ) {
+			$options['excerpt_length'] = trim( $options['excerpt_length'] );
+			if ( empty( $options['excerpt_length'] ) || ! is_numeric( $options['excerpt_length'] ) ) {
+				$options['excerpt_length'] = $this->options_default->excerpt_length;
+			}
+		}
+
+		// used by child classes for additional sanitizing
+		$options = $this->sanitize_options( $options );
+
+		return $options;
+	}
+
+	/**
 	 * Shorten URL - Value method
 	 *
 	 * @since 1.3.1
 	 */
-	protected function get_shorten_url( $url = '' )
-	{
+	protected function get_shorten_url( $url = '' ) {
 		if ( ! $url )
 			return false;
 
@@ -235,21 +281,19 @@ class CPAC_Column {
 	 *
 	 * @since 1.3
 	 */
-	protected function strip_trim( $string )
-	{
+	protected function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
 	}
 
 	/**
 	 * Returns excerpt - Value method
 	 *
-	 * @todo: options for excerpt length
 	 * @since 1.0.0
 	 *
 	 * @param int $post_id Post ID
 	 * @return string Post Excerpt.
 	 */
-	protected function get_post_excerpt( $post_id )	{
+	protected function get_post_excerpt( $post_id, $words )	{
 		global $post;
 
 		$save_post 	= $post;
@@ -257,7 +301,7 @@ class CPAC_Column {
 		$excerpt 	= get_the_excerpt();
 		$post 		= $save_post;
 
-		$output = $this->get_shortened_string( $excerpt, 20 );
+		$output = $this->get_shortened_string( $excerpt, $words );
 
 		return $output;
 	}
@@ -270,7 +314,7 @@ class CPAC_Column {
 	 *
 	 * @return string Trimmed text.
 	 */
-	protected function get_shortened_string( $text = '', $num_words = 55, $more = null ) {
+	protected function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
 		if ( ! $text )
 			return false;
 
@@ -290,7 +334,7 @@ class CPAC_Column {
 		if ( ! $name )
 			return false;
 
-		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", $title );
+		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", esc_attr( $title ) );
 	}
 
 	/**
@@ -401,11 +445,21 @@ class CPAC_Column {
 	 * @param array $args
 	 * @return string HTML img elements
 	 */
-	protected function get_thumbnails( $meta, $args = array() ) {
-		if ( empty( $meta ) || 'false' == $meta )
+	protected function get_thumbnails( $images, $args = array() ) {
+		if ( empty( $images ) || 'false' == $images )
 			return false;
 
 		$output = '';
+
+		// turn string to array
+		if ( is_string( $images ) ) {
+			if ( strpos( $images, ',' ) !== false ) {
+				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
+			}
+			else  {
+				$images = array( $images );
+			}
+		}
 
 		// Image size
 		$defaults = array(
@@ -415,24 +469,18 @@ class CPAC_Column {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		// turn string to array
-		if ( is_string( $meta ) ) {
-			if ( strpos( $meta, ',' ) !== false ) {
-				$meta = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $meta ) ) ) );
-			}
-			else  {
-				$meta = array( $meta );
-			}
-		}
+		extract( $args );
 
-		foreach( $meta as $value ) {
+		// foreach image
+		foreach( $images as $value ) {
 
 			// Image
 			if ( $this->is_image( $value ) ) {
 
-				if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
-					$args['image_size_w'] = $sizes['image_size_w'];
-					$args['image_size_h'] = $sizes['image_size_w'];
+				// get dimensions from image_size
+				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
+					$image_size_w = $sizes['image_size_w'];
+					$image_size_h = $sizes['image_size_w'];
 				}
 
 				// get correct image path
@@ -442,40 +490,36 @@ class CPAC_Column {
 				if ( file_exists( $image_path ) ) {
 
 					// try to resize image
-					if ( $resized = $this->image_resize( $image_path, $args['image_size_w'], $args['image_size_h'], true ) ) {
-						$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$args['image_size_w']}' height='{$args['image_size_h']}' />";
+					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
+						$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
 					}
 
 					// resizing failed so let's return full image with maxed dimensions
 					else {
-						$output = "<img src='{$value}' alt='' style='max-width:{$args['image_size_w']}px;max-height:{$args['image_size_h']}px' />";
+						$output = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
 					}
 				}
 			}
 
 			// Media Attachment
-			else {
-
-				// valid image?
-				if ( ! is_numeric( $value ) || ! wp_get_attachment_url( $value ) )
-					continue;
+			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
 
 				// image attributes
-				$attributes = wp_get_attachment_image_src( $value, $args['image_size'] );
+				$attributes = wp_get_attachment_image_src( $value, $image_size );
 				$src 		= $attributes[0];
 				$width		= $attributes[1];
 				$height		= $attributes[2];
 
 				// image size by name
-				if ( $sizes = $this->get_image_size_by_name( $args['image_size'] ) ) {
+				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
 					$width 	= $sizes['image_size_w'];
 					$height	= $sizes['image_size_h'];
 				}
 
 				// custom image size
-				if ( 'cpac-custom' == $args['image_size'] ) {
-					$width 	= $args['image_size_w'];
-					$height = $args['image_size_h'];
+				if ( ! $image_size || 'cpac-custom' == $image_size ) {
+					$width 	= $image_size_w;
+					$height = $image_size_h;
 				}
 
 				// maximum dimensions
@@ -740,9 +784,31 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Display field Excerpt
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
+	 */
+	function display_field_excerpt_length( $is_hidden = false ) {
+
+		$field_key		= 'excerpt_length';
+		$label			= __( 'Excerpt length', 'cpac' );
+		$description	= __( 'Number of words', 'cpac' );
+
+		?>
+		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
+			<?php $this->label_view( $label, $description, $field_key ); ?>
+			<td class="input">
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
+			</td>
+		</tr>
+<?php
+	}
+
+	/**
 	 * Display field Preview Size
 	 *
-	 * @todo function to create input fields
 	 * @since 2.0.0
 	 *
 	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.

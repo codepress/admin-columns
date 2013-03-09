@@ -82,7 +82,7 @@ class CPAC_Settings {
 
 		// javascript translations
 		wp_localize_script( 'cpac-multiple-fields-js', 'cpac_i18n', array(
-			'remove'	=> __( 'Remove', CPAC_VERSION )
+			'remove'	=> __( 'Remove', 'cpac' )
 		));
 	}
 
@@ -105,7 +105,6 @@ class CPAC_Settings {
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->store();
 				}
@@ -113,7 +112,6 @@ class CPAC_Settings {
 
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
-
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->restore();
 				}
@@ -121,7 +119,7 @@ class CPAC_Settings {
 
 			case 'restore_all' :
 				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
-					$this->restore_settings();
+					$this->restore_all();
 				}
 				break;
 
@@ -159,69 +157,16 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Update Settings by Type
-	 *
-	 * @since 2.0.0.0
-	 */
-	private function update_settings_by_type( $storage_model ) {
-		if ( ! $storage_model )
-			return false;
-
-		$options = (array) get_option( 'cpac_options' );
-
-		if ( ! empty( $_POST['cpac_options'] ) ) {
-			$options['columns'][$storage_model] = stripslashes_deep( $_POST['cpac_options']['columns'][$storage_model] );
-
-			// place active columns on top
-			$options['columns'][$storage_model] = $this->reorder_by_state( $options['columns'][$storage_model] );
-
-			// save settings
-			update_option( 'cpac_options', $options );
-
-			// set admin notice
-			cpac_admin_message( __( 'Settings updated.',  'cpac' ), 'updated' );
-		}
-	}
-
-	/**
 	 * Restore defaults
 	 *
 	 * @since 1.0.0
 	 */
-	private function restore_settings() {
+	private function restore_all() {
 		global $wpdb;
 
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
 
 		cpac_admin_message( __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
-	}
-
-	/**
-	 * Reorder columns by state ( inactive/active )
-	 *
-	 * Active columns are set on top of the list.
-	 *
-	 * @since 2.0.0.0
-	 *
-	 * @param string $options Columns Options.
-	 * @return array Reordered Columns Options.
-	 */
-	public function reorder_by_state( $options ) {
-		if ( empty($options) )
-			return array();
-
-		$active = $inactive = array();
-
-		foreach ( $options as $label => $box ) {
-			if ( 'on' == $box['state'] ) {
-				$active[$label] = $box;
-			}
-			else {
-				$inactive[$label] = $box;
-			}
-		}
-
-		return array_merge( $active, $inactive);
 	}
 
 	/**
@@ -279,9 +224,9 @@ class CPAC_Settings {
 
 		foreach ( $tabs as $k => $tab ) {
 			$screen->add_help_tab( array(
-				'id'		=> 'cpac-tab-'.$k, 	// unique id
-				'title'		=> $tab['title'],	// label
-				'content'	=> $tab['content'], // body
+				'id'		=> 'cpac-tab-'.$k,
+				'title'		=> $tab['title'],
+				'content'	=> $tab['content'],
 			));
 		}
 	}
@@ -306,7 +251,7 @@ class CPAC_Settings {
 			}
 
 		// settings page has not yet been saved
-		} elseif ( $first == $key  ) {
+		} elseif ( $first == $key ) {
 			return true;
 		}
 
@@ -502,6 +447,19 @@ class CPAC_Settings {
 				$this->do_settings_groups();
 
 				?>
+
+				<!--
+				<tr class="general">
+					<th scope="row">
+						<h3><?php _e( 'General Settings', 'cpac' ); ?></h3>
+					</th>
+					<td>
+						<div class="cpac_general">
+							<form method="post" action=""></form>
+						</div>
+					</td>
+				</tr>
+				-->
 
 				<tr class="export">
 					<th scope="row">

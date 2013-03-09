@@ -247,16 +247,17 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 = 2.0.0 =
-* [Upated] Extensive refactoring of the code!
+* [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design
+* [Updated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
+* [Updated] Menu will only display posttypes which have show_ui set to true
 * [Added] Added settings import/export
-* [Removed] Multiple Custom Fields and made it available as an addon
-* [Upated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
 * [Added] Media column: Available_Sizes
+* [Added] Addon for filtering for Custom Fields and Taxonomies
+* [Added] Default sorting for Users
 * [Removed] Comment column: Actions
 * [Removed] Calling get_column_headers() interfered with storing columns
-* [Added Addon] Addon for filtering for Custom Fields and Taxonomies
-* [Added] default sorting for Users
+* [Removed] Custom fields support ( now available as a paid addon )
 
 = 1.4.8 =
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu
@@ -314,8 +315,6 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] french language ( thanks to Alexandre Girard )
 * [Added] filtering by taxonomy ( only displays when column is used )
 * [Added] compatibility with woocommerce
-* [Fixed] Issue: value media meta column ID
-* [Fixed] Issue: with sorting users by postcount
 * [Added] Actions column for Media (delete, view etc.)
 * [Added] Actions column for Link (delete, view etc.)
 * [Added] Actions column for Comments (delete, view etc.)
@@ -324,6 +323,8 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] default sorting for posts ( remembers your last sorting, only with addon )
 * [Added] default sorting for media ( remembers your last sorting, only with addon )
 * [Added] filters to the result output
+* [Fixed] Issue: value media meta column ID
+* [Fixed] Issue: with sorting users by postcount
 
 = 1.4.4 =
 

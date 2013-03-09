@@ -12,7 +12,7 @@ class CPAC_Upgrade {
 	function __construct() {
 
 		// DEV
-		//update_option( 'cpac_version', '1.0.0' );
+		update_option( 'cpac_version', '1.0.0' );
 
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
@@ -40,6 +40,13 @@ class CPAC_Upgrade {
 	public function admin_scripts() {
 		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+
+		// javascript translations
+		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
+			'complete'		=> __( 'Upgrade Complete!', 'cpac' ),
+			'error'			=> __( 'Error', 'cpac' ),
+			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
+		));
 	}
 
 	/**
@@ -128,8 +135,9 @@ class CPAC_Upgrade {
 						if ( $old_columns ) {
 
 							// used to determine clone ID
-							$tax_count 	= 0;
-							$post_count = 0;
+							$tax_count 	= null;
+							$post_count = null;
+							$meta_count = null;
 
 							foreach ( $old_columns as $old_column_name => $old_column_settings ) {
 
@@ -238,6 +246,9 @@ class CPAC_Upgrade {
 								elseif ( strpos( $old_column_name, 'column-meta-' ) !== false ) {
 									$settings['type']  = 'column-meta';
 									$settings['clone'] = str_replace( 'column-meta-', '', $old_column_name );
+
+									$name = $meta_count ? $settings['type'] . '-' . $settings['clone'] : $settings['type'];
+									$meta_count++;
 								}
 								elseif ( 'column-word-count' == $old_column_name ) {
 									$name = 'column-word_count';

@@ -43,6 +43,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_default_columns() {
+		global $pagenow;
 
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
@@ -51,7 +52,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
 		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
-		$columns = get_column_headers( "edit-{$this->key}" );
+		//
+		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
+		// when it's being called by CPAC_Storage_Model::add_headings()
+		$columns = 'admin.php' == $pagenow ? get_column_headers( "edit-{$this->key}" ) : '';
 
 		// Get the WP default columns if there is no 3rd party plugin trying to set columns using the hook above.
 		if ( ! $columns ) {

@@ -8,7 +8,6 @@ function add_message( message ) {
 /**
  * Run upgrade process
  *
- * @todo: localize script
  */
 function run_upgrade( version ) {
 
@@ -34,20 +33,20 @@ function run_upgrade( version ) {
 
 					// all done
 					else {
-						add_message( 'Upgrade Complete!' );
+						add_message( cpac_upgrade_i18n.complete );
 					}
 				}
 
 				// error!
 				else {
-					add_message( 'Error: ' + json.message );
+					add_message( cpac_upgrade_i18n.error + ': ' + json.message );
 				}
 			}
 
 			// major error!
 			else {
 
-				add_message( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum' );
+				add_message( cpac_upgrade_i18n.major_error );
 			}
 		}
 	});

@@ -29,7 +29,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 		if ( ! has_post_thumbnail( $post_id ) )
 			return false;
 
-		return $this->get_thumbnails( get_post_thumbnail_id( $post_id ), $this->options );
+		return $this->get_thumbnails( get_post_thumbnail_id( $post_id ), (array) $this->options );
 	}
 
 	/**

@@ -112,16 +112,23 @@ abstract class CPAC_Storage_Model {
 		if ( true ) {
 			$active = $inactive = array();
 
-			foreach ( $columns as $type => $options ) {
-				if ( 'on' == $options['state'] ) {
-					$active[ $type ] = $options;
+			foreach ( $columns as $name => $options ) {
+				if ( 'on' === $options['state'] ) {
+					$active[ $name ] = $options;
 				}
 				else {
-					$inactive[ $type ] = $options;
+					$inactive[ $name ] = $options;
 				}
 			}
 
 			$columns = array_merge( $active, $inactive );
+		}
+
+		// sanitize user inputs
+		foreach ( $columns as $name => $options ) {
+			if ( $_column = $this->get_column_by_name( $name ) ) {
+				$columns[ $name ] = $_column->sanitize( $options );
+			}
 		}
 
 		$result = update_option( "cpac_options_{$this->key}", $columns );
@@ -234,7 +241,7 @@ abstract class CPAC_Storage_Model {
 
 			$column = new $classname( $this );
 
-			// some column are not registered based on conditional logic within the child column
+			// exlude columns that are not registered based on conditional logic within the child column
 			if ( ! $column->properties->is_registered )
 				continue;
 
@@ -287,7 +294,7 @@ abstract class CPAC_Storage_Model {
 					continue;
 
 				// remember which types has been used, so we can filter them later
-				$stored_types[] = $options['type'];
+				$stored_names[] = $name;
 
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
@@ -306,11 +313,11 @@ abstract class CPAC_Storage_Model {
 				$columns[ $name ] = $column;
 			}
 
-			// In case of an enabled plugin or added custom column, we will add that column.
+			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means an registered column has not been stored.
-			if ( $diff = array_diff( array_keys( $registered_columns ), $stored_types ) ) {
-				foreach ( $diff as $type ) {
-					$columns[ $type ] = clone $registered_columns[ $type ];
+			if( $diff = array_diff( array_keys( $registered_columns ), $stored_names ) ) {
+				foreach( $diff as $name ) {
+					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
 		}
@@ -354,14 +361,13 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Add Headings
 	 *
-	 * @todo: add column headings that could not be stored from some reason.
 	 * @since 2.0.0
 	 */
 	function add_headings( $columns ) {
 
 		global $pagenow;
 
-		// only add headings on overview screens, to prevent turning off columns in the Storage Model.
+		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
 		if ( 'admin.php' == $pagenow )
 			return $columns;
 
@@ -386,11 +392,20 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.
-		// For example when a plugin has been activated.
+		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
 		if ( $diff = array_diff( array_keys( $columns ), array_keys( $stored_columns ) ) ) {
 			foreach ( $diff as $column_name ) {
 				$column_headings[ $column_name ] = $columns[ $column_name ];
+			}
+		}
+
+		// Remove 3rd parthy columns that have been deactivated
+		// while the column settings have not been stored yet.
+		// When $diff contains items, it means stored columns are not available anymore.
+		if ( $diff = array_diff( array_keys( $stored_columns ), array_keys( $this->get_columns() ) ) ) {
+			foreach ( $diff as $column_name ) {
+				unset( $column_headings[ $column_name ] );
 			}
 		}
 
