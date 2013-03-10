@@ -44,6 +44,37 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	}
 
 	/**
+	 * Get display name.
+	 *
+	 * Can also be used by addons.
+	 *
+	 * @since 2.0.0
+	 */
+	public function get_display_name( $user_id ) {
+
+		$name = '';
+
+		if ( ! $userdata = get_userdata( $user_id ) )
+			return false;
+
+		$display_as = $this->options->display_author_as;
+
+		// first check variables in userdata
+		if ( ! empty( $userdata->{$display_as} ) ) {
+			$name = $userdata->{$display_as};
+		}
+
+		elseif ( 'first_last_name' == $display_as ) {
+			$first 	= !empty($userdata->first_name) ? $userdata->first_name : '';
+			$last 	= !empty($userdata->last_name) ? " {$userdata->last_name}" : '';
+			$name 	= $first.$last;
+		}
+
+		return $name;
+	}
+
+
+	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
@@ -53,22 +84,8 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 		$nametypes = $this->get_nametypes();
 		if ( isset( $nametypes[ $this->options->display_author_as ] ) ) {
-
 			if( $author = get_post_field( 'post_author', $post_id ) ) {
-
-				$display_as = $this->options->display_author_as;
-				$userdata 	= get_userdata( $author );
-
-				// first check variables in userdata
-				if ( ! empty( $userdata->{$display_as} ) ) {
-					$value = $userdata->{$display_as};
-				}
-
-				elseif ( 'first_last_name' == $display_as ) {
-					$first 	= !empty($userdata->first_name) ? $userdata->first_name : '';
-					$last 	= !empty($userdata->last_name) ? " {$userdata->last_name}" : '';
-					$value 	= $first.$last;
-				}
+				$value = $this->get_display_name( $author );
 			}
 		}
 

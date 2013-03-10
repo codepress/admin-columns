@@ -258,6 +258,9 @@ class CPAC_Column {
 			}
 		}
 
+		// @todo: santize label for illegal characters. especially the conflicts for sorting headers,
+		// they can not contain ( ':', '//' ) with CAC_Sortable_Model::sanitize_string()
+
 		// used by child classes for additional sanitizing
 		$options = $this->sanitize_options( $options );
 

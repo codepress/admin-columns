@@ -33,8 +33,9 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
+		if ( ! is_sticky( $post_id ) )
+			return false;
 
-
-
+		return $this->get_asset_image( 'checkmark.png' );
 	}
 }

@@ -34,6 +34,9 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
-		return get_post_format( $post_id );
+		if ( ! $format = get_post_format( $post_id ) )
+			return false;
+
+		return esc_html( get_post_format_string( $format ) );
 	}
 }
