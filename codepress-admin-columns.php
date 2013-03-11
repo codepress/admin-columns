@@ -203,24 +203,6 @@ class CPAC {
 	}
 
 	/**
-	 * Sanitize label - Utility Method
-	 *
-	 * Uses intern wordpress function esc_url so it matches the label sorting url.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $string
-	 * @return string Sanitized string
-	 */
-	public function sanitize_string( $string ) {
-		$string = esc_url( $string );
-		$string = str_replace( 'http://','', $string );
-		$string = str_replace( 'https://','', $string );
-
-		return $string;
-	}
-
-	/**
 	 * Add Settings link to plugin page
 	 *
 	 * @since 1.0.0

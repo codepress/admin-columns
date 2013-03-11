@@ -232,33 +232,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Checks if menu type is currently viewed
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $key
-	 * @return bool
-	 */
-	function is_menu_type_current( $key ) {
-
-		// get first element from post-types
-		$first = array_shift( array_values( $this->cpac->get_post_types() ) );
-
-		// display the page that was being viewed before saving
-		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
-			if ( $_REQUEST['cpac_key'] == $this->cpac->sanitize_string( $key ) ) {
-				return true;
-			}
-
-		// settings page has not yet been saved
-		} elseif ( $first == $key ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * External Urls
 	 *
 	 * @since 1.0.0
@@ -290,6 +263,8 @@ class CPAC_Settings {
 	 */
 	public function column_settings() {
 
+		// get first element from post-types
+		$first = array_shift( array_values( $this->cpac->get_post_types() ) );
 	?>
 		<div id="cpac" class="wrap">
 
@@ -300,14 +275,14 @@ class CPAC_Settings {
 				<ul class="subsubsub">
 					<?php $count = 0; ?>
 					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $this->is_menu_type_current( $storage_model->key ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
+					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			</div>
 
 			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 
-			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $this->is_menu_type_current( $storage_model->key ) ? '' : ' style="display:none"'; ?>>
+			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
 				<form method="post" action="">
 
 				<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>

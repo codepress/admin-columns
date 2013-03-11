@@ -45,6 +45,30 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_columns();
 
 	/**
+	 * Checks if menu type is currently viewed
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function is_menu_type_current( $first_posttpe ) {
+
+		// display the page that was being viewed before saving
+		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
+			if ( $_REQUEST['cpac_key'] == $this->key ) {
+				return true;
+			}
+
+		// settings page has not yet been saved
+		} elseif ( $first_posttpe == $this->key ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Maybe add hidden meta - Utility Method
 	 *
 	 * @since 2.0.0

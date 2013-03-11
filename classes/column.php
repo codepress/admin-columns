@@ -75,6 +75,20 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Clone method
+	 *
+	 * An object copy (clone) is created for creating multiple column instances.
+	 *
+	 * @since 2.0.0
+	 */
+	public function __clone() {
+
+        // Force a copy of this->object, otherwise it will point to same object.
+		$this->options 		= clone $this->options;
+		$this->properties 	= clone $this->properties;
+    }
+
+	/**
 	 * Defaults
 	 *
 	 * @since 2.0.0
@@ -265,6 +279,24 @@ class CPAC_Column {
 		$options = $this->sanitize_options( $options );
 
 		return $options;
+	}
+
+	/**
+	 * Sanitize label
+	 *
+	 * Uses intern wordpress function esc_url so it matches the label sorting url.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $string
+	 * @return string Sanitized string
+	 */
+	public function get_sanitized_label() {
+		$string = esc_url( $this->options->label );
+		$string = str_replace( 'http://','', $string );
+		$string = str_replace( 'https://','', $string );
+
+		return $string;
 	}
 
 	/**
@@ -488,7 +520,8 @@ class CPAC_Column {
 
 				// get correct image path
 				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-
+// @todo image size werkt niet.
+echo $image_path;
 				// resize image
 				if ( file_exists( $image_path ) ) {
 
@@ -569,7 +602,7 @@ class CPAC_Column {
 	 * @param string $date
 	 * @return string Formatted date
 	 */
-	protected function get_date( $date ) {
+	protected function get_date( $date, $format = '' ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
 
@@ -583,7 +616,10 @@ class CPAC_Column {
 			$date = strtotime( $date );
 		}
 
-		return date_i18n( get_option( 'date_format' ), $date );
+		if ( ! $format )
+			$format = get_option( 'date_format' );
+
+		return date_i18n( $format, $date );
 	}
 
 	/**
@@ -594,7 +630,7 @@ class CPAC_Column {
 	 * @param string $date
 	 * @return string Formatted time
 	 */
-	protected function get_time( $date ) {
+	protected function get_time( $date, $format = '' ) {
 		if ( ! $date )
 			return false;
 
@@ -602,34 +638,13 @@ class CPAC_Column {
 			$date = strtotime( $date );
 		}
 
-		return date_i18n( get_option( 'time_format' ), $date );
+		if ( ! $format )
+			$format = get_option( 'date_format' );
+
+		return date_i18n( $format, $date );
 	}
 
-	/**
-	 * Get Custom FieldType Options - Value method
-	 *
-	 * @since 2.0.0.0
-	 *
-	 * @return array Customfield types.
-	 */
-	public function get_custom_field_types() {
 
-		$custom_field_types = array(
-			''				=> __( 'Default'),
-			'image'			=> __( 'Image', 'cpac' ),
-			'library_id'	=> __( 'Media Library', 'cpac' ),
-			'excerpt'		=> __( 'Excerpt'),
-			'array'			=> __( 'Multiple Values', 'cpac' ),
-			'numeric'		=> __( 'Numeric', 'cpac' ),
-			'date'			=> __( 'Date', 'cpac' ),
-			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
-			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
-			'checkmark'		=> __( 'Checkmark (true/false)', 'cpac' ),
-			'color'			=> __( 'Color', 'cpac' ),
-		);
-
-		return apply_filters( 'cpac_custom_field_types', $custom_field_types );
-	}
 
 	/**
 	 * Get Title by ID - Value method
@@ -726,64 +741,26 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Display Custom Field
+	 * Display field Date Format
 	 *
 	 * @since 2.0.0
+	 *
+	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
 	 */
-	protected function display_custom_field() {
+	function display_field_date_format( $is_hidden = false ) {
+
+		$field_key		= 'date_format';
+		$label			= __( 'Date Format', 'cpac' );
+		$description	= __( '', 'cpac' );
+
 		?>
-
-		<tr class="column_field">
-			<?php $this->label_view( __( "Custom Field", 'cpac' ), '', 'field' ); ?>
+		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
+			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-
-				<?php if ( $meta_keys = $this->storage_model->get_meta_keys() ) : ?>
-				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
-				<?php foreach ( $meta_keys as $field ) : ?>
-					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden','', $field ) : $field; ?></option>
-				<?php endforeach; ?>
-				</select>
-				<?php else : ?>
-					<?php _e( 'No custom fields available.', 'cpac' ); ?>
-				<?php endif; ?>
-
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"/>
 			</td>
 		</tr>
-
-		<tr class="column_field_type">
-			<?php $this->label_view( __( "Field Type", 'cpac' ), __( 'This will determine how the value will be displayed.', 'cpac' ), 'field_type' ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
-				<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
-					<option value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->options->field_type ) ?>><?php echo $fieldtype; ?></option>
-				<?php endforeach; ?>
-				</select>
-			</td>
-		</tr>
-
-		<?php
-		/**
-		 * Add Preview size
-		 *
-		 */
-		$is_hidden = in_array( $this->options->field_type, array( 'image', 'library_id' ) ) ? false : true;
-
-		$this->display_field_preview_size( $is_hidden );
-		?>
-
-		<tr class="column_before">
-			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>
-			<td class="input">
-				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo $this->options->before; ?>"/>
-			</td>
-		</tr>
-		<tr class="column_after">
-			<?php $this->label_view( __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ), 'after' ); ?>
-			<td class="input">
-				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo $this->options->after; ?>"/>
-			</td>
-		</tr>
-		<?php
+<?php
 	}
 
 	/**
@@ -949,18 +926,4 @@ class CPAC_Column {
 
 		<?php
 	}
-
-	/**
-	 * Clone method
-	 *
-	 * An object copy is created by using the clone keyword which calls the object's __clone() method.
-	 *
-	 * @since 2.0.0
-	 */
-	public function __clone() {
-
-        // Force a copy of this->object, otherwise it will point to same object.
-		$this->options 		= clone $this->options;
-		$this->properties 	= clone $this->properties;
-    }
 }
