@@ -71,6 +71,10 @@ class CPAC_Column {
 	 * @return array Options
 	 */
 	protected function sanitize_options( $options ) {
+
+		if ( isset( $options['date_format'] ) )
+			$options['date_format'] = trim( $options['date_format'] );
+
 		return $options;
 	}
 
@@ -312,7 +316,14 @@ class CPAC_Column {
 		if ( empty( $cache_object ) )
 			return false;
 
-		set_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id, $cache_object );
+		$cache_name = $this->storage_model->key . $this->properties->name . $id;
+
+		if ( strlen( $cache_name ) > 64 ) {
+			trigger_error( 'Cache name too long.' );
+			return false;
+		}
+
+		set_transient( $this->storage_model->key . $this->properties->name . $id, $cache_object );
 	}
 
 	/**
@@ -324,7 +335,7 @@ class CPAC_Column {
 	 * @return false | mixed Returns either false or the cached objects
 	 */
 	function get_cache( $id ) {
-		$cache = get_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id );
+		$cache = get_transient( $this->storage_model->key . $this->properties->name . $id );
 		if( empty( $cache ) )
 			return false;
 
@@ -340,7 +351,7 @@ class CPAC_Column {
 	 */
 	function delete_cache( $id ) {
 
-		delete_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id );
+		delete_transient( $this->storage_model->key . $this->properties->name . $id );
 	}
 
 	/**
@@ -469,7 +480,7 @@ class CPAC_Column {
 	 * @return array Image Sizes
 	 */
 	function get_image_size_by_name( $name = '' ) {
-		if ( ! $name )
+		if ( ! $name || is_array( $name ) )
 			return false;
 
 		global $_wp_additional_image_sizes;
@@ -512,7 +523,6 @@ class CPAC_Column {
 
 		$resized = $dest_file;
 
-
 		return $resized;
 	}
 
@@ -523,13 +533,13 @@ class CPAC_Column {
 	 *
 	 * @param mixed $meta Image files or Image ID's
 	 * @param array $args
-	 * @return string HTML img elements
+	 * @return array HTML img elements
 	 */
-	protected function get_thumbnails( $images, $args = array() ) {
+	public function get_thumbnails( $images, $args = array() ) {
 		if ( empty( $images ) || 'false' == $images )
-			return false;
+			return array();
 
-		$output = '';
+		$thumbnails = array();
 
 		// turn string to array
 		if ( is_string( $images ) ) {
@@ -556,7 +566,6 @@ class CPAC_Column {
 
 			// Image
 			if ( $this->is_image( $value ) ) {
-
 				// get dimensions from image_size
 				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
 					$image_size_w = $sizes['width'];
@@ -571,18 +580,27 @@ class CPAC_Column {
 
 					// try to resize image
 					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$output .= "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
+						$thumbnails[] = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
 					}
 
 					// resizing failed so let's return full image with maxed dimensions
 					else {
-						$output .= "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
+						$thumbnails[] = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
 					}
 				}
 			}
 
 			// Media Attachment
 			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
+
+				// custom image size
+				if ( ! $image_size || 'cpac-custom' == $image_size ) {
+					$width 		= $image_size_w;
+					$height 	= $image_size_h;
+
+					// to make sure wp_get_attachment_image_src() get the image with matching dimensions.
+					$image_size = array( $width, $height );
+				}
 
 				// image attributes
 				$attributes = wp_get_attachment_image_src( $value, $image_size );
@@ -596,20 +614,14 @@ class CPAC_Column {
 					$height	= $sizes['image_size_h'];
 				}
 
-				// custom image size
-				if ( ! $image_size || 'cpac-custom' == $image_size ) {
-					$width 	= $image_size_w;
-					$height = $image_size_h;
-				}
-
 				// maximum dimensions
 				$max = max( array( $width, $height ) );
 
-				$output .= "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$attributes[0]}' alt=''/></span>";
+				$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$attributes[0]}' alt=''/></span>";
 			}
 		}
 
-		return $output;
+		return $thumbnails;
 	}
 
 	/**
@@ -638,14 +650,14 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get date - Value method
+	 * Get timestamp
 	 *
-	 * @since 1.3.1
+	 * @since  2.0.0
 	 *
 	 * @param string $date
 	 * @return string Formatted date
 	 */
-	protected function get_date( $date, $format = '' ) {
+	private function get_timestamp( $date ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
 
@@ -658,6 +670,22 @@ class CPAC_Column {
 		if ( ! is_numeric( $date ) || ( is_numeric( $date ) && strlen( trim( $date ) ) == 8 && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0  ) ) ) {
 			$date = strtotime( $date );
 		}
+
+		return $date;
+	}
+
+	/**
+	 * Get date - Value method
+	 *
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 * @return string Formatted date
+	 */
+	protected function get_date( $date, $format = '' ) {
+
+		if ( ! $date = $this->get_timestamp( $date ) )
+			return false;
 
 		if ( ! $format )
 			$format = get_option( 'date_format' );
@@ -674,14 +702,12 @@ class CPAC_Column {
 	 * @return string Formatted time
 	 */
 	protected function get_time( $date, $format = '' ) {
-		if ( ! $date )
+
+		if( ! $date = $this->get_timestamp( $date ) )
 			return false;
 
-		if ( ! is_numeric( $date ) )
-			$date = strtotime( $date );
-
 		if ( ! $format )
-			$format = get_option( 'date_format' );
+			$format = get_option( 'time_format' );
 
 		return date_i18n( $format, $date );
 	}
@@ -726,8 +752,8 @@ class CPAC_Column {
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"/>
 				<p class="description">
-					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'cpac' ); ?></a><br/>
 					<?php printf( __( 'Leave empty for WordPress date format, change your <a href="%s">default date format here</a>.' , 'cpac' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
+					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'cpac' ); ?></a>
 				</p>
 			</td>
 		</tr>

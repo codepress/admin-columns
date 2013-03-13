@@ -192,12 +192,18 @@ class CPAC {
 	 */
 	public function get_post_types() {
 
-		$post_types = get_post_types( array(
+		$post_types = array();
+
+		if ( post_type_exists( 'post' ) )
+			$post_types['post'] = 'post';
+
+		if ( post_type_exists( 'page' ) )
+			$post_types['page'] = 'page';
+
+		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' 	=> false,
 			'show_ui'	=> true
-		));
-		$post_types['post'] = 'post';
-		$post_types['page'] = 'page';
+		)));
 
 		return apply_filters( 'cpac_get_post_types', $post_types );
 	}

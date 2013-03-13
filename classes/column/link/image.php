@@ -27,7 +27,7 @@ class CPAC_Column_Link_Image extends CPAC_Column {
 
 		$bookmark = get_bookmark( $id );
 
-		return $this->get_thumbnails( $bookmark->link_image );
+		return implode( $this->get_thumbnails( $bookmark->link_image ) );
 	}
 
 	/**

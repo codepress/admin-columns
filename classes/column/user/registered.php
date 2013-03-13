@@ -13,6 +13,8 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 		$this->properties['type']	 = 'column-user_registered';
 		$this->properties['label']	 = __( 'Registered', 'cpac' );
 
+		$this->options['date_format'] = '';
+
 		parent::__construct( $storage_model );
 	}
 
@@ -24,6 +26,15 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 
 		$userdata = get_userdata( $user_id );
 
-		return $userdata->user_registered;
+		return $this->get_date( $userdata->user_registered, $this->options->date_format );
+	}
+
+	/**
+	 * @see CPAC_Column::display_settings()
+	 * @since 2.0.0
+	 */
+	function display_settings() {
+
+		$this->display_field_date_format();
 	}
 }

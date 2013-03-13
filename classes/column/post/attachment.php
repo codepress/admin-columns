@@ -33,7 +33,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 			'fields' 		=> 'ids'
 		));
 
-		return $this->get_thumbnails( $attachment_ids, $this->options );
+		return implode( $this->get_thumbnails( $attachment_ids, $this->options ) );
 	}
 
 	/**

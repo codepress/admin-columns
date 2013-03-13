@@ -21,14 +21,16 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 	}
 
 	/**
-	 * @see CPAC_Column::get_value()
+	 * Get count
+	 *
 	 * @since 2.0.0
 	 */
-	function get_value( $user_id ) {
+	public function get_count( $user_id ) {
+
+		if( ! $user_id )
+			return false;
 
 		global $wpdb;
-
-		$value = '0';
 
 		$sql = "
 			SELECT COUNT(ID)
@@ -38,8 +40,20 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 			AND post_type = %s
 		";
 
-		$count = $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $this->options->post_type ) );
+		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $this->options->post_type ) );
+	}
 
+	/**
+	 * @see CPAC_Column::get_value()
+	 * @since 2.0.0
+	 */
+	public function get_value( $user_id ) {
+
+		global $wpdb;
+
+		$value = '0';
+
+		$count = $this->get_count( $user_id );
 		if ( $count > 0 )
 			$value = "<a href='edit.php?post_type={$this->options->post_type}&author={$user_id}'>{$count}</a>";
 
@@ -54,12 +68,17 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 	 */
 	function display_settings() {
 
-		$ptypes = get_post_types( array(
-			'_builtin'	=> false
-		));
+		$ptypes = array();
 
-		$ptypes['post'] = 'post';
-		$ptypes['page'] = 'page';
+		if ( post_type_exists( 'post' ) )
+			$ptypes['post'] = 'post';
+
+		if ( post_type_exists( 'page' ) )
+			$ptypes['page'] = 'page';
+
+		$ptypes = array_merge( $ptypes, get_post_types( array(
+			'_builtin' 	=> false
+		)));
 
 		// get posttypes and name
 		$post_types = array();
