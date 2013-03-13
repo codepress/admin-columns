@@ -43,21 +43,16 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	}
 
 	/**
-     * Get Meta Keys
+     * Get Meta
      *
 	 * @since 2.0.0.0
 	 *
 	 * @return array
      */
-    public function get_meta_keys() {
+    public function get_meta() {
         global $wpdb;
 
-		$fields = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
-
-		if ( is_wp_error( $fields ) )
-			$fields = false;
-
-		return apply_filters( "cpac_get_meta_keys_{$this->key}", $this->maybe_add_hidden_meta( $fields ), $this->key );
+		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
     }
 
 	/**

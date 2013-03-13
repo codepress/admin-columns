@@ -254,6 +254,7 @@ tr.column_image_size.hidden {
 }
 .column-form tr td.label {
 	background: #F9F9F9;
+	background: #f5f5f5;
     border-right: 1px solid #E1E1E1;
     vertical-align: top;
     width: 34%;
@@ -301,6 +302,10 @@ tr.column_image_size.hidden {
 }
 .column-form tr td.input label {
 	padding-right: 10px;
+}
+.column-form tr td.input p.description {
+	margin-top: 4px;
+	color: #666666;
 }
 .column-form a.help {
 	vertical-align: middle;

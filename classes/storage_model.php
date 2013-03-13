@@ -69,31 +69,64 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Maybe add hidden meta - Utility Method
+     * Get Meta Keys
+     *
+	 * @since 2.0.0.0
+	 *
+	 * @return array
+     */
+    public function get_meta_keys( $add_hidden_meta = false ) {
+        global $wpdb;
+
+        $keys = array();
+
+		$fields = $this->get_meta();
+
+		if ( is_wp_error( $fields ) || empty( $fields ) )
+			$keys = false;
+
+		if ( $fields ) {
+			foreach ( $fields as $field ) {
+
+				// give hidden fields a prefix for identifaction
+				if ( $add_hidden_meta && "_" == substr( $field[0], 0, 1 ) ) {
+					$keys[] = 'cpachidden' . $field[0];
+				}
+
+				// non hidden fields are saved as is
+				elseif ( "_" != substr( $field[0], 0, 1 ) ) {
+					$keys[] = $field[0];
+				}
+			}
+		}
+
+		return apply_filters( "cpac_get_meta_keys_{$this->key}", $keys, $this );
+    }
+
+	/**
+	 * Add hidden meta - Utility Method
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param array $fields Custom fields.
 	 * @return array Custom fields.
 	 */
-	protected function maybe_add_hidden_meta( $fields ) {
+	protected function add_hidden_meta( $fields ) {
 		if ( ! $fields )
 			return false;
 
 		$combined_fields = array();
 
-		$use_hidden_meta = apply_filters( 'cpac_use_hidden_custom_fields', false );
-
 		// filter out hidden meta fields
 		foreach ( $fields as $field ) {
 
 			// give hidden fields a prefix for identifaction
-			if ( $use_hidden_meta && substr( $field[0], 0, 1 ) == "_") {
+			if ( "_" == substr( $field[0], 0, 1 ) ) {
 				$combined_fields[] = 'cpachidden'.$field[0];
 			}
 
 			// non hidden fields are saved as is
-			elseif ( substr( $field[0], 0, 1 ) != "_" ) {
+			elseif ( "_" != substr( $field[0], 0, 1 ) ) {
 				$combined_fields[] = $field[0];
 			}
 		}
@@ -310,7 +343,7 @@ abstract class CPAC_Storage_Model {
 		// Stored columns
 		if ( $stored_columns ) {
 
-			$stored_types = array();
+			$stored_names = array();
 
 			foreach ( $stored_columns as $name => $options ) {
 

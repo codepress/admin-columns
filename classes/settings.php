@@ -26,7 +26,7 @@ class CPAC_Settings {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
-		add_action( 'admin_init', array( $this, 'handle_requests' ), 1000 );
+		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
 	}
 
 	/**
@@ -50,6 +50,9 @@ class CPAC_Settings {
 		add_action( "admin_print_scripts-{$columns_page}", array( $this, 'admin_scripts' ) );
 		add_action( "admin_print_styles-{$settings_page}", array( $this, 'admin_styles' ) );
 		add_action( "admin_print_scripts-{$settings_page}", array( $this, 'admin_scripts' ) );
+
+		// register setting
+		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 	}
 
 	/**
@@ -87,11 +90,11 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Handle requests.
+	 * Handle column requests.
 	 *
 	 * @since 1.0.0
 	 */
-	public function handle_requests() {
+	public function handle_column_request() {
 
 		// only handle updates from the admin columns page
 		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
@@ -416,25 +419,27 @@ class CPAC_Settings {
 		<table class="form-table cpac-form-table">
 			<tbody>
 
-				<?php
-
-				/** See do_settings_groups() for the actual hooks for addings settings fields. */
-				$this->do_settings_groups();
-
-				?>
-
-				<!--
+				<?php if ( has_action( 'cpac_general_settings' ) ): ?>
 				<tr class="general">
 					<th scope="row">
 						<h3><?php _e( 'General Settings', 'cpac' ); ?></h3>
+						<p><?php _e( 'Customize your Admin Columns settings.', 'cpac' ); ?></p>
 					</th>
-					<td>
+					<td class="padding-22">
 						<div class="cpac_general">
-							<form method="post" action=""></form>
+							<form method="post" action="options.php">
+								<?php settings_fields( 'cpac-general-settings' ); ?>
+
+								<?php do_action( 'cpac_general_settings', get_option( 'cpac_general_options' ) ); ?>
+
+								<p>
+									<input type="submit" class="button-primary" value="<?php _e( 'Save' ); ?>" />
+								</p>
+							</form>
 						</div>
 					</td>
-				</tr>
-				-->
+				</tr><!--.general-->
+				<?php endif; ?>
 
 				<tr class="export">
 					<th scope="row">
@@ -522,6 +527,13 @@ class CPAC_Settings {
 					</td>
 				</tr><!--.restore-->
 
+				<?php
+
+				/** See do_settings_groups() for the actual hooks for addings settings fields. */
+				$this->do_settings_groups();
+
+				?>
+
 			</tbody>
 		</table>
 
@@ -533,7 +545,7 @@ class CPAC_Settings {
 	/**
 	 * Add settings groups
 	 *
-	 * Plugins can add table rows to the settings page.
+	 * Allow plugins to add their own custom settings to the settings page.
 	 *
 	 * @since 2.0.0
 	 */

@@ -300,6 +300,50 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Set cache objects
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param $id Cache ID
+	 * @param $cache_object Cache Object
+	 */
+	function set_cache( $id, $cache_object ) {
+
+		if ( empty( $cache_object ) )
+			return false;
+
+		set_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id, $cache_object );
+	}
+
+	/**
+	 * Get cache objects
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param $id Cache ID ( could be a name of an addon for example )
+	 * @return false | mixed Returns either false or the cached objects
+	 */
+	function get_cache( $id ) {
+		$cache = get_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id );
+		if( empty( $cache ) )
+			return false;
+
+		return $cache;
+	}
+
+	/**
+	 * Delete cache objects
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param $id Cache ID
+	 */
+	function delete_cache( $id ) {
+
+		delete_transient( 'cpac_cache_' . $this->storage_model->key . '_' . $this->properties->name . '_' . $id );
+	}
+
+	/**
 	 * Shorten URL - Value method
 	 *
 	 * @since 1.3.1
@@ -317,6 +361,7 @@ class CPAC_Column {
 	 * @since 1.3
 	 */
 	protected function strip_trim( $string ) {
+
 		return trim( strip_tags( $string ) );
 	}
 
@@ -514,25 +559,24 @@ class CPAC_Column {
 
 				// get dimensions from image_size
 				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$image_size_w = $sizes['image_size_w'];
-					$image_size_h = $sizes['image_size_w'];
+					$image_size_w = $sizes['width'];
+					$image_size_h = $sizes['height'];
 				}
 
 				// get correct image path
 				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-// @todo image size werkt niet.
-echo $image_path;
+
 				// resize image
-				if ( file_exists( $image_path ) ) {
+				if ( is_file( $image_path ) ) {
 
 					// try to resize image
 					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$output = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
+						$output .= "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) .  "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
 					}
 
 					// resizing failed so let's return full image with maxed dimensions
 					else {
-						$output = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
+						$output .= "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
 					}
 				}
 			}
@@ -577,8 +621,7 @@ echo $image_path;
 	 * @param array $pieces
 	 * @return string Imploded array
 	 */
-	protected function recursive_implode( $glue, $pieces )
-	{
+	protected function recursive_implode( $glue, $pieces ) {
 		foreach( $pieces as $r_pieces )	{
 			if ( is_array( $r_pieces ) ) {
 				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
@@ -634,89 +677,13 @@ echo $image_path;
 		if ( ! $date )
 			return false;
 
-		if ( ! is_numeric( $date ) ) {
+		if ( ! is_numeric( $date ) )
 			$date = strtotime( $date );
-		}
 
 		if ( ! $format )
 			$format = get_option( 'date_format' );
 
 		return date_i18n( $format, $date );
-	}
-
-
-
-	/**
-	 * Get Title by ID - Value method
-	 *
-	 * @since 1.3.0
-	 *
-	 * @param string $meta
-	 * @return string Titles
-	 */
-	private function get_titles_by_id( $meta ) {
-		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ','', $meta ) );
-		// var
-		$ids = $titles = array();
-
-		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false )
-			$ids = explode( ',', $meta );
-		elseif ( is_numeric( $meta ) )
-			$ids[] = $meta;
-
-		// display title with link
-		if ( $ids && is_array( $ids ) ) {
-			foreach ( $ids as $id ) {
-				$title = is_numeric( $id ) ? get_the_title( $id ) : '';
-				$link  = get_edit_post_link( $id );
-				if ( $title )
-					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
-			}
-		}
-
-		return implode('<span class="cpac-divider"></span>', $titles);
-	}
-
-	/**
-	 * Get Users by ID - Value method
-	 *
-	 * @since 1.4.6.3
-	 *
-	 * @param string $meta
-	 * @return string Users
-	 */
-	protected function get_users_by_id( $meta )
-	{
-		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
-
-		// var
-		$ids = $names = array();
-
-		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false ) {
-			$ids = explode( ',',$meta );
-		}
-		elseif ( is_numeric( $meta ) ) {
-			$ids[] = $meta;
-		}
-
-		// display username
-		if ( $ids && is_array( $ids ) ) {
-			foreach ( $ids as $id ) {
-				if ( ! is_numeric( $id ) )
-					continue;
-
-				$userdata = get_userdata( $id );
-				if ( is_object( $userdata ) && ! empty( $userdata->display_name ) ) {
-					$names[] = $userdata->display_name;
-				}
-			}
-		}
-
-		return implode( '<span class="cpac-divider"></span>', $names );
 	}
 
 	/**
@@ -751,13 +718,17 @@ echo $image_path;
 
 		$field_key		= 'date_format';
 		$label			= __( 'Date Format', 'cpac' );
-		$description	= __( '', 'cpac' );
+		$description	= __( 'This will determine how the date will be displayed.', 'cpac' );
 
 		?>
 		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"/>
+				<p class="description">
+					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'cpac' ); ?></a><br/>
+					<?php printf( __( 'Leave empty for WordPress date format, change your <a href="%s">default date format here</a>.' , 'cpac' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
+				</p>
 			</td>
 		</tr>
 <?php
