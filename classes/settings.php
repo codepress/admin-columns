@@ -433,7 +433,7 @@ class CPAC_Settings {
 								<?php do_action( 'cpac_general_settings', get_option( 'cpac_general_options' ) ); ?>
 
 								<p>
-									<input type="submit" class="button-primary" value="<?php _e( 'Save' ); ?>" />
+									<input type="submit" class="button" value="<?php _e( 'Save' ); ?>" />
 								</p>
 							</form>
 						</div>
@@ -445,7 +445,7 @@ class CPAC_Settings {
 					<th scope="row">
 						<h3><?php _e( 'Export Settings', 'cpac' ); ?></h3>
 						<p><?php _e( 'Pick the types for export from the left column. Click export to download your column settings.', 'cpac' ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-export-instructions-html"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-export-instructions-html" data-pos="right"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
 						<div id="cpac-export-instructions-html" style="display:none;">
 							<h3><?php _e( 'Export Columns Types', 'cpac' ); ?></h3>
 							<p><?php _e( 'Instructions', 'cpac' ); ?></p>
@@ -491,7 +491,7 @@ class CPAC_Settings {
 					<th scope="row">
 						<h3><?php _e( 'Import Settings', 'cpac' ); ?></h3>
 						<p><?php _e( 'Copy and paste your import settings here.', 'cpac' ); ?></p>
-						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
+						<p><a href="javascript:;" class="cpac-pointer" rel="cpac-import-instructions-html" data-pos="right"><?php _e( 'Instructions', 'cpac' ); ?></a></p>
 						<div id="cpac-import-instructions-html" style="display:none;">
 							<h3><?php _e( 'Import Columns Types', 'cpac' ); ?></h3>
 							<p><?php _e( 'Instructions', 'cpac' ); ?></p>

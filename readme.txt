@@ -253,11 +253,13 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Updated] Menu will only display posttypes which have show_ui set to true
 * [Added] Added settings import/export
 * [Added] Media column: Available_Sizes
-* [Added] Addon for filtering for Custom Fields and Taxonomies
-* [Added] Default sorting for Users
+* [Added] Default sorting for Users, Comments, Media
 * [Removed] Comment column: Actions
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Removed] Custom fields support ( now available as a paid addon )
+* [Addon] Sorting add-on: Added sorting for comment meta data
+* [Addon] Custom Field add-on: Added setting to display hidden custom fields
+* [Addon] Filtering add-on: Added Posts filtering
 
 = 1.4.8 =
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu

@@ -566,6 +566,7 @@ class CPAC_Column {
 
 			// Image
 			if ( $this->is_image( $value ) ) {
+
 				// get dimensions from image_size
 				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
 					$image_size_w = $sizes['width'];

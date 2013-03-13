@@ -212,7 +212,8 @@ function cpac_pointer()
 
 		// vars
 		var el		= jQuery(this),
-			html	= el.attr('rel');
+			html	= el.attr('rel'),
+			pos		= el.attr('data-pos');
 
 		var position = {
 			at:		'left top',		// position of wp-pointer relative to the element which triggers the pointer event
@@ -220,6 +221,14 @@ function cpac_pointer()
 			edge:	'right',		// position of arrow
 			offset: '0 0'			// offset for wp-pointer
 		};
+
+		if ( 'right' == pos ) {
+			position = {
+				at: 	'right middle',
+				my:		'left middle',
+				edge:	'left'
+			};
+		}
 
 		// create pointer
 		el.pointer({

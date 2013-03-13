@@ -20,7 +20,7 @@ class CPAC_Column_Media_File_Name extends CPAC_Column {
 	 */
 	function get_value( $id ) {
 
-		$file 		= get_post_meta( $id, '_wp_attached_file', true );
+		$file 		= wp_get_attachment_url( $id );
 		$filename 	= basename( $file );
 
 		return "<a title='{$filename}' href='{$file}'>{$filename}</a>";
