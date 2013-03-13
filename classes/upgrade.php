@@ -11,8 +11,8 @@ class CPAC_Upgrade {
 
 	function __construct() {
 
-		// DEV
-		update_option( 'cpac_version', '1.0.0' );
+		// @todo: remove!
+		// update_option( 'cpac_version', '1.0.0' );
 
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );

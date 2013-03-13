@@ -247,14 +247,20 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 = 2.0.0 =
+* [Notice!!] Custom Fields has been removed ( now available as a paid addon )
+* [Notice!!] Database needs an update, make sure to backup first!
+* [Notice!!] Some filters and hooks have been changed, check documentation.
+*
 * [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design
 * [Updated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
-* [Updated] Menu will only display posttypes which have show_ui set to true
-* [Added] Added settings import/export
-* [Added] Media column: Available_Sizes
+* [Updated] Columns menu will only display posttypes which have show_ui set to true
+* [Updated] Admin Columns Menu will appear as a top level menu in the dashboard menu
+* [Added] Added settings page.
+* [Added] Added import/export capabilities
+* [Added] Column: Available_Sizes for media
 * [Added] Default sorting for Users, Comments, Media
-* [Removed] Comment column: Actions
+* [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Removed] Custom fields support ( now available as a paid addon )
 * [Addon] Sorting add-on: Added sorting for comment meta data
