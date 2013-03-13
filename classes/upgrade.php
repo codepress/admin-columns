@@ -257,6 +257,18 @@ class CPAC_Upgrade {
 
 								// add to column set
 								$columns[ $name ] = $settings;
+
+								// reorder so that active column are at the top of the pile.
+								$active = $inactive = array();
+								foreach ( $columns as $name => $_settings ) {
+									if ( 'on' === $_settings['state'] ) {
+										$active[ $name ] = $_settings;
+									}
+									else {
+										$inactive[ $name ] = $_settings;
+									}
+								}
+								$columns = array_merge( $active, $inactive );
 							}
 
 							update_option( "cpac_options_{$storage_key}", $columns );

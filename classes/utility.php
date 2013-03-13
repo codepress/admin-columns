@@ -8,10 +8,9 @@
  * @param string $type Update Type.
  */
 function cpac_admin_message( $message = '', $type = 'updated' ) {
-	$GLOBALS['cpac_message']	  = $message;
-	$GLOBALS['cpac_message_type'] = $type;
+	$GLOBALS['cpac_messages'][] = '<div class="' . $type . '" id="message"><p>' . $message . '</p></div>';
 
-	add_action('admin_notices', 'cpac_admin_notice' );
+	add_action( 'admin_notices', 'cpac_admin_notice' );
 }
 
 /**
@@ -24,5 +23,5 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  * @return string Message.
  */
 function cpac_admin_notice() {
-    echo '<div class="' . $GLOBALS['cpac_message_type'] . '" id="message"><p>' . $GLOBALS['cpac_message'] . '</p></div>';
+    echo implode( $GLOBALS['cpac_messages'] );
 }

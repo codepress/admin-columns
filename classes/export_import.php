@@ -38,6 +38,9 @@ class CPAC_Export_Import {
 		// get stored columns
 		foreach ( $this->cpac->storage_models as $storage_model ) {
 
+			if ( ! in_array( $storage_model->key, $types ) )
+				continue;
+
 			$columns[ $storage_model->key ] = $storage_model->get_stored_columns();
 		}
 
