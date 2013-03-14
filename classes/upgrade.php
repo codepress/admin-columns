@@ -11,7 +11,7 @@ class CPAC_Upgrade {
 
 	function __construct() {
 
-		// @todo: remove!
+		// @todo: dev only
 		// update_option( 'cpac_version', '1.0.0' );
 
 		// run upgrade based on version
@@ -43,7 +43,7 @@ class CPAC_Upgrade {
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
-			'complete'		=> __( 'Upgrade Complete!', 'cpac' ),
+			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('admin.php')  . '?page=codepress-admin-columns">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
 			'error'			=> __( 'Error', 'cpac' ),
 			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
 		));
@@ -93,11 +93,11 @@ class CPAC_Upgrade {
 
 				update_option( 'cpac_version', CPAC_VERSION );
 			}
-
 		}
 
 		// Fresh install
 		else {
+
 			update_option( 'cpac_version', CPAC_VERSION );
 		}
 	}
@@ -119,7 +119,7 @@ class CPAC_Upgrade {
 		$version = $_POST['version'];
 
 		// versions
-		switch( $version ) {
+		switch ( $version ) {
 
 			case '2.0.0' :
 
@@ -244,8 +244,10 @@ class CPAC_Upgrade {
 								}
 								// is custom field?
 								elseif ( strpos( $old_column_name, 'column-meta-' ) !== false ) {
+
 									$settings['type']  = 'column-meta';
-									$settings['clone'] = str_replace( 'column-meta-', '', $old_column_name );
+									//$settings['clone'] = str_replace( 'column-meta-', '', $old_column_name );
+									$settings['clone'] = $meta_count;
 
 									$name = $meta_count ? $settings['type'] . '-' . $settings['clone'] : $settings['type'];
 									$meta_count++;
@@ -271,7 +273,9 @@ class CPAC_Upgrade {
 								$columns = array_merge( $active, $inactive );
 							}
 
-							update_option( "cpac_options_{$storage_key}", $columns );
+							// store column settings
+							if ( ! get_option( "cpac_options_{$storage_key}" ) )
+								update_option( "cpac_options_{$storage_key}", $columns );
 						}
 					}
 				}
@@ -286,7 +290,6 @@ class CPAC_Upgrade {
 			    );
 
 			break;
-
 		}
 
 		// return json

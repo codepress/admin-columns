@@ -57,12 +57,11 @@ class CPAC_Addons {
 	 */
 	function get_feed() {
 
-		// @todo: add live domain
+		// @todo: uncomment live domain
 		$url = 'http://codepress.lan/admincolumns';
+		//$url = 'http://www.admincolumns.com';
 
-		$feed = get_transient( 'cpac_addons_feed' );
-
-		if ( ! $feed ) {
+		if ( ! $feed = get_transient( 'cpac_addons_feed' ) ) {
 
 			$feed = '<div class="error"><p>' . __( 'There was an error retrieving the extensions list from the server. Please try again later.', 'cpac' ) . '</div>';
 

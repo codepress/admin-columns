@@ -248,8 +248,8 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 = 2.0.0 =
 * [Notice!!] Custom Fields has been removed ( now available as a paid addon )
-* [Notice!!] Database needs an update, make sure to backup first!
-* [Notice!!] Some filters and hooks have been changed, check documentation.
+* [Notice!!] Database needs an update, make sure to backup first
+* [Notice!!] Some filters and hooks have been changed, see online documentation
 *
 * [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design
@@ -263,6 +263,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Removed] Custom fields support ( now available as a paid addon )
+* [Fixed] Issue: Sorting was not working when label contains the ':' character
 * [Addon] Sorting add-on: Added sorting for comment meta data
 * [Addon] Custom Field add-on: Added setting to display hidden custom fields
 * [Addon] Filtering add-on: Added Posts filtering

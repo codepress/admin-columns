@@ -276,8 +276,11 @@ class CPAC_Column {
 			}
 		}
 
-		// @todo: santize label for illegal characters. especially the conflicts for sorting headers,
-		// they can not contain ( ':', '//' ) with CAC_Sortable_Model::sanitize_string()
+		// Label can not contains the character ':', because
+		// CPAC_Column::get_sanitized_label() will return an empty string
+		if ( ! empty( $options['label'] ) ) {
+			$options['label'] = str_replace( ':', '', trim( $options['label'] ) );
+		}
 
 		// used by child classes for additional sanitizing
 		$options = $this->sanitize_options( $options );
@@ -297,8 +300,8 @@ class CPAC_Column {
 	 */
 	public function get_sanitized_label() {
 		$string = esc_url( $this->options->label );
-		$string = str_replace( 'http://','', $string );
-		$string = str_replace( 'https://','', $string );
+		$string = str_replace( 'http://', '', $string );
+		$string = str_replace( 'https://', '', $string );
 
 		return $string;
 	}
@@ -748,7 +751,7 @@ class CPAC_Column {
 		$description	= __( 'This will determine how the date will be displayed.', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
+		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"/>
@@ -775,7 +778,7 @@ class CPAC_Column {
 		$description	= __( 'Number of words', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
+		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
@@ -797,7 +800,7 @@ class CPAC_Column {
 		$label			= __( 'Preview size', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?><?php echo $is_hidden ? ' hidden' : ''; ?>">
+		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
 
 			<?php $this->label_view( $label, '', $field_key ); ?>
 

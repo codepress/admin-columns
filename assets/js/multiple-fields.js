@@ -38,8 +38,8 @@ function cpac_cloning() {
 		}
 
 		// create a clone and set new id
-		var clone = all_columns.find( '.cpac-box-' + type + '[data-clone=""]' ).clone( true ).attr( 'data-clone', id );
-console.log( clone );
+		var clone = all_columns.find( '.cpac-box-' + type + '[data-clone=""]' ).clone().attr( 'data-clone', id );
+
 		// replace column identifier
 		var inputs = jQuery( clone ).find( 'input, select, label' );
 		jQuery( inputs ).each( function( i, v ) {
@@ -81,6 +81,9 @@ console.log( clone );
 		// add click event
 		clone.find( '.remove-button' ).cpac_remove_button();
 
+		// rebind events
+		clone.cpac_form_events();
+
 		// add clone to columns
 		all_columns.append( clone );
 
@@ -100,7 +103,7 @@ console.log( clone );
  */
 jQuery.fn.cpac_remove_button = function() {
 
-	jQuery( this ).click( function(e) {
+	jQuery(this).click( function(e) {
 
 		var el = jQuery( this ).closest( 'div.cpac-column' );
 

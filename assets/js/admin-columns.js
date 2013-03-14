@@ -224,7 +224,7 @@ function cpac_pointer()
 
 		if ( 'right' == pos ) {
 			position = {
-				at: 	'right middle',
+				at:		'right middle',
 				my:		'left middle',
 				edge:	'left'
 			};
