@@ -75,11 +75,52 @@ a.help {
 .cpac-boxes form {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.ui-sortable-helper {
+	-webkit-box-shadow:  1px 3px 6px 0px rgba(1, 1, 1, 0.4);
+	box-shadow:  1px 3px 6px 0px rgba(1, 1, 1, 0.4);
+}
+.ui-sortable-helper .column-meta {
+	border-width: 1px;
+}
 .cpac-placeholder {
-	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-	background: rgba(0,0,0,0.075);
 	visibility: visible !important;
 }
+
+/* @todo: placeholder styling v2 */
+
+.cpac-placeholder {
+	border-top: 1px solid #dfdfdf;
+	padding: 5px 4px 7px 0;
+}
+.cpac-placeholder .inner-placeholder {
+	border: 1px dashed #808080;
+	background: #eee;
+	width: 100%;
+	height: 100%;
+}
+.cpac-columns .cpac-placeholder:first-child {
+	border: none;
+}
+
+/* placeholder styling v1 */
+
+/*
+.cpac-placeholder {
+	visibility: visible !important;
+	background: transparent url('../images/border.png') repeat 0 0;
+	padding: 2px;
+}
+.cpac-placeholder .inner-placeholder {
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+	background: #ededed;
+	width: 100%;
+	height: 100%;
+}
+.ui-sortable-helper .column-meta {
+	border-width: 1px;
+}
+*/
+
 
 /* =Column Header
 -------------------------------------------------------------- */

@@ -96,7 +96,7 @@ class CPAC_Addons {
 					<th scope="row">
 						<h3><?php _e( 'Add-ons for Admin Columns', 'cpac' ); ?></h3>
 						<p><?php _e( 'These add-ons extend the functionality of Admin Columns.', 'cpac' ); ?></p>
-						<a href="http://admincolumns.com/addons/?ref=1" class="button-primary" title="<?php _e( 'Browse All Add-ons', 'edd' ); ?>" target="_blank"><?php _e( 'Browse all Add-ons', 'cpac' ); ?></a>
+						<a href="http://www.admincolumns.com/addons/?ref=1" class="button-primary" title="<?php _e( 'Browse All Add-ons', 'cpac' ); ?>" target="_blank"><?php _e( 'Browse all Add-ons', 'cpac' ); ?></a>
 					</th>
 					<td>
 						<ul class="addons">

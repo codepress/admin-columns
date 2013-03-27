@@ -3,7 +3,7 @@
 /**
  * Upgrade
  *
- * Class largely based on code from Elliot Condon ( props goes to him )
+ * Class largely based on code from ACF ( thanks to Elliot Condon )
  *
  * @since 2.0.0
  */

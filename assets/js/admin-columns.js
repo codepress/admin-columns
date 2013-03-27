@@ -2,8 +2,8 @@
  *	Fires when the dom is ready
  *
  */
-jQuery(document).ready(function()
-{
+jQuery(document).ready(function() {
+
 	if ( jQuery('#cpac').length === 0 )
 		return false;
 
@@ -124,12 +124,16 @@ jQuery.fn.cpac_form_events = function() {
  *
  * @since 1.5
  */
-function cpac_sortable()
-{
+function cpac_sortable() {
 	jQuery('.cpac-columns').sortable({
+		revert					: 250,
 		handle					: 'td.column_sort',
 		placeholder				: 'cpac-placeholder',
-		forcePlaceholderSize	: true
+		forcePlaceholderSize	: true,
+		sort: function(e,ui){
+			if ( jQuery(ui.placeholder).is(':empty') )
+				jQuery(ui.placeholder).html('<div class="inner-placeholder"></div>');
+		}
 	});
 }
 
@@ -138,8 +142,7 @@ function cpac_sortable()
  *
  * @since 1.5
  */
-function cpac_menu()
-{
+function cpac_menu() {
 	// click
 	jQuery('#cpac .cpac-menu a').click( function(e, el) {
 
@@ -166,8 +169,7 @@ function cpac_menu()
  *	Clear Input Defaults
  *
  */
-function cpac_clear_input_defaults()
-{
+function cpac_clear_input_defaults() {
 	jQuery.fn.cleardefault = function() {
 		return this.focus(function() {
 			if( this.value == this.defaultValue ) {
@@ -187,8 +189,7 @@ function cpac_clear_input_defaults()
  *
  * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
  */
-function cpac_help()
-{
+function cpac_help() {
 	jQuery('#cpac a.help').click( function(e) {
 		e.preventDefault();
 
@@ -206,8 +207,7 @@ function cpac_help()
  * WP Pointer
  *
  */
-function cpac_pointer()
-{
+function cpac_pointer() {
 	jQuery('.cpac-pointer').each(function(){
 
 		// vars
@@ -271,8 +271,7 @@ function cpac_pointer()
  *
  * @since 1.5
  */
-function cpac_sidebar_scroll()
-{
+function cpac_sidebar_scroll() {
 	var msie6 = jQuery.browser == 'msie' && jQuery.browser.version < 7;
 
 	if (!msie6 && jQuery('.columns-right-inside').length !== 0 ) {
@@ -304,8 +303,7 @@ function cpac_sidebar_scroll()
  *
  * @since 1.5
  */
-function cpac_export_multiselect()
-{
+function cpac_export_multiselect() {
 	if( jQuery('#cpac_export_types').length === 0 )
 		return;
 
@@ -326,8 +324,7 @@ function cpac_export_multiselect()
  *
  * @since 1.5
  */
-function cpac_import()
-{
+function cpac_import() {
 	var container = jQuery('#cpac_import_input');
 
 	jQuery('#upload', container).change(function () {
