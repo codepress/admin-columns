@@ -93,7 +93,7 @@ class CPAC_Column {
     }
 
 	/**
-	 * Defaults
+	 * Constructor
 	 *
 	 * @since 2.0.0
 	 *
@@ -105,14 +105,14 @@ class CPAC_Column {
 
 		// every column contains these default properties
 		$default_properties = array(
+			'clone'				=> null,	// Unique clone ID
 			'type'				=> null,  	// Unique type
 			'name'				=> null,  	// Unique name
-			'clone'				=> null,	// Unique clone ID
 			'label'				=> null,  	// Label which describes this column.
 			'classes'			=> null,	// Custom CSS classes for this column.
 			'hide_label'		=> false,	// Should the Label be hidden?
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
-			'is_cloneable'		=> false,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
+			'is_cloneable'		=> true,	// Should the column be cloneable
 		);
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -228,6 +228,7 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function attr_name( $field_name ) {
+
 		echo "columns[{$this->properties->name}][{$field_name}]";
 	}
 
@@ -326,7 +327,7 @@ class CPAC_Column {
 			return false;
 		}
 
-		set_transient( $this->storage_model->key . $this->properties->name . $id, $cache_object );
+		set_transient( $cache_name, $cache_object );
 	}
 
 	/**
@@ -834,6 +835,113 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 */
 	public function display() {
+
+		// classes
+		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes ) ) );
+
+		?>
+
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>" data-clone="<?php echo $this->properties->clone; ?>" >
+
+			<input type="hidden" class="type"  name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>" />
+			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>" />
+			<input type="hidden" class="state" name="<?php echo $this->attr_name( 'state' ); ?>" value="<?php echo $this->options->state; ?>" />
+
+			<div class="column-meta">
+				<table class="widefat">
+					<tbody>
+						<tr>
+							<td class="column_sort"></td>
+							<td class="column_label">
+								<div class="inner">
+									<div class="meta">
+									<?php do_action( 'cpac_column_label_meta', $this ); ?>
+									</div>
+									<a href="javascript:;">
+										<?php echo stripslashes( $this->options->label ); ?>
+									</a>
+								</div>
+							</td>
+							<td class="column_type">
+								<div class="inner">
+									<?php echo stripslashes( $this->properties->label ); ?>
+								</div>
+							</td>
+							<td class="column_edit"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!--.column-meta-->
+
+			<div class="column-form">
+				<table class="widefat">
+					<tbody>
+
+						<tr class="column_type">
+							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ), 'type' ); ?>
+							<td class="input">
+								<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
+									<?php foreach ( $this->storage_model->get_registered_columns() as $column ) : ?>
+									<?php $label = 0 === strlen( strip_tags( $column->properties->label ) ) ? ucfirst( $column->properties->type ) : $column->properties->label; ?>
+									<option value="<?php echo $column->properties->type ?>"<?php selected( $this->properties->type, $column->properties->type ) ?>><?php echo $label; ?></option>
+								<?php endforeach; ?>
+							</select>
+							</td>
+						</tr><!--.column_label-->
+
+						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
+							<?php $this->label_view( __( 'Label', 'cpac' ), __( 'This is the name which will appear as the column header.', 'cpac' ), 'label' ); ?>
+							<td class="input">
+								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo htmlspecialchars( stripslashes( $this->options->label ) ); ?>" />
+							</td>
+						</tr><!--.column_label-->
+
+						<tr class="column_width">
+							<?php $this->label_view( __( 'Width', 'cpac' ), '', 'width' ); ?>
+							<td class="input">
+								<div class="description width-decription" title="<?php _e( 'default', 'cpac' ); ?>">
+									<?php echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', 'cpac' ); ?>
+								</div>
+								<div class="input-width-range"></div>
+								<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />
+
+							</td>
+						</tr><!--.column_width-->
+
+						<?php do_action( 'cpac_before_column_settings', $this ); ?>
+
+						<?php
+						/**
+						 * Load specific column settings.
+						 *
+						 */
+						$this->display_settings();
+						?>
+
+						<?php do_action( 'cpac_after_column_settings', $this ); ?>
+
+						<tr class="column_action">
+							<td colspan="2">
+								<p><a href="javascript:;" class="remove-button"><?php _e( 'Remove' );?></a></p>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div><!--.column-form-->
+		</div><!--.cpac-column-->
+		<?php
+
+	}
+
+
+	/**
+	 * Display
+	 *
+	 * @todo: REMOVE
+	 * @since 2.0.0
+	 */
+	public function ____display() {
 
 		// classes
 		$active 	= 'on' == $this->options->state ? 'active' : '';

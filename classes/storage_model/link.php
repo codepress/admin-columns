@@ -8,6 +8,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function __construct() {
+		parent::__construct();
 
 		$this->key 		= 'wp-links';
 		$this->label 	= __( 'Links' );

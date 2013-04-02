@@ -301,16 +301,16 @@ class CPAC_Settings {
 					<div class="columns-right-inside">
 						<div class="sidebox" id="form-actions">
 							<h3>
-								<?php _e( 'Publish', 'cpac' ) ?>
+								<?php _e( 'Store settings', 'cpac' ) ?>
 							</h3>
+							<div class="form-update">
+								<input type="hidden" name="cpac_action" value="update_by_type" />
+								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update' ) ?>" accesskey="u" >
+							</div>
 							<div class="form-reset">
 								<a href="<?php echo add_query_arg( array( 'page' => 'codepress-admin-columns', '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
 									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 								</a>
-							</div>
-							<div class="form-update">
-								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update' ) ?>" accesskey="u" >
 							</div>
 						</div><!--form-actions-->
 
@@ -350,30 +350,19 @@ class CPAC_Settings {
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
 
-							<?php $storage_model->render(); ?>
+							<?php
+							foreach ( $storage_model->get_columns() as $column ) {
+								$column->display();
+							}
+							?>
 
 						</div><!--.cpac-columns-->
 
 						<div class="column-footer">
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
 
-							<?php
-							$buttons = array();
-
-							foreach ( $storage_model->get_registered_columns() as $column ) {
-								if ( $column->properties->is_cloneable ) {
-									$buttons[ $column->properties->type ] = array(
-										'type'	=> $column->properties->type,
-										'label'	=> $column->properties->label
-									);
-								}
-							}
-							?>
-
 							<div class="button-container">
-							<?php foreach ( $buttons as $button ) : ?>
-								<a href="javascript:;" data-type="<?php echo $button['type']; ?>" class="clone-button button">+ <?php _e( 'Add', 'cpac' );?> <?php echo $button['label']; ?></a><br/>
-							<?php endforeach; ?>
+								<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
 							</div>
 
 							<?php
@@ -395,7 +384,7 @@ class CPAC_Settings {
 
 			</div><!--.columns-container-->
 
-			<?php endforeach; // get_types() ?>
+			<?php endforeach; // storage_models ?>
 
 			<div class="clear"></div>
 

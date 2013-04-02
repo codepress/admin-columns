@@ -4,10 +4,10 @@
  */
 jQuery(document).ready(function()
 {
-	cpac_cloning();
+	//cpac_cloning();
 
 	// add remove events
-	jQuery( '.column_action .remove-button' ).cpac_remove_button();
+	//jQuery( '.column_action .remove-button' ).cpac_remove_button();
 });
 
 

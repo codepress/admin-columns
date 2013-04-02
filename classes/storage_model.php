@@ -45,6 +45,40 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_columns();
 
 	/**
+	 * Constructor
+	 *
+	 * @since 2.0.0
+	 */
+	function __construct() {
+
+		add_action( 'ajax_cpac_add_column', array( $this, 'ajax_add_column' ) );
+	}
+
+	/**
+	 * Add Column
+	 *
+	 * Adds a columns to the DOM
+	 *
+	 * @since 2.0.0
+	 */
+	public function ajax_get_column_html() {
+
+		$columns = $this->get_registered_columns();
+
+		// get column by type
+		if ( isset( $_POST['type'] ) )
+		 	$column = $columns[ $_POST['type'] ];
+
+		// get first column
+		else
+			$column = array_shift( $columns );
+
+		$column->display();
+		exit;
+	}
+
+
+	/**
 	 * Checks if menu type is currently viewed
 	 *
 	 * @since 1.0.0
@@ -164,23 +198,6 @@ abstract class CPAC_Storage_Model {
 			return false;
 		}
 
-		// reorder by active state
-		// @todo make a general setting to reorder
-		if ( true ) {
-			$active = $inactive = array();
-
-			foreach ( $columns as $name => $options ) {
-				if ( 'on' === $options['state'] ) {
-					$active[ $name ] = $options;
-				}
-				else {
-					$inactive[ $name ] = $options;
-				}
-			}
-
-			$columns = array_merge( $active, $inactive );
-		}
-
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {
 			if ( $_column = $this->get_column_by_name( $name ) ) {
@@ -188,7 +205,11 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
+		// store columns
 		$result = update_option( "cpac_options_{$this->key}", $columns );
+
+		// store default WP columns
+		update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
 
 		// error
 		if( ! $result ) {
@@ -248,13 +269,13 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get registered columns
+	 * Get default registered columns
 	 *
 	 * @since 2.0.0
 	 *
 	 * @return array Column Type | Column Instance
 	 */
-	function get_registered_columns() {
+	function get_default_registered_columns() {
 
 		$columns = array();
 
@@ -272,6 +293,7 @@ abstract class CPAC_Storage_Model {
 				->set_properties( 'type', $column_name )
 				->set_properties( 'name', $column_name )
 				->set_properties( 'label', $label )
+				->set_properties( 'is_cloneable', false )
 				->set_options( 'label', $label )
 				->set_options( 'state', 'on' );
 
@@ -288,7 +310,20 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;
 		}
 
-		// Custom columns
+		return $columns;
+	}
+
+	/**
+	 * Get custom registered columns
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Column Type | Column Instance
+	 */
+	function get_custom_registered_columns() {
+
+		$columns = array();
+
 		foreach ( $this->get_custom_columns() as $classname => $path ) {
 
 			include_once $path;
@@ -307,6 +342,40 @@ abstract class CPAC_Storage_Model {
 
 		do_action( "cpac_get_columns", $columns );
 		do_action( "cpac_get_columns_{$this->key}", $columns );
+
+		return $columns;
+	}
+
+	/**
+	 * Get registered columns
+	 *
+	 * @todo: REMOVE
+	 * @since 2.0.0
+	 *
+	 * @return array Column Type | Column Instance
+	 */
+	function get_registered_columns() {
+
+		$columns = array_merge( $this->get_custom_registered_columns(), $this->get_default_registered_columns() );
+
+		do_action( "cpac_get_columns", $columns );
+		do_action( "cpac_get_columns_{$this->key}", $columns );
+
+		return $columns;
+	}
+
+	/**
+	 * Get default column options from DB
+	 *
+	 * @since 1.0.0
+	 *
+	 * @paran string $key
+	 * @return array Column options
+	 */
+	public function get_default_stored_columns() {
+
+		if ( ! $columns = get_option( "cpac_options_{$this->key}_default" ) )
+			return array();
 
 		return $columns;
 	}
@@ -333,6 +402,80 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function get_columns() {
+
+		$columns = array();
+
+		// get columns
+		$custom_columns 	= $this->get_custom_registered_columns();
+		$default_columns 	= $this->get_default_registered_columns();
+		$registered_columns = array_merge( $custom_columns, $default_columns );
+
+		$stored_columns 	= $this->get_stored_columns();
+
+		// Stored columns
+		if ( $stored_columns ) {
+
+			$stored_names = array();
+
+			foreach ( $stored_columns as $name => $options ) {
+
+				if ( ! isset( $options['type'] ) )
+					continue;
+
+				// remember which types has been used, so we can filter them later
+				$stored_names[] = $name;
+
+				// In case of a disabled plugin, we will skip column.
+				// This means the stored column type is not available anymore.
+				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) )
+					continue;
+
+				// create clone
+				$column = clone $registered_columns[ $options['type'] ];
+
+				// add an clone number which defines the instance
+				$column->set_clone( $options['clone'] );
+
+				// repopulate the options, so they contains the right stored options
+				$column->populate_options();
+
+				$columns[ $name ] = $column;
+			}
+
+			// In case of an enabled plugin, we will add that column.
+			// When $diff contains items, it means a default column has not been stored.
+			if( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
+				foreach( $diff as $name ) {
+					if ( isset( $registered_columns[ $name ] ) ) {
+						$columns[ $name ] = clone $registered_columns[ $name ];
+					}
+				}
+			}
+		}
+
+		// When nothing has been saved yet, we return the default WP columns.
+		else {
+
+			foreach( array_keys( $default_columns ) as $name ) {
+				if( isset( $registered_columns[ $name ] ) ) {
+					$columns[ $name ] = clone $registered_columns[ $name ];
+				}
+			}
+		}
+
+		//@todo echo '<pre>'; print_r( $stored_columns ); print_r( $columns ); echo '</pre>'; exit;
+
+		return $columns;
+
+	}
+
+	/**
+	 * Get Columns
+	 *
+	 * @todo: REMOVE
+	 * @since 2.0.0
+	 */
+	function __get_columns() {
 
 		$columns = array();
 
@@ -404,18 +547,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Render
-	 *
-	 * @since 2.0.0
-	 */
-	function render() {
-
-		foreach ( $this->get_columns() as $column ) {
-			$column->display();
-		}
-	}
-
-	/**
 	 * Add Headings
 	 *
 	 * @since 2.0.0
@@ -441,11 +572,9 @@ abstract class CPAC_Storage_Model {
 
 		// add active stored headings
 		foreach( $stored_columns as $column_name => $options ) {
-			if ( isset( $options[ 'state'] ) && 'on' == $options['state'] ) {
 
-				// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
-				$column_headings[ $column_name ] = stripslashes( $options['label'] );
-			}
+			// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
+			$column_headings[ $column_name ] = stripslashes( $options['label'] );
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.
@@ -469,3 +598,7 @@ abstract class CPAC_Storage_Model {
 		return $column_headings;
 	}
 }
+
+
+
+

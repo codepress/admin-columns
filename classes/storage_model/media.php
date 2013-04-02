@@ -8,6 +8,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function __construct() {
+		parent::__construct();
 
 		$this->key 		= 'wp-media';
 		$this->label 	= __( 'Media Library' );

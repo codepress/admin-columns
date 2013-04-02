@@ -15,6 +15,7 @@ jQuery(document).ready(function() {
 	cpac_sidebar_scroll();
 	cpac_export_multiselect();
 	cpac_import();
+	cpac_add_column();
 
 	/** init form events */
 	jQuery( '.cpac-column' ).cpac_form_events();
@@ -30,18 +31,74 @@ jQuery(document).ready(function() {
  */
 jQuery.fn.cpac_form_events = function() {
 
-	var column = jQuery( this );
+	var columns = jQuery( this );
 
 	/** fold in/out */
-	jQuery( '.column_edit, .column_label a', column ).click( function(){
-		var box = jQuery( this ).closest( '.cpac-column' );
+	jQuery( '.column_edit, .column_label a', columns ).click( function(){
+		var column = jQuery(this).closest('.cpac-column').toggleClass('opened');
 
-		jQuery( '.column-form', box ).slideToggle( 150, function() {
-			box.toggleClass( 'opened' );
+		jQuery( '.column-form', column ).slideToggle(150);
+	});
+
+	/** select column type */
+	columns.find('.column_type select').change( function() {
+
+		var column		= jQuery(this).closest('.cpac-column');
+
+		var type		= jQuery(this).children(":selected").attr('value');
+		var storage_key = jQuery(this).closest('.columns-container').attr('data-type');
+
+
+		jQuery.ajax({
+			url: ajaxurl,
+			data: {
+				action : 'cpac_get_column_' + storage_key,
+				type : type
+			},
+			type: 'post',
+			dataType: 'html',
+			success: function( html ){
+
+				// success
+				if( html ) {
+
+					// create object
+					var el = jQuery(html);
+
+					column.replaceWith( el );
+
+					// increment clone id
+					el.cpac_update_clone_id();
+
+					// add events
+					el.cpac_form_events();
+
+					// open settings
+					el.addClass('opened').find('.column-form').slideDown(150);
+				}
+
+				// error message
+				else {}
+			}
 		});
 	});
 
+	/** remove column */
+	jQuery( '.remove-button', columns ).click( function(e) {
+
+		var el = jQuery(this).closest( 'div.cpac-column' );
+
+		el.addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function() {
+			el.remove();
+		});
+
+		e.preventDefault();
+	});
+
 	/** set state */
+	/*
+	@todo: REMOVE
+
 	jQuery( '.column-meta td, .column-meta td .inner', column ).not( '.column_edit, .column_sort' ).click( function(e) {
 
 		// make sure the TD itself is clicked and not a child element
@@ -64,9 +121,10 @@ jQuery.fn.cpac_form_events = function() {
 			state.attr('value', '');
 		}
 	});
+	*/
 
 	/** change label */
-	jQuery( '.column_label .input input', column ).bind( 'keyup change', function() {
+	jQuery( '.column_label .input input', columns ).bind( 'keyup change', function() {
 
 		var value = jQuery( this ).val();
 		var label = jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a' );
@@ -75,7 +133,7 @@ jQuery.fn.cpac_form_events = function() {
 	});
 
 	/** width slider */
-	jQuery( '.input-width-range', column ).each( function(){
+	jQuery( '.input-width-range', columns ).each( function(){
 
 		var input				= jQuery(this).closest('td').find('.input-width');
 		var descr				= jQuery(this).closest('td').find('.width-decription');
@@ -103,7 +161,7 @@ jQuery.fn.cpac_form_events = function() {
 	});
 
 	/** display custom image size */
-	jQuery( '.column_image_size label.custom-size', column ).click( function(){
+	jQuery( '.column_image_size label.custom-size', columns ).click( function(){
 
 		var parent = jQuery(this).closest('.input');
 
@@ -334,3 +392,110 @@ function cpac_import() {
 			jQuery('#import-submit', container).removeClass('button-primary');
 	});
 }
+
+/*
+ * Update clone ID
+ *
+ * @since 2.0.0
+ */
+jQuery.fn.cpac_update_clone_id = function() {
+
+	var el = jQuery( this );
+
+	var type		= el.attr( 'data-type' );
+	var all_columns	= el.closest( '.cpac-boxes' ).find( '.cpac-columns' );
+	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' );
+
+	// increment clone ID
+	var id	= 1;
+	var ids	= jQuery.map( columns, function(val, i) {
+		if ( jQuery( val ).attr( 'data-clone' ) ){
+			return parseInt( jQuery( val ).attr( 'data-clone' ) );
+		}
+		return 0;
+	});
+	var max_id = Math.max.apply( null, ids ) + 1;
+	for ( var i=1; i<=max_id; i++ ) {
+		if ( jQuery.inArray( i, ids ) < 0 ) {
+			id = i;
+		}
+	}
+
+	// set clone ID
+	el.attr( 'data-clone', id );
+	el.find( 'input.clone' ).val( id );
+
+	// update input names with clone ID
+	var inputs = el.find( 'input, select, label' );
+	jQuery( inputs ).each( function( i, v ) {
+
+		var new_name = type + '-' + id;
+
+		// name
+		if( jQuery(v).attr( 'name' ) ) {
+			jQuery(v).attr( 'name', jQuery(v).attr( 'name' ).replace( type, new_name) );
+		}
+
+		// for
+		if( jQuery(v).attr( 'for' ) ) {
+			jQuery(v).attr( 'for', jQuery(v).attr( 'for' ).replace( type, new_name ) );
+		}
+
+		// id
+		if( jQuery(v).attr( 'id' ) ) {
+			jQuery(v).attr( 'id', jQuery(v).attr( 'id' ).replace( type, new_name ) );
+		}
+	});
+}
+
+/*
+ * Add Column
+ *
+ * @since 2.0.0
+ */
+function cpac_add_column() {
+
+	jQuery('#cpac .add_column').click(function(e){
+
+		var container = jQuery(this).closest('.columns-container');
+		var storage_key = container.attr('data-type');
+
+		jQuery.ajax({
+			url: ajaxurl,
+			data: {
+				action : 'cpac_get_column_' + storage_key
+			},
+			type: 'post',
+			dataType: 'html',
+			success: function( html ){
+
+				// success
+				if( html ) {
+
+					// create object
+					var el = jQuery(html);
+
+					// append to DOM
+					jQuery('.cpac-columns', container).append( el );
+
+					// increment clone id
+					el.cpac_update_clone_id();
+
+					// add events
+					el.cpac_form_events();
+
+					// open settings
+					el.addClass('opened').find('.column-form').slideDown(150);
+				}
+
+				// error message
+				else {}
+			}
+		});
+
+		e.preventDefault();
+	});
+
+}
+
+
