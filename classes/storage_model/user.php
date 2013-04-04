@@ -8,7 +8,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function __construct() {
-		parent::__construct();
 
 		$this->key 		= 'wp-users';
 		$this->label 	= __( 'Users' );
@@ -20,6 +19,8 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 10, 3 );
+
+		//@todo: remove parent::__construct();
 	}
 
 	/**

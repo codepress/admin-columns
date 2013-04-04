@@ -12,14 +12,15 @@
 function pre_load_wordpress_seo_class_metabox() {
 	global $pagenow;
 
-	if (
-		isset($_REQUEST['page']) &&
-		'codepress-admin-columns' == $_REQUEST['page'] &&
-		'admin.php' == $pagenow &&
-		defined('WPSEO_PATH') &&
-		file_exists(WPSEO_PATH.'admin/class-metabox.php')
+	if ( defined('WPSEO_PATH') && file_exists(WPSEO_PATH.'admin/class-metabox.php') ) {
+		if (
+		( isset($_REQUEST['page']) && 'codepress-admin-columns' == $_REQUEST['page'] && 'admin.php' == $pagenow )
+		||
+		// for when column list is populated through ajax
+		( defined('DOING_AJAX') && DOING_AJAX && ! empty( $_POST['type'] ) )
 		) {
-		require_once WPSEO_PATH.'admin/class-metabox.php';
+			require_once WPSEO_PATH.'admin/class-metabox.php';
+		}
 	}
 }
 add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
@@ -31,8 +32,7 @@ add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
  *
  * @return array Posttypes
  */
-function remove_acf_from_cpac_post_types( $post_types )
-{
+function remove_acf_from_cpac_post_types( $post_types ) {
 	if ( class_exists('Acf') ) {
 		unset( $post_types['acf'] );
 	}
@@ -48,8 +48,7 @@ add_filter( 'cpac_get_post_types', 'remove_acf_from_cpac_post_types' );
  *
  * @return array Posttypes
  */
-function cpac_posttypes_remove_bbpress( $post_types )
-{
+function cpac_posttypes_remove_bbpress( $post_types ) {
 	if ( class_exists( 'bbPress' ) ) {
 		unset( $post_types['topic'] );
 		unset( $post_types['reply'] );
@@ -65,10 +64,10 @@ add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_bbpress' );
  *
 * @since 2.0.0
  */
-function cpac_load_aioseop_addmycolumns()
-{
+function cpac_load_aioseop_addmycolumns() {
 	if ( function_exists('aioseop_addmycolumns') ) {
 		aioseop_addmycolumns();
 	}
 }
 add_action( 'cpac_before_default_columns_posts', 'cpac_load_aioseop_addmycolumns' );
+

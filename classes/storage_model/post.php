@@ -8,21 +8,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function __construct( $post_type ) {
-		parent::__construct();
-
 		$this->key 		= $post_type;
 		$this->label 	= $this->get_label();
 		$this->type 	= 'post';
 		$this->page 	= 'edit';
 
 		// headings
-		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ) );
+		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 10, 1 );
 
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
 
-		// add column
-		add_action( "wp_ajax_cpac_get_column_{$post_type}", array( $this, 'ajax_get_column_html' ) );
+		//@todo: remove parent::__construct();
 	}
 
 	/**

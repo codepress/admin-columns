@@ -101,6 +101,7 @@ a.help {
 .cpac-columns .cpac-placeholder:first-child {
 	border: none;
 }
+.cpac-column.deleting {}
 
 /* placeholder styling v1 */
 
@@ -140,12 +141,12 @@ a.help {
 .cpac-column:nth-child(2n) .column-meta {
 	background: #f9f9f9;
 }
-.cpac-column .column-meta table {
+.column-meta table {
 	border: none;
 	background: transparent;
 	border-radius: 0;
 }
-.cpac-column .column-meta table tr td {
+.column-meta table tr td {
 	vertical-align: top;
 	height: 16px;
 	border: none;
@@ -159,11 +160,10 @@ a.help {
 	background: transparent url('../images/drag.png') no-repeat 8px 8px;
 	cursor: move;
 }
-.column-meta .column_label {
+.column-meta td.column_label {
 	width: 55%;
 	font-weight: bold;
 	vertical-align: middle;
-	padding-left: 16px;
 	position: relative;
 }
 .column-meta .column_label .inner {
@@ -189,6 +189,7 @@ a.help {
 	text-align: right;
 	vertical-align: middle;
 	color: #999999;
+	padding-right: 0;
 }
 .column-meta .column_edit {
 	width: 38px;
@@ -344,6 +345,11 @@ tr.column_image_size.hidden {
 .column-form a.help {
 	vertical-align: middle;
 	float: right;
+}
+.column-form div.msg {
+	display: none;
+	color: red;
+	padding: 6px 0;
 }
 
 /* =Column Footer

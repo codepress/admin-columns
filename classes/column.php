@@ -830,6 +830,37 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get column list
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param array Column Objects
+	 * @return string HTML List
+	 */
+	public function get_column_list( $columns = array(), $label = '' ) {
+
+		if ( empty( $columns ) )
+			return array();
+
+		$list = '';
+
+		$_columns = array();
+		foreach ( $columns as $column ) {
+			$_columns[ $column->properties->type ] = 0 === strlen( strip_tags( $column->properties->label ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
+		}
+		asort( $_columns );
+
+		$list = "<optgroup label='{$label}'>";
+		foreach ( $_columns as $type => $label ){
+			$selected = selected( $this->properties->type, $type, false );
+			$list .= "<option value='{$type}'{$selected}>{$label}</option>";
+		}
+		$list .= "</optgroup>";
+
+		return $list;
+	}
+
+	/**
 	 * Display
 	 *
 	 * @since 2.0.0
@@ -837,16 +868,19 @@ class CPAC_Column {
 	public function display() {
 
 		// classes
-		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes ) ) );
+		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
+
+		// column list
+		$column_list = $this->get_column_list( $this->storage_model->get_custom_registered_columns(), __( 'Custom', 'cpac' ) );
+		$column_list .= $this->get_column_list( $this->storage_model->get_default_registered_columns(), __( 'Default', 'cpac' ) );
+
+		// clone attribute
+		$data_clone =  $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 
 		?>
-
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>" data-clone="<?php echo $this->properties->clone; ?>" >
-
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?>>
 			<input type="hidden" class="type"  name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>" />
 			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>" />
-			<input type="hidden" class="state" name="<?php echo $this->attr_name( 'state' ); ?>" value="<?php echo $this->options->state; ?>" />
-
 			<div class="column-meta">
 				<table class="widefat">
 					<tbody>
@@ -876,16 +910,13 @@ class CPAC_Column {
 			<div class="column-form">
 				<table class="widefat">
 					<tbody>
-
 						<tr class="column_type">
 							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ), 'type' ); ?>
 							<td class="input">
 								<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
-									<?php foreach ( $this->storage_model->get_registered_columns() as $column ) : ?>
-									<?php $label = 0 === strlen( strip_tags( $column->properties->label ) ) ? ucfirst( $column->properties->type ) : $column->properties->label; ?>
-									<option value="<?php echo $column->properties->type ?>"<?php selected( $this->properties->type, $column->properties->type ) ?>><?php echo $label; ?></option>
-								<?php endforeach; ?>
-							</select>
+									<?php echo $column_list; ?>
+								</select>
+								<div class="msg"></div>
 							</td>
 						</tr><!--.column_label-->
 
@@ -948,7 +979,6 @@ class CPAC_Column {
 		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
 
 		?>
-
 		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>" data-clone="<?php echo $this->properties->clone; ?>">
 			<div class="column-meta">
 				<input type="hidden" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>" />

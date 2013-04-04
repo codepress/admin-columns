@@ -46,28 +46,39 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * Constructor
-	 *
+	 * @todo : REMOVE
 	 * @since 2.0.0
 	 */
-	function __construct() {
-
-		add_action( 'ajax_cpac_add_column', array( $this, 'ajax_add_column' ) );
-	}
+	/*function __construct() {
+		add_action( 'wp_ajax_cpac_get_column_' . $this->key, array( $this, 'ajax_get_column_html' ) );
+	}*/
 
 	/**
 	 * Add Column
 	 *
+	 * @todo : REMOVE
 	 * Adds a columns to the DOM
 	 *
 	 * @since 2.0.0
 	 */
-	public function ajax_get_column_html() {
+	/*public function ajax_get_column_html() {
 
 		$columns = $this->get_registered_columns();
 
 		// get column by type
-		if ( isset( $_POST['type'] ) )
-		 	$column = $columns[ $_POST['type'] ];
+		if ( isset( $_POST['type'] ) ) {
+
+			// column is registered
+			if ( isset( $columns[ $_POST['type'] ] ) ) {
+		 		$column = $columns[ $_POST['type'] ];
+		 	}
+
+		 	// sometimes columns that have been set by plugins have not yet been registered.
+		 	// in these cases we create a new column instance for them.
+		 	elseif ( isset( $_POST['label'] ) ) {
+		 		$column = $this->get_column_instance( $_POST['type'], $_POST['label'] );
+		 	}
+		}
 
 		// get first column
 		else
@@ -75,8 +86,7 @@ abstract class CPAC_Storage_Model {
 
 		$column->display();
 		exit;
-	}
-
+	}*/
 
 	/**
 	 * Checks if menu type is currently viewed
@@ -209,10 +219,10 @@ abstract class CPAC_Storage_Model {
 		$result = update_option( "cpac_options_{$this->key}", $columns );
 
 		// store default WP columns
-		update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
+		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
 
 		// error
-		if( ! $result ) {
+		if( ! $result && ! $result_default ) {
 			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
 			return false;
 		}
@@ -269,6 +279,37 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get column instance by name and label
+	 *
+	 * @since 2.0.0
+	 */
+	function get_column_instance( $column_name, $label ) {
+
+		// create column instance
+		$column = new CPAC_Column( $this );
+
+		$column
+			->set_properties( 'type', $column_name )
+			->set_properties( 'name', $column_name )
+			->set_properties( 'label', $label )
+			->set_properties( 'is_cloneable', false )
+			->set_options( 'label', $label )
+			->set_options( 'state', 'on' );
+
+		// Hide Label when it contains HTML elements
+		if( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
+			$column->set_properties( 'hide_label', true );
+		}
+
+		// Label empty? Use it's column_name
+		if ( ! $label ) {
+			$column->set_properties( 'label', ucfirst( $column_name ) );
+		}
+
+		return $column;
+	}
+
+	/**
 	 * Get default registered columns
 	 *
 	 * @since 2.0.0
@@ -286,26 +327,7 @@ abstract class CPAC_Storage_Model {
 			if ( 'cb' == $column_name )
 				continue;
 
-			// create column instance
-			$column = new CPAC_Column( $this );
-
-			$column
-				->set_properties( 'type', $column_name )
-				->set_properties( 'name', $column_name )
-				->set_properties( 'label', $label )
-				->set_properties( 'is_cloneable', false )
-				->set_options( 'label', $label )
-				->set_options( 'state', 'on' );
-
-			// Hide Label when it contains HTML elements
-			if( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
-				$column->set_properties( 'hide_label', true );
-			}
-
-			// Label empty? Use it's column_name
-			if ( ! $label ) {
-				$column->set_properties( 'label', ucfirst( $column_name ) );
-			}
+			$column = $this->get_column_instance( $column_name, $label );
 
 			$columns[ $column->properties->name ] = $column;
 		}
@@ -337,7 +359,7 @@ abstract class CPAC_Storage_Model {
 			if ( ! $column->properties->is_registered )
 				continue;
 
-			$columns[ $column->properties->name ] = $column;
+			$columns[ $column->properties->type ] = $column;
 		}
 
 		do_action( "cpac_get_columns", $columns );
@@ -356,12 +378,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_registered_columns() {
 
-		$columns = array_merge( $this->get_custom_registered_columns(), $this->get_default_registered_columns() );
-
-		do_action( "cpac_get_columns", $columns );
-		do_action( "cpac_get_columns_{$this->key}", $columns );
-
-		return $columns;
+		return array_merge( $this->get_custom_registered_columns(), $this->get_default_registered_columns() );
 	}
 
 	/**
@@ -406,14 +423,11 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		$custom_columns 	= $this->get_custom_registered_columns();
 		$default_columns 	= $this->get_default_registered_columns();
-		$registered_columns = array_merge( $custom_columns, $default_columns );
-
-		$stored_columns 	= $this->get_stored_columns();
+		$registered_columns = array_merge( $this->get_custom_registered_columns(), $default_columns );
 
 		// Stored columns
-		if ( $stored_columns ) {
+		if ( $stored_columns = $this->get_stored_columns() ) {
 
 			$stored_names = array();
 
@@ -461,71 +475,6 @@ abstract class CPAC_Storage_Model {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
-		}
-
-		//@todo echo '<pre>'; print_r( $stored_columns ); print_r( $columns ); echo '</pre>'; exit;
-
-		return $columns;
-
-	}
-
-	/**
-	 * Get Columns
-	 *
-	 * @todo: REMOVE
-	 * @since 2.0.0
-	 */
-	function __get_columns() {
-
-		$columns = array();
-
-		// get columns
-		$registered_columns = $this->get_registered_columns();
-		$stored_columns 	= $this->get_stored_columns();
-
-		// Stored columns
-		if ( $stored_columns ) {
-
-			$stored_names = array();
-
-			foreach ( $stored_columns as $name => $options ) {
-
-				if ( ! isset( $options['type'] ) )
-					continue;
-
-				// remember which types has been used, so we can filter them later
-				$stored_names[] = $name;
-
-				// In case of a disabled plugin, we will skip column.
-				// This means the stored column type is not available anymore.
-				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) )
-					continue;
-
-				// create clone
-				$column = clone $registered_columns[ $options['type'] ];
-
-				// add an clone number which defines the instance
-				$column->set_clone( $options['clone'] );
-
-				// repopulate the options, so they contains the right stored options
-				$column->populate_options();
-
-				$columns[ $name ] = $column;
-			}
-
-			// In case of an enabled plugin, we will add that column.
-			// When $diff contains items, it means an registered column has not been stored.
-			if( $diff = array_diff( array_keys( $registered_columns ), $stored_names ) ) {
-				foreach( $diff as $name ) {
-					$columns[ $name ] = clone $registered_columns[ $name ];
-				}
-			}
-		}
-
-		// When nothing has been saved yet, we return the available columns.
-		else {
-
-			$columns = $registered_columns;
 		}
 
 		return $columns;
@@ -577,23 +526,28 @@ abstract class CPAC_Storage_Model {
 			$column_headings[ $column_name ] = stripslashes( $options['label'] );
 		}
 
-		// Add 3rd party columns that have ( or could ) not been stored.
+		// Add 3rd party columns that have ( or could ) not be stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
-		if ( $diff = array_diff( array_keys( $columns ), array_keys( $stored_columns ) ) ) {
+		if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
 			foreach ( $diff as $column_name ) {
 				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}
 		}
 
-		// Remove 3rd parthy columns that have been deactivated
-		// while the column settings have not been stored yet.
+		// Remove 3rd party columns that have been deactivated.
+		// While the column settings have not been stored yet.
 		// When $diff contains items, it means stored columns are not available anymore.
-		if ( $diff = array_diff( array_keys( $stored_columns ), array_keys( $this->get_columns() ) ) ) {
+		if ( $diff = array_diff( array_keys( $stored_columns ), $this->get_default_stored_columns() ) ) {
 			foreach ( $diff as $column_name ) {
 				unset( $column_headings[ $column_name ] );
 			}
 		}
+		/*if ( $diff = array_diff( array_keys( $stored_columns ), array_keys( $this->get_registered_columns() ) ) ) {
+			foreach ( $diff as $column_name ) {
+				unset( $column_headings[ $column_name ] );
+			}
+		}*/
 
 		return $column_headings;
 	}

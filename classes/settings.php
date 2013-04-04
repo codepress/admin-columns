@@ -85,7 +85,8 @@ class CPAC_Settings {
 
 		// javascript translations
 		wp_localize_script( 'cpac-multiple-fields-js', 'cpac_i18n', array(
-			'remove'	=> __( 'Remove', 'cpac' )
+			'remove'	=> __( 'Remove', 'cpac' ),
+			'clone'		=> __( '%s column is already present and can not be added.', 'cpac' ),
 		));
 	}
 
@@ -314,6 +315,7 @@ class CPAC_Settings {
 							</div>
 						</div><!--form-actions-->
 
+						<!--
 						<div class="sidebox" id="addon-state">
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
@@ -331,7 +333,8 @@ class CPAC_Settings {
 									</p>
 								<?php endif; ?>
 							</div>
-						</div><!--addon-state-->
+						</div>
+						-->
 
 						<div class="sidebox" id="plugin-support">
 							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
@@ -362,7 +365,7 @@ class CPAC_Settings {
 							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
 
 							<div class="button-container">
-								<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
+								<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
 							</div>
 
 							<?php
@@ -381,6 +384,13 @@ class CPAC_Settings {
 				<div class="clear"></div>
 
 				</form>
+
+				<div class="for-cloning-only" style="display:none">
+					<?php
+					foreach ( $storage_model->get_registered_columns() as $column )
+						$column->display();
+					?>
+				</div>
 
 			</div><!--.columns-container-->
 
