@@ -101,6 +101,7 @@ jQuery.fn.cpac_form_events = function() {
 
 		// reset msg
 
+		// create clone
 		var clone = container.find(".for-cloning-only .cpac-column[data-type='" + type + "']").clone();
 		if ( clone.length > 0 ) {
 
@@ -477,8 +478,7 @@ function cpac_add_column() {
 
 		var container = jQuery(this).closest('.columns-container');
 
-		/*
-		var clone		= jQuery('.for-cloning-only .cpac-column', container ).first().clone();
+		var clone = jQuery('.for-cloning-only .cpac-column', container ).first().clone();
 
 		if ( clone.length > 0 ) {
 
@@ -496,9 +496,10 @@ function cpac_add_column() {
 				jQuery('html, body').animate({ scrollTop: clone.offset().top - 58 }, 300);
 			});
 		}
-		*/
+
 
 		/** retrieve column with ajax */
+		/*
 		jQuery.ajax({
 			url: ajaxurl,
 			data: {
@@ -534,6 +535,7 @@ function cpac_add_column() {
 				else {}
 			}
 		});
+		*/
 
 		e.preventDefault();
 	});

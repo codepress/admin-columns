@@ -229,7 +229,7 @@ class CPAC_Column {
 	 */
 	public function attr_name( $field_name ) {
 
-		echo "columns[{$this->properties->name}][{$field_name}]";
+		echo "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
 	}
 
 	/**

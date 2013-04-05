@@ -200,8 +200,8 @@ abstract class CPAC_Storage_Model {
 	 */
 	function store( $columns = '' ) {
 
-		if ( ! empty( $_POST['columns'] ) )
-			$columns = array_filter( $_POST['columns'] );
+		if ( ! empty( $_POST[ $this->key ] ) )
+			$columns = array_filter( $_POST[ $this->key ] );
 
 		if( ! $columns ) {
 			cpac_admin_message( __( 'No columns settings available.',  'cpac' ), 'error' );
@@ -537,15 +537,19 @@ abstract class CPAC_Storage_Model {
 
 		// Remove 3rd party columns that have been deactivated.
 		// While the column settings have not been stored yet.
-		// When $diff contains items, it means stored columns are not available anymore.
-		if ( $diff = array_diff( array_keys( $stored_columns ), $this->get_default_stored_columns() ) ) {
+		// When $diff contains items, it means the default stored columns are not available anymore.
+		$diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() );
+// @todo: store type of column ( custom or default ) to column options, filter them against the $columns.
+		echo '<pre>';
+		print_r( array_keys( $columns ) );
+		print_r( $this->get_default_stored_columns() );
+		print_r( $diff );
+		echo '</pre>';
+		//exit;
+		/*if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
 			foreach ( $diff as $column_name ) {
-				unset( $column_headings[ $column_name ] );
-			}
-		}
-		/*if ( $diff = array_diff( array_keys( $stored_columns ), array_keys( $this->get_registered_columns() ) ) ) {
-			foreach ( $diff as $column_name ) {
-				unset( $column_headings[ $column_name ] );
+				if( isset( $column_headings[ $column_name ] ) )
+					unset( $column_headings[ $column_name ] );
 			}
 		}*/
 
