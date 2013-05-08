@@ -347,9 +347,15 @@ tr.column_image_size.hidden {
 	float: right;
 }
 .column-form div.msg {
+	margin-top: 5px;
 	display: none;
-	color: red;
-	padding: 6px 0;
+	color: #333;
+	padding: 6px 8px;
+	background-color: #ffebe8;
+	border: 1px solid #fff;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 /* =Column Footer
@@ -555,9 +561,10 @@ ul.addons li {
     position: relative;
     float: left;
     margin: 10px 15px 20px;
-    min-height: 230px;
-    padding: 13px;
+
+    padding: 13px 13px 30px 13px;
     width: 180px;
+    min-height: 300px;
 }
 ul.addons li h3 {
 	font-size: 13px;
@@ -582,7 +589,9 @@ ul.addons li span.state {
 	background: #73a8d0 url('../images/checkmark_white.png') no-repeat 6px 7px;
 	color: #fff;
 	font-weight: bold;
-
+}
+ul.addons li img {
+	margin: -15px 0 0 -13px;
 }
 ul.addons li.active .button {
 	display: none;

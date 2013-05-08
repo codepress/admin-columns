@@ -34,13 +34,13 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	public function get_default_columns() {
 
 		// You can use this filter to add third_party columns by hooking into this.
-		do_action( "cpac_before_default_columns_{$this->key}" );
+		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
 		$table 		= _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
 		$columns 	= $table->get_columns();
 
-		return apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
+		return $columns;
 	}
 
 	/**
@@ -69,7 +69,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 			$value = $custom_value;
 		}
 
-		return apply_filters( "cpac_value_{$this->key}", $value, $column );
+		return apply_filters( "cac/column/value/type={$this->key}", $value, $column );
 	}
 
 	/**

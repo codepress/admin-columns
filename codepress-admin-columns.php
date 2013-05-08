@@ -27,6 +27,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// @todo: REMOVE
+// /www/plugins/wp-content/plugins/codepress-admin-columns
+// /www/plugins/wp-content/plugins/advanced-custom-fields
+
 define( 'CPAC_VERSION', 	 	'2.0.0' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
@@ -44,7 +48,6 @@ if ( ! is_admin() )
 require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
 require_once CPAC_DIR . 'classes/deprecated.php';
-require_once CPAC_DIR . 'classes/update.php';
 
 /**
  * The Codepress Admin Columns Class
@@ -75,7 +78,7 @@ class CPAC {
 	public function init() {
 
 		// translations
-		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'cac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
@@ -93,7 +96,7 @@ class CPAC {
 		$this->init_controllers();
 
 		// Hook
-		do_action( 'cpac_loaded', $this );
+		do_action( 'cac/loaded', $this );
 	}
 
 	/**
@@ -138,7 +141,7 @@ class CPAC {
 		$storage_models[ $storage_model->key ] = $storage_model;
 
 		// Hook to add more models
-		do_action( 'cpac_set_storage_models', $storage_models );
+		do_action( 'cac/storage_models', $storage_models );
 
 		$this->storage_models = $storage_models;
 	}
@@ -205,7 +208,7 @@ class CPAC {
 			'show_ui'	=> true
 		)));
 
-		return apply_filters( 'cpac_get_post_types', $post_types );
+		return apply_filters( 'cac/post_types', $post_types );
 	}
 
 	/**
@@ -333,7 +336,7 @@ class CPAC {
 	function admin_js() {
 
 		// Will add an active state to addon list.
-		if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) :
+		if ( $addons = apply_filters( 'cac/addon_list', array() ) ) :
 
 		?>
 		<script type="text/javascript">

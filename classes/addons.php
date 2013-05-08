@@ -61,7 +61,8 @@ class CPAC_Addons {
 		$url = 'http://codepress.lan/admincolumns';
 		//$url = 'http://www.admincolumns.com';
 
-		if ( ! $feed = get_transient( 'cpac_addons_feed' ) ) {
+// @todo
+		if ( true || ! $feed = get_transient( 'cpac_addons_feed' ) ) {
 
 			$feed = '<div class="error"><p>' . __( 'There was an error retrieving the extensions list from the server. Please try again later.', 'cpac' ) . '</div>';
 

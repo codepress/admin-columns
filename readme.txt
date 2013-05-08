@@ -117,6 +117,7 @@ It will work nice with other plugins and support their additional custom columns
 
 If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
 
+* Swedish (sv_SE) - Thanks for contributing the swedish language goes to Fredrik Andersson
 * Danish (da_DK) - Thanks for contributing the danish language goes to Morten Dalgaard Johansen
 * German (de_DE) - Thanks for contributing the german language goes to Uli
 * Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
@@ -260,13 +261,13 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] Added import/export capabilities
 * [Added] Column: Available_Sizes for media
 * [Added] Default sorting for Users, Comments, Media
+* [Added] Column: Parent for posts
 * [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Removed] Custom fields support ( now available as a paid addon )
 * [Fixed] Issue: Sorting was not working when label contains the ':' character
 * [Addon] Sorting add-on: Added sorting for comment meta data
 * [Addon] Custom Field add-on: Added setting to display hidden custom fields
-* [Addon] Filtering add-on: Added Posts filtering
 
 = 1.4.8 =
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu

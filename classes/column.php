@@ -126,8 +126,8 @@ class CPAC_Column {
 			$properties['is_registered'] = $this->apply_conditional();
 
 		// add filters
-		$properties = apply_filters( 'cpac_column_properties', $properties );
-		$properties = apply_filters( "cpac_column_properties_{$this->storage_model->key}", $properties );
+		$properties = apply_filters( 'cac/column/properties', $properties );
+		$properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $properties );
 
 		// convert to object for easy handling
 		$this->properties = (object) $properties;
@@ -140,8 +140,8 @@ class CPAC_Column {
 		);
 
 		// add filters
-		$default_options = apply_filters( 'cpac_column_default_options', $default_options, $this );
-		$default_options = apply_filters( "cpac_column_default_options_{$this->storage_model->key}", $default_options, $this );
+		$default_options = apply_filters( 'cac/column/options', $default_options, $this );
+		$default_options = apply_filters( "cac/column/options/storage_key={$this->storage_model->key}", $default_options, $this );
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
 		$this->options = (object) array_merge( $default_options, $this->options );
@@ -151,20 +151,6 @@ class CPAC_Column {
 
 		// add stored options
 		$this->populate_options();
-	}
-
-	/**
-	 * Is active?
-	 *
-	 * @since 2.0.0
-	 * @return bool true | false
-	 */
-	public function is_active() {
-
-		if ( 'on' !== $this->options->state )
-			return false;
-
-		return true;
 	}
 
 	/**
@@ -889,7 +875,9 @@ class CPAC_Column {
 							<td class="column_label">
 								<div class="inner">
 									<div class="meta">
-									<?php do_action( 'cpac_column_label_meta', $this ); ?>
+
+									<?php do_action( 'cac/column/label', $this ); ?>
+
 									</div>
 									<a href="javascript:;">
 										<?php echo stripslashes( $this->options->label ); ?>
@@ -939,7 +927,7 @@ class CPAC_Column {
 							</td>
 						</tr><!--.column_width-->
 
-						<?php do_action( 'cpac_before_column_settings', $this ); ?>
+						<?php do_action( 'cac/column/settings_before', $this ); ?>
 
 						<?php
 						/**
@@ -949,7 +937,7 @@ class CPAC_Column {
 						$this->display_settings();
 						?>
 
-						<?php do_action( 'cpac_after_column_settings', $this ); ?>
+						<?php do_action( 'cac/column/settings_after', $this ); ?>
 
 						<tr class="column_action">
 							<td colspan="2">
@@ -963,106 +951,5 @@ class CPAC_Column {
 		</div><!--.cpac-column-->
 		<?php
 
-	}
-
-
-	/**
-	 * Display
-	 *
-	 * @todo: REMOVE
-	 * @since 2.0.0
-	 */
-	public function ____display() {
-
-		// classes
-		$active 	= 'on' == $this->options->state ? 'active' : '';
-		$classes 	= implode( ' ', array_filter( array ( "cpac-box-{$this->properties->name}", $this->properties->classes, $active ) ) );
-
-		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>" data-clone="<?php echo $this->properties->clone; ?>">
-			<div class="column-meta">
-				<input type="hidden" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>" />
-				<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>" />
-				<table class="widefat">
-					<tbody>
-						<tr>
-							<td class="column_sort"></td>
-							<td class="column_status">
-								<input type="hidden" class="cpac-state" name="<?php echo $this->attr_name( 'state' ); ?>" value="<?php echo $this->options->state; ?>" id="<?php echo $this->attr_id( 'state' ); ?>"/>
-							</td>
-							<td class="column_label">
-								<div class="inner">
-									<div class="meta">
-									<?php do_action( 'cpac_column_label_meta', $this ); ?>
-									</div>
-									<a href="javascript:;">
-										<?php echo stripslashes( $this->options->label ); ?>
-									</a>
-								</div>
-							</td>
-							<td class="column_type">
-								<div class="inner">
-									<?php echo stripslashes( $this->properties->label ); ?>
-								</div>
-							</td>
-							<td class="column_edit"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div><!--.column-meta-->
-
-			<div class="column-form">
-				<table class="widefat">
-					<tbody>
-
-						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
-							<?php $this->label_view( __( 'Label', 'cpac' ), __( 'This is the name which will appear as the column header.', 'cpac' ), 'label' ); ?>
-							<td class="input">
-								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo htmlspecialchars( stripslashes( $this->options->label ) ); ?>" />
-							</td>
-						</tr><!--.column_label-->
-
-						<tr class="column_width">
-							<?php $this->label_view( __( 'Width', 'cpac' ), '', 'width' ); ?>
-							<td class="input">
-								<div class="description width-decription" title="<?php _e( 'default', 'cpac' ); ?>">
-									<?php echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', 'cpac' ); ?>
-								</div>
-								<div class="input-width-range"></div>
-								<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />
-
-							</td>
-						</tr><!--.column_width-->
-
-						<?php do_action( 'cpac_before_column_settings', $this ); ?>
-
-						<?php
-						/**
-						 * Load specific column settings.
-						 *
-						 */
-						$this->display_settings();
-						?>
-
-						<?php do_action( 'cpac_after_column_settings', $this ); ?>
-
-						<?php if ( $this->properties->is_cloneable || ( isset( $this->options->clone ) && $this->options->clone ) ) :	?>
-						<tr class="column_action">
-							<td colspan="2">
-								<?php if ( null === $this->properties->clone ) : ?>
-									<p class="remove-description description"><?php _e( 'This field can not be removed', 'cpac' ); ?></p>
-								<?php else : ?>
-									<p><a href="javascript:;" class="remove-button"><?php _e( 'Remove');?></a></p>
-								<?php endif; ?>
-							</td>
-						</tr>
-						<?php endif; ?>
-
-					</tbody>
-				</table>
-			</div><!--.column-form-->
-		</div><!--.cpac-column-->
-
-		<?php
 	}
 }

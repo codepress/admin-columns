@@ -86,7 +86,7 @@ class CPAC_Settings {
 		// javascript translations
 		wp_localize_script( 'cpac-multiple-fields-js', 'cpac_i18n', array(
 			'remove'	=> __( 'Remove', 'cpac' ),
-			'clone'		=> __( '%s column is already present and can not be added.', 'cpac' ),
+			'clone'		=> __( '%s column is already present and can not be duplicated.', 'cpac' ),
 		));
 	}
 
@@ -98,9 +98,10 @@ class CPAC_Settings {
 	public function handle_column_request() {
 
 		// only handle updates from the admin columns page
-		if ( ! ( isset($_REQUEST['page']) && in_array( $_REQUEST['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
+		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
+		// use $_REQUEST because the values are send both over $_GET and $_POST
 		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
 		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
 		$key 	= isset( $_REQUEST['cpac_key'] ) 	? $_REQUEST['cpac_key'] 	: '';
@@ -320,7 +321,7 @@ class CPAC_Settings {
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
 
-								<?php if ( $addons = apply_filters( 'cpac_addon_list', array() ) ) : ?>
+								<?php if ( $addons = apply_filters( 'cac/addon_list', array() ) ) : ?>
 								<ul>
 								<?php foreach ( $addons as $label ) : ?>
 									<li><?php echo $label; ?></li>
@@ -354,6 +355,7 @@ class CPAC_Settings {
 						<div class="cpac-columns">
 
 							<?php
+							// @todo: echo '<pre>'; print_r( $storage_model->get_columns() ); echo '</pre>';
 							foreach ( $storage_model->get_columns() as $column ) {
 								$column->display();
 							}
@@ -367,16 +369,6 @@ class CPAC_Settings {
 							<div class="button-container">
 								<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
 							</div>
-
-							<?php
-							/**
-							 * Use this hook to add stuff to the footer
-							 *
-							 * @since 2.0.0
-							 */
-							do_action( 'cpac_column_footer', $storage_model );
-
-							?>
 
 						</div><!--.cpac-column-footer-->
 					</div><!--.cpac-boxes-->
@@ -418,7 +410,7 @@ class CPAC_Settings {
 		<table class="form-table cpac-form-table">
 			<tbody>
 
-				<?php if ( has_action( 'cpac_general_settings' ) ): ?>
+				<?php if ( has_action( 'cac/settings/general' ) ): ?>
 				<tr class="general">
 					<th scope="row">
 						<h3><?php _e( 'General Settings', 'cpac' ); ?></h3>
@@ -429,7 +421,7 @@ class CPAC_Settings {
 							<form method="post" action="options.php">
 								<?php settings_fields( 'cpac-general-settings' ); ?>
 
-								<?php do_action( 'cpac_general_settings', get_option( 'cpac_general_options' ) ); ?>
+								<?php do_action( 'cac/settings/general', get_option( 'cpac_general_options' ) ); ?>
 
 								<p>
 									<input type="submit" class="button" value="<?php _e( 'Save' ); ?>" />
@@ -528,8 +520,32 @@ class CPAC_Settings {
 
 				<?php
 
-				/** See do_settings_groups() for the actual hooks for addings settings fields. */
-				$this->do_settings_groups();
+				// Allow plugins to add their own custom settings to the settings page.
+
+				if ( $groups = apply_filters( 'cac/settings/groups', array() ) ) {
+					foreach ( $groups as $id => $group ) {
+
+						$title 			= isset( $group['title'] ) ? $group['title'] : '';
+						$description 	= isset( $group['description'] ) ? $group['description'] : '';
+
+						?>
+				<tr>
+					<th scope="row">
+						<h3><?php echo $title; ?></h3>
+						<p><?php echo $description; ?></p>
+					</th>
+					<td class="padding-22">
+						<?php
+
+						/** Use this Hook to add additonal fields to the group */
+						do_action( "cac/settings/groups/row={$id}" );
+
+						?>
+					</td>
+				</tr>
+						<?php
+					}
+				}
 
 				?>
 
@@ -539,42 +555,5 @@ class CPAC_Settings {
 	</div>
 
 	<?php
-	}
-
-	/**
-	 * Add settings groups
-	 *
-	 * Allow plugins to add their own custom settings to the settings page.
-	 *
-	 * @since 2.0.0
-	 */
-	function do_settings_groups() {
-
-		// Hook groups here
-		$groups = apply_filters( 'cpac_settings_groups', array() );
-
-		// Display each group
-		foreach ( $groups as $id => $group ) {
-
-			$title 			= isset( $group['title'] ) ? $group['title'] : '';
-			$description 	= isset( $group['description'] ) ? $group['description'] : '';
-
-			?>
-			<tr>
-				<th scope="row">
-					<h3><?php echo $title; ?></h3>
-					<p><?php echo $description; ?></p>
-				</th>
-				<td class="padding-22">
-					<?php
-
-					/** Use this Hook to add additonal fields to the group */
-					do_action( "cpac_settings_row_{$id}" );
-
-					?>
-				</td>
-			</tr>
-			<?php
-		}
 	}
 }

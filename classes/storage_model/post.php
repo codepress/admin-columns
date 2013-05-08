@@ -48,8 +48,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
-		do_action( "cpac_before_default_columns_posts", $this );
-		do_action( "cpac_before_default_columns_{$this->key}", $this );
+		do_action( "cac/columns/default/posts" );
+		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
 		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
@@ -64,9 +64,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
 			$columns 	= $table->get_columns();
 		}
-
-		$columns = apply_filters( 'cpac_default_columns_posts', $columns, $this );
-		$columns = apply_filters( "cpac_default_columns_{$this->key}", $columns, $this );
 
 		return $columns;
 	}
@@ -101,8 +98,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			$value = $column->get_value( $post_id );
 		}
 
-		$value = apply_filters( "cpac_value_posts", $value, $column );
-		$value = apply_filters( "cpac_value_{$this->key}", $value, $column );
+		$value = apply_filters( "cac/column/value/posts", $value, $column );
+		$value = apply_filters( "cac/column/value/type={$this->key}", $value, $column );
 
 		echo $value;
 	}

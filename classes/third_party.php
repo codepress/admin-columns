@@ -14,7 +14,7 @@ function pre_load_wordpress_seo_class_metabox() {
 
 	if ( defined('WPSEO_PATH') && file_exists(WPSEO_PATH.'admin/class-metabox.php') ) {
 		if (
-		( isset($_REQUEST['page']) && 'codepress-admin-columns' == $_REQUEST['page'] && 'admin.php' == $pagenow )
+		( isset($_GET['page']) && 'codepress-admin-columns' == $_GET['page'] && 'admin.php' == $pagenow )
 		||
 		// for when column list is populated through ajax
 		( defined('DOING_AJAX') && DOING_AJAX && ! empty( $_POST['type'] ) )
@@ -39,7 +39,7 @@ function remove_acf_from_cpac_post_types( $post_types ) {
 
 	return $post_types;
 }
-add_filter( 'cpac_get_post_types', 'remove_acf_from_cpac_post_types' );
+add_filter( 'cac/post_types', 'remove_acf_from_cpac_post_types' );
 
 /**
  * bbPress - remove posttypes: forum, reply and topic
@@ -57,7 +57,7 @@ function cpac_posttypes_remove_bbpress( $post_types ) {
 
 	return $post_types;
 }
-add_filter( 'cpac_get_post_types', 'cpac_posttypes_remove_bbpress' );
+add_filter( 'cac/post_types', 'cpac_posttypes_remove_bbpress' );
 
 /**
  * Add support for All in SEO columns
@@ -69,5 +69,5 @@ function cpac_load_aioseop_addmycolumns() {
 		aioseop_addmycolumns();
 	}
 }
-add_action( 'cpac_before_default_columns_posts', 'cpac_load_aioseop_addmycolumns' );
+add_action( 'cac/columns/default/posts', 'cpac_load_aioseop_addmycolumns' );
 

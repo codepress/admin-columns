@@ -108,7 +108,7 @@ jQuery.fn.cpac_form_events = function() {
 			// column can have only one instance of itself and should not have another instance present?
 			if ( 'undefined' === typeof clone.attr('data-clone') ) {
 				if ( jQuery( '.cpac-columns', container ).find("[data-type='" + type + "']").length > 0 ) {
-					msg.html( cpac_i18n.clone.replace( '%s', label ) ).show();
+					msg.html( cpac_i18n.clone.replace( '%s', '<strong>' + label + '</strong>' ) ).show();
 
 					// set to default
 					jQuery(this).find('option').removeAttr('selected');

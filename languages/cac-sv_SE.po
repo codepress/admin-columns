@@ -1,0 +1,718 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Codepress Admin Columns\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-13 18:59+0100\n"
+"PO-Revision-Date: 2013-04-12 07:10+0100\n"
+"Last-Translator: Fredrik <fidde.andersson@telia.com>\n"
+"Language-Team: Codepress <info@codepress.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../codepress-admin-columns.php:168
+msgid "Settings"
+msgstr "Inställningar"
+
+#: ../codepress-admin-columns.php:351
+msgid "Add Custom Field Column"
+msgstr "Skapa egna fält kolumn"
+
+#: ../codepress-admin-columns.php:359
+msgid "drag and drop to reorder"
+msgstr "dra och släpp för att ändra ordningen"
+
+#: ../codepress-admin-columns.php:501 ../codepress-admin-columns.php:526
+msgid "default"
+msgstr "standard"
+
+#: ../codepress-admin-columns.php:524 ../codepress-admin-columns.php:1371
+msgid "Width"
+msgstr "Bredd"
+
+#: ../codepress-admin-columns.php:586
+msgid "Default"
+msgstr "Standard"
+
+#: ../codepress-admin-columns.php:587 ../codepress-admin-columns.php:1502
+msgid "Image"
+msgstr "Bild"
+
+#: ../codepress-admin-columns.php:588
+msgid "Media Library Icon"
+msgstr "Mediabibliotek ikon"
+
+#: ../codepress-admin-columns.php:589 ../codepress-admin-columns.php:1159
+#: ../codepress-admin-columns.php:1578
+msgid "Excerpt"
+msgstr "Utdrag"
+
+#: ../codepress-admin-columns.php:590
+msgid "Multiple Values"
+msgstr "Flera värden"
+
+#: ../codepress-admin-columns.php:591
+msgid "Numeric"
+msgstr "Numerisk"
+
+#: ../codepress-admin-columns.php:592 ../codepress-admin-columns.php:1569
+msgid "Date"
+msgstr "Datum"
+
+#: ../codepress-admin-columns.php:593
+msgid "Post Title (Post ID's)"
+msgstr "Titel"
+
+#: ../codepress-admin-columns.php:594
+msgid "Checkmark (true/false)"
+msgstr "Checkmark (sant/falskt)"
+
+#: ../codepress-admin-columns.php:619
+msgid "This field can not be removed"
+msgstr "Detta fält kan inte tas bort"
+
+#: ../codepress-admin-columns.php:623 ../classes/values/users.php:153
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../codepress-admin-columns.php:1125
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: ../codepress-admin-columns.php:1131
+msgid "Icon"
+msgstr "Ikon"
+
+#: ../codepress-admin-columns.php:1156
+msgid "Featured Image"
+msgstr "Utvald bild"
+
+#: ../codepress-admin-columns.php:1162 ../codepress-admin-columns.php:1222
+msgid "Page Order"
+msgstr "Sidordning"
+
+#: ../codepress-admin-columns.php:1165 ../codepress-admin-columns.php:1239
+msgid "Post Format"
+msgstr "Inläggsformat"
+
+#: ../codepress-admin-columns.php:1168 ../codepress-admin-columns.php:1356
+#: ../codepress-admin-columns.php:1496 ../codepress-admin-columns.php:1542
+msgid "ID"
+msgstr "ID"
+
+#: ../codepress-admin-columns.php:1171
+msgid "Slug"
+msgstr "Permalänk"
+
+#: ../codepress-admin-columns.php:1174
+msgid "Attachment"
+msgstr "Bilaga"
+
+#: ../codepress-admin-columns.php:1177
+msgid "No. of Attachments"
+msgstr "No. av bilagor"
+
+#: ../codepress-admin-columns.php:1180
+msgid "Roles"
+msgstr "Roller"
+
+#: ../codepress-admin-columns.php:1183 ../codepress-admin-columns.php:2223
+msgid "Status"
+msgstr "Status"
+
+#: ../codepress-admin-columns.php:1186
+msgid "Comment status"
+msgstr "Kommentarsstatus"
+
+#: ../codepress-admin-columns.php:1189
+msgid "Ping status"
+msgstr "Ping status"
+
+#: ../codepress-admin-columns.php:1192 ../codepress-admin-columns.php:1310
+#: ../codepress-admin-columns.php:1389 ../codepress-admin-columns.php:1520
+#: ../codepress-admin-columns.php:1581
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: ../codepress-admin-columns.php:1198
+msgid "Last modified"
+msgstr "Senast ändrad"
+
+#: ../codepress-admin-columns.php:1201
+msgid "Comment count"
+msgstr "Antal kommentarer"
+
+#: ../codepress-admin-columns.php:1208 ../codepress-admin-columns.php:1587
+msgid "Word count"
+msgstr "Antal ord"
+
+#: ../codepress-admin-columns.php:1215
+msgid "Sticky"
+msgstr "Klistrad"
+
+#: ../codepress-admin-columns.php:1224
+msgid "Order"
+msgstr "Ordning"
+
+#: ../codepress-admin-columns.php:1232
+msgid "Page Template"
+msgstr "Sidmallen"
+
+#: ../codepress-admin-columns.php:1252
+msgid "Taxonomy"
+msgstr "Taxonomi"
+
+#: ../codepress-admin-columns.php:1262 ../codepress-admin-columns.php:1330
+#: ../codepress-admin-columns.php:1469 ../codepress-admin-columns.php:1597
+msgid "Custom Field"
+msgstr "Anpassat fält"
+
+#: ../codepress-admin-columns.php:1268 ../codepress-admin-columns.php:1336
+#: ../codepress-admin-columns.php:1475 ../codepress-admin-columns.php:1603
+msgid "Field"
+msgstr "Fält"
+
+#: ../codepress-admin-columns.php:1289
+msgid "User ID"
+msgstr "Användar-ID"
+
+#: ../codepress-admin-columns.php:1292
+msgid "Nickname"
+msgstr "Smeknamn"
+
+#: ../codepress-admin-columns.php:1295
+msgid "First name"
+msgstr "Förnamn"
+
+#: ../codepress-admin-columns.php:1298
+msgid "Last name"
+msgstr "Efternamn"
+
+#: ../codepress-admin-columns.php:1301
+msgid "Url"
+msgstr "Url"
+
+#: ../codepress-admin-columns.php:1304
+msgid "Registered"
+msgstr "Registrerad"
+
+#: ../codepress-admin-columns.php:1307 ../codepress-admin-columns.php:1377
+#: ../codepress-admin-columns.php:1499
+msgid "Description"
+msgstr "Beskrivning"
+
+#: ../codepress-admin-columns.php:1323
+msgid "Postcount"
+msgstr "Antal poster"
+
+#: ../codepress-admin-columns.php:1359
+msgid "Mime type"
+msgstr "Mime typ"
+
+#: ../codepress-admin-columns.php:1362
+msgid "File name"
+msgstr "Filnamn"
+
+#: ../codepress-admin-columns.php:1365
+msgid "Dimensions"
+msgstr "Dimensioner"
+
+#: ../codepress-admin-columns.php:1368
+msgid "Height"
+msgstr "Höjd"
+
+#: ../codepress-admin-columns.php:1374 ../codepress-admin-columns.php:1422
+msgid "Caption"
+msgstr "Bildtext"
+
+#: ../codepress-admin-columns.php:1380
+msgid "Alt"
+msgstr "Alt"
+
+#: ../codepress-admin-columns.php:1383
+msgid "Upload paths"
+msgstr "Uppladdning sökväg"
+
+#: ../codepress-admin-columns.php:1395
+msgid "File size"
+msgstr "Filstorlek"
+
+#: ../codepress-admin-columns.php:1404
+msgid "Aperture"
+msgstr "Bländare"
+
+#: ../codepress-admin-columns.php:1406
+msgid "Aperture EXIF"
+msgstr "Bländare EXIF"
+
+#: ../codepress-admin-columns.php:1410
+msgid "Credit"
+msgstr "Erkännande"
+
+#: ../codepress-admin-columns.php:1412
+msgid "Credit EXIF"
+msgstr "Erkänande EXIF"
+
+#: ../codepress-admin-columns.php:1416
+msgid "Camera"
+msgstr "Kamera"
+
+#: ../codepress-admin-columns.php:1418
+msgid "Camera EXIF"
+msgstr "Kamera EXIF"
+
+#: ../codepress-admin-columns.php:1424
+msgid "Caption EXIF"
+msgstr "Bildtext EXIF"
+
+#: ../codepress-admin-columns.php:1428
+msgid "Timestamp"
+msgstr "Tidsstämpel"
+
+#: ../codepress-admin-columns.php:1430
+msgid "Timestamp EXIF"
+msgstr "Tidsstämpel EXIF"
+
+#: ../codepress-admin-columns.php:1434
+msgid "Copyright"
+msgstr "Upphovsrätt"
+
+#: ../codepress-admin-columns.php:1436
+msgid "Copyright EXIF"
+msgstr "Upphovsrätt EXIF"
+
+#: ../codepress-admin-columns.php:1440
+msgid "Focal Length"
+msgstr "Bränvidd"
+
+#: ../codepress-admin-columns.php:1442
+msgid "Focal Length EXIF"
+msgstr "Brännvidd EXIF"
+
+#: ../codepress-admin-columns.php:1446
+msgid "ISO"
+msgstr "ISO"
+
+#: ../codepress-admin-columns.php:1448
+msgid "ISO EXIF"
+msgstr "ISO EXIF"
+
+#: ../codepress-admin-columns.php:1452
+msgid "Shutter Speed"
+msgstr "Slutartid"
+
+#: ../codepress-admin-columns.php:1454
+msgid "Shutter Speed EXIF"
+msgstr "Slutartid EXIF"
+
+#: ../codepress-admin-columns.php:1458
+msgid "Title"
+msgstr "Titel"
+
+#: ../codepress-admin-columns.php:1460
+msgid "Title EXIF"
+msgstr "Titel EXIF"
+
+#: ../codepress-admin-columns.php:1505
+msgid "Target"
+msgstr "Mål"
+
+#: ../codepress-admin-columns.php:1508
+msgid "Owner"
+msgstr "Ägare"
+
+#: ../codepress-admin-columns.php:1511
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: ../codepress-admin-columns.php:1514
+msgid "Rss"
+msgstr "RSS"
+
+#: ../codepress-admin-columns.php:1517
+msgid "Length"
+msgstr "Längd"
+
+#: ../codepress-admin-columns.php:1545
+msgid "Author Name"
+msgstr "Författare Namn"
+
+#: ../codepress-admin-columns.php:1548
+msgid "Avatar"
+msgstr "Avatar"
+
+#: ../codepress-admin-columns.php:1551
+msgid "Author url"
+msgstr "Författare url"
+
+#: ../codepress-admin-columns.php:1554
+msgid "Author IP"
+msgstr "Författare IP"
+
+#: ../codepress-admin-columns.php:1557
+msgid "Author email"
+msgstr "Författare mail"
+
+#: ../codepress-admin-columns.php:1560
+msgid "In Reply To"
+msgstr "Som svar på"
+
+#: ../codepress-admin-columns.php:1566
+msgid "Approved"
+msgstr "Godkänd"
+
+#: ../codepress-admin-columns.php:1572
+msgid "Date GMT"
+msgstr "Datum GMT"
+
+#: ../codepress-admin-columns.php:1575
+msgid "Agent"
+msgstr "Agent"
+
+#: ../codepress-admin-columns.php:1634
+msgid "Custom"
+msgstr "Anpassad"
+
+#: ../codepress-admin-columns.php:1711
+msgid "Addons"
+msgstr "Tillägg"
+
+#: ../codepress-admin-columns.php:2163 ../codepress-admin-columns.php:2331
+msgid "find out more"
+msgstr "ta reda på mer"
+
+#: ../codepress-admin-columns.php:2167
+msgid "This will make all of the new columns support sorting"
+msgstr "Detta kommer göra att alla de nya kolumnerna stöder sortering"
+
+#: ../codepress-admin-columns.php:2168
+msgid ""
+"By default WordPress let's you sort by title, date, comments and author. "
+"This will make you be able to <strong>sort by any column of any type!</"
+"strong>"
+msgstr ""
+"Som standard låter WordPress dig att sortera efter titel, datum, kommentarer "
+"och författare. Detta tillägg gör att kan <strong>sortera efter en kolumn av "
+"vilken typ som helst!</strong>"
+
+#: ../codepress-admin-columns.php:2169
+msgid ""
+"Perfect for sorting your articles, media files, comments, links and users"
+msgstr ""
+"Perfekt för sortering av dina artiklar, mediafiler, kommentarer, länkar och "
+"användare"
+
+#: ../codepress-admin-columns.php:2170 ../codepress-admin-columns.php:2351
+msgid "(columns that are added by other plugins are not supported)"
+msgstr "(kolumner som har lagts till av andra tillägg stöds inte)"
+
+#: ../codepress-admin-columns.php:2179 ../codepress-admin-columns.php:2181
+msgid "Sortorder"
+msgstr "Sorteringsordning"
+
+#: ../codepress-admin-columns.php:2189
+msgid "Inactive"
+msgstr "inaktiv"
+
+#: ../codepress-admin-columns.php:2192
+msgid "Active"
+msgstr "Aktiv"
+
+#: ../codepress-admin-columns.php:2197
+msgid "Fill in your activation code"
+msgstr "Fyll i din aktiveringsnyckel"
+
+#: ../codepress-admin-columns.php:2198
+msgid "Activate"
+msgstr "Aktivera"
+
+#: ../codepress-admin-columns.php:2202
+msgid "Deactivate"
+msgstr "Inaktivera"
+
+#: ../codepress-admin-columns.php:2217
+msgid "Activate Add-ons"
+msgstr "Aktivera tillägg"
+
+#: ../codepress-admin-columns.php:2218
+msgid ""
+"Add-ons can be unlocked by purchasing a license key. Each key can be used on "
+"multiple sites"
+msgstr ""
+"Tillägg kan låsas upp genom att köpa en licensnyckel. Varje nyckel kan "
+"användas på flera webbplatser."
+
+#: ../codepress-admin-columns.php:2222
+msgid "Addon"
+msgstr "Tillägg"
+
+#: ../codepress-admin-columns.php:2224
+msgid "Activation Code"
+msgstr "Aktiveringskod"
+
+#: ../codepress-admin-columns.php:2233
+msgid "Enter your activation code"
+msgstr "Ange din aktiveringskod"
+
+#: ../codepress-admin-columns.php:2234
+msgid "Activation code unrecognised"
+msgstr "Aktiveringskod oigenkänd."
+
+#: ../codepress-admin-columns.php:2328
+msgid ""
+"You will find a short overview at the <strong>Help</strong> section in the "
+"top-right screen."
+msgstr ""
+"Du hittar en kort översikt på <strong>Hjälp</strong> sektionen i det övre-"
+"högra delen av skärmen."
+
+#: ../codepress-admin-columns.php:2336
+msgid "Codepress Admin Columns"
+msgstr "Codepress Admin Columns"
+
+#: ../codepress-admin-columns.php:2346
+msgid "Get the Addon"
+msgstr "Ladda ner tillägget"
+
+#: ../codepress-admin-columns.php:2349
+msgid ""
+"By default WordPress let's you only sort by title, date, comments and author."
+msgstr ""
+"Som standard låter WordPress dig att endast att sortera efter titel, datum, "
+"kommentarer och författare."
+
+#: ../codepress-admin-columns.php:2350
+msgid ""
+"Make <strong>all columns</strong> of <strong>all types</strong> within the "
+"plugin support sorting &#8212; with the sorting addon."
+msgstr ""
+"Gör <strong>alla kolumers</strong> av <strong>alla typer</strong> inom "
+"tillägget att supporta sortering &#8212; med sorteringstillägget."
+
+#: ../codepress-admin-columns.php:2359
+msgid "Like this plugin?"
+msgstr "Gillar du detta tillägg?"
+
+#: ../codepress-admin-columns.php:2362
+msgid "Why not do any or all of the following"
+msgstr "Varför inte göra något eller allt av följande"
+
+#: ../codepress-admin-columns.php:2364
+msgid "Give it a 5 star rating on WordPress.org."
+msgstr "Ge den ett 5-stjärnigt betyg på WordPress.org."
+
+#: ../codepress-admin-columns.php:2365
+msgid "Link to it so other folks can find out about it."
+msgstr "Länka till den så att andra människor kan ta reda på det."
+
+#: ../codepress-admin-columns.php:2366
+msgid "Donate a token of your appreciation."
+msgstr "Donera som ett tecken på din uppskattning."
+
+#: ../codepress-admin-columns.php:2374
+msgid "Follow us"
+msgstr "Följ oss"
+
+#: ../codepress-admin-columns.php:2378
+msgid "Follow Codepress on Twitter."
+msgstr "Följ Codepress på Twitter."
+
+#: ../codepress-admin-columns.php:2379
+msgid "Like Codepress on Facebook."
+msgstr "Gilla Codepress på Facebook."
+
+#: ../codepress-admin-columns.php:2388
+msgid "Need support?"
+msgstr "Behöver support?"
+
+#: ../codepress-admin-columns.php:2392
+#, php-format
+msgid ""
+"If you are having problems with this plugin, please talk about them in the "
+"<a href=\"%s\">Support forums</a> or send me an email %s."
+msgstr ""
+"Om du har problem med detta tillägget, berätta gärna om dem i <a href=\"%s"
+"\">Support forumet</a> eller skicka mig ett mail%s."
+
+#: ../codepress-admin-columns.php:2393
+#, php-format
+msgid ""
+"If you're sure you've found a bug, or have a feature request, please <a "
+"href='%s'>submit your feedback</a>."
+msgstr ""
+"Om du är säker på att du har hittat en bugg, eller har en fråga om en "
+"funktion, vänligen <a href='%s'>skicka in din kommentar</a>."
+
+#: ../codepress-admin-columns.php:2408
+msgid "Admin Columns"
+msgstr "Admin Columns"
+
+#: ../codepress-admin-columns.php:2426
+msgid "Save Changes"
+msgstr "Spara ändringar"
+
+#: ../codepress-admin-columns.php:2438
+msgid "Restore defaults"
+msgstr "Återställ till standard"
+
+#: ../codepress-admin-columns.php:2442
+msgid "Restore default settings"
+msgstr "Återställ till standardinställningar"
+
+#: ../codepress-admin-columns.php:2442
+msgid ""
+"Warning! ALL saved admin columns data will be deleted. This cannot be "
+"undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"Varning! ALLA sparade admin kolumners data kommer att radera. Detta kan inte "
+"ångras. \\'OK\\' för att radera, \\'Cancel\\' för att avbryta "
+
+#: ../codepress-admin-columns.php:2444
+msgid "This will delete all column settings and restore the default settings."
+msgstr ""
+"Detta kommer att radera alla kolumner inställningar och återställa till "
+"standardinställningarna"
+
+#: ../classes/sortable.php:1143 ../classes/_org.sortable.php:1134
+#: ../classes/_sortable.php:1140
+msgid "Show all "
+msgstr "Visa alla"
+
+#: ../classes/values/comments.php:95 ../classes/values/comments.php:106
+#, php-format
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr "Skickad den <a href=\"%1$s\">%2$s vid %3$s</a>"
+
+#: ../classes/values/comments.php:195 ../classes/values/comments.php:200
+msgid "Unapprove"
+msgstr "Förkastad"
+
+#: ../classes/values/comments.php:197 ../classes/values/comments.php:199
+msgid "Approve"
+msgstr "Godkänn"
+
+#: ../classes/values/comments.php:208 ../classes/values/posts.php:277
+msgid "Restore"
+msgstr "Återställ"
+
+#: ../classes/values/comments.php:212 ../classes/values/posts.php:281
+msgid "Delete Permanently"
+msgstr "Radera permanent"
+
+#: ../classes/values/comments.php:218 ../classes/values/link.php:117
+#: ../classes/values/posts.php:272 ../classes/values/users.php:145
+msgid "Edit"
+msgstr "Redigera"
+
+#: ../classes/values/comments.php:219 ../classes/values/posts.php:273
+msgid "Quick&nbsp;Edit"
+msgstr "Snabbt&nbsp;Redigera"
+
+#: ../classes/values/comments.php:220
+msgid "Reply"
+msgstr "Svara"
+
+#: ../classes/values/link.php:118
+#, php-format
+msgid ""
+"You are about to delete this link '%s'\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Du är på väg att radera denna länk  '%s'\n"
+" 'Avbryt' för att avbryta, 'OK' för att radera"
+
+#: ../classes/values/link.php:118 ../classes/values/users.php:151
+msgid "Delete"
+msgstr "Radera"
+
+#: ../classes/values/media.php:100
+msgid "original"
+msgstr "orginal"
+
+#: ../classes/values/posts.php:107
+msgid "Standard"
+msgstr "Standard"
+
+#: ../classes/values/posts.php:208
+msgid "Published"
+msgstr "Publicerad"
+
+#: ../classes/values/posts.php:209
+msgid "Draft"
+msgstr "Utkast"
+
+#: ../classes/values/posts.php:210
+msgid "Scheduled"
+msgstr "Planerat"
+
+#: ../classes/values/posts.php:211
+msgid "Private"
+msgstr "Privat"
+
+#: ../classes/values/posts.php:212
+msgid "Pending Review"
+msgstr "Väntar på granskning"
+
+#: ../classes/values/posts.php:213 ../classes/values/posts.php:279
+msgid "Trash"
+msgstr "Papperskorg"
+
+#: ../classes/values/posts.php:234
+msgid "approved"
+msgstr "godkänd"
+
+#: ../classes/values/posts.php:238
+msgid "pending"
+msgstr "väntande"
+
+#: ../classes/values/posts.php:242
+msgid "spam"
+msgstr "skräppost"
+
+#: ../classes/values/posts.php:246
+msgid "trash"
+msgstr "papperskorg"
+
+#: ../classes/values/posts.php:272
+msgid "Edit this item"
+msgstr "Redigera detta objekt"
+
+#: ../classes/values/posts.php:273
+msgid "Edit this item inline"
+msgstr "Redigera detta objekt inbäddat"
+
+#: ../classes/values/posts.php:277
+msgid "Restore this item from the Trash"
+msgstr "Återställ detta objekt från papperskorgen"
+
+#: ../classes/values/posts.php:279
+msgid "Move this item to the Trash"
+msgstr "Flytta detta objekt till papperskorgen"
+
+#: ../classes/values/posts.php:281
+msgid "Delete this item permanently"
+msgstr "Ta bort detta objeckt permanent"
+
+#: ../classes/values/posts.php:286
+#, php-format
+msgid "Preview &#8220;%s&#8221;"
+msgstr "Förhandsgranska &#8220;%s&#8221;"
+
+#: ../classes/values/posts.php:286
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+#: ../classes/values/posts.php:288
+#, php-format
+msgid "View &#8220;%s&#8221;"
+msgstr "Visa &#8220;%s&#8221;"
+
+#: ../classes/values/posts.php:288
+msgid "View"
+msgstr "Visa"

@@ -57,7 +57,7 @@ abstract class CPAC_Storage_Model {
 	 * Add Column
 	 *
 	 * @todo : REMOVE
-	 * Adds a columns to the DOM
+	 * Adds a columns to the DOM through AJAX
 	 *
 	 * @since 2.0.0
 	 */
@@ -144,7 +144,7 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		return apply_filters( "cpac_get_meta_keys_{$this->key}", $keys, $this );
+		return apply_filters( "cac/meta_keys/storage_key={$this->key}", $keys, $this );
     }
 
 	/**
@@ -273,7 +273,7 @@ abstract class CPAC_Storage_Model {
 
 		// hooks for adding custom columns by addons
 		// $columns classname | include_path
-		$columns = apply_filters( "cpac_custom_columns_{$this->type}", $columns[ $this->type ], $this );
+		$columns = apply_filters( "cac/columns/custom/type={$this->type}", $columns[ $this->type ], $this );
 
 		return $columns;
 	}
@@ -332,6 +332,9 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;
 		}
 
+		do_action( "cac/columns/registered/default", $columns );
+		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns );
+
 		return $columns;
 	}
 
@@ -362,8 +365,8 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->type ] = $column;
 		}
 
-		do_action( "cpac_get_columns", $columns );
-		do_action( "cpac_get_columns_{$this->key}", $columns );
+		do_action( "cac/columns/registered/custom", $columns );
+		do_action( "cac/columns/registered/custom/storage_key={$this->key}", $columns );
 
 		return $columns;
 	}
@@ -504,6 +507,8 @@ abstract class CPAC_Storage_Model {
 
 		global $pagenow;
 
+
+
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
 		if ( 'admin.php' == $pagenow )
 			return $columns;
@@ -538,15 +543,9 @@ abstract class CPAC_Storage_Model {
 		// Remove 3rd party columns that have been deactivated.
 		// While the column settings have not been stored yet.
 		// When $diff contains items, it means the default stored columns are not available anymore.
-		$diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() );
-// @todo: store type of column ( custom or default ) to column options, filter them against the $columns.
-		echo '<pre>';
-		print_r( array_keys( $columns ) );
-		print_r( $this->get_default_stored_columns() );
-		print_r( $diff );
-		echo '</pre>';
-		//exit;
-		/*if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
+
+		// @todo: check if working properly
+		/*if ( $diff = array_diff( $this->get_default_stored_columns(), array_keys( $columns ) ) ) {
 			foreach ( $diff as $column_name ) {
 				if( isset( $column_headings[ $column_name ] ) )
 					unset( $column_headings[ $column_name ] );
