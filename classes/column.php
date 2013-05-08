@@ -162,6 +162,23 @@ class CPAC_Column {
 	public function populate_options() {
 
 		$this->options = (object) array_merge( (array) $this->options, $this->read() );
+
+		// @todo: DEVE
+		/*if ( 'Slug' == $this->options->label ) {
+			$this->options->label = __( $this->options->label, 'cpac' );
+			echo '<pre>'; print_r( $this->options ); echo '</pre>';
+
+			global $wpdb, $sitepress;
+			echo $sitepress->get_current_language();
+			$res = $wpdb->get_results($wpdb->prepare("
+	            SELECT s.name, s.value, t.value AS translation_value, t.status
+	            FROM  {$wpdb->prefix}icl_strings s
+	            LEFT JOIN {$wpdb->prefix}icl_string_translations t ON s.id = t.string_id
+	            WHERE s.context = %s
+	                AND (t.language = %s OR t.language IS NULL)
+	            ", 'cpac', $sitepress->get_current_language() ), ARRAY_A);
+			echo '<pre>'; print_r( $res ); echo '</pre>';
+		}*/
 	}
 
 	/**

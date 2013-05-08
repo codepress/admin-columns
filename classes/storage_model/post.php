@@ -32,7 +32,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	private function get_label() {
 		$posttype_obj = get_post_type_object( $this->key );
 
-		return $posttype_obj->labels->singular_name;
+		return $posttype_obj->labels->name;
 	}
 
 	/**

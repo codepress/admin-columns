@@ -338,7 +338,7 @@ class CPAC_Settings {
 						-->
 
 						<div class="sidebox" id="plugin-support">
-							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
+							<h3>x<?php _e( 'Support', CPAC_TEXTDOMAIN ); ?></h3>
 							<div class="inside">
 								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
 									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
