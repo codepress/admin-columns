@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns v2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-08 11:45+0100\n"
-"PO-Revision-Date: 2013-05-08 11:47+0100\n"
+"POT-Creation-Date: 2013-05-08 11:58+0100\n"
+"PO-Revision-Date: 2013-05-08 12:08+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: nl_NL\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPath-1: ..\n"
 
 # @ default
-#: ../codepress-admin-columns.php:249 ../classes/settings.php:43
+#: ../codepress-admin-columns.php:248 ../classes/settings.php:43
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -369,9 +369,8 @@ msgstr ""
 
 # @ default
 #: ../classes/settings.php:306
-#, fuzzy
 msgid "Store settings"
-msgstr "Instellingen"
+msgstr "Instellingen opslaan"
 
 #: ../classes/settings.php:310
 msgid "Update"
@@ -406,9 +405,8 @@ msgstr ""
 
 # @ codepress-admin-columns
 #: ../classes/settings.php:341
-#, fuzzy
 msgid "Support"
-msgstr "Hulp nodig?"
+msgstr "Hulp"
 
 # @ codepress-admin-columns
 #: ../classes/settings.php:344

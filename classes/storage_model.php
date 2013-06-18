@@ -243,7 +243,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_custom_columns() {
 
-		$columns = get_transient( 'cpac_custom_columns' );
+		$columns = get_transient( 'cpac_custom_columns' . $this->key );
 
 		// An empty transient means we need to rebuild rebuild it.
 		// Get custom columns from the classes/column directory.
@@ -265,7 +265,7 @@ abstract class CPAC_Storage_Model {
 				$file->next();
 			}
 
-			set_transient( 'cpac_custom_columns', $columns );
+			set_transient( 'cpac_custom_columns' . $this->key, $columns );
 		}
 
 		if ( empty( $columns[ $this->type ] ) )

@@ -38,6 +38,25 @@ a.help {
 	display: inline-block;
 }
 
+/* =Icons
+-------------------------------------------------------------- */
+.icon-yes {
+	background: transparent url(../images/yes.png) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+}
+.icon-no {
+	background: transparent url(../images/no.png) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+}
+
 /* =Menu
 -------------------------------------------------------------- */
 .cpac-menu {
@@ -486,6 +505,11 @@ table.addons tr {
 }
 tr td.padding-22 {
 	padding-top: 22px;
+}
+.ms-list li {
+	margin: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 /* =Import / Export

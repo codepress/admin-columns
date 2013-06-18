@@ -58,6 +58,11 @@ class CPAC_Upgrade {
 
 		$version = get_option( 'cpac_version', false );
 
+		// Maybe version pre 2.0.0 was used
+		if ( ! $version && get_option( 'cpac_options' ) ) {
+			$version = '1.0.0';
+		}
+
 		// Maybe upgrade?
 		if ( $version ) {
 
@@ -140,6 +145,10 @@ class CPAC_Upgrade {
 							$meta_count = null;
 
 							foreach ( $old_columns as $old_column_name => $old_column_settings ) {
+
+								// only active columns
+								if ( isset( $old_column_settings['state'] ) && 'on' !==  $old_column_settings['state'] )
+									continue;
 
 								// convert old settings to new
 								$settings = array_merge( $old_column_settings, array(

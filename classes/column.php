@@ -162,23 +162,6 @@ class CPAC_Column {
 	public function populate_options() {
 
 		$this->options = (object) array_merge( (array) $this->options, $this->read() );
-
-		// @todo: DEVE
-		/*if ( 'Slug' == $this->options->label ) {
-			$this->options->label = __( $this->options->label, 'cpac' );
-			echo '<pre>'; print_r( $this->options ); echo '</pre>';
-
-			global $wpdb, $sitepress;
-			echo $sitepress->get_current_language();
-			$res = $wpdb->get_results($wpdb->prepare("
-	            SELECT s.name, s.value, t.value AS translation_value, t.status
-	            FROM  {$wpdb->prefix}icl_strings s
-	            LEFT JOIN {$wpdb->prefix}icl_string_translations t ON s.id = t.string_id
-	            WHERE s.context = %s
-	                AND (t.language = %s OR t.language IS NULL)
-	            ", 'cpac', $sitepress->get_current_language() ), ARRAY_A);
-			echo '<pre>'; print_r( $res ); echo '</pre>';
-		}*/
 	}
 
 	/**
@@ -758,7 +741,7 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>" placeholder="<?php _e( 'Example:', 'cpac' ); ?> d M Y H:i"/>
 				<p class="description">
 					<?php printf( __( 'Leave empty for WordPress date format, change your <a href="%s">default date format here</a>.' , 'cpac' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
 					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'cpac' ); ?></a>

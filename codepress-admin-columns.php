@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define( 'CPAC_VERSION', 	 	'2.0.0' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
-define( 'CPAC_TEXTDOMAIN', 		'codepress-admin-columns' );
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
@@ -79,7 +78,7 @@ class CPAC {
 	public function init() {
 
 		// translations
-		load_plugin_textdomain( CPAC_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
@@ -96,27 +95,7 @@ class CPAC {
 		// ini controllers
 		$this->init_controllers();
 
-		/*
-		icl_register_string( 'cac2', 'xTitle', 'xTitle' );
-
-		global $sitepress;
-		echo $sitepress->get_current_language() . "<br/>\n";
-		$t = icl_t( 'cac2', 'xTitle', 'xTitle', $sitepress->get_current_language() );
-		echo $t . "!!<br/>\n";
-
-		global $wpdb;
-		$res = $wpdb->get_results($wpdb->prepare("
-            SELECT s.name, s.value, t.value AS translation_value, t.status
-            FROM  {$wpdb->prefix}icl_strings s
-            LEFT JOIN {$wpdb->prefix}icl_string_translations t ON s.id = t.string_id
-            WHERE s.context = %s
-                AND (t.language = %s OR t.language IS NULL)
-            ", 'cac2', $sitepress->get_current_language() ), ARRAY_A);
-
-		echo '<pre>'; print_r( $res ); echo '</pre>';
-		*/
-
-		// Hook
+		// for third party plugins
 		do_action( 'cac/loaded', $this );
 	}
 

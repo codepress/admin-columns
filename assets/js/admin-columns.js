@@ -17,9 +17,9 @@ jQuery(document).ready(function() {
 	cpac_import();
 	cpac_add_column();
 
-	/** init form events */
-	jQuery('.cpac-column').each( function(i,c) {
-		jQuery(c).cpac_form_events();
+	/** we start by binding the toggle events. */
+	jQuery('.cpac-column').each( function(i,col) {
+		jQuery(col).column_bind_toggle();
 	});
 
 	/** checkbox label */
@@ -27,19 +27,36 @@ jQuery(document).ready(function() {
 });
 
 /*
+ * Column: bind toggle events
+ *
+ * For performance we bind all other events after the click event.
+ *
+ * @since 2.0.0
+ */
+jQuery.fn.column_bind_toggle = function() {
+
+	var column = jQuery(this);
+
+	column.find('td.column_edit, td.column_label a' ).click( function(){
+
+		column.toggleClass('opened').find('.column-form').slideToggle(150);
+
+		if ( !column.hasClass('events-binded') )
+			column.column_bind_events();
+
+		column.addClass('events-binded');
+	});
+};
+
+/*
  * Form Events
  *
  * @since 2.0.0
  */
-jQuery.fn.cpac_form_events = function() {
+jQuery.fn.column_bind_events = function() {
 
 	var column		= jQuery(this);
 	var container	= column.closest('.columns-container');
-
-	/** fold in/out */
-	jQuery( '.column_edit, .column_label a', column ).click( function(){
-		column.toggleClass('opened').find('.column-form').slideToggle(150);
-	});
 
 	/** select column type */
 	var default_value =  column.find('.column_type select option:selected').val();
@@ -50,56 +67,6 @@ jQuery.fn.cpac_form_events = function() {
 		var type	= option.val();
 		var label	= option.text();
 		var msg		= jQuery(this).next('.msg').hide();
-
-		/*
-		@todo: REMOVE
-		jQuery.ajax({
-			url: ajaxurl,
-			data: {
-				action	: 'cpac_get_column_' + container.attr('data-type'),
-				type	: type,
-				label	: label
-			},
-			type: 'post',
-			dataType: 'html',
-			success: function( html ){
-
-				// success
-				if( html ) {
-
-					// we have to use filter to remove any text-node comments
-					// see: http://bugs.jquery.com/ticket/12462
-					var el = jQuery(html).filter('*');
-
-					// column can have only one instance of itself and should not have another instance present?
-					if ( 'undefined' === typeof el.attr('data-clone') ) {
-						if ( jQuery( '.cpac-columns', container ).find("[data-type='" + type + "']").length > 0 ) {
-
-							// @todo
-							msg.html( cpac_i18n.clone ).show();
-							return;
-						}
-					}
-
-					// open settings
-					el.addClass('opened').find('.column-form').show();
-
-					// add to DOM
-					column.replaceWith( el );
-
-					// increment clone id
-					el.cpac_update_clone_id();
-
-					// add events
-					el.cpac_form_events();
-				}
-
-				// error message
-				else {}
-			}
-		});*/
-
-		// reset msg
 
 		// create clone
 		var clone = container.find(".for-cloning-only .cpac-column[data-type='" + type + "']").clone();
@@ -126,15 +93,17 @@ jQuery.fn.cpac_form_events = function() {
 			// increment clone id
 			clone.cpac_update_clone_id();
 
-			// add events
-			clone.cpac_form_events();
+			// rebind toggle events
+			clone.column_bind_toggle();
+
+			// rebind all other events
+			clone.column_bind_events();
 		}
 	});
 
 	/** remove column */
-	jQuery( '.remove-button', column ).click( function(e) {
-
-		column.addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
+	column.find('.remove-button').click( function(e) {
+		jQuery(this).closest('.cpac-column').addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
 			jQuery(this).remove();
 		});
 
@@ -142,14 +111,14 @@ jQuery.fn.cpac_form_events = function() {
 	});
 
 	/** change label */
-	jQuery( '.column_label .input input', column ).bind( 'keyup change', function() {
+	column.find('.column_label .input input').bind( 'keyup change', function() {
 
 		var value = jQuery( this ).val();
-		column.find( 'td.column_label .inner > a' ).text( value );
+		jQuery(this).closest('.cpac-column').find( 'td.column_label .inner > a' ).text( value );
 	});
 
 	/** width slider */
-	jQuery( '.input-width-range', column ).each( function(){
+	column.find('.input-width-range').each( function(){
 
 		var input				= jQuery(this).closest('td').find('.input-width');
 		var descr				= jQuery(this).closest('td').find('.width-decription');
@@ -177,7 +146,7 @@ jQuery.fn.cpac_form_events = function() {
 	});
 
 	/** display custom image size */
-	jQuery( '.column_image_size label.custom-size', column ).click( function(){
+	column.find('.column_image_size label.custom-size').click( function(){
 
 		var parent = jQuery(this).closest('.input');
 
@@ -199,7 +168,7 @@ jQuery.fn.cpac_form_events = function() {
  * @since 1.5
  */
 function cpac_sortable() {
-	jQuery('.cpac-columns').sortable({
+	jQuery('div.cpac-columns').sortable({
 		revert					: 250,
 		handle					: 'td.column_sort',
 		placeholder				: 'cpac-placeholder',
@@ -218,7 +187,7 @@ function cpac_sortable() {
  */
 function cpac_menu() {
 	// click
-	jQuery('#cpac .cpac-menu a').click( function(e, el) {
+	jQuery('#cpac div.cpac-menu a').click( function(e, el) {
 
 		var id = jQuery(this).attr('href');
 
@@ -282,7 +251,7 @@ function cpac_help() {
  *
  */
 function cpac_pointer() {
-	jQuery('.cpac-pointer').each(function(){
+	jQuery('li.cpac-pointer').each(function(){
 
 		// vars
 		var el		= jQuery(this),
