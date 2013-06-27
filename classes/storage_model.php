@@ -550,10 +550,6 @@ abstract class CPAC_Storage_Model {
 			}
 		}*/
 
-		echo '<pre>'; print_r( $columns ); echo '</pre>';
-		echo '<pre>'; print_r( $this->get_default_stored_columns() ); echo '</pre>';
-		echo '<pre>'; print_r( $column_headings ); echo '</pre>';
-
 		return $column_headings;
 	}
 }
