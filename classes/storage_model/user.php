@@ -14,8 +14,8 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->type 	= 'user';
 		$this->page 	= 'users';
 
-		// headings; give higher priority, so it will load just before other plugins to prevent conflicts
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 9 );
+		// headings
+		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 10, 3 );

@@ -39,8 +39,8 @@ class CPAC_Settings {
 	public function settings_menu() {
 
 		// add pages
-		$columns_page  = add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_options', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
-		$settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_options', 'cpac-settings',	array( $this, 'general_settings' ) );
+		$columns_page  = add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
+		$settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_admin_columns', 'cpac-settings',	array( $this, 'general_settings' ) );
 
 		// add help tabs
 		add_action( "load-{$columns_page}", array( $this, 'help_tabs' ) );
@@ -53,6 +53,26 @@ class CPAC_Settings {
 
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
+
+		// add capabilty to administrator to manage admin columns
+		// note to devs: you can use this to grant other roles this privilidge as well.
+		$role = get_role( 'administrator' );
+   		$role->add_cap( 'manage_admin_columns' );
+
+		// add cap to options.php
+   		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
+	}
+
+	/**
+	 * Add capability
+	 *
+	 * Allows the capaiblity 'manage_admin_columns' to store data thourgh /wp-admin/options.php
+	 *
+	 * @since 2.0.0
+	 */
+	public function add_capability() {
+
+		return 'manage_admin_columns';
 	}
 
 	/**
@@ -276,6 +296,8 @@ class CPAC_Settings {
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2><?php _e( 'Admin Columns', 'cpac' ); ?></h2>
 
+			<?php //cpac_admin_notice(); ?>
+
 			<div class="cpac-menu">
 				<ul class="subsubsub">
 					<?php $count = 0; ?>
@@ -305,18 +327,21 @@ class CPAC_Settings {
 							<h3>
 								<?php _e( 'Store settings', 'cpac' ) ?>
 							</h3>
+							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 							<div class="form-update">
 								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php _e( 'Update' ) ?>" accesskey="u" >
+								<input type="submit" class="button-primary submit-update" value="<?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?>" accesskey="u" >
 							</div>
+							<?php if ( $has_been_stored ) : ?>
 							<div class="form-reset">
 								<a href="<?php echo add_query_arg( array( 'page' => 'codepress-admin-columns', '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
 									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 								</a>
 							</div>
+							<?php endif; ?>
 						</div><!--form-actions-->
 
-						<!--
+
 						<div class="sidebox" id="addon-state">
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
@@ -335,7 +360,6 @@ class CPAC_Settings {
 								<?php endif; ?>
 							</div>
 						</div>
-						-->
 
 						<div class="sidebox" id="plugin-support">
 							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
@@ -406,6 +430,8 @@ class CPAC_Settings {
 
 		<?php screen_icon( 'codepress-admin-columns' ); ?>
 		<h2><?php _e( 'Admin Columns Settings', 'cpac' ); ?></h2>
+
+		<?php do_action( 'cpac_messages' ); ?>
 
 		<table class="form-table cpac-form-table">
 			<tbody>

@@ -307,6 +307,8 @@ tr.column_image_size.hidden {
 	background: #ffffff;
 }
 .column-form tr td.label {
+	position: relative;
+	overflow: visible;
 	background: #F9F9F9;
 	background: #f5f5f5;
     border-right: 1px solid #E1E1E1;
@@ -333,7 +335,28 @@ tr.column_image_size.hidden {
     font-style: normal;
     line-height: 16px;
     margin: 0 !important;
-    padding: 6px 0 !important;
+}
+.column-form tr td.label p.description {
+	display: none;
+	position: absolute;
+	z-index: 99;
+	top: 30px;
+	left: 0;
+	background: #eaf2fa;
+	border-radius: 5px;
+	border: 1px solid #c7d7e2;
+	padding: 5px 8px !important;
+}
+.column-form tr td.label a.more-info {
+	display: none;
+	width: 14px; height: 14px;
+	line-height: 14px;
+	font-size: 10px;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	background: transparent url(../images/info.png) no-repeat 0 0;
+	float: right;
 }
 .column-form tr td select,
 .column-form tr td input[type=text] {
@@ -358,6 +381,7 @@ tr.column_image_size.hidden {
 	padding-right: 10px;
 }
 .column-form tr td.input p.description {
+	display: none;
 	margin-top: 4px;
 	color: #666666;
 }
@@ -375,6 +399,9 @@ tr.column_image_size.hidden {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+.column-form select optgroup:nth-child(2n) {
+    background: #F9F9F9;
 }
 
 /* =Column Footer

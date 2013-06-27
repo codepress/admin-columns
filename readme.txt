@@ -248,9 +248,9 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 = 2.0.0 =
-* [Notice!!] Custom Fields has been removed ( now available as a paid addon )
-* [Notice!!] Database needs an update, make sure to backup first
-* [Notice!!] Some filters and hooks have been changed, see online documentation
+* [Notice!] Custom Fields has been removed ( now available as an addon )
+* [Notice!] Database needs an update, make sure to backup first
+* [changed] Some filters and hooks have been changed, see online documentation
 *
 * [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design

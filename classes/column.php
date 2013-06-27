@@ -719,6 +719,7 @@ class CPAC_Column {
 			</label>
 			<?php if( $description ) : ?>
 			<p class="description"><?php echo $description; ?></p>
+			<a href="javascript:;" class="more-info"></a>
 			<?php endif; ?>
 		</td>
 		<?php
@@ -911,7 +912,7 @@ class CPAC_Column {
 						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
 							<?php $this->label_view( __( 'Label', 'cpac' ), __( 'This is the name which will appear as the column header.', 'cpac' ), 'label' ); ?>
 							<td class="input">
-								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo htmlspecialchars( stripslashes( $this->options->label ) ); ?>" />
+								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo sanitize_text_field( $this->options->label ); ?>" />
 							</td>
 						</tr><!--.column_label-->
 

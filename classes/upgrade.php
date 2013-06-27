@@ -1,5 +1,9 @@
 <?php
 
+// @todo: dev only
+// update_option( 'cpac_version', '1.0.0' );
+//set_site_transient( 'update_plugins', null );
+
 /**
  * Upgrade
  *
@@ -10,9 +14,6 @@
 class CPAC_Upgrade {
 
 	function __construct() {
-
-		// @todo: dev only
-		// update_option( 'cpac_version', '1.0.0' );
 
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
@@ -60,7 +61,7 @@ class CPAC_Upgrade {
 
 		// Maybe version pre 2.0.0 was used
 		if ( ! $version && get_option( 'cpac_options' ) ) {
-			$version = '1.0.0';
+			// @todo uncomment --->$version = '1.0.0';
 		}
 
 		// Maybe upgrade?

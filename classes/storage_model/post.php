@@ -8,6 +8,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.0.0
 	 */
 	function __construct( $post_type ) {
+
 		$this->key 		= $post_type;
 		$this->label 	= $this->get_label();
 		$this->type 	= 'post';
@@ -18,8 +19,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
-
-		//@todo: remove parent::__construct();
 	}
 
 	/**

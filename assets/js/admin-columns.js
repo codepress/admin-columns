@@ -16,6 +16,7 @@ jQuery(document).ready(function() {
 	cpac_export_multiselect();
 	cpac_import();
 	cpac_add_column();
+	cpac_tooltip();
 
 	/** we start by binding the toggle events. */
 	jQuery('.cpac-column').each( function(i,col) {
@@ -24,7 +25,21 @@ jQuery(document).ready(function() {
 
 	/** checkbox label */
 	jQuery( '.column-meta .column_label input, .column-meta .column_type input' ).prop( 'disabled', true );
+
 });
+
+/*
+ * Tooltip
+ *
+ * @since 2.0.0
+ */
+function cpac_tooltip() {
+	jQuery('.column-form .label label').hover(function(){
+		jQuery(this).next('p.description').show();
+	},function(){
+		jQuery(this).next('p.description').hide();
+	});
+}
 
 /*
  * Column: bind toggle events
@@ -457,8 +472,11 @@ function cpac_add_column() {
 			// increment clone id
 			clone.cpac_update_clone_id();
 
-			// add events
-			clone.cpac_form_events();
+			// rebind toggle events
+			clone.column_bind_toggle();
+
+			// rebind all other events
+			clone.column_bind_events();
 
 			// open settings
 			clone.addClass('opened').find('.column-form').slideDown(150, function(){

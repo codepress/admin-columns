@@ -8,8 +8,7 @@
  * @param string $type Update Type.
  */
 function cpac_admin_message( $message = '', $type = 'updated' ) {
-	$GLOBALS['cpac_messages'][] = '<div class="' . $type . '" id="message"><p>' . $message . '</p></div>';
-
+	$GLOBALS['cpac_messages'][] = '<div class="cpac_message ' . $type . '"><p>' . $message . '</p></div>';
 	add_action( 'admin_notices', 'cpac_admin_notice' );
 }
 

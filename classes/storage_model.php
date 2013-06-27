@@ -507,8 +507,6 @@ abstract class CPAC_Storage_Model {
 
 		global $pagenow;
 
-
-
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
 		if ( 'admin.php' == $pagenow )
 			return $columns;
@@ -531,7 +529,7 @@ abstract class CPAC_Storage_Model {
 			$column_headings[ $column_name ] = stripslashes( $options['label'] );
 		}
 
-		// Add 3rd party columns that have ( or could ) not be stored.
+		// Add 3rd party columns that have ( or could ) not been stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
 		if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
@@ -551,6 +549,10 @@ abstract class CPAC_Storage_Model {
 					unset( $column_headings[ $column_name ] );
 			}
 		}*/
+
+		echo '<pre>'; print_r( $columns ); echo '</pre>';
+		echo '<pre>'; print_r( $this->get_default_stored_columns() ); echo '</pre>';
+		echo '<pre>'; print_r( $column_headings ); echo '</pre>';
 
 		return $column_headings;
 	}
