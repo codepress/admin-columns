@@ -2,7 +2,7 @@
 
 // @todo: dev only
 // update_option( 'cpac_version', '1.0.0' );
-//set_site_transient( 'update_plugins', null );
+set_site_transient( 'update_plugins', null );
 
 /**
  * Upgrade
@@ -18,7 +18,7 @@ class CPAC_Upgrade {
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
-		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'upgrade' ) );
+		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 	}
 
 	/**
@@ -28,26 +28,12 @@ class CPAC_Upgrade {
 	 */
 	public function admin_menu() {
 
+		// Don't run on plugin activate
+		if ( isset( $_GET['action'] ) && 'activate-plugin' == $_GET['action'] ) return;
+
+		// Add upgrade menu
 		$page = add_submenu_page( 'codepress-admin-columns', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
-
 		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
-	}
-
-	/**
-	 * Scripts
-	 *
-	 * @since 2.0.0
-	 */
-	public function admin_scripts() {
-		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
-		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
-
-		// javascript translations
-		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
-			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('admin.php')  . '?page=codepress-admin-columns">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
-			'error'			=> __( 'Error', 'cpac' ),
-			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
-		));
 	}
 
 	/**
@@ -57,11 +43,13 @@ class CPAC_Upgrade {
 	 */
 	public function init() {
 
+		// dev only	delete_option( 'cpac_version' );
+
 		$version = get_option( 'cpac_version', false );
 
 		// Maybe version pre 2.0.0 was used
 		if ( ! $version && get_option( 'cpac_options' ) ) {
-			// @todo uncomment --->$version = '1.0.0';
+			$version = '1.0.0';
 		}
 
 		// Maybe upgrade?
@@ -70,11 +58,12 @@ class CPAC_Upgrade {
 			// run every upgrade
 			if ( $version < CPAC_VERSION ) {
 
-				// flush this transient so new custom columns get's added.
+				// flush this transient so new custom columns get added.
 				delete_transient( 'cpac_custom_columns' );
+				delete_transient( 'cpac_shown_welcome' );
 			}
 
-			// run only when upgrade is needed
+			// run only when database upgrade is needed
 			if ( $version < CPAC_UPGRADE_VERSION ) {
 
 				// display upgrade message on every page except upgrade page itself
@@ -113,7 +102,7 @@ class CPAC_Upgrade {
 	 *
 	 * @since 2.0.0
 	 */
-	public function upgrade() {
+	public function ajax_upgrade() {
 
 		// vars
 		$return = array(
@@ -330,9 +319,27 @@ class CPAC_Upgrade {
 		<?php
 
 		// No update required
-		else :
-			echo '<p>No Upgrade Required</p>';
+		else : ?>
+			<p><?php _e( 'No Upgrade Required', 'cpac' ); ?></p>
+			<a href="<?php echo admin_url('admin.php'); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'cpac' ); ?></a>
+		<?php
 		endif;
 	}
 
+	/**
+	 * Scripts
+	 *
+	 * @since 2.0.0
+	 */
+	public function admin_scripts() {
+		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
+		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+
+		// javascript translations
+		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
+			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('admin.php')  . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
+			'error'			=> __( 'Error', 'cpac' ),
+			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
+		));
+	}
 }

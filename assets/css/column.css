@@ -34,21 +34,25 @@ div.cpac-color {
 	line-height: 26px;
 }
 div.cpac-color span {
-    border: 1px solid #CCCCCC;
 	display: block;
 	-webkit-border-radius: 3px;
     border-radius: 3px;
 	color: #ffffff;
     float: left;
     height: 16px;
+    line-height: 16px;
     margin-right: 12px;
     min-width: 30px;
     overflow: hidden;
     padding: 4px 5px;
+    font-size: 10px;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+    min-width: 47px;
+    text-align: center;
 }
 
 /* =Available Sizes column
 -------------------------------------------------------------- */
 div.sizes span.not-available {
-	color: red;
+	color: #999;
 }

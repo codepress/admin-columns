@@ -27,6 +27,9 @@ class CPAC_Settings {
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
+
+		// handle addon downloads
+		add_action( 'admin_init', array( $this, 'handle_download_request' ) );
 	}
 
 	/**
@@ -66,7 +69,7 @@ class CPAC_Settings {
 	/**
 	 * Add capability
 	 *
-	 * Allows the capaiblity 'manage_admin_columns' to store data thourgh /wp-admin/options.php
+	 * Allows the capaiblity 'manage_admin_columns' to store data through /wp-admin/options.php
 	 *
 	 * @since 2.0.0
 	 */
@@ -264,21 +267,257 @@ class CPAC_Settings {
 	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
-	function get_url( $storage_model = '' ) {
+	function get_url( $type ) {
 		$urls = array(
-			'codepress'		=> 'http://www.codepress.nl/',
+			'codepress'		=> 'http://www.codepresshq.com/',
 			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
 			'support'		=> 'http://wordpress.org/tags/codepress-admin-columns/',
-			'admincolumns'	=> 'http://www.admincolumns.com/',
-			'addons'		=> 'http://www.admincolumns.com/addons/',
-			'documentation'	=> 'http://www.admincolumns.com/documentation/',
-			'feedback'		=> 'http://www.admincolumns.com/feedback/',
+			'admincolumns'	=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/',
+			'addons'		=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/#addons',
+			'documentation'	=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/',
+			'feedback'		=> 'http://www.codepresshq.com/',
 		);
 
-		if ( ! isset( $urls[ $storage_model ] ) )
+		if ( ! isset( $urls[ $type ] ) )
 			return false;
 
-		return $urls[ $storage_model ];
+		return $urls[ $type ];
+	}
+
+	/**
+	 * Has Custom Field
+	 *
+	 * @since 2.0.0
+	 */
+	public function uses_custom_fields() {
+
+		$old_columns = get_option('cpac_options');
+
+		if ( empty( $old_columns['columns'] ) ) return false;
+
+		foreach ( $old_columns['columns'] as $columns ) {
+			foreach ( $columns as $id => $values ) {
+				if ( strpos( $id, 'column-meta-' ) !== false )
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Handle Addon Download
+	 *
+	 * @since 2.0.0
+	 */
+	function handle_download_request() {
+
+		// API domain
+		$store_url = 'http://codepresshq.com';
+
+		if ( ! isset( $_REQUEST['cpac_product_id'] ) ) return false;
+
+		$args = array(
+			'codepress-wc-api' 	=> 'plugin_updater',
+			'secret_key'		=> '',
+			'product_id'		=> $_REQUEST['cpac_product_id'],
+			'licence_key'		=> isset( $_REQUEST['cpac_license_key'] ) ? $_REQUEST['cpac_license_key'] : '',
+			'slug'				=> '',
+		);
+
+		$result = wp_remote_get( add_query_arg( $args, $store_url ), array( 'timeout' => 15, 'sslverify' => false ) );
+
+		// Call the custom API.
+		$response = json_decode( wp_remote_retrieve_body( $result ) );
+
+		if ( ! $response  )  {
+			cpac_admin_message( 'Could not connect to API.', 'error' );
+			return;
+		}
+		if( isset( $response->error ) ) {
+			cpac_admin_message( $response->error, 'error' );
+			return;
+		}
+		if( empty( $response->package ) ) {
+			cpac_admin_message( 'No File found.', 'error' );
+			return;
+		}
+
+		// no @ signs allowed/
+		// source: http://wordpress.stackexchange.com/questions/64818/wp-sanitize-redirect-strips-out-signs-even-from-parameters-why
+		$redirect_url = str_replace( '@', urlencode('@'), $response->package );
+
+		wp_redirect( $redirect_url );
+		exit;
+	}
+
+	/**
+	 * Welcome screen
+	 *
+	 * @since 2.0.0
+	 */
+	public function welcome_screen() {
+
+		// dev only
+		//delete_transient('cpac_shown_welcome');
+
+		// Show only when upgraded
+		if ( ! isset( $_GET['info'] ) && get_transient('cpac_shown_welcome') ) return;
+
+		// Set check that welcome screen has been seen.
+		set_transient( 'cpac_shown_welcome', true );
+
+		$tab = !empty( $_GET['info'] ) ? $_GET['info'] : 'whats-new';
+
+		// check if old site used custom field columns
+		$uses_customfields 	= $this->uses_custom_fields();
+		$uses_sortorder 	= get_option( "cpac_sortable_ac" ) ? true : false;
+
+		$installed_customfields = false;
+		$installed_sortorder 	= false;
+
+		?>
+		<div id="cpac-welcome" class="wrap about-wrap">
+
+			<h1><?php _e( "Welcome to Admin Columns",'cpac'); ?> <?php echo CPAC_VERSION; ?></h1>
+			<div class="about-text">
+				<?php _e( "Thank you for updating to the latest version!", 'cpac' ); ?>
+				<?php _e( "Admin Columns is more polished and enjoyable than ever before. We hope you like it.", 'cpac' ); ?>
+			</div>
+
+			<div class="cpac-content-body">
+				<h2 class="nav-tab-wrapper">
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo admin_url('admin.php?page=codepress-admin-columns&info=whats-new'); ?>"><?php _e( "What’s New", 'cpac' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo admin_url('admin.php?page=codepress-admin-columns&info=changelog'); ?>"><?php _e( "Changelog", 'cpac' ); ?></a>
+					<?php if( $tab == 'download-add-ons' ): ?>
+					<a class="cpac-tab-toggle nav-tab nav-tab-active" href="<?php echo admin_url('admin.php?page=codepress-admin-columns&info=download-add-ons'); ?>"><?php _e( "Download Addons", 'cpac' ); ?></a>
+					<?php endif; ?>
+				</h2>
+
+			<?php if ( 'whats-new' === $tab ) : ?>
+
+				<h3><?php _e( "Addons", 'cpac' ); ?></h3>
+				<p>
+					<?php _e( "Addons are now activated by downloading and installing individual plugins. Although these plugins will not be hosted on the wordpress.org repository, each Add-on will continue to receive updates in the usual way.",'cpac'); ?>
+				</p>
+				<?php
+				$titles = array();
+				if ( $uses_customfields ) 	$titles[] = __('the Custom Fields columns');
+				if ( $uses_sortorder ) 		$titles[] = __('the Sortorder Addon');
+
+				if ( $titles ) : ?>
+				<h4>This website uses <?php echo implode( ' ' . __('and','cpac') .' ', $titles); ?>. These addons need to be downloaded.</h4>
+				<?php endif; ?>
+
+				<div class="cpac-alert cpac-alert-success">
+					<p>
+						<strong></strong>
+						<?php _e( "Addons are sperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo admin_url('admin.php?page=codepress-admin-columns&info=download-add-ons'); ?>" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
+					</p>
+				</div>
+
+				<hr />
+
+				<h3><?php _e("Important",'cpac'); ?></h3>
+
+				<h4><?php _e("Database Changes",'cpac'); ?></h4>
+				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
+
+			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION )  : ?>
+				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo admin_url('admin.php?page=cpac-upgrade'); ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
+			<?php endif; ?>
+
+				<h4><?php _e("Potential Issues",'acf'); ?></h4>
+				<p><?php _e("Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full",'acf'); ?> <a href="/resource" target="_blank"><?php _e("Migrating from v1 to v2",'acf'); ?></a> <?php _e("guide to view the full list of changes.",'acf'); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'info@codepress.nl' ); ?></p>
+
+				<div class="cpac-alert cpac-alert-error">
+					<p><strong><?php _e("Important!",'cpac'); ?></strong> <?php _e("If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest",'cpac'); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e("version 1",'cpac'); ?></a> <?php _e("of this plugin.",'cpac'); ?></p>
+				</div>
+
+			<?php endif; ?>
+			<?php if ( 'changelog' === $tab ) : ?>
+
+				<h3><?php _e("Changelog for", 'cpac'); ?> <?php echo CPAC_VERSION; ?></h3>
+				<?php
+
+				$items = file_get_contents( CPAC_DIR . 'readme.txt' );
+
+				$items = end( explode('= ' . CPAC_VERSION . ' =', $items) );
+				$items = current( explode("\n\n", $items) );
+				$items = current( explode("= ", $items) );
+				$items = array_filter( array_map('trim', explode("*", $items)) );
+
+				?>
+				<ul class="cpac-changelog">
+				<?php foreach( $items as $item ) :
+					$item = explode('http', $item);
+				?>
+					<li><?php echo $item[0]; ?><?php if( isset($item[1]) ): ?><a href="http<?php echo $item[1]; ?>" target="_blank"><?php _e("Learn more", 'cpac'); ?></a><?php endif; ?></li>
+				<?php endforeach; ?>
+				</ul>
+
+			<?php endif; ?>
+			<?php if ( 'download-add-ons' === $tab ) : ?>
+
+				<h3><?php _e("Overview",'cpac'); ?></h3>
+
+				<p><?php _e( "New to v2, all Addons act as separate plugins which need to be individually downloaded, installed and updated.", 'cpac' ); ?></p>
+				<p><?php _e( "This page will assist you in downloading and installing each available Addon.", 'cpac' ); ?></p>
+				<h3><?php _e( "Available Addons", 'cpac' ); ?></h3>
+
+				<table class="widefat" id="cpac-download-add-ons-table">
+					<thead>
+					<tr>
+						<th><?php _e("Name",'cpac'); ?></th>
+						<th><?php _e("Download",'cpac'); ?></th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php if ( $uses_sortorder ): ?>
+					<tr>
+						<th class="td-name"><?php _e("Sortorder Addon",'cpac'); ?></th>
+						<td class="td-download">
+							<a class="button" href="<?php echo admin_url('admin.php'); ?>?page=codepress-admin-columns&amp;info=download-add-ons&amp;cpac_product_id=cac-sortable&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
+						</td>
+					</tr>
+					<?php endif; ?>
+					<?php if ( $uses_customfields ): ?>
+					<tr>
+						<th class="td-name"><?php _e("Custom Fields Addon",'cpac'); ?></th>
+						<td class="td-download">
+							<a class="button" href="<?php echo admin_url('admin.php'); ?>?page=codepress-admin-columns&amp;info=download-add-ons&amp;cpac_product_id=cac-custom-fields"><?php _e("Download",'cpac'); ?></a>
+						</td>
+					</tr>
+					<?php endif; ?>
+					</tbody>
+				</table>
+
+				<h3><?php _e("Installation",'cpac'); ?></h3>
+
+				<p><?php _e("For each Add-on available, please perform the following:",'cpac'); ?></p>
+				<ol>
+					<li><?php _e("Download the Addon plugin (.zip file) to your desktop",'cpac'); ?></li>
+					<li><?php _e("Navigate to",'cpac'); ?> <a target="_blank" href="<?php echo admin_url('plugin-install.php?tab=upload'); ?>"><?php _e("Plugins > Add New > Upload",'cpac'); ?></a></li>
+					<li><?php _e("Use the uploader to browse, select and install your Add-on (.zip file)",'cpac'); ?></li>
+					<li><?php _e("Once the plugin has been uploaded and installed, click the 'Activate Plugin' link",'cpac'); ?></li>
+					<li><?php _e("The Add-on is now installed and activated!",'cpac'); ?></li>
+					<li><?php printf( __("For automatic updates make sure to <a href='%s'>enter your licence key</a>.",'cpac'), admin_url('admin.php?page=cpac-settings') ); ?></li>
+				</ol>
+
+			<?php endif; ?>
+
+				<hr/>
+
+			</div><!--.cpac-content-body-->
+
+			<div class="cpac-content-footer">
+				<a class="button-primary button-large" href="<?php echo admin_url('admin.php?page=codepress-admin-columns'); ?>"><?php _e("Start using Admin Columns",'cpac'); ?></a>
+			</div><!--.cpac-content-footer-->
+
+		</div>
+		<?php
+
+		return true;
 	}
 
 	/**
@@ -287,6 +526,9 @@ class CPAC_Settings {
 	 * @since 1.0.0
 	 */
 	public function column_settings() {
+
+		// Load Welcome screen
+		if ( $this->welcome_screen() ) return;
 
 		// get first element from post-types
 		$first = array_shift( array_values( $this->cpac->get_post_types() ) );
@@ -334,7 +576,7 @@ class CPAC_Settings {
 							</div>
 							<?php if ( $has_been_stored ) : ?>
 							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( 'page' => 'codepress-admin-columns', '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type">
+								<a href="<?php echo add_query_arg( array( 'page' => 'codepress-admin-columns', '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), admin_url("admin.php") ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
 									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 								</a>
 							</div>

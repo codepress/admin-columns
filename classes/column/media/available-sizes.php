@@ -52,7 +52,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 		// image does not have these additional sizes rendered yet
 		if ( $missing = array_diff( array_keys( $_wp_additional_image_sizes), array_keys( $meta['sizes'] ) ) ) {
 			foreach  ( $missing as $size ) {
-				$paths[] = "<span title='Missing size! Try regenerate thumbnails with the plugin: force-regenerate-thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
+				$paths[] = "<span title='Missing size: Try regenerate thumbnails with the plugin: Force Regenerate Thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
 			}
 		}
 

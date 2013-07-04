@@ -251,7 +251,6 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Notice!] Custom Fields has been removed ( now available as an addon )
 * [Notice!] Database needs an update, make sure to backup first
 * [changed] Some filters and hooks have been changed, see online documentation
-*
 * [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design
 * [Updated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
@@ -262,9 +261,11 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] Column: Available_Sizes for media
 * [Added] Default sorting for Users, Comments, Media
 * [Added] Column: Parent for posts
+* [Added] Set your own excerpt length per column
+* [Added] Set your own image size per column
 * [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
-* [Removed] Custom fields support ( now available as a paid addon )
+* [Removed] Custom fields support ( now available as an addon )
 * [Fixed] Issue: Sorting was not working when label contains the ':' character
 * [Addon] Sorting add-on: Added sorting for comment meta data
 * [Addon] Custom Field add-on: Added setting to display hidden custom fields

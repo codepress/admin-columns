@@ -7,39 +7,27 @@ jQuery(document).ready(function() {
 	if ( jQuery('#cpac').length === 0 )
 		return false;
 
-	cpac_sortable();
-	cpac_menu();
-	cpac_clear_input_defaults();
+
+	// General
 	cpac_pointer();
-	cpac_help();
-	cpac_sidebar_scroll();
+
+	// Settings Page
+	cpac_clear_input_defaults();
 	cpac_export_multiselect();
 	cpac_import();
+
+	// Columns Page
+	cpac_sortable();
+	cpac_menu();
+	cpac_help();
 	cpac_add_column();
-	cpac_tooltip();
+	cpac_sidebar_scroll();
 
 	/** we start by binding the toggle events. */
 	jQuery('.cpac-column').each( function(i,col) {
 		jQuery(col).column_bind_toggle();
 	});
-
-	/** checkbox label */
-	jQuery( '.column-meta .column_label input, .column-meta .column_type input' ).prop( 'disabled', true );
-
 });
-
-/*
- * Tooltip
- *
- * @since 2.0.0
- */
-function cpac_tooltip() {
-	jQuery('.column-form .label label').hover(function(){
-		jQuery(this).next('p.description').show();
-	},function(){
-		jQuery(this).next('p.description').hide();
-	});
-}
 
 /*
  * Column: bind toggle events
@@ -60,6 +48,9 @@ jQuery.fn.column_bind_toggle = function() {
 			column.column_bind_events();
 
 		column.addClass('events-binded');
+
+		// hook for addons
+		jQuery(document).trigger( 'column_init', column );
 	});
 };
 
@@ -113,6 +104,9 @@ jQuery.fn.column_bind_events = function() {
 
 			// rebind all other events
 			clone.column_bind_events();
+
+			// hook for addons
+			jQuery(document).trigger( 'column_change', clone );
 		}
 	});
 
@@ -175,7 +169,14 @@ jQuery.fn.column_bind_events = function() {
 			jQuery('.custom-size-h', parent).addClass('hidden');
 		}
 	});
-}
+
+	/**	tooltip */
+	column.find('.column-form .label label').hover(function(){
+		jQuery(this).next('p.description').show();
+	},function(){
+		jQuery(this).next('p.description').hide();
+	});
+};
 
 /*
  * Sortable
@@ -458,7 +459,7 @@ jQuery.fn.cpac_update_clone_id = function() {
  */
 function cpac_add_column() {
 
-	jQuery('#cpac .add_column').click(function(e){
+	jQuery('#cpac .add_column').click( function(e){
 
 		var container = jQuery(this).closest('.columns-container');
 
@@ -483,7 +484,6 @@ function cpac_add_column() {
 				jQuery('html, body').animate({ scrollTop: clone.offset().top - 58 }, 300);
 			});
 		}
-
 
 		/** retrieve column with ajax */
 		/*

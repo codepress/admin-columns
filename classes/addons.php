@@ -24,7 +24,7 @@ class CPAC_Addons {
 	 */
 	public function settings_menu() {
 
-		$page = add_submenu_page( 'codepress-admin-columns', __( 'Add-ons', 'cpac' ), __( 'Add-ons', 'cpac' ), 'manage_options', 'cpac-addons',	array( $this, 'display' ) );
+		$page = add_submenu_page( 'codepress-admin-columns', __( 'Add-ons', 'cpac' ), __( 'Add-ons', 'cpac' ), 'manage_admin_columns', 'cpac-addons',	array( $this, 'display' ) );
 
 		add_action( "admin_print_styles-{$page}", array( $this, 'admin_styles' ) );
 		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
@@ -57,12 +57,11 @@ class CPAC_Addons {
 	 */
 	function get_feed() {
 
-		// @todo: uncomment live domain
-		$url = 'http://codepress.lan/admincolumns';
-		//$url = 'http://www.admincolumns.com';
+		// @todo: uncomment live domain 		$url = 'http://codepresshq.com/';
+		//$url = 'http://codepress.lan/admincolumns/';
+		$url = 'http://codepress.lan/codepresshq/';
 
-// @todo
-		if ( ! $feed = get_transient( 'cpac_addons_feed' ) ) {
+		if ( true || ! $feed = get_transient( 'cpac_addons_feed' ) ) {
 
 			$feed = '<div class="error"><p>' . __( 'There was an error retrieving the extensions list from the server. Please try again later.', 'cpac' ) . '</div>';
 
@@ -70,7 +69,7 @@ class CPAC_Addons {
 			if ( ! is_wp_error( $remote ) && isset( $remote['body'] ) && strlen( $remote['body'] ) > 0 ) {
 				$feed = wp_remote_retrieve_body( $remote );
 
-				set_transient( 'cpac_addons_feed', $feed, 3600 );
+				set_transient( 'cpac_addons_feed', $feed, 3600 * 2 );
 			}
 		}
 
@@ -97,7 +96,7 @@ class CPAC_Addons {
 					<th scope="row">
 						<h3><?php _e( 'Add-ons for Admin Columns', 'cpac' ); ?></h3>
 						<p><?php _e( 'These add-ons extend the functionality of Admin Columns.', 'cpac' ); ?></p>
-						<a href="http://www.admincolumns.com/addons/?ref=1" class="button-primary" title="<?php _e( 'Browse All Add-ons', 'cpac' ); ?>" target="_blank"><?php _e( 'Browse all Add-ons', 'cpac' ); ?></a>
+						<a href="http://www.codepresshq.com/wordpress-plugins/admin-columns/#addons" class="button-primary" title="<?php _e( 'Browse All Add-ons', 'cpac' ); ?>" target="_blank"><?php _e( 'Browse all Add-ons', 'cpac' ); ?></a>
 					</th>
 					<td>
 						<ul class="addons">
@@ -107,7 +106,20 @@ class CPAC_Addons {
 				</tbody>
 			</table>
 		</div>
+
 		<?php
+
+		// Will add an active state to addon list.
+		if ( $addons = apply_filters( 'cac/addon_list', array() ) ) : ?>
+		<script type="text/javascript">
+			jQuery(document).ready( function() {
+				<?php foreach ( $addons as $id => $label ) : ?>
+				jQuery('#cpac ul.addons').find('.<?php echo $id; ?>').addClass('active').appendTo( '#cpac ul.addons' );
+				<?php endforeach; ?>
+			});
+		</script>
+		<?php
+		endif;
 
 		echo ob_get_clean();
 	}

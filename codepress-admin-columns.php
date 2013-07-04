@@ -5,8 +5,8 @@ Plugin Name: 		Codepress Admin Columns
 Version: 			2.0.0
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
-Author URI: 		http://www.admincolumns.com
-Plugin URI: 		http://www.admincolumns.com
+Author URI: 		http://www.codepresshq.com
+Plugin URI: 		http://www.codepresshq.com/wordpress-plugins/admin-columns/
 Text Domain: 		cpac
 Domain Path: 		/languages
 License:			GPLv2
@@ -27,9 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// @todo: REMOVE
-// /www/plugins/wp-content/plugins/codepress-admin-columns
-// /www/plugins/wp-content/plugins/advanced-custom-fields
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'CPAC_VERSION', 	 	'2.0.0' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
@@ -84,10 +82,14 @@ class CPAC {
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_css') );
-		add_action( 'admin_head', array( $this, 'admin_js') );
 
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
+
+		// add capabilty to administrator to manage admin columns
+		// note to devs: you can use this to grant other roles this privilidge as well.
+		$role = get_role( 'administrator' );
+   		$role->add_cap( 'manage_admin_columns' );
 
 		// set storage models
 		$this->set_storage_models();
@@ -137,8 +139,10 @@ class CPAC {
 		$storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Link
-		$storage_model = new CPAC_Storage_Model_Link();
-		$storage_models[ $storage_model->key ] = $storage_model;
+		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
+			$storage_model = new CPAC_Storage_Model_Link();
+			$storage_models[ $storage_model->key ] = $storage_model;
+		}
 
 		// Hook to add more models
 		do_action( 'cac/storage_models', $storage_models );
@@ -325,30 +329,6 @@ class CPAC {
 			}
 		</style>
 		<?php
-
-	}
-
-	/**
-	 * Admin JS
-	 *
-	 * @since 2.0.0
-	 */
-	function admin_js() {
-
-		// Will add an active state to addon list.
-		if ( $addons = apply_filters( 'cac/addon_list', array() ) ) :
-
-		?>
-		<script type="text/javascript">
-			jQuery(document).ready( function() {
-				<?php foreach ( $addons as $id => $label ) : ?>
-				jQuery('#cpac ul.addons').find('.<?php echo $id; ?>').addClass('active').appendTo( '#cpac ul.addons' );
-				<?php endforeach; ?>
-			});
-		</script>
-
-		<?php
-		endif;
 
 	}
 }
