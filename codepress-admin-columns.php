@@ -179,7 +179,7 @@ class CPAC {
 
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
-		new CPAC_Upgrade;
+		new CPAC_Upgrade( $this );
 
 		// Addons
 		require_once CPAC_DIR . 'classes/addons.php';

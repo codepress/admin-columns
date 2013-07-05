@@ -11,7 +11,19 @@
  */
 class CPAC_Upgrade {
 
-	function __construct() {
+	/**
+	 * CPAC class
+	 */
+	private $cpac;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 2.0.0
+	 */
+	function __construct( $cpac ) {
+
+		$this->cpac = $cpac;
 
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
@@ -57,7 +69,11 @@ class CPAC_Upgrade {
 			if ( $version < CPAC_VERSION ) {
 
 				// flush this transient so new custom columns get added.
-				delete_transient( 'cpac_custom_columns' );
+				foreach ( $this->cpac->storage_models as $storage_model ) {
+					delete_transient( 'cpac_custom_columns' . $storage_model->key );
+				}
+
+				// display welcome screen after update
 				delete_transient( 'cpac_shown_welcome' );
 			}
 
