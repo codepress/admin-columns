@@ -19,8 +19,6 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 		// values
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 10, 2 );
-
-		//@todo: remove parent::__construct();
 	}
 
 	/**

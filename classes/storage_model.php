@@ -45,50 +45,6 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_columns();
 
 	/**
-	 * Constructor
-	 * @todo : REMOVE
-	 * @since 2.0.0
-	 */
-	/*function __construct() {
-		add_action( 'wp_ajax_cpac_get_column_' . $this->key, array( $this, 'ajax_get_column_html' ) );
-	}*/
-
-	/**
-	 * Add Column
-	 *
-	 * @todo : REMOVE
-	 * Adds a columns to the DOM through AJAX
-	 *
-	 * @since 2.0.0
-	 */
-	/*public function ajax_get_column_html() {
-
-		$columns = $this->get_registered_columns();
-
-		// get column by type
-		if ( isset( $_POST['type'] ) ) {
-
-			// column is registered
-			if ( isset( $columns[ $_POST['type'] ] ) ) {
-		 		$column = $columns[ $_POST['type'] ];
-		 	}
-
-		 	// sometimes columns that have been set by plugins have not yet been registered.
-		 	// in these cases we create a new column instance for them.
-		 	elseif ( isset( $_POST['label'] ) ) {
-		 		$column = $this->get_column_instance( $_POST['type'], $_POST['label'] );
-		 	}
-		}
-
-		// get first column
-		else
-			$column = array_shift( $columns );
-
-		$column->display();
-		exit;
-	}*/
-
-	/**
 	 * Checks if menu type is currently viewed
 	 *
 	 * @since 1.0.0
@@ -553,7 +509,3 @@ abstract class CPAC_Storage_Model {
 		return $column_headings;
 	}
 }
-
-
-
-

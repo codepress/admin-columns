@@ -621,7 +621,6 @@ class CPAC_Settings {
 						<div class="cpac-columns">
 
 							<?php
-							// @todo: echo '<pre>'; print_r( $storage_model->get_columns() ); echo '</pre>';
 							foreach ( $storage_model->get_columns() as $column ) {
 								$column->display();
 							}

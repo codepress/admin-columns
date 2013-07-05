@@ -57,12 +57,9 @@ class CPAC_Addons {
 	 */
 	function get_feed() {
 
-		// @todo: uncomment live domain 		$url = 'http://codepresshq.com/';
-		//$url = 'http://codepress.lan/admincolumns/';
-		$url = 'http://codepress.lan/codepresshq/';
+		$url = 'http://codepresshq.com/';
 
-		if ( true || ! $feed = get_transient( 'cpac_addons_feed' ) ) {
-
+		if ( ! $feed = get_transient( 'cpac_addons_feed' ) ) {
 			$feed = '<div class="error"><p>' . __( 'There was an error retrieving the extensions list from the server. Please try again later.', 'cpac' ) . '</div>';
 
 			$remote = wp_remote_get( $url . '?addon_feed=extensions', array( 'sslverify' => false ) );

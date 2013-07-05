@@ -1,8 +1,6 @@
 <?php
 
-// @todo: dev only
-// update_option( 'cpac_version', '1.0.0' );
-set_site_transient( 'update_plugins', null );
+// @dev_only: set_site_transient( 'update_plugins', null );
 
 /**
  * Upgrade
