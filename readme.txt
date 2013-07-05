@@ -244,6 +244,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 5. Settings page for Users columns.
 6. Users Screen with the customized sortable columns.
 7. Settings page showing the different displaying types for custom field.
+8. Posts Screen with custom fields.
 
 == Changelog ==
 

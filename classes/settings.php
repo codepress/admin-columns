@@ -358,8 +358,7 @@ class CPAC_Settings {
 	 */
 	public function welcome_screen() {
 
-		// dev only
-		//delete_transient('cpac_shown_welcome');
+		// @dev_only delete_transient('cpac_shown_welcome');
 
 		// Show only when upgraded
 		if ( ! isset( $_GET['info'] ) && get_transient('cpac_shown_welcome') ) return;
@@ -481,14 +480,14 @@ class CPAC_Settings {
 						</td>
 					</tr>
 					<?php endif; ?>
-					<?php if ( $uses_customfields ): ?>
+
 					<tr>
-						<th class="td-name"><?php _e("Custom Fields Addon",'cpac'); ?></th>
+						<th class="td-name"><?php _e("Custom Fields Addon",'cpac'); ?><?php if ( $uses_customfields ) echo '<p class="description">' . __( 'This website is currently using custom field columns.', 'cpac' ) . '</p>'; ?></th>
 						<td class="td-download">
 							<a class="button" href="<?php echo admin_url('admin.php'); ?>?page=codepress-admin-columns&amp;info=download-add-ons&amp;cpac_product_id=cac-custom-fields"><?php _e("Download",'cpac'); ?></a>
 						</td>
 					</tr>
-					<?php endif; ?>
+
 					</tbody>
 				</table>
 
