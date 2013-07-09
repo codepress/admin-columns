@@ -23,9 +23,10 @@ jQuery(document).ready(function() {
 	cpac_add_column();
 	cpac_sidebar_scroll();
 
-	/** we start by binding the toggle events. */
+	/** we start by binding the toggle and remove events. */
 	jQuery('.cpac-column').each( function(i,col) {
 		jQuery(col).column_bind_toggle();
+		jQuery(col).column_bind_remove();
 	});
 });
 
@@ -40,7 +41,7 @@ jQuery.fn.column_bind_toggle = function() {
 
 	var column = jQuery(this);
 
-	column.find('td.column_edit, td.column_label a' ).click( function(){
+	column.find('td.column_edit, td.column_label a.toggle' ).click( function(){
 
 		column.toggleClass('opened').find('.column-form').slideToggle(150);
 
@@ -51,6 +52,20 @@ jQuery.fn.column_bind_toggle = function() {
 
 		// hook for addons
 		jQuery(document).trigger( 'column_init', column );
+	});
+};
+
+/*
+ * Column: bind remove events
+ *
+ * @since 2.0.0
+ */
+jQuery.fn.column_bind_remove = function() {
+
+	jQuery(this).find('.remove-button').click( function(e) {
+		jQuery(this).closest('.cpac-column').column_remove();
+
+		e.preventDefault();
 	});
 };
 
@@ -102,21 +117,15 @@ jQuery.fn.column_bind_events = function() {
 			// rebind toggle events
 			clone.column_bind_toggle();
 
+			// rebind remove events
+			clone.column_bind_remove();
+
 			// rebind all other events
 			clone.column_bind_events();
 
 			// hook for addons
 			jQuery(document).trigger( 'column_change', clone );
 		}
-	});
-
-	/** remove column */
-	column.find('.remove-button').click( function(e) {
-		jQuery(this).closest('.cpac-column').addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
-			jQuery(this).remove();
-		});
-
-		e.preventDefault();
 	});
 
 	/** change label */
@@ -175,6 +184,17 @@ jQuery.fn.column_bind_events = function() {
 		jQuery(this).next('p.description').show();
 	},function(){
 		jQuery(this).next('p.description').hide();
+	});
+};
+
+/*
+ * Column: remove from DOM
+ *
+ * @since 2.0.0
+ */
+jQuery.fn.column_remove = function() {
+	jQuery(this).addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
+		jQuery(this).remove();
 	});
 };
 

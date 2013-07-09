@@ -880,8 +880,11 @@ class CPAC_Column {
 									<?php do_action( 'cac/column/label', $this ); ?>
 
 									</div>
-									<a href="javascript:;">
+									<a class="toggle" href="javascript:;">
 										<?php echo stripslashes( $this->options->label ); ?>
+									</a>
+									<a class="remove-button" href="javacript:;">
+										<?php _e( 'Remove', 'cpac' ); ?>
 									</a>
 								</div>
 							</td>

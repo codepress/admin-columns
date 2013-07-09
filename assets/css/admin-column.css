@@ -196,6 +196,23 @@ a.help {
 .column-meta .column_label .inner > a:hover {
 	color: #333333;
 }
+.column-meta .column_label .inner > a.remove-button {
+	display: none;
+	color: #BC0B0B;
+	text-decoration: none;
+	text-shadow: none;
+	font-weight: normal;
+	margin-left: 12px;
+	font-size: 12px;
+}
+.column-meta .column_label .inner > a.remove-button:hover {
+	background-color: #BC0B0B;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.column-meta:hover .column_label .inner > a.remove-button {
+	display: inline-block;
+}
 .column-meta .column_label .inner .meta {
 	display: inline-block;
 	float: right;
