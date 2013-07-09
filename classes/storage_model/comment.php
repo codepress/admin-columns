@@ -45,7 +45,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	/**
      * Get Meta
      *
-	 * @since 2.0.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
      */

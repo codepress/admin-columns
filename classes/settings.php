@@ -159,7 +159,7 @@ class CPAC_Settings {
 	 *
 	 * Gets multi select options to use in a HTML select element
 	 *
-	 * @since 2.0.0.0
+	 * @since 2.0.0
 	 * @return array Multiselect options
 	 */
 	public function get_export_multiselect_options() {
@@ -537,8 +537,6 @@ class CPAC_Settings {
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2><?php _e( 'Admin Columns', 'cpac' ); ?></h2>
 
-			<?php //cpac_admin_notice(); ?>
-
 			<div class="cpac-menu">
 				<ul class="subsubsub">
 					<?php $count = 0; ?>
@@ -558,7 +556,10 @@ class CPAC_Settings {
 
 				<div class="columns-left">
 					<div id="titlediv">
-						<h2><?php echo $storage_model->label; ?></h2>
+						<h2>
+							<?php echo $storage_model->label; ?>
+							<?php $storage_model->screen_link(); ?>
+						</h2>
 					</div>
 				</div>
 
@@ -581,7 +582,6 @@ class CPAC_Settings {
 							</div>
 							<?php endif; ?>
 						</div><!--form-actions-->
-
 
 						<div class="sidebox" id="addon-state">
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>

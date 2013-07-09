@@ -91,6 +91,9 @@ a.help {
 
 /* =Columns
 -------------------------------------------------------------- */
+.add-new-h2 {
+	color: #828282;
+}
 .cpac-boxes form {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }

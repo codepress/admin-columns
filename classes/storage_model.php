@@ -71,7 +71,7 @@ abstract class CPAC_Storage_Model {
 	/**
      * Get Meta Keys
      *
-	 * @since 2.0.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
      */
@@ -146,7 +146,7 @@ abstract class CPAC_Storage_Model {
 
 		delete_option( "cpac_options_{$this->key}" );
 
-		cpac_admin_message( __( 'Settings succesfully restored.',  'cpac' ), 'updated' );
+		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
 	}
 
 	/**
@@ -507,5 +507,27 @@ abstract class CPAC_Storage_Model {
 		}*/
 
 		return $column_headings;
+	}
+
+	/**
+	 * Get screen link
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string Link
+	 */
+	protected function get_screen_link() {
+
+		return admin_url( $this->page . '.php' );
+	}
+
+	/**
+	 * Screen Link
+	 *
+	 * @since 2.0.0
+	 */
+	function screen_link() {
+
+		echo '<a href="' . $this->get_screen_link() . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
 	}
 }

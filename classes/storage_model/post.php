@@ -22,9 +22,21 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get screen link
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string Link
+	 */
+	protected function get_screen_link() {
+
+		return add_query_arg( array( 'post_type' => $this->key ), admin_url( $this->page . '.php' ) );
+	}
+
+	/**
 	 * Get Label
 	 *
-	 * @since 2.0.0.0
+	 * @since 2.0.0
 	 *
 	 * @return string Singular posttype name
 	 */
@@ -70,7 +82,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
      * Get Meta
      *
-	 * @since 2.0.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
      */

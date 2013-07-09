@@ -649,8 +649,18 @@ class CPAC_Column {
 	 * @return string Formatted date
 	 */
 	private function get_timestamp( $date ) {
+
+echo $date . "<br/>";
+
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
+
+		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch
+		// See http://api.jqueryui.com/datepicker/#utility-formatDate
+		// credits: nmarks
+		if ( is_numeric( $date ) && 13 === strlen( trim( $date ) ) ) {
+			$date = substr( $date, 0, -3 );
+		}
 
 		// Parse with strtotime if it's:
 		// - not numeric ( like a unixtimestamp )
