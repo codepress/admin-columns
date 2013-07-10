@@ -422,7 +422,7 @@ class CPAC_Settings {
 				<h4><?php _e( "Database Changes", 'cpac' ); ?></h4>
 				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
 
-			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION )  : ?>
+			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION ) : ?>
 				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo admin_url('admin.php?page=cpac-upgrade'); ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
 			<?php endif; ?>
 
