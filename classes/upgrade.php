@@ -63,7 +63,7 @@ class CPAC_Upgrade {
 		}
 
 		// @dev_only
-		echo $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_shown_welcome' ) . "<br/>\n";
+		echo "--------- CPAC DEBUG: START ---------<br/>\n" . $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_shown_welcome' ) . "<br/>\n" . "--------- CPAC DEBUG: END ---------<br/>\n";
 
 		// Maybe upgrade?
 		if ( $version ) {
