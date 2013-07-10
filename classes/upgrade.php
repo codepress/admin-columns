@@ -53,7 +53,7 @@ class CPAC_Upgrade {
 	 */
 	public function init() {
 
-		// dev only	delete_option( 'cpac_version' );
+		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_shown_welcome', true );
 
 		$version = get_option( 'cpac_version', false );
 
@@ -61,6 +61,8 @@ class CPAC_Upgrade {
 		if ( ! $version && get_option( 'cpac_options' ) ) {
 			$version = '1.0.0';
 		}
+
+		// @dev_only echo $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n";
 
 		// Maybe upgrade?
 		if ( $version ) {

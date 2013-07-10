@@ -417,20 +417,20 @@ class CPAC_Settings {
 
 				<hr />
 
-				<h3><?php _e("Important",'cpac'); ?></h3>
+				<h3><?php _e( "Important", 'cpac' ); ?></h3>
 
-				<h4><?php _e("Database Changes",'cpac'); ?></h4>
+				<h4><?php _e( "Database Changes", 'cpac' ); ?></h4>
 				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
 
 			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION )  : ?>
 				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo admin_url('admin.php?page=cpac-upgrade'); ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
 			<?php endif; ?>
 
-				<h4><?php _e("Potential Issues",'acf'); ?></h4>
-				<p><?php _e("Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full",'acf'); ?> <a href="/resource" target="_blank"><?php _e("Migrating from v1 to v2",'acf'); ?></a> <?php _e("guide to view the full list of changes.",'acf'); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'info@codepress.nl' ); ?></p>
+				<h4><?php _e( "Potential Issues", 'cpac' ); ?></h4>
+				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'cpac' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>/migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'cpac' ); ?></a> <?php _e( "guide to view the full list of changes.", 'cpac' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'mailto:info@codepress.nl' ); ?></p>
 
 				<div class="cpac-alert cpac-alert-error">
-					<p><strong><?php _e("Important!",'cpac'); ?></strong> <?php _e("If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest",'cpac'); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e("version 1",'cpac'); ?></a> <?php _e("of this plugin.",'cpac'); ?></p>
+					<p><strong><?php _e( "Important!", 'cpac' ); ?></strong> <?php _e( "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest", 'cpac' ); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e( "version 1", 'cpac' ); ?></a> <?php _e( "of this plugin.", 'cpac' ); ?></p>
 				</div>
 
 			<?php endif; ?>
