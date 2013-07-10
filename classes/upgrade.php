@@ -53,7 +53,7 @@ class CPAC_Upgrade {
 	 */
 	public function init() {
 
-		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_shown_welcome', true );
+		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_show_welcome', 'display' );
 
 		$version = get_option( 'cpac_version', false );
 
@@ -62,8 +62,7 @@ class CPAC_Upgrade {
 			$version = '1.0.0';
 		}
 
-		// @dev_only
-		echo "--------- CPAC DEBUG: START ---------<br/>\n" . $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_shown_welcome' ) . "<br/>\n" . "--------- CPAC DEBUG: END ---------<br/>\n";
+		// @dev_only if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) echo "--------- CPAC DEBUG: START ---------<br/>\n" . $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_show_welcome' ) . "<br/>\n" . "--------- CPAC DEBUG: END ---------<br/>\n";
 
 		// Maybe upgrade?
 		if ( $version ) {
@@ -76,8 +75,8 @@ class CPAC_Upgrade {
 					delete_transient( 'cpac_custom_columns' . $storage_model->key );
 				}
 
-				// display welcome screen after update
-				delete_transient( 'cpac_shown_welcome' );
+				// show welcome screen
+				set_transient( 'cpac_show_welcome', 'display' );
 			}
 
 			// run only when database upgrade is needed

@@ -358,14 +358,20 @@ class CPAC_Settings {
 	 */
 	public function welcome_screen() {
 
-		// @dev_only delete_transient('cpac_shown_welcome');
+		// Should only be set after upgrade
+		$show_welcome = false !== get_transient('cpac_show_welcome');
 
-		// Show only when upgraded
-		if ( ! isset( $_GET['info'] ) && get_transient('cpac_shown_welcome') ) return;
+		// Should only be set manual
+		if ( isset( $_GET['info'] ) )
+			$show_welcome = true;
 
-		// Set check that welcome screen has been seen.
-		set_transient( 'cpac_shown_welcome', true );
+		if ( ! $show_welcome )
+			return false;
 
+		// Set check that welcome should not be displayed.
+		delete_transient('cpac_show_welcome');
+
+		// Get tab
 		$tab = !empty( $_GET['info'] ) ? $_GET['info'] : 'whats-new';
 
 		// check if old site used custom field columns
