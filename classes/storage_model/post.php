@@ -67,14 +67,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		//
 		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
 		// when it's being called by CPAC_Storage_Model::add_headings()
-		$columns = 'admin.php' == $pagenow ? get_column_headers( "edit-{$this->key}" ) : '';
+		$columns = 'admin.php' == $pagenow ? get_column_headers( "edit-{$this->key}" ) : array();
 
-		// Get the WP default columns if there is no 3rd party plugin trying to set columns using the hook above.
-		if ( ! $columns ) {
+		// Get the WP default columns
+		$table 	 = _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
 
-			$table 		= _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
-			$columns 	= $table->get_columns();
-		}
+		// Merge the available hooked columns with the WP default columns
+		$columns = array_merge( $columns, $table->get_columns() );
 
 		return $columns;
 	}

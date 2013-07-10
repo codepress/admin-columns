@@ -650,8 +650,6 @@ class CPAC_Column {
 	 */
 	private function get_timestamp( $date ) {
 
-echo $date . "<br/>";
-
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) )
 			return false;
 
