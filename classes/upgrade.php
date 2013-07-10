@@ -62,7 +62,8 @@ class CPAC_Upgrade {
 			$version = '1.0.0';
 		}
 
-		// @dev_only echo $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n";
+		// @dev_only
+		echo $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_shown_welcome' ) . "<br/>\n";
 
 		// Maybe upgrade?
 		if ( $version ) {
