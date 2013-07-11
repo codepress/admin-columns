@@ -81,7 +81,7 @@ class CPAC {
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
-		add_action( 'admin_head', array( $this, 'admin_css') );
+		add_action( 'admin_head', array( $this, 'admin_scripts') );
 
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
@@ -291,26 +291,41 @@ class CPAC {
 	 *
 	 * @since 1.4.0
 	 */
-	function admin_css() {
+	function admin_scripts() {
 
-		global $pagenow;
+		global $pagenow, $current_screen;
 
 		// CSS column widths
-		$css_column_width = '';
+		$css_column_width 	= '';
+
+		// JS
+		$edit_link 	= '';
 
 		foreach ( $this->storage_models as $storage_model ) {
 
 			if ( ! $columns = $storage_model->get_stored_columns() )
 				continue;
 
-			if ( $storage_model->page !== $pagenow )
+			if ( $storage_model->page . '.php' !== $pagenow )
 				continue;
 
+			// CSS
 			foreach ( $columns as $name => $options ) {
 
 				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
 					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
 				}
+			}
+
+			// JS
+			if (
+				// All types except Posts
+				empty( $current_screen->post_type ) ||
+				// Posts
+				( ! empty( $current_screen->post_type ) && $storage_model->key == $current_screen->post_type )
+				)
+				{
+				$edit_link = $storage_model->get_edit_link();
 			}
 		}
 
@@ -327,9 +342,17 @@ class CPAC {
 			#adminmenu #toplevel_page_codepress-admin-columns a[href="admin.php?page=cpac-upgrade"] {
 				display: none;
 			}
+			.cpac-edit { margin-right: 3px; vertical-align: middle; }
 		</style>
-		<?php
 
+		<?php if ( current_user_can( 'manage_admin_columns' ) ) : ?>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
+			});
+		</script>
+		<?php
+		endif;
 	}
 }
 

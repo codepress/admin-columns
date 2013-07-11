@@ -552,4 +552,14 @@ abstract class CPAC_Storage_Model {
 
 		echo '<a href="' . $this->get_screen_link() . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
 	}
+
+	/**
+	 * Screen Link
+	 *
+	 * @since 2.0.0
+	 */
+	function get_edit_link() {
+
+		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'admin.php' ) );
+	}
 }
