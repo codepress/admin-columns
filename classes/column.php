@@ -151,6 +151,9 @@ class CPAC_Column {
 
 		// add stored options
 		$this->populate_options();
+
+		// sanitize label
+		$this->sanitize_label();
 	}
 
 	/**
@@ -245,7 +248,23 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Sanitize
+	 * Santize Label
+	 *
+	 * @since 2.0.0
+	 */
+	public function sanitize_label() {
+
+		// check if original label has changed. Example WPML adds a language column, the column heading will have to display the added flag.
+		if ( $this->properties->hide_label && $this->properties->label !== $this->options->label ) {
+			$this->options->label = $this->properties->label;
+		}
+
+		// replace urls, so export will not have to deal with them
+		$this->options->label = stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) );
+	}
+
+	/**
+	 * Sanitize storage
 	 *
 	 * Sanitizes options.
 	 *
@@ -253,7 +272,7 @@ class CPAC_Column {
 	 * @param $options array User submitted column options
 	 * @return array Options
 	 */
-	public function sanitize( $options ) {
+	public function sanitize_storage( $options ) {
 
 		// excerpt length must be numeric, else we will return it's default
 		if ( isset( $options['excerpt_length'] ) ) {
@@ -263,16 +282,29 @@ class CPAC_Column {
 			}
 		}
 
-		// Label can not contains the character ':', because
-		// CPAC_Column::get_sanitized_label() will return an empty string
 		if ( ! empty( $options['label'] ) ) {
-			$options['label'] = str_replace( ':', '', trim( $options['label'] ) );
+
+			// Label can not contains the character ':', because
+			// CPAC_Column::get_sanitized_label() will return an empty string
+			$options['label'] = str_replace( ':', '', $options['label'] );
 		}
 
 		// used by child classes for additional sanitizing
 		$options = $this->sanitize_options( $options );
 
 		return $options;
+	}
+
+	/**
+	 * Get Label
+	 *
+	 * @since 2.0.0
+	 */
+	function get_label() {
+
+		// @todo
+		//return $this->options->label;
+		return stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) );
 	}
 
 	/**
@@ -889,7 +921,7 @@ class CPAC_Column {
 
 									</div>
 									<a class="toggle" href="javascript:;">
-										<?php echo stripslashes( $this->options->label ); ?>
+										<?php echo stripslashes( $this->get_label() ); ?>
 									</a>
 									<a class="remove-button" href="javacript:;">
 										<?php _e( 'Remove', 'cpac' ); ?>
@@ -923,7 +955,7 @@ class CPAC_Column {
 						<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
 							<?php $this->label_view( __( 'Label', 'cpac' ), __( 'This is the name which will appear as the column header.', 'cpac' ), 'label' ); ?>
 							<td class="input">
-								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo sanitize_text_field( $this->options->label ); ?>" />
+								<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); //echo sanitize_text_field( $this->options->label ); ?>" />
 							</td>
 						</tr><!--.column_label-->
 

@@ -73,7 +73,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$table 	 = _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
 
 		// Merge the available hooked columns with the WP default columns
-		$columns = array_merge( $columns, $table->get_columns() );
+		$columns = array_filter( array_merge( $columns, $table->get_columns() ) );
 
 		return $columns;
 	}

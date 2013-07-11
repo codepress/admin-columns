@@ -17,12 +17,16 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Key
 	 *
+	 * Identifier for Storage Model; Posttype etc.
+	 *
 	 * @since 2.0.0
 	 */
 	public $key;
 
 	/**
 	 * Type
+	 *
+	 * Type of storage model; Post, Media, User or Comments
 	 *
 	 * @since 2.0.0
 	 */
@@ -167,8 +171,12 @@ abstract class CPAC_Storage_Model {
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {
 			if ( $_column = $this->get_column_by_name( $name ) ) {
-				$columns[ $name ] = $_column->sanitize( $options );
+				$columns[ $name ] = $_column->sanitize_storage( $options );
 			}
+
+			// Santize Label: Need to replace the url for images etc, so we do not have url problem on exports
+			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
+			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
 		}
 
 		// store columns
@@ -235,11 +243,15 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get column instance by name and label
+	 * Create column instance
 	 *
 	 * @since 2.0.0
+	 *
+	 * @param $column_name
+	 * @param $label
+	 * @return object CPAC_Column
 	 */
-	function get_column_instance( $column_name, $label ) {
+	public function create_column_instance( $column_name, $label ) {
 
 		// create column instance
 		$column = new CPAC_Column( $this );
@@ -283,7 +295,7 @@ abstract class CPAC_Storage_Model {
 			if ( 'cb' == $column_name )
 				continue;
 
-			$column = $this->get_column_instance( $column_name, $label );
+			$column = $this->create_column_instance( $column_name, $label );
 
 			$columns[ $column->properties->name ] = $column;
 		}
@@ -379,6 +391,8 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_columns() {
 
+		do_action( 'cac/get_columns', $this );
+
 		$columns = array();
 
 		// get columns
@@ -411,6 +425,9 @@ abstract class CPAC_Storage_Model {
 
 				// repopulate the options, so they contains the right stored options
 				$column->populate_options();
+
+				// re-sanitize label
+				$column->sanitize_label();
 
 				$columns[ $name ] = $column;
 			}
@@ -481,8 +498,11 @@ abstract class CPAC_Storage_Model {
 		// add active stored headings
 		foreach( $stored_columns as $column_name => $options ) {
 
+			// maybe need site_url replacement
+			$label = str_replace( '[cpac_site_url]', site_url(), $options['label'] );
+
 			// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
-			$column_headings[ $column_name ] = stripslashes( $options['label'] );
+			$column_headings[ $column_name ] = stripslashes( $label );
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.
@@ -490,6 +510,7 @@ abstract class CPAC_Storage_Model {
 		// When $diff contains items, it means an available column has not been stored.
 		if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
 			foreach ( $diff as $column_name ) {
+
 				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}
 		}
@@ -504,7 +525,8 @@ abstract class CPAC_Storage_Model {
 				if( isset( $column_headings[ $column_name ] ) )
 					unset( $column_headings[ $column_name ] );
 			}
-		}*/
+		}
+		*/
 
 		return $column_headings;
 	}

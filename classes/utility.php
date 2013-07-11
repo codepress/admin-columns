@@ -26,3 +26,11 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
 function cpac_admin_notice() {
     echo implode( $GLOBALS['cpac_messages'] );
 }
+
+/**
+ * Don't display unused licences
+ *
+ * @since 2.0.0
+ */
+add_filter( 'cac/display_licence/addon=cac-filtering', '__return_false' );
+add_filter( 'cac/display_licence/addon=cac-custom-fields', '__return_false' );

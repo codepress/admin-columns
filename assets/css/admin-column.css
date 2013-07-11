@@ -177,6 +177,9 @@ a.help {
 	border-style: solid;
 	border-color: transparent;
 }
+.column-meta img {
+	margin-right: 3px;
+}
 .column-meta .column_sort {
 	width: 10px;
 	background: transparent url('../images/drag.png') no-repeat 8px 8px;

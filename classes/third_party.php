@@ -26,9 +26,45 @@ function pre_load_wordpress_seo_class_metabox() {
 add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
 
 /**
+ * WPML compatibility
+ *
+ * @since 2.0.0
+ */
+function cac_add_wpml_columns( $storage_model ) {
+	global $pagenow;
+
+	// only for posts
+	if ( 'admin.php' !== $pagenow || 'post' !== $storage_model->type ) return;
+
+	global $sitepress, $posts, $__management_columns_posts_translations;
+
+	// prevent DB error
+	$__management_columns_posts_translations = 'not_null';
+
+	$post_type = $storage_model->key;
+
+	// Is needed by SitePress::add_posts_management_column()
+	$posts = get_posts( array(
+		'post_type' 	=> $post_type,
+		'numberposts' 	=> -1
+	));
+
+	// Trigger SitePress::add_posts_management_column() so admin coumkns can pick up it's added column heading
+	add_filter( "manage_{$post_type}s_columns", array( $sitepress, 'add_posts_management_column' ) );
+}
+add_action( 'cac/get_columns', 'cac_add_wpml_columns' );
+
+
+
+//add_filter( 'manage_pages_columns', array( $sitepress, 'add_posts_management_column' ) );
+
+//add_filter('manage_'.$post_type.'s_columns',array($this,'add_posts_management_column'));
+//add_filter('manage_'.$post_type.'_posts_columns',array($this,'add_posts_management_column'));
+
+/**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
  *
-* @since 2.0.0
+ * @since 2.0.0
  *
  * @return array Posttypes
  */
