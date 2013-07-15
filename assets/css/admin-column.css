@@ -236,6 +236,7 @@ a.help {
 .column-meta .column_edit {
 	width: 38px;
 	background: transparent url('../images/arrow.png') no-repeat 23px 16px;
+	cursor: pointer;
 }
 
 /* opened state */

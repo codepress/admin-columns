@@ -268,6 +268,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] Column support for WooCommerce
 * [Added] Support for image headings by other plugin columns
 * [Added] Added edit/view-button for easy switching between overview screen and admin columns
+* [Added] Added capability manage_admin_columns to control which roles can set columns
 * [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
 * [Removed] Custom fields support ( now available as an addon )
