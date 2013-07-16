@@ -14,7 +14,7 @@ function pre_load_wordpress_seo_class_metabox() {
 
 	if ( defined('WPSEO_PATH') && file_exists(WPSEO_PATH.'admin/class-metabox.php') ) {
 		if (
-		( isset($_GET['page']) && 'codepress-admin-columns' == $_GET['page'] && 'admin.php' == $pagenow )
+		( isset($_GET['page']) && 'codepress-admin-columns' == $_GET['page'] && 'options-general.php' == $pagenow )
 		||
 		// for when column list is populated through ajax
 		( defined('DOING_AJAX') && DOING_AJAX && ! empty( $_POST['type'] ) )
@@ -34,7 +34,7 @@ function cac_add_wpml_columns( $storage_model ) {
 	global $pagenow;
 
 	// only for posts
-	if ( 'admin.php' !== $pagenow || 'post' !== $storage_model->type ) return;
+	if ( 'options-general.php' !== $pagenow || 'post' !== $storage_model->type ) return;
 
 	global $sitepress, $posts, $__management_columns_posts_translations;
 

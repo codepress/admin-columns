@@ -173,6 +173,8 @@ class CPAC {
 	 */
 	 function init_controllers() {
 
+	 	do_action( 'cac/controllers', $this );
+
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
 		new CPAC_Settings( $this );
@@ -182,12 +184,8 @@ class CPAC {
 		new CPAC_Upgrade( $this );
 
 		// Addons
-		require_once CPAC_DIR . 'classes/addons.php';
-		new CPAC_Addons;
-
-		// Export Import
-		require_once CPAC_DIR . 'classes/export_import.php';
-		new CPAC_Export_Import( $this );
+		//require_once CPAC_DIR . 'classes/addons.php';
+		//new CPAC_Addons;
 	}
 
 	/**
@@ -229,7 +227,7 @@ class CPAC {
 		if ( $file != plugin_basename( __FILE__ ) )
 			return $links;
 
-		array_unshift( $links, '<a href="' . admin_url("admin.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
+		array_unshift( $links, '<a href="' . admin_url("options-general.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
 		return $links;
 	}
 
@@ -339,6 +337,7 @@ class CPAC {
 			#adminmenu #toplevel_page_codepress-admin-columns.wp-menu-open .wp-menu-image {
 				background-position: 6px 6px;
 			}
+			#menu-settings a[href="options-general.php?page=cpac-upgrade"],
 			#adminmenu #toplevel_page_codepress-admin-columns a[href="admin.php?page=cpac-upgrade"] {
 				display: none;
 			}

@@ -42,8 +42,13 @@ class CPAC_Upgrade {
 		if ( isset( $_GET['action'] ) && 'activate-plugin' == $_GET['action'] ) return;
 
 		// Add upgrade menu
-		$page = add_submenu_page( 'codepress-admin-columns', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
-		add_action( "admin_print_scripts-{$page}", array( $this, 'admin_scripts' ) );
+		//$page = add_submenu_page( 'codepress-admin-columns', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
+
+		// add settings page
+		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
+
+		// add scripts
+		add_action( "admin_print_scripts-{$upgrade_page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -92,7 +97,7 @@ class CPAC_Upgrade {
 								__( 'why?', 'cpac' ) .'</a>). '	.
 								__( "Please", 'cpac' ) .' <a href="http://codex.wordpress.org/Backing_Up_Your_Database">' .
 								__( "backup your database", 'cpac' ) .'</a>, '.
-								__( "then click", 'cpac' ) . ' <a href="' . admin_url() . 'admin.php?page=cpac-upgrade" class="button">' .
+								__( "then click", 'cpac' ) . ' <a href="' . admin_url() . 'options-general.php?page=cpac-upgrade" class="button">' .
 								__( "Upgrade Database", 'cpac' ) . '</a>';
 
 					cpac_admin_message( $message, 'updated' );
@@ -337,7 +342,7 @@ class CPAC_Upgrade {
 		// No update required
 		else : ?>
 			<p><?php _e( 'No Upgrade Required', 'cpac' ); ?></p>
-			<a href="<?php echo admin_url('admin.php'); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'cpac' ); ?></a>
+			<a href="<?php echo admin_url('options-general.php'); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'cpac' ); ?></a>
 		<?php
 		endif;
 	}
@@ -353,7 +358,7 @@ class CPAC_Upgrade {
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
-			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('admin.php')  . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
+			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('options-general.php')  . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
 			'error'			=> __( 'Error', 'cpac' ),
 			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
 		));

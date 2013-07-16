@@ -256,7 +256,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Updated] New UI with responsive design
 * [Updated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
 * [Updated] Columns menu will only display posttypes which have show_ui set to true
-* [Updated] Admin Columns Menu will appear as a top level menu in the dashboard menu
+* [Updated] Admin Columns will have a tabbed settings panel
 * [Added] Added settings page.
 * [Added] Added import/export capabilities
 * [Added] Column: Available_Sizes for media

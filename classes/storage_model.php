@@ -481,7 +481,7 @@ abstract class CPAC_Storage_Model {
 		global $pagenow;
 
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
-		if ( 'admin.php' == $pagenow )
+		if ( ! in_array( $pagenow, array( 'edit.php', 'users.php', 'edit-comments.php', 'upload.php', 'link-manager.php' ) ) )
 			return $columns;
 
 		// stored columns exists?
@@ -560,6 +560,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_edit_link() {
 
-		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'admin.php' ) );
+		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 }

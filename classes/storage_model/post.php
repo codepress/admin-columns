@@ -67,7 +67,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		//
 		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
 		// when it's being called by CPAC_Storage_Model::add_headings()
-		$columns = 'admin.php' == $pagenow ? get_column_headers( "edit-{$this->key}" ) : array();
+		$columns = array();
+
+		if ( 'options-general.php' == $pagenow && isset( $_GET['page'] ) && 'codepress-admin-columns' == $_GET['page'] )
+			$columns = get_column_headers( "edit-{$this->key}" );
 
 		// Get the WP default columns
 		$table 	 = _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
