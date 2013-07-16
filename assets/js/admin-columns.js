@@ -304,25 +304,28 @@ function cpac_sidebar_scroll() {
 
 	if (!msie6 && jQuery('.columns-right-inside').length !== 0 ) {
 
-		// top position of the sidebar on loading
-		var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
+		if ( jQuery('.columns-right-inside:visible').offset() ) {
 
-		jQuery(window).scroll(function (event) {
-			// y position of the scroll
-			var y = jQuery(this).scrollTop();
+			// top position of the sidebar on loading
+			var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
 
-			// top position of div#cpac is calculated everytime incase of an opened help screen
-			var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
+			jQuery(window).scroll(function (event) {
+				// y position of the scroll
+				var y = jQuery(this).scrollTop();
 
-			// whether that's below
-			if (y >= top + offset ) {
-				// if so, ad the fixed class
-				jQuery('.columns-right-inside:visible').addClass('fixed');
-			} else {
-				// otherwise remove it
-				jQuery('.columns-right-inside:visible').removeClass('fixed');
-			}
-		});
+				// top position of div#cpac is calculated everytime incase of an opened help screen
+				var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
+
+				// whether that's below
+				if (y >= top + offset ) {
+					// if so, ad the fixed class
+					jQuery('.columns-right-inside:visible').addClass('fixed');
+				} else {
+					// otherwise remove it
+					jQuery('.columns-right-inside:visible').removeClass('fixed');
+				}
+			});
+		}
 	}
 }
 

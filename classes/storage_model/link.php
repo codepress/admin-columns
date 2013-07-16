@@ -43,6 +43,15 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	}
 
 	/**
+     * Get Meta
+     *
+	 * @since 2.0.0
+	 *
+	 * @return array
+     */
+    public function get_meta() {}
+
+	/**
 	 * Manage value
 	 *
 	 * @since 2.0.0

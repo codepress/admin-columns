@@ -562,6 +562,44 @@ tr td.padding-22 {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+/* =Column: Button
+-------------------------------------------------------------- */
+.column-form tr.column_action td a.remove-button {
+	border-bottom: 1px solid #FF0000;
+    color: #FF0000;
+    display: inline-block;
+    padding: 0 3px;
+    text-decoration: none;
+    text-shadow: none;
+}
+.column-form tr.column_action td a.remove-button:hover {
+    background-color: #FF0000;
+    border-bottom-color: #FF0000;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/* =Column: Action
+-------------------------------------------------------------- */
+.column-form tr.column_action td {
+	background: #f9f9f9;
+}
+
+/* =Column: Footer
+-------------------------------------------------------------- */
+.column-footer .button-container {
+	float: right;
+	display: inline-block;
+	margin-top: -5px;
+}
+.column-footer .button-container p {
+	margin: 4px;
+	color: #7A9BBE;
+}
+.column-footer .button-container a {
+	display: inline-block;
+	margin-top: 5px;
+}
 
 /* =Welcome Screen
 -------------------------------------------------------------- */

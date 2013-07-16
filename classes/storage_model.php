@@ -217,13 +217,22 @@ abstract class CPAC_Storage_Model {
 
 			while( $file->valid() ) {
 
-				if ( ! $file->isDot() && $this->type == $file->getSubPath() ) {
+				if ( ! $file->isDot() ) {
 
 					// build classname from filename
-					$type = ucfirst( $file->getSubPath() );
 					$name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
 
-					$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $file->key();
+					// add columns for multiple storage types
+					if ( ! $file->getSubPath() ) {
+						$columns[ $this->type ]["CPAC_Column_{$name}"] = $file->key();
+					}
+
+					// add columns for specific types
+					elseif ( $this->type == $file->getSubPath() ) {
+
+						$type = ucfirst( $this->type );
+						$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $file->key();
+					}
 				}
 
 				$file->next();

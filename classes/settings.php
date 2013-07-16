@@ -108,8 +108,7 @@ class CPAC_Settings {
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-multi-select', CPAC_URL . 'assets/css/multi-select.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-multiple-fields-css', CPAC_URL . 'assets/css/multiple-fields.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-custom-fields-css', CPAC_URL . 'assets/css/custom-fields.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -124,13 +123,7 @@ class CPAC_Settings {
 
 		// columns
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
-		wp_enqueue_script( 'cpac-multiple-fields-js', CPAC_URL . 'assets/js/multiple-fields.js', array( 'jquery' ), CPAC_VERSION );
-
-		// javascript translations
-		wp_localize_script( 'cpac-multiple-fields-js', 'cpac_i18n', array(
-			'remove'	=> __( 'Remove', 'cpac' ),
-			'clone'		=> __( '%s column is already present and can not be duplicated.', 'cpac' ),
-		));
+		wp_enqueue_script( 'cpac-custom-fields-js', CPAC_URL . 'assets/js/custom-fields.js', array( 'jquery' ), CPAC_VERSION );
 	}
 
 	/**
@@ -659,8 +652,9 @@ class CPAC_Settings {
 
 				<div class="for-cloning-only" style="display:none">
 					<?php
-					foreach ( $storage_model->get_registered_columns() as $column )
+					foreach ( $storage_model->get_registered_columns() as $column ) {
 						$column->display();
+					}
 					?>
 				</div>
 
@@ -695,7 +689,6 @@ class CPAC_Settings {
 		<table class="form-table cpac-form-table">
 			<tbody>
 
-				<?php if ( has_action( 'cac/settings/general' ) ): ?>
 				<tr class="general">
 					<th scope="row">
 						<h3><?php _e( 'General Settings', 'cpac' ); ?></h3>
@@ -705,8 +698,16 @@ class CPAC_Settings {
 						<div class="cpac_general">
 							<form method="post" action="options.php">
 								<?php settings_fields( 'cpac-general-settings' ); ?>
+								<?php $options = get_option( 'cpac_general_options' ); ?>
+								<strong><?php _e( 'Custom field settings', 'cpac' ); ?></strong>
+								<p>
+									<label for="show_hidden">
+										<input name="cpac_general_options[show_hidden]" id="show_hidden" type="checkbox" value="1" <?php checked( isset( $options['show_hidden'] ) ? $options['show_hidden'] : '', '1' ); ?>>
+										<?php _e( 'Show hidden custom fields. Default is <code>off</code>.', 'cpac' ); ?>
+									</label>
+								</p>
 
-								<?php do_action( 'cac/settings/general', get_option( 'cpac_general_options' ) ); ?>
+								<?php do_action( 'cac/settings/general', $options ); ?>
 
 								<p>
 									<input type="submit" class="button" value="<?php _e( 'Save' ); ?>" />
@@ -715,7 +716,6 @@ class CPAC_Settings {
 						</div>
 					</td>
 				</tr><!--.general-->
-				<?php endif; ?>
 
 				<?php
 
