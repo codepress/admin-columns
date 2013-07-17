@@ -16,7 +16,7 @@ class CPAC_Column {
 	 * @since 2.0.0
 	 * @var object $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
-	protected $storage_model;
+	public $storage_model;
 
 	/**
 	 * Options
@@ -302,9 +302,7 @@ class CPAC_Column {
 	 */
 	function get_label() {
 
-		// @todo
-		//return $this->options->label;
-		return stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) );
+		return apply_filters( 'cac/column/get_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
 	}
 
 	/**

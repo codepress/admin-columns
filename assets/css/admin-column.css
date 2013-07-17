@@ -515,6 +515,14 @@ tr.column_image_size.hidden {
 	height: 28px;
 	line-height: 28px;
 }
+
+/* =Sidebar: Pro
+--------------------------------*/
+#pro-version {}
+
+
+/* =Sidebar: Addons
+--------------------------------*/
 #addon-state {}
 #addon-state .inside {
 	overflow: hidden;

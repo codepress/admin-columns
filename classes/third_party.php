@@ -31,6 +31,9 @@ add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
  * @since 2.0.0
  */
 function cac_add_wpml_columns( $storage_model ) {
+
+	if( ! class_exists('SitePress') ) return;
+
 	global $pagenow;
 
 	// only for posts
@@ -53,13 +56,6 @@ function cac_add_wpml_columns( $storage_model ) {
 	add_filter( "manage_{$post_type}s_columns", array( $sitepress, 'add_posts_management_column' ) );
 }
 add_action( 'cac/get_columns', 'cac_add_wpml_columns' );
-
-
-
-//add_filter( 'manage_pages_columns', array( $sitepress, 'add_posts_management_column' ) );
-
-//add_filter('manage_'.$post_type.'s_columns',array($this,'add_posts_management_column'));
-//add_filter('manage_'.$post_type.'_posts_columns',array($this,'add_posts_management_column'));
 
 /**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
@@ -106,4 +102,40 @@ function cpac_load_aioseop_addmycolumns() {
 	}
 }
 add_action( 'cac/columns/default/posts', 'cpac_load_aioseop_addmycolumns' );
+
+/**
+ * WPML Register labels
+ *
+ * To enable the translation of the column labels
+ *
+ * @since 2.0.0
+ */
+function cpac_wpml_register_column_labels() {
+	global $cpac;
+
+	foreach ( $cpac->storage_models as $storage_model ) {
+		foreach ( $storage_model->get_stored_columns() as $column_name => $options ) {
+			icl_register_string( 'Admin Columns', $storage_model->key . '_' . $column_name, stripslashes( $options['label'] ) );
+		}
+	}
+}
+add_action( 'wp_loaded', 'cpac_wpml_register_column_labels', 99 );
+
+/**
+ * WPML Display translated label
+ *
+ * @since 2.0.0
+ */
+function cpac_wpml_set_translated_label( $label, $column_name, $column_options, $storage_model ) {
+
+	// register with WPML
+	if( function_exists('icl_t') ) {
+		$name 	= $storage_model->key . '_' . $column_name;
+		$label 	= icl_t( 'Admin Columns', $name, $label );
+	}
+
+	return $label;
+}
+add_filter( 'cac/headings/label', 'cpac_wpml_set_translated_label', 10, 4 );
+
 

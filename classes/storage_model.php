@@ -507,11 +507,13 @@ abstract class CPAC_Storage_Model {
 		// add active stored headings
 		foreach( $stored_columns as $column_name => $options ) {
 
-			// maybe need site_url replacement
-			$label = str_replace( '[cpac_site_url]', site_url(), $options['label'] );
-
 			// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
-			$column_headings[ $column_name ] = stripslashes( $label );
+			$label = apply_filters( 'cac/headings/label', stripslashes( $options['label'] ), $column_name, $options, $this );
+
+			// maybe need site_url replacement
+			$label = str_replace( '[cpac_site_url]', site_url(), $label );
+
+			$column_headings[ $column_name ] = $label;
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.

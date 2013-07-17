@@ -394,7 +394,7 @@ class CPAC_Settings {
 				if ( $uses_sortorder ) 		$titles[] = __('the Sortorder Addon');
 
 				if ( $titles ) : ?>
-				<h4>This website uses <?php echo implode( ' ' . __('and','cpac') .' ', $titles); ?>. These addons need to be downloaded.</h4>
+				<h4><?php printf( __( "This website uses %s. These addons need to be downloaded." ,'cpac' ), implode( ' ' . __('and','cpac') .' ', $titles) ); ?></h4>
 				<?php endif; ?>
 
 				<div class="cpac-alert cpac-alert-success">
@@ -592,6 +592,23 @@ class CPAC_Settings {
 							<?php endif; ?>
 						</div><!--form-actions-->
 
+						<div class="sidebox" id="pro-version">
+							<h3><?php _e( 'Get the Pro addon', 'cpac' ) ?></h3>
+							<div class="inside">
+								By default WordPress let's you only sort by title, date, comments and author.
+
+								Make all columns of all types within the plugin support sorting — with the sorting addon.
+
+								(columns that are added by other plugins are not supported).
+								<ul>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- @todo
 						<div class="sidebox" id="addon-state">
 							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
 							<div class="inside">
@@ -610,6 +627,7 @@ class CPAC_Settings {
 								<?php endif; ?>
 							</div>
 						</div>
+						-->
 
 						<div class="sidebox" id="plugin-support">
 							<h3><?php _e( 'Support', 'cpac' ); ?></h3>

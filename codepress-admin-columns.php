@@ -344,7 +344,7 @@ class CPAC {
 			.cpac-edit { margin-right: 3px; vertical-align: middle; }
 		</style>
 
-		<?php if ( current_user_can( 'manage_admin_columns' ) ) : ?>
+		<?php if ( current_user_can( 'manage_admin_columns' ) && $edit_link ) : ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
@@ -360,4 +360,5 @@ class CPAC {
  *
  * @since 1.0.0
  */
-new CPAC();
+$cpac = new CPAC();
+
