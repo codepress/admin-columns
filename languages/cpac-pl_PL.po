@@ -2,664 +2,929 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-24 10:21+0100\n"
-"PO-Revision-Date: 2012-08-24 10:21+0100\n"
-"Last-Translator: Bartosz Arendt <info@digitalfactory.pl>\n"
+"POT-Creation-Date: 2013-07-18 15:23+0100\n"
+"PO-Revision-Date: 2013-07-18 15:23+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Digital Factory <info@digitalfactory.pl>\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: POLAND\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../codepress-admin-columns.php:169
+#: ../codepress-admin-columns.php:230 ../classes/settings.php:534
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../codepress-admin-columns.php:352
-msgid "Add Custom Field Column"
-msgstr "Dodaj kolumnę Własne pole"
-
-#: ../codepress-admin-columns.php:360
-msgid "drag and drop to reorder"
-msgstr "przeciągnij i opuść aby zmienić kolejność"
-
-#: ../codepress-admin-columns.php:502
-#: ../codepress-admin-columns.php:527
-msgid "default"
-msgstr "domyśłny"
-
-#: ../codepress-admin-columns.php:525
-#: ../codepress-admin-columns.php:1471
-msgid "Width"
-msgstr "Szerokość"
-
-#: ../codepress-admin-columns.php:593
-msgid "Default"
-msgstr "Domyślny"
-
-#: ../codepress-admin-columns.php:594
-#: ../codepress-admin-columns.php:1602
-msgid "Image"
-msgstr "Obrazek"
-
-#: ../codepress-admin-columns.php:595
-msgid "Media Library Icon"
-msgstr "Ikona Biblioteki mediów"
-
-#: ../codepress-admin-columns.php:596
-#: ../codepress-admin-columns.php:1255
-#: ../codepress-admin-columns.php:1678
-msgid "Excerpt"
-msgstr "Wypis"
-
-#: ../codepress-admin-columns.php:597
-msgid "Multiple Values"
-msgstr "Wielokrotne wartości"
-
-#: ../codepress-admin-columns.php:598
-msgid "Numeric"
-msgstr "Numeryczny"
-
-#: ../codepress-admin-columns.php:599
-#: ../codepress-admin-columns.php:1669
-msgid "Date"
-msgstr "Data"
-
-#: ../codepress-admin-columns.php:600
-msgid "Post Title (Post ID's)"
-msgstr "Tytył wpisu (ID wpisu)"
-
-#: ../codepress-admin-columns.php:601
-msgid "Checkmark (true/false)"
-msgstr "Znak (prawda/fałsz)"
-
-#: ../codepress-admin-columns.php:626
-msgid "This field can not be removed"
-msgstr "To własne pole nie może być usunięte"
-
-#: ../codepress-admin-columns.php:630
-#: ../classes/values/users.php:153
-msgid "Remove"
-msgstr "Usuń"
-
-#: ../codepress-admin-columns.php:636
-#: ../codepress-admin-columns.php:1362
-#: ../codepress-admin-columns.php:1430
-#: ../codepress-admin-columns.php:1569
-#: ../codepress-admin-columns.php:1697
-msgid "Custom Field"
-msgstr "Własne pole"
-
-#: ../codepress-admin-columns.php:639
-msgid "Field Type"
-msgstr "Rodzaj pola"
-
-#: ../codepress-admin-columns.php:642
-msgid "Before"
-msgstr "Przed"
-
-#: ../codepress-admin-columns.php:645
-msgid "After"
-msgstr "Po"
-
-#: ../codepress-admin-columns.php:663
-msgid "Display Name"
-msgstr "Pseudonim"
-
-#: ../codepress-admin-columns.php:664
-msgid "First Name"
-msgstr "Imię"
-
-#: ../codepress-admin-columns.php:665
-msgid "Last Name"
-msgstr "Nazwisko"
-
-#: ../codepress-admin-columns.php:666
-msgid "First &amp; Last Name"
-msgstr "Imię i nazwisko"
-
-#: ../codepress-admin-columns.php:667
-#: ../codepress-admin-columns.php:1392
-msgid "Nickname"
-msgstr "Pseudonim"
-
-#: ../codepress-admin-columns.php:668
-msgid "Username"
-msgstr "Nazwa użytkownika"
-
-#: ../codepress-admin-columns.php:669
-msgid "Email"
-msgstr "Email"
-
-#: ../codepress-admin-columns.php:670
-#: ../codepress-admin-columns.php:1389
-msgid "User ID"
-msgstr "ID użytkownika"
-
-#: ../codepress-admin-columns.php:679
-msgid "Display name as"
-msgstr "Wyświetl jakoi"
-
-#: ../codepress-admin-columns.php:1221
-msgid "Comments"
-msgstr "Komentarze"
-
-#: ../codepress-admin-columns.php:1227
-msgid "Icon"
-msgstr "Ikona"
-
-#: ../codepress-admin-columns.php:1252
-msgid "Featured Image"
-msgstr "Ikona wpisu"
-
-#: ../codepress-admin-columns.php:1258
-#: ../codepress-admin-columns.php:1322
-msgid "Page Order"
-msgstr "Kolejność stron"
-
-#: ../codepress-admin-columns.php:1261
-#: ../codepress-admin-columns.php:1339
-msgid "Post Format"
-msgstr "Format wpisu"
-
-#: ../codepress-admin-columns.php:1264
-#: ../codepress-admin-columns.php:1456
-#: ../codepress-admin-columns.php:1596
-#: ../codepress-admin-columns.php:1642
-msgid "ID"
-msgstr "ID"
-
-#: ../codepress-admin-columns.php:1267
-msgid "Slug"
-msgstr "Bezpośredni odnośnik"
-
-#: ../codepress-admin-columns.php:1270
-msgid "Attachment"
-msgstr "Załącznik"
-
-#: ../codepress-admin-columns.php:1273
-msgid "No. of Attachments"
-msgstr "Liczba załączników"
-
-#: ../codepress-admin-columns.php:1276
-msgid "Roles"
-msgstr "Role"
-
-#: ../codepress-admin-columns.php:1279
-#: ../codepress-admin-columns.php:2323
-msgid "Status"
-msgstr "Status"
-
-#: ../codepress-admin-columns.php:1282
-msgid "Comment status"
-msgstr "Status komentarza"
-
-#: ../codepress-admin-columns.php:1285
-msgid "Ping status"
-msgstr "Status ping"
-
-#: ../codepress-admin-columns.php:1288
-#: ../codepress-admin-columns.php:1410
-#: ../codepress-admin-columns.php:1489
-#: ../codepress-admin-columns.php:1620
-#: ../codepress-admin-columns.php:1681
-msgid "Actions"
-msgstr "Działania"
-
-#: ../codepress-admin-columns.php:1294
-msgid "Last modified"
-msgstr "Ostatnia modyfikacja"
-
-#: ../codepress-admin-columns.php:1297
-msgid "Comment count"
-msgstr "Liczba komentarzy"
-
-#: ../codepress-admin-columns.php:1300
-msgid "Display Author As"
-msgstr "Wyświetla autora jako"
-
-#: ../codepress-admin-columns.php:1308
-#: ../codepress-admin-columns.php:1687
-msgid "Word count"
-msgstr "Liczba słów"
-
-#: ../codepress-admin-columns.php:1315
-msgid "Sticky"
-msgstr "Przyklejone"
-
-#: ../codepress-admin-columns.php:1324
-msgid "Order"
-msgstr "Kolejność"
-
-#: ../codepress-admin-columns.php:1332
-msgid "Page Template"
-msgstr "Szablon strony"
-
-#: ../codepress-admin-columns.php:1352
-msgid "Taxonomy"
-msgstr "Taksonomia"
-
-#: ../codepress-admin-columns.php:1368
-#: ../codepress-admin-columns.php:1436
-#: ../codepress-admin-columns.php:1575
-#: ../codepress-admin-columns.php:1703
-msgid "Field"
-msgstr "Pole"
-
-#: ../codepress-admin-columns.php:1395
-msgid "First name"
-msgstr "Imię"
-
-#: ../codepress-admin-columns.php:1398
-msgid "Last name"
-msgstr "Nazwisko"
-
-#: ../codepress-admin-columns.php:1401
-msgid "Url"
-msgstr "Adres URL"
-
-#: ../codepress-admin-columns.php:1404
-msgid "Registered"
-msgstr "Zarejestrowany"
-
-#: ../codepress-admin-columns.php:1407
-#: ../codepress-admin-columns.php:1477
-#: ../codepress-admin-columns.php:1599
-msgid "Description"
-msgstr "Opis"
-
-#: ../codepress-admin-columns.php:1423
-msgid "Postcount"
-msgstr "Liczba wpisów"
-
-#: ../codepress-admin-columns.php:1459
-msgid "Mime type"
-msgstr "Typ pliku"
-
-#: ../codepress-admin-columns.php:1462
-msgid "File name"
-msgstr "Nazwa pliku"
-
-#: ../codepress-admin-columns.php:1465
-msgid "Dimensions"
-msgstr "Wymiary"
-
-#: ../codepress-admin-columns.php:1468
-msgid "Height"
-msgstr "Wysokość"
-
-#: ../codepress-admin-columns.php:1474
-#: ../codepress-admin-columns.php:1522
-msgid "Caption"
-msgstr "Tytuł"
-
-#: ../codepress-admin-columns.php:1480
-msgid "Alt"
-msgstr "Tekst alternatywny"
-
-#: ../codepress-admin-columns.php:1483
-msgid "Upload paths"
-msgstr "Ścieżki plików"
-
-#: ../codepress-admin-columns.php:1495
-msgid "File size"
-msgstr "Wielkość pliku"
-
-#: ../codepress-admin-columns.php:1504
-msgid "Aperture"
-msgstr "Przysłona"
-
-#: ../codepress-admin-columns.php:1506
-msgid "Aperture EXIF"
-msgstr "Przysłona EXIF"
-
-#: ../codepress-admin-columns.php:1510
-msgid "Credit"
-msgstr "Autor"
-
-#: ../codepress-admin-columns.php:1512
-msgid "Credit EXIF"
-msgstr "Autor EXIF"
-
-#: ../codepress-admin-columns.php:1516
-msgid "Camera"
-msgstr "Aparat"
-
-#: ../codepress-admin-columns.php:1518
-msgid "Camera EXIF"
-msgstr "Aparat EXIF"
-
-#: ../codepress-admin-columns.php:1524
-msgid "Caption EXIF"
-msgstr "Podpis EXIF"
-
-#: ../codepress-admin-columns.php:1528
-msgid "Timestamp"
-msgstr "Data"
-
-#: ../codepress-admin-columns.php:1530
-msgid "Timestamp EXIF"
-msgstr "Data EXIF"
-
-#: ../codepress-admin-columns.php:1534
-msgid "Copyright"
-msgstr "Prawa autorskie"
-
-#: ../codepress-admin-columns.php:1536
-msgid "Copyright EXIF"
-msgstr "Prawa autorskie EXIF"
-
-#: ../codepress-admin-columns.php:1540
-msgid "Focal Length"
-msgstr "Ogniskowa"
-
-#: ../codepress-admin-columns.php:1542
-msgid "Focal Length EXIF"
-msgstr "Ogniskowa EXIF"
-
-#: ../codepress-admin-columns.php:1546
-msgid "ISO"
-msgstr "ISO"
-
-#: ../codepress-admin-columns.php:1548
-msgid "ISO EXIF"
-msgstr "ISO EXIF"
-
-#: ../codepress-admin-columns.php:1552
-msgid "Shutter Speed"
-msgstr "Szybkość migawki"
-
-#: ../codepress-admin-columns.php:1554
-msgid "Shutter Speed EXIF"
-msgstr "Szybkość migawki EXIF"
-
-#: ../codepress-admin-columns.php:1558
-msgid "Title"
-msgstr "Tytuł"
-
-#: ../codepress-admin-columns.php:1560
-msgid "Title EXIF"
-msgstr "Tytuł EXIF"
-
-#: ../codepress-admin-columns.php:1605
-msgid "Target"
+#: ../codepress-admin-columns.php:350
+#, fuzzy
+msgid "Edit columns"
+msgstr "Edytor kolumn"
+
+#: ../classes/addons.php:27
+#, fuzzy
+msgid "Add-ons"
+msgstr "Aktywuj dodatki"
+
+#: ../classes/addons.php:63
+msgid ""
+"There was an error retrieving the extensions list from the server. Please "
+"try again later."
+msgstr ""
+
+#: ../classes/addons.php:88 ../classes/addons.php:94
+#, fuzzy
+msgid "Add-ons for Admin Columns"
+msgstr "Edytor kolumn"
+
+#: ../classes/addons.php:95
+msgid "These add-ons extend the functionality of Admin Columns."
+msgstr ""
+
+#: ../classes/addons.php:96
+msgid "Browse All Add-ons"
+msgstr ""
+
+#: ../classes/addons.php:96
+msgid "Browse all Add-ons"
+msgstr ""
+
+#: ../classes/column.php:479
+msgid "Thumbnail"
+msgstr ""
+
+#: ../classes/column.php:480
+msgid "Medium"
+msgstr ""
+
+#: ../classes/column.php:481
+#, fuzzy
+msgid "Large"
 msgstr "Cel"
 
-#: ../codepress-admin-columns.php:1608
-msgid "Owner"
-msgstr "Właściciel"
+#: ../classes/column.php:482
+msgid "Full"
+msgstr ""
 
-#: ../codepress-admin-columns.php:1611
-msgid "Notes"
-msgstr "Notatki"
+#: ../classes/column.php:776
+#, fuzzy
+msgid "Date Format"
+msgstr "Format wpisu"
 
-#: ../codepress-admin-columns.php:1614
-msgid "Rss"
-msgstr "Rss"
+#: ../classes/column.php:777
+msgid "This will determine how the date will be displayed."
+msgstr ""
 
-#: ../codepress-admin-columns.php:1617
-msgid "Length"
-msgstr "Długość"
+#: ../classes/column.php:783
+msgid "Example:"
+msgstr ""
 
-#: ../codepress-admin-columns.php:1645
-msgid "Author Name"
-msgstr "Imię Autora"
+#: ../classes/column.php:785
+#, php-format
+msgid ""
+"Leave empty for WordPress date format, change your <a href=\"%s\">default "
+"date format here</a>."
+msgstr ""
 
-#: ../codepress-admin-columns.php:1648
-msgid "Avatar"
-msgstr "Avatar"
+#: ../classes/column.php:786
+msgid "Documentation on date and time formatting."
+msgstr ""
 
-#: ../codepress-admin-columns.php:1651
-msgid "Author url"
-msgstr "URL Autora"
+#: ../classes/column.php:803
+#, fuzzy
+msgid "Excerpt length"
+msgstr "Wypis"
 
-#: ../codepress-admin-columns.php:1654
-msgid "Author IP"
-msgstr "IP Autora"
+#: ../classes/column.php:804
+msgid "Number of words"
+msgstr ""
 
-#: ../codepress-admin-columns.php:1657
-msgid "Author email"
-msgstr "Email Autora"
+#: ../classes/column.php:826
+#, fuzzy
+msgid "Preview size"
+msgstr "Podejrzyj"
 
-#: ../codepress-admin-columns.php:1660
-msgid "In Reply To"
-msgstr "W odpowiedzi na"
-
-#: ../codepress-admin-columns.php:1666
-msgid "Approved"
-msgstr "Zatwierdzony"
-
-#: ../codepress-admin-columns.php:1672
-msgid "Date GMT"
-msgstr "Data GMT"
-
-#: ../codepress-admin-columns.php:1675
-msgid "Agent"
-msgstr "Przeglądarka"
-
-#: ../codepress-admin-columns.php:1734
+#: ../classes/column.php:843 ../classes/column.php:899
 msgid "Custom"
 msgstr "Włąsne"
 
-#: ../codepress-admin-columns.php:1811
-msgid "Addons"
-msgstr "Dodatki"
+#: ../classes/column.php:846
+#, fuzzy
+msgid "width"
+msgstr "Szerokość"
 
-#: ../codepress-admin-columns.php:2263
-#: ../codepress-admin-columns.php:2449
-msgid "find out more"
-msgstr "dowiedz się więcej"
+#: ../classes/column.php:849
+#, fuzzy
+msgid "height"
+msgstr "Wysokość"
 
-#: ../codepress-admin-columns.php:2267
-msgid "This will make all of the new columns support sorting"
-msgstr "Dzięki temu wszystkie nowe kolumny będą sortowalne"
+#: ../classes/column.php:900 ../classes/settings.php:221
+#: ../classes/column/custom-field.php:72
+msgid "Default"
+msgstr "Domyślny"
 
-#: ../codepress-admin-columns.php:2268
-msgid "By default WordPress let's you sort by title, date, comments and author. This will make you be able to <strong>sort by any column of any type!</strong>"
-msgstr "Domyślnie, WordPress pozwala na sortowanie po tytule, dacie, komentarzu i autorze. Dzięi temu będziesz mógł <strong>sortować każdą kolumnę, każdego rodzaju!</strong>"
+#: ../classes/column.php:925 ../classes/column.php:986
+#: ../classes/column/user/actions.php:65
+msgid "Remove"
+msgstr "Usuń"
 
-#: ../codepress-admin-columns.php:2269
-msgid "Perfect for sorting your articles, media files, comments, links and users"
-msgstr "Idealne rozwiązanie do sortowania wpisów, mediów, komentarzy, linków i użytkowników"
+#: ../classes/column.php:944
+msgid "Type"
+msgstr ""
 
-#: ../codepress-admin-columns.php:2270
-#: ../codepress-admin-columns.php:2469
-msgid "(columns that are added by other plugins are not supported)"
-msgstr "(kolumny dodane przez inne wtyczki nie są wspierane)"
+#: ../classes/column.php:944
+msgid "Choose a column type."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2279
-#: ../codepress-admin-columns.php:2281
-msgid "Sortorder"
-msgstr "Kierunek sortowania"
+#: ../classes/column.php:954
+msgid "Label"
+msgstr ""
 
-#: ../codepress-admin-columns.php:2289
-msgid "Inactive"
-msgstr "Nieaktywny"
+#: ../classes/column.php:954
+msgid "This is the name which will appear as the column header."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2292
-msgid "Active"
-msgstr "Aktywny"
+#: ../classes/column.php:961 ../classes/column/media/width.php:12
+msgid "Width"
+msgstr "Szerokość"
 
-#: ../codepress-admin-columns.php:2297
-msgid "Fill in your activation code"
-msgstr "Wpisz kod aktywacyjny"
+#: ../classes/column.php:963 ../classes/column.php:964
+msgid "default"
+msgstr "domyśłny"
 
-#: ../codepress-admin-columns.php:2298
-msgid "Activate"
-msgstr "Aktywuj"
+#: ../classes/export_import.php:64
+msgid "Export field is empty. Please select your types from the left column."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2302
-msgid "Deactivate"
-msgstr "Deaktywuj"
+#: ../classes/export_import.php:99 ../classes/export_import.php:101
+msgid "Sorry, there has been an error."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2317
-msgid "Activate Add-ons"
-msgstr "Aktywuj dodatki"
+#: ../classes/export_import.php:101
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2318
-msgid "Add-ons can be unlocked by purchasing a license key. Each key can be used on multiple sites"
-msgstr "Dodatki mągą być aktywowane po zakupie licencji. Każdy klucz licencji może być sotsowany na wielu stronach"
+#: ../classes/export_import.php:119
+msgid "Import failed. File does not contain Admin Column settings."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2322
-msgid "Addon"
-msgstr "Dodatek"
-
-#: ../codepress-admin-columns.php:2324
-msgid "Activation Code"
-msgstr "Kod aktywacyjny"
-
-#: ../codepress-admin-columns.php:2333
-msgid "Enter your activation code"
-msgstr "Wpisz kod aktywacyjny"
-
-#: ../codepress-admin-columns.php:2334
-msgid "Activation code unrecognised"
-msgstr "Kod aktywacyjny nie został rozpoznany"
-
-#: ../codepress-admin-columns.php:2446
-msgid "You will find a short overview at the <strong>Help</strong> section in the top-right screen."
-msgstr "Krótkie podsumowanie znajdziesz w dziale <strong>Pomocy</strong>, w prawym, górnym rogu ekranu."
-
-#: ../codepress-admin-columns.php:2454
-msgid "Codepress Admin Columns"
+#: ../classes/settings.php:69
+#, fuzzy
+msgid "Admin Columns Settings"
 msgstr "Edytor kolumn"
 
-#: ../codepress-admin-columns.php:2464
-msgid "Get the Addon"
-msgstr "Kup dodatek"
-
-#: ../codepress-admin-columns.php:2467
-msgid "By default WordPress let's you only sort by title, date, comments and author."
-msgstr "Domyślnie WordPress pozwala na sortowanie po tytule, dacie, komentarzu i autorze."
-
-#: ../codepress-admin-columns.php:2468
-msgid "Make <strong>all columns</strong> of <strong>all types</strong> within the plugin support sorting &#8212; with the sorting addon."
-msgstr "Pozwól na sortowanie <strong>wszystkich kolumn, wszystkich typów</strong> uaktywniając dodatek umożłiwiający sortowanie."
-
-#: ../codepress-admin-columns.php:2477
-msgid "Like this plugin?"
-msgstr "Lubisz tę wtyczkę?"
-
-#: ../codepress-admin-columns.php:2480
-msgid "Why not do any or all of the following"
-msgstr "Dlaczego by nie zrobić jednej lub wszystkich z poniższych rzeczy"
-
-#: ../codepress-admin-columns.php:2482
-msgid "Give it a 5 star rating on WordPress.org."
-msgstr "Przyznaj jej 5 gwaizdek na stronie WordPress.org."
-
-#: ../codepress-admin-columns.php:2483
-msgid "Link to it so other folks can find out about it."
-msgstr "Dodaj link aby inni mogli się o niej dowiedzieć."
-
-#: ../codepress-admin-columns.php:2484
-msgid "Donate a token of your appreciation."
-msgstr "Wspomóż drobną dotacją."
-
-#: ../codepress-admin-columns.php:2492
-msgid "Follow us"
-msgstr "Śledź nas"
-
-#: ../codepress-admin-columns.php:2496
-msgid "Follow Codepress on Twitter."
-msgstr "Śledź nas na Tweeterze."
-
-#: ../codepress-admin-columns.php:2497
-msgid "Like Codepress on Facebook."
-msgstr "Polub Codepress na Facebooku."
-
-#: ../codepress-admin-columns.php:2506
-msgid "Need support?"
-msgstr "Potrzebujesz pomocy?"
-
-#: ../codepress-admin-columns.php:2510
-#, php-format
-msgid "If you are having problems with this plugin, please talk about them in the <a href=\"%s\">Support forums</a> or send me an email %s."
-msgstr "Jeśli masz jakieś problemy z tą wtyczką, proszę napisz o tym na stronie <a href=\"%s\">Forum pomocy</a> lub wyślij do mnie maila na adres %s."
-
-#: ../codepress-admin-columns.php:2511
-#, php-format
-msgid "If you're sure you've found a bug, or have a feature request, please <a href='%s'>submit your feedback</a>."
-msgstr "Jeśli jeste przekonany, że znalazłeś bug'a lub masz prośbę o dodanie nowej funkcji, proszę <a href='%s'>wyślij do mnie maila.</a>."
-
-#: ../codepress-admin-columns.php:2526
+#: ../classes/settings.php:69 ../classes/settings.php:533
+#: ../classes/upgrade.php:93
 msgid "Admin Columns"
 msgstr "Edytor kolumn"
 
-#: ../codepress-admin-columns.php:2544
-msgid "Save Changes"
+#: ../classes/settings.php:180
+msgid "Default settings succesfully restored."
+msgstr ""
+
+#: ../classes/settings.php:198 ../classes/settings.php:450
+#, fuzzy
+msgid "Overview"
+msgstr "Podejrzyj"
+
+#: ../classes/settings.php:201
+msgid ""
+"This plugin is for adding and removing additional columns to the "
+"administration screens for post(types), pages, media library, comments, "
+"links and users. Change the column's label and reorder them."
+msgstr ""
+
+#: ../classes/settings.php:204
+msgid "Basics"
+msgstr ""
+
+#: ../classes/settings.php:206
+#, fuzzy
+msgid "Show / Hide"
+msgstr "Pokaż wszystkie"
+
+#: ../classes/settings.php:207
+msgid ""
+"You can switch columns on or off by clicking on the checkbox. This will show "
+"or hide each column heading."
+msgstr ""
+
+#: ../classes/settings.php:208
+#, fuzzy
+msgid "Change order"
+msgstr "Kolejność stron"
+
+#: ../classes/settings.php:209
+msgid ""
+"By dragging the columns you can change the order which they will appear in."
+msgstr ""
+
+#: ../classes/settings.php:210
+msgid "Change label"
+msgstr ""
+
+#: ../classes/settings.php:211
+msgid ""
+"By clicking on the triangle you will see the column options. Here you can "
+"change each label of the columns heading."
+msgstr ""
+
+#: ../classes/settings.php:212
+msgid "Change column width"
+msgstr ""
+
+#: ../classes/settings.php:213
+msgid ""
+"By clicking on the triangle you will see the column options. By using the "
+"draggable slider yo can set the width of the columns in percentages."
+msgstr ""
+
+#: ../classes/settings.php:216 ../classes/column/custom-field.php:16
+#: ../classes/column/custom-field.php:320
+msgid "Custom Field"
+msgstr "Własne pole"
+
+#: ../classes/settings.php:218
+#, fuzzy
+msgid "'Custom Field' column"
+msgstr "Dodaj kolumnę Własne pole"
+
+#: ../classes/settings.php:219
+msgid ""
+"The custom field colum uses the custom fields from posts and users. There "
+"are 10 types which you can set."
+msgstr ""
+
+#: ../classes/settings.php:221
+msgid ""
+"Value: Can be either a string or array. Arrays will be flattened and values "
+"are seperated by a ',' comma."
+msgstr ""
+
+#: ../classes/settings.php:222 ../classes/column/custom-field.php:73
+#: ../classes/column/link/image.php:12
+msgid "Image"
+msgstr "Obrazek"
+
+#: ../classes/settings.php:222
+msgid ""
+"Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
+"comma )."
+msgstr ""
+
+#: ../classes/settings.php:223 ../classes/column/custom-field.php:75
+#: ../classes/column/comment/excerpt.php:13
+#: ../classes/column/post/excerpt.php:13
+msgid "Excerpt"
+msgstr "Wypis"
+
+#: ../classes/settings.php:223
+msgid "Value: This will show the first 20 words of the Post content."
+msgstr ""
+
+#: ../classes/settings.php:224 ../classes/column/custom-field.php:76
+msgid "Multiple Values"
+msgstr "Wielokrotne wartości"
+
+#: ../classes/settings.php:224
+msgid ""
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr ""
+
+#: ../classes/settings.php:225 ../classes/column/custom-field.php:77
+msgid "Numeric"
+msgstr "Numeryczny"
+
+#: ../classes/settings.php:225
+msgid ""
+"Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
+"for sorting, so you can sort your posts on numeric (custom field) values."
+msgstr ""
+
+#: ../classes/settings.php:226 ../classes/column/custom-field.php:78
+#: ../classes/column/comment/date.php:12
+msgid "Date"
+msgstr "Data"
+
+#: ../classes/settings.php:226
+#, php-format
+msgid ""
+"Value: Can be unix time stamp or a date format as described in the <a "
+"href='%s'>Codex</a>. You can change the outputted date format at the <a "
+"href='%s'>general settings</a> page."
+msgstr ""
+
+#: ../classes/settings.php:227
+#, fuzzy
+msgid "Post Titles"
+msgstr "Tytył wpisu (ID wpisu)"
+
+#: ../classes/settings.php:227
+msgid "Value: can be one or more Post ID's (seperated by ',')."
+msgstr ""
+
+#: ../classes/settings.php:228
+#, fuzzy
+msgid "Usernames"
+msgstr "Nazwa użytkownika"
+
+#: ../classes/settings.php:228
+msgid "Value: can be one or more User ID's (seperated by ',')."
+msgstr ""
+
+#: ../classes/settings.php:229
+msgid "Checkmark"
+msgstr ""
+
+#: ../classes/settings.php:229
+msgid "Value: should be a 1 (one) or 0 (zero)."
+msgstr ""
+
+#: ../classes/settings.php:230 ../classes/column/custom-field.php:82
+msgid "Color"
+msgstr ""
+
+#: ../classes/settings.php:230
+msgid "Value: hex value color, such as #808080."
+msgstr ""
+
+#: ../classes/settings.php:370
+#, fuzzy
+msgid "Welcome to Admin Columns"
+msgstr "Edytor kolumn"
+
+#: ../classes/settings.php:372
+msgid "Thank you for updating to the latest version!"
+msgstr ""
+
+#: ../classes/settings.php:373
+msgid ""
+"Admin Columns is more polished and enjoyable than ever before. We hope you "
+"like it."
+msgstr ""
+
+#: ../classes/settings.php:378
+msgid "What’s New"
+msgstr ""
+
+#: ../classes/settings.php:379
+msgid "Changelog"
+msgstr ""
+
+#: ../classes/settings.php:381
+msgid "Download Addons"
+msgstr ""
+
+#: ../classes/settings.php:387 ../classes/settings.php:613
+msgid "Addons"
+msgstr "Dodatki"
+
+#: ../classes/settings.php:389
+msgid ""
+"Addons are now activated by downloading and installing individual plugins. "
+"Although these plugins will not be hosted on the wordpress.org repository, "
+"each Add-on will continue to receive updates in the usual way."
+msgstr ""
+
+#: ../classes/settings.php:393
+#, fuzzy
+msgid "the Custom Fields columns"
+msgstr "Dodaj kolumnę Własne pole"
+
+#: ../classes/settings.php:394
+#, fuzzy
+msgid "the Sortorder Addon"
+msgstr "Kierunek sortowania"
+
+#: ../classes/settings.php:397
+#, php-format
+msgid "This website uses %s. These addons need to be downloaded."
+msgstr ""
+
+#: ../classes/settings.php:397
+msgid "and"
+msgstr ""
+
+#: ../classes/settings.php:403
+msgid "Addons are sperate plugins which need to be downloaded."
+msgstr ""
+
+#: ../classes/settings.php:403
+msgid "Download your Addons"
+msgstr ""
+
+#: ../classes/settings.php:409
+msgid "Important"
+msgstr ""
+
+#: ../classes/settings.php:411
+#, fuzzy
+msgid "Database Changes"
 msgstr "Zapisz zmiany"
 
-#: ../codepress-admin-columns.php:2556
-msgid "Restore defaults"
-msgstr "Przywróć domyślne"
+#: ../classes/settings.php:412
+msgid ""
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
+msgstr ""
 
-#: ../codepress-admin-columns.php:2560
+#: ../classes/settings.php:415
+msgid "Make sure you backup your database and then click"
+msgstr ""
+
+#: ../classes/settings.php:415 ../classes/upgrade.php:101
+msgid "Upgrade Database"
+msgstr ""
+
+#: ../classes/settings.php:418
+msgid "Potential Issues"
+msgstr ""
+
+#: ../classes/settings.php:419
+msgid ""
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
+msgstr ""
+
+#: ../classes/settings.php:419
+msgid "Migrating from v1 to v2"
+msgstr ""
+
+#: ../classes/settings.php:419
+msgid "guide to view the full list of changes."
+msgstr ""
+
+#: ../classes/settings.php:419
+#, php-format
+msgid ""
+"When you have found a bug please <a href=\"%s\">report them to us</a> so we "
+"can fix it in the next release."
+msgstr ""
+
+#: ../classes/settings.php:422
+msgid "Important!"
+msgstr ""
+
+#: ../classes/settings.php:422
+msgid ""
+"If you updated the Admin Columns plugin without prior knowledge of such "
+"changes, Please roll back to the latest"
+msgstr ""
+
+#: ../classes/settings.php:422
+msgid "version 1"
+msgstr ""
+
+#: ../classes/settings.php:422
+#, fuzzy
+msgid "of this plugin."
+msgstr "Lubisz tę wtyczkę?"
+
+#: ../classes/settings.php:428
+msgid "Changelog for"
+msgstr ""
+
+#: ../classes/settings.php:443
+msgid "Learn more"
+msgstr ""
+
+#: ../classes/settings.php:452
+msgid ""
+"New to v2, all Addons act as separate plugins which need to be individually "
+"downloaded, installed and updated."
+msgstr ""
+
+#: ../classes/settings.php:453
+msgid ""
+"This page will assist you in downloading and installing each available Addon."
+msgstr ""
+
+#: ../classes/settings.php:454
+#, fuzzy
+msgid "Available Addons"
+msgstr "Aktywuj dodatki"
+
+#: ../classes/settings.php:459
+#, fuzzy
+msgid "Name"
+msgstr "Nazwisko"
+
+#: ../classes/settings.php:460 ../classes/settings.php:468
+#: ../classes/settings.php:476
+msgid "Download"
+msgstr ""
+
+#: ../classes/settings.php:466
+#, fuzzy
+msgid "Sortorder Addon"
+msgstr "Kierunek sortowania"
+
+#: ../classes/settings.php:474
+#, fuzzy
+msgid "Custom Fields Addon"
+msgstr "Własne pole"
+
+#: ../classes/settings.php:474
+msgid "This website is currently using custom field columns."
+msgstr ""
+
+#: ../classes/settings.php:483
+msgid "Installation"
+msgstr ""
+
+#: ../classes/settings.php:485
+msgid "For each Add-on available, please perform the following:"
+msgstr ""
+
+#: ../classes/settings.php:487
+msgid "Download the Addon plugin (.zip file) to your desktop"
+msgstr ""
+
+#: ../classes/settings.php:488
+msgid "Navigate to"
+msgstr ""
+
+#: ../classes/settings.php:488
+msgid "Plugins > Add New > Upload"
+msgstr ""
+
+#: ../classes/settings.php:489
+msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
+msgstr ""
+
+#: ../classes/settings.php:490
+msgid ""
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
+msgstr ""
+
+#: ../classes/settings.php:491
+msgid "The Add-on is now installed and activated!"
+msgstr ""
+
+#: ../classes/settings.php:492
+#, php-format
+msgid ""
+"For automatic updates make sure to <a href='%s'>enter your licence key</a>."
+msgstr ""
+
+#: ../classes/settings.php:502
+#, fuzzy
+msgid "Start using Admin Columns"
+msgstr "Edytor kolumn"
+
+#: ../classes/settings.php:579
+#, fuzzy
+msgid "Store settings"
+msgstr "Ustawienia"
+
+#: ../classes/settings.php:584
+msgid "Update"
+msgstr ""
+
+#: ../classes/settings.php:584
+#, fuzzy
+msgid "Publish"
+msgstr "Opublikowany"
+
+#: ../classes/settings.php:588
+#, fuzzy, php-format
+msgid ""
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"Uwaga! WSZYSTKIE zapisane ustawienia kolumn zostaną usunięte. Tej operacji "
+"nie można przywrócić. Kliknij \\'OK\\' aby usunąć lub \\'Anuluj\\' aby "
+"przerwać."
+
+#: ../classes/settings.php:589 ../classes/column/comment/actions.php:86
+#: ../classes/column/post/actions.php:53
+msgid "Restore"
+msgstr "Przywróć"
+
+#: ../classes/settings.php:589
+#, fuzzy
+msgid "columns"
+msgstr "Edytor kolumn"
+
+#: ../classes/settings.php:596
+#, fuzzy
+msgid "Get the Pro addon"
+msgstr "Kup dodatek"
+
+#: ../classes/settings.php:622
+#, fuzzy
+msgid "find more addons"
+msgstr "dowiedz się więcej"
+
+#: ../classes/settings.php:625
+#, php-format
+msgid "Check the <a href=\"%s\">Add-on section</a> for more details."
+msgstr ""
+
+#: ../classes/settings.php:633
+#, fuzzy
+msgid "Support"
+msgstr "Potrzebujesz pomocy?"
+
+#: ../classes/settings.php:636
+#, fuzzy
+msgid "Check the <strong>Help</strong> section in the top-right screen."
+msgstr ""
+"Krótkie podsumowanie znajdziesz w dziale <strong>Pomocy</strong>, w prawym, "
+"górnym rogu ekranu."
+
+#: ../classes/settings.php:638
+#, php-format
+msgid ""
+"For full documentation, bug reports, feature suggestions and other tips <a "
+"href='%s'>visit the Admin Columns website</a>"
+msgstr ""
+
+#: ../classes/settings.php:658
+#, fuzzy
+msgid "Drag and drop to reorder"
+msgstr "przeciągnij i opuść aby zmienić kolejność"
+
+#: ../classes/settings.php:661
+#, fuzzy
+msgid "Add Column"
+msgstr "Edytor kolumn"
+
+#: ../classes/settings.php:712
+#, fuzzy
+msgid "General Settings"
+msgstr "Ustawienia"
+
+#: ../classes/settings.php:713
+msgid "Customize your Admin Columns settings."
+msgstr ""
+
+#: ../classes/settings.php:720
+#, fuzzy
+msgid "Custom field settings"
+msgstr "Przywróć ustawienia domyślne"
+
+#: ../classes/settings.php:724
+msgid "Show hidden custom fields. Default is <code>off</code>."
+msgstr ""
+
+#: ../classes/settings.php:731
+msgid "Save"
+msgstr ""
+
+#: ../classes/settings.php:771
+#, fuzzy
+msgid "Restore Settings"
+msgstr "Przywróć ustawienia domyślne"
+
+#: ../classes/settings.php:772
+msgid "This will delete all column settings and restore the default settings."
+msgstr ""
+"Ta operacja usunie wszystkie ustawienia kolumn u przywróci je do ustawień "
+"domyślnych."
+
+#: ../classes/settings.php:778
 msgid "Restore default settings"
 msgstr "Przywróć ustawienia domyślne"
 
-#: ../codepress-admin-columns.php:2560
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Uwaga! WSZYSTKIE zapisane ustawienia kolumn zostaną usunięte. Tej operacji nie można przywrócić. Kliknij \\'OK\\' aby usunąć lub \\'Anuluj\\' aby przerwać."
+#: ../classes/settings.php:778
+msgid ""
+"Warning! ALL saved admin columns data will be deleted. This cannot be "
+"undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"Uwaga! WSZYSTKIE zapisane ustawienia kolumn zostaną usunięte. Tej operacji "
+"nie można przywrócić. Kliknij \\'OK\\' aby usunąć lub \\'Anuluj\\' aby "
+"przerwać."
 
-#: ../codepress-admin-columns.php:2562
-msgid "This will delete all column settings and restore the default settings."
-msgstr "Ta operacja usunie wszystkie ustawienia kolumn u przywróci je do ustawień domyślnych."
+#: ../classes/storage_model.php:153
+msgid "settings succesfully restored."
+msgstr ""
 
-#: ../classes/sortable.php:1158
-msgid "Show all "
-msgstr "Pokaż wszystkie"
+#: ../classes/storage_model.php:167
+msgid "No columns settings available."
+msgstr ""
 
-#: ../classes/values/comments.php:95
-#: ../classes/values/comments.php:106
+#: ../classes/storage_model.php:190
+#, php-format
+msgid "You are trying to store the same settings for %s."
+msgstr ""
+
+#: ../classes/storage_model.php:194
+#, php-format
+msgid "Settings for %s updated succesfully."
+msgstr ""
+
+#: ../classes/storage_model.php:564 ../classes/column/post/actions.php:64
+msgid "View"
+msgstr "Zobacz"
+
+#: ../classes/upgrade.php:48
+msgid "Upgrade"
+msgstr ""
+
+#: ../classes/upgrade.php:94
+msgid "requires a database upgrade"
+msgstr ""
+
+#: ../classes/upgrade.php:97
+msgid "why?"
+msgstr ""
+
+#: ../classes/upgrade.php:98
+msgid "Please"
+msgstr ""
+
+#: ../classes/upgrade.php:99
+msgid "backup your database"
+msgstr ""
+
+#: ../classes/upgrade.php:100
+msgid "then click"
+msgstr ""
+
+#: ../classes/upgrade.php:308
+msgid "Migrating Column Settings"
+msgstr ""
+
+#: ../classes/upgrade.php:344
+msgid "No Upgrade Required"
+msgstr ""
+
+#: ../classes/upgrade.php:345
+msgid "Return to welcome screen."
+msgstr ""
+
+#: ../classes/upgrade.php:361
+msgid "Upgrade Complete!"
+msgstr ""
+
+#: ../classes/upgrade.php:361
+#, fuzzy
+msgid "Return to settings."
+msgstr "Przywróć ustawienia domyślne"
+
+#: ../classes/upgrade.php:362
+msgid "Error"
+msgstr ""
+
+#: ../classes/upgrade.php:363
+msgid ""
+"Sorry. Something went wrong during the upgrade process. Please report this "
+"on the support forum."
+msgstr ""
+
+#: ../classes/column/custom-field.php:74 ../classes/storage_model/media.php:13
+#, fuzzy
+msgid "Media Library"
+msgstr "Ikona Biblioteki mediów"
+
+#: ../classes/column/custom-field.php:79
+msgid "Post Title (Post ID's)"
+msgstr "Tytył wpisu (ID wpisu)"
+
+#: ../classes/column/custom-field.php:80
+msgid "Username (User ID's)"
+msgstr ""
+
+#: ../classes/column/custom-field.php:81
+msgid "Checkmark (true/false)"
+msgstr "Znak (prawda/fałsz)"
+
+#: ../classes/column/custom-field.php:320
+msgid "Select your custom field."
+msgstr ""
+
+#: ../classes/column/custom-field.php:330
+msgid "No custom fields available."
+msgstr ""
+
+#: ../classes/column/custom-field.php:337
+msgid "Field Type"
+msgstr "Rodzaj pola"
+
+#: ../classes/column/custom-field.php:337
+msgid "This will determine how the value will be displayed."
+msgstr ""
+
+#: ../classes/column/custom-field.php:380
+msgid "Before"
+msgstr "Przed"
+
+#: ../classes/column/custom-field.php:380
+msgid "This text will appear before the custom field value."
+msgstr ""
+
+#: ../classes/column/custom-field.php:386
+msgid "After"
+msgstr "Po"
+
+#: ../classes/column/custom-field.php:386
+msgid "This text will appear after the custom field value."
+msgstr ""
+
+#: ../classes/column/comment/actions.php:14
+#: ../classes/column/link/actions.php:14
+#: ../classes/column/media/actions.php:14
+#: ../classes/column/post/actions.php:14 ../classes/column/user/actions.php:14
+msgid "Actions"
+msgstr "Działania"
+
+#: ../classes/column/comment/actions.php:73
+#: ../classes/column/comment/actions.php:78
+msgid "Unapprove"
+msgstr "Odrzuć"
+
+#: ../classes/column/comment/actions.php:75
+#: ../classes/column/comment/actions.php:77
+msgid "Approve"
+msgstr "Zatwierdź"
+
+#: ../classes/column/comment/actions.php:90
+#: ../classes/column/post/actions.php:57
+msgid "Delete Permanently"
+msgstr "Usuń na zawsze"
+
+#: ../classes/column/comment/actions.php:96
+#: ../classes/column/link/actions.php:45 ../classes/column/post/actions.php:48
+#: ../classes/column/user/actions.php:57
+msgid "Edit"
+msgstr "Edytuj"
+
+#: ../classes/column/comment/actions.php:97
+#: ../classes/column/post/actions.php:49
+msgid "Quick&nbsp;Edit"
+msgstr "Szybka&nbsp;edycja"
+
+#: ../classes/column/comment/actions.php:98
+msgid "Reply"
+msgstr "Odpowiedź"
+
+#: ../classes/column/comment/agent.php:12
+msgid "Agent"
+msgstr "Przeglądarka"
+
+#: ../classes/column/comment/approved.php:12
+#: ../classes/column/post/comment-count.php:31
+msgid "Approved"
+msgstr "Zatwierdzony"
+
+#: ../classes/column/comment/author-avatar.php:12
+msgid "Avatar"
+msgstr "Avatar"
+
+#: ../classes/column/comment/author-email.php:12
+msgid "Author email"
+msgstr "Email Autora"
+
+#: ../classes/column/comment/author-ip.php:12
+msgid "Author IP"
+msgstr "IP Autora"
+
+#: ../classes/column/comment/author-url.php:12
+msgid "Author url"
+msgstr "URL Autora"
+
+#: ../classes/column/comment/author.php:12
+#, fuzzy
+msgid "Author"
+msgstr "IP Autora"
+
+#: ../classes/column/comment/date-gmt.php:12
+msgid "Date GMT"
+msgstr "Data GMT"
+
+#: ../classes/column/comment/date-gmt.php:25
+#: ../classes/column/comment/date.php:25
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "Opublikowany dnia <a href=\"%1$s\">%2$s o godz. %3$s</a>"
 
-#: ../classes/values/comments.php:195
-#: ../classes/values/comments.php:200
-msgid "Unapprove"
-msgstr "Odrzuć"
+#: ../classes/column/comment/ID.php:12 ../classes/column/link/ID.php:12
+#: ../classes/column/media/ID.php:12 ../classes/column/post/ID.php:12
+msgid "ID"
+msgstr "ID"
 
-#: ../classes/values/comments.php:197
-#: ../classes/values/comments.php:199
-msgid "Approve"
-msgstr "Zatwierdź"
+#: ../classes/column/comment/reply-to.php:12
+msgid "In Reply To"
+msgstr "W odpowiedzi na"
 
-#: ../classes/values/comments.php:208
-#: ../classes/values/posts.php:281
-msgid "Restore"
-msgstr "Przywróć"
+#: ../classes/column/comment/word-count.php:12
+#: ../classes/column/post/word-count.php:12
+msgid "Word count"
+msgstr "Liczba słów"
 
-#: ../classes/values/comments.php:212
-#: ../classes/values/posts.php:285
-msgid "Delete Permanently"
-msgstr "Usuń na zawsze"
-
-#: ../classes/values/comments.php:218
-#: ../classes/values/link.php:117
-#: ../classes/values/posts.php:276
-#: ../classes/values/users.php:145
-msgid "Edit"
-msgstr "Edytuj"
-
-#: ../classes/values/comments.php:219
-#: ../classes/values/posts.php:277
-msgid "Quick&nbsp;Edit"
-msgstr "Szybka&nbsp;edycja"
-
-#: ../classes/values/comments.php:220
-msgid "Reply"
-msgstr "Odpowiedź"
-
-#: ../classes/values/link.php:118
+#: ../classes/column/link/actions.php:46
 #, php-format
 msgid ""
 "You are about to delete this link '%s'\n"
@@ -668,95 +933,523 @@ msgstr ""
 "Zamierzasz usunąć ten link link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
 
-#: ../classes/values/link.php:118
-#: ../classes/values/users.php:151
+#: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
 msgid "Delete"
 msgstr "Usuń"
 
-#: ../classes/values/media.php:100
-msgid "original"
-msgstr "oryginalny"
+#: ../classes/column/link/description.php:12
+#: ../classes/column/media/description.php:12
+#: ../classes/column/user/description.php:14
+msgid "Description"
+msgstr "Opis"
 
-#: ../classes/values/posts.php:107
-msgid "Standard"
-msgstr "Standardowe"
+#: ../classes/column/link/length.php:12
+msgid "Length"
+msgstr "Długość"
 
-#: ../classes/values/posts.php:212
-msgid "Published"
-msgstr "Opublikowany"
+#: ../classes/column/link/notes.php:13
+msgid "Notes"
+msgstr "Notatki"
 
-#: ../classes/values/posts.php:213
-msgid "Draft"
-msgstr "Szkic"
+#: ../classes/column/link/owner.php:12
+msgid "Owner"
+msgstr "Właściciel"
 
-#: ../classes/values/posts.php:214
-msgid "Scheduled"
-msgstr "Zaplanowany"
+#: ../classes/column/link/rss.php:12
+msgid "Rss"
+msgstr "Rss"
 
-#: ../classes/values/posts.php:215
-msgid "Private"
-msgstr "Prywatny"
+#: ../classes/column/link/target.php:12
+msgid "Target"
+msgstr "Cel"
 
-#: ../classes/values/posts.php:216
-msgid "Pending Review"
-msgstr "Oczekujący na przegląd"
+#: ../classes/column/media/alternate-text.php:12
+msgid "Alt"
+msgstr "Tekst alternatywny"
 
-#: ../classes/values/posts.php:217
-#: ../classes/values/posts.php:283
-msgid "Trash"
-msgstr "Kosz"
+#: ../classes/column/media/available-sizes.php:14
+msgid "Available Sizes"
+msgstr ""
 
-#: ../classes/values/posts.php:238
-msgid "approved"
-msgstr "zatwierdzony"
+#: ../classes/column/media/available-sizes.php:37
+#, fuzzy
+msgid "full size"
+msgstr "Wielkość pliku"
 
-#: ../classes/values/posts.php:242
-msgid "pending"
-msgstr "oczekujący"
+#: ../classes/column/media/caption.php:12
+#: ../classes/column/media/exif-data.php:36
+msgid "Caption"
+msgstr "Tytuł"
 
-#: ../classes/values/posts.php:246
-msgid "spam"
-msgstr "spam"
+#: ../classes/column/media/dimensions.php:12
+msgid "Dimensions"
+msgstr "Wymiary"
 
-#: ../classes/values/posts.php:250
-msgid "trash"
-msgstr "kosz"
+#: ../classes/column/media/exif-data.php:12
+msgid "EXIF data"
+msgstr ""
 
-#: ../classes/values/posts.php:276
+#: ../classes/column/media/exif-data.php:33
+msgid "Aperture"
+msgstr "Przysłona"
+
+#: ../classes/column/media/exif-data.php:34
+msgid "Credit"
+msgstr "Autor"
+
+#: ../classes/column/media/exif-data.php:35
+msgid "Camera"
+msgstr "Aparat"
+
+#: ../classes/column/media/exif-data.php:37
+msgid "Timestamp"
+msgstr "Data"
+
+#: ../classes/column/media/exif-data.php:38
+msgid "Copyright EXIF"
+msgstr "Prawa autorskie EXIF"
+
+#: ../classes/column/media/exif-data.php:39
+msgid "Focal Length"
+msgstr "Ogniskowa"
+
+#: ../classes/column/media/exif-data.php:40
+msgid "ISO"
+msgstr "ISO"
+
+#: ../classes/column/media/exif-data.php:41
+msgid "Shutter Speed"
+msgstr "Szybkość migawki"
+
+#: ../classes/column/media/exif-data.php:42
+msgid "Title"
+msgstr "Tytuł"
+
+#: ../classes/column/media/file-name.php:12
+msgid "File name"
+msgstr "Nazwa pliku"
+
+#: ../classes/column/media/file-size.php:12
+msgid "File size"
+msgstr "Wielkość pliku"
+
+#: ../classes/column/media/full-path.php:12
+msgid "Full path"
+msgstr ""
+
+#: ../classes/column/media/height.php:12
+msgid "Height"
+msgstr "Wysokość"
+
+#: ../classes/column/media/mime-type.php:12
+msgid "Mime type"
+msgstr "Typ pliku"
+
+#: ../classes/column/post/actions.php:48
 msgid "Edit this item"
 msgstr "Edytuj element"
 
-#: ../classes/values/posts.php:277
+#: ../classes/column/post/actions.php:49
 msgid "Edit this item inline"
 msgstr "Edytuj element"
 
-#: ../classes/values/posts.php:281
+#: ../classes/column/post/actions.php:53
 msgid "Restore this item from the Trash"
 msgstr "Przywróć ten element z kosza"
 
-#: ../classes/values/posts.php:283
+#: ../classes/column/post/actions.php:55
 msgid "Move this item to the Trash"
 msgstr "Przenieś ten element do kosza"
 
-#: ../classes/values/posts.php:285
+#: ../classes/column/post/actions.php:55
+#: ../classes/column/post/comment-count.php:34
+#: ../classes/column/post/status.php:35
+msgid "Trash"
+msgstr "Kosz"
+
+#: ../classes/column/post/actions.php:57
 msgid "Delete this item permanently"
 msgstr "Usuń ten element na zawsze"
 
-#: ../classes/values/posts.php:290
+#: ../classes/column/post/actions.php:62
 #, php-format
 msgid "Preview &#8220;%s&#8221;"
 msgstr "Podejrzyj &#8220;%s&#8221;"
 
-#: ../classes/values/posts.php:290
+#: ../classes/column/post/actions.php:62
 msgid "Preview"
 msgstr "Podejrzyj"
 
-#: ../classes/values/posts.php:292
+#: ../classes/column/post/actions.php:64
 #, php-format
 msgid "View &#8220;%s&#8221;"
 msgstr "Zobacz &#8220;%s&#8221;"
 
-#: ../classes/values/posts.php:292
-msgid "View"
-msgstr "Zobacz"
+#: ../classes/column/post/attachment-count.php:12
+msgid "No. of Attachments"
+msgstr "Liczba załączników"
 
+#: ../classes/column/post/attachment.php:12
+msgid "Attachment"
+msgstr "Załącznik"
+
+#: ../classes/column/post/author-name.php:12
+msgid "Display Author As"
+msgstr "Wyświetla autora jako"
+
+#: ../classes/column/post/author-name.php:33
+msgid "Display Name"
+msgstr "Pseudonim"
+
+#: ../classes/column/post/author-name.php:34
+msgid "First Name"
+msgstr "Imię"
+
+#: ../classes/column/post/author-name.php:35
+msgid "Last Name"
+msgstr "Nazwisko"
+
+#: ../classes/column/post/author-name.php:36
+#: ../classes/column/user/nickname.php:14
+msgid "Nickname"
+msgstr "Pseudonim"
+
+#: ../classes/column/post/author-name.php:37
+msgid "User Login"
+msgstr ""
+
+#: ../classes/column/post/author-name.php:38
+#, fuzzy
+msgid "User Email"
+msgstr "Email"
+
+#: ../classes/column/post/author-name.php:39 ../classes/column/user/ID.php:14
+msgid "User ID"
+msgstr "ID użytkownika"
+
+#: ../classes/column/post/author-name.php:40
+#, fuzzy
+msgid "First and Last Name"
+msgstr "Imię i nazwisko"
+
+#: ../classes/column/post/author-name.php:106
+msgid "This is the format of the author name."
+msgstr ""
+
+#: ../classes/column/post/before-moretag.php:14
+msgid "Before More Tag"
+msgstr ""
+
+#: ../classes/column/post/comment-count.php:14
+msgid "Comment count"
+msgstr "Liczba komentarzy"
+
+#: ../classes/column/post/comment-count.php:30
+msgid "Total"
+msgstr ""
+
+#: ../classes/column/post/comment-count.php:32
+#, fuzzy
+msgid "Pending"
+msgstr "oczekujący"
+
+#: ../classes/column/post/comment-count.php:33
+msgid "Spam"
+msgstr ""
+
+#: ../classes/column/post/comment-count.php:78
+#: ../classes/column/post/comment-status.php:14
+msgid "Comment status"
+msgstr "Status komentarza"
+
+#: ../classes/column/post/comment-count.php:78
+msgid "Select which comment status you like to display."
+msgstr ""
+
+#: ../classes/column/post/featured-image.php:14
+msgid "Featured Image"
+msgstr "Ikona wpisu"
+
+#: ../classes/column/post/formats.php:14
+msgid "Post Format"
+msgstr "Format wpisu"
+
+#: ../classes/column/post/modified.php:14
+msgid "Last modified"
+msgstr "Ostatnia modyfikacja"
+
+#: ../classes/column/post/order.php:14
+msgid "Page Order"
+msgstr "Kolejność stron"
+
+#: ../classes/column/post/page-template.php:12
+msgid "Page Template"
+msgstr "Szablon strony"
+
+#: ../classes/column/post/parent.php:12
+msgid "Parent"
+msgstr ""
+
+#: ../classes/column/post/ping-status.php:14
+msgid "Ping status"
+msgstr "Status ping"
+
+#: ../classes/column/post/roles.php:14
+msgid "Roles"
+msgstr "Role"
+
+#: ../classes/column/post/slug.php:12
+msgid "Slug"
+msgstr "Bezpośredni odnośnik"
+
+#: ../classes/column/post/status.php:14
+msgid "Status"
+msgstr "Status"
+
+#: ../classes/column/post/status.php:30
+msgid "Published"
+msgstr "Opublikowany"
+
+#: ../classes/column/post/status.php:31
+msgid "Draft"
+msgstr "Szkic"
+
+#: ../classes/column/post/status.php:32
+msgid "Scheduled"
+msgstr "Zaplanowany"
+
+#: ../classes/column/post/status.php:33
+msgid "Private"
+msgstr "Prywatny"
+
+#: ../classes/column/post/status.php:34
+msgid "Pending Review"
+msgstr "Oczekujący na przegląd"
+
+#: ../classes/column/post/sticky.php:14
+msgid "Sticky"
+msgstr "Przyklejone"
+
+#: ../classes/column/post/taxonomy.php:12
+#: ../classes/column/post/taxonomy.php:68
+msgid "Taxonomy"
+msgstr "Taksonomia"
+
+#: ../classes/column/user/comment-count.php:14
+#, fuzzy
+msgid "Comment Count"
+msgstr "Liczba komentarzy"
+
+#: ../classes/column/user/first-name.php:14
+msgid "First name"
+msgstr "Imię"
+
+#: ../classes/column/user/last-name.php:14
+msgid "Last name"
+msgstr "Nazwisko"
+
+#: ../classes/column/user/post-count.php:14
+#, fuzzy
+msgid "Post Count"
+msgstr "Liczba wpisów"
+
+#: ../classes/column/user/post-count.php:92
+msgid "Post Type"
+msgstr ""
+
+#: ../classes/column/user/registered.php:14
+msgid "Registered"
+msgstr "Zarejestrowany"
+
+#: ../classes/column/user/url.php:14
+msgid "Url"
+msgstr "Adres URL"
+
+#: ../classes/storage_model/comment.php:13
+msgid "Comments"
+msgstr "Komentarze"
+
+#: ../classes/storage_model/link.php:13
+msgid "Links"
+msgstr ""
+
+#: ../classes/storage_model/user.php:13
+#, fuzzy
+msgid "Users"
+msgstr "ID użytkownika"
+
+#~ msgid "This field can not be removed"
+#~ msgstr "To własne pole nie może być usunięte"
+
+#~ msgid "Display name as"
+#~ msgstr "Wyświetl jakoi"
+
+#~ msgid "Icon"
+#~ msgstr "Ikona"
+
+#~ msgid "Order"
+#~ msgstr "Kolejność"
+
+#~ msgid "Field"
+#~ msgstr "Pole"
+
+#~ msgid "Upload paths"
+#~ msgstr "Ścieżki plików"
+
+#~ msgid "Aperture EXIF"
+#~ msgstr "Przysłona EXIF"
+
+#~ msgid "Credit EXIF"
+#~ msgstr "Autor EXIF"
+
+#~ msgid "Camera EXIF"
+#~ msgstr "Aparat EXIF"
+
+#~ msgid "Caption EXIF"
+#~ msgstr "Podpis EXIF"
+
+#~ msgid "Timestamp EXIF"
+#~ msgstr "Data EXIF"
+
+#~ msgid "Copyright"
+#~ msgstr "Prawa autorskie"
+
+#~ msgid "Focal Length EXIF"
+#~ msgstr "Ogniskowa EXIF"
+
+#~ msgid "ISO EXIF"
+#~ msgstr "ISO EXIF"
+
+#~ msgid "Shutter Speed EXIF"
+#~ msgstr "Szybkość migawki EXIF"
+
+#~ msgid "Title EXIF"
+#~ msgstr "Tytuł EXIF"
+
+#~ msgid "Author Name"
+#~ msgstr "Imię Autora"
+
+#~ msgid "This will make all of the new columns support sorting"
+#~ msgstr "Dzięki temu wszystkie nowe kolumny będą sortowalne"
+
+#~ msgid ""
+#~ "By default WordPress let's you sort by title, date, comments and author. "
+#~ "This will make you be able to <strong>sort by any column of any type!</"
+#~ "strong>"
+#~ msgstr ""
+#~ "Domyślnie, WordPress pozwala na sortowanie po tytule, dacie, komentarzu i "
+#~ "autorze. Dzięi temu będziesz mógł <strong>sortować każdą kolumnę, każdego "
+#~ "rodzaju!</strong>"
+
+#~ msgid ""
+#~ "Perfect for sorting your articles, media files, comments, links and users"
+#~ msgstr ""
+#~ "Idealne rozwiązanie do sortowania wpisów, mediów, komentarzy, linków i "
+#~ "użytkowników"
+
+#~ msgid "(columns that are added by other plugins are not supported)"
+#~ msgstr "(kolumny dodane przez inne wtyczki nie są wspierane)"
+
+#~ msgid "Inactive"
+#~ msgstr "Nieaktywny"
+
+#~ msgid "Active"
+#~ msgstr "Aktywny"
+
+#~ msgid "Fill in your activation code"
+#~ msgstr "Wpisz kod aktywacyjny"
+
+#~ msgid "Activate"
+#~ msgstr "Aktywuj"
+
+#~ msgid "Deactivate"
+#~ msgstr "Deaktywuj"
+
+#~ msgid ""
+#~ "Add-ons can be unlocked by purchasing a license key. Each key can be used "
+#~ "on multiple sites"
+#~ msgstr ""
+#~ "Dodatki mągą być aktywowane po zakupie licencji. Każdy klucz licencji "
+#~ "może być sotsowany na wielu stronach"
+
+#~ msgid "Addon"
+#~ msgstr "Dodatek"
+
+#~ msgid "Activation Code"
+#~ msgstr "Kod aktywacyjny"
+
+#~ msgid "Enter your activation code"
+#~ msgstr "Wpisz kod aktywacyjny"
+
+#~ msgid "Activation code unrecognised"
+#~ msgstr "Kod aktywacyjny nie został rozpoznany"
+
+#~ msgid "Codepress Admin Columns"
+#~ msgstr "Edytor kolumn"
+
+#~ msgid ""
+#~ "By default WordPress let's you only sort by title, date, comments and "
+#~ "author."
+#~ msgstr ""
+#~ "Domyślnie WordPress pozwala na sortowanie po tytule, dacie, komentarzu i "
+#~ "autorze."
+
+#~ msgid ""
+#~ "Make <strong>all columns</strong> of <strong>all types</strong> within "
+#~ "the plugin support sorting &#8212; with the sorting addon."
+#~ msgstr ""
+#~ "Pozwól na sortowanie <strong>wszystkich kolumn, wszystkich typów</strong> "
+#~ "uaktywniając dodatek umożłiwiający sortowanie."
+
+#~ msgid "Why not do any or all of the following"
+#~ msgstr "Dlaczego by nie zrobić jednej lub wszystkich z poniższych rzeczy"
+
+#~ msgid "Give it a 5 star rating on WordPress.org."
+#~ msgstr "Przyznaj jej 5 gwaizdek na stronie WordPress.org."
+
+#~ msgid "Link to it so other folks can find out about it."
+#~ msgstr "Dodaj link aby inni mogli się o niej dowiedzieć."
+
+#~ msgid "Donate a token of your appreciation."
+#~ msgstr "Wspomóż drobną dotacją."
+
+#~ msgid "Follow us"
+#~ msgstr "Śledź nas"
+
+#~ msgid "Follow Codepress on Twitter."
+#~ msgstr "Śledź nas na Tweeterze."
+
+#~ msgid "Like Codepress on Facebook."
+#~ msgstr "Polub Codepress na Facebooku."
+
+#~ msgid ""
+#~ "If you are having problems with this plugin, please talk about them in "
+#~ "the <a href=\"%s\">Support forums</a> or send me an email %s."
+#~ msgstr ""
+#~ "Jeśli masz jakieś problemy z tą wtyczką, proszę napisz o tym na stronie "
+#~ "<a href=\"%s\">Forum pomocy</a> lub wyślij do mnie maila na adres %s."
+
+#~ msgid ""
+#~ "If you're sure you've found a bug, or have a feature request, please <a "
+#~ "href='%s'>submit your feedback</a>."
+#~ msgstr ""
+#~ "Jeśli jeste przekonany, że znalazłeś bug'a lub masz prośbę o dodanie "
+#~ "nowej funkcji, proszę <a href='%s'>wyślij do mnie maila.</a>."
+
+#~ msgid "Restore defaults"
+#~ msgstr "Przywróć domyślne"
+
+#~ msgid "original"
+#~ msgstr "oryginalny"
+
+#~ msgid "Standard"
+#~ msgstr "Standardowe"
+
+#~ msgid "approved"
+#~ msgstr "zatwierdzony"
+
+#~ msgid "spam"
+#~ msgstr "spam"
+
+#~ msgid "trash"
+#~ msgstr "kosz"

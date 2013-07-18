@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns v2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 12:27+0100\n"
-"PO-Revision-Date: 2013-07-17 12:29+0100\n"
+"POT-Creation-Date: 2013-07-18 15:21+0100\n"
+"PO-Revision-Date: 2013-07-18 15:21+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: nl_NL\n"
@@ -25,11 +25,9 @@ msgstr ""
 msgid "Settings"
 msgstr "Instellingen"
 
-# @ codepress-admin-columns
 #: ../codepress-admin-columns.php:350
-#, fuzzy
 msgid "Edit columns"
-msgstr "Voeg custom field kolom toe"
+msgstr ""
 
 # @ codepress-admin-columns
 #: ../classes/addons.php:27
@@ -395,11 +393,9 @@ msgstr ""
 msgid "What’s New"
 msgstr ""
 
-# @ codepress-admin-columns
 #: ../classes/settings.php:379
-#, fuzzy
 msgid "Changelog"
-msgstr "Pagina Volgorde"
+msgstr ""
 
 #: ../classes/settings.php:381
 msgid "Download Addons"
@@ -441,19 +437,19 @@ msgstr ""
 msgid "Addons are sperate plugins which need to be downloaded."
 msgstr ""
 
-# @ codepress-admin-columns
 #: ../classes/settings.php:403
-#, fuzzy
 msgid "Download your Addons"
-msgstr "meer informatie"
+msgstr ""
 
 #: ../classes/settings.php:409
 msgid "Important"
 msgstr ""
 
+# @ default
 #: ../classes/settings.php:411
+#, fuzzy
 msgid "Database Changes"
-msgstr ""
+msgstr "Wijzigingen opslaan"
 
 #: ../classes/settings.php:412
 msgid ""
@@ -509,15 +505,15 @@ msgstr ""
 msgid "version 1"
 msgstr ""
 
-#: ../classes/settings.php:422
-msgid "of this plugin."
-msgstr ""
-
 # @ codepress-admin-columns
-#: ../classes/settings.php:428
+#: ../classes/settings.php:422
 #, fuzzy
+msgid "of this plugin."
+msgstr "Leuke plugin?"
+
+#: ../classes/settings.php:428
 msgid "Changelog for"
-msgstr "Pagina Volgorde"
+msgstr ""
 
 #: ../classes/settings.php:443
 msgid "Learn more"
@@ -534,9 +530,11 @@ msgid ""
 "This page will assist you in downloading and installing each available Addon."
 msgstr ""
 
+# @ codepress-admin-columns
 #: ../classes/settings.php:454
+#, fuzzy
 msgid "Available Addons"
-msgstr ""
+msgstr "Activeer Google Maps"
 
 #: ../classes/settings.php:459
 msgid "Name"
@@ -607,8 +605,9 @@ msgstr ""
 
 # @ default
 #: ../classes/settings.php:579
+#, fuzzy
 msgid "Store settings"
-msgstr "Instellingen opslaan"
+msgstr "Instellingen"
 
 #: ../classes/settings.php:584
 msgid "Update"
@@ -655,8 +654,9 @@ msgstr ""
 
 # @ codepress-admin-columns
 #: ../classes/settings.php:633
+#, fuzzy
 msgid "Support"
-msgstr "Hulp"
+msgstr "Hulp nodig?"
 
 # @ codepress-admin-columns
 #: ../classes/settings.php:636
@@ -695,11 +695,11 @@ msgstr "Instellingen"
 msgid "Customize your Admin Columns settings."
 msgstr ""
 
-# @ default
+# @ codepress-admin-columns
 #: ../classes/settings.php:720
 #, fuzzy
 msgid "Custom field settings"
-msgstr "Instellingen opslaan"
+msgstr "Herstel standaard instellingen"
 
 #: ../classes/settings.php:724
 msgid "Show hidden custom fields. Default is <code>off</code>."
@@ -755,7 +755,7 @@ msgid "Settings for %s updated succesfully."
 msgstr ""
 
 # @ default
-#: ../classes/storage_model.php:562 ../classes/column/post/actions.php:64
+#: ../classes/storage_model.php:564 ../classes/column/post/actions.php:64
 msgid "View"
 msgstr ""
 
@@ -791,11 +791,9 @@ msgstr ""
 msgid "No Upgrade Required"
 msgstr ""
 
-# @ codepress-admin-columns
 #: ../classes/upgrade.php:345
-#, fuzzy
 msgid "Return to welcome screen."
-msgstr "Herstel standaard instellingen"
+msgstr ""
 
 #: ../classes/upgrade.php:361
 msgid "Upgrade Complete!"
@@ -825,7 +823,6 @@ msgstr "Media bibliotheek Icoon"
 
 # @ codepress-admin-columns
 #: ../classes/column/custom-field.php:79
-#, fuzzy
 msgid "Post Title (Post ID's)"
 msgstr "Post Titel (Post ID's)"
 
@@ -833,6 +830,7 @@ msgstr "Post Titel (Post ID's)"
 msgid "Username (User ID's)"
 msgstr ""
 
+# @ codepress-admin-columns
 #: ../classes/column/custom-field.php:81
 msgid "Checkmark (true/false)"
 msgstr ""
@@ -847,14 +845,14 @@ msgstr ""
 
 # @ codepress-admin-columns
 #: ../classes/column/custom-field.php:337
-#, fuzzy
 msgid "Field Type"
-msgstr "Veld"
+msgstr ""
 
 #: ../classes/column/custom-field.php:337
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
+# @ codepress-admin-columns
 #: ../classes/column/custom-field.php:380
 msgid "Before"
 msgstr ""
@@ -863,6 +861,7 @@ msgstr ""
 msgid "This text will appear before the custom field value."
 msgstr ""
 
+# @ codepress-admin-columns
 #: ../classes/column/custom-field.php:386
 msgid "After"
 msgstr ""
@@ -1418,16 +1417,6 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-# @ default
-#, fuzzy
-#~ msgid "Export Settings"
-#~ msgstr "Instellingen"
-
-# @ default
-#, fuzzy
-#~ msgid "Import Settings"
-#~ msgstr "Instellingen"
-
 # @ codepress-admin-columns
 #~ msgid "This field can not be removed"
 #~ msgstr "Dit veld kan niet worden verwijderd"
@@ -1447,6 +1436,10 @@ msgstr ""
 # @ codepress-admin-columns
 #~ msgid "Order"
 #~ msgstr "Volgorde"
+
+# @ codepress-admin-columns
+#~ msgid "Field"
+#~ msgstr "Veld"
 
 # @ codepress-admin-columns
 #~ msgid "Upload paths"
