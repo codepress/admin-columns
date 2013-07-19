@@ -198,7 +198,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * Get custom columns
-	 *
+	 *Ï
 	 * Goes through all files in 'classes/column' and includes each file.
 	 *
 	 * @since 2.0.0
