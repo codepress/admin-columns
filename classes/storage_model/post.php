@@ -17,6 +17,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// headings
 		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 10, 1 );
 
+		// @todo_minor check compatibility issues for this deprecated filter (as of 3.1)
+		// This one is still used by woocommerce, yoast, acf.
+		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 10, 1 );
+
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
 	}
