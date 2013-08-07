@@ -518,7 +518,49 @@ tr.column_image_size.hidden {
 
 /* =Sidebar: Pro
 --------------------------------*/
-#pro-version {}
+#pro-version {
+	background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
+}
+#pro-version .padding-box {
+	padding: 8px 15px;
+}
+#pro-version a {
+	color: red;
+}
+#pro-version h3 a {
+	color: #fff;
+	font-size: 19px;
+	text-decoration: none;
+	font-weight: normal;
+	margin-top: 6px;
+}
+#pro-version .inside ul li {
+	margin: 0;
+	padding: 0;
+}
+#pro-version .inside ul li a {
+	display: inline-block;
+	height: 22px;
+	font-size: 19px;
+	line-height: 22px;
+	margin-bottom: 1px;
+	padding: 0 5px;
+	background: #000;
+	color: #fff;
+	text-decoration: none;
+}
+
+#pro-version .inside p {
+	color: #fff;
+	font-size: 14px
+}
+#pro-version .inside p a {
+	color: #fff;
+	display: inline-block;
+	background: #a4c518;
+	padding: 0 2px;
+	text-decoration: none;
+}
 
 
 /* =Sidebar: Addons
@@ -626,6 +668,9 @@ tr td.padding-22 {
     clear: both;
     margin: 30px 0;
     opacity: 0.2;
+}
+#cpac-welcome.about-wrap div.error {
+	display: block !important;
 }
 .cpac-alert {
 	display: inline-block;

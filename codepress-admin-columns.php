@@ -44,8 +44,8 @@ if ( ! is_admin() )
  * @since 1.3.0
  */
 require_once CPAC_DIR . 'classes/utility.php';
-require_once CPAC_DIR . 'classes/third_party.php';
 require_once CPAC_DIR . 'classes/deprecated.php';
+require_once CPAC_DIR . 'classes/third_party.php';
 
 /**
  * The Codepress Admin Columns Class
@@ -301,21 +301,20 @@ class CPAC {
 
 		foreach ( $this->storage_models as $storage_model ) {
 
-			if ( ! $columns = $storage_model->get_stored_columns() )
-				continue;
-
 			if ( $storage_model->page . '.php' !== $pagenow )
 				continue;
 
-			// CSS
-			foreach ( $columns as $name => $options ) {
+			// CSS: columns width
+			if ( $columns = $storage_model->get_stored_columns() ) {
+				foreach ( $columns as $name => $options ) {
 
-				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+					if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
+						$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+					}
 				}
 			}
 
-			// JS
+			// JS: edit button
 			if (
 				// All types except Posts
 				empty( $current_screen->post_type ) ||

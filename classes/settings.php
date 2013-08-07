@@ -46,7 +46,6 @@ class CPAC_Settings {
 			'admin' 	=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
 			'general' 	=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=general' ),
 			'settings' 	=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
-			'addons' 	=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ), // @todo
 			'info' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade' 	=> admin_url( 'options-general.php?page=cpac-upgrade' )
 		);
@@ -251,14 +250,17 @@ class CPAC_Settings {
 	 * @return string Url.
 	 */
 	function get_url( $type ) {
+
+		$site_url = 'http://www.codepresshq.com/';
+
 		$urls = array(
-			'codepress'		=> 'http://www.codepresshq.com/',
+			'codepress'		=> $site_url,
+			'admincolumns'	=> $site_url . '/wordpress-plugins/admin-columns/',
+			'pro_addon'		=> $site_url . '/wordpress-plugins/admin-columns/pro-add-on/',
+			'documentation'	=> $site_url . '/wordpress-plugins/admin-columns/',
+			'feedback'		=> $site_url . '/contact',
 			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
 			'support'		=> 'http://wordpress.org/tags/codepress-admin-columns/',
-			'admincolumns'	=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/',
-			'addons'		=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/#addons',
-			'documentation'	=> 'http://www.codepresshq.com/wordpress-plugins/admin-columns/',
-			'feedback'		=> 'http://www.codepresshq.com/',
 		);
 
 		if ( ! isset( $urls[ $type ] ) )
@@ -306,6 +308,7 @@ class CPAC_Settings {
 			'product_id'		=> $_REQUEST['cpac_product_id'],
 			'licence_key'		=> isset( $_REQUEST['cpac_license_key'] ) ? $_REQUEST['cpac_license_key'] : '',
 			'slug'				=> '',
+			'instance'			=> site_url()
 		);
 
 		$result = wp_remote_get( add_query_arg( $args, $store_url ), array( 'timeout' => 15, 'sslverify' => false ) );
@@ -368,6 +371,7 @@ class CPAC_Settings {
 		<div id="cpac-welcome" class="wrap about-wrap">
 
 			<h1><?php _e( "Welcome to Admin Columns",'cpac'); ?> <?php echo CPAC_VERSION; ?></h1>
+
 			<div class="about-text">
 				<?php _e( "Thank you for updating to the latest version!", 'cpac' ); ?>
 				<?php _e( "Admin Columns is more polished and enjoyable than ever before. We hope you like it.", 'cpac' ); ?>
@@ -389,12 +393,11 @@ class CPAC_Settings {
 					<?php _e( "Addons are now activated by downloading and installing individual plugins. Although these plugins will not be hosted on the wordpress.org repository, each Add-on will continue to receive updates in the usual way.",'cpac'); ?>
 				</p>
 				<?php
-				$titles = array();
-				if ( $uses_customfields ) 	$titles[] = __('the Custom Fields columns');
-				if ( $uses_sortorder ) 		$titles[] = __('the Sortorder Addon');
+				$addon_titles = array();
+				if ( $uses_sortorder ) 	$addon_titles[] = __('the Sortorder Addon');
 
-				if ( $titles ) : ?>
-				<h4><?php printf( __( "This website uses %s. These addons need to be downloaded." ,'cpac' ), implode( ' ' . __('and','cpac') .' ', $titles) ); ?></h4>
+				if ( $addon_titles ) : ?>
+				<h4><?php printf( __( "This website uses %s. This addon needs to be downloaded." ,'cpac' ), implode( ' ' . __('and','cpac') .' ', $addon_titles ) ); ?></h4>
 				<?php endif; ?>
 
 				<div class="cpac-alert cpac-alert-success">
@@ -416,7 +419,7 @@ class CPAC_Settings {
 			<?php endif; ?>
 
 				<h4><?php _e( "Potential Issues", 'cpac' ); ?></h4>
-				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'cpac' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>/migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'cpac' ); ?></a> <?php _e( "guide to view the full list of changes.", 'cpac' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'mailto:info@codepress.nl' ); ?></p>
+				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'cpac' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'cpac' ); ?></a> <?php _e( "guide to view the full list of changes.", 'cpac' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'mailto:info@codepress.nl' ); ?></p>
 
 				<div class="cpac-alert cpac-alert-error">
 					<p><strong><?php _e( "Important!", 'cpac' ); ?></strong> <?php _e( "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest", 'cpac' ); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e( "version 1", 'cpac' ); ?></a> <?php _e( "of this plugin.", 'cpac' ); ?></p>
@@ -463,19 +466,12 @@ class CPAC_Settings {
 					<tbody>
 					<?php if ( $uses_sortorder ): ?>
 					<tr>
-						<th class="td-name"><?php _e("Sortorder Addon",'cpac'); ?></th>
+						<th class="td-name"><?php _e("Pro Add-on (includes Sortorder add-on)",'cpac'); ?></th>
 						<td class="td-download">
-							<a class="button" href="<?php echo $this->settings_urls->info; ?>download-add-ons&amp;cpac_product_id=cac-sortable&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
+							<a class="button" href="<?php echo $this->settings_urls->info; ?>download-add-ons&amp;cpac_product_id=cac-pro&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
 						</td>
 					</tr>
 					<?php endif; ?>
-
-					<tr>
-						<th class="td-name"><?php _e("Custom Fields Addon",'cpac'); ?><?php if ( $uses_customfields ) echo '<p class="description">' . __( 'This website is currently using custom field columns.', 'cpac' ) . '</p>'; ?></th>
-						<td class="td-download">
-							<a class="button" href="<?php echo $this->settings_urls->info; ?>download-add-ons&amp;cpac_product_id=cac-custom-fields"><?php _e("Download",'cpac'); ?></a>
-						</td>
-					</tr>
 
 					</tbody>
 				</table>
@@ -592,43 +588,6 @@ class CPAC_Settings {
 							<?php endif; ?>
 						</div><!--form-actions-->
 
-						<div class="sidebox" id="pro-version">
-							<h3><?php _e( 'Get the Pro addon', 'cpac' ) ?></h3>
-							<div class="inside">
-								By default WordPress let's you only sort by title, date, comments and author.
-
-								Make all columns of all types within the plugin support sorting — with the sorting addon.
-
-								(columns that are added by other plugins are not supported).
-								<ul>
-									<li></li>
-									<li></li>
-									<li></li>
-								</ul>
-							</div>
-						</div>
-
-						<!-- @todo
-						<div class="sidebox" id="addon-state">
-							<h3><?php _e( 'Addons', 'cpac' ) ?></h3>
-							<div class="inside">
-
-								<?php if ( $addons = apply_filters( 'cac/addon_list', array() ) ) : ?>
-								<ul>
-								<?php foreach ( $addons as $label ) : ?>
-									<li><?php echo $label; ?></li>
-									<?php endforeach; ?>
-								</ul>
-								<a href="<?php echo $this->settings_urls->addons; ?>" class="find-more-addons"><?php _e( 'find more addons', 'cpac' ); ?></a>
-								<?php else : ?>
-									<p>
-										<?php printf( __( 'Check the <a href="%s">Add-on section</a> for more details.', 'cpac' ), $this->settings_urls->addons ); ?>
-									</p>
-								<?php endif; ?>
-							</div>
-						</div>
-						-->
-
 						<div class="sidebox" id="plugin-support">
 							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
 							<div class="inside">
@@ -638,6 +597,24 @@ class CPAC_Settings {
 								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?></p>
 							</div>
 						</div><!--.form-actions-->
+
+						<div class="sidebox" id="pro-version">
+							<div class="padding-box">
+								<h3>
+									<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
+								</h3>
+								<div class="inside">
+									<ul>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add sorting', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add filtering', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+									</ul>
+									<p>
+										<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
+									</p>
+								</div>
+							</div>
+						</div>
 
 					</div><!--.columns-right-inside-->
 				</div><!--.columns-right-->

@@ -14,12 +14,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->type 	= 'post';
 		$this->page 	= 'edit';
 
-		// headings
-		// Prio should be set later then the default to make sure 3rd party headings get's added
-		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 11, 1 );
+		// Headings
 
-		// @todo_minor check compatibility issues for this deprecated filter (as of 3.1)
-		// This one is still used by woocommerce, acf.
+		// Since 3.1
+		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 10, 1 );
+
+		// Deprecated ( as of 3.1 ) Note: This one is still used by woocommerce.
+		// @todo_minor check compatibility issues for this deprecated filter
 		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 10, 1 );
 
 		// values
@@ -112,9 +113,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$value = '';
 
 		// get column instance
-		if ( $column = $this->get_column_by_name( $column_name ) ) {
+		if ( $column = $this->get_column_by_name( $column_name ) )
 			$value = $column->get_value( $post_id );
-		}
 
 		$value = apply_filters( "cac/column/value/posts", $value, $column );
 		$value = apply_filters( "cac/column/value/type={$this->key}", $value, $column );

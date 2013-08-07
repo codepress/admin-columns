@@ -59,7 +59,6 @@ class CPAC_Upgrade {
 	public function init() {
 
 		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_show_welcome', 'display' );
-
 		$version = get_option( 'cpac_version', false );
 
 		// Maybe version pre 2.0.0 was used
@@ -79,6 +78,10 @@ class CPAC_Upgrade {
 				foreach ( $this->cpac->storage_models as $storage_model ) {
 					delete_transient( 'cpac_custom_columns' . $storage_model->key );
 				}
+			}
+
+			// run only when updating from v1 to v2
+			if ( $version < '2.0.0' ) {
 
 				// show welcome screen
 				set_transient( 'cpac_show_welcome', 'display' );

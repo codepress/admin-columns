@@ -400,13 +400,17 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_columns() {
 
+		// used for third party plugin support
 		do_action( 'cac/get_columns', $this );
 
 		$columns = array();
 
 		// get columns
 		$default_columns 	= $this->get_default_registered_columns();
-		$registered_columns = array_merge( $this->get_custom_registered_columns(), $default_columns );
+
+		//$registered_columns = array_merge( $this->get_custom_registered_columns(), $default_columns );
+		// @todo_minor check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns"
+		$registered_columns = array_merge( $default_columns, $this->get_custom_registered_columns() );
 
 		// Stored columns
 		if ( $stored_columns = $this->get_stored_columns() ) {
@@ -529,15 +533,17 @@ abstract class CPAC_Storage_Model {
 		// Remove 3rd party columns that have been deactivated.
 		// While the column settings have not been stored yet.
 		// When $diff contains items, it means the default stored columns are not available anymore.
-
-		// @todo: check if working properly
-		/*if ( $diff = array_diff( $this->get_default_stored_columns(), array_keys( $columns ) ) ) {
+		// @todo: check if working properly. cuurently issues with woocommerce columns
+		/*
+		if ( $diff = array_diff( $this->get_default_stored_columns(), array_keys( $columns ) ) ) {
+			//echo '<pre>'; print_r( $diff ); echo '</pre>';
 			foreach ( $diff as $column_name ) {
 				if( isset( $column_headings[ $column_name ] ) )
 					unset( $column_headings[ $column_name ] );
 			}
-		}
-		*/
+		}*/
+
+
 
 		return $column_headings;
 	}
