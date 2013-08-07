@@ -408,8 +408,7 @@ abstract class CPAC_Storage_Model {
 		// get columns
 		$default_columns 	= $this->get_default_registered_columns();
 
-		//$registered_columns = array_merge( $this->get_custom_registered_columns(), $default_columns );
-		// @todo_minor check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns"
+		// @todo_major check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = array_merge( $default_columns, $this->get_custom_registered_columns() );
 
 		// Stored columns
@@ -449,9 +448,16 @@ abstract class CPAC_Storage_Model {
 			// When $diff contains items, it means a default column has not been stored.
 			if( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
 				foreach( $diff as $name ) {
-					if ( isset( $registered_columns[ $name ] ) ) {
-						$columns[ $name ] = clone $registered_columns[ $name ];
-					}
+
+					// because of the filter "manage_{$post_type}_posts_columns" the columns
+					// that are being added by CPAC will also appear in the $default_columns.
+					// this will filter out those columns.
+					if ( isset( $columns[ $name ] ) ) continue;
+
+					// is the column registered?
+					if ( ! isset( $registered_columns[ $name ] ) ) continue;
+
+					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
 		}
@@ -477,7 +483,6 @@ abstract class CPAC_Storage_Model {
 	function get_column_by_name( $name ) {
 
 		$columns = $this->get_columns();
-
 		if ( ! isset( $columns[ $name ] ) )
 			return false;
 

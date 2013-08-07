@@ -588,16 +588,7 @@ class CPAC_Settings {
 							<?php endif; ?>
 						</div><!--form-actions-->
 
-						<div class="sidebox" id="plugin-support">
-							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
-							<div class="inside">
-								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
-								<?php endif; ?>
-								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?></p>
-							</div>
-						</div><!--.form-actions-->
-
+						<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
 						<div class="sidebox" id="pro-version">
 							<div class="padding-box">
 								<h3>
@@ -615,6 +606,17 @@ class CPAC_Settings {
 								</div>
 							</div>
 						</div>
+					<?php endif; ?>
+
+						<div class="sidebox" id="plugin-support">
+							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
+							<div class="inside">
+								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
+									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
+								<?php endif; ?>
+								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?></p>
+							</div>
+						</div><!--.form-actions-->
 
 					</div><!--.columns-right-inside-->
 				</div><!--.columns-right-->
