@@ -41,9 +41,6 @@ class CPAC_Upgrade {
 		// Don't run on plugin activate
 		if ( isset( $_GET['action'] ) && 'activate-plugin' == $_GET['action'] ) return;
 
-		// Add upgrade menu
-		//$page = add_submenu_page( 'codepress-admin-columns', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
-
 		// add settings page
 		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
 
