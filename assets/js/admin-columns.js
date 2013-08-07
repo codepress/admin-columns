@@ -130,7 +130,7 @@ jQuery.fn.column_bind_events = function() {
 	column.find('.column_label .input input').bind( 'keyup change', function() {
 
 		var value = jQuery( this ).val();
-		jQuery(this).closest('.cpac-column').find( 'td.column_label .inner > a' ).text( value );
+		jQuery(this).closest('.cpac-column').find( 'td.column_label .inner > a.toggle' ).text( value );
 	});
 
 	/** width slider */
@@ -288,6 +288,9 @@ function cpac_add_column() {
 			clone.addClass('opened').find('.column-form').slideDown(150, function(){
 				jQuery('html, body').animate({ scrollTop: clone.offset().top - 58 }, 300);
 			});
+
+			// hook for addons
+			jQuery(document).trigger( 'column_add', clone );
 		}
 
 		e.preventDefault();

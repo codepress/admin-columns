@@ -8,6 +8,9 @@ jQuery(document).bind('column_init', function( e, column ){
 jQuery(document).bind('column_change', function( e, clone ){
 	jQuery(clone).column_bind_custom_field_events();
 });
+jQuery(document).bind('column_add', function( e, clone ){
+	jQuery(clone).column_bind_custom_field_events();
+});
 
 /*
  * Form Events
