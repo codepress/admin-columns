@@ -251,7 +251,7 @@ class CPAC_Settings {
 	 */
 	function get_url( $type ) {
 
-		$site_url = 'http://www.codepresshq.com/';
+		$site_url = 'http://www.codepresshq.com';
 
 		$urls = array(
 			'codepress'		=> $site_url,
@@ -362,7 +362,7 @@ class CPAC_Settings {
 
 		// check if old site used custom field columns
 		$uses_customfields 	= $this->uses_custom_fields();
-		$uses_sortorder 	= get_option( "cpac_sortable_ac" ) ? true : false;
+		$uses_sortorder 	= get_option( "cpac_sortable_ac" ) && ! class_exists( 'CAC_Addon_Pro' ) ? true : false;
 
 		$installed_customfields = false;
 		$installed_sortorder 	= false;
@@ -392,20 +392,20 @@ class CPAC_Settings {
 				<p>
 					<?php _e( "Addons are now activated by downloading and installing individual plugins. Although these plugins will not be hosted on the wordpress.org repository, each Add-on will continue to receive updates in the usual way.",'cpac'); ?>
 				</p>
-				<?php
-				$addon_titles = array();
-				if ( $uses_sortorder ) 	$addon_titles[] = __('the Sortorder Addon');
-
-				if ( $addon_titles ) : ?>
-				<h4><?php printf( __( "This website uses %s. This addon needs to be downloaded." ,'cpac' ), implode( ' ' . __('and','cpac') .' ', $addon_titles ) ); ?></h4>
-				<?php endif; ?>
-
+			<?php if ( $uses_sortorder ) : ?>
+				<h4><?php _e( "This website uses the Sortorder Addon. This addon needs to be downloaded." ,'cpac' ); ?></h4>
 				<div class="cpac-alert cpac-alert-success">
 					<p>
-						<strong></strong>
-						<?php _e( "Addons are sperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo $this->settings_urls->info; ?>download-add-ons" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
+						<?php _e( "Addons are seperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo $this->settings_urls->info; ?>download-add-ons" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
 					</p>
 				</div>
+			<?php else : ?>
+				<div class="cpac-alert cpac-alert-success">
+					<p>
+						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'See our website for the Pro-addon.', 'cpac' ); ?></a>
+					</p>
+				</div>
+			<?php endif; ?>
 
 				<hr />
 
