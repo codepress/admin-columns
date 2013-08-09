@@ -73,7 +73,7 @@ class CPAC_Upgrade {
 
 				// flush this transient so new custom columns get added.
 				foreach ( $this->cpac->storage_models as $storage_model ) {
-					delete_transient( 'cpac_custom_columns' . $storage_model->key );
+					$storage_model->flush_cache();
 				}
 			}
 

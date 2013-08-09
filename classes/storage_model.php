@@ -217,21 +217,22 @@ abstract class CPAC_Storage_Model {
 
 			while( $file->valid() ) {
 
-				if ( ! $file->isDot() ) {
+				if ( ! $file->isDot() && ! $file->isDir() ) {
 
 					// build classname from filename
-					$name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
+					$name 				= implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
+					$relative_file_path = str_replace( ABSPATH, '', $file->key() );
 
 					// add columns for multiple storage types
 					if ( ! $file->getSubPath() ) {
-						$columns[ $this->type ]["CPAC_Column_{$name}"] = $file->key();
+						$columns[ $this->type ]["CPAC_Column_{$name}"] = $relative_file_path;
 					}
 
 					// add columns for specific types
 					elseif ( $this->type == $file->getSubPath() ) {
 
 						$type = ucfirst( $this->type );
-						$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $file->key();
+						$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $relative_file_path;
 					}
 				}
 
@@ -328,7 +329,7 @@ abstract class CPAC_Storage_Model {
 
 		foreach ( $this->get_custom_columns() as $classname => $path ) {
 
-			include_once $path;
+			include_once ABSPATH . $path;
 
 			if ( ! class_exists( $classname ) )
 				continue;
@@ -583,5 +584,14 @@ abstract class CPAC_Storage_Model {
 	function get_edit_link() {
 
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
+	}
+
+	/**
+	 * Flush Cache
+	 *
+	 * @since 2.0.0
+	 */
+	function flush_cache() {
+		delete_transient( 'cpac_custom_columns' . $this->key );
 	}
 }

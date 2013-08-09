@@ -517,7 +517,8 @@ class CPAC_Settings {
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
 
 		// get first element from post-types
-		$first = array_shift( array_values( $this->cpac->get_post_types() ) );
+		$post_types = array_values( $this->cpac->get_post_types() );
+		$first 		= array_shift( $post_types );
 	?>
 		<div id="cpac" class="wrap">
 
