@@ -249,9 +249,9 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 = 2.0.0 =
-* [Notice!] Custom Fields has been removed ( now available as an addon )
-* [Notice!] Database needs an update, make sure to backup first
-* [changed] Some filters and hooks have been changed, see online documentation
+* [Notice] Database needs an update, make sure to backup first
+* [Changed] Sortorder licence is now an Pro Add-on
+* [Changed] Some filters and hooks have been changed, see online documentation
 * [Updated] Extensive refactoring of the code with improved API
 * [Updated] New UI with responsive design
 * [Updated] Hooks and filters has been replaced with one that follows the correct naming conventions with underscores.
@@ -271,10 +271,12 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] Added capability manage_admin_columns to control which roles can set columns
 * [Removed] Column: Actions for comments
 * [Removed] Calling get_column_headers() interfered with storing columns
-* [Removed] Custom fields support ( now available as an addon )
 * [Fixed] Issue: Sorting was not working when label contains the ':' character
-* [Addon] Sorting add-on: Added sorting for comment meta data
-* [Addon] Custom Field add-on: Added setting to display hidden custom fields
+* [Addon] Added Pro add-on
+* [Addon] Pro add-on includes Sorting, Filtering and Import/Export
+
+= 1.4.9
+* fixed bug: thirdparty columns that were previous loaded through load-edit.php will now use do_action( 'cpac-get-default-columns-{$type}' )
 
 = 1.4.8 =
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu

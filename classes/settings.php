@@ -596,8 +596,8 @@ class CPAC_Settings {
 								</h3>
 								<div class="inside">
 									<ul>
-										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add sorting', 'cpac' ); ?></a></li>
-										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add filtering', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
 										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
 									</ul>
 									<p>

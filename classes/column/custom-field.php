@@ -3,7 +3,7 @@
 /**
  * CPAC_Column_Custom_Field
  *
- * @since 0.1
+ * @since 1.0
  */
 class CPAC_Column_Custom_Field extends CPAC_Column {
 
@@ -40,7 +40,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::sanitize_options()
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	function sanitize_options( $options ) {
 
@@ -62,7 +62,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get Custom FieldType Options - Value method
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 *
 	 * @return array Customfield types.
 	 */
@@ -88,7 +88,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get Title by ID - Value method
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 *
 	 * @param string $meta
 	 * @return string Titles
@@ -123,7 +123,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get Users by ID - Value method
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 *
 	 * @param string $meta
 	 * @return string Users
@@ -228,7 +228,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Determines text color absed on bakground coloring.
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	function get_text_color( $bg_color ) {
 
@@ -240,7 +240,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Convert hex to rgb
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	function hex2rgb($hex) {
 		$hex = str_replace("#", "", $hex);
@@ -262,7 +262,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get meta by ID
 	 *
-	 * @since 0.1
+	 * @since 1.0
 	 *
 	 * @param int $id ID
 	 * @return string Meta Value
@@ -288,7 +288,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	function get_value( $id ) {
 
@@ -308,7 +308,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 0.1
+	 * @since 1.0
 	 */
 	function display_settings() {
 

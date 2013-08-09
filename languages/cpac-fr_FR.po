@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-18 15:23+0100\n"
-"PO-Revision-Date: 2013-07-18 15:24+0100\n"
+"POT-Creation-Date: 2013-08-08 08:50+0100\n"
+"PO-Revision-Date: 2013-08-08 08:50+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Digital Factory <info@digitalfactory.pl>\n"
 "Language: pl_PL\n"
@@ -18,42 +18,14 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../codepress-admin-columns.php:230 ../classes/settings.php:534
+#: ../codepress-admin-columns.php:226 ../classes/settings.php:530
 msgid "Settings"
 msgstr "Réglages"
 
-#: ../codepress-admin-columns.php:350
+#: ../codepress-admin-columns.php:345
 #, fuzzy
 msgid "Edit columns"
 msgstr "Admin Columns"
-
-#: ../classes/addons.php:27
-#, fuzzy
-msgid "Add-ons"
-msgstr "Activer modules complémentaires"
-
-#: ../classes/addons.php:63
-msgid ""
-"There was an error retrieving the extensions list from the server. Please "
-"try again later."
-msgstr ""
-
-#: ../classes/addons.php:88 ../classes/addons.php:94
-#, fuzzy
-msgid "Add-ons for Admin Columns"
-msgstr "Admin Columns"
-
-#: ../classes/addons.php:95
-msgid "These add-ons extend the functionality of Admin Columns."
-msgstr ""
-
-#: ../classes/addons.php:96
-msgid "Browse All Add-ons"
-msgstr ""
-
-#: ../classes/addons.php:96
-msgid "Browse all Add-ons"
-msgstr ""
 
 #: ../classes/column.php:479
 msgid "Thumbnail"
@@ -124,7 +96,7 @@ msgstr "Largeur"
 msgid "height"
 msgstr "Hauteur"
 
-#: ../classes/column.php:900 ../classes/settings.php:221
+#: ../classes/column.php:900 ../classes/settings.php:220
 #: ../classes/column/custom-field.php:72
 msgid "Default"
 msgstr "Par défaut"
@@ -177,145 +149,145 @@ msgstr ""
 msgid "Import failed. File does not contain Admin Column settings."
 msgstr ""
 
-#: ../classes/settings.php:69
+#: ../classes/settings.php:68
 #, fuzzy
 msgid "Admin Columns Settings"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:69 ../classes/settings.php:533
+#: ../classes/settings.php:68 ../classes/settings.php:529
 #: ../classes/upgrade.php:93
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:180
+#: ../classes/settings.php:179
 msgid "Default settings succesfully restored."
 msgstr ""
 
-#: ../classes/settings.php:198 ../classes/settings.php:450
+#: ../classes/settings.php:197 ../classes/settings.php:453
 #, fuzzy
 msgid "Overview"
 msgstr "Arperçu"
 
-#: ../classes/settings.php:201
+#: ../classes/settings.php:200
 msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
 msgstr ""
 
-#: ../classes/settings.php:204
+#: ../classes/settings.php:203
 msgid "Basics"
 msgstr ""
 
-#: ../classes/settings.php:206
+#: ../classes/settings.php:205
 #, fuzzy
 msgid "Show / Hide"
 msgstr "Afficher tout"
 
-#: ../classes/settings.php:207
+#: ../classes/settings.php:206
 msgid ""
 "You can switch columns on or off by clicking on the checkbox. This will show "
 "or hide each column heading."
 msgstr ""
 
-#: ../classes/settings.php:208
+#: ../classes/settings.php:207
 #, fuzzy
 msgid "Change order"
 msgstr "Ordre de page"
 
-#: ../classes/settings.php:209
+#: ../classes/settings.php:208
 msgid ""
 "By dragging the columns you can change the order which they will appear in."
 msgstr ""
 
-#: ../classes/settings.php:210
+#: ../classes/settings.php:209
 msgid "Change label"
 msgstr ""
 
-#: ../classes/settings.php:211
+#: ../classes/settings.php:210
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
 msgstr ""
 
-#: ../classes/settings.php:212
+#: ../classes/settings.php:211
 msgid "Change column width"
 msgstr ""
 
-#: ../classes/settings.php:213
+#: ../classes/settings.php:212
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider yo can set the width of the columns in percentages."
 msgstr ""
 
-#: ../classes/settings.php:216 ../classes/column/custom-field.php:16
+#: ../classes/settings.php:215 ../classes/column/custom-field.php:16
 #: ../classes/column/custom-field.php:320
 msgid "Custom Field"
 msgstr "Champ personnalisé"
 
-#: ../classes/settings.php:218
+#: ../classes/settings.php:217
 #, fuzzy
 msgid "'Custom Field' column"
 msgstr "Ajouter une colonne de champ personnalisé"
 
-#: ../classes/settings.php:219
+#: ../classes/settings.php:218
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
 msgstr ""
 
-#: ../classes/settings.php:221
+#: ../classes/settings.php:220
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
 msgstr ""
 
-#: ../classes/settings.php:222 ../classes/column/custom-field.php:73
+#: ../classes/settings.php:221 ../classes/column/custom-field.php:73
 #: ../classes/column/link/image.php:12
 msgid "Image"
 msgstr "Image"
 
-#: ../classes/settings.php:222
+#: ../classes/settings.php:221
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
 msgstr ""
 
-#: ../classes/settings.php:223 ../classes/column/custom-field.php:75
+#: ../classes/settings.php:222 ../classes/column/custom-field.php:75
 #: ../classes/column/comment/excerpt.php:13
 #: ../classes/column/post/excerpt.php:13
 msgid "Excerpt"
 msgstr "Extrait"
 
-#: ../classes/settings.php:223
+#: ../classes/settings.php:222
 msgid "Value: This will show the first 20 words of the Post content."
 msgstr ""
 
-#: ../classes/settings.php:224 ../classes/column/custom-field.php:76
+#: ../classes/settings.php:223 ../classes/column/custom-field.php:76
 msgid "Multiple Values"
 msgstr "Valeurs multiples"
 
-#: ../classes/settings.php:224
+#: ../classes/settings.php:223
 msgid ""
 "Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
-#: ../classes/settings.php:225 ../classes/column/custom-field.php:77
+#: ../classes/settings.php:224 ../classes/column/custom-field.php:77
 msgid "Numeric"
 msgstr "Numérique"
 
-#: ../classes/settings.php:225
+#: ../classes/settings.php:224
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr ""
 
-#: ../classes/settings.php:226 ../classes/column/custom-field.php:78
+#: ../classes/settings.php:225 ../classes/column/custom-field.php:78
 #: ../classes/column/comment/date.php:12
 msgid "Date"
 msgstr "Date"
 
-#: ../classes/settings.php:226
+#: ../classes/settings.php:225
 #, php-format
 msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
@@ -323,278 +295,261 @@ msgid ""
 "href='%s'>general settings</a> page."
 msgstr ""
 
-#: ../classes/settings.php:227
+#: ../classes/settings.php:226
 #, fuzzy
 msgid "Post Titles"
 msgstr "Titre du post (Post ID)"
 
-#: ../classes/settings.php:227
+#: ../classes/settings.php:226
 msgid "Value: can be one or more Post ID's (seperated by ',')."
 msgstr ""
 
-#: ../classes/settings.php:228
+#: ../classes/settings.php:227
 msgid "Usernames"
 msgstr ""
 
-#: ../classes/settings.php:228
+#: ../classes/settings.php:227
 msgid "Value: can be one or more User ID's (seperated by ',')."
 msgstr ""
 
-#: ../classes/settings.php:229
+#: ../classes/settings.php:228
 msgid "Checkmark"
 msgstr ""
 
-#: ../classes/settings.php:229
+#: ../classes/settings.php:228
 msgid "Value: should be a 1 (one) or 0 (zero)."
 msgstr ""
 
-#: ../classes/settings.php:230 ../classes/column/custom-field.php:82
+#: ../classes/settings.php:229 ../classes/column/custom-field.php:82
 msgid "Color"
 msgstr ""
 
-#: ../classes/settings.php:230
+#: ../classes/settings.php:229
 msgid "Value: hex value color, such as #808080."
 msgstr ""
 
-#: ../classes/settings.php:370
+#: ../classes/settings.php:373
 #, fuzzy
 msgid "Welcome to Admin Columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:372
+#: ../classes/settings.php:376
 msgid "Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../classes/settings.php:373
+#: ../classes/settings.php:377
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
 msgstr ""
 
-#: ../classes/settings.php:378
+#: ../classes/settings.php:382
 msgid "What’s New"
 msgstr ""
 
-#: ../classes/settings.php:379
+#: ../classes/settings.php:383
 msgid "Changelog"
 msgstr ""
 
-#: ../classes/settings.php:381
+#: ../classes/settings.php:385
 msgid "Download Addons"
 msgstr ""
 
-#: ../classes/settings.php:387 ../classes/settings.php:613
+#: ../classes/settings.php:391
 msgid "Addons"
 msgstr "Modules complémentaires"
 
-#: ../classes/settings.php:389
+#: ../classes/settings.php:393
 msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
 msgstr ""
 
-#: ../classes/settings.php:393
-#, fuzzy
-msgid "the Custom Fields columns"
-msgstr "Ajouter une colonne de champ personnalisé"
-
-#: ../classes/settings.php:394
-#, fuzzy
-msgid "the Sortorder Addon"
-msgstr "Ordre de tri"
-
-#: ../classes/settings.php:397
-#, php-format
-msgid "This website uses %s. These addons need to be downloaded."
+#: ../classes/settings.php:396
+msgid ""
+"This website uses the Sortorder Addon. This addon needs to be downloaded."
 msgstr ""
 
-#: ../classes/settings.php:397
-msgid "and"
+#: ../classes/settings.php:399
+msgid "Addons are seperate plugins which need to be downloaded."
 msgstr ""
 
-#: ../classes/settings.php:403
-msgid "Addons are sperate plugins which need to be downloaded."
-msgstr ""
-
-#: ../classes/settings.php:403
+#: ../classes/settings.php:399
 msgid "Download your Addons"
 msgstr ""
 
-#: ../classes/settings.php:409
+#: ../classes/settings.php:405
+msgid "This website does not use add-ons"
+msgstr ""
+
+#: ../classes/settings.php:405
+msgid "See our website for the Pro-addon."
+msgstr ""
+
+#: ../classes/settings.php:412
 msgid "Important"
 msgstr ""
 
-#: ../classes/settings.php:411
+#: ../classes/settings.php:414
 #, fuzzy
 msgid "Database Changes"
 msgstr "Enregistrer les modifications"
 
-#: ../classes/settings.php:412
+#: ../classes/settings.php:415
 msgid ""
 "The database has been changed between versions 1 and 2. But we made sure you "
 "can still roll back to version 1x without any issues."
 msgstr ""
 
-#: ../classes/settings.php:415
+#: ../classes/settings.php:418
 msgid "Make sure you backup your database and then click"
 msgstr ""
 
-#: ../classes/settings.php:415 ../classes/upgrade.php:101
+#: ../classes/settings.php:418 ../classes/upgrade.php:101
 msgid "Upgrade Database"
 msgstr ""
 
-#: ../classes/settings.php:418
+#: ../classes/settings.php:421
 msgid "Potential Issues"
 msgstr ""
 
-#: ../classes/settings.php:419
+#: ../classes/settings.php:422
 msgid ""
 "Do to the sizable refactoring the code, surounding Addons and action/"
 "filters, your website may not operate correctly. It is important that you "
 "read the full"
 msgstr ""
 
-#: ../classes/settings.php:419
+#: ../classes/settings.php:422
 msgid "Migrating from v1 to v2"
 msgstr ""
 
-#: ../classes/settings.php:419
+#: ../classes/settings.php:422
 msgid "guide to view the full list of changes."
 msgstr ""
 
-#: ../classes/settings.php:419
+#: ../classes/settings.php:422
 #, php-format
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
 msgstr ""
 
-#: ../classes/settings.php:422
+#: ../classes/settings.php:425
 msgid "Important!"
 msgstr ""
 
-#: ../classes/settings.php:422
+#: ../classes/settings.php:425
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
 msgstr ""
 
-#: ../classes/settings.php:422
+#: ../classes/settings.php:425
 msgid "version 1"
 msgstr ""
 
-#: ../classes/settings.php:422
+#: ../classes/settings.php:425
 #, fuzzy
 msgid "of this plugin."
 msgstr "Vous aimez ce plugin?"
 
-#: ../classes/settings.php:428
+#: ../classes/settings.php:431
 msgid "Changelog for"
 msgstr ""
 
-#: ../classes/settings.php:443
+#: ../classes/settings.php:446
 msgid "Learn more"
 msgstr ""
 
-#: ../classes/settings.php:452
+#: ../classes/settings.php:455
 msgid ""
 "New to v2, all Addons act as separate plugins which need to be individually "
 "downloaded, installed and updated."
 msgstr ""
 
-#: ../classes/settings.php:453
+#: ../classes/settings.php:456
 msgid ""
 "This page will assist you in downloading and installing each available Addon."
 msgstr ""
 
-#: ../classes/settings.php:454
+#: ../classes/settings.php:457
 #, fuzzy
 msgid "Available Addons"
 msgstr "Activer modules complémentaires"
 
-#: ../classes/settings.php:459
+#: ../classes/settings.php:462
 msgid "Name"
 msgstr ""
 
-#: ../classes/settings.php:460 ../classes/settings.php:468
-#: ../classes/settings.php:476
+#: ../classes/settings.php:463 ../classes/settings.php:471
 msgid "Download"
 msgstr ""
 
-#: ../classes/settings.php:466
-#, fuzzy
-msgid "Sortorder Addon"
-msgstr "Ordre de tri"
-
-#: ../classes/settings.php:474
-#, fuzzy
-msgid "Custom Fields Addon"
-msgstr "Champ personnalisé"
-
-#: ../classes/settings.php:474
-msgid "This website is currently using custom field columns."
+#: ../classes/settings.php:469
+msgid "Pro Add-on (includes Sortorder add-on)"
 msgstr ""
 
-#: ../classes/settings.php:483
+#: ../classes/settings.php:479
 msgid "Installation"
 msgstr ""
 
-#: ../classes/settings.php:485
+#: ../classes/settings.php:481
 msgid "For each Add-on available, please perform the following:"
 msgstr ""
 
-#: ../classes/settings.php:487
+#: ../classes/settings.php:483
 msgid "Download the Addon plugin (.zip file) to your desktop"
 msgstr ""
 
-#: ../classes/settings.php:488
+#: ../classes/settings.php:484
 msgid "Navigate to"
 msgstr ""
 
-#: ../classes/settings.php:488
+#: ../classes/settings.php:484
 msgid "Plugins > Add New > Upload"
 msgstr ""
 
-#: ../classes/settings.php:489
+#: ../classes/settings.php:485
 msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
 msgstr ""
 
-#: ../classes/settings.php:490
+#: ../classes/settings.php:486
 msgid ""
 "Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
 "link"
 msgstr ""
 
-#: ../classes/settings.php:491
+#: ../classes/settings.php:487
 msgid "The Add-on is now installed and activated!"
 msgstr ""
 
-#: ../classes/settings.php:492
+#: ../classes/settings.php:488
 #, php-format
 msgid ""
 "For automatic updates make sure to <a href='%s'>enter your licence key</a>."
 msgstr ""
 
-#: ../classes/settings.php:502
+#: ../classes/settings.php:498
 #, fuzzy
 msgid "Start using Admin Columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:579
+#: ../classes/settings.php:575
 #, fuzzy
 msgid "Store settings"
 msgstr "Réglages"
 
-#: ../classes/settings.php:584
+#: ../classes/settings.php:580
 msgid "Update"
 msgstr ""
 
-#: ../classes/settings.php:584
+#: ../classes/settings.php:580
 msgid "Publish"
 msgstr ""
 
-#: ../classes/settings.php:588
+#: ../classes/settings.php:584
 #, fuzzy, php-format
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
@@ -603,97 +558,105 @@ msgstr ""
 "Attention! Tous les données des colonnes d'administration seront supprimées. "
 "Cela n'est pas irréversible. \\'OK\\'  supprimer, \\'Annuler\\' arrêter"
 
-#: ../classes/settings.php:589 ../classes/column/comment/actions.php:86
+#: ../classes/settings.php:585 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
 msgid "Restore"
 msgstr "Restaurer"
 
-#: ../classes/settings.php:589
+#: ../classes/settings.php:585
 #, fuzzy
 msgid "columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:596
-msgid "Get the Pro addon"
-msgstr ""
-
-#: ../classes/settings.php:622
+#: ../classes/settings.php:595
 #, fuzzy
-msgid "find more addons"
-msgstr "En savoir plus"
+msgid "Get the Pro Add-on"
+msgstr "Ordre de tri"
 
-#: ../classes/settings.php:625
-#, php-format
-msgid "Check the <a href=\"%s\">Add-on section</a> for more details."
+#: ../classes/settings.php:599
+msgid "Add Sorting"
 msgstr ""
 
-#: ../classes/settings.php:633
+#: ../classes/settings.php:600
+msgid "Add Filtering"
+msgstr ""
+
+#: ../classes/settings.php:601
+msgid "Add Import/Export"
+msgstr ""
+
+#: ../classes/settings.php:604
+#, php-format
+msgid "Check the <a href=\"%s\">Pro Add-on</a> for more details!"
+msgstr ""
+
+#: ../classes/settings.php:612
 #, fuzzy
 msgid "Support"
 msgstr "Besoin d'aide?"
 
-#: ../classes/settings.php:636
+#: ../classes/settings.php:615
 #, fuzzy
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
 "Vous trouverez un bref aperçu de l' <strong>Aide </ strong> section dans "
 "l'écran en haut à droite."
 
-#: ../classes/settings.php:638
+#: ../classes/settings.php:617
 #, php-format
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
 msgstr ""
 
-#: ../classes/settings.php:658
+#: ../classes/settings.php:637
 #, fuzzy
 msgid "Drag and drop to reorder"
 msgstr "glisser-déposer pour les réorganiser"
 
-#: ../classes/settings.php:661
+#: ../classes/settings.php:640
 #, fuzzy
 msgid "Add Column"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:712
+#: ../classes/settings.php:691
 #, fuzzy
 msgid "General Settings"
 msgstr "Réglages"
 
-#: ../classes/settings.php:713
+#: ../classes/settings.php:692
 msgid "Customize your Admin Columns settings."
 msgstr ""
 
-#: ../classes/settings.php:720
+#: ../classes/settings.php:699
 #, fuzzy
 msgid "Custom field settings"
 msgstr "Restaurer les paramètres par défaut"
 
-#: ../classes/settings.php:724
+#: ../classes/settings.php:703
 msgid "Show hidden custom fields. Default is <code>off</code>."
 msgstr ""
 
-#: ../classes/settings.php:731
+#: ../classes/settings.php:710
 msgid "Save"
 msgstr ""
 
-#: ../classes/settings.php:771
+#: ../classes/settings.php:750
 #, fuzzy
 msgid "Restore Settings"
 msgstr "Restaurer les paramètres par défaut"
 
-#: ../classes/settings.php:772
+#: ../classes/settings.php:751
 msgid "This will delete all column settings and restore the default settings."
 msgstr ""
 "Cette opération va supprimer tous les paramètres de colonnes et restaure "
 "tous les paramètres par défaut."
 
-#: ../classes/settings.php:778
+#: ../classes/settings.php:757
 msgid "Restore default settings"
 msgstr "Restaurer les paramètres par défaut"
 
-#: ../classes/settings.php:778
+#: ../classes/settings.php:757
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
@@ -719,11 +682,11 @@ msgstr ""
 msgid "Settings for %s updated succesfully."
 msgstr ""
 
-#: ../classes/storage_model.php:564 ../classes/column/post/actions.php:64
+#: ../classes/storage_model.php:575 ../classes/column/post/actions.php:64
 msgid "View"
 msgstr "Voir"
 
-#: ../classes/upgrade.php:48
+#: ../classes/upgrade.php:45
 msgid "Upgrade"
 msgstr ""
 
@@ -1277,6 +1240,30 @@ msgstr ""
 #, fuzzy
 msgid "Users"
 msgstr "ID utilisateur"
+
+#, fuzzy
+#~ msgid "Add-ons"
+#~ msgstr "Activer modules complémentaires"
+
+#, fuzzy
+#~ msgid "Add-ons for Admin Columns"
+#~ msgstr "Admin Columns"
+
+#, fuzzy
+#~ msgid "the Custom Fields columns"
+#~ msgstr "Ajouter une colonne de champ personnalisé"
+
+#, fuzzy
+#~ msgid "Sortorder Addon"
+#~ msgstr "Ordre de tri"
+
+#, fuzzy
+#~ msgid "Custom Fields Addon"
+#~ msgstr "Champ personnalisé"
+
+#, fuzzy
+#~ msgid "find more addons"
+#~ msgstr "En savoir plus"
 
 #~ msgid "This field can not be removed"
 #~ msgstr "Ce champ ne peut pas être retiré"

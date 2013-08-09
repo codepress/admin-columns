@@ -408,7 +408,7 @@ abstract class CPAC_Storage_Model {
 		// get columns
 		$default_columns 	= $this->get_default_registered_columns();
 
-		// @todo_major check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
+		// @todo check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = array_merge( $default_columns, $this->get_custom_registered_columns() );
 
 		// Stored columns
