@@ -115,25 +115,25 @@ It will work nice with other plugins and support their additional custom columns
 
 = Translations =
 
-If you like to contrinute a language, please send them to <a href="mailto:info@codepress.nl">info@codepress.nl</a>.
+If you like to contrinute a language, please use <a href="https://www.transifex.com/projects/p/admin-columns/">Transifex</a>.
 
-* Swedish (sv_SE) - Thanks for contributing the swedish language goes to Fredrik Andersson
-* Danish (da_DK) - Thanks for contributing the danish language goes to Morten Dalgaard Johansen
-* German (de_DE) - Thanks for contributing the german language goes to Uli
-* Polish (pl_PL) - Thanks for contributing the polish language goes to Bartosz
-* French (fr_FR) - Thanks for contributing the french language goes to Alexandre Girard
+* Swedish (sv_SE) - Thanks to Fredrik Andersson
+* Danish (da_DK) - Thanks to Morten Dalgaard Johansen
+* German (de_DE) - Thanks to Uli
+* Polish (pl_PL) - Thanks to Bartosz
+* French (fr_FR) - Thanks to Alexandre Girard
 
 = Upcoming releases =
 
-* support for default sorting for users, links and comments
+* We will post the upcoming features on <a href="http://www.codepresshq.com/wordpress-plugins/admin-columns/">our website</a>.
 
 **Feedback**
 
-You can leave any <a href='http://www.codepress.nl/plugins/codepress-admin-columns/feedback'>requests or feedback</a>.
+You can leave any <a href='http://www.codepresshq.com/support/'>requests or feedback</a>.
 
 **Related Links:**
 
-* http://www.codepress.nl/plugins/codepress-admin-columns/
+* http://www.codepresshq.com/wordpress-plugins/admin-columns/
 
 == Installation ==
 
@@ -275,7 +275,7 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Addon] Added Pro add-on
 * [Addon] Pro add-on includes Sorting, Filtering and Import/Export
 
-= 1.4.9
+= 1.4.9 =
 * fixed bug: thirdparty columns that were previous loaded through load-edit.php will now use do_action( 'cpac-get-default-columns-{$type}' )
 
 = 1.4.8 =

@@ -308,7 +308,7 @@ class CPAC_Settings {
 			'product_id'		=> $_REQUEST['cpac_product_id'],
 			'licence_key'		=> isset( $_REQUEST['cpac_license_key'] ) ? $_REQUEST['cpac_license_key'] : '',
 			'slug'				=> '',
-			'instance'			=> site_url()
+			'instance'			=> 'fresh_install'
 		);
 
 		$result = wp_remote_get( add_query_arg( $args, $store_url ), array( 'timeout' => 15, 'sslverify' => false ) );
