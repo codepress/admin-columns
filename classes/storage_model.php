@@ -40,6 +40,13 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
+	 * Custom Column
+	 *
+	 * @since 2.0.1
+	 */
+	protected $custom_columns;
+
+	/**
 	 * Get default columns
 	 *
 	 * @since 2.0.0
@@ -197,59 +204,32 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get custom columns
-	 *Ï
+	 * Set custom columns
+	 *
 	 * Goes through all files in 'classes/column' and includes each file.
 	 *
-	 * @since 2.0.0
+	 * since 2.0.1
 	 *
-	 * @return array Column Classnames
+	 * @return array Column Classnames | Filepaths
 	 */
-	function get_custom_columns() {
+	protected function set_custom_columns() {
+		$columns  = array(
+			'CPAC_Column_Custom_Field' => CPAC_DIR . 'classes/column/custom-field.php'
+		);
 
-		$columns = get_transient( 'cpac_custom_columns' . $this->key );
+		$iterator = new DirectoryIterator( CPAC_DIR . 'classes/column/' . $this->type );
 
-		// An empty transient means we need to rebuild rebuild it.
-		// Get custom columns from the classes/column directory.
-		if ( empty( $columns[ $this->type ] ) ) {
+		foreach( $iterator as $leaf ) {
 
-			$file = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( CPAC_DIR . 'classes/column' ) );
+			if ( $leaf->isDot() ) continue;
 
-			while( $file->valid() ) {
+			// build classname from filename
+			$class_name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
 
-				if ( ! $file->isDot() && ! $file->isDir() ) {
-
-					// build classname from filename
-					$name 				= implode( '_', array_map( 'ucfirst', explode( '-', basename( $file->key(), '.php' ) ) ) );
-					$relative_file_path = str_replace( ABSPATH, '', $file->key() );
-
-					// add columns for multiple storage types
-					if ( ! $file->getSubPath() ) {
-						$columns[ $this->type ]["CPAC_Column_{$name}"] = $relative_file_path;
-					}
-
-					// add columns for specific types
-					elseif ( $this->type == $file->getSubPath() ) {
-
-						$type = ucfirst( $this->type );
-						$columns[ $this->type ]["CPAC_Column_{$type}_{$name}"] = $relative_file_path;
-					}
-				}
-
-				$file->next();
-			}
-
-			set_transient( 'cpac_custom_columns' . $this->key, $columns );
+			$columns[ 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . $class_name  ] = $leaf->getPathname();
 		}
 
-		if ( empty( $columns[ $this->type ] ) )
-			return array();
-
-		// hooks for adding custom columns by addons
-		// $columns classname | include_path
-		$columns = apply_filters( "cac/columns/custom/type={$this->type}", $columns[ $this->type ], $this );
-
-		return $columns;
+		$this->custom_columns = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
 	}
 
 	/**
@@ -327,9 +307,9 @@ abstract class CPAC_Storage_Model {
 
 		$columns = array();
 
-		foreach ( $this->get_custom_columns() as $classname => $path ) {
+		foreach ( $this->custom_columns as $classname => $path ) {
 
-			include_once ABSPATH . $path;
+			include_once $path;
 
 			if ( ! class_exists( $classname ) )
 				continue;
@@ -584,14 +564,5 @@ abstract class CPAC_Storage_Model {
 	function get_edit_link() {
 
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
-	}
-
-	/**
-	 * Flush Cache
-	 *
-	 * @since 2.0.0
-	 */
-	function flush_cache() {
-		delete_transient( 'cpac_custom_columns' . $this->key );
 	}
 }

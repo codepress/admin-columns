@@ -14,6 +14,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->type 	= 'post';
 		$this->page 	= 'edit';
 
+		$this->set_custom_columns();
+
 		// Headings
 
 		// Since 3.1

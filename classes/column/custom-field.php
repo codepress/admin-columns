@@ -165,7 +165,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * Get Users by ID - Value method
+	 * Get meta value
 	 *
 	 * @since 2.0.0
 	 *
@@ -292,18 +292,20 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	function get_value( $id ) {
 
-		if ( ! $meta = $this->get_meta_by_id( $id ) )
-			return false;
+		$value = '';
 
-		// get value by meta
-		$meta = $this->get_value_by_meta( $meta );
+		if ( $meta = $this->get_meta_by_id( $id ) ) {
 
-		// add before and after string
-		if ( $meta ) {
-			$meta = "{$this->options->before}{$meta}{$this->options->after}";
+			// get value by meta
+			$value = $this->get_value_by_meta( $meta );
+
+			// add before and after string
+			if ( $value ) {
+				$value = "{$this->options->before}{$value}{$this->options->after}";
+			}
 		}
 
-		return $meta;
+		return apply_filters( 'cac/column/meta/value', $value, $id, $this );
 	}
 
 	/**

@@ -70,11 +70,7 @@ class CPAC_Upgrade {
 
 			// run every upgrade
 			if ( $version < CPAC_VERSION ) {
-
-				// flush this transient so new custom columns get added.
-				foreach ( $this->cpac->storage_models as $storage_model ) {
-					$storage_model->flush_cache();
-				}
+				// nothing yet
 			}
 
 			// run only when updating from v1 to v2

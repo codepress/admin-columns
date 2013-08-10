@@ -14,6 +14,8 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->type 	= 'user';
 		$this->page 	= 'users';
 
+		$this->set_custom_columns();
+
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 

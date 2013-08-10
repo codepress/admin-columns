@@ -34,3 +34,5 @@ function cpac_admin_notice() {
  */
 add_filter( 'cac/display_licence/addon=cac-filtering', '__return_false' );
 add_filter( 'cac/display_licence/addon=cac-custom-fields', '__return_false' );
+
+
