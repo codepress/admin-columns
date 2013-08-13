@@ -249,8 +249,16 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 == Changelog ==
 
 
+= 2.0.2 =
+* [Fixed] Performance issue
+* [Added] Option to hide edit-button
+* [Fixed] Bug before/after-field not saving correctly
+* [Fixed] Bug with storage model trying to load repository (svn) files
+* [Added] RTL support - thanks to Hassan
+* [Added] Arabic translation - thanks to Hassan
+
 = 2.0.1 =
-*[Fixed] Bug which caused columns to not include properly
+* [Fixed] Bug which caused columns to not include properly
 
 = 2.0.0 =
 * [Notice] Database needs an update, make sure to backup first

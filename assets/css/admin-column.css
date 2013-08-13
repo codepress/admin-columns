@@ -12,6 +12,12 @@
 	display: inline-block;
 	line-height: 16px;
 }
+.rtl .cpac-settings-link {
+	float: left;
+	margin: 12px 0 5px 14px;
+	padding-right: 20px;
+	padding-left: 0;
+}
 .cpac-settings-link.current {
 	font-weight: bold;
 }
@@ -28,6 +34,10 @@ a.help {
 	padding-right: 25px;
 	position: relative;
 }
+.rtl .button.loading {
+	padding-left: 25px;
+	padding-right: 0;
+}
 .button.loading span {
 	position: absolute;
 	top: 2px;
@@ -37,7 +47,10 @@ a.help {
 	height: 16px;
 	display: inline-block;
 }
-
+.rtl .button.loading span {
+	left: 6px;
+	right: auto;
+}
 /* =Icons
 -------------------------------------------------------------- */
 .icon-yes {
@@ -67,6 +80,10 @@ a.help {
 	white-space: normal;
 	margin-right: 14px;
 }
+.rtl .cpac-menu .subsubsub {
+	margin-left: 14px;
+	margin-right: 0;
+}
 
 /* =Structure
 -------------------------------------------------------------- */
@@ -74,14 +91,26 @@ a.help {
 	margin-right: 300px;
 	max-width: 600px;
 }
+.rtl .columns-container {
+	margin-left: 300px;
+	margin-right: 0;
+}
 .columns-left {
 	float: left;
 	width: 100%;
+}
+.rtl .columns-left {
+	float: right;
 }
 .columns-right {
 	float: right;
     margin-right: -300px;
     width: 280px;
+}
+.rtl .columns-right {
+	float: left;
+	margin-left: -300px;
+	margin-right: 0;
 }
 .columns-right-inside.fixed {
 	position: fixed;
@@ -113,6 +142,9 @@ a.help {
 .cpac-placeholder {
 	border-top: 1px solid #dfdfdf;
 	padding: 5px 4px 7px 0;
+}
+.rtl .cpac-placeholder {
+	padding: 5px 0 7px 4px;
 }
 .cpac-placeholder .inner-placeholder {
 	border: 1px dashed #808080;
@@ -180,6 +212,10 @@ a.help {
 .column-meta img {
 	margin-right: 3px;
 }
+.rtl .column-meta img {
+	margin-left: 3px;
+	margin-right: 0;
+}
 .column-meta .column_sort {
 	width: 10px;
 	background: transparent url('../images/drag.png') no-repeat 8px 8px;
@@ -211,6 +247,10 @@ a.help {
 	margin-left: 12px;
 	font-size: 12px;
 }
+.rtl .column-meta .column_label .inner > a.remove-button {
+	margin-right: 12px;
+	margin-left: 0;
+}
 .column-meta .column_label .inner > a.remove-button:hover {
 	background-color: #BC0B0B;
 	color: #FFFFFF;
@@ -226,12 +266,20 @@ a.help {
 	color: #999999;
 	font-size: 12px;
 }
+.rtl .column-meta .column_label .inner .meta {
+	float: left;
+}
 .column-meta .column_type {
 	width: auto;
 	text-align: right;
 	vertical-align: middle;
 	color: #999999;
 	padding-right: 0;
+}
+.rtl .column-meta .column_type {
+	text-align: left;
+	padding-left: 0;
+	padding-right: auto;
 }
 .column-meta .column_edit {
 	width: 38px;
@@ -281,6 +329,10 @@ tr.column_image_size td.input label {
 tr.column_image_size td.input label input {
 	margin-right: 3px;
 }
+.rtl tr.column_image_size td.input label input {
+	margin-left: 3px;
+	margin-right: 0;
+}
 tr.column_image_size td.input label.custom-size-w,
 tr.column_image_size td.input label.custom-size-h {
 	margin: 0;
@@ -308,8 +360,14 @@ tr.column_image_size.hidden {
     width: 12px;
 	float: right;
 }
+.rtl .column-meta span.vers .comment-grey-bubble {
+	float: left;
+}
 .column-meta .column_label span.vers {
 	float: left;
+}
+.rtl .column-meta .column_label span.vers {
+	float: right;
 }
 
 /* =Column Form
@@ -371,6 +429,10 @@ tr.column_image_size.hidden {
 	border: 1px solid #c7d7e2;
 	padding: 5px 8px !important;
 }
+.rtl .column-form tr td.label p.description {
+	right: 0;
+	left: auto;
+}
 .column-form tr td.label a.more-info {
 	display: none;
 	width: 14px; height: 14px;
@@ -382,6 +444,9 @@ tr.column_image_size.hidden {
 	background: transparent url(../images/info.png) no-repeat 0 0;
 	float: right;
 }
+.rtl .column-form tr td.label a.more-info {
+	float: left;
+}
 .column-form tr td select,
 .column-form tr td input[type=text] {
 	width: 99.95%; /* excl padding */
@@ -392,17 +457,27 @@ tr.column_image_size.hidden {
 	float: left;
 	text-align: middle;
 }
+.rtl .column-form div.description {
+	float: right;
+}
 .column-form div.input-width-range {
 	float: left;
 	position: relative;
 	width: 87%;
 	margin-top: 4px;
 }
+.rtl .column-form div.input-width-range {
+	float: right;
+}
 .column-form div.input-width-range .ui-slider-handle {
 	cursor:ew-resize;
 }
 .column-form tr td.input label {
 	padding-right: 10px;
+}
+.rtl .column-form tr td.input label {
+	padding-left: 10px;
+	padding-right: 0;
 }
 .column-form tr td.input p.description {
 	display: none;
@@ -412,6 +487,9 @@ tr.column_image_size.hidden {
 .column-form a.help {
 	vertical-align: middle;
 	float: right;
+}
+.rtl .column-form a.help {
+	float: left;
 }
 .column-form div.msg {
 	margin-top: 5px;
@@ -449,6 +527,11 @@ tr.column_image_size.hidden {
     padding: 7px 0 0 22px;
     text-shadow: 0 1px 0 #FFFFFF;
 	display: inline-block;
+}
+.rtl .column-footer .order-message {
+	float: right;
+	padding-right: 4px;
+	padding-left: 0;
 }
 
 /* =Sidebar
@@ -581,8 +664,15 @@ tr.column_image_size.hidden {
 	padding-left: 25px;
 	margin-bottom: 4px;
 }
+.rtl #addon-state ul li {
+	padding-right: 25px;
+	padding-left: 0;
+}
 #addon-state a.find-more-addons {
 	float: right;
+}
+.rtl #addon-state a.find-more-addons {
+	float: left;
 }
 
 /* =Settings Page
@@ -593,6 +683,9 @@ table.cpac-form-table {
 }
 .col-25, .col-30, .col-35, .col-65, .col-70, .col-75 {
 	float: left;
+}
+.rtl .col-25, .rtl .col-30, .rtl .col-35, .rtl .col-65, .rtl .col-70, .rtl .col-75 {
+	float: right;
 }
 .col-25 { width: 25%; }
 .col-30 { width: 30%; }
@@ -645,6 +738,9 @@ tr td.padding-22 {
 	float: right;
 	display: inline-block;
 	margin-top: -5px;
+}
+.rtl .column-footer .button-container {
+	float: left;
 }
 .column-footer .button-container p {
 	margin: 4px;
@@ -766,6 +862,9 @@ tr td.padding-22 {
 	float: right;
 	width: 48%;
 }
+.rtl .cpac_export .ms-container .ms-selection {
+	float: left;
+}
 .cpac_export .ms-container ul.ms-list {
 	width: 100%;
 }
@@ -794,6 +893,9 @@ ul.addons li {
     width: 180px;
     min-height: 300px;
 }
+.rtl ul.addons li {
+	float: right;
+}
 ul.addons li h3 {
 	font-size: 13px;
 }
@@ -804,6 +906,10 @@ ul.addons li .button {
     bottom: 15px;
     right: 15px;
     position: absolute;
+}
+.rtl ul.addons li .button {
+	left: 15px;
+	right: auto;
 }
 ul.addons li span.state {
 	display: none;
@@ -818,8 +924,15 @@ ul.addons li span.state {
 	color: #fff;
 	font-weight: bold;
 }
+.rtl ul.addons li span.state {
+	margin-right: -13px;
+	margin-left: 0;
+}
 ul.addons li img {
 	margin: -15px 0 0 -13px;
+}
+.rtl ul.addons li img {
+	margin: -15px -13px 0 0;
 }
 ul.addons li.active .button {
 	display: none;
@@ -837,8 +950,16 @@ ul.addons li.active span.state {
     margin-left: 1.5em;
     padding: 0 15px;
 }
+.rtl .wp-pointer-content ol {
+	margin-right: 1.5em;
+	margin-left: 0;
+}
 .wp-pointer-right {
 	margin-right: 15px;
+}
+.rtl .wp-pointer-right {
+	margin-left: 15px;
+	margin-right: 0;
 }
 
 /* =Responsive
@@ -847,10 +968,18 @@ ul.addons li.active span.state {
 	.columns-container {
 		margin-right: 0;
 	}
+	.rtl .columns-container {
+		margin-left: 0;
+		margin-right: auto;
+	}
 	.columns-right {
 		margin-top: 0;
 		margin-right: 0;
 		width: 100%;
+	}
+	.rtl .columns-right {
+		margin-left: 0;
+		margin-right: auto;
 	}
 	.columns-right-inside.fixed {
 		position: relative;

@@ -350,6 +350,8 @@ class CPAC_Upgrade {
 	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
+
+		// CSS
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
 
 		// javascript translations
