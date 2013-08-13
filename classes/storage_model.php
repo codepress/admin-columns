@@ -221,7 +221,8 @@ abstract class CPAC_Storage_Model {
 
 		foreach( $iterator as $leaf ) {
 
-			if ( $leaf->isDot() ) continue;
+			// skip files that start with . ( e.g: .SVN .DS_STORE )
+			if ( $leaf->isDot() || $leaf->isDir() || substr( $leaf->getFilename(), 0, 1 ) === '.' ) continue;
 
 			// build classname from filename
 			$class_name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
