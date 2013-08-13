@@ -14,7 +14,17 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->type 	= 'post';
 		$this->page 	= 'edit';
 
+		// @todo_minor
+		// Add parent::__construct and move these two over:
+		// $this->set_custom_columns()
+		// add_action( 'admin_init', array( $this, 'set_columns' ) );
+		// also for the other types
+
 		$this->set_custom_columns();
+
+		// Populate columns variable.
+		// This is used for manage_value. By storing these columns we greatly improve performance.
+		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
 		// Headings
 
@@ -114,8 +124,12 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		$value = '';
 
-		// get column instance
-		if ( $column = $this->get_column_by_name( $column_name ) )
+		// @todo_major This is causing Admin Columns to be very very slow!
+		// because it triggers $this->get_columns() for each post_id
+		$column = $this->get_column_by_name( $column_name );
+
+		// get value
+		if ( $column )
 			$value = $column->get_value( $post_id );
 
 		$value = apply_filters( "cac/column/value/posts", $value, $column );

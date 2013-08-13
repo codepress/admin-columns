@@ -16,6 +16,10 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 		$this->set_custom_columns();
 
+		// Populate columns variable.
+		// This is used for manage_value. By storing these columns we greatly improve performance.
+		add_action( 'admin_init', array( $this, 'set_columns' ) );
+
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 

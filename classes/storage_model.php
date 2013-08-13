@@ -47,6 +47,13 @@ abstract class CPAC_Storage_Model {
 	protected $custom_columns;
 
 	/**
+	 * Columns
+	 *
+	 * @since 2.0.1
+	 */
+	protected $columns;
+
+	/**
 	 * Get default columns
 	 *
 	 * @since 2.0.0
@@ -376,6 +383,15 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Set Columns
+	 *
+	 * @since 2.0.2
+	 */
+	function set_columns() {
+		$this->columns = $this->get_columns();
+	}
+
+	/**
 	 * Get Columns
 	 *
 	 * @since 2.0.0
@@ -464,11 +480,14 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_column_by_name( $name ) {
 
-		$columns = $this->get_columns();
+/*		$columns = $this->get_columns();
 		if ( ! isset( $columns[ $name ] ) )
+			return false;*/
+
+		if ( ! isset( $this->columns[ $name ] ) )
 			return false;
 
-		return $columns[ $name ];
+		return $this->columns[ $name ];
 	}
 
 	/**
