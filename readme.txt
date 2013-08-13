@@ -254,6 +254,8 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 * [Added] Option to hide edit-button
 * [Fixed] Bug before/after-field not saving correctly
 * [Fixed] Bug with storage model trying to load repository (svn) files
+* [Fixed] Bug with tooltip and duplicate message in javascript
+* [Fixed] Bug with duplicate message in javascript
 * [Added] RTL support - thanks to Hassan
 * [Added] Arabic translation - thanks to Hassan
 

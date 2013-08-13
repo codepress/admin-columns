@@ -206,15 +206,14 @@ class CPAC_Settings {
 			),
 			array(
 				'title'		=> __( "Basics", 'cpac' ),
-				'content'	=>
-					"<h5>". __( "Show / Hide", 'cpac' ) . "</h5>
-					<p>". __( "You can switch columns on or off by clicking on the checkbox. This will show or hide each column heading.", 'cpac' ) . "</p>
-					<h5>". __( "Change order", 'cpac' ) . "</h5>
-					<p>". __( "By dragging the columns you can change the order which they will appear in.", 'cpac' ) . "</p>
-					<h5>". __( "Change label", 'cpac' ) . "</h5>
-					<p>". __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'cpac' ) . "</p>
-					<h5>". __( "Change column width", 'cpac' ) . "</h5>
-					<p>". __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", 'cpac' ) . "</p>"
+				'content'	=> "
+					<h5>" 	. __( "Change order", 'cpac' ) . "</h5>
+					<p>" 	. __( "By dragging the columns you can change the order which they will appear in.", 'cpac' ) . "</p>
+					<h5>" 	. __( "Change label", 'cpac' ) . "</h5>
+					<p>" 	. __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'cpac' ) . "</p>
+					<h5>" 	. __( "Change column width", 'cpac' ) . "</h5>
+					<p>" 	. __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", 'cpac' ) . "</p>
+				"
 			),
 			array(
 				'title'		=> __( "Custom Field", 'cpac' ),
