@@ -754,11 +754,9 @@ class CPAC_Column {
 		<td class="label">
 			<label for="<?php $this->attr_id( $pointer ); ?>">
 				<?php echo stripslashes( $label ); ?>
+
+				<?php if( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 			</label>
-			<?php if( $description ) : ?>
-			<p class="description"><?php echo $description; ?></p>
-			<a href="javascript:;" class="more-info"></a>
-			<?php endif; ?>
 		</td>
 		<?php
 	}

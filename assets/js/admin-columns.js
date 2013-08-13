@@ -179,9 +179,9 @@ jQuery.fn.column_bind_events = function() {
 
 	/**	tooltip */
 	column.find('.column-form .label label').hover(function(){
-		jQuery(this).next('p.description').show();
+		jQuery(this).find('p.description').show();
 	},function(){
-		jQuery(this).next('p.description').hide();
+		jQuery(this).find('p.description').hide();
 	});
 };
 
