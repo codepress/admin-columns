@@ -530,8 +530,9 @@ tr.column_image_size.hidden {
 }
 .rtl .column-footer .order-message {
 	float: right;
-	padding-right: 4px;
+	padding-right: 22px;
 	padding-left: 0;
+	background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
 }
 
 /* =Sidebar
