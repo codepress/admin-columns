@@ -578,7 +578,7 @@ class CPAC_Settings {
 							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 							<div class="form-update">
 								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?>" accesskey="u" >
+								<input type="submit" class="button-primary submit-update" value="<?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?> <?php echo $storage_model->label; ?>" accesskey="u" >
 							</div>
 							<?php if ( $has_been_stored ) : ?>
 							<div class="form-reset">
@@ -697,11 +697,19 @@ class CPAC_Settings {
 							<form method="post" action="options.php">
 								<?php settings_fields( 'cpac-general-settings' ); ?>
 								<?php $options = get_option( 'cpac_general_options' ); ?>
-								<strong><?php _e( 'Custom field settings', 'cpac' ); ?></strong>
+								<p>
+									<br/>
+								</p>
 								<p>
 									<label for="show_hidden">
 										<input name="cpac_general_options[show_hidden]" id="show_hidden" type="checkbox" value="1" <?php checked( isset( $options['show_hidden'] ) ? $options['show_hidden'] : '', '1' ); ?>>
 										<?php _e( 'Show hidden custom fields. Default is <code>off</code>.', 'cpac' ); ?>
+									</label>
+								</p>
+								<p>
+									<label for="show_edit_button">
+										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( isset( $options['show_edit_button'] ) ? $options['show_edit_button'] : '', '1' ); ?>>
+										<?php _e( 'Show "Edit Columns" button on admin screens. Default is <code>off</code>.', 'cpac' ); ?>
 									</label>
 								</p>
 

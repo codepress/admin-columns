@@ -383,13 +383,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		<tr class="column_before">
 			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>
 			<td class="input">
-				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo $this->options->before; ?>"/>
+				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->before ) ); ?>"/>
 			</td>
 		</tr>
 		<tr class="column_after">
 			<?php $this->label_view( __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ), 'after' ); ?>
 			<td class="input">
-				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo $this->options->after; ?>"/>
+				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->after ) ); ?>"/>
 			</td>
 		</tr>
 		<?php

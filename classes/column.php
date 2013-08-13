@@ -121,7 +121,7 @@ class CPAC_Column {
 		// set column name to column type
 		$properties['name'] = $properties['type'];
 
-		// show
+		// apply conditional statements wheter this column should be available or not.
 		if ( method_exists( $this, 'apply_conditional' ) )
 			$properties['is_registered'] = $this->apply_conditional();
 

@@ -340,7 +340,11 @@ class CPAC {
 			.cpac-edit { margin-right: 3px; vertical-align: middle; }
 		</style>
 
-		<?php if ( current_user_can( 'manage_admin_columns' ) && $edit_link ) : ?>
+		<?php
+
+		$general_options = get_option( 'cpac_general_options' );
+
+		if ( current_user_can( 'manage_admin_columns' ) && $edit_link && isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) : ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
