@@ -124,8 +124,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		$value = '';
 
-		// @todo_major This is causing Admin Columns to be very very slow!
-		// because it triggers $this->get_columns() for each post_id
 		$column = $this->get_column_by_name( $column_name );
 
 		// get value
