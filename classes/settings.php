@@ -212,7 +212,7 @@ class CPAC_Settings {
 					<h5>" 	. __( "Change label", 'cpac' ) . "</h5>
 					<p>" 	. __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'cpac' ) . "</p>
 					<h5>" 	. __( "Change column width", 'cpac' ) . "</h5>
-					<p>" 	. __( "By clicking on the triangle you will see the column options. By using the draggable slider yo can set the width of the columns in percentages.", 'cpac' ) . "</p>
+					<p>" 	. __( "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages.", 'cpac' ) . "</p>
 				"
 			),
 			array(
