@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -150,26 +150,7 @@ Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/f
 
 = How can I change the thumbnail size of images? =
 
-You can use the build in filter to set your own thumbnail size. Just add this piece of code to your
-theme's  functions.php.
-
-To set a custom size use, for example 194 width by 63 height pixels:
-
-`
-<?php
-
-// edit here: fill in your thumbnail height and width
-$my_height = 63;
-$my_width  = 194;
-// stop editing
-
-add_image_size( 'admin-columns', $my_width, $my_height, true );
-add_filter('cpac_thumbnail_size', 'cb_cpac_thumbnail_size' );
-function cb_cpac_thumbnail_size() {
-	return 'admin-columns';
-};
-?>
-`
+You can select a custom size for your custom field option from the Column options.
 
 **my columns thumbnails still have the wrong size**
 
@@ -177,51 +158,33 @@ If you want your already uploaded images to display the newly added size you wil
 
 = How can I enable the use of Hidden Custom Fields? =
 
-I am currently working on settings page where you can enable this feature. In the meanwhile you can enable this by adding
-this piece of code to your theme's functions.php:
-
-`
-<?php
-add_filter('cpac_use_hidden_custom_fields', '__return_true'); // enables the use hidden custom fields
-?>
-`
-
-Now you can select your HIDDEN custom fields in de dropdown menu under "Custom Field:".
-
-= How can I add the dropdown menu for taxonomy filtering? =
-
-This will also be included in the upcoming settings page, in the meanwhile you can enable this by adding
-this piece of code to your theme's functions.php:
-
-`
-<?php
-add_filter( 'cpac-remove-filtering-columns', '__return_false' ); // add dropdown taxonomy filtering to the overview pages
-?>
-`
+Go to settings tab and select the option to "show hidden custom fields".
+This will enable you to select your HIDDEN custom fields in de dropdown menu under "Custom Field:".
 
 = How can I display a custom value in the Custom Fields Column? =
 
-With this filter 'cpac_get_column_value_custom_field' you can control what the value will be for any Custom Field Column.
+With this filter 'cac/column/meta/value' you can control what the value will be for any Custom Field Column.
 
 Filter explained:
 
 * **$value** is the original value which would otherwise be displayed
-* **$internal_field_key** is only used internally to store the column
-* **$custom_field** is the name of your custom field
-* **$type** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
-* **$object_id** will return the ID of the object.
+* **$id** will return the ID of the object.
+* **$cac** will return the Admin Columns Storage object.
+*
+* **$cac->options->field** is the name of your custom field
+* **$cac->storage_model->key** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
 
-For example if you have a custom posttype 'Demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
+For example if you have a custom posttype 'demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
 
 `
 <?php
-function my_custom_field_value( $value, $internal_field_key, $custom_field, $type, $object_id )
-{
-	$my_post_type  = 'demo';
-	$my_field_name = 'city';
+function my_custom_field_value( $value, $id, $cac ) {
 
-	// make sure we have the correct posttype and fieldname
-	if ( $my_post_type == $type && $my_field_name == $custom_field ) {
+	$post_type  	= 'demo';
+	$custom_field 	= 'city';
+
+	// make sure we have the correct posttype and custom field
+	if ( $post_type == $cac->storage_model->key && $cac->options->field == $custom_field ) {
 
 		if ( '33' == $value )
 			$value = 'Amsterdam';
@@ -231,7 +194,7 @@ function my_custom_field_value( $value, $internal_field_key, $custom_field, $typ
 	}
 	return $value;
 }
-add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5 );
+add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 5 );
 ?>
 `
 
@@ -248,6 +211,11 @@ add_filter( 'cpac_get_column_value_custom_field', 'my_custom_field_value', 10, 5
 
 == Changelog ==
 
+
+= 2.0.3 =
+* [Updated] Danish translation - thanks to iosoftgame
+* [Updated] Spanish translation - thanks to redywebs
+* [Fixed] Solved bug which before and after field
 
 = 2.0.2 =
 * [Fixed] Performance issue
