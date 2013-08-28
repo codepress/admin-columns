@@ -156,14 +156,14 @@ class CPAC {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return array object Storage Model
+	 * @return array|false object Storage Model
 	 */
 	public function get_storage_model( $key ) {
 
-		if ( ! isset( $this->storage_models[ $key ] ) )
-			return false;
+		if ( isset( $this->storage_models[ $key ] ) )
+			return $this->storage_models[ $key ];
 
-		return $this->storage_models[ $key ];
+		return false;
 	}
 
 	/**
@@ -227,7 +227,7 @@ class CPAC {
 		array_unshift( $links, '<a href="' . admin_url("options-general.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
 		return $links;
 	}
-
+    
 	/**
 	 * Register column css
 	 *
@@ -253,21 +253,18 @@ class CPAC {
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-
 		global $current_screen;
 
 		// we dont need the 'edit-' part
 		$screen = str_replace( 'edit-', '', $current_screen->id );
 
 		// media library exception
-		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' ) {
+		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' )
 			$screen = 'media';
-		}
 
 		// link exception
-		if ( $current_screen->base == 'link-manager' && $current_screen->id == 'link-manager' ) {
+		if ( $current_screen->base == 'link-manager' && $current_screen->id == 'link-manager' )
 			$screen = 'links';
-		}
 
 		// loop the available types
 		foreach ( $this->storage_models as $storage_model ) {
@@ -287,14 +284,13 @@ class CPAC {
 	 * @since 1.4.0
 	 */
 	function admin_scripts() {
-
 		global $pagenow, $current_screen;
 
 		// CSS column widths
-		$css_column_width 	= '';
+		$css_column_width = '';
 
 		// JS
-		$edit_link 	= '';
+		$edit_link = '';
 
 		foreach ( $this->storage_models as $storage_model ) {
 

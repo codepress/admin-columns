@@ -42,7 +42,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table 		= _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'link-manager' ) );
+		$table 		= _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
 		$columns 	= $table->get_columns();
 
 		return $columns;

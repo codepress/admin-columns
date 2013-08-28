@@ -35,16 +35,18 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_default_columns() {
-
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table 		= _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
-		$columns 	= $table->get_columns();
+		$table   = _get_list_table ( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
+        $columns = $table->get_columns();
 
-		return $columns;
+		if ( $this->is_settings_page() )
+			$columns = array_merge( get_column_headers( 'upload' ), $columns );
+
+		return array_filter( $columns );
 	}
 
 	/**
