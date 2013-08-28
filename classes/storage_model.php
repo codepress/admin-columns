@@ -549,9 +549,7 @@ abstract class CPAC_Storage_Model {
 					unset( $column_headings[ $column_name ] );
 			}
 		}*/
-
-
-
+        
 		return $column_headings;
 	}
 
