@@ -122,6 +122,7 @@ If you like to contrinute a language, please use <a href="https://www.transifex.
 * German (de_DE) - Thanks to Uli
 * Polish (pl_PL) - Thanks to Bartosz
 * French (fr_FR) - Thanks to Alexandre Girard
+* Arabic (ar) and RTL support - thanks to Hassan
 
 = Upcoming releases =
 

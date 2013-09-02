@@ -559,10 +559,6 @@ class CPAC_Settings {
 			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 
 			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
-				<form method="post" action="">
-
-				<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
-				<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
 
 				<div class="columns-left">
 					<div id="titlediv">
@@ -581,8 +577,7 @@ class CPAC_Settings {
 							</h3>
 							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 							<div class="form-update">
-								<input type="hidden" name="cpac_action" value="update_by_type" />
-								<input type="submit" class="button-primary submit-update" value="<?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?> <?php echo $storage_model->label; ?>" accesskey="u" >
+								<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?> <?php echo $storage_model->label; ?></a>
 							</div>
 							<?php if ( $has_been_stored ) : ?>
 							<div class="form-reset">
@@ -593,9 +588,9 @@ class CPAC_Settings {
 							<?php endif; ?>
 						</div><!--form-actions-->
 
-						<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+						<?php if ( true || ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
 						<div class="sidebox" id="pro-version">
-							<div class="padding-box">
+							<div class="padding-box cta">
 								<h3>
 									<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
 								</h3>
@@ -609,6 +604,23 @@ class CPAC_Settings {
 										<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
 									</p>
 								</div>
+							</div>
+							<div class="padding-box newsletter">
+
+									<?php $user = wp_get_current_user(); ?>
+									<p>
+										Subscribe to receive news &amp; updates below and we'll instantly send you a coupon code to get 20% off any Pro add-on license.
+									</p>
+									<div class="mc-field-group">
+										<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>
+										<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
+									</div>
+									<div class="mc-field-group">
+										<label for="mce-EMAIL"><?php _e( 'Your Email', 'cpac' ); ?></label>
+										<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
+									</div>
+									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+
 							</div>
 						</div>
 					<?php endif; ?>
@@ -630,11 +642,18 @@ class CPAC_Settings {
 					<div class="cpac-boxes">
 						<div class="cpac-columns">
 
-							<?php
-							foreach ( $storage_model->get_columns() as $column ) {
-								$column->display();
-							}
-							?>
+							<form method="post" action="">
+								<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
+
+								<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
+								<input type="hidden" name="cpac_action" value="update_by_type" />
+
+								<?php
+								foreach ( $storage_model->get_columns() as $column ) {
+									$column->display();
+								}
+								?>
+							</form>
 
 						</div><!--.cpac-columns-->
 

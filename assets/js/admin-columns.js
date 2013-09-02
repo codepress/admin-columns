@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
 
 	// General
 	cpac_pointer();
+	cpac_submit_form();
 
 	// Settings Page
 	cpac_clear_input_defaults();
@@ -27,6 +28,21 @@ jQuery(document).ready(function() {
 		jQuery(col).column_bind_remove();
 	});
 });
+
+
+
+/*
+ * Submit Form
+ *
+ * @since 2.0.2
+ */
+function cpac_submit_form() {
+	jQuery('.form-update a.submit-update').click( function(e){
+		e.preventDefault();
+
+		jQuery(this).closest('.columns-container').find('.cpac-columns form').submit();
+	});
+}
 
 /*
  * Column: bind toggle events
@@ -303,32 +319,31 @@ function cpac_add_column() {
  * @since 1.5
  */
 function cpac_sidebar_scroll() {
-	var msie6 = jQuery.browser == 'msie' && jQuery.browser.version < 7;
 
-	if (!msie6 && jQuery('.columns-right-inside').length !== 0 ) {
+	if( jQuery('.columns-right-inside').length === 0 )
+		return;
 
-		if ( jQuery('.columns-right-inside:visible').offset() ) {
+	if ( jQuery('.columns-right-inside:visible').offset() ) {
 
-			// top position of the sidebar on loading
-			var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
+		// top position of the sidebar on loading
+		var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
 
-			jQuery(window).scroll(function (event) {
-				// y position of the scroll
-				var y = jQuery(this).scrollTop();
+		jQuery(window).scroll(function (event) {
+			// y position of the scroll
+			var y = jQuery(this).scrollTop();
 
-				// top position of div#cpac is calculated everytime incase of an opened help screen
-				var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
+			// top position of div#cpac is calculated everytime incase of an opened help screen
+			var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
 
-				// whether that's below
-				if (y >= top + offset ) {
-					// if so, ad the fixed class
-					jQuery('.columns-right-inside:visible').addClass('fixed');
-				} else {
-					// otherwise remove it
-					jQuery('.columns-right-inside:visible').removeClass('fixed');
-				}
-			});
-		}
+			// whether that's below
+			if (y >= top + offset ) {
+				// if so, ad the fixed class
+				jQuery('.columns-right-inside:visible').addClass('fixed');
+			} else {
+				// otherwise remove it
+				jQuery('.columns-right-inside:visible').removeClass('fixed');
+			}
+		});
 	}
 }
 
