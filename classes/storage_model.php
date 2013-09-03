@@ -480,11 +480,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_column_by_name( $name ) {
 
-		// @todo check if no issues come up by using $this->columns
-		//$columns = $this->get_columns();
-		//if ( ! isset( $columns[ $name ] ) )
-		//	return false;*/
-
 		if ( ! isset( $this->columns[ $name ] ) )
 			return false;
 
@@ -549,7 +544,7 @@ abstract class CPAC_Storage_Model {
 					unset( $column_headings[ $column_name ] );
 			}
 		}*/
-        
+
 		return $column_headings;
 	}
 

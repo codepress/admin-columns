@@ -227,7 +227,7 @@ class CPAC {
 		array_unshift( $links, '<a href="' . admin_url("options-general.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
 		return $links;
 	}
-    
+
 	/**
 	 * Register column css
 	 *
@@ -357,4 +357,5 @@ class CPAC {
  * @since 1.0.0
  */
 $cpac = new CPAC();
+
 

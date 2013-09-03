@@ -149,6 +149,7 @@ class CPAC_Settings {
 		switch ( $action ) :
 
 			case 'update_by_type' :
+
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->store();
@@ -606,7 +607,7 @@ class CPAC_Settings {
 								</div>
 							</div>
 							<div class="padding-box newsletter">
-
+								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 									<?php $user = wp_get_current_user(); ?>
 									<p>
 										Subscribe to receive news &amp; updates below and we'll instantly send you a coupon code to get 20% off any Pro add-on license.
@@ -620,7 +621,7 @@ class CPAC_Settings {
 										<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
 									</div>
 									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-
+								</form>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -669,8 +670,6 @@ class CPAC_Settings {
 				</div><!--.columns-left-->
 				<div class="clear"></div>
 
-				</form>
-
 				<div class="for-cloning-only" style="display:none">
 					<?php
 					foreach ( $storage_model->get_registered_columns() as $column ) {
@@ -686,12 +685,11 @@ class CPAC_Settings {
 			<div class="clear"></div>
 
 		<?php
-			break; // case: general
+				break; // case: general
 
 			case 'settings' :
-
 				$this->display_settings();
-			break; // case: settings
+				break;
 
 		endswitch;
 		?>
