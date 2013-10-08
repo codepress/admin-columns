@@ -73,6 +73,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_default_columns() {
+
+		if ( ! function_exists('_get_list_table') ) return array();
+
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/posts" );
@@ -84,7 +87,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
         // Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
 		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
-        // 
+        //
 		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
 		// when it's being called by CPAC_Storage_Model::add_headings()
 		if ( $this->is_settings_page() )

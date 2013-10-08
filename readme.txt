@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 3.6
+Tested up to: 3.6.1
 Stable tag: 2.0.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -170,22 +170,22 @@ Filter explained:
 
 * **$value** is the original value which would otherwise be displayed
 * **$id** will return the ID of the object.
-* **$cac** will return the Admin Columns Storage object.
+* **$column** will return the Admin Columns Column object.
 *
-* **$cac->options->field** is the name of your custom field
-* **$cac->storage_model->key** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
+* **$column->options->field** is the name of your custom field
+* **$column->storage_model->key** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
 
 For example if you have a custom posttype 'demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
 
 `
 <?php
-function my_custom_field_value( $value, $id, $cac ) {
+function my_custom_field_value( $value, $id, $column ) {
 
 	$post_type  	= 'demo';
 	$custom_field 	= 'city';
 
 	// make sure we have the correct posttype and custom field
-	if ( $post_type == $cac->storage_model->key && $cac->options->field == $custom_field ) {
+	if ( $post_type == $column->storage_model->key && $custom_field == $column->options->field ) {
 
 		if ( '33' == $value )
 			$value = 'Amsterdam';
@@ -195,7 +195,7 @@ function my_custom_field_value( $value, $id, $cac ) {
 	}
 	return $value;
 }
-add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 5 );
+add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 ?>
 `
 
@@ -216,7 +216,8 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 5 );
 = 2.0.3 =
 * [Updated] Danish translation - thanks to iosoftgame
 * [Updated] Spanish translation - thanks to redywebs
-* [Fixed] Solved bug which before and after field
+* [Added] Chinese translation - thanks to 倡萌
+* [Fixed] Solved bug with before and after field
 
 = 2.0.2 =
 * [Fixed] Performance issue

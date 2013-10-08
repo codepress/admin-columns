@@ -610,7 +610,7 @@ class CPAC_Settings {
 								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 									<?php $user = wp_get_current_user(); ?>
 									<p>
-										Subscribe to receive news &amp; updates below and we'll instantly send you a coupon code to get 20% off any Pro add-on license.
+										<?php _e ( "Subscribe to receive news &amp; updates below.", 'cpac' ); ?>
 									</p>
 									<div class="mc-field-group">
 										<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>

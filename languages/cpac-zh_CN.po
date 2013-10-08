@@ -1,26 +1,20 @@
-#
-# Translators:
-# XadillaX <admin@xcoder.in>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin Columns\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-28 15:32+0100\n"
-"PO-Revision-Date: 2013-08-28 15:32+0100\n"
-"Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-"
-"columns/language/zh_CN/)\n"
+"Project-Id-Version: zh_CN\n"
+"POT-Creation-Date: 2013-09-27 07:22+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: 倡萌@WordPress大学 <admin@cmhello.com>\n"
+"Language-Team: 倡萌@WordPress大学 <admin@cmhello.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ..\n"
+"X-Poedit-SearchPath-0: ..\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -36,15 +30,15 @@ msgstr "缩略图"
 
 #: ../classes/column.php:480
 msgid "Medium"
-msgstr "中"
+msgstr "中等大小"
 
 #: ../classes/column.php:481
 msgid "Large"
-msgstr "大"
+msgstr "大尺寸"
 
 #: ../classes/column.php:482
 msgid "Full"
-msgstr "全屏"
+msgstr "原始大小"
 
 #: ../classes/column.php:774
 msgid "Date Format"
@@ -52,11 +46,11 @@ msgstr "日期格式"
 
 #: ../classes/column.php:775
 msgid "This will determine how the date will be displayed."
-msgstr "这将决定日期的显示格式。"
+msgstr "用来决定如何显示日期"
 
 #: ../classes/column.php:781
 msgid "Example:"
-msgstr "例："
+msgstr "例如："
 
 #: ../classes/column.php:783
 #, php-format
@@ -64,7 +58,8 @@ msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
 msgstr ""
-"若使用WordPress日期格式请留空。<a href=\"%s\">点击</a>修改你的默认日期格式。"
+"留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期"
+"格式。"
 
 #: ../classes/column.php:784
 msgid "Documentation on date and time formatting."
@@ -72,7 +67,7 @@ msgstr "日期和时间格式的文档。"
 
 #: ../classes/column.php:801
 msgid "Excerpt length"
-msgstr "摘录长度"
+msgstr "摘要长度"
 
 #: ../classes/column.php:802
 msgid "Number of words"
@@ -80,7 +75,7 @@ msgstr "字数"
 
 #: ../classes/column.php:824
 msgid "Preview size"
-msgstr "预览尺寸"
+msgstr "预览大小"
 
 #: ../classes/column.php:841 ../classes/column.php:897
 msgid "Custom"
@@ -102,7 +97,7 @@ msgstr "默认"
 #: ../classes/column.php:923 ../classes/column.php:984
 #: ../classes/column/user/actions.php:65
 msgid "Remove"
-msgstr "移除"
+msgstr "删除"
 
 #: ../classes/column.php:942
 msgid "Type"
@@ -110,7 +105,7 @@ msgstr "类型"
 
 #: ../classes/column.php:942
 msgid "Choose a column type."
-msgstr "选择一个列属性"
+msgstr "选择一个列类型。"
 
 #: ../classes/column.php:952
 msgid "Label"
@@ -118,7 +113,7 @@ msgstr "标签"
 
 #: ../classes/column.php:952
 msgid "This is the name which will appear as the column header."
-msgstr "这是列标题所显示的名称"
+msgstr "该名称将显示为列标题。"
 
 #: ../classes/column.php:959 ../classes/column/media/width.php:12
 msgid "Width"
@@ -130,25 +125,25 @@ msgstr "默认"
 
 #: ../classes/settings.php:68
 msgid "Admin Columns Settings"
-msgstr "管理员列设置"
+msgstr "Admin Columns 设置"
 
 #: ../classes/settings.php:68 ../classes/settings.php:534
 #: ../classes/upgrade.php:89
 msgid "Admin Columns"
-msgstr "管理员列"
+msgstr "Admin Columns"
 
 #: ../classes/settings.php:129
 #, php-format
 msgid "%s column is already present and can not be duplicated."
-msgstr ""
+msgstr "%s 这个列已经存在，不能被复制。"
 
 #: ../classes/settings.php:184
 msgid "Default settings succesfully restored."
-msgstr "成功还原默认设置"
+msgstr "已成功恢复默认设置。"
 
 #: ../classes/settings.php:202 ../classes/settings.php:457
 msgid "Overview"
-msgstr "概述"
+msgstr "预览"
 
 #: ../classes/settings.php:205
 msgid ""
@@ -156,8 +151,8 @@ msgid ""
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
 msgstr ""
-"这个插件可以在管理界面为文章、单页、媒体库、评论、链接以及用户添加或者移除额"
-"外的列。修改列标签和重新排列。"
+"该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、"
+"媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
 
 #: ../classes/settings.php:208
 msgid "Basics"
@@ -165,98 +160,102 @@ msgstr "基础"
 
 #: ../classes/settings.php:210
 msgid "Change order"
-msgstr ""
+msgstr "更改排序"
 
 #: ../classes/settings.php:211
 msgid ""
 "By dragging the columns you can change the order which they will appear in."
-msgstr ""
+msgstr "拖动排序这些列，你可以重新排列它们显示的顺序。"
 
 #: ../classes/settings.php:212
 msgid "Change label"
-msgstr ""
+msgstr "更改标签"
 
 #: ../classes/settings.php:213
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr ""
+msgstr "点击三角形，你会看到列的选项。在这里，你可以改变每个标签的列标题栏。"
 
 #: ../classes/settings.php:214
 msgid "Change column width"
-msgstr ""
+msgstr "更改列宽"
 
 #: ../classes/settings.php:215
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
-msgstr ""
+msgstr "点击三角形，你会看到列的选项。你可以通过拖动滑块设置列的百分比宽度。"
 
 #: ../classes/settings.php:219 ../classes/column/custom-field.php:16
-#: ../classes/column/custom-field.php:345
+#: ../classes/column/custom-field.php:324
 msgid "Custom Field"
-msgstr ""
+msgstr "自定义字段"
 
 #: ../classes/settings.php:221
 msgid "'Custom Field' column"
-msgstr ""
+msgstr "“自定义字段”列"
 
 #: ../classes/settings.php:222
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr ""
+msgstr "自定义字段列使用文章和用户的自定义字段，你可以设置10中类型。"
 
 #: ../classes/settings.php:224
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
 msgstr ""
+"值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间"
+"用逗号“,”隔开。"
 
 #: ../classes/settings.php:225 ../classes/column/custom-field.php:73
 #: ../classes/column/link/image.php:12
 msgid "Image"
-msgstr ""
+msgstr "图像"
 
 #: ../classes/settings.php:225
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr ""
+msgstr "值：应该包括一个图像URL或附件ID（使用逗号“,”隔开）"
 
 #: ../classes/settings.php:226 ../classes/column/custom-field.php:75
 #: ../classes/column/comment/excerpt.php:13
 #: ../classes/column/post/excerpt.php:13
 msgid "Excerpt"
-msgstr ""
+msgstr "摘要"
 
 #: ../classes/settings.php:226
 msgid "Value: This will show the first 20 words of the Post content."
-msgstr ""
+msgstr "值：将显示文章内容的前 20 个字。"
 
 #: ../classes/settings.php:227 ../classes/column/custom-field.php:76
 msgid "Multiple Values"
-msgstr ""
+msgstr "多个值"
 
 #: ../classes/settings.php:227
 msgid ""
 "Value: should be an array. This will flatten any ( multi dimensional ) array."
-msgstr ""
+msgstr "值：应该是一个数组。这将被压平（多维）数组"
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
 msgid "Numeric"
-msgstr ""
+msgstr "数字"
 
 #: ../classes/settings.php:228
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr ""
+"值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个"
+"数字（自定义字段）值来排序文章。"
 
 #: ../classes/settings.php:229 ../classes/column/custom-field.php:78
 #: ../classes/column/comment/date.php:12
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: ../classes/settings.php:229
 #, php-format
@@ -265,68 +264,70 @@ msgid ""
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
 msgstr ""
+"值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 "
+"<a href='%s'>常规设置</a> 页面修改输出的日期格式。"
 
 #: ../classes/settings.php:230
 msgid "Post Titles"
-msgstr ""
+msgstr "文章标题"
 
 #: ../classes/settings.php:230
 msgid "Value: can be one or more Post ID's (seperated by ',')."
-msgstr ""
+msgstr "值：可以是一个或多个文章ID（使用逗号“,”隔开）"
 
 #: ../classes/settings.php:231
 msgid "Usernames"
-msgstr ""
+msgstr "用户名"
 
 #: ../classes/settings.php:231
 msgid "Value: can be one or more User ID's (seperated by ',')."
-msgstr ""
+msgstr "值：可以是一个或多个用户ID（使用逗号“,”隔开）"
 
 #: ../classes/settings.php:232
 msgid "Checkmark"
-msgstr ""
+msgstr "判断"
 
 #: ../classes/settings.php:232
 msgid "Value: should be a 1 (one) or 0 (zero)."
-msgstr ""
+msgstr "值：应该是 1 （一）或 0 （零）"
 
 #: ../classes/settings.php:233 ../classes/column/custom-field.php:82
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 #: ../classes/settings.php:233
 msgid "Value: hex value color, such as #808080."
-msgstr ""
+msgstr "值：十六进制值的颜色，如＃808080。"
 
 #: ../classes/settings.php:377
 msgid "Welcome to Admin Columns"
-msgstr ""
+msgstr "欢迎使用Admin Columns插件。"
 
 #: ../classes/settings.php:380
 msgid "Thank you for updating to the latest version!"
-msgstr ""
+msgstr "感谢您更新到最新版本！"
 
 #: ../classes/settings.php:381
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
-msgstr ""
+msgstr "Admin Columns插件比以往任何时候都更加精致，愉快。我们希望你喜欢它。"
 
 #: ../classes/settings.php:386
 msgid "What’s New"
-msgstr ""
+msgstr "最近更新"
 
 #: ../classes/settings.php:387
 msgid "Changelog"
-msgstr ""
+msgstr "更新记录"
 
 #: ../classes/settings.php:389
 msgid "Download Addons"
-msgstr ""
+msgstr "下载扩展"
 
 #: ../classes/settings.php:395
 msgid "Addons"
-msgstr ""
+msgstr "扩展"
 
 #: ../classes/settings.php:397
 msgid ""
@@ -334,53 +335,57 @@ msgid ""
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
 msgstr ""
+"通过下载和安装插件可以启用扩展。尽管这些扩展插件不再托管于 wordpress.org，但"
+"是它们都可以通过通常的方式获得更新。"
 
 #: ../classes/settings.php:400
 msgid ""
 "This website uses the Sortorder Addon. This addon needs to be downloaded."
-msgstr ""
+msgstr "该网站使用了排序扩展，该扩展需要下载。"
 
 #: ../classes/settings.php:403
 msgid "Addons are seperate plugins which need to be downloaded."
-msgstr ""
+msgstr "扩展是需要下载的单独插件。"
 
 #: ../classes/settings.php:403
 msgid "Download your Addons"
-msgstr ""
+msgstr "下载你的扩展"
 
 #: ../classes/settings.php:409
 msgid "This website does not use add-ons"
-msgstr ""
+msgstr "该网站没有使用扩展"
 
 #: ../classes/settings.php:409
 msgid "See our website for the Pro-addon."
-msgstr ""
+msgstr "访问我们的网站了解收费扩展"
 
 #: ../classes/settings.php:416
 msgid "Important"
-msgstr ""
+msgstr "重要"
 
 #: ../classes/settings.php:418
 msgid "Database Changes"
-msgstr ""
+msgstr "数据库更改"
 
 #: ../classes/settings.php:419
 msgid ""
 "The database has been changed between versions 1 and 2. But we made sure you "
 "can still roll back to version 1x without any issues."
 msgstr ""
+"该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没"
+"有任何问题的。"
 
 #: ../classes/settings.php:422
 msgid "Make sure you backup your database and then click"
-msgstr ""
+msgstr "确保你已经备份了数据库，然后点击"
 
 #: ../classes/settings.php:422 ../classes/upgrade.php:97
 msgid "Upgrade Database"
-msgstr ""
+msgstr "升级数据库"
 
 #: ../classes/settings.php:425
 msgid "Potential Issues"
-msgstr ""
+msgstr "潜在问题"
 
 #: ../classes/settings.php:426
 msgid ""
@@ -388,14 +393,16 @@ msgid ""
 "filters, your website may not operate correctly. It is important that you "
 "read the full"
 msgstr ""
+"做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议"
+"你阅读完整的 "
 
 #: ../classes/settings.php:426
 msgid "Migrating from v1 to v2"
-msgstr ""
+msgstr "从 v1 迁移到 v2"
 
 #: ../classes/settings.php:426
 msgid "guide to view the full list of changes."
-msgstr ""
+msgstr "引导查看完整的更改列表。"
 
 #: ../classes/settings.php:426
 #, php-format
@@ -403,115 +410,117 @@ msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
 msgstr ""
+"当你发现了 bug，请 <a href=\"%s\">反馈给我们</a>，以便我们在下个版本进行修"
+"复。"
 
 #: ../classes/settings.php:429
 msgid "Important!"
-msgstr ""
+msgstr "重要！"
 
 #: ../classes/settings.php:429
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
-msgstr ""
+msgstr "如果你更新了 Admin Columns 插件没有另行通知这些变更，请回滚到最新版本"
 
 #: ../classes/settings.php:429
 msgid "version 1"
-msgstr ""
+msgstr "版本 1"
 
 #: ../classes/settings.php:429
 msgid "of this plugin."
-msgstr ""
+msgstr "这个插件。"
 
 #: ../classes/settings.php:435
 msgid "Changelog for"
-msgstr ""
+msgstr "更新记录 for"
 
 #: ../classes/settings.php:450
 msgid "Learn more"
-msgstr ""
+msgstr "了解更多"
 
 #: ../classes/settings.php:459
 msgid ""
 "New to v2, all Addons act as separate plugins which need to be individually "
 "downloaded, installed and updated."
-msgstr ""
+msgstr "版本v2以后，所有扩展将作为单独的插件，需要单独下载，安装和更新。"
 
 #: ../classes/settings.php:460
 msgid ""
 "This page will assist you in downloading and installing each available Addon."
-msgstr ""
+msgstr "该页面将帮助您下载和安装每个可用的扩展。"
 
 #: ../classes/settings.php:461
 msgid "Available Addons"
-msgstr ""
+msgstr "可用扩展"
 
 #: ../classes/settings.php:466
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: ../classes/settings.php:467 ../classes/settings.php:475
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 #: ../classes/settings.php:473
 msgid "Pro Add-on (includes Sortorder add-on)"
-msgstr ""
+msgstr "收费扩展（包括排序扩展）"
 
 #: ../classes/settings.php:483
 msgid "Installation"
-msgstr ""
+msgstr "安装"
 
 #: ../classes/settings.php:485
 msgid "For each Add-on available, please perform the following:"
-msgstr ""
+msgstr "要使扩展可用，请执行以下操作："
 
 #: ../classes/settings.php:487
 msgid "Download the Addon plugin (.zip file) to your desktop"
-msgstr ""
+msgstr "下载扩展插件（.zip文件）到你的桌面"
 
 #: ../classes/settings.php:488
 msgid "Navigate to"
-msgstr ""
+msgstr "访问 "
 
 #: ../classes/settings.php:488
 msgid "Plugins > Add New > Upload"
-msgstr ""
+msgstr "插件 > 安装插件 > 上传"
 
 #: ../classes/settings.php:489
 msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
-msgstr ""
+msgstr "使用浏览上传，选择和安装你的扩展（.zip文件）"
 
 #: ../classes/settings.php:490
 msgid ""
 "Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
 "link"
-msgstr ""
+msgstr "一旦插件已经上传和安装，点击“启用插件”链接。"
 
 #: ../classes/settings.php:491
 msgid "The Add-on is now installed and activated!"
-msgstr ""
+msgstr "扩展已安装并启用！"
 
 #: ../classes/settings.php:492
 #, php-format
 msgid ""
 "For automatic updates make sure to <a href='%s'>enter your licence key</a>."
-msgstr ""
+msgstr "要想自动更新，请确保 <a href='%s'>填写你的许可密钥</a>"
 
 #: ../classes/settings.php:502
 msgid "Start using Admin Columns"
-msgstr ""
+msgstr "开始使用Admin Columns"
 
 #: ../classes/settings.php:580
 msgid "Store settings"
-msgstr ""
+msgstr "保存设置"
 
 #: ../classes/settings.php:585
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: ../classes/settings.php:585
 msgid "Publish"
-msgstr ""
+msgstr "发布"
 
 #: ../classes/settings.php:589
 #, php-format
@@ -519,44 +528,45 @@ msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
 "\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
+"警告！%s 列的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
 msgid "Restore"
-msgstr ""
+msgstr "恢复"
 
 #: ../classes/settings.php:590
 msgid "columns"
-msgstr ""
+msgstr "列"
 
 #: ../classes/settings.php:600
 msgid "Get the Pro Add-on"
-msgstr ""
+msgstr "获取收费扩展"
 
 #: ../classes/settings.php:604
 msgid "Add Sorting"
-msgstr ""
+msgstr "添加排序"
 
 #: ../classes/settings.php:605
 msgid "Add Filtering"
-msgstr ""
+msgstr "添加过滤器"
 
 #: ../classes/settings.php:606
 msgid "Add Import/Export"
-msgstr ""
+msgstr "添加 导入/导出"
 
 #: ../classes/settings.php:609
 #, php-format
 msgid "Check the <a href=\"%s\">Pro Add-on</a> for more details!"
-msgstr ""
+msgstr "查看 <a href=\"%s\">收费扩展</a> 了解更多详情！"
 
 #: ../classes/settings.php:617
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #: ../classes/settings.php:620
 msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr ""
+msgstr "查看右上角的 <strong>帮助</strong>"
 
 #: ../classes/settings.php:622
 #, php-format
@@ -564,267 +574,287 @@ msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
 msgstr ""
+"<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</"
+"p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站"
+"资源平台\" target=\"_blank\">WordPress大学</a> 提供简体中文支持。"
 
 #: ../classes/settings.php:642
 msgid "Drag and drop to reorder"
-msgstr ""
+msgstr "拖动排序"
 
 #: ../classes/settings.php:645
 msgid "Add Column"
-msgstr ""
+msgstr "添加列"
 
 #: ../classes/settings.php:696
 msgid "General Settings"
-msgstr ""
+msgstr "常规设置"
 
 #: ../classes/settings.php:697
 msgid "Customize your Admin Columns settings."
-msgstr ""
+msgstr "自定义Admin Columns的设置"
 
 #: ../classes/settings.php:710
 msgid "Show hidden custom fields. Default is <code>off</code>."
-msgstr ""
+msgstr "显示隐藏的自定义字段，默认为<code>不显示</code>"
 
 #: ../classes/settings.php:716
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr ""
+msgstr "在管理界面显示“编辑列”按钮，默认为<code>不显示</code>"
 
 #: ../classes/settings.php:723
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: ../classes/settings.php:763
 msgid "Restore Settings"
-msgstr ""
+msgstr "恢复设置"
 
 #: ../classes/settings.php:764
 msgid "This will delete all column settings and restore the default settings."
-msgstr ""
+msgstr "这将删除所有列的设置和恢复到默认设置。"
 
 #: ../classes/settings.php:770
 msgid "Restore default settings"
-msgstr ""
+msgstr "恢复默认设置"
 
 #: ../classes/settings.php:770
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
+"警告！所有Admin Columns的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将"
+"停止。"
 
 #: ../classes/storage_model.php:167
 msgid "settings succesfully restored."
-msgstr ""
+msgstr "设置已成功恢复！"
 
 #: ../classes/storage_model.php:181
 msgid "No columns settings available."
-msgstr ""
+msgstr "没有可用的列设置。"
 
 #: ../classes/storage_model.php:204
 #, php-format
 msgid "You are trying to store the same settings for %s."
-msgstr ""
+msgstr "你正在尝试为 %s 保存同样设置"
 
 #: ../classes/storage_model.php:208
 #, php-format
 msgid "Settings for %s updated succesfully."
-msgstr ""
+msgstr "%s 的设置已保存！"
 
 #: ../classes/storage_model.php:577 ../classes/column/post/actions.php:64
 msgid "View"
-msgstr ""
+msgstr "查看"
 
 #: ../classes/upgrade.php:45
 msgid "Upgrade"
-msgstr ""
+msgstr "升级"
 
 #: ../classes/upgrade.php:90
 msgid "requires a database upgrade"
-msgstr ""
+msgstr "需要升级数据库"
 
 #: ../classes/upgrade.php:93
 msgid "why?"
-msgstr ""
+msgstr "为什么？"
 
 #: ../classes/upgrade.php:94
 msgid "Please"
-msgstr ""
+msgstr "请"
 
 #: ../classes/upgrade.php:95
 msgid "backup your database"
-msgstr ""
+msgstr "备份数据库"
 
 #: ../classes/upgrade.php:96
 msgid "then click"
-msgstr ""
+msgstr "然后点击"
 
 #: ../classes/upgrade.php:304
 msgid "Migrating Column Settings"
-msgstr ""
+msgstr "迁移列设置"
 
 #: ../classes/upgrade.php:340
 msgid "No Upgrade Required"
-msgstr ""
+msgstr "无需升级"
 
 #: ../classes/upgrade.php:341
 msgid "Return to welcome screen."
-msgstr ""
+msgstr "返回欢迎界面"
 
 #: ../classes/upgrade.php:359
 msgid "Upgrade Complete!"
-msgstr ""
+msgstr "升级完成！"
 
 #: ../classes/upgrade.php:359
 msgid "Return to settings."
-msgstr ""
+msgstr "返回设置。"
 
 #: ../classes/upgrade.php:360
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: ../classes/upgrade.php:361
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."
-msgstr ""
+msgstr "抱歉，升级过程中出错了，请在论坛中反馈。"
 
 #: ../classes/column/custom-field.php:74 ../classes/storage_model/media.php:13
 msgid "Media Library"
-msgstr ""
+msgstr "媒体库"
 
 #: ../classes/column/custom-field.php:79
 msgid "Post Title (Post ID's)"
-msgstr ""
+msgstr "文章标题（文章ID）"
 
 #: ../classes/column/custom-field.php:80
 msgid "Username (User ID's)"
-msgstr ""
+msgstr "用户名（用户ID）"
 
 #: ../classes/column/custom-field.php:81
 msgid "Checkmark (true/false)"
-msgstr ""
+msgstr "判断(true/false)"
 
-#: ../classes/column/custom-field.php:345
+#: ../classes/column/custom-field.php:324
 msgid "Select your custom field."
-msgstr ""
+msgstr "选择自定义字段"
 
-#: ../classes/column/custom-field.php:355
+#: ../classes/column/custom-field.php:334
 msgid "No custom fields available."
-msgstr ""
+msgstr "没有可用的自定义字段"
 
-#: ../classes/column/custom-field.php:362
+#: ../classes/column/custom-field.php:341
 msgid "Field Type"
-msgstr ""
+msgstr "字段类型"
 
-#: ../classes/column/custom-field.php:362
+#: ../classes/column/custom-field.php:341
 msgid "This will determine how the value will be displayed."
-msgstr ""
+msgstr "用来确定如何显示值"
 
-#: ../classes/column/custom-field.php:405
+#: ../classes/column/custom-field.php:384
 msgid "Before"
-msgstr ""
+msgstr "前"
 
-#: ../classes/column/custom-field.php:405
+#: ../classes/column/custom-field.php:384
 msgid "This text will appear before the custom field value."
-msgstr ""
+msgstr "该文本将显示在自定义字段的值的前面"
 
-#: ../classes/column/custom-field.php:411
+#: ../classes/column/custom-field.php:390
 msgid "After"
-msgstr ""
+msgstr "后"
 
-#: ../classes/column/custom-field.php:411
+#: ../classes/column/custom-field.php:390
 msgid "This text will appear after the custom field value."
-msgstr ""
+msgstr "该文本将显示在自定义字段的值的后面"
 
 #: ../classes/column/comment/actions.php:14
 #: ../classes/column/link/actions.php:14
 #: ../classes/column/media/actions.php:14
 #: ../classes/column/post/actions.php:14 ../classes/column/user/actions.php:14
 msgid "Actions"
-msgstr ""
+msgstr "操作"
 
 #: ../classes/column/comment/actions.php:73
 #: ../classes/column/comment/actions.php:78
 msgid "Unapprove"
-msgstr ""
+msgstr "驳回"
 
 #: ../classes/column/comment/actions.php:75
 #: ../classes/column/comment/actions.php:77
 msgid "Approve"
-msgstr ""
+msgstr "通过"
+
+#: ../classes/column/comment/actions.php:82
+msgctxt "verb"
+msgid "Spam"
+msgstr "垃圾评论"
+
+#: ../classes/column/comment/actions.php:84
+msgctxt "comment"
+msgid "Not Spam"
+msgstr "不是垃圾评论"
 
 #: ../classes/column/comment/actions.php:90
 #: ../classes/column/post/actions.php:57
 msgid "Delete Permanently"
-msgstr ""
+msgstr "永久删除"
+
+#: ../classes/column/comment/actions.php:92
+msgctxt "verb"
+msgid "Trash"
+msgstr "回收站"
 
 #: ../classes/column/comment/actions.php:96
 #: ../classes/column/link/actions.php:45 ../classes/column/post/actions.php:48
 #: ../classes/column/user/actions.php:57
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: ../classes/column/comment/actions.php:97
 #: ../classes/column/post/actions.php:49
 msgid "Quick&nbsp;Edit"
-msgstr ""
+msgstr "Quick&nbsp;Edit"
 
 #: ../classes/column/comment/actions.php:98
 msgid "Reply"
-msgstr ""
+msgstr "回复"
 
 #: ../classes/column/comment/agent.php:12
 msgid "Agent"
-msgstr ""
+msgstr "代理(Agent)"
 
 #: ../classes/column/comment/approved.php:12
 #: ../classes/column/post/comment-count.php:31
 msgid "Approved"
-msgstr ""
+msgstr "已通过"
 
 #: ../classes/column/comment/author-avatar.php:12
 msgid "Avatar"
-msgstr ""
+msgstr "头像"
 
 #: ../classes/column/comment/author-email.php:12
 msgid "Author email"
-msgstr ""
+msgstr "作者邮箱"
 
 #: ../classes/column/comment/author-ip.php:12
 msgid "Author IP"
-msgstr ""
+msgstr "作者IP"
 
 #: ../classes/column/comment/author-url.php:12
 msgid "Author url"
-msgstr ""
+msgstr "作者url"
 
 #: ../classes/column/comment/author.php:12
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: ../classes/column/comment/date-gmt.php:12
 msgid "Date GMT"
-msgstr ""
+msgstr "日期GMT"
 
 #: ../classes/column/comment/date-gmt.php:25
 #: ../classes/column/comment/date.php:25
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr ""
+msgstr "提交于 <a href=\"%1$s\">%2$s at %3$s</a>"
 
 #: ../classes/column/comment/ID.php:12 ../classes/column/link/ID.php:12
 #: ../classes/column/media/ID.php:12 ../classes/column/post/ID.php:12
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ../classes/column/comment/reply-to.php:12
 msgid "In Reply To"
-msgstr ""
+msgstr "回应给"
 
 #: ../classes/column/comment/word-count.php:12
 #: ../classes/column/post/word-count.php:12
 msgid "Word count"
-msgstr ""
+msgstr "字数"
 
 #: ../classes/column/link/actions.php:46
 #, php-format
@@ -832,341 +862,1553 @@ msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
+"你将要删除这个链接“%s”\n"
+"“取消”将停止，“确定”将删除。"
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: ../classes/column/link/description.php:12
 #: ../classes/column/media/description.php:12
 #: ../classes/column/user/description.php:14
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ../classes/column/link/length.php:12
 msgid "Length"
-msgstr ""
+msgstr "长度"
 
 #: ../classes/column/link/notes.php:13
 msgid "Notes"
-msgstr ""
+msgstr "笔记"
 
 #: ../classes/column/link/owner.php:12
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 #: ../classes/column/link/rss.php:12
 msgid "Rss"
-msgstr ""
+msgstr "Rss"
 
 #: ../classes/column/link/target.php:12
 msgid "Target"
-msgstr ""
+msgstr "Target"
 
 #: ../classes/column/media/alternate-text.php:12
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #: ../classes/column/media/available-sizes.php:14
 msgid "Available Sizes"
-msgstr ""
+msgstr "可用尺寸"
 
 #: ../classes/column/media/available-sizes.php:37
 msgid "full size"
-msgstr ""
+msgstr "全尺寸"
 
 #: ../classes/column/media/caption.php:12
 #: ../classes/column/media/exif-data.php:36
 msgid "Caption"
-msgstr ""
+msgstr "标题"
 
 #: ../classes/column/media/dimensions.php:12
 msgid "Dimensions"
-msgstr ""
+msgstr "尺寸"
 
 #: ../classes/column/media/exif-data.php:12
 msgid "EXIF data"
-msgstr ""
+msgstr "EXIF数据"
 
 #: ../classes/column/media/exif-data.php:33
 msgid "Aperture"
-msgstr ""
+msgstr "光圈"
 
 #: ../classes/column/media/exif-data.php:34
 msgid "Credit"
-msgstr ""
+msgstr "信用"
 
 #: ../classes/column/media/exif-data.php:35
 msgid "Camera"
-msgstr ""
+msgstr "相机"
 
 #: ../classes/column/media/exif-data.php:37
 msgid "Timestamp"
-msgstr ""
+msgstr "时间戳"
 
 #: ../classes/column/media/exif-data.php:38
 msgid "Copyright EXIF"
-msgstr ""
+msgstr "版权EXIF"
 
 #: ../classes/column/media/exif-data.php:39
 msgid "Focal Length"
-msgstr ""
+msgstr "焦距"
 
 #: ../classes/column/media/exif-data.php:40
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 #: ../classes/column/media/exif-data.php:41
 msgid "Shutter Speed"
-msgstr ""
+msgstr "快门速度"
 
 #: ../classes/column/media/exif-data.php:42
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: ../classes/column/media/file-name.php:12
 msgid "File name"
-msgstr ""
+msgstr "名字"
 
 #: ../classes/column/media/file-size.php:12
 msgid "File size"
-msgstr ""
+msgstr "文件大小"
 
 #: ../classes/column/media/full-path.php:12
 msgid "Full path"
-msgstr ""
+msgstr "完整路径"
 
 #: ../classes/column/media/height.php:12
 msgid "Height"
-msgstr ""
+msgstr "高度"
 
 #: ../classes/column/media/mime-type.php:12
 msgid "Mime type"
-msgstr ""
+msgstr "Mime类型"
 
 #: ../classes/column/post/actions.php:48
 msgid "Edit this item"
-msgstr ""
+msgstr "编辑该项目"
 
 #: ../classes/column/post/actions.php:49
 msgid "Edit this item inline"
-msgstr ""
+msgstr "编辑该项目的联"
 
 #: ../classes/column/post/actions.php:53
 msgid "Restore this item from the Trash"
-msgstr ""
+msgstr "从回收站中还原"
 
 #: ../classes/column/post/actions.php:55
 msgid "Move this item to the Trash"
-msgstr ""
+msgstr "移至回收站"
 
 #: ../classes/column/post/actions.php:55
 #: ../classes/column/post/comment-count.php:34
 #: ../classes/column/post/status.php:35
 msgid "Trash"
-msgstr ""
+msgstr "回收站"
 
 #: ../classes/column/post/actions.php:57
 msgid "Delete this item permanently"
-msgstr ""
+msgstr "永久删除改项目"
 
 #: ../classes/column/post/actions.php:62
 #, php-format
 msgid "Preview &#8220;%s&#8221;"
-msgstr ""
+msgstr "预览 &#8220;%s&#8221;"
 
 #: ../classes/column/post/actions.php:62
 msgid "Preview"
-msgstr ""
+msgstr "预览"
 
 #: ../classes/column/post/actions.php:64
 #, php-format
 msgid "View &#8220;%s&#8221;"
-msgstr ""
+msgstr "查看 &#8220;%s&#8221;"
 
 #: ../classes/column/post/attachment-count.php:12
 msgid "No. of Attachments"
-msgstr ""
+msgstr "附件数量"
 
 #: ../classes/column/post/attachment.php:12
 msgid "Attachment"
-msgstr ""
+msgstr "附件"
 
 #: ../classes/column/post/author-name.php:12
 msgid "Display Author As"
-msgstr ""
+msgstr "显示作者为"
 
 #: ../classes/column/post/author-name.php:33
 msgid "Display Name"
-msgstr ""
+msgstr "公开显示为"
 
 #: ../classes/column/post/author-name.php:34
 msgid "First Name"
-msgstr ""
+msgstr "名字"
 
 #: ../classes/column/post/author-name.php:35
 msgid "Last Name"
-msgstr ""
+msgstr "姓氏"
 
 #: ../classes/column/post/author-name.php:36
 #: ../classes/column/user/nickname.php:14
 msgid "Nickname"
-msgstr ""
+msgstr "昵称"
 
 #: ../classes/column/post/author-name.php:37
 msgid "User Login"
-msgstr ""
+msgstr "用户名"
 
 #: ../classes/column/post/author-name.php:38
 msgid "User Email"
-msgstr ""
+msgstr "用户邮箱"
 
 #: ../classes/column/post/author-name.php:39 ../classes/column/user/ID.php:14
 msgid "User ID"
-msgstr ""
+msgstr "用户ID"
 
 #: ../classes/column/post/author-name.php:40
 msgid "First and Last Name"
-msgstr ""
+msgstr "姓名"
 
 #: ../classes/column/post/author-name.php:106
 msgid "This is the format of the author name."
-msgstr ""
+msgstr "作者名字的格式"
 
 #: ../classes/column/post/before-moretag.php:14
 msgid "Before More Tag"
-msgstr ""
+msgstr "More标签前"
 
 #: ../classes/column/post/comment-count.php:14
 msgid "Comment count"
-msgstr ""
+msgstr "评论数量"
 
 #: ../classes/column/post/comment-count.php:30
 msgid "Total"
-msgstr ""
+msgstr "所有"
 
 #: ../classes/column/post/comment-count.php:32
 msgid "Pending"
-msgstr ""
+msgstr "待审"
 
 #: ../classes/column/post/comment-count.php:33
 msgid "Spam"
-msgstr ""
+msgstr "垃圾评论"
 
 #: ../classes/column/post/comment-count.php:78
 #: ../classes/column/post/comment-status.php:14
 msgid "Comment status"
-msgstr ""
+msgstr "评论状态"
 
 #: ../classes/column/post/comment-count.php:78
 msgid "Select which comment status you like to display."
-msgstr ""
+msgstr "选择你要显示的评论状态"
 
 #: ../classes/column/post/featured-image.php:14
 msgid "Featured Image"
-msgstr ""
+msgstr "特色图像"
 
 #: ../classes/column/post/formats.php:14
 msgid "Post Format"
-msgstr ""
+msgstr "文章形式"
 
 #: ../classes/column/post/modified.php:14
 msgid "Last modified"
-msgstr ""
+msgstr "最后修订"
 
 #: ../classes/column/post/order.php:14
 msgid "Page Order"
-msgstr ""
+msgstr "页面排序"
 
 #: ../classes/column/post/page-template.php:12
 msgid "Page Template"
-msgstr ""
+msgstr "页面模板"
 
 #: ../classes/column/post/parent.php:12
 msgid "Parent"
-msgstr ""
+msgstr "父级"
 
 #: ../classes/column/post/ping-status.php:14
 msgid "Ping status"
-msgstr ""
+msgstr "Ping状态"
 
 #: ../classes/column/post/roles.php:14
 msgid "Roles"
-msgstr ""
+msgstr "角色"
 
 #: ../classes/column/post/slug.php:12
 msgid "Slug"
-msgstr ""
+msgstr "别名"
 
 #: ../classes/column/post/status.php:14
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: ../classes/column/post/status.php:30
 msgid "Published"
-msgstr ""
+msgstr "已发布"
 
 #: ../classes/column/post/status.php:31
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 #: ../classes/column/post/status.php:32
 msgid "Scheduled"
-msgstr ""
+msgstr "定时"
 
 #: ../classes/column/post/status.php:33
 msgid "Private"
-msgstr ""
+msgstr "私密"
 
 #: ../classes/column/post/status.php:34
 msgid "Pending Review"
-msgstr ""
+msgstr "待审核"
 
 #: ../classes/column/post/sticky.php:14
 msgid "Sticky"
-msgstr ""
+msgstr "置顶"
 
 #: ../classes/column/post/taxonomy.php:12
 #: ../classes/column/post/taxonomy.php:68
 msgid "Taxonomy"
-msgstr ""
+msgstr "分类法"
 
 #: ../classes/column/user/comment-count.php:14
 msgid "Comment Count"
-msgstr ""
+msgstr "评论数量"
 
 #: ../classes/column/user/first-name.php:14
 msgid "First name"
-msgstr ""
+msgstr "名字"
 
 #: ../classes/column/user/last-name.php:14
 msgid "Last name"
-msgstr ""
+msgstr "姓氏"
 
 #: ../classes/column/user/post-count.php:14
 msgid "Post Count"
-msgstr ""
+msgstr "文章数量"
 
 #: ../classes/column/user/post-count.php:92
 msgid "Post Type"
-msgstr ""
+msgstr "文章类型"
 
 #: ../classes/column/user/registered.php:14
 msgid "Registered"
-msgstr ""
+msgstr "注册"
 
 #: ../classes/column/user/url.php:14
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: ../classes/storage_model/comment.php:13
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 #: ../classes/storage_model/link.php:13
 msgid "Links"
-msgstr ""
+msgstr "链接"
 
 #: ../classes/storage_model/user.php:13
 msgid "Users"
-msgstr ""
+msgstr "用户"
+
+#~ msgid "Post deleted successfully"
+#~ msgstr "所选文章已删除！"
+
+#~ msgid "Post Published"
+#~ msgstr "文章已发布！"
+
+#~ msgid "Post unpublished"
+#~ msgstr "文章已取消发布！"
+
+#~ msgid "BuddyBlog"
+#~ msgstr "成员博客"
+
+#~ msgid "Search Posts..."
+#~ msgstr "搜索文章…"
+
+#~ msgid "Blog "
+#~ msgstr "文章"
+
+#~ msgid "My Posts"
+#~ msgstr "我的文章"
+
+#~ msgid "%s' Posts"
+#~ msgstr "%s 的文章"
+
+#~ msgid "New Post"
+#~ msgstr "发布文章"
+
+#~ msgid "Profile picture of %s"
+#~ msgstr "%s 的档案图片"
+
+#~ msgid ""
+#~ "<a href=\"%1$s\" rel=\"nofollow\">%2$s</a> said on <a href=\"%3$s\"><span "
+#~ "class=\"time-since\">%4$s</span></a>"
+#~ msgstr ""
+#~ "<a href=\"%1$s\" rel=\"nofollow\">%2$s</a> 说于 <a href=\"%3$s\"><span "
+#~ "class=\"time-since\">%4$s</span></a>"
+
+#~ msgid "Your comment is awaiting moderation."
+#~ msgstr "你的评论正在等待审核。"
+
+#~ msgid "BuddyBlog Settings"
+#~ msgstr "BuddyBlog设置"
+
+#~ msgid ""
+#~ "Please Install <a href=\"http://buddydev.com/plugins/bp-simple-front-end-"
+#~ "post/\"> BP Simple Front End Post Plugin to make the editing "
+#~ "functionality work."
+#~ msgstr ""
+#~ "请安装 <a href=\"http://buddydev.com/plugins/bp-simple-front-end-post/\"> "
+#~ "BP Simple Front End Post 插件来激活这个功能。"
+
+#~ msgid "Permanent Link to"
+#~ msgstr "访问"
+
+#~ msgid "<span class=\"time\"><i class=\"icon-time\"></i>%1$s</span>"
+#~ msgstr "<span class=\"time\"><i class=\"icon-time\"></i>%1$s</span>"
+
+#~ msgid "Postend on %1$s"
+#~ msgstr "Postend on %1$s"
+
+#~ msgctxt "Post written by..."
+#~ msgid "by %s"
+#~ msgstr "由 %s"
+
+#~ msgid "%1$s <span>in %2$s</span>"
+#~ msgstr "%1$s <span>在 %2$s</span>"
+
+#~ msgid "Read the rest of this entry &rarr;"
+#~ msgstr "阅读全文&rarr;"
+
+#~ msgid "Pages: "
+#~ msgstr "页面："
+
+#~ msgid "Tags: "
+#~ msgstr "标签："
+
+#~ msgid "No Comments &#187;"
+#~ msgstr "没有评论 &#187;"
+
+#~ msgid "1 Comment &#187;"
+#~ msgstr "1 条评论 &#187;"
+
+#~ msgid ""
+#~ "There are no posts by this user at the moment. Please check back later"
+#~ msgstr "当前用户还没有发布文章，请稍后再看看"
+
+#~ msgid "You haven't posted anything yet. "
+#~ msgstr "你目前还没有发布任何文章。"
+
+#~ msgid "The Security check failed!"
+#~ msgstr "安全检查失败！"
+
+#~ msgid "You are not authorized for the action!"
+#~ msgstr "你没有操作权限！"
+
+#~ msgid "Please make sure to fill the required fields"
+#~ msgstr "请务必填写所需的字段"
+
+#~ msgid "%s Saved as %s successfully."
+#~ msgstr "%s 成功保存为 %s"
+
+#~ msgid "There was a problem saving your %s. Please try again later."
+#~ msgstr "保存 %s 出错了，请稍后再试。"
+
+#~ msgid "Select %s"
+#~ msgstr "选择 %s"
+
+#~ msgid "Post:"
+#~ msgstr "内容："
+
+#~ msgid "Uploads"
+#~ msgstr "上传"
+
+#~ msgid "Extra Info"
+#~ msgstr "额外信息"
+
+#~ msgid "WP Security"
+#~ msgstr "WP安全"
+
+#~ msgid "Dashboard"
+#~ msgstr "仪表盘"
+
+#~ msgid "Database Security"
+#~ msgstr "数据库安全"
+
+#~ msgid "Filesystem Security"
+#~ msgstr "文件系统安全"
+
+#~ msgid "WHOIS Lookup"
+#~ msgstr "WHOIS查询"
+
+#~ msgid "Blacklist Manager"
+#~ msgstr "黑名单管理"
+
+#~ msgid "Firewall"
+#~ msgstr "防火墙"
+
+#~ msgid "Maintenance"
+#~ msgstr "维护模式"
+
+#~ msgid "Nonce check failed for save blacklist settings!"
+#~ msgstr ""
+#~ "保存黑名单时杜撰检查失败（Nonce check failed for save blacklist "
+#~ "settings!）"
+
+#~ msgid ""
+#~ "The plugin was unable to write to the .htaccess file. Please edit file "
+#~ "manually."
+#~ msgstr "插件无法写入  .htaccess 文件，请自己手动修改。"
+
+#~ msgid "Ban IPs or User Agents"
+#~ msgstr "禁止IP或用户代理"
+
+#~ msgid ""
+#~ "The All In One WP Security Blacklist feature gives you the option of "
+#~ "banning certain host IP addresses or ranges and also user agents."
+#~ msgstr ""
+#~ "黑名单功能，可以让您选择禁止某些主机的IP地址、IP段范围和用户代理（User "
+#~ "Agent ）。"
+
+#~ msgid ""
+#~ "This feature will deny total site access for users which have IP "
+#~ "addresses or user agents matching those which you have configured in the "
+#~ "settings below."
+#~ msgstr "所有在黑名单中的 IP 或 用户代理 都无法访问你的网站"
+
+#~ msgid ""
+#~ "The plugin achieves this by making appropriate modifications to your ."
+#~ "htaccess file."
+#~ msgstr "该插件通过适当修改你的 .htaccess 来实现黑名单限制。"
+
+#~ msgid ""
+#~ "By blocking people via the .htaccess file your are using the most secure "
+#~ "first line of defence which denies all access to blacklisted visitors as "
+#~ "soon as they hit your hosting server."
+#~ msgstr ""
+#~ "通过 .htaccess 限制访问是使用的最多网站安全防护手段，也是阻止所有黑名单访"
+#~ "客攻击你的网站托管服务器的第一道防线。"
+
+#~ msgid "IP Hosts and User Agent Blacklist Settings"
+#~ msgstr "IP主机和用户代理黑名单设置"
+
+#~ msgid "Enable IP or User Agent Blacklisting"
+#~ msgstr "启用IP或用户代理黑名单"
+
+#~ msgid ""
+#~ "Check this if you want to enable the banning (or blacklisting) of "
+#~ "selected IP addresses and/or user agents specified in the settings below"
+#~ msgstr ""
+#~ "如果你要启用“禁止（或黑名单）所选定的IP地址和/或用户代理”，请选择此项"
+
+#~ msgid "Enter IP Addresses:"
+#~ msgstr "输入 IP 地址："
+
+#~ msgid "Enter one or more IP addresses or IP ranges."
+#~ msgstr "输入一个或多个 IP 地址 或 IP 段"
+
+#~ msgid "Each IP address must be on a new line."
+#~ msgstr "每行一个 IP 地址"
+
+#~ msgid ""
+#~ "To specify an IP range use a wildcard \"*\" character. Acceptable ways to "
+#~ "use wildcards is shown in the examples below:"
+#~ msgstr "请使用一个通配符\"*\"来指定一个IP段，下面是一些有效的例子："
+
+#~ msgid "Example 1: 195.47.89.*"
+#~ msgstr "例1： 195.47.89.*"
+
+#~ msgid "Example 2: 195.47.*.*"
+#~ msgstr "例2：195.47.*.*"
+
+#~ msgid "Example 3: 195.*.*.*"
+#~ msgstr "例3：195.*.*.*"
+
+#, fuzzy
+#~ msgid "Enter User Agents:"
+#~ msgstr "编辑用户信息"
+
+#~ msgid "Enter one or more user agent strings."
+#~ msgstr "输入一个或多个用户代理："
+
+#~ msgid "Each user agent string must be on a new line."
+#~ msgstr "每行一个用户代理"
+
+#~ msgid "Example 1 - A single user agent string to block:"
+#~ msgstr "例1 - 禁止单个用户代理："
+
+#~ msgid "Example 2 - A list of more than 1 user agent strings to block"
+#~ msgstr "例2 - 禁止多个用户代理："
+
+#~ msgid "Nonce check failed for list SPAM comment IPs!"
+#~ msgstr "Nonce check failed for list SPAM comment IPs!"
+
+#, fuzzy
+#~ msgid "Attention!"
+#~ msgstr "信息"
+
+#, fuzzy
+#~ msgid "Admin Username"
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "Plugin URL"
+#~ msgstr "链接URL"
+
+#, fuzzy
+#~ msgid "Enter an email address"
+#~ msgstr "PayPal 邮箱地址"
+
+#, fuzzy
+#~ msgid "Recommended Action"
+#~ msgstr "添加信息"
+
+#, fuzzy
+#~ msgid "Save Setting"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Firewall Settings"
+#~ msgstr "好友设置"
+
+#, fuzzy
+#~ msgid "Basic Firewall Settings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Bad Query Strings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Save 5G Firewall Settings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Site lockout feature settings saved!"
+#~ msgstr "联盟设置已保存"
+
+#, fuzzy
+#~ msgid "Enter a Message:"
+#~ msgstr "编辑用户信息"
+
+#, fuzzy
+#~ msgid "New Admin Username"
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "No items found."
+#~ msgstr "没有相关内容"
+
+#~ msgid "Apply"
+#~ msgstr "应用"
+
+#, fuzzy
+#~ msgid "%s pending"
+#~ msgstr "审核中"
+
+#, fuzzy
+#~ msgid "<strong>ERROR</strong>: The username field is empty."
+#~ msgstr "<strong>头像</strong> - 用户的头像"
+
+#, fuzzy
+#~ msgid "Site Lockout Notification"
+#~ msgstr "好友通知"
+
+#, fuzzy
+#~ msgid "Username: "
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "Please log back in to continue."
+#~ msgstr "请选择要取消暂停的信息"
+
+#~ msgid "Messages"
+#~ msgstr "信息"
+
+#~ msgid "User added to Automessage queue."
+#~ msgstr "添加到自动信息队列的用户"
+
+#~ msgid "User could not be added to Automessage queue."
+#~ msgstr "无法添加用户到自动信息队列"
+
+#~ msgid "Blog admin added to Automessage queue."
+#~ msgstr "添加到自动信息队列的博客管理员"
+
+#~ msgid "Blog admin could not be added to Automessage queue."
+#~ msgstr "无法添加博客管理员到自动信息队列"
+
+#~ msgid "Add user to Automessage queue"
+#~ msgstr "添加用户到自动信息队列"
+
+#~ msgid "Queue"
+#~ msgstr "队列"
+
+#~ msgid "Add blog to Automessage queue"
+#~ msgstr "添加博客到自动信息队列"
+
+#~ msgid "Automessage"
+#~ msgstr "自动信息"
+
+#~ msgid "Edit Blog Messages"
+#~ msgstr "编辑博客信息"
+
+#~ msgid "Blog Level Messages"
+#~ msgstr "博客级别信息"
+
+#~ msgid "User Level Messages"
+#~ msgstr "用户级别信息"
+
+#~ msgid "Your action has been added to the schedule."
+#~ msgstr "你的信息已经被添加到计划中"
+
+#~ msgid "Your action could not be added."
+#~ msgstr "你的信息无法添加"
+
+#~ msgid "The scheduled action has been paused"
+#~ msgstr "计划的信息已被暂停"
+
+#~ msgid "The scheduled action has been unpaused"
+#~ msgstr "计划的信息已取消暂停"
+
+#~ msgid "Please select an action to delete"
+#~ msgstr "请选择要删除的信息"
+
+#~ msgid "The scheduled actions have been paused"
+#~ msgstr "计划的信息已被暂停"
+
+#~ msgid "Please select an action to pause"
+#~ msgstr "请选择要暂停的信息"
+
+#~ msgid "The scheduled actions have been unpaused"
+#~ msgstr "计划的信息已被取消暂停"
+
+#~ msgid "The scheduled actions have been processed"
+#~ msgstr "计划的信息已被处理"
+
+#~ msgid "Please select an action to process"
+#~ msgstr "请选择要处理的信息"
+
+#~ msgid "The scheduled action has been deleted"
+#~ msgstr "计划的信息已被删除"
+
+#~ msgid "The scheduled action has been updated"
+#~ msgstr "计划的信息已更新"
+
+#~ msgid "The scheduled action has been processed"
+#~ msgstr "计划的信息已处理"
+
+#~ msgid "Create new blog"
+#~ msgstr "新建博客"
+
+#~ msgid "Create new user"
+#~ msgstr "新建用户"
+
+#~ msgid "Message delay"
+#~ msgstr "信息延时"
+
+#~ msgid "Send immediately"
+#~ msgstr "立即发送"
+
+#~ msgid "1 day"
+#~ msgstr "1 天"
+
+#~ msgid "%d days"
+#~ msgstr "%d 天"
+
+#~ msgid "Message Subject"
+#~ msgstr "信息主题"
+
+#~ msgid "Message subject"
+#~ msgstr "信息主题"
+
+#~ msgid "Message"
+#~ msgstr "信息"
+
+#~ msgid ""
+#~ "You can use the following constants within the message body to embed "
+#~ "database information."
+#~ msgstr "可以使用下面的常量在邮件正文中嵌入数据库信息。"
+
+#~ msgid "Update action"
+#~ msgstr "更新信息"
+
+#~ msgid "Time delay"
+#~ msgstr "延时"
+
+#~ msgid "Subject"
+#~ msgstr "主题"
+
+#~ msgid "Queued"
+#~ msgstr "排队"
+
+#~ msgid "[Paused] "
+#~ msgstr "[暂停]"
+
+#~ msgid "Pause this message"
+#~ msgstr "暂停此信息"
+
+#~ msgid "Pause"
+#~ msgstr "暂停"
+
+#~ msgid "Unpause this message"
+#~ msgstr "取消暂停此信息"
+
+#~ msgid "Unpause"
+#~ msgstr "取消暂停"
+
+#~ msgid "Process this message"
+#~ msgstr "处理此信息"
+
+#~ msgid "Process"
+#~ msgstr "处理"
+
+#~ msgid "Immediate"
+#~ msgstr "即时"
+
+#~ msgid "%d %s"
+#~ msgstr "%d %s"
+
+#~ msgid "%d %ss"
+#~ msgstr "%d %s"
+
+#~ msgid "You are running Automessage version "
+#~ msgstr "你所用的自动信息插件版本为 "
+
+#~ msgid "Debug mode is "
+#~ msgstr "调试模式 "
+
+#~ msgid "Enabled"
+#~ msgstr "已启用"
+
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "Automessage dashboard"
+#~ msgstr "自动信息仪表盘"
+
+#~ msgid "Add New"
+#~ msgstr "添加新信息"
+
+#~ msgid "Notice: Processing stopped due to %d second timeout."
+#~ msgstr "注意：超时 %d 秒后停止处理"
+
+#~ msgid ""
+#~ "To stop receiving messages from %sitename% click on the following link: "
+#~ "%siteurl%/unsubscribe/"
+#~ msgstr ""
+#~ "如果不想再接收来自 %sitename% 的信息，请点击下面的链接：%siteurl%/"
+#~ "unsubscribe/"
+
+#~ msgid "Unsubscribe request processed"
+#~ msgstr "取消订阅的请求已处理"
+
+#~ msgid ""
+#~ "Your unsubscribe request has been processed and you have been removed "
+#~ "from our mailing list.\n"
+#~ "\n"
+#~ "Thank you\n"
+#~ "\n"
+#~ msgstr ""
+#~ "你的取消订阅的请求已被处理，已将你从邮件列表中删除\n"
+#~ "\n"
+#~ "谢谢\n"
+#~ "\n"
+
+#~ msgid "Data migration"
+#~ msgstr "数据迁移"
+
+#~ msgid ""
+#~ "You have a previous install of Automessage on this server to migrate from."
+#~ msgstr "你在此服务器上有一个以前安装的自动信息可迁移。"
+
+#~ msgid ""
+#~ "Click on the button below to start a migration. This may take some time."
+#~ msgstr "点击下面的按钮开始迁移。这可能需要一些时间。"
+
+#~ msgid "Migrating data."
+#~ msgstr "迁移数据"
+
+#~ msgid "Please wait whilst we migrate your data."
+#~ msgstr "数据正在迁移，请稍等。"
+
+#~ msgid "Moving blog level messages..."
+#~ msgstr "移动博客级别信息..."
+
+#~ msgid "Moving user level messages..."
+#~ msgstr "移动用户级别信息..."
+
+#~ msgid ""
+#~ "You have not got a previous install of Automessage on this server to "
+#~ "migrate from."
+#~ msgstr "你在此服务器上没有一个以前安装的自动信息可迁移。"
+
+#~ msgid "Affiliate Debug : "
+#~ msgstr "联盟调试："
+
+#~ msgid "I have recorded a cookie from <strong>"
+#~ msgstr "我已经记录了一个 cookie 来自 <strong>"
+
+#~ msgid ""
+#~ "</strong>. Any purchases will be assigned to that account for <strong>"
+#~ msgstr "</strong>。在点击链接 <strong>"
+
+#~ msgid "</strong> days after the click."
+#~ msgstr "天内的任何购买，将分配到该账户。"
+
+#~ msgid ""
+#~ "The <strong>Not via an Affiliate</strong> cookie has been set. I am "
+#~ "ignoring any future affiliate clicks for this browser session."
+#~ msgstr ""
+#~ "<strong>Not via an Affiliate</strong> cookie 已经设置。我将忽略这个浏览器"
+#~ "会话中的联盟点击。"
+
+#~ msgid "No cookies are currently set - I am looking for cookies at : "
+#~ msgstr "目前没有设置任何 cookies - 我在寻在cookies："
+
+#~ msgid "Affiliate Settings"
+#~ msgstr "联盟设置"
+
+#~ msgid ""
+#~ "You can set the global commision amount paid to affiliates for referred "
+#~ "purchases below. Set it to 0 for no payments."
+#~ msgstr ""
+#~ "你可以设置用来支付给联盟推介购买的全局佣金金额。设为 0 将不支付佣金。"
+
+#~ msgid "Set percentage to be paid to affiliates"
+#~ msgstr "设置联盟佣金百分比"
+
+#~ msgid "%"
+#~ msgstr "%"
+
+#~ msgid "Affiliate settings"
+#~ msgstr "联盟设置"
+
+#~ msgid "Affiliate payment credited for a signup on this subscription"
+#~ msgstr "通过这个订阅地址注册所支付的联盟佣金"
+
+#~ msgid "Supporter payments settings"
+#~ msgstr "支持者付款设置"
+
+#~ msgid "1 Month payment"
+#~ msgstr "1个月付款"
+
+#~ msgid "Affiliate payment for one month."
+#~ msgstr "1个月联盟付款"
+
+#~ msgid "3 Month payment"
+#~ msgstr "3个月付款"
+
+#~ msgid "Affiliate payment for three months."
+#~ msgstr "3个月联盟付款"
+
+#~ msgid "12 Month payment"
+#~ msgstr "12个月付款"
+
+#~ msgid "Affiliate payment for twelve months."
+#~ msgstr "12个月联盟付款"
+
+#~ msgid "Unique Clicks"
+#~ msgstr "点击数"
+
+#~ msgid "Sign ups"
+#~ msgstr "注册数"
+
+#~ msgid "Paid members"
+#~ msgstr "付费数"
+
+#~ msgid "Affiliates"
+#~ msgstr "联盟"
+
+#~ msgid "Manage Affiliates"
+#~ msgstr "管理联盟"
+
+#~ msgid "Add-ons"
+#~ msgstr "扩展"
+
+#~ msgid "Affiliate Reports"
+#~ msgstr "联盟报告"
+
+#~ msgid "Affiliate Earnings Report"
+#~ msgstr "联盟收入报告"
+
+#~ msgid "Affiliate Referrals"
+#~ msgstr "联盟推荐"
+
+#~ msgid "Affiliate Banners"
+#~ msgstr "联盟广告"
+
+#~ msgid "Debits"
+#~ msgstr "借记"
+
+#~ msgid "Payments"
+#~ msgstr "付款"
+
+#~ msgid "This URL is already in use."
+#~ msgstr "这个链接已使用"
+
+#~ msgid "Validated"
+#~ msgstr "已验证"
+
+#~ msgid "Not validated"
+#~ msgstr "未验证"
+
+#~ msgid "Affiliate Referral Report"
+#~ msgstr "联盟推荐报告"
+
+#~ msgid ""
+#~ "Hello, Thank you for supporting us</strong>, to view or change any of "
+#~ "your affiliate settings click on the edit link."
+#~ msgstr ""
+#~ "你好，非常感谢支持我们</strong>，你可以点击右边的“编辑”链接查看或修改你的"
+#~ "联盟设置"
+
+#~ msgid "edit"
+#~ msgstr "编辑"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "\t\t\t<p>As a thank you we would like to offer something back, which is "
+#~ "why we have set up this affiliate program.</p>\n"
+#~ "\t\t\t<p>To get started simply enable the links for your account and "
+#~ "enter your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "\t\t\t<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟"
+#~ "系统。</p>\n"
+#~ "\t\t\t<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。"
+#~ "要了解联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Enable Affiliate links"
+#~ msgstr "启用联盟链接"
+
+#~ msgid "No thanks"
+#~ msgstr "否"
+
+#~ msgid "Affiliate Advanced Settings"
+#~ msgstr "联盟高级设置"
+
+#~ msgid ""
+#~ "<p>There are times when you would rather hide your affiliate link, or "
+#~ "simply not have to bother remembering the affiliate reference to put on "
+#~ "the end of our URL.</p>\n"
+#~ "\t\t\t\t\t<p>If this is the case, then you can enter the main URL of the "
+#~ "site you will be sending requests from below, and we will sort out the "
+#~ "tricky bits for you.</p>"
+#~ msgstr ""
+#~ "<p>有时候，你宁愿隐藏你的联盟链接，或者干脆不必费心记住添加到我们网址链接"
+#~ "后面的联盟参数。</p>\n"
+#~ "\t\t\t\t\t<p>如果是这样的话，你可以在下面输入你网站的链接URL，我们将为你去"
+#~ "掉后面的联盟参数。</p>"
+
+#~ msgid "Your URL"
+#~ msgstr "你的链接"
+
+#~ msgid ""
+#~ "You need to validate this URL by uploading a file to the root of the site "
+#~ "above with the following name : "
+#~ msgstr "你需要上传一个文件到你的网站根目录，以便验证这个链接，该文件名为："
+
+#~ msgid "[click here to check if the file exists]"
+#~ msgstr "[ 点击这里验证文件是否存在 ]"
+
+#~ msgid "Validate"
+#~ msgstr "验证"
+
+#~ msgid "<h3>Affiliate Details</h3>"
+#~ msgstr "<h3>联盟详情</h3>"
+
+#~ msgid ""
+#~ "In order for us to track your referrals, you should use the following URL "
+#~ "to link to our site:"
+#~ msgstr "为了让我们统计你的推荐，你应该使用下面的URL链接到我们的网站。"
+
+#~ msgid "<strong>%s?ref=%s</strong>"
+#~ msgstr "<strong>%s?ref=%s</strong>"
+
+#~ msgid ""
+#~ "Alternatively you can just link directly to the URL below from the site "
+#~ "you entered in the advanced settings above:"
+#~ msgstr "此外，你可以从上面高级设置中所输入的网站，直接链接到下面的URL："
+
+#~ msgid "<strong>%s</strong>"
+#~ msgstr "<strong>%s</strong>"
+
+#~ msgid ""
+#~ "If you would rather use a banner or button then we have a wide selection "
+#~ "of sizes <a href=\"%s\">here</a>."
+#~ msgstr ""
+#~ "如果你宁愿使用横幅或按钮，那么我们有多种尺寸可供选择，你可以在 <a href="
+#~ "\"%s\">这里</a> 进行选择。"
+
+#~ msgid ""
+#~ "<strong>You can check on your referral totals by viewing the details on "
+#~ "this page</strong>"
+#~ msgstr "<strong>你可以在这个页面查看你所有推荐详情</strong>"
+
+#~ msgid "Hello, why not consider becoming an affiliate?"
+#~ msgstr "你好，为什么不考虑成为一个联盟会员呢？"
+
+#~ msgid "Top referrers for "
+#~ msgstr "热门推荐"
+
+#~ msgid "Visits"
+#~ msgstr "访问"
+
+#~ msgid ""
+#~ "<tr><td colspan=\"2\">You have no referred visits this month.</td></tr>"
+#~ msgstr "<tr><td colspan=\"2\">你这个月没有任何推荐访问</td></tr>"
+
+#~ msgid "Top referrers over past 18 months"
+#~ msgstr "过去 18 个月的热门推荐"
+
+#~ msgid "<tr><td colspan=\"2\">You have no overall referred visits.</td></tr>"
+#~ msgstr "<tr><td colspan=\"2\">你没有整体推荐访问</td></tr>"
+
+#~ msgid ""
+#~ "So, you want something more exciting than a straight forward text link?"
+#~ msgstr "所以，你想要比直接的文本链接更吸引人的东西？"
+
+#~ msgid ""
+#~ "Not to worry, we've got banners and buttons galore. To use them simply "
+#~ "copy and paste the HTML underneath the graphic that you want to use."
+#~ msgstr ""
+#~ "不必担心，我们已经准备了漂亮的横幅和按钮供你选择。你只需要复制下面的HTML代"
+#~ "码，然后粘贴到你的网站即可。"
+
+#~ msgid "Affiliate payment for"
+#~ msgstr "联盟付款给"
+
+#~ msgid "Affiliate payment for "
+#~ msgstr "联盟付款给"
+
+#~ msgid "Affiliate Link URL"
+#~ msgstr "联盟链接URL"
+
+#~ msgid "Profile page text"
+#~ msgstr "个人资料页文本"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "<p>As a thank you we would like to offer something back, which is why we "
+#~ "have set up this affiliate program.</p>\n"
+#~ "<p>To get started simply enable the links for your account and enter your "
+#~ "PayPal email address below, for more details on our affiliate program "
+#~ "please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟系统。"
+#~ "</p>\n"
+#~ "<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。要了解"
+#~ "联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Affiliate settings profile text"
+#~ msgstr "联盟设置个人资料文本"
+
+#~ msgid ""
+#~ "<p>There are times when you would rather hide your affiliate link, or "
+#~ "simply not have to bother remembering the affiliate reference to put on "
+#~ "the end of our URL.</p>\n"
+#~ "<p>If this is the case, then you can enter the main URL of the site you "
+#~ "will be sending requests from below, and we will sort out the tricky bits "
+#~ "for you.</p>"
+#~ msgstr ""
+#~ "<p>有时候，你宁愿隐藏你的联盟链接，或者干脆不必费心记住添加到我们网址链接"
+#~ "后面的联盟参数。</p>\n"
+#~ "<p>如果是这样的话，你可以输入网站的主链接，从下面的网址发送请求，我们将为"
+#~ "你理清棘手的位。</p>"
+
+#~ msgid "Affiliate advanced settings profile text"
+#~ msgstr "联盟高级设置个人资料文本"
+
+#~ msgid "Enable Banners"
+#~ msgstr "启用横幅广告"
+
+#~ msgid "Banner Image URLs (one per line)"
+#~ msgstr "横幅图片链接（每行一个）"
+
+#~ msgid "Approval Settings"
+#~ msgstr "批准设置"
+
+#~ msgid ""
+#~ "If you want to delay payouts to affiliates until they have been manually "
+#~ "approved then set this option below. "
+#~ msgstr "如果你想手动批准后再进行联盟支付，请设置下面的选项。"
+
+#~ msgid ""
+#~ "Affiliates will still be able to generate leads, whilst they are waiting "
+#~ "to be approved."
+#~ msgstr "联盟即使还在等待批准，仍可以正常生成引导"
+
+#~ msgid "Pay only approved affiliates"
+#~ msgstr "只支付批准的联盟"
+
+#~ msgid "Debit has been assigned correctly."
+#~ msgstr "借记已分配正确"
+
+#~ msgid "Credit has been assigned correctly."
+#~ msgstr "信用已分配正确"
+
+#~ msgid "Payment has been assigned correctly."
+#~ msgstr "付款已正确分配"
+
+#~ msgid "Details for user : "
+#~ msgstr "用户的详情："
+
+#~ msgid "linked to "
+#~ msgstr "链接到"
+
+#~ msgid "Approve user account"
+#~ msgstr "批准用户帐户"
+
+#~ msgid "not approved"
+#~ msgstr "未批准"
+
+#~ msgid " to receive affiliate payments."
+#~ msgstr "接收联盟付款。"
+
+#~ msgid "Period : "
+#~ msgstr "时间："
+
+#~ msgid "Value : "
+#~ msgstr "价值："
+
+#~ msgid "Credit user account"
+#~ msgstr "信用卡用户帐户"
+
+#~ msgid "Add Credit"
+#~ msgstr "添加信用卡"
+
+#~ msgid "Set Payment on account"
+#~ msgstr "设置帐户的付款"
+
+#~ msgid "Add Payment"
+#~ msgstr "添加付款"
+
+#~ msgid "Find user with username"
+#~ msgstr "通过用户名查找用户"
+
+#~ msgid "Search"
+#~ msgstr "搜索"
+
+#~ msgid "Manage Affiliate"
+#~ msgstr "管理联盟"
+
+#~ msgid "There are no users matching the search criteria."
+#~ msgstr "没有符合搜索条件的用户"
+
+#~ msgid "Affiliate reports"
+#~ msgstr "联盟报告"
+
+#~ msgid "Manage affiliates"
+#~ msgstr "管理联盟"
+
+#~ msgid "Manage add-ons"
+#~ msgstr "管理扩展"
+
+#~ msgid "Affiliate System Administration"
+#~ msgstr "联盟系统管理"
+
+#~ msgid "Payments has been assigned correctly."
+#~ msgstr "付款已分配正确"
+
+#~ msgid "Show report for"
+#~ msgstr "显示报告给"
+
+#~ msgid "Refresh"
+#~ msgstr "刷新"
+
+#~ msgid "Export Payments"
+#~ msgstr "导出付款"
+
+#~ msgid "Mark as Paid"
+#~ msgstr "标记为已支付"
+
+#~ msgid "There are no results for the selected month."
+#~ msgstr "所选月份没有任何结果"
+
+#~ msgid "Referred by"
+#~ msgstr "推荐人："
+
+#~ msgid "Addon updated."
+#~ msgstr "扩展已更新"
+
+#~ msgid "Addon not updated."
+#~ msgstr "扩展未更新"
+
+#~ msgid "Addon not activated."
+#~ msgstr "扩展未启用"
+
+#~ msgid "Addon deactivated."
+#~ msgstr "扩展已停用"
+
+#~ msgid "Addon activation toggled."
+#~ msgstr "扩展状态已切换"
+
+#~ msgid "Toggle activation"
+#~ msgstr "切换状态"
+
+#~ msgid "Active"
+#~ msgstr "状态"
+
+#~ msgid "Deactivate"
+#~ msgstr "停用"
+
+#~ msgid "Network Activate"
+#~ msgstr "网络启用"
+
+#~ msgid "Inactive"
+#~ msgstr "未启用"
+
+#~ msgid "Referred"
+#~ msgstr "推荐"
+
+#~ msgid "Affiliate Report"
+#~ msgstr "联盟报告"
+
+#~ msgid ""
+#~ "You are not currently logged in. Please %s to see your affiliate "
+#~ "information."
+#~ msgstr "你目前还没有登录，请 %s 后查看联盟信息。"
+
+#~ msgid "login"
+#~ msgstr "登录"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p><p>As a thank you we would like to "
+#~ "offer something back, which is why we have set up this affiliate program."
+#~ "</p><p>To get started simply enable the links for your account and enter "
+#~ "your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p><p>作为感谢，我们"
+#~ "希望给你们一些回馈，这就是为什么我们要安装这个联盟系统。</p><p>你只需要为"
+#~ "你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。要了解联盟计划的更多"
+#~ "详情，请访问我们的主网站。</p>"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "\t\t<p>As a thank you we would like to offer something back, which is why "
+#~ "we have set up this affiliate program.</p>\n"
+#~ "\t\t<p>To get started simply enable the links for your account and enter "
+#~ "your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "\t\t\t<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟"
+#~ "系统。</p>\n"
+#~ "\t\t\t<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。"
+#~ "要了解联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Email Notification"
+#~ msgstr "邮件通知"
+
+#~ msgid "Yes"
+#~ msgstr "Yes"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#~ msgid "Receive an email when someone adds you as a friend"
+#~ msgstr "当有人添加你为好友，发送邮件通知"
+
+#~ msgid "Friends"
+#~ msgstr "好友"
+
+#~ msgid "Find Friends"
+#~ msgstr "找好友"
+
+#~ msgid "Friend Requests"
+#~ msgstr "好友请求"
+
+#~ msgid "Cheatin&#8217; uh?"
+#~ msgstr "不忠&#8217; 呃？"
+
+#~ msgid "Friend Removed"
+#~ msgstr "删除好友"
+
+#~ msgid "Friend will be added pending approval."
+#~ msgstr "好友将在审核同意后添加"
+
+#~ msgid "Friend Request Rejected"
+#~ msgstr "好友请求被拒绝"
+
+#~ msgid "Quick Message Success."
+#~ msgstr "信息发送成功"
+
+#~ msgid "Quick Message Failed."
+#~ msgstr "信息发送失败"
+
+#~ msgid "Email Approval Template"
+#~ msgstr "邮件同意模板"
+
+#~ msgid "Email Rejection Template"
+#~ msgstr "邮件拒绝模板"
+
+#~ msgid ""
+#~ "The Friends plugin lets users connect with other users within the "
+#~ "WordPress Multisite environment. Once connected friends can send message "
+#~ "to each other. Also available is a handy widget to display a user's "
+#~ "friends listing"
+#~ msgstr ""
+#~ "这个好友插件可以让多站点之间的用户相互联系。一旦成为好友，就可以相互间发送"
+#~ "信息。当然，也包含一个不错的小工具，用来显示用户的好友列表。"
+
+#~ msgid ""
+#~ "The Friends listing page will show all user your have connections with. "
+#~ "From the listing you can send messages to users. Also you can remove "
+#~ "users who may have become unfriendly."
+#~ msgstr ""
+#~ "好友列表页面将显示你所添加的所有好友，你可以通过这个页面给好友发送信息，你"
+#~ "还可以删除那些不友好的用户。"
+
+#~ msgid "<strong>Friend</strong> - This is the user's display name."
+#~ msgstr "<strong>好友</strong> - 用户的昵称"
+
+#~ msgid ""
+#~ "<strong>Send Message</strong> - Once you are connected to other friends "
+#~ "you can send them messages."
+#~ msgstr ""
+#~ "<strong>发送信息</strong> - 一旦你成功添加对方为好友，就可以给他们发送信息"
+
+#~ msgid "<strong>View Blog</strong> - View the user's blog"
+#~ msgstr "<strong>查看博客</strong> - 查看用户博客"
+
+#~ msgid "<strong>Remove</strong> - Allows you to remove the user as a friend."
+#~ msgstr "<strong>移除</strong> - 允许你删除好友"
+
+#~ msgid ""
+#~ "Using the search on this page you can search for other users within this "
+#~ "Multisite system. You can locate other user by searching for Name, Login "
+#~ "or Email. Click the Search button and all matching users will be listed. "
+#~ "Beside each user will be an Add link which will create a request to the "
+#~ "user. The user will need to accept the request to complete the friend "
+#~ "connection. Within the list if you see Pending instead of Add this means "
+#~ "the friend request has already been sent to this user."
+#~ msgstr ""
+#~ "通过这个页面搜索，你可以找到这个多站点网络中的其他用户。输入用户姓名、登录"
+#~ "名或电子邮件，点击“搜索”按钮，就可以显示符合条件的用户。每个用户都有一"
+#~ "个“加为好友”的链接，你可以快速提交好友申请，对方审核通过后就可以了。如果在"
+#~ "列表显示“审核中”，而不是“加为好友”，意味着你已经给该用户发送了好友请求。"
+
+#~ msgid ""
+#~ "When another user requests you to be their friend they will be listed on "
+#~ "this page. To complete the friend connection you must approve the "
+#~ "request. You may also opt to reject the request."
+#~ msgstr ""
+#~ "当其他用户求情加你为好友时，他们会显示在这个页面。你可以审核同意或者拒绝请"
+#~ "求。"
+
+#~ msgid ""
+#~ "This page contains various metaboxes to let you control the email "
+#~ "templates used during the friend connection processing."
+#~ msgstr ""
+#~ "该页面包含各种 Meta 模块，你可以通过它们设计邮件模板，以便在好友链接管理中"
+#~ "使用。"
+
+#~ msgid ""
+#~ "<strong>Email Request Template</strong> - This template contains the "
+#~ "Subject and Content used when one user requests to be friend's with "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件请求模板</strong> - 这个模板是给用户发送好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid ""
+#~ "<strong>Email Approval Template</strong> - This template contains the "
+#~ "Subject and Content used when one user approves a friend request from "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件同意模板</strong> - 这个模板是给用户同意好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid ""
+#~ "<strong>Email Rejection Template</strong> - This template contains the "
+#~ "Subject and Content used when one user rejects a friend request from "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件拒绝模板</strong> - 这个模板是给用户拒绝好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid "Friend Request"
+#~ msgstr "好友请求"
+
+#~ msgid "Previous Page"
+#~ msgstr "上一页"
+
+#~ msgid "Next Page"
+#~ msgstr "下一页"
+
+#~ msgid "Friend"
+#~ msgstr "好友"
+
+#~ msgid "View Blog"
+#~ msgstr "查看博客"
+
+#~ msgid "Your friends list is currently empty"
+#~ msgstr "你的好友列表目前是空的"
+
+#~ msgid "Send Message To"
+#~ msgstr "发送信息给"
+
+#~ msgid "Quick Message"
+#~ msgstr "快捷信息"
+
+#~ msgid "Send"
+#~ msgstr "发送"
+
+#~ msgid "Search by friends display name, username or email address"
+#~ msgstr "通过好友的姓名、用户名或邮箱进行搜索"
+
+#~ msgid "Show existing friends"
+#~ msgstr "显示已有好友"
+
+#~ msgid "Add"
+#~ msgstr "加为好友"
+
+#~ msgid "No pending Friend requests"
+#~ msgstr "没有待审的好友请求"
+
+#~ msgctxt "Friends Plugin Page Title"
+#~ msgid "Friends Settings"
+#~ msgstr "好友设置"
+
+#~ msgid ""
+#~ "This Email template is used when one user requests to be friends with "
+#~ "another user."
+#~ msgstr "这个邮件模板是用来给用户发送好友请求时用的"
+
+#~ msgid ""
+#~ "This Email template is used when a user receives a request from another "
+#~ "user to become friends. And the user approves the friend request."
+#~ msgstr ""
+#~ "这个邮件模板是当一个用户接收到其他用户的好友请求，用户同意请求时用的。"
+
+#~ msgid ""
+#~ "This Email template is used when a user receives a request from another "
+#~ "user to become friends. And the user reject the friend request."
+#~ msgstr ""
+#~ "这个邮件模板是当一个用户接收到其他用户的好友请求，用户拒绝请求时用的。"
+
+#~ msgid ""
+#~ "Instructions: Use the following replaceable tokens in your message. These "
+#~ "will be replaced with the real information for user, site, content, etc.. "
+#~ "Note all tokens are wrapped in square brackets."
+#~ msgstr ""
+#~ "说明：在信息中使用以下可用变量，它们将在邮件中被替换为真正的用户、网站、内"
+#~ "容 等。注意：所有的变量都要放在方括号[ ]中。"
+
+#~ msgid "The name of the sender's primary site"
+#~ msgstr "发件人的主站点的名称"
+
+#~ msgid "The URL of the sender's primary site"
+#~ msgstr "发件人的主站点的URL"
+
+#~ msgid "The user name requesting friendship."
+#~ msgstr "好友请求的用户名"
+
+#~ msgid "The user name being friended."
+#~ msgstr "好友的用户名"
+
+#~ msgid "The TO_USER primary site admin page for the Friend Request."
+#~ msgstr "好友请求的TO_USER主站点的管理页面"
+
+#~ msgid "Mosaic"
+#~ msgstr "嵌套"

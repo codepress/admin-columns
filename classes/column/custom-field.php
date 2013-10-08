@@ -86,6 +86,31 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
+	 * Get First ID from array
+	 *
+	 * @since 1.0
+	 *
+	 * @param string $meta
+	 * @return string Titles
+	 */
+	public function get_ids_from_meta( $meta ) {
+
+		//remove white spaces and strip tags
+		$meta = $this->strip_trim( str_replace( ' ','', $meta ) );
+
+		// var
+		$ids = array();
+
+		// check for multiple id's
+		if ( strpos( $meta, ',' ) !== false )
+			$ids = explode( ',', $meta );
+		elseif ( is_numeric( $meta ) )
+			$ids[] = $meta;
+
+		return $ids;
+	}
+
+	/**
 	 * Get Title by ID - Value method
 	 *
 	 * @since 1.0
@@ -95,24 +120,15 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	private function get_titles_by_id( $meta ) {
 
-		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ','', $meta ) );
-
-		// var
-		$ids = $titles = array();
-
-		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false )
-			$ids = explode( ',', $meta );
-		elseif ( is_numeric( $meta ) )
-			$ids[] = $meta;
+		$ids = $this->get_ids_from_meta( $meta );
 
 		// display title with link
 		if ( $ids && is_array( $ids ) ) {
 			foreach ( $ids as $id ) {
-				$title = is_numeric( $id ) ? get_the_title( $id ) : '';
+				if ( ! is_numeric( $id ) ) continue;
+
 				$link  = get_edit_post_link( $id );
-				if ( $title )
+				if ( $title = get_the_title( $id ) )
 					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
 			}
 		}
@@ -130,25 +146,12 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	private function get_users_by_id( $meta )	{
 
-		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
-
-		// var
-		$ids = $names = array();
-
-		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false ) {
-			$ids = explode( ',',$meta );
-		}
-		elseif ( is_numeric( $meta ) ) {
-			$ids[] = $meta;
-		}
+		$ids = $this->get_ids_from_meta( $meta );
 
 		// display username
 		if ( $ids && is_array( $ids ) ) {
 			foreach ( $ids as $id ) {
-				if ( ! is_numeric( $id ) )
-					continue;
+				if ( ! is_numeric( $id ) ) continue;
 
 				$userdata = get_userdata( $id );
 				if ( is_object( $userdata ) && ! empty( $userdata->display_name ) ) {

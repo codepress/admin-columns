@@ -286,7 +286,7 @@ function cpac_add_column() {
 		if ( clone.length > 0 ) {
 
 			// add to DOM
-			jQuery('.cpac-columns', container).append( clone );
+			jQuery('.cpac-columns form', container).append( clone );
 
 			// increment clone id
 			clone.cpac_update_clone_id();
@@ -455,6 +455,7 @@ function cpac_pointer() {
  */
 function cpac_sortable() {
 	jQuery('div.cpac-columns').sortable({
+		items					: '.cpac-column',
 		revert					: 250,
 		handle					: 'td.column_sort',
 		placeholder				: 'cpac-placeholder',

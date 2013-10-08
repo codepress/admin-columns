@@ -37,6 +37,8 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
+		if ( ! function_exists('_get_list_table') ) return array();
+
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/storage_key={$this->key}" );
