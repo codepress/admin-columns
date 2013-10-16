@@ -10,8 +10,9 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	function __construct( $storage_model ) {
 
 		// define properties
-		$this->properties['type']	 	= 'column-comment_status';
-		$this->properties['label']	 	= __( 'Comment status', 'cpac' );
+		$this->properties['type']				= 'column-comment_status';
+		$this->properties['label']				= __( 'Comment status', 'cpac' );
+		$this->properties['object_property']	= 'comment_status';
 
 		parent::__construct( $storage_model );
 	}
@@ -22,12 +23,21 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
-		$p = get_post( $post_id );
-
-		$value = $this->get_asset_image( 'no.png', $p->comment_status );
-		if ( 'open' == $p->comment_status )
-			$value = $this->get_asset_image( 'checkmark.png', $p->comment_status );
+		$comment_status = $this->get_raw_value( $post_id );
+		
+		$value = $this->get_asset_image( 'no.png', $comment_status );
+		if ( 'open' == $comment_status )
+			$value = $this->get_asset_image( 'checkmark.png', $comment_status );
 
 		return $value;
+	}
+	
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+		
+		return get_post_field( 'comment_status', $post_id, 'raw' );
 	}
 }

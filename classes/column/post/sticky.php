@@ -33,9 +33,18 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		if ( ! is_sticky( $post_id ) )
+		if ( ! ( $sticky = $this->get_raw_value( $post_id ) ) )
 			return false;
 
 		return $this->get_asset_image( 'checkmark.png' );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+		
+		return is_sticky( $post_id );
 	}
 }

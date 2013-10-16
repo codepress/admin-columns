@@ -20,9 +20,16 @@ class CPAC_Column_Post_Page_Template extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
-		$page_template = get_post_meta( $post_id, '_wp_page_template', true );
+		return array_search( $this->get_raw_value( $post_id ), get_page_templates() );
+	}
 
-		return array_search( $page_template, get_page_templates() );
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+		
+		return get_post_meta( $post_id, '_wp_page_template', true );
 	}
 
 	/**

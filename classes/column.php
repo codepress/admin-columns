@@ -52,6 +52,16 @@ class CPAC_Column {
 	 * @return string Value
 	 */
 	public function get_value( $id ) {}
+	
+	/**
+	 * Get the raw, underlying value for the column
+	 * Not suitable for direct display, use get_value() for that
+	 *
+	 * @since 2.0.3
+	 * @param int $id ID
+	 * @return mixed Value
+	 */
+	public function get_raw_value( $id ) {}
 
 	/**
 	 * Display_settings

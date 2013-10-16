@@ -20,6 +20,15 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
+		return $this->get_raw_value( $post_id );
+	}
+	
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+	
 		return str_word_count( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
 	}
 

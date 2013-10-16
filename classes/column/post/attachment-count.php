@@ -20,6 +20,15 @@ class CPAC_Column_Post_Attachment_Count extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
+		return $this->get_raw_value( $post_id );
+	}
+	
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+	
 		$attachment_ids = get_posts( array(
 			'post_type' 	=> 'attachment',
 			'numberposts' 	=> -1,

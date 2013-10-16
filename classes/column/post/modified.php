@@ -22,8 +22,19 @@ class CPAC_Column_Post_Modified extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
+		$modified = $this->get_raw_value( $post_id );
+		
+		return $this->get_date( $modified ) . ' ' . $this->get_time( $modified );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+
 		$p = get_post( $post_id );
 
-		return $this->get_date( $p->post_modified ) . ' ' . $this->get_time( $p->post_modified );
+		return $p->post_modified;
 	}
 }
