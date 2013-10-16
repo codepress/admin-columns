@@ -47,11 +47,12 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 		$count 	= wp_count_comments( $post_id );
 
 		if ( isset( $count->{$status} ) ) {
-
+			$use_count = $count->{$status};
+			
 			$names = $this->get_comment_stati();
 
 			$url   = esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ) );
-			$value = "<a href='{$url}' class='cp-{$status}' title='" . $names[ $status ] . "'>{$count->approved}</a>";
+			$value = "<a href='{$url}' class='cp-{$status}' title='" . $names[ $status ] . "'>{$use_count}</a>";
 		}
 
 		return $value;
