@@ -24,7 +24,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
-		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 10, 3 );
+		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 10, 3 );
 
 		//@todo: remove parent::__construct();
 	}
@@ -54,13 +54,12 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	/**
 	 * Manage value
 	 *
-	 * @since 2.0.0
+	 * @since 2.0.2
 	 *
-	 * @param string $value
 	 * @param string $column_name
-	 * @param int $post_id
+	 * @param int $user_id
 	 */
-	public function manage_value( $value, $column_name, $user_id ) {
+	function manage_value( $column_name, $user_id, $value = '' ) {
 
 		// get column instance
 		$column = $this->get_column_by_name( $column_name );
@@ -78,6 +77,20 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		}
 
 		return apply_filters( "cac/column/value/type={$this->key}", $value, $column );
+	}
+
+	/**
+	 * Callback Manage value
+	 *
+	 * @since 2.0.2
+	 *
+	 * @param string $value
+	 * @param string $column_name
+	 * @param int $user_id
+	 */
+	public function manage_value_callback( $value, $column_name, $user_id ) {
+
+		return $this->manage_value( $column_name, $user_id, $value );
 	}
 
 	/**
