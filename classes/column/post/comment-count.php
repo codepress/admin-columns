@@ -45,7 +45,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 
 		$status = $this->options->comment_status;
 		$count 	= $this->get_raw_value( $post_id );
-		
+
 		if ( $count !== '' ) {
 			$names = $this->get_comment_stati();
 
@@ -55,13 +55,13 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 
 		return $value;
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-	
+
 		$value = '';
 
 		$status = $this->options->comment_status;

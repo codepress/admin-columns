@@ -27,13 +27,13 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 
 		return $this->get_raw_value( $post_id );
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-	
+
 		$value = '';
 
 		$p = get_post( $post_id );

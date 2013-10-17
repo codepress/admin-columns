@@ -34,7 +34,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		// for retireving sorting preference
 		$this->user_settings = get_option( 'cpac_general_options' );
 
-		// call contruct
+		// call construct
 		parent::__construct( $storage_model );
 	}
 
@@ -263,20 +263,29 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
+	 * Get Field key
+	 *
+	 * @since 2.0.3
+	 *
+	 * @param string Custom Field Key
+	 */
+	function get_field_key() {
+
+		return substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
+	}
+
+	/**
 	 * Get meta by ID
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 *
 	 * @param int $id ID
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
 
-		// rename hidden custom fields to their original name
-		$field = substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
-
 		// get metadata
-		$meta = get_metadata( $this->storage_model->type, $id, $field, true );
+		$meta = $this->get_raw_value( $id );
 
 		// try to turn any array into a comma seperated string for further use
 		if ( ( 'array' == $this->options->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
@@ -295,6 +304,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	function get_before() {
+
 		return stripslashes( $this->options->before );
 	}
 
@@ -304,7 +314,17 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	function get_after() {
+
 		return stripslashes( $this->options->before );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $id, $single = true ) {
+
+		return get_metadata( $this->storage_model->type, $id, $this->get_field_key(), $single );
 	}
 
 	/**

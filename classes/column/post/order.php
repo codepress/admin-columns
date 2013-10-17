@@ -42,7 +42,7 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		return get_post_field( 'menu_order', $post_id );
 	}
 }

@@ -25,7 +25,7 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 		$value = '';
 
 		$post_status = $this->get_raw_value( $post_id );
-		
+
 		$p = get_post( $post_id );
 
 		$builtin_status = array(
@@ -42,15 +42,15 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 
 		return $value;
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		$p = get_post( $post_id );
-		
+
 		return $p->post_status;
 	}
 }

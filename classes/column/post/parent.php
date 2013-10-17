@@ -36,12 +36,12 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		$parent_id = get_post_field( 'post_parent', $post_id );
 
 		if ( !$parent_id || !is_numeric( $parent_id ) )
 			return false;
-		
+
 		return $parent_id;
 	}
 

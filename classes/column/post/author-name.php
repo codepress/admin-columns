@@ -92,17 +92,17 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 		return $value;
 	}
-	
+
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		if ( !( $author = get_post_field( 'post_author', $post_id ) ) ) {
 			$author = 0;
 		}
-		
+
 		return 0;
 	}
 

@@ -58,6 +58,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 *
 	 * @param string $column_name
 	 * @param int $user_id
+	 * @param string $value
 	 */
 	function manage_value( $column_name, $user_id, $value = '' ) {
 
@@ -70,9 +71,8 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		// get value
 		$custom_value = $column->get_value( $user_id );
 
-		// get value
 		// make sure it absolutely empty and check for (string) 0
-		if ( ! empty( $custom_value ) || $custom_value === '0' ) {
+		if ( ! empty( $custom_value ) || '0' === $custom_value ) {
 			$value = $custom_value;
 		}
 

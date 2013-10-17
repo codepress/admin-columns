@@ -44,7 +44,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		return is_sticky( $post_id );
 	}
 }
