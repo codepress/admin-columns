@@ -580,7 +580,29 @@ abstract class CPAC_Storage_Model {
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
-     /**
+	/**
+	 * Is columns screen
+	 *
+	 * @since 2.0.3
+	 *
+	 * @global string $pagenow
+     * @global object $current_screen
+     * @return boolean
+	 */
+	function is_columns_screen() {
+
+		global $pagenow, $current_screen;
+
+		if ( $this->page . '.php' != $pagenow )
+			return false;
+
+		if ( ! empty( $current_screen->post_type ) && $this->key != $current_screen->post_type )
+			return false;
+
+		return true;
+	}
+
+    /**
      * Checks if the current page is the settings page
      *
      * @since 2.0.2
