@@ -52,7 +52,7 @@ class CPAC_Column {
 	 * @return string Value
 	 */
 	public function get_value( $id ) {}
-	
+
 	/**
 	 * Get the raw, underlying value for the column
 	 * Not suitable for direct display, use get_value() for that
@@ -873,10 +873,11 @@ class CPAC_Column {
 	public function get_column_list( $columns = array(), $label = '' ) {
 
 		if ( empty( $columns ) )
-			return array();
+			return false;
 
 		$list = '';
 
+		// sort by alphabet
 		$_columns = array();
 		foreach ( $columns as $column ) {
 			$_columns[ $column->properties->type ] = 0 === strlen( strip_tags( $column->properties->label ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
@@ -904,7 +905,7 @@ class CPAC_Column {
 		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
 
 		// column list
-		$column_list = $this->get_column_list( $this->storage_model->get_custom_registered_columns(), __( 'Custom', 'cpac' ) );
+		$column_list  = $this->get_column_list( $this->storage_model->get_custom_registered_columns(), __( 'Custom', 'cpac' ) );
 		$column_list .= $this->get_column_list( $this->storage_model->get_default_registered_columns(), __( 'Default', 'cpac' ) );
 
 		// clone attribute
@@ -923,7 +924,7 @@ class CPAC_Column {
 								<div class="inner">
 									<div class="meta">
 
-									<?php do_action( 'cac/column/label', $this ); ?>
+										<?php do_action( 'cac/column/label', $this ); ?>
 
 									</div>
 									<a class="toggle" href="javascript:;">

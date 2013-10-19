@@ -51,7 +51,7 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 2.0.1
 	 */
-	protected $columns;
+	public $columns;
 
 	/**
 	 * Get default columns
@@ -282,7 +282,7 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @return array Column Type | Column Instance
 	 */
-	function get_default_registered_columns() {
+	public function get_default_registered_columns() {
 
 		$columns = array();
 

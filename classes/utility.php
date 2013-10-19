@@ -25,7 +25,7 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  * @return string Message.
  */
 function cpac_admin_notice() {
+
     echo implode( $GLOBALS['cpac_messages'] );
 }
-
 
