@@ -105,13 +105,13 @@ With the custom field column you can display any custom field values. It can sho
 
 = Sortable Custom Columns for all Screens =
 
-All of the new columns will have support for sorting with the <a href="http://www.codepress.nl/plugins/codepress-admin-columns/sortorder-addon/">sorting addon</a>.
+All of the new columns will have support for sorting with the <a href="http://www.codepresshq.com/wordpress-plugins/admin-columns/pro-add-on/">Pro add-on</a>.
 
 By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>. (columns that are added by other plugins are not supported)
 
 = Third party plugin support =
 
-It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), Co-Authors Plus and Advanced Custom Fields.
+It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), WooCommerce, Co-Authors Plus and Advanced Custom Fields.
 
 = Translations =
 
@@ -126,7 +126,7 @@ If you like to contrinute a language, please use <a href="https://www.transifex.
 
 = Upcoming releases =
 
-* We will post the upcoming features on <a href="http://www.codepresshq.com/wordpress-plugins/admin-columns/">our website</a>.
+* We will post the <a href="https://github.com/codepress/codepress-admin-columns/issues?labels=enhancement&milestone=none&page=1&sort=updated&state=open">upcoming features on GitHub</a>.
 
 **Feedback**
 
@@ -144,10 +144,14 @@ You can leave any <a href='http://www.codepresshq.com/support/'>requests or feed
 
 == Frequently Asked Questions ==
 
+= Is there documentation for Admin Columns? =
+
+Yes, you will find all the documentation you need on <a href="http://www.codepresshq.com/documentation/codepress-admin-columns/">http://www.codepresshq.com/documentation/codepress-admin-columns/</a>.
+
 = I have an idea for a great way to improve this plugin =
 
 Great! I'd love to hear from you.
-Leave your feedback at http://www.codepress.nl/plugins/codepress-admin-columns/feedback.
+Leave your feedback at http://www.codepresshq.com/support.
 
 = How can I change the thumbnail size of images? =
 
@@ -199,6 +203,10 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 ?>
 `
 
+= What filters and hooks can I use? =
+
+Here you will find an overview of filters and examples: http://www.codepresshq.com/documentation/codepress-admin-columns/
+
 == Screenshots ==
 
 1. Settings page for Post(type) columns.
@@ -212,14 +220,15 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 
 == Changelog ==
 
-
 = 2.0.3 =
 * [Updated] Danish translation - thanks to iosoftgame
 * [Updated] Spanish translation - thanks to redywebs
 * [Added] Chinese translation - thanks to 倡萌
 * [Fixed] Solved bug with before and after field
 * [Added] Fieldtype "Counter" to Custom Fields
-* [Added] Column type ID when you hover over the column type label.
+* [Added] Column type ID when you hover over the column type label
+* [Added] Support for raw values
+* [Updated] Changed filter for cac/column/value. See: http://www.codepresshq.com/documentation.
 
 = 2.0.2 =
 * [Fixed] Performance issue

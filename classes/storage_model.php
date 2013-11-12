@@ -543,7 +543,6 @@ abstract class CPAC_Storage_Model {
 		// @todo: check if working properly. cuurently issues with woocommerce columns
 		/*
 		if ( $diff = array_diff( $this->get_default_stored_columns(), array_keys( $columns ) ) ) {
-			//echo '<pre>'; print_r( $diff ); echo '</pre>';
 			foreach ( $diff as $column_name ) {
 				if( isset( $column_headings[ $column_name ] ) )
 					unset( $column_headings[ $column_name ] );
