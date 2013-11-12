@@ -76,7 +76,10 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		}
 
 		// add hook
-		echo apply_filters( "cac/column/value/type={$this->key}", $value, $column );
+		$value = apply_filters( "cac/column/value", $value, $link_id, $column, $this->key );
+		$value = apply_filters( "cac/column/value/{$this->type}", $value, $link_id, $column, $this->key );
+
+		echo $value;
 	}
 
 }

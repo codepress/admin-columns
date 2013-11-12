@@ -80,8 +80,11 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 			$value = $column->get_value( $comment_id );
 		}
 
-		// add hook
-		echo apply_filters( "cac/column/value/type={$this->key}", $value, $column );
+		// filters
+		$value = apply_filters( "cac/column/value", $value, $comment_id, $column, $this->key );
+		$value = apply_filters( "cac/column/value/{$this->type}", $value, $comment_id, $column, $this->key );
+
+		echo $value;
 	}
 
 }

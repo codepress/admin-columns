@@ -26,13 +26,13 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0.0
 	 */
 	function get_value( $post_id ) {
-		
+
 		$thumbnail_id = $this->get_raw_value( $post_id );
-		
+
 		if ( !$thumbnail_id ) {
 			return false;
 		}
-		
+
 		$thumb = implode( $this->get_thumbnails( $thumbnail_id, (array) $this->options ) );
 		$link  = get_edit_post_link( $post_id );
 
@@ -44,10 +44,10 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		if ( ! has_post_thumbnail( $post_id ) )
 			return false;
-		
+
 		return get_post_thumbnail_id( $post_id );
 	}
 

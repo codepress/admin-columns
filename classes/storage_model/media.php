@@ -84,7 +84,10 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		}
 
 		// add hook
-		echo apply_filters( "cac/column/value/type={$this->key}", $value, $column );
+		$value = apply_filters( "cac/column/value", $value, $media_id, $column, $this->key );
+		$value = apply_filters( "cac/column/value/{$this->type}", $value, $media_id, $column, $this->key );
+
+		echo $value;
 	}
 
 }

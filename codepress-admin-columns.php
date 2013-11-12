@@ -44,9 +44,7 @@ if ( ! is_admin() )
  * @since 1.3.0
  */
 require_once CPAC_DIR . 'classes/utility.php';
-require_once CPAC_DIR . 'classes/deprecated.php';
 require_once CPAC_DIR . 'classes/third_party.php';
-require_once CPAC_DIR . 'classes/api.php';
 
 /**
  * The Codepress Admin Columns Class

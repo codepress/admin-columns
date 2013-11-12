@@ -45,7 +45,7 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		
+
 		if ( ! $format = get_post_format( $post_id ) )
 			return false;
 

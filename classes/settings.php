@@ -232,6 +232,7 @@ class CPAC_Settings {
 						<li><strong>". __( "Usernames", 'cpac' ) . "</strong><br/>". __( "Value: can be one or more User ID's (seperated by ',').", 'cpac' ) . "</li>
 						<li><strong>". __( "Checkmark", 'cpac' ) . "</strong><br/>". __( "Value: should be a 1 (one) or 0 (zero).", 'cpac' ) . "</li>
 						<li><strong>". __( "Color", 'cpac' ) . "</strong><br/>". __( "Value: hex value color, such as #808080.", 'cpac' ) . "</li>
+						<li><strong>". __( "Counter", 'cpac' ) . "</strong><br/>". __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'cpac' ) . "</li>
 					</ul>
 				"
 			)
@@ -587,9 +588,12 @@ class CPAC_Settings {
 								</a>
 							</div>
 							<?php endif; ?>
+
+							<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
+
 						</div><!--form-actions-->
 
-						<?php if ( true || ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+						<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
 						<div class="sidebox" id="pro-version">
 							<div class="padding-box cta">
 								<h3>
@@ -606,6 +610,7 @@ class CPAC_Settings {
 									</p>
 								</div>
 							</div>
+							<!--
 							<div class="padding-box newsletter">
 								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 									<?php $user = wp_get_current_user(); ?>
@@ -623,6 +628,7 @@ class CPAC_Settings {
 									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
 								</form>
 							</div>
+							-->
 						</div>
 					<?php endif; ?>
 

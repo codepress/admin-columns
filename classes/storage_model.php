@@ -237,6 +237,11 @@ abstract class CPAC_Storage_Model {
 			$columns[ 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . $class_name  ] = $leaf->getPathname();
 		}
 
+		// cac/columns/custom - filter to register column
+		$this->custom_columns = apply_filters( 'cac/columns/custom', $columns, $this );
+
+		// cac/columns/custom/type={$type} - filter to register column based on it's content type
+		// type can be either a posttype or wp-users/wp-comments/wp-links/wp-media
 		$this->custom_columns = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
 	}
 

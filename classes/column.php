@@ -950,7 +950,7 @@ class CPAC_Column {
 				<table class="widefat">
 					<tbody>
 						<tr class="column_type">
-							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ), 'type' ); ?>
+							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ) . '<em>' . __('ID','cpac') . ': ' . $this->properties->type . '</em>', 'type' ); ?>
 							<td class="input">
 								<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
 									<?php echo $column_list; ?>
@@ -992,7 +992,10 @@ class CPAC_Column {
 
 						<tr class="column_action">
 							<td colspan="2">
-								<p><a href="javascript:;" class="remove-button"><?php _e( 'Remove' );?></a></p>
+								<p>
+									<a href="javascript:;" class="remove-button"><?php _e( 'Remove' );?></a>
+									<!--<span class="description alignright"><?php _e('type','cpac'); ?>: <em><?php echo $this->properties->type; ?></em></span>-->
+								</p>
 							</td>
 						</tr>
 

@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 3.6.1
+Tested up to: 3.7.1
 Stable tag: 2.0.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -218,6 +218,8 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 * [Updated] Spanish translation - thanks to redywebs
 * [Added] Chinese translation - thanks to 倡萌
 * [Fixed] Solved bug with before and after field
+* [Added] Fieldtype "Counter" to Custom Fields
+* [Added] Column type ID when you hover over the column type label.
 
 = 2.0.2 =
 * [Fixed] Performance issue

@@ -76,7 +76,11 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 			$value = $custom_value;
 		}
 
-		return apply_filters( "cac/column/value/type={$this->key}", $value, $column );
+		// filters
+		$value = apply_filters( "cac/column/value", $value, $user_id, $column, $this->key );
+		$value = apply_filters( "cac/column/value/{$this->type}", $value, $user_id, $column, $this->key );
+
+		return $value;
 	}
 
 	/**

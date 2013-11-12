@@ -44,13 +44,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	function sanitize_options( $options ) {
 
-		if ( ! empty( $options['before'] ) ) {
-			$options['before'] = trim( $options['before'] );
-		}
+		//if ( ! empty( $options['before'] ) )
+		//	$options['before'] = trim( $options['before'] );
 
-		if ( ! empty( $options['after'] ) ) {
-			$options['after'] = trim( $options['after'] );
-		}
+		//if ( ! empty( $options['after'] ) )
+		//	$options['after'] = trim( $options['after'] );
 
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );
@@ -70,19 +68,26 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		$custom_field_types = array(
 			''				=> __( 'Default'),
-			'image'			=> __( 'Image', 'cpac' ),
-			'library_id'	=> __( 'Media Library', 'cpac' ),
-			'excerpt'		=> __( 'Excerpt'),
-			'array'			=> __( 'Multiple Values', 'cpac' ),
-			'numeric'		=> __( 'Numeric', 'cpac' ),
-			'date'			=> __( 'Date', 'cpac' ),
-			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
-			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
 			'checkmark'		=> __( 'Checkmark (true/false)', 'cpac' ),
 			'color'			=> __( 'Color', 'cpac' ),
+			'count'			=> __( 'Counter', 'cpac' ),
+			'date'			=> __( 'Date', 'cpac' ),
+			'excerpt'		=> __( 'Excerpt'),
+			'image'			=> __( 'Image', 'cpac' ),
+			'library_id'	=> __( 'Media Library', 'cpac' ),
+			'array'			=> __( 'Multiple Values', 'cpac' ),
+			'numeric'		=> __( 'Numeric', 'cpac' ),
+			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
+			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
 		);
 
-		return apply_filters( 'cpac_custom_field_types', $custom_field_types );
+		// deprecated. do not use, will be removed.
+		$custom_field_types = apply_filters( 'cpac_custom_field_types', $custom_field_types );
+
+		// Filter
+		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
+
+		return $custom_field_types;
 	}
 
 	/**
@@ -172,10 +177,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $meta
+	 * @param string $meta Contains Meta Value
+	 * @param int $id Optional Object ID
 	 * @return string Users
 	 */
-	function get_value_by_meta( $meta ) {
+	function get_value_by_meta( $meta, $id = null ) {
 
 		switch ( $this->options->field_type ) :
 
@@ -221,6 +227,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 					$text_color = $this->get_text_color( $meta );
 					$meta = "<div class='cpac-color'><span style='background-color:{$meta};color:{$text_color}'>{$meta}</span></div>";
 				}
+				break;
+
+			case "count" :
+				if ( $count = $this->get_raw_value( $id, false ) )
+					$meta = count( $count );
 				break;
 
 		endswitch;
@@ -315,7 +326,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	function get_after() {
 
-		return stripslashes( $this->options->before );
+		return stripslashes( $this->options->after );
 	}
 
 	/**
@@ -338,7 +349,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		if ( $meta = $this->get_meta_by_id( $id ) ) {
 
 			// get value by meta
-			$value = $this->get_value_by_meta( $meta );
+			$value = $this->get_value_by_meta( $meta, $id );
 		}
 
 		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
