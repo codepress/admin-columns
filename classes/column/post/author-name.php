@@ -85,7 +85,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 		$nametypes = $this->get_nametypes();
 		if ( isset( $nametypes[ $this->options->display_author_as ] ) ) {
-			if( $author = get_post_field( 'post_author', $post_id ) ) {
+			if( $author = $this->get_raw_value( $post_id ) ) {
 				$value = $this->get_display_name( $author );
 			}
 		}
@@ -99,11 +99,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 */
 	function get_raw_value( $post_id ) {
 
-		if ( !( $author = get_post_field( 'post_author', $post_id ) ) ) {
-			$author = 0;
-		}
-
-		return 0;
+		return get_post_field( 'post_author', $post_id );
 	}
 
 	/**

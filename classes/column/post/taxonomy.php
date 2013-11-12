@@ -26,18 +26,24 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 
 		$values = array();
 
-		if ( $terms = get_the_terms( $post_id, $this->options->taxonomy ) ) {
-			$values = array();
-
+		if ( $terms = $this->get_raw_value( $post_id ) ) {
 			foreach ( $terms as $term ) {
 
 				$title 		= esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'edit' ) );
 				$values[]	= "<a href='edit.php?post_type={$this->storage_model->key}&{$term->taxonomy}={$term->slug}'>{$title}</a>";
 			}
-			$value = implode( ', ', $values );
 		}
 
 		return implode( ', ', $values );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+
+		return get_the_terms( $post_id, $this->options->taxonomy );
 	}
 
 	/**

@@ -25,6 +25,15 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 */
 	function get_value( $user_id ) {
 
+		return $this->get_raw_value( $user_id );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $user_id ) {
+
 		return $this->get_shortened_string( get_the_author_meta( 'user_description', $user_id ), $this->options->excerpt_length );
 	}
 

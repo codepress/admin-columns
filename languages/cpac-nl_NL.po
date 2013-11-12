@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-13 19:08+0100\n"
-"PO-Revision-Date: 2013-08-16 12:18+0000\n"
+"POT-Creation-Date: 2013-08-26 16:51+0100\n"
+"PO-Revision-Date: 2013-11-12 12:34+0000\n"
 "Last-Translator: codepress <info@codepress.nl>\n"
-"Language-Team: Dutch (Netherlands) <info@codepress.nl>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/admin-columns/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -185,8 +185,8 @@ msgstr "Verander kolom breedte"
 #: ../classes/settings.php:215
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
-"draggable slider yo can set the width of the columns in percentages."
-msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Met behulp van de slider kan je de breedte van de kolom aanpassen in percentages."
+"draggable slider you can set the width of the columns in percentages."
+msgstr ""
 
 #: ../classes/settings.php:219 ../classes/column/custom-field.php:16
 #: ../classes/column/custom-field.php:324
@@ -501,7 +501,7 @@ msgstr "Start met Admin Columns"
 
 #: ../classes/settings.php:580
 msgid "Store settings"
-msgstr "Sla settings op"
+msgstr "Opslaan"
 
 #: ../classes/settings.php:585
 msgid "Update"
@@ -924,15 +924,15 @@ msgstr ""
 
 #: ../classes/column/media/file-name.php:12
 msgid "File name"
-msgstr ""
+msgstr "Bestandsnaam"
 
 #: ../classes/column/media/file-size.php:12
 msgid "File size"
-msgstr ""
+msgstr "Bestandsgrootte"
 
 #: ../classes/column/media/full-path.php:12
 msgid "Full path"
-msgstr ""
+msgstr "Volledige pad"
 
 #: ../classes/column/media/height.php:12
 msgid "Height"
@@ -944,7 +944,7 @@ msgstr ""
 
 #: ../classes/column/post/actions.php:48
 msgid "Edit this item"
-msgstr ""
+msgstr "Bewerk dit item"
 
 #: ../classes/column/post/actions.php:49
 msgid "Edit this item inline"

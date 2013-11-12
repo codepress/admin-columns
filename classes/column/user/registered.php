@@ -24,9 +24,20 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 	 */
 	function get_value( $user_id ) {
 
+		$user_registered = $this->get_raw_value( $user_id );
+
+		return $this->get_date( $user_registered, $this->options->date_format );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $user_id ) {
+
 		$userdata = get_userdata( $user_id );
 
-		return $this->get_date( $userdata->user_registered, $this->options->date_format );
+		return $userdata->user_registered;
 	}
 
 	/**

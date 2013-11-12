@@ -22,6 +22,15 @@ class CPAC_Column_User_Last_Name extends CPAC_Column {
 	 */
 	function get_value( $user_id ) {
 
+		return $this->get_raw_value( $user_id );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $user_id ) {
+
 		$userdata = get_userdata( $user_id );
 
 		return $userdata->last_name;

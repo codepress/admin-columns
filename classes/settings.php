@@ -60,10 +60,6 @@ class CPAC_Settings {
 	 */
 	public function settings_menu() {
 
-		// add pages @remove
-		//$this->admin_page  = add_menu_page( __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'column_settings' ), false, 98 );
-		//$settings_page = add_submenu_page( 'codepress-admin-columns', __( 'Settings', 'cpac' ), __( 'Settings', 'cpac' ), 'manage_admin_columns', 'cpac-settings',	array( $this, 'general_settings' ) );
-
 		// add settings page
 		$settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 

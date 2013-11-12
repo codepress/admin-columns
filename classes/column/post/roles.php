@@ -22,11 +22,20 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
+		return implode( ', ', $this->get_raw_value( $post_id ) );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+
 		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
 
 		if ( empty( $userdata->roles[0] ) )
-			return false;
+			return array();
 
-		return implode( ', ',$userdata->roles );
+		return $userdata->roles;
 	}
 }

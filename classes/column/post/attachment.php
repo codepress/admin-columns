@@ -25,15 +25,24 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
-		$attachment_ids = get_posts( array(
+		$attachment_ids = $this->get_raw_value( $post_id );
+
+		return implode( $this->get_thumbnails( $attachment_ids, $this->options ) );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	function get_raw_value( $post_id ) {
+
+		return get_posts( array(
 			'post_type' 	=> 'attachment',
 			'numberposts' 	=> -1,
 			'post_status' 	=> null,
 			'post_parent' 	=> $post_id,
 			'fields' 		=> 'ids'
 		));
-
-		return implode( $this->get_thumbnails( $attachment_ids, $this->options ) );
 	}
 
 	/**
