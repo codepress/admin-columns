@@ -905,8 +905,8 @@ class CPAC_Column {
 		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
 
 		// column list
-		$column_list  = $this->get_column_list( $this->storage_model->get_custom_registered_columns(), __( 'Custom', 'cpac' ) );
-		$column_list .= $this->get_column_list( $this->storage_model->get_default_registered_columns(), __( 'Default', 'cpac' ) );
+		$column_list  = $this->get_column_list( $this->storage_model->custom_columns, __( 'Custom', 'cpac' ) );
+		$column_list .= $this->get_column_list( $this->storage_model->default_columns, __( 'Default', 'cpac' ) );
 
 		// clone attribute
 		$data_clone =  $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';

@@ -14,7 +14,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->type 	= 'media';
 		$this->page 	= 'upload';
 
-		$this->set_custom_columns();
+		$this->set_columns_filepath();
 
 		// Populate columns variable.
 		// This is used for manage_value. By storing these columns we greatly improve performance.

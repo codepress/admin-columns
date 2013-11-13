@@ -652,7 +652,7 @@ class CPAC_Settings {
 								<input type="hidden" name="cpac_action" value="update_by_type" />
 
 								<?php
-								foreach ( $storage_model->get_columns() as $column ) {
+								foreach ( $storage_model->columns as $column ) {
 									$column->display();
 								}
 								?>
