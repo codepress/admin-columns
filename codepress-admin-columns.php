@@ -109,7 +109,7 @@ class CPAC {
 	 */
 	private function set_storage_models() {
 
-		$storage_models = array();
+		$this->storage_models = array();
 
 		// include parent and childs
 		require_once CPAC_DIR . 'classes/column.php';
@@ -123,31 +123,29 @@ class CPAC {
 		// add Posts
 		foreach ( $this->get_post_types() as $post_type ) {
 			$storage_model = new CPAC_Storage_Model_Post( $post_type );
-			$storage_models[ $storage_model->key ] = $storage_model;
+			$this->storage_models[ $storage_model->key ] = $storage_model;
 		}
 
 		// add User
 		$storage_model = new CPAC_Storage_Model_User();
-		$storage_models[ $storage_model->key ] = $storage_model;
+		$this->storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Media
 		$storage_model = new CPAC_Storage_Model_Media();
-		$storage_models[ $storage_model->key ] = $storage_model;
+		$this->storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Comment
 		$storage_model = new CPAC_Storage_Model_Comment();
-		$storage_models[ $storage_model->key ] = $storage_model;
+		$this->storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Link
 		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
 			$storage_model = new CPAC_Storage_Model_Link();
-			$storage_models[ $storage_model->key ] = $storage_model;
+			$this->storage_models[ $storage_model->key ] = $storage_model;
 		}
 
 		// Hook to add more models
-		do_action( 'cac/storage_models', $storage_models );
-
-		$this->storage_models = $storage_models;
+		do_action( 'cac/storage_models', $this->storage_models );
 	}
 
 	/**
@@ -291,30 +289,32 @@ class CPAC {
 		// JS
 		$edit_link = '';
 
-		foreach ( $this->storage_models as $storage_model ) {
+		if ( $this->storage_models ) {
+			foreach ( $this->storage_models as $storage_model ) {
 
-			if ( $storage_model->page . '.php' !== $pagenow )
-				continue;
+				if ( $storage_model->page . '.php' !== $pagenow )
+					continue;
 
-			// CSS: columns width
-			if ( $columns = $storage_model->get_stored_columns() ) {
-				foreach ( $columns as $name => $options ) {
+				// CSS: columns width
+				if ( $columns = $storage_model->get_stored_columns() ) {
+					foreach ( $columns as $name => $options ) {
 
-					if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-						$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+						if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
+							$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+						}
 					}
 				}
-			}
 
-			// JS: edit button
-			if (
-				// All types except Posts
-				empty( $current_screen->post_type ) ||
-				// Posts
-				( ! empty( $current_screen->post_type ) && $storage_model->key == $current_screen->post_type )
-				)
-				{
-				$edit_link = $storage_model->get_edit_link();
+				// JS: edit button
+				if (
+					// All types except Posts
+					empty( $current_screen->post_type ) ||
+					// Posts
+					( ! empty( $current_screen->post_type ) && $storage_model->key == $current_screen->post_type )
+					)
+					{
+					$edit_link = $storage_model->get_edit_link();
+				}
 			}
 		}
 

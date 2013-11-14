@@ -76,6 +76,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		if ( ! function_exists('_get_list_table') ) return array();
 
+		//if ( ! $this->is_columns_screen() && ! $this->is_settings_page() )
+			//return array();
+
 		// You can use this filter to add thirdparty columns by hooking into this.
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/posts" );
