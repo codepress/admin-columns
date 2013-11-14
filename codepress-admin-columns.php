@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.0.4
+Version: 			2.1.0
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -11,7 +11,7 @@ Text Domain: 		cpac
 Domain Path: 		/languages
 License:			GPLv2
 
-Copyright 2011-2013  Codepress  info@codepress.nl
+Copyright 2011-2014  Codepress  info@codepress.nl
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'CPAC_VERSION', 	 	'2.0.4' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.1.0' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -86,10 +86,8 @@ class CPAC {
 		// add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
 
-		// add capabilty to administrator to manage admin columns
-		// note to devs: you can use this to grant other roles this privilidge as well.
-		$role = get_role( 'administrator' );
-   		$role->add_cap( 'manage_admin_columns' );
+		// add capabilty to roles to manage admin columns
+		$this->set_capabilities();
 
 		// set storage models
 		$this->set_storage_models();
@@ -99,6 +97,20 @@ class CPAC {
 
 		// for third party plugins
 		do_action( 'cac/loaded', $this );
+	}
+
+	/**
+	 * Add user capabilities
+	 *
+	 * note to devs: you can use this to grant other roles this privilidge as well.
+	 *
+	 * @since 2.0.4
+	 */
+	public function set_capabilities() {
+
+		// add capabilty to administrator to manage admin columns
+		if ( $role = get_role( 'administrator' ) )
+   			$role->add_cap( 'manage_admin_columns' );
 	}
 
 	/**

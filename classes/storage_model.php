@@ -56,14 +56,14 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Custom Column Instances
 	 *
-	 * @since 2.0.4
+	 * @since 2.1.0
 	 */
 	public $custom_columns = array();
 
 	/**
 	 * Default Column Instances
 	 *
-	 * @since 2.0.4
+	 * @since 2.1.0
 	 */
 	public $default_columns = array();
 

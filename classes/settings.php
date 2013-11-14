@@ -73,10 +73,11 @@ class CPAC_Settings {
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
+		// @ todo_minor REMOVE
 		// add capabilty to administrator to manage admin columns
 		// note to devs: you can use this to grant other roles this privilidge as well.
-		$role = get_role( 'administrator' );
-   		$role->add_cap( 'manage_admin_columns' );
+		//if ( $role = get_role( 'administrator' ) )
+   			//$role->add_cap( 'manage_admin_columns' );
 
 		// add cap to options.php
    		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
