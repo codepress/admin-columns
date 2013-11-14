@@ -371,6 +371,7 @@ class CPAC_Settings {
 		$installed_sortorder 	= false;
 
 		?>
+
 		<div id="cpac-welcome" class="wrap about-wrap">
 
 			<h1><?php _e( "Welcome to Admin Columns",'cpac'); ?> <?php echo CPAC_VERSION; ?></h1>
@@ -523,6 +524,7 @@ class CPAC_Settings {
 		$post_types = array_values( $this->cpac->get_post_types() );
 		$first 		= array_shift( $post_types );
 	?>
+
 		<div id="cpac" class="wrap">
 
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
@@ -635,7 +637,9 @@ class CPAC_Settings {
 								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
 									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
 								<?php endif; ?>
-								<p><?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?></p>
+								<p>
+									<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?>
+								</p>
 							</div>
 						</div><!--.form-actions-->
 

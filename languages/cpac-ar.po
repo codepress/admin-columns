@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # TheHassan, 2013
 msgid ""
@@ -6,20 +6,22 @@ msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-08-29 20:04+0000\n"
-"Last-Translator: TheHassan\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/admin-columns/language/ar/)\n"
+"PO-Revision-Date: 2013-11-14 15:55+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/admin-columns/"
+"language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -62,7 +64,9 @@ msgstr "مثال:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "أترك خاليا لتنسيق ووردبريس الإفتراضي للتاريخ، قم بتغيير <a href=\"%s\">تنسيق التاريخ الخاص بك هنا</a>."
+msgstr ""
+"أترك خاليا لتنسيق ووردبريس الإفتراضي للتاريخ، قم بتغيير <a href=\"%s\">تنسيق "
+"التاريخ الخاص بك هنا</a>."
 
 #: ../classes/column.php:784
 msgid "Documentation on date and time formatting."
@@ -153,7 +157,10 @@ msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
-msgstr "هذا البرنامج هو لإضافة وإزالة أعمدة إضافية في الشاشات الإدارية لـ(أنواع) التدوينات، الصفحات، مكتبة الوسائط، التعليقات، الوصلات والمستخدمين. قم بتغيير تسمية الأعمدة وإعادة ترتيبها."
+msgstr ""
+"هذا البرنامج هو لإضافة وإزالة أعمدة إضافية في الشاشات الإدارية لـ(أنواع) "
+"التدوينات، الصفحات، مكتبة الوسائط، التعليقات، الوصلات والمستخدمين. قم بتغيير "
+"تسمية الأعمدة وإعادة ترتيبها."
 
 #: ../classes/settings.php:208
 msgid "Basics"
@@ -176,7 +183,8 @@ msgstr "تغيير العنوان"
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr "بالنقر على المثلث سترى خيارات العمود. هنا يمكنك تغيير تسمية ترويسات الأعمدة."
+msgstr ""
+"بالنقر على المثلث سترى خيارات العمود. هنا يمكنك تغيير تسمية ترويسات الأعمدة."
 
 #: ../classes/settings.php:214
 msgid "Change column width"
@@ -186,7 +194,9 @@ msgstr "تغيير عرض العمود"
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
-msgstr "بالنقر على المثلث سترى خيارات العمود. باستخدام شريط التمرير القابل للسحب يمكنك تعيين عرض الأعمدة بالنسب المئوية."
+msgstr ""
+"بالنقر على المثلث سترى خيارات العمود. باستخدام شريط التمرير القابل للسحب "
+"يمكنك تعيين عرض الأعمدة بالنسب المئوية."
 
 #: ../classes/settings.php:219 ../classes/column/custom-field.php:16
 #: ../classes/column/custom-field.php:324
@@ -201,13 +211,17 @@ msgstr "عمود 'حقل مخصوص'"
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr "يستخدم عمود الحقل المخصوص الحقول المخصوصة من التدوينات والمستخدمين. هناك 10 أنواع يمكنك تعيينها."
+msgstr ""
+"يستخدم عمود الحقل المخصوص الحقول المخصوصة من التدوينات والمستخدمين. هناك 10 "
+"أنواع يمكنك تعيينها."
 
 #: ../classes/settings.php:224
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr "قيمة: يمكن أن تكون إما سلسلة أو مصفوفة. سيتم تسطيح المصفوفات ويتم فصل القيم بـ '،' فاصلة."
+msgstr ""
+"قيمة: يمكن أن تكون إما سلسلة أو مصفوفة. سيتم تسطيح المصفوفات ويتم فصل القيم "
+"بـ '،' فاصلة."
 
 #: ../classes/settings.php:225 ../classes/column/custom-field.php:73
 #: ../classes/column/link/image.php:12
@@ -218,7 +232,8 @@ msgstr "صورة"
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr "قيمة: يجب أن يحتوي عنوان URL للصورة أو معرفات المرفقات (مفصولة بـ '،' فاصلة)."
+msgstr ""
+"قيمة: يجب أن يحتوي عنوان URL للصورة أو معرفات المرفقات (مفصولة بـ '،' فاصلة)."
 
 #: ../classes/settings.php:226 ../classes/column/custom-field.php:75
 #: ../classes/column/comment/excerpt.php:13
@@ -236,8 +251,7 @@ msgstr "قيم متعددة"
 
 #: ../classes/settings.php:227
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr "قيمة: يجب أن يكون مصفوفة. هذا سوف يسطح أي مصفوفة (متعددة الأبعاد)."
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
@@ -248,7 +262,9 @@ msgstr "رقمي"
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "القيمة: الأعداد الصحيحة فقط <br/> إذا كان لديك 'ملحق الترتيب' سيتم استخدام هذه للترتيب، بحيث يمكنك ترتيب تدويناتك على القيم الرقمية (الحقل المخصوص)."
+msgstr ""
+"القيمة: الأعداد الصحيحة فقط <br/> إذا كان لديك 'ملحق الترتيب' سيتم استخدام "
+"هذه للترتيب، بحيث يمكنك ترتيب تدويناتك على القيم الرقمية (الحقل المخصوص)."
 
 #: ../classes/settings.php:229 ../classes/column/custom-field.php:78
 #: ../classes/column/comment/date.php:12
@@ -261,7 +277,10 @@ msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
-msgstr "قيمة: يمكن أن تكون طابع يونكس زمني أو تنسيق تاريخ كما هو موضح في <a href='%s'>Codex</a>. يمكنك تغيير تنسيق التاريخ المخرج من صفحة <a href='%s'>الإعدادات العامة</a>."
+msgstr ""
+"قيمة: يمكن أن تكون طابع يونكس زمني أو تنسيق تاريخ كما هو موضح في <a "
+"href='%s'>Codex</a>. يمكنك تغيير تنسيق التاريخ المخرج من صفحة <a "
+"href='%s'>الإعدادات العامة</a>."
 
 #: ../classes/settings.php:230
 msgid "Post Titles"
@@ -307,7 +326,8 @@ msgstr "شكرا لك على التحديث للنسخة الأخيرة!"
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
-msgstr "Admin Columns أصبحت مصقولة وممتعة أكثر من أي وقت مضى. نأمل أن تنال إعجابكم."
+msgstr ""
+"Admin Columns أصبحت مصقولة وممتعة أكثر من أي وقت مضى. نأمل أن تنال إعجابكم."
 
 #: ../classes/settings.php:386
 msgid "What’s New"
@@ -330,7 +350,10 @@ msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr "يتم تنشيط الملحقات الآن عن طريق تحميل وتثبيت الإضافات الفردية. على الرغم من أنه لن يتم استضافة هذه الإضافات على مستودع wordpress.org، سوف تستمر كل إضافة بتلقي التحديثات بالطريقة المعتادة."
+msgstr ""
+"يتم تنشيط الملحقات الآن عن طريق تحميل وتثبيت الإضافات الفردية. على الرغم من "
+"أنه لن يتم استضافة هذه الإضافات على مستودع wordpress.org، سوف تستمر كل إضافة "
+"بتلقي التحديثات بالطريقة المعتادة."
 
 #: ../classes/settings.php:400
 msgid ""
@@ -363,9 +386,11 @@ msgstr "تغييرات قاعدة البيانات"
 
 #: ../classes/settings.php:419
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
-msgstr "تم تغيير قاعدة البيانات بين الإصدارات 1 و 2. ولكن حرصنا على ألا يزال بإمكانك الرجوع إلى إصدار 1x دون أية مشاكل."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
+msgstr ""
+"تم تغيير قاعدة البيانات بين الإصدارات 1 و 2. ولكن حرصنا على ألا يزال بإمكانك "
+"الرجوع إلى إصدار 1x دون أية مشاكل."
 
 #: ../classes/settings.php:422
 msgid "Make sure you backup your database and then click"
@@ -381,10 +406,12 @@ msgstr "مشاكل محتملة"
 
 #: ../classes/settings.php:426
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
-msgstr "نسبة إلى إعادة بناء كود الإضافة بشكل كبير، وكذلك الملحاقت والدوال، قد لا يعمل موقع الويب الخاص بك بشكل صحيح. من المهم أن تقرأ بشكل كامل"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
+msgstr ""
+"نسبة إلى إعادة بناء كود الإضافة بشكل كبير، وكذلك الملحاقت والدوال، قد لا "
+"يعمل موقع الويب الخاص بك بشكل صحيح. من المهم أن تقرأ بشكل كامل"
 
 #: ../classes/settings.php:426
 msgid "Migrating from v1 to v2"
@@ -399,7 +426,9 @@ msgstr "توجيه لعرض القائمة الكاملة للتغييرات."
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr "عندما تجد أخطاء الرجاء <a href=\"%s\">التبيلغ عنها لنا</a> لكي نتمكن من إصلاحها في النسخة القادمة."
+msgstr ""
+"عندما تجد أخطاء الرجاء <a href=\"%s\">التبيلغ عنها لنا</a> لكي نتمكن من "
+"إصلاحها في النسخة القادمة."
 
 #: ../classes/settings.php:429
 msgid "Important!"
@@ -409,7 +438,9 @@ msgstr "مهم!"
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
-msgstr "إذا قمت بتحديث Admin Columns دون معرفة مسبقة بهذه التغييرات، فالرجاء الرجوع لآخر"
+msgstr ""
+"إذا قمت بتحديث Admin Columns دون معرفة مسبقة بهذه التغييرات، فالرجاء الرجوع "
+"لآخر"
 
 #: ../classes/settings.php:429
 msgid "version 1"
@@ -431,12 +462,13 @@ msgstr "تعلم المزيد"
 msgid ""
 "New to v2, all Addons act as separate plugins which need to be individually "
 "downloaded, installed and updated."
-msgstr "جديدة في النسخة 2، كل الملحقات عبارة عن إضافات منفصلة وتحتاج ليتم تحميلها، تركيبها وتحديثها بشكل فردي."
+msgstr ""
+"جديدة في النسخة 2، كل الملحقات عبارة عن إضافات منفصلة وتحتاج ليتم تحميلها، "
+"تركيبها وتحديثها بشكل فردي."
 
 #: ../classes/settings.php:460
 msgid ""
-"This page will assist you in downloading and installing each available "
-"Addon."
+"This page will assist you in downloading and installing each available Addon."
 msgstr "هذه الصفحة سوف تساعدك في تحميل وتثبيت كل الملحقات المتاحة."
 
 #: ../classes/settings.php:461
@@ -481,8 +513,8 @@ msgstr "استخدام الرافع للتصفح واختيار وتثبيت (م
 
 #: ../classes/settings.php:490
 msgid ""
-"Once the plugin has been uploaded and installed, click the 'Activate Plugin'"
-" link"
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
 msgstr "عندما يتم رفع وتنصيب الإضافة، انقر على رابط 'تنشيط الإضافة'"
 
 #: ../classes/settings.php:491
@@ -514,9 +546,11 @@ msgstr "نشر"
 #: ../classes/settings.php:589
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "تحذير! بيانات أعمدة %s سيتم حذفها. لا يمكن التراجع عن هذا. \\'موافق\\' للحذف، \\'إلغاء\\' للإيقاف"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"تحذير! بيانات أعمدة %s سيتم حذفها. لا يمكن التراجع عن هذا. \\'موافق\\' "
+"للحذف، \\'إلغاء\\' للإيقاف"
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
@@ -554,14 +588,17 @@ msgstr "دعم"
 
 #: ../classes/settings.php:620
 msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr "تحقق من قسم <strong>المساعدة</strong> في الجانب العلوي الأيسر من الشاشة."
+msgstr ""
+"تحقق من قسم <strong>المساعدة</strong> في الجانب العلوي الأيسر من الشاشة."
 
 #: ../classes/settings.php:622
 #, php-format
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
-msgstr "للحصول على الوثائق الكاملة، تقارير الأخطاء، اقتراحات الميزات وغيرها من النصائح <a href='%s'>قم بزيارة موقع Admin Columns</a>"
+msgstr ""
+"للحصول على الوثائق الكاملة، تقارير الأخطاء، اقتراحات الميزات وغيرها من "
+"النصائح <a href='%s'>قم بزيارة موقع Admin Columns</a>"
 
 #: ../classes/settings.php:642
 msgid "Drag and drop to reorder"
@@ -586,7 +623,9 @@ msgstr "إظهار الحقول المخصوصة المخفية. الإفترا�
 #: ../classes/settings.php:716
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr "إظهار زر \"تحرير الأعمدة\" على الشاشات الإدارية. الإفتراضي هو <code>لا</code>."
+msgstr ""
+"إظهار زر \"تحرير الأعمدة\" على الشاشات الإدارية. الإفتراضي هو <code>لا</"
+"code>."
 
 #: ../classes/settings.php:723
 msgid "Save"
@@ -608,7 +647,9 @@ msgstr "استرجاع الإعدادات الإفتراضية"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "تحذير! كافة بيانات الأعمدة المحفوظة سيتم حذفها. لا يمكن التراجع عن هذا. \\'موافق\\' للحذف، \\'إلغاء\\' للإيقاف"
+msgstr ""
+"تحذير! كافة بيانات الأعمدة المحفوظة سيتم حذفها. لا يمكن التراجع عن هذا. "
+"\\'موافق\\' للحذف، \\'إلغاء\\' للإيقاف"
 
 #: ../classes/storage_model.php:167
 msgid "settings succesfully restored."
@@ -684,7 +725,8 @@ msgstr "خطأ"
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."
-msgstr "عفوا. حدث خطأ أثناء عملية الترقية. الرجاء التبليغ عن هذا في منتديات الدعم."
+msgstr ""
+"عفوا. حدث خطأ أثناء عملية الترقية. الرجاء التبليغ عن هذا في منتديات الدعم."
 
 #: ../classes/column/custom-field.php:74 ../classes/storage_model/media.php:13
 msgid "Media Library"
@@ -829,7 +871,9 @@ msgstr "عدد الكلمات"
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
-msgstr "انت على وشك حذف هذا الرابط '%s'\n  'إلغاء' للإيقاف، 'موافق' للحذف."
+msgstr ""
+"انت على وشك حذف هذا الرابط '%s'\n"
+"  'إلغاء' للإيقاف، 'موافق' للحذف."
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
 msgid "Delete"

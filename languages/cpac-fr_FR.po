@@ -1,13 +1,14 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-08-29 09:27+0000\n"
-"Last-Translator: codepress <info@codepress.nl>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/admin-columns/language/fr_FR/)\n"
+"PO-Revision-Date: 2013-11-14 15:55+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/admin-"
+"columns/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,9 +17,9 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -235,8 +236,7 @@ msgstr "Valeurs multiples"
 
 #: ../classes/settings.php:227
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
@@ -362,8 +362,8 @@ msgstr ""
 
 #: ../classes/settings.php:419
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
 msgstr ""
 
 #: ../classes/settings.php:422
@@ -380,9 +380,9 @@ msgstr ""
 
 #: ../classes/settings.php:426
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
 msgstr ""
 
 #: ../classes/settings.php:426
@@ -434,8 +434,7 @@ msgstr ""
 
 #: ../classes/settings.php:460
 msgid ""
-"This page will assist you in downloading and installing each available "
-"Addon."
+"This page will assist you in downloading and installing each available Addon."
 msgstr ""
 
 #: ../classes/settings.php:461
@@ -480,8 +479,8 @@ msgstr ""
 
 #: ../classes/settings.php:490
 msgid ""
-"Once the plugin has been uploaded and installed, click the 'Activate Plugin'"
-" link"
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
 msgstr ""
 
 #: ../classes/settings.php:491
@@ -513,8 +512,8 @@ msgstr ""
 #: ../classes/settings.php:589
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
@@ -597,7 +596,9 @@ msgstr ""
 
 #: ../classes/settings.php:764
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Cette opération va supprimer tous les paramètres de colonnes et restaure tous les paramètres par défaut."
+msgstr ""
+"Cette opération va supprimer tous les paramètres de colonnes et restaure "
+"tous les paramètres par défaut."
 
 #: ../classes/settings.php:770
 msgid "Restore default settings"
@@ -607,7 +608,9 @@ msgstr "Restaurer les paramètres par défaut"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Attention! Tous les données des colonnes d'administration seront supprimées. Cela n'est pas irréversible. \\'OK\\'  supprimer, \\'Annuler\\' arrêter"
+msgstr ""
+"Attention! Tous les données des colonnes d'administration seront supprimées. "
+"Cela n'est pas irréversible. \\'OK\\'  supprimer, \\'Annuler\\' arrêter"
 
 #: ../classes/storage_model.php:167
 msgid "settings succesfully restored."

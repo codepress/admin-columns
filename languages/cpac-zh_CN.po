@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # XadillaX <admin@xcoder.in>, 2013
 msgid ""
@@ -6,9 +6,10 @@ msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-10-07 13:51+0000\n"
-"Last-Translator: codepress <info@codepress.nl>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-columns/language/zh_CN/)\n"
+"PO-Revision-Date: 2013-11-14 15:56+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-"
+"columns/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,9 +18,9 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -62,7 +63,9 @@ msgstr "例如："
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期格式。"
+msgstr ""
+"留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期"
+"格式。"
 
 #: ../classes/column.php:784
 msgid "Documentation on date and time formatting."
@@ -153,7 +156,9 @@ msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
-msgstr "该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
+msgstr ""
+"该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、"
+"媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
 
 #: ../classes/settings.php:208
 msgid "Basics"
@@ -207,7 +212,9 @@ msgstr "自定义字段列使用文章和用户的自定义字段，你可以设
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr "值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间用逗号“,”隔开。"
+msgstr ""
+"值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间"
+"用逗号“,”隔开。"
 
 #: ../classes/settings.php:225 ../classes/column/custom-field.php:73
 #: ../classes/column/link/image.php:12
@@ -236,8 +243,7 @@ msgstr "多个值"
 
 #: ../classes/settings.php:227
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr "值：应该是一个数组。这将被压平（多维）数组"
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
@@ -248,7 +254,9 @@ msgstr "数字"
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个数字（自定义字段）值来排序文章。"
+msgstr ""
+"值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个"
+"数字（自定义字段）值来排序文章。"
 
 #: ../classes/settings.php:229 ../classes/column/custom-field.php:78
 #: ../classes/column/comment/date.php:12
@@ -261,7 +269,9 @@ msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
-msgstr "值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 <a href='%s'>常规设置</a> 页面修改输出的日期格式。"
+msgstr ""
+"值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 "
+"<a href='%s'>常规设置</a> 页面修改输出的日期格式。"
 
 #: ../classes/settings.php:230
 msgid "Post Titles"
@@ -330,7 +340,9 @@ msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr "通过下载和安装插件可以启用扩展。尽管这些扩展插件不再托管于 wordpress.org，但是它们都可以通过通常的方式获得更新。"
+msgstr ""
+"通过下载和安装插件可以启用扩展。尽管这些扩展插件不再托管于 wordpress.org，但"
+"是它们都可以通过通常的方式获得更新。"
 
 #: ../classes/settings.php:400
 msgid ""
@@ -363,9 +375,11 @@ msgstr "数据库更改"
 
 #: ../classes/settings.php:419
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
-msgstr "该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没有任何问题的。"
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
+msgstr ""
+"该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没"
+"有任何问题的。"
 
 #: ../classes/settings.php:422
 msgid "Make sure you backup your database and then click"
@@ -381,10 +395,12 @@ msgstr "潜在问题"
 
 #: ../classes/settings.php:426
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
-msgstr "做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议你阅读完整的 "
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
+msgstr ""
+"做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议"
+"你阅读完整的 "
 
 #: ../classes/settings.php:426
 msgid "Migrating from v1 to v2"
@@ -399,7 +415,9 @@ msgstr "引导查看完整的更改列表。"
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr "当你发现了 bug，请 <a href=\"%s\">反馈给我们</a>，以便我们在下个版本进行修复。"
+msgstr ""
+"当你发现了 bug，请 <a href=\"%s\">反馈给我们</a>，以便我们在下个版本进行修"
+"复。"
 
 #: ../classes/settings.php:429
 msgid "Important!"
@@ -435,8 +453,7 @@ msgstr "版本v2以后，所有扩展将作为单独的插件，需要单独下�
 
 #: ../classes/settings.php:460
 msgid ""
-"This page will assist you in downloading and installing each available "
-"Addon."
+"This page will assist you in downloading and installing each available Addon."
 msgstr "该页面将帮助您下载和安装每个可用的扩展。"
 
 #: ../classes/settings.php:461
@@ -481,8 +498,8 @@ msgstr "使用浏览上传，选择和安装你的扩展（.zip文件）"
 
 #: ../classes/settings.php:490
 msgid ""
-"Once the plugin has been uploaded and installed, click the 'Activate Plugin'"
-" link"
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
 msgstr "一旦插件已经上传和安装，点击“启用插件”链接。"
 
 #: ../classes/settings.php:491
@@ -514,9 +531,10 @@ msgstr "发布"
 #: ../classes/settings.php:589
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "警告！%s 列的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"警告！%s 列的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
@@ -561,7 +579,10 @@ msgstr "查看右上角的 <strong>帮助</strong>"
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
-msgstr "<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站资源平台\" target=\"_blank\">WordPress大学</a> 提供简体中文支持。"
+msgstr ""
+"<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</"
+"p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站"
+"资源平台\" target=\"_blank\">WordPress大学</a> 提供简体中文支持。"
 
 #: ../classes/settings.php:642
 msgid "Drag and drop to reorder"
@@ -608,7 +629,9 @@ msgstr "恢复默认设置"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "警告！所有Admin Columns的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
+msgstr ""
+"警告！所有Admin Columns的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将"
+"停止。"
 
 #: ../classes/storage_model.php:167
 msgid "settings succesfully restored."
@@ -829,7 +852,9 @@ msgstr "字数"
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
-msgstr "你将要删除这个链接“%s”\n“取消”将停止，“确定”将删除。"
+msgstr ""
+"你将要删除这个链接“%s”\n"
+"“取消”将停止，“确定”将删除。"
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
 msgid "Delete"

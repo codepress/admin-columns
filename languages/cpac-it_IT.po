@@ -1,14 +1,15 @@
-# 
+#
 # Translators:
-# werther <werther.d@gmail.com>, 2013
+# Werther Di Gianni <werther.d@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-10-30 18:22+0000\n"
-"Last-Translator: werther <werther.d@gmail.com>\n"
-"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/admin-columns/language/it_IT/)\n"
+"PO-Revision-Date: 2013-11-14 15:55+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/admin-"
+"columns/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,9 +18,9 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -62,7 +63,9 @@ msgstr "Esempio:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "Lasciare vuoto per utilizzare il formato data di WordPress, o modifica <a href=\"%s\">qui il formato data</a>."
+msgstr ""
+"Lasciare vuoto per utilizzare il formato data di WordPress, o modifica <a "
+"href=\"%s\">qui il formato data</a>."
 
 #: ../classes/column.php:784
 msgid "Documentation on date and time formatting."
@@ -176,7 +179,9 @@ msgstr "Cambia etichetta"
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr "Cliccando sul triangolo potrai vedere le opzioni della colonna. Qui puoi cambiare l'etichetta di ogni intestazione di colonna."
+msgstr ""
+"Cliccando sul triangolo potrai vedere le opzioni della colonna. Qui puoi "
+"cambiare l'etichetta di ogni intestazione di colonna."
 
 #: ../classes/settings.php:214
 msgid "Change column width"
@@ -236,8 +241,7 @@ msgstr "Valori Multipli"
 
 #: ../classes/settings.php:227
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
@@ -363,8 +367,8 @@ msgstr ""
 
 #: ../classes/settings.php:419
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
 msgstr ""
 
 #: ../classes/settings.php:422
@@ -381,9 +385,9 @@ msgstr ""
 
 #: ../classes/settings.php:426
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
 msgstr ""
 
 #: ../classes/settings.php:426
@@ -435,8 +439,7 @@ msgstr ""
 
 #: ../classes/settings.php:460
 msgid ""
-"This page will assist you in downloading and installing each available "
-"Addon."
+"This page will assist you in downloading and installing each available Addon."
 msgstr ""
 
 #: ../classes/settings.php:461
@@ -481,8 +484,8 @@ msgstr ""
 
 #: ../classes/settings.php:490
 msgid ""
-"Once the plugin has been uploaded and installed, click the 'Activate Plugin'"
-" link"
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
 msgstr ""
 
 #: ../classes/settings.php:491
@@ -514,8 +517,8 @@ msgstr ""
 #: ../classes/settings.php:589
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86

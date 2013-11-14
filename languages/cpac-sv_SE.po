@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # fanderzzon <fidde.andersson@telia.com>, 2013
 msgid ""
@@ -6,9 +6,10 @@ msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-08-29 15:42+0000\n"
-"Last-Translator: fanderzzon <fidde.andersson@telia.com>\n"
-"Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-columns/language/sv_SE/)\n"
+"PO-Revision-Date: 2013-11-14 15:55+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-"
+"columns/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,9 +18,9 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../codepress-admin-columns.php:227 ../classes/settings.php:535
 msgid "Settings"
@@ -62,7 +63,9 @@ msgstr "Exempel:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "Lämna tomt för WordPress datumformat, ändra din <a href=\"%s\">standard datumformat här</a>."
+msgstr ""
+"Lämna tomt för WordPress datumformat, ändra din <a href=\"%s\">standard "
+"datumformat här</a>."
 
 #: ../classes/column.php:784
 msgid "Documentation on date and time formatting."
@@ -153,7 +156,10 @@ msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
-msgstr "Denna plugin är för att lägga till och ta bort ytterligare kolumner till administrationsvyn för inlägg(typer), sidor, mediabibliotek, kommentarer, länkar och användare. Ändra kolumens etikett och ändra ordningen."
+msgstr ""
+"Denna plugin är för att lägga till och ta bort ytterligare kolumner till "
+"administrationsvyn för inlägg(typer), sidor, mediabibliotek, kommentarer, "
+"länkar och användare. Ändra kolumens etikett och ändra ordningen."
 
 #: ../classes/settings.php:208
 msgid "Basics"
@@ -176,7 +182,9 @@ msgstr "Ändra etikett"
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr "Genom att klicka på triangeln kommer du att se kolumnalternativ. Här kan du ändra varje etikett av kolumnernas rubrik."
+msgstr ""
+"Genom att klicka på triangeln kommer du att se kolumnalternativ. Här kan du "
+"ändra varje etikett av kolumnernas rubrik."
 
 #: ../classes/settings.php:214
 msgid "Change column width"
@@ -186,7 +194,9 @@ msgstr "Ändra kolumnens bredd"
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
-msgstr "Genom att klicka på triangeln kommer du att se kolumnalternativ. Genom att använda dragbar reglaget kan du ställa in bredden på kolumnerna i procent."
+msgstr ""
+"Genom att klicka på triangeln kommer du att se kolumnalternativ. Genom att "
+"använda dragbar reglaget kan du ställa in bredden på kolumnerna i procent."
 
 #: ../classes/settings.php:219 ../classes/column/custom-field.php:16
 #: ../classes/column/custom-field.php:324
@@ -201,13 +211,17 @@ msgstr "'Anpassat fält' kolumn "
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr "Det anpassade fältets kolumn använder den anpassade fältet från inlägg och användare. Det fins 10 typer som du kan ange."
+msgstr ""
+"Det anpassade fältets kolumn använder den anpassade fältet från inlägg och "
+"användare. Det fins 10 typer som du kan ange."
 
 #: ../classes/settings.php:224
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr "Värde: Kan antingen vara en sträng eller array. Arrays ska plattas och värden åtskilda av en ',' kommatecken."
+msgstr ""
+"Värde: Kan antingen vara en sträng eller array. Arrays ska plattas och "
+"värden åtskilda av en ',' kommatecken."
 
 #: ../classes/settings.php:225 ../classes/column/custom-field.php:73
 #: ../classes/column/link/image.php:12
@@ -218,7 +232,9 @@ msgstr "Bild"
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr "Värde: ska innehålla en bildadress eller bilags-ID ( separerad av ett ',' kommatecken )."
+msgstr ""
+"Värde: ska innehålla en bildadress eller bilags-ID ( separerad av ett ',' "
+"kommatecken )."
 
 #: ../classes/settings.php:226 ../classes/column/custom-field.php:75
 #: ../classes/column/comment/excerpt.php:13
@@ -236,9 +252,9 @@ msgstr "Flera värden"
 
 #: ../classes/settings.php:227
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
-msgstr "Värde: skall vara en array. Detta planar en ( flerdimensionell ) array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr ""
+"Värde: skall vara en array. Detta planar en ( flerdimensionell ) array."
 
 #: ../classes/settings.php:228 ../classes/column/custom-field.php:77
 msgid "Numeric"
@@ -248,7 +264,10 @@ msgstr "Numerisk"
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Värde: Heltal bara. <br/> Om du har \"sorterings tillägget\" kommer detta att användas för sortering, så att du kan sortera dina inlägg på numeriska (anpassade fält) värden."
+msgstr ""
+"Värde: Heltal bara. <br/> Om du har \"sorterings tillägget\" kommer detta "
+"att användas för sortering, så att du kan sortera dina inlägg på numeriska "
+"(anpassade fält) värden."
 
 #: ../classes/settings.php:229 ../classes/column/custom-field.php:78
 #: ../classes/column/comment/date.php:12
@@ -261,7 +280,10 @@ msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
-msgstr "Värde: Kan vara unix tidsstämpel eller ett datumformat som beskrivs i <a href='%s'>Codex</ a>. Du kan ändra hur datumformatet ska visas på <a href='%s'>generella inställningar</ a> sidan."
+msgstr ""
+"Värde: Kan vara unix tidsstämpel eller ett datumformat som beskrivs i <a "
+"href='%s'>Codex</ a>. Du kan ändra hur datumformatet ska visas på <a "
+"href='%s'>generella inställningar</ a> sidan."
 
 #: ../classes/settings.php:230
 msgid "Post Titles"
@@ -307,7 +329,9 @@ msgstr "Tack för att du uppdaterar till den senaste versionen!"
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
-msgstr "Admin Columns är mer polerat och roligare än någonsin tidigare. Vi hoppas att du gillar det."
+msgstr ""
+"Admin Columns är mer polerat och roligare än någonsin tidigare. Vi hoppas "
+"att du gillar det."
 
 #: ../classes/settings.php:386
 msgid "What’s New"
@@ -330,12 +354,16 @@ msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr "Tillägg aktiveras nu genom att hämta och installera dem individuellt. Även om dessa tillägg inte kommer att finnas på wordpress.org förvaret, kommer varje tillägg kommer att fortsätta uppdateras som vanligt."
+msgstr ""
+"Tillägg aktiveras nu genom att hämta och installera dem individuellt. Även "
+"om dessa tillägg inte kommer att finnas på wordpress.org förvaret, kommer "
+"varje tillägg kommer att fortsätta uppdateras som vanligt."
 
 #: ../classes/settings.php:400
 msgid ""
 "This website uses the Sortorder Addon. This addon needs to be downloaded."
-msgstr "Denna webbplats användar Sortorder tillägg. Detta tillägg behöver hämtas."
+msgstr ""
+"Denna webbplats användar Sortorder tillägg. Detta tillägg behöver hämtas."
 
 #: ../classes/settings.php:403
 msgid "Addons are seperate plugins which need to be downloaded."
@@ -363,9 +391,11 @@ msgstr "Databas ändringar"
 
 #: ../classes/settings.php:419
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
-msgstr "Databasen har ändrats mellan versionerna 1 och 2. Men vi såg till att du fortfarande kan rulla tillbaka till version 1x utan några problem."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
+msgstr ""
+"Databasen har ändrats mellan versionerna 1 och 2. Men vi såg till att du "
+"fortfarande kan rulla tillbaka till version 1x utan några problem."
 
 #: ../classes/settings.php:422
 msgid "Make sure you backup your database and then click"
@@ -381,10 +411,13 @@ msgstr "Potentiella problem"
 
 #: ../classes/settings.php:426
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
-msgstr "För den betydande refactoring koden, omgivande tillägg och action/filters, så kanske din webbplats inte fungerar korrekt. Det är viktigt att du läser hela"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
+msgstr ""
+"För den betydande refactoring koden, omgivande tillägg och action/filters, "
+"så kanske din webbplats inte fungerar korrekt. Det är viktigt att du läser "
+"hela"
 
 #: ../classes/settings.php:426
 msgid "Migrating from v1 to v2"
@@ -399,7 +432,9 @@ msgstr "guide för att visa en komplett lista på förändringar."
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr "När du har hittat en bugg vänligen <a href=\"%s\">rapportera dem till oss</ a> så att vi kan åtgärda det i kommande utgåva."
+msgstr ""
+"När du har hittat en bugg vänligen <a href=\"%s\">rapportera dem till oss</ "
+"a> så att vi kan åtgärda det i kommande utgåva."
 
 #: ../classes/settings.php:429
 msgid "Important!"
@@ -409,7 +444,9 @@ msgstr "Viktigt!"
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
-msgstr "Om du uppdaterat Admin Columns tillägget utan förkunskaper om sådana ändringar, vänligen rulla tillbaka till den senaste"
+msgstr ""
+"Om du uppdaterat Admin Columns tillägget utan förkunskaper om sådana "
+"ändringar, vänligen rulla tillbaka till den senaste"
 
 #: ../classes/settings.php:429
 msgid "version 1"
@@ -431,13 +468,16 @@ msgstr "Lära dig mer"
 msgid ""
 "New to v2, all Addons act as separate plugins which need to be individually "
 "downloaded, installed and updated."
-msgstr "Nytt på v2, alla tillägg agerar separat som behöver hämtas individuellt, installeras och uppdateras."
+msgstr ""
+"Nytt på v2, alla tillägg agerar separat som behöver hämtas individuellt, "
+"installeras och uppdateras."
 
 #: ../classes/settings.php:460
 msgid ""
-"This page will assist you in downloading and installing each available "
-"Addon."
-msgstr "Denna sida kommer att hjälpa dig att hämta och installera varje tillgängligt tillägg."
+"This page will assist you in downloading and installing each available Addon."
+msgstr ""
+"Denna sida kommer att hjälpa dig att hämta och installera varje tillgängligt "
+"tillägg."
 
 #: ../classes/settings.php:461
 msgid "Available Addons"
@@ -477,13 +517,17 @@ msgstr "Tillägg - > Lägg till -> Ladda upp"
 
 #: ../classes/settings.php:489
 msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
-msgstr "Använd uppladdaren för att bläddra, välja och installera ditt tillägg (.zip fil)"
+msgstr ""
+"Använd uppladdaren för att bläddra, välja och installera ditt tillägg (.zip "
+"fil)"
 
 #: ../classes/settings.php:490
 msgid ""
-"Once the plugin has been uploaded and installed, click the 'Activate Plugin'"
-" link"
-msgstr "När tillägget har laddas upp och installerats, klicka på 'Aktivera tillägg' länken"
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
+msgstr ""
+"När tillägget har laddas upp och installerats, klicka på 'Aktivera tillägg' "
+"länken"
 
 #: ../classes/settings.php:491
 msgid "The Add-on is now installed and activated!"
@@ -493,7 +537,9 @@ msgstr "Tillägget är nu installerat och aktiverat!"
 #, php-format
 msgid ""
 "For automatic updates make sure to <a href='%s'>enter your licence key</a>."
-msgstr "För automatiska uppdatering se till att <a href='%s'>ange din licensnyckel</a>."
+msgstr ""
+"För automatiska uppdatering se till att <a href='%s'>ange din licensnyckel</"
+"a>."
 
 #: ../classes/settings.php:502
 msgid "Start using Admin Columns"
@@ -514,9 +560,11 @@ msgstr "Publicera"
 #: ../classes/settings.php:589
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Varning! Den %s kolumner data kommer att raderas. Detta kan inte ångras. \\'OK\\' för att ta bort, \\'Avbryt\\' för att stoppa"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"Varning! Den %s kolumner data kommer att raderas. Detta kan inte ångras. "
+"\\'OK\\' för att ta bort, \\'Avbryt\\' för att stoppa"
 
 #: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
@@ -554,14 +602,17 @@ msgstr "Support"
 
 #: ../classes/settings.php:620
 msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr "Kolla på <strong>Hjälp</ strong> sektionen i den övre högra delen av skärmen."
+msgstr ""
+"Kolla på <strong>Hjälp</ strong> sektionen i den övre högra delen av skärmen."
 
 #: ../classes/settings.php:622
 #, php-format
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
-msgstr "För fullständig dokumentation, felrapporter, förslag på funktioner och andra tips <a href='%s'>besök Admin Columns webbsida</ a>"
+msgstr ""
+"För fullständig dokumentation, felrapporter, förslag på funktioner och andra "
+"tips <a href='%s'>besök Admin Columns webbsida</ a>"
 
 #: ../classes/settings.php:642
 msgid "Drag and drop to reorder"
@@ -586,7 +637,9 @@ msgstr "Visa dolda anpassade fält. Standard är <code>av</code>."
 #: ../classes/settings.php:716
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr "Visa \"Redigera kolumner\" knappen på admin skärmen. Standard är <code>av</code>."
+msgstr ""
+"Visa \"Redigera kolumner\" knappen på admin skärmen. Standard är <code>av</"
+"code>."
 
 #: ../classes/settings.php:723
 msgid "Save"
@@ -598,7 +651,9 @@ msgstr "Återställ inställningar"
 
 #: ../classes/settings.php:764
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Detta kommer att radera alla kolumner inställningar och återställa till standardinställningarna"
+msgstr ""
+"Detta kommer att radera alla kolumner inställningar och återställa till "
+"standardinställningarna"
 
 #: ../classes/settings.php:770
 msgid "Restore default settings"
@@ -608,7 +663,9 @@ msgstr "Återställ till standardinställningar"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Varning! ALLA sparade admin kolumners data kommer att radera. Detta kan inte ångras. \\'OK\\' för att radera, \\'Cancel\\' för att avbryta "
+msgstr ""
+"Varning! ALLA sparade admin kolumners data kommer att radera. Detta kan inte "
+"ångras. \\'OK\\' för att radera, \\'Cancel\\' för att avbryta "
 
 #: ../classes/storage_model.php:167
 msgid "settings succesfully restored."
@@ -684,7 +741,9 @@ msgstr "Fel"
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."
-msgstr "Ursäkta. Något gick fel under uppgraderingen. Vänligen rapportera detta på support forumet. "
+msgstr ""
+"Ursäkta. Något gick fel under uppgraderingen. Vänligen rapportera detta på "
+"support forumet. "
 
 #: ../classes/column/custom-field.php:74 ../classes/storage_model/media.php:13
 msgid "Media Library"
@@ -829,7 +888,9 @@ msgstr "Antal ord"
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
-msgstr "Du är på väg att radera denna länk  '%s'\n 'Avbryt' för att avbryta, 'OK' för att radera"
+msgstr ""
+"Du är på väg att radera denna länk  '%s'\n"
+" 'Avbryt' för att avbryta, 'OK' för att radera"
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
 msgid "Delete"
