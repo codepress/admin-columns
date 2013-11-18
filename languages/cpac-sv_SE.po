@@ -282,8 +282,8 @@ msgid ""
 "href='%s'>general settings</a> page."
 msgstr ""
 "Värde: Kan vara unix tidsstämpel eller ett datumformat som beskrivs i <a "
-"href='%s'>Codex</ a>. Du kan ändra hur datumformatet ska visas på <a "
-"href='%s'>generella inställningar</ a> sidan."
+"href='%s'>Codex</a>. Du kan ändra hur datumformatet ska visas på <a "
+"href='%s'>generella inställningar</a> sidan."
 
 #: ../classes/settings.php:230
 msgid "Post Titles"
@@ -433,7 +433,7 @@ msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
 msgstr ""
-"När du har hittat en bugg vänligen <a href=\"%s\">rapportera dem till oss</ "
+"När du har hittat en bugg vänligen <a href=\"%s\">rapportera dem till oss</"
 "a> så att vi kan åtgärda det i kommande utgåva."
 
 #: ../classes/settings.php:429
@@ -603,7 +603,7 @@ msgstr "Support"
 #: ../classes/settings.php:620
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
-"Kolla på <strong>Hjälp</ strong> sektionen i den övre högra delen av skärmen."
+"Kolla på <strong>Hjälp</strong> sektionen i den övre högra delen av skärmen."
 
 #: ../classes/settings.php:622
 #, php-format
@@ -612,7 +612,7 @@ msgid ""
 "href='%s'>visit the Admin Columns website</a>"
 msgstr ""
 "För fullständig dokumentation, felrapporter, förslag på funktioner och andra "
-"tips <a href='%s'>besök Admin Columns webbsida</ a>"
+"tips <a href='%s'>besök Admin Columns webbsida</a>"
 
 #: ../classes/settings.php:642
 msgid "Drag and drop to reorder"
