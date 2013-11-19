@@ -609,7 +609,10 @@ class CPAC_Settings {
 									</p>
 								</div>
 							</div>
-							<!--
+
+							<?php
+							// @todo: add newsletter
+							if ( false ) : ?>
 							<div class="padding-box newsletter">
 								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 									<?php $user = wp_get_current_user(); ?>
@@ -627,7 +630,7 @@ class CPAC_Settings {
 									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
 								</form>
 							</div>
-							-->
+							<?php endif; ?>
 						</div>
 					<?php endif; ?>
 
