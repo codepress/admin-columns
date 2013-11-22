@@ -30,6 +30,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->options['excerpt_length']	= 15;
 
 		$this->options['date_format']		= '';
+		$this->options['date_save_format']	= '';
 
 		// for retireving sorting preference
 		$this->user_settings = get_option( 'cpac_general_options' );
@@ -43,12 +44,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	function sanitize_options( $options ) {
-
-		//if ( ! empty( $options['before'] ) )
-		//	$options['before'] = trim( $options['before'] );
-
-		//if ( ! empty( $options['after'] ) )
-		//	$options['after'] = trim( $options['after'] );
 
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );

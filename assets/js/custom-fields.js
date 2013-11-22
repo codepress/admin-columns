@@ -49,5 +49,14 @@ jQuery.fn.column_bind_custom_field_events = function() {
 		else {
 			date_format.hide();
 		}
+
+		// date format
+		var date_save_format = jQuery(this).closest('table').find('.column_date_save_format').show();
+		if( 'date' == value ) {
+			date_save_format.show();
+		}
+		else {
+			date_save_format.hide();
+		}
 	});
 };

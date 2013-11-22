@@ -10,6 +10,9 @@ span.status-open {}
 span.status-closed {
 	color: red;
 }
+.tablenav.top .cpac-edit {
+	top: 4px;
+}
 
 /* =Images Column
 -------------------------------------------------------------- */

@@ -249,13 +249,18 @@ abstract class CPAC_Storage_Model {
 
 		foreach( $iterator as $leaf ) {
 
-			// skip files that start with . ( e.g: .SVN .DS_STORE )
-			if ( $leaf->isDot() || $leaf->isDir() || substr( $leaf->getFilename(), 0, 1 ) === '.' ) continue;
+			if ( $leaf->isDot() || $leaf->isDir() )
+				continue;
+
+			// only allow php files, exclude .SVN .DS_STORE and such
+			if ( substr( $leaf->getFilename(), -4 ) !== '.php' )
+    			continue;
 
 			// build classname from filename
-			$class_name = implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
+			$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
 
-			$columns[ 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . $class_name  ] = $leaf->getPathname();
+			// classname | filepath
+			$columns[ $class_name ] = $leaf->getPathname();
 		}
 
 		// cac/columns/custom - filter to register column
@@ -285,6 +290,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'name', $column_name )
 			->set_properties( 'label', $label )
 			->set_properties( 'is_cloneable', false )
+			->set_properties( 'default', true )
 			->set_options( 'label', $label )
 			->set_options( 'state', 'on' );
 
@@ -404,7 +410,7 @@ abstract class CPAC_Storage_Model {
 
 		// only set columns on allowed screens
 		// @todo_minor: maybe add exception for AJAX calls
-		if ( ! $this->is_columns_screen() && ! $this->is_settings_page() )
+		if ( ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() )
 			return;
 
 		$this->custom_columns   = $this->get_custom_registered_columns();
@@ -615,6 +621,20 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Is doing ajax
+	 *
+	 * @since 2.0.5
+	 *
+     * @return boolean
+	 */
+	function is_doing_ajax() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			return true;
+
+		return false;
+	}
+
+	/**
 	 * Is columns screen
 	 *
 	 * @since 2.0.3
@@ -630,8 +650,17 @@ abstract class CPAC_Storage_Model {
 		if ( $this->page . '.php' != $pagenow )
 			return false;
 
-		if ( ! empty( $current_screen->post_type ) && $this->key != $current_screen->post_type )
-			return false;
+		// posttypes
+		if ( 'post' == $this->type ) {
+			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : $this->type;
+
+			if ( $this->key != $post_type )
+				return false;
+		}
+
+		// @todo: current_screen is still empty at this point...
+		//if ( ! empty( $current_screen->post_type ) && $this->key != $current_screen->post_type )
+		//	return false;
 
 		return true;
 	}

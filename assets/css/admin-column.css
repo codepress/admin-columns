@@ -89,7 +89,7 @@ a.help {
 -------------------------------------------------------------- */
 .columns-container {
 	margin-right: 300px;
-	max-width: 600px;
+	max-width: 700px;
 }
 .rtl .columns-container {
 	margin-left: 300px;
@@ -485,9 +485,9 @@ tr.column_image_size.hidden {
 	padding-right: 0;
 }
 .column-form tr td.input p.description {
-	display: none;
+	/*display: none;*/
 	margin-top: 4px;
-	color: #666666;
+	color: #888888;
 }
 .column-form a.help {
 	vertical-align: middle;

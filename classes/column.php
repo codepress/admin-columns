@@ -123,6 +123,7 @@ class CPAC_Column {
 			'hide_label'		=> false,	// Should the Label be hidden?
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'		=> true,	// Should the column be cloneable
+			'default'			=> false,	// Is this a WP default column
 		);
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -792,6 +793,25 @@ class CPAC_Column {
 				<p class="description">
 					<?php printf( __( 'Leave empty for WordPress date format, change your <a href="%s">default date format here</a>.' , 'cpac' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
 					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'cpac' ); ?></a>
+				</p>
+			</td>
+		</tr>
+
+		<?php
+
+		$field_key		= 'date_save_format';
+		$label			= __( 'Date Save Format', 'cpac' );
+		$description	= __( 'Fill in the date format as it is stored. This is used to accurately determine the date.', 'cpac' );
+
+		?>
+
+		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
+			<?php $this->label_view( $label, $description, $field_key ); ?>
+			<td class="input">
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_save_format; ?>" placeholder="<?php _e( 'Example:', 'cpac' ); ?> Y-m-d H:i:s"/>
+				<p class="description">
+					<?php _e( 'Leave empty if you are not sure. Commonly used format are "yyyy-mm-dd hh:ii:ss" or "@" (timestamp). Read more about '); ?>
+					<a target='_blank' href='http://api.jqueryui.com/datepicker/#utility-formatDate'><?php _e( 'jQuery date formats', 'cpac' ); ?>.</a>
 				</p>
 			</td>
 		</tr>
