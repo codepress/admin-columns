@@ -34,6 +34,7 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 			'future' 	=> __( 'Scheduled', 'cpac' ) . " <p class='description'>" . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) , strtotime( $p->post_date ) ) . "</p>",
 			'private' 	=> __( 'Private', 'cpac' ),
 			'pending' 	=> __( 'Pending Review', 'cpac' ),
+			'auto-draft' => __( 'Auto Draft', 'cpac' ),
 			'trash' 	=> __( 'Trash', 'cpac' ),
 		);
 

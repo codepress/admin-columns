@@ -202,9 +202,9 @@ a.help {
 }
 .column-meta table tr td {
 	vertical-align: top;
-	height: 16px;
+	height: 18px;
 	border: none;
-	padding: 12px 8px;
+	padding: 11px 8px;
 	border-width: 1px 0 0;
 	border-style: solid;
 	border-color: transparent;
@@ -230,7 +230,7 @@ a.help {
 .column-meta .column_label .inner {
 	position: relative;
 	overflow: hidden;
-	height: 16px;
+	height: 18px;
 }
 .column-meta .column_label .inner > a {
 	color: #5a5a5a;
@@ -283,7 +283,7 @@ a.help {
 }
 .column-meta .column_edit {
 	width: 38px;
-	background: transparent url('../images/arrow.png') no-repeat 23px 16px;
+	background: transparent url('../images/arrow.png') no-repeat 23px 18px;
 	cursor: pointer;
 }
 
