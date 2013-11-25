@@ -222,6 +222,7 @@ Here you will find an overview of filters and examples: http://www.codepresshq.c
 
 = 2.1.1 =
 * [Updated] Added page check to posttype edit screens
+* [Updated] taxonomy raw_value outputs term_ids
 
 = 2.1.0 =
 * [Updated] Improved overall performance for script loading and lowered memory usage

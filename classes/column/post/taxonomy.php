@@ -26,8 +26,10 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 
 		$values = array();
 
-		if ( $terms = $this->get_raw_value( $post_id ) ) {
-			foreach ( $terms as $term ) {
+		$term_ids = $this->get_raw_value( $post_id );
+		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
+			foreach ( $term_ids as $term_id ) {
+				$term = get_term( $term_id, $this->options->taxonomy );
 
 				$title 		= esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'edit' ) );
 				$values[]	= "<a href='edit.php?post_type={$this->storage_model->key}&{$term->taxonomy}={$term->slug}'>{$title}</a>";
@@ -43,7 +45,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 	 */
 	function get_raw_value( $post_id ) {
 
-		return get_the_terms( $post_id, $this->options->taxonomy );
+		return wp_get_post_terms( $post_id, $this->options->taxonomy, array( 'fields' => 'ids' ) );
 	}
 
 	/**

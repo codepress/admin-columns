@@ -798,24 +798,6 @@ class CPAC_Column {
 		</tr>
 
 		<?php
-
-		$field_key		= 'date_save_format';
-		$label			= __( 'Date Save Format', 'cpac' );
-		$description	= __( 'Fill in the date format as it is stored. This is used to accurately determine the date.', 'cpac' );
-
-		?>
-
-		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
-			<?php $this->label_view( $label, $description, $field_key ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_save_format; ?>" placeholder="<?php _e( 'Example:', 'cpac' ); ?> Y-m-d H:i:s"/>
-				<p class="description">
-					<?php _e( 'Leave empty if you are not sure. Commonly used format are "yyyy-mm-dd hh:ii:ss" or "@" (timestamp). Read more about '); ?>
-					<a target='_blank' href='http://api.jqueryui.com/datepicker/#utility-formatDate'><?php _e( 'jQuery date formats', 'cpac' ); ?>.</a>
-				</p>
-			</td>
-		</tr>
-<?php
 	}
 
 	/**
@@ -838,7 +820,7 @@ class CPAC_Column {
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
 			</td>
 		</tr>
-<?php
+	<?php
 	}
 
 	/**
