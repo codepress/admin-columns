@@ -26,8 +26,7 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 
 		$values = array();
 
-		$term_ids = $this->get_raw_value( $post_id );
-		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
+		if ( $term_ids = $this->get_raw_value( $post_id ) ) {
 			foreach ( $term_ids as $term_id ) {
 				$term = get_term( $term_id, $this->options->taxonomy );
 
@@ -45,7 +44,12 @@ class CPAC_Column_Post_Taxonomy extends CPAC_Column {
 	 */
 	function get_raw_value( $post_id ) {
 
-		return wp_get_post_terms( $post_id, $this->options->taxonomy, array( 'fields' => 'ids' ) );
+		$term_ids = wp_get_post_terms( $post_id, $this->options->taxonomy, array( 'fields' => 'ids' ) );
+
+		if ( is_wp_error( $term_ids ) )
+			return false;
+
+		return $term_ids;
 	}
 
 	/**
