@@ -11,7 +11,9 @@ span.status-closed {
 	color: red;
 }
 .tablenav.top .cpac-edit {
-	top: 4px;
+	top: 0;
+	display: inline-block;
+	vertical-align: bottom;
 }
 
 /* =Images Column

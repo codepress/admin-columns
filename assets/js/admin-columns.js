@@ -29,8 +29,6 @@ jQuery(document).ready(function() {
 	});
 });
 
-
-
 /*
  * Submit Form
  *
@@ -92,6 +90,7 @@ jQuery.fn.column_bind_events = function() {
 
 	var column		= jQuery(this);
 	var container	= column.closest('.columns-container');
+	var storage_model = container.attr('data-type');
 
 	/** select column type */
 	var default_value =  column.find('.column_type select option:selected').val();
@@ -122,11 +121,11 @@ jQuery.fn.column_bind_events = function() {
 			// open settings
 			clone.addClass('opened').find('.column-form').show();
 
+			// increment clone id
+			clone.cpac_update_clone_id( storage_model );
+
 			// add to DOM
 			column.replaceWith( clone );
-
-			// increment clone id
-			clone.cpac_update_clone_id();
 
 			// rebind toggle events
 			clone.column_bind_toggle();
@@ -217,18 +216,22 @@ jQuery.fn.column_remove = function() {
  *
  * @since 2.0.0
  */
-jQuery.fn.cpac_update_clone_id = function() {
+jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 	var el = jQuery( this );
 
 	var type		= el.attr( 'data-type' );
+	var all_columns = jQuery( '.columns-container[data-type="' + storage_model + '"]').find( '.cpac-columns' );
+	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
+
+/*	var type		= el.attr( 'data-type' );
 	var all_columns	= el.closest( '.cpac-boxes' ).find( '.cpac-columns' );
-	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not(el);
+	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );*/
 
 	// get clone ID
 	var ids	= jQuery.map( columns, function( e, i ) {
 		if ( jQuery(e).attr('data-clone') ){
-			return parseInt( jQuery( e ).attr( 'data-clone' ) );
+			return parseInt( jQuery( e ).attr( 'data-clone' ), 10 );
 		}
 		return 0;
 	});
@@ -283,13 +286,15 @@ function cpac_add_column() {
 
 		var clone = jQuery('.for-cloning-only .cpac-column', container ).first().clone();
 
+		var storage_model = container.attr('data-type');
+
 		if ( clone.length > 0 ) {
+
+			// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
+			clone.cpac_update_clone_id( storage_model );
 
 			// add to DOM
 			jQuery('.cpac-columns form', container).append( clone );
-
-			// increment clone id
-			clone.cpac_update_clone_id();
 
 			// rebind toggle events
 			clone.column_bind_toggle();
