@@ -16,8 +16,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 
 		$this->set_columns_filepath();
 
-		// Populate columns variable.
-		// This is used for manage_value. By storing these columns we greatly improve performance.
+		// populate columns variable
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
 		// headings

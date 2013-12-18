@@ -9,10 +9,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	function __construct( $post_type ) {
 
-		$this->key 		= $post_type;
-		$this->label 	= $this->get_label();
-		$this->type 	= 'post';
-		$this->page 	= 'edit';
+		$this->key 		 = $post_type;
+		$this->label 	 = $this->get_label();
+		$this->type 	 = 'post';
+		$this->page 	 = 'edit';
+		$this->post_type = $post_type;
 
 		// @todo_minor
 		// Add parent::__construct and move these two over:

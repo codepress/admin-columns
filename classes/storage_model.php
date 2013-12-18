@@ -242,7 +242,8 @@ abstract class CPAC_Storage_Model {
 	protected function set_columns_filepath() {
 
 		$columns  = array(
-			'CPAC_Column_Custom_Field' => CPAC_DIR . 'classes/column/custom-field.php'
+			'CPAC_Column_Custom_Field' 	=> CPAC_DIR . 'classes/column/custom-field.php',
+			'CPAC_Column_Taxonomy' => CPAC_DIR . 'classes/column/taxonomy.php'
 		);
 
 		$iterator = new DirectoryIterator( CPAC_DIR . 'classes/column/' . $this->type );
@@ -679,4 +680,19 @@ abstract class CPAC_Storage_Model {
 
         return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
     }
+
+    /**
+     * Get general options
+     *
+     * @since 2.1.1
+     */
+    public function get_general_option( $option ) {
+    	$options = get_option( 'cpac_general_options' );
+
+    	if ( ! isset( $options[ $option ] ) )
+    		return false;
+
+    	return $options[ $option ];
+    }
+
 }

@@ -50,8 +50,6 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 	 */
 	function get_raw_value( $post_id ) {
 
-		$p = get_post( $post_id );
-
-		return $p->post_status;
+		return get_post_field( 'post_status', $post_id );
 	}
 }

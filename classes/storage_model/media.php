@@ -9,15 +9,15 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 		= 'wp-media';
-		$this->label 	= __( 'Media Library' );
-		$this->type 	= 'media';
-		$this->page 	= 'upload';
+		$this->key 		 = 'wp-media';
+		$this->label 	 = __( 'Media Library' );
+		$this->type 	 = 'media';
+		$this->page 	 = 'upload';
+		$this->post_type = 'attachment';
 
 		$this->set_columns_filepath();
 
-		// Populate columns variable.
-		// This is used for manage_value. By storing these columns we greatly improve performance.
+		// populate columns variable
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
 		// headings
