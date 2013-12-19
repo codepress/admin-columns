@@ -636,7 +636,7 @@ msgstr "Support"
 #: ../classes/settings.php:638
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
-"Kolla på <strong>Hjälp</ strong> sektionen i den övre högra delen av skärmen."
+"Kolla på <strong>Hjälp</strong> sektionen i den övre högra delen av skärmen."
 
 #: ../classes/settings.php:641
 #, php-format
