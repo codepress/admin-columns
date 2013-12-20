@@ -283,7 +283,7 @@ Here you will find an overview of filters and examples: http://www.codepresshq.c
 * fixed bug: thirdparty columns that were previous loaded through load-edit.php will now use do_action( 'cpac-get-default-columns-{$type}' )
 
 = 1.4.8 =
-* [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu
+* [Fixed] Issue: removed acf posttype placed by Advanced Custom Fields from settings menu
 * [Fixed] Issue: removed bbPress posttypes topic, forum and reply from admin columns settings menu
 * [Fixed] Issue: license key could not activate properly
 

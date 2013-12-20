@@ -642,8 +642,8 @@ class CPAC_Column {
 
 				// image size by name
 				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$width 	= $sizes['image_size_w'];
-					$height	= $sizes['image_size_h'];
+					$width 	= $sizes['width'];
+					$height	= $sizes['height'];
 				}
 
 				// maximum dimensions

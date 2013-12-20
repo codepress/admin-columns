@@ -87,7 +87,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
         // Get the WP default columns
 		$table 	 = _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
-        $columns = $table->get_columns();
+        $columns = (array) $table->get_columns();
 
         // Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
 		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
@@ -95,7 +95,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
 		// when it's being called by CPAC_Storage_Model::add_headings()
 		if ( $this->is_settings_page() )
-			$columns =  array_merge( get_column_headers( 'edit-' . $this->key ), $columns );
+			$columns = array_merge( get_column_headers( 'edit-' . $this->key ), $columns );
 
 		return array_filter( $columns );
 	}
