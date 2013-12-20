@@ -26,7 +26,8 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 
 		$user_registered = $this->get_raw_value( $user_id );
 
-		return $this->get_date( $user_registered, $this->options->date_format );
+		// GMT offset is used
+		return $this->get_date( get_date_from_gmt( $user_registered ), $this->options->date_format );
 	}
 
 	/**
