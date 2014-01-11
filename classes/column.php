@@ -335,6 +335,19 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get cache ID
+	 *
+	 * @since 2.1.2
+	 *
+	 * @param $id Cache ID
+	 * @return string MD5 Cache ID
+	 */
+	function get_cache_id( $id ) {
+
+		return md5( $this->storage_model->key . $this->properties->name . $id );
+	}
+
+	/**
 	 * Set cache objects
 	 *
 	 * @since 2.0.0
@@ -347,14 +360,7 @@ class CPAC_Column {
 		if ( empty( $cache_object ) )
 			return false;
 
-		$cache_name = $this->storage_model->key . $this->properties->name . $id;
-
-		if ( strlen( $cache_name ) > 64 ) {
-			trigger_error( 'Cache name too long.' );
-			return false;
-		}
-
-		set_transient( $cache_name, $cache_object );
+		set_transient( $this->get_cache_id( $id ), $cache_object );
 	}
 
 	/**
@@ -366,8 +372,9 @@ class CPAC_Column {
 	 * @return false | mixed Returns either false or the cached objects
 	 */
 	function get_cache( $id ) {
-		$cache = get_transient( $this->storage_model->key . $this->properties->name . $id );
-		if( empty( $cache ) )
+		$cache = get_transient( $this->get_cache_id( $id ) );
+
+		if ( empty( $cache ) )
 			return false;
 
 		return $cache;
@@ -382,7 +389,7 @@ class CPAC_Column {
 	 */
 	function delete_cache( $id ) {
 
-		delete_transient( $this->storage_model->key . $this->properties->name . $id );
+		delete_transient( $this->get_cache_id( $id ) );
 	}
 
 	/**

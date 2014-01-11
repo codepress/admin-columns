@@ -390,7 +390,7 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @paran string $key
+	 * @param string $key
 	 * @return array Column options
 	 */
 	public function get_stored_columns() {
@@ -405,12 +405,14 @@ abstract class CPAC_Storage_Model {
 	 * Set Columns
 	 *
 	 * @since 2.0.2
+	 *
+	 * @param bool $ignore_check This will allow (3rd party plugins) to populate columns outside the approved screens.
 	 */
-	function set_columns() {
+	public function set_columns( $ignore_screen_check = false ) {
 
 		// only set columns on allowed screens
 		// @todo_minor: maybe add exception for AJAX calls
-		if ( ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() )
+		if ( ! $ignore_screen_check && ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() )
 			return;
 
 		$this->custom_columns   = $this->get_custom_registered_columns();
