@@ -15,17 +15,14 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->page 	 = 'upload';
 		$this->post_type = 'attachment';
 
-		$this->set_columns_filepath();
-
-		// populate columns variable
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
-
 		// headings
         // Increased the priority to overrule 3th party plugins such as Media Tags
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 15 );
 
 		// values
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 10, 2 );
+
+		parent::__construct();
 	}
 
 	/**

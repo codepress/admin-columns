@@ -77,6 +77,21 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_columns();
 
 	/**
+	 * Construct
+	 *
+	 * @since 2.1.2
+	 */
+	function __construct() {
+
+		// set columns paths
+		$this->set_columns_filepath();
+
+		// Populate columns variable.
+		// This is used for manage_value. By storing these columns we greatly improve performance.
+		add_action( 'admin_init', array( $this, 'set_columns' ) );
+	}
+
+	/**
 	 * Checks if menu type is currently viewed
 	 *
 	 * @since 1.0.0
@@ -239,29 +254,36 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @return array Column Classnames | Filepaths
 	 */
-	protected function set_columns_filepath() {
+	public function set_columns_filepath() {
 
 		$columns  = array(
 			'CPAC_Column_Custom_Field' 	=> CPAC_DIR . 'classes/column/custom-field.php',
-			'CPAC_Column_Taxonomy' => CPAC_DIR . 'classes/column/taxonomy.php'
+			'CPAC_Column_Taxonomy' 		=> CPAC_DIR . 'classes/column/taxonomy.php'
 		);
 
-		$iterator = new DirectoryIterator( CPAC_DIR . 'classes/column/' . $this->type );
+		// Directory to iterate
+		$columns_dir = CPAC_DIR . 'classes/column/' . $this->type;
 
-		foreach( $iterator as $leaf ) {
+		// check if directory exists
+		if ( is_dir( $columns_dir ) ) {
 
-			if ( $leaf->isDot() || $leaf->isDir() )
-				continue;
+			$iterator = new DirectoryIterator( $columns_dir );
 
-			// only allow php files, exclude .SVN .DS_STORE and such
-			if ( substr( $leaf->getFilename(), -4 ) !== '.php' )
-    			continue;
+			foreach( $iterator as $leaf ) {
 
-			// build classname from filename
-			$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
+				if ( $leaf->isDot() || $leaf->isDir() )
+					continue;
 
-			// classname | filepath
-			$columns[ $class_name ] = $leaf->getPathname();
+				// only allow php files, exclude .SVN .DS_STORE and such
+				if ( substr( $leaf->getFilename(), -4 ) !== '.php' )
+	    			continue;
+
+				// build classname from filename
+				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
+
+				// classname | filepath
+				$columns[ $class_name ] = $leaf->getPathname();
+			}
 		}
 
 		// cac/columns/custom - filter to register column
@@ -657,6 +679,15 @@ abstract class CPAC_Storage_Model {
 			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : $this->type;
 
 			if ( $this->key != $post_type )
+				return false;
+		}
+
+		// taxonomy
+		if ( 'taxonomy' == $this->type ) {
+
+			$taxonomy = isset( $_GET['taxonomy'] ) ? $_GET['taxonomy'] : '';
+
+			if ( $this->taxonomy != $taxonomy )
 				return false;
 		}
 

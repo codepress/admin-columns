@@ -14,16 +14,13 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->type 	= 'user';
 		$this->page 	= 'users';
 
-		$this->set_columns_filepath();
-
-		// populate columns variable
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
-
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 10, 3 );
+
+		parent::__construct();
 	}
 
 	/**

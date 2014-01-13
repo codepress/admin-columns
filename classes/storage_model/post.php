@@ -15,18 +15,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->page 	 = 'edit';
 		$this->post_type = $post_type;
 
-		// @todo_minor
-		// Add parent::__construct and move these two over:
-		// $this->set_custom_columns()
-		// add_action( 'admin_init', array( $this, 'set_columns' ) );
-		// also for the other types
-
-		$this->set_columns_filepath();
-
-		// Populate columns variable.
-		// This is used for manage_value. By storing these columns we greatly improve performance.
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
-
 		// Headings
 
 		// Since 3.1
@@ -38,6 +26,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// values
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
+
+		parent::__construct();
 	}
 
 	/**

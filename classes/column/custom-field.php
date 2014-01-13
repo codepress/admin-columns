@@ -250,8 +250,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 *
 	 * @since 1.0
 	 */
-	function hex2rgb($hex) {
-		$hex = str_replace("#", "", $hex);
+	function hex2rgb( $hex ) {
+		$hex = str_replace( "#", "", $hex );
 
 		if(strlen($hex) == 3) {
 			$r = hexdec(substr($hex,0,1).substr($hex,0,1));
@@ -329,7 +329,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	function get_raw_value( $id, $single = true ) {
 
-		return get_metadata( $this->storage_model->type, $id, $this->get_field_key(), $single );
+		$field_key = $this->get_field_key();
+
+		$raw_value = get_metadata( $this->storage_model->type, $id, $field_key, $single );
+
+		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $field_key, $this );
 	}
 
 	/**

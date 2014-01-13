@@ -121,7 +121,7 @@ class CPAC {
 	 */
 	private function set_storage_models() {
 
-		$this->storage_models = array();
+		$storage_models = array();
 
 		// include parent and childs
 		require_once CPAC_DIR . 'classes/column.php';
@@ -135,29 +135,28 @@ class CPAC {
 		// add Posts
 		foreach ( $this->get_post_types() as $post_type ) {
 			$storage_model = new CPAC_Storage_Model_Post( $post_type );
-			$this->storage_models[ $storage_model->key ] = $storage_model;
+			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 
 		// add User
 		$storage_model = new CPAC_Storage_Model_User();
-		$this->storage_models[ $storage_model->key ] = $storage_model;
+		$storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Media
 		$storage_model = new CPAC_Storage_Model_Media();
-		$this->storage_models[ $storage_model->key ] = $storage_model;
+		$storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Comment
 		$storage_model = new CPAC_Storage_Model_Comment();
-		$this->storage_models[ $storage_model->key ] = $storage_model;
+		$storage_models[ $storage_model->key ] = $storage_model;
 
 		// add Link
 		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
 			$storage_model = new CPAC_Storage_Model_Link();
-			$this->storage_models[ $storage_model->key ] = $storage_model;
+			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 
-		// Hook to add more models
-		do_action( 'cac/storage_models', $this->storage_models );
+		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models );
 	}
 
 	/**
@@ -304,7 +303,7 @@ class CPAC {
 		if ( $this->storage_models ) {
 			foreach ( $this->storage_models as $storage_model ) {
 
-				if ( $storage_model->page . '.php' !== $pagenow )
+				if ( ! $storage_model->is_columns_screen() )
 					continue;
 
 				// CSS: columns width
@@ -318,15 +317,7 @@ class CPAC {
 				}
 
 				// JS: edit button
-				if (
-					// All types except Posts
-					empty( $current_screen->post_type ) ||
-					// Posts
-					( ! empty( $current_screen->post_type ) && $storage_model->key == $current_screen->post_type )
-					)
-					{
-					$edit_link = $storage_model->get_edit_link();
-				}
+				$edit_link = $storage_model->get_edit_link();
 			}
 		}
 

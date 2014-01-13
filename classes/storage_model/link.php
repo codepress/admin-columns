@@ -14,16 +14,13 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->type 	= 'link';
 		$this->page 	= 'link-manager';
 
-		$this->set_columns_filepath();
-
-		// populate columns variable
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
-
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
 
 		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 10, 2 );
+
+		parent::__construct();
 	}
 
 	/**
