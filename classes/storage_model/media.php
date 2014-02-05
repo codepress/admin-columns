@@ -14,6 +14,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->type 	 = 'media';
 		$this->page 	 = 'upload';
 		$this->post_type = 'attachment';
+		$this->menu_type = 'other';
 
 		// headings
         // Increased the priority to overrule 3th party plugins such as Media Tags

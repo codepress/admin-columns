@@ -9,10 +9,11 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 		= 'wp-comments';
-		$this->label 	= __( 'Comments' );
-		$this->type 	= 'comment';
-		$this->page 	= 'edit-comments';
+		$this->key 		 = 'wp-comments';
+		$this->label 	 = __( 'Comments' );
+		$this->type 	 = 'comment';
+		$this->page 	 = 'edit-comments';
+		$this->menu_type = 'other';
 
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );

@@ -53,7 +53,7 @@ jQuery.fn.column_bind_toggle = function() {
 
 	var column = jQuery(this);
 
-	column.find('td.column_edit, td.column_label a.toggle' ).click( function(){
+	column.find('td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function(){
 
 		column.toggleClass('opened').find('.column-form').slideToggle(150);
 

@@ -936,12 +936,9 @@ class CPAC_Column {
 										<?php do_action( 'cac/column/label', $this ); ?>
 
 									</div>
-									<a class="toggle" href="javascript:;">
-										<?php echo stripslashes( $this->get_label() ); ?>
-									</a>
-									<a class="remove-button" href="javacript:;">
-										<?php _e( 'Remove', 'cpac' ); ?>
-									</a>
+									<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
+									<a class="edit-button" href="javacript:;"><?php _e( 'Edit', 'cpac' ); ?></a>
+									<a class="remove-button" href="javacript:;"><?php _e( 'Remove', 'cpac' ); ?></a>
 								</div>
 							</td>
 							<td class="column_type">
@@ -1003,7 +1000,6 @@ class CPAC_Column {
 							<td colspan="2">
 								<p>
 									<a href="javascript:;" class="remove-button"><?php _e( 'Remove' );?></a>
-									<!--<span class="description alignright"><?php _e('type','cpac'); ?>: <em><?php echo $this->properties->type; ?></em></span>-->
 								</p>
 							</td>
 						</tr>

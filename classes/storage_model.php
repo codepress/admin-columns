@@ -33,6 +33,15 @@ abstract class CPAC_Storage_Model {
 	public $type;
 
 	/**
+	 * Menu Type
+	 *
+	 * Groups the storage model in the menu.
+	 *
+	 * @since 2.0.0
+	 */
+	public $menu_type;
+
+	/**
 	 * Page
 	 *
 	 * @since 2.0.0

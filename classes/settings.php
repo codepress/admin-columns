@@ -73,12 +73,6 @@ class CPAC_Settings {
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
-		// @ todo_minor REMOVE
-		// add capabilty to administrator to manage admin columns
-		// note to devs: you can use this to grant other roles this privilidge as well.
-		//if ( $role = get_role( 'administrator' ) )
-   			//$role->add_cap( 'manage_admin_columns' );
-
 		// add cap to options.php
    		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
 	}
@@ -104,7 +98,6 @@ class CPAC_Settings {
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-custom-fields-css', CPAC_URL . 'assets/css/custom-fields.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -509,6 +502,33 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * Menu
+	 *
+	 * @since 2.1.2
+	 */
+	function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
+
+		$storage_models_by_type = array();
+
+		foreach( $this->cpac->storage_models as $k => $storage_model ) {
+			if ( $menu_type == $storage_model->menu_type ) {
+				$storage_models_by_type[ $menu_type ][ $k ] = $storage_model;
+			}
+		}
+
+		if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) { $count = 0; ?>
+			<ul class="subsubsub">
+				<li class="first"><?php echo $label; ?>: </li>
+			<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
+				<?php /* <li><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li> */ ?>
+				<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $active_item ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		<?php
+		}
+	}
+
+	/**
 	 * Column Settings.
 	 *
 	 * @since 1.0.0
@@ -549,14 +569,14 @@ class CPAC_Settings {
 		?>
 
 			<div class="cpac-menu">
-				<ul class="subsubsub">
-					<?php $count = 0; ?>
-					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-					<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
-					<?php endforeach; ?>
-				</ul>
+
+				<?php $this->display_menu_by_type( 'post', __( 'Posttypes', 'cpac' ), $first ); ?>
+				<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
+				<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
+
 			</div>
 
+			<?php $count = 0; ?>
 			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 
 			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
@@ -578,7 +598,7 @@ class CPAC_Settings {
 							</h3>
 							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 							<div class="form-update">
-								<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __('Publish'); ?> <?php echo $storage_model->label; ?></a>
+								<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __('Save'); ?> <?php echo $storage_model->label; ?></a>
 							</div>
 							<?php if ( $has_been_stored ) : ?>
 							<div class="form-reset">

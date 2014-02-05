@@ -13,6 +13,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->label 	= __( 'Users' );
 		$this->type 	= 'user';
 		$this->page 	= 'users';
+		$this->menu_type = 'other';
 
 		// headings
 		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ) );
