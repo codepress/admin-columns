@@ -819,90 +819,9 @@ table.cpac-form-table {
 	margin-right: 15px;
 }
 
-/**
- * RTL
- * ----------------------------------------------------------------------------
- */
-.rtl .column-footer .order-message {
-	float: right;
-	padding-right: 22px;
-	padding-left: 0;
-	background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
-}
-.rtl .column-meta img {
-	margin-left: 3px;
-	margin-right: 0;
-}
-.rtl .column-meta .column_label .inner > a.remove-button {
-	margin-right: 12px;
-	margin-left: 0;
-}
-.rtl .column-meta .column_label .inner .meta {
-	float: left;
-}
-.rtl .column-meta .column_type {
-	text-align: left;
-	padding-left: 0;
-	padding-right: auto;
-}
-.rtl tr.column_image_size td.input label input {
-	margin-left: 3px;
-	margin-right: 0;
-}
-
-
-.rtl .column-meta span.vers .comment-grey-bubble {
-	float: left;
-}
-
-.rtl .column-meta .column_label span.vers {
-	float: right;
-}
-
-.rtl .column-form tr td.label p.description {
-	right: 0;
-	left: auto;
-}
-
-.rtl .column-form tr td.label a.more-info {
-	float: left;
-}
-
-.rtl .column-form div.description {
-	float: right;
-}
-
-.rtl .column-form div.input-width-range {
-	float: right;
-}
-
-.rtl .column-form tr td.input label {
-	padding-left: 10px;
-	padding-right: 0;
-}
-
-.rtl .column-form a.help {
-	float: left;
-}
-
-.rtl .column-footer .order-message {
-	float: right;
-	padding-right: 22px;
-	padding-left: 0;
-	background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
-}
-.rtl .column-footer .button-container {
-	float: left;
-}
-
-.rtl .cpac_export .ms-container .ms-selection {
-	float: left;
-}
-
-
 /* =RTL language
 -------------------------------------------------------------- */
-.rtl {
+body.rtl {
 	.wp-pointer-right {
 		margin-left: 15px;
 		margin-right: 0;
@@ -925,46 +844,132 @@ table.cpac-form-table {
 
 	.columns-left {
 		float: right;
+
+		// Columns
+		.cpac-columns {
+			.cpac-column {
+
+				// Column Header
+				.column-meta {
+					img {
+						margin-left: 3px;
+						margin-right: 0;
+					}
+					.column_label {
+						.inner {
+							> a.remove-button {
+								margin-right: 12px;
+								margin-left: 0;
+							}
+
+							.meta {
+								float: left;
+							}
+						}
+
+						span.vers {
+							float: right;
+						}
+					}
+					.column_type {
+						text-align: left;
+						padding-left: 0;
+						padding-right: auto;
+					}
+
+					span.vers .comment-grey-bubble {
+						float: left;
+					}
+				}
+
+				.column-form {
+					table tr {
+						&.column_image_size td.input label input {
+							margin-left: 3px;
+							margin-right: 0;
+						}
+
+						td.label {
+							p.description {
+								right: 0;
+								left: auto;
+							}
+							a.more-info {
+								float: left;
+							}
+						}
+					}
+
+					div.description {
+						float: right;
+					}
+
+					div.input-width-range {
+						float: right;
+					}
+
+					tr td.input label {
+						padding-left: 10px;
+						padding-right: 0;
+					}
+
+					a.help {
+						float: left;
+					}
+				}
+			}
+		}
+
+		// Footer
+		.column-footer {
+			.order-message {
+				float: right;
+				padding-right: 22px;
+				padding-left: 0;
+				background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
+			}
+			.button-container {
+				float: left;
+			}
+		}
 	}
+
 	.columns-right {
 		float: left;
 		margin-left: -300px;
 		margin-right: 0;
 	}
+
 	.cpac-placeholder {
 		padding: 5px 0 7px 4px;
 	}
 
+	.cpac_export .ms-container .ms-selection {
+		float: left;
+	}
 }
 
 /* =Responsive
 -------------------------------------------------------------- */
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 900px) {
 	.columns-container {
 		margin-right: 0;
-	}
-	.rtl .columns-container {
-		margin-left: 0;
-		margin-right: auto;
-	}
-	.columns-right {
-		margin-top: 0;
-		margin-right: 0;
-		width: 100%;
-	}
-	.rtl .columns-right {
-		margin-left: 0;
-		margin-right: auto;
-	}
-	.columns-right-inside.fixed {
-		position: relative;
-		top: 0;
-		width: 100%;
-	}
-	.columns-right #addon-state {
-		display: none;
-	}
-	.columns-right #plugin-support {
-		display: none;
+
+		.columns-left {
+			float: none;
+		}
+
+		.columns-right {
+			float: none;
+			margin-top: 0;
+			margin-right: 0;
+			width: 100%;
+
+			.columns-right-inside.fixed {
+				position: relative;
+				top: 0;
+				width: 100%;
+			}
+		}
 	}
 }

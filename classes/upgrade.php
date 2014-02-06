@@ -39,7 +39,7 @@ class CPAC_Upgrade {
 	public function admin_menu() {
 
 		// Don't run on plugin activate
-		if ( isset( $_GET['action'] ) && 'activate-plugin' == $_GET['action'] ) return;
+		if ( isset( $_GET['action'] ) && 'activate-plugin' === $_GET['action'] ) return;
 
 		// add settings page
 		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );

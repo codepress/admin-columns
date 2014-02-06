@@ -671,131 +671,111 @@ table.cpac-form-table td .cpac_export .ms-container ul.ms-list li {
 .wp-pointer-right {
   margin-right: 15px;
 }
-/**
- * RTL
- * ----------------------------------------------------------------------------
- */
-.rtl .column-footer .order-message {
-  float: right;
-  padding-right: 22px;
-  padding-left: 0;
-  background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
+/* =RTL language
+-------------------------------------------------------------- */
+body.rtl .wp-pointer-right {
+  margin-left: 15px;
+  margin-right: 0;
 }
-.rtl .column-meta img {
+body.rtl .wp-pointer-right ol {
+  margin-right: 1.5em;
+  margin-left: 0;
+}
+body.rtl .cpac-menu .subsubsub {
+  margin-left: 14px;
+  margin-right: 0;
+}
+body.rtl .columns-container {
+  margin-left: 300px;
+  margin-right: 0;
+}
+body.rtl .columns-left {
+  float: right;
+}
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta img {
   margin-left: 3px;
   margin-right: 0;
 }
-.rtl .column-meta .column_label .inner > a.remove-button {
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta .column_label .inner > a.remove-button {
   margin-right: 12px;
   margin-left: 0;
 }
-.rtl .column-meta .column_label .inner .meta {
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta .column_label .inner .meta {
   float: left;
 }
-.rtl .column-meta .column_type {
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta .column_label span.vers {
+  float: right;
+}
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta .column_type {
   text-align: left;
   padding-left: 0;
   padding-right: auto;
 }
-.rtl tr.column_image_size td.input label input {
+body.rtl .columns-left .cpac-columns .cpac-column .column-meta span.vers .comment-grey-bubble {
+  float: left;
+}
+body.rtl .columns-left .cpac-columns .cpac-column .column-form table tr.column_image_size td.input label input {
   margin-left: 3px;
   margin-right: 0;
 }
-.rtl .column-meta span.vers .comment-grey-bubble {
-  float: left;
-}
-.rtl .column-meta .column_label span.vers {
-  float: right;
-}
-.rtl .column-form tr td.label p.description {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form table tr td.label p.description {
   right: 0;
   left: auto;
 }
-.rtl .column-form tr td.label a.more-info {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form table tr td.label a.more-info {
   float: left;
 }
-.rtl .column-form div.description {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form div.description {
   float: right;
 }
-.rtl .column-form div.input-width-range {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form div.input-width-range {
   float: right;
 }
-.rtl .column-form tr td.input label {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form tr td.input label {
   padding-left: 10px;
   padding-right: 0;
 }
-.rtl .column-form a.help {
+body.rtl .columns-left .cpac-columns .cpac-column .column-form a.help {
   float: left;
 }
-.rtl .column-footer .order-message {
+body.rtl .columns-left .column-footer .order-message {
   float: right;
   padding-right: 22px;
   padding-left: 0;
   background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
 }
-.rtl .column-footer .button-container {
+body.rtl .columns-left .column-footer .button-container {
   float: left;
 }
-.rtl .cpac_export .ms-container .ms-selection {
-  float: left;
-}
-/* =RTL language
--------------------------------------------------------------- */
-.rtl .wp-pointer-right {
-  margin-left: 15px;
-  margin-right: 0;
-}
-.rtl .wp-pointer-right ol {
-  margin-right: 1.5em;
-  margin-left: 0;
-}
-.rtl .cpac-menu .subsubsub {
-  margin-left: 14px;
-  margin-right: 0;
-}
-.rtl .columns-container {
-  margin-left: 300px;
-  margin-right: 0;
-}
-.rtl .columns-left {
-  float: right;
-}
-.rtl .columns-right {
+body.rtl .columns-right {
   float: left;
   margin-left: -300px;
   margin-right: 0;
 }
-.rtl .cpac-placeholder {
+body.rtl .cpac-placeholder {
   padding: 5px 0 7px 4px;
+}
+body.rtl .cpac_export .ms-container .ms-selection {
+  float: left;
 }
 /* =Responsive
 -------------------------------------------------------------- */
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 900px) {
   .columns-container {
     margin-right: 0;
   }
-  .rtl .columns-container {
-    margin-left: 0;
-    margin-right: auto;
+  .columns-container .columns-left {
+    float: none;
   }
-  .columns-right {
+  .columns-container .columns-right {
+    float: none;
     margin-top: 0;
     margin-right: 0;
     width: 100%;
   }
-  .rtl .columns-right {
-    margin-left: 0;
-    margin-right: auto;
-  }
-  .columns-right-inside.fixed {
+  .columns-container .columns-right .columns-right-inside.fixed {
     position: relative;
     top: 0;
     width: 100%;
-  }
-  .columns-right #addon-state {
-    display: none;
-  }
-  .columns-right #plugin-support {
-    display: none;
   }
 }

@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.1.1
+Version: 			2.2.0
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'CPAC_VERSION', 	 	'2.1.1' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.2.0s' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -78,25 +78,81 @@ class CPAC {
 		// translations
 		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+		// add settings link
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2);
+
+		// Settings
+		include_once CPAC_DIR . 'classes/settings.php';
+		new CPAC_Settings( $this );
+
+		// Upgrade
+		require_once CPAC_DIR . 'classes/upgrade.php';
+		new CPAC_Upgrade( $this );
+
+		// load on cac on approved screenso only
+		if ( $this->is_cac_screen() ) {
+
+			// only load on allowed screens
+			$this->init_scripts();
+
+			// add capabilty to roles to manage admin columns
+			$this->set_capabilities();
+
+			// set storage models
+			$this->set_storage_models();
+
+			// for third party plugins
+			do_action( 'cac/loaded', $this );
+		}
+	}
+
+	/**
+	 * Is columns screen
+	 *
+	 * @since 2.1.2
+	 */
+	function is_columns_screen() {
+
+		if ( $this->is_doing_ajax() )
+			return false;
+
+		global $pagenow;
+
+		if ( ! in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) ) )
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Is CAC screen
+	 *
+	 * @since 2.1.2
+	 */
+	function is_cac_screen() {
+
+		global $pagenow;
+
+		if ( ! $this->is_columns_screen() && ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && 'codepress-admin-columns' === $_GET['page'] ) )
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Init scripts
+	 *
+	 * @since 2.1.1
+	 */
+	function init_scripts() {
+
+		if ( ! $this->is_columns_screen() )
+			return;
+
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_head', array( $this, 'admin_scripts') );
-
-		// add settings link
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link'), 1, 2);
-
-		// add capabilty to roles to manage admin columns
-		$this->set_capabilities();
-
-		// set storage models
-		$this->set_storage_models();
-
-		// ini controllers
-		$this->init_controllers();
-
-		// for third party plugins
-		do_action( 'cac/loaded', $this );
 	}
 
 	/**
@@ -109,8 +165,9 @@ class CPAC {
 	public function set_capabilities() {
 
 		// add capabilty to administrator to manage admin columns
-		if ( $role = get_role( 'administrator' ) )
+		if ( $role = get_role( 'administrator' ) ) {
    			$role->add_cap( 'manage_admin_columns' );
+   		}
 	}
 
 	/**
@@ -160,6 +217,20 @@ class CPAC {
 	}
 
 	/**
+	 * Is doing ajax
+	 *
+	 * @since 2.0.5
+	 *
+     * @return boolean
+	 */
+	function is_doing_ajax() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			return true;
+
+		return false;
+	}
+
+	/**
 	 * Get storage model
 	 *
 	 * @since 2.0.0
@@ -172,25 +243,6 @@ class CPAC {
 			return $this->storage_models[ $key ];
 
 		return false;
-	}
-
-	/**
-	 * Init controllers
-	 *
-	 * @since 2.0.0
-	 *
-	 */
-	 function init_controllers() {
-
-	 	do_action( 'cac/controllers', $this );
-
-		// Settings
-		include_once CPAC_DIR . 'classes/settings.php';
-		new CPAC_Settings( $this );
-
-		// Upgrade
-		require_once CPAC_DIR . 'classes/upgrade.php';
-		new CPAC_Upgrade( $this );
 	}
 
 	/**
@@ -243,11 +295,7 @@ class CPAC {
 	 */
 	public function column_styles() {
 
-		global $pagenow;
-
-		if ( in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) ) ) {
-			wp_enqueue_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
-		}
+		wp_enqueue_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -261,30 +309,17 @@ class CPAC {
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-		global $current_screen;
 
-		// we dont need the 'edit-' part
-		$screen = str_replace( 'edit-', '', $current_screen->id );
-
-		// media library exception
-		if ( $current_screen->base == 'upload' && $current_screen->id == 'upload' )
-			$screen = 'media';
-
-		// link exception
-		if ( $current_screen->base == 'link-manager' && $current_screen->id == 'link-manager' )
-			$screen = 'links';
-
-		// loop the available types
-		foreach ( $this->storage_models as $storage_model ) {
-
-			// match against screen or wp-screen
-			if ( $storage_model->key == $screen || $storage_model->key == "wp-{$screen}" )
-				$classes .= " cp-{$storage_model->key}";
+		if ( $this->storage_models ) {
+			foreach ( $this->storage_models as $storage_model ) {
+				if ( $storage_model->is_columns_screen() ) {
+					$classes .= " cp-{$storage_model->key}";
+				}
+			}
 		}
 
 		return $classes;
 	}
-
 
 	/**
 	 * Admin CSS for Column width and Settings Icon
@@ -292,36 +327,33 @@ class CPAC {
 	 * @since 1.4.0
 	 */
 	function admin_scripts() {
-		global $pagenow, $current_screen;
 
-		// CSS column widths
-		$css_column_width = '';
+		if ( ! $this->storage_models )
+			return false;
 
-		// JS
-		$edit_link = '';
+		$css_column_width 	= '';
+		$edit_link 			= '';
 
-		if ( $this->storage_models ) {
-			foreach ( $this->storage_models as $storage_model ) {
+		foreach ( $this->storage_models as $storage_model ) {
 
-				if ( ! $storage_model->is_columns_screen() )
-					continue;
+			if ( ! $storage_model->is_columns_screen() )
+				continue;
 
-				// CSS: columns width
-				if ( $columns = $storage_model->get_stored_columns() ) {
-					foreach ( $columns as $name => $options ) {
+			// CSS: columns width
+			if ( $columns = $storage_model->get_stored_columns() ) {
+				foreach ( $columns as $name => $options ) {
 
-						if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-							$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
-						}
+					if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
+						$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
 					}
 				}
-
-				// JS: edit button
-				$edit_link = $storage_model->get_edit_link();
 			}
+
+			// JS: edit button
+			$edit_link = $storage_model->get_edit_link();
 		}
 
-		?>
+		if ( $css_column_width ) : ?>
 		<style type="text/css">
 			<?php echo $css_column_width; ?>
 			#adminmenu #toplevel_page_codepress-admin-columns .wp-menu-image {
@@ -337,18 +369,20 @@ class CPAC {
 			}
 			.cpac-edit { margin-right: 3px; vertical-align: middle; }
 		</style>
-
 		<?php
+		endif;
 
-		$general_options = get_option( 'cpac_general_options' );
+		if ( $edit_link ) :
+			$general_options = get_option( 'cpac_general_options' );
 
-		if ( current_user_can( 'manage_admin_columns' ) && $edit_link && isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) : ?>
+			if ( current_user_can( 'manage_admin_columns' ) && $edit_link && isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) : ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
 			});
 		</script>
 		<?php
+			endif;
 		endif;
 	}
 }

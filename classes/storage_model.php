@@ -678,7 +678,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	function is_columns_screen() {
 
-		global $pagenow, $current_screen;
+		global $pagenow;
 
 		if ( $this->page . '.php' != $pagenow )
 			return false;

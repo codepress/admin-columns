@@ -128,7 +128,7 @@ class CPAC_Settings {
 	public function handle_column_request() {
 
 		// only handle updates from the admin columns page
-		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns', 'cpac-settings' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
+		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
 			return false;
 
 		// use $_REQUEST because the values are send both over $_GET and $_POST
@@ -520,212 +520,11 @@ class CPAC_Settings {
 			<ul class="subsubsub">
 				<li class="first"><?php echo $label; ?>: </li>
 			<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-				<?php /* <li><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li> */ ?>
 				<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $active_item ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
 		<?php
 		}
-	}
-
-	/**
-	 * Column Settings.
-	 *
-	 * @since 1.0.0
-	 */
-	public function display() {
-
-		// Load Welcome screen
-		if ( $this->welcome_screen() ) return;
-
-		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
-
-		// get first element from post-types
-		$post_types = array_values( $this->cpac->get_post_types() );
-		$first 		= array_shift( $post_types );
-	?>
-
-		<div id="cpac" class="wrap">
-
-			<?php screen_icon( 'codepress-admin-columns' ); ?>
-
-			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
-				<?php
-				$tabs = array(
-					'general'	=> __( 'Admin Columns', 'cpac' ),
-					'settings'	=> __( 'Settings', 'cpac' )
-				);
-				foreach( $tabs as $name => $label ) : ?>
-					<a href="<?php echo $this->settings_urls->admin . "&amp;tab={$name}"; ?>" class="nav-tab<?php if( $current_tab == $name ) echo ' nav-tab-active'; ?>"><?php echo $label; ?></a>
-				<?php endforeach; ?>
-			</h2>
-
-			<?php do_action( 'cpac_messages' ); ?>
-
-		<?php
-		switch ($current_tab) :
-
-			case "general" :
-		?>
-
-			<div class="cpac-menu">
-
-				<?php $this->display_menu_by_type( 'post', __( 'Posttypes', 'cpac' ), $first ); ?>
-				<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
-				<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
-
-			</div>
-
-			<?php $count = 0; ?>
-			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-
-			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
-
-				<div class="columns-left">
-					<div id="titlediv">
-						<h2>
-							<?php echo $storage_model->label; ?>
-							<?php $storage_model->screen_link(); ?>
-						</h2>
-					</div>
-				</div>
-
-				<div class="columns-right">
-					<div class="columns-right-inside">
-						<div class="sidebox" id="form-actions">
-							<h3>
-								<?php _e( 'Store settings', 'cpac' ) ?>
-							</h3>
-							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
-							<div class="form-update">
-								<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __('Save'); ?> <?php echo $storage_model->label; ?></a>
-							</div>
-							<?php if ( $has_been_stored ) : ?>
-							<div class="form-reset">
-								<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->settings_urls->admin ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
-									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
-								</a>
-							</div>
-							<?php endif; ?>
-
-							<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
-
-						</div><!--form-actions-->
-
-						<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
-						<div class="sidebox" id="pro-version">
-							<div class="padding-box cta">
-								<h3>
-									<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
-								</h3>
-								<div class="inside">
-									<ul>
-										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
-										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
-										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
-									</ul>
-									<p>
-										<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
-									</p>
-								</div>
-							</div>
-
-							<?php
-							// @todo: add newsletter
-							if ( false ) : ?>
-							<div class="padding-box newsletter">
-								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-									<?php $user = wp_get_current_user(); ?>
-									<p>
-										<?php _e ( "Subscribe to receive news &amp; updates below.", 'cpac' ); ?>
-									</p>
-									<div class="mc-field-group">
-										<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>
-										<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
-									</div>
-									<div class="mc-field-group">
-										<label for="mce-EMAIL"><?php _e( 'Your Email', 'cpac' ); ?></label>
-										<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
-									</div>
-									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-								</form>
-							</div>
-							<?php endif; ?>
-						</div>
-					<?php endif; ?>
-
-						<div class="sidebox" id="plugin-support">
-							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
-							<div class="inside">
-								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
-								<?php endif; ?>
-								<p>
-									<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?>
-								</p>
-							</div>
-						</div><!--.form-actions-->
-
-					</div><!--.columns-right-inside-->
-				</div><!--.columns-right-->
-
-				<div class="columns-left">
-					<div class="cpac-boxes">
-						<div class="cpac-columns">
-
-							<form method="post" action="">
-								<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
-
-								<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
-								<input type="hidden" name="cpac_action" value="update_by_type" />
-
-								<?php
-								foreach ( $storage_model->columns as $column ) {
-									$column->display();
-								}
-								?>
-							</form>
-
-						</div><!--.cpac-columns-->
-
-						<div class="column-footer">
-							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
-
-							<div class="button-container">
-								<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
-							</div>
-
-						</div><!--.cpac-column-footer-->
-					</div><!--.cpac-boxes-->
-				</div><!--.columns-left-->
-				<div class="clear"></div>
-
-				<div class="for-cloning-only" style="display:none">
-					<?php
-					foreach ( $storage_model->get_registered_columns() as $column ) {
-						$column->display();
-					}
-					?>
-				</div>
-
-			</div><!--.columns-container-->
-
-			<?php endforeach; // storage_models ?>
-
-			<div class="clear"></div>
-
-		<?php
-				break; // case: general
-
-			case 'settings' :
-				$this->display_settings();
-				break;
-
-		endswitch;
-		?>
-
-		</div><!--.wrap-->
-	<?php
 	}
 
 	/**
@@ -822,6 +621,205 @@ class CPAC_Settings {
 			</tbody>
 		</table>
 
+	<?php
+	}
+
+	/**
+	 * Column Settings.
+	 *
+	 * @since 1.0.0
+	 */
+	public function display() {
+
+		// Load Welcome screen
+		if ( $this->welcome_screen() ) return;
+
+		$tabs = array(
+			'general'	=> __( 'Admin Columns', 'cpac' ),
+			'settings'	=> __( 'Settings', 'cpac' )
+		);
+
+		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
+
+		// get first element from post-types
+		$post_types = array_values( $this->cpac->get_post_types() );
+		$first 		= array_shift( $post_types );
+	?>
+
+		<div id="cpac" class="wrap">
+
+			<?php screen_icon( 'codepress-admin-columns' ); ?>
+
+			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
+				<?php foreach( $tabs as $name => $label ) : ?>
+					<a href="<?php echo $this->settings_urls->admin . "&amp;tab={$name}"; ?>" class="nav-tab<?php if( $current_tab == $name ) echo ' nav-tab-active'; ?>"><?php echo $label; ?></a>
+				<?php endforeach; ?>
+			</h2>
+
+			<?php do_action( 'cpac_messages' ); ?>
+
+		<?php
+		switch ( $current_tab ) :
+
+			case "general" :
+		?>
+
+			<div class="cpac-menu">
+				<?php $this->display_menu_by_type( 'post', __( 'Posttypes', 'cpac' ), $first ); ?>
+				<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
+				<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
+			</div>
+
+			<?php $count = 0; ?>
+			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
+
+			<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
+
+				<div class="columns-left">
+					<div id="titlediv">
+						<h2>
+							<?php echo $storage_model->label; ?>
+							<?php $storage_model->screen_link(); ?>
+						</h2>
+					</div>
+				</div>
+
+				<div class="columns-right">
+					<div class="columns-right-inside">
+						<div class="sidebox" id="form-actions">
+							<h3>
+								<?php _e( 'Store settings', 'cpac' ) ?>
+							</h3>
+							<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
+							<div class="form-update">
+								<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __('Save'); ?> <?php echo $storage_model->label; ?></a>
+							</div>
+							<?php if ( $has_been_stored ) : ?>
+							<div class="form-reset">
+								<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->settings_urls->admin ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
+									<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
+								</a>
+							</div>
+							<?php endif; ?>
+
+							<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
+
+						</div><!--form-actions-->
+
+						<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+						<div class="sidebox" id="pro-version">
+							<div class="padding-box cta">
+								<h3>
+									<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
+								</h3>
+								<div class="inside">
+									<ul>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
+										<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+									</ul>
+									<p>
+										<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
+									</p>
+								</div>
+							</div>
+
+
+							<?php
+							// @todo: add newsletter
+							/* ?>
+							<div class="padding-box newsletter">
+								<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+									<?php $user = wp_get_current_user(); ?>
+									<p>
+										<?php _e ( "Subscribe to receive news &amp; updates below.", 'cpac' ); ?>
+									</p>
+									<div class="mc-field-group">
+										<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>
+										<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
+									</div>
+									<div class="mc-field-group">
+										<label for="mce-EMAIL"><?php _e( 'Your Email', 'cpac' ); ?></label>
+										<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
+									</div>
+									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+								</form>
+							</div>
+							<?php */ ?>
+						</div><!--pro-version-->
+						<?php endif; ?>
+
+						<div class="sidebox" id="plugin-support">
+							<h3><?php _e( 'Support', 'cpac' ); ?></h3>
+							<div class="inside">
+								<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
+									<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
+								<?php endif; ?>
+								<p>
+									<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?>
+								</p>
+							</div>
+						</div><!--plugin-support-->
+
+					</div><!--.columns-right-inside-->
+				</div><!--.columns-right-->
+
+				<div class="columns-left">
+					<div class="cpac-boxes">
+						<div class="cpac-columns">
+
+							<form method="post" action="">
+								<?php wp_nonce_field( 'update-type', '_cpac_nonce'); ?>
+
+								<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
+								<input type="hidden" name="cpac_action" value="update_by_type" />
+
+								<?php
+								foreach ( $storage_model->columns as $column ) {
+									$column->display();
+								}
+								?>
+							</form>
+
+						</div><!--.cpac-columns-->
+
+						<div class="column-footer">
+							<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
+
+							<div class="button-container">
+								<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
+							</div>
+
+						</div><!--.cpac-column-footer-->
+					</div><!--.cpac-boxes-->
+				</div><!--.columns-left-->
+				<div class="clear"></div>
+
+				<div class="for-cloning-only" style="display:none">
+					<?php
+					foreach ( $storage_model->get_registered_columns() as $column ) {
+						$column->display();
+					}
+					?>
+				</div>
+
+			</div><!--.columns-container-->
+
+			<?php endforeach; // storage_models ?>
+
+			<div class="clear"></div>
+
+		<?php
+				break; // case: general
+
+			case 'settings' :
+				$this->display_settings();
+				break;
+
+		endswitch;
+		?>
+
+		</div><!--.wrap-->
 	<?php
 	}
 }
