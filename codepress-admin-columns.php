@@ -79,7 +79,7 @@ class CPAC {
 		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// add settings link
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2);
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
@@ -90,17 +90,17 @@ class CPAC {
 		new CPAC_Upgrade( $this );
 
 		// load on cac on approved screenso only
-		if ( $this->is_doing_ajax() || $this->is_cac_screen() ) {
+		//if ( $this->is_doing_ajax() || $this->is_cac_screen() ) {
 
-			// only load on allowed screens
-			$this->init_scripts();
+		// only load on allowed screens
+		$this->init_scripts();
 
-			// add capabilty to roles to manage admin columns
-			$this->set_capabilities();
+		// add capabilty to roles to manage admin columns
+		$this->set_capabilities();
 
-			// set storage models
-			$this->set_storage_models();
-		}
+		// set storage models
+		$this->set_storage_models();
+		//}
 
 		// for third party plugins
 		do_action( 'cac/loaded', $this );
@@ -140,15 +140,17 @@ class CPAC {
 	 *
 	 * @since 2.1.2
 	 */
-	function is_cac_screen() {
+	/*
+	function is_settings_screen() {
 
 		global $pagenow;
 
-		if ( ! $this->is_columns_screen() && ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && 'codepress-admin-columns' === $_GET['page'] ) )
+		if ( ! ( 'options-general.php' === $pagenow ) && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) )
 			return false;
 
 		return true;
 	}
+	*/
 
 	/**
 	 * Init scripts
