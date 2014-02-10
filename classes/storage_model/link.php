@@ -41,7 +41,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 
 		// get columns
 		$table 		= _get_list_table( 'WP_Links_List_Table', array( 'screen' => 'link-manager' ) );
-		$columns 	= $table->get_columns();
+		$columns 	= (array) $table->get_columns();
 
 		return $columns;
 	}

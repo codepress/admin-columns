@@ -43,7 +43,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 		// get columns
 		$table   = _get_list_table ( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
-        $columns = $table->get_columns();
+        $columns = (array) $table->get_columns();
 
 		if ( $this->is_settings_page() )
 			$columns = array_merge( get_column_headers( 'upload' ), $columns );

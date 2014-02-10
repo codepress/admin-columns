@@ -66,7 +66,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) return array();
+		if ( ! function_exists('_get_list_table') )
+			return array();
 
 		//if ( ! $this->is_columns_screen() && ! $this->is_settings_page() )
 			//return array();

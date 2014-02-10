@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.2.0
+Version: 			2.1.2
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'CPAC_VERSION', 	 	'2.2.0s' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.1.2' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -90,7 +90,7 @@ class CPAC {
 		new CPAC_Upgrade( $this );
 
 		// load on cac on approved screenso only
-		if ( $this->is_cac_screen() ) {
+		if ( $this->is_doing_ajax() || $this->is_cac_screen() ) {
 
 			// only load on allowed screens
 			$this->init_scripts();
@@ -100,10 +100,24 @@ class CPAC {
 
 			// set storage models
 			$this->set_storage_models();
-
-			// for third party plugins
-			do_action( 'cac/loaded', $this );
 		}
+
+		// for third party plugins
+		do_action( 'cac/loaded', $this );
+	}
+
+	/**
+	 * Is doing ajax
+	 *
+	 * @since 2.0.5
+	 *
+     * @return boolean
+	 */
+	function is_doing_ajax() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			return true;
+
+		return false;
 	}
 
 	/**
@@ -112,9 +126,6 @@ class CPAC {
 	 * @since 2.1.2
 	 */
 	function is_columns_screen() {
-
-		if ( $this->is_doing_ajax() )
-			return false;
 
 		global $pagenow;
 
@@ -214,20 +225,6 @@ class CPAC {
 		}
 
 		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models );
-	}
-
-	/**
-	 * Is doing ajax
-	 *
-	 * @since 2.0.5
-	 *
-     * @return boolean
-	 */
-	function is_doing_ajax() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			return true;
-
-		return false;
 	}
 
 	/**

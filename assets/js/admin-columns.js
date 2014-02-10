@@ -7,7 +7,6 @@ jQuery(document).ready(function() {
 	if ( jQuery('#cpac').length === 0 )
 		return false;
 
-
 	// General
 	cpac_pointer();
 	cpac_submit_form();
@@ -22,10 +21,13 @@ jQuery(document).ready(function() {
 	cpac_add_column();
 	cpac_sidebar_scroll();
 
-	/** we start by binding the toggle and remove events. */
-	jQuery('.cpac-column').each( function(i,col) {
-		jQuery(col).column_bind_toggle();
-		jQuery(col).column_bind_remove();
+	// meta labels
+	jQuery('.cpac-columns').cpac_bind_container_addon_events();
+
+	// we start by binding the toggle and remove events.
+	jQuery('.cpac-column').each( function( i, col ) {
+		jQuery( col ).column_bind_toggle();
+		jQuery( col ).column_bind_remove();
 	});
 });
 
@@ -57,8 +59,9 @@ jQuery.fn.column_bind_toggle = function() {
 
 		column.toggleClass('opened').find('.column-form').slideToggle(150);
 
-		if ( !column.hasClass('events-binded') )
+		if ( ! column.hasClass('events-binded') ) {
 			column.column_bind_events();
+		}
 
 		column.addClass('events-binded');
 
@@ -478,8 +481,10 @@ function cpac_sortable() {
  * @since 1.5
  */
 function cpac_menu() {
+
+	var menu = jQuery('#cpac div.cpac-menu');
 	// click
-	jQuery('#cpac div.cpac-menu a').click( function(e, el) {
+	menu.find('a').click( function(e, el) {
 
 		var id = jQuery(this).attr('href');
 
@@ -493,11 +498,78 @@ function cpac_menu() {
 
 			// set current
 			jQuery(this).addClass('current');
-			jQuery('.columns-container[data-type="' + type + '"]').show();
+			var container = jQuery('.columns-container[data-type="' + type + '"]').show();
+			var columns = container.find( '.cpac-columns' );
+
+			// hook for addons
+			jQuery( document ).trigger( 'cac_menu_change', columns );
 		}
 
 		e.preventDefault();
 	});
+
+	// activate first menu
+	menu.find('a.current').trigger('click');
 }
 
+/*
+ * Bind events: triggered by main plugin
+ *
+ */
+jQuery( document ).bind('column_init column_change column_add', function( e, column ){
+	jQuery( column ).cpac_bind_column_addon_events();
+});
+//jQuery( document ).bind( 'cac_menu_change', function( e, columns ){
+//	jQuery( columns ).cpac_bind_container_addon_events();
+//});
+
+/*
+ * Radio Click events
+ *
+ */
+jQuery.fn.cpac_bind_column_addon_events = function() {
+
+	var column = jQuery( this );
+	var inputs = column.find('[data-toggle-id] label');
+
+	// Enable editing: radio button
+	inputs.click( function(){
+
+		var id = jQuery( this ).closest('td.input').data('toggle-id');
+		var label = column.find('[data-indicator-id="' + id + '"]' ).removeClass( 'on' );
+		var status = jQuery( 'input', this ).val();
+
+		if ( 'on' == status ) {
+			label.addClass( 'on' );
+		}
+	});
+};
+
+/*
+ * Indicator Click Events
+ *
+ */
+jQuery.fn.cpac_bind_container_addon_events = function() {
+
+	var columns = jQuery( this );
+	var indicators = columns.find('[data-indicator-id]');
+
+	indicators.each( function() {
+
+		jQuery( this ).click( function() {
+
+			var id = jQuery( this ).data('indicator-id');
+			var radio = columns.find('[data-toggle-id="' + id + '"] input' );
+
+			if ( jQuery( this ).hasClass('on') ) {
+				jQuery( this ).removeClass('on').addClass('off');
+				radio.filter('[value=off]').prop('checked', true);
+			}
+			else {
+				jQuery( this ).removeClass('off').addClass('on');
+				radio.filter('[value=on]').prop('checked', true);
+			}
+		});
+	});
+};
 

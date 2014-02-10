@@ -41,7 +41,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 		// get columns
 		$table 		= _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
-		$columns 	= $table->get_columns();
+		$columns 	= (array) $table->get_columns();
 
 		return $columns;
 	}
