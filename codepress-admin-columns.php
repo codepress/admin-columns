@@ -89,21 +89,20 @@ class CPAC {
 		require_once CPAC_DIR . 'classes/upgrade.php';
 		new CPAC_Upgrade( $this );
 
-		// load on cac on approved screenso only
-		//if ( $this->is_doing_ajax() || $this->is_cac_screen() ) {
+		if ( $this->is_cac_screen() ) {
 
-		// only load on allowed screens
-		$this->init_scripts();
+			// only load on allowed screens
+			$this->init_scripts();
 
-		// add capabilty to roles to manage admin columns
-		$this->set_capabilities();
+			// add capabilty to roles to manage admin columns
+			$this->set_capabilities();
 
-		// set storage models
-		$this->set_storage_models();
-		//}
+			// set storage models
+			$this->set_storage_models();
 
-		// for third party plugins
-		do_action( 'cac/loaded', $this );
+			// for third party plugins
+			do_action( 'cac/loaded', $this );
+		}
 	}
 
 	/**
@@ -140,7 +139,6 @@ class CPAC {
 	 *
 	 * @since 2.1.2
 	 */
-	/*
 	function is_settings_screen() {
 
 		global $pagenow;
@@ -150,14 +148,17 @@ class CPAC {
 
 		return true;
 	}
-	*/
+
+	function is_cac_screen() {
+		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || $this->is_doing_ajax() || $this->is_settings_screen() );
+	}
 
 	/**
 	 * Init scripts
 	 *
 	 * @since 2.1.1
 	 */
-	function init_scripts() {
+	public function init_scripts() {
 
 		if ( ! $this->is_columns_screen() )
 			return;
