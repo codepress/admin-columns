@@ -18,6 +18,15 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	}
 
 	/**
+	 * @see CPAC_Column::apply_conditional()
+	 * @since 2.1.2
+	 */
+	function apply_conditional() {
+
+		return post_type_supports( $this->storage_model->key, 'comments' );
+	}
+
+	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
