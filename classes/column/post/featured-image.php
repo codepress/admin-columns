@@ -22,6 +22,15 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	}
 
 	/**
+	 * @see CPAC_Column::apply_conditional()
+	 * @since 2.1.2
+	 */
+	function apply_conditional() {
+
+		return post_type_supports( $this->storage_model->key, 'thumbnail' );
+	}
+
+	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0.0
 	 */
