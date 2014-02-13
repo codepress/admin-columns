@@ -21,13 +21,11 @@ jQuery(document).ready(function() {
 	cpac_add_column();
 	cpac_sidebar_scroll();
 
-	// meta labels
-	jQuery('.cpac-columns').cpac_bind_container_addon_events();
-
 	// we start by binding the toggle and remove events.
 	jQuery('.cpac-column').each( function( i, col ) {
 		jQuery( col ).column_bind_toggle();
 		jQuery( col ).column_bind_remove();
+		jQuery( col ).cpac_bind_container_addon_events();
 	});
 });
 
@@ -513,15 +511,13 @@ function cpac_menu() {
 }
 
 /*
- * Bind events: triggered by main plugin
+ * Bind events: triggered after column is init, changed or added
  *
  */
 jQuery( document ).bind('column_init column_change column_add', function( e, column ){
 	jQuery( column ).cpac_bind_column_addon_events();
+	jQuery( column ).cpac_bind_container_addon_events();
 });
-//jQuery( document ).bind( 'cac_menu_change', function( e, columns ){
-//	jQuery( columns ).cpac_bind_container_addon_events();
-//});
 
 /*
  * Radio Click events
@@ -551,25 +547,23 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
  */
 jQuery.fn.cpac_bind_container_addon_events = function() {
 
-	var columns = jQuery( this );
-	var indicators = columns.find('[data-indicator-id]');
+	var column = jQuery( this );
+	var indicator = column.find('[data-indicator-id]');
 
-	indicators.each( function() {
+	indicator.unbind('click').click( function() {
 
-		jQuery( this ).click( function() {
+		var id = jQuery( this ).data('indicator-id');
+		var radio = column.find('[data-toggle-id="' + id + '"] input' );
 
-			var id = jQuery( this ).data('indicator-id');
-			var radio = columns.find('[data-toggle-id="' + id + '"] input' );
-
-			if ( jQuery( this ).hasClass('on') ) {
-				jQuery( this ).removeClass('on').addClass('off');
-				radio.filter('[value=off]').prop('checked', true);
-			}
-			else {
-				jQuery( this ).removeClass('off').addClass('on');
-				radio.filter('[value=on]').prop('checked', true);
-			}
-		});
+		if ( jQuery( this ).hasClass('on') ) {
+			jQuery( this ).removeClass('on').addClass('off');
+			radio.filter('[value=off]').prop('checked', true);
+		}
+		else {
+			jQuery( this ).removeClass('off').addClass('on');
+			radio.filter('[value=on]').prop('checked', true);
+		}
 	});
+
 };
 

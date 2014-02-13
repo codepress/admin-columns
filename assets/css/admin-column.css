@@ -390,6 +390,22 @@ h2.cpac-nav-tab-wrapper {
 .cpac-column .column-form table tr.column_action td {
   background: #f9f9f9;
 }
+.cpac-column .column-form table tr.column_action td p {
+  margin: 0;
+}
+.cpac-column .column-form table tr.column_action td p a.remove-button {
+  color: #a00;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: normal;
+  margin-left: 5px;
+  font-size: 12px;
+  padding: 0 5px;
+}
+.cpac-column .column-form table tr.column_action td p a.remove-button:hover {
+  color: #fff;
+  background: #f00;
+}
 .cpac-column .column-form table tr:first-child td {
   border-top: none;
 }
