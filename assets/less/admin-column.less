@@ -445,21 +445,25 @@ h2.cpac-nav-tab-wrapper {
 				}
 
 				&.column_image_size {
-					td.input {
-						.custom_image_size {
-							display: inline-block;
 
-							.hidden {
-								display: none;
-							}
-						}
-						label {
+					border: 10px solid red;
+					td.label {}
+					td.input {
+						label.custom-size {
 							display: inline-block;
 							margin-top: 4px;
 							margin-bottom: 4px;
 
 							input {
 								margin-right: 3px;
+							}
+						}
+
+						.custom_image_size {
+							display: inline-block;
+
+							.hidden {
+								display: none;
 							}
 
 							.custom-size-w,
@@ -470,8 +474,9 @@ h2.cpac-nav-tab-wrapper {
 									display: none;
 								}
 
-								input {
-									width: 30px;
+								input[type="text"] {
+									margin-right: 3px;
+									width: 30px !important;
 								}
 							}
 						}

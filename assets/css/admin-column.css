@@ -361,31 +361,35 @@ h2.cpac-nav-tab-wrapper {
 .cpac-column .column-form table tr.column_width div.input-width-range .ui-slider-handle {
   cursor: ew-resize;
 }
+.cpac-column .column-form table tr.column_image_size {
+  border: 10px solid red;
+}
+.cpac-column .column-form table tr.column_image_size td.input label.custom-size {
+  display: inline-block;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.cpac-column .column-form table tr.column_image_size td.input label.custom-size input {
+  margin-right: 3px;
+}
 .cpac-column .column-form table tr.column_image_size td.input .custom_image_size {
   display: inline-block;
 }
 .cpac-column .column-form table tr.column_image_size td.input .custom_image_size .hidden {
   display: none;
 }
-.cpac-column .column-form table tr.column_image_size td.input label {
-  display: inline-block;
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-.cpac-column .column-form table tr.column_image_size td.input label input {
-  margin-right: 3px;
-}
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-w,
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-h {
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-w,
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-h {
   margin: 0;
 }
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-w.hidden,
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-h.hidden {
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
   display: none;
 }
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-w input,
-.cpac-column .column-form table tr.column_image_size td.input label .custom-size-h input {
-  width: 30px;
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
+.cpac-column .column-form table tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
+  margin-right: 3px;
+  width: 30px !important;
 }
 .cpac-column .column-form table tr.column_action td {
   background: #f9f9f9;
