@@ -92,15 +92,11 @@ class CPAC {
 		// load scripts
 		$this->init_scripts();
 
-		// only load on allowed screens
-		if ( $this->is_cac_screen() ) {
+		// add capabilty to roles to manage admin columns
+		$this->set_capabilities();
 
-			// add capabilty to roles to manage admin columns
-			$this->set_capabilities();
-
-			// set storage models
-			$this->set_storage_models();
-		}
+		// set storage models
+		$this->set_storage_models();
 
 		// for third party plugins
 		do_action( 'cac/loaded', $this );
@@ -195,6 +191,9 @@ class CPAC {
 	 *
 	 */
 	private function set_storage_models() {
+
+		if ( ! $this->is_cac_screen() )
+			return;
 
 		$storage_models = array();
 
