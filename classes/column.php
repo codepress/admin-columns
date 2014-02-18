@@ -937,8 +937,8 @@ class CPAC_Column {
 
 									</div>
 									<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
-									<a class="edit-button" href="javacript:;"><?php _e( 'Edit', 'cpac' ); ?></a>
-									<a class="remove-button" href="javacript:;"><?php _e( 'Remove', 'cpac' ); ?></a>
+									<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'cpac' ); ?></a>
+									<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'cpac' ); ?></a>
 								</div>
 							</td>
 							<td class="column_type">
