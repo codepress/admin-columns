@@ -872,6 +872,28 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Display field Preview Size
+	 *
+	 * @since 2.1.1
+	 */
+	function display_field_before_after() {
+		?>
+		<tr class="column_before">
+			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>
+			<td class="input">
+				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->before ) ); ?>"/>
+			</td>
+		</tr>
+		<tr class="column_after">
+			<?php $this->label_view( __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ), 'after' ); ?>
+			<td class="input">
+				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->after ) ); ?>"/>
+			</td>
+		</tr>
+<?php
+	}
+
+	/**
 	 * Get column list
 	 *
 	 * @since 2.0.0
@@ -992,6 +1014,7 @@ class CPAC_Column {
 						 *
 						 */
 						$this->display_settings();
+
 						?>
 
 						<?php do_action( 'cac/column/settings_after', $this ); ?>

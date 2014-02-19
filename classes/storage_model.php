@@ -475,10 +475,6 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		//$default_columns = $this->get_default_registered_columns();
-		//$custom_columns  = $this->get_custom_registered_columns();
-
-		// get columns
 		$default_columns = $this->default_columns;
 		$custom_columns  = $this->custom_columns;
 
@@ -545,6 +541,9 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 		}
+
+		do_action( "cac/columns", $columns );
+		do_action( "cac/columns/storage_key={$this->key}", $columns );
 
 		return $columns;
 	}
@@ -693,7 +692,6 @@ abstract class CPAC_Storage_Model {
 
 		// taxonomy
 		if ( 'taxonomy' == $this->type ) {
-
 			$taxonomy = isset( $_GET['taxonomy'] ) ? $_GET['taxonomy'] : '';
 
 			if ( $this->taxonomy != $taxonomy )

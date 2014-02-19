@@ -109,10 +109,7 @@ class CPAC_Settings {
 
 		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_script( 'jquery-ui-slider' );
-
-		// columns
 		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
-		wp_enqueue_script( 'cpac-custom-fields-js', CPAC_URL . 'assets/js/custom-fields.js', array( 'jquery' ), CPAC_VERSION );
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
