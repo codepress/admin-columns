@@ -298,8 +298,11 @@ abstract class CPAC_Storage_Model {
 		// cac/columns/custom - filter to register column
 		$columns = apply_filters( 'cac/columns/custom', $columns, $this );
 
-		// cac/columns/custom/type={$type} - filter to register column based on it's content type
-		// type can be either a posttype or wp-users/wp-comments/wp-links/wp-media
+		// cac/columns/custom/post_type={$post_type} - filter to register column based on it's posttype
+		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
+
+		// cac/columns/custom/type={$type} - filter to register column based on it's content META type
+		// type can be either a post, user, comment, link or media
 		$this->columns_filepath = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
 	}
 
