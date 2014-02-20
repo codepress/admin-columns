@@ -569,7 +569,7 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 2.0.0
 	 */
-	function add_headings( $columns ) {
+	public function add_headings( $columns ) {
 
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
 		if ( ! $this->is_columns_screen() )
