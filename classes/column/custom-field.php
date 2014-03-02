@@ -395,13 +395,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
 				<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
-					<?php
-					$display_option = '';
-					if ( in_array( $fieldkey, array( 'date' ) ) ) 					$display_option = 'date';
-					if ( in_array( $fieldkey, array( 'image', 'library_id' ) ) ) 	$display_option = 'image_size';
-					if ( in_array( $fieldkey, array( 'excerpt' ) ) ) 				$display_option = 'excerpt';
-					?>
-					<option data-display-option="<?php echo $display_option; ?>" value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->options->field_type ) ?>><?php echo $fieldtype; ?></option>
+					<option value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->options->field_type ) ?>><?php echo $fieldtype; ?></option>
 				<?php endforeach; ?>
 				</select>
 			</td>
