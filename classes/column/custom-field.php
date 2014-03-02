@@ -349,7 +349,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			// get value by meta
 			$value = $this->get_value_by_meta( $meta, $id );
 		}
-
+		
 		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
 
 		$before = $this->get_before();

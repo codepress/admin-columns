@@ -41,6 +41,8 @@ class CPAC_Settings {
 		// handle addon downloads
 		add_action( 'admin_init', array( $this, 'handle_download_request' ) );
 
+		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
+
 		// Settings Url's
 		$this->settings_urls = (object) array(
 			'admin' 	=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
@@ -49,6 +51,39 @@ class CPAC_Settings {
 			'info' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade' 	=> admin_url( 'options-general.php?page=cpac-upgrade' )
 		);
+	}
+
+	public function ajax_column_refresh() {
+		if ( ! empty( $_POST['formdata'] ) && ! empty( $_POST['column'] ) ) {
+			parse_str( $_POST['formdata'], $formdata );
+			$storagemodel_key = ! empty( $formdata['cpac_key'] ) ? $formdata['cpac_key'] : '';
+
+			if ( $storagemodel_key && ! empty( $formdata[ $storagemodel_key ][ $_POST['column'] ] ) ) {
+				$columndata = $formdata[ $formdata['cpac_key'] ][ $_POST['column'] ];
+				$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
+				$registered_columns = $storage_model->get_registered_columns();
+
+				if ( in_array( $columndata['type'], array_keys( $registered_columns ) ) ) {
+					$column = clone $registered_columns[ $columndata['type'] ];
+					$column->set_clone( $columndata['clone'] );
+
+					foreach ( $columndata as $optionname => $optionvalue ) {
+						$column->set_options( $optionname, $optionvalue );
+					}
+
+					$column->sanitize_label();
+
+					$columns = array( $column->properties->name => $column );
+
+					do_action( 'cac/columns', $columns );
+					do_action( "cac/columns/storage_key={$storagemodel_key}", $columns );
+
+					$column->display();
+				}
+			}
+		}
+
+		exit;
 	}
 
 	/**

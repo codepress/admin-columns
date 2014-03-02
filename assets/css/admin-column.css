@@ -272,6 +272,7 @@ h2.cpac-nav-tab-wrapper {
   border-width: 1px 1px 0;
   border-style: solid;
   border-color: #dfdfdf;
+  position: relative;
 }
 .cpac-column .column-form table {
   border: none;
@@ -412,6 +413,24 @@ h2.cpac-nav-tab-wrapper {
 }
 .cpac-column .column-form table tr:first-child td {
   border-top: none;
+}
+.cpac-column.loading .column-form > .spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 200;
+  margin-left: -10px;
+  margin-top: -10px;
+  display: block;
+}
+.cpac-column.loading .column-form:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  z-index: 100;
+  opacity: 0.5;
 }
 .cpac-column.opened .column-meta {
   background-color: #c7c7c7;

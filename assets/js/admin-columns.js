@@ -82,6 +82,35 @@ jQuery.fn.column_bind_remove = function() {
 	});
 };
 
+jQuery.fn.cpac_column_refresh = function() {
+	var el = jQuery( this );
+
+	// Mark column as loading
+	el.addClass( 'loading' );
+	el.find( '.column-form' ).prepend( '<span class="spinner" />' );
+
+	// Fetch new form HTML
+	jQuery.post( ajaxurl, {
+		action: 'cpac_column_refresh',
+		column: jQuery( this ).find( 'input.column-name' ).val(),
+		formdata: jQuery( this ).parents( 'form' ).serialize()
+	}, function( data ) {
+		// Replace current form by new form
+		el.html( data );
+
+		// Bind events
+		el.column_bind_toggle();
+		el.column_bind_remove();
+		el.column_bind_events();
+
+		// Remove "loading" marking from column
+		el.removeClass( 'loading' ).addClass( 'opened' ).find( '.column-form' ).show();
+
+		// Allow plugins to hook into this event
+		jQuery( document ).trigger( 'column_change', el );
+	} );
+};
+
 /*
  * Form Events
  *
@@ -89,58 +118,38 @@ jQuery.fn.column_bind_remove = function() {
  */
 jQuery.fn.column_bind_events = function() {
 
-	var column		= jQuery(this);
-	var container	= column.closest('.columns-container');
-	var storage_model = container.attr('data-type');
+	var column			= jQuery( this );
+	var container		= column.closest( '.columns-container ');
+	var storage_model	= container.attr( 'data-type' );
 
-	/** select column type */
-	var default_value =  column.find('.column_type select option:selected').val();
+	// Current column type
+	var default_value =  column.find( '.column_type select option:selected' ).val();
 
-	column.find('.column_type select').change( function() {
-
-		var option	= jQuery('optgroup', this).children(":selected");
+	column.find( '.column_type select' ).change( function() {
+		var option	= jQuery( 'optgroup', this ).children( ':selected' );
 		var type	= option.val();
 		var label	= option.text();
-		var msg		= jQuery(this).next('.msg').hide();
+		var msg		= jQuery( this ).next( '.msg' ).hide();
 
-		// create clone
-		var clone = container.find(".for-cloning-only .cpac-column[data-type='" + type + "']").clone();
-		if ( clone.length > 0 ) {
+		// Find template element for this field type
+		var template = container.find( '.for-cloning-only .cpac-column[data-type="' + type + '"]' );
 
-			// column can have only one instance of itself and should not have another instance present?
-			if ( 'undefined' === typeof clone.attr('data-clone') ) {
-				if ( jQuery( '.cpac-columns', container ).find("[data-type='" + type + "']").length > 0 ) {
-					msg.html( cpac_i18n.clone.replace( '%s', '<strong>' + label + '</strong>' ) ).show();
+		if ( template.length ) {
+			// Prevent column types that do not allow it to have multiple instances
+			if ( typeof template.attr( 'data-clone' ) === 'undefined' && jQuery( '.cpac-columns', container ).find( '[data-type="' + type + '"]' ).length ) {
+				msg.html( cpac_i18n.clone.replace( '%s', '<strong>' + label + '</strong>' ) ).show();
 
-					// set to default
-					jQuery(this).find('option').removeAttr('selected');
-					jQuery(this).find('option[value="' + default_value + '"]').attr('selected', 'selected');
-					return;
-				}
+				// Set to default
+				jQuery(this).find('option').removeAttr('selected');
+				jQuery(this).find('option[value="' + default_value + '"]').attr('selected', 'selected');
+
+				return;
 			}
-
-			// open settings
-			clone.addClass('opened').find('.column-form').show();
-
-			// increment clone id
-			clone.cpac_update_clone_id( storage_model );
-
-			// add to DOM
-			column.replaceWith( clone );
-
-			// rebind toggle events
-			clone.column_bind_toggle();
-
-			// rebind remove events
-			clone.column_bind_remove();
-
-			// rebind all other events
-			clone.column_bind_events();
-
-			// hook for addons
-			jQuery(document).trigger( 'column_change', clone );
+			else {
+				column.cpac_column_refresh();
+			}
 		}
-	});
+	} );
 
 	/** change label */
 	column.find('.column_label .input input').bind( 'keyup change', function() {
@@ -250,6 +259,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 	// set clone ID
 	el.attr( 'data-clone', id );
 	el.find( 'input.clone' ).val( id );
+	el.find( 'input.column-name' ).val( type + '-' + id );
 
 	// update input names with clone ID
 	var inputs = el.find( 'input, select, label' );
