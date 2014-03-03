@@ -89,6 +89,12 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	function display_settings() {
 
 		$taxonomies = get_object_taxonomies( $this->get_post_type(), 'objects' );
+
+		foreach ( $taxonomies as $index => $taxonomy ) {
+			if ( $taxonomy->name == 'post_format' ) {
+				unset( $taxonomies[ $index ] );
+			}
+		}
 		?>
 
 		<tr class="column_taxonomy">
