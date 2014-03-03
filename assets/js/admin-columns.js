@@ -146,7 +146,17 @@ jQuery.fn.column_bind_events = function() {
 				return;
 			}
 			else {
-				column.cpac_column_refresh();
+				var clone = template.clone();
+
+				// Open settings
+				clone.addClass('opened').find('.column-form').show();
+
+				// Increment clone id
+				clone.cpac_update_clone_id( storage_model );
+
+				// Load clone
+				column.replaceWith( clone );
+				clone.cpac_column_refresh();
 			}
 		}
 	} );
