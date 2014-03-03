@@ -247,6 +247,9 @@ h2.cpac-nav-tab-wrapper {
   color: #999999;
   padding-right: 0;
 }
+.cpac-column .column-meta table tr td.column_type a {
+  color: #999999;
+}
 .cpac-column .column-meta table tr td.column_edit {
   width: 38px;
   background: transparent url('../images/arrow.png') no-repeat 23px 18px;

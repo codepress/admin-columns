@@ -53,19 +53,20 @@ jQuery.fn.column_bind_toggle = function() {
 
 	var column = jQuery(this);
 
-	column.find('td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function(){
+	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function( e ) {
+		e.preventDefault();
+		
+		column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );
 
-		column.toggleClass('opened').find('.column-form').slideToggle(150);
-
-		if ( ! column.hasClass('events-binded') ) {
+		if ( ! column.hasClass( 'events-binded' ) ) {
 			column.column_bind_events();
 		}
 
 		column.addClass('events-binded');
 
 		// hook for addons
-		jQuery(document).trigger( 'column_init', column );
-	});
+		jQuery( document ).trigger( 'column_init', column );
+	} );
 };
 
 /*

@@ -973,7 +973,7 @@ class CPAC_Column {
 							</td>
 							<td class="column_type">
 								<div class="inner">
-									<?php echo stripslashes( $this->properties->label ); ?>
+									<a href="#"><?php echo stripslashes( $this->properties->label ); ?></a>
 								</div>
 							</td>
 							<td class="column_edit"></td>
