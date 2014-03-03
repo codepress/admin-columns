@@ -150,6 +150,8 @@ jQuery.fn.column_bind_events = function() {
 
 				// Open settings
 				clone.addClass('opened').find('.column-form').show();
+				clone.find( '.column-meta' ).replaceWith( column.find( '.column-meta' ) );
+				clone.find( '.column-form' ).replaceWith( column.find( '.column-form' ) );
 
 				// Increment clone id
 				clone.cpac_update_clone_id( storage_model );
