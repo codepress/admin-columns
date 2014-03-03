@@ -427,8 +427,15 @@ class CPAC_Column {
 
 		$save_post 	= $post;
 		$post 		= get_post( $post_id );
+
+		setup_postdata( $post );
+
 		$excerpt 	= get_the_excerpt();
 		$post 		= $save_post;
+
+		if ( $post ) {
+			setup_postdata( $post );
+		}
 
 		$output = $this->get_shortened_string( $excerpt, $words );
 
