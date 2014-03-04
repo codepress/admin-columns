@@ -283,7 +283,7 @@ class CPAC {
 	 * @since 2.0.0
 	 *
 	 */
-	private function set_storage_models() {
+	public function set_storage_models() {
 
 		if ( ! $this->is_cac_screen() )
 			return;
