@@ -124,7 +124,7 @@ class CPAC_Column {
 			'hide_label'		=> false,	// Should the Label be hidden?
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'		=> true,	// Should the column be cloneable
-			'default'			=> false,	// Is this a WP default column
+			'default'			=> false	// Is this a WP default column
 		);
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -134,12 +134,31 @@ class CPAC_Column {
 		$properties['name'] = $properties['type'];
 
 		// apply conditional statements wheter this column should be available or not.
-		if ( method_exists( $this, 'apply_conditional' ) )
+		if ( method_exists( $this, 'apply_conditional' ) ) {
 			$properties['is_registered'] = $this->apply_conditional();
+		}
 
-		// add filters
-		$properties = apply_filters( 'cac/column/properties', $properties );
-		$properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $properties );
+		/**
+		 * Filter the properties of a column type, such as type and is_cloneable
+		 *
+		 * Property $column_instance added in Admin Columns 2.1.2
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $properties Column properties
+		 * @param CPAC_Column $column_instance Column class instance
+		 */
+		$properties = apply_filters( 'cac/column/properties', $properties, $this );
+
+		/**
+		 * Filter the properties of a column type for a specific storage model
+		 *
+		 * Property $column_instance added in Admin Columns 2.1.2
+		 *
+		 * @since 2.0.0
+		 * @see Filter cac/column/properties
+		 */
+		$properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $properties, $this );
 
 		// convert to object for easy handling
 		$this->properties = (object) $properties;
@@ -148,11 +167,25 @@ class CPAC_Column {
 		$default_options = array(
 			'label'			=> $this->properties->label,	// Label for this column.
 			'width'			=> null,						// Width for this column.
-			'state'			=> 'off',						// Active state for this column.
+			'state'			=> 'off'						// Active state for this column.
 		);
 
-		// add filters
+		/**
+		 * Filter the default options for a column instance, such as label and width
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $default_options Default column options
+		 * @param CPAC_Column $column_instance Column class instance
+		 */
 		$default_options = apply_filters( 'cac/column/options', $default_options, $this );
+
+		/**
+		 * Filter the default options for a column instance for a specific storage model
+		 *
+		 * @since 2.0.0
+		 * @see Filter cac/column/options
+		 */
 		$default_options = apply_filters( "cac/column/options/storage_key={$this->storage_model->key}", $default_options, $this );
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
@@ -314,6 +347,14 @@ class CPAC_Column {
 	 */
 	function get_label() {
 
+		/**
+		 * Filter the column instance label
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param string $label Column instance label
+		 * @param CPAC_Column $column_instance Column class instance
+		 */
 		return apply_filters( 'cac/column/get_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
 	}
 
@@ -964,7 +1005,16 @@ class CPAC_Column {
 								<div class="inner">
 									<div class="meta">
 
-										<?php do_action( 'cac/column/label', $this ); ?>
+										<?php
+										/**
+										 * Fires in the meta-element for column options, which is displayed right after the column label
+										 *
+										 * @since 2.0.0
+										 *
+										 * @param CPAC_Column $column_instance Column class instance
+										 */
+										do_action( 'cac/column/label', $this );
+										?>
 
 									</div>
 									<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
@@ -1015,7 +1065,16 @@ class CPAC_Column {
 							</td>
 						</tr><!--.column_width-->
 
-						<?php do_action( 'cac/column/settings_before', $this ); ?>
+						<?php
+						/**
+						 * Fires directly before the custom options for a column are displayed in the column form
+						 *
+						 * @since 2.0.0
+						 *
+						 * @param CPAC_Column $column_instance Column class instance
+						 */
+						do_action( 'cac/column/settings_before', $this );
+						?>
 
 						<?php
 						/**
@@ -1026,7 +1085,16 @@ class CPAC_Column {
 
 						?>
 
-						<?php do_action( 'cac/column/settings_after', $this ); ?>
+						<?php
+						/**
+						 * Fires directly after the custom options for a column are displayed in the column form
+						 *
+						 * @since 2.0.0
+						 *
+						 * @param CPAC_Column $column_instance Column class instance
+						 */
+						do_action( 'cac/column/settings_after', $this );
+						?>
 
 						<tr class="column_action">
 							<td colspan="2">

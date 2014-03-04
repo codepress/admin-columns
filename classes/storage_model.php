@@ -156,6 +156,15 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
+		/**
+		 * Filter the available custom field meta keys for this storage model
+		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $keys Available custom field keys
+		 * @param CPAC_Storage_Model $storage_model Storage model class instance
+		 */
 		return apply_filters( "cac/meta_keys/storage_key={$this->key}", $keys, $this );
     }
 
@@ -295,14 +304,25 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		// cac/columns/custom - filter to register column
+		/**
+		 * Filter the available custom column types
+		 * Use this to register a custom column type
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $columns Available custom columns ([class_name] => [class file path])
+		 * @param CPAC_Storage_Model $storage_model Storage model class instance
+		 */
 		$columns = apply_filters( 'cac/columns/custom', $columns, $this );
 
-		// cac/columns/custom/post_type={$post_type} - filter to register column based on it's posttype
+		/**
+		 * Filter the available custom column types for a specific type
+		 *
+		 * @since 2.0.0
+		 * @see Filter cac/columns/custom
+		 */
 		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
 
-		// cac/columns/custom/type={$type} - filter to register column based on it's content META type
-		// type can be either a post, user, comment, link or media
 		$this->columns_filepath = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
 	}
 
@@ -589,7 +609,17 @@ abstract class CPAC_Storage_Model {
 		// add active stored headings
 		foreach( $stored_columns as $column_name => $options ) {
 
-			// label needs stripslashes() for HTML tagged labels, like icons and checkboxes
+			/**
+			 * Filter the column headers label for use in a WP_List_Table
+			 * Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
+			 *
+			 * @since 2.0.0
+			 *
+			 * @param string $label Label
+			 * @param string $column_name Column name
+			 * @param array $options Column options
+			 * @param CPAC_Storage_Model $storage_model Storage model class instance
+			 */
 			$label = apply_filters( 'cac/headings/label', stripslashes( $options['label'] ), $column_name, $options, $this );
 
 			// maybe need site_url replacement
