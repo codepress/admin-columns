@@ -157,7 +157,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		/**
-		 * Filter the available custom field meta keys for this storage model
+		 * Filter the available custom field meta keys
 		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
 		 *
 		 * @since 2.0.0
@@ -165,7 +165,15 @@ abstract class CPAC_Storage_Model {
 		 * @param array $keys Available custom field keys
 		 * @param CPAC_Storage_Model $storage_model Storage model class instance
 		 */
-		return apply_filters( "cac/meta_keys/storage_key={$this->key}", $keys, $this );
+		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this );
+
+		/**
+		 * Filter the available custom field meta keys for this storage model type
+		 *
+		 * @since 2.0.0
+		 * @see Filter cac/storage_model/meta_keys
+		 */
+		return apply_filters( "cac/storage_model/meta_keys/storage_key={$this->key}", $keys, $this );
     }
 
 	/**
@@ -322,9 +330,17 @@ abstract class CPAC_Storage_Model {
 		 * @since 2.0.0
 		 * @see Filter cac/columns/custom
 		 */
+		$columns = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
+
+		/**
+		 * Filter the available custom column types for a specific type
+		 *
+		 * @since 2.0.0
+		 * @see Filter cac/columns/custom
+		 */
 		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
 
-		$this->columns_filepath = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
+		$this->columns_filepath = $columns;
 	}
 
 	/**

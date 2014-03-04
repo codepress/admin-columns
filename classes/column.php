@@ -170,6 +170,9 @@ class CPAC_Column {
 			'state'			=> 'off'						// Active state for this column.
 		);
 
+		// Default options
+		$default_options = array_merge( $default_options, $this->options );
+
 		/**
 		 * Filter the default options for a column instance, such as label and width
 		 *
@@ -178,7 +181,7 @@ class CPAC_Column {
 		 * @param array $default_options Default column options
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		$default_options = apply_filters( 'cac/column/options', $default_options, $this );
+		$default_options = apply_filters( 'cac/column/default_options', $default_options, $this );
 
 		/**
 		 * Filter the default options for a column instance for a specific storage model
@@ -186,10 +189,10 @@ class CPAC_Column {
 		 * @since 2.0.0
 		 * @see Filter cac/column/options
 		 */
-		$default_options = apply_filters( "cac/column/options/storage_key={$this->storage_model->key}", $default_options, $this );
+		$default_options = apply_filters( "cac/column/default_options/storage_key={$this->storage_model->key}", $default_options, $this );
 
 		// merge arguments with defaults and stored options. turn into object for easy handling
-		$this->options = (object) array_merge( $default_options, $this->options );
+		$this->options = (object) $default_options;
 
 		// set default options before populating
 		$this->options_default = $this->options;
@@ -355,7 +358,7 @@ class CPAC_Column {
 		 * @param string $label Column instance label
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		return apply_filters( 'cac/column/get_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
+		return apply_filters( 'cac/column/label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
 	}
 
 	/**
@@ -1013,7 +1016,7 @@ class CPAC_Column {
 										 *
 										 * @param CPAC_Column $column_instance Column class instance
 										 */
-										do_action( 'cac/column/label', $this );
+										do_action( 'cac/column/settings_meta', $this );
 										?>
 
 									</div>
