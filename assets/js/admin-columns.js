@@ -136,8 +136,15 @@ jQuery.fn.column_bind_events = function() {
 		var template = container.find( '.for-cloning-only .cpac-column[data-type="' + type + '"]' );
 
 		if ( template.length ) {
+			if ( template.find( '.is-disabled' ).length ) {
+				msg.html( template.find( '.is-disabled' ).html() ).show();
+
+				// Set to default
+				jQuery(this).find( 'option' ).removeAttr( 'selected' );
+				jQuery(this).find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
+			}
 			// Prevent column types that do not allow it to have multiple instances
-			if ( typeof template.attr( 'data-clone' ) === 'undefined' && jQuery( '.cpac-columns', container ).find( '[data-type="' + type + '"]' ).length ) {
+			else if ( typeof template.attr( 'data-clone' ) === 'undefined' && jQuery( '.cpac-columns', container ).find( '[data-type="' + type + '"]' ).length ) {
 				msg.html( cpac_i18n.clone.replace( '%s', '<strong>' + label + '</strong>' ) ).show();
 
 				// Set to default

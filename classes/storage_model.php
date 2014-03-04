@@ -275,8 +275,9 @@ abstract class CPAC_Storage_Model {
 	public function set_columns_filepath() {
 
 		$columns  = array(
-			'CPAC_Column_Custom_Field' 	=> CPAC_DIR . 'classes/column/custom-field.php',
-			'CPAC_Column_Taxonomy' 		=> CPAC_DIR . 'classes/column/taxonomy.php'
+			'CPAC_Column_Custom_Field' 		=> CPAC_DIR . 'classes/column/custom-field.php',
+			'CPAC_Column_ACF_Placeholder' 	=> CPAC_DIR . 'classes/column/acf-placeholder.php',
+			'CPAC_Column_Taxonomy' 			=> CPAC_DIR . 'classes/column/taxonomy.php'
 		);
 
 		// Directory to iterate
