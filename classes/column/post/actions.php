@@ -22,6 +22,15 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 
+		return $this->get_raw_value( $post_id );
+	}
+
+	/**
+	 * @see CPAC_Column::get_value()
+	 * @since 2.0.0
+	 */
+	function get_raw_value( $post_id ) {
+
 		return $this->get_column_value_actions( $post_id );
 	}
 
