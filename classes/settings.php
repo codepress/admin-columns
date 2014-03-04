@@ -43,6 +43,8 @@ class CPAC_Settings {
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
+		add_action( 'cac/settings/after_menu', array( $this, 'maybe_display_premium_version_message' ) );
+
 		// Settings Url's
 		$this->settings_urls = (object) array(
 			'admin' 	=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
@@ -53,12 +55,32 @@ class CPAC_Settings {
 		);
 	}
 
+	public function maybe_display_premium_version_message() {
+
+		if ( true || ! $this->cpac->get_addon( 'acf' ) ) {
+			$current_user = wp_get_current_user();
+			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
+
+			if ( ! $user_name ) {
+				$user_name = $current_user->display_name;
+			}
+			?>
+			<div class="updated cac-notification below-h2">
+				<p>
+					<?php printf( __( 'Heya, %s! Did you know that the premium version of Admin Columns offers full integration with <strong>Advanced Custom Fields</strong>?', 'cpac' ), $user_name ); ?>
+					<a href="#" class="learnmore">Learn more</a>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<?php
+		}
+	}
+
 	/**
 	 * Ajax Column Refresh
 	 *
-	 * @since 2.1.1
+	 * @since 2.1.2
 	 */
-
 	public function ajax_column_refresh() {
 		if ( ! empty( $_POST['formdata'] ) && ! empty( $_POST['column'] ) ) {
 			parse_str( $_POST['formdata'], $formdata );
@@ -707,6 +729,8 @@ class CPAC_Settings {
 				<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
 				<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
 			</div>
+
+			<?php do_action( 'cac/settings/after_menu' ); ?>
 
 			<?php $count = 0; ?>
 			<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
