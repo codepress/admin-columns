@@ -57,7 +57,7 @@ class CPAC_Settings {
 
 	public function maybe_display_premium_version_message() {
 
-		if ( true || ! $this->cpac->get_addon( 'acf' ) ) {
+		if ( true || ( ! $this->cpac->get_addon( 'acf' ) && class_exists( 'acf' ) ) ) {
 			$current_user = wp_get_current_user();
 			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
 
