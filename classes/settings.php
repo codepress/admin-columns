@@ -53,6 +53,12 @@ class CPAC_Settings {
 		);
 	}
 
+	/**
+	 * Ajax Column Refresh
+	 *
+	 * @since 2.1.1
+	 */
+
 	public function ajax_column_refresh() {
 		if ( ! empty( $_POST['formdata'] ) && ! empty( $_POST['column'] ) ) {
 			parse_str( $_POST['formdata'], $formdata );
