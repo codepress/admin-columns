@@ -82,8 +82,9 @@ class CPAC_Column {
 	 */
 	protected function sanitize_options( $options ) {
 
-		if ( isset( $options['date_format'] ) )
+		if ( isset( $options['date_format'] ) ) {
 			$options['date_format'] = trim( $options['date_format'] );
+		}
 
 		return $options;
 	}

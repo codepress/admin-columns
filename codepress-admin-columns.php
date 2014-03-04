@@ -55,6 +55,7 @@ require_once CPAC_DIR . 'classes/third_party.php';
 class CPAC {
 
 	public $storage_models;
+	private $addons = array();
 
 	/**
 	 * Constructor
@@ -63,7 +64,28 @@ class CPAC {
 	 */
 	function __construct() {
 
+		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
+
+		add_action( 'plugins_loaded', array( $this, 'register_addons' ) );
 		add_action( 'wp_loaded', array( $this, 'init') );
+	}
+
+	/**
+	 * Register addons
+	 *
+	 * @since 2.1.2
+	 */
+	public function register_addons() {
+
+		/**
+		 * Fires after all plugins are loaded
+		 * Use this to register addons to Admin Columns
+		 *
+		 * @since 2.1.2
+		 *
+		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
+		 */
+		do_action( 'cac/register_addons', $this );
 	}
 
 	/**
@@ -92,62 +114,133 @@ class CPAC {
 		// load scripts
 		$this->init_scripts();
 
-		// add capabilty to roles to manage admin columns
-		$this->set_capabilities();
-
 		// set storage models
 		$this->set_storage_models();
 
-		// for third party plugins
+		/**
+		 * Fires when Admin Columns is fully loaded
+		 * Use this for setting up addon functionality
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
+		 */
 		do_action( 'cac/loaded', $this );
 	}
 
 	/**
-	 * Is doing ajax
+	 * Register an addon by passing its main plugin class instance
 	 *
-	 * @since 2.0.5
+	 * @since 2.1.2
 	 *
-     * @return boolean
+	 * @param object $instance Main plugin class instance
 	 */
-	function is_doing_ajax() {
+	public function register_addon( $instance ) {
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			return true;
-
-		return false;
+		$this->addons[ $instance->addon['id'] ] = $instance;
 	}
 
 	/**
-	 * Is columns screen
+	 * Get an addon main plugin class instance by its id
 	 *
 	 * @since 2.1.2
+	 *
+	 * @param string $id Unique addon ID
+	 * @return bool|object Returns false if there is no addon registered with the passed ID, the class instance otherwise
+	 */
+	public function get_addon( $id ) {
+
+		if ( ! isset( $this->addons[ $id ] ) ) {
+			return false;
+		}
+
+		return $this->addons[ $id ];
+	}
+
+	/**
+	 * Whether this request is an AJAX request
+	 *
+	 * @since 2.1.2
+	 *
+     * @return bool Returns true if in an AJAX request, false otherwise
+	 */
+	function is_doing_ajax() {
+
+		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+
+		/**
+		 * Filter whether the current request should be marked as an AJAX request
+		 * Useful for custom AJAX calls
+		 *
+		 * @since 2.1.2
+		 *
+		 * @param bool $doing_ajax Whether the current request is an AJAX request
+		 */
+		$doing_ajax = apply_filters( 'cac/is_doing_ajax', $doing_ajax );
+
+		return $doing_ajax;
+	}
+
+	/**
+	 * Whether this request is a columns screen (i.e. a content overview page)
+	 *
+	 * @since 2.1.2
+	 *
+     * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
 	function is_columns_screen() {
 
 		global $pagenow;
 
-		if ( ! in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) ) )
-			return false;
+		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
 
-		return true;
+		/**
+		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
+		 * Useful for advanced used with custom content overview pages
+		 *
+		 * @since 2.1.2
+		 *
+		 * @param bool $columns_screen Whether the current request is a columns screen
+		 */
+		$columns_screen = apply_filters( 'cac/is_columns_screen', $columns_screen );
+
+		return $columns_screen;
 	}
 
 	/**
-	 * Is CAC screen
+	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.1.2
+	 *
+	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	function is_settings_screen() {
 
 		global $pagenow;
 
-		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) )
+		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
 			return false;
+		}
 
 		return true;
 	}
 
+	/**
+	 * Whether the current screen is a screen in which Admin Columns is used
+	 * Used to check whether storage models should be loaded
+	 *
+	 * @since 2.1.2
+	 *
+	 * @return bool Whether the current screen is an Admin Columns screen
+	 */
 	function is_cac_screen() {
+		/**
+		 * Filter whether the current screen is a screen in which Admin Columns is active
+		 *
+		 * @since 2.1.2
+		 *
+		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
+		 */
 		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || $this->is_doing_ajax() || $this->is_settings_screen() );
 	}
 
@@ -230,6 +323,14 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 
+		/**
+		 * Filter the available storage models
+		 * Used by external plugins to add additional storage models
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
+		 */
 		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models );
 	}
 
@@ -270,6 +371,13 @@ class CPAC {
 			'show_ui'	=> true
 		)));
 
+		/**
+		 * Filter the post types for which Admin Columns is active
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param array $post_types List of active post type names
+		 */
 		return apply_filters( 'cac/post_types', $post_types );
 	}
 
@@ -393,5 +501,3 @@ class CPAC {
  * @since 1.0.0
  */
 $cpac = new CPAC();
-
-
