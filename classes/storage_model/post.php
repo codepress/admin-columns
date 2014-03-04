@@ -19,15 +19,15 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// Headings
 
 		// Since 3.1
-		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 10, 1 );
+		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 100, 1 );
 
 		// Deprecated ( as of 3.1 ) Note: This one is still used by woocommerce.
 		// Priority set to 11 top make sure the WooCommerce headings are overwritten by CAC
 		// @todo_minor check compatibility issues for this deprecated filter
-		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 11, 1 );
+		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100, 1 );
 
 		// values
-		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 10, 2 );
+		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		parent::__construct();
 	}

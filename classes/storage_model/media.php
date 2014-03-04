@@ -18,10 +18,10 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 		// headings
         // Increased the priority to overrule 3th party plugins such as Media Tags
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 15 );
+		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 );
 
 		// values
-		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 10, 2 );
+		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
 
 		parent::__construct();
 	}
