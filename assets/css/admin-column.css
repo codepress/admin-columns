@@ -560,6 +560,21 @@ h2.cpac-nav-tab-wrapper {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 /**
+ * Notifications
+ * ----------------------------------------------------------------------------
+ */
+.cac-notification.updated {
+  border-left-color: #0071aa;
+}
+.cac-notification.updated .learnmore {
+  float: right;
+}
+.cac-notification.updated .learnmore:after {
+  content: "\f139";
+  font: normal 20px/1 'dashicons';
+  float: right;
+}
+/**
  * Sidebar
  * ----------------------------------------------------------------------------
  */
