@@ -45,6 +45,7 @@ abstract class CPAC_Storage_Model {
 	 * Page
 	 *
 	 * @since 2.0.0
+	 * @var string
 	 */
 	public $page;
 
@@ -52,6 +53,7 @@ abstract class CPAC_Storage_Model {
 	 * Custom Column
 	 *
 	 * @since 2.0.1
+	 * @var array
 	 */
 	protected $columns_filepath;
 
@@ -59,6 +61,7 @@ abstract class CPAC_Storage_Model {
 	 * Columns
 	 *
 	 * @since 2.0.1
+	 * @var array
 	 */
 	public $columns = array();
 
@@ -66,6 +69,7 @@ abstract class CPAC_Storage_Model {
 	 * Custom Column Instances
 	 *
 	 * @since 2.1.0
+	 * @var array
 	 */
 	public $custom_columns = array();
 
@@ -73,8 +77,17 @@ abstract class CPAC_Storage_Model {
 	 * Default Column Instances
 	 *
 	 * @since 2.1.0
+	 * @var array
 	 */
 	public $default_columns = array();
+
+	/**
+	 * Columns settings for this storage model
+	 *
+	 * @since 2.2
+	 * @var array
+	 */
+	public $stored_columns = NULL;
 
 	/**
 	 * Get default columns
@@ -88,7 +101,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Construct
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 */
 	function __construct() {
 
@@ -461,15 +474,34 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $key
 	 * @return array Column options
 	 */
 	public function get_stored_columns() {
+		
+		if ( $this->stored_columns !== NULL ) {
+			$columns = $this->stored_columns;
+		}
+		else {
+			$columns = $this->get_database_columns();
+		}
 
-		if ( ! $columns = get_option( "cpac_options_{$this->key}" ) )
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key={$this->key}', $columns, $this );
+
+		if ( ! $columns ) {
 			return array();
+		}
 
 		return $columns;
+	}
+
+	public function get_database_columns() {
+
+		return get_option( "cpac_options_{$this->key}" );
+	}
+
+	public function set_stored_columns( $columns ) {
+		$this->stored_columns = $columns;
 	}
 
 	/**
@@ -613,7 +645,7 @@ abstract class CPAC_Storage_Model {
 			return $columns;
 
 		// stored columns exists?
-		if ( ! $stored_columns = get_option( "cpac_options_{$this->key}" ) )
+		if ( ! $stored_columns = $this->get_stored_columns() )
 			return $columns;
 
 		// build the headings

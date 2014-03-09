@@ -141,7 +141,7 @@ class CPAC_Column {
 		/**
 		 * Filter the properties of a column type, such as type and is_cloneable
 		 *
-		 * Property $column_instance added in Admin Columns 2.1.2
+		 * Property $column_instance added in Admin Columns 2.2
 		 *
 		 * @since 2.0.0
 		 *
@@ -153,7 +153,7 @@ class CPAC_Column {
 		/**
 		 * Filter the properties of a column type for a specific storage model
 		 *
-		 * Property $column_instance added in Admin Columns 2.1.2
+		 * Property $column_instance added in Admin Columns 2.2
 		 *
 		 * @since 2.0.0
 		 * @see Filter cac/column/properties
@@ -206,13 +206,14 @@ class CPAC_Column {
 
 	/**
 	 * Populate Options
+	 * Added $options parameter in 2.2
 	 *
 	 * @since 2.0.0
-	 * @return object
+	 * @param array $options Optional. Options to populate the storage model with. Defaults to options from database.
 	 */
-	public function populate_options() {
+	public function populate_options( $options = NULL ) {
 
-		$this->options = (object) array_merge( (array) $this->options, $this->read() );
+		$this->options = (object) array_merge( (array) $this->options, is_array( $options ) ? $options : $this->read() );
 	}
 
 	/**
@@ -382,7 +383,7 @@ class CPAC_Column {
 	/**
 	 * Get cache ID
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
 	 * @param $id Cache ID
 	 * @return string MD5 Cache ID
@@ -835,17 +836,15 @@ class CPAC_Column {
 	 * Display field Date Format
 	 *
 	 * @since 2.0.0
-	 *
-	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
 	 */
-	function display_field_date_format( $is_hidden = false ) {
+	function display_field_date_format() {
 
 		$field_key		= 'date_format';
 		$label			= __( 'Date Format', 'cpac' );
 		$description	= __( 'This will determine how the date will be displayed.', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
+		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>" placeholder="<?php _e( 'Example:', 'cpac' ); ?> d M Y H:i"/>
@@ -863,17 +862,15 @@ class CPAC_Column {
 	 * Display field Excerpt
 	 *
 	 * @since 2.0.0
-	 *
-	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
 	 */
-	function display_field_excerpt_length( $is_hidden = false ) {
+	function display_field_excerpt_length() {
 
 		$field_key		= 'excerpt_length';
 		$label			= __( 'Excerpt length', 'cpac' );
 		$description	= __( 'Number of words', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
+		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
@@ -886,16 +883,14 @@ class CPAC_Column {
 	 * Display field Preview Size
 	 *
 	 * @since 2.0.0
-	 *
-	 * @param bool $is_hidden Hides the table row by adding the class 'hidden'.
 	 */
-	function display_field_preview_size( $is_hidden = false ) {
+	function display_field_preview_size() {
 
 		$field_key		= 'image_size';
 		$label			= __( 'Preview size', 'cpac' );
 
 		?>
-		<tr class="column_<?php echo $field_key; ?>"<?php echo $is_hidden ? " style='display:none'" : ''; ?>>
+		<tr class="column_<?php echo $field_key; ?>">
 
 			<?php $this->label_view( $label, '', $field_key ); ?>
 

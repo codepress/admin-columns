@@ -228,6 +228,12 @@ jQuery.fn.column_bind_events = function() {
 	},function(){
 		jQuery(this).find('p.description').hide();
 	});
+
+	if ( column.find( '.column_type select' ).val() == 'column-meta' ) {
+		column.find( '.column_field_type select' ).change( function() {
+			column.cpac_column_refresh();
+		} );
+	}
 };
 
 /*
@@ -494,7 +500,6 @@ function cpac_sortable() {
 		items					: '.cpac-column',
 		revert					: 250,
 		handle					: 'td.column_sort',
-		placeholder				: 'cpac-placeholder',
 		forcePlaceholderSize	: true,
 		sort: function(e,ui){
 			if ( jQuery(ui.placeholder).is(':empty') )

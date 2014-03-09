@@ -19,7 +19,7 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::apply_conditional()
-	 * @since 2.1.2
+	 * @since 2.2
 	 */
 	function apply_conditional() {
 

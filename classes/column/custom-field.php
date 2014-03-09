@@ -79,7 +79,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		// deprecated. do not use, will be removed.
 		$custom_field_types = apply_filters( 'cpac_custom_field_types', $custom_field_types );
 
-		// Filter
+		/**
+		 * Filter the available custom field types for the meta (custom field) field
+		 *
+		 * @since 2.0
+		 *
+		 * @param array $custom_field_types Available custom field types ([type] => [label])
+		 */
 		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
 
 		return $custom_field_types;
@@ -402,32 +408,19 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		</tr>
 
 		<?php
+		switch ( $this->options->field_type ) {
+			case 'date':
+				$this->display_field_date_format();
+				break;
+			 case 'image':
+			 case 'library_id':
+			 	$this->display_field_preview_size();
+			 	break;
+			 case 'excerpt':
+			 	$this->display_field_excerpt_length();
+			 	break;
+		}
 
-		/**
-		 * Add Date Format
-		 *
-		 */
-		$is_hidden = in_array( $this->options->field_type, array( 'date' ) ) ? false : true;
-		$this->display_field_date_format( $is_hidden );
-
-		/**
-		 * Add Preview size
-		 *
-		 */
-		$is_hidden = in_array( $this->options->field_type, array( 'image', 'library_id' ) ) ? false : true;
-		$this->display_field_preview_size( $is_hidden );
-
-		/**
-		 * Add Excerpt length
-		 *
-		 */
-		$is_hidden = in_array( $this->options->field_type, array( 'excerpt' ) ) ? false : true;
-		$this->display_field_excerpt_length( $is_hidden );
-
-		/**
-		 * Before / After
-		 *
-		 */
 		$this->display_field_before_after();
 	}
 }

@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.1.2
+Version: 			2.2
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'CPAC_VERSION', 	 	'2.1.2' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.2' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -45,6 +45,7 @@ if ( ! is_admin() )
  */
 require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
+require_once CPAC_DIR . 'api.php';
 
 /**
  * The Codepress Admin Columns Class
@@ -73,7 +74,7 @@ class CPAC {
 	/**
 	 * Register addons
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 */
 	public function register_addons() {
 
@@ -81,7 +82,7 @@ class CPAC {
 		 * Fires after all plugins are loaded
 		 * Use this to register addons to Admin Columns
 		 *
-		 * @since 2.1.2
+		 * @since 2.2
 		 *
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
@@ -131,7 +132,7 @@ class CPAC {
 	/**
 	 * Register an addon by passing its main plugin class instance
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
 	 * @param object $instance Main plugin class instance
 	 */
@@ -143,7 +144,7 @@ class CPAC {
 	/**
 	 * Get an addon main plugin class instance by its id
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
 	 * @param string $id Unique addon ID
 	 * @return bool|object Returns false if there is no addon registered with the passed ID, the class instance otherwise
@@ -160,7 +161,7 @@ class CPAC {
 	/**
 	 * Whether this request is an AJAX request
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
      * @return bool Returns true if in an AJAX request, false otherwise
 	 */
@@ -172,7 +173,7 @@ class CPAC {
 		 * Filter whether the current request should be marked as an AJAX request
 		 * Useful for custom AJAX calls
 		 *
-		 * @since 2.1.2
+		 * @since 2.2
 		 *
 		 * @param bool $doing_ajax Whether the current request is an AJAX request
 		 */
@@ -184,7 +185,7 @@ class CPAC {
 	/**
 	 * Whether this request is a columns screen (i.e. a content overview page)
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
      * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
@@ -198,7 +199,7 @@ class CPAC {
 		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
 		 * Useful for advanced used with custom content overview pages
 		 *
-		 * @since 2.1.2
+		 * @since 2.2
 		 *
 		 * @param bool $columns_screen Whether the current request is a columns screen
 		 */
@@ -210,7 +211,7 @@ class CPAC {
 	/**
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
@@ -229,7 +230,7 @@ class CPAC {
 	 * Whether the current screen is a screen in which Admin Columns is used
 	 * Used to check whether storage models should be loaded
 	 *
-	 * @since 2.1.2
+	 * @since 2.2
 	 *
 	 * @return bool Whether the current screen is an Admin Columns screen
 	 */
@@ -237,7 +238,7 @@ class CPAC {
 		/**
 		 * Filter whether the current screen is a screen in which Admin Columns is active
 		 *
-		 * @since 2.1.2
+		 * @since 2.2
 		 *
 		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
 		 */
