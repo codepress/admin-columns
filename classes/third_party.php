@@ -9,7 +9,7 @@
  *
  * @since 1.4.6
  */
-function pre_load_wordpress_seo_class_metabox() {
+function cpac_pre_load_wordpress_seo_class_metabox() {
 	global $pagenow;
 
 	if ( defined('WPSEO_PATH') && file_exists(WPSEO_PATH.'admin/class-metabox.php') ) {
@@ -23,7 +23,7 @@ function pre_load_wordpress_seo_class_metabox() {
 		}
 	}
 }
-add_action( 'plugins_loaded', 'pre_load_wordpress_seo_class_metabox', 0 );
+add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
 
 /**
  * WPML compatibility
@@ -64,14 +64,14 @@ add_action( 'cac/get_columns', 'cac_add_wpml_columns' );
  *
  * @return array Posttypes
  */
-function remove_acf_from_cpac_post_types( $post_types ) {
+function cpac_remove_acf_from_cpac_post_types( $post_types ) {
 	if ( class_exists('Acf') ) {
 		unset( $post_types['acf'] );
 	}
 
 	return $post_types;
 }
-add_filter( 'cac/post_types', 'remove_acf_from_cpac_post_types' );
+add_filter( 'cac/post_types', 'cpac_remove_acf_from_cpac_post_types' );
 
 /**
  * bbPress - remove posttypes: forum, reply and topic

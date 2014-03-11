@@ -27,16 +27,21 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) )  {
+	// Exit if accessed directly
+	exit;
+}
 
+// Plugin information
 define( 'CPAC_VERSION', 	 	'2.2' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
-// only run plugin in the admin interface
-if ( ! is_admin() )
+// Only run plugin in the admin interface
+if ( ! is_admin() ) {
 	return false;
+}
 
 /**
  * Dependencies
