@@ -34,14 +34,15 @@ require_once WP_TESTS_DIR . 'includes/functions.php';
  */
 function _manually_load_plugin() {
 
-    require TEST_PLUGIN_FILE;
-    // Make sure plugin is installed here ...
+    require_once TEST_PLUGIN_FILE;
 
+    // Make sure plugin is installed here ...
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
-// Add this plugin to WordPress for activation so it can be tested.
-
+/**
+ * Add this plugin to WordPress for activation so it can be tested.Manually load the plugin main file.
+ */
 $GLOBALS['wp_tests_options'] = array(
 	'active_plugins' => array( "codepress-admin-columns/codepress-admin-columns.php" ),
 );
