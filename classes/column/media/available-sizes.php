@@ -49,7 +49,9 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 		global $_wp_additional_image_sizes;
 
 		if ( ! empty( $_wp_additional_image_sizes ) ) {
-			unset( $_wp_additional_image_sizes['post-thumbnail'] );
+			if ( isset( $_wp_additional_image_sizes['post-thumbnail'] ) ) {
+				unset( $_wp_additional_image_sizes['post-thumbnail'] );
+			}
 
 			// image does not have these additional sizes rendered yet
 			if ( $missing = array_diff( array_keys( $_wp_additional_image_sizes), array_keys( $meta['sizes'] ) ) ) {
