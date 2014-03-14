@@ -236,16 +236,17 @@ h2.cpac-nav-tab-wrapper {
 }
 .cpac-column .column-meta table tr td.column_label .inner .meta span {
   cursor: pointer;
-  background: #ccc;
-  border-radius: 2px;
-  padding: 0 4px;
-  color: #fff;
-  display: inline-block;
-  height: 15px;
-  line-height: 15px;
-}
-.cpac-column .column-meta table tr td.column_label .inner .meta span.on {
-  background: #1e8cbe;
+  /*background: #ccc;
+									border-radius: 2px;
+									padding: 0 4px;
+									color: #fff;
+									display: inline-block;
+									height: 15px;
+									line-height: 15px;
+
+									&.on {
+										background: #1e8cbe;
+									}*/
 }
 .cpac-column .column-meta table tr td.column_label span.vers {
   float: left;
