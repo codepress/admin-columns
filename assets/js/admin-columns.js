@@ -20,6 +20,8 @@ jQuery(document).ready(function() {
 	cpac_help();
 	cpac_add_column();
 	cpac_sidebar_scroll();
+	cpac_addons();
+	cpac_importexport();
 
 	// we start by binding the toggle and remove events.
 	jQuery('.cpac-column').each( function( i, col ) {
@@ -28,6 +30,22 @@ jQuery(document).ready(function() {
 		jQuery( col ).cpac_bind_container_addon_events();
 	});
 });
+
+function cpac_importexport() {
+	jQuery( '#php-export-results textarea' ).on( 'focus, mouseup', function() {
+		jQuery( this ).select();
+	} ).select().focus();
+}
+
+/**
+ * Handle addons settings screen
+ *
+ * @since 2.2
+ */
+function cpac_addons() {
+
+
+}
 
 /*
  * Submit Form

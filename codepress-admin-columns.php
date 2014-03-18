@@ -61,7 +61,8 @@ require_once CPAC_DIR . 'api.php';
 class CPAC {
 
 	public $storage_models;
-	private $addons = array();
+	public $addons;
+	public $settings;
 
 	/**
 	 * Constructor
@@ -72,56 +73,35 @@ class CPAC {
 
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'register_addons' ) );
-		add_action( 'wp_loaded', array( $this, 'init') );
-	}
+		// Localization
+		add_action( 'init', array( $this, 'localize' ) );
 
-	/**
-	 * Register addons
-	 *
-	 * @since 2.2
-	 */
-	public function register_addons() {
+		// Storage models
+		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 
-		/**
-		 * Fires after all plugins are loaded
-		 * Use this to register addons to Admin Columns
-		 *
-		 * @since 2.2
-		 *
-		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
-		 */
-		do_action( 'cac/register_addons', $this );
-	}
+		// Setup callback
+		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 
-	/**
-	 * Initialize plugin.
-	 *
-	 * Loading sequence is determined and intialized.
-	 *
-	 * @since 1.0.0
-	 */
-	public function init() {
-
-		// translations
-		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-		// add settings link
+		// Add settings link
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
+
+		// Load scripts
+		$this->init_scripts();
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
-		new CPAC_Settings( $this );
+		$this->settings = new CPAC_Settings( $this );
+
+		// Addons
+		include_once CPAC_DIR . 'classes/addons.php';
+		$this->addons = new CPAC_Addons( $this );
 
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
 		new CPAC_Upgrade( $this );
+	}
 
-		// load scripts
-		$this->init_scripts();
-
-		// set storage models
-		$this->set_storage_models();
+	public function after_setup() {
 
 		/**
 		 * Fires when Admin Columns is fully loaded
@@ -134,33 +114,9 @@ class CPAC {
 		do_action( 'cac/loaded', $this );
 	}
 
-	/**
-	 * Register an addon by passing its main plugin class instance
-	 *
-	 * @since 2.2
-	 *
-	 * @param object $instance Main plugin class instance
-	 */
-	public function register_addon( $instance ) {
+	public function localize() {
 
-		$this->addons[ $instance->addon['id'] ] = $instance;
-	}
-
-	/**
-	 * Get an addon main plugin class instance by its id
-	 *
-	 * @since 2.2
-	 *
-	 * @param string $id Unique addon ID
-	 * @return bool|object Returns false if there is no addon registered with the passed ID, the class instance otherwise
-	 */
-	public function get_addon( $id ) {
-
-		if ( ! isset( $this->addons[ $id ] ) ) {
-			return false;
-		}
-
-		return $this->addons[ $id ];
+		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -259,8 +215,9 @@ class CPAC {
 
 		add_action( 'admin_head', array( $this, 'global_head_scripts') );
 
-		if ( ! $this->is_columns_screen() )
+		if ( ! $this->is_columns_screen() ) {
 			return;
+		}
 
 		// styling & scripts
 		add_action( 'admin_enqueue_scripts' , array( $this, 'column_styles') );
