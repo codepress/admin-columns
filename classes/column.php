@@ -176,7 +176,7 @@ class CPAC_Column {
 		/**
 		 * Filter the default options for a column instance, such as label and width
 		 *
-		 * @since 2.0.0
+		 * @since 2.2
 		 *
 		 * @param array $default_options Default column options
 		 * @param CPAC_Column $column_instance Column class instance
@@ -186,7 +186,7 @@ class CPAC_Column {
 		/**
 		 * Filter the default options for a column instance for a specific storage model
 		 *
-		 * @since 2.0.0
+		 * @since 2.2
 		 * @see Filter cac/column/options
 		 */
 		$default_options = apply_filters( "cac/column/default_options/storage_key={$this->storage_model->key}", $default_options, $this );

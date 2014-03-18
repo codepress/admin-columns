@@ -15,14 +15,6 @@ class CPAC_Settings {
 	private $cpac;
 
 	/**
-	 * Settings uri
-	 *
-	 * @since 2.0.0
-	 * @param array URL for general, settings and info screens
-	 */
-	private $settings_urls = array();
-
-	/**
 	 * Constructor
 	 *
 	 * @since 2.0.0
@@ -44,16 +36,56 @@ class CPAC_Settings {
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_premium_version_message' ) );
+		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+	}
 
-		// Settings Url's
-		$this->settings_urls = (object) array(
+	/**
+	 * Get available Admin Columns admin page URLs
+	 *
+	 * @since 2.3
+	 *
+	 * @return array Available settings URLs ([settings_page] => [url])
+	 */
+	public function get_settings_urls() {
+
+		/**
+		 * Filter the URLs for the different settings screens available in admin columns
+		 *
+		 * @since 2.3
+		 *
+		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
+		 * @param CPAC_Settings $settings_instance Settings class instance
+		 */
+		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
 			'admin' 		=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
-			'general' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=general' ),
-			'settings' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
-			'import-export' => admin_url( 'options-general.php?page=codepress-admin-columns&tab=import-export' ),
 			'info' 			=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade' 		=> admin_url( 'options-general.php?page=cpac-upgrade' )
-		);
+		), $this );
+
+		return $settings_urls;
+	}
+
+	/**
+	 * Get the settings URL for a page
+	 *
+	 * @since 2.3
+	 *
+	 * @param string $page Optional. Admin page to get the URL from. Defaults to the basic Admin Columns page
+	 * @return string Settings page URL
+	 */
+	public function get_settings_url( $page = '' ) {
+
+		$settings_urls = $this->get_settings_urls();
+
+		if ( isset( $settings_urls[ $page ] ) ) {
+			return $settings_urls[ $page ];
+		}
+
+		if ( ! $page ) {
+			return $settings_urls['admin'];;
+		}
+
+		return add_query_arg( 'tab', $page, $this->get_settings_url() );
 	}
 
 	/**
@@ -64,7 +96,7 @@ class CPAC_Settings {
 	public function maybe_display_premium_version_message() {
 
 		// ACF integration
-		if ( ! $this->cpac->get_addon( 'acf' ) && class_exists( 'acf' ) ) {
+		if ( ! $this->cpac->addons()->is_addon_installed( 'acf' ) && class_exists( 'acf' ) ) {
 			$current_user = wp_get_current_user();
 			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
 
@@ -81,6 +113,36 @@ class CPAC_Settings {
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Display an activation/deactivation message on the addons page if applicable
+	 *
+	 * @since 2.2
+	 */
+	public function maybe_display_addon_statuschange_message() {
+
+		if ( empty( $_REQUEST['tab'] ) || $_REQUEST['tab'] != 'addons' ) {
+			return;
+		}
+
+		$message = '';
+
+		if ( ! empty( $_REQUEST['activate'] ) ) {
+			$message = __( 'Add-on successfully activated.', 'cpac' );
+		}
+		else if ( ! empty( $_REQUEST['deactivate'] ) ) {
+			$message = __( 'Add-on successfully deactivated.', 'cpac' );
+		}
+
+		if ( ! $message ) {
+			return;
+		}
+		?>
+		<div class="updated cac-notification below-h2">
+			<p><?php echo $message; ?></p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -443,10 +505,10 @@ class CPAC_Settings {
 
 			<div class="cpac-content-body">
 				<h2 class="nav-tab-wrapper">
-					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->settings_urls->info; ?>whats-new"><?php _e( "What’s New", 'cpac' ); ?></a>
-					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->settings_urls->info; ?>changelog"><?php _e( "Changelog", 'cpac' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>whats-new"><?php _e( "What’s New", 'cpac' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>changelog"><?php _e( "Changelog", 'cpac' ); ?></a>
 					<?php if( $tab == 'download-add-ons' ): ?>
-					<a class="cpac-tab-toggle nav-tab nav-tab-active" href="<?php echo $this->settings_urls->info; ?>download-add-ons"><?php _e( "Download Addons", 'cpac' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab nav-tab-active" href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons"><?php _e( "Download Addons", 'cpac' ); ?></a>
 					<?php endif; ?>
 				</h2>
 
@@ -460,7 +522,7 @@ class CPAC_Settings {
 				<h4><?php _e( "This website uses the Sortorder Addon. This addon needs to be downloaded." ,'cpac' ); ?></h4>
 				<div class="cpac-alert cpac-alert-success">
 					<p>
-						<?php _e( "Addons are seperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo $this->settings_urls->info; ?>download-add-ons" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
+						<?php _e( "Addons are seperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
 					</p>
 				</div>
 			<?php else : ?>
@@ -479,7 +541,7 @@ class CPAC_Settings {
 				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
 
 			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION ) : ?>
-				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo $this->settings_urls->upgrade; ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
+				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
 			<?php endif; ?>
 
 				<h4><?php _e( "Potential Issues", 'cpac' ); ?></h4>
@@ -532,7 +594,7 @@ class CPAC_Settings {
 					<tr>
 						<th class="td-name"><?php _e("Pro Add-on (includes Sortorder add-on)",'cpac'); ?></th>
 						<td class="td-download">
-							<a class="button" href="<?php echo $this->settings_urls->info; ?>download-add-ons&amp;cpac_product_id=cac-pro&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
+							<a class="button" href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons&amp;cpac_product_id=cac-pro&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
 						</td>
 					</tr>
 					<?php endif; ?>
@@ -549,7 +611,7 @@ class CPAC_Settings {
 					<li><?php _e("Use the uploader to browse, select and install your Add-on (.zip file)",'cpac'); ?></li>
 					<li><?php _e("Once the plugin has been uploaded and installed, click the 'Activate Plugin' link",'cpac'); ?></li>
 					<li><?php _e("The Add-on is now installed and activated!",'cpac'); ?></li>
-					<li><?php printf( __("For automatic updates make sure to <a href='%s'>enter your licence key</a>.",'cpac'), $this->settings_urls->settings ); ?></li>
+					<li><?php printf( __("For automatic updates make sure to <a href='%s'>enter your licence key</a>.",'cpac'), $this->get_settings_url( 'settings' ) ); ?></li>
 				</ol>
 
 			<?php endif; ?>
@@ -559,7 +621,7 @@ class CPAC_Settings {
 			</div><!--.cpac-content-body-->
 
 			<div class="cpac-content-footer">
-				<a class="button-primary button-large" href="<?php echo $this->settings_urls->general; ?>"><?php _e("Start using Admin Columns",'cpac'); ?></a>
+				<a class="button-primary button-large" href="<?php echo $this->get_settings_url( 'general' ); ?>"><?php _e("Start using Admin Columns",'cpac'); ?></a>
 			</div><!--.cpac-content-footer-->
 
 		</div>
@@ -703,7 +765,8 @@ class CPAC_Settings {
 
 		$tabs = array(
 			'general'	=> __( 'Admin Columns', 'cpac' ),
-			'settings'	=> __( 'Settings', 'cpac' )
+			'settings'	=> __( 'Settings', 'cpac' ),
+			'addons'	=> __( 'Add-ons', 'cpac' )
 		);
 
 		$tabs = apply_filters( 'cpac/settings/tabs', $tabs );
@@ -719,7 +782,7 @@ class CPAC_Settings {
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php foreach( $tabs as $name => $label ) : ?>
-					<a href="<?php echo $this->settings_urls->admin . "&amp;tab={$name}"; ?>" class="nav-tab<?php if( $current_tab == $name ) echo ' nav-tab-active'; ?>"><?php echo $label; ?></a>
+					<a href="<?php echo $this->get_settings_url( 'admin' ) . "&amp;tab={$name}"; ?>" class="nav-tab<?php if( $current_tab == $name ) echo ' nav-tab-active'; ?>"><?php echo $label; ?></a>
 				<?php endforeach; ?>
 			</h2>
 
@@ -769,7 +832,7 @@ class CPAC_Settings {
 											</div>
 											<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">
-												<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->settings_urls->admin ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
+												<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->get_settings_url( 'admin' ) ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
 													<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
 												</a>
 											</div>
@@ -887,6 +950,9 @@ class CPAC_Settings {
 				case 'settings' :
 					$this->display_settings();
 					break;
+				case 'addons':
+					$this->tab_addons();
+					break;
 				default:
 					echo apply_filters( 'cpac/settings/tab_contents_' . $current_tab, apply_filters( 'cpac/settings/tab_contents', '', $current_tab ) );
 					break;
@@ -895,4 +961,61 @@ class CPAC_Settings {
 		</div><!--.wrap-->
 	<?php
 	}
+
+	/**
+	 * Output the content for the addons tab
+	 *
+	 * @since 2.2
+	 */
+	public function tab_addons() {
+
+		$addon_groups = $this->cpac->addons()->get_addon_groups();
+		$grouped_addons = $this->cpac->addons()->get_available_addons_grouped();
+		?>
+		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
+			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
+			<ul class="cpac-addons">
+				<?php foreach ( $addons as $addon_name => $addon ) : ?>
+					<li>
+						<div class="cpac-addon-content">
+							<?php if ( ! empty( $addon['image'] ) ) : ?>
+								<img src="<?php echo $addon['image']; ?>" />
+							<?php else : ?>
+								<h3><?php echo $addon['title']; ?></h3>
+							<?php endif; ?>
+						</div>
+						<div class="cpac-addon-header">
+							<h3><?php echo $addon['title']; ?></h3>
+							<p><?php _e( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ); ?>
+						</div>
+						<div class="cpac-addon-actions">
+							<?php if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
+								<?php if ( $this->cpac->addons()->get_registered_addon( $addon_name ) ) : ?>
+									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
+										'action' => 'deactivate',
+										'plugin' => urlencode( $plugin_basename ),
+										'cpac-redirect' => true
+									), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
+									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'cpac' ); ?></a>
+									<a href="<?php echo esc_attr( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'cpac' ); ?></a>
+								<?php else : ?>
+									<?php $activation_url = wp_nonce_url( add_query_arg( array(
+										'action' => 'activate',
+										'plugin' => urlencode( $plugin_basename ),
+										'cpac-redirect' => true
+									), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_basename ); ?>
+									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'cpac' ); ?></a>
+									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'cpac' ); ?></a>
+								<?php endif; ?>
+							<?php else : ?>
+								<a href="#" class="button"><?php _e( 'Install', 'cpac' ); ?></a>
+							<?php endif; ?>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endforeach; ?>
+		<?php
+	}
+
 }
