@@ -34,6 +34,12 @@ class CPAC_Addons {
 		}
 	}
 
+	/**
+	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
+	 *
+	 * @since 2.2
+	 * @see filter:wp_redirect
+	 */
 	public function addon_plugin_statuschange_redirect( $location ) {
 
 		if ( ! isset( $_GET['cpac-redirect'] ) ) {
@@ -233,6 +239,19 @@ class CPAC_Addons {
 	 *
 	 * @param string $id Unique addon ID
 	 * @return bool Returns true if there is no addon installed with the passed ID, false otherwise
+	 */
+	public function is_addon_installed( $id ) {
+
+		return $this->get_installed_addon_plugin_basename( $id ) ? true : false;
+	}
+
+	/**
+	 * Get the plugin basename (see plugin_basename()) from a plugin, for example "my-plugin/my-plugin.php"
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $id Unique addon ID
+	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_basename( $id ) {
 
