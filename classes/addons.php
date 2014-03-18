@@ -56,7 +56,7 @@ class CPAC_Addons {
 			parse_str( $urlparts['query'], $request );
 
 			if ( empty( $request['error'] ) ) {
-				$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, $this->cpac->settings->get_settings_url( 'addons' ) );
+				$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, $this->cpac->settings()->get_settings_url( 'addons' ) );
 			}
 		}
 

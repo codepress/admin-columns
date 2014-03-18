@@ -96,7 +96,7 @@ class CPAC_Settings {
 	public function maybe_display_premium_version_message() {
 
 		// ACF integration
-		if ( ! $this->cpac->addons->is_addon_installed( 'acf' ) && class_exists( 'acf' ) ) {
+		if ( ! $this->cpac->addons()->is_addon_installed( 'acf' ) && class_exists( 'acf' ) ) {
 			$current_user = wp_get_current_user();
 			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
 
@@ -969,8 +969,8 @@ class CPAC_Settings {
 	 */
 	public function tab_addons() {
 
-		$addon_groups = $this->cpac->addons->get_addon_groups();
-		$grouped_addons = $this->cpac->addons->get_available_addons_grouped();
+		$addon_groups = $this->cpac->addons()->get_addon_groups();
+		$grouped_addons = $this->cpac->addons()->get_available_addons_grouped();
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
@@ -989,8 +989,8 @@ class CPAC_Settings {
 							<p><?php _e( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ); ?>
 						</div>
 						<div class="cpac-addon-actions">
-							<?php if ( ( $plugin_basename = $this->cpac->addons->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
-								<?php if ( $this->cpac->addons->get_registered_addon( $addon_name ) ) : ?>
+							<?php if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
+								<?php if ( $this->cpac->addons()->get_registered_addon( $addon_name ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'deactivate',
 										'plugin' => urlencode( $plugin_basename ),

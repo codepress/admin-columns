@@ -56,13 +56,35 @@ require_once CPAC_DIR . 'api.php';
  * The Codepress Admin Columns Class
  *
  * @since 1.0.0
- *
  */
 class CPAC {
 
+	/**
+	 * Registered storage model class instances
+	 * Array of CPAC_Storage_Model instances
+	 *
+	 * @since 2.0
+	 * @var array
+	 */
 	public $storage_models;
-	public $addons;
-	public $settings;
+
+	/**
+	 * Admin Columns add-ons class instance
+	 *
+	 * @since 2.2
+	 * @access private
+	 * @var CPAC_Addons
+	 */
+	private $_addons;
+
+	/**
+	 * Admin Columns settings class instance
+	 *
+	 * @since 2.2
+	 * @access private
+	 * @var CPAC_Settings
+	 */
+	private $_settings;
 
 	/**
 	 * Constructor
@@ -90,17 +112,22 @@ class CPAC {
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
-		$this->settings = new CPAC_Settings( $this );
+		$this->_settings = new CPAC_Settings( $this );
 
 		// Addons
 		include_once CPAC_DIR . 'classes/addons.php';
-		$this->addons = new CPAC_Addons( $this );
+		$this->_addons = new CPAC_Addons( $this );
 
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
 		new CPAC_Upgrade( $this );
 	}
 
+	/**
+	 * Fire callbacks for admin columns setup completion
+	 *
+	 * @since 2.2
+	 */
 	public function after_setup() {
 
 		/**
@@ -114,6 +141,12 @@ class CPAC {
 		do_action( 'cac/loaded', $this );
 	}
 
+	/**
+	 * Handle localization
+	 *
+	 * @since 2.2
+	 * @uses load_plugin_textdomain()
+	 */
 	public function localize() {
 
 		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -241,10 +274,9 @@ class CPAC {
 	}
 
 	/**
-	 * Get storage models
+	 * Initialize storage models
 	 *
 	 * @since 2.0.0
-	 *
 	 */
 	public function set_storage_models() {
 
@@ -306,8 +338,9 @@ class CPAC {
 	 */
 	public function get_storage_model( $key ) {
 
-		if ( isset( $this->storage_models[ $key ] ) )
+		if ( isset( $this->storage_models[ $key ] ) ) {
 			return $this->storage_models[ $key ];
+		}
 
 		return false;
 	}
@@ -355,8 +388,9 @@ class CPAC {
 	 */
 	function add_settings_link( $links, $file ) {
 
-		if ( $file != plugin_basename( __FILE__ ) )
+		if ( $file != plugin_basename( __FILE__ ) ) {
 			return $links;
+		}
 
 		array_unshift( $links, '<a href="' . admin_url("options-general.php") . '?page=codepress-admin-columns">' . __( 'Settings' ) . '</a>' );
 		return $links;
@@ -455,6 +489,30 @@ class CPAC {
 		<?php endif; ?>
 
 		<?php
+	}
+
+	/**
+	 * Get admin columns settings class instance
+	 *
+	 * @since 2.2
+	 *
+	 * @return CPAC_Settings Settings class instance
+	 */
+	public function settings() {
+
+		return $this->_settings;
+	}
+
+	/**
+	 * Get admin columns add-ons class instance
+	 *
+	 * @since 2.2
+	 *
+	 * @return CPAC_Addons Add-ons class instance
+	 */
+	public function addons() {
+
+		return $this->_addons;
 	}
 }
 
