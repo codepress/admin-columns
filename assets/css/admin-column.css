@@ -478,8 +478,7 @@ h2.cpac-nav-tab-wrapper {
   background-position: 8px -39px;
 }
 .cpac-column.opened .column-meta table td.column_label .inner .meta span {
-  background: #9a9a9a;
-  text-shadow: none;
+  color: #808080;
 }
 .cpac-column.opened .column-meta table td.column_type {
   color: #5C5C5C;
