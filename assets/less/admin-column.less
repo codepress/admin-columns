@@ -226,7 +226,7 @@ h2.cpac-nav-tab-wrapper {
 					}
 
 					&.column_label {
-						width: 55%;
+						width: 70%;
 						font-weight: bold;
 						vertical-align: middle;
 						position: relative;
@@ -273,13 +273,23 @@ h2.cpac-nav-tab-wrapper {
 								display: inline-block;
 								float: right;
 								font-weight: normal;
-								//color: #999999;
 								color: #b2b2b2;
-								//color: #727272;
 								font-size: 12px;
 
 								span {
 									cursor: pointer;
+
+									/*background: #ccc;
+									border-radius: 2px;
+									padding: 0 4px;
+									color: #fff;
+									display: inline-block;
+									height: 15px;
+									line-height: 15px;
+
+									&.on {
+										background: #1e8cbe;
+									}*/
 								}
 							}
 						}
@@ -292,18 +302,25 @@ h2.cpac-nav-tab-wrapper {
 
 					&.column_type {
 						width: auto;
+						min-width: 120px;
 						text-align: right;
 						vertical-align: middle;
 						color: #999999;
 						padding-right: 0;
 
-						a {
-							color: #999999;
+						.inner {
+							height: 18px;
+							overflow: hidden;
+
+							a {
+								color: #999999;
+							}
 						}
 					}
 
 					&.column_edit {
 						width: 38px;
+						min-width: 38px;
 						background: transparent url('../images/arrow.png') no-repeat 23px 18px;
 						cursor: pointer;
 					}
@@ -571,7 +588,10 @@ h2.cpac-nav-tab-wrapper {
 						background-position: 8px -39px;
 					}
 					&.column_label .inner .meta {
-						color: #808080;
+						span {
+							background: #9a9a9a;
+							text-shadow: none;
+						}
 					}
 					&.column_type {
 						color: #5C5C5C;

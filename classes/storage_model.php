@@ -261,7 +261,7 @@ abstract class CPAC_Storage_Model {
 
 			// Santize Label: Need to replace the url for images etc, so we do not have url problem on exports
 			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
-			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
+			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
 		}
 
 		// store columns
@@ -477,7 +477,7 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column options
 	 */
 	public function get_stored_columns() {
-		
+
 		if ( $this->stored_columns !== NULL ) {
 			$columns = $this->stored_columns;
 		}
