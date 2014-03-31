@@ -970,7 +970,7 @@ class CPAC_Settings {
 	public function tab_addons() {
 
 		$addon_groups = $this->cpac->addons()->get_addon_groups();
-		$grouped_addons = $this->cpac->addons()->get_available_addons_grouped();
+		$grouped_addons = $this->cpac->addons()->get_available_addons( true );
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>

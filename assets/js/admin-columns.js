@@ -115,7 +115,9 @@ jQuery.fn.cpac_column_refresh = function() {
 		formdata: jQuery( this ).parents( 'form' ).serialize()
 	}, function( data ) {
 		// Replace current form by new form
-		el.html( data );
+		var newel = jQuery( '<div>' + data + '</div>' ).children();
+		el.replaceWith( newel );
+		el = newel;
 
 		// Bind events
 		el.column_bind_toggle();
@@ -365,6 +367,8 @@ function cpac_add_column() {
 				jQuery('html, body').animate({ scrollTop: clone.offset().top - 58 }, 300);
 			});
 
+			cpac_sortable();
+
 			// hook for addons
 			jQuery(document).trigger( 'column_add', clone );
 		}
@@ -514,16 +518,16 @@ function cpac_pointer() {
  * @since 1.5
  */
 function cpac_sortable() {
-	jQuery('div.cpac-columns').sortable({
-		items					: '.cpac-column',
-		revert					: 250,
-		handle					: 'td.column_sort',
-		forcePlaceholderSize	: true,
-		sort: function(e,ui){
-			if ( jQuery(ui.placeholder).is(':empty') )
-				jQuery(ui.placeholder).html('<div class="inner-placeholder"></div>');
+	jQuery( 'div.cpac-columns' ).each( function() {
+		if ( jQuery( this ).hasClass( 'ui-sortable' ) ) {
+			jQuery( this ).sortable( 'refresh' );
 		}
-	});
+		else {
+			jQuery( this ).sortable( {
+				items					: '.cpac-column'
+			} );
+		}
+	} );
 }
 
 /*

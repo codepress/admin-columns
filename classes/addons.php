@@ -9,7 +9,7 @@ class CPAC_Addons {
 	private $cpac;
 
 	/**
-	 * Registered addons
+	 * Registered add-ons
 	 *
 	 * @since 2.2
 	 */
@@ -138,6 +138,11 @@ class CPAC_Addons {
 			) );
 		}
 
+		// Maybe group add-ons
+		if ( $grouped ) {
+			$addons = $this->group_addons( $addons );
+		}
+
 		return $addons;
 	}
 
@@ -160,6 +165,15 @@ class CPAC_Addons {
 		return false;
 	}
 
+	/**
+	 * Group a list of add-ons
+	 *
+	 * @since 2.2
+	 * @uses CPAC_Addons::group_addons()
+	 *
+	 * @param array $addons List of addons ([addon_name] => (array) [addon_details])
+	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
+	 */
 	public function group_addons( $addons ) {
 
 		$groups = $this->get_addon_groups();
@@ -180,13 +194,8 @@ class CPAC_Addons {
 		return $grouped_addons;
 	}
 
-	public function get_available_addons_grouped() {
-
-		return $this->group_addons( $this->get_available_addons() );
-	}
-
 	/**
-	 * Register addons
+	 * Register add-ons
 	 *
 	 * @since 2.2
 	 */
@@ -194,17 +203,17 @@ class CPAC_Addons {
 
 		/**
 		 * Fires after all plugins are loaded
-		 * Use this to register addons to Admin Columns
+		 * Use this to register add-ons to Admin Columns
 		 *
 		 * @since 2.2
 		 *
-		 * @param CPAC_Addons $cpac_addons Admin Columns plugin addons class instance
+		 * @param CPAC_Addons $cpac_addons Admin Columns plugin add-ons class instance
 		 */
 		do_action( 'cac/register_addons', $this );
 	}
 
 	/**
-	 * Register an addon by passing its main plugin class instance
+	 * Register an add-on by passing its main plugin class instance
 	 *
 	 * @since 2.2
 	 *
@@ -216,12 +225,12 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get an addon main plugin class instance by its id
+	 * Get an add-on main plugin class instance by its id
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique addon ID
-	 * @return bool|object Returns false if there is no addon registered with the passed ID, the class instance otherwise
+	 * @param string $id Unique add-on ID
+	 * @return bool|object Returns false if there is no add-on registered with the passed ID, the class instance otherwise
 	 */
 	public function get_registered_addon( $id ) {
 
@@ -233,12 +242,12 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get whether an addon is installed (i.e. the plugin is available in the plugin directory)
+	 * Get whether an add-on is installed (i.e. the plugin is available in the plugin directory)
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique addon ID
-	 * @return bool Returns true if there is no addon installed with the passed ID, false otherwise
+	 * @param string $id Unique add-on ID
+	 * @return bool Returns true if there is no add-on installed with the passed ID, false otherwise
 	 */
 	public function is_addon_installed( $id ) {
 
@@ -250,7 +259,7 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique addon ID
+	 * @param string $id Unique add-on ID
 	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_basename( $id ) {
@@ -267,11 +276,11 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get a list of all registered addon IDs
+	 * Get a list of all registered add-on IDs
 	 *
 	 * @since 2.2
 	 *
-	 * @return array Registered addon IDs
+	 * @return array Registered add-on IDs
 	 */
 	public function get_registered_addons() {
 
