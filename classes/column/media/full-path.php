@@ -23,9 +23,8 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 		$value = '';
 
 		$file 	= wp_get_attachment_url( $id );
-		$abs	= str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file );
 
-		if ( file_exists( $abs ) ) {
+		if ( $file ) {
 			$value = $file;
 		}
 
