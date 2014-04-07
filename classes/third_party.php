@@ -144,4 +144,18 @@ function cpac_wpml_set_translated_label( $label, $column_name, $column_options, 
 }
 add_filter( 'cac/headings/label', 'cpac_wpml_set_translated_label', 10, 4 );
 
+/**
+ * Set WPML to be a columns screen for translation so that storage models are loaded
+ *
+ * @since 2.2
+ */
+function cpac_wpml_is_columns_screen( $is_columns_screen ) {
 
+	if ( isset( $_GET['page'] ) && $_GET['page'] == 'wpml-string-translation/menu/string-translation.php' ) {
+		return true;
+	}
+
+	return $is_columns_screen;
+}
+
+add_filter( 'cac/is_columns_screen', 'cpac_wpml_is_columns_screen' );
