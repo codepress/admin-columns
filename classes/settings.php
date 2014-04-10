@@ -811,7 +811,7 @@ class CPAC_Settings {
 										<?php $storage_model->screen_link(); ?>
 									</h2>
 								</div>
-							
+
 								<?php if ( $storage_model->stored_columns !== NULL ) : ?>
 									<div class="error below-h2">
 										<p><?php printf( __( 'The columns for <strong>%s</strong> are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), $storage_model->label ); ?></p>
@@ -1008,13 +1008,17 @@ class CPAC_Settings {
 									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'cpac' ); ?></a>
 								<?php endif; ?>
 							<?php else : ?>
-								<a href="#" class="button"><?php _e( 'Install', 'cpac' ); ?></a>
+								<?php $install_url = wp_nonce_url( add_query_arg( array(
+										'action' => 'install',
+										'plugin' => $addon_name,
+									), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' ); ?>
+								<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'cpac' ); ?></a>
 							<?php endif; ?>
 						</div>
 					</li>
-				<?php endforeach; ?>
+				<?php endforeach; // addons ?>
 			</ul>
-		<?php endforeach; ?>
+		<?php endforeach; // grouped_addons ?>
 		<?php
 	}
 

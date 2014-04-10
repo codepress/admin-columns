@@ -25,12 +25,36 @@ class CPAC_Addons {
 
 		$this->cpac = $cpac;
 
-		// Hooks
+		// Register addons
 		add_action( 'plugins_loaded', array( $this, 'register_addons' ) );
+
+		// Add plugin headers
 		add_filter( 'extra_plugin_headers', array( $this, 'plugindata_load_cpac_headers' ) );
 
+		// Redirect to addons settings tab on activation & deactivation
 		if ( is_admin() ) {
 			add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
+		}
+
+		// Handle install request
+		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
+	}
+
+	/**
+	 * Handles the installatin of the add-on
+	 *
+	 * @since 2.2
+	 */
+	public function handle_install_request() {
+
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) )
+			return;
+
+		$plugin = $_GET['plugin'];
+
+		if ( $this->get_addon( $plugin ) ) {
+
+			//$cpac->get_updater();
 		}
 	}
 
@@ -117,7 +141,7 @@ class CPAC_Addons {
 			'acf' => array(
 				'title' => __( 'Advanced Custom Fields', 'cpac' ),
 				'group' => 'integration',
-				'image' => CPAC_URL . '/assets/images/addons/acf.png'
+				'image' => CPAC_URL . 'assets/images/addons/acf.png'
 			)
 		);
 
