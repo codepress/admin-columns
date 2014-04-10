@@ -149,7 +149,7 @@ add_filter( 'cac/headings/label', 'cpac_wpml_set_translated_label', 10, 4 );
  *
  * @since 2.2
  */
-function cpac_wpml_is_columns_screen( $is_columns_screen ) {
+function cpac_wpml_is_cac_screen( $is_columns_screen ) {
 
 	if ( isset( $_GET['page'] ) && $_GET['page'] == 'wpml-string-translation/menu/string-translation.php' ) {
 		return true;
@@ -158,4 +158,4 @@ function cpac_wpml_is_columns_screen( $is_columns_screen ) {
 	return $is_columns_screen;
 }
 
-add_filter( 'cac/is_columns_screen', 'cpac_wpml_is_columns_screen' );
+add_filter( 'cac/is_cac_screen', 'cpac_wpml_is_cac_screen' );
