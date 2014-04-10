@@ -14,4 +14,3 @@ function cpac_set_storage_model_columns( $storage_model, $columns ) {
 		$storage_model->set_stored_columns( $columns );
 	}
 }
-?>
