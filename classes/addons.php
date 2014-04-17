@@ -47,14 +47,11 @@ class CPAC_Addons {
 	 */
 	public function handle_install_request() {
 
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) )
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) || ! isset( $_GET['plugin'] ) )
 			return;
 
-		$plugin = $_GET['plugin'];
-
-		if ( $addon = $this->get_addon( $plugin ) ) {
-			// echo '<pre>'; print_r( $addon ); echo '</pre>'; exit;
-		}
+		// Hook
+		do_action( "cac/addons/install_request", $_GET['plugin'], $this->get_addon( $_GET['plugin'] ) );
 	}
 
 	/**
@@ -132,15 +129,15 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param bool $grouped Whether to group the plugins by addon group ()
-	 * @return array Available addons ([addon_name] => (array) [addon_details] if not grouped, a list of these key-value pairs per group otherwise ([group_name] => (array) [group_addons]))
+	 * @return array Available addons ([addon_basename] => (array) [addon_details] if not grouped, a list of these key-value pairs per group otherwise ([group_name] => (array) [group_addons]))
 	 */
 	public function get_available_addons( $grouped = false ) {
 
 		$addons = array(
-			'acf' => array(
-				'title' => __( 'Advanced Custom Fields', 'cpac' ),
-				'group' => 'integration',
-				'image' => CPAC_URL . 'assets/images/addons/acf.png'
+			'cac-addon-acf' => array(
+				'title' 	=> __( 'Advanced Custom Fields', 'cpac' ),
+				'group' 	=> 'integration',
+				'image' 	=> CPAC_URL . 'assets/images/addons/acf.png'
 			)
 		);
 
@@ -155,9 +152,9 @@ class CPAC_Addons {
 
 		foreach ( $addons as $addon_name => $addon ) {
 			$addons[ $addon_name ] = wp_parse_args( $addon, array(
-				'title' => '',
-				'group' => '',
-				'image' => ''
+				'title' 	=> '',
+				'group' 	=> '',
+				'image' 	=> ''
 			) );
 		}
 
@@ -244,7 +241,9 @@ class CPAC_Addons {
 	 */
 	public function register_addon( $instance ) {
 
-		$this->addons[ $instance->addon['id'] ] = $instance;
+		$slug = dirname( $instance->addon['plugin_basename'] );
+
+		$this->addons[ $slug ] = $instance;
 	}
 
 	/**
@@ -252,16 +251,16 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique add-on ID
+	 * @param string $slug Plugin dirname
 	 * @return bool|object Returns false if there is no add-on registered with the passed ID, the class instance otherwise
 	 */
-	public function get_registered_addon( $id ) {
+	public function get_registered_addon( $slug ) {
 
-		if ( ! isset( $this->addons[ $id ] ) ) {
+		if ( ! isset( $this->addons[ $slug ] ) ) {
 			return false;
 		}
 
-		return $this->addons[ $id ];
+		return $this->addons[ $slug ];
 	}
 
 	/**
@@ -269,12 +268,12 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique add-on ID
+	 * @param string $slug Plugin dirname/slug
 	 * @return bool Returns true if there is no add-on installed with the passed ID, false otherwise
 	 */
-	public function is_addon_installed( $id ) {
+	public function is_addon_installed( $slug ) {
 
-		return $this->get_installed_addon_plugin_basename( $id ) ? true : false;
+		return $this->get_installed_addon_plugin_basename( $slug ) ? true : false;
 	}
 
 	/**
@@ -282,15 +281,15 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $id Unique add-on ID
+	 * @param string $slug Plugin dirname/slug
 	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
-	public function get_installed_addon_plugin_basename( $id ) {
+	public function get_installed_addon_plugin_basename( $slug ) {
 
 		$plugins = get_plugins();
 
 		foreach ( $plugins as $plugin_basename => $plugin ) {
-			if ( isset( $plugin['CPAC Addon ID'] ) && $plugin['CPAC Addon ID'] == $id ) {
+			if ( $slug == dirname( $plugin_basename ) ) {
 				return $plugin_basename;
 			}
 		}
@@ -309,6 +308,4 @@ class CPAC_Addons {
 
 		return array_keys( $this->addons );
 	}
-
 }
-?>

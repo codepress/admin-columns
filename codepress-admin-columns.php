@@ -101,7 +101,7 @@ class CPAC {
 		// Storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 
-		// Setup callback
+		// Setup callback, important to load after set_storage_models
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 
 		// Add settings link

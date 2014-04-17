@@ -974,6 +974,7 @@ class CPAC_Settings {
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
+
 			<ul class="cpac-addons">
 				<?php foreach ( $addons as $addon_name => $addon ) : ?>
 					<li>
@@ -1008,10 +1009,12 @@ class CPAC_Settings {
 									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'cpac' ); ?></a>
 								<?php endif; ?>
 							<?php else : ?>
-								<?php $install_url = wp_nonce_url( add_query_arg( array(
-										'action' => 'install',
-										'plugin' => $addon_name,
-									), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' ); ?>
+								<?php
+								$install_url = wp_nonce_url( add_query_arg( array(
+									'action' => 'install',
+									'plugin' => $addon_name,
+								), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
+								?>
 								<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'cpac' ); ?></a>
 							<?php endif; ?>
 						</div>
