@@ -1,13 +1,13 @@
 #
 # Translators:
-# fanderzzon <fidde.andersson@telia.com>, 2013
+# fanderzzon <fidde.andersson@telia.com>, 2013-2014
 # codepress <info@codepress.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-14 16:56+0100\n"
-"PO-Revision-Date: 2013-11-19 09:44+0100\n"
+"PO-Revision-Date: 2014-04-11 11:21+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-"
 "columns/language/sv_SE/)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -138,7 +138,7 @@ msgstr "standard"
 
 #: ../classes/column.php:997
 msgid "type"
-msgstr ""
+msgstr "typ"
 
 #: ../classes/settings.php:64
 msgid "Admin Columns Settings"
@@ -330,13 +330,15 @@ msgstr "Värde: hex värde färg, som #808080."
 
 #: ../classes/settings.php:232 ../classes/column/custom-field.php:73
 msgid "Counter"
-msgstr ""
+msgstr "Räknare"
 
 #: ../classes/settings.php:232
 msgid ""
 "Value: Can be either a string or array. This will display a count of the "
 "number of times the meta key is used by the item."
 msgstr ""
+"Värde: Kan antingen vara en sträng eller array. Detta kommer att visa en "
+"sammanställningen av  antalet gånger meta nyckel används av objektet."
 
 #: ../classes/settings.php:377
 msgid "Welcome to Admin Columns"
@@ -619,7 +621,7 @@ msgstr "Titta på <a href=\"%s\">Pro tillägg</a> för mer information!"
 
 #: ../classes/settings.php:617
 msgid "Subscribe to receive news &amp; updates below."
-msgstr ""
+msgstr "Prenumerera på nyheter &amp; uppdateringar nedan."
 
 #: ../classes/settings.php:620 ../classes/column/post/author-name.php:35
 msgid "First Name"
@@ -627,7 +629,7 @@ msgstr "Förnamn"
 
 #: ../classes/settings.php:624
 msgid "Your Email"
-msgstr ""
+msgstr "Din e-post"
 
 #: ../classes/settings.php:635
 msgid "Support"
@@ -636,7 +638,7 @@ msgstr "Support"
 #: ../classes/settings.php:638
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
-"Kolla på <strong>Hjälp</ strong> sektionen i den övre högra delen av skärmen."
+"Kolla på <strong>Hjälp</strong> sektionen i den övre högra delen av skärmen."
 
 #: ../classes/settings.php:641
 #, php-format

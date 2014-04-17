@@ -224,6 +224,7 @@ Here you will find an overview of filters and examples: http://www.codepresshq.c
 * [Updated] Added ajax check and improved loading.
 * [Updated] Menu is split between posttypes and media, comments and users.
 * [Updated] Additional documentation was added to filters and actions
+* [Updated] Updated languages (from transifex)
 
 = 2.1.1 =
 * [Updated] Added page check to posttype edit screens

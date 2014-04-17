@@ -52,9 +52,8 @@ class CPAC_Addons {
 
 		$plugin = $_GET['plugin'];
 
-		if ( $this->get_addon( $plugin ) ) {
-
-			//$cpac->get_updater();
+		if ( $addon = $this->get_addon( $plugin ) ) {
+			// echo '<pre>'; print_r( $addon ); echo '</pre>'; exit;
 		}
 	}
 
