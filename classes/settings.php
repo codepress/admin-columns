@@ -351,13 +351,13 @@ class CPAC_Settings {
 		$site_url = 'http://www.codepresshq.com';
 
 		$urls = array(
-			'codepress'		=> $site_url,
-			'admincolumns'	=> $site_url . '/wordpress-plugins/admin-columns/',
-			'pro_addon'		=> $site_url . '/wordpress-plugins/admin-columns/pro-add-on/',
-			'documentation'	=> $site_url . '/wordpress-plugins/admin-columns/',
-			'feedback'		=> $site_url . '/contact',
-			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
-			'support'		=> 'http://wordpress.org/tags/codepress-admin-columns/',
+			'codepress'			=> $site_url,
+			'admincolumns'		=> 'http://admincolumns.com',
+			'admincolumnspro'	=> 'http://admincolumns.com',
+			'documentation'		=> 'http://admincolumns.com/documentation/',
+			'feedback'			=> $site_url . '/contact',
+			'plugins'			=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
+			'support'			=> 'http://wordpress.org/tags/codepress-admin-columns/',
 		);
 
 		if ( ! isset( $urls[ $type ] ) )
@@ -500,7 +500,7 @@ class CPAC_Settings {
 			<?php else : ?>
 				<div class="cpac-alert cpac-alert-success">
 					<p>
-						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'See our website for the Pro-addon.', 'cpac' ); ?></a>
+						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'See our website for Admin Columns Pro.', 'cpac' ); ?></a>
 					</p>
 				</div>
 			<?php endif; ?>
@@ -819,16 +819,17 @@ class CPAC_Settings {
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
+												<a href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'Get Admin Columns Pro', 'cpac' ) ?></a>
 											</h3>
 											<div class="inside">
 												<ul>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Direct Editing', 'cpac' ); ?></a></li>
 												</ul>
 												<p>
-													<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
+													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'cpac' ), $this->get_url('admincolumnspro') ); ?>
 												</p>
 											</div>
 										</div>
