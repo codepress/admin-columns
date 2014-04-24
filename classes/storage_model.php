@@ -641,12 +641,14 @@ abstract class CPAC_Storage_Model {
 	public function add_headings( $columns ) {
 
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
-		if ( ! $this->is_columns_screen() )
+		if ( ! $this->is_columns_screen() ) {
 			return $columns;
+		}
 
 		// stored columns exists?
-		if ( ! $stored_columns = $this->get_stored_columns() )
+		if ( ! $stored_columns = $this->get_stored_columns() ) {
 			return $columns;
+		}
 
 		// build the headings
 		$column_headings = array();

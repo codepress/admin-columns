@@ -769,7 +769,7 @@ class CPAC_Settings {
 			'addons'	=> __( 'Add-ons', 'cpac' )
 		);
 
-		$tabs = apply_filters( 'cpac/settings/tabs', $tabs );
+		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
 
@@ -954,7 +954,7 @@ class CPAC_Settings {
 					$this->tab_addons();
 					break;
 				default:
-					echo apply_filters( 'cpac/settings/tab_contents_' . $current_tab, apply_filters( 'cpac/settings/tab_contents', '', $current_tab ) );
+					echo apply_filters( 'cac/settings/tab_contents/tab=' . $current_tab, apply_filters( 'cac/settings/tab_contents', '', $current_tab ) );
 					break;
 			endswitch;
 			?>
