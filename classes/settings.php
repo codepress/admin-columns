@@ -351,15 +351,15 @@ class CPAC_Settings {
 		$site_url = 'http://www.admincolumns.com';
 
 		$urls = array(
-			'main' 			=> $site_url,
-			'pricing' 		=> $site_url . '/pricing-purchase/',
-			'admincolumns'	=> $site_url . '/wordpress-plugins/admin-columns/',
-			'pro_addon'		=> $site_url . '/wordpress-plugins/admin-columns/pro-add-on/',
-			'documentation'	=> $site_url . '/wordpress-plugins/admin-columns/',
-			'feedback'		=> $site_url . '/contact',
-			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
-			'support'		=> 'http://wordpress.org/tags/codepress-admin-columns/',
-
+			'main'				=> $site_url,
+			'pricing'			=> $site_url . '/pricing-purchase/',
+			'codepress'			=> 'http://www.codepresshq.com',
+			'admincolumns'		=> $site_url,
+			'admincolumnspro'	=> $site_url,
+			'documentation'		=> $site_url . '/documentation/',
+			'feedback'			=> 'http://www.codepresshq.com/contact',
+			'plugins'			=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
+			'support'			=> 'http://wordpress.org/tags/codepress-admin-columns/',
 		);
 
 		if ( ! isset( $urls[ $type ] ) )
