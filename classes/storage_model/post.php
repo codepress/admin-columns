@@ -45,6 +45,24 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 2.2
+	 *
+	 * @return bool
+	 */
+	public function is_columns_screen() {
+
+		$is_columns_screen = parent::is_columns_screen();
+
+		if ( ! $is_columns_screen ) {
+			if ( ! empty( $_REQUEST['_inline_edit'] ) && wp_verify_nonce( $_REQUEST['_inline_edit'], 'inlineeditnonce' ) ) {
+				$is_columns_screen = true;
+			}
+		}
+
+		return $is_columns_screen;
+	}
+
+	/**
 	 * Get Label
 	 *
 	 * @since 2.0.0

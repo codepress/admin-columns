@@ -35,7 +35,6 @@ class CPAC_Settings {
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
-		add_action( 'cpac_messages', array( $this, 'maybe_display_premium_version_message' ) );
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
 	}
 
@@ -86,33 +85,6 @@ class CPAC_Settings {
 		}
 
 		return add_query_arg( 'tab', $page, $this->get_settings_url() );
-	}
-
-	/**
-	 * Display a call to action for the premium version if applicable
-	 *
-	 * @since 2.2
-	 */
-	public function maybe_display_premium_version_message() {
-
-		// ACF integration
-		if ( ! $this->cpac->addons()->is_addon_installed( 'acf' ) && class_exists( 'acf' ) ) {
-			$current_user = wp_get_current_user();
-			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
-
-			if ( ! $user_name ) {
-				$user_name = $current_user->display_name;
-			}
-			?>
-			<div class="updated cac-notification below-h2">
-				<p>
-					<?php printf( __( 'Heya, %s! Did you know that the premium version of Admin Columns offers full integration with <strong>Advanced Custom Fields</strong>?', 'cpac' ), $user_name ); ?>
-					<a href="#" class="learnmore">Learn more</a>
-				</p>
-				<div class="clear"></div>
-			</div>
-			<?php
-		}
 	}
 
 	/**
@@ -381,14 +353,13 @@ class CPAC_Settings {
 		$urls = array(
 			'main' 			=> $site_url,
 			'pricing' 		=> $site_url . '/pricing-purchase/',
-
-// @todo_major
 			'admincolumns'	=> $site_url . '/wordpress-plugins/admin-columns/',
 			'pro_addon'		=> $site_url . '/wordpress-plugins/admin-columns/pro-add-on/',
 			'documentation'	=> $site_url . '/wordpress-plugins/admin-columns/',
 			'feedback'		=> $site_url . '/contact',
 			'plugins'		=> 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
 			'support'		=> 'http://wordpress.org/tags/codepress-admin-columns/',
+
 		);
 
 		if ( ! isset( $urls[ $type ] ) )
@@ -535,7 +506,7 @@ class CPAC_Settings {
 			<?php else : ?>
 				<div class="cpac-alert cpac-alert-success">
 					<p>
-						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'See our website for the Pro-addon.', 'cpac' ); ?></a>
+						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'See our website for Admin Columns Pro.', 'cpac' ); ?></a>
 					</p>
 				</div>
 			<?php endif; ?>
@@ -780,7 +751,7 @@ class CPAC_Settings {
 			'addons'	=> __( 'Add-ons', 'cpac' )
 		);
 
-		$tabs = apply_filters( 'cpac/settings/tabs', $tabs );
+		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
 
@@ -858,16 +829,17 @@ class CPAC_Settings {
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Get the Pro Add-on', 'cpac' ) ?></a>
+												<a href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'Get Admin Columns Pro', 'cpac' ) ?></a>
 											</h3>
 											<div class="inside">
 												<ul>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url('pro_addon'); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Direct Editing', 'cpac' ); ?></a></li>
 												</ul>
 												<p>
-													<?php printf( __( 'Check the <a href="%s">Pro Add-on</a> for more details!', 'cpac' ), $this->get_url('pro_addon') ); ?>
+													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'cpac' ), $this->get_url('admincolumnspro') ); ?>
 												</p>
 											</div>
 										</div>
@@ -965,7 +937,7 @@ class CPAC_Settings {
 					$this->tab_addons();
 					break;
 				default:
-					echo apply_filters( 'cpac/settings/tab_contents_' . $current_tab, apply_filters( 'cpac/settings/tab_contents', '', $current_tab ) );
+					echo apply_filters( 'cac/settings/tab_contents/tab=' . $current_tab, apply_filters( 'cac/settings/tab_contents', '', $current_tab ) );
 					break;
 			endswitch;
 			?>
@@ -1049,5 +1021,4 @@ class CPAC_Settings {
 		<?php endforeach; // grouped_addons ?>
 		<?php
 	}
-
 }
