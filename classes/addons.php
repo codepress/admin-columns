@@ -29,7 +29,7 @@ class CPAC_Addons {
 		add_action( 'plugins_loaded', array( $this, 'register_addons' ) );
 
 		// Add plugin headers
-		add_filter( 'extra_plugin_headers', array( $this, 'plugindata_load_cpac_headers' ) );
+		//add_filter( 'extra_plugin_headers', array( $this, 'plugindata_load_cpac_headers' ) );
 
 		// Redirect to addons settings tab on activation & deactivation
 		if ( is_admin() ) {
@@ -50,8 +50,29 @@ class CPAC_Addons {
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) || ! isset( $_GET['plugin'] ) )
 			return;
 
-		// Hook
-		do_action( "cac/addons/install_request", $_GET['plugin'], $this->get_addon( $_GET['plugin'] ) );
+		if ( ! $this->get_addon( $_GET['plugin'] ) ) {
+			cpac_admin_message( 'Addon does not exist.', 'error' );
+			return;
+		}
+
+		if ( ! class_exists('CAC_Addon_Pro') ) {
+			cpac_admin_message( 'You need Admin Columns Pro.', 'error' );
+			return;
+		}
+
+		// Hook: trigger possible warning message before running WP installer ( api errors etc. )
+		if ( $error = apply_filters( 'cac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
+			cpac_admin_message( $error, 'error' );
+			return;
+		}
+return;
+		$install_url = add_query_arg( array(
+			'action' => 'install-plugin',
+			'plugin' => $_GET['plugin']
+		), wp_nonce_url( network_admin_url( 'update.php'), 'install-plugin_' . $_GET['plugin'] ) );
+
+		wp_redirect( $install_url );
+		exit;
 	}
 
 	/**
@@ -91,12 +112,12 @@ class CPAC_Addons {
 	 *
 	 * @see filter:extra_{$context}_headers
 	 */
-	public function plugindata_load_cpac_headers( $headers ) {
+/*	public function plugindata_load_cpac_headers( $headers ) {
 
 		$headers['CPAC Addon ID'] = 'CPAC Addon ID';
 
 		return $headers;
-	}
+	}*/
 
 	/**
 	 * Get addon groups. Addons are grouped into addon groups by providing the group an addon belongs to (see CPAC_Addons::get_available_addons()).
@@ -135,9 +156,10 @@ class CPAC_Addons {
 
 		$addons = array(
 			'cac-addon-acf' => array(
-				'title' 	=> __( 'Advanced Custom Fields', 'cpac' ),
-				'group' 	=> 'integration',
-				'image' 	=> CPAC_URL . 'assets/images/addons/acf.png'
+				'title' 		=> __( 'Advanced Custom Fields', 'cpac' ),
+				'description' 	=> __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ),
+				'group' 		=> 'integration',
+				'image' 		=> CPAC_URL . 'assets/images/addons/acf.png'
 			)
 		);
 

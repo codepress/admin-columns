@@ -31,7 +31,7 @@ class CPAC_Settings {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
 
 		// handle addon downloads
-		add_action( 'admin_init', array( $this, 'handle_download_request' ) );
+		//add_action( 'admin_init', array( $this, 'handle_download_request' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
@@ -376,10 +376,13 @@ class CPAC_Settings {
 	 */
 	function get_url( $type ) {
 
-		$site_url = 'http://www.codepresshq.com';
+		$site_url = 'http://www.admincolumns.com';
 
 		$urls = array(
-			'codepress'		=> $site_url,
+			'main' 			=> $site_url,
+			'pricing' 		=> $site_url . '/pricing-purchase/',
+
+// @todo_major
 			'admincolumns'	=> $site_url . '/wordpress-plugins/admin-columns/',
 			'pro_addon'		=> $site_url . '/wordpress-plugins/admin-columns/pro-add-on/',
 			'documentation'	=> $site_url . '/wordpress-plugins/admin-columns/',
@@ -420,7 +423,7 @@ class CPAC_Settings {
 	 *
 	 * @since 2.0.0
 	 */
-	function handle_download_request() {
+	/*function handle_download_request() {
 
 		// API domain
 		$store_url = 'http://codepresshq.com';
@@ -460,7 +463,7 @@ class CPAC_Settings {
 
 		wp_redirect( $redirect_url );
 		exit;
-	}
+	}*/
 
 	/**
 	 * Welcome screen
@@ -507,9 +510,13 @@ class CPAC_Settings {
 				<h2 class="nav-tab-wrapper">
 					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>whats-new"><?php _e( "What’s New", 'cpac' ); ?></a>
 					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>changelog"><?php _e( "Changelog", 'cpac' ); ?></a>
-					<?php if( $tab == 'download-add-ons' ): ?>
+					<?php
+					/*
+					if( $tab == 'download-add-ons' ): ?>
 					<a class="cpac-tab-toggle nav-tab nav-tab-active" href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons"><?php _e( "Download Addons", 'cpac' ); ?></a>
-					<?php endif; ?>
+					<?php endif;
+					*/
+					?>
 				</h2>
 
 			<?php if ( 'whats-new' === $tab ) : ?>
@@ -574,7 +581,9 @@ class CPAC_Settings {
 				</ul>
 
 			<?php endif; ?>
-			<?php if ( 'download-add-ons' === $tab ) : ?>
+			<?php
+/*
+			if ( 'download-add-ons' === $tab ) : ?>
 
 				<h3><?php _e("Overview",'cpac'); ?></h3>
 
@@ -614,7 +623,9 @@ class CPAC_Settings {
 					<li><?php printf( __("For automatic updates make sure to <a href='%s'>enter your licence key</a>.",'cpac'), $this->get_settings_url( 'settings' ) ); ?></li>
 				</ol>
 
-			<?php endif; ?>
+			<?php endif;
+			*/
+			?>
 
 				<hr/>
 
@@ -987,10 +998,13 @@ class CPAC_Settings {
 						</div>
 						<div class="cpac-addon-header">
 							<h3><?php echo $addon['title']; ?></h3>
-							<p><?php _e( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ); ?>
+							<p><?php echo $addon['description']; ?></p>
 						</div>
 						<div class="cpac-addon-actions">
-							<?php if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
+							<?php
+
+							// Installed..
+							if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
 								<?php if ( $this->cpac->addons()->get_registered_addon( $addon_name ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'deactivate',
@@ -1008,14 +1022,25 @@ class CPAC_Settings {
 									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'cpac' ); ?></a>
 									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'cpac' ); ?></a>
 								<?php endif; ?>
-							<?php else : ?>
+							<?php
+
+							// Not installed...
+							else :
+
+								// Got ACP?
+								if ( class_exists('CAC_Addon_Pro') ) :
+									$install_url = wp_nonce_url( add_query_arg( array(
+										'action' => 'install',
+										'plugin' => $addon_name,
+									), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
+									?>
+									<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'cpac' ); ?></a>
 								<?php
-								$install_url = wp_nonce_url( add_query_arg( array(
-									'action' => 'install',
-									'plugin' => $addon_name,
-								), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
-								?>
-								<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'cpac' ); ?></a>
+
+								// Get ACP?
+								else : ?>
+									<a target="_blank" href="<?php echo esc_attr( $this->get_url('pricing') ); ?>" class="button"><?php _e( 'Get this add-on', 'cpac' ); ?></a>
+								<?php endif; ?>
 							<?php endif; ?>
 						</div>
 					</li>
