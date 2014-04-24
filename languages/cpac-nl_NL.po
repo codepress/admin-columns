@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-26 16:51+0100\n"
-"PO-Revision-Date: 2013-11-14 15:55+0100\n"
+"POT-Creation-Date: 2013-11-14 16:56+0100\n"
+"PO-Revision-Date: 2014-04-11 11:21+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
 "admin-columns/language/nl_NL/)\n"
@@ -15,50 +15,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../codepress-admin-columns.php:227 ../classes/settings.php:535
+#: ../codepress-admin-columns.php:236 ../classes/settings.php:536
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../codepress-admin-columns.php:350
+#: ../codepress-admin-columns.php:357
 msgid "Edit columns"
 msgstr "Wijzig kolommen"
 
-#: ../classes/column.php:479
+#: ../classes/column.php:489
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: ../classes/column.php:480
+#: ../classes/column.php:490
 msgid "Medium"
 msgstr "Gemiddeld"
 
-#: ../classes/column.php:481
+#: ../classes/column.php:491
 msgid "Large"
 msgstr "Groot"
 
-#: ../classes/column.php:482
+#: ../classes/column.php:492
 msgid "Full"
 msgstr "Volledig"
 
-#: ../classes/column.php:774
+#: ../classes/column.php:784
 msgid "Date Format"
 msgstr "Datumnotatie"
 
-#: ../classes/column.php:775
+#: ../classes/column.php:785
 msgid "This will determine how the date will be displayed."
 msgstr "Dit bepaald hoe de datum wordt weergegeven."
 
-#: ../classes/column.php:781
+#: ../classes/column.php:791
 msgid "Example:"
 msgstr "Voorbeeld:"
 
-#: ../classes/column.php:783
+#: ../classes/column.php:793
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
@@ -67,115 +67,125 @@ msgstr ""
 "Laat leeg voor WordPress datumformaat, verander je  <a href=\"%s\">standaard "
 "datumformaat </a>."
 
-#: ../classes/column.php:784
+#: ../classes/column.php:794
 msgid "Documentation on date and time formatting."
 msgstr "Documentatie over datum en tijd opmaak."
 
-#: ../classes/column.php:801
+#: ../classes/column.php:811
 msgid "Excerpt length"
 msgstr "Samenvatting lengte"
 
-#: ../classes/column.php:802
+#: ../classes/column.php:812
 msgid "Number of words"
 msgstr "Aantal woorden"
 
-#: ../classes/column.php:824
+#: ../classes/column.php:834
 msgid "Preview size"
 msgstr "Voorbeeldformaat"
 
-#: ../classes/column.php:841 ../classes/column.php:897
+#: ../classes/column.php:851 ../classes/column.php:908
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../classes/column.php:844
+#: ../classes/column.php:854
 msgid "width"
 msgstr "breedte"
 
-#: ../classes/column.php:847
+#: ../classes/column.php:857
 msgid "height"
 msgstr "hoogte"
 
-#: ../classes/column.php:898 ../classes/settings.php:224
-#: ../classes/column/custom-field.php:72
+#: ../classes/column.php:909 ../classes/settings.php:222
+#: ../classes/column/custom-field.php:70
 msgid "Default"
 msgstr "Standaard"
 
-#: ../classes/column.php:923 ../classes/column.php:984
-#: ../classes/column/user/actions.php:65
+#: ../classes/column.php:934 ../classes/column.php:996
+#: ../classes/column/user/actions.php:74
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: ../classes/column.php:942
+#: ../classes/column.php:953
 msgid "Type"
 msgstr "Type"
 
-#: ../classes/column.php:942
+#: ../classes/column.php:953
 msgid "Choose a column type."
 msgstr "Kies een kolom type."
 
-#: ../classes/column.php:952
+#: ../classes/column.php:953 ../classes/column/comment/ID.php:12
+#: ../classes/column/link/ID.php:12 ../classes/column/media/ID.php:12
+#: ../classes/column/post/ID.php:12
+msgid "ID"
+msgstr "ID"
+
+#: ../classes/column.php:963
 msgid "Label"
 msgstr "Label"
 
-#: ../classes/column.php:952
+#: ../classes/column.php:963
 msgid "This is the name which will appear as the column header."
 msgstr "Deze naam zal verschijnen als kolom kop."
 
-#: ../classes/column.php:959 ../classes/column/media/width.php:12
+#: ../classes/column.php:970 ../classes/column/media/width.php:12
 msgid "Width"
 msgstr "Breedte"
 
-#: ../classes/column.php:961 ../classes/column.php:962
+#: ../classes/column.php:972 ../classes/column.php:973
 msgid "default"
 msgstr "standaard"
 
-#: ../classes/settings.php:68
+#: ../classes/column.php:997
+msgid "type"
+msgstr ""
+
+#: ../classes/settings.php:64
 msgid "Admin Columns Settings"
 msgstr "Admin Columns Instellingen"
 
-#: ../classes/settings.php:68 ../classes/settings.php:534
+#: ../classes/settings.php:64 ../classes/settings.php:535
 #: ../classes/upgrade.php:89
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:129
+#: ../classes/settings.php:126
 #, php-format
 msgid "%s column is already present and can not be duplicated."
 msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
 
-#: ../classes/settings.php:184
+#: ../classes/settings.php:182
 msgid "Default settings succesfully restored."
 msgstr "Standaard instellingen succesvol hersteld."
 
-#: ../classes/settings.php:202 ../classes/settings.php:457
+#: ../classes/settings.php:200 ../classes/settings.php:457
 msgid "Overview"
 msgstr "Overzicht"
 
-#: ../classes/settings.php:205
+#: ../classes/settings.php:203
 msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
 msgstr ""
 
-#: ../classes/settings.php:208
+#: ../classes/settings.php:206
 msgid "Basics"
 msgstr "Basisinfo"
 
-#: ../classes/settings.php:210
+#: ../classes/settings.php:208
 msgid "Change order"
 msgstr "Verander volgorde"
 
-#: ../classes/settings.php:211
+#: ../classes/settings.php:209
 msgid ""
 "By dragging the columns you can change the order which they will appear in."
 msgstr "Door de kolommen te verslepen kan je de volgorde aanpassen."
 
-#: ../classes/settings.php:212
+#: ../classes/settings.php:210
 msgid "Change label"
 msgstr "Wijzig label"
 
-#: ../classes/settings.php:213
+#: ../classes/settings.php:211
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
@@ -183,26 +193,26 @@ msgstr ""
 "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de "
 "kolom label aanpassen."
 
-#: ../classes/settings.php:214
+#: ../classes/settings.php:212
 msgid "Change column width"
 msgstr "Verander kolom breedte"
 
-#: ../classes/settings.php:215
+#: ../classes/settings.php:213
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
 msgstr ""
 
-#: ../classes/settings.php:219 ../classes/column/custom-field.php:16
-#: ../classes/column/custom-field.php:324
+#: ../classes/settings.php:217 ../classes/column/custom-field.php:16
+#: ../classes/column/custom-field.php:379
 msgid "Custom Field"
 msgstr "Custom veld"
 
-#: ../classes/settings.php:221
+#: ../classes/settings.php:219
 msgid "'Custom Field' column"
 msgstr "'Custom veld' kolom"
 
-#: ../classes/settings.php:222
+#: ../classes/settings.php:220
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
@@ -210,7 +220,7 @@ msgstr ""
 "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. "
 "Er zijn 10 typen welke je kan gebruiken."
 
-#: ../classes/settings.php:224
+#: ../classes/settings.php:222
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
@@ -218,12 +228,12 @@ msgstr ""
 "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de "
 "waarden gescheiden door een ',' komma."
 
-#: ../classes/settings.php:225 ../classes/column/custom-field.php:73
+#: ../classes/settings.php:223 ../classes/column/custom-field.php:76
 #: ../classes/column/link/image.php:12
 msgid "Image"
 msgstr "Afbeelding"
 
-#: ../classes/settings.php:225
+#: ../classes/settings.php:223
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
@@ -231,41 +241,41 @@ msgstr ""
 "Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' "
 "komma )."
 
-#: ../classes/settings.php:226 ../classes/column/custom-field.php:75
+#: ../classes/settings.php:224 ../classes/column/custom-field.php:75
 #: ../classes/column/comment/excerpt.php:13
 #: ../classes/column/post/excerpt.php:13
 msgid "Excerpt"
 msgstr "Samenvatting"
 
-#: ../classes/settings.php:226
+#: ../classes/settings.php:224
 msgid "Value: This will show the first 20 words of the Post content."
 msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
 
-#: ../classes/settings.php:227 ../classes/column/custom-field.php:76
+#: ../classes/settings.php:225 ../classes/column/custom-field.php:78
 msgid "Multiple Values"
 msgstr "Meerdere waarden"
 
-#: ../classes/settings.php:227
+#: ../classes/settings.php:225
 msgid ""
 "Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
-#: ../classes/settings.php:228 ../classes/column/custom-field.php:77
+#: ../classes/settings.php:226 ../classes/column/custom-field.php:79
 msgid "Numeric"
 msgstr "Numerieke"
 
-#: ../classes/settings.php:228
+#: ../classes/settings.php:226
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr ""
 
-#: ../classes/settings.php:229 ../classes/column/custom-field.php:78
+#: ../classes/settings.php:227 ../classes/column/custom-field.php:74
 #: ../classes/column/comment/date.php:12
 msgid "Date"
 msgstr "Datum"
 
-#: ../classes/settings.php:229
+#: ../classes/settings.php:227
 #, php-format
 msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
@@ -273,37 +283,47 @@ msgid ""
 "href='%s'>general settings</a> page."
 msgstr ""
 
-#: ../classes/settings.php:230
+#: ../classes/settings.php:228
 msgid "Post Titles"
 msgstr "Post titels"
 
-#: ../classes/settings.php:230
+#: ../classes/settings.php:228
 msgid "Value: can be one or more Post ID's (seperated by ',')."
 msgstr "Waarde: één of meer Post ID's ( gescheiden door een komma )"
 
-#: ../classes/settings.php:231
+#: ../classes/settings.php:229
 msgid "Usernames"
 msgstr "Gebruikersnamen"
 
-#: ../classes/settings.php:231
+#: ../classes/settings.php:229
 msgid "Value: can be one or more User ID's (seperated by ',')."
 msgstr "Waarde: één of meer User ID's ( gescheiden door een komma )"
 
-#: ../classes/settings.php:232
+#: ../classes/settings.php:230
 msgid "Checkmark"
 msgstr "Checkmark"
 
-#: ../classes/settings.php:232
+#: ../classes/settings.php:230
 msgid "Value: should be a 1 (one) or 0 (zero)."
 msgstr "Waarde: moet 1 of 0 zijn."
 
-#: ../classes/settings.php:233 ../classes/column/custom-field.php:82
+#: ../classes/settings.php:231 ../classes/column/custom-field.php:72
 msgid "Color"
 msgstr "Kleur"
 
-#: ../classes/settings.php:233
+#: ../classes/settings.php:231
 msgid "Value: hex value color, such as #808080."
 msgstr "Waarde: hex waarde kleur, vb: #808080"
+
+#: ../classes/settings.php:232 ../classes/column/custom-field.php:73
+msgid "Counter"
+msgstr ""
+
+#: ../classes/settings.php:232
+msgid ""
+"Value: Can be either a string or array. This will display a count of the "
+"number of times the meta key is used by the item."
+msgstr ""
 
 #: ../classes/settings.php:377
 msgid "Welcome to Admin Columns"
@@ -515,114 +535,126 @@ msgstr ""
 msgid "Start using Admin Columns"
 msgstr "Start met Admin Columns"
 
-#: ../classes/settings.php:580
+#: ../classes/settings.php:577
 msgid "Store settings"
 msgstr "Opslaan"
 
-#: ../classes/settings.php:585
+#: ../classes/settings.php:581
 msgid "Update"
 msgstr "Bijwerken"
 
-#: ../classes/settings.php:585
+#: ../classes/settings.php:581
 msgid "Publish"
 msgstr "Publiceren"
 
-#: ../classes/settings.php:589
+#: ../classes/settings.php:585
 #, php-format
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
 "\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
-#: ../classes/settings.php:590 ../classes/column/comment/actions.php:86
+#: ../classes/settings.php:586 ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:53
 msgid "Restore"
 msgstr "Herstellen"
 
-#: ../classes/settings.php:590
+#: ../classes/settings.php:586
 msgid "columns"
 msgstr "kolommen"
 
-#: ../classes/settings.php:600
+#: ../classes/settings.php:599
 msgid "Get the Pro Add-on"
 msgstr "Neem de Pro Add-on"
 
-#: ../classes/settings.php:604
+#: ../classes/settings.php:603
 msgid "Add Sorting"
 msgstr "Voeg sorting toe"
 
-#: ../classes/settings.php:605
+#: ../classes/settings.php:604
 msgid "Add Filtering"
 msgstr "Voeg filtering toe"
 
-#: ../classes/settings.php:606
+#: ../classes/settings.php:605
 msgid "Add Import/Export"
 msgstr "Voeg import/export toe"
 
-#: ../classes/settings.php:609
+#: ../classes/settings.php:608
 #, php-format
 msgid "Check the <a href=\"%s\">Pro Add-on</a> for more details!"
 msgstr ""
 
 #: ../classes/settings.php:617
+msgid "Subscribe to receive news &amp; updates below."
+msgstr ""
+
+#: ../classes/settings.php:620 ../classes/column/post/author-name.php:35
+msgid "First Name"
+msgstr "Voornaam"
+
+#: ../classes/settings.php:624
+msgid "Your Email"
+msgstr ""
+
+#: ../classes/settings.php:635
 msgid "Support"
 msgstr "Hulp nodig?"
 
-#: ../classes/settings.php:620
+#: ../classes/settings.php:638
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
 
-#: ../classes/settings.php:622
+#: ../classes/settings.php:641
 #, php-format
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
 msgstr ""
 
-#: ../classes/settings.php:642
+#: ../classes/settings.php:669
 msgid "Drag and drop to reorder"
 msgstr "Sleep om te herordenen"
 
-#: ../classes/settings.php:645
+#: ../classes/settings.php:672
 msgid "Add Column"
 msgstr "Voeg Kolom toe"
 
-#: ../classes/settings.php:696
+#: ../classes/settings.php:720
 msgid "General Settings"
 msgstr "Algemene Instellingen"
 
-#: ../classes/settings.php:697
+#: ../classes/settings.php:721
 msgid "Customize your Admin Columns settings."
 msgstr "Pas uw Admin Column instellingen aan."
 
-#: ../classes/settings.php:710
+#: ../classes/settings.php:734
 msgid "Show hidden custom fields. Default is <code>off</code>."
 msgstr "Toon verborgen custom fields. Standaard waarde is <code>uit</code>."
 
-#: ../classes/settings.php:716
+#: ../classes/settings.php:740
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
 msgstr ""
 
-#: ../classes/settings.php:723
+#: ../classes/settings.php:747
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../classes/settings.php:763
+#: ../classes/settings.php:787
 msgid "Restore Settings"
 msgstr "Herstel Instellingen"
 
-#: ../classes/settings.php:764
+#: ../classes/settings.php:788
 msgid "This will delete all column settings and restore the default settings."
 msgstr ""
 "Hiermee worden alle kolommen instellingen verwijderd en de "
 "standaardinstellingen hersteld."
 
-#: ../classes/settings.php:770
+#: ../classes/settings.php:794
 msgid "Restore default settings"
 msgstr "Herstel standaard instellingen"
 
-#: ../classes/settings.php:770
+#: ../classes/settings.php:794
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
@@ -630,25 +662,25 @@ msgstr ""
 "Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet "
 "worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
 
-#: ../classes/storage_model.php:167
+#: ../classes/storage_model.php:181
 msgid "settings succesfully restored."
 msgstr "instellingen succesvol hersteld."
 
-#: ../classes/storage_model.php:181
+#: ../classes/storage_model.php:198
 msgid "No columns settings available."
 msgstr "Geen kolom instellingen beschikbaar."
 
-#: ../classes/storage_model.php:204
+#: ../classes/storage_model.php:221
 #, php-format
 msgid "You are trying to store the same settings for %s."
 msgstr "U probeerd dezelfde instellingen op te slaan voor %s."
 
-#: ../classes/storage_model.php:208
+#: ../classes/storage_model.php:225
 #, php-format
 msgid "Settings for %s updated succesfully."
 msgstr "Instellingen voor %s succesvol bijgewerkt."
 
-#: ../classes/storage_model.php:577 ../classes/column/post/actions.php:64
+#: ../classes/storage_model.php:604 ../classes/column/post/actions.php:64
 msgid "View"
 msgstr "Bekijk"
 
@@ -706,51 +738,51 @@ msgid ""
 "on the support forum."
 msgstr ""
 
-#: ../classes/column/custom-field.php:74 ../classes/storage_model/media.php:13
-msgid "Media Library"
-msgstr "Mediabibliotheek"
-
-#: ../classes/column/custom-field.php:79
-msgid "Post Title (Post ID's)"
-msgstr "Post Titel (Post ID's)"
-
-#: ../classes/column/custom-field.php:80
-msgid "Username (User ID's)"
-msgstr "Gebruikersnaam ( Gebruiker ID's )"
-
-#: ../classes/column/custom-field.php:81
+#: ../classes/column/custom-field.php:71
 msgid "Checkmark (true/false)"
 msgstr "Vinkje (true/false)"
 
-#: ../classes/column/custom-field.php:324
+#: ../classes/column/custom-field.php:77 ../classes/storage_model/media.php:13
+msgid "Media Library"
+msgstr "Mediabibliotheek"
+
+#: ../classes/column/custom-field.php:80
+msgid "Post Title (Post ID's)"
+msgstr "Post Titel (Post ID's)"
+
+#: ../classes/column/custom-field.php:81
+msgid "Username (User ID's)"
+msgstr "Gebruikersnaam ( Gebruiker ID's )"
+
+#: ../classes/column/custom-field.php:379
 msgid "Select your custom field."
 msgstr "Selecteer uw custom field."
 
-#: ../classes/column/custom-field.php:334
+#: ../classes/column/custom-field.php:389
 msgid "No custom fields available."
 msgstr "Geen custom fields beschikbaar."
 
-#: ../classes/column/custom-field.php:341
+#: ../classes/column/custom-field.php:396
 msgid "Field Type"
 msgstr "Veld type"
 
-#: ../classes/column/custom-field.php:341
+#: ../classes/column/custom-field.php:396
 msgid "This will determine how the value will be displayed."
 msgstr "Dit bepaald hoe de waarde wordt weer gegeven,"
 
-#: ../classes/column/custom-field.php:384
+#: ../classes/column/custom-field.php:439
 msgid "Before"
 msgstr "Voor"
 
-#: ../classes/column/custom-field.php:384
+#: ../classes/column/custom-field.php:439
 msgid "This text will appear before the custom field value."
 msgstr "Deze tekst wordt getoond voor de custom field waarde."
 
-#: ../classes/column/custom-field.php:390
+#: ../classes/column/custom-field.php:445
 msgid "After"
 msgstr "Na"
 
-#: ../classes/column/custom-field.php:390
+#: ../classes/column/custom-field.php:445
 msgid "This text will appear after the custom field value."
 msgstr "Deze tekst wordt getoond na de custom field waarde."
 
@@ -778,7 +810,7 @@ msgstr "Permanent verwijderen"
 
 #: ../classes/column/comment/actions.php:96
 #: ../classes/column/link/actions.php:45 ../classes/column/post/actions.php:48
-#: ../classes/column/user/actions.php:57
+#: ../classes/column/user/actions.php:66
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -830,11 +862,6 @@ msgstr "Datum GMT"
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "Verstuurd op <a href=\"%1$s\">%2$s op %3$s</a>"
 
-#: ../classes/column/comment/ID.php:12 ../classes/column/link/ID.php:12
-#: ../classes/column/media/ID.php:12 ../classes/column/post/ID.php:12
-msgid "ID"
-msgstr "ID"
-
 #: ../classes/column/comment/reply-to.php:12
 msgid "In Reply To"
 msgstr "Antwoord op"
@@ -851,7 +878,7 @@ msgid ""
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:63
+#: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:72
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -980,7 +1007,7 @@ msgstr ""
 
 #: ../classes/column/post/actions.php:55
 #: ../classes/column/post/comment-count.php:34
-#: ../classes/column/post/status.php:35
+#: ../classes/column/post/status.php:37
 msgid "Trash"
 msgstr "Prullenbak"
 
@@ -1014,40 +1041,36 @@ msgstr "Bijlage"
 msgid "Display Author As"
 msgstr "Toon auteur als"
 
-#: ../classes/column/post/author-name.php:33
+#: ../classes/column/post/author-name.php:34
 msgid "Display Name"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:34
-msgid "First Name"
-msgstr "Voornaam"
-
-#: ../classes/column/post/author-name.php:35
+#: ../classes/column/post/author-name.php:36
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: ../classes/column/post/author-name.php:36
+#: ../classes/column/post/author-name.php:37
 #: ../classes/column/user/nickname.php:14
 msgid "Nickname"
 msgstr "Nickname"
 
-#: ../classes/column/post/author-name.php:37
+#: ../classes/column/post/author-name.php:38
 msgid "User Login"
 msgstr "Gebruikers login"
 
-#: ../classes/column/post/author-name.php:38
+#: ../classes/column/post/author-name.php:39
 msgid "User Email"
 msgstr "Gebruiker Email"
 
-#: ../classes/column/post/author-name.php:39 ../classes/column/user/ID.php:14
+#: ../classes/column/post/author-name.php:40 ../classes/column/user/ID.php:14
 msgid "User ID"
 msgstr "Gebruiker ID"
 
-#: ../classes/column/post/author-name.php:40
+#: ../classes/column/post/author-name.php:41
 msgid "First and Last Name"
 msgstr "Voor- en achternaam"
 
-#: ../classes/column/post/author-name.php:106
+#: ../classes/column/post/author-name.php:116
 msgid "This is the format of the author name."
 msgstr "Dit is het formaat van de auteursnaam"
 
@@ -1071,12 +1094,12 @@ msgstr "Pending"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../classes/column/post/comment-count.php:78
+#: ../classes/column/post/comment-count.php:95
 #: ../classes/column/post/comment-status.php:14
 msgid "Comment status"
 msgstr "Comment status"
 
-#: ../classes/column/post/comment-count.php:78
+#: ../classes/column/post/comment-count.php:95
 msgid "Select which comment status you like to display."
 msgstr ""
 
@@ -1120,23 +1143,23 @@ msgstr "Slug"
 msgid "Status"
 msgstr "Status"
 
-#: ../classes/column/post/status.php:30
+#: ../classes/column/post/status.php:32
 msgid "Published"
 msgstr "Gepubliceerd"
 
-#: ../classes/column/post/status.php:31
+#: ../classes/column/post/status.php:33
 msgid "Draft"
 msgstr "Concept"
 
-#: ../classes/column/post/status.php:32
+#: ../classes/column/post/status.php:34
 msgid "Scheduled"
 msgstr "Gepland"
 
-#: ../classes/column/post/status.php:33
+#: ../classes/column/post/status.php:35
 msgid "Private"
 msgstr "Priv&#233;"
 
-#: ../classes/column/post/status.php:34
+#: ../classes/column/post/status.php:36
 msgid "Pending Review"
 msgstr "Wachtend op review"
 
@@ -1145,7 +1168,7 @@ msgid "Sticky"
 msgstr "Sticky"
 
 #: ../classes/column/post/taxonomy.php:12
-#: ../classes/column/post/taxonomy.php:68
+#: ../classes/column/post/taxonomy.php:74
 msgid "Taxonomy"
 msgstr "Taxonomy"
 
@@ -1165,7 +1188,7 @@ msgstr "Achternaam"
 msgid "Post Count"
 msgstr "Aantal posts"
 
-#: ../classes/column/user/post-count.php:92
+#: ../classes/column/user/post-count.php:99
 msgid "Post Type"
 msgstr "Post Type"
 
