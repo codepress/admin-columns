@@ -35,7 +35,6 @@ class CPAC_Settings {
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
-		add_action( 'cpac_messages', array( $this, 'maybe_display_premium_version_message' ) );
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
 	}
 
@@ -86,33 +85,6 @@ class CPAC_Settings {
 		}
 
 		return add_query_arg( 'tab', $page, $this->get_settings_url() );
-	}
-
-	/**
-	 * Display a call to action for the premium version if applicable
-	 *
-	 * @since 2.2
-	 */
-	public function maybe_display_premium_version_message() {
-
-		// ACF integration
-		if ( ! $this->cpac->addons()->is_addon_installed( 'acf' ) && class_exists( 'acf' ) ) {
-			$current_user = wp_get_current_user();
-			$user_name = get_user_meta( $current_user->ID, 'first_name', true );
-
-			if ( ! $user_name ) {
-				$user_name = $current_user->display_name;
-			}
-			?>
-			<div class="updated cac-notification below-h2">
-				<p>
-					<?php printf( __( 'Heya, %s! Did you know that the premium version of Admin Columns offers full integration with <strong>Advanced Custom Fields</strong>?', 'cpac' ), $user_name ); ?>
-					<a href="#" class="learnmore">Learn more</a>
-				</p>
-				<div class="clear"></div>
-			</div>
-			<?php
-		}
 	}
 
 	/**
