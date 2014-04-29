@@ -13,7 +13,7 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 */
-	protected $addons;
+	protected $addons = array();
 
 	/**
 	 * Constructor
@@ -27,9 +27,6 @@ class CPAC_Addons {
 
 		// Register addons
 		add_action( 'plugins_loaded', array( $this, 'register_addons' ) );
-
-		// Add plugin headers
-		//add_filter( 'extra_plugin_headers', array( $this, 'plugindata_load_cpac_headers' ) );
 
 		// Redirect to addons settings tab on activation & deactivation
 		if ( is_admin() ) {
@@ -65,10 +62,11 @@ class CPAC_Addons {
 			cpac_admin_message( $error, 'error' );
 			return;
 		}
-return;
+
 		$install_url = add_query_arg( array(
 			'action' => 'install-plugin',
-			'plugin' => $_GET['plugin']
+			'plugin' => $_GET['plugin'],
+			'cpac-redirect' => true
 		), wp_nonce_url( network_admin_url( 'update.php'), 'install-plugin_' . $_GET['plugin'] ) );
 
 		wp_redirect( $install_url );
@@ -93,31 +91,22 @@ return;
 			return $location;
 		}
 
-		if ( ! empty( $urlparts['query'] ) && $urlparts['scheme'] . '://' . $urlparts['host'] . $urlparts['path'] == admin_url( 'plugins.php' ) ) {
-			parse_str( $urlparts['query'], $request );
+		if ( ! empty( $urlparts['query'] ) ) {
 
-			if ( empty( $request['error'] ) ) {
-				$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, $this->cpac->settings()->get_settings_url( 'addons' ) );
+			$admin_url = $urlparts['scheme'] . '://' . $urlparts['host'] . $urlparts['path'];
+
+			// activate or deactivae plugin
+			if ( admin_url( 'plugins.php' ) == $admin_url ) {
+				parse_str( $urlparts['query'], $request );
+
+				if ( empty( $request['error'] ) ) {
+					$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, $this->cpac->settings()->get_settings_url( 'addons' ) );
+				}
 			}
 		}
 
-
 		return $location;
 	}
-
-	/**
-	 * Add the Admin Columns headers to the list of headers to be loaded when fetching plugin file data
-	 *
-	 * @since 2.2
-	 *
-	 * @see filter:extra_{$context}_headers
-	 */
-/*	public function plugindata_load_cpac_headers( $headers ) {
-
-		$headers['CPAC Addon ID'] = 'CPAC Addon ID';
-
-		return $headers;
-	}*/
 
 	/**
 	 * Get addon groups. Addons are grouped into addon groups by providing the group an addon belongs to (see CPAC_Addons::get_available_addons()).
@@ -313,6 +302,27 @@ return;
 		foreach ( $plugins as $plugin_basename => $plugin ) {
 			if ( $slug == dirname( $plugin_basename ) ) {
 				return $plugin_basename;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the plugin version from a plugin
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $slug Plugin dirname/slug
+	 * @return string|bool Returns the plugin version if the plugin is installed, false otherwise
+	 */
+	public function get_installed_addon_plugin_version( $slug ) {
+
+		$plugins = get_plugins();
+
+		foreach ( $plugins as $plugin_basename => $plugin ) {
+			if ( $slug == dirname( $plugin_basename ) ) {
+				return $plugin['Version'];
 			}
 		}
 
