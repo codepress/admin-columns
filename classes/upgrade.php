@@ -17,8 +17,6 @@ class CPAC_Upgrade {
 	private $cpac;
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0.0
 	 */
 	function __construct( $cpac ) {
@@ -32,25 +30,22 @@ class CPAC_Upgrade {
 	}
 
 	/**
-	 * Add submenu page
+	 * Add submenu page & scripts
 	 *
 	 * @since 2.0.0
 	 */
 	public function admin_menu() {
 
 		// Don't run on plugin activate
-		if ( isset( $_GET['action'] ) && 'activate-plugin' === $_GET['action'] ) return;
+		if ( isset( $_GET['action'] ) && 'activate-plugin' === $_GET['action'] ) {
+			return;
+		}
 
-		// add settings page
 		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
-
-		// add scripts
 		add_action( "admin_print_scripts-{$upgrade_page}", array( $this, 'admin_scripts' ) );
 	}
 
 	/**
-	 * init
-	 *
 	 * @since 2.0.0
 	 */
 	public function init() {

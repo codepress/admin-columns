@@ -15,8 +15,6 @@ class CPAC_Settings {
 	private $cpac;
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0.0
 	 * @param object CPAC
 	 */
@@ -42,7 +40,6 @@ class CPAC_Settings {
 	 * Get available Admin Columns admin page URLs
 	 *
 	 * @since 2.3
-	 *
 	 * @return array Available settings URLs ([settings_page] => [url])
 	 */
 	public function get_settings_urls() {
@@ -68,7 +65,6 @@ class CPAC_Settings {
 	 * Get the settings URL for a page
 	 *
 	 * @since 2.3
-	 *
 	 * @param string $page Optional. Admin page to get the URL from. Defaults to the basic Admin Columns page
 	 * @return string Settings page URL
 	 */
@@ -118,8 +114,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Ajax Column Refresh
-	 *
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
@@ -156,10 +150,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Admin Menu.
-	 *
-	 * Create the admin menu link for the settings page.
-	 *
 	 * @since 1.0.0
 	 */
 	public function settings_menu() {
@@ -182,20 +172,15 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Add capability
-	 *
 	 * Allows the capaiblity 'manage_admin_columns' to store data through /wp-admin/options.php
 	 *
 	 * @since 2.0.0
 	 */
 	public function add_capability() {
-
 		return 'manage_admin_columns';
 	}
 
 	/**
-	 * Register admin css
-	 *
 	 * @since 1.0.0
 	 */
 	public function admin_styles() {
@@ -205,15 +190,16 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Register admin scripts
-	 *
 	 * @since 1.0.0
 	 */
 	public function admin_scripts() {
 
 		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
+
+		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
@@ -222,8 +208,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Handle column requests.
-	 *
 	 * @since 1.0.0
 	 */
 	public function handle_column_request() {
@@ -240,7 +224,6 @@ class CPAC_Settings {
 		switch ( $action ) :
 
 			case 'update_by_type' :
-
 				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
 					$storage_model = $this->cpac->get_storage_model( $key );
 					$storage_model->store();
@@ -264,7 +247,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Restore defaults
+	 * Restore all column defaults
 	 *
 	 * @since 1.0.0
 	 */
@@ -277,7 +260,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Add help tabs
+	 * Add help tabs to top menu
 	 *
 	 * @since 1.3.0
 	 */
@@ -288,7 +271,6 @@ class CPAC_Settings {
 		if ( ! method_exists( $screen,'add_help_tab' ) )
 			return;
 
-		// add help content
 		$tabs = array(
 			array(
 				'title'		=> __( "Overview", 'cpac' ),
@@ -339,10 +321,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * External Urls
-	 *
 	 * @since 1.0.0
-	 *
 	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
@@ -369,8 +348,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Has Custom Field
-	 *
 	 * @since 2.0.0
 	 */
 	public function uses_custom_fields() {
@@ -456,7 +433,6 @@ class CPAC_Settings {
 		// Set check that welcome should not be displayed.
 		delete_transient('cpac_show_welcome');
 
-		// Get tab
 		$tab = !empty( $_GET['info'] ) ? $_GET['info'] : 'whats-new';
 
 		// check if old site used custom field columns
@@ -481,13 +457,6 @@ class CPAC_Settings {
 				<h2 class="nav-tab-wrapper">
 					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>whats-new"><?php _e( "What’s New", 'cpac' ); ?></a>
 					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>changelog"><?php _e( "Changelog", 'cpac' ); ?></a>
-					<?php
-					/*
-					if( $tab == 'download-add-ons' ): ?>
-					<a class="cpac-tab-toggle nav-tab nav-tab-active" href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons"><?php _e( "Download Addons", 'cpac' ); ?></a>
-					<?php endif;
-					*/
-					?>
 				</h2>
 
 			<?php if ( 'whats-new' === $tab ) : ?>
@@ -552,52 +521,6 @@ class CPAC_Settings {
 				</ul>
 
 			<?php endif; ?>
-			<?php
-/*
-			if ( 'download-add-ons' === $tab ) : ?>
-
-				<h3><?php _e("Overview",'cpac'); ?></h3>
-
-				<p><?php _e( "New to v2, all Addons act as separate plugins which need to be individually downloaded, installed and updated.", 'cpac' ); ?></p>
-				<p><?php _e( "This page will assist you in downloading and installing each available Addon.", 'cpac' ); ?></p>
-				<h3><?php _e( "Available Addons", 'cpac' ); ?></h3>
-
-				<table class="widefat" id="cpac-download-add-ons-table">
-					<thead>
-					<tr>
-						<th><?php _e("Name",'cpac'); ?></th>
-						<th><?php _e("Download",'cpac'); ?></th>
-					</tr>
-					</thead>
-					<tbody>
-					<?php if ( $uses_sortorder ): ?>
-					<tr>
-						<th class="td-name"><?php _e("Pro Add-on (includes Sortorder add-on)",'cpac'); ?></th>
-						<td class="td-download">
-							<a class="button" href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons&amp;cpac_product_id=cac-pro&amp;cpac_license_key=<?php echo get_option( "cpac_sortable_ac" ); ?>"><?php _e("Download",'cpac'); ?></a>
-						</td>
-					</tr>
-					<?php endif; ?>
-
-					</tbody>
-				</table>
-
-				<h3><?php _e("Installation",'cpac'); ?></h3>
-
-				<p><?php _e("For each Add-on available, please perform the following:",'cpac'); ?></p>
-				<ol>
-					<li><?php _e("Download the Addon plugin (.zip file) to your desktop",'cpac'); ?></li>
-					<li><?php _e("Navigate to",'cpac'); ?> <a target="_blank" href="<?php echo admin_url('plugin-install.php?tab=upload'); ?>"><?php _e("Plugins > Add New > Upload",'cpac'); ?></a></li>
-					<li><?php _e("Use the uploader to browse, select and install your Add-on (.zip file)",'cpac'); ?></li>
-					<li><?php _e("Once the plugin has been uploaded and installed, click the 'Activate Plugin' link",'cpac'); ?></li>
-					<li><?php _e("The Add-on is now installed and activated!",'cpac'); ?></li>
-					<li><?php printf( __("For automatic updates make sure to <a href='%s'>enter your licence key</a>.",'cpac'), $this->get_settings_url( 'settings' ) ); ?></li>
-				</ol>
-
-			<?php endif;
-			*/
-			?>
-
 				<hr/>
 
 			</div><!--.cpac-content-body-->
@@ -613,8 +536,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Menu
-	 *
 	 * @since 2.2
 	 */
 	function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
@@ -639,8 +560,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * General Settings.
-	 *
 	 * @since 1.0.0
 	 */
 	public function display_settings() {
@@ -736,13 +655,10 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Column Settings.
-	 *
 	 * @since 1.0.0
 	 */
 	public function display() {
 
-		// Load Welcome screen
 		if ( $this->welcome_screen() ) return;
 
 		$tabs = array(
@@ -755,7 +671,6 @@ class CPAC_Settings {
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
 
-		// get first element from post-types
 		$post_types = array_values( $this->cpac->get_post_types() );
 		$first 		= array_shift( $post_types );
 		?>
@@ -946,8 +861,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * Output the content for the addons tab
-	 *
 	 * @since 2.2
 	 */
 	public function tab_addons() {

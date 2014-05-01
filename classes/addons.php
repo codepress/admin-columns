@@ -16,8 +16,6 @@ class CPAC_Addons {
 	protected $addons = array();
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.2
 	 * @param CPAC
 	 */
@@ -38,7 +36,7 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Handles the installatin of the add-on
+	 * Handles the installation of the add-on
 	 *
 	 * @since 2.2
 	 */
@@ -109,10 +107,9 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get addon groups. Addons are grouped into addon groups by providing the group an addon belongs to (see CPAC_Addons::get_available_addons()).
+	 * Addons are grouped into addon groups by providing the group an addon belongs to (see CPAC_Addons::get_available_addons()).
 	 *
 	 * @since 2.2
-	 *
 	 * @return array Available addon groups ([group_name] => [label])
 	 */
 	public function get_addon_groups() {
@@ -134,10 +131,7 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get all available addons
-	 *
 	 * @since 2.2
-	 *
 	 * @param bool $grouped Whether to group the plugins by addon group ()
 	 * @return array Available addons ([addon_basename] => (array) [addon_details] if not grouped, a list of these key-value pairs per group otherwise ([group_name] => (array) [group_addons]))
 	 */
@@ -181,18 +175,15 @@ class CPAC_Addons {
 	 * Get add-on details from the available add-ons list
 	 *
 	 * @since 2.2
-	 *
 	 * @param string $id Unique addon ID
 	 * @return bool|array Returns addon details if the add-on exists, false otherwise
 	 */
 	public function get_addon( $id ) {
-
 		$addons = $this->get_available_addons();
 
 		if ( isset( $addons[ $id ] ) ) {
 			return $addons[ $id ];
 		}
-
 		return false;
 	}
 
@@ -201,12 +192,10 @@ class CPAC_Addons {
 	 *
 	 * @since 2.2
 	 * @uses CPAC_Addons::group_addons()
-	 *
 	 * @param array $addons List of addons ([addon_name] => (array) [addon_details])
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
 	 */
 	public function group_addons( $addons ) {
-
 		$groups = $this->get_addon_groups();
 		$grouped_addons = array();
 
@@ -221,13 +210,10 @@ class CPAC_Addons {
 
 			$grouped_addons[ $addon['group'] ][ $addon_name ] = $addon;
 		}
-
 		return $grouped_addons;
 	}
 
 	/**
-	 * Register add-ons
-	 *
 	 * @since 2.2
 	 */
 	public function register_addons() {
@@ -247,13 +233,10 @@ class CPAC_Addons {
 	 * Register an add-on by passing its main plugin class instance
 	 *
 	 * @since 2.2
-	 *
 	 * @param object $instance Main plugin class instance
 	 */
 	public function register_addon( $instance ) {
-
 		$slug = dirname( $instance->addon['plugin_basename'] );
-
 		$this->addons[ $slug ] = $instance;
 	}
 
@@ -261,16 +244,13 @@ class CPAC_Addons {
 	 * Get an add-on main plugin class instance by its id
 	 *
 	 * @since 2.2
-	 *
 	 * @param string $slug Plugin dirname
 	 * @return bool|object Returns false if there is no add-on registered with the passed ID, the class instance otherwise
 	 */
 	public function get_registered_addon( $slug ) {
-
 		if ( ! isset( $this->addons[ $slug ] ) ) {
 			return false;
 		}
-
 		return $this->addons[ $slug ];
 	}
 
@@ -278,12 +258,10 @@ class CPAC_Addons {
 	 * Get whether an add-on is installed (i.e. the plugin is available in the plugin directory)
 	 *
 	 * @since 2.2
-	 *
 	 * @param string $slug Plugin dirname/slug
 	 * @return bool Returns true if there is no add-on installed with the passed ID, false otherwise
 	 */
 	public function is_addon_installed( $slug ) {
-
 		return $this->get_installed_addon_plugin_basename( $slug ) ? true : false;
 	}
 
@@ -291,14 +269,11 @@ class CPAC_Addons {
 	 * Get the plugin basename (see plugin_basename()) from a plugin, for example "my-plugin/my-plugin.php"
 	 *
 	 * @since 2.2
-	 *
 	 * @param string $slug Plugin dirname/slug
 	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_basename( $slug ) {
-
 		$plugins = get_plugins();
-
 		foreach ( $plugins as $plugin_basename => $plugin ) {
 			if ( $slug == dirname( $plugin_basename ) ) {
 				return $plugin_basename;
@@ -309,17 +284,12 @@ class CPAC_Addons {
 	}
 
 	/**
-	 * Get the plugin version from a plugin
-	 *
 	 * @since 2.2
-	 *
 	 * @param string $slug Plugin dirname/slug
 	 * @return string|bool Returns the plugin version if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_version( $slug ) {
-
 		$plugins = get_plugins();
-
 		foreach ( $plugins as $plugin_basename => $plugin ) {
 			if ( $slug == dirname( $plugin_basename ) ) {
 				return $plugin['Version'];
@@ -333,11 +303,9 @@ class CPAC_Addons {
 	 * Get a list of all registered add-on IDs
 	 *
 	 * @since 2.2
-	 *
 	 * @return array Registered add-on IDs
 	 */
 	public function get_registered_addons() {
-
 		return array_keys( $this->addons );
 	}
 }
