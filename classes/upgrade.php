@@ -16,17 +16,67 @@ class CPAC_Upgrade {
 	 */
 	private $cpac;
 
+	public $update_prevented = false;
+
 	/**
 	 * @since 2.0.0
 	 */
 	function __construct( $cpac ) {
 
 		$this->cpac = $cpac;
-
+//delete_site_transient( 'update_plugins' );
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
+
+		if ( ! $this->allow_upgrade() ) {
+
+			add_filter( 'site_transient_update_plugins', array( $this, 'disable_update' ) );
+			add_action( 'admin_notices', array( $this, 'notice_proaddon' ) );
+		}
+	}
+
+	public function disable_update( $value ) {
+
+		if ( isset( $value->response['codepress-admin-columns/codepress-admin-columns.php'] ) ) {
+			$this->update_prevented = true;
+			unset( $value->response['codepress-admin-columns/codepress-admin-columns.php'] );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public function notice_proaddon() {
+
+		if ( $this->update_prevented ) {
+			?>
+			<div class="message error">
+				<p>
+					<?php printf( __( 'An update to <strong>Codepress Admin Columns</strong> is available. However, it was prevented due to incompatibility with the <strong>Pro add-on</strong>. A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.com/">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
+				</p>
+			</div>
+			<?php
+		}
+		else {
+			?>
+			<div class="message error">
+				<p>
+					<?php printf( __( 'Updates for <strong>Codepress Admin Columns</strong> are disabled as you&#39;re using the <strong>Pro Add-on</strong>, which is no longer actively maintained and incompatible with new versions of Admin Columns. Not to worry! A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.com/">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
+				</p>
+			</div>
+			<?php
+		}
+	}
+
+	public function allow_upgrade() {
+
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		return ! is_plugin_active( 'cac-addon-pro/cac-addon-pro.php' );
 	}
 
 	/**
