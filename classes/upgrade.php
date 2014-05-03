@@ -56,7 +56,7 @@ class CPAC_Upgrade {
 			?>
 			<div class="message error">
 				<p>
-					<?php printf( __( 'An update to <strong>Codepress Admin Columns</strong> is available. However, it was prevented due to incompatibility with the <strong>Pro add-on</strong>. A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.com/">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
+					<?php printf( __( 'An update to <strong>Codepress Admin Columns</strong> is available. However, it was prevented due to incompatibility with the <strong>Pro add-on</strong>. A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.loc/upgrade-plan-pro-add/" target="_blank">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
 				</p>
 			</div>
 			<?php
@@ -65,7 +65,7 @@ class CPAC_Upgrade {
 			?>
 			<div class="message error">
 				<p>
-					<?php printf( __( 'Updates for <strong>Codepress Admin Columns</strong> are disabled as you&#39;re using the <strong>Pro Add-on</strong>, which is no longer actively maintained and incompatible with new versions of Admin Columns. Not to worry! A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.com/">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
+					<?php printf( __( 'Updates for <strong>Codepress Admin Columns</strong> are disabled as you&#39;re using the <strong>Pro Add-on</strong>, which is no longer actively maintained and incompatible with new versions of Admin Columns. A free upgrade to <strong>Admin Columns Pro</strong> is available (%s).', 'cpac' ), '<a href="http://admincolumns.loc/upgrade-plan-pro-add/" target="_blank">' . __( 'learn more', 'cpac' ) . '</a>' ); ?>
 				</p>
 			</div>
 			<?php
