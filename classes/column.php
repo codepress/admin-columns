@@ -308,7 +308,7 @@ class CPAC_Column {
 		 * @param string $label Column instance label
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		return apply_filters( 'cac/column/label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
+		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
 	}
 
 	/**
@@ -897,6 +897,11 @@ class CPAC_Column {
 										 * @param CPAC_Column $column_instance Column class instance
 										 */
 										do_action( 'cac/column/settings_meta', $this );
+
+										/**
+										 * @deprecated 2.2 Use cac/column/settings_meta instead
+										 */
+										do_action( 'cac/column/label', $this );
 										?>
 
 									</div>
