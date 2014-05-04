@@ -1,7 +1,4 @@
 <?php
-
-// @dev_only: set_site_transient( 'update_plugins', null );
-
 /**
  * Upgrade
  *
@@ -28,7 +25,7 @@ class CPAC_Upgrade {
 		// run upgrade based on version
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
-		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );z
+		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 	}
 
 	/**
