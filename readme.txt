@@ -103,9 +103,9 @@ With the custom field column you can display any custom field values. It can sho
 * Usernames
 * Checkmark Image ( for true or false values )
 
-= Sortable Custom Columns for all Screens =
+= Sortable & Filterable Columns for all Screens =
 
-All of the new columns will have support for sorting with the <a href="http://www.codepresshq.com/wordpress-plugins/admin-columns/pro-add-on/">Pro add-on</a>.
+All of the new columns will have support for sorting and filtering with <a href="http://www.admincolumns.com">Admin Columns Pro</a>.
 
 By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>. (columns that are added by other plugins are not supported)
 
@@ -130,11 +130,11 @@ If you like to contrinute a language, please use <a href="https://www.transifex.
 
 **Feedback**
 
-You can leave any <a href='http://www.codepresshq.com/support/'>requests or feedback</a>.
+You can leave any <a href='http://www.admincolumns.com'>requests or feedback</a>.
 
 **Related Links:**
 
-* http://www.codepresshq.com/wordpress-plugins/admin-columns/
+* http://www.admincolumns.com
 
 == Installation ==
 
@@ -146,12 +146,12 @@ You can leave any <a href='http://www.codepresshq.com/support/'>requests or feed
 
 = Is there documentation for Admin Columns? =
 
-Yes, you will find all the documentation you need on <a href="http://www.codepresshq.com/documentation/codepress-admin-columns/">http://www.codepresshq.com/documentation/codepress-admin-columns/</a>.
+Yes, you will find all the documentation you need on <a href="http://www.admincolumns.com/documentation">http://www.admincolumns.com/documentation</a>.
 
 = I have an idea for a great way to improve this plugin =
 
 Great! I'd love to hear from you.
-Leave your feedback at http://www.codepresshq.com/support.
+Leave your feedback at http://www.admincolumns.com/support.
 
 = How can I change the thumbnail size of images? =
 
@@ -205,7 +205,7 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 
 = What filters and hooks can I use? =
 
-Here you will find an overview of filters and examples: http://www.codepresshq.com/documentation/codepress-admin-columns/
+Here you will find an overview of filters and examples: http://www.admincolumns.com/documentation
 
 == Screenshots ==
 
@@ -243,7 +243,7 @@ Here you will find an overview of filters and examples: http://www.codepresshq.c
 * [Added] Fieldtype "Counter" to Custom Fields
 * [Added] Column type ID when you hover over the column type label
 * [Added] Support for raw values
-* [Updated] Changed filter for cac/column/value. See: http://www.codepresshq.com/documentation.
+* [Updated] Changed filter for cac/column/value. See: http://www.admincolumns.com/documentation.
 
 = 2.0.2 =
 * [Fixed] Performance issue
