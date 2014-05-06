@@ -28,8 +28,15 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 
 		?>
 		<div class="is-disabled">
-			<p><strong><?php _e( 'This feature is only available in Admin Columns Pro.' ); ?></strong></p>
-			<p><?php _e( 'Admin Columns Pro offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview.', 'cpac' ); ?></p>
+			<p>
+				<strong><?php _e( 'This feature is only available in Admin Columns Pro - Developer.' ); ?></strong>
+			</p>
+			<p>
+				<?php printf( __( "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>.", 'cpac' ), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+			</p>
+			<p>
+				<?php _e( 'Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview.', 'cpac' ); ?>
+			</p>
 			<a href="http://admincolumns.com/advanced-custom-fields-integration/" class="button button-primary"><?php _e( 'Find out more', 'cpac' ); ?></a>
 		</div>
 		<?php
