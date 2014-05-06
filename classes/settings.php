@@ -28,9 +28,6 @@ class CPAC_Settings {
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
 
-		// handle addon downloads
-		//add_action( 'admin_init', array( $this, 'handle_download_request' ) );
-
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
@@ -365,53 +362,6 @@ class CPAC_Settings {
 
 		return false;
 	}
-
-	/**
-	 * Handle Addon Download
-	 *
-	 * @since 2.0.0
-	 */
-	/*function handle_download_request() {
-
-		// API domain
-		$store_url = 'http://codepresshq.com';
-
-		if ( ! isset( $_REQUEST['cpac_product_id'] ) ) return false;
-
-		$args = array(
-			'codepress-wc-api' 	=> 'plugin_updater',
-			'secret_key'		=> '',
-			'product_id'		=> $_REQUEST['cpac_product_id'],
-			'licence_key'		=> isset( $_REQUEST['cpac_license_key'] ) ? $_REQUEST['cpac_license_key'] : '',
-			'slug'				=> '',
-			'instance'			=> 'fresh_install'
-		);
-
-		$result = wp_remote_get( add_query_arg( $args, $store_url ), array( 'timeout' => 15, 'sslverify' => false ) );
-
-		// Call the custom API.
-		$response = json_decode( wp_remote_retrieve_body( $result ) );
-
-		if ( ! $response  )  {
-			cpac_admin_message( 'Could not connect to API.', 'error' );
-			return;
-		}
-		if( isset( $response->error ) ) {
-			cpac_admin_message( $response->error, 'error' );
-			return;
-		}
-		if( empty( $response->package ) ) {
-			cpac_admin_message( 'No File found.', 'error' );
-			return;
-		}
-
-		// no @ signs allowed/
-		// source: http://wordpress.stackexchange.com/questions/64818/wp-sanitize-redirect-strips-out-signs-even-from-parameters-why
-		$redirect_url = str_replace( '@', urlencode('@'), $response->package );
-
-		wp_redirect( $redirect_url );
-		exit;
-	}*/
 
 	/**
 	 * Welcome screen
