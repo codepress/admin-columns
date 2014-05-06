@@ -391,6 +391,17 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.2.1
+	 */
+	protected function get_term_field( $field, $term_id, $taxonomy ) {
+		$term_field = get_term_field( $field, $term_id, $taxonomy, 'display' );
+		if ( is_wp_error( $term_field ) ) {
+			return false;
+		}
+		return $term_field;
+	}
+
+	/**
 	 * @since 1.0.0
 	 * @param int $post_id Post ID
 	 * @return string Post Excerpt.
