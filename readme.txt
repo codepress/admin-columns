@@ -220,6 +220,10 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 
 == Changelog ==
 
+= 2.2.1 =
+* [Added] Method for getting term field content
+* [Fixed] Displaying correct columns when using quick-edit
+
 = 2.2 =
 * [Updated] Added ajax check and improved loading.
 * [Updated] Menu is split between posttypes and media, comments and users.

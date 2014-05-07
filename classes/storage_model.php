@@ -652,10 +652,19 @@ abstract class CPAC_Storage_Model {
      * @return boolean
 	 */
 	function is_doing_ajax() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return true;
+		}
 
 		return false;
+	}
+
+	/**
+	 * @since 2.0.5
+     * @return boolean
+	 */
+	function is_doing_quick_edit() {
+		return $this->is_doing_ajax() && isset( $_REQUEST['action'] ) && 'inline-save' == $_REQUEST['action'];
 	}
 
 	/**

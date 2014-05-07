@@ -106,7 +106,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
 		// when it's being called by CPAC_Storage_Model::add_headings()
 		if ( $this->is_settings_page() || $this->is_doing_ajax() ) {
-			if ( function_exists( 'get_column_headers' ) ) {
+			if ( function_exists( 'get_column_headers' ) && ! $this->is_doing_quick_edit() ) {
 				$columns = array_merge( get_column_headers( 'edit-' . $this->key ), $columns );
 			}
 		}
