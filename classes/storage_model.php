@@ -568,7 +568,7 @@ abstract class CPAC_Storage_Model {
 			return $columns;
 		}
 
-		if ( ! $stored_columns = $this->get_stored_columns() ) {
+		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {
 			return $columns;
 		}
 
@@ -580,7 +580,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// add active stored headings
-		foreach( $stored_columns as $column_name => $options ) {
+		foreach ( $stored_columns as $column_name => $options ) {
 
 			/**
 			 * Filter the column headers label for use in a WP_List_Table
