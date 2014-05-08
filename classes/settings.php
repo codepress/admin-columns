@@ -840,7 +840,7 @@ class CPAC_Settings {
 
 							// Installed..
 							if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
-								<?php if ( $this->cpac->addons()->get_registered_addon( $addon_name ) ) : ?>
+								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'deactivate',
 										'plugin' => urlencode( $plugin_basename ),
