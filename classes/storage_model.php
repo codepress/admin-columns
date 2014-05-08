@@ -371,7 +371,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		do_action( "cac/columns/registered/default", $columns );
-		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns )
+		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns );
 
 		return $columns;
 	}
@@ -465,7 +465,7 @@ abstract class CPAC_Storage_Model {
 		$this->custom_columns = $this->get_custom_registered_columns();
 		$this->default_columns = $this->get_default_registered_columns();
 
-		$this->column_types = $this->get_column_types();
+		$this->column_types = $this->get_grouped_column_types();
 
 		$this->columns = $this->get_columns();
 	}
