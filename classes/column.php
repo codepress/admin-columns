@@ -103,7 +103,8 @@ class CPAC_Column {
 			'hide_label'		=> false,	// Should the Label be hidden?
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'		=> true,	// Should the column be cloneable
-			'default'			=> false	// Is this a WP default column
+			'default'			=> false,	// Is this a WP default column,
+			'group'				=> 'custom'
 		);
 
 		// merge arguments with defaults. turn into object for easy handling
@@ -879,8 +880,13 @@ class CPAC_Column {
 		$classes = implode( ' ', array_filter( array ( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
 
 		// column list
-		$column_list  = $this->get_column_list( $this->storage_model->custom_columns, __( 'Custom', 'cpac' ) );
-		$column_list .= $this->get_column_list( $this->storage_model->default_columns, __( 'Default', 'cpac' ) );
+		$column_list = '';
+
+		$groups = $this->storage_model->get_column_type_groups();
+
+		foreach ( $groups as $group => $label ) {
+			$column_list .= $this->get_column_list( $this->storage_model->column_types[ $group ], $label );
+		}
 
 		// clone attribute
 		$data_clone =  $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';

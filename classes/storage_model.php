@@ -70,6 +70,12 @@ abstract class CPAC_Storage_Model {
 	public $stored_columns = NULL;
 
 	/**
+	 * @since 2.3
+	 * @var array
+	 */
+	public $column_types = array();
+
+	/**
 	 * @since 2.0.0
 	 * @return array Column Name | Column Label
 	 */
@@ -365,7 +371,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		do_action( "cac/columns/registered/default", $columns );
-		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns );
+		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns )
 
 		return $columns;
 	}
@@ -451,15 +457,66 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns( $ignore_screen_check = false ) {
 
-		// only set columns on allowed screens
-		// @todo_minor: maybe add exception for AJAX calls
-		if ( ! $ignore_screen_check && ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() )
+		// Only set columns on allowed screens
+		if ( ! $ignore_screen_check && ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() ) {
 			return;
+		}
 
-		$this->custom_columns   = $this->get_custom_registered_columns();
-		$this->default_columns  = $this->get_default_registered_columns();
+		$this->custom_columns = $this->get_custom_registered_columns();
+		$this->default_columns = $this->get_default_registered_columns();
 
-		$this->columns 			= $this->get_columns();
+		$this->column_types = $this->get_column_types();
+
+		$this->columns = $this->get_columns();
+	}
+
+	public function get_grouped_column_types() {
+
+		$types = array();
+		$groups = array_keys( $this->get_column_type_groups() );
+
+		$custom_columns = $this->custom_columns;
+
+		foreach ( $groups as $group ) {
+			$grouptypes = array();
+
+			if ( $group == 'default' ) {
+				$grouptypes = $this->default_columns;
+			}
+			else {
+				foreach ( $custom_columns as $index => $column ) {
+					if ( $column->properties->group == $group ) {
+						$grouptypes[ $index ] = $column;
+						unset( $custom_columns[ $index ] );
+					}
+				}
+			}
+
+			$types[ $group ] = $grouptypes;
+		}
+
+		return $types;
+	}
+
+	public function get_column_type_groups() {
+
+		$groups = array(
+			'default' => __( 'Default', 'cpac' ),
+			'custom' => __( 'Custom', 'cpac' )
+		);
+
+		/**
+		 * Filter the available column type groups
+		 *
+		 * @since 2.3
+		 *
+		 * @param array $groups Available groups ([groupid] => [label])
+		 * @param CPAC_Storage_Model $storage_model_instance Storage model class instance
+		 */
+		$groups = apply_filters( "cac/storage_model/column_type_groups", $groups, $this );
+		$groups = apply_filters( "cac/storage_model/column_type_groups/storage_key={$this->key}", $groups, $this );
+
+		return $groups;
 	}
 
 	/**
@@ -467,7 +524,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_registered_columns() {
 
-		return array_merge( $this->custom_columns, $this->default_columns );
+		$types = array();
+
+		foreach ( $this->column_types as $grouptypes ) {
+			$types = array_merge( $types, $grouptypes );
+		}
+
+		return $types;
 	}
 
 	/**
@@ -480,11 +543,10 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		$default_columns = $this->default_columns;
-		$custom_columns  = $this->custom_columns;
+		$default_columns = $this->column_types['default'];
 
 		// @todo check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
-		$registered_columns = array_merge( $default_columns, $custom_columns );
+		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
 
