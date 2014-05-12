@@ -530,12 +530,16 @@ class CPAC_Settings {
 								<p>
 									<br/>
 								</p>
+								<?php
+								/*
 								<p>
 									<label for="show_hidden">
 										<input name="cpac_general_options[show_hidden]" id="show_hidden" type="checkbox" value="1" <?php checked( isset( $options['show_hidden'] ) ? $options['show_hidden'] : '', '1' ); ?>>
 										<?php _e( 'Show hidden custom fields. Default is <code>off</code>.', 'cpac' ); ?>
 									</label>
 								</p>
+								*/
+								?>
 								<p>
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( isset( $options['show_edit_button'] ) ? $options['show_edit_button'] : '', '1' ); ?>>
