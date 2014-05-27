@@ -334,6 +334,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'label', $label )
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
+			->set_properties( 'group', 'default' )
 			->set_options( 'label', $label )
 			->set_options( 'state', 'on' );
 
@@ -370,8 +371,8 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->name ] = $column;
 		}
 
-		do_action( "cac/columns/registered/default", $columns );
-		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns );
+		do_action( "cac/columns/registered/default", $columns, $this );
+		do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns, $this );
 
 		return $columns;
 	}
@@ -400,8 +401,8 @@ abstract class CPAC_Storage_Model {
 			$columns[ $column->properties->type ] = $column;
 		}
 
-		do_action( "cac/columns/registered/custom", $columns );
-		do_action( "cac/columns/registered/custom/storage_key={$this->key}", $columns );
+		do_action( "cac/columns/registered/custom", $columns, $this );
+		do_action( "cac/columns/registered/custom/storage_key={$this->key}", $columns, $this );
 
 		return $columns;
 	}
@@ -475,20 +476,15 @@ abstract class CPAC_Storage_Model {
 		$types = array();
 		$groups = array_keys( $this->get_column_type_groups() );
 
-		$custom_columns = $this->custom_columns;
+		$columns = array_merge( $this->default_columns, $this->custom_columns );
 
 		foreach ( $groups as $group ) {
 			$grouptypes = array();
 
-			if ( $group == 'default' ) {
-				$grouptypes = $this->default_columns;
-			}
-			else {
-				foreach ( $custom_columns as $index => $column ) {
-					if ( $column->properties->group == $group ) {
-						$grouptypes[ $index ] = $column;
-						unset( $custom_columns[ $index ] );
-					}
+			foreach ( $columns as $index => $column ) {
+				if ( $column->properties->group == $group ) {
+					$grouptypes[ $index ] = $column;
+					unset( $columns[ $index ] );
 				}
 			}
 
@@ -501,8 +497,8 @@ abstract class CPAC_Storage_Model {
 	public function get_column_type_groups() {
 
 		$groups = array(
-			'default' => __( 'Default', 'cpac' ),
-			'custom' => __( 'Custom', 'cpac' )
+			'custom' => __( 'Custom', 'cpac' ),
+			'default' => __( 'Default', 'cpac' )
 		);
 
 		/**

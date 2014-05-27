@@ -9,13 +9,6 @@ class CPAC_Addons {
 	private $cpac;
 
 	/**
-	 * Registered add-ons
-	 *
-	 * @since 2.2
-	 */
-	protected $addons = array();
-
-	/**
 	 * @since 2.2
 	 *
 	 * @param CPAC
