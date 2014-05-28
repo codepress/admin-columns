@@ -26,6 +26,41 @@ class CPAC_Upgrade {
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
+
+		if ( ! $this->allow_upgrade() ) {
+			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
+		}
+	}
+
+	/**
+	 * Display a notice about the deprecated pro add-on
+	 *
+	 * @since 2.2
+	 */
+	public function proaddon_notice() {
+
+		?>
+		<div class="message error">
+			<p>
+				<?php _e( '<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a href="http://www.admincolumns.com/pro-addon-information/" target="_blank">is available</a>, which features a bunch of cool new features, including Direct Inline Editing!', 'cpac' ); ?>
+				<a href="http://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Whether upgrading is allowed
+	 *
+	 * @since 2.1.5
+	 *
+	 * @return bool Whether plugin upgrading is allowed
+	 */
+	public function allow_upgrade() {
+
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		return ! is_plugin_active( 'cac-addon-pro/cac-addon-pro.php' );
 	}
 
 	/**

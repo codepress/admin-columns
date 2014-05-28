@@ -356,7 +356,7 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 * [Fixed] Issue: for possible warning when using Custompress ( props to scottsalisbury for the fix! )
 * [Fixed] Issue: for sorting by postcount for users
 * [Added] 'Display Author As' column for post(types)
-* [Added] sorting support for 'Display Author As' column
+* [Added] sorting support for 'Display Author As' columns
 
 = 1.4.6 =
 
