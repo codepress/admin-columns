@@ -16,6 +16,10 @@ By default, WordPress only shows a few built-in columns. This plugin will give y
 
 Add or remove columns, change their label, change their width and reorder them.
 
+<blockquote>
+<a href="http://www.admincolumns.com">Admin Columns Pro</a> offers additional features such as direct inline editing (edit post data directly from your columns), sorting, filtering and Advanced Custom Fields integration.
+</blockquote>
+
 = Post Types Columns  =
 
 The following custom columns are added:
