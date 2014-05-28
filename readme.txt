@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 3.8.1
+Tested up to: 3.9.1
 Stable tag: 2.2
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -220,15 +220,42 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 
 == Changelog ==
 
-= 2.2.1 =
-* [Added] Method for getting term field content
-* [Fixed] Displaying correct columns when using quick-edit
-
 = 2.2 =
-* [Updated] Added ajax check and improved loading.
-* [Updated] Menu is split between posttypes and media, comments and users.
+* [Added] AJAX refreshing of columns in columns settings screen
+* [Added] Support for managing columns via code instead of UI
+* [Added] Additional integration possibilities for add-ons
+* [Added] Add-ons tab for managing Admin Columns add-ons
+* [Added] Extended grouping support for column types to support add-ons
 * [Updated] Additional documentation was added to filters and actions
-* [Updated] Updated languages (from transifex)
+* [Updated] Updated languages (from transfix)
+* [Updated] All custom fields (including hidden fields) now always displayed in custom field dropdown
+* [Fixed] Third party plugin integration functions are now prefixed, thereby adhering to coding standards
+
+= 2.1.5 =
+* [Updated] Compatibility with add-ons
+
+= 2.1.4 =
+* [Added] CSS now is compiled with LESS
+* [Updated] Menu is split between posttypes and media, comments and users.
+* [Fixed] WordPress SEO 1.5.2 columns support
+* [Updated] Refactored JS and cleanup
+* [Updated] Registered Date column now uses GMT date
+* [Updated] Display author as column has fallback to display_name
+* [Updated] Added conditional checks for featured-image-, ping-status and comment-status-columns
+* [Fixed] Fixed warning for available-sizes column
+* [Updated] Column labels can no longer contain ":" characters
+
+= 2.1.3 =
+* [Updated] Undo changes from 2.1.2, will be in the next major release
+* [Fixed] Moved assignment of capabilities to plugin activation hook
+* [Fixed] Hook into manage_columns filters later to prevent overwriting from other plugins
+* [Fixed] Filters for column_path
+
+= 2.1.2 =
+[Updated] Added ajax check and improved loading.
+[Updated] Menu is split between posttypes and media, comments and users.
+[Added] WooCommerce 2.1 columns support
+[Fixed] Filters for column_path
 
 = 2.1.1 =
 * [Updated] Added page check to posttype edit screens
@@ -242,12 +269,12 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 = 2.0.3 =
 * [Updated] Danish translation - thanks to iosoftgame
 * [Updated] Spanish translation - thanks to redywebs
-* [Added] Chinese translation - thanks to 倡萌
+* [Added] Chinese translation - thanks to å€¡èŒ
 * [Fixed] Solved bug with before and after field
 * [Added] Fieldtype "Counter" to Custom Fields
 * [Added] Column type ID when you hover over the column type label
 * [Added] Support for raw values
-* [Updated] Changed filter for cac/column/value. See: http://www.admincolumns.com/documentation.
+* [Updated] Changed filter for cac/column/value. See: http://www.codepresshq.com/documentation.
 
 = 2.0.2 =
 * [Fixed] Performance issue
@@ -293,7 +320,7 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 * fixed bug: thirdparty columns that were previous loaded through load-edit.php will now use do_action( 'cpac-get-default-columns-{$type}' )
 
 = 1.4.8 =
-* [Fixed] Issue: removed acf posttype placed by Advanced Custom Fields from settings menu
+* [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu
 * [Fixed] Issue: removed bbPress posttypes topic, forum and reply from admin columns settings menu
 * [Fixed] Issue: license key could not activate properly
 
