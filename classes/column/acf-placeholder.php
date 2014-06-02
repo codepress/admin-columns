@@ -37,7 +37,11 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 			<p>
 				<?php _e( 'Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview.', 'cpac' ); ?>
 			</p>
-			<a href="http://admincolumns.com/advanced-custom-fields-integration/" class="button button-primary"><?php _e( 'Find out more', 'cpac' ); ?></a>
+			<a href="<?php echo add_query_arg( array(
+				'utm_source' => 'plugin-installation',
+				'utm_medium' => 'acf-placeholder',
+				'utm_campaign' => 'plugin-installation'
+			), 'http://admincolumns.com/advanced-custom-fields-integration/' ); ?>" class="button button-primary"><?php _e( 'Find out more', 'cpac' ); ?></a>
 		</div>
 		<?php
 	}
