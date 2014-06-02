@@ -295,7 +295,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.0.3 =
 * [Updated] Danish translation - thanks to iosoftgame
 * [Updated] Spanish translation - thanks to redywebs
-* [Added] Chinese translation - thanks to å€¡èŒ
+* [Added] Chinese translation - thanks to Ã¥â‚¬Â¡Ã¨ÂÅ’
 * [Fixed] Solved bug with before and after field
 * [Added] Fieldtype "Counter" to Custom Fields
 * [Added] Column type ID when you hover over the column type label
