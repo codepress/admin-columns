@@ -10,131 +10,163 @@ Customise columns on the administration screens for post(types), pages, media, c
 
 == Description ==
 
-Completely customise the columns on the administration screens with a nice drag and drop interface.
+Manage and organize columns in the posts, users, comments and media lists in the WordPress admin panel. Transform the WordPress admin screens into beautiful, clear overviews.
 
-By default, WordPress only shows a few built-in columns. This plugin will give you many additional columns. You will have full control over all columns for pages, posts, posttypes, media, links, comments and users.
+> The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
 
-Add or remove columns, change their label, change their width and reorder them.
+[vimeo http://vimeo.com/96885841]
 
-= Post Types Columns  =
+= Enhanced list tables =
+By default, WordPress provides list tables, giving you an overview of your content in the admin panel. These list tables are quite limited, however. For posts and custom post types, for example, not much more than the date and title of the post is displayed. Admin Columns allows you to take control over these list tables, managing the columns dislpayed in these overviews. Supporting custom fields, featured images, custom taxonomies, EXIF data for media and much, much more (Admin Columns features over 90 columns), you can create overviews that are perfectly suited for your content.
 
-The following custom columns are added:
+= Features =
+Admin Columns greatly enhances your WordPress installation. Whether you're running a simple blog or a full-blown enterprise website, it will prove its worth within minutes. Thanks to our dedicated development and support team, you can rest assured that Admin Columns will persist to be an essential part of any WordPress installation.
 
+To give you some insight into the great amount of possibilities Admin Columns offers to enhance your (or your client's) WordPress admin panel, be sure to check out the screenshots or the demo video!
+
+= Sortable, filterable and editable columns & import/export =
+All of the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](http://admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
+
+= Third party plugin integration =
+Admin Columns works perfectly with just about all external plugins with custom columns. Examples include Yoast SEO (SEO columns), WooCommerce, Advanced Custom Fields, Types and Pods. Not only can you reorganize the custom columns added by these plugins, you can also add custom columns provided by Admin Columns in the overview!
+
+= Custom field column =
+Admin Columns allows you to display custom fields for posts (post meta) and users (user meta) for all custom fields you have. With many different custom field types supported, such as files, images, numbers and even post and user relations, you can create a beautiful overview of your custom content!
+
+To ensure proper formatting of your custom fields, Admin Columns provides a set of custom field types, which automatically format your meta data properly.
+
+* Raw value
+* Checkmark (for true/false values)
+* Color (color code)
+* Counter
+* Date (automatically formatted dates)
+* Excerpt (snippet for long texts)
+* Image
+* Media library
+* Multiple values (automatically parse comma-separated data)
+* Numeric
+* Post Title (post relationships based on post IDs)
+* Username (user relationships based on user IDs)
+
+= Supported content types =
+Admin Columns can change your post (posts, pages and custom post types), user, comment, media and taxonomy (Admin Columns Pro only) lists! Below, you can find a list of supported column types for each content type.
+
+= Post types columns =
+
+* ACF Field (Admin Columns Pro only)
+* Actions
+* Attachment
+* Attachment count
+* Author
+* Author Name
+* Before More Tag
+* Categories
+* Comment Count
+* Comment Status
+* Comments
+* Custom Field
+* Date
+* Excerpt
 * Featured Image
-* Excerpt
-* Post Attachments
-* Page Order
-* Page Templates
-* Post Formats
-* Taxonomies
 * ID
-* Slug
-* Sticky
-* Word count
+* Modified
+* Order
+* Page Template
+* Parent
+* Permalink
+* Ping Status
+* Post Format
 * Roles
+* Slug
 * Status
-* Number of Attachments
-* Last Modified
-* Comment count
-* Before More Tag Content
-* Custom Fields
+* Sticky
+* Tags
+* Taxonomy
+* Title
+* Word Count
 
-= User Columns =
+= User columns =
 
-You can also change the User Columns. The following user columns are added:
-
-* User ID
-* First name
-* Last name
-* Url
-* Register date
-* Biographical Info ( description )
-* Number of Posts Types
-* User Custom Fields
-
-Some of the user custom fields that are included: user level, capabilities, admin color, nickname... many more.
-
-= Media Columns =
-
-Customise the Media Library Columns. The following media columns are added:
-
-* Media ID
-* File name
-* Height
-* Width
-* Dimensions ( width x height )
-* EXIF and IPTC image data
-* Description, Caption and Alternate tekst
-* Mime-Type
-* Media Custom Fields
-* Filesize
-
-= Comment Columns =
-
-A lot more comment colums are added, here are a few examples:
-
-* Avatar
-* Author IP
-* Agent
-* ID
-* Comment excerpt
-* Comment Meta data
-
-= Link Columns =
-
-A few examples of added Link columns:
-
-* ID
-* Target
+* Actions
+* Comment Count
+* Custom Field
 * Description
-* Notes
-* Owner
+* Email
+* First Name
+* ID
+* Last Name
+* Name
+* Nickname
+* Post Count
+* Posts
+* Registered Date
+* Role
+* URL
+* Username
 
-= Custom Fields =
+= Media columns =
 
-With the custom field column you can display any custom field values. It can show its default value but also handle it as an image or icon. Thsese types are added:
+* Actions
+* Alternate Text
+* Author
+* Caption
+* Comments
+* Custom Field
+* Date
+* Description
+* Dimensions
+* EXIF Data
+* File
+* File Name
+* File Size
+* Full Path
+* Height
+* Icon
+* ID
+* Mime Type
+* Taxonomy
+* Uploaded To
+* Width
 
-* Image thumbnails
-* Icons for Media Library items
-* Excerpt
-* Multiple Values
-* Numeric value ( this also works for sorting by meta_value_num )
-* Post Titles
-* Usernames
-* Checkmark Image ( for true or false values )
+= Comment columns =
 
-= Sortable & Filterable Columns for all Screens =
+* Actions
+* Alternate Text
+* Author
+* Caption
+* Comments
+* Custom Field
+* Date
+* Description
+* Dimensions
+* EXIF Data
+* File
+* File Name
+* File Size
+* Full Path
+* Height
+* Icon
+* ID
+* Mime Type
+* Taxonomy
+* Uploaded To
+* Width
 
-All of the new columns will have support for sorting and filtering with <a href="http://www.admincolumns.com">Admin Columns Pro</a>.
+= Docs & Support =
+Is this the first time you're using Admin Columns? Check out our Getting Started guide.
 
-By default WordPress let's you only sort by Title, Date, Comments and Author. This will make you be able to <strong>sort by ALL columns of ANY type</strong>. (columns that are added by other plugins are not supported)
-
-= Third party plugin support =
-
-It will work nice with other plugins and support their additional custom columns. A few examples of plugins that are supported: WordPress SEO by Yoast (Robots Meta), Post Admin Shortcuts (Pin), WP Show IDs (ID) and User Access Manager (Access), WooCommerce, Co-Authors Plus and Advanced Custom Fields.
+We offer an extensive and up-to-date [documentation](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [FAQ](http://admincolumns.com/documentation/faq/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [how-tos](http://admincolumns.com/documentation/how-to/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage) and an advanced [Developer Documentation](http://admincolumns.com/documentation/developer-docs/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage). For one-on-one support, please check out the Admin Columns Forums.
 
 = Translations =
+Thanks to the great community of translators surrounding Admin Columns, the plugin is available in many languages! To find your translation or to contribute to Admin Columns by translating it into your own language, please visit our [Transifex page](https://www.transifex.com/projects/p/admin-columns/).
 
-If you like to contrinute a language, please use <a href="https://www.transifex.com/projects/p/admin-columns/">Transifex</a>.
+= Feedback & Feature Requests =
 
-* Swedish (sv_SE) - Thanks to Fredrik Andersson
-* Danish (da_DK) - Thanks to Morten Dalgaard Johansen
-* German (de_DE) - Thanks to Uli
-* Polish (pl_PL) - Thanks to Bartosz
-* French (fr_FR) - Thanks to Alexandre Girard
-* Arabic (ar) and RTL support - thanks to Hassan
+You can leave any requests or feedback on [admincolumns.com](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=feedback&utm_campaign=cpac-pluginpage).
 
-= Upcoming releases =
+= Related Links =
 
-* We will post the <a href="https://github.com/codepress/codepress-admin-columns/issues?labels=enhancement&milestone=none&page=1&sort=updated&state=open">upcoming features on GitHub</a>.
-
-**Feedback**
-
-You can leave any <a href='http://www.admincolumns.com'>requests or feedback</a>.
-
-**Related Links:**
-
-* http://www.admincolumns.com
+* [http://admincolumns.com](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=relatedlinks&utm_campaign=cpac-pluginpage)
 
 == Installation ==
 
@@ -146,12 +178,11 @@ You can leave any <a href='http://www.admincolumns.com'>requests or feedback</a>
 
 = Is there documentation for Admin Columns? =
 
-Yes, you will find all the documentation you need on <a href="http://www.admincolumns.com/documentation">http://www.admincolumns.com/documentation</a>.
+Yes, you will find all the documentation you need on the [admincolumns.com documentation page](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
 
 = I have an idea for a great way to improve this plugin =
 
-Great! I'd love to hear from you.
-Leave your feedback at http://www.admincolumns.com/support.
+Great, we'd love to hear from you! Please leave your feature request in our [forums](http://admincolumns.com/forums/forum/feature-requests/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage)!
 
 = How can I change the thumbnail size of images? =
 
@@ -159,12 +190,7 @@ You can select a custom size for your custom field option from the Column option
 
 **my columns thumbnails still have the wrong size**
 
-If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. Use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
-
-= How can I enable the use of Hidden Custom Fields? =
-
-Go to settings tab and select the option to "show hidden custom fields".
-This will enable you to select your HIDDEN custom fields in de dropdown menu under "Custom Field:".
+If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. You can use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
 
 = How can I display a custom value in the Custom Fields Column? =
 
@@ -205,7 +231,7 @@ add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
 
 = What filters and hooks can I use? =
 
-Here you will find an overview of filters and examples: http://www.admincolumns.com/documentation
+You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
 
 == Screenshots ==
 
@@ -466,7 +492,7 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 
 = 1.1.2 =
 
-* [Added] dutch translation
+* [Added] Dutch translation
 
 = 1.1.1 =
 
@@ -485,3 +511,8 @@ Here you will find an overview of filters and examples: http://www.admincolumns.
 = 1.0 =
 
 * Initial release.
+
+== Upgrade Notice ==
+
+= 2.0 =
+Version 2.0 is a major upgrade, which is partially compatible with prior versions.
