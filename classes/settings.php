@@ -695,20 +695,25 @@ class CPAC_Settings {
 									<?php endif; ?>
 
 									<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+									<?php $url_args = array(
+										'utm_source' => 'plugin-installation',
+										'utm_medium' => 'banner',
+										'utm_campaign' => 'plugin-installation'
+									); ?>
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'Get Admin Columns Pro', 'cpac' ) ?></a>
+												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), $this->get_url( 'admincolumnspro' ) ); ?>"><?php _e( 'Get Admin Columns Pro', 'cpac' ) ?></a>
 											</h3>
 											<div class="inside">
 												<ul>
-													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo $this->get_url( 'admincolumnspro' ); ?>"><?php _e( 'Add Direct Editing', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'cpac' ); ?></a></li>
 												</ul>
 												<p>
-													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'cpac' ), $this->get_url('admincolumnspro') ); ?>
+													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'cpac' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
 												</p>
 											</div>
 										</div>
