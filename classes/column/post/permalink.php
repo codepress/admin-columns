@@ -43,7 +43,7 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 2.2
+	 * @since 2.2.1
 	 */
 	public function display_settings() {
 
@@ -53,7 +53,7 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 	/**
 	 * Display the settings field for selecting whether the column value should link to the corresponding post
 	 *
-	 * @since 2.2
+	 * @since 2.2.1
 	 */
 	public function display_field_link_to_post() {
 

@@ -246,6 +246,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.1 =
+* [Added] Option to make permalink in permalink column clickable (linking to post)
+
 = 2.2 =
 * [Added] AJAX refreshing of columns in columns settings screen
 * [Added] Support for managing columns via code instead of UI
