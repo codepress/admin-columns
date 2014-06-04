@@ -27,6 +27,7 @@ class CPAC_Settings {
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
+		add_action( 'admin_init', array( $this, 'handle_support_email' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
@@ -34,9 +35,36 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * @since 2.2.1
+	 */
+	public function handle_support_email() {
+		
+		if ( $_SERVER['REQUEST_METHOD'] != 'POST' || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'cpac-send-support-email' ) ) {
+			return;
+		}
+
+		if ( empty( $_POST['message'] ) ) {
+			return;
+		}
+
+		$message = $_POST['message'] . '<table>
+			<tr>
+				<th>Website:</th>
+				<td>' . get_site_url( '/' ) . '</td>
+			</tr>
+			<tr>
+				<th>Email:</th>
+				<td>' . get_bloginfo( 'admin_email' ) . '</td>
+			</tr>
+		</table>';
+
+		wp_mail( 'jeve0@hotmail.com', __( '[in-plugin] Support request', 'cpac' ), $message );
+	}
+
+	/**
 	 * Get available Admin Columns admin page URLs
 	 *
-	 * @since 2.3
+	 * @since 2.2
 	 * @return array Available settings URLs ([settings_page] => [url])
 	 */
 	public function get_settings_urls() {
@@ -44,7 +72,7 @@ class CPAC_Settings {
 		/**
 		 * Filter the URLs for the different settings screens available in admin columns
 		 *
-		 * @since 2.3
+		 * @since 2.2
 		 *
 		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
 		 * @param CPAC_Settings $settings_instance Settings class instance
@@ -61,7 +89,7 @@ class CPAC_Settings {
 	/**
 	 * Get the settings URL for a page
 	 *
-	 * @since 2.3
+	 * @since 2.2
 	 * @param string $page Optional. Admin page to get the URL from. Defaults to the basic Admin Columns page
 	 * @return string Settings page URL
 	 */
@@ -742,6 +770,63 @@ class CPAC_Settings {
 										<?php */ ?>
 									</div><!--pro-version-->
 									<?php endif; ?>
+
+									<div class="sidebox" id="direct-feedback">
+										<div id="feedback-choice">
+											<h3><?php _e( 'Are you happy with Admin Columns?', 'cpac' ); ?></h3>
+											<div class="inside">
+												<a href="#" class="yes">Yes</a>
+												<a href="#" class="no">No</a>
+											</div>
+										</div>
+										<div id="feedback-support">
+											<div class="inside">
+												<p><?php _e( "What's wrong? Need help? Let us know!", 'cpac' ); ?></p>
+												<form action="" method="post">
+													<?php wp_nonce_field( 'cpac-send-support-email' ); ?>
+													<textarea placeholder="<?php esc_attr_e( 'Talk to us!', 'cpac' ); ?>" name="message"></textarea>
+													<p class="description"><?php printf( __( 'Replies sent to<br/>%s', 'cpac' ), get_bloginfo( 'admin_email' ) ); ?></p>
+													<input type="submit" value="<?php esc_attr_e( 'Send', 'cpac' ); ?>" />
+												</form>
+												<div class="clear"></div>
+											</div>
+										</div>
+										<div id="feedback-rate">
+											<div class="inside">
+												<p>Woohoo! We're glad to hear that!</p>
+												<p>We would really love it if you could show your appreciation by giving us a five-star rating on WordPress.org or tweeting about Admin Columns!</p>
+												<ul class="share">
+													<li>
+														<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
+															<div class="dashicons dashicons-star-empty"></div> Rate
+														</a>
+													</li>
+
+													<li>
+														<a href="<?php echo add_query_arg( array(
+															'hashtags' => 'wordpress',
+															'text' => urlencode( "I'm using Admin Columns for WordPress!" ),
+															'url' => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
+															'via' => 'wpcolumns'
+														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
+															<div class="dashicons dashicons-twitter"></div> Tweet
+														</a>
+													</li>
+
+													<li>
+														<a href="<?php echo add_query_arg( array(
+															'utm_source' => 'plugin-installation',
+															'utm_medium' => 'feedback-button',
+															'utm_campaign' => 'plugin-installation'
+														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
+															<div class="dashicons dashicons-cart"></div> Buy Pro
+														</a>
+													</li>
+												</ul>
+												<div class="clear"></div>
+											</div>
+										</div>
+									</div>
 
 									<div class="sidebox" id="plugin-support">
 										<h3><?php _e( 'Support', 'cpac' ); ?></h3>

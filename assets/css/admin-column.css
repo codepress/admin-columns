@@ -660,7 +660,6 @@ h2.cpac-nav-tab-wrapper {
 }
 .columns-right .sidebox#pro-version .cta {
   background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
-  background-size: cover;
 }
 .columns-right .sidebox#pro-version .padding-box {
   padding: 8px 15px 0;
@@ -701,6 +700,79 @@ h2.cpac-nav-tab-wrapper {
   padding: 0 2px;
   font-size: 15px;
   text-decoration: none;
+}
+.columns-right .sidebox#direct-feedback #feedback-support,
+.columns-right .sidebox#direct-feedback #feedback-rate {
+  display: none;
+}
+.columns-right .sidebox#direct-feedback .inside > a {
+  border-radius: 4px;
+  border: 1px solid #CCC;
+  width: 48%;
+  height: 64px;
+  text-align: center;
+  line-height: 64px;
+  font-weight: bold;
+  color: #CCC;
+  display: inline-block;
+  text-decoration: none;
+}
+.columns-right .sidebox#direct-feedback .inside > a:hover {
+  background: #FAFAFA;
+}
+.columns-right .sidebox#direct-feedback .inside form textarea {
+  width: 100%;
+  height: 120px;
+}
+.columns-right .sidebox#direct-feedback .inside form input[type="submit"] {
+  float: right;
+  border-radius: 4px;
+  border: 1px solid #CCC;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 0 32px;
+  color: #CCC;
+  display: inline-block;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+.columns-right .sidebox#direct-feedback .inside form input[type="submit"]:hover {
+  background: #FAFAFA;
+}
+.columns-right .sidebox#direct-feedback .inside form p.description {
+  float: left;
+  font-size: 10px;
+}
+.columns-right .sidebox#direct-feedback .inside ul {
+  margin: 0;
+}
+.columns-right .sidebox#direct-feedback .inside ul.share li {
+  margin: 0;
+  display: block;
+  float: left;
+  margin-left: 9px;
+  width: 30%;
+}
+.columns-right .sidebox#direct-feedback .inside ul.share li a {
+  text-decoration: none;
+  vertical-align: middle;
+  line-height: 20px;
+  padding: 16px 0;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  display: block;
+}
+.columns-right .sidebox#direct-feedback .inside ul.share li a:hover {
+  background: #FAFAFA;
+}
+.columns-right .sidebox#direct-feedback .inside ul.share li:first-child {
+  margin-left: 0;
 }
 /**
  * Setting Tab
