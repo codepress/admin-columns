@@ -27,38 +27,10 @@ class CPAC_Settings {
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
-		add_action( 'admin_init', array( $this, 'handle_support_email' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
-	}
-
-	/**
-	 * @since 2.2.1
-	 */
-	public function handle_support_email() {
-		
-		if ( $_SERVER['REQUEST_METHOD'] != 'POST' || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'cpac-send-support-email' ) ) {
-			return;
-		}
-
-		if ( empty( $_POST['message'] ) ) {
-			return;
-		}
-
-		$message = $_POST['message'] . '<table>
-			<tr>
-				<th>Website:</th>
-				<td>' . get_site_url( '/' ) . '</td>
-			</tr>
-			<tr>
-				<th>Email:</th>
-				<td>' . get_bloginfo( 'admin_email' ) . '</td>
-			</tr>
-		</table>';
-
-		wp_mail( 'jeve0@hotmail.com', __( '[in-plugin] Support request', 'cpac' ), $message );
 	}
 
 	/**
@@ -782,12 +754,30 @@ class CPAC_Settings {
 										<div id="feedback-support">
 											<div class="inside">
 												<p><?php _e( "What's wrong? Need help? Let us know!", 'cpac' ); ?></p>
-												<form action="" method="post">
-													<?php wp_nonce_field( 'cpac-send-support-email' ); ?>
-													<textarea placeholder="<?php esc_attr_e( 'Talk to us!', 'cpac' ); ?>" name="message"></textarea>
-													<p class="description"><?php printf( __( 'Replies sent to<br/>%s', 'cpac' ), get_bloginfo( 'admin_email' ) ); ?></p>
-													<input type="submit" value="<?php esc_attr_e( 'Send', 'cpac' ); ?>" />
-												</form>
+												<p>We offer direct Twitter support, or you can open a support topic on WordPress.org!
+												<ul class="share">
+													<li>
+														<a href="<?php echo add_query_arg( array(
+															'text' => urlencode( '@wpcolumns ' )
+														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
+															<div class="dashicons dashicons-twitter"></div> Tweet
+														</a>
+													</li>
+													<li>
+														<a href="https://wordpress.org/support/plugin/codepress-admin-columns" target="_blank">
+															<div class="dashicons dashicons-wordpress"></div> Forums
+														</a>
+													</li>
+													<li>
+														<a href="<?php echo add_query_arg( array(
+															'utm_source' => 'plugin-installation',
+															'utm_medium' => 'feedback-docs-button',
+															'utm_campaign' => 'plugin-installation'
+														), $this->get_url( 'documentation' ) ); ?>" target="_blank">
+															<div class="dashicons dashicons-editor-help"></div> Docs
+														</a>
+													</li>
+												</ul>
 												<div class="clear"></div>
 											</div>
 										</div>
@@ -816,7 +806,7 @@ class CPAC_Settings {
 													<li>
 														<a href="<?php echo add_query_arg( array(
 															'utm_source' => 'plugin-installation',
-															'utm_medium' => 'feedback-button',
+															'utm_medium' => 'feedback-purchase-button',
 															'utm_campaign' => 'plugin-installation'
 														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
 															<div class="dashicons dashicons-cart"></div> Buy Pro

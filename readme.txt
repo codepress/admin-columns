@@ -248,6 +248,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.2.1 =
 * [Added] Option to make permalink in permalink column clickable (linking to post)
+* [Added] Direct support box in Admin Columns settings screen sidebar
 
 = 2.2 =
 * [Added] AJAX refreshing of columns in columns settings screen
