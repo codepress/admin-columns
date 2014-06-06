@@ -539,25 +539,26 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		$default_columns = $this->column_types['default'];
+		$default_columns = $this->get_default_columns();
 
 		// @todo check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
-
 			$stored_names = array();
-			foreach ( $stored_columns as $name => $options ) {
 
-				if ( ! isset( $options['type'] ) )
+			foreach ( $stored_columns as $name => $options ) {
+				if ( ! isset( $options['type'] ) ) {
 					continue;
+				}
 
 				$stored_names[] = $name;
 
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
-				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) )
+				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) ) {
 					continue;
+				}
 
 
 				// add an clone number which defines the instance
@@ -573,27 +574,28 @@ abstract class CPAC_Storage_Model {
 
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
-			if( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
-				foreach( $diff as $name ) {
-
+			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
+				foreach ( $diff as $name ) {
 					// because of the filter "manage_{$post_type}_posts_columns" the columns
 					// that are being added by CPAC will also appear in the $default_columns.
 					// this will filter out those columns.
-					if ( isset( $columns[ $name ] ) ) continue;
+					if ( isset( $columns[ $name ] ) ) {
+						continue;
+					}
 
 					// is the column registered?
-					if ( ! isset( $registered_columns[ $name ] ) ) continue;
+					if ( ! isset( $registered_columns[ $name ] ) ) {
+						continue;
+					}
 
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
 		}
-
 		// When nothing has been saved yet, we return the default WP columns.
 		else {
-
-			foreach( array_keys( $default_columns ) as $name ) {
-				if( isset( $registered_columns[ $name ] ) ) {
+			foreach ( array_keys( $default_columns ) as $name ) {
+				if ( isset( $registered_columns[ $name ] ) ) {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
