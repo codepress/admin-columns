@@ -249,6 +249,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.2.1 =
 * [Added] Option to make permalink in permalink column clickable (linking to post)
 * [Added] Direct support box in Admin Columns settings screen sidebar
+* [Added] Added filter to suppress pro add-on notice (`cpac/suppress_proaddon_notice`)
 
 = 2.2 =
 * [Added] AJAX refreshing of columns in columns settings screen

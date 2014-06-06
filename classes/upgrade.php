@@ -39,6 +39,9 @@ class CPAC_Upgrade {
 	 */
 	public function proaddon_notice() {
 
+		if ( apply_filters( 'cpac/suppress_proaddon_notice', false ) ) {
+			return;
+		}
 		?>
 		<div class="message error">
 			<p>

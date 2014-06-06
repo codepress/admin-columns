@@ -359,6 +359,7 @@ class CPAC {
 	 * @since 1.0.0
 	 */
 	public function column_styles() {
+		
 		wp_enqueue_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
 	}
 
