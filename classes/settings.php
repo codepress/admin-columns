@@ -754,18 +754,18 @@ class CPAC_Settings {
 										<div id="feedback-support">
 											<div class="inside">
 												<p><?php _e( "What's wrong? Need help? Let us know!", 'cpac' ); ?></p>
-												<p>We offer direct Twitter support, or you can open a support topic on WordPress.org!
+												<p><?php _e( 'We offer direct Twitter support, or you can open a support topic on WordPress.org!', 'cpac' ); ?></p>
 												<ul class="share">
 													<li>
 														<a href="<?php echo add_query_arg( array(
 															'text' => urlencode( '@wpcolumns ' )
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
-															<div class="dashicons dashicons-twitter"></div> Tweet
+															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'cpac' ); ?>
 														</a>
 													</li>
 													<li>
 														<a href="https://wordpress.org/support/plugin/codepress-admin-columns" target="_blank">
-															<div class="dashicons dashicons-wordpress"></div> Forums
+															<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'cpac' ); ?>
 														</a>
 													</li>
 													<li>
@@ -774,7 +774,7 @@ class CPAC_Settings {
 															'utm_medium' => 'feedback-docs-button',
 															'utm_campaign' => 'plugin-installation'
 														), $this->get_url( 'documentation' ) ); ?>" target="_blank">
-															<div class="dashicons dashicons-editor-help"></div> Docs
+															<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'cpac' ); ?>
 														</a>
 													</li>
 												</ul>
@@ -783,12 +783,12 @@ class CPAC_Settings {
 										</div>
 										<div id="feedback-rate">
 											<div class="inside">
-												<p>Woohoo! We're glad to hear that!</p>
-												<p>We would really love it if you could show your appreciation by giving us a five-star rating on WordPress.org or tweeting about Admin Columns!</p>
+												<p><?php _e( "Woohoo! We're glad to hear that!", 'cpac' ); ?></p>
+												<p><?php _e( 'We would really love it if you could show your appreciation by giving us a five-star rating on WordPress.org or tweeting about Admin Columns!', 'cpac' ); ?></p>
 												<ul class="share">
 													<li>
 														<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
-															<div class="dashicons dashicons-star-empty"></div> Rate
+															<div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'cpac' ); ?>
 														</a>
 													</li>
 
@@ -799,7 +799,7 @@ class CPAC_Settings {
 															'url' => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
 															'via' => 'wpcolumns'
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
-															<div class="dashicons dashicons-twitter"></div> Tweet
+															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'cpac' ); ?>
 														</a>
 													</li>
 
@@ -809,7 +809,7 @@ class CPAC_Settings {
 															'utm_medium' => 'feedback-purchase-button',
 															'utm_campaign' => 'plugin-installation'
 														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
-															<div class="dashicons dashicons-cart"></div> Buy Pro
+															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'cpac' ); ?>
 														</a>
 													</li>
 												</ul>
