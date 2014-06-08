@@ -31,7 +31,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		parent::__construct();
 	}
-
+	
 	/**
 	 * Get screen link
 	 *
@@ -137,17 +137,33 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
+		global $post;
+
+		// Setup post data for current post
+		$post_old = $post;
+		$post = get_post( $post_id );
+		setup_postdata( $post );
+
+		// Column value
 		$value = '';
 
 		$column = $this->get_column_by_name( $column_name );
 
 		// get value
-		if ( $column )
+		if ( $column ) {
 			$value = $column->get_value( $post_id );
+		}
 
 		// Filters
 		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );
+
+		// Reset query to old post
+		$post = $post_old;
+
+		if ( $post ) {
+			setup_postdata( $post );
+		}
 
 		echo $value;
 	}
