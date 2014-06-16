@@ -33,8 +33,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @see
-	 * @since 2.3
+	 * @since 2.2.1
 	 */
 	public function get_original_column_value( $column, $id ) {
 
@@ -128,33 +127,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') )
+		if ( ! function_exists('_get_list_table') ) {
 			return array();
-
-		//if ( ! $this->is_columns_screen() && ! $this->is_settings_page() )
-			//return array();
-
-		// You can use this filter to add thirdparty columns by hooking into this.
-		// See classes/third_party.php for an example.
-		do_action( "cac/columns/default/posts" );
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-
-        // Get the WP default columns
-		$table 	 = _get_list_table( 'WP_Posts_List_Table', array( 'screen' => $this->key ) );
-        $columns = (array) $table->get_columns();
-
-        // Get columns that have been set by other plugins. If a plugin use the hook "manage_edit-{$post_type}_columns"
-		// we know that the columns have been overwritten. Use these columns instead of the WP default ones.
-        //
-		// We have to make sure this filter only loads on the Admin Columns settings page. To prevent a loop
-		// when it's being called by CPAC_Storage_Model::add_headings()
-		if ( $this->is_settings_page() || $this->is_doing_ajax() ) {
-			if ( function_exists( 'get_column_headers' ) && ! $this->is_doing_quick_edit() ) {
-				$columns = array_merge( get_column_headers( 'edit-' . $this->key ), $columns );
-			}
 		}
 
-		return array_filter( $columns );
+		// Initialize table so it can add actions to manage_{screenid}_columns
+		_get_list_table( 'WP_Posts_List_Table', array( 'screen' => 'edit-' . $this->key ) );
+
+		// get_column_headers() runs through both the manage_{screenid}_columns
+		// and manage_{$post_type}_posts_columns filters
+		$columns = get_column_headers( 'edit-' . $this->key );
+		$columns = array_filter( $columns );
+
+		return $columns;
 	}
 
 	/**
