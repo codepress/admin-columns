@@ -70,7 +70,7 @@ abstract class CPAC_Storage_Model {
 	public $stored_columns = NULL;
 
 	/**
-	 * @since 2.3
+	 * @since 2.2
 	 * @var array
 	 */
 	public $column_types = array();
