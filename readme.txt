@@ -251,6 +251,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Direct support box in Admin Columns settings screen sidebar
 * [Added] Added filter to suppress pro add-on notice (`cpac/suppress_proaddon_notice`)
 * [Updated] Minor adjustments for WooCommerce and other third party plugin support, setting up the post object in post columns
+* [Updated] Minor update in default column retrieval for improved 3rd party plugin support
 * [Fixed] Fixed problem with column groups incorrectly handling default 3rd party columns
 
 = 2.2 =
