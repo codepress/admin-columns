@@ -28,7 +28,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
-		
+
 		parent::__construct();
 	}
 
@@ -73,7 +73,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		return $contents;
 	}
-	
+
 	/**
 	 * Get screen link
 	 *
@@ -174,11 +174,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Column value
 		$value = '';
-
-		$column = $this->get_column_by_name( $column_name );
-
-		// get value
-		if ( $column ) {
+		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $post_id );
 		}
 
