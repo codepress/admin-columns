@@ -560,7 +560,6 @@ abstract class CPAC_Storage_Model {
 					continue;
 				}
 
-
 				// add an clone number which defines the instance
 				$column = clone $registered_columns[ $options['type'] ];
 				$column->set_clone( $options['clone'] );
@@ -612,8 +611,9 @@ abstract class CPAC_Storage_Model {
 	 */
 	function get_column_by_name( $name ) {
 
-		if ( ! isset( $this->columns[ $name ] ) )
+		if ( ! isset( $this->columns[ $name ] ) ) {
 			return false;
+		}
 
 		return $this->columns[ $name ];
 	}
