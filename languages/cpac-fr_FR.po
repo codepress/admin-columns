@@ -1,14 +1,14 @@
 #
 # Translators:
 # 16kbit <code@ms-studio.net>, 2014
-# jcbrebion <pro@jcbrebion.com>, 2014
+# Jean-Christophe Brebion <pro@jcbrebion.com>, 2014
 # Etic <pub@eticweb.ca>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-05-22 17:51+0100\n"
+"PO-Revision-Date: 2014-06-17 11:49+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/admin-"
 "columns/language/fr_FR/)\n"

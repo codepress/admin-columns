@@ -1,13 +1,13 @@
 #
 # Translators:
-# fanderzzon <fidde.andersson@telia.com>, 2013-2014
-# codepress <info@codepress.nl>, 2013
+# Fredrik Andersson <fidde.andersson@telia.com>, 2013-2014
+# Tobias Schutter <info@codepress.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-05-22 17:51+0100\n"
+"PO-Revision-Date: 2014-06-17 11:49+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-"
 "columns/language/sv_SE/)\n"
@@ -25,17 +25,19 @@ msgstr ""
 
 #: ../classes/addons.php:117
 msgid "Third party plugin integration"
-msgstr ""
+msgstr "Tredjeparts plugin integration"
 
 #: ../classes/addons.php:142
 msgid "Advanced Custom Fields"
-msgstr ""
+msgstr "Advanced Custom Fields"
 
 #: ../classes/addons.php:143
 msgid ""
 "Display and edit Advanced Custom Fields fields in the posts overview in "
 "seconds!"
 msgstr ""
+"Visa och redigera Advanced Custom Fields fält vid inläggets överblick på "
+"några sekunder!  "
 
 #: ../classes/column.php:481
 msgid "Thumbnail"
@@ -161,11 +163,12 @@ msgstr "standard"
 
 #: ../classes/column/acf-placeholder.php:16
 msgid "ACF Field"
-msgstr ""
+msgstr "ACF Fält"
 
 #: ../classes/column/acf-placeholder.php:32
 msgid "This feature is only available in Admin Columns Pro - Developer."
 msgstr ""
+"Den här funktionen är endast tillgänglig i Admin Columns Pro - Utvecklare."
 
 #: ../classes/column/acf-placeholder.php:35
 #, php-format
@@ -173,6 +176,8 @@ msgid ""
 "If you have a developer licence please download & install your ACF add-on "
 "from the <a href='%s'>add-ons tab</a>."
 msgstr ""
+"Om du har en utvecklarlicens vänligen ladda ner & installera ditt ACF "
+"tillägg från <a href='%s'>fliken tillägg</a>."
 
 #: ../classes/column/acf-placeholder.php:38
 msgid ""
@@ -180,10 +185,13 @@ msgid ""
 "integeration, allowing you to easily display and edit ACF fields from within "
 "your posts overview."
 msgstr ""
+"Admins Columns Pro - Utvecklare erbjuder full integration med Advanced "
+"Custom Fields, vilket gör att du enkelt kan visa och redigera ACF fält i "
+"överblick för dina inlägg."
 
 #: ../classes/column/acf-placeholder.php:40
 msgid "Find out more"
-msgstr ""
+msgstr "Läs mer"
 
 #: ../classes/column/comment/actions.php:14
 #: ../classes/column/link/actions.php:14
@@ -611,7 +619,7 @@ msgstr "Förälder"
 
 #: ../classes/column/post/permalink.php:12
 msgid "Permalink"
-msgstr ""
+msgstr "Permalänk"
 
 #: ../classes/column/post/ping-status.php:14
 msgid "Ping status"
@@ -651,7 +659,7 @@ msgstr "Väntar på granskning"
 
 #: ../classes/column/post/status.php:37
 msgid "Auto Draft"
-msgstr ""
+msgstr "Automatiskt utkast"
 
 #: ../classes/column/post/sticky.php:14
 msgid "Sticky"
@@ -691,11 +699,11 @@ msgstr "Url"
 
 #: ../classes/settings.php:97
 msgid "Add-on successfully activated."
-msgstr ""
+msgstr "Tillägget aktiverat."
 
 #: ../classes/settings.php:100
 msgid "Add-on successfully deactivated."
-msgstr ""
+msgstr "Tillägget inaktiverat."
 
 #: ../classes/settings.php:155
 msgid "Admin Columns Settings"
@@ -918,7 +926,7 @@ msgstr "Denna webbsida använder inte tillägg"
 
 #: ../classes/settings.php:428
 msgid "See our website for Admin Columns Pro."
-msgstr ""
+msgstr "Besök vår webbsida för Admin Columns Pro."
 
 #: ../classes/settings.php:435
 msgid "Important"
@@ -1054,19 +1062,19 @@ msgstr "Inställningar"
 
 #: ../classes/settings.php:621
 msgid "Add-ons"
-msgstr ""
+msgstr "Tillägg"
 
 #: ../classes/settings.php:647
 msgid "Posttypes"
-msgstr ""
+msgstr "Posttyper"
 
 #: ../classes/settings.php:648
 msgid "Others"
-msgstr ""
+msgstr "Annat"
 
 #: ../classes/settings.php:649
 msgid "Taxonomies"
-msgstr ""
+msgstr "Taxanomier"
 
 #: ../classes/settings.php:668
 #, php-format
@@ -1074,6 +1082,8 @@ msgid ""
 "The columns for <strong>%s</strong> are set up via PHP and can therefore not "
 "be edited in the admin panel."
 msgstr ""
+"Kolumnerna för <strong>%s</strong> är inställda via PHP och kan därför inte "
+"redigeras i adminpanelen."
 
 #: ../classes/settings.php:678
 msgid "Store settings"
@@ -1098,7 +1108,7 @@ msgstr "kolumner"
 
 #: ../classes/settings.php:701
 msgid "Get Admin Columns Pro"
-msgstr ""
+msgstr "Skaffa Admin Columns Pro"
 
 #: ../classes/settings.php:705
 msgid "Add Sorting"
@@ -1114,12 +1124,12 @@ msgstr "Lägg till Import/Export"
 
 #: ../classes/settings.php:708
 msgid "Add Direct Editing"
-msgstr ""
+msgstr "Lägg till snabbredigering"
 
 #: ../classes/settings.php:711
 #, php-format
 msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Kolla <a href=\"%s\">Admin Columns Pro</a> för mer information!"
 
 #: ../classes/settings.php:742
 msgid "Support"
@@ -1149,27 +1159,27 @@ msgstr "Lägg till kolumn"
 
 #: ../classes/settings.php:853
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: ../classes/settings.php:854
 msgid "Deactivate"
-msgstr ""
+msgstr "Inaktivera"
 
 #: ../classes/settings.php:861
 msgid "Installed"
-msgstr ""
+msgstr "Installerad"
 
 #: ../classes/settings.php:862
 msgid "Activate"
-msgstr ""
+msgstr "Aktivera"
 
 #: ../classes/settings.php:876
 msgid "Download & Install"
-msgstr ""
+msgstr "Ladda ner & installera"
 
 #: ../classes/settings.php:881
 msgid "Get this add-on"
-msgstr ""
+msgstr "Skaffa detta tillägget"
 
 #: ../classes/storage_model.php:207
 msgid "settings succesfully restored."

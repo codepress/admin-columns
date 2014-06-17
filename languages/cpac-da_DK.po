@@ -1,13 +1,13 @@
 #
 # Translators:
-# mikkelbreum <mikkel@wpkitchen.com>, 2013
-# iosoftgame <support@iosoftgame.com>, 2013
+# Mikkel Breum <mikkel@wpkitchen.com>, 2013
+# Morten Dalgaard Johansen <support@iosoftgame.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-05-22 17:50+0100\n"
+"PO-Revision-Date: 2014-06-17 11:49+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/admin-"
 "columns/language/da_DK/)\n"

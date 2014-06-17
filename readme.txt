@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.2
+Stable tag: 2.2.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -253,6 +253,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Minor adjustments for WooCommerce and other third party plugin support, setting up the post object in post columns
 * [Updated] Minor update in default column retrieval for improved 3rd party plugin support
 * [Fixed] Fixed problem with column groups incorrectly handling default 3rd party columns
+* [Updated] Updated translations from Transifex
 
 = 2.2 =
 * [Added] AJAX refreshing of columns in columns settings screen
