@@ -45,24 +45,24 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		ob_start();
 
 		// Run WordPress native actions to display column content
 		if ( is_post_type_hierarchical( $this->post_type ) ) {
-			do_action( 'manage_pages_custom_column', $column_name, $id );
+			do_action( 'manage_pages_custom_column', $column, $id );
 		}
 		else {
-			do_action( 'manage_posts_custom_column', $column_name, $id );
+			do_action( 'manage_posts_custom_column', $column, $id );
 		}
 
-		do_action( "manage_{$this->post_type}_posts_custom_column", $column_name, $id );
+		do_action( "manage_{$this->post_type}_posts_custom_column", $column, $id );
 
 		$contents = ob_get_clean();
 
 		// Add removed Admin Columns action for this column's value
-		add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		// Restore original post object
 		$post = $post_old;
