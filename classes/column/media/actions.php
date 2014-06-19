@@ -3,7 +3,7 @@
 /**
  * CPAC_Column_Media_Actions
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_Media_Actions extends CPAC_Column {
 
@@ -18,7 +18,7 @@ class CPAC_Column_Media_Actions extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $id ) {
 

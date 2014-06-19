@@ -3,38 +3,38 @@
 /**
  * Storage Model
  *
- * @since 2.0.0
+ * @since 2.0
  */
 abstract class CPAC_Storage_Model {
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public $label;
 
 	/**
 	 * Identifier for Storage Model; Posttype etc.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public $key;
 
 	/**
 	 * Type of storage model; Post, Media, User or Comments
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public $type;
 
 	/**
 	 * Groups the storage model in the menu.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public $menu_type;
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @var string
 	 */
 	public $page;
@@ -76,7 +76,7 @@ abstract class CPAC_Storage_Model {
 	public $column_types = array();
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
 	abstract function get_default_columns();
@@ -118,7 +118,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array
      */
     public function get_meta_keys( $add_hidden_meta = false ) {
@@ -150,7 +150,7 @@ abstract class CPAC_Storage_Model {
 		 * Filter the available custom field meta keys
 		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 *
 		 * @param array $keys Available custom field keys
 		 * @param CPAC_Storage_Model $storage_model Storage model class instance
@@ -160,14 +160,14 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * Filter the available custom field meta keys for this storage model type
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @see Filter cac/storage_model/meta_keys
 		 */
 		return apply_filters( "cac/storage_model/meta_keys/storage_key={$this->key}", $keys, $this );
     }
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param array $fields Custom fields.
 	 * @return array Custom fields.
 	 */
@@ -198,7 +198,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function restore() {
 
@@ -211,7 +211,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function store( $columns = '' ) {
 
@@ -292,7 +292,7 @@ abstract class CPAC_Storage_Model {
 		 * Filter the available custom column types
 		 * Use this to register a custom column type
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @param array $columns Available custom columns ([class_name] => [class file path])
 		 * @param CPAC_Storage_Model $storage_model Storage model class instance
 		 */
@@ -301,7 +301,7 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * Filter the available custom column types for a specific type
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @see Filter cac/columns/custom
 		 */
 		$columns = apply_filters( 'cac/columns/custom/type=' . $this->type, $columns, $this );
@@ -309,7 +309,7 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * Filter the available custom column types for a specific type
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @see Filter cac/columns/custom
 		 */
 		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
@@ -318,7 +318,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $column_name
 	 * @param $label
 	 * @return object CPAC_Column
@@ -352,7 +352,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array Column Type | Column Instance
 	 */
 	public function get_default_registered_columns() {
@@ -378,7 +378,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array Column Type | Column Instance
 	 */
 	function get_custom_registered_columns() {
@@ -530,7 +530,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_columns() {
 
@@ -607,7 +607,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_column_by_name( $name ) {
 
@@ -619,7 +619,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
 
@@ -646,7 +646,7 @@ abstract class CPAC_Storage_Model {
 			 * Filter the column headers label for use in a WP_List_Table
 			 * Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
 			 *
-			 * @since 2.0.0
+			 * @since 2.0
 			 * @param string $label Label
 			 * @param string $column_name Column name
 			 * @param array $options Column options
@@ -683,7 +683,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return string Link
 	 */
 	protected function get_screen_link() {
@@ -692,7 +692,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function screen_link() {
 
@@ -700,7 +700,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_edit_link() {
 

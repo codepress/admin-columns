@@ -31,7 +31,7 @@ add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
 /**
  * WPML compatibility
  *
- * @since 2.0.0
+ * @since 2.0
  */
 function cac_add_wpml_columns( $storage_model ) {
 
@@ -63,7 +63,7 @@ add_action( 'cac/get_columns', 'cac_add_wpml_columns' );
 /**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
  *
- * @since 2.0.0
+ * @since 2.0
  *
  * @return array Posttypes
  */
@@ -79,7 +79,7 @@ add_filter( 'cac/post_types', 'cpac_remove_acf_from_cpac_post_types' );
 /**
  * bbPress - remove posttypes: forum, reply and topic
  *
-* @since 2.0.0
+* @since 2.0
  *
  * @return array Posttypes
  */
@@ -97,7 +97,7 @@ add_filter( 'cac/post_types', 'cpac_posttypes_remove_bbpress' );
 /**
  * Add support for All in SEO columns
  *
-* @since 2.0.0
+* @since 2.0
  */
 function cpac_load_aioseop_addmycolumns() {
 	if ( function_exists('aioseop_addmycolumns') ) {
@@ -111,7 +111,7 @@ add_action( 'cac/columns/default/posts', 'cpac_load_aioseop_addmycolumns' );
  *
  * To enable the translation of the column labels
  *
- * @since 2.0.0
+ * @since 2.0
  */
 function cpac_wpml_register_column_labels() {
 	global $cpac;
@@ -130,7 +130,7 @@ add_action( 'wp_loaded', 'cpac_wpml_register_column_labels', 99 );
 /**
  * WPML Display translated label
  *
- * @since 2.0.0
+ * @since 2.0
  */
 function cpac_wpml_set_translated_label( $label, $column_name, $column_options, $storage_model ) {
 

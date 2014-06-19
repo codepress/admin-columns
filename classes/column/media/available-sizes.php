@@ -3,7 +3,7 @@
 /**
  * CPAC_Column_Media_Available_Sizes
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
@@ -19,7 +19,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $id ) {
 		$paths = array();

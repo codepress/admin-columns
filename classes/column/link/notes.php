@@ -2,7 +2,7 @@
 /**
  * CPAC_Column_Link_Notes
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_Link_Notes extends CPAC_Column {
 
@@ -20,7 +20,7 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $id ) {
 
@@ -31,7 +31,7 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function display_settings() {
 

@@ -132,7 +132,7 @@ class CPAC {
 		 * Fires when Admin Columns is fully loaded
 		 * Use this for setting up addon functionality
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
@@ -254,7 +254,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function set_storage_models() {
 
@@ -295,14 +295,14 @@ class CPAC {
 		 * Filter the available storage models
 		 * Used by external plugins to add additional storage models
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @param array $storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
 		 */
 		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models );
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array|false object Storage Model
 	 */
 	public function get_storage_model( $key ) {
@@ -336,7 +336,7 @@ class CPAC {
 		/**
 		 * Filter the post types for which Admin Columns is active
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/post_types', $post_types );

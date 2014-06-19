@@ -3,7 +3,7 @@
 /**
  * CPAC_Column_User_Registered
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_User_Registered extends CPAC_Column {
 
@@ -20,7 +20,7 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $user_id ) {
 
@@ -43,7 +43,7 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function display_settings() {
 

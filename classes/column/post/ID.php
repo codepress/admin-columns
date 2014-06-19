@@ -2,7 +2,7 @@
 /**
  * CPAC_Column_Post_ID
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_Post_ID extends CPAC_Column {
 
@@ -16,7 +16,7 @@ class CPAC_Column_Post_ID extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
 		return $this->get_raw_value( $post_id );

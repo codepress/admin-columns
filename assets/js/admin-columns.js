@@ -66,7 +66,7 @@ function cpac_submit_form() {
  *
  * For performance we bind all other events after the click event.
  *
- * @since 2.0.0
+ * @since 2.0
  */
 jQuery.fn.column_bind_toggle = function() {
 
@@ -91,7 +91,7 @@ jQuery.fn.column_bind_toggle = function() {
 /*
  * Column: bind remove events
  *
- * @since 2.0.0
+ * @since 2.0
  */
 jQuery.fn.column_bind_remove = function() {
 
@@ -136,7 +136,7 @@ jQuery.fn.cpac_column_refresh = function() {
 /*
  * Form Events
  *
- * @since 2.0.0
+ * @since 2.0
  */
 jQuery.fn.column_bind_events = function() {
 
@@ -260,7 +260,7 @@ jQuery.fn.column_bind_events = function() {
 /*
  * Column: remove from DOM
  *
- * @since 2.0.0
+ * @since 2.0
  */
 jQuery.fn.column_remove = function() {
 	jQuery(this).addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
@@ -271,7 +271,7 @@ jQuery.fn.column_remove = function() {
 /*
  * Update clone ID
  *
- * @since 2.0.0
+ * @since 2.0
  */
 jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
@@ -334,7 +334,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 /*
  * Add Column
  *
- * @since 2.0.0
+ * @since 2.0
  */
 function cpac_add_column() {
 

@@ -177,7 +177,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get meta value
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @param string $meta Contains Meta Value
 	 * @param int $id Optional Object ID

@@ -5,7 +5,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Constructor
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function __construct( $post_type ) {
 
@@ -77,7 +77,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Get screen link
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @return string Link
 	 */
@@ -107,7 +107,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Get Label
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @return string Singular posttype name
 	 */
@@ -145,7 +145,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
      * Get Meta
      *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @return array
      */
@@ -158,7 +158,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Manage value
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @param string $column_name
 	 * @param int $post_id

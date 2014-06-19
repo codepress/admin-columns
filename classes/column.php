@@ -2,7 +2,7 @@
 /**
  * CPAC_Column class
  *
- * @since 2.0.0
+ * @since 2.0
  *
  * @param object $storage_model CPAC_Storage_Model
  */
@@ -11,31 +11,31 @@ class CPAC_Column {
 	/**
 	 * A Storage Model can be a Posttype, User, Comment, Link or Media storage type.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @var object $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
 	public $storage_model;
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @var array $options contains the user set options for the CPAC_Column object.
 	 */
 	public $options = array();
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @var object $options_default contains the options for the CPAC_Column object before they are populated with user input.
 	 */
 	protected $options_default;
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @var array $properties describes the fixed properties for the CPAC_Column object.
 	 */
 	public $properties = array();
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param int $id ID
 	 * @return string Value
 	 */
@@ -52,7 +52,7 @@ class CPAC_Column {
 	public function get_raw_value( $id ) {}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	protected function display_settings() {}
 
@@ -60,7 +60,7 @@ class CPAC_Column {
 	 * Overwrite this function in child class to sanitize
 	 * user submitted values.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $options array User submitted column options
 	 * @return array Options
 	 */
@@ -76,7 +76,7 @@ class CPAC_Column {
 	/**
 	 * An object copy (clone) is created for creating multiple column instances.
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function __clone() {
 
@@ -86,7 +86,7 @@ class CPAC_Column {
     }
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param object $storage_model CPAC_Storage_Model
 	 */
 	function __construct( CPAC_Storage_Model $storage_model ) {
@@ -122,7 +122,7 @@ class CPAC_Column {
 		 * Filter the properties of a column type, such as type and is_cloneable
 		 * Property $column_instance added in Admin Columns 2.2
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @param array $properties Column properties
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
@@ -132,7 +132,7 @@ class CPAC_Column {
 		 * Filter the properties of a column type for a specific storage model
 		 * Property $column_instance added in Admin Columns 2.2
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 * @see Filter cac/column/properties
 		 */
 		$properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $properties, $this );
@@ -183,7 +183,7 @@ class CPAC_Column {
 	 * Populate Options
 	 * Added $options parameter in 2.2
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param array $options Optional. Options to populate the storage model with. Defaults to options from database.
 	 */
 	public function populate_options( $options = NULL ) {
@@ -241,7 +241,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return array Column options
 	 */
 	public function read() {
@@ -255,7 +255,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function sanitize_label() {
 
@@ -269,7 +269,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $options array User submitted column options
 	 * @return array Options
 	 */
@@ -297,14 +297,14 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_label() {
 
 		/**
 		 * Filter the column instance label
 		 *
-		 * @since 2.0.0
+		 * @since 2.0
 		 *
 		 * @param string $label Column instance label
 		 * @param CPAC_Column $column_instance Column class instance
@@ -337,7 +337,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $id Cache ID
 	 * @param $cache_object Cache Object
 	 */
@@ -351,7 +351,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $id Cache ID ( could be a name of an addon for example )
 	 * @return false | mixed Returns either false or the cached objects
 	 */
@@ -366,7 +366,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param $id Cache ID
 	 */
 	function delete_cache( $id ) {
@@ -494,7 +494,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param string $name
 	 * @return array Image Sizes
 	 */
@@ -515,7 +515,7 @@ class CPAC_Column {
 
 	/**
 	 * @see image_resize()
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
@@ -661,7 +661,7 @@ class CPAC_Column {
 	/**
 	 * Get timestamp
 	 *
-	 * @since  2.0.0
+	 * @since  2.0
 	 * @param string $date
 	 * @return string Formatted date
 	 */
@@ -726,7 +726,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
@@ -743,7 +743,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function display_field_date_format() {
 
@@ -767,7 +767,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function display_field_excerpt_length() {
 
@@ -786,7 +786,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function display_field_preview_size() {
 
@@ -843,7 +843,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 * @param array Column Objects
 	 * @return string HTML List
 	 */
@@ -873,7 +873,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function display() {
 
@@ -909,7 +909,7 @@ class CPAC_Column {
 										/**
 										 * Fires in the meta-element for column options, which is displayed right after the column label
 										 *
-										 * @since 2.0.0
+										 * @since 2.0
 										 *
 										 * @param CPAC_Column $column_instance Column class instance
 										 */
@@ -974,7 +974,7 @@ class CPAC_Column {
 						/**
 						 * Fires directly before the custom options for a column are displayed in the column form
 						 *
-						 * @since 2.0.0
+						 * @since 2.0
 						 * @param CPAC_Column $column_instance Column class instance
 						 */
 						do_action( 'cac/column/settings_before', $this );
@@ -993,7 +993,7 @@ class CPAC_Column {
 						/**
 						 * Fires directly after the custom options for a column are displayed in the column form
 						 *
-						 * @since 2.0.0
+						 * @since 2.0
 						 * @param CPAC_Column $column_instance Column class instance
 						 */
 						do_action( 'cac/column/settings_after', $this );

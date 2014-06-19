@@ -5,7 +5,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	/**
 	 * Constructor
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function __construct() {
 
@@ -100,7 +100,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
      * Get Meta
      *
 	 * @see CPAC_Columns::get_meta_keys()
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @return array
      */

@@ -2,7 +2,7 @@
 /**
  * CPAC_Column_Comment_Author_Email
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Column_Comment_Author_Email extends CPAC_Column {
 
@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Author_Email extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function get_value( $id ) {
 

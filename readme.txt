@@ -324,7 +324,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.0.1 =
 * [Fixed] Bug which caused columns to not include properly
 
-= 2.0.0 =
+= 2.0 =
 * [Notice] Database needs an update, make sure to backup first
 * [Changed] Sortorder licence is now an Pro Add-on
 * [Changed] Some filters and hooks have been changed, see online documentation

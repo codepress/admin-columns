@@ -5,7 +5,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	/**
 	 * Constructor
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function __construct() {
 
@@ -54,7 +54,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	/**
      * Get Meta
      *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @return array
      */
@@ -67,7 +67,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	/**
 	 * Manage value
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 *
 	 * @param string $column_name
 	 * @param int $post_id

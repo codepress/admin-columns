@@ -4,7 +4,7 @@
  *
  * Class largely based on code from ACF ( thanks to Elliot Condon )
  *
- * @since 2.0.0
+ * @since 2.0
  */
 class CPAC_Upgrade {
 
@@ -16,7 +16,7 @@ class CPAC_Upgrade {
 	public $update_prevented = false;
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	function __construct( $cpac ) {
 
@@ -69,7 +69,7 @@ class CPAC_Upgrade {
 	/**
 	 * Add submenu page & scripts
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function admin_menu() {
 
@@ -83,7 +83,7 @@ class CPAC_Upgrade {
 	}
 
 	/**
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function init() {
 
@@ -149,7 +149,7 @@ class CPAC_Upgrade {
 	/**
 	 * Init Upgrade Process
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function ajax_upgrade() {
 
@@ -348,7 +348,7 @@ class CPAC_Upgrade {
 	/*
 	* Starting points of the upgrade process
 	*
-	* @since 2.0.0
+	* @since 2.0
 	*/
 	public function start_upgrade() {
 
@@ -378,7 +378,7 @@ class CPAC_Upgrade {
 	/**
 	 * Scripts
 	 *
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
