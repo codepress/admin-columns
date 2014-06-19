@@ -7,13 +7,17 @@
  */
 class CPAC_Column_User_Comment_Count extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-user_commentcount';
 		$this->properties['label']	 = __( 'Comment Count' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

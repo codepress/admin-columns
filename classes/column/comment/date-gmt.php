@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Comment_Date_Gmt extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-date_gmt';
 		$this->properties['label']	 = __( 'Date GMT', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Link_ID extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-link_id';
 		$this->properties['label']	 	= __( 'ID', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

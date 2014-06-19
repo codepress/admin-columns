@@ -7,15 +7,20 @@
  */
 class CPAC_Column_User_Registered extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-user_registered';
 		$this->properties['label']	 = __( 'Registered', 'cpac' );
 
+		// Options
 		$this->options['date_format'] = '';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

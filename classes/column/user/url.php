@@ -7,13 +7,17 @@
  */
 class CPAC_Column_User_Url extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-user_url';
 		$this->properties['label']	 = __( 'Url', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

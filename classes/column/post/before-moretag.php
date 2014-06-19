@@ -7,16 +7,20 @@
  */
 class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-before_moretag';
 		$this->properties['label']	 = __( 'Before More Tag', 'cpac' );
 
-		// define additional options
+		// Options
 		$this->options['excerpt_length'] = 15;
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

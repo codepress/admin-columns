@@ -7,16 +7,20 @@
  */
 class CPAC_Column_User_Description extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-user_description';
 		$this->properties['label']	 = __( 'Description', 'cpac' );
 
-		// define additional options
+		// Options
 		$this->options['excerpt_length'] = 30;
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

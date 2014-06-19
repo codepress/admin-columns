@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Comment_Author_Ip extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-author_ip';
 		$this->properties['label']	 = __( 'Author IP', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

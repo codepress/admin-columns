@@ -1,28 +1,28 @@
 <?php
-
 /**
  * CPAC_Column_ACF_Placeholder
  *
- * @since 1.0
+ * @since 2.2
  */
 class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 
-	private $user_settings;
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-	function __construct( $storage_model ) {
+		parent::init();
 
-		// define properties
+		// Properties
 		$this->properties['type']	 		= 'column-acf_placeholder';
 		$this->properties['label']	 		= __( 'ACF Field', 'cpac' );
 		$this->properties['is_pro_only']	= true;
-
-		// call construct
-		parent::__construct( $storage_model );
 	}
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 1.0
+	 * @since 2.2
 	 */
 	function display_settings() {
 
@@ -45,4 +45,5 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 		</div>
 		<?php
 	}
+
 }

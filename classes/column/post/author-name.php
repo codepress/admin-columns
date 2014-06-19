@@ -6,17 +6,22 @@
  */
 class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 			= 'column-author_name';
 		$this->properties['label']	 			= __( 'Display Author As', 'cpac' );
 		$this->properties['is_cloneable']		= true;
 		$this->properties['object_property']	= 'post_author';
 
-		// define additional options
+		// Options
 		$this->options['display_author_as'] = '';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

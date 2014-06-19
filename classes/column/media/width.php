@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Media_Width extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-width';
 		$this->properties['label']	 	= __( 'Width', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

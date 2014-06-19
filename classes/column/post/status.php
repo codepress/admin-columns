@@ -7,13 +7,17 @@
  */
 class CPAC_Column_Post_Status extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-status';
 		$this->properties['label']	 	= __( 'Status', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

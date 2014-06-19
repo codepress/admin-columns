@@ -7,17 +7,21 @@
  */
 class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 		= 'column-comment_count';
 		$this->properties['label']	 		= __( 'Comment count', 'cpac' );
 		$this->properties['is_cloneable']	= true;
 
-		// define additional options
+		// Options
 		$this->options['comment_status'] = '';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

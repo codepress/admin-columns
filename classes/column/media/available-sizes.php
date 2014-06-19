@@ -7,14 +7,17 @@
  */
 class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-available_sizes';
 		$this->properties['label']	 = __( 'Available Sizes', 'cpac' );
-
-		// call contruct
-		parent::__construct( $storage_model );
 	}
 
 	/**

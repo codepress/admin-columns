@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Link_Description extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-description';
 		$this->properties['label']	 	= __( 'Description', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

@@ -7,13 +7,17 @@
  */
 class CPAC_Column_Comment_Actions extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-actions';
 		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

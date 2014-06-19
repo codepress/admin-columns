@@ -7,17 +7,21 @@
  */
 class CPAC_Column_User_Post_Count extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 		= 'column-user_postcount';
 		$this->properties['label']	 		= __( 'Post Count', 'cpac' );
 		$this->properties['is_cloneable']	= true;
 
-		// define additional options
+		// Options
 		$this->options['post_type'] = '';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

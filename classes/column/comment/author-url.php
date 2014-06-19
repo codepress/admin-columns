@@ -6,12 +6,17 @@
  */
 class CPAC_Column_Comment_Author_Url extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-author_url';
 		$this->properties['label']	 = __( 'Author url', 'cpac' );
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

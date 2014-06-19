@@ -6,16 +6,21 @@
  */
 class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 		= 'column-exif_data';
 		$this->properties['label']	 		= __( 'EXIF data', 'cpac' );
 		$this->properties['is_cloneable']	= true;
 
-		// define options
+		// Options
 		$this->options['exif_datatype']	 = '';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

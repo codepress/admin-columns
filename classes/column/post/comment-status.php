@@ -7,14 +7,18 @@
  */
 class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']				= 'column-comment_status';
 		$this->properties['label']				= __( 'Comment status', 'cpac' );
 		$this->properties['object_property']	= 'comment_status';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

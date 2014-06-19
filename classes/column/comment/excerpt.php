@@ -6,16 +6,20 @@
  */
 class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
-		// define properties
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 = 'column-excerpt';
 		$this->properties['label']	 = __( 'Excerpt', 'cpac' );
 
-		// define additional options
+		// Options
 		$this->options['excerpt_length'] = 15;
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

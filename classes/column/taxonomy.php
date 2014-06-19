@@ -6,16 +6,21 @@
  */
 class CPAC_Column_Taxonomy extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+		
+		// Properties
 		$this->properties['type']			= 'column-taxonomy';
 		$this->properties['label']			= __( 'Taxonomy', 'cpac' );
 		$this->properties['is_cloneable']	= true;
 
-		// define additional options
-		$this->options['taxonomy']	= ''; // taxonomy slug
-
-		parent::__construct( $storage_model );
+		// Options
+		$this->options['taxonomy']	= ''; // Taxonomy slug
 	}
 
 	/**

@@ -6,13 +6,18 @@
  */
 class CPAC_Column_Post_Parent extends CPAC_Column {
 
-	function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']				= 'column-parent';
 		$this->properties['label']				= __( 'Parent', 'cpac' );
 		$this->properties['object_property']	= 'post_parent';
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

@@ -6,15 +6,20 @@
  */
 class CPAC_Column_Post_Permalink extends CPAC_Column {
 
-	public function __construct( $storage_model ) {
+	/**
+	 * @see CPAC_Column::init()
+	 * @since 2.3
+	 */
+	public function init() {
 
+		parent::init();
+
+		// Properties
 		$this->properties['type']	 	= 'column-permalink';
 		$this->properties['label']	 	= __( 'Permalink', 'cpac' );
 
-		// define additional options
+		// Options
 		$this->options['link_to_post'] = false;
-
-		parent::__construct( $storage_model );
 	}
 
 	/**

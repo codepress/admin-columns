@@ -12,7 +12,7 @@ class CPAC_Column {
 	 * A Storage Model can be a Posttype, User, Comment, Link or Media storage type.
 	 *
 	 * @since 2.0
-	 * @var object $storage_model contains a CPAC_Storage_Model object which the column belongs too.
+	 * @var CPAC_Storage_Model $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
 	public $storage_model;
 
@@ -36,6 +36,7 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.0
+	 *
 	 * @param int $id ID
 	 * @return string Value
 	 */
@@ -46,6 +47,7 @@ class CPAC_Column {
 	 * Not suitable for direct display, use get_value() for that
 	 *
 	 * @since 2.0.3
+	 *
 	 * @param int $id ID
 	 * @return mixed Value
 	 */
@@ -61,6 +63,7 @@ class CPAC_Column {
 	 * user submitted values.
 	 *
 	 * @since 2.0
+	 *
 	 * @param $options array User submitted column options
 	 * @return array Options
 	 */
@@ -74,26 +77,48 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Determine whether this column type should be available
+	 *
+	 * @since 2.3
+	 *
+	 * @return bool Whether the column type should be available
+	 */
+	public function apply_conditional() {
+
+		return true;
+	}
+
+	/**
 	 * An object copy (clone) is created for creating multiple column instances.
 	 *
 	 * @since 2.0
 	 */
 	public function __clone() {
 
-        // Force a copy of this->object, otherwise it will point to same object.
+		// Force a copy of this->object, otherwise it will point to same object.
 		$this->options 		= clone $this->options;
 		$this->properties 	= clone $this->properties;
-    }
-
+	}
+	
 	/**
 	 * @since 2.0
+	 *
 	 * @param object $storage_model CPAC_Storage_Model
 	 */
-	function __construct( CPAC_Storage_Model $storage_model ) {
+	public function __construct( CPAC_Storage_Model $storage_model ) {
 
 		$this->storage_model = $storage_model;
 
-		// every column contains these default properties
+		$this->init();
+		$this->after_setup();
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public function init() {
+
+		// Default properties
 		$default_properties = array(
 			'clone'				=> null,	// Unique clone ID
 			'type'				=> null,  	// Unique type
@@ -107,48 +132,15 @@ class CPAC_Column {
 			'group'				=> 'custom'
 		);
 
-		// merge arguments with defaults. turn into object for easy handling
-		$properties = array_merge( $default_properties, $this->properties );
-
-		// set column name to column type
-		$properties['name'] = $properties['type'];
-
-		// apply conditional statements wheter this column should be available or not.
-		if ( method_exists( $this, 'apply_conditional' ) ) {
-			$properties['is_registered'] = $this->apply_conditional();
+		foreach ( $default_properties as $property => $value ) {
+			$this->properties[ $property ] = $value;
 		}
 
-		/**
-		 * Filter the properties of a column type, such as type and is_cloneable
-		 * Property $column_instance added in Admin Columns 2.2
-		 *
-		 * @since 2.0
-		 * @param array $properties Column properties
-		 * @param CPAC_Column $column_instance Column class instance
-		 */
-		$properties = apply_filters( 'cac/column/properties', $properties, $this );
-
-		/**
-		 * Filter the properties of a column type for a specific storage model
-		 * Property $column_instance added in Admin Columns 2.2
-		 *
-		 * @since 2.0
-		 * @see Filter cac/column/properties
-		 */
-		$properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $properties, $this );
-
-		// convert to object for easy handling
-		$this->properties = (object) $properties;
-
-		// every column contains these default options
-		$default_options = array(
-			'label'	=> $this->properties->label,	// Label for this column.
-			'width'	=> null,						// Width for this column.
-			'state'	=> 'off'						// Active state for this column.
-		);
-
 		// Default options
-		$default_options = array_merge( $default_options, $this->options );
+		$default_options = array(
+			'width'	=> null, // Width for this column.
+			'state'	=> 'off' // Active state for this column.
+		);
 
 		/**
 		 * Filter the default options for a column instance, such as label and width
@@ -159,21 +151,52 @@ class CPAC_Column {
 		 */
 		$default_options = apply_filters( 'cac/column/default_options', $default_options, $this );
 
+		foreach ( $default_options as $option => $value ) {
+			$this->options[ $option ] = $value;
+		}
+	}
+
+	public function after_setup() {
+
+		// Column name defaults to column type
+		if ( ! isset( $this->properties['name'] ) ) {
+			$this->properties['name'] = $this->properties['type'];
+		}
+
+		// Check whether the column should be available
+		if ( ! isset( $this->properties['is_registered'] ) ) {
+			$this->properties['is_registered'] = $this->apply_conditional();
+		}
+
 		/**
-		 * Filter the default options for a column instance for a specific storage model
+		 * Filter the properties of a column type, such as type and is_cloneable
+		 * Property $column_instance added in Admin Columns 2.2
 		 *
-		 * @since 2.2
-		 * @see Filter cac/column/options
+		 * @since 2.0
+		 * @param array $properties Column properties
+		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		$default_options = apply_filters( "cac/column/default_options/storage_key={$this->storage_model->key}", $default_options, $this );
+		$this->properties = apply_filters( 'cac/column/properties', $this->properties, $this );
 
-		// merge arguments with defaults and stored options. turn into object for easy handling
-		$this->options = (object) $default_options;
+		/**
+		 * Filter the properties of a column type for a specific storage model
+		 * Property $column_instance added in Admin Columns 2.2
+		 *
+		 * @since 2.0
+		 * @see Filter cac/column/properties
+		 */
+		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties, $this );
 
-		// set default options before populating
-		$this->options_default = $this->options;
+		// Column label defaults to column type label
+		if ( ! isset( $this->options['label'] ) ) {
+			$this->options['label'] = $this->properties['label'];
+		}
 
-		// add stored options
+		// Convert properties and options arrays to object
+		$this->options = (object) $this->options;
+		$this->properties = (object) $this->properties;
+
+		// Read options from database
 		$this->populate_options();
 
 		$this->sanitize_label();
@@ -258,7 +281,6 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function sanitize_label() {
-
 		// check if original label has changed. Example WPML adds a language column, the column heading will have to display the added flag.
 		if ( $this->properties->hide_label && $this->properties->label !== $this->options->label ) {
 			$this->options->label = $this->properties->label;
@@ -661,7 +683,7 @@ class CPAC_Column {
 	/**
 	 * Get timestamp
 	 *
-	 * @since  2.0
+	 * @since 2.0
 	 * @param string $date
 	 * @return string Formatted date
 	 */
