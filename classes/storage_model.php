@@ -97,7 +97,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Checks if menu type is currently viewed
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param string $key
 	 * @return bool
 	 */
@@ -408,7 +408,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param string $key
 	 * @return array Column options
 	 */
@@ -421,7 +421,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @return array Column options
 	 */
 	public function get_stored_columns() {

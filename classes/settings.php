@@ -147,7 +147,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function settings_menu() {
 
@@ -178,7 +178,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function admin_styles() {
 		wp_enqueue_style( 'wp-pointer' );
@@ -187,7 +187,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function admin_scripts() {
 
@@ -205,7 +205,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function handle_column_request() {
 
@@ -246,7 +246,7 @@ class CPAC_Settings {
 	/**
 	 * Restore all column defaults
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	private function restore_all() {
 		global $wpdb;
@@ -318,7 +318,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
@@ -510,7 +510,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function display_settings() {
 	?>
@@ -609,7 +609,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function display() {
 

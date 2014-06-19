@@ -27,7 +27,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	/**
 	 * Get WP default supported admin columns per post type.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 *
 	 * @return array
 	 */

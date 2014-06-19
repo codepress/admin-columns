@@ -286,7 +286,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * Get meta by ID
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 *
 	 * @param int $id ID
 	 * @return string Meta Value

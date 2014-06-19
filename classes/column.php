@@ -337,7 +337,7 @@ class CPAC_Column {
 	/**
 	 * Sanitizes label using intern wordpress function esc_url so it matches the label sorting url.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param string $string
 	 * @return string Sanitized string
 	 */
@@ -425,7 +425,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param int $post_id Post ID
 	 * @return string Post Excerpt.
 	 */
@@ -451,7 +451,7 @@ class CPAC_Column {
 
 	/**
 	 * @see wp_trim_words();
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @return string Trimmed text.
 	 */
 	protected function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
@@ -495,7 +495,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @return array Image Sizes.
 	 */
 	public function get_all_image_sizes() {
@@ -566,7 +566,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param mixed $meta Image files or Image ID's
 	 * @param array $args
 	 * @return array HTML img elements
@@ -659,7 +659,7 @@ class CPAC_Column {
 	/**
 	 * Implode for multi dimensional array
 	 *
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @param string $glue
 	 * @param array $pieces
 	 * @return string Imploded array

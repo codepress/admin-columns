@@ -55,7 +55,7 @@ require_once CPAC_DIR . 'api.php';
 /**
  * The Codepress Admin Columns Class
  *
- * @since 1.0.0
+ * @since 1.0
  */
 class CPAC {
 
@@ -87,7 +87,7 @@ class CPAC {
 	private $_settings;
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	function __construct() {
 
@@ -315,7 +315,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 * @return array Posttypes
 	 */
 	public function get_post_types() {
@@ -343,7 +343,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	function add_settings_link( $links, $file ) {
 
@@ -356,7 +356,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 1.0
 	 */
 	public function column_styles() {
 
@@ -471,7 +471,7 @@ class CPAC {
 /**
  * Init Class Codepress_Admin_Columns ( sets Global for backwards compatibility. )
  *
- * @since 1.0.0
+ * @since 1.0
  */
 $GLOBALS['cpac'] = new CPAC();
 
