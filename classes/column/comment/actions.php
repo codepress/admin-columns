@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CPAC_Column_Actions
  *

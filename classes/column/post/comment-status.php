@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CPAC_Column_Post_Comment_Status
  *
