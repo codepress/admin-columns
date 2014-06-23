@@ -29,6 +29,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
+		add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
+		
 		parent::__construct();
 	}
 
@@ -131,12 +133,17 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			return array();
 		}
 
+		// You can use this filter to add thirdparty columns by hooking into this.
+		// See classes/third_party.php for an example.
+		do_action( "cac/columns/default/posts" );
+		do_action( "cac/columns/default/storage_key={$this->key}" );
+
 		// Initialize table so it can add actions to manage_{screenid}_columns
 		_get_list_table( 'WP_Posts_List_Table', array( 'screen' => 'edit-' . $this->key ) );
 
 		// get_column_headers() runs through both the manage_{screenid}_columns
 		// and manage_{$post_type}_posts_columns filters
-		$columns = get_column_headers( 'edit-' . $this->key );
+		$columns = apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
 		$columns = array_filter( $columns );
 
 		return $columns;
