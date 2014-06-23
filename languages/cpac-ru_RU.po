@@ -1,435 +1,428 @@
-#
+# 
 # Translators:
-# Hassan, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-06-23 11:39+0100\n"
-"Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/admin-columns/"
-"language/ar/)\n"
+"PO-Revision-Date: 2014-06-23 09:35+0000\n"
+"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/admin-columns/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.6.5\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../classes/addons.php:117
 msgid "Third party plugin integration"
-msgstr ""
+msgstr "Интеграция плагина третьей стороной"
 
 #: ../classes/addons.php:142
 msgid "Advanced Custom Fields"
-msgstr ""
+msgstr "Advanced Custom Fields"
 
 #: ../classes/addons.php:143
 msgid ""
 "Display and edit Advanced Custom Fields fields in the posts overview in "
 "seconds!"
-msgstr ""
+msgstr "Показать и изменить поля Advanced Custom Fields в обзорах записей в считанные секунды!"
 
 #: ../classes/column.php:481
 msgid "Thumbnail"
-msgstr "صورة مصغرة"
+msgstr "Миниатюра"
 
 #: ../classes/column.php:482
 msgid "Medium"
-msgstr "وسط"
+msgstr "Средний"
 
 #: ../classes/column.php:483
 msgid "Large"
-msgstr "كبير"
+msgstr "Большой"
 
 #: ../classes/column.php:484
 msgid "Full"
-msgstr "كامل"
+msgstr "Полный"
 
 #: ../classes/column.php:751
 msgid "Date Format"
-msgstr "تنسيق التاريخ"
+msgstr "Формат даты"
 
 #: ../classes/column.php:752
 msgid "This will determine how the date will be displayed."
-msgstr "هذا سيحدد كيف سيتم عرض التاريخ."
+msgstr "Это определяет отображение даты."
 
 #: ../classes/column.php:758
 msgid "Example:"
-msgstr "مثال:"
+msgstr "Пример:"
 
 #: ../classes/column.php:760
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr ""
-"أترك خاليا لتنسيق ووردبريس الإفتراضي للتاريخ، قم بتغيير <a href=\"%s\">تنسيق "
-"التاريخ الخاص بك هنا</a>."
+msgstr "Оставьте пустым для формата даты WordPress, измените <a href=\"%s\">default date format here</a>."
 
 #: ../classes/column.php:761
 msgid "Documentation on date and time formatting."
-msgstr "توثيق حول تنسيق التاريخ والوقت."
+msgstr "Документация по форматированию даты и времени."
 
 #: ../classes/column.php:775
 msgid "Excerpt length"
-msgstr "طول المقتطف"
+msgstr "Длина отрывка"
 
 #: ../classes/column.php:776
 msgid "Number of words"
-msgstr "عدد الكلمات"
+msgstr "Количество слов"
 
 #: ../classes/column.php:794
 msgid "Preview size"
-msgstr "حجم المعاينة"
+msgstr "Размер просмотра"
 
 #: ../classes/column.php:811 ../classes/storage_model.php:505
 msgid "Custom"
-msgstr "مخصوص"
+msgstr "Пользовательский"
 
 #: ../classes/column.php:814
 msgid "width"
-msgstr "عرض"
+msgstr "ширина"
 
 #: ../classes/column.php:817
 msgid "height"
-msgstr "إرتفاع"
+msgstr "высота"
 
 #: ../classes/column.php:831
 msgid "Before"
-msgstr "قبل"
+msgstr "Перед"
 
 #: ../classes/column.php:831
 msgid "This text will appear before the custom field value."
-msgstr "هذا النص سيظهر قبل الحقل المخصوص."
+msgstr "Этот текст появится перед значением настраиваемого поля."
 
 #: ../classes/column.php:837
 msgid "After"
-msgstr "بعد"
+msgstr "После"
 
 #: ../classes/column.php:837
 msgid "This text will appear after the custom field value."
-msgstr "هذا النص سيظهر بعد الحقل المخصوص."
+msgstr "Этот текст появится перед значением настраиваемого поля."
 
 #: ../classes/column.php:926 ../classes/column/comment/actions.php:96
 #: ../classes/column/link/actions.php:45 ../classes/column/post/actions.php:57
 #: ../classes/column/user/actions.php:66
 msgid "Edit"
-msgstr "تحرير"
+msgstr "Редактировать"
 
 #: ../classes/column.php:927 ../classes/column.php:1005
 #: ../classes/column/user/actions.php:74
 msgid "Remove"
-msgstr "إزالة"
+msgstr "Удалить"
 
 #: ../classes/column.php:945
 msgid "Type"
-msgstr "نوع"
+msgstr "Тип"
 
 #: ../classes/column.php:945
 msgid "Choose a column type."
-msgstr "اختر نوع عمود"
+msgstr "Выбрать тип колонки"
 
 #: ../classes/column.php:945 ../classes/column/comment/ID.php:12
 #: ../classes/column/link/ID.php:12 ../classes/column/media/ID.php:12
 #: ../classes/column/post/ID.php:12
 msgid "ID"
-msgstr "رقم"
+msgstr "ID"
 
 #: ../classes/column.php:955
 msgid "Label"
-msgstr "العنوان"
+msgstr "Метка"
 
 #: ../classes/column.php:955
 msgid "This is the name which will appear as the column header."
-msgstr "هذا هو الاسم الذي سيظهر كترويسة العمود."
+msgstr "Это имя, которое будет отображаться в качестве заголовка столбца."
 
 #: ../classes/column.php:962 ../classes/column/media/width.php:12
 msgid "Width"
-msgstr "عرض"
+msgstr "Ширина"
 
 #: ../classes/column.php:964 ../classes/column.php:965
 msgid "default"
-msgstr "إفتراضي"
+msgstr "по умолчанию"
 
 #: ../classes/column/acf-placeholder.php:16
 msgid "ACF Field"
-msgstr ""
+msgstr "Поле ACF"
 
 #: ../classes/column/acf-placeholder.php:32
 msgid "This feature is only available in Admin Columns Pro - Developer."
-msgstr ""
+msgstr "Эта функция доступна только для разработчиков в Admin Columns Pro."
 
 #: ../classes/column/acf-placeholder.php:35
 #, php-format
 msgid ""
 "If you have a developer licence please download & install your ACF add-on "
 "from the <a href='%s'>add-ons tab</a>."
-msgstr ""
+msgstr "Если Вы имеете лицензию разработчика, пожалуйста, загрузите и утановите Ваш ACF add-on по ссылке <a href='%s'>add-ons tab</a>."
 
 #: ../classes/column/acf-placeholder.php:38
 msgid ""
 "Admin Columns Pro - Developer offers full Advanced Custom Fields "
-"integeration, allowing you to easily display and edit ACF fields from within "
-"your posts overview."
-msgstr ""
+"integeration, allowing you to easily display and edit ACF fields from within"
+" your posts overview."
+msgstr "Admin Columns Pro - Разработчик предлагает полную интеграцию Advanced Custom Fields, что позволяет легко просматривать и редактировать ACF поля из вашего обзора сообщений."
 
 #: ../classes/column/acf-placeholder.php:40
 msgid "Find out more"
-msgstr ""
+msgstr "Узнайте больше"
 
 #: ../classes/column/comment/actions.php:14
 #: ../classes/column/link/actions.php:14
 #: ../classes/column/media/actions.php:14
 #: ../classes/column/post/actions.php:14 ../classes/column/user/actions.php:14
 msgid "Actions"
-msgstr "تطبيقات"
+msgstr "действия"
 
 #: ../classes/column/comment/actions.php:73
 #: ../classes/column/comment/actions.php:78
 msgid "Unapprove"
-msgstr "إلغاء الموافقة"
+msgstr "Отклонить"
 
 #: ../classes/column/comment/actions.php:75
 #: ../classes/column/comment/actions.php:77
 msgid "Approve"
-msgstr "موافقة"
+msgstr "Утвердить"
 
 #: ../classes/column/comment/actions.php:86
 #: ../classes/column/post/actions.php:62 ../classes/settings.php:687
 msgid "Restore"
-msgstr "استرجاع"
+msgstr "Восстановить"
 
 #: ../classes/column/comment/actions.php:90
 #: ../classes/column/post/actions.php:66
 msgid "Delete Permanently"
-msgstr "حذف نهائي"
+msgstr "Удалить полностью"
 
 #: ../classes/column/comment/actions.php:97
 #: ../classes/column/post/actions.php:58
 msgid "Quick&nbsp;Edit"
-msgstr "تحرير سريع"
+msgstr "Quick&nbsp;Edit"
 
 #: ../classes/column/comment/actions.php:98
 msgid "Reply"
-msgstr "رد"
+msgstr "Ответить"
 
 #: ../classes/column/comment/agent.php:12
 msgid "Agent"
-msgstr "عميل"
+msgstr "Агент"
 
 #: ../classes/column/comment/approved.php:12
 #: ../classes/column/post/comment-count.php:31
 msgid "Approved"
-msgstr "موافق عليه"
+msgstr "Утверждено"
 
 #: ../classes/column/comment/author-avatar.php:12
 msgid "Avatar"
-msgstr "صورة"
+msgstr "Аватар"
 
 #: ../classes/column/comment/author-email.php:12
 msgid "Author email"
-msgstr "بريد الكاتب"
+msgstr "Email автора"
 
 #: ../classes/column/comment/author-ip.php:12
 msgid "Author IP"
-msgstr "عنوان آي بي الكاتب"
+msgstr "IP автора"
 
 #: ../classes/column/comment/author-url.php:12
 msgid "Author url"
-msgstr "عنوان موقع الكاتب"
+msgstr "URL автора"
 
 #: ../classes/column/comment/author.php:12
 msgid "Author"
-msgstr "الكاتب"
+msgstr "Автор"
 
 #: ../classes/column/comment/date-gmt.php:12
 msgid "Date GMT"
-msgstr "تاريخ GMT"
+msgstr "Дата GMT"
 
 #: ../classes/column/comment/date-gmt.php:25
 #: ../classes/column/comment/date.php:25
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr "أرسل في <a href=\"%1$s\">%2$s في %3$s</a>"
+msgstr "Подтверждено на <a href=\"%1$s\">%2$s at %3$s</a>"
 
 #: ../classes/column/comment/date.php:12 ../classes/column/custom-field.php:69
 #: ../classes/settings.php:300
 msgid "Date"
-msgstr "تاريخ"
+msgstr "Дата"
 
 #: ../classes/column/comment/excerpt.php:13
 #: ../classes/column/custom-field.php:70 ../classes/column/post/excerpt.php:13
 #: ../classes/settings.php:297
 msgid "Excerpt"
-msgstr "مقتطف"
+msgstr "Отрывок"
 
 #: ../classes/column/comment/reply-to.php:12
 msgid "In Reply To"
-msgstr "ردا على"
+msgstr "В ответ на"
 
 #: ../classes/column/comment/word-count.php:12
 #: ../classes/column/post/word-count.php:12
 msgid "Word count"
-msgstr "عدد الكلمات"
+msgstr "Счетчик слов"
 
 #: ../classes/column/custom-field.php:16
 #: ../classes/column/custom-field.php:384 ../classes/settings.php:290
 msgid "Custom Field"
-msgstr "حقل مخصوص"
+msgstr "Пользовательское поле"
 
 #: ../classes/column/custom-field.php:65 ../classes/settings.php:295
 #: ../classes/storage_model.php:504
 msgid "Default"
-msgstr "إفتراضي"
+msgstr "По умолчанию"
 
 #: ../classes/column/custom-field.php:66
 msgid "Checkmark (true/false)"
-msgstr "علامة إختيار (صح/خطأ)"
+msgstr "Галочка (true/false)"
 
 #: ../classes/column/custom-field.php:67 ../classes/settings.php:304
 msgid "Color"
-msgstr "لون"
+msgstr "Цвет"
 
 #: ../classes/column/custom-field.php:68 ../classes/settings.php:305
 msgid "Counter"
-msgstr "عداد"
+msgstr "Счетчик"
 
 #: ../classes/column/custom-field.php:71 ../classes/column/link/image.php:12
 #: ../classes/settings.php:296
 msgid "Image"
-msgstr "صورة"
+msgstr "Изображение"
 
 #: ../classes/column/custom-field.php:72 ../classes/storage_model/media.php:13
 msgid "Media Library"
-msgstr "مكتبة الوسائط"
+msgstr "Медиа библиотека"
 
 #: ../classes/column/custom-field.php:73 ../classes/settings.php:298
 msgid "Multiple Values"
-msgstr "قيم متعددة"
+msgstr "Несколько значений"
 
 #: ../classes/column/custom-field.php:74 ../classes/settings.php:299
 msgid "Numeric"
-msgstr "رقمي"
+msgstr "Числовой"
 
 #: ../classes/column/custom-field.php:75
 msgid "Post Title (Post ID's)"
-msgstr "عنوان تدوينة (أرقام تدوينات)"
+msgstr "Заголовок поста (Post ID's)"
 
 #: ../classes/column/custom-field.php:76
 msgid "Username (User ID's)"
-msgstr "اسم مستخدم (أرقام مستخدمين)"
+msgstr "Имя пользователя (User ID's)"
 
 #: ../classes/column/custom-field.php:384
 msgid "Select your custom field."
-msgstr "اختر حقلك المخصوص"
+msgstr "Выберитрать пользовательское поле."
 
 #: ../classes/column/custom-field.php:394
 msgid "No custom fields available."
-msgstr "لا توجد حقول مخصوصة متوفرة."
+msgstr "Нет доступных пользовательских полей."
 
 #: ../classes/column/custom-field.php:401
 msgid "Field Type"
-msgstr "نوع الحقل"
+msgstr "Тип поля"
 
 #: ../classes/column/custom-field.php:401
 msgid "This will determine how the value will be displayed."
-msgstr "هذا سيحدد كيف سيتم عرض القيمة."
+msgstr "От этого будет зависеть, как будет отображаться значение."
 
 #: ../classes/column/link/actions.php:46
 #, php-format
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
-msgstr ""
-"انت على وشك حذف هذا الرابط '%s'\n"
-"  'إلغاء' للإيقاف، 'موافق' للحذف."
+msgstr "Вы собираетесь удалить эту ссылку '%s'\n  'Cancel' для отмены, 'OK' для удаления."
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:72
 msgid "Delete"
-msgstr "مسح"
+msgstr "Удалить"
 
 #: ../classes/column/link/description.php:12
 #: ../classes/column/media/description.php:12
 #: ../classes/column/user/description.php:14
 msgid "Description"
-msgstr "وصف"
+msgstr "Описание"
 
 #: ../classes/column/link/length.php:12
 msgid "Length"
-msgstr "طول"
+msgstr "Длина"
 
 #: ../classes/column/link/notes.php:13
 msgid "Notes"
-msgstr "ملاحظات"
+msgstr "Примечания"
 
 #: ../classes/column/link/owner.php:12
 msgid "Owner"
-msgstr "مالك"
+msgstr "Владелец"
 
 #: ../classes/column/link/rss.php:12
 msgid "Rss"
-msgstr "Rss"
+msgstr "RSS"
 
 #: ../classes/column/link/target.php:12
 msgid "Target"
-msgstr "هدف"
+msgstr "Цель"
 
 #: ../classes/column/media/alternate-text.php:12
 msgid "Alt"
-msgstr "بديل"
+msgstr "Вариант"
 
 #: ../classes/column/media/available-sizes.php:14
 msgid "Available Sizes"
-msgstr "الأحجام المتوفرة"
+msgstr "Доступные размеры"
 
 #: ../classes/column/media/available-sizes.php:37
 msgid "full size"
-msgstr "حجم كامل"
+msgstr "полный размер"
 
 #: ../classes/column/media/caption.php:12
 #: ../classes/column/media/exif-data.php:36
 msgid "Caption"
-msgstr "شرح"
+msgstr "Подпись"
 
 #: ../classes/column/media/dimensions.php:12
 msgid "Dimensions"
-msgstr "أبعاد"
+msgstr "Размеры"
 
 #: ../classes/column/media/exif-data.php:12
 msgid "EXIF data"
-msgstr "بيانات EXIF"
+msgstr "EXIF данные"
 
 #: ../classes/column/media/exif-data.php:33
 msgid "Aperture"
-msgstr "فتحة"
+msgstr "Апертура"
 
 #: ../classes/column/media/exif-data.php:34
 msgid "Credit"
-msgstr "شرف"
+msgstr "Кредит"
 
 #: ../classes/column/media/exif-data.php:35
 msgid "Camera"
-msgstr "كاميرا"
+msgstr "Камера"
 
 #: ../classes/column/media/exif-data.php:37
 msgid "Timestamp"
-msgstr "طابع زمني"
+msgstr "Временной штамп"
 
 #: ../classes/column/media/exif-data.php:38
 msgid "Copyright EXIF"
-msgstr "بيانات EXIF حق النشر"
+msgstr "Copyright EXIF"
 
 #: ../classes/column/media/exif-data.php:39
 msgid "Focal Length"
-msgstr "بعد بؤري"
+msgstr "Фокусное расстояние"
 
 #: ../classes/column/media/exif-data.php:40
 msgid "ISO"
@@ -437,269 +430,269 @@ msgstr "ISO"
 
 #: ../classes/column/media/exif-data.php:41
 msgid "Shutter Speed"
-msgstr "سرعة مصراع"
+msgstr "Скорость затвора"
 
 #: ../classes/column/media/exif-data.php:42
 msgid "Title"
-msgstr "عنوان"
+msgstr "Заголовок"
 
 #: ../classes/column/media/file-name.php:12
 msgid "File name"
-msgstr "اسم ملف"
+msgstr "Имя файла"
 
 #: ../classes/column/media/file-size.php:12
 msgid "File size"
-msgstr "حجم ملف"
+msgstr "Размер файла"
 
 #: ../classes/column/media/full-path.php:12
 msgid "Full path"
-msgstr "مسار كامل"
+msgstr "Полный путь"
 
 #: ../classes/column/media/height.php:12
 msgid "Height"
-msgstr "إرتفاع"
+msgstr "Высота"
 
 #: ../classes/column/media/mime-type.php:12
 msgid "Mime type"
-msgstr "نوع Mime"
+msgstr "MIME тип"
 
 #: ../classes/column/post/actions.php:57
 msgid "Edit this item"
-msgstr "تحرير هذا العنصر"
+msgstr "Редактировать этот объект"
 
 #: ../classes/column/post/actions.php:58
 msgid "Edit this item inline"
-msgstr "تحرير هذا العنصر داخليا"
+msgstr "Редактировать этот объект инлайн"
 
 #: ../classes/column/post/actions.php:62
 msgid "Restore this item from the Trash"
-msgstr "استعادة هذا العنصر من المهملات"
+msgstr "Восстановить этот объект из корзины"
 
 #: ../classes/column/post/actions.php:64
 msgid "Move this item to the Trash"
-msgstr "نقل هذا العنصر إلى المهملات"
+msgstr "Перенести этот объект в корзину"
 
 #: ../classes/column/post/actions.php:64
 #: ../classes/column/post/comment-count.php:34
 #: ../classes/column/post/status.php:38
 msgid "Trash"
-msgstr "المهملات"
+msgstr "Корзина"
 
 #: ../classes/column/post/actions.php:66
 msgid "Delete this item permanently"
-msgstr "حذف هذا العنصر نهائيا"
+msgstr "Удалить этот объект окончательно"
 
 #: ../classes/column/post/actions.php:71
 #, php-format
 msgid "Preview &#8220;%s&#8221;"
-msgstr "معاينة &#8220;%s&#8221;"
+msgstr "Просмотр &#8220;%s&#8221;"
 
 #: ../classes/column/post/actions.php:71
 msgid "Preview"
-msgstr "معاينة"
+msgstr "Просмотр"
 
 #: ../classes/column/post/actions.php:73
 #, php-format
 msgid "View &#8220;%s&#8221;"
-msgstr "عرض &#8220;%s&#8221;"
+msgstr "Смотреть &#8220;%s&#8221;"
 
 #: ../classes/column/post/actions.php:73 ../classes/storage_model.php:701
 msgid "View"
-msgstr "عرض"
+msgstr "Смотреть"
 
 #: ../classes/column/post/attachment-count.php:12
 msgid "No. of Attachments"
-msgstr "عدد المرفقات"
+msgstr "Кол-во приложений"
 
 #: ../classes/column/post/attachment.php:12
 msgid "Attachment"
-msgstr "مرفق"
+msgstr "Приложение"
 
 #: ../classes/column/post/author-name.php:12
 msgid "Display Author As"
-msgstr "عرض الكاتب كـ"
+msgstr "Показать автора как"
 
 #: ../classes/column/post/author-name.php:34
 msgid "Display Name"
-msgstr "اسم العرض"
+msgstr "Отображаемое имя"
 
 #: ../classes/column/post/author-name.php:35
 msgid "First Name"
-msgstr "الاسم الأول"
+msgstr "Имя"
 
 #: ../classes/column/post/author-name.php:36
 msgid "Last Name"
-msgstr "الاسم الأخير"
+msgstr "Фамилия"
 
 #: ../classes/column/post/author-name.php:37
 #: ../classes/column/user/nickname.php:14
 msgid "Nickname"
-msgstr "الاسم المستعار"
+msgstr "Ник"
 
 #: ../classes/column/post/author-name.php:38
 msgid "User Login"
-msgstr "اسم الدخول"
+msgstr "Логин пользователя"
 
 #: ../classes/column/post/author-name.php:39
 msgid "User Email"
-msgstr "بريد المستخدم"
+msgstr "Email пользователя"
 
 #: ../classes/column/post/author-name.php:40 ../classes/column/user/ID.php:14
 msgid "User ID"
-msgstr "رقم المستخدم"
+msgstr "ID пользователя"
 
 #: ../classes/column/post/author-name.php:41
 msgid "First and Last Name"
-msgstr "الاسم الأول والأخير"
+msgstr "Имя и Фамилия"
 
 #: ../classes/column/post/author-name.php:118
 msgid "This is the format of the author name."
-msgstr "هذا هو تنسيق اسم الكاتب."
+msgstr "Формат имени автора."
 
 #: ../classes/column/post/before-moretag.php:14
 msgid "Before More Tag"
-msgstr "قبل وسم المزيد"
+msgstr "Перед тэгом \"Подробнее\""
 
 #: ../classes/column/post/comment-count.php:14
 msgid "Comment count"
-msgstr "عدد التعليقات"
+msgstr "Счетчик комментариев"
 
 #: ../classes/column/post/comment-count.php:30
 msgid "Total"
-msgstr "المجموع"
+msgstr "Всего"
 
 #: ../classes/column/post/comment-count.php:32
 msgid "Pending"
-msgstr "بالانتظار"
+msgstr "В ожидании"
 
 #: ../classes/column/post/comment-count.php:33
 msgid "Spam"
-msgstr "مزعج"
+msgstr "Спам"
 
 #: ../classes/column/post/comment-count.php:95
 #: ../classes/column/post/comment-status.php:14
 msgid "Comment status"
-msgstr "حالة التعليق"
+msgstr "Статус комментария"
 
 #: ../classes/column/post/comment-count.php:95
 msgid "Select which comment status you like to display."
-msgstr "اختر حالة التعليق الذي تريد عرضه."
+msgstr "Выберите статус комментария для отображения."
 
 #: ../classes/column/post/featured-image.php:14
 msgid "Featured Image"
-msgstr "الصورة المميزة"
+msgstr "Рекомендуемые изображения"
 
 #: ../classes/column/post/formats.php:14
 msgid "Post Format"
-msgstr "تنسيق التدوينة"
+msgstr "Формат сообщения"
 
 #: ../classes/column/post/modified.php:14
 msgid "Last modified"
-msgstr "آخر تحديث"
+msgstr "Изменен"
 
 #: ../classes/column/post/order.php:14
 msgid "Page Order"
-msgstr "ترتيب الصفحة"
+msgstr "Порядок страницы"
 
 #: ../classes/column/post/page-template.php:12
 msgid "Page Template"
-msgstr "قالب الصفحة"
+msgstr "Шаблон страницы"
 
 #: ../classes/column/post/parent.php:12
 msgid "Parent"
-msgstr "الأب"
+msgstr "Родитель"
 
 #: ../classes/column/post/permalink.php:12
 msgid "Permalink"
-msgstr ""
+msgstr "Постоянная ссылка"
 
 #: ../classes/column/post/ping-status.php:14
 msgid "Ping status"
-msgstr "حالة التنبيه"
+msgstr "Ping статус"
 
 #: ../classes/column/post/roles.php:14
 msgid "Roles"
-msgstr "الأدوار"
+msgstr "Роли"
 
 #: ../classes/column/post/slug.php:12
 msgid "Slug"
-msgstr "الاسم اللطيف"
+msgstr "Ссылка"
 
 #: ../classes/column/post/status.php:14
 msgid "Status"
-msgstr "الحالة"
+msgstr "Статус"
 
 #: ../classes/column/post/status.php:32
 msgid "Published"
-msgstr "منشور"
+msgstr "Опубликовано"
 
 #: ../classes/column/post/status.php:33
 msgid "Draft"
-msgstr "مسودة"
+msgstr "Черновик"
 
 #: ../classes/column/post/status.php:34
 msgid "Scheduled"
-msgstr "مجدول"
+msgstr "Запланировано"
 
 #: ../classes/column/post/status.php:35
 msgid "Private"
-msgstr "خاص"
+msgstr "Приватно"
 
 #: ../classes/column/post/status.php:36
 msgid "Pending Review"
-msgstr "بانتظار المراجعة"
+msgstr "Ожидается отзыв"
 
 #: ../classes/column/post/status.php:37
 msgid "Auto Draft"
-msgstr ""
+msgstr "Авто черновик"
 
 #: ../classes/column/post/sticky.php:14
 msgid "Sticky"
-msgstr "لاصق"
+msgstr "Липучка"
 
 #: ../classes/column/taxonomy.php:12 ../classes/column/taxonomy.php:101
 msgid "Taxonomy"
-msgstr "التصنيف"
+msgstr "Таксономия"
 
 #: ../classes/column/user/comment-count.php:14
 msgid "Comment Count"
-msgstr "عدد التعليقات"
+msgstr "Счетчик комментариев"
 
 #: ../classes/column/user/first-name.php:14
 msgid "First name"
-msgstr "الاسم الأول"
+msgstr "Имя"
 
 #: ../classes/column/user/last-name.php:14
 msgid "Last name"
-msgstr "الاسم الأخير"
+msgstr "Фамилия"
 
 #: ../classes/column/user/post-count.php:14
 msgid "Post Count"
-msgstr "عدد التدوينات"
+msgstr "Счетчик сообщений"
 
 #: ../classes/column/user/post-count.php:99
 msgid "Post Type"
-msgstr "نوع تدوبنة"
+msgstr "Тип сообщения"
 
 #: ../classes/column/user/registered.php:14
 msgid "Registered"
-msgstr "مسجل"
+msgstr "Зарегестрировано"
 
 #: ../classes/column/user/url.php:14
 msgid "Url"
-msgstr "عنوان موقع"
+msgstr "URL"
 
 #: ../classes/settings.php:97
 msgid "Add-on successfully activated."
-msgstr ""
+msgstr "Дополнение успешно активировано."
 
 #: ../classes/settings.php:100
 msgid "Add-on successfully deactivated."
-msgstr ""
+msgstr "Дополнение успешно деактивировано."
 
 #: ../classes/settings.php:155
 msgid "Admin Columns Settings"
-msgstr "إعدادات Admin Columns"
+msgstr "Настройки Admin Columns"
 
 #: ../classes/settings.php:155 ../classes/settings.php:619
 #: ../classes/upgrade.php:83
@@ -709,105 +702,93 @@ msgstr "Admin Columns"
 #: ../classes/settings.php:203
 #, php-format
 msgid "%s column is already present and can not be duplicated."
-msgstr "عمود %s موجود بالفعل ولا يمكن استنساخه."
+msgstr "%s колонка уже существует и не может быть продублирована."
 
 #: ../classes/settings.php:256
 msgid "Default settings succesfully restored."
-msgstr "تمت إستعادة الإعدادات الإفتراضية بنجاح."
+msgstr "Настройки по умолчанию успешно восстановлены."
 
 #: ../classes/settings.php:273
 msgid "Overview"
-msgstr "نظرة عامة"
+msgstr "Обзор"
 
 #: ../classes/settings.php:276
 msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
-msgstr ""
-"هذا البرنامج هو لإضافة وإزالة أعمدة إضافية في الشاشات الإدارية لـ(أنواع) "
-"التدوينات، الصفحات، مكتبة الوسائط، التعليقات، الوصلات والمستخدمين. قم بتغيير "
-"تسمية الأعمدة وإعادة ترتيبها."
+msgstr "Этот плагин предназначен для добавления и удаления дополнительных столбцов на экраны администрирования для записей, страниц, библиотеки, комментариев, ссылок и пользователей. Изменяйте метки столбцов и изменяйте их порядок."
 
 #: ../classes/settings.php:279
 msgid "Basics"
-msgstr "مبادئ"
+msgstr "Основы"
 
 #: ../classes/settings.php:281
 msgid "Change order"
-msgstr "تغيير الترتيب"
+msgstr "Изменить порядок"
 
 #: ../classes/settings.php:282
 msgid ""
 "By dragging the columns you can change the order which they will appear in."
-msgstr "عن طريق سحب الأعمدة يمكنك تغيير ترتيب الذي سوف تظهر فيه."
+msgstr "Перетаскивая столбцы, Вы можете изменить порядок их расположения."
 
 #: ../classes/settings.php:283
 msgid "Change label"
-msgstr "تغيير العنوان"
+msgstr "Изменить метку"
 
 #: ../classes/settings.php:284
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr ""
-"بالنقر على المثلث سترى خيارات العمود. هنا يمكنك تغيير تسمية ترويسات الأعمدة."
+msgstr "Нажав на треугольник, вы увидите настройки колонки. Здесь вы можете изменить метки заголовков колонок."
 
 #: ../classes/settings.php:285
 msgid "Change column width"
-msgstr "تغيير عرض العمود"
+msgstr "Изменить ширину столбца"
 
 #: ../classes/settings.php:286
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
-msgstr ""
-"بالنقر على المثلث سترى خيارات العمود. باستخدام شريط التمرير القابل للسحب "
-"يمكنك تعيين عرض الأعمدة بالنسب المئوية."
+msgstr "Нажав на треугольник вы увидите настройки колонки. С помощью перетаскивания ползунка можно установить ширину столбцов в процентах."
 
 #: ../classes/settings.php:292
 msgid "'Custom Field' column"
-msgstr "عمود 'حقل مخصوص'"
+msgstr "Столбец 'Custom Field'"
 
 #: ../classes/settings.php:293
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr ""
-"يستخدم عمود الحقل المخصوص الحقول المخصوصة من التدوينات والمستخدمين. هناك 10 "
-"أنواع يمكنك تعيينها."
+msgstr "Столбец пользовательского поля использует поля постов и пользователей. Существует 10 типов, которые вы можете установить."
 
 #: ../classes/settings.php:295
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr ""
-"قيمة: يمكن أن تكون إما سلسلة أو مصفوفة. سيتم تسطيح المصفوفات ويتم فصل القيم "
-"بـ '،' فاصلة."
+msgstr "Значение: Может быть строкой или массивом. Массив будет сведен и значения будут разделяться ',' запятой."
 
 #: ../classes/settings.php:296
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr ""
-"قيمة: يجب أن يحتوي عنوان URL للصورة أو معرفات المرفقات (مفصولة بـ '،' فاصلة)."
+msgstr "Значение: должно содержать URL изображения или Attachment IDs, (разделенные ',' запятой)."
 
 #: ../classes/settings.php:297
 msgid "Value: This will show the first 20 words of the Post content."
-msgstr "قيمة: سيقوم هذا بإظهار أول 20 كلمة من محتوى التدوينة."
+msgstr "Значение: Это покажет первые 20 слов содержания поста."
 
 #: ../classes/settings.php:298
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) array."
-msgstr "قيمة: يجب أن يكون مصفوفة. هذا سوف يسطح أي مصفوفة (متعددة الأبعاد)."
+"Value: should be an array. This will flatten any ( multi dimensional ) "
+"array."
+msgstr "Значение: должно быть массивом. Будут сведены любые многомерные масиивы."
 
 #: ../classes/settings.php:299
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr ""
-"القيمة: الأعداد الصحيحة فقط <br/> إذا كان لديك 'ملحق الترتيب' سيتم استخدام "
-"هذه للترتيب، بحيث يمكنك ترتيب تدويناتك على القيم الرقمية (الحقل المخصوص)."
+msgstr "Значение:. Целые только <br/> Если у вас есть 'сортировочный аддон', то будут использоваться для сортировки, так что вы можете сортировать свои сообщения по числовым значениям пользовательских полей."
 
 #: ../classes/settings.php:300
 #, php-format
@@ -815,438 +796,411 @@ msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
-msgstr ""
-"قيمة: يمكن أن تكون طابع يونكس زمني أو تنسيق تاريخ كما هو موضح في <a "
-"href='%s'>Codex</a>. يمكنك تغيير تنسيق التاريخ المخرج من صفحة <a "
-"href='%s'>الإعدادات العامة</a>."
+msgstr "Value: Может быть Unix-штамп времени или формат даты, как описано в <a href='%s'>Кодексе</a>. Вы можете изменить выходной формат даты на странице <a href='%s'>общих настроек</a>."
 
 #: ../classes/settings.php:301
 msgid "Post Titles"
-msgstr "عناوين تدوينات"
+msgstr "Заголовки постов"
 
 #: ../classes/settings.php:301
 msgid "Value: can be one or more Post ID's (seperated by ',')."
-msgstr "قيمة: يمكن أن تكون رقم تدوينة واحدة أو أكثر (مفصولة بـ',')."
+msgstr "Значение: может быть оно или несколько Post ID, разделенных ','."
 
 #: ../classes/settings.php:302
 msgid "Usernames"
-msgstr "أسماء مستخدمين"
+msgstr "Имена пользователей"
 
 #: ../classes/settings.php:302
 msgid "Value: can be one or more User ID's (seperated by ',')."
-msgstr "قيمة: يمكن أن تكون رقم مستخدم واحد أو أكثر (مفصولة بـ',')."
+msgstr "Значение: может быть оно или несколько Post ID, разделенных ','."
 
 #: ../classes/settings.php:303
 msgid "Checkmark"
-msgstr "علامة اختيار"
+msgstr "Галочка"
 
 #: ../classes/settings.php:303
 msgid "Value: should be a 1 (one) or 0 (zero)."
-msgstr "قيمة: يجب أن تكون 1 (واحد) أو 0 (صفر)."
+msgstr "Значение: должно быть 1 или 0."
 
 #: ../classes/settings.php:304
 msgid "Value: hex value color, such as #808080."
-msgstr "قيمة: لون بقيمة عشرية، مثل 808080#."
+msgstr "Значение: значение цвета в HEX-формате, например #808080."
 
 #: ../classes/settings.php:305
 msgid ""
 "Value: Can be either a string or array. This will display a count of the "
 "number of times the meta key is used by the item."
-msgstr ""
-"القيمة: يمكن أن يكون إما سلسلة أو مجموعة. هذا سيعرض عدد مرات استخدام المفتاح "
-"من قبل العنصر."
+msgstr "Значение: Может быть строкой или массивом. Это покажет какое количества раз мета ключ использовался объектом."
 
 #: ../classes/settings.php:399
 msgid "Welcome to Admin Columns"
-msgstr "مرحبا في Admin Columns"
+msgstr "Добро пожаловать в Admin Columns"
 
 #: ../classes/settings.php:402
 msgid "Thank you for updating to the latest version!"
-msgstr "شكرا لك على التحديث للنسخة الأخيرة!"
+msgstr "Спасибо за обновление до последней версии!"
 
 #: ../classes/settings.php:403
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
-msgstr ""
-"Admin Columns أصبحت مصقولة وممتعة أكثر من أي وقت مضى. نأمل أن تنال إعجابكم."
+msgstr "Admin Columns сейчас более изысканный и приятный, чем когда-либо прежде. Мы надеемся, вам понравится."
 
 #: ../classes/settings.php:408
 msgid "What’s New"
-msgstr "ما الجديد"
+msgstr "Что нового"
 
 #: ../classes/settings.php:409
 msgid "Changelog"
-msgstr "سجل التغييرات"
+msgstr "История изменений"
 
 #: ../classes/settings.php:414
 msgid "Addons"
-msgstr "إضافات"
+msgstr "Дополнения"
 
 #: ../classes/settings.php:416
 msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr ""
-"يتم تنشيط الملحقات الآن عن طريق تحميل وتثبيت الإضافات الفردية. على الرغم من "
-"أنه لن يتم استضافة هذه الإضافات على مستودع wordpress.org، سوف تستمر كل إضافة "
-"بتلقي التحديثات بالطريقة المعتادة."
+msgstr "Дополнения теперь активируются путем загрузки и установки отдельных плагинов. Хотя эти плагины не будут размещаться в хранилище wordpress.org, каждое дополнение будет продолжать получать обновления в обычном порядке."
 
 #: ../classes/settings.php:419
 msgid ""
 "This website uses the Sortorder Addon. This addon needs to be downloaded."
-msgstr "هذا الموقع يستخدم ملحق الترتيب. يجب تنزيل هذه الإضافة."
+msgstr "Этот сайт использует дополнение Sortorder. Это дополнение требует загрузки."
 
 #: ../classes/settings.php:422
 msgid "Addons are seperate plugins which need to be downloaded."
-msgstr "الملحقات هي إضافات منفصلة يجب تنزيلها."
+msgstr "Дополнения являются отдельными плагинами, которые должны быть загружены."
 
 #: ../classes/settings.php:422
 msgid "Download your Addons"
-msgstr "قم بتنزيل إضافاتك"
+msgstr "Загрузите ваши дополнения"
 
 #: ../classes/settings.php:428
 msgid "This website does not use add-ons"
-msgstr "هذا الموقع لا يستخدم ملحقات"
+msgstr "Этот сайт не использует дополнения"
 
 #: ../classes/settings.php:428
 msgid "See our website for Admin Columns Pro."
-msgstr ""
+msgstr "Смотрите наш сайт Admin Columns Pro."
 
 #: ../classes/settings.php:435
 msgid "Important"
-msgstr "مهم"
+msgstr "Важно"
 
 #: ../classes/settings.php:437
 msgid "Database Changes"
-msgstr "تغييرات قاعدة البيانات"
+msgstr "Изменения базы данных"
 
 #: ../classes/settings.php:438
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you "
-"can still roll back to version 1x without any issues."
-msgstr ""
-"تم تغيير قاعدة البيانات بين الإصدارات 1 و 2. ولكن حرصنا على ألا يزال بإمكانك "
-"الرجوع إلى إصدار 1x دون أية مشاكل."
+"The database has been changed between versions 1 and 2. But we made sure you"
+" can still roll back to version 1x without any issues."
+msgstr "База данных была изменена между версиями 1 и 2. Но мы убедились, что вы все еще можете вернуться к версии 1х без каких-либо проблем."
 
 #: ../classes/settings.php:441
 msgid "Make sure you backup your database and then click"
-msgstr "تأكد من عمل نسخة احتياطية لقاعدة بياناتك ثم انقر"
+msgstr "Убедитесь, что вы сделали резервную копию базы данных, а затем нажмите"
 
 #: ../classes/settings.php:441 ../classes/upgrade.php:91
 msgid "Upgrade Database"
-msgstr "تحديث قاعدة البيانات"
+msgstr "Обновить базу данных"
 
 #: ../classes/settings.php:444
 msgid "Potential Issues"
-msgstr "مشاكل محتملة"
+msgstr "Потенциальные проблемы"
 
 #: ../classes/settings.php:445
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and action/"
-"filters, your website may not operate correctly. It is important that you "
-"read the full"
-msgstr ""
-"نسبة إلى إعادة بناء كود الإضافة بشكل كبير، وكذلك الملحاقت والدوال، قد لا "
-"يعمل موقع الويب الخاص بك بشكل صحيح. من المهم أن تقرأ بشكل كامل"
+"Do to the sizable refactoring the code, surounding Addons and "
+"action/filters, your website may not operate correctly. It is important that"
+" you read the full"
+msgstr "Сделав значительную реорганизацию кода плагинов и фильтров, ваш сайт может работать неправильно. Важно, чтобы вы прочитали полное"
 
 #: ../classes/settings.php:445
 msgid "Migrating from v1 to v2"
-msgstr "الانتقال من النسخة 1 إلى النسخة 2"
+msgstr "Переход от v1 до v2"
 
 #: ../classes/settings.php:445
 msgid "guide to view the full list of changes."
-msgstr "توجيه لعرض القائمة الكاملة للتغييرات."
+msgstr "руководство, чтобы увидеть полный список изменений."
 
 #: ../classes/settings.php:445
 #, php-format
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr ""
-"عندما تجد أخطاء الرجاء <a href=\"%s\">التبيلغ عنها لنا</a> لكي نتمكن من "
-"إصلاحها في النسخة القادمة."
+msgstr "Если вы обнаружите ошибки, пожалуйста, <a href=\"%s\">сообщите о них нам</a>, чтобы мы исправили их в следующем выпуске."
 
 #: ../classes/settings.php:448
 msgid "Important!"
-msgstr "مهم!"
+msgstr "Важно!"
 
 #: ../classes/settings.php:448
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
-msgstr ""
-"إذا قمت بتحديث Admin Columns دون معرفة مسبقة بهذه التغييرات، فالرجاء الرجوع "
-"لآخر"
+msgstr "Если вы обновили плагин Admin Columns без предварительного знания о таких изменениях, пожалуйста сделайте откат к последней"
 
 #: ../classes/settings.php:448
 msgid "version 1"
-msgstr "النسخة 1"
+msgstr "версии 1"
 
 #: ../classes/settings.php:448
 msgid "of this plugin."
-msgstr "من هذه الإضافة"
+msgstr "этого плагина."
 
 #: ../classes/settings.php:454
 msgid "Changelog for"
-msgstr "سجل التغييرات لـ"
+msgstr "История изменений для"
 
 #: ../classes/settings.php:469
 msgid "Learn more"
-msgstr "تعلم المزيد"
+msgstr "Изучить больше"
 
 #: ../classes/settings.php:479
 msgid "Start using Admin Columns"
-msgstr "البدء باستخدام Admin Columns"
+msgstr "начать, используя Admin Columns"
 
 #: ../classes/settings.php:522
 msgid "General Settings"
-msgstr "إعدادات عامة"
+msgstr "Общие настройки"
 
 #: ../classes/settings.php:523
 msgid "Customize your Admin Columns settings."
-msgstr "قم بتخصيص إعدادات Admin Columns."
+msgstr "Настроить параметры Admin Columns."
 
 #: ../classes/settings.php:546
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr ""
-"إظهار زر \"تحرير الأعمدة\" على الشاشات الإدارية. الإفتراضي هو <code>لا</"
-"code>."
+msgstr "Показать кнопку \"Edit Columns\" на административных экранах. По умолчанию - <code>off</code>."
 
 #: ../classes/settings.php:553 ../classes/settings.php:682
 msgid "Save"
-msgstr "حفظ"
+msgstr "Сохранить"
 
 #: ../classes/settings.php:593
 msgid "Restore Settings"
-msgstr "استرجاع الإعدادات"
+msgstr "Восстановить настройки"
 
 #: ../classes/settings.php:594
 msgid "This will delete all column settings and restore the default settings."
-msgstr "سيؤدي هذا إلى حذف كافة إعدادات الأعمدة واستعادة الإعدادات الإفتراضية."
+msgstr "Это удалит все настройки столбцов и восстановит настройки по умолчанию."
 
 #: ../classes/settings.php:600
 msgid "Restore default settings"
-msgstr "استرجاع الإعدادات الإفتراضية"
+msgstr "Восстановить настройки по умолчанию"
 
 #: ../classes/settings.php:600
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr ""
-"تحذير! كافة بيانات الأعمدة المحفوظة سيتم حذفها. لا يمكن التراجع عن هذا. "
-"\\'موافق\\' للحذف، \\'إلغاء\\' للإيقاف"
+msgstr "Предупреждение! Все сохраненные данные колонки администратора будут удалены. Это не может быть отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
 
 #: ../classes/settings.php:620 ../codepress-admin-columns.php:354
 msgid "Settings"
-msgstr "إعدادات"
+msgstr "Настройки"
 
 #: ../classes/settings.php:621
 msgid "Add-ons"
-msgstr ""
+msgstr "Дополнения"
 
 #: ../classes/settings.php:647
 msgid "Posttypes"
-msgstr ""
+msgstr "Типы постов"
 
 #: ../classes/settings.php:648
 msgid "Others"
-msgstr ""
+msgstr "Другое"
 
 #: ../classes/settings.php:649
 msgid "Taxonomies"
-msgstr ""
+msgstr "Таксономии"
 
 #: ../classes/settings.php:668
 #, php-format
 msgid ""
-"The columns for <strong>%s</strong> are set up via PHP and can therefore not "
-"be edited in the admin panel."
-msgstr ""
+"The columns for <strong>%s</strong> are set up via PHP and can therefore not"
+" be edited in the admin panel."
+msgstr "Столбцы для <strong>%s</strong> устанавливаются через PHP и поэтому не могут быть отредактированы в админ-панели."
 
 #: ../classes/settings.php:678
 msgid "Store settings"
-msgstr "حفظ الإعدادات"
+msgstr "Настройки памяти"
 
 #: ../classes/settings.php:682
 msgid "Update"
-msgstr "تحديث"
+msgstr "Обновить"
 
 #: ../classes/settings.php:686
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
-"\\' to delete, \\'Cancel\\' to stop"
-msgstr ""
-"تحذير! بيانات أعمدة %s سيتم حذفها. لا يمكن التراجع عن هذا. \\'موافق\\' "
-"للحذف، \\'إلغاء\\' للإيقاف"
+"Warning! The %s columns data will be deleted. This cannot be undone. "
+"\\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "Предупреждение! Столбцы данных в %s будут удалены. Это не может быть отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
 
 #: ../classes/settings.php:687
 msgid "columns"
-msgstr "أعمدة"
+msgstr "столбцы"
 
 #: ../classes/settings.php:701
 msgid "Get Admin Columns Pro"
-msgstr ""
+msgstr "Получить Admin Columns Pro"
 
 #: ../classes/settings.php:705
 msgid "Add Sorting"
-msgstr "أضف ترتيب"
+msgstr "Добавить сортировку"
 
 #: ../classes/settings.php:706
 msgid "Add Filtering"
-msgstr "أضف تصفية"
+msgstr "Добавить фильтрацию"
 
 #: ../classes/settings.php:707
 msgid "Add Import/Export"
-msgstr "أضف استيراد/تصدير"
+msgstr "Добавить Импорт/Экспорт"
 
 #: ../classes/settings.php:708
 msgid "Add Direct Editing"
-msgstr ""
+msgstr "Добавить Прямое редактирование"
 
 #: ../classes/settings.php:711
 #, php-format
 msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Проверьте <a href=\"%s\">Admin Columns Pro</a> для получения подробной информации!"
 
 #: ../classes/settings.php:742
 msgid "Support"
-msgstr "دعم"
+msgstr "Поддержка"
 
 #: ../classes/settings.php:745
 msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr ""
-"تحقق من قسم <strong>المساعدة</strong> في الجانب العلوي الأيسر من الشاشة."
+msgstr "Проверьте раздел <strong>Помощь</strong> в правом верхнем углу."
 
 #: ../classes/settings.php:748
 #, php-format
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
-msgstr ""
-"للحصول على الوثائق الكاملة، تقارير الأخطاء، اقتراحات الميزات وغيرها من "
-"النصائح <a href='%s'>قم بزيارة موقع Admin Columns</a>"
+msgstr "Для получения полной документации, отчетов об ошибках, особых предложений и других материалов <a href='%s'>посетите сайт Admin Columns</a>"
 
 #: ../classes/settings.php:777
 msgid "Drag and drop to reorder"
-msgstr "قم بالسحب والإلقاء لإعادة الترتيب"
+msgstr "Перетащите, чтобы изменить порядок"
 
 #: ../classes/settings.php:780
 msgid "Add Column"
-msgstr "أضف عمود"
+msgstr "Добавить столбец"
 
 #: ../classes/settings.php:853
 msgid "Active"
-msgstr ""
+msgstr "Активно"
 
 #: ../classes/settings.php:854
 msgid "Deactivate"
-msgstr ""
+msgstr "Деактивировать"
 
 #: ../classes/settings.php:861
 msgid "Installed"
-msgstr ""
+msgstr "Установлено"
 
 #: ../classes/settings.php:862
 msgid "Activate"
-msgstr ""
+msgstr "Активировать"
 
 #: ../classes/settings.php:876
 msgid "Download & Install"
-msgstr ""
+msgstr "Загрузить и установить"
 
 #: ../classes/settings.php:881
 msgid "Get this add-on"
-msgstr ""
+msgstr "Получить это дополнение"
 
 #: ../classes/storage_model.php:207
 msgid "settings succesfully restored."
-msgstr "تمت إستعادة الإعدادات بنجاح."
+msgstr "настройки успешно восстановлены."
 
 #: ../classes/storage_model.php:222
 msgid "No columns settings available."
-msgstr "لا توجد إعدادات أعمدة متوفرة."
+msgstr "Нет доступных настроек столбцов."
 
 #: ../classes/storage_model.php:243
 #, php-format
 msgid "You are trying to store the same settings for %s."
-msgstr "انت تحاول حفظ نفس الإعدادات لـ %s."
+msgstr "Вы пытаетесь сохранить те же настройки для %s."
 
 #: ../classes/storage_model.php:247
 #, php-format
 msgid "Settings for %s updated succesfully."
-msgstr "إعدادات %s تم تحديثها بنجاح."
+msgstr "Настройки для %s успешно обновлены."
 
 #: ../classes/storage_model/comment.php:13
 msgid "Comments"
-msgstr "تعليقات"
+msgstr "Комментарии"
 
 #: ../classes/storage_model/link.php:13
 msgid "Links"
-msgstr "وصلات"
+msgstr "Ссылки"
 
 #: ../classes/storage_model/user.php:13
 msgid "Users"
-msgstr "مستخدمون"
+msgstr "Пользователи"
 
 #: ../classes/upgrade.php:43
 msgid "Upgrade"
-msgstr "تحديث"
+msgstr "Обновить"
 
 #: ../classes/upgrade.php:84
 msgid "requires a database upgrade"
-msgstr "يتطلب ترقية قاعدة البيانات"
+msgstr "требуется обновление базы данных"
 
 #: ../classes/upgrade.php:87
 msgid "why?"
-msgstr "لماذا؟"
+msgstr "почему?"
 
 #: ../classes/upgrade.php:88
 msgid "Please"
-msgstr "فضلا"
+msgstr "Пожалуйста"
 
 #: ../classes/upgrade.php:89
 msgid "backup your database"
-msgstr "قم بعمل نسخة إحتياطية من قاعدة بياناتك"
+msgstr "создайте резервную копию базы данных"
 
 #: ../classes/upgrade.php:90
 msgid "then click"
-msgstr "ثم انقر"
+msgstr "затем нажмите"
 
 #: ../classes/upgrade.php:298
 msgid "Migrating Column Settings"
-msgstr "نقل إعدادات الأعمدة"
+msgstr "Перенос настроек столбцов"
 
 #: ../classes/upgrade.php:334
 msgid "No Upgrade Required"
-msgstr "لا تحديث مطلوب"
+msgstr "Обновление не требуется"
 
 #: ../classes/upgrade.php:335
 msgid "Return to welcome screen."
-msgstr "رجوع إلى صفحة الترحيب."
+msgstr "Вернуться на начальный экран."
 
 #: ../classes/upgrade.php:353
 msgid "Upgrade Complete!"
-msgstr "اكتمل التحديث"
+msgstr "Обновление завершено!"
 
 #: ../classes/upgrade.php:353
 msgid "Return to settings."
-msgstr "العودة للإعدادات."
+msgstr "Возврат к настройкам."
 
 #: ../classes/upgrade.php:354
 msgid "Error"
-msgstr "خطأ"
+msgstr "Ошибка"
 
 #: ../classes/upgrade.php:355
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."
-msgstr ""
-"عفوا. حدث خطأ أثناء عملية الترقية. الرجاء التبليغ عن هذا في منتديات الدعم."
+msgstr "Извините. Что-то пошло не так во время процесса обновления. Пожалуйста, сообщите об этом на форуме поддержки."
 
 #: ../codepress-admin-columns.php:439
 msgid "Edit columns"
-msgstr "تحرير الأعمدة"
+msgstr "Редактировать столбцы"
