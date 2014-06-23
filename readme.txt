@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.2.1
+Stable tag: 2.2.1.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -245,6 +245,9 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.2.1.1 =
+* [Fixed] Fixed issue with Posts 2 Posts (and other third party plugins) columns not being displayed because of  hooking into late actions on post pages
 
 = 2.2.1 =
 * [Added] Option to make permalink in permalink column clickable (linking to post)
