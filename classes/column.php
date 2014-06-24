@@ -99,7 +99,7 @@ class CPAC_Column {
 		$this->options 		= clone $this->options;
 		$this->properties 	= clone $this->properties;
 	}
-	
+
 	/**
 	 * @since 2.0
 	 *
