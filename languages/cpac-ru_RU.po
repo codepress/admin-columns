@@ -1,24 +1,26 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-06-23 09:35+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/admin-columns/language/ru/)\n"
+"PO-Revision-Date: 2014-06-23 11:48+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/admin-columns/"
+"language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.6.5\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../classes/addons.php:117
 msgid "Third party plugin integration"
@@ -32,7 +34,9 @@ msgstr "Advanced Custom Fields"
 msgid ""
 "Display and edit Advanced Custom Fields fields in the posts overview in "
 "seconds!"
-msgstr "Показать и изменить поля Advanced Custom Fields в обзорах записей в считанные секунды!"
+msgstr ""
+"Показать и изменить поля Advanced Custom Fields в обзорах записей в "
+"считанные секунды!"
 
 #: ../classes/column.php:481
 msgid "Thumbnail"
@@ -67,7 +71,9 @@ msgstr "Пример:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "Оставьте пустым для формата даты WordPress, измените <a href=\"%s\">default date format here</a>."
+msgstr ""
+"Оставьте пустым для формата даты WordPress, измените <a href=\"%s\">default "
+"date format here</a>."
 
 #: ../classes/column.php:761
 msgid "Documentation on date and time formatting."
@@ -167,14 +173,19 @@ msgstr "Эта функция доступна только для разраб�
 msgid ""
 "If you have a developer licence please download & install your ACF add-on "
 "from the <a href='%s'>add-ons tab</a>."
-msgstr "Если Вы имеете лицензию разработчика, пожалуйста, загрузите и утановите Ваш ACF add-on по ссылке <a href='%s'>add-ons tab</a>."
+msgstr ""
+"Если Вы имеете лицензию разработчика, пожалуйста, загрузите и утановите Ваш "
+"ACF add-on по ссылке <a href='%s'>add-ons tab</a>."
 
 #: ../classes/column/acf-placeholder.php:38
 msgid ""
 "Admin Columns Pro - Developer offers full Advanced Custom Fields "
-"integeration, allowing you to easily display and edit ACF fields from within"
-" your posts overview."
-msgstr "Admin Columns Pro - Разработчик предлагает полную интеграцию Advanced Custom Fields, что позволяет легко просматривать и редактировать ACF поля из вашего обзора сообщений."
+"integeration, allowing you to easily display and edit ACF fields from within "
+"your posts overview."
+msgstr ""
+"Admin Columns Pro - Разработчик предлагает полную интеграцию Advanced Custom "
+"Fields, что позволяет легко просматривать и редактировать ACF поля из вашего "
+"обзора сообщений."
 
 #: ../classes/column/acf-placeholder.php:40
 msgid "Find out more"
@@ -343,7 +354,9 @@ msgstr "От этого будет зависеть, как будет отоб�
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
-msgstr "Вы собираетесь удалить эту ссылку '%s'\n  'Cancel' для отмены, 'OK' для удаления."
+msgstr ""
+"Вы собираетесь удалить эту ссылку '%s'\n"
+"  'Cancel' для отмены, 'OK' для удаления."
 
 #: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:72
 msgid "Delete"
@@ -717,7 +730,10 @@ msgid ""
 "This plugin is for adding and removing additional columns to the "
 "administration screens for post(types), pages, media library, comments, "
 "links and users. Change the column's label and reorder them."
-msgstr "Этот плагин предназначен для добавления и удаления дополнительных столбцов на экраны администрирования для записей, страниц, библиотеки, комментариев, ссылок и пользователей. Изменяйте метки столбцов и изменяйте их порядок."
+msgstr ""
+"Этот плагин предназначен для добавления и удаления дополнительных столбцов "
+"на экраны администрирования для записей, страниц, библиотеки, комментариев, "
+"ссылок и пользователей. Изменяйте метки столбцов и изменяйте их порядок."
 
 #: ../classes/settings.php:279
 msgid "Basics"
@@ -740,7 +756,9 @@ msgstr "Изменить метку"
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr "Нажав на треугольник, вы увидите настройки колонки. Здесь вы можете изменить метки заголовков колонок."
+msgstr ""
+"Нажав на треугольник, вы увидите настройки колонки. Здесь вы можете изменить "
+"метки заголовков колонок."
 
 #: ../classes/settings.php:285
 msgid "Change column width"
@@ -750,7 +768,9 @@ msgstr "Изменить ширину столбца"
 msgid ""
 "By clicking on the triangle you will see the column options. By using the "
 "draggable slider you can set the width of the columns in percentages."
-msgstr "Нажав на треугольник вы увидите настройки колонки. С помощью перетаскивания ползунка можно установить ширину столбцов в процентах."
+msgstr ""
+"Нажав на треугольник вы увидите настройки колонки. С помощью перетаскивания "
+"ползунка можно установить ширину столбцов в процентах."
 
 #: ../classes/settings.php:292
 msgid "'Custom Field' column"
@@ -760,19 +780,25 @@ msgstr "Столбец 'Custom Field'"
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr "Столбец пользовательского поля использует поля постов и пользователей. Существует 10 типов, которые вы можете установить."
+msgstr ""
+"Столбец пользовательского поля использует поля постов и пользователей. "
+"Существует 10 типов, которые вы можете установить."
 
 #: ../classes/settings.php:295
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr "Значение: Может быть строкой или массивом. Массив будет сведен и значения будут разделяться ',' запятой."
+msgstr ""
+"Значение: Может быть строкой или массивом. Массив будет сведен и значения "
+"будут разделяться ',' запятой."
 
 #: ../classes/settings.php:296
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr "Значение: должно содержать URL изображения или Attachment IDs, (разделенные ',' запятой)."
+msgstr ""
+"Значение: должно содержать URL изображения или Attachment IDs, (разделенные "
+"',' запятой)."
 
 #: ../classes/settings.php:297
 msgid "Value: This will show the first 20 words of the Post content."
@@ -780,15 +806,18 @@ msgstr "Значение: Это покажет первые 20 слов сод�
 
 #: ../classes/settings.php:298
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
-msgstr "Значение: должно быть массивом. Будут сведены любые многомерные масиивы."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr ""
+"Значение: должно быть массивом. Будут сведены любые многомерные масиивы."
 
 #: ../classes/settings.php:299
 msgid ""
 "Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
 "for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Значение:. Целые только <br/> Если у вас есть 'сортировочный аддон', то будут использоваться для сортировки, так что вы можете сортировать свои сообщения по числовым значениям пользовательских полей."
+msgstr ""
+"Значение:. Целые только <br/> Если у вас есть 'сортировочный аддон', то "
+"будут использоваться для сортировки, так что вы можете сортировать свои "
+"сообщения по числовым значениям пользовательских полей."
 
 #: ../classes/settings.php:300
 #, php-format
@@ -796,7 +825,10 @@ msgid ""
 "Value: Can be unix time stamp or a date format as described in the <a "
 "href='%s'>Codex</a>. You can change the outputted date format at the <a "
 "href='%s'>general settings</a> page."
-msgstr "Value: Может быть Unix-штамп времени или формат даты, как описано в <a href='%s'>Кодексе</a>. Вы можете изменить выходной формат даты на странице <a href='%s'>общих настроек</a>."
+msgstr ""
+"Value: Может быть Unix-штамп времени или формат даты, как описано в <a "
+"href='%s'>Кодексе</a>. Вы можете изменить выходной формат даты на странице "
+"<a href='%s'>общих настроек</a>."
 
 #: ../classes/settings.php:301
 msgid "Post Titles"
@@ -830,7 +862,9 @@ msgstr "Значение: значение цвета в HEX-формате, н�
 msgid ""
 "Value: Can be either a string or array. This will display a count of the "
 "number of times the meta key is used by the item."
-msgstr "Значение: Может быть строкой или массивом. Это покажет какое количества раз мета ключ использовался объектом."
+msgstr ""
+"Значение: Может быть строкой или массивом. Это покажет какое количества раз "
+"мета ключ использовался объектом."
 
 #: ../classes/settings.php:399
 msgid "Welcome to Admin Columns"
@@ -844,7 +878,9 @@ msgstr "Спасибо за обновление до последней вер�
 msgid ""
 "Admin Columns is more polished and enjoyable than ever before. We hope you "
 "like it."
-msgstr "Admin Columns сейчас более изысканный и приятный, чем когда-либо прежде. Мы надеемся, вам понравится."
+msgstr ""
+"Admin Columns сейчас более изысканный и приятный, чем когда-либо прежде. Мы "
+"надеемся, вам понравится."
 
 #: ../classes/settings.php:408
 msgid "What’s New"
@@ -863,16 +899,21 @@ msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr "Дополнения теперь активируются путем загрузки и установки отдельных плагинов. Хотя эти плагины не будут размещаться в хранилище wordpress.org, каждое дополнение будет продолжать получать обновления в обычном порядке."
+msgstr ""
+"Дополнения теперь активируются путем загрузки и установки отдельных "
+"плагинов. Хотя эти плагины не будут размещаться в хранилище wordpress.org, "
+"каждое дополнение будет продолжать получать обновления в обычном порядке."
 
 #: ../classes/settings.php:419
 msgid ""
 "This website uses the Sortorder Addon. This addon needs to be downloaded."
-msgstr "Этот сайт использует дополнение Sortorder. Это дополнение требует загрузки."
+msgstr ""
+"Этот сайт использует дополнение Sortorder. Это дополнение требует загрузки."
 
 #: ../classes/settings.php:422
 msgid "Addons are seperate plugins which need to be downloaded."
-msgstr "Дополнения являются отдельными плагинами, которые должны быть загружены."
+msgstr ""
+"Дополнения являются отдельными плагинами, которые должны быть загружены."
 
 #: ../classes/settings.php:422
 msgid "Download your Addons"
@@ -896,9 +937,11 @@ msgstr "Изменения базы данных"
 
 #: ../classes/settings.php:438
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
-msgstr "База данных была изменена между версиями 1 и 2. Но мы убедились, что вы все еще можете вернуться к версии 1х без каких-либо проблем."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
+msgstr ""
+"База данных была изменена между версиями 1 и 2. Но мы убедились, что вы все "
+"еще можете вернуться к версии 1х без каких-либо проблем."
 
 #: ../classes/settings.php:441
 msgid "Make sure you backup your database and then click"
@@ -914,10 +957,12 @@ msgstr "Потенциальные проблемы"
 
 #: ../classes/settings.php:445
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
-msgstr "Сделав значительную реорганизацию кода плагинов и фильтров, ваш сайт может работать неправильно. Важно, чтобы вы прочитали полное"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
+msgstr ""
+"Сделав значительную реорганизацию кода плагинов и фильтров, ваш сайт может "
+"работать неправильно. Важно, чтобы вы прочитали полное"
 
 #: ../classes/settings.php:445
 msgid "Migrating from v1 to v2"
@@ -932,7 +977,9 @@ msgstr "руководство, чтобы увидеть полный спис�
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr "Если вы обнаружите ошибки, пожалуйста, <a href=\"%s\">сообщите о них нам</a>, чтобы мы исправили их в следующем выпуске."
+msgstr ""
+"Если вы обнаружите ошибки, пожалуйста, <a href=\"%s\">сообщите о них нам</"
+"a>, чтобы мы исправили их в следующем выпуске."
 
 #: ../classes/settings.php:448
 msgid "Important!"
@@ -942,7 +989,9 @@ msgstr "Важно!"
 msgid ""
 "If you updated the Admin Columns plugin without prior knowledge of such "
 "changes, Please roll back to the latest"
-msgstr "Если вы обновили плагин Admin Columns без предварительного знания о таких изменениях, пожалуйста сделайте откат к последней"
+msgstr ""
+"Если вы обновили плагин Admin Columns без предварительного знания о таких "
+"изменениях, пожалуйста сделайте откат к последней"
 
 #: ../classes/settings.php:448
 msgid "version 1"
@@ -975,7 +1024,9 @@ msgstr "Настроить параметры Admin Columns."
 #: ../classes/settings.php:546
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr "Показать кнопку \"Edit Columns\" на административных экранах. По умолчанию - <code>off</code>."
+msgstr ""
+"Показать кнопку \"Edit Columns\" на административных экранах. По умолчанию - "
+"<code>off</code>."
 
 #: ../classes/settings.php:553 ../classes/settings.php:682
 msgid "Save"
@@ -987,7 +1038,8 @@ msgstr "Восстановить настройки"
 
 #: ../classes/settings.php:594
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Это удалит все настройки столбцов и восстановит настройки по умолчанию."
+msgstr ""
+"Это удалит все настройки столбцов и восстановит настройки по умолчанию."
 
 #: ../classes/settings.php:600
 msgid "Restore default settings"
@@ -997,7 +1049,9 @@ msgstr "Восстановить настройки по умолчанию"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Предупреждение! Все сохраненные данные колонки администратора будут удалены. Это не может быть отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
+msgstr ""
+"Предупреждение! Все сохраненные данные колонки администратора будут удалены. "
+"Это не может быть отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
 
 #: ../classes/settings.php:620 ../codepress-admin-columns.php:354
 msgid "Settings"
@@ -1022,9 +1076,11 @@ msgstr "Таксономии"
 #: ../classes/settings.php:668
 #, php-format
 msgid ""
-"The columns for <strong>%s</strong> are set up via PHP and can therefore not"
-" be edited in the admin panel."
-msgstr "Столбцы для <strong>%s</strong> устанавливаются через PHP и поэтому не могут быть отредактированы в админ-панели."
+"The columns for <strong>%s</strong> are set up via PHP and can therefore not "
+"be edited in the admin panel."
+msgstr ""
+"Столбцы для <strong>%s</strong> устанавливаются через PHP и поэтому не могут "
+"быть отредактированы в админ-панели."
 
 #: ../classes/settings.php:678
 msgid "Store settings"
@@ -1037,9 +1093,11 @@ msgstr "Обновить"
 #: ../classes/settings.php:686
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Предупреждение! Столбцы данных в %s будут удалены. Это не может быть отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
+msgstr ""
+"Предупреждение! Столбцы данных в %s будут удалены. Это не может быть "
+"отменено. \\'ОК\\' для удаления, \\'Отмена\\' для отмены"
 
 #: ../classes/settings.php:687
 msgid "columns"
@@ -1068,7 +1126,9 @@ msgstr "Добавить Прямое редактирование"
 #: ../classes/settings.php:711
 #, php-format
 msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
-msgstr "Проверьте <a href=\"%s\">Admin Columns Pro</a> для получения подробной информации!"
+msgstr ""
+"Проверьте <a href=\"%s\">Admin Columns Pro</a> для получения подробной "
+"информации!"
 
 #: ../classes/settings.php:742
 msgid "Support"
@@ -1083,7 +1143,9 @@ msgstr "Проверьте раздел <strong>Помощь</strong> в пра�
 msgid ""
 "For full documentation, bug reports, feature suggestions and other tips <a "
 "href='%s'>visit the Admin Columns website</a>"
-msgstr "Для получения полной документации, отчетов об ошибках, особых предложений и других материалов <a href='%s'>посетите сайт Admin Columns</a>"
+msgstr ""
+"Для получения полной документации, отчетов об ошибках, особых предложений и "
+"других материалов <a href='%s'>посетите сайт Admin Columns</a>"
 
 #: ../classes/settings.php:777
 msgid "Drag and drop to reorder"
@@ -1199,7 +1261,9 @@ msgstr "Ошибка"
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."
-msgstr "Извините. Что-то пошло не так во время процесса обновления. Пожалуйста, сообщите об этом на форуме поддержки."
+msgstr ""
+"Извините. Что-то пошло не так во время процесса обновления. Пожалуйста, "
+"сообщите об этом на форуме поддержки."
 
 #: ../codepress-admin-columns.php:439
 msgid "Edit columns"
