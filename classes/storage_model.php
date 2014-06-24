@@ -27,6 +27,13 @@ abstract class CPAC_Storage_Model {
 	public $type;
 
 	/**
+	 * Meta type of storage model; post, user, comment. Mostly used for custom field data.
+	 *
+	 * @since 3.0
+	 */
+	public $meta_type;
+
+	/**
 	 * Groups the storage model in the menu.
 	 *
 	 * @since 2.0
@@ -388,8 +395,9 @@ abstract class CPAC_Storage_Model {
 		foreach ( $this->columns_filepath as $classname => $path ) {
 			include_once $path;
 
-			if ( ! class_exists( $classname ) )
+			if ( ! class_exists( $classname ) ) {
 				continue;
+			}
 
 			$column = new $classname( $this );
 

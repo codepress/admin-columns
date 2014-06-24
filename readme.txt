@@ -246,6 +246,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.2 =
+* [Fixed] Custom Fields for Media Library did not work.
+
 = 2.2.1.1 =
 * [Fixed] Fixed issue with Posts 2 Posts (and other third party plugins) columns not being displayed because of  hooking into late actions on post pages
 

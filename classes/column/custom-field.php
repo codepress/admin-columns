@@ -335,7 +335,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		$field_key = $this->get_field_key();
 
-		$raw_value = get_metadata( $this->storage_model->type, $id, $field_key, $single );
+		$raw_value = get_metadata( $this->storage_model->meta_type, $id, $field_key, $single );
 
 		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $field_key, $this );
 	}
