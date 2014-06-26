@@ -248,6 +248,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.2.2 =
 * [Fixed] Custom Fields for Media Library did not work.
+* [Fixed] Column type dropdown displayed an empty item.
 
 = 2.2.1.1 =
 * [Fixed] Fixed issue with Posts 2 Posts (and other third party plugins) columns not being displayed because of  hooking into late actions on post pages
