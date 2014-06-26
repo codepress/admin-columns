@@ -490,7 +490,7 @@ abstract class CPAC_Storage_Model {
 			$grouptypes = array();
 
 			foreach ( $columns as $index => $column ) {
-				if ( $column->properties->group == $group ) {
+				if ( $index && $column->properties->group == $group ) {
 					$grouptypes[ $index ] = $column;
 					unset( $columns[ $index ] );
 				}
