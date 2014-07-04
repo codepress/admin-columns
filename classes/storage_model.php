@@ -607,6 +607,14 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 
+			/**
+			 * Filter the columns that should be loaded if there were no stored columns
+			 *
+			 * @since 2.2.4
+			 *
+			 * @param array $columns List of columns ([column name] => [column instance])
+			 * @param CPAC_Storage_Model $storage_model_instance Storage model class instance
+			 */
 			$columns = apply_filters( 'cpac/storage_model/columns_default', $columns, $this );
 		}
 
