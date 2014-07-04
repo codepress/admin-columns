@@ -129,7 +129,8 @@ class CPAC_Column {
 			'is_registered'		=> true,	// Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'		=> true,	// Should the column be cloneable
 			'default'			=> false,	// Is this a WP default column,
-			'group'				=> 'custom'
+			'group'				=> 'custom',
+			'hidden'			=> false
 		);
 
 		foreach ( $default_properties as $property => $value ) {
@@ -879,9 +880,15 @@ class CPAC_Column {
 
 		// sort by alphabet
 		$_columns = array();
+
 		foreach ( $columns as $column ) {
-			$_columns[ $column->properties->type ] = 0 === strlen( strip_tags( $column->properties->label ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
+			if ( $column->properties->hidden ) {
+				continue;
+			}
+
+			$_columns[ $column->properties->type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
 		}
+
 		asort( $_columns );
 
 		$list = "<optgroup label='{$label}'>";

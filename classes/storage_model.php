@@ -606,6 +606,8 @@ abstract class CPAC_Storage_Model {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
+
+			$columns = apply_filters( 'cpac/storage_model/columns_default', $columns, $this );
 		}
 
 		do_action( "cac/columns", $columns );
@@ -633,13 +635,6 @@ abstract class CPAC_Storage_Model {
 
 		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
 		if ( ! $this->is_columns_screen() ) {
-			/**
-			 * Filter the current columns list for a specific storage model
-			 *
-			 * @since 
-			 */
-			$columns = apply_filters( 'cpac/storage_model/columns', $columns, $this );
-
 			return $columns;
 		}
 
