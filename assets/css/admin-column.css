@@ -367,6 +367,9 @@ h2.cpac-nav-tab-wrapper {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
+.cpac-column .column-form table tr td.input .section {
+  padding: 12px;
+}
 .cpac-column .column-form table tr.column_width div.description {
   font-size: 11px;
   width: 12%;
