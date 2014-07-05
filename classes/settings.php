@@ -196,10 +196,10 @@ class CPAC_Settings {
 
 		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-admin-settings', CPAC_URL . "assets/js/admin-settings{$minified}.js", array( 'jquery', 'dashboard', 'jquery-ui-slider', 'jquery-ui-sortable' ), CPAC_VERSION );
 
 		// javascript translations
-		wp_localize_script( 'cpac-admin-columns', 'cpac_i18n', array(
+		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
 			'clone'	=> __( '%s column is already present and can not be duplicated.', 'cpac' ),
 		));
 	}
