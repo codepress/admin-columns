@@ -86,7 +86,11 @@ div.sizes span.not-available {
 }
 /* =qTip2
 -------------------------------------------------------------- */
+.cpac-tip {
+  display: inline-block;
+}
 .qtip.qtip-tipsy {
   background: rgba(0, 0, 0, 0.75);
   font-weight: normal;
+  min-width: 25px;
 }
