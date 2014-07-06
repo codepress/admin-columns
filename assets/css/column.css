@@ -70,6 +70,14 @@ div.cpac-color span {
 div.sizes span.not-available {
   color: #999;
 }
+/* =Actions column
+-------------------------------------------------------------- */
+.dashicons.hide-content {
+  visibility: hidden;
+}
+.dashicons.hide-content:before {
+  visibility: visible;
+}
 /* =qTip2
 -------------------------------------------------------------- */
 .qtip.qtip-tipsy {
