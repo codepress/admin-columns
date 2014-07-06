@@ -105,11 +105,18 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 
 			foreach ( $actions as $action => $link ) {
 				if ( isset( $icons[ $action ] ) ) {
-					if ( strpos( $link, 'class="' ) !== false ) {
-						$actions[ $action ] = str_replace( 'class="', 'class="dashicons hide-content dashicons-' . $icons[ $action ] . ' ', $link );
-					}
-					else {
-						$actions[ $action ] = str_replace( '<a ', '<a class="dashicons hide-content dashicons-' . $icons[ $action ] . '" ', $link );
+					$closepos = stripos( $link, '</a>' );
+					$openendpos = strrpos( $link, '>', $closepos - strlen( $link ) );
+
+					if ( $closepos !== false && $openendpos !== false ) {
+						$title = substr( $link, $openendpos + 1, $closepos - $openendpos - 1 );
+
+						if ( strpos( $link, 'class="' ) !== false ) {
+							$actions[ $action ] = str_replace( 'class="', 'data-tip="' . esc_attr( $title ) . '" class="cpac-tip dashicons hide-content dashicons-' . $icons[ $action ] . ' ', $link );
+						}
+						else {
+							$actions[ $action ] = str_replace( '<a ', '<a data-tip="' . esc_attr( $title ) . '" class="cpac-tip dashicons hide-content dashicons-' . $icons[ $action ] . '" ', $link );
+						}
 					}
 				}
 			}
