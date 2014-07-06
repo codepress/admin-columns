@@ -802,4 +802,17 @@ abstract class CPAC_Storage_Model {
 
     	return $options[ $option ];
     }
+
+	/**
+	 * @since 2.2.4
+	 */
+	public function is_table_header_fixed() {
+
+		/**
+		 * @since 2.2.4
+		 */
+		$fixed = apply_filters( 'cpac/table_header_fixed', false, $this );
+
+		return $fixed;
+	}
 }
