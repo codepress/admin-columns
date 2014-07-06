@@ -8,7 +8,7 @@ class CPAC_Column_Media_Width extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.3
+	 * @since 2.2.1
 	 */
 	public function init() {
 

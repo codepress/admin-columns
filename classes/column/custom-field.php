@@ -9,7 +9,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.3
+	 * @since 2.2.1
 	 */
 	function init() {
 

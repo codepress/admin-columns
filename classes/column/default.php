@@ -1,12 +1,12 @@
 <?php
 /**
- * @since 2.3
+ * @since 2.2.1
  */
 class CPAC_Column_Default extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.3
+	 * @since 2.2.1
 	 */
 	public function init() {
 
@@ -18,7 +18,7 @@ class CPAC_Column_Default extends CPAC_Column {
 	}
 
 	/**
-	 * @since 2.3
+	 * @since 2.2.1
 	 * @see CPAC_Column::get_value()
 	 */
 	public function get_value( $post_id ) {
