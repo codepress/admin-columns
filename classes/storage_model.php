@@ -811,7 +811,7 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * @since 2.2.4
 		 */
-		$fixed = apply_filters( 'cpac/table_header_fixed', false, $this );
+		$fixed = apply_filters( 'cpac/storage_model/table_header_fixed', false, $this );
 
 		return $fixed;
 	}
