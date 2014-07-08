@@ -136,6 +136,12 @@ class CPAC_Addons {
 				'description' 	=> __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ),
 				'group' 		=> 'integration',
 				'image' 		=> CPAC_URL . 'assets/images/addons/acf.png'
+			),
+			'cac-addon-woocommerce' => array(
+				'title' 		=> __( 'WooCommerce', 'cpac' ),
+				'description' 	=> __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'cpac' ),
+				'group' 		=> 'integration',
+				'image' 		=> CPAC_URL . 'assets/images/addons/woocommerce.png'
 			)
 		);
 

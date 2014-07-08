@@ -367,6 +367,9 @@ h2.cpac-nav-tab-wrapper {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
+.cpac-column .column-form table tr td.input .section {
+  padding: 12px;
+}
 .cpac-column .column-form table tr.column_width div.description {
   font-size: 11px;
   width: 12%;
@@ -660,7 +663,6 @@ h2.cpac-nav-tab-wrapper {
 }
 .columns-right .sidebox#pro-version .cta {
   background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
-  background-size: cover;
 }
 .columns-right .sidebox#pro-version .padding-box {
   padding: 8px 15px 0;

@@ -606,6 +606,16 @@ abstract class CPAC_Storage_Model {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
+
+			/**
+			 * Filter the columns that should be loaded if there were no stored columns
+			 *
+			 * @since 2.2.4
+			 *
+			 * @param array $columns List of columns ([column name] => [column instance])
+			 * @param CPAC_Storage_Model $storage_model_instance Storage model class instance
+			 */
+			$columns = apply_filters( 'cpac/storage_model/columns_default', $columns, $this );
 		}
 
 		do_action( "cac/columns", $columns );
@@ -792,4 +802,17 @@ abstract class CPAC_Storage_Model {
 
     	return $options[ $option ];
     }
+
+	/**
+	 * @since 2.2.4
+	 */
+	public function is_table_header_fixed() {
+
+		/**
+		 * @since 2.2.4
+		 */
+		$fixed = apply_filters( 'cpac/storage_model/table_header_fixed', false, $this );
+
+		return $fixed;
+	}
 }

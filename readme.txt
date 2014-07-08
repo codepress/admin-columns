@@ -246,6 +246,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.4 =
+* [Added] New filter `cpac/storage_model/columns_default` for filtering the columns that should be loaded if there are no stored columns
+* [Added] Option (column property `hidden`) to hide column types from the dropdown list of column types
+* [Added] Use tooltip library for enhanced column value representation
+
 = 2.2.3 =
 * [Added] Added Path column for post(types). Uses the permalink without the home url.
 
