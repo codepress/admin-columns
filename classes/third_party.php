@@ -70,6 +70,7 @@ add_action( 'cac/get_columns', 'cac_add_wpml_columns' );
 function cpac_remove_acf_from_cpac_post_types( $post_types ) {
 	if ( class_exists('Acf') ) {
 		unset( $post_types['acf'] );
+		unset( $post_types['acf-field-group'] );
 	}
 
 	return $post_types;
