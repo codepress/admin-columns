@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.2.1.1
+Version: 			2.2.3
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) )  {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.2.1.1' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.2.3' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
