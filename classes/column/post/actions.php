@@ -105,19 +105,16 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 
 			foreach ( $actions as $action => $link ) {
 				if ( isset( $icons[ $action ] ) ) {
-					$closepos = stripos( $link, '</a>' );
-					$openendpos = strrpos( $link, '>', $closepos - strlen( $link ) );
-
-					if ( $closepos !== false && $openendpos !== false ) {
-						$title = substr( $link, $openendpos + 1, $closepos - $openendpos - 1 );
-
-						if ( strpos( $link, 'class="' ) !== false ) {
-							$actions[ $action ] = str_replace( 'class="', 'data-tip="' . esc_attr( $title ) . '" class="cpac-tip dashicons hide-content dashicons-' . $icons[ $action ] . ' ', $link );
-						}
-						else {
-							$actions[ $action ] = str_replace( '<a ', '<a data-tip="' . esc_attr( $title ) . '" class="cpac-tip dashicons hide-content dashicons-' . $icons[ $action ] . '" ', $link );
-						}
+					if ( strpos( $link, 'class=' ) === false ) {
+						$link = str_replace( '<a ', '<a class="" ', $link );
 					}
+
+					$link = preg_replace( '/class=["\'](.*?)["\']/', 'class="$1 cpac-tip button cpac-button-action dashicons hide-content dashicons-' . $icons[ $action ] . '"', $link, 1 );
+					$link = preg_replace_callback( '/>(.*?)<\/a>/', function( $matches ) {
+						return ' data-tip="' . esc_attr( $matches[1] ) . '">' . $matches[1] . '</a>';
+					}, $link );
+
+					$actions[ $action ] = $link;
 				}
 			}
 

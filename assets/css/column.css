@@ -72,17 +72,19 @@ div.sizes span.not-available {
 }
 /* =Actions column
 -------------------------------------------------------------- */
-.column-actions a.dashicons {
-  color: #555;
+.button.cpac-button-action {
+  position: relative;
+  text-indent: 9999px;
+  margin-right: 4px;
+  padding: 0 13px;
 }
-.column-actions a.dashicons:hover {
-  color: #2ea2cc;
-}
-.dashicons.hide-content {
-  visibility: hidden;
-}
-.dashicons.hide-content:before {
-  visibility: visible;
+.button.cpac-button-action:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent: 0;
 }
 /* =qTip2
 -------------------------------------------------------------- */
