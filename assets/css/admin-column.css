@@ -663,6 +663,7 @@ h2.cpac-nav-tab-wrapper {
 }
 .columns-right .sidebox#pro-version .cta {
   background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
+  background-size: cover;
 }
 .columns-right .sidebox#pro-version .padding-box {
   padding: 8px 15px 0;
@@ -716,7 +717,7 @@ h2.cpac-nav-tab-wrapper {
   text-align: center;
   line-height: 64px;
   font-weight: bold;
-  color: #CCC;
+  color: #222;
   display: inline-block;
   text-decoration: none;
 }
@@ -776,6 +777,9 @@ h2.cpac-nav-tab-wrapper {
 }
 .columns-right .sidebox#direct-feedback .inside ul.share li:first-child {
   margin-left: 0;
+}
+.columns-right .sidebox#direct-feedback #feedback-support .inside ul.share li {
+  width: 48%;
 }
 /**
  * Setting Tab

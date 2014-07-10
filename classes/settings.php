@@ -717,7 +717,7 @@ class CPAC_Settings {
 												</p>
 											</div>
 										</div>
-
+									</div>
 
 										<?php
 										// @todo: add newsletter
@@ -740,8 +740,7 @@ class CPAC_Settings {
 											</form>
 										</div>
 										<?php */ ?>
-									</div><!--pro-version-->
-									<?php endif; ?>
+
 
 									<div class="sidebox" id="direct-feedback">
 										<div id="feedback-choice">
@@ -754,20 +753,8 @@ class CPAC_Settings {
 										<div id="feedback-support">
 											<div class="inside">
 												<p><?php _e( "What's wrong? Need help? Let us know!", 'cpac' ); ?></p>
-												<p><?php _e( 'We offer direct Twitter support, or you can open a support topic on WordPress.org!', 'cpac' ); ?></p>
+												<p><?php _e( 'Check out our extensive documentation, or you can open a support topic on WordPress.org!', 'cpac' ); ?></p>
 												<ul class="share">
-													<li>
-														<a href="<?php echo add_query_arg( array(
-															'text' => urlencode( '@wpcolumns ' )
-														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
-															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'cpac' ); ?>
-														</a>
-													</li>
-													<li>
-														<a href="https://wordpress.org/support/plugin/codepress-admin-columns" target="_blank">
-															<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'cpac' ); ?>
-														</a>
-													</li>
 													<li>
 														<a href="<?php echo add_query_arg( array(
 															'utm_source' => 'plugin-installation',
@@ -777,6 +764,11 @@ class CPAC_Settings {
 															<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'cpac' ); ?>
 														</a>
 													</li>
+													<li>
+														<a href="https://wordpress.org/support/plugin/codepress-admin-columns" target="_blank">
+															<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'cpac' ); ?>
+														</a>
+													</li>
 												</ul>
 												<div class="clear"></div>
 											</div>
@@ -784,7 +776,7 @@ class CPAC_Settings {
 										<div id="feedback-rate">
 											<div class="inside">
 												<p><?php _e( "Woohoo! We're glad to hear that!", 'cpac' ); ?></p>
-												<p><?php _e( 'We would really love it if you could show your appreciation by giving us a five-star rating on WordPress.org or tweeting about Admin Columns!', 'cpac' ); ?></p>
+												<p><?php _e( 'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!', 'cpac' ); ?></p>
 												<ul class="share">
 													<li>
 														<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
@@ -817,6 +809,8 @@ class CPAC_Settings {
 											</div>
 										</div>
 									</div>
+
+									<?php endif; ?>
 
 									<div class="sidebox" id="plugin-support">
 										<h3><?php _e( 'Support', 'cpac' ); ?></h3>
