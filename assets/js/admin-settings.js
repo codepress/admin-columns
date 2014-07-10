@@ -23,7 +23,6 @@ jQuery(document).ready(function() {
 	cpac_addons();
 	cpac_importexport();
 	cpac_sidebar_feedback();
-	cpac_tooltips();
 
 	// we start by binding the toggle and remove events.
 	jQuery('.cpac-column').each( function( i, col ) {
@@ -116,6 +115,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		column: jQuery( this ).find( 'input.column-name' ).val(),
 		formdata: jQuery( this ).parents( 'form' ).serialize()
 	}, function( data ) {
+		console.log(data);
 		// Replace current form by new form
 		var newel = jQuery( '<div>' + data + '</div>' ).children();
 		el.replaceWith( newel );
