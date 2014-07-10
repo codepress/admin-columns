@@ -1,7 +1,7 @@
 jQuery( document ).ready( function( $ ) {
 	cpac_tooltips();
-
-	if ( CPAC.storage_model.is_table_header_fixed ) {
+	
+	if ( typeof CPAC.storage_model !== 'undefined' && CPAC.storage_model.is_table_header_fixed ) {
 		cpac_floatingheader();
 	}
 } );
