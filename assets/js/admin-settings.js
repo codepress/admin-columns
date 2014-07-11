@@ -19,10 +19,10 @@ jQuery(document).ready(function() {
 	cpac_menu();
 	cpac_help();
 	cpac_add_column();
-	cpac_sidebar_scroll();
 	cpac_addons();
 	cpac_importexport();
 	cpac_sidebar_feedback();
+	//cpac_sidebar_scroll();
 
 	// we start by binding the toggle and remove events.
 	jQuery('.cpac-column').each( function( i, col ) {
@@ -407,34 +407,34 @@ function cpac_sidebar_feedback() {
  *
  * @since 1.5
  */
-function cpac_sidebar_scroll() {
+/*function cpac_sidebar_scroll() {
 
-	if( jQuery('.columns-right-inside').length === 0 )
+	if ( jQuery('.columns-right-inside').length === 0 ) {
 		return;
+	}
 
 	if ( jQuery('.columns-right-inside:visible').offset() ) {
-
-		// top position of the sidebar on loading
-		var top = jQuery('.columns-right-inside:visible').offset().top - parseFloat( jQuery('.columns-right-inside:visible').css('margin-top').replace(/auto/, 0) ) - 70;
+		var sidebar = jQuery('.columns-right-inside:visible');
+		var top = sidebar.offset().top - parseFloat( sidebar.css('margin-top').replace(/auto/, 0) ) - 70;
+		var viewport_height = jQuery(window).height();
+		var sidebar_height = sidebar.height();
 
 		jQuery(window).scroll(function (event) {
-			// y position of the scroll
 			var y = jQuery(this).scrollTop();
 
 			// top position of div#cpac is calculated everytime incase of an opened help screen
 			var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
+			var sidebar_fits_on_screen = sidebar_height < ( viewport_height - 32 ); // adminbar
 
 			// whether that's below
-			if (y >= top + offset ) {
-				// if so, ad the fixed class
+			if ( ( y >= top + offset ) && sidebar_fits_on_screen ) {
 				jQuery('.columns-right-inside:visible').addClass('fixed');
 			} else {
-				// otherwise remove it
 				jQuery('.columns-right-inside:visible').removeClass('fixed');
 			}
 		});
 	}
-}
+}*/
 
 /*
  *	Clear Input Defaults
@@ -584,6 +584,9 @@ function cpac_menu() {
 			// hook for addons
 			jQuery( document ).trigger( 'cac_menu_change', columns );
 		}
+
+		// re init sidebar scroll
+		//cpac_sidebar_scroll();
 
 		e.preventDefault();
 	});
