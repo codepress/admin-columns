@@ -97,7 +97,7 @@ abstract class CPAC_Storage_Model {
 		$this->set_columns_filepath();
 
 		// Populate columns variable.
-		// This is used for manage_value. By storing these columns we greatly improve performance.
+		// This is used for manage_value.
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 	}
 
@@ -222,10 +222,11 @@ abstract class CPAC_Storage_Model {
 	 */
 	function store( $columns = '' ) {
 
-		if ( ! empty( $_POST[ $this->key ] ) )
+		if ( ! empty( $_POST[ $this->key ] ) ) {
 			$columns = array_filter( $_POST[ $this->key ] );
+		}
 
-		if( ! $columns ) {
+		if ( ! $columns ) {
 			cpac_admin_message( __( 'No columns settings available.',  'cpac' ), 'error' );
 			return false;
 		}
@@ -452,7 +453,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_database_columns() {
-
 		return get_option( "cpac_options_{$this->key}" );
 	}
 
@@ -726,11 +726,17 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
+	 *
 	 * @since 2.0.5
      * @return boolean
 	 */
 	function is_doing_ajax() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return false;
+		}
+
+		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
 			return true;
 		}
 
@@ -741,9 +747,11 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0.5
      * @return boolean
 	 */
+	/*
 	function is_doing_quick_edit() {
 		return $this->is_doing_ajax() && isset( $_REQUEST['action'] ) && 'inline-save' == $_REQUEST['action'];
 	}
+	*/
 
 	/**
 	 * @since 2.0.3
@@ -755,23 +763,26 @@ abstract class CPAC_Storage_Model {
 
 		global $pagenow;
 
-		if ( $this->page . '.php' != $pagenow )
+		if ( $this->page . '.php' != $pagenow ) {
 			return false;
+		}
 
 		// posttypes
 		if ( 'post' == $this->type ) {
 			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : $this->type;
 
-			if ( $this->key != $post_type )
+			if ( $this->key != $post_type ) {
 				return false;
+			}
 		}
 
 		// taxonomy
 		if ( 'taxonomy' == $this->type ) {
 			$taxonomy = isset( $_GET['taxonomy'] ) ? $_GET['taxonomy'] : '';
 
-			if ( $this->taxonomy != $taxonomy )
+			if ( $this->taxonomy != $taxonomy ) {
 				return false;
+			}
 		}
 
 		return true;

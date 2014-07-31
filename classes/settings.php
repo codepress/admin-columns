@@ -876,8 +876,11 @@ class CPAC_Settings {
 				case 'settings' :
 					$this->display_settings();
 					break;
-				case 'addons':
+				case 'addons' :
 					$this->tab_addons();
+					break;
+				case 'help' :
+					//$this->tab_addons();
 					break;
 				default:
 					echo apply_filters( 'cac/settings/tab_contents/tab=' . $current_tab, apply_filters( 'cac/settings/tab_contents', '', $current_tab ) );

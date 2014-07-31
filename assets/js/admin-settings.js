@@ -111,11 +111,12 @@ jQuery.fn.cpac_column_refresh = function() {
 
 	// Fetch new form HTML
 	jQuery.post( ajaxurl, {
+		plugin_id: 'cpac',
 		action: 'cpac_column_refresh',
 		column: jQuery( this ).find( 'input.column-name' ).val(),
 		formdata: jQuery( this ).parents( 'form' ).serialize()
 	}, function( data ) {
-		console.log(data);
+
 		// Replace current form by new form
 		var newel = jQuery( '<div>' + data + '</div>' ).children();
 		el.replaceWith( newel );

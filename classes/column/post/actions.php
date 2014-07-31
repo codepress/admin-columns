@@ -27,7 +27,6 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
 		return $this->get_raw_value( $post_id );
 	}
 
@@ -36,7 +35,6 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_raw_value( $post_id ) {
-
 		return $this->get_column_value_actions( $post_id );
 	}
 
@@ -51,7 +49,6 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 	 * @return string Actions
 	 */
 	private function get_column_value_actions( $post_id ) {
-
 		$actions = array();
 
 		$post 				= get_post($post_id);
@@ -93,6 +90,8 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 		}
 
 		// Use icons instead of links
+		/*
+		@todo: debug first
 		if ( ! empty( $this->options->use_icons ) ) {
 			$icons = array(
 				'edit' => 'edit',
@@ -120,6 +119,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 
 			return implode( '', $actions );
 		}
+		*/
 
 		return implode(' | ', $actions);
 	}
@@ -132,7 +132,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column {
 
 		parent::display_settings();
 
-		$this->display_field_use_icons();
+		//$this->display_field_use_icons();
 	}
 
 	/**

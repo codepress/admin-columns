@@ -665,7 +665,7 @@ class CPAC_Column {
 	 * @param array $pieces
 	 * @return string Imploded array
 	 */
-	protected function recursive_implode( $glue, $pieces ) {
+	public function recursive_implode( $glue, $pieces ) {
 		foreach( $pieces as $r_pieces )	{
 			if ( is_array( $r_pieces ) ) {
 				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
@@ -1038,8 +1038,8 @@ class CPAC_Column {
 
 					</tbody>
 				</table>
-			</div><!--.column-form-->
-		</div><!--.cpac-column-->
+			</div>
+		</div>
 		<?php
 	}
 }

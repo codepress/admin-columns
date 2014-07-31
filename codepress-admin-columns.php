@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: 		Codepress Admin Columns
-Version: 			2.2.4
+Version: 			2.2.5
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			Codepress
 Author URI: 		http://www.codepresshq.com
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) )  {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.2.4' ); // current plugin version
+define( 'CPAC_VERSION', 	 	'2.2.5' ); // current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -148,25 +148,22 @@ class CPAC {
 	}
 
 	/**
-	 * Whether this request is an AJAX request
+	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
 	 *
 	 * @since 2.2
      * @return bool Returns true if in an AJAX request, false otherwise
 	 */
 	function is_doing_ajax() {
 
-		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return false;
+		}
 
-		/**
-		 * Filter whether the current request should be marked as an AJAX request
-		 * Useful for custom AJAX calls
-		 *
-		 * @since 2.2
-		 * @param bool $doing_ajax Whether the current request is an AJAX request
-		 */
-		$doing_ajax = apply_filters( 'cac/is_doing_ajax', $doing_ajax );
+		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
+			return true;
+		}
 
-		return $doing_ajax;
+		return false;
 	}
 
 	/**
@@ -218,6 +215,7 @@ class CPAC {
 	 * @return bool Whether the current screen is an Admin Columns screen
 	 */
 	function is_cac_screen() {
+
 		/**
 		 * Filter whether the current screen is a screen in which Admin Columns is active
 		 *
@@ -246,11 +244,11 @@ class CPAC {
 
 			$data = array();
 
-			if ( $storage_model = $this->get_current_storage_model() ) {
+			/*if ( $storage_model = $this->get_current_storage_model() ) {
 				$data['storage_model'] = array(
 					'is_table_header_fixed' => $storage_model->is_table_header_fixed()
 				);
-			}
+			}*/
 
 			wp_localize_script( 'cpac-admin-columns', 'CPAC', $data );
 
@@ -275,8 +273,9 @@ class CPAC {
 	 */
 	public function set_storage_models() {
 
-		if ( ! $this->is_cac_screen() )
+		if ( ! $this->is_cac_screen() ) {
 			return;
+		}
 
 		$storage_models = array();
 
@@ -409,13 +408,8 @@ class CPAC {
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-
-		if ( $this->storage_models ) {
-			foreach ( $this->storage_models as $storage_model ) {
-				if ( $storage_model->is_columns_screen() ) {
-					$classes .= " cp-{$storage_model->key}";
-				}
-			}
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			$classes .= " cp-{$storage_model->key}";
 		}
 
 		return $classes;
