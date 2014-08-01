@@ -13,7 +13,7 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	public function init() {
 
 		parent::init();
-		
+
 		// Properties
 		$this->properties['type']			= 'column-taxonomy';
 		$this->properties['label']			= __( 'Taxonomy', 'cpac' );

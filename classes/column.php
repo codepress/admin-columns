@@ -910,7 +910,6 @@ class CPAC_Column {
 		$column_list = '';
 
 		$groups = $this->storage_model->get_column_type_groups();
-
 		foreach ( $groups as $group => $label ) {
 			$column_list .= $this->get_column_list( $this->storage_model->column_types[ $group ], $label );
 		}
