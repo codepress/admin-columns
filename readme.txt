@@ -250,6 +250,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.2.5 =
 * [Fixed] Error with actions icons.
+* [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts.
+* [Fixed] Only ajax calls from cpac will trigger the loading of storage_models now.
 
 = 2.2.4 =
 * [Added] New filter `cpac/storage_model/columns_default` for filtering the columns that should be loaded if there are no stored columns

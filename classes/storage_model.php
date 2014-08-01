@@ -96,9 +96,8 @@ abstract class CPAC_Storage_Model {
 		// set columns paths
 		$this->set_columns_filepath();
 
-		// Populate columns variable.
-		// This is used for manage_value.
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
+		// Populate columns for this screen.
+		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
 	}
 
 	/**
@@ -214,7 +213,7 @@ abstract class CPAC_Storage_Model {
 		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
 
 		// refresh columns otherwise the removed columns will still display
-		$this->set_columns();
+		$this->set_columns_on_current_screen();
 	}
 
 	/**
@@ -255,7 +254,7 @@ abstract class CPAC_Storage_Model {
 		cpac_admin_message( sprintf( __( 'Settings for %s updated succesfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
 
 		// refresh columns otherwise the newly added columns will not be displayed
-		$this->set_columns();
+		$this->set_columns_on_current_screen();
 
 		return true;
 	}
@@ -462,21 +461,28 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0.2
-	 * @param bool $ignore_check This will allow (3rd party plugins) to populate columns outside the approved screens.
+	 * Only set columns on current screens
+	 *
+	 * @since 2.2.6
 	 */
-	public function set_columns( $ignore_screen_check = false ) {
+	public function set_columns_on_current_screen() {
 
-		// Only set columns on allowed screens
-		if ( ! $ignore_screen_check && ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() ) {
+		if ( ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() ) {
 			return;
 		}
 
+		$this->set_columns();
+	}
+
+	/**
+	 * @since 2.0.2
+	 * @param bool $ignore_check This will allow (3rd party plugins) to populate columns outside the approved screens.
+	 */
+	public function set_columns() {
+
 		$this->custom_columns = $this->get_custom_registered_columns();
 		$this->default_columns = $this->get_default_registered_columns();
-
 		$this->column_types = $this->get_grouped_column_types();
-
 		$this->columns = $this->get_columns();
 	}
 
@@ -728,6 +734,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
+	 * Mark your admin columns ajax request with plugin_id : 'cpac'.
 	 *
 	 * @since 2.0.5
      * @return boolean
@@ -743,16 +750,6 @@ abstract class CPAC_Storage_Model {
 
 		return false;
 	}
-
-	/**
-	 * @since 2.0.5
-     * @return boolean
-	 */
-	/*
-	function is_doing_quick_edit() {
-		return $this->is_doing_ajax() && isset( $_REQUEST['action'] ) && 'inline-save' == $_REQUEST['action'];
-	}
-	*/
 
 	/**
 	 * @since 2.0.3
