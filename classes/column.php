@@ -165,9 +165,7 @@ class CPAC_Column {
 		}
 
 		// Check whether the column should be available
-		if ( ! isset( $this->properties['is_registered'] ) ) {
-			$this->properties['is_registered'] = $this->apply_conditional();
-		}
+		$this->properties['is_registered'] = $this->apply_conditional();
 
 		/**
 		 * Filter the properties of a column type, such as type and is_cloneable

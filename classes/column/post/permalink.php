@@ -79,5 +79,4 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 		</tr>
 		<?php
 	}
-
 }
