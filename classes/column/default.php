@@ -1,5 +1,9 @@
 <?php
 /**
+ * Column class for default columns (i.e. columns not added by Admin Columns).
+ * Allows additional properties, such as editability and filterability, to be
+ * added to defeault column types.
+ *
  * @since 2.2.1
  */
 class CPAC_Column_Default extends CPAC_Column {

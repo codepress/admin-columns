@@ -1,6 +1,6 @@
 <?php
 /**
- * CPAC_Column_ACF_Placeholder
+ * ACF Placeholder column, holding a CTA for Admin Columns Pro.
  *
  * @since 2.2
  */

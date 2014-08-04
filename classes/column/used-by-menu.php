@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Modified
+ * Column displaying the menus the item is used in. Supported by all object types that
+ * can be referenced in menus (i.e. posts).
  *
  * @since 2.2.5
  */
@@ -143,4 +144,5 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 		</tr>
 		<?php
 	}
+
 }

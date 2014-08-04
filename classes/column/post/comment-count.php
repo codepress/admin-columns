@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Modified
+ * Column displaying the number of comments for an item, displaying either the total
+ * amount of comments, or the amount per status (e.g. "Approved", "Pending").
  *
  * @since 2.0
  */

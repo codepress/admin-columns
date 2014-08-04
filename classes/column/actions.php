@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for 
+ * Base class for columns containing action links for items.
  *
  * @since 2.2.6
  */

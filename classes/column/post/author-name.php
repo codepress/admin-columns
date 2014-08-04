@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Author_Name
+ * Column displaying information about the author of a post, such as the
+ * author's display name, user ID and email address.
  *
  * @since 2.0
  */

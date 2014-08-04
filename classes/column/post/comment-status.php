@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Comment_Status
+ * Column displaying whether an item is open for comments, i.e. whether users can
+ * comment on this item.
  *
  * @since 2.0
  */

@@ -1,6 +1,7 @@
 <?php
 /**
- * CPAC_Column_Post_Taxonomy
+ * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
+ * supporting WordPress' native way of handling terms.
  *
  * @since 2.0
  */

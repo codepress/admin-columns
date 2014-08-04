@@ -1,6 +1,6 @@
 <?php
 /**
- * CPAC_Column_Post_Attachment_Count
+ * Column displaying number of attachment for an item.
  *
  * @since 2.0
  */

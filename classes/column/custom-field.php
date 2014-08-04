@@ -1,7 +1,10 @@
 <?php
-
 /**
- * CPAC_Column_Custom_Field
+ * Custom field column, displaying the contents of meta fields.
+ * Suited for all storage models supporting WordPress' default way of handling meta data.
+ *
+ * Supports different types of meta fields, including dates, serialized data, linked content,
+ * and boolean values.
  *
  * @since 1.0
  */
