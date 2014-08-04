@@ -2,13 +2,13 @@
 /**
  * CPAC_Column_Post_Modified
  *
- * @since 2.0
+ * @since 2.2.5
  */
 class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.2.1
+	 * @since 2.2.5
 	 */
 	public function init() {
 
@@ -24,7 +24,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::apply_conditional()
-	 * @since 2.0
+	 * @since 2.2.5
 	 */
 	function apply_conditional() {
 		if ( ! $this->get_meta_type() ) {
@@ -35,7 +35,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0
+	 * @since 2.2.5
 	 */
 	function get_value( $object_id ) {
 
@@ -59,7 +59,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	/**
 	 * Get object metatype of the storage model
 	 *
-	 * @since 2.0.6
+	 * @since 2.2.5
 	 */
 	function get_meta_type() {
 		$object_type = false;
@@ -74,7 +74,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
+	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {
 
@@ -112,7 +112,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 2.2.1
+	 * @since 2.2.5
 	 */
 	public function display_settings() {
 
@@ -122,7 +122,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	/**
 	 * Display the settings field for selecting whether the column value should link to the corresponding post
 	 *
-	 * @since 2.2.1
+	 * @since 2.2.5
 	 */
 	public function display_field_link_to_menu() {
 
