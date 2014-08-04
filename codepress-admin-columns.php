@@ -282,6 +282,7 @@ class CPAC {
 		// include parent and childs
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/column/default.php';
+		require_once CPAC_DIR . 'classes/column/actions.php';
 		require_once CPAC_DIR . 'classes/storage_model.php';
 		require_once CPAC_DIR . 'classes/storage_model/post.php';
 		require_once CPAC_DIR . 'classes/storage_model/user.php';
