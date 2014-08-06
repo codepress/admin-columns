@@ -225,8 +225,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 			case "color" :
 				if ( ! empty( $meta ) ) {
-					$text_color = $this->get_text_color( $meta );
-					$meta = "<div class='cpac-color'><span style='background-color:{$meta};color:{$text_color}'>{$meta}</span></div>";
+					$meta = $this->get_color_for_display( $meta );
 				}
 				break;
 
@@ -238,40 +237,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		endswitch;
 
 		return $meta;
-	}
-
-	/**
-	 * Determines text color absed on bakground coloring.
-	 *
-	 * @since 1.0
-	 */
-	function get_text_color( $bg_color ) {
-
-		$rgb = $this->hex2rgb( $bg_color );
-
-		return $rgb && ( ( $rgb[0]*0.299 + $rgb[1]*0.587 + $rgb[2]*0.114 ) < 186 ) ? '#ffffff' : '#333333';
-	}
-
-	/**
-	 * Convert hex to rgb
-	 *
-	 * @since 1.0
-	 */
-	function hex2rgb( $hex ) {
-		$hex = str_replace( "#", "", $hex );
-
-		if(strlen($hex) == 3) {
-			$r = hexdec(substr($hex,0,1).substr($hex,0,1));
-			$g = hexdec(substr($hex,1,1).substr($hex,1,1));
-			$b = hexdec(substr($hex,2,1).substr($hex,2,1));
-		} else {
-			$r = hexdec(substr($hex,0,2));
-			$g = hexdec(substr($hex,2,2));
-			$b = hexdec(substr($hex,4,2));
-		}
-		$rgb = array($r, $g, $b);
-
-		return $rgb;
 	}
 
 	/**

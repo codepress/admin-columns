@@ -354,11 +354,13 @@ class CPAC {
 
 		$post_types = array();
 
-		if ( post_type_exists( 'post' ) )
+		if ( post_type_exists( 'post' ) ) {
 			$post_types['post'] = 'post';
+		}
 
-		if ( post_type_exists( 'page' ) )
+		if ( post_type_exists( 'page' ) ) {
 			$post_types['page'] = 'page';
+		}
 
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' 	=> false,
@@ -456,7 +458,7 @@ class CPAC {
 
 				// JS: edit button
 				$general_options = get_option( 'cpac_general_options' );
-				if ( current_user_can( 'manage_admin_columns' ) && isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) {
+				if ( current_user_can( 'manage_admin_columns' ) && ! isset( $general_options['show_edit_button'] ) || ( isset( $general_options['show_edit_button'] ) && '1' === $general_options['show_edit_button'] ) ) {
 					$edit_link = $storage_model->get_edit_link();
 				}
 			}

@@ -248,6 +248,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.6 =
+* [Changed] Improved set_columns in storage_model.
+* [Changed] Display "edit columns" button by default.
+
+
 = 2.2.5 =
 * [Fixed] Error with actions icons.
 * [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts.

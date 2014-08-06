@@ -29,27 +29,9 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
-		$values = array();
-
 		$term_ids = $this->get_raw_value( $post_id );
 
-		$post_type = $this->get_post_type();
-
-		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
-			foreach ( $term_ids as $term_id ) {
-				$term = get_term( $term_id, $this->options->taxonomy );
-				$title = esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'edit' ) );
-
-				$link = "<a href='edit.php?post_type={$post_type}&{$term->taxonomy}={$term->slug}'>{$title}</a>";
-				if ( $post_type == 'attachment' )
-					$link = "<a href='upload.php?taxonomy={$term->taxonomy}&term={$term->slug}'>{$title}</a>";
-
-				$values[] = $link;
-			}
-		}
-
-		return implode( ', ', $values );
+		return $this->get_terms_for_display( $term_ids, $this->options->taxonomy );
 	}
 
 	/**
@@ -59,16 +41,6 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	function get_raw_value( $post_id ) {
 
 		return wp_get_post_terms( $post_id, $this->options->taxonomy, array( 'fields' => 'ids' ) );
-	}
-
-	/**
-	 * Get post type
-	 *
-	 * @since 2.1.1
-	 */
-	function get_post_type() {
-
-		return isset( $this->storage_model->post_type ) ? $this->storage_model->post_type : false;
 	}
 
 	/**
