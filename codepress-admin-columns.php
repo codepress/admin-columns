@@ -233,7 +233,6 @@ class CPAC {
 		add_action( 'admin_head', array( $this, 'global_head_scripts') );
 
 		wp_register_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
-		wp_register_script( 'jquery-floatthead', CPAC_URL . 'external/floatThead/jquery.floatThead.js', array( 'jquery' ), CPAC_VERSION );
 
 		if ( $this->is_columns_screen() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
