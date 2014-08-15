@@ -533,7 +533,7 @@ class CPAC_Settings {
 								<p>
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" type="hidden" value="0" >
-										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( isset( $options['show_edit_button'] ) ? $options['show_edit_button'] : '', '1' ); ?>>
+										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( ! isset( $options['show_edit_button'] ) || ( '1' == $options['show_edit_button'] ) ); ?>>
 										<?php _e( 'Show "Edit Columns" button on admin screens. Default is <code>on</code>.', 'cpac' ); ?>
 									</label>
 								</p>

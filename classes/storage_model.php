@@ -269,10 +269,14 @@ abstract class CPAC_Storage_Model {
 
 		$columns  = array(
 			'CPAC_Column_Custom_Field' 		=> CPAC_DIR . 'classes/column/custom-field.php',
-			'CPAC_Column_ACF_Placeholder' 	=> CPAC_DIR . 'classes/column/acf-placeholder.php',
 			'CPAC_Column_Taxonomy' 			=> CPAC_DIR . 'classes/column/taxonomy.php',
 			'CPAC_Column_Used_By_Menu' 		=> CPAC_DIR . 'classes/column/used-by-menu.php'
 		);
+
+		// Display ACF placeholder
+		if ( class_exists('acf') && ! class_exists( 'CAC_Addon_Pro' ) ) {
+			$columns[ 'CPAC_Column_ACF_Placeholder' ] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+		}
 
 		// Directory to iterate
 		$columns_dir = CPAC_DIR . 'classes/column/' . $this->type;
