@@ -114,15 +114,26 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 				$link = preg_replace( '/class=["\'](.*?)["\']/', 'class="$1 cpac-tip button cpac-button-action dashicons hide-content dashicons-' . $icons[ $action ] . '"', $link, 1 );
 
 				// Add tooltip title
-				$link = preg_replace_callback( '/>(.*?)<\/a>/', function( $matches ) {
-					return ' data-tip="' . esc_attr( $matches[1] ) . '">' . $matches[1] . '</a>';
-				}, $link );
+				$link = preg_replace_callback( '/>(.*?)<\/a>/', array( $this, 'add_link_tooltip' ), $link );
 
 				$actions[ $action ] = $link;
 			}
 		}
 
 		return $actions;
+	}
+
+	/**
+	 * Add the tooltip data attribute to the link
+	 * Callback for preg_replace_callback
+	 *
+	 * @since 2.2.6.1
+	 *
+	 * @param array $matches Matches information from preg_replace_callback
+	 * @return string Link part with tooltip attribute
+	 */
+	public function add_link_tooltip( $matches ) {
+		return ' data-tip="' . esc_attr( $matches[1] ) . '">' . $matches[1] . '</a>';
 	}
 
 	/**
