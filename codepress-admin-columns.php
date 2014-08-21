@@ -50,6 +50,7 @@ if ( ! is_admin() ) {
  */
 require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
+require_once CPAC_DIR . 'includes/arrays.php';
 require_once CPAC_DIR . 'api.php';
 
 /**
