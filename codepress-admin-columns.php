@@ -98,7 +98,7 @@ class CPAC {
 		add_action( 'init', array( $this, 'localize' ) );
 
 		// Storage models
-		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
+		add_action( 'wp_loaded', array( $this, 'set_storage_models_on_cac_screen' ), 5 );
 
 		// Setup callback, important to load after set_storage_models
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
@@ -268,14 +268,22 @@ class CPAC {
    		}
 	}
 
-	/**
+		/**
 	 * @since 2.0
 	 */
-	public function set_storage_models() {
+	public function set_storage_models_on_cac_screen() {
 
 		if ( ! $this->is_cac_screen() ) {
 			return;
 		}
+
+		$this->set_storage_models();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function set_storage_models() {
 
 		$storage_models = array();
 
