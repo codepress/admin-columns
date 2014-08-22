@@ -248,6 +248,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.6.3 =
+* [Updated] Enable 3rd party plugins to set storage_models outside the post listings screens
+
 = 2.2.6.2 =
 * [Fixed] Fixed “Illegal offset” warning for unset option on edit screen
 
