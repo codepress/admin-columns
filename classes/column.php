@@ -379,7 +379,7 @@ class CPAC_Column {
 	function get_cache( $id ) {
 		$cache = get_transient( $this->get_cache_id( $id ) );
 
-		if ( empty( $cache ) || is_wp_error( $cache ) || ! is_array( $cache ) ) {
+		if ( empty( $cache ) ) {
 			return false;
 		}
 
