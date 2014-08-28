@@ -29,7 +29,7 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 		?>
 		<div class="is-disabled">
 			<p>
-				<strong><?php _e( 'This feature is only available in Admin Columns Pro - Developer.' ); ?></strong>
+				<strong><?php _e( 'This feature is only available in Admin Columns Pro - Business or Developer.' ); ?></strong>
 			</p>
 			<p>
 				<?php printf( __( "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>.", 'cpac' ), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
