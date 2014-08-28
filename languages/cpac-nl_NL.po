@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Tobias Schutter <info@codepress.nl>, 2013-2014
 msgid ""
@@ -6,20 +6,21 @@ msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-08-28 09:50+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/admin-columns/language/nl_NL/)\n"
+"PO-Revision-Date: 2014-08-28 12:17+0100\n"
+"Last-Translator: Codepress <info@codepress.nl>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
+"admin-columns/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.8\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../classes/addons.php:117
 msgid "Third party plugin integration"
@@ -68,7 +69,9 @@ msgstr "Voorbeeld:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
-msgstr "Laat leeg voor WordPress datumformaat, verander je  <a href=\"%s\">standaard datumformaat </a>."
+msgstr ""
+"Laat leeg voor WordPress datumformaat, verander je  <a href=\"%s\">standaard "
+"datumformaat </a>."
 
 #: ../classes/column.php:761
 msgid "Documentation on date and time formatting."
@@ -173,8 +176,8 @@ msgstr ""
 #: ../classes/column/acf-placeholder.php:38
 msgid ""
 "Admin Columns Pro - Developer offers full Advanced Custom Fields "
-"integeration, allowing you to easily display and edit ACF fields from within"
-" your posts overview."
+"integeration, allowing you to easily display and edit ACF fields from within "
+"your posts overview."
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:40
@@ -741,7 +744,9 @@ msgstr "Wijzig label"
 msgid ""
 "By clicking on the triangle you will see the column options. Here you can "
 "change each label of the columns heading."
-msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de kolom label aanpassen."
+msgstr ""
+"Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de "
+"kolom label aanpassen."
 
 #: ../classes/settings.php:285
 msgid "Change column width"
@@ -761,19 +766,25 @@ msgstr "'Custom veld' kolom"
 msgid ""
 "The custom field colum uses the custom fields from posts and users. There "
 "are 10 types which you can set."
-msgstr "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. Er zijn 10 typen welke je kan gebruiken."
+msgstr ""
+"De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. "
+"Er zijn 10 typen welke je kan gebruiken."
 
 #: ../classes/settings.php:295
 msgid ""
 "Value: Can be either a string or array. Arrays will be flattened and values "
 "are seperated by a ',' comma."
-msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door een ',' komma."
+msgstr ""
+"Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de "
+"waarden gescheiden door een ',' komma."
 
 #: ../classes/settings.php:296
 msgid ""
 "Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
 "comma )."
-msgstr "Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' komma )."
+msgstr ""
+"Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' "
+"komma )."
 
 #: ../classes/settings.php:297
 msgid "Value: This will show the first 20 words of the Post content."
@@ -781,8 +792,7 @@ msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
 
 #: ../classes/settings.php:298
 msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
+"Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
 #: ../classes/settings.php:299
@@ -864,7 +874,10 @@ msgid ""
 "Addons are now activated by downloading and installing individual plugins. "
 "Although these plugins will not be hosted on the wordpress.org repository, "
 "each Add-on will continue to receive updates in the usual way."
-msgstr "Addons worden vanaf nu geactiveer door ze te downloaden en te installeren als individuele plugins. Deze plugins zullen niet worden gehost op wordpress.org, maar ze blijven wel automatische updates ontvangen zoals gewoonlijk."
+msgstr ""
+"Addons worden vanaf nu geactiveer door ze te downloaden en te installeren "
+"als individuele plugins. Deze plugins zullen niet worden gehost op wordpress."
+"org, maar ze blijven wel automatische updates ontvangen zoals gewoonlijk."
 
 #: ../classes/settings.php:419
 msgid ""
@@ -897,8 +910,8 @@ msgstr "Database Aanpassingen"
 
 #: ../classes/settings.php:438
 msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
+"The database has been changed between versions 1 and 2. But we made sure you "
+"can still roll back to version 1x without any issues."
 msgstr ""
 
 #: ../classes/settings.php:441
@@ -915,9 +928,9 @@ msgstr "Potentiele problemen"
 
 #: ../classes/settings.php:445
 msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
+"Do to the sizable refactoring the code, surounding Addons and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full"
 msgstr ""
 
 #: ../classes/settings.php:445
@@ -933,7 +946,9 @@ msgstr "overzicht van alle aanpassingen."
 msgid ""
 "When you have found a bug please <a href=\"%s\">report them to us</a> so we "
 "can fix it in the next release."
-msgstr "Mocht je een bug vinden, <a href=\"%s\">rapporteer deze aan ons</a> zodat we die kunnen herstellen in een volgende versie."
+msgstr ""
+"Mocht je een bug vinden, <a href=\"%s\">rapporteer deze aan ons</a> zodat we "
+"die kunnen herstellen in een volgende versie."
 
 #: ../classes/settings.php:448
 msgid "Important!"
@@ -976,7 +991,9 @@ msgstr "Pas uw Admin Column instellingen aan."
 #: ../classes/settings.php:546
 msgid ""
 "Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr "Toon \"Bewerk Kolommen\" knop op de admin schermen. Standaard waarde is <code>uit</code>."
+msgstr ""
+"Toon \"Bewerk Kolommen\" knop op de admin schermen. Standaard waarde is "
+"<code>uit</code>."
 
 #: ../classes/settings.php:553 ../classes/settings.php:682
 msgid "Save"
@@ -988,7 +1005,9 @@ msgstr "Herstel Instellingen"
 
 #: ../classes/settings.php:594
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Hiermee worden alle kolommen instellingen verwijderd en de standaardinstellingen hersteld."
+msgstr ""
+"Hiermee worden alle kolommen instellingen verwijderd en de "
+"standaardinstellingen hersteld."
 
 #: ../classes/settings.php:600
 msgid "Restore default settings"
@@ -998,7 +1017,9 @@ msgstr "Herstel standaard instellingen"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr "Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
+msgstr ""
+"Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet "
+"worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
 
 #: ../classes/settings.php:620 ../codepress-admin-columns.php:354
 msgid "Settings"
@@ -1023,8 +1044,8 @@ msgstr ""
 #: ../classes/settings.php:668
 #, php-format
 msgid ""
-"The columns for <strong>%s</strong> are set up via PHP and can therefore not"
-" be edited in the admin panel."
+"The columns for <strong>%s</strong> are set up via PHP and can therefore not "
+"be edited in the admin panel."
 msgstr ""
 
 #: ../classes/settings.php:678
@@ -1038,8 +1059,8 @@ msgstr "Bijwerken"
 #: ../classes/settings.php:686
 #, php-format
 msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. "
-"\\'OK\\' to delete, \\'Cancel\\' to stop"
+"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
+"\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
 #: ../classes/settings.php:687
@@ -1069,7 +1090,7 @@ msgstr "Toevoegen Direct Bewerken"
 #: ../classes/settings.php:711
 #, php-format
 msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Bekijk <a href=\"%s\">Admin Columns Pro</a> voor meer details!"
 
 #: ../classes/settings.php:742
 msgid "Support"
