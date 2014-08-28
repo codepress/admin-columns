@@ -374,11 +374,13 @@ class CPAC_Settings {
 		$show_welcome = false !== get_transient('cpac_show_welcome');
 
 		// Should only be set manual
-		if ( isset( $_GET['info'] ) )
+		if ( isset( $_GET['info'] ) ) {
 			$show_welcome = true;
+		}
 
-		if ( ! $show_welcome )
+		if ( ! $show_welcome ) {
 			return false;
+		}
 
 		// Set check that welcome should not be displayed.
 		delete_transient('cpac_show_welcome');
@@ -427,8 +429,8 @@ class CPAC_Settings {
 				<?php
 
 				$items = file_get_contents( CPAC_DIR . 'readme.txt' );
-
-				$items = end( explode('= ' . CPAC_VERSION . ' =', $items) );
+				$items = explode('= ' . CPAC_VERSION . ' =', $items);
+				$items = end( $items );
 				$items = current( explode("\n\n", $items) );
 				$items = current( explode("= ", $items) );
 				$items = array_filter( array_map('trim', explode("*", $items)) );
