@@ -488,7 +488,7 @@ class CPAC_Settings {
 	 */
 	public function display_settings() {
 	?>
-		<table class="form-table cpac-form-table">
+		<table class="form-table cpac-form-table settings">
 			<tbody>
 
 				<tr class="general">
@@ -501,9 +501,6 @@ class CPAC_Settings {
 							<form method="post" action="options.php">
 								<?php settings_fields( 'cpac-general-settings' ); ?>
 								<?php $options = get_option( 'cpac_general_options' ); ?>
-								<p>
-									<br/>
-								</p>
 								<p>
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" type="hidden" value="0" >
