@@ -276,26 +276,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * Get before value
-	 *
-	 * @since 1.0
-	 */
-	function get_before() {
-
-		return stripslashes( $this->options->before );
-	}
-
-	/**
-	 * Get after value
-	 *
-	 * @since 1.0
-	 */
-	function get_after() {
-
-		return stripslashes( $this->options->after );
-	}
-
-	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */

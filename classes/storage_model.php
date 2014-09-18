@@ -284,8 +284,9 @@ abstract class CPAC_Storage_Model {
 			$iterator = new DirectoryIterator( $columns_dir );
 			foreach( $iterator as $leaf ) {
 
-				if ( $leaf->isDot() || $leaf->isDir() )
+				if ( $leaf->isDot() || $leaf->isDir() ) {
 					continue;
+				}
 
 				// only allow php files, exclude .SVN .DS_STORE and such
 				if ( substr( $leaf->getFilename(), -4 ) !== '.php' ) {
