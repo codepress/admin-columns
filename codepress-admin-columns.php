@@ -146,96 +146,23 @@ class CPAC {
 	}
 
 	/**
-	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
-	 *
-	 * @since 2.2
-     * @return bool Returns true if in an AJAX request, false otherwise
-	 */
-	function is_doing_ajax() {
-
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			return false;
-		}
-
-		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Whether this request is a columns screen (i.e. a content overview page)
-	 *
-	 * @since 2.2
-     * @return bool Returns true if the current screen is a columns screen, false otherwise
-	 */
-	function is_columns_screen() {
-
-		global $pagenow;
-
-		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
-
-		/**
-		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
-		 * Useful for advanced used with custom content overview pages
-		 *
-		 * @since 2.2
-		 * @param bool $columns_screen Whether the current request is a columns screen
-		 */
-		$columns_screen = apply_filters( 'cac/is_columns_screen', $columns_screen );
-
-		return $columns_screen;
-	}
-
-	/**
-	 * Whether the current screen is the Admin Columns settings screen
-	 *
-	 * @since 2.2
-	 * @return bool True if the current screen is the settings screen, false otherwise
-	 */
-	function is_settings_screen() {
-
-		global $pagenow;
-
-		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Whether the current screen is a screen in which Admin Columns is used
-	 * Used to check whether storage models should be loaded
-	 *
-	 * @since 2.2
-	 * @return bool Whether the current screen is an Admin Columns screen
-	 */
-	function is_cac_screen() {
-
-		/**
-		 * Filter whether the current screen is a screen in which Admin Columns is active
-		 *
-		 * @since 2.2
-		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
-		 */
-		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || $this->is_doing_ajax() || $this->is_settings_screen() );
-	}
-
-	/**
 	 * @since 2.2.4
 	 */
 	public function scripts() {
 
 		wp_register_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
+		wp_register_script( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.js', array( 'jquery' ), CPAC_VERSION );
+		wp_register_style( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.css', array(), CPAC_VERSION, 'all' );
+		wp_register_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
 
 		if ( $this->is_columns_screen() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts') );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
-			wp_enqueue_script( 'jquery-floatthead' );
+			wp_enqueue_script( 'jquery-qtip2' );
+			wp_enqueue_style( 'jquery-qtip2' );
+			wp_enqueue_style( 'cpac-columns' );
 
 			$data = array();
 
@@ -246,8 +173,6 @@ class CPAC {
 			}*/
 
 			wp_localize_script( 'cpac-admin-columns', 'CPAC', $data );
-
-			$this->column_styles();
 		}
 	}
 
@@ -329,8 +254,12 @@ class CPAC {
 	}
 
 	/**
+	 * Retrieve a storage model object based on its key
+	 *
 	 * @since 2.0
-	 * @return array|false object Storage Model
+	 *
+	 * @param string $key Storage model key (e.g. post, page, wp-users)
+	 * @return bool|CPAC_Storage_Model Storage Model object (or false, on failure)
 	 */
 	public function get_storage_model( $key ) {
 
@@ -342,7 +271,12 @@ class CPAC {
 	}
 
 	/**
+	 * Get storage model object of currently active storage model
+	 * On the users overview page, for example, this returns the CPAC_Storage_Model_User object
+	 *
 	 * @since 2.2.4
+	 *
+	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
 
@@ -356,8 +290,11 @@ class CPAC {
 	}
 
 	/**
+	 * Get a list of post types for which Admin Columns is active
+	 *
 	 * @since 1.0
-	 * @return array Posttypes
+	 *
+	 * @return array List of post type keys (e.g. post, page)
 	 */
 	public function get_post_types() {
 
@@ -374,7 +311,7 @@ class CPAC {
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' 	=> false,
 			'show_ui'	=> true
-		)));
+		) ) );
 
 		/**
 		 * Filter the post types for which Admin Columns is active
@@ -386,7 +323,10 @@ class CPAC {
 	}
 
 	/**
+	 * Add a settings link to the Admin Columns entry in the plugin overview screen
+	 *
 	 * @since 1.0
+	 * @see filter:plugin_action_links
 	 */
 	function add_settings_link( $links, $file ) {
 
@@ -395,31 +335,20 @@ class CPAC {
 		}
 
 		array_unshift( $links, '<a href="' . esc_url( admin_url( "options-general.php?page=codepress-admin-columns" ) ) . '">' . __( 'Settings' ) . '</a>' );
+
 		return $links;
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function column_styles() {
-
-		wp_register_script( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.js', array( 'jquery' ), CPAC_VERSION );
-		wp_register_style( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.css', array(), CPAC_VERSION, 'all' );
-		wp_register_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
-
-		wp_enqueue_script( 'jquery-qtip2' );
-		wp_enqueue_style( 'jquery-qtip2' );
-		wp_enqueue_style( 'cpac-columns' );
 	}
 
 	/**
 	 * Adds a body class which is used to set individual column widths
 	 *
 	 * @since 1.4.0
+	 *
 	 * @param string $classes body classes
 	 * @return string
 	 */
 	function admin_class( $classes ) {
+		
 		if ( $storage_model = $this->get_current_storage_model() ) {
 			$classes .= " cp-{$storage_model->key}";
 		}
@@ -478,6 +407,84 @@ class CPAC {
 	}
 
 	/**
+	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
+	 *
+	 * @since 2.2
+     * @return bool Returns true if in an AJAX request, false otherwise
+	 */
+	function is_doing_ajax() {
+
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return false;
+		}
+
+		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Whether this request is a columns screen (i.e. a content overview page)
+	 *
+	 * @since 2.2
+     * @return bool Returns true if the current screen is a columns screen, false otherwise
+	 */
+	function is_columns_screen() {
+
+		global $pagenow;
+
+		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
+
+		/**
+		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
+		 * Useful for advanced used with custom content overview pages
+		 *
+		 * @since 2.2
+		 * @param bool $columns_screen Whether the current request is a columns screen
+		 */
+		$columns_screen = apply_filters( 'cac/is_columns_screen', $columns_screen );
+
+		return $columns_screen;
+	}
+
+	/**
+	 * Whether the current screen is the Admin Columns settings screen
+	 *
+	 * @since 2.2
+	 * @return bool True if the current screen is the settings screen, false otherwise
+	 */
+	function is_settings_screen() {
+
+		global $pagenow;
+
+		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Whether the current screen is a screen in which Admin Columns is used
+	 * Used to check whether storage models should be loaded
+	 *
+	 * @since 2.2
+	 * @return bool Whether the current screen is an Admin Columns screen
+	 */
+	function is_cac_screen() {
+
+		/**
+		 * Filter whether the current screen is a screen in which Admin Columns is active
+		 *
+		 * @since 2.2
+		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
+		 */
+		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || $this->is_doing_ajax() || $this->is_settings_screen() );
+	}
+
+	/**
 	 * Get admin columns settings class instance
 	 *
 	 * @since 2.2
@@ -497,6 +504,17 @@ class CPAC {
 	public function addons() {
 
 		return $this->_addons;
+	}
+
+	/**
+	 * Get admin columns upgrade class instance
+	 *
+	 * @since 2.3
+	 * @return CPAC_Upgrade Upgrade class instance
+	 */
+	public function upgrade() {
+
+		return $this->_upgrade;
 	}
 }
 
