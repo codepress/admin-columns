@@ -26,14 +26,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! defined( 'ABSPATH' ) )  {
-	// Exit if accessed directly
-	exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.2.6.4' ); // current plugin version
-define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // this is the latest version which requires an upgrade
+define( 'CPAC_VERSION', 	 	'2.2.6.4' ); // Current plugin version
+define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
 
@@ -61,7 +58,7 @@ class CPAC {
 
 	/**
 	 * Registered storage model class instances
-	 * Array of CPAC_Storage_Model instances
+	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
 	 * @since 2.0
 	 * @var array
@@ -87,26 +84,27 @@ class CPAC {
 	private $_settings;
 
 	/**
+	 * Admin Columns plugin upgrade class instance
+	 *
+	 * @since 2.3
+	 * @access private
+	 * @var CPAC_Upgrade
+	 */
+	private $_upgrade;
+
+	/**
 	 * @since 1.0
 	 */
 	function __construct() {
 
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
-		// Localization
+		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-
-		// Storage models
-		add_action( 'wp_loaded', array( $this, 'set_storage_models_on_cac_screen' ), 5 );
-
-		// Setup callback, important to load after set_storage_models
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
-
-		// Add settings link
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
-
-		// Scripts
+		add_action( 'wp_loaded', array( $this, 'maybe_set_storage_models' ), 5 );
+		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
@@ -118,7 +116,7 @@ class CPAC {
 
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
-		new CPAC_Upgrade( $this );
+		$this->_upgrade = new CPAC_Upgrade( $this );
 	}
 
 	/**
@@ -267,10 +265,12 @@ class CPAC {
    		}
 	}
 
-		/**
-	 * @since 2.0
+	/**
+	 * Load the storage models if the current screen is a columns screen
+	 *
+	 * @since 2.3
 	 */
-	public function set_storage_models_on_cac_screen() {
+	public function maybe_set_storage_models() {
 
 		if ( ! $this->is_cac_screen() ) {
 			return;
@@ -280,13 +280,15 @@ class CPAC {
 	}
 
 	/**
+	 * Load the storage models, storing them in the storage_models property of this object
+	 *
 	 * @since 2.0
 	 */
 	public function set_storage_models() {
 
 		$storage_models = array();
 
-		// include parent and childs
+		// Load storage model class files and column base class files
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/column/default.php';
 		require_once CPAC_DIR . 'classes/column/actions.php';
@@ -297,11 +299,13 @@ class CPAC {
 		require_once CPAC_DIR . 'classes/storage_model/comment.php';
 		require_once CPAC_DIR . 'classes/storage_model/link.php';
 
+		// Create a storage model per post type
 		foreach ( $this->get_post_types() as $post_type ) {
 			$storage_model = new CPAC_Storage_Model_Post( $post_type );
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 
+		// Create other storage models
 		$storage_model = new CPAC_Storage_Model_User();
 		$storage_models[ $storage_model->key ] = $storage_model;
 
