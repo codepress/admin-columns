@@ -228,8 +228,6 @@ class CPAC {
 	 */
 	public function scripts() {
 
-		add_action( 'admin_head', array( $this, 'global_head_scripts') );
-
 		wp_register_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
 
 		if ( $this->is_columns_screen() ) {
@@ -427,18 +425,6 @@ class CPAC {
 		}
 
 		return $classes;
-	}
-
-	/**
-	 * Admin CSS to hide upgrade menu and place icon
-	 *
-	 * @since 1.4.0
-	 */
-	function global_head_scripts() { ?>
-		<style type="text/css">
-			#menu-settings a[href="options-general.php?page=cpac-upgrade"] { display: none; }
-		</style>
-		<?php
 	}
 
 	/**

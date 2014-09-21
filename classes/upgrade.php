@@ -22,14 +22,28 @@ class CPAC_Upgrade {
 
 		$this->cpac = $cpac;
 
-		// run upgrade based on version
+		// Hooks
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
+		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
 			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
 		}
+	}
+
+	/**
+	 * Admin CSS to hide upgrade menu and place icon
+	 *
+	 * @since 2.3
+	 */
+	public function admin_head() {
+		?>
+		<style type="text/css">
+			#menu-settings a[href="options-general.php?page=cpac-upgrade"] { display: none; }
+		</style>
+		<?php
 	}
 
 	/**
