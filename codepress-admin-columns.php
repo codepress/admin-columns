@@ -1,6 +1,5 @@
 <?php
 /*
-
 Plugin Name: 		Codepress Admin Columns
 Version: 			2.2.6.4
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
