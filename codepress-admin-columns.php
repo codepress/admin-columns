@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: 		Codepress Admin Columns
+Plugin Name: 		Admin Columns
 Version: 			2.2.6.4
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
-Author: 			Codepress
-Author URI: 		http://www.codepresshq.com
-Plugin URI: 		http://www.codepresshq.com/wordpress-plugins/admin-columns/
+Author: 			AdminColumns.com
+Author URI: 		http://www.admincolumns.com
+Plugin URI: 		http://www.admincolumns.com
 Text Domain: 		cpac
 Domain Path: 		/languages
 License:			GPLv2
 
-Copyright 2011-2014  Codepress  info@codepress.nl
+Copyright 2011-2014  AdminColumns.com  info@admincolumns.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
@@ -50,7 +50,7 @@ require_once CPAC_DIR . 'includes/arrays.php';
 require_once CPAC_DIR . 'api.php';
 
 /**
- * The Codepress Admin Columns Class
+ * The Admin Columns Class
  *
  * @since 1.0
  */
@@ -86,7 +86,7 @@ class CPAC {
 	/**
 	 * Admin Columns plugin upgrade class instance
 	 *
-	 * @since 2.3
+	 * @since 2.2.7
 	 * @access private
 	 * @var CPAC_Upgrade
 	 */
@@ -191,7 +191,7 @@ class CPAC {
 	/**
 	 * Load the storage models if the current screen is a columns screen
 	 *
-	 * @since 2.3
+	 * @since 2.2.7
 	 */
 	public function maybe_set_storage_models() {
 
@@ -348,7 +348,7 @@ class CPAC {
 	 * @return string
 	 */
 	function admin_class( $classes ) {
-		
+
 		if ( $storage_model = $this->get_current_storage_model() ) {
 			$classes .= " cp-{$storage_model->key}";
 		}
@@ -509,7 +509,7 @@ class CPAC {
 	/**
 	 * Get admin columns upgrade class instance
 	 *
-	 * @since 2.3
+	 * @since 2.2.7
 	 * @return CPAC_Upgrade Upgrade class instance
 	 */
 	public function upgrade() {
@@ -519,9 +519,16 @@ class CPAC {
 }
 
 /**
- * Init Class Codepress_Admin_Columns ( sets Global for backwards compatibility. )
+ * Admin Columns class (global for backwards compatibility)
+ *
+ * @since 1.0
+ * @deprecated 2.2.7 Use filter cac/loaded instead.
+ */
+global $cpac;
+
+/**
+ * Initialize Admin Columns class
  *
  * @since 1.0
  */
-$GLOBALS['cpac'] = new CPAC();
-
+$cpac = new CPAC();
