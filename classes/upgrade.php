@@ -36,7 +36,7 @@ class CPAC_Upgrade {
 	/**
 	 * Admin CSS to hide upgrade menu and place icon
 	 *
-	 * @since 2.3
+	 * @since 2.2.7
 	 */
 	public function admin_head() {
 		?>
