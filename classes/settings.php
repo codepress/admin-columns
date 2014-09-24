@@ -272,7 +272,7 @@ class CPAC_Settings {
 			array(
 				'title'		=> __( "Overview", 'cpac' ),
 				'content'	=>
-					"<h5>Codepress Admin Columns</h5>
+					"<h5>Admin Columns</h5>
 					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'cpac' ) . "</p>"
 			),
 			array(

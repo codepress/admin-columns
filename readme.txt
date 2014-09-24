@@ -1,4 +1,4 @@
-=== Codepress Admin Columns ===
+=== Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
@@ -173,8 +173,8 @@ You can leave any requests or feedback on [admincolumns.com](http://admincolumns
 == Installation ==
 
 1. Upload codepress-admin-columns to the /wp-content/plugins/ directory
-2. Activate Codepress Admin Columns through the 'Plugins' menu in WordPress
-3. Configure the plugin by going to the Admin Column settings that appears under the Settings menu.
+2. Activate Admin Columns through the 'Plugins' menu in WordPress
+3. Configure the plugin by going to the Admin Columns settings that appears under the Settings menu.
 
 == Frequently Asked Questions ==
 
