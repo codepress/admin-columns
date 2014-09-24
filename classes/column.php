@@ -79,7 +79,7 @@ class CPAC_Column {
 	/**
 	 * Determine whether this column type should be available
 	 *
-	 * @since 2.3
+	 * @since 2.2
 	 *
 	 * @return bool Whether the column type should be available
 	 */

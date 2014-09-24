@@ -524,7 +524,7 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * Filter the available column type groups
 		 *
-		 * @since 2.3
+		 * @since 2.2
 		 *
 		 * @param array $groups Available groups ([groupid] => [label])
 		 * @param CPAC_Storage_Model $storage_model_instance Storage model class instance
