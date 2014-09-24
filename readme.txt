@@ -248,6 +248,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.2.7 =
+* [Added] Added date format option for "Last modified" column
+* [Updated] Change references from Codepress Admin Columns to Admin Columns
+* [Updated] General code clean-up
+* [Improved] Documentation improvements
+
 = 2.2.6.4 =
 * [Updated] Portuguese (Brazil) language - thanks to André Mácola Machado
 
