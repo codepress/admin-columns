@@ -376,8 +376,9 @@ abstract class CPAC_Storage_Model {
 		foreach ( $this->get_default_columns() as $column_name => $label ) {
 
 			// checkboxes are mandatory
-			if ( 'cb' == $column_name )
+			if ( 'cb' == $column_name ) {
 				continue;
+			}
 
 			$column = $this->create_column_instance( $column_name, $label );
 
@@ -484,6 +485,8 @@ abstract class CPAC_Storage_Model {
 	 * @param bool $ignore_check This will allow (3rd party plugins) to populate columns outside the approved screens.
 	 */
 	public function set_columns() {
+
+		do_action( 'cac/set_columns', $this );
 
 		$this->custom_columns = $this->get_custom_registered_columns();
 		$this->default_columns = $this->get_default_registered_columns();

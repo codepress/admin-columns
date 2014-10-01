@@ -310,7 +310,10 @@ class CPAC_Column {
 
 			// Label can not contains the character ':', because
 			// CPAC_Column::get_sanitized_label() will return an empty string
-			$options['label'] = str_replace( ':', '', $options['label'] );
+			// and make an exception for site_url()
+			if ( false === strpos( $options['label'], site_url() ) ) {
+				$options['label'] = str_replace( ':', '', $options['label'] );
+			}
 		}
 
 		// used by child classes for additional sanitizing
@@ -998,7 +1001,7 @@ class CPAC_Column {
 		asort( $_columns );
 
 		$list = "<optgroup label='{$label}'>";
-		foreach ( $_columns as $type => $label ){
+		foreach ( $_columns as $type => $label ) {
 			$selected = selected( $this->properties->type, $type, false );
 			$list .= "<option value='{$type}'{$selected}>{$label}</option>";
 		}
