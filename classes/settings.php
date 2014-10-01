@@ -209,13 +209,6 @@ class CPAC_Settings {
 	 */
 	public function handle_column_request() {
 
-
-/*$string = '<img src=\"http://codepress.lan/acp_dev/wp-content/plugins/sitepress-multilingual-cms/res/flags/nl.png\" width=\"18\" height=\"12\" alt=\"Dutch\" title=\"Dutch\" /><img src=\"http://codepress.lan/acp_dev/wp-content/plugins/sitepress-multilingual-cms/res/flags/es.png\" width=\"18\" height=\"12\" alt=\"Spanish\" title=\"Spanish\" />';
-echo $string;
-echo stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $string ) ) );
-exit;*/
-
-
 		// only handle updates from the admin columns page
 		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns' ) ) && isset( $_REQUEST['cpac_action'] ) ) ) {
 			return false;
