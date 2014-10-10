@@ -429,8 +429,9 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_default_stored_columns() {
 
-		if ( ! $columns = get_option( "cpac_options_{$this->key}_default" ) )
+		if ( ! $columns = get_option( "cpac_options_{$this->key}_default" ) ) {
 			return array();
+		}
 
 		return $columns;
 	}

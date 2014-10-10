@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Admin Columns
-Version: 			2.2.8
+Version: 			2.2.8.1
 Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: 			AdminColumns.com
 Author URI: 		http://www.admincolumns.com
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.2.8' ); // Current plugin version
+define( 'CPAC_VERSION', 	 	'2.2.8.1' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -407,7 +407,7 @@ class CPAC {
 	}
 
 	/**
-	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
+	 * Whether this request is an AJAX request and marked as admin-column-ajax or inline-save request.
 	 *
 	 * @since 2.2
      * @return bool Returns true if in an AJAX request, false otherwise
@@ -416,6 +416,10 @@ class CPAC {
 
 		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 			return false;
+		}
+
+		if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) ) {
+			return true;
 		}
 
 		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
