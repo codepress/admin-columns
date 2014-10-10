@@ -256,6 +256,8 @@ abstract class CPAC_Storage_Model {
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();
 
+		do_action( "cac/columns/stored", $columns, $this );
+
 		return true;
 	}
 
