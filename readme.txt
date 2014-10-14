@@ -12,7 +12,7 @@ Customise columns on the administration screens for post(types), pages, media, c
 
 Manage and organize columns in the posts, users, comments and media lists in the WordPress admin panel. Transform the WordPress admin screens into beautiful, clear overviews.
 
-> = Admin Columns Pro =
+> #### Admin Columns Pro
 > The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
 >
 > [vimeo http://vimeo.com/96885841]
