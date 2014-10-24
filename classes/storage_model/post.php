@@ -145,7 +145,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// get_column_headers() runs through both the manage_{screenid}_columns
 		// and manage_{$post_type}_posts_columns filters
-		$columns = apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
+		$columns = (array) apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
 		$columns = array_filter( $columns );
 
 		return $columns;
