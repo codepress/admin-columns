@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 13:33+0100\n"
-"PO-Revision-Date: 2014-10-20 13:33+0100\n"
+"POT-Creation-Date: 2014-10-31 15:07+0100\n"
+"PO-Revision-Date: 2014-10-31 15:07+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: en_GB\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:943 ../classes/storage_model.php:526
+#: ../classes/column.php:943 ../classes/storage_model.php:535
 msgid "Custom"
 msgstr ""
 
@@ -196,20 +196,20 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../classes/column/actions.php:79
+#: ../classes/column/actions.php:87
 msgid "Use icons?"
 msgstr ""
 
-#: ../classes/column/actions.php:79
+#: ../classes/column/actions.php:87
 msgid "Use icons instead of text for displaying the actions."
 msgstr ""
 
-#: ../classes/column/actions.php:83 ../classes/column/post/permalink.php:72
+#: ../classes/column/actions.php:91 ../classes/column/post/permalink.php:72
 #: ../classes/column/used-by-menu.php:137
 msgid "Yes"
 msgstr ""
 
-#: ../classes/column/actions.php:87 ../classes/column/post/permalink.php:76
+#: ../classes/column/actions.php:95 ../classes/column/post/permalink.php:76
 #: ../classes/column/used-by-menu.php:141
 msgid "No"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Custom Field"
 msgstr ""
 
 #: ../classes/column/custom-field.php:66 ../classes/settings.php:296
-#: ../classes/storage_model.php:527
+#: ../classes/storage_model.php:536
 msgid "Default"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr ""
 msgid "View &#8220;%s&#8221;"
 msgstr ""
 
-#: ../classes/column/post/actions.php:50 ../classes/storage_model.php:735
+#: ../classes/column/post/actions.php:50 ../classes/storage_model.php:744
 msgid "View"
 msgstr ""
 
