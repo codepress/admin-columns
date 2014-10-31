@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.2.8.2
+Stable tag: 2.2.9
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -249,7 +249,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= [NEWVERSION] =
+= 2.2.9 =
 * [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
 * [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.
 * [Fixed] Fix "restore" action link in post actions column

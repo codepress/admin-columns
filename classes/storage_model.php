@@ -260,12 +260,12 @@ abstract class CPAC_Storage_Model {
 		 * Fires after a new column setup is stored in the database
 		 * Primarily used when columns are saved through the Admin Columns settings screen
 		 *
-		 * @since 2.2.8.2
+		 * @since 2.2.9
 		 *
 		 * @param array $columns List of columns ([columnid] => (array) [column properties])
 		 * @param CPAC_Storage_Model $storage_model_instance Storage model instance
 		 */
-		do_action( 'cac/columns/stored', $columns, $this );
+		do_action( 'cac/storage_model/columns_stored', $columns, $this );
 
 		return true;
 	}
