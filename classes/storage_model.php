@@ -256,7 +256,16 @@ abstract class CPAC_Storage_Model {
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();
 
-		do_action( "cac/columns/stored", $columns, $this );
+		/**
+		 * Fires after a new column setup is stored in the database
+		 * Primarily used when columns are saved through the Admin Columns settings screen
+		 *
+		 * @since 2.2.8.2
+		 *
+		 * @param array $columns List of columns ([columnid] => (array) [column properties])
+		 * @param CPAC_Storage_Model $storage_model_instance Storage model instance
+		 */
+		do_action( 'cac/columns/stored', $columns, $this );
 
 		return true;
 	}
