@@ -251,10 +251,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 = [NEWVERSION] =
 * [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
-* [Fixed] Fix "restore" action link in post actions column
-
-= 2.2.8.2 =
 * [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.
+* [Fixed] Fix "restore" action link in post actions column
 
 = 2.2.8.1 =
 * [Fixed] Quick Edit will display columns correctly after saving
