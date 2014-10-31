@@ -14,8 +14,8 @@ Manage and organize columns in the posts, users, comments and media lists in the
 
 > #### Admin Columns Pro
 > The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
->
-> [vimeo http://vimeo.com/96885841]
+
+[vimeo http://vimeo.com/96885841]
 
 = Enhanced list tables =
 By default, WordPress provides list tables, giving you an overview of your content in the admin panel. These list tables are quite limited, however. For posts and custom post types, for example, not much more than the date and title of the post is displayed. Admin Columns allows you to take control over these list tables, managing the columns dislpayed in these overviews. Supporting custom fields, featured images, custom taxonomies, EXIF data for media and much, much more (Admin Columns features over 90 columns), you can create overviews that are perfectly suited for your content.
