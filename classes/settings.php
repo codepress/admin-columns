@@ -15,6 +15,13 @@ class CPAC_Settings {
 	private $cpac;
 
 	/**
+	 * Settings Page
+	 *
+	 * @since 2.0
+	 */
+	private $settings_page;
+
+	/**
 	 * @since 2.0
 	 * @param object CPAC
 	 */
@@ -31,6 +38,13 @@ class CPAC_Settings {
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+	}
+
+	/**
+	 * @since 3.1.1
+	 */
+	public function get_settings_page() {
+		return $this->settings_page;
 	}
 
 	/**
@@ -152,14 +166,14 @@ class CPAC_Settings {
 	public function settings_menu() {
 
 		// add settings page
-		$settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
 		// add help tabs
-		add_action( "load-{$settings_page}", array( $this, 'help_tabs' ) );
+		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
 
 		// add scripts & styles
-		add_action( "admin_print_styles-{$settings_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$settings_page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$this->settings_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$this->settings_page}", array( $this, 'admin_scripts' ) );
 
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
