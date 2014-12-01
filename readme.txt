@@ -250,7 +250,9 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 2.3 =
-* [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable.
+* [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable
+* [Added] CPAC_Settings::get_settings_page() to retrieve setting_page slug
+* [Updated] Improved word count on post content
 
 = 2.2.9 =
 * [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
@@ -447,26 +449,22 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: the checkbox disappeared when resetting columns and resaving them.
 
 = 1.4.6.3 =
-
 * [Added] new custom field type: User by User ID
 * [Added] values to filter 'cpac_get_column_value_custom_field' for better control of the output
 * [Added] an example for above filter to FAQ section
 * [Fixed] Issue: where trash posts did not show with the sorting addon activated
 
 = 1.4.6.2 =
-
 * [Fixed] Issue: with a static function which could cause an error in some cases
 * [Added] filter to enable taxonomy filtering. add this to your functions.php to enable taxonomy filtering: `add_filter( 'cpac-remove-filtering-columns', '__return_false' );`
 
 = 1.4.6.1 =
-
 * [Fixed] Issue: for possible warning when using Custompress ( props to scottsalisbury for the fix! )
 * [Fixed] Issue: for sorting by postcount for users
 * [Added] 'Display Author As' column for post(types)
 * [Added] sorting support for 'Display Author As' column
 
 = 1.4.6 =
-
 * [Added] german language ( thanks to Uli )
 * [Added] danish language ( thanks to Morten Dalgaard Johansen )
 * [Added] filter for setting thumbnail size ( see FAQ on how to use it )
@@ -474,11 +472,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: for WordPress SEO by Yoast Columns
 
 = 1.4.5.1 =
-
 * [Removed] taxonomy filtering ( will implement show/hide option )
 
 = 1.4.5 =
-
 * [Added] french language ( thanks to Alexandre Girard )
 * [Added] filtering by taxonomy ( only displays when column is used )
 * [Added] compatibility with woocommerce
@@ -494,7 +490,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting users by postcount
 
 = 1.4.4 =
-
 * [Added] posts columns Last Modified and Comment count
 * [Added] media columns for EXIF and IPTC image data
 * [Added] custom fields columns to the Media Library
@@ -503,11 +498,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] possible php warning
 
 = 1.4.3 =
-
 * [Removed] taxonomy filtering
 
 = 1.4.2 =
-
 * [Fixed] Issue: for unexpected output in the column value
 * [Fixed] Issue: for better 3rd party plugin support
 * [Added] column for Comment status
@@ -519,13 +512,11 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] taxonomy filtering
 
 = 1.4.1 =
-
 * [Added] polish translation, thanks to Bartosz.
 * [Upated] the license key validation proces to be complaint with WP rules
 * [Removed] non-breaking-space-character from column output
 
 = 1.4 =
-
 * [Added] support for comment columns
 * [Added] support for link columns
 * [Added] links to taxonomies
@@ -543,7 +534,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: a conflict with the Co-Authors plugin
 
 = 1.3 =
-
 * [Added] support for Media columns
 * [Added] Media columns: filename, width, height, dimensions, description, alt, caption and mime-type
 * [Added] date type to posts custom fields
@@ -552,7 +542,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Improved] str_word_count is used for excerpts
 
 = 1.2.1 =
-
 * [Added] word count sorting
 * [Added] attachment count sorting
 * [Added] template name sorting
@@ -561,27 +550,22 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting by attachment
 
 = 1.2 =
-
 * [Added] support for third party plugins
 * [Added] user custom fields
 * [Added] extra image check
 * [Fixed] Issue: with javascript (jquery) enqueue
 
 = 1.1.3 =
-
 * [Fixed] Issue: for WP3.3beta
 
 = 1.1.2 =
-
 * [Added] Dutch translation
 
 = 1.1.1 =
-
 * [Fixed] Issue: path separator for require_once
 * [Added] word count column
 
 = 1.1 =
-
 * [Added] User Columns.
 * [Added] before / after text for custom fields
 * [Added] custom field type 'Numeric'.
@@ -590,7 +574,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] settings link
 
 = 1.0 =
-
 * Initial release.
 
 == Upgrade Notice ==

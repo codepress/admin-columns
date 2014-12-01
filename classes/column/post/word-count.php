@@ -34,7 +34,37 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 */
 	function get_raw_value( $post_id ) {
 
-		return str_word_count( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
+		return $this->str_count_words( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
+	}
+
+	/**
+	 * Count the number of words in a string (multibyte-compatible)
+	 *
+	 * @since 2.3
+	 *
+	 * @param string $input Input string
+	 * @return int Number of words
+	 */
+	public function str_count_words( $input ) {
+
+		$patterns = array(
+			'strip' => '/<[a-zA-Z\/][^<>]*>/',
+			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
+			'w' => '/\S\s+/',
+			'c' => '/\S/'
+		);
+
+		$type = 'w';
+
+		$input = preg_replace( $patterns['strip'], ' ', $input );
+		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
+		$input = preg_replace( $patterns['clean'], '', $input );
+
+		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
+			return 0;
+		}
+
+		return preg_match_all( $patterns[ $type ], $input ) + 1;
 	}
 
 	/**
