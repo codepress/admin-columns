@@ -249,6 +249,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.3 =
+* [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable.
+
 = 2.2.9 =
 * [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
 * [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.

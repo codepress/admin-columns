@@ -14,7 +14,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::init()
 	 * @since 2.2.1
 	 */
-	function init() {
+	public function init() {
 
 		parent::init();
 
@@ -44,7 +44,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::sanitize_options()
 	 * @since 1.0
 	 */
-	function sanitize_options( $options ) {
+	public function sanitize_options( $options ) {
 
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );
@@ -184,7 +184,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @param int $id Optional Object ID
 	 * @return string Users
 	 */
-	function get_value_by_meta( $meta, $id = null ) {
+	public function get_value_by_meta( $meta, $id = null ) {
 
 		switch ( $this->options->field_type ) :
 
@@ -246,7 +246,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 *
 	 * @param string Custom Field Key
 	 */
-	function get_field_key() {
+	public function get_field_key() {
 
 		return substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
 	}
@@ -279,7 +279,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $id, $single = true ) {
+	public function get_raw_value( $id, $single = true ) {
 
 		$field_key = $this->get_field_key();
 
@@ -292,7 +292,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 1.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
 
 		$value = '';
 
@@ -319,7 +319,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
 	 */
-	function display_settings() {
+	public function display_settings() {
 
 		$show_hidden_meta = true;
 		?>

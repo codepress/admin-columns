@@ -1,9 +1,9 @@
 jQuery( document ).ready( function( $ ) {
 	cpac_tooltips();
 
-	if ( typeof CPAC.storage_model !== 'undefined' && CPAC.storage_model.is_table_header_fixed ) {
+	/*if ( typeof CPAC.storage_model !== 'undefined' && CPAC.storage_model.is_table_header_fixed ) {
 		cpac_floatingheader();
-	}
+	}*/
 } );
 
 /**
@@ -28,7 +28,7 @@ function cpac_tooltips() {
 /**
  * @since 2.2.4
  */
-function cpac_floatingheader() {
+/*function cpac_floatingheader() {
 	var table = jQuery( 'table.wp-list-table.widefat' );
 	var topscroll = 0;
 
@@ -40,4 +40,4 @@ function cpac_floatingheader() {
 		scrollingTop: topscroll
 	} );
 
-}
+}*/

@@ -547,6 +547,9 @@ abstract class CPAC_Storage_Model {
 		$groups = apply_filters( "cac/storage_model/column_type_groups", $groups, $this );
 		$groups = apply_filters( "cac/storage_model/column_type_groups/storage_key={$this->key}", $groups, $this );
 
+		// Integrations first
+		krsort( $groups );
+
 		return $groups;
 	}
 
