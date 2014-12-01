@@ -163,8 +163,6 @@ class CPAC {
 			wp_enqueue_script( 'jquery-qtip2' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
-
-			//wp_localize_script( 'cpac-admin-columns', 'CPAC', array() );
 		}
 	}
 
