@@ -570,7 +570,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function get_columns() {
+	public function get_columns() {
 
 		do_action( 'cac/get_columns', $this );
 
@@ -836,15 +836,50 @@ abstract class CPAC_Storage_Model {
     }
 
 	/**
-	 * @since 2.2.4
+	 * @since 3.1.2
+	 * @param $id Cache ID
+	 * @param $column_name Column property name
+	 * @return string MD5 Cache ID
 	 */
-	public function is_table_header_fixed() {
+	public function get_cache_id( $id, $column_name ) {
+		return md5( $this->storage_model->key . $id . $column_name );
+	}
 
-		/**
-		 * @since 2.2.4
-		 */
-		$fixed = apply_filters( 'cpac/storage_model/table_header_fixed', false, $this );
+	/**
+	 * @since 3.1.2
+	 * @param $id Cache ID
+	 * @param $column_name Column property name
+	 * @param $cache_object Cache Object
+	 */
+	public function set_cache( $id, $column_name, $cache_object ) {
+		if ( empty( $cache_object ) ) {
+			return false;
+		}
+		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object );
+	}
 
-		return $fixed;
+	/**
+	 * @since 3.1.2
+	 * @param $id Cache ID ( could be a name of an addon for example )
+	 * @param $column_name Column property name
+	 * @return false | mixed Returns either false or the cached objects
+	 */
+	public function get_cache( $id, $column_name ) {
+		$cache = get_transient( $this->get_cache_id( $id, $column_name ) );
+
+		if ( empty( $cache ) ) {
+			return false;
+		}
+
+		return $cache;
+	}
+
+	/**
+	 * @since 3.1.2
+	 * @param $id Cache ID
+	 * @param $column_name Column property name
+	 */
+	public function delete_cache( $id, $column_name ) {
+		delete_transient( $this->get_cache_id( $id, $column_name ) );
 	}
 }

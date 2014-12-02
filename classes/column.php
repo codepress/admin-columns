@@ -354,52 +354,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.2
-	 * @param $id Cache ID
-	 * @return string MD5 Cache ID
-	 */
-	function get_cache_id( $id ) {
-		return md5( $this->storage_model->key . $this->properties->name . $id );
-	}
-
-	/**
-	 * @since 2.0
-	 * @param $id Cache ID
-	 * @param $cache_object Cache Object
-	 */
-	function set_cache( $id, $cache_object ) {
-
-		if ( empty( $cache_object ) ) {
-			return false;
-		}
-
-		set_transient( $this->get_cache_id( $id ), $cache_object );
-	}
-
-	/**
-	 * @since 2.0
-	 * @param $id Cache ID ( could be a name of an addon for example )
-	 * @return false | mixed Returns either false or the cached objects
-	 */
-	function get_cache( $id ) {
-		$cache = get_transient( $this->get_cache_id( $id ) );
-
-		if ( empty( $cache ) ) {
-			return false;
-		}
-
-		return $cache;
-	}
-
-	/**
-	 * @since 2.0
-	 * @param $id Cache ID
-	 */
-	function delete_cache( $id ) {
-		delete_transient( $this->get_cache_id( $id ) );
-	}
-
-	/**
 	 * @since 1.3.1
 	 */
 	protected function get_shorten_url( $url = '' ) {
