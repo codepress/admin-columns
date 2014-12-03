@@ -842,7 +842,7 @@ abstract class CPAC_Storage_Model {
 	 * @return string MD5 Cache ID
 	 */
 	public function get_cache_id( $id, $column_name ) {
-		return md5( $this->storage_model->key . $id . $column_name );
+		return md5( $this->key . $id . $column_name );
 	}
 
 	/**
