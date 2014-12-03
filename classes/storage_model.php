@@ -855,7 +855,7 @@ abstract class CPAC_Storage_Model {
 		if ( empty( $cache_object ) ) {
 			return false;
 		}
-		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object );
+		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, 3600 * 24 * 7 ); // 7 days
 	}
 
 	/**
