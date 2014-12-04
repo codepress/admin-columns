@@ -607,7 +607,6 @@ class CPAC_Settings {
 		$post_types = array_values( $this->cpac->get_post_types() );
 		$first 		= array_shift( $post_types );
 		?>
-
 		<div id="cpac" class="wrap">
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
