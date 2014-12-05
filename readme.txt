@@ -253,6 +253,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable
 * [Added] CPAC_Settings::get_settings_page() to retrieve setting_page slug
 * [Added] Caching method for CPAC_Storage_Model
+* [Fixed] Field PHP Export was not working when included to a site
 * [Updated] Improved word count on post content
 
 = 2.2.9 =
