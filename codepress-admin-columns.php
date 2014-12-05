@@ -160,7 +160,6 @@ class CPAC {
 			add_action( 'admin_head', array( $this, 'admin_scripts') );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
-			wp_enqueue_script( 'jquery-qtip2' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
 		}

@@ -6,6 +6,11 @@ jQuery( document ).ready( function( $ ) {
  * @since 2.2.4
  */
 function cpac_tooltips() {
+
+	if ( typeof qtip === 'undefined' || ! jQuery.isFunction( qtip ) ) {
+		return;
+	}
+
 	jQuery( '.cpac-tip' ).qtip( {
 		content: {
 			attr: 'data-tip'

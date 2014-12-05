@@ -171,5 +171,17 @@ function cpac_wpml_is_cac_screen( $is_columns_screen ) {
 
 	return $is_columns_screen;
 }
-
 add_filter( 'cac/is_cac_screen', 'cpac_wpml_is_cac_screen' );
+
+
+/**
+ * Disable qTip when using Pods
+ *
+ * @since 2.2
+ */
+function cpac_pods_dequeue_qtip() {
+	if ( class_exists( 'PodsInit' ) ) {
+		wp_deregister_script( 'jquery-qtip2' );
+	}
+}
+add_action( 'admin_enqueue_scripts', 'cpac_pods_dequeue_qtip', 11 );
