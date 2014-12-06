@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 14:15+0100\n"
-"PO-Revision-Date: 2014-12-05 14:15+0100\n"
+"POT-Creation-Date: 2014-12-06 23:38+0100\n"
+"PO-Revision-Date: 2014-12-06 23:38+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: en_GB\n"
@@ -1021,7 +1021,7 @@ msgid ""
 "undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
 msgstr ""
 
-#: ../classes/settings.php:599 ../codepress-admin-columns.php:327
+#: ../classes/settings.php:599 ../codepress-admin-columns.php:326
 msgid "Settings"
 msgstr ""
 
@@ -1277,6 +1277,6 @@ msgid ""
 "on the support forum."
 msgstr ""
 
-#: ../codepress-admin-columns.php:391
+#: ../codepress-admin-columns.php:390
 msgid "Edit columns"
 msgstr ""
