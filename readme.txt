@@ -252,7 +252,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.3.2 =
 * [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
 * [Updated] 100% Spanish translation thanks to Carlos
-* [Added] Custom Fields with stored media ID's will display icons for attachment files
+* [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
 * [Fixed] Remove deregister of qtip2 scripts.
 
 = 2.3.1 =
