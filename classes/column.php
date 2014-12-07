@@ -440,7 +440,7 @@ class CPAC_Column {
 	 * @param string $url
 	 * @return bool
 	 */
-	protected function is_image( $url ) {
+	protected function is_image_url( $url ) {
 
 		if ( ! is_string( $url ) ) {
 			return false;
@@ -616,10 +616,9 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-		$thumbnails = array();
 
 		if ( empty( $images ) || 'false' == $images ) {
-			return $thumbnails;
+			return array();
 		}
 
 		// turn string to array
@@ -642,8 +641,10 @@ class CPAC_Column {
 
 		extract( $args );
 
+		$thumbnails = array();
 		foreach( $images as $value ) {
-			if ( $this->is_image( $value ) ) {
+
+			if ( $this->is_image_url( $value ) ) {
 
 				// get dimensions from image_size
 				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
@@ -670,6 +671,10 @@ class CPAC_Column {
 			// Media Attachment
 			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
 
+				$src = '';
+				$width = '';
+				$height = '';
+
 				if ( ! $image_size || 'cpac-custom' == $image_size ) {
 					$width 		= $image_size_w;
 					$height 	= $image_size_h;
@@ -678,22 +683,33 @@ class CPAC_Column {
 					$image_size = array( $width, $height );
 				}
 
-				// image attributes
-				$attributes = wp_get_attachment_image_src( $value, $image_size );
-				$src 		= $attributes[0];
-				$width		= $attributes[1];
-				$height		= $attributes[2];
+				// Is Image
+				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+					$src 	= $attributes[0];
+					$width	= $attributes[1];
+					$height	= $attributes[2];
 
-				// image size by name
-				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$width 	= $sizes['width'];
-					$height	= $sizes['height'];
+					// image size by name
+					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
+						$width 	= $sizes['width'];
+						$height	= $sizes['height'];
+					}
+				}
+
+				// Is File, use icon
+				elseif ( $attributes = wp_get_attachment_image_src( $value, $image_size, true ) ) {
+					$src = $attributes[0];
+
+					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
+						$width = $sizes['width'];
+						$height = $sizes['height'];
+					}
 				}
 
 				// maximum dimensions
 				$max = max( array( $width, $height ) );
 
-				$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$attributes[0]}' alt=''/></span>";
+				$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
 			}
 		}
 
