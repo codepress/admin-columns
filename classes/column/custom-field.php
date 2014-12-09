@@ -41,6 +41,34 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
+	 * @since 3.2.1
+	 */
+	public function is_field_type( $type ) {
+		return $type === $this->get_field_type();
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function is_field( $field ) {
+		return $type === $this->get_field();
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_field_type() {
+		return $this->options->field_type;
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_field() {
+		return $this->options->field;
+	}
+
+	/**
 	 * @see CPAC_Column::sanitize_options()
 	 * @since 1.0
 	 */

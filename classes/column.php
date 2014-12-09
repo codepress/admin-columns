@@ -478,7 +478,7 @@ class CPAC_Column {
 	 *
 	 * @since 2.1.1
 	 */
-	function get_post_type() {
+	public function get_post_type() {
 		return isset( $this->storage_model->post_type ) ? $this->storage_model->post_type : false;
 	}
 
@@ -808,23 +808,35 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get before value
-	 *
 	 * @since 1.0
 	 */
 	public function get_before() {
-
 		return stripslashes( $this->options->before );
 	}
 
 	/**
-	 * Get after value
-	 *
 	 * @since 1.0
 	 */
 	public function get_after() {
-
 		return stripslashes( $this->options->after );
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_type() {
+		return $this->properties->type;
+	}
+
+	/**
+	 * Checks column type
+	 *
+	 * @since 3.2.1
+	 * @param string $type Column type. Also work without the 'column-' prefix. Example 'column-meta' or 'meta'.
+	 * @return bool Matches column type
+	 */
+	public function is_type( $type ) {
+		return ( $type === $this->get_type() ) || ( 'column-' . $type === $this->get_type() );
 	}
 
 	/**
