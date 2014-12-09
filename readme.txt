@@ -253,6 +253,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
 * [Updated] 100% Spanish translation thanks to Carlos
 * [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
+* [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
 * [Fixed] Remove deregister of qtip2 scripts.
 
 = 2.3.1 =
