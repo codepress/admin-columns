@@ -249,6 +249,45 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 1.0
+	 */
+	public function get_before() {
+		return stripslashes( $this->options->before );
+	}
+
+	/**
+	 * @since 1.0
+	 */
+	public function get_after() {
+		return stripslashes( $this->options->after );
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_type() {
+		return $this->properties->type;
+	}
+
+	/**
+	 * Checks column type
+	 *
+	 * @since 3.2.1
+	 * @param string $type Column type. Also work without the 'column-' prefix. Example 'column-meta' or 'meta'.
+	 * @return bool Matches column type
+	 */
+	public function is_type( $type ) {
+		return ( $type === $this->get_type() ) || ( 'column-' . $type === $this->get_type() );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_post_type() {
+		return isset( $this->storage_model->post_type ) ? $this->storage_model->post_type : false;
+	}
+
+	/**
 	 * @param string $field_key
 	 * @return void
 	 */
@@ -325,7 +364,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	function get_label() {
+	public function get_label() {
 
 		/**
 		 * Filter the column instance label
@@ -474,15 +513,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get post type
-	 *
-	 * @since 2.1.1
-	 */
-	public function get_post_type() {
-		return isset( $this->storage_model->post_type ) ? $this->storage_model->post_type : false;
-	}
-
-	/**
 	 * @since 2.2.6
 	 */
 	public function get_terms_for_display( $term_ids, $taxonomy ) {
@@ -567,7 +597,7 @@ class CPAC_Column {
 	 * @since: 2.2.6
 	 *
 	 */
-	function get_color_for_display( $color_hex ) {
+	public function get_color_for_display( $color_hex ) {
 		if ( ! $color_hex ) {
 			return false;
 		}
@@ -580,7 +610,7 @@ class CPAC_Column {
 	 *
 	 * @since 1.0
 	 */
-	function get_text_color( $bg_color ) {
+	public function get_text_color( $bg_color ) {
 
 		$rgb = $this->hex2rgb( $bg_color );
 
@@ -592,7 +622,7 @@ class CPAC_Column {
 	 *
 	 * @since 1.0
 	 */
-	function hex2rgb( $hex ) {
+	public function hex2rgb( $hex ) {
 		$hex = str_replace( "#", "", $hex );
 
 		if(strlen($hex) == 3) {
@@ -808,43 +838,11 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.0
-	 */
-	public function get_before() {
-		return stripslashes( $this->options->before );
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function get_after() {
-		return stripslashes( $this->options->after );
-	}
-
-	/**
-	 * @since 3.2.1
-	 */
-	public function get_type() {
-		return $this->properties->type;
-	}
-
-	/**
-	 * Checks column type
-	 *
-	 * @since 3.2.1
-	 * @param string $type Column type. Also work without the 'column-' prefix. Example 'column-meta' or 'meta'.
-	 * @return bool Matches column type
-	 */
-	public function is_type( $type ) {
-		return ( $type === $this->get_type() ) || ( 'column-' . $type === $this->get_type() );
-	}
-
-	/**
 	 * @since 2.0
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
-	function label_view( $label, $description = '', $pointer = '' ) {
+	public function label_view( $label, $description = '', $pointer = '' ) {
 		?>
 		<td class="label">
 			<label for="<?php $this->attr_id( $pointer ); ?>">
@@ -859,7 +857,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	function display_field_date_format() {
+	public function display_field_date_format() {
 
 		$field_key		= 'date_format';
 		$label			= __( 'Date Format', 'cpac' );
@@ -883,7 +881,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	function display_field_excerpt_length() {
+	public function display_field_excerpt_length() {
 
 		$field_key		= 'excerpt_length';
 		$label			= __( 'Excerpt length', 'cpac' );
@@ -902,7 +900,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	function display_field_preview_size() {
+	public function display_field_preview_size() {
 
 		$field_key		= 'image_size';
 		$label			= __( 'Preview size', 'cpac' );
@@ -939,7 +937,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.1.1
 	 */
-	function display_field_before_after() {
+	public function display_field_before_after() {
 		?>
 		<tr class="column_before">
 			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>

@@ -206,7 +206,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function restore() {
+	public function restore() {
 
 		delete_option( "cpac_options_{$this->key}" );
 
@@ -219,7 +219,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function store( $columns = '' ) {
+	public function store( $columns = '' ) {
 
 		if ( ! empty( $_POST[ $this->key ] ) ) {
 			$columns = array_filter( $_POST[ $this->key ] );
@@ -406,7 +406,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 * @return array Column Type | Column Instance
 	 */
-	function get_custom_registered_columns() {
+	public function get_custom_registered_columns() {
 
 		$columns = array();
 
@@ -555,7 +555,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0.2
 	 */
-	function get_registered_columns() {
+	public function get_registered_columns() {
 
 		$types = array();
 
@@ -656,7 +656,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function get_column_by_name( $name ) {
+	public function get_column_by_name( $name ) {
 
 		if ( ! isset( $this->columns[ $name ] ) ) {
 			return false;
@@ -741,7 +741,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function screen_link() {
+	public function screen_link() {
 
 		echo '<a href="' . $this->get_screen_link() . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
 	}
@@ -749,7 +749,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	function get_edit_link() {
+	public function get_edit_link() {
 
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
@@ -761,7 +761,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0.5
      * @return boolean
 	 */
-	function is_doing_ajax() {
+	public function is_doing_ajax() {
 		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 			return false;
 		}
@@ -779,7 +779,7 @@ abstract class CPAC_Storage_Model {
      * @global object $current_screen
      * @return boolean
 	 */
-	function is_columns_screen() {
+	public function is_columns_screen() {
 
 		global $pagenow;
 
