@@ -1,547 +1,1192 @@
 #
 # Translators:
-# André Mácola Machado <andremacola@gmail.com>, 2014
+# Adriano Estevam <aestevam@gmail.com>, 2013
 # André Mácola Machado <andremacola@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin Columns Pro\n"
+"Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-06 11:16+0100\n"
-"PO-Revision-Date: 2014-12-06 23:38+0100\n"
+"POT-Creation-Date: 2014-12-10 17:02+0100\n"
+"PO-Revision-Date: 2014-12-10 17:24+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/admin-columns-pro/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/admin-columns/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPath-1: .\n"
-"X-Poedit-SearchPathExcluded-0: ../codepress-admin-columns\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
 
-#: ../admin-columns-pro.php:95 ../cac-addon-pro.php:147 ../classes/licence-manager-settings.php:326
-msgid "Settings"
-msgstr "Configurações"
+#: ../classes/addons.php:110
+msgid "Third party plugin integration"
+msgstr "Integração com plug-in de terceiros"
 
-#: ../classes/api.php:239
-msgid "Empty response from API."
-msgstr "Resposta vazia da API."
+#: ../classes/addons.php:135
+msgid "Advanced Custom Fields"
+msgstr "Advanced Custom Fields"
 
-#: ../classes/export-import/classes/export_import.php:43 ../classes/export-import/classes/export_import.php:333
-msgid "Export field is empty. Please select your types from the left column."
-msgstr "Campo de exportação vazio. Por favor selecione seus tipos na coluna à esquerda."
+#: ../classes/addons.php:136
+msgid "Display and edit Advanced Custom Fields fields in the posts overview in seconds!"
+msgstr "Exibir e editar campos do ACF na tela de posts em segundos!"
 
-#: ../classes/export-import/classes/export_import.php:72
-msgid "Export/Import"
-msgstr "Exportar/Importar"
+#: ../classes/addons.php:141
+msgid "WooCommerce"
+msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:89
-msgid "Results"
-msgstr "Resultados"
+#: ../classes/addons.php:142
+msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:90 ../classes/export-import/classes/export_import.php:183
-#: ../classes/inline-edit/cac-addon-inline-edit.php:98
-msgid "Instructions"
-msgstr "Instruções"
+#: ../classes/column.php:500
+msgid "Thumbnail"
+msgstr "Miniatura"
 
-#: ../classes/export-import/classes/export_import.php:92
-msgid "Using the PHP export"
-msgstr "Exportar em PHP"
+#: ../classes/column.php:501
+msgid "Medium"
+msgstr "Médio"
 
-#: ../classes/export-import/classes/export_import.php:94 ../classes/export-import/classes/export_import.php:169
-msgid "Copy the generated PHP code in the right column"
-msgstr "Copie o código gerado em PHP na coluna da direita"
+#: ../classes/column.php:502
+msgid "Large"
+msgstr "Grande"
 
-#: ../classes/export-import/classes/export_import.php:95 ../classes/export-import/classes/export_import.php:170
-msgid "Insert the code in your themes functions.php or in your plugin (on the init action)"
-msgstr "Insira o código no functions.php do seu tema ou em seu plugin (no action init)"
+#: ../classes/column.php:503
+msgid "Full"
+msgstr "Original"
 
-#: ../classes/export-import/classes/export_import.php:96 ../classes/export-import/classes/export_import.php:171
-msgid "Your columns settings are now loaded from your PHP code instead of from your column settings!"
-msgstr "As configurações de suas colunas foram carregadas do seu código PHP ao invés de suas configurações de coluna!"
+#: ../classes/column.php:863
+msgid "Date Format"
+msgstr "Formato de Data"
 
-#: ../classes/export-import/classes/export_import.php:109
-msgid "Columns"
-msgstr "Colunas"
+#: ../classes/column.php:864
+msgid "This will determine how the date will be displayed."
+msgstr "Determina como a data será mostrada"
 
-#: ../classes/export-import/classes/export_import.php:110
-msgid "Select the columns to be exported."
-msgstr "Seleciona as colunas para exportação."
+#: ../classes/column.php:870
+msgid "Example:"
+msgstr "Exemplo"
 
-#: ../classes/export-import/classes/export_import.php:121
-msgid "General"
-msgstr "Geral"
-
-#: ../classes/export-import/classes/export_import.php:122
-msgid "Posts"
-msgstr "Posts"
-
-#: ../classes/export-import/classes/export_import.php:133
-msgid "select all"
-msgstr "Selecionar todos"
-
-#: ../classes/export-import/classes/export_import.php:135
-msgid "Export PHP"
-msgstr "Exportar PHP"
-
-#: ../classes/export-import/classes/export_import.php:136 ../classes/export-import/classes/export_import.php:151
-msgid "Export to text"
-msgstr "Exportar para texto"
-
-#: ../classes/export-import/classes/export_import.php:140
-msgid "No stored column settings are found."
-msgstr "Nenhuma configuração de coluna encontrada."
-
-#: ../classes/export-import/classes/export_import.php:152
-msgid "Admin Columns will export to a format compatible with the Admin Columns import functionality."
-msgstr "Admin de Colunas irá exportar para um formato compatível com a funcionalidade de importação do Admin de Colunas."
-
-#: ../classes/export-import/classes/export_import.php:154 ../classes/export-import/classes/export_import.php:167
-msgid "Select the columns you which to export from the list in the left column"
-msgstr "Selecione as colunas que você quer exportar na lista coluna da esquerda"
-
-#: ../classes/export-import/classes/export_import.php:155
-msgid "Click the &quot;Export to text&quot; button"
-msgstr "Clique no botão &quot;Exportar para texto&quot;"
-
-#: ../classes/export-import/classes/export_import.php:156
-msgid "Save the .txt-file when prompted"
-msgstr "Salve o arquivo .txt quando solicitado"
-
-#: ../classes/export-import/classes/export_import.php:157
-msgid "Go to the Admin Columns import/export page in your other installation"
-msgstr "Va para a página de importar/exportar em sua outra instalação do Admin de Colunas"
-
-#: ../classes/export-import/classes/export_import.php:158
-msgid "Select the export .txt-file"
-msgstr "Selecione o arquivo .txt de exportação"
-
-#: ../classes/export-import/classes/export_import.php:159
-msgid "Click the &quot;Start import&quot; button"
-msgstr "Clique no botão &quot;Iniciar importação&quot;"
-
-#: ../classes/export-import/classes/export_import.php:160
-msgid "Poof!"
-msgstr "Poof!"
-
-#: ../classes/export-import/classes/export_import.php:164
-msgid "Export to PHP"
-msgstr "Exportar para PHP"
-
-#: ../classes/export-import/classes/export_import.php:165
-msgid "Admin Columns will export PHP code you can directly insert in your plugin or theme."
-msgstr "Admin de Colunas irá exportar o código PHP que poderá ser inserido diretamente no seu tema ou plugin."
-
-#: ../classes/export-import/classes/export_import.php:168
-msgid "Click the &quot;Export to PHP&quot; button"
-msgstr "Clique no botão &quot;Exportar para PHP&quot;"
-
-#: ../classes/export-import/classes/export_import.php:181
-msgid "Import"
-msgstr "Importar"
-
-#: ../classes/export-import/classes/export_import.php:182
-msgid "Copy and paste your import settings here."
-msgstr "Copie e cole a sua configuração de importação aqui."
-
-#: ../classes/export-import/classes/export_import.php:185
-msgid "Import Columns Types"
-msgstr "Importar tipos de colunas"
-
-#: ../classes/export-import/classes/export_import.php:187
-msgid "Choose a Admin Columns Export file to upload."
-msgstr "Escolha o arquivo de Exportação do Admin de Colunas para enviar."
-
-#: ../classes/export-import/classes/export_import.php:188
-msgid "Click upload file and import."
-msgstr "Clique enviar arquivo e importar."
-
-#: ../classes/export-import/classes/export_import.php:189
-msgid "That's it! You imported settings are now active."
-msgstr "É isso! Suas configurações de importação estão ativadas."
-
-#: ../classes/export-import/classes/export_import.php:198
-msgid "Upload file and import"
-msgstr "Enviar arquivo e importar"
-
-#: ../classes/export-import/classes/export_import.php:366 ../classes/export-import/classes/export_import.php:368
-msgid "Sorry, there has been an error."
-msgstr "Desculpe, um erro ocorreu."
-
-#: ../classes/export-import/classes/export_import.php:368
+#: ../classes/column.php:872
 #, php-format
-msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
-msgstr "O arquivo de exportação não pôde ser encontrado em <code>%s</code>. Parece que foi causado por problemas de permissão."
+msgid "Leave empty for WordPress date format, change your <a href=\"%s\">default date format here</a>."
+msgstr "Deixe em branco para o formato padrão do Wordpress, mude o <a href=\"%s\">formato padrão data aqui</a>."
 
-#: ../classes/export-import/classes/export_import.php:386
-msgid "Import failed. File does not contain Admin Column settings."
-msgstr "Falha na importação. Arquivo não contem configurações do Admin de Colunas."
+#: ../classes/column.php:873
+msgid "Documentation on date and time formatting."
+msgstr "Documentação para formatos de data e hora"
 
-#: ../classes/export-import/classes/export_import.php:395
-#, php-format
-msgid "Screen %s does not exist."
-msgstr "Tela %s não existe."
+#: ../classes/column.php:887
+msgid "Excerpt length"
+msgstr "Tamanho do Resumo"
 
-#: ../classes/filtering/classes/model.php:103
-#, php-format
-msgid "All %s"
-msgstr "%s"
+#: ../classes/column.php:888
+msgid "Number of words"
+msgstr "Número de Palavras"
 
-#: ../classes/filtering/classes/model.php:109
-msgid "Empty"
-msgstr "Vazio"
+#: ../classes/column.php:906
+msgid "Preview size"
+msgstr "Tamanho do preview"
 
-#: ../classes/filtering/classes/model.php:110
-msgid "Not empty"
-msgstr "Não vazio"
+#: ../classes/column.php:923 ../classes/storage_model.php:534
+msgid "Custom"
+msgstr "Personalizado"
 
-#: ../classes/filtering/classes/posts.php:383
-msgid "Not sticky"
-msgstr "Not sticky"
+#: ../classes/column.php:926
+msgid "width"
+msgstr "largura"
 
-#: ../classes/filtering/classes/posts.php:384
-msgid "Sticky"
-msgstr "Sticky"
+#: ../classes/column.php:929
+msgid "height"
+msgstr "altura"
 
-#: ../classes/filtering/classes/posts.php:551
-msgid "False"
-msgstr ""
+#: ../classes/column.php:943
+msgid "Before"
+msgstr "Antes"
 
-#: ../classes/filtering/classes/posts.php:552
-msgid "True"
-msgstr ""
+#: ../classes/column.php:943
+msgid "This text will appear before the custom field value."
+msgstr "Este texto aparecerá antes do valor do campo personalizado."
 
-#: ../classes/filtering/filtering.php:93
-msgid "Enable filtering?"
-msgstr "Ativar filtragem?"
+#: ../classes/column.php:949
+msgid "After"
+msgstr "Depois"
 
-#: ../classes/filtering/filtering.php:93
-msgid "This will make the column support filtering."
-msgstr "Isso adicionará o suporte à filtragem da coluna."
+#: ../classes/column.php:949
+msgid "This text will appear after the custom field value."
+msgstr "Este texto aparecerá depois do valor do campo personalizado."
 
-#: ../classes/filtering/filtering.php:97 ../classes/inline-edit/cac-addon-inline-edit.php:288 ../classes/sortable/sortable.php:123
-msgid "Yes"
-msgstr "Sim"
-
-#: ../classes/filtering/filtering.php:101 ../classes/inline-edit/cac-addon-inline-edit.php:292 ../classes/sortable/sortable.php:127
-msgid "No"
-msgstr "Não"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:96
-msgid "Enable inline editing for Custom Fields. Default is <code>off</code>"
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:101
-msgid "Notice"
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:103
-msgid "Inline edit will display all the raw values in an editable text field."
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:106
-msgid "Except for Checkmark, Media Library, Post Title and Username."
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:109
-#, php-format
-msgid "Please read <a href=\"%s\">our documentation</a> if you plan to use these fields."
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:181
-msgid "Select author"
-msgstr "Selecionar autor"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:182
+#: ../classes/column.php:1043 ../classes/column/comment/actions.php:99 ../classes/column/link/actions.php:48 ../classes/column/post/actions.php:31 ../classes/column/user/actions.php:69
 msgid "Edit"
 msgstr "Editar"
 
-#: ../classes/inline-edit/cac-addon-inline-edit.php:183
-msgid "Redo"
-msgstr "Refazer"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:184
-msgid "Undo"
-msgstr "Desfazer"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:185
-msgid "Delete"
-msgstr "Excluir"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:186
-msgid "Download"
-msgstr "Download"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:188
-msgid "This field is required."
-msgstr "Campo obrigatório"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:189
-msgid "Please enter a valid float value."
-msgstr "Por favor entre um valor 'float' válido."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:190
-msgid "Please enter valid float values."
-msgstr "Por favor entre um valor 'float' válido."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:192
-msgid "Inline Edit"
-msgstr ""
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:284
-msgid "Enable editing?"
-msgstr "Habilitar Edição?"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:284
-msgid "This will make the column support inline editing."
-msgstr "Isso adicionará a edição inline da coluna."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:322
-msgid "Date save format"
-msgstr "Formato da data"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:323
-msgid "Fill in the date format as it is stored. This is used to accurately determine the date."
-msgstr "Preencha o formato da data que será armazenado. Isto é utilizado para determinar a data com precisão."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:332
-msgid "Fill in a date save format"
-msgstr "Preencha o formato da data salva"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:334
-#, php-format
-msgid "Defaults to: %s."
-msgstr "Padrão para: %s."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:335
-msgid "See all available formats"
-msgstr "Ver formatos disponíveis"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:368
-#, php-format
-msgid "The Inline Edit add-on is enabled but not effective. It requires %s in order to work."
-msgstr "A edição inline do complemento é ativada mas não efetiva. Requer %s para funcionar."
-
-#: ../classes/inline-edit/classes/model.php:242
-msgid "Invalid request."
-msgstr "Pedido inválido."
-
-#: ../classes/inline-edit/classes/model.php:248 ../classes/inline-edit/classes/model.php:728
-msgid "Invalid column."
-msgstr "Coluna inválida"
-
-#: ../classes/inline-edit/classes/model.php:561
-msgid "None"
-msgstr "Nenhum"
-
-#: ../classes/inline-edit/classes/model.php:566
-msgid "- Select -"
-msgstr "- Selecione -"
-
-#: ../classes/inline-edit/classes/model.php:707
-msgid "Required fields missing."
-msgstr "Campos requeridos faltando."
-
-#: ../classes/inline-edit/classes/model.php:712
-msgid "Invalid item ID."
-msgstr "ID inválido do ítem"
-
-#: ../classes/inline-edit/classes/post.php:127
-msgid "Default Template"
-msgstr "Template Padrão"
-
-#: ../classes/inline-edit/classes/post.php:235
-msgid "Excerpt automatically generated from content."
-msgstr "Resumos são gerados automaticamente a partir do conteúdo."
-
-#: ../classes/inline-edit/classes/post.php:329
-msgid "Do not allow"
-msgstr "Não permitir"
-
-#: ../classes/inline-edit/classes/post.php:330
-msgid "Allow, but notify customer"
-msgstr "Permitir, mas notifique o cliente"
-
-#: ../classes/inline-edit/classes/post.php:331
-msgid "Allow"
-msgstr "Permitir"
-
-#: ../classes/inline-edit/classes/post.php:523
-msgid ", "
-msgstr ","
-
-#: ../classes/inline-edit/classes/post.php:563
-msgid "Unpublished"
-msgstr "Não publicado"
-
-#: ../classes/inline-edit/classes/post.php:566
-msgid "Y/m/d g:i:s A"
-msgstr "Y/m/d g:i:s A"
-
-#: ../classes/inline-edit/classes/post.php:573
-#, php-format
-msgid "%s ago"
-msgstr "%s atrás"
-
-#: ../classes/inline-edit/classes/post.php:575
-msgid "Y/m/d"
-msgstr "Y/m/d"
-
-#: ../classes/inline-edit/classes/post.php:585
-msgid "Published"
-msgstr "Publicado"
-
-#: ../classes/inline-edit/classes/post.php:588
-msgid "Missed schedule"
-msgstr "Agendamento perdido"
-
-#: ../classes/inline-edit/classes/post.php:590
-msgid "Scheduled"
-msgstr "Agendado"
-
-#: ../classes/inline-edit/classes/post.php:592
-msgid "Last Modified"
-msgstr "Última modificação"
-
-#: ../classes/inline-edit/classes/post.php:816
-msgid "The SKU must be unique."
-msgstr "O SKU precisa ser único."
-
-#: ../classes/licence-manager-settings.php:85
-#, php-format
-msgid "Licence not active. Enter your licence key under the <a href='%s'>Settings tab</a>."
-msgstr "Licença não ativada. Digite a sua chave de licença na tela de <a href='%s'>configurações</a>."
-
-#: ../classes/licence-manager-settings.php:169
-msgid "Empty licence."
-msgstr "Licença vazia."
-
-#: ../classes/licence-manager-settings.php:176 ../classes/licence-manager-settings.php:182 ../classes/licence-manager-settings.php:192
-#: ../classes/licence-manager-settings.php:198
-msgid "Wrong response from API."
-msgstr "Resposta errada da API."
-
-#: ../classes/licence-manager-settings.php:230
-msgid "Updates"
-msgstr ""
-
-#: ../classes/licence-manager-settings.php:231 ../classes/licence-manager-settings.php:282
-msgid "Enter your licence code to receive automatic updates."
-msgstr "Entre com a sua licença para receber atualizações automáticas."
-
-#: ../classes/licence-manager-settings.php:271
-msgid "Automatic updates are enabled."
-msgstr "Atualizações automáticas habilitadas."
-
-#: ../classes/licence-manager-settings.php:272
-msgid "Deactivate licence"
-msgstr "Desativar licença"
-
-#: ../classes/licence-manager-settings.php:279
-msgid "Enter your licence code"
-msgstr "Digite seu código de licença"
-
-#: ../classes/licence-manager-settings.php:280
-msgid "Update licence"
-msgstr "Atualizar licença"
-
-#: ../classes/licence-manager-settings.php:283
-#, php-format
-msgid "You can find your license key on your %s."
-msgstr "Você pode achar sua chave de licença em seu %s."
-
-#: ../classes/licence-manager-settings.php:283
-msgid "account page"
-msgstr "Página da conta"
-
-#: ../classes/licence-manager-settings.php:294
-msgid ""
-"Could not connect to admincolumns.com — You will not receive update notifications or be able to activate your license until this is "
-"fixed. This issue is often caused by an improperly configured SSL server (https). We recommend fixing the SSL configuration on your "
-"server, but if you need a quick fix you can:"
-msgstr ""
-
-#: ../classes/licence-manager-settings.php:299
-msgid "Disable SSL"
-msgstr ""
-
-#: ../classes/licence-manager-settings.php:302
-msgid "Enable SSL"
-msgstr ""
-
-#: ../classes/licence-manager-settings.php:322
-msgid "To finish activating Admin Columns Pro, please "
-msgstr "Para finalizar ative o Admin de Colunas Pro, por favor"
-
-#: ../classes/licence-manager-settings.php:324
-msgid "To update, "
-msgstr "Para atualizar,"
-
-#: ../classes/licence-manager-settings.php:326
-#, php-format
-msgid "go to %s and enter your licence key. If you don't have a licence key, you may <a href=\"%s\" target=\"_blank\">purchase one</a>."
-msgstr "vá para %s e entre sua chave de licença. Se você não possui uma, talvez queira <a href=\"%s\" target=\"_blank\">comprar uma</a>."
-
-#: ../classes/licence-manager-settings.php:361
-#, php-format
-msgid "To enable updates for this product, please <a href='%s'>activate your license</a>."
-msgstr "Para ativar as atualizações deste produto, por favor <a href='%s'>ative a sua licença</a>."
-
-#: ../classes/sortable/classes/model.php:82
-#, php-format
-msgid " by %s"
-msgstr "por %s"
-
-#: ../classes/sortable/classes/model.php:86
-msgid "Reset sorting preference"
-msgstr "Resetar preferência de ordem"
-
-#: ../classes/sortable/classes/model.php:119
-msgid "Reset sorting"
-msgstr "Resetar ordem"
-
-#: ../classes/sortable/classes/model.php:169
-msgid "sorting preference succesfully reset."
-msgstr "preferência de ordem resetada com sucesso."
-
-#: ../classes/sortable/sortable.php:56
-msgid "Show all results when sorting. Default is <code>off</code>."
-msgstr "Mostrar todos os resultados quando ordenado. Padrão é: <code>desativado</code>."
-
-#: ../classes/sortable/sortable.php:68
-msgid "Sortable add-on"
-msgstr "Complemento de Ordenação/Classificação"
-
-#: ../classes/sortable/sortable.php:119
-msgid "Enable sorting?"
-msgstr "Ativar ordenação?"
-
-#: ../classes/sortable/sortable.php:119
-msgid "This will make the column support sorting."
-msgstr "Isso fará com que a coluna suporte ordenação."
-
-#: ../classes/sortable/sortable.php:147
-msgid "sort"
-msgstr "Ordenar"
-
-#: ../classes/taxonomy/column/ID.php:14
+#: ../classes/column.php:1044 ../classes/column.php:1122 ../classes/column/user/actions.php:77
+msgid "Remove"
+msgstr "Remover"
+
+#: ../classes/column.php:1062
+msgid "Type"
+msgstr "Tipo"
+
+#: ../classes/column.php:1062
+msgid "Choose a column type."
+msgstr "Escolha um tipo."
+
+#: ../classes/column.php:1062 ../classes/column/comment/ID.php:19 ../classes/column/link/ID.php:19 ../classes/column/media/ID.php:19 ../classes/column/post/ID.php:19
 msgid "ID"
 msgstr "ID"
 
-#: ../classes/taxonomy/column/excerpt.php:15
+#: ../classes/column.php:1072
+msgid "Label"
+msgstr "Titulo"
+
+#: ../classes/column.php:1072
+msgid "This is the name which will appear as the column header."
+msgstr "Nome que aparecerá no cabeçalho da coluna."
+
+#: ../classes/column.php:1079 ../classes/column/media/width.php:19
+msgid "Width"
+msgstr "Width"
+
+#: ../classes/column.php:1081 ../classes/column.php:1082
+msgid "default"
+msgstr "padrão"
+
+#: ../classes/column/acf-placeholder.php:19
+msgid "ACF Field"
+msgstr "Campo do ACF"
+
+#: ../classes/column/acf-placeholder.php:32
+msgid "This feature is only available in Admin Columns Pro - Business or Developer."
+msgstr ""
+
+#: ../classes/column/acf-placeholder.php:35
+#, php-format
+msgid "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>."
+msgstr "Se você tem uma licença de desenvolvedor, por favor faça o download e instale o add-on do ACF a partir da <a href='%s'>aba de add-ons</a>."
+
+#: ../classes/column/acf-placeholder.php:38
+msgid "Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview."
+msgstr "Admin de Colunas Pro - Desenvolvedor oferece uma integração completa com o Advanced Custom Fields, permitindo você facilmente exibir e editar campos do ACF direto da tela principal de posts."
+
+#: ../classes/column/acf-placeholder.php:44
+msgid "Find out more"
+msgstr "Saiba mais."
+
+#: ../classes/column/actions.php:29 ../classes/column/comment/actions.php:19 ../classes/column/link/actions.php:19 ../classes/column/media/actions.php:20 ../classes/column/user/actions.php:19
+msgid "Actions"
+msgstr "Ações"
+
+#: ../classes/column/actions.php:87
+msgid "Use icons?"
+msgstr ""
+
+#: ../classes/column/actions.php:87
+msgid "Use icons instead of text for displaying the actions."
+msgstr ""
+
+#: ../classes/column/actions.php:91 ../classes/column/post/permalink.php:72 ../classes/column/used-by-menu.php:137
+msgid "Yes"
+msgstr ""
+
+#: ../classes/column/actions.php:95 ../classes/column/post/permalink.php:76 ../classes/column/used-by-menu.php:141
+msgid "No"
+msgstr ""
+
+#: ../classes/column/comment/actions.php:76 ../classes/column/comment/actions.php:81
+msgid "Unapprove"
+msgstr "Desaprovar"
+
+#: ../classes/column/comment/actions.php:78 ../classes/column/comment/actions.php:80
+msgid "Approve"
+msgstr "Aprovar"
+
+#: ../classes/column/comment/actions.php:89 ../classes/column/post/actions.php:39 ../classes/settings.php:665
+msgid "Restore"
+msgstr "Restaurar"
+
+#: ../classes/column/comment/actions.php:93 ../classes/column/post/actions.php:43
+msgid "Delete Permanently"
+msgstr "Excluir permanentemente"
+
+#: ../classes/column/comment/actions.php:100 ../classes/column/post/actions.php:34
+msgid "Quick&nbsp;Edit"
+msgstr "Edição&nbsp;rápida"
+
+#: ../classes/column/comment/actions.php:101
+msgid "Reply"
+msgstr "Responder"
+
+#: ../classes/column/comment/agent.php:19
+msgid "Agent"
+msgstr "Agente"
+
+#: ../classes/column/comment/approved.php:19 ../classes/column/post/comment-count.php:35
+msgid "Approved"
+msgstr "Aprovado"
+
+#: ../classes/column/comment/author-avatar.php:19
+msgid "Avatar"
+msgstr "Avatar"
+
+#: ../classes/column/comment/author-email.php:19
+msgid "Author email"
+msgstr "Email do autor"
+
+#: ../classes/column/comment/author-ip.php:19
+msgid "Author IP"
+msgstr "IP do autor"
+
+#: ../classes/column/comment/author-url.php:19
+msgid "Author url"
+msgstr "Url do autor"
+
+#: ../classes/column/comment/author.php:19
+msgid "Author"
+msgstr "Autor"
+
+#: ../classes/column/comment/date-gmt.php:19
+msgid "Date GMT"
+msgstr "Data GMT"
+
+#: ../classes/column/comment/date-gmt.php:30 ../classes/column/comment/date.php:30
+#, php-format
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr "Enviado em <a href=\"%1$s\">%2$s às %3$s</a>"
+
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98 ../classes/settings.php:315
+msgid "Date"
+msgstr "Data"
+
+#: ../classes/column/comment/excerpt.php:19 ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:312
 msgid "Excerpt"
 msgstr "Resumo"
 
-#: ../classes/inline-edit/library/moment/moment.min.2.4.0.js:6
-msgid "Weeks"
+#: ../classes/column/comment/reply-to.php:19
+msgid "In Reply To"
+msgstr "Em resposta à"
+
+#: ../classes/column/comment/word-count.php:19 ../classes/column/post/word-count.php:19
+msgid "Word count"
+msgstr "Contador de palavras"
+
+#: ../classes/column/custom-field.php:23 ../classes/column/custom-field.php:356 ../classes/settings.php:305
+msgid "Custom Field"
+msgstr "Campo personalizado"
+
+#: ../classes/column/custom-field.php:94 ../classes/settings.php:310 ../classes/storage_model.php:535
+msgid "Default"
+msgstr "Padrão"
+
+#: ../classes/column/custom-field.php:95
+msgid "Checkmark (true/false)"
+msgstr "Checkmark (true/false)"
+
+#: ../classes/column/custom-field.php:96 ../classes/settings.php:319
+msgid "Color"
+msgstr "Cor"
+
+#: ../classes/column/custom-field.php:97 ../classes/settings.php:320
+msgid "Counter"
+msgstr "Contador"
+
+#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19 ../classes/settings.php:311
+msgid "Image"
+msgstr "Imagem"
+
+#: ../classes/column/custom-field.php:101 ../classes/storage_model/media.php:13
+msgid "Media Library"
+msgstr "Biblioteca de mídia"
+
+#: ../classes/column/custom-field.php:102 ../classes/settings.php:313
+msgid "Multiple Values"
+msgstr "Vários valores"
+
+#: ../classes/column/custom-field.php:103 ../classes/settings.php:314
+msgid "Numeric"
+msgstr "Numerico"
+
+#: ../classes/column/custom-field.php:104
+msgid "Post Title (Post ID's)"
+msgstr "Título do Post (Post ID's)"
+
+#: ../classes/column/custom-field.php:105
+msgid "Username (User ID's)"
+msgstr "Usuário (User ID's)"
+
+#: ../classes/column/custom-field.php:356
+msgid "Select your custom field."
+msgstr "Selecione seu campo personalizado"
+
+#: ../classes/column/custom-field.php:366
+msgid "No custom fields available."
+msgstr "Nenhum campo personalizado disponível"
+
+#: ../classes/column/custom-field.php:373
+msgid "Field Type"
+msgstr "Tipo de campo"
+
+#: ../classes/column/custom-field.php:373
+msgid "This will determine how the value will be displayed."
+msgstr "Isso determinará como o valor será exibido."
+
+#: ../classes/column/link/actions.php:49
+#, php-format
+msgid ""
+"You are about to delete this link '%s'\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Você está prestes a excluir este link '%s'\n"
+" 'Cancelar' para interromper, 'OK' para excluir."
+
+#: ../classes/column/link/actions.php:49 ../classes/column/user/actions.php:75
+msgid "Delete"
+msgstr "Excluir"
+
+#: ../classes/column/link/description.php:19 ../classes/column/media/description.php:19 ../classes/column/user/description.php:19
+msgid "Description"
+msgstr "Descrição"
+
+#: ../classes/column/link/length.php:19
+msgid "Length"
+msgstr "Quantidade"
+
+#: ../classes/column/link/notes.php:19
+msgid "Notes"
+msgstr "Notas"
+
+#: ../classes/column/link/owner.php:19
+msgid "Owner"
+msgstr "Proprietário"
+
+#: ../classes/column/link/rss.php:19
+msgid "Rss"
+msgstr "Rss"
+
+#: ../classes/column/link/target.php:19
+msgid "Target"
+msgstr "Alvo"
+
+#: ../classes/column/media/alternate-text.php:19
+msgid "Alt"
+msgstr "Alt"
+
+#: ../classes/column/media/available-sizes.php:20
+msgid "Available Sizes"
+msgstr "Tamanhos disponíveis"
+
+#: ../classes/column/media/available-sizes.php:40
+msgid "full size"
+msgstr "Tamanho completo"
+
+#: ../classes/column/media/caption.php:19 ../classes/column/media/exif-data.php:41
+msgid "Caption"
+msgstr "Subtítulo"
+
+#: ../classes/column/media/dimensions.php:19
+msgid "Dimensions"
+msgstr "Dimensões"
+
+#: ../classes/column/media/exif-data.php:19
+msgid "EXIF data"
+msgstr "Dados EXIF"
+
+#: ../classes/column/media/exif-data.php:38
+msgid "Aperture"
+msgstr "Abertura"
+
+#: ../classes/column/media/exif-data.php:39
+msgid "Credit"
+msgstr "Crédito"
+
+#: ../classes/column/media/exif-data.php:40
+msgid "Camera"
+msgstr "Câmera"
+
+#: ../classes/column/media/exif-data.php:42
+msgid "Timestamp"
+msgstr "Timestamp"
+
+#: ../classes/column/media/exif-data.php:43
+msgid "Copyright EXIF"
+msgstr "EXIF Copyright"
+
+#: ../classes/column/media/exif-data.php:44
+msgid "Focal Length"
+msgstr "Distância Focal"
+
+#: ../classes/column/media/exif-data.php:45
+msgid "ISO"
+msgstr "ISO"
+
+#: ../classes/column/media/exif-data.php:46
+msgid "Shutter Speed"
+msgstr "Velocidade do obturador"
+
+#: ../classes/column/media/exif-data.php:47
+msgid "Title"
+msgstr "Título"
+
+#: ../classes/column/media/file-name.php:19
+msgid "File name"
+msgstr "Nome do arquivo"
+
+#: ../classes/column/media/file-size.php:19
+msgid "File size"
+msgstr "Tamanho do arquivo"
+
+#: ../classes/column/media/full-path.php:19
+msgid "Full path"
+msgstr "Caminho completo"
+
+#: ../classes/column/media/height.php:19
+msgid "Height"
+msgstr "Altura"
+
+#: ../classes/column/media/mime-type.php:19
+msgid "Mime type"
+msgstr "Mime type"
+
+#: ../classes/column/post/actions.php:31
+msgid "Edit this item"
+msgstr "Editar este ítem"
+
+#: ../classes/column/post/actions.php:34
+msgid "Edit this item inline"
+msgstr "Editar este ítem inline"
+
+#: ../classes/column/post/actions.php:39
+msgid "Restore this item from the Trash"
+msgstr "Restaurar este ítem da Lixeira"
+
+#: ../classes/column/post/actions.php:41
+msgid "Move this item to the Trash"
+msgstr "Mover este ítem para a Lixeira"
+
+#: ../classes/column/post/actions.php:41 ../classes/column/post/comment-count.php:38 ../classes/column/post/status.php:35
+msgid "Trash"
+msgstr "Lixeira"
+
+#: ../classes/column/post/actions.php:43
+msgid "Delete this item permanently"
+msgstr "Excluir este ítem permanentemente"
+
+#: ../classes/column/post/actions.php:48
+#, php-format
+msgid "Preview &#8220;%s&#8221;"
+msgstr "Preview &#8220;%s&#8221;"
+
+#: ../classes/column/post/actions.php:48
+msgid "Preview"
+msgstr "Preview"
+
+#: ../classes/column/post/actions.php:50
+#, php-format
+msgid "View &#8220;%s&#8221;"
+msgstr "Visualizar &#8220;%s&#8221;"
+
+#: ../classes/column/post/actions.php:50 ../classes/storage_model.php:746
+msgid "View"
+msgstr "Visualizar"
+
+#: ../classes/column/post/attachment-count.php:19
+msgid "No. of Attachments"
+msgstr "No. de Anexos"
+
+#: ../classes/column/post/attachment.php:19
+msgid "Attachment"
+msgstr "Anexos"
+
+#: ../classes/column/post/author-name.php:20
+msgid "Display Author As"
+msgstr "Exibir Autor Como"
+
+#: ../classes/column/post/author-name.php:40
+msgid "Display Name"
+msgstr "Exibir Nome"
+
+#: ../classes/column/post/author-name.php:41
+msgid "First Name"
+msgstr "Primeiro Nome"
+
+#: ../classes/column/post/author-name.php:42
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: ../classes/column/post/author-name.php:43 ../classes/column/user/nickname.php:19
+msgid "Nickname"
+msgstr "Apelido"
+
+#: ../classes/column/post/author-name.php:44
+msgid "User Login"
+msgstr "Nome de Usuário"
+
+#: ../classes/column/post/author-name.php:45
+msgid "User Email"
+msgstr "Email do Usuário"
+
+#: ../classes/column/post/author-name.php:46 ../classes/column/user/ID.php:19
+msgid "User ID"
+msgstr "ID do Usuário"
+
+#: ../classes/column/post/author-name.php:47
+msgid "First and Last Name"
+msgstr "Nome e Sobrenome"
+
+#: ../classes/column/post/author-name.php:124
+msgid "This is the format of the author name."
+msgstr "Este é o formato do nome do autor."
+
+#: ../classes/column/post/before-moretag.php:19
+msgid "Before More Tag"
+msgstr "Antes de Mais Tag"
+
+#: ../classes/column/post/comment-count.php:20
+msgid "Comment count"
+msgstr "Contagem de Comentário"
+
+#: ../classes/column/post/comment-count.php:34
+msgid "Total"
+msgstr "Total"
+
+#: ../classes/column/post/comment-count.php:36
+msgid "Pending"
+msgstr "Pendente"
+
+#: ../classes/column/post/comment-count.php:37
+msgid "Spam"
+msgstr "Spam"
+
+#: ../classes/column/post/comment-count.php:99 ../classes/column/post/comment-status.php:20
+msgid "Comment status"
+msgstr "Status do Comentário"
+
+#: ../classes/column/post/comment-count.php:99
+msgid "Select which comment status you like to display."
+msgstr "Selecione qual status de comentário para exibição."
+
+#: ../classes/column/post/featured-image.php:19
+msgid "Featured Image"
+msgstr "Imagem Destacada"
+
+#: ../classes/column/post/formats.php:19
+msgid "Post Format"
+msgstr "Formato do Post"
+
+#: ../classes/column/post/modified.php:19
+msgid "Last modified"
+msgstr "Última modificação"
+
+#: ../classes/column/post/order.php:19
+msgid "Page Order"
+msgstr "Ordem da Página"
+
+#: ../classes/column/post/page-template.php:19
+msgid "Page Template"
+msgstr "Template da Página"
+
+#: ../classes/column/post/parent.php:19
+msgid "Parent"
+msgstr "Pai"
+
+#: ../classes/column/post/path.php:19
+msgid "Path"
 msgstr ""
 
-#~ msgid "Pro add-on"
-#~ msgstr "Get Admin Columns Pro"
+#: ../classes/column/post/permalink.php:19
+msgid "Permalink"
+msgstr "Permalink"
 
-#~ msgid "Add-ons updates"
-#~ msgstr "Add-ons"
+#: ../classes/column/post/permalink.php:68
+msgid "Link to post"
+msgstr ""
+
+#: ../classes/column/post/permalink.php:68
+msgid "This will make the permalink clickable."
+msgstr ""
+
+#: ../classes/column/post/ping-status.php:19
+msgid "Ping status"
+msgstr "Ping status"
+
+#: ../classes/column/post/roles.php:19
+msgid "Roles"
+msgstr "Regras"
+
+#: ../classes/column/post/slug.php:19
+msgid "Slug"
+msgstr "Slug"
+
+#: ../classes/column/post/status.php:19
+msgid "Status"
+msgstr "Status"
+
+#: ../classes/column/post/status.php:29
+msgid "Published"
+msgstr "Publicado"
+
+#: ../classes/column/post/status.php:30
+msgid "Draft"
+msgstr "Rascunho"
+
+#: ../classes/column/post/status.php:31
+msgid "Scheduled"
+msgstr "Agendado"
+
+#: ../classes/column/post/status.php:32
+msgid "Private"
+msgstr "Privado"
+
+#: ../classes/column/post/status.php:33
+msgid "Pending Review"
+msgstr "Aguardando Revisão"
+
+#: ../classes/column/post/status.php:34
+msgid "Auto Draft"
+msgstr "Rascunho Automático"
+
+#: ../classes/column/post/sticky.php:19
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../classes/column/post/title-raw.php:19
+msgid "Title without actions"
+msgstr ""
+
+#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:79
+msgid "Taxonomy"
+msgstr "Taxonomia"
+
+#: ../classes/column/used-by-menu.php:20
+msgid "Used by Menu"
+msgstr ""
+
+#: ../classes/column/used-by-menu.php:133
+msgid "Link to menu"
+msgstr ""
+
+#: ../classes/column/used-by-menu.php:133
+msgid "This will make the title link to the menu."
+msgstr ""
+
+#: ../classes/column/user/comment-count.php:19
+msgid "Comment Count"
+msgstr "Contagem de Comentário"
+
+#: ../classes/column/user/first-name.php:19
+msgid "First name"
+msgstr "Primeiro nome"
+
+#: ../classes/column/user/last-name.php:19
+msgid "Last name"
+msgstr "Sobrenome"
+
+#: ../classes/column/user/post-count.php:19
+msgid "Post Count"
+msgstr "Contador de Post"
+
+#: ../classes/column/user/post-count.php:102
+msgid "Post Type"
+msgstr "Tipo de Post"
+
+#: ../classes/column/user/registered.php:19
+msgid "Registered"
+msgstr "Registrado"
+
+#: ../classes/column/user/url.php:19
+msgid "Url"
+msgstr "Url"
+
+#: ../classes/settings.php:111
+msgid "Add-on successfully activated."
+msgstr "Add-on ativado com sucesso."
+
+#: ../classes/settings.php:114
+msgid "Add-on successfully deactivated."
+msgstr "Add-on desativado com sucesso"
+
+#: ../classes/settings.php:169
+msgid "Admin Columns Settings"
+msgstr "Configurações do Admin de Colunas"
+
+#: ../classes/settings.php:169 ../classes/settings.php:598 ../classes/upgrade.php:135
+msgid "Admin Columns"
+msgstr "Admin de Colunas"
+
+#: ../classes/settings.php:217
+#, php-format
+msgid "%s column is already present and can not be duplicated."
+msgstr "%s coluna já está inclusa e não pode ser duplicada."
+
+#: ../classes/settings.php:271
+msgid "Default settings succesfully restored."
+msgstr "Configurações padrão restauradas com sucesso."
+
+#: ../classes/settings.php:288
+msgid "Overview"
+msgstr "Overview"
+
+#: ../classes/settings.php:291
+msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
+msgstr "Este plugin serve para adicionar e remover colunas extras nas telas de administração de posts(tipos), páginas, biblioteca de mídia, comentários, links e usuários. Alterar rótulo da coluna e reordená-los."
+
+#: ../classes/settings.php:294
+msgid "Basics"
+msgstr "Básicas"
+
+#: ../classes/settings.php:296
+msgid "Change order"
+msgstr "Alterar ordem"
+
+#: ../classes/settings.php:297
+msgid "By dragging the columns you can change the order which they will appear in."
+msgstr "Arrastando as colunas você pode alterar a ordem em que elas aparecem."
+
+#: ../classes/settings.php:298
+msgid "Change label"
+msgstr "Alterar label"
+
+#: ../classes/settings.php:299
+msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
+msgstr "Clicando no triângulo você verá as opções da coluna. Você pode alterar cada rótulo do cabeçalho das colunas."
+
+#: ../classes/settings.php:300
+msgid "Change column width"
+msgstr "Alterar tamanho da coluna"
+
+#: ../classes/settings.php:301
+msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
+msgstr "Clicando no triângulo você verá as opções da coluna. Usando o campo de slider você pode setar a largura da coluna em porcentagem."
+
+#: ../classes/settings.php:307
+msgid "'Custom Field' column"
+msgstr "Coluna 'Campo Personalizado'"
+
+#: ../classes/settings.php:308
+msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
+msgstr "A coluna de campo personalizado usa os campos personalizados dos posts e usuários. Existem 10 tipos que você pode setar."
+
+#: ../classes/settings.php:310
+msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgstr "Valor: Pode ser uma string ou array. Arrays serão 'flattened' e seus valores separados por ',' vírgula."
+
+#: ../classes/settings.php:311
+msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
+msgstr "Valor: deverá conter uma URL da imagem ou IDs dos Anexos ( separados por uma ',' vírgula )."
+
+#: ../classes/settings.php:312
+msgid "Value: This will show the first 20 words of the Post content."
+msgstr "Valor: Mostrará as primeiras 20 palavras do conteúdo do Post."
+
+#: ../classes/settings.php:313
+msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr "Valor: Deverá ser um array. Irá 'flatten' qualquer array ( multidimensional )."
+
+#: ../classes/settings.php:314
+msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgstr "Valor: Apenas números inteiros.<br/>Se você tem o 'addon de ordenação' isso vai ser usado para classificação, de modo que você possa ordenar seus posts em valores numéricos (campo personalizado)."
+
+#: ../classes/settings.php:315
+#, php-format
+msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
+msgstr "Valor: Pode ser unix timestamp ou um formato de data como relatado no <a href='%s'>Codex</a>. Você pode mudar o formato de saída da data na página de <a href='%s'>configurações</a>."
+
+#: ../classes/settings.php:316
+msgid "Post Titles"
+msgstr "Títulos do Post"
+
+#: ../classes/settings.php:316
+msgid "Value: can be one or more Post ID's (seperated by ',')."
+msgstr "Valor: pode ser um ou mais Post ID's (separado por ',')."
+
+#: ../classes/settings.php:317
+msgid "Usernames"
+msgstr "Usuários"
+
+#: ../classes/settings.php:317
+msgid "Value: can be one or more User ID's (seperated by ',')."
+msgstr "Valor: pode ser um ou mais ID's dos Usuários (separado por ',')."
+
+#: ../classes/settings.php:318
+msgid "Checkmark"
+msgstr "Checkmark"
+
+#: ../classes/settings.php:318
+msgid "Value: should be a 1 (one) or 0 (zero)."
+msgstr "Valor: deverá ser 1 (um) u 0 (zero)."
+
+#: ../classes/settings.php:319
+msgid "Value: hex value color, such as #808080."
+msgstr "Valor: Valor hexadecimal, ex: #808080."
+
+#: ../classes/settings.php:320
+msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
+msgstr "Valor: Pode ser uma string ou array. Exibirá uma contagem do número de vezes que a 'meta_key' é usada pelo item."
+
+#: ../classes/settings.php:409
+msgid "Welcome to Admin Columns"
+msgstr "Bem vindo ao Admin de Colunas"
+
+#: ../classes/settings.php:412
+msgid "Thank you for updating to the latest version!"
+msgstr "Obrigado por atualizar para a última versão!"
+
+#: ../classes/settings.php:413
+msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
+msgstr "Admin de Colunas está mais polido e divertido do que nunca. Esperamos que você goste."
+
+#: ../classes/settings.php:418
+msgid "What’s New"
+msgstr "O que há de novo"
+
+#: ../classes/settings.php:419
+msgid "Changelog"
+msgstr "Log de Mudanças"
+
+#: ../classes/settings.php:424
+msgid "Important"
+msgstr "Importante"
+
+#: ../classes/settings.php:426
+msgid "Database Changes"
+msgstr "Alterações no banco de dados"
+
+#: ../classes/settings.php:427
+msgid "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues."
+msgstr "O banco de dados foi alterado entre as versões 1 e 2, mas nós temos certeza que você pode voltar para a versão 1x sem nenhum problema."
+
+#: ../classes/settings.php:430
+msgid "Make sure you backup your database and then click"
+msgstr "Verifique se você realizou o backup do banco de dados antes de continuar"
+
+#: ../classes/settings.php:430 ../classes/upgrade.php:143
+msgid "Upgrade Database"
+msgstr "Atualização do Banco de Dados"
+
+#: ../classes/settings.php:433
+msgid "Potential Issues"
+msgstr "Potenciais Problemas"
+
+#: ../classes/settings.php:434
+msgid "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full"
+msgstr "Faça o refatoramento do seu código em torno dos Complementos e ação/filtros, seu website poderá não funcionar corretamente. É importante que você leia por completo"
+
+#: ../classes/settings.php:434
+msgid "Migrating from v1 to v2"
+msgstr "Migrando da v1 para v2"
+
+#: ../classes/settings.php:434
+msgid "guide to view the full list of changes."
+msgstr "Guia para visualização de todas as alterações."
+
+#: ../classes/settings.php:434
+#, php-format
+msgid "When you have found a bug please <a href=\"%s\">report them to us</a> so we can fix it in the next release."
+msgstr "Ao encontrar um bug, por favor <a href=\"%s\">reporte para nós</a> para arrumarmos na próxima versão."
+
+#: ../classes/settings.php:437
+msgid "Important!"
+msgstr "Importante!"
+
+#: ../classes/settings.php:437
+msgid "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest"
+msgstr "Se você atualizou o plugin Admin de Colunas sem o devido conhecimento das mudanças, por favor volte a última versão"
+
+#: ../classes/settings.php:437
+msgid "version 1"
+msgstr "versão 1"
+
+#: ../classes/settings.php:437
+msgid "of this plugin."
+msgstr "deste plugin."
+
+#: ../classes/settings.php:443
+msgid "Changelog for"
+msgstr "Log de alterações para"
+
+#: ../classes/settings.php:458 ../classes/upgrade.php:63
+msgid "Learn more"
+msgstr "Saiba mais"
+
+#: ../classes/settings.php:468
+msgid "Start using Admin Columns"
+msgstr "Comece a usar o Admin de Colunas"
+
+#: ../classes/settings.php:511
+msgid "General Settings"
+msgstr "Configurações"
+
+#: ../classes/settings.php:512
+msgid "Customize your Admin Columns settings."
+msgstr "Customize as configurações do seu Admin de Colunas."
+
+#: ../classes/settings.php:523
+msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
+msgstr ""
+
+#: ../classes/settings.php:530 ../classes/settings.php:660
+msgid "Save"
+msgstr "Salvar"
+
+#: ../classes/settings.php:570
+msgid "Restore Settings"
+msgstr "Restaurar Configurações"
+
+#: ../classes/settings.php:571
+msgid "This will delete all column settings and restore the default settings."
+msgstr "Apagará todas as configurações de colunas e restaurar a configuração padrão."
+
+#: ../classes/settings.php:577
+msgid "Restore default settings"
+msgstr "Restaurar configuração padrão"
+
+#: ../classes/settings.php:577
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "Atenção! Todos os dados salvos do administrador de colunas serão excluídos. Isto não poderá ser desfeito. \\'OK\\' para excluir, \\'Cancelar\\' para interromper"
+
+#: ../classes/settings.php:599 ../codepress-admin-columns.php:326
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../classes/settings.php:600
+msgid "Add-ons"
+msgstr "Complementos"
+
+#: ../classes/settings.php:625
+msgid "Posttypes"
+msgstr "Tipos de Post"
+
+#: ../classes/settings.php:626
+msgid "Others"
+msgstr "Outros"
+
+#: ../classes/settings.php:627
+msgid "Taxonomies"
+msgstr "Taxonomias"
+
+#: ../classes/settings.php:646
+#, php-format
+msgid "The columns for <strong>%s</strong> are set up via PHP and can therefore not be edited in the admin panel."
+msgstr "As colunas para <strong>%s</strong> são setadas via PHP e portanto não podem ser editadas pelo admin"
+
+#: ../classes/settings.php:656
+msgid "Store settings"
+msgstr "Configurações armazenadas"
+
+#: ../classes/settings.php:660
+msgid "Update"
+msgstr "Atualização"
+
+#: ../classes/settings.php:664
+#, php-format
+msgid "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "Atenção! Dados das colunas %s serão excluídos. Isto não poderá ser desfeito. \\'OK\\' para excluir, \\'Cancelar\\' para interromper"
+
+#: ../classes/settings.php:665
+msgid "columns"
+msgstr "colunas"
+
+#: ../classes/settings.php:684
+msgid "Get Admin Columns Pro"
+msgstr "Obter Admin de Colunas Pro"
+
+#: ../classes/settings.php:688
+msgid "Add Sorting"
+msgstr "Adicionar Classificação"
+
+#: ../classes/settings.php:689
+msgid "Add Filtering"
+msgstr "Adicionar Filtragem"
+
+#: ../classes/settings.php:690
+msgid "Add Import/Export"
+msgstr "Adicionar Importar/Exportar"
+
+#: ../classes/settings.php:691
+msgid "Add Direct Editing"
+msgstr "Adicionar Edição Direta"
+
+#: ../classes/settings.php:694
+#, php-format
+msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
+msgstr "Confira <a href=\"%s\">Admin de Colunas Pro</a> para mais detalhes!"
+
+#: ../classes/settings.php:725
+msgid "Are you happy with Admin Columns?"
+msgstr ""
+
+#: ../classes/settings.php:733
+msgid "What's wrong? Need help? Let us know!"
+msgstr ""
+
+#: ../classes/settings.php:734
+msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgstr ""
+
+#: ../classes/settings.php:742
+msgid "Docs"
+msgstr ""
+
+#: ../classes/settings.php:747
+msgid "Forums"
+msgstr ""
+
+#: ../classes/settings.php:756
+msgid "Woohoo! We're glad to hear that!"
+msgstr ""
+
+#: ../classes/settings.php:757
+msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgstr ""
+
+#: ../classes/settings.php:761
+msgid "Rate"
+msgstr ""
+
+#: ../classes/settings.php:772
+msgid "Tweet"
+msgstr ""
+
+#: ../classes/settings.php:782
+msgid "Buy Pro"
+msgstr ""
+
+#: ../classes/settings.php:794
+msgid "Support"
+msgstr "Suporte"
+
+#: ../classes/settings.php:797
+msgid "Check the <strong>Help</strong> section in the top-right screen."
+msgstr "Confira a seção de <strong>Ajuda</strong> no canto superior direito da tela."
+
+#: ../classes/settings.php:800
+#, php-format
+msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
+msgstr "Para a documentação completa, reportação de bugs, sugestões de recursos e outras dicas <a href='%s'>visite o site do Admin de Colunas</a>"
+
+#: ../classes/settings.php:829
+msgid "Drag and drop to reorder"
+msgstr "Arrastar e solte para reordenar"
+
+#: ../classes/settings.php:832
+msgid "Add Column"
+msgstr "Adicionar Coluna"
+
+#: ../classes/settings.php:908
+msgid "Active"
+msgstr "Ativar"
+
+#: ../classes/settings.php:909
+msgid "Deactivate"
+msgstr "Desativar"
+
+#: ../classes/settings.php:916
+msgid "Installed"
+msgstr "Instalado"
+
+#: ../classes/settings.php:917
+msgid "Activate"
+msgstr "Ativado"
+
+#: ../classes/settings.php:931
+msgid "Download & Install"
+msgstr "Baixar & Instalar"
+
+#: ../classes/settings.php:936
+msgid "Get this add-on"
+msgstr "Obter este complemento"
+
+#: ../classes/storage_model.php:213
+msgid "settings succesfully restored."
+msgstr "Configurações foram restauradas com sucesso."
+
+#: ../classes/storage_model.php:229
+msgid "No columns settings available."
+msgstr "Nenhuma configuração de colunas disponível."
+
+#: ../classes/storage_model.php:250
+#, php-format
+msgid "You are trying to store the same settings for %s."
+msgstr "Você está tentando armazenar a mesma configuração para %s."
+
+#: ../classes/storage_model.php:254
+#, php-format
+msgid "Settings for %s updated succesfully."
+msgstr "Configurações para %s atualizadas com sucesso."
+
+#: ../classes/storage_model/comment.php:13
+msgid "Comments"
+msgstr "Comentários"
+
+#: ../classes/storage_model/link.php:13
+msgid "Links"
+msgstr "Links"
+
+#: ../classes/storage_model/user.php:13
+msgid "Users"
+msgstr "Usuários"
+
+#: ../classes/upgrade.php:62
+msgid ""
+"<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a "
+"href=\"http://www.admincolumns.com/pro-addon-information/\" target=\"_blank\">is available</a>, which features a bunch of cool new features, including Direct Inline Editing!"
+msgstr ""
+
+#: ../classes/upgrade.php:95
+msgid "Upgrade"
+msgstr "Atualização"
+
+#: ../classes/upgrade.php:136
+msgid "requires a database upgrade"
+msgstr "exige um upgrade no banco de dados"
+
+#: ../classes/upgrade.php:139
+msgid "why?"
+msgstr "Por que?"
+
+#: ../classes/upgrade.php:140
+msgid "Please"
+msgstr "Por favor"
+
+#: ../classes/upgrade.php:141
+msgid "backup your database"
+msgstr "Faça o backup do seu banco de dados"
+
+#: ../classes/upgrade.php:142
+msgid "then click"
+msgstr "e clique"
+
+#: ../classes/upgrade.php:351
+msgid "Migrating Column Settings"
+msgstr "Migrando as Configurações de Coluna"
+
+#: ../classes/upgrade.php:387
+msgid "No Upgrade Required"
+msgstr "Não é necessária a atualização"
+
+#: ../classes/upgrade.php:388
+msgid "Return to welcome screen."
+msgstr "Retornar para a tela de bem-vindo."
+
+#: ../classes/upgrade.php:406
+msgid "Upgrade Complete!"
+msgstr "Atualização Completa!"
+
+#: ../classes/upgrade.php:406
+msgid "Return to settings."
+msgstr "Retornar para configuração"
+
+#: ../classes/upgrade.php:407
+msgid "Error"
+msgstr "Erro"
+
+#: ../classes/upgrade.php:408
+msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
+msgstr "Desculpe. Alguma coisa aconteceu durante o processo de atualização. Por favor reporte no fórum de suporte."
+
+#: ../codepress-admin-columns.php:390
+msgid "Edit columns"
+msgstr "Editar Colunas"

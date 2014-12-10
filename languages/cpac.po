@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-06 23:38+0100\n"
-"PO-Revision-Date: 2014-12-06 23:38+0100\n"
+"POT-Creation-Date: 2014-12-10 17:02+0100\n"
+"PO-Revision-Date: 2014-12-10 17:02+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: en_GB\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.7\n"
+"X-Generator: Poedit 1.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -42,123 +42,123 @@ msgid ""
 "inline editing."
 msgstr ""
 
-#: ../classes/column.php:461
+#: ../classes/column.php:500
 msgid "Thumbnail"
 msgstr ""
 
-#: ../classes/column.php:462
+#: ../classes/column.php:501
 msgid "Medium"
 msgstr ""
 
-#: ../classes/column.php:463
+#: ../classes/column.php:502
 msgid "Large"
 msgstr ""
 
-#: ../classes/column.php:464
+#: ../classes/column.php:503
 msgid "Full"
 msgstr ""
 
-#: ../classes/column.php:837
+#: ../classes/column.php:863
 msgid "Date Format"
 msgstr ""
 
-#: ../classes/column.php:838
+#: ../classes/column.php:864
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: ../classes/column.php:844
+#: ../classes/column.php:870
 msgid "Example:"
 msgstr ""
 
-#: ../classes/column.php:846
+#: ../classes/column.php:872
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
 msgstr ""
 
-#: ../classes/column.php:847
+#: ../classes/column.php:873
 msgid "Documentation on date and time formatting."
 msgstr ""
 
-#: ../classes/column.php:861
+#: ../classes/column.php:887
 msgid "Excerpt length"
 msgstr ""
 
-#: ../classes/column.php:862
+#: ../classes/column.php:888
 msgid "Number of words"
 msgstr ""
 
-#: ../classes/column.php:880
+#: ../classes/column.php:906
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:897 ../classes/storage_model.php:534
+#: ../classes/column.php:923 ../classes/storage_model.php:534
 msgid "Custom"
 msgstr ""
 
-#: ../classes/column.php:900
+#: ../classes/column.php:926
 msgid "width"
 msgstr ""
 
-#: ../classes/column.php:903
+#: ../classes/column.php:929
 msgid "height"
 msgstr ""
 
-#: ../classes/column.php:917
+#: ../classes/column.php:943
 msgid "Before"
 msgstr ""
 
-#: ../classes/column.php:917
+#: ../classes/column.php:943
 msgid "This text will appear before the custom field value."
 msgstr ""
 
-#: ../classes/column.php:923
+#: ../classes/column.php:949
 msgid "After"
 msgstr ""
 
-#: ../classes/column.php:923
+#: ../classes/column.php:949
 msgid "This text will appear after the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1017 ../classes/column/comment/actions.php:99
+#: ../classes/column.php:1043 ../classes/column/comment/actions.php:99
 #: ../classes/column/link/actions.php:48 ../classes/column/post/actions.php:31
 #: ../classes/column/user/actions.php:69
 msgid "Edit"
 msgstr ""
 
-#: ../classes/column.php:1018 ../classes/column.php:1096
+#: ../classes/column.php:1044 ../classes/column.php:1122
 #: ../classes/column/user/actions.php:77
 msgid "Remove"
 msgstr ""
 
-#: ../classes/column.php:1036
+#: ../classes/column.php:1062
 msgid "Type"
 msgstr ""
 
-#: ../classes/column.php:1036
+#: ../classes/column.php:1062
 msgid "Choose a column type."
 msgstr ""
 
-#: ../classes/column.php:1036 ../classes/column/comment/ID.php:19
+#: ../classes/column.php:1062 ../classes/column/comment/ID.php:19
 #: ../classes/column/link/ID.php:19 ../classes/column/media/ID.php:19
 #: ../classes/column/post/ID.php:19
 msgid "ID"
 msgstr ""
 
-#: ../classes/column.php:1046
+#: ../classes/column.php:1072
 msgid "Label"
 msgstr ""
 
-#: ../classes/column.php:1046
+#: ../classes/column.php:1072
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:1053 ../classes/column/media/width.php:19
+#: ../classes/column.php:1079 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr ""
 
-#: ../classes/column.php:1055 ../classes/column.php:1056
+#: ../classes/column.php:1081 ../classes/column.php:1082
 msgid "default"
 msgstr ""
 
@@ -282,13 +282,13 @@ msgstr ""
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr ""
 
-#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:70
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98
 #: ../classes/settings.php:315
 msgid "Date"
 msgstr ""
 
 #: ../classes/column/comment/excerpt.php:19
-#: ../classes/column/custom-field.php:71 ../classes/column/post/excerpt.php:19
+#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
 #: ../classes/settings.php:312
 msgid "Excerpt"
 msgstr ""
@@ -303,65 +303,66 @@ msgid "Word count"
 msgstr ""
 
 #: ../classes/column/custom-field.php:23
-#: ../classes/column/custom-field.php:328 ../classes/settings.php:305
+#: ../classes/column/custom-field.php:356 ../classes/settings.php:305
 msgid "Custom Field"
 msgstr ""
 
-#: ../classes/column/custom-field.php:66 ../classes/settings.php:310
+#: ../classes/column/custom-field.php:94 ../classes/settings.php:310
 #: ../classes/storage_model.php:535
 msgid "Default"
 msgstr ""
 
-#: ../classes/column/custom-field.php:67
+#: ../classes/column/custom-field.php:95
 msgid "Checkmark (true/false)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:68 ../classes/settings.php:319
+#: ../classes/column/custom-field.php:96 ../classes/settings.php:319
 msgid "Color"
 msgstr ""
 
-#: ../classes/column/custom-field.php:69 ../classes/settings.php:320
+#: ../classes/column/custom-field.php:97 ../classes/settings.php:320
 msgid "Counter"
 msgstr ""
 
-#: ../classes/column/custom-field.php:72 ../classes/column/link/image.php:19
+#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19
 #: ../classes/settings.php:311
 msgid "Image"
 msgstr ""
 
-#: ../classes/column/custom-field.php:73 ../classes/storage_model/media.php:13
+#: ../classes/column/custom-field.php:101
+#: ../classes/storage_model/media.php:13
 msgid "Media Library"
 msgstr ""
 
-#: ../classes/column/custom-field.php:74 ../classes/settings.php:313
+#: ../classes/column/custom-field.php:102 ../classes/settings.php:313
 msgid "Multiple Values"
 msgstr ""
 
-#: ../classes/column/custom-field.php:75 ../classes/settings.php:314
+#: ../classes/column/custom-field.php:103 ../classes/settings.php:314
 msgid "Numeric"
 msgstr ""
 
-#: ../classes/column/custom-field.php:76
+#: ../classes/column/custom-field.php:104
 msgid "Post Title (Post ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:77
+#: ../classes/column/custom-field.php:105
 msgid "Username (User ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:328
+#: ../classes/column/custom-field.php:356
 msgid "Select your custom field."
 msgstr ""
 
-#: ../classes/column/custom-field.php:338
+#: ../classes/column/custom-field.php:366
 msgid "No custom fields available."
 msgstr ""
 
-#: ../classes/column/custom-field.php:345
+#: ../classes/column/custom-field.php:373
 msgid "Field Type"
 msgstr ""
 
-#: ../classes/column/custom-field.php:345
+#: ../classes/column/custom-field.php:373
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
@@ -1247,31 +1248,31 @@ msgstr ""
 msgid "then click"
 msgstr ""
 
-#: ../classes/upgrade.php:350
+#: ../classes/upgrade.php:351
 msgid "Migrating Column Settings"
 msgstr ""
 
-#: ../classes/upgrade.php:386
+#: ../classes/upgrade.php:387
 msgid "No Upgrade Required"
 msgstr ""
 
-#: ../classes/upgrade.php:387
+#: ../classes/upgrade.php:388
 msgid "Return to welcome screen."
 msgstr ""
 
-#: ../classes/upgrade.php:405
+#: ../classes/upgrade.php:406
 msgid "Upgrade Complete!"
 msgstr ""
 
-#: ../classes/upgrade.php:405
+#: ../classes/upgrade.php:406
 msgid "Return to settings."
 msgstr ""
 
-#: ../classes/upgrade.php:406
+#: ../classes/upgrade.php:407
 msgid "Error"
 msgstr ""
 
-#: ../classes/upgrade.php:407
+#: ../classes/upgrade.php:408
 msgid ""
 "Sorry. Something went wrong during the upgrade process. Please report this "
 "on the support forum."

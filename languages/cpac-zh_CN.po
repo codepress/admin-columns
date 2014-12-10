@@ -5,344 +5,336 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-22 17:03+0100\n"
-"PO-Revision-Date: 2014-12-06 23:38+0100\n"
+"POT-Creation-Date: 2014-12-10 17:02+0100\n"
+"PO-Revision-Date: 2014-12-10 17:24+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-"
-"columns/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-columns/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../classes/addons.php:117
+#: ../classes/addons.php:110
 msgid "Third party plugin integration"
 msgstr ""
 
-#: ../classes/addons.php:142
+#: ../classes/addons.php:135
 msgid "Advanced Custom Fields"
 msgstr ""
 
-#: ../classes/addons.php:143
-msgid ""
-"Display and edit Advanced Custom Fields fields in the posts overview in "
-"seconds!"
+#: ../classes/addons.php:136
+msgid "Display and edit Advanced Custom Fields fields in the posts overview in seconds!"
 msgstr ""
 
-#: ../classes/column.php:481
+#: ../classes/addons.php:141
+msgid "WooCommerce"
+msgstr ""
+
+#: ../classes/addons.php:142
+msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgstr ""
+
+#: ../classes/column.php:500
 msgid "Thumbnail"
 msgstr "缩略图"
 
-#: ../classes/column.php:482
+#: ../classes/column.php:501
 msgid "Medium"
 msgstr "中等大小"
 
-#: ../classes/column.php:483
+#: ../classes/column.php:502
 msgid "Large"
 msgstr "大尺寸"
 
-#: ../classes/column.php:484
+#: ../classes/column.php:503
 msgid "Full"
 msgstr "原始大小"
 
-#: ../classes/column.php:751
+#: ../classes/column.php:863
 msgid "Date Format"
 msgstr "日期格式"
 
-#: ../classes/column.php:752
+#: ../classes/column.php:864
 msgid "This will determine how the date will be displayed."
 msgstr "用来决定如何显示日期"
 
-#: ../classes/column.php:758
+#: ../classes/column.php:870
 msgid "Example:"
 msgstr "例如："
 
-#: ../classes/column.php:760
+#: ../classes/column.php:872
 #, php-format
-msgid ""
-"Leave empty for WordPress date format, change your <a href=\"%s\">default "
-"date format here</a>."
-msgstr ""
-"留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期"
-"格式。"
+msgid "Leave empty for WordPress date format, change your <a href=\"%s\">default date format here</a>."
+msgstr "留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期格式。"
 
-#: ../classes/column.php:761
+#: ../classes/column.php:873
 msgid "Documentation on date and time formatting."
 msgstr "日期和时间格式的文档。"
 
-#: ../classes/column.php:775
+#: ../classes/column.php:887
 msgid "Excerpt length"
 msgstr "摘要长度"
 
-#: ../classes/column.php:776
+#: ../classes/column.php:888
 msgid "Number of words"
 msgstr "字数"
 
-#: ../classes/column.php:794
+#: ../classes/column.php:906
 msgid "Preview size"
 msgstr "预览大小"
 
-#: ../classes/column.php:811 ../classes/storage_model.php:505
+#: ../classes/column.php:923 ../classes/storage_model.php:534
 msgid "Custom"
 msgstr "自定义"
 
-#: ../classes/column.php:814
+#: ../classes/column.php:926
 msgid "width"
 msgstr "宽度"
 
-#: ../classes/column.php:817
+#: ../classes/column.php:929
 msgid "height"
 msgstr "高度"
 
-#: ../classes/column.php:831
+#: ../classes/column.php:943
 msgid "Before"
 msgstr "前"
 
-#: ../classes/column.php:831
+#: ../classes/column.php:943
 msgid "This text will appear before the custom field value."
 msgstr "该文本将显示在自定义字段的值的前面"
 
-#: ../classes/column.php:837
+#: ../classes/column.php:949
 msgid "After"
 msgstr "后"
 
-#: ../classes/column.php:837
+#: ../classes/column.php:949
 msgid "This text will appear after the custom field value."
 msgstr "该文本将显示在自定义字段的值的后面"
 
-#: ../classes/column.php:926 ../classes/column/comment/actions.php:96
-#: ../classes/column/link/actions.php:45 ../classes/column/post/actions.php:57
-#: ../classes/column/user/actions.php:66
+#: ../classes/column.php:1043 ../classes/column/comment/actions.php:99 ../classes/column/link/actions.php:48 ../classes/column/post/actions.php:31
+#: ../classes/column/user/actions.php:69
 msgid "Edit"
 msgstr "编辑"
 
-#: ../classes/column.php:927 ../classes/column.php:1005
-#: ../classes/column/user/actions.php:74
+#: ../classes/column.php:1044 ../classes/column.php:1122 ../classes/column/user/actions.php:77
 msgid "Remove"
 msgstr "删除"
 
-#: ../classes/column.php:945
+#: ../classes/column.php:1062
 msgid "Type"
 msgstr "类型"
 
-#: ../classes/column.php:945
+#: ../classes/column.php:1062
 msgid "Choose a column type."
 msgstr "选择一个列类型。"
 
-#: ../classes/column.php:945 ../classes/column/comment/ID.php:12
-#: ../classes/column/link/ID.php:12 ../classes/column/media/ID.php:12
-#: ../classes/column/post/ID.php:12
+#: ../classes/column.php:1062 ../classes/column/comment/ID.php:19 ../classes/column/link/ID.php:19 ../classes/column/media/ID.php:19 ../classes/column/post/ID.php:19
 msgid "ID"
 msgstr "ID"
 
-#: ../classes/column.php:955
+#: ../classes/column.php:1072
 msgid "Label"
 msgstr "标签"
 
-#: ../classes/column.php:955
+#: ../classes/column.php:1072
 msgid "This is the name which will appear as the column header."
 msgstr "该名称将显示为列标题。"
 
-#: ../classes/column.php:962 ../classes/column/media/width.php:12
+#: ../classes/column.php:1079 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr "宽度"
 
-#: ../classes/column.php:964 ../classes/column.php:965
+#: ../classes/column.php:1081 ../classes/column.php:1082
 msgid "default"
 msgstr "默认"
 
-#: ../classes/column/acf-placeholder.php:16
+#: ../classes/column/acf-placeholder.php:19
 msgid "ACF Field"
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:32
-msgid "This feature is only available in Admin Columns Pro - Developer."
+msgid "This feature is only available in Admin Columns Pro - Business or Developer."
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:35
 #, php-format
-msgid ""
-"If you have a developer licence please download & install your ACF add-on "
-"from the <a href='%s'>add-ons tab</a>."
+msgid "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:38
-msgid ""
-"Admin Columns Pro - Developer offers full Advanced Custom Fields "
-"integeration, allowing you to easily display and edit ACF fields from within "
-"your posts overview."
+msgid "Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview."
 msgstr ""
 
-#: ../classes/column/acf-placeholder.php:40
+#: ../classes/column/acf-placeholder.php:44
 msgid "Find out more"
 msgstr ""
 
-#: ../classes/column/comment/actions.php:14
-#: ../classes/column/link/actions.php:14
-#: ../classes/column/media/actions.php:14
-#: ../classes/column/post/actions.php:14 ../classes/column/user/actions.php:14
+#: ../classes/column/actions.php:29 ../classes/column/comment/actions.php:19 ../classes/column/link/actions.php:19 ../classes/column/media/actions.php:20
+#: ../classes/column/user/actions.php:19
 msgid "Actions"
 msgstr "操作"
 
-#: ../classes/column/comment/actions.php:73
-#: ../classes/column/comment/actions.php:78
+#: ../classes/column/actions.php:87
+msgid "Use icons?"
+msgstr ""
+
+#: ../classes/column/actions.php:87
+msgid "Use icons instead of text for displaying the actions."
+msgstr ""
+
+#: ../classes/column/actions.php:91 ../classes/column/post/permalink.php:72 ../classes/column/used-by-menu.php:137
+msgid "Yes"
+msgstr ""
+
+#: ../classes/column/actions.php:95 ../classes/column/post/permalink.php:76 ../classes/column/used-by-menu.php:141
+msgid "No"
+msgstr ""
+
+#: ../classes/column/comment/actions.php:76 ../classes/column/comment/actions.php:81
 msgid "Unapprove"
 msgstr "驳回"
 
-#: ../classes/column/comment/actions.php:75
-#: ../classes/column/comment/actions.php:77
+#: ../classes/column/comment/actions.php:78 ../classes/column/comment/actions.php:80
 msgid "Approve"
 msgstr "通过"
 
-#: ../classes/column/comment/actions.php:86
-#: ../classes/column/post/actions.php:62 ../classes/settings.php:687
+#: ../classes/column/comment/actions.php:89 ../classes/column/post/actions.php:39 ../classes/settings.php:665
 msgid "Restore"
 msgstr "恢复"
 
-#: ../classes/column/comment/actions.php:90
-#: ../classes/column/post/actions.php:66
+#: ../classes/column/comment/actions.php:93 ../classes/column/post/actions.php:43
 msgid "Delete Permanently"
 msgstr "永久删除"
 
-#: ../classes/column/comment/actions.php:97
-#: ../classes/column/post/actions.php:58
+#: ../classes/column/comment/actions.php:100 ../classes/column/post/actions.php:34
 msgid "Quick&nbsp;Edit"
 msgstr "Quick&nbsp;Edit"
 
-#: ../classes/column/comment/actions.php:98
+#: ../classes/column/comment/actions.php:101
 msgid "Reply"
 msgstr "回复"
 
-#: ../classes/column/comment/agent.php:12
+#: ../classes/column/comment/agent.php:19
 msgid "Agent"
 msgstr "代理(Agent)"
 
-#: ../classes/column/comment/approved.php:12
-#: ../classes/column/post/comment-count.php:31
+#: ../classes/column/comment/approved.php:19 ../classes/column/post/comment-count.php:35
 msgid "Approved"
 msgstr "已通过"
 
-#: ../classes/column/comment/author-avatar.php:12
+#: ../classes/column/comment/author-avatar.php:19
 msgid "Avatar"
 msgstr "头像"
 
-#: ../classes/column/comment/author-email.php:12
+#: ../classes/column/comment/author-email.php:19
 msgid "Author email"
 msgstr "作者邮箱"
 
-#: ../classes/column/comment/author-ip.php:12
+#: ../classes/column/comment/author-ip.php:19
 msgid "Author IP"
 msgstr "作者IP"
 
-#: ../classes/column/comment/author-url.php:12
+#: ../classes/column/comment/author-url.php:19
 msgid "Author url"
 msgstr "作者url"
 
-#: ../classes/column/comment/author.php:12
+#: ../classes/column/comment/author.php:19
 msgid "Author"
 msgstr "作者"
 
-#: ../classes/column/comment/date-gmt.php:12
+#: ../classes/column/comment/date-gmt.php:19
 msgid "Date GMT"
 msgstr "日期GMT"
 
-#: ../classes/column/comment/date-gmt.php:25
-#: ../classes/column/comment/date.php:25
+#: ../classes/column/comment/date-gmt.php:30 ../classes/column/comment/date.php:30
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "提交于 <a href=\"%1$s\">%2$s at %3$s</a>"
 
-#: ../classes/column/comment/date.php:12 ../classes/column/custom-field.php:69
-#: ../classes/settings.php:300
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98 ../classes/settings.php:315
 msgid "Date"
 msgstr "日期"
 
-#: ../classes/column/comment/excerpt.php:13
-#: ../classes/column/custom-field.php:70 ../classes/column/post/excerpt.php:13
-#: ../classes/settings.php:297
+#: ../classes/column/comment/excerpt.php:19 ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:312
 msgid "Excerpt"
 msgstr "摘要"
 
-#: ../classes/column/comment/reply-to.php:12
+#: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
 msgstr "回应给"
 
-#: ../classes/column/comment/word-count.php:12
-#: ../classes/column/post/word-count.php:12
+#: ../classes/column/comment/word-count.php:19 ../classes/column/post/word-count.php:19
 msgid "Word count"
 msgstr "字数"
 
-#: ../classes/column/custom-field.php:16
-#: ../classes/column/custom-field.php:384 ../classes/settings.php:290
+#: ../classes/column/custom-field.php:23 ../classes/column/custom-field.php:356 ../classes/settings.php:305
 msgid "Custom Field"
 msgstr "自定义字段"
 
-#: ../classes/column/custom-field.php:65 ../classes/settings.php:295
-#: ../classes/storage_model.php:504
+#: ../classes/column/custom-field.php:94 ../classes/settings.php:310 ../classes/storage_model.php:535
 msgid "Default"
 msgstr "默认"
 
-#: ../classes/column/custom-field.php:66
+#: ../classes/column/custom-field.php:95
 msgid "Checkmark (true/false)"
 msgstr "判断(true/false)"
 
-#: ../classes/column/custom-field.php:67 ../classes/settings.php:304
+#: ../classes/column/custom-field.php:96 ../classes/settings.php:319
 msgid "Color"
 msgstr "颜色"
 
-#: ../classes/column/custom-field.php:68 ../classes/settings.php:305
+#: ../classes/column/custom-field.php:97 ../classes/settings.php:320
 msgid "Counter"
 msgstr ""
 
-#: ../classes/column/custom-field.php:71 ../classes/column/link/image.php:12
-#: ../classes/settings.php:296
+#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19 ../classes/settings.php:311
 msgid "Image"
 msgstr "图像"
 
-#: ../classes/column/custom-field.php:72 ../classes/storage_model/media.php:13
+#: ../classes/column/custom-field.php:101 ../classes/storage_model/media.php:13
 msgid "Media Library"
 msgstr "媒体库"
 
-#: ../classes/column/custom-field.php:73 ../classes/settings.php:298
+#: ../classes/column/custom-field.php:102 ../classes/settings.php:313
 msgid "Multiple Values"
 msgstr "多个值"
 
-#: ../classes/column/custom-field.php:74 ../classes/settings.php:299
+#: ../classes/column/custom-field.php:103 ../classes/settings.php:314
 msgid "Numeric"
 msgstr "数字"
 
-#: ../classes/column/custom-field.php:75
+#: ../classes/column/custom-field.php:104
 msgid "Post Title (Post ID's)"
 msgstr "文章标题（文章ID）"
 
-#: ../classes/column/custom-field.php:76
+#: ../classes/column/custom-field.php:105
 msgid "Username (User ID's)"
 msgstr "用户名（用户ID）"
 
-#: ../classes/column/custom-field.php:384
+#: ../classes/column/custom-field.php:356
 msgid "Select your custom field."
 msgstr "选择自定义字段"
 
-#: ../classes/column/custom-field.php:394
+#: ../classes/column/custom-field.php:366
 msgid "No custom fields available."
 msgstr "没有可用的自定义字段"
 
-#: ../classes/column/custom-field.php:401
+#: ../classes/column/custom-field.php:373
 msgid "Field Type"
 msgstr "字段类型"
 
-#: ../classes/column/custom-field.php:401
+#: ../classes/column/custom-field.php:373
 msgid "This will determine how the value will be displayed."
 msgstr "用来确定如何显示值"
 
-#: ../classes/column/link/actions.php:46
+#: ../classes/column/link/actions.php:49
 #, php-format
 msgid ""
 "You are about to delete this link '%s'\n"
@@ -351,813 +343,783 @@ msgstr ""
 "你将要删除这个链接“%s”\n"
 "“取消”将停止，“确定”将删除。"
 
-#: ../classes/column/link/actions.php:46 ../classes/column/user/actions.php:72
+#: ../classes/column/link/actions.php:49 ../classes/column/user/actions.php:75
 msgid "Delete"
 msgstr "删除"
 
-#: ../classes/column/link/description.php:12
-#: ../classes/column/media/description.php:12
-#: ../classes/column/user/description.php:14
+#: ../classes/column/link/description.php:19 ../classes/column/media/description.php:19 ../classes/column/user/description.php:19
 msgid "Description"
 msgstr "描述"
 
-#: ../classes/column/link/length.php:12
+#: ../classes/column/link/length.php:19
 msgid "Length"
 msgstr "长度"
 
-#: ../classes/column/link/notes.php:13
+#: ../classes/column/link/notes.php:19
 msgid "Notes"
 msgstr "笔记"
 
-#: ../classes/column/link/owner.php:12
+#: ../classes/column/link/owner.php:19
 msgid "Owner"
 msgstr "所有者"
 
-#: ../classes/column/link/rss.php:12
+#: ../classes/column/link/rss.php:19
 msgid "Rss"
 msgstr "Rss"
 
-#: ../classes/column/link/target.php:12
+#: ../classes/column/link/target.php:19
 msgid "Target"
 msgstr "Target"
 
-#: ../classes/column/media/alternate-text.php:12
+#: ../classes/column/media/alternate-text.php:19
 msgid "Alt"
 msgstr "Alt"
 
-#: ../classes/column/media/available-sizes.php:14
+#: ../classes/column/media/available-sizes.php:20
 msgid "Available Sizes"
 msgstr "可用尺寸"
 
-#: ../classes/column/media/available-sizes.php:37
+#: ../classes/column/media/available-sizes.php:40
 msgid "full size"
 msgstr "全尺寸"
 
-#: ../classes/column/media/caption.php:12
-#: ../classes/column/media/exif-data.php:36
+#: ../classes/column/media/caption.php:19 ../classes/column/media/exif-data.php:41
 msgid "Caption"
 msgstr "标题"
 
-#: ../classes/column/media/dimensions.php:12
+#: ../classes/column/media/dimensions.php:19
 msgid "Dimensions"
 msgstr "尺寸"
 
-#: ../classes/column/media/exif-data.php:12
+#: ../classes/column/media/exif-data.php:19
 msgid "EXIF data"
 msgstr "EXIF数据"
 
-#: ../classes/column/media/exif-data.php:33
+#: ../classes/column/media/exif-data.php:38
 msgid "Aperture"
 msgstr "光圈"
 
-#: ../classes/column/media/exif-data.php:34
+#: ../classes/column/media/exif-data.php:39
 msgid "Credit"
 msgstr "信用"
 
-#: ../classes/column/media/exif-data.php:35
+#: ../classes/column/media/exif-data.php:40
 msgid "Camera"
 msgstr "相机"
 
-#: ../classes/column/media/exif-data.php:37
+#: ../classes/column/media/exif-data.php:42
 msgid "Timestamp"
 msgstr "时间戳"
 
-#: ../classes/column/media/exif-data.php:38
+#: ../classes/column/media/exif-data.php:43
 msgid "Copyright EXIF"
 msgstr "版权EXIF"
 
-#: ../classes/column/media/exif-data.php:39
+#: ../classes/column/media/exif-data.php:44
 msgid "Focal Length"
 msgstr "焦距"
 
-#: ../classes/column/media/exif-data.php:40
+#: ../classes/column/media/exif-data.php:45
 msgid "ISO"
 msgstr "ISO"
 
-#: ../classes/column/media/exif-data.php:41
+#: ../classes/column/media/exif-data.php:46
 msgid "Shutter Speed"
 msgstr "快门速度"
 
-#: ../classes/column/media/exif-data.php:42
+#: ../classes/column/media/exif-data.php:47
 msgid "Title"
 msgstr "标题"
 
-#: ../classes/column/media/file-name.php:12
+#: ../classes/column/media/file-name.php:19
 msgid "File name"
 msgstr "名字"
 
-#: ../classes/column/media/file-size.php:12
+#: ../classes/column/media/file-size.php:19
 msgid "File size"
 msgstr "文件大小"
 
-#: ../classes/column/media/full-path.php:12
+#: ../classes/column/media/full-path.php:19
 msgid "Full path"
 msgstr "完整路径"
 
-#: ../classes/column/media/height.php:12
+#: ../classes/column/media/height.php:19
 msgid "Height"
 msgstr "高度"
 
-#: ../classes/column/media/mime-type.php:12
+#: ../classes/column/media/mime-type.php:19
 msgid "Mime type"
 msgstr "Mime类型"
 
-#: ../classes/column/post/actions.php:57
+#: ../classes/column/post/actions.php:31
 msgid "Edit this item"
 msgstr "编辑该项目"
 
-#: ../classes/column/post/actions.php:58
+#: ../classes/column/post/actions.php:34
 msgid "Edit this item inline"
 msgstr "编辑该项目的联"
 
-#: ../classes/column/post/actions.php:62
+#: ../classes/column/post/actions.php:39
 msgid "Restore this item from the Trash"
 msgstr "从回收站中还原"
 
-#: ../classes/column/post/actions.php:64
+#: ../classes/column/post/actions.php:41
 msgid "Move this item to the Trash"
 msgstr "移至回收站"
 
-#: ../classes/column/post/actions.php:64
-#: ../classes/column/post/comment-count.php:34
-#: ../classes/column/post/status.php:38
+#: ../classes/column/post/actions.php:41 ../classes/column/post/comment-count.php:38 ../classes/column/post/status.php:35
 msgid "Trash"
 msgstr "回收站"
 
-#: ../classes/column/post/actions.php:66
+#: ../classes/column/post/actions.php:43
 msgid "Delete this item permanently"
 msgstr "永久删除改项目"
 
-#: ../classes/column/post/actions.php:71
+#: ../classes/column/post/actions.php:48
 #, php-format
 msgid "Preview &#8220;%s&#8221;"
 msgstr "预览 &#8220;%s&#8221;"
 
-#: ../classes/column/post/actions.php:71
+#: ../classes/column/post/actions.php:48
 msgid "Preview"
 msgstr "预览"
 
-#: ../classes/column/post/actions.php:73
+#: ../classes/column/post/actions.php:50
 #, php-format
 msgid "View &#8220;%s&#8221;"
 msgstr "查看 &#8220;%s&#8221;"
 
-#: ../classes/column/post/actions.php:73 ../classes/storage_model.php:701
+#: ../classes/column/post/actions.php:50 ../classes/storage_model.php:746
 msgid "View"
 msgstr "查看"
 
-#: ../classes/column/post/attachment-count.php:12
+#: ../classes/column/post/attachment-count.php:19
 msgid "No. of Attachments"
 msgstr "附件数量"
 
-#: ../classes/column/post/attachment.php:12
+#: ../classes/column/post/attachment.php:19
 msgid "Attachment"
 msgstr "附件"
 
-#: ../classes/column/post/author-name.php:12
+#: ../classes/column/post/author-name.php:20
 msgid "Display Author As"
 msgstr "显示作者为"
 
-#: ../classes/column/post/author-name.php:34
+#: ../classes/column/post/author-name.php:40
 msgid "Display Name"
 msgstr "公开显示为"
 
-#: ../classes/column/post/author-name.php:35
+#: ../classes/column/post/author-name.php:41
 msgid "First Name"
 msgstr "名字"
 
-#: ../classes/column/post/author-name.php:36
+#: ../classes/column/post/author-name.php:42
 msgid "Last Name"
 msgstr "姓氏"
 
-#: ../classes/column/post/author-name.php:37
-#: ../classes/column/user/nickname.php:14
+#: ../classes/column/post/author-name.php:43 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr "昵称"
 
-#: ../classes/column/post/author-name.php:38
+#: ../classes/column/post/author-name.php:44
 msgid "User Login"
 msgstr "用户名"
 
-#: ../classes/column/post/author-name.php:39
+#: ../classes/column/post/author-name.php:45
 msgid "User Email"
 msgstr "用户邮箱"
 
-#: ../classes/column/post/author-name.php:40 ../classes/column/user/ID.php:14
+#: ../classes/column/post/author-name.php:46 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr "用户ID"
 
-#: ../classes/column/post/author-name.php:41
+#: ../classes/column/post/author-name.php:47
 msgid "First and Last Name"
 msgstr "姓名"
 
-#: ../classes/column/post/author-name.php:118
+#: ../classes/column/post/author-name.php:124
 msgid "This is the format of the author name."
 msgstr "作者名字的格式"
 
-#: ../classes/column/post/before-moretag.php:14
+#: ../classes/column/post/before-moretag.php:19
 msgid "Before More Tag"
 msgstr "More标签前"
 
-#: ../classes/column/post/comment-count.php:14
+#: ../classes/column/post/comment-count.php:20
 msgid "Comment count"
 msgstr "评论数量"
 
-#: ../classes/column/post/comment-count.php:30
+#: ../classes/column/post/comment-count.php:34
 msgid "Total"
 msgstr "所有"
 
-#: ../classes/column/post/comment-count.php:32
+#: ../classes/column/post/comment-count.php:36
 msgid "Pending"
 msgstr "待审"
 
-#: ../classes/column/post/comment-count.php:33
+#: ../classes/column/post/comment-count.php:37
 msgid "Spam"
 msgstr "垃圾评论"
 
-#: ../classes/column/post/comment-count.php:95
-#: ../classes/column/post/comment-status.php:14
+#: ../classes/column/post/comment-count.php:99 ../classes/column/post/comment-status.php:20
 msgid "Comment status"
 msgstr "评论状态"
 
-#: ../classes/column/post/comment-count.php:95
+#: ../classes/column/post/comment-count.php:99
 msgid "Select which comment status you like to display."
 msgstr "选择你要显示的评论状态"
 
-#: ../classes/column/post/featured-image.php:14
+#: ../classes/column/post/featured-image.php:19
 msgid "Featured Image"
 msgstr "特色图像"
 
-#: ../classes/column/post/formats.php:14
+#: ../classes/column/post/formats.php:19
 msgid "Post Format"
 msgstr "文章形式"
 
-#: ../classes/column/post/modified.php:14
+#: ../classes/column/post/modified.php:19
 msgid "Last modified"
 msgstr "最后修订"
 
-#: ../classes/column/post/order.php:14
+#: ../classes/column/post/order.php:19
 msgid "Page Order"
 msgstr "页面排序"
 
-#: ../classes/column/post/page-template.php:12
+#: ../classes/column/post/page-template.php:19
 msgid "Page Template"
 msgstr "页面模板"
 
-#: ../classes/column/post/parent.php:12
+#: ../classes/column/post/parent.php:19
 msgid "Parent"
 msgstr "父级"
 
-#: ../classes/column/post/permalink.php:12
+#: ../classes/column/post/path.php:19
+msgid "Path"
+msgstr ""
+
+#: ../classes/column/post/permalink.php:19
 msgid "Permalink"
 msgstr ""
 
-#: ../classes/column/post/ping-status.php:14
+#: ../classes/column/post/permalink.php:68
+msgid "Link to post"
+msgstr ""
+
+#: ../classes/column/post/permalink.php:68
+msgid "This will make the permalink clickable."
+msgstr ""
+
+#: ../classes/column/post/ping-status.php:19
 msgid "Ping status"
 msgstr "Ping状态"
 
-#: ../classes/column/post/roles.php:14
+#: ../classes/column/post/roles.php:19
 msgid "Roles"
 msgstr "角色"
 
-#: ../classes/column/post/slug.php:12
+#: ../classes/column/post/slug.php:19
 msgid "Slug"
 msgstr "别名"
 
-#: ../classes/column/post/status.php:14
+#: ../classes/column/post/status.php:19
 msgid "Status"
 msgstr "状态"
 
-#: ../classes/column/post/status.php:32
+#: ../classes/column/post/status.php:29
 msgid "Published"
 msgstr "已发布"
 
-#: ../classes/column/post/status.php:33
+#: ../classes/column/post/status.php:30
 msgid "Draft"
 msgstr "草稿"
 
-#: ../classes/column/post/status.php:34
+#: ../classes/column/post/status.php:31
 msgid "Scheduled"
 msgstr "定时"
 
-#: ../classes/column/post/status.php:35
+#: ../classes/column/post/status.php:32
 msgid "Private"
 msgstr "私密"
 
-#: ../classes/column/post/status.php:36
+#: ../classes/column/post/status.php:33
 msgid "Pending Review"
 msgstr "待审核"
 
-#: ../classes/column/post/status.php:37
+#: ../classes/column/post/status.php:34
 msgid "Auto Draft"
 msgstr ""
 
-#: ../classes/column/post/sticky.php:14
+#: ../classes/column/post/sticky.php:19
 msgid "Sticky"
 msgstr "置顶"
 
-#: ../classes/column/taxonomy.php:12 ../classes/column/taxonomy.php:101
+#: ../classes/column/post/title-raw.php:19
+msgid "Title without actions"
+msgstr ""
+
+#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:79
 msgid "Taxonomy"
 msgstr "分类法"
 
-#: ../classes/column/user/comment-count.php:14
+#: ../classes/column/used-by-menu.php:20
+msgid "Used by Menu"
+msgstr ""
+
+#: ../classes/column/used-by-menu.php:133
+msgid "Link to menu"
+msgstr ""
+
+#: ../classes/column/used-by-menu.php:133
+msgid "This will make the title link to the menu."
+msgstr ""
+
+#: ../classes/column/user/comment-count.php:19
 msgid "Comment Count"
 msgstr "评论数量"
 
-#: ../classes/column/user/first-name.php:14
+#: ../classes/column/user/first-name.php:19
 msgid "First name"
 msgstr "名字"
 
-#: ../classes/column/user/last-name.php:14
+#: ../classes/column/user/last-name.php:19
 msgid "Last name"
 msgstr "姓氏"
 
-#: ../classes/column/user/post-count.php:14
+#: ../classes/column/user/post-count.php:19
 msgid "Post Count"
 msgstr "文章数量"
 
-#: ../classes/column/user/post-count.php:99
+#: ../classes/column/user/post-count.php:102
 msgid "Post Type"
 msgstr "文章类型"
 
-#: ../classes/column/user/registered.php:14
+#: ../classes/column/user/registered.php:19
 msgid "Registered"
 msgstr "注册"
 
-#: ../classes/column/user/url.php:14
+#: ../classes/column/user/url.php:19
 msgid "Url"
 msgstr "Url"
 
-#: ../classes/settings.php:97
+#: ../classes/settings.php:111
 msgid "Add-on successfully activated."
 msgstr ""
 
-#: ../classes/settings.php:100
+#: ../classes/settings.php:114
 msgid "Add-on successfully deactivated."
 msgstr ""
 
-#: ../classes/settings.php:155
+#: ../classes/settings.php:169
 msgid "Admin Columns Settings"
 msgstr "Admin Columns 设置"
 
-#: ../classes/settings.php:155 ../classes/settings.php:619
-#: ../classes/upgrade.php:83
+#: ../classes/settings.php:169 ../classes/settings.php:598 ../classes/upgrade.php:135
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
-#: ../classes/settings.php:203
+#: ../classes/settings.php:217
 #, php-format
 msgid "%s column is already present and can not be duplicated."
 msgstr "%s 这个列已经存在，不能被复制。"
 
-#: ../classes/settings.php:256
+#: ../classes/settings.php:271
 msgid "Default settings succesfully restored."
 msgstr "已成功恢复默认设置。"
 
-#: ../classes/settings.php:273
+#: ../classes/settings.php:288
 msgid "Overview"
 msgstr "预览"
 
-#: ../classes/settings.php:276
+#: ../classes/settings.php:291
 msgid ""
-"This plugin is for adding and removing additional columns to the "
-"administration screens for post(types), pages, media library, comments, "
-"links and users. Change the column's label and reorder them."
-msgstr ""
-"该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、"
-"媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
+"This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the "
+"column's label and reorder them."
+msgstr "该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
 
-#: ../classes/settings.php:279
+#: ../classes/settings.php:294
 msgid "Basics"
 msgstr "基础"
 
-#: ../classes/settings.php:281
+#: ../classes/settings.php:296
 msgid "Change order"
 msgstr "更改排序"
 
-#: ../classes/settings.php:282
-msgid ""
-"By dragging the columns you can change the order which they will appear in."
+#: ../classes/settings.php:297
+msgid "By dragging the columns you can change the order which they will appear in."
 msgstr "拖动排序这些列，你可以重新排列它们显示的顺序。"
 
-#: ../classes/settings.php:283
+#: ../classes/settings.php:298
 msgid "Change label"
 msgstr "更改标签"
 
-#: ../classes/settings.php:284
-msgid ""
-"By clicking on the triangle you will see the column options. Here you can "
-"change each label of the columns heading."
+#: ../classes/settings.php:299
+msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
 msgstr "点击三角形，你会看到列的选项。在这里，你可以改变每个标签的列标题栏。"
 
-#: ../classes/settings.php:285
+#: ../classes/settings.php:300
 msgid "Change column width"
 msgstr "更改列宽"
 
-#: ../classes/settings.php:286
-msgid ""
-"By clicking on the triangle you will see the column options. By using the "
-"draggable slider you can set the width of the columns in percentages."
+#: ../classes/settings.php:301
+msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
 msgstr "点击三角形，你会看到列的选项。你可以通过拖动滑块设置列的百分比宽度。"
 
-#: ../classes/settings.php:292
+#: ../classes/settings.php:307
 msgid "'Custom Field' column"
 msgstr "“自定义字段”列"
 
-#: ../classes/settings.php:293
-msgid ""
-"The custom field colum uses the custom fields from posts and users. There "
-"are 10 types which you can set."
+#: ../classes/settings.php:308
+msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
 msgstr "自定义字段列使用文章和用户的自定义字段，你可以设置10中类型。"
 
-#: ../classes/settings.php:295
-msgid ""
-"Value: Can be either a string or array. Arrays will be flattened and values "
-"are seperated by a ',' comma."
-msgstr ""
-"值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间"
-"用逗号“,”隔开。"
+#: ../classes/settings.php:310
+msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgstr "值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间用逗号“,”隔开。"
 
-#: ../classes/settings.php:296
-msgid ""
-"Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
-"comma )."
+#: ../classes/settings.php:311
+msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
 msgstr "值：应该包括一个图像URL或附件ID（使用逗号“,”隔开）"
 
-#: ../classes/settings.php:297
+#: ../classes/settings.php:312
 msgid "Value: This will show the first 20 words of the Post content."
 msgstr "值：将显示文章内容的前 20 个字。"
 
-#: ../classes/settings.php:298
-msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) array."
+#: ../classes/settings.php:313
+msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
 msgstr "值：应该是一个数组。这将被压平（多维）数组"
 
-#: ../classes/settings.php:299
-msgid ""
-"Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
-"for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr ""
-"值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个"
-"数字（自定义字段）值来排序文章。"
+#: ../classes/settings.php:314
+msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgstr "值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个数字（自定义字段）值来排序文章。"
 
-#: ../classes/settings.php:300
+#: ../classes/settings.php:315
 #, php-format
 msgid ""
-"Value: Can be unix time stamp or a date format as described in the <a "
-"href='%s'>Codex</a>. You can change the outputted date format at the <a "
-"href='%s'>general settings</a> page."
-msgstr ""
-"值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 "
-"<a href='%s'>常规设置</a> 页面修改输出的日期格式。"
+"Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> "
+"page."
+msgstr "值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 <a href='%s'>常规设置</a> 页面修改输出的日期格式。"
 
-#: ../classes/settings.php:301
+#: ../classes/settings.php:316
 msgid "Post Titles"
 msgstr "文章标题"
 
-#: ../classes/settings.php:301
+#: ../classes/settings.php:316
 msgid "Value: can be one or more Post ID's (seperated by ',')."
 msgstr "值：可以是一个或多个文章ID（使用逗号“,”隔开）"
 
-#: ../classes/settings.php:302
+#: ../classes/settings.php:317
 msgid "Usernames"
 msgstr "用户名"
 
-#: ../classes/settings.php:302
+#: ../classes/settings.php:317
 msgid "Value: can be one or more User ID's (seperated by ',')."
 msgstr "值：可以是一个或多个用户ID（使用逗号“,”隔开）"
 
-#: ../classes/settings.php:303
+#: ../classes/settings.php:318
 msgid "Checkmark"
 msgstr "判断"
 
-#: ../classes/settings.php:303
+#: ../classes/settings.php:318
 msgid "Value: should be a 1 (one) or 0 (zero)."
 msgstr "值：应该是 1 （一）或 0 （零）"
 
-#: ../classes/settings.php:304
+#: ../classes/settings.php:319
 msgid "Value: hex value color, such as #808080."
 msgstr "值：十六进制值的颜色，如＃808080。"
 
-#: ../classes/settings.php:305
-msgid ""
-"Value: Can be either a string or array. This will display a count of the "
-"number of times the meta key is used by the item."
+#: ../classes/settings.php:320
+msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
 msgstr ""
 
-#: ../classes/settings.php:399
+#: ../classes/settings.php:409
 msgid "Welcome to Admin Columns"
 msgstr "欢迎使用Admin Columns插件。"
 
-#: ../classes/settings.php:402
+#: ../classes/settings.php:412
 msgid "Thank you for updating to the latest version!"
 msgstr "感谢您更新到最新版本！"
 
-#: ../classes/settings.php:403
-msgid ""
-"Admin Columns is more polished and enjoyable than ever before. We hope you "
-"like it."
+#: ../classes/settings.php:413
+msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
 msgstr "Admin Columns插件比以往任何时候都更加精致，愉快。我们希望你喜欢它。"
 
-#: ../classes/settings.php:408
+#: ../classes/settings.php:418
 msgid "What’s New"
 msgstr "最近更新"
 
-#: ../classes/settings.php:409
+#: ../classes/settings.php:419
 msgid "Changelog"
 msgstr "更新记录"
 
-#: ../classes/settings.php:414
-msgid "Addons"
-msgstr "扩展"
-
-#: ../classes/settings.php:416
-msgid ""
-"Addons are now activated by downloading and installing individual plugins. "
-"Although these plugins will not be hosted on the wordpress.org repository, "
-"each Add-on will continue to receive updates in the usual way."
-msgstr ""
-"通过下载和安装插件可以启用扩展。尽管这些扩展插件不再托管于 wordpress.org，但"
-"是它们都可以通过通常的方式获得更新。"
-
-#: ../classes/settings.php:419
-msgid ""
-"This website uses the Sortorder Addon. This addon needs to be downloaded."
-msgstr "该网站使用了排序扩展，该扩展需要下载。"
-
-#: ../classes/settings.php:422
-msgid "Addons are seperate plugins which need to be downloaded."
-msgstr "扩展是需要下载的单独插件。"
-
-#: ../classes/settings.php:422
-msgid "Download your Addons"
-msgstr "下载你的扩展"
-
-#: ../classes/settings.php:428
-msgid "This website does not use add-ons"
-msgstr "该网站没有使用扩展"
-
-#: ../classes/settings.php:428
-msgid "See our website for Admin Columns Pro."
-msgstr ""
-
-#: ../classes/settings.php:435
+#: ../classes/settings.php:424
 msgid "Important"
 msgstr "重要"
 
-#: ../classes/settings.php:437
+#: ../classes/settings.php:426
 msgid "Database Changes"
 msgstr "数据库更改"
 
-#: ../classes/settings.php:438
-msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you "
-"can still roll back to version 1x without any issues."
-msgstr ""
-"该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没"
-"有任何问题的。"
+#: ../classes/settings.php:427
+msgid "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues."
+msgstr "该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没有任何问题的。"
 
-#: ../classes/settings.php:441
+#: ../classes/settings.php:430
 msgid "Make sure you backup your database and then click"
 msgstr "确保你已经备份了数据库，然后点击"
 
-#: ../classes/settings.php:441 ../classes/upgrade.php:91
+#: ../classes/settings.php:430 ../classes/upgrade.php:143
 msgid "Upgrade Database"
 msgstr "升级数据库"
 
-#: ../classes/settings.php:444
+#: ../classes/settings.php:433
 msgid "Potential Issues"
 msgstr "潜在问题"
 
-#: ../classes/settings.php:445
-msgid ""
-"Do to the sizable refactoring the code, surounding Addons and action/"
-"filters, your website may not operate correctly. It is important that you "
-"read the full"
-msgstr ""
-"做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议"
-"你阅读完整的 "
+#: ../classes/settings.php:434
+msgid "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full"
+msgstr "做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议你阅读完整的 "
 
-#: ../classes/settings.php:445
+#: ../classes/settings.php:434
 msgid "Migrating from v1 to v2"
 msgstr "从 v1 迁移到 v2"
 
-#: ../classes/settings.php:445
+#: ../classes/settings.php:434
 msgid "guide to view the full list of changes."
 msgstr "引导查看完整的更改列表。"
 
-#: ../classes/settings.php:445
+#: ../classes/settings.php:434
 #, php-format
-msgid ""
-"When you have found a bug please <a href=\"%s\">report them to us</a> so we "
-"can fix it in the next release."
-msgstr ""
-"当你发现了 bug，请 <a href=\"%s\">反馈给我们</a>，以便我们在下个版本进行修"
-"复。"
+msgid "When you have found a bug please <a href=\"%s\">report them to us</a> so we can fix it in the next release."
+msgstr "当你发现了 bug，请 <a href=\"%s\">反馈给我们</a>，以便我们在下个版本进行修复。"
 
-#: ../classes/settings.php:448
+#: ../classes/settings.php:437
 msgid "Important!"
 msgstr "重要！"
 
-#: ../classes/settings.php:448
-msgid ""
-"If you updated the Admin Columns plugin without prior knowledge of such "
-"changes, Please roll back to the latest"
+#: ../classes/settings.php:437
+msgid "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest"
 msgstr "如果你更新了 Admin Columns 插件没有另行通知这些变更，请回滚到最新版本"
 
-#: ../classes/settings.php:448
+#: ../classes/settings.php:437
 msgid "version 1"
 msgstr "版本 1"
 
-#: ../classes/settings.php:448
+#: ../classes/settings.php:437
 msgid "of this plugin."
 msgstr "这个插件。"
 
-#: ../classes/settings.php:454
+#: ../classes/settings.php:443
 msgid "Changelog for"
 msgstr "更新记录 for"
 
-#: ../classes/settings.php:469
+#: ../classes/settings.php:458 ../classes/upgrade.php:63
 msgid "Learn more"
 msgstr "了解更多"
 
-#: ../classes/settings.php:479
+#: ../classes/settings.php:468
 msgid "Start using Admin Columns"
 msgstr "开始使用Admin Columns"
 
-#: ../classes/settings.php:522
+#: ../classes/settings.php:511
 msgid "General Settings"
 msgstr "常规设置"
 
-#: ../classes/settings.php:523
+#: ../classes/settings.php:512
 msgid "Customize your Admin Columns settings."
 msgstr "自定义Admin Columns的设置"
 
-#: ../classes/settings.php:546
-msgid ""
-"Show \"Edit Columns\" button on admin screens. Default is <code>off</code>."
-msgstr "在管理界面显示“编辑列”按钮，默认为<code>不显示</code>"
+#: ../classes/settings.php:523
+msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
+msgstr ""
 
-#: ../classes/settings.php:553 ../classes/settings.php:682
+#: ../classes/settings.php:530 ../classes/settings.php:660
 msgid "Save"
 msgstr "保存"
 
-#: ../classes/settings.php:593
+#: ../classes/settings.php:570
 msgid "Restore Settings"
 msgstr "恢复设置"
 
-#: ../classes/settings.php:594
+#: ../classes/settings.php:571
 msgid "This will delete all column settings and restore the default settings."
 msgstr "这将删除所有列的设置和恢复到默认设置。"
 
-#: ../classes/settings.php:600
+#: ../classes/settings.php:577
 msgid "Restore default settings"
 msgstr "恢复默认设置"
 
-#: ../classes/settings.php:600
-msgid ""
-"Warning! ALL saved admin columns data will be deleted. This cannot be "
-"undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
-msgstr ""
-"警告！所有Admin Columns的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将"
-"停止。"
+#: ../classes/settings.php:577
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "警告！所有Admin Columns的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
 
-#: ../classes/settings.php:620 ../codepress-admin-columns.php:354
+#: ../classes/settings.php:599 ../codepress-admin-columns.php:326
 msgid "Settings"
 msgstr "设置"
 
-#: ../classes/settings.php:621
+#: ../classes/settings.php:600
 msgid "Add-ons"
 msgstr ""
 
-#: ../classes/settings.php:647
+#: ../classes/settings.php:625
 msgid "Posttypes"
 msgstr ""
 
-#: ../classes/settings.php:648
+#: ../classes/settings.php:626
 msgid "Others"
 msgstr ""
 
-#: ../classes/settings.php:649
+#: ../classes/settings.php:627
 msgid "Taxonomies"
 msgstr ""
 
-#: ../classes/settings.php:668
+#: ../classes/settings.php:646
 #, php-format
-msgid ""
-"The columns for <strong>%s</strong> are set up via PHP and can therefore not "
-"be edited in the admin panel."
+msgid "The columns for <strong>%s</strong> are set up via PHP and can therefore not be edited in the admin panel."
 msgstr ""
 
-#: ../classes/settings.php:678
+#: ../classes/settings.php:656
 msgid "Store settings"
 msgstr "保存设置"
 
-#: ../classes/settings.php:682
+#: ../classes/settings.php:660
 msgid "Update"
 msgstr "更新"
 
-#: ../classes/settings.php:686
+#: ../classes/settings.php:664
 #, php-format
-msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. \\'OK"
-"\\' to delete, \\'Cancel\\' to stop"
-msgstr ""
-"警告！%s 列的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
+msgid "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgstr "警告！%s 列的数据将被删除。该操作无法撤销。“确定”将删除，“取消”将停止。"
 
-#: ../classes/settings.php:687
+#: ../classes/settings.php:665
 msgid "columns"
 msgstr "列"
 
-#: ../classes/settings.php:701
+#: ../classes/settings.php:684
 msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: ../classes/settings.php:705
+#: ../classes/settings.php:688
 msgid "Add Sorting"
 msgstr "添加排序"
 
-#: ../classes/settings.php:706
+#: ../classes/settings.php:689
 msgid "Add Filtering"
 msgstr "添加过滤器"
 
-#: ../classes/settings.php:707
+#: ../classes/settings.php:690
 msgid "Add Import/Export"
 msgstr "添加 导入/导出"
 
-#: ../classes/settings.php:708
+#: ../classes/settings.php:691
 msgid "Add Direct Editing"
 msgstr ""
 
-#: ../classes/settings.php:711
+#: ../classes/settings.php:694
 #, php-format
 msgid "Check out <a href=\"%s\">Admin Columns Pro</a> for more details!"
 msgstr ""
 
+#: ../classes/settings.php:725
+msgid "Are you happy with Admin Columns?"
+msgstr ""
+
+#: ../classes/settings.php:733
+msgid "What's wrong? Need help? Let us know!"
+msgstr ""
+
+#: ../classes/settings.php:734
+msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgstr ""
+
 #: ../classes/settings.php:742
+msgid "Docs"
+msgstr ""
+
+#: ../classes/settings.php:747
+msgid "Forums"
+msgstr ""
+
+#: ../classes/settings.php:756
+msgid "Woohoo! We're glad to hear that!"
+msgstr ""
+
+#: ../classes/settings.php:757
+msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgstr ""
+
+#: ../classes/settings.php:761
+msgid "Rate"
+msgstr ""
+
+#: ../classes/settings.php:772
+msgid "Tweet"
+msgstr ""
+
+#: ../classes/settings.php:782
+msgid "Buy Pro"
+msgstr ""
+
+#: ../classes/settings.php:794
 msgid "Support"
 msgstr "支持"
 
-#: ../classes/settings.php:745
+#: ../classes/settings.php:797
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr "查看右上角的 <strong>帮助</strong>"
 
-#: ../classes/settings.php:748
+#: ../classes/settings.php:800
 #, php-format
-msgid ""
-"For full documentation, bug reports, feature suggestions and other tips <a "
-"href='%s'>visit the Admin Columns website</a>"
+msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
 msgstr ""
-"<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</"
-"p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站"
-"资源平台\" target=\"_blank\">WordPress大学</a> 提供简体中文支持。"
+"<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站资源平台\" target="
+"\"_blank\">WordPress大学</a> 提供简体中文支持。"
 
-#: ../classes/settings.php:777
+#: ../classes/settings.php:829
 msgid "Drag and drop to reorder"
 msgstr "拖动排序"
 
-#: ../classes/settings.php:780
+#: ../classes/settings.php:832
 msgid "Add Column"
 msgstr "添加列"
 
-#: ../classes/settings.php:853
+#: ../classes/settings.php:908
 msgid "Active"
 msgstr ""
 
-#: ../classes/settings.php:854
+#: ../classes/settings.php:909
 msgid "Deactivate"
 msgstr ""
 
-#: ../classes/settings.php:861
+#: ../classes/settings.php:916
 msgid "Installed"
 msgstr ""
 
-#: ../classes/settings.php:862
+#: ../classes/settings.php:917
 msgid "Activate"
 msgstr ""
 
-#: ../classes/settings.php:876
+#: ../classes/settings.php:931
 msgid "Download & Install"
 msgstr ""
 
-#: ../classes/settings.php:881
+#: ../classes/settings.php:936
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/storage_model.php:207
+#: ../classes/storage_model.php:213
 msgid "settings succesfully restored."
 msgstr "设置已成功恢复！"
 
-#: ../classes/storage_model.php:222
+#: ../classes/storage_model.php:229
 msgid "No columns settings available."
 msgstr "没有可用的列设置。"
 
-#: ../classes/storage_model.php:243
+#: ../classes/storage_model.php:250
 #, php-format
 msgid "You are trying to store the same settings for %s."
 msgstr "你正在尝试为 %s 保存同样设置"
 
-#: ../classes/storage_model.php:247
+#: ../classes/storage_model.php:254
 #, php-format
 msgid "Settings for %s updated succesfully."
 msgstr "%s 的设置已保存！"
@@ -1174,60 +1136,65 @@ msgstr "链接"
 msgid "Users"
 msgstr "用户"
 
-#: ../classes/upgrade.php:43
+#: ../classes/upgrade.php:62
+msgid ""
+"<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of "
+"<strong>Admin Columns Pro</strong> <a href=\"http://www.admincolumns.com/pro-addon-information/\" target=\"_blank\">is available</a>, which features a bunch of cool new "
+"features, including Direct Inline Editing!"
+msgstr ""
+
+#: ../classes/upgrade.php:95
 msgid "Upgrade"
 msgstr "升级"
 
-#: ../classes/upgrade.php:84
+#: ../classes/upgrade.php:136
 msgid "requires a database upgrade"
 msgstr "需要升级数据库"
 
-#: ../classes/upgrade.php:87
+#: ../classes/upgrade.php:139
 msgid "why?"
 msgstr "为什么？"
 
-#: ../classes/upgrade.php:88
+#: ../classes/upgrade.php:140
 msgid "Please"
 msgstr "请"
 
-#: ../classes/upgrade.php:89
+#: ../classes/upgrade.php:141
 msgid "backup your database"
 msgstr "备份数据库"
 
-#: ../classes/upgrade.php:90
+#: ../classes/upgrade.php:142
 msgid "then click"
 msgstr "然后点击"
 
-#: ../classes/upgrade.php:298
+#: ../classes/upgrade.php:351
 msgid "Migrating Column Settings"
 msgstr "迁移列设置"
 
-#: ../classes/upgrade.php:334
+#: ../classes/upgrade.php:387
 msgid "No Upgrade Required"
 msgstr "无需升级"
 
-#: ../classes/upgrade.php:335
+#: ../classes/upgrade.php:388
 msgid "Return to welcome screen."
 msgstr "返回欢迎界面"
 
-#: ../classes/upgrade.php:353
+#: ../classes/upgrade.php:406
 msgid "Upgrade Complete!"
 msgstr "升级完成！"
 
-#: ../classes/upgrade.php:353
+#: ../classes/upgrade.php:406
 msgid "Return to settings."
 msgstr "返回设置。"
 
-#: ../classes/upgrade.php:354
+#: ../classes/upgrade.php:407
 msgid "Error"
 msgstr "错误"
 
-#: ../classes/upgrade.php:355
-msgid ""
-"Sorry. Something went wrong during the upgrade process. Please report this "
-"on the support forum."
+#: ../classes/upgrade.php:408
+msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
 msgstr "抱歉，升级过程中出错了，请在论坛中反馈。"
 
-#: ../codepress-admin-columns.php:439
+#: ../codepress-admin-columns.php:390
 msgid "Edit columns"
 msgstr "编辑列"

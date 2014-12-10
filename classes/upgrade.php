@@ -336,8 +336,9 @@ class CPAC_Upgrade {
 							}
 
 							// store column settings
-							if ( ! get_option( "cpac_options_{$storage_key}" ) )
+							if ( ! get_option( "cpac_options_{$storage_key}" ) ) {
 								update_option( "cpac_options_{$storage_key}", $columns );
+							}
 						}
 					}
 				}
