@@ -478,6 +478,13 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 2.1.1
+	 */
+	public function get_post_type() {
+		return isset( $this->post_type ) ? $this->post_type : false;
+	}
+
+	/**
 	 * Only set columns on current screens
 	 *
 	 * @since 2.2.6

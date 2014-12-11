@@ -284,7 +284,7 @@ class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function get_post_type() {
-		return isset( $this->storage_model->post_type ) ? $this->storage_model->post_type : false;
+		return $this->storage_model->get_post_type();
 	}
 
 	/**
