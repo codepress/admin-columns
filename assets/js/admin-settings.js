@@ -19,7 +19,6 @@ jQuery(document).ready(function() {
 	cpac_menu();
 	cpac_help();
 	cpac_add_column();
-	cpac_addons();
 	cpac_importexport();
 	cpac_sidebar_feedback();
 	//cpac_sidebar_scroll();
@@ -36,16 +35,6 @@ function cpac_importexport() {
 	jQuery( '#php-export-results textarea' ).on( 'focus, mouseup', function() {
 		jQuery( this ).select();
 	} ).select().focus();
-}
-
-/**
- * Handle addons settings screen
- *
- * @since 2.2
- */
-function cpac_addons() {
-
-
 }
 
 /*

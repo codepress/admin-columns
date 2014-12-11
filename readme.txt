@@ -255,6 +255,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
 * [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
 * [Fixed] Remove deregister of qtip2 scripts.
+* [Fixed] Compatibility issue with Ninja Forms where submission would not be displayed
 
 = 2.3.1 =
 * [Fixed] Image Uploader failing inside nested Settings pod when using the Pods plugin
