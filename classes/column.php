@@ -838,6 +838,44 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get display name.
+	 *
+	 * Can also be used by addons.
+	 *
+	 * @since 2.0
+	 */
+	public function get_display_name( $user_id ) {
+
+		if ( ! $userdata = get_userdata( $user_id ) ) {
+			return false;
+		}
+
+		$name = '';
+
+		if ( ! empty( $this->options->display_author_as ) ) {
+
+			$display_as = $this->options->display_author_as;
+
+			if ( 'first_last_name' == $display_as ) {
+				$first 	= ! empty( $userdata->first_name ) ? $userdata->first_name : '';
+				$last 	= ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
+				$name 	= $first.$last;
+			}
+
+			elseif ( ! empty( $userdata->{$display_as} ) ) {
+				$name = $userdata->{$display_as};
+			}
+		}
+
+		// default to display_name
+		if ( ! $name ) {
+			$name = $userdata->display_name;
+		}
+
+		return $name;
+	}
+
+	/**
 	 * @since 2.0
 	 * @param string $field_key
 	 * @return string Attribute Name
@@ -952,6 +990,36 @@ class CPAC_Column {
 			</td>
 		</tr>
 <?php
+	}
+
+	/**
+	 * @since 2.3.2
+	 */
+	public function display_field_user_format() {
+
+		$nametypes = array(
+			'display_name'		=> __( 'Display Name', 'cpac' ),
+			'first_name'		=> __( 'First Name', 'cpac' ),
+			'last_name'			=> __( 'Last Name', 'cpac' ),
+			'nickname'			=> __( 'Nickname', 'cpac' ),
+			'user_login'		=> __( 'User Login', 'cpac' ),
+			'user_email'		=> __( 'User Email', 'cpac' ),
+			'ID'				=> __( 'User ID', 'cpac' ),
+			'first_last_name'	=> __( 'First and Last Name', 'cpac' ),
+		);
+
+		?>
+		<tr class="column-author-name">
+			<?php $this->label_view( __( 'Display format', 'cpac' ), __( 'This is the format of the author name.', 'cpac' ), 'display_author_as' ); ?>
+			<td class="input">
+				<select name="<?php $this->attr_name( 'display_author_as' ); ?>" id="<?php $this->attr_id( 'display_author_as' ); ?>">
+				<?php foreach ( $nametypes as $key => $label ) : ?>
+					<option value="<?php echo $key; ?>"<?php selected( $key, $this->options->display_author_as ) ?>><?php echo $label; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
