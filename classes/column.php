@@ -517,6 +517,7 @@ class CPAC_Column {
 	 */
 	public function get_terms_for_display( $term_ids, $taxonomy ) {
 		$values = array();
+		$term_ids = (array) $term_ids;
 		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
 			$post_type = $this->get_post_type();
 			foreach ( $term_ids as $term_id ) {
