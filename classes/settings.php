@@ -477,7 +477,7 @@ class CPAC_Settings {
 	/**
 	 * @since 2.2
 	 */
-	function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
+	public function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
 
 		$storage_models_by_type = array();
 

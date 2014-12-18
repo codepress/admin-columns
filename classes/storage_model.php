@@ -830,6 +830,13 @@ abstract class CPAC_Storage_Model {
     }
 
     /**
+     * @since 2.3.2
+     */
+    public function delete_general_option() {
+    	delete_option( 'cpac_general_options' );
+    }
+
+    /**
      * @since 2.1.1
      */
     public function get_general_option( $option ) {
