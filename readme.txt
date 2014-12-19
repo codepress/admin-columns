@@ -256,6 +256,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
 * [Added] Custom Field type "Terms"
 * [Added] Added posts column "Last Modified Author"
+* [Improced] Improved loading on columns settings screen when using many custom field columns
 * [Fixed] Only display filtering icon on supported Custom Field types
 * [Fixed] Remove deregister of qtip2 scripts.
 * [Fixed] PHP export now works as intended
