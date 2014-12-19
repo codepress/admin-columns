@@ -64,7 +64,15 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
     public function get_meta() {
         global $wpdb;
 
-		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
+        if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
+        	$result = $cache;
+        }
+        else {
+			$result = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
+			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
+		}
+
+		return $result;
     }
 
 	/**
