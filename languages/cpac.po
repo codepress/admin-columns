@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-12 00:23+0100\n"
-"PO-Revision-Date: 2014-12-12 00:23+0100\n"
+"POT-Creation-Date: 2014-12-19 17:09+0100\n"
+"PO-Revision-Date: 2014-12-19 17:10+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: en_GB\n"
@@ -58,147 +58,147 @@ msgstr ""
 msgid "Full"
 msgstr ""
 
-#: ../classes/column.php:901
+#: ../classes/column.php:902
 msgid "Date Format"
 msgstr ""
 
-#: ../classes/column.php:902
+#: ../classes/column.php:903
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: ../classes/column.php:908
+#: ../classes/column.php:909
 msgid "Example:"
 msgstr ""
 
-#: ../classes/column.php:910
+#: ../classes/column.php:911
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
 msgstr ""
 
-#: ../classes/column.php:911
+#: ../classes/column.php:912
 msgid "Documentation on date and time formatting."
 msgstr ""
 
-#: ../classes/column.php:925
+#: ../classes/column.php:926
 msgid "Excerpt length"
 msgstr ""
 
-#: ../classes/column.php:926
+#: ../classes/column.php:927
 msgid "Number of words"
 msgstr ""
 
-#: ../classes/column.php:944
+#: ../classes/column.php:945
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:961 ../classes/storage_model.php:541
+#: ../classes/column.php:962 ../classes/storage_model.php:541
 msgid "Custom"
 msgstr ""
 
-#: ../classes/column.php:964
+#: ../classes/column.php:965
 msgid "width"
 msgstr ""
 
-#: ../classes/column.php:967
+#: ../classes/column.php:968
 msgid "height"
 msgstr ""
 
-#: ../classes/column.php:981
+#: ../classes/column.php:982
 msgid "Before"
 msgstr ""
 
-#: ../classes/column.php:981
+#: ../classes/column.php:982
 msgid "This text will appear before the custom field value."
 msgstr ""
 
-#: ../classes/column.php:987
+#: ../classes/column.php:988
 msgid "After"
 msgstr ""
 
-#: ../classes/column.php:987
+#: ../classes/column.php:988
 msgid "This text will appear after the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1001
+#: ../classes/column.php:1002
 msgid "Display Name"
 msgstr ""
 
-#: ../classes/column.php:1002
+#: ../classes/column.php:1003
 msgid "First Name"
 msgstr ""
 
-#: ../classes/column.php:1003
+#: ../classes/column.php:1004
 msgid "Last Name"
 msgstr ""
 
-#: ../classes/column.php:1004 ../classes/column/user/nickname.php:19
+#: ../classes/column.php:1005 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr ""
 
-#: ../classes/column.php:1005
+#: ../classes/column.php:1006
 msgid "User Login"
 msgstr ""
 
-#: ../classes/column.php:1006
+#: ../classes/column.php:1007
 msgid "User Email"
 msgstr ""
 
-#: ../classes/column.php:1007 ../classes/column/user/ID.php:19
+#: ../classes/column.php:1008 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr ""
 
-#: ../classes/column.php:1008
+#: ../classes/column.php:1009
 msgid "First and Last Name"
 msgstr ""
 
-#: ../classes/column.php:1013
+#: ../classes/column.php:1014
 msgid "Display format"
 msgstr ""
 
-#: ../classes/column.php:1013
+#: ../classes/column.php:1014
 msgid "This is the format of the author name."
 msgstr ""
 
-#: ../classes/column.php:1111 ../classes/column/comment/actions.php:99
+#: ../classes/column.php:1112 ../classes/column/comment/actions.php:99
 #: ../classes/column/link/actions.php:48 ../classes/column/post/actions.php:31
 #: ../classes/column/user/actions.php:69
 msgid "Edit"
 msgstr ""
 
-#: ../classes/column.php:1112 ../classes/column.php:1190
+#: ../classes/column.php:1113 ../classes/column.php:1191
 #: ../classes/column/user/actions.php:77
 msgid "Remove"
 msgstr ""
 
-#: ../classes/column.php:1130
+#: ../classes/column.php:1131
 msgid "Type"
 msgstr ""
 
-#: ../classes/column.php:1130
+#: ../classes/column.php:1131
 msgid "Choose a column type."
 msgstr ""
 
-#: ../classes/column.php:1130 ../classes/column/comment/ID.php:19
+#: ../classes/column.php:1131 ../classes/column/comment/ID.php:19
 #: ../classes/column/link/ID.php:19 ../classes/column/media/ID.php:19
 #: ../classes/column/post/ID.php:19
 msgid "ID"
 msgstr ""
 
-#: ../classes/column.php:1140
+#: ../classes/column.php:1141
 msgid "Label"
 msgstr ""
 
-#: ../classes/column.php:1140
+#: ../classes/column.php:1141
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:1147 ../classes/column/media/width.php:19
+#: ../classes/column.php:1148 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr ""
 
-#: ../classes/column.php:1149 ../classes/column.php:1150
+#: ../classes/column.php:1150 ../classes/column.php:1151
 msgid "default"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgid "Word count"
 msgstr ""
 
 #: ../classes/column/custom-field.php:23
-#: ../classes/column/custom-field.php:356 ../classes/settings.php:305
+#: ../classes/column/custom-field.php:378 ../classes/settings.php:305
 msgid "Custom Field"
 msgstr ""
 
@@ -390,19 +390,23 @@ msgstr ""
 msgid "Username (User ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:356
+#: ../classes/column/custom-field.php:106
+msgid "Term Name (Term ID's)"
+msgstr ""
+
+#: ../classes/column/custom-field.php:378
 msgid "Select your custom field."
 msgstr ""
 
-#: ../classes/column/custom-field.php:366
+#: ../classes/column/custom-field.php:388
 msgid "No custom fields available."
 msgstr ""
 
-#: ../classes/column/custom-field.php:373
+#: ../classes/column/custom-field.php:395
 msgid "Field Type"
 msgstr ""
 
-#: ../classes/column/custom-field.php:373
+#: ../classes/column/custom-field.php:395
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
@@ -615,6 +619,10 @@ msgstr ""
 
 #: ../classes/column/post/formats.php:19
 msgid "Post Format"
+msgstr ""
+
+#: ../classes/column/post/last-modified-author.php:20
+msgid "Last Modified Author"
 msgstr ""
 
 #: ../classes/column/post/modified.php:19
@@ -1048,8 +1056,8 @@ msgstr ""
 #: ../classes/settings.php:646
 #, php-format
 msgid ""
-"The columns for <strong>%s</strong> are set up via PHP and can therefore not "
-"be edited in the admin panel."
+"The columns for %s are set up via PHP and can therefore not be edited in the "
+"admin panel."
 msgstr ""
 
 #: ../classes/settings.php:656
