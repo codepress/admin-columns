@@ -55,12 +55,12 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
 
 		$value = '';
 
 		$data = $this->options->exif_datatype;
-		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
+		$meta = $this->get_raw_value( $id );
 
 		if ( isset( $meta['image_meta'][ $data ] ) ) {
 			$value = $meta['image_meta'][ $data ];
@@ -74,15 +74,21 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	}
 
 	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.0
+	 */
+	public function get_raw_value( $id ) {
+
+		return get_post_meta( $id, '_wp_attachment_metadata', true );
+	}
+
+	/**
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.0
 	 */
-	function apply_conditional() {
+	public function apply_conditional() {
 
-		if ( function_exists( 'exif_read_data' ) )
-			return true;
-
-		return false;
+		return function_exists( 'exif_read_data' );
 	}
 
 	/**
@@ -91,7 +97,7 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	 * @see CPAC_Column::display_settings()
 	 * @since 2.0
 	 */
-	function display_settings() {
+	public function display_settings() {
 
 		?>
 

@@ -24,7 +24,16 @@ class CPAC_Column_Media_Actions extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
+
+		return $this->get_raw_value( $id );
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.3.2
+	 */
+	public function get_raw_value( $id ) {
 
 		return $this->get_column_value_actions( $id );
 	}

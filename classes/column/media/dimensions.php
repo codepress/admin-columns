@@ -23,15 +23,25 @@ class CPAC_Column_Media_Dimensions extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
 
 		$value = '';
 
-		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
+		$meta = $this->get_raw_value( $id );
 
-		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) )
+		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
 			$value = "{$meta['width']} x {$meta['height']}";
+		}
 
 		return $value;
+	}
+
+	/**
+	 * @see CPAC_Column::get_raw_value()
+	 * @since 2.3.2
+	 */
+	public function get_raw_value( $id ) {
+
+		return get_post_meta( $id, '_wp_attachment_metadata', true );
 	}
 }
