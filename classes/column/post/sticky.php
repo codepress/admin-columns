@@ -39,8 +39,9 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 
 		$value = $this->get_asset_image( 'no.png' );
 
-		if ( $this->get_raw_value( $post_id ) )
+		if ( $this->get_raw_value( $post_id ) ) {
 			$value = $this->get_asset_image( 'checkmark.png' );
+		}
 
 		return $value;
 	}
