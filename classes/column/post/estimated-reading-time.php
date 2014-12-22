@@ -23,50 +23,62 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	}
 
 	/**
+	 * Estimate read time in readable format
+	 *
 	 * @see CPAC_Column::get_value()
 	 * @since 2.3.3
 	 */
 	public function get_value( $post_id ) {
 
-		return $this->get_raw_value( $post_id );
+		return $this->convert_seconds_to_readable_time( $this->get_raw_value( $post_id ) );
 	}
 
 	/**
+	 * Estimate read time in seconds
+	 *
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.3.3
 	 */
 	public function get_raw_value( $post_id ) {
 
-		return $this->get_estimated_reading_time( get_post_field( 'post_content', $post_id ) );
+		return $seconds = $this->get_estimated_reading_time_in_seconds( get_post_field( 'post_content', $post_id ) );
 	}
 
 	/**
 	 * @since 2.3.3
 	 */
-	public function get_estimated_reading_time( $content ) {
-		$word_count = $this->str_count_words( $this->strip_trim( $content ) );
+	public function convert_seconds_to_readable_time( $seconds ) {
 
-		$m = floor( $word_count / $this->options->words_per_minute );
-		$s = floor( $word_count % $this->options->words_per_minute / ( $this->options->words_per_minute / 60 ) );
+		$minutes = floor( $seconds / 60 );
+		$seconds = floor( $seconds % 60 );
 
-		$time = $m;
-
-		if ( $s < 10 ) {
-			$s = '0' . $s;
+		$time = $minutes;
+		if ( $seconds < 10 ) {
+			$seconds = '0' . $seconds;
 		}
-		if ( '00' != $s ) {
-			$time .= ':' . $s;
+		if ( '00' != $seconds ) {
+			$time .= ':' . $seconds;
 		}
-		if ( $m < 1 ) {
-			$time = $s . ' ' . _n( 'second', 'seconds', $s, 'cpac' );
+		if ( $minutes < 1 ) {
+			$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'cpac' );
 		}
 		else {
-			$time .= ' ' . _n( 'minute', 'minutes', $m, 'cpac' );
+			$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'cpac' );
 		}
 
 		return $time;
+	}
 
-		//return $m . ' ' . __( 'minute', 'cpac' ) . ( $m == 1 ? '' : 's' ) . ', ' . $s . ' ' . __( 'second', 'capc' ) . ( $s == 1 ? '' : 's' );
+	/**
+	 * @since 2.3.3
+	 */
+	public function get_estimated_reading_time_in_seconds( $content ) {
+
+		$word_count = $this->str_count_words( $this->strip_trim( $content ) );
+		if ( ! $word_count ) {
+			return 0;
+		}
+		return (int) floor( ( $word_count / $this->options->words_per_minute ) * 60 );
 	}
 
 	/**
