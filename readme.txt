@@ -251,6 +251,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.3.3 =
 * [Added] Added user column: Visual Editor
+* [Added] Added post column: Estimated Reading Time
 
 = 2.3.2 =
 * [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns

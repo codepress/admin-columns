@@ -38,36 +38,6 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	}
 
 	/**
-	 * Count the number of words in a string (multibyte-compatible)
-	 *
-	 * @since 2.3
-	 *
-	 * @param string $input Input string
-	 * @return int Number of words
-	 */
-	public function str_count_words( $input ) {
-
-		$patterns = array(
-			'strip' => '/<[a-zA-Z\/][^<>]*>/',
-			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
-			'w' => '/\S\s+/',
-			'c' => '/\S/'
-		);
-
-		$type = 'w';
-
-		$input = preg_replace( $patterns['strip'], ' ', $input );
-		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
-		$input = preg_replace( $patterns['clean'], '', $input );
-
-		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
-			return 0;
-		}
-
-		return preg_match_all( $patterns[ $type ], $input ) + 1;
-	}
-
-	/**
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.0
 	 */
