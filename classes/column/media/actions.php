@@ -50,6 +50,9 @@ class CPAC_Column_Media_Actions extends CPAC_Column {
 	 */
 	private function get_column_value_actions( $id ) {
 
+// @todo: need fixing
+return;
+
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') ) {
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		}
