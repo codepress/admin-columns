@@ -15,28 +15,57 @@ class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 
 		global $wp_list_table;
 
-		return $wp_list_table->_get_row_actions( get_post( $item_id ), _draft_or_post_title( $item_id ) );
+		$post = get_post( $item_id );
+		$att_title = _draft_or_post_title( $item_id );
 		
-		$att_title = _draft_or_post_title();
+		$actions = array();
 
-
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') ) {
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+		if ( $wp_list_table->detached ) {
+			if ( current_user_can( 'edit_post', $post->ID ) )
+				$actions['edit'] = '<a href="' . get_edit_post_link( $post->ID, true ) . '">' . __( 'Edit' ) . '</a>';
+			if ( current_user_can( 'delete_post', $post->ID ) )
+				if ( EMPTY_TRASH_DAYS && MEDIA_TRASH ) {
+					$actions['trash'] = "<a class='submitdelete' href='" . wp_nonce_url( "post.php?action=trash&amp;post=$post->ID", 'trash-post_' . $post->ID ) . "'>" . __( 'Trash' ) . "</a>";
+				} else {
+					$delete_ays = !MEDIA_TRASH ? " onclick='return showNotice.warn();'" : '';
+					$actions['delete'] = "<a class='submitdelete'$delete_ays href='" . wp_nonce_url( "post.php?action=delete&amp;post=$post->ID", 'delete-post_' . $post->ID ) . "'>" . __( 'Delete Permanently' ) . "</a>";
+				}
+			$actions['view'] = '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $att_title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
+			if ( current_user_can( 'edit_post', $post->ID ) )
+				$actions['attach'] = '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Attach' ).'</a>';
 		}
-		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php') ) {
-			require_once(ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php');
+		else {
+			if ( current_user_can( 'edit_post', $post->ID ) && !$wp_list_table->is_trash )
+				$actions['edit'] = '<a href="' . get_edit_post_link( $post->ID, true ) . '">' . __( 'Edit' ) . '</a>';
+			if ( current_user_can( 'delete_post', $post->ID ) ) {
+				if ( $wp_list_table->is_trash )
+					$actions['untrash'] = "<a class='submitdelete' href='" . wp_nonce_url( "post.php?action=untrash&amp;post=$post->ID", 'untrash-post_' . $post->ID ) . "'>" . __( 'Restore' ) . "</a>";
+				elseif ( EMPTY_TRASH_DAYS && MEDIA_TRASH )
+					$actions['trash'] = "<a class='submitdelete' href='" . wp_nonce_url( "post.php?action=trash&amp;post=$post->ID", 'trash-post_' . $post->ID ) . "'>" . __( 'Trash' ) . "</a>";
+				if ( $wp_list_table->is_trash || !EMPTY_TRASH_DAYS || !MEDIA_TRASH ) {
+					$delete_ays = ( !$wp_list_table->is_trash && !MEDIA_TRASH ) ? " onclick='return showNotice.warn();'" : '';
+					$actions['delete'] = "<a class='submitdelete'$delete_ays href='" . wp_nonce_url( "post.php?action=delete&amp;post=$post->ID", 'delete-post_' . $post->ID ) . "'>" . __( 'Delete Permanently' ) . "</a>";
+				}
+			}
+			if ( !$wp_list_table->is_trash ) {
+				$title =_draft_or_post_title( $post->post_parent );
+				$actions['view'] = '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
+			}
 		}
 
-		// we need class to get the object actions
-		$m = new WP_Media_List_Table;
+		/**
+		 * Filter the action links for each attachment in the Media list table.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param array   $actions  An array of action links for each attachment.
+		 *                          Default 'Edit', 'Delete Permanently', 'View'.
+		 * @param WP_Post $post     WP_Post object for the current attachment.
+		 * @param bool    $detached Whether the list table contains media not attached
+		 *                          to any posts. Default true.
+		 */
+		$actions = apply_filters( 'media_row_actions', $actions, $post, $wp_list_table->detached );
 
-		// prevent php notice
-		$m->is_trash = isset( $_REQUEST['status'] ) && 'trash' == $_REQUEST['status'];
-
-		// get media actions
-		$media 		= get_post( $item_id );
-		$actions 	= $m->_get_row_actions( $media, _draft_or_post_title( $item_id ) );
-
-		return implode( ' | ', $actions );
+		return $actions;
 	}
 }
