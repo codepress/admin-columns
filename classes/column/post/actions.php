@@ -11,6 +11,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column_Actions {
 	 * @since 2.2.6
 	 */
 	public function get_actions( $item_id ) {
+
 		$actions = array();
 
 		$post 				= get_post( $item_id );

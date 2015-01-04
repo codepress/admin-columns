@@ -5,53 +5,20 @@
  *
  * @since 2.0
  */
-class CPAC_Column_Media_Actions extends CPAC_Column {
+class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 
 	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
+	 * @see CPAC_Column_Actions::get_actions()
+	 * @since NEWVERSION
 	 */
-	public function init() {
+	public function get_actions( $item_id ) {
 
-		parent::init();
+		global $wp_list_table;
 
-		// Properties
-		$this->properties['type']	 	= 'column-actions';
-		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-	}
+		return $wp_list_table->_get_row_actions( get_post( $item_id ), _draft_or_post_title( $item_id ) );
+		
+		$att_title = _draft_or_post_title();
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
-	public function get_value( $id ) {
-
-		return $this->get_raw_value( $id );
-	}
-
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.3.2
-	 */
-	public function get_raw_value( $id ) {
-
-		return $this->get_column_value_actions( $id );
-	}
-
-	/**
-	 * Get column value of media actions
-	 *
-	 * This part is copied from the Media List Table class
-	 *
-	 * @since 1.4.2
-	 *
-	 * @param int $id
-	 * @return string Actions
-	 */
-	private function get_column_value_actions( $id ) {
-
-// @todo: need fixing
-return;
 
 		if ( file_exists(ABSPATH . 'wp-admin/includes/class-wp-list-table.php') ) {
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -67,9 +34,9 @@ return;
 		$m->is_trash = isset( $_REQUEST['status'] ) && 'trash' == $_REQUEST['status'];
 
 		// get media actions
-		$media 		= get_post($id);
-		$actions 	= $m->_get_row_actions( $media, _draft_or_post_title($id) );
+		$media 		= get_post( $item_id );
+		$actions 	= $m->_get_row_actions( $media, _draft_or_post_title( $item_id ) );
 
-		return implode(' | ', $actions);
+		return implode( ' | ', $actions );
 	}
 }

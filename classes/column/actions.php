@@ -44,7 +44,15 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 			return implode( '', $this->convert_actions_to_icons( $actions ) );
 		}
 
-		return implode( ' | ', $actions );
+		$i = 0;
+		$num_actions = count( $actions );
+
+		foreach ( $actions as $class => $action ) {
+			$actions[ $class ] = '<span class="' . esc_attr( $class ) . '">' . $action . ( $i < $num_actions - 1 ? ' | ' : '' ) . '</span>';
+			$i++;
+		}
+
+		return implode( '', $actions );
 	}
 
 	/**
