@@ -252,6 +252,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 2.3.3 =
 * [Added] Added user column: Visual Editor
 * [Added] Added post column: Estimated Reading Time
+* [Added] Added method CPAC_Column::get_sorting_value()
+* [Fixed] Fixed media actions column
 
 = 2.3.2 =
 * [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
