@@ -676,7 +676,7 @@ class CPAC_Column {
 			return 0;
 		}
 
-		return preg_match_all( $patterns[ $type ], $input ) + 1;
+		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
 	}
 
 	/**
