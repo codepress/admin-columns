@@ -28,7 +28,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.2
 	 */
-	function apply_conditional() {
+	public function apply_conditional() {
 
 		return post_type_supports( $this->storage_model->key, 'thumbnail' );
 	}
@@ -37,11 +37,11 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 
 		$thumbnail_id = $this->get_raw_value( $post_id );
 
-		if ( !$thumbnail_id ) {
+		if ( ! $thumbnail_id ) {
 			return false;
 		}
 
@@ -55,10 +55,11 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 
-		if ( ! has_post_thumbnail( $post_id ) )
+		if ( ! has_post_thumbnail( $post_id ) ) {
 			return false;
+		}
 
 		return get_post_thumbnail_id( $post_id );
 	}
@@ -67,7 +68,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @see CPAC_Column::display_settings()
 	 * @since 2.0
 	 */
-	function display_settings() {
+	public function display_settings() {
 
 		$this->display_field_preview_size();
 	}

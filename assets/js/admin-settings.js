@@ -112,7 +112,7 @@ jQuery.fn.column_bind_clone = function() {
 			clone.removeClass( 'loading' ).hide().slideDown();
 		}
 	} );
-}
+};
 
 jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
