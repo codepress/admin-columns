@@ -245,7 +245,8 @@ h2.cpac-nav-tab-wrapper {
 								}
 
 								&.edit-button,
-								&.remove-button {
+								&.remove-button,
+								&.clone-button {
 									display: none;
 									color: #a00;
 									text-decoration: none;
@@ -259,7 +260,8 @@ h2.cpac-nav-tab-wrapper {
 									}
 								}
 
-								&.edit-button {
+								&.edit-button,
+								&.clone-button {
 									color: #0074a2;
 
 									&:hover {
@@ -330,10 +332,9 @@ h2.cpac-nav-tab-wrapper {
 
 		&:hover {
 			.column_label .inner > a {
-				&.remove-button {
-					display: inline-block;
-				}
-				&.edit-button {
+				&.remove-button,
+				&.edit-button,
+				&.clone-button {
 					display: inline-block;
 				}
 			}
