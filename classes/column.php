@@ -1114,7 +1114,7 @@ class CPAC_Column {
 		}
 
 		// clone attribute
-		$data_clone =  $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
+		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 
 		?>
 		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?>>
@@ -1149,7 +1149,9 @@ class CPAC_Column {
 									</div>
 									<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
 									<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'cpac' ); ?></a>
-									<a class="clone-button" href="#"><?php _e( 'Clone', 'cpac' ); ?></a>
+									<?php if ( $this->properties->is_cloneable ) : ?>
+										<a class="clone-button" href="#"><?php _e( 'Clone', 'cpac' ); ?></a>
+									<?php endif; ?>
 									<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'cpac' ); ?></a>
 								</div>
 							</td>
@@ -1228,7 +1230,9 @@ class CPAC_Column {
 						<tr class="column_action">
 							<td colspan="2">
 								<p>
-									<a class="clone-button" href="#"><?php _e( 'Clone', 'cpac' ); ?></a>
+									<?php if ( $this->properties->is_cloneable ) : ?>
+										<a class="clone-button" href="#"><?php _e( 'Clone', 'cpac' ); ?></a>
+									<?php endif; ?>
 									<a href="javascript:;" class="remove-button"><?php _e( 'Remove' );?></a>
 								</p>
 							</td>
