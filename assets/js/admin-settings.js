@@ -4,8 +4,9 @@
  */
 jQuery(document).ready(function() {
 
-	if ( jQuery('#cpac').length === 0 )
+	if ( jQuery('#cpac').length === 0 ) {
 		return false;
+	}
 
 	// General
 	cpac_pointer();
@@ -621,7 +622,7 @@ function cpac_sortable() {
 		}
 		else {
 			jQuery( this ).sortable( {
-				items					: '.cpac-column'
+				items : '.cpac-column'
 			} );
 		}
 	} );
