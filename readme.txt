@@ -253,6 +253,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Added user column: Visual Editor
 * [Added] Added post column: Estimated Reading Time
 * [Added] Added method CPAC_Column::get_sorting_value()
+* [Added] Added user column display name
 * [Fixed] Fixed media actions column
 
 = 2.3.2 =
