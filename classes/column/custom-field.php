@@ -381,7 +381,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				<?php if ( $meta_keys = $this->storage_model->get_meta_keys( $show_hidden_meta ) ) : ?>
 				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
 				<?php foreach ( $meta_keys as $field ) : ?>
-					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden','', $field ) : $field; ?></option>
+					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field; ?></option>
 				<?php endforeach; ?>
 				</select>
 				<?php else : ?>
