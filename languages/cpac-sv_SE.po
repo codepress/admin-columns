@@ -1,13 +1,13 @@
 #
 # Translators:
-# Fredrik Andersson <fidde.andersson@telia.com>, 2013-2014
+# Fredrik Andersson <fidde.andersson@telia.com>, 2013-2015
 # Tobias Schutter <info@codepress.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-10 17:02+0100\n"
-"PO-Revision-Date: 2014-12-10 17:24+0100\n"
+"PO-Revision-Date: 2015-01-30 16:20+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-columns/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -36,11 +36,11 @@ msgstr "Visa och redigera Advanced Custom Fields fält vid inläggets överblick
 
 #: ../classes/addons.php:141
 msgid "WooCommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: ../classes/addons.php:142
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
-msgstr ""
+msgstr "Förbättra de produkter, ordrar och kupongers översikter med nya kolumner och snabbredigering."
 
 #: ../classes/column.php:500
 msgid "Thumbnail"
@@ -161,7 +161,7 @@ msgstr "ACF Fält"
 
 #: ../classes/column/acf-placeholder.php:32
 msgid "This feature is only available in Admin Columns Pro - Business or Developer."
-msgstr ""
+msgstr "Den här funktionen är endast tillgänglig i Admin Columns Pro - Företag eller utvecklare."
 
 #: ../classes/column/acf-placeholder.php:35
 #, php-format
@@ -182,19 +182,19 @@ msgstr "Åtgärder"
 
 #: ../classes/column/actions.php:87
 msgid "Use icons?"
-msgstr ""
+msgstr "Använda ikoner?"
 
 #: ../classes/column/actions.php:87
 msgid "Use icons instead of text for displaying the actions."
-msgstr ""
+msgstr "Använda ikoner istället för text för att visa åtgärder."
 
 #: ../classes/column/actions.php:91 ../classes/column/post/permalink.php:72 ../classes/column/used-by-menu.php:137
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../classes/column/actions.php:95 ../classes/column/post/permalink.php:76 ../classes/column/used-by-menu.php:141
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: ../classes/column/comment/actions.php:76 ../classes/column/comment/actions.php:81
 msgid "Unapprove"
@@ -594,7 +594,7 @@ msgstr "Förälder"
 
 #: ../classes/column/post/path.php:19
 msgid "Path"
-msgstr ""
+msgstr "Sökväg"
 
 #: ../classes/column/post/permalink.php:19
 msgid "Permalink"
@@ -602,11 +602,11 @@ msgstr "Permalänk"
 
 #: ../classes/column/post/permalink.php:68
 msgid "Link to post"
-msgstr ""
+msgstr "Länka till inlägg"
 
 #: ../classes/column/post/permalink.php:68
 msgid "This will make the permalink clickable."
-msgstr ""
+msgstr "Detta gör länken klickbar."
 
 #: ../classes/column/post/ping-status.php:19
 msgid "Ping status"
@@ -654,7 +654,7 @@ msgstr "Klistrad"
 
 #: ../classes/column/post/title-raw.php:19
 msgid "Title without actions"
-msgstr ""
+msgstr "Titel utan åtgärder"
 
 #: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:79
 msgid "Taxonomy"
@@ -662,15 +662,15 @@ msgstr "Taxonomi"
 
 #: ../classes/column/used-by-menu.php:20
 msgid "Used by Menu"
-msgstr ""
+msgstr "Använd av meny"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "Link to menu"
-msgstr ""
+msgstr "Länk till meny"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "This will make the title link to the menu."
-msgstr ""
+msgstr "Detta gör att titeln länkas till menyn."
 
 #: ../classes/column/user/comment-count.php:19
 msgid "Comment Count"
@@ -925,7 +925,7 @@ msgstr "Anpassa dina Admin Columns inställningar."
 
 #: ../classes/settings.php:523
 msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
-msgstr ""
+msgstr "Visa \"Redigera kolumner\" knappen i adminmenyn. Standard är <code>på</code>."
 
 #: ../classes/settings.php:530 ../classes/settings.php:660
 msgid "Save"
@@ -1016,43 +1016,43 @@ msgstr "Kolla <a href=\"%s\">Admin Columns Pro</a> för mer information!"
 
 #: ../classes/settings.php:725
 msgid "Are you happy with Admin Columns?"
-msgstr ""
+msgstr "Är du nöjd med Admin Columns?"
 
 #: ../classes/settings.php:733
 msgid "What's wrong? Need help? Let us know!"
-msgstr ""
+msgstr "Vad är fel? Behöver hjälp? Låt oss veta!"
 
 #: ../classes/settings.php:734
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
-msgstr ""
+msgstr "Kolla in vår omfattande dokumentation, eller så kan du öppna ett support tråd på WordPress.org!"
 
 #: ../classes/settings.php:742
 msgid "Docs"
-msgstr ""
+msgstr "Dokumentation"
 
 #: ../classes/settings.php:747
 msgid "Forums"
-msgstr ""
+msgstr "Forum"
 
 #: ../classes/settings.php:756
 msgid "Woohoo! We're glad to hear that!"
-msgstr ""
+msgstr "Woohoo! Vi är glada att höra det!"
 
 #: ../classes/settings.php:757
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
-msgstr ""
+msgstr "Vi skulle verkligen älska om du kunde visa din uppskattning genom att ge oss ett omdöme på WordPress.org eller twittra om Admin Columns!"
 
 #: ../classes/settings.php:761
 msgid "Rate"
-msgstr ""
+msgstr "Omdöme"
 
 #: ../classes/settings.php:772
 msgid "Tweet"
-msgstr ""
+msgstr "Twittra"
 
 #: ../classes/settings.php:782
 msgid "Buy Pro"
-msgstr ""
+msgstr "Köp Pro"
 
 #: ../classes/settings.php:794
 msgid "Support"
@@ -1131,9 +1131,9 @@ msgstr "Användare"
 
 #: ../classes/upgrade.php:62
 msgid ""
-"<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a href="
-"\"http://www.admincolumns.com/pro-addon-information/\" target=\"_blank\">is available</a>, which features a bunch of cool new features, including Direct Inline Editing!"
-msgstr ""
+"<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a href=\"http://www.admincolumns.com/pro-addon-information/\" target=\"_blank\">is available</a>, which features a bunch of cool new features, including Direct "
+"Inline Editing!"
+msgstr "<strong>Viktigt:</strong> Vi&#39; har noterat att du använder <em>Pro tillägget</em>, vilket inte längre stöds av Admin Columns 2.2+. Dock, en fri licens av <strong>Admin Columns Pro</strong> <a href=\"http://www.admincolumns.com/pro-addon-information/\" target=\"_blank\">är tillgänglig</a>, som har en massa häftiga nya funktioner och inkluderar snabbredigering!"
 
 #: ../classes/upgrade.php:95
 msgid "Upgrade"
