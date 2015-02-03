@@ -750,13 +750,19 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function screen_link() {
 
-		echo '<a href="' . $this->get_screen_link() . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
+		if ( $link = $this->get_screen_link() ) {
+			echo '<a href="' . $link . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
+		}
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
+
+		if ( is_network_admin() ) {
+			return false;
+		}
 
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
