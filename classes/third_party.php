@@ -97,7 +97,9 @@ add_filter( 'cac/post_types', 'cpac_remove_acf_from_cpac_post_types' );
 /**
  * bbPress - remove posttypes: forum, reply and topic
  *
-* @since 2.0
+ * The default columns of bbPress are not recognised by Admin Columns as of yet.
+ *
+ * @since 2.0
  *
  * @return array Posttypes
  */
