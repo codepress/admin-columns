@@ -294,6 +294,16 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get the column options set by the user
+	 *
+	 * @since 3.3.4
+	 * @return array Column options set by user
+	 */
+	public function get_options() {
+		return $this->options;
+	}
+
+	/**
 	 * Checks column type
 	 *
 	 * @since 3.2.1
