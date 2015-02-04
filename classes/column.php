@@ -168,6 +168,10 @@ class CPAC_Column {
 		}
 	}
 
+	/**
+	 * After Setup
+	 *
+	 */
 	public function after_setup() {
 
 		// Column name defaults to column type
@@ -272,10 +276,30 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get the type of the column.
+	 *
 	 * @since 3.2.1
 	 */
 	public function get_type() {
 		return $this->properties->type;
+	}
+
+	/**
+	 * Get the name of the column.
+	 *
+	 * @since 3.3.4
+	 */
+	public function get_name() {
+		return $this->properties->name;
+	}
+
+	/**
+	 * Get the label of the column.
+	 *
+	 * @since 3.3.4
+	 */
+	public function get_label() {
+		return $this->properties->label;
 	}
 
 	/**
