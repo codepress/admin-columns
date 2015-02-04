@@ -235,6 +235,13 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 		}
 
+		// User Network
+		if ( is_multisite() ) {
+			require_once CPAC_DIR . 'classes/storage_model/ms-user.php';
+			$storage_model = new CPAC_Storage_Model_MS_User();
+			$storage_models[ $storage_model->key ] = $storage_model;
+		}
+
 		/**
 		 * Filter the available storage models
 		 * Used by external plugins to add additional storage models

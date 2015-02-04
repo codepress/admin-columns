@@ -761,10 +761,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_edit_link() {
 
-		if ( is_network_admin() ) {
-			return false;
-		}
-
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
