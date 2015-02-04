@@ -294,15 +294,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get the label of the column.
-	 *
-	 * @since 3.3.4
-	 */
-	public function get_label() {
-		return $this->properties->label;
-	}
-
-	/**
 	 * Checks column type
 	 *
 	 * @since 3.2.1
