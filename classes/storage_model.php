@@ -134,8 +134,9 @@ abstract class CPAC_Storage_Model {
 
 		$fields = $this->get_meta();
 
-		if ( is_wp_error( $fields ) || empty( $fields ) )
+		if ( is_wp_error( $fields ) || empty( $fields ) ) {
 			$keys = false;
+		}
 
 		if ( $fields ) {
 			foreach ( $fields as $field ) {
