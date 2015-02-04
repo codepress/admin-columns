@@ -743,7 +743,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	protected function get_screen_link() {
 
-		return admin_url( $this->page . '.php' );
+		return network_admin_url( $this->page . '.php' );
 	}
 
 	/**

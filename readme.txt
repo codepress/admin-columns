@@ -250,7 +250,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 2.3.4 =
-* [Fixed] Removed button "edit columns" on users network admin listings.
+* [Added] Columns now work for Network Users on a multisite
 
 = 2.3.3 =
 * [Added] Added user column: Visual Editor

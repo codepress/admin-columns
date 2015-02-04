@@ -26,15 +26,6 @@ class CPAC_Storage_Model_MS_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0
-	 * @return string Link
-	 */
-	protected function get_screen_link() {
-
-		return admin_url( 'network/' . $this->page . '.php' );
-	}
-
-	/**
 	 * Get WP default supported admin columns per post type.
 	 *
 	 * @see CPAC_Type::get_default_columns()
