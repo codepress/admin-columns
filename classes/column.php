@@ -550,6 +550,10 @@ class CPAC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_terms_for_display( $term_ids, $taxonomy ) {
+		if ( empty( $term_ids ) ) {
+			return false;
+		}
+
 		$values = array();
 		$term_ids = (array) $term_ids;
 		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
