@@ -250,6 +250,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 2.3.4 =
+* [Added] Column ID can now be found by hovering over the "Type" label in your column settings
 * [Added] Columns now work for Network Users on a multisite
 
 = 2.3.3 =
