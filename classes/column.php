@@ -86,6 +86,7 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Overwrite this function in child class.
 	 * Determine whether this column type should be available
 	 *
 	 * @since 2.2
@@ -96,6 +97,14 @@ class CPAC_Column {
 
 		return true;
 	}
+
+	/**
+	 * Overwrite this function in child class.
+	 * Adds (optional) scripts to the listings screen.
+	 *
+	 * @since 2.3.4
+	 */
+	public function scripts() {}
 
 	/**
 	 * An object copy (clone) is created for creating multiple column instances.

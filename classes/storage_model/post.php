@@ -189,8 +189,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post = get_post( $post_id );
 		setup_postdata( $post );
 
-		// Column value
 		$value = '';
+
+		// Set column value
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $post_id );
 		}

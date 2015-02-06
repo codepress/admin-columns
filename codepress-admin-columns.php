@@ -368,8 +368,9 @@ class CPAC {
 		if ( $this->storage_models ) {
 			foreach ( $this->storage_models as $storage_model ) {
 
-				if ( ! $storage_model->is_columns_screen() )
+				if ( ! $storage_model->is_columns_screen() ) {
 					continue;
+				}
 
 				// CSS: columns width
 				if ( $columns = $storage_model->get_stored_columns() ) {
@@ -377,6 +378,11 @@ class CPAC {
 
 						if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
 							$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+						}
+
+						// Load custom column scripts, used by 3rd party columns
+						if ( $column = $storage_model->get_column_by_name( $name ) ) {
+							$column->scripts();
 						}
 					}
 				}

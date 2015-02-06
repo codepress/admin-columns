@@ -47,6 +47,14 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
+	 * Uses PHP export to display settings
+	 *
+	 * @since 2.0
+	 * @var string
+	 */
+	private $uses_php_export = false;
+
+	/**
 	 * @since 2.0.1
 	 * @var array
 	 */
@@ -474,8 +482,25 @@ abstract class CPAC_Storage_Model {
 		return get_option( "cpac_options_{$this->key}" );
 	}
 
+	/**
+	 * Set stopred column by 3rd party plugins
+	 *
+	 * @since 2.3
+	 */
 	public function set_stored_columns( $columns ) {
 		$this->stored_columns = $columns;
+
+		// columns settings are set by external plugin
+		$this->uses_php_export = true;
+	}
+
+	/**
+	 * Are column set by third party plugin
+	 *
+	 * @since 2.3.4
+	 */
+	public function uses_php_export() {
+		return $this->uses_php_export;
 	}
 
 	/**
@@ -501,7 +526,6 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0.2
-	 * @param bool $ignore_check This will allow (3rd party plugins) to populate columns outside the approved screens.
 	 */
 	public function set_columns() {
 
@@ -721,18 +745,6 @@ abstract class CPAC_Storage_Model {
 				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}
 		}
-
-		// Remove 3rd party columns that have been deactivated.
-		// While the column settings have not been stored yet.
-		// When $diff contains items, it means the default stored columns are not available anymore.
-		// @todo: check if working properly. cuurently issues with woocommerce columns
-		/*
-		if ( $diff = array_diff( $this->get_default_stored_columns(), array_keys( $columns ) ) ) {
-			foreach ( $diff as $column_name ) {
-				if( isset( $column_headings[ $column_name ] ) )
-					unset( $column_headings[ $column_name ] );
-			}
-		}*/
 
 		return $column_headings;
 	}
