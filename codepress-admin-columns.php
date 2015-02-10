@@ -248,8 +248,9 @@ class CPAC {
 		 *
 		 * @since 2.0
 		 * @param array $storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
+		 * @param object $this CPAC
 		 */
-		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models );
+		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
 	}
 
 	/**
@@ -319,6 +320,30 @@ class CPAC {
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/post_types', $post_types );
+	}
+
+	/**
+	 * Get a list of taxonomies supported by Admin Columns
+	 *
+	 * @since 1.0
+	 *
+	 * @return array List of taxonomies
+	 */
+	public function get_taxonomies() {
+
+		$taxonomies = get_taxonomies( array( 'public' => true ) );
+
+		if ( isset( $taxonomies['post_format'] ) ) {
+			unset( $taxonomies['post_format'] );
+		}
+
+		/**
+		 * Filter the post types for which Admin Columns is active
+		 *
+		 * @since 2.0
+		 * @param array $post_types List of active post type names
+		 */
+		return apply_filters( 'cac/taxonomies', $taxonomies );
 	}
 
 	/**
