@@ -51,7 +51,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 3.2.1
 	 */
 	public function is_field( $field ) {
-		return $type === $this->get_field();
+		return $field === $this->get_field();
 	}
 
 	/**
