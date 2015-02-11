@@ -107,7 +107,7 @@ class CPAC_Addons {
 	public function get_addon_groups() {
 
 		$addon_groups = array(
-			'integration' => __( 'Third party plugin integration', 'cpac' )
+			'integration' => _( 'Plugins', 'cpac' )
 		);
 
 		/**
