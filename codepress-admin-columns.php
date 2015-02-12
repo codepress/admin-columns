@@ -224,13 +224,6 @@ class CPAC {
 		$storage_model = new CPAC_Storage_Model_User();
 		$storage_models[ $storage_model->key ] = $storage_model;
 
-		// Network Users on a multisite
-		if ( is_multisite() && current_user_can( 'manage_network_users' ) ) {
-			require_once CPAC_DIR . 'classes/storage_model/ms-user.php';
-			$storage_model = new CPAC_Storage_Model_MS_User();
-			$storage_models[ $storage_model->key ] = $storage_model;
-		}
-
 		$storage_model = new CPAC_Storage_Model_Media();
 		$storage_models[ $storage_model->key ] = $storage_model;
 
