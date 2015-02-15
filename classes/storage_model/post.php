@@ -28,7 +28,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100, 1 );
 
 		// values
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		// @todo: description
 		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
@@ -49,7 +49,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		ob_start();
 
@@ -66,7 +66,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$contents = ob_get_clean();
 
 		// Add removed Admin Columns action for this column's value
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		// Restore original post object
 		$post = $post_old;
@@ -209,4 +209,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		echo $value;
 	}
+
+	public function manage_value_callback( $column_name, $post_id ) {
+
+		$column = $this->get_column_by_name( $column_name );
+
+		if ( $column && ! empty( $column->properties->handle ) ) {
+			ob_start();
+			$this->manage_value( $column_name, $post_id );
+			ob_end_clean();
+		}
+		else {
+			$this->manage_value( $column_name, $post_id );
+		}
+	}
+
 }
