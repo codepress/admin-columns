@@ -56,9 +56,6 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 */
 	function apply_conditional() {
 
-		if ( post_type_supports( $this->storage_model->key, 'page-attributes' ) )
-			return true;
-
-		return false;
+		return is_post_type_hierarchical( $this->storage_model->get_post_type() );
 	}
 }
