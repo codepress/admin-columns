@@ -588,14 +588,20 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0.2
 	 */
 	public function get_registered_columns() {
-
 		$types = array();
-
 		foreach ( $this->column_types as $grouptypes ) {
 			$types = array_merge( $types, $grouptypes );
 		}
-
 		return $types;
+	}
+
+	/**
+	 * @since 2.3.4
+	 * @param string Column Type
+	 */
+	public function get_registered_column( $column_type ) {
+		$columns = $this->get_registered_columns();
+		return isset( $columns[ $column_type ] ) ? $columns[ $column_type ] : false;
 	}
 
 	/**

@@ -247,6 +247,21 @@ class CPAC {
 	}
 
 	/**
+	 * Get registered column
+	 *
+	 * @since 2.3.4
+	 */
+	public function get_registered_column( $storage_model, $column_type ) {
+		$column = false;
+		$this->set_storage_models();
+        if ( $storage_model = $this->get_storage_model( $storage_model ) ) {
+     	   $storage_model->set_columns();
+     	   $column = $storage_model->get_registered_column( $column_type );
+    	}
+    	return $column;
+	}
+
+	/**
 	 * Retrieve a storage model object based on its key
 	 *
 	 * @since 2.0
