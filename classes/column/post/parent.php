@@ -24,7 +24,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 
 		if ( !( $parent_id = $this->get_raw_value( $post_id ) ) ) {
 			return false;
@@ -40,12 +40,13 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 
 		$parent_id = get_post_field( 'post_parent', $post_id );
 
-		if ( !$parent_id || !is_numeric( $parent_id ) )
+		if ( ! $parent_id || ! is_numeric( $parent_id ) ) {
 			return false;
+		}
 
 		return $parent_id;
 	}
@@ -54,7 +55,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.0
 	 */
-	function apply_conditional() {
+	public function apply_conditional() {
 
 		return is_post_type_hierarchical( $this->storage_model->get_post_type() );
 	}
