@@ -30,7 +30,7 @@ function cpac_pre_load_wordpress_seo_class_metabox() {
 		) {
 
 		require_once WPSEO_PATH . 'admin/class-metabox.php';
-		if ( class_exists( 'WPSEO_Metabox' ) ) {
+		if ( class_exists( 'WPSEO_Metabox', false ) ) {
 			new WPSEO_Metabox;
 		}
 	}
@@ -45,7 +45,7 @@ add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
  */
 function cac_add_wpml_columns( $storage_model ) {
 
-	if ( ! class_exists('SitePress') ) {
+	if ( ! class_exists( 'SitePress', false ) ) {
 		return;
 	}
 
@@ -81,7 +81,7 @@ add_action( 'cac/set_columns', 'cac_add_wpml_columns' );
  * @return array Posttypes
  */
 function cpac_remove_acf_from_cpac_post_types( $post_types ) {
-	if ( class_exists('Acf') ) {
+	if ( class_exists( 'Acf', false ) ) {
 		if ( isset( $post_types['acf'] ) ) {
 			unset( $post_types['acf'] );
 		}
@@ -104,7 +104,7 @@ add_filter( 'cac/post_types', 'cpac_remove_acf_from_cpac_post_types' );
  * @return array Posttypes
  */
 function cpac_posttypes_remove_bbpress( $post_types ) {
-	if ( class_exists( 'bbPress' ) ) {
+	if ( class_exists( 'bbPress', false ) ) {
 		unset( $post_types['topic'] );
 		unset( $post_types['reply'] );
 		unset( $post_types['forum'] );
@@ -122,7 +122,7 @@ add_filter( 'cac/post_types', 'cpac_posttypes_remove_bbpress' );
  * @return array Posttypes
  */
 function cpac_remove_ninja_forms_from_cpac_post_types( $post_types ) {
-	if ( class_exists('Ninja_Forms') ) {
+	if ( class_exists( 'Ninja_Forms', false ) ) {
 		if ( isset( $post_types['nf_sub'] ) ) {
 			unset( $post_types['nf_sub'] );
 		}
