@@ -370,6 +370,14 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 	if ( 0 === id )
 		return;
 
+	// get original clone ID
+	var clone_id = el.attr( 'data-clone' );
+	var clone_suffix = '';
+
+	if ( clone_id ) {
+		clone_suffix = '-' + clone_id;
+	}
+
 	// set clone ID
 	el.attr( 'data-clone', id );
 	el.find( 'input.clone' ).val( id );
@@ -383,17 +391,17 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 		// name
 		if( jQuery(v).attr( 'name' ) ) {
-			jQuery(v).attr( 'name', jQuery(v).attr( 'name' ).replace( type, new_name) );
+			jQuery(v).attr( 'name', jQuery(v).attr( 'name' ).replace( type + clone_suffix, new_name) );
 		}
 
 		// for
 		if( jQuery(v).attr( 'for' ) ) {
-			jQuery(v).attr( 'for', jQuery(v).attr( 'for' ).replace( type, new_name ) );
+			jQuery(v).attr( 'for', jQuery(v).attr( 'for' ).replace( type + clone_suffix, new_name ) );
 		}
 
 		// id
 		if( jQuery(v).attr( 'id' ) ) {
-			jQuery(v).attr( 'id', jQuery(v).attr( 'id' ).replace( type, new_name ) );
+			jQuery(v).attr( 'id', jQuery(v).attr( 'id' ).replace( type + clone_suffix, new_name ) );
 		}
 	});
 };
