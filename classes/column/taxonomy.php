@@ -44,6 +44,14 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	}
 
 	/**
+	 * @see CPAC_Column::get_value()
+	 * @since 2.3.4
+	 */
+	public function get_taxonomy() {
+		return $this->options->taxonomy;
+	}
+
+	/**
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.0
 	 */

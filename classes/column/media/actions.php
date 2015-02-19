@@ -11,13 +11,13 @@ class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 	 * @see CPAC_Column_Actions::get_actions()
 	 * @since NEWVERSION
 	 */
-	public function get_actions( $item_id ) {
+	public function get_actions( $id ) {
 
 		global $wp_list_table;
 
-		$post = get_post( $item_id );
-		$att_title = _draft_or_post_title( $item_id );
-		
+		$post = get_post( $id );
+		$att_title = _draft_or_post_title( $id );
+
 		$actions = array();
 
 		if ( $wp_list_table->detached ) {

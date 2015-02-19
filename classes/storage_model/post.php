@@ -210,6 +210,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		echo $value;
 	}
 
+	/**
+	 * Manage value callback
+	 *
+	 * @since ?
+	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 
 		$column = $this->get_column_by_name( $column_name );
