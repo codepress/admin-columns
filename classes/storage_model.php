@@ -800,15 +800,8 @@ abstract class CPAC_Storage_Model {
      * @return boolean
 	 */
 	public function is_doing_ajax() {
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			return false;
-		}
 
-		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
-			return true;
-		}
-
-		return false;
+		return cac_is_doing_ajax();
 	}
 
 	/**
