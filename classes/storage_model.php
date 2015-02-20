@@ -715,7 +715,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
-		// only add headings on overview screens, to prevent deactivating columns in the Storage Model.
+		// only add headings on overview screens, to prevent deactivating columns ont the column settings screen
 		if ( ! $this->is_columns_screen() ) {
 			return $columns;
 		}
@@ -734,8 +734,11 @@ abstract class CPAC_Storage_Model {
 		// add active stored headings
 		foreach ( $stored_columns as $column_name => $options ) {
 
+			// Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
+			$label = stripslashes( $options['label'] );
+
 			/**
-			 * Filter the column headers label for use in a WP_List_Table
+			 * Filter the stored column headers label for use in a WP_List_Table
 			 * Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
 			 *
 			 * @since 2.0
@@ -744,7 +747,7 @@ abstract class CPAC_Storage_Model {
 			 * @param array $options Column options
 			 * @param CPAC_Storage_Model $storage_model Storage model class instance
 			 */
-			$label = apply_filters( 'cac/headings/label', stripslashes( $options['label'] ), $column_name, $options, $this );
+			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
 			$label = str_replace( '[cpac_site_url]', site_url(), $label );
 
 			$column_headings[ $column_name ] = $label;

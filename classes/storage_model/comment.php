@@ -17,7 +17,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->menu_type = 'other';
 
 		// headings
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 );
+		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 ); // Filter is located in get_column_headers().
 
 		// values
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );

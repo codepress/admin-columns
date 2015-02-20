@@ -343,6 +343,13 @@ class CPAC_Column {
 	/**
 	 * @since 2.3.4
 	 */
+	public function get_storage_model() {
+		return $this->storage_model;
+	}
+
+	/**
+	 * @since 2.3.4
+	 */
 	public function get_storage_model_type() {
 		return $this->storage_model->get_type();
 	}
@@ -1242,7 +1249,7 @@ class CPAC_Column {
 				<table class="widefat">
 					<tbody>
 						<tr class="column_type">
-							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->properties->type . '</em><em>' . __( 'ID', 'cpac' ) . ': ' . $this->properties->name . '</em>', 'type' ); ?>
+							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->properties->type . '</em><em>' . __( 'Name', 'cpac' ) . ': ' . $this->properties->name . '</em>', 'type' ); ?>
 							<td class="input">
 								<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
 									<?php echo $column_list; ?>
