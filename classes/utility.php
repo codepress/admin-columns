@@ -43,6 +43,10 @@ function cac_is_doing_ajax() {
 		return true;
 	}
 
+	if ( ( isset( $_POST['action'] ) && 'edit-comment' === $_POST['action'] ) ) {
+		return true;
+	}
+
 	if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
 		return true;
 	}
