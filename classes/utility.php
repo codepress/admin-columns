@@ -29,3 +29,27 @@ function cpac_admin_notice() {
     echo implode( $GLOBALS['cpac_messages'] );
 }
 
+/**
+ * Is doing ajax
+ *
+ * @since 2.3.4
+ */
+function cac_is_doing_ajax() {
+	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+		return false;
+	}
+
+	if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) ) {
+		return true;
+	}
+
+	if ( ( isset( $_POST['action'] ) && 'edit-comment' === $_POST['action'] ) ) {
+		return true;
+	}
+
+	if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
+		return true;
+	}
+
+	return false;
+}

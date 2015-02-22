@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.3.3' ); // Current plugin version
+define( 'CPAC_VERSION', 	 	'2.3.4' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -176,8 +176,8 @@ class CPAC {
 	 */
 	public function set_capabilities() {
 		if ( $role = get_role( 'administrator' ) ) {
-   			$role->add_cap( 'manage_admin_columns' );
-   		}
+			$role->add_cap( 'manage_admin_columns' );
+		}
 	}
 
 	/**
@@ -244,21 +244,6 @@ class CPAC {
 		 * @param object $this CPAC
 		 */
 		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
-	}
-
-	/**
-	 * Get registered column
-	 *
-	 * @since 2.3.4
-	 */
-	public function get_registered_column( $storage_model, $column_type ) {
-		$column = false;
-		$this->set_storage_models();
-        if ( $storage_model = $this->get_storage_model( $storage_model ) ) {
-     	   $storage_model->set_columns();
-     	   $column = $storage_model->get_registered_column( $column_type );
-    	}
-    	return $column;
 	}
 
 	/**
@@ -360,7 +345,7 @@ class CPAC {
 	 * @since 1.0
 	 * @see filter:plugin_action_links
 	 */
-	function add_settings_link( $links, $file ) {
+	public function add_settings_link( $links, $file ) {
 
 		if ( $file != plugin_basename( __FILE__ ) ) {
 			return $links;
@@ -379,7 +364,7 @@ class CPAC {
 	 * @param string $classes body classes
 	 * @return string
 	 */
-	function admin_class( $classes ) {
+	public function admin_class( $classes ) {
 
 		if ( $storage_model = $this->get_current_storage_model() ) {
 			$classes .= " cp-{$storage_model->key}";
@@ -393,7 +378,7 @@ class CPAC {
 	 *
 	 * @since 1.4.0
 	 */
-	function admin_scripts() {
+	public function admin_scripts() {
 
 		$css_column_width 	= '';
 		$edit_link 			= '';
@@ -448,32 +433,20 @@ class CPAC {
 	 * Whether this request is an AJAX request and marked as admin-column-ajax or inline-save request.
 	 *
 	 * @since 2.2
-     * @return bool Returns true if in an AJAX request, false otherwise
+	 * @return bool Returns true if in an AJAX request, false otherwise
 	 */
-	function is_doing_ajax() {
+	public function is_doing_ajax() {
 
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			return false;
-		}
-
-		if ( isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'inline-save', 'edit-comment' ) ) ) {
-			return true;
-		}
-
-		if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
-			return true;
-		}
-
-		return false;
+		return cac_is_doing_ajax();
 	}
 
 	/**
 	 * Whether this request is a columns screen (i.e. a content overview page)
 	 *
 	 * @since 2.2
-     * @return bool Returns true if the current screen is a columns screen, false otherwise
+	 * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
-	function is_columns_screen() {
+	public function is_columns_screen() {
 
 		global $pagenow;
 
@@ -497,7 +470,7 @@ class CPAC {
 	 * @since 2.2
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
-	function is_settings_screen() {
+	public function is_settings_screen() {
 
 		global $pagenow;
 
@@ -515,7 +488,7 @@ class CPAC {
 	 * @since 2.2
 	 * @return bool Whether the current screen is an Admin Columns screen
 	 */
-	function is_cac_screen() {
+	public function is_cac_screen() {
 
 		/**
 		 * Filter whether the current screen is a screen in which Admin Columns is active

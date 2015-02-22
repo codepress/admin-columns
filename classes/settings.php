@@ -600,6 +600,11 @@ class CPAC_Settings {
 			'addons'	=> __( 'Add-ons', 'cpac' )
 		);
 
+		/**
+		 * Filter the tabs on the settings screen
+		 *
+		 * @param array $tabs Available tabs
+		 */
 		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
@@ -861,8 +866,13 @@ class CPAC_Settings {
 					//$this->tab_addons();
 					break;
 				default:
-					echo apply_filters( 'cac/settings/tab_contents/tab=' . $current_tab, apply_filters( 'cac/settings/tab_contents', '', $current_tab ) );
-					break;
+
+					/**
+					 * Action to add tab contents
+					 *
+					 */
+					do_action( 'cac/settings/tab_contents/tab=' . $current_tab );
+
 			endswitch;
 			?>
 		</div><!--.wrap-->

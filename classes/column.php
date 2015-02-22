@@ -168,9 +168,9 @@ class CPAC_Column {
 		 *
 		 * @since 2.2
 		 * @param array $default_options Default column options
-		 * @param CPAC_Column $column_instance Column class instance
+		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
 		 */
-		$default_options = apply_filters( 'cac/column/default_options', $default_options, $this );
+		$default_options = apply_filters( 'cac/column/default_options', $default_options ); // do not pass $this because object is not ready
 
 		foreach ( $default_options as $option => $value ) {
 			$this->options[ $option ] = $value;
@@ -197,9 +197,9 @@ class CPAC_Column {
 		 *
 		 * @since 2.0
 		 * @param array $properties Column properties
-		 * @param CPAC_Column $column_instance Column class instance
+		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
 		 */
-		$this->properties = apply_filters( 'cac/column/properties', $this->properties, $this );
+		$this->properties = apply_filters( 'cac/column/properties', $this->properties ); // do not pass $this because object is not ready
 
 		/**
 		 * Filter the properties of a column type for a specific storage model
@@ -208,7 +208,7 @@ class CPAC_Column {
 		 * @since 2.0
 		 * @see Filter cac/column/properties
 		 */
-		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties, $this );
+		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties ); // do not pass $this because object is not ready
 
 		// Column label defaults to column type label
 		if ( ! isset( $this->options['label'] ) ) {
@@ -287,7 +287,7 @@ class CPAC_Column {
 	/**
 	 * Get the type of the column.
 	 *
-	 * @since 3.2.1
+	 * @since 2.3.4
 	 */
 	public function get_type() {
 		return $this->properties->type;
@@ -296,7 +296,7 @@ class CPAC_Column {
 	/**
 	 * Get the name of the column.
 	 *
-	 * @since 3.3.4
+	 * @since 2.3.4
 	 */
 	public function get_name() {
 		return $this->properties->name;
@@ -305,17 +305,27 @@ class CPAC_Column {
 	/**
 	 * Get the column options set by the user
 	 *
-	 * @since 3.3.4
-	 * @return array Column options set by user
+	 * @since 2.3.4
+	 * @return object Column options set by user
 	 */
 	public function get_options() {
 		return $this->options;
 	}
 
 	/**
+	 * Get a single column option
+	 *
+	 * @since 2.3.4
+	 * @return array Column options set by user
+	 */
+	public function get_option( $name ) {
+		return isset( $this->options->{$name} ) ? $this->options->{$name} : false;
+	}
+
+	/**
 	 * Checks column type
 	 *
-	 * @since 3.2.1
+	 * @since 2.3.4
 	 * @param string $type Column type. Also work without the 'column-' prefix. Example 'column-meta' or 'meta'.
 	 * @return bool Matches column type
 	 */
@@ -328,6 +338,20 @@ class CPAC_Column {
 	 */
 	public function get_post_type() {
 		return $this->storage_model->get_post_type();
+	}
+
+	/**
+	 * @since 2.3.4
+	 */
+	public function get_storage_model() {
+		return $this->storage_model;
+	}
+
+	/**
+	 * @since 2.3.4
+	 */
+	public function get_storage_model_type() {
+		return $this->storage_model->get_type();
 	}
 
 	/**
@@ -963,7 +987,6 @@ class CPAC_Column {
 		<td class="label">
 			<label for="<?php $this->attr_id( $pointer ); ?>">
 				<?php echo stripslashes( $label ); ?>
-
 				<?php if( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 			</label>
 		</td>
@@ -1054,20 +1077,8 @@ class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function display_field_before_after() {
-		?>
-		<tr class="column_before">
-			<?php $this->label_view( __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ), 'before' ); ?>
-			<td class="input">
-				<input type="text" class="cpac-before" name="<?php $this->attr_name( 'before' ); ?>" id="<?php $this->attr_id( 'before' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->before ) ); ?>"/>
-			</td>
-		</tr>
-		<tr class="column_after">
-			<?php $this->label_view( __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ), 'after' ); ?>
-			<td class="input">
-				<input type="text" class="cpac-after" name="<?php $this->attr_name( 'after' ); ?>" id="<?php $this->attr_id( 'after' ); ?>" value="<?php echo esc_attr( stripslashes( $this->options->after ) ); ?>"/>
-			</td>
-		</tr>
-<?php
+		$this->display_field_text( 'before', __( "Before", 'cpac' ), __( 'This text will appear before the custom field value.', 'cpac' ) );
+		$this->display_field_text( 'after', __( "After", 'cpac' ), __( 'This text will appear after the custom field value.', 'cpac' ) );
 	}
 
 	/**
@@ -1086,15 +1097,45 @@ class CPAC_Column {
 			'first_last_name'	=> __( 'First and Last Name', 'cpac' ),
 		);
 
+		$this->display_field_select( 'display_author_as', __( 'Display format', 'cpac' ), $nametypes, __( 'This is the format of the author name.', 'cpac' ) );
+	}
+
+	/**
+	 * @since 2.3.4
+	 * @param string $name Name of the column option
+	 * @return string $label Label
+	 * @return array $options Select options
+	 * @return strong $description (optional) Description below the label
+	 */
+	public function display_field_select( $name, $label, $options = array(), $description = '' ) {
+		$current = $this->get_option( $name );
 		?>
-		<tr class="column-author-name">
-			<?php $this->label_view( __( 'Display format', 'cpac' ), __( 'This is the format of the author name.', 'cpac' ), 'display_author_as' ); ?>
+		<tr class="column-<?php echo $name; ?>">
+			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
-				<select name="<?php $this->attr_name( 'display_author_as' ); ?>" id="<?php $this->attr_id( 'display_author_as' ); ?>">
-				<?php foreach ( $nametypes as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>"<?php selected( $key, $this->options->display_author_as ) ?>><?php echo $label; ?></option>
+				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
+				<?php foreach ( $options as $key => $label ) : ?>
+					<option value="<?php echo $key; ?>"<?php selected( $key, $current ); ?>><?php echo $label; ?></option>
 				<?php endforeach; ?>
 				</select>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * @since 2.3.4
+	 * @param string $name Name of the column option
+	 * @return string $label Label
+	 * @return array $options Select options
+	 * @return strong $description (optional) Description below the label
+	 */
+	public function display_field_text( $name, $label, $description = '' ) {
+		?>
+		<tr class="column-<?php echo $name; ?>">
+			<?php $this->label_view( $label, $description, $name ); ?>
+			<td class="input">
+				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1208,7 +1249,7 @@ class CPAC_Column {
 				<table class="widefat">
 					<tbody>
 						<tr class="column_type">
-							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->properties->type . '</em><em>' . __( 'ID', 'cpac' ) . ': ' . $this->properties->name . '</em>', 'type' ); ?>
+							<?php $this->label_view( __( 'Type', 'cpac' ), __( 'Choose a column type.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->properties->type . '</em><em>' . __( 'Name', 'cpac' ) . ': ' . $this->properties->name . '</em>', 'type' ); ?>
 							<td class="input">
 								<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
 									<?php echo $column_list; ?>

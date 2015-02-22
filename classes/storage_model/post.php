@@ -23,7 +23,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 100, 1 );
 
 		// Deprecated ( as of 3.1 ) Note: This one is still used by woocommerce.
-		// Priority set to 11 top make sure the WooCommerce headings are overwritten by CAC
+		// Priority set to 100 top make sure the WooCommerce headings are overwritten by CAC
+		// Filter is located in get_column_headers().
 		// @todo_minor check compatibility issues for this deprecated filter
 		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100, 1 );
 
@@ -210,6 +211,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		echo $value;
 	}
 
+	/**
+	 * Manage value callback
+	 *
+	 * @since ?
+	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 
 		$column = $this->get_column_by_name( $column_name );
