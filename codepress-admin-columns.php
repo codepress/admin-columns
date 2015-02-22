@@ -456,7 +456,7 @@ class CPAC {
 			return false;
 		}
 
-		if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) ) {
+		if ( isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'inline-save', 'edit-comment' ) ) ) {
 			return true;
 		}
 

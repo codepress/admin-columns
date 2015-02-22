@@ -26,6 +26,23 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @see CPAC_Storage_Model::is_columns_screen()
+	 */
+	public function is_columns_screen() {
+
+		$is_columns_screen = parent::is_columns_screen();
+
+		if ( ! $is_columns_screen ) {
+			if ( ! empty( $_REQUEST['_ajax_nonce-replyto-comment'] ) && wp_verify_nonce( $_REQUEST['_ajax_nonce-replyto-comment'], 'replyto-comment' ) ) {
+				$is_columns_screen = true;
+			}
+		}
+
+		return $is_columns_screen;
+	}
+
+	/**
 	 * Get WP default supported admin columns per post type.
 	 *
 	 * @see CPAC_Type::get_default_columns()
