@@ -26,7 +26,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.3.4
 	 * @see CPAC_Storage_Model::is_columns_screen()
 	 */
 	public function is_columns_screen() {

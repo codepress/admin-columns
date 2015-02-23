@@ -62,10 +62,10 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 	}
 
 	/**
-	 * 
+	 *
 	 *
 	 * @see CPAC_Column::display_settings()
-	 * @since NEWVERSION
+	 * @since 2.3.4
 	 */
 	public function display_settings() {
 
@@ -73,9 +73,9 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 	}
 
 	/**
-	 * 
 	 *
-	 * @since NEWVERSION
+	 *
+	 * @since 2.3.4
 	 */
 	public function display_field_path_scope() {
 

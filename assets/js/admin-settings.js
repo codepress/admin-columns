@@ -96,7 +96,7 @@ jQuery.fn.column_bind_remove = function() {
 /**
  * Column: bind clone events
  *
- * @since NEWVERSION
+ * @since 2.3.4
  */
 jQuery.fn.column_bind_clone = function() {
 
@@ -287,7 +287,7 @@ jQuery.fn.column_remove = function() {
 /*
  * Column: clone
  *
- * @since NEWVERSION
+ * @since 2.3.4
  */
 jQuery.fn.column_clone = function() {
 

@@ -9,7 +9,7 @@ class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 
 	/**
 	 * @see CPAC_Column_Actions::get_actions()
-	 * @since NEWVERSION
+	 * @since 2.3.4
 	 */
 	public function get_actions( $id ) {
 
