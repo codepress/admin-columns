@@ -775,7 +775,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	protected function get_screen_link() {
 
-		return network_admin_url( $this->page . '.php' );
+		return is_network_admin() ? network_admin_url( $this->page . '.php' ) : admin_url( $this->page . '.php' );
 	}
 
 	/**
@@ -840,11 +840,14 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
+				// users
+		if ( 'wp-users' == $this->key && is_network_admin() ) {
+			return false;
+		}
+
 		// multisite users
-		if ( 'wp-ms_users' == $this->key ) {
-			if ( ! is_network_admin() ) {
-				return false;
-			}
+		if ( 'wp-ms_users' == $this->key && ! is_network_admin() ) {
+			return false;
 		}
 
 		return true;
