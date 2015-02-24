@@ -375,7 +375,7 @@ class CPAC_Column {
 	 * @return array Column options
 	 */
 	public function read() {
-		$options = (array) get_option( "cpac_options_{$this->storage_model->key}" );
+		$options = (array) $this->storage_model->get_database_columns();
 
 		if ( empty( $options[ $this->properties->name ] ) ) {
 			return array();

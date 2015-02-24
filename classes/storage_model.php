@@ -52,7 +52,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 * @var string
 	 */
-	private $uses_php_export = false;
+	private $php_export = false;
 
 	/**
 	 * @since 2.0.1
@@ -491,7 +491,7 @@ abstract class CPAC_Storage_Model {
 		$this->stored_columns = $columns;
 
 		// columns settings are set by external plugin
-		$this->uses_php_export = true;
+		$this->php_export = true;
 	}
 
 	/**
@@ -499,8 +499,8 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 2.3.4
 	 */
-	public function uses_php_export() {
-		return $this->uses_php_export;
+	public function is_using_php_export() {
+		return $this->php_export;
 	}
 
 	/**
@@ -646,8 +646,12 @@ abstract class CPAC_Storage_Model {
 				$column = clone $registered_columns[ $options['type'] ];
 				$column->set_clone( $options['clone'] );
 
+				// preload options when php export is being used
+				$preload = $this->is_using_php_export() ? $options : false;
+
 				// repopulate the options, so they contains the right stored options
-				$column->populate_options();
+				$column->populate_options( $preload );
+
 				$column->sanitize_label();
 
 				$columns[ $name ] = $column;
@@ -715,7 +719,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
-		// only add headings on overview screens, to prevent deactivating columns ont the column settings screen
+		// only add headings on overview screens, to prevent deactivating columns on the column settings screen
 		if ( ! $this->is_columns_screen() ) {
 			return $columns;
 		}
@@ -756,7 +760,7 @@ abstract class CPAC_Storage_Model {
 		// Add 3rd party columns that have ( or could ) not been stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->uses_php_export && ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) ) {
+		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) ) {
 			foreach ( $diff as $column_name ) {
 				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}

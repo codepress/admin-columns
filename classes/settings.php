@@ -646,7 +646,7 @@ class CPAC_Settings {
 									</h2>
 								</div>
 
-								<?php if ( $storage_model->uses_php_export() ) : ?>
+								<?php if ( $storage_model->is_using_php_export() ) : ?>
 									<div class="error below-h2">
 										<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
 									</div>
@@ -655,7 +655,7 @@ class CPAC_Settings {
 
 							<div class="columns-right">
 								<div class="columns-right-inside">
-									<?php if ( ! $storage_model->uses_php_export() ) : ?>
+									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="sidebox" id="form-actions">
 											<h3>
 												<?php _e( 'Store settings', 'cpac' ) ?>
@@ -812,7 +812,7 @@ class CPAC_Settings {
 
 							<div class="columns-left">
 								<div class="cpac-boxes">
-									<?php if ( ! $storage_model->uses_php_export() ) : ?>
+									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="cpac-columns">
 
 											<form method="post" action="">
