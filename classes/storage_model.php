@@ -756,7 +756,7 @@ abstract class CPAC_Storage_Model {
 		// Add 3rd party columns that have ( or could ) not been stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
-		if ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) {
+		if ( ! $this->uses_php_export && ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) ) {
 			foreach ( $diff as $column_name ) {
 				$column_headings[ $column_name ] = $columns[ $column_name ];
 			}
