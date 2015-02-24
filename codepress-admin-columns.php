@@ -105,6 +105,7 @@ class CPAC {
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'wp_loaded', array( $this, 'maybe_set_storage_models' ), 5 );
+		add_action( 'wp_loaded', array( $this, 'maybe_load_php_export' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
@@ -192,6 +193,22 @@ class CPAC {
 		}
 
 		$this->set_storage_models();
+	}
+
+	/**
+	 * Load the php exported settings
+	 *
+	 * @since 2.3.5
+	 */
+	public function maybe_load_php_export() {
+		global $_cac_exported_columns;
+		if ( $_cac_exported_columns ) {
+			foreach( $_cac_exported_columns as $model => $columns ) {
+				if ( $storage_model = $this->get_storage_model( $model ) ) {
+					$storage_model->set_stored_columns( $columns );
+				}
+			}
+		}
 	}
 
 	/**

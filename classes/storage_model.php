@@ -840,6 +840,13 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
+		// multisite users
+		if ( 'wp-ms_users' == $this->key ) {
+			if ( ! is_network_admin() ) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
