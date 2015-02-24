@@ -15,8 +15,8 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']				= 'column-depth';
-		$this->properties['label']				= __( 'Depth', 'cpac' );
+		$this->properties['type'] = 'column-depth';
+		$this->properties['label'] = __( 'Depth', 'cpac' );
 	}
 
 	/**
@@ -35,5 +35,14 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 	public function get_raw_value( $post_id ) {
 
 		return count( get_post_ancestors( $post_id ) ) + 1;
+	}
+
+	/**
+	 * @see CPAC_Column::apply_conditional()
+	 * @since 2.0
+	 */
+	public function apply_conditional() {
+
+		return is_post_type_hierarchical( $this->storage_model->get_post_type() );
 	}
 }
