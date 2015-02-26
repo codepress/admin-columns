@@ -518,6 +518,13 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 2.3.4
+	 */
+	public function get_meta_type() {
+		return $this->meta_type;
+	}
+
+	/**
 	 * Only set columns on current screens
 	 *
 	 * @since 2.2.6

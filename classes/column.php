@@ -355,6 +355,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.3.4
+	 */
+	public function get_storage_model_meta_type() {
+		return $this->storage_model->get_meta_type();
+	}
+
+	/**
 	 * @param string $field_key
 	 * @return void
 	 */
