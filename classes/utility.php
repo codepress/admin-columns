@@ -53,3 +53,14 @@ function cac_is_doing_ajax() {
 
 	return false;
 }
+
+/**
+ * Returns true if the installed version of WooCommerce is version X or greater
+ *
+ * @since 2.3.4
+ * @return boolean true if the installed version of WooCommerce is version X or greater
+ */
+function cpac_is_wc_version_gte( $version = '1.0' ) {
+	$wc_version = defined( 'WC_VERSION' ) && WC_VERSION ? WC_VERSION : null;
+	return $wc_version && version_compare( $wc_version, $version, '>=' );
+}
