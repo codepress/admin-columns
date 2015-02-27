@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: 		Admin Columns
-Version: 			2.3.4
-Description: 		Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
-Author: 			AdminColumns.com
-Author URI: 		http://www.admincolumns.com
-Plugin URI: 		http://www.admincolumns.com
-Text Domain: 		cpac
-Domain Path: 		/languages
-License:			GPLv2
+Plugin Name: Admin Columns
+Version: 2.3.4
+Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
+Author: AdminColumns.com
+Author URI: http://www.admincolumns.com
+Plugin URI: http://www.admincolumns.com
+Text Domain: cpac
+Domain Path: /languages
+License: GPLv2
 
-Copyright 2011-2014  AdminColumns.com  info@admincolumns.com
+Copyright 2011-2015  AdminColumns.com  info@admincolumns.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
