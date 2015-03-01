@@ -4,41 +4,17 @@
  *
  * @since 2.0
  */
-class CPAC_Column_Comment_Actions extends CPAC_Column {
+class CPAC_Column_Comment_Actions extends CPAC_Column_Actions {
 
 	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
+	 * @see CPAC_Column_Actions::get_actions()
+	 * @since NEWVERSION
 	 */
-	public function init() {
+	public function get_actions( $id ) {
 
-		parent::init();
-
-		// Properties
-		$this->properties['type']	 	= 'column-actions';
-		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-	}
-
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
-	public function get_value( $id ) {
+		global $post, $comment_status;
 
 		$comment = get_comment( $id );
-
-		return $this->get_column_value_actions( $comment );
-	}
-
-	/**
-	 *	Get column value of comments actions
-	 *
-	 *	This part is copied from the Comments List Table class
-	 *
-	 * 	@since 1.4.2
-	 */
-	private function get_column_value_actions( $comment ) {
-		global $post, $comment_status;
 
 		// set uased vars
 		$user_can 			= current_user_can( 'edit_comment', $comment->comment_ID );
@@ -102,28 +78,31 @@ class CPAC_Column_Comment_Actions extends CPAC_Column {
 			}
 
 			$actions = apply_filters( 'comment_row_actions', array_filter( $actions ), $comment );
+			$actions_copy = $actions;
+			$actions = array();
 
-			$i = 0;
-			$result = '<div class="cp-row-actions">';
-			foreach ( $actions as $action => $link ) {
-				++$i;
-				( ( ( 'approve' == $action || 'unapprove' == $action ) && 2 === $i ) || 1 === $i ) ? $sep = '' : $sep = ' | ';
+			foreach ( $actions_copy as $action => $link ) {
+				$action_append = '';
 
 				// Reply and quickedit need a hide-if-no-js span when not added with ajax
-				if ( ( 'reply' == $action || 'quickedit' == $action ) && ! defined('DOING_AJAX') )
-					$action .= ' hide-if-no-js';
+				if ( ( 'reply' == $action || 'quickedit' == $action ) && ! defined('DOING_AJAX') ) {
+					$action_append .= ' hide-if-no-js';
+				}
 				elseif ( ( $action == 'untrash' && $the_comment_status == 'trash' ) || ( $action == 'unspam' && $the_comment_status == 'spam' ) ) {
-					if ( '1' == get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true ) )
-						$action .= ' approve';
-					else
-						$action .= ' unapprove';
+					if ( '1' == get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true ) ) {
+						$action_append .= ' approve';
+					}
+					else {
+						$action_append .= ' unapprove';
+					}
 				}
 
-				$result .= "<span class='$action'>$sep$link</span>";
+				$action .= $action_append;
+				$actions[ $action ] = $link;
 			}
-			$result .= '</div>';
 		}
-		return $result;
-		// end copied
+
+		return $actions;
 	}
+
 }

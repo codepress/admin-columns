@@ -121,14 +121,21 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 		$icons = $this->get_actions_icons();
 
 		foreach ( $actions as $action => $link ) {
-			if ( isset( $icons[ $action ] ) ) {
+			$action1 = $action;
+			$spacepos = $spacepos = strpos( $action1, ' ' );
+
+			if ( $spacepos !== false ) {
+				$action1 = substr( $action1, 0, $spacepos );
+			}
+
+			if ( isset( $icons[ $action1 ] ) ) {
 				// Add mandatory "class" HTML attribute
 				if ( strpos( $link, 'class=' ) === false ) {
 					$link = str_replace( '<a ', '<a class="" ', $link );
 				}
 
 				// Add icon and tooltip classes
-				$link = preg_replace( '/class=["\'](.*?)["\']/', 'class="$1 cpac-tip button cpac-button-action dashicons hide-content dashicons-' . $icons[ $action ] . '"', $link, 1 );
+				$link = preg_replace( '/class=["\'](.*?)["\']/', 'class="$1 cpac-tip button cpac-button-action dashicons hide-content dashicons-' . $icons[ $action1 ] . '"', $link, 1 );
 
 				// Add tooltip title
 				$link = preg_replace_callback( '/>(.*?)<\/a>/', array( $this, 'add_link_tooltip' ), $link );
@@ -167,8 +174,15 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 			'trash' => 'trash',
 			'delete' => 'trash',
 			'untrash' => 'undo',
+			'unspam' => 'undo',
 			'view' => 'visibility',
-			'inline hide-if-no-js' => 'welcome-write-blog'
+			'inline' => 'welcome-write-blog',
+			'quickedit' => 'welcome-write-blog',
+			'approve' => 'yes',
+			'unapprove' => 'no',
+			'reply' => 'testimonial',
+			'trash' => 'trash',
+			'spam' => 'welcome-comments'
 		);
 	}
 
