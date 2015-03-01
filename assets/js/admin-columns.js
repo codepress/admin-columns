@@ -7,7 +7,7 @@ jQuery( document ).ready( function( $ ) {
  */
 function cpac_tooltips() {
 
-	if ( typeof qtip === 'undefined' || ! jQuery.isFunction( qtip ) ) {
+	if ( typeof jQuery.fn.qtip === 'undefined' ) {
 		return;
 	}
 
