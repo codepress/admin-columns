@@ -1216,6 +1216,10 @@ class CPAC_Column {
 								<div class="inner">
 									<div class="meta">
 
+										<span title="<?php echo esc_attr( __( 'width', 'cpac' ) ); ?>" class="width" data-indicator-id="">
+											<?php echo ! empty( $this->options->width ) ? $this->options->width . '%' : ''; ?>
+										</span>
+
 										<?php
 										/**
 										 * Fires in the meta-element for column options, which is displayed right after the column label
