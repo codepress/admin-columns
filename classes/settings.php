@@ -65,6 +65,7 @@ class CPAC_Settings {
 		 */
 		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
 			'admin' 		=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
+			'settings' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
 			'info' 			=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade' 		=> admin_url( 'options-general.php?page=cpac-upgrade' )
 		), $this );
