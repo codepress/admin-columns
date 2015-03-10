@@ -412,7 +412,8 @@ class CPAC {
 					foreach ( $columns as $name => $options ) {
 
 						if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-							$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}% !important; }";
+							$unit = isset( $options['width_unit'] ) ? $options['width_unit'] : '%';
+							$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}{$unit} !important; }";
 						}
 
 						// Load custom column scripts, used by 3rd party columns

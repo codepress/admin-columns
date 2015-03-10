@@ -160,6 +160,7 @@ class CPAC_Column {
 			'before'	=> '', // Before field
 			'after'		=> '', // After field
 			'width'		=> null, // Width for this column.
+			'width_unit'=> '%', // Unit for width; pecentage (%) or pixels (px).
 			'state'		=> 'off' // Active state for this column.
 		);
 
@@ -1217,7 +1218,7 @@ class CPAC_Column {
 									<div class="meta">
 
 										<span title="<?php echo esc_attr( __( 'width', 'cpac' ) ); ?>" class="width" data-indicator-id="">
-											<?php echo ! empty( $this->options->width ) ? $this->options->width . '%' : ''; ?>
+											<?php echo ! empty( $this->options->width ) ? $this->options->width . $this->options->width_unit : ''; ?>
 										</span>
 
 										<?php
@@ -1279,11 +1280,23 @@ class CPAC_Column {
 						<tr class="column_width">
 							<?php $this->label_view( __( 'Width', 'cpac' ), '', 'width' ); ?>
 							<td class="input">
-								<div class="description width-decription" title="<?php _e( 'default', 'cpac' ); ?>">
-									<?php echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', 'cpac' ); ?>
+								<div class="description" title="<?php _e( 'default', 'cpac' ); ?>">
+			<?php //echo $this->options->width > 0 ? $this->options->width . '%' : __( 'default', 'cpac' ); ?>
+									<input class="width" type="text" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />
+									<span class="unit"><?php echo $this->options->width_unit; ?></span>
 								</div>
-								<div class="input-width-range"></div>
-								<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />
+								<div class="width-slider"></div>
+<?php /*<input type="hidden" class="input-width" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>" />*/ ?>
+								<div class="unit-select">
+									<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
+										<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->options->width_unit, 'px' ); ?>/>
+										px
+									</label>
+									<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
+										<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->options->width_unit, '%' ); ?>/>
+										%
+									</label>
+								</div>
 
 							</td>
 						</tr><!--.column_width-->
