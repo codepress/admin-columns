@@ -233,8 +233,8 @@ jQuery.fn.column_bind_events = function() {
 	});
 
 	// unit selector
-	var with_unit_select = column.find('.column_width .unit-select label');
-	with_unit_select.on( 'click', function(){
+	var width_unit_select = column.find('.column_width .unit-select label');
+	width_unit_select.on( 'click', function(){
 
 		column.find('span.unit').text( jQuery(this).find('input').val() );
 		column.column_width_slider(); // re-init slider

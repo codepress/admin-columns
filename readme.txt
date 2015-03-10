@@ -250,6 +250,8 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 2.3.5 =
+* [Added] Column width has a text field to enter the width
+* [Added] Column width can be set to pixels or percentages
 * [Added] Added a width indicator to the column settings header
 
 = 2.3.4 =
