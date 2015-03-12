@@ -183,6 +183,10 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
+		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
+			return false;
+		}
+
 		global $post;
 
 		// Setup post data for current post
@@ -190,16 +194,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post = get_post( $post_id );
 		setup_postdata( $post );
 
-		$value = '';
+		$value = $column->get_value( $post_id );
 
-		// Set column value
-		if ( $column = $this->get_column_by_name( $column_name ) ) {
-			$value = $column->get_value( $post_id );
-		}
-
-		// Filters
 		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );
+
 
 		// Reset query to old post
 		$post = $post_old;

@@ -85,12 +85,11 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 */
 	public function manage_value( $column_name, $media_id ) {
 
-		$value = '';
-
-		// get column instance
-		if ( $column = $this->get_column_by_name( $column_name ) ) {
-			$value = $column->get_value( $media_id );
+		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
+			return false;
 		}
+
+		$value = $column->get_value( $media_id );
 
 		// add hook
 		$value = apply_filters( "cac/column/value", $value, $media_id, $column, $this->key );

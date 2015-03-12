@@ -162,7 +162,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		if ( $ids = $this->get_ids_from_meta( $meta ) ) {
 			foreach ( (array) $ids as $id ) {
 
-				if ( ! is_numeric( $id ) ) continue;
+				if ( ! is_numeric( $id ) ) {
+					continue;
+				}
 
 				$link = get_edit_post_link( $id );
 				if ( $title = get_the_title( $id ) )

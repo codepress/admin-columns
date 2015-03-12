@@ -16,7 +16,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-attachment';
-		$this->properties['label']	 = __( 'Attachment', 'cpac' );
+		$this->properties['label']	 = __( 'Attachments', 'cpac' );
 
 		// Options
 		$this->options['image_size']	= '';
@@ -28,18 +28,32 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 
-		$attachment_ids = $this->get_raw_value( $post_id );
+		$values = (array) $this->get_raw_value( $post_id );
 
-		return implode( $this->get_thumbnails( $attachment_ids, $this->options ) );
+		foreach ( $values as $index => $value ) {
+			if ( ! $value ) {
+				unset( $values[ $index ] );
+				continue;
+			}
+
+			$image = implode( $this->get_thumbnails( $value, array(
+				'image_size'	=> $this->options->image_size,
+				'image_size_w'	=> $this->options->image_size_w,
+				'image_size_h'	=> $this->options->image_size_h,
+			) ) );
+
+			$values[ $index ] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $value ) . '">' . $image . '</div>';
+		}
+		return implode( '', $values );
 	}
 
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 
 		return get_posts( array(
 			'post_type' 	=> 'attachment',
@@ -54,7 +68,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 	 * @see CPAC_Column::display_settings()
 	 * @since 2.0
 	 */
-	function display_settings() {
+	public function display_settings() {
 
 		$this->display_field_preview_size();
 	}

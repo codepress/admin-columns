@@ -62,13 +62,11 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @param int $user_id
 	 * @param string $value
 	 */
-	function manage_value( $column_name, $user_id, $value = '' ) {
+	public function manage_value( $column_name, $user_id, $value = '' ) {
 
-		// get column instance
-		$column = $this->get_column_by_name( $column_name );
-
-		if ( ! $column )
+		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return $value;
+		}
 
 		// get value
 		$custom_value = $column->get_value( $user_id );
