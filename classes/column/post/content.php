@@ -1,10 +1,10 @@
 <?php
 /**
- * CPAC_Column_Post_Excerpt
+ * CPAC_Column_Post_Content
  *
  * @since 2.0
  */
-class CPAC_Column_Post_Excerpt extends CPAC_Column {
+class CPAC_Column_Post_Content extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -15,9 +15,9 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']				= 'column-excerpt';
-		$this->properties['label']				= __( 'Excerpt', 'cpac' );
-		$this->properties['object_property']	= 'post_excerpt';
+		$this->properties['type']				= 'column-content';
+		$this->properties['label']				= __( 'Content', 'cpac' );
+		$this->properties['object_property']	= 'post_content';
 
 		// Options
 		$this->options['excerpt_length'] = 30;
@@ -29,7 +29,7 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 
-		return $this->get_post_excerpt( $post_id, $this->options->excerpt_length );
+		return $this->get_shortened_string( $this->get_raw_value( $post_id ), $this->options->excerpt_length );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	 */
 	public function get_raw_value( $post_id ) {
 
-		return get_post_field( 'post_excerpt', $post_id, 'raw' );
+		return get_post_field( 'post_content', $post_id, 'raw' );
 	}
 
 	/**
