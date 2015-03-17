@@ -445,6 +445,13 @@ class CPAC {
 		<?php endif; ?>
 
 		<?php
+
+		/**
+		 * Add header scripts that only apply to column screens.
+		 * @since 2.3.5
+		 * @param object CPAC Main Class
+		 */
+		do_action( 'cac/admin_head', $this );
 	}
 
 	/**
