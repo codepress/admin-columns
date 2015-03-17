@@ -11,6 +11,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 
 		$this->key 		 = 'wp-comments';
 		$this->label 	 = __( 'Comments' );
+		$this->singular_label = __( 'Comment' );
 		$this->type 	 = 'comment';
 		$this->meta_type = 'comment';
 		$this->page 	 = 'edit-comments';

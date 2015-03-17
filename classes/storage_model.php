@@ -13,6 +13,11 @@ abstract class CPAC_Storage_Model {
 	public $label;
 
 	/**
+	 * @since 2.3.5
+	 */
+	public $singular_label;
+
+	/**
 	 * Identifier for Storage Model; Posttype etc.
 	 *
 	 * @since 2.0

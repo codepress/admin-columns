@@ -9,13 +9,14 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 		 = 'wp-media';
-		$this->label 	 = __( 'Media Library' );
-		$this->type 	 = 'media';
-		$this->meta_type = 'post';
-		$this->page 	 = 'upload';
-		$this->post_type = 'attachment';
-		$this->menu_type = 'other';
+		$this->key 		 		= 'wp-media';
+		$this->label 	 		= __( 'Media Library' );
+		$this->singular_label 	= __( 'Media' );
+		$this->type 	 		= 'media';
+		$this->meta_type 		= 'post';
+		$this->page 	 		= 'upload';
+		$this->post_type 		= 'attachment';
+		$this->menu_type 		= 'other';
 
 		// headings
         // Increased the priority to overrule 3th party plugins such as Media Tags

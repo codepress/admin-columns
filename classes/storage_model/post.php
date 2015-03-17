@@ -2,6 +2,8 @@
 
 class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
+	public $post_type_object;
+
 	/**
 	 * Constructor
 	 *
@@ -9,13 +11,16 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	function __construct( $post_type ) {
 
-		$this->key 		 = $post_type;
-		$this->label 	 = $this->get_label();
-		$this->type 	 = 'post';
-		$this->meta_type = 'post';
-		$this->page 	 = 'edit';
-		$this->post_type = $post_type;
-		$this->menu_type = 'post';
+		$this->set_post_type( $post_type );
+
+		$this->key 		 		= $post_type;
+		$this->post_type 		= $post_type;
+		$this->label 			= $this->post_type_object->labels->name;
+		$this->singular_label 	= $this->post_type_object->labels->singular_name;
+		$this->type 	 		= 'post';
+		$this->meta_type 		= 'post';
+		$this->page 	 		= 'edit';
+		$this->menu_type 		= 'post';
 
 		// Headings
 
@@ -35,6 +40,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
 
 		parent::__construct();
+	}
+
+	/**
+	 * Set posttype
+	 *
+	 * @since 2.3.5
+	 */
+	public function get_post_type() {
+
+		return $this->post_type;
+	}
+
+	/**
+	 * Set posttype
+	 *
+	 * @since 2.3.5
+	 */
+	public function set_post_type( $post_type ) {
+
+		$this->post_type_object = get_post_type_object( $post_type );
 	}
 
 	/**
@@ -107,19 +132,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		}
 
 		return $is_columns_screen;
-	}
-
-	/**
-	 * Get Label
-	 *
-	 * @since 2.0
-	 *
-	 * @return string Singular posttype name
-	 */
-	private function get_label() {
-		$posttype_obj = get_post_type_object( $this->key );
-
-		return $posttype_obj->labels->name;
 	}
 
 	/**

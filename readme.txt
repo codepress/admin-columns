@@ -216,8 +216,10 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Added content column for post(types).
 * [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
 * [Added] Column width has a text field to enter the width
+* [Added] Added a message for when a custom field is empty
 * [Added] Column width can be set to pixels or percentages
 * [Added] Added a width indicator to the column settings header
+* [Added] Added a singular label to all storage_models
 
 = 2.3.4 =
 * [Added] A column can have it's own JS/CSS files by using the CPAC_Column::scripts() method

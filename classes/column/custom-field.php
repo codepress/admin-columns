@@ -397,7 +397,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				<?php endforeach; ?>
 				</select>
 				<?php else : ?>
-					<?php _e( 'No custom fields available.', 'cpac' ); ?>
+					<?php _e( 'No custom fields available.', 'cpac' ); ?> <?php printf( __( 'Please create a %s first.', 'cpac' ), '<em>' . $this->storage_model->singular_label . '</em>' ); ?>
 				<?php endif; ?>
 
 			</td>
