@@ -277,10 +277,10 @@ jQuery.fn.column_bind_events = function() {
 	});
 
 	/**	tooltip */
-	column.find('.column-form .label label').hover(function(){
-		jQuery(this).find('p.description').show();
+	column.find('.column-form .label label, .column-form .label .info').hover(function(){
+		jQuery(this).parents( '.label' ).find('p.description').show();
 	},function(){
-		jQuery(this).find('p.description').hide();
+		jQuery(this).parents( '.label' ).find('p.description').hide();
 	});
 
 	if ( column.find( '.column_type select' ).val() == 'column-meta' ) {

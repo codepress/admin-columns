@@ -1006,6 +1006,7 @@ class CPAC_Column {
 				<?php echo stripslashes( $label ); ?>
 				<?php if( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 			</label>
+			<?php if ( $description ) : ?><div class="info"></div><?php endif; ?>
 		</td>
 		<?php
 	}
