@@ -252,11 +252,19 @@ jQuery.fn.column_bind_events = function() {
 	// width_input:validate
 	.on( 'validate', function() {
 		var _width = width_input.val();
-		if ( _width.length > 3 ) {
-			width_input.val( _width.substring(0, 3) );
+		var _new_width = jQuery.trim( _width );
+
+		if ( ! jQuery.isNumeric( _new_width ) ) {
+			_new_width = _new_width.replace(/\D/g,'');
 		}
-		if ( _width <= 0 ) {
-			width_input.val('');
+		if ( _new_width.length > 3 ) {
+			_new_width = _new_width.substring(0, 3);
+		}
+		if ( _new_width <= 0 ) {
+			_new_width = '';
+		}
+		if ( _new_width !== _width ) {
+			width_input.val( _new_width );
 		}
 	});
 

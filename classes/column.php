@@ -82,6 +82,13 @@ class CPAC_Column {
 			$options['date_format'] = trim( $options['date_format'] );
 		}
 
+		if ( isset( $options['width'] ) ) {
+			$options['width'] = trim( $options['width'] );
+			if ( ! is_numeric( $options['width'] ) ) {
+				$options['width'] = '';
+			}
+		}
+
 		return $options;
 	}
 
