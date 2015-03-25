@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 2.3.5
+Stable tag: 2.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,7 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 2.3.5 =
+= 2.4 =
 * [Added] Added content column for post(types).
 * [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
 * [Added] Column width has a text field to enter the width
