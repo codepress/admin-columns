@@ -1,12 +1,12 @@
 <?php
 /**
- * @since NEWVERSION
+ * @since 3.4.2
  */
 class CPAC_Column_Post_Date_Published extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since NEWVERSION
+	 * @since 3.4.2
 	 */
 	public function init() {
 
@@ -22,7 +22,7 @@ class CPAC_Column_Post_Date_Published extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since NEWVERSION
+	 * @since 3.4.2
 	 */
 	public function get_value( $post_id ) {
 
@@ -37,7 +37,7 @@ class CPAC_Column_Post_Date_Published extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_raw_value()
-	 * @since NEWVERSION
+	 * @since 3.4.2
 	 */
 	public function get_raw_value( $post_id ) {
 
@@ -48,7 +48,7 @@ class CPAC_Column_Post_Date_Published extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since NEWVERSION
+	 * @since 3.4.2
 	 */
 	public function display_settings() {
 

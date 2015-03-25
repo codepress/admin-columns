@@ -2,13 +2,13 @@
 /**
  * CPAC_Column_Post_Content
  *
- * @since 2.0
+ * @since 3.4.2
  */
 class CPAC_Column_Post_Content extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
-	 * @since 2.2.1
+	 * @since 3.4.2
 	 */
 	public function init() {
 
@@ -25,7 +25,7 @@ class CPAC_Column_Post_Content extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_value()
-	 * @since 2.0
+	 * @since 3.4.2
 	 */
 	public function get_value( $post_id ) {
 
@@ -34,7 +34,7 @@ class CPAC_Column_Post_Content extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
+	 * @since 3.4.2
 	 */
 	public function get_raw_value( $post_id ) {
 
@@ -43,7 +43,7 @@ class CPAC_Column_Post_Content extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::display_settings()
-	 * @since 2.0
+	 * @since 3.4.2
 	 */
 	public function display_settings() {
 
