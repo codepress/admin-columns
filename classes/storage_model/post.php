@@ -2,7 +2,9 @@
 
 class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
-	public $post_type_object;
+	public $post_type;
+
+	private $post_type_object;
 
 	/**
 	 * Constructor
