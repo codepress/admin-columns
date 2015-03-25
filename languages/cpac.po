@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Codepress Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-18 16:25+0100\n"
-"PO-Revision-Date: 2015-03-18 16:25+0100\n"
+"POT-Creation-Date: 2015-03-25 17:31+0100\n"
+"PO-Revision-Date: 2015-03-25 17:31+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Codepress <info@codepress.nl>\n"
 "Language: en_GB\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -42,126 +42,126 @@ msgid ""
 "inline editing."
 msgstr ""
 
-#: ../classes/column.php:575
+#: ../classes/column.php:582
 msgid "Thumbnail"
 msgstr ""
 
-#: ../classes/column.php:576
+#: ../classes/column.php:583
 msgid "Medium"
 msgstr ""
 
-#: ../classes/column.php:577
+#: ../classes/column.php:584
 msgid "Large"
 msgstr ""
 
-#: ../classes/column.php:578
+#: ../classes/column.php:585
 msgid "Full"
 msgstr ""
 
-#: ../classes/column.php:1020
+#: ../classes/column.php:1026
 msgid "Date Format"
 msgstr ""
 
-#: ../classes/column.php:1021
+#: ../classes/column.php:1027
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: ../classes/column.php:1027
+#: ../classes/column.php:1033
 msgid "Example:"
 msgstr ""
 
-#: ../classes/column.php:1029
+#: ../classes/column.php:1035
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
 msgstr ""
 
-#: ../classes/column.php:1030
+#: ../classes/column.php:1036
 msgid "Documentation on date and time formatting."
 msgstr ""
 
-#: ../classes/column.php:1044
+#: ../classes/column.php:1050
 msgid "Excerpt length"
 msgstr ""
 
-#: ../classes/column.php:1045
+#: ../classes/column.php:1051
 msgid "Number of words"
 msgstr ""
 
-#: ../classes/column.php:1063
+#: ../classes/column.php:1069
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:1080 ../classes/storage_model.php:585
+#: ../classes/column.php:1086 ../classes/storage_model.php:585
 msgid "Custom"
 msgstr ""
 
-#: ../classes/column.php:1083 ../classes/column.php:1230
+#: ../classes/column.php:1089 ../classes/column.php:1236
 msgid "width"
 msgstr ""
 
-#: ../classes/column.php:1086
+#: ../classes/column.php:1092
 msgid "height"
 msgstr ""
 
-#: ../classes/column.php:1098
+#: ../classes/column.php:1104
 msgid "Before"
 msgstr ""
 
-#: ../classes/column.php:1098
+#: ../classes/column.php:1104
 msgid "This text will appear before the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1099
+#: ../classes/column.php:1105
 msgid "After"
 msgstr ""
 
-#: ../classes/column.php:1099
+#: ../classes/column.php:1105
 msgid "This text will appear after the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1108
+#: ../classes/column.php:1114
 msgid "Display Name"
 msgstr ""
 
-#: ../classes/column.php:1109
+#: ../classes/column.php:1115
 msgid "First Name"
 msgstr ""
 
-#: ../classes/column.php:1110
+#: ../classes/column.php:1116
 msgid "Last Name"
 msgstr ""
 
-#: ../classes/column.php:1111 ../classes/column/user/nickname.php:19
+#: ../classes/column.php:1117 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr ""
 
-#: ../classes/column.php:1112
+#: ../classes/column.php:1118
 msgid "User Login"
 msgstr ""
 
-#: ../classes/column.php:1113
+#: ../classes/column.php:1119
 msgid "User Email"
 msgstr ""
 
-#: ../classes/column.php:1114 ../classes/column/user/ID.php:19
+#: ../classes/column.php:1120 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr ""
 
-#: ../classes/column.php:1115
+#: ../classes/column.php:1121
 msgid "First and Last Name"
 msgstr ""
 
-#: ../classes/column.php:1118
+#: ../classes/column.php:1124
 msgid "Display format"
 msgstr ""
 
-#: ../classes/column.php:1118
+#: ../classes/column.php:1124
 msgid "This is the format of the author name."
 msgstr ""
 
-#: ../classes/column.php:1252 ../classes/column/comment/actions.php:75
+#: ../classes/column.php:1258 ../classes/column/comment/actions.php:75
 #: ../classes/column/link/actions.php:48
 #: ../classes/column/media/actions.php:25
 #: ../classes/column/media/actions.php:39
@@ -169,44 +169,44 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../classes/column.php:1254 ../classes/column.php:1346
+#: ../classes/column.php:1260 ../classes/column.php:1352
 msgid "Clone"
 msgstr ""
 
-#: ../classes/column.php:1256 ../classes/column.php:1348
+#: ../classes/column.php:1262 ../classes/column.php:1354
 #: ../classes/column/user/actions.php:77
 msgid "Remove"
 msgstr ""
 
-#: ../classes/column.php:1274 ../classes/column/custom-field.php:407
+#: ../classes/column.php:1280 ../classes/column/custom-field.php:407
 msgid "Type"
 msgstr ""
 
-#: ../classes/column.php:1274
+#: ../classes/column.php:1280
 msgid "Choose a column type."
 msgstr ""
 
-#: ../classes/column.php:1274
+#: ../classes/column.php:1280
 msgid "Name"
 msgstr ""
 
-#: ../classes/column.php:1284
+#: ../classes/column.php:1290
 msgid "Label"
 msgstr ""
 
-#: ../classes/column.php:1284
+#: ../classes/column.php:1290
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:1291 ../classes/column/media/width.php:19
+#: ../classes/column.php:1297 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr ""
 
-#: ../classes/column.php:1293
+#: ../classes/column.php:1299
 msgid "default"
 msgstr ""
 
-#: ../classes/column.php:1294
+#: ../classes/column.php:1300
 msgid "auto"
 msgstr ""
 
@@ -1391,6 +1391,6 @@ msgid ""
 "on the support forum."
 msgstr ""
 
-#: ../codepress-admin-columns.php:442
+#: ../codepress-admin-columns.php:438
 msgid "Edit columns"
 msgstr ""
