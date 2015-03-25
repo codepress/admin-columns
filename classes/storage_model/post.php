@@ -59,7 +59,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 *
 	 * @since 2.3.5
 	 */
-	public function set_post_type( $post_type ) {
+	private function set_post_type( $post_type ) {
 
 		$this->post_type_object = get_post_type_object( $post_type );
 	}
