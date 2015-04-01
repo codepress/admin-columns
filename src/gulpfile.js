@@ -37,6 +37,8 @@ gulp.task('styles', function() {
     return gulp.src('less/*.less')
         .pipe(plumber({ errorHandler: onError }))
         .pipe(less())
+        .pipe(gulp.dest('../assets/css'))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(minifyCSS())
         .pipe(gulp.dest('../assets/css'));
 });

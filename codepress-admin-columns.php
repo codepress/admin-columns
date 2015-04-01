@@ -154,10 +154,12 @@ class CPAC {
 	 */
 	public function scripts() {
 
-		wp_register_script( 'cpac-admin-columns', CPAC_URL . 'assets/js/admin-columns.js', array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
-		wp_register_script( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.js', array( 'jquery' ), CPAC_VERSION );
-		wp_register_style( 'jquery-qtip2', CPAC_URL . 'external/qtip2/jquery.qtip.min.css', array(), CPAC_VERSION, 'all' );
-		wp_register_style( 'cpac-columns', CPAC_URL . 'assets/css/column.css', array(), CPAC_VERSION, 'all' );
+		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
+		wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
+		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
+		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
 		if ( $this->is_columns_screen() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );

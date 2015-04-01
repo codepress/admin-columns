@@ -196,9 +196,11 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function admin_styles() {
+		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-admin', CPAC_URL . "assets/css/admin-column{$minified}.css", array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
