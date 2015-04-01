@@ -8,3 +8,7 @@ ehthumbs.d*
 Thumbs.d*
 # Project specific
 *.scssc
+
+# Development
+node_modules
+bower_components

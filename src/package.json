@@ -1,0 +1,19 @@
+{
+    "name": "Codepress",
+    "version": "1.0.0",
+    "description": "Gulp",
+    "private": true,
+    "dependencies": {
+        "gulp": "*",
+        "gulp-util": "*",
+        "gulp-livereload": "*",
+        "gulp-minify-css": "*",
+        "gulp-plumber": "*",
+        "gulp-rename": "*",
+        "gulp-less": "*",
+        "gulp-uglify": "*",
+        "gulp-concat": "*"
+
+
+    }
+}
