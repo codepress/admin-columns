@@ -265,7 +265,7 @@ abstract class CPAC_Storage_Model {
 			return false;
 		}
 
-		cpac_admin_message( sprintf( __( 'Settings for %s updated succesfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
 
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();

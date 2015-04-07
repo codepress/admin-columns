@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Typo fixed
+
 = 2.4 =
 * [Added] Added content column for post(types).
 * [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
