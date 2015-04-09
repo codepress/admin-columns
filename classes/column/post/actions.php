@@ -28,6 +28,7 @@ class CPAC_Column_Post_Actions extends CPAC_Column_Actions {
 			}
 		}
 
+		// taken from Wordpress core
 		if ( $can_edit_post && 'trash' != $post->post_status ) {
 			$actions['edit'] = '<a href="' . get_edit_post_link( $post->ID, true ) . '" title="' . esc_attr( __( 'Edit this item' ) ) . '">' . __( 'Edit' ) . '</a>';
 

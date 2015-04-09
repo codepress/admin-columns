@@ -114,6 +114,16 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Set menutype
+	 *
+	 * @since NEWVERSION
+	 */
+	public function set_menu_type( $menu_type ) {
+		$this->menu_type = $menu_type;
+		return $this;
+	}
+
+	/**
 	 * Checks if menu type is currently viewed
 	 *
 	 * @since 1.0

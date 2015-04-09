@@ -15,14 +15,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		$this->set_post_type( $post_type );
 
-		$this->key 		 		= $post_type;
-		$this->post_type 		= $post_type;
+		$this->key 		 		= $this->post_type;
 		$this->label 			= $this->post_type_object->labels->name;
 		$this->singular_label 	= $this->post_type_object->labels->singular_name;
 		$this->type 	 		= 'post';
 		$this->meta_type 		= 'post';
 		$this->page 	 		= 'edit';
-		$this->menu_type 		= 'post';
+		$this->menu_type 	 	= 'post';
 
 		// Headings
 
@@ -61,6 +60,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	private function set_post_type( $post_type ) {
 
+		$this->post_type 		= $post_type;
 		$this->post_type_object = get_post_type_object( $post_type );
 	}
 

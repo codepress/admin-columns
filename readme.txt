@@ -213,7 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
-* [Fixed] Typo fixed
+* [Added] Added the development filter 'cac/menu_types' to add custom menu types
+* [Added] Added public method set_menu_type() to the storage model
+* [Updated] Po file will exclude Actions columns which contain only native WordPress translatable strings
+* [Updated] Updated all languages from Transifex
+* [Updated] Pro addon notice text has been updated
 
 = 2.4 =
 * [Added] Added content column for post(types).

@@ -13,7 +13,5 @@
         "gulp-less": "*",
         "gulp-uglify": "*",
         "gulp-concat": "*"
-
-
     }
 }

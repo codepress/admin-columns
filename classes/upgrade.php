@@ -59,8 +59,8 @@ class CPAC_Upgrade {
 		?>
 		<div class="message error">
 			<p>
-				<?php _e( '<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a href="http://www.admincolumns.com/pro-addon-information/" target="_blank">is available</a>, which features a bunch of cool new features, including Direct Inline Editing!', 'cpac' ); ?>
-				<a href="http://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
+				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'cpac' ); ?>
+				<a href="https://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
 			</p>
 		</div>
 		<?php
