@@ -565,7 +565,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.1
 	 */
 	private function get_menu_types() {
 		$menu_types = array(
