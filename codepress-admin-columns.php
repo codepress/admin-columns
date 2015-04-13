@@ -121,6 +121,10 @@ class CPAC {
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
 		$this->_upgrade = new CPAC_Upgrade( $this );
+
+		// Settings
+		include_once CPAC_DIR . 'classes/review_notice.php';
+		new CPAC_Review_Notice( $this );
 	}
 
 	/**
@@ -491,13 +495,18 @@ class CPAC {
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.2
+	 * @param strong $tab Specifies a tab screen (optional)
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
-	public function is_settings_screen() {
+	public function is_settings_screen( $tab = '' ) {
 
 		global $pagenow;
 
 		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
+			return false;
+		}
+
+		if ( $tab && isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) {
 			return false;
 		}
 
