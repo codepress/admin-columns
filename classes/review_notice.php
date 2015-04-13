@@ -2,7 +2,7 @@
 
 class CPAC_Review_Notice {
 
-	const OPTION_INSTALL_DATE     = 'cpac-install-date';
+	const OPTION_INSTALL_DATE     = 'cpac-install-timestamp';
 	const OPTION_ADMIN_NOTICE_KEY = 'cpac-hide-review-notice';
 
 	private $days_since_install;
