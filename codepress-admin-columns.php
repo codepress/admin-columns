@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.4
+Version: 2.4.1
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: http://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.4' ); // Current plugin version
+define( 'CPAC_VERSION', 	 	'2.4.1' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -121,6 +121,10 @@ class CPAC {
 		// Upgrade
 		require_once CPAC_DIR . 'classes/upgrade.php';
 		$this->_upgrade = new CPAC_Upgrade( $this );
+
+		// Settings
+		include_once CPAC_DIR . 'classes/review_notice.php';
+		new CPAC_Review_Notice( $this );
 	}
 
 	/**
@@ -491,13 +495,18 @@ class CPAC {
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.2
+	 * @param strong $tab Specifies a tab screen (optional)
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
-	public function is_settings_screen() {
+	public function is_settings_screen( $tab = '' ) {
 
 		global $pagenow;
 
 		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
+			return false;
+		}
+
+		if ( $tab && isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) {
 			return false;
 		}
 

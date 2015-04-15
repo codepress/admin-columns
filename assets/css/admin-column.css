@@ -55,6 +55,13 @@ a.help {
   right: auto;
 }
 /**
+ * Admin Notice Message
+ * ----------------------------------------------------------------------------
+ */
+.cpac_message.error.warning {
+  border-left: 4px solid #ffba00;
+}
+/**
  * Icons
  * ----------------------------------------------------------------------------
  */
@@ -98,7 +105,7 @@ h2.cpac-nav-tab-wrapper {
 }
 .cpac-menu .subsubsub li.first {
   font-weight: bold;
-  min-width: 90px;
+  min-width: 100px;
 }
 /**
  * Structure

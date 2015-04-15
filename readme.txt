@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 2.4
+Stable tag: 2.4.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -211,6 +211,14 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.4.1 =
+* [Added] Added the development filter 'cac/menu_types' to add custom menu types
+* [Added] Added public method set_menu_type() to the storage model
+* [Added] Added review notice
+* [Updated] Po file will exclude Actions columns which contain only native WordPress translatable strings
+* [Updated] Updated all languages from Transifex
+* [Updated] Pro addon notice text has been updated
 
 = 2.4 =
 * [Added] Added content column for post(types).

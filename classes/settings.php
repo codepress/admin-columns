@@ -478,30 +478,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 2.2
-	 */
-	public function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
-
-		$storage_models_by_type = array();
-
-		foreach( $this->cpac->storage_models as $k => $storage_model ) {
-			if ( $menu_type == $storage_model->menu_type ) {
-				$storage_models_by_type[ $menu_type ][ $k ] = $storage_model;
-			}
-		}
-
-		if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) { $count = 0; ?>
-			<ul class="subsubsub">
-				<li class="first"><?php echo $label; ?>: </li>
-			<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-				<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $active_item ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
-			<?php endforeach; ?>
-			</ul>
-		<?php
-		}
-	}
-
-	/**
 	 * @since 1.0
 	 */
 	public function display_settings() {
@@ -589,6 +565,18 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * @since 2.4.1
+	 */
+	private function get_menu_types() {
+		$menu_types = array(
+			'post' => __( 'Posttypes', 'cpac' ),
+			'other' => __( 'Others', 'cpac' ),
+			'taxonomy' => __( 'Taxonomies', 'cpac' ),
+		);
+		return apply_filters( 'cac/menu_types', $menu_types );
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	public function display() {
@@ -611,9 +599,6 @@ class CPAC_Settings {
 		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
-
-		$post_types = array_values( $this->cpac->get_post_types() );
-		$first 		= array_shift( $post_types );
 		?>
 		<div id="cpac" class="wrap">
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
@@ -628,11 +613,31 @@ class CPAC_Settings {
 			<?php
 			switch ( $current_tab ) :
 				case 'general':
+
+					$post_types = array_values( $this->cpac->get_post_types() );
+					$first = array_shift( $post_types );
+
+					$storage_models_by_type = array();
+					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
+						$storage_models_by_type[ $storage_model->menu_type ][ $k ] = $storage_model;
+					}
+
 					?>
 					<div class="cpac-menu">
-						<?php $this->display_menu_by_type( 'post', __( 'Posttypes', 'cpac' ), $first ); ?>
-						<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
-						<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
+					<?php
+					foreach ( $this->get_menu_types() as $menu_type => $label ) {
+						if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) {
+							$count = 0; ?>
+							<ul class="subsubsub">
+								<li class="first"><?php echo $label; ?>: </li>
+							<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
+								<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
+							<?php endforeach; ?>
+							</ul>
+						<?php
+						}
+					}
+					?>
 					</div>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
