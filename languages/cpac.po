@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 18:14+0100\n"
-"PO-Revision-Date: 2015-04-09 18:15+0100\n"
+"POT-Creation-Date: 2015-04-16 10:20+0100\n"
+"PO-Revision-Date: 2015-04-16 10:20+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Language: en_GB\n"
@@ -757,6 +757,20 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
+#: ../classes/review_notice.php:51
+msgid ""
+"You've been using <b>Admin Columns Pro</b> for some time now, could you "
+"please give it a review at wordpress.org?"
+msgstr ""
+
+#: ../classes/review_notice.php:52
+msgid "Yes, take me there!"
+msgstr ""
+
+#: ../classes/review_notice.php:52
+msgid "I've already done this!"
+msgstr ""
+
 #: ../classes/settings.php:112
 msgid "Add-on successfully activated."
 msgstr ""
@@ -1053,7 +1067,7 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: ../classes/settings.php:590 ../codepress-admin-columns.php:373
+#: ../classes/settings.php:590 ../codepress-admin-columns.php:377
 msgid "Settings"
 msgstr ""
 
@@ -1317,6 +1331,6 @@ msgid ""
 "on the support forum."
 msgstr ""
 
-#: ../codepress-admin-columns.php:440
+#: ../codepress-admin-columns.php:444
 msgid "Edit columns"
 msgstr ""
