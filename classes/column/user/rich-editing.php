@@ -25,9 +25,9 @@ class CPAC_Column_User_Rich_Editing extends CPAC_Column {
 	 */
 	function get_value( $user_id ) {
 
-		$value = $this->get_asset_image( 'no.png' );
-		if ( 'true' === $this->get_raw_value( $user_id ) ) {
-			$value = $this->get_asset_image( 'checkmark.png' );
+		$value = $this->get_asset_image( 'checkmark.png' );
+		if ( 'false' === $this->get_raw_value( $user_id ) ) {
+			$value = $this->get_asset_image( 'no.png' );
 		}
 
 		return $value;
