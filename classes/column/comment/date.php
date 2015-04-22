@@ -23,7 +23,7 @@ class CPAC_Column_Comment_Date extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
 
 		$comment = get_comment( $id );
 
@@ -34,5 +34,13 @@ class CPAC_Column_Comment_Date extends CPAC_Column {
 		);
 
 		return "<div class='submitted-on'>{$value}</div>";
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_raw_value( $id ) {
+		$comment = get_comment( $id );
+		return $comment->comment_date;
 	}
 }
