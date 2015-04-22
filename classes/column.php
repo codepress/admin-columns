@@ -552,8 +552,22 @@ class CPAC_Column {
 		if ( ! $name ) {
 			return false;
 		}
-
 		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", esc_attr( $title ) );
+	}
+
+	/**
+	 * @since 3.4.4
+	 */
+	public function get_user_postcount( $user_id, $post_type ) {
+		global $wpdb;
+		$sql = "
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_status = 'publish'
+			AND post_author = %d
+			AND post_type = %s
+		";
+		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
 	}
 
 	/**
