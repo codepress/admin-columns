@@ -506,7 +506,7 @@ class CPAC {
 			return false;
 		}
 
-		if ( $tab && isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) {
+		if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
 			return false;
 		}
 
