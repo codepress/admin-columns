@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Added] Added new type column for comments
+
 = 2.4.1 =
 * [Added] Added the development filter 'cac/menu_types' to add custom menu types
 * [Added] Added public method set_menu_type() to the storage model
