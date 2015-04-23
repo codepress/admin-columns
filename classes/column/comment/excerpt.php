@@ -26,19 +26,23 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
+		return $this->get_shortened_string( $this->get_raw_value( $id ), $this->options->excerpt_length );
+	}
 
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
-
-		return $this->get_shortened_string( $comment->comment_content, $this->options->excerpt_length );
+		return $comment->comment_content;
 	}
 
 	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 2.0
 	 */
-	function display_settings() {
-
+	public function display_settings() {
 		$this->display_field_excerpt_length();
 	}
 }

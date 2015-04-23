@@ -25,12 +25,12 @@ class CPAC_Column_Comment_Date extends CPAC_Column {
 	 */
 	public function get_value( $id ) {
 
-		$comment = get_comment( $id );
+		$date = $this->get_raw_value( $id );
 
 		$value = sprintf( __( 'Submitted on <a href="%1$s">%2$s at %3$s</a>' ),
 			esc_url( get_comment_link( $id ) ),
-			$this->get_date( $comment->comment_date ),
-			$this->get_time( $comment->comment_date )
+			$this->get_date( $date ),
+			$this->get_time( $date )
 		);
 
 		return "<div class='submitted-on'>{$value}</div>";

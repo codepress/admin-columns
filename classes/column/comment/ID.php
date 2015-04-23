@@ -23,8 +23,7 @@ class CPAC_Column_Comment_ID extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
-
+	public function get_value( $id ) {
 		return $id;
 	}
 }
