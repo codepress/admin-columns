@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-excerpt';
-		$this->properties['label']	 = __( 'Excerpt', 'cpac' );
+		$this->properties['label']	 = __( 'Content', 'cpac' );
 
 		// Options
 		$this->options['excerpt_length'] = 15;
