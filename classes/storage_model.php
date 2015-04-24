@@ -903,6 +903,13 @@ abstract class CPAC_Storage_Model {
     	return $options[ $option ];
     }
 
+    /**
+	 * @since NEWVERSION
+	 */
+	public function is_cache_enabled() {
+		return apply_filters( 'cac/is_cache_enabled', true );
+	}
+
 	/**
 	 * @since 3.1.2
 	 * @param $id Cache ID
