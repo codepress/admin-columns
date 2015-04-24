@@ -214,6 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 * [Added] Added new comment columns: type, author and user.
+* [Fixed] Remove ' symbol from column label, because it causing issues when sorting
 
 = 2.4.1 =
 * [Added] Added the development filter 'cac/menu_types' to add custom menu types

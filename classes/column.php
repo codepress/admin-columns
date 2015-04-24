@@ -429,11 +429,12 @@ class CPAC_Column {
 
 		if ( ! empty( $options['label'] ) ) {
 
-			// Label can not contains the character ':', because
+			// Label can not contains the character ":"" and "'", because
 			// CPAC_Column::get_sanitized_label() will return an empty string
 			// and make an exception for site_url()
 			if ( false === strpos( $options['label'], site_url() ) ) {
 				$options['label'] = str_replace( ':', '', $options['label'] );
+				$options['label'] = str_replace( "'", '', $options['label'] );
 			}
 		}
 
