@@ -13,7 +13,7 @@ class CPAC_Review_Notice {
 		register_activation_hook( __FILE__, array( $this, 'insert_install_timestamp' ) );
 
 		// show notice after x days of installing
-		$this->days_since_install = 20; // 20 days
+		$this->days_since_install = 30; // 30 days
 
 		add_action( 'admin_init', array( $this, 'maybe_display_review_notice' ) );
 		add_action( 'wp_ajax_cpac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
@@ -38,7 +38,6 @@ class CPAC_Review_Notice {
 				add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 			}
 		}
-		add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 	}
 
 	public function ajax_hide_review_notice() {
@@ -64,8 +63,9 @@ class CPAC_Review_Notice {
 			<div class="info">
 				<p>
 					<?php printf( __(
-						"We're sorry to bug you, but you've been using %s for some time now. Are you fully satisfied? If so, could you please leave a review at wordpress.org? If you're not fully satisfied, %s.", 'cpac' ),
+						"We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s.", 'cpac' ),
 						'<strong>' . $product . '</strong>',
+						$product,
 						'<a class="hide-review-notice hide-review-notice-soft" href="#">' . __( 'click here', 'cpac' ) . '</a>'
 					); ?>
 				</p>
