@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Comment bubble icon is fixed
+
 = 2.4.2 =
 * [Added] Added new comment columns: type, author and user.
 * [Added] Width indicator text is darker
