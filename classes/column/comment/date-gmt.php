@@ -37,7 +37,7 @@ class CPAC_Column_Comment_Date_Gmt extends CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.2
 	 */
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );

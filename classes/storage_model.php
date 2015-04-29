@@ -904,7 +904,7 @@ abstract class CPAC_Storage_Model {
     }
 
     /**
-	 * @since NEWVERSION
+	 * @since 2.4.2
 	 */
 	public function is_cache_enabled() {
 		return apply_filters( 'cac/is_cache_enabled', true );

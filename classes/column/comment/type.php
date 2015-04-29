@@ -1,6 +1,6 @@
 <?php
 /**
- * @since NEWVERSION
+ * @since 2.4.2
  */
 class CPAC_Column_Comment_Type extends CPAC_Column {
 
