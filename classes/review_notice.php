@@ -13,7 +13,7 @@ class CPAC_Review_Notice {
 		register_activation_hook( __FILE__, array( $this, 'insert_install_timestamp' ) );
 
 		// show notice after x days of installing
-		$this->days_since_install = 30; // 10 days
+		$this->days_since_install = 20; // 20 days
 
 		add_action( 'admin_init', array( $this, 'maybe_display_review_notice' ) );
 		add_action( 'wp_ajax_cpac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
@@ -48,6 +48,7 @@ class CPAC_Review_Notice {
 	public function display_admin_review_notice() {
 		$screen = get_current_screen();
 
+		// only display on settings and plugins page
 		if ( ! $screen || ! in_array( $screen->parent_base, array( 'options-general', 'plugins' ) ) ) {
 			return false;
 		}
@@ -59,7 +60,7 @@ class CPAC_Review_Notice {
 		}
 		?>
 		<div class="cpac_message updated">
-			<a href="#" class="hide-notice hide-review-notice"></a>
+			<?php /* <a href="#" class="hide-notice hide-review-notice"></a> */ ?>
 			<div class="info">
 				<p>
 					<?php printf( __(

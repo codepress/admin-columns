@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.2.1
 Stable tag: 2.4.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -212,9 +212,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.4.2 =
 * [Added] Added new comment columns: type, author and user.
 * [Fixed] Remove ' symbol from column label, because it causing issues when sorting
+* [Fixed] Review notice will only show on admin columns page with an improved hide button
 
 = 2.4.1 =
 * [Added] Added the development filter 'cac/menu_types' to add custom menu types
