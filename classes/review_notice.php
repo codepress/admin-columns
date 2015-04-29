@@ -37,7 +37,7 @@ class CPAC_Review_Notice {
 			if ( ( time() - ( 86400 * absint( $this->days_since_install ) ) ) >= $this->get_install_timestamp() ) {
 				add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 			}
-		}
+		}add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 	}
 
 	public function ajax_hide_review_notice() {
@@ -59,7 +59,6 @@ class CPAC_Review_Notice {
 		}
 		?>
 		<div class="cpac_message updated">
-			<?php /* <a href="#" class="hide-notice hide-review-notice"></a> */ ?>
 			<div class="info">
 				<p>
 					<?php printf( __(
@@ -75,6 +74,7 @@ class CPAC_Review_Notice {
 				</p>
 			</div>
 			<div class="help">
+				<a href="#" class="hide-notice hide-review-notice"></a>
 				<p>
 					<?php printf(
 						__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'cpac' ),
