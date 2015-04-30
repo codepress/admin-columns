@@ -23,10 +23,9 @@ class CPAC_Column_Comment_Author_Avatar extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
 
 		$comment = get_comment( $id );
-
 		return get_avatar( $comment, 80 );
 	}
 }

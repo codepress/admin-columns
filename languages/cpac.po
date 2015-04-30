@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 10:33+0100\n"
-"PO-Revision-Date: 2015-04-16 10:34+0100\n"
+"POT-Creation-Date: 2015-04-29 13:58+0100\n"
+"PO-Revision-Date: 2015-04-29 13:58+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Language: en_GB\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_html_x:1,2c\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -50,166 +50,167 @@ msgid ""
 "inline editing."
 msgstr ""
 
-#: ../classes/column.php:582
+#: ../classes/column.php:597
 msgid "Thumbnail"
 msgstr ""
 
-#: ../classes/column.php:583
+#: ../classes/column.php:598
 msgid "Medium"
 msgstr ""
 
-#: ../classes/column.php:584
+#: ../classes/column.php:599
 msgid "Large"
 msgstr ""
 
-#: ../classes/column.php:585
+#: ../classes/column.php:600
 msgid "Full"
 msgstr ""
 
-#: ../classes/column.php:1026
+#: ../classes/column.php:1041
 msgid "Date Format"
 msgstr ""
 
-#: ../classes/column.php:1027
+#: ../classes/column.php:1042
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: ../classes/column.php:1033
+#: ../classes/column.php:1048
 msgid "Example:"
 msgstr ""
 
-#: ../classes/column.php:1035
+#: ../classes/column.php:1050
 #, php-format
 msgid ""
 "Leave empty for WordPress date format, change your <a href=\"%s\">default "
 "date format here</a>."
 msgstr ""
 
-#: ../classes/column.php:1036
+#: ../classes/column.php:1051
 msgid "Documentation on date and time formatting."
 msgstr ""
 
-#: ../classes/column.php:1050
+#: ../classes/column.php:1065
 msgid "Excerpt length"
 msgstr ""
 
-#: ../classes/column.php:1051
+#: ../classes/column.php:1066
 msgid "Number of words"
 msgstr ""
 
-#: ../classes/column.php:1069
+#: ../classes/column.php:1084
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:1086 ../classes/storage_model.php:595
+#: ../classes/column.php:1101 ../classes/storage_model.php:595
 msgid "Custom"
 msgstr ""
 
-#: ../classes/column.php:1089 ../classes/column.php:1236
+#: ../classes/column.php:1104 ../classes/column.php:1251
 msgid "width"
 msgstr ""
 
-#: ../classes/column.php:1092
+#: ../classes/column.php:1107
 msgid "height"
 msgstr ""
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "Before"
 msgstr ""
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "This text will appear before the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "After"
 msgstr ""
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "This text will appear after the custom field value."
 msgstr ""
 
-#: ../classes/column.php:1114
+#: ../classes/column.php:1129
 msgid "Display Name"
 msgstr ""
 
-#: ../classes/column.php:1115
+#: ../classes/column.php:1130
 msgid "First Name"
 msgstr ""
 
-#: ../classes/column.php:1116
+#: ../classes/column.php:1131
 msgid "Last Name"
 msgstr ""
 
-#: ../classes/column.php:1117 ../classes/column/user/nickname.php:19
+#: ../classes/column.php:1132 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr ""
 
-#: ../classes/column.php:1118
+#: ../classes/column.php:1133
 msgid "User Login"
 msgstr ""
 
-#: ../classes/column.php:1119
+#: ../classes/column.php:1134
 msgid "User Email"
 msgstr ""
 
-#: ../classes/column.php:1120 ../classes/column/user/ID.php:19
+#: ../classes/column.php:1135 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr ""
 
-#: ../classes/column.php:1121
+#: ../classes/column.php:1136
 msgid "First and Last Name"
 msgstr ""
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "Display format"
 msgstr ""
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "This is the format of the author name."
 msgstr ""
 
-#: ../classes/column.php:1258
+#: ../classes/column.php:1273
 msgid "Edit"
 msgstr ""
 
-#: ../classes/column.php:1260 ../classes/column.php:1352
+#: ../classes/column.php:1275 ../classes/column.php:1367
 msgid "Clone"
 msgstr ""
 
-#: ../classes/column.php:1262 ../classes/column.php:1354
+#: ../classes/column.php:1277 ../classes/column.php:1369
 msgid "Remove"
 msgstr ""
 
-#: ../classes/column.php:1280 ../classes/column/custom-field.php:407
+#: ../classes/column.php:1295 ../classes/column/comment/type.php:13
+#: ../classes/column/custom-field.php:407
 msgid "Type"
 msgstr ""
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Choose a column type."
 msgstr ""
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Name"
 msgstr ""
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "Label"
 msgstr ""
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:1297 ../classes/column/media/width.php:19
+#: ../classes/column.php:1312 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr ""
 
-#: ../classes/column.php:1299
+#: ../classes/column.php:1314
 msgid "default"
 msgstr ""
 
-#: ../classes/column.php:1300
+#: ../classes/column.php:1315
 msgid "auto"
 msgstr ""
 
@@ -288,6 +289,10 @@ msgstr ""
 msgid "Author IP"
 msgstr ""
 
+#: ../classes/column/comment/author-name.php:12
+msgid "Author name"
+msgstr ""
+
 #: ../classes/column/comment/author-url.php:19
 msgid "Author url"
 msgstr ""
@@ -312,13 +317,16 @@ msgid "Date"
 msgstr ""
 
 #: ../classes/column/comment/excerpt.php:19
-#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
-#: ../classes/settings.php:315
-msgid "Excerpt"
+#: ../classes/column/post/content.php:19
+msgid "Content"
 msgstr ""
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
+msgstr ""
+
+#: ../classes/column/comment/user.php:11 ../classes/storage_model/user.php:14
+msgid "User"
 msgstr ""
 
 #: ../classes/column/comment/word-count.php:19
@@ -346,6 +354,11 @@ msgstr ""
 
 #: ../classes/column/custom-field.php:97 ../classes/settings.php:323
 msgid "Counter"
+msgstr ""
+
+#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
+#: ../classes/settings.php:315
+msgid "Excerpt"
 msgstr ""
 
 #: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19
@@ -573,10 +586,6 @@ msgstr ""
 msgid "Select which comment status you like to display."
 msgstr ""
 
-#: ../classes/column/post/content.php:19
-msgid "Content"
-msgstr ""
-
 #: ../classes/column/post/date-published.php:17
 msgid "Date Published"
 msgstr ""
@@ -741,7 +750,7 @@ msgstr ""
 msgid "Post Count"
 msgstr ""
 
-#: ../classes/column/user/post-count.php:102
+#: ../classes/column/user/post-count.php:89
 msgid "Post Type"
 msgstr ""
 
@@ -757,18 +766,69 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
-#: ../classes/review_notice.php:51
+#: ../classes/review_notice.php:55 ../classes/settings.php:170
+#: ../classes/settings.php:589 ../classes/upgrade.php:135
+msgid "Admin Columns"
+msgstr ""
+
+#: ../classes/review_notice.php:58
+msgid "Admin Columns Pro"
+msgstr ""
+
+#: ../classes/review_notice.php:65
+#, php-format
 msgid ""
-"You've been using <b>Admin Columns Pro</b> for some time now, could you "
-"please give it a review at wordpress.org?"
+"We don't mean to bug you, but you've been using %s for some time now, and we "
+"were wondering if you're happy with the plugin. If so, could you please "
+"leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: ../classes/review_notice.php:52
-msgid "Yes, take me there!"
+#: ../classes/review_notice.php:68
+msgid "click here"
 msgstr ""
 
-#: ../classes/review_notice.php:52
-msgid "I've already done this!"
+#: ../classes/review_notice.php:72
+msgid "Leave a review!"
+msgstr ""
+
+#: ../classes/review_notice.php:73
+msgid "Permanently hide notice"
+msgstr ""
+
+#: ../classes/review_notice.php:80
+#, php-format
+msgid ""
+"We're sorry to hear that; maybe we can help! If you're having problems "
+"properly setting up %s or if you would like help with some more advanced "
+"features, please visit our %s."
+msgstr ""
+
+#: ../classes/review_notice.php:82
+msgid "documentation page"
+msgstr ""
+
+#: ../classes/review_notice.php:86
+#, php-format
+msgid ""
+"As an Admin Columns Pro user, you can also use your AdminColumns.com account "
+"to access product support through %s!"
+msgstr ""
+
+#: ../classes/review_notice.php:87
+msgid "our forums"
+msgstr ""
+
+#: ../classes/review_notice.php:91
+#, php-format
+msgid "You can also find help on the %s, and %s."
+msgstr ""
+
+#: ../classes/review_notice.php:92
+msgid "Admin Columns forums on WordPress.org"
+msgstr ""
+
+#: ../classes/review_notice.php:93
+msgid "find answers to some frequently asked questions"
 msgstr ""
 
 #: ../classes/settings.php:112
@@ -781,11 +841,6 @@ msgstr ""
 
 #: ../classes/settings.php:170
 msgid "Admin Columns Settings"
-msgstr ""
-
-#: ../classes/settings.php:170 ../classes/settings.php:589
-#: ../classes/upgrade.php:135
-msgid "Admin Columns"
 msgstr ""
 
 #: ../classes/settings.php:220
@@ -1265,10 +1320,6 @@ msgstr ""
 
 #: ../classes/storage_model/user.php:13
 msgid "Users"
-msgstr ""
-
-#: ../classes/storage_model/user.php:14
-msgid "User"
 msgstr ""
 
 #: ../classes/upgrade.php:62

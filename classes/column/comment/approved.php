@@ -23,16 +23,15 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
+		return $this->get_raw_value( $id ) ? $this->get_asset_image( 'checkmark.png' ) : $this->get_asset_image( 'no.png' );
+	}
 
-	$comment = get_comment( $id );
-
-		$value = $this->get_asset_image( 'no.png' );
-		if ( $comment->comment_approved ) {
-
-			$value = $this->get_asset_image( 'checkmark.png' );
-		}
-
-		return $value;
+	/**
+	 * @since 2.4.2
+	 */
+	public function get_raw_value( $id ) {
+		$comment = get_comment( $id );
+		return $comment->comment_approved;
 	}
 }

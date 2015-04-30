@@ -270,7 +270,7 @@ abstract class CPAC_Storage_Model {
 		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
 
 		// error
-		if( ! $result && ! $result_default ) {
+		if ( ! $result && ! $result_default ) {
 			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
 			return false;
 		}
@@ -902,6 +902,13 @@ abstract class CPAC_Storage_Model {
 
     	return $options[ $option ];
     }
+
+    /**
+	 * @since 2.4.2
+	 */
+	public function is_cache_enabled() {
+		return apply_filters( 'cac/is_cache_enabled', true );
+	}
 
 	/**
 	 * @since 3.1.2

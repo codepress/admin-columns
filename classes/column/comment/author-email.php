@@ -23,10 +23,16 @@ class CPAC_Column_Comment_Author_Email extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
+		$email = $this->get_raw_value( $id );
+		return '<a href="' . $email . '">' . $email . '</a>';
+	}
 
+	/**
+	 * @since 2.4.2
+	 */
+	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
-
 		return $comment->comment_author_email;
 	}
 }

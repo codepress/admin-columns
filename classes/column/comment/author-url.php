@@ -23,10 +23,15 @@ class CPAC_Column_Comment_Author_Url extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $id ) {
+	public function get_value( $id ) {
+		return $this->get_shorten_url( $this->get_raw_value( $id ) );
+	}
 
+	/**
+	 * @since 2.4.2
+	 */
+	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
-
-		return $this->get_shorten_url( $comment->comment_author_url );
+		return $comment->comment_author_url;
 	}
 }

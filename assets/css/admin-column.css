@@ -82,6 +82,32 @@ a.help {
   top: 2px;
 }
 /**
+ * Dashicons used on list screens
+ * ----------------------------------------------------------------------------
+ */
+.cpac-column .comment-grey-bubble {
+  height: 16px;
+  width: 16px;
+}
+.cpac-column .comment-grey-bubble:before {
+  content: '\f101';
+  font: normal 20px/0.5 'dashicons';
+  speak: none;
+  display: inline-block;
+  padding: 0;
+  top: 4px;
+  left: 0;
+  position: relative;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none !important;
+}
+.rtl .cpac-column .comment-grey-bubble:before {
+  right: 0;
+  left: auto;
+}
+/**
  * Header
  * ----------------------------------------------------------------------------
  */
@@ -251,6 +277,7 @@ h2.cpac-nav-tab-wrapper {
 .cpac-column .column-meta table tr td.column_label .inner .meta span.width {
   margin-right: 5px;
   cursor: auto;
+  color: #737373;
 }
 .cpac-column .column-meta table tr td.column_label span.vers {
   float: left;
@@ -285,9 +312,6 @@ h2.cpac-nav-tab-wrapper {
   padding-top: 2px;
 }
 .cpac-column .column-meta span.vers .comment-grey-bubble {
-  background: transparent url("../images/comment-grey-bubble.png") no-repeat 0 0;
-  height: 12px;
-  width: 12px;
   float: right;
 }
 .cpac-column .column-form {
