@@ -313,7 +313,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	public function get_meta_by_id( $id ) {
 
-		// get metadata
 		$meta = $this->get_raw_value( $id );
 
 		// try to turn any array into a comma seperated string for further use
@@ -321,7 +320,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			$meta = $this->recursive_implode( ', ', $meta );
 		}
 
-		if ( ! is_string( $meta ) ) {
+		if ( ! is_string( $meta ) && ! is_numeric( $meta ) ) {
 			return false;
 		}
 
@@ -352,8 +351,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$value = '';
 
 		if ( $meta = $this->get_meta_by_id( $id ) ) {
-
-			// get value by meta
 			$value = $this->get_value_by_meta( $meta, $id );
 		}
 

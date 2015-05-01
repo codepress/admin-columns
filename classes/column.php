@@ -949,7 +949,7 @@ class CPAC_Column {
 	 * @param string $date
 	 * @return string Formatted date
 	 */
-	protected function get_date( $date, $format = '' ) {
+	public function get_date( $date, $format = '' ) {
 
 		if ( ! $date = $this->get_timestamp( $date ) ) {
 			return false;
