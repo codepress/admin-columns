@@ -130,7 +130,7 @@ abstract class CPAC_Storage_Model {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function is_menu_type_current( $first_posttpe ) {
+	public function is_menu_type_current( $first_posttype ) {
 
 		// display the page that was being viewed before saving
 		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
@@ -139,7 +139,7 @@ abstract class CPAC_Storage_Model {
 			}
 
 		// settings page has not yet been saved
-		} elseif ( $first_posttpe == $this->key ) {
+		} elseif ( $first_posttype == $this->key ) {
 			return true;
 		}
 
