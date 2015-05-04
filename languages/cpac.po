@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 13:58+0100\n"
-"PO-Revision-Date: 2015-04-29 13:58+0100\n"
+"POT-Creation-Date: 2015-05-04 14:28+0100\n"
+"PO-Revision-Date: 2015-05-04 14:28+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Language: en_GB\n"
@@ -182,7 +182,7 @@ msgid "Remove"
 msgstr ""
 
 #: ../classes/column.php:1295 ../classes/column/comment/type.php:13
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:404
 msgid "Type"
 msgstr ""
 
@@ -335,7 +335,7 @@ msgid "Word count"
 msgstr ""
 
 #: ../classes/column/custom-field.php:23
-#: ../classes/column/custom-field.php:390 ../classes/settings.php:308
+#: ../classes/column/custom-field.php:387 ../classes/settings.php:308
 msgid "Custom Field"
 msgstr ""
 
@@ -391,24 +391,24 @@ msgstr ""
 msgid "Term Name (Term ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:390
+#: ../classes/column/custom-field.php:387
 msgid "Select your custom field."
 msgstr ""
 
-#: ../classes/column/custom-field.php:400
+#: ../classes/column/custom-field.php:397
 msgid "No custom fields available."
 msgstr ""
 
-#: ../classes/column/custom-field.php:400
+#: ../classes/column/custom-field.php:397
 #, php-format
 msgid "Please create a %s item first."
 msgstr ""
 
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:404
 msgid "Field Type"
 msgstr ""
 
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:404
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
