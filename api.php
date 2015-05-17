@@ -18,16 +18,16 @@
  * @param array $columns List of columns ([column_name] => [column_options])
  */
 function ac_register_columns( $storage_model, $columns ) {
-	global $_cac_exported_columns;
+	global $cpac;
 
 	$storage_models = (array) $storage_model;
 
 	foreach ( $storage_models as $storage_model ) {
-		if ( isset( $_cac_exported_columns[ $storage_model ] ) ) {
-			$_cac_exported_columns[ $storage_model ] = array_merge( $_cac_exported_columns[ $storage_model ], $columns );
+		if ( isset( $cpac->exported_columns[ $storage_model ] ) ) {
+			$cpac->exported_columns[ $storage_model ] = array_merge( $cpac->exported_columns[ $storage_model ], $columns );
 		}
 		else {
-			$_cac_exported_columns[ $storage_model ] = $columns;
+			$cpac->exported_columns[ $storage_model ] = $columns;
 		}
 	}
 }
