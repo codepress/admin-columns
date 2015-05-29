@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Support for custom post statuses
+
 = 2.4.3 =
 * [Fixed] Comment bubble icon is fixed
 
