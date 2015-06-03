@@ -55,6 +55,15 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get original columns
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_default_column_names() {
+		return array( 'cb', 'username', 'name', 'email', 'role', 'posts' );
+	}
+
+	/**
 	 * Manage value
 	 *
 	 * @since 2.0.2

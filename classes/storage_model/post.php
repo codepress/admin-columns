@@ -107,6 +107,15 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get original columns
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_default_column_names() {
+		return array( 'author', 'cb', 'categories', 'comments', 'date', 'parent', 'tags', 'title' );
+	}
+
+	/**
 	 * Get screen link
 	 *
 	 * @since 2.0

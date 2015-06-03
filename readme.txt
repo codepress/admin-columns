@@ -214,6 +214,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 * [Fixed] Support for custom post statuses
+* [Added] WordPress Default columns has it's own menu group
+* [Added] Columns set by plugins are in it's own menu group
 
 = 2.4.3 =
 * [Fixed] Comment bubble icon is fixed

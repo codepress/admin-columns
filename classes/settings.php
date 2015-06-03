@@ -340,7 +340,7 @@ class CPAC_Settings {
 	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
-	function get_url( $type ) {
+	public function get_url( $type ) {
 
 		$site_url = 'http://www.admincolumns.com';
 

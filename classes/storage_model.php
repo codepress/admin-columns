@@ -96,6 +96,11 @@ abstract class CPAC_Storage_Model {
 	public $column_types = array();
 
 	/**
+	 * @since NEWVERSION
+	 */
+	abstract function get_default_column_names();
+
+	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
@@ -382,7 +387,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'label', $label )
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
-			->set_properties( 'group', 'default' )
+			->set_properties( 'group', 'plugin' )
 			->set_options( 'label', $label )
 			->set_options( 'state', 'on' );
 
@@ -394,6 +399,11 @@ abstract class CPAC_Storage_Model {
 		// Label empty? Use it's column_name
 		if ( ! $label ) {
 			$column->set_properties( 'label', ucfirst( $column_name ) );
+		}
+
+		// set group for WP Default
+		if ( in_array( $column_name, $this->get_default_column_names() ) ) {
+			$column->set_properties( 'group', 'default' );
 		}
 
 		return $column;
@@ -592,8 +602,10 @@ abstract class CPAC_Storage_Model {
 	public function get_column_type_groups() {
 
 		$groups = array(
+			'default' => __( 'Default', 'cpac' ),
+			'custom-field' => __( 'Custom Field', 'cpac' ),
 			'custom' => __( 'Custom', 'cpac' ),
-			'default' => __( 'Default', 'cpac' )
+			'plugin' => __( 'Plugin', 'cpac' ),
 		);
 
 		/**
@@ -608,7 +620,7 @@ abstract class CPAC_Storage_Model {
 		$groups = apply_filters( "cac/storage_model/column_type_groups/storage_key={$this->key}", $groups, $this );
 
 		// Integrations first
-		krsort( $groups );
+		//krsort( $groups );
 
 		return $groups;
 	}
