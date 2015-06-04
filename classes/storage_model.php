@@ -605,7 +605,7 @@ abstract class CPAC_Storage_Model {
 			'default' => __( 'Default', 'cpac' ),
 			'custom-field' => __( 'Custom Field', 'cpac' ),
 			'custom' => __( 'Custom', 'cpac' ),
-			'plugin' => __( 'Plugin', 'cpac' ),
+			'plugin' => __( 'Columns by Plugins', 'cpac' ),
 		);
 
 		/**
@@ -618,9 +618,6 @@ abstract class CPAC_Storage_Model {
 		 */
 		$groups = apply_filters( "cac/storage_model/column_type_groups", $groups, $this );
 		$groups = apply_filters( "cac/storage_model/column_type_groups/storage_key={$this->key}", $groups, $this );
-
-		// Integrations first
-		//krsort( $groups );
 
 		return $groups;
 	}
