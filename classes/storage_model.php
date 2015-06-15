@@ -401,8 +401,10 @@ abstract class CPAC_Storage_Model {
 			$column->set_properties( 'label', ucfirst( $column_name ) );
 		}
 
+		$default_column_names = apply_filters( 'cac/columns/defaults', $this->get_default_column_names(), $column, $this );
+
 		// set group for WP Default
-		if ( in_array( $column_name, $this->get_default_column_names() ) ) {
+		if ( in_array( $column_name, $default_column_names ) ) {
 			$column->set_properties( 'group', 'default' );
 		}
 
