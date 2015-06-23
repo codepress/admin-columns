@@ -401,10 +401,21 @@ abstract class CPAC_Storage_Model {
 			$column->set_properties( 'label', ucfirst( $column_name ) );
 		}
 
+		/**
+		 * Filter the default column names
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param array $default_column_names Default column names
+		 * @param object $column Column object
+		 * @param object $this Storage_Model object
+		 */
 		$default_column_names = apply_filters( 'cac/columns/defaults', $this->get_default_column_names(), $column, $this );
+		$default_column_names = apply_filters( 'cac/columns/defaults/type=' . $this->get_type(), $default_column_names, $column, $this );
+		$default_column_names = apply_filters( 'cac/columns/defaults/post_type=' . $this->get_post_type(), $default_column_names, $column, $this );
 
 		// set group for WP Default
-		if ( in_array( $column_name, $default_column_names ) ) {
+		if ( $default_column_names && in_array( $column_name, $default_column_names ) ) {
 			$column->set_properties( 'group', 'default' );
 		}
 
@@ -936,12 +947,13 @@ abstract class CPAC_Storage_Model {
 	 * @param $id Cache ID
 	 * @param $column_name Column property name
 	 * @param $cache_object Cache Object
+	 * @param $duration int Cache duration in seconds. default is 1 day.
 	 */
-	public function set_cache( $id, $column_name, $cache_object ) {
+	public function set_cache( $id, $column_name, $cache_object, $duration = 86400 ) {
 		if ( empty( $cache_object ) ) {
 			return false;
 		}
-		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, 3600 * 24 * 7 ); // 7 days
+		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, $duration );
 	}
 
 	/**
