@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-04 14:28+0100\n"
-"PO-Revision-Date: 2015-05-04 14:28+0100\n"
+"POT-Creation-Date: 2015-06-26 13:22+0100\n"
+"PO-Revision-Date: 2015-06-26 13:26+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Language: en_GB\n"
@@ -15,7 +15,7 @@ msgstr ""
 "esc_html_x:1,2c\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:1101 ../classes/storage_model.php:595
+#: ../classes/column.php:1101 ../classes/storage_model.php:620
 msgid "Custom"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgid "Remove"
 msgstr ""
 
 #: ../classes/column.php:1295 ../classes/column/comment/type.php:13
-#: ../classes/column/custom-field.php:404
+#: ../classes/column/custom-field.php:405
 msgid "Type"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr ""
 
-#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:99
 #: ../classes/settings.php:318
 msgid "Date"
 msgstr ""
@@ -335,80 +335,81 @@ msgid "Word count"
 msgstr ""
 
 #: ../classes/column/custom-field.php:23
-#: ../classes/column/custom-field.php:387 ../classes/settings.php:308
+#: ../classes/column/custom-field.php:388 ../classes/settings.php:308
+#: ../classes/storage_model.php:619
 msgid "Custom Field"
 msgstr ""
 
-#: ../classes/column/custom-field.php:94 ../classes/settings.php:313
-#: ../classes/storage_model.php:596
+#: ../classes/column/custom-field.php:95 ../classes/settings.php:313
+#: ../classes/storage_model.php:618
 msgid "Default"
 msgstr ""
 
-#: ../classes/column/custom-field.php:95
+#: ../classes/column/custom-field.php:96
 msgid "Checkmark (true/false)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:96 ../classes/settings.php:322
+#: ../classes/column/custom-field.php:97 ../classes/settings.php:322
 msgid "Color"
 msgstr ""
 
-#: ../classes/column/custom-field.php:97 ../classes/settings.php:323
+#: ../classes/column/custom-field.php:98 ../classes/settings.php:323
 msgid "Counter"
 msgstr ""
 
-#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
-#: ../classes/settings.php:315
+#: ../classes/column/custom-field.php:100
+#: ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
 msgid "Excerpt"
 msgstr ""
 
-#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19
+#: ../classes/column/custom-field.php:101 ../classes/column/link/image.php:19
 #: ../classes/settings.php:314
 msgid "Image"
 msgstr ""
 
-#: ../classes/column/custom-field.php:101
+#: ../classes/column/custom-field.php:102
 #: ../classes/storage_model/media.php:13
 msgid "Media Library"
 msgstr ""
 
-#: ../classes/column/custom-field.php:102 ../classes/settings.php:316
+#: ../classes/column/custom-field.php:103 ../classes/settings.php:316
 msgid "Multiple Values"
 msgstr ""
 
-#: ../classes/column/custom-field.php:103 ../classes/settings.php:317
+#: ../classes/column/custom-field.php:104 ../classes/settings.php:317
 msgid "Numeric"
 msgstr ""
 
-#: ../classes/column/custom-field.php:104
+#: ../classes/column/custom-field.php:105
 msgid "Post Title (Post ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:105
+#: ../classes/column/custom-field.php:106
 msgid "Username (User ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:106
+#: ../classes/column/custom-field.php:107
 msgid "Term Name (Term ID's)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:387
+#: ../classes/column/custom-field.php:388
 msgid "Select your custom field."
 msgstr ""
 
-#: ../classes/column/custom-field.php:397
+#: ../classes/column/custom-field.php:398
 msgid "No custom fields available."
 msgstr ""
 
-#: ../classes/column/custom-field.php:397
+#: ../classes/column/custom-field.php:398
 #, php-format
 msgid "Please create a %s item first."
 msgstr ""
 
-#: ../classes/column/custom-field.php:404
+#: ../classes/column/custom-field.php:405
 msgid "Field Type"
 msgstr ""
 
-#: ../classes/column/custom-field.php:404
+#: ../classes/column/custom-field.php:405
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
@@ -573,7 +574,6 @@ msgid "Spam"
 msgstr ""
 
 #: ../classes/column/post/comment-count.php:38
-#: ../classes/column/post/status.php:35
 msgid "Trash"
 msgstr ""
 
@@ -635,7 +635,7 @@ msgid "Last modified"
 msgstr ""
 
 #: ../classes/column/post/order.php:19
-msgid "Page Order"
+msgid "Order"
 msgstr ""
 
 #: ../classes/column/post/page-template.php:19
@@ -678,32 +678,8 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: ../classes/column/post/status.php:19
+#: ../classes/column/post/status.php:21
 msgid "Status"
-msgstr ""
-
-#: ../classes/column/post/status.php:29
-msgid "Published"
-msgstr ""
-
-#: ../classes/column/post/status.php:30
-msgid "Draft"
-msgstr ""
-
-#: ../classes/column/post/status.php:31
-msgid "Scheduled"
-msgstr ""
-
-#: ../classes/column/post/status.php:32
-msgid "Private"
-msgstr ""
-
-#: ../classes/column/post/status.php:33
-msgid "Pending Review"
-msgstr ""
-
-#: ../classes/column/post/status.php:34
-msgid "Auto Draft"
 msgstr ""
 
 #: ../classes/column/post/sticky.php:19
@@ -714,7 +690,7 @@ msgstr ""
 msgid "Title without actions"
 msgstr ""
 
-#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:87
+#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:83
 msgid "Taxonomy"
 msgstr ""
 
@@ -1276,25 +1252,29 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/storage_model.php:237
+#: ../classes/storage_model.php:242
 msgid "settings succesfully restored."
 msgstr ""
 
-#: ../classes/storage_model.php:253
+#: ../classes/storage_model.php:258
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/storage_model.php:274
+#: ../classes/storage_model.php:279
 #, php-format
 msgid "You are trying to store the same settings for %s."
 msgstr ""
 
-#: ../classes/storage_model.php:278
+#: ../classes/storage_model.php:283
 #, php-format
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: ../classes/storage_model.php:809
+#: ../classes/storage_model.php:621
+msgid "Columns by Plugins"
+msgstr ""
+
+#: ../classes/storage_model.php:831
 msgid "View"
 msgstr ""
 

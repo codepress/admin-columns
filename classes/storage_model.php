@@ -96,7 +96,7 @@ abstract class CPAC_Storage_Model {
 	public $column_types = array();
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.4
 	 */
 	abstract function get_default_column_names();
 
@@ -404,7 +404,7 @@ abstract class CPAC_Storage_Model {
 		/**
 		 * Filter the default column names
 		 *
-		 * @since NEWVERSION
+		 * @since 2.4.4
 		 *
 		 * @param array $default_column_names Default column names
 		 * @param object $column Column object

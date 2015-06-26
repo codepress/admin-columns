@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 18:01+0100\n"
-"PO-Revision-Date: 2015-04-09 18:12+0100\n"
+"POT-Creation-Date: 2015-04-29 13:58+0100\n"
+"PO-Revision-Date: 2015-06-26 13:26+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/admin-columns/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: ../classes/addons.php:110
 msgid "Plugins"
-msgstr ""
+msgstr "Tillägg"
 
 #: ../classes/addons.php:135
 msgid "Advanced Custom Fields"
@@ -48,166 +48,166 @@ msgstr "WooCommerce"
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
 msgstr "Förbättra de produkter, ordrar och kupongers översikter med nya kolumner och snabbredigering."
 
-#: ../classes/column.php:582
+#: ../classes/column.php:597
 msgid "Thumbnail"
 msgstr "Miniatyrer"
 
-#: ../classes/column.php:583
+#: ../classes/column.php:598
 msgid "Medium"
 msgstr "Mellan"
 
-#: ../classes/column.php:584
+#: ../classes/column.php:599
 msgid "Large"
 msgstr "Stor"
 
-#: ../classes/column.php:585
+#: ../classes/column.php:600
 msgid "Full"
 msgstr "Hel"
 
-#: ../classes/column.php:1026
+#: ../classes/column.php:1041
 msgid "Date Format"
 msgstr "Datumformat"
 
-#: ../classes/column.php:1027
+#: ../classes/column.php:1042
 msgid "This will determine how the date will be displayed."
 msgstr "Detta kommer att avgöra hur datumet ska visas."
 
-#: ../classes/column.php:1033
+#: ../classes/column.php:1048
 msgid "Example:"
 msgstr "Exempel:"
 
-#: ../classes/column.php:1035
+#: ../classes/column.php:1050
 #, php-format
 msgid "Leave empty for WordPress date format, change your <a href=\"%s\">default date format here</a>."
 msgstr "Lämna tomt för WordPress datumformat, ändra din <a href=\"%s\">standard datumformat här</a>."
 
-#: ../classes/column.php:1036
+#: ../classes/column.php:1051
 msgid "Documentation on date and time formatting."
 msgstr "Dokumentation om datum och tid formatering."
 
-#: ../classes/column.php:1050
+#: ../classes/column.php:1065
 msgid "Excerpt length"
 msgstr "Utdragens längd"
 
-#: ../classes/column.php:1051
+#: ../classes/column.php:1066
 msgid "Number of words"
 msgstr "Antal ord"
 
-#: ../classes/column.php:1069
+#: ../classes/column.php:1084
 msgid "Preview size"
 msgstr "Förhandsgranska storlek"
 
-#: ../classes/column.php:1086 ../classes/storage_model.php:595
+#: ../classes/column.php:1101 ../classes/storage_model.php:595
 msgid "Custom"
 msgstr "Anpassad"
 
-#: ../classes/column.php:1089 ../classes/column.php:1236
+#: ../classes/column.php:1104 ../classes/column.php:1251
 msgid "width"
 msgstr "bredd"
 
-#: ../classes/column.php:1092
+#: ../classes/column.php:1107
 msgid "height"
 msgstr "höjd"
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "Before"
 msgstr "Innan"
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "This text will appear before the custom field value."
 msgstr "Denna text kommer att visas innan det anpassade fältet värde."
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "After"
 msgstr "Efter"
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "This text will appear after the custom field value."
 msgstr "Denna text kommer att visas efter det anpassade fältet värde."
 
-#: ../classes/column.php:1114
+#: ../classes/column.php:1129
 msgid "Display Name"
 msgstr "Visa namn"
 
-#: ../classes/column.php:1115
+#: ../classes/column.php:1130
 msgid "First Name"
 msgstr "Förnamn"
 
-#: ../classes/column.php:1116
+#: ../classes/column.php:1131
 msgid "Last Name"
 msgstr "Efternamn"
 
-#: ../classes/column.php:1117 ../classes/column/user/nickname.php:19
+#: ../classes/column.php:1132 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr "Smeknamn"
 
-#: ../classes/column.php:1118
+#: ../classes/column.php:1133
 msgid "User Login"
 msgstr "Användare Loggin"
 
-#: ../classes/column.php:1119
+#: ../classes/column.php:1134
 msgid "User Email"
 msgstr "Användare Email"
 
-#: ../classes/column.php:1120 ../classes/column/user/ID.php:19
+#: ../classes/column.php:1135 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr "Användar-ID"
 
-#: ../classes/column.php:1121
+#: ../classes/column.php:1136
 msgid "First and Last Name"
 msgstr "Förnamn och efternamn"
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "Display format"
-msgstr ""
+msgstr "Visa format"
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "This is the format of the author name."
 msgstr "Detta är formatet på författarens namn."
 
-#: ../classes/column.php:1258
+#: ../classes/column.php:1273
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../classes/column.php:1260 ../classes/column.php:1352
+#: ../classes/column.php:1275 ../classes/column.php:1367
 msgid "Clone"
-msgstr ""
+msgstr "Klona"
 
-#: ../classes/column.php:1262 ../classes/column.php:1354
+#: ../classes/column.php:1277 ../classes/column.php:1369
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../classes/column.php:1280 ../classes/column/custom-field.php:407
+#: ../classes/column.php:1295 ../classes/column/comment/type.php:13 ../classes/column/custom-field.php:407
 msgid "Type"
 msgstr "Typ"
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Choose a column type."
 msgstr "Välj en kolumntyp."
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "Label"
 msgstr "Etikett"
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "This is the name which will appear as the column header."
 msgstr "Detta är det namn som kommer att visas som kolumnrubriken."
 
-#: ../classes/column.php:1297 ../classes/column/media/width.php:19
+#: ../classes/column.php:1312 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr "Bredd"
 
-#: ../classes/column.php:1299
+#: ../classes/column.php:1314
 msgid "default"
 msgstr "standard"
 
-#: ../classes/column.php:1300
+#: ../classes/column.php:1315
 msgid "auto"
-msgstr ""
+msgstr "auto"
 
 #: ../classes/column/acf-placeholder.php:19
 msgid "ACF Field"
@@ -274,6 +274,10 @@ msgstr "Författare mail"
 msgid "Author IP"
 msgstr "Författare IP"
 
+#: ../classes/column/comment/author-name.php:12
+msgid "Author name"
+msgstr "Författarnamn"
+
 #: ../classes/column/comment/author-url.php:19
 msgid "Author url"
 msgstr "Författare url"
@@ -295,13 +299,17 @@ msgstr "Skickad den <a href=\"%1$s\">%2$s vid %3$s</a>"
 msgid "Date"
 msgstr "Datum"
 
-#: ../classes/column/comment/excerpt.php:19 ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
-msgid "Excerpt"
-msgstr "Utdrag"
+#: ../classes/column/comment/excerpt.php:19 ../classes/column/post/content.php:19
+msgid "Content"
+msgstr "Innehåll"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
 msgstr "Som svar på"
+
+#: ../classes/column/comment/user.php:11 ../classes/storage_model/user.php:14
+msgid "User"
+msgstr "Användare"
 
 #: ../classes/column/comment/word-count.php:19 ../classes/column/post/word-count.php:19
 msgid "Word count"
@@ -326,6 +334,10 @@ msgstr "Färg"
 #: ../classes/column/custom-field.php:97 ../classes/settings.php:323
 msgid "Counter"
 msgstr "Räknare"
+
+#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
+msgid "Excerpt"
+msgstr "Utdrag"
 
 #: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19 ../classes/settings.php:314
 msgid "Image"
@@ -353,7 +365,7 @@ msgstr "Användarnamn (Användar-ID)"
 
 #: ../classes/column/custom-field.php:106
 msgid "Term Name (Term ID's)"
-msgstr ""
+msgstr "Tern Namn (Term ID's)"
 
 #: ../classes/column/custom-field.php:390
 msgid "Select your custom field."
@@ -366,7 +378,7 @@ msgstr "Inget anpassat fält är tillgängligt."
 #: ../classes/column/custom-field.php:400
 #, php-format
 msgid "Please create a %s item first."
-msgstr ""
+msgstr "Vänligen skapa ett %s inlägg först."
 
 #: ../classes/column/custom-field.php:407
 msgid "Field Type"
@@ -406,7 +418,7 @@ msgstr "Alt"
 
 #: ../classes/column/media/attached-to.php:19
 msgid "Attached to post"
-msgstr ""
+msgstr "Bifogad till inlägg"
 
 #: ../classes/column/media/available-sizes.php:20
 msgid "Available Sizes"
@@ -478,19 +490,19 @@ msgstr "Full path"
 
 #: ../classes/column/media/full-path.php:83
 msgid "Path scope"
-msgstr ""
+msgstr "Sökväg fält"
 
 #: ../classes/column/media/full-path.php:84
 msgid "Part of the file path to display"
-msgstr ""
+msgstr "Del av filens sökväg att visa"
 
 #: ../classes/column/media/full-path.php:97
 msgid "Relative to domain"
-msgstr ""
+msgstr "Relativ till domän"
 
 #: ../classes/column/media/full-path.php:102
 msgid "Relative to main uploads folder "
-msgstr ""
+msgstr "Relativ till standard uppladdningsmapp"
 
 #: ../classes/column/media/height.php:19
 msgid "Height"
@@ -506,7 +518,7 @@ msgstr "No. av bilagor"
 
 #: ../classes/column/post/attachment.php:19
 msgid "Attachments"
-msgstr ""
+msgstr "Bilaga"
 
 #: ../classes/column/post/author-name.php:20
 msgid "Display Author As"
@@ -544,41 +556,37 @@ msgstr "Kommentarsstatus"
 msgid "Select which comment status you like to display."
 msgstr "Välj vilken kommentarsstatus du vill visa."
 
-#: ../classes/column/post/content.php:19
-msgid "Content"
-msgstr ""
-
 #: ../classes/column/post/date-published.php:17
 msgid "Date Published"
-msgstr ""
+msgstr "Publiceringsdatum"
 
 #: ../classes/column/post/depth.php:19
 msgid "Depth"
-msgstr ""
+msgstr "Djup"
 
 #: ../classes/column/post/estimated-reading-time.php:19
 msgid "Estimated Reading Time"
-msgstr ""
+msgstr "Beräknad lästid"
 
 #: ../classes/column/post/estimated-reading-time.php:63
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "sekund"
+msgstr[1] "sekunder"
 
 #: ../classes/column/post/estimated-reading-time.php:66
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "minut"
+msgstr[1] "minuter"
 
 #: ../classes/column/post/estimated-reading-time.php:103
 msgid "Words per minute"
-msgstr ""
+msgstr "Ord per minut"
 
 #: ../classes/column/post/estimated-reading-time.php:104
 msgid "Estimated reading time in words per minute"
-msgstr ""
+msgstr "Beräknad lästid i ord per minut"
 
 #: ../classes/column/post/featured-image.php:19
 msgid "Featured Image"
@@ -590,7 +598,7 @@ msgstr "Inläggsformat"
 
 #: ../classes/column/post/last-modified-author.php:20
 msgid "Last Modified Author"
-msgstr ""
+msgstr "Senast modifierad författare"
 
 #: ../classes/column/post/modified.php:19
 msgid "Last modified"
@@ -634,7 +642,7 @@ msgstr "Roller"
 
 #: ../classes/column/post/shortcodes.php:19
 msgid "Shortcodes"
-msgstr ""
+msgstr "Shortcodes"
 
 #: ../classes/column/post/slug.php:19
 msgid "Slug"
@@ -698,7 +706,7 @@ msgstr "Antal kommentarer"
 
 #: ../classes/column/user/display-name.php:19
 msgid "Display name"
-msgstr ""
+msgstr "Visa namn"
 
 #: ../classes/column/user/first-name.php:19
 msgid "First name"
@@ -712,7 +720,7 @@ msgstr "Efternamn"
 msgid "Post Count"
 msgstr "Inläggsräknare"
 
-#: ../classes/column/user/post-count.php:102
+#: ../classes/column/user/post-count.php:89
 msgid "Post Type"
 msgstr "Inläggstyp"
 
@@ -722,11 +730,69 @@ msgstr "Registrerad"
 
 #: ../classes/column/user/rich-editing.php:19
 msgid "Visual Editor"
-msgstr ""
+msgstr "Visuell redigerare"
 
 #: ../classes/column/user/url.php:19
 msgid "Url"
 msgstr "Url"
+
+#: ../classes/review_notice.php:55 ../classes/settings.php:170 ../classes/settings.php:589 ../classes/upgrade.php:135
+msgid "Admin Columns"
+msgstr "Admin Columns"
+
+#: ../classes/review_notice.php:58
+msgid "Admin Columns Pro"
+msgstr "Admin Columns Pro"
+
+#: ../classes/review_notice.php:65
+#, php-format
+msgid ""
+"We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please "
+"%s."
+msgstr "Vi menar inte att störa dig, men du har använt %s under en tid nu, och vi undrade om du är nöjd med tillägget. Om så är fallet, kan ni lämna en recension på wordpress.org? Om du inte är nöjd med %s, vänligen %s."
+
+#: ../classes/review_notice.php:68
+msgid "click here"
+msgstr "klicka här"
+
+#: ../classes/review_notice.php:72
+msgid "Leave a review!"
+msgstr "Lämna en recension!"
+
+#: ../classes/review_notice.php:73
+msgid "Permanently hide notice"
+msgstr "Permanent gömma notis"
+
+#: ../classes/review_notice.php:80
+#, php-format
+msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
+msgstr "Vi är ledsna att göra det, kanske vi kan hjälpa! Om du har problem att  korrekt sätta upp %s eller om du vill ha hjälp med fler avancerade funktioner, vänligen besök vår %s."
+
+#: ../classes/review_notice.php:82
+msgid "documentation page"
+msgstr "dokumentation sida"
+
+#: ../classes/review_notice.php:86
+#, php-format
+msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgstr "Som en Admin Columns Pro användare, du kan också använda ditt AdminColumns.com konto för att få tillgång till produkt support genom %s!"
+
+#: ../classes/review_notice.php:87
+msgid "our forums"
+msgstr "vårt forum"
+
+#: ../classes/review_notice.php:91
+#, php-format
+msgid "You can also find help on the %s, and %s."
+msgstr "Du kan också hitta hjälp på %s, och %s."
+
+#: ../classes/review_notice.php:92
+msgid "Admin Columns forums on WordPress.org"
+msgstr "Admin Columns forum på WordPress.org"
+
+#: ../classes/review_notice.php:93
+msgid "find answers to some frequently asked questions"
+msgstr "hitta svar på vanliga frågor"
 
 #: ../classes/settings.php:112
 msgid "Add-on successfully activated."
@@ -739,10 +805,6 @@ msgstr "Tillägget inaktiverat."
 #: ../classes/settings.php:170
 msgid "Admin Columns Settings"
 msgstr "Admin Columns Inställningar"
-
-#: ../classes/settings.php:170 ../classes/settings.php:589 ../classes/upgrade.php:135
-msgid "Admin Columns"
-msgstr "Admin Columns"
 
 #: ../classes/settings.php:220
 #, php-format
@@ -987,7 +1049,7 @@ msgstr "Annat"
 msgid "Taxonomies"
 msgstr "Taxanomier"
 
-#: ../classes/settings.php:590 ../codepress-admin-columns.php:375
+#: ../classes/settings.php:590 ../codepress-admin-columns.php:377
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -998,7 +1060,7 @@ msgstr "Tillägg"
 #: ../classes/settings.php:659
 #, php-format
 msgid "The columns for %s are set up via PHP and can therefore not be edited in the admin panel."
-msgstr ""
+msgstr "Kolumnerna för %s är inställt via PHP och kan därför inte redigeras i admin panelen."
 
 #: ../classes/settings.php:669
 msgid "Store settings"
@@ -1147,7 +1209,7 @@ msgstr "Du försöker lagra samma inställningar för %s."
 #: ../classes/storage_model.php:278
 #, php-format
 msgid "Settings for %s updated successfully."
-msgstr ""
+msgstr "Inställningar för %s uppdaterades framgångsrikt."
 
 #: ../classes/storage_model.php:809
 msgid "View"
@@ -1159,7 +1221,7 @@ msgstr "Kommentarer"
 
 #: ../classes/storage_model/comment.php:14
 msgid "Comment"
-msgstr ""
+msgstr "Kommentera"
 
 #: ../classes/storage_model/link.php:13
 msgid "Links"
@@ -1167,23 +1229,19 @@ msgstr "Länkar"
 
 #: ../classes/storage_model/link.php:14
 msgid "Link"
-msgstr ""
+msgstr "Länk"
 
 #: ../classes/storage_model/media.php:14
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: ../classes/storage_model/user.php:13
 msgid "Users"
 msgstr "Användare"
 
-#: ../classes/storage_model/user.php:14
-msgid "User"
-msgstr ""
-
 #: ../classes/upgrade.php:62
 msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
-msgstr ""
+msgstr "Pro-tilägget stöds inte längre. Vänligen logga in på ditt konto och ladda ner Admin Columns Pro"
 
 #: ../classes/upgrade.php:95
 msgid "Upgrade"
@@ -1237,10 +1295,6 @@ msgstr "Fel"
 msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
 msgstr "Ursäkta. Något gick fel under uppgraderingen. Vänligen rapportera detta på support forumet. "
 
-#: ../codepress-admin-columns.php:34
-msgid "No textdomain"
-msgstr ""
-
-#: ../codepress-admin-columns.php:442
+#: ../codepress-admin-columns.php:444
 msgid "Edit columns"
 msgstr "Redigera kolumner"

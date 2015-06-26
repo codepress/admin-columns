@@ -59,7 +59,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	/**
 	 * Get original columns
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
 		return array( 'cb', 'date', 'parent', 'icon', 'title', 'author', 'comments' );

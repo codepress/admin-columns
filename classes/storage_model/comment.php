@@ -46,7 +46,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	/**
 	 * Get original columns
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
 		return array( 'cb', 'author', 'comment', 'response' );
