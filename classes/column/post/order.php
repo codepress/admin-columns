@@ -15,28 +15,23 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 	= 'column-order';
-		$this->properties['label']	 	= __( 'Page Order', 'cpac' );
+		$this->properties['type'] = 'column-order';
+		$this->properties['label'] = __( 'Order', 'cpac' );
 	}
 
 	/**
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.0
 	 */
-	function apply_conditional() {
-
-		if ( post_type_supports( $this->storage_model->key, 'page-attributes' ) )
-			return true;
-
-		return false;
+	public function apply_conditional() {
+		return is_post_type_hierarchical( $this->storage_model->key );
 	}
 
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $post_id ) {
-
+	public function get_value( $post_id ) {
 		return $this->get_raw_value( $post_id );
 	}
 
@@ -44,8 +39,7 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $post_id ) {
-
+	public function get_raw_value( $post_id ) {
 		return get_post_field( 'menu_order', $post_id );
 	}
 }

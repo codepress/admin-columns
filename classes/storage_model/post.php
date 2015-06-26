@@ -107,6 +107,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get original columns
+	 *
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		if ( ! in_array( $this->post_type, array( 'post', 'page' ) ) ) {
+			return false;
+		}
+		return array( 'author', 'cb', 'categories', 'comments', 'date', 'parent', 'tags', 'title' );
+	}
+
+	/**
 	 * Get screen link
 	 *
 	 * @since 2.0
@@ -154,6 +166,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/posts" );
 		do_action( "cac/columns/default/storage_key={$this->key}" );
+		do_action( "cac/columns/default/post_type={$this->post_type}" );
 
 		// Initialize table so it can add actions to manage_{screenid}_columns
 		_get_list_table( 'WP_Posts_List_Table', array( 'screen' => 'edit-' . $this->key ) );

@@ -49,10 +49,20 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$table   = _get_list_table ( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
         $columns = (array) $table->get_columns();
 
-		if ( $this->is_settings_page() )
+		if ( $this->is_settings_page() ) {
 			$columns = array_merge( get_column_headers( 'upload' ), $columns );
+		}
 
 		return $columns;
+	}
+
+	/**
+	 * Get original columns
+	 *
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		return array( 'cb', 'date', 'parent', 'icon', 'title', 'author', 'comments' );
 	}
 
 	/**

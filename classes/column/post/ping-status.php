@@ -24,7 +24,7 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 	 * @see CPAC_Column::apply_conditional()
 	 * @since 2.2
 	 */
-	function apply_conditional() {
+	public function apply_conditional() {
 
 		return post_type_supports( $this->storage_model->key, 'comments' );
 	}
@@ -33,13 +33,14 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 
 		$ping_status = $this->get_raw_value( $post_id );
 
 		$value = $this->get_asset_image( 'no.png', $ping_status );
-		if ( 'open' == $ping_status )
+		if ( 'open' == $ping_status ) {
 			$value = $this->get_asset_image( 'checkmark.png', $ping_status );
+		}
 
 		return $value;
 	}
@@ -48,8 +49,7 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $post_id ) {
-
+	public function get_raw_value( $post_id ) {
 		return get_post_field( 'ping_status', $post_id, 'raw' );
 	}
 }

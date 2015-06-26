@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 18:01+0100\n"
-"PO-Revision-Date: 2015-04-09 18:12+0100\n"
+"POT-Creation-Date: 2015-04-29 13:58+0100\n"
+"PO-Revision-Date: 2015-06-26 13:26+0100\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/admin-columns/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -47,164 +47,164 @@ msgstr ""
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
 msgstr ""
 
-#: ../classes/column.php:582
+#: ../classes/column.php:597
 msgid "Thumbnail"
 msgstr "缩略图"
 
-#: ../classes/column.php:583
+#: ../classes/column.php:598
 msgid "Medium"
 msgstr "中等大小"
 
-#: ../classes/column.php:584
+#: ../classes/column.php:599
 msgid "Large"
 msgstr "大尺寸"
 
-#: ../classes/column.php:585
+#: ../classes/column.php:600
 msgid "Full"
 msgstr "原始大小"
 
-#: ../classes/column.php:1026
+#: ../classes/column.php:1041
 msgid "Date Format"
 msgstr "日期格式"
 
-#: ../classes/column.php:1027
+#: ../classes/column.php:1042
 msgid "This will determine how the date will be displayed."
 msgstr "用来决定如何显示日期"
 
-#: ../classes/column.php:1033
+#: ../classes/column.php:1048
 msgid "Example:"
 msgstr "例如："
 
-#: ../classes/column.php:1035
+#: ../classes/column.php:1050
 #, php-format
 msgid "Leave empty for WordPress date format, change your <a href=\"%s\">default date format here</a>."
 msgstr "留空将使用WordPress日期格式，你可以在 <a href=\"%s\">这里</a> 修改默认的日期格式。"
 
-#: ../classes/column.php:1036
+#: ../classes/column.php:1051
 msgid "Documentation on date and time formatting."
 msgstr "日期和时间格式的文档。"
 
-#: ../classes/column.php:1050
+#: ../classes/column.php:1065
 msgid "Excerpt length"
 msgstr "摘要长度"
 
-#: ../classes/column.php:1051
+#: ../classes/column.php:1066
 msgid "Number of words"
 msgstr "字数"
 
-#: ../classes/column.php:1069
+#: ../classes/column.php:1084
 msgid "Preview size"
 msgstr "预览大小"
 
-#: ../classes/column.php:1086 ../classes/storage_model.php:595
+#: ../classes/column.php:1101 ../classes/storage_model.php:595
 msgid "Custom"
 msgstr "自定义"
 
-#: ../classes/column.php:1089 ../classes/column.php:1236
+#: ../classes/column.php:1104 ../classes/column.php:1251
 msgid "width"
 msgstr "宽度"
 
-#: ../classes/column.php:1092
+#: ../classes/column.php:1107
 msgid "height"
 msgstr "高度"
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "Before"
 msgstr "前"
 
-#: ../classes/column.php:1104
+#: ../classes/column.php:1119
 msgid "This text will appear before the custom field value."
 msgstr "该文本将显示在自定义字段的值的前面"
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "After"
 msgstr "后"
 
-#: ../classes/column.php:1105
+#: ../classes/column.php:1120
 msgid "This text will appear after the custom field value."
 msgstr "该文本将显示在自定义字段的值的后面"
 
-#: ../classes/column.php:1114
+#: ../classes/column.php:1129
 msgid "Display Name"
 msgstr "公开显示为"
 
-#: ../classes/column.php:1115
+#: ../classes/column.php:1130
 msgid "First Name"
 msgstr "名字"
 
-#: ../classes/column.php:1116
+#: ../classes/column.php:1131
 msgid "Last Name"
 msgstr "姓氏"
 
-#: ../classes/column.php:1117 ../classes/column/user/nickname.php:19
+#: ../classes/column.php:1132 ../classes/column/user/nickname.php:19
 msgid "Nickname"
 msgstr "昵称"
 
-#: ../classes/column.php:1118
+#: ../classes/column.php:1133
 msgid "User Login"
 msgstr "用户名"
 
-#: ../classes/column.php:1119
+#: ../classes/column.php:1134
 msgid "User Email"
 msgstr "用户邮箱"
 
-#: ../classes/column.php:1120 ../classes/column/user/ID.php:19
+#: ../classes/column.php:1135 ../classes/column/user/ID.php:19
 msgid "User ID"
 msgstr "用户ID"
 
-#: ../classes/column.php:1121
+#: ../classes/column.php:1136
 msgid "First and Last Name"
 msgstr "姓名"
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "Display format"
 msgstr ""
 
-#: ../classes/column.php:1124
+#: ../classes/column.php:1139
 msgid "This is the format of the author name."
 msgstr "作者名字的格式"
 
-#: ../classes/column.php:1258
+#: ../classes/column.php:1273
 msgid "Edit"
 msgstr "编辑"
 
-#: ../classes/column.php:1260 ../classes/column.php:1352
+#: ../classes/column.php:1275 ../classes/column.php:1367
 msgid "Clone"
 msgstr ""
 
-#: ../classes/column.php:1262 ../classes/column.php:1354
+#: ../classes/column.php:1277 ../classes/column.php:1369
 msgid "Remove"
 msgstr "删除"
 
-#: ../classes/column.php:1280 ../classes/column/custom-field.php:407
+#: ../classes/column.php:1295 ../classes/column/comment/type.php:13 ../classes/column/custom-field.php:407
 msgid "Type"
 msgstr "类型"
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Choose a column type."
 msgstr "选择一个列类型。"
 
-#: ../classes/column.php:1280
+#: ../classes/column.php:1295
 msgid "Name"
 msgstr ""
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "Label"
 msgstr "标签"
 
-#: ../classes/column.php:1290
+#: ../classes/column.php:1305
 msgid "This is the name which will appear as the column header."
 msgstr "该名称将显示为列标题。"
 
-#: ../classes/column.php:1297 ../classes/column/media/width.php:19
+#: ../classes/column.php:1312 ../classes/column/media/width.php:19
 msgid "Width"
 msgstr "宽度"
 
-#: ../classes/column.php:1299
+#: ../classes/column.php:1314
 msgid "default"
 msgstr "默认"
 
-#: ../classes/column.php:1300
+#: ../classes/column.php:1315
 msgid "auto"
 msgstr ""
 
@@ -273,6 +273,10 @@ msgstr "作者邮箱"
 msgid "Author IP"
 msgstr "作者IP"
 
+#: ../classes/column/comment/author-name.php:12
+msgid "Author name"
+msgstr ""
+
 #: ../classes/column/comment/author-url.php:19
 msgid "Author url"
 msgstr "作者url"
@@ -294,13 +298,17 @@ msgstr "提交于 <a href=\"%1$s\">%2$s at %3$s</a>"
 msgid "Date"
 msgstr "日期"
 
-#: ../classes/column/comment/excerpt.php:19 ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
-msgid "Excerpt"
-msgstr "摘要"
+#: ../classes/column/comment/excerpt.php:19 ../classes/column/post/content.php:19
+msgid "Content"
+msgstr ""
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
 msgstr "回应给"
+
+#: ../classes/column/comment/user.php:11 ../classes/storage_model/user.php:14
+msgid "User"
+msgstr ""
 
 #: ../classes/column/comment/word-count.php:19 ../classes/column/post/word-count.php:19
 msgid "Word count"
@@ -325,6 +333,10 @@ msgstr "颜色"
 #: ../classes/column/custom-field.php:97 ../classes/settings.php:323
 msgid "Counter"
 msgstr ""
+
+#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
+msgid "Excerpt"
+msgstr "摘要"
 
 #: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19 ../classes/settings.php:314
 msgid "Image"
@@ -543,10 +555,6 @@ msgstr "评论状态"
 msgid "Select which comment status you like to display."
 msgstr "选择你要显示的评论状态"
 
-#: ../classes/column/post/content.php:19
-msgid "Content"
-msgstr ""
-
 #: ../classes/column/post/date-published.php:17
 msgid "Date Published"
 msgstr ""
@@ -709,7 +717,7 @@ msgstr "姓氏"
 msgid "Post Count"
 msgstr "文章数量"
 
-#: ../classes/column/user/post-count.php:102
+#: ../classes/column/user/post-count.php:89
 msgid "Post Type"
 msgstr "文章类型"
 
@@ -725,6 +733,66 @@ msgstr ""
 msgid "Url"
 msgstr "Url"
 
+#: ../classes/review_notice.php:55 ../classes/settings.php:170 ../classes/settings.php:589 ../classes/upgrade.php:135
+msgid "Admin Columns"
+msgstr "Admin Columns"
+
+#: ../classes/review_notice.php:58
+msgid "Admin Columns Pro"
+msgstr ""
+
+#: ../classes/review_notice.php:65
+#, php-format
+msgid ""
+"We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at "
+"wordpress.org? If you're not happy with %s, please %s."
+msgstr ""
+
+#: ../classes/review_notice.php:68
+msgid "click here"
+msgstr ""
+
+#: ../classes/review_notice.php:72
+msgid "Leave a review!"
+msgstr ""
+
+#: ../classes/review_notice.php:73
+msgid "Permanently hide notice"
+msgstr ""
+
+#: ../classes/review_notice.php:80
+#, php-format
+msgid ""
+"We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our "
+"%s."
+msgstr ""
+
+#: ../classes/review_notice.php:82
+msgid "documentation page"
+msgstr ""
+
+#: ../classes/review_notice.php:86
+#, php-format
+msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgstr ""
+
+#: ../classes/review_notice.php:87
+msgid "our forums"
+msgstr ""
+
+#: ../classes/review_notice.php:91
+#, php-format
+msgid "You can also find help on the %s, and %s."
+msgstr ""
+
+#: ../classes/review_notice.php:92
+msgid "Admin Columns forums on WordPress.org"
+msgstr ""
+
+#: ../classes/review_notice.php:93
+msgid "find answers to some frequently asked questions"
+msgstr ""
+
 #: ../classes/settings.php:112
 msgid "Add-on successfully activated."
 msgstr ""
@@ -736,10 +804,6 @@ msgstr ""
 #: ../classes/settings.php:170
 msgid "Admin Columns Settings"
 msgstr "Admin Columns 设置"
-
-#: ../classes/settings.php:170 ../classes/settings.php:589 ../classes/upgrade.php:135
-msgid "Admin Columns"
-msgstr "Admin Columns"
 
 #: ../classes/settings.php:220
 #, php-format
@@ -988,7 +1052,7 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: ../classes/settings.php:590 ../codepress-admin-columns.php:375
+#: ../classes/settings.php:590 ../codepress-admin-columns.php:377
 msgid "Settings"
 msgstr "设置"
 
@@ -1180,10 +1244,6 @@ msgstr ""
 msgid "Users"
 msgstr "用户"
 
-#: ../classes/storage_model/user.php:14
-msgid "User"
-msgstr ""
-
 #: ../classes/upgrade.php:62
 msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
 msgstr ""
@@ -1240,10 +1300,6 @@ msgstr "错误"
 msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
 msgstr "抱歉，升级过程中出错了，请在论坛中反馈。"
 
-#: ../codepress-admin-columns.php:34
-msgid "No textdomain"
-msgstr ""
-
-#: ../codepress-admin-columns.php:442
+#: ../codepress-admin-columns.php:444
 msgid "Edit columns"
 msgstr "编辑列"

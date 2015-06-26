@@ -96,6 +96,11 @@ abstract class CPAC_Storage_Model {
 	public $column_types = array();
 
 	/**
+	 * @since 2.4.4
+	 */
+	abstract function get_default_column_names();
+
+	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
@@ -130,7 +135,7 @@ abstract class CPAC_Storage_Model {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function is_menu_type_current( $first_posttpe ) {
+	public function is_menu_type_current( $first_posttype ) {
 
 		// display the page that was being viewed before saving
 		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
@@ -139,7 +144,7 @@ abstract class CPAC_Storage_Model {
 			}
 
 		// settings page has not yet been saved
-		} elseif ( $first_posttpe == $this->key ) {
+		} elseif ( $first_posttype == $this->key ) {
 			return true;
 		}
 
@@ -382,7 +387,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'label', $label )
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
-			->set_properties( 'group', 'default' )
+			->set_properties( 'group', 'plugin' )
 			->set_options( 'label', $label )
 			->set_options( 'state', 'on' );
 
@@ -394,6 +399,24 @@ abstract class CPAC_Storage_Model {
 		// Label empty? Use it's column_name
 		if ( ! $label ) {
 			$column->set_properties( 'label', ucfirst( $column_name ) );
+		}
+
+		/**
+		 * Filter the default column names
+		 *
+		 * @since 2.4.4
+		 *
+		 * @param array $default_column_names Default column names
+		 * @param object $column Column object
+		 * @param object $this Storage_Model object
+		 */
+		$default_column_names = apply_filters( 'cac/columns/defaults', $this->get_default_column_names(), $column, $this );
+		$default_column_names = apply_filters( 'cac/columns/defaults/type=' . $this->get_type(), $default_column_names, $column, $this );
+		$default_column_names = apply_filters( 'cac/columns/defaults/post_type=' . $this->get_post_type(), $default_column_names, $column, $this );
+
+		// set group for WP Default
+		if ( $default_column_names && in_array( $column_name, $default_column_names ) ) {
+			$column->set_properties( 'group', 'default' );
 		}
 
 		return $column;
@@ -592,8 +615,10 @@ abstract class CPAC_Storage_Model {
 	public function get_column_type_groups() {
 
 		$groups = array(
+			'default' => __( 'Default', 'cpac' ),
+			'custom-field' => __( 'Custom Field', 'cpac' ),
 			'custom' => __( 'Custom', 'cpac' ),
-			'default' => __( 'Default', 'cpac' )
+			'plugin' => __( 'Columns by Plugins', 'cpac' ),
 		);
 
 		/**
@@ -606,9 +631,6 @@ abstract class CPAC_Storage_Model {
 		 */
 		$groups = apply_filters( "cac/storage_model/column_type_groups", $groups, $this );
 		$groups = apply_filters( "cac/storage_model/column_type_groups/storage_key={$this->key}", $groups, $this );
-
-		// Integrations first
-		krsort( $groups );
 
 		return $groups;
 	}
@@ -925,12 +947,13 @@ abstract class CPAC_Storage_Model {
 	 * @param $id Cache ID
 	 * @param $column_name Column property name
 	 * @param $cache_object Cache Object
+	 * @param $duration int Cache duration in seconds. default is 1 day.
 	 */
-	public function set_cache( $id, $column_name, $cache_object ) {
+	public function set_cache( $id, $column_name, $cache_object, $duration = 86400 ) {
 		if ( empty( $cache_object ) ) {
 			return false;
 		}
-		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, 3600 * 24 * 7 ); // 7 days
+		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, $duration );
 	}
 
 	/**

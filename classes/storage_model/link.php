@@ -50,6 +50,15 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get original columns
+	 *
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		return array();
+	}
+
+	/**
      * Get Meta
      *
 	 * @since 2.0
