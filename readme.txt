@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Estimate Time Reading column will not display a value when there is no content
+
 = 2.4.4 =
 * [Fixed] Support for custom post statuses
 * [Fixed] Page Order column is now available on all hierarchical post types
