@@ -48,22 +48,26 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	 * @since 2.3.3
 	 */
 	public function convert_seconds_to_readable_time( $seconds ) {
+		$time = '&#8212;';
 
-		$minutes = floor( $seconds / 60 );
-		$seconds = floor( $seconds % 60 );
+		if ( $seconds ) {
 
-		$time = $minutes;
-		if ( $seconds < 10 ) {
-			$seconds = '0' . $seconds;
-		}
-		if ( '00' != $seconds ) {
-			$time .= ':' . $seconds;
-		}
-		if ( $minutes < 1 ) {
-			$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'cpac' );
-		}
-		else {
-			$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'cpac' );
+			$minutes = floor( $seconds / 60 );
+			$seconds = floor( $seconds % 60 );
+
+			$time = $minutes;
+			if ( $seconds < 10 ) {
+				$seconds = '0' . $seconds;
+			}
+			if ( '00' != $seconds ) {
+				$time .= ':' . $seconds;
+			}
+			if ( $minutes < 1 ) {
+				$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'cpac' );
+			}
+			else {
+				$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'cpac' );
+			}
 		}
 
 		return $time;
