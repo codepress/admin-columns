@@ -1,4 +1,4 @@
-	<?php
+<?php
 /**
  * Custom field column, displaying the contents of meta fields.
  * Suited for all storage models supporting WordPress' default way of handling meta data.
