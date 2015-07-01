@@ -239,16 +239,18 @@ class CPAC_Settings {
 		switch ( $action ) :
 
 			case 'update_by_type' :
-				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-					$storage_model = $this->cpac->get_storage_model( $key );
-					$storage_model->store();
+				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
+					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->store();
+					}
 				}
 				break;
 
 			case 'restore_by_type' :
-				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
-					$storage_model = $this->cpac->get_storage_model( $key );
-					$storage_model->restore();
+				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
+					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->restore();
+					}
 				}
 				break;
 
