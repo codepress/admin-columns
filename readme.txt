@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.2.2
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,8 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.4.5 =
 * [Fixed] Estimate Time Reading column will not display a value when there is no content
+* [Fixed] When updating there was a possbile change on a "Cannot modify header information"
 
 = 2.4.4 =
 * [Fixed] Support for custom post statuses
