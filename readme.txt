@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Page Order column is now available on all supported posttypes
+
 = 2.4.5 =
 * [Fixed] Estimate Time Reading column will not display a value when there is no content
 * [Fixed] When updating there was a possbile change on a "Cannot modify header information"
