@@ -376,19 +376,22 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_meta_keys() {
+		return $this->storage_model->get_meta_keys();
+	}
+
+	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
 	 */
-	public function display_settings() {
-
-		$show_hidden_meta = true;
-		?>
-
+	public function display_settings() { ?>
 		<tr class="column_field">
 			<?php $this->label_view( __( "Custom Field", 'cpac' ), __( "Select your custom field.", 'cpac' ), 'field' ); ?>
 			<td class="input">
 
-				<?php if ( $meta_keys = $this->storage_model->get_meta_keys( $show_hidden_meta ) ) : ?>
+				<?php if ( $meta_keys = $this->get_meta_keys() ) : ?>
 				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
 				<?php foreach ( $meta_keys as $field ) : ?>
 					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field; ?></option>

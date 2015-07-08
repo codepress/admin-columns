@@ -117,15 +117,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
      */
     public function get_meta() {
         global $wpdb;
-
-        if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
-        	$result = $cache;
-        }
-        else {
-			$result = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
-			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
-		}
-
-		return $result;
+        return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
     }
 }

@@ -152,33 +152,46 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function format_meta_keys( $keys ) {
+		$add_hidden_meta = true; // always true @todo
+
+		$formatted_keys = array();
+		foreach ( $keys as $key ) {
+
+			// give hidden keys a prefix for identifaction
+			if ( $add_hidden_meta && "_" == substr( $key[0], 0, 1 ) ) {
+				$formatted_keys[] = 'cpachidden' . $key[0];
+			}
+
+			// non hidden keys are saved as is
+			elseif ( "_" != substr( $key[0], 0, 1 ) ) {
+				$formatted_keys[] = $key[0];
+			}
+		}
+		return $formatted_keys;
+	}
+
+	/**
 	 * @since 2.0
 	 * @return array
-     */
-    public function get_meta_keys( $add_hidden_meta = false ) {
-        global $wpdb;
+	 */
+	public function get_meta_keys() {
 
-        $keys = array();
-
-		$fields = $this->get_meta();
-
-		if ( is_wp_error( $fields ) || empty( $fields ) ) {
-			$keys = false;
+		if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
+			$keys = $cache;
+		}
+		else {
+			$keys = $this->get_meta();
+			wp_cache_add( $this->key, $keys, 'cac_columns', 10 ); // 10 sec.
 		}
 
-		if ( $fields ) {
-			foreach ( $fields as $field ) {
-
-				// give hidden fields a prefix for identifaction
-				if ( $add_hidden_meta && "_" == substr( $field[0], 0, 1 ) ) {
-					$keys[] = 'cpachidden' . $field[0];
-				}
-
-				// non hidden fields are saved as is
-				elseif ( "_" != substr( $field[0], 0, 1 ) ) {
-					$keys[] = $field[0];
-				}
-			}
+		if ( is_wp_error( $keys ) || empty( $keys ) ) {
+			$keys = false;
+		}
+		else {
+			$keys = $this->format_meta_keys( $keys );
 		}
 
 		/**
@@ -199,7 +212,7 @@ abstract class CPAC_Storage_Model {
 		 * @see Filter cac/storage_model/meta_keys
 		 */
 		return apply_filters( "cac/storage_model/meta_keys/storage_key={$this->key}", $keys, $this );
-    }
+	}
 
 	/**
 	 * @since 2.0
@@ -330,8 +343,8 @@ abstract class CPAC_Storage_Model {
 
 				// only allow php files, exclude .SVN .DS_STORE and such
 				if ( substr( $leaf->getFilename(), -4 ) !== '.php' ) {
-	    			continue;
-	    		}
+					continue;
+				}
 
 				// build classname from filename
 				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
@@ -845,7 +858,7 @@ abstract class CPAC_Storage_Model {
 	 * Mark your admin columns ajax request with plugin_id : 'cpac'.
 	 *
 	 * @since 2.0.5
-     * @return boolean
+	 * @return boolean
 	 */
 	public function is_doing_ajax() {
 
@@ -855,8 +868,8 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0.3
 	 * @global string $pagenow
-     * @global object $current_screen
-     * @return boolean
+	 * @global object $current_screen
+	 * @return boolean
 	 */
 	public function is_columns_screen() {
 
@@ -892,40 +905,40 @@ abstract class CPAC_Storage_Model {
 		return true;
 	}
 
-    /**
-     * Checks if the current page is the settings page
-     *
-     * @since 2.0.2
-     * @global string $pagenow
-     * @global string $plugin_page
-     * @return boolean
-     */
-    public function is_settings_page() {
-        global $pagenow, $plugin_page;
+	/**
+	 * Checks if the current page is the settings page
+	 *
+	 * @since 2.0.2
+	 * @global string $pagenow
+	 * @global string $plugin_page
+	 * @return boolean
+	 */
+	public function is_settings_page() {
+		global $pagenow, $plugin_page;
 
-        return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
-    }
+		return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
+	}
 
-    /**
-     * @since 2.3.2
-     */
-    public function delete_general_option() {
-    	delete_option( 'cpac_general_options' );
-    }
+	/**
+	 * @since 2.3.2
+	 */
+	public function delete_general_option() {
+		delete_option( 'cpac_general_options' );
+	}
 
-    /**
-     * @since 2.1.1
-     */
-    public function get_general_option( $option ) {
-    	$options = get_option( 'cpac_general_options' );
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_general_option( $option ) {
+		$options = get_option( 'cpac_general_options' );
 
-    	if ( ! isset( $options[ $option ] ) )
-    		return false;
+		if ( ! isset( $options[ $option ] ) )
+			return false;
 
-    	return $options[ $option ];
-    }
+		return $options[ $option ];
+	}
 
-    /**
+	/**
 	 * @since 2.4.2
 	 */
 	public function is_cache_enabled() {
