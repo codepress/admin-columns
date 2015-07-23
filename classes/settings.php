@@ -34,6 +34,7 @@ class CPAC_Settings {
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
+		add_action( 'admin_init', array( $this, 'handle_load_profile_request' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
@@ -232,9 +233,9 @@ class CPAC_Settings {
 		}
 
 		// use $_REQUEST because the values are send both over $_GET and $_POST
-		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
-		$nonce  = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
-		$key 	= isset( $_REQUEST['cpac_key'] ) 	? $_REQUEST['cpac_key'] 	: '';
+		$action  = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
+		$nonce   = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
+		$key 	 = isset( $_REQUEST['cpac_key'] ) 	 ? $_REQUEST['cpac_key'] 		: '';
 
 		switch ( $action ) :
 
@@ -264,15 +265,29 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * Request for loading profile
+	 * @since NEWVERSION
+	 */
+	public function handle_load_profile_request() {
+
+		if ( ! isset( $_GET['cpac_profile'] ) || ! isset( $_GET['cpac_key'] ) ) {
+			return;
+		}
+
+		if ( $storage_model = $this->cpac->get_storage_model( $_GET['cpac_key'] ) ) {
+			$storage_model->store_active_profile( (int) $_GET['cpac_profile'] );
+		}
+	}
+
+	/**
 	 * Restore all column defaults
 	 *
 	 * @since 1.0
 	 */
 	private function restore_all() {
 		global $wpdb;
-
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_profile_%'" );
 		cpac_admin_message( __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
 	}
 
@@ -687,7 +702,8 @@ class CPAC_Settings {
 										</div><!--form-actions-->
 									<?php endif; ?>
 
-									<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+								<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+
 									<?php $url_args = array(
 										'utm_source' => 'plugin-installation',
 										'utm_medium' => 'banner',
@@ -711,29 +727,6 @@ class CPAC_Settings {
 											</div>
 										</div>
 									</div>
-
-										<?php
-										// @todo: add newsletter
-										/* ?>
-										<div class="padding-box newsletter">
-											<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-												<?php $user = wp_get_current_user(); ?>
-												<p>
-													<?php _e ( "Subscribe to receive news &amp; updates below.", 'cpac' ); ?>
-												</p>
-												<div class="mc-field-group">
-													<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>
-													<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
-												</div>
-												<div class="mc-field-group">
-													<label for="mce-EMAIL"><?php _e( 'Your Email', 'cpac' ); ?></label>
-													<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
-												</div>
-												<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-											</form>
-										</div>
-										<?php */ ?>
-
 
 									<div class="sidebox" id="direct-feedback">
 										<div id="feedback-choice">
@@ -803,7 +796,7 @@ class CPAC_Settings {
 										</div>
 									</div>
 
-									<?php endif; ?>
+									<?php endif; // class_exists( 'CAC_Addon_Pro' ) ?>
 
 									<div class="sidebox" id="plugin-support">
 										<h3><?php _e( 'Support', 'cpac' ); ?></h3>
@@ -830,6 +823,7 @@ class CPAC_Settings {
 
 												<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
 												<input type="hidden" name="cpac_action" value="update_by_type" />
+												<input type="hidden" name="cpac_profile" value="<?php echo $storage_model->profile; ?>" />
 
 												<?php
 												foreach ( $storage_model->columns as $column ) {
@@ -850,6 +844,34 @@ class CPAC_Settings {
 										</div><!--.cpac-column-footer-->
 									<?php endif; ?>
 								</div><!--.cpac-boxes-->
+
+								<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>
+
+			<?php // @todo_major: move to Pro ?>
+			<?php //$profiles = $storage_model->get_profiles(); echo '<pre>'; print_r( $profiles ); echo '</pre>'; exit; ?>
+			<?php echo 'profile=' . $storage_model->profile; ?>
+			<?php echo 'active_profile=' . $storage_model->get_active_profile(); ?>
+			<?php var_dump( $storage_model->get_active_profile() ); ?>
+								<div class="profiles">
+									<h3>Save column profile</h3>
+									<p>
+										Save the above column settings as a preset.
+									</p>
+									<form>
+										<input type="text" placeholder="Profile name..." value="Default" class="" name="profile_name" />
+										<button type="submit">Store</button>
+									</form>
+									<form>
+										<ul>
+										<?php foreach ( $storage_model->get_profiles() as $profile_id ) : ?>
+											<li>Profile #<?php echo $profile_id; ?><a href="<?php echo add_query_arg( array( 'cpac_profile' => $profile_id ), $storage_model->get_edit_link() ); ?>">Load</a></li>
+										<?php endforeach; ?>
+
+										</ul>
+									</form>
+								</div>
+			<?php // @todo_major: move to Pro ?>
+
 							</div><!--.columns-left-->
 							<div class="clear"></div>
 
@@ -865,15 +887,12 @@ class CPAC_Settings {
 
 					<div class="clear"></div>
 					<?php
-					break; // case: general
+					break;
 				case 'settings' :
 					$this->display_settings();
 					break;
 				case 'addons' :
 					$this->tab_addons();
-					break;
-				case 'help' :
-					//$this->tab_addons();
 					break;
 				default:
 

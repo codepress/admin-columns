@@ -52,6 +52,14 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
+	 * Active profile for presets
+	 *
+	 * @since NEWVERSION
+	 * @var int
+	 */
+	public $profile = null;
+
+	/**
 	 * Uses PHP export to display settings
 	 *
 	 * @since 2.0
@@ -87,7 +95,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.2
 	 * @var array
 	 */
-	public $stored_columns = NULL;
+	public $stored_columns = null;
 
 	/**
 	 * @since 2.2
@@ -113,6 +121,8 @@ abstract class CPAC_Storage_Model {
 
 		// set columns paths
 		$this->set_columns_filepath();
+
+		$this->set_profile();
 
 		// Populate columns for this screen.
 		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
@@ -246,11 +256,62 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get profiles
+	 * @since NEWVERSION
+	 */
+	public function get_profiles() {
+		global $wpdb;
+
+		$profiles = array();
+
+		$key = "cpac_options_" . $this->key;
+		if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $key .'%' ) ) ) {
+			foreach ( $results as $name ) {
+				$profile_id = str_replace( $key, '', $name );
+				if ( is_numeric( $profile_id ) || $profile_id === '' ) {
+					$profiles[] = $profile_id;
+				}
+			}
+		}
+		return $profiles;
+	}
+
+	/**
+	 * Store active profile
+	 *
+	 * @since NEWVERSION
+	 */
+	private function get_profile_storage_id() {
+		return 'cpac_profile_' . $this->key;
+	}
+	private function set_profile() {
+		$this->profile = $this->get_active_profile();
+	}
+
+	public function store_active_profile( $profile ) {
+		update_option( $this->get_profile_storage_id(), $profile );
+		$this->profile = $profile;
+	}
+
+	public function get_active_profile() {
+		return get_option( $this->get_profile_storage_id(), '' );
+	}
+
+	/**
+	 * Get store ID
+	 * @since NEWVERSION
+	 */
+	private function get_storage_id() {
+		return "cpac_options_" . $this->key . $this->profile;
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function restore() {
 
-		delete_option( "cpac_options_{$this->key}" );
+		delete_option( $this->get_storage_id() );
+		delete_option( $this->get_profile_storage_id() );
 
 		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
 
@@ -284,8 +345,8 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// store columns
-		$result = update_option( "cpac_options_{$this->key}", $columns );
-		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
+		$result = update_option( $this->get_storage_id(), $columns );
+		$result_default = update_option( $this->get_storage_id() . "_default", array_keys( $this->get_default_columns() ) );
 
 		// error
 		if ( ! $result && ! $result_default ) {
@@ -500,7 +561,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_default_stored_columns() {
 
-		if ( ! $columns = get_option( "cpac_options_{$this->key}_default" ) ) {
+		if ( ! $columns = get_option( $this->get_storage_id() . "_default" ) ) {
 			return array();
 		}
 
@@ -530,7 +591,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_database_columns() {
-		return get_option( "cpac_options_{$this->key}" );
+		return get_option( $this->get_storage_id() );
 	}
 
 	/**
