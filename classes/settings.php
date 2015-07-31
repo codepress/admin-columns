@@ -34,7 +34,6 @@ class CPAC_Settings {
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
-		add_action( 'admin_init', array( $this, 'handle_load_profile_request' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
@@ -251,6 +250,7 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->restore();
+						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
 					}
 				}
 				break;
@@ -262,21 +262,6 @@ class CPAC_Settings {
 				break;
 
 		endswitch;
-	}
-
-	/**
-	 * Request for loading profile
-	 * @since NEWVERSION
-	 */
-	public function handle_load_profile_request() {
-
-		if ( ! isset( $_GET['cpac_profile'] ) || ! isset( $_GET['cpac_key'] ) ) {
-			return;
-		}
-
-		if ( $storage_model = $this->cpac->get_storage_model( $_GET['cpac_key'] ) ) {
-			$storage_model->store_active_profile( (int) $_GET['cpac_profile'] );
-		}
 	}
 
 	/**
@@ -664,11 +649,18 @@ class CPAC_Settings {
 						<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
 
 							<div class="columns-left">
-								<div id="titlediv">
+								<div class="titlediv">
 									<h2>
 										<?php echo $storage_model->label; ?>
 										<?php $storage_model->screen_link(); ?>
 									</h2>
+								<?php if ( $profile_name = $storage_model->get_current_profile_name() ) : ?>
+									<span class="profile">
+										<span class="label"><?php esc_html_e( 'Current profile', 'cpac' ); ?></span>
+										<span class="name"><?php echo esc_html( $profile_name ); ?></span>
+									</span>
+								<?php endif; ?>
+
 								</div>
 
 								<?php if ( $storage_model->is_using_php_export() ) : ?>
@@ -701,6 +693,8 @@ class CPAC_Settings {
 
 										</div><!--form-actions-->
 									<?php endif; ?>
+
+									<?php do_action( 'cac/settings/sidebox', $storage_model ); ?>
 
 								<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
 
@@ -846,31 +840,6 @@ class CPAC_Settings {
 								</div><!--.cpac-boxes-->
 
 								<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>
-
-			<?php // @todo_major: move to Pro ?>
-			<?php //$profiles = $storage_model->get_profiles(); echo '<pre>'; print_r( $profiles ); echo '</pre>'; exit; ?>
-			<?php echo 'profile=' . $storage_model->profile; ?>
-			<?php echo 'active_profile=' . $storage_model->get_active_profile(); ?>
-			<?php var_dump( $storage_model->get_active_profile() ); ?>
-								<div class="profiles">
-									<h3>Save column profile</h3>
-									<p>
-										Save the above column settings as a preset.
-									</p>
-									<form>
-										<input type="text" placeholder="Profile name..." value="Default" class="" name="profile_name" />
-										<button type="submit">Store</button>
-									</form>
-									<form>
-										<ul>
-										<?php foreach ( $storage_model->get_profiles() as $profile_id ) : ?>
-											<li>Profile #<?php echo $profile_id; ?><a href="<?php echo add_query_arg( array( 'cpac_profile' => $profile_id ), $storage_model->get_edit_link() ); ?>">Load</a></li>
-										<?php endforeach; ?>
-
-										</ul>
-									</form>
-								</div>
-			<?php // @todo_major: move to Pro ?>
 
 							</div><!--.columns-left-->
 							<div class="clear"></div>

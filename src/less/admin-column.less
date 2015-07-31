@@ -219,6 +219,54 @@ h2.cpac-nav-tab-wrapper {
  * ----------------------------------------------------------------------------
  */
 .columns-left {
+	.titlediv {
+		position: relative;
+
+		.profile {
+			//float: right;
+			position: absolute;
+			right: 0;
+			//z-index: -1;
+			top: auto;
+			//bottom: -2px;
+			bottom: 0;
+			display: inline-block;
+			padding-bottom: 4px;
+
+			span.label {
+				color: lighten( #666, 10 );
+				font-weight: 700;
+				font-size: 11px;
+				margin-right: 6px;
+			}
+			span.name {
+				font-size: 12px;
+				font-weight: 300;
+				padding: 5px 10px 6px;
+				box-shadow: inset 0 -7px 4px -7px rgba(0,0,0,0.2);
+				border-width: 1px 1px 0 1px;
+				border-style : solid;
+				font-weight: bold;
+
+				// gray
+				border-color : #ccc;
+				background-color: #e4e4e4;
+
+				// gray
+				//border-color : #dfdfdf;
+				//background-color: #e0e0e0;
+
+				// blue
+				//color: darken( #7A9BBE, 10 );
+				//border-color : #c7d7e2;
+				//background-color: #EAF2FA;
+
+				// white
+				//border-color : #dfdfdf;
+				//background-color: #fff;
+			}
+		}
+	}
 	.cpac-boxes {
 		.cpac-columns {
 			form {

@@ -546,40 +546,6 @@ function cpac_sidebar_feedback() {
 }
 
 /*
- * Sidebar Scroll
- *
- * @since 1.5
- */
-/*function cpac_sidebar_scroll() {
-
-	if ( jQuery('.columns-right-inside').length === 0 ) {
-		return;
-	}
-
-	if ( jQuery('.columns-right-inside:visible').offset() ) {
-		var sidebar = jQuery('.columns-right-inside:visible');
-		var top = sidebar.offset().top - parseFloat( sidebar.css('margin-top').replace(/auto/, 0) ) - 70;
-		var viewport_height = jQuery(window).height();
-		var sidebar_height = sidebar.height();
-
-		jQuery(window).scroll(function (event) {
-			var y = jQuery(this).scrollTop();
-
-			// top position of div#cpac is calculated everytime incase of an opened help screen
-			var offset = jQuery('#cpac').offset().top - parseFloat( jQuery('#cpac').css('margin-top').replace(/auto/, 0) );
-			var sidebar_fits_on_screen = sidebar_height < ( viewport_height - 32 ); // adminbar
-
-			// whether that's below
-			if ( ( y >= top + offset ) && sidebar_fits_on_screen ) {
-				jQuery('.columns-right-inside:visible').addClass('fixed');
-			} else {
-				jQuery('.columns-right-inside:visible').removeClass('fixed');
-			}
-		});
-	}
-}*/
-
-/*
  *	Clear Input Defaults
  *
  */

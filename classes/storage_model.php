@@ -55,9 +55,9 @@ abstract class CPAC_Storage_Model {
 	 * Active profile for presets
 	 *
 	 * @since NEWVERSION
-	 * @var int
+	 * @var int/string
 	 */
-	public $profile = null;
+	public $profile = '';
 
 	/**
 	 * Uses PHP export to display settings
@@ -122,7 +122,7 @@ abstract class CPAC_Storage_Model {
 		// set columns paths
 		$this->set_columns_filepath();
 
-		$this->set_profile();
+		$this->profile = $this->get_current_profile_id();
 
 		// Populate columns for this screen.
 		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
@@ -256,45 +256,136 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get profiles
 	 * @since NEWVERSION
 	 */
-	public function get_profiles() {
-		global $wpdb;
-
-		$profiles = array();
-
-		$key = "cpac_options_" . $this->key;
-		if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $key .'%' ) ) ) {
-			foreach ( $results as $name ) {
-				$profile_id = str_replace( $key, '', $name );
-				if ( is_numeric( $profile_id ) || $profile_id === '' ) {
-					$profiles[] = $profile_id;
-				}
-			}
-		}
-		return $profiles;
+	private function set_profile( $profile ) {
+		$this->profile = $profile;
 	}
-
 	/**
-	 * Store active profile
-	 *
+	 * @since NEWVERSION
+	 */
+	private function get_profile() {
+		return $this->profile;
+	}
+	/**
 	 * @since NEWVERSION
 	 */
 	private function get_profile_storage_id() {
 		return 'cpac_profile_' . $this->key;
 	}
-	private function set_profile() {
-		$this->profile = $this->get_active_profile();
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_profiles() {
+		$profiles = (array) get_option( $this->get_profile_storage_id() );
+		natcasesort( $profiles );
+		return $profiles;
 	}
-
-	public function store_active_profile( $profile ) {
-		update_option( $this->get_profile_storage_id(), $profile );
-		$this->profile = $profile;
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_unique_profile_name( $prefix = 'Profile' ) {
+		$profiles = array_keys( $this->get_profiles() );
+		return $prefix . ' #' . ( count( $profiles ) + 1 );
 	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function create_profile( $name, $columns = '' ) {
+		if ( empty( $name ) ) {
+			return new WP_Error( 'empty_name', __( 'Profile name is empty.', 'cpac' ) );
+		}
+		$profiles = $this->get_profiles();
+		if ( in_array( $name, $profiles ) ) {
+			return new WP_Error( 'name_exists', sprintf( __( 'Profile name %s already exists.', 'cpac' ), "<strong>\"" . esc_html( $name ) . "\"</strong>" ) );
+		}
+		$profiles[] = $name;
+		update_option( $this->get_profile_storage_id(), array_filter( $profiles ) );
+		end( $profiles );
+		$id = key( $profiles );
+		$this->load_profile( $id );
+		if ( $columns ) {
+			$this->store( $columns, false );
+		}
+		return $id;
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function update_profile_name( $id, $name ) {
+		$profiles = $this->get_profiles();
+		if ( ! isset( $profiles[ $id ] ) ) {
+			return false;
+		}
+		$profiles[ $id ] = $name;
+		update_option( $this->get_profile_storage_id(), $profiles );
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function delete_profile( $id ) {
+		$profiles = $this->get_profiles();
+		if ( ! isset( $profiles[ $id ] ) ) {
+			return false;
+		}
+		$name = $profiles[ $id ];
+		unset( $profiles[ $id ] );
+		update_option( $this->get_profile_storage_id(), $profiles );
 
-	public function get_active_profile() {
-		return get_option( $this->get_profile_storage_id(), '' );
+		$org_profile_id = $this->get_profile();
+
+		// if last profile is deleted, store it's column settings as default
+		if ( empty( $profiles ) ) {
+			$org_columns = $this->get_stored_columns();
+		}
+
+		// restore columns
+		$this->set_profile( $id );
+		$this->restore();
+
+		// current profile was deleted? load the first one
+		if ( $id == $org_profile_id && $profiles ) {
+			$this->load_profile( key( $profiles ) );
+		}
+
+		if ( isset( $org_columns ) ) {
+			$this->store( $org_columns, false );
+		}
+
+		return $name;
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function delete_current_profile() {
+		$this->delete_profile( $this->profile );
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function load_profile( $id ) {
+		$profiles = $this->get_profiles();
+		if ( ! isset( $profiles[ $id ] ) ) {
+			return new WP_Error( 'profile_not_found', __( 'Profile not found.', 'cpac' ) );
+		}
+		update_option( $this->get_profile_storage_id() . '_current', $id );
+		$this->set_profile( $id );
+		$this->set_columns(); // load columns
+		return $profiles[ $id ];
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_current_profile_id() {
+		return get_option( $this->get_profile_storage_id() . '_current', '' );
+	}
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_current_profile_name() {
+		$profiles = $this->get_profiles();
+		$id = $this->get_current_profile_id();
+		return isset( $profiles[ $id ] ) ? $profiles[ $id ] : false;
 	}
 
 	/**
@@ -309,20 +400,14 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function restore() {
-
 		delete_option( $this->get_storage_id() );
-		delete_option( $this->get_profile_storage_id() );
-
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
-
-		// refresh columns otherwise the removed columns will still display
 		$this->set_columns_on_current_screen();
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public function store( $columns = '' ) {
+	public function store( $columns = '', $message = true ) {
 
 		if ( ! empty( $_POST[ $this->key ] ) ) {
 			$columns = array_filter( $_POST[ $this->key ] );
@@ -350,11 +435,15 @@ abstract class CPAC_Storage_Model {
 
 		// error
 		if ( ! $result && ! $result_default ) {
-			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
+			if ( $message ) {
+				cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
+			}
 			return false;
 		}
 
-		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		if ( $message ) {
+			cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		}
 
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();

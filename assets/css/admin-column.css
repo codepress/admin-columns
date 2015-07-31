@@ -184,6 +184,34 @@ h2.cpac-nav-tab-wrapper {
  * Columns
  * ----------------------------------------------------------------------------
  */
+.columns-left .titlediv {
+  position: relative;
+}
+.columns-left .titlediv .profile {
+  position: absolute;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+.columns-left .titlediv .profile span.label {
+  color: #808080;
+  font-weight: 700;
+  font-size: 11px;
+  margin-right: 6px;
+}
+.columns-left .titlediv .profile span.name {
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px 10px 6px;
+  box-shadow: inset 0 -7px 4px -7px rgba(0, 0, 0, 0.2);
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+  font-weight: bold;
+  border-color: #ccc;
+  background-color: #e4e4e4;
+}
 .columns-left .cpac-boxes .cpac-columns form {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
