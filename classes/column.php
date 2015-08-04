@@ -489,7 +489,7 @@ class CPAC_Column {
 	/**
 	 * @since 1.3
 	 */
-	protected function strip_trim( $string ) {
+	public function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
 	}
 
