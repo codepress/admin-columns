@@ -54,6 +54,28 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get post ID's
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param array $args
+	 * @return array Posts
+	 */
+	public function get_posts( $args = array() ) {
+        $defaults = array(
+			'numberposts'	=> -1,
+			'post_status'	=> array( 'any', 'trash' ),
+			'post_type'		=> $this->post_type,
+			'fields'		=> 'ids',
+			'no_found_rows' => 1, // lowers our carbon footprint
+		);
+
+		$post_ids = (array) get_posts( array_merge( $defaults, $args ) );
+
+        return $post_ids;
+	}
+
+	/**
 	 * Set posttype
 	 *
 	 * @since 2.3.5

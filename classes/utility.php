@@ -68,3 +68,16 @@ function cpac_is_wc_version_gte( $version = '1.0' ) {
 	$wc_version = defined( 'WC_VERSION' ) && WC_VERSION ? WC_VERSION : null;
 	return $wc_version && version_compare( $wc_version, $version, '>=' );
 }
+
+function cpac_get_ids_from_array( $array ) {
+	$array = trim( str_replace( ' ','', $array ) );
+	$ids = array();
+	if ( strpos( $array, ',' ) !== false ) {
+		$ids = explode( ',', $array );
+		$ids = array_map( 'intval', $ids );
+	}
+	elseif ( is_numeric( $array ) ) {
+		$ids[] = $array;
+	}
+	return $ids;
+}
