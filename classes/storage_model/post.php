@@ -210,14 +210,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
      */
     public function get_meta() {
         global $wpdb;
-       if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
-        	$result = $cache;
-        }
-        else {
-			$result = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
-			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
-		}
-		return $result;
+        return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
     }
 
 	/**
