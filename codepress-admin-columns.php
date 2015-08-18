@@ -96,6 +96,14 @@ class CPAC {
 	private $_upgrade;
 
 	/**
+	 * Column settings to import from a column PHP export
+	 *
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	public $exported_columns;
+
+	/**
 	 * @since 1.0
 	 */
 	function __construct() {
@@ -207,9 +215,8 @@ class CPAC {
 	 * @since 2.3.5
 	 */
 	public function maybe_load_php_export() {
-		global $_cac_exported_columns;
-		if ( $_cac_exported_columns ) {
-			foreach( $_cac_exported_columns as $model => $columns ) {
+		if ( ! empty( $this->exported_columns ) ) {
+			foreach( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
 				}
