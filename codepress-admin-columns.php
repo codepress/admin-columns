@@ -215,10 +215,8 @@ class CPAC {
 	 * @since 2.3.5
 	 */
 	public function maybe_load_php_export() {
-		global $cpac;
-
-		if ( ! empty( $cpac->exported_columns ) ) {
-			foreach( $cpac->exported_columns as $model => $columns ) {
+		if ( ! empty( $this->exported_columns ) ) {
+			foreach( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
 				}
