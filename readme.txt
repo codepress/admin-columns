@@ -212,6 +212,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Added] Comment Post column added
+* [Update] User Actions columns extends CPAC_Actions object
+* [Update] PHP export columns no longer uses global
+
 = 2.4.6 =
 * [Fixed] Page Order column is now available on all supported posttypes
 * [Fixed] Time reading columns shows "-"" instead of zero when there is no content
