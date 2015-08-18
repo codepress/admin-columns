@@ -1403,4 +1403,42 @@ class CPAC_Column {
 		</div>
 		<?php
 	}
+	
+	/**
+	 * Display settings field for post property to display
+	 *
+	 * @since NEWVERSION
+	 */
+	public function display_field_post_property_display() {
+		$this->display_field_select(
+			'post_property_display',
+			__( 'Property To Display', 'cpac' ),
+			array(
+				'id' => __( 'ID' ),
+				'title' => __( 'Title' ),
+				'author' => __( 'Author' )
+			),
+			__( 'Post property to display for related post(s).', 'cpac' )
+		);
+	}
+	/**
+	 * Display settings field for the page the posts should link to
+	 *
+	 * @since NEWVERSION
+	 */
+	public function display_field_post_link_to() {
+		$this->display_field_select(
+			'post_link_to',
+			__( 'Link To', 'cpac' ),
+			array(
+				'' => __( 'None' ),
+				'edit_post' => __( 'Edit Post' ),
+				'view_post' => __( 'View Post' ),
+				'edit_author' => __( 'Edit Post Author', 'cpac' ),
+				'view_author' => __( 'View Public Post Author Page', 'cpac' )
+			),
+			__( 'Page the posts should link to.', 'cpac' )
+		);
+	}
+
 }
