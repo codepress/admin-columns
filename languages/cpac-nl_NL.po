@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-29 13:58+0100\n"
-"PO-Revision-Date: 2015-06-26 13:25+0100\n"
+"PO-Revision-Date: 2015-08-27 09:19+0200\n"
 "Last-Translator: Codepress <info@codepress.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/admin-columns/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -177,7 +177,8 @@ msgstr "Kloon"
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: ../classes/column.php:1295 ../classes/column/comment/type.php:13 ../classes/column/custom-field.php:407
+#: ../classes/column.php:1295 ../classes/column/comment/type.php:13
+#: ../classes/column/custom-field.php:407
 msgid "Type"
 msgstr "Type"
 
@@ -242,15 +243,18 @@ msgstr "Gebruik iconen?"
 msgid "Use icons instead of text for displaying the actions."
 msgstr "Gebruik iconen in plaats van tekst om actions te tonen."
 
-#: ../classes/column/actions.php:100 ../classes/column/post/permalink.php:72 ../classes/column/used-by-menu.php:137
+#: ../classes/column/actions.php:100 ../classes/column/post/permalink.php:72
+#: ../classes/column/used-by-menu.php:137
 msgid "Yes"
 msgstr "Ja"
 
-#: ../classes/column/actions.php:104 ../classes/column/post/permalink.php:76 ../classes/column/used-by-menu.php:141
+#: ../classes/column/actions.php:104 ../classes/column/post/permalink.php:76
+#: ../classes/column/used-by-menu.php:141
 msgid "No"
 msgstr "Nee"
 
-#: ../classes/column/comment/ID.php:19 ../classes/column/link/ID.php:19 ../classes/column/media/ID.php:19 ../classes/column/post/ID.php:19
+#: ../classes/column/comment/ID.php:19 ../classes/column/link/ID.php:19
+#: ../classes/column/media/ID.php:19 ../classes/column/post/ID.php:19
 msgid "ID"
 msgstr "ID"
 
@@ -258,7 +262,8 @@ msgstr "ID"
 msgid "Agent"
 msgstr "Agent"
 
-#: ../classes/column/comment/approved.php:19 ../classes/column/post/comment-count.php:35
+#: ../classes/column/comment/approved.php:19
+#: ../classes/column/post/comment-count.php:35
 msgid "Approved"
 msgstr "Goedgekeurd"
 
@@ -290,16 +295,19 @@ msgstr "Auteur"
 msgid "Date GMT"
 msgstr "Datum GMT"
 
-#: ../classes/column/comment/date-gmt.php:30 ../classes/column/comment/date.php:30
+#: ../classes/column/comment/date-gmt.php:30
+#: ../classes/column/comment/date.php:30
 #, php-format
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "Verstuurd op <a href=\"%1$s\">%2$s op %3$s</a>"
 
-#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98 ../classes/settings.php:318
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98
+#: ../classes/settings.php:318
 msgid "Date"
 msgstr "Datum"
 
-#: ../classes/column/comment/excerpt.php:19 ../classes/column/post/content.php:19
+#: ../classes/column/comment/excerpt.php:19
+#: ../classes/column/post/content.php:19
 msgid "Content"
 msgstr "Content"
 
@@ -311,15 +319,18 @@ msgstr "Antwoord op"
 msgid "User"
 msgstr "Gebruiker"
 
-#: ../classes/column/comment/word-count.php:19 ../classes/column/post/word-count.php:19
+#: ../classes/column/comment/word-count.php:19
+#: ../classes/column/post/word-count.php:19
 msgid "Word count"
 msgstr "Aantal woorden"
 
-#: ../classes/column/custom-field.php:23 ../classes/column/custom-field.php:390 ../classes/settings.php:308
+#: ../classes/column/custom-field.php:23 ../classes/column/custom-field.php:390
+#: ../classes/settings.php:308
 msgid "Custom Field"
 msgstr "Custom veld"
 
-#: ../classes/column/custom-field.php:94 ../classes/settings.php:313 ../classes/storage_model.php:596
+#: ../classes/column/custom-field.php:94 ../classes/settings.php:313
+#: ../classes/storage_model.php:596
 msgid "Default"
 msgstr "Standaard"
 
@@ -335,11 +346,13 @@ msgstr "Kleur"
 msgid "Counter"
 msgstr "Teller"
 
-#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
+#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
+#: ../classes/settings.php:315
 msgid "Excerpt"
 msgstr "Samenvatting"
 
-#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19 ../classes/settings.php:314
+#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19
+#: ../classes/settings.php:314
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -388,7 +401,9 @@ msgstr "Veld type"
 msgid "This will determine how the value will be displayed."
 msgstr "Dit bepaald hoe de waarde wordt weer gegeven,"
 
-#: ../classes/column/link/description.php:19 ../classes/column/media/description.php:19 ../classes/column/user/description.php:19
+#: ../classes/column/link/description.php:19
+#: ../classes/column/media/description.php:19
+#: ../classes/column/user/description.php:19
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -428,7 +443,8 @@ msgstr "Beschikbare Afmetingen"
 msgid "full size"
 msgstr "Volledige grootte"
 
-#: ../classes/column/media/caption.php:19 ../classes/column/media/exif-data.php:41
+#: ../classes/column/media/caption.php:19
+#: ../classes/column/media/exif-data.php:41
 msgid "Caption"
 msgstr "Onderschrift"
 
@@ -484,7 +500,8 @@ msgstr "Bestandsnaam"
 msgid "File size"
 msgstr "Bestandsgrootte"
 
-#: ../classes/column/media/full-path.php:19 ../classes/column/media/full-path.php:92
+#: ../classes/column/media/full-path.php:19
+#: ../classes/column/media/full-path.php:92
 msgid "Full path"
 msgstr "Volledige pad"
 
@@ -544,11 +561,13 @@ msgstr "Pending"
 msgid "Spam"
 msgstr "Spam"
 
-#: ../classes/column/post/comment-count.php:38 ../classes/column/post/status.php:35
+#: ../classes/column/post/comment-count.php:38
+#: ../classes/column/post/status.php:35
 msgid "Trash"
 msgstr "Prullenbak"
 
-#: ../classes/column/post/comment-count.php:99 ../classes/column/post/comment-status.php:20
+#: ../classes/column/post/comment-count.php:99
+#: ../classes/column/post/comment-status.php:20
 msgid "Comment status"
 msgstr "Comment status"
 
@@ -736,7 +755,8 @@ msgstr "Visuele editor"
 msgid "Url"
 msgstr "Url"
 
-#: ../classes/review_notice.php:55 ../classes/settings.php:170 ../classes/settings.php:589 ../classes/upgrade.php:135
+#: ../classes/review_notice.php:55 ../classes/settings.php:170
+#: ../classes/settings.php:589 ../classes/upgrade.php:135
 msgid "Admin Columns"
 msgstr "Admin Columns"
 

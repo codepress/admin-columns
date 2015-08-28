@@ -158,6 +158,9 @@ class CPAC_Column {
 			'hidden'			=> false
 		);
 
+		// @since NEWVERSION
+		$default_properties = apply_filters( 'cac/column/default_properties', $default_properties );
+
 		foreach ( $default_properties as $property => $value ) {
 			$this->properties[ $property ] = $value;
 		}
@@ -1403,7 +1406,7 @@ class CPAC_Column {
 		</div>
 		<?php
 	}
-	
+
 	/**
 	 * Display settings field for post property to display
 	 *
@@ -1421,6 +1424,7 @@ class CPAC_Column {
 			__( 'Post property to display for related post(s).', 'cpac' )
 		);
 	}
+
 	/**
 	 * Display settings field for the page the posts should link to
 	 *
