@@ -210,7 +210,7 @@ class CPAC_Column {
 		 * @param array $properties Column properties
 		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
 		 */
-		$this->properties = apply_filters( 'cac/column/properties', $this->properties ); // do not pass $this because object is not ready
+		$this->properties = apply_filters( 'cac/column/properties', $this->properties, $this ); // do not pass $this because object is not ready
 
 		/**
 		 * Filter the properties of a column type for a specific storage model
@@ -219,7 +219,7 @@ class CPAC_Column {
 		 * @since 2.0
 		 * @see Filter cac/column/properties
 		 */
-		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties ); // do not pass $this because object is not ready
+		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties, $this ); // do not pass $this because object is not ready
 
 		// Column label defaults to column type label
 		if ( ! isset( $this->options['label'] ) ) {
@@ -1017,6 +1017,19 @@ class CPAC_Column {
 		}
 
 		return $name;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_filter_operators() {
+		$operators = array(
+			'' => __( 'Exact match', 'cpac' ),
+			'<=' => __( 'Lesser than', 'cpac' ),
+			'>=' => __( 'Greater than', 'cpac' ),
+			'between' => __( 'Between', 'cpac' ),
+		);
+		return $operators;
 	}
 
 	/**
