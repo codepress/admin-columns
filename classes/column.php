@@ -1430,8 +1430,8 @@ class CPAC_Column {
 			'post_property_display',
 			__( 'Property To Display', 'cpac' ),
 			array(
+				'title' => __( 'Title' ), // default
 				'id' => __( 'ID' ),
-				'title' => __( 'Title' ),
 				'author' => __( 'Author' )
 			),
 			__( 'Post property to display for related post(s).', 'cpac' )
