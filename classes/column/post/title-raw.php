@@ -16,7 +16,7 @@ class CPAC_Column_Post_Title_Raw extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-title_raw';
-		$this->properties['label']	 = __( 'Title without actions', 'cpac' );
+		$this->properties['label']	 = __( 'Title without actions', 'codepress-admin-columns' );
 	}
 
 	/**

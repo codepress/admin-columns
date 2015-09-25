@@ -16,7 +16,7 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 		= 'column-exif_data';
-		$this->properties['label']	 		= __( 'EXIF data', 'cpac' );
+		$this->properties['label']	 		= __( 'EXIF data', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']	= true;
 
 		// Options
@@ -35,16 +35,16 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	private function get_exif_types() {
 
 		$exif_types = array(
-			'aperture'			=> __( 'Aperture', 'cpac' ),
-			'credit'			=> __( 'Credit', 'cpac' ),
-			'camera'			=> __( 'Camera', 'cpac' ),
-			'caption'			=> __( 'Caption', 'cpac' ),
-			'created_timestamp'	=> __( 'Timestamp', 'cpac' ),
-			'copyright'			=> __( 'Copyright EXIF', 'cpac' ),
-			'focal_length'		=> __( 'Focal Length', 'cpac' ),
-			'iso'				=> __( 'ISO', 'cpac' ),
-			'shutter_speed'		=> __( 'Shutter Speed', 'cpac' ),
-			'title'				=> __( 'Title', 'cpac' ),
+			'aperture'			=> __( 'Aperture', 'codepress-admin-columns' ),
+			'credit'			=> __( 'Credit', 'codepress-admin-columns' ),
+			'camera'			=> __( 'Camera', 'codepress-admin-columns' ),
+			'caption'			=> __( 'Caption', 'codepress-admin-columns' ),
+			'created_timestamp'	=> __( 'Timestamp', 'codepress-admin-columns' ),
+			'copyright'			=> __( 'Copyright EXIF', 'codepress-admin-columns' ),
+			'focal_length'		=> __( 'Focal Length', 'codepress-admin-columns' ),
+			'iso'				=> __( 'ISO', 'codepress-admin-columns' ),
+			'shutter_speed'		=> __( 'Shutter Speed', 'codepress-admin-columns' ),
+			'title'				=> __( 'Title', 'codepress-admin-columns' ),
 		);
 
 		return $exif_types;

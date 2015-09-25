@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Date extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-date';
-		$this->properties['label']	 = __( 'Date', 'cpac' );
+		$this->properties['label']	 = __( 'Date', 'codepress-admin-columns' );
 	}
 
 	/**

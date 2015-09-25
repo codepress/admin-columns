@@ -16,7 +16,7 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-permalink';
-		$this->properties['label']	 	= __( 'Permalink', 'cpac' );
+		$this->properties['label']	 	= __( 'Permalink', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['link_to_post'] = false;
@@ -65,7 +65,7 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 		$field_key = 'link_to_post';
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( __( 'Link to post', 'cpac' ), __( 'This will make the permalink clickable.', 'cpac' ), $field_key ); ?>
+			<?php $this->label_view( __( 'Link to post', 'codepress-admin-columns' ), __( 'This will make the permalink clickable.', 'codepress-admin-columns' ), $field_key ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( $field_key ); ?>-on">
 					<input type="radio" value="on" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-on"<?php checked( $this->options->link_to_post, 'on' ); ?> />

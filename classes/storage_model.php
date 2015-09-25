@@ -252,7 +252,7 @@ abstract class CPAC_Storage_Model {
 
 		delete_option( "cpac_options_{$this->key}" );
 
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
+		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'codepress-admin-columns' ), 'updated' );
 
 		// refresh columns otherwise the removed columns will still display
 		$this->set_columns_on_current_screen();
@@ -268,7 +268,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		if ( ! $columns ) {
-			cpac_admin_message( __( 'No columns settings available.',  'cpac' ), 'error' );
+			cpac_admin_message( __( 'No columns settings available.',  'codepress-admin-columns' ), 'error' );
 			return false;
 		}
 
@@ -289,11 +289,11 @@ abstract class CPAC_Storage_Model {
 
 		// error
 		if ( ! $result && ! $result_default ) {
-			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
+			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'error' );
 			return false;
 		}
 
-		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
 
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();
@@ -628,10 +628,10 @@ abstract class CPAC_Storage_Model {
 	public function get_column_type_groups() {
 
 		$groups = array(
-			'default' => __( 'Default', 'cpac' ),
-			'custom-field' => __( 'Custom Field', 'cpac' ),
-			'custom' => __( 'Custom', 'cpac' ),
-			'plugin' => __( 'Columns by Plugins', 'cpac' ),
+			'default' => __( 'Default', 'codepress-admin-columns' ),
+			'custom-field' => __( 'Custom Field', 'codepress-admin-columns' ),
+			'custom' => __( 'Custom', 'codepress-admin-columns' ),
+			'plugin' => __( 'Columns by Plugins', 'codepress-admin-columns' ),
 		);
 
 		/**
@@ -841,7 +841,7 @@ abstract class CPAC_Storage_Model {
 	public function screen_link() {
 
 		if ( $link = $this->get_screen_link() ) {
-			echo '<a href="' . $link . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
+			echo '<a href="' . $link . '" class="add-new-h2">' . __('View', 'codepress-admin-columns') . '</a>';
 		}
 	}
 

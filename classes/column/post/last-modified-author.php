@@ -17,7 +17,7 @@ class CPAC_Column_Post_Last_Modified_Author extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 			= 'column-last_modified_author';
-		$this->properties['label']	 			= __( 'Last Modified Author', 'cpac' );
+		$this->properties['label']	 			= __( 'Last Modified Author', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']		= true;
 
 		// Options

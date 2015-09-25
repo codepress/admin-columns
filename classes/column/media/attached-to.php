@@ -16,7 +16,7 @@ class CPAC_Column_Attached_To extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-attached_to';
-		$this->properties['label']	 	= __( 'Attached to post', 'cpac' );
+		$this->properties['label']	 	= __( 'Attached to post', 'codepress-admin-columns' );
 	}
 
 	/**

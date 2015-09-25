@@ -16,7 +16,7 @@ class CPAC_Column_Link_Actions extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-actions';
-		$this->properties['label']	 	= __( 'Actions', 'cpac' );
+		$this->properties['label']	 	= __( 'Actions', 'codepress-admin-columns' );
 	}
 
 	/**

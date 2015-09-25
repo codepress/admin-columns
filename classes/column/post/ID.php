@@ -16,7 +16,7 @@ class CPAC_Column_Post_ID extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-postid';
-		$this->properties['label']	 	= __( 'ID', 'cpac' );
+		$this->properties['label']	 	= __( 'ID', 'codepress-admin-columns' );
 	}
 
 	/**

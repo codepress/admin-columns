@@ -17,7 +17,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-available_sizes';
-		$this->properties['label']	 = __( 'Available Sizes', 'cpac' );
+		$this->properties['label']	 = __( 'Available Sizes', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class CPAC_Column_Media_Available_Sizes extends CPAC_Column {
 
 			$url 		= wp_get_attachment_url( $id );
 			$filename 	= basename( $url );
-			$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'cpac' ) . "</a>";
+			$paths[] 	= "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'codepress-admin-columns' ) . "</a>";
 
 			foreach ( $intersect as $size ) {
 				$src = wp_get_attachment_image_src( $id, $size );

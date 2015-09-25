@@ -16,7 +16,7 @@ class CPAC_Column_Media_File_Size extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-file_size';
-		$this->properties['label']	 = __( 'File size', 'cpac' );
+		$this->properties['label']	 = __( 'File size', 'codepress-admin-columns' );
 	}
 
 	/**

@@ -16,7 +16,7 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-roles';
-		$this->properties['label']	 	= __( 'Roles', 'cpac' );
+		$this->properties['label']	 	= __( 'Roles', 'codepress-admin-columns' );
 	}
 
 	/**

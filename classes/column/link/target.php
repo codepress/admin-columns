@@ -16,7 +16,7 @@ class CPAC_Column_Link_Target extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-target';
-		$this->properties['label']	 	= __( 'Target', 'cpac' );
+		$this->properties['label']	 	= __( 'Target', 'codepress-admin-columns' );
 	}
 
 	/**

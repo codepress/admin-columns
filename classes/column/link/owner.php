@@ -16,7 +16,7 @@ class CPAC_Column_Link_Owner extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-owner';
-		$this->properties['label']	 	= __( 'Owner', 'cpac' );
+		$this->properties['label']	 	= __( 'Owner', 'codepress-admin-columns' );
 	}
 
 	/**

@@ -16,7 +16,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-parent';
-		$this->properties['label']				= __( 'Parent', 'cpac' );
+		$this->properties['label']				= __( 'Parent', 'codepress-admin-columns' );
 		$this->properties['object_property']	= 'post_parent';
 	}
 

@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Word_Count extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-word_count';
-		$this->properties['label']	 = __( 'Word count', 'cpac' );
+		$this->properties['label']	 = __( 'Word count', 'codepress-admin-columns' );
 	}
 
 	/**

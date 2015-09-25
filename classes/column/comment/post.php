@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Post extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-post';
-		$this->properties['label']	 			= __( 'Post', 'cpac' );
+		$this->properties['label']	 			= __( 'Post', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['post_property_display']	= 'title';

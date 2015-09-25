@@ -6,7 +6,7 @@ Description: Customize columns on the administration screens for post(types), pa
 Author: AdminColumns.com
 Author URI: http://www.admincolumns.com
 Plugin URI: http://www.admincolumns.com
-Text Domain: cpac
+Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
 
@@ -158,7 +158,7 @@ class CPAC {
 	 */
 	public function localize() {
 
-		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -448,7 +448,7 @@ class CPAC {
 		<?php if ( $edit_link ) : ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
-				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
+				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>');
 			});
 		</script>
 		<?php endif; ?>

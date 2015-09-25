@@ -17,7 +17,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-used_by_menu';
-		$this->properties['label']	 	= __( 'Used by Menu', 'cpac' );
+		$this->properties['label']	 	= __( 'Used by Menu', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['link_to_menu'] = false;
@@ -130,7 +130,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 		$field_key = 'link_to_menu';
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( __( 'Link to menu', 'cpac' ), __( 'This will make the title link to the menu.', 'cpac' ), $field_key ); ?>
+			<?php $this->label_view( __( 'Link to menu', 'codepress-admin-columns' ), __( 'This will make the title link to the menu.', 'codepress-admin-columns' ), $field_key ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( $field_key ); ?>-on">
 					<input type="radio" value="on" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-on"<?php checked( $this->options->link_to_menu, 'on' ); ?> />
