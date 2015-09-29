@@ -26,7 +26,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		// Properties
 		$this->properties['type'] = 'column-actions';
-		$this->properties['label'] = __( 'Actions', 'cpac' );
+		$this->properties['label'] = __( 'Actions', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['use_icons'] = false;
@@ -93,7 +93,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		?>
 		<tr class="column_editing">
-			<?php $this->label_view( __( 'Use icons?', 'cpac' ), __( 'Use icons instead of text for displaying the actions.', 'cpac' ), 'use_icons' ); ?>
+			<?php $this->label_view( __( 'Use icons?', 'codepress-admin-columns' ), __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ), 'use_icons' ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( 'use_icons' ); ?>-yes">
 					<input type="radio" value="1" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-yes"<?php checked( $this->options->use_icons, '1' ); ?> />

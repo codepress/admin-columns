@@ -16,7 +16,7 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 		= 'column-acf_placeholder';
-		$this->properties['label']	 		= __( 'ACF Field', 'cpac' );
+		$this->properties['label']	 		= __( 'ACF Field', 'codepress-admin-columns' );
 		$this->properties['is_pro_only']	= true;
 	}
 
@@ -32,16 +32,16 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 				<strong><?php _e( 'This feature is only available in Admin Columns Pro - Business or Developer.' ); ?></strong>
 			</p>
 			<p>
-				<?php printf( __( "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>.", 'cpac' ), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+				<?php printf( __( "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
 			</p>
 			<p>
-				<?php _e( 'Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview.', 'cpac' ); ?>
+				<?php _e( 'Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview.', 'codepress-admin-columns' ); ?>
 			</p>
 			<a href="<?php echo add_query_arg( array(
 				'utm_source' => 'plugin-installation',
 				'utm_medium' => 'acf-placeholder',
 				'utm_campaign' => 'plugin-installation'
-			), 'http://admincolumns.com/advanced-custom-fields-integration/' ); ?>" class="button button-primary"><?php _e( 'Find out more', 'cpac' ); ?></a>
+			), 'http://admincolumns.com/advanced-custom-fields-integration/' ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
 		</div>
 		<?php
 	}

@@ -17,7 +17,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 		= 'column-comment_count';
-		$this->properties['label']	 		= __( 'Comment count', 'cpac' );
+		$this->properties['label']	 		= __( 'Comment count', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']	= true;
 
 		// Options
@@ -31,11 +31,11 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	function get_comment_stati() {
 
 		return array(
-			'total_comments'	=> __( 'Total', 'cpac' ),
-			'approved'			=> __( 'Approved', 'cpac' ),
-			'moderated'			=> __( 'Pending', 'cpac' ),
-			'spam'				=> __( 'Spam', 'cpac' ),
-			'trash'				=> __( 'Trash', 'cpac' ),
+			'total_comments'	=> __( 'Total', 'codepress-admin-columns' ),
+			'approved'			=> __( 'Approved', 'codepress-admin-columns' ),
+			'moderated'			=> __( 'Pending', 'codepress-admin-columns' ),
+			'spam'				=> __( 'Spam', 'codepress-admin-columns' ),
+			'trash'				=> __( 'Trash', 'codepress-admin-columns' ),
 		);
 	}
 
@@ -96,7 +96,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	function display_settings() {
 		?>
 		<tr class="column_comment-count">
-			<?php $this->label_view( __( 'Comment status', 'cpac' ), __( 'Select which comment status you like to display.', 'cpac' ), 'comment-status' ); ?>
+			<?php $this->label_view( __( 'Comment status', 'codepress-admin-columns' ), __( 'Select which comment status you like to display.', 'codepress-admin-columns' ), 'comment-status' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'comment_status' ); ?>" id="<?php $this->attr_id( 'comment-status' ); ?>">
 				<?php foreach ( $this->get_comment_stati() as $key => $label ) : ?>

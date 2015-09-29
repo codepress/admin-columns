@@ -16,7 +16,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-sticky';
-		$this->properties['label']	 	= __( 'Sticky', 'cpac' );
+		$this->properties['label']	 	= __( 'Sticky', 'codepress-admin-columns' );
 	}
 
 	/**

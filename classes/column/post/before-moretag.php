@@ -16,7 +16,7 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-before_moretag';
-		$this->properties['label']	 = __( 'Before More Tag', 'cpac' );
+		$this->properties['label']	 = __( 'Before More Tag', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['excerpt_length'] = 15;

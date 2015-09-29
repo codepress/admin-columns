@@ -16,7 +16,7 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 
 		// Properties
 		$this->properties['type'] = 'column-order';
-		$this->properties['label'] = __( 'Order', 'cpac' );
+		$this->properties['label'] = __( 'Order', 'codepress-admin-columns' );
 	}
 
 	/**

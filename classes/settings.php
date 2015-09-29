@@ -109,10 +109,10 @@ class CPAC_Settings {
 		$message = '';
 
 		if ( ! empty( $_REQUEST['activate'] ) ) {
-			$message = __( 'Add-on successfully activated.', 'cpac' );
+			$message = __( 'Add-on successfully activated.', 'codepress-admin-columns' );
 		}
 		else if ( ! empty( $_REQUEST['deactivate'] ) ) {
-			$message = __( 'Add-on successfully deactivated.', 'cpac' );
+			$message = __( 'Add-on successfully deactivated.', 'codepress-admin-columns' );
 		}
 
 		if ( ! $message ) {
@@ -167,7 +167,7 @@ class CPAC_Settings {
 	public function settings_menu() {
 
 		// add settings page
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
 		// add help tabs
 		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
@@ -217,7 +217,7 @@ class CPAC_Settings {
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
-			'clone'	=> __( '%s column is already present and can not be duplicated.', 'cpac' ),
+			'clone'	=> __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 		));
 	}
 
@@ -273,7 +273,7 @@ class CPAC_Settings {
 
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
 
-		cpac_admin_message( __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
+		cpac_admin_message( __( 'Default settings succesfully restored.',  'codepress-admin-columns' ), 'updated' );
 	}
 
 	/**
@@ -290,39 +290,39 @@ class CPAC_Settings {
 
 		$tabs = array(
 			array(
-				'title'		=> __( "Overview", 'cpac' ),
+				'title'		=> __( "Overview", 'codepress-admin-columns' ),
 				'content'	=>
 					"<h5>Admin Columns</h5>
-					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'cpac' ) . "</p>"
+					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'codepress-admin-columns' ) . "</p>"
 			),
 			array(
-				'title'		=> __( "Basics", 'cpac' ),
+				'title'		=> __( "Basics", 'codepress-admin-columns' ),
 				'content'	=> "
-					<h5>" 	. __( "Change order", 'cpac' ) . "</h5>
-					<p>" 	. __( "By dragging the columns you can change the order which they will appear in.", 'cpac' ) . "</p>
-					<h5>" 	. __( "Change label", 'cpac' ) . "</h5>
-					<p>" 	. __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'cpac' ) . "</p>
-					<h5>" 	. __( "Change column width", 'cpac' ) . "</h5>
-					<p>" 	. __( "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages.", 'cpac' ) . "</p>
+					<h5>" 	. __( "Change order", 'codepress-admin-columns' ) . "</h5>
+					<p>" 	. __( "By dragging the columns you can change the order which they will appear in.", 'codepress-admin-columns' ) . "</p>
+					<h5>" 	. __( "Change label", 'codepress-admin-columns' ) . "</h5>
+					<p>" 	. __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'codepress-admin-columns' ) . "</p>
+					<h5>" 	. __( "Change column width", 'codepress-admin-columns' ) . "</h5>
+					<p>" 	. __( "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages.", 'codepress-admin-columns' ) . "</p>
 				"
 			),
 			array(
-				'title'		=> __( "Custom Field", 'cpac' ),
+				'title'		=> __( "Custom Field", 'codepress-admin-columns' ),
 				'content'	=>
-					"<h5>". __( "'Custom Field' column", 'cpac' ) . "</h5>
-					<p>". __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", 'cpac' ) . "</p>
+					"<h5>". __( "'Custom Field' column", 'codepress-admin-columns' ) . "</h5>
+					<p>". __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", 'codepress-admin-columns' ) . "</p>
 					<ul>
-						<li><strong>". __( "Default", 'cpac' ) . "</strong><br/>". __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'cpac' ) . "</li>
-						<li><strong>". __( "Image", 'cpac' ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'cpac' ) . "</li>
-						<li><strong>". __( "Excerpt", 'cpac' ) . "</strong><br/>". __( "Value: This will show the first 20 words of the Post content.", 'cpac' ) . "</li>
-						<li><strong>". __( "Multiple Values", 'cpac' ) . "</strong><br/>". __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'cpac' ) . "</li>
-						<li><strong>". __( "Numeric", 'cpac' ) . "</strong><br/>". __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'cpac' ) . "</li>
-						<li><strong>". __( "Date", 'cpac' ) . "</strong><br/>". sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'cpac' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
-						<li><strong>". __( "Post Titles", 'cpac' ) . "</strong><br/>". __( "Value: can be one or more Post ID's (seperated by ',').", 'cpac' ) . "</li>
-						<li><strong>". __( "Usernames", 'cpac' ) . "</strong><br/>". __( "Value: can be one or more User ID's (seperated by ',').", 'cpac' ) . "</li>
-						<li><strong>". __( "Checkmark", 'cpac' ) . "</strong><br/>". __( "Value: should be a 1 (one) or 0 (zero).", 'cpac' ) . "</li>
-						<li><strong>". __( "Color", 'cpac' ) . "</strong><br/>". __( "Value: hex value color, such as #808080.", 'cpac' ) . "</li>
-						<li><strong>". __( "Counter", 'cpac' ) . "</strong><br/>". __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'cpac' ) . "</li>
+						<li><strong>". __( "Default", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Image", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Excerpt", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Multiple Values", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Numeric", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Date", 'codepress-admin-columns' ) . "</strong><br/>". sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
+						<li><strong>". __( "Post Titles", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Usernames", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Checkmark", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Color", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>". __( "Counter", 'codepress-admin-columns' ) . "</strong><br/>". __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'codepress-admin-columns' ) . "</li>
 					</ul>
 				"
 			)
@@ -414,38 +414,38 @@ class CPAC_Settings {
 			<h1><?php _e( "Welcome to Admin Columns",'cpac'); ?> <?php echo CPAC_VERSION; ?></h1>
 
 			<div class="about-text">
-				<?php _e( "Thank you for updating to the latest version!", 'cpac' ); ?>
-				<?php _e( "Admin Columns is more polished and enjoyable than ever before. We hope you like it.", 'cpac' ); ?>
+				<?php _e( "Thank you for updating to the latest version!", 'codepress-admin-columns' ); ?>
+				<?php _e( "Admin Columns is more polished and enjoyable than ever before. We hope you like it.", 'codepress-admin-columns' ); ?>
 			</div>
 
 			<div class="cpac-content-body">
 				<h2 class="nav-tab-wrapper">
-					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>whats-new"><?php _e( "What’s New", 'cpac' ); ?></a>
-					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>changelog"><?php _e( "Changelog", 'cpac' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'whats-new' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>whats-new"><?php _e( "What’s New", 'codepress-admin-columns' ); ?></a>
+					<a class="cpac-tab-toggle nav-tab <?php if( $tab == 'changelog' ){ echo 'nav-tab-active'; } ?>" href="<?php echo $this->get_settings_url( 'info' ); ?>changelog"><?php _e( "Changelog", 'codepress-admin-columns' ); ?></a>
 				</h2>
 
 			<?php if ( 'whats-new' === $tab ) : ?>
 
-				<h3><?php _e( "Important", 'cpac' ); ?></h3>
+				<h3><?php _e( "Important", 'codepress-admin-columns' ); ?></h3>
 
-				<h4><?php _e( "Database Changes", 'cpac' ); ?></h4>
+				<h4><?php _e( "Database Changes", 'codepress-admin-columns' ); ?></h4>
 				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
 
 			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION ) : ?>
-				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'cpac' );?></a></p>
+				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' );?></a></p>
 			<?php endif; ?>
 
-				<h4><?php _e( "Potential Issues", 'cpac' ); ?></h4>
-				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'cpac' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'cpac' ); ?></a> <?php _e( "guide to view the full list of changes.", 'cpac' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'cpac'), 'mailto:info@codepress.nl' ); ?></p>
+				<h4><?php _e( "Potential Issues", 'codepress-admin-columns' ); ?></h4>
+				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'codepress-admin-columns' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'codepress-admin-columns'), 'mailto:info@codepress.nl' ); ?></p>
 
 				<div class="cpac-alert cpac-alert-error">
-					<p><strong><?php _e( "Important!", 'cpac' ); ?></strong> <?php _e( "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest", 'cpac' ); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e( "version 1", 'cpac' ); ?></a> <?php _e( "of this plugin.", 'cpac' ); ?></p>
+					<p><strong><?php _e( "Important!", 'codepress-admin-columns' ); ?></strong> <?php _e( "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest", 'codepress-admin-columns' ); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e( "version 1", 'codepress-admin-columns' ); ?></a> <?php _e( "of this plugin.", 'codepress-admin-columns' ); ?></p>
 				</div>
 
 			<?php endif; ?>
 			<?php if ( 'changelog' === $tab ) : ?>
 
-				<h3><?php _e("Changelog for", 'cpac'); ?> <?php echo CPAC_VERSION; ?></h3>
+				<h3><?php _e("Changelog for", 'codepress-admin-columns'); ?> <?php echo CPAC_VERSION; ?></h3>
 				<?php
 
 				$items = file_get_contents( CPAC_DIR . 'readme.txt' );
@@ -460,7 +460,7 @@ class CPAC_Settings {
 				<?php foreach( $items as $item ) :
 					$item = explode('http', $item);
 				?>
-					<li><?php echo $item[0]; ?><?php if( isset($item[1]) ): ?><a href="http<?php echo $item[1]; ?>" target="_blank"><?php _e("Learn more", 'cpac'); ?></a><?php endif; ?></li>
+					<li><?php echo $item[0]; ?><?php if( isset($item[1]) ): ?><a href="http<?php echo $item[1]; ?>" target="_blank"><?php _e("Learn more", 'codepress-admin-columns'); ?></a><?php endif; ?></li>
 				<?php endforeach; ?>
 				</ul>
 
@@ -489,8 +489,8 @@ class CPAC_Settings {
 
 				<tr class="general">
 					<th scope="row">
-						<h3><?php _e( 'General Settings', 'cpac' ); ?></h3>
-						<p><?php _e( 'Customize your Admin Columns settings.', 'cpac' ); ?></p>
+						<h3><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h3>
+						<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
 					</th>
 					<td class="padding-22">
 						<div class="cpac_general">
@@ -501,7 +501,7 @@ class CPAC_Settings {
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" type="hidden" value="0" >
 										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( ! isset( $options['show_edit_button'] ) || ( '1' == $options['show_edit_button'] ) ); ?>>
-										<?php _e( 'Show "Edit Columns" button on admin screens. Default is <code>on</code>.', 'cpac' ); ?>
+										<?php _e( 'Show "Edit Columns" button on admin screens. Default is <code>on</code>.', 'codepress-admin-columns' ); ?>
 									</label>
 								</p>
 
@@ -548,14 +548,14 @@ class CPAC_Settings {
 
 				<tr class="restore">
 					<th scope="row">
-						<h3><?php _e( 'Restore Settings', 'cpac' ); ?></h3>
-						<p><?php _e( 'This will delete all column settings and restore the default settings.', 'cpac' ); ?></p>
+						<h3><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h3>
+						<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 					</th>
 					<td class="padding-22">
 						<form method="post" action="">
 							<?php wp_nonce_field( 'restore-all','_cpac_nonce'); ?>
 							<input type="hidden" name="cpac_action" value="restore_all" />
-							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'cpac' ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ); ?>');" />
+							<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'codepress-admin-columns' ) ?>" onclick="return confirm('<?php _e("Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ); ?>');" />
 						</form>
 					</td>
 				</tr><!--.restore-->
@@ -571,9 +571,9 @@ class CPAC_Settings {
 	 */
 	private function get_menu_types() {
 		$menu_types = array(
-			'post' => __( 'Posttypes', 'cpac' ),
-			'other' => __( 'Others', 'cpac' ),
-			'taxonomy' => __( 'Taxonomies', 'cpac' ),
+			'post' => __( 'Posttypes', 'codepress-admin-columns' ),
+			'other' => __( 'Others', 'codepress-admin-columns' ),
+			'taxonomy' => __( 'Taxonomies', 'codepress-admin-columns' ),
 		);
 		return apply_filters( 'cac/menu_types', $menu_types );
 	}
@@ -588,9 +588,9 @@ class CPAC_Settings {
 		}
 
 		$tabs = array(
-			'general'	=> __( 'Admin Columns', 'cpac' ),
-			'settings'	=> __( 'Settings', 'cpac' ),
-			'addons'	=> __( 'Add-ons', 'cpac' )
+			'general'	=> __( 'Admin Columns', 'codepress-admin-columns' ),
+			'settings'	=> __( 'Settings', 'codepress-admin-columns' ),
+			'addons'	=> __( 'Add-ons', 'codepress-admin-columns' )
 		);
 
 		/**
@@ -658,7 +658,7 @@ class CPAC_Settings {
 
 								<?php if ( $storage_model->is_using_php_export() ) : ?>
 									<div class="error below-h2">
-										<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
+										<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
 									</div>
 								<?php endif; ?>
 							</div>
@@ -668,7 +668,7 @@ class CPAC_Settings {
 									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="sidebox" id="form-actions">
 											<h3>
-												<?php _e( 'Store settings', 'cpac' ) ?>
+												<?php _e( 'Store settings', 'codepress-admin-columns' ) ?>
 											</h3>
 											<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 											<div class="form-update">
@@ -676,8 +676,8 @@ class CPAC_Settings {
 											</div>
 											<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">
-												<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->get_settings_url( 'admin' ) ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'cpac' ), $storage_model->label ); ?>');">
-													<?php _e( 'Restore', 'cpac' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'cpac' ); ?>
+												<a href="<?php echo add_query_arg( array( '_cpac_nonce' => wp_create_nonce('restore-type'), 'cpac_key' => $storage_model->key, 'cpac_action' => 'restore_by_type' ), $this->get_settings_url( 'admin' ) ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ), $storage_model->label ); ?>');">
+													<?php _e( 'Restore', 'codepress-admin-columns' ); ?> <?php echo $storage_model->label; ?> <?php _e( 'columns', 'codepress-admin-columns' ); ?>
 												</a>
 											</div>
 											<?php endif; ?>
@@ -696,17 +696,17 @@ class CPAC_Settings {
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), $this->get_url( 'admincolumnspro' ) ); ?>"><?php _e( 'Get Admin Columns Pro', 'cpac' ) ?></a>
+												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), $this->get_url( 'admincolumnspro' ) ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
 											</h3>
 											<div class="inside">
 												<ul>
-													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Sorting', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Filtering', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Import/Export', 'cpac' ); ?></a></li>
-													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'cpac' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a></li>
+													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a></li>
 												</ul>
 												<p>
-													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'cpac' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
+													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
 												</p>
 											</div>
 										</div>
@@ -719,14 +719,14 @@ class CPAC_Settings {
 											<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 												<?php $user = wp_get_current_user(); ?>
 												<p>
-													<?php _e ( "Subscribe to receive news &amp; updates below.", 'cpac' ); ?>
+													<?php _e ( "Subscribe to receive news &amp; updates below.", 'codepress-admin-columns' ); ?>
 												</p>
 												<div class="mc-field-group">
-													<label for="mce-FNAME"><?php _e( 'First Name', 'cpac' ); ?></label>
+													<label for="mce-FNAME"><?php _e( 'First Name', 'codepress-admin-columns' ); ?></label>
 													<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
 												</div>
 												<div class="mc-field-group">
-													<label for="mce-EMAIL"><?php _e( 'Your Email', 'cpac' ); ?></label>
+													<label for="mce-EMAIL"><?php _e( 'Your Email', 'codepress-admin-columns' ); ?></label>
 													<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
 												</div>
 												<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
@@ -737,7 +737,7 @@ class CPAC_Settings {
 
 									<div class="sidebox" id="direct-feedback">
 										<div id="feedback-choice">
-											<h3><?php _e( 'Are you happy with Admin Columns?', 'cpac' ); ?></h3>
+											<h3><?php _e( 'Are you happy with Admin Columns?', 'codepress-admin-columns' ); ?></h3>
 											<div class="inside">
 												<a href="#" class="yes">Yes</a>
 												<a href="#" class="no">No</a>
@@ -745,8 +745,8 @@ class CPAC_Settings {
 										</div>
 										<div id="feedback-support">
 											<div class="inside">
-												<p><?php _e( "What's wrong? Need help? Let us know!", 'cpac' ); ?></p>
-												<p><?php _e( 'Check out our extensive documentation, or you can open a support topic on WordPress.org!', 'cpac' ); ?></p>
+												<p><?php _e( "What's wrong? Need help? Let us know!", 'codepress-admin-columns' ); ?></p>
+												<p><?php _e( 'Check out our extensive documentation, or you can open a support topic on WordPress.org!', 'codepress-admin-columns' ); ?></p>
 												<ul class="share">
 													<li>
 														<a href="<?php echo add_query_arg( array(
@@ -754,12 +754,12 @@ class CPAC_Settings {
 															'utm_medium' => 'feedback-docs-button',
 															'utm_campaign' => 'plugin-installation'
 														), $this->get_url( 'documentation' ) ); ?>" target="_blank">
-															<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'cpac' ); ?>
+															<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
 													<li>
 														<a href="https://wordpress.org/support/plugin/codepress-admin-columns" target="_blank">
-															<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'cpac' ); ?>
+															<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
 												</ul>
@@ -768,12 +768,12 @@ class CPAC_Settings {
 										</div>
 										<div id="feedback-rate">
 											<div class="inside">
-												<p><?php _e( "Woohoo! We're glad to hear that!", 'cpac' ); ?></p>
-												<p><?php _e( 'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!', 'cpac' ); ?></p>
+												<p><?php _e( "Woohoo! We're glad to hear that!", 'codepress-admin-columns' ); ?></p>
+												<p><?php _e( 'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!', 'codepress-admin-columns' ); ?></p>
 												<ul class="share">
 													<li>
 														<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
-															<div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'cpac' ); ?>
+															<div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
 
@@ -784,7 +784,7 @@ class CPAC_Settings {
 															'url' => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
 															//'via' => 'wpcolumns'
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
-															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'cpac' ); ?>
+															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
 
@@ -794,7 +794,7 @@ class CPAC_Settings {
 															'utm_medium' => 'feedback-purchase-button',
 															'utm_campaign' => 'plugin-installation'
 														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
-															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'cpac' ); ?>
+															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
 												</ul>
@@ -806,13 +806,13 @@ class CPAC_Settings {
 									<?php endif; ?>
 
 									<div class="sidebox" id="plugin-support">
-										<h3><?php _e( 'Support', 'cpac' ); ?></h3>
+										<h3><?php _e( 'Support', 'codepress-admin-columns' ); ?></h3>
 										<div class="inside">
 											<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-												<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
+												<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?></p>
 											<?php endif; ?>
 											<p>
-												<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?>
+												<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), $this->get_url('documentation') ); ?>
 											</p>
 										</div>
 									</div><!--plugin-support-->
@@ -841,10 +841,10 @@ class CPAC_Settings {
 										</div><!--.cpac-columns-->
 
 										<div class="column-footer">
-											<div class="order-message"><?php _e( 'Drag and drop to reorder', 'cpac' ); ?></div>
+											<div class="order-message"><?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?></div>
 
 											<div class="button-container">
-												<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'cpac' );?></a><br/>
+												<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' );?></a><br/>
 											</div>
 
 										</div><!--.cpac-column-footer-->
@@ -925,16 +925,16 @@ class CPAC_Settings {
 										'plugin' => urlencode( $plugin_basename ),
 										'cpac-redirect' => true
 									), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
-									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'cpac' ); ?></a>
-									<a href="<?php echo esc_attr( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'cpac' ); ?></a>
+									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>
+									<a href="<?php echo esc_attr( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 								<?php else : ?>
 									<?php $activation_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'activate',
 										'plugin' => urlencode( $plugin_basename ),
 										'cpac-redirect' => true
 									), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_basename ); ?>
-									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'cpac' ); ?></a>
-									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'cpac' ); ?></a>
+									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'codepress-admin-columns' ); ?></a>
+									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 							<?php
 
@@ -948,12 +948,12 @@ class CPAC_Settings {
 										'plugin' => $addon_name,
 									), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
 									?>
-									<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'cpac' ); ?></a>
+									<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 								<?php
 
 								// Get ACP?
 								else : ?>
-									<a target="_blank" href="<?php echo esc_attr( $this->get_url('pricing') ); ?>" class="button"><?php _e( 'Get this add-on', 'cpac' ); ?></a>
+									<a target="_blank" href="<?php echo esc_attr( $this->get_url('pricing') ); ?>" class="button"><?php _e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 							<?php endif; ?>
 						</div>

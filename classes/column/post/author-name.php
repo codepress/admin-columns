@@ -17,7 +17,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 			= 'column-author_name';
-		$this->properties['label']	 			= __( 'Display Author As', 'cpac' );
+		$this->properties['label']	 			= __( 'Display Author As', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']		= true;
 		$this->properties['object_property']	= 'post_author';
 
@@ -92,14 +92,14 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 
 		$this->display_field_select(
 			'user_link_to',
-			__( 'Link To', 'cpac' ),
+			__( 'Link To', 'codepress-admin-columns' ),
 			array(
 				'' => __( 'None' ),
 				'edit_user' => __( 'Edit User Profile' ),
 				'view_user_posts' => __( 'View User Posts' ),
-				'view_author' => __( 'View Public Author Page', 'cpac' )
+				'view_author' => __( 'View Public Author Page', 'codepress-admin-columns' )
 			),
-			__( 'Page the author name should link to.', 'cpac' )
+			__( 'Page the author name should link to.', 'codepress-admin-columns' )
 		);
 	}
 

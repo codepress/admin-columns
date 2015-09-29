@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Date_Gmt extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-date_gmt';
-		$this->properties['label']	 = __( 'Date GMT', 'cpac' );
+		$this->properties['label']	 = __( 'Date GMT', 'codepress-admin-columns' );
 	}
 
 	/**

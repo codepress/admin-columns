@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-approved';
-		$this->properties['label']	 = __( 'Approved', 'cpac' );
+		$this->properties['label']	 = __( 'Approved', 'codepress-admin-columns' );
 	}
 
 	/**

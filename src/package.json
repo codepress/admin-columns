@@ -12,6 +12,8 @@
         "gulp-rename": "*",
         "gulp-less": "*",
         "gulp-uglify": "*",
-        "gulp-concat": "*"
+        "gulp-concat": "*",
+        "gulp-wp-pot": "*",
+        "gulp-gettext": "*"
     }
 }

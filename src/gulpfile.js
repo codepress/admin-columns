@@ -13,6 +13,9 @@ less       = require('gulp-less'),
 rename     = require('gulp-rename'),
 uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
+wpPot       = require('gulp-wp-pot');
+gettext     = require('gulp-gettext');
+
 
 var onError = function(e) {
     gutil.beep();
@@ -41,6 +44,29 @@ gulp.task('styles', function() {
         .pipe(rename({ suffix: '.min' }))
         .pipe(minifyCSS())
         .pipe(gulp.dest('../assets/css'));
+});
+
+gulp.task('language', function () {
+    return gulp.src([
+            '../**/*.php'
+        ])
+        .pipe(wpPot( {
+            domain: 'codepress-admin-columns',
+            destFile:'codepress-admin-columns.pot',
+            package: 'Codepress Admin Columns',
+            bugReport: 'http://www.admincolumns.com',
+            lastTranslator: 'Codepress <info@codepress.nl',
+            team: 'Admin Columns <info@admincolumns.com>'
+        } ))
+        .pipe(gulp.dest('../languages'));
+});
+
+
+gulp.task('compile-language', function() {
+    gulp.src('../languages/**/*.po')
+        .pipe( gettext() )
+        .pipe( gulp.dest( '../languages' ) )
+    ;
 });
 
 gulp.task('watch', ['default'], function() {

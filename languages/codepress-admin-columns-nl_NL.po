@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # Axel Vanderhaeghen <axel@eco13.eu>, 2014
 # Tobias Schutter <info@codepress.nl>, 2013-2015
@@ -6,19 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 13:58+0100\n"
-"PO-Revision-Date: 2015-08-27 09:19+0200\n"
-"Last-Translator: Codepress <info@codepress.nl>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/admin-columns/language/nl_NL/)\n"
+"POT-Creation-Date: 2015-06-26 13:22+0100\n"
+"PO-Revision-Date: 2015-06-26 11:23+0000\n"
+"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/codepress/admin-columns/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../src\n"
@@ -27,6 +26,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: ../classes/column/user/actions.php\n"
 "X-Poedit-SearchPathExcluded-4: ../classes/column/comment/actions.php\n"
 "X-Poedit-SearchPathExcluded-5: ../classes/column/link/actions.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../classes/addons.php:110
 msgid "Plugins"
@@ -37,7 +37,9 @@ msgid "Advanced Custom Fields"
 msgstr "Advanced Custom Fields"
 
 #: ../classes/addons.php:136
-msgid "Display and edit Advanced Custom Fields fields in the posts overview in seconds!"
+msgid ""
+"Display and edit Advanced Custom Fields fields in the posts overview in "
+"seconds!"
 msgstr "Toon en bewerk Advanced Custom Fields velden in het post overzicht!"
 
 #: ../classes/addons.php:141
@@ -45,7 +47,9 @@ msgid "WooCommerce"
 msgstr "WooCommerce"
 
 #: ../classes/addons.php:142
-msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgid ""
+"Enhance the products, orders and coupons overviews with new columns and "
+"inline editing."
 msgstr "Verbeter de producten, orders en coupons overzichten met de nieuwe kolommen en inline editing."
 
 #: ../classes/column.php:597
@@ -78,7 +82,9 @@ msgstr "Voorbeeld:"
 
 #: ../classes/column.php:1050
 #, php-format
-msgid "Leave empty for WordPress date format, change your <a href=\"%s\">default date format here</a>."
+msgid ""
+"Leave empty for WordPress date format, change your <a href=\"%s\">default "
+"date format here</a>."
 msgstr "Laat leeg voor WordPress datumformaat, verander je  <a href=\"%s\">standaard datumformaat </a>."
 
 #: ../classes/column.php:1051
@@ -97,7 +103,7 @@ msgstr "Aantal woorden"
 msgid "Preview size"
 msgstr "Voorbeeldformaat"
 
-#: ../classes/column.php:1101 ../classes/storage_model.php:595
+#: ../classes/column.php:1101 ../classes/storage_model.php:620
 msgid "Custom"
 msgstr "Aangepast"
 
@@ -178,7 +184,7 @@ msgid "Remove"
 msgstr "Verwijderen"
 
 #: ../classes/column.php:1295 ../classes/column/comment/type.php:13
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:405
 msgid "Type"
 msgstr "Type"
 
@@ -215,16 +221,22 @@ msgid "ACF Field"
 msgstr "ACF Veld"
 
 #: ../classes/column/acf-placeholder.php:32
-msgid "This feature is only available in Admin Columns Pro - Business or Developer."
+msgid ""
+"This feature is only available in Admin Columns Pro - Business or Developer."
 msgstr "Deze feature is alleen beschikbaar in Admin Columns Pro - Business of Developer."
 
 #: ../classes/column/acf-placeholder.php:35
 #, php-format
-msgid "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>."
+msgid ""
+"If you have a developer licence please download & install your ACF add-on "
+"from the <a href='%s'>add-ons tab</a>."
 msgstr "Heb je een developer licence, download & installeer dan je ACF add-on via de <a href='%s'>add-ons tab</a>."
 
 #: ../classes/column/acf-placeholder.php:38
-msgid "Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview."
+msgid ""
+"Admin Columns Pro - Developer offers full Advanced Custom Fields "
+"integeration, allowing you to easily display and edit ACF fields from within"
+" your posts overview."
 msgstr "Admin Columns Pro - Developer biedt volledige integratie van Geavanceerde Aangepaste Velden. Je kunt ze vlot weergeven en aanpassen in je berichtenoverzicht."
 
 #: ../classes/column/acf-placeholder.php:44
@@ -301,7 +313,7 @@ msgstr "Datum GMT"
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "Verstuurd op <a href=\"%1$s\">%2$s op %3$s</a>"
 
-#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:98
+#: ../classes/column/comment/date.php:19 ../classes/column/custom-field.php:99
 #: ../classes/settings.php:318
 msgid "Date"
 msgstr "Datum"
@@ -324,80 +336,82 @@ msgstr "Gebruiker"
 msgid "Word count"
 msgstr "Aantal woorden"
 
-#: ../classes/column/custom-field.php:23 ../classes/column/custom-field.php:390
-#: ../classes/settings.php:308
+#: ../classes/column/custom-field.php:23
+#: ../classes/column/custom-field.php:388 ../classes/settings.php:308
+#: ../classes/storage_model.php:619
 msgid "Custom Field"
 msgstr "Custom veld"
 
-#: ../classes/column/custom-field.php:94 ../classes/settings.php:313
-#: ../classes/storage_model.php:596
+#: ../classes/column/custom-field.php:95 ../classes/settings.php:313
+#: ../classes/storage_model.php:618
 msgid "Default"
 msgstr "Standaard"
 
-#: ../classes/column/custom-field.php:95
+#: ../classes/column/custom-field.php:96
 msgid "Checkmark (true/false)"
 msgstr "Vinkje (true/false)"
 
-#: ../classes/column/custom-field.php:96 ../classes/settings.php:322
+#: ../classes/column/custom-field.php:97 ../classes/settings.php:322
 msgid "Color"
 msgstr "Kleur"
 
-#: ../classes/column/custom-field.php:97 ../classes/settings.php:323
+#: ../classes/column/custom-field.php:98 ../classes/settings.php:323
 msgid "Counter"
 msgstr "Teller"
 
-#: ../classes/column/custom-field.php:99 ../classes/column/post/excerpt.php:19
-#: ../classes/settings.php:315
+#: ../classes/column/custom-field.php:100
+#: ../classes/column/post/excerpt.php:19 ../classes/settings.php:315
 msgid "Excerpt"
 msgstr "Samenvatting"
 
-#: ../classes/column/custom-field.php:100 ../classes/column/link/image.php:19
+#: ../classes/column/custom-field.php:101 ../classes/column/link/image.php:19
 #: ../classes/settings.php:314
 msgid "Image"
 msgstr "Afbeelding"
 
-#: ../classes/column/custom-field.php:101 ../classes/storage_model/media.php:13
+#: ../classes/column/custom-field.php:102
+#: ../classes/storage_model/media.php:13
 msgid "Media Library"
 msgstr "Mediabibliotheek"
 
-#: ../classes/column/custom-field.php:102 ../classes/settings.php:316
+#: ../classes/column/custom-field.php:103 ../classes/settings.php:316
 msgid "Multiple Values"
 msgstr "Meerdere waarden"
 
-#: ../classes/column/custom-field.php:103 ../classes/settings.php:317
+#: ../classes/column/custom-field.php:104 ../classes/settings.php:317
 msgid "Numeric"
 msgstr "Numerieke"
 
-#: ../classes/column/custom-field.php:104
+#: ../classes/column/custom-field.php:105
 msgid "Post Title (Post ID's)"
 msgstr "Post Titel (Post ID's)"
 
-#: ../classes/column/custom-field.php:105
+#: ../classes/column/custom-field.php:106
 msgid "Username (User ID's)"
 msgstr "Gebruikersnaam ( Gebruiker ID's )"
 
-#: ../classes/column/custom-field.php:106
+#: ../classes/column/custom-field.php:107
 msgid "Term Name (Term ID's)"
 msgstr "Term naam (Term ID's)"
 
-#: ../classes/column/custom-field.php:390
+#: ../classes/column/custom-field.php:388
 msgid "Select your custom field."
 msgstr "Selecteer uw custom field."
 
-#: ../classes/column/custom-field.php:400
+#: ../classes/column/custom-field.php:398
 msgid "No custom fields available."
 msgstr "Geen custom fields beschikbaar."
 
-#: ../classes/column/custom-field.php:400
+#: ../classes/column/custom-field.php:398
 #, php-format
 msgid "Please create a %s item first."
 msgstr "Maak eerste een %s item aan."
 
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:405
 msgid "Field Type"
 msgstr "Veld type"
 
-#: ../classes/column/custom-field.php:407
+#: ../classes/column/custom-field.php:405
 msgid "This will determine how the value will be displayed."
 msgstr "Dit bepaald hoe de waarde wordt weer gegeven,"
 
@@ -562,7 +576,6 @@ msgid "Spam"
 msgstr "Spam"
 
 #: ../classes/column/post/comment-count.php:38
-#: ../classes/column/post/status.php:35
 msgid "Trash"
 msgstr "Prullenbak"
 
@@ -624,8 +637,8 @@ msgid "Last modified"
 msgstr "Laatst gewijzigd"
 
 #: ../classes/column/post/order.php:19
-msgid "Page Order"
-msgstr "Pagina Volgorde"
+msgid "Order"
+msgstr ""
 
 #: ../classes/column/post/page-template.php:19
 msgid "Page Template"
@@ -667,33 +680,9 @@ msgstr "Shortcodes"
 msgid "Slug"
 msgstr "Slug"
 
-#: ../classes/column/post/status.php:19
+#: ../classes/column/post/status.php:21
 msgid "Status"
 msgstr "Status"
-
-#: ../classes/column/post/status.php:29
-msgid "Published"
-msgstr "Gepubliceerd"
-
-#: ../classes/column/post/status.php:30
-msgid "Draft"
-msgstr "Concept"
-
-#: ../classes/column/post/status.php:31
-msgid "Scheduled"
-msgstr "Gepland"
-
-#: ../classes/column/post/status.php:32
-msgid "Private"
-msgstr "Priv&#233;"
-
-#: ../classes/column/post/status.php:33
-msgid "Pending Review"
-msgstr "Wachtend op review"
-
-#: ../classes/column/post/status.php:34
-msgid "Auto Draft"
-msgstr "Auto Draft"
 
 #: ../classes/column/post/sticky.php:19
 msgid "Sticky"
@@ -703,7 +692,7 @@ msgstr "Sticky"
 msgid "Title without actions"
 msgstr "Titel zonder acties"
 
-#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:87
+#: ../classes/column/taxonomy.php:20 ../classes/column/taxonomy.php:83
 msgid "Taxonomy"
 msgstr "Taxonomy"
 
@@ -766,7 +755,10 @@ msgstr ""
 
 #: ../classes/review_notice.php:65
 #, php-format
-msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
+msgid ""
+"We don't mean to bug you, but you've been using %s for some time now, and we"
+" were wondering if you're happy with the plugin. If so, could you please "
+"leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
 #: ../classes/review_notice.php:68
@@ -783,7 +775,10 @@ msgstr ""
 
 #: ../classes/review_notice.php:80
 #, php-format
-msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
+msgid ""
+"We're sorry to hear that; maybe we can help! If you're having problems "
+"properly setting up %s or if you would like help with some more advanced "
+"features, please visit our %s."
 msgstr ""
 
 #: ../classes/review_notice.php:82
@@ -792,7 +787,9 @@ msgstr ""
 
 #: ../classes/review_notice.php:86
 #, php-format
-msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgid ""
+"As an Admin Columns Pro user, you can also use your AdminColumns.com account"
+" to access product support through %s!"
 msgstr ""
 
 #: ../classes/review_notice.php:87
@@ -838,7 +835,10 @@ msgid "Overview"
 msgstr "Overzicht"
 
 #: ../classes/settings.php:294
-msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
+msgid ""
+"This plugin is for adding and removing additional columns to the "
+"administration screens for post(types), pages, media library, comments, "
+"links and users. Change the column's label and reorder them."
 msgstr "Met deze plugin kun je bijkomende kolommen toevoegen en verwijderen van uit de administratieschermen van van berichten(types), pagina's, mediabibliotheken, reacties, links and gebruikers. Wijzig en herschik de kolomlabels."
 
 #: ../classes/settings.php:297
@@ -850,7 +850,8 @@ msgid "Change order"
 msgstr "Verander volgorde"
 
 #: ../classes/settings.php:300
-msgid "By dragging the columns you can change the order which they will appear in."
+msgid ""
+"By dragging the columns you can change the order which they will appear in."
 msgstr "Door de kolommen te verslepen kan je de volgorde aanpassen."
 
 #: ../classes/settings.php:301
@@ -858,7 +859,9 @@ msgid "Change label"
 msgstr "Wijzig label"
 
 #: ../classes/settings.php:302
-msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
+msgid ""
+"By clicking on the triangle you will see the column options. Here you can "
+"change each label of the columns heading."
 msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de kolom label aanpassen."
 
 #: ../classes/settings.php:303
@@ -866,7 +869,9 @@ msgid "Change column width"
 msgstr "Verander kolom breedte"
 
 #: ../classes/settings.php:304
-msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
+msgid ""
+"By clicking on the triangle you will see the column options. By using the "
+"draggable slider you can set the width of the columns in percentages."
 msgstr "Klik je op de driehoek, dan krijg je de kolomopties te zien. En met de versleepbare slider kun je de breedte van kolommen bepalen, uitgedrukt in percentages."
 
 #: ../classes/settings.php:310
@@ -874,15 +879,21 @@ msgid "'Custom Field' column"
 msgstr "'Custom veld' kolom"
 
 #: ../classes/settings.php:311
-msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
+msgid ""
+"The custom field colum uses the custom fields from posts and users. There "
+"are 10 types which you can set."
 msgstr "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. Er zijn 10 typen welke je kan gebruiken."
 
 #: ../classes/settings.php:313
-msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgid ""
+"Value: Can be either a string or array. Arrays will be flattened and values "
+"are seperated by a ',' comma."
 msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door een ',' komma."
 
 #: ../classes/settings.php:314
-msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
+msgid ""
+"Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
+"comma )."
 msgstr "Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' komma )."
 
 #: ../classes/settings.php:315
@@ -890,16 +901,23 @@ msgid "Value: This will show the first 20 words of the Post content."
 msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
 
 #: ../classes/settings.php:316
-msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgid ""
+"Value: should be an array. This will flatten any ( multi dimensional ) "
+"array."
 msgstr "Waarde: moet een reeks zijn. Dit zal elke (multi-dimensionale) reeks afvlakken."
 
 #: ../classes/settings.php:317
-msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgid ""
+"Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
+"for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr "Waarde: Enkel reeksen.<br/>Als je de 'sorteer-addon' hebt, zal die gebruikt worden voor het sorteren, zodat u uw berichten kunt sorteren volgens de numerieke waarden (van aangepaste velden)."
 
 #: ../classes/settings.php:318
 #, php-format
-msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
+msgid ""
+"Value: Can be unix time stamp or a date format as described in the <a "
+"href='%s'>Codex</a>. You can change the outputted date format at the <a "
+"href='%s'>general settings</a> page."
 msgstr "Waarde: Kan een unix tijdstempel zijn, of een datumnotatie, zoals beschreven in de <a href='%s'>Codex</a>. Je kunt de uitgestuurde datumnotatie wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
 
 #: ../classes/settings.php:319
@@ -931,7 +949,9 @@ msgid "Value: hex value color, such as #808080."
 msgstr "Waarde: hex waarde kleur, vb: #808080"
 
 #: ../classes/settings.php:323
-msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
+msgid ""
+"Value: Can be either a string or array. This will display a count of the "
+"number of times the meta key is used by the item."
 msgstr "Waarde: Kan een string of een array zijn. Dit zal een teller weergeven met het aantal keren dat een metatoets door het item werd gebruikt."
 
 #: ../classes/settings.php:412
@@ -943,7 +963,9 @@ msgid "Thank you for updating to the latest version!"
 msgstr "Bedankt voor het updaten naar de laatste versie!"
 
 #: ../classes/settings.php:416
-msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
+msgid ""
+"Admin Columns is more polished and enjoyable than ever before. We hope you "
+"like it."
 msgstr "Admin Columns ziet er nog beter uit dan ooit. Veel plezier ermee."
 
 #: ../classes/settings.php:421
@@ -963,7 +985,9 @@ msgid "Database Changes"
 msgstr "Database Aanpassingen"
 
 #: ../classes/settings.php:430
-msgid "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues."
+msgid ""
+"The database has been changed between versions 1 and 2. But we made sure you"
+" can still roll back to version 1x without any issues."
 msgstr "De database werd gewijzigd tussen versies 1 en 2. Maar we hebben ervoor gezorgd dat je nog zonder probleem naar versie 1x kunt terugschakelen."
 
 #: ../classes/settings.php:433
@@ -979,7 +1003,10 @@ msgid "Potential Issues"
 msgstr "Potentiele problemen"
 
 #: ../classes/settings.php:437
-msgid "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full"
+msgid ""
+"Do to the sizable refactoring the code, surounding Addons and "
+"action/filters, your website may not operate correctly. It is important that"
+" you read the full"
 msgstr "Omwille van de omvangrijke herstructurering van de code, van verwante Addons en en  van acties/fliters, i het mogelijk dat je website niet langer correct functioneert. Het is belangrijk dat je de volledige documentatie doorneemt"
 
 #: ../classes/settings.php:437
@@ -992,7 +1019,9 @@ msgstr "overzicht van alle aanpassingen."
 
 #: ../classes/settings.php:437
 #, php-format
-msgid "When you have found a bug please <a href=\"%s\">report them to us</a> so we can fix it in the next release."
+msgid ""
+"When you have found a bug please <a href=\"%s\">report them to us</a> so we "
+"can fix it in the next release."
 msgstr "Mocht je een bug vinden, <a href=\"%s\">rapporteer deze aan ons</a> zodat we die kunnen herstellen in een volgende versie."
 
 #: ../classes/settings.php:440
@@ -1000,7 +1029,9 @@ msgid "Important!"
 msgstr "Belangrijk!"
 
 #: ../classes/settings.php:440
-msgid "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest"
+msgid ""
+"If you updated the Admin Columns plugin without prior knowledge of such "
+"changes, Please roll back to the latest"
 msgstr "Als je de Admin Columns plugin hebt geupdate zonder voorafgaande kennis van zo'n wijzigingen, gelieve dan terug te schakelen naar de laatste"
 
 #: ../classes/settings.php:440
@@ -1052,7 +1083,9 @@ msgid "Restore default settings"
 msgstr "Herstel standaard instellingen"
 
 #: ../classes/settings.php:556
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgid ""
+"Warning! ALL saved admin columns data will be deleted. This cannot be "
+"undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
 msgstr "Waarschuwing! ALLE bewaarde instellingen worden verwijderd. Dit kan niet worden ongedaan. \\'OK\\' om te verwijderen, \\'Annuleren\\' om te stoppen"
 
 #: ../classes/settings.php:572
@@ -1077,7 +1110,9 @@ msgstr "Add-ons"
 
 #: ../classes/settings.php:659
 #, php-format
-msgid "The columns for %s are set up via PHP and can therefore not be edited in the admin panel."
+msgid ""
+"The columns for %s are set up via PHP and can therefore not be edited in the"
+" admin panel."
 msgstr "De kolommen voor %s worden opgezet via PHP. Daardoor kunnen ze niet bewerkt worden in het adminpaneel."
 
 #: ../classes/settings.php:669
@@ -1090,7 +1125,9 @@ msgstr "Bijwerken"
 
 #: ../classes/settings.php:677
 #, php-format
-msgid "Warning! The %s columns data will be deleted. This cannot be undone. \\'OK\\' to delete, \\'Cancel\\' to stop"
+msgid ""
+"Warning! The %s columns data will be deleted. This cannot be undone. "
+"\\'OK\\' to delete, \\'Cancel\\' to stop"
 msgstr "Opgelet! De data uit de %s-kolom wordt gewist. Dit kan niet ongedaan gemaakt worden. Klik \\'OK\\' om te wissen, klik \\'Cancel\\' om te annuleren"
 
 #: ../classes/settings.php:678
@@ -1135,7 +1172,9 @@ msgid "What's wrong? Need help? Let us know!"
 msgstr "Wat is er aan de hand? Hulp nodig? Vertel het ons!"
 
 #: ../classes/settings.php:747
-msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgid ""
+"Check out our extensive documentation, or you can open a support topic on "
+"WordPress.org!"
 msgstr "Bekijk onze uitgebreide documentatie, of je kunt een support ticket openen op WordPress.org!"
 
 #: ../classes/settings.php:755
@@ -1151,7 +1190,9 @@ msgid "Woohoo! We're glad to hear that!"
 msgstr "Woohoo! We zijn blij dat te horen!"
 
 #: ../classes/settings.php:770
-msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgid ""
+"We would really love it if you could show your appreciation by giving us a "
+"rating on WordPress.org or tweet about Admin Columns!"
 msgstr "We zouden het fanatastisch vinden als je eeb beoordeling zou kunnen achterlaten op WordPress.org of een tweet over Admin Columns!"
 
 #: ../classes/settings.php:774
@@ -1176,7 +1217,9 @@ msgstr "Bekijk de sectie <strong>Help</strong> in het scherm rechtsboven."
 
 #: ../classes/settings.php:813
 #, php-format
-msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
+msgid ""
+"For full documentation, bug reports, feature suggestions and other tips <a "
+"href='%s'>visit the Admin Columns website</a>"
 msgstr "Voor de volledige documentatie, bug reports, suggesties en tips <a href='%s'>bezoek de Admin Columns website</a>"
 
 #: ../classes/settings.php:842
@@ -1211,25 +1254,29 @@ msgstr "Download & Installeer"
 msgid "Get this add-on"
 msgstr "Ga naar deze add-on"
 
-#: ../classes/storage_model.php:237
+#: ../classes/storage_model.php:242
 msgid "settings succesfully restored."
 msgstr "instellingen succesvol hersteld."
 
-#: ../classes/storage_model.php:253
+#: ../classes/storage_model.php:258
 msgid "No columns settings available."
 msgstr "Geen kolom instellingen beschikbaar."
 
-#: ../classes/storage_model.php:274
+#: ../classes/storage_model.php:279
 #, php-format
 msgid "You are trying to store the same settings for %s."
 msgstr "U probeerd dezelfde instellingen op te slaan voor %s."
 
-#: ../classes/storage_model.php:278
+#: ../classes/storage_model.php:283
 #, php-format
 msgid "Settings for %s updated successfully."
 msgstr "Instellingen voor %s succesvol bijgewerkt."
 
-#: ../classes/storage_model.php:809
+#: ../classes/storage_model.php:621
+msgid "Columns by Plugins"
+msgstr ""
+
+#: ../classes/storage_model.php:831
 msgid "View"
 msgstr "Bekijk"
 
@@ -1258,7 +1305,9 @@ msgid "Users"
 msgstr "Gebruikers"
 
 #: ../classes/upgrade.php:62
-msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
+msgid ""
+"The pro add-on is no longer supported. Please login to your account and "
+"download Admin Columns Pro"
 msgstr "The pro add-on wordt niet langer ondersteund. Login op je account en download Admin Columns Pro"
 
 #: ../classes/upgrade.php:95
@@ -1310,7 +1359,9 @@ msgid "Error"
 msgstr "Fout"
 
 #: ../classes/upgrade.php:408
-msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
+msgid ""
+"Sorry. Something went wrong during the upgrade process. Please report this "
+"on the support forum."
 msgstr "Excuseert. Er liep iets fout tijdens bij het upgraden. Gelieve dit te melden in het support forum."
 
 #: ../codepress-admin-columns.php:444

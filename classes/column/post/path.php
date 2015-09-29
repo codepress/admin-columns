@@ -16,7 +16,7 @@ class CPAC_Column_Post_Path extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-path';
-		$this->properties['label']	 	= __( 'Path', 'cpac' );
+		$this->properties['label']	 	= __( 'Path', 'codepress-admin-columns' );
 	}
 
 	/**

@@ -16,7 +16,7 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-ping_status';
-		$this->properties['label']				= __( 'Ping status', 'cpac' );
+		$this->properties['label']				= __( 'Ping status', 'codepress-admin-columns' );
 		$this->properties['object_property']	= 'ping_status';
 	}
 

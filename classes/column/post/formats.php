@@ -16,7 +16,7 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-post_formats';
-		$this->properties['label']	 	= __( 'Post Format', 'cpac' );
+		$this->properties['label']	 	= __( 'Post Format', 'codepress-admin-columns' );
 	}
 
 	/**
