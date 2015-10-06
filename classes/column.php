@@ -1022,6 +1022,14 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function get_filter_operator_label( $name ) {
+		$operators = $this->get_filter_operators();
+		return isset( $operators[ $name ] ) ? $operators[ $name ] : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_filter_operators() {
 		$operators = array(
 			'' => __( 'Exact match', 'codepress-admin-columns' ),
