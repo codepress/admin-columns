@@ -1166,9 +1166,9 @@ class CPAC_Column {
 	/**
 	 * @since 2.3.4
 	 * @param string $name Name of the column option
-	 * @return string $label Label
-	 * @return array $options Select options
-	 * @return strong $description (optional) Description below the label
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '' ) {
 		$current = $this->get_option( $name );
