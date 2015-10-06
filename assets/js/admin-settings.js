@@ -748,7 +748,7 @@ jQuery( document ).bind('column_init column_change column_add', function( e, col
 });
 
 /*
- * Radio Click events
+ * Optional Radio Click events
  *
  */
 jQuery.fn.cpac_bind_column_addon_events = function() {
@@ -756,15 +756,21 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 	var column = jQuery( this );
 	var inputs = column.find('[data-toggle-id] label');
 
-	// Enable editing: radio button
 	inputs.click( function(){
 
 		var id = jQuery( this ).closest('td.input').data('toggle-id');
-		var label = column.find('[data-indicator-id="' + id + '"]' ).removeClass( 'on' );
-		var status = jQuery( 'input', this ).val();
+		var state = jQuery( 'input', this ).val();
 
-		if ( 'on' == status ) {
+		// Toggle indicator icon
+		var label = column.find('[data-indicator-id="' + id + '"]' ).removeClass( 'on' );
+		if ( 'on' == state ) {
 			label.addClass( 'on' );
+		}
+
+		// Toggle additional options
+		var additional = column.find('[data-additional-option-id="' + id + '"]' ).addClass( 'hide' );
+		if ( 'on' == state ) {
+			additional.removeClass( 'hide' );
 		}
 	});
 };
