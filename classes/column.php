@@ -35,6 +35,11 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected $filtering_model;
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -265,6 +270,22 @@ class CPAC_Column {
 		$this->options->{$option} = $value;
 
 		return $this;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function set_filter( $filtering_model ) {
+		$this->filtering_model = $filtering_model;
+
+		return $this;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_filter() {
+		return $this->filtering_model;
 	}
 
 	/**
