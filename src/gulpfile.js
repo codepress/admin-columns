@@ -54,7 +54,7 @@ gulp.task('language', function () {
             domain: 'codepress-admin-columns',
             destFile:'codepress-admin-columns.pot',
             package: 'Codepress Admin Columns',
-            bugReport: 'http://www.admincolumns.com',
+            bugReport: 'https://www.admincolumns.com',
             lastTranslator: 'Codepress <info@codepress.nl',
             team: 'Admin Columns <info@admincolumns.com>'
         } ))
