@@ -436,7 +436,7 @@ class CPAC_Settings {
 			<?php endif; ?>
 
 				<h4><?php _e( "Potential Issues", 'codepress-admin-columns' ); ?></h4>
-				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'codepress-admin-columns' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( 'When you have found a bug please <a href="%s">report them to us</a> so we can fix it in the next release.', 'codepress-admin-columns'), 'mailto:info@codepress.nl' ); ?></p>
+				<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'codepress-admin-columns' ); ?> <a href="<?php echo $this->get_url('admincolumns'); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release.", 'codepress-admin-columns'), 'mailto:info@codepress.nl' ); ?></p>
 
 				<div class="cpac-alert cpac-alert-error">
 					<p><strong><?php _e( "Important!", 'codepress-admin-columns' ); ?></strong> <?php _e( "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest", 'codepress-admin-columns' ); ?> <a href="http://downloads.wordpress.org/plugin/codepress-admin-columns.1.4.9.zip"> <?php _e( "version 1", 'codepress-admin-columns' ); ?></a> <?php _e( "of this plugin.", 'codepress-admin-columns' ); ?></p>
@@ -501,7 +501,7 @@ class CPAC_Settings {
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" type="hidden" value="0" >
 										<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( ! isset( $options['show_edit_button'] ) || ( '1' == $options['show_edit_button'] ) ); ?>>
-										<?php _e( 'Show "Edit Columns" button on admin screens. Default is <code>on</code>.', 'codepress-admin-columns' ); ?>
+										<?php _e( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ); ?>
 									</label>
 								</p>
 
@@ -706,7 +706,7 @@ class CPAC_Settings {
 													<li><a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a></li>
 												</ul>
 												<p>
-													<?php printf( __( 'Check out <a href="%s">Admin Columns Pro</a> for more details!', 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
+													<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
 												</p>
 											</div>
 										</div>

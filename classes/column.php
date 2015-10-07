@@ -1092,7 +1092,7 @@ class CPAC_Column {
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
 				<p class="description">
-					<?php printf( __( 'Leave empty for WordPress date format, change your <a href="%s">default date format here</a>.' , 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
+					<?php printf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>." , 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
 					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'codepress-admin-columns' ); ?></a>
 				</p>
 			</td>

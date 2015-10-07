@@ -48,7 +48,8 @@ gulp.task('styles', function() {
 
 gulp.task('language', function () {
     return gulp.src([
-            '../**/*.php'
+            '../*.php', // root
+            '../**/*.php' // subfolders
         ])
         .pipe(wpPot( {
             domain: 'codepress-admin-columns',
