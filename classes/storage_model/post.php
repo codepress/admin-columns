@@ -134,10 +134,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
-		if ( ! in_array( $this->post_type, array( 'post', 'page' ) ) ) {
-			return false;
+
+		$defaults = array( 'date' );
+
+		if ( post_type_supports( $this->post_type, 'title' ) ) {
+			$defaults[] = 'title';
 		}
-		return array( 'author', 'cb', 'categories', 'comments', 'date', 'parent', 'tags', 'title' );
+		if ( post_type_supports( $this->post_type, 'comments' ) ) {
+			$defaults[] = 'comments';
+		}
+
+		if ( in_array( $this->post_type, array( 'post', 'page' ) ) ) {
+			$defaults[] = 'cb';
+			$defaults[] = 'author';
+			$defaults[] = 'categories';
+			$defaults[] = 'comments';
+			$defaults[] = 'parent';
+			$defaults[] = 'tags';
+		}
+
+		return $defaults;
 	}
 
 	/**
