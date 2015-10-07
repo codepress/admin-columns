@@ -411,7 +411,7 @@ class CPAC_Settings {
 
 		<div id="cpac-welcome" class="wrap about-wrap">
 
-			<h1><?php _e( "Welcome to Admin Columns",'cpac'); ?> <?php echo CPAC_VERSION; ?></h1>
+			<h1><?php _e( "Welcome to Admin Columns", 'codepress-admin-columns' ); ?> <?php echo CPAC_VERSION; ?></h1>
 
 			<div class="about-text">
 				<?php _e( "Thank you for updating to the latest version!", 'codepress-admin-columns' ); ?>
@@ -429,10 +429,10 @@ class CPAC_Settings {
 				<h3><?php _e( "Important", 'codepress-admin-columns' ); ?></h3>
 
 				<h4><?php _e( "Database Changes", 'codepress-admin-columns' ); ?></h4>
-				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.",'cpac'); ?></p>
+				<p><?php _e("The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.", 'codepress-admin-columns' ); ?></p>
 
 			<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION ) : ?>
-				<p><?php _e("Make sure you backup your database and then click",'cpac'); ?> <a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' );?></a></p>
+				<p><?php _e("Make sure you backup your database and then click", 'codepress-admin-columns' ); ?> <a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' );?></a></p>
 			<?php endif; ?>
 
 				<h4><?php _e( "Potential Issues", 'codepress-admin-columns' ); ?></h4>
@@ -470,7 +470,7 @@ class CPAC_Settings {
 			</div><!--.cpac-content-body-->
 
 			<div class="cpac-content-footer">
-				<a class="button-primary button-large" href="<?php echo $this->get_settings_url( 'general' ); ?>"><?php _e("Start using Admin Columns",'cpac'); ?></a>
+				<a class="button-primary button-large" href="<?php echo $this->get_settings_url( 'general' ); ?>"><?php _e("Start using Admin Columns", 'codepress-admin-columns' ); ?></a>
 			</div><!--.cpac-content-footer-->
 
 		</div>
