@@ -405,8 +405,11 @@ class CPAC_Column {
 	 * @param string $field_key
 	 * @return string Attribute Name
 	 */
+	public function get_attr_id( $field_name ) {
+		return "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
+	}
 	public function attr_id( $field_name ) {
-		echo "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
+		echo $this->get_attr_id( $field_name );
 	}
 
 	/**
@@ -1191,10 +1194,11 @@ class CPAC_Column {
 	 * @param array $options Select options
 	 * @param strong $description (optional) Description below the label
 	 */
-	public function display_field_select( $name, $label, $options = array(), $description = '' ) {
+	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
 		$current = $this->get_option( $name );
+		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
 		?>
-		<tr class="column-<?php echo $name; ?>">
+		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
@@ -1210,9 +1214,9 @@ class CPAC_Column {
 	/**
 	 * @since 2.3.4
 	 * @param string $name Name of the column option
-	 * @return string $label Label
-	 * @return array $options Select options
-	 * @return strong $description (optional) Description below the label
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
 	 */
 	public function display_field_text( $name, $label, $description = '' ) {
 		?>
@@ -1229,14 +1233,16 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 *
 	 * @param string $name Name of the column option
-	 * @return string $label Label
-	 * @return array $options Select options
-	 * @return strong $description (optional) Description below the label
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
+	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
 	 */
-	public function display_field_radio( $name, $label, $options = array(), $description = '' ) {
+	public function display_field_radio( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
 		$current = $this->get_option( $name );
+		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
 		?>
-		<tr class="column-<?php echo $name; ?>">
+		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
 				<?php foreach ( $options as $key => $label ) : ?>

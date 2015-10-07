@@ -756,7 +756,7 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 	var column = jQuery( this );
 	var inputs = column.find('[data-toggle-id] label');
 
-	inputs.click( function(){
+	inputs.on( 'click', function(){
 
 		var id = jQuery( this ).closest('td.input').data('toggle-id');
 		var state = jQuery( 'input', this ).val();
@@ -770,6 +770,14 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 		// Toggle additional options
 		var additional = column.find('[data-additional-option-id="' + id + '"]' ).addClass( 'hide' );
 		if ( 'on' == state ) {
+			additional.removeClass( 'hide' );
+		}
+	});
+
+	// Hide additonal options on ready
+	column.find('[data-toggle-id]').each( function(){
+		var additional = column.find('[data-additional-option-id="' + jQuery( this ).data('toggle-id') + '"]' ).addClass( 'hide' );
+		if ( 'on' == jQuery( 'input:checked', this ).val() ) {
 			additional.removeClass( 'hide' );
 		}
 	});
