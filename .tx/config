@@ -1,9 +1,9 @@
 [main]
 host = https://www.transifex.com
 
-[admin-columns.cpacpo]
+[admin-columns.codepress-admin-columns]
 file_filter = languages/codepress-admin-columns-<lang>.po
-source_file = languages/codepress-admin-columns.po
+source_file = languages/codepress-admin-columns.pot
 minimum_perc = 28
 source_lang = en
 type = PO

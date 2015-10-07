@@ -13,8 +13,8 @@ less       = require('gulp-less'),
 rename     = require('gulp-rename'),
 uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
-wpPot       = require('gulp-wp-pot');
-gettext     = require('gulp-gettext');
+wpPot      = require('gulp-wp-pot');
+gettext    = require('gulp-gettext');
 
 
 var onError = function(e) {
