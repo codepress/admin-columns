@@ -797,6 +797,10 @@ abstract class CPAC_Storage_Model {
 			return $columns;
 		}
 
+		if ( ! $this->default_columns ) {
+			return $columns;
+		}
+
 		$this->column_headings = array();
 
 		// add mandatory checkbox
