@@ -39,22 +39,66 @@ function cpac_pre_load_wordpress_seo_class_metabox() {
 add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
 
 /**
- * WPML compatibility
+ * WPML: display correct flags on the overview screens
  */
-class CPAC_WPML {
+class CPAC_WPML_COLUMN {
 
 	CONST COLUMN_NAME = 'icl_translations';
 
 	private $column;
+
+	function __construct( $post_type ) {
+		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
+		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 101 ); // prio just after AC overwrite all columns
+	}
+	public function store_wpml_column( $columns ) {
+		if ( empty( $this->column ) && isset( $columns[ self::COLUMN_NAME ] ) ) {
+			$this->column = $columns[ self::COLUMN_NAME ];
+		}
+		return $columns;
+	}
+	public function replace_wpml_column( $columns ) {
+		if ( $this->column && isset( $columns[ self::COLUMN_NAME ] ) ) {
+			$columns[ self::COLUMN_NAME ] = $this->column;
+		}
+		return $columns;
+	}
+}
+
+/**
+ * WPML compatibility
+ */
+class CPAC_WPML {
 
 	function __construct() {
 
 		// load wpml columns in AC columns menu
 		add_action( 'cac/set_columns', array( $this, 'add_columns_to_settings_menu' ) );
 
-		// display correct flags on the overview pages
-		add_filter( 'manage_house_posts_columns', array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
-		add_filter( 'manage_edit-house_columns', array( $this, 'replace_wpml_column' ), 101 ); // prio just after AC overwrite all columns
+		// display correct flags on the overview screens
+		add_action( 'cac/loaded', array( $this, 'replace_flags' ) );
+	}
+
+	public function replace_flags( $cac ) {
+		if ( ! class_exists( 'SitePress', false ) ) {
+			return;
+		}
+		if ( ! $cac->is_columns_screen() ) {
+			return;
+		}
+
+		$settings = get_option( 'icl_sitepress_settings' );
+		if ( ! isset( $settings['custom_posts_sync_option'] ) ) {
+			return;
+		}
+		$post_types = (array) $settings['custom_posts_sync_option'];
+		$post_types['post'] = 1;
+		$post_types['page'] = 1;
+		foreach ( $post_types  as $post_type => $value ) {
+			if ( $value ) {
+				new CPAC_WPML_COLUMN( $post_type );
+			}
+		}
 	}
 	public function add_columns_to_settings_menu( $storage_model ) {
 		if ( ! class_exists( 'SitePress', false ) ) {
@@ -79,18 +123,6 @@ class CPAC_WPML {
 		));
 
 		add_filter( 'manage_' . $storage_model->post_type . 's_columns', array( $sitepress, 'add_posts_management_column' ) );
-	}
-	public function store_wpml_column( $columns ) {
-		if ( empty( $this->column ) && isset( $columns[ self::COLUMN_NAME ] ) ) {
-			$this->column = $columns[ self::COLUMN_NAME ];
-		}
-		return $columns;
-	}
-	public function replace_wpml_column( $columns ) {
-		if ( $this->column && isset( $columns[ self::COLUMN_NAME ] ) ) {
-			$columns[ self::COLUMN_NAME ] = $this->column;
-		}
-		return $columns;
 	}
 }
 new CPAC_WPML;

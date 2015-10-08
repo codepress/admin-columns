@@ -218,6 +218,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Update] PHP export columns no longer uses global
 * [Added] Added "Link To" selection field for the author column
 * [Fixed] Date and Title column are labeled as Default column for posts
+* [Fixed] WPML columns will display the correct flag on the overview when switching language
 
 = 2.4.6 =
 * [Fixed] Page Order column is now available on all supported posttypes
