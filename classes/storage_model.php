@@ -46,6 +46,11 @@ abstract class CPAC_Storage_Model {
 	public $menu_type;
 
 	/**
+	 * @since NEWVERSIOM
+	 */
+	private $column_headings;
+
+	/**
 	 * @since 2.0
 	 * @var string
 	 */
@@ -600,6 +605,8 @@ abstract class CPAC_Storage_Model {
 		$this->default_columns = $this->get_default_registered_columns();
 		$this->column_types = $this->get_grouped_column_types();
 		$this->columns = $this->get_columns();
+
+		do_action( 'cac/set_columns/after', $this );
 	}
 
 	public function get_grouped_column_types() {
@@ -776,6 +783,11 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
+		// make sure we run this only once
+		if ( $this->column_headings ) {
+			return $this->column_headings;
+		}
+
 		// only add headings on overview screens, to prevent deactivating columns on the column settings screen
 		if ( ! $this->is_columns_screen() ) {
 			return $columns;
@@ -785,11 +797,11 @@ abstract class CPAC_Storage_Model {
 			return $columns;
 		}
 
-		$column_headings = array();
+		$this->column_headings = array();
 
 		// add mandatory checkbox
 		if ( isset( $columns['cb'] ) ) {
-			$column_headings['cb'] = $columns['cb'];
+			$this->column_headings['cb'] = $columns['cb'];
 		}
 
 		// add active stored headings
@@ -811,7 +823,7 @@ abstract class CPAC_Storage_Model {
 			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
 			$label = str_replace( '[cpac_site_url]', site_url(), $label );
 
-			$column_headings[ $column_name ] = $label;
+			$this->column_headings[ $column_name ] = $label;
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.
@@ -819,11 +831,11 @@ abstract class CPAC_Storage_Model {
 		// When $diff contains items, it means an available column has not been stored.
 		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) ) {
 			foreach ( $diff as $column_name ) {
-				$column_headings[ $column_name ] = $columns[ $column_name ];
+				$this->column_headings[ $column_name ] = $columns[ $column_name ];
 			}
 		}
 
-		return $column_headings;
+		return $this->column_headings;
 	}
 
 	/**
