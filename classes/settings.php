@@ -31,6 +31,7 @@ class CPAC_Settings {
 
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
+		add_action( 'network_admin_menu', array( $this, 'network_settings_menu' ) );
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
@@ -64,10 +65,11 @@ class CPAC_Settings {
 		 * @param CPAC_Settings $settings_instance Settings class instance
 		 */
 		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
-			'admin' 		=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
-			'settings' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
-			'info' 			=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
-			'upgrade' 		=> admin_url( 'options-general.php?page=cpac-upgrade' )
+			'admin'				=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
+			'settings'			=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
+			'network_settings'	=> network_admin_url( 'settings.php?page=codepress-admin-columns' ),
+			'info'				=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
+			'upgrade'			=> admin_url( 'options-general.php?page=cpac-upgrade' )
 		), $this );
 
 		return $settings_urls;
@@ -89,7 +91,7 @@ class CPAC_Settings {
 		}
 
 		if ( ! $page ) {
-			return $settings_urls['admin'];;
+			return $settings_urls['admin'];
 		}
 
 		return add_query_arg( 'tab', $page, $this->get_settings_url() );
@@ -162,25 +164,45 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * Add network settings page
+	 *
+	 * @since 3.6
+	 */
+	public function network_settings_menu() {
+		$this->settings_page = add_submenu_page( 'settings.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'network_display' ), false, 98 );
+
+		$this->enqueue_admin_scripts();
+	}
+
+
+
+	/**
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-
 		// add settings page
 		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
 		// add help tabs
 		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
 
-		// add scripts & styles
-		add_action( "admin_print_styles-{$this->settings_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$this->settings_page}", array( $this, 'admin_scripts' ) );
-
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
 		// add cap to options.php
    		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
+
+		$this->enqueue_admin_scripts();
+	}
+
+	/**
+	 * Print scripts and styles
+	 *
+	 * @since 3.6
+	 */
+	public function enqueue_admin_scripts() {
+		add_action( 'admin_print_styles-' . $this->settings_page, array( $this, 'admin_styles' ) );
+		add_action( 'admin_print_scripts-' . $this->settings_page, array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -887,6 +909,70 @@ class CPAC_Settings {
 			?>
 		</div><!--.wrap-->
 	<?php
+	}
+
+	/**
+	 * Displays network settings page
+	 *
+	 * @since 3.6
+	 */
+	public function network_display() {
+
+		if ( $this->welcome_screen() ) {
+			return;
+		}
+
+		?>
+
+		<div id="cpac" class="wrap">
+			<h1>Admin Columns</h1>
+
+			<table class="form-table cpac-form-table settings">
+				<tbody>
+
+				<?php
+
+				// Allow plugins to add their own custom settings to the settings page.
+				$groups = apply_filters( 'cac/network_settings/groups', array() );
+
+				if ( $groups ) :
+					foreach ( $groups as $id => $group ) :
+
+						$defaults = array(
+							'title' => '',
+							'description' => '',
+						);
+
+						$group = (object) array_merge( $defaults, $group );
+
+						?>
+
+							<tr>
+								<th scope="row">
+									<h3><?php echo $group->title; ?></h3>
+									<p><?php echo $group->description; ?></p>
+								</th>
+								<td class="padding-22">
+									<?php
+										// Use this Hook to add additonal fields to the group
+										do_action( "cac/settings/groups/row={$id}" );
+									?>
+								</td>
+							</tr>
+
+						<?php
+
+					endforeach;
+				endif;
+
+				?>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<?php
 	}
 
 	/**
