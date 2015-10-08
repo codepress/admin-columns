@@ -147,9 +147,10 @@ abstract class CPAC_Storage_Model {
 			if ( $_REQUEST['cpac_key'] == $this->key ) {
 				return true;
 			}
+		}
 
 		// settings page has not yet been saved
-		} elseif ( $first_posttype == $this->key ) {
+		elseif ( $first_posttype == $this->key ) {
 			return true;
 		}
 

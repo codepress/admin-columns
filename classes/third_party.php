@@ -40,37 +40,60 @@ add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
 
 /**
  * WPML compatibility
- *
- * @since 2.0
  */
-function cac_add_wpml_columns( $storage_model ) {
+class CPAC_WPML {
 
-	if ( ! class_exists( 'SitePress', false ) ) {
-		return;
+	CONST COLUMN_NAME = 'icl_translations';
+
+	private $column;
+
+	function __construct() {
+
+		// load wpml columns in AC columns menu
+		add_action( 'cac/set_columns', array( $this, 'add_columns_to_settings_menu' ) );
+
+		// display correct flags on the overview pages
+		add_filter( 'manage_house_posts_columns', array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
+		add_filter( 'manage_edit-house_columns', array( $this, 'replace_wpml_column' ), 101 ); // prio just after AC overwrite all columns
 	}
+	public function add_columns_to_settings_menu( $storage_model ) {
+		if ( ! class_exists( 'SitePress', false ) ) {
+			return;
+		}
+		if ( 'post' !== $storage_model->type ) {
+			return;
+		}
 
-	if ( 'post' !== $storage_model->type ) {
-		return;
+		global $pagenow, $cpac;
+
+		// check if we are on the correct page or when a column is being refreshed by ajax.
+		if ( ( 'options-general.php' !== $pagenow ) && ( empty( $_POST['action'] ) || 'cpac_column_refresh' !== $_POST['action'] ) ) {
+			return;
+		}
+
+		// prevent PHP errors from SitePress
+		global $sitepress, $posts;
+		$posts = get_posts( array(
+			'post_type' => $storage_model->post_type,
+			'posts_per_page' => 1
+		));
+
+		add_filter( 'manage_' . $storage_model->post_type . 's_columns', array( $sitepress, 'add_posts_management_column' ) );
 	}
-
-	global $pagenow, $cpac;
-
-	// check if we are on the correct page or when a column is being refreshed by ajax.
-	if ( ( 'options-general.php' !== $pagenow ) && ( empty( $_POST['action'] ) || 'cpac_column_refresh' !== $_POST['action'] ) ) {
-		return;
+	public function store_wpml_column( $columns ) {
+		if ( empty( $this->column ) && isset( $columns[ self::COLUMN_NAME ] ) ) {
+			$this->column = $columns[ self::COLUMN_NAME ];
+		}
+		return $columns;
 	}
-
-	// prevent PHP errors from SitePress
-	global $sitepress, $posts;
-	$posts = get_posts( array(
-		'post_type' => $storage_model->post_type,
-		'posts_per_page' => 1
-	));
-
-	// Trigger SitePress::add_posts_management_column()
-	add_filter( 'manage_' . $storage_model->post_type . 's_columns', array( $sitepress, 'add_posts_management_column' ) );
+	public function replace_wpml_column( $columns ) {
+		if ( $this->column && isset( $columns[ self::COLUMN_NAME ] ) ) {
+			$columns[ self::COLUMN_NAME ] = $this->column;
+		}
+		return $columns;
+	}
 }
-add_action( 'cac/set_columns', 'cac_add_wpml_columns' );
+new CPAC_WPML;
 
 /**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
