@@ -55,17 +55,16 @@ function cac_add_wpml_columns( $storage_model ) {
 
 	global $pagenow, $cpac;
 
-	// check if we are on the correct page or when a columns is being refreshed by ajax.
+	// check if we are on the correct page or when a column is being refreshed by ajax.
 	if ( ( 'options-general.php' !== $pagenow ) && ( empty( $_POST['action'] ) || 'cpac_column_refresh' !== $_POST['action'] ) ) {
 		return;
 	}
 
 	// prevent PHP errors from SitePress
-	global $sitepress, $posts, $__management_columns_posts_translations;
-	$__management_columns_posts_translations = 'not_null';
+	global $sitepress, $posts;
 	$posts = get_posts( array(
-		'post_type' 	=> $storage_model->post_type,
-		'numberposts' 	=> -1
+		'post_type' => $storage_model->post_type,
+		'posts_per_page' => 1
 	));
 
 	// Trigger SitePress::add_posts_management_column()
