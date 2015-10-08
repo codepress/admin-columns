@@ -31,7 +31,6 @@ class CPAC_Settings {
 
 		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
-		add_action( 'network_admin_menu', array( $this, 'network_settings_menu' ) );
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
@@ -162,19 +161,6 @@ class CPAC_Settings {
 
 		exit;
 	}
-
-	/**
-	 * Add network settings page
-	 *
-	 * @since 3.6
-	 */
-	public function network_settings_menu() {
-		$this->settings_page = add_submenu_page( 'settings.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'network_display' ), false, 98 );
-
-		$this->enqueue_admin_scripts();
-	}
-
-
 
 	/**
 	 * @since 1.0
@@ -909,70 +895,6 @@ class CPAC_Settings {
 			?>
 		</div><!--.wrap-->
 	<?php
-	}
-
-	/**
-	 * Displays network settings page
-	 *
-	 * @since 3.6
-	 */
-	public function network_display() {
-
-		if ( $this->welcome_screen() ) {
-			return;
-		}
-
-		?>
-
-		<div id="cpac" class="wrap">
-			<h1>Admin Columns</h1>
-
-			<table class="form-table cpac-form-table settings">
-				<tbody>
-
-				<?php
-
-				// Allow plugins to add their own custom settings to the settings page.
-				$groups = apply_filters( 'cac/network_settings/groups', array() );
-
-				if ( $groups ) :
-					foreach ( $groups as $id => $group ) :
-
-						$defaults = array(
-							'title' => '',
-							'description' => '',
-						);
-
-						$group = (object) array_merge( $defaults, $group );
-
-						?>
-
-							<tr>
-								<th scope="row">
-									<h3><?php echo $group->title; ?></h3>
-									<p><?php echo $group->description; ?></p>
-								</th>
-								<td class="padding-22">
-									<?php
-										// Use this Hook to add additonal fields to the group
-										do_action( "cac/settings/groups/row={$id}" );
-									?>
-								</td>
-							</tr>
-
-						<?php
-
-					endforeach;
-				endif;
-
-				?>
-
-				</tbody>
-			</table>
-
-		</div>
-
-		<?php
 	}
 
 	/**
