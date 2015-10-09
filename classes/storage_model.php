@@ -226,8 +226,9 @@ abstract class CPAC_Storage_Model {
 	 * @return array Custom fields.
 	 */
 	protected function add_hidden_meta( $fields ) {
-		if ( ! $fields )
+		if ( ! $fields ) {
 			return false;
+		}
 
 		$combined_fields = array();
 
