@@ -8,7 +8,7 @@ class CPAC_Column_User_Actions extends CPAC_Column_Actions {
 
 	/**
 	 * @see CPAC_Column_Actions::get_actions()
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_actions( $id ) {
 		$actions = array();

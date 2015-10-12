@@ -56,7 +56,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * Get post ID's
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 *
 	 * @param array $args
 	 * @return array Posts

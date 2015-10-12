@@ -158,7 +158,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function format_meta_keys( $keys ) {
 		$add_hidden_meta = true; // always true @todo

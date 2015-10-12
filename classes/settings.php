@@ -184,7 +184,7 @@ class CPAC_Settings {
 	/**
 	 * Print scripts and styles
 	 *
-	 * @since 3.6
+	 * @since 2.4.7
 	 */
 	public function enqueue_admin_scripts() {
 		add_action( 'admin_print_styles-' . $this->settings_page, array( $this, 'admin_styles' ) );

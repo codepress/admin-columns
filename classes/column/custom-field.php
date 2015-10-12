@@ -376,7 +376,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
 		return $this->storage_model->get_meta_keys();

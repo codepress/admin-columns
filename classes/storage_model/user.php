@@ -27,7 +27,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_original_column_value( $column, $id ) {
 

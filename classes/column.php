@@ -35,7 +35,7 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	protected $filtering_model;
 
@@ -163,7 +163,7 @@ class CPAC_Column {
 			'hidden'			=> false
 		);
 
-		// @since NEWVERSION
+		// @since 2.4.7
 		$default_properties = apply_filters( 'cac/column/default_properties', $default_properties );
 
 		foreach ( $default_properties as $property => $value ) {
@@ -273,7 +273,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function set_filter( $filtering_model ) {
 		$this->filtering_model = $filtering_model;
@@ -282,7 +282,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_filter() {
 		return $this->filtering_model;
@@ -1044,7 +1044,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_filter_operator_label( $name ) {
 		$operators = $this->get_filter_operators();
@@ -1052,7 +1052,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function get_filter_operators() {
 		$operators = array(
@@ -1230,7 +1230,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 *
 	 * @param string $name Name of the column option
 	 * @param string $label Label
@@ -1458,7 +1458,7 @@ class CPAC_Column {
 	/**
 	 * Display settings field for post property to display
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function display_field_post_property_display() {
 		$this->display_field_select(
@@ -1476,7 +1476,7 @@ class CPAC_Column {
 	/**
 	 * Display settings field for the page the posts should link to
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function display_field_post_link_to() {
 		$this->display_field_select(

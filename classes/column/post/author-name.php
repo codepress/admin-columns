@@ -86,7 +86,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	/**
 	 * Display settings field for the page the posts should link to
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function display_field_user_link_to() {
 
