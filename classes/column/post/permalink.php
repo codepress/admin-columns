@@ -69,11 +69,11 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 			<td class="input">
 				<label for="<?php $this->attr_id( $field_key ); ?>-on">
 					<input type="radio" value="on" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-on"<?php checked( $this->options->link_to_post, 'on' ); ?> />
-					<?php _e( 'Yes'); ?>
+					<?php _e( 'Yes' ); ?>
 				</label>
 				<label for="<?php $this->attr_id( $field_key ); ?>-off">
 					<input type="radio" value="off" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-off"<?php checked( in_array( $this->options->link_to_post, array( '', 'off' ) ) ); ?> />
-					<?php _e( 'No'); ?>
+					<?php _e( 'No' ); ?>
 				</label>
 			</td>
 		</tr>
