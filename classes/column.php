@@ -1493,4 +1493,27 @@ class CPAC_Column {
 		);
 	}
 
+	/**
+	 * @since 2.4.7
+	 */
+	function display_settings_placeholder( $url ) { ?>
+		<div class="is-disabled">
+			<p>
+				<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $this->get_label() ); ?></strong>
+			</p>
+			<p>
+				<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+			</p>
+			<p>
+				<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $this->get_label(), $this->get_label() ); ?>
+			</p>
+			<a href="<?php echo add_query_arg( array(
+				'utm_source' => 'plugin-installation',
+				'utm_medium' => $this->get_type(),
+				'utm_campaign' => 'plugin-installation'
+			), $url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
+		</div>
+		<?php
+	}
+
 }

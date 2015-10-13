@@ -695,7 +695,7 @@ class CPAC_Settings {
 										</div><!--form-actions-->
 									<?php endif; ?>
 
-									<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
+									<?php if ( ! cpac_is_pro_active() ) : ?>
 									<?php $url_args = array(
 										'utm_source' => 'plugin-installation',
 										'utm_medium' => 'banner',
@@ -719,29 +719,6 @@ class CPAC_Settings {
 											</div>
 										</div>
 									</div>
-
-										<?php
-										// @todo: add newsletter
-										/* ?>
-										<div class="padding-box newsletter">
-											<form action="http://codepress.us4.list-manage.com/subscribe/post?u=902ae7f162ce5bc38a0bc8a4f&amp;id=183e843a76" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-												<?php $user = wp_get_current_user(); ?>
-												<p>
-													<?php _e ( "Subscribe to receive news &amp; updates below.", 'codepress-admin-columns' ); ?>
-												</p>
-												<div class="mc-field-group">
-													<label for="mce-FNAME"><?php _e( 'First Name', 'codepress-admin-columns' ); ?></label>
-													<input type="text" value="<?php echo trim( esc_attr( $user->first_name ) ); ?>" name="FNAME" class="" id="mce-FNAME">
-												</div>
-												<div class="mc-field-group">
-													<label for="mce-EMAIL"><?php _e( 'Your Email', 'codepress-admin-columns' ); ?></label>
-													<input type="email" value="<?php echo trim( esc_attr( $user->user_email ) ); ?>" name="EMAIL" class="required email" id="mce-EMAIL">
-												</div>
-												<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-											</form>
-										</div>
-										<?php */ ?>
-
 
 									<div class="sidebox" id="direct-feedback">
 										<div id="feedback-choice">

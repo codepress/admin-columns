@@ -69,15 +69,14 @@ function cpac_is_wc_version_gte( $version = '1.0' ) {
 	return $wc_version && version_compare( $wc_version, $version, '>=' );
 }
 
-function cpac_get_ids_from_array( $array ) {
-	$array = trim( str_replace( ' ','', $array ) );
-	$ids = array();
-	if ( strpos( $array, ',' ) !== false ) {
-		$ids = explode( ',', $array );
-		$ids = array_map( 'intval', $ids );
-	}
-	elseif ( is_numeric( $array ) ) {
-		$ids[] = $array;
-	}
-	return $ids;
+function cpac_is_acf_active() {
+	return class_exists( 'acf', false );
+}
+
+function cpac_is_woocommerce_active() {
+	return class_exists( 'WooCommerce', false );
+}
+
+function cpac_is_pro_active() {
+	return class_exists( 'CAC_Addon_Pro', false );
 }

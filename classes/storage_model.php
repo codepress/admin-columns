@@ -333,9 +333,18 @@ abstract class CPAC_Storage_Model {
 			'CPAC_Column_Used_By_Menu' 		=> CPAC_DIR . 'classes/column/used-by-menu.php'
 		);
 
-		// Display ACF placeholder
-		if ( class_exists('acf') && ! class_exists( 'CAC_Addon_Pro' ) ) {
-			$columns[ 'CPAC_Column_ACF_Placeholder' ] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+		// Add-on placeholders
+		if ( ! cpac_is_pro_active() ) {
+
+			// Display ACF placeholder
+			if ( cpac_is_acf_active() ) {
+				$columns[ 'CPAC_Column_ACF_Placeholder' ] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+			}
+
+			// Display WooCommerce placeholder
+			if ( cpac_is_woocommerce_active() ) {
+				$columns[ 'CPAC_Column_WC_Placeholder' ] = CPAC_DIR . 'classes/column/wc-placeholder.php';
+			}
 		}
 
 		// Directory to iterate
@@ -641,6 +650,8 @@ abstract class CPAC_Storage_Model {
 			'custom-field' => __( 'Custom Field', 'codepress-admin-columns' ),
 			'custom' => __( 'Custom', 'codepress-admin-columns' ),
 			'plugin' => __( 'Columns by Plugins', 'codepress-admin-columns' ),
+			'acf' => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
+			'woocommerce' => __( 'WooCommerce', 'codepress-admin-columns' )
 		);
 
 		/**
