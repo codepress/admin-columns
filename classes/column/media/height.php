@@ -16,7 +16,7 @@ class CPAC_Column_Media_Height extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-height';
-		$this->properties['label']	 	= __( 'Height', 'cpac' );
+		$this->properties['label']	 	= __( 'Height', 'codepress-admin-columns' );
 	}
 
 	/**

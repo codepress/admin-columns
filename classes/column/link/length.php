@@ -16,7 +16,7 @@ class CPAC_Column_Link_Length extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-length';
-		$this->properties['label']	 	= __( 'Length', 'cpac' );
+		$this->properties['label']	 	= __( 'Length', 'codepress-admin-columns' );
 	}
 
 	/**

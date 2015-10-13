@@ -9,7 +9,7 @@ class CPAC_Column_Comment_Author_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-author_name';
-		$this->properties['label']	 = __( 'Author name', 'cpac' );
+		$this->properties['label']	 = __( 'Author name', 'codepress-admin-columns' );
 	}
 
 	public function get_value( $id ) {

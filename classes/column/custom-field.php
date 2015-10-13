@@ -1,4 +1,4 @@
-	<?php
+<?php
 /**
  * Custom field column, displaying the contents of meta fields.
  * Suited for all storage models supporting WordPress' default way of handling meta data.
@@ -20,7 +20,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 		= 'column-meta';
-		$this->properties['label']	 		= __( 'Custom Field', 'cpac' );
+		$this->properties['label']	 		= __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes']		= 'cpac-box-metafield';
 		$this->properties['is_cloneable']	= true;
 		$this->properties['group']			= 'custom-field';
@@ -92,19 +92,19 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	public function get_custom_field_types() {
 
 		$custom_field_types = array(
-			''				=> __( 'Default', 'cpac' ),
-			'checkmark'		=> __( 'Checkmark (true/false)', 'cpac' ),
-			'color'			=> __( 'Color', 'cpac' ),
-			'count'			=> __( 'Counter', 'cpac' ),
-			'date'			=> __( 'Date', 'cpac' ),
+			''				=> __( 'Default', 'codepress-admin-columns' ),
+			'checkmark'		=> __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
+			'color'			=> __( 'Color', 'codepress-admin-columns' ),
+			'count'			=> __( 'Counter', 'codepress-admin-columns' ),
+			'date'			=> __( 'Date', 'codepress-admin-columns' ),
 			'excerpt'		=> __( 'Excerpt'),
-			'image'			=> __( 'Image', 'cpac' ),
-			'library_id'	=> __( 'Media Library', 'cpac' ),
-			'array'			=> __( 'Multiple Values', 'cpac' ),
-			'numeric'		=> __( 'Numeric', 'cpac' ),
-			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
-			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
-			'term_by_id'	=> __( 'Term Name (Term ID\'s)', 'cpac' ),
+			'image'			=> __( 'Image', 'codepress-admin-columns' ),
+			'library_id'	=> __( 'Media Library', 'codepress-admin-columns' ),
+			'array'			=> __( 'Multiple Values', 'codepress-admin-columns' ),
+			'numeric'		=> __( 'Numeric', 'codepress-admin-columns' ),
+			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
+			'user_by_id'	=> __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
+			'term_by_id'	=> __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 		);
 
 		// deprecated. do not use, will be removed.
@@ -376,33 +376,36 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
+	 * @since 2.4.7
+	 */
+	public function get_meta_keys() {
+		return $this->storage_model->get_meta_keys();
+	}
+
+	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
 	 */
-	public function display_settings() {
-
-		$show_hidden_meta = true;
-		?>
-
+	public function display_settings() { ?>
 		<tr class="column_field">
-			<?php $this->label_view( __( "Custom Field", 'cpac' ), __( "Select your custom field.", 'cpac' ), 'field' ); ?>
+			<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
 			<td class="input">
 
-				<?php if ( $meta_keys = $this->storage_model->get_meta_keys( $show_hidden_meta ) ) : ?>
+				<?php if ( $meta_keys = $this->get_meta_keys() ) : ?>
 				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
 				<?php foreach ( $meta_keys as $field ) : ?>
 					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field; ?></option>
 				<?php endforeach; ?>
 				</select>
 				<?php else : ?>
-					<?php _e( 'No custom fields available.', 'cpac' ); ?> <?php printf( __( 'Please create a %s item first.', 'cpac' ), '<em>' . $this->storage_model->singular_label . '</em>' ); ?>
+					<?php _e( 'No custom fields available.', 'codepress-admin-columns' ); ?> <?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<em>' . $this->storage_model->singular_label . '</em>' ); ?>
 				<?php endif; ?>
 
 			</td>
 		</tr>
 
 		<tr class="column_field_type">
-			<?php $this->label_view( __( "Field Type", 'cpac' ), __( 'This will determine how the value will be displayed.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
+			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
 				<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>

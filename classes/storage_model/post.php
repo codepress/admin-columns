@@ -26,13 +26,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// Headings
 
 		// Since 3.1
-		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 100, 1 );
+		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_headings' ), 100 );
 
 		// Deprecated ( as of 3.1 ) Note: This one is still used by woocommerce.
 		// Priority set to 100 top make sure the WooCommerce headings are overwritten by CAC
 		// Filter is located in get_column_headers().
 		// @todo_minor check compatibility issues for this deprecated filter
-		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100, 1 );
+		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100 );
 
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
@@ -51,6 +51,28 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	public function get_post_type() {
 
 		return $this->post_type;
+	}
+
+	/**
+	 * Get post ID's
+	 *
+	 * @since 2.4.7
+	 *
+	 * @param array $args
+	 * @return array Posts
+	 */
+	public function get_posts( $args = array() ) {
+        $defaults = array(
+			'numberposts'	=> -1,
+			'post_status'	=> array( 'any', 'trash' ),
+			'post_type'		=> $this->post_type,
+			'fields'		=> 'ids',
+			'no_found_rows' => 1, // lowers our carbon footprint
+		);
+
+		$post_ids = (array) get_posts( array_merge( $defaults, $args ) );
+
+        return $post_ids;
 	}
 
 	/**
@@ -112,10 +134,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
-		if ( ! in_array( $this->post_type, array( 'post', 'page' ) ) ) {
-			return false;
+
+		$defaults = array( 'date' );
+
+		if ( post_type_supports( $this->post_type, 'title' ) ) {
+			$defaults[] = 'title';
 		}
-		return array( 'author', 'cb', 'categories', 'comments', 'date', 'parent', 'tags', 'title' );
+		if ( post_type_supports( $this->post_type, 'comments' ) ) {
+			$defaults[] = 'comments';
+		}
+
+		if ( in_array( $this->post_type, array( 'post', 'page' ) ) ) {
+			$defaults[] = 'cb';
+			$defaults[] = 'author';
+			$defaults[] = 'categories';
+			$defaults[] = 'comments';
+			$defaults[] = 'parent';
+			$defaults[] = 'tags';
+		}
+
+		return $defaults;
 	}
 
 	/**
@@ -188,16 +226,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
      */
     public function get_meta() {
         global $wpdb;
-
-        if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
-        	$result = $cache;
-        }
-        else {
-			$result = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
-			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
-		}
-
-		return $result;
+        return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
     }
 
 	/**

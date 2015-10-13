@@ -27,6 +27,26 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 2.4.7
+	 */
+	public function get_original_column_value( $column, $id ) {
+
+		// Remove Admin Columns action for this column's value
+		remove_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
+
+		ob_start();
+
+		do_action( "manage_users_custom_column", $column, $id );
+
+		$contents = ob_get_clean();
+
+		// Add removed Admin Columns action for this column's value
+		add_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
+
+		return $contents;
+	}
+
+	/**
 	 * Get WP default supported admin columns per post type.
 	 *
 	 * @see CPAC_Type::get_default_columns()
@@ -117,15 +137,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
      */
     public function get_meta() {
         global $wpdb;
-
-        if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
-        	$result = $cache;
-        }
-        else {
-			$result = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
-			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
-		}
-
-		return $result;
+        return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
     }
 }

@@ -16,7 +16,7 @@ class CPAC_Column_User_Last_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-last_name';
-		$this->properties['label']	 = __( 'Last name', 'cpac' );
+		$this->properties['label']	 = __( 'Last name', 'codepress-admin-columns' );
 	}
 
 	/**

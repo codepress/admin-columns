@@ -41,7 +41,7 @@ class CPAC_Addons {
 			return;
 		}
 
-		if ( ! class_exists('CAC_Addon_Pro') ) {
+		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
 			cpac_admin_message( 'You need Admin Columns Pro.', 'error' );
 			return;
 		}
@@ -107,7 +107,7 @@ class CPAC_Addons {
 	public function get_addon_groups() {
 
 		$addon_groups = array(
-			'integration' => __( 'Plugins', 'cpac' )
+			'integration' => __( 'Plugins', 'codepress-admin-columns' )
 		);
 
 		/**
@@ -132,14 +132,14 @@ class CPAC_Addons {
 
 		$addons = array(
 			'cac-addon-acf' => array(
-				'title' 		=> __( 'Advanced Custom Fields', 'cpac' ),
-				'description' 	=> __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'cpac' ),
+				'title' 		=> __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
+				'description' 	=> __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 				'group' 		=> 'integration',
 				'image' 		=> CPAC_URL . 'assets/images/addons/acf.png'
 			),
 			'cac-addon-woocommerce' => array(
-				'title' 		=> __( 'WooCommerce', 'cpac' ),
-				'description' 	=> __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'cpac' ),
+				'title' 		=> __( 'WooCommerce', 'codepress-admin-columns' ),
+				'description' 	=> __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 				'group' 		=> 'integration',
 				'image' 		=> CPAC_URL . 'assets/images/addons/woocommerce.png'
 			)

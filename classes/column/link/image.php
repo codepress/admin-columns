@@ -16,7 +16,7 @@ class CPAC_Column_Link_Image extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-image';
-		$this->properties['label']	 	= __( 'Image', 'cpac' );
+		$this->properties['label']	 	= __( 'Image', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['image_size']	= '';

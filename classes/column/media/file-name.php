@@ -16,7 +16,7 @@ class CPAC_Column_Media_File_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-file_name';
-		$this->properties['label']	 	= __( 'File name', 'cpac' );
+		$this->properties['label']	 	= __( 'File name', 'codepress-admin-columns' );
 	}
 
 	/**

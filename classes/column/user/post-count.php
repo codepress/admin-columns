@@ -16,7 +16,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 		= 'column-user_postcount';
-		$this->properties['label']	 		= __( 'Post Count', 'cpac' );
+		$this->properties['label']	 		= __( 'Post Count', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']	= true;
 
 		// Options
@@ -86,7 +86,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 
 		?>
 		<tr class="<?php $this->properties->type; ?>">
-			<?php $this->label_view( __( 'Post Type', 'cpac' ), '', 'post_type' ); ?>
+			<?php $this->label_view( __( 'Post Type', 'codepress-admin-columns' ), '', 'post_type' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'post_type' ); ?>" id="<?php $this->attr_id( 'post_type' ); ?>">
 				<?php foreach ( $post_types as $key => $label ) : ?>

@@ -40,9 +40,7 @@ class CPAC_Column_Post_Date_Published extends CPAC_Column {
 	 * @since 2.4
 	 */
 	public function get_raw_value( $post_id ) {
-
 		$post = get_post( $post_id );
-
 		return $post->post_date;
 	}
 
@@ -51,10 +49,7 @@ class CPAC_Column_Post_Date_Published extends CPAC_Column {
 	 * @since 2.4
 	 */
 	public function display_settings() {
-
 		parent::display_settings();
-
 		$this->display_field_date_format();
 	}
-
 }

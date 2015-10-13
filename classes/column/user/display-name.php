@@ -16,7 +16,7 @@ class CPAC_Column_User_Display_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-display_name';
-		$this->properties['label']	 = __( 'Display name', 'cpac' );
+		$this->properties['label']	 = __( 'Display name', 'codepress-admin-columns' );
 	}
 
 	/**

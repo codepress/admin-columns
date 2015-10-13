@@ -46,6 +46,11 @@ abstract class CPAC_Storage_Model {
 	public $menu_type;
 
 	/**
+	 * @since NEWVERSIOM
+	 */
+	private $column_headings;
+
+	/**
 	 * @since 2.0
 	 * @var string
 	 */
@@ -142,9 +147,10 @@ abstract class CPAC_Storage_Model {
 			if ( $_REQUEST['cpac_key'] == $this->key ) {
 				return true;
 			}
+		}
 
 		// settings page has not yet been saved
-		} elseif ( $first_posttype == $this->key ) {
+		elseif ( $first_posttype == $this->key ) {
 			return true;
 		}
 
@@ -152,33 +158,46 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 2.4.7
+	 */
+	public function format_meta_keys( $keys ) {
+		$add_hidden_meta = true; // always true @todo
+
+		$formatted_keys = array();
+		foreach ( $keys as $key ) {
+
+			// give hidden keys a prefix for identifaction
+			if ( $add_hidden_meta && "_" == substr( $key[0], 0, 1 ) ) {
+				$formatted_keys[] = 'cpachidden' . $key[0];
+			}
+
+			// non hidden keys are saved as is
+			elseif ( "_" != substr( $key[0], 0, 1 ) ) {
+				$formatted_keys[] = $key[0];
+			}
+		}
+		return $formatted_keys;
+	}
+
+	/**
 	 * @since 2.0
 	 * @return array
-     */
-    public function get_meta_keys( $add_hidden_meta = false ) {
-        global $wpdb;
+	 */
+	public function get_meta_keys() {
 
-        $keys = array();
-
-		$fields = $this->get_meta();
-
-		if ( is_wp_error( $fields ) || empty( $fields ) ) {
-			$keys = false;
+		if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
+			$keys = $cache;
+		}
+		else {
+			$keys = $this->get_meta();
+			wp_cache_add( $this->key, $keys, 'cac_columns', 10 ); // 10 sec.
 		}
 
-		if ( $fields ) {
-			foreach ( $fields as $field ) {
-
-				// give hidden fields a prefix for identifaction
-				if ( $add_hidden_meta && "_" == substr( $field[0], 0, 1 ) ) {
-					$keys[] = 'cpachidden' . $field[0];
-				}
-
-				// non hidden fields are saved as is
-				elseif ( "_" != substr( $field[0], 0, 1 ) ) {
-					$keys[] = $field[0];
-				}
-			}
+		if ( is_wp_error( $keys ) || empty( $keys ) ) {
+			$keys = false;
+		}
+		else {
+			$keys = $this->format_meta_keys( $keys );
 		}
 
 		/**
@@ -199,7 +218,7 @@ abstract class CPAC_Storage_Model {
 		 * @see Filter cac/storage_model/meta_keys
 		 */
 		return apply_filters( "cac/storage_model/meta_keys/storage_key={$this->key}", $keys, $this );
-    }
+	}
 
 	/**
 	 * @since 2.0
@@ -207,8 +226,9 @@ abstract class CPAC_Storage_Model {
 	 * @return array Custom fields.
 	 */
 	protected function add_hidden_meta( $fields ) {
-		if ( ! $fields )
+		if ( ! $fields ) {
 			return false;
+		}
 
 		$combined_fields = array();
 
@@ -239,7 +259,7 @@ abstract class CPAC_Storage_Model {
 
 		delete_option( "cpac_options_{$this->key}" );
 
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
+		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.',  'codepress-admin-columns' ), 'updated' );
 
 		// refresh columns otherwise the removed columns will still display
 		$this->set_columns_on_current_screen();
@@ -255,7 +275,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		if ( ! $columns ) {
-			cpac_admin_message( __( 'No columns settings available.',  'cpac' ), 'error' );
+			cpac_admin_message( __( 'No columns settings available.',  'codepress-admin-columns' ), 'error' );
 			return false;
 		}
 
@@ -276,11 +296,11 @@ abstract class CPAC_Storage_Model {
 
 		// error
 		if ( ! $result && ! $result_default ) {
-			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
+			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'error' );
 			return false;
 		}
 
-		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
 
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();
@@ -313,9 +333,18 @@ abstract class CPAC_Storage_Model {
 			'CPAC_Column_Used_By_Menu' 		=> CPAC_DIR . 'classes/column/used-by-menu.php'
 		);
 
-		// Display ACF placeholder
-		if ( class_exists('acf') && ! class_exists( 'CAC_Addon_Pro' ) ) {
-			$columns[ 'CPAC_Column_ACF_Placeholder' ] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+		// Add-on placeholders
+		if ( ! cpac_is_pro_active() ) {
+
+			// Display ACF placeholder
+			if ( cpac_is_acf_active() ) {
+				$columns[ 'CPAC_Column_ACF_Placeholder' ] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+			}
+
+			// Display WooCommerce placeholder
+			if ( cpac_is_woocommerce_active() ) {
+				$columns[ 'CPAC_Column_WC_Placeholder' ] = CPAC_DIR . 'classes/column/wc-placeholder.php';
+			}
 		}
 
 		// Directory to iterate
@@ -330,8 +359,8 @@ abstract class CPAC_Storage_Model {
 
 				// only allow php files, exclude .SVN .DS_STORE and such
 				if ( substr( $leaf->getFilename(), -4 ) !== '.php' ) {
-	    			continue;
-	    		}
+					continue;
+				}
 
 				// build classname from filename
 				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_'  . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
@@ -587,6 +616,8 @@ abstract class CPAC_Storage_Model {
 		$this->default_columns = $this->get_default_registered_columns();
 		$this->column_types = $this->get_grouped_column_types();
 		$this->columns = $this->get_columns();
+
+		do_action( 'cac/set_columns/after', $this );
 	}
 
 	public function get_grouped_column_types() {
@@ -615,10 +646,12 @@ abstract class CPAC_Storage_Model {
 	public function get_column_type_groups() {
 
 		$groups = array(
-			'default' => __( 'Default', 'cpac' ),
-			'custom-field' => __( 'Custom Field', 'cpac' ),
-			'custom' => __( 'Custom', 'cpac' ),
-			'plugin' => __( 'Columns by Plugins', 'cpac' ),
+			'default' => __( 'Default', 'codepress-admin-columns' ),
+			'custom-field' => __( 'Custom Field', 'codepress-admin-columns' ),
+			'custom' => __( 'Custom', 'codepress-admin-columns' ),
+			'plugin' => __( 'Columns by Plugins', 'codepress-admin-columns' ),
+			'acf' => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
+			'woocommerce' => __( 'WooCommerce', 'codepress-admin-columns' )
 		);
 
 		/**
@@ -763,6 +796,11 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
+		// make sure we run this only once
+		if ( $this->column_headings ) {
+			return $this->column_headings;
+		}
+
 		// only add headings on overview screens, to prevent deactivating columns on the column settings screen
 		if ( ! $this->is_columns_screen() ) {
 			return $columns;
@@ -772,11 +810,15 @@ abstract class CPAC_Storage_Model {
 			return $columns;
 		}
 
-		$column_headings = array();
+		if ( ! $this->default_columns ) {
+			return $columns;
+		}
+
+		$this->column_headings = array();
 
 		// add mandatory checkbox
 		if ( isset( $columns['cb'] ) ) {
-			$column_headings['cb'] = $columns['cb'];
+			$this->column_headings['cb'] = $columns['cb'];
 		}
 
 		// add active stored headings
@@ -798,7 +840,7 @@ abstract class CPAC_Storage_Model {
 			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
 			$label = str_replace( '[cpac_site_url]', site_url(), $label );
 
-			$column_headings[ $column_name ] = $label;
+			$this->column_headings[ $column_name ] = $label;
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.
@@ -806,11 +848,11 @@ abstract class CPAC_Storage_Model {
 		// When $diff contains items, it means an available column has not been stored.
 		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), $this->get_default_stored_columns() ) ) ) {
 			foreach ( $diff as $column_name ) {
-				$column_headings[ $column_name ] = $columns[ $column_name ];
+				$this->column_headings[ $column_name ] = $columns[ $column_name ];
 			}
 		}
 
-		return $column_headings;
+		return $this->column_headings;
 	}
 
 	/**
@@ -828,7 +870,7 @@ abstract class CPAC_Storage_Model {
 	public function screen_link() {
 
 		if ( $link = $this->get_screen_link() ) {
-			echo '<a href="' . $link . '" class="add-new-h2">' . __('View', 'cpac') . '</a>';
+			echo '<a href="' . $link . '" class="add-new-h2">' . __('View', 'codepress-admin-columns') . '</a>';
 		}
 	}
 
@@ -845,7 +887,7 @@ abstract class CPAC_Storage_Model {
 	 * Mark your admin columns ajax request with plugin_id : 'cpac'.
 	 *
 	 * @since 2.0.5
-     * @return boolean
+	 * @return boolean
 	 */
 	public function is_doing_ajax() {
 
@@ -855,8 +897,8 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0.3
 	 * @global string $pagenow
-     * @global object $current_screen
-     * @return boolean
+	 * @global object $current_screen
+	 * @return boolean
 	 */
 	public function is_columns_screen() {
 
@@ -892,92 +934,36 @@ abstract class CPAC_Storage_Model {
 		return true;
 	}
 
-    /**
-     * Checks if the current page is the settings page
-     *
-     * @since 2.0.2
-     * @global string $pagenow
-     * @global string $plugin_page
-     * @return boolean
-     */
-    public function is_settings_page() {
-        global $pagenow, $plugin_page;
-
-        return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
-    }
-
-    /**
-     * @since 2.3.2
-     */
-    public function delete_general_option() {
-    	delete_option( 'cpac_general_options' );
-    }
-
-    /**
-     * @since 2.1.1
-     */
-    public function get_general_option( $option ) {
-    	$options = get_option( 'cpac_general_options' );
-
-    	if ( ! isset( $options[ $option ] ) )
-    		return false;
-
-    	return $options[ $option ];
-    }
-
-    /**
-	 * @since 2.4.2
+	/**
+	 * Checks if the current page is the settings page
+	 *
+	 * @since 2.0.2
+	 * @global string $pagenow
+	 * @global string $plugin_page
+	 * @return boolean
 	 */
-	public function is_cache_enabled() {
-		return apply_filters( 'cac/is_cache_enabled', true );
+	public function is_settings_page() {
+		global $pagenow, $plugin_page;
+
+		return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
 	}
 
 	/**
-	 * @since 3.1.2
-	 * @param $id Cache ID
-	 * @param $column_name Column property name
-	 * @return string MD5 Cache ID
+	 * @since 2.3.2
 	 */
-	public function get_cache_id( $id, $column_name ) {
-		return md5( $this->key . $id . $column_name );
+	public function delete_general_option() {
+		delete_option( 'cpac_general_options' );
 	}
 
 	/**
-	 * @since 3.1.2
-	 * @param $id Cache ID
-	 * @param $column_name Column property name
-	 * @param $cache_object Cache Object
-	 * @param $duration int Cache duration in seconds. default is 1 day.
+	 * @since 2.1.1
 	 */
-	public function set_cache( $id, $column_name, $cache_object, $duration = 86400 ) {
-		if ( empty( $cache_object ) ) {
+	public function get_general_option( $option ) {
+		$options = get_option( 'cpac_general_options' );
+
+		if ( ! isset( $options[ $option ] ) )
 			return false;
-		}
-		set_transient( $this->get_cache_id( $id, $column_name ), $cache_object, $duration );
-	}
 
-	/**
-	 * @since 3.1.2
-	 * @param $id Cache ID ( could be a name of an addon for example )
-	 * @param $column_name Column property name
-	 * @return false | mixed Returns either false or the cached objects
-	 */
-	public function get_cache( $id, $column_name ) {
-		$cache = get_transient( $this->get_cache_id( $id, $column_name ) );
-
-		if ( empty( $cache ) ) {
-			return false;
-		}
-
-		return $cache;
-	}
-
-	/**
-	 * @since 3.1.2
-	 * @param $id Cache ID
-	 * @param $column_name Column property name
-	 */
-	public function delete_cache( $id, $column_name ) {
-		delete_transient( $this->get_cache_id( $id, $column_name ) );
+		return $options[ $option ];
 	}
 }

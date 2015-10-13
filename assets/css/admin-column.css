@@ -325,6 +325,9 @@ h2.cpac-nav-tab-wrapper {
   border: none;
   background: #fcfcfc;
 }
+.cpac-column .column-form table tr.hide {
+  display: none;
+}
 .cpac-column .column-form table tr td {
   vertical-align: top;
   border: none;
@@ -625,7 +628,7 @@ h2.cpac-nav-tab-wrapper {
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
   background: none repeat scroll 0 0 transparent;
-  border-color: #dfdfdf -moz-use-text-color -moz-use-text-color;
+  border-color: #DFDFDF -moz-use-text-color -moz-use-text-color;
   border-image: none;
   border-right: 0 none;
   border-style: solid none none;
@@ -788,6 +791,10 @@ h2.cpac-nav-tab-wrapper {
   color: #fff;
   text-decoration: none;
 }
+.columns-right .sidebox#pro-version .inside ul li.acf a {
+  background-color: #5ee8bf;
+  color: #808080;
+}
 .columns-right .sidebox#pro-version .inside p {
   color: #fff;
   font-size: 12px;
@@ -799,6 +806,17 @@ h2.cpac-nav-tab-wrapper {
   padding: 0 2px;
   font-size: 15px;
   text-decoration: none;
+}
+.columns-right .sidebox#add-acf {
+  background-color: #5ee8bf;
+}
+.columns-right .sidebox#add-acf h3 {
+  padding: 0;
+}
+.columns-right .sidebox#add-acf h3 a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
 }
 .columns-right .sidebox#direct-feedback #feedback-support,
 .columns-right .sidebox#direct-feedback #feedback-rate {

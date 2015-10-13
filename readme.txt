@@ -1,10 +1,10 @@
 === Admin Columns ===
-Contributors: codepress, tschutter, davidmosterd, engelen
+Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.2.2
-Stable tag: 2.4.4
+Tested up to: 4.3.1
+Stable tag: 2.4.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,11 +212,28 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.4.7 =
+* [Added] Comment Post column added
+* [Update] User Actions columns extends CPAC_Actions object
+* [Update] PHP export columns no longer uses global
+* [Added] Added "Link To" selection field for the author column
+* [Fixed] Date and Title column are labeled as Default column for posts
+* [Fixed] WPML columns will display the correct flag on the overview when switching language
+
+= 2.4.6 =
+* [Fixed] Page Order column is now available on all supported posttypes
+* [Fixed] Time reading columns shows "-" instead of zero when there is no content
+
+= 2.4.5 =
+* [Fixed] Estimate Time Reading column will not display a value when there is no content
+* [Fixed] When updating there was a possbile change on a "Cannot modify header information"
+
 = 2.4.4 =
 * [Fixed] Support for custom post statuses
 * [Fixed] Page Order column is now available on all hierarchical post types
 * [Added] WordPress Default columns has it's own menu group
-* [Added] Columns set by plugins are in it's own menu group
+* [Added] Columns set by plugins has it's own menu group
+* [Added] Custom Field column has it's own menu group
 * [Update] Updated all languages from Transifex
 
 = 2.4.3 =

@@ -16,7 +16,7 @@ class CPAC_Column_Post_Shortcodes extends CPAC_Column {
 
 		// Properties
 		$this->properties['type'] = 'column-shortcode';
-		$this->properties['label'] = __( 'Shortcodes', 'cpac' );
+		$this->properties['label'] = __( 'Shortcodes', 'codepress-admin-columns' );
 	}
 
 	/**

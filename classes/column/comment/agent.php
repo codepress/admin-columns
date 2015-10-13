@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Agent extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-agent';
-		$this->properties['label']	 = __( 'Agent', 'cpac' );
+		$this->properties['label']	 = __( 'Agent', 'codepress-admin-columns' );
 	}
 
 	/**

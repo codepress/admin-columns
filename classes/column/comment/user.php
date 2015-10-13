@@ -8,7 +8,7 @@ class CPAC_Column_Comment_User extends CPAC_Column {
 		parent::init();
 
 		$this->properties['type']	 = 'column-user';
-		$this->properties['label']	 = __( 'User', 'cpac' );
+		$this->properties['label']	 = __( 'User', 'codepress-admin-columns' );
 	}
 
 	public function get_value( $id ) {

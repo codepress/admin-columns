@@ -16,7 +16,7 @@ class CPAC_Column_Media_Caption extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-caption';
-		$this->properties['label']	 = __( 'Caption', 'cpac' );
+		$this->properties['label']	 = __( 'Caption', 'codepress-admin-columns' );
 	}
 
 	/**

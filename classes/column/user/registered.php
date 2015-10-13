@@ -16,7 +16,7 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-user_registered';
-		$this->properties['label']	 = __( 'Registered', 'cpac' );
+		$this->properties['label']	 = __( 'Registered', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['date_format'] = '';
