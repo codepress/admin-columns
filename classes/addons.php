@@ -41,7 +41,7 @@ class CPAC_Addons {
 			return;
 		}
 
-		if ( ! class_exists('CAC_Addon_Pro') ) {
+		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
 			cpac_admin_message( 'You need Admin Columns Pro.', 'error' );
 			return;
 		}
