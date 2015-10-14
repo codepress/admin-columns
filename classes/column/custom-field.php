@@ -404,7 +404,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			</td>
 		</tr>
 
-		<tr class="column_field_type">
+		<tr class="column_field_type" data-refresh="1">
 			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">

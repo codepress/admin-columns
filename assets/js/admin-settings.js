@@ -291,11 +291,10 @@ jQuery.fn.column_bind_events = function() {
 		jQuery(this).parents( '.label' ).find('p.description').hide();
 	});
 
-	if ( column.find( '.column_type select' ).val() == 'column-meta' ) {
-		column.find( '.column_field_type select' ).change( function() {
-			column.cpac_column_refresh();
-		} );
-	}
+	// refresh column and re-bind all events
+	column.find( '[data-refresh="1"] select' ).change( function() {
+		column.cpac_column_refresh();
+	} );
 };
 
 /*

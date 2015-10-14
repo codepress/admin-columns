@@ -1193,12 +1193,15 @@ class CPAC_Column {
 	 * @param string $label Label
 	 * @param array $options Select options
 	 * @param strong $description (optional) Description below the label
+	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
+	 * @param boolean $refresh This will JS refresh the column on change.
 	 */
-	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
+	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
 		$current = $this->get_option( $name );
 		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
+		$data_refresh = $js_refresh ? ' data-refresh="1"' : '';
 		?>
-		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
+		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?><?php echo $data_refresh; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
