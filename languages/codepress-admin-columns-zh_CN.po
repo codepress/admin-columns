@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 15:26+0200\n"
-"Last-Translator: Codepress <info@codepress.nl>\n"
+"PO-Revision-Date: 2015-10-12 13:09+0000\n"
+"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/codepress/admin-columns/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,13 +15,10 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;"
-"__ngettext_noop:1,2\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"POT-Creation-Date: \n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: ../codepress-admin-columns.php:451
 msgid "Edit columns"
@@ -36,7 +33,9 @@ msgid "Advanced Custom Fields"
 msgstr ""
 
 #: ../classes/addons.php:136
-msgid "Display and edit Advanced Custom Fields fields in the posts overview in seconds!"
+msgid ""
+"Display and edit Advanced Custom Fields fields in the posts overview in "
+"seconds!"
 msgstr ""
 
 #: ../classes/addons.php:141
@@ -44,7 +43,9 @@ msgid "WooCommerce"
 msgstr ""
 
 #: ../classes/addons.php:142
-msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgid ""
+"Enhance the products, orders and coupons overviews with new columns and "
+"inline editing."
 msgstr ""
 
 #: ../classes/column.php:624
@@ -92,7 +93,9 @@ msgid "Example:"
 msgstr "例如："
 
 #: ../classes/column.php:1098
-msgid "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>."
+msgid ""
+"Leave empty for WordPress date format, change your <a href='%s'>default date"
+" format here</a>."
 msgstr ""
 
 #: ../classes/column.php:1099
@@ -191,7 +194,9 @@ msgstr ""
 msgid "Remove"
 msgstr "删除"
 
-#: ../classes/column.php1372, ../classes/column/custom-field.php408, ../classes/column/comment/type.php:13
+#: ../classes/column.php1372, ../classes/column.php1372,
+#: ../classes/column/custom-field.php408,
+#: ../classes/column/comment/type.php:13
 msgid "Type"
 msgstr "类型"
 
@@ -247,7 +252,8 @@ msgstr ""
 msgid "Page the posts should link to."
 msgstr ""
 
-#: ../classes/review_notice.php55, ../classes/settings.php170, ../classes/settings.php599, ../classes/upgrade.php:135
+#: ../classes/review_notice.php55, ../classes/settings.php170,
+#: ../classes/settings.php599, ../classes/upgrade.php:135
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
@@ -269,8 +275,9 @@ msgstr ""
 
 #: ../classes/review_notice.php:80
 msgid ""
-"We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our "
-"%s."
+"We're sorry to hear that; maybe we can help! If you're having problems "
+"properly setting up %s or if you would like help with some more advanced "
+"features, please visit our %s."
 msgstr ""
 
 #: ../classes/review_notice.php:82
@@ -278,7 +285,9 @@ msgid "documentation page"
 msgstr ""
 
 #: ../classes/review_notice.php:86
-msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgid ""
+"As an Admin Columns Pro user, you can also use your AdminColumns.com account"
+" to access product support through %s!"
 msgstr ""
 
 #: ../classes/review_notice.php:87
@@ -323,8 +332,9 @@ msgstr "预览"
 
 #: ../classes/settings.php:304
 msgid ""
-"This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the "
-"column's label and reorder them."
+"This plugin is for adding and removing additional columns to the "
+"administration screens for post(types), pages, media library, comments, "
+"links and users. Change the column's label and reorder them."
 msgstr "该插件用来从管理界面中添加或移除额外的列，比如文章（自定义文章类型）、页面、媒体库、评论、链接和用户的管理界面。修改列的标题和重新排序它们。"
 
 #: ../classes/settings.php:307
@@ -336,7 +346,8 @@ msgid "Change order"
 msgstr "更改排序"
 
 #: ../classes/settings.php:310
-msgid "By dragging the columns you can change the order which they will appear in."
+msgid ""
+"By dragging the columns you can change the order which they will appear in."
 msgstr "拖动排序这些列，你可以重新排列它们显示的顺序。"
 
 #: ../classes/settings.php:311
@@ -344,7 +355,9 @@ msgid "Change label"
 msgstr "更改标签"
 
 #: ../classes/settings.php:312
-msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
+msgid ""
+"By clicking on the triangle you will see the column options. Here you can "
+"change each label of the columns heading."
 msgstr "点击三角形，你会看到列的选项。在这里，你可以改变每个标签的列标题栏。"
 
 #: ../classes/settings.php:313
@@ -352,10 +365,14 @@ msgid "Change column width"
 msgstr "更改列宽"
 
 #: ../classes/settings.php:314
-msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
+msgid ""
+"By clicking on the triangle you will see the column options. By using the "
+"draggable slider you can set the width of the columns in percentages."
 msgstr "点击三角形，你会看到列的选项。你可以通过拖动滑块设置列的百分比宽度。"
 
-#: ../classes/settings.php318, ../classes/storage_model.php641, ../classes/column/custom-field.php23, ../classes/column/custom-field.php:391
+#: ../classes/settings.php318, ../classes/storage_model.php641,
+#: ../classes/column/custom-field.php23,
+#: ../classes/column/custom-field.php:391
 msgid "Custom Field"
 msgstr "自定义字段"
 
@@ -364,23 +381,31 @@ msgid "'Custom Field' column"
 msgstr "“自定义字段”列"
 
 #: ../classes/settings.php:321
-msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
+msgid ""
+"The custom field colum uses the custom fields from posts and users. There "
+"are 10 types which you can set."
 msgstr "自定义字段列使用文章和用户的自定义字段，你可以设置10中类型。"
 
-#: ../classes/settings.php323, ../classes/storage_model.php640, ../classes/column/custom-field.php:95
+#: ../classes/settings.php323, ../classes/storage_model.php640,
+#: ../classes/column/custom-field.php:95
 msgid "Default"
 msgstr "默认"
 
 #: ../classes/settings.php:323
-msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgid ""
+"Value: Can be either a string or array. Arrays will be flattened and values "
+"are seperated by a ',' comma."
 msgstr "值：可以是一个字符串或数组。数组将被压平（Arrays will be flattened），值之间用逗号“,”隔开。"
 
-#: ../classes/settings.php324, ../classes/column/custom-field.php101, ../classes/column/link/image.php:19
+#: ../classes/settings.php324, ../classes/column/custom-field.php101,
+#: ../classes/column/link/image.php:19
 msgid "Image"
 msgstr "图像"
 
 #: ../classes/settings.php:324
-msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
+msgid ""
+"Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
+"comma )."
 msgstr "值：应该包括一个图像URL或附件ID（使用逗号“,”隔开）"
 
 #: ../classes/settings.php325, ../classes/column/post/excerpt.php:19
@@ -396,7 +421,9 @@ msgid "Multiple Values"
 msgstr "多个值"
 
 #: ../classes/settings.php:326
-msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgid ""
+"Value: should be an array. This will flatten any ( multi dimensional ) "
+"array."
 msgstr "值：应该是一个数组。这将被压平（多维）数组"
 
 #: ../classes/settings.php327, ../classes/column/custom-field.php:104
@@ -404,17 +431,21 @@ msgid "Numeric"
 msgstr "数字"
 
 #: ../classes/settings.php:327
-msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgid ""
+"Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
+"for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr "值：只能是数字。<br/>如果你安装了“排序扩展”，这将用于排序，所以你可以通过这个数字（自定义字段）值来排序文章。"
 
-#: ../classes/settings.php328, ../classes/column/custom-field.php99, ../classes/column/comment/date.php:19
+#: ../classes/settings.php328, ../classes/column/custom-field.php99,
+#: ../classes/column/comment/date.php:19
 msgid "Date"
 msgstr "日期"
 
 #: ../classes/settings.php:328
 msgid ""
-"Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> "
-"page."
+"Value: Can be unix time stamp or a date format as described in the <a "
+"href='%s'>Codex</a>. You can change the outputted date format at the <a "
+"href='%s'>general settings</a> page."
 msgstr "值：可以是 Unix 时间戳或<a href='%s'>规则</a>中描述的一种日期格式。你可以在 <a href='%s'>常规设置</a> 页面修改输出的日期格式。"
 
 #: ../classes/settings.php:329
@@ -454,7 +485,9 @@ msgid "Counter"
 msgstr ""
 
 #: ../classes/settings.php:333
-msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
+msgid ""
+"Value: Can be either a string or array. This will display a count of the "
+"number of times the meta key is used by the item."
 msgstr ""
 
 #: ../classes/settings.php:422
@@ -466,7 +499,9 @@ msgid "Thank you for updating to the latest version!"
 msgstr "感谢您更新到最新版本！"
 
 #: ../classes/settings.php:426
-msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
+msgid ""
+"Admin Columns is more polished and enjoyable than ever before. We hope you "
+"like it."
 msgstr "Admin Columns插件比以往任何时候都更加精致，愉快。我们希望你喜欢它。"
 
 #: ../classes/settings.php:431
@@ -486,7 +521,9 @@ msgid "Database Changes"
 msgstr "数据库更改"
 
 #: ../classes/settings.php:440
-msgid "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues."
+msgid ""
+"The database has been changed between versions 1 and 2. But we made sure you"
+" can still roll back to version 1x without any issues."
 msgstr "该数据库已在版本1和2之间进行了更改。但我们确信你仍然可以回滚到版本1x，这是没有任何问题的。"
 
 #: ../classes/settings.php:443
@@ -502,7 +539,10 @@ msgid "Potential Issues"
 msgstr "潜在问题"
 
 #: ../classes/settings.php:447
-msgid "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full"
+msgid ""
+"Do to the sizable refactoring the code, surounding Addons and "
+"action/filters, your website may not operate correctly. It is important that"
+" you read the full"
 msgstr "做了相当大的代码重构，包括扩展和各类钩子，你的网站可能无法正常工作。强烈建议你阅读完整的 "
 
 #: ../classes/settings.php:447
@@ -514,7 +554,9 @@ msgid "guide to view the full list of changes."
 msgstr "引导查看完整的更改列表。"
 
 #: ../classes/settings.php:447
-msgid "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release."
+msgid ""
+"When you have found a bug please <a href='%s'>report them to us</a> so we "
+"can fix it in the next release."
 msgstr ""
 
 #: ../classes/settings.php:450
@@ -522,7 +564,9 @@ msgid "Important!"
 msgstr "重要！"
 
 #: ../classes/settings.php:450
-msgid "If you updated the Admin Columns plugin without prior knowledge of such changes, Please roll back to the latest"
+msgid ""
+"If you updated the Admin Columns plugin without prior knowledge of such "
+"changes, Please roll back to the latest"
 msgstr "如果你更新了 Admin Columns 插件没有另行通知这些变更，请回滚到最新版本"
 
 #: ../classes/settings.php:450
@@ -570,7 +614,9 @@ msgid "Restore default settings"
 msgstr "恢复默认设置"
 
 #: ../classes/settings.php:566
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgid ""
+"Warning! ALL saved admin columns data will be deleted. This cannot be "
+"undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
 #: ../classes/settings.php:582
@@ -594,7 +640,9 @@ msgid "Add-ons"
 msgstr ""
 
 #: ../classes/settings.php:669
-msgid "The columns for %s are set up via PHP and can therefore not be edited in the admin panel."
+msgid ""
+"The columns for %s are set up via PHP and can therefore not be edited in the"
+" admin panel."
 msgstr ""
 
 #: ../classes/settings.php:679
@@ -602,7 +650,9 @@ msgid "Store settings"
 msgstr "保存设置"
 
 #: ../classes/settings.php:687
-msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgid ""
+"Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
+" delete, 'Cancel' to stop"
 msgstr ""
 
 #: ../classes/settings.php:688
@@ -654,7 +704,9 @@ msgid "What's wrong? Need help? Let us know!"
 msgstr ""
 
 #: ../classes/settings.php:757
-msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgid ""
+"Check out our extensive documentation, or you can open a support topic on "
+"WordPress.org!"
 msgstr ""
 
 #: ../classes/settings.php:765
@@ -670,7 +722,9 @@ msgid "Woohoo! We're glad to hear that!"
 msgstr ""
 
 #: ../classes/settings.php:780
-msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgid ""
+"We would really love it if you could show your appreciation by giving us a "
+"rating on WordPress.org or tweet about Admin Columns!"
 msgstr ""
 
 #: ../classes/settings.php:784
@@ -694,10 +748,10 @@ msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr "查看右上角的 <strong>帮助</strong>"
 
 #: ../classes/settings.php:823
-msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
-msgstr ""
-"<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站资源平台\" target="
-"\"_blank\">WordPress大学</a> 提供简体中文支持。"
+msgid ""
+"For full documentation, bug reports, feature suggestions and other tips <a "
+"href='%s'>visit the Admin Columns website</a>"
+msgstr "<a href='%s'>访问官方网站</a> 获取帮助文档，反馈Bug，提交建议和其他技巧。</p><p>本插件由 <a href=\"http://www.wpdaxue.com\" title=\"优秀的WordPress建站资源平台\" target=\"_blank\">WordPress大学</a> 提供简体中文支持。"
 
 #: ../classes/settings.php:852
 msgid "Drag and drop to reorder"
@@ -756,7 +810,9 @@ msgid "View"
 msgstr "查看"
 
 #: ../classes/upgrade.php:62
-msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
+msgid ""
+"The pro add-on is no longer supported. Please login to your account and "
+"download Admin Columns Pro"
 msgstr ""
 
 #: ../classes/upgrade.php95, ../classes/upgrade.php:95
@@ -808,7 +864,9 @@ msgid "Error"
 msgstr "错误"
 
 #: ../classes/upgrade.php:408
-msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
+msgid ""
+"Sorry. Something went wrong during the upgrade process. Please report this "
+"on the support forum."
 msgstr "抱歉，升级过程中出错了，请在论坛中反馈。"
 
 #: ../classes/column/acf-placeholder.php:19
@@ -816,11 +874,16 @@ msgid "ACF Field"
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:35
-msgid "If you have a developer licence please download & install your ACF add-on from the <a href='%s'>add-ons tab</a>."
+msgid ""
+"If you have a developer licence please download & install your ACF add-on "
+"from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:38
-msgid "Admin Columns Pro - Developer offers full Advanced Custom Fields integeration, allowing you to easily display and edit ACF fields from within your posts overview."
+msgid ""
+"Admin Columns Pro - Developer offers full Advanced Custom Fields "
+"integeration, allowing you to easily display and edit ACF fields from within"
+" your posts overview."
 msgstr ""
 
 #: ../classes/column/acf-placeholder.php:44
@@ -895,7 +958,8 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
-#: ../classes/column/comment/ID.php19, ../classes/column/media/ID.php19, ../classes/column/post/ID.php19, ../classes/column/link/ID.php:19
+#: ../classes/column/comment/ID.php19, ../classes/column/media/ID.php19,
+#: ../classes/column/post/ID.php19, ../classes/column/link/ID.php:19
 msgid "ID"
 msgstr "ID"
 
@@ -903,7 +967,8 @@ msgstr "ID"
 msgid "Agent"
 msgstr "代理(Agent)"
 
-#: ../classes/column/comment/approved.php19, ../classes/column/post/comment-count.php:35
+#: ../classes/column/comment/approved.php19,
+#: ../classes/column/post/comment-count.php:35
 msgid "Approved"
 msgstr "已通过"
 
@@ -935,7 +1000,8 @@ msgstr "作者"
 msgid "Date GMT"
 msgstr "日期GMT"
 
-#: ../classes/column/comment/excerpt.php19, ../classes/column/post/content.php:19
+#: ../classes/column/comment/excerpt.php19,
+#: ../classes/column/post/content.php:19
 msgid "Content"
 msgstr ""
 
@@ -951,7 +1017,8 @@ msgstr "回应给"
 msgid "User"
 msgstr ""
 
-#: ../classes/column/comment/word-count.php19, ../classes/column/post/word-count.php:19
+#: ../classes/column/comment/word-count.php19,
+#: ../classes/column/post/word-count.php:19
 msgid "Word count"
 msgstr "字数"
 
@@ -971,11 +1038,14 @@ msgstr "可用尺寸"
 msgid "full size"
 msgstr "全尺寸"
 
-#: ../classes/column/media/caption.php19, ../classes/column/media/exif-data.php:41
+#: ../classes/column/media/caption.php19,
+#: ../classes/column/media/exif-data.php:41
 msgid "Caption"
 msgstr "标题"
 
-#: ../classes/column/media/description.php19, ../classes/column/link/description.php19, ../classes/column/user/description.php:19
+#: ../classes/column/media/description.php19,
+#: ../classes/column/link/description.php19,
+#: ../classes/column/user/description.php:19
 msgid "Description"
 msgstr "描述"
 
@@ -1031,7 +1101,8 @@ msgstr "名字"
 msgid "File size"
 msgstr "文件大小"
 
-#: ../classes/column/media/full-path.php19, ../classes/column/media/full-path.php:92
+#: ../classes/column/media/full-path.php19,
+#: ../classes/column/media/full-path.php:92
 msgid "Full path"
 msgstr "完整路径"
 
@@ -1103,7 +1174,8 @@ msgstr "垃圾评论"
 msgid "Trash"
 msgstr "回收站"
 
-#: ../classes/column/post/comment-count.php99, ../classes/column/post/comment-status.php:20
+#: ../classes/column/post/comment-count.php99,
+#: ../classes/column/post/comment-status.php:20
 msgid "Comment status"
 msgstr "评论状态"
 

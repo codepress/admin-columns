@@ -63,12 +63,12 @@ gulp.task('language', function () {
 });
 
 
+/*
 gulp.task('compile-language', function() {
-    gulp.src('../languages/**/*.po')
-        .pipe( gettext() )
-        .pipe( gulp.dest( '../languages' ) )
-    ;
+	Moved to bash, run ./generate-language
+	 Be sure that you have transifex cpi and gettext
 });
+*/
 
 gulp.task('watch', ['default'], function() {
     gulp.watch('less/**/*.less', ['styles']);
