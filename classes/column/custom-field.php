@@ -66,7 +66,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 3.2.1
 	 */
 	public function get_field() {
-		return $this->options->field;
+		return $this->get_field_key();
 	}
 
 	/**
