@@ -40,6 +40,11 @@ class CPAC_Column {
 	protected $filtering_model;
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected $editable_model;
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -277,7 +282,6 @@ class CPAC_Column {
 	 */
 	public function set_filter( $filtering_model ) {
 		$this->filtering_model = $filtering_model;
-
 		return $this;
 	}
 
@@ -286,6 +290,21 @@ class CPAC_Column {
 	 */
 	public function get_filter() {
 		return $this->filtering_model;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function set_editable( $editable_model ) {
+		$this->editable_model = $editable_model;
+		return $this;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_editable() {
+		return $this->editable_model;
 	}
 
 	/**
