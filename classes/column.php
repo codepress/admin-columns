@@ -355,6 +355,16 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get a single column option
+	 *
+	 * @since NEWVERSION
+	 * @return array Column options set by user
+	 */
+	public function get_property( $name ) {
+		return isset( $this->properties->{$name} ) ? $this->properties->{$name} : false;
+	}
+
+	/**
 	 * Checks column type
 	 *
 	 * @since 2.3.4
