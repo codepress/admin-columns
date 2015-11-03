@@ -1,4 +1,5 @@
 <?php
+
 class CPAC_Addons {
 
 	/**
@@ -33,30 +34,34 @@ class CPAC_Addons {
 	 */
 	public function handle_install_request() {
 
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) || ! isset( $_GET['plugin'] ) )
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'install-cac-addon' ) || ! isset( $_GET['plugin'] ) ) {
 			return;
+		}
 
 		if ( ! $this->get_addon( $_GET['plugin'] ) ) {
 			cpac_admin_message( 'Addon does not exist.', 'error' );
+
 			return;
 		}
 
 		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
 			cpac_admin_message( 'You need Admin Columns Pro.', 'error' );
+
 			return;
 		}
 
 		// Hook: trigger possible warning message before running WP installer ( api errors etc. )
 		if ( $error = apply_filters( 'cac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
 			cpac_admin_message( $error, 'error' );
+
 			return;
 		}
 
 		$install_url = add_query_arg( array(
-			'action' => 'install-plugin',
-			'plugin' => $_GET['plugin'],
+			'action'        => 'install-plugin',
+			'plugin'        => $_GET['plugin'],
 			'cpac-redirect' => true
-		), wp_nonce_url( network_admin_url( 'update.php'), 'install-plugin_' . $_GET['plugin'] ) );
+		), wp_nonce_url( network_admin_url( 'update.php' ), 'install-plugin_' . $_GET['plugin'] ) );
 
 		wp_redirect( $install_url );
 		exit;
@@ -126,22 +131,23 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param bool $grouped Whether to group the plugins by addon group ()
+	 *
 	 * @return array Available addons ([addon_basename] => (array) [addon_details] if not grouped, a list of these key-value pairs per group otherwise ([group_name] => (array) [group_addons]))
 	 */
 	public function get_available_addons( $grouped = false ) {
 
 		$addons = array(
-			'cac-addon-acf' => array(
-				'title' 		=> __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
-				'description' 	=> __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
-				'group' 		=> 'integration',
-				'image' 		=> CPAC_URL . 'assets/images/addons/acf.png'
+			'cac-addon-acf'         => array(
+				'title'       => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
+				'description' => __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
+				'group'       => 'integration',
+				'image'       => CPAC_URL . 'assets/images/addons/acf.png'
 			),
 			'cac-addon-woocommerce' => array(
-				'title' 		=> __( 'WooCommerce', 'codepress-admin-columns' ),
-				'description' 	=> __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
-				'group' 		=> 'integration',
-				'image' 		=> CPAC_URL . 'assets/images/addons/woocommerce.png'
+				'title'       => __( 'WooCommerce', 'codepress-admin-columns' ),
+				'description' => __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
+				'group'       => 'integration',
+				'image'       => CPAC_URL . 'assets/images/addons/woocommerce.png'
 			)
 		);
 
@@ -156,9 +162,9 @@ class CPAC_Addons {
 
 		foreach ( $addons as $addon_name => $addon ) {
 			$addons[ $addon_name ] = wp_parse_args( $addon, array(
-				'title' 	=> '',
-				'group' 	=> '',
-				'image' 	=> ''
+				'title' => '',
+				'group' => '',
+				'image' => ''
 			) );
 		}
 
@@ -176,6 +182,7 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param string $id Unique addon ID
+	 *
 	 * @return bool|array Returns addon details if the add-on exists, false otherwise
 	 */
 	public function get_addon( $id ) {
@@ -196,11 +203,12 @@ class CPAC_Addons {
 	 * @uses CPAC_Addons::group_addons()
 	 *
 	 * @param array $addons List of addons ([addon_name] => (array) [addon_details])
+	 *
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
 	 */
 	public function group_addons( $addons ) {
 
-		$groups = $this->get_addon_groups();
+		$groups         = $this->get_addon_groups();
 		$grouped_addons = array();
 
 		foreach ( $addons as $addon_name => $addon ) {
@@ -214,6 +222,7 @@ class CPAC_Addons {
 
 			$grouped_addons[ $addon['group'] ][ $addon_name ] = $addon;
 		}
+
 		return $grouped_addons;
 	}
 
@@ -223,6 +232,7 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param string $slug Plugin dirname/slug
+	 *
 	 * @return bool Returns true if there is no add-on installed with the passed ID, false otherwise
 	 */
 	public function is_addon_installed( $slug ) {
@@ -236,6 +246,7 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param string $slug Plugin dirname/slug
+	 *
 	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_basename( $slug ) {
@@ -255,6 +266,7 @@ class CPAC_Addons {
 	 * @since 2.2
 	 *
 	 * @param string $slug Plugin dirname/slug
+	 *
 	 * @return string|bool Returns the plugin version if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_version( $slug ) {

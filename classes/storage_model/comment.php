@@ -9,16 +9,19 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 		 = 'wp-comments';
-		$this->label 	 = __( 'Comments' );
+		$this->key            = 'wp-comments';
+		$this->label          = __( 'Comments' );
 		$this->singular_label = __( 'Comment' );
-		$this->type 	 = 'comment';
-		$this->meta_type = 'comment';
-		$this->page 	 = 'edit-comments';
-		$this->menu_type = 'other';
+		$this->type           = 'comment';
+		$this->meta_type      = 'comment';
+		$this->page           = 'edit-comments';
+		$this->menu_type      = 'other';
 
 		// headings
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 ); // Filter is located in get_column_headers().
+		add_filter( "manage_{$this->page}_columns", array(
+			$this,
+			'add_headings'
+		), 100 ); // Filter is located in get_column_headers().
 
 		// values
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
@@ -62,7 +65,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) {
+		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
 
@@ -71,23 +74,24 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table 		= _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
-		$columns 	= (array) $table->get_columns();
+		$table   = _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
+		$columns = (array) $table->get_columns();
 
 		return $columns;
 	}
 
 	/**
-     * Get Meta
-     *
+	 * Get Meta
+	 *
 	 * @since 2.0
 	 *
 	 * @return array
-     */
-    public function get_meta() {
-        global $wpdb;
+	 */
+	public function get_meta() {
+		global $wpdb;
+
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
-    }
+	}
 
 	/**
 	 * Manage value
@@ -111,5 +115,4 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 
 		echo $value;
 	}
-
 }

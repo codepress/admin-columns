@@ -9,18 +9,18 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 		 		= 'wp-media';
-		$this->label 	 		= __( 'Media Library' );
-		$this->singular_label 	= __( 'Media' );
-		$this->type 	 		= 'media';
-		$this->meta_type 		= 'post';
-		$this->page 	 		= 'upload';
-		$this->post_type 		= 'attachment';
-		$this->menu_type 		= 'other';
+		$this->key            = 'wp-media';
+		$this->label          = __( 'Media Library' );
+		$this->singular_label = __( 'Media' );
+		$this->type           = 'media';
+		$this->meta_type      = 'post';
+		$this->page           = 'upload';
+		$this->post_type      = 'attachment';
+		$this->menu_type      = 'other';
 
 		// headings
-        // Increased the priority to overrule 3th party plugins such as Media Tags
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 );
+		// Increased the priority to overrule 3th party plugins such as Media Tags
+		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 
 		// values
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
@@ -37,7 +37,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) {
+		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
 
@@ -46,8 +46,8 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table   = _get_list_table ( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
-        $columns = (array) $table->get_columns();
+		$table   = _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
+		$columns = (array) $table->get_columns();
 
 		if ( $this->is_settings_page() ) {
 			$columns = array_merge( get_column_headers( 'upload' ), $columns );
@@ -66,16 +66,17 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	}
 
 	/**
-     * Get Meta
-     *
+	 * Get Meta
+	 *
 	 * @since 2.0
 	 *
 	 * @return array
-     */
-    public function get_meta() {
-        global $wpdb;
+	 */
+	public function get_meta() {
+		global $wpdb;
+
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = 'attachment' ORDER BY 1", ARRAY_N );
-    }
+	}
 
 	/**
 	 * Manage value

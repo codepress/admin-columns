@@ -9,15 +9,15 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->key 				= 'wp-links';
-		$this->label 			= __( 'Links' );
-		$this->singular_label 	= __( 'Link' );
-		$this->type 			= 'link';
-		$this->page 			= 'link-manager';
-		$this->menu_type 		= 'other';
+		$this->key            = 'wp-links';
+		$this->label          = __( 'Links' );
+		$this->singular_label = __( 'Link' );
+		$this->type           = 'link';
+		$this->page           = 'link-manager';
+		$this->menu_type      = 'other';
 
 		// headings
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 );
+		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 
 		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
@@ -34,7 +34,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) {
+		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
 
@@ -43,8 +43,8 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table 		= _get_list_table( 'WP_Links_List_Table', array( 'screen' => 'link-manager' ) );
-		$columns 	= (array) $table->get_columns();
+		$table   = _get_list_table( 'WP_Links_List_Table', array( 'screen' => 'link-manager' ) );
+		$columns = (array) $table->get_columns();
 
 		return $columns;
 	}
@@ -59,13 +59,14 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	}
 
 	/**
-     * Get Meta
-     *
+	 * Get Meta
+	 *
 	 * @since 2.0
 	 *
 	 * @return array
-     */
-    public function get_meta() {}
+	 */
+	public function get_meta() {
+	}
 
 	/**
 	 * Manage value
