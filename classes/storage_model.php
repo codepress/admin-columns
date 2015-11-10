@@ -11,7 +11,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public $label;
-
+	
 	/**
 	 * @since 2.3.5
 	 */

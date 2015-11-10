@@ -2,11 +2,6 @@
 
 class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 
-	/**
-	 * Constructor
-	 *
-	 * @since 2.0
-	 */
 	function __construct() {
 
 		$this->key            = 'wp-links';
@@ -16,22 +11,12 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->page           = 'link-manager';
 		$this->menu_type      = 'other';
 
-		// headings
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
-
-		// values
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
 
 		parent::__construct();
 	}
 
-	/**
-	 * Get WP default supported admin columns per post type.
-	 *
-	 * @since 1.0
-	 *
-	 * @return array
-	 */
 	public function get_default_columns() {
 
 		if ( ! function_exists( '_get_list_table' ) ) {
@@ -49,33 +34,12 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		return $columns;
 	}
 
-	/**
-	 * Get original columns
-	 *
-	 * @since 2.4.4
-	 */
 	public function get_default_column_names() {
 		return array();
 	}
 
-	/**
-	 * Get Meta
-	 *
-	 * @since 2.0
-	 *
-	 * @return array
-	 */
-	public function get_meta() {
-	}
+	public function get_meta() {}
 
-	/**
-	 * Manage value
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $column_name
-	 * @param int $post_id
-	 */
 	public function manage_value( $column_name, $link_id ) {
 
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {

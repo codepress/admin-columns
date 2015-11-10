@@ -1,13 +1,11 @@
 <?php
 
+/**
+ * @since 2.0
+ */
 class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 
-	/**
-	 * Constructor
-	 *
-	 * @since 2.0
-	 */
-	function __construct() {
+	public function __construct() {
 
 		$this->key            = 'wp-comments';
 		$this->label          = __( 'Comments' );
@@ -17,26 +15,18 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->page           = 'edit-comments';
 		$this->menu_type      = 'other';
 
-		// headings
-		add_filter( "manage_{$this->page}_columns", array(
-			$this,
-			'add_headings'
-		), 100 ); // Filter is located in get_column_headers().
-
-		// values
+		// Filter is located in get_column_headers().
+		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 
 		parent::__construct();
 	}
 
 	/**
-	 * @since 2.3.4
 	 * @see CPAC_Storage_Model::is_columns_screen()
 	 */
 	public function is_columns_screen() {
-
 		$is_columns_screen = parent::is_columns_screen();
-
 		if ( ! $is_columns_screen ) {
 			if ( ! empty( $_REQUEST['_ajax_nonce-replyto-comment'] ) && wp_verify_nonce( $_REQUEST['_ajax_nonce-replyto-comment'], 'replyto-comment' ) ) {
 				$is_columns_screen = true;
@@ -46,25 +36,11 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		return $is_columns_screen;
 	}
 
-	/**
-	 * Get original columns
-	 *
-	 * @since 2.4.4
-	 */
 	public function get_default_column_names() {
 		return array( 'cb', 'author', 'comment', 'response' );
 	}
 
-	/**
-	 * Get WP default supported admin columns per post type.
-	 *
-	 * @see CPAC_Type::get_default_columns()
-	 * @since 1.0
-	 *
-	 * @return array
-	 */
 	public function get_default_columns() {
-
 		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
@@ -80,33 +56,16 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		return $columns;
 	}
 
-	/**
-	 * Get Meta
-	 *
-	 * @since 2.0
-	 *
-	 * @return array
-	 */
 	public function get_meta() {
 		global $wpdb;
 
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
 	}
 
-	/**
-	 * Manage value
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $column_name
-	 * @param int $post_id
-	 */
 	public function manage_value( $column_name, $comment_id ) {
-
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return false;
 		}
-
 		$value = $column->get_value( $comment_id );
 
 		// hook

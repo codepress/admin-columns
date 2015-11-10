@@ -3,11 +3,9 @@
 class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0
 	 */
-	function __construct() {
+	public function __construct() {
 
 		$this->key            = 'wp-users';
 		$this->label          = __( 'Users' );
@@ -17,10 +15,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->page           = 'users';
 		$this->menu_type      = 'other';
 
-		// headings
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
-
-		// values
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
 
 		parent::__construct();
@@ -33,26 +28,16 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 		// Remove Admin Columns action for this column's value
 		remove_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
-
 		ob_start();
-
 		do_action( "manage_users_custom_column", $column, $id );
-
 		$contents = ob_get_clean();
-
-		// Add removed Admin Columns action for this column's value
 		add_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
 
 		return $contents;
 	}
 
 	/**
-	 * Get WP default supported admin columns per post type.
-	 *
 	 * @see CPAC_Type::get_default_columns()
-	 * @since 1.0
-	 *
-	 * @return array
 	 */
 	public function get_default_columns() {
 
@@ -75,8 +60,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get original columns
-	 *
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
@@ -84,21 +67,12 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Manage value
-	 *
 	 * @since 2.0.2
-	 *
-	 * @param string $column_name
-	 * @param int $user_id
-	 * @param string $value
 	 */
 	public function manage_value( $column_name, $user_id, $value = '' ) {
-
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return $value;
 		}
-
-		// get value
 		$custom_value = $column->get_value( $user_id );
 
 		// make sure it absolutely empty and check for (string) 0
@@ -113,28 +87,10 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		return $value;
 	}
 
-	/**
-	 * Callback Manage value
-	 *
-	 * @since 2.0.2
-	 *
-	 * @param string $value
-	 * @param string $column_name
-	 * @param int $user_id
-	 */
 	public function manage_value_callback( $value, $column_name, $user_id ) {
-
 		return $this->manage_value( $column_name, $user_id, $value );
 	}
 
-	/**
-	 * Get Meta
-	 *
-	 * @see CPAC_Columns::get_meta_keys()
-	 * @since 2.0
-	 *
-	 * @return array
-	 */
 	public function get_meta() {
 		global $wpdb;
 

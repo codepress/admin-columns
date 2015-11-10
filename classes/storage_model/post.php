@@ -7,11 +7,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	private $post_type_object;
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0
 	 */
-	function __construct( $post_type ) {
+	public function __construct( $post_type ) {
 
 		$this->set_post_type( $post_type );
 
@@ -37,30 +35,21 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
-		// @todo: description
+
 		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
 
 		parent::__construct();
 	}
 
 	/**
-	 * Set posttype
-	 *
 	 * @since 2.3.5
 	 */
 	public function get_post_type() {
-
 		return $this->post_type;
 	}
 
 	/**
-	 * Get post ID's
-	 *
 	 * @since 2.4.7
-	 *
-	 * @param array $args
-	 *
-	 * @return array Posts
 	 */
 	public function get_posts( $args = array() ) {
 		$defaults = array(
@@ -70,19 +59,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			'fields'        => 'ids',
 			'no_found_rows' => 1, // lowers our carbon footprint
 		);
-
-		$post_ids = (array) get_posts( array_merge( $defaults, $args ) );
-
-		return $post_ids;
+		return (array) get_posts( array_merge( $defaults, $args ) );
 	}
 
 	/**
-	 * Set posttype
-	 *
 	 * @since 2.3.5
 	 */
 	private function set_post_type( $post_type ) {
-
 		$this->post_type        = $post_type;
 		$this->post_type_object = get_post_type_object( $post_type );
 	}
@@ -100,10 +83,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array(
-			$this,
-			'manage_value_callback'
-		), 100, 2 );
+		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		ob_start();
 
@@ -132,8 +112,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get original columns
-	 *
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
@@ -160,21 +138,14 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get screen link
-	 *
 	 * @since 2.0
-	 *
-	 * @return string Link
 	 */
 	protected function get_screen_link() {
-
 		return add_query_arg( array( 'post_type' => $this->key ), admin_url( $this->page . '.php' ) );
 	}
 
 	/**
 	 * @since 2.2
-	 *
-	 * @return bool
 	 */
 	public function is_columns_screen() {
 
@@ -221,11 +192,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get Meta
-	 *
 	 * @since 2.0
-	 *
-	 * @return array
 	 */
 	public function get_meta() {
 		global $wpdb;
@@ -234,12 +201,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Manage value
-	 *
 	 * @since 2.0
-	 *
-	 * @param string $column_name
-	 * @param int $post_id
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
@@ -259,7 +221,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );
 
-
 		// Reset query to old post
 		$post = $post_old;
 
@@ -271,14 +232,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Manage value callback
-	 *
-	 * @since ?
+	 * @since NEWVERSION
 	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 
 		$column = $this->get_column_by_name( $column_name );
-
 		if ( $column && ! empty( $column->properties->handle ) ) {
 			ob_start();
 			$this->manage_value( $column_name, $post_id );
@@ -287,5 +245,4 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			$this->manage_value( $column_name, $post_id );
 		}
 	}
-
 }
