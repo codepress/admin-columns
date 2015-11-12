@@ -1,0 +1,1 @@
+You can start translate sentences collaborative at Transifex: https://www.transifex.com/codepress/admin-columns/
