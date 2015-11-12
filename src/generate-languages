@@ -5,3 +5,5 @@ tx pull -a
 
 cd 'languages'
 find . -name \*.po -execdir sh -c 'msgfmt "$0" -o `basename $0 .po`.mo' '{}' \;
+
+rm *.po
