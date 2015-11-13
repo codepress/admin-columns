@@ -232,7 +232,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.7
 	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 

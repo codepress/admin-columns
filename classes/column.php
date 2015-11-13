@@ -40,7 +40,7 @@ class CPAC_Column {
 	protected $filtering_model;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.8
 	 */
 	protected $editable_model;
 
@@ -293,7 +293,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.8
 	 */
 	public function set_editable( $editable_model ) {
 		$this->editable_model = $editable_model;
@@ -301,7 +301,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.8
 	 */
 	public function get_editable() {
 		return $this->editable_model;
@@ -376,7 +376,7 @@ class CPAC_Column {
 	/**
 	 * Get a single column option
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.8
 	 * @return array Column options set by user
 	 */
 	public function get_property( $name ) {
