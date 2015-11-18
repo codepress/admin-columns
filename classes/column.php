@@ -427,7 +427,10 @@ class CPAC_Column {
 	 * @return void
 	 */
 	public function attr_name( $field_name ) {
-		echo "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
+		echo $this->get_attr_name( $field_name );
+	}
+	public function get_attr_name( $field_name ) {
+		return "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
 	}
 
 	/**
