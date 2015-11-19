@@ -139,10 +139,12 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$ids = array();
 
 		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false )
+		if ( strpos( $meta, ',' ) !== false ) {
 			$ids = explode( ',', $meta );
-		elseif ( is_numeric( $meta ) )
+		}
+		elseif ( is_numeric( $meta ) ) {
 			$ids[] = $meta;
+		}
 
 		return $ids;
 	}
@@ -168,8 +170,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				}
 
 				$link = get_edit_post_link( $id );
-				if ( $title = get_the_title( $id ) )
+				if ( $title = get_the_title( $id ) ) {
 					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
+				}
 			}
 		}
 
