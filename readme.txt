@@ -214,6 +214,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 
+* [Fixed] Removed obsolete methods
+
 = 2.4.7 =
 * [Added] Comment Post column added
 * [Update] User Actions columns extends CPAC_Actions object

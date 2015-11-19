@@ -46,7 +46,7 @@ abstract class CPAC_Storage_Model {
 	public $menu_type;
 
 	/**
-	 * @since NEWVERSIOM
+	 * @since 2.4.3
 	 */
 	private $column_headings;
 
