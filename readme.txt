@@ -214,6 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 
+* [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
 * [Fixed] Removed obsolete methods
 
 = 2.4.7 =
