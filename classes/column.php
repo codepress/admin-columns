@@ -69,15 +69,6 @@ class CPAC_Column {
 	protected function display_settings() {}
 
 	/**
-	 * Get the sorting value. This value will be used to sort the column.
-	 *
-	 * @since 2.3.2
-	 * @param int $id Object ID
-	 * @return string Value for sorting
-	 */
-	public function get_sorting_value( $id ) {}
-
-	/**
 	 * Overwrite this function in child class to sanitize
 	 * user submitted values.
 	 *
