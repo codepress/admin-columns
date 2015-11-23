@@ -88,7 +88,7 @@ function cpac_is_pro_active() {
  * @param strong $tab Specifies a tab screen (optional)
  * @return bool True if the current screen is the settings screen, false otherwise
  */
-function cac_is_setting_screen(){
+function cac_is_setting_screen( $tab = '' ){
 	global $pagenow;
 
 	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
