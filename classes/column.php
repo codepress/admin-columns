@@ -560,6 +560,11 @@ class CPAC_Column {
 		return $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) );
 	}
 
+	// since NEWVERSION
+	public function get_post_title( $id ) {
+		return esc_html( $this->get_raw_post_field( 'post_title', $id ) );
+	}
+
 	/**
 	 * @since 1.0
 	 * @param int $post_id Post ID

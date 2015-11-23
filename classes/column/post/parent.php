@@ -30,7 +30,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 			return false;
 		}
 
-		$title = esc_html( $this->get_raw_post_field( 'post_title', $parent_id ) );
+		$title = $this->get_post_title( $parent_id );
 		$link  = get_edit_post_link( $parent_id );
 
 		return $link ? "<a href='{$link}'>{$title}</a>" : $title;
