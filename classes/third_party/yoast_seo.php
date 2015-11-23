@@ -9,31 +9,30 @@
  *
  * @since 1.4.6
  */
-function cpac_pre_load_wordpress_seo_class_metabox() {
 
-	if ( ! defined('WPSEO_PATH') || ! file_exists( WPSEO_PATH . 'admin/class-metabox.php' ) ) {
+
+function cpac_seo_column_heading( $columns ) {
+
+	$columns['wpseo-score']    = __( 'SEO', 'wordpress-seo' );
+	$columns['wpseo-title']    = __( 'SEO Title', 'wordpress-seo' );
+	$columns['wpseo-metadesc'] = __( 'Meta Desc.', 'wordpress-seo' );
+	$columns['wpseo-focuskw']  = __( 'Focus KW', 'wordpress-seo' );
+
+	return $columns;
+}
+
+
+function cpac_seo_headings() {
+	if ( ! cac_is_doing_ajax() && ! cac_is_setting_screen() ) {
 		return;
 	}
 
-	global $pagenow;
+	$post_types = (array) get_post_types( array( 'public' => true ), 'names' );
 
-	// page is a CPAC page or CPAC ajax event
-	if (
-		( isset( $_GET['page'] ) && 'codepress-admin-columns' == $_GET['page'] && 'options-general.php' == $pagenow )
-		||
-		// for when column list is populated through ajax
-		( defined('DOING_AJAX') && DOING_AJAX &&
-			( ! empty( $_POST['type'] )
-				||
-				( ! empty( $_POST['plugin_id'] ) && 'cpac' === $_POST['plugin_id'] ) )
-			)
-		) {
-
-		require_once WPSEO_PATH . 'admin/class-metabox.php';
-		if ( class_exists( 'WPSEO_Metabox', false ) ) {
-			new WPSEO_Metabox;
-		}
+	foreach ( $post_types as $pt ) {
+		add_filter( 'manage_' . $pt . '_posts_columns', 'cpac_seo_column_heading', 10, 1 );
 	}
 
 }
-add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
+
+add_filter( 'plugins_loaded', 'cpac_seo_headings' );

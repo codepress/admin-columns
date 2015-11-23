@@ -507,17 +507,7 @@ class CPAC {
 	 */
 	public function is_settings_screen( $tab = '' ) {
 
-		global $pagenow;
-
-		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-			return false;
-		}
-
-		if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
-			return false;
-		}
-
-		return true;
+		return cac_is_setting_screen( $tab );
 	}
 
 	/**
