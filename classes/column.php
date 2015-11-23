@@ -557,7 +557,7 @@ class CPAC_Column {
 	// since NEWVERSION
 	public function get_raw_post_field( $field, $id ) {
 		global $wpdb;
-		return $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) );
+		return $id ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
 	}
 
 	// since NEWVERSION
