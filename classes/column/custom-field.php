@@ -157,20 +157,20 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @param string $meta
 	 * @return string Titles
 	 */
-	private function get_titles_by_id( $meta ) {
+	private function get_titles_by_id( $ids ) {
 
 		$titles = array();
 
 		// display title with link
-		if ( $ids = $this->get_ids_from_meta( $meta ) ) {
+		if ( $ids = $this->get_ids_from_meta( $ids ) ) {
 			foreach ( (array) $ids as $id ) {
 
 				if ( ! is_numeric( $id ) ) {
 					continue;
 				}
 
-				$link = get_edit_post_link( $id );
-				if ( $title = get_the_title( $id ) ) {
+				if ( $title = $this->get_post_title( $id ) ) {
+					$link = get_edit_post_link( $id );
 					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
 				}
 			}
