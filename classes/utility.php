@@ -80,3 +80,24 @@ function cpac_is_woocommerce_active() {
 function cpac_is_pro_active() {
 	return class_exists( 'CAC_Addon_Pro', false );
 }
+
+/**
+ * Whether the current screen is the Admin Columns settings screen
+ *
+ * @since 2.4.8
+ * @param strong $tab Specifies a tab screen (optional)
+ * @return bool True if the current screen is the settings screen, false otherwise
+ */
+function cac_is_setting_screen( $tab = '' ){
+	global $pagenow;
+
+	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
+		return false;
+	}
+
+	if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
+		return false;
+	}
+
+	return true;
+}

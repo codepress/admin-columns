@@ -30,7 +30,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 			return false;
 		}
 
-		$title = get_the_title( $parent_id );
+		$title = $this->get_post_title( $parent_id );
 		$link  = get_edit_post_link( $parent_id );
 
 		return $link ? "<a href='{$link}'>{$title}</a>" : $title;
@@ -41,14 +41,9 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
+		$parent_id = $this->get_raw_post_field( 'post_parent', $post_id );
 
-		$parent_id = get_post_field( 'post_parent', $post_id );
-
-		if ( ! $parent_id || ! is_numeric( $parent_id ) ) {
-			return false;
-		}
-
-		return $parent_id;
+		return $parent_id && is_numeric( $parent_id ) ? $parent_id : false;
 	}
 
 	/**

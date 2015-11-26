@@ -40,6 +40,11 @@ class CPAC_Column {
 	protected $filtering_model;
 
 	/**
+	 * @since 2.4.8
+	 */
+	protected $editable_model;
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -62,15 +67,6 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	protected function display_settings() {}
-
-	/**
-	 * Get the sorting value. This value will be used to sort the column.
-	 *
-	 * @since 2.3.2
-	 * @param int $id Object ID
-	 * @return string Value for sorting
-	 */
-	public function get_sorting_value( $id ) {}
 
 	/**
 	 * Overwrite this function in child class to sanitize
@@ -277,7 +273,6 @@ class CPAC_Column {
 	 */
 	public function set_filter( $filtering_model ) {
 		$this->filtering_model = $filtering_model;
-
 		return $this;
 	}
 
@@ -286,6 +281,21 @@ class CPAC_Column {
 	 */
 	public function get_filter() {
 		return $this->filtering_model;
+	}
+
+	/**
+	 * @since 2.4.8
+	 */
+	public function set_editable( $editable_model ) {
+		$this->editable_model = $editable_model;
+		return $this;
+	}
+
+	/**
+	 * @since 2.4.8
+	 */
+	public function get_editable() {
+		return $this->editable_model;
 	}
 
 	/**
@@ -355,6 +365,16 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get a single column option
+	 *
+	 * @since 2.4.8
+	 * @return array Column options set by user
+	 */
+	public function get_property( $name ) {
+		return isset( $this->properties->{$name} ) ? $this->properties->{$name} : false;
+	}
+
+	/**
 	 * Checks column type
 	 *
 	 * @since 2.3.4
@@ -398,7 +418,10 @@ class CPAC_Column {
 	 * @return void
 	 */
 	public function attr_name( $field_name ) {
-		echo "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
+		echo $this->get_attr_name( $field_name );
+	}
+	public function get_attr_name( $field_name ) {
+		return "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
 	}
 
 	/**
@@ -529,6 +552,17 @@ class CPAC_Column {
 			return false;
 		}
 		return $term_field;
+	}
+
+	// since 2.4.8
+	public function get_raw_post_field( $field, $id ) {
+		global $wpdb;
+		return $id ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
+	}
+
+	// since 2.4.8
+	public function get_post_title( $id ) {
+		return esc_html( $this->get_raw_post_field( 'post_title', $id ) );
 	}
 
 	/**
@@ -1193,12 +1227,15 @@ class CPAC_Column {
 	 * @param string $label Label
 	 * @param array $options Select options
 	 * @param strong $description (optional) Description below the label
+	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
+	 * @param boolean $refresh This will JS refresh the column on change.
 	 */
-	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
+	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
 		$current = $this->get_option( $name );
 		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
+		$data_refresh = $js_refresh ? ' data-refresh="1"' : '';
 		?>
-		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
+		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?><?php echo $data_refresh; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
@@ -1224,6 +1261,21 @@ class CPAC_Column {
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"/>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * @since 2.4.8
+	 * @param string $name Name of the column option
+	 * @param string $value
+	 */
+	public function display_field_hidden( $name, $value = '' ) {
+		?>
+		<tr class="column-<?php echo $name; ?> hidden">
+			<td class="input">
+				<input type="hidden" name="<?php $this->attr_name( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1267,8 +1319,6 @@ class CPAC_Column {
 		if ( empty( $columns ) ) {
 			return false;
 		}
-
-		$list = '';
 
 		// sort by alphabet
 		$_columns = array();

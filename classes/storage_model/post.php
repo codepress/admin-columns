@@ -7,21 +7,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	private $post_type_object;
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0
 	 */
-	function __construct( $post_type ) {
+	public function __construct( $post_type ) {
 
 		$this->set_post_type( $post_type );
 
-		$this->key 		 		= $this->post_type;
-		$this->label 			= $this->post_type_object->labels->name;
-		$this->singular_label 	= $this->post_type_object->labels->singular_name;
-		$this->type 	 		= 'post';
-		$this->meta_type 		= 'post';
-		$this->page 	 		= 'edit';
-		$this->menu_type 	 	= 'post';
+		$this->key            = $this->post_type;
+		$this->label          = $this->post_type_object->labels->name;
+		$this->singular_label = $this->post_type_object->labels->singular_name;
+		$this->type           = 'post';
+		$this->meta_type      = 'post';
+		$this->page           = 'edit';
+		$this->menu_type      = 'post';
 
 		// Headings
 
@@ -32,57 +30,42 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// Priority set to 100 top make sure the WooCommerce headings are overwritten by CAC
 		// Filter is located in get_column_headers().
 		// @todo_minor check compatibility issues for this deprecated filter
-		add_filter( "manage_{$this->page}-{$post_type}_columns",  array( $this, 'add_headings' ), 100 );
+		add_filter( "manage_{$this->page}-{$post_type}_columns", array( $this, 'add_headings' ), 100 );
 
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
-		// @todo: description
 		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
 
 		parent::__construct();
 	}
 
 	/**
-	 * Set posttype
-	 *
 	 * @since 2.3.5
 	 */
 	public function get_post_type() {
-
 		return $this->post_type;
 	}
 
 	/**
-	 * Get post ID's
-	 *
 	 * @since 2.4.7
-	 *
-	 * @param array $args
-	 * @return array Posts
 	 */
 	public function get_posts( $args = array() ) {
-        $defaults = array(
-			'numberposts'	=> -1,
-			'post_status'	=> array( 'any', 'trash' ),
-			'post_type'		=> $this->post_type,
-			'fields'		=> 'ids',
+		$defaults = array(
+			'numberposts'   => - 1,
+			'post_status'   => array( 'any', 'trash' ),
+			'post_type'     => $this->post_type,
+			'fields'        => 'ids',
 			'no_found_rows' => 1, // lowers our carbon footprint
 		);
-
-		$post_ids = (array) get_posts( array_merge( $defaults, $args ) );
-
-        return $post_ids;
+		return (array) get_posts( array_merge( $defaults, $args ) );
 	}
 
 	/**
-	 * Set posttype
-	 *
 	 * @since 2.3.5
 	 */
 	private function set_post_type( $post_type ) {
-
-		$this->post_type 		= $post_type;
+		$this->post_type        = $post_type;
 		$this->post_type_object = get_post_type_object( $post_type );
 	}
 
@@ -95,19 +78,17 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Setup post data for current post
 		$post_old = $post;
-		$post = get_post( $id );
+		$post     = get_post( $id );
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
 		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		ob_start();
-
 		// Run WordPress native actions to display column content
 		if ( is_post_type_hierarchical( $this->post_type ) ) {
 			do_action( 'manage_pages_custom_column', $column, $id );
-		}
-		else {
+		} else {
 			do_action( 'manage_posts_custom_column', $column, $id );
 		}
 
@@ -129,8 +110,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get original columns
-	 *
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
@@ -157,21 +136,14 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get screen link
-	 *
 	 * @since 2.0
-	 *
-	 * @return string Link
 	 */
 	protected function get_screen_link() {
-
 		return add_query_arg( array( 'post_type' => $this->key ), admin_url( $this->page . '.php' ) );
 	}
 
 	/**
 	 * @since 2.2
-	 *
-	 * @return bool
 	 */
 	public function is_columns_screen() {
 
@@ -196,7 +168,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) {
+		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
 
@@ -218,24 +190,16 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-     * Get Meta
-     *
 	 * @since 2.0
-	 *
-	 * @return array
-     */
-    public function get_meta() {
-        global $wpdb;
-        return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
-    }
+	 */
+	public function get_meta() {
+		global $wpdb;
+
+		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
+	}
 
 	/**
-	 * Manage value
-	 *
 	 * @since 2.0
-	 *
-	 * @param string $column_name
-	 * @param int $post_id
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
@@ -247,14 +211,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Setup post data for current post
 		$post_old = $post;
-		$post = get_post( $post_id );
+		$post     = get_post( $post_id );
 		setup_postdata( $post );
 
 		$value = $column->get_value( $post_id );
 
 		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );
-
 
 		// Reset query to old post
 		$post = $post_old;
@@ -267,22 +230,17 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Manage value callback
-	 *
-	 * @since ?
+	 * @since 2.4.7
 	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 
 		$column = $this->get_column_by_name( $column_name );
-
 		if ( $column && ! empty( $column->properties->handle ) ) {
 			ob_start();
 			$this->manage_value( $column_name, $post_id );
 			ob_end_clean();
-		}
-		else {
+		} else {
 			$this->manage_value( $column_name, $post_id );
 		}
 	}
-
 }
