@@ -85,7 +85,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		ob_start();
-
 		// Run WordPress native actions to display column content
 		if ( is_post_type_hierarchical( $this->post_type ) ) {
 			do_action( 'manage_pages_custom_column', $column, $id );
