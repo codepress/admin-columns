@@ -1267,6 +1267,21 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @param string $name Name of the column option
+	 * @param string $value
+	 */
+	public function display_field_hidden( $name, $value = '' ) {
+		?>
+		<tr class="column-<?php echo $name; ?> hidden">
+			<td class="input">
+				<input type="hidden" name="<?php $this->attr_name( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
 	 * @since 2.4.7
 	 *
 	 * @param string $name Name of the column option
@@ -1304,8 +1319,6 @@ class CPAC_Column {
 		if ( empty( $columns ) ) {
 			return false;
 		}
-
-		$list = '';
 
 		// sort by alphabet
 		$_columns = array();
