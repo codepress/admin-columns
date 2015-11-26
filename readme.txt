@@ -215,7 +215,8 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 
 * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
-* [Fixed] Removed obsolete methods
+* [Updated] Minor performance improvements
+* [Fixed] New Yoast plugin compatibility
 
 = 2.4.7 =
 * [Added] Comment Post column added
