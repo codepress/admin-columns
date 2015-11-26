@@ -554,13 +554,13 @@ class CPAC_Column {
 		return $term_field;
 	}
 
-	// since NEWVERSION
+	// since 2.4.8
 	public function get_raw_post_field( $field, $id ) {
 		global $wpdb;
 		return $id ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
 	}
 
-	// since NEWVERSION
+	// since 2.4.8
 	public function get_post_title( $id ) {
 		return esc_html( $this->get_raw_post_field( 'post_title', $id ) );
 	}
@@ -1267,7 +1267,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.8
 	 * @param string $name Name of the column option
 	 * @param string $value
 	 */

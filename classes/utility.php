@@ -84,7 +84,7 @@ function cpac_is_pro_active() {
 /**
  * Whether the current screen is the Admin Columns settings screen
  *
- * @since NEWVERSION
+ * @since 2.4.8
  * @param strong $tab Specifies a tab screen (optional)
  * @return bool True if the current screen is the settings screen, false otherwise
  */

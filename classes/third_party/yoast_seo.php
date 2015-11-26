@@ -13,13 +13,11 @@ function cpac_pre_load_wordpress_seo_class_metabox() {
 		return;
 	}
 
-
 	if ( ! cac_is_doing_ajax() && ! cac_is_setting_screen() ) {
 		return;
 	}
 
-
-	// WordPress version > 3.0
+	// Yoast SEO version > 3.0
 	if ( file_exists( WPSEO_PATH . 'admin/class-meta-columns.php' ) ) {
 		require_once WPSEO_PATH . 'admin/class-meta-columns.php';
 		if ( class_exists( 'WPSEO_Meta_Columns', false ) ) {
@@ -30,7 +28,7 @@ function cpac_pre_load_wordpress_seo_class_metabox() {
 		}
 	}
 
-	// WordPress version < 3.0
+	// Yoast SEO version < 3.0
 	if ( file_exists( WPSEO_PATH . 'admin/class-meta-box.php' ) ) {
 		require_once WPSEO_PATH . 'admin/class-meta-box.php';
 		if ( class_exists( 'WPSEO_Meta_Columns', false ) ) {
