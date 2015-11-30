@@ -1565,5 +1565,4 @@ class CPAC_Column {
 		</div>
 		<?php
 	}
-
 }
