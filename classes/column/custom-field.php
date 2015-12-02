@@ -22,7 +22,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['type']	 		= 'column-meta';
 		$this->properties['label']	 		= __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes']		= 'cpac-box-metafield';
-		$this->properties['is_cloneable']	= true;
 		$this->properties['group']			= 'custom-field';
 
 		// Options
@@ -366,14 +365,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		 * @param object $this Column instance
 		 */
 		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
-
-		$before = $this->get_before();
-		$after 	= $this->get_after();
-
-		// add before and after string
-		if ( $value ) {
-			$value = "{$before}{$value}{$after}";
-		}
 
 		return $value;
 	}

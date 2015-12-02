@@ -73,7 +73,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return $value;
 		}
-		$custom_value = $column->get_value( $user_id );
+		$custom_value = $column->get_display_value( $user_id );
 
 		// make sure it absolutely empty and check for (string) 0
 		if ( ! empty( $custom_value ) || '0' === $custom_value ) {

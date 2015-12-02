@@ -46,7 +46,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 			return false;
 		}
 
-		$value = $column->get_value( $link_id );
+		$value = $column->get_display_value( $link_id );
 
 		// add hook
 		$value = apply_filters( "cac/column/value", $value, $link_id, $column, $this->key );

@@ -214,7 +214,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post     = get_post( $post_id );
 		setup_postdata( $post );
 
-		$value = $column->get_value( $post_id );
+		$value = $column->get_display_value( $post_id );
 
 		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );

@@ -66,7 +66,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return false;
 		}
-		$value = $column->get_value( $comment_id );
+		$value = $column->get_display_value( $comment_id );
 
 		// hook
 		$value = apply_filters( "cac/column/value", $value, $comment_id, $column, $this->key );
