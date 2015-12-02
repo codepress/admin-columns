@@ -1561,8 +1561,11 @@ class CPAC_Column {
 					?>
 
 					<?php
-					// Before and after fields
-					if ( $this->properties->use_before_after ) {
+					/**
+					 * Load before and after fields for custom columns.
+					 *
+					 */
+					if ( $this->properties->use_before_after && ! $this->properties->default ) {
 						$this->display_field_before_after();
 					}
 					?>
