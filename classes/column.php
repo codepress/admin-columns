@@ -381,6 +381,15 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get the type of the column.
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_type_label() {
+		return $this->properties->label;
+	}
+
+	/**
 	 * Get the column options set by the user
 	 *
 	 * @since 2.3.4

@@ -717,7 +717,7 @@ class CPAC_Settings {
 										</h3>
 										<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 										<div class="form-update">
-											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php echo $storage_model->label; ?></a>
+											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php echo ' ' . $storage_model->label; ?></a>
 										</div>
 										<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">

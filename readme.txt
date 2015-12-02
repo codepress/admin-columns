@@ -214,6 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 * [Added] Allow the use of before and after fields for all columns
+* [Fixed] Removed post type Field Groups from ACF
 
 = 2.4.8 =
 * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
