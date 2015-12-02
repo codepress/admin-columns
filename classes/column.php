@@ -154,17 +154,18 @@ class CPAC_Column {
 
 		// Default properties
 		$default_properties = array(
-			'clone'         => null,    // Unique clone ID
-			'type'          => null,    // Unique type
-			'name'          => null,    // Unique name
-			'label'         => null,    // Label which describes this column.
-			'classes'       => null,    // Custom CSS classes for this column.
-			'hide_label'    => false,    // Should the Label be hidden?
-			'is_registered' => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
-			'is_cloneable'  => true,    // Should the column be cloneable
-			'default'       => false,    // Is this a WP default column,
-			'group'         => 'custom',
-			'hidden'        => false
+			'clone'            => null,    // Unique clone ID
+			'type'             => null,    // Unique type
+			'name'             => null,    // Unique name
+			'label'            => null,    // Label which describes this column.
+			'classes'          => null,    // Custom CSS classes for this column.
+			'hide_label'       => false,    // Should the Label be hidden?
+			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
+			'is_cloneable'     => true,    // Should the column be cloneable
+			'default'          => false,    // Is this a WP default column,
+			'group'            => 'custom',
+			'hidden'           => false,
+			'use_before_after' => false
 		);
 
 		// @since 2.4.7
@@ -245,6 +246,11 @@ class CPAC_Column {
 		$this->populate_options();
 
 		$this->sanitize_label();
+
+		// Filters
+		foreach ( $this->properties as $name => $value ) {
+			$this->properties->{$name} = apply_filters( "cac/column/properties/{$name}", $value, $this );
+		}
 	}
 
 	/**
@@ -1186,14 +1192,11 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>"
-				       id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>"
-				       placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
 
 				<p class="description">
 					<?php printf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
-					<a target='_blank'
-					   href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'codepress-admin-columns' ); ?></a>
+					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'codepress-admin-columns' ); ?></a>
 				</p>
 			</td>
 		</tr>
@@ -1214,9 +1217,7 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>"
-				       id="<?php $this->attr_id( $field_key ); ?>"
-				       value="<?php echo $this->options->excerpt_length; ?>"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1238,28 +1239,22 @@ class CPAC_Column {
 			<td class="input">
 				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : ?>
 					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
-						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>"
-						       id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $this->options->image_size, $id ); ?>>
+						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $this->options->image_size, $id ); ?>>
 						<?php echo $image_label; ?>
 					</label>
 				<?php endforeach; ?>
 
 				<div class="custom_image_size">
 					<label for="<?php $this->attr_id( $field_key ); ?>-custom" class="custom-size image-size-custom">
-						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>"
-						       id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $this->options->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'codepress-admin-columns' ); ?>
+						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $this->options->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-w"
-					       class="custom-size-w<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>"
-						       id="<?php $this->attr_id( $field_key ); ?>-w"
-						       value="<?php echo $this->options->image_size_w; ?>"/><?php _e( 'width', 'codepress-admin-columns' ); ?>
+						class="custom-size-w<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->options->image_size_w; ?>"/><?php _e( 'width', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-h"
-					       class="custom-size-h<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>"
-						       id="<?php $this->attr_id( $field_key ); ?>-h"
-						       value="<?php echo $this->options->image_size_h; ?>"/><?php _e( 'height', 'codepress-admin-columns' ); ?>
+						class="custom-size-h<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->options->image_size_h; ?>"/><?php _e( 'height', 'codepress-admin-columns' ); ?>
 					</label>
 				</div>
 			</td>
@@ -1314,8 +1309,7 @@ class CPAC_Column {
 			<td class="input">
 				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
 					<?php foreach ( $options as $key => $label ) : ?>
-						<option
-							value="<?php echo $key; ?>"<?php selected( $key, $current ); ?>><?php echo $label; ?></option>
+						<option value="<?php echo $key; ?>"<?php selected( $key, $current ); ?>><?php echo $label; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</td>
@@ -1336,8 +1330,7 @@ class CPAC_Column {
 		<tr class="column-<?php echo $name; ?>">
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>"
-				       value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"/>
+				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1353,8 +1346,7 @@ class CPAC_Column {
 		?>
 		<tr class="column-<?php echo $name; ?> hidden">
 			<td class="input">
-				<input type="hidden" name="<?php $this->attr_name( $name ); ?>"
-				       value="<?php echo esc_attr( $value ); ?>"/>
+				<input type="hidden" name="<?php $this->attr_name( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1378,9 +1370,7 @@ class CPAC_Column {
 			<td class="input">
 				<?php foreach ( $options as $key => $label ) : ?>
 					<label>
-						<input type="radio" name="<?php $this->attr_name( $name ); ?>"
-						       id="<?php $this->attr_id( $name . '-' . $key ); ?>"
-						       value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
+						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
 						<?php echo $label; ?>
 					</label>
 				<?php endforeach; ?>
@@ -1445,14 +1435,10 @@ class CPAC_Column {
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 
 		?>
-		<div class="cpac-column <?php echo $classes; ?>"
-		     data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?>>
-			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>"
-			       value="<?php echo esc_attr( $this->properties->name ); ?>"/>
-			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>"
-			       value="<?php echo $this->properties->type; ?>"/>
-			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>"
-			       value="<?php echo $this->properties->clone; ?>"/>
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?>>
+			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->properties->name ); ?>"/>
+			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>"/>
+			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -1463,11 +1449,9 @@ class CPAC_Column {
 							<div class="inner">
 								<div class="meta">
 
-										<span
-											title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>"
-											class="width" data-indicator-id="">
-											<?php echo ! empty( $this->options->width ) ? $this->options->width . $this->options->width_unit : ''; ?>
-										</span>
+									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
+										<?php echo ! empty( $this->options->width ) ? $this->options->width . $this->options->width_unit : ''; ?>
+									</span>
 
 									<?php
 									/**
@@ -1486,16 +1470,12 @@ class CPAC_Column {
 									?>
 
 								</div>
-								<a class="toggle"
-								   href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
-								<a class="edit-button"
-								   href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+								<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
+								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<?php if ( $this->properties->is_cloneable ) : ?>
-									<a class="clone-button"
-									   href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
-								<a class="remove-button"
-								   href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+								<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
 							</div>
 						</td>
 						<td class="column_type">
@@ -1526,9 +1506,7 @@ class CPAC_Column {
 					<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
 						<?php $this->label_view( __( 'Label', 'codepress-admin-columns' ), __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ), 'label' ); ?>
 						<td class="input">
-							<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>"
-							       id="<?php $this->attr_id( 'label' ); ?>"
-							       value="<?php echo esc_attr( $this->options->label ); //echo sanitize_text_field( $this->options->label ); ?>"/>
+							<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); //echo sanitize_text_field( $this->options->label ); ?>"/>
 						</td>
 					</tr><!--.column_label-->
 
@@ -1536,27 +1514,17 @@ class CPAC_Column {
 						<?php $this->label_view( __( 'Width', 'codepress-admin-columns' ), '', 'width' ); ?>
 						<td class="input">
 							<div class="description" title="<?php _e( 'default', 'codepress-admin-columns' ); ?>">
-								<input class="width" type="text"
-								       placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>"
-								       name="<?php $this->attr_name( 'width' ); ?>"
-								       id="<?php $this->attr_id( 'width' ); ?>"
-								       value="<?php echo $this->options->width; ?>"/>
+								<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>"/>
 								<span class="unit"><?php echo $this->options->width_unit; ?></span>
 							</div>
 							<div class="width-slider"></div>
 
 							<div class="unit-select">
 								<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>"
-									       id="<?php $this->attr_id( 'width_unit_px' ); ?>"
-									       value="px"<?php checked( $this->options->width_unit, 'px' ); ?>/>
-									px
+									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->options->width_unit, 'px' ); ?>/>px
 								</label>
 								<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>"
-									       id="<?php $this->attr_id( 'width_unit_perc' ); ?>"
-									       value="%"<?php checked( $this->options->width_unit, '%' ); ?>/>
-									%
+									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->options->width_unit, '%' ); ?>/>%
 								</label>
 							</div>
 
@@ -1584,6 +1552,13 @@ class CPAC_Column {
 					?>
 
 					<?php
+					// Before and after fields
+					if ( $this->properties->use_before_after ) {
+						$this->display_field_before_after();
+					}
+					?>
+
+					<?php
 					/**
 					 * Fires directly after the custom options for a column are displayed in the column form
 					 *
@@ -1598,8 +1573,7 @@ class CPAC_Column {
 						<td colspan="2">
 							<p>
 								<?php if ( $this->properties->is_cloneable ) : ?>
-									<a class="clone-button"
-									   href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<a href="javascript:;" class="remove-button"><?php _e( 'Remove' ); ?></a>
 							</p>
@@ -1608,8 +1582,8 @@ class CPAC_Column {
 
 					</tbody>
 				</table>
-			</div>
-		</div>
+			</div><!--.column-form-->
+		</div><!--.cpac-column-->
 		<?php
 	}
 
