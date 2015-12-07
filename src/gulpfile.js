@@ -20,8 +20,6 @@ var onError = function(e) {
     this.emit('end');
 };
 
-
-
 gulp.task('scripts', function() {
     return gulp.src([
             "../assets/js/**/!(*.min.js)",
@@ -31,7 +29,6 @@ gulp.task('scripts', function() {
         .pipe(uglify())
         .pipe(gulp.dest('../assets/js'));
 });
-
 
 gulp.task('styles', function() {
     return gulp.src('less/*.less')
