@@ -573,7 +573,10 @@ class CPAC_Column {
 	 * @return string Sanitized string
 	 */
 	public function get_sanitized_label() {
-		$string = esc_url( $this->options->label );
+
+		$string = $this->options->label;
+		$string = strip_tags( $string );
+		$string = preg_replace("/[^a-zA-Z0-9]+/", "", $string);
 		$string = str_replace( 'http://', '', $string );
 		$string = str_replace( 'https://', '', $string );
 
