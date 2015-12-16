@@ -16,7 +16,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-attachment';
-		$this->properties['label']	 = __( 'Attachments', 'cpac' );
+		$this->properties['label']	 = __( 'Attachments', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['image_size']	= '';

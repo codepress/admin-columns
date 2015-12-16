@@ -16,7 +16,7 @@ class CPAC_Column_User_Nickname extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-nickname';
-		$this->properties['label']	 = __( 'Nickname', 'cpac' );
+		$this->properties['label']	 = __( 'Nickname', 'codepress-admin-columns' );
 	}
 
 	/**

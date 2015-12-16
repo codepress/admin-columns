@@ -18,7 +18,12 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 
 		// Properties
 		$this->properties['type'] = 'column-status';
-		$this->properties['label'] = __( 'Status', 'cpac' );
+		$this->properties['label'] = __( 'Status', 'codepress-admin-columns' );
+	}
+
+	public function get_status( $name ) {
+		$stati = $this->get_statuses();
+		return isset( $stati[ $name ] ) ? $stati[ $name ] : false;
 	}
 
 	/**

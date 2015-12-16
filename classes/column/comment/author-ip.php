@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Author_Ip extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-author_ip';
-		$this->properties['label']	 = __( 'Author IP', 'cpac' );
+		$this->properties['label']	 = __( 'Author IP', 'codepress-admin-columns' );
 	}
 
 	/**

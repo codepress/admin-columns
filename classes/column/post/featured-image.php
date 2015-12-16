@@ -16,7 +16,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	= 'column-featured_image';
-		$this->properties['label']	= __( 'Featured Image', 'cpac' );
+		$this->properties['label']	= __( 'Featured Image', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['image_size']	= '';

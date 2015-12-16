@@ -16,7 +16,7 @@ class CPAC_Column_Post_Page_Template extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-page_template';
-		$this->properties['label']	 	= __( 'Page Template', 'cpac' );
+		$this->properties['label']	 	= __( 'Page Template', 'codepress-admin-columns' );
 	}
 
 	/**

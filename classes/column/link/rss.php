@@ -16,7 +16,7 @@ class CPAC_Column_Link_Rss extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-rss';
-		$this->properties['label']	 	= __( 'Rss', 'cpac' );
+		$this->properties['label']	 	= __( 'Rss', 'codepress-admin-columns' );
 	}
 
 	/**

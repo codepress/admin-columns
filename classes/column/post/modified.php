@@ -16,8 +16,8 @@ class CPAC_Column_Post_Modified extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-modified';
-		$this->properties['label']	 	= __( 'Last modified', 'cpac' );
-		
+		$this->properties['label']	 	= __( 'Last modified', 'codepress-admin-columns' );
+
 		// Options
 		$this->options['date_format'] = '';
 	}

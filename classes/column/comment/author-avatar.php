@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Author_Avatar extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-author_avatar';
-		$this->properties['label']	 = __( 'Avatar', 'cpac' );
+		$this->properties['label']	 = __( 'Avatar', 'codepress-admin-columns' );
 	}
 
 	/**

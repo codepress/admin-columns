@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Reply_To extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-reply_to';
-		$this->properties['label']	 = __( 'In Reply To', 'cpac' );
+		$this->properties['label']	 = __( 'In Reply To', 'codepress-admin-columns' );
 	}
 
 	/**

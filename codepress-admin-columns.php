@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.4.5
+Version: 2.4.8
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: http://www.admincolumns.com
 Plugin URI: http://www.admincolumns.com
-Text Domain: cpac
+Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
 
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.4.5' ); // Current plugin version
+define( 'CPAC_VERSION', 	 	'2.4.8' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
@@ -96,6 +96,14 @@ class CPAC {
 	private $_upgrade;
 
 	/**
+	 * Column settings to import from a column PHP export
+	 *
+	 * @since 2.4.7
+	 * @var array
+	 */
+	public $exported_columns;
+
+	/**
 	 * @since 1.0
 	 */
 	function __construct() {
@@ -150,7 +158,7 @@ class CPAC {
 	 */
 	public function localize() {
 
-		load_plugin_textdomain( 'cpac', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -207,9 +215,8 @@ class CPAC {
 	 * @since 2.3.5
 	 */
 	public function maybe_load_php_export() {
-		global $_cac_exported_columns;
-		if ( $_cac_exported_columns ) {
-			foreach( $_cac_exported_columns as $model => $columns ) {
+		if ( ! empty( $this->exported_columns ) ) {
+			foreach( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
 				}
@@ -441,7 +448,7 @@ class CPAC {
 		<?php if ( $edit_link ) : ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
-				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'cpac' ); ?></a>');
+				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>');
 			});
 		</script>
 		<?php endif; ?>
@@ -500,17 +507,7 @@ class CPAC {
 	 */
 	public function is_settings_screen( $tab = '' ) {
 
-		global $pagenow;
-
-		if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-			return false;
-		}
-
-		if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
-			return false;
-		}
-
-		return true;
+		return cac_is_setting_screen( $tab );
 	}
 
 	/**

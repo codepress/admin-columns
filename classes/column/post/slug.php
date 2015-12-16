@@ -16,7 +16,7 @@ class CPAC_Column_Post_Slug extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-slug';
-		$this->properties['label']	 = __( 'Slug', 'cpac' );
+		$this->properties['label']	 = __( 'Slug', 'codepress-admin-columns' );
 	}
 
 	/**

@@ -16,7 +16,7 @@ class CPAC_Column_Media_Mime_Type extends CPAC_Column {
 
 		// Properties
 		$this->properties['type'] = 'column-mime_type';
-		$this->properties['label'] = __( 'Mime type', 'cpac' );
+		$this->properties['label'] = __( 'Mime type', 'codepress-admin-columns' );
 	}
 
 	/**

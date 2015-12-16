@@ -16,7 +16,7 @@ class CPAC_Column_User_Url extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-user_url';
-		$this->properties['label']	 = __( 'Url', 'cpac' );
+		$this->properties['label']	 = __( 'Url', 'codepress-admin-columns' );
 	}
 
 	/**

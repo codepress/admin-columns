@@ -16,7 +16,7 @@ class CPAC_Column_Link_Description extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-description';
-		$this->properties['label']	 	= __( 'Description', 'cpac' );
+		$this->properties['label']	 	= __( 'Description', 'codepress-admin-columns' );
 	}
 
 	/**

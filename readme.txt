@@ -1,10 +1,10 @@
 === Admin Columns ===
-Contributors: codepress, tschutter, davidmosterd, engelen
+Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.2.2
-Stable tag: 2.4.5
+Tested up to: 4.3.1
+Stable tag: 2.4.8
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,7 +213,25 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
+* [Added] Allow the use of before and after fields for all columns
+* [Fixed] Removed post type Field Groups from ACF
+
+= 2.4.8 =
+* [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
+* [Updated] Minor performance improvements
+* [Fixed] New Yoast plugin compatibility
+
+= 2.4.7 =
+* [Added] Comment Post column added
+* [Update] User Actions columns extends CPAC_Actions object
+* [Update] PHP export columns no longer uses global
+* [Added] Added "Link To" selection field for the author column
+* [Fixed] Date and Title column are labeled as Default column for posts
+* [Fixed] WPML columns will display the correct flag on the overview when switching language
+
+= 2.4.6 =
 * [Fixed] Page Order column is now available on all supported posttypes
+* [Fixed] Time reading columns shows "-" instead of zero when there is no content
 
 = 2.4.5 =
 * [Fixed] Estimate Time Reading column will not display a value when there is no content

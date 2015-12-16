@@ -16,7 +16,7 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-notes';
-		$this->properties['label']	 	= __( 'Notes', 'cpac' );
+		$this->properties['label']	 	= __( 'Notes', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['excerpt_length'] = 30;
