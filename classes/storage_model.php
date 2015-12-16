@@ -394,7 +394,6 @@ abstract class CPAC_Storage_Model {
 		return isset( $profiles[ $id ] ) ? $profiles[ $id ] : false;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Get store ID
 	 * @since NEWVERSION
@@ -402,9 +401,6 @@ abstract class CPAC_Storage_Model {
 	private function get_storage_id() {
 		return "cpac_options_" . $this->key . $this->profile;
 	}
-=======
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
->>>>>>> develop
 
 	/**
 	 * @since 2.0
@@ -441,7 +437,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// store columns
-<<<<<<< HEAD
 		$result = update_option( $this->get_storage_id(), $columns );
 		$result_default = update_option( $this->get_storage_id() . "_default", array_keys( $this->get_default_columns() ) );
 
@@ -456,19 +451,6 @@ abstract class CPAC_Storage_Model {
 		if ( $message ) {
 			cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
 		}
-=======
-		$result         = update_option( "cpac_options_{$this->key}", $columns );
-		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
-
-		// error
-		if ( ! $result && ! $result_default ) {
-			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'error' );
-
-			return false;
-		}
-
-		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
->>>>>>> develop
 
 		// refresh columns otherwise the newly added columns will not be displayed
 		$this->set_columns_on_current_screen();

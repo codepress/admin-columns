@@ -250,15 +250,9 @@ class CPAC_Settings {
 		}
 
 		// use $_REQUEST because the values are send both over $_GET and $_POST
-<<<<<<< HEAD
-		$action  = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
-		$nonce   = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] 	: '';
-		$key 	 = isset( $_REQUEST['cpac_key'] ) 	 ? $_REQUEST['cpac_key'] 		: '';
-=======
 		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] : '';
 		$nonce = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] : '';
 		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
->>>>>>> develop
 
 		switch ( $action ) :
 
@@ -274,7 +268,7 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->restore();
-						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.',  'cpac' ), 'updated' );
+						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.', 'cpac' ), 'updated' );
 					}
 				}
 				break;
@@ -296,13 +290,7 @@ class CPAC_Settings {
 	private function restore_all() {
 		global $wpdb;
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-<<<<<<< HEAD
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_profile_%'" );
-		cpac_admin_message( __( 'Default settings succesfully restored.',  'cpac' ), 'updated' );
-=======
-
 		cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
->>>>>>> develop
 	}
 
 	/**
@@ -603,11 +591,11 @@ class CPAC_Settings {
 					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
-					<form method="post" action="">
-						<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
-						<input type="hidden" name="cpac_action" value="restore_all"/>
-						<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'codepress-admin-columns' ) ?>" onclick="return confirm('<?php _e( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ); ?>');"/>
-					</form>
+
+					<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
+					<input type="hidden" name="cpac_action" value="restore_all"/>
+					<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'codepress-admin-columns' ) ?>" onclick="return confirm('<?php _e( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ); ?>');"/>
+
 				</td>
 			</tr><!--.restore-->
 
@@ -689,7 +677,8 @@ class CPAC_Settings {
 									<li class="first"><?php echo $label; ?>:</li>
 									<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
 										<li>
-											<?php echo $count ++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
+											<?php echo $count ++ != 0 ? ' | ' : ''; ?>
+											<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
 										</li>
 									<?php endforeach; ?>
 								</ul>
@@ -702,15 +691,15 @@ class CPAC_Settings {
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
 					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-<<<<<<< HEAD
-						<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
 
-							<div class="columns-left">
-								<div class="titlediv">
-									<h2>
-										<?php echo $storage_model->label; ?>
-										<?php $storage_model->screen_link(); ?>
-									</h2>
+					<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
+
+						<div class="columns-left">
+							<div class="titlediv">
+								<h2>
+									<?php echo $storage_model->label; ?>
+									<?php $storage_model->screen_link(); ?>
+								</h2>
 								<?php if ( $profile_name = $storage_model->get_current_profile_name() ) : ?>
 									<span class="profile">
 										<span class="label"><?php esc_html_e( 'Current profile', 'cpac' ); ?></span>
@@ -718,24 +707,8 @@ class CPAC_Settings {
 									</span>
 								<?php endif; ?>
 
-								</div>
-
-								<?php if ( $storage_model->is_using_php_export() ) : ?>
-									<div class="error below-h2">
-										<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
-									</div>
-								<?php endif; ?>
-=======
-					<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
-
-						<div class="columns-left">
-							<div id="titlediv">
-								<h2>
-									<?php echo $storage_model->label; ?>
-									<?php $storage_model->screen_link(); ?>
-								</h2>
->>>>>>> develop
 							</div>
+
 
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="error below-h2">
@@ -774,14 +747,10 @@ class CPAC_Settings {
 									</div><!--form-actions-->
 								<?php endif; ?>
 
-<<<<<<< HEAD
-									<?php do_action( 'cac/settings/sidebox', $storage_model ); ?>
+								<?php do_action( 'cac/settings/sidebox', $storage_model ); ?>
 
-								<?php if ( ! class_exists( 'CAC_Addon_Pro' ) ) : ?>
-
-=======
 								<?php if ( ! cpac_is_pro_active() ) : ?>
->>>>>>> develop
+
 									<?php $url_args = array(
 										'utm_source'   => 'plugin-installation',
 										'utm_medium'   => 'banner',
@@ -887,26 +856,11 @@ class CPAC_Settings {
 										</div>
 									</div>
 
-<<<<<<< HEAD
-									<?php endif; // class_exists( 'CAC_Addon_Pro' ) ?>
-
-									<div class="sidebox" id="plugin-support">
-										<h3><?php _e( 'Support', 'cpac' ); ?></h3>
-										<div class="inside">
-											<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-												<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'cpac' ); ?></p>
-											<?php endif; ?>
-											<p>
-												<?php printf( __("For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'cpac' ), $this->get_url('documentation') ); ?>
-											</p>
-										</div>
-									</div><!--plugin-support-->
-=======
 								<?php endif; ?>
 
 								<div class="sidebox" id="plugin-support">
 									<h3><?php _e( 'Support', 'codepress-admin-columns' ); ?></h3>
->>>>>>> develop
+
 
 									<div class="inside">
 										<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
@@ -925,18 +879,13 @@ class CPAC_Settings {
 							<div class="cpac-boxes">
 								<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 									<div class="cpac-columns">
-
-<<<<<<< HEAD
-												<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>" />
-												<input type="hidden" name="cpac_action" value="update_by_type" />
-												<input type="hidden" name="cpac_profile" value="<?php echo $storage_model->profile; ?>" />
-=======
 										<form method="post" action="">
-											<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
->>>>>>> develop
 
 											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 											<input type="hidden" name="cpac_action" value="update_by_type"/>
+											<input type="hidden" name="cpac_profile" value="<?php echo $storage_model->profile; ?>"/>
+
+											<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 											<?php
 											foreach ( $storage_model->columns as $column ) {
@@ -955,22 +904,15 @@ class CPAC_Settings {
 											<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a><br/>
 										</div>
 
-<<<<<<< HEAD
-										</div><!--.cpac-column-footer-->
-									<?php endif; ?>
-								</div><!--.cpac-boxes-->
-
-								<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>
-
-							</div><!--.columns-left-->
-							<div class="clear"></div>
-=======
 									</div><!--.cpac-column-footer-->
 								<?php endif; ?>
 							</div><!--.cpac-boxes-->
+
+							<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>
+
 						</div><!--.columns-left-->
 						<div class="clear"></div>
->>>>>>> develop
+
 
 						<div class="for-cloning-only" style="display:none">
 							<?php
