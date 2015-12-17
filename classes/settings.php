@@ -253,12 +253,14 @@ class CPAC_Settings {
 		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] : '';
 		$nonce = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] : '';
 		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
+		$profile = isset( $_REQUEST['cpac_profile'] ) ? intval( $_REQUEST['cpac_profile'] ) : '';
 
 		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->set_layout( $profile );
 						$storage_model->store();
 					}
 				}
@@ -267,6 +269,7 @@ class CPAC_Settings {
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->set_layout( $profile );
 						$storage_model->restore();
 						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.', 'cpac' ), 'updated' );
 					}
@@ -700,15 +703,7 @@ class CPAC_Settings {
 									<?php echo $storage_model->label; ?>
 									<?php $storage_model->screen_link(); ?>
 								</h2>
-								<?php if ( $profile_name = $storage_model->get_current_profile_name() ) : ?>
-									<span class="profile">
-										<span class="label"><?php esc_html_e( 'Current profile', 'cpac' ); ?></span>
-										<span class="name"><?php echo esc_html( $profile_name ); ?></span>
-									</span>
-								<?php endif; ?>
-
 							</div>
-
 
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="error below-h2">
@@ -861,7 +856,6 @@ class CPAC_Settings {
 								<div class="sidebox" id="plugin-support">
 									<h3><?php _e( 'Support', 'codepress-admin-columns' ); ?></h3>
 
-
 									<div class="inside">
 										<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
 											<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?></p>
@@ -883,7 +877,6 @@ class CPAC_Settings {
 
 											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 											<input type="hidden" name="cpac_action" value="update_by_type"/>
-											<input type="hidden" name="cpac_profile" value="<?php echo $storage_model->profile; ?>"/>
 
 											<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 

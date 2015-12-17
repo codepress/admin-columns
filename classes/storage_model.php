@@ -62,7 +62,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var int/string
 	 */
-	public $profile = '';
+	public $layout;
 
 	/**
 	 * Uses PHP export to display settings
@@ -126,8 +126,6 @@ abstract class CPAC_Storage_Model {
 
 		// set columns paths
 		$this->set_columns_filepath();
-
-		$this->profile = $this->get_current_profile_id();
 
 		// Populate columns for this screen.
 		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
@@ -261,42 +259,36 @@ abstract class CPAC_Storage_Model {
 		return $combined_fields;
 	}
 
-	/**
-	 * @since NEWVERSION
-	 */
-	private function set_profile( $profile ) {
-		$this->profile = $profile;
+
+	public function set_layout( $layout ) {
+		$this->layout = $layout;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+	public function load_layout( $layout ) {
+		$this->set( $layout );
+		$this->set_columns();
+	}
+
+	/*
+
 	private function get_profile() {
 		return $this->profile;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	private function get_profile_storage_id() {
 		return 'cpac_profile_' . $this->key;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function get_profiles() {
 		$profiles = (array) get_option( $this->get_profile_storage_id() );
 		natcasesort( $profiles );
 		return $profiles;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function get_unique_profile_name( $prefix = 'Profile' ) {
 		$profiles = array_keys( $this->get_profiles() );
 		return $prefix . ' #' . ( count( $profiles ) + 1 );
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function create_profile( $name, $columns = '' ) {
 		if ( empty( $name ) ) {
 			return new WP_Error( 'empty_name', __( 'Profile name is empty.', 'cpac' ) );
@@ -315,9 +307,7 @@ abstract class CPAC_Storage_Model {
 		}
 		return $id;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function update_profile_name( $id, $name ) {
 		$profiles = $this->get_profiles();
 		if ( ! isset( $profiles[ $id ] ) ) {
@@ -326,9 +316,7 @@ abstract class CPAC_Storage_Model {
 		$profiles[ $id ] = $name;
 		update_option( $this->get_profile_storage_id(), $profiles );
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function delete_profile( $id ) {
 		$profiles = $this->get_profiles();
 		if ( ! isset( $profiles[ $id ] ) ) {
@@ -360,15 +348,11 @@ abstract class CPAC_Storage_Model {
 
 		return $name;
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function delete_current_profile() {
 		$this->delete_profile( $this->profile );
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function load_profile( $id ) {
 		$profiles = $this->get_profiles();
 		if ( ! isset( $profiles[ $id ] ) ) {
@@ -379,27 +363,23 @@ abstract class CPAC_Storage_Model {
 		$this->set_columns(); // load columns
 		return $profiles[ $id ];
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function get_current_profile_id() {
-		return get_option( $this->get_profile_storage_id() . '_current', '' );
+		//return get_option( $this->get_profile_storage_id() . '_current', '' );
 	}
-	/**
-	 * @since NEWVERSION
-	 */
+
 	public function get_current_profile_name() {
 		$profiles = $this->get_profiles();
 		$id = $this->get_current_profile_id();
 		return isset( $profiles[ $id ] ) ? $profiles[ $id ] : false;
-	}
+	}*/
 
 	/**
 	 * Get store ID
 	 * @since NEWVERSION
 	 */
 	private function get_storage_id() {
-		return "cpac_options_" . $this->key . $this->profile;
+		return "cpac_options_" . $this->key . $this->layout;
 	}
 
 	/**
