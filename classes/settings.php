@@ -262,6 +262,9 @@ class CPAC_Settings {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->set_layout( $profile );
 						$storage_model->store();
+
+						// refresh columns otherwise the newly added columns will not be displayed
+						$this->cpac->set_columns_on_current_screen();
 					}
 				}
 				break;
@@ -271,7 +274,9 @@ class CPAC_Settings {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->set_layout( $profile );
 						$storage_model->restore();
+
 						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.', 'cpac' ), 'updated' );
+
 					}
 				}
 				break;

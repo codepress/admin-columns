@@ -11,10 +11,16 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->page           = 'link-manager';
 		$this->menu_type      = 'other';
 
+		parent::__construct();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function init_manage_columns() {
+
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
-
-		parent::__construct();
 	}
 
 	public function get_default_columns() {
