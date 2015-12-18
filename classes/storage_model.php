@@ -11,7 +11,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public $label;
-	
+
 	/**
 	 * @since 2.3.5
 	 */
@@ -285,7 +285,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// store columns
-		$result         = update_option( "cpac_options_{$this->key}", $columns );
+		$result = update_option( "cpac_options_{$this->key}", $columns );
 		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
 
 		// error
@@ -591,17 +591,17 @@ abstract class CPAC_Storage_Model {
 
 		do_action( 'cac/set_columns', $this );
 
-		$this->custom_columns  = $this->get_custom_registered_columns();
+		$this->custom_columns = $this->get_custom_registered_columns();
 		$this->default_columns = $this->get_default_registered_columns();
-		$this->column_types    = $this->get_grouped_column_types();
-		$this->columns         = $this->get_columns();
+		$this->column_types = $this->get_grouped_column_types();
+		$this->columns = $this->get_columns();
 
 		do_action( 'cac/set_columns/after', $this );
 	}
 
 	public function get_grouped_column_types() {
 
-		$types  = array();
+		$types = array();
 		$groups = array_keys( $this->get_column_type_groups() );
 
 		$columns = array_merge( $this->default_columns, $this->custom_columns );
@@ -861,9 +861,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_edit_link() {
 
-		return add_query_arg( array( 'page'     => 'codepress-admin-columns',
-		                             'cpac_key' => $this->key
-		), admin_url( 'options-general.php' ) );
+		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
 	/**
