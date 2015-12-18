@@ -27,18 +27,15 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
-	/**
-	 * @see CPAC_Storage_Model::is_columns_screen()
-	 */
-	public function is_columns_screen() {
-		$is_columns_screen = parent::is_columns_screen();
-		if ( ! $is_columns_screen ) {
+	public function is_current_screen() {
+		$is_current_screen = parent::is_current_screen();
+		if ( ! $is_current_screen ) {
 			if ( ! empty( $_REQUEST['_ajax_nonce-replyto-comment'] ) && wp_verify_nonce( $_REQUEST['_ajax_nonce-replyto-comment'], 'replyto-comment' ) ) {
-				$is_columns_screen = true;
+				$is_current_screen = true;
 			}
 		}
 
-		return $is_columns_screen;
+		return $is_current_screen;
 	}
 
 	public function get_default_column_names() {

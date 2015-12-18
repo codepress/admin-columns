@@ -287,10 +287,14 @@ class CPAC {
 		$is_settings = $this->is_settings_screen();
 
 		foreach ( $this->storage_models as $storage_model ) {
-			if ( $is_ajax || $is_settings || $storage_model->is_columns_screen() ) {
-				$storage_model->set_columns();
+			$current_screen = $storage_model->is_current_screen();
 
-				// Load headings and values
+			if ( $is_ajax || $is_settings || $current_screen ) {
+				$storage_model->set_columns();
+			}
+
+			// Load headings and values on overviews screen
+			if ( $current_screen ) {
 				$storage_model->init_manage_columns();
 			}
 		}
@@ -326,7 +330,7 @@ class CPAC {
 
 		if ( $this->storage_models ) {
 			foreach ( $this->storage_models as $storage_model ) {
-				if ( $storage_model->is_columns_screen() ) {
+				if ( $storage_model->is_current_screen() ) {
 					return $storage_model;
 				}
 			}
