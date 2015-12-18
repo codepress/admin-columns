@@ -118,9 +118,6 @@ abstract class CPAC_Storage_Model {
 
 		// set columns paths
 		$this->set_columns_filepath();
-
-		// Populate columns for this screen.
-		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
 	}
 
 	/**
@@ -259,9 +256,6 @@ abstract class CPAC_Storage_Model {
 		delete_option( "cpac_options_{$this->key}" );
 
 		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-
-		// refresh columns otherwise the removed columns will still display
-		$this->set_columns_on_current_screen();
 	}
 
 	/**
@@ -302,9 +296,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
-
-		// refresh columns otherwise the newly added columns will not be displayed
-		$this->set_columns_on_current_screen();
 
 		/**
 		 * Fires after a new column setup is stored in the database
@@ -594,20 +585,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Only set columns on current screens
-	 *
-	 * @since 2.2.6
-	 */
-	public function set_columns_on_current_screen() {
-
-		if ( ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() ) {
-			return;
-		}
-
-		$this->set_columns();
-	}
-
-	/**
 	 * @since 2.0.2
 	 */
 	public function set_columns() {
@@ -890,18 +867,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
-	 * Mark your admin columns ajax request with plugin_id : 'cpac'.
-	 *
-	 * @since 2.0.5
-	 * @return boolean
-	 */
-	public function is_doing_ajax() {
-
-		return cac_is_doing_ajax();
-	}
-
-	/**
 	 * @since 2.0.3
 	 * @global string $pagenow
 	 * @global object $current_screen
@@ -939,20 +904,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Checks if the current page is the settings page
-	 *
-	 * @since 2.0.2
-	 * @global string $pagenow
-	 * @global string $plugin_page
-	 * @return boolean
-	 */
-	public function is_settings_page() {
-		global $pagenow, $plugin_page;
-
-		return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
 	}
 
 	/**

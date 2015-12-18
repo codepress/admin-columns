@@ -52,7 +52,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$table   = _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
 		$columns = (array) $table->get_columns();
 
-		if ( $this->is_settings_page() ) {
+		if ( cac_is_setting_screen() ) {
 			$columns = array_merge( get_column_headers( 'users' ), $columns );
 		}
 
