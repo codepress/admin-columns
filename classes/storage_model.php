@@ -896,12 +896,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function get_column_by_name( $name ) {
-
-		if ( ! isset( $this->columns[ $name ] ) ) {
-			return false;
-		}
-
-		return $this->columns[ $name ];
+		return isset( $this->columns[ $name ] ) ? $this->columns[ $name ] : false;
 	}
 
 	/**
@@ -914,16 +909,11 @@ abstract class CPAC_Storage_Model {
 			return $this->column_headings;
 		}
 
-		// only add headings on overview screens, to prevent deactivating columns on the column settings screen
-		if ( ! $this->is_columns_screen() ) {
+		if ( ! $this->default_columns ) {
 			return $columns;
 		}
 
 		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {
-			return $columns;
-		}
-
-		if ( ! $this->default_columns ) {
 			return $columns;
 		}
 
@@ -1002,7 +992,7 @@ abstract class CPAC_Storage_Model {
 	 * @global object $current_screen
 	 * @return boolean
 	 */
-	public function is_columns_screen() {
+	public function is_current_screen() {
 
 		global $pagenow;
 
