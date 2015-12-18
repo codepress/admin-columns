@@ -118,6 +118,10 @@ class CPAC {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
 
+		// Populating storage models
+		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
+		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
+
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
 		$this->_settings = new CPAC_Settings( $this );
@@ -274,6 +278,20 @@ class CPAC {
 		 * @param object $this CPAC
 		 */
 		$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
+	}
+
+	/**
+	 * Only set columns on current screens
+	 *
+	 * @since NEW VERSION
+	 */
+	public function set_columns_on_current_screen() {
+
+		foreach ( $this->storage_models as $storage_model ) {
+			if ( $this->is_doing_ajax() || $this->is_settings_screen() || $storage_model->is_columns_screen() ) {
+				$storage_model->set_columns();
+			}
+		}
 	}
 
 	/**
