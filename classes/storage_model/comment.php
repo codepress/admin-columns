@@ -15,11 +15,16 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->page           = 'edit-comments';
 		$this->menu_type      = 'other';
 
-		// Filter is located in get_column_headers().
+		parent::__construct();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function init_manage_columns() {
+
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
-
-		parent::__construct();
 	}
 
 	/**

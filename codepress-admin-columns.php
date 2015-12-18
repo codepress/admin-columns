@@ -289,6 +289,9 @@ class CPAC {
 		foreach ( $this->storage_models as $storage_model ) {
 			if ( $is_ajax || $is_settings || $storage_model->is_columns_screen() ) {
 				$storage_model->set_columns();
+
+				// Load headings and values
+				$storage_model->init_manage_columns();
 			}
 		}
 	}
