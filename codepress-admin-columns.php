@@ -287,8 +287,15 @@ class CPAC {
 	 */
 	public function set_columns_on_current_screen() {
 
+		if ( ! $this->is_cac_screen() ) {
+			return;
+		}
+
+		$is_ajax = $this->is_doing_ajax();
+		$is_settings = $this->is_settings_screen();
+
 		foreach ( $this->storage_models as $storage_model ) {
-			if ( $this->is_doing_ajax() || $this->is_settings_screen() || $storage_model->is_columns_screen() ) {
+			if ( $is_ajax || $is_settings || $storage_model->is_columns_screen() ) {
 				$storage_model->set_columns();
 			}
 		}
