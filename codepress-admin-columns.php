@@ -32,10 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', 	 	'2.4.8' ); // Current plugin version
+define( 'CPAC_VERSION', '2.4.8' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
-define( 'CPAC_URL', 			plugin_dir_url( __FILE__ ) );
-define( 'CPAC_DIR', 			plugin_dir_path( __FILE__ ) );
+define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
+define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
 
 // Only run plugin in the admin interface
 if ( ! is_admin() ) {
@@ -112,13 +112,13 @@ class CPAC {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'maybe_set_storage_models' ), 5 );
-		add_action( 'wp_loaded', array( $this, 'maybe_load_php_export' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
-		add_filter( 'plugin_action_links',  array( $this, 'add_settings_link' ), 1, 2 );
+		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Populating storage models
+		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
+		add_action( 'wp_loaded', array( $this, 'maybe_load_php_export' ) );
 		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
 		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
 
@@ -151,6 +151,7 @@ class CPAC {
 		 * Use this for setting up addon functionality
 		 *
 		 * @since 2.0
+		 *
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
@@ -170,7 +171,7 @@ class CPAC {
 	 */
 	public function scripts() {
 
-		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
 		wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
@@ -179,7 +180,7 @@ class CPAC {
 
 		if ( $this->is_columns_screen() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
-			add_action( 'admin_head', array( $this, 'admin_scripts') );
+			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
@@ -200,27 +201,13 @@ class CPAC {
 	}
 
 	/**
-	 * Load the storage models if the current screen is a columns screen
-	 *
-	 * @since 2.2.7
-	 */
-	public function maybe_set_storage_models() {
-
-		if ( ! $this->is_cac_screen() ) {
-			return;
-		}
-
-		$this->set_storage_models();
-	}
-
-	/**
 	 * Load the php exported settings
 	 *
 	 * @since 2.3.5
 	 */
 	public function maybe_load_php_export() {
 		if ( ! empty( $this->exported_columns ) ) {
-			foreach( $this->exported_columns as $model => $columns ) {
+			foreach ( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
 				}
@@ -234,6 +221,10 @@ class CPAC {
 	 * @since 2.0
 	 */
 	public function set_storage_models() {
+
+		if ( ! $this->is_cac_screen() ) {
+			return;
+		}
 
 		$storage_models = array();
 
@@ -274,6 +265,7 @@ class CPAC {
 		 * Used by external plugins to add additional storage models
 		 *
 		 * @since 2.0
+		 *
 		 * @param array $storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
 		 * @param object $this CPAC
 		 */
@@ -307,6 +299,7 @@ class CPAC {
 	 * @since 2.0
 	 *
 	 * @param string $key Storage model key (e.g. post, page, wp-users)
+	 *
 	 * @return bool|CPAC_Storage_Model Storage Model object (or false, on failure)
 	 */
 	public function get_storage_model( $key ) {
@@ -357,14 +350,15 @@ class CPAC {
 		}
 
 		$post_types = array_merge( $post_types, get_post_types( array(
-			'_builtin' 	=> false,
-			'show_ui'	=> true
+			'_builtin' => false,
+			'show_ui'  => true
 		) ) );
 
 		/**
 		 * Filter the post types for which Admin Columns is active
 		 *
 		 * @since 2.0
+		 *
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/post_types', $post_types );
@@ -389,6 +383,7 @@ class CPAC {
 		 * Filter the post types for which Admin Columns is active
 		 *
 		 * @since 2.0
+		 *
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/taxonomies', $taxonomies );
@@ -417,6 +412,7 @@ class CPAC {
 	 * @since 1.4.0
 	 *
 	 * @param string $classes body classes
+	 *
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
@@ -439,8 +435,8 @@ class CPAC {
 			return;
 		}
 
-		$css_column_width 	= '';
-		$edit_link 			= '';
+		$css_column_width = '';
+		$edit_link = '';
 
 		// CSS: columns width
 		if ( $columns = $storage_model->get_stored_columns() ) {
@@ -466,16 +462,16 @@ class CPAC {
 
 		?>
 		<?php if ( $css_column_width ) : ?>
-		<style type="text/css">
-			<?php echo $css_column_width; ?>
-		</style>
+			<style type="text/css">
+				<?php echo $css_column_width; ?>
+			</style>
 		<?php endif; ?>
 		<?php if ( $edit_link ) : ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>');
-			});
-		</script>
+			<script type="text/javascript">
+				jQuery(document).ready(function () {
+					jQuery('.tablenav.top .actions:last').append('<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>');
+				});
+			</script>
 		<?php endif; ?>
 
 		<?php
@@ -483,6 +479,7 @@ class CPAC {
 		/**
 		 * Add header scripts that only apply to column screens.
 		 * @since 2.3.5
+		 *
 		 * @param object CPAC Main Class
 		 */
 		do_action( 'cac/admin_head', $storage_model, $this );
@@ -495,7 +492,6 @@ class CPAC {
 	 * @return bool Returns true if in an AJAX request, false otherwise
 	 */
 	public function is_doing_ajax() {
-
 		return cac_is_doing_ajax();
 	}
 
@@ -506,9 +502,7 @@ class CPAC {
 	 * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
 	public function is_columns_screen() {
-
 		global $pagenow;
-
 		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
 
 		/**
@@ -516,22 +510,22 @@ class CPAC {
 		 * Useful for advanced used with custom content overview pages
 		 *
 		 * @since 2.2
+		 *
 		 * @param bool $columns_screen Whether the current request is a columns screen
 		 */
-		$columns_screen = apply_filters( 'cac/is_columns_screen', $columns_screen );
-
-		return $columns_screen;
+		return apply_filters( 'cac/is_columns_screen', $columns_screen );
 	}
 
 	/**
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.2
+	 *
 	 * @param strong $tab Specifies a tab screen (optional)
+	 *
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	public function is_settings_screen( $tab = '' ) {
-
 		return cac_is_setting_screen( $tab );
 	}
 
@@ -548,6 +542,7 @@ class CPAC {
 		 * Filter whether the current screen is a screen in which Admin Columns is active
 		 *
 		 * @since 2.2
+		 *
 		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
 		 */
 		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || $this->is_doing_ajax() || $this->is_settings_screen() );
