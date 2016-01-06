@@ -265,6 +265,14 @@ abstract class CPAC_Storage_Model {
 		$this->set_columns();
 	}
 
+	public function set_current_editing_layout( $layout_id ) {
+		update_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, $layout_id );
+	}
+
+	public function get_current_editing_layout() {
+		return get_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, true );
+	}
+
 	/*
 
 	private function get_profile() {
