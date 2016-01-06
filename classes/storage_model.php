@@ -89,6 +89,12 @@ abstract class CPAC_Storage_Model {
 	public $default_columns = array();
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $default_wp_columns = array();
+
+	/**
 	 * @since 2.2
 	 * @var array
 	 */
@@ -453,7 +459,7 @@ abstract class CPAC_Storage_Model {
 	private function get_default_registered_columns() {
 
 		$columns = array();
-		foreach ( $this->get_default_columns() as $column_name => $label ) {
+		foreach ( $this->default_wp_columns as $column_name => $label ) {
 
 			// checkboxes are mandatory
 			if ( 'cb' == $column_name ) {
@@ -486,7 +492,7 @@ abstract class CPAC_Storage_Model {
 
 			$column = new $classname( $this );
 
-			// exlude columns that are not registered based on conditional logic within the child column
+			// exclude columns that are not registered based on conditional logic within the child column
 			if ( ! $column->properties->is_registered ) {
 				continue;
 			}
@@ -592,6 +598,7 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/set_columns', $this );
 
 		$this->custom_columns = $this->get_custom_registered_columns();
+		$this->default_wp_columns = $this->get_default_columns();
 		$this->default_columns = $this->get_default_registered_columns();
 		$this->column_types = $this->get_grouped_column_types();
 		$this->columns = $this->get_columns();
@@ -680,7 +687,11 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		$default_columns = $this->get_default_columns();
+		if ( ! $this->default_wp_columns ) {
+			$this->default_wp_columns = $this->get_default_columns();
+		}
+
+		$default_columns = $this->default_wp_columns;
 
 		// TODO check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = $this->get_registered_columns();
