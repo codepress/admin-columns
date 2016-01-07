@@ -1167,7 +1167,7 @@ class CPAC_Column {
 			''        => __( 'Exact match', 'codepress-admin-columns' ),
 			'<='      => __( 'Lesser than', 'codepress-admin-columns' ),
 			'>='      => __( 'Greater than', 'codepress-admin-columns' ),
-			'between' => __( 'Between', 'codepress-admin-columns' ),
+			'between' => __( 'Range', 'codepress-admin-columns' ),
 		);
 
 		return $operators;
