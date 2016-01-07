@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Post_Roles
  *
@@ -15,8 +16,8 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 	= 'column-roles';
-		$this->properties['label']	 	= __( 'Roles', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-roles';
+		$this->properties['label'] = __( 'Roles', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -24,8 +25,9 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
+		$roles = array_map( 'translate_user_role', $this->get_raw_value( $post_id ) );
 
-		return implode( ', ', $this->get_raw_value( $post_id ) );
+		return implode( ', ', $roles );
 	}
 
 	/**
@@ -36,8 +38,9 @@ class CPAC_Column_Post_Roles extends CPAC_Column {
 
 		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
 
-		if ( empty( $userdata->roles[0] ) )
+		if ( empty( $userdata->roles[0] ) ) {
 			return array();
+		}
 
 		return $userdata->roles;
 	}
