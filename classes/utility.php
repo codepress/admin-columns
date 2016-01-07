@@ -101,3 +101,25 @@ function cac_is_setting_screen( $tab = '' ){
 
 	return true;
 }
+
+/**
+ * Get the url where the Admin Columns website is hosted
+ *
+ * @return string
+ */
+function ac_get_site_url( $path = '' ) {
+	$url = 'https://www.admincolumns.com';
+
+	if ( ! empty( $path ) ) {
+		$url .= '/' . ltrim( $path, '/' );
+	}
+
+	return $url;
+}
+
+/**
+ * @see ac_get_site_url()
+ */
+function ac_site_url( $path = '' ) {
+	echo ac_get_site_url( $path );
+}
