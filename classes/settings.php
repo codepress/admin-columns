@@ -360,22 +360,17 @@ class CPAC_Settings {
 
 	/**
 	 * @since 1.0
-	 *
 	 * @param string $storage_model URL type.
-	 *
 	 * @return string Url.
 	 */
 	public function get_url( $type ) {
-
-		$site_url = 'https://www.admincolumns.com';
-
 		$urls = array(
-			'main'            => $site_url,
-			'pricing'         => $site_url . '/pricing-purchase/',
+			'main'            => ac_get_site_url(),
+			'pricing'         => ac_get_site_url( 'pricing-purchase' ),
 			'codepress'       => 'http://www.codepresshq.com',
-			'admincolumns'    => $site_url,
-			'admincolumnspro' => $site_url,
-			'documentation'   => $site_url . '/documentation/',
+			'admincolumns'    => ac_get_site_url(),
+			'admincolumnspro' => ac_get_site_url(),
+			'documentation'   => ac_get_site_url( 'documentation' ),
 			'feedback'        => 'http://www.codepresshq.com/contact',
 			'plugins'         => 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
 			'support'         => 'http://wordpress.org/tags/codepress-admin-columns/',

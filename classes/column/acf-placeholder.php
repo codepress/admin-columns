@@ -18,6 +18,6 @@ class CPAC_Column_ACF_Placeholder extends CPAC_Column {
 	}
 
 	public  function display_settings() {
-		$this->display_settings_placeholder( 'https://www.admincolumns.com/advanced-custom-fields-columns/' );
+		$this->display_settings_placeholder( ac_get_site_url( 'advanced-custom-fields-columns' ) );
 	}
 }

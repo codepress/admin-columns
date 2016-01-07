@@ -60,7 +60,7 @@ class CPAC_Upgrade {
 		<div class="message error">
 			<p>
 				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>
-				<a href="https://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
+				<a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
 			</p>
 		</div>
 		<?php

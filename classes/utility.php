@@ -111,7 +111,7 @@ function ac_get_site_url( $path = '' ) {
 	$url = 'https://www.admincolumns.com';
 
 	if ( ! empty( $path ) ) {
-		$url .= '/' . ltrim( $path, '/' );
+		$url .= '/' . trim( $path, '/' ) . '/';
 	}
 
 	return $url;
