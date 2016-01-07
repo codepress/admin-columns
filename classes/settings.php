@@ -367,7 +367,7 @@ class CPAC_Settings {
 	 */
 	public function get_url( $type ) {
 
-		$site_url = 'http://www.admincolumns.com';
+		$site_url = 'https://www.admincolumns.com';
 
 		$urls = array(
 			'main'            => $site_url,

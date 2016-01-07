@@ -79,7 +79,7 @@ class CPAC_Review_Notice {
 					<?php printf(
 						__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'codepress-admin-columns' ),
 						$product,
-						'<a href="http://admincolumns.com/documentation/" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
+						'<a href="https://www.admincolumns.com/documentation/" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
 					<?php if ( defined( 'ACP_VERSION' ) ) : ?>
 						<?php printf(
