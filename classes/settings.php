@@ -368,26 +368,12 @@ class CPAC_Settings {
 	 * @return string Url.
 	 */
 	public function get_url( $type ) {
-
-		$site_url = 'http://www.admincolumns.com';
-
 		$urls = array(
-			'main'            => $site_url,
-			'pricing'         => $site_url . '/pricing-purchase/',
-			'codepress'       => 'http://www.codepresshq.com',
-			'admincolumns'    => $site_url,
-			'admincolumnspro' => $site_url,
-			'documentation'   => $site_url . '/documentation/',
-			'feedback'        => 'http://www.codepresshq.com/contact',
-			'plugins'         => 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
-			'support'         => 'http://wordpress.org/tags/codepress-admin-columns/',
+			'pricing'       => ac_get_site_url( 'pricing-purchase' ),
+			'documentation' => ac_get_site_url( 'documentation' ),
 		);
 
-		if ( ! isset( $urls[ $type ] ) ) {
-			return false;
-		}
-
-		return $urls[ $type ];
+		return isset( $urls[ $type ] ) ? $urls[ $type ] : false;
 	}
 
 	/**
@@ -472,7 +458,7 @@ class CPAC_Settings {
 
 					<h4><?php _e( "Potential Issues", 'codepress-admin-columns' ); ?></h4>
 					<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'codepress-admin-columns' ); ?>
-						<a href="<?php echo $this->get_url( 'admincolumns' ); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release.", 'codepress-admin-columns' ), 'mailto:info@codepress.nl' ); ?>
+						<a href="<?php ac_site_url(); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release.", 'codepress-admin-columns' ), 'mailto:info@codepress.nl' ); ?>
 					</p>
 
 					<div class="cpac-alert cpac-alert-error">
@@ -684,7 +670,8 @@ class CPAC_Settings {
 									<li class="first"><?php echo $label; ?>:</li>
 									<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
 										<li>
-											<?php echo $count ++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
+											<?php echo $count ++ != 0 ? ' | ' : ''; ?>
+											<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
 										</li>
 									<?php endforeach; ?>
 								</ul>
@@ -753,26 +740,26 @@ class CPAC_Settings {
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), $this->get_url( 'admincolumnspro' ) ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
+												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), ac_get_site_url() ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
 											</h3>
 
 											<div class="inside">
 												<ul>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
 													</li>
 												</ul>
 												<p>
-													<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
+													<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) ); ?>
 												</p>
 											</div>
 										</div>
@@ -840,7 +827,7 @@ class CPAC_Settings {
 															'utm_source'   => 'plugin-installation',
 															'utm_medium'   => 'feedback-purchase-button',
 															'utm_campaign' => 'plugin-installation'
-														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
+														), ac_get_site_url() ); ?>" target="_blank">
 															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>
