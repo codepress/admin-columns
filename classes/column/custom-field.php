@@ -188,8 +188,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	private function get_link_by_meta( $meta ){
-		if( filter_var( $meta, FILTER_VALIDATE_URL ) ){
-			$meta = '<a href="' . $meta . '">' . $meta . '</a>';
+		$label = $meta;
+		if( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match('/[^\w.-]/', $meta ) ){
+			if( $this->options->link_label ){
+				$label = $this->options->link_label;
+			}
+
+			$meta = '<a href="' . $meta . '">' . $label . '</a>';
 		}
 		return $meta;
 	}
