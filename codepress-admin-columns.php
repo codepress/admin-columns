@@ -4,8 +4,8 @@ Plugin Name: Admin Columns
 Version: 2.4.8
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
-Author URI: http://www.admincolumns.com
-Plugin URI: http://www.admincolumns.com
+Author URI: https://www.admincolumns.com
+Plugin URI: https://www.admincolumns.com
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
@@ -587,6 +587,31 @@ class CPAC {
 
 		return $this->_upgrade;
 	}
+
+	/**
+	 * Check whether the Advanced Custom Fields plugin is active
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool Whether the Advanced Custom Fields plugin is active
+	 */
+	public function is_plugin_acf_active() {
+
+		return class_exists( 'acf', false );
+	}
+
+	/**
+	 * Check whether the WooCommerce plugin is active
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool Whether the WooCommerce plugin is active
+	 */
+	public function is_plugin_woocommerce_active() {
+
+		return class_exists( 'WooCommerce', false );
+	}
+
 }
 
 /**

@@ -20,6 +20,6 @@ class CPAC_Column_WC_Placeholder extends CPAC_Column {
 	}
 
 	public  function display_settings() {
-		$this->display_settings_placeholder( 'https://www.admincolumns.com/woocommerce-columns/' );
+		$this->display_settings_placeholder( ac_get_site_url( 'woocommerce-columns' ) );
 	}
 }

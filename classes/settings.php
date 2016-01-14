@@ -341,16 +341,18 @@ class CPAC_Settings {
 					<p>" . __( "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set.", 'codepress-admin-columns' ) . "</p>
 					<ul>
 						<li><strong>" . __( "Default", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Image", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Excerpt", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Multiple Values", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Numeric", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
-						<li><strong>" . __( "Post Titles", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Usernames", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Checkmark", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Color", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Counter", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
+						<li><strong>" . __( "Excerpt", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Image", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Media Library", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Multiple Values", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Numeric", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Post Titles", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Usernames", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
+						<li><strong>" . __( "Term Name", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be an array with term_id and taxonomy.", 'codepress-admin-columns' ) . "</li>
 					</ul>
 				"
 			)
@@ -373,26 +375,12 @@ class CPAC_Settings {
 	 * @return string Url.
 	 */
 	public function get_url( $type ) {
-
-		$site_url = 'http://www.admincolumns.com';
-
 		$urls = array(
-			'main'            => $site_url,
-			'pricing'         => $site_url . '/pricing-purchase/',
-			'codepress'       => 'http://www.codepresshq.com',
-			'admincolumns'    => $site_url,
-			'admincolumnspro' => $site_url,
-			'documentation'   => $site_url . '/documentation/',
-			'feedback'        => 'http://www.codepresshq.com/contact',
-			'plugins'         => 'http://wordpress.org/extend/plugins/codepress-admin-columns/',
-			'support'         => 'http://wordpress.org/tags/codepress-admin-columns/',
+			'pricing'       => ac_get_site_url( 'pricing-purchase' ),
+			'documentation' => ac_get_site_url( 'documentation' ),
 		);
 
-		if ( ! isset( $urls[ $type ] ) ) {
-			return false;
-		}
-
-		return $urls[ $type ];
+		return isset( $urls[ $type ] ) ? $urls[ $type ] : false;
 	}
 
 	/**
@@ -477,7 +465,7 @@ class CPAC_Settings {
 
 					<h4><?php _e( "Potential Issues", 'codepress-admin-columns' ); ?></h4>
 					<p><?php _e( "Do to the sizable refactoring the code, surounding Addons and action/filters, your website may not operate correctly. It is important that you read the full", 'codepress-admin-columns' ); ?>
-						<a href="<?php echo $this->get_url( 'admincolumns' ); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release.", 'codepress-admin-columns' ), 'mailto:info@codepress.nl' ); ?>
+						<a href="<?php ac_site_url(); ?>migrating-from-v1-to-v2" target="_blank"><?php _e( "Migrating from v1 to v2", 'codepress-admin-columns' ); ?></a> <?php _e( "guide to view the full list of changes.", 'codepress-admin-columns' ); ?> <?php printf( __( "When you have found a bug please <a href='%s'>report them to us</a> so we can fix it in the next release.", 'codepress-admin-columns' ), 'mailto:info@codepress.nl' ); ?>
 					</p>
 
 					<div class="cpac-alert cpac-alert-error">
@@ -763,26 +751,26 @@ class CPAC_Settings {
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
 											<h3>
-												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), $this->get_url( 'admincolumnspro' ) ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
+												<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), ac_get_site_url() ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
 											</h3>
 
 											<div class="inside">
 												<ul>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), $this->get_url( 'admincolumnspro' ) ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
 													</li>
 												</ul>
 												<p>
-													<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $this->get_url( 'admincolumnspro' ) ) ); ?>
+													<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) ); ?>
 												</p>
 											</div>
 										</div>
@@ -850,7 +838,7 @@ class CPAC_Settings {
 															'utm_source'   => 'plugin-installation',
 															'utm_medium'   => 'feedback-purchase-button',
 															'utm_campaign' => 'plugin-installation'
-														), $this->get_url( 'admincolumnspro' ) ); ?>" target="_blank">
+														), ac_get_site_url() ); ?>" target="_blank">
 															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
 														</a>
 													</li>

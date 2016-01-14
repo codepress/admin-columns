@@ -980,6 +980,7 @@ class CPAC_Column {
 
 				// Is Image
 				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+
 					$src = $attributes[0];
 					$width = $attributes[1];
 					$height = $attributes[2];
@@ -998,11 +999,17 @@ class CPAC_Column {
 						$height = $sizes['height'];
 					}
 				}
+				if ( is_array( $image_size ) ) {
+					$width = $image_size_w;
+					$height = $image_size_h;
 
-				// maximum dimensions
-				$max = max( array( $width, $height ) );
+					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px; background-size: cover; background-image: url({$src}); background-position: center;'></span>";
 
-				$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
+				} else {
+					$max = max( array( $width, $height ) );
+					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
+				}
+				
 			}
 		}
 
@@ -1167,7 +1174,7 @@ class CPAC_Column {
 			''        => __( 'Exact match', 'codepress-admin-columns' ),
 			'<='      => __( 'Lesser than', 'codepress-admin-columns' ),
 			'>='      => __( 'Greater than', 'codepress-admin-columns' ),
-			'between' => __( 'Between', 'codepress-admin-columns' ),
+			'between' => __( 'Range', 'codepress-admin-columns' ),
 		);
 
 		return $operators;
@@ -1230,6 +1237,24 @@ class CPAC_Column {
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function  display_field_link_label(){
+		$field_key = 'link_label';
+		$label = __( 'Link label', 'codepress-admin-columns' );
+		$description = __( 'Leave blank to display the url', 'codepress-admin-columns' );
+
+		?>
+		<tr class="column_<?php echo $field_key; ?>">
+			<?php $this->label_view( $label, $description, $field_key ); ?>
+			<td class="input">
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->link_label; ?>"/>
 			</td>
 		</tr>
 		<?php
