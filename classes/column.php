@@ -980,6 +980,7 @@ class CPAC_Column {
 
 				// Is Image
 				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+
 					$src = $attributes[0];
 					$width = $attributes[1];
 					$height = $attributes[2];
@@ -998,11 +999,17 @@ class CPAC_Column {
 						$height = $sizes['height'];
 					}
 				}
+				if ( is_array( $image_size ) ) {
+					$width = $image_size_w;
+					$height = $image_size_h;
 
-				// maximum dimensions
-				$max = max( array( $width, $height ) );
+					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px; background-size: cover; background-image: url({$src}); background-position: center;'></span>";
 
-				$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
+				} else {
+					$max = max( array( $width, $height ) );
+					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
+				}
+				
 			}
 		}
 
