@@ -4,50 +4,13 @@
  *
  * @since 2.0
  */
-class CPAC_Column_User_Actions extends CPAC_Column {
+class CPAC_Column_User_Actions extends CPAC_Column_Actions {
 
 	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
+	 * @see CPAC_Column_Actions::get_actions()
+	 * @since 2.4.7
 	 */
-	public function init() {
-
-		parent::init();
-
-		// Properties
-		$this->properties['type']	 	= 'column-actions';
-		$this->properties['label']	 	= __( 'Actions', 'cpac' );
-	}
-
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
-	function get_value( $user_id ) {
-
-		return $this->get_raw_value( $user_id );
-	}
-
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
-	 */
-	function get_raw_value( $user_id ) {
-
-		return $this->get_column_value_actions( $user_id );
-	}
-
-	/**
-	 * Get column value of user actions
-	 *
-	 * This part is copied from the Users List Table class
-	 *
-	 * @since 1.4.2
-	 *
-	 * @param int $id User ID
-	 * @return string Actions
-	 */
-	private function get_column_value_actions( $id ) {
+	public function get_actions( $id ) {
 		$actions = array();
 
 		$user_object = new WP_User( $id );
@@ -76,6 +39,7 @@ class CPAC_Column_User_Actions extends CPAC_Column {
 		if ( is_multisite() && get_current_user_id() != $user_object->ID && current_user_can( 'remove_user', $user_object->ID ) )
 			$actions['remove'] = "<a class='submitdelete' href='" . wp_nonce_url( $url."action=remove&amp;user=$user_object->ID", 'bulk-users' ) . "'>" . __( 'Remove' ) . "</a>";
 
-		return implode(' | ', $actions);
+		return $actions;
 	}
+
 }

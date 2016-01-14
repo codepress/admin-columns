@@ -16,7 +16,7 @@ class CPAC_Column_User_ID extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-user_id';
-		$this->properties['label']	 = __( 'User ID', 'cpac' );
+		$this->properties['label']	 = __( 'User ID', 'codepress-admin-columns' );
 	}
 
 	/**

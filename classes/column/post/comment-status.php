@@ -17,7 +17,7 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-comment_status';
-		$this->properties['label']				= __( 'Comment status', 'cpac' );
+		$this->properties['label']				= __( 'Comment status', 'codepress-admin-columns' );
 		$this->properties['object_property']	= 'comment_status';
 	}
 

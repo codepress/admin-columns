@@ -16,7 +16,7 @@ class CPAC_Column_Media_Alternate_Text extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-alternate_text';
-		$this->properties['label']	 = __( 'Alt', 'cpac' );
+		$this->properties['label']	 = __( 'Alt', 'codepress-admin-columns' );
 	}
 
 	/**

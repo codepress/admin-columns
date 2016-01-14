@@ -16,7 +16,7 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-estimated_reading_time';
-		$this->properties['label']	 = __( 'Estimated Reading Time', 'cpac' );
+		$this->properties['label']	 = __( 'Estimated Reading Time', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['words_per_minute'] = 200;
@@ -48,22 +48,26 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	 * @since 2.3.3
 	 */
 	public function convert_seconds_to_readable_time( $seconds ) {
+		$time = '&#8212;';
 
-		$minutes = floor( $seconds / 60 );
-		$seconds = floor( $seconds % 60 );
+		if ( $seconds ) {
 
-		$time = $minutes;
-		if ( $seconds < 10 ) {
-			$seconds = '0' . $seconds;
-		}
-		if ( '00' != $seconds ) {
-			$time .= ':' . $seconds;
-		}
-		if ( $minutes < 1 ) {
-			$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'cpac' );
-		}
-		else {
-			$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'cpac' );
+			$minutes = floor( $seconds / 60 );
+			$seconds = floor( $seconds % 60 );
+
+			$time = $minutes;
+			if ( $seconds < 10 ) {
+				$seconds = '0' . $seconds;
+			}
+			if ( '00' != $seconds ) {
+				$time .= ':' . $seconds;
+			}
+			if ( $minutes < 1 ) {
+				$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'codepress-admin-columns' );
+			}
+			else {
+				$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'codepress-admin-columns' );
+			}
 		}
 
 		return $time;
@@ -100,8 +104,8 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	public function display_settings() {
 
 		$field_key		= 'words_per_minute';
-		$label			= __( 'Words per minute', 'cpac' );
-		$description	= __( 'Estimated reading time in words per minute', 'cpac' );
+		$label			= __( 'Words per minute', 'codepress-admin-columns' );
+		$description	= __( 'Estimated reading time in words per minute', 'codepress-admin-columns' );
 
 		?>
 		<tr class="column_<?php echo $field_key; ?>">

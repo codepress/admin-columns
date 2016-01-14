@@ -16,7 +16,7 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-excerpt';
-		$this->properties['label']				= __( 'Excerpt', 'cpac' );
+		$this->properties['label']				= __( 'Excerpt', 'codepress-admin-columns' );
 		$this->properties['object_property']	= 'post_excerpt';
 
 		// Options

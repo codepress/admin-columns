@@ -16,7 +16,7 @@ class CPAC_Column_User_Rich_Editing extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-rich_editing';
-		$this->properties['label']	 = __( 'Visual Editor', 'cpac' );
+		$this->properties['label']	 = __( 'Visual Editor', 'codepress-admin-columns' );
 	}
 
 	/**

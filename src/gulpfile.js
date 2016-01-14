@@ -13,6 +13,9 @@ less       = require('gulp-less'),
 rename     = require('gulp-rename'),
 uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
+wpPot      = require('gulp-wp-pot');
+gettext    = require('gulp-gettext');
+
 
 var onError = function(e) {
     gutil.beep();
@@ -42,6 +45,30 @@ gulp.task('styles', function() {
         .pipe(minifyCSS())
         .pipe(gulp.dest('../assets/css'));
 });
+
+gulp.task('language', function () {
+    return gulp.src([
+            '../*.php', // root
+            '../**/*.php' // subfolders
+        ])
+        .pipe(wpPot( {
+            domain: 'codepress-admin-columns',
+            destFile:'codepress-admin-columns.pot',
+            package: 'Codepress Admin Columns',
+            bugReport: 'https://www.admincolumns.com',
+            lastTranslator: 'Codepress <info@codepress.nl',
+            team: 'Admin Columns <info@admincolumns.com>'
+        } ))
+        .pipe(gulp.dest('../languages'));
+});
+
+
+/*
+gulp.task('compile-language', function() {
+	Moved to bash, run ./generate-language
+	 Be sure that you have transifex cpi and gettext
+});
+*/
 
 gulp.task('watch', ['default'], function() {
     gulp.watch('less/**/*.less', ['styles']);

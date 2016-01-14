@@ -16,7 +16,7 @@ class CPAC_Column_Post_Content extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']				= 'column-content';
-		$this->properties['label']				= __( 'Content', 'cpac' );
+		$this->properties['label']				= __( 'Content', 'codepress-admin-columns' );
 		$this->properties['object_property']	= 'post_content';
 
 		// Options

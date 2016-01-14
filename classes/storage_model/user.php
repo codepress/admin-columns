@@ -3,40 +3,51 @@
 class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 	/**
-	 * Constructor
-	 *
 	 * @since 2.0
 	 */
-	function __construct() {
+	public function __construct() {
 
-		$this->key 		 		= 'wp-users';
-		$this->label 	 		= __( 'Users' );
-		$this->singular_label 	= __( 'User' );
-		$this->type 	 		= 'user';
-		$this->meta_type 		= 'user';
-		$this->page 	 		= 'users';
-		$this->menu_type 		= 'other';
-
-		// headings
-		add_filter( "manage_{$this->page}_columns",  array( $this, 'add_headings' ), 100 );
-
-		// values
-		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
+		$this->key            = 'wp-users';
+		$this->label          = __( 'Users' );
+		$this->singular_label = __( 'User' );
+		$this->type           = 'user';
+		$this->meta_type      = 'user';
+		$this->page           = 'users';
+		$this->menu_type      = 'other';
 
 		parent::__construct();
 	}
 
 	/**
-	 * Get WP default supported admin columns per post type.
-	 *
+	 * @since NEWVERSION
+	 */
+	public function init_manage_columns() {
+
+		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	public function get_original_column_value( $column, $id ) {
+
+		// Remove Admin Columns action for this column's value
+		remove_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
+		ob_start();
+		do_action( "manage_users_custom_column", $column, $id );
+		$contents = ob_get_clean();
+		add_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
+
+		return $contents;
+	}
+
+	/**
 	 * @see CPAC_Type::get_default_columns()
-	 * @since 1.0
-	 *
-	 * @return array
 	 */
 	public function get_default_columns() {
 
-		if ( ! function_exists('_get_list_table') ) {
+		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();
 		}
 
@@ -44,10 +55,10 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table 		= _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
-		$columns 	= (array) $table->get_columns();
+		$table   = _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
+		$columns = (array) $table->get_columns();
 
-		if ( $this->is_settings_page() ) {
+		if ( cac_is_setting_screen() ) {
 			$columns = array_merge( get_column_headers( 'users' ), $columns );
 		}
 
@@ -55,22 +66,20 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Manage value
-	 *
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		return array( 'cb', 'username', 'name', 'email', 'role', 'posts' );
+	}
+
+	/**
 	 * @since 2.0.2
-	 *
-	 * @param string $column_name
-	 * @param int $user_id
-	 * @param string $value
 	 */
 	public function manage_value( $column_name, $user_id, $value = '' ) {
-
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return $value;
 		}
-
-		// get value
-		$custom_value = $column->get_value( $user_id );
+		$custom_value = $column->get_display_value( $user_id );
 
 		// make sure it absolutely empty and check for (string) 0
 		if ( ! empty( $custom_value ) || '0' === $custom_value ) {
@@ -84,39 +93,13 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		return $value;
 	}
 
-	/**
-	 * Callback Manage value
-	 *
-	 * @since 2.0.2
-	 *
-	 * @param string $value
-	 * @param string $column_name
-	 * @param int $user_id
-	 */
 	public function manage_value_callback( $value, $column_name, $user_id ) {
-
 		return $this->manage_value( $column_name, $user_id, $value );
 	}
 
-	/**
-     * Get Meta
-     *
-	 * @see CPAC_Columns::get_meta_keys()
-	 * @since 2.0
-	 *
-	 * @return array
-     */
-    public function get_meta() {
-        global $wpdb;
+	public function get_meta() {
+		global $wpdb;
 
-        if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
-        	$result = $cache;
-        }
-        else {
-			$result = $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
-			wp_cache_add( $this->key, $result, 'cac_columns', 10 ); // 10 sec.
-		}
-
-		return $result;
-    }
+		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
+	}
 }

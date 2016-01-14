@@ -59,8 +59,8 @@ class CPAC_Upgrade {
 		?>
 		<div class="message error">
 			<p>
-				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'cpac' ); ?>
-				<a href="https://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
+				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>
+				<a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -92,7 +92,7 @@ class CPAC_Upgrade {
 			return;
 		}
 
-		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'cpac' ), __( 'Upgrade', 'cpac' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
+		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'codepress-admin-columns' ), __( 'Upgrade', 'codepress-admin-columns' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
 		add_action( "admin_print_scripts-{$upgrade_page}", array( $this, 'admin_scripts' ) );
 	}
 
@@ -132,15 +132,15 @@ class CPAC_Upgrade {
 				// display upgrade message on every page except upgrade page itself
 				if ( ! ( isset( $_REQUEST['page'] ) && 'cpac-upgrade' === $_REQUEST['page'] ) ) {
 
-					$message = 	__( 'Admin Columns', 'cpac' ) . ' v' . CPAC_VERSION . ' ' .
-								__( 'requires a database upgrade','cpac' ) .
+					$message = 	__( 'Admin Columns', 'codepress-admin-columns' ) . ' v' . CPAC_VERSION . ' ' .
+								__( 'requires a database upgrade','codepress-admin-columns' ) .
 								' (<a class="thickbox" href="' . admin_url() .
 								'plugin-install.php?tab=plugin-information&plugin=codepress-admin-columns&section=changelog&TB_iframe=true&width=640&height=559">' .
-								__( 'why?', 'cpac' ) .'</a>). '	.
-								__( "Please", 'cpac' ) .' <a href="http://codex.wordpress.org/Backing_Up_Your_Database">' .
-								__( "backup your database", 'cpac' ) .'</a>, '.
-								__( "then click", 'cpac' ) . ' <a href="' . admin_url() . 'options-general.php?page=cpac-upgrade" class="button">' .
-								__( "Upgrade Database", 'cpac' ) . '</a>';
+								__( 'why?', 'codepress-admin-columns' ) .'</a>). '	.
+								__( "Please", 'codepress-admin-columns' ) .' <a href="http://codex.wordpress.org/Backing_Up_Your_Database">' .
+								__( "backup your database", 'codepress-admin-columns' ) .'</a>, '.
+								__( "then click", 'codepress-admin-columns' ) . ' <a href="' . admin_url() . 'options-general.php?page=cpac-upgrade" class="button">' .
+								__( "Upgrade Database", 'codepress-admin-columns' ) . '</a>';
 
 					cpac_admin_message( $message, 'updated' );
 				}
@@ -348,7 +348,7 @@ class CPAC_Upgrade {
 
 				$return = array(
 			    	'status'	=>	true,
-					'message'	=>	__( "Migrating Column Settings", 'cpac' ) . '...',
+					'message'	=>	__( "Migrating Column Settings", 'codepress-admin-columns' ) . '...',
 					'next'		=>	false,
 			    );
 
@@ -384,8 +384,8 @@ class CPAC_Upgrade {
 
 		// No update required
 		else : ?>
-			<p><?php _e( 'No Upgrade Required', 'cpac' ); ?></p>
-			<a href="<?php echo admin_url('options-general.php'); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'cpac' ); ?></a>
+			<p><?php _e( 'No Upgrade Required', 'codepress-admin-columns' ); ?></p>
+			<a href="<?php echo admin_url('options-general.php'); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'codepress-admin-columns' ); ?></a>
 		<?php
 		endif;
 	}
@@ -403,9 +403,9 @@ class CPAC_Upgrade {
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
-			'complete'		=> __( 'Upgrade Complete!', 'cpac' ) . '</p><p><a href="' . admin_url('options-general.php')  . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'cpac' ) . "</a>" ,
-			'error'			=> __( 'Error', 'cpac' ),
-			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'cpac' )
+			'complete'		=> __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . admin_url('options-general.php')  . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>" ,
+			'error'			=> __( 'Error', 'codepress-admin-columns' ),
+			'major_error'	=> __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' )
 		));
 	}
 }

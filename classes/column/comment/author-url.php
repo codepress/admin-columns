@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Author_Url extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-author_url';
-		$this->properties['label']	 = __( 'Author url', 'cpac' );
+		$this->properties['label']	 = __( 'Author url', 'codepress-admin-columns' );
 	}
 
 	/**

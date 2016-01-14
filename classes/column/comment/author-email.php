@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Author_Email extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-author_email';
-		$this->properties['label']	 = __( 'Author email', 'cpac' );
+		$this->properties['label']	 = __( 'Author email', 'codepress-admin-columns' );
 	}
 
 	/**

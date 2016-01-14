@@ -10,7 +10,7 @@ class CPAC_Column_Comment_Type extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 	= 'column-type';
-		$this->properties['label']	 	= __( 'Type', 'cpac' );
+		$this->properties['label']	 	= __( 'Type', 'codepress-admin-columns' );
 	}
 
 	public function get_value( $id ) {

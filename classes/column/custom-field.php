@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Custom field column, displaying the contents of meta fields.
  * Suited for all storage models supporting WordPress' default way of handling meta data.
@@ -19,25 +20,28 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 		= 'column-meta';
-		$this->properties['label']	 		= __( 'Custom Field', 'cpac' );
-		$this->properties['classes']		= 'cpac-box-metafield';
-		$this->properties['is_cloneable']	= true;
+		$this->properties['type'] = 'column-meta';
+		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
+		$this->properties['classes'] = 'cpac-box-metafield';
+		$this->properties['group'] = 'custom-field';
+		$this->properties['use_before_after'] = true;
 
 		// Options
-		$this->options['field']				= '';
-		$this->options['field_type']		= '';
-		$this->options['before']			= '';
-		$this->options['after']				= '';
+		$this->options['field'] = '';
+		$this->options['field_type'] = '';
+		$this->options['before'] = '';
+		$this->options['after'] = '';
 
-		$this->options['image_size']		= '';
-		$this->options['image_size_w']		= 80;
-		$this->options['image_size_h']		= 80;
+		$this->options['image_size'] = '';
+		$this->options['image_size_w'] = 80;
+		$this->options['image_size_h'] = 80;
 
-		$this->options['excerpt_length']	= 15;
+		$this->options['excerpt_length'] = 15;
 
-		$this->options['date_format']		= '';
-		$this->options['date_save_format']	= '';
+		$this->options['link_label'] = '';
+
+		$this->options['date_format'] = '';
+		$this->options['date_save_format'] = '';
 	}
 
 	/**
@@ -65,7 +69,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 3.2.1
 	 */
 	public function get_field() {
-		return $this->options->field;
+		return $this->get_field_key();
 	}
 
 	/**
@@ -91,19 +95,20 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	public function get_custom_field_types() {
 
 		$custom_field_types = array(
-			''				=> __( 'Default', 'cpac' ),
-			'checkmark'		=> __( 'Checkmark (true/false)', 'cpac' ),
-			'color'			=> __( 'Color', 'cpac' ),
-			'count'			=> __( 'Counter', 'cpac' ),
-			'date'			=> __( 'Date', 'cpac' ),
-			'excerpt'		=> __( 'Excerpt'),
-			'image'			=> __( 'Image', 'cpac' ),
-			'library_id'	=> __( 'Media Library', 'cpac' ),
-			'array'			=> __( 'Multiple Values', 'cpac' ),
-			'numeric'		=> __( 'Numeric', 'cpac' ),
-			'title_by_id'	=> __( 'Post Title (Post ID\'s)', 'cpac' ),
-			'user_by_id'	=> __( 'Username (User ID\'s)', 'cpac' ),
-			'term_by_id'	=> __( 'Term Name (Term ID\'s)', 'cpac' ),
+			''            => __( 'Default', 'codepress-admin-columns' ),
+			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
+			'color'       => __( 'Color', 'codepress-admin-columns' ),
+			'count'       => __( 'Counter', 'codepress-admin-columns' ),
+			'date'        => __( 'Date', 'codepress-admin-columns' ),
+			'excerpt'     => __( 'Excerpt' ),
+			'image'       => __( 'Image', 'codepress-admin-columns' ),
+			'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
+			'link'        => __( 'Url', 'codepress-admin-columns' ),
+			'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
+			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
+			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
+			'user_by_id'  => __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
+			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 		);
 
 		// deprecated. do not use, will be removed.
@@ -127,21 +132,23 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 *
 	 * @param string $meta
+	 *
 	 * @return string Titles
 	 */
 	public function get_ids_from_meta( $meta ) {
 
 		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ','', $meta ) );
+		$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
 
 		// var
 		$ids = array();
 
 		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false )
+		if ( strpos( $meta, ',' ) !== false ) {
 			$ids = explode( ',', $meta );
-		elseif ( is_numeric( $meta ) )
+		} elseif ( is_numeric( $meta ) ) {
 			$ids[] = $meta;
+		}
 
 		return $ids;
 	}
@@ -152,28 +159,46 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 *
 	 * @param string $meta
+	 *
 	 * @return string Titles
 	 */
-	private function get_titles_by_id( $meta ) {
+	private function get_titles_by_id( $ids ) {
 
 		$titles = array();
 
 		// display title with link
-		if ( $ids = $this->get_ids_from_meta( $meta ) ) {
+		if ( $ids = $this->get_ids_from_meta( $ids ) ) {
 			foreach ( (array) $ids as $id ) {
 
 				if ( ! is_numeric( $id ) ) {
 					continue;
 				}
 
-				$link = get_edit_post_link( $id );
-				if ( $title = get_the_title( $id ) )
+				if ( $title = $this->get_post_title( $id ) ) {
+					$link = get_edit_post_link( $id );
 					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
+				}
 			}
 		}
 
-		return implode('<span class="cpac-divider"></span>', $titles);
+		return implode( '<span class="cpac-divider"></span>', $titles );
 	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function get_link_by_meta( $meta ){
+		$label = $meta;
+		if( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match('/[^\w.-]/', $meta ) ){
+			if( $this->options->link_label ){
+				$label = $this->options->link_label;
+			}
+
+			$meta = '<a href="' . $meta . '">' . $label . '</a>';
+		}
+		return $meta;
+	}
+
 
 	/**
 	 * Get Users by ID - Value method
@@ -181,16 +206,19 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 *
 	 * @param string $meta
+	 *
 	 * @return string Users
 	 */
-	private function get_users_by_id( $meta )	{
+	private function get_users_by_id( $meta ) {
 
 		$names = array();
 
 		// display username
 		if ( $ids = $this->get_ids_from_meta( $meta ) ) {
 			foreach ( (array) $ids as $id ) {
-				if ( ! is_numeric( $id ) ) continue;
+				if ( ! is_numeric( $id ) ) {
+					continue;
+				}
 
 				$userdata = get_userdata( $id );
 				if ( is_object( $userdata ) && ! empty( $userdata->display_name ) ) {
@@ -212,13 +240,15 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 2.3.2
 	 *
 	 * @param array $meta_value Term ID's
+	 *
 	 * @return string Terms
 	 */
-	public function get_terms_by_id( $meta_value )	{
+	public function get_terms_by_id( $meta_value ) {
 		// as used by Pods, @todo
-		if ( ! is_array( $meta_value) || ! isset( $meta_value['term_id'] ) || ! isset( $meta_value['taxonomy'] ) ) {
+		if ( ! is_array( $meta_value ) || ! isset( $meta_value['term_id'] ) || ! isset( $meta_value['taxonomy'] ) ) {
 			return false;
 		}
+
 		return $this->get_terms_for_display( $meta_value['term_id'], $meta_value['taxonomy'] );
 	}
 
@@ -229,6 +259,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 *
 	 * @param string $meta Contains Meta Value
 	 * @param int $id Optional Object ID
+	 *
 	 * @return string Users
 	 */
 	public function get_value_by_meta( $meta, $id = null ) {
@@ -238,10 +269,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			case "image" :
 			case "library_id" :
 				$meta = implode( $this->get_thumbnails( $meta, array(
-					'image_size'	=> $this->options->image_size,
-					'image_size_w'	=> $this->options->image_size_w,
-					'image_size_h'	=> $this->options->image_size_h,
-				)));
+					'image_size'   => $this->options->image_size,
+					'image_size_w' => $this->options->image_size_w,
+					'image_size_h' => $this->options->image_size_h,
+				) ) );
 				break;
 
 			case "excerpt" :
@@ -250,6 +281,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 			case "date" :
 				$meta = $this->get_date( $meta, $this->options->date_format );
+				break;
+
+			case "link" :
+				$meta = $this->get_link_by_meta( $this->get_raw_value( $id ) );
 				break;
 
 			case "title_by_id" :
@@ -309,11 +344,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 *
 	 * @param int $id ID
+	 *
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
 
-		// get metadata
 		$meta = $this->get_raw_value( $id );
 
 		// try to turn any array into a comma seperated string for further use
@@ -321,7 +356,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			$meta = $this->recursive_implode( ', ', $meta );
 		}
 
-		if ( ! is_string( $meta ) ) {
+		if ( ! is_string( $meta ) && ! is_numeric( $meta ) ) {
 			return false;
 		}
 
@@ -352,8 +387,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$value = '';
 
 		if ( $meta = $this->get_meta_by_id( $id ) ) {
-
-			// get value by meta
 			$value = $this->get_value_by_meta( $meta, $id );
 		}
 
@@ -366,15 +399,42 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		 */
 		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
 
-		$before = $this->get_before();
-		$after 	= $this->get_after();
+		return $value;
+	}
 
-		// add before and after string
-		if ( $value ) {
-			$value = "{$before}{$value}{$after}";
+	/**
+	 * @since 2.4.7
+	 */
+	public function get_meta_keys() {
+		return $this->storage_model->get_meta_keys();
+	}
+
+	public function get_meta_keys_list() {
+		$list = false;
+
+		if ( $keys = $this->get_meta_keys() ) {
+			$lists = array();
+			foreach ( $keys as $field ) {
+				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
+					$lists['hidden'][] = $field;
+				} else {
+					$lists['public'][] = $field;
+				}
+			}
+			krsort( $lists ); // public first
+
+			$list = '<select name="' . $this->get_attr_name( 'field' ) . '" id="' . $this->get_attr_id( 'field' ) . '">';
+			foreach ( $lists as $type => $fields ) {
+				$list .= "<optgroup label='" . ( 'hidden' == $type ? __( 'Hidden Custom Fields', 'codepress-admin-columns' ) : __( 'Custom Fields', 'codepress-admin-columns' ) ) . "'>";
+				foreach ( $fields as $field ) {
+					$list .= "<option value='{$field}'" . selected( $field, $this->options->field, false ) . ">" . str_replace( 'cpachidden', '', $field ) . "</option>";
+				}
+				$list .= "</optgroup>";
+			}
+			$list .= '</select>';
 		}
 
-		return $value;
+		return $list;
 	}
 
 	/**
@@ -383,33 +443,33 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	public function display_settings() {
 
-		$show_hidden_meta = true;
+		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
+		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
+			$this->display_field_text( 'field', __( "Custom Field", 'codepress-admin-columns' ), __( "Enter your custom field key.", 'codepress-admin-columns' ) );
+		else :
 		?>
-
 		<tr class="column_field">
-			<?php $this->label_view( __( "Custom Field", 'cpac' ), __( "Select your custom field.", 'cpac' ), 'field' ); ?>
+			<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
 			<td class="input">
-
-				<?php if ( $meta_keys = $this->storage_model->get_meta_keys( $show_hidden_meta ) ) : ?>
-				<select name="<?php $this->attr_name( 'field' ); ?>" id="<?php $this->attr_id( 'field' ); ?>">
-				<?php foreach ( $meta_keys as $field ) : ?>
-					<option value="<?php echo $field ?>"<?php selected( $field, $this->options->field ) ?>><?php echo substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field; ?></option>
-				<?php endforeach; ?>
-				</select>
-				<?php else : ?>
-					<?php _e( 'No custom fields available.', 'cpac' ); ?> <?php printf( __( 'Please create a %s item first.', 'cpac' ), '<em>' . $this->storage_model->singular_label . '</em>' ); ?>
-				<?php endif; ?>
-
+				<?php
+				if ( $list = $this->get_meta_keys_list() ) {
+					echo $list;
+				} else {
+					_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->storage_model->singular_label . '</strong>' );
+				}
+				?>
 			</td>
 		</tr>
+		<?php endif; ?>
 
-		<tr class="column_field_type">
-			<?php $this->label_view( __( "Field Type", 'cpac' ), __( 'This will determine how the value will be displayed.', 'cpac' ) . '<em>' . __( 'Type', 'cpac' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
+		<tr class="column_field_type" data-refresh="1">
+			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
-				<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
-					<option value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->options->field_type ) ?>><?php echo $fieldtype; ?></option>
-				<?php endforeach; ?>
+					<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
+						<option
+							value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->options->field_type ) ?>><?php echo $fieldtype; ?></option>
+					<?php endforeach; ?>
 				</select>
 			</td>
 		</tr>
@@ -419,16 +479,16 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			case 'date':
 				$this->display_field_date_format();
 				break;
-			 case 'image':
-			 case 'library_id':
-			 	$this->display_field_preview_size();
-			 	break;
-			 case 'excerpt':
-			 	$this->display_field_excerpt_length();
-			 	break;
+			case 'image':
+			case 'library_id':
+				$this->display_field_preview_size();
+				break;
+			case 'excerpt':
+				$this->display_field_excerpt_length();
+				break;
+			case 'link':
+				$this->display_field_link_label();
+				break;
 		}
-
-		$this->display_field_before_after();
 	}
-
 }

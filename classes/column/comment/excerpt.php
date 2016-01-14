@@ -16,7 +16,7 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-excerpt';
-		$this->properties['label']	 = __( 'Content', 'cpac' );
+		$this->properties['label']	 = __( 'Content', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['excerpt_length'] = 15;

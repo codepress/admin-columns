@@ -16,14 +16,14 @@ class CPAC_Column_User_First_Name extends CPAC_Column {
 
 		// Properties
 		$this->properties['type']	 = 'column-first_name';
-		$this->properties['label']	 = __( 'First name', 'cpac' );
+		$this->properties['label']	 = __( 'First name', 'codepress-admin-columns' );
 	}
 
 	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 2.0
 	 */
-	function get_value( $user_id ) {
+	public function get_value( $user_id ) {
 
 		return $this->get_raw_value( $user_id );
 	}
@@ -32,7 +32,7 @@ class CPAC_Column_User_First_Name extends CPAC_Column {
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	function get_raw_value( $user_id ) {
+	public function get_raw_value( $user_id ) {
 
 		$userdata = get_userdata( $user_id );
 
