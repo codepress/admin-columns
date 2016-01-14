@@ -597,7 +597,7 @@ class CPAC {
 	 */
 	public function is_plugin_acf_active() {
 
-		return class_exists( 'acf' );
+		return class_exists( 'acf', false );
 	}
 
 	/**
@@ -609,7 +609,7 @@ class CPAC {
 	 */
 	public function is_plugin_woocommerce_active() {
 
-		return class_exists( 'WooCommerce' );
+		return class_exists( 'WooCommerce', false );
 	}
 
 }
