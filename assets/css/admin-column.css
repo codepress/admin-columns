@@ -2,6 +2,9 @@
 #cpac a:active {
   outline: none;
 }
+#cpac h2.cpac-nav-tab-wrapper {
+  margin-bottom: 10px;
+}
 /**
  * General
  * ----------------------------------------------------------------------------
@@ -106,13 +109,6 @@ a.help {
 .rtl .cpac-column .comment-grey-bubble:before {
   right: 0;
   left: auto;
-}
-/**
- * Header
- * ----------------------------------------------------------------------------
- */
-h2.cpac-nav-tab-wrapper {
-  margin-bottom: 10px;
 }
 /**
  * Menu
