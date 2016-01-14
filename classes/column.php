@@ -1236,6 +1236,24 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function  display_field_link_label(){
+		$field_key = 'link_label';
+		$label = __( 'Link label', 'codepress-admin-columns' );
+		$description = __( 'Leave blank to display the url', 'codepress-admin-columns' );
+
+		?>
+		<tr class="column_<?php echo $field_key; ?>">
+			<?php $this->label_view( $label, $description, $field_key ); ?>
+			<td class="input">
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->link_label; ?>"/>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function display_field_preview_size() {

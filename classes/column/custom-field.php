@@ -38,6 +38,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		$this->options['excerpt_length'] = 15;
 
+		$this->options['link_label'] = '';
+
 		$this->options['date_format'] = '';
 		$this->options['date_save_format'] = '';
 	}
@@ -101,6 +103,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			'excerpt'     => __( 'Excerpt' ),
 			'image'       => __( 'Image', 'codepress-admin-columns' ),
 			'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
+			'link'        => __( 'Url', 'codepress-admin-columns' ),
 			'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
 			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
 			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
@@ -180,6 +183,22 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		return implode( '<span class="cpac-divider"></span>', $titles );
 	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function get_link_by_meta( $meta ){
+		$label = $meta;
+		if( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match('/[^\w.-]/', $meta ) ){
+			if( $this->options->link_label ){
+				$label = $this->options->link_label;
+			}
+
+			$meta = '<a href="' . $meta . '">' . $label . '</a>';
+		}
+		return $meta;
+	}
+
 
 	/**
 	 * Get Users by ID - Value method
@@ -262,6 +281,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 			case "date" :
 				$meta = $this->get_date( $meta, $this->options->date_format );
+				break;
+
+			case "link" :
+				$meta = $this->get_link_by_meta( $this->get_raw_value( $id ) );
 				break;
 
 			case "title_by_id" :
@@ -462,6 +485,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				break;
 			case 'excerpt':
 				$this->display_field_excerpt_length();
+				break;
+			case 'link':
+				$this->display_field_link_label();
 				break;
 		}
 	}
