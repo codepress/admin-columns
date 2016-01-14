@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
+* [Added] Display format Url added to Custom Fields
 * [Added] Allow the use of before and after fields for all columns
 * [Fixed] Removed post type Field Groups from ACF
 * [Fixed] Removed additional avatars from the comments view
