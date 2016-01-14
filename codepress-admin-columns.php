@@ -587,6 +587,31 @@ class CPAC {
 
 		return $this->_upgrade;
 	}
+
+	/**
+	 * Check whether the Advanced Custom Fields plugin is active
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool Whether the Advanced Custom Fields plugin is active
+	 */
+	public function is_plugin_acf_active() {
+
+		return class_exists( 'acf', false );
+	}
+
+	/**
+	 * Check whether the WooCommerce plugin is active
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool Whether the WooCommerce plugin is active
+	 */
+	public function is_plugin_woocommerce_active() {
+
+		return class_exists( 'WooCommerce', false );
+	}
+
 }
 
 /**
