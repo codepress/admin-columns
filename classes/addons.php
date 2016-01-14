@@ -50,11 +50,11 @@ class CPAC_Addons {
 		$plugins = array();
 
 		if ( $this->cpac->is_plugin_acf_active() && ! class_exists( 'CPAC_Addon_ACF' ) ) {
-			$plugins[] = __( 'Advanced Custom Fields', 'cpac' );
+			$plugins[] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
 		}
 
 		if ( $this->cpac->is_plugin_woocommerce_active() && ! class_exists( 'CPAC_Addon_WC' ) ) {
-			$plugins[] = __( 'WooCommerce', 'cpac' );
+			$plugins[] = __( 'WooCommerce', 'codepress-admin-columns' );
 		}
 
 		if ( $plugins ) {
@@ -72,15 +72,15 @@ class CPAC_Addons {
 					$plugins = array( $plugins_list, $plugins[ $num_plugins - 1 ] );
 				}
 
-				$plugins_list = sprintf( __( '%s and %s', 'cpac' ), $plugins[0], $plugins[1] );
+				$plugins_list = sprintf( __( '%s and %s', 'codepress-admin-columns' ), $plugins[0], $plugins[1] );
 			}
 			?>
 			<div class="cpac_message updated">
 				<a href="#" class="hide-notice hide-install-addons-notice"></a>
 				<p><?php printf(
-					__( "Did you know Admin Columns Pro features quite a few integration addons, including addons for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'cpac' ),
+					__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
 					$plugins_list,
-					'<a href="' . $this->cpac->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'cpac' ) . '</a>'
+					'<a href="' . $this->cpac->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'codepress-admin-columns' ) . '</a>'
 				); ?>
 			</div>
 			<style type="text/css">
@@ -167,13 +167,13 @@ class CPAC_Addons {
 		}
 
 		if ( ! $this->get_addon( $_GET['plugin'] ) ) {
-			cpac_admin_message( 'Addon does not exist.', 'error' );
+			cpac_admin_message( __( 'Addon does not exist.', 'codepress-admin-columns' ), 'error' );
 
 			return;
 		}
 
 		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
-			cpac_admin_message( 'You need Admin Columns Pro.', 'error' );
+			cpac_admin_message(  __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
 
 			return;
 		}
