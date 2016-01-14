@@ -103,7 +103,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			'excerpt'     => __( 'Excerpt' ),
 			'image'       => __( 'Image', 'codepress-admin-columns' ),
 			'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
-			'link'        => __( 'Link', 'codepress-admin-columns' ),
+			'link'        => __( 'Url', 'codepress-admin-columns' ),
 			'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
 			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
 			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
