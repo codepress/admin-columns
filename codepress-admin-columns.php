@@ -104,6 +104,11 @@ class CPAC {
 	public $exported_columns;
 
 	/**
+	 * @since NEWVERSION
+	 */
+	private $current_storage_model;
+
+	/**
 	 * @since 1.0
 	 */
 	function __construct() {
@@ -327,14 +332,15 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-
-		if ( $this->storage_models ) {
+		if ( ! $this->current_storage_model && $this->storage_models ) {
 			foreach ( $this->storage_models as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
-					return $storage_model;
+					$this->current_storage_model = $storage_model;
 				}
 			}
 		}
+
+		return $this->current_storage_model;
 	}
 
 	/**
