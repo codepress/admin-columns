@@ -1158,29 +1158,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.4.7
-	 */
-	public function get_filter_operator_label( $name ) {
-		$operators = $this->get_filter_operators();
-
-		return isset( $operators[ $name ] ) ? $operators[ $name ] : false;
-	}
-
-	/**
-	 * @since 2.4.7
-	 */
-	public function get_filter_operators() {
-		$operators = array(
-			''      => __( 'Exact match', 'codepress-admin-columns' ),
-			'<='    => __( 'Lesser than', 'codepress-admin-columns' ),
-			'>='    => __( 'Greater than', 'codepress-admin-columns' ),
-			'range' => __( 'Range', 'codepress-admin-columns' ),
-		);
-
-		return $operators;
-	}
-
-	/**
 	 * @since 2.0
 	 *
 	 * @param string $field_key
