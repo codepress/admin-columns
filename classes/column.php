@@ -576,7 +576,7 @@ class CPAC_Column {
 
 		$string = $this->options->label;
 		$string = strip_tags( $string );
-		$string = preg_replace("/[^a-zA-Z0-9]+/", "", $string);
+		$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
 		$string = str_replace( 'http://', '', $string );
 		$string = str_replace( 'https://', '', $string );
 
@@ -1009,7 +1009,7 @@ class CPAC_Column {
 					$max = max( array( $width, $height ) );
 					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
 				}
-				
+
 			}
 		}
 
@@ -1171,10 +1171,10 @@ class CPAC_Column {
 	 */
 	public function get_filter_operators() {
 		$operators = array(
-			''        => __( 'Exact match', 'codepress-admin-columns' ),
-			'<='      => __( 'Lesser than', 'codepress-admin-columns' ),
-			'>='      => __( 'Greater than', 'codepress-admin-columns' ),
-			'between' => __( 'Range', 'codepress-admin-columns' ),
+			''      => __( 'Exact match', 'codepress-admin-columns' ),
+			'<='    => __( 'Lesser than', 'codepress-admin-columns' ),
+			'>='    => __( 'Greater than', 'codepress-admin-columns' ),
+			'range' => __( 'Range', 'codepress-admin-columns' ),
 		);
 
 		return $operators;
@@ -1245,7 +1245,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function  display_field_link_label(){
+	public function display_field_link_label() {
 		$field_key = 'link_label';
 		$label = __( 'Link label', 'codepress-admin-columns' );
 		$description = __( 'Leave blank to display the url', 'codepress-admin-columns' );

@@ -13,13 +13,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		$this->set_post_type( $post_type );
 
-		$this->key            = $this->post_type;
-		$this->label          = $this->post_type_object->labels->name;
+		$this->key = $this->post_type;
+		$this->label = $this->post_type_object->labels->name;
 		$this->singular_label = $this->post_type_object->labels->singular_name;
-		$this->type           = 'post';
-		$this->meta_type      = 'post';
-		$this->page           = 'edit';
-		$this->menu_type      = 'post';
+		$this->type = 'post';
+		$this->meta_type = 'post';
+		$this->page = 'edit';
+		$this->menu_type = 'post';
 
 		parent::__construct();
 	}
@@ -62,6 +62,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			'fields'        => 'ids',
 			'no_found_rows' => 1, // lowers our carbon footprint
 		);
+
 		return (array) get_posts( array_merge( $defaults, $args ) );
 	}
 
@@ -69,7 +70,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.3.5
 	 */
 	private function set_post_type( $post_type ) {
-		$this->post_type        = $post_type;
+		$this->post_type = $post_type;
 		$this->post_type_object = get_post_type_object( $post_type );
 	}
 
@@ -82,7 +83,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Setup post data for current post
 		$post_old = $post;
-		$post     = get_post( $id );
+		$post = get_post( $id );
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
@@ -215,7 +216,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		// Setup post data for current post
 		$post_old = $post;
-		$post     = get_post( $post_id );
+		$post = get_post( $post_id );
 		setup_postdata( $post );
 
 		$value = $column->get_display_value( $post_id );

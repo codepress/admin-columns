@@ -335,6 +335,7 @@ class CPAC {
 				}
 			}
 		}
+		return false;
 	}
 
 	/**
