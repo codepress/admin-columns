@@ -652,8 +652,8 @@ class CPAC_Settings {
 			switch ( $current_tab ) :
 				case 'general':
 
-					$post_types = array_values( $this->cpac->get_post_types() );
-					$first = array_shift( $post_types );
+					$keys = array_keys( $this->cpac->storage_models );
+					$first = array_shift( $keys );
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
