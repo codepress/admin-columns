@@ -7,6 +7,8 @@
  */
 abstract class CPAC_Storage_Model {
 
+	CONST LAYOUT_KEY = 'cpac_layouts';
+
 	/**
 	 * @since 2.0
 	 */
@@ -62,7 +64,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var int/string
 	 */
-	public $layout;
+	public $layout = '';
 
 	/**
 	 * Uses PHP export to display settings
@@ -263,21 +265,98 @@ abstract class CPAC_Storage_Model {
 	}
 
 
+
+
+	//##############
+	//##############
+	//##############
+	//##############
+	//##############
+
+
+	private function get_layout_key() {
+		return self::LAYOUT_KEY . $this->key;
+	}
+
+	public function get_layouts() {
+		return get_option( $this->get_layout_key() );
+	}
+
+	public function get_layout_by_id( $id ) {
+		$layouts = $this->get_layouts();
+
+		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
+	}
+
+	public function create_layout( $args ) {
+
+		if ( empty( $args['name'] ) ) {
+			return new WP_Error( 'missing-name', __( 'Layout name can not be empty.', 'codepress-admin-columns' ) );
+		}
+
+		// make sure all layouts contain the administrator role
+		$default_roles = array( 'administrator' );
+		$args['roles'] = array_unique( array_merge( (array) $args['roles'], $default_roles ) );
+
+		$layouts = $this->get_layouts();
+		$layouts[] = $args;
+
+		update_option( $this->get_layout_key(), $layouts );
+
+		// return Layout ID
+		end( $layouts );
+
+		return key( $layouts );
+	}
+
+	public function delete_layout( $id ) {
+		$deleted = false;
+		if ( ( $layouts = $this->get_layouts() ) && ( isset( $layouts[ $id ] ) ) ) {
+			unset( $layouts[ $id ] );
+			$deleted = update_option( $this->get_layout_key(), $layouts );
+		}
+
+		return $deleted;
+	}
+
+
+
+
+
+	//##############
+	//##############
+	//##############
+	//##############
+	//##############
+
+	public function get_layout() {
+		return $this->layout;
+	}
+
 	public function set_layout( $layout ) {
 		$this->layout = $layout;
 	}
+
 	public function load_layout( $layout ) {
-		$this->set( $layout );
+		$this->set_layout( $layout );
 		$this->set_columns();
 	}
 
-	public function set_current_editing_layout( $layout_id ) {
-		update_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, $layout_id );
+	public function get_current_editing_layout() {
+		return isset( $_REQUEST['layout_id'] ) ? $_REQUEST['layout_id'] : '';
+	}
+
+	/*public function set_current_editing_layout( $layout ) {
+		update_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, $layout );
 	}
 
 	public function get_current_editing_layout() {
 		return get_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, true );
-	}
+	}*/
+
+	/*public function create_profile( $name, $roles = array() ) {
+		update_option( 'cpac_layout_')
+	}*/
 
 	/*
 
@@ -398,7 +477,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function restore() {
 		delete_option( $this->get_storage_id() );
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 	}
 
 	/**
@@ -436,11 +514,12 @@ abstract class CPAC_Storage_Model {
 			if ( $message ) {
 				cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
 			}
+
 			return false;
 		}
 
 		if ( $message ) {
-			cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.',  'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+			cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
 		}
 
 		/**
@@ -997,12 +1076,36 @@ abstract class CPAC_Storage_Model {
 		}
 	}
 
+	public function settings_url() {
+		$args = array(
+			'page'     => 'codepress-admin-columns',
+			'cpac_key' => $this->key
+		);
+		if ( $this->layout ) {
+			$args['layout_id'] = $this->layout;
+		}
+
+		return add_query_arg( $args, admin_url( 'options-general.php' ) );
+	}
+
 	/**
 	 * @since 2.0
 	 */
-	public function get_edit_link() {
+	public function get_edit_link( $layout = '' ) {
+		$args = $layout ? array( 'layout_id' => $layout ) : array();
 
-		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
+		return add_query_arg( $args, $this->settings_url() );
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function get_restore_link() {
+		$args = array(
+			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
+			'cpac_action' => 'restore_by_type'
+		);
+		return add_query_arg( $args, $this->settings_url() );
 	}
 
 	/**

@@ -255,20 +255,16 @@ class CPAC_Settings {
 		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
 
 		// Layouts
-		//$layout = isset( $_REQUEST['cpac_layout'] ) ? intval( $_REQUEST['cpac_layout'] ) : '';
-		//$layout_name = isset( $_REQUEST['cpac_layout'] ) ? intval( $_REQUEST['cpac_layout'] ) : '';
-		//$name
+		$layout = isset( $_REQUEST['layout_id'] ) ? intval( $_REQUEST['layout_id'] ) : '';
 
 		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
-						//$storage_model->set_layout( $layout );
+						$storage_model->set_layout( $layout );
 						$storage_model->store();
-
-						// refresh columns otherwise the newly added columns will not be displayed
-						$this->cpac->set_columns_on_current_screen();
+						$storage_model->set_columns();
 					}
 				}
 				break;
@@ -276,11 +272,10 @@ class CPAC_Settings {
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
-						//$storage_model->set_layout( $layout );
+						$storage_model->set_layout( $layout );
 						$storage_model->restore();
 
 						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.', 'cpac' ), 'updated' );
-
 					}
 				}
 				break;
@@ -659,8 +654,8 @@ class CPAC_Settings {
 			switch ( $current_tab ) :
 				case 'general':
 
-					$post_types = array_values( $this->cpac->get_post_types() );
-					$first = array_shift( $post_types );
+					$keys = array_keys( $this->cpac->storage_models );
+					$first = array_shift( $keys );
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
@@ -702,6 +697,8 @@ class CPAC_Settings {
 								</h2>
 							</div>
 
+							<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
+
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="error below-h2">
 									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
@@ -722,11 +719,7 @@ class CPAC_Settings {
 										</div>
 										<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">
-												<a href="<?php echo add_query_arg( array(
-													'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
-													'cpac_key'    => $storage_model->key,
-													'cpac_action' => 'restore_by_type'
-												), $this->get_settings_url( 'admin' ) ); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ), $storage_model->label ); ?>');">
+												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ), $storage_model->label ); ?>');">
 													<?php _e( 'Restore', 'codepress-admin-columns' ); ?>
 													<?php echo ' ' . $storage_model->label . ' '; ?>
 													<?php _e( 'columns', 'codepress-admin-columns' ); ?>

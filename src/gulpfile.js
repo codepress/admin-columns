@@ -9,7 +9,6 @@ gutil      = require('gulp-util'),
 minifyCSS  = require('gulp-minify-css'),
 livereload = require('gulp-livereload'),
 less       = require('gulp-less'),
-less       = require('gulp-less'),
 rename     = require('gulp-rename'),
 uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
