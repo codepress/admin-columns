@@ -64,7 +64,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var int/string
 	 */
-	public $layout = '';
+	public $layout;
 
 	/**
 	 * Uses PHP export to display settings
@@ -131,6 +131,8 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.2
 	 */
 	function __construct() {
+
+		$this->init_layout();
 
 		// set columns paths
 		$this->set_columns_filepath();
@@ -264,28 +266,56 @@ abstract class CPAC_Storage_Model {
 		return $combined_fields;
 	}
 
-
-
-
-	//##############
-	//##############
-	//##############
-	//##############
-	//##############
-
-
+	/**
+	 * Layouts
+	 *
+	 * @since NEWVERSION
+	 */
 	private function get_layout_key() {
 		return self::LAYOUT_KEY . $this->key;
 	}
 
 	public function get_layouts() {
-		return get_option( $this->get_layout_key() );
+		return get_option( $this->get_layout_key(), array() );
 	}
 
 	public function get_layout_by_id( $id ) {
-		$layouts = $this->get_layouts();
+		if ( $layouts = $this->get_layouts() ) {
+			foreach ( $layouts as $layout ) {
+				if ( $layout->id == $id ) {
+					return $layout;
+				}
+			}
+		}
 
-		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
+		return false;
+	}
+
+	public function update_layout( $id, $args ) {
+
+		if ( $layout = $this->get_layout_by_id( $id ) ) {
+			if ( isset( $args['roles'] ) ) {
+				$layout->roles = $args['roles'];
+			}
+			if ( ! empty( $args['name'] ) ) { // can not be empty
+				$layout->name = $args['name'];
+			}
+
+			$this->store_layout( $layout, $id );
+		}
+	}
+
+	private function store_layout( $layout, $id ) {
+		$layouts = $this->get_layouts();
+		if ( $layouts ) {
+			foreach ( $layouts as $k => $_layout ) {
+				if ( $_layout->id == $id ) {
+					$layouts[ $k ] = $layout;
+				}
+			}
+		}
+
+		update_option( $this->get_layout_key(), array_filter( $layouts ) );
 	}
 
 	public function create_layout( $args ) {
@@ -294,40 +324,47 @@ abstract class CPAC_Storage_Model {
 			return new WP_Error( 'missing-name', __( 'Layout name can not be empty.', 'codepress-admin-columns' ) );
 		}
 
+		$layouts = $this->get_layouts();
+
 		// make sure all layouts contain the administrator role
 		$default_roles = array( 'administrator' );
 		$args['roles'] = array_unique( array_merge( (array) $args['roles'], $default_roles ) );
 
-		$layouts = $this->get_layouts();
-		$layouts[] = $args;
+		// new ID is highest layout ID + 1
+		$ids = wp_list_pluck( (array) $layouts, 'id' );
+		$layout_id = $ids ? intval( max( $ids ) ) + 1 : 1;
+		$args['id'] = $layout_id ;
 
-		update_option( $this->get_layout_key(), $layouts );
+		$layouts[] = (object) $args;
 
-		// return Layout ID
-		end( $layouts );
+		update_option( $this->get_layout_key(), array_filter( $layouts ) );
 
-		return key( $layouts );
+		return $layout_id;
+	}
+
+	public function delete_layouts() {
+		delete_option( $this->get_layout_key() );
 	}
 
 	public function delete_layout( $id ) {
 		$deleted = false;
-		if ( ( $layouts = $this->get_layouts() ) && ( isset( $layouts[ $id ] ) ) ) {
-			unset( $layouts[ $id ] );
-			$deleted = update_option( $this->get_layout_key(), $layouts );
+		if ( $layouts = $this->get_layouts() ) {
+			foreach ( $layouts as $k => $layout ) {
+				if ( $layout->id == $id ) {
+					unset( $layouts[ $k ] );
+					$deleted = $layout;
+				}
+			}
+		}
+		if ( $deleted ) {
+			$this->set_layout( $id );
+			$this->restore();
+
+			update_option( $this->get_layout_key(), $layouts );
 		}
 
 		return $deleted;
 	}
-
-
-
-
-
-	//##############
-	//##############
-	//##############
-	//##############
-	//##############
 
 	public function get_layout() {
 		return $this->layout;
@@ -337,139 +374,38 @@ abstract class CPAC_Storage_Model {
 		$this->layout = $layout;
 	}
 
-	public function load_layout( $layout ) {
-		$this->set_layout( $layout );
-		$this->set_columns();
-	}
-
 	public function get_current_editing_layout() {
 		return isset( $_REQUEST['layout_id'] ) ? $_REQUEST['layout_id'] : '';
 	}
 
-	/*public function set_current_editing_layout( $layout ) {
-		update_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, $layout );
-	}
-
-	public function get_current_editing_layout() {
-		return get_user_meta( get_current_user_id(), 'cpac_layout_editing_' . $this->key, true );
-	}*/
-
-	/*public function create_profile( $name, $roles = array() ) {
-		update_option( 'cpac_layout_')
-	}*/
-
-	/*
-
-	private function get_profile() {
-		return $this->profile;
-	}
-
-	private function get_profile_storage_id() {
-		return 'cpac_profile_' . $this->key;
-	}
-
-	public function get_profiles() {
-		$profiles = (array) get_option( $this->get_profile_storage_id() );
-		natcasesort( $profiles );
-		return $profiles;
-	}
-
-	public function get_unique_profile_name( $prefix = 'Profile' ) {
-		$profiles = array_keys( $this->get_profiles() );
-		return $prefix . ' #' . ( count( $profiles ) + 1 );
-	}
-
-	public function create_profile( $name, $columns = '' ) {
-		if ( empty( $name ) ) {
-			return new WP_Error( 'empty_name', __( 'Profile name is empty.', 'cpac' ) );
+	private function init_layout() {
+		if ( null === $this->layout ) {
+			$this->set_single_layout_id();
 		}
-		$profiles = $this->get_profiles();
-		if ( in_array( $name, $profiles ) ) {
-			return new WP_Error( 'name_exists', sprintf( __( 'Profile name %s already exists.', 'cpac' ), "<strong>\"" . esc_html( $name ) . "\"</strong>" ) );
-		}
-		$profiles[] = $name;
-		update_option( $this->get_profile_storage_id(), array_filter( $profiles ) );
-		end( $profiles );
-		$id = key( $profiles );
-		$this->load_profile( $id );
-		if ( $columns ) {
-			$this->store( $columns, false );
-		}
-		return $id;
 	}
 
-	public function update_profile_name( $id, $name ) {
-		$profiles = $this->get_profiles();
-		if ( ! isset( $profiles[ $id ] ) ) {
-			return false;
+	public function set_single_layout_id() {
+		if ( $layout_id = $this->get_single_layout_id() ) {
+			$this->set_layout( $layout_id );
 		}
-		$profiles[ $id ] = $name;
-		update_option( $this->get_profile_storage_id(), $profiles );
 	}
 
-	public function delete_profile( $id ) {
-		$profiles = $this->get_profiles();
-		if ( ! isset( $profiles[ $id ] ) ) {
-			return false;
-		}
-		$name = $profiles[ $id ];
-		unset( $profiles[ $id ] );
-		update_option( $this->get_profile_storage_id(), $profiles );
-
-		$org_profile_id = $this->get_profile();
-
-		// if last profile is deleted, store it's column settings as default
-		if ( empty( $profiles ) ) {
-			$org_columns = $this->get_stored_columns();
+	public function get_single_layout_id() {
+		$layouts = $this->get_layouts();
+		if ( ! $layouts ) {
+			return null;
 		}
 
-		// restore columns
-		$this->set_profile( $id );
-		$this->restore();
-
-		// current profile was deleted? load the first one
-		if ( $id == $org_profile_id && $profiles ) {
-			$this->load_profile( key( $profiles ) );
-		}
-
-		if ( isset( $org_columns ) ) {
-			$this->store( $org_columns, false );
-		}
-
-		return $name;
+		return reset( $layouts )->id;
 	}
-
-	public function delete_current_profile() {
-		$this->delete_profile( $this->profile );
-	}
-
-	public function load_profile( $id ) {
-		$profiles = $this->get_profiles();
-		if ( ! isset( $profiles[ $id ] ) ) {
-			return new WP_Error( 'profile_not_found', __( 'Profile not found.', 'cpac' ) );
-		}
-		update_option( $this->get_profile_storage_id() . '_current', $id );
-		$this->set_profile( $id );
-		$this->set_columns(); // load columns
-		return $profiles[ $id ];
-	}
-
-	public function get_current_profile_id() {
-		//return get_option( $this->get_profile_storage_id() . '_current', '' );
-	}
-
-	public function get_current_profile_name() {
-		$profiles = $this->get_profiles();
-		$id = $this->get_current_profile_id();
-		return isset( $profiles[ $id ] ) ? $profiles[ $id ] : false;
-	}*/
 
 	/**
 	 * Get store ID
 	 * @since NEWVERSION
 	 */
 	private function get_storage_id() {
-		return "cpac_options_" . $this->key . $this->layout;
+		$layout = $this->layout ? $this->layout : '';
+		return "cpac_options_" . $this->key . $layout;
 	}
 
 	/**
@@ -489,7 +425,9 @@ abstract class CPAC_Storage_Model {
 		}
 
 		if ( ! $columns ) {
-			cpac_admin_message( __( 'No columns settings available.', 'codepress-admin-columns' ), 'error' );
+			if ( $message ) {
+				cpac_admin_message( __( 'No columns settings available.', 'codepress-admin-columns' ), 'error' );
+			}
 
 			return false;
 		}
@@ -1079,11 +1017,9 @@ abstract class CPAC_Storage_Model {
 	public function settings_url() {
 		$args = array(
 			'page'     => 'codepress-admin-columns',
-			'cpac_key' => $this->key
+			'cpac_key' => $this->key,
+			'layout_id' => $this->layout
 		);
-		if ( $this->layout ) {
-			$args['layout_id'] = $this->layout;
-		}
 
 		return add_query_arg( $args, admin_url( 'options-general.php' ) );
 	}
@@ -1091,8 +1027,8 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	public function get_edit_link( $layout = '' ) {
-		$args = $layout ? array( 'layout_id' => $layout ) : array();
+	public function get_edit_link( $layout = null ) {
+		$args = null !== $layout ? array( 'layout_id' => $layout ) : array();
 
 		return add_query_arg( $args, $this->settings_url() );
 	}

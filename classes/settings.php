@@ -255,7 +255,7 @@ class CPAC_Settings {
 		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
 
 		// Layouts
-		$layout = isset( $_REQUEST['layout_id'] ) ? intval( $_REQUEST['layout_id'] ) : '';
+		$layout = isset( $_POST['cpac_layout'] ) ? intval( $_POST['cpac_layout'] ) : '';
 
 		switch ( $action ) :
 
@@ -297,6 +297,8 @@ class CPAC_Settings {
 	private function restore_all() {
 		global $wpdb;
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_layouts%'" );
+
 		cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 	}
 
@@ -867,6 +869,7 @@ class CPAC_Settings {
 
 											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 											<input type="hidden" name="cpac_action" value="update_by_type"/>
+											<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
 
 											<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 
