@@ -19,7 +19,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function init_manage_columns() {
 

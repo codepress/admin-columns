@@ -104,7 +104,7 @@ class CPAC {
 	public $exported_columns;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	private $current_storage_model;
 
@@ -597,7 +597,7 @@ class CPAC {
 	/**
 	 * Check whether the Advanced Custom Fields plugin is active
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 *
 	 * @return bool Whether the Advanced Custom Fields plugin is active
 	 */
@@ -609,7 +609,7 @@ class CPAC {
 	/**
 	 * Check whether the WooCommerce plugin is active
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 *
 	 * @return bool Whether the WooCommerce plugin is active
 	 */
