@@ -209,6 +209,7 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function admin_styles() {
+
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wp-pointer' );

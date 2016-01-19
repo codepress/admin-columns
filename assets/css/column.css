@@ -9,10 +9,19 @@
 span.status-closed {
   color: red;
 }
+.actions #post-query-submit {
+  float: left;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
 .tablenav.top .cpac-edit {
-  top: 0;
+  top: 2px;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
+  float: left;
+}
+body.upload-php .tablenav.top .cpac-edit {
+  float: none;
 }
 /* =General Column
 -------------------------------------------------------------- */
