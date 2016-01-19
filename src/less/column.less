@@ -6,14 +6,25 @@
 	height: 12px;
 	background: transparent url(../images/square.png) no-repeat 50% 7px;
 }
-span.status-open {}
+
+span.status-open {
+}
+
 span.status-closed {
 	color: red;
 }
+
+.actions #post-query-submit {
+	float: left;
+	vertical-align: middle;
+	margin-bottom: 4px;
+}
+
 .tablenav.top .cpac-edit {
-	top: 0;
+	top: 2px;
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: middle;
+	float: left;
 }
 
 /* =General Column
@@ -29,6 +40,7 @@ span.status-closed {
 	margin-left: 8px;
 	font-size: 12px;
 }
+
 /* =Images Column
 -------------------------------------------------------------- */
 .cpac-column-value-image {
@@ -37,18 +49,22 @@ span.status-closed {
 	margin-right: 2px;
 	overflow: hidden;
 }
+
 .rtl .cpac-column-value-image {
 	margin-left: 2px;
 	margin-right: 0;
 }
+
 .cpac-column-value-image img {
 	display: block;
 	margin: 0 auto;
 }
+
 .column-column-attachment img {
 	padding-right: 5px;
 	padding-bottom: 4px;
 }
+
 .rtl .column-column-attachment img {
 	padding-left: 5px;
 	padding-right: 0;
@@ -59,23 +75,25 @@ span.status-closed {
 div.cpac-color {
 	line-height: 26px;
 }
+
 div.cpac-color span {
 	display: block;
 	-webkit-border-radius: 3px;
-    border-radius: 3px;
+	border-radius: 3px;
 	color: #ffffff;
-    float: left;
-    height: 16px;
-    line-height: 16px;
-    margin-right: 12px;
-    min-width: 30px;
-    overflow: hidden;
-    padding: 4px 5px;
-    font-size: 10px;
-    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
-    min-width: 47px;
-    text-align: center;
+	float: left;
+	height: 16px;
+	line-height: 16px;
+	margin-right: 12px;
+	min-width: 30px;
+	overflow: hidden;
+	padding: 4px 5px;
+	font-size: 10px;
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	min-width: 47px;
+	text-align: center;
 }
+
 .rtl div.cpac-color span {
 	float: right;
 	margin-left: 12px;
@@ -95,7 +113,7 @@ div.sizes span.not-available {
 	text-indent: 9999px;
 	margin-right: 4px;
 	padding: 0 13px;
-    overflow: hidden;
+	overflow: hidden;
 
 	&:before {
 		position: absolute;
@@ -114,7 +132,7 @@ div.sizes span.not-available {
 }
 
 .qtip.qtip-tipsy {
-	background: rgba( 0, 0, 0, .75 );
+	background: rgba(0, 0, 0, .75);
 	font-weight: normal;
 	min-width: 25px;
 }
