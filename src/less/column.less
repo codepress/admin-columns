@@ -25,8 +25,25 @@ span.status-closed {
 	display: inline-block;
 	vertical-align: middle;
 	float: left;
+	margin-bottom: 4px;
 }
 
+// Allow mobile screen to use the edit buttons
+@media screen and (max-width: 782px) {
+	.tablenav.top .actions {
+		display: block !important;
+		margin-bottom: 4px;
+
+		* {
+			display: none;
+		}
+		.cpac-edit {
+			display: inline-block;
+		}
+	}
+}
+
+// Media screen
 body.upload-php .tablenav.top .cpac-edit {
 	float: none;
 }
