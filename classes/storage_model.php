@@ -399,6 +399,14 @@ abstract class CPAC_Storage_Model {
 		return reset( $layouts )->id;
 	}
 
+	public function set_current_listings_layout( $layout_id ) {
+		update_user_meta( get_current_user_id(), $this->get_layout_key(), $layout_id );
+	}
+
+	public function get_current_listings_layout() {
+		return get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
+	}
+
 	/**
 	 * Get store ID
 	 * @since NEWVERSION
@@ -1018,8 +1026,11 @@ abstract class CPAC_Storage_Model {
 		$args = array(
 			'page'     => 'codepress-admin-columns',
 			'cpac_key' => $this->key,
-			'layout_id' => $this->layout
 		);
+
+		if ( $this->layout ) {
+			$args['layout_id'] = $this->layout;
+		}
 
 		return add_query_arg( $args, admin_url( 'options-general.php' ) );
 	}

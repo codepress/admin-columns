@@ -295,6 +295,11 @@ class CPAC {
 			$current_screen = $storage_model->is_current_screen();
 
 			if ( $is_ajax || $is_settings || $current_screen ) {
+
+				// Load layout
+				$layout = $storage_model->get_current_listings_layout();
+				$storage_model->set_layout( $layout );
+
 				$storage_model->set_columns();
 			}
 
