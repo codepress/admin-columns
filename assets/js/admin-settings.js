@@ -690,7 +690,8 @@ function cpac_menu() {
 			var columns = container.find( '.cpac-columns' );
 
 			// hook for addons
-			jQuery( document ).trigger( 'cac_menu_change', columns );
+			jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
+			jQuery( document ).trigger( 'cac_model_ready', type );
 		}
 
 		// re init sidebar scroll

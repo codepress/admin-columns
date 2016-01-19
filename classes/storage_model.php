@@ -276,7 +276,22 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_layouts() {
-		return get_option( $this->get_layout_key(), array() );
+		return array_reverse( get_option( $this->get_layout_key(), array() ) );
+	}
+
+	public function get_layouts_for_current_user() {
+		$layouts = $this->get_layouts();
+		foreach ( $layouts as $k => $layout ) {
+			foreach ( $layout->roles as $role ) {
+				if ( in_array( $role, array( 'all', '' ) ) ) {
+					continue;
+				}
+				if ( ! current_user_can( $role ) ) {
+					unset( $layouts[ $k ] );
+				}
+			}
+		}
+		return $layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
