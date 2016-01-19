@@ -20,6 +20,9 @@ span.status-closed {
   vertical-align: middle;
   float: left;
 }
+body.upload-php .tablenav.top .cpac-edit {
+  float: none;
+}
 /* =General Column
 -------------------------------------------------------------- */
 .cpac-rounded {
