@@ -214,8 +214,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 * [Added] Display format Url added to Custom Fields
-* [Added] Allow the use of before and after fields for all columns
-* [Fixed] Removed post type Field Groups from ACF
+* [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
+* [Fixed] Removed Field Groups from post types
 * [Fixed] Removed additional avatars from the comments view
 * [Added] Added the option to replace the Custom Field select menu with a text input. Use add_filter( 'cac/column/meta/use_text_input', '__return_true' ).
 
