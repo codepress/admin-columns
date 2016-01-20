@@ -299,7 +299,7 @@ class CPAC {
 			}
 
 			// Load headings and values on overviews screen
-			if ( $current_screen ) {
+			if ( $is_ajax || $current_screen ) {
 				$storage_model->init_manage_columns();
 			}
 		}
