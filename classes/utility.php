@@ -26,7 +26,7 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  */
 function cpac_admin_notice() {
 
-    echo implode( $GLOBALS['cpac_messages'] );
+	echo implode( $GLOBALS['cpac_messages'] );
 }
 
 /**
@@ -39,15 +39,13 @@ function cac_is_doing_ajax() {
 		return false;
 	}
 
-	if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) ) {
-		return true;
-	}
-
-	if ( ( isset( $_POST['action'] ) && 'edit-comment' === $_POST['action'] ) ) {
-		return true;
-	}
-
-	if ( ( isset( $_POST['action'] ) && 'replyto-comment' === $_POST['action'] ) ) {
+	if ( in_array( filter_input( INPUT_POST, 'action' ), array(
+		'inline-save', // Quick edit
+		'add-tag', // Adding terms
+		'inline-save-tax', // Quick edit terms
+		'edit-comment', // Quick edit comment
+		'replyto-comment' // Inline reply on comment
+	) ) ) {
 		return true;
 	}
 
@@ -66,6 +64,7 @@ function cac_is_doing_ajax() {
  */
 function cpac_is_wc_version_gte( $version = '1.0' ) {
 	$wc_version = defined( 'WC_VERSION' ) && WC_VERSION ? WC_VERSION : null;
+
 	return $wc_version && version_compare( $wc_version, $version, '>=' );
 }
 
@@ -85,10 +84,12 @@ function cpac_is_pro_active() {
  * Whether the current screen is the Admin Columns settings screen
  *
  * @since 2.4.8
+ *
  * @param strong $tab Specifies a tab screen (optional)
+ *
  * @return bool True if the current screen is the settings screen, false otherwise
  */
-function cac_is_setting_screen( $tab = '' ){
+function cac_is_setting_screen( $tab = '' ) {
 	global $pagenow;
 
 	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
