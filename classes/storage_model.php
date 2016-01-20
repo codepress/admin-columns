@@ -281,6 +281,11 @@ abstract class CPAC_Storage_Model {
 
 	public function get_layouts_for_current_user() {
 		$layouts = $this->get_layouts();
+
+		if ( current_user_can( 'manage_admin_columns' ) ) {
+			return $layouts;
+		}
+
 		foreach ( $layouts as $k => $layout ) {
 			foreach ( $layout->roles as $role ) {
 				if ( in_array( $role, array( 'all', '' ) ) ) {
