@@ -280,7 +280,7 @@ class CPAC {
 	/**
 	 * Only set columns on current screens
 	 *
-	 * @since NEW VERSION
+	 * @since 2.4.9
 	 */
 	public function set_columns_on_current_screen() {
 
