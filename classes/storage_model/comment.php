@@ -15,25 +15,27 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->page           = 'edit-comments';
 		$this->menu_type      = 'other';
 
-		// Filter is located in get_column_headers().
-		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
-		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
-
 		parent::__construct();
 	}
 
 	/**
-	 * @see CPAC_Storage_Model::is_columns_screen()
+	 * @since 2.4.9
 	 */
-	public function is_columns_screen() {
-		$is_columns_screen = parent::is_columns_screen();
-		if ( ! $is_columns_screen ) {
+	public function init_manage_columns() {
+
+		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
+	}
+
+	public function is_current_screen() {
+		$is_current_screen = parent::is_current_screen();
+		if ( ! $is_current_screen ) {
 			if ( ! empty( $_REQUEST['_ajax_nonce-replyto-comment'] ) && wp_verify_nonce( $_REQUEST['_ajax_nonce-replyto-comment'], 'replyto-comment' ) ) {
-				$is_columns_screen = true;
+				$is_current_screen = true;
 			}
 		}
 
-		return $is_columns_screen;
+		return $is_current_screen;
 	}
 
 	public function get_default_column_names() {
@@ -50,7 +52,12 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table   = _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
+		$table = _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
+
+		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
+		// Here we remove the filter from the constructor.
+		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10, 2 );
+
 		$columns = (array) $table->get_columns();
 
 		return $columns;
@@ -66,7 +73,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return false;
 		}
-		$value = $column->get_value( $comment_id );
+		$value = $column->get_display_value( $comment_id );
 
 		// hook
 		$value = apply_filters( "cac/column/value", $value, $comment_id, $column, $this->key );

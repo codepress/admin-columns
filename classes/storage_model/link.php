@@ -11,10 +11,16 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->page           = 'link-manager';
 		$this->menu_type      = 'other';
 
+		parent::__construct();
+	}
+
+	/**
+	 * @since 2.4.9
+	 */
+	public function init_manage_columns() {
+
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
-
-		parent::__construct();
 	}
 
 	public function get_default_columns() {
@@ -46,7 +52,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 			return false;
 		}
 
-		$value = $column->get_value( $link_id );
+		$value = $column->get_display_value( $link_id );
 
 		// add hook
 		$value = apply_filters( "cac/column/value", $value, $link_id, $column, $this->key );

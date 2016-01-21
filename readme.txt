@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.3.1
-Stable tag: 2.4.8
+Tested up to: 4.4.1
+Stable tag: 2.4.9
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -13,7 +13,7 @@ Customise columns on the administration screens for post(types), pages, media, c
 Manage and organize columns in the posts, users, comments and media lists in the WordPress admin panel. Transform the WordPress admin screens into beautiful, clear overviews.
 
 > #### Admin Columns Pro
-> The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
+> The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](https://www.admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
 
 [vimeo http://vimeo.com/96885841]
 
@@ -26,12 +26,12 @@ Admin Columns greatly enhances your WordPress installation. Whether you're runni
 To give you some insight into the great amount of possibilities Admin Columns offers to enhance your (or your client's) WordPress admin panel, be sure to check out the screenshots or the demo video!
 
 = Sortable, filterable and editable columns & import/export =
-All of the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](http://admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
+All of the new columns support sorting on all screens, and many of them support filtering. Another great feature is direct editing: it allows you to directly edit all types of data (including titles, featured images, custom fields and taxonomies) directly from the posts overview. These features are only available with [Admin Columns Pro](https://www.admincolumns.com)! Admin Columns Pro also allows you to import and export your column setup, and it allows you to save your columns to PHP, so you (and your clients) don't have to worry about the admin interface!
 
 = Third party plugin integration =
 Admin Columns works perfectly with just about all external plugins with custom columns. Examples include Yoast SEO (SEO columns), WooCommerce, Advanced Custom Fields, Types and Pods. Not only can you reorganize the custom columns added by these plugins, you can also add custom columns provided by Admin Columns in the overview!
 
-The Developer license of [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) includes [Advanced Custom Fields](http://admincolumns.com/advanced-custom-fields-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) and [WooCommerce](http://admincolumns.com/woocommerce-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) add-ons for easy integration and inline editing of data from these plugins.
+The Developer license of [Admin Columns Pro](https://www.admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) includes [Advanced Custom Fields](https://www.admincolumns.com/advanced-custom-fields-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) and [WooCommerce](https://www.admincolumns.com/woocommerce-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins&utm_campaign=cpac-pluginpage) add-ons for easy integration and inline editing of data from these plugins.
 
 = Custom field column =
 Admin Columns allows you to display custom fields for posts (post meta) and users (user meta) for all custom fields you have. With many different custom field types supported, such as files, images, numbers and even post and user relations, you can create a beautiful overview of your custom content!
@@ -158,18 +158,18 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 = Docs & Support =
 Is this the first time you're using Admin Columns? Check out our Getting Started guide.
 
-We offer an extensive and up-to-date [documentation](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [FAQ](http://admincolumns.com/documentation/faq/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [how-tos](http://admincolumns.com/documentation/how-to/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage) and an advanced [Developer Documentation](http://admincolumns.com/documentation/developer-docs/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage). For one-on-one support, please check out the Admin Columns Forums.
+We offer an extensive and up-to-date [documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [FAQ](https://www.admincolumns.com/documentation/faq/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage), [how-tos](https://www.admincolumns.com/documentation/how-to/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage) and an advanced [Developer Documentation](https://www.admincolumns.com/documentation/developer-docs/?utm_source=wordpressorg&utm_medium=readme&utm_content=docs-support&utm_campaign=cpac-pluginpage). For one-on-one support, please check out the Admin Columns Forums.
 
 = Translations =
 Thanks to the great community of translators surrounding Admin Columns, the plugin is available in many languages! To find your translation or to contribute to Admin Columns by translating it into your own language, please visit our [Transifex page](https://www.transifex.com/projects/p/admin-columns/).
 
 = Feedback & Feature Requests =
 
-You can leave any requests or feedback on [admincolumns.com](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=feedback&utm_campaign=cpac-pluginpage).
+You can leave any requests or feedback on [admincolumns.com](https://www.admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=feedback&utm_campaign=cpac-pluginpage).
 
 = Related Links =
 
-* [http://admincolumns.com](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=relatedlinks&utm_campaign=cpac-pluginpage)
+* [https://www.admincolumns.com](https://www.admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=relatedlinks&utm_campaign=cpac-pluginpage)
 
 == Installation ==
 
@@ -181,11 +181,11 @@ You can leave any requests or feedback on [admincolumns.com](http://admincolumns
 
 = Is there documentation for Admin Columns? =
 
-Yes, you will find all the documentation you need on the [admincolumns.com documentation page](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
+Yes, you will find all the documentation you need on the [admincolumns.com documentation page](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
 
 = I have an idea for a great way to improve this plugin =
 
-Great, we'd love to hear from you! Please leave your feature request in our [forums](http://admincolumns.com/forums/forum/feature-requests/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage)!
+Great, we'd love to hear from you! Please leave your feature request in our [forums](https://www.admincolumns.com/forums/forum/feature-requests/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage)!
 
 = How can I change the thumbnail size of images? =
 
@@ -197,7 +197,7 @@ If you want your already uploaded images to display the newly added size you wil
 
 = What filters and hooks can I use? =
 
-You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
+You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
 
 == Screenshots ==
 
@@ -211,6 +211,13 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.4.9 =
+* [Added] Display format Url added to Custom Fields
+* [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
+* [Fixed] Removed Field Groups from post types
+* [Fixed] Removed additional avatars from the comments view
+* [Added] Added the option to replace the Custom Field select menu with a text input. Use add_filter( 'cac/column/meta/use_text_input', '__return_true' ).
 
 = 2.4.8 =
 * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
@@ -433,7 +440,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Fieldtype "Counter" to Custom Fields
 * [Added] Column type ID when you hover over the column type label
 * [Added] Support for raw values
-* [Updated] Changed filter for cac/column/value. See: http://www.codepresshq.com/documentation.
+* [Updated] Changed filter for cac/column/value. See: https://www.admincolumns.com/documentation/.
 
 = 2.0.2 =
 * [Fixed] Performance issue

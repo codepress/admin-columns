@@ -15,10 +15,16 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->page           = 'users';
 		$this->menu_type      = 'other';
 
+		parent::__construct();
+	}
+
+	/**
+	 * @since 2.4.9
+	 */
+	public function init_manage_columns() {
+
 		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
-
-		parent::__construct();
 	}
 
 	/**
@@ -52,7 +58,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$table   = _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
 		$columns = (array) $table->get_columns();
 
-		if ( $this->is_settings_page() ) {
+		if ( cac_is_setting_screen() ) {
 			$columns = array_merge( get_column_headers( 'users' ), $columns );
 		}
 
@@ -73,7 +79,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
 			return $value;
 		}
-		$custom_value = $column->get_value( $user_id );
+		$custom_value = $column->get_display_value( $user_id );
 
 		// make sure it absolutely empty and check for (string) 0
 		if ( ! empty( $custom_value ) || '0' === $custom_value ) {

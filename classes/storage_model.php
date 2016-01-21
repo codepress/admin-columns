@@ -11,7 +11,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public $label;
-	
+
 	/**
 	 * @since 2.3.5
 	 */
@@ -89,6 +89,12 @@ abstract class CPAC_Storage_Model {
 	public $default_columns = array();
 
 	/**
+	 * @since 2.4.9
+	 * @var array
+	 */
+	private $default_wp_columns = array();
+
+	/**
 	 * @since 2.2
 	 * @var array
 	 */
@@ -118,9 +124,6 @@ abstract class CPAC_Storage_Model {
 
 		// set columns paths
 		$this->set_columns_filepath();
-
-		// Populate columns for this screen.
-		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
 	}
 
 	/**
@@ -259,9 +262,6 @@ abstract class CPAC_Storage_Model {
 		delete_option( "cpac_options_{$this->key}" );
 
 		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-
-		// refresh columns otherwise the removed columns will still display
-		$this->set_columns_on_current_screen();
 	}
 
 	/**
@@ -291,7 +291,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// store columns
-		$result         = update_option( "cpac_options_{$this->key}", $columns );
+		$result = update_option( "cpac_options_{$this->key}", $columns );
 		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
 
 		// error
@@ -302,9 +302,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
-
-		// refresh columns otherwise the newly added columns will not be displayed
-		$this->set_columns_on_current_screen();
 
 		/**
 		 * Fires after a new column setup is stored in the database
@@ -462,7 +459,7 @@ abstract class CPAC_Storage_Model {
 	private function get_default_registered_columns() {
 
 		$columns = array();
-		foreach ( $this->get_default_columns() as $column_name => $label ) {
+		foreach ( $this->default_wp_columns as $column_name => $label ) {
 
 			// checkboxes are mandatory
 			if ( 'cb' == $column_name ) {
@@ -495,7 +492,7 @@ abstract class CPAC_Storage_Model {
 
 			$column = new $classname( $this );
 
-			// exlude columns that are not registered based on conditional logic within the child column
+			// exclude columns that are not registered based on conditional logic within the child column
 			if ( ! $column->properties->is_registered ) {
 				continue;
 			}
@@ -594,37 +591,24 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Only set columns on current screens
-	 *
-	 * @since 2.2.6
-	 */
-	public function set_columns_on_current_screen() {
-
-		if ( ! $this->is_doing_ajax() && ! $this->is_columns_screen() && ! $this->is_settings_page() ) {
-			return;
-		}
-
-		$this->set_columns();
-	}
-
-	/**
 	 * @since 2.0.2
 	 */
 	public function set_columns() {
 
 		do_action( 'cac/set_columns', $this );
 
-		$this->custom_columns  = $this->get_custom_registered_columns();
+		$this->custom_columns = $this->get_custom_registered_columns();
+		$this->default_wp_columns = $this->get_default_columns();
 		$this->default_columns = $this->get_default_registered_columns();
-		$this->column_types    = $this->get_grouped_column_types();
-		$this->columns         = $this->get_columns();
+		$this->column_types = $this->get_grouped_column_types();
+		$this->columns = $this->get_columns();
 
 		do_action( 'cac/set_columns/after', $this );
 	}
 
 	public function get_grouped_column_types() {
 
-		$types  = array();
+		$types = array();
 		$groups = array_keys( $this->get_column_type_groups() );
 
 		$columns = array_merge( $this->default_columns, $this->custom_columns );
@@ -703,7 +687,11 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		// get columns
-		$default_columns = $this->get_default_columns();
+		if ( ! $this->default_wp_columns ) {
+			$this->default_wp_columns = $this->get_default_columns();
+		}
+
+		$default_columns = $this->default_wp_columns;
 
 		// TODO check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = $this->get_registered_columns();
@@ -787,12 +775,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function get_column_by_name( $name ) {
-
-		if ( ! isset( $this->columns[ $name ] ) ) {
-			return false;
-		}
-
-		return $this->columns[ $name ];
+		return isset( $this->columns[ $name ] ) ? $this->columns[ $name ] : false;
 	}
 
 	/**
@@ -805,16 +788,11 @@ abstract class CPAC_Storage_Model {
 			return $this->column_headings;
 		}
 
-		// only add headings on overview screens, to prevent deactivating columns on the column settings screen
-		if ( ! $this->is_columns_screen() ) {
+		if ( ! $this->default_columns ) {
 			return $columns;
 		}
 
 		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {
-			return $columns;
-		}
-
-		if ( ! $this->default_columns ) {
 			return $columns;
 		}
 
@@ -884,21 +862,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_edit_link() {
 
-		return add_query_arg( array( 'page'     => 'codepress-admin-columns',
-		                             'cpac_key' => $this->key
-		), admin_url( 'options-general.php' ) );
-	}
-
-	/**
-	 * Whether this request is an AJAX request and marked as admin-column-ajax request.
-	 * Mark your admin columns ajax request with plugin_id : 'cpac'.
-	 *
-	 * @since 2.0.5
-	 * @return boolean
-	 */
-	public function is_doing_ajax() {
-
-		return cac_is_doing_ajax();
+		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
 	/**
@@ -907,7 +871,7 @@ abstract class CPAC_Storage_Model {
 	 * @global object $current_screen
 	 * @return boolean
 	 */
-	public function is_columns_screen() {
+	public function is_current_screen() {
 
 		global $pagenow;
 
@@ -939,20 +903,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Checks if the current page is the settings page
-	 *
-	 * @since 2.0.2
-	 * @global string $pagenow
-	 * @global string $plugin_page
-	 * @return boolean
-	 */
-	public function is_settings_page() {
-		global $pagenow, $plugin_page;
-
-		return 'options-general.php' == $pagenow && ! empty( $plugin_page ) && 'codepress-admin-columns' == $plugin_page;
 	}
 
 	/**
