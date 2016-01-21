@@ -12,7 +12,7 @@ class CPAC_Addons {
 	/**
 	 * User meta key for hiding "Install addons" notice
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	const OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY = 'cpac-hide-install-addons-notice';
 
@@ -39,7 +39,7 @@ class CPAC_Addons {
 	/**
 	 * Possibly adds an admin notice when a third party plugin supported by an addon is installed, but the addon isn't
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function missing_addon_notices() {
 
@@ -148,7 +148,7 @@ class CPAC_Addons {
 	/**
 	 * Ajax callback for hiding the "Missing addons" notice used for notifying users of available integration addons for plugins they have installed
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
 

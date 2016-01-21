@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.4.8
+Version: 2.4.9
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.4.8' ); // Current plugin version
+define( 'CPAC_VERSION', '2.4.9' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -104,7 +104,7 @@ class CPAC {
 	public $exported_columns;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	private $current_storage_model;
 
@@ -280,7 +280,7 @@ class CPAC {
 	/**
 	 * Only set columns on current screens
 	 *
-	 * @since NEW VERSION
+	 * @since 2.4.9
 	 */
 	public function set_columns_on_current_screen() {
 
@@ -299,7 +299,7 @@ class CPAC {
 			}
 
 			// Load headings and values on overviews screen
-			if ( $current_screen ) {
+			if ( $is_ajax || $current_screen ) {
 				$storage_model->init_manage_columns();
 			}
 		}
@@ -597,7 +597,7 @@ class CPAC {
 	/**
 	 * Check whether the Advanced Custom Fields plugin is active
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 *
 	 * @return bool Whether the Advanced Custom Fields plugin is active
 	 */
@@ -609,7 +609,7 @@ class CPAC {
 	/**
 	 * Check whether the WooCommerce plugin is active
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 *
 	 * @return bool Whether the WooCommerce plugin is active
 	 */

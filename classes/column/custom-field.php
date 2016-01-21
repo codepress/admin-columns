@@ -185,17 +185,17 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
-	private function get_link_by_meta( $meta ){
+	private function get_link_by_meta( $meta ) {
 		$label = $meta;
-		if( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match('/[^\w.-]/', $meta ) ){
-			if( $this->options->link_label ){
+		if ( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $meta ) ) {
+			if ( ! empty( $this->options->link_label ) ) {
 				$label = $this->options->link_label;
 			}
-
 			$meta = '<a href="' . $meta . '">' . $label . '</a>';
 		}
+
 		return $meta;
 	}
 
@@ -447,19 +447,19 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
 			$this->display_field_text( 'field', __( "Custom Field", 'codepress-admin-columns' ), __( "Enter your custom field key.", 'codepress-admin-columns' ) );
 		else :
-		?>
-		<tr class="column_field">
-			<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
-			<td class="input">
-				<?php
-				if ( $list = $this->get_meta_keys_list() ) {
-					echo $list;
-				} else {
-					_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->storage_model->singular_label . '</strong>' );
-				}
-				?>
-			</td>
-		</tr>
+			?>
+			<tr class="column_field">
+				<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
+				<td class="input">
+					<?php
+					if ( $list = $this->get_meta_keys_list() ) {
+						echo $list;
+					} else {
+						_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->storage_model->singular_label . '</strong>' );
+					}
+					?>
+				</td>
+			</tr>
 		<?php endif; ?>
 
 		<tr class="column_field_type" data-refresh="1">

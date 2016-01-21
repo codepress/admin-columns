@@ -335,7 +335,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function get_display_value( $id ) {
 		$value = $this->get_value( $id );
@@ -383,7 +383,7 @@ class CPAC_Column {
 	/**
 	 * Get the type of the column.
 	 *
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function get_type_label() {
 		return $this->properties->label;
@@ -1220,7 +1220,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 */
 	public function display_field_link_label() {
 		$field_key = 'link_label';

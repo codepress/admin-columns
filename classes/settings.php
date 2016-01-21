@@ -169,10 +169,7 @@ class CPAC_Settings {
 	 */
 	public function settings_menu() {
 		// add settings page
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array(
-			$this,
-			'display'
-		), false, 98 );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
 		// add help tabs
 		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
@@ -261,9 +258,7 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->store();
-
-						// refresh columns otherwise the newly added columns will not be displayed
-						$this->cpac->set_columns_on_current_screen();
+						$storage_model->set_columns();
 					}
 				}
 				break;
@@ -272,7 +267,7 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->restore();
-						$this->cpac->set_columns_on_current_screen();
+						$storage_model->set_columns();
 					}
 				}
 				break;
