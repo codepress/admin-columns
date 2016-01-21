@@ -99,7 +99,7 @@ abstract class CPAC_Storage_Model {
 	public $default_columns = array();
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.9
 	 * @var array
 	 */
 	private $default_wp_columns = array();

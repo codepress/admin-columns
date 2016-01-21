@@ -19,6 +19,19 @@ span.status-closed {
   display: inline-block;
   vertical-align: middle;
   float: left;
+  margin-bottom: 4px;
+}
+@media screen and (max-width: 782px) {
+  .tablenav.top .actions {
+    display: block !important;
+    margin-bottom: 4px;
+  }
+  .tablenav.top .actions * {
+    display: none;
+  }
+  .tablenav.top .actions .cpac-edit {
+    display: inline-block;
+  }
 }
 body.upload-php .tablenav.top .cpac-edit {
   float: none;
@@ -43,6 +56,7 @@ body.upload-php .tablenav.top .cpac-edit {
   background: transparent;
   margin-right: 2px;
   overflow: hidden;
+  max-width: 100%;
 }
 .rtl .cpac-column-value-image {
   margin-left: 2px;
