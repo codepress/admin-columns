@@ -528,11 +528,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
+		$columns = $this->stored_columns;
+
 		if ( $this->stored_columns === null ) {
-			$this->stored_columns = $this->get_database_columns();
+			$columns = $this->get_database_columns();
 		}
 
-		$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->stored_columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
 		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
 		if ( ! $columns ) {
