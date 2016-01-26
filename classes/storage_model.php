@@ -555,9 +555,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_stored_columns( $columns ) {
 		$this->stored_columns = $columns;
-
-		// columns settings are set by external plugin
-		$this->php_export = true;
 	}
 
 	/**
@@ -567,6 +564,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function is_using_php_export() {
 		return $this->php_export;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function enable_php_export() {
+		$this->php_export = true;
 	}
 
 	/**
@@ -711,10 +715,9 @@ abstract class CPAC_Storage_Model {
 				$column = clone $registered_columns[ $options['type'] ];
 				$column->set_clone( $options['clone'] );
 
-				// preload options when php export is being used
-				$options = $this->is_using_php_export() ? $options : false;
+				// merge default options with stored
+				$column->options = (object) array_merge( (array) $column->options, $options );
 
-				$column->populate_options( $options );
 				$column->sanitize_label();
 
 				$columns[ $name ] = $column;
