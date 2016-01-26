@@ -497,9 +497,6 @@ abstract class CPAC_Storage_Model {
 				continue;
 			}
 
-			// TODO refactor. Temp fix to make sure a cloned column does not have the options of the first found column of that particular type.
-			$column->options = new stdClass;
-
 			$columns[ $column->properties->type ] = $column;
 		}
 
@@ -531,11 +528,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
+		$columns = $this->stored_columns;
+
 		if ( $this->stored_columns === null ) {
-			$this->stored_columns = $this->get_database_columns();
+			$columns = $this->get_database_columns();
 		}
 
-		$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->stored_columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
 		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
 		if ( ! $columns ) {
@@ -687,14 +686,9 @@ abstract class CPAC_Storage_Model {
 
 		$columns = array();
 
-		// get columns
 		if ( ! $this->default_wp_columns ) {
 			$this->default_wp_columns = $this->get_default_columns();
 		}
-
-		$default_columns = $this->default_wp_columns;
-
-		// TODO check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
@@ -718,11 +712,9 @@ abstract class CPAC_Storage_Model {
 				$column->set_clone( $options['clone'] );
 
 				// preload options when php export is being used
-				$preload = $this->is_using_php_export() ? $options : false;
+				$options = $this->is_using_php_export() ? $options : false;
 
-				// repopulate the options, so they contains the right stored options
-				$column->populate_options( $preload );
-
+				$column->populate_options( $options );
 				$column->sanitize_label();
 
 				$columns[ $name ] = $column;
@@ -730,10 +722,10 @@ abstract class CPAC_Storage_Model {
 
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
-			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
+			if ( $diff = array_diff( array_keys( $this->default_wp_columns ), $this->get_default_stored_columns() ) ) {
 				foreach ( $diff as $name ) {
 					// because of the filter "manage_{$post_type}_posts_columns" the columns
-					// that are being added by CPAC will also appear in the $default_columns.
+					// that are being added by CPAC will also appear in the $this->default_wp_columns.
 					// this will filter out those columns.
 					if ( isset( $columns[ $name ] ) ) {
 						continue;
@@ -749,7 +741,7 @@ abstract class CPAC_Storage_Model {
 			}
 		} // When nothing has been saved yet, we return the default WP columns.
 		else {
-			foreach ( array_keys( $default_columns ) as $name ) {
+			foreach ( array_keys( $this->default_wp_columns ) as $name ) {
 				if ( isset( $registered_columns[ $name ] ) ) {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
