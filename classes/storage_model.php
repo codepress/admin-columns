@@ -497,6 +497,9 @@ abstract class CPAC_Storage_Model {
 				continue;
 			}
 
+			// TODO refactor. Temp fix to make sure a cloned column does not have the options of the first found column of that particular type.
+			$column->options = new stdClass;
+
 			$columns[ $column->properties->type ] = $column;
 		}
 
@@ -528,13 +531,11 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
-		$columns = $this->stored_columns;
-
 		if ( $this->stored_columns === null ) {
-			$columns = $this->get_database_columns();
+			$this->stored_columns = $this->get_database_columns();
 		}
 
-		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->stored_columns, $this );
 		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
 		if ( ! $columns ) {
