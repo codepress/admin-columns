@@ -497,9 +497,6 @@ abstract class CPAC_Storage_Model {
 				continue;
 			}
 
-			// TODO refactor. Temp fix to make sure a cloned column does not have the options of the first found column of that particular type.
-			$column->options = new stdClass;
-
 			$columns[ $column->properties->type ] = $column;
 		}
 
@@ -718,16 +715,14 @@ abstract class CPAC_Storage_Model {
 				$column->set_clone( $options['clone'] );
 
 				// preload options when php export is being used
-				$preload = $this->is_using_php_export() ? $options : false;
+				$options = $this->is_using_php_export() ? $options : false;
 
-				// repopulate the options, so they contains the right stored options
-				$column->populate_options( $preload );
-
+				$column->populate_options( $options );
 				$column->sanitize_label();
 
 				$columns[ $name ] = $column;
 			}
-
+echo '<pre>'; print_r( $columns ); echo '</pre>'; exit;
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
 			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
