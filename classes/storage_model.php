@@ -722,7 +722,7 @@ abstract class CPAC_Storage_Model {
 
 				$columns[ $name ] = $column;
 			}
-echo '<pre>'; print_r( $columns ); echo '</pre>'; exit;
+
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
 			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
