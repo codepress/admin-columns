@@ -101,12 +101,6 @@ abstract class CPAC_Storage_Model {
 	public $stored_columns = null;
 
 	/**
-	 * @since NEWVERSION
-	 * @var array
-	 */
-	private $db_columns = null;
-
-	/**
 	 * @since 2.2
 	 * @var array
 	 */
@@ -551,11 +545,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_database_columns() {
-		if ( null === $this->db_columns ) {
-			$this->db_columns = get_option( "cpac_options_{$this->key}" );
-		}
-
-		return $this->db_columns;
+		return get_option( "cpac_options_{$this->key}" );
 	}
 
 	/**
