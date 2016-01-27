@@ -132,9 +132,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	function __construct() {
 
-		$this->init_layout();
-
-		// set columns paths
 		$this->set_columns_filepath();
 	}
 
@@ -279,6 +276,54 @@ abstract class CPAC_Storage_Model {
 		return get_option( $this->get_layout_key(), array() );
 	}
 
+	public function get_layout_by_id( $id ) {
+		if ( $layouts = $this->get_layouts() ) {
+			foreach ( $layouts as $layout ) {
+				if ( $layout->id == $id ) {
+					return $layout;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public function get_layout() {
+		return $this->layout;
+	}
+
+	public function get_layout_object() {
+		return $this->get_layout_by_id( $this->layout );
+	}
+
+	public function set_layout( $layout ) {
+		$this->layout = $layout;
+	}
+
+	public function set_single_layout_id() {
+		$this->set_layout( $this->get_single_layout_id() );
+	}
+
+	public function layout_exists( $id ) {
+		return $this->get_layout_by_id( $id ) ? true : false;
+	}
+
+	public function get_single_layout_id() {
+		$layouts = $this->get_layouts();
+
+		return $layouts ? reset( $layouts )->id : null;
+	}
+
+	public function set_current_listings_layout( $layout_id ) {
+		update_user_meta( get_current_user_id(), $this->get_layout_key(), $layout_id );
+	}
+
+	public function get_current_listings_layout() {
+		$layout_id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
+
+		return $this->get_layout_by_id( $layout_id ) ? $layout_id : null;
+	}
+
 	public function get_layouts_for_current_user() {
 		$layouts = $this->get_layouts();
 
@@ -296,19 +341,8 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 		}
+
 		return $layouts;
-	}
-
-	public function get_layout_by_id( $id ) {
-		if ( $layouts = $this->get_layouts() ) {
-			foreach ( $layouts as $layout ) {
-				if ( $layout->id == $id ) {
-					return $layout;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	public function update_layout( $args ) {
@@ -333,7 +367,7 @@ abstract class CPAC_Storage_Model {
 		update_option( $this->get_layout_key(), array_filter( $layouts ) );
 	}
 
-	public function create_layout( $args ) {
+	public function create_layout( $args, $is_default = false ) {
 
 		if ( empty( $args['name'] ) ) {
 			return new WP_Error( 'missing-name', __( 'Layout name can not be empty.', 'codepress-admin-columns' ) );
@@ -345,10 +379,16 @@ abstract class CPAC_Storage_Model {
 		$default_roles = array( 'administrator' );
 		$args['roles'] = array_unique( array_merge( (array) $args['roles'], $default_roles ) );
 
-		// new ID is highest layout ID + 1
-		$ids = wp_list_pluck( (array) $layouts, 'id' );
-		$layout_id = $ids ? intval( max( $ids ) ) + 1 : 1;
-		$args['id'] = $layout_id ;
+		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
+		if ( $is_default ) {
+			$layout_id = null;
+		} // new ID is highest layout ID + 1
+		else {
+			$ids = wp_list_pluck( (array) $layouts, 'id' );
+			$layout_id = $ids ? intval( max( $ids ) ) + 1 : 1;
+		}
+
+		$args['id'] = $layout_id;
 
 		$layouts[] = (object) $args;
 
@@ -381,57 +421,13 @@ abstract class CPAC_Storage_Model {
 		return $deleted;
 	}
 
-	public function get_layout() {
-		return $this->layout;
-	}
-
-	public function get_layout_object() {
-		return $this->get_layout_by_id( $this->layout );
-	}
-
-	public function set_layout( $layout ) {
-		$this->layout = $layout;
-	}
-
-	public function get_current_editing_layout() {
-		return isset( $_REQUEST['layout_id'] ) ? $_REQUEST['layout_id'] : '';
-	}
-
-	private function init_layout() {
-		if ( null === $this->layout ) {
-			$this->set_single_layout_id();
-		}
-	}
-
-	public function set_single_layout_id() {
-		if ( $layout_id = $this->get_single_layout_id() ) {
-			$this->set_layout( $layout_id );
-		}
-	}
-
-	public function get_single_layout_id() {
-		$layouts = $this->get_layouts();
-		if ( ! $layouts ) {
-			return null;
-		}
-
-		return reset( $layouts )->id;
-	}
-
-	public function set_current_listings_layout( $layout_id ) {
-		update_user_meta( get_current_user_id(), $this->get_layout_key(), $layout_id );
-	}
-
-	public function get_current_listings_layout() {
-		return get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
-	}
-
 	/**
 	 * Get store ID
 	 * @since NEWVERSION
 	 */
 	private function get_storage_id() {
 		$layout = $this->layout ? $this->layout : '';
+
 		return "cpac_options_" . $this->key . $layout;
 	}
 
@@ -714,8 +710,7 @@ abstract class CPAC_Storage_Model {
 
 		if ( $this->is_using_php_export() ) {
 			$columns = $this->stored_columns;
-		}
-		else {
+		} else {
 			$columns = $this->get_database_columns();
 		}
 
@@ -1040,7 +1035,6 @@ abstract class CPAC_Storage_Model {
 			'page'     => 'codepress-admin-columns',
 			'cpac_key' => $this->key,
 		);
-
 		if ( $this->layout ) {
 			$args['layout_id'] = $this->layout;
 		}
@@ -1051,10 +1045,16 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	public function get_edit_link( $layout = null ) {
-		$args = null !== $layout ? array( 'layout_id' => $layout ) : array();
-
+	public function get_edit_link( $layout_id = '' ) {
+		$args = array();
+		if ( '' !== $layout_id ) {
+			$args = array( 'layout_id' => $layout_id );
+		}
 		return add_query_arg( $args, $this->settings_url() );
+	}
+
+	public function get_edit_link_by_layout( $layout ) {
+		return add_query_arg( array( 'layout_id' => $layout ), $this->settings_url() );
 	}
 
 	/**
@@ -1065,6 +1065,7 @@ abstract class CPAC_Storage_Model {
 			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
 			'cpac_action' => 'restore_by_type'
 		);
+
 		return add_query_arg( $args, $this->settings_url() );
 	}
 

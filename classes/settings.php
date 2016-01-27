@@ -252,14 +252,14 @@ class CPAC_Settings {
 		$nonce = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] : '';
 		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
 
-		// Layouts
-		$layout = isset( $_POST['cpac_layout'] ) ? intval( $_POST['cpac_layout'] ) : '';
-
 		switch ( $action ) :
 
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+
+						$layout = isset( $_POST['cpac_layout'] ) ? intval( $_POST['cpac_layout'] ) : null;
+
 						$storage_model->set_layout( $layout );
 						$storage_model->store();
 						$storage_model->set_columns();
@@ -270,6 +270,9 @@ class CPAC_Settings {
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+
+						$layout = isset( $_GET['layout_id'] ) ? intval( $_GET['layout_id'] ) : null;
+
 						$storage_model->set_layout( $layout );
 						$storage_model->restore();
 						$storage_model->set_columns();
@@ -655,8 +658,7 @@ class CPAC_Settings {
 			switch ( $current_tab ) :
 				case 'general':
 
-					$keys = array_keys( $this->cpac->storage_models );
-					$first = array_shift( $keys );
+					$first = $this->cpac->get_first_storage_model_key();
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
@@ -864,7 +866,7 @@ class CPAC_Settings {
 							<div class="cpac-boxes">
 								<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 									<div class="cpac-columns">
-										<form method="post" action="">
+										<form method="post" action="<?php echo $storage_model->get_edit_link(); ?>">
 
 											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 											<input type="hidden" name="cpac_action" value="update_by_type"/>

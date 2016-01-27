@@ -295,12 +295,14 @@ class CPAC {
 		foreach ( $this->storage_models as $storage_model ) {
 			$current_screen = $storage_model->is_current_screen();
 
-			if ( $is_ajax || $is_settings || $current_screen ) {
-
-				// Load layout
+			// Load layout
+			if ( $is_ajax || $current_screen ) {
 				$layout = $storage_model->get_current_listings_layout();
 				$storage_model->set_layout( $layout );
+			}
 
+			// Load columns
+			if ( $is_ajax || $is_settings || $current_screen ) {
 				$storage_model->set_columns();
 			}
 
@@ -503,6 +505,11 @@ class CPAC {
 		 * @param object CPAC Main Class
 		 */
 		do_action( 'cac/admin_head', $storage_model, $this );
+	}
+
+	public function get_first_storage_model_key() {
+		$keys = array_keys( (array) $this->storage_models );
+		return array_shift( $keys );
 	}
 
 	/**
