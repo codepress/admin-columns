@@ -276,7 +276,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_layouts() {
-		return array_reverse( get_option( $this->get_layout_key(), array() ) );
+		return get_option( $this->get_layout_key(), array() );
 	}
 
 	public function get_layouts_for_current_user() {
@@ -311,9 +311,42 @@ abstract class CPAC_Storage_Model {
 		return false;
 	}
 
-	public function update_layout( $id, $args ) {
+	public function update_layout( $args ) {
+		$layouts = $this->get_layouts();
 
-		if ( $layout = $this->get_layout_by_id( $id ) ) {
+		if ( $layouts ) {
+			foreach ( $layouts as $k => $layout ) {
+				if ( $layout->id == $this->layout ) {
+
+					if ( isset( $args['roles'] ) ) {
+						$layout->roles = $args['roles'];
+					}
+					if ( ! empty( $args['name'] ) ) { // can not be empty
+						$layout->name = $args['name'];
+					}
+
+					$layouts[ $k ] = $layout;
+				}
+			}
+		}
+
+		update_option( $this->get_layout_key(), array_filter( $layouts ) );
+	}
+/*
+	public function update_layout( $args ) {
+
+		$layouts = $this->get_layouts();
+		if ( $layouts ) {
+			foreach ( $layouts as $k => $_layout ) {
+				if ( $_layout->id == $this->layout ) {
+					$layouts[ $k ] = $args;
+				}
+			}
+		}
+
+		update_option( $this->get_layout_key(), array_filter( $layouts ) );
+
+		if ( $layout = $this->get_layout_object() ) {
 			if ( isset( $args['roles'] ) ) {
 				$layout->roles = $args['roles'];
 			}
@@ -336,7 +369,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		update_option( $this->get_layout_key(), array_filter( $layouts ) );
-	}
+	}*/
 
 	public function create_layout( $args ) {
 
@@ -388,6 +421,10 @@ abstract class CPAC_Storage_Model {
 
 	public function get_layout() {
 		return $this->layout;
+	}
+
+	public function get_layout_object() {
+		return $this->get_layout_by_id( $this->layout );
 	}
 
 	public function set_layout( $layout ) {
