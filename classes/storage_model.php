@@ -696,14 +696,11 @@ abstract class CPAC_Storage_Model {
 		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
-			$stored_names = array();
 
 			foreach ( $stored_columns as $name => $options ) {
 				if ( ! isset( $options['type'] ) ) {
 					continue;
 				}
-
-				$stored_names[] = $name;
 
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
