@@ -249,18 +249,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Populate Options
-	 * Added $options parameter in 2.2
-	 *
-	 * @since 2.0
-	 *
-	 * @param array $options Optional. Options to populate the storage model with. Defaults to options from database.
-	 */
-	public function populate_options( $options = null ) {
-		$this->options = (object) array_merge( (array) $this->options, is_array( $options ) ? $options : $this->read() );
-	}
-
-	/**
 	 * @param string $property
 	 *
 	 * @return mixed $value
@@ -479,20 +467,6 @@ class CPAC_Column {
 
 	public function attr_id( $field_name ) {
 		echo $this->get_attr_id( $field_name );
-	}
-
-	/**
-	 * @since 2.0
-	 * @return array Column options
-	 */
-	public function read() {
-		$options = (array) $this->storage_model->get_database_columns();
-
-		if ( empty( $options[ $this->properties->name ] ) ) {
-			return array();
-		}
-
-		return $options[ $this->properties->name ];
 	}
 
 	/**

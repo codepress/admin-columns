@@ -215,6 +215,7 @@ class CPAC {
 			foreach ( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
+					$storage_model->enable_php_export();
 				}
 			}
 		}
