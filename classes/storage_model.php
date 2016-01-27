@@ -528,9 +528,10 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
-		$columns = $this->stored_columns;
-
-		if ( $this->stored_columns === null ) {
+		if ( $this->is_using_php_export() ) {
+			$columns = $this->stored_columns;
+		}
+		else {
 			$columns = $this->get_database_columns();
 		}
 
