@@ -332,44 +332,6 @@ abstract class CPAC_Storage_Model {
 
 		update_option( $this->get_layout_key(), array_filter( $layouts ) );
 	}
-/*
-	public function update_layout( $args ) {
-
-		$layouts = $this->get_layouts();
-		if ( $layouts ) {
-			foreach ( $layouts as $k => $_layout ) {
-				if ( $_layout->id == $this->layout ) {
-					$layouts[ $k ] = $args;
-				}
-			}
-		}
-
-		update_option( $this->get_layout_key(), array_filter( $layouts ) );
-
-		if ( $layout = $this->get_layout_object() ) {
-			if ( isset( $args['roles'] ) ) {
-				$layout->roles = $args['roles'];
-			}
-			if ( ! empty( $args['name'] ) ) { // can not be empty
-				$layout->name = $args['name'];
-			}
-
-			$this->store_layout( $layout, $id );
-		}
-	}
-
-	private function store_layout( $layout, $id ) {
-		$layouts = $this->get_layouts();
-		if ( $layouts ) {
-			foreach ( $layouts as $k => $_layout ) {
-				if ( $_layout->id == $id ) {
-					$layouts[ $k ] = $layout;
-				}
-			}
-		}
-
-		update_option( $this->get_layout_key(), array_filter( $layouts ) );
-	}*/
 
 	public function create_layout( $args ) {
 
