@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Cloned columns no longer has the wrong options when stored
+
 = 2.4.9 =
 * [Added] Display format Url added to Custom Fields
 * [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
