@@ -337,6 +337,7 @@ class CPAC {
 			foreach ( $this->storage_models as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
 					$this->current_storage_model = $storage_model;
+					break;
 				}
 			}
 		}
