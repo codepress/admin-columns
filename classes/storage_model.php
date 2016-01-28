@@ -334,11 +334,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_layouts_for_current_user() {
-		$layouts = $this->get_layouts();
-
-		if ( current_user_can( 'manage_admin_columns' ) ) {
-			return $layouts;
-		}
+		$layouts = array_reverse( $this->get_layouts() );
 
 		foreach ( $layouts as $k => $layout ) {
 			foreach ( $layout->roles as $role ) {
@@ -384,15 +380,15 @@ abstract class CPAC_Storage_Model {
 
 		$layouts = $this->get_layouts();
 
-		// make sure all layouts contain the administrator role
-		$default_roles = array( 'administrator' );
-		$args['roles'] = array_unique( array_merge( (array) $args['roles'], $default_roles ) );
+		if ( ! isset( $args['roles'] ) ) {
+			$args['roles'] = array();
+		}
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
-		if ( $is_default ) {
-			$layout_id = null;
-		} // new ID is highest layout ID + 1
-		else {
+		$layout_id = null;
+
+		// new ID is highest layout ID + 1
+		if ( ! $is_default ) {
 			$ids = wp_list_pluck( (array) $layouts, 'id' );
 			$layout_id = $ids ? intval( max( $ids ) ) + 1 : 1;
 		}
