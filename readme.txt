@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
+* [Fixed] Data:image sources for images are supported in labels
 * [Fixed] Cloned columns no longer has the wrong options when stored
 * [Fixed] Created deprecated function for is_columns_screen()
 * [Fixed] get_current_storage_model returns the first occurrence instead of running the entire array of storage modals
