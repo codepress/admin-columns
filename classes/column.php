@@ -500,6 +500,7 @@ class CPAC_Column {
 		}
 
 		if ( ! empty( $options['label'] ) ) {
+			$options['label'] = str_replace( 'data:', '%%data%%', $options['label'] ); // Temporary replace data: urls for image sources. Replace it back later
 
 			// Label can not contains the character ":"" and "'", because
 			// CPAC_Column::get_sanitized_label() will return an empty string
@@ -508,6 +509,7 @@ class CPAC_Column {
 				$options['label'] = str_replace( ':', '', $options['label'] );
 				$options['label'] = str_replace( "'", '', $options['label'] );
 			}
+			$options['label'] = str_replace( '%%data%%', 'data:', $options['label'] ); // Enable data:image url's
 		}
 
 		// used by child classes for additional sanitizing
