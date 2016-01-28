@@ -1078,6 +1078,15 @@ abstract class CPAC_Storage_Model {
 		return add_query_arg( $args, $this->settings_url() );
 	}
 
+
+	/**
+	 * @deprecated deprecated since version 2.4.9
+	 */
+	public function is_columns_screen(){
+		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
+		return $this->is_current_screen();
+	}
+
 	/**
 	 * @since 2.0.3
 	 * @global string $pagenow
