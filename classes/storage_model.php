@@ -268,8 +268,39 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since NEWVERSION
 	 */
-	private function get_layout_key() {
-		return self::LAYOUT_KEY . $this->key;
+	public function get_layout() {
+		return $this->layout;
+	}
+
+	public function get_layout_object() {
+		return $this->get_layout_by_id( $this->layout );
+	}
+
+	public function set_layout( $layout ) {
+		$this->layout = $layout;
+	}
+
+	// Set the layout ID. First tries user preference, if not found, then first one served.
+	public function init_layout() {
+		$layout_id = $this->get_user_listings_layout();
+		if ( ! $this->layout_exists( $layout_id ) ) {
+			$layout_id = $this->get_single_layout_id();
+		}
+		$this->set_layout( $layout_id );
+	}
+
+	public function set_single_layout_id() {
+		$this->set_layout( $this->get_single_layout_id() );
+	}
+
+	public function layout_exists( $id ) {
+		return $this->get_layout_by_id( $id ) ? true : false;
+	}
+
+	public function get_single_layout_id() {
+		$layouts = array_reverse( $this->get_layouts() );
+
+		return $layouts ? reset( $layouts )->id : null;
 	}
 
 	public function get_layouts() {
@@ -288,37 +319,15 @@ abstract class CPAC_Storage_Model {
 		return false;
 	}
 
-	public function get_layout() {
-		return $this->layout;
+	private function get_layout_key() {
+		return self::LAYOUT_KEY . $this->key;
 	}
 
-	public function get_layout_object() {
-		return $this->get_layout_by_id( $this->layout );
-	}
-
-	public function set_layout( $layout ) {
-		$this->layout = $layout;
-	}
-
-	public function set_single_layout_id() {
-		$this->set_layout( $this->get_single_layout_id() );
-	}
-
-	public function layout_exists( $id ) {
-		return $this->get_layout_by_id( $id ) ? true : false;
-	}
-
-	public function get_single_layout_id() {
-		$layouts = $this->get_layouts();
-
-		return $layouts ? reset( $layouts )->id : null;
-	}
-
-	public function set_current_listings_layout( $layout_id ) {
+	public function set_user_listings_layout( $layout_id ) {
 		update_user_meta( get_current_user_id(), $this->get_layout_key(), $layout_id );
 	}
 
-	public function get_current_listings_layout() {
+	public function get_user_listings_layout() {
 		$layout_id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
 
 		return $this->get_layout_by_id( $layout_id ) ? $layout_id : null;

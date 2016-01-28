@@ -296,17 +296,18 @@ class CPAC {
 			$current_screen = $storage_model->is_current_screen();
 
 			// Load layout
-			if ( $is_ajax || $current_screen ) {
-				$layout = $storage_model->get_current_listings_layout();
-				$storage_model->set_layout( $layout );
-			}
+			//if ( $is_ajax || $current_screen ) {
+			//	$layout = $storage_model->get_user_listings_layout();
+			//	$storage_model->set_layout( $layout );
+			//}
 
 			// Load columns
 			if ( $is_ajax || $is_settings || $current_screen ) {
+				$storage_model->init_layout();
 				$storage_model->set_columns();
 			}
 
-			// Load headings and values on overviews screen
+			// Load headings
 			if ( $is_ajax || $current_screen ) {
 				$storage_model->init_manage_columns();
 			}
