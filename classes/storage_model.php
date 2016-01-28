@@ -360,6 +360,9 @@ abstract class CPAC_Storage_Model {
 					if ( isset( $args['roles'] ) ) {
 						$layout->roles = $args['roles'];
 					}
+					if ( isset( $args['users'] ) ) {
+						$layout->roles = $args['users'];
+					}
 					if ( ! empty( $args['name'] ) ) { // can not be empty
 						$layout->name = $args['name'];
 					}
@@ -382,6 +385,9 @@ abstract class CPAC_Storage_Model {
 
 		if ( ! isset( $args['roles'] ) ) {
 			$args['roles'] = array();
+		}
+		if ( ! isset( $args['users'] ) ) {
+			$args['users'] = array();
 		}
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
