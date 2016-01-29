@@ -343,7 +343,7 @@ abstract class CPAC_Storage_Model {
 			// Roles
 			if ( ! empty( $layout->roles ) ) {
 				foreach ( $layout->roles as $role ) {
-					if ( ! current_user_can( $role ) ) {
+					if ( current_user_can( $role ) ) {
 						$user_layouts[ $k ] = $layout;
 					}
 				}
@@ -356,6 +356,11 @@ abstract class CPAC_Storage_Model {
 						$user_layouts[ $k ] = $layout;
 					}
 				}
+			}
+
+			// Both
+			if ( empty( $layout->roles ) && empty( $layout->users ) ) {
+				$user_layouts[ $k ] = $layout;
 			}
 		}
 
