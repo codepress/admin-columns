@@ -298,7 +298,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_single_layout_id() {
-		$layouts = array_reverse( $this->get_layouts() );
+		$layouts = $this->get_layouts();
 
 		return $layouts ? reset( $layouts )->id : null;
 	}

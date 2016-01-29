@@ -642,6 +642,7 @@ a.help {
 .column-footer .button-container a {
   display: inline-block;
   margin-top: 5px;
+  margin-left: 5px;
 }
 /**
  * Welcome Screen
