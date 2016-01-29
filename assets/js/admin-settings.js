@@ -45,7 +45,7 @@ function cpac_importexport() {
  * @since 2.0.2
  */
 function cpac_submit_form() {
-	jQuery('.form-update a.submit-update').click( function(e){
+	jQuery('a.submit-update').click( function(e){
 		e.preventDefault();
 
 		jQuery(this).closest('.columns-container').find('.cpac-columns form').submit();

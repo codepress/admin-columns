@@ -718,7 +718,7 @@ class CPAC_Settings {
 										</h3>
 										<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 										<div class="form-update">
-											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php echo ' ' . $storage_model->label; ?></a>
+											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php //echo ' ' . $storage_model->label; ?></a>
 										</div>
 										<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">
@@ -890,7 +890,8 @@ class CPAC_Settings {
 											<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 										</div>
 										<div class="button-container">
-											<a href="javascript:;" class="add_column button button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a><br/>
+											<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+											<a href="javascript:;" class="submit-update button-primary"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?></a>
 										</div>
 
 									</div><!--.cpac-column-footer-->
