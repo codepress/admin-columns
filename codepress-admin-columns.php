@@ -212,9 +212,23 @@ class CPAC {
 	 */
 	public function maybe_load_php_export() {
 		if ( ! empty( $this->exported_columns ) ) {
-			foreach ( $this->exported_columns as $model => $columns ) {
+			foreach ( $this->exported_columns as $model => $columndata ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
-					$storage_model->set_stored_columns( $columns );
+
+					// Layout format
+					if ( isset( $columndata[0] ) ) {
+						foreach ( $columndata as $data ) {
+							$storage_model->set_stored_layout( $data['layout'] );
+							$storage_model->set_layout( $data['layout']['id'] );
+							$storage_model->set_stored_columns( $data['columns'] );
+						}
+					}
+
+					// Old format
+					else {
+						$storage_model->set_stored_columns( $columndata );
+					}
+
 					$storage_model->enable_php_export();
 				}
 			}

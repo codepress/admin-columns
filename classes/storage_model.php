@@ -111,6 +111,12 @@ abstract class CPAC_Storage_Model {
 	public $stored_columns = null;
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	public $stored_layouts = null;
+
+	/**
 	 * @since 2.2
 	 * @var array
 	 */
@@ -303,8 +309,18 @@ abstract class CPAC_Storage_Model {
 		return $layouts ? reset( $layouts )->id : null;
 	}
 
+	public function set_stored_layout( $layout ) {
+		$this->stored_layouts[] = (object) $layout;
+	}
+
 	public function get_layouts() {
-		return get_option( $this->get_layout_key(), array() );
+		if ( $this->is_using_php_export() ) {
+			$layouts = $this->stored_layouts;
+		} else {
+			$layouts = get_option( $this->get_layout_key(), array() );
+		}
+
+		return (array) $layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
@@ -741,7 +757,7 @@ abstract class CPAC_Storage_Model {
 	public function get_stored_columns() {
 
 		if ( $this->is_using_php_export() ) {
-			$columns = $this->stored_columns;
+			$columns = isset( $this->stored_columns[ $this->layout ] ) ? $this->stored_columns[ $this->layout ] : false;
 		} else {
 			$columns = $this->get_database_columns();
 		}
@@ -766,7 +782,7 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.3
 	 */
 	public function set_stored_columns( $columns ) {
-		$this->stored_columns = $columns;
+		$this->stored_columns[ $this->layout ] = $columns;
 	}
 
 	/**
