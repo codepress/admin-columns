@@ -334,20 +334,32 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_layouts_for_current_user() {
-		$layouts = array_reverse( $this->get_layouts() );
+		$user_layouts = array();
 
+		$current_user = get_current_user_id();
+		$layouts = array_reverse( $this->get_layouts() );
 		foreach ( $layouts as $k => $layout ) {
-			foreach ( $layout->roles as $role ) {
-				if ( in_array( $role, array( 'all', '' ) ) ) {
-					continue;
+
+			// Roles
+			if ( ! empty( $layout->roles ) ) {
+				foreach ( $layout->roles as $role ) {
+					if ( ! current_user_can( $role ) ) {
+						$user_layouts[ $k ] = $layout;
+					}
 				}
-				if ( ! current_user_can( $role ) ) {
-					unset( $layouts[ $k ] );
+			}
+
+			// Users
+			if ( ! empty( $layout->users ) ) {
+				foreach ( $layout->users as $user ) {
+					if ( $current_user == $user  ) {
+						$user_layouts[ $k ] = $layout;
+					}
 				}
 			}
 		}
 
-		return $layouts;
+		return $user_layouts;
 	}
 
 	public function update_layout( $args ) {
@@ -361,7 +373,7 @@ abstract class CPAC_Storage_Model {
 						$layout->roles = $args['roles'];
 					}
 					if ( isset( $args['users'] ) ) {
-						$layout->roles = $args['users'];
+						$layout->users = $args['users'];
 					}
 					if ( ! empty( $args['name'] ) ) { // can not be empty
 						$layout->name = $args['name'];
