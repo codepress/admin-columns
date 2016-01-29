@@ -319,6 +319,10 @@ abstract class CPAC_Storage_Model {
 		return false;
 	}
 
+	public function get_delete_layout_link( $layout_id ) {
+		return add_query_arg( array( 'layout_id' => $layout_id, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
+	}
+
 	private function get_layout_key() {
 		return self::LAYOUT_KEY . $this->key;
 	}
@@ -1079,10 +1083,6 @@ abstract class CPAC_Storage_Model {
 			$args = array( 'layout_id' => $layout_id );
 		}
 		return add_query_arg( $args, $this->settings_url() );
-	}
-
-	public function get_edit_link_by_layout( $layout ) {
-		return add_query_arg( array( 'layout_id' => $layout ), $this->settings_url() );
 	}
 
 	/**
