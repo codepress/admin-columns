@@ -218,7 +218,7 @@ class CPAC {
 					// Layout format
 					if ( isset( $columndata[0] ) ) {
 						foreach ( $columndata as $data ) {
-							$storage_model->set_stored_layout( $data['layout'] );
+							$storage_model->set_stored_layout( $data['layout'] ); // settings: name, roles, users
 							$storage_model->set_layout( $data['layout']['id'] );
 							$storage_model->set_stored_columns( $data['columns'] );
 						}
