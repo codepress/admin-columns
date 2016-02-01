@@ -147,8 +147,6 @@ a.help {
   width: 280px;
 }
 .columns-container .columns-right .columns-right-inside.fixed {
-  position: fixed;
-  top: 40px;
   width: 280px;
 }
 /**
@@ -1077,11 +1075,6 @@ body.rtl .cpac_export .ms-container .ms-selection {
     float: none;
     margin-top: 0;
     margin-right: 0;
-    width: 100%;
-  }
-  .columns-container .columns-right .columns-right-inside.fixed {
-    position: relative;
-    top: 0;
     width: 100%;
   }
 }
