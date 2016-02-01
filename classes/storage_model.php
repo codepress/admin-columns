@@ -112,6 +112,13 @@ abstract class CPAC_Storage_Model {
 	abstract function get_default_column_names();
 
 	/**
+	 * initialize callback for managing the headers and values for columns
+	 * @since NEWVERSION
+	 *
+	 */
+	abstract function init_manage_columns();
+
+	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
