@@ -40,6 +40,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public $meta_type;
 
+
 	/**
 	 * Groups the storage model in the menu.
 	 *
@@ -57,14 +58,6 @@ abstract class CPAC_Storage_Model {
 	 * @var string
 	 */
 	public $page;
-
-	/**
-	 * Active profile for presets
-	 *
-	 * @since NEWVERSION
-	 * @var int/string
-	 */
-	public $layout;
 
 	/**
 	 * Uses PHP export to display settings
@@ -111,16 +104,30 @@ abstract class CPAC_Storage_Model {
 	public $stored_columns = null;
 
 	/**
+	 * @since 2.2
+	 * @var array
+	 */
+	public $column_types = array();
+
+	/**
+	 * Active layout for presets
+	 *
+	 * @since NEWVERSION
+	 * @var int/string
+	 */
+	public $layout;
+
+	/**
 	 * @since NEWVERSION
 	 * @var array
 	 */
 	public $stored_layouts = null;
 
 	/**
-	 * @since 2.2
+	 * @since NEWVERSION
 	 * @var array
 	 */
-	public $column_types = array();
+	private $layouts = null;
 
 	/**
 	 * @since 2.4.4
@@ -315,12 +322,13 @@ abstract class CPAC_Storage_Model {
 
 	public function get_layouts() {
 		if ( $this->is_using_php_export() ) {
-			$layouts = $this->stored_layouts;
-		} else {
-			$layouts = get_option( $this->get_layout_key(), array() );
+			$this->layouts = $this->stored_layouts;
+		}
+		else if ( null === $this->layouts ) {
+			$this->layouts = get_option( $this->get_layout_key() );
 		}
 
-		return (array) $layouts;
+		return (array) $this->layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
