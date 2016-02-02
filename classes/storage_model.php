@@ -124,12 +124,6 @@ abstract class CPAC_Storage_Model {
 	public $stored_layouts = null;
 
 	/**
-	 * @since NEWVERSION
-	 * @var array
-	 */
-	private $layouts = null;
-
-	/**
 	 * @since 2.4.4
 	 */
 	abstract function get_default_column_names();
@@ -322,13 +316,13 @@ abstract class CPAC_Storage_Model {
 
 	public function get_layouts() {
 		if ( $this->is_using_php_export() ) {
-			$this->layouts = $this->stored_layouts;
+			$layouts = $this->stored_layouts;
 		}
-		else if ( null === $this->layouts ) {
-			$this->layouts = get_option( $this->get_layout_key() );
+		else {
+			$layouts = get_option( $this->get_layout_key() );
 		}
 
-		return (array) $this->layouts;
+		return (array) $layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
