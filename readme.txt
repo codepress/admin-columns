@@ -217,6 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Cloned columns no longer has the wrong options when stored
 * [Fixed] Created deprecated function for is_columns_screen()
 * [Fixed] get_current_storage_model returns the first occurrence instead of running the entire array of storage modals
+* [Fixed] the storage model can now be used within sub pages
 
 = 2.4.9 =
 * [Added] Display format Url added to Custom Fields
