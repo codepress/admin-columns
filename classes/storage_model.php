@@ -141,7 +141,6 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0.3
-	 * @param string Subpage
 	 * @return boolean
 	 */
 	public function is_current_screen() {
