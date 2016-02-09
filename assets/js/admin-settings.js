@@ -402,10 +402,6 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 	var all_columns = jQuery( '.columns-container[data-type="' + storage_model + '"]').find( '.cpac-columns' );
 	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
 
-/*	var type		= el.attr( 'data-type' );
-	var all_columns	= el.closest( '.cpac-boxes' ).find( '.cpac-columns' );
-	var columns		= jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );*/
-
 	// get clone ID
 	var ids	= jQuery.map( columns, function( e, i ) {
 		if ( jQuery(e).attr('data-clone') ){
@@ -413,16 +409,18 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 		}
 		return 0;
 	});
+
 	ids.sort();
 	var max_id = Math.max.apply( null, ids ) + 1;
 	for ( var id=0; id<=max_id; id++ ) {
-		if ( -1 === jQuery.inArray( id, ids ) )
-			break;
+		if ( -1 === jQuery.inArray( id, ids ) ) {
+            break;
+        }
 	}
 
 	// only increment when needed
-	if ( 0 === id )
-		return;
+	//if ( 0 === id )
+	//	return;
 
 	// get original clone ID
 	var clone_id = el.attr( 'data-clone' );
