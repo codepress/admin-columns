@@ -57,7 +57,7 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.10
 	 * @var string
 	 */
 	public $subpage;
@@ -134,7 +134,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * initialize callback for managing the headers and values for columns
-	 * @since NEWVERSION
+	 * @since 2.4.10
 	 *
 	 */
 	public function init_manage_columns(){}
@@ -591,7 +591,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.10
 	 */
 	public function enable_php_export() {
 		$this->php_export = true;
