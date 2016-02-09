@@ -10,7 +10,7 @@ Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
 
-Copyright 2011-2015  AdminColumns.com  info@admincolumns.com
+Copyright 2011-2016  AdminColumns.com  info@admincolumns.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
