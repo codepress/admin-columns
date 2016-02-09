@@ -4,22 +4,19 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 	public $post_type;
 
-	private $post_type_object;
-
 	/**
 	 * @since 2.0
 	 */
 	public function __construct( $post_type ) {
 
-		$this->set_post_type( $post_type );
-
-		$this->key = $this->post_type;
-		$this->label = $this->post_type_object->labels->name;
-		$this->singular_label = $this->post_type_object->labels->singular_name;
+		$this->key = $post_type;
+		$this->post_type = $post_type;
 		$this->type = 'post';
 		$this->meta_type = 'post';
 		$this->page = 'edit';
 		$this->menu_type = 'post';
+
+		$this->set_labels();
 
 		parent::__construct();
 	}
@@ -67,11 +64,12 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.3.5
+	 * @since 2.7.2
 	 */
-	private function set_post_type( $post_type ) {
-		$this->post_type = $post_type;
-		$this->post_type_object = get_post_type_object( $post_type );
+	private function set_labels() {
+		$post_type_object = get_post_type_object( $this->post_type );
+		$this->label = $post_type_object->labels->name;
+		$this->singular_label = $post_type_object->labels->singular_name;
 	}
 
 	/**
@@ -93,7 +91,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		// Run WordPress native actions to display column content
 		if ( is_post_type_hierarchical( $this->post_type ) ) {
 			do_action( 'manage_pages_custom_column', $column, $id );
-		} else {
+		}
+		else {
 			do_action( 'manage_posts_custom_column', $column, $id );
 		}
 
@@ -151,16 +150,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.2
 	 */
 	public function is_current_screen() {
+		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post';
 
-		$is_current_screen = parent::is_current_screen();
-
-		if ( ! $is_current_screen ) {
-			if ( ! empty( $_REQUEST['_inline_edit'] ) && wp_verify_nonce( $_REQUEST['_inline_edit'], 'inlineeditnonce' ) ) {
-				$is_current_screen = true;
-			}
-		}
-
-		return $is_current_screen;
+		return ( $this->post_type === $post_type ) && parent::is_current_screen();
 	}
 
 	/**
@@ -244,7 +236,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			ob_start();
 			$this->manage_value( $column_name, $post_id );
 			ob_end_clean();
-		} else {
+		}
+		else {
 			$this->manage_value( $column_name, $post_id );
 		}
 	}

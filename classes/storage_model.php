@@ -57,6 +57,12 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
+	 * @since 2.4.10
+	 * @var string
+	 */
+	public $subpage;
+
+	/**
 	 * Uses PHP export to display settings
 	 *
 	 * @since 2.0
@@ -124,6 +130,22 @@ abstract class CPAC_Storage_Model {
 
 		// set columns paths
 		$this->set_columns_filepath();
+	}
+
+	/**
+	 * initialize callback for managing the headers and values for columns
+	 * @since 2.4.10
+	 *
+	 */
+	public function init_manage_columns(){}
+
+	/**
+	 * @since 2.0.3
+	 * @return boolean
+	 */
+	public function is_current_screen() {
+		global $pagenow;
+		return $this->page . '.php' === $pagenow && $this->subpage == filter_input( INPUT_GET, 'page' );
 	}
 
 	/**
@@ -528,9 +550,10 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
-		$columns = $this->stored_columns;
-
-		if ( $this->stored_columns === null ) {
+		if ( $this->is_using_php_export() ) {
+			$columns = $this->stored_columns;
+		}
+		else {
 			$columns = $this->get_database_columns();
 		}
 
@@ -555,9 +578,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_stored_columns( $columns ) {
 		$this->stored_columns = $columns;
-
-		// columns settings are set by external plugin
-		$this->php_export = true;
 	}
 
 	/**
@@ -567,6 +587,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function is_using_php_export() {
 		return $this->php_export;
+	}
+
+	/**
+	 * @since 2.4.10
+	 */
+	public function enable_php_export() {
+		$this->php_export = true;
 	}
 
 	/**
@@ -686,25 +713,17 @@ abstract class CPAC_Storage_Model {
 
 		$columns = array();
 
-		// get columns
 		if ( ! $this->default_wp_columns ) {
 			$this->default_wp_columns = $this->get_default_columns();
 		}
-
-		$default_columns = $this->default_wp_columns;
-
-		// TODO check if this solves the issue with not displaying value when using "manage_{$post_type}_posts_columns" at CPAC_Storage_Model_Post
 		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
-			$stored_names = array();
 
 			foreach ( $stored_columns as $name => $options ) {
 				if ( ! isset( $options['type'] ) ) {
 					continue;
 				}
-
-				$stored_names[] = $name;
 
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
@@ -716,11 +735,8 @@ abstract class CPAC_Storage_Model {
 				$column = clone $registered_columns[ $options['type'] ];
 				$column->set_clone( $options['clone'] );
 
-				// preload options when php export is being used
-				$preload = $this->is_using_php_export() ? $options : false;
-
-				// repopulate the options, so they contains the right stored options
-				$column->populate_options( $preload );
+				// merge default options with stored
+				$column->options = (object) array_merge( (array) $column->options, $options );
 
 				$column->sanitize_label();
 
@@ -729,10 +745,10 @@ abstract class CPAC_Storage_Model {
 
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
-			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
+			if ( $diff = array_diff( array_keys( $this->default_wp_columns ), $this->get_default_stored_columns() ) ) {
 				foreach ( $diff as $name ) {
 					// because of the filter "manage_{$post_type}_posts_columns" the columns
-					// that are being added by CPAC will also appear in the $default_columns.
+					// that are being added by CPAC will also appear in the $this->default_wp_columns.
 					// this will filter out those columns.
 					if ( isset( $columns[ $name ] ) ) {
 						continue;
@@ -748,13 +764,13 @@ abstract class CPAC_Storage_Model {
 			}
 		} // When nothing has been saved yet, we return the default WP columns.
 		else {
-			foreach ( array_keys( $default_columns ) as $name ) {
+			foreach ( array_keys( $this->default_wp_columns ) as $name ) {
 				if ( isset( $registered_columns[ $name ] ) ) {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
 			}
 
-			/**
+			/**te
 			 * Filter the columns that should be loaded if there were no stored columns
 			 *
 			 * @since 2.2.4
@@ -865,44 +881,13 @@ abstract class CPAC_Storage_Model {
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
+
 	/**
-	 * @since 2.0.3
-	 * @global string $pagenow
-	 * @global object $current_screen
-	 * @return boolean
+	 * @deprecated deprecated since version 2.4.9
 	 */
-	public function is_current_screen() {
-
-		global $pagenow;
-
-		if ( $this->page . '.php' != $pagenow ) {
-			return false;
-		}
-
-		// posttypes
-		if ( 'post' == $this->type ) {
-			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : $this->type;
-
-			if ( $this->key != $post_type ) {
-				return false;
-			}
-		}
-
-		// taxonomy
-		if ( 'taxonomy' == $this->type ) {
-			$taxonomy = isset( $_GET['taxonomy'] ) ? $_GET['taxonomy'] : '';
-
-			if ( $this->taxonomy != $taxonomy ) {
-				return false;
-			}
-		}
-
-		// users
-		if ( 'wp-users' == $this->key && is_network_admin() ) {
-			return false;
-		}
-
-		return true;
+	public function is_columns_screen(){
+		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
+		return $this->is_current_screen();
 	}
 
 	/**

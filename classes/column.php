@@ -242,27 +242,10 @@ class CPAC_Column {
 		$this->options = (object) $this->options;
 		$this->properties = (object) $this->properties;
 
-		// Read options from database
-		$this->populate_options();
-
-		$this->sanitize_label();
-
 		// Filters
 		foreach ( $this->properties as $name => $value ) {
 			$this->properties->{$name} = apply_filters( "cac/column/properties/{$name}", $value, $this );
 		}
-	}
-
-	/**
-	 * Populate Options
-	 * Added $options parameter in 2.2
-	 *
-	 * @since 2.0
-	 *
-	 * @param array $options Optional. Options to populate the storage model with. Defaults to options from database.
-	 */
-	public function populate_options( $options = null ) {
-		$this->options = (object) array_merge( (array) $this->options, is_array( $options ) ? $options : $this->read() );
 	}
 
 	/**
@@ -488,20 +471,6 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.0
-	 * @return array Column options
-	 */
-	public function read() {
-		$options = (array) $this->storage_model->get_database_columns();
-
-		if ( empty( $options[ $this->properties->name ] ) ) {
-			return array();
-		}
-
-		return $options[ $this->properties->name ];
-	}
-
-	/**
-	 * @since 2.0
 	 */
 	public function sanitize_label() {
 		// check if original label has changed. Example WPML adds a language column, the column heading will have to display the added flag.
@@ -531,6 +500,7 @@ class CPAC_Column {
 		}
 
 		if ( ! empty( $options['label'] ) ) {
+			$options['label'] = str_replace( 'data:', '%%data%%', $options['label'] ); // Temporary replace data: urls for image sources. Replace it back later
 
 			// Label can not contains the character ":"" and "'", because
 			// CPAC_Column::get_sanitized_label() will return an empty string
@@ -539,6 +509,7 @@ class CPAC_Column {
 				$options['label'] = str_replace( ':', '', $options['label'] );
 				$options['label'] = str_replace( "'", '', $options['label'] );
 			}
+			$options['label'] = str_replace( '%%data%%', 'data:', $options['label'] ); // Enable data:image url's
 		}
 
 		// used by child classes for additional sanitizing
@@ -1188,7 +1159,7 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->date_format; ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'date_format' ); ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
 
 				<p class="description">
 					<?php printf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>

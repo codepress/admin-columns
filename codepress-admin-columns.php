@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.4.9
+Version: 2.4.10
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -10,7 +10,7 @@ Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
 
-Copyright 2011-2015  AdminColumns.com  info@admincolumns.com
+Copyright 2011-2016  AdminColumns.com  info@admincolumns.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.4.9' ); // Current plugin version
+define( 'CPAC_VERSION', '2.4.10' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -215,6 +215,7 @@ class CPAC {
 			foreach ( $this->exported_columns as $model => $columns ) {
 				if ( $storage_model = $this->get_storage_model( $model ) ) {
 					$storage_model->set_stored_columns( $columns );
+					$storage_model->enable_php_export();
 				}
 			}
 		}
@@ -336,6 +337,7 @@ class CPAC {
 			foreach ( $this->storage_models as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
 					$this->current_storage_model = $storage_model;
+					break;
 				}
 			}
 		}

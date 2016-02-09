@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.4.1
-Stable tag: 2.4.9
+Tested up to: 4.4.2
+Stable tag: 2.4.10
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -67,25 +67,29 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * Comment Count
 * Comment Status
 * Comments
+* Content
 * Custom Field
-* Date
+* Date Published
+* Page Depth
+* Estimated Reading Time
 * Excerpt
 * Featured Image
+* Formats
 * ID
 * Modified
 * Order
 * Page Template
 * Parent
+* Path
 * Permalink
 * Ping Status
 * Post Format
 * Roles
+* Shortcodes
 * Slug
 * Status
 * Sticky
-* Tags
 * Taxonomy
-* Title
 * Word Count
 
 = User columns =
@@ -101,7 +105,6 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * Name
 * Nickname
 * Post Count
-* Posts
 * Registered Date
 * Role
 * URL
@@ -111,11 +114,10 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 
 * Actions
 * Alternate Text
-* Author
+* Attached To
+* Available Sizes
 * Caption
-* Comments
 * Custom Field
-* Date
 * Description
 * Dimensions
 * EXIF Data
@@ -124,36 +126,32 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * File Size
 * Full Path
 * Height
-* Icon
 * ID
 * Mime Type
 * Taxonomy
-* Uploaded To
 * Width
 
 = Comment columns =
 
 * Actions
-* Alternate Text
+* Agent
+* Approved
 * Author
-* Caption
-* Comments
+* Avatar
 * Custom Field
+* Email
+* IP
+* Name
+* URL
 * Date
-* Description
-* Dimensions
-* EXIF Data
-* File
-* File Name
-* File Size
-* Full Path
-* Height
-* Icon
+* Date GMT
+* Excerpt
 * ID
-* Mime Type
-* Taxonomy
-* Uploaded To
-* Width
+* Post
+* Reply To
+* Type
+* User
+* Word Count
 
 = Docs & Support =
 Is this the first time you're using Admin Columns? Check out our Getting Started guide.
@@ -211,6 +209,14 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.4.10 =
+* [Fixed] Data:image sources for images are supported in labels
+* [Fixed] Cloned columns no longer has the wrong options when stored
+* [Fixed] Created deprecated function for is_columns_screen()
+* [Fixed] The method get_current_storage_model returns the first occurrence instead of running the entire array of storage modals
+* [Fixed] The storage_model object should have the init_manage_columns method to properly load the columns heading and values
+* [Fixed] The storage_model object can now be used within sub pages
 
 = 2.4.9 =
 * [Added] Display format Url added to Custom Fields

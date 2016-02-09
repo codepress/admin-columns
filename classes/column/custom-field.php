@@ -41,7 +41,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->options['link_label'] = '';
 
 		$this->options['date_format'] = '';
-		$this->options['date_save_format'] = '';
 	}
 
 	/**
