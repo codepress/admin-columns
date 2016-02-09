@@ -67,25 +67,29 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * Comment Count
 * Comment Status
 * Comments
+* Content
 * Custom Field
-* Date
+* Date Published
+* Page Depth
+* Estimated Reading Time
 * Excerpt
 * Featured Image
+* Formats
 * ID
 * Modified
 * Order
 * Page Template
 * Parent
+* Path
 * Permalink
 * Ping Status
 * Post Format
 * Roles
+* Shortcodes
 * Slug
 * Status
 * Sticky
-* Tags
 * Taxonomy
-* Title
 * Word Count
 
 = User columns =
@@ -101,7 +105,6 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * Name
 * Nickname
 * Post Count
-* Posts
 * Registered Date
 * Role
 * URL
@@ -111,11 +114,10 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 
 * Actions
 * Alternate Text
-* Author
+* Attached To
+* Available Sizes
 * Caption
-* Comments
 * Custom Field
-* Date
 * Description
 * Dimensions
 * EXIF Data
@@ -124,36 +126,32 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 * File Size
 * Full Path
 * Height
-* Icon
 * ID
 * Mime Type
 * Taxonomy
-* Uploaded To
 * Width
 
 = Comment columns =
 
 * Actions
-* Alternate Text
+* Agent
+* Approved
 * Author
-* Caption
-* Comments
+* Avatar
 * Custom Field
+* Email
+* IP
+* Name
+* URL
 * Date
-* Description
-* Dimensions
-* EXIF Data
-* File
-* File Name
-* File Size
-* Full Path
-* Height
-* Icon
+* Date GMT
+* Excerpt
 * ID
-* Mime Type
-* Taxonomy
-* Uploaded To
-* Width
+* Post
+* Reply To
+* Type
+* User
+* Word Count
 
 = Docs & Support =
 Is this the first time you're using Admin Columns? Check out our Getting Started guide.
