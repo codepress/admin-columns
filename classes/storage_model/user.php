@@ -28,7 +28,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.10
 	 */
 	public function is_current_screen() {
 		return ! is_network_admin() && parent::is_current_screen();

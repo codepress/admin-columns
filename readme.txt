@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.4.2
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.4.10 =
 * [Fixed] Data:image sources for images are supported in labels
 * [Fixed] Cloned columns no longer has the wrong options when stored
 * [Fixed] Created deprecated function for is_columns_screen()
