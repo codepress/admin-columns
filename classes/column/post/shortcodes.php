@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Display used shortcodes
  *
@@ -27,11 +28,11 @@ class CPAC_Column_Post_Shortcodes extends CPAC_Column {
 		if ( ! ( $shortcodes = $this->get_raw_value( $post_id ) ) ) {
 			return false;
 		}
-		
+
 		$display = array();
 		foreach ( $shortcodes as $sc => $count ) {
 			$string = '[' . $sc . ']';
-			$string =  $count > 1 ? $string . '<span class="cpac-rounded">' . $count . '</span>' :  $string;
+			$string = $count > 1 ? $string . '<span class="cpac-rounded">' . $count . '</span>' : $string;
 			$display[ $sc ] = '<span class="cpac-spacing">' . $string . '</span>';
 		}
 
@@ -52,7 +53,11 @@ class CPAC_Column_Post_Shortcodes extends CPAC_Column {
 		$content = get_post_field( 'post_content', $post_id );
 
 		$shortcodes = array();
-		foreach ( array_keys( $shortcode_tags ) as $sc ) {
+
+		$_shortcodes = array_keys( $shortcode_tags );
+		asort( $_shortcodes );
+
+		foreach ( $_shortcodes as $sc ) {
 			if ( $count = substr_count( $content, '[' . $sc ) ) {
 				$shortcodes[ $sc ] = $count;
 			}
