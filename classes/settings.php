@@ -662,9 +662,12 @@ class CPAC_Settings {
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
+
+						$storage_model->init_layout();
+						$storage_model->set_columns();
+
 						$storage_models_by_type[ $storage_model->menu_type ][ $k ] = $storage_model;
 					}
-
 					?>
 					<div class="cpac-menu">
 						<?php

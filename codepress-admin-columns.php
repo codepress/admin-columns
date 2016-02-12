@@ -124,8 +124,8 @@ class CPAC {
 		// Populating storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 		add_action( 'wp_loaded', array( $this, 'maybe_load_php_export' ) );
-		add_action( 'admin_init', array( $this, 'set_columns_on_current_screen' ) );
-		add_action( 'load-edit.php', array( $this, 'set_columns_on_current_screen' ), 1000 );
+		add_action( 'admin_init', array( $this, 'set_columns' ) );
+		add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
@@ -293,29 +293,19 @@ class CPAC {
 	}
 
 	/**
-	 * Only set columns on current screens
+	 * Only set columns on current screens or on specific ajax calls
 	 *
 	 * @since 2.4.9
 	 */
-	public function set_columns_on_current_screen() {
-
-		if ( ! $this->is_cac_screen() ) {
-			return;
-		}
+	public function set_columns() {
 
 		// Listings screen or ajax calls
-		if ( $storage_model = $this->get_current_storage_model() ) {
+		$storage_model = $this->is_columns_screen() ? $this->get_current_storage_model() : $this->get_storage_model( cac_is_doing_ajax() );
+
+		if ( $storage_model ) {
 			$storage_model->init_layout();
 			$storage_model->set_columns();
 			$storage_model->init_manage_columns();
-		}
-
-		// Setting screen
-		else if ( $this->is_settings_screen() ) {
-			foreach ( $this->storage_models as $storage_model ) {
-				$storage_model->init_layout();
-				$storage_model->set_columns();
-			}
 		}
 	}
 
@@ -341,20 +331,11 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-		if ( ! $this->current_storage_model ) {
-
-			// Ajax call
-			if ( $key = cac_is_doing_ajax() ) {
-				$this->current_storage_model = $this->get_storage_model( $key );
-			}
-
-			// Listings screen
-			else if ( $this->storage_models ) {
-				foreach ( $this->storage_models as $storage_model ) {
-					if ( $storage_model->is_current_screen() ) {
-						$this->current_storage_model = $storage_model;
-						break;
-					}
+		if ( ! $this->current_storage_model && $this->storage_models ) {
+			foreach ( $this->storage_models as $storage_model ) {
+				if ( $storage_model->is_current_screen() ) {
+					$this->current_storage_model = $storage_model;
+					break;
 				}
 			}
 		}
@@ -519,6 +500,7 @@ class CPAC {
 
 	public function get_first_storage_model_key() {
 		$keys = array_keys( (array) $this->storage_models );
+
 		return array_shift( $keys );
 	}
 
