@@ -123,9 +123,8 @@ class CPAC {
 
 		// Populating storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
-		add_action( 'wp_loaded', array( $this, 'maybe_load_php_export' ) );
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
-		add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
+		//add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
@@ -142,6 +141,10 @@ class CPAC {
 		// Settings
 		include_once CPAC_DIR . 'classes/review_notice.php';
 		new CPAC_Review_Notice( $this );
+	}
+
+	public function x() {
+		exit;
 	}
 
 	/**
@@ -206,36 +209,6 @@ class CPAC {
 	}
 
 	/**
-	 * Load the php exported settings
-	 *
-	 * @since 2.3.5
-	 */
-	public function maybe_load_php_export() {
-		if ( ! empty( $this->exported_columns ) ) {
-			foreach ( $this->exported_columns as $model => $columndata ) {
-				if ( $storage_model = $this->get_storage_model( $model ) ) {
-
-					// Layout format
-					if ( isset( $columndata[0] ) ) {
-						foreach ( $columndata as $data ) {
-							$storage_model->set_stored_layout( $data['layout'] ); // settings: name, roles, users
-							$storage_model->set_layout( $data['layout']['id'] );
-							$storage_model->set_stored_columns( $data['columns'] );
-						}
-					}
-
-					// Old format: 3.7.x and older
-					else {
-						$storage_model->set_stored_columns( $columndata );
-					}
-
-					$storage_model->enable_php_export();
-				}
-			}
-		}
-	}
-
-	/**
 	 * Load the storage models, storing them in the storage_models property of this object
 	 *
 	 * @since 2.0
@@ -293,6 +266,13 @@ class CPAC {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_exported_columns( $storage_model ) {
+		return ! empty( $this->exported_columns[ $storage_model ] ) ? $this->exported_columns[ $storage_model ] : false;
+	}
+
+	/**
 	 * Only set columns on current screens or on specific ajax calls
 	 *
 	 * @since 2.4.9
@@ -303,10 +283,32 @@ class CPAC {
 		$storage_model = $this->is_columns_screen() ? $this->get_current_storage_model() : $this->get_storage_model( cac_is_doing_ajax() );
 
 		if ( $storage_model ) {
-			$storage_model->init_layout();
-			$storage_model->set_columns();
+			$this->init_storage_model( $storage_model );
+
+			// Headings and values
 			$storage_model->init_manage_columns();
 		}
+
+		// Settings screen
+		else if ( cac_is_setting_screen() ) {
+			foreach ( $this->storage_models as $storage_model ) {
+				$this->init_storage_model( $storage_model );
+			}
+		}
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function init_storage_model( $storage_model ) {
+
+		// Load PHP Export
+		if ( $columndata = $this->get_exported_columns( $storage_model->key ) ) {
+			$storage_model->load_export( $columndata );
+		}
+
+		$storage_model->init_layout();
+		$storage_model->set_columns();
 	}
 
 	/**
@@ -351,13 +353,11 @@ class CPAC {
 	 * @return array List of post type keys (e.g. post, page)
 	 */
 	public function get_post_types() {
-
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
 			$post_types['post'] = 'post';
 		}
-
 		if ( post_type_exists( 'page' ) ) {
 			$post_types['page'] = 'page';
 		}
@@ -385,9 +385,7 @@ class CPAC {
 	 * @return array List of taxonomies
 	 */
 	public function get_taxonomies() {
-
 		$taxonomies = get_taxonomies( array( 'public' => true ) );
-
 		if ( isset( $taxonomies['post_format'] ) ) {
 			unset( $taxonomies['post_format'] );
 		}

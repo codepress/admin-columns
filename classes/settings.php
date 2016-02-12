@@ -114,7 +114,8 @@ class CPAC_Settings {
 
 		if ( ! empty( $_REQUEST['activate'] ) ) {
 			$message = __( 'Add-on successfully activated.', 'codepress-admin-columns' );
-		} else if ( ! empty( $_REQUEST['deactivate'] ) ) {
+		}
+		else if ( ! empty( $_REQUEST['deactivate'] ) ) {
 			$message = __( 'Add-on successfully deactivated.', 'codepress-admin-columns' );
 		}
 
@@ -662,10 +663,6 @@ class CPAC_Settings {
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
-
-						$storage_model->init_layout();
-						$storage_model->set_columns();
-
 						$storage_models_by_type[ $storage_model->menu_type ][ $k ] = $storage_model;
 					}
 					?>
@@ -693,12 +690,14 @@ class CPAC_Settings {
 
 					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
 
+					<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
+
 					<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
 
 						<div class="columns-left">
 							<div class="titlediv">
 								<h2>
-									<?php echo $storage_model->label; ?>
+									<?php echo esc_html( $storage_model->label ); ?>
 									<?php $storage_model->screen_link(); ?>
 								</h2>
 							</div>
@@ -719,7 +718,6 @@ class CPAC_Settings {
 										<h3>
 											<?php _e( 'Store settings', 'codepress-admin-columns' ) ?>
 										</h3>
-										<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 										<div class="form-update">
 											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php //echo ' ' . $storage_model->label; ?></a>
 										</div>
@@ -866,29 +864,30 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
-							<div class="cpac-boxes">
-								<?php if ( ! $storage_model->is_using_php_export() ) : ?>
-									<div class="cpac-columns">
-										<form method="post" action="<?php echo $storage_model->get_edit_link(); ?>">
+							<div class="cpac-boxes<?php echo $storage_model->is_using_php_export() ? ' disabled' : ''; ?>">
 
-											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
-											<input type="hidden" name="cpac_action" value="update_by_type"/>
-											<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
+								<div class="cpac-columns">
+									<form method="post" action="<?php echo $storage_model->get_edit_link(); ?>">
 
-											<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
+										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
+										<input type="hidden" name="cpac_action" value="update_by_type"/>
+										<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
 
-											<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
+										<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 
-											<?php
-											foreach ( $storage_model->columns as $column ) {
-												$column->display();
-											}
-											?>
-										</form>
+										<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
-									</div><!--.cpac-columns-->
+										<?php
+										foreach ( $storage_model->columns as $column ) {
+											$column->display();
+										}
+										?>
+									</form>
 
-									<div class="column-footer">
+								</div><!--.cpac-columns-->
+
+								<div class="column-footer">
+									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="order-message">
 											<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 										</div>
@@ -896,9 +895,9 @@ class CPAC_Settings {
 											<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
 											<a href="javascript:;" class="submit-update button-primary"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?></a>
 										</div>
+									<?php endif; ?>
+								</div><!--.cpac-column-footer-->
 
-									</div><!--.cpac-column-footer-->
-								<?php endif; ?>
 							</div><!--.cpac-boxes-->
 
 							<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>

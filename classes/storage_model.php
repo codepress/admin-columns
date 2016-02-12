@@ -144,8 +144,29 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.2
 	 */
 	function __construct() {
-
 		$this->set_columns_filepath();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function load_export( $columndata ) {
+
+		// Layout format
+		if ( isset( $columndata[0] ) ) {
+			foreach ( $columndata as $data ) {
+				$this->set_stored_layout( $data['layout'] ); // settings: name, roles, users
+				$this->set_layout( $data['layout']['id'] );
+				$this->set_stored_columns( $data['columns'] );
+			}
+		}
+
+		// Old format: 3.7.x and older
+		else {
+			$this->set_stored_columns( $columndata );
+		}
+
+		$this->enable_php_export();
 	}
 
 	/**

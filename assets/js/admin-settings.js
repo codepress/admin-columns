@@ -16,20 +16,11 @@ jQuery(document).ready(function() {
 	cpac_clear_input_defaults();
 
 	// Columns Page
-	cpac_sortable();
-	cpac_menu();
+	cpac_menu(); // trigger for all other column events
 	cpac_help();
 	cpac_add_column();
 	cpac_importexport();
 	cpac_sidebar_feedback();
-
-	// we start by binding the toggle and remove events.
-	jQuery('.cpac-column').each( function( i, col ) {
-		jQuery( col ).column_bind_toggle();
-		jQuery( col ).column_bind_remove();
-		jQuery( col ).column_bind_clone();
-		jQuery( col ).cpac_bind_container_addon_events();
-	});
 });
 
 function cpac_importexport() {
@@ -127,7 +118,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		action: 'cpac_column_refresh',
 		column: jQuery( this ).find( 'input.column-name' ).val(),
 		formdata: jQuery( this ).parents( 'form' ).serialize(),
-        storage_model: jQuery( '.columns-container').closest( '.columns-container').data('type')
+        storage_model: jQuery( this ).closest( '.columns-container' ).data('type')
 	}, function( data ) {
 
 		// Replace current form by new form
@@ -354,6 +345,7 @@ jQuery.fn.column_clone = function() {
 
 	var container = jQuery( this ).closest( '.columns-container' );
 	var column = jQuery( this );
+	var columns = jQuery( this).closest( 'cpac-columns' );
 
 	if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
 		var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
@@ -382,7 +374,7 @@ jQuery.fn.column_clone = function() {
 	clone.column_bind_events();
 
 	// reinitialize sortability
-	cpac_sortable();
+	columns.cpac_bind_ordering();
 
 	// hook for addons
 	jQuery( document ).trigger( 'column_add', clone );
@@ -463,6 +455,7 @@ function cpac_create_column( container ) {
 
 	var clone = jQuery( '.for-cloning-only .cpac-column', container ).first().clone();
 	var storage_model = container.attr( 'data-type' );
+	var columns = container.find( 'cpac-columns' );
 
 	if ( clone.length > 0 ) {
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
@@ -484,7 +477,7 @@ function cpac_create_column( container ) {
 		clone.column_bind_events();
 
 		// reinitialize sortability
-		cpac_sortable();
+		columns.cpac_bind_ordering();
 
 		// hook for addons
 		jQuery( document ).trigger( 'column_add', clone );
@@ -642,18 +635,18 @@ function cpac_pointer() {
  *
  * @since 1.5
  */
-function cpac_sortable() {
-	jQuery( 'div.cpac-columns' ).each( function() {
-		if ( jQuery( this ).hasClass( 'ui-sortable' ) ) {
-			jQuery( this ).sortable( 'refresh' );
-		}
-		else {
-			jQuery( this ).sortable( {
-				items : '.cpac-column'
-			} );
-		}
-	} );
-}
+jQuery.fn.cpac_bind_ordering = function() {
+    jQuery( this ).each( function() {
+        if ( jQuery( this ).hasClass( 'ui-sortable' ) ) {
+            jQuery( this ).sortable( 'refresh' );
+        }
+        else {
+            jQuery( this ).sortable( {
+                items : '.cpac-column'
+            } );
+        }
+    } );
+};
 
 /*
  * Menu
@@ -679,11 +672,34 @@ function cpac_menu() {
 			// set current
 			jQuery(this).addClass('current');
 			var container = jQuery('.columns-container[data-type="' + type + '"]').show();
-			var columns = container.find( '.cpac-columns' );
+			var boxes = container.find( '.cpac-boxes' );
 
-			// hook for addons
-			jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-			jQuery( document ).trigger( 'cac_model_ready', type );
+            // Written for PHP Export
+            if ( boxes.hasClass('disabled') ) {
+                boxes.find('.cpac-column').each( function( i, col ) {
+                    jQuery( col ).column_bind_toggle();
+                    jQuery( col ).find('input, select').prop('disabled', true);
+                });
+                return;
+            }
+
+			var columns = boxes.find( '.cpac-columns' );
+
+            // we start by binding the toggle and remove events.
+            columns.find('.cpac-column').each( function( i, col ) {
+                jQuery( col ).column_bind_toggle();
+                jQuery(col).column_bind_remove();
+                jQuery(col).column_bind_clone();
+                jQuery(col).cpac_bind_container_addon_events();
+            });
+
+            // ordering of columns
+            columns.cpac_bind_ordering();
+
+            // hook for addons
+            jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
+            jQuery( document ).trigger( 'cac_model_ready', type );
+
 		}
 
 		// re init sidebar scroll
