@@ -60,6 +60,12 @@ abstract class CPAC_Storage_Model {
 	public $page;
 
 	/**
+	 * @since 2.4.10
+	 * @var string
+	 */
+	public $subpage;
+
+	/**
 	 * Uses PHP export to display settings
 	 *
 	 * @since 2.0
@@ -140,6 +146,22 @@ abstract class CPAC_Storage_Model {
 	function __construct() {
 
 		$this->set_columns_filepath();
+	}
+
+	/**
+	 * initialize callback for managing the headers and values for columns
+	 * @since 2.4.10
+	 *
+	 */
+	public function init_manage_columns(){}
+
+	/**
+	 * @since 2.0.3
+	 * @return boolean
+	 */
+	public function is_current_screen() {
+		global $pagenow;
+		return $this->page . '.php' === $pagenow && $this->subpage == filter_input( INPUT_GET, 'page' );
 	}
 
 	/**
@@ -797,7 +819,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.4.10
 	 */
 	public function enable_php_export() {
 		$this->php_export = true;
@@ -977,7 +999,7 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 
-			/**
+			/**te
 			 * Filter the columns that should be loaded if there were no stored columns
 			 *
 			 * @since 2.2.4
@@ -1122,46 +1144,6 @@ abstract class CPAC_Storage_Model {
 	public function is_columns_screen(){
 		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
 		return $this->is_current_screen();
-	}
-
-	/**
-	 * @since 2.0.3
-	 * @global string $pagenow
-	 * @global object $current_screen
-	 * @return boolean
-	 */
-	public function is_current_screen() {
-
-		global $pagenow;
-
-		if ( $this->page . '.php' != $pagenow ) {
-			return false;
-		}
-
-		// posttypes
-		if ( 'post' == $this->type ) {
-			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : $this->type;
-
-			if ( $this->key != $post_type ) {
-				return false;
-			}
-		}
-
-		// taxonomy
-		if ( 'taxonomy' == $this->type ) {
-			$taxonomy = isset( $_GET['taxonomy'] ) ? $_GET['taxonomy'] : '';
-
-			if ( $this->taxonomy != $taxonomy ) {
-				return false;
-			}
-		}
-
-		// users
-		if ( 'wp-users' == $this->key && is_network_admin() ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
