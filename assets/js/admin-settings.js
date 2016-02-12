@@ -126,7 +126,8 @@ jQuery.fn.cpac_column_refresh = function() {
 		plugin_id: 'cpac',
 		action: 'cpac_column_refresh',
 		column: jQuery( this ).find( 'input.column-name' ).val(),
-		formdata: jQuery( this ).parents( 'form' ).serialize()
+		formdata: jQuery( this ).parents( 'form' ).serialize(),
+        storage_model: jQuery( '.columns-container').closest( '.columns-container').data('type')
 	}, function( data ) {
 
 		// Replace current form by new form

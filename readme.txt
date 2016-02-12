@@ -210,6 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Refactor] Ajax calls will only a single storage model
+
 = 2.4.10 =
 * [Fixed] Data:image sources for images are supported in labels
 * [Fixed] Cloned columns no longer has the wrong options when stored

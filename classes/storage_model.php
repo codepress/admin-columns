@@ -344,7 +344,7 @@ abstract class CPAC_Storage_Model {
 			$layouts = get_option( $this->get_layout_key() );
 		}
 
-		return (array) $layouts;
+		return empty( $layouts ) ? array() : $layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
@@ -359,8 +359,8 @@ abstract class CPAC_Storage_Model {
 		return false;
 	}
 
-	public function get_delete_layout_link( $layout_id ) {
-		return add_query_arg( array( 'layout_id' => $layout_id, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
+	public function get_delete_layout_link() {
+		return add_query_arg( array( 'layout_id' => $this->layout, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
 	}
 
 	private function get_layout_key() {
@@ -1117,12 +1117,15 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.0
 	 */
-	public function get_edit_link( $layout_id = '' ) {
-		$args = array();
-		if ( '' !== $layout_id ) {
-			$args = array( 'layout_id' => $layout_id );
-		}
-		return add_query_arg( $args, $this->settings_url() );
+	public function get_edit_link() {
+		return add_query_arg( array( 'layout_id' => $this->layout ), $this->settings_url() );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_edit_link_by_layout( $layout_id ) {
+		return add_query_arg( array( 'layout_id' => $layout_id ), $this->settings_url() );
 	}
 
 	/**
