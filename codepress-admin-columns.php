@@ -124,7 +124,11 @@ class CPAC {
 		// Populating storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
-		//add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
+
+		// Some plugins will load their columns through this action. Not recommended.
+		if ( apply_filters( 'cac/load_alt_set_columns', false ) ) {
+			add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
+		}
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';

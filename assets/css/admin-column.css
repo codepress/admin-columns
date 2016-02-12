@@ -219,8 +219,11 @@ a.help {
 .columns-left .cpac-boxes.disabled .column_action {
   display: none !important;
 }
+.columns-left .cpac-boxes.disabled .column-meta td.column_sort {
+  cursor: default !important;
+}
 .columns-left .cpac-boxes.disabled .meta span {
-  cursor: default;
+  cursor: default !important;
 }
 .columns-left .cpac-boxes.disabled .meta span:before {
   color: #808080 !important;

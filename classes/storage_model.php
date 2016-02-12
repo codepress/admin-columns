@@ -353,8 +353,8 @@ abstract class CPAC_Storage_Model {
 		return $layouts ? reset( $layouts )->id : null;
 	}
 
-	public function set_stored_layout( $layout ) {
-		$this->stored_layouts[] = (object) $layout;
+	private function set_stored_layout( $layout ) {
+		$this->stored_layouts[ $layout['id'] ] = (object) $layout;
 	}
 
 	public function get_layouts() {

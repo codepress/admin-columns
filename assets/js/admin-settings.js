@@ -52,11 +52,16 @@ function cpac_submit_form() {
 jQuery.fn.column_bind_toggle = function() {
 
 	var column = jQuery(this);
+	var is_disabled = column.closest( 'cpac-boxes').hasClass('disabled');
 
 	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function( e ) {
 		e.preventDefault();
 
 		column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );
+
+        if ( is_disabled ) {
+            return;
+        }
 
 		if ( ! column.hasClass( 'events-binded' ) ) {
 			column.column_bind_events();
@@ -658,6 +663,7 @@ function cpac_menu() {
 	var menu = jQuery('#cpac div.cpac-menu');
 	// click
 	menu.find('a').click( function(e, el) {
+        e.preventDefault();
 
 		var id = jQuery(this).attr('href');
 
@@ -674,38 +680,40 @@ function cpac_menu() {
 			var container = jQuery('.columns-container[data-type="' + type + '"]').show();
 			var boxes = container.find( '.cpac-boxes' );
 
+            // Bind events once. TODO: use .live()
+            if ( container.hasClass('events-binded') ) {
+                return;
+            }
+
             // Written for PHP Export
             if ( boxes.hasClass('disabled') ) {
                 boxes.find('.cpac-column').each( function( i, col ) {
                     jQuery( col ).column_bind_toggle();
                     jQuery( col ).find('input, select').prop('disabled', true);
                 });
-                return;
             }
 
-			var columns = boxes.find( '.cpac-columns' );
+            else {
+                var columns = boxes.find( '.cpac-columns' );
 
-            // we start by binding the toggle and remove events.
-            columns.find('.cpac-column').each( function( i, col ) {
-                jQuery( col ).column_bind_toggle();
-                jQuery(col).column_bind_remove();
-                jQuery(col).column_bind_clone();
-                jQuery(col).cpac_bind_container_addon_events();
-            });
+                // we start by binding the toggle and remove events.
+                columns.find('.cpac-column').each( function( i, col ) {
+                    jQuery(col).column_bind_toggle();
+                    jQuery(col).column_bind_remove();
+                    jQuery(col).column_bind_clone();
+                    jQuery(col).cpac_bind_indicator_events();
+                });
 
-            // ordering of columns
-            columns.cpac_bind_ordering();
+                // ordering of columns
+                columns.cpac_bind_ordering();
 
-            // hook for addons
-            jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-            jQuery( document ).trigger( 'cac_model_ready', type );
+                // hook for addons
+                jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
+                jQuery( document ).trigger( 'cac_model_ready', type );
+		    }
 
+            container.addClass('events-binded');
 		}
-
-		// re init sidebar scroll
-		//cpac_sidebar_scroll();
-
-		e.preventDefault();
 	});
 
 	// activate first menu
@@ -717,8 +725,15 @@ function cpac_menu() {
  *
  */
 jQuery( document ).bind('column_init column_change column_add', function( e, column ){
+
+    var is_disabled = jQuery( column ).closest('.cpac-boxes').hasClass('disabled');
+
+    if ( is_disabled ) {
+        return;
+    }
+
 	jQuery( column ).cpac_bind_column_addon_events();
-	jQuery( column ).cpac_bind_container_addon_events();
+	jQuery( column ).cpac_bind_indicator_events();
 });
 
 /*
@@ -748,7 +763,7 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 		}
 	});
 
-	// Hide additonal options on ready
+	// Toggle additional column settings
 	column.find('[data-toggle-id]').each( function(){
 		var additional = column.find('[data-additional-option-id="' + jQuery( this ).data('toggle-id') + '"]' ).addClass( 'hide' );
 		if ( 'on' == jQuery( 'input:checked', this ).val() ) {
@@ -761,7 +776,7 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
  * Indicator Click Events
  *
  */
-jQuery.fn.cpac_bind_container_addon_events = function() {
+jQuery.fn.cpac_bind_indicator_events = function() {
 
 	var column = jQuery( this );
 	var indicator = column.find('[data-indicator-id]');
