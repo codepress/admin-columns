@@ -606,19 +606,6 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 2.4.1
-	 */
-	private function get_menu_types() {
-		$menu_types = array(
-			'post'     => __( 'Posttypes', 'codepress-admin-columns' ),
-			'other'    => __( 'Others', 'codepress-admin-columns' ),
-			'taxonomy' => __( 'Taxonomies', 'codepress-admin-columns' ),
-		);
-
-		return apply_filters( 'cac/menu_types', $menu_types );
-	}
-
-	/**
 	 * @since 1.0
 	 */
 	public function display() {
@@ -663,25 +650,23 @@ class CPAC_Settings {
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
-						$storage_models_by_type[ $storage_model->menu_type ][ $k ] = $storage_model;
+						$storage_models_by_type[ $storage_model->get_menu_type() ][ $k ] = $storage_model;
 					}
 					?>
 					<div class="cpac-menu">
 						<?php
-						foreach ( $this->get_menu_types() as $menu_type => $label ) {
-							if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) {
+						foreach ( $storage_models_by_type as $menu_type => $label ) {
 								$count = 0; ?>
-								<ul class="subsubsub">
-									<li class="first"><?php echo $label; ?>:</li>
-									<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-										<li>
-											<?php echo $count ++ != 0 ? ' | ' : ''; ?>
-											<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
-										</li>
-									<?php endforeach; ?>
-								</ul>
-								<?php
-							}
+							<ul class="subsubsub">
+								<li class="first"><?php echo esc_html( $menu_type ); ?>:</li>
+								<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
+									<li>
+										<?php echo $count ++ != 0 ? ' | ' : ''; ?>
+										<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+							<?php
 						}
 						?>
 					</div>

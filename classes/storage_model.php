@@ -40,7 +40,6 @@ abstract class CPAC_Storage_Model {
 	 */
 	public $meta_type;
 
-
 	/**
 	 * Groups the storage model in the menu.
 	 *
@@ -174,7 +173,8 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.4.10
 	 *
 	 */
-	public function init_manage_columns(){}
+	public function init_manage_columns() {
+	}
 
 	/**
 	 * @since 2.0.3
@@ -182,6 +182,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function is_current_screen() {
 		global $pagenow;
+
 		return $this->page . '.php' === $pagenow && $this->subpage == filter_input( INPUT_GET, 'page' );
 	}
 
@@ -194,6 +195,13 @@ abstract class CPAC_Storage_Model {
 		$this->menu_type = $menu_type;
 
 		return $this;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_menu_type() {
+		return empty( $this->menu_type ) || 'other' === $this->menu_type ? __( 'Other', 'codepress-admin-columns' ) : $this->menu_type;
 	}
 
 	/**
@@ -246,17 +254,18 @@ abstract class CPAC_Storage_Model {
 	 * @return array
 	 */
 	public function get_meta_keys() {
-
 		if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
 			$keys = $cache;
-		} else {
+		}
+		else {
 			$keys = $this->get_meta();
 			wp_cache_add( $this->key, $keys, 'cac_columns', 10 ); // 10 sec.
 		}
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
 			$keys = false;
-		} else {
+		}
+		else {
 			$keys = $this->format_meta_keys( $keys );
 		}
 
@@ -417,7 +426,7 @@ abstract class CPAC_Storage_Model {
 			// Users
 			if ( ! empty( $layout->users ) ) {
 				foreach ( $layout->users as $user ) {
-					if ( $current_user == $user  ) {
+					if ( $current_user == $user ) {
 						$user_layouts[ $k ] = $layout;
 					}
 				}
@@ -803,7 +812,8 @@ abstract class CPAC_Storage_Model {
 
 		if ( $this->is_using_php_export() ) {
 			$columns = isset( $this->stored_columns[ $this->layout ] ) ? $this->stored_columns[ $this->layout ] : false;
-		} else {
+		}
+		else {
 			$columns = $this->get_database_columns();
 		}
 
@@ -1161,12 +1171,12 @@ abstract class CPAC_Storage_Model {
 		return add_query_arg( $args, $this->settings_url() );
 	}
 
-
 	/**
 	 * @deprecated deprecated since version 2.4.9
 	 */
-	public function is_columns_screen(){
+	public function is_columns_screen() {
 		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
+
 		return $this->is_current_screen();
 	}
 

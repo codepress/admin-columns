@@ -13,7 +13,6 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
 		$this->page = 'edit-comments';
-		$this->menu_type = 'other';
 
 		parent::__construct();
 	}

@@ -220,7 +220,7 @@ a.help {
   display: none !important;
 }
 .columns-left .cpac-boxes.disabled .column-meta td.column_sort {
-  cursor: default !important;
+  display: none;
 }
 .columns-left .cpac-boxes.disabled .meta span {
   cursor: default !important;
