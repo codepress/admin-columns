@@ -661,37 +661,14 @@ function cpac_sortable() {
  */
 function cpac_menu() {
 
-	var menu = jQuery('#cpac div.cpac-menu');
-	// click
-	menu.find('a').click( function(e, el) {
+	jQuery('#cpac #cpac_storage_modal_select').on( 'change', function(){
+        var url = jQuery(this).val();
 
-		var id = jQuery(this).attr('href');
+        if( url ){
+            window.location = url;
+        }
+    });
 
-		if ( id ) {
-
-			var type = id.replace('#cpac-box-','');
-
-			// remove current
-			jQuery('.cpac-menu a').removeClass('current');
-			jQuery('.columns-container').hide();
-
-			// set current
-			jQuery(this).addClass('current');
-			var container = jQuery('.columns-container[data-type="' + type + '"]').show();
-			var columns = container.find( '.cpac-columns' );
-
-			// hook for addons
-			jQuery( document ).trigger( 'cac_menu_change', columns );
-		}
-
-		// re init sidebar scroll
-		//cpac_sidebar_scroll();
-
-		e.preventDefault();
-	});
-
-	// activate first menu
-	menu.find('a.current').trigger('click');
 }
 
 /*

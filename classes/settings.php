@@ -650,6 +650,7 @@ class CPAC_Settings {
 
 					$keys = array_keys( $this->cpac->storage_models );
 					$first = array_shift( $keys );
+					$current = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $first;
 
 					$storage_models_by_type = array();
 					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
@@ -658,29 +659,25 @@ class CPAC_Settings {
 
 					?>
 					<div class="cpac-menu">
-						<?php
-						foreach ( $this->get_menu_types() as $menu_type => $label ) {
-							if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) {
-								$count = 0; ?>
-								<ul class="subsubsub">
-									<li class="first"><?php echo $label; ?>:</li>
-									<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-										<li>
-											<?php echo $count ++ != 0 ? ' | ' : ''; ?>
-											<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
-										</li>
-									<?php endforeach; ?>
-								</ul>
-								<?php
-							}
-						}
-						?>
+						<select id="cpac_storage_modal_select">
+							<?php foreach ( $this->get_menu_types() as $menu_type => $label ): ?>
+								<?php if( ! isset( $storage_models_by_type[ $menu_type ] )  ){ continue; } ?>
+								<optgroup label="<?php echo $label; ?>">
+								<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
+									<option value="<?php echo esc_attr( $storage_model->get_edit_link() ); ?>" <?php selected( $storage_model->key, $current ); ?>><?php echo $storage_model->label; ?></option>
+								<?php endforeach; ?>
+								</optgroup>
+							<?php endforeach; ?>
+						</select>
 					</div>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
-					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-					<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
+					<?php
+						$storage_model = $this->cpac->get_storage_model( $current );
+					?>
+
+					<div class="columns-container" data-type="<?php echo $storage_model->key ?>">
 
 						<div class="columns-left">
 							<div id="titlediv">
@@ -893,8 +890,6 @@ class CPAC_Settings {
 							?>
 						</div>
 					</div><!--.columns-container-->
-				<?php endforeach; // storage_models
-					?>
 
 					<div class="clear"></div>
 					<?php

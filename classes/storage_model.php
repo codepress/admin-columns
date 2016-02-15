@@ -160,30 +160,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Checks if menu type is currently viewed
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $key
-	 *
-	 * @return bool
-	 */
-	public function is_menu_type_current( $first_posttype ) {
-
-		// display the page that was being viewed before saving
-		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
-			if ( $_REQUEST['cpac_key'] == $this->key ) {
-				return true;
-			}
-		} // settings page has not yet been saved
-		elseif ( $first_posttype == $this->key ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * @since 2.4.7
 	 */
 	public function format_meta_keys( $keys ) {
