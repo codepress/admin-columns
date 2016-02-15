@@ -702,6 +702,7 @@ class CPAC_Settings {
 									<div class="sidebox" id="form-actions">
 										<h3>
 											<?php _e( 'Store settings', 'codepress-admin-columns' ) ?>
+											<span><?php echo esc_html( $storage_model->label ); ?></span>
 										</h3>
 										<div class="form-update">
 											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php //echo ' ' . $storage_model->label; ?></a>
