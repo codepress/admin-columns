@@ -30,6 +30,8 @@ jQuery(document).ready(function() {
 		jQuery( col ).column_bind_clone();
 		jQuery( col ).cpac_bind_container_addon_events();
 	});
+
+    jQuery( document ).cpacChanges();
 });
 
 function cpac_importexport() {
@@ -87,7 +89,7 @@ jQuery.fn.column_bind_remove = function() {
 
 	jQuery(this).find('.remove-button').click( function(e) {
 		jQuery(this).closest('.cpac-column').column_remove();
-
+        jQuery( document ).trigger( 'cpac_change' );
 		e.preventDefault();
 	});
 };
@@ -107,6 +109,7 @@ jQuery.fn.column_bind_clone = function() {
 		column = jQuery( this ).closest( '.cpac-column' );
 
 		clone = column.column_clone();
+        jQuery( document ).trigger( 'cpac_change' );
 
 		if ( typeof clone !== 'undefined' ) {
 			clone.removeClass( 'loading' ).hide().slideDown();
@@ -145,6 +148,7 @@ jQuery.fn.cpac_column_refresh = function() {
 
 		// Allow plugins to hook into this event
 		jQuery( document ).trigger( 'column_change', el );
+        jQuery( document ).trigger( 'cpac_change' );
 	} );
 };
 
@@ -154,7 +158,6 @@ jQuery.fn.cpac_column_refresh = function() {
  * @since 2.0
  */
 jQuery.fn.column_bind_events = function() {
-
 	var column			= jQuery( this );
 	var container		= column.closest( '.columns-container ');
 	var storage_model	= container.attr( 'data-type' );
@@ -171,6 +174,7 @@ jQuery.fn.column_bind_events = function() {
 		// Find template element for this field type
 		var template = container.find( '.for-cloning-only .cpac-column[data-type="' + type + '"]' );
 
+        jQuery( document ).trigger( 'cpac_change' );
 		if ( template.length ) {
 			if ( template.find( '.is-disabled' ).length ) {
 				msg.html( template.find( '.is-disabled' ).html() ).show();
@@ -212,6 +216,7 @@ jQuery.fn.column_bind_events = function() {
 
 		var value = jQuery( this ).val();
 		jQuery(this).closest('.cpac-column').find( 'td.column_label .inner > a.toggle' ).text( value );
+        jQuery( document ).trigger( 'cpac_change' );
 	});
 
 	/** width */
@@ -229,6 +234,7 @@ jQuery.fn.column_bind_events = function() {
 		} else {
 			jQuery(this).text('');
 		}
+        jQuery( document).trigger( 'cpac_change' );
 	});
 
 	// unit selector
@@ -304,6 +310,7 @@ jQuery.fn.column_bind_events = function() {
 jQuery.fn.column_remove = function() {
 	jQuery(this).addClass('deleting').animate({ opacity : 0, height: 0 }, 350, function(e) {
 		jQuery(this).remove();
+        jQuery(document).trigger( 'cpac_change' );
 	});
 };
 
@@ -385,6 +392,7 @@ jQuery.fn.column_clone = function() {
 
 	// hook for addons
 	jQuery( document ).trigger( 'column_add', clone );
+    jQuery( document ).trigger( 'cpac_change' );
 
 	return clone;
 };
@@ -487,6 +495,7 @@ function cpac_create_column( container ) {
 
 		// hook for addons
 		jQuery( document ).trigger( 'column_add', clone );
+        jQuery( document ).trigger( 'cpac_change' );
 	}
 
 	return clone;
@@ -648,10 +657,14 @@ function cpac_sortable() {
 		}
 		else {
 			jQuery( this ).sortable( {
-				items : '.cpac-column'
+				items : '.cpac-column',
+                change: function(){
+                    jQuery( document ).trigger( 'cpac_change' );
+                }
 			} );
 		}
 	} );
+
 }
 
 /*
@@ -728,6 +741,8 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 		if ( 'on' == state ) {
 			additional.removeClass( 'hide' );
 		}
+
+        jQuery( document).trigger( 'cpac_change' );
 	});
 
 	// Hide additonal options on ready
@@ -761,5 +776,68 @@ jQuery.fn.cpac_bind_container_addon_events = function() {
 			jQuery( this ).removeClass('off').addClass('on');
 			radio.filter('[value=on]').prop('checked', true);
 		}
+
+        jQuery( document).trigger( 'cpac_change' );
 	});
 };
+
+
+(function($) {
+
+    $.cpacChanges = function(element, options) {
+        var plugin = this;
+        var $el = $(element),
+            changes = 0;
+
+        plugin.init = function() {
+            if( ! $el.data('cpac_changes') ){
+                $el.data('cpac_changes', changes );
+            }
+
+            window.onbeforeunload = function (e) {
+                if( $el.data('cpac_changes') > 0  ){
+                    var message = cpac_i18n.changed,
+                        e = e || window.event;
+                    // For IE and Firefox
+                    if (e) {
+                        e.returnValue = message;
+                    }
+                    return message;
+                }
+
+            };
+
+            $el.on( 'cpac_change', function(){
+                plugin.change();
+            });
+        }
+
+        plugin.change = function(){
+            changes++;
+            setChanges();
+        }
+
+        plugin.reset = function(){
+            changes = 0;
+            setChanges();
+        }
+
+        function setChanges(){
+            $el.data('cpac_changes', changes);
+        }
+
+        plugin.init();
+    }
+
+    $.fn.cpacChanges = function(options) {
+        return this.each(function() {
+
+            if (undefined === $(this).data('cpacChanges')) {
+                var plugin = new $.cpacChanges(this, options);
+                $(this).data('cpacChanges', plugin);
+            }
+        });
+
+    }
+
+})(jQuery);
