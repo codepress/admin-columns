@@ -700,9 +700,20 @@ class CPAC_Settings {
 							<div class="columns-right-inside">
 								<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 									<div class="sidebox" id="form-actions">
+										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
-											<?php _e( 'Store settings', 'codepress-admin-columns' ) ?>
-											<span><?php echo esc_html( $storage_model->label ); ?></span>
+											<span class="left"><?php echo $label; ?></span>
+
+											<?php
+
+											// Make sure the storage model label doesn't overlay the store settings label.
+											$right_label = $storage_model->label;
+											if ( 34 < ( strlen( $storage_model->label ) + ( strlen( $label ) * 1.1 ) ) ) {
+												$right_label = substr( $storage_model->label, 0, 34 - ( strlen( $label ) * 1.1 ) ) . '...';
+											}
+											?>
+
+											<span class="right"><?php echo esc_html( $right_label ); ?></span>
 										</h3>
 										<div class="form-update">
 											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php //echo ' ' . $storage_model->label; ?></a>
@@ -710,9 +721,7 @@ class CPAC_Settings {
 										<?php if ( $has_been_stored ) : ?>
 											<div class="form-reset">
 												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ), $storage_model->label ); ?>');">
-													<?php _e( 'Restore', 'codepress-admin-columns' ); ?>
-													<?php echo ' ' . $storage_model->label . ' '; ?>
-													<?php _e( 'columns', 'codepress-admin-columns' ); ?>
+													<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
 												</a>
 											</div>
 										<?php endif; ?>

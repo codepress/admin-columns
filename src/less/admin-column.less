@@ -946,6 +946,7 @@ a.help {
 		h3 {
 			padding: 10px;
 			margin: 0;
+			position: relative;
 
 			&.title {
 				font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
@@ -968,12 +969,22 @@ a.help {
 				border-bottom-width: 1px;
 			}
 
-			span {
-				float: right;
+			span.left {
+				position: relative;
+				background: #fff;
+				z-index: 2;
+				padding-right: 8px;
+			}
+			span.right {
+				position: absolute;
+				display: inline-block;
+				line-height: 20px;
+				z-index: 1;
+				right: 10px;
 				font-size: 12px;
 				text-transform: uppercase;
 				color: #808080;
-				margin-left: 4px;
+				text-align: right;
 			}
 		}
 
