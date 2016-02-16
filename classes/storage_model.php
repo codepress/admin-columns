@@ -335,6 +335,12 @@ abstract class CPAC_Storage_Model {
 		return $this->get_layout_by_id( $this->layout );
 	}
 
+	public function get_layout_name() {
+		$object = $this->get_layout_by_id( $this->layout );
+
+		return isset( $object->name ) ? $object->name : false;
+	}
+
 	public function set_layout( $layout ) {
 		$this->layout = $layout;
 	}

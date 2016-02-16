@@ -582,7 +582,8 @@ function cpac_pointer() {
 		// vars
 		var el		= jQuery(this),
 			html	= el.attr('rel'),
-			pos		= el.attr('data-pos');
+			pos		= el.attr('data-pos'),
+            noclick = el.attr('data-noclick');
 
 		var position = {
 			at:		'left top',		// position of wp-pointer relative to the element which triggers the pointer event
@@ -617,18 +618,20 @@ function cpac_pointer() {
 
 			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
 			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-			pointerClass: 'wp-pointer wp-pointer-' + position.edge
+			pointerClass: 'wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
 		});
 
 		// click
-		el.click( function() {
-			if( el.hasClass('open') ) {
-				el.removeClass('open');
-			}
-			else {
-				el.addClass('open');
-			}
-		});
+        if ( ! noclick ) {
+            el.click(function () {
+                if (el.hasClass('open')) {
+                    el.removeClass('open');
+                }
+                else {
+                    el.addClass('open');
+                }
+            });
+        }
 
 		// show on hover
 		el.hover( function() {

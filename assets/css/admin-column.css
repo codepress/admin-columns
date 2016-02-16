@@ -1017,6 +1017,9 @@ table.cpac-form-table.settings tr:first-child td {
 .wp-pointer-right {
   margin-right: 15px;
 }
+.wp-pointer.noclick .wp-pointer-buttons {
+  display: none;
+}
 /* =RTL language
 -------------------------------------------------------------- */
 body.rtl .wp-pointer-right {

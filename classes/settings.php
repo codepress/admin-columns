@@ -716,11 +716,17 @@ class CPAC_Settings {
 											<span class="right"><?php echo esc_html( $right_label ); ?></span>
 										</h3>
 										<div class="form-update">
-											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?><?php //echo ' ' . $storage_model->label; ?></a>
+											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?></a>
 										</div>
 										<?php if ( $has_been_stored ) : ?>
+											<?php
+											$label = $storage_model->label;
+											if ( $layout_name = $storage_model->get_layout_name() ) {
+												$label .= " '" . $layout_name . "'";
+											}
+											?>
 											<div class="form-reset">
-												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type" onclick="return confirm('<?php printf( __( "Warning! The %s columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ), $storage_model->label ); ?>');">
+												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type" onclick="return confirm('<?php echo esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), $label ) ) ); ?>');">
 													<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
 												</a>
 											</div>
