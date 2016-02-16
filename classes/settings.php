@@ -726,7 +726,8 @@ class CPAC_Settings {
 											}
 											?>
 											<div class="form-reset">
-												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type" onclick="return confirm('<?php echo esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), $label ) ) ); ?>');">
+												<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), $label ) ) ) . '\');"' : ''; ?>
+												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
 													<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
 												</a>
 											</div>

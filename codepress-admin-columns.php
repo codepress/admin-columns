@@ -147,10 +147,6 @@ class CPAC {
 		new CPAC_Review_Notice( $this );
 	}
 
-	public function x() {
-		exit;
-	}
-
 	/**
 	 * Fire callbacks for admin columns setup completion
 	 *
@@ -504,6 +500,13 @@ class CPAC {
 		$keys = array_keys( (array) $this->storage_models );
 
 		return array_shift( $keys );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function use_delete_confirmation() {
+		return apply_filters( 'ac/delete_confirmation', true );
 	}
 
 	/**
