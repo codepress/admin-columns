@@ -455,7 +455,7 @@ abstract class CPAC_Storage_Model {
 						$layout->users = $args['users'];
 					}
 					if ( ! empty( $args['name'] ) ) { // can not be empty
-						$layout->name = $args['name'];
+						$layout->name = trim( $args['name'] );
 					}
 
 					$layouts[ $k ] = $layout;
@@ -469,7 +469,7 @@ abstract class CPAC_Storage_Model {
 	public function create_layout( $args, $is_default = false ) {
 
 		if ( empty( $args['name'] ) ) {
-			return new WP_Error( 'missing-name', __( 'Layout name can not be empty.', 'codepress-admin-columns' ) );
+			return new WP_Error( 'empty-name', 'Name is empty' );
 		}
 
 		$layouts = $this->get_layouts();
@@ -480,6 +480,8 @@ abstract class CPAC_Storage_Model {
 		if ( ! isset( $args['users'] ) ) {
 			$args['users'] = array();
 		}
+
+		$args['name'] = trim( $args['name'] );
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
 		$layout_id = null;
