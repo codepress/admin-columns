@@ -588,7 +588,6 @@ function cpac_pointer() {
 			at:		'left top',		// position of wp-pointer relative to the element which triggers the pointer event
 			my:		'right top',	// position of wp-pointer relative to the at-coordinates
 			edge:	'right',		// position of arrow
-			offset: '0 0'			// offset for wp-pointer
 		};
 
 		if ( 'right' == pos ) {
@@ -598,6 +597,14 @@ function cpac_pointer() {
 				edge:	'left'
 			};
 		}
+
+        if ( 'left' == pos ) {
+            position = {
+                at:		'left middle',
+                my:		'right middle',
+                edge:	'right'
+             };
+        }
 
 		// create pointer
 		el.pointer({
