@@ -257,8 +257,19 @@ class CPAC_Settings {
 			case 'update_by_type' :
 				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
-						$storage_model->store();
-						$storage_model->set_columns();
+
+						$columns = isset( $_POST[ $storage_model->key ] ) ? $_POST[ $storage_model->key ] : false;
+
+						$stored = $storage_model->store( $columns );
+
+						if ( is_wp_error( $stored ) ) {
+							cpac_admin_message( $stored->get_error_message(), 'error' );
+						}
+
+						else {
+							$storage_model->set_columns();
+							cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>{$storage_model->label}</strong>" ), 'updated' );
+						}
 					}
 				}
 				break;
@@ -268,6 +279,7 @@ class CPAC_Settings {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 						$storage_model->restore();
 						$storage_model->set_columns();
+						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>{$storage_model->label}</strong>" ), 'updated' );
 					}
 				}
 				break;

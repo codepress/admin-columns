@@ -8,33 +8,21 @@
  *
  * @since 1.4.6
  */
-function cpac_pre_load_wordpress_seo_class_metabox() {
-	if ( ! defined( 'WPSEO_PATH' ) ) {
-		return;
-	}
-
-	if ( ! cac_is_doing_ajax() && ! cac_is_setting_screen() ) {
-		return;
-	}
-
-	// Yoast SEO version > 3.0
-	if ( file_exists( WPSEO_PATH . 'admin/class-meta-columns.php' ) ) {
-		require_once WPSEO_PATH . 'admin/class-meta-columns.php';
-		if ( class_exists( 'WPSEO_Meta_Columns', false ) ) {
-			$metabox = new WPSEO_Meta_Columns;
-			if ( method_exists( $metabox, 'setup_hooks' ) ) {
-				$metabox->setup_hooks();
+//exit;
+function cpac_pre_load_wordpress_seo_class_metabox( $columns, $storage_model ) {
+	if ( defined( 'WPSEO_PATH' ) ) {
+		if ( $post_type = $storage_model->get_post_type() ) {
+			if ( ! in_array( $post_type, get_post_types( array( 'public' => true ), 'names' ) ) ) {
+				return $columns;
 			}
 		}
-	}
 
-	// Yoast SEO version < 3.0
-	if ( file_exists( WPSEO_PATH . 'admin/class-meta-box.php' ) ) {
-		require_once WPSEO_PATH . 'admin/class-meta-box.php';
-		if ( class_exists( 'WPSEO_Meta_Columns', false ) ) {
-			new WPSEO_Metabox;
-		}
+		$columns['wpseo-score'] = __( 'SEO', 'wordpress-seo' );
+		$columns['wpseo-title'] = __( 'SEO Title', 'wordpress-seo' );
+		$columns['wpseo-metadesc'] = __( 'Meta Desc.', 'wordpress-seo' );
+		$columns['wpseo-focuskw'] = __( 'Focus KW', 'wordpress-seo' );
 	}
+	return $columns;
 }
-
-add_action( 'plugins_loaded', 'cpac_pre_load_wordpress_seo_class_metabox', 0 );
+add_filter( "cac/default_columns/type=post", "cpac_pre_load_wordpress_seo_class_metabox", 10, 2 );
+add_filter( "cac/default_columns/type=taxonomy", "cpac_pre_load_wordpress_seo_class_metabox", 10, 2 );

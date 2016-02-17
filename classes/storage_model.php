@@ -137,7 +137,8 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.4.10
 	 *
 	 */
-	public function init_manage_columns(){}
+	public function init_manage_columns() {
+	}
 
 	/**
 	 * @since 2.0.3
@@ -145,6 +146,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function is_current_screen() {
 		global $pagenow;
+
 		return $this->page . '.php' === $pagenow && $this->subpage == filter_input( INPUT_GET, 'page' );
 	}
 
@@ -212,14 +214,16 @@ abstract class CPAC_Storage_Model {
 
 		if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
 			$keys = $cache;
-		} else {
+		}
+		else {
 			$keys = $this->get_meta();
 			wp_cache_add( $this->key, $keys, 'cac_columns', 10 ); // 10 sec.
 		}
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
 			$keys = false;
-		} else {
+		}
+		else {
 			$keys = $this->format_meta_keys( $keys );
 		}
 
@@ -280,25 +284,16 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function restore() {
-
-		delete_option( "cpac_options_{$this->key}" );
-
-		cpac_admin_message( "<strong>{$this->label}</strong> " . __( 'settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+		return delete_option( "cpac_options_{$this->key}" );
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public function store( $columns = '' ) {
-
-		if ( ! empty( $_POST[ $this->key ] ) ) {
-			$columns = array_filter( $_POST[ $this->key ] );
-		}
+	public function store( $columns ) {
 
 		if ( ! $columns ) {
-			cpac_admin_message( __( 'No columns settings available.', 'codepress-admin-columns' ), 'error' );
-
-			return false;
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
 		// sanitize user inputs
@@ -314,16 +309,11 @@ abstract class CPAC_Storage_Model {
 
 		// store columns
 		$result = update_option( "cpac_options_{$this->key}", $columns );
-		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_columns() ) );
+		$result_default = update_option( "cpac_options_{$this->key}_default", array_keys( $this->get_default_column_headings() ) );
 
-		// error
 		if ( ! $result && ! $result_default ) {
-			cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'error' );
-
-			return false;
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ) );
 		}
-
-		cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>{$this->label}</strong>" ), 'updated' );
 
 		/**
 		 * Fires after a new column setup is stored in the database
@@ -337,6 +327,17 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/storage_model/columns_stored', $columns, $this );
 
 		return true;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function get_default_column_headings() {
+		$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
+		$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
+		$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
+
+		return $default_columns;
 	}
 
 	/**
@@ -625,15 +626,20 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/set_columns', $this );
 
 		$this->custom_columns = $this->get_custom_registered_columns();
-		$this->default_wp_columns = $this->get_default_columns();
+		$this->default_wp_columns = $this->get_default_column_headings();
 		$this->default_columns = $this->get_default_registered_columns();
-		$this->column_types = $this->get_grouped_column_types();
+
+		$this->set_grouped_column_types();
+
 		$this->columns = $this->get_columns();
 
 		do_action( 'cac/set_columns/after', $this );
 	}
 
-	public function get_grouped_column_types() {
+	/**
+	 * @since NEWVERSION
+	 */
+	private function set_grouped_column_types() {
 
 		$types = array();
 		$groups = array_keys( $this->get_column_type_groups() );
@@ -653,7 +659,7 @@ abstract class CPAC_Storage_Model {
 			$types[ $group ] = $grouptypes;
 		}
 
-		return $types;
+		$this->column_types = $types;
 	}
 
 	public function get_column_type_groups() {
@@ -714,7 +720,7 @@ abstract class CPAC_Storage_Model {
 		$columns = array();
 
 		if ( ! $this->default_wp_columns ) {
-			$this->default_wp_columns = $this->get_default_columns();
+			$this->default_wp_columns = $this->get_default_column_headings();
 		}
 		$registered_columns = $this->get_registered_columns();
 
@@ -881,12 +887,12 @@ abstract class CPAC_Storage_Model {
 		return add_query_arg( array( 'page' => 'codepress-admin-columns', 'cpac_key' => $this->key ), admin_url( 'options-general.php' ) );
 	}
 
-
 	/**
 	 * @deprecated deprecated since version 2.4.9
 	 */
-	public function is_columns_screen(){
+	public function is_columns_screen() {
 		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
+
 		return $this->is_current_screen();
 	}
 
