@@ -380,6 +380,25 @@ abstract class CPAC_Storage_Model {
 			$layouts = get_option( $this->get_layout_key() );
 		}
 
+		// Set defaults
+		/*if ( ! empty( $layouts ) ) {
+			foreach ( $layouts as $k => $layout ) {
+				if ( ! isset( $layout->id ) ) {
+					$layout->id = null;
+				}
+				if ( empty( $layout->name ) ) {
+					$layout->name = '';
+				}
+				if ( empty( $layout->roles ) ) {
+					$layout->roles = array();
+				}
+				if ( empty( $layout->users ) ) {
+					$layout->users = array();
+				}
+				$layouts[ $k ] = $layout;
+			}
+		}*/
+
 		return empty( $layouts ) ? array() : $layouts;
 	}
 
@@ -450,26 +469,44 @@ abstract class CPAC_Storage_Model {
 	public function update_layout( $args ) {
 		$layouts = $this->get_layouts();
 
-		if ( $layouts ) {
-			foreach ( $layouts as $k => $layout ) {
-				if ( $layout->id == $this->layout ) {
+		if ( ! $layouts ) {
+			return false;
+		}
 
-					if ( isset( $args['roles'] ) ) {
-						$layout->roles = $args['roles'];
-					}
-					if ( isset( $args['users'] ) ) {
-						$layout->users = $args['users'];
-					}
-					if ( ! empty( $args['name'] ) ) { // can not be empty
-						$layout->name = trim( $args['name'] );
-					}
+		if ( ! isset( $args['id'] ) ) {
+			return false;
+		}
 
-					$layouts[ $k ] = $layout;
+		if ( empty( $args['name'] ) ) {
+			return new WP_Error( 'missing-name' );
+		}
+
+		foreach ( $layouts as $k => $layout ) {
+
+			// Layout to update
+			if ( $args['id'] == $layout->id ) {
+
+				if ( ! empty( $args['name'] ) ) {
+					$layout->name = trim( $args['name'] );
 				}
+
+				if ( isset( $args['roles'] ) ) {
+					$layout->roles = $args['roles'];
+				}
+
+				if ( isset( $args['users'] ) ) {
+					$layout->users = $args['users'];
+				}
+
+				$layouts[ $k ] = $layout;
+
+				break;
 			}
 		}
 
 		update_option( $this->get_layout_key(), array_filter( $layouts ) );
+
+		return isset( $layout ) ? $layout : false;
 	}
 
 	public function create_layout( $args, $is_default = false ) {
@@ -545,24 +582,27 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function restore() {
-		delete_option( $this->get_storage_id() );
+		return delete_option( $this->get_storage_id() );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_label_or_layout_name() {
+		$label = $this->label;
+		if ( $name = $this->get_layout_name() ) {
+			$label = $name;
+		}
+		return $label;
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public function store( $columns = '', $message = true ) {
-
-		if ( ! empty( $_POST[ $this->key ] ) ) {
-			$columns = array_filter( $_POST[ $this->key ] );
-		}
+	public function store( $columns ) {
 
 		if ( ! $columns ) {
-			if ( $message ) {
-				cpac_admin_message( __( 'No columns settings available.', 'codepress-admin-columns' ), 'error' );
-			}
-
-			return false;
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
 		// sanitize user inputs
@@ -576,21 +616,14 @@ abstract class CPAC_Storage_Model {
 			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
 		}
 
+		$default_columns = $this->default_wp_columns ? $this->default_wp_columns : $this->get_default_column_headings();
+
 		// store columns
 		$result = update_option( $this->get_storage_id(), $columns );
-		$result_default = update_option( $this->get_storage_id() . "_default", array_keys( $this->get_default_columns() ) );
+		$result_default = update_option( $this->get_storage_id() . "_default", array_keys( $default_columns ) );
 
-		// error
 		if ( ! $result && ! $result_default ) {
-			if ( $message ) {
-				cpac_admin_message( sprintf( __( 'You are trying to store the same settings for %s.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'error' );
-			}
-
-			return false;
-		}
-
-		if ( $message ) {
-			cpac_admin_message( sprintf( __( 'Settings for %s updated successfully.', 'cpac' ), "<strong>{$this->label}</strong>" ), 'updated' );
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_label_or_layout_name() . "</strong>" ) );
 		}
 
 		/**
@@ -605,6 +638,17 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/storage_model/columns_stored', $columns, $this );
 
 		return true;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_default_column_headings() {
+		$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
+		$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
+		$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
+
+		return $default_columns;
 	}
 
 	/**
@@ -893,15 +937,20 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/set_columns', $this );
 
 		$this->custom_columns = $this->get_custom_registered_columns();
-		$this->default_wp_columns = $this->get_default_columns();
+		$this->default_wp_columns = $this->get_default_column_headings();
 		$this->default_columns = $this->get_default_registered_columns();
-		$this->column_types = $this->get_grouped_column_types();
+
+		$this->set_grouped_column_types();
+
 		$this->columns = $this->get_columns();
 
 		do_action( 'cac/set_columns/after', $this );
 	}
 
-	public function get_grouped_column_types() {
+	/**
+	 * @since NEWVERSION
+	 */
+	private function set_grouped_column_types() {
 
 		$types = array();
 		$groups = array_keys( $this->get_column_type_groups() );
@@ -921,7 +970,7 @@ abstract class CPAC_Storage_Model {
 			$types[ $group ] = $grouptypes;
 		}
 
-		return $types;
+		$this->column_types = $types;
 	}
 
 	public function get_column_type_groups() {
@@ -973,6 +1022,13 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_default_wp_columns() {
+		return $this->default_wp_columns;
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function get_columns() {
@@ -981,9 +1037,12 @@ abstract class CPAC_Storage_Model {
 
 		$columns = array();
 
-		if ( ! $this->default_wp_columns ) {
-			$this->default_wp_columns = $this->get_default_columns();
+		$default_columns = $this->default_wp_columns;
+
+		if ( ! $default_columns ) {
+			$default_columns = $this->get_default_column_headings();
 		}
+
 		$registered_columns = $this->get_registered_columns();
 
 		if ( $stored_columns = $this->get_stored_columns() ) {
@@ -1013,10 +1072,10 @@ abstract class CPAC_Storage_Model {
 
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
-			if ( $diff = array_diff( array_keys( $this->default_wp_columns ), $this->get_default_stored_columns() ) ) {
+			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
 				foreach ( $diff as $name ) {
 					// because of the filter "manage_{$post_type}_posts_columns" the columns
-					// that are being added by CPAC will also appear in the $this->default_wp_columns.
+					// that are being added by CPAC will also appear in the $default_columns.
 					// this will filter out those columns.
 					if ( isset( $columns[ $name ] ) ) {
 						continue;
@@ -1032,7 +1091,7 @@ abstract class CPAC_Storage_Model {
 			}
 		} // When nothing has been saved yet, we return the default WP columns.
 		else {
-			foreach ( array_keys( $this->default_wp_columns ) as $name ) {
+			foreach ( array_keys( $default_columns ) as $name ) {
 				if ( isset( $registered_columns[ $name ] ) ) {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}

@@ -248,16 +248,31 @@ class CPAC_Settings {
 	 * @since NEWVERSION
 	 */
 	public function ajax_columns_update() {
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_ajax_nonce' ), 'cpac-settings' ) ) {
-			exit;
+		check_ajax_referer( 'cpac-settings' );
+
+		if ( ! current_user_can( 'manage_admin_columns' ) ) {
+			wp_die();
 		}
 
-		if ( ! ( $storage_model = $this->cpac->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) ) ) ) {
-			exit;
+		$storage_model = $this->cpac->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) );
+
+		if ( ! $storage_model ) {
+			wp_die();
 		}
 
-		parse_str( $_POST['data'], $columns );
-		$stored = $storage_model->store( $columns );
+		parse_str( $_POST['data'], $formdata );
+
+		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
+			wp_die();
+		}
+
+		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
+
+		if ( is_wp_error( $stored ) ) {
+			wp_send_json_error( $stored->get_error_message() );
+		}
+
+		wp_send_json_success( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" .  $storage_model->get_label_or_layout_name() . "</strong>" ) );
 	}
 
 	/**
@@ -277,19 +292,6 @@ class CPAC_Settings {
 
 		switch ( $action ) :
 
-			case 'update_by_type' :
-				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
-					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
-
-						$layout = isset( $_POST['cpac_layout'] ) ? intval( $_POST['cpac_layout'] ) : null;
-
-						$storage_model->set_layout( $layout );
-						$storage_model->store();
-						$storage_model->set_columns();
-					}
-				}
-				break;
-
 			case 'restore_by_type' :
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
@@ -300,7 +302,7 @@ class CPAC_Settings {
 						$storage_model->restore();
 						$storage_model->set_columns();
 
-						cpac_admin_message( "<strong>{$storage_model->label}</strong> " . __( 'settings succesfully restored.', 'cpac' ), 'updated' );
+						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>{$storage_model->label}</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -675,6 +677,7 @@ class CPAC_Settings {
 						$storage_models_by_type[ $storage_model->get_menu_type() ][ $k ] = $storage_model;
 					}
 					?>
+
 					<div class="cpac-menu">
 						<?php
 						foreach ( $storage_models_by_type as $menu_type => $label ) {
@@ -699,7 +702,7 @@ class CPAC_Settings {
 
 					<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
 
-					<div class="columns-container" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
+					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
 
 						<div class="columns-left">
 							<div class="titlediv">
@@ -711,6 +714,8 @@ class CPAC_Settings {
 
 							<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
 
+							<div class="ajax-message"><p></p></div>
+
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="error below-h2">
 									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
@@ -721,7 +726,7 @@ class CPAC_Settings {
 						<div class="columns-right">
 							<div class="columns-right-inside">
 								<?php if ( ! $storage_model->is_using_php_export() ) : ?>
-									<div class="sidebox" id="form-actions">
+									<div class="sidebox form-actions">
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
 											<span class="left"><?php echo $label; ?></span>
@@ -738,22 +743,16 @@ class CPAC_Settings {
 											<span class="right"><?php echo esc_html( $right_label ); ?></span>
 										</h3>
 										<div class="form-update">
-											<a href="javascript:;" class="button-primary submit-update"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?></a>
+											<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+											<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
 										</div>
-										<?php if ( $has_been_stored ) : ?>
-											<?php
-											$label = $storage_model->label;
-											if ( $layout_name = $storage_model->get_layout_name() ) {
-												$label .= " '" . $layout_name . "'";
-											}
-											?>
-											<div class="form-reset">
-												<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), $label ) ) ) . '\');"' : ''; ?>
-												<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
-													<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
-												</a>
-											</div>
-										<?php endif; ?>
+
+										<div class="form-reset">
+											<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" .  $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
+											<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
+												<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
+											</a>
+										</div>
 
 										<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
 
@@ -917,7 +916,8 @@ class CPAC_Settings {
 										</div>
 										<div class="button-container">
 											<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-											<a href="javascript:;" class="submit-update button-primary"><?php echo $has_been_stored ? __( 'Update' ) : __( 'Save' ); ?></a>
+											<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+											<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
 										</div>
 									<?php endif; ?>
 								</div><!--.cpac-column-footer-->

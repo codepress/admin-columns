@@ -35,11 +35,17 @@ function cpac_importexport() {
  * @since 2.0.2
  */
 function cpac_submit_form() {
-	jQuery( 'a.submit-update' ).click( function( e ) {
+	jQuery( '.sidebox a.submit, .column-footer a.submit' ).click( function( e ) {
 		e.preventDefault();
 
-		var $container = jQuery( this ).closest( '.columns-container' );
+		var $button = jQuery( this );
+		var $container = $button.closest( '.columns-container' );
 		var columns_data = $container.find( '.cpac-columns form' ).serialize();
+
+		$button.attr( 'disabled', 'disabled' );
+
+		// reset
+		$container.find( '.ajax-message' ).hide().removeClass( 'error updated' );
 
 		jQuery.post( ajaxurl, {
 			plugin_id : 'cpac',
@@ -49,14 +55,28 @@ function cpac_submit_form() {
 			storage_model : $container.data( 'type' )
 		}, function( response ) {
 
-			if ( response.success ) {
+			var $msg = $container.find( '.ajax-message' );
 
+			if ( response.success ) {
+				$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
+				$msg.slideDown();//.delay( 2000 ).slideUp();
+
+				$container.addClass('stored');
 			}
 
-			// Error
+			// Error response
+			else if ( response.data ) {
+				$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+				$msg.slideDown();
+			}
+
+			// No response
 			else {
 
 			}
+
+			$button.removeAttr( 'disabled', 'disabled' );
+
 		}, 'json' );
 
 		jQuery( document ).trigger( 'cac_update', $container );
