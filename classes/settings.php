@@ -37,6 +37,7 @@ class CPAC_Settings {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
+		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_update' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
 	}
@@ -236,6 +237,27 @@ class CPAC_Settings {
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 		) );
+
+		// nonce
+		wp_localize_script( 'cpac-admin-settings', 'cpac', array(
+			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' )
+		) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function ajax_columns_update() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_ajax_nonce' ), 'cpac-settings' ) ) {
+			exit;
+		}
+
+		if ( ! ( $storage_model = $this->cpac->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) ) ) ) {
+			exit;
+		}
+
+		parse_str( $_POST['data'], $columns );
+		$stored = $storage_model->store( $columns );
 	}
 
 	/**
@@ -656,7 +678,7 @@ class CPAC_Settings {
 					<div class="cpac-menu">
 						<?php
 						foreach ( $storage_models_by_type as $menu_type => $label ) {
-								$count = 0; ?>
+							$count = 0; ?>
 							<ul class="subsubsub">
 								<li class="first"><?php echo esc_html( $menu_type ); ?>:</li>
 								<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
