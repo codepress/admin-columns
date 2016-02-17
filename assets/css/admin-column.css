@@ -129,6 +129,15 @@ a.help {
   font-weight: bold;
   min-width: 100px;
 }
+.cpac-menu label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.cpac-menu .spinner {
+  float: none;
+  margin-top: 0;
+  margin-left: 0;
+}
 /**
  * Structure
  * ----------------------------------------------------------------------------

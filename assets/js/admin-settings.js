@@ -662,6 +662,7 @@ function cpac_sortable() {
 function cpac_menu() {
 
 	jQuery('#cpac #cpac_storage_modal_select').on( 'change', function(){
+		jQuery(this).prop('disabled', true ).next('.spinner' ).css('visibility', 'visible' );
         var url = jQuery(this).val();
 
         if( url ){

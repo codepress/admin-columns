@@ -659,7 +659,7 @@ class CPAC_Settings {
 
 					?>
 					<div class="cpac-menu">
-						<label for="cpac_storage_modal_select"><?php _e( 'Overview', 'corepress-admin-columns' ); ?></label>
+						<label for="cpac_storage_modal_select"><?php _e( 'Listings screens', 'corepress-admin-columns' ); ?></label>
 						<select id="cpac_storage_modal_select">
 							<?php foreach ( $this->get_menu_types() as $menu_type => $label ): ?>
 								<?php if( ! isset( $storage_models_by_type[ $menu_type ] )  ){ continue; } ?>
@@ -670,6 +670,7 @@ class CPAC_Settings {
 								</optgroup>
 							<?php endforeach; ?>
 						</select>
+						<span class="spinner"></span>
 					</div>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
