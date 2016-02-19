@@ -39,7 +39,7 @@ function cpac_submit_form() {
 		e.preventDefault();
 
 		var $button = jQuery( this );
-		var $container = $button.closest( '.columns-container' );
+		var $container = $button.closest( '.columns-container' ).addClass( 'loading' );
 		var columns_data = $container.find( '.cpac-columns form' ).serialize();
 
 		$button.attr( 'disabled', 'disabled' );
@@ -61,7 +61,7 @@ function cpac_submit_form() {
 				$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
 				$msg.slideDown();//.delay( 2000 ).slideUp();
 
-				$container.addClass('stored');
+				$container.addClass( 'stored' );
 			}
 
 			// Error response
@@ -72,10 +72,10 @@ function cpac_submit_form() {
 
 			// No response
 			else {
-
 			}
 
 			$button.removeAttr( 'disabled', 'disabled' );
+			$container.removeClass( 'loading' );
 
 		}, 'json' );
 

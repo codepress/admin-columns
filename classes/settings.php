@@ -752,6 +752,7 @@ class CPAC_Settings {
 											<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
 												<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
 											</a>
+											<span class="spinner"></span>
 										</div>
 
 										<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
