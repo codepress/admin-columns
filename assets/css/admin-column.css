@@ -132,6 +132,15 @@ a.help {
   font-weight: bold;
   min-width: 100px;
 }
+.cpac-menu label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.cpac-menu .spinner {
+  float: none;
+  margin-top: 0;
+  margin-left: 0;
+}
 /**
  * Structure
  * ----------------------------------------------------------------------------
@@ -205,30 +214,20 @@ a.help {
 .columns-left .titlediv {
   position: relative;
 }
-.columns-left .titlediv .profile {
-  position: absolute;
-  right: 0;
-  top: auto;
-  bottom: 0;
+.columns-left .titlediv select {
   display: inline-block;
-  padding-bottom: 4px;
+  margin: 0;
 }
-.columns-left .titlediv .profile span.label {
-  color: #808080;
-  font-weight: 700;
-  font-size: 11px;
-  margin-right: 6px;
+.columns-left .titlediv .spinner {
+  display: none;
+  float: none;
+  visibility: visible;
+  margin: 0 0 0 14px;
 }
-.columns-left .titlediv .profile span.name {
-  font-size: 12px;
-  font-weight: 300;
-  padding: 5px 10px 6px;
-  box-shadow: inset 0 -7px 4px -7px rgba(0, 0, 0, 0.2);
-  border-width: 1px 1px 0 1px;
-  border-style: solid;
-  font-weight: bold;
-  border-color: #ccc;
-  background-color: #e4e4e4;
+.columns-left .titlediv .view-link {
+  display: inline-block;
+  margin: 0 0 0 12px;
+  top: 0;
 }
 .columns-left .cpac-boxes .cpac-columns form {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);

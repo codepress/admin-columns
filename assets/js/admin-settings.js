@@ -9,6 +9,7 @@ jQuery( document ).ready( function() {
 	}
 
 	// General
+	cpac_init();
 	cpac_pointer();
 	cpac_submit_form();
 
@@ -35,17 +36,20 @@ function cpac_importexport() {
  * @since 2.0.2
  */
 function cpac_submit_form() {
-	jQuery( '.sidebox a.submit, .column-footer a.submit' ).click( function( e ) {
-		e.preventDefault();
+
+	var $save_buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
+
+	$save_buttons.click( function( e ) {
 
 		var $button = jQuery( this );
-		var $container = $button.closest( '.columns-container' ).addClass( 'loading' );
+		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
 		var columns_data = $container.find( '.cpac-columns form' ).serialize();
 
-		$button.attr( 'disabled', 'disabled' );
+		$save_buttons.attr( 'disabled', 'disabled' );
 
 		// reset
 		$container.find( '.ajax-message' ).hide().removeClass( 'error updated' );
+		jQuery( '.cpac_message' ).remove(); // placed by restore button
 
 		jQuery.post( ajaxurl, {
 			plugin_id : 'cpac',
@@ -74,8 +78,8 @@ function cpac_submit_form() {
 			else {
 			}
 
-			$button.removeAttr( 'disabled', 'disabled' );
-			$container.removeClass( 'loading' );
+			$save_buttons.removeAttr( 'disabled', 'disabled' );
+			$container.removeClass( 'saving' );
 
 		}, 'json' );
 
@@ -704,6 +708,39 @@ jQuery.fn.cpac_bind_ordering = function() {
 	} );
 };
 
+function cpac_init() {
+
+	var container = jQuery( '.columns-container' );
+	var boxes = container.find( '.cpac-boxes' );
+
+	// Written for PHP Export
+	if ( boxes.hasClass( 'disabled' ) ) {
+		boxes.find( '.cpac-column' ).each( function( i, col ) {
+			jQuery( col ).column_bind_toggle();
+			jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
+		} );
+	}
+
+	else {
+		var columns = boxes.find( '.cpac-columns' );
+
+		// we start by binding the toggle and remove events.
+		columns.find( '.cpac-column' ).each( function( i, col ) {
+			jQuery( col ).column_bind_toggle();
+			jQuery( col ).column_bind_remove();
+			jQuery( col ).column_bind_clone();
+			jQuery( col ).cpac_bind_indicator_events();
+		} );
+
+		// ordering of columns
+		columns.cpac_bind_ordering();
+
+		// hook for addons
+		jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
+		jQuery( document ).trigger( 'cac_model_ready', container.data('type') );
+	}
+}
+
 /*
  * Menu
  *
@@ -711,64 +748,13 @@ jQuery.fn.cpac_bind_ordering = function() {
  */
 function cpac_menu() {
 
-	var menu = jQuery( '#cpac div.cpac-menu' );
-	// click
-	menu.find( 'a' ).click( function( e, el ) {
-		e.preventDefault();
+	//jQuery( '.spinner' ).css( 'visibility', 'visible' );
 
-		var id = jQuery( this ).attr( 'href' );
-
-		if ( id ) {
-
-			var type = id.replace( '#cpac-box-', '' );
-
-			// remove current
-			jQuery( '.cpac-menu a' ).removeClass( 'current' );
-			jQuery( '.columns-container' ).hide();
-
-			// set current
-			jQuery( this ).addClass( 'current' );
-			var container = jQuery( '.columns-container[data-type="' + type + '"]' ).show();
-			var boxes = container.find( '.cpac-boxes' );
-
-			// Bind events once. TODO: use .live()
-			if ( container.hasClass( 'events-binded' ) ) {
-				return;
-			}
-
-			// Written for PHP Export
-			if ( boxes.hasClass( 'disabled' ) ) {
-				boxes.find( '.cpac-column' ).each( function( i, col ) {
-					jQuery( col ).column_bind_toggle();
-					jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
-				} );
-			}
-
-			else {
-				var columns = boxes.find( '.cpac-columns' );
-
-				// we start by binding the toggle and remove events.
-				columns.find( '.cpac-column' ).each( function( i, col ) {
-					jQuery( col ).column_bind_toggle();
-					jQuery( col ).column_bind_remove();
-					jQuery( col ).column_bind_clone();
-					jQuery( col ).cpac_bind_indicator_events();
-				} );
-
-				// ordering of columns
-				columns.cpac_bind_ordering();
-
-				// hook for addons
-				jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-				jQuery( document ).trigger( 'cac_model_ready', type );
-			}
-
-			container.addClass( 'events-binded' );
-		}
+	jQuery( '#cpac_storage_modal_select' ).on( 'change', function() {
+		jQuery( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
+		jQuery('.view-link' ).hide();
+		window.location = jQuery( this ).val();
 	} );
-
-	// activate first menu
-	menu.find( 'a.current' ).trigger( 'click' );
 }
 
 /*

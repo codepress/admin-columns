@@ -272,7 +272,7 @@ class CPAC_Settings {
 			wp_send_json_error( $stored->get_error_message() );
 		}
 
-		wp_send_json_success( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" .  $storage_model->get_label_or_layout_name() . "</strong>" ) );
+		wp_send_json_success( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ) );
 	}
 
 	/**
@@ -296,7 +296,7 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 
-						$layout = isset( $_GET['layout_id'] ) ? intval( $_GET['layout_id'] ) : null;
+						$layout = isset( $_GET['layout_id'] ) ? $_GET['layout_id'] : null;
 
 						$storage_model->set_layout( $layout );
 						$storage_model->restore();
@@ -670,45 +670,36 @@ class CPAC_Settings {
 			switch ( $current_tab ) :
 				case 'general':
 
-					$first = $this->cpac->get_first_storage_model_key();
+					$current = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->cpac->get_first_storage_model_key();
+					$storage_model = $this->cpac->get_storage_model( $current );
+					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
 					$storage_models_by_type = array();
-					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
-						$storage_models_by_type[ $storage_model->get_menu_type() ][ $k ] = $storage_model;
+					foreach ( $this->cpac->storage_models as $k => $_storage_model ) {
+						$storage_models_by_type[ $_storage_model->get_menu_type() ][ $k ] = $_storage_model;
 					}
 					?>
 
-					<div class="cpac-menu">
-						<?php
-						foreach ( $storage_models_by_type as $menu_type => $label ) {
-							$count = 0; ?>
-							<ul class="subsubsub">
-								<li class="first"><?php echo esc_html( $menu_type ); ?>:</li>
-								<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-									<li>
-										<?php echo $count ++ != 0 ? ' | ' : ''; ?>
-										<a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : ''; ?> ><?php echo $storage_model->label; ?></a>
-									</li>
-								<?php endforeach; ?>
-							</ul>
-							<?php
-						}
-						?>
-					</div>
-
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
-					<?php foreach ( $this->cpac->storage_models as $storage_model ) : ?>
-
-					<?php $has_been_stored = $storage_model->get_stored_columns() ? true : false; ?>
-
-					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>"<?php echo $storage_model->is_menu_type_current( $first ) ? '' : ' style="display:none"'; ?>>
+					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>">
 
 						<div class="columns-left">
 							<div class="titlediv">
 								<h2>
-									<?php echo esc_html( $storage_model->label ); ?>
+									<select id="cpac_storage_modal_select">
+										<?php foreach ( $storage_models_by_type as $menu_type => $models ) : ?>
+											<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
+												<?php foreach ( $models as $_storage_model ) : ?>
+													<option value="<?php echo esc_attr( $_storage_model->get_edit_link() ); ?>" <?php selected( $_storage_model->key, $current ); ?>><?php echo esc_html( $_storage_model->label ); ?></option>
+												<?php endforeach; ?>
+											</optgroup>
+										<?php endforeach; ?>
+									</select>
+									<span class="spinner"></span>
+
 									<?php $storage_model->screen_link(); ?>
+
 								</h2>
 							</div>
 
@@ -748,7 +739,7 @@ class CPAC_Settings {
 										</div>
 
 										<div class="form-reset">
-											<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" .  $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
+											<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
 											<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
 												<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
 											</a>
@@ -916,9 +907,9 @@ class CPAC_Settings {
 											<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 										</div>
 										<div class="button-container">
-											<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-											<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-											<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
+											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
 										</div>
 									<?php endif; ?>
 								</div><!--.cpac-column-footer-->
@@ -939,8 +930,6 @@ class CPAC_Settings {
 							?>
 						</div>
 					</div><!--.columns-container-->
-				<?php endforeach; // storage_models
-					?>
 
 					<div class="clear"></div>
 					<?php
