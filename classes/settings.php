@@ -684,34 +684,25 @@ class CPAC_Settings {
 
 					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>">
 
-						<div class="columns-left">
-							<div class="titlediv">
-								<h2>
-									<select id="cpac_storage_modal_select">
-										<?php foreach ( $storage_models_by_type as $menu_type => $models ) : ?>
-											<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
-												<?php foreach ( $models as $_storage_model ) : ?>
-													<option value="<?php echo esc_attr( $_storage_model->get_edit_link() ); ?>" <?php selected( $_storage_model->key, $current ); ?>><?php echo esc_html( $_storage_model->label ); ?></option>
-												<?php endforeach; ?>
-											</optgroup>
-										<?php endforeach; ?>
-									</select>
-									<span class="spinner"></span>
+						<div class="main">
 
-									<?php $storage_model->screen_link(); ?>
+							<div class="menu">
+								<select id="cpac_storage_modal_select">
+									<?php foreach ( $storage_models_by_type as $menu_type => $models ) : ?>
+										<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
+											<?php foreach ( $models as $_storage_model ) : ?>
+												<option value="<?php echo esc_attr( $_storage_model->get_edit_link() ); ?>" <?php selected( $_storage_model->key, $current ); ?>><?php echo esc_html( $_storage_model->label ); ?></option>
+											<?php endforeach; ?>
+										</optgroup>
+									<?php endforeach; ?>
+								</select>
+								<span class="spinner"></span>
 
-								</h2>
+								<?php $storage_model->screen_link(); ?>
 							</div>
 
 							<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
 
-							<div class="ajax-message"><p></p></div>
-
-							<?php if ( $storage_model->is_using_php_export() ) : ?>
-								<div class="error below-h2">
-									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
-								</div>
-							<?php endif; ?>
 						</div>
 
 						<div class="columns-right">
@@ -879,6 +870,15 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
+
+							<div class="ajax-message"><p></p></div>
+
+							<?php if ( $storage_model->is_using_php_export() ) : ?>
+								<div class="error below-h2">
+									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
+								</div>
+							<?php endif; ?>
+
 							<div class="cpac-boxes<?php echo $storage_model->is_using_php_export() ? ' disabled' : ''; ?>">
 
 								<div class="cpac-columns">

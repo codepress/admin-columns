@@ -267,29 +267,32 @@ a.help {
 	}
 }
 
+.menu {
+	position: relative;
+	margin-bottom: 16px;
+
+	select {
+		display: inline-block;margin: 0;
+	}
+	.spinner {
+		display: none;
+		float: none;
+		visibility: visible;
+		margin: 0 0 0 14px;
+	}
+	.view-link,
+	.view-link:active {
+		display: inline-block;
+		margin: 0 0 0 12px;
+		top: 2px;
+	}
+}
+
 /**
  * Columns
  * ----------------------------------------------------------------------------
  */
 .columns-left {
-	.titlediv {
-		position: relative;
-
-		select {
-			display: inline-block;margin: 0;
-		}
-		.spinner {
-			display: none;
-			float: none;
-			visibility: visible;
-			margin: 0 0 0 14px;
-		}
-		.view-link {
-			display: inline-block;
-			margin: 0 0 0 12px;
-			top: 0;
-		}
-	}
 	.cpac-boxes {
 		.cpac-columns {
 			form {
@@ -966,8 +969,6 @@ a.help {
  * ----------------------------------------------------------------------------
  */
 .columns-right {
-	margin-top: 62px;
-
 	.sidebox {
 		background: none repeat scroll 0 0 #FFFFFF;
 		border: 1px solid #E1E1E1;
@@ -1453,6 +1454,10 @@ body.rtl {
 @media only screen and (max-width: 900px) {
 	.columns-container {
 		margin-right: 0;
+
+		.menu {
+			float: none;
+		}
 
 		.columns-left {
 			float: none;
