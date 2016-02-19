@@ -60,15 +60,6 @@ require_once CPAC_DIR . 'api.php';
 class CPAC {
 
 	/**
-	 * Registered storage model class instances
-	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
-	 *
-	 * @since 2.0
-	 * @var array
-	 */
-	public $storage_models;
-
-	/**
 	 * Admin Columns add-ons class instance
 	 *
 	 * @since 2.2
@@ -102,6 +93,15 @@ class CPAC {
 	 * @var array
 	 */
 	public $exported_columns;
+
+	/**
+	 * Registered storage model class instances
+	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
+	 *
+	 * @since 2.0
+	 * @var array
+	 */
+	public $storage_models;
 
 	/**
 	 * @since 2.4.9

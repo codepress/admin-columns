@@ -266,7 +266,9 @@ class CPAC_Settings {
 			wp_die();
 		}
 
-		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
+		$default_columns = unserialize( $formdata['default_columns'] );
+
+		$stored = $storage_model->store( $formdata[ $storage_model->key ], $default_columns );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( $stored->get_error_message() );
@@ -887,6 +889,7 @@ class CPAC_Settings {
 										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 										<input type="hidden" name="cpac_action" value="update_by_type"/>
 										<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
+										<input type="hidden" name="default_columns" value="<?php echo esc_attr( serialize( array_keys( $storage_model->get_default_column_headings() ) ) ); ?>"/>
 
 										<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 

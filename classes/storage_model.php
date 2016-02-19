@@ -526,8 +526,11 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0
+	 *
+	 * @param array $columns
+	 * @param array $default_columns Default columns heading names.
 	 */
-	public function store( $columns ) {
+	public function store( $columns, $default_columns = array() ) {
 
 		if ( ! $columns ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
@@ -544,11 +547,9 @@ abstract class CPAC_Storage_Model {
 			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
 		}
 
-		$default_columns = $this->default_wp_columns ? $this->default_wp_columns : $this->get_default_column_headings();
-
 		// store columns
 		$result = update_option( $this->get_storage_id(), $columns );
-		$result_default = update_option( $this->get_storage_id() . "_default", array_keys( $default_columns ) );
+		$result_default = update_option( $this->get_storage_id() . "_default", $default_columns );
 
 		if ( ! $result && ! $result_default ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_label_or_layout_name() . "</strong>" ) );
@@ -776,9 +777,15 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column options
 	 */
 	public function get_default_stored_columns() {
+		$columns = get_option( $this->get_storage_id() . "_default" );
 
-		if ( ! $columns = get_option( $this->get_storage_id() . "_default" ) ) {
+		if ( ! $columns ) {
 			return array();
+		}
+
+		// backwards compatible with pre NEWVERSION
+		if ( ! isset( $columns[0] ) ) {
+			$columns = array_keys( $columns );
 		}
 
 		return $columns;
@@ -965,11 +972,13 @@ abstract class CPAC_Storage_Model {
 
 		$columns = array();
 
-		$default_columns = $this->default_wp_columns;
+		$default_headings = $this->default_wp_columns;
 
-		if ( ! $default_columns ) {
-			$default_columns = $this->get_default_column_headings();
+		if ( ! $default_headings ) {
+			$default_headings = $this->get_default_column_headings();
 		}
+
+		$default_columns = array_keys( $default_headings );
 
 		$registered_columns = $this->get_registered_columns();
 
@@ -982,7 +991,7 @@ abstract class CPAC_Storage_Model {
 
 				// In case of a disabled plugin, we will skip column.
 				// This means the stored column type is not available anymore.
-				if ( ! in_array( $options['type'], array_keys( $registered_columns ) ) ) {
+				if ( ! isset( $registered_columns[ $options['type'] ] ) ) {
 					continue;
 				}
 
@@ -1000,7 +1009,7 @@ abstract class CPAC_Storage_Model {
 
 			// In case of an enabled plugin, we will add that column.
 			// When $diff contains items, it means a default column has not been stored.
-			if ( $diff = array_diff( array_keys( $default_columns ), $this->get_default_stored_columns() ) ) {
+			if ( $diff = array_diff( $default_columns, $this->get_default_stored_columns() ) ) {
 				foreach ( $diff as $name ) {
 					// because of the filter "manage_{$post_type}_posts_columns" the columns
 					// that are being added by CPAC will also appear in the $default_columns.
@@ -1019,7 +1028,7 @@ abstract class CPAC_Storage_Model {
 			}
 		} // When nothing has been saved yet, we return the default WP columns.
 		else {
-			foreach ( array_keys( $default_columns ) as $name ) {
+			foreach ( $default_columns as $name ) {
 				if ( isset( $registered_columns[ $name ] ) ) {
 					$columns[ $name ] = clone $registered_columns[ $name ];
 				}
