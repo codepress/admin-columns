@@ -279,36 +279,41 @@ class CPAC {
 	 */
 	public function set_columns() {
 
-		// Listings screen or ajax calls
-		$storage_model = $this->is_columns_screen() ? $this->get_current_storage_model() : $this->get_storage_model( cac_is_doing_ajax() );
+		// Listings screen
+		if ( $this->is_columns_screen() ) {
+			$storage_model = $this->get_current_storage_model();
+		}
 
-		if ( $storage_model ) {
-			$this->init_storage_model( $storage_model );
-
-			// Headings and values
-			$storage_model->init_manage_columns();
+		// Ajax call
+		if ( $key = cac_is_doing_ajax() ) {
+			$storage_model = $this->get_storage_model( $key );
 		}
 
 		// Settings screen
-		else if ( cac_is_setting_screen() ) {
-			foreach ( $this->storage_models as $storage_model ) {
-				$this->init_storage_model( $storage_model );
-			}
+		if ( cac_is_setting_screen() ) {
+			$key = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->cpac->get_first_storage_model_key();
+			$storage_model = $this->get_storage_model( $key );
 		}
-	}
 
-	/**
-	 * @since NEWVERSION
-	 */
-	private function init_storage_model( $storage_model ) {
+		if ( ! $storage_model ) {
+			return;
+		}
 
-		// Load PHP Export
+		// Maybe load PHP Exported columns
 		if ( $columndata = $this->get_exported_columns( $storage_model->key ) ) {
 			$storage_model->load_export( $columndata );
 		}
 
+		// load layout
 		$storage_model->init_layout();
+
+		// populate columns
 		$storage_model->set_columns();
+
+		// Headings and values
+		if ( cac_is_doing_ajax() || $this->is_columns_screen() ) {
+			$storage_model->init_manage_columns();
+		}
 	}
 
 	/**

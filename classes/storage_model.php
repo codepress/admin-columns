@@ -345,12 +345,16 @@ abstract class CPAC_Storage_Model {
 		$this->layout = $layout;
 	}
 
-	// Set the layout ID. First tries user preference, if not found, then first one served.
 	public function init_layout() {
+
+		// try user preference..
 		$layout_id = $this->get_user_listings_layout();
+
+		// ..when not found use the first one
 		if ( ! $this->layout_exists( $layout_id ) ) {
 			$layout_id = $this->get_single_layout_id();
 		}
+
 		$this->set_layout( $layout_id );
 	}
 
@@ -365,7 +369,7 @@ abstract class CPAC_Storage_Model {
 	public function get_single_layout_id() {
 		$layouts = $this->get_layouts();
 
-		return isset( $layouts[0]->id ) ? reset( $layouts )->id : null;
+		return isset( $layouts[0]->id ) ? reset( $layouts )->id : '';
 	}
 
 	private function set_stored_layout( $layout ) {
@@ -398,11 +402,11 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		return null;
+		return false;
 	}
 
-	public function get_delete_layout_link() {
-		return add_query_arg( array( 'layout_id' => $this->layout, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
+	public function get_delete_layout_link( $layout_id ) {
+		return add_query_arg( array( 'layout_id' => $layout_id, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
 	}
 
 	private function get_layout_key( $layout_id = '' ) {
@@ -414,9 +418,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_user_listings_layout() {
-		$layout_id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
-
-		return $this->get_layout_by_id( $layout_id ) ? $layout_id : null;
+		return $this->get_layout_by_id( get_user_meta( get_current_user_id(), $this->get_layout_key(), true ) );
 	}
 
 	public function get_layouts_for_current_user() {
@@ -460,7 +462,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		update_option( $this->get_layout_key( $id ), array(
-			'id'    => $id,
+			'id'    => $id ? $id : '',
 			'name'  => trim( $args['name'] ),
 			'roles' => isset( $args['roles'] ) ? $args['roles'] : '',
 			'users' => isset( $args['users'] ) ? $args['users'] : '',
@@ -472,26 +474,20 @@ abstract class CPAC_Storage_Model {
 	public function create_layout( $args, $is_default = false ) {
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
-		$id = $is_default ? null : uniqid();
+		$id = $is_default ? '' : uniqid();
+		$this->save_layout( $id, $args );
 
-		return $this->save_layout( $id, $args );
+		return $id;
 	}
 
-	public function delete_layouts() {
+	/*public function delete_layouts() {
 		global $wpdb;
 
 		//delete_option( $this->get_layout_key() );
-	}
+	}*/
 
 	public function delete_layout( $id ) {
-		$deleted = delete_option( $this->get_layout_key( $id ) );
-
-		if ( $deleted ) {
-			$this->set_layout( $id );
-			$this->restore();
-		}
-
-		return $deleted;
+		return delete_option( $this->get_layout_key( $id ) );
 	}
 
 	/**
