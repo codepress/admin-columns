@@ -56,7 +56,8 @@ function cpac_submit_form() {
 			action : 'cpac_columns_update',
 			data : columns_data,
 			_ajax_nonce : cpac._ajax_nonce,
-			storage_model : $container.data( 'type' )
+			storage_model : $container.data( 'type' ),
+			layout : $container.data( 'layout' )
 		}, function( response ) {
 
 			var $msg = $container.find( '.ajax-message' );

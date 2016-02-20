@@ -369,7 +369,7 @@ abstract class CPAC_Storage_Model {
 	public function get_single_layout_id() {
 		$layouts = $this->get_layouts();
 
-		return isset( $layouts[0]->id ) ? reset( $layouts )->id : '';
+		return isset( $layouts[0]->id ) ? reset( $layouts )->id : null;
 	}
 
 	private function set_stored_layout( $layout ) {
@@ -396,7 +396,7 @@ abstract class CPAC_Storage_Model {
 	public function get_layout_by_id( $id ) {
 		if ( $layouts = $this->get_layouts() ) {
 			foreach ( $layouts as $layout ) {
-				if ( $layout->id === $id ) {
+				if ( $layout->id == $id ) {
 					return $layout;
 				}
 			}
@@ -461,20 +461,20 @@ abstract class CPAC_Storage_Model {
 			return new WP_Error( 'empty-name' );
 		}
 
-		update_option( $this->get_layout_key( $id ), array(
-			'id'    => $id ? $id : '',
+		update_option( $this->get_layout_key( $id ), (object) array(
+			'id'    => $id ? $id : null,
 			'name'  => trim( $args['name'] ),
 			'roles' => isset( $args['roles'] ) ? $args['roles'] : '',
 			'users' => isset( $args['users'] ) ? $args['users'] : '',
 		) );
 
-		return true;
+		return $this->get_layout_by_id( $id );
 	}
 
 	public function create_layout( $args, $is_default = false ) {
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
-		$id = $is_default ? '' : uniqid();
+		$id = $is_default ? null : uniqid();
 		$this->save_layout( $id, $args );
 
 		return $id;
@@ -495,7 +495,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	private function get_storage_id() {
-		$layout = $this->layout ? $this->layout : '';
+		$layout = $this->layout ? $this->layout : null;
 
 		return "cpac_options_" . $this->key . $layout;
 	}

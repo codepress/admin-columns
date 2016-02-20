@@ -260,6 +260,8 @@ class CPAC_Settings {
 			wp_die();
 		}
 
+		$storage_model->set_layout( filter_input( INPUT_POST, 'layout' ) );
+
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
@@ -684,7 +686,7 @@ class CPAC_Settings {
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
-					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>">
+					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>" data-layout="<?php echo $storage_model->get_layout(); ?>">
 
 						<div class="main">
 

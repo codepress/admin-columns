@@ -295,7 +295,7 @@ class CPAC {
 			$storage_model = $this->get_storage_model( $key );
 		}
 
-		if ( ! $storage_model ) {
+		if ( empty( $storage_model ) ) {
 			return;
 		}
 
