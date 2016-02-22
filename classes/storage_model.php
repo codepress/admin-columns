@@ -348,7 +348,7 @@ abstract class CPAC_Storage_Model {
 	public function init_layout() {
 
 		// try user preference..
-		$layout_id = $this->get_user_listings_layout();
+		$layout_id = $this->get_user_layout_preference();
 
 		// ..when not found use the first one
 		if ( ! $this->layout_exists( $layout_id ) ) {
@@ -413,12 +413,14 @@ abstract class CPAC_Storage_Model {
 		return self::LAYOUT_KEY . $this->key . $layout_id;
 	}
 
-	public function set_user_listings_layout( $layout_id ) {
-		update_user_meta( get_current_user_id(), $this->get_layout_key(), $layout_id );
+	public function set_user_layout_preference() {
+		update_user_meta( get_current_user_id(), $this->get_layout_key(), $this->layout );
 	}
 
-	public function get_user_listings_layout() {
-		return $this->get_layout_by_id( get_user_meta( get_current_user_id(), $this->get_layout_key(), true ) );
+	public function get_user_layout_preference() {
+		$id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
+
+		return $this->layout_exists( $id ) ? $id : false;
 	}
 
 	public function get_layouts_for_current_user() {
