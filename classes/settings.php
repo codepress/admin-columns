@@ -268,9 +268,10 @@ class CPAC_Settings {
 			wp_die();
 		}
 
-		$default_columns = unserialize( $formdata['default_columns'] );
+		//$default_columns = unserialize( $formdata['default_columns'] );
+		//$stored = $storage_model->store( $formdata[ $storage_model->key ], $default_columns );
 
-		$stored = $storage_model->store( $formdata[ $storage_model->key ], $default_columns );
+		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( $stored->get_error_message() );
@@ -716,17 +717,7 @@ class CPAC_Settings {
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
 											<span class="left"><?php echo $label; ?></span>
-
-											<?php
-
-											// Make sure the storage model label doesn't overlay the store settings label.
-											$right_label = $storage_model->label;
-											if ( 34 < ( strlen( $storage_model->label ) + ( strlen( $label ) * 1.1 ) ) ) {
-												$right_label = substr( $storage_model->label, 0, 34 - ( strlen( $label ) * 1.1 ) ) . '...';
-											}
-											?>
-
-											<span class="right"><?php echo esc_html( $right_label ); ?></span>
+											<span class="right"><?php echo esc_html( $storage_model->get_truncated_side_label( $label ) ); ?></span>
 										</h3>
 										<div class="form-update">
 											<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
@@ -891,7 +882,6 @@ class CPAC_Settings {
 										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 										<input type="hidden" name="cpac_action" value="update_by_type"/>
 										<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
-										<input type="hidden" name="default_columns" value="<?php echo esc_attr( serialize( array_keys( $storage_model->get_default_column_headings() ) ) ); ?>"/>
 
 										<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 
@@ -926,7 +916,6 @@ class CPAC_Settings {
 						</div><!--.columns-left-->
 						<div class="clear"></div>
 
-
 						<div class="for-cloning-only" style="display:none">
 							<?php
 							foreach ( $storage_model->get_registered_columns() as $column ) {
@@ -934,6 +923,7 @@ class CPAC_Settings {
 							}
 							?>
 						</div>
+
 					</div><!--.columns-container-->
 
 					<div class="clear"></div>

@@ -62,17 +62,19 @@ function cpac_submit_form() {
 
 			var $msg = $container.find( '.ajax-message' );
 
-			if ( response.success ) {
-				$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
-				$msg.slideDown();//.delay( 2000 ).slideUp();
+			if ( response ) {
+				if ( response.success ) {
+					$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
+					$msg.slideDown();//.delay( 2000 ).slideUp();
 
-				$container.addClass( 'stored' );
-			}
+					$container.addClass( 'stored' );
+				}
 
-			// Error response
-			else if ( response.data ) {
-				$msg.addClass( 'error' ).find( 'p' ).html( response.data );
-				$msg.slideDown();
+				// Error response
+				else if ( response.data ) {
+					$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+					$msg.slideDown();
+				}
 			}
 
 			// No response

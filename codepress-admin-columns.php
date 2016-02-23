@@ -124,6 +124,7 @@ class CPAC {
 		// Populating storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
+		add_action( 'admin_head', array( $this, 'store_default_columns' ) );
 
 		// Some plugins will load their columns through this action. Not recommended.
 		if ( apply_filters( 'cac/load_alt_set_columns', false ) ) {
@@ -270,6 +271,13 @@ class CPAC {
 	 */
 	public function get_exported_columns( $storage_model ) {
 		return ! empty( $this->exported_columns[ $storage_model ] ) ? $this->exported_columns[ $storage_model ] : false;
+	}
+
+	function store_default_columns() {
+		if ( $this->is_columns_screen() ) {
+			$storage_model = $this->get_current_storage_model();
+			$storage_model->store_default_columns();
+		}
 	}
 
 	/**
