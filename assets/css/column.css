@@ -21,6 +21,9 @@ span.status-closed {
   float: left;
   margin-bottom: 4px;
 }
+body.edit-tags-php .tablenav.top .cpac-edit {
+  float: none;
+}
 @media screen and (max-width: 782px) {
   .tablenav.top .actions {
     display: block !important;
