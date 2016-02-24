@@ -139,25 +139,11 @@ class CPAC_Settings {
 			$storagemodel_key = ! empty( $formdata['cpac_key'] ) ? $formdata['cpac_key'] : '';
 
 			if ( $storagemodel_key && ! empty( $formdata[ $storagemodel_key ][ $_POST['column'] ] ) ) {
-				$columndata = $formdata[ $formdata['cpac_key'] ][ $_POST['column'] ];
+
+				$columndata = $formdata[ $storagemodel_key ][ $_POST['column'] ];
 				$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
-				$registered_columns = $storage_model->get_registered_columns();
 
-				if ( in_array( $columndata['type'], array_keys( $registered_columns ) ) ) {
-					$column = clone $registered_columns[ $columndata['type'] ];
-					$column->set_clone( $columndata['clone'] );
-
-					foreach ( $columndata as $optionname => $optionvalue ) {
-						$column->set_options( $optionname, $optionvalue );
-					}
-
-					$column->sanitize_label();
-
-					$columns = array( $column->properties->name => $column );
-
-					do_action( 'cac/columns', $columns );
-					do_action( "cac/columns/storage_key={$storagemodel_key}", $columns );
-
+				if ( $column = $storage_model->create_column( $columndata ) ) {
 					$column->display();
 				}
 			}
@@ -267,9 +253,6 @@ class CPAC_Settings {
 		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
 			wp_die();
 		}
-
-		//$default_columns = unserialize( $formdata['default_columns'] );
-		//$stored = $storage_model->store( $formdata[ $storage_model->key ], $default_columns );
 
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
@@ -886,7 +869,7 @@ class CPAC_Settings {
 										<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 										<?php
-										foreach ( $storage_model->columns as $column ) {
+										foreach ( $storage_model->get_columns() as $column ) {
 											$column->display();
 										}
 										?>
@@ -916,7 +899,7 @@ class CPAC_Settings {
 
 						<div class="for-cloning-only" style="display:none">
 							<?php
-							foreach ( $storage_model->get_registered_columns() as $column ) {
+							foreach ( $storage_model->get_column_types() as $column ) {
 								$column->display();
 							}
 							?>

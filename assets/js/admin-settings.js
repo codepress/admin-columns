@@ -261,7 +261,7 @@ jQuery.fn.column_bind_events = function() {
 
 	/** width */
 
-		// slider
+	// slider
 	column.column_width_slider();
 
 	// indicator
@@ -506,7 +506,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 function cpac_create_column( container ) {
 
-	var clone = jQuery( '.for-cloning-only .cpac-column', container ).first().clone();
+	var clone = jQuery( '.for-cloning-only .cpac-column', container ).last().clone();
 	var storage_model = container.attr( 'data-type' );
 	var columns = container.find( 'cpac-columns' );
 

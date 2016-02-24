@@ -296,6 +296,7 @@ class CPAC {
 		else if ( cac_is_setting_screen() ) {
 			$key = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->get_first_storage_model_key();
 			$storage_model = $this->get_storage_model( $key );
+			//$storage_model->set_column_objects();
 		}
 
 		if ( empty( $storage_model ) ) {
@@ -311,6 +312,7 @@ class CPAC {
 		$storage_model->init_layout();
 
 		// populate columns
+		//$storage_model->set_columns();
 		$storage_model->set_columns();
 
 		// Headings and values

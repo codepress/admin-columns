@@ -19,6 +19,7 @@ class CPAC_Column_Default extends CPAC_Column {
 		// Properties
 		$this->properties['type'] = 'column-default';
 		$this->properties['handle'] = NULL;
+		$this->properties['group'] = __( 'Default', 'codepress-admin-columns' );
 	}
 
 	/**
