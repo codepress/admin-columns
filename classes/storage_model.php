@@ -87,6 +87,12 @@ abstract class CPAC_Storage_Model {
 	public $columns = array();
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $columns_default = array();
+
+	/**
 	 * @since 2.2
 	 * @var array
 	 */
@@ -178,6 +184,7 @@ abstract class CPAC_Storage_Model {
 			foreach ( $default_columns as $name => $label ) {
 				if ( 'cb' !== $name ) {
 					$column = $this->create_column_instance( $name, $label );
+					$this->columns_default[ $name ] = $column;
 					$this->column_types[ $name ] = $column;
 				}
 			}
@@ -240,15 +247,11 @@ abstract class CPAC_Storage_Model {
 
 		// Nothing stored
 		else {
-			foreach ( $this->column_types as $name => $column ) {
-				if ( $column->properties->default ) {
-					$columns[ $name ] = $column;
-				}
-			}
+			$columns = $this->columns_default;
 		}
 
-		do_action( "cac/columns", $columns );
-		do_action( "cac/columns/storage_key={$this->key}", $columns );
+		do_action( "cac/columns", $columns, $this );
+		do_action( "cac/columns/storage_key={$this->key}", $columns, $this );
 
 		$this->columns = $columns;
 	}
@@ -826,60 +829,6 @@ abstract class CPAC_Storage_Model {
 
 		return $column;
 	}
-
-	/**
-	 * @since 2.0
-	 * @return array Column Type | Column Instance
-	 */
-	/*	private function get_default_registered_columns() {
-
-			$columns = array();
-			foreach ( $this->default_wp_columns as $column_name => $label ) {
-
-				// checkboxes are mandatory
-				if ( 'cb' == $column_name ) {
-					continue;
-				}
-				$column = $this->create_column_instance( $column_name, $label );
-				$columns[ $column->properties->name ] = $column;
-			}
-
-			do_action( "cac/columns/registered/default", $columns, $this );
-			do_action( "cac/columns/registered/default/storage_key={$this->key}", $columns, $this );
-
-			return $columns;
-		}*/
-
-	/**
-	 * @since 2.0
-	 * @return array Column Type | Column Instance
-	 */
-	/*public function get_custom_registered_columns() {
-
-		$columns = array();
-
-		foreach ( $this->columns_filepath as $classname => $path ) {
-			include_once $path;
-
-			if ( ! class_exists( $classname ) ) {
-				continue;
-			}
-
-			$column = new $classname( $this );
-
-			// exclude columns that are not registered based on conditional logic within the child column
-			if ( ! $column->properties->is_registered ) {
-				continue;
-			}
-
-			$columns[ $column->properties->type ] = $column;
-		}
-
-		do_action( "cac/columns/registered/custom", $columns, $this );
-		do_action( "cac/columns/registered/custom/storage_key={$this->key}", $columns, $this );
-
-		return $columns;
-	}*/
 
 	/**
 	 * @since 1.0

@@ -615,6 +615,10 @@ class CPAC_Settings {
 		<?php
 	}
 
+	function sort_by_label( $a, $b ) {
+		return strcmp( $a->label, $b->label );
+	}
+
 	/**
 	 * @since 1.0
 	 */
@@ -660,10 +664,17 @@ class CPAC_Settings {
 					$storage_model = $this->cpac->get_storage_model( $current );
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
-					$storage_models_by_type = array();
+					// Grouped storage models
+					$grouped = array();
 					foreach ( $this->cpac->storage_models as $k => $_storage_model ) {
-						$storage_models_by_type[ $_storage_model->get_menu_type() ][ $k ] = $_storage_model;
+						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
+							'key' => $_storage_model->key,
+							'link' => $_storage_model->get_edit_link(),
+							'label' => $_storage_model->label
+						);
+						usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
 					}
+
 					?>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
@@ -674,10 +685,10 @@ class CPAC_Settings {
 
 							<div class="menu">
 								<select id="cpac_storage_modal_select">
-									<?php foreach ( $storage_models_by_type as $menu_type => $models ) : ?>
+									<?php foreach ( $grouped as $menu_type => $models ) : ?>
 										<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
-											<?php foreach ( $models as $_storage_model ) : ?>
-												<option value="<?php echo esc_attr( $_storage_model->get_edit_link() ); ?>" <?php selected( $_storage_model->key, $current ); ?>><?php echo esc_html( $_storage_model->label ); ?></option>
+											<?php foreach ( $models as $model ) : ?>
+												<option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $current ); ?>><?php echo esc_html( $model->label ); ?></option>
 											<?php endforeach; ?>
 										</optgroup>
 									<?php endforeach; ?>
