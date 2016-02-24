@@ -881,7 +881,7 @@ class CPAC_Settings {
 							<?php if( ! $storage_model->get_default_stored_columns() ): ?>
 								<div class="cpac-notice">
 									<p>
-										<?php echo sprintf( __( 'Please visit the %s once to load all available columns', 'codepress-admin-columns' ), "<a href='". $storage_model->get_link()  . "'>" . $storage_model->get_label_or_layout_name() . " screen</a>" ); ?>
+										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='". $storage_model->get_link()  . "'>" . $storage_model->get_label_or_layout_name() . "</a>" ); ?>
 									</p>
 								</div>
 							<?php endif ?>
