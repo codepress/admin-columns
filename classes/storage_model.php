@@ -1010,6 +1010,14 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * New public function to get screen link instead of making get_screen_link public. To prevent errors in other plugins
+	 * @since NEWVERSION
+	 */
+	public function get_link() {
+		return $this->get_screen_link();
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function screen_link() {

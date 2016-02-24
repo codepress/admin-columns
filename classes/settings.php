@@ -712,6 +712,9 @@ class CPAC_Settings {
 								<?php $storage_model->screen_link(); ?>
 							</div>
 
+
+
+
 							<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
 
 						</div>
@@ -875,6 +878,13 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
+							<?php if( ! $storage_model->get_default_stored_columns() ): ?>
+								<div class="cpac-notice">
+									<p>
+										<?php echo sprintf( __( 'Please visit the %s once to load all available columns', 'codepress-admin-columns' ), "<a href='". $storage_model->get_link()  . "'>" . $storage_model->get_label_or_layout_name() . " screen</a>" ); ?>
+									</p>
+								</div>
+							<?php endif ?>
 
 							<div class="ajax-message"><p></p></div>
 
