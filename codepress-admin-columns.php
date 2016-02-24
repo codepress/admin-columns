@@ -280,7 +280,7 @@ class CPAC {
 	public function set_columns() {
 
 		$is_columns_screen = $this->is_columns_screen();
-		$is_doing_ajax = cac_is_doing_ajax()
+		$is_doing_ajax = cac_is_doing_ajax();
 
 		// Listings screen
 		if ( $is_columns_screen ) {

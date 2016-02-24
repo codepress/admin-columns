@@ -610,21 +610,19 @@ class CPAC_Settings {
 					<?php
 				}
 			}
-
 			?>
 
 			<tr class="restore">
 				<th scope="row">
 					<h3><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h3>
-
 					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
-
-					<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
-					<input type="hidden" name="cpac_action" value="restore_all"/>
-					<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'codepress-admin-columns' ) ?>" onclick="return confirm('<?php _e( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ); ?>');"/>
-
+					<form method="post">
+						<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
+						<input type="hidden" name="cpac_action" value="restore_all"/>
+						<input type="submit" class="button" name="cpac-restore-defaults" value="<?php _e( 'Restore default settings', 'codepress-admin-columns' ) ?>" onclick="return confirm('<?php _e( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. \'OK\' to delete, \'Cancel\' to stop", 'codepress-admin-columns' ); ?>');"/>
+					</form>
 				</td>
 			</tr><!--.restore-->
 
