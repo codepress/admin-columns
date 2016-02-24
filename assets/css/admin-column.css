@@ -836,6 +836,11 @@ a.help {
   color: #BC0B0B;
   line-height: 25px;
   display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  cursor: pointer;
 }
 .columns-right .sidebox.form-actions .form-update {
   padding: 8px;

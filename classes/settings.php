@@ -734,13 +734,16 @@ class CPAC_Settings {
 											<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
 										</div>
 
-										<div class="form-reset">
+										<form class="form-reset" method="post">
+											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
+											<input type="hidden" name="cpac_action" value="restore_by_type"/>
+											<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
+											<?php wp_nonce_field('restore-type', '_cpac_nonce'); ?>
+
 											<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
-											<a href="<?php echo $storage_model->get_restore_link(); ?>" class="reset-column-type"<?php echo $onclick; ?>>
-												<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>
-											</a>
+											<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 											<span class="spinner"></span>
-										</div>
+										</form>
 
 										<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
 
