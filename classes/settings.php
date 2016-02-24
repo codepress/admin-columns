@@ -134,22 +134,36 @@ class CPAC_Settings {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		if ( ! empty( $_POST['formdata'] ) && ! empty( $_POST['column'] ) ) {
-			parse_str( $_POST['formdata'], $formdata );
-			$storagemodel_key = ! empty( $formdata['cpac_key'] ) ? $formdata['cpac_key'] : '';
+		$formdata = filter_input( INPUT_POST, 'formdata' );
+		$column = filter_input( INPUT_POST, 'column' );
 
-			if ( $storagemodel_key && ! empty( $formdata[ $storagemodel_key ][ $_POST['column'] ] ) ) {
-
-				$columndata = $formdata[ $storagemodel_key ][ $_POST['column'] ];
-				$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
-
-				if ( $column = $storage_model->create_column( $columndata ) ) {
-					$column->display();
-				}
-			}
+		if ( ! $formdata || ! $column ) {
+			wp_die();
 		}
 
-		exit;
+		parse_str( $_POST['formdata'], $formdata );
+
+		if ( empty( $formdata['cpac_key'] ) ) {
+			wp_die();
+		}
+
+		$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
+
+		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
+			wp_die();
+		}
+
+		$columndata = $formdata[ $storage_model->key ][ $column ];
+		if ( $column = $storage_model->create_column( $columndata ) ) {
+
+			// Trigger add-ons like inline-edit and sortable
+			do_action( "cac/columns", array( $column->properties->name => $column ), $storage_model );
+			do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->properties->name => $column ), $storage_model );
+
+			$column->display();
+		}
+
+		exit('1');
 	}
 
 	/**
