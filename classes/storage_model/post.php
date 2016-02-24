@@ -131,7 +131,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			$defaults[] = 'cb';
 			$defaults[] = 'author';
 			$defaults[] = 'categories';
-			$defaults[] = 'comments';
 			$defaults[] = 'parent';
 			$defaults[] = 'tags';
 		}

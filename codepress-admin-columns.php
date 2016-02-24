@@ -279,20 +279,24 @@ class CPAC {
 	 */
 	public function set_columns() {
 
+		$is_columns_screen = $this->is_columns_screen();
+		$is_doing_ajax = cac_is_doing_ajax();
+
 		// Listings screen
-		if ( $this->is_columns_screen() ) {
+		if ( $is_columns_screen ) {
 			$storage_model = $this->get_current_storage_model();
 		}
 
 		// Ajax call
-		if ( $key = cac_is_doing_ajax() ) {
-			$storage_model = $this->get_storage_model( $key );
+		else if ( $is_doing_ajax ) {
+			$storage_model = $this->get_storage_model( $is_doing_ajax );
 		}
 
 		// Settings screen
-		if ( cac_is_setting_screen() ) {
+		else if ( cac_is_setting_screen() ) {
 			$key = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->get_first_storage_model_key();
 			$storage_model = $this->get_storage_model( $key );
+			//$storage_model->set_column_objects();
 		}
 
 		if ( empty( $storage_model ) ) {
@@ -308,10 +312,11 @@ class CPAC {
 		$storage_model->init_layout();
 
 		// populate columns
+		//$storage_model->set_columns();
 		$storage_model->set_columns();
 
 		// Headings and values
-		if ( cac_is_doing_ajax() || $this->is_columns_screen() ) {
+		if ( $is_doing_ajax || $is_columns_screen ) {
 			$storage_model->init_manage_columns();
 		}
 	}

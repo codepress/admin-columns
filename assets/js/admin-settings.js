@@ -62,17 +62,19 @@ function cpac_submit_form() {
 
 			var $msg = $container.find( '.ajax-message' );
 
-			if ( response.success ) {
-				$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
-				$msg.slideDown();//.delay( 2000 ).slideUp();
+			if ( response ) {
+				if ( response.success ) {
+					$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
+					$msg.slideDown();//.delay( 2000 ).slideUp();
 
-				$container.addClass( 'stored' );
-			}
+					$container.addClass( 'stored' );
+				}
 
-			// Error response
-			else if ( response.data ) {
-				$msg.addClass( 'error' ).find( 'p' ).html( response.data );
-				$msg.slideDown();
+				// Error response
+				else if ( response.data ) {
+					$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+					$msg.slideDown();
+				}
 			}
 
 			// No response
@@ -158,10 +160,11 @@ jQuery.fn.column_bind_clone = function() {
 
 jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
+	var select = el.find( '.column_type select' );
 
 	// Mark column as loading
 	el.addClass( 'loading' );
-	el.find( '.column-form' ).prepend( '<span class="spinner" />' );
+	select.prop( 'disabled', 1 );
 
 	// Fetch new form HTML
 	jQuery.post( ajaxurl, {
@@ -172,22 +175,32 @@ jQuery.fn.cpac_column_refresh = function() {
 		storage_model : jQuery( this ).closest( '.columns-container' ).data( 'type' )
 	}, function( data ) {
 
-		// Replace current form by new form
-		var newel = jQuery( '<div>' + data + '</div>' ).children();
-		el.replaceWith( newel );
-		el = newel;
+		if ( data ) {
+			// Replace current form by new form
+			var newel = jQuery( '<div>' + data + '</div>' ).children();
+			el.replaceWith( newel );
+			el = newel;
 
-		// Bind events
-		el.column_bind_toggle();
-		el.column_bind_remove();
-		el.column_bind_clone();
-		el.column_bind_events();
+			// Bind events
+			el.column_bind_toggle();
+			el.column_bind_remove();
+			el.column_bind_clone();
+			el.column_bind_events();
+
+			el.addClass( 'opened' ).find( '.column-form' ).show();
+
+			// Allow plugins to hook into this event
+			jQuery( document ).trigger( 'column_change', el );
+		}
+
+		// Do nothing
+		else {
+
+		}
 
 		// Remove "loading" marking from column
-		el.removeClass( 'loading' ).addClass( 'opened' ).find( '.column-form' ).show();
-
-		// Allow plugins to hook into this event
-		jQuery( document ).trigger( 'column_change', el );
+		el.removeClass( 'loading' );
+		select.prop( 'disabled', false );
 	} );
 };
 
@@ -504,7 +517,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 function cpac_create_column( container ) {
 
-	var clone = jQuery( '.for-cloning-only .cpac-column', container ).first().clone();
+	var clone = jQuery( '.for-cloning-only .cpac-column', container ).last().clone();
 	var storage_model = container.attr( 'data-type' );
 	var columns = container.find( 'cpac-columns' );
 
@@ -738,7 +751,7 @@ function cpac_init() {
 
 		// hook for addons
 		jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-		jQuery( document ).trigger( 'cac_model_ready', container.data('type') );
+		jQuery( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
 	}
 }
 
@@ -753,7 +766,7 @@ function cpac_menu() {
 
 	jQuery( '#cpac_storage_modal_select' ).on( 'change', function() {
 		jQuery( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
-		jQuery('.view-link' ).hide();
+		jQuery( '.view-link' ).hide();
 		window.location = jQuery( this ).val();
 	} );
 }

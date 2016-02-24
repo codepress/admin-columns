@@ -134,36 +134,36 @@ class CPAC_Settings {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		if ( ! empty( $_POST['formdata'] ) && ! empty( $_POST['column'] ) ) {
-			parse_str( $_POST['formdata'], $formdata );
-			$storagemodel_key = ! empty( $formdata['cpac_key'] ) ? $formdata['cpac_key'] : '';
+		$formdata = filter_input( INPUT_POST, 'formdata' );
+		$column = filter_input( INPUT_POST, 'column' );
 
-			if ( $storagemodel_key && ! empty( $formdata[ $storagemodel_key ][ $_POST['column'] ] ) ) {
-				$columndata = $formdata[ $formdata['cpac_key'] ][ $_POST['column'] ];
-				$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
-				$registered_columns = $storage_model->get_registered_columns();
-
-				if ( in_array( $columndata['type'], array_keys( $registered_columns ) ) ) {
-					$column = clone $registered_columns[ $columndata['type'] ];
-					$column->set_clone( $columndata['clone'] );
-
-					foreach ( $columndata as $optionname => $optionvalue ) {
-						$column->set_options( $optionname, $optionvalue );
-					}
-
-					$column->sanitize_label();
-
-					$columns = array( $column->properties->name => $column );
-
-					do_action( 'cac/columns', $columns );
-					do_action( "cac/columns/storage_key={$storagemodel_key}", $columns );
-
-					$column->display();
-				}
-			}
+		if ( ! $formdata || ! $column ) {
+			wp_die();
 		}
 
-		exit;
+		parse_str( $_POST['formdata'], $formdata );
+
+		if ( empty( $formdata['cpac_key'] ) ) {
+			wp_die();
+		}
+
+		$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
+
+		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
+			wp_die();
+		}
+
+		$columndata = $formdata[ $storage_model->key ][ $column ];
+		if ( $column = $storage_model->create_column( $columndata ) ) {
+
+			// Trigger add-ons like inline-edit and sortable
+			do_action( "cac/columns", array( $column->properties->name => $column ), $storage_model );
+			do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->properties->name => $column ), $storage_model );
+
+			$column->display();
+		}
+
+		exit(1);
 	}
 
 	/**
@@ -268,9 +268,7 @@ class CPAC_Settings {
 			wp_die();
 		}
 
-		$default_columns = unserialize( $formdata['default_columns'] );
-
-		$stored = $storage_model->store( $formdata[ $storage_model->key ], $default_columns );
+		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( $stored->get_error_message() );
@@ -609,13 +607,11 @@ class CPAC_Settings {
 					<?php
 				}
 			}
-
 			?>
 
 			<tr class="restore">
 				<th scope="row">
 					<h3><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h3>
-
 					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
@@ -631,6 +627,10 @@ class CPAC_Settings {
 		</table>
 
 		<?php
+	}
+
+	function sort_by_label( $a, $b ) {
+		return strcmp( $a->label, $b->label );
 	}
 
 	/**
@@ -678,10 +678,17 @@ class CPAC_Settings {
 					$storage_model = $this->cpac->get_storage_model( $current );
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
-					$storage_models_by_type = array();
+					// Grouped storage models
+					$grouped = array();
 					foreach ( $this->cpac->storage_models as $k => $_storage_model ) {
-						$storage_models_by_type[ $_storage_model->get_menu_type() ][ $k ] = $_storage_model;
+						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
+							'key' => $_storage_model->key,
+							'link' => $_storage_model->get_edit_link(),
+							'label' => $_storage_model->label
+						);
+						usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
 					}
+
 					?>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
@@ -692,10 +699,10 @@ class CPAC_Settings {
 
 							<div class="menu">
 								<select id="cpac_storage_modal_select">
-									<?php foreach ( $storage_models_by_type as $menu_type => $models ) : ?>
+									<?php foreach ( $grouped as $menu_type => $models ) : ?>
 										<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
-											<?php foreach ( $models as $_storage_model ) : ?>
-												<option value="<?php echo esc_attr( $_storage_model->get_edit_link() ); ?>" <?php selected( $_storage_model->key, $current ); ?>><?php echo esc_html( $_storage_model->label ); ?></option>
+											<?php foreach ( $models as $model ) : ?>
+												<option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $current ); ?>><?php echo esc_html( $model->label ); ?></option>
 											<?php endforeach; ?>
 										</optgroup>
 									<?php endforeach; ?>
@@ -716,17 +723,7 @@ class CPAC_Settings {
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
 											<span class="left"><?php echo $label; ?></span>
-
-											<?php
-
-											// Make sure the storage model label doesn't overlay the store settings label.
-											$right_label = $storage_model->label;
-											if ( 34 < ( strlen( $storage_model->label ) + ( strlen( $label ) * 1.1 ) ) ) {
-												$right_label = substr( $storage_model->label, 0, 34 - ( strlen( $label ) * 1.1 ) ) . '...';
-											}
-											?>
-
-											<span class="right"><?php echo esc_html( $right_label ); ?></span>
+											<span class="right"><?php echo esc_html( $storage_model->get_truncated_side_label( $label ) ); ?></span>
 										</h3>
 
 										<div class="form-update">
@@ -895,14 +892,13 @@ class CPAC_Settings {
 										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 										<input type="hidden" name="cpac_action" value="update_by_type"/>
 										<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
-										<input type="hidden" name="default_columns" value="<?php echo esc_attr( serialize( array_keys( $storage_model->get_default_column_headings() ) ) ); ?>"/>
 
 										<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 
 										<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 										<?php
-										foreach ( $storage_model->columns as $column ) {
+										foreach ( $storage_model->get_columns() as $column ) {
 											$column->display();
 										}
 										?>
@@ -930,14 +926,14 @@ class CPAC_Settings {
 						</div><!--.columns-left-->
 						<div class="clear"></div>
 
-
 						<div class="for-cloning-only" style="display:none">
 							<?php
-							foreach ( $storage_model->get_registered_columns() as $column ) {
+							foreach ( $storage_model->get_column_types() as $column ) {
 								$column->display();
 							}
 							?>
 						</div>
+
 					</div><!--.columns-container-->
 
 					<div class="clear"></div>

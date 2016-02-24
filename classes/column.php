@@ -163,7 +163,7 @@ class CPAC_Column {
 			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
 			'default'          => false,    // Is this a WP default column,
-			'group'            => 'custom',
+			'group'            => __( 'Custom', 'codepress-admin-columns' ),
 			'hidden'           => false,
 			'use_before_after' => false
 		);
@@ -836,7 +836,8 @@ class CPAC_Column {
 			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
 			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
 			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		} else {
+		}
+		else {
 			$r = hexdec( substr( $hex, 0, 2 ) );
 			$g = hexdec( substr( $hex, 2, 2 ) );
 			$b = hexdec( substr( $hex, 4, 2 ) );
@@ -895,7 +896,8 @@ class CPAC_Column {
 		if ( is_string( $images ) || is_numeric( $images ) ) {
 			if ( strpos( $images, ',' ) !== false ) {
 				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			} else {
+			}
+			else {
 				$images = array( $images );
 			}
 		}
@@ -975,7 +977,8 @@ class CPAC_Column {
 
 					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px; background-size: cover; background-image: url({$src}); background-position: center;'></span>";
 
-				} else {
+				}
+				else {
 					$max = max( array( $width, $height ) );
 					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
 				}
@@ -1000,7 +1003,8 @@ class CPAC_Column {
 		foreach ( $pieces as $r_pieces ) {
 			if ( is_array( $r_pieces ) ) {
 				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-			} else {
+			}
+			else {
 				$retVal[] = $r_pieces;
 			}
 		}
@@ -1114,7 +1118,8 @@ class CPAC_Column {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
 				$last = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
 				$name = $first . $last;
-			} elseif ( ! empty( $userdata->{$display_as} ) ) {
+			}
+			elseif ( ! empty( $userdata->{$display_as} ) ) {
 				$name = $userdata->{$display_as};
 			}
 		}
@@ -1366,54 +1371,23 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.0
-	 *
-	 * @param array Column Objects
-	 *
-	 * @return string HTML List
-	 */
-	public function get_column_list( $columns = array(), $label = '' ) {
-
-		if ( empty( $columns ) ) {
-			return false;
-		}
-
-		// sort by alphabet
-		$_columns = array();
-
-		foreach ( $columns as $column ) {
-			if ( $column->properties->hidden ) {
-				continue;
-			}
-
-			$_columns[ $column->properties->type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
-		}
-
-		asort( $_columns );
-
-		$list = "<optgroup label='{$label}'>";
-		foreach ( $_columns as $type => $label ) {
-			$selected = selected( $this->properties->type, $type, false );
-			$list .= "<option value='{$type}'{$selected}>{$label}</option>";
-		}
-		$list .= "</optgroup>";
-
-		return $list;
-	}
-
-	/**
-	 * @since 2.0
 	 */
 	public function display() {
 
 		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
 
-		// column list
+		// Selector
 		$column_list = '';
-
-		$groups = $this->storage_model->get_column_type_groups();
-		foreach ( $groups as $group => $label ) {
-			$column_list .= $this->get_column_list( $this->storage_model->column_types[ $group ], $label );
+		if ( $grouped_columns = $this->storage_model->get_grouped_columns() ) {
+			foreach ( $grouped_columns as $group => $columns ) {
+				$column_list .= '<optgroup label="' . $group . '">';
+				foreach ( $columns as $type => $label ) {
+					$column_list .= '<option value="' . $type . '"' . selected( $this->properties->type, $type, false ) . '>' . $label . '</option>';
+				}
+				$column_list .= '</optgroup>';
+			}
 		}
+
 
 		// clone attribute
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
