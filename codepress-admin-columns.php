@@ -124,7 +124,6 @@ class CPAC {
 		// Populating storage models
 		add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
-		add_action( 'admin_head', array( $this, 'store_default_columns' ) );
 
 		// Some plugins will load their columns through this action. Not recommended.
 		if ( apply_filters( 'cac/load_alt_set_columns', false ) ) {
@@ -273,13 +272,6 @@ class CPAC {
 		return ! empty( $this->exported_columns[ $storage_model ] ) ? $this->exported_columns[ $storage_model ] : false;
 	}
 
-	function store_default_columns() {
-		if ( $this->is_columns_screen() ) {
-			$storage_model = $this->get_current_storage_model();
-			$storage_model->store_default_columns();
-		}
-	}
-
 	/**
 	 * Only set columns on current screens or on specific ajax calls
 	 *
@@ -287,18 +279,21 @@ class CPAC {
 	 */
 	public function set_columns() {
 
+		$is_columns_screen = $this->is_columns_screen();
+		$is_doing_ajax = cac_is_doing_ajax()
+
 		// Listings screen
-		if ( $this->is_columns_screen() ) {
+		if ( $is_columns_screen ) {
 			$storage_model = $this->get_current_storage_model();
 		}
 
 		// Ajax call
-		if ( $key = cac_is_doing_ajax() ) {
-			$storage_model = $this->get_storage_model( $key );
+		else if ( $is_doing_ajax ) {
+			$storage_model = $this->get_storage_model( $is_doing_ajax );
 		}
 
 		// Settings screen
-		if ( cac_is_setting_screen() ) {
+		else if ( cac_is_setting_screen() ) {
 			$key = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->get_first_storage_model_key();
 			$storage_model = $this->get_storage_model( $key );
 		}
@@ -319,7 +314,7 @@ class CPAC {
 		$storage_model->set_columns();
 
 		// Headings and values
-		if ( cac_is_doing_ajax() || $this->is_columns_screen() ) {
+		if ( $is_doing_ajax || $is_columns_screen ) {
 			$storage_model->init_manage_columns();
 		}
 	}
