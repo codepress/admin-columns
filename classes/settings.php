@@ -163,7 +163,7 @@ class CPAC_Settings {
 			$column->display();
 		}
 
-		exit('1');
+		exit(1);
 	}
 
 	/**
