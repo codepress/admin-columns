@@ -34,9 +34,6 @@ class CPAC_WPML {
 
 	function __construct() {
 
-		// load wpml columns in AC columns menu
-		add_action( 'cac/set_columns', array( $this, 'add_columns_to_settings_menu' ) );
-
 		// display correct flags on the overview screens
 		add_action( 'cac/loaded', array( $this, 'replace_flags' ) );
 
@@ -48,6 +45,15 @@ class CPAC_WPML {
 
 		// set WPML to be a columns screen for translation so that storage models are loaded
 		add_filter( 'cac/is_cac_screen', array( $this, 'is_cac_screen' ) );
+
+		// change label from icl_translations to WPML flags
+		add_action( 'cac/columns_types', array( $this, 'readable_label' ) );
+	}
+
+	public function readable_label( $column_types ) {
+		if ( isset( $column_types['icl_translations'] ) ) {
+			$column_types['icl_translations']->properties->label = __( 'WPML flag', 'codepress-admin-columns' );
+		}
 	}
 
 	public function replace_flags( $cac ) {
@@ -65,38 +71,14 @@ class CPAC_WPML {
 		$post_types = (array) $settings['custom_posts_sync_option'];
 		$post_types['post'] = 1;
 		$post_types['page'] = 1;
-		foreach ( $post_types  as $post_type => $value ) {
+		foreach ( $post_types as $post_type => $value ) {
 			if ( $value ) {
 				new CPAC_WPML_COLUMN( $post_type );
 			}
 		}
 	}
 
-	public function add_columns_to_settings_menu( $storage_model ) {
-		if ( ! class_exists( 'SitePress', false ) ) {
-			return;
-		}
-		if ( 'post' !== $storage_model->type ) {
-			return;
-		}
-
-		global $pagenow, $cpac;
-
-		// check if we are on the correct page or when a column is being refreshed by ajax.
-		if ( ( 'options-general.php' !== $pagenow ) && ( empty( $_POST['action'] ) || 'cpac_column_refresh' !== $_POST['action'] ) ) {
-			return;
-		}
-
-		// prevent PHP errors from SitePress
-		global $sitepress, $posts;
-		$posts = get_posts( array(
-			'post_type' => $storage_model->post_type,
-			'posts_per_page' => 1
-		));
-
-		add_filter( 'manage_' . $storage_model->post_type . 's_columns', array( $sitepress, 'add_posts_management_column' ) );
-	}
-
+	// Create translatable column labels
 	public function register_column_labels() {
 		global $cpac;
 

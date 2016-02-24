@@ -200,6 +200,9 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 		}
+
+		do_action( "cac/column_types", $this->column_types, $this );
+		do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 	}
 
 	/**
