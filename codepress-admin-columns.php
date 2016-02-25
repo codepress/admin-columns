@@ -272,6 +272,56 @@ class CPAC {
 		return ! empty( $this->exported_columns[ $storage_model ] ) ? $this->exported_columns[ $storage_model ] : false;
 	}
 
+	public function set_user_model_preference( $storage_model_key ) {
+		update_user_meta( get_current_user_id(), 'cpac_current_model', $storage_model_key );
+	}
+
+	public function delete_user_model_preference() {
+		delete_user_meta( get_current_user_id(), 'cpac_current_model' );
+	}
+
+	public function get_user_model_preference() {
+		return $this->get_storage_model( get_user_meta( get_current_user_id(), 'cpac_current_model', true ) );
+	}
+
+	public function get_settings_storage_model() {
+
+		if ( isset( $_REQUEST['cpac_key'] ) ) {
+
+			// By request
+			if ( $exists = $this->get_storage_model( $_REQUEST['cpac_key'] ) ) {
+				$storage_model = $exists;
+			}
+
+			// User preference
+			else if ( $exists = $this->get_user_model_preference() ) {
+				$storage_model = $exists;
+			}
+
+			// First one served
+			else {
+				$storage_model = $this->get_first_storage_model();
+			}
+
+			$this->set_user_model_preference( $storage_model->key );
+		}
+
+		else {
+
+			// User preference
+			if ( $exists = $this->get_user_model_preference() ) {
+				$storage_model = $exists;
+			}
+
+			// First one served
+			else {
+				$storage_model = $this->get_first_storage_model();
+			}
+		}
+
+		return $storage_model;
+	}
+
 	/**
 	 * Only set columns on current screens or on specific ajax calls
 	 *
@@ -294,9 +344,7 @@ class CPAC {
 
 		// Settings screen
 		else if ( cac_is_setting_screen() ) {
-			$key = ! empty( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : $this->get_first_storage_model_key();
-			$storage_model = $this->get_storage_model( $key );
-			//$storage_model->set_column_objects();
+			$storage_model = $this->get_settings_storage_model();
 		}
 
 		if ( empty( $storage_model ) ) {
@@ -312,7 +360,6 @@ class CPAC {
 		$storage_model->init_layout();
 
 		// populate columns
-		//$storage_model->set_columns();
 		$storage_model->set_columns();
 
 		// Headings and values
@@ -510,6 +557,11 @@ class CPAC {
 		$keys = array_keys( (array) $this->storage_models );
 
 		return array_shift( $keys );
+	}
+
+	public function get_first_storage_model() {
+		$models = $this->storage_models;
+		echo '<pre>'; print_r( $models ); echo '</pre>'; exit;
 	}
 
 	/**
