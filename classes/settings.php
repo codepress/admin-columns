@@ -138,6 +138,10 @@ class CPAC_Settings {
 		$column = filter_input( INPUT_POST, 'column' );
 		$nonce = filter_input( INPUT_POST, '_ajax_nonce' );
 
+		if( ! current_user_can( 'manage_admin_columns')  ){
+			wp_die();
+		}
+
 		if( ! wp_verify_nonce( $nonce, 'cpac-settings') ){
 			wp_die();
 		}
