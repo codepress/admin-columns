@@ -641,7 +641,7 @@ class CPAC_Settings {
 		<?php
 	}
 
-	function sort_by_label( $a, $b ) {
+	public function sort_by_label( $a, $b ) {
 		return strcmp( $a->label, $b->label );
 	}
 
