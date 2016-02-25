@@ -44,6 +44,7 @@ function cpac_submit_form() {
 		var $button = jQuery( this );
 		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
 		var columns_data = $container.find( '.cpac-columns form' ).serialize();
+		var $msg = $container.find( '.ajax-message' );
 
 		$save_buttons.attr( 'disabled', 'disabled' );
 
@@ -51,40 +52,50 @@ function cpac_submit_form() {
 		$container.find( '.ajax-message' ).hide().removeClass( 'error updated' );
 		jQuery( '.cpac_message' ).remove(); // placed by restore button
 
-		jQuery.post( ajaxurl, {
-			plugin_id : 'cpac',
-			action : 'cpac_columns_update',
-			data : columns_data,
-			_ajax_nonce : cpac._ajax_nonce,
-			storage_model : $container.data( 'type' ),
-			layout : $container.data( 'layout' )
-		}, function( response ) {
+		var xhr = jQuery.post( ajaxurl, {
+				plugin_id : 'cpac',
+				action : 'cpac_columns_update',
+				data : columns_data,
+				_ajax_nonce : cpac._ajax_nonce,
+				storage_model : $container.data( 'type' ),
+				layout : $container.data( 'layout' )
+			},
 
-			var $msg = $container.find( '.ajax-message' );
+			// JSON repsonse
+			function( response ) {
+				if ( response ) {
+					if ( response.success ) {
+						$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
+						$msg.slideDown();//.delay( 2000 ).slideUp();
 
-			if ( response ) {
-				if ( response.success ) {
-					$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
-					$msg.slideDown();//.delay( 2000 ).slideUp();
+						$container.addClass( 'stored' );
+					}
 
-					$container.addClass( 'stored' );
+					// Error response
+					else if ( response.data ) {
+						$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+						$msg.slideDown();
+					}
 				}
 
-				// Error response
-				else if ( response.data ) {
-					$msg.addClass( 'error' ).find( 'p' ).html( response.data );
-					$msg.slideDown();
+				// No response
+				else {
 				}
-			}
 
-			// No response
-			else {
-			}
+			}, 'json' );
 
+		// No JSON
+		xhr.fail( function( error ) {
+			console.log( error );
+			$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
+			$msg.slideDown();
+		} );
+
+		// Always
+		xhr.always( function() {
 			$save_buttons.removeAttr( 'disabled', 'disabled' );
 			$container.removeClass( 'saving' );
-
-		}, 'json' );
+		} );
 
 		jQuery( document ).trigger( 'cac_update', $container );
 	} );

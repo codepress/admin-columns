@@ -47,12 +47,12 @@ class CPAC_WPML {
 		add_filter( 'cac/is_cac_screen', array( $this, 'is_cac_screen' ) );
 
 		// change label from icl_translations to WPML flags
-		add_action( 'cac/columns_types', array( $this, 'readable_label' ) );
+		add_action( 'cac/column_types', array( $this, 'readable_label' ) );
 	}
 
 	public function readable_label( $column_types ) {
 		if ( isset( $column_types['icl_translations'] ) ) {
-			$column_types['icl_translations']->properties->label = __( 'WPML flag', 'codepress-admin-columns' );
+			$column_types['icl_translations']->properties->name = __( 'WPML Flags', 'codepress-admin-columns' );
 		}
 	}
 
@@ -95,7 +95,6 @@ class CPAC_WPML {
 	}
 
 	public function register_translated_label( $label, $column_name, $column_options, $storage_model ) {
-
 		if ( function_exists( 'icl_t' ) ) {
 			$name 	= $storage_model->key . '_' . $column_name;
 			$label 	= icl_t( 'Admin Columns', $name, $label );
@@ -104,7 +103,6 @@ class CPAC_WPML {
 	}
 
 	public function is_cac_screen( $is_columns_screen ) {
-
 		if ( isset( $_GET['page'] ) && 'wpml-string-translation/menu/string-translation.php' == $_GET['page'] ) {
 			return true;
 		}

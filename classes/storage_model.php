@@ -142,12 +142,15 @@ abstract class CPAC_Storage_Model {
 	public function get_grouped_columns() {
 		$grouped = array();
 		foreach ( $this->column_types as $type => $column ) {
-			$grouped[ $column->properties->group ][ $type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->type ) : ucfirst( $column->properties->label );
+
+			// Labels with html will be replaced by the it's name.
+			$grouped[ $column->properties->group ][ $type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->name ) : ucfirst( $column->properties->label );
 			asort( $grouped[ $column->properties->group ] );
 		}
+
 		krsort( $grouped );
 
-		return $grouped;
+		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
 	/**
@@ -171,6 +174,17 @@ abstract class CPAC_Storage_Model {
 	 */
 	private function set_column_types() {
 
+		/**
+		 * Filter the default column names
+		 *
+		 * @since 2.4.4
+		 *
+		 * @param array $default_column_names Default column names
+		 * @param object $column Column object
+		 * @param object $this Storage_Model object
+		 */
+		$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
+
 		// Get default column that have been set on the listings screen
 		$default_columns = $this->get_default_stored_columns();
 
@@ -184,6 +198,12 @@ abstract class CPAC_Storage_Model {
 			foreach ( $default_columns as $name => $label ) {
 				if ( 'cb' !== $name ) {
 					$column = $this->create_column_instance( $name, $label );
+
+					// Not a default column?
+					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
+						$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
+					}
+
 					$this->columns_default[ $name ] = $column;
 					$this->column_types[ $name ] = $column;
 				}
@@ -235,7 +255,6 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function set_columns() {
-		$columns = array();
 
 		$this->set_column_types();
 
@@ -243,20 +262,18 @@ abstract class CPAC_Storage_Model {
 		if ( $stored = $this->get_stored_columns() ) {
 			foreach ( $stored as $name => $options ) {
 				if ( $column = $this->create_column( $options ) ) {
-					$columns[ $name ] = $column;
+					$this->columns[ $name ] = $column;
 				}
 			}
 		}
 
 		// Nothing stored
 		else {
-			$columns = $this->columns_default;
+			$this->columns = $this->columns_default;
 		}
 
-		do_action( "cac/columns", $columns, $this );
-		do_action( "cac/columns/storage_key={$this->key}", $columns, $this );
-
-		$this->columns = $columns;
+		do_action( "cac/columns", $this->columns, $this );
+		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
 	}
 
 	/**
@@ -604,12 +621,6 @@ abstract class CPAC_Storage_Model {
 		return $id;
 	}
 
-	/*public function delete_layouts() {
-		global $wpdb;
-
-		//delete_option( $this->get_layout_key() );
-	}*/
-
 	public function delete_layout( $id ) {
 		return delete_option( $this->get_layout_key( $id ) );
 	}
@@ -798,7 +809,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'label', $label )
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
-			->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) )
+			->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
 			->set_options( 'label', $label )
 			->set_options( 'state', 'on' );
 
@@ -810,24 +821,6 @@ abstract class CPAC_Storage_Model {
 		// Label empty? Use it's column_name
 		if ( ! $label ) {
 			$column->set_properties( 'label', ucfirst( $column_name ) );
-		}
-
-		/**
-		 * Filter the default column names
-		 *
-		 * @since 2.4.4
-		 *
-		 * @param array $default_column_names Default column names
-		 * @param object $column Column object
-		 * @param object $this Storage_Model object
-		 */
-		$default_column_names = apply_filters( 'cac/columns/defaults', $this->get_default_column_names(), $column, $this );
-		$default_column_names = apply_filters( 'cac/columns/defaults/type=' . $this->get_type(), $default_column_names, $column, $this );
-		$default_column_names = apply_filters( 'cac/columns/defaults/post_type=' . $this->get_post_type(), $default_column_names, $column, $this );
-
-		// set group for WP Default
-		if ( $default_column_names && in_array( $column_name, $default_column_names ) ) {
-			$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
 		}
 
 		return $column;

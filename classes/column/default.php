@@ -2,7 +2,7 @@
 /**
  * Column class for default columns (i.e. columns not added by Admin Columns).
  * Allows additional properties, such as editability and filterability, to be
- * added to defeault column types.
+ * added to default column types.
  *
  * @since 2.2.1
  */
