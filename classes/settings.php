@@ -136,6 +136,11 @@ class CPAC_Settings {
 	public function ajax_column_refresh() {
 		$formdata = filter_input( INPUT_POST, 'formdata' );
 		$column = filter_input( INPUT_POST, 'column' );
+		$nonce = filter_input( INPUT_POST, '_ajax_nonce' );
+
+		if( ! wp_verify_nonce( $nonce, 'cpac-settings') ){
+			wp_die();
+		}
 
 		if ( ! $formdata || ! $column ) {
 			wp_die();
@@ -154,16 +159,19 @@ class CPAC_Settings {
 		}
 
 		$columndata = $formdata[ $storage_model->key ][ $column ];
-		if ( $column = $storage_model->create_column( $columndata ) ) {
 
-			// Trigger add-ons like inline-edit and sortable
-			do_action( "cac/columns", array( $column->properties->name => $column ), $storage_model );
-			do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->properties->name => $column ), $storage_model );
-
-			$column->display();
+		$column = $storage_model->create_column( $columndata );
+		if( ! $column ) {
+			wp_die();
 		}
 
-		wp_send_json_success();
+		// Trigger add-ons like inline-edit and sortable
+		do_action( "cac/columns", array( $column->properties->name => $column ), $storage_model );
+		do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->properties->name => $column ), $storage_model );
+
+		ob_start();
+		$column->display();
+		wp_send_json_success( ob_get_clean() );
 	}
 
 	/**
@@ -236,7 +244,7 @@ class CPAC_Settings {
 		// javascript translations
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error' => __( 'PHP Error in response.', 'codepress-admin-columns' ),
+			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 		) );
 
 		// nonce

@@ -178,9 +178,10 @@ jQuery.fn.cpac_column_refresh = function() {
 	select.prop( 'disabled', 1 );
 
 	// Fetch new form HTML
-	jQuery.post( ajaxurl, {
+	var xhr = jQuery.post( ajaxurl, {
 		plugin_id : 'cpac',
 		action : 'cpac_column_refresh',
+		_ajax_nonce : cpac._ajax_nonce,
 		column : jQuery( this ).find( 'input.column-name' ).val(),
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : jQuery( this ).closest( '.columns-container' ).data( 'type' )
@@ -188,7 +189,7 @@ jQuery.fn.cpac_column_refresh = function() {
 
 		if ( data ) {
 			// Replace current form by new form
-			var newel = jQuery( '<div>' + data + '</div>' ).children();
+			var newel = jQuery( '<div>' + data.data + '</div>' ).children();
 			el.replaceWith( newel );
 			el = newel;
 
@@ -212,7 +213,18 @@ jQuery.fn.cpac_column_refresh = function() {
 		// Remove "loading" marking from column
 		el.removeClass( 'loading' );
 		select.prop( 'disabled', false );
-	} );
+	}, 'json' );
+
+	xhr.fail( function( error ){
+		var $container = el.closest( '.columns-container' ).addClass( 'saving' );
+		var $msg = $container.find( '.ajax-message' );
+		var message = jQuery( error.reponseText );
+
+		$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
+		$msg.slideDown();
+
+		console.log( message.text() );
+	})
 };
 
 /*
