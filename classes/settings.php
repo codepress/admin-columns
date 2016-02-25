@@ -236,7 +236,7 @@ class CPAC_Settings {
 		// javascript translations
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error' => __( 'PHP Error in response.', 'codepress-admin-columns' ),
+			'error' => __( 'Error in response.', 'codepress-admin-columns' ),
 		) );
 
 		// nonce

@@ -71,7 +71,7 @@ function cpac_submit_form() {
 						$container.addClass( 'stored' );
 					}
 
-					// Error response
+					// Error message
 					else if ( response.data ) {
 						$msg.addClass( 'error' ).find( 'p' ).html( response.data );
 						$msg.slideDown();
@@ -86,9 +86,8 @@ function cpac_submit_form() {
 
 		// No JSON
 		xhr.fail( function( error ) {
-			console.log( error );
-			$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
-			$msg.slideDown();
+			// We choose not to notify the user of errors, because the settings will have
+			// been saved correctly despite of PHP notices/errors from plugin or themes.
 		} );
 
 		// Always
@@ -653,6 +652,7 @@ function cpac_pointer() {
 		var el = jQuery( this ),
 			html = el.attr( 'rel' ),
 			pos = el.attr( 'data-pos' ),
+			w = el.attr( 'data-width' ),
 			noclick = el.attr( 'data-noclick' );
 
 		var position = {
@@ -660,6 +660,8 @@ function cpac_pointer() {
 			my : 'right top',	// position of wp-pointer relative to the at-coordinates
 			edge : 'right',		// position of arrow
 		};
+
+		var width = w ? w : 250;
 
 		if ( 'right' == pos ) {
 			position = {
@@ -681,7 +683,7 @@ function cpac_pointer() {
 		el.pointer( {
 			content : jQuery( '#' + html ).html(),
 			position : position,
-			pointerWidth : 250,
+			pointerWidth : width,
 			close : function() {
 				el.removeClass( 'open' );
 			},
