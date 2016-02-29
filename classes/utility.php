@@ -53,10 +53,10 @@ function cac_is_doing_ajax() {
 		case 'replyto-comment' :  // Inline reply on comment
 			$storage_model = 'wp-comments';
 			break;
-		//default :
-		//	if ( isset( $_REQUEST['plugin_id'] ) && isset( $_REQUEST['storage_model'] ) ) {
-		//		$storage_model = $_REQUEST['storage_model'];
-		//	}
+		default :
+			if ( isset( $_REQUEST['plugin_id'] ) && isset( $_REQUEST['storage_model'] ) ) {
+				$storage_model = $_REQUEST['storage_model'];
+			}
 	}
 
 	return apply_filters( 'cac/is_doing_ajax', $storage_model );

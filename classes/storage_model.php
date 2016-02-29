@@ -282,7 +282,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function load_export( $columndata ) {
+	/*public function load_export( $columndata ) {
 
 		// Layout format
 		if ( isset( $columndata[0] ) ) {
@@ -299,7 +299,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		$this->enable_php_export();
-	}
+	}*/
 
 	/**
 	 * initialize callback for managing the headers and values for columns
@@ -514,21 +514,13 @@ abstract class CPAC_Storage_Model {
 		return isset( $layouts[0]->id ) ? reset( $layouts )->id : null;
 	}
 
-	private function set_stored_layout( $layout ) {
-		$this->stored_layouts[ $layout['id'] ] = (object) $layout;
-	}
-
 	public function get_layouts() {
-		if ( $this->is_using_php_export() ) {
-			$layouts = $this->stored_layouts;
-		}
-		else {
-			global $wpdb;
-			$layouts = array();
-			if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s", $this->get_layout_key() . '%' ) ) ) {
-				foreach ( $results as $result ) {
-					$layouts[] = (object) maybe_unserialize( $result );
-				}
+		global $wpdb;
+		$layouts = array();
+		if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
+			foreach ( $results as $result ) {
+				$layout = (object) maybe_unserialize( $result );
+				$layouts[ $layout->id ] = $layout;
 			}
 		}
 
@@ -536,7 +528,7 @@ abstract class CPAC_Storage_Model {
 			$layouts = array();
 		}
 
-		return $layouts;
+		return apply_filters( 'ac/layouts', $layouts, $this );
 	}
 
 	public function get_layout_by_id( $id ) {
@@ -864,18 +856,17 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
-		if ( $this->is_using_php_export() ) {
-			$columns = isset( $this->stored_columns[ $this->layout ] ) ? $this->stored_columns[ $this->layout ] : false;
-		}
-		else {
-			$columns = $this->get_database_columns();
-		}
+		$columns = array();
 
 		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
 		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
-		if ( ! $columns ) {
-			return array();
+		if ( empty( $columns ) ) {
+			$columns = $this->get_database_columns();
+		}
+
+		if ( empty( $columns ) ) {
+			$columns = array();
 		}
 
 		return $columns;
@@ -883,15 +874,6 @@ abstract class CPAC_Storage_Model {
 
 	public function get_database_columns() {
 		return get_option( $this->get_storage_id() );
-	}
-
-	/**
-	 * Set stopred column by 3rd party plugins
-	 *
-	 * @since 2.3
-	 */
-	public function set_stored_columns( $columns ) {
-		$this->stored_columns[ $this->layout ] = $columns;
 	}
 
 	/**

@@ -7,6 +7,8 @@
  */
 class CPAC_Settings {
 
+	CONST OPTION_CURRENT = 'cpac_current_model';
+
 	/**
 	 * CPAC class
 	 *
@@ -642,6 +644,56 @@ class CPAC_Settings {
 		return strcmp( $a->label, $b->label );
 	}
 
+	private function set_user_model_preference( $storage_model_key ) {
+		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $storage_model_key );
+	}
+
+	private function delete_user_model_preference() {
+		delete_user_meta( get_current_user_id(), self::OPTION_CURRENT );
+	}
+
+	private function get_user_model_preference() {
+		return cpac()->get_storage_model( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
+	}
+
+	public function get_settings_storage_model() {
+
+		if ( isset( $_REQUEST['cpac_key'] ) ) {
+
+			// By request
+			if ( $exists = cpac()->get_storage_model( $_REQUEST['cpac_key'] ) ) {
+				$storage_model = $exists;
+			}
+
+			// User preference
+			else if ( $exists = $this->get_user_model_preference() ) {
+				$storage_model = $exists;
+			}
+
+			// First one served
+			else {
+				$storage_model = cpac()->get_first_storage_model();
+			}
+
+			$this->set_user_model_preference( $storage_model->key );
+		}
+
+		else {
+
+			// User preference
+			if ( $exists = $this->get_user_model_preference() ) {
+				$storage_model = $exists;
+			}
+
+			// First one served
+			else {
+				$storage_model = cpac()->get_first_storage_model();
+			}
+		}
+
+		return $storage_model;
+	}
+
 	/**
 	 * @since 1.0
 	 */
@@ -683,9 +735,17 @@ class CPAC_Settings {
 			switch ( $current_tab ) :
 				case 'general':
 
-					$storage_model = $this->cpac->get_settings_storage_model();
+					$storage_model = $this->get_settings_storage_model();
+					$storage_model->init_layout();
+					$storage_model->set_columns();
 
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
+
+					if ( $layout = $storage_model->get_layout_object() ) {
+						if ( isset( $layout->php_export ) ) {
+							$storage_model->enable_php_export();
+						}
+					}
 
 					// Grouped storage models
 					$grouped = array();

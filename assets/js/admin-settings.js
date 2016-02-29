@@ -774,11 +774,11 @@ function cpac_init() {
 
 		// ordering of columns
 		columns.cpac_bind_ordering();
-
-		// hook for addons
-		jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-		jQuery( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
 	}
+
+	// hook for addons
+	jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
+	jQuery( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
 }
 
 /*

@@ -50,7 +50,6 @@ if ( ! is_admin() ) {
 require_once CPAC_DIR . 'classes/utility.php';
 require_once CPAC_DIR . 'classes/third_party.php';
 require_once CPAC_DIR . 'includes/arrays.php';
-require_once CPAC_DIR . 'api.php';
 
 /**
  * The Admin Columns Class
@@ -87,14 +86,6 @@ class CPAC {
 	private $_upgrade;
 
 	/**
-	 * Column settings to import from a column PHP export
-	 *
-	 * @since 2.4.7
-	 * @var array
-	 */
-	public $exported_columns;
-
-	/**
 	 * Registered storage model class instances
 	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
@@ -107,6 +98,22 @@ class CPAC {
 	 * @since 2.4.9
 	 */
 	private $current_storage_model;
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected static $_instance = null;
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
 
 	/**
 	 * @since 1.0
@@ -266,104 +273,25 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_exported_columns( $storage_model ) {
-		return ! empty( $this->exported_columns[ $storage_model ] ) ? $this->exported_columns[ $storage_model ] : false;
-	}
-
-	public function set_user_model_preference( $storage_model_key ) {
-		update_user_meta( get_current_user_id(), 'cpac_current_model', $storage_model_key );
-	}
-
-	public function delete_user_model_preference() {
-		delete_user_meta( get_current_user_id(), 'cpac_current_model' );
-	}
-
-	public function get_user_model_preference() {
-		return $this->get_storage_model( get_user_meta( get_current_user_id(), 'cpac_current_model', true ) );
-	}
-
-	public function get_settings_storage_model() {
-
-		if ( isset( $_REQUEST['cpac_key'] ) ) {
-
-			// By request
-			if ( $exists = $this->get_storage_model( $_REQUEST['cpac_key'] ) ) {
-				$storage_model = $exists;
-			}
-
-			// User preference
-			else if ( $exists = $this->get_user_model_preference() ) {
-				$storage_model = $exists;
-			}
-
-			// First one served
-			else {
-				$storage_model = $this->get_first_storage_model();
-			}
-
-			$this->set_user_model_preference( $storage_model->key );
-		}
-
-		else {
-
-			// User preference
-			if ( $exists = $this->get_user_model_preference() ) {
-				$storage_model = $exists;
-			}
-
-			// First one served
-			else {
-				$storage_model = $this->get_first_storage_model();
-			}
-		}
-
-		return $storage_model;
-	}
-
-	/**
 	 * Only set columns on current screens or on specific ajax calls
 	 *
 	 * @since 2.4.9
 	 */
 	public function set_columns() {
 
-		$is_columns_screen = $this->is_columns_screen();
-		$is_doing_ajax = cac_is_doing_ajax();
-
 		// Listings screen
-		if ( $is_columns_screen ) {
+		if ( $this->is_columns_screen() ) {
 			$storage_model = $this->get_current_storage_model();
 		}
 
 		// Ajax call
-		else if ( $is_doing_ajax ) {
-			$storage_model = $this->get_storage_model( $is_doing_ajax );
+		else if ( $model = cac_is_doing_ajax() ) {
+			$storage_model = $this->get_storage_model( $model );
 		}
 
-		// Settings screen
-		else if ( cac_is_setting_screen() ) {
-			$storage_model = $this->get_settings_storage_model();
-		}
-
-		if ( empty( $storage_model ) ) {
-			return;
-		}
-
-		// Maybe load PHP Exported columns
-		if ( $columndata = $this->get_exported_columns( $storage_model->key ) ) {
-			$storage_model->load_export( $columndata );
-		}
-
-		// load layout
-		$storage_model->init_layout();
-
-		// populate columns
-		$storage_model->set_columns();
-
-		// Headings and values
-		if ( $is_doing_ajax || $is_columns_screen ) {
+		if ( $storage_model ) {
+			$storage_model->init_layout();
+			$storage_model->set_columns();
 			$storage_model->init_manage_columns();
 		}
 	}
@@ -484,7 +412,6 @@ class CPAC {
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
-
 		if ( $storage_model = $this->get_current_storage_model() ) {
 			$classes .= " cp-{$storage_model->key}";
 		}
@@ -498,7 +425,6 @@ class CPAC {
 	 * @since 1.4.0
 	 */
 	public function admin_scripts() {
-
 		if ( ! ( $storage_model = $this->get_current_storage_model() ) ) {
 			return;
 		}
@@ -560,8 +486,11 @@ class CPAC {
 	}
 
 	public function get_first_storage_model() {
-		$models = $this->storage_models;
-		echo '<pre>'; print_r( $models ); echo '</pre>'; exit;
+
+		// @TODO rewrite without get_first_storage_model_key,
+		$first = $this->get_first_storage_model_key();
+
+		return $this->storage_models[ $first ];
 	}
 
 	/**
@@ -693,17 +622,9 @@ class CPAC {
 
 }
 
-/**
- * Admin Columns class (global for backwards compatibility)
- *
- * @since 1.0
- * @deprecated 2.2.7 Use filter cac/loaded instead.
- */
-global $cpac;
+function cpac() {
+	return CPAC::instance();
+}
 
-/**
- * Initialize Admin Columns class
- *
- * @since 1.0
- */
-$cpac = new CPAC();
+// Global for backwards compatibility.
+$GLOBALS['cpac'] = cpac();
