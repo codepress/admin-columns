@@ -171,6 +171,7 @@ jQuery.fn.column_bind_clone = function() {
 jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
 	var select = el.find( '.column_type select' );
+	var $container = jQuery( this ).closest( '.columns-container' );
 
 	// Mark column as loading
 	el.addClass( 'loading' );
@@ -183,7 +184,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		_ajax_nonce : cpac._ajax_nonce,
 		column : jQuery( this ).find( 'input.column-name' ).val(),
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
-		storage_model : jQuery( this ).closest( '.columns-container' ).data( 'type' )
+		storage_model : $container.data( 'type' )
 	}, function( data ) {
 
 		if ( data ) {

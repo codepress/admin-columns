@@ -229,6 +229,9 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function create_column( $options ) {
+
+		$this->set_column_types();
+
 		if ( ! isset( $options['type'] ) || ! isset( $this->column_types[ $options['type'] ] ) ) {
 			return false;
 		}
@@ -529,7 +532,11 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		return empty( $layouts ) ? array() : $layouts;
+		if ( empty( $layouts ) ) {
+			$layouts = array();
+		}
+
+		return $layouts;
 	}
 
 	public function get_layout_by_id( $id ) {
@@ -666,6 +673,8 @@ abstract class CPAC_Storage_Model {
 		if ( ! $columns ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
+
+		$this->set_columns();
 
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {

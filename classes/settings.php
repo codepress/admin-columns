@@ -133,12 +133,9 @@ class CPAC_Settings {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
+		check_ajax_referer( 'cpac-settings' );
 
 		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			wp_die();
-		}
-
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_ajax_nonce' ), 'cpac-settings' ) ) {
 			wp_die();
 		}
 
