@@ -80,14 +80,13 @@ class CPAC_WPML {
 
 	// Create translatable column labels
 	public function register_column_labels() {
-		global $cpac;
 
 		// dont load this unless required by WPML
 		if ( ! isset( $_GET['page'] ) || 'wpml-string-translation/menu/string-translation.php' !== $_GET['page'] ) {
 			return;
 		}
 
-		foreach ( $cpac->storage_models as $storage_model ) {
+		foreach ( cpac()->get_storage_models() as $storage_model ) {
 			foreach ( $storage_model->get_stored_columns() as $column_name => $options ) {
 				icl_register_string( 'Admin Columns', $storage_model->key . '_' . $column_name, stripslashes( $options['label'] ) );
 			}

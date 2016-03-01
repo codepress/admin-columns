@@ -54,8 +54,9 @@ function cac_is_doing_ajax() {
 			$storage_model = 'wp-comments';
 			break;
 		default :
-			if ( isset( $_REQUEST['plugin_id'] ) && isset( $_REQUEST['storage_model'] ) ) {
-				$storage_model = $_REQUEST['storage_model'];
+			if ( isset( $_REQUEST['storage_model'] ) ) {
+				return true;
+				//$storage_model = $_REQUEST['storage_model'];
 			}
 	}
 

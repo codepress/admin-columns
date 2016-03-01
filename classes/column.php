@@ -113,6 +113,10 @@ class CPAC_Column {
 		return true;
 	}
 
+	public function is_default() {
+		return isset( $this->properties->default ) && $this->properties->default;
+	}
+
 	/**
 	 * Overwrite this function in child class.
 	 * Adds (optional) scripts to the listings screen.

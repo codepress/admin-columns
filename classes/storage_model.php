@@ -157,7 +157,76 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function get_column_types() {
+
+		if ( empty( $this->column_types ) ) {
+			/**
+			 * Filter the default column names
+			 *
+			 * @since 2.4.4
+			 *
+			 * @param array $default_column_names Default column names
+			 * @param object $column Column object
+			 * @param object $this Storage_Model object
+			 */
+			$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
+
+			// Get default column that have been set on the listings screen
+			$default_columns = $this->get_default_stored_columns();
+
+			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
+			if ( empty( $default_columns ) ) {
+				$default_columns = $this->get_default_column_headings();
+			}
+
+			// Default columns
+			if ( $default_columns ) {
+				foreach ( $default_columns as $name => $label ) {
+					if ( 'cb' !== $name ) {
+						$column = $this->create_column_instance( $name, $label );
+
+						// Not a default column?
+						if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
+							$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
+						}
+
+						$this->column_types[ $name ] = $column;
+					}
+				}
+			}
+
+			// Custom columns
+			foreach ( $this->columns_filepath as $classname => $path ) {
+				include_once $path;
+				if ( class_exists( $classname, false ) ) {
+					$column = new $classname( $this );
+					if ( $column->properties->is_registered ) {
+						$this->column_types[ $column->properties->type ] = $column;
+					}
+				}
+			}
+
+			do_action( "cac/column_types", $this->column_types, $this );
+			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
+		}
+
 		return $this->column_types;
+	}
+
+	private function get_default_colummn_types() {
+		$defaults = array();
+		foreach ( $this->get_column_types() as $type => $column ) {
+			if ( $column->is_default() ) {
+				$defaults[ $type ] = $column;
+			}
+		}
+
+		return $defaults;
+	}
+
+	public function get_column_type( $type ) {
+		$column_types = $this->get_column_types();
+
+		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
 	}
 
 	private function get_column_type_names() {
@@ -172,72 +241,19 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
-	private function set_column_types() {
-
-		/**
-		 * Filter the default column names
-		 *
-		 * @since 2.4.4
-		 *
-		 * @param array $default_column_names Default column names
-		 * @param object $column Column object
-		 * @param object $this Storage_Model object
-		 */
-		$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
-
-		// Get default column that have been set on the listings screen
-		$default_columns = $this->get_default_stored_columns();
-
-		// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
-		if ( empty( $default_columns ) ) {
-			$default_columns = $this->get_default_column_headings();
-		}
-
-		// Default columns
-		if ( $default_columns ) {
-			foreach ( $default_columns as $name => $label ) {
-				if ( 'cb' !== $name ) {
-					$column = $this->create_column_instance( $name, $label );
-
-					// Not a default column?
-					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
-						$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
-					}
-
-					$this->columns_default[ $name ] = $column;
-					$this->column_types[ $name ] = $column;
-				}
-			}
-		}
-
-		// Custom columns
-		foreach ( $this->columns_filepath as $classname => $path ) {
-			include_once $path;
-			if ( class_exists( $classname, false ) ) {
-				$column = new $classname( $this );
-				if ( $column->properties->is_registered ) {
-					$this->column_types[ $column->properties->type ] = $column;
-				}
-			}
-		}
-
-		do_action( "cac/column_types", $this->column_types, $this );
-		do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
 	public function create_column( $options ) {
 
-		$this->set_column_types();
+		$column_types = $this->get_column_types();
 
-		if ( ! isset( $options['type'] ) || ! isset( $this->column_types[ $options['type'] ] ) ) {
+		if ( ! isset( $options['type'] ) || ! isset( $column_types[ $options['type'] ] ) ) {
 			return false;
 		}
 
-		$column = clone $this->column_types[ $options['type'] ];
-		$column->set_clone( $options['clone'] );
+		$column = clone $column_types[ $options['type'] ];
+
+		if ( isset( $options['clone'] ) ) {
+			$column->set_clone( $options['clone'] );
+		}
 
 		// merge default options with stored
 		$column->options = (object) array_merge( (array) $column->options, $options );
@@ -259,7 +275,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns() {
 
-		$this->set_column_types();
+		//$this->set_column_types();
 
 		// Stored columns
 		if ( $stored = $this->get_stored_columns() ) {
@@ -272,34 +288,12 @@ abstract class CPAC_Storage_Model {
 
 		// Nothing stored
 		else {
-			$this->columns = $this->columns_default;
+			$this->columns = $this->get_default_colummn_types();
 		}
 
 		do_action( "cac/columns", $this->columns, $this );
 		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
 	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	/*public function load_export( $columndata ) {
-
-		// Layout format
-		if ( isset( $columndata[0] ) ) {
-			foreach ( $columndata as $data ) {
-				$this->set_stored_layout( $data['layout'] ); // settings: name, roles, users
-				$this->set_layout( $data['layout']['id'] );
-				$this->set_stored_columns( $data['columns'] );
-			}
-		}
-
-		// Old format: 3.7.x and older
-		else {
-			$this->set_stored_columns( $columndata );
-		}
-
-		$this->enable_php_export();
-	}*/
 
 	/**
 	 * initialize callback for managing the headers and values for columns

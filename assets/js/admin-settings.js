@@ -53,7 +53,6 @@ function cpac_submit_form() {
 		jQuery( '.cpac_message' ).remove(); // placed by restore button
 
 		var xhr = jQuery.post( ajaxurl, {
-				plugin_id : 'cpac',
 				action : 'cpac_columns_update',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
@@ -184,7 +183,8 @@ jQuery.fn.cpac_column_refresh = function() {
 		_ajax_nonce : cpac._ajax_nonce,
 		column : jQuery( this ).find( 'input.column-name' ).val(),
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
-		storage_model : $container.data( 'type' )
+		storage_model : $container.data( 'type' ),
+		layout : $container.data( 'layout' ),
 	}, function( data ) {
 
 		if ( data ) {

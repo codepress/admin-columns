@@ -154,7 +154,10 @@ class CPAC_Settings {
 			wp_die();
 		}
 
-		$storage_model = $this->cpac->get_storage_model( $formdata['cpac_key'] );
+		$storage_model = cpac()->get_storage_model( $formdata['cpac_key'] );
+
+		$storage_model->set_layout( $_POST['layout'] );
+		$storage_model->set_columns();
 
 		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
 			wp_die();
@@ -749,7 +752,7 @@ class CPAC_Settings {
 
 					// Grouped storage models
 					$grouped = array();
-					foreach ( $this->cpac->storage_models as $k => $_storage_model ) {
+					foreach ( cpac()->get_storage_models() as $k => $_storage_model ) {
 						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 							'key'   => $_storage_model->key,
 							'link'  => $_storage_model->get_edit_link(),
