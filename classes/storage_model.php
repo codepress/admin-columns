@@ -67,6 +67,14 @@ abstract class CPAC_Storage_Model {
 	public $subpage;
 
 	/**
+	 * Active layout for presets
+	 *
+	 * @since NEWVERSION
+	 * @var string
+	 */
+	public $layout;
+
+	/**
 	 * Uses PHP export to display settings
 	 *
 	 * @since 2.0
@@ -84,39 +92,13 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0.1
 	 * @var array
 	 */
-	public $columns = array();
-
-	/**
-	 * @since NEWVERSION
-	 * @var array
-	 */
-	private $columns_default = array();
-
-	/**
-	 * @since 2.2
-	 * @var array
-	 */
-	public $stored_columns = null;
+	private $columns = array();
 
 	/**
 	 * @since 2.2
 	 * @var array
 	 */
 	private $column_types = array();
-
-	/**
-	 * Active layout for presets
-	 *
-	 * @since NEWVERSION
-	 * @var string
-	 */
-	public $layout;
-
-	/**
-	 * @since NEWVERSION
-	 * @var array
-	 */
-	public $stored_layouts = null;
 
 	/**
 	 * @since 2.4.4
@@ -157,8 +139,8 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function get_column_types() {
-
 		if ( empty( $this->column_types ) ) {
+
 			/**
 			 * Filter the default column names
 			 *
@@ -184,7 +166,7 @@ abstract class CPAC_Storage_Model {
 					if ( 'cb' !== $name ) {
 						$column = $this->create_column_instance( $name, $label );
 
-						// Not a default column?
+						// If it's not a default column it probably is set by a plugin
 						if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
 							$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 						}
@@ -229,15 +211,6 @@ abstract class CPAC_Storage_Model {
 		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
 	}
 
-	private function get_column_type_names() {
-		$types = array();
-		foreach ( $this->get_column_types() as $column ) {
-			$types[] = $column->properties->type;
-		}
-
-		return $types;
-	}
-
 	/**
 	 * @since NEWVERSION
 	 */
@@ -264,35 +237,40 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Clears columns variable, which allow it to be repopulated by get_columns().
+	 *
 	 * @since NEWVERSION
 	 */
-	public function get_columns() {
-		return $this->columns;
+	public function flush_columns() {
+		$this->columns = null;
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function set_columns() {
+	public function get_columns() {
 
-		//$this->set_column_types();
+		if ( empty( $this->columns ) ) {
 
-		// Stored columns
-		if ( $stored = $this->get_stored_columns() ) {
-			foreach ( $stored as $name => $options ) {
-				if ( $column = $this->create_column( $options ) ) {
-					$this->columns[ $name ] = $column;
+			// Stored columns
+			if ( $stored = $this->get_stored_columns() ) {
+				foreach ( $stored as $name => $options ) {
+					if ( $column = $this->create_column( $options ) ) {
+						$this->columns[ $name ] = $column;
+					}
 				}
 			}
+
+			// Nothing stored
+			else {
+				$this->columns = $this->get_default_colummn_types();
+			}
+
+			do_action( "cac/columns", $this->columns, $this );
+			do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
 		}
 
-		// Nothing stored
-		else {
-			$this->columns = $this->get_default_colummn_types();
-		}
-
-		do_action( "cac/columns", $this->columns, $this );
-		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
+		return $this->columns;
 	}
 
 	/**
@@ -660,8 +638,6 @@ abstract class CPAC_Storage_Model {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
-		$this->set_columns();
-
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {
 			if ( $_column = $this->get_column_by_name( $name ) ) {
@@ -911,7 +887,9 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function get_column_by_name( $name ) {
-		return isset( $this->columns[ $name ] ) ? $this->columns[ $name ] : false;
+		$columns = $this->get_columns();
+
+		return isset( $columns[ $name ] ) ? $columns[ $name ] : false;
 	}
 
 	/**
@@ -940,7 +918,7 @@ abstract class CPAC_Storage_Model {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		$types = $this->get_column_type_names();
+		$types = array_keys( $this->get_column_types() );
 
 		// add active stored headings
 		foreach ( $stored_columns as $column_name => $options ) {

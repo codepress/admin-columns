@@ -157,7 +157,7 @@ class CPAC_Settings {
 		$storage_model = cpac()->get_storage_model( $formdata['cpac_key'] );
 
 		$storage_model->set_layout( $_POST['layout'] );
-		$storage_model->set_columns();
+		$storage_model->flush_columns();
 
 		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
 			wp_die();
@@ -312,13 +312,14 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 
-						$layout = isset( $_GET['layout_id'] ) ? $_GET['layout_id'] : null;
+						if ( isset( $_GET['layout_id'] ) ) {
+							$storage_model->set_layout( $_GET['layout_id'] );
+						}
 
-						$storage_model->set_layout( $layout );
 						$storage_model->restore();
-						$storage_model->set_columns();
+						$storage_model->flush_columns();
 
-						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>{$storage_model->label}</strong>" ), 'updated' );
+						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -740,7 +741,6 @@ class CPAC_Settings {
 
 					$storage_model = $this->get_settings_storage_model();
 					$storage_model->init_layout();
-					$storage_model->set_columns();
 
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
@@ -752,7 +752,7 @@ class CPAC_Settings {
 
 					// Grouped storage models
 					$grouped = array();
-					foreach ( cpac()->get_storage_models() as $k => $_storage_model ) {
+					foreach ( cpac()->get_storage_models() as $_storage_model ) {
 						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 							'key'   => $_storage_model->key,
 							'link'  => $_storage_model->get_edit_link(),

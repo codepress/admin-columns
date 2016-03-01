@@ -540,7 +540,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 function cpac_create_column( container ) {
 
-	var clone = jQuery( '.for-cloning-only .cpac-column', container ).last().clone();
+	var clone = jQuery( '.for-cloning-only .cpac-column', container ).not('[data-default="1"]').first().clone();
 	var storage_model = container.attr( 'data-type' );
 	var columns = container.find( 'cpac-columns' );
 
