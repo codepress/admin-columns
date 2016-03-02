@@ -455,8 +455,8 @@ abstract class CPAC_Storage_Model {
 		return isset( $object->name ) ? $object->name : false;
 	}
 
-	public function set_layout( $layout ) {
-		$this->layout = $layout;
+	public function set_layout( $layout_id ) {
+		$this->layout = $layout_id;
 	}
 
 	public function init_layout() {
@@ -481,9 +481,9 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_single_layout_id() {
-		$layouts = $this->get_layouts();
+		$layouts = array_values( (array) $this->get_layouts() );
 
-		return isset( $layouts[0]->id ) ? reset( $layouts )->id : null;
+		return isset( $layouts[0]->id ) ? $layouts[0]->id : null;
 	}
 
 	public function get_layouts() {
@@ -504,15 +504,9 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function get_layout_by_id( $id ) {
-		if ( $layouts = $this->get_layouts() ) {
-			foreach ( $layouts as $layout ) {
-				if ( $layout->id == $id ) {
-					return $layout;
-				}
-			}
-		}
+		$layouts = $this->get_layouts();
 
-		return false;
+		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
 	}
 
 	public function get_delete_layout_link( $layout_id ) {
@@ -537,7 +531,7 @@ abstract class CPAC_Storage_Model {
 		$user_layouts = array();
 
 		$current_user = get_current_user_id();
-		$layouts = array_reverse( $this->get_layouts() );
+		$layouts = $this->get_layouts();
 		foreach ( $layouts as $k => $layout ) {
 
 			// Roles

@@ -489,11 +489,9 @@ class CPAC {
 	}
 
 	public function get_first_storage_model() {
+		$models = array_values( $this->get_storage_models() );
 
-		// @TODO rewrite without get_first_storage_model_key,
-		$first = $this->get_first_storage_model_key();
-
-		return $this->get_storage_model( $first );
+		return isset( $models[0] ) ? $models[0] : false;
 	}
 
 	/**

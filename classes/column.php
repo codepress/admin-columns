@@ -547,12 +547,17 @@ class CPAC_Column {
 	 * @return string Sanitized string
 	 */
 	public function get_sanitized_label() {
+		if ( $this->properties->default ) {
+			$string = $this->properties->name;
+		}
 
-		$string = $this->options->label;
-		$string = strip_tags( $string );
-		$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
-		$string = str_replace( 'http://', '', $string );
-		$string = str_replace( 'https://', '', $string );
+		else {
+			$string = $this->options->label;
+			$string = strip_tags( $string );
+			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
+			$string = str_replace( 'http://', '', $string );
+			$string = str_replace( 'https://', '', $string );
+		}
 
 		return $string;
 	}
