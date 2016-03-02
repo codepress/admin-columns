@@ -551,20 +551,8 @@ function cpac_create_column( container ) {
 		// add to DOM
 		jQuery( '.cpac-columns form', container ).append( clone );
 
-		// rebind toggle events
-		clone.column_bind_toggle();
-
-		// rebind remove events
-		clone.column_bind_remove();
-
-		// rebind clone events
-		clone.column_bind_clone();
-
-		// rebind all other events
-		clone.column_bind_events();
-
-		// reinitialize sortability
-		columns.cpac_bind_ordering();
+		// refresh column
+		clone.cpac_column_refresh();
 
 		// hook for addons
 		jQuery( document ).trigger( 'column_add', clone );
