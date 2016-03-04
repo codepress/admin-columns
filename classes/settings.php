@@ -157,7 +157,6 @@ class CPAC_Settings {
 		$storage_model = cpac()->get_storage_model( $formdata['cpac_key'] );
 
 		$storage_model->set_layout( $_POST['layout'] );
-		$storage_model->flush_columns();
 
 		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
 			wp_die();
@@ -744,8 +743,9 @@ class CPAC_Settings {
 
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
+					// columns should not be editable when layout isn't
 					if ( $layout = $storage_model->get_layout_object() ) {
-						if ( isset( $layout->php_export ) ) {
+						if ( isset( $layout->not_editable ) ) {
 							$storage_model->enable_php_export();
 						}
 					}
@@ -959,7 +959,7 @@ class CPAC_Settings {
 							<div class="ajax-message"><p></p></div>
 
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
-								<div class="error below-h2">
+								<div class="notice notice-warning below-h2">
 									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
 								</div>
 							<?php endif; ?>

@@ -222,6 +222,7 @@ class CPAC {
 	 */
 	public function get_storage_models() {
 		if ( empty( $this->storage_models ) ) {
+
 			$storage_models = array();
 
 			// Load storage model class files and column base class files
@@ -307,7 +308,6 @@ class CPAC {
 
 		if ( $storage_model ) {
 			$storage_model->init_layout();
-			$storage_model->flush_columns();
 			$storage_model->init_manage_columns();
 		}
 	}
@@ -340,7 +340,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	public function get_post_types() {
+	private function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {

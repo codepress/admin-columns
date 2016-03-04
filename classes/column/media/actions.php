@@ -15,6 +15,10 @@ class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 
 		global $wp_list_table;
 
+		if ( ! $wp_list_table ) {
+			return;
+		}
+
 		$post = get_post( $id );
 		$att_title = _draft_or_post_title( $id );
 

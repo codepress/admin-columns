@@ -67,6 +67,12 @@ abstract class CPAC_Storage_Model {
 	public $subpage;
 
 	/**
+	 * @since NEWVERSION
+	 * @var string
+	 */
+	public $screen;
+
+	/**
 	 * Active layout for presets
 	 *
 	 * @since NEWVERSION
@@ -99,6 +105,12 @@ abstract class CPAC_Storage_Model {
 	 * @var array
 	 */
 	private $column_types = array();
+
+	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $stored_columns = array();
 
 	/**
 	 * @since 2.4.4
@@ -135,11 +147,17 @@ abstract class CPAC_Storage_Model {
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
+	public function get_screen_id() {
+		return $this->screen ? $this->screen : $this->page;
+	}
+
 	/**
 	 * @since NEWVERSION
 	 */
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
+
+			$column_types = array();
 
 			/**
 			 * Filter the default column names
@@ -171,7 +189,7 @@ abstract class CPAC_Storage_Model {
 							$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 						}
 
-						$this->column_types[ $name ] = $column;
+						$column_types[ $name ] = $column;
 					}
 				}
 			}
@@ -182,13 +200,16 @@ abstract class CPAC_Storage_Model {
 				if ( class_exists( $classname, false ) ) {
 					$column = new $classname( $this );
 					if ( $column->properties->is_registered ) {
-						$this->column_types[ $column->properties->type ] = $column;
+						$column_types[ $column->properties->type ] = $column;
 					}
 				}
 			}
 
-			do_action( "cac/column_types", $this->column_types, $this );
-			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
+			// @since NEWVERSION
+			$column_types = apply_filters( "cac/column_types", $column_types, $this );
+			$column_types = apply_filters( "cac/column_types/storage_key={$this->key}", $column_types, $this );
+
+			$this->column_types = $column_types;
 		}
 
 		return $this->column_types;
@@ -215,7 +236,6 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function create_column( $options ) {
-
 		$column_types = $this->get_column_types();
 
 		if ( ! isset( $options['type'] ) || ! isset( $column_types[ $options['type'] ] ) ) {
@@ -242,7 +262,8 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function flush_columns() {
-		$this->columns = null;
+		$this->stored_columns = array();
+		$this->columns = array();
 	}
 
 	/**
@@ -457,6 +478,7 @@ abstract class CPAC_Storage_Model {
 
 	public function set_layout( $layout_id ) {
 		$this->layout = $layout_id;
+		$this->flush_columns(); // forces $this->columns to be repopulated
 	}
 
 	public function init_layout() {
@@ -820,20 +842,25 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_stored_columns() {
 
-		$columns = array();
+		if ( empty( $this->stored_columns ) ) {
 
-		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
-		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
-
-		if ( empty( $columns ) ) {
-			$columns = $this->get_database_columns();
-		}
-
-		if ( empty( $columns ) ) {
 			$columns = array();
+
+			$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
+			$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
+
+			if ( empty( $columns ) ) {
+				$columns = $this->get_database_columns();
+			}
+
+			if ( empty( $columns ) ) {
+				$columns = array();
+			}
+
+			$this->stored_columns = $columns;
 		}
 
-		return $columns;
+		return $this->stored_columns;
 	}
 
 	public function get_database_columns() {
@@ -995,14 +1022,14 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'layout_id' => $this->layout ), $this->settings_url() );
+		return add_query_arg( array( 'layout_id' => $this->layout ? $this->layout : '' ), $this->settings_url() );
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
 	public function get_edit_link_by_layout( $layout_id ) {
-		return add_query_arg( array( 'layout_id' => $layout_id ), $this->settings_url() );
+		return add_query_arg( array( 'layout_id' => $layout_id ? $layout_id : '' ), $this->settings_url() );
 	}
 
 	/**

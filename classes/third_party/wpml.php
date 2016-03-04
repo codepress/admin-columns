@@ -54,6 +54,7 @@ class CPAC_WPML {
 		if ( isset( $column_types['icl_translations'] ) ) {
 			$column_types['icl_translations']->properties->name = __( 'WPML Flags', 'codepress-admin-columns' );
 		}
+		return $column_types;
 	}
 
 	public function replace_flags( $cac ) {

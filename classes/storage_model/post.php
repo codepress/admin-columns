@@ -14,6 +14,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->type = 'post';
 		$this->meta_type = 'post';
 		$this->page = 'edit';
+		$this->screen = $this->page . '-' . $this->post_type;
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 
 		$this->set_labels();
