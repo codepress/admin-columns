@@ -664,13 +664,13 @@ class CPAC_Settings {
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
 
 			// By request
-			if ( $exists = cpac()->get_storage_model( $_REQUEST['cpac_key'] ) ) {
-				$storage_model = $exists;
+			if ( $_storage_model = cpac()->get_storage_model( $_REQUEST['cpac_key'] ) ) {
+				$storage_model = $_storage_model;
 			}
 
 			// User preference
-			else if ( $exists = $this->get_user_model_preference() ) {
-				$storage_model = $exists;
+			else if ( $_storage_model = $this->get_user_model_preference() ) {
+				$storage_model = $_storage_model;
 			}
 
 			// First one served
