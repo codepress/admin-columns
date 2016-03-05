@@ -209,22 +209,24 @@ jQuery.fn.cpac_column_refresh = function() {
 		else {
 
 		}
-
-		// Remove "loading" marking from column
-		el.removeClass( 'loading' );
-		select.prop( 'disabled', false );
 	}, 'json' );
 
-	xhr.fail( function( error ){
-		var $container = el.closest( '.columns-container' ).addClass( 'saving' );
-		var $msg = $container.find( '.ajax-message' );
-		var message = jQuery( error.reponseText );
+	xhr.fail( function( error ) {
+		var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
 
 		$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
 		$msg.slideDown();
 
-		console.log( message.text() );
-	})
+		el.slideUp( function() { el.remove() } );
+
+		console.log( error.responseText );
+	} );
+
+	xhr.always( function() {
+		// Remove "loading" marking from column
+		el.removeClass( 'loading' );
+		select.prop( 'disabled', false );
+	} );
 };
 
 /*
@@ -540,7 +542,7 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 function cpac_create_column( container ) {
 
-	var clone = jQuery( '.for-cloning-only .cpac-column', container ).not('[data-default="1"]').first().clone();
+	var clone = jQuery( '.for-cloning-only .cpac-column', container ).not( '[data-default="1"]' ).first().clone();
 	var storage_model = container.attr( 'data-type' );
 	var columns = container.find( 'cpac-columns' );
 

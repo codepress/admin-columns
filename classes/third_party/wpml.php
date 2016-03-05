@@ -13,16 +13,20 @@ class CPAC_WPML_COLUMN {
 		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
 		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 101 ); // prio just after AC overwrite all columns
 	}
+
 	public function store_wpml_column( $columns ) {
 		if ( empty( $this->column ) && isset( $columns[ self::COLUMN_NAME ] ) ) {
 			$this->column = $columns[ self::COLUMN_NAME ];
 		}
+
 		return $columns;
 	}
+
 	public function replace_wpml_column( $columns ) {
 		if ( $this->column && isset( $columns[ self::COLUMN_NAME ] ) ) {
 			$columns[ self::COLUMN_NAME ] = $this->column;
 		}
+
 		return $columns;
 	}
 }
@@ -54,6 +58,7 @@ class CPAC_WPML {
 		if ( isset( $column_types['icl_translations'] ) ) {
 			$column_types['icl_translations']->properties->name = __( 'WPML Flags', 'codepress-admin-columns' );
 		}
+
 		return $column_types;
 	}
 
@@ -96,9 +101,10 @@ class CPAC_WPML {
 
 	public function register_translated_label( $label, $column_name, $column_options, $storage_model ) {
 		if ( function_exists( 'icl_t' ) ) {
-			$name 	= $storage_model->key . '_' . $column_name;
-			$label 	= icl_t( 'Admin Columns', $name, $label );
+			$name = $storage_model->key . '_' . $column_name;
+			$label = icl_t( 'Admin Columns', $name, $label );
 		}
+
 		return $label;
 	}
 
@@ -106,7 +112,9 @@ class CPAC_WPML {
 		if ( isset( $_GET['page'] ) && 'wpml-string-translation/menu/string-translation.php' == $_GET['page'] ) {
 			return true;
 		}
+
 		return $is_columns_screen;
 	}
 }
+
 new CPAC_WPML;
