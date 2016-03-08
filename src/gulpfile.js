@@ -9,7 +9,6 @@ gutil      = require('gulp-util'),
 minifyCSS  = require('gulp-minify-css'),
 livereload = require('gulp-livereload'),
 less       = require('gulp-less'),
-less       = require('gulp-less'),
 rename     = require('gulp-rename'),
 uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
@@ -23,8 +22,6 @@ var onError = function(e) {
     this.emit('end');
 };
 
-
-
 gulp.task('scripts', function() {
     return gulp.src([
             "../assets/js/**/!(*.min.js)",
@@ -34,7 +31,6 @@ gulp.task('scripts', function() {
         .pipe(uglify())
         .pipe(gulp.dest('../assets/js'));
 });
-
 
 gulp.task('styles', function() {
     return gulp.src('less/*.less')

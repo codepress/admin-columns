@@ -40,6 +40,10 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		$actions = $this->get_raw_value( $id );
 
+		if ( ! $actions ) {
+			return false;
+		}
+
 		if ( ! empty( $this->options->use_icons ) ) {
 			return implode( '', $this->convert_actions_to_icons( $actions ) );
 		}

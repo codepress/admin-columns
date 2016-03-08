@@ -23,7 +23,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['type'] = 'column-meta';
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes'] = 'cpac-box-metafield';
-		$this->properties['group'] = 'custom-field';
+		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['use_before_after'] = true;
 
 		// Options
