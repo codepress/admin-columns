@@ -705,6 +705,10 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns_filepath() {
 
+		require_once CPAC_DIR . 'classes/column.php';
+		require_once CPAC_DIR . 'classes/column/default.php';
+		require_once CPAC_DIR . 'classes/column/actions.php';
+
 		$columns = array(
 			'CPAC_Column_Custom_Field' => CPAC_DIR . 'classes/column/custom-field.php',
 			'CPAC_Column_Taxonomy'     => CPAC_DIR . 'classes/column/taxonomy.php',
@@ -841,23 +845,12 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column options
 	 */
 	public function get_stored_columns() {
-
 		if ( empty( $this->stored_columns ) ) {
 
-			$columns = array();
-
-			$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
+			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->get_database_columns(), $this );
 			$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
-			if ( empty( $columns ) ) {
-				$columns = $this->get_database_columns();
-			}
-
-			if ( empty( $columns ) ) {
-				$columns = array();
-			}
-
-			$this->stored_columns = $columns;
+			$this->stored_columns = ! empty( $columns ) ? $columns : array();
 		}
 
 		return $this->stored_columns;
@@ -918,14 +911,14 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
-		// Stores the default columns on the listings screen
-		if ( $this->is_current_screen() && ! $this->column_headings ) {
-			$this->store_default_columns( $columns );
-		}
-
 		// make sure we run this only once
 		if ( $this->column_headings ) {
 			return $this->column_headings;
+		}
+
+		// Stores the default columns on the listings screen
+		if ( $this->is_current_screen() ) {
+			$this->store_default_columns( $columns );
 		}
 
 		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Comment_Approved
  *
@@ -15,8 +16,8 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 = 'column-approved';
-		$this->properties['label']	 = __( 'Approved', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-approved';
+		$this->properties['label'] = __( 'Approved', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -32,6 +33,7 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 	 */
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
+
 		return $comment->comment_approved;
 	}
 }

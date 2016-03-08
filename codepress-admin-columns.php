@@ -128,14 +128,8 @@ class CPAC {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
-		// Populating storage models
-		//add_action( 'wp_loaded', array( $this, 'set_storage_models' ), 5 );
+		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
-
-		// Some plugins will load their columns through this action. Not recommended.
-		if ( apply_filters( 'cac/load_alt_set_columns', false ) ) {
-			add_action( 'load-edit.php', array( $this, 'set_columns' ), 1000 );
-		}
 
 		// Settings
 		include_once CPAC_DIR . 'classes/settings.php';
@@ -226,15 +220,11 @@ class CPAC {
 			$storage_models = array();
 
 			// Load storage model class files and column base class files
-			require_once CPAC_DIR . 'classes/column.php';
-			require_once CPAC_DIR . 'classes/column/default.php';
-			require_once CPAC_DIR . 'classes/column/actions.php';
 			require_once CPAC_DIR . 'classes/storage_model.php';
 			require_once CPAC_DIR . 'classes/storage_model/post.php';
 			require_once CPAC_DIR . 'classes/storage_model/user.php';
 			require_once CPAC_DIR . 'classes/storage_model/media.php';
 			require_once CPAC_DIR . 'classes/storage_model/comment.php';
-			require_once CPAC_DIR . 'classes/storage_model/link.php';
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
@@ -253,6 +243,8 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 
 			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
+				require_once CPAC_DIR . 'classes/storage_model/link.php';
+
 				$storage_model = new CPAC_Storage_Model_Link();
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
@@ -301,8 +293,8 @@ class CPAC {
 			$storage_model = $this->get_current_storage_model();
 		}
 
-		// Ajax call
-		else if ( $model = cac_is_doing_ajax() ) {
+		// WP Ajax calls (not AC)
+		else if ( $model = cac_wp_is_doing_ajax() ) {
 			$storage_model = $this->get_storage_model( $model );
 		}
 
@@ -499,16 +491,6 @@ class CPAC {
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
-	 * Whether this request is an AJAX request and marked as admin-column-ajax or inline-save request.
-	 *
-	 * @since 2.2
-	 * @return bool Returns true if in an AJAX request, false otherwise
-	 */
-	public function is_doing_ajax() {
-		return cac_is_doing_ajax();
 	}
 
 	/**

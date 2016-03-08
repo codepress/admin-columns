@@ -214,6 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Refactor] Ajax calls will only a single storage model
 * [Removed] Removed loading columns through 'load-edit.php' filter
 * [Removed] You can now disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+* [Added] Added a new column: Comment status
 
 = 2.4.10 =
 * [Fixed] Data:image sources for images are supported in labels

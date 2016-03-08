@@ -38,29 +38,37 @@ function cac_is_doing_ajax() {
 		return false;
 	}
 
+	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
+
+	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
+}
+
+/**
+ * Is WordPress doing ajax
+ *
+ * @since NEWVERSION
+ */
+function cac_wp_is_doing_ajax() {
 	$storage_model = false;
 
-	switch ( filter_input( INPUT_POST, 'action' ) ) {
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
-		case 'inline-save' :  // Quick edit
-			$storage_model = filter_input( INPUT_POST, 'post_type' );
-			break;
-		case 'add-tag' : // Adding term
-		case 'inline-save-tax' : // Quick edit term
-			$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
-			break;
-		case 'edit-comment' : // Quick edit comment
-		case 'replyto-comment' :  // Inline reply on comment
-			$storage_model = 'wp-comments';
-			break;
-		default :
-			if ( isset( $_REQUEST['storage_model'] ) ) {
-				return true;
-				//$storage_model = $_REQUEST['storage_model'];
-			}
+		switch ( filter_input( INPUT_POST, 'action' ) ) {
+			case 'inline-save' :  // Quick edit
+				$storage_model = filter_input( INPUT_POST, 'post_type' );
+				break;
+			case 'add-tag' : // Adding term
+			case 'inline-save-tax' : // Quick edit term
+				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+				break;
+			case 'edit-comment' : // Quick edit comment
+			case 'replyto-comment' :  // Inline reply on comment
+				$storage_model = 'wp-comments';
+				break;
+		}
 	}
 
-	return apply_filters( 'cac/is_doing_ajax', $storage_model );
+	return $storage_model;
 }
 
 /**

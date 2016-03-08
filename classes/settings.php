@@ -960,7 +960,7 @@ class CPAC_Settings {
 
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="notice notice-warning below-h2">
-									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
+									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
 								</div>
 							<?php endif; ?>
 
