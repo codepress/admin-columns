@@ -594,6 +594,16 @@ abstract class CPAC_Storage_Model {
 		return $user_layouts;
 	}
 
+	public function get_default_layout_args( $args = array() ) {
+		$default = array(
+			'id'    => null,
+			'name'  => __( 'Default' ),
+			'roles' => '',
+			'users' => '',
+		);
+		return array_merge( $default, $args );
+	}
+
 	public function save_layout( $id, $args ) {
 
 		if ( empty( $args['name'] ) ) {
