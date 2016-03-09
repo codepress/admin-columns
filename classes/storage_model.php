@@ -113,6 +113,12 @@ abstract class CPAC_Storage_Model {
 	private $stored_columns = array();
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $default_stored = false;
+
+	/**
 	 * @since 2.4.4
 	 */
 	abstract function get_default_column_names();
@@ -218,8 +224,12 @@ abstract class CPAC_Storage_Model {
 
 	private function get_default_colummn_types() {
 		$defaults = array();
+		$default_columns = $this->get_default_stored_columns();
+
 		foreach ( $this->get_column_types() as $type => $column ) {
-			if ( $column->is_default() ) {
+
+			// Is default column or stored as a default column
+			if ( $column->is_default() || ( $default_columns && in_array( $column->get_type(), array_keys( $default_columns ) ) ) ) {
 				$defaults[ $type ] = $column;
 			}
 		}
@@ -918,8 +928,9 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Stores the default columns on the listings screen
-		if ( $this->is_current_screen() ) {
+		if ( ! $this->default_stored && $this->is_current_screen() ) {
 			$this->store_default_columns( $columns );
+			$this->default_stored = true;
 		}
 
 		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {
