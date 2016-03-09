@@ -1398,7 +1398,6 @@ class CPAC_Column {
 			}
 		}
 
-
 		// clone attribute
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 

@@ -155,6 +155,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function get_column_types() {
+
 		if ( empty( $this->column_types ) ) {
 
 			$column_types = array();
@@ -205,11 +206,11 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 
-			// @since NEWVERSION
-			$column_types = apply_filters( "cac/column_types", $column_types, $this );
-			$column_types = apply_filters( "cac/column_types/storage_key={$this->key}", $column_types, $this );
-
 			$this->column_types = $column_types;
+
+			// @since NEWVERSION
+			do_action( "cac/column_types", $this->column_types, $this );
+			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
 
 		return $this->column_types;
