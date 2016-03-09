@@ -311,8 +311,8 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 
-						if ( isset( $_GET['layout_id'] ) ) {
-							$storage_model->set_layout( $_GET['layout_id'] );
+						if ( isset( $_REQUEST['layout_id'] ) ) {
+							$storage_model->set_layout( $_REQUEST['layout_id'] );
 						}
 
 						$storage_model->restore();
