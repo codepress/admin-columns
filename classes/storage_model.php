@@ -493,6 +493,9 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function init_layout() {
+		if ( $this->get_layout() ) {
+			return;
+		}
 
 		// try user preference..
 		$layout_id = $this->get_user_layout_preference();
@@ -1026,9 +1029,9 @@ abstract class CPAC_Storage_Model {
 			'page'     => 'codepress-admin-columns',
 			'cpac_key' => $this->key,
 		);
-		if ( $this->layout ) {
+		/*if ( $this->layout ) {
 			$args['layout_id'] = $this->layout;
-		}
+		}*/
 
 		return add_query_arg( $args, admin_url( 'options-general.php' ) );
 	}
