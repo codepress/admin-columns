@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Post_Parent
  *
@@ -11,13 +12,11 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']				= 'column-parent';
-		$this->properties['label']				= __( 'Parent', 'codepress-admin-columns' );
-		$this->properties['object_property']	= 'post_parent';
+		$this->properties['type'] = 'column-parent';
+		$this->properties['label'] = __( 'Parent', 'codepress-admin-columns' );
+		$this->properties['object_property'] = 'post_parent';
 	}
 
 	/**
@@ -26,12 +25,12 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 
-		if ( !( $parent_id = $this->get_raw_value( $post_id ) ) ) {
+		if ( ! ( $parent_id = $this->get_raw_value( $post_id ) ) ) {
 			return false;
 		}
 
 		$title = $this->get_post_title( $parent_id );
-		$link  = get_edit_post_link( $parent_id );
+		$link = get_edit_post_link( $parent_id );
 
 		return $link ? "<a href='{$link}'>{$title}</a>" : $title;
 	}
@@ -51,7 +50,6 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function apply_conditional() {
-
-		return is_post_type_hierarchical( $this->storage_model->get_post_type() );
+		return is_post_type_hierarchical( $this->get_post_type() );
 	}
 }

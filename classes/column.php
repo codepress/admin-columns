@@ -15,19 +15,13 @@ class CPAC_Column {
 	 * @since 2.0
 	 * @var CPAC_Storage_Model $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
-	public $storage_model;
+	private $storage_model;
 
 	/**
 	 * @since 2.0
 	 * @var array $options contains the user set options for the CPAC_Column object.
 	 */
 	public $options = array();
-
-	/**
-	 * @since 2.0
-	 * @var object $options_default contains the options for the CPAC_Column object before they are populated with user input.
-	 */
-	protected $options_default;
 
 	/**
 	 * @since 2.0
@@ -139,11 +133,20 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function __get( $key ) {
+		if ( 'storage_model' == $key ) {
+			return $this->{"get_$key"}();
+		}
+	}
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param object $storage_model CPAC_Storage_Model
 	 */
-	public function __construct( CPAC_Storage_Model $storage_model ) {
+	public function __construct( $storage_model ) {
 
 		$this->storage_model = $storage_model;
 
@@ -235,7 +238,7 @@ class CPAC_Column {
 		 * @since 2.0
 		 * @see Filter cac/column/properties
 		 */
-		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties, $this ); // do not pass $this because object is not ready
+		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->get_storage_model()->key}", $this->properties, $this ); // do not pass $this because object is not ready
 
 		// Column label defaults to column type label
 		if ( ! isset( $this->options['label'] ) ) {
@@ -277,7 +280,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.4.7
 	 */
-	public function set_filter( $filtering_model ) {
+	public function set_filter( CAC_Filtering_Model $filtering_model ) {
 		$this->filtering_model = $filtering_model;
 
 		return $this;
@@ -293,7 +296,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.4.8
 	 */
-	public function set_editable( $editable_model ) {
+	public function set_editable( CACIE_Editable_Model $editable_model ) {
 		$this->editable_model = $editable_model;
 
 		return $this;
@@ -423,28 +426,28 @@ class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function get_post_type() {
-		return $this->storage_model->get_post_type();
+		return $this->get_storage_model()->get_post_type();
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {
-		return $this->storage_model;
+		return cpac()->get_storage_model( $this->storage_model );
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model_type() {
-		return $this->storage_model->get_type();
+		return $this->get_storage_model()->get_type();
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
-	public function get_storage_model_meta_type() {
-		return $this->storage_model->get_meta_type();
+	public function get_meta_type() {
+		return $this->get_storage_model()->get_meta_type();
 	}
 
 	/**
@@ -457,7 +460,7 @@ class CPAC_Column {
 	}
 
 	public function get_attr_name( $field_name ) {
-		return "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
+		return "{$this->get_storage_model()->key}[{$this->properties->name}][{$field_name}]";
 	}
 
 	/**
@@ -466,7 +469,7 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
+		return "cpac-{$this->get_storage_model()->key}-{$this->properties->name}-{$field_name}";
 	}
 
 	public function attr_id( $field_name ) {
@@ -499,7 +502,7 @@ class CPAC_Column {
 		if ( isset( $options['excerpt_length'] ) ) {
 			$options['excerpt_length'] = trim( $options['excerpt_length'] );
 			if ( empty( $options['excerpt_length'] ) || ! is_numeric( $options['excerpt_length'] ) ) {
-				$options['excerpt_length'] = $this->options_default->excerpt_length;
+				$options['excerpt_length'] = 30;
 			}
 		}
 
@@ -1167,7 +1170,6 @@ class CPAC_Column {
 		$field_key = 'date_format';
 		$label = __( 'Date Format', 'codepress-admin-columns' );
 		$description = __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' );
-
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
@@ -1388,7 +1390,7 @@ class CPAC_Column {
 
 		// Selector
 		$column_list = '';
-		if ( $grouped_columns = $this->storage_model->get_grouped_columns() ) {
+		if ( $grouped_columns = $this->get_storage_model()->get_grouped_columns() ) {
 			foreach ( $grouped_columns as $group => $columns ) {
 				$column_list .= '<optgroup label="' . $group . '">';
 				foreach ( $columns as $type => $label ) {

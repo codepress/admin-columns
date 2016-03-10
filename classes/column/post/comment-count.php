@@ -12,15 +12,12 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type']	 		= 'column-comment_count';
 		$this->properties['label']	 		= __( 'Comment count', 'codepress-admin-columns' );
 		$this->properties['is_cloneable']	= true;
 
-		// Options
 		$this->options['comment_status'] = '';
 	}
 
@@ -29,7 +26,6 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_comment_stati() {
-
 		return array(
 			'total_comments'	=> __( 'Total', 'codepress-admin-columns' ),
 			'approved'			=> __( 'Approved', 'codepress-admin-columns' ),
@@ -44,7 +40,6 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
 		$value = '';
 
 		$status = $this->options->comment_status;
@@ -65,7 +60,6 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-
 		$value = '';
 
 		$status = $this->options->comment_status;
@@ -83,8 +77,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function apply_conditional() {
-
-		return post_type_supports( $this->storage_model->key, 'comments' );
+		return post_type_supports( $this->get_post_type(), 'comments' );
 	}
 
 	/**
@@ -93,8 +86,7 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	 * @see CPAC_Column::display_settings()
 	 * @since 2.0
 	 */
-	function display_settings() {
-		?>
+	function display_settings() { ?>
 		<tr class="column_comment-count">
 			<?php $this->label_view( __( 'Comment status', 'codepress-admin-columns' ), __( 'Select which comment status you like to display.', 'codepress-admin-columns' ), 'comment-status' ); ?>
 			<td class="input">

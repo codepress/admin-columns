@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Post_Page_Template
  *
@@ -11,12 +12,11 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 	= 'column-post_formats';
-		$this->properties['label']	 	= __( 'Post Format', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-post_formats';
+		$this->properties['label'] = __( 'Post Format', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -24,12 +24,7 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function apply_conditional() {
-
-		if ( post_type_supports( $this->storage_model->key, 'post-formats' ) ) {
-			return true;
-		}
-
-		return false;
+		return post_type_supports( $this->get_post_type(), 'post-formats' );
 	}
 
 	/**
@@ -37,7 +32,6 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
 		if ( ! ( $format = $this->get_raw_value( $post_id ) ) ) {
 			return false;
 		}
@@ -50,7 +44,6 @@ class CPAC_Column_Post_Formats extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-
 		if ( ! ( $format = get_post_format( $post_id ) ) ) {
 			return false;
 		}

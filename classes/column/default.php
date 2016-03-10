@@ -28,7 +28,7 @@ class CPAC_Column_Default extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 		if ( ! empty( $this->properties->handle ) ) {
-			return $this->storage_model->get_original_column_value( $this->properties->handle, $post_id );
+			return $this->get_storage_model()->get_original_column_value( $this->properties->handle, $post_id );
 		}
 
 		return '';

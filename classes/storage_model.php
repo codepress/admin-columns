@@ -205,7 +205,7 @@ abstract class CPAC_Storage_Model {
 			foreach ( $this->columns_filepath as $classname => $path ) {
 				include_once $path;
 				if ( class_exists( $classname, false ) ) {
-					$column = new $classname( $this );
+					$column = new $classname( $this->key );
 					if ( $column->properties->is_registered ) {
 						$column_types[ $column->properties->type ] = $column;
 					}
@@ -692,6 +692,9 @@ abstract class CPAC_Storage_Model {
 		// store columns
 		$result = update_option( $this->get_storage_id(), $columns );
 
+		// reset object
+		$this->flush_columns();
+
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_label_or_layout_name() . "</strong>" ) );
 		}
@@ -816,7 +819,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function create_column_instance( $column_name, $label ) {
 
-		$column = new CPAC_Column( $this );
+		$column = new CPAC_Column( $this->key );
 
 		$column
 			->set_properties( 'type', $column_name )
@@ -1029,9 +1032,6 @@ abstract class CPAC_Storage_Model {
 			'page'     => 'codepress-admin-columns',
 			'cpac_key' => $this->key,
 		);
-		/*if ( $this->layout ) {
-			$args['layout_id'] = $this->layout;
-		}*/
 
 		return add_query_arg( $args, admin_url( 'options-general.php' ) );
 	}
