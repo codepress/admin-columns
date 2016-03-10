@@ -311,8 +311,8 @@ class CPAC_Settings {
 				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 
-						if ( isset( $_REQUEST['layout_id'] ) ) {
-							$storage_model->set_layout( $_REQUEST['layout_id'] );
+						if ( isset( $_POST['cpac_layout'] ) ) {
+							$storage_model->set_layout( $_POST['cpac_layout'] );
 						}
 
 						$storage_model->restore();
@@ -951,7 +951,7 @@ class CPAC_Settings {
 							<?php if ( ! $storage_model->get_default_stored_columns() ): ?>
 								<div class="cpac-notice">
 									<p>
-										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . $storage_model->get_label_or_layout_name() . "</a>" ); ?>
+										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
 									</p>
 								</div>
 							<?php endif ?>

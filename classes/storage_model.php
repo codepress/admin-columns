@@ -938,6 +938,11 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
+		// in case a 3rd party plugin removes all columns we can skip this
+		if ( empty( $columns ) ) {
+			return $columns;
+		}
+
 		// make sure we run this only once
 		if ( $this->column_headings ) {
 			return $this->column_headings;
