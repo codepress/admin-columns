@@ -287,7 +287,10 @@ class CPAC_Settings {
 			wp_send_json_error( $stored->get_error_message() );
 		}
 
-		wp_send_json_success( sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ) );
+		wp_send_json_success(
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" )
+			. ' <a href="' . $storage_model->get_link() .  '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
+		);
 	}
 
 	/**

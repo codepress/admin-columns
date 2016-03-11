@@ -185,19 +185,26 @@ abstract class CPAC_Storage_Model {
 				$default_columns = $this->get_default_column_headings();
 			}
 
+			// Get default column that have been set on the listings screen
+			// As a fallback we merge them with the table default column headings. this is not reliable, because most 3rd party column will not be loaded at this point.
+			//$default_columns = array_merge( (array) $this->get_default_column_headings(), $this->get_default_stored_columns() );
+
+			// Remove checkbox
+			if ( isset( $default_columns['cb'] ) ) {
+				unset( $default_columns['cb'] );
+			}
+
 			// Default columns
 			if ( $default_columns ) {
 				foreach ( $default_columns as $name => $label ) {
-					if ( 'cb' !== $name ) {
-						$column = $this->create_column_instance( $name, $label );
+					$column = $this->create_column_instance( $name, $label );
 
-						// If it's not a default column it probably is set by a plugin
-						if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
-							$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
-						}
-
-						$column_types[ $name ] = $column;
+					// If it's not a default column it probably is set by a plugin
+					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
+						$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 					}
+
+					$column_types[ $name ] = $column;
 				}
 			}
 
@@ -206,8 +213,8 @@ abstract class CPAC_Storage_Model {
 				include_once $path;
 				if ( class_exists( $classname, false ) ) {
 					$column = new $classname( $this->key );
-					if ( $column->properties->is_registered ) {
-						$column_types[ $column->properties->type ] = $column;
+					if ( $column->is_registered() ) {
+						$column_types[ $column->get_type() ] = $column;
 					}
 				}
 			}
@@ -222,14 +229,15 @@ abstract class CPAC_Storage_Model {
 		return $this->column_types;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	private function get_default_colummn_types() {
 		$defaults = array();
 		$default_columns = $this->get_default_stored_columns();
 
 		foreach ( $this->get_column_types() as $type => $column ) {
-
-			// Is default column or stored as a default column
-			if ( $column->is_default() || ( $default_columns && in_array( $column->get_type(), array_keys( $default_columns ) ) ) ) {
+			if ( $column->is_default() || ( $default_columns && in_array( $type, array_keys( $default_columns ) ) ) ) {
 				$defaults[ $type ] = $column;
 			}
 		}
@@ -237,6 +245,9 @@ abstract class CPAC_Storage_Model {
 		return $defaults;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_column_type( $type ) {
 		$column_types = $this->get_column_types();
 
@@ -855,11 +866,11 @@ abstract class CPAC_Storage_Model {
 		return get_option( $this->get_storage_key() . "_default", array() );
 	}
 
-	public function delete_default_stored_columns() {
+	private function delete_default_stored_columns() {
 		delete_option( $this->get_storage_key() . "_default" );
 	}
 
-	public function store_default_columns( $columns ) {
+	private function store_default_columns( $columns ) {
 		return update_option( $this->get_storage_key() . "_default", $columns );
 	}
 
