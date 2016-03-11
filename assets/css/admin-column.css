@@ -1022,25 +1022,6 @@ table.cpac-form-table > tbody > tr > th {
 table.cpac-form-table td.padding-22 {
   padding-top: 22px;
 }
-table.cpac-form-table td .cpac_export .ms-container {
-  background: transparent url('../images/switch_bw.png') no-repeat 50% 50%;
-}
-table.cpac-form-table td .cpac_export .ms-container .ms-selectable {
-  width: 48%;
-  margin-right: 0;
-}
-table.cpac-form-table td .cpac_export .ms-container .ms-selection {
-  float: right;
-  width: 48%;
-}
-table.cpac-form-table td .cpac_export .ms-container ul.ms-list {
-  width: 100%;
-}
-table.cpac-form-table td .cpac_export .ms-container ul.ms-list li {
-  margin: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 table.cpac-form-table.settings tr td {
   padding-top: 74px;
 }
@@ -1153,9 +1134,6 @@ body.rtl .columns-right {
 }
 body.rtl .cpac-placeholder {
   padding: 5px 0 7px 4px;
-}
-body.rtl .cpac_export .ms-container .ms-selection {
-  float: left;
 }
 /* =Responsive
 -------------------------------------------------------------- */
