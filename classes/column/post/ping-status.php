@@ -33,9 +33,9 @@ class CPAC_Column_Post_Ping_Status extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 		$ping_status = $this->get_raw_value( $post_id );
-		$value = $this->get_asset_image( 'no.png', $ping_status );
+		$value = '<span class="dashicons dashicons-no cpac_status_no" title="' . $ping_status . '"></span>';
 		if ( 'open' == $ping_status ) {
-			$value = $this->get_asset_image( 'checkmark.png', $ping_status );
+			$value = '<span class="dashicons dashicons-yes cpac_status_yes" title="' . $ping_status . '"></span>';
 		}
 
 		return $value;
