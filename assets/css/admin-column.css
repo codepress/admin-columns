@@ -262,7 +262,7 @@ a.help {
   color: #808080 !important;
 }
 .columns-left .cpac-boxes.disabled .meta span.off {
-  display: none;
+  opacity: 0.5;
 }
 .columns-left .cpac-boxes.disabled .column-footer {
   display: none;
@@ -1134,6 +1134,9 @@ body.rtl .columns-right {
 }
 body.rtl .cpac-placeholder {
   padding: 5px 0 7px 4px;
+}
+body.rtl .cpac_export .ms-container .ms-selection {
+  float: left;
 }
 /* =Responsive
 -------------------------------------------------------------- */
