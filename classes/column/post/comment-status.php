@@ -35,9 +35,9 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	 */
 	function get_value( $post_id ) {
 		$comment_status = $this->get_raw_value( $post_id );
-		$value = $this->get_asset_image( 'no.png', $comment_status );
+		$value = '<span class="dashicons dashicons-no cpac_status_no" title="' . $comment_status . '"></span>';
 		if ( 'open' == $comment_status ) {
-			$value = $this->get_asset_image( 'checkmark.png', $comment_status );
+			$value = '<span class="dashicons dashicons-yes cpac_status_yes" title="' . $comment_status . '"></span>';
 		}
 
 		return $value;

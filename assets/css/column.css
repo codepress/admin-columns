@@ -24,6 +24,12 @@ span.status-closed {
 body.edit-tags-php .tablenav.top .cpac-edit {
   float: none;
 }
+.cpac_status_yes {
+  color: #46b450;
+}
+.cpac_status_no {
+  color: #dc3232;
+}
 @media screen and (max-width: 782px) {
   .tablenav.top .actions {
     display: block !important;
