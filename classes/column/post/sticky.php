@@ -31,12 +31,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-		$value = $this->get_asset_image( 'no.png' );
-		if ( $this->get_raw_value( $post_id ) ) {
-			$value = $this->get_asset_image( 'checkmark.png' );
-		}
-
-		return $value;
+		return $this->get_raw_value( $post_id ) ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';
 	}
 
 	/**

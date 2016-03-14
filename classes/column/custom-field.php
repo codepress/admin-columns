@@ -299,7 +299,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				break;
 
 			case "checkmark" :
-				$checkmark = $this->get_asset_image( 'checkmark.png' );
+				$checkmark = '<span class="dashicons dashicons-yes cpac_status_yes"></span>';
 
 				if ( empty( $meta ) || 'false' === $meta || '0' === $meta ) {
 					$checkmark = '';

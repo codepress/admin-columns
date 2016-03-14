@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_User_Registered
  *
@@ -11,12 +12,11 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 = 'column-user_registered';
-		$this->properties['label']	 = __( 'Registered', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-user_registered';
+		$this->properties['label'] = __( 'Registered', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['date_format'] = '';
@@ -27,7 +27,6 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $user_id ) {
-
 		$user_registered = $this->get_raw_value( $user_id );
 
 		// GMT offset is used
@@ -39,7 +38,6 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $user_id ) {
-
 		$userdata = get_userdata( $user_id );
 
 		return $userdata->user_registered;
@@ -50,7 +48,6 @@ class CPAC_Column_User_Registered extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function display_settings() {
-
 		$this->display_field_date_format();
 	}
 }
