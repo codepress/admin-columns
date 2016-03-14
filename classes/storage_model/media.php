@@ -43,8 +43,30 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		return $columns;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_default_column_names() {
-		return array( 'cb', 'date', 'parent', 'icon', 'title', 'author', 'comments' );
+		return array(
+			'cb',
+			'date',
+			'parent',
+			'icon',
+			'title',
+			'author',
+			'comments'
+		);
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_default_column_widths() {
+		return array(
+			'author' => array( 'width' => 10 ),
+			'parent' => array( 'width' => 15 ),
+			'date'   => array( 'width' => 10 ),
+		);
 	}
 
 	public function get_meta() {

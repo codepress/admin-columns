@@ -79,6 +79,16 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_default_column_widths() {
+		return array(
+			'role'  => array( 'width' => 15 ),
+			'posts' => array( 'width' => 74, 'unit' => 'px' ),
+		);
+	}
+
+	/**
 	 * @since 2.0.2
 	 */
 	public function manage_value( $column_name, $user_id, $value = '' ) {

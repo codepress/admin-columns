@@ -30,6 +30,15 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		return array( 'cb', 'author', 'comment', 'response' );
 	}
 
+	protected function get_default_column_widths() {
+		return array(
+			'author'   => array( 'width' => 20 ),
+			'response' => array( 'width' => 15 ),
+			'date'     => array( 'width' => 14 ),
+
+		);
+	}
+
 	public function get_default_columns() {
 		if ( ! function_exists( '_get_list_table' ) ) {
 			return array();

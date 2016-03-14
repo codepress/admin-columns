@@ -137,6 +137,13 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Get the default column widths in percentages
+	 *
+	 * @since NEWVERSION
+	 */
+	protected function get_default_column_widths() {}
+
+	/**
 	 * @since NEWVERSION
 	 */
 	public function get_grouped_columns() {
@@ -189,19 +196,31 @@ abstract class CPAC_Storage_Model {
 			// As a fallback we merge them with the table default column headings. this is not reliable, because most 3rd party column will not be loaded at this point.
 			//$default_columns = array_merge( (array) $this->get_default_column_headings(), $this->get_default_stored_columns() );
 
-			// Remove checkbox
-			if ( isset( $default_columns['cb'] ) ) {
-				unset( $default_columns['cb'] );
-			}
-
 			// Default columns
 			if ( $default_columns ) {
+
+				// Remove checkbox
+				if ( isset( $default_columns['cb'] ) ) {
+					unset( $default_columns['cb'] );
+				}
+
+				$default_column_widths = (array) $this->get_default_column_widths();
+
 				foreach ( $default_columns as $name => $label ) {
 					$column = $this->create_column_instance( $name, $label );
 
 					// If it's not a default column it probably is set by a plugin
 					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
 						$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
+					}
+
+					// Set the default percentage
+					if ( isset( $default_column_widths[ $name ] ) ) {
+						$column->set_options( 'width', $default_column_widths[ $name ]['width'] );
+
+						if ( isset( $default_column_widths[ $name ]['unit'] ) ) {
+							$column->set_options( 'width_unit', $default_column_widths[ $name ]['unit'] );
+						}
 					}
 
 					$column_types[ $name ] = $column;

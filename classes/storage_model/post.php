@@ -140,6 +140,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_default_column_widths() {
+		return array(
+			'author'     => array( 'width' => 10 ),
+			'categories' => array( 'width' => 15 ),
+			'tags'       => array( 'width' => 15 ),
+			'date'       => array( 'width' => 10 ),
+		);
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	protected function get_screen_link() {

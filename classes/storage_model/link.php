@@ -60,5 +60,4 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 
 		echo $value;
 	}
-
 }
