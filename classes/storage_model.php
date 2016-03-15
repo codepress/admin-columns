@@ -202,8 +202,7 @@ abstract class CPAC_Storage_Model {
 				 * @param object $this Storage_Model object
 				 */
 				$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
-
-				$default_column_widths = (array) $this->get_default_column_widths();
+				$default_column_widths = apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
 
 				foreach ( $default_columns as $name => $label ) {
 					$column = $this->create_column_instance( $name, $label );
@@ -214,7 +213,7 @@ abstract class CPAC_Storage_Model {
 					}
 
 					// Set the default percentage
-					if ( isset( $default_column_widths[ $name ] ) ) {
+					if ( $default_column_widths && isset( $default_column_widths[ $name ] ) ) {
 						$column->set_options( 'width', $default_column_widths[ $name ]['width'] );
 
 						if ( isset( $default_column_widths[ $name ]['unit'] ) ) {
