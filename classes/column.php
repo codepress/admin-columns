@@ -900,6 +900,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.5
+	 */
+	public function get_empty_char() {
+		return '&#8211;'; // dash
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param mixed $meta Image files or Image ID's

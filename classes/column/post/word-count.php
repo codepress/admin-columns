@@ -22,7 +22,9 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-		return $this->get_raw_value( $post_id );
+		$count = $this->get_raw_value( $post_id );
+
+		return $count ? $count : $this->get_empty_char();
 	}
 
 	/**
