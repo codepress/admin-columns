@@ -181,10 +181,7 @@ abstract class CPAC_Storage_Model {
 				$default_columns = $this->get_default_column_headings();
 			}
 
-			// Get default column that have been set on the listings screen
-			// As a fallback we merge them with the table default column headings. this is not reliable, because most 3rd party column will not be loaded at this point.
-			//$default_columns = array_merge( (array) $this->get_default_column_headings(), $this->get_default_stored_columns() );
-
+			// Hook for 3rd party columns that have no other way of being initialized
 			$default_columns = apply_filters( 'cac/column_types/defaults', $default_columns, $this );
 
 			// Default columns
