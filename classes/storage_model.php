@@ -67,7 +67,7 @@ abstract class CPAC_Storage_Model {
 	public $subpage;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 * @var string
 	 */
 	public $screen;
@@ -75,7 +75,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Active layout for presets
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 * @var string
 	 */
 	public $layout;
@@ -107,13 +107,13 @@ abstract class CPAC_Storage_Model {
 	private $column_types = array();
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 * @var array
 	 */
 	private $stored_columns = array();
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 * @var array
 	 */
 	private $default_stored = false;
@@ -139,12 +139,12 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Get the default column widths in percentages
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	protected function get_default_column_widths() {}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_grouped_columns() {
 		$grouped = array();
@@ -165,7 +165,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_column_types() {
 
@@ -239,7 +239,7 @@ abstract class CPAC_Storage_Model {
 
 			$this->column_types = $column_types;
 
-			// @since NEWVERSION
+			// @since 2.5
 			do_action( "cac/column_types", $this->column_types, $this );
 			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
@@ -248,7 +248,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	private function get_default_colummn_types() {
 		$defaults = array();
@@ -264,7 +264,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_column_type( $type ) {
 		$column_types = $this->get_column_types();
@@ -273,7 +273,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function create_column( $options ) {
 		$column_types = $this->get_column_types();
@@ -299,7 +299,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Clears columns variable, which allow it to be repopulated by get_columns().
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function flush_columns() {
 		$this->stored_columns = array();
@@ -307,7 +307,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_columns() {
 
@@ -364,7 +364,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_menu_type() {
 		return empty( $this->menu_type ) || 'other' === $this->menu_type ? __( 'Other', 'codepress-admin-columns' ) : $this->menu_type;
@@ -500,7 +500,7 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * Layouts
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_layout() {
 		return $this->layout;
@@ -667,7 +667,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * Get store ID
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	private function get_storage_id() {
 		$layout = $this->layout ? $this->layout : null;
@@ -683,7 +683,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_label_or_layout_name() {
 		$label = $this->label;
@@ -743,7 +743,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_default_column_headings() {
 		$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
@@ -1046,7 +1046,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * New public function to get screen link instead of making get_screen_link public. To prevent errors in other plugins
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_link() {
 		return $this->get_screen_link();
@@ -1078,7 +1078,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_edit_link_by_layout( $layout_id ) {
 		return add_query_arg( array( 'layout_id' => $layout_id ? $layout_id : '' ), $this->settings_url() );

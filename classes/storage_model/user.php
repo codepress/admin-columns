@@ -79,7 +79,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	protected function get_default_column_widths() {
 		return array(

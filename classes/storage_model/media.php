@@ -44,7 +44,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_default_column_names() {
 		return array(
@@ -59,7 +59,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	protected function get_default_column_widths() {
 		return array(
