@@ -169,7 +169,7 @@ msgstr ""
 msgid "User Email"
 msgstr ""
 
-#: ../classes/column.php:2589, ../classes/column/user/ID.php:37
+#: ../classes/column.php:2589, ../classes/column/user/ID.php:35
 msgid "User ID"
 msgstr ""
 
@@ -217,7 +217,7 @@ msgstr ""
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:2983, ../classes/column/media/width.php:37
+#: ../classes/column.php:2983, ../classes/column/media/width.php:25
 msgid "Width"
 msgstr ""
 
@@ -237,7 +237,7 @@ msgstr ""
 msgid "Post property to display for related post(s)."
 msgstr ""
 
-#: ../classes/column.php:3193, ../classes/column/post/author-name.php:189
+#: ../classes/column.php:3193, ../classes/column/post/author-name.php:179
 msgid "Link To"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
 msgstr ""
 
-#: ../classes/settings.php:771, ../classes/storage_model.php:1719, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
+#: ../classes/settings.php:771, ../classes/storage_model.php:1717, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
 msgid "Default"
 msgstr ""
 
@@ -761,23 +761,23 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/storage_model.php:427
+#: ../classes/storage_model.php:425
 msgid "Columns by Plugins"
 msgstr ""
 
-#: ../classes/storage_model.php:741
+#: ../classes/storage_model.php:739
 msgid "Other"
 msgstr ""
 
-#: ../classes/storage_model.php:1415
+#: ../classes/storage_model.php:1413
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/storage_model.php:1457
+#: ../classes/storage_model.php:1455
 msgid "You are trying to store the same settings for %s."
 msgstr ""
 
-#: ../classes/storage_model.php:2121
+#: ../classes/storage_model.php:2119
 msgid "View"
 msgstr ""
 
@@ -857,7 +857,7 @@ msgstr ""
 msgid "Checkmark (true/false)"
 msgstr ""
 
-#: ../classes/column/custom-field.php:105, ../classes/column/user/url.php:37
+#: ../classes/column/custom-field.php:105, ../classes/column/user/url.php:35
 msgid "Url"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
-#: ../classes/storage_model/post.php:35, ../classes/column/user/post-count.php:177
+#: ../classes/storage_model/post.php:35, ../classes/column/user/post-count.php:175
 msgid "Post Type"
 msgstr ""
 
@@ -929,7 +929,7 @@ msgstr ""
 msgid "WPML Flags"
 msgstr ""
 
-#: ../classes/column/comment/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/post/ID.php:37
+#: ../classes/column/comment/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/post/ID.php:37
 msgid "ID"
 msgstr ""
 
@@ -993,30 +993,6 @@ msgstr ""
 msgid "Word count"
 msgstr ""
 
-#: ../classes/column/link/description.php:37, ../classes/column/media/description.php:39, ../classes/column/user/description.php:37
-msgid "Description"
-msgstr ""
-
-#: ../classes/column/link/length.php:37
-msgid "Length"
-msgstr ""
-
-#: ../classes/column/link/notes.php:37
-msgid "Notes"
-msgstr ""
-
-#: ../classes/column/link/owner.php:37
-msgid "Owner"
-msgstr ""
-
-#: ../classes/column/link/rss.php:37
-msgid "Rss"
-msgstr ""
-
-#: ../classes/column/link/target.php:37
-msgid "Target"
-msgstr ""
-
 #: ../classes/column/media/alternate-text.php:37
 msgid "Alt"
 msgstr ""
@@ -1035,6 +1011,10 @@ msgstr ""
 
 #: ../classes/column/media/caption.php:37, ../classes/column/media/exif-data.php:81
 msgid "Caption"
+msgstr ""
+
+#: ../classes/column/media/description.php:39, ../classes/column/link/description.php:37, ../classes/column/user/description.php:35
+msgid "Description"
 msgstr ""
 
 #: ../classes/column/media/dimensions.php:39
@@ -1109,12 +1089,32 @@ msgstr ""
 msgid "Relative to main uploads folder "
 msgstr ""
 
-#: ../classes/column/media/height.php:37
+#: ../classes/column/media/height.php:27
 msgid "Height"
 msgstr ""
 
 #: ../classes/column/media/mime-type.php:37
 msgid "Mime type"
+msgstr ""
+
+#: ../classes/column/link/length.php:37
+msgid "Length"
+msgstr ""
+
+#: ../classes/column/link/notes.php:37
+msgid "Notes"
+msgstr ""
+
+#: ../classes/column/link/owner.php:37
+msgid "Owner"
+msgstr ""
+
+#: ../classes/column/link/rss.php:37
+msgid "Rss"
+msgstr ""
+
+#: ../classes/column/link/target.php:37
+msgid "Target"
 msgstr ""
 
 #: ../classes/column/post/attachment-count.php:37
@@ -1125,15 +1125,15 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:39
+#: ../classes/column/post/author-name.php:37
 msgid "Display Author As"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:199
+#: ../classes/column/post/author-name.php:189
 msgid "View Public Author Page"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:203
+#: ../classes/column/post/author-name.php:193
 msgid "Page the author name should link to."
 msgstr ""
 
@@ -1265,15 +1265,15 @@ msgstr ""
 msgid "Title without actions"
 msgstr ""
 
-#: ../classes/column/user/display-name.php:37
+#: ../classes/column/user/display-name.php:33
 msgid "Display name"
 msgstr ""
 
-#: ../classes/column/user/first-name.php:37
+#: ../classes/column/user/first-name.php:35
 msgid "First name"
 msgstr ""
 
-#: ../classes/column/user/last-name.php:37
+#: ../classes/column/user/last-name.php:35
 msgid "Last name"
 msgstr ""
 
@@ -1285,6 +1285,6 @@ msgstr ""
 msgid "Registered"
 msgstr ""
 
-#: ../classes/column/user/rich-editing.php:37
+#: ../classes/column/user/rich-editing.php:25
 msgid "Visual Editor"
 msgstr ""
