@@ -173,17 +173,6 @@ abstract class CPAC_Storage_Model {
 
 			$column_types = array();
 
-			/**
-			 * Filter the default column names
-			 *
-			 * @since 2.4.4
-			 *
-			 * @param array $default_column_names Default column names
-			 * @param object $column Column object
-			 * @param object $this Storage_Model object
-			 */
-			$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
-
 			// Get default column that have been set on the listings screen
 			$default_columns = $this->get_default_stored_columns();
 
@@ -196,6 +185,8 @@ abstract class CPAC_Storage_Model {
 			// As a fallback we merge them with the table default column headings. this is not reliable, because most 3rd party column will not be loaded at this point.
 			//$default_columns = array_merge( (array) $this->get_default_column_headings(), $this->get_default_stored_columns() );
 
+			$default_columns = apply_filters( 'cac/column_types/defaults', $default_columns, $this );
+
 			// Default columns
 			if ( $default_columns ) {
 
@@ -203,6 +194,17 @@ abstract class CPAC_Storage_Model {
 				if ( isset( $default_columns['cb'] ) ) {
 					unset( $default_columns['cb'] );
 				}
+
+				/**
+				 * Filter the default column names
+				 *
+				 * @since 2.4.4
+				 *
+				 * @param array $default_column_names Default column names
+				 * @param object $column Column object
+				 * @param object $this Storage_Model object
+				 */
+				$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
 				$default_column_widths = (array) $this->get_default_column_widths();
 
