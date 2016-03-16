@@ -46,7 +46,7 @@ function cac_is_doing_ajax() {
 /**
  * Is WordPress doing ajax
  *
- * @since NEWVERSION
+ * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
 	$storage_model = false;

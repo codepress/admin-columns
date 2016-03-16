@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.4.2
-Stable tag: 2.4.10
+Stable tag: 2.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,12 +210,48 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-* [Refactor] Ajax calls will only a single storage model
-* [Removed] Removed loading columns through 'load-edit.php' filter
-* [Removed] You can now disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+= 2.5 =
+* [Updated] The main menu has been replaced with a single dropdown menu
+* [Updated] Support for 3rd party columns from other themes or plugins has been greatly improved
 * [Added] Added a new column: Comment status
 * [Added] The width of default columns are now displayed
+* [Improved] Improved JS loading
+* [Improved] Replaced FamFam icons with dashicons
+* [Improved] Column groups now uses full text strings
+* [Fixed] Media actions columns no longer throws an error when the list table is not found
+* [Fixed] Height and width columns for media will be appended with 'px'
+* [Fixed] Most zero values will now be displayed as a dash
+* [Fixed] Estimate time reading column will no longer display leading zero's on seconds
+* [Fixed] Shortcodes column now display each shortcode name used once, with a counter
+* [Fixed] Columns with an imagesize selection setting will have the a default option selected
+* [Removed] Removed loading columns through 'load-edit.php' filter
+* [Added] Column settings are now stored without the need to refresh the page (through ajax)
+* [Added] You can disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+* [Improved] The width of default columns (e.g. date and author) are now displayed
+* [Improved] bbPress columns are loaded correctly
+* [Updated] All languages files have been updated from Transifex (https://www.transifex.com/codepress/admin-columns)
+*
+* [Developer notes]
+* [Refactor] CPAC now is a singleton class
+* [Refactor] Storage model has been refactored but should stay backwards compatible when extending
+* [Refactor] CPAC_Column $storage_model variable has become private. Use CAPC_Column::get_storage_model() method.
+* [Refactor] Storagemodel can now be extended to have column layouts/sets
+* [Refactor:added] CPAC_Column::is_default() method added
+* [Refactor:added] CPAC_Column::is_registered() method added
+* [Refactor:added] CPAC_Column::get_empty_char() method added
+* [Refactor:added] CPAC_Column_Storagemodel::get_column_types() method added
+* [Refactor:added] CPAC_Column_Storagemodel::get_default_colummn_types() method added
+* [Refactor:added] CPAC_Column_Storagemodel::get_column_type() method added
+* [Refactor:added] CPAC_Column_Storagemodel::create_column() method added
+* [Refactor:added] CPAC_Column_Storagemodel::flush_columns() method added
+* [Refactor:added] CPAC_Column_Storagemodel::get_restore_link() method added
+* [Refactor:changed] CPAC_Column_Storagemodel::get_columns()
+* [Refactor:removed] CPAC_Column_Storagemodel::get_default_registered_columns() method removed
+* [Refactor:removed] CPAC_Column_Storagemodel::get_custom_registered_columns() method removed
+* [Refactor:removed] CPAC_Column_Storagemodel::set_stored_columns() method removed
+* [Refactor:removed] CPAC_Column_Storagemodel::get_grouped_column_types() method removed
+* [Refactor:removed] CPAC_Column_Storagemodel::set_columns() method removed
+* [Refactor:removed] CPAC_Column_Storagemodel::set_stored_columns() method removed
 
 = 2.4.10 =
 * [Fixed] Data:image sources for images are supported in labels

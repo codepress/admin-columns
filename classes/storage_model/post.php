@@ -140,7 +140,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_default_column_widths() {
 		return array(

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.4.10
+Version: 2.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.4.10' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -100,12 +100,12 @@ class CPAC {
 	private $current_storage_model;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	protected static $_instance = null;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
@@ -212,7 +212,7 @@ class CPAC {
 	/**
 	 * Get registered storage models
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function get_storage_models() {
 		if ( empty( $this->storage_models ) ) {
@@ -487,7 +487,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );

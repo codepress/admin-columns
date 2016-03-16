@@ -133,7 +133,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function __get( $key ) {
 		if ( 'storage_model' == $key ) {
@@ -382,7 +382,7 @@ class CPAC_Column {
 	/**
 	 * Get the type of the column.
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function is_registered() {
 		return $this->properties->is_registered;
@@ -897,6 +897,13 @@ class CPAC_Column {
 		}
 
 		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	public function get_empty_char() {
+		return '&ndash;'; // dash
 	}
 
 	/**

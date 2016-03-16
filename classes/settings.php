@@ -258,7 +258,7 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5
 	 */
 	public function ajax_columns_update() {
 		check_ajax_referer( 'cpac-settings' );

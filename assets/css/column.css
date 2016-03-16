@@ -30,6 +30,11 @@ body.edit-tags-php .tablenav.top .cpac-edit {
 .cpac_status_no {
   color: #dc3232;
 }
+body.users-php .tablenav .actions a.add-new-h2 {
+  float: none;
+  vertical-align: middle !important;
+  top: 2px !important;
+}
 @media screen and (max-width: 782px) {
   .tablenav.top .actions {
     display: block !important;
