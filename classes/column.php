@@ -903,7 +903,7 @@ class CPAC_Column {
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
-		return '&#8211;'; // dash
+		return '&ndash;'; // dash
 	}
 
 	/**
