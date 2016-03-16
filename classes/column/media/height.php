@@ -17,7 +17,7 @@ class CPAC_Column_Media_Height extends CPAC_Column {
 	function get_value( $id ) {
 		$value = $this->get_raw_value( $id );
 
-		return $value ? $value . 'px' : '';
+		return $value ? $value . 'px' : $this->get_empty_char();
 	}
 
 	function get_raw_value( $id ) {
