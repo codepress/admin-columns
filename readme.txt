@@ -211,13 +211,6 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 2.5 =
-* [Refactor] Ajax calls will only a single storage model
-* [Removed] Removed loading columns through 'load-edit.php' filter
-* [Removed] You can now disable the columns delete confirmation through this filter 'ac/delete_confirmation'
-* [Added] Added a new column: Comment status
-* [Added] The width of default columns are now displayed
-
-= 2.5 =
 * [Updated] The main menu has been replaced with a single dropdown menu
 * [Updated] Support for 3rd party columns from other themes or plugins has been greatly improved
 * [Added] Added a new column: Comment status
