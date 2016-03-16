@@ -671,7 +671,7 @@ abstract class CPAC_Storage_Model {
 	private function get_storage_id() {
 		$layout = $this->layout ? $this->layout : null;
 
-		return self::OPTIONS_KEY . '_' . $this->key . $layout;
+		return $this->get_storage_key() . $layout;
 	}
 
 	/**
@@ -880,15 +880,15 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column options
 	 */
 	public function get_default_stored_columns() {
-		return get_option( $this->get_storage_key() . "_default", array() );
+		return get_option( $this->get_storage_key() . "__default", array() );
 	}
 
 	private function delete_default_stored_columns() {
-		delete_option( $this->get_storage_key() . "_default" );
+		delete_option( $this->get_storage_key() . "__default" );
 	}
 
 	private function store_default_columns( $columns ) {
-		return update_option( $this->get_storage_key() . "_default", $columns );
+		return update_option( $this->get_storage_key() . "__default", $columns );
 	}
 
 	private function get_storage_key() {
