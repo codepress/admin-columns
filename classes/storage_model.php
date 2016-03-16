@@ -671,7 +671,7 @@ abstract class CPAC_Storage_Model {
 	private function get_storage_id() {
 		$layout = $this->layout ? $this->layout : null;
 
-		return self::OPTIONS_KEY . $this->key . $layout;
+		return self::OPTIONS_KEY . '_' . $this->key . $layout;
 	}
 
 	/**
