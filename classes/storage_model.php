@@ -892,7 +892,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	private function get_storage_key() {
-		return self::OPTIONS_KEY . $this->key;
+		return self::OPTIONS_KEY . '_' . $this->key;
 	}
 
 	/**
