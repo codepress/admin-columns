@@ -242,6 +242,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Refactor] CPAC now is a singleton class
 * [Refactor] Storage model has been refactored but should stay backwards compatible when extending
 * [Refactor] CPAC_Column $storage_model variable has become private. Use CAPC_Column::get_storage_model() method.
+* [Refactor] Storagemodel can now be extended to have column layouts/sets
 * [Refactor:added] CPAC_Column::is_default() method added
 * [Refactor:added] CPAC_Column::is_registered() method added
 * [Refactor:added] CPAC_Column::get_empty_char() method added
