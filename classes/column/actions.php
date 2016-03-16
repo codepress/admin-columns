@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class for columns containing action links for items.
  *
@@ -12,6 +13,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 *
 	 * @param int $id Item ID to get the list of actions for.
+	 *
 	 * @return array List of actions ([action name] => [action link]).
 	 */
 	abstract public function get_actions( $id );
@@ -21,7 +23,6 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
@@ -37,8 +38,11 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_value( $id ) {
-
 		$actions = $this->get_raw_value( $id );
+
+		if ( ! $actions ) {
+			return false;
+		}
 
 		if ( ! empty( $this->options->use_icons ) ) {
 			return implode( '', $this->convert_actions_to_icons( $actions ) );
@@ -49,7 +53,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		foreach ( $actions as $class => $action ) {
 			$actions[ $class ] = '<span class="' . esc_attr( $class ) . '">' . $action . ( $i < $num_actions - 1 ? ' | ' : '' ) . '</span>';
-			$i++;
+			$i ++;
 		}
 
 		return implode( '', $actions );
@@ -78,7 +82,6 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 */
 	public function display_settings() {
-
 		parent::display_settings();
 
 		$this->display_field_use_icons();
@@ -90,18 +93,17 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 */
 	public function display_field_use_icons() {
-
 		?>
 		<tr class="column_editing">
 			<?php $this->label_view( __( 'Use icons?', 'codepress-admin-columns' ), __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ), 'use_icons' ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( 'use_icons' ); ?>-yes">
 					<input type="radio" value="1" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-yes"<?php checked( $this->options->use_icons, '1' ); ?> />
-					<?php _e( 'Yes'); ?>
+					<?php _e( 'Yes' ); ?>
 				</label>
 				<label for="<?php $this->attr_id( 'use_icons' ); ?>-no">
 					<input type="radio" value="" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-no"<?php checked( $this->options->use_icons, '' ); ?> />
-					<?php _e( 'No'); ?>
+					<?php _e( 'No' ); ?>
 				</label>
 			</td>
 		</tr>
@@ -114,6 +116,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6
 	 *
 	 * @param array $actions List of actions ([action name] => [action link]).
+	 *
 	 * @return array List of actions ([action name] => [action icon link]).
 	 */
 	public function convert_actions_to_icons( $actions ) {
@@ -154,6 +157,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @since 2.2.6.1
 	 *
 	 * @param array $matches Matches information from preg_replace_callback
+	 *
 	 * @return string Link part with tooltip attribute
 	 */
 	public function add_link_tooltip( $matches ) {
@@ -170,20 +174,19 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	public function get_actions_icons() {
 
 		return array(
-			'edit' => 'edit',
-			'trash' => 'trash',
-			'delete' => 'trash',
-			'untrash' => 'undo',
-			'unspam' => 'undo',
-			'view' => 'visibility',
-			'inline' => 'welcome-write-blog',
+			'edit'      => 'edit',
+			'trash'     => 'trash',
+			'delete'    => 'trash',
+			'untrash'   => 'undo',
+			'unspam'    => 'undo',
+			'view'      => 'visibility',
+			'inline'    => 'welcome-write-blog',
 			'quickedit' => 'welcome-write-blog',
-			'approve' => 'yes',
+			'approve'   => 'yes',
 			'unapprove' => 'no',
-			'reply' => 'testimonial',
-			'trash' => 'trash',
-			'spam' => 'welcome-comments'
+			'reply'     => 'testimonial',
+			'trash'     => 'trash',
+			'spam'      => 'welcome-comments'
 		);
 	}
-
 }

@@ -64,6 +64,9 @@ a.help {
 .cpac_message.error.warning {
   border-left: 4px solid #ffba00;
 }
+.ajax-message {
+  display: none;
+}
 /**
  * Icons
  * ----------------------------------------------------------------------------
@@ -129,6 +132,15 @@ a.help {
   font-weight: bold;
   min-width: 100px;
 }
+.cpac-menu label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.cpac-menu .spinner {
+  float: none;
+  margin-top: 0;
+  margin-left: 0;
+}
 /**
  * Structure
  * ----------------------------------------------------------------------------
@@ -141,15 +153,34 @@ a.help {
   float: left;
   width: 100%;
 }
+.columns-container .columns-left .column-footer .submit.save {
+  display: inline-block;
+}
+.columns-container .columns-left .column-footer .submit.update {
+  display: none;
+}
 .columns-container .columns-right {
   float: right;
   margin-right: -300px;
   width: 280px;
 }
 .columns-container .columns-right .columns-right-inside.fixed {
-  position: fixed;
-  top: 40px;
   width: 280px;
+}
+.columns-container.stored .columns-right .sidebox.form-actions .submit.save {
+  display: none;
+}
+.columns-container.stored .columns-right .sidebox.form-actions .submit.update {
+  display: block;
+}
+.columns-container.stored .columns-right .sidebox.form-actions .form-reset {
+  display: block;
+}
+.columns-container.stored .column-footer .submit.save {
+  display: none;
+}
+.columns-container.stored .column-footer .submit.update {
+  display: inline-block;
 }
 /**
  * UI Sortable Plugin
@@ -176,12 +207,65 @@ a.help {
 .cpac-placeholder :first-child {
   border: none;
 }
+.menu {
+  position: relative;
+  margin-bottom: 16px;
+}
+.menu select {
+  display: inline-block;
+  margin: 0;
+}
+.menu .spinner {
+  display: none;
+  float: none;
+  visibility: visible;
+  margin: 0 0 0 14px;
+}
+.menu .view-link,
+.menu .view-link:active {
+  display: inline-block;
+  margin: 0 0 0 12px;
+  top: 2px;
+}
 /**
  * Columns
  * ----------------------------------------------------------------------------
  */
+.columns-left .cpac-notice {
+  background: #fff;
+  border-left: 4px solid #ffba00;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 1px 12px;
+}
 .columns-left .cpac-boxes .cpac-columns form {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+.columns-left .cpac-boxes.disabled {
+  opacity: 0.7;
+}
+.columns-left .cpac-boxes.disabled a.edit-button,
+.columns-left .cpac-boxes.disabled a.remove-button,
+.columns-left .cpac-boxes.disabled a.clone-button,
+.columns-left .cpac-boxes.disabled .column_action {
+  display: none !important;
+}
+.columns-left .cpac-boxes.disabled .column-meta td.column_sort {
+  display: none;
+}
+.columns-left .cpac-boxes.disabled .meta span {
+  cursor: default !important;
+}
+.columns-left .cpac-boxes.disabled .meta span:before {
+  color: #808080 !important;
+}
+.columns-left .cpac-boxes.disabled .meta span.off {
+  opacity: 0.5;
+}
+.columns-left .cpac-boxes.disabled .column-footer {
+  display: none;
 }
 /**
  * Column
@@ -274,6 +358,9 @@ a.help {
   margin-right: 5px;
   cursor: auto;
   color: #737373;
+}
+.cpac-column .column-meta table tr td.column_label .inner .meta span.disabled {
+  cursor: default;
 }
 .cpac-column .column-meta table tr td.column_label span.vers {
   float: left;
@@ -461,10 +548,10 @@ a.help {
   font-size: 12px;
 }
 .cpac-column .column-form table tr.column_width .input div.width-slider {
-  margin-left: 60px;
-  margin-right: 100px;
+  margin-left: 68px;
+  margin-right: 90px;
   position: relative;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 .cpac-column .column-form table tr.column_width .input div.width-slider .ui-slider-handle {
   cursor: ew-resize;
@@ -510,6 +597,7 @@ a.help {
   width: 40px !important;
 }
 .cpac-column .column-form table tr.column_action td {
+  border-top: 1px solid #ebebeb;
   background: #f9f9f9;
 }
 .cpac-column .column-form table tr.column_action td p {
@@ -613,6 +701,7 @@ a.help {
 .column-footer .button-container a {
   display: inline-block;
   margin-top: 5px;
+  margin-left: 5px;
 }
 /**
  * Welcome Screen
@@ -693,9 +782,6 @@ a.help {
  * Sidebar
  * ----------------------------------------------------------------------------
  */
-.columns-right {
-  margin-top: 54px;
-}
 .columns-right .sidebox {
   background: none repeat scroll 0 0 #FFFFFF;
   border: 1px solid #E1E1E1;
@@ -707,6 +793,7 @@ a.help {
 .columns-right .sidebox h3 {
   padding: 10px;
   margin: 0;
+  position: relative;
 }
 .columns-right .sidebox h3.title {
   font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
@@ -728,32 +815,62 @@ a.help {
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
+.columns-right .sidebox h3 span.left {
+  position: relative;
+  background: #fff;
+  z-index: 2;
+  padding-right: 8px;
+}
+.columns-right .sidebox h3 span.right {
+  position: absolute;
+  display: inline-block;
+  line-height: 20px;
+  z-index: 1;
+  right: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #808080;
+  text-align: right;
+}
 .columns-right .sidebox .inside {
   padding: 10px;
 }
 .columns-right .sidebox .inside p {
   margin-top: 0;
 }
-.columns-right .sidebox#form-actions .form-reset {
+.columns-right .sidebox.form-actions .form-reset {
+  display: none;
   border-bottom: 1px solid #F5F5F5;
   padding: 8px;
 }
-.columns-right .sidebox#form-actions .reset-column-type {
+.columns-right .sidebox.form-actions .reset-column-type {
   text-decoration: none;
   color: #BC0B0B;
   line-height: 25px;
   display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  cursor: pointer;
+  margin: 0;
 }
-.columns-right .sidebox#form-actions .form-update {
+.columns-right .sidebox.form-actions .reset-column-type:hover {
+  color: #f00;
+}
+.columns-right .sidebox.form-actions .form-update {
   padding: 8px;
   overflow: hidden;
 }
-.columns-right .sidebox#form-actions .submit-update {
-  display: block;
+.columns-right .sidebox.form-actions .submit {
+  display: none;
   width: 100%;
   height: 28px;
   line-height: 28px;
   text-align: center;
+}
+.columns-right .sidebox.form-actions .submit.save {
+  display: block;
 }
 .columns-right .sidebox#pro-version .cta {
   background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
@@ -838,6 +955,7 @@ a.help {
   height: 120px;
 }
 .columns-right .sidebox#direct-feedback .inside form input[type="submit"] {
+  display: inline-block;
   float: right;
   border-radius: 4px;
   border: 1px solid #CCC;
@@ -848,7 +966,6 @@ a.help {
   font-size: 12px;
   padding: 0 32px;
   color: #CCC;
-  display: inline-block;
   background: none;
   text-decoration: none;
   cursor: pointer;
@@ -905,25 +1022,6 @@ table.cpac-form-table > tbody > tr > th {
 table.cpac-form-table td.padding-22 {
   padding-top: 22px;
 }
-table.cpac-form-table td .cpac_export .ms-container {
-  background: transparent url('../images/switch_bw.png') no-repeat 50% 50%;
-}
-table.cpac-form-table td .cpac_export .ms-container .ms-selectable {
-  width: 48%;
-  margin-right: 0;
-}
-table.cpac-form-table td .cpac_export .ms-container .ms-selection {
-  float: right;
-  width: 48%;
-}
-table.cpac-form-table td .cpac_export .ms-container ul.ms-list {
-  width: 100%;
-}
-table.cpac-form-table td .cpac_export .ms-container ul.ms-list li {
-  margin: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 table.cpac-form-table.settings tr td {
   padding-top: 74px;
 }
@@ -946,6 +1044,9 @@ table.cpac-form-table.settings tr:first-child td {
 }
 .wp-pointer-right {
   margin-right: 15px;
+}
+.wp-pointer.noclick .wp-pointer-buttons {
+  display: none;
 }
 /* =RTL language
 -------------------------------------------------------------- */
@@ -1023,6 +1124,9 @@ body.rtl .columns-left .column-footer .order-message {
 body.rtl .columns-left .column-footer .button-container {
   float: left;
 }
+body.rtl .columns-left .column-footer .submit {
+  display: none;
+}
 body.rtl .columns-right {
   float: left;
   margin-left: -300px;
@@ -1040,6 +1144,9 @@ body.rtl .cpac_export .ms-container .ms-selection {
   .columns-container {
     margin-right: 0;
   }
+  .columns-container .menu {
+    float: none;
+  }
   .columns-container .columns-left {
     float: none;
   }
@@ -1047,11 +1154,6 @@ body.rtl .cpac_export .ms-container .ms-selection {
     float: none;
     margin-top: 0;
     margin-right: 0;
-    width: 100%;
-  }
-  .columns-container .columns-right .columns-right-inside.fixed {
-    position: relative;
-    top: 0;
     width: 100%;
   }
 }

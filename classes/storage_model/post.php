@@ -14,7 +14,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->type = 'post';
 		$this->meta_type = 'post';
 		$this->page = 'edit';
-		$this->menu_type = 'post';
+		$this->screen = $this->page . '-' . $this->post_type;
+		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 
 		$this->set_labels();
 
@@ -131,12 +132,23 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 			$defaults[] = 'cb';
 			$defaults[] = 'author';
 			$defaults[] = 'categories';
-			$defaults[] = 'comments';
 			$defaults[] = 'parent';
 			$defaults[] = 'tags';
 		}
 
 		return $defaults;
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	public function get_default_column_widths() {
+		return array(
+			'author'     => array( 'width' => 10 ),
+			'categories' => array( 'width' => 15 ),
+			'tags'       => array( 'width' => 15 ),
+			'date'       => array( 'width' => 10 ),
+		);
 	}
 
 	/**

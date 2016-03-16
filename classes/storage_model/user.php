@@ -13,7 +13,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->type = 'user';
 		$this->meta_type = 'user';
 		$this->page = 'users';
-		$this->menu_type = 'other';
 
 		parent::__construct();
 	}
@@ -77,6 +76,16 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 */
 	public function get_default_column_names() {
 		return array( 'cb', 'username', 'name', 'email', 'role', 'posts' );
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	protected function get_default_column_widths() {
+		return array(
+			'role'  => array( 'width' => 15 ),
+			'posts' => array( 'width' => 74, 'unit' => 'px' ),
+		);
 	}
 
 	/**

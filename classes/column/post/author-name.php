@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Column displaying information about the author of a post, such as the
  * author's display name, user ID and email address.
@@ -12,18 +13,16 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']	 			= 'column-author_name';
-		$this->properties['label']	 			= __( 'Display Author As', 'codepress-admin-columns' );
-		$this->properties['is_cloneable']		= true;
-		$this->properties['object_property']	= 'post_author';
+		$this->properties['type'] = 'column-author_name';
+		$this->properties['label'] = __( 'Display Author As', 'codepress-admin-columns' );
+		$this->properties['is_cloneable'] = true;
+		$this->properties['object_property'] = 'post_author';
 
 		// Options
-		$this->options['display_author_as']		= '';
-		$this->options['user_link_to']			= '';
+		$this->options['display_author_as'] = '';
+		$this->options['user_link_to'] = '';
 	}
 
 	/**
@@ -31,7 +30,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
-
 		$value = '';
 
 		if ( $user_id = $this->get_raw_value( $post_id ) ) {
@@ -45,7 +43,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 			case 'view_user_posts':
 				$link = add_query_arg( array(
 					'post_type' => get_post_field( 'post_type', $post_id ),
-					'author' => get_the_author_meta( 'ID' )
+					'author'    => get_the_author_meta( 'ID' )
 				), 'edit.php' );
 				break;
 			case 'view_author':
@@ -67,7 +65,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-
 		return get_post_field( 'post_author', $post_id );
 	}
 
@@ -78,7 +75,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_settings() {
-
 		$this->display_field_user_format();
 		$this->display_field_user_link_to();
 	}
@@ -89,15 +85,14 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_user_link_to() {
-
 		$this->display_field_select(
 			'user_link_to',
 			__( 'Link To', 'codepress-admin-columns' ),
 			array(
-				'' => __( 'None' ),
-				'edit_user' => __( 'Edit User Profile' ),
+				''                => __( 'None' ),
+				'edit_user'       => __( 'Edit User Profile' ),
 				'view_user_posts' => __( 'View User Posts' ),
-				'view_author' => __( 'View Public Author Page', 'codepress-admin-columns' )
+				'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' )
 			),
 			__( 'Page the author name should link to.', 'codepress-admin-columns' )
 		);

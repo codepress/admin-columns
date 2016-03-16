@@ -11,10 +11,8 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-depth';
 		$this->properties['label'] = __( 'Depth', 'codepress-admin-columns' );
 	}
@@ -24,7 +22,6 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_value( $post_id ) {
-
 		return $this->get_raw_value( $post_id );
 	}
 
@@ -33,7 +30,6 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_raw_value( $post_id ) {
-
 		return count( get_post_ancestors( $post_id ) ) + 1;
 	}
 
@@ -42,7 +38,6 @@ class CPAC_Column_Post_Depth extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function apply_conditional() {
-
-		return is_post_type_hierarchical( $this->storage_model->get_post_type() );
+		return is_post_type_hierarchical( $this->get_post_type() );
 	}
 }

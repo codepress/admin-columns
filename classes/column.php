@@ -15,19 +15,13 @@ class CPAC_Column {
 	 * @since 2.0
 	 * @var CPAC_Storage_Model $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
-	public $storage_model;
+	private $storage_model;
 
 	/**
 	 * @since 2.0
 	 * @var array $options contains the user set options for the CPAC_Column object.
 	 */
 	public $options = array();
-
-	/**
-	 * @since 2.0
-	 * @var object $options_default contains the options for the CPAC_Column object before they are populated with user input.
-	 */
-	protected $options_default;
 
 	/**
 	 * @since 2.0
@@ -113,6 +107,10 @@ class CPAC_Column {
 		return true;
 	}
 
+	public function is_default() {
+		return isset( $this->properties->default ) && $this->properties->default;
+	}
+
 	/**
 	 * Overwrite this function in child class.
 	 * Adds (optional) scripts to the listings screen.
@@ -135,11 +133,20 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.5
+	 */
+	public function __get( $key ) {
+		if ( 'storage_model' == $key ) {
+			return $this->{"get_$key"}();
+		}
+	}
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param object $storage_model CPAC_Storage_Model
 	 */
-	public function __construct( CPAC_Storage_Model $storage_model ) {
+	public function __construct( $storage_model ) {
 
 		$this->storage_model = $storage_model;
 
@@ -163,7 +170,7 @@ class CPAC_Column {
 			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
 			'default'          => false,    // Is this a WP default column,
-			'group'            => 'custom',
+			'group'            => __( 'Custom', 'codepress-admin-columns' ),
 			'hidden'           => false,
 			'use_before_after' => false
 		);
@@ -231,7 +238,7 @@ class CPAC_Column {
 		 * @since 2.0
 		 * @see Filter cac/column/properties
 		 */
-		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->storage_model->key}", $this->properties, $this ); // do not pass $this because object is not ready
+		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->get_storage_model()->key}", $this->properties, $this ); // do not pass $this because object is not ready
 
 		// Column label defaults to column type label
 		if ( ! isset( $this->options['label'] ) ) {
@@ -273,7 +280,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.4.7
 	 */
-	public function set_filter( $filtering_model ) {
+	public function set_filter( CAC_Filtering_Model $filtering_model ) {
 		$this->filtering_model = $filtering_model;
 
 		return $this;
@@ -289,7 +296,7 @@ class CPAC_Column {
 	/**
 	 * @since 2.4.8
 	 */
-	public function set_editable( $editable_model ) {
+	public function set_editable( CACIE_Editable_Model $editable_model ) {
 		$this->editable_model = $editable_model;
 
 		return $this;
@@ -373,6 +380,15 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Get the type of the column.
+	 *
+	 * @since 2.5
+	 */
+	public function is_registered() {
+		return $this->properties->is_registered;
+	}
+
+	/**
 	 * Get the column options set by the user
 	 *
 	 * @since 2.3.4
@@ -419,28 +435,28 @@ class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function get_post_type() {
-		return $this->storage_model->get_post_type();
+		return $this->get_storage_model()->get_post_type();
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {
-		return $this->storage_model;
+		return cpac()->get_storage_model( $this->storage_model );
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model_type() {
-		return $this->storage_model->get_type();
+		return $this->get_storage_model()->get_type();
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
-	public function get_storage_model_meta_type() {
-		return $this->storage_model->get_meta_type();
+	public function get_meta_type() {
+		return $this->get_storage_model()->get_meta_type();
 	}
 
 	/**
@@ -453,7 +469,7 @@ class CPAC_Column {
 	}
 
 	public function get_attr_name( $field_name ) {
-		return "{$this->storage_model->key}[{$this->properties->name}][{$field_name}]";
+		return "{$this->get_storage_model()->key}[{$this->properties->name}][{$field_name}]";
 	}
 
 	/**
@@ -462,7 +478,7 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return "cpac-{$this->storage_model->key}-{$this->properties->name}-{$field_name}";
+		return "cpac-{$this->get_storage_model()->key}-{$this->properties->name}-{$field_name}";
 	}
 
 	public function attr_id( $field_name ) {
@@ -495,21 +511,20 @@ class CPAC_Column {
 		if ( isset( $options['excerpt_length'] ) ) {
 			$options['excerpt_length'] = trim( $options['excerpt_length'] );
 			if ( empty( $options['excerpt_length'] ) || ! is_numeric( $options['excerpt_length'] ) ) {
-				$options['excerpt_length'] = $this->options_default->excerpt_length;
+				$options['excerpt_length'] = 30;
 			}
 		}
 
 		if ( ! empty( $options['label'] ) ) {
-			$options['label'] = str_replace( 'data:', '%%data%%', $options['label'] ); // Temporary replace data: urls for image sources. Replace it back later
 
 			// Label can not contains the character ":"" and "'", because
 			// CPAC_Column::get_sanitized_label() will return an empty string
 			// and make an exception for site_url()
-			if ( false === strpos( $options['label'], site_url() ) ) {
+			// Enable data:image url's
+			if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
 				$options['label'] = str_replace( ':', '', $options['label'] );
 				$options['label'] = str_replace( "'", '', $options['label'] );
 			}
-			$options['label'] = str_replace( '%%data%%', 'data:', $options['label'] ); // Enable data:image url's
 		}
 
 		// used by child classes for additional sanitizing
@@ -544,12 +559,17 @@ class CPAC_Column {
 	 * @return string Sanitized string
 	 */
 	public function get_sanitized_label() {
+		if ( $this->properties->default ) {
+			$string = $this->properties->name;
+		}
 
-		$string = $this->options->label;
-		$string = strip_tags( $string );
-		$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
-		$string = str_replace( 'http://', '', $string );
-		$string = str_replace( 'https://', '', $string );
+		else {
+			$string = $this->options->label;
+			$string = strip_tags( $string );
+			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
+			$string = str_replace( 'http://', '', $string );
+			$string = str_replace( 'https://', '', $string );
+		}
 
 		return $string;
 	}
@@ -837,7 +857,8 @@ class CPAC_Column {
 			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
 			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
 			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		} else {
+		}
+		else {
 			$r = hexdec( substr( $hex, 0, 2 ) );
 			$g = hexdec( substr( $hex, 2, 2 ) );
 			$b = hexdec( substr( $hex, 4, 2 ) );
@@ -879,6 +900,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.5
+	 */
+	public function get_empty_char() {
+		return '&ndash;'; // dash
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param mixed $meta Image files or Image ID's
@@ -896,7 +924,8 @@ class CPAC_Column {
 		if ( is_string( $images ) || is_numeric( $images ) ) {
 			if ( strpos( $images, ',' ) !== false ) {
 				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			} else {
+			}
+			else {
 				$images = array( $images );
 			}
 		}
@@ -976,7 +1005,8 @@ class CPAC_Column {
 
 					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px; background-size: cover; background-image: url({$src}); background-position: center;'></span>";
 
-				} else {
+				}
+				else {
 					$max = max( array( $width, $height ) );
 					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
 				}
@@ -1001,7 +1031,8 @@ class CPAC_Column {
 		foreach ( $pieces as $r_pieces ) {
 			if ( is_array( $r_pieces ) ) {
 				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-			} else {
+			}
+			else {
 				$retVal[] = $r_pieces;
 			}
 		}
@@ -1115,7 +1146,8 @@ class CPAC_Column {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
 				$last = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
 				$name = $first . $last;
-			} elseif ( ! empty( $userdata->{$display_as} ) ) {
+			}
+			elseif ( ! empty( $userdata->{$display_as} ) ) {
 				$name = $userdata->{$display_as};
 			}
 		}
@@ -1154,7 +1186,6 @@ class CPAC_Column {
 		$field_key = 'date_format';
 		$label = __( 'Date Format', 'codepress-admin-columns' );
 		$description = __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' );
-
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
@@ -1222,9 +1253,10 @@ class CPAC_Column {
 			<?php $this->label_view( $label, '', $field_key ); ?>
 
 			<td class="input">
-				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : ?>
+				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : $_sizes = array_keys( $sizes ); ?>
+					<?php $selected = $this->options->image_size ? $this->options->image_size : $_sizes[0]; ?>
 					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
-						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $this->options->image_size, $id ); ?>>
+						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $selected, $id ); ?>>
 						<?php echo $image_label; ?>
 					</label>
 				<?php endforeach; ?>
@@ -1367,60 +1399,28 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.0
-	 *
-	 * @param array Column Objects
-	 *
-	 * @return string HTML List
-	 */
-	public function get_column_list( $columns = array(), $label = '' ) {
-
-		if ( empty( $columns ) ) {
-			return false;
-		}
-
-		// sort by alphabet
-		$_columns = array();
-
-		foreach ( $columns as $column ) {
-			if ( $column->properties->hidden ) {
-				continue;
-			}
-
-			$_columns[ $column->properties->type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->type ) : $column->properties->label;
-		}
-
-		asort( $_columns );
-
-		$list = "<optgroup label='{$label}'>";
-		foreach ( $_columns as $type => $label ) {
-			$selected = selected( $this->properties->type, $type, false );
-			$list .= "<option value='{$type}'{$selected}>{$label}</option>";
-		}
-		$list .= "</optgroup>";
-
-		return $list;
-	}
-
-	/**
-	 * @since 2.0
 	 */
 	public function display() {
 
 		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
 
-		// column list
+		// Selector
 		$column_list = '';
-
-		$groups = $this->storage_model->get_column_type_groups();
-		foreach ( $groups as $group => $label ) {
-			$column_list .= $this->get_column_list( $this->storage_model->column_types[ $group ], $label );
+		if ( $grouped_columns = $this->get_storage_model()->get_grouped_columns() ) {
+			foreach ( $grouped_columns as $group => $columns ) {
+				$column_list .= '<optgroup label="' . $group . '">';
+				foreach ( $columns as $type => $label ) {
+					$column_list .= '<option value="' . $type . '"' . selected( $this->properties->type, $type, false ) . '>' . $label . '</option>';
+				}
+				$column_list .= '</optgroup>';
+			}
 		}
 
 		// clone attribute
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 
 		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?>>
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?> data-default="<?php echo $this->is_default(); ?>">
 			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->properties->name ); ?>"/>
 			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>"/>
 			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>"/>

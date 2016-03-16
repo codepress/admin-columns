@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Column displaying whether an item is open for comments, i.e. whether users can
  * comment on this item.
@@ -12,13 +13,12 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']				= 'column-comment_status';
-		$this->properties['label']				= __( 'Comment status', 'codepress-admin-columns' );
-		$this->properties['object_property']	= 'comment_status';
+		$this->properties['type'] = 'column-comment_status';
+		$this->properties['label'] = __( 'Comment status', 'codepress-admin-columns' );
+		$this->properties['object_property'] = 'comment_status';
 	}
 
 	/**
@@ -26,8 +26,7 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	 * @since 2.2
 	 */
 	function apply_conditional() {
-
-		return post_type_supports( $this->storage_model->key, 'comments' );
+		return post_type_supports( $this->get_post_type(), 'comments' );
 	}
 
 	/**
@@ -35,13 +34,10 @@ class CPAC_Column_Post_Comment_Status extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
 		$comment_status = $this->get_raw_value( $post_id );
-
-		$value = $this->get_asset_image( 'no.png', $comment_status );
-
+		$value = '<span class="dashicons dashicons-no cpac_status_no" title="' . $comment_status . '"></span>';
 		if ( 'open' == $comment_status ) {
-			$value = $this->get_asset_image( 'checkmark.png', $comment_status );
+			$value = '<span class="dashicons dashicons-yes cpac_status_yes" title="' . $comment_status . '"></span>';
 		}
 
 		return $value;

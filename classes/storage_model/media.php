@@ -4,14 +4,13 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 	public function __construct() {
 
-		$this->key            = 'wp-media';
-		$this->label          = __( 'Media Library' );
+		$this->key = 'wp-media';
+		$this->label = __( 'Media Library' );
 		$this->singular_label = __( 'Media' );
-		$this->type           = 'media';
-		$this->meta_type      = 'post';
-		$this->page           = 'upload';
-		$this->post_type      = 'attachment';
-		$this->menu_type      = 'other';
+		$this->type = 'media';
+		$this->meta_type = 'post';
+		$this->page = 'upload';
+		$this->post_type = 'attachment';
 
 		parent::__construct();
 	}
@@ -34,7 +33,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
-		$table   = _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
+		$table = _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
 		$columns = (array) $table->get_columns();
 
 		if ( cac_is_setting_screen() ) {
@@ -44,8 +43,30 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		return $columns;
 	}
 
+	/**
+	 * @since 2.5
+	 */
 	public function get_default_column_names() {
-		return array( 'cb', 'date', 'parent', 'icon', 'title', 'author', 'comments' );
+		return array(
+			'cb',
+			'date',
+			'parent',
+			'icon',
+			'title',
+			'author',
+			'comments'
+		);
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	protected function get_default_column_widths() {
+		return array(
+			'author' => array( 'width' => 10 ),
+			'parent' => array( 'width' => 15 ),
+			'date'   => array( 'width' => 10 ),
+		);
 	}
 
 	public function get_meta() {

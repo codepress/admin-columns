@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_User_Description
  *
@@ -11,14 +12,11 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']	 = 'column-user_description';
-		$this->properties['label']	 = __( 'Description', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-user_description';
+		$this->properties['label'] = __( 'Description', 'codepress-admin-columns' );
 
-		// Options
 		$this->options['excerpt_length'] = 30;
 	}
 
@@ -27,7 +25,6 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $user_id ) {
-
 		return $this->get_raw_value( $user_id );
 	}
 
@@ -36,7 +33,6 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $user_id ) {
-
 		return $this->get_shortened_string( get_the_author_meta( 'user_description', $user_id ), $this->options->excerpt_length );
 	}
 
@@ -45,7 +41,6 @@ class CPAC_Column_User_Description extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function display_settings() {
-
 		$this->display_field_excerpt_length();
 	}
 }

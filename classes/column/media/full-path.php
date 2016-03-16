@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Media_Full_Path
  *
@@ -15,8 +16,8 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 = 'column-full_path';
-		$this->properties['label']	 = __( 'Full path', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-full_path';
+		$this->properties['label'] = __( 'Full path', 'codepress-admin-columns' );
 
 		// Options
 		$this->options['path_scope'] = 'full';
@@ -30,9 +31,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 
 		$value = '';
 
-		$file 	= wp_get_attachment_url( $id );
-
-		if ( $file ) {
+		if ( $file = wp_get_attachment_url( $id ) ) {
 			switch ( $this->options->path_scope ) {
 				case 'relative-domain':
 					$file = str_replace( 'https://', 'http://', $file );
@@ -68,7 +67,6 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function display_settings() {
-
 		$this->display_field_path_scope();
 	}
 
@@ -79,9 +77,9 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 	 */
 	public function display_field_path_scope() {
 
-		$field_key		= 'path_scope';
-		$label			= __( 'Path scope', 'codepress-admin-columns' );
-		$description	= __( 'Part of the file path to display', 'codepress-admin-columns' );
+		$field_key = 'path_scope';
+		$label = __( 'Path scope', 'codepress-admin-columns' );
+		$description = __( 'Part of the file path to display', 'codepress-admin-columns' );
 
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
@@ -103,7 +101,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 				</label>
 			</td>
 		</tr>
-	<?php
+		<?php
 	}
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Post_Featured_Image
  *
@@ -11,17 +12,16 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']	= 'column-featured_image';
-		$this->properties['label']	= __( 'Featured Image', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-featured_image';
+		$this->properties['label'] = __( 'Featured Image', 'codepress-admin-columns' );
 
 		// Options
-		$this->options['image_size']	= '';
-		$this->options['image_size_w']	= 80;
-		$this->options['image_size_h']	= 80;
+		$this->options['image_size'] = '';
+		$this->options['image_size_w'] = 80;
+		$this->options['image_size_h'] = 80;
 	}
 
 	/**
@@ -29,8 +29,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.2
 	 */
 	public function apply_conditional() {
-
-		return post_type_supports( $this->storage_model->key, 'thumbnail' );
+		return post_type_supports( $this->get_post_type(), 'thumbnail' );
 	}
 
 	/**
@@ -38,7 +37,6 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
-
 		$thumbnail_id = $this->get_raw_value( $post_id );
 
 		if ( ! $thumbnail_id ) {
@@ -46,7 +44,7 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 		}
 
 		$thumb = implode( $this->get_thumbnails( $thumbnail_id, (array) $this->options ) );
-		$link  = get_edit_post_link( $post_id );
+		$link = get_edit_post_link( $post_id );
 
 		return $link ? "<a href='{$link}#postimagediv'>{$thumb}</a>" : $thumb;
 	}
@@ -56,7 +54,6 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-
 		if ( ! has_post_thumbnail( $post_id ) ) {
 			return false;
 		}
@@ -69,7 +66,6 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_settings() {
-
 		$this->display_field_preview_size();
 	}
 }

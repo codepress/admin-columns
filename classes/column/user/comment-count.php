@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_User_Comment_Count
  *
@@ -11,10 +12,8 @@ class CPAC_Column_User_Comment_Count extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-user_commentcount';
 		$this->properties['label'] = __( 'Comment Count' );
 	}
@@ -24,7 +23,6 @@ class CPAC_Column_User_Comment_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $user_id ) {
-
 		return $this->get_raw_value( $user_id );
 	}
 
@@ -33,11 +31,10 @@ class CPAC_Column_User_Comment_Count extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $user_id ) {
-
 		return get_comments( array(
-			'user_id'	=> $user_id,
-			'count'		=> true,
+			'user_id' => $user_id,
+			'count'   => true,
 			'orderby' => false
-		));
+		) );
 	}
 }

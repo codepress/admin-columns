@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Post_Sticky
  *
@@ -11,12 +12,10 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']	 	= 'column-sticky';
-		$this->properties['label']	 	= __( 'Sticky', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-sticky';
+		$this->properties['label'] = __( 'Sticky', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -24,11 +23,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function apply_conditional() {
-
-		if ( 'post' == $this->storage_model->key )
-			return true;
-
-		return false;
+		return 'post' == $this->get_post_type();
 	}
 
 	/**
@@ -36,14 +31,7 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
-
-		$value = $this->get_asset_image( 'no.png' );
-
-		if ( $this->get_raw_value( $post_id ) ) {
-			$value = $this->get_asset_image( 'checkmark.png' );
-		}
-
-		return $value;
+		return $this->get_raw_value( $post_id ) ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';
 	}
 
 	/**
@@ -51,7 +39,6 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-
 		return is_sticky( $post_id );
 	}
 }

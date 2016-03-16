@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_User_Nickname
  *
@@ -11,12 +12,11 @@ class CPAC_Column_User_Nickname extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']	 = 'column-nickname';
-		$this->properties['label']	 = __( 'Nickname', 'codepress-admin-columns' );
+
+		$this->properties['type'] = 'column-nickname';
+		$this->properties['label'] = __( 'Nickname', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -24,7 +24,6 @@ class CPAC_Column_User_Nickname extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $user_id ) {
-
 		return $this->get_raw_value( $user_id );
 	}
 
@@ -33,7 +32,6 @@ class CPAC_Column_User_Nickname extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $user_id ) {
-
 		$userdata = get_userdata( $user_id );
 
 		return $userdata->nickname;

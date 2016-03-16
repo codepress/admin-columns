@@ -11,10 +11,8 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-order';
 		$this->properties['label'] = __( 'Order', 'codepress-admin-columns' );
 	}
@@ -24,7 +22,7 @@ class CPAC_Column_Post_Order extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function apply_conditional() {
-		return is_post_type_hierarchical( $this->storage_model->post_type ) || post_type_supports( $this->storage_model->post_type, 'page-attributes' );
+		return is_post_type_hierarchical( $this->get_post_type() ) || post_type_supports( $this->get_post_type(), 'page-attributes' );
 	}
 
 	/**

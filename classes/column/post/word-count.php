@@ -11,10 +11,8 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type']	 	= 'column-word_count';
 		$this->properties['label']	 	= __( 'Word count', 'codepress-admin-columns' );
 	}
@@ -24,8 +22,9 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function get_value( $post_id ) {
+		$count = $this->get_raw_value( $post_id );
 
-		return $this->get_raw_value( $post_id );
+		return $count ? $count : $this->get_empty_char();
 	}
 
 	/**
@@ -33,7 +32,6 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-
 		return $this->str_count_words( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
 	}
 
@@ -42,11 +40,6 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	function apply_conditional() {
-
-		if ( post_type_supports( $this->storage_model->key, 'editor' ) ) {
-			return true;
-		}
-
-		return false;
+		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
 }

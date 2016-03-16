@@ -64,11 +64,12 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 */
 	function get_meta_type() {
 		$object_type = false;
-		if ( isset( $this->storage_model->taxonomy ) ) {
-			$object_type = $this->storage_model->taxonomy;
+		$model = $this->get_storage_model();
+		if ( isset( $model->taxonomy ) ) {
+			$object_type = $model->taxonomy;
 		}
-		elseif ( isset( $this->storage_model->post_type ) ) {
-			$object_type = $this->storage_model->post_type;
+		elseif ( $post_type = $this->get_post_type() ) {
+			$object_type = $post_type;
 		}
 		return $object_type;
 	}
@@ -78,9 +79,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {
-
 		$object_type = $this->get_meta_type();
-
 
 		$menu_item_ids = get_posts( array(
 			'post_type' => 'nav_menu_item',
@@ -116,7 +115,6 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 * @since 2.2.5
 	 */
 	public function display_settings() {
-
 		$this->display_field_link_to_menu();
 	}
 
@@ -126,7 +124,6 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 * @since 2.2.5
 	 */
 	public function display_field_link_to_menu() {
-
 		$field_key = 'link_to_menu';
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
@@ -144,5 +141,4 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 		</tr>
 		<?php
 	}
-
 }

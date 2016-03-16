@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CPAC_Column_Media_Dimensions
  *
@@ -15,8 +16,8 @@ class CPAC_Column_Media_Dimensions extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 	= 'column-dimensions';
-		$this->properties['label']	 	= __( 'Dimensions', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-dimensions';
+		$this->properties['label'] = __( 'Dimensions', 'codepress-admin-columns' );
 	}
 
 	/**

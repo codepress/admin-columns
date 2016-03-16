@@ -13,7 +13,6 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
 		$this->page = 'edit-comments';
-		$this->menu_type = 'other';
 
 		parent::__construct();
 	}
@@ -28,7 +27,16 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	}
 
 	public function get_default_column_names() {
-		return array( 'cb', 'author', 'comment', 'response' );
+		return array( 'cb', 'author', 'comment', 'response', 'date' );
+	}
+
+	protected function get_default_column_widths() {
+		return array(
+			'author'   => array( 'width' => 20 ),
+			'response' => array( 'width' => 15 ),
+			'date'     => array( 'width' => 14 ),
+
+		);
 	}
 
 	public function get_default_columns() {

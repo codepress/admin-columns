@@ -2,7 +2,7 @@
 /**
  * Column class for default columns (i.e. columns not added by Admin Columns).
  * Allows additional properties, such as editability and filterability, to be
- * added to defeault column types.
+ * added to default column types.
  *
  * @since 2.2.1
  */
@@ -19,6 +19,7 @@ class CPAC_Column_Default extends CPAC_Column {
 		// Properties
 		$this->properties['type'] = 'column-default';
 		$this->properties['handle'] = NULL;
+		$this->properties['group'] = __( 'Default', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -26,12 +27,10 @@ class CPAC_Column_Default extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 */
 	public function get_value( $post_id ) {
-
 		if ( ! empty( $this->properties->handle ) ) {
-			return $this->storage_model->get_original_column_value( $this->properties->handle, $post_id );
+			return $this->get_storage_model()->get_original_column_value( $this->properties->handle, $post_id );
 		}
 
 		return '';
 	}
-
 }

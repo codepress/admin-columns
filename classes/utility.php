@@ -25,7 +25,6 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  * @return string Message.
  */
 function cpac_admin_notice() {
-
 	echo implode( $GLOBALS['cpac_messages'] );
 }
 
@@ -39,21 +38,37 @@ function cac_is_doing_ajax() {
 		return false;
 	}
 
-	if ( in_array( filter_input( INPUT_POST, 'action' ), array(
-		'inline-save', // Quick edit
-		'add-tag', // Adding terms
-		'inline-save-tax', // Quick edit terms
-		'edit-comment', // Quick edit comment
-		'replyto-comment' // Inline reply on comment
-	) ) ) {
-		return true;
+	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
+
+	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
+}
+
+/**
+ * Is WordPress doing ajax
+ *
+ * @since 2.5
+ */
+function cac_wp_is_doing_ajax() {
+	$storage_model = false;
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+
+		switch ( filter_input( INPUT_POST, 'action' ) ) {
+			case 'inline-save' :  // Quick edit
+				$storage_model = filter_input( INPUT_POST, 'post_type' );
+				break;
+			case 'add-tag' : // Adding term
+			case 'inline-save-tax' : // Quick edit term
+				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+				break;
+			case 'edit-comment' : // Quick edit comment
+			case 'replyto-comment' :  // Inline reply on comment
+				$storage_model = 'wp-comments';
+				break;
+		}
 	}
 
-	if ( ( isset( $_POST['plugin_id'] ) && 'cpac' == $_POST['plugin_id'] ) || ( isset( $_GET['plugin_id'] ) && 'cpac' == $_GET['plugin_id'] ) ) {
-		return true;
-	}
-
-	return false;
+	return $storage_model;
 }
 
 /**
