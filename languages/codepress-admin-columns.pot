@@ -61,7 +61,7 @@ msgstr ""
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
 msgstr ""
 
-#: ../classes/column.php:345, ../classes/column.php:2517
+#: ../classes/column.php:345, ../classes/column.php:2531
 msgid "Custom"
 msgstr ""
 
@@ -81,191 +81,191 @@ msgstr ""
 msgid "Full"
 msgstr ""
 
-#: ../classes/column.php:2359
+#: ../classes/column.php:2373
 msgid "Date Format"
 msgstr ""
 
-#: ../classes/column.php:2361
+#: ../classes/column.php:2375
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: ../classes/column.php:2371
+#: ../classes/column.php:2385
 msgid "Example:"
 msgstr ""
 
-#: ../classes/column.php:2377
+#: ../classes/column.php:2391
 msgid "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>."
 msgstr ""
 
-#: ../classes/column.php:2379
+#: ../classes/column.php:2393
 msgid "Documentation on date and time formatting."
 msgstr ""
 
-#: ../classes/column.php:2407
+#: ../classes/column.php:2421
 msgid "Excerpt length"
 msgstr ""
 
-#: ../classes/column.php:2409
+#: ../classes/column.php:2423
 msgid "Number of words"
 msgstr ""
 
-#: ../classes/column.php:2443
+#: ../classes/column.php:2457
 msgid "Link label"
 msgstr ""
 
-#: ../classes/column.php:2445
+#: ../classes/column.php:2459
 msgid "Leave blank to display the url"
 msgstr ""
 
-#: ../classes/column.php:2481
+#: ../classes/column.php:2495
 msgid "Preview size"
 msgstr ""
 
-#: ../classes/column.php:2525, ../classes/column.php:2859
+#: ../classes/column.php:2539, ../classes/column.php:2873
 msgid "width"
 msgstr ""
 
-#: ../classes/column.php:2533
+#: ../classes/column.php:2547
 msgid "height"
 msgstr ""
 
-#: ../classes/column.php:2557
+#: ../classes/column.php:2571
 msgid "Before"
 msgstr ""
 
-#: ../classes/column.php:2557
+#: ../classes/column.php:2571
 msgid "This text will appear before the custom field value."
 msgstr ""
 
-#: ../classes/column.php:2559
+#: ../classes/column.php:2573
 msgid "After"
 msgstr ""
 
-#: ../classes/column.php:2559
+#: ../classes/column.php:2573
 msgid "This text will appear after the custom field value."
 msgstr ""
 
-#: ../classes/column.php:2577
+#: ../classes/column.php:2591
 msgid "Display Name"
 msgstr ""
 
-#: ../classes/column.php:2579
+#: ../classes/column.php:2593
 msgid "First Name"
 msgstr ""
 
-#: ../classes/column.php:2581
+#: ../classes/column.php:2595
 msgid "Last Name"
 msgstr ""
 
-#: ../classes/column.php:2583, ../classes/column/user/nickname.php:37
+#: ../classes/column.php:2597, ../classes/column/user/nickname.php:37
 msgid "Nickname"
 msgstr ""
 
-#: ../classes/column.php:2585
+#: ../classes/column.php:2599
 msgid "User Login"
 msgstr ""
 
-#: ../classes/column.php:2587
+#: ../classes/column.php:2601
 msgid "User Email"
 msgstr ""
 
-#: ../classes/column.php:2589, ../classes/column/user/ID.php:35
+#: ../classes/column.php:2603, ../classes/column/user/ID.php:35
 msgid "User ID"
 msgstr ""
 
-#: ../classes/column.php:2591
+#: ../classes/column.php:2605
 msgid "First and Last Name"
 msgstr ""
 
-#: ../classes/column.php:2597
+#: ../classes/column.php:2611
 msgid "Display format"
 msgstr ""
 
-#: ../classes/column.php:2597
+#: ../classes/column.php:2611
 msgid "This is the format of the author name."
 msgstr ""
 
-#: ../classes/column.php:2903
+#: ../classes/column.php:2917
 msgid "Edit"
 msgstr ""
 
-#: ../classes/column.php:2907, ../classes/column.php:3113
+#: ../classes/column.php:2921, ../classes/column.php:3127
 msgid "Clone"
 msgstr ""
 
-#: ../classes/column.php:2911
+#: ../classes/column.php:2925
 msgid "Remove"
 msgstr ""
 
-#: ../classes/column.php:2947, ../classes/column.php:2947, ../classes/column/custom-field.php:466, ../classes/column/comment/type.php:27
+#: ../classes/column.php:2961, ../classes/column.php:2961, ../classes/column/custom-field.php:466, ../classes/column/comment/type.php:27
 msgid "Type"
 msgstr ""
 
-#: ../classes/column.php:2947
+#: ../classes/column.php:2961
 msgid "Choose a column type."
 msgstr ""
 
-#: ../classes/column.php:2947
+#: ../classes/column.php:2961
 msgid "Name"
 msgstr ""
 
-#: ../classes/column.php:2969
+#: ../classes/column.php:2983
 msgid "Label"
 msgstr ""
 
-#: ../classes/column.php:2969
+#: ../classes/column.php:2983
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
-#: ../classes/column.php:2983, ../classes/column/media/width.php:25
+#: ../classes/column.php:2997, ../classes/column/media/width.php:25
 msgid "Width"
 msgstr ""
 
-#: ../classes/column.php:2987
+#: ../classes/column.php:3001
 msgid "default"
 msgstr ""
 
-#: ../classes/column.php:2989
+#: ../classes/column.php:3003
 msgid "auto"
 msgstr ""
 
-#: ../classes/column.php:3157
+#: ../classes/column.php:3171
 msgid "Property To Display"
 msgstr ""
 
-#: ../classes/column.php:3169
+#: ../classes/column.php:3183
 msgid "Post property to display for related post(s)."
 msgstr ""
 
-#: ../classes/column.php:3193, ../classes/column/post/author-name.php:179
+#: ../classes/column.php:3207, ../classes/column/post/author-name.php:179
 msgid "Link To"
 msgstr ""
 
-#: ../classes/column.php:3203
+#: ../classes/column.php:3217
 msgid "Edit Post Author"
 msgstr ""
 
-#: ../classes/column.php:3205
+#: ../classes/column.php:3219
 msgid "View Public Post Author Page"
 msgstr ""
 
-#: ../classes/column.php:3209
+#: ../classes/column.php:3223
 msgid "Page the posts should link to."
 msgstr ""
 
-#: ../classes/column.php:3229
+#: ../classes/column.php:3243
 msgid "The %s column is only available in Admin Columns Pro - Business or Developer."
 msgstr ""
 
-#: ../classes/column.php:3237
+#: ../classes/column.php:3251
 msgid "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
-#: ../classes/column.php:3245
+#: ../classes/column.php:3259
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
 msgstr ""
 
-#: ../classes/column.php:3257
+#: ../classes/column.php:3271
 msgid "Find out more"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
 msgstr ""
 
-#: ../classes/settings.php:771, ../classes/storage_model.php:1717, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
+#: ../classes/settings.php:771, ../classes/storage_model.php:1715, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
 msgid "Default"
 msgstr ""
 
@@ -761,23 +761,23 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/storage_model.php:425
+#: ../classes/storage_model.php:423
 msgid "Columns by Plugins"
 msgstr ""
 
-#: ../classes/storage_model.php:739
+#: ../classes/storage_model.php:737
 msgid "Other"
 msgstr ""
 
-#: ../classes/storage_model.php:1413
+#: ../classes/storage_model.php:1411
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/storage_model.php:1455
+#: ../classes/storage_model.php:1453
 msgid "You are trying to store the same settings for %s."
 msgstr ""
 
-#: ../classes/storage_model.php:2119
+#: ../classes/storage_model.php:2117
 msgid "View"
 msgstr ""
 
@@ -929,7 +929,7 @@ msgstr ""
 msgid "WPML Flags"
 msgstr ""
 
-#: ../classes/column/comment/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/post/ID.php:37
+#: ../classes/column/comment/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/post/ID.php:37
 msgid "ID"
 msgstr ""
 
@@ -993,6 +993,30 @@ msgstr ""
 msgid "Word count"
 msgstr ""
 
+#: ../classes/column/link/description.php:37, ../classes/column/media/description.php:39, ../classes/column/user/description.php:35
+msgid "Description"
+msgstr ""
+
+#: ../classes/column/link/length.php:37
+msgid "Length"
+msgstr ""
+
+#: ../classes/column/link/notes.php:37
+msgid "Notes"
+msgstr ""
+
+#: ../classes/column/link/owner.php:37
+msgid "Owner"
+msgstr ""
+
+#: ../classes/column/link/rss.php:37
+msgid "Rss"
+msgstr ""
+
+#: ../classes/column/link/target.php:37
+msgid "Target"
+msgstr ""
+
 #: ../classes/column/media/alternate-text.php:37
 msgid "Alt"
 msgstr ""
@@ -1011,10 +1035,6 @@ msgstr ""
 
 #: ../classes/column/media/caption.php:37, ../classes/column/media/exif-data.php:81
 msgid "Caption"
-msgstr ""
-
-#: ../classes/column/media/description.php:39, ../classes/column/link/description.php:37, ../classes/column/user/description.php:35
-msgid "Description"
 msgstr ""
 
 #: ../classes/column/media/dimensions.php:39
@@ -1097,27 +1117,31 @@ msgstr ""
 msgid "Mime type"
 msgstr ""
 
-#: ../classes/column/link/length.php:37
-msgid "Length"
+#: ../classes/column/user/display-name.php:33
+msgid "Display name"
 msgstr ""
 
-#: ../classes/column/link/notes.php:37
-msgid "Notes"
+#: ../classes/column/user/first-name.php:35
+msgid "First name"
 msgstr ""
 
-#: ../classes/column/link/owner.php:37
-msgid "Owner"
+#: ../classes/column/user/last-name.php:35
+msgid "Last name"
 msgstr ""
 
-#: ../classes/column/link/rss.php:37
-msgid "Rss"
+#: ../classes/column/user/post-count.php:37
+msgid "Post Count"
 msgstr ""
 
-#: ../classes/column/link/target.php:37
-msgid "Target"
+#: ../classes/column/user/registered.php:37
+msgid "Registered"
 msgstr ""
 
-#: ../classes/column/post/attachment-count.php:37
+#: ../classes/column/user/rich-editing.php:25
+msgid "Visual Editor"
+msgstr ""
+
+#: ../classes/column/post/attachment-count.php:27
 msgid "No. of Attachments"
 msgstr ""
 
@@ -1173,27 +1197,27 @@ msgstr ""
 msgid "Depth"
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:33
+#: ../classes/column/post/estimated-reading-time.php:35
 msgid "Estimated Reading Time"
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:121
+#: ../classes/column/post/estimated-reading-time.php:127
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/column/post/estimated-reading-time.php:127
+#: ../classes/column/post/estimated-reading-time.php:133
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/column/post/estimated-reading-time.php:189
+#: ../classes/column/post/estimated-reading-time.php:197
 msgid "Words per minute"
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:191
+#: ../classes/column/post/estimated-reading-time.php:199
 msgid "Estimated reading time in words per minute"
 msgstr ""
 
@@ -1263,28 +1287,4 @@ msgstr ""
 
 #: ../classes/column/post/title-raw.php:37
 msgid "Title without actions"
-msgstr ""
-
-#: ../classes/column/user/display-name.php:33
-msgid "Display name"
-msgstr ""
-
-#: ../classes/column/user/first-name.php:35
-msgid "First name"
-msgstr ""
-
-#: ../classes/column/user/last-name.php:35
-msgid "Last name"
-msgstr ""
-
-#: ../classes/column/user/post-count.php:37
-msgid "Post Count"
-msgstr ""
-
-#: ../classes/column/user/registered.php:37
-msgid "Registered"
-msgstr ""
-
-#: ../classes/column/user/rich-editing.php:25
-msgid "Visual Editor"
 msgstr ""
