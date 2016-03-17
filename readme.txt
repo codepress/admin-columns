@@ -210,6 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Fixes an issue with some 3rd party column not being visible
+
 = 2.5.2 =
 * [Fixed] Fixes an issue where some of the WordPress default columns did not display correctly
 

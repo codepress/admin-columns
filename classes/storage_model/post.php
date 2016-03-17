@@ -28,15 +28,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	public function init_manage_columns() {
 
 		// Headings
-
-		// Since 3.1
-		add_filter( "manage_{$this->post_type}_posts_columns", array( $this, 'add_headings' ), 100 );
-
-		// Deprecated ( as of 3.1 ) Note: This one is still used by woocommerce.
-		// Priority set to 100 top make sure the WooCommerce headings are overwritten by CAC
-		// Filter is located in get_column_headers().
-		// @todo_minor check compatibility issues for this deprecated filter
-		add_filter( "manage_{$this->page}-{$this->post_type}_columns", array( $this, 'add_headings' ), 100 );
+		// Filter is located in get_column_headers()
+		add_filter( "manage_{$this->page}-{$this->post_type}_columns", array( $this, 'add_headings' ), 200 );
 
 		// values
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
@@ -86,7 +79,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
+		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100 );
 
 		ob_start();
 		// Run WordPress native actions to display column content
