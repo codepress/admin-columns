@@ -47,9 +47,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function get_posts( $args = array() ) {
 		$defaults = array(
-			'numberposts'   => - 1,
+			'numberposts'   => -1,
 			'post_status'   => array( 'any', 'trash' ),
-			'post_type'     => $this->post_type,
+			'post_type'     => $this->get_post_type(),
 			'fields'        => 'ids',
 			'no_found_rows' => 1, // lowers our carbon footprint
 		);
