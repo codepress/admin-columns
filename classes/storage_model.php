@@ -958,11 +958,12 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
-		// in case a 3rd party plugin removes all columns we can skip this
 		if ( empty( $columns ) ) {
 			return $columns;
 		}
 
+		// for the rare case where a screen hasn't been set yet and a
+		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
 		if ( ! get_current_screen() ) {
 			return $columns;
 		}

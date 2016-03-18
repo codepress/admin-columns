@@ -35,7 +35,6 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 			'author'   => array( 'width' => 20 ),
 			'response' => array( 'width' => 15 ),
 			'date'     => array( 'width' => 14 ),
-
 		);
 	}
 
