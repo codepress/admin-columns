@@ -113,12 +113,6 @@ abstract class CPAC_Storage_Model {
 	private $stored_columns = array();
 
 	/**
-	 * @since 2.5
-	 * @var array
-	 */
-	private $default_stored = false;
-
-	/**
 	 * @since 2.4.4
 	 */
 	abstract function get_default_column_names();
@@ -181,8 +175,17 @@ abstract class CPAC_Storage_Model {
 				$default_columns = $this->get_default_column_headings();
 			}
 
-			// Hook for 3rd party columns that have no other way of being initialized
-			$default_columns = apply_filters( 'cac/column_types/defaults', $default_columns, $this );
+			// Custom columns
+			foreach ( $this->columns_filepath as $classname => $path ) {
+				include_once $path;
+				if ( class_exists( $classname, false ) ) {
+					$column = new $classname( $this->key );
+
+					if ( $column->is_registered() ) {
+						$column_types[ $column->get_type() ] = $column;
+					}
+				}
+			}
 
 			// Default columns
 			if ( $default_columns ) {
@@ -222,17 +225,6 @@ abstract class CPAC_Storage_Model {
 					}
 
 					$column_types[ $name ] = $column;
-				}
-			}
-
-			// Custom columns
-			foreach ( $this->columns_filepath as $classname => $path ) {
-				include_once $path;
-				if ( class_exists( $classname, false ) ) {
-					$column = new $classname( $this->key );
-					if ( $column->is_registered() ) {
-						$column_types[ $column->get_type() ] = $column;
-					}
 				}
 			}
 
@@ -671,7 +663,7 @@ abstract class CPAC_Storage_Model {
 	private function get_storage_id() {
 		$layout = $this->layout ? $this->layout : null;
 
-		return self::OPTIONS_KEY . '_' . $this->key . $layout;
+		return $this->get_storage_key() . $layout;
 	}
 
 	/**
@@ -883,7 +875,7 @@ abstract class CPAC_Storage_Model {
 		return get_option( $this->get_storage_key() . "__default", array() );
 	}
 
-	private function delete_default_stored_columns() {
+	public function delete_default_stored_columns() {
 		delete_option( $this->get_storage_key() . "__default" );
 	}
 
@@ -966,23 +958,27 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function add_headings( $columns ) {
 
-		// in case a 3rd party plugin removes all columns we can skip this
 		if ( empty( $columns ) ) {
 			return $columns;
 		}
+
+		// for the rare case where a screen hasn't been set yet and a
+		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
+		if ( ! get_current_screen() ) {
+			return $columns;
+		}
+
+		// Stores the default columns on the listings screen
+		$this->store_default_columns( $columns );
 
 		// make sure we run this only once
 		if ( $this->column_headings ) {
 			return $this->column_headings;
 		}
 
-		// Stores the default columns on the listings screen
-		if ( ! $this->default_stored && $this->is_current_screen() ) {
-			$this->store_default_columns( $columns );
-			$this->default_stored = true;
-		}
+		$stored_columns = $this->get_stored_columns();
 
-		if ( ! ( $stored_columns = $this->get_stored_columns() ) ) {
+		if ( ! $stored_columns ) {
 			return $columns;
 		}
 
@@ -1026,7 +1022,7 @@ abstract class CPAC_Storage_Model {
 		// Add 3rd party columns that have ( or could ) not been stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( $this->get_default_stored_columns() ) ) ) ) {
+		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $this->get_default_stored_columns() ) ) ) ) {
 			foreach ( $diff as $column_name ) {
 				$this->column_headings[ $column_name ] = $columns[ $column_name ];
 			}

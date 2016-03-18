@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.2
+Version: 2.5.3
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.2' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.3' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -171,7 +171,6 @@ class CPAC {
 	 * @uses load_plugin_textdomain()
 	 */
 	public function localize() {
-
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
@@ -286,15 +285,11 @@ class CPAC {
 	 */
 	public function set_columns() {
 
-		$storage_model = false;
-
 		// Listings screen
-		if ( $this->is_columns_screen() ) {
-			$storage_model = $this->get_current_storage_model();
-		}
+		$storage_model = $this->get_current_storage_model();
 
 		// WP Ajax calls (not AC)
-		else if ( $model = cac_wp_is_doing_ajax() ) {
+		if ( $model = cac_wp_is_doing_ajax() ) {
 			$storage_model = $this->get_storage_model( $model );
 		}
 
@@ -313,7 +308,7 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-		if ( ! $this->current_storage_model && $this->get_storage_models() ) {
+		if ( ! $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
 					$this->current_storage_model = $storage_model;
