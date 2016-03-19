@@ -648,7 +648,7 @@ class CPAC_Column {
 	 * @since 1.0
 	 * @return string Trimmed text.
 	 */
-	protected function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
+	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
 		if ( ! $text ) {
 			return false;
 		}
