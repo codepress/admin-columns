@@ -508,8 +508,8 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function set_layout( $layout_id ) {
-		$this->layout = $layout_id;
-		$this->flush_columns(); // forces $this->columns to be repopulated
+		$this->layout = is_scalar( $layout_id ) ? $layout_id : null;
+		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
 	public function init_layout() {
