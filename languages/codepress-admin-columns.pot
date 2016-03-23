@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: ../codepress-admin-columns.php:921
+#: ../codepress-admin-columns.php:911
 msgid "Edit columns"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
 msgstr ""
 
-#: ../classes/settings.php:771, ../classes/storage_model.php:1715, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
+#: ../classes/settings.php:771, ../classes/storage_model.php:1699, ../classes/column/custom-field.php:97, ../classes/column/default.php:22
 msgid "Default"
 msgstr ""
 
@@ -761,23 +761,23 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/storage_model.php:423
+#: ../classes/storage_model.php:429
 msgid "Columns by Plugins"
 msgstr ""
 
-#: ../classes/storage_model.php:737
+#: ../classes/storage_model.php:721
 msgid "Other"
 msgstr ""
 
-#: ../classes/storage_model.php:1411
+#: ../classes/storage_model.php:1395
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/storage_model.php:1453
+#: ../classes/storage_model.php:1437
 msgid "You are trying to store the same settings for %s."
 msgstr ""
 
-#: ../classes/storage_model.php:2117
+#: ../classes/storage_model.php:2109
 msgid "View"
 msgstr ""
 
@@ -981,7 +981,7 @@ msgstr ""
 msgid "In Reply To"
 msgstr ""
 
-#: ../classes/column/comment/status.php:39, ../classes/column/post/status.php:41
+#: ../classes/column/comment/status.php:39, ../classes/column/post/status.php:31
 msgid "Status"
 msgstr ""
 
