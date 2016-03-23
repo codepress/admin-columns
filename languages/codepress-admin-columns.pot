@@ -445,7 +445,7 @@ msgstr ""
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
 msgstr ""
 
-#: ../classes/settings.php:781, ../classes/column/post/excerpt.php:37
+#: ../classes/settings.php:781, ../classes/column/post/excerpt.php:39
 msgid "Excerpt"
 msgstr ""
 
@@ -929,7 +929,7 @@ msgstr ""
 msgid "WPML Flags"
 msgstr ""
 
-#: ../classes/column/comment/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/post/ID.php:37
+#: ../classes/column/comment/ID.php:37, ../classes/column/media/ID.php:37, ../classes/column/link/ID.php:37, ../classes/column/post/ID.php:37
 msgid "ID"
 msgstr ""
 
@@ -993,30 +993,6 @@ msgstr ""
 msgid "Word count"
 msgstr ""
 
-#: ../classes/column/link/description.php:37, ../classes/column/media/description.php:39, ../classes/column/user/description.php:35
-msgid "Description"
-msgstr ""
-
-#: ../classes/column/link/length.php:37
-msgid "Length"
-msgstr ""
-
-#: ../classes/column/link/notes.php:37
-msgid "Notes"
-msgstr ""
-
-#: ../classes/column/link/owner.php:37
-msgid "Owner"
-msgstr ""
-
-#: ../classes/column/link/rss.php:37
-msgid "Rss"
-msgstr ""
-
-#: ../classes/column/link/target.php:37
-msgid "Target"
-msgstr ""
-
 #: ../classes/column/media/alternate-text.php:37
 msgid "Alt"
 msgstr ""
@@ -1035,6 +1011,10 @@ msgstr ""
 
 #: ../classes/column/media/caption.php:37, ../classes/column/media/exif-data.php:81
 msgid "Caption"
+msgstr ""
+
+#: ../classes/column/media/description.php:39, ../classes/column/link/description.php:37, ../classes/column/user/description.php:35
+msgid "Description"
 msgstr ""
 
 #: ../classes/column/media/dimensions.php:39
@@ -1117,28 +1097,24 @@ msgstr ""
 msgid "Mime type"
 msgstr ""
 
-#: ../classes/column/user/display-name.php:33
-msgid "Display name"
+#: ../classes/column/link/length.php:37
+msgid "Length"
 msgstr ""
 
-#: ../classes/column/user/first-name.php:35
-msgid "First name"
+#: ../classes/column/link/notes.php:37
+msgid "Notes"
 msgstr ""
 
-#: ../classes/column/user/last-name.php:35
-msgid "Last name"
+#: ../classes/column/link/owner.php:37
+msgid "Owner"
 msgstr ""
 
-#: ../classes/column/user/post-count.php:37
-msgid "Post Count"
+#: ../classes/column/link/rss.php:37
+msgid "Rss"
 msgstr ""
 
-#: ../classes/column/user/registered.php:37
-msgid "Registered"
-msgstr ""
-
-#: ../classes/column/user/rich-editing.php:25
-msgid "Visual Editor"
+#: ../classes/column/link/target.php:37
+msgid "Target"
 msgstr ""
 
 #: ../classes/column/post/attachment-count.php:27
@@ -1221,6 +1197,10 @@ msgstr ""
 msgid "Estimated reading time in words per minute"
 msgstr ""
 
+#: ../classes/column/post/excerpt.php:69
+msgid "Excerpt from content"
+msgstr ""
+
 #: ../classes/column/post/featured-image.php:37
 msgid "Featured Image"
 msgstr ""
@@ -1287,4 +1267,28 @@ msgstr ""
 
 #: ../classes/column/post/title-raw.php:37
 msgid "Title without actions"
+msgstr ""
+
+#: ../classes/column/user/display-name.php:33
+msgid "Display name"
+msgstr ""
+
+#: ../classes/column/user/first-name.php:35
+msgid "First name"
+msgstr ""
+
+#: ../classes/column/user/last-name.php:35
+msgid "Last name"
+msgstr ""
+
+#: ../classes/column/user/post-count.php:37
+msgid "Post Count"
+msgstr ""
+
+#: ../classes/column/user/registered.php:37
+msgid "Registered"
+msgstr ""
+
+#: ../classes/column/user/rich-editing.php:25
+msgid "Visual Editor"
 msgstr ""
