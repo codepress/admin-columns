@@ -63,6 +63,9 @@ body.upload-php .tablenav.top .cpac-edit {
   margin-left: 7px;
   font-size: 12px;
 }
+.cpac-rounded.cpac-rounded-first {
+  margin-left: 0;
+}
 .cpac-spacing {
   display: inline-block;
   margin-right: 10px;

@@ -29,7 +29,11 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 
-		return $this->get_post_excerpt( $post_id, $this->options->excerpt_length );
+		$value = $this->get_post_excerpt( $post_id, $this->options->excerpt_length );
+		if( ! has_excerpt( $post_id ) ){
+			$value = '<span class="cpac-rounded cpac-rounded-first">Excerpt is empty</span> ' . $value;
+		}
+		return $value;
 	}
 
 	/**
