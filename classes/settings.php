@@ -289,7 +289,7 @@ class CPAC_Settings {
 
 		wp_send_json_success(
 			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" )
-			. ' <a href="' . $storage_model->get_link() .  '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
+			. ' <a href="' . $storage_model->get_link() . '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
 		);
 	}
 
@@ -799,7 +799,11 @@ class CPAC_Settings {
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
 											<span class="left"><?php echo $label; ?></span>
-											<span class="right"><?php echo esc_html( $storage_model->get_truncated_side_label( $label ) ); ?></span>
+											<?php if ( 18 > strlen( $label ) && ( $truncated_label = $storage_model->get_truncated_side_label( $label ) ) ) : ?>
+												<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
+											<?php else : ?>
+												<span class="clear contenttype"><?php echo esc_html( $storage_model->label ); ?></span>
+											<?php endif; ?>
 										</h3>
 
 										<div class="form-update">

@@ -1026,16 +1026,22 @@ a.help {
 				z-index: 2;
 				padding-right: 8px;
 			}
-			span.right {
-				position: absolute;
-				display: inline-block;
+			span.contenttype {
+				display: block;
 				line-height: 20px;
-				z-index: 1;
-				right: 10px;
 				font-size: 12px;
 				text-transform: uppercase;
 				color: #808080;
-				text-align: right;
+				margin-top: 4px;
+
+				&.right {
+					position: absolute;
+					display: inline-block;
+					z-index: 1;
+					right: 10px;
+					text-align: right;
+					margin-top: 0;
+				}
 			}
 		}
 
