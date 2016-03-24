@@ -302,7 +302,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				$checkmark = '<span class="dashicons dashicons-yes cpac_status_yes"></span>';
 
 				if ( empty( $meta ) || 'false' === $meta || '0' === $meta ) {
-					$checkmark = '';
+					$checkmark = '<span class="dashicons dashicons-no cpac_status_no"></span>';
 				}
 
 				$meta = $checkmark;
