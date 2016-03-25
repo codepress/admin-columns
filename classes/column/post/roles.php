@@ -7,41 +7,38 @@
  */
 class CPAC_Column_Post_Roles extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
-	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-roles';
 		$this->properties['label'] = __( 'Roles', 'codepress-admin-columns' );
 	}
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
-	function get_value( $post_id ) {
-		$roles = array_map( 'translate_user_role', $this->get_raw_value( $post_id ) );
-
-		return implode( ', ', $roles );
-	}
-
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
-	 */
-	function get_raw_value( $post_id ) {
-
-		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
-
-		if ( empty( $userdata->roles[0] ) ) {
-			return array();
+	public function get_roles() {
+		$roles = array();
+		foreach ( wp_roles()->roles as $k => $role ) {
+			$roles[ $k ] = translate_user_role( $role['name'] );
 		}
 
-		return $userdata->roles;
+		return $roles;
+	}
+
+	public function get_value( $post_id ) {
+		$roles = $this->get_roles();
+
+		$role_names = array();
+		foreach ( $this->get_raw_value( $post_id ) as $role ) {
+			if ( isset( $roles[ $role ] ) ) {
+				$role_names[ $role ] = $roles[ $role ];
+			}
+		}
+
+		return implode( ', ', $role_names );
+	}
+
+	public function get_raw_value( $post_id ) {
+		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
+
+		return empty( $userdata->roles[0] ) ? array() : $userdata->roles;
 	}
 }
