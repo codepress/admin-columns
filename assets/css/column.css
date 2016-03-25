@@ -30,6 +30,10 @@ body.edit-tags-php .tablenav.top .cpac-edit {
 .cpac_status_no {
   color: #dc3232;
 }
+body.edit-php #delete_all {
+  float: left;
+  margin-right: 3px;
+}
 body.users-php .tablenav .actions a.add-new-h2 {
   float: none;
   vertical-align: middle !important;
