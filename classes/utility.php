@@ -28,6 +28,10 @@ function cpac_admin_notice() {
 	echo implode( $GLOBALS['cpac_messages'] );
 }
 
+function cpac_settings_message( $message = '', $type = 'updated' ) {
+	$GLOBALS['cpac_settings_messages'][] = '<div class="cpac_message inline ' . $type . '"><p>' . $message . '</p></div>'; // .inline prevents JS from placing it below h2
+}
+
 /**
  * Is doing ajax
  *

@@ -321,7 +321,7 @@ class CPAC_Settings {
 						$storage_model->restore();
 						$storage_model->flush_columns();
 
-						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -700,6 +700,12 @@ class CPAC_Settings {
 		return $storage_model;
 	}
 
+	public function messages() {
+		if ( ! empty( $GLOBALS['cpac_settings_messages'] ) ) {
+			echo implode( $GLOBALS['cpac_settings_messages'] );
+		}
+	}
+
 	/**
 	 * @since 1.0
 	 */
@@ -962,6 +968,8 @@ class CPAC_Settings {
 									</p>
 								</div>
 							<?php endif ?>
+
+							<?php $this->messages(); ?>
 
 							<div class="ajax-message"><p></p></div>
 
