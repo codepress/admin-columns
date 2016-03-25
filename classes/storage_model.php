@@ -964,7 +964,7 @@ abstract class CPAC_Storage_Model {
 
 		// for the rare case where a screen hasn't been set yet and a
 		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() ) {
+		if ( ! get_current_screen() && ! cac_wp_is_doing_ajax() ) {
 			return $columns;
 		}
 
