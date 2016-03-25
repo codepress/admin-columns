@@ -278,7 +278,11 @@ class CPAC_Settings {
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
-			wp_send_json_error( $stored->get_error_message() );
+			wp_send_json_error( array(
+					'type'    => 'same-settings' === $stored->get_error_code() ? 'notice notice-warning' : 'error',
+					'message' => $stored->get_error_message()
+				)
+			);
 		}
 
 		wp_send_json_success(

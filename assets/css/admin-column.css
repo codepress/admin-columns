@@ -40,6 +40,9 @@
 .cpac_message.error.warning {
   border-left: 4px solid #ffba00;
 }
+.cpac_message.notice {
+  border-left: 4px solid #ffb900;
+}
 .ajax-message {
   display: none;
 }

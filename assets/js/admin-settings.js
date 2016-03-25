@@ -72,7 +72,7 @@ function cpac_submit_form() {
 
 					// Error message
 					else if ( response.data ) {
-						$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+						$msg.addClass( response.data.type ).find( 'p' ).html( response.data.message );
 						$msg.slideDown();
 					}
 				}
