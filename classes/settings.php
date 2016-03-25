@@ -182,17 +182,12 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		// add settings page
 		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
-		// add help tabs
-		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
-
-		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
-		// add cap to options.php
 		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
+		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
 
 		$this->enqueue_admin_scripts();
 	}
@@ -224,7 +219,6 @@ class CPAC_Settings {
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . "assets/css/admin-column{$minified}.css", array(), CPAC_VERSION, 'all' );
 	}
 
