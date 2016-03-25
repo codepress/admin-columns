@@ -11,7 +11,7 @@ class CPAC_WPML_COLUMN {
 
 	function __construct( $post_type ) {
 		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
-		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 101 ); // prio just after AC overwrite all columns
+		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 201 ); // prio just after AC overwrite all columns
 	}
 
 	public function store_wpml_column( $columns ) {
@@ -49,17 +49,6 @@ class CPAC_WPML {
 
 		// set WPML to be a columns screen for translation so that storage models are loaded
 		add_filter( 'cac/is_cac_screen', array( $this, 'is_cac_screen' ) );
-
-		// change label from icl_translations to WPML flags
-		add_action( 'cac/column_types', array( $this, 'readable_label' ) );
-	}
-
-	public function readable_label( $column_types ) {
-		if ( isset( $column_types['icl_translations'] ) ) {
-			$column_types['icl_translations']->properties->name = __( 'WPML Flags', 'codepress-admin-columns' );
-		}
-
-		return $column_types;
 	}
 
 	public function replace_flags( $cac ) {
@@ -87,7 +76,7 @@ class CPAC_WPML {
 	// Create translatable column labels
 	public function register_column_labels() {
 
-		// dont load this unless required by WPML
+		// don't load this unless required by WPML
 		if ( ! isset( $_GET['page'] ) || 'wpml-string-translation/menu/string-translation.php' !== $_GET['page'] ) {
 			return;
 		}
