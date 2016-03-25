@@ -959,7 +959,7 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
-							<?php if ( ! $storage_model->get_default_stored_columns() ): ?>
+							<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
 								<div class="cpac-notice">
 									<p>
 										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
