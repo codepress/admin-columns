@@ -777,16 +777,21 @@
   z-index: 2;
   padding-right: 8px;
 }
-.columns-right .sidebox h3 span.right {
-  position: absolute;
-  display: inline-block;
+.columns-right .sidebox h3 span.contenttype {
+  display: block;
   line-height: 20px;
-  z-index: 1;
-  right: 10px;
   font-size: 12px;
   text-transform: uppercase;
   color: #808080;
+  margin-top: 4px;
+}
+.columns-right .sidebox h3 span.contenttype.right {
+  position: absolute;
+  display: inline-block;
+  z-index: 1;
+  right: 10px;
   text-align: right;
+  margin-top: 0;
 }
 .columns-right .sidebox .inside {
   padding: 10px;
