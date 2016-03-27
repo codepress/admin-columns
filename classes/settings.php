@@ -228,6 +228,9 @@ class CPAC_Settings {
 	public function admin_scripts() {
 
 		wp_enqueue_script( 'wp-pointer' );
+
+		// width slider
+		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
