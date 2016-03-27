@@ -439,6 +439,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_storage_model_key() {
+		return $this->storage_model;
+	}
+
+	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {

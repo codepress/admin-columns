@@ -300,6 +300,26 @@ class CPAC {
 	}
 
 	/**
+	 * Get column object
+	 * 
+	 * @since NEWVERSION
+	 * @param $storage_key CPAC_Storage_Model->key
+	 * @param $layout_id CPAC_Storage_Model->layout
+	 * @param $column_name CPAC_Column->name
+	 *
+	 * @return object CPAC_Column Column onject
+	 */
+	public function get_column( $storage_key, $layout_id, $column_name ) {
+		$column = false;
+		if ( $storage_model = $this->get_storage_model( $storage_key ) ) {
+			$storage_model->set_layout( $layout_id );
+			$column = $storage_model->get_column_by_name( $column_name );
+		}
+
+		return $column;
+	}
+
+	/**
 	 * Get storage model object of currently active storage model
 	 * On the users overview page, for example, this returns the CPAC_Storage_Model_User object
 	 *
