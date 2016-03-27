@@ -301,7 +301,7 @@ class CPAC {
 
 	/**
 	 * Get column object
-	 * 
+	 *
 	 * @since NEWVERSION
 	 * @param $storage_key CPAC_Storage_Model->key
 	 * @param $layout_id CPAC_Storage_Model->layout
