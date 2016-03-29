@@ -103,12 +103,15 @@ class CPAC_Column {
 	 * @return bool Whether the column type should be available
 	 */
 	public function apply_conditional() {
-
 		return true;
 	}
 
 	public function is_default() {
 		return isset( $this->properties->default ) && $this->properties->default;
+	}
+
+	public function is_orignal() {
+		return isset( $this->properties->original ) && $this->properties->original;
 	}
 
 	/**
@@ -169,7 +172,8 @@ class CPAC_Column {
 			'hide_label'       => false,   // Should the Label be hidden?
 			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
-			'default'          => false,   // Is this a WP default column,
+			'default'          => false,   // Is this a WP default column, used for displaying values
+			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
 		);
