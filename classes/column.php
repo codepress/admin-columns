@@ -438,7 +438,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5.4
 	 */
 	public function get_storage_model_key() {
 		return $this->storage_model;
