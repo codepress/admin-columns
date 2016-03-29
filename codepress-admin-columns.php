@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.3
+Version: 2.5.4
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.3' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.4' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -302,7 +302,7 @@ class CPAC {
 	/**
 	 * Get column object
 	 *
-	 * @since NEWVERSION
+	 * @since 2.5.4
 	 * @param $storage_key CPAC_Storage_Model->key
 	 * @param $layout_id CPAC_Storage_Model->layout
 	 * @param $column_name CPAC_Column->name
