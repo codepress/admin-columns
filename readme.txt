@@ -210,6 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Columns can be marked as original, in case the default has been replaced by an ac-column
+
 = 2.5.4 =
 * [Fixed] Edit columns button will be positioned correctly on the Trash page
 * [Fixed] Obsolete images have been removed

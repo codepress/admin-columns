@@ -110,7 +110,7 @@ class CPAC_Column {
 		return isset( $this->properties->default ) && $this->properties->default;
 	}
 
-	public function is_orignal() {
+	public function is_original() {
 		return isset( $this->properties->original ) && $this->properties->original;
 	}
 
