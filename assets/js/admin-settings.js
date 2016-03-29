@@ -72,7 +72,7 @@ function cpac_submit_form() {
 
 					// Error message
 					else if ( response.data ) {
-						$msg.addClass( 'error' ).find( 'p' ).html( response.data );
+						$msg.addClass( response.data.type ).find( 'p' ).html( response.data.message );
 						$msg.slideDown();
 					}
 				}
@@ -687,13 +687,9 @@ function cpac_pointer() {
 			content : jQuery( '#' + html ).html(),
 			position : position,
 			pointerWidth : width,
-			close : function() {
-				el.removeClass( 'open' );
-			},
-
 			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
 			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-			pointerClass : 'wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
+			pointerClass : 'cpac-wp-pointer wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
 		} );
 
 		// click
@@ -712,12 +708,27 @@ function cpac_pointer() {
 		el.hover( function() {
 			jQuery( this ).pointer( 'open' );
 		}, function() {
-			if ( !el.hasClass( 'open' ) ) {
-				jQuery( this ).pointer( 'close' );
-			}
+			var el = jQuery( this );
+			setTimeout( function(){
+				if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+					el.pointer( 'close' );
+				}
+			}, 100 );
 
-		} );
+		} ).on( 'close', function(){
+			if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+				el.pointer( 'close' );
+			}
+		});
 	} );
+
+	jQuery('.cpac-wp-pointer' ).hover( function(){
+		jQuery(this ).addClass('hover');
+	}, function(){
+		jQuery(this ).removeClass('hover');
+		jQuery( '.cpac-pointer' ).trigger('close');
+	} );
+
 }
 
 /*

@@ -508,8 +508,8 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function set_layout( $layout_id ) {
-		$this->layout = $layout_id;
-		$this->flush_columns(); // forces $this->columns to be repopulated
+		$this->layout = is_scalar( $layout_id ) ? $layout_id : null;
+		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
 	public function init_layout() {
@@ -964,7 +964,7 @@ abstract class CPAC_Storage_Model {
 
 		// for the rare case where a screen hasn't been set yet and a
 		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() ) {
+		if ( ! get_current_screen() && ! cac_wp_is_doing_ajax() ) {
 			return $columns;
 		}
 

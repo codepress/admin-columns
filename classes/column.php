@@ -166,13 +166,12 @@ class CPAC_Column {
 			'name'             => null,    // Unique name
 			'label'            => null,    // Label which describes this column.
 			'classes'          => null,    // Custom CSS classes for this column.
-			'hide_label'       => false,    // Should the Label be hidden?
+			'hide_label'       => false,   // Should the Label be hidden?
 			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
-			'default'          => false,    // Is this a WP default column,
-			'group'            => __( 'Custom', 'codepress-admin-columns' ),
-			'hidden'           => false,
-			'use_before_after' => false
+			'default'          => false,   // Is this a WP default column,
+			'use_before_after' => false,   // Should the column use before and after fields
+			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
 		);
 
 		// @since 2.4.7
@@ -184,11 +183,11 @@ class CPAC_Column {
 
 		// Default options
 		$default_options = array(
-			'before'     => '', // Before field
-			'after'      => '', // After field
-			'width'      => null, // Width for this column.
-			'width_unit' => '%', // Unit for width; pecentage (%) or pixels (px).
-			'state'      => 'off' // Active state for this column.
+			'before'     => '',    // Before field
+			'after'      => '',    // After field
+			'width'      => null,  // Width for this column.
+			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
+			'state'      => 'off'  // Active state for this column.
 		);
 
 		/**
@@ -439,6 +438,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.5.4
+	 */
+	public function get_storage_model_key() {
+		return $this->storage_model;
+	}
+
+	/**
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {
@@ -648,7 +654,7 @@ class CPAC_Column {
 	 * @since 1.0
 	 * @return string Trimmed text.
 	 */
-	protected function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
+	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
 		if ( ! $text ) {
 			return false;
 		}

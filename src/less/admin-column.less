@@ -18,34 +18,6 @@
 	background: transparent url('../images/icon.png') no-repeat 0 0;
 }
 
-.cpac-settings-link {
-	float: right;
-	margin: 12px 14px 5px 0;
-	background: transparent url('../images/settings.png') no-repeat 0 0;
-	padding-left: 20px;
-	text-decoration: none;
-	display: inline-block;
-	line-height: 16px;
-
-	&.current {
-		font-weight: bold;
-	}
-}
-
-.rtl .cpac-settings-link {
-	float: left;
-	margin: 12px 0 5px 14px;
-	padding-right: 20px;
-	padding-left: 0;
-}
-
-a.help {
-	background: transparent url('../images/help.png') no-repeat 0 0;
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-}
-
 .button.loading {
 	padding-right: 25px;
 	position: relative;
@@ -83,28 +55,6 @@ a.help {
 
 .ajax-message {
 	display: none;
-}
-
-/**
- * Icons
- * ----------------------------------------------------------------------------
- */
-.icon-yes {
-	background: transparent url(../images/yes.png) no-repeat 0 0;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	position: relative;
-	top: 2px;
-}
-
-.icon-no {
-	background: transparent url(../images/no.png) no-repeat 0 0;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	position: relative;
-	top: 2px;
 }
 
 /**
@@ -1026,16 +976,22 @@ a.help {
 				z-index: 2;
 				padding-right: 8px;
 			}
-			span.right {
-				position: absolute;
-				display: inline-block;
+			span.contenttype {
+				display: block;
 				line-height: 20px;
-				z-index: 1;
-				right: 10px;
 				font-size: 12px;
 				text-transform: uppercase;
 				color: #808080;
-				text-align: right;
+				margin-top: 4px;
+
+				&.right {
+					position: absolute;
+					display: inline-block;
+					z-index: 1;
+					right: 10px;
+					text-align: right;
+					margin-top: 0;
+				}
 			}
 		}
 

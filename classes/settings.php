@@ -182,17 +182,12 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		// add settings page
 		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
-		// add help tabs
-		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
-
-		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
-		// add cap to options.php
 		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
+		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
 
 		$this->enqueue_admin_scripts();
 	}
@@ -224,7 +219,6 @@ class CPAC_Settings {
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_style( 'cpac-admin', CPAC_URL . "assets/css/admin-column{$minified}.css", array(), CPAC_VERSION, 'all' );
 	}
 
@@ -234,6 +228,9 @@ class CPAC_Settings {
 	public function admin_scripts() {
 
 		wp_enqueue_script( 'wp-pointer' );
+
+		// width slider
+		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -284,12 +281,16 @@ class CPAC_Settings {
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
-			wp_send_json_error( $stored->get_error_message() );
+			wp_send_json_error( array(
+					'type'    => 'same-settings' === $stored->get_error_code() ? 'notice notice-warning' : 'error',
+					'message' => $stored->get_error_message()
+				)
+			);
 		}
 
 		wp_send_json_success(
 			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" )
-			. ' <a href="' . $storage_model->get_link() .  '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
+			. ' <a href="' . $storage_model->get_link() . '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
 		);
 	}
 
@@ -321,7 +322,7 @@ class CPAC_Settings {
 						$storage_model->restore();
 						$storage_model->flush_columns();
 
-						cpac_admin_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -700,6 +701,12 @@ class CPAC_Settings {
 		return $storage_model;
 	}
 
+	public function messages() {
+		if ( ! empty( $GLOBALS['cpac_settings_messages'] ) ) {
+			echo implode( $GLOBALS['cpac_settings_messages'] );
+		}
+	}
+
 	/**
 	 * @since 1.0
 	 */
@@ -799,7 +806,11 @@ class CPAC_Settings {
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
 											<span class="left"><?php echo $label; ?></span>
-											<span class="right"><?php echo esc_html( $storage_model->get_truncated_side_label( $label ) ); ?></span>
+											<?php if ( 18 > strlen( $label ) && ( $truncated_label = $storage_model->get_truncated_side_label( $label ) ) ) : ?>
+												<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
+											<?php else : ?>
+												<span class="clear contenttype"><?php echo esc_html( $storage_model->label ); ?></span>
+											<?php endif; ?>
 										</h3>
 
 										<div class="form-update">
@@ -951,13 +962,15 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
-							<?php if ( ! $storage_model->get_default_stored_columns() ): ?>
+							<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
 								<div class="cpac-notice">
 									<p>
 										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
 									</p>
 								</div>
 							<?php endif ?>
+
+							<?php $this->messages(); ?>
 
 							<div class="ajax-message"><p></p></div>
 

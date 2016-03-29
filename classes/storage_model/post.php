@@ -47,11 +47,11 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function get_posts( $args = array() ) {
 		$defaults = array(
-			'numberposts'   => - 1,
-			'post_status'   => array( 'any', 'trash' ),
-			'post_type'     => $this->post_type,
-			'fields'        => 'ids',
-			'no_found_rows' => 1, // lowers our carbon footprint
+			'posts_per_page' => -1,
+			'post_status'    => apply_filters( 'cac/get_posts/post_status', array( 'any', 'trash' ), $this ),
+			'post_type'      => $this->get_post_type(),
+			'fields'         => 'ids',
+			'no_found_rows'  => 1,
 		);
 
 		return (array) get_posts( array_merge( $defaults, $args ) );
