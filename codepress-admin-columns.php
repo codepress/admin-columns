@@ -164,6 +164,11 @@ class CPAC {
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
+
+		// Current listings page storage model
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			do_action( 'cac/current_storage_model', $storage_model );
+		}
 	}
 
 	/**
@@ -186,7 +191,7 @@ class CPAC {
 		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
 		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
-		if ( $this->is_columns_screen() ) {
+		if ( $this->get_current_storage_model() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
 
