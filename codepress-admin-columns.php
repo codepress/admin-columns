@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.3
+Version: 2.5.4.1
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.3' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.4.1' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -164,6 +164,11 @@ class CPAC {
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
+
+		// Current listings page storage model
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			do_action( 'cac/current_storage_model', $storage_model );
+		}
 	}
 
 	/**
@@ -186,7 +191,7 @@ class CPAC {
 		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
 		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
-		if ( $this->is_columns_screen() ) {
+		if ( $this->get_current_storage_model() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
 
@@ -297,6 +302,26 @@ class CPAC {
 			$storage_model->init_layout();
 			$storage_model->init_manage_columns();
 		}
+	}
+
+	/**
+	 * Get column object
+	 *
+	 * @since 2.5.4
+	 * @param $storage_key CPAC_Storage_Model->key
+	 * @param $layout_id CPAC_Storage_Model->layout
+	 * @param $column_name CPAC_Column->name
+	 *
+	 * @return object CPAC_Column Column onject
+	 */
+	public function get_column( $storage_key, $layout_id, $column_name ) {
+		$column = false;
+		if ( $storage_model = $this->get_storage_model( $storage_key ) ) {
+			$storage_model->set_layout( $layout_id );
+			$column = $storage_model->get_column_by_name( $column_name );
+		}
+
+		return $column;
 	}
 
 	/**

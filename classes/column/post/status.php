@@ -24,8 +24,8 @@ class CPAC_Column_Post_Status extends CPAC_Column {
 
 	public function get_statuses() {
 		if ( empty( $this->statuses ) ) {
-			global $wp_post_statuses;
-			foreach ( $wp_post_statuses as $k => $status ) {
+			$stati = get_post_stati( array( 'internal' => 0 ), 'objects' ) ;
+			foreach ( $stati as $k => $status ) {
 				$this->statuses[ $k ] = $status->label;
 			}
 		}

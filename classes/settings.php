@@ -228,6 +228,9 @@ class CPAC_Settings {
 	public function admin_scripts() {
 
 		wp_enqueue_script( 'wp-pointer' );
+
+		// width slider
+		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
 		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -278,7 +281,11 @@ class CPAC_Settings {
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
-			wp_send_json_error( $stored->get_error_message() );
+			wp_send_json_error( array(
+					'type'    => 'same-settings' === $stored->get_error_code() ? 'notice notice-warning' : 'error',
+					'message' => $stored->get_error_message()
+				)
+			);
 		}
 
 		wp_send_json_success(
@@ -955,7 +962,7 @@ class CPAC_Settings {
 						</div><!--.columns-right-->
 
 						<div class="columns-left">
-							<?php if ( ! $storage_model->get_default_stored_columns() ): ?>
+							<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
 								<div class="cpac-notice">
 									<p>
 										<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>

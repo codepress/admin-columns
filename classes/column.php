@@ -103,12 +103,15 @@ class CPAC_Column {
 	 * @return bool Whether the column type should be available
 	 */
 	public function apply_conditional() {
-
 		return true;
 	}
 
 	public function is_default() {
 		return isset( $this->properties->default ) && $this->properties->default;
+	}
+
+	public function is_original() {
+		return isset( $this->properties->original ) && $this->properties->original;
 	}
 
 	/**
@@ -166,13 +169,13 @@ class CPAC_Column {
 			'name'             => null,    // Unique name
 			'label'            => null,    // Label which describes this column.
 			'classes'          => null,    // Custom CSS classes for this column.
-			'hide_label'       => false,    // Should the Label be hidden?
+			'hide_label'       => false,   // Should the Label be hidden?
 			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
-			'default'          => false,    // Is this a WP default column,
-			'group'            => __( 'Custom', 'codepress-admin-columns' ),
-			'hidden'           => false,
-			'use_before_after' => false
+			'default'          => false,   // Is this a WP default column, used for displaying values
+			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
+			'use_before_after' => false,   // Should the column use before and after fields
+			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
 		);
 
 		// @since 2.4.7
@@ -184,11 +187,11 @@ class CPAC_Column {
 
 		// Default options
 		$default_options = array(
-			'before'     => '', // Before field
-			'after'      => '', // After field
-			'width'      => null, // Width for this column.
-			'width_unit' => '%', // Unit for width; pecentage (%) or pixels (px).
-			'state'      => 'off' // Active state for this column.
+			'before'     => '',    // Before field
+			'after'      => '',    // After field
+			'width'      => null,  // Width for this column.
+			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
+			'state'      => 'off'  // Active state for this column.
 		);
 
 		/**
@@ -436,6 +439,13 @@ class CPAC_Column {
 	 */
 	public function get_post_type() {
 		return $this->get_storage_model()->get_post_type();
+	}
+
+	/**
+	 * @since 2.5.4
+	 */
+	public function get_storage_model_key() {
+		return $this->storage_model;
 	}
 
 	/**

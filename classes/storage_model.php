@@ -175,18 +175,6 @@ abstract class CPAC_Storage_Model {
 				$default_columns = $this->get_default_column_headings();
 			}
 
-			// Custom columns
-			foreach ( $this->columns_filepath as $classname => $path ) {
-				include_once $path;
-				if ( class_exists( $classname, false ) ) {
-					$column = new $classname( $this->key );
-
-					if ( $column->is_registered() ) {
-						$column_types[ $column->get_type() ] = $column;
-					}
-				}
-			}
-
 			// Default columns
 			if ( $default_columns ) {
 
@@ -228,6 +216,18 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 
+			// Custom columns
+			foreach ( $this->columns_filepath as $classname => $path ) {
+				include_once $path;
+				if ( class_exists( $classname, false ) ) {
+					$column = new $classname( $this->key );
+
+					if ( $column->is_registered() ) {
+						$column_types[ $column->get_type() ] = $column;
+					}
+				}
+			}
+
 			$this->column_types = $column_types;
 
 			// @since 2.5
@@ -243,10 +243,9 @@ abstract class CPAC_Storage_Model {
 	 */
 	private function get_default_colummn_types() {
 		$defaults = array();
-		$default_columns = $this->get_default_stored_columns();
 
 		foreach ( $this->get_column_types() as $type => $column ) {
-			if ( $column->is_default() || ( $default_columns && in_array( $type, array_keys( $default_columns ) ) ) ) {
+			if ( $column->is_default() || $column->is_original() ) {
 				$defaults[ $type ] = $column;
 			}
 		}

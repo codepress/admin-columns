@@ -38,11 +38,7 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 				continue;
 			}
 
-			$image = implode( $this->get_thumbnails( $value, array(
-				'image_size'	=> $this->options->image_size,
-				'image_size_w'	=> $this->options->image_size_w,
-				'image_size_h'	=> $this->options->image_size_h,
-			) ) );
+			$image = implode( $this->get_thumbnails( $value, (array) $this->options ) );
 
 			$values[ $index ] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $value ) . '">' . $image . '</div>';
 		}
