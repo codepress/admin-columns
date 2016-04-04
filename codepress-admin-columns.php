@@ -127,6 +127,7 @@ class CPAC {
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
+		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
 		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
@@ -211,6 +212,19 @@ class CPAC {
 		if ( $role = get_role( 'administrator' ) ) {
 			$role->add_cap( 'manage_admin_columns' );
 		}
+	}
+
+	/**
+	 * Set the primary columns for the Admin Columns columns
+	 *
+	 * @since NEWVERSION
+	 */
+	public function set_primary_column( $default ) {
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			$default = key( $storage_model->get_columns() );
+		}
+
+		return $default;
 	}
 
 	/**
