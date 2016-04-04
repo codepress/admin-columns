@@ -39,9 +39,4 @@ function cpac_quickedit_events() {
 		;
 
 	} );
-
 }
-
-
-
-
