@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
  * supporting WordPress' native way of handling terms.
@@ -7,21 +8,16 @@
  */
 class CPAC_Column_Taxonomy extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
-	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']			= 'column-taxonomy';
-		$this->properties['label']			= __( 'Taxonomy', 'codepress-admin-columns' );
-		$this->properties['is_cloneable']	= true;
+		$this->properties['type'] = 'column-taxonomy';
+		$this->properties['label'] = __( 'Taxonomy', 'codepress-admin-columns' );
+		$this->properties['is_cloneable'] = true;
 
 		// Options
-		$this->options['taxonomy']	= ''; // Taxonomy slug
+		$this->options['taxonomy'] = ''; // Taxonomy slug
 	}
 
 	/**
@@ -30,7 +26,8 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 		$term_ids = $this->get_raw_value( $post_id );
-		return $this->get_terms_for_display( $term_ids, $this->options->taxonomy );
+
+		return $this->get_terms_for_display( $term_ids, $this->get_taxonomy() );
 	}
 
 	/**
@@ -38,7 +35,7 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-		return wp_get_post_terms( $post_id, $this->options->taxonomy, array( 'fields' => 'ids' ) );
+		return wp_get_post_terms( $post_id, $this->get_taxonomy(), array( 'fields' => 'ids' ) );
 	}
 
 	/**
@@ -46,7 +43,7 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_taxonomy() {
-		return $this->options->taxonomy;
+		return $this->get_option( 'taxonomy' );
 	}
 
 	/**
@@ -69,7 +66,6 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_settings() {
-
 		$taxonomies = get_object_taxonomies( $this->get_post_type(), 'objects' );
 
 		foreach ( $taxonomies as $index => $taxonomy ) {
@@ -83,9 +79,9 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 			<?php $this->label_view( __( "Taxonomy", 'codepress-admin-columns' ), '', 'taxonomy' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'taxonomy' ); ?>" id="<?php $this->attr_id( 'taxonomy' ); ?>">
-				<?php foreach ( $taxonomies as $taxonomy ) : ?>
-					<option value="<?php echo $taxonomy->name; ?>"<?php selected( $taxonomy->name, $this->options->taxonomy ) ?>><?php echo $taxonomy->label; ?></option>
-				<?php endforeach; ?>
+					<?php foreach ( $taxonomies as $taxonomy ) : ?>
+						<option value="<?php echo $taxonomy->name; ?>"<?php selected( $taxonomy->name, $this->get_taxonomy() ) ?>><?php echo $taxonomy->label; ?></option>
+					<?php endforeach; ?>
 				</select>
 			</td>
 		</tr>
