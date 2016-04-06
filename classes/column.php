@@ -1103,15 +1103,16 @@ class CPAC_Column {
 	 * @return string Formatted date
 	 */
 	public function get_date( $date, $format = '' ) {
-
-		if ( ! $date = $this->get_timestamp( $date ) ) {
+		if ( ! $timestamp = $this->get_timestamp( $date ) ) {
 			return false;
 		}
+
+		// get general date format
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
 		}
 
-		return date_i18n( $format, $date );
+		return date_i18n( $format, $timestamp );
 	}
 
 	/**
