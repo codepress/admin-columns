@@ -188,12 +188,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 2.4.9
 	 */
 	private function get_link_by_meta( $meta ) {
-		$label = $meta;
 		if ( filter_var( $meta, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $meta ) ) {
-			if ( ! empty( $this->options->link_label ) ) {
-				$label = $this->options->link_label;
-			}
-			$meta = '<a href="' . $meta . '">' . $label . '</a>';
+			$label = $this->get_option( 'link_label' );
+
+			$meta = $label ? '<a href="' . $meta . '">' . $label . '</a>' : false;
 		}
 
 		return $meta;
@@ -263,8 +261,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	public function get_value_by_meta( $meta, $id = null ) {
 
-		switch ( $this->options->field_type ) :
-
+		switch ( $this->get_option( 'field_type') ) :
 			case "image" :
 			case "library_id" :
 				$meta = implode( $this->get_thumbnails( $meta, array(
@@ -382,11 +379,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-		$value = '';
-
-		if ( $meta = $this->get_meta_by_id( $id ) ) {
-			$value = $this->get_value_by_meta( $meta, $id );
-		}
+		$meta = $this->get_meta_by_id( $id ) ;
+		$value = $this->get_value_by_meta( $meta, $id );
 
 		/**
 		 * Filter the display value for Custom Field columns
