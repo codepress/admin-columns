@@ -16,6 +16,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->page = 'edit';
 		$this->screen = $this->page . '-' . $this->post_type;
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+		$this->table_classname = 'WP_Posts_List_Table';
 
 		$this->set_labels();
 
@@ -23,15 +24,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.9
+	 * @since NEWVERSION
 	 */
-	public function init_manage_columns() {
-
-		// Headings
-		// Filter is located in get_column_headers()
-		add_filter( "manage_{$this->page}-{$this->post_type}_columns", array( $this, 'add_headings' ), 200 );
-
-		// values
+	public function init_column_values() {
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 	}
 
@@ -158,37 +153,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post';
 
 		return ( $this->post_type === $post_type ) && parent::is_current_screen();
-	}
-
-	/**
-	 * Get WP default supported admin columns per post type.
-	 *
-	 * @see CPAC_Type::get_default_columns()
-	 * @since 1.0
-	 *
-	 * @return array
-	 */
-	public function get_default_columns() {
-
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return array();
-		}
-
-		// You can use this filter to add thirdparty columns by hooking into this.
-		// See classes/third_party.php for an example.
-		do_action( "cac/columns/default/posts" );
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-		do_action( "cac/columns/default/post_type={$this->post_type}" );
-
-		// Initialize table so it can add actions to manage_{screenid}_columns
-		_get_list_table( 'WP_Posts_List_Table', array( 'screen' => 'edit-' . $this->key ) );
-
-		// get_column_headers() runs through both the manage_{screenid}_columns
-		// and manage_{$post_type}_posts_columns filters
-		$columns = (array) apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
-		$columns = array_filter( $columns );
-
-		return $columns;
 	}
 
 	/**

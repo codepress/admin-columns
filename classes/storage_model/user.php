@@ -18,10 +18,9 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.9
+	 * @since NEWVERSION
 	 */
-	public function init_manage_columns() {
-		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+	public function init_column_values() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
 	}
 
@@ -45,29 +44,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		add_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
 
 		return $contents;
-	}
-
-	/**
-	 * @see CPAC_Type::get_default_columns()
-	 */
-	public function get_default_columns() {
-
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return array();
-		}
-
-		// You can use this filter to add third_party columns by hooking into this.
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-
-		// get columns
-		$table = _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
-		$columns = (array) $table->get_columns();
-
-		if ( cac_is_setting_screen() ) {
-			$columns = array_merge( get_column_headers( 'users' ), $columns );
-		}
-
-		return $columns;
 	}
 
 	/**

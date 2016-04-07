@@ -11,36 +11,16 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->meta_type = 'post';
 		$this->page = 'upload';
 		$this->post_type = 'attachment';
+		$this->table_classname = 'WP_Media_List_Table';
 
 		parent::__construct();
 	}
 
 	/**
-	 * @since 2.4.9
+	 * @since NEWVERSION
 	 */
-	public function init_manage_columns() {
-
-		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+	public function init_column_values() {
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
-	}
-
-	public function get_default_columns() {
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return array();
-		}
-
-		// You can use this filter to add thirdparty columns by hooking into this.
-		// See classes/third_party.php for an example.
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-
-		$table = _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
-		$columns = (array) $table->get_columns();
-
-		if ( cac_is_setting_screen() ) {
-			$columns = array_merge( get_column_headers( 'upload' ), $columns );
-		}
-
-		return $columns;
 	}
 
 	/**
