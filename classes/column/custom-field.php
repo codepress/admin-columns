@@ -76,7 +76,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function sanitize_options( $options ) {
-
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );
 		}
@@ -263,7 +262,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 */
 	public function get_value_by_meta( $meta, $id = null ) {
 
-		switch ( $this->options->field_type ) :
+		switch ( $this->get_option( 'field_type' ) ) :
 
 			case "image" :
 			case "library_id" :
@@ -275,11 +274,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				break;
 
 			case "excerpt" :
-				$meta = $this->get_shortened_string( $meta, $this->options->excerpt_length );
+				$meta = $this->get_shortened_string( $meta, $this->get_option( 'excerpt_length' ) );
 				break;
 
 			case "date" :
-				$meta = $this->get_date( $meta, $this->options->date_format );
+				$meta = $this->get_date( $meta, $this->get_option( 'date_format' ) );
 				break;
 
 			case "link" :
@@ -333,8 +332,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @param string Custom Field Key
 	 */
 	public function get_field_key() {
+		$field = $this->get_option( 'field' );
 
-		return substr( $this->options->field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $this->options->field ) : $this->options->field;
+		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
 	}
 
 	/**
@@ -347,11 +347,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-
 		$meta = $this->get_raw_value( $id );
 
 		// try to turn any array into a comma seperated string for further use
-		if ( ( 'array' == $this->options->field_type && is_array( $meta ) ) || is_array( $meta ) ) {
+		if ( ( 'array' == $this->get_option( 'field_type' ) && is_array( $meta ) ) || is_array( $meta ) ) {
 			$meta = $this->recursive_implode( ', ', $meta );
 		}
 
@@ -446,24 +445,18 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
 			$this->display_field_text( 'field', __( "Custom Field", 'codepress-admin-columns' ), __( "Enter your custom field key.", 'codepress-admin-columns' ) );
 		else :
+			$list = $this->get_meta_keys_list();
 			?>
 			<tr class="column_field">
 				<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
 				<td class="input">
-					<?php
-					if ( $list = $this->get_meta_keys_list() ) {
-						echo $list;
-					}
-					else {
-						_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' );
-					}
-					?>
+					<?php echo $list ? $list : __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ); ?>
 				</td>
 			</tr>
 		<?php endif; ?>
 
 		<tr class="column_field_type" data-refresh="1">
-			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->options->field_type . '</em>', 'field_type' ); ?>
+			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . ( $this->get_option( 'field_type' ) ? '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>' : '' ), 'field_type' ); ?>
 			<td class="input">
 				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
 					<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>

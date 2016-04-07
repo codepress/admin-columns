@@ -1179,31 +1179,29 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function label_view( $label, $description = '', $pointer = '' ) {
-		?>
-		<td class="label">
-			<label for="<?php $this->attr_id( $pointer ); ?>">
-				<?php echo stripslashes( $label ); ?>
-				<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
-			</label>
-		</td>
-		<?php
+		if ( $label ) : ?>
+			<td class="label<?php echo $description ? ' description' : ''; ?>">
+				<label for="<?php $this->attr_id( $pointer ); ?>">
+					<span><?php echo stripslashes( $label ); ?></span>
+					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
+				</label>
+			</td>
+			<?php
+		endif;
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function display_field_date_format() {
-
 		$field_key = 'date_format';
-		$label = __( 'Date Format', 'codepress-admin-columns' );
-		$description = __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' );
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( $label, $description, $field_key ); ?>
+			<?php $this->label_view( __( 'Date Format', 'codepress-admin-columns' ), __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ), $field_key ); ?>
 			<td class="input">
 				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'date_format' ); ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
 
-				<p class="description">
+				<p class="help-msg">
 					<?php printf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
 					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'codepress-admin-columns' ); ?></a>
 				</p>
@@ -1263,7 +1261,7 @@ class CPAC_Column {
 
 			<?php $this->label_view( $label, '', $field_key ); ?>
 
-			<td class="input">
+			<td class="input radio">
 				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : $_sizes = array_keys( $sizes ); ?>
 					<?php $selected = $this->options->image_size ? $this->options->image_size : $_sizes[0]; ?>
 					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
@@ -1293,9 +1291,19 @@ class CPAC_Column {
 	/**
 	 * @since 2.1.1
 	 */
-	public function display_field_before_after() {
-		$this->display_field_text( 'before', __( "Before", 'codepress-admin-columns' ), __( 'This text will appear before the custom field value.', 'codepress-admin-columns' ) );
-		$this->display_field_text( 'after', __( "After", 'codepress-admin-columns' ), __( 'This text will appear after the custom field value.', 'codepress-admin-columns' ) );
+	public function display_field_before_after() { ?>
+		<tr class="section">
+			<td class="label">
+				<span><?php _e( 'Display Options', 'codepress-admin-columns' ); ?></span>
+			</td>
+			<td class="input multiple">
+				<table class="widefat">
+					<?php $this->display_field_text( 'before', __( "Before", 'codepress-admin-columns' ), __( 'This text will appear before the custom field value.', 'codepress-admin-columns' ) ); ?>
+					<?php $this->display_field_text( 'after', __( "After", 'codepress-admin-columns' ), __( 'This text will appear after the custom field value.', 'codepress-admin-columns' ) ); ?>
+				</table>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
@@ -1328,6 +1336,9 @@ class CPAC_Column {
 	 * @param boolean $refresh This will JS refresh the column on change.
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
+		if ( empty( $options ) ) {
+			return;
+		}
 		$current = $this->get_option( $name );
 		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
 		$data_refresh = $js_refresh ? ' data-refresh="1"' : '';
@@ -1353,8 +1364,8 @@ class CPAC_Column {
 	 * @param array $options Select options
 	 * @param strong $description (optional) Description below the label
 	 */
-	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
+	public function display_field_text( $name, $label, $description = '', $placeholder = '', $toggle_trigger = '' ) {
+		$data_optional = $toggle_trigger ? ' data-additional-option-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '';
 		?>
 		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
@@ -1371,8 +1382,7 @@ class CPAC_Column {
 	 * @param string $name Name of the column option
 	 * @param string $value
 	 */
-	public function display_field_hidden( $name, $value = '' ) {
-		?>
+	public function display_field_hidden( $name, $value = '' ) { ?>
 		<tr class="column-<?php echo $name; ?> hidden">
 			<td class="input">
 				<input type="hidden" name="<?php $this->attr_name( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
@@ -1390,24 +1400,24 @@ class CPAC_Column {
 	 * @param strong $description (optional) Description below the label
 	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
 	 */
-	public function display_field_radio( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
-		$current = $this->get_option( $name );
-		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
-		?>
-		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
+	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_trigger = false, $toggle_handle = false, $colspan = false ) { ?>
+		<tr class="column-<?php echo $name; ?><?php echo 2 == $colspan ? ' full' : ''; ?>" <?php echo( $toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $toggle_handle ) . '"' : '' ); ?>>
+
 			<?php $this->label_view( $label, $description, $name ); ?>
-			<td class="input">
+
+			<td class="input radio" <?php echo( $toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '' ); ?><?php echo $colspan ? ' colspan="' . $colspan .  '"' : ''; ?>>
 				<?php foreach ( $options as $key => $label ) : ?>
 					<label>
-						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
+						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $this->get_option( $name ) ); ?>>
 						<?php echo $label; ?>
 					</label>
 				<?php endforeach; ?>
-				</select>
 			</td>
 		</tr>
 		<?php
 	}
+
+
 
 	/**
 	 * @since 2.0
@@ -1480,7 +1490,9 @@ class CPAC_Column {
 								<a href="#"><?php echo stripslashes( $this->properties->label ); ?></a>
 							</div>
 						</td>
-						<td class="column_edit"></td>
+						<td class="column_edit">
+							<span class="dashicons dashicons-arrow-down"></span>
+						</td>
 					</tr>
 					</tbody>
 				</table>
@@ -1553,7 +1565,7 @@ class CPAC_Column {
 					 * Load before and after fields for custom columns.
 					 *
 					 */
-					if ( $this->properties->use_before_after && ! $this->properties->default ) {
+					if ( $this->get_property( 'use_before_after' ) && ! $this->is_default() ) {
 						$this->display_field_before_after();
 					}
 					?>
@@ -1569,7 +1581,7 @@ class CPAC_Column {
 					do_action( 'cac/column/settings_after', $this );
 					?>
 
-					<tr class="column_action">
+					<tr class="column_action section">
 						<td colspan="2">
 							<p>
 								<?php if ( $this->properties->is_cloneable ) : ?>

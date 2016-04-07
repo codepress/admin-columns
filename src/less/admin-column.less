@@ -1,4 +1,9 @@
 @border-gray-dark: #E1E1E1;
+@border-gray: #f0f0f0;
+//@border-gray-light: #f2f2f2;
+
+@bg-gray: #f5f5f5;
+@bg-gray-light: #fcfcfc;
 
 #cpac {
 
@@ -224,7 +229,8 @@
 	margin-bottom: 16px;
 
 	select {
-		display: inline-block;margin: 0;
+		display: inline-block;
+		margin: 0;
 	}
 	.spinner {
 		display: none;
@@ -249,8 +255,8 @@
 	.cpac-notice {
 		background: #fff;
 		border-left: 4px solid #ffba00;
-		-webkit-box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
-		box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		margin-bottom: 15px;
 		padding: 1px 12px;
 	}
@@ -436,7 +442,7 @@
 					&.column_edit {
 						width: 38px;
 						min-width: 38px;
-						background: transparent url('../images/arrow.png') no-repeat 23px 18px;
+						text-align: center;
 						cursor: pointer;
 					}
 				}
@@ -466,7 +472,7 @@
 		}
 
 	}
-	// .column-meta
+	// end .column-meta
 
 	// Column Body
 	.column-form {
@@ -476,7 +482,7 @@
 		border-color: #dfdfdf;
 		position: relative;
 
-		table {
+		> table {
 			border: none;
 			background: #fcfcfc;
 
@@ -489,9 +495,13 @@
 				td {
 					vertical-align: top;
 					border: none;
-					padding: 8px;
+					padding: 12px 10px;
 					background: #ffffff;
-					border-top: 1px solid #F5F5F5;
+					border-top: 1px solid @bg-gray;
+
+					input {
+						margin: 0;
+					}
 
 					select,
 					input[type=text] {
@@ -500,6 +510,14 @@
 						&.small {
 							width: 100px;
 						}
+					}
+
+					select {
+						margin: 0;
+					}
+
+					input[type=radio] {
+						margin: -1px 1px 0 0;
 					}
 
 					span.suffix {
@@ -514,17 +532,21 @@
 					&.label {
 						position: relative;
 						overflow: visible;
-						background: #f5f5f5;
+						background: @bg-gray;
 						border-right: 1px solid @border-gray-dark;
 						vertical-align: top;
 						width: 34%;
 						border-top: 1px solid #F0F0F0;
+						padding-left: 12px;
 
-						label {
+						span {
 							font-weight: bold;
 							color: #333333;
-							display: block;
+							display: inline-block;
+							width: 100%;
 							position: relative;
+							height: 26px;
+							line-height: 26px;
 						}
 
 						p {
@@ -539,15 +561,17 @@
 								display: none;
 								position: absolute;
 								z-index: 99;
-								top: 30px;
+								top: 40px;
 								left: 0;
-								background: #eaf2fa;
-								border-radius: 5px;
-								border: 1px solid #c7d7e2;
-								padding: 5px 8px !important;
 								font-weight: normal;
+								color: #fff;
+								background-color: #333;
+								box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+								padding: .618em 1em;
+								border-radius: 3px;
 
 								em {
+									margin-top: 3px;
 									display: block;
 									color: #999;
 								}
@@ -593,12 +617,37 @@
 								line-height: 14px;
 							}
 						}
+
+						/*
+						// question mark
+						&.description {
+							display: relative;
+
+							&:after {
+								content: '?';
+								color: #d3d3d3;
+								border: 1px solid @border-gray-dark;
+								border-radius: 10px;
+								font-size: 14px;
+								display: block;
+								font-weight: bold;
+								height: 20px;
+								line-height: 20px;
+								width: 20px;
+								position: absolute;
+								right: 10px;
+								top: 10px;
+								text-align: center;
+							}
+						}*/
 					}
 
 					&.input {
-						label {
-							padding-left: 10px;
-							padding-right: 0;
+						vertical-align: middle;
+
+						&.radio label {
+							padding-left: 0;
+							padding-right: 14px;
 						}
 
 						div.msg {
@@ -613,18 +662,44 @@
 							border-radius: 3px;
 						}
 
+						.help-msg {
+							//font-style: italic;
+							margin: 10px 0 0;
+							color: #666;
+							font-size: 12px;
+						}
+
 						.section {
 							padding: 12px;
+						}
+
+						&.multiple {
+							padding: 0;
+
+							table {
+								width: 100%;
+								border: none;
+								min-height: 53px;
+
+								td.label {
+									background-color: @bg-gray-light;
+									border-right: 1px solid @border-gray;
+									width: 35%;
+									vertical-align: middle;
+
+									span {
+										font-size: 12px;
+									}
+								}
+								td.input {
+									width: 65%;
+								}
+							}
 						}
 					}
 				}
 
 				&.column_width {
-
-					td {
-						//border-bottom: 1px solid @border-gray-dark;
-					}
-
 					.input {
 						position: relative;
 
@@ -632,6 +707,7 @@
 							font-size: 11px;
 							width: 54px;
 							position: absolute;
+							top: 15px;
 							left: 10px;
 							text-align: middle;
 
@@ -649,7 +725,7 @@
 							margin-left: 68px;
 							margin-right: 90px;
 							position: relative;
-							margin-top: 5px;
+							margin-top: 0px;
 
 							.ui-slider-handle {
 								cursor: ew-resize;
@@ -657,23 +733,25 @@
 						}
 						div.unit-select {
 							position: absolute;
-							top: 8px;
+							top: 14px;
 							right: 10px;
 							width: 90px;
 							text-align: right;
 
 							label {
 								padding-left: 5px;
+
+								input {
+									margin-right: 3px;
+								}
 							}
 						}
 					}
 				}
 
 				&.column_image_size {
-
 					border: 10px solid red;
-					td.label {
-					}
+
 					td.input {
 						label.custom-size {
 							display: inline-block;
@@ -711,7 +789,7 @@
 
 				&.column_action {
 					td {
-						border-top: 1px solid lighten( @border-gray-dark, 4 );
+						border-top: 1px solid lighten(@border-gray-dark, 4);
 						background: #f9f9f9;
 
 						p {
@@ -735,8 +813,21 @@
 					}
 				}
 
+				// custom field
+				&.column_field {
+					td {
+						border-top: 1px solid @border-gray-dark;
+					}
+				}
+
 				&:first-child td {
 					border-top: none;
+				}
+
+				&.section {
+					> td {
+						border-top: 1px solid @border-gray-dark;
+					}
 				}
 			}
 		}
@@ -766,7 +857,27 @@
 
 	// Open state
 	&.opened {
+
+		// blue
 		.column-meta {
+			background: #0089bf;
+			//background: lighten( #0073aa, 5 );
+			//background: #3da1d6;
+			border-color: #0073aa #006799 #006799;
+
+			table td {
+				border: none;
+				color: #fff !important;
+				text-shadow: #268FBB 0 1px 0;
+				a {
+					color: #fff !important;
+					text-shadow: #268FBB 0 1px 0;
+				}
+			}
+		}
+
+		// gradient
+		.__remove_me___gradient__column-meta {
 			background-color: #c7c7c7;
 			background-image: -ms-linear-gradient(top, #e9e9e9, #c7c7c7);
 			background-image: -moz-linear-gradient(top, #e9e9e9, #c7c7c7);
@@ -1365,11 +1476,6 @@ body.rtl {
 
 					div.input-width-range {
 						float: right;
-					}
-
-					tr td.input label {
-						padding-left: 10px;
-						padding-right: 0;
 					}
 
 					a.help {
