@@ -210,6 +210,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.5.5 =
+* [Improved] Columns with empty values will now display a dash symbol
+* [Fixed] Excerpt column: The label "Excerpt from content" will now only display when the post has content
+
 = 2.5.4.1 =
 * [Fixed] Columns can be marked as original, in case the default has been replaced by an ac-column
 
