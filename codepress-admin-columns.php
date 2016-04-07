@@ -221,7 +221,9 @@ class CPAC {
 	 */
 	public function set_primary_column( $default ) {
 		if ( $storage_model = $this->get_current_storage_model() ) {
-			$default = key( $storage_model->get_columns() );
+			if ( ! $storage_model->get_column_by_name( $default ) ) {
+				$default = key( $storage_model->get_columns() );
+			}
 		}
 
 		return $default;

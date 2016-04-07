@@ -70,7 +70,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var string
 	 */
-	public $table_classname;
+	protected $table_classname;
 
 	/**
 	 * @since 2.5
