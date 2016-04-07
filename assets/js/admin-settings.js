@@ -22,6 +22,8 @@ jQuery( document ).ready( function() {
 	cpac_add_column();
 	cpac_importexport();
 	cpac_sidebar_feedback();
+
+	jQuery( 'td.column_type a' ).trigger( 'click' );
 } );
 
 function cpac_importexport() {
