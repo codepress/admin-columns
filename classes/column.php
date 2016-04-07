@@ -1103,15 +1103,16 @@ class CPAC_Column {
 	 * @return string Formatted date
 	 */
 	public function get_date( $date, $format = '' ) {
-
-		if ( ! $date = $this->get_timestamp( $date ) ) {
+		if ( ! $timestamp = $this->get_timestamp( $date ) ) {
 			return false;
 		}
+
+		// get general date format
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
 		}
 
-		return date_i18n( $format, $date );
+		return date_i18n( $format, $timestamp );
 	}
 
 	/**
@@ -1352,12 +1353,13 @@ class CPAC_Column {
 	 * @param array $options Select options
 	 * @param strong $description (optional) Description below the label
 	 */
-	public function display_field_text( $name, $label, $description = '' ) {
+	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
+		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
 		?>
-		<tr class="column-<?php echo $name; ?>">
+		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?>>
 			<?php $this->label_view( $label, $description, $name ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"/>
+				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"<?php echo $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : ''; ?>/>
 			</td>
 		</tr>
 		<?php

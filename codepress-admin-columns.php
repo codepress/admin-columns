@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.4.1
+Version: 2.5.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.4.1' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.5' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -127,6 +127,7 @@ class CPAC {
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
+		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
 		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
@@ -164,6 +165,11 @@ class CPAC {
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
+
+		// Current listings page storage model
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			do_action( 'cac/current_storage_model', $storage_model );
+		}
 	}
 
 	/**
@@ -186,7 +192,7 @@ class CPAC {
 		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
 		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
-		if ( $this->is_columns_screen() ) {
+		if ( $this->get_current_storage_model() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
 
@@ -206,6 +212,19 @@ class CPAC {
 		if ( $role = get_role( 'administrator' ) ) {
 			$role->add_cap( 'manage_admin_columns' );
 		}
+	}
+
+	/**
+	 * Set the primary columns for the Admin Columns columns
+	 *
+	 * @since 2.5.5
+	 */
+	public function set_primary_column( $default ) {
+		if ( $storage_model = $this->get_current_storage_model() ) {
+			$default = key( $storage_model->get_columns() );
+		}
+
+		return $default;
 	}
 
 	/**

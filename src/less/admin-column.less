@@ -1,3 +1,5 @@
+@border-gray-dark: #E1E1E1;
+
 #cpac {
 
 	a:focus,
@@ -512,9 +514,8 @@
 					&.label {
 						position: relative;
 						overflow: visible;
-						background: #F9F9F9;
 						background: #f5f5f5;
-						border-right: 1px solid #E1E1E1;
+						border-right: 1px solid @border-gray-dark;
 						vertical-align: top;
 						width: 34%;
 						border-top: 1px solid #F0F0F0;
@@ -620,6 +621,10 @@
 
 				&.column_width {
 
+					td {
+						//border-bottom: 1px solid @border-gray-dark;
+					}
+
 					.input {
 						position: relative;
 
@@ -706,7 +711,7 @@
 
 				&.column_action {
 					td {
-						border-top: 1px solid lighten( #E1E1E1, 4 );
+						border-top: 1px solid lighten( @border-gray-dark, 4 );
 						background: #f9f9f9;
 
 						p {
@@ -938,7 +943,7 @@
 .columns-right {
 	.sidebox {
 		background: none repeat scroll 0 0 #FFFFFF;
-		border: 1px solid #E1E1E1;
+		border: 1px solid @border-gray-dark;
 		border-radius: 0 0 0 0;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		position: relative;
