@@ -210,6 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Fixed] Row actions are now only added to the first column when the primary column isn't available
+
 = 2.5.5 =
 * [Improved] Columns with empty values will now display a dash symbol
 * [Fixed] Excerpt column: The label "Excerpt from content" will now only display when the post has content
