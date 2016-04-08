@@ -539,17 +539,21 @@
   border: none;
   min-height: 53px;
 }
-.cpac-column .column-form > table tr td.input.multiple table td.label {
+.cpac-column .column-form > table tr td.input.multiple table tr td.label {
   background-color: #fcfcfc;
   border-right: 1px solid #f0f0f0;
   width: 35%;
   vertical-align: middle;
 }
-.cpac-column .column-form > table tr td.input.multiple table td.label span {
+.cpac-column .column-form > table tr td.input.multiple table tr td.label span {
   font-size: 12px;
 }
-.cpac-column .column-form > table tr td.input.multiple table td.input {
+.cpac-column .column-form > table tr td.input.multiple table tr td.input {
   width: 65%;
+}
+.cpac-column .column-form > table tr td.input.multiple table tr.full td {
+  width: 100%;
+  height: 29px;
 }
 .cpac-column .column-form > table tr.column_width .input {
   position: relative;

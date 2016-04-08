@@ -687,18 +687,26 @@
 								border: none;
 								min-height: 53px;
 
-								td.label {
-									background-color: @bg-gray-light;
-									border-right: 1px solid @border-gray;
-									width: 35%;
-									vertical-align: middle;
+								tr {
 
-									span {
-										font-size: 12px;
+									td.label {
+										background-color: @bg-gray-light;
+										border-right: 1px solid @border-gray;
+										width: 35%;
+										vertical-align: middle;
+
+										span {
+											font-size: 12px;
+										}
 									}
-								}
-								td.input {
-									width: 65%;
+									td.input {
+										width: 65%;
+									}
+
+									&.full td {
+										width: 100%;
+										height: 29px;
+									}
 								}
 							}
 						}
