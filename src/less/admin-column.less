@@ -369,6 +369,7 @@
 								}
 
 								&.edit-button,
+								&.close-button,
 								&.remove-button,
 								&.clone-button {
 									display: none;
@@ -871,6 +872,12 @@
 			//background: #3da1d6;
 			//border-color: #0073aa #006799 #006799;
 
+			&:hover {
+				.column_label .inner > a.close-button {
+					display: inline-block;
+				}
+			}
+
 			table td {
 				border: none;
 				color: #fff !important;
@@ -884,12 +891,22 @@
 							color: #fff !important;
 							font-weight: 200;
 
+							&:hover {
+								color: lighten(#2ea2cc, 20) !important;
+							}
+
 							&.toggle {
 								font-weight: bold;
 							}
 
+							&.edit-button {
+								display: none;
+							}
+
 							&.remove-button:hover {
-								color: lighten(#f00, 15) !important;
+								//color: lighten(#f00, 15) !important;
+								color: #f09089 !important;
+								text-decoration: none;
 							}
 						}
 
@@ -903,7 +920,7 @@
 								}
 								&.width {
 									//color: lighten(#9E9E9E, 12) !important;
-									color: darken( #fff, 5 );
+									color: darken(#fff, 5);
 								}
 							}
 						}

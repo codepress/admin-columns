@@ -1479,6 +1479,7 @@ class CPAC_Column {
 								</div>
 								<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( $this->properties->is_cloneable ) : ?>
 									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>

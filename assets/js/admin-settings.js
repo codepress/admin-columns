@@ -111,7 +111,7 @@ jQuery.fn.column_bind_toggle = function() {
 	var column = jQuery( this );
 	var is_disabled = column.closest( 'cpac-boxes' ).hasClass( 'disabled' );
 
-	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function( e ) {
+	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button, td.column_label .close-button' ).click( function( e ) {
 		e.preventDefault();
 
 		column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );

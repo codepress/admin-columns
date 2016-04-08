@@ -277,6 +277,7 @@
   color: #333333;
 }
 .cpac-column .column-meta table tr td.column_label .inner > a.edit-button,
+.cpac-column .column-meta table tr td.column_label .inner > a.close-button,
 .cpac-column .column-meta table tr td.column_label .inner > a.remove-button,
 .cpac-column .column-meta table tr td.column_label .inner > a.clone-button {
   display: none;
@@ -288,6 +289,7 @@
   font-size: 12px;
 }
 .cpac-column .column-meta table tr td.column_label .inner > a.edit-button:hover,
+.cpac-column .column-meta table tr td.column_label .inner > a.close-button:hover,
 .cpac-column .column-meta table tr td.column_label .inner > a.remove-button:hover,
 .cpac-column .column-meta table tr td.column_label .inner > a.clone-button:hover {
   color: #2ea2cc;
@@ -671,6 +673,9 @@
 .cpac-column.opened .column-meta {
   background: #393d42;
 }
+.cpac-column.opened .column-meta:hover .column_label .inner > a.close-button {
+  display: inline-block;
+}
 .cpac-column.opened .column-meta table td {
   border: none;
   color: #fff !important;
@@ -680,11 +685,18 @@
   color: #fff !important;
   font-weight: 200;
 }
+.cpac-column.opened .column-meta table td.column_label .inner > a:hover {
+  color: #7ec7e2 !important;
+}
 .cpac-column.opened .column-meta table td.column_label .inner > a.toggle {
   font-weight: bold;
 }
+.cpac-column.opened .column-meta table td.column_label .inner > a.edit-button {
+  display: none;
+}
 .cpac-column.opened .column-meta table td.column_label .inner > a.remove-button:hover {
-  color: #ff4d4d !important;
+  color: #f09089 !important;
+  text-decoration: none;
 }
 .cpac-column.opened .column-meta table td.column_label .inner .meta span {
   color: #7f7f7f;
