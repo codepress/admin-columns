@@ -142,7 +142,7 @@
  */
 .columns-container {
 	margin-right: 300px;
-	max-width: 700px;
+	max-width: 740px;
 
 	.columns-left {
 		float: left;
@@ -338,14 +338,15 @@
 					vertical-align: top;
 					height: 18px;
 					border: none;
-					padding: 11px 8px;
+					padding: 15px 8px;
 					border-width: 1px 0 0;
 					border-style: solid;
 					border-color: transparent;
 
 					&.column_sort {
-						width: 10px;
+						width: 16px;
 						background: transparent url('../images/drag.png') no-repeat 8px 8px;
+						//background-size: 30px 30px;
 						cursor: move;
 					}
 
@@ -403,6 +404,7 @@
 
 								span {
 									cursor: pointer;
+									margin-left: 7px;
 
 									&.width {
 										margin-right: 5px;
@@ -450,6 +452,22 @@
 						min-width: 38px;
 						text-align: center;
 						cursor: pointer;
+
+						&:after {
+							right: 0;
+							content: "\f140";
+							font: normal 20px/1 dashicons;
+							speak: none;
+							display: inline-block;
+							padding: 0 5px 0 0;
+							bottom: 2px;
+							position: relative;
+							vertical-align: bottom;
+							-webkit-font-smoothing: antialiased;
+							-moz-osx-font-smoothing: grayscale;
+							text-decoration: none !important;
+							color: #b4b9be;
+						}
 					}
 				}
 				// td
@@ -872,8 +890,14 @@
 	// Open state
 	&.opened {
 
-		// gray
+		// light blue
 		.column-meta {
+			background-color: #eaf2fa;
+		}
+
+
+		// gray
+		.__column-meta {
 			//background: #32373c;
 			background: #393d42;
 			//background: lighten( #0073aa, 5 );
@@ -884,6 +908,10 @@
 				.column_label .inner > a.close-button {
 					display: inline-block;
 				}
+			}
+
+			.column_edit:after {
+				content: "\f142";
 			}
 
 			table td {
@@ -938,7 +966,7 @@
 		}
 
 		// blue
-		._blue__column-meta {
+		.___column-meta {
 			background: #0089bf;
 			//background: lighten( #0073aa, 5 );
 			//background: #3da1d6;

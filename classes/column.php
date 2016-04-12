@@ -1405,7 +1405,7 @@ class CPAC_Column {
 
 			<?php $this->label_view( $label, $description, $name ); ?>
 
-			<td class="input radio" <?php echo( $toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '' ); ?><?php echo $colspan ? ' colspan="' . $colspan .  '"' : ''; ?>>
+			<td class="input radio" <?php echo( $toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '' ); ?><?php echo $colspan ? ' colspan="' . $colspan . '"' : ''; ?>>
 				<?php foreach ( $options as $key => $label ) : ?>
 					<label>
 						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $this->get_option( $name ) ); ?>>
@@ -1416,8 +1416,6 @@ class CPAC_Column {
 		</tr>
 		<?php
 	}
-
-
 
 	/**
 	 * @since 2.0
@@ -1451,7 +1449,15 @@ class CPAC_Column {
 				<table class="widefat">
 					<tbody>
 					<tr>
-						<td class="column_sort"></td>
+						<td class="column_sort">
+							<?php /*<img src="<?php echo CPAC_URL; ?>assets/images/drag.svg" />
+							<svg width="26" height="6" href="<?php echo CPAC_URL; ?>assets/images/drag.svg">
+							<svg width="26" height="6" src="<?php echo CPAC_URL; ?>assets/images/drag.svg">
+*/ ?>
+							<?php /*<svg width="26" height="6">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="<?php echo CPAC_URL; ?>assets/images/drag.svg"></use>
+							</svg>*/ ?>
+						</td>
 						<td class="column_label">
 							<div class="inner">
 								<div class="meta">
@@ -1492,7 +1498,6 @@ class CPAC_Column {
 							</div>
 						</td>
 						<td class="column_edit">
-							<span class="dashicons dashicons-arrow-down"></span>
 						</td>
 					</tr>
 					</tbody>
