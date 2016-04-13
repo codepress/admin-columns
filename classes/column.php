@@ -1450,13 +1450,6 @@ class CPAC_Column {
 					<tbody>
 					<tr>
 						<td class="column_sort">
-							<?php /*<img src="<?php echo CPAC_URL; ?>assets/images/drag.svg" />
-							<svg width="26" height="6" href="<?php echo CPAC_URL; ?>assets/images/drag.svg">
-							<svg width="26" height="6" src="<?php echo CPAC_URL; ?>assets/images/drag.svg">
-*/ ?>
-							<?php /*<svg width="26" height="6">
-								<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="<?php echo CPAC_URL; ?>assets/images/drag.svg"></use>
-							</svg>*/ ?>
 						</td>
 						<td class="column_label">
 							<div class="inner">

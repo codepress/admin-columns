@@ -344,10 +344,25 @@
 					border-color: transparent;
 
 					&.column_sort {
+						position: relative;
 						width: 16px;
-						background: transparent url('../images/drag.png') no-repeat 8px 8px;
-						//background-size: 30px 30px;
 						cursor: move;
+
+						&:before {
+							content: ' ';
+							display: block;
+							position: absolute;
+							left: 0;
+							top: 0;
+							width: 100%;
+							height: 100%;
+							z-index: 1;
+							opacity: 0.30;
+							background-image: url('../images/drag_2x.png');
+							background-repeat: no-repeat;
+							background-size: 30px 30px;
+							background-position: center center;
+						}
 					}
 
 					&.column_label {
@@ -890,29 +905,29 @@
 	// Open state
 	&.opened {
 
-		// light blue
+		// events
 		.column-meta {
-			background-color: #eaf2fa;
-		}
-
-
-		// gray
-		.__column-meta {
-			//background: #32373c;
-			background: #393d42;
-			//background: lighten( #0073aa, 5 );
-			//background: #3da1d6;
-			//border-color: #0073aa #006799 #006799;
-
 			&:hover {
 				.column_label .inner > a.close-button {
 					display: inline-block;
 				}
 			}
-
 			.column_edit:after {
 				content: "\f142";
 			}
+			table td.column_label .inner > a.edit-button {
+				display: none;
+			}
+		}
+
+		// blue
+		.column-meta {
+			background-color: #eaf2fa;
+		}
+
+		// gray
+		/*.__grey__column-meta {
+			background: #393d42;
 
 			table td {
 				border: none;
@@ -968,8 +983,6 @@
 		// blue
 		.___column-meta {
 			background: #0089bf;
-			//background: lighten( #0073aa, 5 );
-			//background: #3da1d6;
 			border-color: #0073aa #006799 #006799;
 
 			table td {
@@ -1022,6 +1035,7 @@
 				}
 			}
 		}
+		*/
 	}
 }
 
