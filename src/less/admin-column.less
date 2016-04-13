@@ -1,5 +1,5 @@
-@border-gray-dark: #E1E1E1;
-@border-gray: #f0f0f0;
+@border-gray-dark: darken( #E1E1E1, 1 );
+@border-gray: darken( #f0f0f0, 3 ); // e6e6e6
 //@border-gray-light: #f2f2f2;
 
 @bg-gray: #f5f5f5;
@@ -338,7 +338,7 @@
 					vertical-align: top;
 					height: 18px;
 					border: none;
-					padding: 15px 8px;
+					padding: 12px 8px;
 					border-width: 1px 0 0;
 					border-style: solid;
 					border-color: transparent;
@@ -357,11 +357,17 @@
 							width: 100%;
 							height: 100%;
 							z-index: 1;
-							opacity: 0.30;
-							background-image: url('../images/drag_2x.png');
 							background-repeat: no-repeat;
-							background-size: 30px 30px;
-							background-position: center center;
+
+							// triple dots
+							//opacity: 0.30;
+							//background-image: url('../images/drag_2x.png');
+							//background-size: 30px 30px;
+							//background-position: center center;
+
+							// stips
+							background-image: url('../images/drag.png');
+							background-position: 10px 10px;
 						}
 					}
 
@@ -575,7 +581,7 @@
 						border-right: 1px solid @border-gray-dark;
 						vertical-align: top;
 						width: 34%;
-						border-top: 1px solid #F0F0F0;
+						border-top: 1px solid @border-gray;
 						padding-left: 12px;
 
 						span {
