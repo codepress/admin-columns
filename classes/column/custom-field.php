@@ -173,10 +173,14 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 					continue;
 				}
 
-				if ( $title = $this->get_post_title( $id ) ) {
-					$link = get_edit_post_link( $id );
-					$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
+				$title = $this->get_post_title( $id );
+
+				if ( empty( $title ) ) {
+					$title = sprintf( __( 'No title', 'codepress-admin-columns' ), $id );
 				}
+
+				$link = get_edit_post_link( $id );
+				$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
 			}
 		}
 
@@ -468,7 +472,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		</tr>
 
 		<?php
-		switch ( $this->options->field_type ) {
+		switch ( $this->get_option( 'field_type' ) ) {
 			case 'date':
 				$this->display_field_date_format();
 				break;
