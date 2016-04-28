@@ -122,6 +122,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		 */
 		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
 
+		asort( $custom_field_types );
+
 		return $custom_field_types;
 	}
 
@@ -223,12 +225,12 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
-		$raw_value_string = $this->recursive_implode( ', ', $raw_value );
+		$raw_string = $this->recursive_implode( ', ', $raw_value );
 
 		switch ( $this->get_option( 'field_type' ) ) :
 			case "image" :
 			case "library_id" :
-				$value = implode( $this->get_thumbnails( $raw_value_string, array(
+				$value = implode( $this->get_thumbnails( $raw_string, array(
 					'image_size'   => $this->get_option( 'image_size' ),
 					'image_size_w' => $this->get_option( 'image_size_w' ),
 					'image_size_h' => $this->get_option( 'image_size_h' ),
@@ -236,23 +238,26 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				break;
 
 			case "excerpt" :
-				$value = $this->get_shortened_string( $raw_value_string, $this->get_option( 'excerpt_length' ) );
+				$value = $this->get_shortened_string( $raw_value, $this->get_option( 'excerpt_length' ) );
 				break;
 
 			case "date" :
-				$value = $this->get_date_by_string( $raw_value_string );
+				$value = $this->get_date_by_string( $raw_value );
 				break;
 
 			case "link" :
-				if ( filter_var( $raw_value_string, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $raw_value_string ) ) {
+				if ( filter_var( $raw_value, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $raw_value ) ) {
 					$label = $this->get_option( 'link_label' );
-					$value = $label ? '<a href="' . $raw_value_string . '">' . $label . '</a>' : false;
+					if ( ! $label ) {
+						$label = $raw_value;
+					}
+					$value = '<a href="' . $raw_value . '">' . $label . '</a>';
 				}
 				break;
 
 			case "title_by_id" :
 				$titles = array();
-				if ( $ids = $this->get_ids_from_meta( $raw_value_string ) ) {
+				if ( $ids = $this->get_ids_from_meta( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
 						if ( $title = $this->get_post_title( $id ) ) {
 							$link = get_edit_post_link( $id );
@@ -265,7 +270,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 			case "user_by_id" :
 				$names = array();
-				if ( $ids = $this->get_ids_from_meta( $raw_value_string ) ) {
+				if ( $ids = $this->get_ids_from_meta( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
 						if ( $username = $this->get_username_by_id( $id ) ) {
 							$link = get_edit_user_link( $id );
@@ -295,7 +300,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				break;
 
 			default :
-				$value = $raw_value_string;
+				$value = $raw_string;
 
 		endswitch;
 

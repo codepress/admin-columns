@@ -44,7 +44,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 			return false;
 		}
 
-		if ( ! empty( $this->options->use_icons ) ) {
+		if ( $this->get_option( 'use_icons' ) ) {
 			return implode( '', $this->convert_actions_to_icons( $actions ) );
 		}
 
@@ -98,11 +98,11 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 			<?php $this->label_view( __( 'Use icons?', 'codepress-admin-columns' ), __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ), 'use_icons' ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( 'use_icons' ); ?>-yes">
-					<input type="radio" value="1" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-yes"<?php checked( $this->options->use_icons, '1' ); ?> />
+					<input type="radio" value="1" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-yes"<?php checked( $this->get_option( 'use_icons' ), '1' ); ?> />
 					<?php _e( 'Yes' ); ?>
 				</label>
 				<label for="<?php $this->attr_id( 'use_icons' ); ?>-no">
-					<input type="radio" value="" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-no"<?php checked( $this->options->use_icons, '' ); ?> />
+					<input type="radio" value="" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-no"<?php checked( $this->get_option( 'use_icons' ), '' ); ?> />
 					<?php _e( 'No' ); ?>
 				</label>
 			</td>
