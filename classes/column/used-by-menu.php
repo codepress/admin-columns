@@ -134,7 +134,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 					<?php _e( 'Yes'); ?>
 				</label>
 				<label for="<?php $this->attr_id( $field_key ); ?>-off">
-					<input type="radio" value="off" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-off"<?php checked( in_array( $this->>get_option( 'link_to_menu' ), array( '', 'off' ) ) ); ?> />
+					<input type="radio" value="off" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-off"<?php checked( in_array( $this->get_option( 'link_to_menu' ), array( '', 'off' ) ) ); ?> />
 					<?php _e( 'No'); ?>
 				</label>
 			</td>
