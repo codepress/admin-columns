@@ -618,7 +618,7 @@ class CPAC_Column {
 	public function get_raw_post_field( $field, $id ) {
 		global $wpdb;
 
-		return $id ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
+		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
 	}
 
 	// since 2.4.8
@@ -1038,16 +1038,22 @@ class CPAC_Column {
 	 * @return string Imploded array
 	 */
 	public function recursive_implode( $glue, $pieces ) {
-		foreach ( $pieces as $r_pieces ) {
-			if ( is_array( $r_pieces ) ) {
-				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+		if ( is_array( $pieces ) ) {
+			foreach ( $pieces as $r_pieces ) {
+				if ( is_array( $r_pieces ) ) {
+					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+				}
+				else {
+					$retVal[] = $r_pieces;
+				}
 			}
-			else {
-				$retVal[] = $r_pieces;
+			if ( isset( $retVal ) && is_array( $retVal ) ) {
+				return implode( $glue, $retVal );
 			}
 		}
-		if ( isset( $retVal ) && is_array( $retVal ) ) {
-			return implode( $glue, $retVal );
+
+		if ( is_scalar( $pieces ) ) {
+			return $pieces;
 		}
 
 		return false;
