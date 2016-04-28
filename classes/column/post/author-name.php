@@ -31,8 +31,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 */
 	public function get_value( $post_id ) {
 		$value = '';
-
-		if ( $user_id = $this->get_raw_value( $post_id ) ) {
+		if ( $user_id = get_post_field( 'post_author', $post_id ) ) {
 			$value = $this->get_display_name( $user_id );
 		}
 
@@ -65,8 +64,9 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-		return get_post_field( 'post_author', $post_id );
+		return $this->get_display_name( get_post_field( 'post_author', $post_id ) );
 	}
+
 
 	/**
 	 * Display Settings
