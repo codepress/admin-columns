@@ -1321,6 +1321,8 @@ class CPAC_Column {
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
 		);
 
+		asort( $nametypes ); // sorts also when translated
+
 		$this->display_field_select( 'display_author_as', __( 'Display format', 'codepress-admin-columns' ), $nametypes, __( 'This is the format of the author name.', 'codepress-admin-columns' ) );
 	}
 
