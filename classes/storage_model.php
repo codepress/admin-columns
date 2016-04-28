@@ -135,7 +135,8 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @since 2.5
 	 */
-	protected function get_default_column_widths() {}
+	protected function get_default_column_widths() {
+	}
 
 	/**
 	 * @since 2.5
@@ -512,16 +513,35 @@ abstract class CPAC_Storage_Model {
 	}
 
 	public function init_layout() {
+
+		// skip when layout is already set
 		if ( $this->get_layout() ) {
 			return;
 		}
 
-		// try user preference..
-		$layout_id = $this->get_user_layout_preference();
+		$layout_id = null;
 
-		// ..when not found use the first one
-		if ( ! $this->layout_exists( $layout_id ) ) {
-			$layout_id = $this->get_single_layout_id();
+		if ( $layouts_current_user = $this->get_layouts_for_current_user() ) {
+			$layout_preference = $this->get_user_layout_preference();
+
+			// try user preference..
+			foreach ( $layouts_current_user as $_layout ) {
+				if ( $_layout->id === $layout_preference ) {
+					$layout_id = $_layout->id;
+					break;
+				}
+			}
+
+			// when no longer available use the first user layout
+			if ( ! $layout_id ) {
+				$_layouts_current_user = array_values( $layouts_current_user );
+				$layout_id = $_layouts_current_user[0]->id;
+			}
+		}
+
+		// use default WordPress layout
+		else {
+			$layout_id = '_wp_default_'; // layout does not exists and therefor WP default columns will be loaded
 		}
 
 		$this->set_layout( $layout_id );
@@ -623,6 +643,7 @@ abstract class CPAC_Storage_Model {
 			'roles' => '',
 			'users' => '',
 		);
+
 		return array_merge( $default, $args );
 	}
 
@@ -786,7 +807,7 @@ abstract class CPAC_Storage_Model {
 				}
 
 				// only allow php files, exclude .SVN .DS_STORE and such
-				if ( substr( $leaf->getFilename(), - 4 ) !== '.php' ) {
+				if ( substr( $leaf->getFilename(), -4 ) !== '.php' ) {
 					continue;
 				}
 
