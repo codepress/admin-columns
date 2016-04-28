@@ -556,7 +556,7 @@ class CPAC_Column {
 		 * @param string $label Column instance label
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $column->get_option( 'label' ) ) ), $this );
+		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->get_option( 'label' ) ) ), $this );
 	}
 
 	/**
@@ -948,7 +948,9 @@ class CPAC_Column {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		extract( $args );
+		$image_size = $args['image_size'];
+		$image_size_w = $args['image_size_w'];
+		$image_size_h = $args['image_size_h'];
 
 		$thumbnails = array();
 		foreach ( $images as $value ) {
@@ -1155,7 +1157,7 @@ class CPAC_Column {
 
 		$name = '';
 
-		if ( $display_as = $column->get_option( 'display_author_as' ) ) {
+		if ( $display_as = $this->get_option( 'display_author_as' ) ) {
 
 			if ( 'first_last_name' == $display_as ) {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
