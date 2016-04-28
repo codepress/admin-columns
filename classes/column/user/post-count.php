@@ -29,7 +29,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_count( $user_id ) {
-		return $this->get_user_postcount( $user_id, $this->options->post_type );
+		return $this->get_user_postcount( $user_id, $this->get_option( 'post_type' ) );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 
 		$count = $this->get_raw_value( $user_id );
 		if ( $count > 0 ) {
-			$value = "<a href='edit.php?post_type={$this->options->post_type}&author={$user_id}'>{$count}</a>";
+			$value = "<a href='edit.php?post_type=" . $this->get_option( 'post_type' ) . "&author={$user_id}'>{$count}</a>";
 		}
 
 		return $value;
@@ -89,7 +89,7 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 			<td class="input">
 				<select name="<?php $this->attr_name( 'post_type' ); ?>" id="<?php $this->attr_id( 'post_type' ); ?>">
 					<?php foreach ( $post_types as $key => $label ) : ?>
-						<option value="<?php echo $key; ?>"<?php selected( $key, $this->options->post_type ) ?>><?php echo $label; ?></option>
+						<option value="<?php echo $key; ?>"<?php selected( $key, $this->get_option( 'post_type' ) ); ?>><?php echo $label; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</td>

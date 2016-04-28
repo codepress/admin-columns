@@ -46,7 +46,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
 
 				$title = $term->name;
-				if ( 'on' == $this->options->link_to_menu ) {
+				if ( 'on' == $this->get_option( 'link_to_menu' ) ) {
 					$title = '<a href="' . esc_url( add_query_arg( array( 'menu' => $menu_id ), admin_url('nav-menus.php') ) ) . '">' . $term->name .  '</a>';
 				}
 
@@ -130,11 +130,11 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 			<?php $this->label_view( __( 'Link to menu', 'codepress-admin-columns' ), __( 'This will make the title link to the menu.', 'codepress-admin-columns' ), $field_key ); ?>
 			<td class="input">
 				<label for="<?php $this->attr_id( $field_key ); ?>-on">
-					<input type="radio" value="on" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-on"<?php checked( $this->options->link_to_menu, 'on' ); ?> />
+					<input type="radio" value="on" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-on"<?php checked( $this->get_option( 'link_to_menu' ), 'on' ); ?> />
 					<?php _e( 'Yes'); ?>
 				</label>
 				<label for="<?php $this->attr_id( $field_key ); ?>-off">
-					<input type="radio" value="off" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-off"<?php checked( in_array( $this->options->link_to_menu, array( '', 'off' ) ) ); ?> />
+					<input type="radio" value="off" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-off"<?php checked( in_array( $this->get_option( 'link_to_menu' ), array( '', 'off' ) ) ); ?> />
 					<?php _e( 'No'); ?>
 				</label>
 			</td>
