@@ -178,7 +178,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', 'NEWVERSION', __CLASS__ . '::' . 'recursive_implode()' );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
 
 		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
 	}
@@ -198,7 +198,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5.6
 	 */
 	public function get_username_by_id( $user_id ) {
 		$username = false;
@@ -210,7 +210,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5.6
 	 */
 	public function get_date_by_string( $date_string ) {
 		return $this->get_date( $date_string, $this->get_option( 'date_format' ) );
