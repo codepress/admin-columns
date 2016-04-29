@@ -512,15 +512,23 @@ abstract class CPAC_Storage_Model {
 		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
-	public function init_layout() {
+	public function init_settings_layout() {
 
-		// skip when layout is already set
-		if ( $this->get_layout() ) {
-			return;
+		// try admin preference..
+		$layout_id = $this->get_user_layout_preference();
+
+		// ..when not found use the first one
+		if ( false === $layout_id ) {
+			$layout_id = $this->get_single_layout_id();
 		}
 
+		$this->set_layout( $layout_id );
+	}
+
+	public function init_listings_layout() {
 		$layout_id = null;
 
+		// User layouts
 		if ( $layouts_current_user = $this->get_layouts_for_current_user() ) {
 			$layout_preference = $this->get_user_layout_preference();
 
@@ -539,9 +547,9 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		// use default WordPress layout
-		else {
-			$layout_id = '_wp_default_'; // layout does not exists and therefor WP default columns will be loaded
+		// User doesn't have eligible layouts.. but the current (null) layout does exists, then the WP default columns are loaded
+		else if ( $this->get_layout_by_id( $layout_id ) ) {
+			$layout_id = '_wp_default_'; // _wp_default_ does not exists therefor will load WP default
 		}
 
 		$this->set_layout( $layout_id );
