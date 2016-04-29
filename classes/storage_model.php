@@ -532,16 +532,19 @@ abstract class CPAC_Storage_Model {
 		if ( $layouts_current_user = $this->get_layouts_for_current_user() ) {
 			$layout_preference = $this->get_user_layout_preference();
 
+			$layout_found = false;
+
 			// try user preference..
 			foreach ( $layouts_current_user as $_layout ) {
-				if ( $_layout->id === $layout_preference ) {
+				if ( $_layout->id == $layout_preference ) {
 					$layout_id = $_layout->id;
+					$layout_found = true;
 					break;
 				}
 			}
 
 			// when no longer available use the first user layout
-			if ( ! $layout_id ) {
+			if ( ! $layout_found ) {
 				$_layouts_current_user = array_values( $layouts_current_user );
 				$layout_id = $_layouts_current_user[0]->id;
 			}
