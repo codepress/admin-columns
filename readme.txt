@@ -212,6 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.5.6 =
 * [Fixed] Row actions are now only added to the first column when the primary column isn't available
+* [Fixed] The true/false field option for the Custom Field column will display a cross icon when the value is empty or zero
 
 = 2.5.5 =
 * [Improved] Columns with empty values will now display a dash symbol
