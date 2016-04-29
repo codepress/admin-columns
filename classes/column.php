@@ -556,7 +556,7 @@ class CPAC_Column {
 		 * @param string $label Column instance label
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
-		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) ), $this );
+		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->get_option( 'label' ) ) ), $this );
 	}
 
 	/**
@@ -574,7 +574,7 @@ class CPAC_Column {
 		}
 
 		else {
-			$string = $this->options->label;
+			$string = $this->get_option( 'label' );
 			$string = strip_tags( $string );
 			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
 			$string = str_replace( 'http://', '', $string );
@@ -618,7 +618,7 @@ class CPAC_Column {
 	public function get_raw_post_field( $field, $id ) {
 		global $wpdb;
 
-		return $id ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
+		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
 	}
 
 	// since 2.4.8
@@ -948,7 +948,9 @@ class CPAC_Column {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		extract( $args );
+		$image_size = $args['image_size'];
+		$image_size_w = $args['image_size_w'];
+		$image_size_h = $args['image_size_h'];
 
 		$thumbnails = array();
 		foreach ( $images as $value ) {
@@ -1038,16 +1040,22 @@ class CPAC_Column {
 	 * @return string Imploded array
 	 */
 	public function recursive_implode( $glue, $pieces ) {
-		foreach ( $pieces as $r_pieces ) {
-			if ( is_array( $r_pieces ) ) {
-				$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+		if ( is_array( $pieces ) ) {
+			foreach ( $pieces as $r_pieces ) {
+				if ( is_array( $r_pieces ) ) {
+					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+				}
+				else {
+					$retVal[] = $r_pieces;
+				}
 			}
-			else {
-				$retVal[] = $r_pieces;
+			if ( isset( $retVal ) && is_array( $retVal ) ) {
+				return implode( $glue, $retVal );
 			}
 		}
-		if ( isset( $retVal ) && is_array( $retVal ) ) {
-			return implode( $glue, $retVal );
+
+		if ( is_scalar( $pieces ) ) {
+			return $pieces;
 		}
 
 		return false;
@@ -1149,9 +1157,7 @@ class CPAC_Column {
 
 		$name = '';
 
-		if ( ! empty( $this->options->display_author_as ) ) {
-
-			$display_as = $this->options->display_author_as;
+		if ( $display_as = $this->get_option( 'display_author_as' ) ) {
 
 			if ( 'first_last_name' == $display_as ) {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
@@ -1226,7 +1232,7 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->excerpt_length; ?>"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'excerpt_length' ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1244,7 +1250,7 @@ class CPAC_Column {
 		<tr class="column_<?php echo $field_key; ?>">
 			<?php $this->label_view( $label, $description, $field_key ); ?>
 			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->options->link_label; ?>"/>
+				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'link_label' ); ?>"/>
 			</td>
 		</tr>
 		<?php
@@ -1258,6 +1264,7 @@ class CPAC_Column {
 		$field_key = 'image_size';
 		$label = __( 'Preview size', 'codepress-admin-columns' );
 
+		$image_size = $this->get_option( 'image_size' );
 		?>
 		<tr class="column_<?php echo $field_key; ?>">
 
@@ -1265,7 +1272,7 @@ class CPAC_Column {
 
 			<td class="input">
 				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : $_sizes = array_keys( $sizes ); ?>
-					<?php $selected = $this->options->image_size ? $this->options->image_size : $_sizes[0]; ?>
+					<?php $selected = $image_size ? $image_size : $_sizes[0]; ?>
 					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
 						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $selected, $id ); ?>>
 						<?php echo $image_label; ?>
@@ -1274,15 +1281,15 @@ class CPAC_Column {
 
 				<div class="custom_image_size">
 					<label for="<?php $this->attr_id( $field_key ); ?>-custom" class="custom-size image-size-custom">
-						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $this->options->image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'codepress-admin-columns' ); ?>
+						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-w"
-						class="custom-size-w<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->options->image_size_w; ?>"/><?php _e( 'width', 'codepress-admin-columns' ); ?>
+						class="custom-size-w<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->get_option( 'image_size_w' ); ?>"/><?php _e( 'width', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-h"
-						class="custom-size-h<?php echo $this->options->image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->options->image_size_h; ?>"/><?php _e( 'height', 'codepress-admin-columns' ); ?>
+						class="custom-size-h<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
+						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->get_option( 'image_size_h' );; ?>"/><?php _e( 'height', 'codepress-admin-columns' ); ?>
 					</label>
 				</div>
 			</td>
@@ -1313,6 +1320,8 @@ class CPAC_Column {
 			'ID'              => __( 'User ID', 'codepress-admin-columns' ),
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
 		);
+
+		asort( $nametypes ); // sorts also when translated
 
 		$this->display_field_select( 'display_author_as', __( 'Display format', 'codepress-admin-columns' ), $nametypes, __( 'This is the format of the author name.', 'codepress-admin-columns' ) );
 	}
@@ -1447,7 +1456,7 @@ class CPAC_Column {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo ! empty( $this->options->width ) ? $this->options->width . $this->options->width_unit : ''; ?>
+										<?php echo $this->get_option( 'width' ) ? $this->get_option( 'width' ) . $this->get_option( 'width_unit' ) : ''; ?>
 									</span>
 
 									<?php
@@ -1503,7 +1512,7 @@ class CPAC_Column {
 					<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
 						<?php $this->label_view( __( 'Label', 'codepress-admin-columns' ), __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ), 'label' ); ?>
 						<td class="input">
-							<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->options->label ); //echo sanitize_text_field( $this->options->label ); ?>"/>
+							<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->get_option( 'label' ) ); ?>"/>
 						</td>
 					</tr><!--.column_label-->
 
@@ -1511,17 +1520,17 @@ class CPAC_Column {
 						<?php $this->label_view( __( 'Width', 'codepress-admin-columns' ), '', 'width' ); ?>
 						<td class="input">
 							<div class="description" title="<?php _e( 'default', 'codepress-admin-columns' ); ?>">
-								<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->options->width; ?>"/>
-								<span class="unit"><?php echo $this->options->width_unit; ?></span>
+								<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->get_option( 'width' ); ?>"/>
+								<span class="unit"><?php echo $this->get_option( 'width_unit' ); ?></span>
 							</div>
 							<div class="width-slider"></div>
 
 							<div class="unit-select">
 								<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->options->width_unit, 'px' ); ?>/>px
+									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->get_option( 'width_unit' ), 'px' ); ?>/>px
 								</label>
 								<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->options->width_unit, '%' ); ?>/>%
+									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->get_option( 'width_unit' ), '%' ); ?>/>%
 								</label>
 							</div>
 

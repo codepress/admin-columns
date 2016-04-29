@@ -26,7 +26,7 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
-		$value = $this->get_post_excerpt( $post_id, $this->options->excerpt_length );
+		$value = $this->get_post_excerpt( $post_id, $this->get_option( 'excerpt_length' ) );
 		if ( ! has_excerpt( $post_id ) && $value ) {
 			$value = '<span class="cpac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
 		}
