@@ -512,36 +512,47 @@ abstract class CPAC_Storage_Model {
 		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
-	public function init_layout() {
+	public function init_settings_layout() {
 
-		// skip when layout is already set
-		if ( $this->get_layout() ) {
-			return;
+		// try admin preference..
+		$layout_id = $this->get_user_layout_preference();
+
+		// ..when not found use the first one
+		if ( false === $layout_id ) {
+			$layout_id = $this->get_single_layout_id();
 		}
 
+		$this->set_layout( $layout_id );
+	}
+
+	public function init_listings_layout() {
 		$layout_id = null;
 
+		// User layouts
 		if ( $layouts_current_user = $this->get_layouts_for_current_user() ) {
 			$layout_preference = $this->get_user_layout_preference();
 
+			$layout_found = false;
+
 			// try user preference..
 			foreach ( $layouts_current_user as $_layout ) {
-				if ( $_layout->id === $layout_preference ) {
+				if ( $_layout->id == $layout_preference ) {
 					$layout_id = $_layout->id;
+					$layout_found = true;
 					break;
 				}
 			}
 
 			// when no longer available use the first user layout
-			if ( ! $layout_id ) {
+			if ( ! $layout_found ) {
 				$_layouts_current_user = array_values( $layouts_current_user );
 				$layout_id = $_layouts_current_user[0]->id;
 			}
 		}
 
-		// use default WordPress layout
-		else {
-			$layout_id = '_wp_default_'; // layout does not exists and therefor WP default columns will be loaded
+		// User doesn't have eligible layouts.. but the current (null) layout does exists, then the WP default columns are loaded
+		else if ( $this->get_layout_by_id( $layout_id ) ) {
+			$layout_id = '_wp_default_'; // _wp_default_ does not exists therefor will load WP default
 		}
 
 		$this->set_layout( $layout_id );

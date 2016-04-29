@@ -698,6 +698,9 @@ class CPAC_Settings {
 			}
 		}
 
+		// Init layout
+		$storage_model->init_settings_layout();
+
 		return $storage_model;
 	}
 
@@ -749,8 +752,6 @@ class CPAC_Settings {
 				case 'general':
 
 					$storage_model = $this->get_settings_storage_model();
-					$storage_model->init_layout();
-
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
 					// columns should not be editable when layout isn't
@@ -765,7 +766,7 @@ class CPAC_Settings {
 					foreach ( cpac()->get_storage_models() as $_storage_model ) {
 						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 							'key'   => $_storage_model->key,
-							'link'  => $_storage_model->get_edit_link(),
+							'link'  => $_storage_model->settings_url(),
 							'label' => $_storage_model->label
 						);
 						usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
