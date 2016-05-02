@@ -1327,6 +1327,52 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function select_field( $args = array() ) {
+		$defaults = array(
+			'name'            => '',
+			'label'           => '',
+			'description'     => '',
+			'options'         => array(),
+			'grouped_options' => array(),
+			'no_result'       => '',
+			'toggle_trigger'  => '', // triggers a toggle event on toggle_handle
+			'toggle_handle'   => '', // can be used to toggle this element
+			'refresh_column'  => false, // when value is selected the column element will be refreshed with ajax
+			'current'         => ''
+		);
+
+		$args = (object) wp_parse_args( $args, $defaults );
+		?>
+		<tr class="column-<?php echo $args->name; ?>"<?php echo $args->toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $args->toggle_handle ) . '"' : ''; ?><?php echo $args->refresh_column ? ' data-refresh="1"' : ''; ?>>
+			<?php $this->label_view( $args->label, $args->description, $args->name ); ?>
+			<td class="input"<?php echo( $args->toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $args->toggle_trigger ) . '"' : '' ); ?>>
+				<?php if ( $args->options || $args->grouped_options ) : ?>
+					<select name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>">
+						<?php if ( $args->options ) : ?>
+							<?php foreach ( $args->options as $key => $label ) : ?>
+								<option value="<?php echo $key; ?>"<?php selected( $key, $args->current ); ?>><?php echo $label; ?></option>
+							<?php endforeach; ?>
+						<?php elseif ( $args->grouped_options ) : ?>
+							<?php foreach ( $args->grouped_options as $group ) : ?>
+								<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
+									<?php foreach ( $group['options'] as $key => $label ) : ?>
+										<option value="<?php echo $key ?>"<?php selected( $key, $args->current ) ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+								</optgroup>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</select>
+				<?php elseif ( $args->no_result ) :
+					echo esc_html( $args->no_result );
+				endif; ?>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
 	 * @since 2.3.4
 	 *
 	 * @param string $name Name of the column option
@@ -1399,20 +1445,18 @@ class CPAC_Column {
 	 * @param strong $description (optional) Description below the label
 	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
 	 */
-	public function display_field_radio( $name, $label, $options = array(), $description = '', $optional_toggle_id = '' ) {
-		$current = $this->get_option( $name );
-		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
-		?>
-		<tr class="column-<?php echo $name; ?>" <?php echo $data_optional; ?>>
+	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_trigger = false, $toggle_handle = false, $colspan = false ) { ?>
+		<tr class="column-<?php echo $name; ?><?php echo 2 == $colspan ? ' full' : ''; ?>" <?php echo( $toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $toggle_handle ) . '"' : '' ); ?>>
+
 			<?php $this->label_view( $label, $description, $name ); ?>
-			<td class="input">
+
+			<td class="input radio" <?php echo( $toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '' ); ?><?php echo $colspan ? ' colspan="' . $colspan . '"' : ''; ?>>
 				<?php foreach ( $options as $key => $label ) : ?>
 					<label>
-						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
+						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $this->get_option( $name ) ); ?>>
 						<?php echo $label; ?>
 					</label>
 				<?php endforeach; ?>
-				</select>
 			</td>
 		</tr>
 		<?php
