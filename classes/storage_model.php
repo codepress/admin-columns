@@ -143,11 +143,15 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_grouped_columns() {
 		$grouped = array();
-		foreach ( $this->column_types as $type => $column ) {
+
+		foreach ( $this->get_column_types() as $type => $column ) {
 
 			// Labels with html will be replaced by the it's name.
 			$grouped[ $column->properties->group ][ $type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->name ) : ucfirst( $column->properties->label );
-			asort( $grouped[ $column->properties->group ] );
+
+			if ( ! $column->is_default() ) {
+				asort( $grouped[ $column->properties->group ] );
+			}
 		}
 
 		krsort( $grouped );
