@@ -229,6 +229,9 @@ class CPAC {
 		return $default;
 	}
 
+	public function suppress_site_wide_notices(){
+		return apply_filters( 'cac/suppress_site_wide_notices', false );
+	}
 	/**
 	 * Get registered storage models
 	 *
@@ -641,3 +644,5 @@ function cpac() {
 
 // Global for backwards compatibility.
 $GLOBALS['cpac'] = cpac();
+
+
