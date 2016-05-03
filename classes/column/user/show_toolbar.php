@@ -1,6 +1,8 @@
 <?php
-
-
+/**
+ *
+ * @since NEWVERSION
+ */
 class CPAC_Column_User_Show_Toolbar extends CPAC_Column {
 
 	public function init() {
@@ -18,7 +20,7 @@ class CPAC_Column_User_Show_Toolbar extends CPAC_Column {
 
 	function get_raw_value( $user_id ) {
 		$userdata = get_userdata( $user_id );
-		
+
 		return $userdata->show_admin_bar_front;
 	}
 }
