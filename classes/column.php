@@ -569,8 +569,8 @@ class CPAC_Column {
 	 * @return string Sanitized string
 	 */
 	public function get_sanitized_label() {
-		if ( $this->properties->default ) {
-			$string = $this->properties->name;
+		if ( $this->is_default() ) {
+			$string = $this->get_name();
 		}
 
 		else {
@@ -1562,7 +1562,7 @@ class CPAC_Column {
 					 * Load before and after fields for custom columns.
 					 *
 					 */
-					if ( $this->properties->use_before_after && ! $this->properties->default ) {
+					if ( $this->properties->use_before_after && ! $this->is_default() ) {
 						$this->display_field_before_after();
 					}
 					?>
