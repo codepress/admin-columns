@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.4.2
-Stable tag: 2.5.5
+Tested up to: 4.5.1
+Stable tag: 2.5.6.2
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,8 +210,15 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.5.6.2 =
+* [Fixed] Hotfix cleanup.
+
+= 2.5.6.1 =
+* [Fixed] Hotfix. Version 2.5.6 did not display the stored column settings, which has been hotfixed.
+
+= 2.5.6 =
 * [Fixed] Row actions are now only added to the first column when the primary column isn't available
+* [Fixed] The true/false field option for the Custom Field column will display a cross icon when the value is empty or zero
 
 = 2.5.5 =
 * [Improved] Columns with empty values will now display a dash symbol

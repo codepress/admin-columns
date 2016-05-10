@@ -169,7 +169,7 @@ jQuery.fn.column_bind_clone = function() {
 
 jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
-	var select = el.find( '.column_type select' );
+	var select = el.find( '.column-type select' );
 	var $container = jQuery( this ).closest( '.columns-container' );
 
 	// Mark column as loading
@@ -241,9 +241,9 @@ jQuery.fn.column_bind_events = function() {
 	var storage_model = container.attr( 'data-type' );
 
 	// Current column type
-	var default_value = column.find( '.column_type select option:selected' ).val();
+	var default_value = column.find( '.column-type select option:selected' ).val();
 
-	column.find( '.column_type select' ).change( function() {
+	column.find( '.column-type select' ).change( function() {
 		var option = jQuery( 'optgroup', this ).children( ':selected' );
 		var type = option.val();
 		var label = option.text();
@@ -313,7 +313,7 @@ jQuery.fn.column_bind_events = function() {
 	} );
 
 	// unit selector
-	var width_unit_select = column.find( '.column_width .unit-select label' );
+	var width_unit_select = column.find( '.column-width .unit-select label' );
 	width_unit_select.on( 'click', function() {
 
 		column.find( 'span.unit' ).text( jQuery( this ).find( 'input' ).val() );
@@ -395,7 +395,7 @@ jQuery.fn.column_remove = function() {
  */
 jQuery.fn.column_width_slider = function() {
 
-	var column_width = jQuery( this ).find( '.column_width' );
+	var column_width = jQuery( this ).find( '.column-width' );
 
 	var input_width = column_width.find( 'input.width' ),
 		input_unit = column_width.find( 'input.unit' ),
