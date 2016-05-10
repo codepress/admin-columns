@@ -569,8 +569,8 @@ class CPAC_Column {
 	 * @return string Sanitized string
 	 */
 	public function get_sanitized_label() {
-		if ( $this->properties->default ) {
-			$string = $this->properties->name;
+		if ( $this->is_default() ) {
+			$string = $this->get_name();
 		}
 
 		else {
@@ -675,12 +675,7 @@ class CPAC_Column {
 	 * @return string HTML img element
 	 */
 	public function get_asset_image( $name = '', $title = '' ) {
-
-		if ( ! $name ) {
-			return false;
-		}
-
-		return sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", esc_attr( $title ) );
+		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", esc_attr( $title ) ) : false;
 	}
 
 	/**
@@ -783,13 +778,11 @@ class CPAC_Column {
 	 * @return array Image Sizes
 	 */
 	public function get_image_size_by_name( $name = '' ) {
-
 		if ( ! $name || is_array( $name ) ) {
 			return false;
 		}
 
 		global $_wp_additional_image_sizes;
-
 		if ( ! isset( $_wp_additional_image_sizes[ $name ] ) ) {
 			return false;
 		}
@@ -803,9 +796,7 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		$resized = false;
 		$editor = wp_get_image_editor( $file );
-
 		if ( is_wp_error( $editor ) ) {
 			return false;
 		}
@@ -1492,9 +1483,9 @@ class CPAC_Column {
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
 
 		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->properties->type; ?>"<?php echo $data_clone; ?> data-default="<?php echo $this->is_default(); ?>">
-			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->properties->name ); ?>"/>
-			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->properties->type; ?>"/>
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $data_clone; ?> data-default="<?php echo $this->is_default(); ?>">
+			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
+			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->get_type(); ?>"/>
 			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>"/>
 
 			<div class="column-meta">
@@ -1537,7 +1528,7 @@ class CPAC_Column {
 						</td>
 						<td class="column_type">
 							<div class="inner">
-								<a href="#"><?php echo stripslashes( $this->properties->label ); ?></a>
+								<a href="#"><?php echo stripslashes( $this->get_type_label() ); ?></a>
 							</div>
 						</td>
 						<td class="column_edit"></td>
@@ -1556,7 +1547,7 @@ class CPAC_Column {
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->get_name() . '</em>',
 						'grouped_options' => $this->get_storage_model()->get_grouped_columns(),
-						'default'         => $this->properties->type
+						'default'         => $this->get_type()
 					) );
 
 					$this->form_field( 'text', array(
@@ -1708,7 +1699,7 @@ class CPAC_Column {
 	 * @param strong $description (optional) Description below the label
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( 'CPAC_Column::display_field_radio', CPAC_VERSION, 'CPAC_Column::form_field' );
+		_deprecated_function( 'CPAC_Column::display_field_text', CPAC_VERSION, 'CPAC_Column::form_field' );
 
 		$this->form_field( 'text', array(
 			'name'          => $name,
