@@ -1301,8 +1301,16 @@ class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function display_field_before_after() {
-		$this->display_field_text( 'before', __( "Before", 'codepress-admin-columns' ), __( 'This text will appear before the custom field value.', 'codepress-admin-columns' ) );
-		$this->display_field_text( 'after', __( "After", 'codepress-admin-columns' ), __( 'This text will appear after the custom field value.', 'codepress-admin-columns' ) );
+		$this->form_field( 'text', array(
+			'name'        => 'before',
+			'label'       => __( "Before", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
+		) );
+		$this->form_field( 'text', array(
+			'name'        => 'after',
+			'label'       => __( "After", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
+		) );
 	}
 
 	/**
@@ -1323,143 +1331,154 @@ class CPAC_Column {
 
 		asort( $nametypes ); // sorts also when translated
 
-		$this->display_field_select( 'display_author_as', __( 'Display format', 'codepress-admin-columns' ), $nametypes, __( 'This is the format of the author name.', 'codepress-admin-columns' ) );
+		$this->form_field( 'select', array(
+			'name'        => 'display_author_as',
+			'label'       => __( 'Display format', 'codepress-admin-columns' ),
+			'options'     => $nametypes,
+			'description' => __( 'This is the format of the author name.', 'codepress-admin-columns' ),
+		) );
+	}
+
+	public function form_field( $type, $args = array() ) {
+		$defaults = array(
+			'name'           => '',
+			'label'          => '',
+			'description'    => '',
+			'toggle_trigger' => '', // triggers a toggle event on toggle_handle
+			'toggle_handle'  => '', // can be used to toggle this element
+			'refresh_column' => false, // when value is selected the column element will be refreshed with ajax
+			'hidden'         => false,
+		);
+		$args = wp_parse_args( $args, $defaults );
+		$field = (object) $args;
+		?>
+		<tr class="column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hidden' : ''; ?>"<?php echo $field->toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
+			<?php $this->label_view( $field->label, $field->description, $field->name ); ?>
+			<td class="input"<?php echo( $field->toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $field->toggle_trigger ) . '"' : '' ); ?>>
+				<?php
+				switch ( $type ) {
+					case 'select' :
+						$this->select_field( $args );
+						break;
+					case 'radio' :
+						$this->radio_field( $args );
+						break;
+					case 'text' :
+						$this->text_field( $args );
+						break;
+					case 'width' :
+						$this->width_field();
+						break;
+				}
+				?>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function select_field( $args = array() ) {
+	public function select_field( $args ) {
 		$defaults = array(
 			'name'            => '',
-			'label'           => '',
-			'description'     => '',
 			'options'         => array(),
 			'grouped_options' => array(),
 			'no_result'       => '',
-			'toggle_trigger'  => '', // triggers a toggle event on toggle_handle
-			'toggle_handle'   => '', // can be used to toggle this element
-			'refresh_column'  => false, // when value is selected the column element will be refreshed with ajax
-			'current'         => ''
+			'default'         => '',
 		);
 
-		$args = (object) wp_parse_args( $args, $defaults );
-		?>
-		<tr class="column-<?php echo $args->name; ?>"<?php echo $args->toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $args->toggle_handle ) . '"' : ''; ?><?php echo $args->refresh_column ? ' data-refresh="1"' : ''; ?>>
-			<?php $this->label_view( $args->label, $args->description, $args->name ); ?>
-			<td class="input"<?php echo( $args->toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $args->toggle_trigger ) . '"' : '' ); ?>>
-				<?php if ( $args->options || $args->grouped_options ) : ?>
-					<select name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>">
-						<?php if ( $args->options ) : ?>
-							<?php foreach ( $args->options as $key => $label ) : ?>
-								<option value="<?php echo $key; ?>"<?php selected( $key, $args->current ); ?>><?php echo $label; ?></option>
-							<?php endforeach; ?>
-						<?php elseif ( $args->grouped_options ) : ?>
-							<?php foreach ( $args->grouped_options as $group ) : ?>
-								<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
-									<?php foreach ( $group['options'] as $key => $label ) : ?>
-										<option value="<?php echo $key ?>"<?php selected( $key, $args->current ) ?>><?php echo esc_html( $label ); ?></option>
-									<?php endforeach; ?>
-								</optgroup>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</select>
-				<?php elseif ( $args->no_result ) :
-					echo esc_html( $args->no_result );
-				endif; ?>
-			</td>
-		</tr>
-		<?php
-	}
+		$args = (object) wp_parse_args( (array) $args, $defaults );
 
-	/**
-	 * @since 2.3.4
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
-	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
-	 * @param boolean $refresh This will JS refresh the column on change.
-	 */
-	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		$current = $this->get_option( $name );
-		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
-		$data_refresh = $js_refresh ? ' data-refresh="1"' : '';
-		?>
-		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?><?php echo $data_refresh; ?>>
-			<?php $this->label_view( $label, $description, $name ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>">
-					<?php foreach ( $options as $key => $label ) : ?>
+		$current = $this->get_option( $args->name );
+		if ( ! $current ) {
+			$current = $args->default;
+		}
+
+		if ( $args->options || $args->grouped_options ) : ?>
+			<select name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>">
+				<?php if ( $args->options ) : ?>
+					<?php foreach ( $args->options as $key => $label ) : ?>
 						<option value="<?php echo $key; ?>"<?php selected( $key, $current ); ?>><?php echo $label; ?></option>
 					<?php endforeach; ?>
-				</select>
-			</td>
-		</tr>
+				<?php elseif ( $args->grouped_options ) : ?>
+					<?php foreach ( $args->grouped_options as $group ) : ?>
+						<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
+							<?php foreach ( $group['options'] as $key => $label ) : ?>
+								<option value="<?php echo $key ?>"<?php selected( $key, $current ) ?>><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</optgroup>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
+
+			<?php //ajax message ?>
+			<div class="msg"></div>
+		<?php elseif ( $args->no_result ) :
+			echo $args->no_result;
+		endif;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function text_field( $args ) {
+		$args = (object) wp_parse_args( $args, array(
+			'name'        => '',
+			'placeholder' => '',
+		) ); ?>
+		<input type="text" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $args->name ) ) ); ?>"<?php echo $args->placeholder ? ' placeholder="' . esc_attr( $args->placeholder ) . '"' : ''; ?>/>
 		<?php
 	}
 
 	/**
-	 * @since 2.3.4
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
+	 * @since NEWVERSION
 	 */
-	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		$data_optional = $optional_toggle_id ? ' data-additional-option-id="' . $this->get_attr_id( $optional_toggle_id ) . '"' : '';
+	public function width_field() {
 		?>
-		<tr class="column-<?php echo $name; ?>"<?php echo $data_optional; ?>>
-			<?php $this->label_view( $label, $description, $name ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $name ) ) ); ?>"<?php echo $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : ''; ?>/>
-			</td>
-		</tr>
+		<div class="description" title="<?php _e( 'default', 'codepress-admin-columns' ); ?>">
+			<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->get_option( 'width' ); ?>"/>
+			<span class="unit"><?php echo $this->get_option( 'width_unit' ); ?></span>
+		</div>
+		<div class="width-slider"></div>
+
+		<div class="unit-select">
+			<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
+				<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->get_option( 'width_unit' ), 'px' ); ?>/>px
+			</label>
+			<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
+				<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->get_option( 'width_unit' ), '%' ); ?>/>%
+			</label>
+		</div>
+
 		<?php
 	}
 
 	/**
-	 * @since 2.4.8
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $value
+	 * @since NEWVERSION
 	 */
-	public function display_field_hidden( $name, $value = '' ) {
-		?>
-		<tr class="column-<?php echo $name; ?> hidden">
-			<td class="input">
-				<input type="hidden" name="<?php $this->attr_name( $name ); ?>" value="<?php echo esc_attr( $value ); ?>"/>
-			</td>
-		</tr>
-		<?php
-	}
+	public function radio_field( $args ) {
+		$defaults = array(
+			'name'     => '',
+			'options'  => array(),
+			'default'  => '',
+			'vertical' => false // display radio buttons vertical
+		);
 
-	/**
-	 * @since 2.4.7
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
-	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
-	 */
-	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_trigger = false, $toggle_handle = false, $colspan = false ) { ?>
-		<tr class="column-<?php echo $name; ?><?php echo 2 == $colspan ? ' full' : ''; ?>" <?php echo( $toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $toggle_handle ) . '"' : '' ); ?>>
+		$args = (object) wp_parse_args( (array) $args, $defaults );
 
-			<?php $this->label_view( $label, $description, $name ); ?>
+		$current = $this->get_option( $args->name );
+		if ( ! $current ) {
+			$current = $args->default;
+		}
 
-			<td class="input radio" <?php echo( $toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $toggle_trigger ) . '"' : '' ); ?><?php echo $colspan ? ' colspan="' . $colspan . '"' : ''; ?>>
-				<?php foreach ( $options as $key => $label ) : ?>
-					<label>
-						<input type="radio" name="<?php $this->attr_name( $name ); ?>" id="<?php $this->attr_id( $name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $this->get_option( $name ) ); ?>>
-						<?php echo $label; ?>
-					</label>
-				<?php endforeach; ?>
-			</td>
-		</tr>
-		<?php
+		foreach ( $args->options as $key => $label ) : ?>
+			<label>
+				<input type="radio" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
+				<?php echo $label; ?>
+			</label>
+			<?php echo $args->vertical ? '<br/>' : ''; ?>
+		<?php endforeach;
 	}
 
 	/**
@@ -1468,18 +1487,6 @@ class CPAC_Column {
 	public function display() {
 
 		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
-
-		// Selector
-		$column_list = '';
-		if ( $grouped_columns = $this->get_storage_model()->get_grouped_columns() ) {
-			foreach ( $grouped_columns as $group => $columns ) {
-				$column_list .= '<optgroup label="' . $group . '">';
-				foreach ( $columns as $type => $label ) {
-					$column_list .= '<option value="' . $type . '"' . selected( $this->properties->type, $type, false ) . '>' . $label . '</option>';
-				}
-				$column_list .= '</optgroup>';
-			}
-		}
 
 		// clone attribute
 		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
@@ -1542,46 +1549,28 @@ class CPAC_Column {
 			<div class="column-form">
 				<table class="widefat">
 					<tbody>
-					<tr class="column_type">
-						<?php $this->label_view( __( 'Type', 'codepress-admin-columns' ), __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->properties->type . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->properties->name . '</em>', 'type' ); ?>
-						<td class="input">
-							<select name="<?php $this->attr_name( 'type' ); ?>" id="<?php $this->attr_id( 'type' ); ?>">
-								<?php echo $column_list; ?>
-							</select>
-
-							<div class="msg"></div>
-						</td>
-					</tr><!--.column_label-->
-
-					<tr class="column_label<?php echo $this->properties->hide_label ? ' hidden' : ''; ?>">
-						<?php $this->label_view( __( 'Label', 'codepress-admin-columns' ), __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ), 'label' ); ?>
-						<td class="input">
-							<input class="text" type="text" name="<?php $this->attr_name( 'label' ); ?>" id="<?php $this->attr_id( 'label' ); ?>" value="<?php echo esc_attr( $this->get_option( 'label' ) ); ?>"/>
-						</td>
-					</tr><!--.column_label-->
-
-					<tr class="column_width">
-						<?php $this->label_view( __( 'Width', 'codepress-admin-columns' ), '', 'width' ); ?>
-						<td class="input">
-							<div class="description" title="<?php _e( 'default', 'codepress-admin-columns' ); ?>">
-								<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->get_option( 'width' ); ?>"/>
-								<span class="unit"><?php echo $this->get_option( 'width_unit' ); ?></span>
-							</div>
-							<div class="width-slider"></div>
-
-							<div class="unit-select">
-								<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->get_option( 'width_unit' ), 'px' ); ?>/>px
-								</label>
-								<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
-									<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->get_option( 'width_unit' ), '%' ); ?>/>%
-								</label>
-							</div>
-
-						</td>
-					</tr><!--.column_width-->
 
 					<?php
+					$this->form_field( 'select', array(
+						'name'            => 'type',
+						'label'           => __( 'Type', 'codepress-admin-columns' ),
+						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->get_name() . '</em>',
+						'grouped_options' => $this->get_storage_model()->get_grouped_columns(),
+						'default'         => $this->properties->type
+					) );
+
+					$this->form_field( 'text', array(
+						'name'        => 'label',
+						'label'       => __( 'Label', 'codepress-admin-columns' ),
+						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
+						'hidden'      => $this->properties->hide_label
+					) );
+
+					$this->form_field( 'width', array(
+						'name'  => 'width',
+						'label' => __( 'Width', 'codepress-admin-columns' )
+					) );
+
 					/**
 					 * Fires directly before the custom options for a column are displayed in the column form
 					 *
@@ -1606,7 +1595,7 @@ class CPAC_Column {
 					 * Load before and after fields for custom columns.
 					 *
 					 */
-					if ( $this->properties->use_before_after && ! $this->properties->default ) {
+					if ( $this->properties->use_before_after && ! $this->is_default() ) {
 						$this->display_field_before_after();
 					}
 					?>
@@ -1646,16 +1635,16 @@ class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_property_display() {
-		$this->display_field_select(
-			'post_property_display',
-			__( 'Property To Display', 'codepress-admin-columns' ),
-			array(
+		$this->form_field( 'select', array(
+			'name'        => 'post_property_display',
+			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
+			'options'     => array(
 				'title'  => __( 'Title' ), // default
 				'id'     => __( 'ID' ),
 				'author' => __( 'Author' )
 			),
-			__( 'Post property to display for related post(s).', 'codepress-admin-columns' )
-		);
+			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
+		) );
 	}
 
 	/**
@@ -1664,18 +1653,18 @@ class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_link_to() {
-		$this->display_field_select(
-			'post_link_to',
-			__( 'Link To', 'codepress-admin-columns' ),
-			array(
+		$this->form_field( 'select', array(
+			'name'        => 'post_link_to',
+			'label'       => __( 'Link To', 'codepress-admin-columns' ),
+			'options'     => array(
 				''            => __( 'None' ),
 				'edit_post'   => __( 'Edit Post' ),
 				'view_post'   => __( 'View Post' ),
 				'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
 				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' )
 			),
-			__( 'Page the posts should link to.', 'codepress-admin-columns' )
-		);
+			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' )
+		) );
 	}
 
 	/**
@@ -1701,5 +1690,79 @@ class CPAC_Column {
 			), $url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
 		</div>
 		<?php
+	}
+
+
+
+
+
+	// Deprecated methods
+
+	/**
+	 * @since 2.3.4
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $name Name of the column option
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
+	 */
+	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
+		_deprecated_function( 'CPAC_Column::display_field_radio', CPAC_VERSION, 'CPAC_Column::form_field' );
+
+		$this->form_field( 'text', array(
+			'name'          => $name,
+			'label'         => $label,
+			'description'   => $description,
+			'toggle_handle' => $optional_toggle_id,
+		) );
+	}
+
+	/**
+	 * @since 2.3.4
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $name Name of the column option
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
+	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
+	 * @param boolean $refresh This will JS refresh the column on change.
+	 */
+	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
+		_deprecated_function( 'CPAC_Column::display_field_select', CPAC_VERSION, 'CPAC_Column::form_field' );
+
+		$this->form_field( 'select', array(
+			'name'           => $name,
+			'label'          => $label,
+			'description'    => $description,
+			'toggle_handle'  => $optional_toggle_id,
+			'refresh_column' => $js_refresh,
+			'options'        => $options,
+		) );
+	}
+
+	/**
+	 * @since 2.4.7
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $name Name of the column option
+	 * @param string $label Label
+	 * @param array $options Select options
+	 * @param strong $description (optional) Description below the label
+	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
+	 */
+	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
+		_deprecated_function( 'CPAC_Column::display_field_radio', CPAC_VERSION, 'CPAC_Column::form_field' );
+
+		$this->form_field( 'radio', array(
+			'name'           => $name,
+			'label'          => $label,
+			'options'        => $options,
+			'description'    => $description,
+			'toggle_trigger' => $toggle_trigger,
+			'toggle_handle'  => $toggle_handle,
+			'colspan'        => $colspan,
+		) );
 	}
 }

@@ -12,16 +12,11 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-exif_data';
 		$this->properties['label'] = __( 'EXIF data', 'codepress-admin-columns' );
 		$this->properties['is_cloneable'] = true;
-
-		// Options
-		$this->options['exif_datatype'] = '';
 	}
 
 	/**
@@ -34,7 +29,6 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 	 * @return array EXIF data types
 	 */
 	private function get_exif_types() {
-
 		$exif_types = array(
 			'aperture'          => __( 'Aperture', 'codepress-admin-columns' ),
 			'credit'            => __( 'Credit', 'codepress-admin-columns' ),
@@ -47,6 +41,8 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 			'shutter_speed'     => __( 'Shutter Speed', 'codepress-admin-columns' ),
 			'title'             => __( 'Title', 'codepress-admin-columns' ),
 		);
+
+		asort( $exif_types );
 
 		return $exif_types;
 	}
@@ -84,17 +80,11 @@ class CPAC_Column_Media_Exif_Data extends CPAC_Column {
 		return function_exists( 'exif_read_data' );
 	}
 
-	public function display_settings() { ?>
-		<tr class="column-exif-data">
-			<?php $this->label_view( $this->properties->label, '', 'exif_datatype' ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( 'exif_datatype' ); ?>" id="<?php $this->attr_id( 'exif_datatype' ); ?>">
-					<?php foreach ( $this->get_exif_types() as $key => $label ) : ?>
-						<option value="<?php echo $key; ?>"<?php selected( $key, $this->get_option( 'exif_datatype' ) ); ?>><?php echo $label; ?></option>
-					<?php endforeach; ?>
-				</select>
-			</td>
-		</tr>
-		<?php
+	public function display_settings() {
+		$this->form_field( 'select', array(
+			'name'    => 'exif_datatype',
+			'label'   => $this->get_type_label(),
+			'options' => $this->get_exif_types()
+		) );
 	}
 }

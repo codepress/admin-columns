@@ -483,17 +483,17 @@
 .cpac-column .column-form table tr td.input .section {
   padding: 12px;
 }
-.cpac-column .column-form table tr.column_width .input {
+.cpac-column .column-form table tr.column-width .input {
   position: relative;
 }
-.cpac-column .column-form table tr.column_width .input div.description {
+.cpac-column .column-form table tr.column-width .input div.description {
   font-size: 11px;
   width: 54px;
   position: absolute;
   left: 10px;
   text-align: middle;
 }
-.cpac-column .column-form table tr.column_width .input div.description input {
+.cpac-column .column-form table tr.column-width .input div.description input {
   background: #efefef;
   border: none;
   height: 20px;
@@ -502,23 +502,23 @@
   width: 36px;
   font-size: 12px;
 }
-.cpac-column .column-form table tr.column_width .input div.width-slider {
+.cpac-column .column-form table tr.column-width .input div.width-slider {
   margin-left: 68px;
   margin-right: 90px;
   position: relative;
   margin-top: 5px;
 }
-.cpac-column .column-form table tr.column_width .input div.width-slider .ui-slider-handle {
+.cpac-column .column-form table tr.column-width .input div.width-slider .ui-slider-handle {
   cursor: ew-resize;
 }
-.cpac-column .column-form table tr.column_width .input div.unit-select {
+.cpac-column .column-form table tr.column-width .input div.unit-select {
   position: absolute;
   top: 8px;
   right: 10px;
   width: 90px;
   text-align: right;
 }
-.cpac-column .column-form table tr.column_width .input div.unit-select label {
+.cpac-column .column-form table tr.column-width .input div.unit-select label {
   padding-left: 5px;
 }
 .cpac-column .column-form table tr.column_image_size {

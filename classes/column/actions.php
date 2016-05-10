@@ -84,30 +84,17 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	public function display_settings() {
 		parent::display_settings();
 
-		$this->display_field_use_icons();
-	}
-
-	/**
-	 * Display the settings field for using icons instead of text links.
-	 *
-	 * @since 2.2.6
-	 */
-	public function display_field_use_icons() {
-		?>
-		<tr class="column_editing">
-			<?php $this->label_view( __( 'Use icons?', 'codepress-admin-columns' ), __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ), 'use_icons' ); ?>
-			<td class="input">
-				<label for="<?php $this->attr_id( 'use_icons' ); ?>-yes">
-					<input type="radio" value="1" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-yes"<?php checked( $this->get_option( 'use_icons' ), '1' ); ?> />
-					<?php _e( 'Yes' ); ?>
-				</label>
-				<label for="<?php $this->attr_id( 'use_icons' ); ?>-no">
-					<input type="radio" value="" name="<?php $this->attr_name( 'use_icons' ); ?>" id="<?php $this->attr_id( 'use_icons' ); ?>-no"<?php checked( $this->get_option( 'use_icons' ), '' ); ?> />
-					<?php _e( 'No' ); ?>
-				</label>
-			</td>
-		</tr>
-		<?php
+		// Use icons
+		$this->form_field( 'radio', array(
+			'name'        => 'use_icons',
+			'label'       => __( 'Use icons?', 'codepress-admin-columns' ),
+			'description' => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
+			'options'     => array(
+				'1'  => __( 'Yes' ),
+				'' => __( 'No' ),
+			),
+			'default'     => ''
+		) );
 	}
 
 	/**
@@ -120,7 +107,6 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 	 * @return array List of actions ([action name] => [action icon link]).
 	 */
 	public function convert_actions_to_icons( $actions ) {
-
 		$icons = $this->get_actions_icons();
 
 		foreach ( $actions as $action => $link ) {
@@ -175,7 +161,6 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		return array(
 			'edit'      => 'edit',
-			'trash'     => 'trash',
 			'delete'    => 'trash',
 			'untrash'   => 'undo',
 			'unspam'    => 'undo',

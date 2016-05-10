@@ -145,9 +145,16 @@ abstract class CPAC_Storage_Model {
 		$grouped = array();
 		foreach ( $this->column_types as $type => $column ) {
 
+			if ( ! isset( $grouped[ $column->properties->group ] ) ) {
+				$grouped[ $column->properties->group ]['title'] = $column->properties->group;
+			}
+
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->properties->group ][ $type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->name ) : ucfirst( $column->properties->label );
-			asort( $grouped[ $column->properties->group ] );
+			$grouped[ $column->properties->group ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->name ) : ucfirst( $column->properties->label ) );
+
+			if ( ! $column->is_default() ) {
+				asort( $grouped[ $column->properties->group ]['options'] );
+			}
 		}
 
 		krsort( $grouped );

@@ -221,7 +221,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
@@ -323,35 +322,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		return $this->get_storage_model()->get_meta_keys();
 	}
 
-	public function get_meta_keys_list() {
-		$list = false;
-
-		if ( $keys = $this->get_meta_keys() ) {
-			$lists = array();
-			foreach ( $keys as $field ) {
-				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-					$lists['hidden'][] = $field;
-				}
-				else {
-					$lists['public'][] = $field;
-				}
-			}
-			krsort( $lists ); // public first
-
-			$list = '<select name="' . $this->get_attr_name( 'field' ) . '" id="' . $this->get_attr_id( 'field' ) . '">';
-			foreach ( $lists as $type => $fields ) {
-				$list .= "<optgroup label='" . ( 'hidden' == $type ? __( 'Hidden Custom Fields', 'codepress-admin-columns' ) : __( 'Custom Fields', 'codepress-admin-columns' ) ) . "'>";
-				foreach ( $fields as $field ) {
-					$list .= "<option value='{$field}'" . selected( $field, $this->get_option( 'field' ), false ) . ">" . str_replace( 'cpachidden', '', $field ) . "</option>";
-				}
-				$list .= "</optgroup>";
-			}
-			$list .= '</select>';
-		}
-
-		return $list;
-	}
-
 	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
@@ -360,37 +330,56 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->display_field_text( 'field', __( "Custom Field", 'codepress-admin-columns' ), __( "Enter your custom field key.", 'codepress-admin-columns' ) );
+			$this->form_field( 'text', array(
+				'name'        => 'field',
+				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
+				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
+			) );
 		else :
-			?>
-			<tr class="column_field">
-				<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
-				<td class="input">
-					<?php
-					if ( $list = $this->get_meta_keys_list() ) {
-						echo $list;
+
+			$grouped_options = array();
+
+			if ( $keys = $this->get_meta_keys() ) {
+				$grouped_options = array(
+					'hidden' => array(
+						'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+						'options' => ''
+					),
+					'public' => array(
+						'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+						'options' => ''
+					)
+				);
+
+				foreach ( $keys as $field ) {
+					if ( substr( $field, 0, 10 ) == "cpachidden" ) {
+						$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
 					}
 					else {
-						_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' );
+						$grouped_options['public']['options'][ $field ] = $field;
 					}
-					?>
-				</td>
-			</tr>
-		<?php endif; ?>
+				}
 
-		<tr class="column_field_type" data-refresh="1">
-			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>', 'field_type' ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
-					<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
-						<option
-							value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->get_option( 'field_type' ) ) ?>><?php echo $fieldtype; ?></option>
-					<?php endforeach; ?>
-				</select>
-			</td>
-		</tr>
+				krsort( $grouped_options ); // public first
+			}
 
-		<?php
+			$this->form_field( 'select', array(
+				'name'            => 'field',
+				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
+				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ),
+				'grouped_options' => $grouped_options,
+			) );
+		endif;
+
+		$this->form_field( 'select', array(
+			'name'           => 'field_type',
+			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
+			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>',
+			'options'        => $this->get_custom_field_types(),
+			'refresh_column' => true,
+		) );
+
 		switch ( $this->get_option( 'field_type' ) ) {
 			case 'date':
 				$this->display_field_date_format();
