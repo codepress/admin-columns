@@ -94,7 +94,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	public function get_custom_field_types() {
 
 		$custom_field_types = array(
-			''            => __( 'Default', 'codepress-admin-columns' ),
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
 			'color'       => __( 'Color', 'codepress-admin-columns' ),
 			'count'       => __( 'Counter', 'codepress-admin-columns' ),
@@ -110,8 +109,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 		);
 
-		// deprecated. do not use, will be removed.
-		$custom_field_types = apply_filters( 'cpac_custom_field_types', $custom_field_types );
+		asort( $custom_field_types );
+
+		// Default option comes first
+		$custom_field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $custom_field_types );
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
@@ -121,8 +122,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		 * @param array $custom_field_types Available custom field types ([type] => [label])
 		 */
 		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
-
-		asort( $custom_field_types );
 
 		return $custom_field_types;
 	}
