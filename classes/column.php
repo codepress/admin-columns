@@ -717,21 +717,57 @@ class CPAC_Column {
 	 * @since 1.0
 	 * @return array Image Sizes.
 	 */
-	public function get_all_image_sizes() {
-		$image_sizes = array(
-			'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
-			'medium'    => __( "Medium", 'codepress-admin-columns' ),
-			'large'     => __( "Large", 'codepress-admin-columns' ),
-			'full'      => __( "Full", 'codepress-admin-columns' )
+	private function get_all_image_sizes() {
+		global $_wp_additional_image_sizes;
+
+		$sizes = array(
+			'default' => array(
+				'title'   => __( 'Default', 'codepress-admin-columns' ),
+				'options' => array(
+					'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
+					'medium'    => __( "Medium", 'codepress-admin-columns' ),
+					'large'     => __( "Large", 'codepress-admin-columns' )
+				)
+			)
 		);
 
-		foreach ( get_intermediate_image_sizes() as $size ) {
-			if ( ! isset( $image_sizes[ $size ] ) ) {
-				$image_sizes[ $size ] = ucwords( str_replace( '-', ' ', $size ) );
+		$all_sizes = get_intermediate_image_sizes();
+
+		if ( ! empty( $all_sizes ) ) {
+			foreach ( $all_sizes as $size ) {
+				if ( 'medium_large' == $size || isset( $sizes['default']['options'][ $size ] ) ) {
+					continue;
+				}
+
+				if ( ! isset( $sizes['custom'] ) ) {
+					$sizes['defined']['title'] = __( "Others", 'codepress-admin-columns' );
+				}
+
+				$sizes['defined']['options'][ $size ] = ucwords( str_replace( '-', ' ', $size ) );
 			}
 		}
 
-		return $image_sizes;
+		// add sizes
+		foreach ( $sizes as $key => $group ) {
+			foreach ( array_keys( $group['options'] ) as $_size ) {
+
+				$w = isset( $_wp_additional_image_sizes[ $_size ]['width'] ) ? $_wp_additional_image_sizes[ $_size ]['width'] : get_option( "{$_size}_size_w" );
+				$h = isset( $_wp_additional_image_sizes[ $_size ]['height'] ) ? $_wp_additional_image_sizes[ $_size ]['height'] : get_option( "{$_size}_size_h" );
+				if ( $w && $h ) {
+					$sizes[ $key ]['options'][ $_size ] .= " ({$w} x {$h})";
+				}
+			}
+		}
+
+		// last
+		$sizes['default']['options']['full'] = __( "Full Size", 'codepress-admin-columns' );
+
+		$sizes['custom'] = array(
+			'title'   => __( 'Custom', 'codepress-admin-columns' ),
+			'options' => array( 'custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' )
+		);
+
+		return $sizes;
 	}
 
 	/**
@@ -1228,42 +1264,36 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	public function display_field_preview_size() {
+	public function display_field_preview_size() { ?>
+		<tr>
+			<?php $this->label_view( __( 'Preview size', 'codepress-admin-columns' ) ); ?>
+			<td class="input nopadding">
+				<table class="widefat">
+					<?php
+					$this->form_field( array(
+						'type'            => 'select',
+						'name'            => 'image_size',
+						'grouped_options' => $this->get_all_image_sizes()
+					) );
+					?>
 
-		$field_key = 'image_size';
-		$label = __( 'Preview size', 'codepress-admin-columns' );
-
-		$image_size = $this->get_option( 'image_size' );
-		?>
-		<tr class="radio column_<?php echo $field_key; ?>">
-
-			<?php $this->label_view( $label, '', $field_key ); ?>
-
-			<td class="input">
-				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : $_sizes = array_keys( $sizes ); ?>
-					<?php $selected = $image_size ? $image_size : $_sizes[0]; ?>
-					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
-						<input type="radio" value="<?php echo $id; ?>" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>"<?php checked( $selected, $id ); ?>>
-						<?php echo $image_label; ?>
-					</label>
-				<?php endforeach; ?>
-
-				<div class="custom_image_size">
-					<label for="<?php $this->attr_id( $field_key ); ?>-custom" class="custom-size image-size-custom">
-						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $image_size, 'cpac-custom' ); ?>>
-						<?php _e( 'Custom', 'codepress-admin-columns' ); ?>
-					</label>
-					<label for="<?php $this->attr_id( $field_key ); ?>-w"
-						class="custom-size-w<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->get_option( 'image_size_w' ); ?>"/>
-						<?php _e( 'width', 'codepress-admin-columns' ); ?>
-					</label>
-					<label for="<?php $this->attr_id( $field_key ); ?>-h"
-						class="custom-size-h<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->get_option( 'image_size_h' );; ?>"/>
-						<?php _e( 'height', 'codepress-admin-columns' ); ?>
-					</label>
-				</div>
+					<?php
+					$this->form_field( array(
+						'type'          => 'text',
+						'name'          => 'image_size_w',
+						'label'         => __( "Width", 'codepress-admin-columns' ),
+						'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
+						'toggle_handle' => 'image_size_w'
+					) );
+					$this->form_field( array(
+						'type'          => 'text',
+						'name'          => 'image_size_h',
+						'label'         => __( "Height", 'codepress-admin-columns' ),
+						'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
+						'toggle_handle' => 'image_size_h'
+					) );
+					?>
+				</table>
 			</td>
 		</tr>
 		<?php
