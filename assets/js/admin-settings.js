@@ -709,24 +709,24 @@ function cpac_pointer() {
 			jQuery( this ).pointer( 'open' );
 		}, function() {
 			var el = jQuery( this );
-			setTimeout( function(){
-				if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+			setTimeout( function() {
+				if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
 					el.pointer( 'close' );
 				}
 			}, 100 );
 
-		} ).on( 'close', function(){
-			if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+		} ).on( 'close', function() {
+			if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
 				el.pointer( 'close' );
 			}
-		});
+		} );
 	} );
 
-	jQuery('.cpac-wp-pointer' ).hover( function(){
-		jQuery(this ).addClass('hover');
-	}, function(){
-		jQuery(this ).removeClass('hover');
-		jQuery( '.cpac-pointer' ).trigger('close');
+	jQuery( '.cpac-wp-pointer' ).hover( function() {
+		jQuery( this ).addClass( 'hover' );
+	}, function() {
+		jQuery( this ).removeClass( 'hover' );
+		jQuery( '.cpac-pointer' ).trigger( 'close' );
 	} );
 
 }
@@ -866,11 +866,11 @@ jQuery.fn.cpac_bind_indicator_events = function() {
 
 		if ( jQuery( this ).hasClass( 'on' ) ) {
 			jQuery( this ).removeClass( 'on' ).addClass( 'off' );
-			radio.filter( '[value=off]' ).prop( 'checked', true );
+			radio.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' );
 		}
 		else {
 			jQuery( this ).removeClass( 'off' ).addClass( 'on' );
-			radio.filter( '[value=on]' ).prop( 'checked', true );
+			radio.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' );
 		}
 	} );
 };
