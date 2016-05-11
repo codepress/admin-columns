@@ -328,7 +328,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->form_field( 'text', array(
+			$this->form_field( array(
+				'type'        => 'text',
 				'name'        => 'field',
 				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
@@ -361,7 +362,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				krsort( $grouped_options ); // public first
 			}
 
-			$this->form_field( 'select', array(
+			$this->form_field( array(
+				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
@@ -370,7 +372,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			) );
 		endif;
 
-		$this->form_field( 'select', array(
+		$this->form_field( array(
+			'type'           => 'select',
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
 			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>',

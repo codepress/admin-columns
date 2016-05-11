@@ -70,7 +70,8 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function display_settings() {
-		$this->form_field( 'radio', array(
+		$this->form_field( array(
+			'type'        => 'radio',
 			'name'        => 'path_scope',
 			'label'       => __( 'Path scope', 'codepress-admin-columns' ),
 			'description' => __( 'Part of the file path to display', 'codepress-admin-columns' ),

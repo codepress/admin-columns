@@ -82,6 +82,10 @@ class CPAC_Column_User_Post_Count extends CPAC_Column {
 			$obj = get_post_type_object( $type );
 			$post_types[ $type ] = $obj->labels->name;
 		}
+		
+		$this->form_field(array(
+			'type' => 'select'
+		));
 
 		?>
 		<tr class="<?php $this->properties->type; ?>">

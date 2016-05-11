@@ -85,7 +85,8 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_user_link_to() {
-		$this->form_field( 'select', array(
+		$this->form_field( array(
+			'type'        => 'select',
 			'name'        => 'user_link_to',
 			'label'       => __( 'Link To', 'codepress-admin-columns' ),
 			'options'     => array(
