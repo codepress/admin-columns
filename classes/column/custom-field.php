@@ -320,6 +320,34 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		return $this->get_storage_model()->get_meta_keys();
 	}
 
+	private function get_grouped_field_options() {
+		$grouped_options = array();
+
+		if ( $keys = $this->get_meta_keys() ) {
+			$grouped_options = array(
+				'hidden' => array(
+					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				),
+				'public' => array(
+					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				)
+			);
+
+			foreach ( $keys as $field ) {
+				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
+					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
+				}
+				else {
+					$grouped_options['public']['options'][ $field ] = $field;
+				}
+			}
+
+			krsort( $grouped_options ); // public first
+		}
+	}
+
 	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
@@ -335,40 +363,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
 			) );
 		else :
-
-			$grouped_options = array();
-
-			if ( $keys = $this->get_meta_keys() ) {
-				$grouped_options = array(
-					'hidden' => array(
-						'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
-						'options' => ''
-					),
-					'public' => array(
-						'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
-						'options' => ''
-					)
-				);
-
-				foreach ( $keys as $field ) {
-					if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-						$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-					}
-					else {
-						$grouped_options['public']['options'][ $field ] = $field;
-					}
-				}
-
-				krsort( $grouped_options ); // public first
-			}
-
 			$this->form_field( array(
 				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
 				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ),
-				'grouped_options' => $grouped_options,
+				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;
 

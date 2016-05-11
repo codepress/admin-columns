@@ -637,9 +637,6 @@
   margin-top: 4px;
   margin-bottom: 4px;
 }
-.cpac-column .column-form > table tr.column_image_size td.input label.custom-size input {
-  margin-right: 3px;
-}
 .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size {
   display: inline-block;
 }

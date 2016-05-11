@@ -1191,58 +1191,38 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_field_date_format() {
-		$field_key = 'date_format';
-		?>
-		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( __( 'Date Format', 'codepress-admin-columns' ), __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ), $field_key ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'date_format' ); ?>" placeholder="<?php _e( 'Example:', 'codepress-admin-columns' ); ?> d M Y H:i"/>
-
-				<p class="help-msg">
-					<?php printf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ); ?>
-					<a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'><?php _e( 'Documentation on date and time formatting.', 'codepress-admin-columns' ); ?></a>
-				</p>
-			</td>
-		</tr>
-
-		<?php
+		$this->form_field( array(
+			'type'        => 'text',
+			'name'        => 'date_format',
+			'label'       => __( 'Date Format', 'codepress-admin-columns' ),
+			'placeholder' => __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i',
+			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
+			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>"
+		) );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function display_field_excerpt_length() {
-
-		$field_key = 'excerpt_length';
-		$label = __( 'Excerpt length', 'codepress-admin-columns' );
-		$description = __( 'Number of words', 'codepress-admin-columns' );
-
-		?>
-		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( $label, $description, $field_key ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'excerpt_length' ); ?>"/>
-			</td>
-		</tr>
-		<?php
+		$this->form_field( array(
+			'type'        => 'text',
+			'name'        => 'excerpt_length',
+			'label'       => __( 'Excerpt length', 'codepress-admin-columns' ),
+			'description' => __( 'Number of words', 'codepress-admin-columns' ),
+		) );
 	}
 
 	/**
 	 * @since 2.4.9
 	 */
 	public function display_field_link_label() {
-		$field_key = 'link_label';
-		$label = __( 'Link label', 'codepress-admin-columns' );
-		$description = __( 'Leave blank to display the url', 'codepress-admin-columns' );
-
-		?>
-		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( $label, $description, $field_key ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_option( 'link_label' ); ?>"/>
-			</td>
-		</tr>
-		<?php
+		$this->form_field( array(
+			'type'        => 'text',
+			'name'        => 'link_label',
+			'label'       => __( 'Link label', 'codepress-admin-columns' ),
+			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
+		) );
 	}
 
 	/**
@@ -1255,11 +1235,11 @@ class CPAC_Column {
 
 		$image_size = $this->get_option( 'image_size' );
 		?>
-		<tr class="column_<?php echo $field_key; ?>">
+		<tr class="radio column_<?php echo $field_key; ?>">
 
 			<?php $this->label_view( $label, '', $field_key ); ?>
 
-			<td class="input radio">
+			<td class="input">
 				<?php foreach ( $sizes = $this->get_all_image_sizes() as $id => $image_label ) : $_sizes = array_keys( $sizes ); ?>
 					<?php $selected = $image_size ? $image_size : $_sizes[0]; ?>
 					<label for="<?php $this->attr_id( $field_key ); ?>-<?php echo $id ?>" class="custom-size">
@@ -1270,15 +1250,18 @@ class CPAC_Column {
 
 				<div class="custom_image_size">
 					<label for="<?php $this->attr_id( $field_key ); ?>-custom" class="custom-size image-size-custom">
-						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $image_size, 'cpac-custom' ); ?>><?php _e( 'Custom', 'codepress-admin-columns' ); ?>
+						<input type="radio" value="cpac-custom" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>-custom"<?php checked( $image_size, 'cpac-custom' ); ?>>
+						<?php _e( 'Custom', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-w"
 						class="custom-size-w<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->get_option( 'image_size_w' ); ?>"/><?php _e( 'width', 'codepress-admin-columns' ); ?>
+						<input type="text" name="<?php $this->attr_name( 'image_size_w' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-w" value="<?php echo $this->get_option( 'image_size_w' ); ?>"/>
+						<?php _e( 'width', 'codepress-admin-columns' ); ?>
 					</label>
 					<label for="<?php $this->attr_id( $field_key ); ?>-h"
 						class="custom-size-h<?php echo $image_size != 'cpac-custom' ? ' hidden' : ''; ?>">
-						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->get_option( 'image_size_h' );; ?>"/><?php _e( 'height', 'codepress-admin-columns' ); ?>
+						<input type="text" name="<?php $this->attr_name( 'image_size_h' ); ?>" id="<?php $this->attr_id( $field_key ); ?>-h" value="<?php echo $this->get_option( 'image_size_h' );; ?>"/>
+						<?php _e( 'height', 'codepress-admin-columns' ); ?>
 					</label>
 				</div>
 			</td>
@@ -1289,35 +1272,29 @@ class CPAC_Column {
 	/**
 	 * @since 2.1.1
 	 */
-	/*
-		public function display_field_before_after() { ?>
-			<tr class="section">
-				<td class="label">
-					<span><?php _e( 'Display Options', 'codepress-admin-columns' ); ?></span>
-				</td>
-				<td class="input multiple">
-					<table class="widefat">
-						<?php $this->display_field_text( 'before', __( "Before", 'codepress-admin-columns' ), __( 'This text will appear before the custom field value.', 'codepress-admin-columns' ) ); ?>
-						<?php $this->display_field_text( 'after', __( "After", 'codepress-admin-columns' ), __( 'This text will appear after the custom field value.', 'codepress-admin-columns' ) ); ?>
-					</table>
-				</td>
-			</tr>
-			<?php
-		}
-	*/
-	public function display_field_before_after() {
-		$this->form_field( array(
-			'type'        => 'text',
-			'name'        => 'before',
-			'label'       => __( "Before", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
-		) );
-		$this->form_field( array(
-			'type'        => 'text',
-			'name'        => 'after',
-			'label'       => __( "After", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
-		) );
+	public function display_field_before_after() { ?>
+		<tr class="section">
+			<?php $this->label_view( __( 'Display Options', 'codepress-admin-columns' ) ); ?>
+			<td class="input nopadding">
+				<table class="widefat">
+					<?php
+					$this->form_field( array(
+						'type'        => 'text',
+						'name'        => 'before',
+						'label'       => __( "Before", 'codepress-admin-columns' ),
+						'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
+					) );
+					$this->form_field( array(
+						'type'        => 'text',
+						'name'        => 'after',
+						'label'       => __( "After", 'codepress-admin-columns' ),
+						'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
+					) );
+					?>
+				</table>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
@@ -1359,13 +1336,14 @@ class CPAC_Column {
 			'hidden'         => false,
 			'for'            => false,
 			'section'        => false,
+			'help'           => '' // help message below input field
 		);
 		$args = wp_parse_args( $args, $defaults );
 		$field = (object) $args;
 		?>
 		<tr class="<?php echo $field->type; ?> column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hidden' : ''; ?><?php echo $field->section ? ' section' : ''; ?>"<?php echo $field->toggle_handle ? ' data-additional-option-id="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
 			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ) ); ?>
-			<td class="input"<?php echo( $field->toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $field->toggle_trigger ) . '"' : '' ); ?><?php echo empty( $this->label ) ? ' colspan="2"' : ''; ?>>
+			<td class="input"<?php echo( $field->toggle_trigger ? ' data-toggle-id="' . $this->get_attr_id( $field->toggle_trigger ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
 				<?php
 				switch ( $field->type ) {
 					case 'select' :
@@ -1381,7 +1359,13 @@ class CPAC_Column {
 						$this->width_field();
 						break;
 				}
-				?>
+
+				if ( $field->help ) : ?>
+					<p class="help-msg">
+						<?php echo $field->help; ?>
+					</p>
+				<?php endif; ?>
+
 			</td>
 		</tr>
 		<?php
@@ -1495,14 +1479,9 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display() {
-
 		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
-
-		// clone attribute
-		$data_clone = $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : '';
-
 		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $data_clone; ?> data-default="<?php echo $this->is_default(); ?>">
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : ''; ?> data-default="<?php echo $this->is_default(); ?>">
 			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->get_type(); ?>"/>
 			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>"/>

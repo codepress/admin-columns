@@ -368,7 +368,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private function get_post_types() {
+	public function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
