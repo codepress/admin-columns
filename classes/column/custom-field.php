@@ -26,21 +26,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['use_before_after'] = true;
 
-		// Options
-		$this->options['field'] = '';
-		$this->options['field_type'] = '';
-		$this->options['before'] = '';
-		$this->options['after'] = '';
-
-		$this->options['image_size'] = '';
+		// Default options
+		$this->options['image_size'] = 'custom';
 		$this->options['image_size_w'] = 80;
 		$this->options['image_size_h'] = 80;
-
 		$this->options['excerpt_length'] = 15;
-
-		$this->options['link_label'] = '';
-
-		$this->options['date_format'] = '';
 	}
 
 	/**
@@ -346,6 +336,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 			krsort( $grouped_options ); // public first
 		}
+
+		return $grouped_options;
 	}
 
 	/**
