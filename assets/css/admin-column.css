@@ -2,8 +2,8 @@
   font-family: "cpac_icons";
   src: url('../fonts/cpac_icons.woff') format('woff');
 }
-[class^="icon-"],
-[class*=" icon-"],
+[class^="cpacicon-"],
+[class*=" cpacicon-"],
 .icon {
   font-family: 'cpac_icons';
   speak: none;
@@ -16,12 +16,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-[class^="icon-"]:before,
-[class*=" icon-"]:before,
+[class^="cpacicon-"]:before,
+[class*=" cpacicon-"]:before,
 .icon:before {
   font-size: 100%;
 }
-.icon-move:before {
+.cpacicon-move:before {
   content: "\";
 }
 /* Dynamic variables */
@@ -284,19 +284,12 @@
   position: relative;
   width: 16px;
   cursor: move;
+  padding: 9px 8px;
 }
-.cpac-column .column-meta table tr td.column_sort:before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-repeat: no-repeat;
-  background-image: url('../images/drag.png');
-  background-position: 10px 10px;
+.cpac-column .column-meta table tr td.column_sort span {
+  font-size: 22px;
+  display: inline-block;
+  color: #bdbdbd;
 }
 .cpac-column .column-meta table tr td.column_label {
   width: 70%;
@@ -400,6 +393,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none !important;
   color: #b4b9be;
+}
+.cpac-column .column-meta table tr:hover td.column_sort span {
+  color: #9b9b9b;
 }
 .cpac-column .column-meta:hover .column_label .inner > a.remove-button,
 .cpac-column .column-meta:hover .column_label .inner > a.edit-button,

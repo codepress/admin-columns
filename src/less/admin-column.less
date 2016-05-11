@@ -349,28 +349,17 @@
 						position: relative;
 						width: 16px;
 						cursor: move;
+						padding: 9px 8px;
 
-						&:before {
-							content: ' ';
-							display: block;
-							position: absolute;
-							left: 0;
-							top: 0;
-							width: 100%;
-							height: 100%;
-							z-index: 1;
-							background-repeat: no-repeat;
-
-							// triple dots
-							//opacity: 0.30;
-							//background-image: url('../images/drag_2x.png');
-							//background-size: 30px 30px;
-							//background-position: center center;
-
-							// stips
-							background-image: url('../images/drag.png');
-							background-position: 10px 10px;
+						span {
+							font-size: 22px;
+							display: inline-block;
+							color: #bdbdbd;
+							//display: none;
+							//margin-top: -2px;
+							//margin-left: 4px;
 						}
+
 					}
 
 					&.column_label {
@@ -494,6 +483,14 @@
 					}
 				}
 				// td
+
+				&:hover {
+					td.column_sort  {
+						span {
+							color: #9b9b9b;
+						}
+					}
+				}
 			}
 			// tr
 		}

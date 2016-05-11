@@ -1521,6 +1521,7 @@ class CPAC_Column {
 					<tbody>
 					<tr>
 						<td class="column_sort">
+							<span class="cpacicon-move"></span>
 						</td>
 						<td class="column_label">
 							<div class="inner">
