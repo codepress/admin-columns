@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "cpac_icons";
+  src: url('../fonts/cpac_icons.woff') format('woff');
+}
+[class^="icon-"],
+[class*=" icon-"],
+.icon {
+  font-family: 'cpac_icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+.icon:before {
+  font-size: 100%;
+}
+.icon-move:before {
+  content: "\";
+}
+/* Dynamic variables */
