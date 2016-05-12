@@ -284,8 +284,7 @@ jQuery.fn.column_bind_events = function() {
 	} );
 
 	/** change label */
-	column.find( '.column_label .input input' ).bind( 'keyup change', function() {
-
+	column.find( '.column-form .column-label .input input' ).bind( 'keyup change', function() {
 		var value = jQuery( this ).val();
 		jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 	} );
