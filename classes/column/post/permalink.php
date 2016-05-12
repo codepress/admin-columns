@@ -49,7 +49,8 @@ class CPAC_Column_Post_Permalink extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function display_settings() {
-		$this->form_field( 'radio', array(
+		$this->form_field( array(
+			'type'        => 'radio',
 			'name'        => 'link_to_post',
 			'label'       => __( 'Link to post', 'codepress-admin-columns' ),
 			'description' => __( 'This will make the permalink clickable.', 'codepress-admin-columns' ),

@@ -26,21 +26,11 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['use_before_after'] = true;
 
-		// Options
-		$this->options['field'] = '';
-		$this->options['field_type'] = '';
-		$this->options['before'] = '';
-		$this->options['after'] = '';
-
-		$this->options['image_size'] = '';
+		// Default options
+		$this->options['image_size'] = 'custom';
 		$this->options['image_size_w'] = 80;
 		$this->options['image_size_h'] = 80;
-
 		$this->options['excerpt_length'] = 15;
-
-		$this->options['link_label'] = '';
-
-		$this->options['date_format'] = '';
 	}
 
 	/**
@@ -76,7 +66,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function sanitize_options( $options ) {
-
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );
 		}
@@ -321,6 +310,36 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		return $this->get_storage_model()->get_meta_keys();
 	}
 
+	private function get_grouped_field_options() {
+		$grouped_options = array();
+
+		if ( $keys = $this->get_meta_keys() ) {
+			$grouped_options = array(
+				'hidden' => array(
+					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				),
+				'public' => array(
+					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				)
+			);
+
+			foreach ( $keys as $field ) {
+				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
+					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
+				}
+				else {
+					$grouped_options['public']['options'][ $field ] = $field;
+				}
+			}
+
+			krsort( $grouped_options ); // public first
+		}
+
+		return $grouped_options;
+	}
+
 	/**
 	 * @see CPAC_Column::display_settings()
 	 * @since 1.0
@@ -329,49 +348,25 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->form_field( 'text', array(
+			$this->form_field( array(
+				'type'        => 'text',
 				'name'        => 'field',
 				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
 			) );
 		else :
-
-			$grouped_options = array();
-
-			if ( $keys = $this->get_meta_keys() ) {
-				$grouped_options = array(
-					'hidden' => array(
-						'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
-						'options' => ''
-					),
-					'public' => array(
-						'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
-						'options' => ''
-					)
-				);
-
-				foreach ( $keys as $field ) {
-					if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-						$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-					}
-					else {
-						$grouped_options['public']['options'][ $field ] = $field;
-					}
-				}
-
-				krsort( $grouped_options ); // public first
-			}
-
-			$this->form_field( 'select', array(
+			$this->form_field( array(
+				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
 				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ),
-				'grouped_options' => $grouped_options,
+				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;
 
-		$this->form_field( 'select', array(
+		$this->form_field( array(
+			'type'           => 'select',
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
 			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>',

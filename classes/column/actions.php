@@ -53,7 +53,7 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 
 		foreach ( $actions as $class => $action ) {
 			$actions[ $class ] = '<span class="' . esc_attr( $class ) . '">' . $action . ( $i < $num_actions - 1 ? ' | ' : '' ) . '</span>';
-			$i ++;
+			$i++;
 		}
 
 		return implode( '', $actions );
@@ -85,13 +85,14 @@ abstract class CPAC_Column_Actions extends CPAC_Column {
 		parent::display_settings();
 
 		// Use icons
-		$this->form_field( 'radio', array(
+		$this->form_field( array(
+			'type'        => 'radio',
 			'name'        => 'use_icons',
 			'label'       => __( 'Use icons?', 'codepress-admin-columns' ),
 			'description' => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
 			'options'     => array(
-				'1'  => __( 'Yes' ),
-				'' => __( 'No' ),
+				'1' => __( 'Yes' ),
+				''  => __( 'No' ),
 			),
 			'default'     => ''
 		) );

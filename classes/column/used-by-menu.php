@@ -127,7 +127,8 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 * @since 2.2.5
 	 */
 	public function display_field_link_to_menu() {
-		$this->form_field( 'radio', array(
+		$this->form_field( array(
+			'type'        => 'radio',
 			'name'        => 'link_to_menu',
 			'label'       => __( 'Link to menu', 'codepress-admin-columns' ),
 			'description' => __( 'This will make the title link to the menu.', 'codepress-admin-columns' ),

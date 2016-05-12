@@ -14,6 +14,9 @@
         "gulp-uglify": "*",
         "gulp-concat": "*",
         "gulp-wp-pot": "*",
-        "gulp-gettext": "*"
+        "gulp-gettext": "*",
+        "gulp-iconfont": "4.0.0",
+        "gulp-consolidate": "0.1.2",
+        "lodash": "3.10.0"
     }
 }
