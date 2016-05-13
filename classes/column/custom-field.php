@@ -27,7 +27,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['use_before_after'] = true;
 
 		// Default options
-		$this->options['image_size'] = 'custom';
+		$this->options['image_size'] = 'cpac-custom';
 		$this->options['image_size_w'] = 80;
 		$this->options['image_size_h'] = 80;
 		$this->options['excerpt_length'] = 15;
