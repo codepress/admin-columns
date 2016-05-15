@@ -227,8 +227,15 @@ abstract class CPAC_Storage_Model {
 
 			// Custom columns
 			foreach ( $this->columns_filepath as $classname => $path ) {
-				include_once $path;
-				if ( class_exists( $classname, false ) ) {
+				$autoload = true;
+
+				if ( false !== $path ) {
+					$autoload = false;
+					
+					include_once $path;
+				}
+
+				if ( class_exists( $classname, $autoload ) ) {
 					$column = new $classname( $this->key );
 
 					if ( $column->is_registered() ) {
