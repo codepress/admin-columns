@@ -231,9 +231,18 @@ abstract class CPAC_Storage_Model {
 				if ( class_exists( $classname, false ) ) {
 					$column = new $classname( $this->key );
 
-					if ( $column->is_registered() ) {
-						$column_types[ $column->get_type() ] = $column;
+					if ( ! $column->is_registered() ) {
+						continue;
 					}
+
+					// when a default column is being overwritten we'll use it's label as fallback
+					if ( ! $column->get_label() && isset( $column_types[ $column->get_type() ] ) ) {
+						$_default_column = $column_types[ $column->get_type() ];
+						$label = $_default_column->get_label();
+						$column->set_properties( 'label', $label )->set_options( 'label', $label );
+					}
+
+					$column_types[ $column->get_type() ] = $column;
 				}
 			}
 
@@ -880,7 +889,6 @@ abstract class CPAC_Storage_Model {
 	 * @return object CPAC_Column
 	 */
 	public function create_column_instance( $column_name, $label ) {
-
 		$column = new CPAC_Column( $this->key );
 
 		$column

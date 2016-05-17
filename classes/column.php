@@ -328,9 +328,10 @@ class CPAC_Column {
 		return $this->editable_model;
 	}
 
-
-	// TODO: implement in sortable
-	public function get_sorting_results() {
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_sorting_results( &$vars ) {
 		return null;
 	}
 
