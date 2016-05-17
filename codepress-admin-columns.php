@@ -401,7 +401,7 @@ class CPAC {
 	 * @return array List of taxonomies
 	 */
 	public function get_taxonomies() {
-		$taxonomies = get_taxonomies( array( 'public' => true ) );
+		$taxonomies = get_taxonomies( array( 'show_ui' => true ) );
 		if ( isset( $taxonomies['post_format'] ) ) {
 			unset( $taxonomies['post_format'] );
 		}
