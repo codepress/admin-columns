@@ -791,6 +791,9 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns_filepath() {
 
+		// interface
+		require_once CPAC_DIR . 'interface/interface-custom-field.php';
+
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/column/default.php';
 		require_once CPAC_DIR . 'classes/column/actions.php';

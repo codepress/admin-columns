@@ -9,7 +9,7 @@
  *
  * @since 1.0
  */
-class CPAC_Column_Custom_Field extends CPAC_Column {
+class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Custom_Field {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -214,7 +214,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$raw_value = $this->get_raw_value( $id );
 		$raw_string = $this->recursive_implode( ', ', $raw_value );
 
-		switch ( $this->get_option( 'field_type' ) ) :
+		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
 				$value = implode( $this->get_thumbnails( $raw_string, array(
@@ -369,12 +369,12 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			'type'           => 'select',
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
-			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>',
+			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
 			'options'        => $this->get_custom_field_types(),
 			'refresh_column' => true,
 		) );
 
-		switch ( $this->get_option( 'field_type' ) ) {
+		switch ( $this->get_field_type() ) {
 			case 'date':
 				$this->display_field_date_format();
 				break;

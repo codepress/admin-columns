@@ -306,10 +306,32 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_sortable() {
+		return $this->sortable_model;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function set_sortable( CAC_Sortable_Model $sortable_model ) {
+		$this->sortable_model = $sortable_model;
+
+		return $this;
+	}
+
+	/**
 	 * @since 2.4.8
 	 */
 	public function get_editable() {
 		return $this->editable_model;
+	}
+
+
+	// TODO: implement in sortable
+	public function get_sorting_results() {
+		return null;
 	}
 
 	/**
