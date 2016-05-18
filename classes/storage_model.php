@@ -68,6 +68,11 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 */
+	private $general_options = null;
+
+	/**
+	 * @since NEWVERSION
 	 * @var string
 	 */
 	protected $table_classname;
@@ -1188,12 +1193,14 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.1.1
 	 */
 	public function get_general_option( $option ) {
-		$options = get_option( 'cpac_general_options' );
+		if ( ! $this->general_options ) {
+			$this->general_options = get_option( 'cpac_general_options' );
+		}
 
-		if ( ! isset( $options[ $option ] ) ) {
+		if ( ! isset( $this->general_options[ $option ] ) ) {
 			return false;
 		}
 
-		return $options[ $option ];
+		return $this->general_options[ $option ];
 	}
 }

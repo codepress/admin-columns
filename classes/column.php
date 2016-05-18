@@ -293,18 +293,23 @@ class CPAC_Column {
 		return ac_get_filterable_model( $this->get_storage_model_key() );
 	}
 
-
 	/**
 	 * @since NEWVERSION
 	 */
 	public function get_editable_settings() {
 		return null;
 	}
+	public function get_editable_ajax_options( $searchterm ) {
+		return null;
+	}
+	/*public function save( $id, $value ) {
+		return null;
+	}*/
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_sorting_results( &$vars ) {
+	public function get_sortable_results( &$vars ) {
 		return null;
 	}
 
