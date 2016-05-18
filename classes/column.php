@@ -314,6 +314,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function get_filterable_settings() {
+		return null;
+	}
+
+	/**
 	 * @param int $id
 	 *
 	 * @return object
