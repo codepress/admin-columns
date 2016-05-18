@@ -319,6 +319,9 @@ class CPAC_Column {
 	public function get_filterable_settings() {
 		return null;
 	}
+	public function get_filterable_request_vars( $args, $value ) {
+		return null;
+	}
 
 	/**
 	 * @param int $id
