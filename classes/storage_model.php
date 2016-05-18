@@ -67,6 +67,12 @@ abstract class CPAC_Storage_Model {
 	public $subpage;
 
 	/**
+	 * @since NEWVERSION
+	 * @var string
+	 */
+	protected $table_classname;
+
+	/**
 	 * @since 2.5
 	 * @var string
 	 */
@@ -139,6 +145,23 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_single_row_columns( $object_id ) {
+		ob_start();
+		$table = $this->get_list_table();
+		$table->single_row( $this->get_object_by_id( $object_id ) );
+
+		return ob_get_clean();
+	}
+
+	/**
 	 * @since 2.5
 	 */
 	public function get_grouped_columns() {
@@ -165,6 +188,10 @@ abstract class CPAC_Storage_Model {
 
 	public function get_screen_id() {
 		return $this->screen ? $this->screen : $this->page;
+	}
+
+	public function get_list_table() {
+		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**

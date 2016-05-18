@@ -69,6 +69,9 @@ function cac_wp_is_doing_ajax() {
 			case 'replyto-comment' :  // Inline reply on comment
 				$storage_model = 'wp-comments';
 				break;
+			case 'cacie_column_save' :
+				$storage_model = filter_input( INPUT_POST, 'storage_model' );
+				break;
 		}
 	}
 
@@ -142,4 +145,25 @@ function ac_get_site_url( $path = '' ) {
  */
 function ac_site_url( $path = '' ) {
 	echo ac_get_site_url( $path );
+}
+
+/**
+ * @since NEWVERSION
+ */
+function ac_get_sortable_model( $key ) {
+	return function_exists( 'ac_sortable' ) ? ac_sortable()->get_model( $key ) : false;
+}
+
+/**
+ * @since NEWVERSION
+ */
+function ac_get_editable_model( $key ) {
+	return function_exists( 'ac_editable' ) ? ac_editable()->get_model( $key ) : false;
+}
+
+/**
+ * @since NEWVERSION
+ */
+function ac_get_filterable_model( $key ) {
+	return function_exists( 'ac_filterable' ) ? ac_filterable()->get_model( $key ) : false;
 }

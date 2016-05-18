@@ -281,51 +281,24 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.4.7
+	 * @since NEWVERSION
 	 */
-	public function set_filter( CAC_Filtering_Model $filtering_model ) {
-		$this->filtering_model = $filtering_model;
-
-		return $this;
+	protected function get_sortable_model() {
+		return ac_get_sortable_model( $this->get_storage_model_key() );
+	}
+	protected function get_editable_model() {
+		return ac_get_editable_model( $this->get_storage_model_key() );
+	}
+	protected function get_filterable_model() {
+		return ac_get_filterable_model( $this->get_storage_model_key() );
 	}
 
-	/**
-	 * @since 2.4.7
-	 */
-	public function get_filter() {
-		return $this->filtering_model;
-	}
-
-	/**
-	 * @since 2.4.8
-	 */
-	public function set_editable( CACIE_Editable_Model $editable_model ) {
-		$this->editable_model = $editable_model;
-
-		return $this;
-	}
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_sortable() {
-		return $this->sortable_model;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function set_sortable( CAC_Sortable_Model $sortable_model ) {
-		$this->sortable_model = $sortable_model;
-
-		return $this;
-	}
-
-	/**
-	 * @since 2.4.8
-	 */
-	public function get_editable() {
-		return $this->editable_model;
+	public function get_editable_settings() {
+		return null;
 	}
 
 	/**
