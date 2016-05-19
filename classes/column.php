@@ -283,19 +283,9 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	protected function get_sortable_model() {
-		return ac_get_sortable_model( $this->get_storage_model_key() );
-	}
-	protected function get_editable_model() {
+	public function get_editable_model() {
 		return ac_get_editable_model( $this->get_storage_model_key() );
 	}
-	protected function get_filterable_model() {
-		return ac_get_filterable_model( $this->get_storage_model_key() );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
 	public function get_editable_settings() {
 		return null;
 	}
@@ -309,6 +299,18 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function get_sortable_model() {
+		return ac_get_sortable_model( $this->get_storage_model_key() );
+	}
+	public function is_sortable() {
+		return null;
+	}
+
+	/**
+	 * @param $vars array|object Query vars or query object, passed in reference.
+	 *
+	 * @return boolean|array Post ids or true when $vars has been set.
+	 */
 	public function get_sortable_results( &$vars ) {
 		return null;
 	}
@@ -316,6 +318,13 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function is_filterable() {
+		return null;
+	}
+	public function get_filterable_model() {
+		return ac_get_filterable_model( $this->get_storage_model_key() );
+	}
+	// TODO: rename to get_filterable_data
 	public function get_filterable_settings() {
 		return null;
 	}
