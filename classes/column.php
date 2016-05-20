@@ -170,7 +170,6 @@ class CPAC_Column {
 			'label'            => null,    // Label which describes this column.
 			'classes'          => null,    // Custom CSS classes for this column.
 			'hide_label'       => false,   // Should the Label be hidden?
-			'is_registered'    => true,    // Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 			'is_cloneable'     => true,    // Should the column be cloneable
 			'default'          => false,   // Is this a WP default column, used for displaying values
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
@@ -198,9 +197,6 @@ class CPAC_Column {
 		// Convert properties and options arrays to object
 		$this->options = (object) $this->options;
 		$this->properties = (object) $this->properties;
-
-		// Check whether the column should be available
-		$this->properties->is_registered = $this->apply_conditional();
 
 		// Column name defaults to column type
 		if ( null === $this->properties->name ) {
@@ -377,12 +373,12 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get the type of the column.
+	 * Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
 	 *
 	 * @since 2.5
 	 */
 	public function is_registered() {
-		return $this->properties->is_registered;
+		return $this->apply_conditional();
 	}
 
 	/**
