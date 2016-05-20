@@ -318,8 +318,6 @@ abstract class CPAC_Storage_Model {
 
 		if ( empty( $this->columns ) ) {
 
-
-
 			// Stored columns
 			if ( $stored = $this->get_stored_columns() ) {
 				foreach ( $stored as $name => $options ) {
