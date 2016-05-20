@@ -171,7 +171,6 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.5
 	 */
 	public function get_column_types() {
-
 		if ( empty( $this->column_types ) ) {
 
 			$column_types = array();
@@ -221,7 +220,7 @@ abstract class CPAC_Storage_Model {
 						}
 					}
 
-					$column_types[ $name ] = $column;
+					$this->column_types[ $name ] = $column;
 				}
 			}
 
@@ -242,15 +241,13 @@ abstract class CPAC_Storage_Model {
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
 
-					$column_types[ $column->get_type() ] = $column;
+					$this->column_types[ $column->get_type() ] = $column;
 				}
 			}
 
-			$this->column_types = $column_types;
-
 			// @since 2.5
-			do_action( "cac/column_types", $this->column_types, $this );
-			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
+			//do_action( "cac/column_types", $this->column_types, $this );
+			//do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
 
 		return $this->column_types;
@@ -320,6 +317,8 @@ abstract class CPAC_Storage_Model {
 	public function get_columns() {
 
 		if ( empty( $this->columns ) ) {
+
+
 
 			// Stored columns
 			if ( $stored = $this->get_stored_columns() ) {
