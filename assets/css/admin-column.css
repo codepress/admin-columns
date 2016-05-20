@@ -229,7 +229,6 @@
 .columns-left .cpac-boxes.disabled {
   opacity: 0.7;
 }
-.columns-left .cpac-boxes.disabled a.edit-button,
 .columns-left .cpac-boxes.disabled a.remove-button,
 .columns-left .cpac-boxes.disabled a.clone-button,
 .columns-left .cpac-boxes.disabled .column_action {
@@ -237,6 +236,9 @@
 }
 .columns-left .cpac-boxes.disabled .column-meta td.column_sort {
   display: none;
+}
+.columns-left .cpac-boxes.disabled .column-meta td.column_label {
+  padding-left: 10px;
 }
 .columns-left .cpac-boxes.disabled .meta span {
   cursor: default !important;
