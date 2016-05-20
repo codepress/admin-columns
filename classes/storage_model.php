@@ -235,7 +235,7 @@ abstract class CPAC_Storage_Model {
 						continue;
 					}
 
-					// when a default column is being overwritten we'll use it's label as fallback
+					// Use the original column label when creating a new column class for an existing column
 					if ( ! $column->get_label() && isset( $column_types[ $column->get_type() ] ) ) {
 						$_default_column = $column_types[ $column->get_type() ];
 						$label = $_default_column->get_label();

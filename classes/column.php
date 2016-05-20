@@ -163,7 +163,7 @@ class CPAC_Column {
 	public function init() {
 
 		// Default properties
-		$default_properties = array(
+		$this->properties = apply_filters( 'cac/column/default_properties', array(
 			'clone'            => null,    // Unique clone ID
 			'type'             => null,    // Unique type
 			'name'             => null,    // Unique name
@@ -176,37 +176,17 @@ class CPAC_Column {
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
-		);
-
-		// @since 2.4.7
-		$default_properties = apply_filters( 'cac/column/default_properties', $default_properties );
-
-		foreach ( $default_properties as $property => $value ) {
-			$this->properties[ $property ] = $value;
-		}
+		) );
 
 		// Default options
-		$default_options = array(
-			'before'     => '',    // Before field
-			'after'      => '',    // After field
-			'width'      => null,  // Width for this column.
-			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
-			'state'      => 'off'  // Active state for this column.
-		);
-
-		/**
-		 * Filter the default options for a column instance, such as label and width
-		 *
-		 * @since 2.2
-		 *
-		 * @param array $default_options Default column options
-		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
-		 */
-		$default_options = apply_filters( 'cac/column/default_options', $default_options ); // do not pass $this because object is not ready
-
-		foreach ( $default_options as $option => $value ) {
-			$this->options[ $option ] = $value;
-		}
+		$this->options = apply_filters( 'cac/column/default_options', array(
+			'label'       => null,
+			'before'      => '',    // Before field
+			'after'       => '',    // After field
+			'width'       => null,  // Width for this column.
+			'width_unit'  => '%',   // Unit for width; percentage (%) or pixels (px).
+			'state'       => 'off'  // Active state for this column.
+		) );
 	}
 
 	/**
@@ -215,47 +195,38 @@ class CPAC_Column {
 	 */
 	public function after_setup() {
 
-		// Column name defaults to column type
-		if ( ! isset( $this->properties['name'] ) ) {
-			$this->properties['name'] = $this->properties['type'];
-		}
+		// Convert properties and options arrays to object
+		$this->options = (object) $this->options;
+		$this->properties = (object) $this->properties;
 
 		// Check whether the column should be available
-		$this->properties['is_registered'] = $this->apply_conditional();
+		$this->properties->is_registered = $this->apply_conditional();
+
+		// Column name defaults to column type
+		if ( null === $this->properties->name ) {
+			$this->properties->name = $this->properties->type;
+		}
+
+		// Column label defaults to column type label
+		if ( null === $this->options->label ) {
+			$this->options->label = $this->properties->label;
+		}
 
 		/**
 		 * Filter the properties of a column type, such as type and is_cloneable
 		 * Property $column_instance added in Admin Columns 2.2
 		 *
 		 * @since 2.0
+		 * @deprecated NEWVERSION
 		 *
 		 * @param array $properties Column properties
 		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
 		 */
-		$this->properties = apply_filters( 'cac/column/properties', $this->properties, $this ); // do not pass $this because object is not ready
+		$this->properties = (object) apply_filters( 'cac/column/properties', (array) $this->properties, $this );
+		$this->properties->use_before_after = apply_filters( 'cac/column/properties/use_before_after', $this->properties->use_before_after, $this );
 
-		/**
-		 * Filter the properties of a column type for a specific storage model
-		 * Property $column_instance added in Admin Columns 2.2
-		 *
-		 * @since 2.0
-		 * @see Filter cac/column/properties
-		 */
-		$this->properties = apply_filters( "cac/column/properties/storage_key={$this->get_storage_model()->key}", $this->properties, $this ); // do not pass $this because object is not ready
-
-		// Column label defaults to column type label
-		if ( ! isset( $this->options['label'] ) ) {
-			$this->options['label'] = $this->properties['label'];
-		}
-
-		// Convert properties and options arrays to object
-		$this->options = (object) $this->options;
-		$this->properties = (object) $this->properties;
-
-		// Filters
-		foreach ( $this->properties as $name => $value ) {
-			$this->properties->{$name} = apply_filters( "cac/column/properties/{$name}", $value, $this );
-		}
+		// @since NEWVERSION
+		do_action( 'ac/column/defaults', $this );
 	}
 
 	/**
@@ -1611,6 +1582,7 @@ class CPAC_Column {
 					$this->form_field( array(
 						'type'        => 'text',
 						'name'        => 'label',
+						'placeholder' => $this->get_type_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
 						'hidden'      => $this->properties->hide_label

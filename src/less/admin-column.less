@@ -11,6 +11,22 @@
 
 @blue: #21759B;
 
+// Mixin
+.placeholder( @rules ) {
+	&::-webkit-input-placeholder {
+		@rules();
+	}
+	&:-moz-placeholder {
+		@rules();
+	}
+	&::-moz-placeholder {
+		@rules();
+	}
+	&:-ms-input-placeholder {
+		@rules();
+	}
+}
+
 #cpac {
 
 	a:focus,
@@ -674,29 +690,6 @@
 								line-height: 14px;
 							}
 						}
-
-						/*
-						// question mark
-						&.description {
-							display: relative;
-
-							&:after {
-								content: '?';
-								color: #d3d3d3;
-								border: 1px solid @border-gray-dark;
-								border-radius: 10px;
-								font-size: 14px;
-								display: block;
-								font-weight: bold;
-								height: 20px;
-								line-height: 20px;
-								width: 20px;
-								position: absolute;
-								right: 10px;
-								top: 10px;
-								text-align: center;
-							}
-						}*/
 					}
 
 					&.input {
@@ -757,6 +750,12 @@
 								}
 							}
 						}
+					}
+				}
+
+				&.column-label {
+					input {
+						.placeholder({ color: #9a9a9a; });
 					}
 				}
 
@@ -958,7 +957,7 @@
 					&.column_label .inner {
 						.meta {
 							span {
-								color: lighten( #808080, 5 );
+								color: lighten(#808080, 5);
 								text-shadow: none;
 							}
 						}

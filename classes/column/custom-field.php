@@ -33,6 +33,26 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 		$this->options['excerpt_length'] = 15;
 	}
 
+	public function get_field_key() {
+		$field = $this->get_option( 'field' );
+
+		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_field_type() {
+		return $this->get_option( 'field_type' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	//public function get_field_format() {
+	//	return $this->get_option( 'field_format' );
+	//}
+
 	/**
 	 * @since 3.2.1
 	 */
@@ -45,13 +65,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 	 */
 	public function is_field( $field ) {
 		return $field === $this->get_field();
-	}
-
-	/**
-	 * @since 3.2.1
-	 */
-	public function get_field_type() {
-		return $this->get_option( 'field_type' );
 	}
 
 	/**
@@ -140,35 +153,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 		}
 
 		return $ids;
-	}
-
-	/**
-	 * Get Field key
-	 *
-	 * @since 2.0.3
-	 *
-	 * @param string Custom Field Key
-	 */
-	public function get_field_key() {
-		$field = $this->get_option( 'field' );
-
-		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
-	}
-
-	/**
-	 * Get meta by ID
-	 *
-	 * @since 1.0
-	 *
-	 * @param int $id ID
-	 *
-	 * @deprecated
-	 * @return string Meta Value
-	 */
-	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
-
-		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
 	}
 
 	/**
@@ -389,5 +373,21 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 				$this->display_field_link_label();
 				break;
 		}
+	}
+
+	/**
+	 * Get meta by ID
+	 *
+	 * @since 1.0
+	 *
+	 * @param int $id ID
+	 *
+	 * @deprecated
+	 * @return string Meta Value
+	 */
+	public function get_meta_by_id( $id ) {
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
+
+		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
 	}
 }
