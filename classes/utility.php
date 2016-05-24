@@ -69,6 +69,9 @@ function cac_wp_is_doing_ajax() {
 			case 'replyto-comment' :  // Inline reply on comment
 				$storage_model = 'wp-comments';
 				break;
+			case 'cacie_column_save' :
+				$storage_model = filter_input( INPUT_POST, 'storage_model' );
+				break;
 		}
 	}
 

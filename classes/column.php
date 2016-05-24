@@ -245,57 +245,54 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.4.7
+	 * @since NEWVERSION
 	 */
-	public function set_filter( CAC_Filtering_Model $filtering_model ) {
-		$this->filtering_model = $filtering_model;
+	public function get_editable_model() {
+		return ac_get_editable_model( $this->get_storage_model_key() );
+	}
+	public function get_editable_settings() {
+		return null;
+	}
+	public function get_editable_ajax_options( $searchterm ) {
+		return null;
+	}
+	/*public function save( $id, $value ) {
+		return null;
+	}*/
 
-		return $this;
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_sortable_model() {
+		return ac_get_sortable_model( $this->get_storage_model_key() );
+	}
+	public function is_sortable() {
+		return null;
 	}
 
 	/**
-	 * @since 2.4.7
+	 * @param $vars array|object Query vars or query object, passed in reference.
+	 *
+	 * @return boolean|array Post ids or true when $vars has been set.
 	 */
-	public function get_filter() {
-		return $this->filtering_model;
-	}
-
-	/**
-	 * @since 2.4.8
-	 */
-	public function set_editable( CACIE_Editable_Model $editable_model ) {
-		$this->editable_model = $editable_model;
-
-		return $this;
+	public function get_sortable_results( &$vars ) {
+		return null;
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_sortable() {
-		return $this->sortable_model;
+	public function is_filterable() {
+		return null;
 	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function set_sortable( CAC_Sortable_Model $sortable_model ) {
-		$this->sortable_model = $sortable_model;
-
-		return $this;
+	public function get_filterable_model() {
+		return ac_get_filterable_model( $this->get_storage_model_key() );
 	}
-
-	/**
-	 * @since 2.4.8
-	 */
-	public function get_editable() {
-		return $this->editable_model;
+	// TODO: rename to get_filterable_data
+	public function get_filterable_settings() {
+		return null;
 	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function get_sorting_results( &$vars ) {
+	public function get_filterable_request_vars( $args, $value ) {
 		return null;
 	}
 

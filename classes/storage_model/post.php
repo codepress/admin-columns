@@ -16,6 +16,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$this->page = 'edit';
 		$this->screen = $this->page . '-' . $this->post_type;
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+		$this->table_classname = 'WP_Posts_List_Table';
 
 		$this->set_labels();
 
@@ -161,6 +162,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_post( $id );
+	}
+
+	/**
 	 * Get WP default supported admin columns per post type.
 	 *
 	 * @see CPAC_Type::get_default_columns()
@@ -181,7 +189,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/post_type={$this->post_type}" );
 
 		// Initialize table so it can add actions to manage_{screenid}_columns
-		_get_list_table( 'WP_Posts_List_Table', array( 'screen' => 'edit-' . $this->key ) );
+		$this->get_list_table();
 
 		// get_column_headers() runs through both the manage_{screenid}_columns
 		// and manage_{$post_type}_posts_columns filters
@@ -205,7 +213,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
-		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
+		$column = $this->get_column_by_name( $column_name );
+
+		if ( ! $column ) {
 			return false;
 		}
 
