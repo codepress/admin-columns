@@ -13,9 +13,7 @@ class CPAC_Column_User_Show_Toolbar extends CPAC_Column {
 	}
 
 	function get_value( $user_id ) {
-		$raw_value = $this->get_raw_value( $user_id );
-		$value = ( empty( $raw_value ) || 'false' === $raw_value || '0' === $raw_value ) ? '<span class="dashicons dashicons-no cpac_status_no"></span>' : '<span class="dashicons dashicons-yes cpac_status_yes"></span>';
-		return $value;
+		return $this->get_raw_value( $user_id ) == 'true' ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';
 	}
 
 	function get_raw_value( $user_id ) {
