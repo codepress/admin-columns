@@ -7,6 +7,8 @@
  */
 class CPAC_Column_Post_Sticky extends CPAC_Column {
 
+	private $stickies = null;
+
 	/**
 	 * @see CPAC_Column::init()
 	 * @since 2.2.1
@@ -34,11 +36,19 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 		return $this->get_raw_value( $post_id ) ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';
 	}
 
+	private function is_sticky( $post_id ) {
+		if ( null === $this->stickies ) {
+			$this->stickies = get_option( 'sticky_posts' );
+		}
+
+		return in_array( $post_id, (array) $this->stickies );
+	}
+
 	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		return is_sticky( $post_id );
+		return $this->is_sticky( $post_id );
 	}
 }

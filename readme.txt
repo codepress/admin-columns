@@ -210,6 +210,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Added] New user column added: Show Toolbar
+* [Added] New column for shortlink added
+
 = 2.5.6.2 =
 * [Fixed] Hotfix cleanup.
 
