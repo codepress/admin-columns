@@ -143,11 +143,19 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function get_grouped_columns() {
 		$grouped = array();
-		foreach ( $this->column_types as $type => $column ) {
+
+		foreach ( $this->get_column_types() as $type => $column ) {
+
+			if ( ! isset( $grouped[ $column->properties->group ] ) ) {
+				$grouped[ $column->properties->group ]['title'] = $column->properties->group;
+			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->properties->group ][ $type ] = ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->properties->name ) : ucfirst( $column->properties->label );
-			asort( $grouped[ $column->properties->group ] );
+			$grouped[ $column->properties->group ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->properties->label ) );
+
+			if ( ! $column->is_default() ) {
+				asort( $grouped[ $column->properties->group ]['options'] );
+			}
 		}
 
 		krsort( $grouped );
@@ -163,7 +171,6 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.5
 	 */
 	public function get_column_types() {
-
 		if ( empty( $this->column_types ) ) {
 
 			$column_types = array();
@@ -213,7 +220,7 @@ abstract class CPAC_Storage_Model {
 						}
 					}
 
-					$column_types[ $name ] = $column;
+					$this->column_types[ $name ] = $column;
 				}
 			}
 
@@ -223,17 +230,24 @@ abstract class CPAC_Storage_Model {
 				if ( class_exists( $classname, false ) ) {
 					$column = new $classname( $this->key );
 
-					if ( $column->is_registered() ) {
-						$column_types[ $column->get_type() ] = $column;
+					if ( ! $column->is_registered() ) {
+						continue;
 					}
+
+					// Use the original column label when creating a new column class for an existing column
+					if ( ! $column->get_label() && isset( $column_types[ $column->get_type() ] ) ) {
+						$_default_column = $column_types[ $column->get_type() ];
+						$label = $_default_column->get_label();
+						$column->set_properties( 'label', $label )->set_options( 'label', $label );
+					}
+
+					$this->column_types[ $column->get_type() ] = $column;
 				}
 			}
 
-			$this->column_types = $column_types;
-
 			// @since 2.5
-			do_action( "cac/column_types", $this->column_types, $this );
-			do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
+			//do_action( "cac/column_types", $this->column_types, $this );
+			//do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
 
 		return $this->column_types;
@@ -783,6 +797,9 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns_filepath() {
 
+		// interface
+		require_once CPAC_DIR . 'interface/interface-custom-field.php';
+
 		require_once CPAC_DIR . 'classes/column.php';
 		require_once CPAC_DIR . 'classes/column/default.php';
 		require_once CPAC_DIR . 'classes/column/actions.php';
@@ -869,7 +886,6 @@ abstract class CPAC_Storage_Model {
 	 * @return object CPAC_Column
 	 */
 	public function create_column_instance( $column_name, $label ) {
-
 		$column = new CPAC_Column( $this->key );
 
 		$column

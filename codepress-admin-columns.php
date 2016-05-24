@@ -368,7 +368,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private function get_post_types() {
+	public function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
@@ -401,7 +401,7 @@ class CPAC {
 	 * @return array List of taxonomies
 	 */
 	public function get_taxonomies() {
-		$taxonomies = get_taxonomies( array( 'public' => true ) );
+		$taxonomies = get_taxonomies( array( 'show_ui' => true ) );
 		if ( isset( $taxonomies['post_format'] ) ) {
 			unset( $taxonomies['post_format'] );
 		}

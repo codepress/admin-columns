@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CPAC_Column_Attached_To
  *
  * @since 2.0
  */
-class CPAC_Column_Attached_To extends CPAC_Column {
+class CPAC_Column_Media_Attached_To extends CPAC_Column {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -15,8 +16,8 @@ class CPAC_Column_Attached_To extends CPAC_Column {
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 	= 'column-attached_to';
-		$this->properties['label']	 	= __( 'Attached to post', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-attached_to';
+		$this->properties['label'] = __( 'Attached to post', 'codepress-admin-columns' );
 	}
 
 	/**
@@ -31,6 +32,7 @@ class CPAC_Column_Attached_To extends CPAC_Column {
 				$value = '<a href="' . $edit_link . '">' . $value . '</a>';
 			}
 		}
+
 		return $value;
 	}
 
