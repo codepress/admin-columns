@@ -220,9 +220,6 @@ class CPAC_Column {
 		 */
 		$this->properties = (object) apply_filters( 'cac/column/properties', (array) $this->properties, $this );
 		$this->properties->use_before_after = apply_filters( 'cac/column/properties/use_before_after', $this->properties->use_before_after, $this );
-
-		// @since NEWVERSION
-		do_action( 'ac/column/defaults', $this );
 	}
 
 	/**

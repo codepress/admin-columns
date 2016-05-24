@@ -220,6 +220,8 @@ abstract class CPAC_Storage_Model {
 						}
 					}
 
+					do_action( "ac/column/defaults", $column, $this );
+
 					$this->column_types[ $name ] = $column;
 				}
 			}
@@ -241,13 +243,11 @@ abstract class CPAC_Storage_Model {
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
 
+					do_action( "ac/column/defaults", $column, $this );
+
 					$this->column_types[ $column->get_type() ] = $column;
 				}
 			}
-
-			// @since 2.5
-			//do_action( "cac/column_types", $this->column_types, $this );
-			//do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
 
 		return $this->column_types;
