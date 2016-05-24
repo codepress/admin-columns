@@ -9,7 +9,7 @@
  *
  * @since 1.0
  */
-class CPAC_Column_Custom_Field extends CPAC_Column {
+class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Custom_Field {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -26,22 +26,32 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['use_before_after'] = true;
 
-		// Options
-		$this->options['field'] = '';
-		$this->options['field_type'] = '';
-		$this->options['before'] = '';
-		$this->options['after'] = '';
-
-		$this->options['image_size'] = '';
+		// Default options
+		$this->options['image_size'] = 'cpac-custom';
 		$this->options['image_size_w'] = 80;
 		$this->options['image_size_h'] = 80;
-
 		$this->options['excerpt_length'] = 15;
-
-		$this->options['link_label'] = '';
-
-		$this->options['date_format'] = '';
 	}
+
+	public function get_field_key() {
+		$field = $this->get_option( 'field' );
+
+		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
+	}
+
+	/**
+	 * @since 3.2.1
+	 */
+	public function get_field_type() {
+		return $this->get_option( 'field_type' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	//public function get_field_format() {
+	//	return $this->get_option( 'field_format' );
+	//}
 
 	/**
 	 * @since 3.2.1
@@ -60,13 +70,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	/**
 	 * @since 3.2.1
 	 */
-	public function get_field_type() {
-		return $this->get_option( 'field_type' );
-	}
-
-	/**
-	 * @since 3.2.1
-	 */
 	public function get_field() {
 		return $this->get_field_key();
 	}
@@ -76,7 +79,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function sanitize_options( $options ) {
-
 		if ( empty( $options['date_format'] ) ) {
 			$options['date_format'] = get_option( 'date_format' );
 		}
@@ -94,7 +96,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	public function get_custom_field_types() {
 
 		$custom_field_types = array(
-			''            => __( 'Default', 'codepress-admin-columns' ),
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
 			'color'       => __( 'Color', 'codepress-admin-columns' ),
 			'count'       => __( 'Counter', 'codepress-admin-columns' ),
@@ -110,8 +111,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 		);
 
-		// deprecated. do not use, will be removed.
-		$custom_field_types = apply_filters( 'cpac_custom_field_types', $custom_field_types );
+		asort( $custom_field_types );
+
+		// Default option comes first
+		$custom_field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $custom_field_types );
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
@@ -121,8 +124,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		 * @param array $custom_field_types Available custom field types ([type] => [label])
 		 */
 		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
-
-		asort( $custom_field_types );
 
 		return $custom_field_types;
 	}
@@ -152,35 +153,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		}
 
 		return $ids;
-	}
-
-	/**
-	 * Get Field key
-	 *
-	 * @since 2.0.3
-	 *
-	 * @param string Custom Field Key
-	 */
-	public function get_field_key() {
-		$field = $this->get_option( 'field' );
-
-		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
-	}
-
-	/**
-	 * Get meta by ID
-	 *
-	 * @since 1.0
-	 *
-	 * @param int $id ID
-	 *
-	 * @deprecated
-	 * @return string Meta Value
-	 */
-	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
-
-		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
 	}
 
 	/**
@@ -221,13 +193,12 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
 		$raw_string = $this->recursive_implode( ', ', $raw_value );
 
-		switch ( $this->get_option( 'field_type' ) ) :
+		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
 				$value = implode( $this->get_thumbnails( $raw_string, array(
@@ -323,33 +294,34 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 		return $this->get_storage_model()->get_meta_keys();
 	}
 
-	public function get_meta_keys_list() {
-		$list = false;
+	private function get_grouped_field_options() {
+		$grouped_options = array();
 
 		if ( $keys = $this->get_meta_keys() ) {
-			$lists = array();
+			$grouped_options = array(
+				'hidden' => array(
+					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				),
+				'public' => array(
+					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+					'options' => ''
+				)
+			);
+
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-					$lists['hidden'][] = $field;
+					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
 				}
 				else {
-					$lists['public'][] = $field;
+					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
-			krsort( $lists ); // public first
 
-			$list = '<select name="' . $this->get_attr_name( 'field' ) . '" id="' . $this->get_attr_id( 'field' ) . '">';
-			foreach ( $lists as $type => $fields ) {
-				$list .= "<optgroup label='" . ( 'hidden' == $type ? __( 'Hidden Custom Fields', 'codepress-admin-columns' ) : __( 'Custom Fields', 'codepress-admin-columns' ) ) . "'>";
-				foreach ( $fields as $field ) {
-					$list .= "<option value='{$field}'" . selected( $field, $this->get_option( 'field' ), false ) . ">" . str_replace( 'cpachidden', '', $field ) . "</option>";
-				}
-				$list .= "</optgroup>";
-			}
-			$list .= '</select>';
+			krsort( $grouped_options ); // public first
 		}
 
-		return $list;
+		return $grouped_options;
 	}
 
 	/**
@@ -360,38 +332,33 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->display_field_text( 'field', __( "Custom Field", 'codepress-admin-columns' ), __( "Enter your custom field key.", 'codepress-admin-columns' ) );
+			$this->form_field( array(
+				'type'        => 'text',
+				'name'        => 'field',
+				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
+				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
+			) );
 		else :
-			?>
-			<tr class="column_field">
-				<?php $this->label_view( __( "Custom Field", 'codepress-admin-columns' ), __( "Select your custom field.", 'codepress-admin-columns' ), 'field' ); ?>
-				<td class="input">
-					<?php
-					if ( $list = $this->get_meta_keys_list() ) {
-						echo $list;
-					}
-					else {
-						_e( 'No custom fields available.', 'codepress-admin-columns' ); ?><?php printf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' );
-					}
-					?>
-				</td>
-			</tr>
-		<?php endif; ?>
+			$this->form_field( array(
+				'type'            => 'select',
+				'name'            => 'field',
+				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
+				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ),
+				'grouped_options' => $this->get_grouped_field_options(),
+			) );
+		endif;
 
-		<tr class="column_field_type" data-refresh="1">
-			<?php $this->label_view( __( "Field Type", 'codepress-admin-columns' ), __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_option( 'field_type' ) . '</em>', 'field_type' ); ?>
-			<td class="input">
-				<select name="<?php $this->attr_name( 'field_type' ); ?>" id="<?php $this->attr_id( 'field_type' ); ?>">
-					<?php foreach ( $this->get_custom_field_types() as $fieldkey => $fieldtype ) : ?>
-						<option
-							value="<?php echo $fieldkey ?>"<?php selected( $fieldkey, $this->get_option( 'field_type' ) ) ?>><?php echo $fieldtype; ?></option>
-					<?php endforeach; ?>
-				</select>
-			</td>
-		</tr>
+		$this->form_field( array(
+			'type'           => 'select',
+			'name'           => 'field_type',
+			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
+			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
+			'options'        => $this->get_custom_field_types(),
+			'refresh_column' => true,
+		) );
 
-		<?php
-		switch ( $this->get_option( 'field_type' ) ) {
+		switch ( $this->get_field_type() ) {
 			case 'date':
 				$this->display_field_date_format();
 				break;
@@ -406,5 +373,21 @@ class CPAC_Column_Custom_Field extends CPAC_Column {
 				$this->display_field_link_label();
 				break;
 		}
+	}
+
+	/**
+	 * Get meta by ID
+	 *
+	 * @since 1.0
+	 *
+	 * @param int $id ID
+	 *
+	 * @deprecated
+	 * @return string Meta Value
+	 */
+	public function get_meta_by_id( $id ) {
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
+
+		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
 	}
 }

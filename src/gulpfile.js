@@ -5,8 +5,8 @@
  */
 
 var gulp   = require('gulp'),
-gutil      = require('gulp-util'),
 minifyCSS  = require('gulp-minify-css'),
+gutil  = require('gulp-util'),
 livereload = require('gulp-livereload'),
 less       = require('gulp-less'),
 rename     = require('gulp-rename'),
@@ -14,7 +14,11 @@ uglify     = require('gulp-uglify'),
 plumber    = require('gulp-plumber');
 wpPot      = require('gulp-wp-pot');
 gettext    = require('gulp-gettext');
+iconfont    = require('gulp-iconfont');
+consolidate = require('gulp-consolidate');
 
+
+var iconfontdir = "iconfont/";
 
 var onError = function(e) {
     gutil.beep();
@@ -33,7 +37,10 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('styles', function() {
-    return gulp.src('less/*.less')
+    return gulp.src([
+	        'less/admin-column.less',
+	        'less/column.less'
+	    ])
         .pipe(plumber({ errorHandler: onError }))
         .pipe(less())
         .pipe(gulp.dest('../assets/css'))
@@ -56,6 +63,40 @@ gulp.task('language', function () {
             team: 'Admin Columns <info@admincolumns.com>'
         } ))
         .pipe(gulp.dest('../languages'));
+});
+
+/**
+ * Create font files and a Sass file for your source repo, based on all SVG images in de specified folder
+ */
+gulp.task('iconfontBuild', function () {
+	return gulp.src(['svg/*.svg'])
+		.pipe(iconfont({
+			fontName: 'cpac_icons',
+			normalize: true,
+			fontHeight : 1001
+		}))
+		.on('glyphs', function (glyphs, options) {
+			gulp.src(iconfontdir + 'tpl_iconfont.less')
+				.pipe(consolidate('lodash', {
+					glyphs: glyphs,
+					fontName: options.fontName,
+					fontPath: "../fonts/"
+				}))
+				.pipe(rename('_iconfont.less'))
+				.pipe(gulp.dest(iconfontdir + 'less'));
+		})
+		.pipe(gulp.dest(iconfontdir + 'fonts'));
+});
+
+/**
+ * Complete taks and copy Sass files to source folder and fonts to assets
+ */
+gulp.task('iconfont', ['iconfontBuild'], function () {
+	gulp.src(iconfontdir + 'fonts/*.*')
+		.pipe(gulp.dest('../assets/fonts'));
+
+	gulp.src(iconfontdir + 'less/*.*')
+		.pipe(gulp.dest('less'));
 });
 
 

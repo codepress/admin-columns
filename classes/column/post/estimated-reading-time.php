@@ -99,17 +99,12 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	 * @since 2.3.3
 	 */
 	public function display_settings() {
-		$field_key = 'words_per_minute';
-		$label = __( 'Words per minute', 'codepress-admin-columns' );
-		$description = __( 'Estimated reading time in words per minute', 'codepress-admin-columns' );
-
-		?>
-		<tr class="column_<?php echo $field_key; ?>">
-			<?php $this->label_view( $label, $description, $field_key ); ?>
-			<td class="input">
-				<input type="text" name="<?php $this->attr_name( $field_key ); ?>" id="<?php $this->attr_id( $field_key ); ?>" value="<?php echo $this->get_words_per_minute(); ?>"/>
-			</td>
-		</tr>
-		<?php
+		$this->form_field( array(
+			'type'        => 'text',
+			'name'        => 'words_per_minute',
+			'label'       => __( 'Words per minute', 'codepress-admin-columns' ),
+			'description' => __( 'Estimated reading time in words per minute', 'codepress-admin-columns' ),
+			'placeholder' => __( 'Enter words per minute. For example: 200' )
+		) );
 	}
 }
