@@ -179,12 +179,12 @@ class CPAC_Column {
 
 		// Default options
 		$this->options = apply_filters( 'cac/column/default_options', array(
-			'label'       => null,
-			'before'      => '',    // Before field
-			'after'       => '',    // After field
-			'width'       => null,  // Width for this column.
-			'width_unit'  => '%',   // Unit for width; percentage (%) or pixels (px).
-			'state'       => 'off'  // Active state for this column.
+			'label'      => null,
+			'before'     => '',    // Before field
+			'after'      => '',    // After field
+			'width'      => null,  // Width for this column.
+			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
+			'state'      => 'off'  // Active state for this column.
 		) );
 	}
 
@@ -248,11 +248,17 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function get_editable_model() {
-		return ac_get_editable_model( $this->get_storage_model_key() );
+		if ( ! $this->editable ) {
+			$this->editable = ac_get_editable_model( $this->get_storage_model_key() );
+		}
+
+		return $this->editable;
 	}
+
 	public function get_editable_settings() {
 		return null;
 	}
+
 	public function get_editable_ajax_options( $searchterm ) {
 		return null;
 	}
@@ -264,8 +270,13 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function get_sortable_model() {
-		return ac_get_sortable_model( $this->get_storage_model_key() );
+		if ( ! $this->sortable ) {
+			$this->sortable = ac_get_sortable_model( $this->get_storage_model_key() );
+		}
+
+		return $this->sortable;
 	}
+
 	public function is_sortable() {
 		return null;
 	}
@@ -285,13 +296,20 @@ class CPAC_Column {
 	public function is_filterable() {
 		return null;
 	}
+
 	public function get_filterable_model() {
-		return ac_get_filterable_model( $this->get_storage_model_key() );
+		if ( ! $this->filterable ) {
+			$this->filterable = ac_get_filterable_model( $this->get_storage_model_key() );
+		}
+
+		return $this->filterable;
 	}
+
 	// TODO: rename to get_filterable_data
 	public function get_filterable_settings() {
 		return null;
 	}
+
 	public function get_filterable_request_vars( $args, $value ) {
 		return null;
 	}
