@@ -212,8 +212,6 @@ abstract class CPAC_Storage_Model {
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
 
-			$column_types = array();
-
 			// Get default column that have been set on the listings screen
 			$default_columns = $this->get_default_stored_columns();
 
@@ -259,8 +257,6 @@ abstract class CPAC_Storage_Model {
 						}
 					}
 
-					do_action( "ac/column/defaults", $column, $this );
-
 					$this->column_types[ $name ] = $column;
 				}
 			}
@@ -281,8 +277,6 @@ abstract class CPAC_Storage_Model {
 						$label = $_default_column->get_label();
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
-
-					do_action( "ac/column/defaults", $column, $this );
 
 					$this->column_types[ $column->get_type() ] = $column;
 				}

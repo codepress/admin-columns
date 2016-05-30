@@ -107,11 +107,11 @@ class CPAC_Column {
 	}
 
 	public function is_default() {
-		return isset( $this->properties->default ) && $this->properties->default;
+		return $this->get_property( 'default' );
 	}
 
 	public function is_original() {
-		return isset( $this->properties->original ) && $this->properties->original;
+		return $this->get_property( 'original' );
 	}
 
 	/**
@@ -185,6 +185,8 @@ class CPAC_Column {
 			'width'      => null,  // Width for this column.
 			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
 		);
+
+		do_action( 'ac/column/defaults', $this );
 	}
 
 	/**
@@ -1476,6 +1478,11 @@ class CPAC_Column {
 				</table>
 			</td>
 		</tr>
+		<?php
+	}
+
+	public function display_indicator( $name, $label ) { ?>
+		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
 
