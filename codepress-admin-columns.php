@@ -192,13 +192,20 @@ class CPAC {
 		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
 		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
-		if ( $this->get_current_storage_model() ) {
+		if ( $current_storage_model = $this->get_current_storage_model() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
+
+			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
+		}
+
+		else if ( cac_is_setting_screen() ) {
+
+			do_action( 'ac/enqueue_setting_scripts' );
 		}
 	}
 

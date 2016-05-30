@@ -247,18 +247,9 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_editable_model() {
-		if ( ! $this->editable ) {
-			$this->editable = ac_get_editable_model( $this->get_storage_model_key() );
-		}
-
-		return $this->editable;
-	}
-
 	public function get_editable_settings() {
 		return null;
 	}
-
 	public function get_editable_ajax_options( $searchterm ) {
 		return null;
 	}
@@ -269,14 +260,6 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_sortable_model() {
-		if ( ! $this->sortable ) {
-			$this->sortable = ac_get_sortable_model( $this->get_storage_model_key() );
-		}
-
-		return $this->sortable;
-	}
-
 	public function is_sortable() {
 		return null;
 	}
@@ -295,14 +278,6 @@ class CPAC_Column {
 	 */
 	public function is_filterable() {
 		return null;
-	}
-
-	public function get_filterable_model() {
-		if ( ! $this->filterable ) {
-			$this->filterable = ac_get_filterable_model( $this->get_storage_model_key() );
-		}
-
-		return $this->filterable;
 	}
 
 	// TODO: rename to get_filterable_data

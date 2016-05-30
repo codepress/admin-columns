@@ -282,6 +282,8 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
+		do_action( 'ac/column_types', $this );
+
 		return $this->column_types;
 	}
 
