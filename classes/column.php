@@ -280,8 +280,7 @@ class CPAC_Column {
 		return null;
 	}
 
-	// TODO: rename to get_filterable_data
-	public function get_filterable_settings() {
+	public function get_filterable_data() {
 		return null;
 	}
 
