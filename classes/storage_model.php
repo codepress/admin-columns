@@ -276,8 +276,8 @@ abstract class CPAC_Storage_Model {
 					}
 
 					// Use the original column label when creating a new column class for an existing column
-					if ( ! $column->get_label() && isset( $column_types[ $column->get_type() ] ) ) {
-						$_default_column = $column_types[ $column->get_type() ];
+					if ( ! $column->get_label() && isset( $this->column_types[ $column->get_type() ] ) ) {
+						$_default_column = $this->column_types[ $column->get_type() ];
 						$label = $_default_column->get_label();
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
@@ -288,8 +288,6 @@ abstract class CPAC_Storage_Model {
 				}
 			}
 		}
-
-		do_action( 'ac/column_types', $this );
 
 		return $this->column_types;
 	}
@@ -936,8 +934,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
 			->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
-			->set_options( 'label', $label )
-			->set_options( 'state', 'on' );
+			->set_options( 'label', $label );
 
 		// Hide Label when it contains HTML elements
 		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {

@@ -163,7 +163,7 @@ class CPAC_Column {
 	public function init() {
 
 		// Default properties
-		$this->properties = apply_filters( 'cac/column/default_properties', array(
+		$this->properties = array(
 			'clone'            => null,    // Unique clone ID
 			'type'             => null,    // Unique type
 			'name'             => null,    // Unique name
@@ -175,17 +175,16 @@ class CPAC_Column {
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
-		) );
+		);
 
 		// Default options
-		$this->options = apply_filters( 'cac/column/default_options', array(
-			'label'      => null,
+		$this->options = array(
+			'label'      => null,  // Human readable label
 			'before'     => '',    // Before field
 			'after'      => '',    // After field
 			'width'      => null,  // Width for this column.
 			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
-			'state'      => 'off'  // Active state for this column.
-		) );
+		);
 	}
 
 	/**
@@ -250,6 +249,7 @@ class CPAC_Column {
 	public function get_editable_settings() {
 		return null;
 	}
+
 	public function get_editable_ajax_options( $searchterm ) {
 		return null;
 	}
@@ -276,10 +276,6 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function is_filterable() {
-		return null;
-	}
-
 	public function get_filterable_data() {
 		return null;
 	}
@@ -296,7 +292,7 @@ class CPAC_Column {
 	public function set_clone( $id = null ) {
 
 		if ( $id !== null && $id > 0 ) {
-			$this->properties->name = "{$this->properties->type}-{$id}";
+			$this->properties->name = $this->get_type() . '-' . $id;
 			$this->properties->clone = $id;
 		}
 
@@ -321,14 +317,14 @@ class CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_before() {
-		return isset( $this->options->before ) ? stripslashes( $this->options->before ) : false;
+		return $this->get_option( 'before' );
 	}
 
 	/**
 	 * @since 1.0
 	 */
 	public function get_after() {
-		return isset( $this->options->after ) ? stripslashes( $this->options->after ) : false;
+		return $this->get_option( 'after' );
 	}
 
 	/**
@@ -337,7 +333,7 @@ class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_type() {
-		return $this->properties->type;
+		return $this->get_property( 'type' );
 	}
 
 	/**
@@ -346,7 +342,7 @@ class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_name() {
-		return $this->properties->name;
+		return $this->get_property( 'name' );
 	}
 
 	/**
@@ -355,7 +351,7 @@ class CPAC_Column {
 	 * @since 2.4.9
 	 */
 	public function get_type_label() {
-		return $this->properties->label;
+		return $this->get_property( 'label' );
 	}
 
 	/**
@@ -1369,7 +1365,7 @@ class CPAC_Column {
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
 		);
 
-		asort( $nametypes ); // sorts also when translated
+		natcasesort( $nametypes ); // sorts also when translated
 
 		$this->form_field( array(
 			'type'        => 'select',
@@ -1529,7 +1525,7 @@ class CPAC_Column {
 								<a class="toggle" href="javascript:;"><?php echo stripslashes( $this->get_label() ); ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
-								<?php if ( $this->properties->is_cloneable ) : ?>
+								<?php if ( $this->get_property( 'is_cloneable' ) ) : ?>
 									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
@@ -1620,8 +1616,8 @@ class CPAC_Column {
 						<td class="label"></td>
 						<td class="input">
 							<p>
-								<a href="#" class="close-button button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
-								<?php if ( $this->properties->is_cloneable ) : ?>
+								<a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+								<?php if ( $this->get_property( 'is_cloneable' ) ) : ?>
 									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>
@@ -1725,6 +1721,7 @@ class CPAC_Column {
 			'label'         => $label,
 			'description'   => $description,
 			'toggle_handle' => $optional_toggle_id,
+			'placeholder'   => $placeholder,
 		) );
 	}
 

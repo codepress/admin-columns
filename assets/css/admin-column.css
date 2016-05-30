@@ -682,12 +682,9 @@
   margin: 0;
   line-height: 2;
 }
-.cpac-column .column-form > table tr.column_action td p a.button {
-  margin-right: 10px;
-}
+.cpac-column .column-form > table tr.column_action td p a.close-button,
 .cpac-column .column-form > table tr.column_action td p a.clone-button {
-  padding: 0 5px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .cpac-column .column-form > table tr.column_action td p a.remove-button {
   color: #a00;
