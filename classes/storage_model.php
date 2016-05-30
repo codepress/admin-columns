@@ -158,6 +158,13 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function get_key() {
+		return $this->key;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_single_row_columns( $object_id ) {
 		ob_start();
 		$table = $this->get_list_table();

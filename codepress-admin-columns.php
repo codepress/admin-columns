@@ -168,7 +168,7 @@ class CPAC {
 
 		// Current listings page storage model
 		if ( $storage_model = $this->get_current_storage_model() ) {
-			do_action( 'cac/current_storage_model', $storage_model );
+			do_action( 'cac/loaded_listings_screen', $storage_model );
 		}
 	}
 
@@ -181,20 +181,29 @@ class CPAC {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function minified() {
+		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	}
+
+	/**
 	 * @since 2.2.4
 	 */
 	public function scripts() {
 
-		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-		wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
-		wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
-		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
-		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
-
+		// Listings screen
 		if ( $current_storage_model = $this->get_current_storage_model() ) {
+
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
+
+			$minified = $this->minified();
+
+			wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
+			wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
+			wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
+			wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
@@ -203,9 +212,10 @@ class CPAC {
 			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
 		}
 
+		// Settings screen
 		else if ( cac_is_setting_screen() ) {
 
-			do_action( 'ac/enqueue_setting_scripts' );
+			do_action( 'ac/enqueue_settings_scripts' );
 		}
 	}
 
