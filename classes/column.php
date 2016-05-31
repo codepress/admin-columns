@@ -243,16 +243,15 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function is_editable() {
+		return null;
+	}
 	public function get_editable_settings() {
 		return null;
 	}
-
 	public function get_editable_ajax_options( $searchterm ) {
 		return null;
 	}
-	/*public function save( $id, $value ) {
-		return null;
-	}*/
 
 	/**
 	 * @since NEWVERSION
@@ -269,7 +268,6 @@ class CPAC_Column {
 	public function get_sortable_data( &$vars ) {
 		return null;
 	}
-
 	public function get_sorting_value( $id ) {
 		return null;
 	}
@@ -277,10 +275,12 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function is_filterable() {
+		return null;
+	}
 	public function get_filterable_data() {
 		return null;
 	}
-
 	public function get_filterable_request_vars( $args, $value ) {
 		return null;
 	}
