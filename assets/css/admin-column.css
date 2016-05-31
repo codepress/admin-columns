@@ -372,6 +372,7 @@
   padding-right: 0;
 }
 .cpac-column .column-meta table tr td.column_type .inner {
+  display: inline-block;
   height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
