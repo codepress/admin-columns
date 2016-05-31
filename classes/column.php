@@ -270,6 +270,10 @@ class CPAC_Column {
 		return null;
 	}
 
+	public function get_sorting_value( $id ) {
+		return null;
+	}
+
 	/**
 	 * @since NEWVERSION
 	 */
