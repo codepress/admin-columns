@@ -367,9 +367,8 @@
 
 					&.column_sort {
 						position: relative;
-						width: 16px;
 						cursor: move;
-						padding: 9px 8px;
+						padding: 9px 16px;
 
 						span {
 							position: absolute;
@@ -378,10 +377,7 @@
 							font-size: 22px;
 							display: inline-block;
 							color: #bdbdbd;
-							//display: none;
-							//margin-top: -2px;
-							//margin-left: 4px;
-						}
+							}
 
 					}
 
@@ -476,6 +472,9 @@
 						.inner {
 							height: 18px;
 							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							width: 120px;
 
 							a {
 								color: #999999;

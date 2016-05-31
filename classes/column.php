@@ -210,16 +210,11 @@ class CPAC_Column {
 		}
 
 		/**
-		 * Filter the properties of a column type, such as type and is_cloneable
-		 * Property $column_instance added in Admin Columns 2.2
+		 * Add before and after fields to specific columns
 		 *
 		 * @since 2.0
 		 * @deprecated NEWVERSION
-		 *
-		 * @param array $properties Column properties
-		 * @param CPAC_Storage_Model $storage_model Storage Model class instance
 		 */
-		$this->properties = (object) apply_filters( 'cac/column/properties', (array) $this->properties, $this );
 		$this->properties->use_before_after = apply_filters( 'cac/column/properties/use_before_after', $this->properties->use_before_after, $this );
 	}
 
