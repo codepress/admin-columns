@@ -13,8 +13,16 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
 		$this->page = 'edit-comments';
+		$this->table_classname = 'WP_Comments_List_Table';
 
 		parent::__construct();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_comment( $id );
 	}
 
 	/**
@@ -48,12 +56,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table = _get_list_table( 'WP_Comments_List_Table', array( 'screen' => 'comments' ) );
-
-		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
-		// Here we remove the filter from the constructor.
-		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10, 2 );
-
+		$table = $this->get_list_table();
 		$columns = (array) $table->get_columns();
 
 		return $columns;

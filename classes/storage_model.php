@@ -67,6 +67,17 @@ abstract class CPAC_Storage_Model {
 	public $subpage;
 
 	/**
+	 * @since NEWVERSION
+	 */
+	private $general_options = null;
+
+	/**
+	 * @since NEWVERSION
+	 * @var string
+	 */
+	protected $table_classname;
+
+	/**
 	 * @since 2.5
 	 * @var string
 	 */
@@ -139,6 +150,30 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_key() {
+		return $this->key;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_single_row_columns( $object_id ) {
+		ob_start();
+		$table = $this->get_list_table();
+		$table->single_row( $this->get_object_by_id( $object_id ) );
+
+		return ob_get_clean();
+	}
+
+	/**
 	 * @since 2.5
 	 */
 	public function get_grouped_columns() {
@@ -167,13 +202,15 @@ abstract class CPAC_Storage_Model {
 		return $this->screen ? $this->screen : $this->page;
 	}
 
+	public function get_list_table() {
+		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+	}
+
 	/**
 	 * @since 2.5
 	 */
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
-
-			$column_types = array();
 
 			// Get default column that have been set on the listings screen
 			$default_columns = $this->get_default_stored_columns();
@@ -235,8 +272,8 @@ abstract class CPAC_Storage_Model {
 					}
 
 					// Use the original column label when creating a new column class for an existing column
-					if ( ! $column->get_label() && isset( $column_types[ $column->get_type() ] ) ) {
-						$_default_column = $column_types[ $column->get_type() ];
+					if ( ! $column->get_label() && isset( $this->column_types[ $column->get_type() ] ) ) {
+						$_default_column = $this->column_types[ $column->get_type() ];
 						$label = $_default_column->get_label();
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
@@ -244,10 +281,6 @@ abstract class CPAC_Storage_Model {
 					$this->column_types[ $column->get_type() ] = $column;
 				}
 			}
-
-			// @since 2.5
-			//do_action( "cac/column_types", $this->column_types, $this );
-			//do_action( "cac/column_types/storage_key={$this->key}", $this->column_types, $this );
 		}
 
 		return $this->column_types;
@@ -895,8 +928,7 @@ abstract class CPAC_Storage_Model {
 			->set_properties( 'is_cloneable', false )
 			->set_properties( 'default', true )
 			->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
-			->set_options( 'label', $label )
-			->set_options( 'state', 'on' );
+			->set_options( 'label', $label );
 
 		// Hide Label when it contains HTML elements
 		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
@@ -1158,12 +1190,14 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.1.1
 	 */
 	public function get_general_option( $option ) {
-		$options = get_option( 'cpac_general_options' );
+		if ( ! $this->general_options ) {
+			$this->general_options = get_option( 'cpac_general_options' );
+		}
 
-		if ( ! isset( $options[ $option ] ) ) {
+		if ( ! isset( $this->general_options[ $option ] ) ) {
 			return false;
 		}
 
-		return $options[ $option ];
+		return $this->general_options[ $option ];
 	}
 }

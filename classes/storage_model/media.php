@@ -11,8 +11,16 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		$this->meta_type = 'post';
 		$this->page = 'upload';
 		$this->post_type = 'attachment';
+		$this->table_classname = 'WP_Media_List_Table';
 
 		parent::__construct();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_post( $id );
 	}
 
 	/**
@@ -33,7 +41,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 		// See classes/third_party.php for an example.
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
-		$table = _get_list_table( 'WP_Media_List_Table', array( 'screen' => 'upload' ) );
+		$table = $this->get_list_table();
 		$columns = (array) $table->get_columns();
 
 		if ( cac_is_setting_screen() ) {

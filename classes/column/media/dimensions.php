@@ -14,6 +14,15 @@ class CPAC_Column_Media_Dimensions extends CPAC_Column {
 		$this->properties['label'] = __( 'Dimensions', 'codepress-admin-columns' );
 	}
 
+	public function get_surface( $id ) {
+		$meta = $this->get_raw_value( $id );
+
+		$height = ! empty( $meta['height'] ) ? $meta['height'] : 0;
+		$width = ! empty( $meta['width'] ) ? $meta['width'] : 0;
+
+		return $height * $width;
+	}
+
 	public function get_value( $id ) {
 		$value = $this->get_empty_char();
 

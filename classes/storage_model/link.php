@@ -9,6 +9,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		$this->singular_label = __( 'Link' );
 		$this->type = 'link';
 		$this->page = 'link-manager';
+		$this->table_classname = 'WP_Links_List_Table';
 
 		parent::__construct();
 	}
@@ -33,7 +34,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table = _get_list_table( 'WP_Links_List_Table', array( 'screen' => 'link-manager' ) );
+		$table = $this->get_list_table();
 		$columns = (array) $table->get_columns();
 
 		return $columns;

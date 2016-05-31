@@ -13,8 +13,16 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		$this->type = 'user';
 		$this->meta_type = 'user';
 		$this->page = 'users';
+		$this->table_classname = 'WP_Users_List_Table';
 
 		parent::__construct();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_userdata( $id );
 	}
 
 	/**
@@ -60,7 +68,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 		do_action( "cac/columns/default/storage_key={$this->key}" );
 
 		// get columns
-		$table = _get_list_table( 'WP_Users_List_Table', array( 'screen' => 'users' ) );
+		$table = $this->get_list_table();
 		$columns = (array) $table->get_columns();
 
 		if ( cac_is_setting_screen() ) {

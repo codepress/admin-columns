@@ -13,12 +13,12 @@ class CPAC_Column_Default extends CPAC_Column {
 	 * @since 2.2.1
 	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type'] = 'column-default';
+		// column name to get original value from
 		$this->properties['handle'] = NULL;
+
+		$this->properties['type'] = 'column-default';
 		$this->properties['group'] = __( 'Default', 'codepress-admin-columns' );
 		$this->properties['original'] = true;
 	}
