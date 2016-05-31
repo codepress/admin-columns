@@ -100,6 +100,11 @@ class CPAC {
 	private $current_storage_model;
 
 	/**
+	 * @since NEWVERSION
+	 */
+	private $general_options = null;
+
+	/**
 	 * @since 2.5
 	 */
 	protected static $_instance = null;
@@ -654,6 +659,17 @@ class CPAC {
 	 */
 	public function is_plugin_woocommerce_active() {
 		return class_exists( 'WooCommerce', false );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_general_option( $option ) {
+		if ( null === $this->general_options ) {
+			$this->general_options = get_option( 'cpac_general_options' );
+		}
+
+		return isset( $this->general_options[ $option ] ) ? $this->general_options[ $option ] : false;
 	}
 }
 

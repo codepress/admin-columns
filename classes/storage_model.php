@@ -68,11 +68,6 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
-	 */
-	private $general_options = null;
-
-	/**
-	 * @since NEWVERSION
 	 * @var string
 	 */
 	protected $table_classname;
@@ -415,30 +410,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		return $sidelabel;
-	}
-
-	/**
-	 * Checks if menu type is currently viewed
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $key
-	 *
-	 * @return bool
-	 */
-	public function is_menu_type_current( $first_posttype ) {
-
-		// display the page that was being viewed before saving
-		if ( ! empty( $_REQUEST['cpac_key'] ) ) {
-			if ( $_REQUEST['cpac_key'] == $this->key ) {
-				return true;
-			}
-		} // settings page has not yet been saved
-		elseif ( $first_posttype == $this->key ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**
@@ -1177,27 +1148,5 @@ abstract class CPAC_Storage_Model {
 		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
 
 		return $this->is_current_screen();
-	}
-
-	/**
-	 * @since 2.3.2
-	 */
-	public function delete_general_option() {
-		delete_option( 'cpac_general_options' );
-	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function get_general_option( $option ) {
-		if ( ! $this->general_options ) {
-			$this->general_options = get_option( 'cpac_general_options' );
-		}
-
-		if ( ! isset( $this->general_options[ $option ] ) ) {
-			return false;
-		}
-
-		return $this->general_options[ $option ];
 	}
 }
