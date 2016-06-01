@@ -246,10 +246,13 @@ class CPAC_Column {
 	public function is_editable() {
 		return null;
 	}
-	public function get_editable_settings() {
+	public function get_editable_data() {
 		return null;
 	}
 	public function get_editable_ajax_options( $searchterm ) {
+		return null;
+	}
+	public function save( $id, $value ) {
 		return null;
 	}
 

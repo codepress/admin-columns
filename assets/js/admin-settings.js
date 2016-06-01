@@ -60,7 +60,7 @@ function cpac_submit_form() {
 				layout : $container.data( 'layout' )
 			},
 
-			// JSON repsonse
+			// JSON response
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
