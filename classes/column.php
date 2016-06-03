@@ -246,6 +246,9 @@ class CPAC_Column {
 	public function is_editable() {
 		return null;
 	}
+	public function get_editable_value( $id ) {
+		return null;
+	}
 	public function get_editable_data() {
 		return null;
 	}
