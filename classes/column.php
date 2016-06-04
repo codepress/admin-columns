@@ -230,6 +230,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function set_label( $label ) {
+		$this->set_properties( 'label', $label )->set_options( 'label', $label );
+	}
+
+	/**
 	 * @param string $option
 	 *
 	 * @return mixed $value
@@ -472,19 +479,6 @@ class CPAC_Column {
 
 	public function attr_id( $field_name ) {
 		echo $this->get_attr_id( $field_name );
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function sanitize_label() {
-		// check if original label has changed. Example WPML adds a language column, the column heading will have to display the added flag.
-		if ( $this->properties->hide_label && $this->properties->label !== $this->options->label ) {
-			$this->options->label = $this->properties->label;
-		}
-
-		// replace urls, so export will not have to deal with them
-		$this->options->label = stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) );
 	}
 
 	/**

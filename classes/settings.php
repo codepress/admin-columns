@@ -141,9 +141,9 @@ class CPAC_Settings {
 		}
 
 		$formdata = filter_input( INPUT_POST, 'formdata' );
-		$column = filter_input( INPUT_POST, 'column' );
+		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( ! $formdata || ! $column ) {
+		if ( ! $formdata || ! $column_name ) {
 			wp_die();
 		}
 
@@ -157,13 +157,13 @@ class CPAC_Settings {
 
 		$storage_model->set_layout( $_POST['layout'] );
 
-		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
+		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
 			wp_die();
 		}
 
-		$columndata = $formdata[ $storage_model->key ][ $column ];
+		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
-		$column = $storage_model->create_column( $columndata );
+		$column = $storage_model->create_column_instance( $column_name, $columndata );
 		if ( ! $column ) {
 			wp_die();
 		}
