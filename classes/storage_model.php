@@ -193,10 +193,16 @@ abstract class CPAC_Storage_Model {
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_screen_id() {
 		return $this->screen ? $this->screen : $this->page;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_list_table() {
 		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 	}
@@ -294,15 +300,6 @@ abstract class CPAC_Storage_Model {
 		}
 
 		return $defaults;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function get_column_type( $type ) {
-		$column_types = $this->get_column_types();
-
-		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
 	}
 
 	/**
