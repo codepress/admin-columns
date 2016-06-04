@@ -349,7 +349,7 @@ abstract class CPAC_Storage_Model {
 			// Stored columns
 			if ( $stored = $this->get_stored_columns() ) {
 				foreach ( $stored as $name => $options ) {
-					if ( $column = $this->create_column_instance( $name, $options ) ) {
+					if ( $column = $this->create_column_instance( $options['type'], $options ) ) {
 						$this->columns[ $name ] = $column;
 					}
 				}

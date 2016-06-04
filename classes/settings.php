@@ -163,7 +163,7 @@ class CPAC_Settings {
 
 		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
-		$column = $storage_model->create_column_instance( $column_name, $columndata );
+		$column = $storage_model->create_column_instance( $columndata['type'], $columndata );
 		if ( ! $column ) {
 			wp_die();
 		}
