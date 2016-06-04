@@ -119,6 +119,12 @@ abstract class CPAC_Storage_Model {
 	private $stored_columns = array();
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $column_classnames = array();
+
+	/**
 	 * @since 2.4.4
 	 */
 	abstract function get_default_column_names();
@@ -202,6 +208,38 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	private function get_column_classnames() {
+		if ( null === $this->column_classnames ) {
+			foreach ( $this->columns_filepath as $classname => $path ) {
+				$column = new $classname( $this->key );
+				$this->column_classnames[ $column->get_type() ] = $classname;
+			}
+		}
+		return $this->column_classnames;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function create_column_instance( $column_type ) {
+
+		// Custom columns
+		$classnames = $this->get_column_classnames();
+		if ( isset( $classnames[ $column_type ] ) ) {
+			$column = new $classnames[ $column_type ]();
+		}
+
+		// Default columns
+		else {
+			$column = new CPAC_Column( $column_type );
+		}
+
+		return $column && $column->is_registered() ? $column : false;
+	}
+
+	/**
 	 * @since 2.5
 	 */
 	public function get_column_types() {
@@ -236,7 +274,27 @@ abstract class CPAC_Storage_Model {
 				$default_column_widths = apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
 
 				foreach ( $default_columns as $name => $label ) {
-					$column = $this->create_column_instance( $name, $label );
+
+					$column = new CPAC_Column( $this->key );
+
+					$column
+						->set_properties( 'type', $name )
+						->set_properties( 'name', $name )
+						->set_properties( 'label', $label )
+						->set_properties( 'is_cloneable', false )
+						->set_properties( 'default', true )
+						->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
+						->set_options( 'label', $label );
+
+					// Hide Label when it contains HTML elements
+					if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
+						$column->set_properties( 'hide_label', true );
+					}
+
+					// Label empty? Use it's column_name
+					if ( ! $label ) {
+						$column->set_properties( 'label', ucfirst( $name ) );
+					}
 
 					// If it's not a default column it probably is set by a plugin
 					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
@@ -272,28 +330,13 @@ abstract class CPAC_Storage_Model {
 						$label = $_default_column->get_label();
 						$column->set_properties( 'label', $label )->set_options( 'label', $label );
 					}
-
+echo '<pre>'; print_r( $column ); echo '</pre>'; exit;
 					$this->column_types[ $column->get_type() ] = $column;
 				}
 			}
 		}
 
 		return $this->column_types;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	private function get_default_colummn_types() {
-		$defaults = array();
-
-		foreach ( $this->get_column_types() as $type => $column ) {
-			if ( $column->is_default() || $column->is_original() ) {
-				$defaults[ $type ] = $column;
-			}
-		}
-
-		return $defaults;
 	}
 
 	/**
@@ -357,7 +400,11 @@ abstract class CPAC_Storage_Model {
 
 			// Nothing stored
 			else {
-				$this->columns = $this->get_default_colummn_types();
+				foreach ( $this->get_column_types() as $type => $column ) {
+					if ( $column->is_default() || $column->is_original() ) {
+						$this->columns[ $type ] = $column;
+					}
+				}
 			}
 
 			do_action( "cac/columns", $this->columns, $this );
@@ -879,39 +926,6 @@ abstract class CPAC_Storage_Model {
 		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
 
 		$this->columns_filepath = $columns;
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param $column_name
-	 * @param $label
-	 *
-	 * @return object CPAC_Column
-	 */
-	public function create_column_instance( $column_name, $label ) {
-		$column = new CPAC_Column( $this->key );
-
-		$column
-			->set_properties( 'type', $column_name )
-			->set_properties( 'name', $column_name )
-			->set_properties( 'label', $label )
-			->set_properties( 'is_cloneable', false )
-			->set_properties( 'default', true )
-			->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
-			->set_options( 'label', $label );
-
-		// Hide Label when it contains HTML elements
-		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
-			$column->set_properties( 'hide_label', true );
-		}
-
-		// Label empty? Use it's column_name
-		if ( ! $label ) {
-			$column->set_properties( 'label', ucfirst( $column_name ) );
-		}
-
-		return $column;
 	}
 
 	/**
