@@ -30,16 +30,6 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * @since 2.4.7
-	 */
-	protected $filtering_model;
-
-	/**
-	 * @since 2.4.8
-	 */
-	protected $editable_model;
-
-	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -121,18 +111,6 @@ class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function scripts() {
-	}
-
-	/**
-	 * An object copy (clone) is created for creating multiple column instances.
-	 *
-	 * @since 2.0
-	 */
-	public function __clone() {
-
-		// Force a copy of this->object, otherwise it will point to same object.
-		$this->options = clone $this->options;
-		$this->properties = clone $this->properties;
 	}
 
 	/**

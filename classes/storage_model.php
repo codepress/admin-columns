@@ -122,6 +122,12 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var array
 	 */
+	private $default_columns = null;
+
+	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
 	private $column_classnames = null;
 
 	/**
@@ -199,10 +205,16 @@ abstract class CPAC_Storage_Model {
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_screen_id() {
 		return $this->screen ? $this->screen : $this->page;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_list_table() {
 		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 	}
@@ -225,21 +237,30 @@ abstract class CPAC_Storage_Model {
 		return $this->column_classnames;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	private function get_default_headings() {
 
-		// Get default column that have been set on the listings screen
-		$default_columns = $this->get_default_stored_columns();
+		if ( null === $this->default_columns ) {
+			// Get default column that have been set on the listings screen
+			$default_columns = $this->get_default_stored_columns();
 
-		// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
-		if ( empty( $default_columns ) ) {
-			$default_columns = $this->get_default_column_headings();
+			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
+			if ( empty( $default_columns ) ) {
+				$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
+				$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
+				$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
+			}
+
+			if ( isset( $default_columns['cb'] ) ) {
+				unset( $default_columns['cb'] );
+			}
+
+			$this->default_columns = $default_columns;
 		}
 
-		if ( isset( $default_columns['cb'] ) ) {
-			unset( $default_columns['cb'] );
-		}
-
-		return $default_columns;
+		return $this->default_columns;
 	}
 
 	/**
@@ -314,8 +335,8 @@ abstract class CPAC_Storage_Model {
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
 
-			$default_types = array_keys( $this->get_default_headings() );
-			$custom_types = array_keys( $this->get_column_classnames() );
+			$default_types = array_keys( (array) $this->get_default_headings() );
+			$custom_types = array_keys( (array) $this->get_column_classnames() );
 
 			$column_types = array_merge( $default_types, $custom_types );
 
@@ -784,17 +805,6 @@ abstract class CPAC_Storage_Model {
 		do_action( 'cac/storage_model/columns_stored', $columns, $this );
 
 		return true;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function get_default_column_headings() {
-		$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
-		$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
-		$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
-
-		return $default_columns;
 	}
 
 	/**
