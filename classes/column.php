@@ -252,7 +252,7 @@ class CPAC_Column {
 	public function get_editable_data() {
 		return null;
 	}
-	public function get_editable_ajax_options( $searchterm ) {
+	public function get_editable_ajax_options( $searchterm, $page ) {
 		return null;
 	}
 	public function save( $id, $value ) {
