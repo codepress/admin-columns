@@ -303,8 +303,7 @@ abstract class CPAC_Storage_Model {
 
 			// Use the original column label when creating a new column class for an existing column
 			if ( ! $column->get_label() && isset( $default_columns[ $column->get_type() ] ) ) {
-				$default_column = $default_columns[ $column->get_type() ];
-				$label = $default_column->get_label();
+				$label = $default_columns[ $column->get_type() ];
 				$column->set_properties( 'label', $label )->set_options( 'label', $label );
 			}
 		}
