@@ -237,7 +237,7 @@ class CPAC_Column {
 	public function get_editable_data() {
 		return null;
 	}
-	public function get_editable_ajax_options( $searchterm ) {
+	public function get_editable_ajax_options( $searchterm, $page ) {
 		return null;
 	}
 	public function save( $id, $value ) {
@@ -1467,7 +1467,7 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display() {
-		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
+		$classes = implode( ' ', array_filter( array( "cpac-box-" . $this->get_type(), $this->get_property( 'classes' ) ) ) );
 		?>
 		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : ''; ?> data-default="<?php echo $this->is_default(); ?>">
 			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
@@ -1547,7 +1547,7 @@ class CPAC_Column {
 						'placeholder' => $this->get_type_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-						'hidden'      => $this->properties->hide_label
+						'hidden'      => $this->get_property( 'hide_label' )
 					) );
 
 					$this->form_field( array(
