@@ -156,12 +156,50 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_post( $id );
+	}
+
+	/**
+	 * Get WP default supported admin columns per post type.
+	 *
+	 * @see CPAC_Type::get_default_columns()
+	 * @since 1.0
+	 *
+	 * @return array
+	 */
+	public function get_default_columns() {
+
+		if ( ! function_exists( '_get_list_table' ) ) {
+			return array();
+		}
+
+		// You can use this filter to add thirdparty columns by hooking into this.
+		// See classes/third_party.php for an example.
+		do_action( "cac/columns/default/posts" );
+		do_action( "cac/columns/default/storage_key={$this->key}" );
+		do_action( "cac/columns/default/post_type={$this->post_type}" );
+
+		// Initialize table so it can add actions to manage_{screenid}_columns
+		$this->get_list_table();
+
+		// get_column_headers() runs through both the manage_{screenid}_columns
+		// and manage_{$post_type}_posts_columns filters
+		$columns = (array) apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
+		$columns = array_filter( $columns );
+
+		return $columns;
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function get_meta() {
 		global $wpdb;
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->key ), ARRAY_N );
+		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->get_post_type() ), ARRAY_N );
 	}
 
 	/**
@@ -169,7 +207,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function manage_value( $column_name, $post_id ) {
 
-		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
+		$column = $this->get_column_by_name( $column_name );
+
+		if ( ! $column ) {
 			return false;
 		}
 

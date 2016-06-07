@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.5
+Version: 2.5.6.2
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.5' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.6.2' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -98,6 +98,11 @@ class CPAC {
 	 * @since 2.4.9
 	 */
 	private $current_storage_model;
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private $general_options = null;
 
 	/**
 	 * @since 2.5
@@ -168,7 +173,7 @@ class CPAC {
 
 		// Current listings page storage model
 		if ( $storage_model = $this->get_current_storage_model() ) {
-			do_action( 'cac/current_storage_model', $storage_model );
+			do_action( 'cac/loaded_listings_screen', $storage_model );
 		}
 	}
 
@@ -181,24 +186,41 @@ class CPAC {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function minified() {
+		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	}
+
+	/**
 	 * @since 2.2.4
 	 */
 	public function scripts() {
 
-		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		// Listings screen
+		if ( $current_storage_model = $this->get_current_storage_model() ) {
 
-		wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
-		wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
-		wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
-		wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
-
-		if ( $this->get_current_storage_model() ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
+
+			$minified = $this->minified();
+
+			wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
+			wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
+			wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
+			wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
+
+			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
+		}
+
+		// Settings screen
+		else if ( cac_is_setting_screen() ) {
+
+			do_action( 'ac/enqueue_settings_scripts' );
 		}
 	}
 
@@ -315,9 +337,8 @@ class CPAC {
 		}
 
 		if ( $storage_model ) {
-			$storage_model->init_layout();
-			$storage_model->init_column_headings();
-			$storage_model->init_column_values();
+			$storage_model->init_listings_layout();
+			$storage_model->init_manage_columns();
 		}
 	}
 
@@ -369,7 +390,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private function get_post_types() {
+	public function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
@@ -402,7 +423,7 @@ class CPAC {
 	 * @return array List of taxonomies
 	 */
 	public function get_taxonomies() {
-		$taxonomies = get_taxonomies( array( 'public' => true ) );
+		$taxonomies = get_taxonomies( array( 'show_ui' => true ) );
 		if ( isset( $taxonomies['post_format'] ) ) {
 			unset( $taxonomies['post_format'] );
 		}
@@ -633,6 +654,17 @@ class CPAC {
 	 */
 	public function is_plugin_woocommerce_active() {
 		return class_exists( 'WooCommerce', false );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_general_option( $option ) {
+		if ( null === $this->general_options ) {
+			$this->general_options = get_option( 'cpac_general_options' );
+		}
+
+		return isset( $this->general_options[ $option ] ) ? $this->general_options[ $option ] : false;
 	}
 }
 

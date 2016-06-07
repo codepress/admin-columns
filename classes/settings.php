@@ -32,7 +32,6 @@ class CPAC_Settings {
 
 		$this->cpac = $cpac;
 
-		// register settings
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
 		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
@@ -142,9 +141,9 @@ class CPAC_Settings {
 		}
 
 		$formdata = filter_input( INPUT_POST, 'formdata' );
-		$column = filter_input( INPUT_POST, 'column' );
+		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( ! $formdata || ! $column ) {
+		if ( ! $formdata || ! $column_name ) {
 			wp_die();
 		}
 
@@ -158,13 +157,13 @@ class CPAC_Settings {
 
 		$storage_model->set_layout( $_POST['layout'] );
 
-		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column ] ) ) {
+		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
 			wp_die();
 		}
 
-		$columndata = $formdata[ $storage_model->key ][ $column ];
+		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
-		$column = $storage_model->create_column( $columndata );
+		$column = $storage_model->create_column_instance( $columndata['type'], $columndata );
 		if ( ! $column ) {
 			wp_die();
 		}
@@ -298,21 +297,16 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-
-		// only handle updates from the admin columns page
-		if ( ! ( isset( $_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns' ) ) && isset( $_REQUEST['cpac_action'] ) ) ) {
-			return false;
+		if ( ! isset( $_REQUEST['cpac_action'] ) || ! isset( $_REQUEST['_cpac_nonce'] ) || ! cac_is_setting_screen() || ! current_user_can( 'manage_admin_columns' ) ) {
+			return;
 		}
 
-		// use $_REQUEST because the values are send both over $_GET and $_POST
-		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] : '';
-		$nonce = isset( $_REQUEST['_cpac_nonce'] ) ? $_REQUEST['_cpac_nonce'] : '';
-		$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
-
-		switch ( $action ) :
+		switch ( $_REQUEST['cpac_action'] ) :
 
 			case 'restore_by_type' :
-				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
+				$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
+
+				if ( wp_verify_nonce( $_REQUEST['_cpac_nonce'], 'restore-type' ) && $key ) {
 					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
 
 						if ( isset( $_POST['cpac_layout'] ) ) {
@@ -328,7 +322,7 @@ class CPAC_Settings {
 				break;
 
 			case 'restore_all' :
-				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
+				if ( wp_verify_nonce( $_REQUEST['_cpac_nonce'], 'restore-all' ) ) {
 					$this->restore_all();
 				}
 				break;
@@ -698,6 +692,9 @@ class CPAC_Settings {
 			}
 		}
 
+		// Init layout
+		$storage_model->init_settings_layout();
+
 		return $storage_model;
 	}
 
@@ -749,8 +746,6 @@ class CPAC_Settings {
 				case 'general':
 
 					$storage_model = $this->get_settings_storage_model();
-					$storage_model->init_layout();
-
 					$has_been_stored = $storage_model->get_stored_columns() ? true : false;
 
 					// columns should not be editable when layout isn't
@@ -765,7 +760,7 @@ class CPAC_Settings {
 					foreach ( cpac()->get_storage_models() as $_storage_model ) {
 						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 							'key'   => $_storage_model->key,
-							'link'  => $_storage_model->get_edit_link(),
+							'link'  => $_storage_model->settings_url(),
 							'label' => $_storage_model->label
 						);
 						usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
@@ -793,7 +788,6 @@ class CPAC_Settings {
 
 								<?php $storage_model->screen_link(); ?>
 							</div>
-
 
 							<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
 
@@ -852,16 +846,19 @@ class CPAC_Settings {
 											<div class="inside">
 												<ul>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
+													</li>
+													<li>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
 													</li>
 												</ul>
 												<p>

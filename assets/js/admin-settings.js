@@ -60,7 +60,7 @@ function cpac_submit_form() {
 				layout : $container.data( 'layout' )
 			},
 
-			// JSON repsonse
+			// JSON response
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
@@ -111,7 +111,7 @@ jQuery.fn.column_bind_toggle = function() {
 	var column = jQuery( this );
 	var is_disabled = column.closest( 'cpac-boxes' ).hasClass( 'disabled' );
 
-	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button' ).click( function( e ) {
+	column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button, td.column_label .close-button, tr.column_action .close-button' ).click( function( e ) {
 		e.preventDefault();
 
 		column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );
@@ -137,7 +137,6 @@ jQuery.fn.column_bind_toggle = function() {
  * @since 2.0
  */
 jQuery.fn.column_bind_remove = function() {
-
 	jQuery( this ).find( '.remove-button' ).click( function( e ) {
 		jQuery( this ).closest( '.cpac-column' ).column_remove();
 
@@ -151,15 +150,11 @@ jQuery.fn.column_bind_remove = function() {
  * @since 2.3.4
  */
 jQuery.fn.column_bind_clone = function() {
-
 	jQuery( this ).find( '.clone-button' ).click( function( e ) {
-		var column, clone;
-
 		e.preventDefault();
 
-		column = jQuery( this ).closest( '.cpac-column' );
-
-		clone = column.column_clone();
+		var column = jQuery( this ).closest( '.cpac-column' );
+		var clone = column.column_clone();
 
 		if ( typeof clone !== 'undefined' ) {
 			clone.removeClass( 'loading' ).hide().slideDown();
@@ -169,7 +164,7 @@ jQuery.fn.column_bind_clone = function() {
 
 jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
-	var select = el.find( '.column_type select' );
+	var select = el.find( '.column-type select' );
 	var $container = jQuery( this ).closest( '.columns-container' );
 
 	// Mark column as loading
@@ -184,7 +179,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		column : jQuery( this ).find( 'input.column-name' ).val(),
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : $container.data( 'type' ),
-		layout : $container.data( 'layout' ),
+		layout : $container.data( 'layout' )
 	}, function( data ) {
 
 		if ( data ) {
@@ -241,9 +236,9 @@ jQuery.fn.column_bind_events = function() {
 	var storage_model = container.attr( 'data-type' );
 
 	// Current column type
-	var default_value = column.find( '.column_type select option:selected' ).val();
+	var default_value = column.find( '.column-type select option:selected' ).val();
 
-	column.find( '.column_type select' ).change( function() {
+	column.find( '.column-type select' ).change( function() {
 		var option = jQuery( 'optgroup', this ).children( ':selected' );
 		var type = option.val();
 		var label = option.text();
@@ -289,15 +284,14 @@ jQuery.fn.column_bind_events = function() {
 	} );
 
 	/** change label */
-	column.find( '.column_label .input input' ).bind( 'keyup change', function() {
-
+	column.find( '.column-form .column-label .input input' ).bind( 'keyup change', function() {
 		var value = jQuery( this ).val();
 		jQuery( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 	} );
 
 	/** width */
 
-		// slider
+	// slider
 	column.column_width_slider();
 
 	// indicator
@@ -313,7 +307,7 @@ jQuery.fn.column_bind_events = function() {
 	} );
 
 	// unit selector
-	var width_unit_select = column.find( '.column_width .unit-select label' );
+	var width_unit_select = column.find( '.column-width .unit-select label' );
 	width_unit_select.on( 'click', function() {
 
 		column.find( 'span.unit' ).text( jQuery( this ).find( 'input' ).val() );
@@ -349,18 +343,10 @@ jQuery.fn.column_bind_events = function() {
 		} );
 
 	/** display custom image size */
-	column.find( '.column_image_size label.custom-size' ).click( function() {
-
-		var parent = jQuery( this ).closest( '.input' );
-
-		if ( jQuery( this ).hasClass( 'image-size-custom' ) ) {
-			jQuery( '.custom-size-w', parent ).removeClass( 'hidden' );
-			jQuery( '.custom-size-h', parent ).removeClass( 'hidden' );
-		}
-
-		else {
-			jQuery( '.custom-size-w', parent ).addClass( 'hidden' );
-			jQuery( '.custom-size-h', parent ).addClass( 'hidden' );
+	column.find( '.column-image_size select' ).change( function() {
+		var custom_image_size = jQuery( this ).closest( '.cpac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
+		if ( 'cpac-custom' === this.value ) {
+			custom_image_size.removeClass( 'hide' );
 		}
 	} );
 
@@ -395,7 +381,7 @@ jQuery.fn.column_remove = function() {
  */
 jQuery.fn.column_width_slider = function() {
 
-	var column_width = jQuery( this ).find( '.column_width' );
+	var column_width = jQuery( this ).find( '.column-width' );
 
 	var input_width = column_width.find( 'input.width' ),
 		input_unit = column_width.find( 'input.unit' ),
@@ -709,24 +695,24 @@ function cpac_pointer() {
 			jQuery( this ).pointer( 'open' );
 		}, function() {
 			var el = jQuery( this );
-			setTimeout( function(){
-				if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+			setTimeout( function() {
+				if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
 					el.pointer( 'close' );
 				}
 			}, 100 );
 
-		} ).on( 'close', function(){
-			if ( !el.hasClass( 'open' ) && jQuery('.cpac-wp-pointer.hover' ).length == 0 ) {
+		} ).on( 'close', function() {
+			if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
 				el.pointer( 'close' );
 			}
-		});
+		} );
 	} );
 
-	jQuery('.cpac-wp-pointer' ).hover( function(){
-		jQuery(this ).addClass('hover');
-	}, function(){
-		jQuery(this ).removeClass('hover');
-		jQuery( '.cpac-pointer' ).trigger('close');
+	jQuery( '.cpac-wp-pointer' ).hover( function() {
+		jQuery( this ).addClass( 'hover' );
+	}, function() {
+		jQuery( this ).removeClass( 'hover' );
+		jQuery( '.cpac-pointer' ).trigger( 'close' );
 	} );
 
 }
@@ -821,11 +807,11 @@ jQuery( document ).bind( 'column_init column_change column_add', function( e, co
 jQuery.fn.cpac_bind_column_addon_events = function() {
 
 	var column = jQuery( this );
-	var inputs = column.find( '[data-toggle-id] label' );
+	var inputs = column.find( '[data-trigger] label' );
 
 	inputs.on( 'click', function() {
 
-		var id = jQuery( this ).closest( 'td.input' ).data( 'toggle-id' );
+		var id = jQuery( this ).closest( 'td.input' ).data( 'trigger' );
 		var state = jQuery( 'input', this ).val();
 
 		// Toggle indicator icon
@@ -835,15 +821,15 @@ jQuery.fn.cpac_bind_column_addon_events = function() {
 		}
 
 		// Toggle additional options
-		var additional = column.find( '[data-additional-option-id="' + id + '"]' ).addClass( 'hide' );
+		var additional = column.find( '[data-handle="' + id + '"]' ).addClass( 'hide' );
 		if ( 'on' == state ) {
 			additional.removeClass( 'hide' );
 		}
 	} );
 
 	// Toggle additional column settings
-	column.find( '[data-toggle-id]' ).each( function() {
-		var additional = column.find( '[data-additional-option-id="' + jQuery( this ).data( 'toggle-id' ) + '"]' ).addClass( 'hide' );
+	column.find( '[data-trigger]' ).each( function() {
+		var additional = column.find( '[data-handle="' + jQuery( this ).data( 'trigger' ) + '"]' ).addClass( 'hide' );
 		if ( 'on' == jQuery( 'input:checked', this ).val() ) {
 			additional.removeClass( 'hide' );
 		}
@@ -862,15 +848,15 @@ jQuery.fn.cpac_bind_indicator_events = function() {
 	indicator.unbind( 'click' ).click( function() {
 
 		var id = jQuery( this ).data( 'indicator-id' );
-		var radio = column.find( '[data-toggle-id="' + id + '"] input' );
+		var radio = column.find( '[data-trigger="' + id + '"] input' );
 
 		if ( jQuery( this ).hasClass( 'on' ) ) {
 			jQuery( this ).removeClass( 'on' ).addClass( 'off' );
-			radio.filter( '[value=off]' ).prop( 'checked', true );
+			radio.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' );
 		}
 		else {
 			jQuery( this ).removeClass( 'off' ).addClass( 'on' );
-			radio.filter( '[value=on]' ).prop( 'checked', true );
+			radio.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' );
 		}
 	} );
 };

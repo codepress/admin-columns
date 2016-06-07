@@ -21,6 +21,13 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
+	protected function get_object_by_id( $id ) {
+		return get_comment( $id );
+	}
+
+	/**
+	 * @since 2.4.9
+	 */
 	public function init_column_values() {
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
@@ -35,6 +42,22 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 			'response' => array( 'width' => 15 ),
 			'date'     => array( 'width' => 14 ),
 		);
+	}
+
+	public function get_default_columns() {
+		if ( ! function_exists( '_get_list_table' ) ) {
+			return array();
+		}
+
+		// You can use this filter to add thirdparty columns by hooking into this.
+		// See classes/third_party.php for an example.
+		do_action( "cac/columns/default/storage_key={$this->key}" );
+
+		// get columns
+		$table = $this->get_list_table();
+		$columns = (array) $table->get_columns();
+
+		return $columns;
 	}
 
 	public function get_meta() {
