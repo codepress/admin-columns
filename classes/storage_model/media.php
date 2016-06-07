@@ -26,9 +26,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 	/**
 	 * @since 2.4.9
 	 */
-	public function init_manage_columns() {
-
-		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+	public function init_column_values() {
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

@@ -24,15 +24,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.9
+	 * @since NEWVERSION
 	 */
-	public function init_manage_columns() {
-
-		// Headings
-		// Filter is located in get_column_headers()
-		add_filter( "manage_{$this->page}-{$this->post_type}_columns", array( $this, 'add_headings' ), 200 );
-
-		// values
+	public function init_column_values() {
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 	}
 

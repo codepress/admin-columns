@@ -133,19 +133,42 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since 2.4.4
 	 */
-	abstract function get_default_column_names();
+	function __construct() {
+		$this->set_columns_filepath();
+	}
 
 	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
-	abstract function get_default_columns();
+	public function get_default_columns() {
+		if ( function_exists( '_get_list_table' ) ) {
+
+			// trigger WP_List_Table::get_columns()
+			_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		}
+
+		return (array) get_column_headers( $this->get_screen_id() );
+	}
 
 	/**
-	 * @since 2.2
+	 * @since NEWVERSION
 	 */
-	function __construct() {
-		$this->set_columns_filepath();
+	public function init_column_values() {
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function init_column_headings() {
+		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+	}
+
+	/**
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		return array();
 	}
 
 	/**
@@ -356,6 +379,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function flush_columns() {
 		$this->stored_columns = array();
+		$this->column_types = array();
 		$this->columns = array();
 	}
 
@@ -989,7 +1013,6 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-
 		if ( empty( $columns ) ) {
 			return $columns;
 		}
@@ -1021,6 +1044,7 @@ abstract class CPAC_Storage_Model {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
+		$this->column_types = null; // flush types, in case a column was deactivated
 		$types = array_keys( $this->get_column_types() );
 
 		// add active stored headings
