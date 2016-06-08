@@ -272,7 +272,7 @@ class CPAC_Column {
 	public function get_filterable_data() {
 		return null;
 	}
-	public function get_filterable_request_vars( $args, $value ) {
+	public function get_filterable_request_vars( $vars, $value ) {
 		return null;
 	}
 
