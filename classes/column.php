@@ -30,16 +30,6 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * @since 2.4.7
-	 */
-	protected $filtering_model;
-
-	/**
-	 * @since 2.4.8
-	 */
-	protected $editable_model;
-
-	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -121,18 +111,6 @@ class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function scripts() {
-	}
-
-	/**
-	 * An object copy (clone) is created for creating multiple column instances.
-	 *
-	 * @since 2.0
-	 */
-	public function __clone() {
-
-		// Force a copy of this->object, otherwise it will point to same object.
-		$this->options = clone $this->options;
-		$this->properties = clone $this->properties;
 	}
 
 	/**
@@ -230,6 +208,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function set_label( $label ) {
+		$this->set_properties( 'label', $label )->set_options( 'label', $label );
+	}
+
+	/**
 	 * @param string $option
 	 *
 	 * @return mixed $value
@@ -243,16 +228,21 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_editable_settings() {
+	public function is_editable() {
 		return null;
 	}
-
-	public function get_editable_ajax_options( $searchterm ) {
+	public function get_editable_value( $id ) {
 		return null;
 	}
-	/*public function save( $id, $value ) {
+	public function get_editable_data() {
 		return null;
-	}*/
+	}
+	public function get_editable_ajax_options( $searchterm, $page ) {
+		return null;
+	}
+	public function save( $id, $value ) {
+		return null;
+	}
 
 	/**
 	 * @since NEWVERSION
@@ -269,14 +259,19 @@ class CPAC_Column {
 	public function get_sortable_data( &$vars ) {
 		return null;
 	}
+	public function get_sorting_value( $id ) {
+		return null;
+	}
 
 	/**
 	 * @since NEWVERSION
 	 */
+	public function is_filterable() {
+		return null;
+	}
 	public function get_filterable_data() {
 		return null;
 	}
-
 	public function get_filterable_request_vars( $args, $value ) {
 		return null;
 	}
@@ -462,19 +457,6 @@ class CPAC_Column {
 
 	public function attr_id( $field_name ) {
 		echo $this->get_attr_id( $field_name );
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function sanitize_label() {
-		// check if original label has changed. Example WPML adds a language column, the column heading will have to display the added flag.
-		if ( $this->properties->hide_label && $this->properties->label !== $this->options->label ) {
-			$this->options->label = $this->properties->label;
-		}
-
-		// replace urls, so export will not have to deal with them
-		$this->options->label = stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->options->label ) );
 	}
 
 	/**
@@ -1485,7 +1467,7 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display() {
-		$classes = implode( ' ', array_filter( array( "cpac-box-{$this->properties->type}", $this->properties->classes ) ) );
+		$classes = implode( ' ', array_filter( array( "cpac-box-" . $this->get_type(), $this->get_property( 'classes' ) ) ) );
 		?>
 		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : ''; ?> data-default="<?php echo $this->is_default(); ?>">
 			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
@@ -1565,7 +1547,7 @@ class CPAC_Column {
 						'placeholder' => $this->get_type_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-						'hidden'      => $this->properties->hide_label
+						'hidden'      => $this->get_property( 'hide_label' )
 					) );
 
 					$this->form_field( array(

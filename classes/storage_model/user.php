@@ -28,8 +28,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	/**
 	 * @since 2.4.9
 	 */
-	public function init_manage_columns() {
-		add_filter( "manage_{$this->page}_columns", array( $this, 'add_headings' ), 100 );
+	public function init_column_values() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value_callback' ), 100, 3 );
 	}
 
@@ -37,7 +36,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @since 2.4.10
 	 */
 	public function is_current_screen() {
-		return ! is_network_admin() && parent::is_current_screen();
+		return ! is_network_admin() && parent::is_current_screen() && ( 'delete' !== filter_input( INPUT_GET, 'action' ) );
 	}
 
 	/**

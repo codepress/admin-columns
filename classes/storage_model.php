@@ -119,21 +119,56 @@ abstract class CPAC_Storage_Model {
 	private $stored_columns = array();
 
 	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $default_columns = null;
+
+	/**
+	 * @since NEWVERSION
+	 * @var array
+	 */
+	private $column_classnames = null;
+
+	/**
 	 * @since 2.4.4
 	 */
-	abstract function get_default_column_names();
+	function __construct() {
+		$this->set_columns_filepath();
+	}
 
 	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
-	abstract function get_default_columns();
+	public function get_default_columns() {
+		if ( function_exists( '_get_list_table' ) ) {
+
+			// trigger WP_List_Table::get_columns()
+			_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		}
+
+		return (array) get_column_headers( $this->get_screen_id() );
+	}
 
 	/**
-	 * @since 2.2
+	 * @since NEWVERSION
 	 */
-	function __construct() {
-		$this->set_columns_filepath();
+	public function init_column_values() {
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function init_column_headings() {
+		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+	}
+
+	/**
+	 * @since 2.4.4
+	 */
+	public function get_default_column_names() {
+		return array();
 	}
 
 	/**
@@ -193,12 +228,127 @@ abstract class CPAC_Storage_Model {
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_screen_id() {
 		return $this->screen ? $this->screen : $this->page;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function get_list_table() {
 		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function get_column_classnames() {
+		if ( null === $this->column_classnames ) {
+			foreach ( $this->columns_filepath as $classname => $path ) {
+				require_once $path;
+				$column = new $classname( $this->key );
+
+				if ( $column->is_registered() ) {
+					$this->column_classnames[ $column->get_type() ] = $classname;
+				}
+			}
+		}
+
+		return $this->column_classnames;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function get_default_headings() {
+
+		if ( null === $this->default_columns ) {
+			// Get default column that have been set on the listings screen
+			$default_columns = $this->get_default_stored_columns();
+
+			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
+			if ( empty( $default_columns ) ) {
+				$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
+				$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
+				$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
+			}
+
+			if ( isset( $default_columns['cb'] ) ) {
+				unset( $default_columns['cb'] );
+			}
+
+			$this->default_columns = $default_columns;
+		}
+
+		return $this->default_columns;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function create_column_instance( $column_type, $options = array() ) {
+
+		$column = false;
+
+		// Default columns
+		if ( $default_columns = $this->get_default_headings() ) {
+			if ( isset( $default_columns[ $column_type ] ) ) {
+
+				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
+
+				if ( in_array( $column_type, $default_column_names ) ) {
+					$column = new CPAC_Column_WP_Default( $this->key, $column_type, $default_columns[ $column_type ] );
+				}
+				else {
+					$column = new CPAC_Column_WP_Plugin( $this->key, $column_type, $default_columns[ $column_type ] );
+				}
+
+				$default_column_widths = (array) apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
+
+				// Set the default percentage
+				if ( isset( $default_column_widths[ $column_type ] ) ) {
+					$column->set_options( 'width', $default_column_widths[ $column_type ]['width'] );
+				}
+				if ( isset( $default_column_widths[ $column_type ]['unit'] ) ) {
+					$column->set_options( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
+				}
+			}
+		}
+
+		// Custom columns
+		$classnames = $this->get_column_classnames();
+
+		if ( isset( $classnames[ $column_type ] ) ) {
+			$column = new $classnames[ $column_type ]( $this->key );
+
+			// Use the original column label when creating a new column class for an existing column
+			if ( ! $column->get_label() && isset( $default_columns[ $column->get_type() ] ) ) {
+				$label = $default_columns[ $column->get_type() ];
+				$column->set_properties( 'label', $label )->set_options( 'label', $label );
+			}
+		}
+
+		if ( ! $column ) {
+			return false;
+		}
+
+		// Set options
+		if ( $options ) {
+			if ( isset( $options['clone'] ) ) {
+				$column->set_clone( $options['clone'] );
+			}
+			// replace urls, so export will not have to deal with them
+			if ( isset( $options['label'] ) ) {
+				$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
+			}
+
+			$column->options = (object) array_merge( (array) $column->options, $options );
+		}
+
+		return $column;
 	}
 
 	/**
@@ -207,126 +357,19 @@ abstract class CPAC_Storage_Model {
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
 
-			// Get default column that have been set on the listings screen
-			$default_columns = $this->get_default_stored_columns();
+			$default_types = array_keys( (array) $this->get_default_headings() );
+			$custom_types = array_keys( (array) $this->get_column_classnames() );
 
-			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
-			if ( empty( $default_columns ) ) {
-				$default_columns = $this->get_default_column_headings();
-			}
+			$column_types = array_merge( $default_types, $custom_types );
 
-			// Default columns
-			if ( $default_columns ) {
-
-				// Remove checkbox
-				if ( isset( $default_columns['cb'] ) ) {
-					unset( $default_columns['cb'] );
-				}
-
-				/**
-				 * Filter the default column names
-				 *
-				 * @since 2.4.4
-				 *
-				 * @param array $default_column_names Default column names
-				 * @param object $column Column object
-				 * @param object $this Storage_Model object
-				 */
-				$default_column_names = apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
-				$default_column_widths = apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
-
-				foreach ( $default_columns as $name => $label ) {
-					$column = $this->create_column_instance( $name, $label );
-
-					// If it's not a default column it probably is set by a plugin
-					if ( $default_column_names && ! in_array( $name, $default_column_names ) ) {
-						$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
-					}
-
-					// Set the default percentage
-					if ( $default_column_widths && isset( $default_column_widths[ $name ] ) ) {
-						$column->set_options( 'width', $default_column_widths[ $name ]['width'] );
-
-						if ( isset( $default_column_widths[ $name ]['unit'] ) ) {
-							$column->set_options( 'width_unit', $default_column_widths[ $name ]['unit'] );
-						}
-					}
-
-					$this->column_types[ $name ] = $column;
-				}
-			}
-
-			// Custom columns
-			foreach ( $this->columns_filepath as $classname => $path ) {
-				include_once $path;
-				if ( class_exists( $classname, false ) ) {
-					$column = new $classname( $this->key );
-
-					if ( ! $column->is_registered() ) {
-						continue;
-					}
-
-					// Use the original column label when creating a new column class for an existing column
-					if ( ! $column->get_label() && isset( $this->column_types[ $column->get_type() ] ) ) {
-						$_default_column = $this->column_types[ $column->get_type() ];
-						$label = $_default_column->get_label();
-						$column->set_properties( 'label', $label )->set_options( 'label', $label );
-					}
-
-					$this->column_types[ $column->get_type() ] = $column;
+			foreach ( $column_types as $type ) {
+				if ( $column = $this->create_column_instance( $type ) ) {
+					$this->column_types[ $type ] = $column;
 				}
 			}
 		}
 
 		return $this->column_types;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	private function get_default_colummn_types() {
-		$defaults = array();
-
-		foreach ( $this->get_column_types() as $type => $column ) {
-			if ( $column->is_default() || $column->is_original() ) {
-				$defaults[ $type ] = $column;
-			}
-		}
-
-		return $defaults;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function get_column_type( $type ) {
-		$column_types = $this->get_column_types();
-
-		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function create_column( $options ) {
-		$column_types = $this->get_column_types();
-
-		if ( ! isset( $options['type'] ) || ! isset( $column_types[ $options['type'] ] ) ) {
-			return false;
-		}
-
-		$column = clone $column_types[ $options['type'] ];
-
-		if ( isset( $options['clone'] ) ) {
-			$column->set_clone( $options['clone'] );
-		}
-
-		// merge default options with stored
-		$column->options = (object) array_merge( (array) $column->options, $options );
-
-		$column->sanitize_label();
-
-		return $column;
 	}
 
 	/**
@@ -336,6 +379,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function flush_columns() {
 		$this->stored_columns = array();
+		$this->column_types = array();
 		$this->columns = array();
 	}
 
@@ -349,7 +393,7 @@ abstract class CPAC_Storage_Model {
 			// Stored columns
 			if ( $stored = $this->get_stored_columns() ) {
 				foreach ( $stored as $name => $options ) {
-					if ( $column = $this->create_column( $options ) ) {
+					if ( $column = $this->create_column_instance( $options['type'], $options ) ) {
 						$this->columns[ $name ] = $column;
 					}
 				}
@@ -357,7 +401,11 @@ abstract class CPAC_Storage_Model {
 
 			// Nothing stored
 			else {
-				$this->columns = $this->get_default_colummn_types();
+				foreach ( $this->get_column_types() as $type => $column ) {
+					if ( $column->is_default() || $column->is_original() ) {
+						$this->columns[ $type ] = $column;
+					}
+				}
 			}
 
 			do_action( "cac/columns", $this->columns, $this );
@@ -783,17 +831,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.5
-	 */
-	public function get_default_column_headings() {
-		$default_columns = apply_filters( "cac/default_columns", $this->get_default_columns(), $this );
-		$default_columns = apply_filters( "cac/default_columns/type=" . $this->type, $default_columns, $this );
-		$default_columns = apply_filters( "cac/default_columns/storage_key=" . $this->key, $default_columns, $this );
-
-		return $default_columns;
-	}
-
-	/**
 	 * Goes through all files in 'classes/column' and includes each file.
 	 *
 	 * @since 2.0.1
@@ -805,8 +842,10 @@ abstract class CPAC_Storage_Model {
 		require_once CPAC_DIR . 'interface/interface-custom-field.php';
 
 		require_once CPAC_DIR . 'classes/column.php';
-		require_once CPAC_DIR . 'classes/column/default.php';
 		require_once CPAC_DIR . 'classes/column/actions.php';
+		require_once CPAC_DIR . 'classes/column/default.php';
+		require_once CPAC_DIR . 'classes/column/wp-default.php';
+		require_once CPAC_DIR . 'classes/column/wp-plugin.php';
 
 		$columns = array(
 			'CPAC_Column_Custom_Field' => CPAC_DIR . 'classes/column/custom-field.php',
@@ -879,39 +918,6 @@ abstract class CPAC_Storage_Model {
 		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->key, $columns, $this );
 
 		$this->columns_filepath = $columns;
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param $column_name
-	 * @param $label
-	 *
-	 * @return object CPAC_Column
-	 */
-	public function create_column_instance( $column_name, $label ) {
-		$column = new CPAC_Column( $this->key );
-
-		$column
-			->set_properties( 'type', $column_name )
-			->set_properties( 'name', $column_name )
-			->set_properties( 'label', $label )
-			->set_properties( 'is_cloneable', false )
-			->set_properties( 'default', true )
-			->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
-			->set_options( 'label', $label );
-
-		// Hide Label when it contains HTML elements
-		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
-			$column->set_properties( 'hide_label', true );
-		}
-
-		// Label empty? Use it's column_name
-		if ( ! $label ) {
-			$column->set_properties( 'label', ucfirst( $column_name ) );
-		}
-
-		return $column;
 	}
 
 	/**
@@ -1007,7 +1013,6 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-
 		if ( empty( $columns ) ) {
 			return $columns;
 		}
@@ -1039,6 +1044,7 @@ abstract class CPAC_Storage_Model {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
+		$this->column_types = null; // flush types, in case a column was deactivated
 		$types = array_keys( $this->get_column_types() );
 
 		// add active stored headings

@@ -60,7 +60,7 @@ function cpac_submit_form() {
 				layout : $container.data( 'layout' )
 			},
 
-			// JSON repsonse
+			// JSON response
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
@@ -179,7 +179,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		column : jQuery( this ).find( 'input.column-name' ).val(),
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : $container.data( 'type' ),
-		layout : $container.data( 'layout' ),
+		layout : $container.data( 'layout' )
 	}, function( data ) {
 
 		if ( data ) {

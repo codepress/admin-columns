@@ -342,7 +342,8 @@ class CPAC {
 
 		if ( $storage_model ) {
 			$storage_model->init_listings_layout();
-			$storage_model->init_manage_columns();
+			$storage_model->init_column_headings();
+			$storage_model->init_column_values();
 		}
 	}
 
