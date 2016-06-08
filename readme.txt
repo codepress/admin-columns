@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 * [Added] New user column added: Show Toolbar
 * [Added] New column for shortlink added
+* [Added] Filter for suppressing admin notices
 
 = 2.5.6.2 =
 * [Fixed] Hotfix cleanup.

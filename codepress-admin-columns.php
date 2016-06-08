@@ -251,6 +251,10 @@ class CPAC {
 		return $default;
 	}
 
+	public function suppress_site_wide_notices() {
+		return apply_filters( 'ac/suppress_site_wide_notices', false );
+	}
+
 	/**
 	 * Get registered storage models
 	 *
@@ -347,6 +351,7 @@ class CPAC {
 	 * Get column object
 	 *
 	 * @since 2.5.4
+	 *
 	 * @param $storage_key CPAC_Storage_Model->key
 	 * @param $layout_id CPAC_Storage_Model->layout
 	 * @param $column_name CPAC_Column->name

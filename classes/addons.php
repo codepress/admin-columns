@@ -43,6 +43,10 @@ class CPAC_Addons {
 	 */
 	public function missing_addon_notices() {
 
+		if ( cpac()->suppress_site_wide_notices() ) {
+			return;
+		}
+
 		if ( get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
 			return;
 		}
@@ -77,17 +81,19 @@ class CPAC_Addons {
 			?>
 			<div class="cpac_message updated">
 				<a href="#" class="hide-notice hide-install-addons-notice"></a>
+
 				<p><?php printf(
-					__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
-					$plugins_list,
-					'<a href="' . $this->cpac->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'codepress-admin-columns' ) . '</a>'
-				); ?>
+						__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
+						$plugins_list,
+						'<a href="' . $this->cpac->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'codepress-admin-columns' ) . '</a>'
+					); ?>
 			</div>
 			<style type="text/css">
 				body .wrap .cpac_message {
 					position: relative;
 					padding-right: 40px;
 				}
+
 				.cpac_message .spinner.right {
 					visibility: visible;
 					display: block;
@@ -98,6 +104,7 @@ class CPAC_Addons {
 					top: 50%;
 					margin-top: -10px;
 				}
+
 				.cpac_message .hide-notice {
 					right: 8px;
 					text-decoration: none;
@@ -108,6 +115,7 @@ class CPAC_Addons {
 					height: 32px;
 					margin-top: -16px;
 				}
+
 				.cpac_message .hide-notice:before {
 					display: block;
 					content: '\f335';
@@ -130,7 +138,7 @@ class CPAC_Addons {
 							el.find( '.spinner' ).show();
 
 							$.post( ajaxurl, {
-								'action': 'cpac_hide_install_addons_notice'
+								'action' : 'cpac_hide_install_addons_notice'
 							}, function( data ) {
 								el.find( '.spinner' ).remove();
 								el.slideUp();
@@ -173,7 +181,7 @@ class CPAC_Addons {
 		}
 
 		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
-			cpac_admin_message(  __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
+			cpac_admin_message( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
 
 			return;
 		}
@@ -336,7 +344,7 @@ class CPAC_Addons {
 	 */
 	public function group_addons( $addons ) {
 
-		$groups         = $this->get_addon_groups();
+		$groups = $this->get_addon_groups();
 		$grouped_addons = array();
 
 		foreach ( $addons as $addon_name => $addon ) {
