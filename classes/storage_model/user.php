@@ -55,29 +55,6 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @see CPAC_Type::get_default_columns()
-	 */
-	public function get_default_columns() {
-
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return array();
-		}
-
-		// You can use this filter to add third_party columns by hooking into this.
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-
-		// get columns
-		$table = $this->get_list_table();
-		$columns = (array) $table->get_columns();
-
-		if ( cac_is_setting_screen() ) {
-			$columns = array_merge( get_column_headers( 'users' ), $columns );
-		}
-
-		return $columns;
-	}
-
-	/**
 	 * @since 2.4.4
 	 */
 	public function get_default_column_names() {
@@ -98,17 +75,18 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @since 2.0.2
 	 */
 	public function manage_value( $column_name, $user_id, $value = '' ) {
-		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
+		$column = $this->get_column_by_name( $column_name );
+		if ( ! $column ) {
 			return $value;
 		}
-		$custom_value = $column->get_display_value( $user_id );
+
+		$display_value = $column->get_value( $user_id );
 
 		// make sure it absolutely empty and check for (string) 0
-		if ( ! empty( $custom_value ) || '0' === $custom_value ) {
-			$value = $custom_value;
+		if ( ! empty( $display_value ) || '0' === $display_value ) {
+			$value = $display_value;
 		}
 
-		// filters
 		$value = apply_filters( "cac/column/value", $value, $user_id, $column, $this->key );
 		$value = apply_filters( "cac/column/value/{$this->type}", $value, $user_id, $column, $this->key );
 
