@@ -2,10 +2,12 @@
 
 class CPAC_Review_Notice {
 
-	const OPTION_INSTALL_DATE     = 'cpac-install-timestamp';
+	const OPTION_INSTALL_DATE = 'cpac-install-timestamp';
+
 	const OPTION_ADMIN_NOTICE_KEY = 'cpac-hide-review-notice';
 
 	private $days_since_install;
+
 	private $cpac;
 
 	function __construct( $cpac ) {
@@ -21,6 +23,7 @@ class CPAC_Review_Notice {
 
 	public function insert_install_timestamp() {
 		add_site_option( self::OPTION_INSTALL_DATE, time() );
+
 		return time();
 	}
 
@@ -29,12 +32,13 @@ class CPAC_Review_Notice {
 		if ( '' == $timestamp ) {
 			$timestamp = $this->insert_install_timestamp();
 		}
+
 		return $timestamp;
 	}
 
 	public function maybe_display_review_notice() {
 
-		if( cpac()->suppress_site_wide_notices() ){
+		if ( cpac()->suppress_site_wide_notices() ) {
 			return;
 		}
 
@@ -107,6 +111,7 @@ class CPAC_Review_Notice {
 				position: relative;
 				padding-right: 40px;
 			}
+
 			.cpac_message .spinner.right {
 				visibility: visible;
 				display: block;
@@ -117,6 +122,7 @@ class CPAC_Review_Notice {
 				top: 50%;
 				margin-top: -10px;
 			}
+
 			.cpac_message .spinner.inline {
 				display: inline-block;
 				position: absolute;
@@ -124,6 +130,7 @@ class CPAC_Review_Notice {
 				padding: 0;
 				float: none;
 			}
+
 			.cpac_message .hide-notice {
 				right: 8px;
 				text-decoration: none;
@@ -134,6 +141,7 @@ class CPAC_Review_Notice {
 				height: 32px;
 				margin-top: -16px;
 			}
+
 			.cpac_message .hide-notice:before {
 				display: block;
 				content: '\f335';
@@ -141,9 +149,11 @@ class CPAC_Review_Notice {
 				margin: .5em 0;
 				padding: 2px;
 			}
+
 			.cpac_message .buttons {
 				margin-top: 8px;
 			}
+
 			.cpac_message .help {
 				display: none;
 			}
@@ -169,9 +179,9 @@ class CPAC_Review_Notice {
 						}
 
 						$.post( ajaxurl, {
-							'action': 'cpac_hide_review_notice'
+							'action' : 'cpac_hide_review_notice'
 						}, function( data ) {
-							if ( ! soft ) {
+							if ( !soft ) {
 								el.find( '.spinner' ).remove();
 								el.slideUp();
 							}
