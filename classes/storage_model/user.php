@@ -75,22 +75,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	 * @since 2.0.2
 	 */
 	public function manage_value( $column_name, $user_id, $value = '' ) {
-		$column = $this->get_column_by_name( $column_name );
-		if ( ! $column ) {
-			return $value;
-		}
-
-		$display_value = $column->get_value( $user_id );
-
-		// make sure it absolutely empty and check for (string) 0
-		if ( ! empty( $display_value ) || '0' === $display_value ) {
-			$value = $display_value;
-		}
-
-		$value = apply_filters( "cac/column/value", $value, $user_id, $column, $this->key );
-		$value = apply_filters( "cac/column/value/{$this->type}", $value, $user_id, $column, $this->key );
-
-		return $value;
+		return $this->get_manage_value( $column_name, $user_id, $value );
 	}
 
 	public function manage_value_callback( $value, $column_name, $user_id ) {

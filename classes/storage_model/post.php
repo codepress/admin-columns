@@ -163,37 +163,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get WP default supported admin columns per post type.
-	 *
-	 * @see CPAC_Type::get_default_columns()
-	 * @since 1.0
-	 *
-	 * @return array
-	 */
-	public function get_default_columns() {
-
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return array();
-		}
-
-		// You can use this filter to add thirdparty columns by hooking into this.
-		// See classes/third_party.php for an example.
-		do_action( "cac/columns/default/posts" );
-		do_action( "cac/columns/default/storage_key={$this->key}" );
-		do_action( "cac/columns/default/post_type={$this->post_type}" );
-
-		// Initialize table so it can add actions to manage_{screenid}_columns
-		$this->get_list_table();
-
-		// get_column_headers() runs through both the manage_{screenid}_columns
-		// and manage_{$post_type}_posts_columns filters
-		$columns = (array) apply_filters( 'manage_edit-' . $this->key . '_columns', array() );
-		$columns = array_filter( $columns );
-
-		return $columns;
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	public function get_meta() {
@@ -206,28 +175,18 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	public function manage_value( $column_name, $post_id ) {
-
-		$column = $this->get_column_by_name( $column_name );
-
-		if ( ! $column ) {
-			return false;
-		}
-
-		global $post;
-
 		// Setup post data for current post
+		// TODO: remove?
+		global $post;
 		$post_old = $post;
 		$post = get_post( $post_id );
 		setup_postdata( $post );
 
-		$value = $column->get_display_value( $post_id );
-
-		$value = apply_filters( "cac/column/value", $value, $post_id, $column, $this->key );
-		$value = apply_filters( "cac/column/value/{$this->type}", $value, $post_id, $column, $this->key );
+		$value = $this->get_manage_value( $column_name, $post_id );
 
 		// Reset query to old post
+		// TODO: remove?
 		$post = $post_old;
-
 		if ( $post ) {
 			setup_postdata( $post );
 		}
@@ -239,7 +198,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.4.7
 	 */
 	public function manage_value_callback( $column_name, $post_id ) {
-
 		$column = $this->get_column_by_name( $column_name );
 		if ( $column && ! empty( $column->properties->handle ) ) {
 			ob_start();

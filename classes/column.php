@@ -292,20 +292,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.4.9
-	 */
-	public function get_display_value( $id ) {
-		$value = $this->get_value( $id );
-
-		// add before and after string
-		if ( $value ) {
-			$value = $this->get_before() . $value . $this->get_after();
-		}
-
-		return $value;
-	}
-
-	/**
 	 * @since 1.0
 	 */
 	public function get_before() {

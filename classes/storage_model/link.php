@@ -46,17 +46,6 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 	}
 
 	public function manage_value( $column_name, $link_id ) {
-
-		if ( ! ( $column = $this->get_column_by_name( $column_name ) ) ) {
-			return false;
-		}
-
-		$value = $column->get_display_value( $link_id );
-
-		// add hook
-		$value = apply_filters( "cac/column/value", $value, $link_id, $column, $this->key );
-		$value = apply_filters( "cac/column/value/{$this->type}", $value, $link_id, $column, $this->key );
-
-		echo $value;
+		echo $this->get_manage_value( $column_name, $link_id );
 	}
 }
