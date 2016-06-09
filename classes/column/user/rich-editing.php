@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 class CPAC_Column_User_Rich_Editing extends CPAC_Column {
 

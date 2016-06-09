@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)

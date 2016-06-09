@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 /**
  * CPAC_Column_Media_File_Size

@@ -114,7 +114,6 @@ class CPAC {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		require_once $this->get_plugin_dir() . 'includes/arrays.php';
 		require_once $this->get_plugin_dir() . 'classes/utility.php';
 
 		// Third Party

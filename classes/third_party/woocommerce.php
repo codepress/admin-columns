@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 function cpac_remove_webhook_from_post_types( $post_types ) {
 	if ( class_exists( 'WooCommerce', false ) ) {

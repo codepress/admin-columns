@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying the number of comments for an item, displaying either the total

@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) or die();
+
 /**
  * CPAC_Column_Comment_Excerpt
  *

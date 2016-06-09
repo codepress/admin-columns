@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) or die();
+
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
  *

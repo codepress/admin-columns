@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) or die();
+
 /**
  * Depth of the current page (number of ancestors + 1)
  *

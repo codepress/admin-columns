@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) or die();
+
 /**
  * Column class for default columns (i.e. columns not added by Admin Columns).
  * Allows additional properties, such as editability and filterability, to be

@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 class CPAC_Column_WP_Plugin extends CPAC_Column_WP_Default {
 

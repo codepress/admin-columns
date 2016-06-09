@@ -1,5 +1,4 @@
 <?php
-
 defined( 'ABSPATH' ) or die();
 
 interface CPAC_Interface_Custom_Field {

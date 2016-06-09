@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 /**
  * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page

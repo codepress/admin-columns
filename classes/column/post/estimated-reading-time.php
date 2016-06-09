@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 /**
  * CPAC_Column_Post_Estimated_Reading_Time

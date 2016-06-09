@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die();
 
 class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 

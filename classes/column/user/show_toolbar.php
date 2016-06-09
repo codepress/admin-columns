@@ -1,6 +1,7 @@
 <?php
+defined( 'ABSPATH' ) or die();
+
 /**
- *
  * @since NEWVERSION
  */
 class CPAC_Column_User_Show_Toolbar extends CPAC_Column {
