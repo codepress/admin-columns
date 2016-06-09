@@ -612,7 +612,7 @@ class CPAC_Column {
 	 * @return string HTML img element
 	 */
 	public function get_asset_image( $name = '', $title = '' ) {
-		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", CPAC_URL . "assets/images/{$name}", esc_attr( $title ) ) : false;
+		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/{$name}", esc_attr( $title ) ) : false;
 	}
 
 	/**
@@ -1683,7 +1683,7 @@ class CPAC_Column {
 	 * @param strong $description (optional) Description below the label
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( 'CPAC_Column::display_field_text', CPAC_VERSION, 'CPAC_Column::form_field' );
+		_deprecated_function( 'CPAC_Column::display_field_text', 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'          => 'text',
@@ -1707,7 +1707,7 @@ class CPAC_Column {
 	 * @param boolean $refresh This will JS refresh the column on change.
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_select', CPAC_VERSION, 'CPAC_Column::form_field' );
+		_deprecated_function( 'CPAC_Column::display_field_select', 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'select',
@@ -1731,7 +1731,7 @@ class CPAC_Column {
 	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_radio', CPAC_VERSION, 'CPAC_Column::form_field' );
+		_deprecated_function( 'CPAC_Column::display_field_radio', 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'radio',

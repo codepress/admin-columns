@@ -214,11 +214,10 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function admin_styles() {
-
-		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$minified = cpac()->minified();
 
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'cpac-admin', CPAC_URL . "assets/css/admin-column{$minified}.css", array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-admin', cpac()->get_plugin_url() . "assets/css/admin-column{$minified}.css", array(), cpac()->get_version(), 'all' );
 	}
 
 	/**
@@ -229,17 +228,17 @@ class CPAC_Settings {
 		wp_enqueue_script( 'wp-pointer' );
 
 		// width slider
-		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'jquery-ui-lightness', cpac()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), cpac()->get_version(), 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
-		$minified = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$minified = cpac()->minified();
 
-		wp_enqueue_script( 'cpac-admin-settings', CPAC_URL . "assets/js/admin-settings{$minified}.js", array(
+		wp_enqueue_script( 'cpac-admin-settings', cpac()->get_plugin_url() . "assets/js/admin-settings{$minified}.js", array(
 			'jquery',
 			'dashboard',
 			'jquery-ui-slider',
 			'jquery-ui-sortable'
-		), CPAC_VERSION );
+		), cpac()->get_version() );
 
 		// javascript translations
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
@@ -263,7 +262,7 @@ class CPAC_Settings {
 			wp_die();
 		}
 
-		$storage_model = $this->cpac->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) );
+		$storage_model = cpac()->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) );
 
 		if ( ! $storage_model ) {
 			wp_die();
@@ -471,7 +470,7 @@ class CPAC_Settings {
 
 		<div id="cpac-welcome" class="wrap about-wrap">
 
-			<h1><?php _e( "Welcome to Admin Columns", 'codepress-admin-columns' ); ?><?php echo CPAC_VERSION; ?></h1>
+			<h1><?php _e( "Welcome to Admin Columns", 'codepress-admin-columns' ); ?><?php echo cpac()->get_version(); ?></h1>
 
 			<div class="about-text">
 				<?php _e( "Thank you for updating to the latest version!", 'codepress-admin-columns' ); ?>
@@ -495,7 +494,7 @@ class CPAC_Settings {
 					<h4><?php _e( "Database Changes", 'codepress-admin-columns' ); ?></h4>
 					<p><?php _e( "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.", 'codepress-admin-columns' ); ?></p>
 
-					<?php if ( get_option( 'cpac_version', false ) < CPAC_UPGRADE_VERSION ) : ?>
+					<?php if ( get_option( 'cpac_version', false ) < cpac()->get_upgrade_version() ) : ?>
 						<p><?php _e( "Make sure you backup your database and then click", 'codepress-admin-columns' ); ?>
 							<a href="<?php echo $this->get_settings_url( 'upgrade' ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' ); ?></a>
 						</p>
@@ -516,11 +515,11 @@ class CPAC_Settings {
 				<?php endif; ?>
 				<?php if ( 'changelog' === $tab ) : ?>
 
-					<h3><?php _e( "Changelog for", 'codepress-admin-columns' ); ?><?php echo CPAC_VERSION; ?></h3>
+					<h3><?php _e( "Changelog for", 'codepress-admin-columns' ); ?><?php echo cpac()->get_version(); ?></h3>
 					<?php
 
-					$items = file_get_contents( CPAC_DIR . 'readme.txt' );
-					$items = explode( '= ' . CPAC_VERSION . ' =', $items );
+					$items = file_get_contents( cpac()->get_plugin_dir() . 'readme.txt' );
+					$items = explode( '= ' . cpac()->get_version() . ' =', $items );
 					$items = end( $items );
 					$items = current( explode( "\n\n", $items ) );
 					$items = current( explode( "= ", $items ) );

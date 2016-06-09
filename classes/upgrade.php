@@ -38,8 +38,7 @@ class CPAC_Upgrade {
 	 *
 	 * @since 2.2.7
 	 */
-	public function admin_head() {
-		?>
+	public function admin_head() { ?>
 		<style type="text/css">
 			#menu-settings a[href="options-general.php?page=cpac-upgrade"] { display: none; }
 		</style>
@@ -52,7 +51,6 @@ class CPAC_Upgrade {
 	 * @since 2.2
 	 */
 	public function proaddon_notice() {
-
 		if ( apply_filters( 'cpac/suppress_proaddon_notice', false ) ) {
 			return;
 		}
@@ -74,7 +72,6 @@ class CPAC_Upgrade {
 	 * @return bool Whether plugin upgrading is allowed
 	 */
 	public function allow_upgrade() {
-
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return ! is_plugin_active( 'cac-addon-pro/cac-addon-pro.php' );
@@ -109,13 +106,11 @@ class CPAC_Upgrade {
 			$version = '1.0.0';
 		}
 
-		// @dev_only if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) echo "--------- CPAC DEBUG: START ---------<br/>\n" . $version . "<br/>\n" . CPAC_VERSION . "<br/>\n" . CPAC_UPGRADE_VERSION . "<br/>\n" . get_transient( 'cpac_show_welcome' ) . "<br/>\n" . "--------- CPAC DEBUG: END ---------<br/>\n";
-
 		// Maybe upgrade?
 		if ( $version ) {
 
 			// run every upgrade
-			if ( $version < CPAC_VERSION ) {
+			if ( $version < cpac()->get_version() ) {
 				// nothing yet
 			}
 
@@ -127,12 +122,12 @@ class CPAC_Upgrade {
 			}
 
 			// run only when database upgrade is needed
-			if ( $version < CPAC_UPGRADE_VERSION ) {
+			if ( $version < cpac()->get_upgrade_version() ) {
 
 				// display upgrade message on every page except upgrade page itself
 				if ( ! ( isset( $_REQUEST['page'] ) && 'cpac-upgrade' === $_REQUEST['page'] ) ) {
 
-					$message = 	__( 'Admin Columns', 'codepress-admin-columns' ) . ' v' . CPAC_VERSION . ' ' .
+					$message = 	__( 'Admin Columns', 'codepress-admin-columns' ) . ' v' .cpac()->get_version() . ' ' .
 								__( 'requires a database upgrade','codepress-admin-columns' ) .
 								' (<a class="thickbox" href="' . admin_url() .
 								'plugin-install.php?tab=plugin-information&plugin=codepress-admin-columns&section=changelog&TB_iframe=true&width=640&height=559">' .
@@ -147,16 +142,16 @@ class CPAC_Upgrade {
 			}
 
 			// run when NO upgrade is needed
-			elseif ( $version < CPAC_VERSION ) {
+			elseif ( $version < cpac()->get_version() ) {
 
-				update_option( 'cpac_version', CPAC_VERSION );
+				update_option( 'cpac_version', cpac()->get_version() );
 			}
 		}
 
 		// Fresh install
 		else {
 
-			update_option( 'cpac_version', CPAC_VERSION );
+			update_option( 'cpac_version', cpac()->get_version() );
 		}
 	}
 
@@ -396,10 +391,10 @@ class CPAC_Upgrade {
 	 * @since 2.0
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'cpac-upgrade', CPAC_URL . 'assets/js/upgrade.js', array( 'jquery' ), CPAC_VERSION );
+		wp_enqueue_script( 'cpac-upgrade', cpac()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), cpac()->get_version() );
 
 		// CSS
-		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-admin', cpac()->get_plugin_url() . 'assets/css/admin-column.css', array(), cpac()->get_version(), 'all' );
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(

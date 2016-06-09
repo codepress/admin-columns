@@ -863,19 +863,21 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function set_columns_filepath() {
 
-		// interface
-		require_once CPAC_DIR . 'interface/interface-custom-field.php';
+		$dir = cpac()->get_plugin_dir();
 
-		require_once CPAC_DIR . 'classes/column.php';
-		require_once CPAC_DIR . 'classes/column/actions.php';
-		require_once CPAC_DIR . 'classes/column/default.php';
-		require_once CPAC_DIR . 'classes/column/wp-default.php';
-		require_once CPAC_DIR . 'classes/column/wp-plugin.php';
+		// interface
+		require_once $dir . 'interface/interface-custom-field.php';
+
+		require_once $dir . 'classes/column.php';
+		require_once $dir . 'classes/column/actions.php';
+		require_once $dir . 'classes/column/default.php';
+		require_once $dir . 'classes/column/wp-default.php';
+		require_once $dir . 'classes/column/wp-plugin.php';
 
 		$columns = array(
-			'CPAC_Column_Custom_Field' => CPAC_DIR . 'classes/column/custom-field.php',
-			'CPAC_Column_Taxonomy'     => CPAC_DIR . 'classes/column/taxonomy.php',
-			'CPAC_Column_Used_By_Menu' => CPAC_DIR . 'classes/column/used-by-menu.php'
+			'CPAC_Column_Custom_Field' => $dir . 'classes/column/custom-field.php',
+			'CPAC_Column_Taxonomy'     => $dir . 'classes/column/taxonomy.php',
+			'CPAC_Column_Used_By_Menu' => $dir . 'classes/column/used-by-menu.php'
 		);
 
 		// Add-on placeholders
@@ -883,17 +885,17 @@ abstract class CPAC_Storage_Model {
 
 			// Display ACF placeholder
 			if ( cpac_is_acf_active() ) {
-				$columns['CPAC_Column_ACF_Placeholder'] = CPAC_DIR . 'classes/column/acf-placeholder.php';
+				$columns['CPAC_Column_ACF_Placeholder'] = $dir . 'classes/column/acf-placeholder.php';
 			}
 
 			// Display WooCommerce placeholder
 			if ( cpac_is_woocommerce_active() ) {
-				$columns['CPAC_Column_WC_Placeholder'] = CPAC_DIR . 'classes/column/wc-placeholder.php';
+				$columns['CPAC_Column_WC_Placeholder'] = $dir . 'classes/column/wc-placeholder.php';
 			}
 		}
 
 		// Directory to iterate
-		$columns_dir = CPAC_DIR . 'classes/column/' . $this->type;
+		$columns_dir = $dir . 'classes/column/' . $this->type;
 		if ( is_dir( $columns_dir ) ) {
 			$iterator = new DirectoryIterator( $columns_dir );
 			foreach ( $iterator as $leaf ) {

@@ -26,30 +26,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-// Plugin information
-define( 'CPAC_VERSION', '2.5.6.2' ); // Current plugin version
-define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
-define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
-define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
+defined( 'ABSPATH' ) or die();
 
 // Only run plugin in the admin interface
 if ( ! is_admin() ) {
 	return false;
 }
-
-/**
- * Dependencies
- *
- * @since 1.3.0
- */
-require_once CPAC_DIR . 'classes/utility.php';
-require_once CPAC_DIR . 'classes/third_party.php';
-require_once CPAC_DIR . 'includes/arrays.php';
 
 /**
  * The Admin Columns Class
@@ -104,6 +86,8 @@ class CPAC {
 	 */
 	private $general_options = null;
 
+	private $version = null;
+
 	/**
 	 * @since 2.5
 	 */
@@ -125,6 +109,20 @@ class CPAC {
 	 */
 	function __construct() {
 
+		// Backwards compatibility
+		define( 'CPAC_VERSION', $this->get_version() );
+		define( 'CPAC_URL', $this->get_plugin_url() );
+		define( 'CPAC_DIR', $this->get_plugin_dir() );
+
+		require_once $this->get_plugin_dir() . 'includes/arrays.php';
+		require_once $this->get_plugin_dir() . 'classes/utility.php';
+
+		// Third Party
+		require_once $this->get_plugin_dir() . 'classes/third_party/acf.php';
+		require_once $this->get_plugin_dir() . 'classes/third_party/ninja_forms.php';
+		require_once $this->get_plugin_dir() . 'classes/third_party/woocommerce.php';
+		require_once $this->get_plugin_dir() . 'classes/third_party/wpml.php';
+
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		// Hooks
@@ -137,21 +135,64 @@ class CPAC {
 		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
+		$classes_dir = $this->get_plugin_dir() . '/classes';
+
 		// Settings
-		include_once CPAC_DIR . 'classes/settings.php';
+		include_once $classes_dir . '/settings.php';
 		$this->_settings = new CPAC_Settings( $this );
 
 		// Addons
-		include_once CPAC_DIR . 'classes/addons.php';
+		include_once $classes_dir . '/addons.php';
 		$this->_addons = new CPAC_Addons( $this );
 
 		// Upgrade
-		require_once CPAC_DIR . 'classes/upgrade.php';
+		require_once $classes_dir . '/upgrade.php';
 		$this->_upgrade = new CPAC_Upgrade( $this );
 
 		// Settings
-		include_once CPAC_DIR . 'classes/review_notice.php';
+		include_once $classes_dir . '/review_notice.php';
 		new CPAC_Review_Notice( $this );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_plugin_dir() {
+		return plugin_dir_path( __FILE__ );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_plugin_url() {
+		return plugin_dir_url( __FILE__ );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_version() {
+		if ( null === $this->version ) {
+			$this->version = $this->get_plugin_version( __FILE__ );
+		}
+
+		return $this->version;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_plugin_version( $file ) {
+		$plugin = get_plugin_data( $file, false, false );
+
+		return isset( $plugin['Version'] ) ? $plugin['Version'] : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_upgrade_version() {
+		return '2.0.0';
 	}
 
 	/**
@@ -205,10 +246,12 @@ class CPAC {
 
 			$minified = $this->minified();
 
-			wp_register_script( 'cpac-admin-columns', CPAC_URL . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), CPAC_VERSION );
-			wp_register_script( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), CPAC_VERSION );
-			wp_register_style( 'jquery-qtip2', CPAC_URL . "external/qtip2/jquery.qtip{$minified}.css", array(), CPAC_VERSION, 'all' );
-			wp_register_style( 'cpac-columns', CPAC_URL . "assets/css/column{$minified}.css", array(), CPAC_VERSION, 'all' );
+			$url = $this->get_plugin_url();
+
+			wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $this->get_version() );
+			wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $this->get_version() );
+			wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $this->get_version(), 'all' );
+			wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $this->get_version(), 'all' );
 
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
@@ -265,12 +308,14 @@ class CPAC {
 
 			$storage_models = array();
 
+			$classes_dir = $this->get_plugin_dir() . 'classes/';
+
 			// Load storage model class files and column base class files
-			require_once CPAC_DIR . 'classes/storage_model.php';
-			require_once CPAC_DIR . 'classes/storage_model/post.php';
-			require_once CPAC_DIR . 'classes/storage_model/user.php';
-			require_once CPAC_DIR . 'classes/storage_model/media.php';
-			require_once CPAC_DIR . 'classes/storage_model/comment.php';
+			include_once $classes_dir . 'storage_model.php';
+			include_once $classes_dir . 'storage_model/post.php';
+			include_once $classes_dir . 'storage_model/user.php';
+			include_once $classes_dir . 'storage_model/media.php';
+			include_once $classes_dir . 'storage_model/comment.php';
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
@@ -289,7 +334,7 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 
 			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-				require_once CPAC_DIR . 'classes/storage_model/link.php';
+				include_once $classes_dir . 'storage_model/link.php';
 
 				$storage_model = new CPAC_Storage_Model_Link();
 				$storage_models[ $storage_model->key ] = $storage_model;
@@ -660,6 +705,17 @@ class CPAC {
 	 */
 	public function is_plugin_woocommerce_active() {
 		return class_exists( 'WooCommerce', false );
+	}
+
+	/**
+	 * Check whether the Pro plugin is active
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool Whether the Pro plugin is active
+	 */
+	public function is_pro_active() {
+		return function_exists( 'ac_pro' );
 	}
 
 	/**
