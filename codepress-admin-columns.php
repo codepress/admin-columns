@@ -139,19 +139,19 @@ class CPAC {
 
 		// Settings
 		include_once $classes_dir . '/settings.php';
-		$this->_settings = new CPAC_Settings( $this );
+		$this->_settings = new CPAC_Settings();
 
 		// Addons
 		include_once $classes_dir . '/addons.php';
-		$this->_addons = new CPAC_Addons( $this );
+		$this->_addons = new CPAC_Addons();
 
 		// Upgrade
 		require_once $classes_dir . '/upgrade.php';
-		$this->_upgrade = new CPAC_Upgrade( $this );
+		$this->_upgrade = new CPAC_Upgrade();
 
 		// Settings
 		include_once $classes_dir . '/review_notice.php';
-		new CPAC_Review_Notice( $this );
+		new CPAC_Review_Notice();
 	}
 
 	/**

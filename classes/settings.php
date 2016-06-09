@@ -10,13 +10,6 @@ class CPAC_Settings {
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	/**
-	 * CPAC class
-	 *
-	 * @since 2.0
-	 */
-	private $cpac;
-
-	/**
 	 * Settings Page
 	 *
 	 * @since 2.0
@@ -28,9 +21,7 @@ class CPAC_Settings {
 	 *
 	 * @param object CPAC
 	 */
-	function __construct( $cpac ) {
-
-		$this->cpac = $cpac;
+	function __construct() {
 
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 
@@ -225,8 +216,6 @@ class CPAC_Settings {
 	 */
 	public function admin_scripts() {
 
-		wp_enqueue_script( 'wp-pointer' );
-
 		// width slider
 		wp_enqueue_style( 'jquery-ui-lightness', cpac()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), cpac()->get_version(), 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
@@ -237,7 +226,8 @@ class CPAC_Settings {
 			'jquery',
 			'dashboard',
 			'jquery-ui-slider',
-			'jquery-ui-sortable'
+			'jquery-ui-sortable',
+			'wp-pointer'
 		), cpac()->get_version() );
 
 		// javascript translations
@@ -306,7 +296,7 @@ class CPAC_Settings {
 				$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
 
 				if ( wp_verify_nonce( $_REQUEST['_cpac_nonce'], 'restore-type' ) && $key ) {
-					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+					if ( $storage_model = cpac()->get_storage_model( $key ) ) {
 
 						if ( isset( $_POST['cpac_layout'] ) ) {
 							$storage_model->set_layout( $_POST['cpac_layout'] );
@@ -817,7 +807,7 @@ class CPAC_Settings {
 											<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
 											<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
-											<?php $onclick = $this->cpac->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
+											<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
 											<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 											<span class="spinner"></span>
 										</form>
@@ -1056,8 +1046,8 @@ class CPAC_Settings {
 	 */
 	public function tab_addons() {
 
-		$addon_groups = $this->cpac->addons()->get_addon_groups();
-		$grouped_addons = $this->cpac->addons()->get_available_addons( true );
+		$addon_groups = cpac()->addons()->get_addon_groups();
+		$grouped_addons = cpac()->addons()->get_available_addons( true );
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
@@ -1081,7 +1071,7 @@ class CPAC_Settings {
 							<?php
 
 							// Installed..
-							if ( ( $plugin_basename = $this->cpac->addons()->get_installed_addon_plugin_basename( $addon_name ) ) ) : ?>
+							if ( $plugin_basename = cpac()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
 								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
 										'action'        => 'deactivate',

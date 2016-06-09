@@ -3,13 +3,6 @@
 class CPAC_Addons {
 
 	/**
-	 * CPAC class
-	 *
-	 * @since 2.2
-	 */
-	private $cpac;
-
-	/**
 	 * User meta key for hiding "Install addons" notice
 	 *
 	 * @since 2.4.9
@@ -21,9 +14,7 @@ class CPAC_Addons {
 	 *
 	 * @param CPAC
 	 */
-	function __construct( $cpac ) {
-
-		$this->cpac = $cpac;
+	function __construct() {
 
 		// Redirect to addons settings tab on activation & deactivation
 		if ( is_admin() ) {
@@ -53,11 +44,11 @@ class CPAC_Addons {
 
 		$plugins = array();
 
-		if ( $this->cpac->is_plugin_acf_active() && ! class_exists( 'CPAC_Addon_ACF' ) ) {
+		if ( cpac()->is_plugin_acf_active() && ! class_exists( 'CPAC_Addon_ACF' ) ) {
 			$plugins[] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
 		}
 
-		if ( $this->cpac->is_plugin_woocommerce_active() && ! class_exists( 'CPAC_Addon_WC' ) ) {
+		if ( cpac()->is_plugin_woocommerce_active() && ! class_exists( 'CPAC_Addon_WC' ) ) {
 			$plugins[] = __( 'WooCommerce', 'codepress-admin-columns' );
 		}
 
@@ -85,7 +76,7 @@ class CPAC_Addons {
 				<p><?php printf(
 						__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
 						$plugins_list,
-						'<a href="' . $this->cpac->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'codepress-admin-columns' ) . '</a>'
+						'<a href="' . cpac()->settings()->get_settings_url( 'addons' ) . '">' . __( 'the addons page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
 			</div>
 			<style type="text/css">
@@ -230,7 +221,7 @@ class CPAC_Addons {
 				parse_str( $urlparts['query'], $request );
 
 				if ( empty( $request['error'] ) ) {
-					$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, $this->cpac->settings()->get_settings_url( 'addons' ) );
+					$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, cpac()->settings()->get_settings_url( 'addons' ) );
 				}
 			}
 		}

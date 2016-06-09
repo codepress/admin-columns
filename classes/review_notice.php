@@ -8,9 +8,7 @@ class CPAC_Review_Notice {
 
 	private $days_since_install;
 
-	private $cpac;
-
-	function __construct( $cpac ) {
+	function __construct() {
 
 		register_activation_hook( __FILE__, array( $this, 'insert_install_timestamp' ) );
 
