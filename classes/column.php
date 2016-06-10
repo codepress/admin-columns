@@ -231,15 +231,29 @@ class CPAC_Column {
 	public function is_editable() {
 	}
 
+	/**
+	 * @param $id int Object ID
+	 * @return mixed
+	 */
 	public function get_editable_value( $id ) {
 	}
 
 	public function get_editable_data() {
 	}
 
+	/**
+	 * @param $searchterm
+	 * @param $page
+	 * @return null|array
+	 */
 	public function get_editable_ajax_options( $searchterm, $page ) {
 	}
 
+	/**
+	 * @param $id
+	 * @param $value
+	 * @return WP_Error|bool
+	 */
 	public function save( $id, $value ) {
 	}
 

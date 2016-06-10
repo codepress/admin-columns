@@ -47,7 +47,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 	public function get_original_column_value( $column, $id ) {
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100, 3 );
+		remove_action( "manage_users_custom_column", array( $this, 'manage_value_callback' ), 100 );
 		ob_start();
 		do_action( "manage_users_custom_column", $column, $id );
 		$contents = ob_get_clean();

@@ -79,7 +79,7 @@ class CPAC {
 	/**
 	 * @since 2.4.9
 	 */
-	private $current_storage_model;
+	private $current_storage_model = null;
 
 	/**
 	 * @since NEWVERSION
@@ -257,6 +257,9 @@ class CPAC {
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
 
+			/**
+			 * @param CPAC_Storage_Model $storage_model
+			 */
 			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
 		}
 
@@ -400,7 +403,7 @@ class CPAC {
 	 * @param $layout_id CPAC_Storage_Model->layout
 	 * @param $column_name CPAC_Column->name
 	 *
-	 * @return object CPAC_Column Column onject
+	 * @return CPAC_Column
 	 */
 	public function get_column( $storage_key, $layout_id, $column_name ) {
 		$column = false;
@@ -421,7 +424,7 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-		if ( ! $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
+		if ( null === $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
 					$this->current_storage_model = $storage_model;
