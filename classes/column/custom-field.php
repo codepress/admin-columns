@@ -48,13 +48,6 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	//public function get_field_format() {
-	//	return $this->get_option( 'field_format' );
-	//}
-
-	/**
 	 * @since 3.2.1
 	 */
 	public function is_field_type( $type ) {

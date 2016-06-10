@@ -239,6 +239,9 @@ class CPAC_Column {
 		return $this->get_raw_value( $id );
 	}
 
+	/**
+	 * @return null|array Editable settings
+	 */
 	public function get_editable_data() {
 	}
 
