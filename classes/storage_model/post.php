@@ -3,8 +3,6 @@ defined( 'ABSPATH' ) or die();
 
 class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
-	public $post_type;
-
 	/**
 	 * @since 2.0
 	 */
@@ -29,13 +27,6 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function init_column_values() {
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
-	}
-
-	/**
-	 * @since 2.3.5
-	 */
-	public function get_post_type() {
-		return $this->post_type;
 	}
 
 	/**
@@ -110,14 +101,14 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 
 		$defaults = array( 'date' );
 
-		if ( post_type_supports( $this->post_type, 'title' ) ) {
+		if ( post_type_supports( $this->get_post_type(), 'title' ) ) {
 			$defaults[] = 'title';
 		}
-		if ( post_type_supports( $this->post_type, 'comments' ) ) {
+		if ( post_type_supports( $this->get_post_type(), 'comments' ) ) {
 			$defaults[] = 'comments';
 		}
 
-		if ( in_array( $this->post_type, array( 'post', 'page' ) ) ) {
+		if ( in_array( $this->get_post_type(), array( 'post', 'page' ) ) ) {
 			$defaults[] = 'cb';
 			$defaults[] = 'author';
 			$defaults[] = 'categories';
@@ -153,11 +144,12 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	public function is_current_screen() {
 		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post';
 
-		return ( $this->post_type === $post_type ) && parent::is_current_screen();
+		return ( $this->get_post_type() === $post_type ) && parent::is_current_screen();
 	}
 
 	/**
 	 * @since NEWVERSION
+	 * @return WP_Post Post object
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_post( $id );
@@ -200,7 +192,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 */
 	public function manage_value_callback( $column_name, $post_id ) {
 		$column = $this->get_column_by_name( $column_name );
-		if ( $column && ! empty( $column->properties->handle ) ) {
+		if ( $column && $column->get_handle() ) {
 			ob_start();
 			$this->manage_value( $column_name, $post_id );
 			ob_end_clean();

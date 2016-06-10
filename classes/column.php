@@ -118,9 +118,7 @@ class CPAC_Column {
 	 * @since 2.5
 	 */
 	public function __get( $key ) {
-		if ( 'storage_model' == $key ) {
-			return $this->{"get_$key"}();
-		}
+		return 'storage_model' == $key ? $this->{"get_$key"}() : false;
 	}
 
 	/**
@@ -153,7 +151,8 @@ class CPAC_Column {
 			'default'          => false,   // Is this a WP default column, used for displaying values
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
-			'group'            => __( 'Custom', 'codepress-admin-columns' ) // Group name
+			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
+			'handle'           => null      // Column name to get original value from
 		);
 
 		// Default options
@@ -230,26 +229,24 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function is_editable() {
-		return null;
 	}
+
 	public function get_editable_value( $id ) {
-		return null;
 	}
+
 	public function get_editable_data() {
-		return null;
 	}
+
 	public function get_editable_ajax_options( $searchterm, $page ) {
-		return null;
 	}
+
 	public function save( $id, $value ) {
-		return null;
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
 	public function is_sortable() {
-		return null;
 	}
 
 	/**
@@ -258,23 +255,21 @@ class CPAC_Column {
 	 * @return boolean|array Post ids or true when $vars has been set.
 	 */
 	public function get_sortable_data( &$vars ) {
-		return null;
 	}
+
 	public function get_sorting_value( $id ) {
-		return null;
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
 	public function is_filterable() {
-		return null;
 	}
+
 	public function get_filterable_data() {
-		return null;
 	}
+
 	public function get_filterable_request_vars( $vars, $value ) {
-		return null;
 	}
 
 	/**
@@ -310,6 +305,7 @@ class CPAC_Column {
 	 * Get the type of the column.
 	 *
 	 * @since 2.3.4
+	 * @return string Type
 	 */
 	public function get_type() {
 		return $this->get_property( 'type' );
@@ -319,6 +315,7 @@ class CPAC_Column {
 	 * Get the name of the column.
 	 *
 	 * @since 2.3.4
+	 * @return string Column name
 	 */
 	public function get_name() {
 		return $this->get_property( 'name' );
@@ -328,9 +325,26 @@ class CPAC_Column {
 	 * Get the type of the column.
 	 *
 	 * @since 2.4.9
+	 * @return string Label of column's type
 	 */
 	public function get_type_label() {
 		return $this->get_property( 'label' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string Group
+	 */
+	public function get_group() {
+		return $this->get_property( 'group' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string Column name to get original value from
+	 */
+	public function get_handle() {
+		return $this->get_property( 'handle' );
 	}
 
 	/**
@@ -401,6 +415,7 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.3.4
+	 * @return CPAC_Storage_Model
 	 */
 	public function get_storage_model() {
 		return cpac()->get_storage_model( $this->storage_model );
@@ -430,7 +445,7 @@ class CPAC_Column {
 	}
 
 	public function get_attr_name( $field_name ) {
-		return "{$this->get_storage_model()->key}[{$this->properties->name}][{$field_name}]";
+		return $this->get_storage_model()->key . '[' . $this->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -439,7 +454,7 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return "cpac-{$this->get_storage_model()->key}-{$this->properties->name}-{$field_name}";
+		return 'cpac-' . $this->get_storage_model()->key . '-' . $this->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {
@@ -586,9 +601,7 @@ class CPAC_Column {
 			setup_postdata( $post );
 		}
 
-		$output = $this->get_shortened_string( $excerpt, $words );
-
-		return $output;
+		return $this->get_shortened_string( $excerpt, $words );
 	}
 
 	/**
@@ -597,11 +610,7 @@ class CPAC_Column {
 	 * @return string Trimmed text.
 	 */
 	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
-		if ( ! $text ) {
-			return false;
-		}
-
-		return wp_trim_words( $text, $num_words, $more );
+		return $text ? wp_trim_words( $text, $num_words, $more ) : false;
 	}
 
 	/**
@@ -613,7 +622,7 @@ class CPAC_Column {
 	 * @return string HTML img element
 	 */
 	public function get_asset_image( $name = '', $title = '' ) {
-		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/{$name}", esc_attr( $title ) ) : false;
+		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/" . $name, esc_attr( $title ) ) : false;
 	}
 
 	/**
@@ -729,12 +738,12 @@ class CPAC_Column {
 					$filter_key = 'category_name';
 				}
 
-				$link = "<a href='edit.php?post_type={$post_type}&{$filter_key}={$term->slug}'>{$title}</a>";
-				if ( $post_type == 'attachment' ) {
-					$link = "<a href='upload.php?taxonomy={$filter_key}&term={$term->slug}'>{$title}</a>";
+				$href = add_query_arg( array( 'post_type' => $post_type, $filter_key => $term->slug ), admin_url( 'edit.php' ) );
+				if ( 'attachment' == $post_type ) {
+					$href = add_query_arg( array( 'taxonomy' => $filter_key, 'term' => $term->slug ), admin_url( 'upload.php' ) );
 				}
 
-				$values[] = $link;
+				$values[] = '<a href="' . $href . '">' . $title . '</a>';;
 			}
 		}
 		if ( ! $values ) {
@@ -980,7 +989,7 @@ class CPAC_Column {
 					$width = $image_size_w;
 					$height = $image_size_h;
 
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px; background-size: cover; background-image: url({$src}); background-position: center;'></span>";
+					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
 
 				}
 				else {
@@ -1677,11 +1686,6 @@ class CPAC_Column {
 	/**
 	 * @since 2.3.4
 	 * @deprecated NEWVERSION
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
 		_deprecated_function( 'CPAC_Column::display_field_text', 'NEWVERSION', 'CPAC_Column::form_field' );
@@ -1699,13 +1703,6 @@ class CPAC_Column {
 	/**
 	 * @since 2.3.4
 	 * @deprecated NEWVERSION
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
-	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
-	 * @param boolean $refresh This will JS refresh the column on change.
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
 		_deprecated_function( 'CPAC_Column::display_field_select', 'NEWVERSION', 'CPAC_Column::form_field' );
@@ -1724,12 +1721,6 @@ class CPAC_Column {
 	/**
 	 * @since 2.4.7
 	 * @deprecated NEWVERSION
-	 *
-	 * @param string $name Name of the column option
-	 * @param string $label Label
-	 * @param array $options Select options
-	 * @param strong $description (optional) Description below the label
-	 * @param string $optional_toggle_id (optional) Toggle ID will hide the row untill the toggle is triggered
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
 		_deprecated_function( 'CPAC_Column::display_field_radio', 'NEWVERSION', 'CPAC_Column::form_field' );

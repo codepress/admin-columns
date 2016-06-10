@@ -21,6 +21,7 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * * @return WP_User User object
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_userdata( $id );

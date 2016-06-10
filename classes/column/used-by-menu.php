@@ -42,8 +42,8 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	 * @since 2.2.5
 	 */
 	function get_value( $object_id ) {
-
 		$menus = array();
+
 		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
 			foreach ( $menu_ids as $menu_id ) {
 				$term = get_term_by( 'id', $menu_id, 'nav_menu' );

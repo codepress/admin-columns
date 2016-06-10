@@ -155,6 +155,7 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
+	 * @return string Path to plugin dir
 	 */
 	public function get_plugin_dir() {
 		return plugin_dir_path( __FILE__ );
@@ -301,6 +302,7 @@ class CPAC {
 	 * Get registered storage models
 	 *
 	 * @since 2.5
+	 * @return CPAC_Storage_Model[]
 	 */
 	public function get_storage_models() {
 		if ( empty( $this->storage_models ) ) {
@@ -358,9 +360,7 @@ class CPAC {
 	 * Retrieve a storage model object based on its key
 	 *
 	 * @since 2.0
-	 *
 	 * @param string $key Storage model key (e.g. post, page, wp-users)
-	 *
 	 * @return bool|CPAC_Storage_Model Storage Model object (or false, on failure)
 	 */
 	public function get_storage_model( $key ) {

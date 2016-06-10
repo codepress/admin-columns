@@ -21,6 +21,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * @return WP_Comment Comment
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_comment( $id );

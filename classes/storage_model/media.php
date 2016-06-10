@@ -19,6 +19,7 @@ class CPAC_Storage_Model_Media extends CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * @return WP_Post Post object
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_post( $id );

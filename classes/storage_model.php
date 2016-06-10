@@ -71,6 +71,12 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var string
 	 */
+	public $post_type;
+
+	/**
+	 * @since NEWVERSION
+	 * @var string
+	 */
 	protected $table_classname;
 
 	/**
@@ -176,12 +182,24 @@ abstract class CPAC_Storage_Model {
 	 * Get the default column widths in percentages
 	 *
 	 * @since 2.5
+	 * @return array
 	 */
 	protected function get_default_column_widths() {
+		return array();
+	}
+
+	/**
+	 * Get the original column value
+	 *
+	 * @since NEWVERSION
+	 * @return string Column value
+	 */
+	public function get_original_column_value( $column, $id ) {
 	}
 
 	/**
 	 * @since NEWVERSION
+	 * @return mixed
 	 */
 	protected function get_object_by_id( $id ) {
 	}
@@ -212,15 +230,15 @@ abstract class CPAC_Storage_Model {
 
 		foreach ( $this->get_column_types() as $type => $column ) {
 
-			if ( ! isset( $grouped[ $column->properties->group ] ) ) {
-				$grouped[ $column->properties->group ]['title'] = $column->properties->group;
+			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
+				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->properties->group ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->properties->label ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->properties->label ) );
+			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_label() ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_label() ) );
 
 			if ( ! $column->is_default() ) {
-				asort( $grouped[ $column->properties->group ]['options'] );
+				asort( $grouped[ $column->get_group() ]['options'] );
 			}
 		}
 
@@ -249,9 +267,13 @@ abstract class CPAC_Storage_Model {
 	private function get_column_classnames() {
 		if ( null === $this->column_classnames ) {
 			foreach ( $this->columns_filepath as $classname => $path ) {
+				if ( ! file_exists( $path ) ) {
+					continue;
+				}
 				require_once $path;
 				$column = new $classname( $this->key );
 
+				/* @var $column CPAC_Column */
 				if ( $column->is_registered() ) {
 					$this->column_classnames[ $column->get_type() ] = $classname;
 				}
@@ -289,6 +311,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * @return CPAC_Column Column
 	 */
 	public function create_column_instance( $column_type, $options = array() ) {
 
@@ -325,6 +348,8 @@ abstract class CPAC_Storage_Model {
 		if ( isset( $classnames[ $column_type ] ) ) {
 			$column = new $classnames[ $column_type ]( $this->key );
 
+			/* @var $column CPAC_Column */
+
 			// Use the original column label when creating a new column class for an existing column
 			if ( ! $column->get_label() && isset( $default_columns[ $column->get_type() ] ) ) {
 				$label = $default_columns[ $column->get_type() ];
@@ -354,6 +379,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.5
+	 * @return CPAC_Column[] Column Types
 	 */
 	public function get_column_types() {
 		if ( empty( $this->column_types ) ) {
@@ -386,6 +412,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * @return string Column Value
 	 */
 	protected function get_manage_value( $column_name, $id, $value = '' ) {
 		$column = $this->get_column_by_name( $column_name );
@@ -411,6 +438,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.5
+	 * @return CPAC_Column[] Columns_
 	 */
 	public function get_columns() {
 
@@ -487,29 +515,15 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.7
+	 * @return array Meta keys
 	 */
-	public function format_meta_keys( $keys ) {
-		$add_hidden_meta = true; // always true @todo
-
-		$formatted_keys = array();
-		foreach ( $keys as $key ) {
-
-			// give hidden keys a prefix for identifaction
-			if ( $add_hidden_meta && "_" == substr( $key[0], 0, 1 ) ) {
-				$formatted_keys[] = 'cpachidden' . $key[0];
-			} // non hidden keys are saved as is
-			elseif ( "_" != substr( $key[0], 0, 1 ) ) {
-				$formatted_keys[] = $key[0];
-			}
-		}
-
-		return $formatted_keys;
+	protected function get_meta() {
+		return array();
 	}
 
 	/**
 	 * @since 2.0
-	 * @return array
+	 * @return array|false
 	 */
 	public function get_meta_keys() {
 		if ( $cache = wp_cache_get( $this->key, 'cac_columns' ) ) {
@@ -524,7 +538,11 @@ abstract class CPAC_Storage_Model {
 			$keys = false;
 		}
 		else {
-			$keys = $this->format_meta_keys( $keys );
+			foreach ( $keys as $k => $key ) {
+
+				// give hidden keys a prefix
+				$keys[ $k ] = "_" == substr( $key[0], 0, 1 ) ? 'cpachidden' . $key[0] : $key[0];
+			}
 		}
 
 		/**
@@ -581,18 +599,23 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Layouts
-	 *
 	 * @since 2.5
+	 * @return string Layout ID
 	 */
 	public function get_layout() {
 		return $this->layout;
 	}
 
+	/**
+	 * @return stdClass Layout object
+	 */
 	public function get_layout_object() {
 		return $this->get_layout_by_id( $this->layout );
 	}
 
+	/**
+	 * @return string Layout name
+	 */
 	public function get_layout_name() {
 		$object = $this->get_layout_by_id( $this->layout );
 
@@ -658,12 +681,18 @@ abstract class CPAC_Storage_Model {
 		return $this->get_layout_by_id( $id ) ? true : false;
 	}
 
+	/**
+	 * @return string Layout ID
+	 */
 	public function get_single_layout_id() {
 		$layouts = array_values( (array) $this->get_layouts() );
 
 		return isset( $layouts[0]->id ) ? $layouts[0]->id : null;
 	}
 
+	/**
+	 * @return stdClass[] Layout objects
+	 */
 	public function get_layouts() {
 		global $wpdb;
 		$layouts = array();
@@ -681,16 +710,25 @@ abstract class CPAC_Storage_Model {
 		return apply_filters( 'ac/layouts', $layouts, $this );
 	}
 
+	/**
+	 * @return stdClass Layout object
+	 */
 	public function get_layout_by_id( $id ) {
 		$layouts = $this->get_layouts();
 
 		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
 	}
 
+	/**
+	 * @return string Layout delete link
+	 */
 	public function get_delete_layout_link( $layout_id ) {
 		return add_query_arg( array( 'layout_id' => $layout_id, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->settings_url() );
 	}
 
+	/**
+	 * @return string Layout key
+	 */
 	private function get_layout_key( $layout_id = '' ) {
 		return self::LAYOUT_KEY . $this->key . $layout_id;
 	}
@@ -699,12 +737,18 @@ abstract class CPAC_Storage_Model {
 		update_user_meta( get_current_user_id(), $this->get_layout_key(), $this->layout );
 	}
 
+	/**
+	 * @return string|false Layout ID
+	 */
 	public function get_user_layout_preference() {
 		$id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
 
 		return $this->layout_exists( $id ) ? $id : false;
 	}
 
+	/**
+	 * @return stdClass[] Layouts
+	 */
 	public function get_layouts_for_current_user() {
 		$user_layouts = array();
 
@@ -739,6 +783,9 @@ abstract class CPAC_Storage_Model {
 		return $user_layouts;
 	}
 
+	/**
+	 * @return array Layout default arguments
+	 */
 	public function get_default_layout_args( $args = array() ) {
 		$default = array(
 			'id'    => null,
@@ -750,6 +797,9 @@ abstract class CPAC_Storage_Model {
 		return array_merge( $default, $args );
 	}
 
+	/**
+	 * @return stdClass Layout object
+	 */
 	public function save_layout( $id, $args ) {
 
 		if ( empty( $args['name'] ) ) {
@@ -766,6 +816,12 @@ abstract class CPAC_Storage_Model {
 		return $this->get_layout_by_id( $id );
 	}
 
+	/**
+	 * @param $args array
+	 * @param bool $is_default
+	 *
+	 * @return null|int
+	 */
 	public function create_layout( $args, $is_default = false ) {
 
 		// The default layout has an empty ID, that way it stays compatible when layouts is disabled.
@@ -775,6 +831,9 @@ abstract class CPAC_Storage_Model {
 		return $id;
 	}
 
+	/**
+	 * @return bool True, if layout is successfully deleted. False on failure.
+	 */
 	public function delete_layout( $id ) {
 		return delete_option( $this->get_layout_key( $id ) );
 	}
@@ -798,6 +857,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.5
+	 * @return string Layout name or Storage model label
 	 */
 	public function get_label_or_layout_name() {
 		$label = $this->label;
@@ -1030,6 +1090,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0
+	 * @return CPAC_Column
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();

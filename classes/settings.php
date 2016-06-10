@@ -161,8 +161,8 @@ class CPAC_Settings {
 		}
 
 		// Trigger add-ons like inline-edit and sortable
-		do_action( "cac/columns", array( $column->properties->name => $column ), $storage_model );
-		do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->properties->name => $column ), $storage_model );
+		do_action( "cac/columns", array( $column->get_name() => $column ), $storage_model );
+		do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->get_name() => $column ), $storage_model );
 
 		ob_start();
 		$column->display();
@@ -173,7 +173,7 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ) );
 
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
@@ -546,8 +546,7 @@ class CPAC_Settings {
 	/**
 	 * @since 1.0
 	 */
-	public function display_settings() {
-		?>
+	public function display_settings() { ?>
 		<table class="form-table cpac-form-table settings">
 			<tbody>
 
@@ -639,10 +638,6 @@ class CPAC_Settings {
 		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $storage_model_key );
 	}
 
-	private function delete_user_model_preference() {
-		delete_user_meta( get_current_user_id(), self::OPTION_CURRENT );
-	}
-
 	private function get_user_model_preference() {
 		return cpac()->get_storage_model( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
 	}
@@ -719,13 +714,9 @@ class CPAC_Settings {
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
 		?>
 		<div id="cpac" class="wrap">
-			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php foreach ( $tabs as $name => $label ) : ?>
-					<a href="<?php echo $this->get_settings_url( 'admin' ) . "&amp;tab={$name}"; ?>"
-						class="nav-tab<?php if ( $current_tab == $name ) {
-							echo ' nav-tab-active';
-						} ?>"><?php echo $label; ?></a>
+					<a href="<?php echo $this->get_settings_url( 'admin' ) . "&amp;tab={$name}"; ?>" class="nav-tab<?php echo $current_tab == $name ? ' nav-tab-active' : ''; ?>"><?php echo $label; ?></a>
 				<?php endforeach; ?>
 			</h2>
 
@@ -761,11 +752,9 @@ class CPAC_Settings {
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
 					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>" data-layout="<?php echo $storage_model->get_layout(); ?>">
-
 						<div class="main">
-
 							<div class="menu">
-								<select id="cpac_storage_modal_select">
+								<select title="Select type" id="cpac_storage_modal_select">
 									<?php foreach ( $grouped as $menu_type => $models ) : ?>
 										<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
 											<?php foreach ( $models as $model ) : ?>
