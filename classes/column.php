@@ -236,6 +236,7 @@ class CPAC_Column {
 	 * @return mixed
 	 */
 	public function get_editable_value( $id ) {
+		return $this->get_raw_value( $id );
 	}
 
 	public function get_editable_data() {
