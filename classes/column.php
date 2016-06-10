@@ -263,6 +263,7 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 * @return null|bool
 	 */
 	public function is_sortable() {
 	}
@@ -275,6 +276,10 @@ class CPAC_Column {
 	public function get_sortable_data( &$vars ) {
 	}
 
+	/**
+	 * @since NEWVERSION
+	 * @return null|string
+	 */
 	public function get_sorting_value( $id ) {
 	}
 
