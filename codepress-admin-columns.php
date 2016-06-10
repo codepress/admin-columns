@@ -626,9 +626,7 @@ class CPAC {
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.2
-	 *
-	 * @param strong $tab Specifies a tab screen (optional)
-	 *
+	 * @param string $tab Specifies a tab screen (optional)
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	public function is_settings_screen( $tab = '' ) {
