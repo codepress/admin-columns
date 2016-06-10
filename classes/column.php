@@ -285,13 +285,22 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 * @return null|bool
 	 */
 	public function is_filterable() {
 	}
 
+	/**
+	 * @since NEWVERSION
+	 * @return null|array
+	 */
 	public function get_filterable_data() {
 	}
 
+	/**
+	 * @since NEWVERSION
+	 * @return null|array
+	 */
 	public function get_filterable_request_vars( $vars, $value ) {
 	}
 
