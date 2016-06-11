@@ -233,6 +233,7 @@ class CPAC_Column {
 
 	/**
 	 * @param $id int Object ID
+	 *
 	 * @return mixed
 	 */
 	public function get_editable_value( $id ) {
@@ -248,6 +249,7 @@ class CPAC_Column {
 	/**
 	 * @param $searchterm
 	 * @param $page
+	 *
 	 * @return null|array
 	 */
 	public function get_editable_ajax_options( $searchterm, $page ) {
@@ -256,6 +258,7 @@ class CPAC_Column {
 	/**
 	 * @param $id
 	 * @param $value
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function save( $id, $value ) {
@@ -1190,11 +1193,14 @@ class CPAC_Column {
 	 *
 	 * @return string Attribute Name
 	 */
-	public function label_view( $label, $description = '', $for = '' ) {
+	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
 		if ( $label ) : ?>
 			<td class="label<?php echo $description ? ' description' : ''; ?>">
 				<label for="<?php $this->attr_id( $for ); ?>">
-					<span><?php echo stripslashes( $label ); ?></span>
+					<span class="label"><?php echo stripslashes( $label ); ?></span>
+					<?php if ( $more_link ) : ?>
+						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-visibility"></span></a>
+					<?php endif; ?>
 					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 				</label>
 			</td>
@@ -1217,13 +1223,14 @@ class CPAC_Column {
 			'hidden'         => false,
 			'for'            => false,
 			'section'        => false,
-			'help'           => '' // help message below input field
+			'help'           => '', // help message below input field
+			'more_link'      => '' // link to more, e.g. admin page for a field
 		);
 		$args = wp_parse_args( $args, $defaults );
 		$field = (object) $args;
 		?>
 		<tr class="<?php echo $field->type; ?> column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hide' : ''; ?><?php echo $field->section ? ' section' : ''; ?>"<?php echo $field->toggle_handle ? ' data-handle="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
-			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ) ); ?>
+			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ), $field->more_link ); ?>
 			<td class="input"<?php echo( $field->toggle_trigger ? ' data-trigger="' . $this->get_attr_id( $field->toggle_trigger ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
 				<?php
 				switch ( $field->type ) {

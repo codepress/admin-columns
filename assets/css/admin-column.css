@@ -477,14 +477,26 @@
   border-top: 1px solid #e8e8e8;
   padding-left: 12px;
 }
-.cpac-column .column-form > table tr td.label span {
+.cpac-column .column-form > table tr td.label span.label {
   font-weight: bold;
   color: #333333;
-  display: inline-block;
-  width: 100%;
+  display: block;
+  margin-right: 30px;
   position: relative;
   height: 26px;
   line-height: 26px;
+}
+.cpac-column .column-form > table tr td.label a.more-link {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  display: inline-block;
+}
+.cpac-column .column-form > table tr td.label a.more-link span {
+  color: #ccc;
+}
+.cpac-column .column-form > table tr td.label a.more-link:hover span {
+  color: #808080;
 }
 .cpac-column .column-form > table tr td.label p {
   color: #666666;

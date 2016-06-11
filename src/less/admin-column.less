@@ -613,14 +613,30 @@
 						border-top: 1px solid @border-gray;
 						padding-left: 12px;
 
-						span {
+						span.label {
 							font-weight: bold;
 							color: #333333;
-							display: inline-block;
-							width: 100%;
+							display: block;
+							//width: 100%;
+							margin-right: 30px;
 							position: relative;
 							height: 26px;
 							line-height: 26px;
+						}
+
+						a.more-link {
+							position: absolute;
+							right: 14px;
+							top: 14px;
+							display: inline-block;
+
+							span {
+								color: #ccc;
+							}
+
+							&:hover span {
+								color: #808080;
+							}
 						}
 
 						p {
