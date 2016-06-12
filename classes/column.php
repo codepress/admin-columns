@@ -276,7 +276,7 @@ class CPAC_Column {
 	 *
 	 * @return boolean|array Post ids or true when $vars has been set.
 	 */
-	public function get_sortable_data( &$vars ) {
+	public function get_sortable_data() {
 	}
 
 	/**
