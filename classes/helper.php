@@ -9,6 +9,7 @@
  * @method AC_Helper_Post post
  * @method AC_Helper_String string
  * @method AC_Helper_User user
+ * @method AC_Helper_Query query
  */
 class AC_Helper {
 
@@ -21,5 +22,4 @@ class AC_Helper {
 
 		return false;
 	}
-
 }

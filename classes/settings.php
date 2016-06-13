@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class CPAC_Settings {
+class AC_Settings {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
 

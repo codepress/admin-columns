@@ -150,6 +150,7 @@ function ac_site_url( $path = '' ) {
 
 /**
  * @since NEWVERSION
+ * @return CAC_Sortable_Model
  */
 function ac_get_sortable_model( $key ) {
 	return function_exists( 'ac_sortable' ) ? ac_sortable()->get_model( $key ) : false;
@@ -157,6 +158,7 @@ function ac_get_sortable_model( $key ) {
 
 /**
  * @since NEWVERSION
+ * @return CACIE_Editable_Model
  */
 function ac_get_editable_model( $key ) {
 	return function_exists( 'ac_editable' ) ? ac_editable()->get_model( $key ) : false;
@@ -164,6 +166,7 @@ function ac_get_editable_model( $key ) {
 
 /**
  * @since NEWVERSION
+ * @return CAC_Filtering_Model
  */
 function ac_get_filterable_model( $key ) {
 	return function_exists( 'ac_filterable' ) ? ac_filterable()->get_model( $key ) : false;

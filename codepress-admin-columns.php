@@ -120,7 +120,7 @@ class CPAC {
 
 		$autoloader = AC_Autoloader::instance();
 		$autoloader->register_prefix( 'AC_', $classes_dir );
-		
+
 		require_once $classes_dir . 'utility.php';
 
 		// Third Party
@@ -141,21 +141,12 @@ class CPAC {
 		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
-		// Settings
-		include_once $classes_dir . '/settings.php';
-		$this->_settings = new CPAC_Settings();
+		// Includes
+		$this->_settings = new AC_Settings();
+		$this->_addons = new AC_Addons();
+		$this->_upgrade = new AC_Upgrade();
 
-		// Add-ons
-		include_once $classes_dir . '/addons.php';
-		$this->_addons = new CPAC_Addons();
-
-		// Upgrade
-		require_once $classes_dir . '/upgrade.php';
-		$this->_upgrade = new CPAC_Upgrade();
-
-		// Settings
-		include_once $classes_dir . '/review_notice.php';
-		new CPAC_Review_Notice();
+		new AC_Notice_Review();
 	}
 
 	/**
@@ -688,6 +679,13 @@ class CPAC {
 	 */
 	public function upgrade() {
 		return $this->_upgrade;
+	}
+
+	/**
+	 * NEWVERSION
+	 */
+	public function helper() {
+		return new AC_Helper();
 	}
 
 	/**
