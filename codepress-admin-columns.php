@@ -116,6 +116,7 @@ class CPAC {
 
 		$classes_dir = $this->get_plugin_dir() . 'classes/';
 
+		require_once $classes_dir . 'autoloader.php';
 		require_once $classes_dir . 'utility.php';
 
 		// Third Party
