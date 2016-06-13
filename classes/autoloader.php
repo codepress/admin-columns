@@ -49,9 +49,9 @@ class AC_Autoloader {
 
 			if ( is_readable( $file ) ) {
 				require_once $file;
-			}
 
-			break;
+				break;
+			}
 		}
 	}
 
