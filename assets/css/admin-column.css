@@ -723,6 +723,9 @@
 .cpac-column .column-form > table tr.section > td {
   border-top: 1px solid #dedede;
 }
+.cpac-column .column-form > table tr.section.radio td.label label {
+  padding: 0;
+}
 .cpac-column.loading .column-form > .spinner {
   position: absolute;
   left: 50%;
