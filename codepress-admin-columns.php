@@ -114,13 +114,15 @@ class CPAC {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		require_once $this->get_plugin_dir() . 'classes/utility.php';
+		$classes_dir = $this->get_plugin_dir() . 'classes/';
+
+		require_once $classes_dir . 'utility.php';
 
 		// Third Party
-		require_once $this->get_plugin_dir() . 'classes/third_party/acf.php';
-		require_once $this->get_plugin_dir() . 'classes/third_party/ninja_forms.php';
-		require_once $this->get_plugin_dir() . 'classes/third_party/woocommerce.php';
-		require_once $this->get_plugin_dir() . 'classes/third_party/wpml.php';
+		require_once $classes_dir . 'third_party/acf.php';
+		require_once $classes_dir . 'third_party/ninja_forms.php';
+		require_once $classes_dir . 'third_party/woocommerce.php';
+		require_once $classes_dir . 'third_party/wpml.php';
 
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
@@ -134,13 +136,11 @@ class CPAC {
 		// Populating columns
 		add_action( 'admin_init', array( $this, 'set_columns' ) );
 
-		$classes_dir = $this->get_plugin_dir() . '/classes';
-
 		// Settings
 		include_once $classes_dir . '/settings.php';
 		$this->_settings = new CPAC_Settings();
 
-		// Addons
+		// Add-ons
 		include_once $classes_dir . '/addons.php';
 		$this->_addons = new CPAC_Addons();
 
@@ -730,9 +730,15 @@ class CPAC {
 	}
 }
 
+// @deprecated NEWVERSION
 function cpac() {
+	return ac();
+}
+
+// @since NEWVERSION
+function ac() {
 	return CPAC::instance();
 }
 
 // Global for backwards compatibility.
-$GLOBALS['cpac'] = cpac();
+$GLOBALS['cpac'] = ac();
