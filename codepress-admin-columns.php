@@ -117,6 +117,10 @@ class CPAC {
 		$classes_dir = $this->get_plugin_dir() . 'classes/';
 
 		require_once $classes_dir . 'autoloader.php';
+
+		$autoloader = AC_Autoloader::instance();
+		$autoloader->register_prefix( 'AC_', $classes_dir );
+		
 		require_once $classes_dir . 'utility.php';
 
 		// Third Party
