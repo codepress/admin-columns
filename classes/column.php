@@ -116,6 +116,7 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.5
+	 * @return false|CPAC_Storage_Model
 	 */
 	public function __get( $key ) {
 		return 'storage_model' == $key ? $this->{"get_$key"}() : false;
