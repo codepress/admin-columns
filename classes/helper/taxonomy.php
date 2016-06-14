@@ -1,6 +1,7 @@
 <?php
 
-class AC_Helper_Term {
+// todo: was AC_Helper_Term
+class AC_Helper_Taxonomy {
 
 	/**
 	 * @param WP_Term[] $terms Term objects

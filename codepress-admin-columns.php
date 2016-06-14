@@ -39,6 +39,8 @@ if ( ! is_admin() ) {
  * The Admin Columns Class
  *
  * @since 1.0
+ *
+ * @property AC_Helper helper
  */
 class CPAC {
 
@@ -96,28 +98,6 @@ class CPAC {
 	protected static $_instance = null;
 
 	/**
-	 * @since 2.5
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 * @param mixed $key
-	 * @return AC_Helper
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'helper' ) ) ) {
-			return $this->$key();
-		}
-	}
-
-	/**
 	 * @since 1.0
 	 */
 	function __construct() {
@@ -158,8 +138,35 @@ class CPAC {
 		$this->_settings = new AC_Settings();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
+		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, array( 'helper' ) ) ) {
+			return $this->$key();
+		}
 	}
 
 	/**
@@ -695,9 +702,9 @@ class CPAC {
 	}
 
 	/**
-	 * NEWVERSION
+	 * @since NEWVERSION
 	 */
-	public function helper() {
+	protected function helper() {
 		return new AC_Helper();
 	}
 
@@ -748,13 +755,13 @@ class CPAC {
 
 // @deprecated NEWVERSION
 function cpac() {
-	return ac();
+	return AC();
 }
 
 // @since NEWVERSION
-function ac() {
+function AC() {
 	return CPAC::instance();
 }
 
 // Global for backwards compatibility.
-$GLOBALS['cpac'] = ac();
+$GLOBALS['cpac'] = AC();

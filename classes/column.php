@@ -640,15 +640,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @see wp_trim_words();
-	 * @since 1.0
-	 * @return string Trimmed text.
-	 */
-	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
-		return $text ? wp_trim_words( $text, $num_words, $more ) : false;
-	}
-
-	/**
 	 * @since 1.3.1
 	 *
 	 * @param string $name
@@ -817,72 +808,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Determines text color absed on bakground coloring.
-	 *
-	 * @since 1.0
-	 */
-	public function get_text_color( $bg_color ) {
-
-		$rgb = $this->hex2rgb( $bg_color );
-
-		return $rgb && ( ( $rgb[0] * 0.299 + $rgb[1] * 0.587 + $rgb[2] * 0.114 ) < 186 ) ? '#ffffff' : '#333333';
-	}
-
-	/**
-	 * Convert hex to rgb
-	 *
-	 * @since 1.0
-	 */
-	public function hex2rgb( $hex ) {
-		$hex = str_replace( "#", "", $hex );
-
-		if ( strlen( $hex ) == 3 ) {
-			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
-			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
-			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		}
-		else {
-			$r = hexdec( substr( $hex, 0, 2 ) );
-			$g = hexdec( substr( $hex, 2, 2 ) );
-			$b = hexdec( substr( $hex, 4, 2 ) );
-		}
-		$rgb = array( $r, $g, $b );
-
-		return $rgb;
-	}
-
-	/**
-	 * Count the number of words in a string (multibyte-compatible)
-	 *
-	 * @since 2.3
-	 *
-	 * @param string $input Input string
-	 *
-	 * @return int Number of words
-	 */
-	public function str_count_words( $input ) {
-
-		$patterns = array(
-			'strip' => '/<[a-zA-Z\/][^<>]*>/',
-			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
-			'w'     => '/\S\s+/',
-			'c'     => '/\S/'
-		);
-
-		$type = 'w';
-
-		$input = preg_replace( $patterns['strip'], ' ', $input );
-		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
-		$input = preg_replace( $patterns['clean'], '', $input );
-
-		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
-			return 0;
-		}
-
-		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
-	}
-
-	/**
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
@@ -1000,38 +925,6 @@ class CPAC_Column {
 		}
 
 		return $thumbnails;
-	}
-
-	/**
-	 * Implode for multi dimensional array
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $glue
-	 * @param array $pieces
-	 *
-	 * @return string Imploded array
-	 */
-	public function recursive_implode( $glue, $pieces ) {
-		if ( is_array( $pieces ) ) {
-			foreach ( $pieces as $r_pieces ) {
-				if ( is_array( $r_pieces ) ) {
-					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-				}
-				else {
-					$retVal[] = $r_pieces;
-				}
-			}
-			if ( isset( $retVal ) && is_array( $retVal ) ) {
-				return implode( $glue, $retVal );
-			}
-		}
-
-		if ( is_scalar( $pieces ) ) {
-			return $pieces;
-		}
-
-		return false;
 	}
 
 	/**
@@ -1687,11 +1580,82 @@ class CPAC_Column {
 	// Deprecated methods
 
 	/**
+	 * Convert hex to rgb
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 */
+	public function hex2rgb( $hex ) {
+		_deprecated_function( __METHOD__ , 'NEWVERSION', 'AC()->helper->string->hex_to_rgb()' );
+
+		return AC()->helper->string->hex_to_rgb( $hex );
+	}
+
+	/**
+	 * Determines text color absed on bakground coloring.
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 */
+	public function get_text_color( $bg_color ) {
+		_deprecated_function( __METHOD__ , 'NEWVERSION', 'AC()->helper->string->hex_get_contrast()' );
+
+		return AC()->helper->string->hex_get_contrast( $bg_color );
+	}
+
+	/**
+	 * Count the number of words in a string (multibyte-compatible)
+	 *
+	 * @since 2.3
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $input Input string
+	 *
+	 * @return int Number of words
+	 */
+	public function str_count_words( $input ) {
+		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac()->helper->string->word_count()' );
+
+		return AC()->helper->string->word_count( $input );
+	}
+
+	/**
+	 * @see wp_trim_words();
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 *
+	 * @return string Trimmed text.
+	 */
+	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
+		_deprecated_function( __METHOD__ , 'NEWVERSION', 'AC()->helper->string->trim_words()' );
+
+		return AC()->helper->string->trim_words( $text, $num_words, $more );
+	}
+
+	/**
+	 * Implode for multi dimensional array
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $glue
+	 * @param array $pieces
+	 *
+	 * @return string Imploded array
+	 */
+	public function recursive_implode( $glue, $pieces ) {
+		_deprecated_function( __METHOD__ , 'NEWVERSION', 'AC()->helper->array->implode_recursive()' );
+
+		return AC()->helper->array->implode_recursive( $glue, $pieces );
+	}
+
+	/**
 	 * @since 2.3.4
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( 'CPAC_Column::display_field_text', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'          => 'text',
@@ -1708,7 +1672,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_select', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'select',
@@ -1726,7 +1690,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_radio', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'radio',

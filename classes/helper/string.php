@@ -7,11 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Helper_String {
 
 	/**
-	 * Return the amount of words in a string
+	 * Count the number of words in a string (multibyte-compatible)
+	 *
+	 * @since NEWVERSION
 	 *
 	 * @param $string
 	 *
-	 * @return int
+	 * @return int Number of words
 	 */
 	public function word_count( $string ) {
 		$patterns = array(
@@ -34,6 +36,17 @@ class AC_Helper_String {
 
 	public function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
+	}
+
+	/**
+	 * @see wp_trim_words();
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return string
+	 */
+	public function trim_words( $text = '', $num_words = 30, $more = null ) {
+		return $text ? wp_trim_words( $text, $num_words, $more ) : false;
 	}
 
 	/**
@@ -63,6 +76,8 @@ class AC_Helper_String {
 	/**
 	 * Get RGB values from a hex color string
 	 *
+	 * @since NEWVERSION
+	 *
 	 * @param string $hex Valid hex color
 	 *
 	 * @return array
@@ -74,7 +89,9 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * Get contrast hex color based on another hex color
+	 * Get contrasting hex color based on given hex color
+	 *
+	 * @since NEWVERSION
 	 *
 	 * @param string $hex Valid hex color
 	 *

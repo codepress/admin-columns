@@ -6,12 +6,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AC_Helper_Array {
 
+	/**
+	 * Implode for multi dimensional array
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param string $glue
+	 * @param array $pieces
+	 *
+	 * @return string Imploded array
+	 */
 	public function implode_recursive( $glue, $pieces ) {
 		if ( is_array( $pieces ) ) {
 			foreach ( $pieces as $r_pieces ) {
 				if ( is_array( $r_pieces ) ) {
-					$retVal[] = self::implode_recursive( $glue, $r_pieces );
-				} else {
+					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+				}
+				else {
 					$retVal[] = $r_pieces;
 				}
 			}
