@@ -753,42 +753,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.2.6
-	 */
-	public function get_terms_for_display( $term_ids, $taxonomy ) {
-		if ( empty( $term_ids ) ) {
-			return false;
-		}
-
-		$values = array();
-		$term_ids = (array) $term_ids;
-		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
-			$post_type = $this->get_post_type();
-			foreach ( $term_ids as $term_id ) {
-				$term = get_term( $term_id, $taxonomy );
-				$title = esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'edit' ) );
-
-				$filter_key = $term->taxonomy;
-				if ( 'category' === $term->taxonomy ) {
-					$filter_key = 'category_name';
-				}
-
-				$href = add_query_arg( array( 'post_type' => $post_type, $filter_key => $term->slug ), admin_url( 'edit.php' ) );
-				if ( 'attachment' == $post_type ) {
-					$href = add_query_arg( array( 'taxonomy' => $filter_key, 'term' => $term->slug ), admin_url( 'upload.php' ) );
-				}
-
-				$values[] = '<a href="' . $href . '">' . $title . '</a>';;
-			}
-		}
-		if ( ! $values ) {
-			return false;
-		}
-
-		return implode( ', ', $values );
-	}
-
-	/**
 	 * @since 2.0
 	 *
 	 * @param string $name
