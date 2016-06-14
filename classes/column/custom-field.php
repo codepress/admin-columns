@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0
  */
-class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Custom_Field {
+class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom_FieldInterface {
 
 	/**
 	 * @see CPAC_Column::init()

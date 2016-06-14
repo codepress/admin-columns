@@ -954,14 +954,14 @@ abstract class CPAC_Storage_Model {
 
 		$dir = cpac()->get_plugin_dir();
 
-		// interface
-		require_once $dir . 'interface/interface-custom-field.php';
-
 		require_once $dir . 'classes/column.php';
 		require_once $dir . 'classes/column/actions.php';
 		require_once $dir . 'classes/column/default.php';
 		require_once $dir . 'classes/column/wp-default.php';
 		require_once $dir . 'classes/column/wp-plugin.php';
+
+		// Interface
+		require_once $dir . 'classes/column/custom-fieldinterface.php';
 
 		$columns = array(
 			'CPAC_Column_Custom_Field' => $dir . 'classes/column/custom-field.php',
