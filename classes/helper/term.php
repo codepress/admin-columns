@@ -10,12 +10,9 @@ class AC_Helper_Term {
 	 */
 	public function display( $terms, $post_type = null ) {
 		$value = '';
-
 		if ( $terms ) {
 			$out = array();
-
 			$terms = (array) $terms;
-
 			foreach ( $terms as $t ) {
 				$args = array(
 					'post_type' => $post_type,
