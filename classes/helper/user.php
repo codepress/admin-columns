@@ -24,7 +24,7 @@ class AC_Helper_User {
 		if ( ! empty( $args['search'] ) ) {
 			$args['search'] = '*' . $args['search'] . '*';
 		}
-
+		
 		$args = wp_parse_args( $args, array(
 			'orderby'        => 'display_name',
 			'search_columns' => array( 'ID', 'user_login', 'user_nicename', 'user_email', 'user_url' ),
@@ -71,7 +71,7 @@ class AC_Helper_User {
 				// Group by role
 				$role = array_shift( $user->roles );
 
-				if ( ! isset( $grouped[ $role ] ) ) {
+				if ( ! isset( $options[ $role ] ) ) {
 					$label = translate_user_role( $roles[ $role ]['name'] );
 					$options[ $role ] = array(
 						'label'   => $label ? $label : '',
