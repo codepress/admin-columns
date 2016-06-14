@@ -182,41 +182,6 @@ class AC_Helper_Post {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_single_values_by_meta_key( $meta_key, $post_type ) {
-		$values = array();
-		if ( $results = self::get_values_by_meta_key( $meta_key, $post_type ) ) {
-			foreach ( $results as $k => $data ) {
-				$values[ $data->value ] = $data->value;
-			}
-		}
-
-		return $values;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function get_values_by_meta_key( $meta_key, $post_type, $operator = 'DISTINCT meta_value AS value' ) {
-		global $wpdb;
-
-		$sql = $wpdb->prepare( "
-			SELECT {$operator}
-			FROM {$wpdb->postmeta} pm
-			INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-			WHERE p.post_type = %s
-			AND pm.meta_key = %s
-			AND pm.meta_value != ''
-			ORDER BY 1
-		", $post_type, $meta_key );
-
-		$values = $wpdb->get_results( $sql );
-
-		return $values && ! is_wp_error( $values ) ? $values : array();
-	}
-
-	/**
 	 * Get values by post field
 	 *
 	 * @since 1.0

@@ -1162,7 +1162,7 @@ class CPAC_Column {
 				<label for="<?php $this->attr_id( $for ); ?>">
 					<span class="label"><?php echo stripslashes( $label ); ?></span>
 					<?php if ( $more_link ) : ?>
-						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-visibility"></span></a>
+						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-external"></span></a>
 					<?php endif; ?>
 					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 				</label>
