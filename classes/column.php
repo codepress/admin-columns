@@ -116,6 +116,7 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.5
+	 * @return false|CPAC_Storage_Model
 	 */
 	public function __get( $key ) {
 		return 'storage_model' == $key ? $this->{"get_$key"}() : false;
@@ -227,6 +228,7 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 * @return null|bool
 	 */
 	public function is_editable() {
 	}
@@ -604,9 +606,7 @@ class CPAC_Column {
 
 	// since 2.4.8
 	public function get_raw_post_field( $field, $id ) {
-		global $wpdb;
-
-		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
+		return ac()->helper()->post()->get_raw_field( $field, $id );
 	}
 
 	// since 2.4.8
@@ -750,42 +750,6 @@ class CPAC_Column {
 		);
 
 		return $sizes;
-	}
-
-	/**
-	 * @since 2.2.6
-	 */
-	public function get_terms_for_display( $term_ids, $taxonomy ) {
-		if ( empty( $term_ids ) ) {
-			return false;
-		}
-
-		$values = array();
-		$term_ids = (array) $term_ids;
-		if ( $term_ids && ! is_wp_error( $term_ids ) ) {
-			$post_type = $this->get_post_type();
-			foreach ( $term_ids as $term_id ) {
-				$term = get_term( $term_id, $taxonomy );
-				$title = esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'edit' ) );
-
-				$filter_key = $term->taxonomy;
-				if ( 'category' === $term->taxonomy ) {
-					$filter_key = 'category_name';
-				}
-
-				$href = add_query_arg( array( 'post_type' => $post_type, $filter_key => $term->slug ), admin_url( 'edit.php' ) );
-				if ( 'attachment' == $post_type ) {
-					$href = add_query_arg( array( 'taxonomy' => $filter_key, 'term' => $term->slug ), admin_url( 'upload.php' ) );
-				}
-
-				$values[] = '<a href="' . $href . '">' . $title . '</a>';;
-			}
-		}
-		if ( ! $values ) {
-			return false;
-		}
-
-		return implode( ', ', $values );
 	}
 
 	/**
@@ -1199,7 +1163,7 @@ class CPAC_Column {
 				<label for="<?php $this->attr_id( $for ); ?>">
 					<span class="label"><?php echo stripslashes( $label ); ?></span>
 					<?php if ( $more_link ) : ?>
-						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-visibility"></span></a>
+						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-external"></span></a>
 					<?php endif; ?>
 					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
 				</label>

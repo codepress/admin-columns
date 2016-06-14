@@ -36,6 +36,7 @@ class AC_Helper_Post {
 		return get_posts( $args );
 	}
 
+	// todo: or get_raw_field
 	// todo: comes from get_raw_post_field
 	/**
 	 * @param string $field Post field
@@ -78,7 +79,7 @@ class AC_Helper_Post {
 
 		switch ( $format ) {
 			case 'user' :
-				$author = $this->get_raw_post_field( 'post_author', $id );
+				$author = $this->get_post_field_raw( 'post_author', $id );
 
 				if ( $user = get_userdata( $author ) ) {
 					$formatted_post = $user->display_name;
@@ -88,7 +89,7 @@ class AC_Helper_Post {
 
 				break;
 			case 'title' :
-				$formatted_post = $this->get_raw_post_field( 'post_title', $id );
+				$formatted_post = $this->get_post_field_raw( 'post_title', $id );
 
 				break;
 		}
@@ -103,7 +104,7 @@ class AC_Helper_Post {
 	 * @return array
 	 */
 	public function get_posts_for_selection( $args = array(), $format = 'title' ) {
-		return $this->format_options( $this->get_posts( $args ), $format );
+		return $this->get_post_selection_options( $this->get_posts( $args ), $format );
 	}
 
 	// todo: rename this to a more semantic functions
@@ -122,7 +123,7 @@ class AC_Helper_Post {
 	 *
 	 * @return array List of options, grouped by posttype
 	 */
-	public function format_options( $post_ids, $format = 'title' ) {
+	public function get_post_selection_options( $post_ids, $format = 'title' ) {
 		$processed = array();
 		$options = array();
 
@@ -157,19 +158,24 @@ class AC_Helper_Post {
 
 	// todo: values from what? need a better name like get_meta_values_by_meta_key?
 	/**
-	 * @since NEWVERSION
+	 * @param $post WP_Post|int
+	 * @param $term_ids array Term ID's
+	 * @param $taxonomy string Taxonomy name
 	 */
-	public function get_single_values_by_meta_key( $meta_key, $post_type ) {
-		$values = array();
-		if ( $results = self::get_values_by_meta_key( $meta_key, $post_type ) ) {
-			foreach ( $results as $k => $data ) {
-				$values[ $data->value ] = $data->value;
-			}
+	public function set_terms( $post, $term_ids, $taxonomy ) {
+		$post = get_post( $post );
+
+		if ( ! $post || empty( $term_ids ) || ! taxonomy_exists( $taxonomy ) ) {
+			return;
 		}
 
-		return $values;
-	}
+		// Filter list of terms
+		if ( empty( $term_ids ) ) {
+			$term_ids = array();
+		}
 
+
+	// todo: not sure how $terms_ids got here???
 	// todo: values from what? naming maybe slightly better
 	/**
 	 * @since NEWVERSION
@@ -177,19 +183,41 @@ class AC_Helper_Post {
 	public function get_values_by_meta_key( $meta_key, $post_type, $operator = 'DISTINCT meta_value AS value' ) {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "
-			SELECT {$operator}
-			FROM {$wpdb->postmeta} pm
-			INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-			WHERE p.post_type = %s
-			AND pm.meta_key = %s
-			AND pm.meta_value != ''
-			ORDER BY 1
-		", $post_type, $meta_key );
+		$term_ids = array_unique( (array) $term_ids );
 
-		$values = $wpdb->get_results( $sql );
+		// maybe create terms?
+		$created_term_ids = array();
 
-		return $values && ! is_wp_error( $values ) ? $values : array();
+		foreach ( (array) $term_ids as $index => $term_id ) {
+			if ( is_numeric( $term_id ) ) {
+				continue;
+			}
+
+			if ( $term = get_term_by( 'name', $term_id, $taxonomy ) ) {
+				$term_ids[ $index ] = $term->term_id;
+			}
+			else {
+				$created_term = wp_insert_term( $term_id, $taxonomy );
+				$created_term_ids[] = $created_term['term_id'];
+			}
+		}
+
+		// merge
+		$term_ids = array_merge( $created_term_ids, $term_ids );
+
+		//to make sure the terms IDs is integers:
+		$term_ids = array_map( 'intval', (array) $term_ids );
+		$term_ids = array_unique( $term_ids );
+
+		if ( $taxonomy == 'category' && is_object_in_taxonomy( $post->post_type, 'category' ) ) {
+			wp_set_post_categories( $post->ID, $term_ids );
+		}
+		else if ( $taxonomy == 'post_tag' && is_object_in_taxonomy( $post->post_type, 'post_tag' ) ) {
+			wp_set_post_tags( $post->ID, $term_ids );
+		}
+		else {
+			wp_set_object_terms( $post->ID, $term_ids, $taxonomy );
+		}
 	}
 
 	// todo: you expect fields here, but looks like values?
@@ -239,5 +267,46 @@ class AC_Helper_Post {
 		$results = $wpdb->get_results( $query );
 
 		return $results;
+	}
+
+	/**
+	 * Display terms
+	 * Largerly taken from class-wp-post-list-table.php
+	 *
+	 * @since 1.0
+	 *
+	 * @param int $id Post ID
+	 * @param string $taxonomy Taxonomy name
+	 */
+	public function get_terms_for_display( $post_id, $taxonomy ) {
+		return ac()->helper()->term()->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
+	}
+
+	/**
+	 * Get terms selection options
+	 *
+	 * @param string $taxonomy
+	 * @param string $default_label
+	 *
+	 * @return array
+	 */
+	public function get_term_selection_options( $taxonomy, $default_label = '' ) {
+		$options = array();
+
+		if ( $default_label ) {
+			$options[''] = $default_label;
+		}
+
+		$terms = get_terms( $taxonomy, array(
+			'hide_empty' => 0,
+		) );
+
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$options[ $term->term_id ] = htmlspecialchars_decode( $term->name );
+			}
+		}
+
+		return $options;
 	}
 }

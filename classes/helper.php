@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @method AC_Helper_String string
  * @method AC_Helper_User user
  * @method AC_Helper_Query query
+ * @method AC_Helper_Term term
  */
 class AC_Helper {
 
