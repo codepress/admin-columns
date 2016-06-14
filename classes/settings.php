@@ -339,7 +339,6 @@ class AC_Settings {
 	 * @since 1.3.0
 	 */
 	public function help_tabs() {
-
 		$screen = get_current_screen();
 
 		if ( ! method_exists( $screen, 'add_help_tab' ) ) {
@@ -549,11 +548,9 @@ class AC_Settings {
 	public function display_settings() { ?>
 		<table class="form-table cpac-form-table settings">
 			<tbody>
-
 			<tr class="general">
 				<th scope="row">
 					<h3><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h3>
-
 					<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">

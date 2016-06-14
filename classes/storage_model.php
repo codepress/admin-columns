@@ -332,14 +332,31 @@ abstract class CPAC_Storage_Model {
 		if ( $default_columns = $this->get_default_headings() ) {
 			if ( isset( $default_columns[ $column_type ] ) ) {
 
+				$label = $default_columns[ $column_type ];
+
 				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
 				if ( in_array( $column_type, $default_column_names ) ) {
-					$column = new CPAC_Column_WP_Default( $this->key, $column_type, $default_columns[ $column_type ] );
+					$column = new CPAC_Column_WP_Default( $this->key );
 				}
 				else {
-					$column = new CPAC_Column_WP_Plugin( $this->key, $column_type, $default_columns[ $column_type ] );
+					$column = new CPAC_Column_WP_Plugin( $this->key );
 				}
+
+				if ( ! $label ) {
+					$label = ucfirst( $column_type );
+				}
+
+				// Hide Label when it contains HTML elements
+				if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
+					$column->set_properties( 'hide_label', true );
+				}
+
+				$column
+					->set_properties( 'type', $column_type )
+					->set_properties( 'name', $column_type )
+					->set_properties( 'label', $label )
+					->set_options( 'label', $label );
 
 				$default_column_widths = (array) apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
 
