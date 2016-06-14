@@ -45,7 +45,7 @@ class CPAC {
 	 *
 	 * @since 2.2
 	 * @access private
-	 * @var CPAC_Addons
+	 * @var AC_Addons
 	 */
 	private $_addons;
 
@@ -54,7 +54,7 @@ class CPAC {
 	 *
 	 * @since 2.2
 	 * @access private
-	 * @var CPAC_Settings
+	 * @var AC_Settings
 	 */
 	private $_settings;
 
@@ -63,7 +63,7 @@ class CPAC {
 	 *
 	 * @since 2.2.7
 	 * @access private
-	 * @var CPAC_Upgrade
+	 * @var AC_Upgrade
 	 */
 	private $_upgrade;
 
@@ -113,6 +113,7 @@ class CPAC {
 		if ( in_array( $key, array( 'helper' ) ) ) {
 			return $this->$key();
 		}
+		return false;
 	}
 
 	/**
@@ -666,7 +667,7 @@ class CPAC {
 	 * Get admin columns settings class instance
 	 *
 	 * @since 2.2
-	 * @return CPAC_Settings Settings class instance
+	 * @return AC_Settings Settings class instance
 	 */
 	public function settings() {
 		return $this->_settings;
@@ -676,7 +677,7 @@ class CPAC {
 	 * Get admin columns add-ons class instance
 	 *
 	 * @since 2.2
-	 * @return CPAC_Addons Add-ons class instance
+	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
 		return $this->_addons;
@@ -686,7 +687,7 @@ class CPAC {
 	 * Get admin columns upgrade class instance
 	 *
 	 * @since 2.2.7
-	 * @return CPAC_Upgrade Upgrade class instance
+	 * @return AC_Upgrade Upgrade class instance
 	 */
 	public function upgrade() {
 		return $this->_upgrade;

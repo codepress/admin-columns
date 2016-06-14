@@ -56,7 +56,7 @@ class AC_Settings {
 		 * @since 2.2
 		 *
 		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
-		 * @param CPAC_Settings $settings_instance Settings class instance
+		 * @param AC_Settings $settings_instance Settings class instance
 		 */
 		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
 			'admin'            => admin_url( 'options-general.php?page=codepress-admin-columns' ),
