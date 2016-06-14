@@ -105,6 +105,17 @@ class CPAC {
 	}
 
 	/**
+	 * Auto-load in-accessible properties on demand.
+	 * @param mixed $key
+	 * @return AC_Helper
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, array( 'helper' ) ) ) {
+			return $this->$key();
+		}
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	function __construct() {

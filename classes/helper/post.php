@@ -37,7 +37,7 @@ class AC_Helper_Post {
 	 *
 	 * @return string|false
 	 */
-	public function get_raw_post_field( $field, $id ) {
+	public function get_raw_field( $field, $id ) {
 		global $wpdb;
 
 		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
@@ -54,7 +54,7 @@ class AC_Helper_Post {
 
 		switch ( $format ) {
 			case 'user' :
-				$author = $this->get_raw_post_field( 'post_author', $id );
+				$author = $this->get_raw_field( 'post_author', $id );
 				if ( $user = get_userdata( $author ) ) {
 					$formatted_post = $user->display_name;
 				}
@@ -63,7 +63,7 @@ class AC_Helper_Post {
 				}
 				break;
 			case 'title' :
-				$formatted_post = $this->get_raw_post_field( 'post_title', $id );
+				$formatted_post = $this->get_raw_field( 'post_title', $id );
 				break;
 		}
 
