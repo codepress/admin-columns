@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class AC_Helper_Post {
 
 	// todo: this is looks like a default set of arguments; how is this a helper? It's more like a config

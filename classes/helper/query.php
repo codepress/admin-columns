@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class AC_Helper_Query {
 
 	public function get_meta_query( $key, $value, $type = '' ) {

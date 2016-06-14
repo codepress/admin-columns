@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class AC_Helper_Array {
 
 	public function implode_recursive( $glue, $pieces ) {
@@ -39,7 +43,7 @@ class AC_Helper_Array {
 		if ( $old_key_pos === false ) {
 			return $input;
 		}
-		
+
 		$keys[ $old_key_pos ] = $new_key;
 
 		return array_combine( $keys, array_values( $input ) );

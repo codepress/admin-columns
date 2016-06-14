@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class AC_Helper
  *
@@ -23,4 +27,5 @@ class AC_Helper {
 
 		return false;
 	}
+
 }
