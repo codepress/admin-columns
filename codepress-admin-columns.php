@@ -37,6 +37,8 @@ if ( ! is_admin() ) {
  * The Admin Columns Class
  *
  * @since 1.0
+ *
+ * @property AC_Helper helper
  */
 class CPAC {
 
@@ -96,6 +98,12 @@ class CPAC {
 	 * @since 2.5
 	 */
 	protected static $_instance = null;
+
+	/**
+	 * @since NEWVERSION
+	 * @var AC_Helper
+	 */
+	private $helper;
 
 	/**
 	 * @since 2.5
@@ -161,6 +169,7 @@ class CPAC {
 		$this->_settings = new AC_Settings();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
+		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
 	}
@@ -698,14 +707,6 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 * @return AC_Helper
-	 */
-	public function helper() {
-		return new AC_Helper();
-	}
-
-	/**
 	 * Check whether the Advanced Custom Fields plugin is active
 	 *
 	 * @since 2.4.9
@@ -752,13 +753,13 @@ class CPAC {
 
 // @deprecated since NEWVERSION
 function cpac() {
-	return ac();
+	return AC();
 }
 
 // @since NEWVERSION
-function ac() {
+function AC() {
 	return CPAC::instance();
 }
 
 // Global for backwards compatibility.
-$GLOBALS['cpac'] = ac();
+$GLOBALS['cpac'] = AC();

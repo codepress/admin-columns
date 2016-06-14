@@ -248,7 +248,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 
 			case "term_by_id" :
 				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
-					$value = ac()->helper()->term()->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
+					$value = AC()->helper->term->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
 				}
 				break;
 

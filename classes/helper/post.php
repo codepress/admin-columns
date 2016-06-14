@@ -3,35 +3,6 @@
 class AC_Helper_Post {
 
 	/**
-	 * Search posts
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @param $searchterm string
-	 * @param $args array
-	 *
-	 * @return array Post ID's
-	 */
-	public function get_posts( $args = array() ) {
-		$args = wp_parse_args( $args, array(
-			'posts_per_page' => 60,
-			'post_type'      => 'any',
-			'post_status'    => 'any',
-			'orderby'        => 'title',
-			'order'          => 'ASC',
-			's'              => '',
-			'fields'         => 'ids',
-			'paged'          => 1
-		) );
-
-		if ( ! is_numeric( $args['paged'] ) ) {
-			$args['paged'] = 1;
-		}
-
-		return get_posts( $args );
-	}
-
-	/**
 	 * @param string $field Field
 	 * @param int $id Post ID
 	 *
@@ -68,63 +39,6 @@ class AC_Helper_Post {
 		}
 
 		return $formatted_post;
-	}
-
-	/**
-	 * @param array $args
-	 * @param $format string
-	 *
-	 * @return array
-	 */
-	public function get_posts_for_selection( $args = array(), $format = 'title' ) {
-		return $this->get_post_selection_options( $this->get_posts( $args ), $format );
-	}
-
-	/**
-	 * Format options for posts selection
-	 *
-	 * Results are formatted as an array of post types, the key being the post type name, the value
-	 * being an array with two keys: label (the post type label) and options, an array of options (posts)
-	 * for this post type, with the post IDs as keys and the post titles as values
-	 *
-	 * @since 1.0
-	 * @uses WP_Query
-	 *
-	 * @param array $query_args Additional query arguments for WP_Query
-	 *
-	 * @return array List of options, grouped by posttype
-	 */
-	public function get_post_selection_options( $post_ids, $format = 'title' ) {
-		$processed = array();
-		$options = array();
-
-		if ( $post_ids ) {
-			foreach ( $post_ids as $post_id ) {
-				$post = get_post( $post_id );
-
-				if ( ! isset( $options[ $post->post_type ] ) ) {
-					$post_type_object = get_post_type_object( $post->post_type );
-
-					$options[ $post->post_type ] = array(
-						'label'   => $post_type_object ? $post_type_object->labels->name : $post->post_type,
-						'options' => array()
-					);
-				}
-
-				$label = $this->format_post( $post->ID, $format );
-
-				// Add ID to duplicates
-				if ( isset( $processed[ $post->post_type ] ) && in_array( $label, $processed[ $post->post_type ] ) ) {
-					$label .= ' - #' . $post->ID;
-				}
-
-				$options[ $post->post_type ]['options'][ $post->ID ] = $label;
-
-				$processed[ $post->post_type ][] = $label;
-			}
-		}
-
-		return $options;
 	}
 
 	/**
@@ -239,7 +153,7 @@ class AC_Helper_Post {
 	 * @param string $taxonomy Taxonomy name
 	 */
 	public function get_terms_for_display( $post_id, $taxonomy ) {
-		return ac()->helper()->term()->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
+		return AC()->helper->term->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
 	}
 
 	/**

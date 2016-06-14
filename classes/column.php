@@ -606,7 +606,7 @@ class CPAC_Column {
 
 	// since 2.4.8
 	public function get_raw_post_field( $field, $id ) {
-		return ac()->helper()->post()->get_raw_field( $field, $id );
+		return AC()->helper->post->get_raw_field( $field, $id );
 	}
 
 	// since 2.4.8
