@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.6.2
+Version: 2.6beta
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -72,7 +72,7 @@ class CPAC {
 	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
 	 * @since 2.0
-	 * @var array
+	 * @var CPAC_Storage_Model[]
 	 */
 	private $storage_models;
 
@@ -86,6 +86,10 @@ class CPAC {
 	 */
 	private $general_options = null;
 
+	/**
+	 * @since NEWVERSION
+	 * @var null|string $version Version number
+	 */
 	private $version = null;
 
 	/**
@@ -694,7 +698,8 @@ class CPAC {
 	}
 
 	/**
-	 * NEWVERSION
+	 * @since NEWVERSION
+	 * @return AC_Helper
 	 */
 	public function helper() {
 		return new AC_Helper();
@@ -745,7 +750,7 @@ class CPAC {
 	}
 }
 
-// @deprecated NEWVERSION
+// @deprecated since NEWVERSION
 function cpac() {
 	return ac();
 }
