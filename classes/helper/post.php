@@ -77,7 +77,7 @@ class AC_Helper_Post {
 	 * @return array
 	 */
 	public function get_posts_for_selection( $args = array(), $format = 'title' ) {
-		return $this->format_options( $this->get_posts( $args ), $format );
+		return $this->get_post_selection_options( $this->get_posts( $args ), $format );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class AC_Helper_Post {
 	 *
 	 * @return array List of options, grouped by posttype
 	 */
-	public function format_options( $post_ids, $format = 'title' ) {
+	public function get_post_selection_options( $post_ids, $format = 'title' ) {
 		$processed = array();
 		$options = array();
 
@@ -275,5 +275,33 @@ class AC_Helper_Post {
 	 */
 	public function get_terms_for_display( $post_id, $taxonomy ) {
 		return ac()->helper()->term()->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
+	}
+
+	/**
+	 * Get terms selection options
+	 *
+	 * @param string $taxonomy
+	 * @param string $default_label
+	 *
+	 * @return array
+	 */
+	public function get_term_selection_options( $taxonomy, $default_label = '' ) {
+		$options = array();
+
+		if ( $default_label ) {
+			$options[''] = $default_label;
+		}
+
+		$terms = get_terms( $taxonomy, array(
+			'hide_empty' => 0,
+		) );
+
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$options[ $term->term_id ] = htmlspecialchars_decode( $term->name );
+			}
+		}
+
+		return $options;
 	}
 }
