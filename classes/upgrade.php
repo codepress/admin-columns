@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class CPAC_Upgrade {
+class AC_Upgrade {
 
 	public $update_prevented = false;
 

@@ -135,7 +135,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @var array
 	 */
-	private $column_classnames = null;
+	private $column_classnames = array();
 
 	/**
 	 * @since 2.4.4
@@ -265,17 +265,28 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	private function get_column_classnames() {
-		if ( null === $this->column_classnames ) {
-			foreach ( $this->columns_filepath as $classname => $path ) {
-				if ( ! file_exists( $path ) ) {
+		if ( empty( $this->column_classnames ) ) {
+			foreach ( $this->columns_filepath as $class => $path ) {
+				$autoload = true;
+
+				// check for autoload condition
+				if ( false !== $path ) {
+					$autoload = false;
+
+					if ( is_readable( $path ) ) {
+						require_once $path;
+					}
+				}
+
+				if ( ! class_exists( $class, $autoload ) ) {
 					continue;
 				}
-				require_once $path;
-				$column = new $classname( $this->key );
 
 				/* @var $column CPAC_Column */
+				$column = new $class( $this->key );
+
 				if ( $column->is_registered() ) {
-					$this->column_classnames[ $column->get_type() ] = $classname;
+					$this->column_classnames[ $column->get_type() ] = $class;
 				}
 			}
 		}
@@ -917,7 +928,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Goes through all files in 'classes/column' and includes each file.
+	 * Goes through all files in 'classes/column' and requires each file.
 	 *
 	 * @since 2.0.1
 	 * @return array Column Classnames | Filepaths
@@ -957,8 +968,10 @@ abstract class CPAC_Storage_Model {
 
 		// Directory to iterate
 		$columns_dir = $dir . 'classes/column/' . $this->type;
+
 		if ( is_dir( $columns_dir ) ) {
 			$iterator = new DirectoryIterator( $columns_dir );
+
 			foreach ( $iterator as $leaf ) {
 
 				if ( $leaf->isDot() || $leaf->isDir() ) {

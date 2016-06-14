@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class CPAC_Addons {
+class AC_Addons {
 
 	/**
 	 * User meta key for hiding "Install addons" notice

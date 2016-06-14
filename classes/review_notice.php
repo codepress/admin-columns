@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class CPAC_Review_Notice {
+class AC_Review_Notice {
 
 	const OPTION_INSTALL_DATE = 'cpac-install-timestamp';
 

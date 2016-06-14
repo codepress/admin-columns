@@ -22,9 +22,7 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
-		$term_ids = $this->get_raw_value( $post_id );
-
-		return $this->get_terms_for_display( $term_ids, $this->get_taxonomy() );
+		return ac()->helper()->post()->get_terms_for_display( $post_id, $this->get_taxonomy() );
 	}
 
 	/**
