@@ -227,6 +227,7 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 * @return null|bool
 	 */
 	public function is_editable() {
 	}
