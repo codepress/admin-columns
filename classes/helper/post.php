@@ -2,6 +2,7 @@
 
 class AC_Helper_Post {
 
+	// todo: this is looks like a default set of arguments; how is this a helper? It's more like a config
 	/**
 	 * Search posts
 	 *
@@ -21,7 +22,7 @@ class AC_Helper_Post {
 			'order'          => 'ASC',
 			's'              => '',
 			'fields'         => 'ids',
-			'paged'          => 1
+			'paged'          => 1,
 		) );
 
 		if ( ! is_numeric( $args['paged'] ) ) {
@@ -31,18 +32,37 @@ class AC_Helper_Post {
 		return get_posts( $args );
 	}
 
+	// todo: comes from get_raw_post_field
 	/**
-	 * @param string $field Field
+	 * @param string $field Post field
 	 * @param int $id Post ID
 	 *
 	 * @return string|false
 	 */
-	public function get_raw_post_field( $field, $id ) {
+	public function get_post_field_raw( $field, $id ) {
 		global $wpdb;
 
-		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
+		if ( ! $id || ! is_numeric( $id ) ) {
+			return false;
+		}
+
+		$sql = "
+			SELECT " . $wpdb->escape_by_ref( $field ) . " 
+			FROM $wpdb->posts
+			WHERE ID = %d 
+			LIMIT 1
+		";
+
+		return $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
 	}
 
+	// todo: comes from somewhere, but get_post_field_raw is goodneough for this? the esc_html seems meager addition
+	public function title( $post_id ) {
+		return esc_html( self::get_raw_post_field( 'post_title', $post_id ) );
+	}
+
+	// todo: rename this (get_post_field_formatted) and don't supply default format (!)
+	// todo: rewrite to be more elegant
 	/**
 	 * @param int $post_id
 	 * @param string $format
@@ -55,15 +75,17 @@ class AC_Helper_Post {
 		switch ( $format ) {
 			case 'user' :
 				$author = $this->get_raw_post_field( 'post_author', $id );
+
 				if ( $user = get_userdata( $author ) ) {
 					$formatted_post = $user->display_name;
-				}
-				else {
+				} else {
 					$formatted_post = $author;
 				}
+
 				break;
 			case 'title' :
 				$formatted_post = $this->get_raw_post_field( 'post_title', $id );
+
 				break;
 		}
 
@@ -80,6 +102,8 @@ class AC_Helper_Post {
 		return $this->format_options( $this->get_posts( $args ), $format );
 	}
 
+	// todo: rename this to a more semantic functions
+	// todo: rewrite some things like the first check, get all posts instead of n times get_post
 	/**
 	 * Format options for posts selection
 	 *
@@ -107,7 +131,7 @@ class AC_Helper_Post {
 
 					$options[ $post->post_type ] = array(
 						'label'   => $post_type_object ? $post_type_object->labels->name : $post->post_type,
-						'options' => array()
+						'options' => array(),
 					);
 				}
 
@@ -127,6 +151,7 @@ class AC_Helper_Post {
 		return $options;
 	}
 
+	// todo: values from what? need a better name like get_meta_values_by_meta_key?
 	/**
 	 * @since NEWVERSION
 	 */
@@ -141,6 +166,7 @@ class AC_Helper_Post {
 		return $values;
 	}
 
+	// todo: values from what? naming maybe slightly better
 	/**
 	 * @since NEWVERSION
 	 */
@@ -162,6 +188,7 @@ class AC_Helper_Post {
 		return $values && ! is_wp_error( $values ) ? $values : array();
 	}
 
+	// todo: you expect fields here, but looks like values?
 	/**
 	 * Get values by post field
 	 *
