@@ -103,7 +103,7 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @var AC_Helper
 	 */
-	private $helper;
+	public $helper;
 
 	/**
 	 * @since 2.5
@@ -114,18 +114,6 @@ class CPAC {
 		}
 
 		return self::$_instance;
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 * @param mixed $key
-	 * @return AC_Helper
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'helper' ) ) ) {
-			return $this->$key();
-		}
-		return false;
 	}
 
 	/**
