@@ -820,6 +820,12 @@
   margin-top: 5px;
   margin-left: 5px;
 }
+.column-footer .button-container a.clear_columns {
+  color: #BC0B0B;
+}
+.column-footer .button-container a.clear_columns:hover {
+  color: #f00;
+}
 /**
  * Welcome Screen
  * ----------------------------------------------------------------------------
