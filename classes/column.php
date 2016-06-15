@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) or die();
 class CPAC_Column {
 
 	/**
-	 * A Storage Model can be a Posttype, User, Comment, Link or Media storage type.
+	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
 	 *
 	 * @since 2.0
 	 * @var CPAC_Storage_Model $storage_model contains a CPAC_Storage_Model object which the column belongs too.
@@ -473,14 +473,16 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @param string $field_key
-	 *
-	 * @return void
+	 * @param string $field_name
 	 */
 	public function attr_name( $field_name ) {
 		echo $this->get_attr_name( $field_name );
 	}
 
+	/**
+	 * @param string $field_name
+	 * @return string Attribute name
+	 */
 	public function get_attr_name( $field_name ) {
 		return $this->get_storage_model()->key . '[' . $this->get_name() . '][' . $field_name . ']';
 	}
@@ -817,7 +819,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Determines text color absed on bakground coloring.
+	 * Determines text color based on background coloring.
 	 *
 	 * @since 1.0
 	 */
@@ -1051,7 +1053,6 @@ class CPAC_Column {
 
 		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
 		// See http://api.jqueryui.com/datepicker/#utility-formatDate
-		// credits: nmarks
 		if ( is_numeric( $date ) ) {
 			$length = strlen( trim( $date ) );
 
@@ -1063,12 +1064,14 @@ class CPAC_Column {
 				$date = round( $date / 1000 ); // remove the ms
 			}
 
-			// Date format: yyyymmdd ( often used by ACF ) must start with 19xx or 20xx and is 8 long
+			// Date format: 'yyyymmdd' ( often used by ACF ) must start with 19xx or 20xx and is 8 long
 			// @todo: in theory a numeric string of 8 can also be a unixtimestamp; no conversion would be needed
 			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
 				$date = strtotime( $date );
 			}
-		} // Parse with strtotime if it's not numeric
+		}
+
+		// Not numeric
 		else {
 			$date = strtotime( $date );
 		}
@@ -1468,10 +1471,10 @@ class CPAC_Column {
 	public function display() {
 		$classes = implode( ' ', array_filter( array( "cpac-box-" . $this->get_type(), $this->get_property( 'classes' ) ) ) );
 		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $this->properties->is_cloneable ? " data-clone='{$this->properties->clone}'" : ''; ?> data-default="<?php echo $this->is_default(); ?>">
-			<input type="hidden" class="column-name" name="<?php echo $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
-			<input type="hidden" class="type" name="<?php echo $this->attr_name( 'type' ); ?>" value="<?php echo $this->get_type(); ?>"/>
-			<input type="hidden" class="clone" name="<?php echo $this->attr_name( 'clone' ); ?>" value="<?php echo $this->properties->clone; ?>"/>
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $this->get_type(); ?>"<?php echo $this->get_property( 'is_cloneable' ) ? ' data-clone="' . $this->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $this->is_default(); ?>">
+			<input type="hidden" class="column-name" name="<?php $this->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $this->get_name() ); ?>"/>
+			<input type="hidden" class="type" name="<?php $this->attr_name( 'type' ); ?>" value="<?php echo $this->get_type(); ?>"/>
+			<input type="hidden" class="clone" name="<?php $this->attr_name( 'clone' ); ?>" value="<?php echo $this->get_property( 'clone' ); ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">

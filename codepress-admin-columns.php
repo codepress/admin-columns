@@ -280,8 +280,8 @@ class CPAC {
 	}
 
 	/**
-	 * Add capabilty to administrator to manage admin columns.
-	 * You can use the capability 'manage_admin_columns' to grant other roles this privilidge as well.
+	 * Add capability to administrator to manage admin columns.
+	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
 	 * @since 2.0.4
 	 */

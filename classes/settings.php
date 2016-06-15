@@ -194,7 +194,7 @@ class AC_Settings {
 	}
 
 	/**
-	 * Allows the capaiblity 'manage_admin_columns' to store data through /wp-admin/options.php
+	 * Allows the capability 'manage_admin_columns' to store data through /wp-admin/options.php
 	 *
 	 * @since 2.0
 	 */
@@ -596,7 +596,7 @@ class AC_Settings {
 						<td class="padding-22">
 							<?php
 
-							/** Use this Hook to add additonal fields to the group */
+							/** Use this Hook to add additional fields to the group */
 							do_action( "cac/settings/groups/row={$id}" );
 
 							?>

@@ -57,7 +57,7 @@ class AC_Notice_Review {
 
 		// only display on settings and plugins page
 		if ( ! $screen || ! in_array( $screen->parent_base, array( 'options-general', 'plugins' ) ) ) {
-			return false;
+			return;
 		}
 
 		$product = __( 'Admin Columns', 'codepress-admin-columns' );
@@ -144,7 +144,7 @@ class AC_Notice_Review {
 			.cpac_message .hide-notice:before {
 				display: block;
 				content: '\f335';
-				font-family: 'Dashicons';
+				font-family: 'Dashicons', serif;
 				margin: .5em 0;
 				padding: 2px;
 			}
@@ -179,7 +179,7 @@ class AC_Notice_Review {
 
 						$.post( ajaxurl, {
 							'action' : 'cpac_hide_review_notice'
-						}, function( data ) {
+						}, function() {
 							if ( !soft ) {
 								el.find( '.spinner' ).remove();
 								el.slideUp();

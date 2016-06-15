@@ -9,12 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Implements __call to work around any keyword restrictions for PHP versions > 7
  *
  * @property AC_Helper_Array array
- * @property AC_Helper_Date date
- * @property AC_Helper_Image image
  * @property AC_Helper_Post post
- * @property AC_Helper_Query query
  * @property AC_Helper_String string
- * @property AC_Helper_Taxonomy taxonomy
  * @property AC_Helper_User user
  * @property AC_Helper_Term term
  */

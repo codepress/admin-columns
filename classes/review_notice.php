@@ -144,7 +144,7 @@ class AC_Review_Notice {
 			.cpac_message .hide-notice:before {
 				display: block;
 				content: '\f335';
-				font-family: 'Dashicons';
+				font-family: 'Dashicons', serif;
 				margin: .5em 0;
 				padding: 2px;
 			}
@@ -179,7 +179,7 @@ class AC_Review_Notice {
 
 						$.post( ajaxurl, {
 							'action' : 'cpac_hide_review_notice'
-						}, function( data ) {
+						}, function() {
 							if ( !soft ) {
 								el.find( '.spinner' ).remove();
 								el.slideUp();

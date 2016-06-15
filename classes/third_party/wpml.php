@@ -4,15 +4,15 @@ defined( 'ABSPATH' ) or die();
 /**
  * WPML: display correct flags on the overview screens
  */
-class CPAC_WPML_COLUMN {
+class CPAC_WPML_Column {
 
 	CONST COLUMN_NAME = 'icl_translations';
 
 	private $column;
 
 	function __construct( $post_type ) {
-		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // prio just after WPML set's it's column
-		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 201 ); // prio just after AC overwrite all columns
+		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // priority just after WPML set's it's column
+		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 201 ); // priority just after AC overwrite all columns
 	}
 
 	public function store_wpml_column( $columns ) {
@@ -52,11 +52,11 @@ class CPAC_WPML {
 		add_filter( 'cac/is_cac_screen', array( $this, 'is_cac_screen' ) );
 	}
 
-	public function replace_flags( $cac ) {
+	public function replace_flags() {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
-		if ( ! $cac->is_columns_screen() ) {
+		if ( ! cpac()->is_columns_screen() ) {
 			return;
 		}
 
@@ -69,7 +69,7 @@ class CPAC_WPML {
 		$post_types['page'] = 1;
 		foreach ( $post_types as $post_type => $value ) {
 			if ( $value ) {
-				new CPAC_WPML_COLUMN( $post_type );
+				new CPAC_WPML_Column( $post_type );
 			}
 		}
 	}
