@@ -826,7 +826,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @return stdClass Layout object
+	 * @return stdClass|WP_Error Layout object
 	 */
 	public function save_layout( $id, $args ) {
 
