@@ -91,16 +91,39 @@ function cpac_is_wc_version_gte( $version = '1.0' ) {
 	return $wc_version && version_compare( $wc_version, $version, '>=' );
 }
 
+/**
+ * @return bool True when ACF plugin is activated.
+ */
 function cpac_is_acf_active() {
 	return class_exists( 'acf', false );
 }
 
+/**
+ * @return bool True when WooCommerce plugin is activated.
+ */
 function cpac_is_woocommerce_active() {
 	return class_exists( 'WooCommerce', false );
 }
 
+/**
+ * @return bool True when Admin Columns Pro plugin is activated.
+ */
 function cpac_is_pro_active() {
-	return class_exists( 'CAC_Addon_Pro', false );
+	return function_exists( 'ac_pro' );
+}
+
+/**
+ * @return bool True when Admin Columns ACF add-on plugin is activated.
+ */
+function cpac_is_addon_acf_active() {
+	return class_exists( 'CPAC_Addon_ACF', false );
+}
+
+/**
+ * @return bool True when Admin Columns WooCommerce add-on plugin is activated.
+ */
+function cpac_is_addon_woocommerce_active() {
+	return class_exists( 'CPAC_Addon_WC', false );
 }
 
 /**
