@@ -23,7 +23,7 @@ abstract class CPAC_Storage_Model {
 	public $singular_label;
 
 	/**
-	 * Identifier for Storage Model; Posttype etc.
+	 * Identifier for Storage Model; Post type etc.
 	 *
 	 * @since 2.0
 	 */
@@ -516,7 +516,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Set menutype
+	 * Set menu type
 	 *
 	 * @since 2.4.1
 	 */
@@ -610,7 +610,7 @@ abstract class CPAC_Storage_Model {
 		// filter out hidden meta fields
 		foreach ( $fields as $field ) {
 
-			// give hidden fields a prefix for identifaction
+			// give hidden fields a prefix for identification
 			if ( "_" == substr( $field[0], 0, 1 ) ) {
 				$combined_fields[] = 'cpachidden' . $field[0];
 			} // non hidden fields are saved as is
@@ -915,7 +915,7 @@ abstract class CPAC_Storage_Model {
 				$columns[ $name ] = $_column->sanitize_storage( $options );
 			}
 
-			// Santize Label: Need to replace the url for images etc, so we do not have url problem on exports
+			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
 			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
 			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
 		}
@@ -936,7 +936,7 @@ abstract class CPAC_Storage_Model {
 		 *
 		 * @since 2.2.9
 		 *
-		 * @param array $columns List of columns ([columnid] => (array) [column properties])
+		 * @param array $columns List of columns ([column id] => (array) [column properties])
 		 * @param CPAC_Storage_Model $storage_model_instance Storage model instance
 		 */
 		do_action( 'cac/storage_model/columns_stored', $columns, $this );
@@ -948,7 +948,7 @@ abstract class CPAC_Storage_Model {
 	 * Goes through all files in 'classes/column' and requires each file.
 	 *
 	 * @since 2.0.1
-	 * @return array Column Classnames | Filepaths
+	 * @return array Column Class names | File paths
 	 */
 	public function set_columns_filepath() {
 
@@ -1000,10 +1000,10 @@ abstract class CPAC_Storage_Model {
 					continue;
 				}
 
-				// build classname from filename
+				// build class name from filename
 				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
 
-				// classname | filepath
+				// class name | file path
 				$columns[ $class_name ] = $leaf->getPathname();
 			}
 		}
@@ -1169,7 +1169,7 @@ abstract class CPAC_Storage_Model {
 		// add active stored headings
 		foreach ( $stored_columns as $column_name => $options ) {
 
-			// Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
+			// Strip slashes for HTML tagged labels, like icons and checkboxes
 			$label = stripslashes( $options['label'] );
 
 			// Remove 3rd party columns that are no longer available (deactivated or removed from code)
@@ -1179,7 +1179,6 @@ abstract class CPAC_Storage_Model {
 
 			/**
 			 * Filter the stored column headers label for use in a WP_List_Table
-			 * Label needs stripslashes() for HTML tagged labels, like icons and checkboxes
 			 *
 			 * @since 2.0
 			 *

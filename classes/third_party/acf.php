@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  *
- * @return array Posttypes
+ * @return array Post Types
  */
 function cpac_remove_acf_from_cpac_post_types( $post_types ) {
 	if ( class_exists( 'Acf', false ) ) {

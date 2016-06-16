@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Upgrade
  *
- * Class largely based on code from ACF ( thanks to Elliot Condon )
+ * Class largely based on code from ACF ( props to Elliot )
  *
  * @since 2.0
  */
@@ -74,7 +74,7 @@ class AC_Upgrade {
 	}
 
 	/**
-	 * Add submenu page & scripts
+	 * Add sub menu page & scripts
 	 *
 	 * @since 2.0
 	 */
@@ -207,7 +207,7 @@ class AC_Upgrade {
 								// convert: Users
 								if ( 'wp-users' == $storage_key ) {
 
-									// is user postcount?
+									// is user post count?
 									if ( strpos( $old_column_name, 'column-user_postcount-' ) !== false ) {
 										$settings['type'] = 'column-user_postcount';
 										$settings['clone'] = $post_count;

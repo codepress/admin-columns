@@ -111,7 +111,7 @@ class AC_Addons {
 				.cpac_message .hide-notice:before {
 					display: block;
 					content: '\f335';
-					font-family: 'Dashicons';
+					font-family: 'Dashicons', serif;
 					margin: .5em 0;
 					padding: 2px;
 				}
@@ -131,7 +131,7 @@ class AC_Addons {
 
 							$.post( ajaxurl, {
 								'action' : 'cpac_hide_install_addons_notice'
-							}, function( data ) {
+							}, function() {
 								el.find( '.spinner' ).remove();
 								el.slideUp();
 							} );
@@ -217,7 +217,7 @@ class AC_Addons {
 		if ( ! empty( $urlparts['query'] ) ) {
 			$admin_url = $urlparts['scheme'] . '://' . $urlparts['host'] . $urlparts['path'];
 
-			// activate or deactivae plugin
+			// activate or deactivate plugin
 			if ( admin_url( 'plugins.php' ) == $admin_url ) {
 				parse_str( $urlparts['query'], $request );
 
@@ -359,12 +359,11 @@ class AC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $slug Plugin dirname/slug
+	 * @param string $slug Plugin directory name/slug
 	 *
 	 * @return bool Returns true if there is no add-on installed with the passed ID, false otherwise
 	 */
 	public function is_addon_installed( $slug ) {
-
 		return $this->get_installed_addon_plugin_basename( $slug ) ? true : false;
 	}
 
@@ -373,13 +372,12 @@ class AC_Addons {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $slug Plugin dirname/slug
+	 * @param string $slug Plugin directory name/slug
 	 *
 	 * @return string|bool Returns the plugin basename if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_basename( $slug ) {
-
-		$plugins = get_plugins();
+		$plugins = (array) get_plugins();
 
 		foreach ( $plugins as $plugin_basename => $plugin ) {
 			if ( $slug == dirname( $plugin_basename ) ) {
@@ -393,13 +391,12 @@ class AC_Addons {
 	/**
 	 * @since 2.2
 	 *
-	 * @param string $slug Plugin dirname/slug
+	 * @param string $slug Plugin directory name/slug
 	 *
 	 * @return string|bool Returns the plugin version if the plugin is installed, false otherwise
 	 */
 	public function get_installed_addon_plugin_version( $slug ) {
-
-		$plugins = get_plugins();
+		$plugins = (array) get_plugins();
 
 		foreach ( $plugins as $plugin_basename => $plugin ) {
 			if ( $slug == dirname( $plugin_basename ) ) {
