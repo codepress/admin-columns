@@ -11,6 +11,9 @@
 
 @blue: #21759B;
 
+@red: #BC0B0B;
+@red-light: #f00;
+
 // Mixin
 .placeholder( @rules ) {
 	&::-webkit-input-placeholder {
@@ -1040,6 +1043,14 @@
 			display: inline-block;
 			margin-top: 5px;
 			margin-left: 5px;
+
+			&.clear_columns {
+				color: @red;
+				text-decoration: none;
+				&:hover {
+					color: @red-light;
+				}
+			}
 		}
 	}
 }
@@ -1213,7 +1224,7 @@
 			}
 			.reset-column-type {
 				text-decoration: none;
-				color: #BC0B0B;
+				color: @red;
 				line-height: 25px;
 				display: inline-block;
 				background: none;
@@ -1224,7 +1235,7 @@
 				margin: 0;
 
 				&:hover {
-					color: #f00;
+					color: @red-light;
 				}
 			}
 			.form-update {
