@@ -797,15 +797,11 @@ function cpac_reset_columns(){
 
 
 	$('a[data-clear-columns]' ).on( 'click', function(){
-		var confirm_clear = confirm( cpac_i18n.clear_columns_confirmation );
-		if( confirm_clear == true ){
-			$container.find('.cpac-column' ).each( function(){
-				$(this ).find('.remove-button' ).trigger('click');
-			});
-		}
+		$container.find('.cpac-column' ).each( function(){
+			$(this ).find('.remove-button' ).trigger('click');
+		});
 	});
 }
-
 
 /*
  * Bind events: triggered after column is init, changed or added

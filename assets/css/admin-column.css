@@ -822,6 +822,7 @@
 }
 .column-footer .button-container a.clear_columns {
   color: #BC0B0B;
+  text-decoration: none;
 }
 .column-footer .button-container a.clear_columns:hover {
   color: #f00;

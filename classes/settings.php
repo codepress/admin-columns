@@ -235,7 +235,6 @@ class AC_Settings {
 		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
-			'clear_columns_confirmation' => __( 'Are you sure you want to remove all columns?', 'codepress-admin-columns' )
 		) );
 
 		// nonce
@@ -265,7 +264,11 @@ class AC_Settings {
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
-			wp_die();
+			wp_send_json_error( array(
+					'type'    => 'error',
+					'message' => __( 'You need at least one column', 'codepress-admin-columns' )
+				)
+			);
 		}
 
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
@@ -982,7 +985,9 @@ class AC_Settings {
 											<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 										</div>
 										<div class="button-container">
-											<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Remove all columns ', 'codepress-admin-columns' ) ?></a>
+											<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
+											<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+											<?php endif; ?>
 											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
 											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
 											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
