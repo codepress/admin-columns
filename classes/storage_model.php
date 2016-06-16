@@ -270,7 +270,7 @@ abstract class CPAC_Storage_Model {
 				$autoload = true;
 
 				// check for autoload condition
-				if ( false !== $path ) {
+				if ( true !== $path ) {
 					$autoload = false;
 
 					if ( is_readable( $path ) ) {
