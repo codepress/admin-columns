@@ -62,7 +62,7 @@ class AC_Notice_Review {
 
 		$product = __( 'Admin Columns', 'codepress-admin-columns' );
 
-		if ( cpac()->is_pro_active() ) {
+		if ( cpac_is_pro_active() ) {
 			$product = __( 'Admin Columns Pro', 'codepress-admin-columns' );
 		}
 		?>
@@ -89,7 +89,7 @@ class AC_Notice_Review {
 						$product,
 						'<a href="' . ac_get_site_url( 'documentation' ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
-					<?php if ( cpac()->is_pro_active() ) : ?>
+					<?php if ( cpac_is_pro_active() ) : ?>
 						<?php printf(
 							__( 'As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!', 'codepress-admin-columns' ),
 							'<a href="' . ac_get_site_url( 'forumns' ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'

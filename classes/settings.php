@@ -1088,8 +1088,7 @@ class AC_Settings {
 							// Not installed...
 							else :
 
-								// Got ACP?
-								if ( class_exists( 'CAC_Addon_Pro' ) ) :
+								if ( cpac_is_pro_active() ) :
 									$install_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'install',
 										'plugin' => $addon_name,

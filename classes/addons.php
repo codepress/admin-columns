@@ -45,11 +45,11 @@ class AC_Addons {
 
 		$plugins = array();
 
-		if ( cpac()->is_plugin_acf_active() && ! class_exists( 'CPAC_Addon_ACF' ) ) {
+		if ( cpac_is_acf_active() && ! cpac_is_addon_acf_active() ) {
 			$plugins[] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
 		}
 
-		if ( cpac()->is_plugin_woocommerce_active() && ! class_exists( 'CPAC_Addon_WC' ) ) {
+		if ( cpac_is_woocommerce_active() && ! cpac_is_addon_woocommerce_active() ) {
 			$plugins[] = __( 'WooCommerce', 'codepress-admin-columns' );
 		}
 
@@ -172,7 +172,7 @@ class AC_Addons {
 			return;
 		}
 
-		if ( ! class_exists( 'CAC_Addon_Pro', false ) ) {
+		if ( ! cpac_is_pro_active() ) {
 			cpac_admin_message( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
 
 			return;

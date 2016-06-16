@@ -702,7 +702,7 @@ class CPAC {
 	 * @return bool Whether the Advanced Custom Fields plugin is active
 	 */
 	public function is_plugin_acf_active() {
-		return class_exists( 'acf', false );
+		return cpac_is_acf_active();
 	}
 
 	/**
@@ -713,18 +713,7 @@ class CPAC {
 	 * @return bool Whether the WooCommerce plugin is active
 	 */
 	public function is_plugin_woocommerce_active() {
-		return class_exists( 'WooCommerce', false );
-	}
-
-	/**
-	 * Check whether the Pro plugin is active
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @return bool Whether the Pro plugin is active
-	 */
-	public function is_pro_active() {
-		return function_exists( 'ac_pro' );
+		return cpac_is_woocommerce_active();
 	}
 
 	/**
