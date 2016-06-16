@@ -227,37 +227,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 * @return null|bool
-	 */
-	public function is_editable() {
-	}
-
-	/**
-	 * @param $id int Object ID
-	 *
-	 * @return mixed
-	 */
-	public function get_editable_value( $id ) {
-		return $this->get_raw_value( $id );
-	}
-
-	/**
-	 * @return null|array Editable settings
-	 */
-	public function get_editable_data() {
-	}
-
-	/**
-	 * @param $searchterm
-	 * @param $page
-	 *
-	 * @return null|array
-	 */
-	public function get_editable_ajax_options( $searchterm, $page ) {
-	}
-
-	/**
 	 * @param $id
 	 * @param $value
 	 *
@@ -265,50 +234,7 @@ class CPAC_Column {
 	 */
 	public function save( $id, $value ) {
 	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return null|bool
-	 */
-	public function is_sortable() {
-	}
-
-	/**
-	 * @param $vars array|object Query vars or query object, passed in reference.
-	 *
-	 * @return boolean|array Post ids or true when $vars has been set.
-	 */
-	public function get_sortable_data() {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return null|string
-	 */
-	public function get_sorting_value( $id ) {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return null|bool
-	 */
-	public function is_filterable() {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return null|array
-	 */
-	public function get_filterable_data() {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return null|array
-	 */
-	public function get_filterable_request_vars( $vars, $value ) {
-	}
-
+	
 	/**
 	 * @param int $id
 	 *
