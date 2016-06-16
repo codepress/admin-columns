@@ -146,7 +146,7 @@ class CPAC {
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ), 11 );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
