@@ -45,7 +45,7 @@ class AC_Autoloader {
 				continue;
 			}
 
-			$file = $path . str_replace( '_', '/', strtolower( str_replace( $prefix, '', $class ) ) ) . '.php';
+			$file = $path . str_replace( '_', '/', str_replace( $prefix, '', $class ) ) . '.php';
 
 			if ( is_readable( $file ) ) {
 				require_once $file;
