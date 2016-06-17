@@ -990,18 +990,17 @@ abstract class CPAC_Storage_Model {
 			$iterator = new DirectoryIterator( $columns_dir );
 
 			foreach ( $iterator as $leaf ) {
-
 				if ( $leaf->isDot() || $leaf->isDir() ) {
 					continue;
 				}
 
-				// only allow php files, exclude .SVN .DS_STORE and such
-				if ( substr( $leaf->getFilename(), -4 ) !== '.php' ) {
+				// skip non php files
+				if ( 'php' !== $leaf->getExtension() ) {
 					continue;
 				}
 
 				// build class name from filename
-				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
+				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename() ) ) );
 
 				// class name | file path
 				$columns[ $class_name ] = $leaf->getPathname();
