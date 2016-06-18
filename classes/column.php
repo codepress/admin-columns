@@ -333,7 +333,7 @@ class CPAC_Column {
 	 * Get a single column option
 	 *
 	 * @since 2.3.4
-	 * @return array Column options set by user
+	 * @return string Single column option
 	 */
 	public function get_option( $name ) {
 		return isset( $this->options->{$name} ) ? $this->options->{$name} : false;
