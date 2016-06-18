@@ -1000,7 +1000,7 @@ abstract class CPAC_Storage_Model {
 				}
 
 				// build class name from filename
-				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename() ) ) );
+				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
 
 				// class name | file path
 				$columns[ $class_name ] = $leaf->getPathname();
