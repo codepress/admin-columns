@@ -15,12 +15,12 @@ class AC_Helper_Array {
 	 *
 	 * @return array Array keys
 	 */
-	public function get_array_keys_sorted_by_value( $array, $sort_flags = 'natural' ) {
-		if ( 'natural' === $sort_flags ) {
-			natcasesort( $array );
+	public function get_array_keys_sorted_by_value( $array, $type = 'string' ) {
+		if ( 'numeric' === strtolower( $type ) ) {
+			asort( $array, SORT_NUMERIC );
 		}
-		else if ( is_int( $sort_flags ) ) {
-			asort( $array, $sort_flags );
+		else {
+			natcasesort( $array );
 		}
 
 		return array_keys( $array );
