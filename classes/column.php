@@ -234,7 +234,7 @@ class CPAC_Column {
 	 */
 	public function save( $id, $value ) {
 	}
-	
+
 	/**
 	 * @param int $id
 	 *
@@ -407,6 +407,7 @@ class CPAC_Column {
 
 	/**
 	 * @param string $field_name
+	 *
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
@@ -1389,6 +1390,63 @@ class CPAC_Column {
 	public function display_indicator( $name, $label ) { ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
+	}
+
+	/**
+	 * @param array $args Icons args
+	 *
+	 * @return string
+	 */
+	public function get_dashicon( $args = array() ) {
+		$defaults = array(
+			'icon'    => '',
+			'title'   => '',
+			'class'   => '',
+			'tooltip' => '',
+		);
+
+		$data = (object) wp_parse_args( $args, $defaults );
+
+		if ( $data->tooltip ) {
+			$data->class .= ' cpac-tip';
+		}
+
+		return '<span class="dashicons dashicons-' . $data->icon . ' ' . esc_attr( trim( $data->class ) ) . '"' . ( $data->title ? ' title="' . esc_attr( $data->title ) . '"' : '' ) . '' . ( $data->tooltip ? 'data-tip="' . esc_attr( $data->tooltip ) . '"' : '' ) . '></span>';
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_dashicon_yes( $tooltip = false, $title = true ) {
+		if ( true === $title ) {
+			$title = __( 'Yes' );
+		}
+
+		return $this->get_dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_dashicon_no( $tooltip = false, $title = true ) {
+		if ( true === $title ) {
+			$title = __( 'No' );
+		}
+
+		return $this->get_dashicon( array( 'icon' => 'no', 'class' => 'red', 'title' => $title, 'tooltip' => $tooltip ) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param bool $display
+	 *
+	 * @return string HTML Dashicon
+	 */
+	public function get_icon_yes_or_no( $is_true, $tooltip = '' ) {
+		return $is_true ? $this->get_dashicon_yes( $tooltip ) : $this->get_dashicon_no( $tooltip );
 	}
 
 	/**

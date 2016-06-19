@@ -253,7 +253,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 				break;
 
 			case "checkmark" :
-				$value = ( empty( $raw_value ) || 'false' === $raw_value || '0' === $raw_value ) ? '<span class="dashicons dashicons-no cpac_status_no"></span>' : '<span class="dashicons dashicons-yes cpac_status_yes"></span>';
+				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
+
+				$value = $this->get_icon_yes_or_no( $is_true );
 				break;
 
 			case "color" :

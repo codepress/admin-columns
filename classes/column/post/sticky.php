@@ -21,35 +21,24 @@ class CPAC_Column_Post_Sticky extends CPAC_Column {
 		$this->properties['label'] = __( 'Sticky', 'codepress-admin-columns' );
 	}
 
-	/**
-	 * @see CPAC_Column::apply_conditional()
-	 * @since 2.0
-	 */
 	function apply_conditional() {
 		return 'post' == $this->get_post_type();
 	}
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
 	function get_value( $post_id ) {
-		return $this->get_raw_value( $post_id ) ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';
+		return $this->get_icon_yes_or_no( $this->is_sticky( $post_id ) );
 	}
 
+	function get_raw_value( $post_id ) {
+		return $this->is_sticky( $post_id );
+	}
+
+	// Helpers
 	private function is_sticky( $post_id ) {
 		if ( null === $this->stickies ) {
 			$this->stickies = get_option( 'sticky_posts' );
 		}
 
 		return in_array( $post_id, (array) $this->stickies );
-	}
-
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
-	 */
-	function get_raw_value( $post_id ) {
-		return $this->is_sticky( $post_id );
 	}
 }

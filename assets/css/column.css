@@ -24,6 +24,12 @@ span.status-closed {
 body.edit-tags-php .tablenav.top .cpac-edit {
   float: none;
 }
+span.dashicons.green {
+  color: #46b450;
+}
+span.dashicons.red {
+  color: #dc3232;
+}
 .cpac_status_yes {
   color: #46b450;
 }

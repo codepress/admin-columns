@@ -26,7 +26,7 @@ class CPAC_Column_Comment_Approved extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $id ) {
-		return $this->get_raw_value( $id ) ? '<span class="dashicons dashicons-yes cpac_status_yes"></span>' : '<span class="dashicons dashicons-no cpac_status_no"></span>';;
+		return $this->get_icon_yes_or_no( $this->get_raw_value( $id ) );
 	}
 
 	/**
