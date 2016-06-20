@@ -56,7 +56,7 @@ class CPAC_WPML {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
-		if ( ! cpac()->is_columns_screen() ) {
+		if ( ! cpac()->get_current_storage_model() ) {
 			return;
 		}
 
