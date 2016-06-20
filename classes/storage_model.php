@@ -439,28 +439,11 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
-	 * @return string Column Value
 	 */
-	protected function get_manage_value( $column_name, $id, $value = '' ) {
+	protected function get_display_value_by_column_name( $column_name, $id, $value = false ) {
 		$column = $this->get_column_by_name( $column_name );
-		if ( ! $column ) {
-			return false;
-		}
 
-		$display_value = $column->get_value( $id );
-
-		if ( $display_value || 0 === $display_value ) {
-			$value = $display_value;
-		}
-
-		if ( $value ) {
-			$value = $column->get_before() . $value . $column->get_after();
-		}
-
-		$value = apply_filters( "cac/column/value", $value, $id, $column, $this->key );
-		$value = apply_filters( "cac/column/value/{$this->type}", $value, $id, $column, $this->key );
-
-		return $value;
+		return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
 	}
 
 	/**

@@ -43,7 +43,7 @@ class CPAC_Storage_Model_Link extends CPAC_Storage_Model {
 		return array();
 	}
 
-	public function manage_value( $column_name, $link_id ) {
-		echo $this->get_manage_value( $column_name, $link_id );
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 }

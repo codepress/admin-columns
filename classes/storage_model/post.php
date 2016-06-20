@@ -26,7 +26,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function init_column_values() {
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
+		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		setup_postdata( $post );
 
 		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100 );
+		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100 );
 
 		ob_start();
 		// Run WordPress native actions to display column content
@@ -81,7 +81,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$contents = ob_get_clean();
 
 		// Add removed Admin Columns action for this column's value
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
+		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		// Restore original post object
 		$post = $post_old;
@@ -164,40 +164,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0
-	 */
-	public function manage_value( $column_name, $post_id ) {
-		// Setup post data for current post
-		// TODO: remove?
-		global $post;
-		$post_old = $post;
-		$post = get_post( $post_id );
-		setup_postdata( $post );
-
-		$value = $this->get_manage_value( $column_name, $post_id );
-
-		// Reset query to old post
-		// TODO: remove?
-		$post = $post_old;
-		if ( $post ) {
-			setup_postdata( $post );
-		}
-
-		echo $value;
-	}
-
-	/**
 	 * @since 2.4.7
 	 */
-	public function manage_value_callback( $column_name, $post_id ) {
-		$column = $this->get_column_by_name( $column_name );
-		if ( $column && $column->get_handle() ) {
-			ob_start();
-			$this->manage_value( $column_name, $post_id );
-			ob_end_clean();
-		}
-		else {
-			$this->manage_value( $column_name, $post_id );
-		}
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 }

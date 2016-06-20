@@ -1037,6 +1037,32 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 *
+	 * @param $id
+	 *
+	 * @return string Value
+	 */
+	public function get_display_value( $id ) {
+		$value = '';
+
+		$display_value = $this->get_value( $id );
+
+		if ( $display_value || 0 === $display_value ) {
+			$value = $display_value;
+		}
+
+		if ( $value ) {
+			$value = $this->get_before() . $value . $this->get_after();
+		}
+
+		$value = apply_filters( "cac/column/value", $value, $id, $this, $this->get_storage_model_key() );
+		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_storage_model_key() );
+
+		return $value;
+	}
+
+	/**
 	 * Get display name.
 	 *
 	 * Can also be used by addons.
