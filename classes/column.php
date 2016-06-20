@@ -227,15 +227,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @param $id
-	 * @param $value
-	 *
-	 * @return WP_Error|bool
-	 */
-	public function save( $id, $value ) {
-	}
-
-	/**
 	 * @param int $id
 	 *
 	 * @return object

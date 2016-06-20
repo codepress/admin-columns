@@ -194,7 +194,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @return string Column value
 	 */
-	public function get_original_column_value( $column, $id ) {
+	public function get_original_column_value( $column_name, $id ) {
 	}
 
 	/**

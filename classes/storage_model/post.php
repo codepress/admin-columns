@@ -56,8 +56,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * @since 2.2.1
 	 */
-	public function get_original_column_value( $column, $id ) {
-
+	public function get_original_column_value( $column_name, $id ) {
 		global $post;
 
 		// Setup post data for current post
@@ -71,13 +70,13 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		ob_start();
 		// Run WordPress native actions to display column content
 		if ( is_post_type_hierarchical( $this->post_type ) ) {
-			do_action( 'manage_pages_custom_column', $column, $id );
+			do_action( 'manage_pages_custom_column', $column_name, $id );
 		}
 		else {
-			do_action( 'manage_posts_custom_column', $column, $id );
+			do_action( 'manage_posts_custom_column', $column_name, $id );
 		}
 
-		do_action( "manage_{$this->post_type}_posts_custom_column", $column, $id );
+		do_action( "manage_{$this->post_type}_posts_custom_column", $column_name, $id );
 
 		$contents = ob_get_clean();
 

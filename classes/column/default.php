@@ -30,10 +30,6 @@ class CPAC_Column_Default extends CPAC_Column {
 	 * @see CPAC_Column::get_value()
 	 */
 	public function get_value( $post_id ) {
-		if ( $handle = $this->get_handle() ) {
-			return $this->get_storage_model()->get_original_column_value( $handle, $post_id );
-		}
-
-		return '';
+		return $this->get_storage_model()->get_original_column_value( $this->get_handle(), $post_id );
 	}
 }
