@@ -21,3 +21,20 @@ function cpac_remove_acf_from_cpac_post_types( $post_types ) {
 	return $post_types;
 }
 add_filter( 'cac/post_types', 'cpac_remove_acf_from_cpac_post_types' );
+
+/**
+ * place ACF on top of the grouped list
+ */
+function cpac_place_acf_on_top_of_group_list( $grouped_columns ) {
+	$label = __( 'Advanced Custom Fields', 'acf' );
+
+	if ( isset( $grouped_columns[ $label ] ) ) {
+		$group[ $label ] = $grouped_columns[ $label ];
+		unset( $grouped_columns[ $label ] );
+		$grouped_columns = $group + $grouped_columns;
+	}
+
+	return $grouped_columns;
+}
+
+add_filter( 'cac/grouped_columns', 'cpac_place_acf_on_top_of_group_list' );

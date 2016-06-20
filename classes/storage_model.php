@@ -229,7 +229,6 @@ abstract class CPAC_Storage_Model {
 		$grouped = array();
 
 		foreach ( $this->get_column_types() as $type => $column ) {
-
 			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
@@ -238,7 +237,7 @@ abstract class CPAC_Storage_Model {
 			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_label() ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_label() ) );
 
 			if ( ! $column->is_default() ) {
-				asort( $grouped[ $column->get_group() ]['options'] );
+				natcasesort( $grouped[ $column->get_group() ]['options'] );
 			}
 		}
 
@@ -990,17 +989,13 @@ abstract class CPAC_Storage_Model {
 			$iterator = new DirectoryIterator( $columns_dir );
 
 			foreach ( $iterator as $leaf ) {
-				if ( $leaf->isDot() || $leaf->isDir() ) {
-					continue;
-				}
 
 				// skip non php files
-				if ( 'php' !== $leaf->getExtension() ) {
+				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== $leaf->getExtension() ) {
 					continue;
 				}
-
 				// build class name from filename
-				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', basename( $leaf->getFilename(), '.php' ) ) ) );
+				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
 
 				// class name | file path
 				$columns[ $class_name ] = $leaf->getPathname();

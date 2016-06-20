@@ -11,8 +11,7 @@ class CPAC_Column_WC_Placeholder extends CPAC_Column {
 
 		$this->properties['type'] = 'column-wc_placeholder';
 		$this->properties['label'] = __( 'WooCommerce', 'codepress-admin-columns' );
-		$this->properties['is_pro_only'] = true;
-		$this->properties['group'] = 'woocommerce';
+		$this->properties['group'] = __( 'WooCommerce', 'codepress-admin-columns' );
 	}
 
 	public function apply_conditional() {
