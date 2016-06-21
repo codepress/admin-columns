@@ -20,10 +20,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		$this->properties['label'] = __( 'Display Author As', 'codepress-admin-columns' );
 		$this->properties['is_cloneable'] = true;
 		$this->properties['object_property'] = 'post_author';
-
-		// Options
-		$this->options['display_author_as'] = '';
-		$this->options['user_link_to'] = '';
 	}
 
 	/**

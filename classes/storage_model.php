@@ -1120,7 +1120,9 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Stores the default columns on the listings screen
-		$this->store_default_columns( $columns );
+		if ( ! cac_wp_is_doing_ajax() ) {
+			$this->store_default_columns( $columns );
+		}
 
 		// make sure we run this only once
 		if ( $this->column_headings ) {
