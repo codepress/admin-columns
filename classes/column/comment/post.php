@@ -35,26 +35,26 @@ class CPAC_Column_Comment_Post extends CPAC_Column {
 
 		// Get page to link to
 		switch ( $this->get_option( 'post_link_to' ) ) {
-			case 'edit_post':
+			case 'edit_post' :
 				$link = get_edit_post_link( $raw_value );
 				break;
-			case 'view_post':
+			case 'view_post' :
 				$link = get_permalink( $raw_value );
 				break;
-			case 'edit_author':
+			case 'edit_author' :
 				$link = get_edit_user_link( get_post_field( 'post_author', $raw_value ) );
 				break;
-			case 'view_author':
+			case 'view_author' :
 				$link = get_author_posts_url( get_post_field( 'post_author', $raw_value ) );
 				break;
 		}
 
 		// Get property of post to display
 		switch ( $this->get_option( 'post_property_display' ) ) {
-			case 'author':
+			case 'author' :
 				$label = get_the_author_meta( 'display_name', get_post_field( 'post_author', $raw_value ) );
 				break;
-			case 'id':
+			case 'id' :
 				$label = $raw_value;
 				break;
 			default:

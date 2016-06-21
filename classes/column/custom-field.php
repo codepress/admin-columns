@@ -355,17 +355,17 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 		) );
 
 		switch ( $this->get_field_type() ) {
-			case 'date':
+			case 'date' :
 				$this->display_field_date_format();
 				break;
-			case 'image':
-			case 'library_id':
+			case 'image' :
+			case 'library_id' :
 				$this->display_field_preview_size();
 				break;
-			case 'excerpt':
+			case 'excerpt' :
 				$this->display_field_excerpt_length();
 				break;
-			case 'link':
+			case 'link' :
 				$this->display_field_link_label();
 				break;
 		}

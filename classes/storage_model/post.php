@@ -128,7 +128,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	protected function get_screen_link() {
-		return add_query_arg( array( 'post_type' => $this->key ), admin_url( $this->page . '.php' ) );
+		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
 	}
 
 	/**

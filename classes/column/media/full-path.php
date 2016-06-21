@@ -37,7 +37,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 
 		if ( $file = wp_get_attachment_url( $id ) ) {
 			switch ( $this->get_pathscope() ) {
-				case 'relative-domain':
+				case 'relative-domain' :
 					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', home_url( '/' ) );
 
@@ -46,7 +46,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 					}
 
 					break;
-				case 'relative-uploads':
+				case 'relative-uploads' :
 					$uploaddir = wp_upload_dir();
 					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', $uploaddir['baseurl'] );
