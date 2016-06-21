@@ -173,14 +173,6 @@ function ac_site_url( $path = '' ) {
 
 /**
  * @since NEWVERSION
- * @return CAC_Sortable_Model
- */
-function ac_get_sortable_model( $key ) {
-	return function_exists( 'ac_sortable' ) ? ac_sortable()->get_model( $key ) : false;
-}
-
-/**
- * @since NEWVERSION
  * @return CACIE_Editable_Model
  */
 function ac_get_editable_model( $key ) {
