@@ -271,6 +271,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 
 		endswitch;
 
+		if ( ! $value ) {
+			$value = $this->get_empty_char();
+		}
+
 		/**
 		 * Filter the display value for Custom Field columns
 		 *
