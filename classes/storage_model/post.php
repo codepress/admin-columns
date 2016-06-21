@@ -26,7 +26,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function init_column_values() {
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
 	/**
@@ -48,7 +48,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.7.2
 	 */
 	private function set_labels() {
-		$post_type_object = get_post_type_object( $this->post_type );
+		$post_type_object = get_post_type_object( $this->get_post_type() );
+
 		$this->label = $post_type_object->labels->name;
 		$this->singular_label = $post_type_object->labels->singular_name;
 	}
@@ -64,33 +65,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post = get_post( $id );
 		setup_postdata( $post );
 
-		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100 );
-
+		// Start
 		ob_start();
-		// Run WordPress native actions to display column content
-		if ( is_post_type_hierarchical( $this->post_type ) ) {
-			do_action( 'manage_pages_custom_column', $column_name, $id );
+
+		/** @var WP_List_Table|WP_Posts_List_Table $table */
+		$table = $this->get_list_table();
+
+		if ( method_exists( $table, 'column_' . $column_name ) ) {
+			call_user_func( array( $table, 'column_' . $column_name ), $post );
 		}
-		else {
-			do_action( 'manage_posts_custom_column', $column_name, $id );
+		else if ( method_exists( $table, 'column_default' ) ) {
+			$table->column_default( $post, $column_name );
 		}
-
-		do_action( "manage_{$this->post_type}_posts_custom_column", $column_name, $id );
-
-		$contents = ob_get_clean();
-
-		// Add removed Admin Columns action for this column's value
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		// Restore original post object
 		$post = $post_old;
-
 		if ( $post ) {
 			setup_postdata( $post );
 		}
 
-		return $contents;
+		return ob_get_clean();
 	}
 
 	/**
