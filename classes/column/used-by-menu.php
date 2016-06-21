@@ -61,7 +61,7 @@ class CPAC_Column_Used_By_Menu extends CPAC_Column {
 	}
 
 	/**
-	 * Get object metatype of the storage model
+	 * Get object meta type of the storage model
 	 *
 	 * @since 2.2.5
 	 */

@@ -22,7 +22,6 @@ class CPAC_Column_Post_Comment_Count extends CPAC_Column {
 	}
 
 	/**
-	 * get_comment_stati
 	 * @since 2.0
 	 */
 	function get_comment_stati() {

@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) or die();
 
 /**
- * CPAC_Column_Post_Before_Moretag
+ * CPAC_Column_Post_Before_More tag
  *
  * @since 2.0
  */

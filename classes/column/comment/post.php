@@ -8,30 +8,20 @@ defined( 'ABSPATH' ) or die();
  */
 class CPAC_Column_Comment_Post extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.4.7
-	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
-		$this->properties['type']				= 'column-post';
-		$this->properties['label']	 			= __( 'Post', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-post';
+		$this->properties['label'] = __( 'Post', 'codepress-admin-columns' );
 
-		// Options
-		$this->options['post_property_display']	= 'title';
-		$this->options['post_link_to']			= 'edit_post';
+		$this->options['post_property_display'] = 'title';
+		$this->options['post_link_to'] = 'edit_post';
 	}
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.4.7
-	 */
 	public function get_value( $id ) {
-
 		$raw_value = $this->get_raw_value( $id );
+
+		$link = false;
 
 		// Get page to link to
 		switch ( $this->get_option( 'post_link_to' ) ) {
@@ -67,25 +57,14 @@ class CPAC_Column_Comment_Post extends CPAC_Column {
 		return $value;
 	}
 
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.4.7
-	 */
 	public function get_raw_value( $id ) {
-
 		$comment = get_comment( $id );
 
 		return $comment->comment_post_ID;
 	}
 
-	/**
-	 * @see CPAC_Column::display_settings()
-	 * @since 2.4.7
-	 */
 	public function display_settings() {
-
 		$this->display_field_post_property_display();
 		$this->display_field_post_link_to();
 	}
-
 }

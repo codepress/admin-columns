@@ -85,7 +85,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	 *
 	 * @since 1.0
 	 *
-	 * @return array Customfield types.
+	 * @return array Custom Field types.
 	 */
 	public function get_custom_field_types() {
 
