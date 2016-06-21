@@ -37,7 +37,7 @@ class AC_Autoloader {
 		$path = trailingslashit( $path );
 
 		$this->prefixes[ $prefix ] = $path;
-		
+
 		// make sure that more specific prefixes are checked first
 		krsort( $this->prefixes );
 	}
@@ -49,7 +49,7 @@ class AC_Autoloader {
 			}
 
 			$file = $path . str_replace( '_', '/', str_replace( $prefix, '', $class ) ) . '.php';
-
+			
 			if ( is_readable( $file ) ) {
 				require_once $file;
 
