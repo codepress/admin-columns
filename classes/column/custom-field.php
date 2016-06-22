@@ -48,6 +48,16 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @return bool|mixed
+	 */
+	public function get_field_label() {
+		$field_labels = $this->get_field_labels();
+
+		return isset( $field_labels[ $this->get_field_type() ] ) ? $field_labels[ $this->get_field_type() ] : false;
+	}
+
+	/**
 	 * @since 3.2.1
 	 */
 	public function is_field_type( $type ) {
@@ -87,7 +97,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	 *
 	 * @return array Custom Field types.
 	 */
-	public function get_custom_field_types() {
+	public function get_field_labels() {
 
 		$custom_field_types = array(
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
@@ -354,7 +364,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
 			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
-			'options'        => $this->get_custom_field_types(),
+			'options'        => $this->get_field_labels(),
 			'refresh_column' => true,
 		) );
 
