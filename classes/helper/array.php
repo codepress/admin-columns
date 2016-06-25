@@ -13,13 +13,12 @@ class AC_Helper_Array {
 	 * @param array $array ( [object_id] => [value] )
 	 * @param int|string $sort_flags Sorting type flags. See sort().
 	 *
-	 * @return array Array keys
+	 * @return array Sorted keys
 	 */
-	public function get_array_keys_sorted_by_value( $array, $type = 'string' ) {
+	public function sort_keys_by_value( $array, $type = 'string' ) {
 		if ( 'numeric' === strtolower( $type ) ) {
 			asort( $array, SORT_NUMERIC );
-		}
-		else {
+		} else {
 			natcasesort( $array );
 		}
 
