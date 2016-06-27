@@ -29,6 +29,6 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_field_excerpt_length();
+		$this->display_field_word_limit();
 	}
 }

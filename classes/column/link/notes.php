@@ -24,6 +24,6 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->display_field_excerpt_length();
+		$this->display_field_word_limit();
 	}
 }

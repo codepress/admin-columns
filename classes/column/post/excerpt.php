@@ -48,6 +48,6 @@ class CPAC_Column_Post_Excerpt extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_settings() {
-		$this->display_field_excerpt_length();
+		$this->display_field_word_limit();
 	}
 }

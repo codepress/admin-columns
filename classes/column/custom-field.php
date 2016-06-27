@@ -25,7 +25,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes'] = 'cpac-box-metafield';
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
-		$this->properties['use_before_after'] = true;
+		//$this->properties['use_before_after'] = true;
 
 		// Default options
 		$this->options['image_size'] = 'cpac-custom';
@@ -377,12 +377,14 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 				$this->display_field_preview_size();
 				break;
 			case 'excerpt' :
-				$this->display_field_excerpt_length();
+				$this->display_field_word_limit();
 				break;
 			case 'link' :
 				$this->display_field_link_label();
 				break;
 		}
+
+		$this->display_field_before_after();
 	}
 
 	/**

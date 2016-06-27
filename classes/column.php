@@ -1316,15 +1316,34 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0
+	 * @since NEWVERSION
 	 */
-	public function display_field_excerpt_length() {
+	public function display_field_word_limit() {
 		$this->form_field( array(
 			'type'        => 'text',
 			'name'        => 'excerpt_length',
-			'label'       => __( 'Excerpt length', 'codepress-admin-columns' ),
-			'description' => __( 'Number of words', 'codepress-admin-columns' ),
+			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
 		) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function display_field_character_limit() {
+		$this->form_field( array(
+			'type'        => 'text',
+			'name'        => 'char_limit',
+			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ),
+		) );
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display_field_excerpt_length() {
+		$this->display_field_word_limit();
 	}
 
 	/**
@@ -1342,66 +1361,88 @@ class CPAC_Column {
 	/**
 	 * @since 2.0
 	 */
-	public function display_field_preview_size() { ?>
-		<tr>
-			<?php $this->label_view( __( 'Preview size', 'codepress-admin-columns' ) ); ?>
+	public function display_field_preview_size() {
+		$this->form_fields( array(
+			'label'  => __( 'Preview size', 'codepress-admin-columns' ),
+			'fields' => array(
+				array(
+					'type'            => 'select',
+					'name'            => 'image_size',
+					'grouped_options' => $this->get_all_image_sizes()
+				),
+				array(
+					'type'          => 'text',
+					'name'          => 'image_size_w',
+					'label'         => __( "Width", 'codepress-admin-columns' ),
+					'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
+					'toggle_handle' => 'image_size_w',
+					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
+				),
+				array(
+					'type'          => 'text',
+					'name'          => 'image_size_h',
+					'label'         => __( "Height", 'codepress-admin-columns' ),
+					'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
+					'toggle_handle' => 'image_size_h',
+					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
+				)
+			)
+		) );
+	}
+
+	/**
+	 * @param array $args
+	 */
+	public function form_fields( $args = array() ) {
+		$defaults = array(
+			'label'       => '',
+			'description' => '',
+			'fields'      => array()
+		);
+		$args = wp_parse_args( $args, $defaults );
+		?>
+		<tr class="section">
+			<?php $this->label_view( $args['label'], $args['description'] ); ?>
 			<td class="input nopadding">
 				<table class="widefat">
-					<?php
-					$this->form_field( array(
-						'type'            => 'select',
-						'name'            => 'image_size',
-						'grouped_options' => $this->get_all_image_sizes()
-					) );
-					$this->form_field( array(
-						'type'          => 'text',
-						'name'          => 'image_size_w',
-						'label'         => __( "Width", 'codepress-admin-columns' ),
-						'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
-						'toggle_handle' => 'image_size_w',
-						'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
-					) );
-					$this->form_field( array(
-						'type'          => 'text',
-						'name'          => 'image_size_h',
-						'label'         => __( "Height", 'codepress-admin-columns' ),
-						'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
-						'toggle_handle' => 'image_size_h',
-						'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
-					) );
-					?>
+					<?php foreach ( $args['fields'] as $field ) {
+						$this->form_field( $field );
+					} ?>
 				</table>
 			</td>
 		</tr>
 		<?php
 	}
 
+	public function get_form_args_before() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'before',
+			'label'       => __( "Before", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
+		);
+	}
+
+	public function get_form_args_after() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'after',
+			'label'       => __( "After", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
+		);
+	}
+
 	/**
 	 * @since 2.1.1
 	 */
-	public function display_field_before_after() { ?>
-		<tr class="section">
-			<?php $this->label_view( __( 'Display Options', 'codepress-admin-columns' ) ); ?>
-			<td class="input nopadding">
-				<table class="widefat">
-					<?php
-					$this->form_field( array(
-						'type'        => 'text',
-						'name'        => 'before',
-						'label'       => __( "Before", 'codepress-admin-columns' ),
-						'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
-					) );
-					$this->form_field( array(
-						'type'        => 'text',
-						'name'        => 'after',
-						'label'       => __( "After", 'codepress-admin-columns' ),
-						'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
-					) );
-					?>
-				</table>
-			</td>
-		</tr>
-		<?php
+	public function display_field_before_after() {
+		$this->form_fields( array(
+			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
+			'fields' => array(
+				$this->get_form_args_before(),
+				$this->get_form_args_after()
+			)
+		) );
 	}
 
 	public function display_indicator( $name, $label ) { ?>
@@ -1576,16 +1617,6 @@ class CPAC_Column {
 					 */
 					$this->display_settings();
 
-					?>
-
-					<?php
-					/**
-					 * Load before and after fields for custom columns.
-					 *
-					 */
-					if ( $this->get_property( 'use_before_after' ) && ! $this->is_default() ) {
-						$this->display_field_before_after();
-					}
 					?>
 
 					<?php
