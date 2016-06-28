@@ -806,7 +806,9 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-
+		return ac_helper()->media->get_thumbnails( $images, $args );
+		
+		
 		if ( empty( $images ) || 'false' == $images ) {
 			return array();
 		}
