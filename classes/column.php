@@ -69,19 +69,7 @@ class CPAC_Column {
 	 *
 	 * @return array Options
 	 */
-	protected function sanitize_options( $options ) {
-
-		if ( isset( $options['date_format'] ) ) {
-			$options['date_format'] = trim( $options['date_format'] );
-		}
-
-		if ( isset( $options['width'] ) ) {
-			$options['width'] = trim( $options['width'] );
-			if ( ! is_numeric( $options['width'] ) ) {
-				$options['width'] = '';
-			}
-		}
-
+	public function sanitize_options( $options ) {
 		return $options;
 	}
 
@@ -428,12 +416,12 @@ class CPAC_Column {
 	public function sanitize_storage( $options ) {
 
 		// excerpt length must be numeric, else we will return it's default
-		if ( isset( $options['excerpt_length'] ) ) {
+		/*if ( isset( $options['excerpt_length'] ) ) {
 			$options['excerpt_length'] = trim( $options['excerpt_length'] );
 			if ( empty( $options['excerpt_length'] ) || ! is_numeric( $options['excerpt_length'] ) ) {
 				$options['excerpt_length'] = 30;
 			}
-		}
+		}*/
 
 		if ( ! empty( $options['label'] ) ) {
 
@@ -1154,6 +1142,9 @@ class CPAC_Column {
 					case 'text' :
 						$this->text_field( $args );
 						break;
+					case 'number' :
+						$this->number_field( $args );
+						break;
 					case 'width' :
 						$this->width_field();
 						break;
@@ -1244,11 +1235,34 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function text_field( $args ) {
+		$args = wp_parse_args( $args, array(
+			'type' => 'text',
+		) );
+
+		$this->input_field( $args );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function number_field( $args ) {
+		$args = wp_parse_args( $args, array(
+			'type' => 'number',
+		) );
+
+		$this->input_field( $args );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	private function input_field( $args ) {
 		$args = (object) wp_parse_args( $args, array(
 			'name'        => '',
 			'placeholder' => '',
+			'type'        => 'text',
 		) ); ?>
-		<input type="text" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $args->name ) ) ); ?>"<?php echo $args->placeholder ? ' placeholder="' . esc_attr( $args->placeholder ) . '"' : ''; ?>/>
+		<input type="<?php echo esc_attr( $args->type ); ?>" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>" value="<?php echo esc_attr( stripslashes( $this->get_option( $args->name ) ) ); ?>"<?php echo $args->placeholder ? ' placeholder="' . esc_attr( $args->placeholder ) . '"' : ''; ?>/>
 		<?php
 	}
 
@@ -1320,7 +1334,7 @@ class CPAC_Column {
 	 */
 	public function display_field_word_limit() {
 		$this->form_field( array(
-			'type'        => 'text',
+			'type'        => 'number',
 			'name'        => 'excerpt_length',
 			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
 			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
@@ -1330,13 +1344,31 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	public function limit_by_word( $string ) {
+		$limit = $this->get_option( 'excerpt_length' );
+
+		return $limit ? wp_trim_words( $string, $limit ) : $string;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
 	public function display_field_character_limit() {
 		$this->form_field( array(
-			'type'        => 'text',
-			'name'        => 'char_limit',
+			'type'        => 'number',
+			'name'        => 'character_limit',
 			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
 			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ),
 		) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function limit_by_character( $string ) {
+		$limit = $this->get_option( 'character_limit' );
+
+		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
 	}
 
 	/**

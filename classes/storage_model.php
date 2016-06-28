@@ -457,7 +457,7 @@ abstract class CPAC_Storage_Model {
 			// Stored columns
 			if ( $stored = $this->get_stored_columns() ) {
 				foreach ( $stored as $name => $options ) {
-					if ( $column = $this->create_column_instance( $options['type'], $options ) ) {
+					if ( isset( $options['type'] ) && ( $column = $this->create_column_instance( $options['type'], $options ) ) ) {
 						$this->columns[ $name ] = $column;
 					}
 				}
@@ -894,7 +894,28 @@ abstract class CPAC_Storage_Model {
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {
 			if ( $_column = $this->get_column_by_name( $name ) ) {
-				$columns[ $name ] = $_column->sanitize_storage( $options );
+
+				if ( ! empty( $options['label'] ) ) {
+
+					// Label can not contains the character ":"" and "'", because
+					// CPAC_Column::get_sanitized_label() will return an empty string
+					// and make an exception for site_url()
+					// Enable data:image url's
+					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
+						$options['label'] = str_replace( ':', '', $options['label'] );
+						$options['label'] = str_replace( "'", '', $options['label'] );
+					}
+				}
+
+				if ( isset( $options['width'] ) ) {
+					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
+				}
+
+				if ( isset( $options['date_format'] ) ) {
+					$options['date_format'] = trim( $options['date_format'] );
+				}
+
+				$columns[ $name ] = $_column->sanitize_options( $options );
 			}
 
 			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports

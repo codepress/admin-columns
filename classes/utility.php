@@ -194,3 +194,10 @@ function ac_get_editable_model( $key ) {
 function ac_get_filterable_model( $key ) {
 	return function_exists( 'ac_filterable' ) ? ac_filterable()->get_model( $key ) : false;
 }
+
+/**
+ * @since NEWVERSION
+ */
+function ac_helper() {
+	return AC()->helper;
+}

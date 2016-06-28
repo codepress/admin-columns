@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_String string
  * @property AC_Helper_User user
  * @property AC_Helper_Term term
+ * @property AC_Helper_Media media
  */
 class AC_Helper {
 	public function __get( $helper ) {
