@@ -899,7 +899,7 @@ class AC_Settings {
 															'hashtags' => 'admincolumns',
 															'text'     => urlencode( "I'm using Admin Columns for WordPress!" ),
 															'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
-															'via'      => 'codepressNL'
+															'via'      => 'wpcolumns'
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
 															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 														</a>
