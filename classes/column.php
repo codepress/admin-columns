@@ -163,7 +163,7 @@ class CPAC_Column {
 	public function after_setup() {
 
 		// Convert properties and options arrays to object
-		$this->options = (object) $this->options;
+		$this->options    = (object) $this->options;
 		$this->properties = (object) $this->properties;
 
 		// Column name defaults to column type
@@ -222,7 +222,7 @@ class CPAC_Column {
 	public function set_clone( $id = null ) {
 
 		if ( $id !== null && $id > 0 ) {
-			$this->properties->name = $this->get_type() . '-' . $id;
+			$this->properties->name  = $this->get_type() . '-' . $id;
 			$this->properties->clone = $id;
 		}
 
@@ -469,9 +469,7 @@ class CPAC_Column {
 	public function get_sanitized_label() {
 		if ( $this->is_default() ) {
 			$string = $this->get_name();
-		}
-
-		else {
+		} else {
 			$string = $this->get_option( 'label' );
 			$string = strip_tags( $string );
 			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
@@ -533,12 +531,12 @@ class CPAC_Column {
 		global $post;
 
 		$save_post = $post;
-		$post = get_post( $post_id );
+		$post      = get_post( $post_id );
 
 		setup_postdata( $post );
 
 		$excerpt = get_the_excerpt();
-		$post = $save_post;
+		$post    = $save_post;
 
 		if ( $post ) {
 			setup_postdata( $post );
@@ -592,15 +590,9 @@ class CPAC_Column {
 	 * @return bool
 	 */
 	protected function is_image_url( $url ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->is_image_url()' );
 
-		if ( ! is_string( $url ) ) {
-			return false;
-		}
-
-		$validExt = array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' );
-		$ext = strrchr( $url, '.' );
-
-		return in_array( $ext, $validExt );
+		return ac_helper()->media->is_image_url( $url );
 	}
 
 	/**
@@ -668,16 +660,9 @@ class CPAC_Column {
 	 * @return array Image Sizes
 	 */
 	public function get_image_size_by_name( $name = '' ) {
-		if ( ! $name || is_array( $name ) ) {
-			return false;
-		}
-
-		global $_wp_additional_image_sizes;
-		if ( ! isset( $_wp_additional_image_sizes[ $name ] ) ) {
-			return false;
-		}
-
-		return $_wp_additional_image_sizes[ $name ];
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
+		
+		return ac_helper()->media->get_image_size_by_name( $name );
 	}
 
 	/**
@@ -748,8 +733,7 @@ class CPAC_Column {
 			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
 			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
 			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		}
-		else {
+		} else {
 			$r = hexdec( substr( $hex, 0, 2 ) );
 			$g = hexdec( substr( $hex, 2, 2 ) );
 			$b = hexdec( substr( $hex, 4, 2 ) );
@@ -807,109 +791,6 @@ class CPAC_Column {
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
 		return ac_helper()->media->get_thumbnails( $images, $args );
-		
-		
-		if ( empty( $images ) || 'false' == $images ) {
-			return array();
-		}
-
-		// turn string to array
-		if ( is_string( $images ) || is_numeric( $images ) ) {
-			if ( strpos( $images, ',' ) !== false ) {
-				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			}
-			else {
-				$images = array( $images );
-			}
-		}
-
-		// Image size
-		$defaults = array(
-			'image_size'   => 'cpac-custom',
-			'image_size_w' => 80,
-			'image_size_h' => 80,
-		);
-		$args = wp_parse_args( $args, $defaults );
-
-		$image_size = $args['image_size'];
-		$image_size_w = $args['image_size_w'];
-		$image_size_h = $args['image_size_h'];
-
-		$thumbnails = array();
-		foreach ( $images as $value ) {
-
-			if ( $this->is_image_url( $value ) ) {
-
-				// get dimensions from image_size
-				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$image_size_w = $sizes['width'];
-					$image_size_h = $sizes['height'];
-				}
-
-				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-
-				if ( is_file( $image_path ) ) {
-
-					// try to resize image
-					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$thumbnails[] = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) . "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
-					} // return full image with maxed dimensions
-					else {
-						$thumbnails[] = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
-					}
-				}
-			} // Media Attachment
-			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
-
-				$src = '';
-				$width = '';
-				$height = '';
-
-				if ( ! $image_size || 'cpac-custom' == $image_size ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					// to make sure wp_get_attachment_image_src() get the image with matching dimensions.
-					$image_size = array( $width, $height );
-				}
-
-				// Is Image
-				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-					$src = $attributes[0];
-					$width = $attributes[1];
-					$height = $attributes[2];
-
-					// image size by name
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				} // Is File, use icon
-				elseif ( $attributes = wp_get_attachment_image_src( $value, $image_size, true ) ) {
-					$src = $attributes[0];
-
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				}
-				if ( is_array( $image_size ) ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
-
-				}
-				else {
-					$max = max( array( $width, $height ) );
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
-				}
-
-			}
-		}
-
-		return $thumbnails;
 	}
 
 	/**
@@ -927,8 +808,7 @@ class CPAC_Column {
 			foreach ( $pieces as $r_pieces ) {
 				if ( is_array( $r_pieces ) ) {
 					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-				}
-				else {
+				} else {
 					$retVal[] = $r_pieces;
 				}
 			}
@@ -977,9 +857,7 @@ class CPAC_Column {
 			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
 				$date = strtotime( $date );
 			}
-		}
-
-		// Not numeric
+		} // Not numeric
 		else {
 			$date = strtotime( $date );
 		}
@@ -1071,10 +949,9 @@ class CPAC_Column {
 
 			if ( 'first_last_name' == $display_as ) {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
-				$last = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
-				$name = $first . $last;
-			}
-			elseif ( ! empty( $userdata->{$display_as} ) ) {
+				$last  = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
+				$name  = $first . $last;
+			} elseif ( ! empty( $userdata->{$display_as} ) ) {
 				$name = $userdata->{$display_as};
 			}
 		}
@@ -1127,8 +1004,8 @@ class CPAC_Column {
 			'help'           => '', // help message below input field
 			'more_link'      => '' // link to more, e.g. admin page for a field
 		);
-		$args = wp_parse_args( $args, $defaults );
-		$field = (object) $args;
+		$args     = wp_parse_args( $args, $defaults );
+		$field    = (object) $args;
 		?>
 		<tr class="<?php echo $field->type; ?> column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hide' : ''; ?><?php echo $field->section ? ' section' : ''; ?>"<?php echo $field->toggle_handle ? ' data-handle="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
 			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ), $field->more_link ); ?>
@@ -1433,7 +1310,7 @@ class CPAC_Column {
 			'description' => '',
 			'fields'      => array()
 		);
-		$args = wp_parse_args( $args, $defaults );
+		$args     = wp_parse_args( $args, $defaults );
 		?>
 		<tr class="section">
 			<?php $this->label_view( $args['label'], $args['description'] ); ?>

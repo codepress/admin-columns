@@ -2,7 +2,12 @@
 
 class AC_Helper_Media {
 
-	private function get_default_image_sizes( $args ){
+	/**
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	private function get_default_image_sizes( $args ) {
 		return wp_parse_args( $args, array(
 			'image_size'   => 'cpac-custom',
 			'image_size_w' => 80,
@@ -10,11 +15,78 @@ class AC_Helper_Media {
 		) );
 	}
 
-	public function get_image_by_id( $id, $args){
+	/**
+	 * @param string $size
+	 *
+	 * @return array
+	 */
+	private function get_image_dimensions( $size ) {
+		$dimensions = array(
+			'width'  => 80,
+			'height' => 80
+		);
 
+		if ( is_array( $size ) ) {
+			$dimensions['width']  = $size[0];
+			$dimensions['height'] = $size[1];
+
+		} elseif ( $sizes = $this->get_image_size_by_name( $size ) ) {
+			$dimensions['width']  = $sizes['width'];
+			$dimensions['height'] = $sizes['height'];
+
+		}
+
+		return $dimensions;
 	}
-	
-	public function get_thumbnails( $images, $args = array() ){
+
+	/**
+	 * @param int $id
+	 * @param string|array $size
+	 *
+	 * @return string
+	 */
+	public function get_image_by_id( $id, $size ) {
+		$dimensions = $this->get_image_dimensions( $size );
+
+		// Is Image
+		if ( $attributes = wp_get_attachment_image_src( $id, $size ) ) {
+			$src = $attributes[0];
+
+			if ( is_array( $size ) ) {
+				return $this->image_cover_markup( $src, $dimensions['width'], $dimensions['height'] );
+			} else {
+				return $this->image_markup( $src, $dimensions['width'], $dimensions['height'] );
+			}
+		} // Is File, use icon
+		elseif ( $attributes = wp_get_attachment_image_src( $id, $size, true ) ) {
+			$src = $attributes[0];
+
+			return $this->image_markup( $src, $dimensions['width'], $dimensions['height'] );
+		}
+	}
+
+	public function get_image_by_url( $url, $size ) {
+		$dimensions = $this->get_image_dimensions( $size );
+		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
+
+		if ( is_file( $image_path ) ) {
+			// try to resize image
+			if ( $resized = $this->image_resize( $image_path, $dimensions['width'], $dimensions['height'], true ) ) {
+				$src = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized );
+
+				return $this->image_markup( $src, $dimensions['width'], $dimensions['height'] );
+			}
+			else {
+
+				return $this->image_markup( $url, $dimensions['width'], $dimensions['height'] );
+			}
+		} else {
+			//External image
+			return $this->image_cover_markup( $image_path, $dimensions['width'], $dimensions['height'] );
+		}
+	}
+
+	public function get_thumbnails( $images, $args = array() ) {
 		if ( empty( $images ) || 'false' == $images ) {
 			return array();
 		}
@@ -23,99 +95,30 @@ class AC_Helper_Media {
 		if ( is_string( $images ) || is_numeric( $images ) ) {
 			if ( strpos( $images, ',' ) !== false ) {
 				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			}
-			else {
+			} else {
 				$images = array( $images );
 			}
 		}
 
-		// Image size
-		$args = $this->get_default_image_sizes( $args );
+		$size = $args['image_size'];
+		if ( ! $args['image_size'] || 'cpac-custom' == $args['image_size'] ) {
+			$size = array( $args['image_size_w'], $args['image_size_h'] );
+		}
 
 		$thumbnails = array();
 		foreach ( $images as $value ) {
-
 			if ( $this->is_image_url( $value ) ) {
-				$image_size = $args['image_size'];
-				$image_size_w = $args['image_size_w'];
-				$image_size_h = $args['image_size_h'];
-
-
-				// get dimensions from image_size
-				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$image_size_w = $sizes['width'];
-					$image_size_h = $sizes['height'];
-				}
-
-				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-
-				if ( is_file( $image_path ) ) {
-					// try to resize image
-					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$src = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized );
-						$thumbnails[] = $this->image_markup( $src, $image_size_w, $image_size_h );
-					} // return full image with maxed dimensions
-					else {
-						$thumbnails[] = $this->image_markup( $value, $image_size_w, $image_size_h );
-					}
-				} else {
-					//External image
-					$thumbnails[] = $this->image_markup( $image_path, $image_size_w, $image_size_h );
-				}
+				$thumbnails[] = $this->get_image_by_url( $value, $size );
 			} // Media Attachment
 			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
-				$image_size = $args['image_size'];
-				$width = '';
-				$height = '';
-
-				if ( ! $image_size || 'cpac-custom' == $image_size ) {
-					$width = $args['image_size_w'];
-					$height = $args['image_size_h'];
-
-					// to make sure wp_get_attachment_image_src() get the image with matching dimensions.
-					$image_size = array( $width, $height );
-				}
-
-				// Is Image
-				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-					$src = $attributes[0];
-					$width = $attributes[1];
-					$height = $attributes[2];
-
-					// image size by name
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-
-					if ( is_array( $image_size ) ) {
-						$thumbnails[] = $this->image_cover_markup( $src, $args['image_size_w'], $args['image_size_h'] );
-					}
-					else {
-						$thumbnails[] = $this->image_markup( $src, $width, $height );
-					}
-
-
-				} // Is File, use icon
-				elseif ( $attributes = wp_get_attachment_image_src( $value, $image_size, true ) ) {
-					$src = $attributes[0];
-
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-
-					$thumbnails[] = $this->image_markup( $src, $width, $height );
-				}
-
+				$thumbnails[] = $this->get_image_by_id( $value, $size );
 			}
 		}
 
 		return $thumbnails;
 	}
 
-	public function image_cover_markup( $src, $width, $height ){
+	public function image_cover_markup( $src, $width, $height ) {
 		return "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
 	}
 
@@ -130,14 +133,14 @@ class AC_Helper_Media {
 	 *
 	 * @return bool
 	 */
-	protected function is_image_url( $url ) {
+	public function is_image_url( $url ) {
 
 		if ( ! is_string( $url ) ) {
 			return false;
 		}
 
 		$validExt = array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' );
-		$ext = strrchr( $url, '.' );
+		$ext      = strrchr( $url, '.' );
 
 		return in_array( $ext, $validExt );
 	}
