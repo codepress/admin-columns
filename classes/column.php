@@ -163,7 +163,7 @@ class CPAC_Column {
 	public function after_setup() {
 
 		// Convert properties and options arrays to object
-		$this->options    = (object) $this->options;
+		$this->options = (object) $this->options;
 		$this->properties = (object) $this->properties;
 
 		// Column name defaults to column type
@@ -222,7 +222,7 @@ class CPAC_Column {
 	public function set_clone( $id = null ) {
 
 		if ( $id !== null && $id > 0 ) {
-			$this->properties->name  = $this->get_type() . '-' . $id;
+			$this->properties->name = $this->get_type() . '-' . $id;
 			$this->properties->clone = $id;
 		}
 
@@ -469,7 +469,8 @@ class CPAC_Column {
 	public function get_sanitized_label() {
 		if ( $this->is_default() ) {
 			$string = $this->get_name();
-		} else {
+		}
+		else {
 			$string = $this->get_option( 'label' );
 			$string = strip_tags( $string );
 			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
@@ -489,13 +490,6 @@ class CPAC_Column {
 		}
 
 		return "<a title='{$url}' href='{$url}'>" . url_shorten( $url ) . "</a>";
-	}
-
-	/**
-	 * @since 1.3
-	 */
-	public function strip_trim( $string ) {
-		return trim( strip_tags( $string ) );
 	}
 
 	/**
@@ -531,12 +525,12 @@ class CPAC_Column {
 		global $post;
 
 		$save_post = $post;
-		$post      = get_post( $post_id );
+		$post = get_post( $post_id );
 
 		setup_postdata( $post );
 
 		$excerpt = get_the_excerpt();
-		$post    = $save_post;
+		$post = $save_post;
 
 		if ( $post ) {
 			setup_postdata( $post );
@@ -608,9 +602,9 @@ class CPAC_Column {
 				'options' => array(
 					'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
 					'medium'    => __( "Medium", 'codepress-admin-columns' ),
-					'large'     => __( "Large", 'codepress-admin-columns' )
-				)
-			)
+					'large'     => __( "Large", 'codepress-admin-columns' ),
+				),
+			),
 		);
 
 		$all_sizes = get_intermediate_image_sizes();
@@ -646,7 +640,7 @@ class CPAC_Column {
 
 		$sizes['custom'] = array(
 			'title'   => __( 'Custom', 'codepress-admin-columns' ),
-			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' )
+			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' ),
 		);
 
 		return $sizes;
@@ -661,7 +655,7 @@ class CPAC_Column {
 	 */
 	public function get_image_size_by_name( $name = '' ) {
 		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
-		
+
 		return ac_helper()->media->get_image_size_by_name( $name );
 	}
 
@@ -671,29 +665,9 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		$editor = wp_get_image_editor( $file );
-		if ( is_wp_error( $editor ) ) {
-			return false;
-		}
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
 
-		$editor->set_quality( $jpeg_quality );
-
-		$resized = $editor->resize( $max_w, $max_h, $crop );
-		if ( is_wp_error( $resized ) ) {
-			return false;
-		}
-
-		$dest_file = $editor->generate_filename( $suffix, $dest_path );
-
-		$saved = $editor->save( $dest_file );
-
-		if ( is_wp_error( $saved ) ) {
-			return false;
-		}
-
-		$resized = $dest_file;
-
-		return $resized;
+		return ac_helper()->media->image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
 	}
 
 	/**
@@ -733,7 +707,8 @@ class CPAC_Column {
 			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
 			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
 			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		} else {
+		}
+		else {
 			$r = hexdec( substr( $hex, 0, 2 ) );
 			$g = hexdec( substr( $hex, 2, 2 ) );
 			$b = hexdec( substr( $hex, 4, 2 ) );
@@ -758,7 +733,7 @@ class CPAC_Column {
 			'strip' => '/<[a-zA-Z\/][^<>]*>/',
 			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
 			'w'     => '/\S\s+/',
-			'c'     => '/\S/'
+			'c'     => '/\S/',
 		);
 
 		$type = 'w';
@@ -808,7 +783,8 @@ class CPAC_Column {
 			foreach ( $pieces as $r_pieces ) {
 				if ( is_array( $r_pieces ) ) {
 					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-				} else {
+				}
+				else {
 					$retVal[] = $r_pieces;
 				}
 			}
@@ -949,9 +925,10 @@ class CPAC_Column {
 
 			if ( 'first_last_name' == $display_as ) {
 				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
-				$last  = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
-				$name  = $first . $last;
-			} elseif ( ! empty( $userdata->{$display_as} ) ) {
+				$last = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
+				$name = $first . $last;
+			}
+			elseif ( ! empty( $userdata->{$display_as} ) ) {
 				$name = $userdata->{$display_as};
 			}
 		}
@@ -1004,8 +981,8 @@ class CPAC_Column {
 			'help'           => '', // help message below input field
 			'more_link'      => '' // link to more, e.g. admin page for a field
 		);
-		$args     = wp_parse_args( $args, $defaults );
-		$field    = (object) $args;
+		$args = wp_parse_args( $args, $defaults );
+		$field = (object) $args;
 		?>
 		<tr class="<?php echo $field->type; ?> column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hide' : ''; ?><?php echo $field->section ? ' section' : ''; ?>"<?php echo $field->toggle_handle ? ' data-handle="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
 			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ), $field->more_link ); ?>
@@ -1204,7 +1181,7 @@ class CPAC_Column {
 			'label'       => __( 'Date Format', 'codepress-admin-columns' ),
 			'placeholder' => __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i',
 			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
-			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>"
+			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>",
 		) );
 	}
 
@@ -1279,7 +1256,7 @@ class CPAC_Column {
 				array(
 					'type'            => 'select',
 					'name'            => 'image_size',
-					'grouped_options' => $this->get_all_image_sizes()
+					'grouped_options' => $this->get_all_image_sizes(),
 				),
 				array(
 					'type'          => 'text',
@@ -1287,7 +1264,7 @@ class CPAC_Column {
 					'label'         => __( "Width", 'codepress-admin-columns' ),
 					'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
 					'toggle_handle' => 'image_size_w',
-					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
+					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
 				),
 				array(
 					'type'          => 'text',
@@ -1295,9 +1272,9 @@ class CPAC_Column {
 					'label'         => __( "Height", 'codepress-admin-columns' ),
 					'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
 					'toggle_handle' => 'image_size_h',
-					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' )
-				)
-			)
+					'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
+				),
+			),
 		) );
 	}
 
@@ -1308,9 +1285,9 @@ class CPAC_Column {
 		$defaults = array(
 			'label'       => '',
 			'description' => '',
-			'fields'      => array()
+			'fields'      => array(),
 		);
-		$args     = wp_parse_args( $args, $defaults );
+		$args = wp_parse_args( $args, $defaults );
 		?>
 		<tr class="section">
 			<?php $this->label_view( $args['label'], $args['description'] ); ?>
@@ -1330,7 +1307,7 @@ class CPAC_Column {
 			'type'        => 'text',
 			'name'        => 'before',
 			'label'       => __( "Before", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' )
+			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
 		);
 	}
 
@@ -1339,7 +1316,7 @@ class CPAC_Column {
 			'type'        => 'text',
 			'name'        => 'after',
 			'label'       => __( "After", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' )
+			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
 		);
 	}
 
@@ -1351,8 +1328,8 @@ class CPAC_Column {
 			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
 			'fields' => array(
 				$this->get_form_args_before(),
-				$this->get_form_args_after()
-			)
+				$this->get_form_args_after(),
+			),
 		) );
 	}
 
@@ -1493,7 +1470,7 @@ class CPAC_Column {
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->get_name() . '</em>',
 						'grouped_options' => $this->get_storage_model()->get_grouped_columns(),
-						'default'         => $this->get_type()
+						'default'         => $this->get_type(),
 					) );
 
 					$this->form_field( array(
@@ -1502,13 +1479,13 @@ class CPAC_Column {
 						'placeholder' => $this->get_type_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-						'hidden'      => $this->get_property( 'hide_label' )
+						'hidden'      => $this->get_property( 'hide_label' ),
 					) );
 
 					$this->form_field( array(
 						'type'  => 'width',
 						'name'  => 'width',
-						'label' => __( 'Width', 'codepress-admin-columns' )
+						'label' => __( 'Width', 'codepress-admin-columns' ),
 					) );
 
 					/**
@@ -1574,7 +1551,7 @@ class CPAC_Column {
 			'options'     => array(
 				'title'  => __( 'Title' ), // default
 				'id'     => __( 'ID' ),
-				'author' => __( 'Author' )
+				'author' => __( 'Author' ),
 			),
 			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
 		) );
@@ -1595,9 +1572,9 @@ class CPAC_Column {
 				'edit_post'   => __( 'Edit Post' ),
 				'view_post'   => __( 'View Post' ),
 				'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
-				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' )
+				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 			),
-			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' )
+			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
 		) );
 	}
 
@@ -1620,7 +1597,7 @@ class CPAC_Column {
 			<a href="<?php echo add_query_arg( array(
 				'utm_source'   => 'plugin-installation',
 				'utm_medium'   => $this->get_type(),
-				'utm_campaign' => 'plugin-installation'
+				'utm_campaign' => 'plugin-installation',
 			), $url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
 		</div>
 		<?php
@@ -1685,4 +1662,13 @@ class CPAC_Column {
 			'colspan'        => $colspan,
 		) );
 	}
+
+	/**
+	 * @since 1.3
+	 */
+	public function strip_trim( $string ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->strip_trim()' );
+		return ac_helper()->string->strip_trim( $string );
+	}
+
 }

@@ -34,7 +34,7 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	function get_raw_value( $post_id ) {
-		return $this->str_count_words( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
+		return $this->str_count_words( ac_helper()->string->strip_trim( get_post_field( 'post_content', $post_id ) ) );
 	}
 
 	/**

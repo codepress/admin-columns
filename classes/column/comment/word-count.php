@@ -18,6 +18,6 @@ class CPAC_Column_Comment_Word_Count extends CPAC_Column {
 	public function get_value( $id ) {
 		$comment = get_comment( $id );
 
-		return str_word_count( $this->strip_trim( $comment->comment_content ) );
+		return str_word_count( ac_helper()->string->strip_trim( $comment->comment_content ) );
 	}
 }
