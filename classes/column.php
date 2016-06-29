@@ -985,11 +985,20 @@ class CPAC_Column {
 	 * @return string Formatted date
 	 */
 	public function get_date( $date, $format = '' ) {
-		if ( ! $timestamp = $this->get_timestamp( $date ) ) {
-			return false;
-		}
+		$timestamp = $this->get_timestamp( $date );
 
-		// get general date format
+		return $timestamp ? $this->get_date_formatted( $timestamp, $format ) : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param string $date
+	 * @param int $timestamp
+	 *
+	 * @return string Formatted date
+	 */
+	public function get_date_formatted( $timestamp, $format = false ) {
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
 		}
@@ -1324,17 +1333,9 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function format_by_date( $date ) {
-		$formatted_date = false;
+		$timestamp = $this->get_timestamp( $date );
 
-		if ( $timestamp = $this->get_timestamp( $date ) ) {
-			$format = $this->get_option( 'date_format' );
-			if ( ! $format ) {
-				$format = get_option( 'date_format' );
-			}
-			$formatted_date = date_i18n( $format, $timestamp );
-		}
-
-		return $formatted_date;
+		return $timestamp ? $this->get_date_formatted( $timestamp, $this->get_option( 'date_format' ) ) : false;
 	}
 
 	/**
