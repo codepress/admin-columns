@@ -1003,7 +1003,7 @@ class CPAC_Column {
 			$format = get_option( 'date_format' );
 		}
 
-		return date_i18n( $format, $timestamp );
+		return $timestamp ? date_i18n( $format, $timestamp ) : false;
 	}
 
 	/**
@@ -1059,27 +1059,32 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_display_name( $user_id ) {
+		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
+	}
 
-		if ( ! $userdata = get_userdata( $user_id ) ) {
+	/**
+	 * @param $user
+	 * @param bool $format
+	 *
+	 * @return false|string
+	 */
+	public function get_user_formatted( $user, $format = false ) {
+		if ( is_numeric( $user ) ) {
+			$user = get_userdata( $user );
+		}
+
+		if ( ! $user || ! is_a( $user, 'WP_User' ) ) {
 			return false;
 		}
 
-		$name = '';
+		$name = $user->display_name;
 
-		if ( $display_as = $this->get_option( 'display_author_as' ) ) {
-
-			if ( 'first_last_name' == $display_as ) {
-				$first = ! empty( $userdata->first_name ) ? $userdata->first_name : '';
-				$last = ! empty( $userdata->last_name ) ? " {$userdata->last_name}" : '';
-				$name = $first . $last;
-			} elseif ( ! empty( $userdata->{$display_as} ) ) {
-				$name = $userdata->{$display_as};
-			}
-		}
-
-		// default to display_name
-		if ( ! $name ) {
-			$name = $userdata->display_name;
+		if ( 'first_last_name' == $format ) {
+			$first = ! empty( $user->first_name ) ? $user->first_name : '';
+			$last = ! empty( $user->last_name ) ? " {$user->last_name}" : '';
+			$name = $first . $last;
+		} elseif ( ! empty( $user->{$format} ) ) {
+			$name = $user->{$format};
 		}
 
 		return $name;
@@ -1289,6 +1294,13 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function format_user( $user_id ) {
+		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
+	}
+
+	/**
 	 * @since 2.3.2
 	 */
 	public function display_field_user_format() {
@@ -1332,10 +1344,8 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function format_by_date( $date ) {
-		$timestamp = $this->get_timestamp( $date );
-
-		return $timestamp ? $this->get_date_formatted( $timestamp, $this->get_option( 'date_format' ) ) : false;
+	public function format_date( $date ) {
+		return $this->get_date_formatted( $this->get_timestamp( $date ), $this->get_option( 'date_format' ) );
 	}
 
 	/**
@@ -1353,7 +1363,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function format_by_word_limit( $string ) {
+	public function format_word_limit( $string ) {
 		$limit = $this->get_option( 'excerpt_length' );
 
 		return $limit ? wp_trim_words( $string, $limit ) : $string;
@@ -1374,7 +1384,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function format_by_character_limit( $string ) {
+	public function format_character_limit( $string ) {
 		$limit = $this->get_option( 'character_limit' );
 
 		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
