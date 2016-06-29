@@ -706,9 +706,17 @@ abstract class CPAC_Storage_Model {
 	public function get_layouts() {
 		global $wpdb;
 		$layouts = array();
-		if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
+		if ( $results = $wpdb->get_results( $wpdb->prepare( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
 			foreach ( $results as $result ) {
-				$layout = (object) maybe_unserialize( $result );
+
+				// Removes incorrect layouts.
+				// For example when a storage model is called "Car" and one called "Carrot", then
+				// both layouts from each model are in the DB results.
+				if ( strlen( $result->option_name ) !== strlen( $this->get_layout_key() ) + 13 ) {
+					continue;
+				}
+
+				$layout = (object) maybe_unserialize( $result->option_value );
 				$layouts[ $layout->id ] = $layout;
 			}
 		}

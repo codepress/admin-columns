@@ -168,6 +168,7 @@ jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
 	var select = el.find( '.column-type select' );
 	var $container = jQuery( this ).closest( '.columns-container' );
+	var column_name = jQuery( this ).find( 'input.column-name' ).val();
 
 	// Mark column as loading
 	el.addClass( 'loading' );
@@ -178,7 +179,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		plugin_id : 'cpac',
 		action : 'cpac_column_refresh',
 		_ajax_nonce : cpac._ajax_nonce,
-		column : jQuery( this ).find( 'input.column-name' ).val(),
+		column : column_name,
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : $container.data( 'type' ),
 		layout : $container.data( 'layout' )
