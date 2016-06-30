@@ -675,75 +675,6 @@ class CPAC_Column {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * Determines text color based on background coloring.
-	 *
-	 * @since 1.0
-	 */
-	public function get_text_color( $bg_color ) {
-
-		$rgb = $this->hex2rgb( $bg_color );
-
-		return $rgb && ( ( $rgb[0] * 0.299 + $rgb[1] * 0.587 + $rgb[2] * 0.114 ) < 186 ) ? '#ffffff' : '#333333';
-	}
-
-	/**
-	 * Convert hex to rgb
-	 *
-	 * @since 1.0
-	 */
-	public function hex2rgb( $hex ) {
-		$hex = str_replace( "#", "", $hex );
-
-		if ( strlen( $hex ) == 3 ) {
-			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
-			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
-			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		}
-		else {
-			$r = hexdec( substr( $hex, 0, 2 ) );
-			$g = hexdec( substr( $hex, 2, 2 ) );
-			$b = hexdec( substr( $hex, 4, 2 ) );
-		}
-		$rgb = array( $r, $g, $b );
-
-		return $rgb;
-	}
-
-	/**
-	 * Count the number of words in a string (multibyte-compatible)
-	 *
-	 * @since 2.3
-	 *
-	 * @param string $input Input string
-	 *
-	 * @return int Number of words
-	 */
-	public function str_count_words( $input ) {
-
-		$patterns = array(
-			'strip' => '/<[a-zA-Z\/][^<>]*>/',
-			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
-			'w'     => '/\S\s+/',
-			'c'     => '/\S/',
-		);
-
-		$type = 'w';
-
-		$input = preg_replace( $patterns['strip'], ' ', $input );
-		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
-		$input = preg_replace( $patterns['clean'], '', $input );
-
-		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
-			return 0;
-		}
-
-		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
-	}
-
-	/**
->>>>>>> #565-refactor-get_thumbnails
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
@@ -759,110 +690,7 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-<<<<<<< HEAD
-
-		if ( empty( $images ) || 'false' == $images ) {
-			return array();
-		}
-
-		// turn string to array
-		if ( is_string( $images ) || is_numeric( $images ) ) {
-			if ( strpos( $images, ',' ) !== false ) {
-				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			} else {
-				$images = array( $images );
-			}
-		}
-
-		// Image size
-		$defaults = array(
-			'image_size'   => 'cpac-custom',
-			'image_size_w' => 80,
-			'image_size_h' => 80,
-		);
-		$args = wp_parse_args( $args, $defaults );
-
-		$image_size = $args['image_size'];
-		$image_size_w = $args['image_size_w'];
-		$image_size_h = $args['image_size_h'];
-
-		$thumbnails = array();
-		foreach ( $images as $value ) {
-
-			if ( $this->is_image_url( $value ) ) {
-
-				// get dimensions from image_size
-				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$image_size_w = $sizes['width'];
-					$image_size_h = $sizes['height'];
-				}
-
-				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-
-				if ( is_file( $image_path ) ) {
-
-					// try to resize image
-					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$thumbnails[] = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) . "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
-					} // return full image with maxed dimensions
-					else {
-						$thumbnails[] = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
-					}
-				}
-			} // Media Attachment
-			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
-
-				$src = '';
-				$width = '';
-				$height = '';
-
-				if ( ! $image_size || 'cpac-custom' == $image_size ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					// to make sure wp_get_attachment_image_src() get the image with matching dimensions.
-					$image_size = array( $width, $height );
-				}
-
-				// Is Image
-				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-					$src = $attributes[0];
-					$width = $attributes[1];
-					$height = $attributes[2];
-
-					// image size by name
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				} // Is File, use icon
-				elseif ( $attributes = wp_get_attachment_image_src( $value, $image_size, true ) ) {
-					$src = $attributes[0];
-
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				}
-				if ( is_array( $image_size ) ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
-
-				} else {
-					$max = max( array( $width, $height ) );
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
-				}
-
-			}
-		}
-
-		return $thumbnails;
-=======
 		return ac_helper()->media->get_thumbnails( $images, $args );
->>>>>>> #565-refactor-get_thumbnails
 	}
 
 	/**
@@ -885,39 +713,9 @@ class CPAC_Column {
 	 *
 	 * @return string Formatted date
 	 */
-<<<<<<< HEAD
+
 	public function get_date( $date, $format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
-=======
-	public function get_timestamp( $date ) {
-
-		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
-			return false;
-		}
-
-		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
-		// See http://api.jqueryui.com/datepicker/#utility-formatDate
-		if ( is_numeric( $date ) ) {
-			$length = strlen( trim( $date ) );
-
-			// Dates before / around September 8th, 2001 are saved as 9 numbers * 1000 resulting in 12 numbers to store the time.
-			// Dates after September 8th are saved as 10 numbers * 1000, resulting in 13 numbers.
-			// For example the ACF Date and Time Picker uses this format.
-			// credits: Ben C
-			if ( 12 === $length || 13 === $length ) {
-				$date = round( $date / 1000 ); // remove the ms
-			}
-
-			// Date format: 'yyyymmdd' ( often used by ACF ) must start with 19xx or 20xx and is 8 long
-			// @todo: in theory a numeric string of 8 can also be a unixtimestamp; no conversion would be needed
-			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
-				$date = strtotime( $date );
-			}
-		} // Not numeric
-		else {
-			$date = strtotime( $date );
-		}
->>>>>>> #565-refactor-get_thumbnails
 
 		return $timestamp ? $this->get_date_formatted( $timestamp, $format ) : false;
 	}
