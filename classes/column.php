@@ -715,45 +715,13 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get display name.
-	 *
-	 * Can also be used by addons.
-	 *
-	 * @since 2.0
-	 */
-	public function get_display_name( $user_id ) {
-		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
-	}
-
-	/**
 	 * @param $user
 	 * @param bool $format
 	 *
 	 * @return false|string
 	 */
-	public function get_user_formatted( $user, $format = false ) {
-		if ( is_numeric( $user ) ) {
-			$user = get_userdata( $user );
-		}
-
-		if ( ! $user || ! is_a( $user, 'WP_User' ) ) {
-			return false;
-		}
-
-		$name = $user->display_name;
-
-		if ( 'first_last_name' == $format ) {
-			$first = ! empty( $user->first_name ) ? $user->first_name : '';
-			$last = ! empty( $user->last_name ) ? " {$user->last_name}" : '';
-			if ( $first || $last ) {
-				$name = $first . $last;
-			}
-		}
-		elseif ( ! empty( $user->{$format} ) ) {
-			$name = $user->{$format};
-		}
-
-		return $name;
+	public function get_user_formatted( $user ) {
+		return ac_helper()->user->get_display_name( $user, $this->get_option( 'display_author_as' ) );
 	}
 
 	/**
@@ -1462,6 +1430,18 @@ class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * @param $user
+	 * @param bool $format
+	 *
+	 * @return false|string
+	 */
+	public function get_display_name( $user, $format = false ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->user->get_display_name()' );
+
+		ac_helper()->user->get_display_name( $user, $format );
+	}
 
 	/**
 	 * Convert hex to rgb

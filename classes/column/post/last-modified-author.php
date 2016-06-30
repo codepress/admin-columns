@@ -28,7 +28,7 @@ class CPAC_Column_Post_Last_Modified_Author extends CPAC_Column {
 	public function get_value( $post_id ) {
 		$value = '';
 		if ( $user_id = $this->get_raw_value( $post_id ) ) {
-			$value = $this->get_display_name( $user_id );
+			$value = $this->get_user_formatted( $user_id );
 		}
 
 		return $value;
