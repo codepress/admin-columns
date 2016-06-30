@@ -53,4 +53,5 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	public function apply_conditional() {
 		return is_post_type_hierarchical( $this->get_post_type() );
 	}
+
 }

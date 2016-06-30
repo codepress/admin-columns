@@ -22,4 +22,5 @@ class CPAC_Column_Media_Caption extends CPAC_Column {
 	public function get_raw_value( $id ) {
 		return ac_helper()->post->get_raw_field( 'post_excerpt', $id );
 	}
+
 }

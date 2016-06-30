@@ -79,4 +79,5 @@ class CPAC_Column_Taxonomy extends CPAC_Column {
 			'section' => true,
 		) );
 	}
+
 }

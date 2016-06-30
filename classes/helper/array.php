@@ -83,5 +83,8 @@ class AC_Helper_Array {
 
 		return array_keys( $array );
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 }

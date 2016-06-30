@@ -34,11 +34,6 @@ class AC_Helper_Post {
 	 * @param $term_ids array Term ID's
 	 * @param $taxonomy string Taxonomy name
 	 */
-	/**
-	 * @param $post WP_Post|int
-	 * @param $term_ids array Term ID's
-	 * @param $taxonomy string Taxonomy name
-	 */
 	public function set_terms( $post, $term_ids, $taxonomy ) {
 		$post = get_post( $post );
 
