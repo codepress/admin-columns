@@ -1082,7 +1082,9 @@ class CPAC_Column {
 		if ( 'first_last_name' == $format ) {
 			$first = ! empty( $user->first_name ) ? $user->first_name : '';
 			$last = ! empty( $user->last_name ) ? " {$user->last_name}" : '';
-			$name = $first . $last;
+			if ( $first || $last ) {
+				$name = $first . $last;
+			}
 		} elseif ( ! empty( $user->{$format} ) ) {
 			$name = $user->{$format};
 		}
