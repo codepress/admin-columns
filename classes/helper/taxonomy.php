@@ -1,6 +1,5 @@
 <?php
 
-// todo: was AC_Helper_Term
 class AC_Helper_Taxonomy {
 
 	/**
@@ -34,4 +33,5 @@ class AC_Helper_Taxonomy {
 
 		return $value;
 	}
+
 }

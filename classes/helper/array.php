@@ -20,7 +20,7 @@ class AC_Helper_Array {
 		if ( is_array( $pieces ) ) {
 			foreach ( $pieces as $r_pieces ) {
 				if ( is_array( $r_pieces ) ) {
-					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
+					$retVal[] = $this->implode_recursive( $glue, $r_pieces );
 				}
 				else {
 					$retVal[] = $r_pieces;

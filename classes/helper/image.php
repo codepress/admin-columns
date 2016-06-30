@@ -46,7 +46,6 @@ class AC_Helper_Image {
 		return $resized;
 	}
 
-	// todo: booo on HTML
 	public function thumbnail_blocks( $images, $args = array() ) {
 		if ( empty( $images ) || 'false' == $images ) {
 			return array();
@@ -55,7 +54,7 @@ class AC_Helper_Image {
 		// turn string to array
 		if ( is_string( $images ) || is_numeric( $images ) ) {
 			if ( strpos( $images, ',' ) !== false ) {
-				$images = array_filter( explode( ',', self::strip_trim( str_replace( ' ', '', $images ) ) ) );
+				$images = array_filter( explode( ',', ac_helper()->string->strip_trim( str_replace( ' ', '', $images ) ) ) );
 			} else {
 				$images = array( $images );
 			}

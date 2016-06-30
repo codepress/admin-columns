@@ -52,7 +52,7 @@ class AC_Helper_String {
 	/**
 	 * Formats a valid hex color to a 6 digit string, optionally prefixed with a #
 	 *
-	 * Example: #FF0 will be #ffff00 or fff000 based on the $prefix parameter
+	 * Example: #FF0 will be fff000 based on the $prefix parameter
 	 *
 	 * @param string $hex Valid hex color
 	 * @param bool $prefix Prefix with a # or not
@@ -83,7 +83,7 @@ class AC_Helper_String {
 	 * @return array
 	 */
 	public function hex_to_rgb( $hex ) {
-		$hex = $this->format_hex( $hex );
+		$hex = $this->hex_format( $hex );
 
 		return sscanf( $hex, '%2x%2x%2x' );
 	}
@@ -101,7 +101,7 @@ class AC_Helper_String {
 		$rgb = $this->hex_to_rgb( $hex );
 		$contrast = ( $rgb[0] * 0.299 + $rgb[1] * 0.587 + $rgb[2] * 0.114 ) < 186 ? 'fff' : '333';
 
-		return $this->format_hex( $contrast, true );
+		return $this->hex_format( $contrast, true );
 	}
 
 }

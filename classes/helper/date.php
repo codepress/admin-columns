@@ -6,21 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AC_Helper_Date {
 
-	// the formatting type?
-	public function i18n( $date, $format = false, $format_type = 'date' ) {
-		$timestamp = $this->timestamp( $date );
-
-		if ( ! $timestamp ) {
-			return false;
-		}
-
-		if ( ! $format ) {
-			$format = get_option( $format_type . '_format' );
-		}
-
-		return date_i18n( $format, $timestamp );
-	}
-
 	public function strtotime( $date ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
 			return false;
@@ -28,7 +13,6 @@ class AC_Helper_Date {
 
 		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
 		// See http://api.jqueryui.com/datepicker/#utility-formatDate
-		// credits: nmarks
 		if ( is_numeric( $date ) ) {
 			$length = strlen( trim( $date ) );
 
@@ -41,12 +25,12 @@ class AC_Helper_Date {
 			}
 
 			// Date format: yyyymmdd ( often used by ACF ) must start with 19xx or 20xx and is 8 long
-			// @todo: in theory a numeric string of 8 can also be a unixtimestamp; no conversion would be needed
+			// @todo: in theory a numeric string of 8 can also be a unix timestamp; no conversion would be needed
 			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
 				$date = strtotime( $date );
 			}
-		} else {
-			// Parse with strtotime if it's not numeric
+		}
+		else {
 			$date = strtotime( $date );
 		}
 

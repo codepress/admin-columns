@@ -717,7 +717,7 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	protected function helper() {
-		return new AC_Helper();
+		return $this->helper;
 	}
 
 	/**

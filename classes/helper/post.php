@@ -29,43 +29,11 @@ class AC_Helper_Post {
 		return $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
 	}
 
-	// todo: comes from somewhere, but get_post_field_raw is goodneough for this? the esc_html seems meager addition
-	public function title( $post_id ) {
-		return esc_html( self::get_raw_field( 'post_title', $post_id ) );
-	}
-
-	// todo: rename this (get_post_field_formatted) and don't supply default format (!)
-	// todo: rewrite to be more elegant
 	/**
-	 * @param int $post_id
-	 * @param string $format
-	 *
-	 * @return false|string
+	 * @param $post WP_Post|int
+	 * @param $term_ids array Term ID's
+	 * @param $taxonomy string Taxonomy name
 	 */
-	public function format_post( $id, $format = 'title' ) {
-		$formatted_post = $id;
-
-		switch ( $format ) {
-			case 'user' :
-				$author = self::get_raw_field( 'post_author', $id );
-
-				if ( $user = get_userdata( $author ) ) {
-					$formatted_post = $user->display_name;
-				} else {
-					$formatted_post = $author;
-				}
-
-				break;
-			case 'title' :
-				$formatted_post = $this->get_post_field_raw( 'post_title', $id );
-
-				break;
-		}
-
-		return $formatted_post;
-	}
-
-	// todo: values from what? need a better name like get_meta_values_by_meta_key?
 	/**
 	 * @param $post WP_Post|int
 	 * @param $term_ids array Term ID's
@@ -81,6 +49,42 @@ class AC_Helper_Post {
 		// Filter list of terms
 		if ( empty( $term_ids ) ) {
 			$term_ids = array();
+		}
+
+		$term_ids = array_unique( (array) $term_ids );
+
+		// maybe create terms?
+		$created_term_ids = array();
+
+		foreach ( (array) $term_ids as $index => $term_id ) {
+			if ( is_numeric( $term_id ) ) {
+				continue;
+			}
+
+			if ( $term = get_term_by( 'name', $term_id, $taxonomy ) ) {
+				$term_ids[ $index ] = $term->term_id;
+			}
+			else {
+				$created_term = wp_insert_term( $term_id, $taxonomy );
+				$created_term_ids[] = $created_term['term_id'];
+			}
+		}
+
+		// merge
+		$term_ids = array_merge( $created_term_ids, $term_ids );
+
+		//to make sure the terms IDs is integers:
+		$term_ids = array_map( 'intval', (array) $term_ids );
+		$term_ids = array_unique( $term_ids );
+
+		if ( $taxonomy == 'category' && is_object_in_taxonomy( $post->post_type, 'category' ) ) {
+			wp_set_post_categories( $post->ID, $term_ids );
+		}
+		else if ( $taxonomy == 'post_tag' && is_object_in_taxonomy( $post->post_type, 'post_tag' ) ) {
+			wp_set_post_tags( $post->ID, $term_ids );
+		}
+		else {
+			wp_set_object_terms( $post->ID, $term_ids, $taxonomy );
 		}
 	}
 
@@ -173,4 +177,5 @@ class AC_Helper_Post {
 
 		return $options;
 	}
+
 }

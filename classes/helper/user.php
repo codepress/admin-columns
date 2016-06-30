@@ -17,4 +17,5 @@ class AC_Helper_User {
 
 		return isset( $user->{$field} ) ? $user->{$field} : false;
 	}
+
 }
