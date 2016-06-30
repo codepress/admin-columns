@@ -200,11 +200,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
-		$raw_string = $this->recursive_implode( ', ', $raw_value );
+		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
 		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
+
+				// TODO move get_thumbnails to custom field column
 				$value = implode( $this->get_thumbnails( $raw_string, array(
 					'image_size'   => $this->get_option( 'image_size' ),
 					'image_size_w' => $this->get_option( 'image_size_w' ),
@@ -398,8 +400,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'ac_helper()->array->implode_recursive()' );
 
-		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
+		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
 	}
 }

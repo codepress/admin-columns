@@ -509,9 +509,9 @@ class CPAC_Column {
 	 * @return bool
 	 */
 	protected function is_image_url( $url ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->is_image_url()' );
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->is_image()' );
 
-		return ac_helper()->media->is_image_url( $url );
+		return ac_helper()->string->is_image( $url );
 	}
 
 	/**
@@ -578,10 +578,10 @@ class CPAC_Column {
 	 *
 	 * @return array Image Sizes
 	 */
-	public function get_image_size_by_name( $name = '' ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
+	public function get_image_size_by_name( $name ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
 
-		return ac_helper()->media->get_image_size_by_name( $name );
+		return ac_helper()->image->get_image_sizes_by_name( $name );
 	}
 
 	/**
@@ -590,9 +590,9 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
 
-		return ac_helper()->media->image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+		return ac_helper()->image->resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
 	}
 
 	/**
@@ -603,16 +603,16 @@ class CPAC_Column {
 		if ( ! $color_hex ) {
 			return false;
 		}
-		$text_color = $this->get_text_color( $color_hex );
+		$text_color = ac_helper()->string->hex_get_contrast( $color_hex );
 
-		return "<div class='cpac-color'><span style='background-color:{$color_hex};color:{$text_color}'>{$color_hex}</span></div>";
+		return '<div class="cpac-color"><span style="background-color:' . esc_attr( $color_hex ) . ';color:' . esc_attr( $text_color ) . '">' . esc_html( $color_hex ) . '</span></div>';
 	}
 
 	/**
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
-		return '&ndash;'; // dash
+		return '&ndash;';
 	}
 
 	/**
@@ -624,7 +624,7 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-		return ac_helper()->media->get_thumbnails( $images, $args );
+		return ac_helper()->image->thumbnail_block( $images, $args );
 	}
 
 	/**
@@ -678,7 +678,6 @@ class CPAC_Column {
 	 * @return string Formatted time
 	 */
 	protected function get_time( $date, $format = '' ) {
-
 		if ( ! $date = ac_helper()->date->strtotime( $date ) ) {
 			return false;
 		}
@@ -1074,6 +1073,31 @@ class CPAC_Column {
 			'label'       => __( 'Link label', 'codepress-admin-columns' ),
 			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
 		) );
+	}
+
+	/**
+	 * @return array|string
+	 */
+	public function get_image_size_formatted() {
+		$size = $this->get_option( 'image_size' );
+
+		if ( 'cpac-custom' == $size ) {
+			$size = array(
+				$this->get_option( 'image_size_w' ),
+				$this->get_option( 'image_size_h' ),
+			);
+		}
+
+		return $size;
+	}
+
+	/**
+	 * @param int $attachment_id
+	 *
+	 * @return string HTML Image
+	 */
+	public function get_image_formatted( $attachment_id ) {
+		return ac_helper()->image->get_images_by_ids( $attachment_id, $this->get_image_size_formatted() );
 	}
 
 	/**

@@ -109,4 +109,15 @@ class AC_Helper_String {
 		return $this->hex_format( $contrast, true );
 	}
 
+	/**
+	 * @since 1.2.0
+	 *
+	 * @param string $url
+	 *
+	 * @return bool
+	 */
+	public function is_image( $url ) {
+		return is_string( $url ) ? in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) ) : false;
+	}
+
 }
