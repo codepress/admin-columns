@@ -173,4 +173,29 @@ class AC_Helper_Post {
 		return $options;
 	}
 
+	/**
+	 * @since 1.0
+	 *
+	 * @param int $post_id Post ID
+	 *
+	 * @return string Post Excerpt.
+	 */
+	public function excerpt( $post_id, $words ) {
+		global $post;
+
+		$save_post = $post;
+		$post = get_post( $post_id );
+
+		setup_postdata( $post );
+
+		$excerpt = get_the_excerpt();
+		$post = $save_post;
+
+		if ( $post ) {
+			setup_postdata( $post );
+		}
+
+		return ac_helper()->string->trim_words( $excerpt, $words );
+	}
+
 }

@@ -449,31 +449,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.0
-	 *
-	 * @param int $post_id Post ID
-	 *
-	 * @return string Post Excerpt.
-	 */
-	protected function get_post_excerpt( $post_id, $words ) {
-		global $post;
-
-		$save_post = $post;
-		$post = get_post( $post_id );
-
-		setup_postdata( $post );
-
-		$excerpt = get_the_excerpt();
-		$post = $save_post;
-
-		if ( $post ) {
-			setup_postdata( $post );
-		}
-
-		return ac_helper()->string->trim_words( $excerpt, $words );
-	}
-
-	/**
 	 * @since 1.3.1
 	 *
 	 * @param string $name
@@ -499,19 +474,6 @@ class CPAC_Column {
 		";
 
 		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
-	}
-
-	/**
-	 * @since 1.2.0
-	 *
-	 * @param string $url
-	 *
-	 * @return bool
-	 */
-	protected function is_image_url( $url ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->is_image()' );
-
-		return ac_helper()->string->is_image( $url );
 	}
 
 	/**
@@ -569,30 +531,6 @@ class CPAC_Column {
 		);
 
 		return $sizes;
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param string $name
-	 *
-	 * @return array Image Sizes
-	 */
-	public function get_image_size_by_name( $name ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
-
-		return ac_helper()->image->get_image_sizes_by_name( $name );
-	}
-
-	/**
-	 * @see image_resize()
-	 * @since 2.0
-	 * @return string Image URL
-	 */
-	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
-
-		return ac_helper()->image->resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
 	}
 
 	/**
@@ -662,6 +600,8 @@ class CPAC_Column {
 	 *
 	 * @return string Formatted date
 	 */
+
+	// TODO: duplicate, need refactor
 	public function get_date_formatted( $timestamp, $format = false ) {
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
@@ -712,16 +652,6 @@ class CPAC_Column {
 		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_storage_model_key() );
 
 		return $value;
-	}
-
-	/**
-	 * @param $user
-	 * @param bool $format
-	 *
-	 * @return false|string
-	 */
-	public function get_user_formatted( $user ) {
-		return ac_helper()->user->get_display_name( $user, $this->get_option( 'display_author_as' ) );
 	}
 
 	/**
@@ -929,9 +859,14 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 *
+	 * @param $user
+	 * @param bool $format
+	 *
+	 * @return false|string
 	 */
-	public function format_user( $user_id ) {
-		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
+	public function get_user_formatted( $user ) {
+		return ac_helper()->user->get_display_name( $user, $this->get_option( 'display_author_as' ) );
 	}
 
 	/**
@@ -1430,6 +1365,56 @@ class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param int $post_id Post ID
+	 *
+	 * @return string Post Excerpt.
+	 */
+	protected function get_post_excerpt( $post_id, $words ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->post->excerpt' );
+
+		return ac_helper()->post->excerpt( $post_id, $words );
+	}
+
+	/**
+	 * @since 1.2.0
+	 *
+	 * @param string $url
+	 *
+	 * @return bool
+	 */
+	protected function is_image_url( $url ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->is_image()' );
+
+		return ac_helper()->string->is_image( $url );
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @param string $name
+	 *
+	 * @return array Image Sizes
+	 */
+	public function get_image_size_by_name( $name ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
+
+		return ac_helper()->image->get_image_sizes_by_name( $name );
+	}
+
+	/**
+	 * @see image_resize()
+	 * @since 2.0
+	 * @return string Image URL
+	 */
+	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
+
+		return ac_helper()->image->resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+	}
 
 	/**
 	 * @param $user
