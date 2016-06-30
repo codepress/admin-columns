@@ -408,41 +408,6 @@ class CPAC_Column {
 
 	/**
 	 * @since 2.0
-	 *
-	 * @param $options array User submitted column options
-	 *
-	 * @return array Options
-	 */
-	public function sanitize_storage( $options ) {
-
-		// excerpt length must be numeric, else we will return it's default
-		/*if ( isset( $options['excerpt_length'] ) ) {
-			$options['excerpt_length'] = trim( $options['excerpt_length'] );
-			if ( empty( $options['excerpt_length'] ) || ! is_numeric( $options['excerpt_length'] ) ) {
-				$options['excerpt_length'] = 30;
-			}
-		}*/
-
-		if ( ! empty( $options['label'] ) ) {
-
-			// Label can not contains the character ":"" and "'", because
-			// CPAC_Column::get_sanitized_label() will return an empty string
-			// and make an exception for site_url()
-			// Enable data:image url's
-			if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
-				$options['label'] = str_replace( ':', '', $options['label'] );
-				$options['label'] = str_replace( "'", '', $options['label'] );
-			}
-		}
-
-		// used by child classes for additional sanitizing
-		$options = $this->sanitize_options( $options );
-
-		return $options;
-	}
-
-	/**
-	 * @since 2.0
 	 */
 	public function get_label() {
 
@@ -458,37 +423,10 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Sanitizes label using intern wordpress function esc_url so it matches the label sorting url.
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $string
-	 *
-	 * @return string Sanitized string
-	 */
-	public function get_sanitized_label() {
-		if ( $this->is_default() ) {
-			$string = $this->get_name();
-		} else {
-			$string = $this->get_option( 'label' );
-			$string = strip_tags( $string );
-			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
-			$string = str_replace( 'http://', '', $string );
-			$string = str_replace( 'https://', '', $string );
-		}
-
-		return $string;
-	}
-
-	/**
 	 * @since 1.3.1
 	 */
 	protected function get_shorten_url( $url = '' ) {
-		if ( ! $url ) {
-			return false;
-		}
-
-		return "<a title='{$url}' href='{$url}'>" . url_shorten( $url ) . "</a>";
+		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>': false;
 	}
 
 	/**
@@ -503,11 +441,8 @@ class CPAC_Column {
 	 */
 	protected function get_term_field( $field, $term_id, $taxonomy ) {
 		$term_field = get_term_field( $field, $term_id, $taxonomy, 'display' );
-		if ( is_wp_error( $term_field ) ) {
-			return false;
-		}
 
-		return $term_field;
+		return $term_field && ! is_wp_error( $term_field ) ? $term_field : false;
 	}
 
 	// since 2.4.8
@@ -1773,6 +1708,22 @@ class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * Sanitizes label using intern wordpress function esc_url so it matches the label sorting url.
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $string
+	 *
+	 * @return string Sanitized string
+	 */
+	public function get_sanitized_label() {
+		_deprecated_function( 'CPAC_Column::get_sanitized_label', 'NEWVERSION' );
+
+		return $this->get_label();
+	}
 
 	/**
 	 * @since 2.3.4
