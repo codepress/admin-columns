@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) or die();
 
 /**
- * Columng displaying full item permalink (including URL).
+ * Column displaying full item permalink (including URL).
  *
  * @since 2.0
  */

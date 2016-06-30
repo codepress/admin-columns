@@ -8,19 +8,12 @@ defined( 'ABSPATH' ) or die();
  */
 class CPAC_Column_Media_Full_Path extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
-	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-full_path';
 		$this->properties['label'] = __( 'Full path', 'codepress-admin-columns' );
 
-		// Options
 		$this->options['path_scope'] = 'full';
 	}
 
@@ -28,16 +21,13 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 		return $this->get_option( 'path_scope' );
 	}
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.0
-	 */
+	// Display
 	function get_value( $id ) {
 		$value = '';
 
 		if ( $file = wp_get_attachment_url( $id ) ) {
 			switch ( $this->get_pathscope() ) {
-				case 'relative-domain':
+				case 'relative-domain' :
 					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', home_url( '/' ) );
 
@@ -46,7 +36,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 					}
 
 					break;
-				case 'relative-uploads':
+				case 'relative-uploads' :
 					$uploaddir = wp_upload_dir();
 					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', $uploaddir['baseurl'] );
@@ -64,12 +54,7 @@ class CPAC_Column_Media_Full_Path extends CPAC_Column {
 		return $value;
 	}
 
-	/**
-	 *
-	 *
-	 * @see CPAC_Column::display_settings()
-	 * @since 2.3.4
-	 */
+	// Settings
 	public function display_settings() {
 		$this->form_field( array(
 			'type'        => 'radio',

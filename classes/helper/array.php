@@ -60,4 +60,28 @@ class AC_Helper_Array {
 		return array_combine( $keys, array_values( $input ) );
 	}
 
+	/**
+	 * Sorts an array. Return keys after they have been sorted by value.
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @uses sort()
+	 * @uses natcasesort()
+	 *
+	 * @param array $array ( [object_id] => [value] )
+	 * @param int|string $sort_flags Sorting type flags. See sort().
+	 *
+	 * @return array Array keys
+	 */
+	public function get_array_keys_sorted_by_value( $array, $type = 'string' ) {
+		if ( 'numeric' === strtolower( $type ) ) {
+			asort( $array, SORT_NUMERIC );
+		}
+		else {
+			natcasesort( $array );
+		}
+
+		return array_keys( $array );
+	}
+
 }

@@ -12,6 +12,7 @@ jQuery( document ).ready( function() {
 	cpac_init();
 	cpac_pointer();
 	cpac_submit_form();
+	cpac_reset_columns();
 
 	// Settings Page
 	cpac_clear_input_defaults();
@@ -22,6 +23,7 @@ jQuery( document ).ready( function() {
 	cpac_add_column();
 	cpac_importexport();
 	cpac_sidebar_feedback();
+
 } );
 
 function cpac_importexport() {
@@ -166,6 +168,7 @@ jQuery.fn.cpac_column_refresh = function() {
 	var el = jQuery( this );
 	var select = el.find( '.column-type select' );
 	var $container = jQuery( this ).closest( '.columns-container' );
+	var column_name = jQuery( this ).find( 'input.column-name' ).val();
 
 	// Mark column as loading
 	el.addClass( 'loading' );
@@ -176,7 +179,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		plugin_id : 'cpac',
 		action : 'cpac_column_refresh',
 		_ajax_nonce : cpac._ajax_nonce,
-		column : jQuery( this ).find( 'input.column-name' ).val(),
+		column : column_name,
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : $container.data( 'type' ),
 		layout : $container.data( 'layout' )
@@ -782,6 +785,23 @@ function cpac_menu() {
 		jQuery( '.view-link' ).hide();
 		window.location = jQuery( this ).val();
 	} );
+}
+
+/*
+ * Reset columns
+ *
+ * @since NEWVERSION
+ */
+function cpac_reset_columns(){
+	var $ = jQuery;
+	var $container = $('.columns-container');
+
+
+	$('a[data-clear-columns]' ).on( 'click', function(){
+		$container.find('.cpac-column' ).each( function(){
+			$(this ).find('.remove-button' ).trigger('click');
+		});
+	});
 }
 
 /*

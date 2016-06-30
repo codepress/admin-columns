@@ -447,11 +447,13 @@
   margin: 0;
 }
 .cpac-column .column-form > table tr td select,
-.cpac-column .column-form > table tr td input[type=text] {
+.cpac-column .column-form > table tr td input[type=text],
+.cpac-column .column-form > table tr td input[type=number] {
   width: 99.95%;
 }
 .cpac-column .column-form > table tr td select.small,
-.cpac-column .column-form > table tr td input[type=text].small {
+.cpac-column .column-form > table tr td input[type=text].small,
+.cpac-column .column-form > table tr td input[type=number].small {
   width: 100px;
 }
 .cpac-column .column-form > table tr td select {
@@ -630,7 +632,7 @@
   position: absolute;
   top: 13px;
   left: 10px;
-  text-align: middle;
+  text-align: center;
 }
 .cpac-column .column-form > table tr.column-width .input div.description input {
   background: #efefef;
@@ -645,7 +647,7 @@
   margin-left: 68px;
   margin-right: 90px;
   position: relative;
-  margin-top: 0px;
+  margin-top: 0;
 }
 .cpac-column .column-form > table tr.column-width .input div.width-slider .ui-slider-handle {
   cursor: ew-resize;
@@ -819,6 +821,13 @@
   display: inline-block;
   margin-top: 5px;
   margin-left: 5px;
+}
+.column-footer .button-container a.clear_columns {
+  color: #BC0B0B;
+  text-decoration: none;
+}
+.column-footer .button-container a.clear_columns:hover {
+  color: #f00;
 }
 /**
  * Welcome Screen

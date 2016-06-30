@@ -55,7 +55,7 @@ class CPAC_Storage_Model_Comment extends CPAC_Storage_Model {
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->commentmeta} ORDER BY 1", ARRAY_N );
 	}
 
-	public function manage_value( $column_name, $comment_id ) {
-		echo $this->get_manage_value( $column_name, $comment_id );
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 }

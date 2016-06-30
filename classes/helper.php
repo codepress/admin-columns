@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_String string
  * @property AC_Helper_Taxonomy taxonomy
  * @property AC_Helper_User user
+ * @property AC_Helper_Media media
+ * @property AC_Helper_Term term
  */
 class AC_Helper {
 

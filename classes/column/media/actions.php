@@ -17,7 +17,7 @@ class CPAC_Column_Media_Actions extends CPAC_Column_Actions {
 		global $wp_list_table;
 
 		if ( ! $wp_list_table ) {
-			return;
+			return false;
 		}
 
 		$post = get_post( $id );

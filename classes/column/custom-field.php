@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0
  */
-class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Custom_Field {
+class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom_FieldInterface {
 
 	/**
 	 * @see CPAC_Column::init()
@@ -25,7 +25,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes'] = 'cpac-box-metafield';
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
-		$this->properties['use_before_after'] = true;
+		//$this->properties['use_before_after'] = true;
 
 		// Default options
 		$this->options['image_size'] = 'cpac-custom';
@@ -45,6 +45,16 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 	 */
 	public function get_field_type() {
 		return $this->get_option( 'field_type' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return bool|mixed
+	 */
+	public function get_field_label() {
+		$field_labels = $this->get_field_labels();
+
+		return isset( $field_labels[ $this->get_field_type() ] ) ? $field_labels[ $this->get_field_type() ] : false;
 	}
 
 	/**
@@ -85,9 +95,9 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 	 *
 	 * @since 1.0
 	 *
-	 * @return array Customfield types.
+	 * @return array Custom Field types.
 	 */
-	public function get_custom_field_types() {
+	public function get_field_labels() {
 
 		$custom_field_types = array(
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
@@ -203,7 +213,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 				break;
 
 			case "excerpt" :
-				$value = $this->get_shortened_string( $raw_value, $this->get_option( 'excerpt_length' ) );
+				$value = ac_helper()->string->trim_words( $raw_value, $this->get_option( 'excerpt_length' ) );
 				break;
 
 			case "date" :
@@ -248,12 +258,14 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 
 			case "term_by_id" :
 				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
-					$value = ac()->helper()->term()->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
+					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
 				}
 				break;
 
 			case "checkmark" :
-				$value = ( empty( $raw_value ) || 'false' === $raw_value || '0' === $raw_value ) ? '<span class="dashicons dashicons-no cpac_status_no"></span>' : '<span class="dashicons dashicons-yes cpac_status_yes"></span>';
+				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
+
+				$value = $this->get_icon_yes_or_no( $is_true );
 				break;
 
 			case "color" :
@@ -268,6 +280,10 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 				$value = $raw_string;
 
 		endswitch;
+
+		if ( ! $value ) {
+			$value = $this->get_empty_char();
+		}
 
 		/**
 		 * Filter the display value for Custom Field columns
@@ -348,25 +364,27 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Interface_Cus
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
 			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
-			'options'        => $this->get_custom_field_types(),
+			'options'        => $this->get_field_labels(),
 			'refresh_column' => true,
 		) );
 
 		switch ( $this->get_field_type() ) {
-			case 'date':
+			case 'date' :
 				$this->display_field_date_format();
 				break;
-			case 'image':
-			case 'library_id':
+			case 'image' :
+			case 'library_id' :
 				$this->display_field_preview_size();
 				break;
-			case 'excerpt':
-				$this->display_field_excerpt_length();
+			case 'excerpt' :
+				$this->display_field_word_limit();
 				break;
-			case 'link':
+			case 'link' :
 				$this->display_field_link_label();
 				break;
 		}
+
+		$this->display_field_before_after();
 	}
 
 	/**

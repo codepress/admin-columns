@@ -57,12 +57,12 @@ class AC_Notice_Review {
 
 		// only display on settings and plugins page
 		if ( ! $screen || ! in_array( $screen->parent_base, array( 'options-general', 'plugins' ) ) ) {
-			return false;
+			return;
 		}
 
 		$product = __( 'Admin Columns', 'codepress-admin-columns' );
 
-		if ( cpac()->is_pro_active() ) {
+		if ( cpac_is_pro_active() ) {
 			$product = __( 'Admin Columns Pro', 'codepress-admin-columns' );
 		}
 		?>
@@ -89,7 +89,7 @@ class AC_Notice_Review {
 						$product,
 						'<a href="' . ac_get_site_url( 'documentation' ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
-					<?php if ( cpac()->is_pro_active() ) : ?>
+					<?php if ( cpac_is_pro_active() ) : ?>
 						<?php printf(
 							__( 'As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!', 'codepress-admin-columns' ),
 							'<a href="' . ac_get_site_url( 'forumns' ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
@@ -144,7 +144,7 @@ class AC_Notice_Review {
 			.cpac_message .hide-notice:before {
 				display: block;
 				content: '\f335';
-				font-family: 'Dashicons';
+				font-family: 'Dashicons', serif;
 				margin: .5em 0;
 				padding: 2px;
 			}
@@ -179,7 +179,7 @@ class AC_Notice_Review {
 
 						$.post( ajaxurl, {
 							'action' : 'cpac_hide_review_notice'
-						}, function( data ) {
+						}, function() {
 							if ( !soft ) {
 								el.find( '.spinner' ).remove();
 								el.slideUp();

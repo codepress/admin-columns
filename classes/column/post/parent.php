@@ -41,7 +41,7 @@ class CPAC_Column_Post_Parent extends CPAC_Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $post_id ) {
-		$parent_id = ac()->helper()->post()->get_raw_field( 'post_parent', $post_id );
+		$parent_id = ac_helper()->post->get_raw_field( 'post_parent', $post_id );
 
 		return $parent_id && is_numeric( $parent_id ) ? $parent_id : false;
 	}

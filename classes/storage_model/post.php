@@ -26,7 +26,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 */
 	public function init_column_values() {
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
+		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
 	/**
@@ -48,7 +48,8 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.7.2
 	 */
 	private function set_labels() {
-		$post_type_object = get_post_type_object( $this->post_type );
+		$post_type_object = get_post_type_object( $this->get_post_type() );
+
 		$this->label = $post_type_object->labels->name;
 		$this->singular_label = $post_type_object->labels->singular_name;
 	}
@@ -56,8 +57,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	/**
 	 * @since 2.2.1
 	 */
-	public function get_original_column_value( $column, $id ) {
-
+	public function get_original_column_value( $column_name, $id ) {
 		global $post;
 
 		// Setup post data for current post
@@ -65,33 +65,26 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 		$post = get_post( $id );
 		setup_postdata( $post );
 
-		// Remove Admin Columns action for this column's value
-		remove_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100 );
-
+		// Start
 		ob_start();
-		// Run WordPress native actions to display column content
-		if ( is_post_type_hierarchical( $this->post_type ) ) {
-			do_action( 'manage_pages_custom_column', $column, $id );
+
+		/** @var WP_List_Table|WP_Posts_List_Table $table */
+		$table = $this->get_list_table();
+
+		if ( method_exists( $table, 'column_' . $column_name ) ) {
+			call_user_func( array( $table, 'column_' . $column_name ), $post );
 		}
-		else {
-			do_action( 'manage_posts_custom_column', $column, $id );
+		else if ( method_exists( $table, 'column_default' ) ) {
+			$table->column_default( $post, $column_name );
 		}
-
-		do_action( "manage_{$this->post_type}_posts_custom_column", $column, $id );
-
-		$contents = ob_get_clean();
-
-		// Add removed Admin Columns action for this column's value
-		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'manage_value_callback' ), 100, 2 );
 
 		// Restore original post object
 		$post = $post_old;
-
 		if ( $post ) {
 			setup_postdata( $post );
 		}
 
-		return $contents;
+		return ob_get_clean();
 	}
 
 	/**
@@ -135,7 +128,7 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	 * @since 2.0
 	 */
 	protected function get_screen_link() {
-		return add_query_arg( array( 'post_type' => $this->key ), admin_url( $this->page . '.php' ) );
+		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
 	}
 
 	/**
@@ -165,40 +158,9 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.0
-	 */
-	public function manage_value( $column_name, $post_id ) {
-		// Setup post data for current post
-		// TODO: remove?
-		global $post;
-		$post_old = $post;
-		$post = get_post( $post_id );
-		setup_postdata( $post );
-
-		$value = $this->get_manage_value( $column_name, $post_id );
-
-		// Reset query to old post
-		// TODO: remove?
-		$post = $post_old;
-		if ( $post ) {
-			setup_postdata( $post );
-		}
-
-		echo $value;
-	}
-
-	/**
 	 * @since 2.4.7
 	 */
-	public function manage_value_callback( $column_name, $post_id ) {
-		$column = $this->get_column_by_name( $column_name );
-		if ( $column && $column->get_handle() ) {
-			ob_start();
-			$this->manage_value( $column_name, $post_id );
-			ob_end_clean();
-		}
-		else {
-			$this->manage_value( $column_name, $post_id );
-		}
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 }

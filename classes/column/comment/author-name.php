@@ -9,9 +9,8 @@ class CPAC_Column_Comment_Author_Name extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		// Properties
-		$this->properties['type']	 = 'column-author_name';
-		$this->properties['label']	 = __( 'Author name', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-author_name';
+		$this->properties['label'] = __( 'Author name', 'codepress-admin-columns' );
 	}
 
 	public function get_value( $id ) {
@@ -20,6 +19,7 @@ class CPAC_Column_Comment_Author_Name extends CPAC_Column {
 
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
+
 		return $comment->comment_author;
 	}
 }

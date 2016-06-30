@@ -11,6 +11,9 @@
 
 @blue: #21759B;
 
+@red: #BC0B0B;
+@red-light: #f00;
+
 // Mixin
 .placeholder( @rules ) {
 	&::-webkit-input-placeholder {
@@ -578,7 +581,8 @@
 					}
 
 					select,
-					input[type=text] {
+					input[type=text],
+					input[type=number] {
 						width: 99.95%; // excl padding
 
 						&.small {
@@ -787,7 +791,7 @@
 							position: absolute;
 							top: 13px;
 							left: 10px;
-							text-align: middle;
+							text-align: center;
 
 							input {
 								background: #efefef;
@@ -803,7 +807,7 @@
 							margin-left: 68px;
 							margin-right: 90px;
 							position: relative;
-							margin-top: 0px;
+							margin-top: 0;
 
 							.ui-slider-handle {
 								cursor: ew-resize;
@@ -1040,6 +1044,14 @@
 			display: inline-block;
 			margin-top: 5px;
 			margin-left: 5px;
+
+			&.clear_columns {
+				color: @red;
+				text-decoration: none;
+				&:hover {
+					color: @red-light;
+				}
+			}
 		}
 	}
 }
@@ -1213,7 +1225,7 @@
 			}
 			.reset-column-type {
 				text-decoration: none;
-				color: #BC0B0B;
+				color: @red;
 				line-height: 25px;
 				display: inline-block;
 				background: none;
@@ -1224,7 +1236,7 @@
 				margin: 0;
 
 				&:hover {
-					color: #f00;
+					color: @red-light;
 				}
 			}
 			.form-update {

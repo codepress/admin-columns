@@ -56,7 +56,7 @@ class AC_Settings {
 		 * @since 2.2
 		 *
 		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
-		 * @param CPAC_Settings $settings_instance Settings class instance
+		 * @param AC_Settings $settings_instance Settings class instance
 		 */
 		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
 			'admin'            => admin_url( 'options-general.php?page=codepress-admin-columns' ),
@@ -194,7 +194,7 @@ class AC_Settings {
 	}
 
 	/**
-	 * Allows the capaiblity 'manage_admin_columns' to store data through /wp-admin/options.php
+	 * Allows the capability 'manage_admin_columns' to store data through /wp-admin/options.php
 	 *
 	 * @since 2.0
 	 */
@@ -264,7 +264,11 @@ class AC_Settings {
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
-			wp_die();
+			wp_send_json_error( array(
+					'type'    => 'error',
+					'message' => __( 'You need at least one column', 'codepress-admin-columns' )
+				)
+			);
 		}
 
 		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
@@ -339,7 +343,6 @@ class AC_Settings {
 	 * @since 1.3.0
 	 */
 	public function help_tabs() {
-
 		$screen = get_current_screen();
 
 		if ( ! method_exists( $screen, 'add_help_tab' ) ) {
@@ -549,11 +552,9 @@ class AC_Settings {
 	public function display_settings() { ?>
 		<table class="form-table cpac-form-table settings">
 			<tbody>
-
 			<tr class="general">
 				<th scope="row">
 					<h3><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h3>
-
 					<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
@@ -599,7 +600,7 @@ class AC_Settings {
 						<td class="padding-22">
 							<?php
 
-							/** Use this Hook to add additonal fields to the group */
+							/** Use this Hook to add additional fields to the group */
 							do_action( "cac/settings/groups/row={$id}" );
 
 							?>
@@ -898,7 +899,7 @@ class AC_Settings {
 															'hashtags' => 'admincolumns',
 															'text'     => urlencode( "I'm using Admin Columns for WordPress!" ),
 															'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
-															'via'      => 'codepressNL'
+															'via'      => 'wpcolumns'
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
 															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 														</a>
@@ -984,6 +985,9 @@ class AC_Settings {
 											<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 										</div>
 										<div class="button-container">
+											<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
+											<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+											<?php endif; ?>
 											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
 											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
 											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
@@ -1084,8 +1088,7 @@ class AC_Settings {
 							// Not installed...
 							else :
 
-								// Got ACP?
-								if ( class_exists( 'CAC_Addon_Pro' ) ) :
+								if ( cpac_is_pro_active() ) :
 									$install_url = wp_nonce_url( add_query_arg( array(
 										'action' => 'install',
 										'plugin' => $addon_name,

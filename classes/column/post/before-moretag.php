@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) or die();
 
 /**
- * CPAC_Column_Post_Before_Moretag
+ * CPAC_Column_Post_Before_More tag
  *
  * @since 2.0
  */
@@ -45,7 +45,7 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 		$extended = get_extended( $p->post_content );
 
 		if ( ! empty( $extended['extended'] ) ) {
-			$value = $this->get_shortened_string( $extended['main'], $this->get_option( 'excerpt_length' ) );
+			$value = ac_helper()->string->trim_words( $extended['main'], $this->get_option( 'excerpt_length' ) );
 		}
 
 		return $value;
@@ -57,6 +57,6 @@ class CPAC_Column_Post_Before_Moretag extends CPAC_Column {
 	 */
 	function display_settings() {
 
-		$this->display_field_excerpt_length();
+		$this->display_field_word_limit();
 	}
 }

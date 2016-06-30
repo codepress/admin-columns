@@ -20,10 +20,6 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		$this->properties['label'] = __( 'Display Author As', 'codepress-admin-columns' );
 		$this->properties['is_cloneable'] = true;
 		$this->properties['object_property'] = 'post_author';
-
-		// Options
-		$this->options['display_author_as'] = '';
-		$this->options['user_link_to'] = '';
 	}
 
 	/**
@@ -38,16 +34,16 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		}
 
 		switch ( $this->get_option( 'user_link_to' ) ) {
-			case 'edit_user':
+			case 'edit_user' :
 				$link = get_edit_user_link( $user_id );
 				break;
-			case 'view_user_posts':
+			case 'view_user_posts' :
 				$link = add_query_arg( array(
 					'post_type' => get_post_field( 'post_type', $post_id ),
 					'author'    => get_the_author_meta( 'ID' )
 				), 'edit.php' );
 				break;
-			case 'view_author':
+			case 'view_author' :
 				$link = get_author_posts_url( $user_id );
 				break;
 			default:

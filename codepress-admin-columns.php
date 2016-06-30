@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.6.2
+Version: 2.6beta
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -49,7 +49,7 @@ class CPAC {
 	 *
 	 * @since 2.2
 	 * @access private
-	 * @var CPAC_Addons
+	 * @var AC_Addons
 	 */
 	private $_addons;
 
@@ -58,7 +58,7 @@ class CPAC {
 	 *
 	 * @since 2.2
 	 * @access private
-	 * @var CPAC_Settings
+	 * @var AC_Settings
 	 */
 	private $_settings;
 
@@ -67,7 +67,7 @@ class CPAC {
 	 *
 	 * @since 2.2.7
 	 * @access private
-	 * @var CPAC_Upgrade
+	 * @var AC_Upgrade
 	 */
 	private $_upgrade;
 
@@ -76,7 +76,7 @@ class CPAC {
 	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
 	 * @since 2.0
-	 * @var array
+	 * @var CPAC_Storage_Model[]
 	 */
 	private $storage_models;
 
@@ -90,12 +90,33 @@ class CPAC {
 	 */
 	private $general_options = null;
 
+	/**
+	 * @since NEWVERSION
+	 * @var null|string $version Version number
+	 */
 	private $version = null;
 
 	/**
 	 * @since 2.5
 	 */
 	protected static $_instance = null;
+
+	/**
+	 * @since NEWVERSION
+	 * @var AC_Helper
+	 */
+	public $helper;
+
+	/**
+	 * @since 2.5
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
 
 	/**
 	 * @since 1.0
@@ -127,7 +148,7 @@ class CPAC {
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ), 11 );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
@@ -141,17 +162,6 @@ class CPAC {
 		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 
 	/**
@@ -188,6 +198,8 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	public function get_version() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		if ( null === $this->version ) {
 			$this->version = $this->get_plugin_version( __FILE__ );
 		}
@@ -287,8 +299,8 @@ class CPAC {
 	}
 
 	/**
-	 * Add capabilty to administrator to manage admin columns.
-	 * You can use the capability 'manage_admin_columns' to grant other roles this privilidge as well.
+	 * Add capability to administrator to manage admin columns.
+	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
 	 * @since 2.0.4
 	 */
@@ -675,7 +687,7 @@ class CPAC {
 	 * Get admin columns settings class instance
 	 *
 	 * @since 2.2
-	 * @return CPAC_Settings Settings class instance
+	 * @return AC_Settings Settings class instance
 	 */
 	public function settings() {
 		return $this->_settings;
@@ -685,7 +697,7 @@ class CPAC {
 	 * Get admin columns add-ons class instance
 	 *
 	 * @since 2.2
-	 * @return CPAC_Addons Add-ons class instance
+	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
 		return $this->_addons;
@@ -695,7 +707,7 @@ class CPAC {
 	 * Get admin columns upgrade class instance
 	 *
 	 * @since 2.2.7
-	 * @return CPAC_Upgrade Upgrade class instance
+	 * @return AC_Upgrade Upgrade class instance
 	 */
 	public function upgrade() {
 		return $this->_upgrade;
@@ -716,7 +728,7 @@ class CPAC {
 	 * @return bool Whether the Advanced Custom Fields plugin is active
 	 */
 	public function is_plugin_acf_active() {
-		return class_exists( 'acf', false );
+		return cpac_is_acf_active();
 	}
 
 	/**
@@ -727,18 +739,7 @@ class CPAC {
 	 * @return bool Whether the WooCommerce plugin is active
 	 */
 	public function is_plugin_woocommerce_active() {
-		return class_exists( 'WooCommerce', false );
-	}
-
-	/**
-	 * Check whether the Pro plugin is active
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @return bool Whether the Pro plugin is active
-	 */
-	public function is_pro_active() {
-		return function_exists( 'ac_pro' );
+		return cpac_is_woocommerce_active();
 	}
 
 	/**
@@ -753,7 +754,7 @@ class CPAC {
 	}
 }
 
-// @deprecated NEWVERSION
+// @deprecated since NEWVERSION
 function cpac() {
 	return AC();
 }
