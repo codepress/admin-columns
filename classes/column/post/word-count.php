@@ -22,10 +22,11 @@ class CPAC_Column_Post_Word_Count extends CPAC_Column {
 	}
 
 	function get_raw_value( $post_id ) {
-		return ac_helper()->string->word_count( $this->strip_trim( get_post_field( 'post_content', $post_id ) ) );
+		return ac_helper()->string->word_count( get_post_field( 'post_content', $post_id ) );
 	}
 
 	function apply_conditional() {
 		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
+
 }

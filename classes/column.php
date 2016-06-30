@@ -815,7 +815,8 @@ class CPAC_Column {
 			if ( $first || $last ) {
 				$name = $first . $last;
 			}
-		} elseif ( ! empty( $user->{$format} ) ) {
+		}
+		elseif ( ! empty( $user->{$format} ) ) {
 			$name = $user->{$format};
 		}
 
@@ -1511,7 +1512,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function hex2rgb( $hex ) {
-		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac_helper()->string->hex_to_rgb()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->hex_to_rgb()' );
 
 		return ac_helper()->string->hex_to_rgb( $hex );
 	}
@@ -1523,7 +1524,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function get_text_color( $bg_color ) {
-		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac_helper()->string->hex_get_contrast()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->hex_get_contrast()' );
 
 		return ac_helper()->string->hex_get_contrast( $bg_color );
 	}
@@ -1539,7 +1540,7 @@ class CPAC_Column {
 	 * @return int Number of words
 	 */
 	public function str_count_words( $input ) {
-		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac_helper()->string->word_count()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->word_count()' );
 
 		return ac_helper()->string->word_count( $input );
 	}
@@ -1553,7 +1554,7 @@ class CPAC_Column {
 	 * @return string Trimmed text.
 	 */
 	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
-		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac_helper()->string->trim_words()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->trim_words()' );
 
 		return ac_helper()->string->trim_words( $text, $num_words, $more );
 	}
@@ -1570,7 +1571,7 @@ class CPAC_Column {
 	 * @return string Imploded array
 	 */
 	public function recursive_implode( $glue, $pieces ) {
-		_deprecated_function( __METHOD__ , 'NEWVERSION', 'ac_helper()->array->implode_recursive()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->array->implode_recursive()' );
 
 		return ac_helper()->array->implode_recursive( $glue, $pieces );
 	}
@@ -1634,6 +1635,7 @@ class CPAC_Column {
 	 */
 	public function strip_trim( $string ) {
 		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->strip_trim()' );
+
 		return ac_helper()->string->strip_trim( $string );
 	}
 

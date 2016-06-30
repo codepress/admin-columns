@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AC_Helper_String {
+
 	/**
 	 * @since 1.3
 	 */
@@ -22,6 +23,8 @@ class AC_Helper_String {
 	 * @return int Number of words
 	 */
 	public function word_count( $string ) {
+		$string = $this->strip_trim( $string );
+
 		$patterns = array(
 			'strip' => '/<[a-zA-Z\/][^<>]*>/',
 			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
@@ -38,10 +41,6 @@ class AC_Helper_String {
 		}
 
 		return preg_match_all( $patterns['w'], $string, $matches ) + 1;
-	}
-
-	public function strip_trim( $string ) {
-		return trim( strip_tags( $string ) );
 	}
 
 	/**
