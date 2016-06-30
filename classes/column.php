@@ -469,7 +469,8 @@ class CPAC_Column {
 	public function get_sanitized_label() {
 		if ( $this->is_default() ) {
 			$string = $this->get_name();
-		} else {
+		}
+		else {
 			$string = $this->get_option( 'label' );
 			$string = strip_tags( $string );
 			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
@@ -489,13 +490,6 @@ class CPAC_Column {
 		}
 
 		return "<a title='{$url}' href='{$url}'>" . url_shorten( $url ) . "</a>";
-	}
-
-	/**
-	 * @since 1.3
-	 */
-	public function strip_trim( $string ) {
-		return trim( strip_tags( $string ) );
 	}
 
 	/**
@@ -581,15 +575,9 @@ class CPAC_Column {
 	 * @return bool
 	 */
 	protected function is_image_url( $url ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->is_image_url()' );
 
-		if ( ! is_string( $url ) ) {
-			return false;
-		}
-
-		$validExt = array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' );
-		$ext = strrchr( $url, '.' );
-
-		return in_array( $ext, $validExt );
+		return ac_helper()->media->is_image_url( $url );
 	}
 
 	/**
@@ -657,16 +645,9 @@ class CPAC_Column {
 	 * @return array Image Sizes
 	 */
 	public function get_image_size_by_name( $name = '' ) {
-		if ( ! $name || is_array( $name ) ) {
-			return false;
-		}
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
 
-		global $_wp_additional_image_sizes;
-		if ( ! isset( $_wp_additional_image_sizes[ $name ] ) ) {
-			return false;
-		}
-
-		return $_wp_additional_image_sizes[ $name ];
+		return ac_helper()->media->get_image_size_by_name( $name );
 	}
 
 	/**
@@ -675,29 +656,9 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		$editor = wp_get_image_editor( $file );
-		if ( is_wp_error( $editor ) ) {
-			return false;
-		}
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->media->get_image_size_by_name()' );
 
-		$editor->set_quality( $jpeg_quality );
-
-		$resized = $editor->resize( $max_w, $max_h, $crop );
-		if ( is_wp_error( $resized ) ) {
-			return false;
-		}
-
-		$dest_file = $editor->generate_filename( $suffix, $dest_path );
-
-		$saved = $editor->save( $dest_file );
-
-		if ( is_wp_error( $saved ) ) {
-			return false;
-		}
-
-		$resized = $dest_file;
-
-		return $resized;
+		return ac_helper()->media->image_resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
 	}
 
 	/**
@@ -714,6 +675,75 @@ class CPAC_Column {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Determines text color based on background coloring.
+	 *
+	 * @since 1.0
+	 */
+	public function get_text_color( $bg_color ) {
+
+		$rgb = $this->hex2rgb( $bg_color );
+
+		return $rgb && ( ( $rgb[0] * 0.299 + $rgb[1] * 0.587 + $rgb[2] * 0.114 ) < 186 ) ? '#ffffff' : '#333333';
+	}
+
+	/**
+	 * Convert hex to rgb
+	 *
+	 * @since 1.0
+	 */
+	public function hex2rgb( $hex ) {
+		$hex = str_replace( "#", "", $hex );
+
+		if ( strlen( $hex ) == 3 ) {
+			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
+			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
+			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
+		}
+		else {
+			$r = hexdec( substr( $hex, 0, 2 ) );
+			$g = hexdec( substr( $hex, 2, 2 ) );
+			$b = hexdec( substr( $hex, 4, 2 ) );
+		}
+		$rgb = array( $r, $g, $b );
+
+		return $rgb;
+	}
+
+	/**
+	 * Count the number of words in a string (multibyte-compatible)
+	 *
+	 * @since 2.3
+	 *
+	 * @param string $input Input string
+	 *
+	 * @return int Number of words
+	 */
+	public function str_count_words( $input ) {
+
+		$patterns = array(
+			'strip' => '/<[a-zA-Z\/][^<>]*>/',
+			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
+			'w'     => '/\S\s+/',
+			'c'     => '/\S/',
+		);
+
+		$type = 'w';
+
+		$input = preg_replace( $patterns['strip'], ' ', $input );
+		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
+		$input = preg_replace( $patterns['clean'], '', $input );
+
+		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
+			return 0;
+		}
+
+		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
+	}
+
+	/**
+>>>>>>> #565-refactor-get_thumbnails
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
@@ -729,6 +759,7 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
+<<<<<<< HEAD
 
 		if ( empty( $images ) || 'false' == $images ) {
 			return array();
@@ -829,6 +860,9 @@ class CPAC_Column {
 		}
 
 		return $thumbnails;
+=======
+		return ac_helper()->media->get_thumbnails( $images, $args );
+>>>>>>> #565-refactor-get_thumbnails
 	}
 
 	/**
@@ -851,8 +885,39 @@ class CPAC_Column {
 	 *
 	 * @return string Formatted date
 	 */
+<<<<<<< HEAD
 	public function get_date( $date, $format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
+=======
+	public function get_timestamp( $date ) {
+
+		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
+			return false;
+		}
+
+		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
+		// See http://api.jqueryui.com/datepicker/#utility-formatDate
+		if ( is_numeric( $date ) ) {
+			$length = strlen( trim( $date ) );
+
+			// Dates before / around September 8th, 2001 are saved as 9 numbers * 1000 resulting in 12 numbers to store the time.
+			// Dates after September 8th are saved as 10 numbers * 1000, resulting in 13 numbers.
+			// For example the ACF Date and Time Picker uses this format.
+			// credits: Ben C
+			if ( 12 === $length || 13 === $length ) {
+				$date = round( $date / 1000 ); // remove the ms
+			}
+
+			// Date format: 'yyyymmdd' ( often used by ACF ) must start with 19xx or 20xx and is 8 long
+			// @todo: in theory a numeric string of 8 can also be a unixtimestamp; no conversion would be needed
+			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
+				$date = strtotime( $date );
+			}
+		} // Not numeric
+		else {
+			$date = strtotime( $date );
+		}
+>>>>>>> #565-refactor-get_thumbnails
 
 		return $timestamp ? $this->get_date_formatted( $timestamp, $format ) : false;
 	}
@@ -1765,4 +1830,13 @@ class CPAC_Column {
 			'colspan'        => $colspan,
 		) );
 	}
+
+	/**
+	 * @since 1.3
+	 */
+	public function strip_trim( $string ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->strip_trim()' );
+		return ac_helper()->string->strip_trim( $string );
+	}
+
 }

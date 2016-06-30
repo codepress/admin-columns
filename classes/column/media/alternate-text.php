@@ -16,7 +16,7 @@ class CPAC_Column_Media_Alternate_Text extends CPAC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->strip_trim( $this->get_raw_value( $id ) );
+		return ac_helper()->string->strip_trim( $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {

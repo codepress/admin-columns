@@ -81,6 +81,7 @@ class CPAC_Column_Post_Estimated_Reading_Time extends CPAC_Column {
 	 */
 	public function get_estimated_reading_time_in_seconds( $content ) {
 		$word_count = ac_helper()->string->word_count( $this->strip_trim( $content ) );
+
 		if ( ! $word_count ) {
 			return 0;
 		}

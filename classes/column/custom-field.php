@@ -144,7 +144,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	public function get_ids_from_meta( $meta ) {
 
 		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
+		$meta = ac_helper()->string->strip_trim( str_replace( ' ', '', $meta ) );
 
 		$ids = array();
 
