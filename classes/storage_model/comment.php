@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die();
+
+if ( ! defined( 'ABSPATH' ) )  {
+	exit; // exit if accessed directly
+}
 
 /**
  * @since 2.0

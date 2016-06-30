@@ -26,7 +26,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-defined( 'ABSPATH' ) or die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // Only run plugin in the admin interface
 if ( ! is_admin() ) {
@@ -160,6 +162,21 @@ class CPAC {
 		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, array( 'helper' ) ) ) {
+			return $this->$key();
+		}
 	}
 
 	/**
@@ -694,6 +711,13 @@ class CPAC {
 	 */
 	public function upgrade() {
 		return $this->_upgrade;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	protected function helper() {
+		return $this->helper;
 	}
 
 	/**

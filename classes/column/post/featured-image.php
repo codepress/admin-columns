@@ -38,16 +38,16 @@ class CPAC_Column_Post_Featured_Image extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
-		$thumbnail_id = $this->get_raw_value( $post_id );
+		$attachment_id = $this->get_raw_value( $post_id );
+		$thumb = $this->get_image_formatted( $attachment_id );
 
-		if ( ! $thumbnail_id ) {
+		if ( ! $thumb ) {
 			return false;
 		}
 
-		$thumb = implode( $this->get_thumbnails( $thumbnail_id, (array) $this->options ) );
 		$link = get_edit_post_link( $post_id );
 
-		return $link ? "<a href='{$link}#postimagediv'>{$thumb}</a>" : $thumb;
+		return $link ? '<a href="' . esc_attr( $link ) . '#postimagediv">' . $thumb . '</a>' : $thumb;
 	}
 
 	/**

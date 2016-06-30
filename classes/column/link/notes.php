@@ -20,7 +20,7 @@ class CPAC_Column_Link_Notes extends CPAC_Column {
 	function get_value( $id ) {
 		$bookmark = get_bookmark( $id );
 
-		return $this->get_shortened_string( $bookmark->link_notes, $this->get_option( 'excerpt_length' ) );
+		return ac_helper()->string->trim_words( $bookmark->link_notes, $this->get_option( 'excerpt_length' ) );
 	}
 
 	function display_settings() {

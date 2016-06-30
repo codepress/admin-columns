@@ -144,7 +144,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	public function get_ids_from_meta( $meta ) {
 
 		//remove white spaces and strip tags
-		$meta = $this->strip_trim( str_replace( ' ', '', $meta ) );
+		$meta = ac_helper()->string->strip_trim( str_replace( ' ', '', $meta ) );
 
 		$ids = array();
 
@@ -200,11 +200,13 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
-		$raw_string = $this->recursive_implode( ', ', $raw_value );
+		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
 		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
+
+				// TODO move get_thumbnails to custom field column
 				$value = implode( $this->get_thumbnails( $raw_string, array(
 					'image_size'   => $this->get_option( 'image_size' ),
 					'image_size_w' => $this->get_option( 'image_size_w' ),
@@ -213,7 +215,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 				break;
 
 			case "excerpt" :
-				$value = $this->get_shortened_string( $raw_value, $this->get_option( 'excerpt_length' ) );
+				$value = ac_helper()->string->trim_words( $raw_value, $this->get_option( 'excerpt_length' ) );
 				break;
 
 			case "date" :
@@ -258,7 +260,7 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 
 			case "term_by_id" :
 				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
-					$value = AC()->helper->term->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
+					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
 				}
 				break;
 
@@ -398,8 +400,8 @@ class CPAC_Column_Custom_Field extends CPAC_Column implements CPAC_Column_Custom
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'recursive_implode()' );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'ac_helper()->array->implode_recursive()' );
 
-		return $this->recursive_implode( ', ', $this->get_raw_value( $id ) );
+		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
 	}
 }

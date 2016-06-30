@@ -27,7 +27,7 @@ class CPAC_Column_Post_Content extends CPAC_Column {
 	 * @since 2.4
 	 */
 	public function get_value( $post_id ) {
-		return $this->get_shortened_string( $this->get_raw_value( $post_id ), $this->get_option( 'excerpt_length' ) );
+		return ac_helper()->string->trim_words( $this->get_raw_value( $post_id ), $this->get_option( 'excerpt_length' ) );
 	}
 
 	/**

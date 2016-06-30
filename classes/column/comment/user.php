@@ -20,7 +20,7 @@ class CPAC_Column_Comment_User extends CPAC_Column {
 			return false;
 		}
 
-		$display_name = $this->get_display_name( $user_id );
+		$display_name = ac_helper()->user->get_display_name( $user_id );
 		if ( $edit_link = get_edit_profile_url( $user_id ) ) {
 			$display_name = '<a href="' . $edit_link . ' ">' . $display_name . '</a>';
 		}

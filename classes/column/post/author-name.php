@@ -30,7 +30,7 @@ class CPAC_Column_Post_Author_Name extends CPAC_Column {
 		$value = '';
 
 		if ( $user_id = $this->get_raw_value( $post_id ) ) {
-			$value = $this->get_display_name( $user_id );
+			$value = $this->get_user_formatted( $user_id );
 		}
 
 		switch ( $this->get_option( 'user_link_to' ) ) {

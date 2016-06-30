@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class AC_Helper_Post {
 
 	/**
@@ -11,34 +15,18 @@ class AC_Helper_Post {
 	public function get_raw_field( $field, $id ) {
 		global $wpdb;
 
-		return $id && is_numeric( $id ) ? $wpdb->get_var( $wpdb->prepare( "SELECT " . $wpdb->_real_escape( $field ) . " FROM {$wpdb->posts} WHERE ID = %d LIMIT 1", $id ) ) : false;
-	}
-
-	/**
-	 * @param int $post_id
-	 * @param string $format
-	 *
-	 * @return false|string
-	 */
-	public function format_post( $id, $format = 'title' ) {
-		$formatted_post = $id;
-
-		switch ( $format ) {
-			case 'user' :
-				$author = $this->get_raw_field( 'post_author', $id );
-				if ( $user = get_userdata( $author ) ) {
-					$formatted_post = $user->display_name;
-				}
-				else {
-					$formatted_post = $author;
-				}
-				break;
-			case 'title' :
-				$formatted_post = $this->get_raw_field( 'post_title', $id );
-				break;
+		if ( ! $id || ! is_numeric( $id ) ) {
+			return false;
 		}
 
-		return $formatted_post;
+		$sql = "
+			SELECT " . $wpdb->_real_escape( $field ) . "
+			FROM $wpdb->posts
+			WHERE ID = %d
+			LIMIT 1
+		";
+
+		return $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
 	}
 
 	/**
@@ -95,6 +83,7 @@ class AC_Helper_Post {
 		}
 	}
 
+	// todo: you expect fields here, but looks like values?
 	/**
 	 * Get values by post field
 	 *
@@ -123,7 +112,7 @@ class AC_Helper_Post {
 	 *
 	 * @since 3.8
 	 */
-	public function get_terms_by_post_type( $taxonomies, $post_types ) {
+	/*public function get_terms_by_post_type( $taxonomies, $post_types ) {
 		global $wpdb;
 
 		$query = $wpdb->prepare(
@@ -141,7 +130,7 @@ class AC_Helper_Post {
 		$results = $wpdb->get_results( $query );
 
 		return $results;
-	}
+	}*/
 
 	/**
 	 * Display terms
@@ -153,7 +142,7 @@ class AC_Helper_Post {
 	 * @param string $taxonomy Taxonomy name
 	 */
 	public function get_terms_for_display( $post_id, $taxonomy ) {
-		return AC()->helper->term->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
+		return ac_helper()->taxonomy->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
 	}
 
 	/**
@@ -183,4 +172,30 @@ class AC_Helper_Post {
 
 		return $options;
 	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param int $post_id Post ID
+	 *
+	 * @return string Post Excerpt.
+	 */
+	public function excerpt( $post_id, $words ) {
+		global $post;
+
+		$save_post = $post;
+		$post = get_post( $post_id );
+
+		setup_postdata( $post );
+
+		$excerpt = get_the_excerpt();
+		$post = $save_post;
+
+		if ( $post ) {
+			setup_postdata( $post );
+		}
+
+		return ac_helper()->string->trim_words( $excerpt, $words );
+	}
+
 }

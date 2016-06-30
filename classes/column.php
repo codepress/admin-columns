@@ -430,13 +430,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.3
-	 */
-	public function strip_trim( $string ) {
-		return trim( strip_tags( $string ) );
-	}
-
-	/**
 	 * @since 2.2.1
 	 */
 	protected function get_term_field( $field, $term_id, $taxonomy ) {
@@ -447,46 +440,12 @@ class CPAC_Column {
 
 	// since 2.4.8
 	public function get_raw_post_field( $field, $id ) {
-		return AC()->helper->post->get_raw_field( $field, $id );
+		return ac_helper()->post->get_raw_field( $field, $id );
 	}
 
 	// since 2.4.8
 	public function get_post_title( $id ) {
 		return esc_html( $this->get_raw_post_field( 'post_title', $id ) );
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param int $post_id Post ID
-	 *
-	 * @return string Post Excerpt.
-	 */
-	protected function get_post_excerpt( $post_id, $words ) {
-		global $post;
-
-		$save_post = $post;
-		$post = get_post( $post_id );
-
-		setup_postdata( $post );
-
-		$excerpt = get_the_excerpt();
-		$post = $save_post;
-
-		if ( $post ) {
-			setup_postdata( $post );
-		}
-
-		return $this->get_shortened_string( $excerpt, $words );
-	}
-
-	/**
-	 * @see wp_trim_words();
-	 * @since 1.0
-	 * @return string Trimmed text.
-	 */
-	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
-		return $text ? wp_trim_words( $text, $num_words, $more ) : false;
 	}
 
 	/**
@@ -515,25 +474,6 @@ class CPAC_Column {
 		";
 
 		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
-	}
-
-	/**
-	 * @since 1.2.0
-	 *
-	 * @param string $url
-	 *
-	 * @return bool
-	 */
-	protected function is_image_url( $url ) {
-
-		if ( ! is_string( $url ) ) {
-			return false;
-		}
-
-		$validExt = array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' );
-		$ext = strrchr( $url, '.' );
-
-		return in_array( $ext, $validExt );
 	}
 
 	/**
@@ -594,57 +534,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0
-	 *
-	 * @param string $name
-	 *
-	 * @return array Image Sizes
-	 */
-	public function get_image_size_by_name( $name = '' ) {
-		if ( ! $name || is_array( $name ) ) {
-			return false;
-		}
-
-		global $_wp_additional_image_sizes;
-		if ( ! isset( $_wp_additional_image_sizes[ $name ] ) ) {
-			return false;
-		}
-
-		return $_wp_additional_image_sizes[ $name ];
-	}
-
-	/**
-	 * @see image_resize()
-	 * @since 2.0
-	 * @return string Image URL
-	 */
-	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		$editor = wp_get_image_editor( $file );
-		if ( is_wp_error( $editor ) ) {
-			return false;
-		}
-
-		$editor->set_quality( $jpeg_quality );
-
-		$resized = $editor->resize( $max_w, $max_h, $crop );
-		if ( is_wp_error( $resized ) ) {
-			return false;
-		}
-
-		$dest_file = $editor->generate_filename( $suffix, $dest_path );
-
-		$saved = $editor->save( $dest_file );
-
-		if ( is_wp_error( $saved ) ) {
-			return false;
-		}
-
-		$resized = $dest_file;
-
-		return $resized;
-	}
-
-	/**
 	 * @since: 2.2.6
 	 *
 	 */
@@ -652,81 +541,16 @@ class CPAC_Column {
 		if ( ! $color_hex ) {
 			return false;
 		}
-		$text_color = $this->get_text_color( $color_hex );
+		$text_color = ac_helper()->string->hex_get_contrast( $color_hex );
 
-		return "<div class='cpac-color'><span style='background-color:{$color_hex};color:{$text_color}'>{$color_hex}</span></div>";
-	}
-
-	/**
-	 * Determines text color based on background coloring.
-	 *
-	 * @since 1.0
-	 */
-	public function get_text_color( $bg_color ) {
-
-		$rgb = $this->hex2rgb( $bg_color );
-
-		return $rgb && ( ( $rgb[0] * 0.299 + $rgb[1] * 0.587 + $rgb[2] * 0.114 ) < 186 ) ? '#ffffff' : '#333333';
-	}
-
-	/**
-	 * Convert hex to rgb
-	 *
-	 * @since 1.0
-	 */
-	public function hex2rgb( $hex ) {
-		$hex = str_replace( "#", "", $hex );
-
-		if ( strlen( $hex ) == 3 ) {
-			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
-			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
-			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		} else {
-			$r = hexdec( substr( $hex, 0, 2 ) );
-			$g = hexdec( substr( $hex, 2, 2 ) );
-			$b = hexdec( substr( $hex, 4, 2 ) );
-		}
-		$rgb = array( $r, $g, $b );
-
-		return $rgb;
-	}
-
-	/**
-	 * Count the number of words in a string (multibyte-compatible)
-	 *
-	 * @since 2.3
-	 *
-	 * @param string $input Input string
-	 *
-	 * @return int Number of words
-	 */
-	public function str_count_words( $input ) {
-
-		$patterns = array(
-			'strip' => '/<[a-zA-Z\/][^<>]*>/',
-			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
-			'w'     => '/\S\s+/',
-			'c'     => '/\S/',
-		);
-
-		$type = 'w';
-
-		$input = preg_replace( $patterns['strip'], ' ', $input );
-		$input = preg_replace( '/&nbsp;|&#160;/i', ' ', $input );
-		$input = preg_replace( $patterns['clean'], '', $input );
-
-		if ( ! strlen( preg_replace( '/\s/', '', $input ) ) ) {
-			return 0;
-		}
-
-		return preg_match_all( $patterns[ $type ], $input, $matches ) + 1;
+		return '<div class="cpac-color"><span style="background-color:' . esc_attr( $color_hex ) . ';color:' . esc_attr( $text_color ) . '">' . esc_html( $color_hex ) . '</span></div>';
 	}
 
 	/**
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
-		return '&ndash;'; // dash
+		return '&ndash;';
 	}
 
 	/**
@@ -738,137 +562,7 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-
-		if ( empty( $images ) || 'false' == $images ) {
-			return array();
-		}
-
-		// turn string to array
-		if ( is_string( $images ) || is_numeric( $images ) ) {
-			if ( strpos( $images, ',' ) !== false ) {
-				$images = array_filter( explode( ',', $this->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			} else {
-				$images = array( $images );
-			}
-		}
-
-		// Image size
-		$defaults = array(
-			'image_size'   => 'cpac-custom',
-			'image_size_w' => 80,
-			'image_size_h' => 80,
-		);
-		$args = wp_parse_args( $args, $defaults );
-
-		$image_size = $args['image_size'];
-		$image_size_w = $args['image_size_w'];
-		$image_size_h = $args['image_size_h'];
-
-		$thumbnails = array();
-		foreach ( $images as $value ) {
-
-			if ( $this->is_image_url( $value ) ) {
-
-				// get dimensions from image_size
-				if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-					$image_size_w = $sizes['width'];
-					$image_size_h = $sizes['height'];
-				}
-
-				$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $value );
-
-				if ( is_file( $image_path ) ) {
-
-					// try to resize image
-					if ( $resized = $this->image_resize( $image_path, $image_size_w, $image_size_h, true ) ) {
-						$thumbnails[] = "<img src='" . str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized ) . "' alt='' width='{$image_size_w}' height='{$image_size_h}' />";
-					} // return full image with maxed dimensions
-					else {
-						$thumbnails[] = "<img src='{$value}' alt='' style='max-width:{$image_size_w}px;max-height:{$image_size_h}px' />";
-					}
-				}
-			} // Media Attachment
-			elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
-
-				$src = '';
-				$width = '';
-				$height = '';
-
-				if ( ! $image_size || 'cpac-custom' == $image_size ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					// to make sure wp_get_attachment_image_src() get the image with matching dimensions.
-					$image_size = array( $width, $height );
-				}
-
-				// Is Image
-				if ( $attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-					$src = $attributes[0];
-					$width = $attributes[1];
-					$height = $attributes[2];
-
-					// image size by name
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				} // Is File, use icon
-				elseif ( $attributes = wp_get_attachment_image_src( $value, $image_size, true ) ) {
-					$src = $attributes[0];
-
-					if ( $sizes = $this->get_image_size_by_name( $image_size ) ) {
-						$width = $sizes['width'];
-						$height = $sizes['height'];
-					}
-				}
-				if ( is_array( $image_size ) ) {
-					$width = $image_size_w;
-					$height = $image_size_h;
-
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
-
-				} else {
-					$max = max( array( $width, $height ) );
-					$thumbnails[] = "<span class='cpac-column-value-image' style='width:{$width}px;height:{$height}px;'><img style='max-width:{$max}px;max-height:{$max}px;' src='{$src}' alt=''/></span>";
-				}
-
-			}
-		}
-
-		return $thumbnails;
-	}
-
-	/**
-	 * Implode for multi dimensional array
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $glue
-	 * @param array $pieces
-	 *
-	 * @return string Imploded array
-	 */
-	public function recursive_implode( $glue, $pieces ) {
-		if ( is_array( $pieces ) ) {
-			foreach ( $pieces as $r_pieces ) {
-				if ( is_array( $r_pieces ) ) {
-					$retVal[] = $this->recursive_implode( $glue, $r_pieces );
-				} else {
-					$retVal[] = $r_pieces;
-				}
-			}
-			if ( isset( $retVal ) && is_array( $retVal ) ) {
-				return implode( $glue, $retVal );
-			}
-		}
-
-		if ( is_scalar( $pieces ) ) {
-			return $pieces;
-		}
-
-		return false;
+		return ac_helper()->image->thumbnail_block( $images, $args );
 	}
 
 	/**
@@ -881,35 +575,7 @@ class CPAC_Column {
 	 * @return string Formatted date
 	 */
 	public function get_timestamp( $date ) {
-
-		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
-			return false;
-		}
-
-		// some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
-		// See http://api.jqueryui.com/datepicker/#utility-formatDate
-		if ( is_numeric( $date ) ) {
-			$length = strlen( trim( $date ) );
-
-			// Dates before / around September 8th, 2001 are saved as 9 numbers * 1000 resulting in 12 numbers to store the time.
-			// Dates after September 8th are saved as 10 numbers * 1000, resulting in 13 numbers.
-			// For example the ACF Date and Time Picker uses this format.
-			// credits: Ben C
-			if ( 12 === $length || 13 === $length ) {
-				$date = round( $date / 1000 ); // remove the ms
-			}
-
-			// Date format: 'yyyymmdd' ( often used by ACF ) must start with 19xx or 20xx and is 8 long
-			// @todo: in theory a numeric string of 8 can also be a unixtimestamp; no conversion would be needed
-			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
-				$date = strtotime( $date );
-			}
-		} // Not numeric
-		else {
-			$date = strtotime( $date );
-		}
-
-		return $date;
+		return ac_helper()->date->strtotime( $date );
 	}
 
 	/**
@@ -919,8 +585,9 @@ class CPAC_Column {
 	 *
 	 * @return string Formatted date
 	 */
+
 	public function get_date( $date, $format = '' ) {
-		$timestamp = $this->get_timestamp( $date );
+		$timestamp = ac_helper()->date->strtotime( $date );
 
 		return $timestamp ? $this->get_date_formatted( $timestamp, $format ) : false;
 	}
@@ -933,6 +600,8 @@ class CPAC_Column {
 	 *
 	 * @return string Formatted date
 	 */
+
+	// TODO: duplicate, need refactor
 	public function get_date_formatted( $timestamp, $format = false ) {
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
@@ -949,8 +618,7 @@ class CPAC_Column {
 	 * @return string Formatted time
 	 */
 	protected function get_time( $date, $format = '' ) {
-
-		if ( ! $date = $this->get_timestamp( $date ) ) {
+		if ( ! $date = ac_helper()->date->strtotime( $date ) ) {
 			return false;
 		}
 		if ( ! $format ) {
@@ -984,47 +652,6 @@ class CPAC_Column {
 		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_storage_model_key() );
 
 		return $value;
-	}
-
-	/**
-	 * Get display name.
-	 *
-	 * Can also be used by addons.
-	 *
-	 * @since 2.0
-	 */
-	public function get_display_name( $user_id ) {
-		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
-	}
-
-	/**
-	 * @param $user
-	 * @param bool $format
-	 *
-	 * @return false|string
-	 */
-	public function get_user_formatted( $user, $format = false ) {
-		if ( is_numeric( $user ) ) {
-			$user = get_userdata( $user );
-		}
-
-		if ( ! $user || ! is_a( $user, 'WP_User' ) ) {
-			return false;
-		}
-
-		$name = $user->display_name;
-
-		if ( 'first_last_name' == $format ) {
-			$first = ! empty( $user->first_name ) ? $user->first_name : '';
-			$last = ! empty( $user->last_name ) ? " {$user->last_name}" : '';
-			if ( $first || $last ) {
-				$name = $first . $last;
-			}
-		} elseif ( ! empty( $user->{$format} ) ) {
-			$name = $user->{$format};
-		}
-
-		return $name;
 	}
 
 	/**
@@ -1232,9 +859,14 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 *
+	 * @param $user
+	 * @param bool $format
+	 *
+	 * @return false|string
 	 */
-	public function format_user( $user_id ) {
-		return $this->get_user_formatted( $user_id, $this->get_option( 'display_author_as' ) );
+	public function get_user_formatted( $user ) {
+		return ac_helper()->user->get_display_name( $user, $this->get_option( 'display_author_as' ) );
 	}
 
 	/**
@@ -1282,7 +914,7 @@ class CPAC_Column {
 	 * @since NEWVERSION
 	 */
 	public function format_date( $date ) {
-		return $this->get_date_formatted( $this->get_timestamp( $date ), $this->get_option( 'date_format' ) );
+		return $this->get_date_formatted( ac_helper()->date->strtotime( $date ), $this->get_option( 'date_format' ) );
 	}
 
 	/**
@@ -1344,6 +976,31 @@ class CPAC_Column {
 			'label'       => __( 'Link label', 'codepress-admin-columns' ),
 			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
 		) );
+	}
+
+	/**
+	 * @return array|string
+	 */
+	public function get_image_size_formatted() {
+		$size = $this->get_option( 'image_size' );
+
+		if ( 'cpac-custom' == $size ) {
+			$size = array(
+				$this->get_option( 'image_size_w' ),
+				$this->get_option( 'image_size_h' ),
+			);
+		}
+
+		return $size;
+	}
+
+	/**
+	 * @param int $attachment_id
+	 *
+	 * @return string HTML Image
+	 */
+	public function get_image_formatted( $attachment_id ) {
+		return ac_helper()->image->get_images_by_ids( $attachment_id, $this->get_image_size_formatted() );
 	}
 
 	/**
@@ -1710,7 +1367,123 @@ class CPAC_Column {
 	// Deprecated methods
 
 	/**
-	 * Sanitizes label using intern wordpress function esc_url so it matches the label sorting url.
+	 * @since 1.0
+	 *
+	 * @param int $post_id Post ID
+	 *
+	 * @return string Post Excerpt.
+	 */
+	protected function get_post_excerpt( $post_id, $words ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->post->excerpt' );
+
+		return ac_helper()->post->excerpt( $post_id, $words );
+	}
+
+	/**
+	 * @since 1.2.0
+	 *
+	 * @param string $url
+	 *
+	 * @return bool
+	 */
+	protected function is_image_url( $url ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->is_image()' );
+
+		return ac_helper()->string->is_image( $url );
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @param string $name
+	 *
+	 * @return array Image Sizes
+	 */
+	public function get_image_size_by_name( $name ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
+
+		return ac_helper()->image->get_image_sizes_by_name( $name );
+	}
+
+	/**
+	 * @see image_resize()
+	 * @since 2.0
+	 * @return string Image URL
+	 */
+	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
+
+		return ac_helper()->image->resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
+	}
+
+	/**
+	 * @param $user
+	 * @param bool $format
+	 *
+	 * @return false|string
+	 */
+	public function get_display_name( $user, $format = false ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->user->get_display_name()' );
+
+		ac_helper()->user->get_display_name( $user, $format );
+	}
+
+	/**
+	 * Convert hex to rgb
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 */
+	public function hex2rgb( $hex ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->hex_to_rgb()' );
+
+		return ac_helper()->string->hex_to_rgb( $hex );
+	}
+
+	/**
+	 * Determines text color absed on bakground coloring.
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 */
+	public function get_text_color( $bg_color ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->hex_get_contrast()' );
+
+		return ac_helper()->string->hex_get_contrast( $bg_color );
+	}
+
+	/**
+	 * Count the number of words in a string (multibyte-compatible)
+	 *
+	 * @since 2.3
+	 * @deprecated NEWVERSION
+	 *
+	 * @param string $input Input string
+	 *
+	 * @return int Number of words
+	 */
+	public function str_count_words( $input ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->word_count()' );
+
+		return ac_helper()->string->word_count( $input );
+	}
+
+	/**
+	 * @see wp_trim_words();
+	 *
+	 * @since 1.0
+	 * @deprecated NEWVERSION
+	 *
+	 * @return string Trimmed text.
+	 */
+	public function get_shortened_string( $text = '', $num_words = 30, $more = null ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->string->trim_words()' );
+
+		return ac_helper()->string->trim_words( $text, $num_words, $more );
+	}
+
+	/**
+	 * Implode for multi dimensional array
 	 *
 	 * @since 1.0
 	 * @deprecated NEWVERSION
@@ -1730,7 +1503,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( 'CPAC_Column::display_field_text', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'          => 'text',
@@ -1747,7 +1520,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_select', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'select',
@@ -1765,7 +1538,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( 'CPAC_Column::display_field_radio', 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
 
 		$this->form_field( array(
 			'type'           => 'radio',
@@ -1778,4 +1551,14 @@ class CPAC_Column {
 			'colspan'        => $colspan,
 		) );
 	}
+
+	/**
+	 * @since 1.3
+	 */
+	public function strip_trim( $string ) {
+		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->strip_trim()' );
+
+		return ac_helper()->string->strip_trim( $string );
+	}
+
 }

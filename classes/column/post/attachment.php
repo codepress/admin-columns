@@ -8,22 +8,17 @@ defined( 'ABSPATH' ) or die();
  */
 class CPAC_Column_Post_Attachment extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
-	 */
 	public function init() {
-
 		parent::init();
 
 		// Properties
-		$this->properties['type']	 = 'column-attachment';
-		$this->properties['label']	 = __( 'Attachments', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-attachment';
+		$this->properties['label'] = __( 'Attachments', 'codepress-admin-columns' );
 
 		// Options
-		$this->options['image_size']	= '';
-		$this->options['image_size_w']	= 80;
-		$this->options['image_size_h']	= 80;
+		$this->options['image_size'] = '';
+		$this->options['image_size_w'] = 80;
+		$this->options['image_size_h'] = 80;
 	}
 
 	/**
@@ -31,43 +26,32 @@ class CPAC_Column_Post_Attachment extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_value( $post_id ) {
+		$values = array();
 
-		$values = (array) $this->get_raw_value( $post_id );
-
-		foreach ( $values as $index => $value ) {
-			if ( ! $value ) {
-				unset( $values[ $index ] );
-				continue;
+		$ids = (array) $this->get_raw_value( $post_id );
+		foreach ( $ids as $id ) {
+			if ( $image = $this->get_image_formatted( $id ) ) {
+				$values[] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $id ) . '">' . $image . '</div>';
 			}
-
-			$image = implode( $this->get_thumbnails( $value, (array) $this->options ) );
-
-			$values[ $index ] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $value ) . '">' . $image . '</div>';
 		}
-		return implode( '', $values );
+
+		return implode( $values );
 	}
 
-	/**
-	 * @see CPAC_Column::get_raw_value()
-	 * @since 2.0.3
-	 */
 	public function get_raw_value( $post_id ) {
+		$attachments = get_posts( array(
+			'post_type'   => 'attachment',
+			'numberposts' => -1,
+			'post_status' => null,
+			'post_parent' => $post_id,
+			'fields'      => 'ids',
+		) );
 
-		return get_posts( array(
-			'post_type' 	=> 'attachment',
-			'numberposts' 	=> -1,
-			'post_status' 	=> null,
-			'post_parent' 	=> $post_id,
-			'fields' 		=> 'ids'
-		));
+		return $attachments;
 	}
 
-	/**
-	 * @see CPAC_Column::display_settings()
-	 * @since 2.0
-	 */
 	public function display_settings() {
-
 		$this->display_field_preview_size();
 	}
+
 }

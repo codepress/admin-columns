@@ -19,7 +19,7 @@ class CPAC_Column_Comment_Excerpt extends CPAC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->get_shortened_string( $this->get_raw_value( $id ), $this->get_option( 'excerpt_length' ) );
+		return ac_helper()->string->trim_words( $this->get_raw_value( $id ), $this->get_option( 'excerpt_length' ) );
 	}
 
 	public function get_raw_value( $id ) {

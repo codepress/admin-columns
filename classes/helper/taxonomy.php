@@ -1,6 +1,6 @@
 <?php
 
-class AC_Helper_Term {
+class AC_Helper_Taxonomy {
 
 	/**
 	 * @param WP_Term[] $terms Term objects
@@ -33,4 +33,5 @@ class AC_Helper_Term {
 
 		return $value;
 	}
+
 }
