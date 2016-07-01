@@ -236,7 +236,7 @@ abstract class CPAC_Storage_Model {
 			// Labels with html will be replaced by the it's name.
 			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_label() ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_label() ) );
 
-			if ( ! $column->is_default() ) {
+			if ( ! $column->is_default() && ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
 			}
 		}
@@ -335,11 +335,10 @@ abstract class CPAC_Storage_Model {
 
 				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
-				if ( in_array( $column_type, $default_column_names ) ) {
-					$column = new CPAC_Column_WP_Default( $this->key );
-				}
-				else {
-					$column = new CPAC_Column_WP_Plugin( $this->key );
+				$column = new CPAC_Column_WP_Default( $this->key );
+
+				if ( ! in_array( $column_type, $default_column_names ) ) {
+					$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 				}
 
 				if ( ! $label ) {
@@ -377,11 +376,17 @@ abstract class CPAC_Storage_Model {
 
 			/* @var $column CPAC_Column */
 
-			// Use the original column label when creating a new column class for an existing column
-			if ( ! $column->get_label() && isset( $default_columns[ $column->get_type() ] ) ) {
-				$label = $default_columns[ $column->get_type() ];
-				$column->set_properties( 'label', $label )->set_options( 'label', $label );
+			if ( $column->is_original() ) {
+
+				// Use the original column label when creating a new column class for an existing column
+				if ( isset( $default_columns[ $column->get_type() ] ) ) {
+					$label = $default_columns[ $column->get_type() ];
+					$column->set_properties( 'label', $label )->set_options( 'label', $label );
+				}
+
+				$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
 			}
+
 		}
 
 		if ( ! $column ) {
@@ -967,9 +972,7 @@ abstract class CPAC_Storage_Model {
 
 		require_once $dir . 'classes/column.php';
 		require_once $dir . 'classes/column/actions.php';
-		require_once $dir . 'classes/column/default.php';
 		require_once $dir . 'classes/column/wp-default.php';
-		require_once $dir . 'classes/column/wp-plugin.php';
 
 		// Interface
 		require_once $dir . 'classes/column/custom-fieldinterface.php';
@@ -977,7 +980,7 @@ abstract class CPAC_Storage_Model {
 		$columns = array(
 			'CPAC_Column_Custom_Field' => $dir . 'classes/column/custom-field.php',
 			'CPAC_Column_Taxonomy'     => $dir . 'classes/column/taxonomy.php',
-			'CPAC_Column_Used_By_Menu' => $dir . 'classes/column/used-by-menu.php'
+			'CPAC_Column_Used_By_Menu' => $dir . 'classes/column/used-by-menu.php',
 		);
 
 		// Add-on placeholders
@@ -1267,7 +1270,7 @@ abstract class CPAC_Storage_Model {
 	public function get_restore_link() {
 		$args = array(
 			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
-			'cpac_action' => 'restore_by_type'
+			'cpac_action' => 'restore_by_type',
 		);
 
 		return add_query_arg( $args, $this->settings_url() );
