@@ -34,4 +34,17 @@ class AC_Helper_Taxonomy {
 		return $value;
 	}
 
+	public function get_term_values( $post_id, $taxonomy ) {
+		$values = array();
+		$terms = get_the_terms( $post_id, $taxonomy );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$values[ $term->term_id ] = $term->name;
+			}
+		}
+
+		return $values;
+	}
+
+
 }
