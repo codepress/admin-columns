@@ -337,7 +337,10 @@ abstract class CPAC_Storage_Model {
 
 				$column = new CPAC_Column_WP_Default( $this->key );
 
-				if ( ! in_array( $column_type, $default_column_names ) ) {
+				if ( in_array( $column_type, $default_column_names ) ) {
+					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
+				}
+				else {
 					$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 				}
 
