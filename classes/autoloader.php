@@ -37,6 +37,9 @@ class AC_Autoloader {
 		$path = trailingslashit( $path );
 
 		$this->prefixes[ $prefix ] = $path;
+
+		// make sure that more specific prefixes are checked first
+		krsort( $this->prefixes );
 	}
 
 	public function autoload( $class ) {
