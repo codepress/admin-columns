@@ -333,11 +333,12 @@ abstract class CPAC_Storage_Model {
 
 				$label = $default_columns[ $column_type ];
 
+				// TODO: remove
 				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
-				$column = new CPAC_Column_WP_Default( $this->key );
+				$column = new CPAC_Column_WP_Default( $this->get_key() );
 
-				if ( in_array( $column_type, $default_column_names ) ) {
+				if ( $column->is_original() || $column->is_default() || in_array( $column_type, $default_column_names ) ) {
 					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
 				}
 				else {
@@ -375,21 +376,24 @@ abstract class CPAC_Storage_Model {
 		$classnames = $this->get_column_classnames();
 
 		if ( isset( $classnames[ $column_type ] ) ) {
-			$column = new $classnames[ $column_type ]( $this->key );
+			$column = new $classnames[ $column_type ]( $this->get_key() );
 
 			/* @var $column CPAC_Column */
-
 			if ( $column->is_original() ) {
 
-				// Use the original column label when creating a new column class for an existing column
-				if ( isset( $default_columns[ $column->get_type() ] ) ) {
-					$label = $default_columns[ $column->get_type() ];
-					$column->set_properties( 'label', $label )->set_options( 'label', $label );
+				// Default column must exist
+				if ( ! isset( $default_columns[ $column->get_type() ] ) ) {
+					return false;
 				}
 
-				$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
-			}
+				// Use the original column label when creating a new column class for an existing column
+				$label = $default_columns[ $column->get_type() ];
 
+				$column
+					->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
+					->set_properties( 'label', $label )
+					->set_options( 'label', $label );
+			}
 		}
 
 		if ( ! $column ) {

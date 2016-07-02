@@ -148,7 +148,6 @@ class CPAC_Column {
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
-			'handle'           => null      // Column name to get original value from
 		);
 
 		// Default options
@@ -286,14 +285,6 @@ class CPAC_Column {
 	 */
 	public function get_group() {
 		return $this->get_property( 'group' );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return string Column name to get original value from
-	 */
-	public function get_handle() {
-		return $this->get_property( 'handle' );
 	}
 
 	/**
