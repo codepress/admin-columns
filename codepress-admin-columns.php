@@ -135,13 +135,13 @@ class CPAC {
 		$autoloader = AC_Autoloader::instance();
 		$autoloader->register_prefix( 'AC_', $classes_dir );
 
-		require_once $classes_dir . 'utility.php';
+		require_once $this->get_plugin_dir() . 'api.php';
 
 		// Third Party
-		require_once $classes_dir . 'third_party/acf.php';
-		require_once $classes_dir . 'third_party/ninja_forms.php';
-		require_once $classes_dir . 'third_party/woocommerce.php';
-		require_once $classes_dir . 'third_party/wpml.php';
+		new AC_ThirdParty_ACF();
+		new AC_ThirdParty_NinjaForms();
+		new AC_ThirdParty_WooCommerce();
+		new AC_ThirdParty_WPML();
 
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
@@ -344,31 +344,27 @@ class CPAC {
 
 			// Load storage model class files and column base class files
 			include_once $classes_dir . 'storage_model.php';
-			include_once $classes_dir . 'storage_model/post.php';
-			include_once $classes_dir . 'storage_model/user.php';
-			include_once $classes_dir . 'storage_model/media.php';
-			include_once $classes_dir . 'storage_model/comment.php';
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
-				$storage_model = new CPAC_Storage_Model_Post( $post_type );
+				$storage_model = new AC_StorageModel_Post( $post_type );
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
 
 			// Create other storage models
-			$storage_model = new CPAC_Storage_Model_User();
+			$storage_model = new AC_StorageModel_User();
 			$storage_models[ $storage_model->key ] = $storage_model;
 
-			$storage_model = new CPAC_Storage_Model_Media();
+			$storage_model = new AC_StorageModel_Media();
 			$storage_models[ $storage_model->key ] = $storage_model;
 
-			$storage_model = new CPAC_Storage_Model_Comment();
+			$storage_model = new AC_StorageModel_Comment();
 			$storage_models[ $storage_model->key ] = $storage_model;
 
 			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
 				include_once $classes_dir . 'storage_model/link.php';
 
-				$storage_model = new CPAC_Storage_Model_Link();
+				$storage_model = new AC_StorageModel_Link();
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
 

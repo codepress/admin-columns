@@ -2,40 +2,9 @@
 defined( 'ABSPATH' ) or die();
 
 /**
- * WPML: display correct flags on the overview screens
- */
-class CPAC_WPML_Column {
-
-	CONST COLUMN_NAME = 'icl_translations';
-
-	private $column;
-
-	function __construct( $post_type ) {
-		add_filter( "manage_{$post_type}_posts_columns", array( $this, 'store_wpml_column' ), 11 ); // priority just after WPML set's it's column
-		add_filter( "manage_edit-{$post_type}_columns", array( $this, 'replace_wpml_column' ), 201 ); // priority just after AC overwrite all columns
-	}
-
-	public function store_wpml_column( $columns ) {
-		if ( empty( $this->column ) && isset( $columns[ self::COLUMN_NAME ] ) ) {
-			$this->column = $columns[ self::COLUMN_NAME ];
-		}
-
-		return $columns;
-	}
-
-	public function replace_wpml_column( $columns ) {
-		if ( $this->column && isset( $columns[ self::COLUMN_NAME ] ) ) {
-			$columns[ self::COLUMN_NAME ] = $this->column;
-		}
-
-		return $columns;
-	}
-}
-
-/**
  * WPML compatibility
  */
-class CPAC_WPML {
+class AC_ThirdParty_WPML {
 
 	function __construct() {
 
@@ -69,7 +38,7 @@ class CPAC_WPML {
 		$post_types['page'] = 1;
 		foreach ( $post_types as $post_type => $value ) {
 			if ( $value ) {
-				new CPAC_WPML_Column( $post_type );
+				new AC_ThirdParty_WPML_Column( $post_type );
 			}
 		}
 	}
@@ -105,6 +74,5 @@ class CPAC_WPML {
 
 		return $is_columns_screen;
 	}
-}
 
-new CPAC_WPML;
+}

@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class CPAC_Storage_Model_User extends CPAC_Storage_Model {
+class AC_StorageModel_User extends CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0
@@ -93,4 +93,5 @@ class CPAC_Storage_Model_User extends CPAC_Storage_Model {
 
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
 	}
+
 }

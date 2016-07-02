@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
+class AC_StorageModel_Post extends CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0
@@ -163,4 +163,5 @@ class CPAC_Storage_Model_Post extends CPAC_Storage_Model {
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
+
 }
