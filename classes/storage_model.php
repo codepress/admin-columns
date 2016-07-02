@@ -336,7 +336,7 @@ abstract class CPAC_Storage_Model {
 				// TODO: remove
 				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
-				$column = new CPAC_Column_WP_Default( $this->get_key() );
+				$column = new AC_Column_Default( $this->get_key() );
 
 				if ( $column->is_original() || $column->is_default() || in_array( $column_type, $default_column_names ) ) {
 					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
@@ -978,16 +978,11 @@ abstract class CPAC_Storage_Model {
 		$dir = cpac()->get_plugin_dir();
 
 		require_once $dir . 'classes/column.php';
-		require_once $dir . 'classes/column/actions.php';
-		require_once $dir . 'classes/column/wp-default.php';
-
-		// Interface
-		require_once $dir . 'classes/column/custom-fieldinterface.php';
 
 		$columns = array(
-			'CPAC_Column_Custom_Field' => $dir . 'classes/column/custom-field.php',
-			'CPAC_Column_Taxonomy'     => $dir . 'classes/column/taxonomy.php',
-			'CPAC_Column_Used_By_Menu' => $dir . 'classes/column/used-by-menu.php',
+			'AC_Column_CustomField' => true,
+			'AC_Column_Taxonomy'    => true,
+			'AC_Column_UsedByMenu'  => true,
 		);
 
 		// Add-on placeholders
@@ -995,12 +990,12 @@ abstract class CPAC_Storage_Model {
 
 			// Display ACF placeholder
 			if ( cpac_is_acf_active() ) {
-				$columns['CPAC_Column_ACF_Placeholder'] = $dir . 'classes/column/acf-placeholder.php';
+				$columns['AC_Column_ACFPlaceholder'] = true;
 			}
 
 			// Display WooCommerce placeholder
 			if ( cpac_is_woocommerce_active() ) {
-				$columns['CPAC_Column_WC_Placeholder'] = $dir . 'classes/column/wc-placeholder.php';
+				$columns['AC_Column_WooCommercePlaceholder'] = true;
 			}
 		}
 
@@ -1017,10 +1012,10 @@ abstract class CPAC_Storage_Model {
 					continue;
 				}
 				// build class name from filename
-				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
+				$class_name = 'AC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
 
-				// class name | file path
-				$columns[ $class_name ] = $leaf->getPathname();
+				// class name | file path (true is auto load)
+				$columns[ $class_name ] = true;
 			}
 		}
 
