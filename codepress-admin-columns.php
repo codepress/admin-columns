@@ -230,6 +230,13 @@ class CPAC {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function suppress_site_wide_notices() {
+		return apply_filters( 'cac/suppress_site_wide_notices', false );
+	}
+
+	/**
 	 * Get registered storage models
 	 *
 	 * @since 2.5
@@ -324,6 +331,7 @@ class CPAC {
 	 * Get column object
 	 *
 	 * @since 2.5.4
+	 *
 	 * @param $storage_key CPAC_Storage_Model->key
 	 * @param $layout_id CPAC_Storage_Model->layout
 	 * @param $column_name CPAC_Column->name
@@ -380,7 +388,7 @@ class CPAC {
 
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' => false,
-			'show_ui'  => true
+			'show_ui'  => true,
 		) ) );
 
 		/**

@@ -210,6 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+* [Added] Filter for suppressing admin notices -> add_filter( 'cac/suppress_site_wide_notices', '__return_false' )
+
 = 2.5.6.2 =
 * [Fixed] Hotfix cleanup.
 

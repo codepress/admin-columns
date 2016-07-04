@@ -43,6 +43,10 @@ class CPAC_Addons {
 	 */
 	public function missing_addon_notices() {
 
+		if ( cpac()->suppress_site_wide_notices() ) {
+			return;
+		}
+
 		if ( get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
 			return;
 		}
