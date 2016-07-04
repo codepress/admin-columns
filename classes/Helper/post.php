@@ -37,7 +37,7 @@ class AC_Helper_Post {
 	public function set_terms( $post, $term_ids, $taxonomy ) {
 		$post = get_post( $post );
 
-		if ( ! $post || empty( $term_ids ) || ! taxonomy_exists( $taxonomy ) ) {
+		if ( ! $post || ! taxonomy_exists( $taxonomy ) ) {
 			return;
 		}
 
