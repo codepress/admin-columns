@@ -23,4 +23,5 @@ class AC_Column_Comment_Agent extends CPAC_Column {
 
 		return $comment->comment_agent;
 	}
+
 }

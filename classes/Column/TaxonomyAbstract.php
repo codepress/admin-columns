@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class AC_Column_Taxonomy extends CPAC_Column {
+class AC_Column_TaxonomyAbstract extends CPAC_Column {
 
 	public function init() {
 		parent::init();
@@ -31,11 +31,8 @@ class AC_Column_Taxonomy extends CPAC_Column {
 
 	public function apply_conditional() {
 		$post_type = $this->get_post_type();
-		if ( ! $post_type || ! get_object_taxonomies( $post_type ) ) {
-			return false;
-		}
 
-		return true;
+		return $post_type && get_object_taxonomies( $post_type );
 	}
 
 	public function display_settings() {

@@ -18,4 +18,5 @@ class AC_Column_Comment_AuthorAvatar extends CPAC_Column {
 
 		return get_avatar( $comment, 80 );
 	}
+
 }

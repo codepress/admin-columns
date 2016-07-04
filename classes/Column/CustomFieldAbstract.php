@@ -10,17 +10,11 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0
  */
-class AC_Column_CustomField extends CPAC_Column implements AC_Column_CustomFieldInterface {
+abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_Column_CustomFieldInterface {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.1
-	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-meta';
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes'] = 'cpac-box-metafield';
@@ -404,4 +398,5 @@ class AC_Column_CustomField extends CPAC_Column implements AC_Column_CustomField
 
 		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
 	}
+
 }

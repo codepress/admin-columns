@@ -16,13 +16,9 @@ class AC_Column_Comment_User extends CPAC_Column {
 	public function get_value( $id ) {
 		$user_id = $this->get_raw_value( $id );
 
-		if ( ! $user_id ) {
-			return false;
-		}
-
-		$display_name = ac_helper()->user->get_display_name( $user_id );
+		$display_name = $this->get_user_formatted( $user_id );
 		if ( $edit_link = get_edit_profile_url( $user_id ) ) {
-			$display_name = '<a href="' . $edit_link . ' ">' . $display_name . '</a>';
+			$display_name = '<a href="' . esc_attr( $edit_link ) . ' ">' . esc_html( $display_name ) . '</a>';
 		}
 
 		return $display_name;
@@ -32,6 +28,10 @@ class AC_Column_Comment_User extends CPAC_Column {
 		$comment = get_comment( $id );
 
 		return $comment->user_id;
+	}
+
+	public function display_settings() {
+		$this->display_field_user_format();
 	}
 
 }

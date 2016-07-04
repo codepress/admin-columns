@@ -7,40 +7,21 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-class AC_Column_UsedByMenu extends CPAC_Column {
+class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
-	/**
-	 * @see CPAC_Column::init()
-	 * @since 2.2.5
-	 */
 	public function init() {
-
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-used_by_menu';
 		$this->properties['label'] = __( 'Used by Menu', 'codepress-admin-columns' );
 
-		// Options
 		$this->options['link_to_menu'] = false;
 	}
 
-	/**
-	 * @see CPAC_Column::apply_conditional()
-	 * @since 2.2.5
-	 */
 	function apply_conditional() {
-		if ( ! $this->get_meta_type() ) {
-			return false;
-		}
-
-		return true;
+		return $this->get_meta_type() ? true : false;
 	}
 
-	/**
-	 * @see CPAC_Column::get_value()
-	 * @since 2.2.5
-	 */
 	function get_value( $object_id ) {
 		$menus = array();
 
@@ -114,20 +95,7 @@ class AC_Column_UsedByMenu extends CPAC_Column {
 		return $menu_ids;
 	}
 
-	/**
-	 * @see CPAC_Column::display_settings()
-	 * @since 2.2.5
-	 */
 	public function display_settings() {
-		$this->display_field_link_to_menu();
-	}
-
-	/**
-	 * Display the settings field for selecting whether the column value should link to the corresponding post
-	 *
-	 * @since 2.2.5
-	 */
-	public function display_field_link_to_menu() {
 		$this->form_field( array(
 			'type'        => 'radio',
 			'name'        => 'link_to_menu',
@@ -140,4 +108,5 @@ class AC_Column_UsedByMenu extends CPAC_Column {
 			'default'     => 'off'
 		) );
 	}
+
 }

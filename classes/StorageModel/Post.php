@@ -88,43 +88,6 @@ class AC_StorageModel_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.4
-	 */
-	public function get_default_column_names() {
-
-		$defaults = array( 'date' );
-
-		if ( post_type_supports( $this->get_post_type(), 'title' ) ) {
-			$defaults[] = 'title';
-		}
-		if ( post_type_supports( $this->get_post_type(), 'comments' ) ) {
-			$defaults[] = 'comments';
-		}
-
-		if ( in_array( $this->get_post_type(), array( 'post', 'page' ) ) ) {
-			$defaults[] = 'cb';
-			$defaults[] = 'author';
-			$defaults[] = 'categories';
-			$defaults[] = 'parent';
-			$defaults[] = 'tags';
-		}
-
-		return $defaults;
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function get_default_column_widths() {
-		return array(
-			'author'     => array( 'width' => 10 ),
-			'categories' => array( 'width' => 15 ),
-			'tags'       => array( 'width' => 15 ),
-			'date'       => array( 'width' => 10 ),
-		);
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	protected function get_screen_link() {

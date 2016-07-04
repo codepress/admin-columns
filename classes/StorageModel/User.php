@@ -57,23 +57,6 @@ class AC_StorageModel_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.4
-	 */
-	public function get_default_column_names() {
-		return array( 'cb', 'username', 'name', 'email', 'role', 'posts' );
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	protected function get_default_column_widths() {
-		return array(
-			'role'  => array( 'width' => 15 ),
-			'posts' => array( 'width' => 74, 'unit' => 'px' ),
-		);
-	}
-
-	/**
 	 * @since 2.0.2
 	 *
 	 * @param string $value

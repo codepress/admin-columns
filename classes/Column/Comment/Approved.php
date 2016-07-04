@@ -22,4 +22,5 @@ class AC_Column_Comment_Approved extends CPAC_Column {
 
 		return $comment->comment_approved;
 	}
+
 }

@@ -333,7 +333,8 @@ abstract class CPAC_Storage_Model {
 
 				$label = $default_columns[ $column_type ];
 
-				// TODO: remove
+				// For other plugins
+				// TODO: remove eventually
 				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
 
 				$column = new AC_Column_Default( $this->get_key() );
@@ -980,8 +981,6 @@ abstract class CPAC_Storage_Model {
 		require_once $dir . 'classes/column.php';
 
 		$columns = array(
-			'AC_Column_CustomField' => true,
-			'AC_Column_Taxonomy'    => true,
 			'AC_Column_UsedByMenu'  => true,
 		);
 

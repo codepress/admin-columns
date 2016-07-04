@@ -39,10 +39,6 @@ class AC_StorageModel_Link extends CPAC_Storage_Model {
 		return $columns;
 	}
 
-	public function get_default_column_names() {
-		return array();
-	}
-
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}

@@ -37,18 +37,6 @@ class AC_StorageModel_Comment extends CPAC_Storage_Model {
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
-	public function get_default_column_names() {
-		return array( 'cb', 'author', 'comment', 'response', 'date' );
-	}
-
-	protected function get_default_column_widths() {
-		return array(
-			'author'   => array( 'width' => 20 ),
-			'response' => array( 'width' => 15 ),
-			'date'     => array( 'width' => 14 ),
-		);
-	}
-
 	public function get_meta() {
 		global $wpdb;
 
