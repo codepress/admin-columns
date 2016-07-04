@@ -17,6 +17,15 @@ class AC_StorageModel_Media extends CPAC_Storage_Model {
 		parent::__construct();
 	}
 
+	public function get_single_row( $id ) {
+
+		// Author column depends on this global to be set.
+		global $authordata;
+		$authordata = get_userdata( get_post_field( 'post_author', $id ) );
+
+		return parent::get_single_row( $id );
+	}
+
 	/**
 	 * @since NEWVERSION
 	 * @return WP_Post Post object

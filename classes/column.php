@@ -427,15 +427,6 @@ class CPAC_Column {
 		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>': false;
 	}
 
-	/**
-	 * @since 2.2.1
-	 */
-	protected function get_term_field( $field, $term_id, $taxonomy ) {
-		$term_field = get_term_field( $field, $term_id, $taxonomy, 'display' );
-
-		return $term_field && ! is_wp_error( $term_field ) ? $term_field : false;
-	}
-
 	// since 2.4.8
 	public function get_raw_post_field( $field, $id ) {
 		return ac_helper()->post->get_raw_field( $field, $id );

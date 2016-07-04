@@ -214,10 +214,9 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_single_row_columns( $object_id ) {
+	public function get_single_row( $object_id ) {
 		ob_start();
-		$table = $this->get_list_table();
-		$table->single_row( $this->get_object_by_id( $object_id ) );
+		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
 
 		return ob_get_clean();
 	}
