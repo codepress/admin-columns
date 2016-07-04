@@ -36,7 +36,5 @@ function cpac_quickedit_events() {
 			var id = $result.find( 'tr.iedit' ).attr( 'id' );
 			$( 'tr#' + id ).trigger( 'updated' );
 		}
-		;
-
 	} );
 }
