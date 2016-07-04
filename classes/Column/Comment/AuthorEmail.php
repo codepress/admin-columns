@@ -24,4 +24,5 @@ class AC_Column_Comment_AuthorEmail extends CPAC_Column {
 
 		return $comment->comment_author_email;
 	}
+
 }

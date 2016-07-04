@@ -17,6 +17,14 @@ class AC_StorageModel_Link extends CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 * @return WP_Post Post object
+	 */
+	protected function get_object_by_id( $id ) {
+		return get_bookmark( $id );
+	}
+
+	/**
+	 * @since NEWVERSION
 	 */
 	public function init_column_values() {
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );

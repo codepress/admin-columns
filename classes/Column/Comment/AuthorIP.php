@@ -19,4 +19,5 @@ class AC_Column_Comment_AuthorIP extends CPAC_Column {
 
 		return $comment->comment_author_IP;
 	}
+
 }

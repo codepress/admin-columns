@@ -172,23 +172,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.4
-	 */
-	public function get_default_column_names() {
-		return array();
-	}
-
-	/**
-	 * Get the default column widths in percentages
-	 *
-	 * @since 2.5
-	 * @return array
-	 */
-	protected function get_default_column_widths() {
-		return array();
-	}
-
-	/**
 	 * Get the original column value
 	 *
 	 * @since NEWVERSION
@@ -283,7 +266,7 @@ abstract class CPAC_Storage_Model {
 				/* @var $column CPAC_Column */
 				$column = new $class( $this->key );
 
-				if ( $column->is_registered() ) {
+				if ( $column->apply_conditional() ) {
 					$this->column_classnames[ $column->get_type() ] = $class;
 				}
 			}
@@ -330,20 +313,20 @@ abstract class CPAC_Storage_Model {
 		if ( $default_columns = $this->get_default_headings() ) {
 			if ( isset( $default_columns[ $column_type ] ) ) {
 
-				$label = $default_columns[ $column_type ];
-
-				// For other plugins
-				// TODO: remove eventually
-				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
-
 				$column = new AC_Column_Default( $this->get_key() );
 
-				if ( $column->is_original() || $column->is_default() || in_array( $column_type, $default_column_names ) ) {
+				// Hooks for other plugins to label their columns as group Default.
+				$default_column_names = apply_filters( 'cac/default_column_names', array(), $this );
+
+				// Group label
+				if ( in_array( $column_type, $default_column_names ) ) {
 					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
 				}
 				else {
 					$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 				}
+
+				$label = $default_columns[ $column_type ];
 
 				if ( ! $label ) {
 					$label = ucfirst( $column_type );
@@ -360,7 +343,8 @@ abstract class CPAC_Storage_Model {
 					->set_properties( 'label', $label )
 					->set_options( 'label', $label );
 
-				$default_column_widths = (array) apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
+				// Hook for plugins
+				$default_column_widths = apply_filters( 'cac/default_column_widths', array(), $this );
 
 				// Set the default percentage
 				if ( isset( $default_column_widths[ $column_type ] ) ) {
@@ -372,9 +356,9 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		// Custom columns
 		$classnames = $this->get_column_classnames();
 
+		// Custom columns
 		if ( isset( $classnames[ $column_type ] ) ) {
 			$column = new $classnames[ $column_type ]( $this->get_key() );
 
@@ -980,7 +964,7 @@ abstract class CPAC_Storage_Model {
 		require_once $dir . 'classes/column.php';
 
 		$columns = array(
-			'AC_Column_UsedByMenu'  => true,
+			'AC_Column_UsedByMenu' => true,
 		);
 
 		// Add-on placeholders
@@ -1284,4 +1268,5 @@ abstract class CPAC_Storage_Model {
 
 		return $this->is_current_screen();
 	}
+
 }
