@@ -15,11 +15,8 @@ class AC_Column_Post_DatePublished extends CPAC_Column {
 
 	public function get_value( $post_id ) {
 		$raw_value = $this->get_raw_value( $post_id );
-		if ( ! $this->get_option( 'date_format' ) ) {
-			return $this->get_date( $raw_value ) . ' ' . $this->get_time( $raw_value );
-		}
 
-		return $this->get_date( $raw_value, $this->get_option( 'date_format' ) );
+		return $this->format_date( $raw_value ) . ' ' . $this->get_time( $raw_value );
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -431,7 +431,7 @@
 .cpac-column .column-form > table tr.hide {
   display: none;
 }
-.cpac-column .column-form > table tr.radio label {
+.cpac-column .column-form > table tr.radio > td.input > label {
   padding-left: 0;
   padding-right: 14px;
 }

@@ -198,4 +198,20 @@ class AC_Helper_Post {
 		return ac_helper()->string->trim_words( $excerpt, $words );
 	}
 
+	public function get_term_values( $post_id, $taxonomy ) {
+		$values = array();
+		$terms = get_the_terms( $post_id, $taxonomy );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$values[ $term->term_id ] = $term->name;
+			}
+		}
+
+		return $values;
+	}
+
+	public function is_registered_by_post_type( $post_type ) {
+		return $post_type && get_object_taxonomies( $post_type );
+	}
+
 }

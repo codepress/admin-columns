@@ -65,4 +65,5 @@ class AC_Column_Comment_Post extends CPAC_Column {
 		$this->display_field_post_property_display();
 		$this->display_field_post_link_to();
 	}
+
 }

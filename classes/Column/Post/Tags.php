@@ -18,4 +18,8 @@ class AC_Column_Post_Tags extends CPAC_Column {
 		$this->options['width_unit'] = '%';
 	}
 
+	public function apply_conditional() {
+		return ac_helper()->post->is_registered_by_post_type( $this->get_post_type() );
+	}
+
 }
