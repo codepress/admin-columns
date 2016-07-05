@@ -443,34 +443,44 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Loads the columns into memory
+	 *
+	 * @since NEWVERSION
+	 * @return void
+	 */
+	public function load_columns() {
+		if ( ! empty( $this->columns ) ) {
+			return;
+		}
+
+		// Stored columns
+		if ( $stored = $this->get_stored_columns() ) {
+			foreach ( $stored as $name => $options ) {
+				if ( isset( $options['type'] ) && ( $column = $this->create_column_instance( $options['type'], $options ) ) ) {
+					$this->columns[ $name ] = $column;
+				}
+			}
+		}
+
+		// Nothing stored
+		else {
+			foreach ( $this->get_column_types() as $type => $column ) {
+				if ( $column->is_default() || $column->is_original() ) {
+					$this->columns[ $type ] = $column;
+				}
+			}
+		}
+
+		do_action( "cac/columns", $this->columns, $this );
+		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
+	}
+
+	/**
 	 * @since 2.5
-	 * @return CPAC_Column[] Columns_
+	 * @return array List of CPAC_Column instances
 	 */
 	public function get_columns() {
-
-		if ( empty( $this->columns ) ) {
-
-			// Stored columns
-			if ( $stored = $this->get_stored_columns() ) {
-				foreach ( $stored as $name => $options ) {
-					if ( isset( $options['type'] ) && ( $column = $this->create_column_instance( $options['type'], $options ) ) ) {
-						$this->columns[ $name ] = $column;
-					}
-				}
-			}
-
-			// Nothing stored
-			else {
-				foreach ( $this->get_column_types() as $type => $column ) {
-					if ( $column->is_default() || $column->is_original() ) {
-						$this->columns[ $type ] = $column;
-					}
-				}
-			}
-
-			do_action( "cac/columns", $this->columns, $this );
-			do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
-		}
+		$this->load_columns();
 
 		return $this->columns;
 	}
