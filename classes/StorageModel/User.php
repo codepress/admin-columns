@@ -19,6 +19,10 @@ class AC_StorageModel_User extends CPAC_Storage_Model {
 		parent::__construct();
 	}
 
+	/**
+	 * @since NEWVERSION
+	 * @return string HTML
+	 */
 	public function get_single_row( $object_id ) {
 		return $this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
 	}
