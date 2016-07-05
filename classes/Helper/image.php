@@ -45,29 +45,6 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param string $size
-	 *
-	 * @return array
-	 */
-	private function get_image_dimensions( $size ) {
-		$dimensions = array(
-			'width'  => 80,
-			'height' => 80,
-		);
-
-		if ( is_array( $size ) ) {
-			$dimensions['width'] = $size[0];
-			$dimensions['height'] = $size[1];
-		}
-		else if ( $sizes = $this->get_image_sizes_by_name( $size ) ) {
-			$dimensions['width'] = $sizes['width'];
-			$dimensions['height'] = $sizes['height'];
-		}
-
-		return $dimensions;
-	}
-
-	/**
 	 * @param int[]|int $ids
 	 * @param array|string $size
 	 *
@@ -133,65 +110,47 @@ class AC_Helper_Image {
 	 * @return string
 	 */
 	public function get_image_by_url( $url, $size ) {
-		$dimensions = $this->get_image_dimensions( $size );
+		$dimensions = array( 80, 80 );
+
+		if ( is_string( $size ) && ( $sizes = $this->get_image_sizes_by_name( $size ) ) ) {
+			$dimensions = array( $sizes['width'], $sizes['height'] );
+		}
+		else if ( is_array( $size ) ) {
+			$dimensions = $size;
+		}
+
 		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
 
 		if ( is_file( $image_path ) ) {
 			// try to resize image
-			if ( $resized = $this->resize( $image_path, $dimensions['width'], $dimensions['height'], true ) ) {
+			if ( $resized = $this->resize( $image_path, $dimensions[0], $dimensions[1], true ) ) {
 				$src = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized );
 
-				$image = $this->markup( $src, $dimensions['width'], $dimensions['height'] );
+				$image = $this->markup( $src, $dimensions[0], $dimensions[1] );
 			}
 			else {
 
-				$image = $this->markup( $url, $dimensions['width'], $dimensions['height'] );
+				$image = $this->markup( $url, $dimensions[0], $dimensions[1] );
 			}
 		}
 
 		//External image
 		else {
-			$image = $this->markup_cover( $image_path, $dimensions['width'], $dimensions['height'] );
+			$image = $this->markup_cover( $image_path, $dimensions[0], $dimensions[1] );
 		}
 
 		return $image;
 	}
 
 	/**
-	 * @param array|int|string $images
-	 * @param array $args
+	 * @param array $images
+	 * @param array|string $size
 	 *
 	 * @return array
 	 */
-	// TODO: move to custom field column
-	public function thumbnail_block( $images, $args = array() ) {
-		if ( empty( $images ) || 'false' == $images ) {
-			return array();
-		}
-
-		// turn string to array
-		if ( is_string( $images ) || is_numeric( $images ) ) {
-			if ( strpos( $images, ',' ) !== false ) {
-				$images = array_filter( explode( ',', ac_helper()->string->strip_trim( str_replace( ' ', '', $images ) ) ) );
-			}
-			else {
-				$images = array( $images );
-			}
-		}
-
-		$defaults = array(
-			'image_size'   => 'cpac-custom',
-			'image_size_w' => 80,
-			'image_size_h' => 80,
-		);
-		$args = wp_parse_args( $args, $defaults );
-
-		$size = $args['image_size'];
-		if ( ! $args['image_size'] || 'cpac-custom' == $args['image_size'] ) {
-			$size = array( $args['image_size_w'], $args['image_size_h'] );
-		}
-
+	public function get_images( $images, $size = 'thumbnail' ) {
 		$thumbnails = array();
+
 		foreach ( $images as $value ) {
 			if ( ac_helper()->string->is_image( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
@@ -206,11 +165,11 @@ class AC_Helper_Image {
 	}
 
 	private function markup_cover( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image cpac-cover' style='width:{$width}px;height:{$height}px;background-size:cover;background-image:url({$src});background-position:center;'></span>";
+		return "<span class='cpac-column-value-image cpac-cover' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
 	}
 
 	private function markup( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image'><img style='max-width:{$width}px;max-height:{$height}px;' src='{$src}' alt=''/></span>";
+		return "<span class='cpac-column-value-image'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
 	}
 
 	/**

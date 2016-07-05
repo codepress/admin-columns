@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Actions extends AC_Column_Actions {
+class AC_Column_Comment_Actions extends AC_Column_ActionsAbstract {
 
 	/**
 	 * @since 2.3.4

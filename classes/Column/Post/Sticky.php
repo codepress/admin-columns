@@ -20,7 +20,7 @@ class AC_Column_Post_Sticky extends CPAC_Column {
 	}
 
 	function get_value( $post_id ) {
-		return $this->get_icon_yes_or_no( $this->is_sticky( $post_id ) );
+		return ac_helper()->icon->yes_or_no( $this->is_sticky( $post_id ) );
 	}
 
 	function get_raw_value( $post_id ) {

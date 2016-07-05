@@ -199,13 +199,8 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
-
-				// TODO move get_thumbnails to custom field column
-				$value = implode( $this->get_thumbnails( $raw_string, array(
-					'image_size'   => $this->get_option( 'image_size' ),
-					'image_size_w' => $this->get_option( 'image_size_w' ),
-					'image_size_h' => $this->get_option( 'image_size_h' ),
-				) ) );
+				$images = ac_helper()->string->comma_seperated_to_array( $raw_string );
+				$value = implode( ac_helper()->image->get_images( $images, $this->get_image_size_formatted() ) );
 				break;
 
 			case "excerpt" :
@@ -261,7 +256,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			case "checkmark" :
 				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
 
-				$value = $this->get_icon_yes_or_no( $is_true );
+				$value = ac_helper()->icon->yes_or_no( $is_true );
 				break;
 
 			case "color" :
@@ -307,12 +302,12 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			$grouped_options = array(
 				'hidden' => array(
 					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
-					'options' => ''
+					'options' => '',
 				),
 				'public' => array(
 					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
-					'options' => ''
-				)
+					'options' => '',
+				),
 			);
 
 			foreach ( $keys as $field ) {
@@ -342,7 +337,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				'type'        => 'text',
 				'name'        => 'field',
 				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
-				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' )
+				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
 			) );
 		else :
 			$this->form_field( array(

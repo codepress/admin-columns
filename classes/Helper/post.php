@@ -83,13 +83,12 @@ class AC_Helper_Post {
 		}
 	}
 
-	// todo: you expect fields here, but looks like values?
 	/**
 	 * Get values by post field
 	 *
 	 * @since 1.0
 	 */
-	public function get_post_fields( $post_field, $post_type ) {
+	public function get_post_values_by_field( $post_field, $post_type ) {
 		global $wpdb;
 
 		$post_field = sanitize_key( $post_field );
@@ -208,10 +207,6 @@ class AC_Helper_Post {
 		}
 
 		return $values;
-	}
-
-	public function is_registered_by_post_type( $post_type ) {
-		return $post_type && get_object_taxonomies( $post_type );
 	}
 
 }

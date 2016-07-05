@@ -12,12 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_Date date
  * @property AC_Helper_Image image
  * @property AC_Helper_Post post
- * @property AC_Helper_Query query
  * @property AC_Helper_String string
  * @property AC_Helper_Taxonomy taxonomy
  * @property AC_Helper_User user
- * @property AC_Helper_Media media
- * @property AC_Helper_Term term
+ * @property AC_Helper_Icon icon
  */
 class AC_Helper {
 

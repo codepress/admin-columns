@@ -14,7 +14,7 @@ class AC_Column_Comment_Approved extends CPAC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->get_icon_yes_or_no( $this->get_raw_value( $id ) );
+		return ac_helper()->icon->yes_or_no( $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {

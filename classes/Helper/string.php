@@ -7,6 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Helper_String {
 
 	/**
+	 * @since 1.3.1
+	 */
+	public function shorten_url( $url ) {
+		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
+	}
+
+	/**
 	 * @since 1.3
 	 */
 	public function strip_trim( $string ) {
@@ -117,7 +124,31 @@ class AC_Helper_String {
 	 * @return bool
 	 */
 	public function is_image( $url ) {
-		return is_string( $url ) ? in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) ) : false;
+		return $url && is_string( $url ) ? in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) ) : false;
+	}
+
+	/**
+	 * @since NEWVSERION
+	 *
+	 * @param string $string
+	 *
+	 * @return array
+	 */
+	public function comma_seperated_to_array( $string ) {
+		$array = array();
+		if ( is_scalar( $string ) ) {
+			if ( strpos( $string, ',' ) !== false ) {
+				$array = array_filter( explode( ',', ac_helper()->string->strip_trim( str_replace( ' ', '', $string ) ) ) );
+			}
+			else {
+				$array = array( $string );
+			}
+		}
+		else if ( is_array( $string ) ) {
+			$array = $string;
+		}
+
+		return $array;
 	}
 
 }

@@ -20,7 +20,7 @@ class AC_Column_User_PostCount extends CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_count( $user_id ) {
-		return $this->get_user_postcount( $user_id, $this->get_option( 'post_type' ) );
+		return ac_helper()->user->get_postcount( $user_id, $this->get_option( 'post_type' ) );
 	}
 
 	function get_value( $user_id ) {

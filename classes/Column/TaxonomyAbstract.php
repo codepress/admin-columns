@@ -30,7 +30,7 @@ class AC_Column_TaxonomyAbstract extends CPAC_Column {
 	}
 
 	public function apply_conditional() {
-		return ac_helper()->post->is_registered_by_post_type( $this->get_post_type() );
+		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), $this->get_taxonomy() );
 	}
 
 	public function display_settings() {

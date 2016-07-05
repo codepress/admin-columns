@@ -14,7 +14,7 @@ class AC_Column_Comment_AuthorUrl extends CPAC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->get_shorten_url( $this->get_raw_value( $id ) );
+		return ac_helper()->string->shorten_url( $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {

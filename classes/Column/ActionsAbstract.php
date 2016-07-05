@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.6
  */
-abstract class AC_Column_Actions extends CPAC_Column {
+abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 
 	/**
 	 * Get a list of action links for an item (e.g. post) ID.

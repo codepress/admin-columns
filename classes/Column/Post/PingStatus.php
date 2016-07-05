@@ -21,7 +21,7 @@ class AC_Column_Post_PingStatus extends CPAC_Column {
 	public function get_value( $post_id ) {
 		$ping_status = $this->get_raw_value( $post_id );
 
-		return $this->get_icon_yes_or_no( 'open' == $ping_status, $ping_status );
+		return ac_helper()->icon->yes_or_no( 'open' == $ping_status, $ping_status );
 	}
 
 	public function get_raw_value( $post_id ) {

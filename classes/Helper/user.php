@@ -49,4 +49,20 @@ class AC_Helper_User {
 		return $name;
 	}
 
+	/**
+	 * @since 3.4.4
+	 */
+	public function get_postcount( $user_id, $post_type ) {
+		global $wpdb;
+		$sql = "
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_status = 'publish'
+			AND post_author = %d
+			AND post_type = %s
+		";
+
+		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
+	}
+
 }

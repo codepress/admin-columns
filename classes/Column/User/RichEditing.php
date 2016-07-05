@@ -11,7 +11,7 @@ class AC_Column_User_RichEditing extends CPAC_Column {
 	}
 
 	function get_value( $user_id ) {
-		return $this->get_icon_yes_or_no( $this->has_rich_editing( $user_id ) );
+		return ac_helper()->icon->yes_or_no( $this->has_rich_editing( $user_id ) );
 	}
 
 	function get_raw_value( $user_id ) {

@@ -34,4 +34,27 @@ class AC_Helper_Taxonomy {
 		return $value;
 	}
 
+	/**
+	 * @param string $object_type Post, User etc.
+	 * @param string $taxonomy Taxonomy Name
+	 *
+	 * @return bool
+	 */
+	public function is_taxonomy_registered( $object_type, $taxonomy = '' ) {
+		if ( ! $object_type ) {
+			return false;
+		}
+		$taxonomies = get_object_taxonomies( $object_type );
+
+		if ( ! $taxonomies ) {
+			return false;
+		}
+
+		if ( $taxonomy ) {
+			return in_array( $taxonomy, $taxonomies );
+		}
+
+		return true;
+	}
+
 }

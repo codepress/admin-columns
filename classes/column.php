@@ -92,10 +92,16 @@ class CPAC_Column {
 		return true;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function is_default() {
 		return $this->get_property( 'default' );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
 	public function is_original() {
 		return $this->get_property( 'original' );
 	}
@@ -114,7 +120,12 @@ class CPAC_Column {
 	 * @return false|CPAC_Storage_Model
 	 */
 	public function __get( $key ) {
-		return 'storage_model' == $key ? $this->{"get_$key"}() : false;
+		$call = false;
+		if ( 'storage_model' == $key ) {
+			$call = 'get_' . $key;
+		}
+
+		return $call ? call_user_func( array( $this, $call ) ) : false;
 	}
 
 	/**
@@ -203,13 +214,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function set_label( $label ) {
-		$this->set_properties( 'label', $label )->set_options( 'label', $label );
-	}
-
-	/**
 	 * @param string $option
 	 *
 	 * @return mixed $value
@@ -233,20 +237,6 @@ class CPAC_Column {
 		}
 
 		return $this;
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function get_before() {
-		return $this->get_option( 'before' );
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function get_after() {
-		return $this->get_option( 'after' );
 	}
 
 	/**
@@ -285,15 +275,6 @@ class CPAC_Column {
 	 */
 	public function get_group() {
 		return $this->get_property( 'group' );
-	}
-
-	/**
-	 * Should the column be registered based on conditional logic, example usage see: 'post/page-template.php'
-	 *
-	 * @since 2.5
-	 */
-	public function is_registered() {
-		return $this->apply_conditional();
 	}
 
 	/**
@@ -442,7 +423,8 @@ class CPAC_Column {
 	public function get_sanitized_label() {
 		if ( $this->is_default() ) {
 			$string = $this->get_name();
-		} else {
+		}
+		else {
 			$string = $this->get_option( 'label' );
 			$string = strip_tags( $string );
 			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
@@ -454,105 +436,14 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.3.1
+	 * @since NEWVERSION
+	 *
+	 * @param $id
+	 *
+	 * @return string
 	 */
-	protected function get_shorten_url( $url = '' ) {
-		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
-	}
-
-	// since 2.4.8
-	public function get_raw_post_field( $field, $id ) {
-		return ac_helper()->post->get_raw_field( $field, $id );
-	}
-
-	// since 2.4.8
 	public function get_post_title( $id ) {
-		return esc_html( $this->get_raw_post_field( 'post_title', $id ) );
-	}
-
-	/**
-	 * @since 1.3.1
-	 *
-	 * @param string $name
-	 * @param string $title
-	 *
-	 * @return string HTML img element
-	 */
-	public function get_asset_image( $name = '', $title = '' ) {
-		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/" . $name, esc_attr( $title ) ) : false;
-	}
-
-	/**
-	 * @since 3.4.4
-	 */
-	public function get_user_postcount( $user_id, $post_type ) {
-		global $wpdb;
-		$sql = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_status = 'publish'
-			AND post_author = %d
-			AND post_type = %s
-		";
-
-		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
-	}
-
-	/**
-	 * @since 1.0
-	 * @return array Image Sizes.
-	 */
-	private function get_all_image_sizes() {
-		global $_wp_additional_image_sizes;
-
-		$sizes = array(
-			'default' => array(
-				'title'   => __( 'Default', 'codepress-admin-columns' ),
-				'options' => array(
-					'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
-					'medium'    => __( "Medium", 'codepress-admin-columns' ),
-					'large'     => __( "Large", 'codepress-admin-columns' ),
-				),
-			),
-		);
-
-		$all_sizes = get_intermediate_image_sizes();
-
-		if ( ! empty( $all_sizes ) ) {
-			foreach ( $all_sizes as $size ) {
-				if ( 'medium_large' == $size || isset( $sizes['default']['options'][ $size ] ) ) {
-					continue;
-				}
-
-				if ( ! isset( $sizes['defined'] ) ) {
-					$sizes['defined']['title'] = __( "Others", 'codepress-admin-columns' );
-				}
-
-				$sizes['defined']['options'][ $size ] = ucwords( str_replace( '-', ' ', $size ) );
-			}
-		}
-
-		// add sizes
-		foreach ( $sizes as $key => $group ) {
-			foreach ( array_keys( $group['options'] ) as $_size ) {
-
-				$w = isset( $_wp_additional_image_sizes[ $_size ]['width'] ) ? $_wp_additional_image_sizes[ $_size ]['width'] : get_option( "{$_size}_size_w" );
-				$h = isset( $_wp_additional_image_sizes[ $_size ]['height'] ) ? $_wp_additional_image_sizes[ $_size ]['height'] : get_option( "{$_size}_size_h" );
-				if ( $w && $h ) {
-					$sizes[ $key ]['options'][ $_size ] .= " ({$w} x {$h})";
-				}
-			}
-		}
-
-		// last
-		$sizes['default']['options']['full'] = __( "Full Size", 'codepress-admin-columns' );
-
-		$sizes['custom'] = array(
-			'title'   => __( 'Custom', 'codepress-admin-columns' ),
-			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' ),
-		);
-
-		return $sizes;
+		return esc_html( ac_helper()->post->get_raw_field( 'post_title', $id ) );
 	}
 
 	/**
@@ -573,31 +464,6 @@ class CPAC_Column {
 	 */
 	public function get_empty_char() {
 		return '&ndash;';
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param mixed $meta Image files or Image ID's
-	 * @param array $args
-	 *
-	 * @return array HTML img elements
-	 */
-	public function get_thumbnails( $images, $args = array() ) {
-		return ac_helper()->image->thumbnail_block( $images, $args );
-	}
-
-	/**
-	 * Get timestamp
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $date
-	 *
-	 * @return string Formatted date
-	 */
-	public function get_timestamp( $date ) {
-		return ac_helper()->date->strtotime( $date );
 	}
 
 	/**
@@ -666,8 +532,8 @@ class CPAC_Column {
 			$value = $display_value;
 		}
 
-		if ( $value ) {
-			$value = $this->get_before() . $value . $this->get_after();
+		if ( $value && is_scalar( $value ) ) {
+			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
 		}
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this, $this->get_storage_model_key() );
@@ -1017,12 +883,71 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @param int $attachment_id
+	 * @since NEWVERSION
+	 *
+	 * @param int[] | int $attachment_ids
 	 *
 	 * @return string HTML Image
 	 */
-	public function get_image_formatted( $attachment_id ) {
-		return ac_helper()->image->get_images_by_ids( $attachment_id, $this->get_image_size_formatted() );
+	public function get_image_formatted( $attachment_ids ) {
+		return ac_helper()->image->get_images_by_ids( $attachment_ids, $this->get_image_size_formatted() );
+	}
+
+	/**
+	 * @since 1.0
+	 * @return array Image Sizes.
+	 */
+	private function get_grouped_image_sizes() {
+		global $_wp_additional_image_sizes;
+
+		$sizes = array(
+			'default' => array(
+				'title'   => __( 'Default', 'codepress-admin-columns' ),
+				'options' => array(
+					'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
+					'medium'    => __( "Medium", 'codepress-admin-columns' ),
+					'large'     => __( "Large", 'codepress-admin-columns' ),
+				),
+			),
+		);
+
+		$all_sizes = get_intermediate_image_sizes();
+
+		if ( ! empty( $all_sizes ) ) {
+			foreach ( $all_sizes as $size ) {
+				if ( 'medium_large' == $size || isset( $sizes['default']['options'][ $size ] ) ) {
+					continue;
+				}
+
+				if ( ! isset( $sizes['defined'] ) ) {
+					$sizes['defined']['title'] = __( "Others", 'codepress-admin-columns' );
+				}
+
+				$sizes['defined']['options'][ $size ] = ucwords( str_replace( '-', ' ', $size ) );
+			}
+		}
+
+		// add sizes
+		foreach ( $sizes as $key => $group ) {
+			foreach ( array_keys( $group['options'] ) as $_size ) {
+
+				$w = isset( $_wp_additional_image_sizes[ $_size ]['width'] ) ? $_wp_additional_image_sizes[ $_size ]['width'] : get_option( "{$_size}_size_w" );
+				$h = isset( $_wp_additional_image_sizes[ $_size ]['height'] ) ? $_wp_additional_image_sizes[ $_size ]['height'] : get_option( "{$_size}_size_h" );
+				if ( $w && $h ) {
+					$sizes[ $key ]['options'][ $_size ] .= " ({$w} x {$h})";
+				}
+			}
+		}
+
+		// last
+		$sizes['default']['options']['full'] = __( "Full Size", 'codepress-admin-columns' );
+
+		$sizes['custom'] = array(
+			'title'   => __( 'Custom', 'codepress-admin-columns' ),
+			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' ),
+		);
+
+		return $sizes;
 	}
 
 	/**
@@ -1035,7 +960,7 @@ class CPAC_Column {
 				array(
 					'type'            => 'select',
 					'name'            => 'image_size',
-					'grouped_options' => $this->get_all_image_sizes(),
+					'grouped_options' => $this->get_grouped_image_sizes(),
 				),
 				array(
 					'type'          => 'text',
@@ -1115,63 +1040,6 @@ class CPAC_Column {
 	public function display_indicator( $name, $label ) { ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
-	}
-
-	/**
-	 * @param array $args Icons args
-	 *
-	 * @return string
-	 */
-	public function get_dashicon( $args = array() ) {
-		$defaults = array(
-			'icon'    => '',
-			'title'   => '',
-			'class'   => '',
-			'tooltip' => '',
-		);
-
-		$data = (object) wp_parse_args( $args, $defaults );
-
-		if ( $data->tooltip ) {
-			$data->class .= ' cpac-tip';
-		}
-
-		return '<span class="dashicons dashicons-' . $data->icon . ' ' . esc_attr( trim( $data->class ) ) . '"' . ( $data->title ? ' title="' . esc_attr( $data->title ) . '"' : '' ) . '' . ( $data->tooltip ? 'data-tip="' . esc_attr( $data->tooltip ) . '"' : '' ) . '></span>';
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return string
-	 */
-	public function get_dashicon_yes( $tooltip = false, $title = true ) {
-		if ( true === $title ) {
-			$title = __( 'Yes' );
-		}
-
-		return $this->get_dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return string
-	 */
-	public function get_dashicon_no( $tooltip = false, $title = true ) {
-		if ( true === $title ) {
-			$title = __( 'No' );
-		}
-
-		return $this->get_dashicon( array( 'icon' => 'no', 'class' => 'red', 'title' => $title, 'tooltip' => $tooltip ) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param bool $display
-	 *
-	 * @return string HTML Dashicon
-	 */
-	public function get_icon_yes_or_no( $is_true, $tooltip = '' ) {
-		return $is_true ? $this->get_dashicon_yes( $tooltip ) : $this->get_dashicon_no( $tooltip );
 	}
 
 	/**
@@ -1389,6 +1257,80 @@ class CPAC_Column {
 	// Deprecated methods
 
 	/**
+	 * Get timestamp
+	 *
+	 * @since 2.0
+	 *
+	 * @param string $date
+	 *
+	 * @return string Formatted date
+	 */
+	public function get_timestamp( $date ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->date->strtotime()' );
+
+		return ac_helper()->date->strtotime( $date );
+	}
+
+	/**
+	 * @since 3.4.4
+	 */
+	public function get_user_postcount( $user_id, $post_type ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->user->get_postcount()' );
+
+		return ac_helper()->user->get_postcount( $user_id, $post_type );
+	}
+
+	/**
+	 * @since 1.3.1
+	 */
+	protected function get_shorten_url( $url ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->shorten_url()' );
+
+		return ac_helper()->string->shorten_url( $url );
+	}
+
+	/**
+	 * @since 2.4.8
+	 */
+	public function get_raw_post_field( $field, $id ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+
+		return ac_helper()->post->get_raw_field( $field, $id );
+	}
+
+	/**
+	 * @since 1.0
+	 */
+	public function get_before() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+
+		return $this->get_option( 'before' );
+	}
+
+	/**
+	 * @since 1.0
+	 */
+	public function get_after() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+
+		return $this->get_option( 'after' );
+	}
+
+	/**
+	 * @since 1.3.1
+	 *
+	 * @param string $name
+	 * @param string $title
+	 *
+	 * @return string HTML img element
+	 */
+	public function get_asset_image( $name = '', $title = '' ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+
+		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/" . $name, esc_attr( $title ) ) : false;
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param int $post_id Post ID
@@ -1396,7 +1338,7 @@ class CPAC_Column {
 	 * @return string Post Excerpt.
 	 */
 	protected function get_post_excerpt( $post_id, $words ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->post->excerpt' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->post->excerpt()' );
 
 		return ac_helper()->post->excerpt( $post_id, $words );
 	}
@@ -1409,7 +1351,7 @@ class CPAC_Column {
 	 * @return bool
 	 */
 	protected function is_image_url( $url ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->is_image()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->is_image()' );
 
 		return ac_helper()->string->is_image( $url );
 	}
@@ -1422,7 +1364,7 @@ class CPAC_Column {
 	 * @return array Image Sizes
 	 */
 	public function get_image_size_by_name( $name ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->image->get_image_sizes_by_name()' );
 
 		return ac_helper()->image->get_image_sizes_by_name( $name );
 	}
@@ -1433,7 +1375,7 @@ class CPAC_Column {
 	 * @return string Image URL
 	 */
 	public function image_resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->image->get_image_size_by_name()' );
 
 		return ac_helper()->image->resize( $file, $max_w, $max_h, $crop, $suffix, $dest_path, $jpeg_quality );
 	}
@@ -1503,7 +1445,32 @@ class CPAC_Column {
 
 		return ac_helper()->string->trim_words( $text, $num_words, $more );
 	}
-	
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param mixed $meta Image files or Image ID's
+	 * @param array $args
+	 *
+	 * @return array HTML img elements
+	 */
+	public function get_thumbnails( $images, $args = array() ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->image->get_thumbnails()' );
+
+		$args = wp_parse_args( $args, array(
+			'image_size'   => 'cpac-custom',
+			'image_size_w' => 80,
+			'image_size_h' => 80,
+		) );
+
+		$size = $args['image_size'];
+		if ( ! $args['image_size'] || 'cpac-custom' == $args['image_size'] ) {
+			$size = array( $args['image_size_w'], $args['image_size_h'] );
+		}
+
+		return ac_helper()->image->get_images( ac_helper()->string->comma_seperated_to_array( $images ), $size );
+	}
+
 	/**
 	 * @since 2.3.4
 	 * @deprecated NEWVERSION
@@ -1562,7 +1529,7 @@ class CPAC_Column {
 	 * @since 1.3
 	 */
 	public function strip_trim( $string ) {
-		_deprecated_function( __METHOD__, 'ACP NEWVERSION', 'ac_helper()->string->strip_trim()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->strip_trim()' );
 
 		return ac_helper()->string->strip_trim( $string );
 	}
