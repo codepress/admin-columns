@@ -16,7 +16,7 @@ class AC_Column_Post_DatePublished extends CPAC_Column {
 	public function get_value( $post_id ) {
 		$raw_value = $this->get_raw_value( $post_id );
 
-		return $this->format_date( $raw_value ) . ' ' . $this->get_time( $raw_value );
+		return $this->get_date_formatted( $raw_value ) . ' ' . ac_helper()->date->time( $raw_value );
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -25,6 +25,7 @@ class AC_Column_Post_DatePublished extends CPAC_Column {
 		return $post->post_date;
 	}
 
+	// TODO: add field_datetime_format
 	public function display_settings() {
 		$this->display_field_date_format();
 	}

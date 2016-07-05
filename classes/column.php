@@ -360,7 +360,7 @@ class CPAC_Column {
 	 * @param string $field_name
 	 */
 	public function attr_name( $field_name ) {
-		echo $this->get_attr_name( $field_name );
+		echo esc_attr( $this->get_attr_name( $field_name ) );
 	}
 
 	/**
@@ -382,7 +382,7 @@ class CPAC_Column {
 	}
 
 	public function attr_id( $field_name ) {
-		echo $this->get_attr_id( $field_name );
+		echo esc_attr( $this->get_attr_id( $field_name ) );
 	}
 
 	/**
@@ -467,56 +467,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 1.3.1
-	 *
-	 * @param string $date
-	 *
-	 * @return string Formatted date
-	 */
-
-	public function get_date( $date, $format = '' ) {
-		$timestamp = ac_helper()->date->strtotime( $date );
-
-		return $timestamp ? $this->get_date_formatted( $timestamp, $format ) : false;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param string $date
-	 * @param int $timestamp
-	 *
-	 * @return string Formatted date
-	 */
-
-	// TODO: duplicate, need refactor
-	public function get_date_formatted( $timestamp, $format = false ) {
-		if ( ! $format ) {
-			$format = get_option( 'date_format' );
-		}
-
-		return $timestamp ? date_i18n( $format, $timestamp ) : false;
-	}
-
-	/**
-	 * @since 1.3.1
-	 *
-	 * @param string $date
-	 *
-	 * @return string Formatted time
-	 */
-	protected function get_time( $date, $format = '' ) {
-		if ( ! $date = ac_helper()->date->strtotime( $date ) ) {
-			return false;
-		}
-		if ( ! $format ) {
-			$format = get_option( 'time_format' );
-		}
-
-		return date_i18n( $format, $date );
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @param $id
@@ -551,7 +501,7 @@ class CPAC_Column {
 	 */
 	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
 		if ( $label ) : ?>
-			<td class="label<?php echo $description ? ' description' : ''; ?>">
+			<td class="label<?php echo esc_attr( $description ? ' description' : '' ); ?>">
 				<label for="<?php $this->attr_id( $for ); ?>">
 					<span class="label"><?php echo stripslashes( $label ); ?></span>
 					<?php if ( $more_link ) : ?>
@@ -585,9 +535,9 @@ class CPAC_Column {
 		$args = wp_parse_args( $args, $defaults );
 		$field = (object) $args;
 		?>
-		<tr class="<?php echo $field->type; ?> column-<?php echo $field->name; ?><?php echo $field->hidden ? ' hide' : ''; ?><?php echo $field->section ? ' section' : ''; ?>"<?php echo $field->toggle_handle ? ' data-handle="' . $this->get_attr_id( $field->toggle_handle ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
+		<tr class="<?php echo esc_attr( $field->type ); ?> column-<?php echo esc_attr( $field->name ); ?><?php echo esc_attr( $field->hidden ? ' hide' : '' ); ?><?php echo esc_attr( $field->section ? ' section' : '' ); ?>"<?php echo $field->toggle_handle ? ' data-handle="' . esc_attr( $this->get_attr_id( $field->toggle_handle ) ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
 			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ), $field->more_link ); ?>
-			<td class="input"<?php echo( $field->toggle_trigger ? ' data-trigger="' . $this->get_attr_id( $field->toggle_trigger ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
+			<td class="input"<?php echo( $field->toggle_trigger ? ' data-trigger="' . esc_attr( $this->get_attr_id( $field->toggle_trigger ) ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
 				<?php
 				switch ( $field->type ) {
 					case 'select' :
@@ -609,7 +559,7 @@ class CPAC_Column {
 
 				if ( $field->help ) : ?>
 					<p class="help-msg">
-						<?php echo $field->help; ?>
+						<?php echo esc_html( $field->help ); ?>
 					</p>
 				<?php endif; ?>
 
@@ -621,7 +571,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function select_field( $args ) {
+	private function select_field( $args ) {
 		$defaults = array(
 			'name'            => '',
 			'options'         => array(),
@@ -641,7 +591,7 @@ class CPAC_Column {
 			<select name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name ); ?>">
 				<?php if ( $args->options ) : ?>
 					<?php foreach ( $args->options as $key => $label ) : ?>
-						<option value="<?php echo $key; ?>"<?php selected( $key, $current ); ?>><?php echo $label; ?></option>
+						<option value="<?php echo esc_attr( $key ); ?>"<?php selected( $key, $current ); ?>><?php echo esc_html( $label ); ?></option>
 					<?php endforeach; ?>
 				<?php elseif ( $args->grouped_options ) : ?>
 					<?php foreach ( $args->grouped_options as $group ) : ?>
@@ -657,14 +607,14 @@ class CPAC_Column {
 			<?php //ajax message ?>
 			<div class="msg"></div>
 		<?php elseif ( $args->no_result ) :
-			echo $args->no_result;
+			echo esc_html( $args->no_result );
 		endif;
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
-	public function radio_field( $args ) {
+	private function radio_field( $args ) {
 		$defaults = array(
 			'name'     => '',
 			'options'  => array(),
@@ -681,7 +631,7 @@ class CPAC_Column {
 
 		foreach ( $args->options as $key => $label ) : ?>
 			<label>
-				<input type="radio" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name . '-' . $key ); ?>" value="<?php echo $key; ?>"<?php checked( $key, $current ); ?>>
+				<input type="radio" name="<?php $this->attr_name( $args->name ); ?>" id="<?php $this->attr_id( $args->name . '-' . $key ); ?>" value="<?php echo esc_attr( $key ); ?>"<?php checked( $key, $current ); ?>>
 				<?php echo $label; ?>
 			</label>
 			<?php echo $args->vertical ? '<br/>' : ''; ?>
@@ -691,7 +641,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function text_field( $args ) {
+	private function text_field( $args ) {
 		$args = wp_parse_args( $args, array(
 			'type' => 'text',
 		) );
@@ -702,7 +652,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function number_field( $args ) {
+	private function number_field( $args ) {
 		$args = wp_parse_args( $args, array(
 			'type' => 'number',
 		) );
@@ -726,11 +676,11 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function width_field() {
+	private function width_field() {
 		?>
-		<div class="description" title="<?php _e( 'default', 'codepress-admin-columns' ); ?>">
-			<input class="width" type="text" placeholder="<?php _e( 'auto', 'codepress-admin-columns' ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo $this->get_option( 'width' ); ?>"/>
-			<span class="unit"><?php echo $this->get_option( 'width_unit' ); ?></span>
+		<div class="description" title="<?php echo esc_html( __( 'default', 'codepress-admin-columns' ) ); ?>">
+			<input class="width" type="text" placeholder="<?php echo esc_html( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_option( 'width' ) ); ?>"/>
+			<span class="unit"><?php echo esc_html( $this->get_option( 'width_unit' ) ); ?></span>
 		</div>
 		<div class="width-slider"></div>
 
@@ -801,8 +751,8 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function format_date( $date ) {
-		return $this->get_date_formatted( ac_helper()->date->strtotime( $date ), $this->get_option( 'date_format' ) );
+	public function get_date_formatted( $date ) {
+		return ac_helper()->date->date( $date, $this->get_option( 'date_format' ) );
 	}
 
 	/**
@@ -1255,6 +1205,32 @@ class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 *
+	 * @return string Formatted date
+	 */
+	public function get_date( $date, $format = '' ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->date->date()' );
+
+		return ac_helper()->date->date( $date, $format );
+	}
+
+	/**
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 *
+	 * @return string Formatted time
+	 */
+	protected function get_time( $date, $format = '' ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->date->time()' );
+
+		return ac_helper()->date->time( $date, $format );
+	}
 
 	/**
 	 * Get timestamp

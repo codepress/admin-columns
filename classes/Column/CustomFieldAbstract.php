@@ -183,7 +183,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @since 2.5.6
 	 */
 	public function get_date_by_string( $date_string ) {
-		return $this->get_date( $date_string, $this->get_option( 'date_format' ) );
+		return $this->get_date_formatted( $date_string );
 	}
 
 	/**

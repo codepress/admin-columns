@@ -477,7 +477,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.5
-	 * @return array List of CPAC_Column instances
+	 * @return CPAC_Column[] List of column instances
 	 */
 	public function get_columns() {
 		$this->load_columns();

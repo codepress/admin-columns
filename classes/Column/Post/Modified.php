@@ -20,7 +20,7 @@ class AC_Column_Post_Modified extends CPAC_Column {
 		$date_format = $this->get_option( 'date_format' );
 
 		if ( ! $date_format ) {
-			$value = $this->get_date( $modified ) . ' ' . $this->get_time( $modified );
+			$value = ac_helper()->date->date( $modified ) . ' ' . ac_helper()->date->time( $modified );
 		}
 		else {
 			$value = date_i18n( $date_format, strtotime( $modified ) );

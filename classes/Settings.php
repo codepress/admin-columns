@@ -957,14 +957,14 @@ class AC_Settings {
 								</div>
 							<?php endif; ?>
 
-							<div class="cpac-boxes<?php echo $storage_model->is_using_php_export() ? ' disabled' : ''; ?>">
+							<div class="cpac-boxes<?php echo esc_attr( $storage_model->is_using_php_export() ? ' disabled' : '' ); ?>">
 
 								<div class="cpac-columns">
-									<form method="post" action="<?php echo $storage_model->get_edit_link(); ?>">
+									<form method="post" action="<?php echo esc_attr( $storage_model->get_edit_link() ); ?>">
 
 										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
 										<input type="hidden" name="cpac_action" value="update_by_type"/>
-										<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
+										<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->layout ); ?>"/>
 
 										<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 
@@ -989,7 +989,7 @@ class AC_Settings {
 											<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 											<?php endif; ?>
 											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
+											<?php /*x<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
 											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
 										</div>
 									<?php endif; ?>

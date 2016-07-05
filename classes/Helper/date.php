@@ -37,4 +37,36 @@ class AC_Helper_Date {
 		return $date;
 	}
 
+	/**
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 *
+	 * @return string Formatted date
+	 */
+	public function date( $date, $format = '' ) {
+		$timestamp = ac_helper()->date->strtotime( $date );
+		if ( ! $format ) {
+			$format = get_option( 'date_format' );
+		}
+
+		return $timestamp ? date_i18n( $format, $timestamp ) : false;
+	}
+
+	/**
+	 * @since 1.3.1
+	 *
+	 * @param string $date
+	 *
+	 * @return string Formatted time
+	 */
+	public function time( $date, $format = '' ) {
+		$timestamp = ac_helper()->date->strtotime( $date );
+		if ( ! $format ) {
+			$format = get_option( 'time_format' );
+		}
+
+		return $timestamp ? date_i18n( $format, $timestamp ) : false;
+	}
+
 }
