@@ -405,6 +405,16 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @return wpdb
+	 */
+	public function wpdb() {
+		global $wpdb;
+
+		return $wpdb;
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function get_label() {
@@ -424,7 +434,7 @@ class CPAC_Column {
 	 * @since 1.3.1
 	 */
 	protected function get_shorten_url( $url = '' ) {
-		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>': false;
+		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
 	}
 
 	// since 2.4.8
