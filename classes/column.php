@@ -431,6 +431,29 @@ class CPAC_Column {
 	}
 
 	/**
+	 * Sanitizes label using intern WordPress function esc_url so it matches the label sorting url.
+	 *
+	 * @since 1.0
+	 *
+	 * @param CPAC_Column $column
+	 *
+	 * @return string Sanitized string
+	 */
+	public function get_sanitized_label() {
+		if ( $this->is_default() ) {
+			$string = $this->get_name();
+		} else {
+			$string = $this->get_option( 'label' );
+			$string = strip_tags( $string );
+			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
+			$string = str_replace( 'http://', '', $string );
+			$string = str_replace( 'https://', '', $string );
+		}
+
+		return $string;
+	}
+
+	/**
 	 * @since 1.3.1
 	 */
 	protected function get_shorten_url( $url = '' ) {
@@ -1480,23 +1503,7 @@ class CPAC_Column {
 
 		return ac_helper()->string->trim_words( $text, $num_words, $more );
 	}
-
-	/**
-	 * Implode for multi dimensional array
-	 *
-	 * @since 1.0
-	 * @deprecated NEWVERSION
-	 *
-	 * @param string $string
-	 *
-	 * @return string Sanitized string
-	 */
-	public function get_sanitized_label() {
-		_deprecated_function( 'CPAC_Column::get_sanitized_label', 'NEWVERSION' );
-
-		return $this->get_label();
-	}
-
+	
 	/**
 	 * @since 2.3.4
 	 * @deprecated NEWVERSION
