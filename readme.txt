@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
 Tested up to: 4.5.1
-Stable tag: 2.5.6.2
+Stable tag: 2.5.6.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,6 +210,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 2.5.6.3 =
+* [Added] Filter for suppressing admin notices, use: `add_filter( 'cac/suppress_site_wide_notices', '__return_true' )`
+* [Fixed] Only enable our plugin for taxonomies that are available in the admin
+
 = 2.5.6.2 =
 * [Fixed] Hotfix cleanup.
 
@@ -236,7 +240,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] WPML will correctly display it's "+" icons again. Make sure to add/remove the column.
 * [Improved Messages on the settings screen (when using restore columns) are now displayed directly above the columns
 * [Improved] Excerpt column will now display a label "excerpt from content" when the actual excerpt field is empty
-* [Added] New filter 'cac/get_posts/post_status' has been added to change post_status when using CPAC_Storage_model::get_posts()
+* [Added] New filter 'cac/get_posts/post_status' has been added to change post_status when using `CPAC_Storage_model::get_posts()``
 
 = 2.5.3 =
 * [Fixed] Fixes an issue with some 3rd party column not being visible
@@ -263,10 +267,10 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Columns with an imagesize selection setting will have the a default option selected
 * [Removed] Removed loading columns through 'load-edit.php' filter
 * [Added] Column settings are now stored without the need to refresh the page (through ajax)
-* [Added] You can disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+* [Added] You can disable the columns delete confirmation through this filter `ac/delete_confirmation`
 * [Improved] The width of default columns (e.g. date and author) are now displayed
 * [Improved] bbPress columns are loaded correctly
-* [Updated] All languages files have been updated from Transifex (https://www.transifex.com/codepress/admin-columns)
+* [Updated] All languages files have been updated from [Transifex](https://www.transifex.com/codepress/admin-columns)
 *
 * [Developer notes]
 * [Refactor] CPAC now is a singleton class
@@ -301,10 +305,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 2.4.9 =
 * [Added] Display format Url added to Custom Fields
-* [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
+* [Added] Allow the use of before and after fields for all columns. Use `add_filter( 'cac/column/properties/use_before_after', '__return_true' )`.
 * [Fixed] Removed Field Groups from post types
 * [Fixed] Removed additional avatars from the comments view
-* [Added] Added the option to replace the Custom Field select menu with a text input. Use add_filter( 'cac/column/meta/use_text_input', '__return_true' ).
+* [Added] Added the option to replace the Custom Field select menu with a text input. Use `add_filter( 'cac/column/meta/use_text_input', '__return_true' )`.
 
 = 2.4.8 =
 * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
@@ -376,7 +380,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Fixed media actions column
 
 = 2.3.2 =
-* [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
+* [Updated] All translations from [Transifex](https://www.transifex.com/projects/p/admin-columns)
 * [Updated] 100% Spanish translation thanks to Carlos
 * [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
 * [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()

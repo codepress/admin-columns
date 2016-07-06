@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 2.5.6.2
+Version: 2.5.6.3
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin information
-define( 'CPAC_VERSION', '2.5.6.2' ); // Current plugin version
+define( 'CPAC_VERSION', '2.5.6.3' ); // Current plugin version
 define( 'CPAC_UPGRADE_VERSION', '2.0.0' ); // Latest version which requires an upgrade
 define( 'CPAC_URL', plugin_dir_url( __FILE__ ) );
 define( 'CPAC_DIR', plugin_dir_path( __FILE__ ) );
@@ -230,6 +230,13 @@ class CPAC {
 	}
 
 	/**
+	 * @since 2.5.6.3
+	 */
+	public function suppress_site_wide_notices() {
+		return apply_filters( 'cac/suppress_site_wide_notices', false );
+	}
+
+	/**
 	 * Get registered storage models
 	 *
 	 * @since 2.5
@@ -324,6 +331,7 @@ class CPAC {
 	 * Get column object
 	 *
 	 * @since 2.5.4
+	 *
 	 * @param $storage_key CPAC_Storage_Model->key
 	 * @param $layout_id CPAC_Storage_Model->layout
 	 * @param $column_name CPAC_Column->name
@@ -380,7 +388,7 @@ class CPAC {
 
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' => false,
-			'show_ui'  => true
+			'show_ui'  => true,
 		) ) );
 
 		/**
@@ -401,7 +409,7 @@ class CPAC {
 	 * @return array List of taxonomies
 	 */
 	public function get_taxonomies() {
-		$taxonomies = get_taxonomies( array( 'public' => true ) );
+		$taxonomies = get_taxonomies( array( 'show_ui' => true ) );
 		if ( isset( $taxonomies['post_format'] ) ) {
 			unset( $taxonomies['post_format'] );
 		}

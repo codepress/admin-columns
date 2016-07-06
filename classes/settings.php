@@ -853,16 +853,19 @@ class CPAC_Settings {
 											<div class="inside">
 												<ul>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
 													</li>
 													<li>
-														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() ) ?>"><?php _e( 'Add Direct Editing', 'codepress-admin-columns' ); ?></a>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
+													</li>
+													<li>
+														<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
 													</li>
 												</ul>
 												<p>
@@ -923,7 +926,7 @@ class CPAC_Settings {
 															'hashtags' => 'admincolumns',
 															'text'     => urlencode( "I'm using Admin Columns for WordPress!" ),
 															'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
-															'via'      => 'codepressNL'
+															'via'      => 'wpcolumns'
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
 															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 														</a>
