@@ -56,6 +56,7 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
+	// TODO: test
 	public function get_orginal_value( $id, $handle ) {
 		return $this->get_storage_model()->get_original_column_value( $handle, $id );
 	}
