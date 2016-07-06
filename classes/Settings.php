@@ -50,21 +50,13 @@ class AC_Settings {
 	 */
 	public function get_settings_urls() {
 
-		/**
-		 * Filter the URLs for the different settings screens available in admin columns
-		 *
-		 * @since 2.2
-		 *
-		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
-		 * @param AC_Settings $settings_instance Settings class instance
-		 */
-		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
+		$settings_urls = array(
 			'admin'            => admin_url( 'options-general.php?page=codepress-admin-columns' ),
 			'settings'         => admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
 			'network_settings' => network_admin_url( 'settings.php?page=codepress-admin-columns' ),
 			'info'             => admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade'          => admin_url( 'options-general.php?page=cpac-upgrade' ),
-		), $this );
+		);
 
 		return $settings_urls;
 	}
@@ -131,10 +123,9 @@ class AC_Settings {
 			wp_die();
 		}
 
-		$formdata = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( ! $formdata || ! $column_name ) {
+		if ( empty( $_POST['formdata'] ) || ! $column_name || ! isset( $_POST['layout'] ) ) {
 			wp_die();
 		}
 
@@ -146,22 +137,23 @@ class AC_Settings {
 
 		$storage_model = cpac()->get_storage_model( $formdata['cpac_key'] );
 
+		if ( ! $storage_model ) {
+			wp_die();
+		}
+
 		$storage_model->set_layout( $_POST['layout'] );
 
-		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
+		if ( empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
 			wp_die();
 		}
 
 		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
 		$column = $storage_model->create_column_instance( $columndata['type'], $columndata );
+
 		if ( ! $column ) {
 			wp_die();
 		}
-
-		// Trigger add-ons like inline-edit and sortable
-		do_action( "cac/columns", array( $column->get_name() => $column ), $storage_model );
-		do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->get_name() => $column ), $storage_model );
 
 		ob_start();
 		$column->display();
@@ -411,28 +403,6 @@ class AC_Settings {
 		);
 
 		return isset( $urls[ $type ] ) ? $urls[ $type ] : false;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function uses_custom_fields() {
-
-		$old_columns = get_option( 'cpac_options' );
-
-		if ( empty( $old_columns['columns'] ) ) {
-			return false;
-		}
-
-		foreach ( $old_columns['columns'] as $columns ) {
-			foreach ( $columns as $id => $values ) {
-				if ( strpos( $id, 'column-meta-' ) !== false ) {
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	/**

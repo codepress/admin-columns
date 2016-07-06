@@ -560,7 +560,7 @@ class CPAC_Column {
 
 				if ( $field->help ) : ?>
 					<p class="help-msg">
-						<?php echo esc_html( $field->help ); ?>
+						<?php echo $field->help; ?>
 					</p>
 				<?php endif; ?>
 
