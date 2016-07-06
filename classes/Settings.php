@@ -79,7 +79,6 @@ class AC_Settings {
 	 * @return string Settings page URL
 	 */
 	public function get_settings_url( $page = '' ) {
-
 		$settings_urls = $this->get_settings_urls();
 
 		if ( isset( $settings_urls[ $page ] ) ) {
@@ -717,7 +716,7 @@ class AC_Settings {
 		<div id="cpac" class="wrap">
 			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php foreach ( $tabs as $name => $label ) : ?>
-					<a href="<?php echo $this->get_settings_url( 'admin' ) . "&amp;tab={$name}"; ?>" class="nav-tab<?php echo $current_tab == $name ? ' nav-tab-active' : ''; ?>"><?php echo $label; ?></a>
+					<a href="<?php echo esc_attr( $this->get_settings_url( 'admin' ) . "&tab=" . $name ); ?>" class="nav-tab<?php echo $current_tab == $name ? ' nav-tab-active' : ''; ?>"><?php echo esc_html( $label ); ?></a>
 				<?php endforeach; ?>
 			</h2>
 
@@ -751,7 +750,7 @@ class AC_Settings {
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
 
-					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo $storage_model->key ?>" data-layout="<?php echo $storage_model->get_layout(); ?>">
+					<div class="columns-container<?php echo $has_been_stored ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->key ); ?>" data-layout="<?php echo esc_attr( $storage_model->get_layout() ); ?>">
 						<div class="main">
 							<div class="menu">
 								<select title="Select type" id="cpac_storage_modal_select">
@@ -778,7 +777,7 @@ class AC_Settings {
 									<div class="sidebox form-actions">
 										<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
 										<h3>
-											<span class="left"><?php echo $label; ?></span>
+											<span class="left"><?php echo esc_html( $label ); ?></span>
 											<?php if ( 18 > strlen( $label ) && ( $truncated_label = $storage_model->get_truncated_side_label( $label ) ) ) : ?>
 												<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 											<?php else : ?>
@@ -792,9 +791,9 @@ class AC_Settings {
 										</div>
 
 										<form class="form-reset" method="post">
-											<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
+											<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->key ); ?>"/>
 											<input type="hidden" name="cpac_action" value="restore_by_type"/>
-											<input type="hidden" name="cpac_layout" value="<?php echo $storage_model->layout; ?>"/>
+											<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->layout ); ?>"/>
 											<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
 											<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
@@ -952,7 +951,7 @@ class AC_Settings {
 
 							<?php if ( $storage_model->is_using_php_export() ) : ?>
 								<div class="notice notice-warning below-h2">
-									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
+									<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $storage_model->label ) . '</strong>' ); ?></p>
 								</div>
 							<?php endif; ?>
 
@@ -961,7 +960,7 @@ class AC_Settings {
 								<div class="cpac-columns">
 									<form method="post" action="<?php echo esc_attr( $storage_model->get_edit_link() ); ?>">
 
-										<input type="hidden" name="cpac_key" value="<?php echo $storage_model->key; ?>"/>
+										<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->key ); ?>"/>
 										<input type="hidden" name="cpac_action" value="update_by_type"/>
 										<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->layout ); ?>"/>
 
@@ -1091,7 +1090,7 @@ class AC_Settings {
 					</li>
 				<?php endforeach; // addons ?>
 			</ul>
-		<?php endforeach; // grouped_addons ?>
-		<?php
+		<?php endforeach; // grouped_addons
 	}
+
 }
