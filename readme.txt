@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.5.6.3 =
 * [Added] Filter for suppressing admin notices -> add_filter( 'cac/suppress_site_wide_notices', '__return_true' )
 * [Fixed] Only enable our plugin for taxonomies that are available in the admin
 

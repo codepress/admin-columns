@@ -230,7 +230,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 2.5.6.3
 	 */
 	public function suppress_site_wide_notices() {
 		return apply_filters( 'cac/suppress_site_wide_notices', false );
