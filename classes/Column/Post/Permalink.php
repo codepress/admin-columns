@@ -1,0 +1,47 @@
+<?php
+defined( 'ABSPATH' ) or die();
+
+/**
+ * Column displaying full item permalink (including URL).
+ *
+ * @since 2.0
+ */
+class AC_Column_Post_Permalink extends CPAC_Column {
+
+	public function init() {
+		parent::init();
+
+		$this->properties['type'] = 'column-permalink';
+		$this->properties['label'] = __( 'Permalink', 'codepress-admin-columns' );
+
+		$this->options['link_to_post'] = false;
+	}
+
+	public function get_value( $post_id ) {
+		$value = $this->get_raw_value( $post_id );
+		if ( 'on' == $this->get_option( 'link_to_post' ) ) {
+			$value = '<a href="' . esc_attr( $value ) . '" target="_blank">' . $value . '</a>';
+		}
+
+		return $value;
+	}
+
+	public function get_raw_value( $post_id ) {
+		return get_permalink( $post_id );
+	}
+
+	public function display_settings() {
+		$this->form_field( array(
+			'type'        => 'radio',
+			'name'        => 'link_to_post',
+			'label'       => __( 'Link to post', 'codepress-admin-columns' ),
+			'description' => __( 'This will make the permalink clickable.', 'codepress-admin-columns' ),
+			'options'     => array(
+				'on'  => __( 'Yes' ),
+				'off' => __( 'No' ),
+			),
+			'default'     => 'off'
+		) );
+	}
+
+}

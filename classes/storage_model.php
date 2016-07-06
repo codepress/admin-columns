@@ -172,23 +172,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.4
-	 */
-	public function get_default_column_names() {
-		return array();
-	}
-
-	/**
-	 * Get the default column widths in percentages
-	 *
-	 * @since 2.5
-	 * @return array
-	 */
-	protected function get_default_column_widths() {
-		return array();
-	}
-
-	/**
 	 * Get the original column value
 	 *
 	 * @since NEWVERSION
@@ -214,10 +197,9 @@ abstract class CPAC_Storage_Model {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_single_row_columns( $object_id ) {
+	public function get_single_row( $object_id ) {
 		ob_start();
-		$table = $this->get_list_table();
-		$table->single_row( $this->get_object_by_id( $object_id ) );
+		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
 
 		return ob_get_clean();
 	}
@@ -236,7 +218,7 @@ abstract class CPAC_Storage_Model {
 			// Labels with html will be replaced by the it's name.
 			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_label() ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_label() ) );
 
-			if ( ! $column->is_default() ) {
+			if ( ! $column->is_default() && ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
 			}
 		}
@@ -284,7 +266,7 @@ abstract class CPAC_Storage_Model {
 				/* @var $column CPAC_Column */
 				$column = new $class( $this->key );
 
-				if ( $column->is_registered() ) {
+				if ( $column->apply_conditional() ) {
 					$this->column_classnames[ $column->get_type() ] = $class;
 				}
 			}
@@ -331,16 +313,20 @@ abstract class CPAC_Storage_Model {
 		if ( $default_columns = $this->get_default_headings() ) {
 			if ( isset( $default_columns[ $column_type ] ) ) {
 
-				$label = $default_columns[ $column_type ];
+				$column = new AC_Column_Default( $this->get_key() );
 
-				$default_column_names = (array) apply_filters( 'cac/default_column_names', $this->get_default_column_names(), $this );
+				// Hooks for other plugins to label their columns as group Default.
+				$default_column_names = apply_filters( 'cac/default_column_names', array(), $this );
 
+				// Group label
 				if ( in_array( $column_type, $default_column_names ) ) {
-					$column = new CPAC_Column_WP_Default( $this->key );
+					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
 				}
 				else {
-					$column = new CPAC_Column_WP_Plugin( $this->key );
+					$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 				}
+
+				$label = $default_columns[ $column_type ];
 
 				if ( ! $label ) {
 					$label = ucfirst( $column_type );
@@ -357,7 +343,8 @@ abstract class CPAC_Storage_Model {
 					->set_properties( 'label', $label )
 					->set_options( 'label', $label );
 
-				$default_column_widths = (array) apply_filters( 'cac/default_column_widths', $this->get_default_column_widths(), $this );
+				// Hook for plugins
+				$default_column_widths = apply_filters( 'cac/default_column_widths', array(), $this );
 
 				// Set the default percentage
 				if ( isset( $default_column_widths[ $column_type ] ) ) {
@@ -369,18 +356,27 @@ abstract class CPAC_Storage_Model {
 			}
 		}
 
-		// Custom columns
 		$classnames = $this->get_column_classnames();
 
+		// Custom columns
 		if ( isset( $classnames[ $column_type ] ) ) {
-			$column = new $classnames[ $column_type ]( $this->key );
+			$column = new $classnames[ $column_type ]( $this->get_key() );
 
 			/* @var $column CPAC_Column */
+			if ( $column->is_original() ) {
 
-			// Use the original column label when creating a new column class for an existing column
-			if ( ! $column->get_label() && isset( $default_columns[ $column->get_type() ] ) ) {
+				// Default column must exist
+				if ( ! isset( $default_columns[ $column->get_type() ] ) ) {
+					return false;
+				}
+
+				// Use the original column label when creating a new column class for an existing column
 				$label = $default_columns[ $column->get_type() ];
-				$column->set_properties( 'label', $label )->set_options( 'label', $label );
+
+				$column
+					->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
+					->set_properties( 'label', $label )
+					->set_options( 'label', $label );
 			}
 		}
 
@@ -447,34 +443,44 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
+	 * Loads the columns into memory
+	 *
+	 * @since NEWVERSION
+	 * @return void
+	 */
+	public function load_columns() {
+		if ( ! empty( $this->columns ) ) {
+			return;
+		}
+
+		// Stored columns
+		if ( $stored = $this->get_stored_columns() ) {
+			foreach ( $stored as $name => $options ) {
+				if ( isset( $options['type'] ) && ( $column = $this->create_column_instance( $options['type'], $options ) ) ) {
+					$this->columns[ $name ] = $column;
+				}
+			}
+		}
+
+		// Nothing stored
+		else {
+			foreach ( $this->get_column_types() as $type => $column ) {
+				if ( $column->is_default() || $column->is_original() ) {
+					$this->columns[ $type ] = $column;
+				}
+			}
+		}
+
+		do_action( "cac/columns", $this->columns, $this );
+		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
+	}
+
+	/**
 	 * @since 2.5
-	 * @return CPAC_Column[] Columns_
+	 * @return CPAC_Column[] List of CPAC_Column instances
 	 */
 	public function get_columns() {
-
-		if ( empty( $this->columns ) ) {
-
-			// Stored columns
-			if ( $stored = $this->get_stored_columns() ) {
-				foreach ( $stored as $name => $options ) {
-					if ( $column = $this->create_column_instance( $options['type'], $options ) ) {
-						$this->columns[ $name ] = $column;
-					}
-				}
-			}
-
-			// Nothing stored
-			else {
-				foreach ( $this->get_column_types() as $type => $column ) {
-					if ( $column->is_default() || $column->is_original() ) {
-						$this->columns[ $type ] = $column;
-					}
-				}
-			}
-
-			do_action( "cac/columns", $this->columns, $this );
-			do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
-		}
+		$this->load_columns();
 
 		return $this->columns;
 	}
@@ -706,9 +712,17 @@ abstract class CPAC_Storage_Model {
 	public function get_layouts() {
 		global $wpdb;
 		$layouts = array();
-		if ( $results = $wpdb->get_col( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
+		if ( $results = $wpdb->get_results( $wpdb->prepare( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
 			foreach ( $results as $result ) {
-				$layout = (object) maybe_unserialize( $result );
+
+				// Removes incorrect layouts.
+				// For example when a storage model is called "Car" and one called "Carrot", then
+				// both layouts from each model are in the DB results.
+				if ( strlen( $result->option_name ) !== strlen( $this->get_layout_key() ) + 13 ) {
+					continue;
+				}
+
+				$layout = (object) maybe_unserialize( $result->option_value );
 				$layouts[ $layout->id ] = $layout;
 			}
 		}
@@ -894,7 +908,28 @@ abstract class CPAC_Storage_Model {
 		// sanitize user inputs
 		foreach ( $columns as $name => $options ) {
 			if ( $_column = $this->get_column_by_name( $name ) ) {
-				$columns[ $name ] = $_column->sanitize_storage( $options );
+
+				if ( ! empty( $options['label'] ) ) {
+
+					// Label can not contains the character ":"" and "'", because
+					// CPAC_Column::get_sanitized_label() will return an empty string
+					// and make an exception for site_url()
+					// Enable data:image url's
+					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
+						$options['label'] = str_replace( ':', '', $options['label'] );
+						$options['label'] = str_replace( "'", '', $options['label'] );
+					}
+				}
+
+				if ( isset( $options['width'] ) ) {
+					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
+				}
+
+				if ( isset( $options['date_format'] ) ) {
+					$options['date_format'] = trim( $options['date_format'] );
+				}
+
+				$columns[ $name ] = $_column->sanitize_options( $options );
 			}
 
 			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
@@ -937,18 +972,9 @@ abstract class CPAC_Storage_Model {
 		$dir = cpac()->get_plugin_dir();
 
 		require_once $dir . 'classes/column.php';
-		require_once $dir . 'classes/column/actions.php';
-		require_once $dir . 'classes/column/default.php';
-		require_once $dir . 'classes/column/wp-default.php';
-		require_once $dir . 'classes/column/wp-plugin.php';
-
-		// Interface
-		require_once $dir . 'classes/column/custom-fieldinterface.php';
 
 		$columns = array(
-			'CPAC_Column_Custom_Field' => $dir . 'classes/column/custom-field.php',
-			'CPAC_Column_Taxonomy'     => $dir . 'classes/column/taxonomy.php',
-			'CPAC_Column_Used_By_Menu' => $dir . 'classes/column/used-by-menu.php'
+			'AC_Column_UsedByMenu' => true,
 		);
 
 		// Add-on placeholders
@@ -956,12 +982,12 @@ abstract class CPAC_Storage_Model {
 
 			// Display ACF placeholder
 			if ( cpac_is_acf_active() ) {
-				$columns['CPAC_Column_ACF_Placeholder'] = $dir . 'classes/column/acf-placeholder.php';
+				$columns['AC_Column_ACFPlaceholder'] = true;
 			}
 
 			// Display WooCommerce placeholder
 			if ( cpac_is_woocommerce_active() ) {
-				$columns['CPAC_Column_WC_Placeholder'] = $dir . 'classes/column/wc-placeholder.php';
+				$columns['AC_Column_WooCommercePlaceholder'] = true;
 			}
 		}
 
@@ -978,10 +1004,10 @@ abstract class CPAC_Storage_Model {
 					continue;
 				}
 				// build class name from filename
-				$class_name = 'CPAC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
+				$class_name = 'AC_Column_' . ucfirst( $this->type ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
 
-				// class name | file path
-				$columns[ $class_name ] = $leaf->getPathname();
+				// class name | file path (true is auto load)
+				$columns[ $class_name ] = true;
 			}
 		}
 
@@ -1120,7 +1146,9 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Stores the default columns on the listings screen
-		$this->store_default_columns( $columns );
+		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			$this->store_default_columns( $columns );
+		}
 
 		// make sure we run this only once
 		if ( $this->column_headings ) {
@@ -1236,7 +1264,7 @@ abstract class CPAC_Storage_Model {
 	public function get_restore_link() {
 		$args = array(
 			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
-			'cpac_action' => 'restore_by_type'
+			'cpac_action' => 'restore_by_type',
 		);
 
 		return add_query_arg( $args, $this->settings_url() );
@@ -1250,4 +1278,5 @@ abstract class CPAC_Storage_Model {
 
 		return $this->is_current_screen();
 	}
+
 }

@@ -563,7 +563,7 @@
 					display: none;
 				}
 
-				&.radio label {
+				&.radio > td.input > label {
 					padding-left: 0;
 					padding-right: 14px;
 				}
@@ -581,7 +581,8 @@
 					}
 
 					select,
-					input[type=text] {
+					input[type=text],
+					input[type=number] {
 						width: 99.95%; // excl padding
 
 						&.small {
@@ -790,7 +791,7 @@
 							position: absolute;
 							top: 13px;
 							left: 10px;
-							text-align: middle;
+							text-align: center;
 
 							input {
 								background: #efefef;
@@ -806,7 +807,7 @@
 							margin-left: 68px;
 							margin-right: 90px;
 							position: relative;
-							margin-top: 0px;
+							margin-top: 0;
 
 							.ui-slider-handle {
 								cursor: ew-resize;
