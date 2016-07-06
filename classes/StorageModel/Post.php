@@ -55,39 +55,6 @@ class AC_StorageModel_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.2.1
-	 */
-	public function get_original_column_value( $column_name, $id ) {
-		global $post;
-
-		// Setup post data for current post
-		$post_old = $post;
-		$post = get_post( $id );
-		setup_postdata( $post );
-
-		// Start
-		ob_start();
-
-		/** @var WP_List_Table|WP_Posts_List_Table $table */
-		$table = $this->get_list_table();
-
-		if ( method_exists( $table, 'column_' . $column_name ) ) {
-			call_user_func( array( $table, 'column_' . $column_name ), $post );
-		}
-		else if ( method_exists( $table, 'column_default' ) ) {
-			$table->column_default( $post, $column_name );
-		}
-
-		// Restore original post object
-		$post = $post_old;
-		if ( $post ) {
-			setup_postdata( $post );
-		}
-
-		return ob_get_clean();
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	protected function get_screen_link() {

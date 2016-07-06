@@ -50,21 +50,13 @@ class AC_Settings {
 	 */
 	public function get_settings_urls() {
 
-		/**
-		 * Filter the URLs for the different settings screens available in admin columns
-		 *
-		 * @since 2.2
-		 *
-		 * @param array $settings_urls Available settings URLs ([settings_page] => [url])
-		 * @param AC_Settings $settings_instance Settings class instance
-		 */
-		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
+		$settings_urls = array(
 			'admin'            => admin_url( 'options-general.php?page=codepress-admin-columns' ),
 			'settings'         => admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
 			'network_settings' => network_admin_url( 'settings.php?page=codepress-admin-columns' ),
 			'info'             => admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade'          => admin_url( 'options-general.php?page=cpac-upgrade' ),
-		), $this );
+		);
 
 		return $settings_urls;
 	}
@@ -131,10 +123,9 @@ class AC_Settings {
 			wp_die();
 		}
 
-		$formdata = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( ! $formdata || ! $column_name ) {
+		if ( empty( $_POST['formdata'] ) || ! $column_name || ! isset( $_POST['layout'] ) ) {
 			wp_die();
 		}
 
@@ -146,22 +137,23 @@ class AC_Settings {
 
 		$storage_model = cpac()->get_storage_model( $formdata['cpac_key'] );
 
+		if ( ! $storage_model ) {
+			wp_die();
+		}
+
 		$storage_model->set_layout( $_POST['layout'] );
 
-		if ( ! $storage_model || empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
+		if ( empty( $formdata[ $storage_model->key ][ $column_name ] ) ) {
 			wp_die();
 		}
 
 		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
 		$column = $storage_model->create_column_instance( $columndata['type'], $columndata );
+
 		if ( ! $column ) {
 			wp_die();
 		}
-
-		// Trigger add-ons like inline-edit and sortable
-		do_action( "cac/columns", array( $column->get_name() => $column ), $storage_model );
-		do_action( "cac/columns/storage_key={$storage_model->key}", array( $column->get_name() => $column ), $storage_model );
 
 		ob_start();
 		$column->display();
@@ -281,8 +273,8 @@ class AC_Settings {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" )
-			. ' <a href="' . $storage_model->get_link() . '">' . sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label_or_layout_name() ) . "</strong>" )
+			. ' <a href="' . esc_attr( $storage_model->get_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) ) . '</a>'
 		);
 	}
 
@@ -411,28 +403,6 @@ class AC_Settings {
 		);
 
 		return isset( $urls[ $type ] ) ? $urls[ $type ] : false;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function uses_custom_fields() {
-
-		$old_columns = get_option( 'cpac_options' );
-
-		if ( empty( $old_columns['columns'] ) ) {
-			return false;
-		}
-
-		foreach ( $old_columns['columns'] as $columns ) {
-			foreach ( $columns as $id => $values ) {
-				if ( strpos( $id, 'column-meta-' ) !== false ) {
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -970,7 +940,7 @@ class AC_Settings {
 
 										<?php
 										foreach ( $storage_model->get_columns() as $column ) {
-											$column->display();
+											$this->display_column( $column );
 										}
 										?>
 									</form>
@@ -1003,7 +973,7 @@ class AC_Settings {
 						<div class="for-cloning-only" style="display:none">
 							<?php
 							foreach ( $storage_model->get_column_types() as $column ) {
-								$column->display();
+								$this->display_column( $column );
 							}
 							?>
 						</div>
@@ -1091,6 +1061,150 @@ class AC_Settings {
 				<?php endforeach; // addons ?>
 			</ul>
 		<?php endforeach; // grouped_addons
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	private function display_column( CPAC_Column $column ) {
+
+		$classes = implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) );
+		?>
+		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $column->get_type(); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
+			<input type="hidden" class="column-name" name="<?php $column->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
+			<input type="hidden" class="type" name="<?php $column->attr_name( 'type' ); ?>" value="<?php echo $column->get_type(); ?>"/>
+			<input type="hidden" class="clone" name="<?php $column->attr_name( 'clone' ); ?>" value="<?php echo $column->get_property( 'clone' ); ?>"/>
+
+			<div class="column-meta">
+				<table class="widefat">
+					<tbody>
+					<tr>
+						<td class="column_sort">
+							<span class="cpacicon-move"></span>
+						</td>
+						<td class="column_label">
+							<div class="inner">
+								<div class="meta">
+
+									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
+										<?php echo $column->get_option( 'width' ) ? $column->get_option( 'width' ) . $column->get_option( 'width_unit' ) : ''; ?>
+									</span>
+
+									<?php
+									/**
+									 * Fires in the meta-element for column options, which is displayed right after the column label
+									 *
+									 * @since 2.0
+									 *
+									 * @param CPAC_Column $column_instance Column class instance
+									 */
+									do_action( 'cac/column/settings_meta', $column );
+
+									/**
+									 * @deprecated 2.2 Use cac/column/settings_meta instead
+									 */
+									do_action( 'cac/column/label', $column );
+									?>
+
+								</div>
+								<a class="toggle" href="javascript:;"><?php echo stripslashes( $column->get_label() ); ?></a>
+								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+								<?php if ( $column->get_property( 'is_cloneable' ) ) : ?>
+									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+								<?php endif; ?>
+								<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+							</div>
+						</td>
+						<td class="column_type">
+							<div class="inner">
+								<a href="#"><?php echo stripslashes( $column->get_type_label() ); ?></a>
+							</div>
+						</td>
+						<td class="column_edit">
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div><!--.column-meta-->
+
+			<div class="column-form">
+				<table class="widefat">
+					<tbody>
+
+					<?php
+					$column->form_field( array(
+						'type'            => 'select',
+						'name'            => 'type',
+						'label'           => __( 'Type', 'codepress-admin-columns' ),
+						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
+						'grouped_options' => $column->get_storage_model()->get_grouped_columns(),
+						'default'         => $column->get_type(),
+					) );
+
+					$column->form_field( array(
+						'type'        => 'text',
+						'name'        => 'label',
+						'placeholder' => $column->get_type_label(),
+						'label'       => __( 'Label', 'codepress-admin-columns' ),
+						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
+						'hidden'      => $column->get_property( 'hide_label' ),
+					) );
+
+					$column->form_field( array(
+						'type'  => 'width',
+						'name'  => 'width',
+						'label' => __( 'Width', 'codepress-admin-columns' ),
+					) );
+
+					/**
+					 * Fires directly before the custom options for a column are displayed in the column form
+					 *
+					 * @since 2.0
+					 *
+					 * @param CPAC_Column $column_instance Column class instance
+					 */
+					do_action( 'cac/column/settings_before', $column );
+					?>
+
+					<?php
+					/**
+					 * Load specific column settings.
+					 *
+					 */
+					$column->display_settings();
+
+					?>
+
+					<?php
+					/**
+					 * Fires directly after the custom options for a column are displayed in the column form
+					 *
+					 * @since 2.0
+					 *
+					 * @param CPAC_Column $column_instance Column class instance
+					 */
+					do_action( 'cac/column/settings_after', $column );
+					?>
+
+					<tr class="column_action section">
+						<td class="label"></td>
+						<td class="input">
+							<p>
+								<a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+								<?php if ( $column->get_property( 'is_cloneable' ) ) : ?>
+									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+								<?php endif; ?>
+								<a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>
+							</p>
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
+			</div><!--.column-form-->
+		</div><!--.cpac-column-->
+		<?php
 	}
 
 }

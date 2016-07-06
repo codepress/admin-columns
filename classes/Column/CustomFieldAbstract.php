@@ -225,9 +225,9 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				$titles = array();
 				if ( $ids = $this->get_ids_from_meta( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
-						if ( $title = $this->get_post_title( $id ) ) {
+						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
 							$link = get_edit_post_link( $id );
-							$titles[] = $link ? "<a href='{$link}'>{$title}</a>" : $title;
+							$titles[] = $link ? "<a href='" . esc_attr( $link ) . "'>{$title}</a>" : $title;
 						}
 					}
 				}

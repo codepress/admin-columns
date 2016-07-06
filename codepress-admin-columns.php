@@ -177,6 +177,8 @@ class CPAC {
 		if ( in_array( $key, array( 'helper' ) ) ) {
 			return $this->$key();
 		}
+
+		return false;
 	}
 
 	/**
@@ -387,7 +389,9 @@ class CPAC {
 	 * Retrieve a storage model object based on its key
 	 *
 	 * @since 2.0
+	 *
 	 * @param string $key Storage model key (e.g. post, page, wp-users)
+	 *
 	 * @return bool|CPAC_Storage_Model Storage Model object (or false, on failure)
 	 */
 	public function get_storage_model( $key ) {
@@ -479,7 +483,7 @@ class CPAC {
 
 		$post_types = array_merge( $post_types, get_post_types( array(
 			'_builtin' => false,
-			'show_ui'  => true
+			'show_ui'  => true,
 		) ) );
 
 		/**
@@ -653,7 +657,9 @@ class CPAC {
 	 * Whether the current screen is the Admin Columns settings screen
 	 *
 	 * @since 2.2
+	 *
 	 * @param string $tab Specifies a tab screen (optional)
+	 *
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	public function is_settings_screen( $tab = '' ) {

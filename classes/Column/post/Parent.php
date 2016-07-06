@@ -19,10 +19,10 @@ class AC_Column_Post_Parent extends CPAC_Column {
 			return false;
 		}
 
-		$title = $this->get_post_title( $parent_id );
+		$title = ac_helper()->post->get_post_title( $parent_id );
 		$link = get_edit_post_link( $parent_id );
 
-		return $link ? "<a href='{$link}'>{$title}</a>" : $title;
+		return $link ? "<a href='" . esc_attr( $link ) . "'>" . $title . "</a>" : $title;
 	}
 
 	public function get_raw_value( $post_id ) {

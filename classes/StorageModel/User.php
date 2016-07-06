@@ -50,21 +50,6 @@ class AC_StorageModel_User extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since 2.4.7
-	 */
-	public function get_original_column_value( $column_name, $id ) {
-
-		// Remove Admin Columns action for this column's value
-		remove_action( "manage_users_custom_column", array( $this, 'manage_value' ), 100 );
-		ob_start();
-		do_action( "manage_users_custom_column", $column_name, $id );
-		$contents = ob_get_clean();
-		add_action( "manage_users_custom_column", array( $this, 'manage_value' ), 100, 3 );
-
-		return $contents;
-	}
-
-	/**
 	 * @since 2.0.2
 	 *
 	 * @param string $value

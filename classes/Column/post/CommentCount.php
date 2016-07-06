@@ -63,7 +63,7 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 	function display_settings() {
 		$this->form_field( array(
 			'type'        => 'select',
-			'name'        => 'comment_status',
+			'option'        => 'comment_status',
 			'label'       => __( 'Comment status', 'codepress-admin-columns' ),
 			'description' => __( 'Select which comment status you like to display.', 'codepress-admin-columns' ),
 			'options'     => $this->get_comment_stati()
