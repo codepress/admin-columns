@@ -212,6 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 * [Added] Filter for suppressing admin notices -> add_filter( 'cac/suppress_site_wide_notices', '__return_false' )
+* [Fixed] Only enable our plugin for taxonomies that are available in the admin
 
 = 2.5.6.2 =
 * [Fixed] Hotfix cleanup.
