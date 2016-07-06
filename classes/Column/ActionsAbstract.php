@@ -95,7 +95,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 				'1' => __( 'Yes' ),
 				''  => __( 'No' ),
 			),
-			'default'     => ''
+			'default'     => '',
 		) );
 	}
 
@@ -173,7 +173,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 			'unapprove' => 'no',
 			'reply'     => 'testimonial',
 			'trash'     => 'trash',
-			'spam'      => 'welcome-comments'
+			'spam'      => 'welcome-comments',
 		);
 	}
 

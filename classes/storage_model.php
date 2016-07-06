@@ -1231,7 +1231,7 @@ abstract class CPAC_Storage_Model {
 	 */
 	public function screen_link() {
 		if ( $link = $this->get_screen_link() ) {
-			echo '<a href="' . $link . '" class="page-title-action view-link">' . __( 'View', 'codepress-admin-columns' ) . '</a>';
+			echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
 		}
 	}
 

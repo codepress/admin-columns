@@ -75,7 +75,7 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 			'type'    => 'select',
 			'name'    => 'exif_datatype',
 			'label'   => $this->get_type_label(),
-			'options' => $this->get_exif_types()
+			'options' => $this->get_exif_types(),
 		) );
 	}
 

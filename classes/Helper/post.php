@@ -30,6 +30,15 @@ class AC_Helper_Post {
 	}
 
 	/**
+	 * @param int $id Post ID
+	 *
+	 * @return false|string Post Title
+	 */
+	public function get_post_title( $id ) {
+		return ac_helper()->post->get_raw_field( 'post_title', $id );
+	}
+
+	/**
 	 * @param $post WP_Post|int
 	 * @param $term_ids array Term ID's
 	 * @param $taxonomy string Taxonomy name
