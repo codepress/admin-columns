@@ -63,7 +63,7 @@ class AC_Settings {
 			'settings'         => admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
 			'network_settings' => network_admin_url( 'settings.php?page=codepress-admin-columns' ),
 			'info'             => admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
-			'upgrade'          => admin_url( 'options-general.php?page=cpac-upgrade' )
+			'upgrade'          => admin_url( 'options-general.php?page=cpac-upgrade' ),
 		), $this );
 
 		return $settings_urls;
@@ -228,7 +228,7 @@ class AC_Settings {
 			'dashboard',
 			'jquery-ui-slider',
 			'jquery-ui-sortable',
-			'wp-pointer'
+			'wp-pointer',
 		), cpac()->get_version() );
 
 		// javascript translations
@@ -239,7 +239,7 @@ class AC_Settings {
 
 		// nonce
 		wp_localize_script( 'cpac-admin-settings', 'cpac', array(
-			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' )
+			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
 		) );
 	}
 
@@ -266,7 +266,7 @@ class AC_Settings {
 		if ( ! isset( $formdata[ $storage_model->key ] ) ) {
 			wp_send_json_error( array(
 					'type'    => 'error',
-					'message' => __( 'You need at least one column', 'codepress-admin-columns' )
+					'message' => __( 'You need at least one column', 'codepress-admin-columns' ),
 				)
 			);
 		}
@@ -276,7 +276,7 @@ class AC_Settings {
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
 					'type'    => 'same-settings' === $stored->get_error_code() ? 'notice notice-warning' : 'error',
-					'message' => $stored->get_error_message()
+					'message' => $stored->get_error_message(),
 				)
 			);
 		}
@@ -353,7 +353,7 @@ class AC_Settings {
 			array(
 				'title'   => __( "Overview", 'codepress-admin-columns' ),
 				'content' => "<h5>Admin Columns</h5>
-					<p>" . __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'codepress-admin-columns' ) . "</p>"
+					<p>" . __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'codepress-admin-columns' ) . "</p>",
 			),
 			array(
 				'title'   => __( "Basics", 'codepress-admin-columns' ),
@@ -364,7 +364,7 @@ class AC_Settings {
 					<p>" . __( "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading.", 'codepress-admin-columns' ) . "</p>
 					<h5>" . __( "Change column width", 'codepress-admin-columns' ) . "</h5>
 					<p>" . __( "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages.", 'codepress-admin-columns' ) . "</p>
-				"
+				",
 			),
 			array(
 				'title'   => __( "Custom Field", 'codepress-admin-columns' ),
@@ -385,8 +385,8 @@ class AC_Settings {
 						<li><strong>" . __( "Usernames", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Term Name", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be an array with term_id and taxonomy.", 'codepress-admin-columns' ) . "</li>
 					</ul>
-				"
-			)
+				",
+			),
 		);
 
 		foreach ( $tabs as $k => $tab ) {
@@ -702,7 +702,7 @@ class AC_Settings {
 		$tabs = array(
 			'general'  => __( 'Admin Columns', 'codepress-admin-columns' ),
 			'settings' => __( 'Settings', 'codepress-admin-columns' ),
-			'addons'   => __( 'Add-ons', 'codepress-admin-columns' )
+			'addons'   => __( 'Add-ons', 'codepress-admin-columns' ),
 		);
 
 		/**
@@ -743,11 +743,10 @@ class AC_Settings {
 						$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 							'key'   => $_storage_model->key,
 							'link'  => $_storage_model->settings_url(),
-							'label' => $_storage_model->label
+							'label' => $_storage_model->label,
 						);
 						usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
 					}
-
 					?>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
@@ -815,7 +814,7 @@ class AC_Settings {
 									<?php $url_args = array(
 										'utm_source'   => 'plugin-installation',
 										'utm_medium'   => 'banner',
-										'utm_campaign' => 'plugin-installation'
+										'utm_campaign' => 'plugin-installation',
 									); ?>
 									<div class="sidebox" id="pro-version">
 										<div class="padding-box cta">
@@ -867,7 +866,7 @@ class AC_Settings {
 														<a href="<?php echo add_query_arg( array(
 															'utm_source'   => 'plugin-installation',
 															'utm_medium'   => 'feedback-docs-button',
-															'utm_campaign' => 'plugin-installation'
+															'utm_campaign' => 'plugin-installation',
 														), $this->get_url( 'documentation' ) ); ?>" target="_blank">
 															<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'codepress-admin-columns' ); ?>
 														</a>
@@ -899,7 +898,7 @@ class AC_Settings {
 															'hashtags' => 'admincolumns',
 															'text'     => urlencode( "I'm using Admin Columns for WordPress!" ),
 															'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
-															'via'      => 'wpcolumns'
+															'via'      => 'wpcolumns',
 														), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
 															<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 														</a>
@@ -909,7 +908,7 @@ class AC_Settings {
 														<a href="<?php echo add_query_arg( array(
 															'utm_source'   => 'plugin-installation',
 															'utm_medium'   => 'feedback-purchase-button',
-															'utm_campaign' => 'plugin-installation'
+															'utm_campaign' => 'plugin-installation',
 														), ac_get_site_url() ); ?>" target="_blank">
 															<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
 														</a>
@@ -986,10 +985,10 @@ class AC_Settings {
 										</div>
 										<div class="button-container">
 											<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
-											<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+												<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 											<?php endif; ?>
 											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-											<?php /*x<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
+											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
 											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
 										</div>
 									<?php endif; ?>
@@ -1051,15 +1050,14 @@ class AC_Settings {
 					<li>
 						<div class="cpac-addon-content">
 							<?php if ( ! empty( $addon['image'] ) ) : ?>
-								<img src="<?php echo $addon['image']; ?>"/>
+								<img src="<?php echo esc_attr( $addon['image'] ); ?>"/>
 							<?php else : ?>
-								<h3><?php echo $addon['title']; ?></h3>
+								<h3><?php echo esc_html( $addon['title'] ); ?></h3>
 							<?php endif; ?>
 						</div>
 						<div class="cpac-addon-header">
-							<h3><?php echo $addon['title']; ?></h3>
-
-							<p><?php echo $addon['description']; ?></p>
+							<h3><?php echo esc_html( $addon['title'] ); ?></h3>
+							<p><?php echo esc_html( $addon['description'] ); ?></p>
 						</div>
 						<div class="cpac-addon-actions">
 							<?php
@@ -1067,19 +1065,11 @@ class AC_Settings {
 							// Installed..
 							if ( $plugin_basename = cpac()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
 								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
-									<?php $deactivation_url = wp_nonce_url( add_query_arg( array(
-										'action'        => 'deactivate',
-										'plugin'        => urlencode( $plugin_basename ),
-										'cpac-redirect' => true
-									), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
+									<?php $deactivation_url = wp_nonce_url( add_query_arg( array( 'action' => 'deactivate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
 									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>
 									<a href="<?php echo esc_attr( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 								<?php else : ?>
-									<?php $activation_url = wp_nonce_url( add_query_arg( array(
-										'action'        => 'activate',
-										'plugin'        => urlencode( $plugin_basename ),
-										'cpac-redirect' => true
-									), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_basename ); ?>
+									<?php $activation_url = wp_nonce_url( add_query_arg( array( 'action' => 'activate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_basename ); ?>
 									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'codepress-admin-columns' ); ?></a>
 									<a href="<?php echo esc_attr( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
@@ -1089,15 +1079,10 @@ class AC_Settings {
 							else :
 
 								if ( cpac_is_pro_active() ) :
-									$install_url = wp_nonce_url( add_query_arg( array(
-										'action' => 'install',
-										'plugin' => $addon_name,
-									), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
+									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), $this->get_settings_url( 'addons' ) ), 'install-cac-addon' );
 									?>
 									<a href="<?php echo esc_attr( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php
-
-								// Get ACP?
 								else : ?>
 									<a target="_blank" href="<?php echo esc_attr( $this->get_url( 'pricing' ) ); ?>" class="button"><?php _e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
