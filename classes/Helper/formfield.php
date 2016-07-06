@@ -57,6 +57,7 @@ class AC_Helper_FormField {
 			'current'   => false,
 			'attr_name' => '',
 			'attr_id'   => '',
+			'class'     => '',
 			'vertical'  => false // display radio buttons vertical
 		);
 		$args = (object) wp_parse_args( (array) $args, $defaults );
@@ -65,8 +66,8 @@ class AC_Helper_FormField {
 
 		foreach ( $args->options as $key => $label ) : ?>
 			<label for="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>">
-				<input type="radio" name="<?php echo esc_attr( $args->attr_name ); ?>" id="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>" value="<?php echo esc_attr( $key ); ?>"<?php checked( $key, $current ); ?>>
-				<?php echo $label; ?>
+				<input type="radio"<?php echo $args->class ? ' class="' . esc_attr( $args->class ) . '"' : ''; ?> name="<?php echo esc_attr( $args->attr_name ); ?>" id="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>" value="<?php echo esc_attr( $key ); ?>"<?php checked( $key, $current ); ?>>
+				<?php echo esc_html( $label ); ?>
 			</label>
 			<?php echo $args->vertical ? '<br/>' : ''; ?>
 		<?php endforeach;

@@ -172,15 +172,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * Get the original column value
-	 *
-	 * @since NEWVERSION
-	 * @return string Column value
-	 */
-	public function get_original_column_value( $column_name, $id ) {
-	}
-
-	/**
 	 * @since NEWVERSION
 	 * @return mixed
 	 */
@@ -320,10 +311,10 @@ abstract class CPAC_Storage_Model {
 
 				// Group label
 				if ( in_array( $column_type, $default_column_names ) ) {
-					$column->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) );
+					$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
 				}
 				else {
-					$column->set_properties( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
+					$column->set_property( 'group', __( 'Columns by Plugins', 'codepress-admin-columns' ) );
 				}
 
 				$label = $default_columns[ $column_type ];
@@ -334,24 +325,24 @@ abstract class CPAC_Storage_Model {
 
 				// Hide Label when it contains HTML elements
 				if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
-					$column->set_properties( 'hide_label', true );
+					$column->set_property( 'hide_label', true );
 				}
 
 				$column
-					->set_properties( 'type', $column_type )
-					->set_properties( 'name', $column_type )
-					->set_properties( 'label', $label )
-					->set_options( 'label', $label );
+					->set_property( 'type', $column_type )
+					->set_property( 'name', $column_type )
+					->set_property( 'label', $label )
+					->set_option( 'label', $label );
 
 				// Hook for plugins
 				$default_column_widths = apply_filters( 'cac/default_column_widths', array(), $this );
 
 				// Set the default percentage
 				if ( isset( $default_column_widths[ $column_type ] ) ) {
-					$column->set_options( 'width', $default_column_widths[ $column_type ]['width'] );
+					$column->set_option( 'width', $default_column_widths[ $column_type ]['width'] );
 				}
 				if ( isset( $default_column_widths[ $column_type ]['unit'] ) ) {
-					$column->set_options( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
+					$column->set_option( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
 				}
 			}
 		}
@@ -374,9 +365,9 @@ abstract class CPAC_Storage_Model {
 				$label = $default_columns[ $column->get_type() ];
 
 				$column
-					->set_properties( 'group', __( 'Default', 'codepress-admin-columns' ) )
-					->set_properties( 'label', $label )
-					->set_options( 'label', $label );
+					->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) )
+					->set_property( 'label', $label )
+					->set_option( 'label', $label );
 			}
 		}
 

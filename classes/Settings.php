@@ -1135,7 +1135,7 @@ class AC_Settings {
 					<?php
 					$column->form_field( array(
 						'type'            => 'select',
-						'name'              => 'type',
+						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
 						'grouped_options' => $column->get_storage_model()->get_grouped_columns(),
@@ -1144,7 +1144,7 @@ class AC_Settings {
 
 					$column->form_field( array(
 						'type'        => 'text',
-						'name'          => 'label',
+						'name'        => 'label',
 						'placeholder' => $column->get_type_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
@@ -1153,7 +1153,7 @@ class AC_Settings {
 
 					$column->form_field( array(
 						'type'  => 'width',
-						'name'    => 'width',
+						'name'  => 'width',
 						'label' => __( 'Width', 'codepress-admin-columns' ),
 					) );
 

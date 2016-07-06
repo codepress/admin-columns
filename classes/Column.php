@@ -54,14 +54,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	// TODO: test
-	public function get_orginal_value( $id, $handle ) {
-		return $this->get_storage_model()->get_original_column_value( $handle, $id );
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	public function display_settings() {
@@ -198,29 +190,7 @@ class CPAC_Column {
 		 * @since 2.0
 		 * @deprecated NEWVERSION
 		 */
-		$this->properties->use_before_after = apply_filters( 'cac/column/properties/use_before_after', $this->properties->use_before_after, $this );
-	}
-
-	/**
-	 * @param string $property
-	 *
-	 * @return mixed $value
-	 */
-	public function set_properties( $property, $value ) {
-		$this->properties->{$property} = $value;
-
-		return $this;
-	}
-
-	/**
-	 * @param string $option
-	 *
-	 * @return mixed $value
-	 */
-	public function set_options( $option, $value ) {
-		$this->options->{$option} = $value;
-
-		return $this;
+		$this->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $this->get_property( 'use_before_after' ), $this ) );
 	}
 
 	/**
@@ -231,8 +201,8 @@ class CPAC_Column {
 	public function set_clone( $id = null ) {
 
 		if ( $id !== null && $id > 0 ) {
-			$this->properties->name = $this->get_type() . '-' . $id;
-			$this->properties->clone = $id;
+			$this->set_property( 'name', $this->get_type() . '-' . $id );
+			$this->set_property( 'clone', $id );
 		}
 
 		return $this;
@@ -280,10 +250,20 @@ class CPAC_Column {
 	 * Get the column options set by the user
 	 *
 	 * @since 2.3.4
-	 * @return object Column options set by user
+	 * @return stdClass Column options set by user
 	 */
 	public function get_options() {
 		return $this->options;
+	}
+
+	/**
+	 * Get the column properties
+	 *
+	 * @since NEWVERSION
+	 * @return stdClass Column properties
+	 */
+	public function get_properties() {
+		return $this->properties;
 	}
 
 	/**
@@ -293,7 +273,21 @@ class CPAC_Column {
 	 * @return string Single column option
 	 */
 	public function get_option( $name ) {
-		return isset( $this->options->{$name} ) ? $this->options->{$name} : false;
+		return isset( $this->get_options()->{$name} ) ? $this->get_options()->{$name} : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param string $option
+	 * @param string $value
+	 *
+	 * @return $this CPAC_Column
+	 */
+	public function set_option( $option, $value ) {
+		$this->options->{$option} = $value;
+
+		return $this;
 	}
 
 	/**
@@ -303,7 +297,21 @@ class CPAC_Column {
 	 * @return array Column options set by user
 	 */
 	public function get_property( $name ) {
-		return isset( $this->properties->{$name} ) ? $this->properties->{$name} : false;
+		return isset( $this->get_properties()->{$name} ) ? $this->get_properties()->{$name} : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param string $option
+	 * @param string $value
+	 *
+	 * @return $this CPAC_Column
+	 */
+	public function set_property( $property, $value ) {
+		$this->properties->{$property} = $value;
+
+		return $this;
 	}
 
 	/**
@@ -338,7 +346,7 @@ class CPAC_Column {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_storage_model() {
-		return cpac()->get_storage_model( $this->storage_model );
+		return cpac()->get_storage_model( $this->get_storage_model_key() );
 	}
 
 	/**
@@ -382,6 +390,13 @@ class CPAC_Column {
 
 	public function attr_id( $field_name ) {
 		echo esc_attr( $this->get_attr_id( $field_name ) );
+	}
+
+	/**
+	 * @since 2.5
+	 */
+	public function get_empty_char() {
+		return '&ndash;';
 	}
 
 	/**
@@ -461,13 +476,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.5
-	 */
-	public function get_empty_char() {
-		return '&ndash;';
-	}
-
-	/**
 	 * @since: 2.2.6
 	 *
 	 */
@@ -500,6 +508,30 @@ class CPAC_Column {
 			</td>
 			<?php
 		endif;
+	}
+
+	/**
+	 * @param array $args
+	 */
+	public function form_fields( $args = array() ) {
+		$defaults = array(
+			'label'       => '',
+			'description' => '',
+			'fields'      => array(),
+		);
+		$args = wp_parse_args( $args, $defaults );
+		?>
+		<tr class="section">
+			<?php $this->label_view( $args['label'], $args['description'] ); ?>
+			<td class="input nopadding">
+				<table class="widefat">
+					<?php foreach ( $args['fields'] as $field ) {
+						$this->form_field( $field );
+					} ?>
+				</table>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
@@ -573,12 +605,19 @@ class CPAC_Column {
 		<div class="width-slider"></div>
 
 		<div class="unit-select">
-			<label for="<?php $this->attr_id( 'width_unit_px' ); ?>">
-				<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_px' ); ?>" value="px"<?php checked( $this->get_option( 'width_unit' ), 'px' ); ?>/>px
-			</label>
-			<label for="<?php $this->attr_id( 'width_unit_perc' ); ?>">
-				<input type="radio" class="unit" name="<?php $this->attr_name( 'width_unit' ); ?>" id="<?php $this->attr_id( 'width_unit_perc' ); ?>" value="%"<?php checked( $this->get_option( 'width_unit' ), '%' ); ?>/>%
-			</label>
+
+			<?php
+			ac_helper()->formfield->radio( array(
+				'attr_id'   => $this->get_attr_id( 'width_unit' ),
+				'attr_name' => $this->get_attr_name( 'width_unit' ),
+				'options'   => array(
+					'px' => 'px',
+					'%'  => '%',
+				),
+				'class'     => 'unit',
+				'default'   => '%',
+			) );
+			?>
 		</div>
 		<?php
 	}
@@ -820,30 +859,6 @@ class CPAC_Column {
 		) );
 	}
 
-	/**
-	 * @param array $args
-	 */
-	public function form_fields( $args = array() ) {
-		$defaults = array(
-			'label'       => '',
-			'description' => '',
-			'fields'      => array(),
-		);
-		$args = wp_parse_args( $args, $defaults );
-		?>
-		<tr class="section">
-			<?php $this->label_view( $args['label'], $args['description'] ); ?>
-			<td class="input nopadding">
-				<table class="widefat">
-					<?php foreach ( $args['fields'] as $field ) {
-						$this->form_field( $field );
-					} ?>
-				</table>
-			</td>
-		</tr>
-		<?php
-	}
-
 	public function get_form_args_before() {
 		return array(
 			'type'        => 'text',
@@ -950,6 +965,28 @@ class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * @param string $property
+	 *
+	 * @return mixed $value
+	 */
+	public function set_properties( $property, $value ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_property()' );
+
+		return $this->set_property( $property, $value );
+	}
+
+	/**
+	 * @param string $option
+	 *
+	 * @return mixed $value
+	 */
+	public function set_options( $option, $value ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_option()' );
+
+		return $this->set_option( $option, $value );
+	}
 
 	/**
 	 * @since NEWVERSION
@@ -1181,6 +1218,15 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since 1.3
+	 */
+	public function strip_trim( $string ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->strip_trim()' );
+
+		return ac_helper()->string->strip_trim( $string );
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param mixed $meta Image files or Image ID's
@@ -1210,7 +1256,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field()' );
 
 		$this->form_field( array(
 			'type'          => 'text',
@@ -1227,7 +1273,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field()' );
 
 		$this->form_field( array(
 			'type'           => 'select',
@@ -1245,7 +1291,7 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column::form_field()' );
 
 		$this->form_field( array(
 			'type'           => 'radio',
@@ -1257,15 +1303,6 @@ class CPAC_Column {
 			'toggle_handle'  => $toggle_handle,
 			'colspan'        => $colspan,
 		) );
-	}
-
-	/**
-	 * @since 1.3
-	 */
-	public function strip_trim( $string ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->strip_trim()' );
-
-		return ac_helper()->string->strip_trim( $string );
 	}
 
 }
