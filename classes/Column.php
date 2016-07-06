@@ -31,84 +31,6 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * @since 2.0
-	 *
-	 * @param int $id ID
-	 *
-	 * @return string Value
-	 */
-	public function get_value( $id ) {
-	}
-
-	/**
-	 * Get the raw, underlying value for the column
-	 * Not suitable for direct display, use get_value() for that
-	 *
-	 * @since 2.0.3
-	 *
-	 * @param int $id ID
-	 *
-	 * @return mixed Value
-	 */
-	public function get_raw_value( $id ) {
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function display_settings() {
-	}
-
-	/**
-	 * Overwrite this function in child class to sanitize
-	 * user submitted values.
-	 *
-	 * @since 2.0
-	 *
-	 * @param $options array User submitted column options
-	 *
-	 * @return array Options
-	 */
-	public function sanitize_options( $options ) {
-		return $options;
-	}
-
-	/**
-	 * Overwrite this function in child class.
-	 * Determine whether this column type should be available
-	 *
-	 * @since 2.2
-	 *
-	 * @return bool Whether the column type should be available
-	 */
-	public function apply_conditional() {
-		return true;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function is_default() {
-		return $this->get_property( 'default' );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function is_original() {
-		return $this->get_property( 'original' );
-	}
-
-	/**
-	 * Overwrite this function in child class.
-	 * Adds (optional) scripts to the listings screen.
-	 *
-	 * @since 2.3.4
-	 */
-	public function scripts() {
-	}
-
-	/**
 	 * @since 2.5
 	 * @return false|CPAC_Storage_Model
 	 */
@@ -206,6 +128,84 @@ class CPAC_Column {
 		}
 
 		return $this;
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @param int $id ID
+	 *
+	 * @return string Value
+	 */
+	public function get_value( $id ) {
+	}
+
+	/**
+	 * Get the raw, underlying value for the column
+	 * Not suitable for direct display, use get_value() for that
+	 *
+	 * @since 2.0.3
+	 *
+	 * @param int $id ID
+	 *
+	 * @return mixed Value
+	 */
+	public function get_raw_value( $id ) {
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display_settings() {
+	}
+
+	/**
+	 * Overwrite this function in child class to sanitize
+	 * user submitted values.
+	 *
+	 * @since 2.0
+	 *
+	 * @param $options array User submitted column options
+	 *
+	 * @return array Options
+	 */
+	public function sanitize_options( $options ) {
+		return $options;
+	}
+
+	/**
+	 * Overwrite this function in child class.
+	 * Determine whether this column type should be available
+	 *
+	 * @since 2.2
+	 *
+	 * @return bool Whether the column type should be available
+	 */
+	public function apply_conditional() {
+		return true;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function is_default() {
+		return $this->get_property( 'default' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function is_original() {
+		return $this->get_property( 'original' );
+	}
+
+	/**
+	 * Overwrite this function in child class.
+	 * Adds (optional) scripts to the listings screen.
+	 *
+	 * @since 2.3.4
+	 */
+	public function scripts() {
 	}
 
 	/**
@@ -1176,7 +1176,7 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Determines text color absed on bakground coloring.
+	 * Determines text color based on background coloring.
 	 *
 	 * @since 1.0
 	 * @deprecated NEWVERSION
