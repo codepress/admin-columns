@@ -156,7 +156,7 @@ class AC_Settings {
 		}
 
 		ob_start();
-		$column->display();
+		$this->display_column( $column );
 		wp_send_json_success( ob_get_clean() );
 	}
 
