@@ -153,7 +153,7 @@ class CPAC {
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
 		// Populating columns
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
+		add_action( 'admin_init', array( $this, 'load_listings_headings_and_values' ) );
 
 		// Includes
 		$this->_settings = new AC_Settings();
@@ -295,7 +295,6 @@ class CPAC {
 
 		// Settings screen
 		else if ( cac_is_setting_screen() ) {
-
 			do_action( 'ac/enqueue_settings_scripts' );
 		}
 	}
@@ -405,7 +404,7 @@ class CPAC {
 	 *
 	 * @since 2.4.9
 	 */
-	public function set_columns() {
+	public function load_listings_headings_and_values() {
 
 		// Listings screen
 		$storage_model = $this->get_current_storage_model();
@@ -413,10 +412,10 @@ class CPAC {
 		// WP Ajax calls (not AC)
 		if ( $model = cac_wp_is_doing_ajax() ) {
 			$storage_model = $this->get_storage_model( $model );
+			$storage_model->init_listings_layout();
 		}
 
 		if ( $storage_model ) {
-			$storage_model->init_listings_layout();
 			$storage_model->init_column_headings();
 			$storage_model->init_column_values();
 		}
@@ -455,6 +454,7 @@ class CPAC {
 		if ( null === $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
+					$storage_model->init_listings_layout();
 					$this->current_storage_model = $storage_model;
 					break;
 				}
