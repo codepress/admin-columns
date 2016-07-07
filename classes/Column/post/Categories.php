@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Categories extends CPAC_Column {
+class AC_Column_Post_Categories extends AC_Column_TaxonomyAbstract {
 
 	public function init() {
 		parent::init();
@@ -16,6 +16,10 @@ class AC_Column_Post_Categories extends CPAC_Column {
 
 		$this->options['width'] = 15;
 		$this->options['width_unit'] = '%';
+	}
+
+	public function get_taxonomy() {
+		return 'category';
 	}
 
 	public function apply_conditional() {

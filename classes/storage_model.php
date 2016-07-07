@@ -296,7 +296,7 @@ abstract class CPAC_Storage_Model {
 	 * @since NEWVERSION
 	 * @return CPAC_Column Column
 	 */
-	public function create_column_instance( $column_type, $options = array() ) {
+	public function create_column_instance( $column_type ) {
 
 		$column = false;
 
@@ -375,6 +375,20 @@ abstract class CPAC_Storage_Model {
 			return false;
 		}
 
+		do_action( 'ac/column', $column, $this );
+
+		return $column;
+	}
+
+	/**
+	 * Populate column with stored options
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param CPAC_Column $column
+	 * @param array $options
+	 */
+	public function populate_column_options( CPAC_Column $column, $options ) {
 		// Set options
 		if ( $options ) {
 			if ( isset( $options['clone'] ) ) {
@@ -387,8 +401,6 @@ abstract class CPAC_Storage_Model {
 
 			$column->options = (object) array_merge( (array) $column->options, $options );
 		}
-
-		return $column;
 	}
 
 	/**
@@ -447,8 +459,12 @@ abstract class CPAC_Storage_Model {
 		// Stored columns
 		if ( $stored = $this->get_stored_columns() ) {
 			foreach ( $stored as $name => $options ) {
-				if ( isset( $options['type'] ) && ( $column = $this->create_column_instance( $options['type'], $options ) ) ) {
-					$this->columns[ $name ] = $column;
+				if ( isset( $options['type'] ) ) {
+					if ( $column = $this->create_column_instance( $options['type'] ) ) {
+						$this->populate_column_options( $column, $options );
+
+						$this->columns[ $name ] = $column;
+					}
 				}
 			}
 		}

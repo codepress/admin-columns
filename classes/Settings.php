@@ -149,11 +149,13 @@ class AC_Settings {
 
 		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
-		$column = $storage_model->create_column_instance( $columndata['type'], $columndata );
+		$column = $storage_model->create_column_instance( $columndata['type'] );
 
 		if ( ! $column ) {
 			wp_die();
 		}
+
+		$storage_model->populate_column_options( $column, $columndata );
 
 		ob_start();
 		$this->display_column( $column );
