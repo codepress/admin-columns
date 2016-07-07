@@ -217,7 +217,7 @@ jQuery.fn.cpac_column_refresh = function() {
 
 		el.slideUp( function() { el.remove() } );
 
-		console.log( error.responseText );
+		console.log( 'responseText: ' + error.responseText );
 	} );
 
 	xhr.always( function() {
@@ -792,16 +792,15 @@ function cpac_menu() {
  *
  * @since NEWVERSION
  */
-function cpac_reset_columns(){
+function cpac_reset_columns() {
 	var $ = jQuery;
-	var $container = $('.columns-container');
+	var $container = $( '.columns-container' );
 
-
-	$('a[data-clear-columns]' ).on( 'click', function(){
-		$container.find('.cpac-column' ).each( function(){
-			$(this ).find('.remove-button' ).trigger('click');
-		});
-	});
+	$( 'a[data-clear-columns]' ).on( 'click', function() {
+		$container.find( '.cpac-column' ).each( function() {
+			$( this ).find( '.remove-button' ).trigger( 'click' );
+		} );
+	} );
 }
 
 /*
