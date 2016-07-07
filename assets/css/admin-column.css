@@ -136,6 +136,17 @@
   float: left;
   width: 100%;
 }
+.columns-container .columns-left .column-footer a.add_column {
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: center;
+}
+.columns-container .columns-left .column-footer a.submit.save,
+.columns-container .columns-left .column-footer a.submit.update {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
 .columns-container .columns-left .column-footer .submit.save {
   display: inline-block;
 }
@@ -149,6 +160,18 @@
 }
 .columns-container .columns-right .columns-right-inside.fixed {
   width: 280px;
+}
+.columns-container .column-footer .spinner {
+  display: none;
+}
+.columns-container.saving .columns-right-inside .spinner {
+  visibility: visible;
+}
+.columns-container.saving .column-footer .spinner {
+  margin: 0 0 3px 8px;
+  float: none;
+  display: inline-block;
+  visibility: visible;
 }
 .columns-container.stored .columns-right .sidebox.form-actions .submit.save {
   display: none;
@@ -276,7 +299,6 @@
 .cpac-column .column-meta table tr td {
   vertical-align: top;
   height: 18px;
-  border: none;
   padding: 12px 8px;
   border-width: 1px 0 0;
   border-style: solid;
@@ -287,9 +309,9 @@
   cursor: move;
   padding: 9px 16px;
 }
-.cpac-column .column-meta table tr td.column_sort span {
+.cpac-column .column-meta table tr td.column_sort span.cpacicon-move {
   position: absolute;
-  top: 10px;
+  top: 12px;
   left: 12px;
   font-size: 22px;
   display: inline-block;
@@ -300,7 +322,7 @@
   font-weight: bold;
   vertical-align: middle;
   position: relative;
-  padding-left: 0;
+  padding: 15px 0;
 }
 .cpac-column .column-meta table tr td.column_label .inner {
   position: relative;
@@ -367,7 +389,6 @@
   width: auto;
   min-width: 120px;
   text-align: right;
-  vertical-align: middle;
   color: #999999;
   padding-right: 0;
 }
@@ -378,8 +399,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 120px;
+  vertical-align: middle;
 }
 .cpac-column .column-meta table tr td.column_type .inner a {
+  margin-top: 2px;
   color: #999999;
 }
 .cpac-column .column-meta table tr td.column_edit {
@@ -395,7 +418,7 @@
   speak: none;
   display: inline-block;
   padding: 0 5px 0 0;
-  bottom: 2px;
+  bottom: 0;
   position: relative;
   vertical-align: bottom;
   -webkit-font-smoothing: antialiased;
@@ -825,6 +848,7 @@
 .column-footer .button-container a.clear_columns {
   color: #BC0B0B;
   text-decoration: none;
+  margin-right: 5px;
 }
 .column-footer .button-container a.clear_columns:hover {
   color: #f00;

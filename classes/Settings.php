@@ -958,9 +958,12 @@ class AC_Settings {
 											<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
 												<a href="javascript:;" class="clear_columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 											<?php endif; ?>
-											<a href="javascript:;" class="add_column button-primary">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-											<?php /*<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>*/ ?>
-											<?php /*<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>*/ ?>
+
+											<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+
+											<span class="spinner"></span>
+											<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+											<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
 										</div>
 									<?php endif; ?>
 								</div><!--.cpac-column-footer-->
