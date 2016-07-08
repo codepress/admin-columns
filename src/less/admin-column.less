@@ -46,10 +46,6 @@
  * General
  * ----------------------------------------------------------------------------
  */
-#icon-codepress-admin-columns {
-	background: transparent url('../images/icon.png') no-repeat 0 0;
-}
-
 .button.loading {
 	padding-right: 25px;
 	position: relative;
@@ -58,16 +54,6 @@
 .rtl .button.loading {
 	padding-left: 25px;
 	padding-right: 0;
-}
-
-.button.loading span {
-	position: absolute;
-	top: 2px;
-	right: 6px;
-	background: transparent url('../images/loading.gif') no-repeat right 50%;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
 }
 
 .rtl .button.loading span {
@@ -218,7 +204,8 @@
 		}
 		.column-footer {
 			.spinner {
-				margin: 0 0 3px 8px;
+				margin: 4px 0 0;
+				background-position: center center;
 				float: none;
 				display: inline-block;
 				visibility: visible;
@@ -1078,18 +1065,18 @@
 	.button-container {
 		float: right;
 		display: inline-block;
-		margin-top: -5px;
+		height: 29px;
 
 		a {
 			display: inline-block;
-			margin-top: 5px;
 			margin-left: 5px;
-			//margin-right: 5px;
+			vertical-align: top;
 
-			&.clear_columns {
+			&.clear-columns {
 				color: @red;
 				text-decoration: none;
-				margin-right: 5px;
+				margin-right: 8px;
+				margin-top: 5px;
 
 				&:hover {
 					color: @red-light;
@@ -1110,10 +1097,9 @@
 	-moz-border-right-colors: none;
 	-moz-border-top-colors: none;
 	background: none repeat scroll 0 0 transparent;
-	border-color: #DFDFDF -moz-use-text-color -moz-use-text-color;
+	border-color: #DFDFDF;
 	border-image: none;
-	border-right: 0 none;
-	border-style: solid none none;
+	border-style: solid;
 	border-width: 1px 0 0;
 	clear: both;
 	margin: 30px 0;

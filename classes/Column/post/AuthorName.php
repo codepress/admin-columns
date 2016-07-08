@@ -19,27 +19,26 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$value = '';
 
-		if ( $user_id = $this->get_raw_value( $post_id ) ) {
-			$value = $this->get_user_formatted( $user_id );
-		}
+		// User name
+		$value = $this->get_value_formatted( $post_id );
+
+		// Add Link?
+		$link = false;
 
 		switch ( $this->get_option( 'user_link_to' ) ) {
 			case 'edit_user' :
-				$link = get_edit_user_link( $user_id );
+				$link = get_edit_user_link( $this->get_post_author( $post_id ) );
 				break;
 			case 'view_user_posts' :
 				$link = add_query_arg( array(
-					'post_type' => get_post_field( 'post_type', $post_id ),
+					'post_type' => ac_helper()->post->get_raw_field( 'post_type', $post_id ),
 					'author'    => get_the_author_meta( 'ID' )
 				), 'edit.php' );
 				break;
 			case 'view_author' :
-				$link = get_author_posts_url( $user_id );
+				$link = get_author_posts_url( $this->get_post_author( $post_id ) );
 				break;
-			default:
-				$link = '';
 		}
 
 		if ( $link ) {
@@ -50,7 +49,15 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	}
 
 	public function get_raw_value( $post_id ) {
-		return get_post_field( 'post_author', $post_id );
+		return $this->get_post_author( $post_id );
+	}
+
+	private function get_post_author( $post_id ) {
+		return ac_helper()->post->get_raw_field( 'post_author', $post_id );
+	}
+
+	public function get_value_formatted( $post_id ) {
+		return $this->get_user_formatted( $this->get_post_author( $post_id ) );
 	}
 
 	public function display_settings() {

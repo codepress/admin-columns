@@ -451,7 +451,7 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-		if ( null === $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
+		if ( null === $this->current_storage_model && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
 					$storage_model->init_listings_layout();
@@ -639,8 +639,9 @@ class CPAC {
 	 * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
 	public function is_columns_screen() {
-		global $pagenow;
-		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
+		$storage_model = $this->get_current_storage_model();
+
+		$is_column_screen = $storage_model && $storage_model->is_current_screen();
 
 		/**
 		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
@@ -650,7 +651,7 @@ class CPAC {
 		 *
 		 * @param bool $columns_screen Whether the current request is a columns screen
 		 */
-		return apply_filters( 'cac/is_columns_screen', $columns_screen );
+		return apply_filters( 'cac/is_columns_screen', $is_column_screen );
 	}
 
 	/**
