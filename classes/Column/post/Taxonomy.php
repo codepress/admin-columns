@@ -8,18 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class AC_Column_Post_Taxonomy extends AC_Column_TaxonomyAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-taxonomy';
-		$this->properties['label'] = __( 'Taxonomy', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
-	}
-
-	public function get_taxonomy() {
-		return $this->get_option( 'taxonomy' );
-	}
-
 	public function display_settings() {
 		$taxonomies = get_object_taxonomies( $this->get_post_type(), 'objects' );
 

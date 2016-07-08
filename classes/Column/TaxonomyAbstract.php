@@ -9,7 +9,16 @@ defined( 'ABSPATH' ) or die();
  */
 abstract class AC_Column_TaxonomyAbstract extends CPAC_Column {
 
-	abstract public function get_taxonomy();
+	public function init() {
+		parent::init();
+
+		$this->properties['type'] = 'column-taxonomy';
+		$this->properties['label'] = __( 'Taxonomy', 'codepress-admin-columns' );
+	}
+
+	public function get_taxonomy() {
+		return $this->get_option( 'taxonomy' );
+	}
 
 	public function apply_conditional() {
 		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), $this->get_taxonomy() );
