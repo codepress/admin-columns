@@ -150,7 +150,7 @@ class CPAC_Column {
 	 *
 	 * @return mixed Value
 	 */
-	public function get_raw_value( $id, $single = true ) {
+	public function get_raw_value( $id ) {
 	}
 
 	/**
