@@ -21,7 +21,7 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	public function get_value( $post_id ) {
 
 		// User name
-		$value = $this->get_value_formatted( $post_id );
+		$value = $this->get_formatted_value( $post_id );
 
 		// Add Link?
 		$link = false;
@@ -56,7 +56,7 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 		return ac_helper()->post->get_raw_field( 'post_author', $post_id );
 	}
 
-	public function get_value_formatted( $post_id ) {
+	public function get_formatted_value( $post_id ) {
 		return $this->get_user_formatted( $this->get_post_author( $post_id ) );
 	}
 

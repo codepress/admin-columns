@@ -188,7 +188,7 @@ class AC_Helper_Post {
 	 *
 	 * @return string Post Excerpt.
 	 */
-	public function excerpt( $post_id, $words ) {
+	public function excerpt( $post_id, $words = 400 ) {
 		global $post;
 
 		$save_post = $post;
