@@ -41,6 +41,19 @@ class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 		return implode( ', ', $menus );
 	}
 
+	function get_formatted_value( $object_id ){
+		$menus = array();
+
+		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
+			foreach ( $menu_ids as $menu_id ) {
+				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
+				$menus[] = $term->name;
+			}
+		}
+
+		return implode( ', ', $menus );
+	}
+
 	/**
 	 * Get object meta type of the storage model
 	 *
