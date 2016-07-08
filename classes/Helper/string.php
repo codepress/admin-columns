@@ -134,7 +134,7 @@ class AC_Helper_String {
 	 *
 	 * @return array
 	 */
-	public function comma_seperated_to_array( $string ) {
+	public function comma_separated_to_array( $string ) {
 		$array = array();
 		if ( is_scalar( $string ) ) {
 			if ( strpos( $string, ',' ) !== false ) {
@@ -149,6 +149,25 @@ class AC_Helper_String {
 		}
 
 		return $array;
+	}
+
+	/**
+	 * @since NEWVSERION
+	 *
+	 * @param string $string
+	 *
+	 * @return array
+	 */
+	public function string_to_array_integers( $string ) {
+		$values = $this->comma_separated_to_array( $string );
+
+		foreach ( $values as $k => $value ) {
+			if ( ! is_numeric( $value ) ) {
+				unset( $values[ $k ] );
+			}
+		}
+
+		return $values;
 	}
 
 }

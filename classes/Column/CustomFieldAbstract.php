@@ -127,33 +127,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * Get First ID from array
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $meta
-	 *
-	 * @return string Titles
-	 */
-	public function get_ids_from_meta( $meta ) {
-
-		//remove white spaces and strip tags
-		$meta = ac_helper()->string->strip_trim( str_replace( ' ', '', $meta ) );
-
-		$ids = array();
-
-		// check for multiple id's
-		if ( strpos( $meta, ',' ) !== false ) {
-			$ids = explode( ',', $meta );
-		}
-		elseif ( is_numeric( $meta ) ) {
-			$ids[] = $meta;
-		}
-
-		return $ids;
-	}
-
-	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
@@ -199,7 +172,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		switch ( $this->get_field_type() ) :
 			case "image" :
 			case "library_id" :
-				$images = ac_helper()->string->comma_seperated_to_array( $raw_string );
+				$images = ac_helper()->string->comma_separated_to_array( $raw_string );
 				$value = implode( ac_helper()->image->get_images( $images, $this->get_image_size_formatted() ) );
 				break;
 
@@ -264,6 +237,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				break;
 
 			case "count" :
+				$raw_value = $this->get_raw_value( $id, false );
 				$value = $raw_value ? count( $raw_value ) : $this->get_empty_char();
 				break;
 
@@ -379,6 +353,20 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
+	 * @since 1.0
+	 *
+	 * @param string $meta
+	 *
+	 * @return int[] Array with integers
+	 */
+	public function get_ids_from_meta( $meta ) {
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', 'AC NEWVERSION', 'ac_helper()->string->string_to_array_integers()' );
+
+
+		return ac_helper()->string->string_to_array_integers( $meta );
+	}
+
+	/**
 	 * Get meta by ID
 	 *
 	 * @since 1.0
@@ -389,7 +377,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', __CLASS__ . '::' . 'ac_helper()->array->implode_recursive()' );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', 'ac_helper()->array->implode_recursive()' );
 
 		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
 	}

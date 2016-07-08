@@ -150,7 +150,7 @@ class CPAC_Column {
 	 *
 	 * @return mixed Value
 	 */
-	public function get_raw_value( $id ) {
+	public function get_raw_value( $id, $single = true ) {
 	}
 
 	/**
@@ -1248,7 +1248,7 @@ class CPAC_Column {
 			$size = array( $args['image_size_w'], $args['image_size_h'] );
 		}
 
-		return ac_helper()->image->get_images( ac_helper()->string->comma_seperated_to_array( $images ), $size );
+		return ac_helper()->image->get_images( ac_helper()->string->comma_separated_to_array( $images ), $size );
 	}
 
 	/**
