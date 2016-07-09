@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Categories extends AC_Column_TaxonomyAbstract {
+class AC_Column_Post_Categories extends CPAC_Column {
 
 	public function init() {
 		parent::init();
@@ -18,12 +18,8 @@ class AC_Column_Post_Categories extends AC_Column_TaxonomyAbstract {
 		$this->options['width_unit'] = '%';
 	}
 
-	public function get_taxonomy() {
-		return 'category';
-	}
-
 	public function apply_conditional() {
-		return in_array( $this->get_post_type(), array( 'post', 'page' ) );
+		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), 'category' );
 	}
 
 }

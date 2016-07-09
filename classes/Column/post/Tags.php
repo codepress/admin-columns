@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Tags extends AC_Column_TaxonomyAbstract {
+class AC_Column_Post_Tags extends CPAC_Column {
 
 	public function init() {
 		parent::init();
@@ -16,10 +16,6 @@ class AC_Column_Post_Tags extends AC_Column_TaxonomyAbstract {
 
 		$this->options['width'] = 15;
 		$this->options['width_unit'] = '%';
-	}
-
-	public function get_taxonomy() {
-		return 'post_tag';
 	}
 
 	public function apply_conditional() {

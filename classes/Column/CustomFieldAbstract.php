@@ -196,7 +196,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 			case "title_by_id" :
 				$titles = array();
-				if ( $ids = $this->get_ids_from_meta( $raw_string ) ) {
+				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
 						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
 							$link = get_edit_post_link( $id );
@@ -209,7 +209,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 			case "user_by_id" :
 				$names = array();
-				if ( $ids = $this->get_ids_from_meta( $raw_string ) ) {
+				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
 						if ( $username = $this->get_username_by_id( $id ) ) {
 							$link = get_edit_user_link( $id );

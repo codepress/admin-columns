@@ -57,4 +57,21 @@ class AC_Helper_Taxonomy {
 		return true;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_taxonomy_selection_options( $post_type ) {
+		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+		$options = array();
+		foreach ( $taxonomies as $index => $taxonomy ) {
+			if ( $taxonomy->name == 'post_format' ) {
+				unset( $taxonomies[ $index ] );
+			}
+			$options[ $taxonomy->name ] = $taxonomy->label;
+		}
+
+		return $options;
+	}
+
 }

@@ -12,9 +12,9 @@ class AC_Column_Post_LastModifiedAuthor extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		$this->properties['type']	 			= 'column-last_modified_author';
-		$this->properties['label']	 			= __( 'Last Modified Author', 'codepress-admin-columns' );
-		$this->properties['is_cloneable']		= true;
+		$this->properties['type'] = 'column-last_modified_author';
+		$this->properties['label'] = __( 'Last Modified Author', 'codepress-admin-columns' );
+		$this->properties['is_cloneable'] = true;
 	}
 
 	public function get_value( $post_id ) {
