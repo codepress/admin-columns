@@ -26,11 +26,9 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-actions';
 		$this->properties['label'] = __( 'Actions', 'codepress-admin-columns' );
 
-		// Options
 		$this->options['use_icons'] = false;
 	}
 

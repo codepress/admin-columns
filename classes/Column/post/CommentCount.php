@@ -14,7 +14,6 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 
 		$this->properties['type'] = 'column-comment_count';
 		$this->properties['label'] = __( 'Comment count', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 	}
 
 	function get_comment_stati() {

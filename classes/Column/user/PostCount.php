@@ -11,7 +11,6 @@ class AC_Column_User_PostCount extends CPAC_Column {
 
 		$this->properties['type'] = 'column-user_postcount';
 		$this->properties['label'] = __( 'Post Count', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 	}
 
 	/**

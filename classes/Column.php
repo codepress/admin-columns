@@ -131,6 +131,31 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @param string $name Column name
+	 * @param string $label Column label
+	 */
+	public function set_defaults( $name, $label ) {
+		if ( ! $label ) {
+			$label = ucfirst( $name );
+		}
+
+		// Hide Label when it contains HTML elements
+		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
+			$this->set_property( 'hide_label', true );
+		}
+
+		if ( ! $this->get_group() ) {
+			$this->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
+		}
+
+		$this
+			->set_property( 'type', $name )
+			->set_property( 'name', $name )
+			->set_property( 'label', $label )
+			->set_option( 'label', $label );
+	}
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID

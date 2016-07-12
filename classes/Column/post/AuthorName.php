@@ -14,7 +14,6 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 
 		$this->properties['type'] = 'column-author_name';
 		$this->properties['label'] = __( 'Display Author As', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 		$this->properties['object_property'] = 'post_author';
 	}
 

@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-class AC_Column_UsedByMenuAbstract extends CPAC_Column {
+abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
 	public function init() {
 		parent::init();
