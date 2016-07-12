@@ -149,11 +149,12 @@ abstract class CPAC_Storage_Model {
 	 * @return array Column Name | Column Label
 	 */
 	public function get_default_columns() {
-		if ( function_exists( '_get_list_table' ) ) {
-
-			// trigger WP_List_Table::get_columns()
-			_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		if ( ! function_exists( '_get_list_table' ) || ! function_exists( 'get_column_headers' ) ) {
+			return array();
 		}
+
+		// trigger WP_List_Table::get_columns()
+		_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 
 		return (array) get_column_headers( $this->get_screen_id() );
 	}
