@@ -283,6 +283,8 @@ class CPAC {
 			wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $this->get_version(), 'all' );
 			wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $this->get_version(), 'all' );
 
+			wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $current_storage_model->get_list_selector() );
+
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );

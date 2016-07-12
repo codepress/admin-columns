@@ -23,6 +23,13 @@ class AC_StorageModel_Comment extends CPAC_Storage_Model {
 	}
 
 	/**
+	 * @since 3.5
+	 */
+	public function get_list_selector() {
+		return '#the-comment-list';
+	}
+
+	/**
 	 * @since NEWVERSION
 	 * @return WP_Comment Comment
 	 */
