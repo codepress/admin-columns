@@ -74,4 +74,13 @@ class AC_Helper_Taxonomy {
 		return $options;
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_term_field( $field, $term_id, $taxonomy ) {
+		$term = get_term_by( 'id', $term_id, $taxonomy );
+
+		return $term && isset( $term->{$field} ) ? $term->{$field} : false;
+	}
+
 }
