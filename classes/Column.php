@@ -401,7 +401,7 @@ class CPAC_Column {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return $this->get_storage_model()->key . '[' . $this->get_name() . '][' . $field_name . ']';
+		return $this->get_storage_model()->get_key() . '[' . $this->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -410,7 +410,7 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return 'cpac-' . $this->get_storage_model()->key . '-' . $this->get_name() . '-' . $field_name;
+		return 'cpac-' . $this->get_storage_model()->get_key() . '-' . $this->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {

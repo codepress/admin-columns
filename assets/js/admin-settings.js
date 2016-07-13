@@ -514,17 +514,18 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 		// name
 		if ( jQuery( v ).attr( 'name' ) ) {
-			jQuery( v ).attr( 'name', jQuery( v ).attr( 'name' ).replace( type + clone_suffix, new_name ) );
+			// brackets prevent the replacement of storage model key hwne column name is similar to storage name, e.g. column comment and model wp-comments
+			jQuery( v ).attr( 'name', jQuery( v ).attr( 'name' ).replace( '[' + type + clone_suffix + ']', '[' + new_name + ']' ) );
 		}
 
 		// for
 		if ( jQuery( v ).attr( 'for' ) ) {
-			jQuery( v ).attr( 'for', jQuery( v ).attr( 'for' ).replace( type + clone_suffix, new_name ) );
+			jQuery( v ).attr( 'for', jQuery( v ).attr( 'for' ).replace( type + clone_suffix + '-', new_name + '-' ) );
 		}
 
 		// id
 		if ( jQuery( v ).attr( 'id' ) ) {
-			jQuery( v ).attr( 'id', jQuery( v ).attr( 'id' ).replace( type + clone_suffix, new_name ) );
+			jQuery( v ).attr( 'id', jQuery( v ).attr( 'id' ).replace( type + clone_suffix + '-', new_name + '-' ) );
 		}
 	} );
 };
