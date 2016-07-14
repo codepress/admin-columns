@@ -545,18 +545,21 @@ class CPAC_Column {
 			'fields'      => array(),
 		);
 		$args = wp_parse_args( $args, $defaults );
-		?>
-		<tr class="section">
-			<?php $this->label_view( $args['label'], $args['description'] ); ?>
-			<td class="input nopadding">
-				<table class="widefat">
-					<?php foreach ( $args['fields'] as $field ) {
-						$this->form_field( $field );
-					} ?>
-				</table>
-			</td>
-		</tr>
-		<?php
+
+		if ( $fields = array_filter( $args['fields'] ) ) : ?>
+			<tr class="section">
+				<?php $this->label_view( $args['label'], $args['description'] ); ?>
+				<td class="input nopadding">
+					<table class="widefat">
+						<?php foreach ( $fields as $field ) {
+							$this->form_field( $field );
+						} ?>
+					</table>
+				</td>
+			</tr>
+			<?php
+		endif;
+
 	}
 
 	/**
