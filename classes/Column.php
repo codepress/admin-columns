@@ -599,6 +599,9 @@ class CPAC_Column {
 					case 'text' :
 						ac_helper()->formfield->text( $args );
 						break;
+					case 'message' :
+						ac_helper()->formfield->message( $args );
+						break;
 					case 'number' :
 						ac_helper()->formfield->number( $args );
 						break;

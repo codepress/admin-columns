@@ -114,4 +114,18 @@ class AC_Helper_FormField {
 		<input type="<?php echo esc_attr( $args->type ); ?>" name="<?php echo esc_attr( $args->attr_name ); ?>" id="<?php echo esc_attr( $args->attr_id ); ?>" value="<?php echo esc_attr( stripslashes( $current ) ); ?>"<?php echo $args->placeholder ? ' placeholder="' . esc_attr( $args->placeholder ) . '"' : ''; ?>/>
 		<?php
 	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function message( $args ) {
+		$args = wp_parse_args( $args, array(
+			'text'  => '',
+			'class' => '',
+		) );
+		?>
+		<span class="<?php echo esc_attr( $args->class ); ?>"><?php echo $args['text'] ?></span>
+		<?php
+
+	}
 }
