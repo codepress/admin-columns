@@ -7,7 +7,7 @@ class AC_Column_Plugin extends AC_Column_OriginalAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'column-plugin';
-		$this->properties['group'] = __( 'Columns by Plugins', 'codepress-admin-columns' );
+		$this->properties['group'] = __( 'Plugins', 'codepress-admin-columns' );
 	}
 
 }
