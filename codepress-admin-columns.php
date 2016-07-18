@@ -105,7 +105,7 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @var AC_Helper
 	 */
-	public $helper;
+	private $helper;
 
 	/**
 	 * @since 2.5
@@ -561,45 +561,36 @@ class CPAC {
 	 * @since 1.4.0
 	 */
 	public function admin_scripts() {
-		if ( ! ( $storage_model = $this->get_current_storage_model() ) ) {
+		$storage_model = $this->get_current_storage_model();
+
+		if ( ! $storage_model ) {
 			return;
 		}
 
-		$css_column_width = '';
-		$edit_link = '';
-
 		// CSS: columns width
-		if ( $columns = $storage_model->get_stored_columns() ) {
-			foreach ( $columns as $name => $options ) {
-
-				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-					$unit = isset( $options['width_unit'] ) ? $options['width_unit'] : '%';
-					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}{$unit} !important; }";
-				}
-
-				// Load custom column scripts, used by 3rd party columns
-				if ( $column = $storage_model->get_column_by_name( $name ) ) {
-					$column->scripts();
-				}
+		$css_column_width = false;
+		foreach ( $storage_model->get_columns() as $column ) {
+			if ( $width = $column->get_width() ) {
+				$css_column_width .= ".cp-" . $storage_model->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
 			}
-		}
 
-		// JS: edit button
-		$general_options = get_option( 'cpac_general_options' );
-		if ( current_user_can( 'manage_admin_columns' ) && ( ! isset( $general_options['show_edit_button'] ) || '1' === $general_options['show_edit_button'] ) ) {
-			$edit_link = $storage_model->get_edit_link();
+			// Load external scripts
+			// TODO: refactor
+			$column->scripts();
 		}
-
 		?>
 		<?php if ( $css_column_width ) : ?>
 			<style type="text/css">
 				<?php echo $css_column_width; ?>
 			</style>
 		<?php endif; ?>
-		<?php if ( $edit_link ) : ?>
+		<?php
+
+		// JS: Edit button
+		if ( current_user_can( 'manage_admin_columns' ) && '1' === $this->get_general_option( 'show_edit_button' ) ) : ?>
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
+					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $storage_model->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
 			</script>
 		<?php endif; ?>
@@ -721,7 +712,7 @@ class CPAC {
 	/**
 	 * @since NEWVERSION
 	 */
-	protected function helper() {
+	public function helper() {
 		return $this->helper;
 	}
 

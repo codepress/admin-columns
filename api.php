@@ -175,5 +175,5 @@ function ac_site_url( $path = '' ) {
  * @since NEWVERSION
  */
 function ac_helper() {
-	return AC()->helper;
+	return AC()->helper();
 }

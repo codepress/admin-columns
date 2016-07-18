@@ -272,6 +272,24 @@ class CPAC_Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @return int Width
+	 */
+	public function get_width() {
+		$width = absint( $this->get_option( 'width' ) );
+
+		return $width > 0 ? $width : false;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string px or %
+	 */
+	public function get_width_unit() {
+		return 'px' === $this->get_option( 'width_unit' ) ? 'px' : '%';
+	}
+
+	/**
 	 * Get the column options set by the user
 	 *
 	 * @since 2.3.4
@@ -630,8 +648,8 @@ class CPAC_Column {
 	private function width_field() {
 		?>
 		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
-			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_option( 'width' ) ); ?>"/>
-			<span class="unit"><?php echo esc_html( $this->get_option( 'width_unit' ) ); ?></span>
+			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_width() ); ?>"/>
+			<span class="unit"><?php echo esc_html( $this->get_width_unit() ); ?></span>
 		</div>
 		<div class="width-slider"></div>
 
