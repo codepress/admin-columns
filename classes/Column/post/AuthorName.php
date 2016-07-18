@@ -60,7 +60,7 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_field_user_format();
+		$this->settings()->user_format_field();
 		$this->display_field_user_link_to();
 	}
 

@@ -43,7 +43,7 @@ class AC_Column_Post_Attachment extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_field_preview_size();
+		$this->settings()->image_field();
 	}
 
 }

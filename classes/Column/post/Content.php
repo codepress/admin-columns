@@ -25,7 +25,7 @@ class AC_Column_Post_Content extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_field_word_limit();
+		$this->settings()->word_limit_field();
 	}
 
 }

@@ -3,23 +3,14 @@ defined( 'ABSPATH' ) or die();
 
 class AC_ColumnFieldSettings {
 
-	private $name;
+	private $column;
 
-	private $storage_key;
-
-	private $options = array();
-
-	public function __construct( $name, $storage_key ) {
-		$this->name = $name;
-		$this->storage_key = $storage_key;
-	}
-
-	public function set_options( $options ) {
-		$this->options = $options;
+	public function __construct( CPAC_Column $column ) {
+		$this->column = $column;
 	}
 
 	private function get_option( $name ) {
-		return isset( $this->options[ $name ] ) ? $this->options[ $name ] : false;
+		return $this->column->get_option( $name );
 	}
 
 	/**
@@ -35,7 +26,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return $this->storage_key . '[' . $this->name . '][' . $field_name . ']';
+		return $this->column->get_storage_model_key() . '[' . $this->column->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -44,7 +35,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return 'cpac-' . $this->storage_key . '-' . $this->name . '-' . $field_name;
+		return 'cpac-' . $this->column->get_storage_model_key() . '-' . $this->column->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {
@@ -58,22 +49,31 @@ class AC_ColumnFieldSettings {
 	 *
 	 * @return string Attribute Name
 	 */
-	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
-		if ( $label ) : ?>
-			<td class="label<?php echo esc_attr( $description ? ' description' : '' ); ?>">
-				<label for="<?php $this->attr_id( $for ); ?>">
-					<span class="label"><?php echo stripslashes( $label ); ?></span>
-					<?php if ( $more_link ) : ?>
-						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-external"></span></a>
+	public function label( $args = array() ) {
+		$defaults = array(
+			'label'       => '',
+			'description' => '',
+			'for'         => '',
+			'more_link'   => false,
+		);
+
+		$data = (object) wp_parse_args( $args, $defaults );
+
+		if ( $data->label ) : ?>
+			<td class="label<?php echo esc_attr( $data->description ? ' description' : '' ); ?>">
+				<label for="<?php $this->attr_id( $data->for ); ?>">
+					<span class="label"><?php echo stripslashes( $data->label ); ?></span>
+					<?php if ( $data->more_link ) : ?>
+						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $data->more_link ); ?>"><span class="dashicons dashicons-external"></span></a>
 					<?php endif; ?>
-					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
+					<?php if ( $data->description ) : ?><p class="description"><?php echo $data->description; ?></p><?php endif; ?>
 				</label>
 			</td>
 			<?php
 		endif;
 	}
 
-	public function image_field_args( $fields_only = false ) {
+	public function image_fields_args( $fields_only = false ) {
 		$label = __( 'Image Size', 'codepress-admin-columns' );
 
 		$image_size_w = array(
@@ -94,6 +94,7 @@ class AC_ColumnFieldSettings {
 			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
 		);
 
+		// Will return fields only (without main label)
 		if ( $fields_only ) {
 			return array(
 				array(
@@ -122,7 +123,183 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function image_field() {
-		$this->fields( $this->image_field_args() );
+		$this->fields( $this->image_fields_args() );
+	}
+
+	public function before_field_args() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'before',
+			'label'       => __( "Before", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function after_field_args() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'after',
+			'label'       => __( "After", 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function before_after_fields() {
+		$this->fields( array(
+			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
+			'fields' => array(
+				$this->before_field_args(),
+				$this->after_field_args(),
+			),
+		) );
+	}
+
+	public function date_field_args() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'date_format',
+			'label'       => __( 'Date Format', 'codepress-admin-columns' ),
+			'placeholder' => __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i',
+			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
+			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>",
+		);
+	}
+
+	public function date_field() {
+		$this->fields( $this->date_field_args() );
+	}
+
+	public function word_limit_field_args() {
+		return array(
+			'type'        => 'number',
+			'name'        => 'excerpt_length',
+			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function word_limit_field() {
+		$this->fields( $this->word_limit_field_args() );
+	}
+
+	public function character_limit_field_args() {
+		return array(
+			'type'        => 'number',
+			'name'        => 'character_limit',
+			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function character_limit_field() {
+		$this->fields( $this->character_limit_field_args() );
+	}
+
+	public function user_format_field() {
+		$nametypes = array(
+			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
+			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
+			'last_name'       => __( 'Last Name', 'codepress-admin-columns' ),
+			'nickname'        => __( 'Nickname', 'codepress-admin-columns' ),
+			'user_login'      => __( 'User Login', 'codepress-admin-columns' ),
+			'user_email'      => __( 'User Email', 'codepress-admin-columns' ),
+			'ID'              => __( 'User ID', 'codepress-admin-columns' ),
+			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
+		);
+
+		natcasesort( $nametypes ); // sorts also when translated
+
+		$this->fields( array(
+			'type'        => 'select',
+			'name'        => 'display_author_as',
+			'label'       => __( 'Display format', 'codepress-admin-columns' ),
+			'options'     => $nametypes,
+			'description' => __( 'This is the format of the author name.', 'codepress-admin-columns' ),
+		) );
+	}
+
+	public function url_format_field_args() {
+		return array(
+			'type'        => 'text',
+			'name'        => 'link_label',
+			'label'       => __( 'Link label', 'codepress-admin-columns' ),
+			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function url_format_field() {
+		$this->fields( $this->url_format_field_args() );
+	}
+
+	public function post_format_field_args() {
+		return array(
+			'type'        => 'select',
+			'name'        => 'post_property_display',
+			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
+			'options'     => array(
+				'title'  => __( 'Title' ), // default
+				'id'     => __( 'ID' ),
+				'author' => __( 'Author' ),
+			),
+			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
+		);
+	}
+
+	public function post_format_field() {
+		$this->fields( $this->post_format_field_args() );
+	}
+
+	public function post_link_to_field() {
+		$this->fields( array(
+			'type'        => 'select',
+			'name'        => 'post_link_to',
+			'label'       => __( 'Link To', 'codepress-admin-columns' ),
+			'options'     => array(
+				''            => __( 'None' ),
+				'edit_post'   => __( 'Edit Post' ),
+				'view_post'   => __( 'View Post' ),
+				'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
+				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
+			),
+			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
+		) );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	function placeholder_field( $args = array() ) {
+		$defaults = array(
+			'label' => '',
+			'url'   => '',
+			'type'  => '',
+		);
+
+		$data = (object) wp_parse_args( $args, $defaults );
+
+		if ( ! $data->label ) {
+			return;
+		}
+		?>
+		<div class="is-disabled">
+			<p>
+				<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
+			</p>
+
+			<p>
+				<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+			</p>
+
+			<p>
+				<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); ?>
+			</p>
+			<a href="<?php echo add_query_arg( array(
+				'utm_source'   => 'plugin-installation',
+				'utm_medium'   => $data->type,
+				'utm_campaign' => 'plugin-installation',
+			), $data->url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
+		</div>
+		<?php
 	}
 
 	/**
@@ -138,7 +315,7 @@ class AC_ColumnFieldSettings {
 
 		if ( $fields = array_filter( $args['fields'] ) ) : ?>
 			<tr class="section">
-				<?php $this->label_view( $args['label'], $args['description'] ); ?>
+				<?php $this->label( $args ); ?>
 				<td class="input nopadding">
 					<table class="widefat">
 						<?php foreach ( $fields as $field ) {
@@ -179,7 +356,7 @@ class AC_ColumnFieldSettings {
 		$field = (object) $args;
 		?>
 		<tr class="<?php echo esc_attr( $field->type ); ?> column-<?php echo esc_attr( $field->name ); ?><?php echo esc_attr( $field->hidden ? ' hide' : '' ); ?><?php echo esc_attr( $field->section ? ' section' : '' ); ?>"<?php echo $field->toggle_handle ? ' data-handle="' . esc_attr( $this->get_attr_id( $field->toggle_handle ) ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
-			<?php $this->label_view( $field->label, $field->description, ( $field->for ? $field->for : $field->name ), $field->more_link ); ?>
+			<?php $this->label( array( 'label' => $field->label, 'description' => $field->description, 'for' => ( $field->for ? $field->for : $field->name ), 'more_link' => $field->more_link ) ); ?>
 			<td class="input"<?php echo( $field->toggle_trigger ? ' data-trigger="' . esc_attr( $this->get_attr_id( $field->toggle_trigger ) ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
 				<?php
 				switch ( $field->type ) {

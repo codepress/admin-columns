@@ -56,6 +56,7 @@ class CPAC_Column {
 	public function __construct( $storage_model ) {
 
 		$this->storage_model = $storage_model;
+		$this->settings = new AC_ColumnFieldSettings( $this );
 
 		$this->init();
 		$this->after_setup();
@@ -115,8 +116,6 @@ class CPAC_Column {
 			$this->options->label = $this->properties->label;
 		}
 
-		$this->settings = new AC_ColumnFieldSettings( $this->get_name(), $this->get_storage_model_key() );
-
 		$this->populate_options();
 
 		/**
@@ -145,6 +144,7 @@ class CPAC_Column {
 
 	/**
 	 * @since NEWVERSION
+	 *
 	 * @param array $options
 	 */
 	public function populate_options( $options = array() ) {
@@ -168,8 +168,6 @@ class CPAC_Column {
 		}
 
 		$options = array_merge( (array) $this->options, $options );
-
-		$this->settings()->set_options( $options );
 
 		$this->options = (object) $options;
 	}
@@ -357,7 +355,7 @@ class CPAC_Column {
 	 * Get a single column option
 	 *
 	 * @since 2.3.4
-	 * @return string Single column option
+	 * @return string|false Single column option
 	 */
 	public function get_option( $name ) {
 		return isset( $this->get_options()->{$name} ) ? $this->get_options()->{$name} : false;
@@ -547,28 +545,6 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.0
-	 *
-	 * @param string $field_key
-	 *
-	 * @return string Attribute Name
-	 */
-	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
-		if ( $label ) : ?>
-			<td class="label<?php echo esc_attr( $description ? ' description' : '' ); ?>">
-				<label for="<?php $this->settings()->attr_id( $for ); ?>">
-					<span class="label"><?php echo stripslashes( $label ); ?></span>
-					<?php if ( $more_link ) : ?>
-						<a target="_blank" class="more-link" title="<?php echo esc_attr( __( 'View more' ) ); ?>" href="<?php echo esc_url( $more_link ); ?>"><span class="dashicons dashicons-external"></span></a>
-					<?php endif; ?>
-					<?php if ( $description ) : ?><p class="description"><?php echo $description; ?></p><?php endif; ?>
-				</label>
-			</td>
-			<?php
-		endif;
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @param $user
@@ -581,83 +557,10 @@ class CPAC_Column {
 	}
 
 	/**
-	 * @since 2.3.2
-	 */
-	public function display_field_user_format() {
-
-		$nametypes = array(
-			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
-			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
-			'last_name'       => __( 'Last Name', 'codepress-admin-columns' ),
-			'nickname'        => __( 'Nickname', 'codepress-admin-columns' ),
-			'user_login'      => __( 'User Login', 'codepress-admin-columns' ),
-			'user_email'      => __( 'User Email', 'codepress-admin-columns' ),
-			'ID'              => __( 'User ID', 'codepress-admin-columns' ),
-			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
-		);
-
-		natcasesort( $nametypes ); // sorts also when translated
-
-		$this->settings->fields( array(
-			'type'        => 'select',
-			'name'        => 'display_author_as',
-			'label'       => __( 'Display format', 'codepress-admin-columns' ),
-			'options'     => $nametypes,
-			'description' => __( 'This is the format of the author name.', 'codepress-admin-columns' ),
-		) );
-	}
-
-	public function form_field_date() {
-		return array(
-			'type'        => 'text',
-			'name'        => 'date_format',
-			'label'       => __( 'Date Format', 'codepress-admin-columns' ),
-			'placeholder' => __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i',
-			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
-			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>",
-		);
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function display_field_date_format() {
-		$this->settings->fields( array(
-			'type'        => 'text',
-			'name'        => 'date_format',
-			'label'       => __( 'Date Format', 'codepress-admin-columns' ),
-			'placeholder' => __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i',
-			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
-			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>",
-		) );
-	}
-
-	/**
 	 * @since NEWVERSION
 	 */
 	public function get_date_formatted( $date ) {
 		return ac_helper()->date->date( $date, $this->get_option( 'date_format' ) );
-	}
-
-	public function form_field_word_limit() {
-		return array(
-			'type'        => 'number',
-			'name'        => 'excerpt_length',
-			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
-		);
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function display_field_word_limit() {
-		$this->settings->fields( array(
-			'type'        => 'number',
-			'name'        => 'excerpt_length',
-			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
-		) );
 	}
 
 	/**
@@ -672,50 +575,10 @@ class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function display_field_character_limit() {
-		$this->settings->fields( array(
-			'type'        => 'number',
-			'name'        => 'character_limit',
-			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ),
-		) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
 	public function format_character_limit( $string ) {
 		$limit = $this->get_option( 'character_limit' );
 
 		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function display_field_excerpt_length() {
-		$this->display_field_word_limit();
-	}
-
-	public function form_field_link_label() {
-		return array(
-			'type'        => 'text',
-			'name'        => 'link_label',
-			'label'       => __( 'Link label', 'codepress-admin-columns' ),
-			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
-		);
-	}
-
-	/**
-	 * @since 2.4.9
-	 */
-	public function display_field_link_label() {
-		$this->settings->fields( array(
-			'type'        => 'text',
-			'name'        => 'link_label',
-			'label'       => __( 'Link label', 'codepress-admin-columns' ),
-			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
-		) );
 	}
 
 	/**
@@ -745,192 +608,10 @@ class CPAC_Column {
 		return ac_helper()->image->get_images_by_ids( $attachment_ids, $this->get_image_size_formatted() );
 	}
 
-	/**
-	 * @since 1.0
-	 * @return array Image Sizes.
-	 */
-	private function get_grouped_image_sizes() {
-		global $_wp_additional_image_sizes;
-
-		$sizes = array(
-			'default' => array(
-				'title'   => __( 'Default', 'codepress-admin-columns' ),
-				'options' => array(
-					'thumbnail' => __( "Thumbnail", 'codepress-admin-columns' ),
-					'medium'    => __( "Medium", 'codepress-admin-columns' ),
-					'large'     => __( "Large", 'codepress-admin-columns' ),
-				),
-			),
-		);
-
-		$all_sizes = get_intermediate_image_sizes();
-
-		if ( ! empty( $all_sizes ) ) {
-			foreach ( $all_sizes as $size ) {
-				if ( 'medium_large' == $size || isset( $sizes['default']['options'][ $size ] ) ) {
-					continue;
-				}
-
-				if ( ! isset( $sizes['defined'] ) ) {
-					$sizes['defined']['title'] = __( "Others", 'codepress-admin-columns' );
-				}
-
-				$sizes['defined']['options'][ $size ] = ucwords( str_replace( '-', ' ', $size ) );
-			}
-		}
-
-		// add sizes
-		foreach ( $sizes as $key => $group ) {
-			foreach ( array_keys( $group['options'] ) as $_size ) {
-
-				$w = isset( $_wp_additional_image_sizes[ $_size ]['width'] ) ? $_wp_additional_image_sizes[ $_size ]['width'] : get_option( "{$_size}_size_w" );
-				$h = isset( $_wp_additional_image_sizes[ $_size ]['height'] ) ? $_wp_additional_image_sizes[ $_size ]['height'] : get_option( "{$_size}_size_h" );
-				if ( $w && $h ) {
-					$sizes[ $key ]['options'][ $_size ] .= " ({$w} x {$h})";
-				}
-			}
-		}
-
-		// last
-		$sizes['default']['options']['full'] = __( "Full Size", 'codepress-admin-columns' );
-
-		$sizes['custom'] = array(
-			'title'   => __( 'Custom', 'codepress-admin-columns' ),
-			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '..' ),
-		);
-
-		return $sizes;
-	}
-
-	public function form_fields_image() {
-		return array(
-			array(
-				'label'           => __( 'Image Size', 'codepress-admin-columns' ),
-				'type'            => 'select',
-				'name'            => 'image_size',
-				'grouped_options' => $this->get_grouped_image_sizes(),
-			),
-			array(
-				'type'          => 'text',
-				'name'          => 'image_size_w',
-				'label'         => __( "Width", 'codepress-admin-columns' ),
-				'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
-				'toggle_handle' => 'image_size_w',
-				'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
-			),
-			array(
-				'type'          => 'text',
-				'name'          => 'image_size_h',
-				'label'         => __( "Height", 'codepress-admin-columns' ),
-				'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
-				'toggle_handle' => 'image_size_h',
-				'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
-			),
-		);
-	}
-
-	public function get_form_args_before() {
-		return array(
-			'type'        => 'text',
-			'name'        => 'before',
-			'label'       => __( "Before", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
-		);
-	}
-
-	public function get_form_args_after() {
-		return array(
-			'type'        => 'text',
-			'name'        => 'after',
-			'label'       => __( "After", 'codepress-admin-columns' ),
-			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
-		);
-	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function display_field_before_after() {
-		$this->settings->fields( array(
-			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
-			'fields' => array(
-				$this->get_form_args_before(),
-				$this->get_form_args_after(),
-			),
-		) );
-
-	}
-
 	public function display_indicator( $name, $label ) { ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->settings()->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
-
-	/**
-	 * Display settings field for post property to display
-	 *
-	 * @since 2.4.7
-	 */
-	public function display_field_post_property_display() {
-		$this->settings->fields( array(
-			'type'        => 'select',
-			'name'        => 'post_property_display',
-			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
-			'options'     => array(
-				'title'  => __( 'Title' ), // default
-				'id'     => __( 'ID' ),
-				'author' => __( 'Author' ),
-			),
-			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
-		) );
-	}
-
-	/**
-	 * Display settings field for the page the posts should link to
-	 *
-	 * @since 2.4.7
-	 */
-	public function display_field_post_link_to() {
-		$this->settings->fields( array(
-			'type'        => 'select',
-			'name'        => 'post_link_to',
-			'label'       => __( 'Link To', 'codepress-admin-columns' ),
-			'options'     => array(
-				''            => __( 'None' ),
-				'edit_post'   => __( 'Edit Post' ),
-				'view_post'   => __( 'View Post' ),
-				'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
-				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
-			),
-			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
-		) );
-	}
-
-	/**
-	 * @since 2.4.7
-	 */
-	function display_settings_placeholder( $url ) { ?>
-		<div class="is-disabled">
-			<p>
-				<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $this->get_label() ); ?></strong>
-			</p>
-
-			<p>
-				<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
-			</p>
-
-			<p>
-				<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $this->get_label(), $this->get_label() ); ?>
-			</p>
-			<a href="<?php echo add_query_arg( array(
-				'utm_source'   => 'plugin-installation',
-				'utm_medium'   => $this->get_type(),
-				'utm_campaign' => 'plugin-installation',
-			), $url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
-		</div>
-		<?php
-	}
-
 
 
 
@@ -1320,6 +1001,100 @@ class CPAC_Column {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->image_field()' );
 
 		$this->settings()->image_field();
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function display_field_before_after() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->before_after_fields()' );
+
+		$this->settings->before_after_fields();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display_field_date_format() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->date_field()' );
+
+		$this->settings->date_field();
+	}
+
+	/**
+	 * @since 2.3.2
+	 */
+	public function display_field_user_format() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->user_format_field()' );
+
+		$this->settings()->user_format_field();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display_field_excerpt_length() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->word_limit_field()' );
+
+		$this->settings()->word_limit_field();
+	}
+
+	/**
+	 * @since 2.4.9
+	 */
+	public function display_field_link_label() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->url_format_field()' );
+
+		$this->settings->url_format_field();
+	}
+
+	/**
+	 * Display settings field for post property to display
+	 *
+	 * @since 2.4.7
+	 */
+	public function display_field_post_property_display() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->post_format_field()' );
+
+		$this->settings->post_format_field();
+	}
+
+	/**
+	 * Display settings field for the page the posts should link to
+	 *
+	 * @since 2.4.7
+	 */
+	public function display_field_post_link_to() {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->post_link_to_field()' );
+
+		$this->settings->post_link_to_field();
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @param string $field_key
+	 *
+	 * @return string Attribute Name
+	 */
+	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->label()' );
+
+		$this->settings()->label( array(
+			'label'       => $label,
+			'description' => $description,
+			'for'         => $for,
+			'more_link'   => $more_link,
+		) );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	function display_settings_placeholder( $url ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->placeholder_field()' );
+
+		$this->settings()->placeholder_field( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => $url ) );
 	}
 
 }

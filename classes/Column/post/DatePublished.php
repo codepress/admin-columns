@@ -27,7 +27,7 @@ class AC_Column_Post_DatePublished extends CPAC_Column {
 
 	// TODO: add field_datetime_format
 	public function display_settings() {
-		$this->display_field_date_format();
+		$this->settings()->date_field();
 	}
 
 }

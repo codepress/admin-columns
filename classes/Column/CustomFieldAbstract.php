@@ -323,50 +323,30 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			) );
 		endif;
 
-		$field_type = array(
+		$fields = array(
 			array(
 				'type'           => 'select',
 				'name'           => 'field_type',
-				//'label'          => __( 'Field Type', 'codepress-admin-columns' ),
-				//'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
 				'options'        => $this->get_field_labels(),
 				'refresh_column' => true,
 			)
 		);
 
-		/*$this->form_field( array(
-			'type'           => 'select',
-			'name'           => 'field_type',
-			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
-			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
-			'options'        => $this->get_field_labels(),
-			'refresh_column' => true,
-		) );*/
-
-		$fields = array();
 		switch ( $this->get_field_type() ) {
 			case 'date' :
-				//$fields = array( $this->form_field_date() );
-				//$this->display_field_date_format();
+				$fields[] = $this->settings()->date_field_args();
 				break;
 			case 'image' :
 			case 'library_id' :
-				$fields = $this->settings()->image_field_args( true );
-
-				//$fields = $this->form_fields_image();
-				//$this->display_field_preview_size();
+				$fields = array_merge( $fields, $this->settings()->image_fields_args( true ) );
 				break;
 			case 'excerpt' :
-				//$fields = array( $this->form_field_word_limit() );
-				//$this->display_field_word_limit();
+				$fields[] = $this->settings()->word_limit_field_args();
 				break;
 			case 'link' :
-				//$fields = array( $this->form_field_link_label() );
-				//$this->display_field_link_label();
+				$fields[] = $this->settings()->url_format_field_args();
 				break;
 		}
-
-		$fields = array_merge( $field_type , $fields );
 
 		$this->settings()->fields( array(
 			'label'       => __( 'Field Type', 'codepress-admin-columns' ),
@@ -374,7 +354,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			'fields'      => $fields,
 		) );
 
-		//$this->display_field_before_after();
+		$this->settings()->before_after_fields();
 	}
 
 	/**
@@ -385,7 +365,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @return int[] Array with integers
 	 */
 	public function get_ids_from_meta( $meta ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', 'AC NEWVERSION', 'ac_helper()->string->string_to_array_integers()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->string_to_array_integers()' );
 
 		return ac_helper()->string->string_to_array_integers( $meta );
 	}
@@ -401,7 +381,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @return string Meta Value
 	 */
 	public function get_meta_by_id( $id ) {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '2.5.6', 'ac_helper()->array->implode_recursive()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->array->implode_recursive()' );
 
 		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
 	}

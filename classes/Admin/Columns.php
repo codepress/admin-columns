@@ -108,8 +108,6 @@ class AC_Admin_Columns {
 
 		$column->populate_options( $columndata );
 
-		//$storage_model->populate_column_options( $column, $columndata );
-
 		ob_start();
 		$this->display_column( $column );
 		wp_send_json_success( ob_get_clean() );
