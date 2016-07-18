@@ -156,7 +156,7 @@ class CPAC {
 		add_action( 'admin_init', array( $this, 'load_listings_headings_and_values' ) );
 
 		// Includes
-		$this->_settings = new AC_Settings();
+		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
 		$this->helper = new AC_Helper();

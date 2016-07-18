@@ -1061,6 +1061,10 @@ abstract class CPAC_Storage_Model {
 		return self::OPTIONS_KEY . '_' . $this->key;
 	}
 
+	public function has_stored_columns() {
+		return $this->get_stored_columns() ? true : false;
+	}
+
 	/**
 	 * @since 1.0
 	 * @return array Column options
