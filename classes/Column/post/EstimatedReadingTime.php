@@ -84,7 +84,7 @@ class AC_Column_Post_EstimatedReadingTime extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->settings()->field( array(
 			'type'        => 'text',
 			'name'        => 'words_per_minute',
 			'label'       => __( 'Words per minute', 'codepress-admin-columns' ),

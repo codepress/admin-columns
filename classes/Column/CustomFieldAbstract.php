@@ -306,14 +306,14 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->form_field( array(
+			$this->settings()->field( array(
 				'type'        => 'text',
 				'name'        => 'field',
 				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
 			) );
 		else :
-			$this->form_field( array(
+			$this->settings()->field( array(
 				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
@@ -323,32 +323,58 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			) );
 		endif;
 
-		$this->form_field( array(
+		$field_type = array(
+			array(
+				'type'           => 'select',
+				'name'           => 'field_type',
+				//'label'          => __( 'Field Type', 'codepress-admin-columns' ),
+				//'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
+				'options'        => $this->get_field_labels(),
+				'refresh_column' => true,
+			)
+		);
+
+		/*$this->form_field( array(
 			'type'           => 'select',
 			'name'           => 'field_type',
 			'label'          => __( 'Field Type', 'codepress-admin-columns' ),
 			'description'    => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
 			'options'        => $this->get_field_labels(),
 			'refresh_column' => true,
-		) );
+		) );*/
 
+		$fields = array();
 		switch ( $this->get_field_type() ) {
 			case 'date' :
-				$this->display_field_date_format();
+				//$fields = array( $this->form_field_date() );
+				//$this->display_field_date_format();
 				break;
 			case 'image' :
 			case 'library_id' :
-				$this->display_field_preview_size();
+				$fields = $this->settings()->image_field_args( true );
+
+				//$fields = $this->form_fields_image();
+				//$this->display_field_preview_size();
 				break;
 			case 'excerpt' :
-				$this->display_field_word_limit();
+				//$fields = array( $this->form_field_word_limit() );
+				//$this->display_field_word_limit();
 				break;
 			case 'link' :
-				$this->display_field_link_label();
+				//$fields = array( $this->form_field_link_label() );
+				//$this->display_field_link_label();
 				break;
 		}
 
-		$this->display_field_before_after();
+		$fields = array_merge( $field_type , $fields );
+
+		$this->settings()->fields( array(
+			'label'       => __( 'Field Type', 'codepress-admin-columns' ),
+			'description' => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
+			'fields'      => $fields,
+		) );
+
+		//$this->display_field_before_after();
 	}
 
 	/**
@@ -360,7 +386,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 */
 	public function get_ids_from_meta( $meta ) {
 		_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', 'AC NEWVERSION', 'ac_helper()->string->string_to_array_integers()' );
-
 
 		return ac_helper()->string->string_to_array_integers( $meta );
 	}

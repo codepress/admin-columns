@@ -386,7 +386,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
-	 * @return CPAC_Column Column
+	 * @return CPAC_Column|false Column
 	 */
 	public function create_column_instance( $column_type ) {
 
@@ -439,29 +439,6 @@ abstract class CPAC_Storage_Model {
 		do_action( 'ac/column', $column, $this );
 
 		return $column;
-	}
-
-	/**
-	 * Populate column with stored options
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @param CPAC_Column $column
-	 * @param array $options
-	 */
-	public function populate_column_options( CPAC_Column $column, $options ) {
-		// Set options
-		if ( $options ) {
-			if ( isset( $options['clone'] ) ) {
-				$column->set_clone( $options['clone'] );
-			}
-			// replace urls, so export will not have to deal with them
-			if ( isset( $options['label'] ) ) {
-				$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
-			}
-
-			$column->options = (object) array_merge( (array) $column->options, $options );
-		}
 	}
 
 	/**
@@ -527,8 +504,6 @@ abstract class CPAC_Storage_Model {
 			foreach ( $stored as $name => $options ) {
 				if ( isset( $options['type'] ) ) {
 					if ( $column = $this->create_column_instance( $options['type'] ) ) {
-						$this->populate_column_options( $column, $options );
-
 						$this->columns[ $name ] = $column;
 					}
 				}

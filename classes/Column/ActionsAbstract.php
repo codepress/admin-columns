@@ -84,7 +84,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 		parent::display_settings();
 
 		// Use icons
-		$this->form_field( array(
+		$this->settings()->field( array(
 			'type'        => 'radio',
 			'name'        => 'use_icons',
 			'label'       => __( 'Use icons?', 'codepress-admin-columns' ),

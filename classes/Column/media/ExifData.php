@@ -70,7 +70,7 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->settings()->field( array(
 			'type'    => 'select',
 			'name'    => 'exif_datatype',
 			'label'   => $this->get_type_label(),

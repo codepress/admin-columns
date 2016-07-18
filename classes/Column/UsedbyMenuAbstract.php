@@ -109,7 +109,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->settings()->field( array(
 			'type'        => 'radio',
 			'name'        => 'link_to_menu',
 			'label'       => __( 'Link to menu', 'codepress-admin-columns' ),

@@ -54,7 +54,7 @@ class AC_Column_Media_FullPath extends CPAC_Column {
 
 	// Settings
 	public function display_settings() {
-		$this->form_field( array(
+		$this->settings()->field( array(
 			'type'        => 'radio',
 			'name'        => 'path_scope',
 			'label'       => __( 'Path scope', 'codepress-admin-columns' ),

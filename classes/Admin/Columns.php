@@ -106,7 +106,9 @@ class AC_Admin_Columns {
 			wp_die();
 		}
 
-		$storage_model->populate_column_options( $column, $columndata );
+		$column->populate_options( $columndata );
+
+		//$storage_model->populate_column_options( $column, $columndata );
 
 		ob_start();
 		$this->display_column( $column );
@@ -504,7 +506,7 @@ class AC_Admin_Columns {
 
 		<div class="clear"></div>
 
-<?php
+		<?php
 	}
 
 	/**
@@ -514,10 +516,10 @@ class AC_Admin_Columns {
 
 		$classes = implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) );
 		?>
-		<div class="cpac-column <?php echo $classes; ?>" data-type="<?php echo $column->get_type(); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
-			<input type="hidden" class="column-name" name="<?php $column->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
-			<input type="hidden" class="type" name="<?php $column->attr_name( 'type' ); ?>" value="<?php echo $column->get_type(); ?>"/>
-			<input type="hidden" class="clone" name="<?php $column->attr_name( 'clone' ); ?>" value="<?php echo $column->get_property( 'clone' ); ?>"/>
+		<div class="cpac-column <?php echo esc_attr( $classes ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
+			<input type="hidden" class="column-name" name="<?php $column->settings()->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
+			<input type="hidden" class="type" name="<?php $column->settings()->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
+			<input type="hidden" class="clone" name="<?php $column->settings()->attr_name( 'clone' ); ?>" value="<?php echo $column->get_property( 'clone' ); ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -531,7 +533,7 @@ class AC_Admin_Columns {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo $column->get_width() ? $column->get_width() . $column->get_width_unit() : ''; ?>
+										<?php echo $column->settings()->get_width() ? $column->settings()->get_width() . $column->settings()->get_width_unit() : ''; ?>
 									</span>
 
 									<?php
@@ -577,7 +579,7 @@ class AC_Admin_Columns {
 					<tbody>
 
 					<?php
-					$column->form_field( array(
+					$column->settings()->field( array(
 						'type'            => 'select',
 						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
@@ -586,7 +588,7 @@ class AC_Admin_Columns {
 						'default'         => $column->get_type(),
 					) );
 
-					$column->form_field( array(
+					$column->settings()->field( array(
 						'type'        => 'text',
 						'name'        => 'label',
 						'placeholder' => $column->get_type_label(),
@@ -595,7 +597,7 @@ class AC_Admin_Columns {
 						'hidden'      => $column->get_property( 'hide_label' ),
 					) );
 
-					$column->form_field( array(
+					$column->settings()->field( array(
 						'type'  => 'width',
 						'name'  => 'width',
 						'label' => __( 'Width', 'codepress-admin-columns' ),
@@ -617,6 +619,8 @@ class AC_Admin_Columns {
 					 *
 					 */
 					$column->display_settings();
+
+					//column->form_settings();
 
 					?>
 
