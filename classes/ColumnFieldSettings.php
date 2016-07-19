@@ -166,7 +166,7 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function date_field() {
-		$this->fields( $this->date_field_args() );
+		$this->field( $this->date_field_args() );
 	}
 
 	public function word_limit_field_args() {
@@ -179,7 +179,7 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function word_limit_field() {
-		$this->fields( $this->word_limit_field_args() );
+		$this->field( $this->word_limit_field_args() );
 	}
 
 	public function character_limit_field_args() {
@@ -192,7 +192,7 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function character_limit_field() {
-		$this->fields( $this->character_limit_field_args() );
+		$this->field( $this->character_limit_field_args() );
 	}
 
 	public function user_format_field() {
@@ -209,7 +209,7 @@ class AC_ColumnFieldSettings {
 
 		natcasesort( $nametypes ); // sorts also when translated
 
-		$this->fields( array(
+		$this->field( array(
 			'type'        => 'select',
 			'name'        => 'display_author_as',
 			'label'       => __( 'Display format', 'codepress-admin-columns' ),
@@ -228,7 +228,7 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function url_format_field() {
-		$this->fields( $this->url_format_field_args() );
+		$this->field( $this->url_format_field_args() );
 	}
 
 	public function post_format_field_args() {
@@ -246,11 +246,11 @@ class AC_ColumnFieldSettings {
 	}
 
 	public function post_format_field() {
-		$this->fields( $this->post_format_field_args() );
+		$this->field( $this->post_format_field_args() );
 	}
 
 	public function post_link_to_field() {
-		$this->fields( array(
+		$this->field( array(
 			'type'        => 'select',
 			'name'        => 'post_link_to',
 			'label'       => __( 'Link To', 'codepress-admin-columns' ),
@@ -450,35 +450,16 @@ class AC_ColumnFieldSettings {
 
 	/**
 	 * @since NEWVERSION
-	 * @return int Width
-	 */
-	public function get_width() {
-		$width = absint( $this->get_option( 'width' ) );
-
-		return $width > 0 ? $width : false;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return string px or %
-	 */
-	public function get_width_unit() {
-		return 'px' === $this->get_option( 'width_unit' ) ? 'px' : '%';
-	}
-
-	/**
-	 * @since NEWVERSION
 	 */
 	private function width_field() {
 		?>
 		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
-			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_width() ); ?>"/>
-			<span class="unit"><?php echo esc_html( $this->get_width_unit() ); ?></span>
+			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->column->get_width() ); ?>"/>
+			<span class="unit"><?php echo esc_html( $this->column->get_width_unit() ); ?></span>
 		</div>
 		<div class="width-slider"></div>
 
 		<div class="unit-select">
-
 			<?php
 			ac_helper()->formfield->radio( array(
 				'attr_id'   => $this->get_attr_id( 'width_unit' ),

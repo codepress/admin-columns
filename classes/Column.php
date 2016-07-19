@@ -551,6 +551,7 @@ class CPAC_Column {
 		<?php
 	}
 
+
 	// Deprecated methods
 
 	/**

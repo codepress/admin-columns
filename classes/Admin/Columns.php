@@ -531,7 +531,7 @@ class AC_Admin_Columns {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo $column->settings()->get_width() ? $column->settings()->get_width() . $column->settings()->get_width_unit() : ''; ?>
+										<?php echo $column->get_width() ? $column->get_width() . $column->get_width_unit() : ''; ?>
 									</span>
 
 									<?php
