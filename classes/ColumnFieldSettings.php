@@ -198,7 +198,7 @@ class AC_ColumnFieldSettings {
 		$this->field( $this->character_limit_args() );
 	}
 
-	public function user() {
+	public function user_args() {
 		$nametypes = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
@@ -212,13 +212,17 @@ class AC_ColumnFieldSettings {
 
 		natcasesort( $nametypes ); // sorts also when translated
 
-		$this->field( array(
+		return array(
 			'type'        => 'select',
 			'name'        => 'display_author_as',
 			'label'       => __( 'Display format', 'codepress-admin-columns' ),
 			'options'     => $nametypes,
 			'description' => __( 'This is the format of the author name.', 'codepress-admin-columns' ),
-		) );
+		);
+	}
+
+	public function user() {
+		$this->field( $this->user_args() );
 	}
 
 	public function url_args() {
