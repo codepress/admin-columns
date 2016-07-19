@@ -177,7 +177,7 @@ class AC_ColumnFieldSettings {
 			'type'        => 'number',
 			'name'        => 'excerpt_length',
 			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of words', 'codepress-admin-columns' )  . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 		);
 	}
 
@@ -190,7 +190,7 @@ class AC_ColumnFieldSettings {
 			'type'        => 'number',
 			'name'        => 'character_limit',
 			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ),
+			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 		);
 	}
 

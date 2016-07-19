@@ -243,9 +243,8 @@ class AC_Admin_Columns {
 		}
 	}
 
-	private function display_storage_model( CPAC_Storage_Model $storage_model ) { ?>
-
-		<?php do_action( 'cac/settings/after_menu' ); ?>
+	private function display_storage_model( CPAC_Storage_Model $storage_model ) {
+		?>
 
 		<div class="columns-container<?php echo $storage_model->has_stored_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>" data-layout="<?php echo esc_attr( $storage_model->get_layout() ); ?>">
 			<div class="main">
@@ -518,9 +517,9 @@ class AC_Admin_Columns {
 	 * @since 2.0
 	 */
 	private function display_column( CPAC_Column $column ) {
-		$classes = implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) );
 		?>
-		<div class="cpac-column <?php echo esc_attr( $classes ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
+
+		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo $column->get_property( 'clone' ); ?>"/>
@@ -623,9 +622,6 @@ class AC_Admin_Columns {
 					 *
 					 */
 					$column->display_settings();
-
-					//column->form_settings();
-
 					?>
 
 					<?php

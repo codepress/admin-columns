@@ -285,6 +285,8 @@ class AC_Admin {
 
 			<?php do_action( 'cpac_messages' ); ?>
 
+			<?php do_action( 'cac/settings/after_menu' ); ?>
+
 			<?php
 			switch ( $current_tab ) :
 				case 'general':
