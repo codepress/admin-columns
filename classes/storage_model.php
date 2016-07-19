@@ -1072,14 +1072,9 @@ abstract class CPAC_Storage_Model {
 	 * @since 2.3.4
 	 */
 	public function is_using_php_export() {
-		return $this->php_export;
-	}
+		$layout = $this->get_layout_object();
 
-	/**
-	 * @since 2.4.10
-	 */
-	public function enable_php_export() {
-		$this->php_export = true;
+		return ! empty( $layout->not_editable );
 	}
 
 	/**
