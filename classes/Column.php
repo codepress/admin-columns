@@ -324,6 +324,7 @@ class CPAC_Column {
 	 */
 	public function get_options() {
 		$options = $this->stored_options;
+
 		if ( ! $options ) {
 			$stored = $this->get_storage_model()->get_stored_columns();
 			if ( isset( $stored[ $this->get_name() ] ) ) {
@@ -331,16 +332,12 @@ class CPAC_Column {
 			}
 		}
 
-		if ( ! $options ) {
-			return array();
-		}
-
 		// replace urls, so export will not have to deal with them
 		if ( isset( $options['label'] ) ) {
 			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
 		}
 
-		return array_merge( $this->options, $options );
+		return $options ? array_merge( $this->options, $options ) : $this->options;
 	}
 
 	public function set_stored_options( $options ) {

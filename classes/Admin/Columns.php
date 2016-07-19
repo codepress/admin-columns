@@ -106,7 +106,14 @@ class AC_Admin_Columns {
 			wp_die();
 		}
 
+		// Add stored options; Used by columns that switch field types.
 		$column->set_stored_options( $columndata );
+
+		// Only trigger for newly added columns.
+		// TODO: make separate ajax call for "Add column".
+		if ( ! isset( $columndata['label'] ) ) {
+			$column->set_default_option( 'label', $column->get_type_label() );
+		}
 
 		ob_start();
 		$this->display_column( $column );
@@ -511,7 +518,6 @@ class AC_Admin_Columns {
 	 * @since 2.0
 	 */
 	private function display_column( CPAC_Column $column ) {
-
 		$classes = implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) );
 		?>
 		<div class="cpac-column <?php echo esc_attr( $classes ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">

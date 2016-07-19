@@ -239,9 +239,9 @@ class AC_ColumnFieldSettings {
 				''                => __( 'None' ),
 				'edit_user'       => __( 'Edit User Profile' ),
 				'view_user_posts' => __( 'View User Posts' ),
-				'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' )
+				'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
 			),
-			'description' => __( 'Page the author name should link to.', 'codepress-admin-columns' )
+			'description' => __( 'Page the author name should link to.', 'codepress-admin-columns' ),
 		);
 	}
 
