@@ -16,7 +16,7 @@ class AC_Column_Comment_Excerpt extends CPAC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->format_word_limit( $this->get_raw_value( $id ) );
+		return $this->format->word_limit( $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {

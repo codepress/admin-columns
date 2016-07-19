@@ -22,7 +22,7 @@ class AC_Column_Post_Attachment extends CPAC_Column {
 
 		$ids = (array) $this->get_raw_value( $post_id );
 		foreach ( $ids as $id ) {
-			if ( $image = $this->get_image_formatted( $id ) ) {
+			if ( $image = $this->format->images( $id ) ) {
 				$values[] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $id ) . '">' . $image . '</div>';
 			}
 		}

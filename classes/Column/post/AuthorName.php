@@ -56,7 +56,7 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	}
 
 	public function get_formatted_value( $post_id ) {
-		return $this->get_user_formatted( $this->get_post_author( $post_id ) );
+		return $this->format->user( $this->get_post_author( $post_id ) );
 	}
 
 	public function display_settings() {

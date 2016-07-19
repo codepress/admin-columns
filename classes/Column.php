@@ -6,7 +6,9 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  *
- * @param object $storage_model CPAC_Storage_Model
+ * @param string $storage_model Storage Model Key
+ *
+ * @property AC_ColumnFieldFormat format
  */
 class CPAC_Column {
 
@@ -19,10 +21,18 @@ class CPAC_Column {
 	private $storage_model;
 
 	/**
+	 * Default options
+	 *
 	 * @since 2.0
 	 * @var array $options contains the user set options for the CPAC_Column object.
 	 */
 	public $options = array();
+
+	/**
+	 * @since NEWVERSION
+	 * @var array|null
+	 */
+	private $stored_options = array();
 
 	/**
 	 * @since 2.0
@@ -36,17 +46,9 @@ class CPAC_Column {
 	private $settings;
 
 	/**
-	 * @since 2.5
-	 * @return false|CPAC_Storage_Model
+	 * @var AC_ColumnFieldFormat
 	 */
-	public function __get( $key ) {
-		$call = false;
-		if ( 'storage_model' == $key ) {
-			$call = 'get_' . $key;
-		}
-
-		return $call ? call_user_func( array( $this, $call ) ) : false;
-	}
+	private $format;
 
 	/**
 	 * @since 2.0
@@ -57,13 +59,35 @@ class CPAC_Column {
 
 		$this->storage_model = $storage_model;
 		$this->settings = new AC_ColumnFieldSettings( $this );
+		$this->format = new AC_ColumnFieldFormat( $this );
 
 		$this->init();
 		$this->after_setup();
 	}
 
+	/**
+	 * @since 2.5
+	 * @return false|CPAC_Storage_Model
+	 */
+	public function __get( $key ) {
+		$call = false;
+		if ( 'storage_model' == $key ) {
+			$call = 'get_' . $key;
+		}
+		if ( 'format' == $key ) {
+			$call = $key;
+		}
+
+		return $call ? call_user_func( array( $this, $call ) ) : false;
+	}
+
+	// TODO: rename to field_settings?
 	public function settings() {
 		return $this->settings;
+	}
+
+	public function format() {
+		return $this->format;
 	}
 
 	/**
@@ -116,8 +140,6 @@ class CPAC_Column {
 			$this->options->label = $this->properties->label;
 		}
 
-		$this->populate_options();
-
 		/**
 		 * Add before and after fields to specific columns
 		 *
@@ -140,36 +162,6 @@ class CPAC_Column {
 		}
 
 		return $this;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param array $options
-	 */
-	public function populate_options( $options = array() ) {
-		if ( ! $options ) {
-			$stored = $this->get_storage_model()->get_stored_columns();
-			if ( isset( $stored[ $this->get_name() ] ) ) {
-				$options = $stored[ $this->get_name() ];
-			}
-		}
-
-		if ( ! $options ) {
-			return;
-		}
-
-		if ( isset( $options['clone'] ) ) {
-			$this->set_clone( $options['clone'] );
-		}
-		// replace urls, so export will not have to deal with them
-		if ( isset( $options['label'] ) ) {
-			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
-		}
-
-		$options = array_merge( (array) $this->options, $options );
-
-		$this->options = (object) $options;
 	}
 
 	/**
@@ -332,13 +324,36 @@ class CPAC_Column {
 	}
 
 	/**
-	 * Get the column options set by the user
+	 * Get the stored column options
 	 *
 	 * @since 2.3.4
-	 * @return stdClass Column options set by user
+	 * @return stdClass|false Column options set by user
 	 */
 	public function get_options() {
-		return $this->options;
+
+		$options = $this->stored_options;
+
+		if ( ! $options ) {
+			$stored = $this->get_storage_model()->get_stored_columns();
+			if ( isset( $stored[ $this->get_name() ] ) ) {
+				$options = $stored[ $this->get_name() ];
+			}
+		}
+
+		if ( ! $options ) {
+			return false;
+		}
+
+		// replace urls, so export will not have to deal with them
+		if ( isset( $options['label'] ) ) {
+			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
+		}
+
+		return (object) array_merge( (array) $this->options, $options );
+	}
+
+	public function set_stored_options( $options ) {
+		$this->stored_options = $options;
 	}
 
 	/**
@@ -531,90 +546,10 @@ class CPAC_Column {
 		return $value;
 	}
 
-	/**
-	 * @since: 2.2.6
-	 *
-	 */
-	public function get_color_for_display( $color_hex ) {
-		if ( ! $color_hex ) {
-			return false;
-		}
-		$text_color = ac_helper()->string->hex_get_contrast( $color_hex );
-
-		return '<div class="cpac-color"><span style="background-color:' . esc_attr( $color_hex ) . ';color:' . esc_attr( $text_color ) . '">' . esc_html( $color_hex ) . '</span></div>';
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param $user
-	 * @param bool $format
-	 *
-	 * @return false|string
-	 */
-	public function get_user_formatted( $user ) {
-		return ac_helper()->user->get_display_name( $user, $this->get_option( 'display_author_as' ) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function get_date_formatted( $date ) {
-		return ac_helper()->date->date( $date, $this->get_option( 'date_format' ) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function format_word_limit( $string ) {
-		$limit = $this->get_option( 'excerpt_length' );
-
-		return $limit ? wp_trim_words( $string, $limit ) : $string;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function format_character_limit( $string ) {
-		$limit = $this->get_option( 'character_limit' );
-
-		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
-	}
-
-	/**
-	 * @return array|string
-	 */
-	public function get_image_size_formatted() {
-		$size = $this->get_option( 'image_size' );
-
-		if ( 'cpac-custom' == $size ) {
-			$size = array(
-				$this->get_option( 'image_size_w' ),
-				$this->get_option( 'image_size_h' ),
-			);
-		}
-
-		return $size;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param int[] | int $attachment_ids
-	 *
-	 * @return string HTML Image
-	 */
-	public function get_image_formatted( $attachment_ids ) {
-		return ac_helper()->image->get_images_by_ids( $attachment_ids, $this->get_image_size_formatted() );
-	}
-
 	public function display_indicator( $name, $label ) { ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->settings()->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
-
-
-
 
 	// Deprecated methods
 
@@ -924,7 +859,7 @@ class CPAC_Column {
 	 * @return array HTML img elements
 	 */
 	public function get_thumbnails( $images, $args = array() ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->image->get_thumbnails()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->image->get_images()' );
 
 		$args = wp_parse_args( $args, array(
 			'image_size'   => 'cpac-custom',
@@ -1095,6 +1030,16 @@ class CPAC_Column {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->placeholder_field()' );
 
 		$this->settings()->placeholder_field( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => $url ) );
+	}
+
+	/**
+	 * @since: 2.2.6
+	 *
+	 */
+	public function get_color_for_display( $color_hex ) {
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->get_color_block()' );
+
+		return ac_helper()->string->get_color_block( $color_hex );
 	}
 
 }

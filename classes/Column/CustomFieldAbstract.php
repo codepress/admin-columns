@@ -155,7 +155,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @since 2.5.6
 	 */
 	public function get_date_by_string( $date_string ) {
-		return $this->get_date_formatted( $date_string );
+		return $this->format->date( $date_string );
 	}
 
 	/**
@@ -172,7 +172,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			case "image" :
 			case "library_id" :
 				$images = ac_helper()->string->comma_separated_to_array( $raw_string );
-				$value = implode( ac_helper()->image->get_images( $images, $this->get_image_size_formatted() ) );
+				$value = implode( ac_helper()->image->get_images( $images, $this->format->image_sizes() ) );
 				break;
 
 			case "excerpt" :
@@ -232,7 +232,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				break;
 
 			case "color" :
-				$value = $raw_value && is_scalar( $raw_value ) ? $this->get_color_for_display( $raw_value ) : $this->get_empty_char();
+				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : $this->get_empty_char();
 				break;
 
 			case "count" :

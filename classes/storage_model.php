@@ -216,7 +216,7 @@ abstract class CPAC_Storage_Model {
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_label() ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_label() ) );
+			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_property( 'label' ) ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_property( 'label' ) ) );
 
 			if ( ! $column->is_default() && ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
@@ -386,9 +386,13 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since NEWVERSION
+	 *
+	 * @param string $column_type
+	 * @param false|int $clone clone ID
+	 *
 	 * @return CPAC_Column|false Column
 	 */
-	public function create_column_instance( $column_type ) {
+	public function create_column_instance( $column_type, $clone = false ) {
 
 		$classnames = $this->get_column_classnames();
 
@@ -434,6 +438,8 @@ abstract class CPAC_Storage_Model {
 		if ( isset( $default_column_widths[ $column_type ]['unit'] ) ) {
 			$column->set_option( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
 		}
+
+		$column->set_clone( $clone );
 
 		// Hook
 		do_action( 'ac/column', $column, $this );
@@ -502,8 +508,8 @@ abstract class CPAC_Storage_Model {
 		// Stored columns
 		if ( $stored = $this->get_stored_columns() ) {
 			foreach ( $stored as $name => $options ) {
-				if ( isset( $options['type'] ) ) {
-					if ( $column = $this->create_column_instance( $options['type'] ) ) {
+				if ( isset( $options['type'] ) && isset( $options['clone'] ) ) {
+					if ( $column = $this->create_column_instance( $options['type'], $options['clone'] ) ) {
 						$this->columns[ $name ] = $column;
 					}
 				}
@@ -638,7 +644,7 @@ abstract class CPAC_Storage_Model {
 	 *
 	 * @param array $fields Custom fields.
 	 *
-	 * @return array Custom fields.
+	 * @return array|false Custom fields.
 	 */
 	protected function add_hidden_meta( $fields ) {
 		if ( ! $fields ) {

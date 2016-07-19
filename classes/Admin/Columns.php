@@ -100,13 +100,13 @@ class AC_Admin_Columns {
 
 		$columndata = $formdata[ $storage_model->key ][ $column_name ];
 
-		$column = $storage_model->create_column_instance( $columndata['type'] );
+		$column = $storage_model->create_column_instance( $columndata['type'], $columndata['clone'] );
 
 		if ( ! $column ) {
 			wp_die();
 		}
 
-		$column->populate_options( $columndata );
+		$column->set_stored_options( $columndata );
 
 		ob_start();
 		$this->display_column( $column );

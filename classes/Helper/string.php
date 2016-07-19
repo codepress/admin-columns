@@ -152,7 +152,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @since NEWVSERION
+	 * @since NEWVERSION
 	 *
 	 * @param string $string
 	 *
@@ -168,6 +168,15 @@ class AC_Helper_String {
 		}
 
 		return $values;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param string $hex Color Hex Code
+	 */
+	public function get_color_block( $hex ) {
+		return $hex ? '<div class="cpac-color"><span style="background-color:' . esc_attr( $hex ) . ';color:' . esc_attr( $this->hex_get_contrast( $hex ) ) . '">' . esc_html( $hex ) . '</span></div>' : false;
 	}
 
 }

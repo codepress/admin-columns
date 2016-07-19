@@ -24,7 +24,7 @@ class AC_Column_Post_FeaturedImage extends CPAC_Column {
 
 	public function get_value( $post_id ) {
 		$attachment_id = $this->get_raw_value( $post_id );
-		$thumb = $this->get_image_formatted( $attachment_id );
+		$thumb = $this->format->images( $attachment_id );
 
 		if ( ! $thumb ) {
 			return false;

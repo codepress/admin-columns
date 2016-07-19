@@ -32,7 +32,7 @@ class AC_Column_Post_Excerpt extends CPAC_Column {
 	}
 
 	public function get_formatted_value( $post_id ) {
-		return $this->format_word_limit( ac_helper()->post->excerpt( $post_id ) );
+		return $this->format->word_limit( ac_helper()->post->excerpt( $post_id ) );
 	}
 
 	public function display_settings() {
