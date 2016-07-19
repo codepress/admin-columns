@@ -64,19 +64,4 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 		$this->field_settings->user_link_to();
 	}
 
-	public function display_field_user_link_to() {
-		$this->field_settings->field( array(
-			'type'        => 'select',
-			'name'        => 'user_link_to',
-			'label'       => __( 'Link To', 'codepress-admin-columns' ),
-			'options'     => array(
-				''                => __( 'None' ),
-				'edit_user'       => __( 'Edit User Profile' ),
-				'view_user_posts' => __( 'View User Posts' ),
-				'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' )
-			),
-			'description' => __( 'Page the author name should link to.', 'codepress-admin-columns' )
-		) );
-	}
-
 }
