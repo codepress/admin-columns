@@ -577,7 +577,7 @@ class AC_Admin_Columns {
 					<tbody>
 
 					<?php
-					$column->settings()->field( array(
+					$column->field_settings->field( array(
 						'type'            => 'select',
 						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
@@ -586,7 +586,7 @@ class AC_Admin_Columns {
 						'default'         => $column->get_type(),
 					) );
 
-					$column->settings()->field( array(
+					$column->field_settings->field( array(
 						'type'        => 'text',
 						'name'        => 'label',
 						'placeholder' => $column->get_type_label(),
@@ -595,7 +595,7 @@ class AC_Admin_Columns {
 						'hidden'      => $column->get_property( 'hide_label' ),
 					) );
 
-					$column->settings()->field( array(
+					$column->field_settings->field( array(
 						'type'  => 'width',
 						'name'  => 'width',
 						'label' => __( 'Width', 'codepress-admin-columns' ),

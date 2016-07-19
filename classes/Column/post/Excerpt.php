@@ -36,7 +36,7 @@ class AC_Column_Post_Excerpt extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->settings()->word_limit_field();
+		$this->field_settings->word_limit();
 	}
 
 }

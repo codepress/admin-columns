@@ -60,12 +60,12 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->settings()->user_format_field();
-		$this->display_field_user_link_to();
+		$this->field_settings->user();
+		$this->field_settings->user_link_to();
 	}
 
 	public function display_field_user_link_to() {
-		$this->settings()->field( array(
+		$this->field_settings->field( array(
 			'type'        => 'select',
 			'name'        => 'user_link_to',
 			'label'       => __( 'Link To', 'codepress-admin-columns' ),

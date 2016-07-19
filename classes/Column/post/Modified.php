@@ -34,7 +34,7 @@ class AC_Column_Post_Modified extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->settings()->date_field();
+		$this->field_settings->date();
 	}
 
 }

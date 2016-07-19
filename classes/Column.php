@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) or die();
  * @param string $storage_model Storage Model Key
  *
  * @property AC_ColumnFieldFormat format
+ * @property AC_ColumnFieldSettings field_settings
  */
 class CPAC_Column {
 
@@ -43,7 +44,7 @@ class CPAC_Column {
 	/**
 	 * @var AC_ColumnFieldSettings
 	 */
-	private $settings;
+	private $field_settings;
 
 	/**
 	 * @var AC_ColumnFieldFormat
@@ -58,7 +59,7 @@ class CPAC_Column {
 	public function __construct( $storage_model ) {
 
 		$this->storage_model = $storage_model;
-		$this->settings = new AC_ColumnFieldSettings( $this );
+		$this->field_settings = new AC_ColumnFieldSettings( $this );
 		$this->format = new AC_ColumnFieldFormat( $this );
 
 		$this->init();
@@ -74,7 +75,7 @@ class CPAC_Column {
 		if ( 'storage_model' == $key ) {
 			$call = 'get_' . $key;
 		}
-		if ( 'format' == $key ) {
+		if ( in_array( $key, array( 'format', 'field_settings' ) ) ) {
 			$call = $key;
 		}
 
@@ -82,8 +83,8 @@ class CPAC_Column {
 	}
 
 	// TODO: rename to field_settings?
-	public function settings() {
-		return $this->settings;
+	public function field_settings() {
+		return $this->field_settings;
 	}
 
 	public function format() {
@@ -547,7 +548,7 @@ class CPAC_Column {
 	}
 
 	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->settings()->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
+		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
 
@@ -558,9 +559,9 @@ class CPAC_Column {
 	 * @param string $field_name
 	 */
 	public function attr_name( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->settings()->attr_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_name()' );
 
-		echo $this->settings()->attr_name( $field_name );
+		echo $this->field_settings->attr_name( $field_name );
 	}
 
 	/**
@@ -569,9 +570,9 @@ class CPAC_Column {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->settings()->get_attr_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->get_attr_name()' );
 
-		return $this->settings()->get_attr_name( $field_name );
+		return $this->field_settings->get_attr_name( $field_name );
 	}
 
 	/**
@@ -580,15 +581,15 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->settings()->get_attr_id()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->get_attr_id()' );
 
-		return $this->settings()->get_attr_id( $field_name );
+		return $this->field_settings->get_attr_id( $field_name );
 	}
 
 	public function attr_id( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->settings()->attr_id()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_id()' );
 
-		echo $this->settings()->attr_id( $field_name );
+		echo $this->field_settings->attr_id( $field_name );
 	}
 
 	/**
@@ -881,9 +882,9 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::form_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
 
-		$this->settings->fields( array(
+		$this->field_settings->fields( array(
 			'type'          => 'text',
 			'option'        => $name,
 			'label'         => $label,
@@ -898,9 +899,9 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::form_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
 
-		$this->settings->fields( array(
+		$this->field_settings->fields( array(
 			'type'           => 'select',
 			'option'         => $name,
 			'label'          => $label,
@@ -916,9 +917,9 @@ class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::form_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
 
-		$this->settings->fields( array(
+		$this->field_settings->fields( array(
 			'type'           => 'radio',
 			'option'         => $name,
 			'label'          => $label,
@@ -934,54 +935,54 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_field_preview_size() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->image_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->image()' );
 
-		$this->settings()->image_field();
+		$this->field_settings->image();
 	}
 
 	/**
 	 * @since 2.1.1
 	 */
 	public function display_field_before_after() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->before_after_fields()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->before_after()' );
 
-		$this->settings->before_after_fields();
+		$this->field_settings->before_after();
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function display_field_date_format() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->date_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->date()' );
 
-		$this->settings->date_field();
+		$this->field_settings->date();
 	}
 
 	/**
 	 * @since 2.3.2
 	 */
 	public function display_field_user_format() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->user_format_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->user()' );
 
-		$this->settings()->user_format_field();
+		$this->field_settings->user();
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function display_field_excerpt_length() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->word_limit_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->word_limit()' );
 
-		$this->settings()->word_limit_field();
+		$this->field_settings->word_limit();
 	}
 
 	/**
 	 * @since 2.4.9
 	 */
 	public function display_field_link_label() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->url_format_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->url()' );
 
-		$this->settings->url_format_field();
+		$this->field_settings->url();
 	}
 
 	/**
@@ -990,9 +991,9 @@ class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_property_display() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->post_format_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->post()' );
 
-		$this->settings->post_format_field();
+		$this->field_settings->post();
 	}
 
 	/**
@@ -1001,9 +1002,9 @@ class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_link_to() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->post_link_to_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->post_link_to()' );
 
-		$this->settings->post_link_to_field();
+		$this->field_settings->post_link_to();
 	}
 
 	/**
@@ -1014,9 +1015,9 @@ class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->label()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->label()' );
 
-		$this->settings()->label( array(
+		$this->field_settings->label( array(
 			'label'       => $label,
 			'description' => $description,
 			'for'         => $for,
@@ -1028,9 +1029,9 @@ class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	function display_settings_placeholder( $url ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::settings()->placeholder_field()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->placeholder()' );
 
-		$this->settings()->placeholder_field( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => $url ) );
+		$this->field_settings->placeholder( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => $url ) );
 	}
 
 	/**

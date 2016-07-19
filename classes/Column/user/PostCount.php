@@ -45,7 +45,7 @@ class AC_Column_User_PostCount extends CPAC_Column {
 			$post_types[ $type ] = $obj->labels->name;
 		}
 
-		$this->settings()->field( array(
+		$this->field_settings->field( array(
 			'type'    => 'select',
 			'name'    => 'post_type',
 			'label'   => __( 'Post Type', 'codepress-admin-columns' ),

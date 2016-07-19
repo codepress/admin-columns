@@ -30,7 +30,7 @@ class AC_Column_Post_LastModifiedAuthor extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->settings()->user_format_field();
+		$this->field_settings->user();
 	}
 
 }

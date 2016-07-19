@@ -24,7 +24,7 @@ class AC_Column_Link_Image extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->settings()->image_field();
+		$this->field_settings->image();
 	}
 
 }

@@ -31,7 +31,7 @@ abstract class AC_Column_TaxonomyAbstract extends CPAC_Column {
 
 	// Settings
 	public function display_settings() {
-		$this->settings()->field( array(
+		$this->field_settings->field( array(
 			'type'    => 'select',
 			'name'    => 'taxonomy',
 			'label'   => __( "Taxonomy", 'codepress-admin-columns' ),

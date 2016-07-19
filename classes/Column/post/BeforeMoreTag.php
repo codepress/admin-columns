@@ -33,7 +33,7 @@ class AC_Column_Post_BeforeMoreTag extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->settings()->word_limit_field();
+		$this->field_settings->word_limit();
 	}
 
 }

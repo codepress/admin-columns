@@ -683,7 +683,7 @@ class CPAC {
 	 * Get admin columns settings class instance
 	 *
 	 * @since 2.2
-	 * @return AC_Settings Settings class instance
+	 * @return AC_Admin Settings class instance
 	 */
 	public function settings() {
 		return $this->_settings;

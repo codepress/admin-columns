@@ -22,7 +22,7 @@ class AC_Column_Link_Notes extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->settings()->word_limit_field();
+		$this->field_settings->word_limit();
 	}
 
 }

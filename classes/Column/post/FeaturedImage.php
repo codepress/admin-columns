@@ -40,7 +40,7 @@ class AC_Column_Post_FeaturedImage extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->settings()->image_field();
+		$this->field_settings->image();
 	}
 
 }

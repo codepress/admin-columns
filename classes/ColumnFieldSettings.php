@@ -73,7 +73,7 @@ class AC_ColumnFieldSettings {
 		endif;
 	}
 
-	public function image_fields_args( $fields_only = false ) {
+	public function image_args( $fields_only = false ) {
 		$label = __( 'Image Size', 'codepress-admin-columns' );
 
 		$image_size_w = array(
@@ -122,11 +122,11 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function image_field() {
-		$this->fields( $this->image_fields_args() );
+	public function image() {
+		$this->fields( $this->image_args() );
 	}
 
-	public function before_field_args() {
+	public function before_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'before',
@@ -135,7 +135,7 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function after_field_args() {
+	public function after_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'after',
@@ -144,17 +144,17 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function before_after_fields() {
+	public function before_after() {
 		$this->fields( array(
 			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
 			'fields' => array(
-				$this->before_field_args(),
-				$this->after_field_args(),
+				$this->before_args(),
+				$this->after_args(),
 			),
 		) );
 	}
 
-	public function date_field_args() {
+	public function date_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'date_format',
@@ -165,11 +165,11 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function date_field() {
-		$this->field( $this->date_field_args() );
+	public function date() {
+		$this->field( $this->date_args() );
 	}
 
-	public function word_limit_field_args() {
+	public function word_limit_args() {
 		return array(
 			'type'        => 'number',
 			'name'        => 'excerpt_length',
@@ -178,11 +178,11 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function word_limit_field() {
-		$this->field( $this->word_limit_field_args() );
+	public function word_limit() {
+		$this->field( $this->word_limit_args() );
 	}
 
-	public function character_limit_field_args() {
+	public function character_limit_args() {
 		return array(
 			'type'        => 'number',
 			'name'        => 'character_limit',
@@ -191,11 +191,11 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function character_limit_field() {
-		$this->field( $this->character_limit_field_args() );
+	public function character_limit() {
+		$this->field( $this->character_limit_args() );
 	}
 
-	public function user_format_field() {
+	public function user() {
 		$nametypes = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
@@ -218,7 +218,7 @@ class AC_ColumnFieldSettings {
 		) );
 	}
 
-	public function url_format_field_args() {
+	public function url_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'link_label',
@@ -227,11 +227,12 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function url_format_field() {
-		$this->field( $this->url_format_field_args() );
+	// TODO: currently not used?
+	public function url() {
+		$this->field( $this->url_args() );
 	}
 
-	public function post_format_field_args() {
+	public function post_args() {
 		return array(
 			'type'        => 'select',
 			'name'        => 'post_property_display',
@@ -245,11 +246,11 @@ class AC_ColumnFieldSettings {
 		);
 	}
 
-	public function post_format_field() {
-		$this->field( $this->post_format_field_args() );
+	public function post() {
+		$this->field( $this->post_args() );
 	}
 
-	public function post_link_to_field() {
+	public function post_link_to() {
 		$this->field( array(
 			'type'        => 'select',
 			'name'        => 'post_link_to',
@@ -268,7 +269,7 @@ class AC_ColumnFieldSettings {
 	/**
 	 * @since 2.4.7
 	 */
-	function placeholder_field( $args = array() ) {
+	function placeholder( $args = array() ) {
 		$defaults = array(
 			'label' => '',
 			'url'   => '',

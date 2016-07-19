@@ -306,14 +306,14 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->settings()->field( array(
+			$this->field_settings->field( array(
 				'type'        => 'text',
 				'name'        => 'field',
 				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
 			) );
 		else :
-			$this->settings()->field( array(
+			$this->field_settings->field( array(
 				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
@@ -334,27 +334,27 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 		switch ( $this->get_field_type() ) {
 			case 'date' :
-				$fields[] = $this->settings()->date_field_args();
+				$fields[] = $this->field_settings->date_args();
 				break;
 			case 'image' :
 			case 'library_id' :
-				$fields = array_merge( $fields, $this->settings()->image_fields_args( true ) );
+				$fields = array_merge( $fields, $this->field_settings->image_args( true ) );
 				break;
 			case 'excerpt' :
-				$fields[] = $this->settings()->word_limit_field_args();
+				$fields[] = $this->field_settings->word_limit_args();
 				break;
 			case 'link' :
-				$fields[] = $this->settings()->url_format_field_args();
+				$fields[] = $this->field_settings->url_args();
 				break;
 		}
 
-		$this->settings()->fields( array(
+		$this->field_settings->fields( array(
 			'label'       => __( 'Field Type', 'codepress-admin-columns' ),
 			'description' => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
 			'fields'      => $fields,
 		) );
 
-		$this->settings()->before_after_fields();
+		$this->field_settings->before_after();
 	}
 
 	/**

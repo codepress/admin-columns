@@ -19,6 +19,6 @@ class AC_Column_WooCommercePlaceholder extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->settings()->placeholder_field( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => ac_get_site_url( 'woocommerce-columns' ) ) );
+		$this->field_settings->placeholder( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => ac_get_site_url( 'woocommerce-columns' ) ) );
 	}
 }
