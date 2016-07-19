@@ -126,19 +126,11 @@ class CPAC_Column {
 	 *
 	 */
 	public function after_setup() {
-
-		// Convert properties and options arrays to object
-		$this->options = (object) $this->options;
 		$this->properties = (object) $this->properties;
 
 		// Column name defaults to column type
 		if ( null === $this->properties->name ) {
 			$this->properties->name = $this->properties->type;
-		}
-
-		// Column label defaults to column type label
-		if ( null === $this->options->label ) {
-			$this->options->label = $this->properties->label;
 		}
 
 		/**
@@ -187,7 +179,7 @@ class CPAC_Column {
 			->set_property( 'type', $name )
 			->set_property( 'name', $name )
 			->set_property( 'label', $label )
-			->set_option( 'label', $label );
+			->set_default_option( 'label', $label );
 	}
 
 	/**
@@ -328,12 +320,10 @@ class CPAC_Column {
 	 * Get the stored column options
 	 *
 	 * @since 2.3.4
-	 * @return stdClass|false Column options set by user
+	 * @return array Column options set by user
 	 */
 	public function get_options() {
-
 		$options = $this->stored_options;
-
 		if ( ! $options ) {
 			$stored = $this->get_storage_model()->get_stored_columns();
 			if ( isset( $stored[ $this->get_name() ] ) ) {
@@ -342,7 +332,7 @@ class CPAC_Column {
 		}
 
 		if ( ! $options ) {
-			return false;
+			return array();
 		}
 
 		// replace urls, so export will not have to deal with them
@@ -350,7 +340,7 @@ class CPAC_Column {
 			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
 		}
 
-		return (object) array_merge( (array) $this->options, $options );
+		return array_merge( $this->options, $options );
 	}
 
 	public function set_stored_options( $options ) {
@@ -374,7 +364,9 @@ class CPAC_Column {
 	 * @return string|false Single column option
 	 */
 	public function get_option( $name ) {
-		return isset( $this->get_options()->{$name} ) ? $this->get_options()->{$name} : false;
+		$options = $this->get_options();
+
+		return isset( $options[ $name ] ) ? $options[ $name ] : false;
 	}
 
 	/**
@@ -385,8 +377,8 @@ class CPAC_Column {
 	 *
 	 * @return $this CPAC_Column
 	 */
-	public function set_option( $option, $value ) {
-		$this->options->{$option} = $value;
+	public function set_default_option( $option, $value ) {
+		$this->options[ $option ] = $value;
 
 		return $this;
 	}
@@ -485,7 +477,6 @@ class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_label() {
-
 		/**
 		 * Filter the column instance label
 		 *
@@ -609,9 +600,9 @@ class CPAC_Column {
 	 * @return mixed $value
 	 */
 	public function set_options( $option, $value ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_option()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_default_option()' );
 
-		return $this->set_option( $option, $value );
+		return $this->set_default_option( $option, $value );
 	}
 
 	/**

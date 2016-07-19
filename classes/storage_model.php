@@ -433,10 +433,10 @@ abstract class CPAC_Storage_Model {
 		// Hook for default column widths
 		$default_column_widths = apply_filters( 'cac/default_column_widths', array(), $this );
 		if ( isset( $default_column_widths[ $column_type ] ) ) {
-			$column->set_option( 'width', $default_column_widths[ $column_type ]['width'] );
+			$column->set_default_option( 'width', $default_column_widths[ $column_type ]['width'] );
 		}
 		if ( isset( $default_column_widths[ $column_type ]['unit'] ) ) {
-			$column->set_option( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
+			$column->set_default_option( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
 		}
 
 		$column->set_clone( $clone );

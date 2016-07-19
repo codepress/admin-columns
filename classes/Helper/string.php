@@ -128,7 +128,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @since NEWVSERION
+	 * @since NEWVERSION
 	 *
 	 * @param string $string
 	 *

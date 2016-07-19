@@ -43,11 +43,9 @@ class AC_ColumnFieldSettings {
 	}
 
 	/**
-	 * @since 2.0
+	 * @since NEWVERSION
 	 *
-	 * @param string $field_key
-	 *
-	 * @return string Attribute Name
+	 * @param array $args
 	 */
 	public function label( $args = array() ) {
 		$defaults = array(
@@ -73,6 +71,11 @@ class AC_ColumnFieldSettings {
 		endif;
 	}
 
+	/**
+	 * @param bool $fields_only Returns fields without the main label
+	 *
+	 * @return array
+	 */
 	public function image_args( $fields_only = false ) {
 		$label = __( 'Image Size', 'codepress-admin-columns' );
 
