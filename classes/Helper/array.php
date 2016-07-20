@@ -84,4 +84,33 @@ class AC_Helper_Array {
 		return array_keys( $array );
 	}
 
+	/**
+	 * Indents any object as long as it has a unique id and that of its parent.
+	 *
+	 * @since 1.0
+	 *
+	 * @param array $array
+	 * @param int $parentId
+	 * @param string $parentKey
+	 * @param string $selfKey
+	 * @param string $childrenKey
+	 *
+	 * @return array Indented Array
+	 */
+	public function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
+		$indent = array();
+
+		$i = 0;
+		foreach ( $array as $v ) {
+			if ( $v->$parentKey == $parentId ) {
+				$indent[ $i ] = $v;
+				$indent[ $i ]->$childrenKey = $this->indent( $array, $v->$selfKey, $parentKey, $selfKey );
+
+				$i++;
+			}
+		}
+
+		return $indent;
+	}
+
 }
