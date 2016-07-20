@@ -17,7 +17,7 @@ class AC_Column_Post_Content extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		return ac_helper()->format->word_limit( $this->get_raw_value( $post_id ) );
+		return $this->format->word_limit( $this->get_raw_value( $post_id ) );
 	}
 
 	public function get_raw_value( $post_id ) {

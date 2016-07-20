@@ -7,11 +7,10 @@ class AC_Admin_Columns {
 
 	public function __construct() {
 
-		// handle requests gets a low priority so it will trigger when all other plugins have loaded their columns
-		add_action( 'admin_init', array( $this, 'handle_column_request' ), 1000 );
+		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
-		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_update' ) );
+		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
 	}
 
 	/**
@@ -31,16 +30,20 @@ class AC_Admin_Columns {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		if ( ! isset( $_REQUEST['cpac_action'] ) || ! isset( $_REQUEST['_cpac_nonce'] ) || ! cac_is_setting_screen() || ! current_user_can( 'manage_admin_columns' ) ) {
+
+		$action = filter_input( INPUT_POST, 'cpac_action' );
+		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
+
+		if ( ! $action || ! $nonce || ! cac_is_setting_screen() || ! current_user_can( 'manage_admin_columns' ) ) {
 			return;
 		}
 
-		switch ( $_REQUEST['cpac_action'] ) :
+		switch ( $action ) :
 
 			case 'restore_by_type' :
-				$key = isset( $_REQUEST['cpac_key'] ) ? $_REQUEST['cpac_key'] : '';
+				$key = filter_input( INPUT_POST, 'cpac_key' );
 
-				if ( wp_verify_nonce( $_REQUEST['_cpac_nonce'], 'restore-type' ) && $key ) {
+				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
 					if ( $storage_model = cpac()->get_storage_model( $key ) ) {
 
 						if ( isset( $_POST['cpac_layout'] ) ) {
@@ -50,13 +53,13 @@ class AC_Admin_Columns {
 						$storage_model->restore();
 						$storage_model->flush_columns();
 
-						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label_or_layout_name() ) . "</strong>" ), 'updated' );
 					}
 				}
 				break;
 
 			case 'restore_all' :
-				if ( wp_verify_nonce( $_REQUEST['_cpac_nonce'], 'restore-all' ) ) {
+				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
 					$this->restore_all();
 				}
 				break;
@@ -123,7 +126,7 @@ class AC_Admin_Columns {
 	/**
 	 * @since 2.5
 	 */
-	public function ajax_columns_update() {
+	public function ajax_columns_save() {
 		check_ajax_referer( 'cpac-settings' );
 
 		if ( ! current_user_can( 'manage_admin_columns' ) ) {
@@ -196,6 +199,11 @@ class AC_Admin_Columns {
 		return cpac()->get_storage_model( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
 	}
 
+	/**
+	 * Initialize current storage model
+	 *
+	 * @return bool|CPAC_Storage_Model
+	 */
 	private function get_settings_storage_model() {
 
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
@@ -231,19 +239,13 @@ class AC_Admin_Columns {
 			}
 		}
 
-		// Init layout
 		$storage_model->init_settings_layout();
 
 		return $storage_model;
 	}
 
 	public function display() {
-		if ( $storage_model = $this->get_settings_storage_model() ) {
-			$this->display_storage_model( $storage_model );
-		}
-	}
-
-	private function display_storage_model( CPAC_Storage_Model $storage_model ) {
+		$storage_model = $this->get_settings_storage_model();
 		?>
 
 		<div class="columns-container<?php echo $storage_model->has_stored_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>" data-layout="<?php echo esc_attr( $storage_model->get_layout() ); ?>">
@@ -292,7 +294,7 @@ class AC_Admin_Columns {
 								<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->get_layout() ); ?>"/>
 								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
-								<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_attr( addslashes( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) ) . '\');"' : ''; ?>
+								<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) . '\');"' : ''; ?>
 								<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 								<span class="spinner"></span>
 							</form>
@@ -320,19 +322,19 @@ class AC_Admin_Columns {
 								<div class="inside">
 									<ul>
 										<li>
-											<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
 										</li>
 										<li>
-											<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
 										</li>
 										<li>
-											<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
 										</li>
 										<li>
-											<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
 										</li>
 										<li>
-											<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
 										</li>
 									</ul>
 									<p>
@@ -347,8 +349,8 @@ class AC_Admin_Columns {
 								<h3><?php _e( 'Are you happy with Admin Columns?', 'codepress-admin-columns' ); ?></h3>
 
 								<div class="inside">
-									<a href="#" class="yes">Yes</a>
-									<a href="#" class="no">No</a>
+									<a href="#" class="yes"><?php _e( 'Yes' ); ?></a>
+									<a href="#" class="no"><?php _e( 'No' ); ?></a>
 								</div>
 							</div>
 							<div id="feedback-support">
@@ -421,7 +423,9 @@ class AC_Admin_Columns {
 
 						<div class="inside">
 							<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-								<p><?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?></p>
+								<p>
+									<?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?>
+								</p>
 							<?php endif; ?>
 							<p>
 								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), ac_get_site_url( 'documentation' ) ); ?>
@@ -436,7 +440,7 @@ class AC_Admin_Columns {
 				<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
 					<div class="cpac-notice">
 						<p>
-							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . $storage_model->get_link() . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
+							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
 						</p>
 					</div>
 				<?php endif ?>
@@ -519,10 +523,10 @@ class AC_Admin_Columns {
 	private function display_column( CPAC_Column $column ) {
 		?>
 
-		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . $column->get_property( 'clone' ) . '"' : ''; ?> data-default="<?php echo $column->is_default(); ?>">
+		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-default="<?php echo esc_attr( $column->is_default() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo $column->get_property( 'clone' ); ?>"/>
+			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -536,7 +540,7 @@ class AC_Admin_Columns {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo $column->get_width() ? $column->get_width() . $column->get_width_unit() : ''; ?>
+										<?php echo $column->get_width() ? esc_html( $column->get_width() . $column->get_width_unit() ) : ''; ?>
 									</span>
 
 									<?php
@@ -556,7 +560,7 @@ class AC_Admin_Columns {
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo stripslashes( $column->get_label() ); ?></a>
+								<a class="toggle" href="javascript:;"><?php echo $column->get_label(); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( $column->get_property( 'is_cloneable' ) ) : ?>
@@ -567,7 +571,7 @@ class AC_Admin_Columns {
 						</td>
 						<td class="column_type">
 							<div class="inner">
-								<a href="#"><?php echo stripslashes( $column->get_type_label() ); ?></a>
+								<a href="#"><?php echo $column->get_type_label(); // do not escape ?></a>
 							</div>
 						</td>
 						<td class="column_edit">

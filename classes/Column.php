@@ -11,13 +11,13 @@ defined( 'ABSPATH' ) or die();
  * @property AC_ColumnFieldFormat format
  * @property AC_ColumnFieldSettings field_settings
  */
-class CPAC_Column {
+abstract class CPAC_Column {
 
 	/**
 	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
 	 *
 	 * @since 2.0
-	 * @var CPAC_Storage_Model $storage_model contains a CPAC_Storage_Model object which the column belongs too.
+	 * @var string $storage_model contains a CPAC_Storage_Model object which the column belongs too.
 	 */
 	private $storage_model;
 
@@ -42,11 +42,15 @@ class CPAC_Column {
 	public $properties = array();
 
 	/**
+	 * Instance for adding field settings to the column
+	 *
 	 * @var AC_ColumnFieldSettings
 	 */
 	private $field_settings;
 
 	/**
+	 * Instance for formatting column values
+	 *
 	 * @var AC_ColumnFieldFormat
 	 */
 	private $format;
@@ -59,6 +63,7 @@ class CPAC_Column {
 	public function __construct( $storage_model ) {
 
 		$this->storage_model = $storage_model;
+
 		$this->field_settings = new AC_ColumnFieldSettings( $this );
 		$this->format = new AC_ColumnFieldFormat( $this );
 
@@ -82,7 +87,6 @@ class CPAC_Column {
 		return $call ? call_user_func( array( $this, $call ) ) : false;
 	}
 
-	// TODO: rename to field_settings?
 	public function field_settings() {
 		return $this->field_settings;
 	}

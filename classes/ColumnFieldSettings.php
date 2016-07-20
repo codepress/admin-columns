@@ -253,7 +253,6 @@ class AC_ColumnFieldSettings {
 		$this->field( $this->user_link_to_args() );
 	}
 
-	// TODO: currently not used?
 	public function url() {
 		$this->field( $this->url_args() );
 	}
