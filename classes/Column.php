@@ -25,9 +25,18 @@ abstract class CPAC_Column {
 	 * Default options
 	 *
 	 * @since 2.0
-	 * @var array $options contains the user set options for the CPAC_Column object.
+	 * @deprecated NEWVERSION
+	 * @var stdClass $options Contains the user set options for the CPAC_Column object.
 	 */
-	public $options = array();
+	public $options;
+
+	/**
+	 * Default options
+	 *
+	 * @since 2.0
+	 * @var array $default_options Default column options.
+	 */
+	public $default_options;
 
 	/**
 	 * @since NEWVERSION
@@ -115,12 +124,17 @@ abstract class CPAC_Column {
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
 		);
 
-		// Default options
-		$this->options = array(
+		$default_options = array(
 			'label'      => null,  // Human readable label
 			'width'      => null,  // Width for this column.
 			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
 		);
+
+		// Options (deprecated)
+		$this->options = $default_options;
+
+		// Default options
+		$this->default_options = $default_options;
 
 		do_action( 'ac/column/defaults', $this );
 	}
@@ -341,7 +355,7 @@ abstract class CPAC_Column {
 			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
 		}
 
-		return $options ? array_merge( $this->options, $options ) : $this->options;
+		return $options ? array_merge( $this->default_options, $options ) : $this->default_options;
 	}
 
 	public function set_stored_options( $options ) {
@@ -379,7 +393,7 @@ abstract class CPAC_Column {
 	 * @return $this CPAC_Column
 	 */
 	public function set_default_option( $option, $value ) {
-		$this->options[ $option ] = $value;
+		$this->default_options[ $option ] = $value;
 
 		return $this;
 	}
