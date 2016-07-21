@@ -113,17 +113,6 @@ function cpac_is_pro_active() {
 }
 
 /**
- * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
- */
-function cpac_is_pro_gte( $version ){
-	if( ! cpac_is_pro_active() ){
-		return false;
-	}
-
-	return version_compare( ac_pro()->get_version(), $version, '>=' );
-}
-
-/**
  * @return bool True when Admin Columns ACF add-on plugin is activated.
  */
 function cpac_is_addon_acf_active() {
@@ -187,4 +176,12 @@ function ac_site_url( $path = '' ) {
  */
 function ac_helper() {
 	return AC()->helper();
+}
+
+/**
+ * @since NEWVERSION
+ * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
+ */
+function ac_is_version_gte( $version ) {
+	return version_compare( AC()->get_version(), $version, '>=' );
 }
