@@ -575,7 +575,6 @@ class CPAC {
 			}
 
 			// Load external scripts
-			// TODO: refactor
 			$column->scripts();
 		}
 		?>

@@ -510,6 +510,10 @@ abstract class CPAC_Storage_Model {
 			foreach ( $stored as $name => $options ) {
 				if ( isset( $options['type'] ) && isset( $options['clone'] ) ) {
 					if ( $column = $this->create_column_instance( $options['type'], $options['clone'] ) ) {
+
+						// @deprecated since NEWVERSION
+						$this->populate_column_options( $column, $options );
+
 						$this->columns[ $name ] = $column;
 					}
 				}
@@ -1254,6 +1258,31 @@ abstract class CPAC_Storage_Model {
 		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
 
 		return $this->is_current_screen();
+	}
+
+	/**
+	 * Populate column with stored options
+	 *
+	 * Only exists for backwards compatibility (like Pods). Options variable is no longer in use by CPAC_Column.
+	 *
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @param CPAC_Column $column
+	 * @param array $options
+	 */
+	public function populate_column_options( CPAC_Column $column, $options ) {
+		// Set options
+		if ( $options ) {
+			if ( isset( $options['clone'] ) ) {
+				$column->set_clone( $options['clone'] );
+			}
+			// replace urls, so export will not have to deal with them
+			if ( isset( $options['label'] ) ) {
+				$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
+			}
+			$column->options = (object) array_merge( (array) $column->options, $options );
+		}
 	}
 
 }
