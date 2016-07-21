@@ -113,6 +113,17 @@ function cpac_is_pro_active() {
 }
 
 /**
+ * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
+ */
+function cpac_is_pro_gte( $version ){
+	if( ! cpac_is_pro_active() ){
+		return false;
+	}
+
+	return version_compare( ac_pro()->get_version(), $version, '>=' );
+}
+
+/**
  * @return bool True when Admin Columns ACF add-on plugin is activated.
  */
 function cpac_is_addon_acf_active() {
