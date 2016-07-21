@@ -58,4 +58,5 @@ class AC_Admin_Addons {
 			</ul>
 		<?php endforeach; // grouped_addons
 	}
+
 }

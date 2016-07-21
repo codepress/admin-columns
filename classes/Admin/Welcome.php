@@ -107,4 +107,5 @@ class AC_Admin_Welcome {
 		</div>
 		<?php
 	}
+
 }
