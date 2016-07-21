@@ -30,7 +30,7 @@ class AC_Helper_Icon {
 	public function yes( $tooltip = false, $title = true ) {
 		if ( true === $title ) {
 			$title = __( 'Yes' );
-		} 
+		}
 
 		return self::dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
 	}

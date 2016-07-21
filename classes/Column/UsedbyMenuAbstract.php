@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-class AC_Column_UsedByMenuAbstract extends CPAC_Column {
+abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
 	public function init() {
 		parent::init();
@@ -35,6 +35,19 @@ class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 				}
 
 				$menus[] = $title;
+			}
+		}
+
+		return implode( ', ', $menus );
+	}
+
+	function get_formatted_value( $object_id ){
+		$menus = array();
+
+		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
+			foreach ( $menu_ids as $menu_id ) {
+				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
+				$menus[] = $term->name;
 			}
 		}
 
@@ -96,7 +109,7 @@ class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'        => 'radio',
 			'name'        => 'link_to_menu',
 			'label'       => __( 'Link to menu', 'codepress-admin-columns' ),

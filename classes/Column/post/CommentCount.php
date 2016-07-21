@@ -14,7 +14,6 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 
 		$this->properties['type'] = 'column-comment_count';
 		$this->properties['label'] = __( 'Comment count', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 	}
 
 	function get_comment_stati() {
@@ -61,9 +60,9 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'        => 'select',
-			'option'        => 'comment_status',
+			'name'        => 'comment_status',
 			'label'       => __( 'Comment status', 'codepress-admin-columns' ),
 			'description' => __( 'Select which comment status you like to display.', 'codepress-admin-columns' ),
 			'options'     => $this->get_comment_stati()

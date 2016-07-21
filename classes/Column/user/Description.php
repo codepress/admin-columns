@@ -24,7 +24,7 @@ class AC_Column_User_Description extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->display_field_word_limit();
+		$this->field_settings->word_limit();
 	}
 
 }

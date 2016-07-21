@@ -105,7 +105,7 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @var AC_Helper
 	 */
-	public $helper;
+	private $helper;
 
 	/**
 	 * @since 2.5
@@ -153,10 +153,10 @@ class CPAC {
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
 		// Populating columns
-		add_action( 'admin_init', array( $this, 'set_columns' ) );
+		add_action( 'admin_init', array( $this, 'load_listings_headings_and_values' ) );
 
 		// Includes
-		$this->_settings = new AC_Settings();
+		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
 		$this->helper = new AC_Helper();
@@ -283,6 +283,8 @@ class CPAC {
 			wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $this->get_version(), 'all' );
 			wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $this->get_version(), 'all' );
 
+			wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $current_storage_model->get_list_selector() );
+
 			wp_enqueue_script( 'cpac-admin-columns' );
 			wp_enqueue_style( 'jquery-qtip2' );
 			wp_enqueue_style( 'cpac-columns' );
@@ -295,7 +297,6 @@ class CPAC {
 
 		// Settings screen
 		else if ( cac_is_setting_screen() ) {
-
 			do_action( 'ac/enqueue_settings_scripts' );
 		}
 	}
@@ -405,7 +406,7 @@ class CPAC {
 	 *
 	 * @since 2.4.9
 	 */
-	public function set_columns() {
+	public function load_listings_headings_and_values() {
 
 		// Listings screen
 		$storage_model = $this->get_current_storage_model();
@@ -413,10 +414,10 @@ class CPAC {
 		// WP Ajax calls (not AC)
 		if ( $model = cac_wp_is_doing_ajax() ) {
 			$storage_model = $this->get_storage_model( $model );
+			$storage_model->init_listings_layout();
 		}
 
 		if ( $storage_model ) {
-			$storage_model->init_listings_layout();
 			$storage_model->init_column_headings();
 			$storage_model->init_column_values();
 		}
@@ -452,9 +453,10 @@ class CPAC {
 	 * @return CPAC_Storage_Model
 	 */
 	public function get_current_storage_model() {
-		if ( null === $this->current_storage_model && $this->is_columns_screen() && $this->get_storage_models() ) {
+		if ( null === $this->current_storage_model && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
+					$storage_model->init_listings_layout();
 					$this->current_storage_model = $storage_model;
 					break;
 				}
@@ -559,45 +561,35 @@ class CPAC {
 	 * @since 1.4.0
 	 */
 	public function admin_scripts() {
-		if ( ! ( $storage_model = $this->get_current_storage_model() ) ) {
+		$storage_model = $this->get_current_storage_model();
+
+		if ( ! $storage_model ) {
 			return;
 		}
 
-		$css_column_width = '';
-		$edit_link = '';
-
 		// CSS: columns width
-		if ( $columns = $storage_model->get_stored_columns() ) {
-			foreach ( $columns as $name => $options ) {
-
-				if ( ! empty( $options['width'] ) && is_numeric( $options['width'] ) && $options['width'] > 0 ) {
-					$unit = isset( $options['width_unit'] ) ? $options['width_unit'] : '%';
-					$css_column_width .= ".cp-{$storage_model->key} .wrap table th.column-{$name} { width: {$options['width']}{$unit} !important; }";
-				}
-
-				// Load custom column scripts, used by 3rd party columns
-				if ( $column = $storage_model->get_column_by_name( $name ) ) {
-					$column->scripts();
-				}
+		$css_column_width = false;
+		foreach ( $storage_model->get_columns() as $column ) {
+			if ( $width = $column->get_width() ) {
+				$css_column_width .= ".cp-" . $storage_model->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
 			}
-		}
 
-		// JS: edit button
-		$general_options = get_option( 'cpac_general_options' );
-		if ( current_user_can( 'manage_admin_columns' ) && ( ! isset( $general_options['show_edit_button'] ) || '1' === $general_options['show_edit_button'] ) ) {
-			$edit_link = $storage_model->get_edit_link();
+			// Load external scripts
+			$column->scripts();
 		}
-
 		?>
 		<?php if ( $css_column_width ) : ?>
 			<style type="text/css">
 				<?php echo $css_column_width; ?>
 			</style>
 		<?php endif; ?>
-		<?php if ( $edit_link ) : ?>
+		<?php
+
+		// JS: Edit button
+		if ( current_user_can( 'manage_admin_columns' ) && '1' === $this->get_general_option( 'show_edit_button' ) ) : ?>
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo $edit_link; ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
+					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $storage_model->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
 			</script>
 		<?php endif; ?>
@@ -639,8 +631,9 @@ class CPAC {
 	 * @return bool Returns true if the current screen is a columns screen, false otherwise
 	 */
 	public function is_columns_screen() {
-		global $pagenow;
-		$columns_screen = in_array( $pagenow, array( 'edit.php', 'upload.php', 'link-manager.php', 'edit-comments.php', 'users.php', 'edit-tags.php' ) );
+		$storage_model = $this->get_current_storage_model();
+
+		$is_column_screen = $storage_model && $storage_model->is_current_screen();
 
 		/**
 		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
@@ -650,7 +643,7 @@ class CPAC {
 		 *
 		 * @param bool $columns_screen Whether the current request is a columns screen
 		 */
-		return apply_filters( 'cac/is_columns_screen', $columns_screen );
+		return apply_filters( 'cac/is_columns_screen', $is_column_screen );
 	}
 
 	/**
@@ -689,7 +682,7 @@ class CPAC {
 	 * Get admin columns settings class instance
 	 *
 	 * @since 2.2
-	 * @return AC_Settings Settings class instance
+	 * @return AC_Admin Settings class instance
 	 */
 	public function settings() {
 		return $this->_settings;
@@ -718,7 +711,7 @@ class CPAC {
 	/**
 	 * @since NEWVERSION
 	 */
-	protected function helper() {
+	public function helper() {
 		return $this->helper;
 	}
 

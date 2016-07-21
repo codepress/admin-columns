@@ -217,7 +217,7 @@ jQuery.fn.cpac_column_refresh = function() {
 
 		el.slideUp( function() { el.remove() } );
 
-		console.log( error.responseText );
+		console.log( 'responseText: ' + error.responseText );
 	} );
 
 	xhr.always( function() {
@@ -514,17 +514,18 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 
 		// name
 		if ( jQuery( v ).attr( 'name' ) ) {
-			jQuery( v ).attr( 'name', jQuery( v ).attr( 'name' ).replace( type + clone_suffix, new_name ) );
+			// brackets prevent the replacement of storage model key hwne column name is similar to storage name, e.g. column comment and model wp-comments
+			jQuery( v ).attr( 'name', jQuery( v ).attr( 'name' ).replace( '[' + type + clone_suffix + ']', '[' + new_name + ']' ) );
 		}
 
 		// for
 		if ( jQuery( v ).attr( 'for' ) ) {
-			jQuery( v ).attr( 'for', jQuery( v ).attr( 'for' ).replace( type + clone_suffix, new_name ) );
+			jQuery( v ).attr( 'for', jQuery( v ).attr( 'for' ).replace( type + clone_suffix + '-', new_name + '-' ) );
 		}
 
 		// id
 		if ( jQuery( v ).attr( 'id' ) ) {
-			jQuery( v ).attr( 'id', jQuery( v ).attr( 'id' ).replace( type + clone_suffix, new_name ) );
+			jQuery( v ).attr( 'id', jQuery( v ).attr( 'id' ).replace( type + clone_suffix + '-', new_name + '-' ) );
 		}
 	} );
 };
@@ -792,16 +793,15 @@ function cpac_menu() {
  *
  * @since NEWVERSION
  */
-function cpac_reset_columns(){
+function cpac_reset_columns() {
 	var $ = jQuery;
-	var $container = $('.columns-container');
+	var $container = $( '.columns-container' );
 
-
-	$('a[data-clear-columns]' ).on( 'click', function(){
-		$container.find('.cpac-column' ).each( function(){
-			$(this ).find('.remove-button' ).trigger('click');
-		});
-	});
+	$( 'a[data-clear-columns]' ).on( 'click', function() {
+		$container.find( '.cpac-column' ).each( function() {
+			$( this ).find( '.remove-button' ).trigger( 'click' );
+		} );
+	} );
 }
 
 /*

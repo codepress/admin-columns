@@ -7,16 +7,16 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class AC_Column_TaxonomyAbstract extends CPAC_Column {
+abstract class AC_Column_TaxonomyAbstract extends CPAC_Column {
 
 	public function init() {
 		parent::init();
 
 		$this->properties['type'] = 'column-taxonomy';
 		$this->properties['label'] = __( 'Taxonomy', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 	}
 
+	// Display
 	public function get_value( $post_id ) {
 		return ac_helper()->post->get_terms_for_display( $post_id, $this->get_taxonomy() );
 	}
@@ -29,26 +29,13 @@ class AC_Column_TaxonomyAbstract extends CPAC_Column {
 		return $this->get_option( 'taxonomy' );
 	}
 
-	public function apply_conditional() {
-		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), $this->get_taxonomy() );
-	}
-
+	// Settings
 	public function display_settings() {
-		$taxonomies = get_object_taxonomies( $this->get_post_type(), 'objects' );
-
-		$options = array();
-		foreach ( $taxonomies as $index => $taxonomy ) {
-			if ( $taxonomy->name == 'post_format' ) {
-				unset( $taxonomies[ $index ] );
-			}
-			$options[ $taxonomy->name ] = $taxonomy->label;
-		}
-
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'    => 'select',
 			'name'    => 'taxonomy',
 			'label'   => __( "Taxonomy", 'codepress-admin-columns' ),
-			'options' => $options,
+			'options' => ac_helper()->taxonomy->get_taxonomy_selection_options( $this->get_post_type() ),
 			'section' => true,
 		) );
 	}

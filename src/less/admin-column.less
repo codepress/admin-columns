@@ -46,10 +46,6 @@
  * General
  * ----------------------------------------------------------------------------
  */
-#icon-codepress-admin-columns {
-	background: transparent url('../images/icon.png') no-repeat 0 0;
-}
-
 .button.loading {
 	padding-right: 25px;
 	position: relative;
@@ -58,16 +54,6 @@
 .rtl .button.loading {
 	padding-left: 25px;
 	padding-right: 0;
-}
-
-.button.loading span {
-	position: absolute;
-	top: 2px;
-	right: 6px;
-	background: transparent url('../images/loading.gif') no-repeat right 50%;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
 }
 
 .rtl .button.loading span {
@@ -172,6 +158,18 @@
 		width: 100%;
 
 		.column-footer {
+			a.add_column {
+				padding-left: 16px;
+				padding-right: 16px;
+				text-align: center;
+			}
+			a.submit.save,
+			a.submit.update {
+				padding-left: 20px;
+				padding-right: 20px;
+				text-align: center;
+			}
+
 			.submit.save {
 				display: inline-block;
 			}
@@ -188,6 +186,30 @@
 
 		.columns-right-inside.fixed {
 			width: 280px;
+		}
+	}
+
+	// Footer
+	.column-footer {
+		.spinner {
+			display: none;
+		}
+	}
+
+	&.saving {
+		.columns-right-inside {
+			.spinner {
+				visibility: visible;
+			}
+		}
+		.column-footer {
+			.spinner {
+				margin: 4px 0 0;
+				background-position: center center;
+				float: none;
+				display: inline-block;
+				visibility: visible;
+			}
 		}
 	}
 
@@ -362,7 +384,6 @@
 				td {
 					vertical-align: top;
 					height: 18px;
-					border: none;
 					padding: 12px 8px;
 					border-width: 1px 0 0;
 					border-style: solid;
@@ -373,14 +394,14 @@
 						cursor: move;
 						padding: 9px 16px;
 
-						span {
+						span.cpacicon-move {
 							position: absolute;
-							top: 10px;
+							top: 12px;
 							left: 12px;
 							font-size: 22px;
 							display: inline-block;
 							color: #bdbdbd;
-							}
+						}
 
 					}
 
@@ -389,7 +410,8 @@
 						font-weight: bold;
 						vertical-align: middle;
 						position: relative;
-						padding-left: 0;
+						padding: 15px 0;
+						//padding-left: 0;
 
 						.inner {
 							position: relative;
@@ -463,12 +485,12 @@
 							float: left;
 						}
 					}
+					// .column-label
 
 					&.column_type {
 						width: auto;
 						min-width: 120px;
 						text-align: right;
-						vertical-align: middle;
 						color: #999999;
 						padding-right: 0;
 
@@ -479,8 +501,10 @@
 							text-overflow: ellipsis;
 							white-space: nowrap;
 							width: 120px;
+							vertical-align: middle;
 
 							a {
+								margin-top: 2px;
 								color: #999999;
 							}
 						}
@@ -499,7 +523,7 @@
 							speak: none;
 							display: inline-block;
 							padding: 0 5px 0 0;
-							bottom: 2px;
+							bottom: 0;
 							position: relative;
 							vertical-align: bottom;
 							-webkit-font-smoothing: antialiased;
@@ -543,9 +567,8 @@
 		}
 
 	}
-	// end .column-meta
+	// .column-meta
 
-	// Column Body
 	.column-form {
 		display: none;
 		border-width: 1px 1px 0;
@@ -622,7 +645,7 @@
 							color: #333333;
 							display: block;
 							//width: 100%;
-							margin-right: 30px;
+							//margin-right: 30px;
 							position: relative;
 							height: 26px;
 							line-height: 26px;
@@ -713,6 +736,7 @@
 							}
 						}
 					}
+					// .label
 
 					&.input {
 						vertical-align: middle;
@@ -754,7 +778,7 @@
 									background-color: @bg-gray-light;
 									border-right: 1px solid @border-gray;
 									width: 35%;
-									vertical-align: middle;
+									//vertical-align: middle;
 
 									span {
 										color: lighten(#333, 15);
@@ -773,7 +797,9 @@
 							}
 						}
 					}
+					// .input
 				}
+				// td
 
 				&.column-label {
 					input {
@@ -925,6 +951,7 @@
 			}
 		}
 	}
+	// column-form
 
 	&.loading .column-form {
 		> .spinner {
@@ -1038,16 +1065,19 @@
 	.button-container {
 		float: right;
 		display: inline-block;
-		margin-top: -5px;
+		height: 29px;
 
 		a {
 			display: inline-block;
-			margin-top: 5px;
 			margin-left: 5px;
+			vertical-align: top;
 
-			&.clear_columns {
+			&.clear-columns {
 				color: @red;
 				text-decoration: none;
+				margin-right: 8px;
+				margin-top: 5px;
+
 				&:hover {
 					color: @red-light;
 				}
@@ -1067,10 +1097,9 @@
 	-moz-border-right-colors: none;
 	-moz-border-top-colors: none;
 	background: none repeat scroll 0 0 transparent;
-	border-color: #DFDFDF -moz-use-text-color -moz-use-text-color;
+	border-color: #DFDFDF;
 	border-image: none;
-	border-right: 0 none;
-	border-style: solid none none;
+	border-style: solid;
 	border-width: 1px 0 0;
 	clear: both;
 	margin: 30px 0;

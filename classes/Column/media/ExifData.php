@@ -11,7 +11,6 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 
 		$this->properties['type'] = 'column-exif_data';
 		$this->properties['label'] = __( 'EXIF data', 'codepress-admin-columns' );
-		$this->properties['is_cloneable'] = true;
 	}
 
 	/**
@@ -71,7 +70,7 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'    => 'select',
 			'name'    => 'exif_datatype',
 			'label'   => $this->get_type_label(),

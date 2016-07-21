@@ -17,7 +17,7 @@ class AC_Column_Post_Content extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		return ac_helper()->string->trim_words( $this->get_raw_value( $post_id ), $this->get_option( 'excerpt_length' ) );
+		return $this->format->word_limit( $this->get_raw_value( $post_id ) );
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -25,7 +25,7 @@ class AC_Column_Post_Content extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_field_word_limit();
+		$this->field_settings->word_limit();
 	}
 
 }

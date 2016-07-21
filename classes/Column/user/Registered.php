@@ -27,7 +27,7 @@ class AC_Column_User_Registered extends CPAC_Column {
 	}
 
 	function display_settings() {
-		$this->display_field_date_format();
+		$this->field_settings->date();
 	}
 
 }

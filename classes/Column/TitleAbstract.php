@@ -4,15 +4,12 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_TitleAbstract extends CPAC_Column {
+abstract class AC_Column_TitleAbstract extends AC_Column_Default {
 
 	public function init() {
 		parent::init();
 
 		$this->properties['type'] = 'title';
-
-		$this->properties['is_cloneable'] = false;
-		$this->properties['original'] = true;
 	}
 
 }

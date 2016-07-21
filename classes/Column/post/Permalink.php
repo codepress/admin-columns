@@ -31,7 +31,7 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'        => 'radio',
 			'name'        => 'link_to_post',
 			'label'       => __( 'Link to post', 'codepress-admin-columns' ),

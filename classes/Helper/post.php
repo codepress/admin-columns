@@ -188,7 +188,7 @@ class AC_Helper_Post {
 	 *
 	 * @return string Post Excerpt.
 	 */
-	public function excerpt( $post_id, $words ) {
+	public function excerpt( $post_id, $words = 400 ) {
 		global $post;
 
 		$save_post = $post;
@@ -206,6 +206,14 @@ class AC_Helper_Post {
 		return ac_helper()->string->trim_words( $excerpt, $words );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 * 
+	 * @param $post_id
+	 * @param $taxonomy
+	 *
+	 * @return array
+	 */
 	public function get_term_values( $post_id, $taxonomy ) {
 		$values = array();
 		$terms = get_the_terms( $post_id, $taxonomy );

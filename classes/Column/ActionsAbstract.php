@@ -26,11 +26,9 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		// Properties
 		$this->properties['type'] = 'column-actions';
 		$this->properties['label'] = __( 'Actions', 'codepress-admin-columns' );
 
-		// Options
 		$this->options['use_icons'] = false;
 	}
 
@@ -86,7 +84,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 		parent::display_settings();
 
 		// Use icons
-		$this->form_field( array(
+		$this->field_settings->field( array(
 			'type'        => 'radio',
 			'name'        => 'use_icons',
 			'label'       => __( 'Use icons?', 'codepress-admin-columns' ),

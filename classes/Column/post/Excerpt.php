@@ -17,7 +17,9 @@ class AC_Column_Post_Excerpt extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$value = ac_helper()->post->excerpt( $post_id, $this->get_option( 'excerpt_length' ) );
+
+		$value = $this->get_formatted_value( $post_id );
+
 		if ( ! has_excerpt( $post_id ) && $value ) {
 			$value = '<span class="cpac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
 		}
@@ -26,11 +28,15 @@ class AC_Column_Post_Excerpt extends CPAC_Column {
 	}
 
 	public function get_raw_value( $post_id ) {
-		return get_post_field( 'post_excerpt', $post_id, 'raw' );
+		return ac_helper()->post->get_raw_field( 'post_excerpt', $post_id );
+	}
+
+	public function get_formatted_value( $post_id ) {
+		return $this->format->word_limit( ac_helper()->post->excerpt( $post_id ) );
 	}
 
 	public function display_settings() {
-		$this->display_field_word_limit();
+		$this->field_settings->word_limit();
 	}
 
 }

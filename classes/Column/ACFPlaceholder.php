@@ -17,7 +17,7 @@ class AC_Column_ACFPlaceholder extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->display_settings_placeholder( ac_get_site_url( 'advanced-custom-fields-columns' ) );
+		$this->field_settings->placeholder( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => ac_get_site_url( 'advanced-custom-fields-columns' ) ) );
 	}
 
 }
