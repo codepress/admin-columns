@@ -406,4 +406,5 @@ class AC_Addons {
 
 		return false;
 	}
+
 }
