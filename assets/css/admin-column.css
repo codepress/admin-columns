@@ -453,7 +453,6 @@
   padding: 10px 10px;
   background: #ffffff;
   border-top: 1px solid #f5f5f5;
-  height: 25px;
 }
 .cpac-column .column-form > table tr td input {
   margin: 0;
@@ -471,8 +470,14 @@
 .cpac-column .column-form > table tr td select {
   margin: 0;
 }
-.cpac-column .column-form > table tr td input[type=radio] {
-  margin: -1px 2px 0 0;
+.cpac-column .column-form > table tr td div.radio-labels {
+  padding: 3px 0;
+}
+.cpac-column .column-form > table tr td div.radio-labels label {
+  margin-right: 14px;
+}
+.cpac-column .column-form > table tr td div.radio-labels label input[type=radio] {
+  margin: -3px 2px 0 0;
 }
 .cpac-column .column-form > table tr td span.suffix {
   line-height: 40px;
@@ -496,7 +501,6 @@
   color: #333333;
   display: block;
   position: relative;
-  height: 26px;
   line-height: 26px;
 }
 .cpac-column .column-form > table tr td.label a.more-link {
@@ -576,7 +580,7 @@
   line-height: 14px;
 }
 .cpac-column .column-form > table tr td.input {
-  vertical-align: middle;
+  vertical-align: top;
 }
 .cpac-column .column-form > table tr td.input div.msg {
   margin-top: 5px;
@@ -637,12 +641,11 @@
   position: relative;
 }
 .cpac-column .column-form > table tr.column-width .input div.description {
-  font-size: 11px;
+  font-size: 12px;
   width: 54px;
   position: absolute;
   top: 13px;
   left: 10px;
-  text-align: center;
 }
 .cpac-column .column-form > table tr.column-width .input div.description input {
   background: #efefef;
@@ -654,26 +657,29 @@
   font-size: 12px;
 }
 .cpac-column .column-form > table tr.column-width .input div.width-slider {
-  margin-left: 68px;
-  margin-right: 90px;
+  margin-left: 62px;
+  margin-right: 94px;
   position: relative;
-  margin-top: 0;
+  margin-top: 8px;
 }
 .cpac-column .column-form > table tr.column-width .input div.width-slider .ui-slider-handle {
   cursor: ew-resize;
 }
 .cpac-column .column-form > table tr.column-width .input div.unit-select {
   position: absolute;
-  top: 11px;
-  right: 14px;
-  width: 86px;
+  top: 13px;
+  right: 10px;
+  width: 82px;
   text-align: right;
 }
-.cpac-column .column-form > table tr.column-width .input div.unit-select label {
-  padding-left: 5px;
+.cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels {
+  padding: 0;
 }
-.cpac-column .column-form > table tr.column-width .input div.unit-select label input {
-  margin-right: 3px;
+.cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels label {
+  margin-right: 4px;
+}
+.cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels label input {
+  margin-right: 2px;
 }
 .cpac-column .column-form > table tr.column_image_size {
   border: 10px solid red;

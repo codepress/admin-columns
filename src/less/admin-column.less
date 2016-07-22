@@ -597,7 +597,7 @@
 					padding: 10px 10px;
 					background: #ffffff;
 					border-top: 1px solid @bg-gray;
-					height: 25px;
+					//height: 25px;
 
 					input {
 						margin: 0;
@@ -617,8 +617,16 @@
 						margin: 0;
 					}
 
-					input[type=radio] {
-						margin: -1px 2px 0 0;
+					div.radio-labels {
+						padding: 3px 0;
+
+						label {
+							margin-right: 14px;
+
+							input[type=radio] {
+								margin: -3px 2px 0 0;
+							}
+						}
 					}
 
 					span.suffix {
@@ -647,7 +655,7 @@
 							//width: 100%;
 							//margin-right: 30px;
 							position: relative;
-							height: 26px;
+							//height: 26px;
 							line-height: 26px;
 						}
 
@@ -739,7 +747,7 @@
 					// .label
 
 					&.input {
-						vertical-align: middle;
+						vertical-align: top;
 
 						div.msg {
 							margin-top: 5px;
@@ -774,20 +782,22 @@
 
 							tr {
 
-								td.label {
-									background-color: @bg-gray-light;
-									border-right: 1px solid @border-gray;
-									width: 35%;
-									//vertical-align: middle;
+								td {
+									&.label {
+										background-color: @bg-gray-light;
+										border-right: 1px solid @border-gray;
+										width: 35%;
 
-									span {
-										color: lighten(#333, 15);
-										font-size: 12px;
+										span {
+											color: lighten(#333, 15);
+											font-size: 12px;
+										}
 									}
-								}
-								td.input {
-									width: 65%;
-									border-color: @border-gray;;
+
+									&.input {
+										width: 65%;
+										border-color: @border-gray;
+									}
 								}
 
 								&.full td {
@@ -812,12 +822,11 @@
 						position: relative;
 
 						div.description {
-							font-size: 11px;
+							font-size: 12px;
 							width: 54px;
 							position: absolute;
 							top: 13px;
 							left: 10px;
-							text-align: center;
 
 							input {
 								background: #efefef;
@@ -830,10 +839,10 @@
 							}
 						}
 						div.width-slider {
-							margin-left: 68px;
-							margin-right: 90px;
+							margin-left: 62px;
+							margin-right: 94px;
 							position: relative;
-							margin-top: 0;
+							margin-top: 8px;
 
 							.ui-slider-handle {
 								cursor: ew-resize;
@@ -841,16 +850,20 @@
 						}
 						div.unit-select {
 							position: absolute;
-							top: 11px;
-							right: 14px;
-							width: 86px;
+							top: 13px;
+							right: 10px;
+							width: 82px;
 							text-align: right;
 
-							label {
-								padding-left: 5px;
+							.radio-labels {
+								padding: 0;
 
-								input {
-									margin-right: 3px;
+								label {
+									margin-right: 4px;
+
+									input {
+										margin-right: 2px;
+									}
 								}
 							}
 						}

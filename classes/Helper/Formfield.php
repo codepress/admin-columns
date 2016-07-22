@@ -64,13 +64,16 @@ class AC_Helper_FormField {
 
 		$current = $args->current ? $args->current : $args->default;
 
-		foreach ( $args->options as $key => $label ) : ?>
-			<label for="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>">
-				<input type="radio"<?php echo $args->class ? ' class="' . esc_attr( $args->class ) . '"' : ''; ?> name="<?php echo esc_attr( $args->attr_name ); ?>" id="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>" value="<?php echo esc_attr( $key ); ?>"<?php checked( $key, $current ); ?>>
-				<?php echo esc_html( $label ); ?>
-			</label>
-			<?php echo $args->vertical ? '<br/>' : ''; ?>
-		<?php endforeach;
+		if ( $args->options ) : ?>
+			<div class="radio-labels<?php echo $args->vertical ? ' vertical' : ''; ?>">
+				<?php foreach ( $args->options as $key => $label ) : ?>
+					<label for="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>">
+						<input type="radio"<?php echo $args->class ? ' class="' . esc_attr( $args->class ) . '"' : ''; ?> name="<?php echo esc_attr( $args->attr_name ); ?>" id="<?php echo esc_attr( $args->attr_id . '-' . $key ); ?>" value="<?php echo esc_attr( $key ); ?>"<?php checked( $key, $current ); ?>>
+						<?php echo esc_html( $label ); ?>
+					</label>
+				<?php endforeach; ?>
+			</div>
+		<?php endif;
 	}
 
 	/**
