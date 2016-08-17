@@ -313,7 +313,7 @@ abstract class CPAC_Storage_Model {
 
 		$dir = cpac()->get_plugin_dir();
 
-		require_once $dir . 'classes/column.php';
+		require_once $dir . 'classes/Column.php';
 
 		$columns = array(
 			'AC_Column_Plugin'  => true,
@@ -335,7 +335,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Directory to iterate
-		$columns_dir = $dir . 'classes/column/' . $this->get_type();
+		$columns_dir = $dir . 'classes/Column/' . $this->get_type();
 
 		if ( is_dir( $columns_dir ) ) {
 			$iterator = new DirectoryIterator( $columns_dir );
