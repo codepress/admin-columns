@@ -11,8 +11,8 @@ abstract class AC_Column_DateAbstract extends AC_Column_Default {
 
 		$this->properties['type'] = 'date';
 
-		$this->options['width'] = 10;
-		$this->options['width_unit'] = '%';
+		$this->default_options['width'] = 10;
+		$this->default_options['width_unit'] = '%';
 	}
 
 }

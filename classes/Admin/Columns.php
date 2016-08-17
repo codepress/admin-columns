@@ -393,7 +393,7 @@ class AC_Admin_Columns {
 										<li>
 											<a href="<?php echo add_query_arg( array(
 												'hashtags' => 'admincolumns',
-												'text'     => urlencode( "I'm using Admin Columns for WordPress!" ),
+												'text'     => urlencode( __( "I'm using Admin Columns for WordPress!", 'codepress-admin-columns' ) ),
 												'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
 												'via'      => 'wpcolumns',
 											), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
@@ -618,17 +618,13 @@ class AC_Admin_Columns {
 					 * @param CPAC_Column $column_instance Column class instance
 					 */
 					do_action( 'cac/column/settings_before', $column );
-					?>
 
-					<?php
 					/**
 					 * Load specific column settings.
 					 *
 					 */
 					$column->display_settings();
-					?>
 
-					<?php
 					/**
 					 * Fires directly after the custom options for a column are displayed in the column form
 					 *
@@ -658,5 +654,4 @@ class AC_Admin_Columns {
 		</div><!--.cpac-column-->
 		<?php
 	}
-
 }

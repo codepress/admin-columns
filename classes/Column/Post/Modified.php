@@ -12,7 +12,7 @@ class AC_Column_Post_Modified extends CPAC_Column {
 		$this->properties['type']	 	= 'column-modified';
 		$this->properties['label']	 	= __( 'Last modified', 'codepress-admin-columns' );
 
-		$this->options['date_format'] = '';
+		$this->default_options['date_format'] = '';
 	}
 
 	public function get_value( $post_id ) {

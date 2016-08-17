@@ -11,7 +11,6 @@ class AC_Column_Post_PingStatus extends CPAC_Column {
 
 		$this->properties['type'] = 'column-ping_status';
 		$this->properties['label'] = __( 'Ping Status', 'codepress-admin-columns' );
-		$this->properties['object_property'] = 'ping_status';
 	}
 
 	public function apply_conditional() {

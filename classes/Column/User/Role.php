@@ -11,7 +11,7 @@ class AC_Column_User_Role extends AC_Column_Default {
 
 		$this->properties['type'] = 'role';
 
-		$this->options['width'] = 15;
+		$this->default_options['width'] = 15;
 	}
 
 }

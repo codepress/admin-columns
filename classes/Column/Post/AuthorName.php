@@ -14,15 +14,13 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 
 		$this->properties['type'] = 'column-author_name';
 		$this->properties['label'] = __( 'Display Author As', 'codepress-admin-columns' );
-		$this->properties['object_property'] = 'post_author';
 	}
 
 	public function get_value( $post_id ) {
 
 		// User name
-		$value = $this->get_formatted_value( $post_id );
+		$value = $this->format->user( $this->get_post_author( $post_id ) );
 
-		// Add Link?
 		$link = false;
 
 		switch ( $this->get_option( 'user_link_to' ) ) {
@@ -53,10 +51,6 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 
 	private function get_post_author( $post_id ) {
 		return ac_helper()->post->get_raw_field( 'post_author', $post_id );
-	}
-
-	public function get_formatted_value( $post_id ) {
-		return $this->format->user( $this->get_post_author( $post_id ) );
 	}
 
 	public function display_settings() {

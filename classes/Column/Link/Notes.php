@@ -12,7 +12,7 @@ class AC_Column_Link_Notes extends CPAC_Column {
 		$this->properties['type'] = 'column-notes';
 		$this->properties['label'] = __( 'Notes', 'codepress-admin-columns' );
 
-		$this->options['excerpt_length'] = 30;
+		$this->default_options['excerpt_length'] = 30;
 	}
 
 	function get_value( $id ) {

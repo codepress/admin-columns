@@ -528,7 +528,6 @@ class CPAC {
 	 * @see filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
-
 		if ( $file != plugin_basename( __FILE__ ) ) {
 			return $links;
 		}
@@ -710,6 +709,8 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
+	 *
+	 * @return AC_Helper
 	 */
 	public function helper() {
 		return $this->helper;

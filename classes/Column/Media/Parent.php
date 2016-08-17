@@ -11,8 +11,8 @@ class AC_Column_Media_Parent extends AC_Column_Default {
 
 		$this->properties['type'] = 'parent';
 
-		$this->options['width'] = 15;
-		$this->options['width_unit'] = '%';
+		$this->default_options['width'] = 15;
+		$this->default_options['width_unit'] = '%';
 	}
 
 }

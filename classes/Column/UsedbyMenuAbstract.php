@@ -15,7 +15,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 		$this->properties['type'] = 'column-used_by_menu';
 		$this->properties['label'] = __( 'Used by Menu', 'codepress-admin-columns' );
 
-		$this->options['link_to_menu'] = false;
+		$this->default_options['link_to_menu'] = false;
 	}
 
 	function apply_conditional() {

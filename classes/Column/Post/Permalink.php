@@ -14,7 +14,7 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 		$this->properties['type'] = 'column-permalink';
 		$this->properties['label'] = __( 'Permalink', 'codepress-admin-columns' );
 
-		$this->options['link_to_post'] = false;
+		$this->default_options['link_to_post'] = false;
 	}
 
 	public function get_value( $post_id ) {

@@ -21,10 +21,10 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 
 		// Default options
-		$this->options['image_size'] = 'cpac-custom';
-		$this->options['image_size_w'] = 80;
-		$this->options['image_size_h'] = 80;
-		$this->options['excerpt_length'] = 15;
+		$this->default_options['image_size'] = 'cpac-custom';
+		$this->default_options['image_size_w'] = 80;
+		$this->default_options['image_size_h'] = 80;
+		$this->default_options['excerpt_length'] = 15;
 	}
 
 	public function get_field_key() {

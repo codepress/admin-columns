@@ -12,9 +12,9 @@ class AC_Column_Post_Attachment extends CPAC_Column {
 		$this->properties['type'] = 'column-attachment';
 		$this->properties['label'] = __( 'Attachments', 'codepress-admin-columns' );
 
-		$this->options['image_size'] = '';
-		$this->options['image_size_w'] = 80;
-		$this->options['image_size_h'] = 80;
+		$this->default_options['image_size'] = '';
+		$this->default_options['image_size_w'] = 80;
+		$this->default_options['image_size_h'] = 80;
 	}
 
 	public function get_value( $post_id ) {

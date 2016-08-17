@@ -177,7 +177,7 @@ class AC_ColumnFieldSettings {
 			'type'        => 'number',
 			'name'        => 'excerpt_length',
 			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' )  . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
+			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 		);
 	}
 
@@ -263,9 +263,10 @@ class AC_ColumnFieldSettings {
 			'name'        => 'post_property_display',
 			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
 			'options'     => array(
-				'title'  => __( 'Title' ), // default
-				'id'     => __( 'ID' ),
-				'author' => __( 'Author' ),
+				'title'        => __( 'Title' ), // default
+				'id'           => __( 'ID' ),
+				'author'       => __( 'Author' ),
+				'author_email' => __( 'Email' ),
 			),
 			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
 		);

@@ -9,8 +9,8 @@ class AC_Column_Comment_Date extends AC_Column_DateAbstract {
 	public function init() {
 		parent::init();
 
-		$this->options['width'] = 14;
-		$this->options['width_unit'] = '%';
+		$this->default_options['width'] = 14;
+		$this->default_options['width_unit'] = '%';
 	}
 
 }

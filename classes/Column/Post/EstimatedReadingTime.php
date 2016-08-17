@@ -12,7 +12,7 @@ class AC_Column_Post_EstimatedReadingTime extends CPAC_Column {
 		$this->properties['type'] = 'column-estimated_reading_time';
 		$this->properties['label'] = __( 'Estimated Reading Time', 'codepress-admin-columns' );
 
-		$this->options['words_per_minute'] = 200;
+		$this->default_options['words_per_minute'] = 200;
 	}
 
 	private function get_words_per_minute(  ) {
