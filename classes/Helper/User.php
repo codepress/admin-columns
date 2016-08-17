@@ -18,6 +18,14 @@ class AC_Helper_User {
 		return isset( $user->{$field} ) ? $user->{$field} : false;
 	}
 
+	public function get_user( $user ) {
+		if ( is_numeric( $user ) ) {
+			$user = get_userdata( $user );
+		}
+
+		return $user && is_a( $user, 'WP_User' ) ? $user : false;
+	}
+
 	/**
 	 * @param $user
 	 * @param bool $format
@@ -25,11 +33,9 @@ class AC_Helper_User {
 	 * @return false|string
 	 */
 	public function get_display_name( $user, $format = false ) {
-		if ( is_numeric( $user ) ) {
-			$user = get_userdata( $user );
-		}
+		$user = $this->get_user( $user );
 
-		if ( ! $user || ! is_a( $user, 'WP_User' ) ) {
+		if ( ! $user ) {
 			return false;
 		}
 

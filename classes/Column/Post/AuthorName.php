@@ -18,14 +18,16 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 
 	public function get_value( $post_id ) {
 
+		$author = $this->get_post_author( $post_id );
+
 		// User name
-		$value = $this->format->user( $this->get_post_author( $post_id ) );
+		$value = $this->format->user( $author );
 
+		// Link To
 		$link = false;
-
 		switch ( $this->get_option( 'user_link_to' ) ) {
 			case 'edit_user' :
-				$link = get_edit_user_link( $this->get_post_author( $post_id ) );
+				$link = get_edit_user_link( $author );
 				break;
 			case 'view_user_posts' :
 				$link = add_query_arg( array(
@@ -34,7 +36,11 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 				), 'edit.php' );
 				break;
 			case 'view_author' :
-				$link = get_author_posts_url( $this->get_post_author( $post_id ) );
+				$link = get_author_posts_url( $author );
+				break;
+			case 'email_user' :
+				$email = get_the_author_meta( 'email', $author );
+				$link = $email ? 'mailto:' . $email : false;
 				break;
 		}
 

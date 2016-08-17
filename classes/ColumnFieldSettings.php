@@ -244,6 +244,7 @@ class AC_ColumnFieldSettings {
 				'edit_user'       => __( 'Edit User Profile' ),
 				'view_user_posts' => __( 'View User Posts' ),
 				'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
+				'email_user'      => __( 'User Email' ),
 			),
 			'description' => __( 'Page the author name should link to.', 'codepress-admin-columns' ),
 		);
@@ -263,10 +264,9 @@ class AC_ColumnFieldSettings {
 			'name'        => 'post_property_display',
 			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
 			'options'     => array(
-				'title'        => __( 'Title' ), // default
-				'id'           => __( 'ID' ),
-				'author'       => __( 'Author' ),
-				'author_email' => __( 'Email' ),
+				'title'  => __( 'Title' ), // default
+				'id'     => __( 'ID' ),
+				'author' => __( 'Author' ),
 			),
 			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
 		);
