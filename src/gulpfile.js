@@ -39,7 +39,8 @@ gulp.task('scripts', function() {
 gulp.task('styles', function() {
     return gulp.src([
 	        'less/admin-column.less',
-	        'less/column.less'
+	        'less/column.less',
+	        'less/plugin-row.less'
 	    ])
         .pipe(plumber({ errorHandler: onError }))
         .pipe(less())

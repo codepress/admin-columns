@@ -58,7 +58,7 @@ class CPAC {
 	 *
 	 * @since 2.2
 	 * @access private
-	 * @var AC_Settings
+	 * @var AC_Admin
 	 */
 	private $_settings;
 
