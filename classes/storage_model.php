@@ -346,7 +346,7 @@ abstract class CPAC_Storage_Model {
 			foreach ( $iterator as $leaf ) {
 
 				// skip non php files
-				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== $leaf->getExtension() ) {
+				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== pathinfo( $leaf->getFilename(), PATHINFO_EXTENSION ) ) {
 					continue;
 				}
 				// build class name from filename
