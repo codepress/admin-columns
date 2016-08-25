@@ -1,5 +1,6 @@
 tr.plugin-update-tr-admin-columns td div {
   border-left: none;
+  margin: 5px 20px 15px 40px;
 }
 tr.plugin-update-tr-admin-columns td div.icon p:before {
   display: inline-block;
