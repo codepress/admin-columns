@@ -496,7 +496,7 @@ class AC_ColumnFieldSettings {
 					'%'  => '%',
 				),
 				'class'     => 'unit',
-				'default'   => '%',
+				'default'   => $this->column->get_width_unit(),
 			) );
 			?>
 		</div>

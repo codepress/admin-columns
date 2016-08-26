@@ -331,7 +331,13 @@ abstract class CPAC_Column {
 	 * @return string px or %
 	 */
 	public function get_width_unit() {
-		return 'px' === $this->get_option( 'width_unit' ) ? 'px' : '%';
+		$width_unit = $this->get_option( 'width_unit' );
+
+		if ( ! $width_unit ) {
+			$width_unit = $this->default_options['width_unit'];
+		}
+
+		return 'px' === $width_unit ? 'px' : '%';
 	}
 
 	/**
@@ -402,7 +408,7 @@ abstract class CPAC_Column {
 	 * Get a single column option
 	 *
 	 * @since 2.4.8
-	 * @return array Column options set by user
+	 * @return false|array Column options set by user
 	 */
 	public function get_property( $name ) {
 		return isset( $this->get_properties()->{$name} ) ? $this->get_properties()->{$name} : false;
@@ -567,7 +573,7 @@ abstract class CPAC_Column {
 	public function attr_name( $field_name ) {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_name()' );
 
-		echo $this->field_settings->attr_name( $field_name );
+		$this->field_settings->attr_name( $field_name );
 	}
 
 	/**
@@ -595,7 +601,7 @@ abstract class CPAC_Column {
 	public function attr_id( $field_name ) {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_id()' );
 
-		echo $this->field_settings->attr_id( $field_name );
+		$this->field_settings->attr_id( $field_name );
 	}
 
 	/**
@@ -792,7 +798,7 @@ abstract class CPAC_Column {
 	public function get_display_name( $user, $format = false ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'ac_helper()->user->get_display_name()' );
 
-		ac_helper()->user->get_display_name( $user, $format );
+		return ac_helper()->user->get_display_name( $user, $format );
 	}
 
 	/**
@@ -1013,13 +1019,6 @@ abstract class CPAC_Column {
 		$this->field_settings->post_link_to();
 	}
 
-	/**
-	 * @since 2.0
-	 *
-	 * @param string $field_key
-	 *
-	 * @return string Attribute Name
-	 */
 	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->label()' );
 
