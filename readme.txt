@@ -217,7 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] New user column added: Show Toolbar
 * [Added] New column for shortlink added
 * [Added] Filter for suppressing admin notices
-* [Added] New helpers added for Array, date, formfield, icon, image, post, string ,taxonomy and user. Helpers can be accessed by using ac_helper()->array() etc
+* [Added] New helpers added for array, date, formfield, icon, image, post, string ,taxonomy and user. Helpers can be accessed by using 'ac_helper()->array()'' etc
 * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
 * [Added] new method for singleton for Admin Columns main class. 'ac()'
 * [Fixed] ACF select2 error due to ACF update
