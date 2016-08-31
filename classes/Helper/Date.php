@@ -46,8 +46,15 @@ class AC_Helper_Date {
 	 */
 	public function date( $date, $format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
+
+		// Get date format from the General Settings
 		if ( ! $format ) {
 			$format = get_option( 'date_format' );
+		}
+
+		// Fallback in case the date format from General Settings is empty
+		if ( ! $format ) {
+			$format = 'F j, Y';
 		}
 
 		return $timestamp ? date_i18n( $format, $timestamp ) : false;
