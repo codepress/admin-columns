@@ -537,7 +537,7 @@ abstract class CPAC_Storage_Model {
 		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
 
 		// Hook
-		//do_action( "ac/columns", $this );
+		do_action( "ac/columns", $this );
 	}
 
 	/**
