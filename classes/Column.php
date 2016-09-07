@@ -559,6 +559,10 @@ abstract class CPAC_Column {
 		return $value;
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $label
+	 */
 	public function display_indicator( $name, $label ) { ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
