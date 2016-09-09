@@ -58,4 +58,13 @@ class AC_Autoloader {
 		}
 	}
 
+	/**
+	 * @param string $prefix
+	 *
+	 * @return false|string
+	 */
+	public function get_path_by_prefix( $prefix ) {
+		return isset( $this->prefixes[ $prefix ] ) ? $this->prefixes[ $prefix ] : false;
+	}
+
 }

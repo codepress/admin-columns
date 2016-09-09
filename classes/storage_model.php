@@ -94,14 +94,6 @@ abstract class CPAC_Storage_Model {
 	public $layout;
 
 	/**
-	 * Uses PHP export to display settings
-	 *
-	 * @since 2.0
-	 * @var string
-	 */
-	private $php_export = false;
-
-	/**
 	 * @since 2.0.1
 	 * @var array
 	 */
@@ -177,6 +169,7 @@ abstract class CPAC_Storage_Model {
 	 * @return mixed
 	 */
 	protected function get_object_by_id( $id ) {
+		return null;
 	}
 
 	/**
@@ -307,7 +300,6 @@ abstract class CPAC_Storage_Model {
 	 * Goes through all files in 'classes/column' and requires each file.
 	 *
 	 * @since 2.0.1
-	 * @return array Column Class names | File paths
 	 */
 	public function set_columns_filepath() {
 
@@ -338,24 +330,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Directory to iterate
-		$columns_dir = $dir . 'classes/Column/' . $this->get_type();
-
-		if ( is_dir( $columns_dir ) ) {
-			$iterator = new DirectoryIterator( $columns_dir );
-
-			foreach ( $iterator as $leaf ) {
-
-				// skip non php files
-				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== pathinfo( $leaf->getFilename(), PATHINFO_EXTENSION ) ) {
-					continue;
-				}
-				// build class name from filename
-				$class_name = 'AC_Column_' . ucfirst( $this->get_type() ) . '_' . implode( '_', array_map( 'ucfirst', explode( '-', $leaf->getBasename( '.php' ) ) ) );
-
-				// class name | file path (true is auto load)
-				$columns[ $class_name ] = true;
-			}
-		}
+		$columns = AC()->add_autoload_columns( $dir . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_', $columns );
 
 		/**
 		 * Filter the available custom column types
@@ -431,15 +406,6 @@ abstract class CPAC_Storage_Model {
 			}
 
 			$column->set_defaults( $column_type, $default_columns[ $column_type ] );
-		}
-
-		// Hook for default column widths
-		$default_column_widths = apply_filters( 'cac/default_column_widths', array(), $this );
-		if ( isset( $default_column_widths[ $column_type ] ) ) {
-			$column->set_default_option( 'width', $default_column_widths[ $column_type ]['width'] );
-		}
-		if ( isset( $default_column_widths[ $column_type ]['unit'] ) ) {
-			$column->set_default_option( 'width_unit', $default_column_widths[ $column_type ]['unit'] );
 		}
 
 		$column->set_clone( $clone );
@@ -800,7 +766,7 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @return stdClass Layout object
+	 * @return false|stdClass Layout object
 	 */
 	public function get_layout_by_id( $id ) {
 		$layouts = $this->get_layouts();
@@ -1107,7 +1073,7 @@ abstract class CPAC_Storage_Model {
 
 	/**
 	 * @since 2.0
-	 * @return CPAC_Column
+	 * @return false|CPAC_Column
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
