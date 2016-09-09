@@ -143,8 +143,6 @@ class CPAC {
 		new AC_ThirdParty_WooCommerce();
 		new AC_ThirdParty_WPML();
 
-		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
@@ -162,6 +160,11 @@ class CPAC {
 		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
+
+		// Set capabilities
+		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
+
+		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
 	}
 
 	/**
@@ -298,6 +301,15 @@ class CPAC {
 		// Settings screen
 		else if ( cac_is_setting_screen() ) {
 			do_action( 'ac/enqueue_settings_scripts' );
+		}
+	}
+
+	/**
+	 * Add caps for Multisite admins
+	 */
+	public function set_capabilities_multisite() {
+		if ( is_multisite() && current_user_can( 'administrator' ) ) {
+			$this->set_capabilities();
 		}
 	}
 
