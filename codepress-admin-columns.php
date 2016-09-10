@@ -761,58 +761,6 @@ class CPAC {
 		return isset( $this->general_options[ $option ] ) ? $this->general_options[ $option ] : false;
 	}
 
-	/**
-	 * Iterates recursively through all folders to list all classes found based on their file names.
-	 *
-	 * @param string $dir Directory
-	 * @param string $prefix
-	 *
-	 * @return array Class names
-	 */
-	public function get_autload_class_names( $dir, $prefix ) {
-		$class_names = array();
-
-		$path = trailingslashit( $dir );
-
-		$autoloader = AC_Autoloader::instance();
-		$classes_dir = $autoloader->get_path_by_prefix( $prefix );
-
-		if ( false === strpos( $path, $classes_dir ) ) {
-			return $class_names;
-		}
-
-		$folders = str_replace( array( $classes_dir, '/' ), array( '', '_' ), untrailingslashit( $path ) );
-
-		if ( is_dir( $path ) ) {
-			foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $path ) ) as $filename ) {
-				if ( 'php' !== pathinfo( $filename, PATHINFO_EXTENSION ) ) {
-					continue;
-				}
-
-				$filename = str_replace( '.php', '', $filename->getFilename() );
-
-				$class_names[] = $prefix . $folders . '_' . $filename;
-			}
-		}
-
-		return $class_names;
-	}
-
-	/**
-	 * Adds columns classnames from specified directory
-	 *
-	 * @param string $columns_dir Columns directory
-	 * @param string $prefix Autoload prefix
-	 * @param array $columns Columns [ class_name => autoload ]
-	 *
-	 * @return array
-	 */
-	public function add_autoload_columns( $columns_dir, $prefix, $columns = array() ) {
-		$_columns = $this->get_autload_class_names( $columns_dir, $prefix );
-
-		return array_merge( $columns, array_fill_keys( $_columns, true ) );
-	}
-
 }
 
 // @deprecated since NEWVERSION

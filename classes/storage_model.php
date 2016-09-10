@@ -330,7 +330,7 @@ abstract class CPAC_Storage_Model {
 		}
 
 		// Directory to iterate
-		$columns = AC()->add_autoload_columns( $dir . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_', $columns );
+		$columns = $this->add_autoload_columns( $dir . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_', $columns );
 
 		/**
 		 * Filter the available custom column types
@@ -1221,15 +1221,6 @@ abstract class CPAC_Storage_Model {
 	}
 
 	/**
-	 * @deprecated deprecated since version 2.4.9
-	 */
-	public function is_columns_screen() {
-		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
-
-		return $this->is_current_screen();
-	}
-
-	/**
 	 * Populate column with stored options
 	 *
 	 * Only exists for backwards compatibility (like Pods). Options variable is no longer in use by CPAC_Column.
@@ -1252,6 +1243,32 @@ abstract class CPAC_Storage_Model {
 			}
 			$column->options = (object) array_merge( (array) $column->options, $options );
 		}
+	}
+
+	/**
+	 * Adds columns classnames from specified directory
+	 *
+	 * @param string $columns_dir Columns directory
+	 * @param string $prefix Autoload prefix
+	 * @param array $columns Columns [ class_name => autoload ]
+	 *
+	 * @return array
+	 */
+	public function add_autoload_columns( $columns_dir, $prefix, $columns = array() ) {
+		$autoloader = AC_Autoloader::instance();
+		$_columns = $autoloader->get_class_names_from_dir( $columns_dir, $prefix );
+
+		// set to autoload (true)
+		return array_merge( $columns, array_fill_keys( $_columns, true ) );
+	}
+
+	/**
+	 * @deprecated deprecated since version 2.4.9
+	 */
+	public function is_columns_screen() {
+		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
+
+		return $this->is_current_screen();
 	}
 
 }
