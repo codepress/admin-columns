@@ -625,6 +625,10 @@ class AC_Admin_Columns {
 					 */
 					$column->display_settings();
 
+					if ( $column->get_property( 'use_before_after' ) ) {
+						$column->field_settings->before_after();
+					}
+
 					/**
 					 * Fires directly after the custom options for a column are displayed in the column form
 					 *
