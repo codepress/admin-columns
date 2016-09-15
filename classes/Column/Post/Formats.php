@@ -20,7 +20,7 @@ class AC_Column_Post_Formats extends CPAC_Column {
 	function get_value( $post_id ) {
 		$format = $this->get_raw_value( $post_id );
 
-		return $format ? esc_html( get_post_format_string( $format ) ) : false;
+		return $format ? esc_html( get_post_format_string( $format ) ) :  __( 'Standard', 'Post format' );
 	}
 
 	/**

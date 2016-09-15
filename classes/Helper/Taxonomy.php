@@ -71,6 +71,7 @@ class AC_Helper_Taxonomy {
 			$options[ $taxonomy->name ] = $taxonomy->label;
 		}
 
+		natcasesort( $options );
 		return $options;
 	}
 

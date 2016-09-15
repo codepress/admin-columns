@@ -21,7 +21,7 @@ class AC_Column_User_RichEditing extends CPAC_Column {
 	private function has_rich_editing( $user_id ) {
 		$userdata = get_userdata( $user_id );
 
-		return $userdata->rich_editing;
+		return $userdata->rich_editing == 'true' ? true : false;
 	}
 
 }
