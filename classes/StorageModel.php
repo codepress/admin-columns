@@ -537,6 +537,8 @@ abstract class AC_StorageModel {
 	 * Set menu type
 	 *
 	 * @since 2.4.1
+	 *
+	 * @return AC_StorageModel
 	 */
 	public function set_menu_type( $menu_type ) {
 		$this->menu_type = $menu_type;
