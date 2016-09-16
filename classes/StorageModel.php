@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-abstract class CPAC_Storage_Model {
+abstract class AC_StorageModel {
 
 	CONST OPTIONS_KEY = 'cpac_options';
 
@@ -129,10 +129,13 @@ abstract class CPAC_Storage_Model {
 	 */
 	private $column_classnames = array();
 
+	abstract function init();
+
 	/**
 	 * @since 2.4.4
 	 */
 	function __construct() {
+		$this->init();
 		$this->set_columns_filepath();
 	}
 
@@ -149,6 +152,10 @@ abstract class CPAC_Storage_Model {
 		_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 
 		return (array) get_column_headers( $this->get_screen_id() );
+	}
+
+	public function set_key( $key ) {
+		$this->key = $key;
 	}
 
 	/**
@@ -514,14 +521,6 @@ abstract class CPAC_Storage_Model {
 		$this->load_columns();
 
 		return $this->columns;
-	}
-
-	/**
-	 * initialize callback for managing the headers and values for columns
-	 * @since 2.4.10
-	 *
-	 */
-	public function init_manage_columns() {
 	}
 
 	/**
@@ -1260,15 +1259,6 @@ abstract class CPAC_Storage_Model {
 
 		// set to autoload (true)
 		return array_merge( $columns, array_fill_keys( $_columns, true ) );
-	}
-
-	/**
-	 * @deprecated deprecated since version 2.4.9
-	 */
-	public function is_columns_screen() {
-		_deprecated_function( 'is_columns_screen', '2.4.9', 'is_current_screen' );
-
-		return $this->is_current_screen();
 	}
 
 }

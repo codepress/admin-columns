@@ -362,7 +362,10 @@ class CPAC {
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
-				$storage_model = new AC_StorageModel_Post( $post_type );
+
+				$storage_model = new AC_StorageModel_Post();
+				$storage_model->set_post_type( $post_type );
+
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
 
