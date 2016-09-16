@@ -357,8 +357,8 @@ class CPAC {
 
 			$classes_dir = $this->get_plugin_dir() . 'classes/';
 
-			// Load storage model class files and column base class files
-			include_once $classes_dir . 'storage_model.php';
+			// @deprecated NEWVERSION
+			require_once $classes_dir . 'Deprecated/storage_model.php';
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
@@ -380,8 +380,6 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 
 			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-				include_once $classes_dir . 'storage_model/link.php';
-
 				$storage_model = new AC_StorageModel_Link();
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
