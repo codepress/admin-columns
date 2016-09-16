@@ -377,8 +377,6 @@ class CPAC {
 			$storage_models[ $storage_model->key ] = $storage_model;
 
 			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-				include_once $classes_dir . 'storage_model/link.php';
-
 				$storage_model = new AC_StorageModel_Link();
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
