@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die();
  * Storage Model
  *
  * @since 2.0
+ * @deprecated NEWVERSION
  */
 abstract class CPAC_Storage_Model {
 
@@ -129,13 +130,10 @@ abstract class CPAC_Storage_Model {
 	 */
 	private $column_classnames = array();
 
-	abstract function init();
-
 	/**
 	 * @since 2.4.4
 	 */
 	function __construct() {
-		$this->init();
 		$this->set_columns_filepath();
 	}
 
