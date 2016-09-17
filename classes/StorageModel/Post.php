@@ -29,4 +29,20 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 		return $this;
 	}
 
+	/**
+	 * @since 2.2
+	 */
+	public function is_current_screen() {
+		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post';
+
+		return ( $this->get_post_type() === $post_type ) && parent::is_current_screen();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	protected function get_screen_link() {
+		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
+	}
+
 }
