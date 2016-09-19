@@ -1,11 +1,18 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_Admin_Columns {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	public function __construct() {
+		$this
+			->set_slug( 'columns' )
+			->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
+			->set_default( true );
 
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
@@ -211,29 +218,22 @@ class AC_Admin_Columns {
 			// By request
 			if ( $_storage_model = cpac()->get_storage_model( $_REQUEST['cpac_key'] ) ) {
 				$storage_model = $_storage_model;
-			}
-
-			// User preference
+			} // User preference
 			else if ( $_storage_model = $this->get_user_model_preference() ) {
 				$storage_model = $_storage_model;
-			}
-
-			// First one served
+			} // First one served
 			else {
 				$storage_model = cpac()->get_first_storage_model();
 			}
 
 			$this->set_user_model_preference( $storage_model->key );
 		}
-
 		else {
 
 			// User preference
 			if ( $exists = $this->get_user_model_preference() ) {
 				$storage_model = $exists;
-			}
-
-			// First one served
+			} // First one served
 			else {
 				$storage_model = cpac()->get_first_storage_model();
 			}
@@ -658,4 +658,5 @@ class AC_Admin_Columns {
 		</div><!--.cpac-column-->
 		<?php
 	}
+
 }

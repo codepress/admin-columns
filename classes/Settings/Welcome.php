@@ -1,7 +1,10 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_Admin_Welcome {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class AC_Settings_Welcome {
 
 	public function has_upgrade_run() {
 		// Should only be set after upgrade
