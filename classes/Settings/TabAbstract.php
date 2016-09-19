@@ -53,7 +53,7 @@ Abstract class AC_Settings_TabAbstract {
 	}
 
 	public function set_label( $label ) {
-		$this->label = sanitize_title( $label );
+		$this->label = $label;
 
 		return $this;
 	}
