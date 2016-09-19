@@ -6,6 +6,6 @@ defined( 'ABSPATH' ) or die();
  *
  * @deprecated since 2.6
  */
-class CPAC_Column_Default extends CPAC_Column {
+abstract class CPAC_Column_Default extends CPAC_Column {
 
 }

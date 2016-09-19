@@ -1,13 +1,9 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_User extends CPAC_Storage_Model {
+class AC_StorageModel_User extends AC_StorageModel {
 
-	/**
-	 * @since 2.0
-	 */
-	public function __construct() {
-
+	public function init() {
 		$this->key = 'wp-users';
 		$this->label = __( 'Users' );
 		$this->singular_label = __( 'User' );
@@ -15,8 +11,6 @@ class AC_StorageModel_User extends CPAC_Storage_Model {
 		$this->meta_type = 'user';
 		$this->page = 'users';
 		$this->table_classname = 'WP_Users_List_Table';
-
-		parent::__construct();
 	}
 
 	/**
@@ -56,8 +50,8 @@ class AC_StorageModel_User extends CPAC_Storage_Model {
 	 * @param string $column_name
 	 * @param int $user_id
 	 */
-	public function manage_value( $value, $column_name, $id ) {
-		return $this->get_display_value_by_column_name( $column_name, $id, $value );
+	public function manage_value( $value, $column_name, $user_id ) {
+		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
 	}
 
 	/**

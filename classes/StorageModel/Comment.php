@@ -7,10 +7,9 @@ if ( ! defined( 'ABSPATH' ) )  {
 /**
  * @since 2.0
  */
-class AC_StorageModel_Comment extends CPAC_Storage_Model {
+class AC_StorageModel_Comment extends AC_StorageModel {
 
-	public function __construct() {
-
+	public function init() {
 		$this->key = 'wp-comments';
 		$this->label = __( 'Comments' );
 		$this->singular_label = __( 'Comment' );
@@ -18,8 +17,6 @@ class AC_StorageModel_Comment extends CPAC_Storage_Model {
 		$this->meta_type = 'comment';
 		$this->page = 'edit-comments';
 		$this->table_classname = 'WP_Comments_List_Table';
-
-		parent::__construct();
 	}
 
 	/**

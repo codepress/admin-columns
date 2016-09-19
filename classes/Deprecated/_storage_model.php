@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die();
  * Storage Model
  *
  * @since 2.0
+ * @deprecated NEWVERSION
  */
 abstract class CPAC_Storage_Model {
 
@@ -149,6 +150,10 @@ abstract class CPAC_Storage_Model {
 		_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
 
 		return (array) get_column_headers( $this->get_screen_id() );
+	}
+
+	public function set_key( $key ) {
+		$this->key = $key;
 	}
 
 	/**

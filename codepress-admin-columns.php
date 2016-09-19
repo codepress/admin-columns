@@ -73,10 +73,10 @@ class CPAC {
 
 	/**
 	 * Registered storage model class instances
-	 * Array of CPAC_Storage_Model instances, with the storage model keys (e.g. post, page, wp-users) as keys
+	 * Array of AC_StorageModel instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
 	 * @since 2.0
-	 * @var CPAC_Storage_Model[]
+	 * @var AC_StorageModel[]
 	 */
 	private $storage_models;
 
@@ -293,7 +293,7 @@ class CPAC {
 			wp_enqueue_style( 'cpac-columns' );
 
 			/**
-			 * @param CPAC_Storage_Model $storage_model
+			 * @param AC_StorageModel $storage_model
 			 */
 			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
 		}
@@ -348,7 +348,7 @@ class CPAC {
 	 * Get registered storage models
 	 *
 	 * @since 2.5
-	 * @return CPAC_Storage_Model[]
+	 * @return AC_StorageModel[]
 	 */
 	public function get_storage_models() {
 		if ( empty( $this->storage_models ) ) {
@@ -357,12 +357,15 @@ class CPAC {
 
 			$classes_dir = $this->get_plugin_dir() . 'classes/';
 
-			// Load storage model class files and column base class files
-			include_once $classes_dir . 'storage_model.php';
+			// @deprecated NEWVERSION
+			require_once $classes_dir . 'Deprecated/storage_model.php';
 
 			// Create a storage model per post type
 			foreach ( $this->get_post_types() as $post_type ) {
-				$storage_model = new AC_StorageModel_Post( $post_type );
+
+				$storage_model = new AC_StorageModel_Post();
+				$storage_model->set_post_type( $post_type );
+
 				$storage_models[ $storage_model->key ] = $storage_model;
 			}
 
@@ -387,7 +390,7 @@ class CPAC {
 			 *
 			 * @since 2.0
 			 *
-			 * @param array $storage_models List of storage model class instances ( [key] => [CPAC_Storage_Model object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
+			 * @param array $storage_models List of storage model class instances ( [key] => [AC_StorageModel object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
 			 * @param object $this CPAC
 			 */
 			$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
@@ -403,7 +406,7 @@ class CPAC {
 	 *
 	 * @param string $key Storage model key (e.g. post, page, wp-users)
 	 *
-	 * @return bool|CPAC_Storage_Model Storage Model object (or false, on failure)
+	 * @return bool|AC_StorageModel Storage Model object (or false, on failure)
 	 */
 	public function get_storage_model( $key ) {
 		$models = $this->get_storage_models();
@@ -424,7 +427,7 @@ class CPAC {
 		// WP Ajax calls (not AC)
 		if ( $model = cac_wp_is_doing_ajax() ) {
 			$storage_model = $this->get_storage_model( $model );
-			$storage_model->init_listings_layout();
+			$storage_model->layouts()->init_listings_layout();
 		}
 
 		if ( $storage_model ) {
@@ -438,8 +441,8 @@ class CPAC {
 	 *
 	 * @since 2.5.4
 	 *
-	 * @param $storage_key CPAC_Storage_Model->key
-	 * @param $layout_id CPAC_Storage_Model->layout
+	 * @param $storage_key AC_StorageModel->key
+	 * @param $layout_id AC_StorageModel->layout
 	 * @param $column_name CPAC_Column->name
 	 *
 	 * @return CPAC_Column
@@ -447,7 +450,7 @@ class CPAC {
 	public function get_column( $storage_key, $layout_id, $column_name ) {
 		$column = false;
 		if ( $storage_model = $this->get_storage_model( $storage_key ) ) {
-			$storage_model->set_layout( $layout_id );
+			$storage_model->layouts()->set_layout( $layout_id );
 			$column = $storage_model->get_column_by_name( $column_name );
 		}
 
@@ -456,17 +459,17 @@ class CPAC {
 
 	/**
 	 * Get storage model object of currently active storage model
-	 * On the users overview page, for example, this returns the CPAC_Storage_Model_User object
+	 * On the users overview page, for example, this returns the AC_StorageModel object
 	 *
 	 * @since 2.2.4
 	 *
-	 * @return CPAC_Storage_Model
+	 * @return AC_StorageModel
 	 */
 	public function get_current_storage_model() {
 		if ( null === $this->current_storage_model && $this->get_storage_models() ) {
 			foreach ( $this->get_storage_models() as $storage_model ) {
 				if ( $storage_model->is_current_screen() ) {
-					$storage_model->init_listings_layout();
+					$storage_model->layouts()->init_listings_layout();
 					$this->current_storage_model = $storage_model;
 					break;
 				}

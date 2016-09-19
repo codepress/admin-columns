@@ -1,64 +1,32 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_Post extends CPAC_Storage_Model {
+class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 
-	/**
-	 * @since 2.0
-	 */
-	public function __construct( $post_type ) {
+	public function init() {
+		parent::init();
 
-		$this->key = $post_type;
-		$this->post_type = $post_type;
+		$this->key = 'post';
 		$this->type = 'post';
-		$this->meta_type = 'post';
 		$this->page = 'edit';
-		$this->screen = $this->page . '-' . $this->post_type;
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 		$this->table_classname = 'WP_Posts_List_Table';
-
-		$this->set_labels();
-
-		parent::__construct();
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @param string $post_type
 	 */
-	public function init_column_values() {
-		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
-	}
+	public function set_post_type( $post_type ) {
+		$this->post_type = $post_type;
+		$this->key = $post_type;
+		$this->screen = $this->page . '-' . $post_type;
 
-	/**
-	 * @since 2.4.7
-	 */
-	public function get_posts( $args = array() ) {
-		$defaults = array(
-			'posts_per_page' => -1,
-			'post_status'    => apply_filters( 'cac/get_posts/post_status', array( 'any', 'trash' ), $this ),
-			'post_type'      => $this->get_post_type(),
-			'fields'         => 'ids',
-			'no_found_rows'  => 1,
-		);
-
-		return (array) get_posts( array_merge( $defaults, $args ) );
-	}
-
-	/**
-	 * @since 2.7.2
-	 */
-	private function set_labels() {
 		$post_type_object = get_post_type_object( $this->get_post_type() );
 
 		$this->label = $post_type_object->labels->name;
 		$this->singular_label = $post_type_object->labels->singular_name;
-	}
 
-	/**
-	 * @since 2.0
-	 */
-	protected function get_screen_link() {
-		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
+		return $this;
 	}
 
 	/**
@@ -71,27 +39,10 @@ class AC_StorageModel_Post extends CPAC_Storage_Model {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 * @return WP_Post Post object
-	 */
-	protected function get_object_by_id( $id ) {
-		return get_post( $id );
-	}
-
-	/**
 	 * @since 2.0
 	 */
-	public function get_meta() {
-		global $wpdb;
-
-		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->get_post_type() ), ARRAY_N );
-	}
-
-	/**
-	 * @since 2.4.7
-	 */
-	public function manage_value( $column_name, $id ) {
-		echo $this->get_display_value_by_column_name( $column_name, $id );
+	protected function get_screen_link() {
+		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
 	}
 
 }
