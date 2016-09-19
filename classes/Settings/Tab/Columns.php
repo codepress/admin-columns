@@ -21,16 +21,75 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
-	 * Restore all column defaults
+	 * @since 2.0
 	 *
-	 * @since 1.0
+	 * @param AC_StorageModel $storage_model
+	 * @param array $columns
+	 * @param array $default_columns Default columns heading names.
 	 */
-	private function restore_all() {
-		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_layouts%'" );
+	private function store( AC_StorageModel $storage_model, $column_data ) {
 
-		cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+		if ( ! $column_data ) {
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+		}
+
+		// sanitize user inputs
+		foreach ( $column_data as $name => $options ) {
+			if ( $column = $storage_model->get_column_by_name( $name ) ) {
+
+				if ( ! empty( $options['label'] ) ) {
+
+					// Label can not contains the character ":"" and "'", because
+					// CPAC_Column::get_sanitized_label() will return an empty string
+					// and make an exception for site_url()
+					// Enable data:image url's
+					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
+						$options['label'] = str_replace( ':', '', $options['label'] );
+						$options['label'] = str_replace( "'", '', $options['label'] );
+					}
+				}
+
+				if ( isset( $options['width'] ) ) {
+					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
+				}
+
+				if ( isset( $options['date_format'] ) ) {
+					$options['date_format'] = trim( $options['date_format'] );
+				}
+
+				$column_data[ $name ] = $column->sanitize_options( $options );
+
+				// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
+				// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
+				if ( isset( $column_data[ $name ]['label'] ) ) {
+					$column_data[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $column_data[ $name ]['label'] ) ) );
+				}
+			}
+		}
+
+		// store columns
+		$settings = new AC_Settings( $storage_model->get_key(), $storage_model->layouts()->get_layout() );
+		$result = $settings->store( $column_data );
+
+		// reset object
+		$storage_model->flush_columns();
+
+		if ( ! $result ) {
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->layouts()->get_label_or_layout_name() . "</strong>" ) );
+		}
+
+		/**
+		 * Fires after a new column setup is stored in the database
+		 * Primarily used when columns are saved through the Admin Columns settings screen
+		 *
+		 * @since 2.2.9
+		 *
+		 * @param array $columns List of columns ([column id] => (array) [column properties])
+		 * @param AC_StorageModel $storage_model_instance Storage model instance
+		 */
+		do_action( 'cac/storage_model/columns_stored', $columns, $storage_model );
+
+		return true;
 	}
 
 	/**
@@ -51,13 +110,14 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
+
 					if ( $storage_model = cpac()->get_storage_model( $key ) ) {
 
 						if ( isset( $_POST['cpac_layout'] ) ) {
 							$storage_model->layouts()->set_layout( $_POST['cpac_layout'] );
 						}
 
-						$storage_model->restore();
+						$storage_model->settings()->delete();
 						$storage_model->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->layouts()->get_label_or_layout_name() ) . "</strong>" ), 'updated' );
@@ -67,11 +127,25 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 			case 'restore_all' :
 				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
-					$this->restore_all();
+
+					AC_Settings::delete_all();
+
+					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+
+					do_action( 'ac/settings/restore_all' );
 				}
 				break;
 
 		endswitch;
+	}
+
+	/**
+	 * @return false|AC_StorageModel
+	 */
+	private function get_first_storage_model() {
+		$models = array_values( cpac()->get_storage_models() );
+
+		return isset( $models[0] ) ? $models[0] : false;
 	}
 
 	/**
@@ -158,7 +232,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			);
 		}
 
-		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
+		$stored = $this->store( $storage_model, $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -223,7 +297,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$storage_model = $_storage_model;
 			} // First one served
 			else {
-				$storage_model = cpac()->get_first_storage_model();
+				$storage_model = $this->get_first_storage_model();
 			}
 
 			$this->set_user_model_preference( $storage_model->key );
@@ -235,13 +309,26 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$storage_model = $exists;
 			} // First one served
 			else {
-				$storage_model = cpac()->get_first_storage_model();
+				$storage_model = $this->get_first_storage_model();
 			}
 		}
 
 		$storage_model->layouts()->init_settings_layout();
 
 		return $storage_model;
+	}
+
+	/**
+	 * @param string $main_label
+	 *
+	 * @return string
+	 */
+	private function get_truncated_side_label( $label, $mainlabel = '' ) {
+		if ( 34 < ( strlen( $label ) + ( strlen( $mainlabel ) * 1.1 ) ) ) {
+			$label = substr( $label, 0, 34 - ( strlen( $mainlabel ) * 1.1 ) ) . '...';
+		}
+
+		return $label;
 	}
 
 	public function display() {
@@ -262,7 +349,9 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 					</select>
 					<span class="spinner"></span>
 
-					<?php $storage_model->screen_link(); ?>
+					<?php if ( $link = $storage_model->get_link() ) {
+						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
+					} ?>
 				</div>
 
 				<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
@@ -273,10 +362,10 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				<div class="columns-right-inside">
 					<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 						<div class="sidebox form-actions">
-							<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
+							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
 							<h3>
-								<span class="left"><?php echo esc_html( $label ); ?></span>
-								<?php if ( 18 > strlen( $label ) && ( $truncated_label = $storage_model->get_truncated_side_label( $label ) ) ) : ?>
+								<span class="left"><?php echo esc_html( $mainlabel ); ?></span>
+								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $storage_model->label, $mainlabel ) ) ) : ?>
 									<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 								<?php else : ?>
 									<span class="clear contenttype"><?php echo esc_html( $storage_model->label ); ?></span>
@@ -437,7 +526,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			</div><!--.columns-right-->
 
 			<div class="columns-left">
-				<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
+				<?php if ( ! $storage_model->settings()->get_default_headings() && ! $storage_model->is_using_php_export() ): ?>
 					<div class="cpac-notice">
 						<p>
 							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>

@@ -14,6 +14,13 @@ class AC_StorageModel_User extends AC_StorageModel {
 	}
 
 	/**
+	 * @since 2.4.9
+	 */
+	public function init_column_values() {
+		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
+	}
+
+	/**
 	 * @since NEWVERSION
 	 * @return string HTML
 	 */
@@ -27,13 +34,6 @@ class AC_StorageModel_User extends AC_StorageModel {
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_userdata( $id );
-	}
-
-	/**
-	 * @since 2.4.9
-	 */
-	public function init_column_values() {
-		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
 	}
 
 	/**

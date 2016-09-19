@@ -11,13 +11,6 @@ abstract class AC_StorageModel_PostAbstract extends AC_StorageModel {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_values() {
-		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
-	}
-
-	/**
 	 * @since 2.4.7
 	 */
 	public function get_posts( $args = array() ) {

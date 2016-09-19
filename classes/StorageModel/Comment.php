@@ -20,6 +20,13 @@ class AC_StorageModel_Comment extends AC_StorageModel {
 	}
 
 	/**
+	 * @since 2.4.9
+	 */
+	public function init_column_values() {
+		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
+	}
+
+	/**
 	 * @since 3.5
 	 */
 	public function get_list_selector() {
@@ -32,13 +39,6 @@ class AC_StorageModel_Comment extends AC_StorageModel {
 	 */
 	protected function get_object_by_id( $id ) {
 		return get_comment( $id );
-	}
-
-	/**
-	 * @since 2.4.9
-	 */
-	public function init_column_values() {
-		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
 	public function get_meta() {

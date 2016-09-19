@@ -8,10 +8,6 @@ defined( 'ABSPATH' ) or die();
  */
 abstract class AC_StorageModel {
 
-	CONST OPTIONS_KEY = 'cpac_options';
-
-	CONST LAYOUT_KEY = 'cpac_layouts';
-
 	/**
 	 * @since 2.0
 	 */
@@ -49,11 +45,6 @@ abstract class AC_StorageModel {
 	 * @since 2.0
 	 */
 	public $menu_type;
-
-	/**
-	 * @since 2.4.3
-	 */
-	private $column_headings;
 
 	/**
 	 * @since 2.0
@@ -144,13 +135,6 @@ abstract class AC_StorageModel {
 		$this->set_columns_filepath();
 
 		$this->layouts = new AC_Layouts( $this );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_headings() {
-		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	/**
@@ -267,7 +251,7 @@ abstract class AC_StorageModel {
 		if ( null === $this->default_columns ) {
 
 			// Get default column that have been set on the listings screen
-			$default_columns = $this->get_default_stored_columns();
+			$default_columns = $this->settings()->get_default_headings();
 
 			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
 			if ( empty( $default_columns ) ) {
@@ -325,7 +309,7 @@ abstract class AC_StorageModel {
 	 *
 	 * @since 2.0.1
 	 */
-	public function set_columns_filepath() {
+	private function set_columns_filepath() {
 
 		$dir = cpac()->get_plugin_dir();
 
@@ -408,6 +392,7 @@ abstract class AC_StorageModel {
 		if ( method_exists( $this, 'get_default_column_names' ) ) {
 			$default_column_names = $this->get_default_column_names();
 		}
+
 		if ( in_array( $column_type, $default_column_names ) ) {
 			$class_type = 'column-default';
 		}
@@ -433,9 +418,6 @@ abstract class AC_StorageModel {
 		}
 
 		$column->set_clone( $clone );
-
-		// Hook
-		do_action( 'ac/column', $column, $this );
 
 		return $column;
 	}
@@ -479,6 +461,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * Display column value
+	 *
 	 * @since NEWVERSION
 	 */
 	protected function get_display_value_by_column_name( $column_name, $id, $value = false ) {
@@ -493,7 +477,7 @@ abstract class AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return void
 	 */
-	public function load_columns() {
+	private function load_columns() {
 		if ( ! empty( $this->columns ) ) {
 			return;
 		}
@@ -523,11 +507,9 @@ abstract class AC_StorageModel {
 		}
 
 		// Deprecated since NEWVERSION
+		// Use 'ac/column'
 		do_action( "cac/columns", $this->columns, $this );
 		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
-
-		// Hook
-		do_action( "ac/columns", $this );
 	}
 
 	/**
@@ -536,6 +518,11 @@ abstract class AC_StorageModel {
 	 */
 	public function get_columns() {
 		$this->load_columns();
+
+		// Hook
+		foreach ( $this->columns as $column ) {
+			do_action( 'ac/column', $column, $this );
+		}
 
 		return $this->columns;
 	}
@@ -568,15 +555,6 @@ abstract class AC_StorageModel {
 	 */
 	public function get_menu_type() {
 		return empty( $this->menu_type ) || 'other' === $this->menu_type ? __( 'Other', 'codepress-admin-columns' ) : $this->menu_type;
-	}
-
-	public function get_truncated_side_label( $main_label = '' ) {
-		$sidelabel = $this->label;
-		if ( 34 < ( strlen( $this->label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
-			$sidelabel = substr( $this->label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
-		}
-
-		return $sidelabel;
 	}
 
 	/**
@@ -631,146 +609,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
-	 *
-	 * @param array $fields Custom fields.
-	 *
-	 * @return array|false Custom fields.
+	 * @return bool
 	 */
-	protected function add_hidden_meta( $fields ) {
-		if ( ! $fields ) {
-			return false;
-		}
-
-		$combined_fields = array();
-
-		// filter out hidden meta fields
-		foreach ( $fields as $field ) {
-
-			// give hidden fields a prefix for identification
-			if ( "_" == substr( $field[0], 0, 1 ) ) {
-				$combined_fields[] = 'cpachidden' . $field[0];
-			} // non hidden fields are saved as is
-			elseif ( "_" != substr( $field[0], 0, 1 ) ) {
-				$combined_fields[] = $field[0];
-			}
-		}
-
-		if ( empty( $combined_fields ) ) {
-			return false;
-		}
-
-		return $combined_fields;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function restore() {
-		return delete_option( $this->get_storage_id() );
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param array $columns
-	 * @param array $default_columns Default columns heading names.
-	 */
-	public function store( $columns ) {
-
-		if ( ! $columns ) {
-			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
-		}
-
-		// sanitize user inputs
-		foreach ( $columns as $name => $options ) {
-			if ( $_column = $this->get_column_by_name( $name ) ) {
-
-				if ( ! empty( $options['label'] ) ) {
-
-					// Label can not contains the character ":"" and "'", because
-					// CPAC_Column::get_sanitized_label() will return an empty string
-					// and make an exception for site_url()
-					// Enable data:image url's
-					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
-						$options['label'] = str_replace( ':', '', $options['label'] );
-						$options['label'] = str_replace( "'", '', $options['label'] );
-					}
-				}
-
-				if ( isset( $options['width'] ) ) {
-					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
-				}
-
-				if ( isset( $options['date_format'] ) ) {
-					$options['date_format'] = trim( $options['date_format'] );
-				}
-
-				$columns[ $name ] = $_column->sanitize_options( $options );
-			}
-
-			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
-			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
-			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
-		}
-
-		// store columns
-		$result = update_option( $this->get_storage_id(), $columns );
-
-		// reset object
-		$this->flush_columns();
-
-		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->layouts->get_label_or_layout_name() . "</strong>" ) );
-		}
-
-		/**
-		 * Fires after a new column setup is stored in the database
-		 * Primarily used when columns are saved through the Admin Columns settings screen
-		 *
-		 * @since 2.2.9
-		 *
-		 * @param array $columns List of columns ([column id] => (array) [column properties])
-		 * @param AC_StorageModel $storage_model_instance Storage model instance
-		 */
-		do_action( 'cac/storage_model/columns_stored', $columns, $this );
-
-		return true;
-	}
-
-	/**
-	 * Get store ID
-	 * @since 2.5
-	 */
-	private function get_storage_id() {
-		$layout = $this->layouts()->get_layout() ? $this->layouts()->get_layout() : null;
-
-		return $this->get_storage_key() . $layout;
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param string $key
-	 *
-	 * @return array Column options
-	 */
-	public function get_default_stored_columns() {
-		return get_option( $this->get_storage_key() . "__default", array() );
-	}
-
-	public function delete_default_stored_columns() {
-		delete_option( $this->get_storage_key() . "__default" );
-	}
-
-	private function store_default_columns( $columns ) {
-		return update_option( $this->get_storage_key() . "__default", $columns );
-	}
-
-	private function get_storage_key() {
-		return self::OPTIONS_KEY . '_' . $this->key;
-	}
-
 	public function has_stored_columns() {
 		return $this->get_stored_columns() ? true : false;
 	}
@@ -782,17 +622,13 @@ abstract class AC_StorageModel {
 	public function get_stored_columns() {
 		if ( empty( $this->stored_columns ) ) {
 
-			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->get_database_columns(), $this );
+			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->settings()->get(), $this );
 			$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
 			$this->stored_columns = ! empty( $columns ) ? $columns : array();
 		}
 
 		return $this->stored_columns;
-	}
-
-	public function get_database_columns() {
-		return get_option( $this->get_storage_id() );
 	}
 
 	/**
@@ -838,82 +674,10 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
+	 * @return AC_Settings
 	 */
-	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
-			return $columns;
-		}
-
-		// for the rare case where a screen hasn't been set yet and a
-		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() && ! cac_wp_is_doing_ajax() ) {
-			return $columns;
-		}
-
-		// Stores the default columns on the listings screen
-		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			$this->store_default_columns( $columns );
-		}
-
-		// make sure we run this only once
-		if ( $this->column_headings ) {
-			return $this->column_headings;
-		}
-
-		$stored_columns = $this->get_stored_columns();
-
-		if ( ! $stored_columns ) {
-			return $columns;
-		}
-
-		$this->column_headings = array();
-
-		// add mandatory checkbox
-		if ( isset( $columns['cb'] ) ) {
-			$this->column_headings['cb'] = $columns['cb'];
-		}
-
-		$this->column_types = null; // flush types, in case a column was deactivated
-		$types = array_keys( $this->get_column_types() );
-
-		// add active stored headings
-		foreach ( $stored_columns as $column_name => $options ) {
-
-			// Strip slashes for HTML tagged labels, like icons and checkboxes
-			$label = stripslashes( $options['label'] );
-
-			// Remove 3rd party columns that are no longer available (deactivated or removed from code)
-			if ( ! in_array( $options['type'], $types ) ) {
-				continue;
-			}
-
-			/**
-			 * Filter the stored column headers label for use in a WP_List_Table
-			 *
-			 * @since 2.0
-			 *
-			 * @param string $label Label
-			 * @param string $column_name Column name
-			 * @param array $options Column options
-			 * @param AC_StorageModel $storage_model Storage model class instance
-			 */
-			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
-			$label = str_replace( '[cpac_site_url]', site_url(), $label );
-
-			$this->column_headings[ $column_name ] = $label;
-		}
-
-		// Add 3rd party columns that have ( or could ) not been stored.
-		// For example when a plugin has been activated after storing column settings.
-		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $this->get_default_stored_columns() ) ) ) ) {
-			foreach ( $diff as $column_name ) {
-				$this->column_headings[ $column_name ] = $columns[ $column_name ];
-			}
-		}
-
-		return $this->column_headings;
+	public function settings() {
+		return new AC_Settings( $this->get_key(), $this->layouts()->get_layout() );
 	}
 
 	/**
@@ -935,14 +699,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
+	 * @return string
 	 */
-	public function screen_link() {
-		if ( $link = $this->get_screen_link() ) {
-			echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
-		}
-	}
-
 	public function settings_url() {
 		$args = array(
 			'page'     => 'codepress-admin-columns',
@@ -967,18 +725,6 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
-	 */
-	public function get_restore_link() {
-		$args = array(
-			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
-			'cpac_action' => 'restore_by_type',
-		);
-
-		return add_query_arg( $args, $this->settings_url() );
-	}
-
-	/**
 	 * Populate column with stored options
 	 *
 	 * Only exists for backwards compatibility (like Pods). Options variable is no longer in use by CPAC_Column.
@@ -990,7 +736,6 @@ abstract class AC_StorageModel {
 	 * @param array $options
 	 */
 	public function populate_column_options( CPAC_Column $column, $options ) {
-		// Set options
 		if ( $options ) {
 			if ( isset( $options['clone'] ) ) {
 				$column->set_clone( $options['clone'] );
