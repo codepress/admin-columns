@@ -8,10 +8,6 @@ defined( 'ABSPATH' ) or die();
  */
 abstract class AC_StorageModel {
 
-	CONST OPTIONS_KEY = 'cpac_options';
-
-	CONST LAYOUT_KEY = 'cpac_layouts';
-
 	/**
 	 * @since 2.0
 	 */
@@ -267,7 +263,7 @@ abstract class AC_StorageModel {
 		if ( null === $this->default_columns ) {
 
 			// Get default column that have been set on the listings screen
-			$default_columns = $this->get_default_stored_columns();
+			$default_columns = $this->settings()->get_default_headings();
 
 			// As a fallback we can use the table headings. this is not reliable, because most 3rd party column will not be loaded at this point.
 			if ( empty( $default_columns ) ) {
@@ -668,11 +664,11 @@ abstract class AC_StorageModel {
 	 * Get store ID
 	 * @since 2.5
 	 */
-	public function get_storage_id() {
+	/*public function get_storage_id() {
 		$layout = $this->layouts()->get_layout() ? $this->layouts()->get_layout() : null;
 
 		return $this->get_storage_key() . $layout;
-	}
+	}*/
 
 	/**
 	 * @since 1.0
@@ -681,21 +677,21 @@ abstract class AC_StorageModel {
 	 *
 	 * @return array Column options
 	 */
-	public function get_default_stored_columns() {
+	/*public function get_default_stored_columns() {
 		return get_option( $this->get_storage_key() . "__default", array() );
-	}
+	}*/
 
-	public function delete_default_stored_columns() {
+	/*public function delete_default_stored_columns() {
 		delete_option( $this->get_storage_key() . "__default" );
-	}
+	}*/
 
-	private function store_default_columns( $columns ) {
+	/*private function store_default_columns( $columns ) {
 		return update_option( $this->get_storage_key() . "__default", $columns );
-	}
+	}*/
 
-	private function get_storage_key() {
-		return self::OPTIONS_KEY . '_' . $this->key;
-	}
+	//private function get_storage_key() {
+	//return self::OPTIONS_KEY . '_' . $this->key;
+	//}
 
 	public function has_stored_columns() {
 		return $this->get_stored_columns() ? true : false;
@@ -708,17 +704,13 @@ abstract class AC_StorageModel {
 	public function get_stored_columns() {
 		if ( empty( $this->stored_columns ) ) {
 
-			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->get_database_columns(), $this );
+			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->settings()->get(), $this );
 			$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
 
 			$this->stored_columns = ! empty( $columns ) ? $columns : array();
 		}
 
 		return $this->stored_columns;
-	}
-
-	public function get_database_columns() {
-		return get_option( $this->get_storage_id() );
 	}
 
 	/**
@@ -764,6 +756,13 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * @return AC_Settings
+	 */
+	public function settings() {
+		return new AC_Settings( $this->get_key(), $this->layouts()->get_layout() );
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
@@ -777,9 +776,11 @@ abstract class AC_StorageModel {
 			return $columns;
 		}
 
+		$settings = $this->settings();
+
 		// Stores the default columns on the listings screen
 		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			$this->store_default_columns( $columns );
+			$settings->store_default_headings( $columns );
 		}
 
 		// make sure we run this only once
@@ -833,7 +834,7 @@ abstract class AC_StorageModel {
 		// Add 3rd party columns that have ( or could ) not been stored.
 		// For example when a plugin has been activated after storing column settings.
 		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $this->get_default_stored_columns() ) ) ) ) {
+		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $settings->get_default_headings() ) ) ) ) {
 			foreach ( $diff as $column_name ) {
 				$this->column_headings[ $column_name ] = $columns[ $column_name ];
 			}

@@ -456,6 +456,13 @@ abstract class CPAC_Column {
 	}
 
 	/**
+	 * @since 2.5.4
+	 */
+	public function get_layout() {
+		return $this->get_storage_model()->layouts()->get_layout();
+	}
+
+	/**
 	 * @since 2.3.4
 	 * @return AC_StorageModel
 	 */

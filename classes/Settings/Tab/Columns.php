@@ -40,15 +40,15 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-	private function store( AC_StorageModel $storage_model, $columns ) {
+	private function store( AC_StorageModel $storage_model, $column_data ) {
 
-		if ( ! $columns ) {
+		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
 		// sanitize user inputs
-		foreach ( $columns as $name => $options ) {
-			if ( $_column = $storage_model->get_column_by_name( $name ) ) {
+		foreach ( $column_data as $name => $options ) {
+			if ( $column = $storage_model->get_column_by_name( $name ) ) {
 
 				if ( ! empty( $options['label'] ) ) {
 
@@ -70,22 +70,25 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 					$options['date_format'] = trim( $options['date_format'] );
 				}
 
-				$columns[ $name ] = $_column->sanitize_options( $options );
-			}
+				$column_data[ $name ] = $column->sanitize_options( $options );
 
-			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
-			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
-			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
+				// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
+				// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
+				if ( isset( $column_data[ $name ]['label'] ) ) {
+					$column_data[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $column_data[ $name ]['label'] ) ) );
+				}
+			}
 		}
 
 		// store columns
-		$result = update_option( $storage_model->get_storage_id(), $columns );
+		$settings = new AC_Settings( $storage_model->get_key(), $storage_model->layouts()->get_layout() );
+		$result = $settings->store( $column_data );
 
 		// reset object
 		$storage_model->flush_columns();
 
 		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->layouts->get_label_or_layout_name() . "</strong>" ) );
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->layouts()->get_label_or_layout_name() . "</strong>" ) );
 		}
 
 		/**
@@ -97,7 +100,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		 * @param array $columns List of columns ([column id] => (array) [column properties])
 		 * @param AC_StorageModel $storage_model_instance Storage model instance
 		 */
-		do_action( 'cac/storage_model/columns_stored', $columns, $this );
+		do_action( 'cac/storage_model/columns_stored', $columns, $storage_model );
 
 		return true;
 	}
@@ -122,6 +125,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
 					if ( $storage_model = cpac()->get_storage_model( $key ) ) {
 
+						// TODO: user AC_Settings
 						if ( isset( $_POST['cpac_layout'] ) ) {
 							$storage_model->layouts()->set_layout( $_POST['cpac_layout'] );
 						}
@@ -507,7 +511,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			</div><!--.columns-right-->
 
 			<div class="columns-left">
-				<?php if ( ! $storage_model->get_default_stored_columns() && ! $storage_model->is_using_php_export() ): ?>
+				<?php if ( ! $storage_model->settings()->get_default_headings() && ! $storage_model->is_using_php_export() ): ?>
 					<div class="cpac-notice">
 						<p>
 							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
