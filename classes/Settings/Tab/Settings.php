@@ -1,7 +1,16 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_Admin_Settings {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
+
+	public function __construct() {
+		$this
+			->set_slug( 'settings' )
+			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
+	}
 
 	public function display() { ?>
 		<table class="form-table cpac-form-table settings">
@@ -45,6 +54,7 @@ class AC_Admin_Settings {
 					$description = isset( $group['description'] ) ? $group['description'] : '';
 
 					?>
+
 					<tr>
 						<th scope="row">
 							<h3><?php echo esc_html( $title ); ?></h3>
@@ -60,6 +70,7 @@ class AC_Admin_Settings {
 							?>
 						</td>
 					</tr>
+
 					<?php
 				}
 			}
@@ -73,8 +84,8 @@ class AC_Admin_Settings {
 				<td class="padding-22">
 					<form method="post">
 						<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
-						<input type="hidden" name="cpac_action" value="restore_all"/>
-						<input type="submit" class="button" name="cpac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');"/>
+						<input type="hidden" name="cpac_action" value="restore_all">
+						<input type="submit" class="button" name="cpac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');">
 					</form>
 				</td>
 			</tr>

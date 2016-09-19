@@ -1,7 +1,16 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_Admin_Addons {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class AC_Settings_Tab_Addons extends AC_Settings_TabAbstract {
+
+	public function __construct() {
+		$this
+			->set_slug( 'addons' )
+			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
+	}
 
 	public function display() {
 		$addon_groups = cpac()->addons()->get_addon_groups();

@@ -13,9 +13,7 @@ class AC_Admin {
 	 */
 	private $settings_page;
 
-	private $columns;
-	private $settings;
-	private $addons;
+	private $tabs;
 
 	/**
 	 * @since 2.0
@@ -27,9 +25,19 @@ class AC_Admin {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
 
-		$this->columns = new AC_Admin_Columns();
-		$this->settings = new AC_Admin_Settings();
-		$this->addons = new AC_Admin_Addons();
+		$tabs = new AC_Settings_Tabs();
+		$tabs->register_tab( new AC_Settings_Tab_Columns() );
+		$tabs->register_tab( new AC_Settings_Tab_Settings() );
+		$tabs->register_tab( new AC_Settings_Tab_Addons() );
+
+		$this->tabs = $tabs;
+	}
+
+	/**
+	 * @return AC_Settings_Tabs
+	 */
+	public function get_tabs() {
+		return $this->tabs;
 	}
 
 	/**
@@ -253,63 +261,15 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function display() {
+		$welcome_screen = new AC_Settings_Welcome();
 
-		$welcome_screen = new AC_Admin_Welcome();
 		if ( $welcome_screen->has_upgrade_run() ) {
 			$welcome_screen->display();
 
 			return;
 		}
 
-		$tabs = array(
-			'general'  => __( 'Admin Columns', 'codepress-admin-columns' ),
-			'settings' => __( 'Settings', 'codepress-admin-columns' ),
-			'addons'   => __( 'Add-ons', 'codepress-admin-columns' ),
-		);
-
-		/**
-		 * Filter the tabs on the settings screen
-		 *
-		 * @param array $tabs Available tabs
-		 */
-		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
-
-		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
-		?>
-		<div id="cpac" class="wrap">
-			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
-				<?php foreach ( $tabs as $name => $label ) : ?>
-					<a href="<?php echo esc_url( $this->get_settings_url( 'admin' ) . "&tab=" . $name ); ?>" class="nav-tab<?php echo $current_tab == $name ? ' nav-tab-active' : ''; ?>"><?php echo esc_html( $label ); ?></a>
-				<?php endforeach; ?>
-			</h2>
-
-			<?php do_action( 'cpac_messages' ); ?>
-
-			<?php do_action( 'cac/settings/after_menu' ); ?>
-
-			<?php
-			switch ( $current_tab ) :
-				case 'general':
-					$this->columns->display();
-					break;
-				case 'settings' :
-					$this->settings->display();
-					break;
-				case 'addons' :
-					$this->addons->display();
-					break;
-				default:
-
-					/**
-					 * Action to add tab contents
-					 *
-					 */
-					do_action( 'cac/settings/tab_contents/tab=' . $current_tab );
-
-			endswitch;
-			?>
-		</div><!--.wrap-->
-		<?php
+		$this->tabs->display();
 	}
 
 }
