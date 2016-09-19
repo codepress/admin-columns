@@ -714,7 +714,9 @@ abstract class AC_StorageModel {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'layout_id' => $this->layout ? $this->layout : '' ), $this->settings_url() );
+		$layout = $this->layouts()->get_layout();
+
+		return add_query_arg( array( 'layout_id' => $layout ? $layout : '' ), $this->settings_url() );
 	}
 
 	/**

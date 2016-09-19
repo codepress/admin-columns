@@ -67,28 +67,29 @@ class AC_ListingsScreen {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-		if ( $this->storage_model ) {
-
-			$minified = cpac()->minified();
-			$url = cpac()->get_plugin_url();
-			$version = cpac()->get_version();
-
-			wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $version );
-			wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $version );
-			wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $version, 'all' );
-			wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $version, 'all' );
-
-			wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $this->storage_model->get_list_selector() );
-
-			wp_enqueue_script( 'cpac-admin-columns' );
-			wp_enqueue_style( 'jquery-qtip2' );
-			wp_enqueue_style( 'cpac-columns' );
-
-			/**
-			 * @param AC_StorageModel $storage_model
-			 */
-			do_action( 'ac/enqueue_listings_scripts', $this->storage_model );
+		if ( ! $this->storage_model ) {
+			return;
 		}
+
+		$minified = cpac()->minified();
+		$url = cpac()->get_plugin_url();
+		$version = cpac()->get_version();
+
+		wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $version );
+		wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $version );
+		wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $version, 'all' );
+		wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $version, 'all' );
+
+		wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $this->storage_model->get_list_selector() );
+
+		wp_enqueue_script( 'cpac-admin-columns' );
+		wp_enqueue_style( 'jquery-qtip2' );
+		wp_enqueue_style( 'cpac-columns' );
+
+		/**
+		 * @param AC_StorageModel $storage_model
+		 */
+		do_action( 'ac/enqueue_listings_scripts', $this->storage_model );
 	}
 
 	/**
@@ -97,7 +98,6 @@ class AC_ListingsScreen {
 	 * @since 1.4.0
 	 */
 	public function admin_head_scripts() {
-
 		if ( ! $this->storage_model ) {
 			return;
 		}
