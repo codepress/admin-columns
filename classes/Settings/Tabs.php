@@ -22,6 +22,9 @@ class AC_Settings_Tabs {
 		$this->tabs = array();
 	}
 
+	/**
+	 * @param AC_Settings_TabAbstract $tab
+	 */
 	public function register_tab( AC_Settings_TabAbstract $tab ) {
 		$this->tabs[ $tab->get_slug() ] = $tab;
 
@@ -30,6 +33,11 @@ class AC_Settings_Tabs {
 		}
 	}
 
+	/**
+	 * @param $slug
+	 *
+	 * @return AC_Settings_TabAbstract|false
+	 */
 	public function get_tab( $slug ) {
 		$tab = false;
 
@@ -40,6 +48,9 @@ class AC_Settings_Tabs {
 		return $tab;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_current_slug() {
 		$slug = filter_input( INPUT_GET, 'tab' );
 
@@ -82,7 +93,7 @@ class AC_Settings_Tabs {
 			}
 
 			?>
-		</div><!--.wrap-->
+		</div>
 
 		<?php
 	}
