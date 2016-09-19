@@ -140,6 +140,15 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
+	 * @return false|AC_StorageModel
+	 */
+	private function get_first_storage_model() {
+		$models = array_values( cpac()->get_storage_models() );
+
+		return isset( $models[0] ) ? $models[0] : false;
+	}
+
+	/**
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
@@ -288,7 +297,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$storage_model = $_storage_model;
 			} // First one served
 			else {
-				$storage_model = cpac()->get_first_storage_model();
+				$storage_model = $this->get_first_storage_model();
 			}
 
 			$this->set_user_model_preference( $storage_model->key );
@@ -300,13 +309,26 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$storage_model = $exists;
 			} // First one served
 			else {
-				$storage_model = cpac()->get_first_storage_model();
+				$storage_model = $this->get_first_storage_model();
 			}
 		}
 
 		$storage_model->layouts()->init_settings_layout();
 
 		return $storage_model;
+	}
+
+	/**
+	 * @param string $main_label
+	 *
+	 * @return string
+	 */
+	private function get_truncated_side_label( $label, $mainlabel = '' ) {
+		if ( 34 < ( strlen( $label ) + ( strlen( $mainlabel ) * 1.1 ) ) ) {
+			$label = substr( $label, 0, 34 - ( strlen( $mainlabel ) * 1.1 ) ) . '...';
+		}
+
+		return $label;
 	}
 
 	public function display() {
@@ -327,7 +349,9 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 					</select>
 					<span class="spinner"></span>
 
-					<?php $storage_model->screen_link(); ?>
+					<?php if ( $link = $storage_model->get_link() ) {
+						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
+					} ?>
 				</div>
 
 				<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
@@ -338,10 +362,10 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				<div class="columns-right-inside">
 					<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 						<div class="sidebox form-actions">
-							<?php $label = __( 'Store settings', 'codepress-admin-columns' ); ?>
+							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
 							<h3>
-								<span class="left"><?php echo esc_html( $label ); ?></span>
-								<?php if ( 18 > strlen( $label ) && ( $truncated_label = $storage_model->get_truncated_side_label( $label ) ) ) : ?>
+								<span class="left"><?php echo esc_html( $mainlabel ); ?></span>
+								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $storage_model->label, $mainlabel ) ) ) : ?>
 									<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 								<?php else : ?>
 									<span class="clear contenttype"><?php echo esc_html( $storage_model->label ); ?></span>

@@ -47,11 +47,6 @@ abstract class AC_StorageModel {
 	public $menu_type;
 
 	/**
-	 * @since 2.4.3
-	 */
-	private $column_headings;
-
-	/**
 	 * @since 2.0
 	 * @var string
 	 */
@@ -140,13 +135,6 @@ abstract class AC_StorageModel {
 		$this->set_columns_filepath();
 
 		$this->layouts = new AC_Layouts( $this );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_headings() {
-		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	/**
@@ -569,15 +557,6 @@ abstract class AC_StorageModel {
 		return empty( $this->menu_type ) || 'other' === $this->menu_type ? __( 'Other', 'codepress-admin-columns' ) : $this->menu_type;
 	}
 
-	public function get_truncated_side_label( $main_label = '' ) {
-		$sidelabel = $this->label;
-		if ( 34 < ( strlen( $this->label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
-			$sidelabel = substr( $this->label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
-		}
-
-		return $sidelabel;
-	}
-
 	/**
 	 * @return array Meta keys
 	 */
@@ -627,39 +606,6 @@ abstract class AC_StorageModel {
 		 * @see Filter cac/storage_model/meta_keys
 		 */
 		return apply_filters( "cac/storage_model/meta_keys/storage_key={$this->key}", $keys, $this );
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param array $fields Custom fields.
-	 *
-	 * @return array|false Custom fields.
-	 */
-	protected function add_hidden_meta( $fields ) {
-		if ( ! $fields ) {
-			return false;
-		}
-
-		$combined_fields = array();
-
-		// filter out hidden meta fields
-		foreach ( $fields as $field ) {
-
-			// give hidden fields a prefix for identification
-			if ( "_" == substr( $field[0], 0, 1 ) ) {
-				$combined_fields[] = 'cpachidden' . $field[0];
-			} // non hidden fields are saved as is
-			elseif ( "_" != substr( $field[0], 0, 1 ) ) {
-				$combined_fields[] = $field[0];
-			}
-		}
-
-		if ( empty( $combined_fields ) ) {
-			return false;
-		}
-
-		return $combined_fields;
 	}
 
 	/**
@@ -736,87 +682,6 @@ abstract class AC_StorageModel {
 
 	/**
 	 * @since 2.0
-	 */
-	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
-			return $columns;
-		}
-
-		// for the rare case where a screen hasn't been set yet and a
-		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() && ! cac_wp_is_doing_ajax() ) {
-			return $columns;
-		}
-
-		$settings = $this->settings();
-
-		// Stores the default columns on the listings screen
-		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			$settings->store_default_headings( $columns );
-		}
-
-		// make sure we run this only once
-		if ( $this->column_headings ) {
-			return $this->column_headings;
-		}
-
-		$stored_columns = $this->get_stored_columns();
-
-		if ( ! $stored_columns ) {
-			return $columns;
-		}
-
-		$this->column_headings = array();
-
-		// add mandatory checkbox
-		if ( isset( $columns['cb'] ) ) {
-			$this->column_headings['cb'] = $columns['cb'];
-		}
-
-		$this->column_types = null; // flush types, in case a column was deactivated
-		$types = array_keys( $this->get_column_types() );
-
-		// add active stored headings
-		foreach ( $stored_columns as $column_name => $options ) {
-
-			// Strip slashes for HTML tagged labels, like icons and checkboxes
-			$label = stripslashes( $options['label'] );
-
-			// Remove 3rd party columns that are no longer available (deactivated or removed from code)
-			if ( ! in_array( $options['type'], $types ) ) {
-				continue;
-			}
-
-			/**
-			 * Filter the stored column headers label for use in a WP_List_Table
-			 *
-			 * @since 2.0
-			 *
-			 * @param string $label Label
-			 * @param string $column_name Column name
-			 * @param array $options Column options
-			 * @param AC_StorageModel $storage_model Storage model class instance
-			 */
-			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
-			$label = str_replace( '[cpac_site_url]', site_url(), $label );
-
-			$this->column_headings[ $column_name ] = $label;
-		}
-
-		// Add 3rd party columns that have ( or could ) not been stored.
-		// For example when a plugin has been activated after storing column settings.
-		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $settings->get_default_headings() ) ) ) ) {
-			foreach ( $diff as $column_name ) {
-				$this->column_headings[ $column_name ] = $columns[ $column_name ];
-			}
-		}
-
-		return $this->column_headings;
-	}
-
-	/**
-	 * @since 2.0
 	 * @return string Link
 	 */
 	protected function get_screen_link() {
@@ -834,14 +699,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
+	 * @return string
 	 */
-	public function screen_link() {
-		if ( $link = $this->get_screen_link() ) {
-			echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
-		}
-	}
-
 	public function settings_url() {
 		$args = array(
 			'page'     => 'codepress-admin-columns',
@@ -866,18 +725,6 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
-	 */
-	public function get_restore_link() {
-		$args = array(
-			'_cpac_nonce' => wp_create_nonce( 'restore-type' ),
-			'cpac_action' => 'restore_by_type',
-		);
-
-		return add_query_arg( $args, $this->settings_url() );
-	}
-
-	/**
 	 * Populate column with stored options
 	 *
 	 * Only exists for backwards compatibility (like Pods). Options variable is no longer in use by CPAC_Column.
@@ -889,7 +736,6 @@ abstract class AC_StorageModel {
 	 * @param array $options
 	 */
 	public function populate_column_options( CPAC_Column $column, $options ) {
-		// Set options
 		if ( $options ) {
 			if ( isset( $options['clone'] ) ) {
 				$column->set_clone( $options['clone'] );

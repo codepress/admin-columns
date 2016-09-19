@@ -16,16 +16,13 @@ class AC_ThirdParty_WPML {
 
 		// enable the WPML translation of column headings
 		add_filter( 'cac/headings/label', array( $this, 'register_translated_label' ), 10, 4 );
-
-		// set WPML to be a columns screen for translation so that storage models are loaded
-		add_filter( 'cac/is_cac_screen', array( $this, 'is_cac_screen' ) );
 	}
 
 	public function replace_flags() {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
-		if ( ! cpac()->get_current_storage_model() ) {
+		if ( ! cpac()->listings_screen()->get_storage_model() ) {
 			return;
 		}
 
@@ -73,14 +70,6 @@ class AC_ThirdParty_WPML {
 		}
 
 		return $label;
-	}
-
-	public function is_cac_screen( $is_columns_screen ) {
-		if ( isset( $_GET['page'] ) && 'wpml-string-translation/menu/string-translation.php' == $_GET['page'] ) {
-			$is_columns_screen = true;
-		}
-
-		return $is_columns_screen;
 	}
 
 }

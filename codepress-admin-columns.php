@@ -108,6 +108,11 @@ class CPAC {
 	private $helper;
 
 	/**
+	 * @var AC_ListingsScreen $listings_screen
+	 */
+	private $listings_screen;
+
+	/**
 	 * @since 2.5
 	 */
 	public static function instance() {
@@ -143,23 +148,20 @@ class CPAC {
 		new AC_ThirdParty_WooCommerce();
 		new AC_ThirdParty_WPML();
 
-		// Hooks
-		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ), 11 );
-		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
-		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
-
-		// Populating columns
-		add_action( 'current_screen', array( $this, 'load_listings_headings_and_values' ) );
-
 		// Includes
 		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
 		$this->helper = new AC_Helper();
+		$this->listings_screen = new AC_ListingsScreen();
 
 		new AC_Notice_Review();
+
+		// Hooks
+		add_action( 'init', array( $this, 'localize' ) );
+		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
+		add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ), 11 );
+		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
@@ -244,11 +246,6 @@ class CPAC {
 		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
 		 */
 		do_action( 'cac/loaded', $this );
-
-		// Current listings page storage model
-		if ( $storage_model = $this->get_current_storage_model() ) {
-			do_action( 'cac/loaded_listings_screen', $storage_model );
-		}
 	}
 
 	/**
@@ -269,37 +266,8 @@ class CPAC {
 	/**
 	 * @since 2.2.4
 	 */
-	public function scripts() {
-
-		// Listings screen
-		if ( $current_storage_model = $this->get_current_storage_model() ) {
-
-			add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
-			add_action( 'admin_head', array( $this, 'admin_scripts' ) );
-
-			$minified = $this->minified();
-
-			$url = $this->get_plugin_url();
-
-			wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $this->get_version() );
-			wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $this->get_version() );
-			wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $this->get_version(), 'all' );
-			wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $this->get_version(), 'all' );
-
-			wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $current_storage_model->get_list_selector() );
-
-			wp_enqueue_script( 'cpac-admin-columns' );
-			wp_enqueue_style( 'jquery-qtip2' );
-			wp_enqueue_style( 'cpac-columns' );
-
-			/**
-			 * @param AC_StorageModel $storage_model
-			 */
-			do_action( 'ac/enqueue_listings_scripts', $current_storage_model );
-		}
-
-		// Settings screen
-		else if ( cac_is_setting_screen() ) {
+	public function settings_scripts() {
+		if ( cac_is_setting_screen() ) {
 			do_action( 'ac/enqueue_settings_scripts' );
 		}
 	}
@@ -323,21 +291,6 @@ class CPAC {
 		if ( $role = get_role( 'administrator' ) ) {
 			$role->add_cap( 'manage_admin_columns' );
 		}
-	}
-
-	/**
-	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
-	 *
-	 * @since 2.5.5
-	 */
-	public function set_primary_column( $default ) {
-		if ( $storage_model = $this->get_current_storage_model() ) {
-			if ( ! $storage_model->get_column_by_name( $default ) ) {
-				$default = key( $storage_model->get_columns() );
-			}
-		}
-
-		return $default;
 	}
 
 	/**
@@ -420,28 +373,6 @@ class CPAC {
 	}
 
 	/**
-	 * Only set columns on current screens or on specific ajax calls
-	 *
-	 * @since 2.4.9
-	 */
-	public function load_listings_headings_and_values() {
-
-		// Listings screen
-		$storage_model = $this->get_current_storage_model();
-
-		// WP Ajax calls (not AC)
-		if ( $model = cac_wp_is_doing_ajax() ) {
-			$storage_model = $this->get_storage_model( $model );
-			$storage_model->layouts()->init_listings_layout();
-		}
-
-		if ( $storage_model ) {
-			$storage_model->init_column_headings();
-			$storage_model->init_column_values();
-		}
-	}
-
-	/**
 	 * Get column object
 	 *
 	 * @since 2.5.4
@@ -450,16 +381,15 @@ class CPAC {
 	 * @param $layout_id AC_StorageModel->layout
 	 * @param $column_name CPAC_Column->name
 	 *
-	 * @return CPAC_Column
+	 * @return false|CPAC_Column
 	 */
 	public function get_column( $storage_key, $layout_id, $column_name ) {
-		$column = false;
-		if ( $storage_model = $this->get_storage_model( $storage_key ) ) {
-			$storage_model->layouts()->set_layout( $layout_id );
-			$column = $storage_model->get_column_by_name( $column_name );
+		if ( ! $storage_model = $this->get_storage_model( $storage_key ) ) {
+			return false;
 		}
+		$storage_model->layouts()->set_layout( $layout_id );
 
-		return $column;
+		return $storage_model->get_column_by_name( $column_name );
 	}
 
 	/**
@@ -471,17 +401,7 @@ class CPAC {
 	 * @return AC_StorageModel
 	 */
 	public function get_current_storage_model() {
-		if ( null === $this->current_storage_model && $this->get_storage_models() ) {
-			foreach ( $this->get_storage_models() as $storage_model ) {
-				if ( $storage_model->is_current_screen() ) {
-					$storage_model->layouts()->init_listings_layout();
-					$this->current_storage_model = $storage_model;
-					break;
-				}
-			}
-		}
-
-		return $this->current_storage_model;
+		return $this->listings_screen->get_storage_model();
 	}
 
 	/**
@@ -556,111 +476,10 @@ class CPAC {
 	}
 
 	/**
-	 * Adds a body class which is used to set individual column widths
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param string $classes body classes
-	 *
-	 * @return string
-	 */
-	public function admin_class( $classes ) {
-		if ( $storage_model = $this->get_current_storage_model() ) {
-			$classes .= " cp-{$storage_model->key}";
-		}
-
-		return $classes;
-	}
-
-	/**
-	 * Admin CSS for Column width and Settings Icon
-	 *
-	 * @since 1.4.0
-	 */
-	public function admin_scripts() {
-		$storage_model = $this->get_current_storage_model();
-
-		if ( ! $storage_model ) {
-			return;
-		}
-
-		// CSS: columns width
-		$css_column_width = false;
-		foreach ( $storage_model->get_columns() as $column ) {
-			if ( $width = $column->get_width() ) {
-				$css_column_width .= ".cp-" . $storage_model->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
-			}
-
-			// Load external scripts
-			$column->scripts();
-		}
-		?>
-		<?php if ( $css_column_width ) : ?>
-			<style type="text/css">
-				<?php echo $css_column_width; ?>
-			</style>
-		<?php endif; ?>
-		<?php
-
-		// JS: Edit button
-		if ( current_user_can( 'manage_admin_columns' ) && '0' !== $this->get_general_option( 'show_edit_button' ) ) : ?>
-			<script type="text/javascript">
-				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $storage_model->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
-				} );
-			</script>
-		<?php endif; ?>
-
-		<?php
-
-		/**
-		 * Add header scripts that only apply to column screens.
-		 * @since 2.3.5
-		 *
-		 * @param object CPAC Main Class
-		 */
-		do_action( 'cac/admin_head', $storage_model, $this );
-	}
-
-	public function get_first_storage_model_key() {
-		$keys = array_keys( (array) $this->get_storage_models() );
-
-		return array_shift( $keys );
-	}
-
-	public function get_first_storage_model() {
-		$models = array_values( $this->get_storage_models() );
-
-		return isset( $models[0] ) ? $models[0] : false;
-	}
-
-	/**
 	 * @since 2.5
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
-	 * Whether this request is a columns screen (i.e. a content overview page)
-	 *
-	 * @since 2.2
-	 * @return bool Returns true if the current screen is a columns screen, false otherwise
-	 */
-	public function is_columns_screen() {
-		$storage_model = $this->get_current_storage_model();
-
-		$is_column_screen = $storage_model && $storage_model->is_current_screen();
-
-		/**
-		 * Filter whether the current screen is a columns screen (i.e. a content overview page)
-		 * Useful for advanced used with custom content overview pages
-		 *
-		 * @since 2.2
-		 *
-		 * @param bool $columns_screen Whether the current request is a columns screen
-		 */
-		return apply_filters( 'cac/is_columns_screen', $is_column_screen );
 	}
 
 	/**
@@ -674,25 +493,6 @@ class CPAC {
 	 */
 	public function is_settings_screen( $tab = '' ) {
 		return cac_is_setting_screen( $tab );
-	}
-
-	/**
-	 * Whether the current screen is a screen in which Admin Columns is used
-	 * Used to quickly check whether storage models should be loaded
-	 *
-	 * @since 2.2
-	 * @return bool Whether the current screen is an Admin Columns screen
-	 */
-	public function is_cac_screen() {
-
-		/**
-		 * Filter whether the current screen is a screen in which Admin Columns is active
-		 *
-		 * @since 2.2
-		 *
-		 * @param bool $is_cac_screen Whether the current screen is an Admin Columns screen
-		 */
-		return apply_filters( 'cac/is_cac_screen', $this->is_columns_screen() || cac_is_doing_ajax() || $this->is_settings_screen() );
 	}
 
 	/**
@@ -723,6 +523,13 @@ class CPAC {
 	 */
 	public function upgrade() {
 		return $this->_upgrade;
+	}
+
+	/**
+	 * @return AC_ListingsScreen
+	 */
+	public function listings_screen() {
+		return $this->listings_screen;
 	}
 
 	/**
