@@ -147,6 +147,19 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function init_column_headings() {
+		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function init_column_values() {
+	}
+
+	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
@@ -161,6 +174,9 @@ abstract class AC_StorageModel {
 		return (array) get_column_headers( $this->get_screen_id() );
 	}
 
+	/**
+	 * @param string $key
+	 */
 	public function set_key( $key ) {
 		$this->key = $key;
 	}
@@ -170,19 +186,6 @@ abstract class AC_StorageModel {
 	 */
 	public function layouts() {
 		return $this->layouts;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_values() {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_headings() {
-		add_filter( "manage_" . $this->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	/**
