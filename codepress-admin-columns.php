@@ -326,7 +326,7 @@ class CPAC {
 	}
 
 	/**
-	 * Set the primary columns for the Admin Columns columns
+	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
 	 *
 	 * @since 2.5.5
 	 */
@@ -340,6 +340,11 @@ class CPAC {
 		return $default;
 	}
 
+	/**
+	 * Disable side wide notices
+	 *
+	 * @return bool True when no notices should be displayed
+	 */
 	public function suppress_site_wide_notices() {
 		return apply_filters( 'ac/suppress_site_wide_notices', false );
 	}

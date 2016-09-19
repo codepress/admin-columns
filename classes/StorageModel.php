@@ -325,7 +325,7 @@ abstract class AC_StorageModel {
 	 *
 	 * @since 2.0.1
 	 */
-	public function set_columns_filepath() {
+	private function set_columns_filepath() {
 
 		$dir = cpac()->get_plugin_dir();
 
@@ -408,6 +408,7 @@ abstract class AC_StorageModel {
 		if ( method_exists( $this, 'get_default_column_names' ) ) {
 			$default_column_names = $this->get_default_column_names();
 		}
+
 		if ( in_array( $column_type, $default_column_names ) ) {
 			$class_type = 'column-default';
 		}
@@ -433,9 +434,6 @@ abstract class AC_StorageModel {
 		}
 
 		$column->set_clone( $clone );
-
-		// Hook
-		do_action( 'ac/column', $column, $this );
 
 		return $column;
 	}
@@ -493,7 +491,7 @@ abstract class AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return void
 	 */
-	public function load_columns() {
+	private function load_columns() {
 		if ( ! empty( $this->columns ) ) {
 			return;
 		}
@@ -523,11 +521,9 @@ abstract class AC_StorageModel {
 		}
 
 		// Deprecated since NEWVERSION
+		// Use 'ac/column'
 		do_action( "cac/columns", $this->columns, $this );
 		do_action( "cac/columns/storage_key={$this->key}", $this->columns, $this );
-
-		// Hook
-		do_action( "ac/columns", $this );
 	}
 
 	/**
@@ -536,6 +532,11 @@ abstract class AC_StorageModel {
 	 */
 	public function get_columns() {
 		$this->load_columns();
+
+		// Hook
+		foreach ( $this->columns as $column ) {
+			do_action( 'ac/column', $column, $this );
+		}
 
 		return $this->columns;
 	}
@@ -664,85 +665,10 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @since 2.0
-	 */
-	public function restore() {
-		return delete_option( $this->get_storage_id() );
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param array $columns
-	 * @param array $default_columns Default columns heading names.
-	 */
-	public function store( $columns ) {
-
-		if ( ! $columns ) {
-			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
-		}
-
-		// sanitize user inputs
-		foreach ( $columns as $name => $options ) {
-			if ( $_column = $this->get_column_by_name( $name ) ) {
-
-				if ( ! empty( $options['label'] ) ) {
-
-					// Label can not contains the character ":"" and "'", because
-					// CPAC_Column::get_sanitized_label() will return an empty string
-					// and make an exception for site_url()
-					// Enable data:image url's
-					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
-						$options['label'] = str_replace( ':', '', $options['label'] );
-						$options['label'] = str_replace( "'", '', $options['label'] );
-					}
-				}
-
-				if ( isset( $options['width'] ) ) {
-					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
-				}
-
-				if ( isset( $options['date_format'] ) ) {
-					$options['date_format'] = trim( $options['date_format'] );
-				}
-
-				$columns[ $name ] = $_column->sanitize_options( $options );
-			}
-
-			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
-			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
-			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
-		}
-
-		// store columns
-		$result = update_option( $this->get_storage_id(), $columns );
-
-		// reset object
-		$this->flush_columns();
-
-		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->layouts->get_label_or_layout_name() . "</strong>" ) );
-		}
-
-		/**
-		 * Fires after a new column setup is stored in the database
-		 * Primarily used when columns are saved through the Admin Columns settings screen
-		 *
-		 * @since 2.2.9
-		 *
-		 * @param array $columns List of columns ([column id] => (array) [column properties])
-		 * @param AC_StorageModel $storage_model_instance Storage model instance
-		 */
-		do_action( 'cac/storage_model/columns_stored', $columns, $this );
-
-		return true;
-	}
-
-	/**
 	 * Get store ID
 	 * @since 2.5
 	 */
-	private function get_storage_id() {
+	public function get_storage_id() {
 		$layout = $this->layouts()->get_layout() ? $this->layouts()->get_layout() : null;
 
 		return $this->get_storage_key() . $layout;

@@ -34,6 +34,75 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
+	 * @since 2.0
+	 *
+	 * @param AC_StorageModel $storage_model
+	 * @param array $columns
+	 * @param array $default_columns Default columns heading names.
+	 */
+	private function store( AC_StorageModel $storage_model, $columns ) {
+
+		if ( ! $columns ) {
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+		}
+
+		// sanitize user inputs
+		foreach ( $columns as $name => $options ) {
+			if ( $_column = $storage_model->get_column_by_name( $name ) ) {
+
+				if ( ! empty( $options['label'] ) ) {
+
+					// Label can not contains the character ":"" and "'", because
+					// CPAC_Column::get_sanitized_label() will return an empty string
+					// and make an exception for site_url()
+					// Enable data:image url's
+					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
+						$options['label'] = str_replace( ':', '', $options['label'] );
+						$options['label'] = str_replace( "'", '', $options['label'] );
+					}
+				}
+
+				if ( isset( $options['width'] ) ) {
+					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
+				}
+
+				if ( isset( $options['date_format'] ) ) {
+					$options['date_format'] = trim( $options['date_format'] );
+				}
+
+				$columns[ $name ] = $_column->sanitize_options( $options );
+			}
+
+			// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
+			// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
+			$columns[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $columns[ $name ]['label'] ) ) );
+		}
+
+		// store columns
+		$result = update_option( $storage_model->get_storage_id(), $columns );
+
+		// reset object
+		$storage_model->flush_columns();
+
+		if ( ! $result ) {
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->layouts->get_label_or_layout_name() . "</strong>" ) );
+		}
+
+		/**
+		 * Fires after a new column setup is stored in the database
+		 * Primarily used when columns are saved through the Admin Columns settings screen
+		 *
+		 * @since 2.2.9
+		 *
+		 * @param array $columns List of columns ([column id] => (array) [column properties])
+		 * @param AC_StorageModel $storage_model_instance Storage model instance
+		 */
+		do_action( 'cac/storage_model/columns_stored', $columns, $this );
+
+		return true;
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
@@ -57,7 +126,8 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 							$storage_model->layouts()->set_layout( $_POST['cpac_layout'] );
 						}
 
-						$storage_model->restore();
+						delete_option( $storage_model->get_storage_id() );
+
 						$storage_model->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->layouts()->get_label_or_layout_name() ) . "</strong>" ), 'updated' );
@@ -158,7 +228,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			);
 		}
 
-		$stored = $storage_model->store( $formdata[ $storage_model->key ] );
+		$stored = $this->store( $storage_model, $formdata[ $storage_model->key ] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
