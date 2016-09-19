@@ -473,6 +473,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * Display column value
+	 *
 	 * @since NEWVERSION
 	 */
 	protected function get_display_value_by_column_name( $column_name, $id, $value = false ) {
@@ -661,38 +663,8 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * Get store ID
-	 * @since 2.5
+	 * @return bool
 	 */
-	/*public function get_storage_id() {
-		$layout = $this->layouts()->get_layout() ? $this->layouts()->get_layout() : null;
-
-		return $this->get_storage_key() . $layout;
-	}*/
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param string $key
-	 *
-	 * @return array Column options
-	 */
-	/*public function get_default_stored_columns() {
-		return get_option( $this->get_storage_key() . "__default", array() );
-	}*/
-
-	/*public function delete_default_stored_columns() {
-		delete_option( $this->get_storage_key() . "__default" );
-	}*/
-
-	/*private function store_default_columns( $columns ) {
-		return update_option( $this->get_storage_key() . "__default", $columns );
-	}*/
-
-	//private function get_storage_key() {
-	//return self::OPTIONS_KEY . '_' . $this->key;
-	//}
-
 	public function has_stored_columns() {
 		return $this->get_stored_columns() ? true : false;
 	}

@@ -21,19 +21,6 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
-	 * Restore all column defaults
-	 *
-	 * @since 1.0
-	 */
-	private function restore_all() {
-		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cpac_layouts%'" );
-
-		cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-	}
-
-	/**
 	 * @since 2.0
 	 *
 	 * @param AC_StorageModel $storage_model
@@ -123,15 +110,14 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
+
 					if ( $storage_model = cpac()->get_storage_model( $key ) ) {
 
-						// TODO: user AC_Settings
 						if ( isset( $_POST['cpac_layout'] ) ) {
 							$storage_model->layouts()->set_layout( $_POST['cpac_layout'] );
 						}
 
-						delete_option( $storage_model->get_storage_id() );
-
+						$storage_model->settings()->delete();
 						$storage_model->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->layouts()->get_label_or_layout_name() ) . "</strong>" ), 'updated' );
@@ -141,7 +127,12 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 			case 'restore_all' :
 				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
-					$this->restore_all();
+
+					AC_Settings::delete_all();
+
+					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+
+					do_action( 'ac/settings/restore_all' );
 				}
 				break;
 

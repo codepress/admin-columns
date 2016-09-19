@@ -11,39 +11,50 @@ class AC_Settings {
 	private $storage_model_key;
 	private $layout_id;
 
-	public function __construct( $storage_model_key, $layout ) {
+	public function __construct( $storage_model_key, $layout_id = null ) {
 		$this->storage_model_key = $storage_model_key;
-		$this->layout_id = $layout ? $layout : false; // no zero's allowed
+		$this->layout_id = $layout_id ? $layout_id : false;
 	}
 
-	private function get_storage_key() {
+	private function get_key() {
 		return self::OPTIONS_KEY . '_' . $this->storage_model_key . $this->layout_id;
 	}
 
 	// Column settings
 	public function store( $columndata ) {
-		return update_option( $this->get_storage_key(), $columndata );
+		return update_option( $this->get_key(), $columndata );
 	}
 
 	public function get() {
-		return get_option( $this->get_storage_key() );
+		return get_option( $this->get_key() );
 	}
 
 	public function delete() {
-		delete_option( $this->get_storage_key() );
+		delete_option( $this->get_key() );
 	}
 
 	// Default headings
+	private function get_default_key() {
+		return self::OPTIONS_KEY . '_' . $this->storage_model_key . "__default";
+	}
+
 	public function store_default_headings( $column_headings ) {
-		return update_option( $this->get_storage_key() . "__default", $column_headings );
+		return update_option( $this->get_default_key(), $column_headings );
 	}
 
 	public function get_default_headings() {
-		return get_option( $this->get_storage_key() . "__default" );
+		return get_option( $this->get_default_key() );
 	}
 
 	public function delete_default_headings() {
-		delete_option( $this->get_storage_key() . "__default" );
+		delete_option( $this->get_default_key() );
+	}
+
+	// Delete all
+	public static function delete_all() {
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "_%'" );
 	}
 
 }

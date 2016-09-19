@@ -151,7 +151,7 @@ class CPAC {
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
 
 		// Populating columns
-		add_action( 'admin_init', array( $this, 'load_listings_headings_and_values' ) );
+		add_action( 'current_screen', array( $this, 'load_listings_headings_and_values' ) );
 
 		// Includes
 		$this->_settings = new AC_Admin();
