@@ -10,13 +10,9 @@ class AC_StorageModel_User extends AC_StorageModel {
 		$this->type = 'user';
 		$this->meta_type = 'user';
 		$this->page = 'users';
+		$this->screen = 'users';
 		$this->table_classname = 'WP_Users_List_Table';
-	}
 
-	/**
-	 * @since 2.4.9
-	 */
-	public function init_column_values() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
 	}
 
@@ -24,23 +20,15 @@ class AC_StorageModel_User extends AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return string HTML
 	 */
-	public function get_single_row( $object_id ) {
-		return $this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * * @return WP_User User object
-	 */
-	protected function get_object_by_id( $id ) {
-		return get_userdata( $id );
+	public function get_single_row( $user_id ) {
+		return $this->get_list_table()->single_row( get_userdata( $user_id ) );
 	}
 
 	/**
 	 * @since 2.4.10
 	 */
 	public function is_current_screen() {
-		return ! is_network_admin() && parent::is_current_screen() && ( 'delete' !== filter_input( INPUT_GET, 'action' ) );
+		return parent::is_current_screen() && 'delete' !== filter_input( INPUT_GET, 'action' );
 	}
 
 	/**

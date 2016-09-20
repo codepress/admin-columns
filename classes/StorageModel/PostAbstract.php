@@ -29,8 +29,8 @@ abstract class AC_StorageModel_PostAbstract extends AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return WP_Post Post object
 	 */
-	protected function get_object_by_id( $id ) {
-		return get_post( $id );
+	protected function get_object_by_id( $post_id ) {
+		return get_post( $post_id );
 	}
 
 	/**

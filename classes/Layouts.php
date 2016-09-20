@@ -169,13 +169,6 @@ class AC_Layouts {
 		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
 	}
 
-	/**
-	 * @return string Layout delete link
-	 */
-	public function get_delete_layout_link( $layout_id ) {
-		return add_query_arg( array( 'layout_id' => $layout_id, 'cpac_action' => 'delete_layout', '_cpac_nonce' => wp_create_nonce( 'delete-layout' ) ), $this->storage_model->settings_url() );
-	}
-
 	public function set_user_layout_preference() {
 		update_user_meta( get_current_user_id(), $this->get_layout_key(), $this->active_layout );
 	}

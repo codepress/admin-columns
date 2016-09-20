@@ -81,11 +81,6 @@ class CPAC {
 	private $storage_models;
 
 	/**
-	 * @since 2.4.9
-	 */
-	private $current_storage_model = null;
-
-	/**
 	 * @since NEWVERSION
 	 */
 	private $general_options = null;

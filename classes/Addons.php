@@ -77,7 +77,7 @@ class AC_Addons {
 				<p><?php printf(
 						__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
 						$plugins_list,
-						'<a href="' . esc_attr( cpac()->settings()->get_settings_url( 'addons' ) ) . '">' . esc_html( __( 'the addons page', 'codepress-admin-columns' ) ) . '</a>'
+						'<a href="' . esc_attr( AC()->settings()->get_link( 'addons' ) ) . '">' . esc_html( __( 'the addons page', 'codepress-admin-columns' ) ) . '</a>'
 					); ?>
 			</div>
 			<style type="text/css">
@@ -222,7 +222,7 @@ class AC_Addons {
 				parse_str( $urlparts['query'], $request );
 
 				if ( empty( $request['error'] ) ) {
-					$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, cpac()->settings()->get_settings_url( 'addons' ) );
+					$location = add_query_arg( empty( $request['activate'] ) ? 'deactivate' : 'activate', true, AC()->settings()->get_link( 'addons' ) );
 				}
 			}
 		}

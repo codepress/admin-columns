@@ -264,7 +264,43 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
-		return $this->get_storage_model()->get_meta_keys();
+		if ( $cache = wp_cache_get( $this->get_storage_model_key(), 'cac_columns' ) ) {
+			$keys = $cache;
+		}
+		else {
+			$keys = $this->get_storage_model()->get_meta();
+			wp_cache_add( $this->get_storage_model_key(), $keys, 'cac_columns', 10 ); // 10 sec.
+		}
+
+		if ( is_wp_error( $keys ) || empty( $keys ) ) {
+			$keys = false;
+		}
+		else {
+			foreach ( $keys as $k => $key ) {
+
+				// give hidden keys a prefix
+				$keys[ $k ] = "_" == substr( $key[0], 0, 1 ) ? 'cpachidden' . $key[0] : $key[0];
+			}
+		}
+
+		/**
+		 * Filter the available custom field meta keys
+		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
+		 *
+		 * @since 2.0
+		 *
+		 * @param array $keys Available custom field keys
+		 * @param AC_StorageModel $storage_model Storage model class instance
+		 */
+		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_storage_model() );
+
+		/**
+		 * Filter the available custom field meta keys for this storage model type
+		 *
+		 * @since 2.0
+		 * @see Filter cac/storage_model/meta_keys
+		 */
+		return apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_storage_model_key(), $keys, $this->get_storage_model() );
 	}
 
 	private function get_grouped_field_options() {

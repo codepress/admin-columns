@@ -16,13 +16,10 @@ class AC_StorageModel_Comment extends AC_StorageModel {
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
 		$this->page = 'edit-comments';
+		$this->screen = 'edit-comments';
 		$this->table_classname = 'WP_Comments_List_Table';
-	}
 
-	/**
-	 * @since 2.4.9
-	 */
-	public function init_column_values() {
+		// Add column values
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
@@ -37,8 +34,8 @@ class AC_StorageModel_Comment extends AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return WP_Comment Comment
 	 */
-	protected function get_object_by_id( $id ) {
-		return get_comment( $id );
+	protected function get_object_by_id( $comment_id ) {
+		return get_comment( $comment_id );
 	}
 
 	public function get_meta() {

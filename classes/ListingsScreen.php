@@ -80,8 +80,6 @@ class AC_ListingsScreen {
 		wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $version, 'all' );
 		wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $version, 'all' );
 
-		wp_localize_script( 'cpac-admin-columns', 'AC_Storage_Model', $this->storage_model->get_list_selector() );
-
 		wp_enqueue_script( 'cpac-admin-columns' );
 		wp_enqueue_style( 'jquery-qtip2' );
 		wp_enqueue_style( 'cpac-columns' );
@@ -141,14 +139,19 @@ class AC_ListingsScreen {
 	}
 
 	/**
-	 * @param WP_Screen $current_screen
+	 * Load current storage model
 	 */
-	public function load_storage_model( $current_screen ) {
+	public function load_storage_model() {
 		foreach ( cpac()->get_storage_models() as $storage_model ) {
-			if ( $current_screen->id === $storage_model->get_screen_id() ) {
+			if ( $storage_model->is_current_screen() ) {
 				$this->storage_model = $storage_model;
 				$this->add_table_headings();
 			}
+/*
+			if ( $current_screen->id === $storage_model->get_screen_id() ) {
+				$this->storage_model = $storage_model;
+				$this->add_table_headings();
+			}*/
 		}
 	}
 
@@ -167,8 +170,8 @@ class AC_ListingsScreen {
 	 */
 	public function add_table_headings() {
 		$this->storage_model->layouts()->init_listings_layout();
-		$this->storage_model->init_column_values();
 
+		// Set headings
 		add_filter( "manage_" . $this->storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 
 		do_action( 'cac/loaded_listings_screen', $this->storage_model );
@@ -178,7 +181,7 @@ class AC_ListingsScreen {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
+		if ( empty( $columns ) || ! $this->storage_model ) {
 			return $columns;
 		}
 

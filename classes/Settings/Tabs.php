@@ -73,7 +73,7 @@ class AC_Settings_Tabs {
 
 					printf(
 						'<a href="%s" class="nav-tab%s">%s</a>',
-						esc_url( cpac()->settings()->get_settings_url( $slug ) ),
+						esc_url( AC()->settings()->get_link( $slug ) ),
 						$active,
 						esc_html( $tab->get_label() )
 					);

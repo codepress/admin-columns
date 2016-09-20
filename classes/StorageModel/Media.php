@@ -11,24 +11,19 @@ class AC_StorageModel_Media extends AC_StorageModel_PostAbstract {
 		$this->singular_label = __( 'Media' );
 		$this->type = 'media';
 		$this->page = 'upload';
+		$this->screen = 'upload';
 		$this->post_type = 'attachment';
 		$this->table_classname = 'WP_Media_List_Table';
-	}
 
-	/**
-	 * @since 2.4.9
-	 */
-	public function init_column_values() {
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
-	public function get_single_row( $id ) {
-
+	protected function get_object_by_id( $post_id ) {
 		// Author column depends on this global to be set.
 		global $authordata;
-		$authordata = get_userdata( get_post_field( 'post_author', $id ) );
+		$authordata = get_userdata( get_post_field( 'post_author', $post_id ) );
 
-		return parent::get_single_row( $id );
+		return get_post( $post_id );
 	}
 
 }

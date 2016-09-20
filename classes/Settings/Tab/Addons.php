@@ -53,7 +53,7 @@ class AC_Settings_Tab_Addons extends AC_Settings_TabAbstract {
 							else :
 
 								if ( cpac_is_pro_active() ) :
-									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), cpac()->settings()->get_settings_url( 'addons' ) ), 'install-cac-addon' );
+									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
 									?>
 									<a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php

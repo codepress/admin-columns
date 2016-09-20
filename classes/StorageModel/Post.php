@@ -14,13 +14,6 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function init_column_values() {
-		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
-	}
-
-	/**
 	 * @param string $post_type
 	 */
 	public function set_post_type( $post_type ) {
@@ -33,16 +26,9 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 		$this->label = $post_type_object->labels->name;
 		$this->singular_label = $post_type_object->labels->singular_name;
 
+		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+
 		return $this;
-	}
-
-	/**
-	 * @since 2.2
-	 */
-	public function is_current_screen() {
-		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post';
-
-		return ( $this->get_post_type() === $post_type ) && parent::is_current_screen();
 	}
 
 	/**

@@ -42,10 +42,10 @@ class AC_Settings_Welcome {
 				<h2 class="nav-tab-wrapper">
 					<a class="cpac-tab-toggle nav-tab <?php if ( $tab == 'whats-new' ) {
 						echo 'nav-tab-active';
-					} ?>" href="<?php echo esc_url( cpac()->settings()->get_settings_url( 'info' ) ); ?>whats-new"><?php _e( "What’s New", 'codepress-admin-columns' ); ?></a>
+					} ?>" href="<?php echo esc_url( AC()->settings()->get_welcome_url() ); ?>whats-new"><?php _e( "What’s New", 'codepress-admin-columns' ); ?></a>
 					<a class="cpac-tab-toggle nav-tab <?php if ( $tab == 'changelog' ) {
 						echo 'nav-tab-active';
-					} ?>" href="<?php echo esc_url( cpac()->settings()->get_settings_url( 'info' ) ); ?>changelog"><?php _e( "Changelog", 'codepress-admin-columns' ); ?></a>
+					} ?>" href="<?php echo esc_url( AC()->settings()->get_welcome_url() ); ?>changelog"><?php _e( "Changelog", 'codepress-admin-columns' ); ?></a>
 				</h2>
 
 				<?php if ( 'whats-new' === $tab ) : ?>
@@ -57,7 +57,7 @@ class AC_Settings_Welcome {
 
 					<?php if ( get_option( 'cpac_version', false ) < cpac()->get_upgrade_version() ) : ?>
 						<p><?php _e( "Make sure you backup your database and then click", 'codepress-admin-columns' ); ?>
-							<a href="<?php echo esc_url( cpac()->settings()->get_settings_url( 'upgrade' ) ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' ); ?></a>
+							<a href="<?php echo esc_url( AC()->settings()->get_upgrade_url() ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' ); ?></a>
 						</p>
 					<?php endif; ?>
 
@@ -104,7 +104,7 @@ class AC_Settings_Welcome {
 			</div><!--.cpac-content-body-->
 
 			<div class="cpac-content-footer">
-				<a class="button-primary button-large" href="<?php echo esc_url( cpac()->settings()->get_settings_url( 'general' ) ); ?>"><?php _e( "Start using Admin Columns", 'codepress-admin-columns' ); ?></a>
+				<a class="button-primary button-large" href="<?php echo esc_url( AC()->settings()->get_link( 'columns' ) ); ?>"><?php _e( "Start using Admin Columns", 'codepress-admin-columns' ); ?></a>
 			</div><!--.cpac-content-footer-->
 
 		</div>

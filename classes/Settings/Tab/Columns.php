@@ -87,7 +87,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		 * @param array $columns List of columns ([column id] => (array) [column properties])
 		 * @param AC_StorageModel $storage_model_instance Storage model instance
 		 */
-		do_action( 'cac/storage_model/columns_stored', $columns, $storage_model );
+		do_action( 'cac/storage_model/columns_stored', $storage_model );
 
 		return true;
 	}
@@ -607,6 +607,32 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
+	 * @param AC_StorageModel $storage_model
+	 *
+	 * @return mixed|void
+	 */
+	private function get_grouped_columns( $storage_model ) {
+		$grouped = array();
+
+		foreach ( $storage_model->get_column_types() as $type => $column ) {
+			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
+				$grouped[ $column->get_group() ]['title'] = $column->get_group();
+			}
+
+			// Labels with html will be replaced by the it's name.
+			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_property( 'label' ) ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_property( 'label' ) ) );
+
+			if ( ! $column->is_default() && ! $column->is_original() ) {
+				natcasesort( $grouped[ $column->get_group() ]['options'] );
+			}
+		}
+
+		krsort( $grouped );
+
+		return apply_filters( 'cac/grouped_columns', $grouped, $this );
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	private function display_column( CPAC_Column $column ) {
@@ -680,7 +706,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
-						'grouped_options' => $column->get_storage_model()->get_grouped_columns(),
+						'grouped_options' => $this->get_grouped_columns( $column->get_storage_model() ),
 						'default'         => $column->get_type(),
 					) );
 

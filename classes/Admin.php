@@ -6,6 +6,8 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Admin {
 
+	CONST PAGE_SLUG = 'codepress-admin-columns';
+
 	/**
 	 * Settings Page
 	 *
@@ -34,6 +36,15 @@ class AC_Admin {
 	}
 
 	/**
+	 * @param string $tab_slug
+	 *
+	 * @return false|string URL
+	 */
+	public function get_link( $tab_slug ) {
+		return add_query_arg( array( 'tab' => $tab_slug ), $this->get_settings_url() );
+	}
+
+	/**
 	 * @return AC_Settings_Tabs
 	 */
 	public function get_tabs() {
@@ -47,43 +58,16 @@ class AC_Admin {
 		return $this->settings_page;
 	}
 
-	/**
-	 * Get available Admin Columns admin page URLs
-	 *
-	 * @since 2.2
-	 * @return array Available settings URLs ([settings_page] => [url])
-	 */
-	public function get_settings_urls() {
-		return array(
-			'admin'            => admin_url( 'options-general.php?page=codepress-admin-columns' ),
-			'settings'         => admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
-			'network_settings' => network_admin_url( 'settings.php?page=codepress-admin-columns' ),
-			'info'             => admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
-			'upgrade'          => admin_url( 'options-general.php?page=cpac-upgrade' ),
-		);
+	public function get_settings_url() {
+		return menu_page_url( self::PAGE_SLUG, false );
 	}
 
-	/**
-	 * Get the settings URL for a page
-	 *
-	 * @since 2.2
-	 *
-	 * @param string $page Optional. Admin page to get the URL from. Defaults to the basic Admin Columns page
-	 *
-	 * @return string Settings page URL
-	 */
-	public function get_settings_url( $page = '' ) {
-		$settings_urls = $this->get_settings_urls();
+	public function get_upgrade_url() {
+		return admin_url( 'options-general.php?page=cpac-upgrade' );
+	}
 
-		if ( isset( $settings_urls[ $page ] ) ) {
-			return $settings_urls[ $page ];
-		}
-
-		if ( ! $page ) {
-			return $settings_urls['admin'];
-		}
-
-		return add_query_arg( 'tab', $page, $this->get_settings_url() );
+	public function get_welcome_url() {
+		return add_query_arg( array( 'info' => 1 ), $this->get_settings_url() );
 	}
 
 	/**
@@ -119,7 +103,7 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ) );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', self::PAGE_SLUG, array( $this, 'display' ) );
 
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
 
@@ -239,22 +223,6 @@ class AC_Admin {
 				'content' => $tab['content'],
 			) );
 		}
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param string $storage_model URL type.
-	 *
-	 * @return string Url.
-	 */
-	public function get_url( $type ) {
-		$urls = array(
-			'pricing'       => ac_get_site_url( 'pricing-purchase' ),
-			'documentation' => ac_get_site_url( 'documentation' ),
-		);
-
-		return isset( $urls[ $type ] ) ? $urls[ $type ] : false;
 	}
 
 	/**
