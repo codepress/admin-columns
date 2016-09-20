@@ -147,11 +147,6 @@ class AC_ListingsScreen {
 				$this->storage_model = $storage_model;
 				$this->add_table_headings();
 			}
-/*
-			if ( $current_screen->id === $storage_model->get_screen_id() ) {
-				$this->storage_model = $storage_model;
-				$this->add_table_headings();
-			}*/
 		}
 	}
 
@@ -170,7 +165,8 @@ class AC_ListingsScreen {
 	 */
 	public function add_table_headings() {
 
-		// Set headings
+		$this->storage_model->init_manage_value();
+
 		add_filter( "manage_" . $this->storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 
 		do_action( 'cac/loaded_listings_screen', $this->storage_model );

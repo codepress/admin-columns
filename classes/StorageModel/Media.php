@@ -14,7 +14,9 @@ class AC_StorageModel_Media extends AC_StorageModel_PostAbstract {
 		$this->screen = 'upload';
 		$this->post_type = 'attachment';
 		$this->table_classname = 'WP_Media_List_Table';
+	}
 
+	public function init_manage_value() {
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

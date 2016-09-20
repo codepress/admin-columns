@@ -11,7 +11,9 @@ class AC_StorageModel_Link extends AC_StorageModel {
 		$this->page = 'link-manager';
 		$this->screen = 'link-manager';
 		$this->table_classname = 'WP_Links_List_Table';
+	}
 
+	public function init_manage_value() {
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

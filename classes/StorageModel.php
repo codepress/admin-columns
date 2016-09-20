@@ -88,12 +88,6 @@ abstract class AC_StorageModel {
 	 * @since 2.0.1
 	 * @var array
 	 */
-	protected $columns_filepath;
-
-	/**
-	 * @since 2.0.1
-	 * @var array
-	 */
 	public $columns = array();
 
 	/**
@@ -131,9 +125,18 @@ abstract class AC_StorageModel {
 	private $settings;
 
 	/**
-	 * @return mixed
+	 * Set the above variables of the object
+	 *
+	 * @return void
 	 */
 	abstract function init();
+
+	/**
+	 * Contains the hook that contains the manage_value callback
+	 *
+	 * @return void
+	 */
+	abstract function init_manage_value();
 
 	/**
 	 * @since 2.4.4
@@ -143,7 +146,6 @@ abstract class AC_StorageModel {
 		$this->settings = new AC_Settings();
 
 		$this->init();
-		$this->set_columns_filepath();
 	}
 
 	/**
@@ -364,9 +366,6 @@ abstract class AC_StorageModel {
 		return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
 	}
 
-
-	// TODO: everything below should not be in StorageModel, but maybe in a ColumnsFactory
-
 	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
@@ -548,7 +547,6 @@ abstract class AC_StorageModel {
 	 * @since NEWVERSION
 	 */
 	private function get_default_headings() {
-
 		if ( null === $this->default_columns ) {
 
 			// Get default column that have been set on the listings screen
@@ -577,7 +575,7 @@ abstract class AC_StorageModel {
 	private function get_column_classnames() {
 		if ( empty( $this->column_classnames ) ) {
 
-			foreach ( $this->columns_filepath as $class => $path ) {
+			foreach ( $this->get_columns_filepath() as $class_name => $path ) {
 				$autoload = true;
 
 				// check for autoload condition
@@ -589,15 +587,15 @@ abstract class AC_StorageModel {
 					}
 				}
 
-				if ( ! class_exists( $class, $autoload ) ) {
+				if ( ! class_exists( $class_name, $autoload ) ) {
 					continue;
 				}
 
 				/* @var $column CPAC_Column */
-				$column = new $class( $this->key );
+				$column = new $class_name( $this->get_key() );
 
 				if ( $column->apply_conditional() ) {
-					$this->column_classnames[ $column->get_type() ] = $class;
+					$this->column_classnames[ $column->get_type() ] = $class_name;
 				}
 			}
 		}
@@ -610,9 +608,9 @@ abstract class AC_StorageModel {
 	 *
 	 * @since 2.0.1
 	 */
-	private function set_columns_filepath() {
+	private function get_columns_filepath() {
 
-		$dir = cpac()->get_plugin_dir();
+		$dir = AC()->get_plugin_dir();
 
 		require_once $dir . 'classes/Column.php';
 
@@ -666,9 +664,9 @@ abstract class AC_StorageModel {
 		 * @since 2.0
 		 * @see Filter cac/columns/custom
 		 */
-		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->get_key(), $columns, $this );
+		$columns = apply_filters( 'cac/columns/custom/post_type=' . $this->get_post_type(), $columns, $this );
 
-		$this->columns_filepath = $columns;
+		return $columns;
 	}
 
 	/**

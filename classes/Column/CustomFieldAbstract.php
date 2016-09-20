@@ -353,7 +353,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
-				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->get_storage_model()->singular_label . '</strong>' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_storage_model()->singular_label ) . '</strong>' ),
 				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;

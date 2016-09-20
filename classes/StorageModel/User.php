@@ -12,7 +12,9 @@ class AC_StorageModel_User extends AC_StorageModel {
 		$this->page = 'users';
 		$this->screen = 'users';
 		$this->table_classname = 'WP_Users_List_Table';
+	}
 
+	public function init_manage_value() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
 	}
 

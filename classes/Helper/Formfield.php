@@ -42,7 +42,7 @@ class AC_Helper_FormField {
 			<?php //ajax message ?>
 			<div class="msg"></div>
 		<?php elseif ( $args->no_result ) :
-			echo esc_html( $args->no_result );
+			echo $args->no_result;
 		endif;
 	}
 

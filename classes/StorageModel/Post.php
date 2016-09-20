@@ -13,6 +13,10 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 		$this->table_classname = 'WP_Posts_List_Table';
 	}
 
+	public function init_manage_value() {
+		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+	}
+
 	/**
 	 * @param string $post_type
 	 */
@@ -25,8 +29,6 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 
 		$this->label = $post_type_object->labels->name;
 		$this->singular_label = $post_type_object->labels->singular_name;
-
-		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 
 		return $this;
 	}

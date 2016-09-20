@@ -18,8 +18,9 @@ class AC_StorageModel_Comment extends AC_StorageModel {
 		$this->page = 'edit-comments';
 		$this->screen = 'edit-comments';
 		$this->table_classname = 'WP_Comments_List_Table';
+	}
 
-		// Add column values
+	public function init_manage_value() {
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 
