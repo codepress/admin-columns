@@ -73,14 +73,13 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		}
 
 		// store columns
-		$settings = new AC_Settings( $storage_model->get_key(), $storage_model->get_active_layout() );
-		$result = $settings->store( $column_data );
+		$result = $storage_model->settings()->store( $column_data );
 
 		// reset object
 		$storage_model->flush_columns();
 
 		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label_or_layout_name() . "</strong>" ) );
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label() . "</strong>" ) );
 		}
 
 		/**
@@ -125,7 +124,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 						$storage_model->settings()->delete();
 						$storage_model->flush_columns();
 
-						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label_or_layout_name() ) . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -248,7 +247,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label_or_layout_name() ) . "</strong>" )
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" )
 			. ' <a href="' . esc_attr( $storage_model->get_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) ) . '</a>'
 		);
 	}
@@ -336,7 +335,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		$storage_model = $this->storage_model;
 		?>
 
-		<div class="columns-container<?php echo $storage_model->has_stored_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>" data-layout="<?php echo esc_attr( $storage_model->layouts()->get_layout() ); ?>">
+		<div class="columns-container<?php echo $storage_model->has_stored_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>" data-layout="<?php echo esc_attr( $storage_model->get_active_layout() ); ?>">
 			<div class="main">
 				<div class="menu">
 					<select title="Select type" id="cpac_storage_modal_select">
@@ -381,10 +380,10 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 							<form class="form-reset" method="post">
 								<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->get_key() ); ?>"/>
 								<input type="hidden" name="cpac_action" value="restore_by_type"/>
-								<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->layouts()->get_layout() ); ?>"/>
+								<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->get_active_layout() ); ?>"/>
 								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
-								<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label_or_layout_name() . "'" ) ) . '\');"' : ''; ?>
+								<?php $onclick = cpac()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label() . "'" ) ) . '\');"' : ''; ?>
 								<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 								<span class="spinner"></span>
 							</form>
@@ -552,7 +551,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->get_key() ); ?>"/>
 							<input type="hidden" name="cpac_action" value="update_by_type"/>
-							<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->layouts()->get_layout() ); ?>"/>
+							<input type="hidden" name="cpac_layout" value="<?php echo esc_attr( $storage_model->get_active_layout() ); ?>"/>
 
 							<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
 

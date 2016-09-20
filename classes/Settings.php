@@ -11,8 +11,11 @@ class AC_Settings {
 	private $storage_model_key;
 	private $layout_id;
 
-	public function __construct( $storage_model_key, $layout_id = null ) {
+	public function set_key( $storage_model_key ) {
 		$this->storage_model_key = $storage_model_key;
+	}
+
+	public function set_layout( $layout_id ) {
 		$this->layout_id = $layout_id ? $layout_id : false;
 	}
 
