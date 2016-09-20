@@ -169,7 +169,6 @@ class AC_ListingsScreen {
 	 * Add Table headings
 	 */
 	public function add_table_headings() {
-		$this->storage_model->layouts()->init_listings_layout();
 
 		// Set headings
 		add_filter( "manage_" . $this->storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()

@@ -121,10 +121,18 @@ abstract class AC_StorageModel {
 	private $column_classnames = array();
 
 	/**
-	 * @var AC_Layouts
+	 * @var string
 	 */
-	private $layouts;
+	private $active_layout;
 
+	/**
+	 * @var AC_Settings $settings
+	 */
+	private $settings;
+
+	/**
+	 * @return mixed
+	 */
 	abstract function init();
 
 	/**
@@ -132,11 +140,33 @@ abstract class AC_StorageModel {
 	 */
 	function __construct() {
 		$this->menu_type = __( 'Other', 'codepress-admin-columns' );
+		$this->settings = new AC_Settings();
 
 		$this->init();
 		$this->set_columns_filepath();
+	}
 
-		$this->layouts = new AC_Layouts( $this );
+	/**
+	 * @since 2.5
+	 * @return string Layout ID
+	 */
+	public function get_active_layout() {
+		return $this->active_layout;
+	}
+
+	/**
+	 * @param string $layout_id
+	 */
+	public function set_active_layout( $layout_id ) {
+		$this->active_layout = is_scalar( $layout_id ) ? $layout_id : null;
+		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_label() {
+		return apply_filters( 'ac/storage_model/label', $this->label, $this );
 	}
 
 	/**
@@ -144,13 +174,6 @@ abstract class AC_StorageModel {
 	 */
 	public function set_key( $key ) {
 		$this->key = $key;
-	}
-
-	/**
-	 * @return AC_Layouts
-	 */
-	public function layouts() {
-		return $this->layouts;
 	}
 
 	/**
@@ -256,9 +279,7 @@ abstract class AC_StorageModel {
 	 * @since 2.3.4
 	 */
 	public function is_using_php_export() {
-		$layout = $this->layouts->get_layout_object();
-
-		return ! empty( $layout->not_editable );
+		return apply_filters( 'ac/storage_model/is_using_php_export', false, $this );
 	}
 
 	/**
@@ -296,7 +317,10 @@ abstract class AC_StorageModel {
 	 * @return AC_Settings
 	 */
 	public function settings() {
-		return new AC_Settings( $this->get_key(), $this->layouts()->get_layout() );
+		$this->settings->set_key( $this->key );
+		$this->settings->set_layout( $this->active_layout );
+
+		return $this->settings;
 	}
 
 	/**
@@ -326,16 +350,7 @@ abstract class AC_StorageModel {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		$layout = $this->layouts()->get_layout();
-
-		return add_query_arg( array( 'layout_id' => $layout ? $layout : '' ), $this->settings_url() );
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	public function get_edit_link_by_layout( $layout_id ) {
-		return add_query_arg( array( 'layout_id' => $layout_id ? $layout_id : '' ), $this->settings_url() );
+		return add_query_arg( array( 'layout_id' => $this->active_layout ? $this->active_layout : '' ), $this->settings_url() );
 	}
 
 	/**

@@ -59,11 +59,11 @@ class AC_Admin {
 	}
 
 	public function get_settings_url() {
-		return menu_page_url( self::PAGE_SLUG, false );
+		return admin_url( add_query_arg( array( 'page' => self::PAGE_SLUG ), 'options-general.php' ) );
 	}
 
 	public function get_upgrade_url() {
-		return admin_url( 'options-general.php?page=cpac-upgrade' );
+		return admin_url( add_query_arg( array( 'page' => 'cpac-upgrade' ), 'options-general.php' ) );
 	}
 
 	public function get_welcome_url() {
