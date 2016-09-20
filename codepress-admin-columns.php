@@ -382,7 +382,7 @@ class CPAC {
 		if ( ! $storage_model = $this->get_storage_model( $storage_key ) ) {
 			return false;
 		}
-		$storage_model->layouts()->set_layout( $layout_id );
+		$storage_model->set_active_layout( $layout_id );
 
 		return $storage_model->get_column_by_name( $column_name );
 	}

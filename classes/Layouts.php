@@ -23,53 +23,31 @@ class AC_Layouts {
 	CONST LAYOUT_KEY = 'cpac_layouts';
 
 	/**
-	 * @var AC_StorageModel $storage_model
+	 * @var string $storage_model
 	 */
-	private $storage_model;
+	private $storage_model_key;
 
-	/**
-	 * @var string
-	 */
-	private $active_layout;
 
-	public function __construct( $storage_model ) {
-		$this->storage_model = $storage_model;
+	public function __construct( $storage_model_key ) {
+		$this->storage_model_key = $storage_model_key;
 	}
 
 	private function get_layout_key( $layout_id = '' ) {
-		return self::LAYOUT_KEY . $this->storage_model->get_key() . $layout_id;
-	}
-
-	/**
-	 * @since 2.5
-	 * @return string Layout ID
-	 */
-	public function get_layout() {
-		return $this->active_layout;
-	}
-
-	/**
-	 * @return stdClass Layout object
-	 */
-	public function get_layout_object() {
-		return $this->get_layout_by_id( $this->active_layout );
+		return self::LAYOUT_KEY . $this->storage_model_key . $layout_id;
 	}
 
 	/**
 	 * @return string Layout name
 	 */
-	public function get_layout_name() {
-		$object = $this->get_layout_by_id( $this->active_layout );
+	public function get_layout_name( $layout_id ) {
+		$object = $this->get_layout_by_id( $layout_id );
 
 		return isset( $object->name ) ? $object->name : false;
 	}
 
-	public function set_layout( $layout_id ) {
-		$this->active_layout = is_scalar( $layout_id ) ? $layout_id : null;
-		$this->storage_model->flush_columns(); // forces $columns and $stored_columns to be repopulated
-	}
 
-	public function init_settings_layout() {
+	// TODO: refactor
+	/*public function init_settings_layout() {
 
 		// try admin preference..
 		$layout_id = $this->get_user_layout_preference();
@@ -80,9 +58,9 @@ class AC_Layouts {
 		}
 
 		$this->set_layout( $layout_id );
-	}
+	}*/
 
-	public function init_listings_layout() {
+	/*public function init_listings_layout() {
 		$layout_id = null;
 
 		// User layouts
@@ -113,11 +91,17 @@ class AC_Layouts {
 		}
 
 		$this->set_layout( $layout_id );
-	}
+	}*/
 
-	public function set_single_layout_id() {
+	/*public function set_single_layout_id() {
 		$this->set_layout( $this->get_single_layout_id() );
-	}
+	}*/
+
+
+	// TODO: refactor
+	/*public function set_user_layout_preference() {
+		update_user_meta( get_current_user_id(), $this->get_layout_key(), $this->active_layout );
+	}*/
 
 	public function layout_exists( $id ) {
 		return $this->get_layout_by_id( $id ) ? true : false;
@@ -135,7 +119,7 @@ class AC_Layouts {
 	/**
 	 * @return stdClass[] Layout objects
 	 */
-	public function get_layouts() {
+	/*public function get_layouts() {
 		global $wpdb;
 		$layouts = array();
 		if ( $results = $wpdb->get_results( $wpdb->prepare( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", $this->get_layout_key() . '%' ) ) ) {
@@ -157,35 +141,31 @@ class AC_Layouts {
 			$layouts = array();
 		}
 
-		return apply_filters( 'ac/layouts', $layouts, $this->storage_model );
-	}
+		return apply_filters( 'ac/layouts', $layouts, $this->storage_model_key );
+	}*/
 
 	/**
 	 * @return false|stdClass Layout object
 	 */
-	public function get_layout_by_id( $id ) {
+	/*public function get_layout_by_id( $id ) {
 		$layouts = $this->get_layouts();
 
 		return isset( $layouts[ $id ] ) ? $layouts[ $id ] : false;
-	}
-
-	public function set_user_layout_preference() {
-		update_user_meta( get_current_user_id(), $this->get_layout_key(), $this->active_layout );
-	}
+	}*/
 
 	/**
 	 * @return string|false Layout ID
 	 */
-	public function get_user_layout_preference() {
+	/*public function get_user_layout_preference() {
 		$id = get_user_meta( get_current_user_id(), $this->get_layout_key(), true );
 
 		return $this->layout_exists( $id ) ? $id : false;
-	}
+	}*/
 
 	/**
 	 * @return stdClass[] Layouts
 	 */
-	public function get_layouts_for_current_user() {
+	/*public function get_layouts_for_current_user() {
 		$user_layouts = array();
 
 		$current_user = get_current_user_id();
@@ -217,7 +197,7 @@ class AC_Layouts {
 		}
 
 		return $user_layouts;
-	}
+	}*/
 
 	/**
 	 * @return array Layout default arguments
@@ -272,20 +252,6 @@ class AC_Layouts {
 	 */
 	public function delete_layout( $id ) {
 		return delete_option( $this->get_layout_key( $id ) );
-	}
-
-	/**
-	 * @since 2.5
-	 * @return string Layout name or Storage model label
-	 */
-	public function get_label_or_layout_name() {
-		$label = $this->storage_model->label;
-
-		if ( $name = $this->get_layout_name() ) {
-			$label = $name;
-		}
-
-		return $label;
 	}
 
 }

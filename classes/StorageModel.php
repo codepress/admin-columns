@@ -125,6 +125,11 @@ abstract class AC_StorageModel {
 	 */
 	private $layouts;
 
+	/**
+	 * @var string
+	 */
+	private $active_layout;
+
 	abstract function init();
 
 	/**
@@ -136,7 +141,38 @@ abstract class AC_StorageModel {
 		$this->init();
 		$this->set_columns_filepath();
 
-		$this->layouts = new AC_Layouts( $this );
+		$this->layouts = new AC_Layouts( $this->key );
+	}
+
+	public function set_single_layout_id() {
+		$this->set_active_layout( $this->layouts->get_single_layout_id() );
+	}
+
+	/**
+	 * @since 2.5
+	 * @return string Layout ID
+	 */
+	public function get_active_layout() {
+		return $this->active_layout;
+	}
+
+	/**
+	 * @since 2.5
+	 * @return string Layout name or Storage model label
+	 */
+	public function get_label_or_layout_name() {
+		$label = $this->label;
+
+		if ( $name = $this->layouts->get_layout_name( $this->active_layout ) ) {
+			$label = $name;
+		}
+
+		return $label;
+	}
+
+	public function set_active_layout( $layout_id ) {
+		$this->active_layout = is_scalar( $layout_id ) ? $layout_id : null;
+		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
 	/**
@@ -256,7 +292,9 @@ abstract class AC_StorageModel {
 	 * @since 2.3.4
 	 */
 	public function is_using_php_export() {
-		$layout = $this->layouts->get_layout_object();
+
+		// TODO: remove this0
+		$layout = ac_pro()->layouts()->get_layout_by_id( $this->active_layout );
 
 		return ! empty( $layout->not_editable );
 	}
