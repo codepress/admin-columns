@@ -22,8 +22,17 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 		echo esc_attr( self::SETTINGS_KEY . '[' . $key . ']' );
 	}
 
+	/**
+	 * @param $key
+	 *
+	 * @return false|string When '0' there are no options stored.
+	 */
 	public function get_option( $key ) {
 		$options = $this->get_options();
+
+		if ( '0' === $options ) {
+			return $options;
+		}
 
 		return isset( $options[ $key ] ) ? $options[ $key ] : false;
 	}
@@ -34,6 +43,43 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 		}
 
 		return $this->options;
+	}
+
+	public function delete_options() {
+		delete_option( self::SETTINGS_KEY );
+	}
+
+	public function single_checkbox( $args = array() ) {
+		$defaults = array(
+			'name'          => '',
+			'label'         => '',
+			'instructions'  => '',
+			'default_value' => '',
+		);
+
+		$args = (object) wp_parse_args( $args, $defaults );
+
+		$current_value = '0' !== $this->get_option( $args->name ) ? $this->get_option( $args->name ) : $args->default_value;
+		?>
+		<p>
+			<label for="<?php echo $args->name; ?>">
+				<input name="<?php $this->attr_name( $args->name ); ?>" id="<?php echo $args->name; ?>" type="checkbox" value="1" <?php checked( $current_value, '1' ); ?>>
+				<?php echo $args->label; ?>
+			</label>
+			<?php if ( $args->instructions ) : ?>
+				<a href="javascript:;" class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
+				</a>
+			<?php endif; ?>
+		</p>
+		<?php if ( $args->instructions ) : ?>
+			<div id="pointer-<?php echo $args->name; ?>" style="display:none;">
+				<h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
+				<?php echo $args->instructions; ?>
+			</div>
+			<?php
+		endif;
+
 	}
 
 	public function display() { ?>
@@ -47,14 +93,16 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 				<td class="padding-22">
 					<div class="cpac_general">
 						<form method="post" action="options.php">
+
 							<?php settings_fields( 'cpac-general-settings' ); ?>
-							<p>
-								<label for="show_edit_button">
-									<input name="<?php $this->attr_name( 'show_edit_button' ); ?>" type="hidden" value="0">
-									<input name="<?php $this->attr_name( 'show_edit_button' ); ?>" id="show_edit_button" type="checkbox" value="1" <?php checked( $this->get_option( 'show_edit_button' ), '1' ); ?>>
-									<?php _e( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ); ?>
-								</label>
-							</p>
+
+							<?php
+							$this->single_checkbox( array(
+								'name'          => 'show_edit_button',
+								'label'         => __( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ),
+								'default_value' => '1',
+							) );
+							?>
 
 							<?php do_action( 'cac/settings/general', $this ); ?>
 
