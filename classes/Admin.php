@@ -36,6 +36,22 @@ class AC_Admin {
 	}
 
 	/**
+	 * @param $option
+	 *
+	 * @return bool
+	 */
+	public function get_general_option( $option ) {
+		return $this->get_settings_tab()->get_option( $option );
+	}
+
+	/**
+	 * @return AC_Settings_Tab_Settings
+	 */
+	private function get_settings_tab() {
+		return $this->tabs->get_tab( 'settings' );
+	}
+
+	/**
 	 * @param string $tab_slug
 	 *
 	 * @return false|string URL

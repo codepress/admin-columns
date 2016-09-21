@@ -72,6 +72,11 @@ class CPAC {
 	private $_upgrade;
 
 	/**
+	 * @var AC_ListingsScreen $listings_screen
+	 */
+	private $_listings_screen;
+
+	/**
 	 * Registered storage model class instances
 	 * Array of AC_StorageModel instances, with the storage model keys (e.g. post, page, wp-users) as keys
 	 *
@@ -82,19 +87,9 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
-	 */
-	private $general_options = null;
-
-	/**
-	 * @since NEWVERSION
 	 * @var null|string $version Version number
 	 */
 	private $version = null;
-
-	/**
-	 * @since 2.5
-	 */
-	protected static $_instance = null;
 
 	/**
 	 * @since NEWVERSION
@@ -103,9 +98,9 @@ class CPAC {
 	private $helper;
 
 	/**
-	 * @var AC_ListingsScreen $listings_screen
+	 * @since 2.5
 	 */
-	private $_listings_screen;
+	protected static $_instance = null;
 
 	/**
 	 * @since 2.5
@@ -492,36 +487,12 @@ class CPAC {
 	}
 
 	/**
-	 * Check whether the Advanced Custom Fields plugin is active
-	 *
-	 * @since 2.4.9
-	 *
-	 * @return bool Whether the Advanced Custom Fields plugin is active
-	 */
-	public function is_plugin_acf_active() {
-		return cpac_is_acf_active();
-	}
-
-	/**
-	 * Check whether the WooCommerce plugin is active
-	 *
-	 * @since 2.4.9
-	 *
-	 * @return bool Whether the WooCommerce plugin is active
-	 */
-	public function is_plugin_woocommerce_active() {
-		return cpac_is_woocommerce_active();
-	}
-
-	/**
 	 * @since 2.1.1
 	 */
 	public function get_general_option( $option ) {
-		if ( null === $this->general_options ) {
-			$this->general_options = get_option( AC_Settings_Tab_Settings::SETTINGS_KEY );
-		}
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->get_general_option( $option )' );
 
-		return isset( $this->general_options[ $option ] ) ? $this->general_options[ $option ] : false;
+		return $this->settings()->get_general_option( $option );
 	}
 
 	/**
