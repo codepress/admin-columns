@@ -238,7 +238,7 @@ abstract class AC_StorageModel {
 	public function is_current_screen() {
 		$screen = get_current_screen();
 
-		return $screen->id === $this->get_screen_id();
+		return $screen ? $screen->id === $this->get_screen_id() : false;
 	}
 
 	/**

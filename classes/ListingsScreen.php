@@ -142,7 +142,7 @@ class AC_ListingsScreen {
 	 * Load current storage model
 	 */
 	public function load_storage_model() {
-		foreach ( cpac()->get_storage_models() as $storage_model ) {
+		foreach ( AC()->get_storage_models() as $storage_model ) {
 			if ( $storage_model->is_current_screen() ) {
 				$this->storage_model = $storage_model;
 				$this->add_table_headings();
@@ -150,12 +150,47 @@ class AC_ListingsScreen {
 		}
 	}
 
+	private function is_doing_ajax(  ) {
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+	}
+
+	/**
+	 * Is WordPress doing ajax
+	 *
+	 * @since 2.5
+	 */
+	function get_storage_model_when_doing_ajax() {
+		$storage_model = false;
+
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+
+			switch ( filter_input( INPUT_POST, 'action' ) ) {
+				case 'inline-save' :  // Quick edit
+					$storage_model = filter_input( INPUT_POST, 'post_type' );
+					break;
+				case 'add-tag' : // Adding term
+				case 'inline-save-tax' : // Quick edit term
+					$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+					break;
+				case 'edit-comment' : // Quick edit comment
+				case 'replyto-comment' :  // Inline reply on comment
+					$storage_model = 'wp-comments';
+					break;
+				case 'cacie_column_save' :
+					$storage_model = filter_input( INPUT_POST, 'storage_model' );
+					break;
+			}
+		}
+
+		return $storage_model;
+	}
+
 	/**
 	 * @param WP_Screen $current_screen
 	 */
 	public function load_storage_model_doing_ajax() {
-		if ( $model = cac_wp_is_doing_ajax() ) {
-			$this->storage_model = cpac()->get_storage_model( $model );
+		if ( $storage_model = AC()->get_storage_model( $this->get_storage_model_when_doing_ajax() ) ) {
+			$this->storage_model = $storage_model;
 			$this->add_table_headings();
 		}
 	}
@@ -176,20 +211,20 @@ class AC_ListingsScreen {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-		if ( empty( $columns ) || ! $this->storage_model ) {
+		if ( empty( $columns ) ) {
 			return $columns;
 		}
 
 		// for the rare case where a screen hasn't been set yet and a
 		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() && ! cac_wp_is_doing_ajax() ) {
+		if ( ! get_current_screen() && ! $this->is_doing_ajax() ) {
 			return $columns;
 		}
 
 		$settings = $this->storage_model->settings();
 
 		// Stores the default columns on the listings screen
-		if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+		if ( ! $this->is_doing_ajax() ) {
 			$settings->store_default_headings( $columns );
 		}
 
@@ -199,6 +234,8 @@ class AC_ListingsScreen {
 		}
 
 		$stored_columns = $this->storage_model->get_stored_columns();
+
+		$stored_columns = apply_filters( 'ac/listings_screen/columns', $stored_columns, $this->storage_model );
 
 		if ( ! $stored_columns ) {
 			return $columns;
@@ -211,7 +248,7 @@ class AC_ListingsScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		$this->column_types = null; // flush types, in case a column was deactivated
+		$this->storage_model->flush_columns(); // flush types, in case a column was deactivated
 		$types = array_keys( $this->storage_model->get_column_types() );
 
 		// add active stored headings

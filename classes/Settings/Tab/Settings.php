@@ -6,10 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 
+	CONST SETTINGS_KEY = 'cpac_general_options';
+
 	public function __construct() {
 		$this
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
+
+		register_setting( 'cpac-general-settings', self::SETTINGS_KEY );
 	}
 
 	public function display() { ?>
@@ -24,16 +28,16 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 					<div class="cpac_general">
 						<form method="post" action="options.php">
 							<?php settings_fields( 'cpac-general-settings' ); ?>
-							<?php $options = get_option( 'cpac_general_options' ); ?>
+							<?php $options = get_option( self::SETTINGS_KEY ); ?>
 							<p>
 								<label for="show_edit_button">
-									<input name="cpac_general_options[show_edit_button]" type="hidden" value="0">
-									<input name="cpac_general_options[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( ! isset( $options['show_edit_button'] ) || ( '1' == $options['show_edit_button'] ) ); ?>>
+									<input name="<?php echo self::SETTINGS_KEY; ?>[show_edit_button]" type="hidden" value="0">
+									<input name="<?php echo self::SETTINGS_KEY; ?>[show_edit_button]" id="show_edit_button" type="checkbox" value="1" <?php checked( ! isset( $options['show_edit_button'] ) || ( '1' == $options['show_edit_button'] ) ); ?>>
 									<?php _e( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ); ?>
 								</label>
 							</p>
 
-							<?php do_action( 'cac/settings/general', $options ); ?>
+							<?php do_action( 'cac/settings/general', $options, $this ); ?>
 
 							<p>
 								<input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>

@@ -104,7 +104,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		$action = filter_input( INPUT_POST, 'cpac_action' );
 		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
 
-		if ( ! $action || ! $nonce || ! cac_is_setting_screen() || ! current_user_can( 'manage_admin_columns' ) ) {
+		if ( ! $action || ! $nonce || ! current_user_can( 'manage_admin_columns' ) || ! $this->is_current_screen() ) {
 			return;
 		}
 

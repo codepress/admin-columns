@@ -58,6 +58,10 @@ Abstract class AC_Settings_TabAbstract {
 		return $this;
 	}
 
+	public function is_current_screen() {
+		return $this->get_slug() === filter_input( INPUT_GET, 'tab' ) && AC_Admin::PAGE_SLUG === filter_input( INPUT_GET, 'page' );
+	}
+
 	/**
 	 * Display tab
 	 *

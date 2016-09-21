@@ -34,52 +34,6 @@ function cpac_settings_message( $message = '', $type = 'updated' ) {
 }
 
 /**
- * Is doing ajax
- *
- * @since 2.3.4
- */
-function cac_is_doing_ajax() {
-	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-		return false;
-	}
-
-	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
-
-	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
-}
-
-/**
- * Is WordPress doing ajax
- *
- * @since 2.5
- */
-function cac_wp_is_doing_ajax() {
-	$storage_model = false;
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-
-		switch ( filter_input( INPUT_POST, 'action' ) ) {
-			case 'inline-save' :  // Quick edit
-				$storage_model = filter_input( INPUT_POST, 'post_type' );
-				break;
-			case 'add-tag' : // Adding term
-			case 'inline-save-tax' : // Quick edit term
-				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
-				break;
-			case 'edit-comment' : // Quick edit comment
-			case 'replyto-comment' :  // Inline reply on comment
-				$storage_model = 'wp-comments';
-				break;
-			case 'cacie_column_save' :
-				$storage_model = filter_input( INPUT_POST, 'storage_model' );
-				break;
-		}
-	}
-
-	return $storage_model;
-}
-
-/**
  * Returns true if the installed version of WooCommerce is version X or greater
  *
  * @since 2.3.4
@@ -127,29 +81,6 @@ function cpac_is_addon_woocommerce_active() {
 }
 
 /**
- * Whether the current screen is the Admin Columns settings screen
- *
- * @since 2.4.8
- *
- * @param strong $tab Specifies a tab screen (optional)
- *
- * @return bool True if the current screen is the settings screen, false otherwise
- */
-function cac_is_setting_screen( $tab = '' ) {
-	global $pagenow;
-
-	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-		return false;
-	}
-
-	if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
-		return false;
-	}
-
-	return true;
-}
-
-/**
  * Get the url where the Admin Columns website is hosted
  *
  * @return string
@@ -184,4 +115,79 @@ function ac_helper() {
  */
 function ac_is_version_gte( $version ) {
 	return version_compare( AC()->get_version(), $version, '>=' );
+}
+
+/**
+ * Is doing ajax
+ *
+ * @since 2.3.4
+ */
+function cac_is_doing_ajax() {
+	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+
+	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+		return false;
+	}
+
+	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
+
+	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
+}
+
+/**
+ * Is WordPress doing ajax
+ *
+ * @since 2.5
+ */
+function cac_wp_is_doing_ajax() {
+	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+
+	$storage_model = false;
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+
+		switch ( filter_input( INPUT_POST, 'action' ) ) {
+			case 'inline-save' :  // Quick edit
+				$storage_model = filter_input( INPUT_POST, 'post_type' );
+				break;
+			case 'add-tag' : // Adding term
+			case 'inline-save-tax' : // Quick edit term
+				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+				break;
+			case 'edit-comment' : // Quick edit comment
+			case 'replyto-comment' :  // Inline reply on comment
+				$storage_model = 'wp-comments';
+				break;
+			case 'cacie_column_save' :
+				$storage_model = filter_input( INPUT_POST, 'storage_model' );
+				break;
+		}
+	}
+
+	return $storage_model;
+}
+
+/**
+ * Whether the current screen is the Admin Columns settings screen
+ *
+ * @since 2.4.8
+ *
+ * @param strong $tab Specifies a tab screen (optional)
+ *
+ * @return bool True if the current screen is the settings screen, false otherwise
+ */
+function cac_is_setting_screen( $tab = '' ) {
+	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+
+	global $pagenow;
+
+	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
+		return false;
+	}
+
+	if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
+		return false;
+	}
+
+	return true;
 }

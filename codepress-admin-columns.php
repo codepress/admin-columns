@@ -105,7 +105,7 @@ class CPAC {
 	/**
 	 * @var AC_ListingsScreen $listings_screen
 	 */
-	private $listings_screen;
+	private $_listings_screen;
 
 	/**
 	 * @since 2.5
@@ -147,15 +147,15 @@ class CPAC {
 		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
+		$this->_listings_screen = new AC_ListingsScreen();
+
 		$this->helper = new AC_Helper();
-		$this->listings_screen = new AC_ListingsScreen();
 
 		new AC_Notice_Review();
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
-		add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ), 11 );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
@@ -256,15 +256,6 @@ class CPAC {
 	 */
 	public function minified() {
 		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	}
-
-	/**
-	 * @since 2.2.4
-	 */
-	public function settings_scripts() {
-		if ( cac_is_setting_screen() ) {
-			do_action( 'ac/enqueue_settings_scripts' );
-		}
 	}
 
 	/**
@@ -396,7 +387,7 @@ class CPAC {
 	 * @return AC_StorageModel
 	 */
 	public function get_current_storage_model() {
-		return $this->listings_screen->get_storage_model();
+		return $this->_listings_screen->get_storage_model();
 	}
 
 	/**
@@ -432,29 +423,6 @@ class CPAC {
 	}
 
 	/**
-	 * Get a list of taxonomies supported by Admin Columns
-	 *
-	 * @since 1.0
-	 *
-	 * @return array List of taxonomies
-	 */
-	public function get_taxonomies() {
-		$taxonomies = get_taxonomies( array( 'show_ui' => true ) );
-		if ( isset( $taxonomies['post_format'] ) ) {
-			unset( $taxonomies['post_format'] );
-		}
-
-		/**
-		 * Filter the post types for which Admin Columns is active
-		 *
-		 * @since 2.0
-		 *
-		 * @param array $post_types List of active post type names
-		 */
-		return apply_filters( 'cac/taxonomies', $taxonomies );
-	}
-
-	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
 	 * @since 1.0
@@ -475,19 +443,6 @@ class CPAC {
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
-	 * Whether the current screen is the Admin Columns settings screen
-	 *
-	 * @since 2.2
-	 *
-	 * @param string $tab Specifies a tab screen (optional)
-	 *
-	 * @return bool True if the current screen is the settings screen, false otherwise
-	 */
-	public function is_settings_screen( $tab = '' ) {
-		return cac_is_setting_screen( $tab );
 	}
 
 	/**
@@ -524,7 +479,7 @@ class CPAC {
 	 * @return AC_ListingsScreen
 	 */
 	public function listings_screen() {
-		return $this->listings_screen;
+		return $this->_listings_screen;
 	}
 
 	/**
@@ -563,10 +518,38 @@ class CPAC {
 	 */
 	public function get_general_option( $option ) {
 		if ( null === $this->general_options ) {
-			$this->general_options = get_option( 'cpac_general_options' );
+			$this->general_options = get_option( AC_Settings_Tab_Settings::SETTINGS_KEY );
 		}
 
 		return isset( $this->general_options[ $option ] ) ? $this->general_options[ $option ] : false;
+	}
+
+	/**
+	 * Whether the current screen is the Admin Columns settings screen
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $tab Specifies a tab screen (optional)
+	 *
+	 * @return bool True if the current screen is the settings screen, false otherwise
+	 */
+	public function is_settings_screen( $tab = '' ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->is_current_tab( $tab )' );
+
+		return $this->settings()->is_current_tab( $tab );
+	}
+
+	/**
+	 * Get a list of taxonomies supported by Admin Columns
+	 *
+	 * @since 1.0
+	 *
+	 * @return array List of taxonomies
+	 */
+	public function get_taxonomies() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return array();
 	}
 
 }
