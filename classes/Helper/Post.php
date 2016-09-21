@@ -30,6 +30,15 @@ class AC_Helper_Post {
 	}
 
 	/**
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	public function post_exists( $id ) {
+		return $this->get_raw_field( 'ID', $id ) ? true : false;
+	}
+
+	/**
 	 * @param int $id Post ID
 	 *
 	 * @return false|string Post Title

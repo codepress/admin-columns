@@ -612,11 +612,6 @@ abstract class AC_StorageModel {
 
 		$dir = AC()->get_plugin_dir();
 
-		require_once $dir . 'classes/Column.php';
-
-		// Backwards compatibility
-		require_once $dir . 'classes/Deprecated/column-default.php';
-
 		$columns = array(
 			'AC_Column_Plugin'  => true,
 			'AC_Column_Default' => true,

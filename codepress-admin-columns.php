@@ -296,6 +296,11 @@ class CPAC {
 
 			$classes_dir = $this->get_plugin_dir() . 'classes/';
 
+			require_once $classes_dir . 'Column.php';
+
+			// Backwards compatibility
+			require_once $classes_dir . 'Deprecated/column-default.php';
+
 			// @deprecated NEWVERSION
 			require_once $classes_dir . 'Deprecated/storage_model.php';
 

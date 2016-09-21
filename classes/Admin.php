@@ -162,6 +162,8 @@ class AC_Admin {
 	 */
 	public function admin_scripts() {
 
+		do_action( 'ac/enqueue_settings_scripts' );
+
 		// width slider
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version(), 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
@@ -187,7 +189,6 @@ class AC_Admin {
 			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
 		) );
 
-		do_action( 'ac/enqueue_settings_scripts' );
 	}
 
 	/**

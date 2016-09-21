@@ -376,7 +376,7 @@ class AC_ColumnFieldSettings {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		$args['current'] = $this->get_option( $args['name'] );
+		$args['value'] = $this->get_option( $args['name'] );
 		$args['attr_name'] = $this->get_attr_name( $args['name'] );
 		$args['attr_id'] = $this->get_attr_id( $args['name'] );
 
@@ -489,14 +489,14 @@ class AC_ColumnFieldSettings {
 		<div class="unit-select">
 			<?php
 			ac_helper()->formfield->radio( array(
-				'attr_id'   => $this->get_attr_id( 'width_unit' ),
-				'attr_name' => $this->get_attr_name( 'width_unit' ),
-				'options'   => array(
+				'attr_id'       => $this->get_attr_id( 'width_unit' ),
+				'attr_name'     => $this->get_attr_name( 'width_unit' ),
+				'options'       => array(
 					'px' => 'px',
 					'%'  => '%',
 				),
-				'class'     => 'unit',
-				'default'   => $this->column->get_width_unit(),
+				'class'         => 'unit',
+				'default_value' => $this->column->get_width_unit(),
 			) );
 			?>
 		</div>

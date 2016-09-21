@@ -14,15 +14,32 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	private $storage_model;
 
 	public function __construct() {
+
 		$this
 			->set_slug( 'columns' )
 			->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 			->set_default( true );
 
+		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
+		// Scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+
+		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
+	}
+
+	/**
+	 * Admin scripts for this tab
+	 */
+	public function admin_scripts() {
+		if ( ! $this->is_current_screen() ) {
+			return;
+		}
+
+		do_action( 'ac/admin_scripts/columns', $this );
 	}
 
 	/**
