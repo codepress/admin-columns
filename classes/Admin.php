@@ -47,7 +47,7 @@ class AC_Admin {
 	/**
 	 * @return AC_Settings_Tab_Settings
 	 */
-	private function get_settings_tab() {
+	public function get_settings_tab() {
 		return $this->tabs->get_tab( 'settings' );
 	}
 

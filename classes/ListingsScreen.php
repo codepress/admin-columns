@@ -119,7 +119,7 @@ class AC_ListingsScreen {
 		<?php
 
 		// JS: Edit button
-		if ( current_user_can( 'manage_admin_columns' ) && '0' !== AC()->settings()->get_general_option( 'show_edit_button' ) ) : ?>
+		if ( current_user_can( 'manage_admin_columns' ) && AC()->settings()->get_settings_tab()->show_edit_button() ) : ?>
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->storage_model->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );

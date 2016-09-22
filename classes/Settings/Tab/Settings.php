@@ -15,6 +15,8 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
 
+		$this->options = get_option( self::SETTINGS_KEY );
+
 		register_setting( 'cpac-general-settings', self::SETTINGS_KEY );
 	}
 
@@ -28,25 +30,22 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 	 * @return false|string When '0' there are no options stored.
 	 */
 	public function get_option( $key ) {
-		$options = $this->get_options();
-
-		if ( '0' === $options ) {
-			return $options;
-		}
-
-		return isset( $options[ $key ] ) ? $options[ $key ] : false;
+		return isset( $this->options[ $key ] ) ? $this->options[ $key ] : false;
 	}
 
-	public function get_options() {
-		if ( null === $this->options ) {
-			$this->options = get_option( self::SETTINGS_KEY );
-		}
-
-		return $this->options;
+	private function is_empty_options() {
+		return false === $this->options;
 	}
 
 	public function delete_options() {
 		delete_option( self::SETTINGS_KEY );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function show_edit_button() {
+		return $this->is_empty_options() || $this->get_option( 'show_edit_button' );
 	}
 
 	public function single_checkbox( $args = array() ) {
@@ -54,12 +53,12 @@ class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
 			'name'          => '',
 			'label'         => '',
 			'instructions'  => '',
-			'default_value' => '',
+			'default_value' => false,
 		);
 
 		$args = (object) wp_parse_args( $args, $defaults );
 
-		$current_value = '0' !== $this->get_option( $args->name ) ? $this->get_option( $args->name ) : $args->default_value;
+		$current_value = $this->is_empty_options() ? $args->default_value : $this->get_option( $args->name );
 		?>
 		<p>
 			<label for="<?php echo $args->name; ?>">
