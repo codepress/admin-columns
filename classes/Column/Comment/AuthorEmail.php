@@ -16,7 +16,7 @@ class AC_Column_Comment_AuthorEmail extends CPAC_Column {
 	public function get_value( $id ) {
 		$email = $this->get_raw_value( $id );
 
-		return '<a href="' . $email . '">' . $email . '</a>';
+		return ac_helper()->html->link( $email, $email );
 	}
 
 	public function get_raw_value( $id ) {

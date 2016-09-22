@@ -151,13 +151,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * @since 2.5.6
-	 */
-	public function get_date_by_string( $date_string ) {
-		return $this->format->date( $date_string );
-	}
-
-	/**
 	 * @see CPAC_Column::get_value()
 	 * @since 1.0
 	 */
@@ -175,11 +168,11 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				break;
 
 			case "excerpt" :
-				$value = ac_helper()->string->trim_words( $raw_value, $this->get_option( 'excerpt_length' ) );
+				$value = $this->format->word_limit( $raw_value );
 				break;
 
 			case "date" :
-				$value = $this->get_date_by_string( $raw_value );
+				$value = $this->format->date( $raw_value );
 				break;
 
 			case "link" :

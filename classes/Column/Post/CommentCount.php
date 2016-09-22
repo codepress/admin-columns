@@ -32,7 +32,7 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 		$status = $this->get_option( 'comment_status' );
 		$count = $this->get_raw_value( $post_id );
 
-		if ( $count !== '' ) {
+		if ( '' !== $count ) {
 			$names = $this->get_comment_stati();
 
 			$url = esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ) );

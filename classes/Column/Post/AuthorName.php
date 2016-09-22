@@ -19,15 +19,7 @@ class AC_Column_Post_AuthorName extends CPAC_Column {
 	public function get_value( $post_id ) {
 		$author_id = $this->get_post_author( $post_id );
 
-		// User name
-		$user_name = $this->format->user( $author_id );
-
-		// Link To
-		if ( $link = $this->format->user_link_to( $author_id ) ) {
-			$user_name = '<a href="' . esc_url( $link ) . '">' . esc_html( $user_name ) . '</a>';
-		}
-
-		return $user_name;
+		return ac_helper()->html->link( $this->format->user_link_to( $author_id ), $this->format->user( $author_id ) );
 	}
 
 	public function get_raw_value( $post_id ) {

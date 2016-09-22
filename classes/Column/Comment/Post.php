@@ -19,20 +19,13 @@ class AC_Column_Comment_Post extends CPAC_Column {
 	public function get_value( $id ) {
 		$post_id = $this->get_raw_value( $id );
 
-		$label = esc_html( $this->format->post( $post_id ) );
-
-		// Get page to link to
-		if ( $link = $this->format->post_link_to( $post_id ) ) {
-			$label = '<a href="' . esc_url( $link ) . '">' . $label . '</a>';
-		}
-
-		return $label;
+		return ac_helper()->html->link( $this->format->post_link_to( $post_id ), $this->format->post( $post_id ) );
 	}
 
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
 
-		return $comment->comment_post_ID;
+		return $comment ? $comment->comment_post_ID : false;
 	}
 
 	public function display_settings() {

@@ -164,14 +164,6 @@ class AC_Helper_Image {
 		return $thumbnails;
 	}
 
-	private function markup_cover( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image cpac-cover' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
-	}
-
-	private function markup( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
-	}
-
 	/**
 	 * @param string $name
 	 *
@@ -187,6 +179,16 @@ class AC_Helper_Image {
 		}
 
 		return $sizes;
+	}
+
+	// Helpers
+
+	private function markup_cover( $src, $width, $height ) {
+		return "<span class='cpac-column-value-image cpac-cover' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
+	}
+
+	private function markup( $src, $width, $height ) {
+		return "<span class='cpac-column-value-image'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
 	}
 
 }

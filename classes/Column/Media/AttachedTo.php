@@ -15,18 +15,16 @@ class AC_Column_Media_AttachedTo extends CPAC_Column {
 
 	public function get_value( $id ) {
 		$value = false;
+
 		if ( $attached_to = $this->get_raw_value( $id ) ) {
-			$value = get_the_title( $attached_to );
-			if ( $edit_link = get_edit_post_link( $id ) ) {
-				$value = '<a href="' . $edit_link . '">' . $value . '</a>';
-			}
+			$value = ac_helper()->html->link( get_edit_post_link( $id ), get_the_title( $attached_to ) );
 		}
 
 		return $value;
 	}
 
 	public function get_raw_value( $id ) {
-		return get_post_field( $id, 'post_parent' );
+		return ac_helper()->post->get_raw_field( 'post_parent', $id );
 	}
 
 }

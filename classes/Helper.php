@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_User user
  * @property AC_Helper_Icon icon
  * @property AC_Helper_FormField formfield
+ * @property AC_Helper_Html html
  */
 class AC_Helper {
 
