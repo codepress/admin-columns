@@ -18,7 +18,8 @@ class AC_Column_Comment_ReplyTo extends CPAC_Column {
 		$parent = $this->get_raw_value( $id );
 		if ( $parent ) {
 			$parent = get_comment( $parent );
-			$value = sprintf( '<a href="%1$s">%2$s</a>', esc_url( get_comment_link( $parent ) ), get_comment_author( $parent->comment_ID ) );
+
+			$value = ac_helper()->html->link( esc_url( get_comment_link( $parent ) ), get_comment_author( $parent->comment_ID ) );
 		}
 
 		return $value;

@@ -18,12 +18,13 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$value = $this->get_raw_value( $post_id );
+		$link = $this->get_raw_value( $post_id );
+
 		if ( 'on' == $this->get_option( 'link_to_post' ) ) {
-			$value = '<a href="' . esc_attr( $value ) . '" target="_blank">' . $value . '</a>';
+			$link = ac_helper()->html->link( $link, $link, array( 'target' => '_blank' ) );
 		}
 
-		return $value;
+		return $link;
 	}
 
 	public function get_raw_value( $post_id ) {

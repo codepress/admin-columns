@@ -34,9 +34,9 @@ class AC_Column_Post_CommentCount extends CPAC_Column {
 
 		if ( '' !== $count ) {
 			$names = $this->get_comment_stati();
-
 			$url = esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ) );
-			$value = "<a href='{$url}' class='cp-{$status}' title='" . $names[ $status ] . "'>{$count}</a>";
+
+			$value = ac_helper()->html->link( $url, $count, array( 'class' => 'cp-' . $status, 'title' => $names[ $status ] ) );
 		}
 
 		return $value;

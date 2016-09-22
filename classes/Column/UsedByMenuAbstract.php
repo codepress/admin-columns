@@ -31,7 +31,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
 				$title = $term->name;
 				if ( 'on' == $this->get_option( 'link_to_menu' ) ) {
-					$title = '<a href="' . esc_url( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ) ) . '">' . $term->name . '</a>';
+					$title = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
 				}
 
 				$menus[] = $title;

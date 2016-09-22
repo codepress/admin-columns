@@ -179,4 +179,11 @@ class AC_Helper_String {
 		return $hex ? '<div class="cpac-color"><span style="background-color:' . esc_attr( $hex ) . ';color:' . esc_attr( $this->hex_get_contrast( $hex ) ) . '">' . esc_html( $hex ) . '</span></div>' : false;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function is_valid_url( $url ) {
+		return filter_var( $url, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $url );
+	}
+
 }

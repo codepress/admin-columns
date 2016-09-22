@@ -16,7 +16,7 @@ class AC_Column_Post_Shortlink extends CPAC_Column {
 	function get_value( $post_id ) {
 		$link = $this->get_raw_value( $post_id );
 
-		return '<a href="' . esc_attr( $link ) . '">' . esc_html( $link ) . '</a>';
+		return ac_helper()->html->link( $link, $link );
 	}
 
 	function get_raw_value( $post_id ) {

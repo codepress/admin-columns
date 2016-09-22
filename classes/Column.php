@@ -65,6 +65,11 @@ abstract class CPAC_Column {
 	private $format;
 
 	/**
+	 * @var AC_Helper
+	 */
+	private $helper;
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param object $storage_model AC_StorageModel
@@ -75,6 +80,7 @@ abstract class CPAC_Column {
 
 		$this->field_settings = new AC_ColumnFieldSettings( $this );
 		$this->format = new AC_ColumnFieldFormat( $this );
+		$this->helper = AC()->helper();
 
 		$this->init();
 		$this->after_setup();

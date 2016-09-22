@@ -32,7 +32,7 @@ class AC_Column_Post_FeaturedImage extends CPAC_Column {
 
 		$link = get_edit_post_link( $post_id );
 
-		return $link ? '<a href="' . esc_attr( $link ) . '#postimagediv">' . $thumb . '</a>' : $thumb;
+		return $link ? ac_helper()->html->link( $link . '#postimagediv', $thumb ) : $thumb;
 	}
 
 	public function get_raw_value( $post_id ) {

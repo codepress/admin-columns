@@ -70,7 +70,7 @@ class AC_Column_Media_AvailableSizes extends CPAC_Column {
 			}
 		}
 
-		return "<div class='sizes'>" . implode( '<span class="cpac-divider"></span>', $paths ) . "</div>";
+		return "<div class='sizes'>" . implode( ac_helper()->html->divider(), $paths ) . "</div>";
 	}
 
 	public function get_raw_value( $id ) {

@@ -14,14 +14,9 @@ class AC_Column_Post_Parent extends CPAC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		if ( ! ( $parent_id = $this->get_raw_value( $post_id ) ) ) {
-			return false;
-		}
+		$parent_id = $this->get_raw_value( $post_id );
 
-		$title = ac_helper()->post->get_post_title( $parent_id );
-		$link = get_edit_post_link( $parent_id );
-
-		return $link ? "<a href='" . esc_attr( $link ) . "'>" . $title . "</a>" : $title;
+		return $parent_id ? ac_helper()->html->link( get_edit_post_link( $parent_id ), ac_helper()->post->get_raw_field( 'post_title', $parent_id ) ) : false;
 	}
 
 	public function get_raw_value( $post_id ) {

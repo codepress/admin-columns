@@ -176,12 +176,13 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				break;
 
 			case "link" :
-				if ( filter_var( $raw_value, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $raw_value ) ) {
+				if ( ac_helper()->string->is_valid_url( $raw_value ) ) {
 					$label = $this->get_option( 'link_label' );
 					if ( ! $label ) {
 						$label = $raw_value;
 					}
-					$value = '<a href="' . $raw_value . '">' . $label . '</a>';
+
+					$value = ac_helper()->html->link( $raw_value, $label );
 				}
 				break;
 
@@ -191,11 +192,11 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 					foreach ( (array) $ids as $id ) {
 						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
 							$link = get_edit_post_link( $id );
-							$titles[] = $link ? "<a href='" . esc_attr( $link ) . "'>{$title}</a>" : $title;
+							$titles[] = ac_helper()->html->link( $link, $title );
 						}
 					}
 				}
-				$value = implode( '<span class="cpac-divider"></span>', $titles );
+				$value = implode( ac_helper()->html->divider(), $titles );
 				break;
 
 			case "user_by_id" :
@@ -203,12 +204,11 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
 						if ( $username = $this->get_username_by_id( $id ) ) {
-							$link = get_edit_user_link( $id );
-							$names[] = $link ? "<a href='{$link}'>{$username}</a>" : $username;
+							$names[] = ac_helper()->html->link( get_edit_user_link( $id ), $username );
 						}
 					}
 				}
-				$value = implode( '<span class="cpac-divider"></span>', $names );
+				$value = implode( ac_helper()->html->divider(), $names );
 				break;
 
 			case "term_by_id" :
