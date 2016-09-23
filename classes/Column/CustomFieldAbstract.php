@@ -296,7 +296,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		return apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_storage_model_key(), $keys, $this->get_storage_model() );
 	}
 
-	private function get_grouped_field_options() {
+	protected function get_grouped_field_options() {
 		$grouped_options = array();
 
 		if ( $keys = $this->get_meta_keys() ) {
@@ -332,24 +332,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 */
 	public function display_settings() {
 
-		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
-		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->field_settings->field( array(
-				'type'        => 'text',
-				'name'        => 'field',
-				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
-				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
-			) );
-		else :
-			$this->field_settings->field( array(
-				'type'            => 'select',
-				'name'            => 'field',
-				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
-				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
-				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_storage_model()->singular_label ) . '</strong>' ),
-				'grouped_options' => $this->get_grouped_field_options(),
-			) );
-		endif;
+		$this->display_field_setting();
 
 		$fields = array(
 			array(
@@ -383,6 +366,27 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		) );
 
 		$this->field_settings->before_after();
+	}
+
+	public function display_field_setting(){
+		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
+		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
+			$this->field_settings->field( array(
+				'type'        => 'text',
+				'name'        => 'field',
+				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
+				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
+			) );
+		else :
+			$this->field_settings->field( array(
+				'type'            => 'select',
+				'name'            => 'field',
+				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
+				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_storage_model()->singular_label ) . '</strong>' ),
+				'grouped_options' => $this->get_grouped_field_options(),
+			) );
+		endif;
 	}
 
 	/**
