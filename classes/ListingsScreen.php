@@ -144,13 +144,20 @@ class AC_ListingsScreen {
 	public function load_storage_model() {
 		foreach ( AC()->get_storage_models() as $storage_model ) {
 			if ( $storage_model->is_current_screen() ) {
-				$this->storage_model = $storage_model;
+				$this->set_storage_model( $storage_model );
 				$this->add_table_headings();
 			}
 		}
 	}
 
-	private function is_doing_ajax(  ) {
+	private function set_storage_model( AC_StorageModel $storage_model ) {
+		$this->storage_model = $storage_model;
+
+		// Model ready
+		do_action( 'cac/loaded_listings_screen', $this->storage_model );
+	}
+
+	private function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
@@ -190,7 +197,7 @@ class AC_ListingsScreen {
 	 */
 	public function load_storage_model_doing_ajax() {
 		if ( $storage_model = AC()->get_storage_model( $this->get_storage_model_when_doing_ajax() ) ) {
-			$this->storage_model = $storage_model;
+			$this->set_storage_model( $storage_model );
 			$this->add_table_headings();
 		}
 	}
@@ -203,8 +210,6 @@ class AC_ListingsScreen {
 		$this->storage_model->init_manage_value();
 
 		add_filter( "manage_" . $this->storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
-
-		do_action( 'cac/loaded_listings_screen', $this->storage_model );
 	}
 
 	/**
