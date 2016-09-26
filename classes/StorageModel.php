@@ -257,28 +257,6 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * @return AC_Settings
-	 */
-	public function settings() {
-		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings( $this->key );
-		}
-
-		return $this->settings;
-	}
-
-	/**
-	 * @return AC_Columns
-	 */
-	public function columns() {
-		if ( null == $this->columns ) {
-			$this->columns = new AC_Columns( $this->key );
-		}
-
-		return $this->columns;
-	}
-
-	/**
 	 * @since 2.0
 	 * @return string Link
 	 */
@@ -308,23 +286,28 @@ abstract class AC_StorageModel {
 		return apply_filters( 'ac/storage_model/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
 	}
 
-	/**
-	 * Display column value
-	 *
-	 * @since NEWVERSION
-	 */
-	protected function get_display_value_by_column_name( $column_name, $id, $value = false ) {
-		$column = $this->get_column_by_name( $column_name );
+	// TODO: should these be in the SM?
 
-		return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
+	/**
+	 * @return AC_Settings
+	 */
+	public function settings() {
+		if ( null === $this->settings ) {
+			$this->settings = new AC_Settings( $this->key );
+		}
+
+		return $this->settings;
 	}
 
 	/**
-	 * @since 2.0
-	 * @return false|CPAC_Column
+	 * @return AC_Columns
 	 */
-	public function get_column_by_name( $name ) {
-		return $this->columns()->get_column_by_name( $name );
+	public function columns() {
+		if ( null == $this->columns ) {
+			$this->columns = new AC_Columns( $this->key );
+		}
+
+		return $this->columns;
 	}
 
 }

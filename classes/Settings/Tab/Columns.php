@@ -57,7 +57,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
-			if ( $column = $storage_model->get_column_by_name( $name ) ) {
+			if ( $column = $storage_model->columns()->get_column_by_name( $name ) ) {
 
 				if ( ! empty( $options['label'] ) ) {
 

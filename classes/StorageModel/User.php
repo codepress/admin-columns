@@ -41,7 +41,7 @@ class AC_StorageModel_User extends AC_StorageModel {
 	 * @param int $user_id
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
-		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
+		return $this->columns()->get_display_value_by_column_name( $column_name, $user_id, $value );
 	}
 
 	/**

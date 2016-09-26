@@ -38,7 +38,7 @@ class AC_ListingsScreen {
 	 */
 	public function set_primary_column( $default ) {
 		if ( $this->storage_model ) {
-			if ( ! $this->storage_model->get_column_by_name( $default ) ) {
+			if ( ! $this->storage_model->columns()->get_column_by_name( $default ) ) {
 				$default = key( $this->storage_model->columns()->get_columns() );
 			}
 		}
