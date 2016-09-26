@@ -359,26 +359,6 @@ class CPAC {
 	}
 
 	/**
-	 * Get column object
-	 *
-	 * @since 2.5.4
-	 *
-	 * @param $storage_key AC_StorageModel->key
-	 * @param $layout_id AC_StorageModel->layout
-	 * @param $column_name CPAC_Column->name
-	 *
-	 * @return false|CPAC_Column
-	 */
-	public function get_column( $storage_key, $layout_id, $column_name ) {
-		if ( ! $storage_model = $this->get_storage_model( $storage_key ) ) {
-			return false;
-		}
-		$storage_model->set_active_layout( $layout_id );
-
-		return $storage_model->get_column_by_name( $column_name );
-	}
-
-	/**
 	 * Get storage model object of currently active storage model
 	 * On the users overview page, for example, this returns the AC_StorageModel object
 	 *

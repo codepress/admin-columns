@@ -242,7 +242,8 @@ class AC_ListingsScreen {
 			return $this->column_headings;
 		}
 
-		$stored_columns = $this->storage_model->get_stored_columns();
+		$settings = new AC_Settings( $this->storage_model->get_key() );
+		$stored_columns = $settings->get_columns();
 
 		$stored_columns = apply_filters( 'ac/listings_screen/columns', $stored_columns, $this->storage_model );
 

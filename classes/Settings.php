@@ -9,18 +9,13 @@ class AC_Settings {
 	CONST OPTIONS_KEY = 'cpac_options';
 
 	private $storage_model_key;
-	private $layout_id;
 
-	public function set_key( $storage_model_key ) {
+	public function __construct( $storage_model_key ) {
 		$this->storage_model_key = $storage_model_key;
 	}
 
-	public function set_layout( $layout_id ) {
-		$this->layout_id = $layout_id ? $layout_id : false;
-	}
-
-	private function get_key() {
-		return self::OPTIONS_KEY . '_' . $this->storage_model_key . $this->layout_id;
+	public function get_key() {
+		return apply_filters( 'ac/settings/key', self::OPTIONS_KEY . '_' . $this->storage_model_key );
 	}
 
 	// Column settings
@@ -28,8 +23,17 @@ class AC_Settings {
 		return update_option( $this->get_key(), $columndata );
 	}
 
-	public function get() {
-		return get_option( $this->get_key() );
+	public function get_columns() {
+		$columns = get_option( $this->get_key() );
+
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->storage_model_key, $columns, $this );
+
+		if ( empty( $columns ) ) {
+			return array();
+		}
+
+		return $columns;
 	}
 
 	public function delete() {

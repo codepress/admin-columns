@@ -58,8 +58,7 @@ function cpac_submit_form() {
 				action : 'cpac_columns_update',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
-				storage_model : $container.data( 'type' ),
-				layout : $container.data( 'layout' )
+				storage_model : $container.data( 'type' )
 			},
 
 			// JSON response
@@ -182,7 +181,6 @@ jQuery.fn.cpac_column_refresh = function() {
 		column : column_name,
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
 		storage_model : $container.data( 'type' ),
-		layout : $container.data( 'layout' )
 	}, function( data ) {
 
 		if ( data ) {

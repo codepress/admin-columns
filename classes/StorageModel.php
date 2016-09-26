@@ -143,24 +143,19 @@ abstract class AC_StorageModel {
 	 */
 	function __construct() {
 		$this->menu_type = __( 'Other', 'codepress-admin-columns' );
-		$this->settings = new AC_Settings();
 
 		$this->init();
 	}
 
 	/**
-	 * @since 2.5
-	 * @return string Layout ID
-	 */
-	public function get_active_layout() {
-		return $this->active_layout;
-	}
-
-	/**
 	 * @param string $layout_id
 	 */
-	public function set_active_layout( $layout_id ) {
+
+	// TODO: remove
+	public function _____set_active_layout( $layout_id ) {
 		$this->active_layout = is_scalar( $layout_id ) ? $layout_id : null;
+
+		// TODO
 		$this->flush_columns(); // forces $columns and $stored_columns to be repopulated
 	}
 
@@ -285,7 +280,7 @@ abstract class AC_StorageModel {
 	 * @return bool
 	 */
 	public function has_stored_columns() {
-		return $this->get_stored_columns() ? true : false;
+		return $this->settings()->get_columns() ? true : false;
 	}
 
 	/**
@@ -332,8 +327,9 @@ abstract class AC_StorageModel {
 	 * @return AC_Settings
 	 */
 	public function settings() {
-		$this->settings->set_key( $this->key );
-		$this->settings->set_layout( $this->active_layout );
+		if ( null === $this->settings ) {
+			$this->settings = new AC_Settings( $this->key );
+		}
 
 		return $this->settings;
 	}
@@ -524,17 +520,9 @@ abstract class AC_StorageModel {
 	 * @since 1.0
 	 * @return array Column options
 	 */
-	public function get_stored_columns() {
-		if ( empty( $this->stored_columns ) ) {
-
-			$columns = apply_filters( 'cpac/storage_model/stored_columns', $this->settings()->get(), $this );
-			$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->key, $columns, $this );
-
-			$this->stored_columns = ! empty( $columns ) ? $columns : array();
-		}
-
-		return $this->stored_columns;
-	}
+//	public function get_stored_columns() {
+	//	return $this->settings()->get_columns();
+	//}
 
 	/**
 	 * Populate column with stored options
@@ -693,7 +681,7 @@ abstract class AC_StorageModel {
 		}
 
 		// Stored columns
-		if ( $stored = $this->get_stored_columns() ) {
+		if ( $stored = $this->settings()->get_columns() ) {
 			foreach ( $stored as $name => $options ) {
 				if ( isset( $options['type'] ) && isset( $options['clone'] ) ) {
 					if ( $column = $this->create_column_instance( $options['type'], $options['clone'] ) ) {

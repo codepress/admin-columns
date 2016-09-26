@@ -356,7 +356,7 @@ abstract class CPAC_Column {
 		$options = $this->stored_options;
 
 		if ( ! $options ) {
-			$stored = $this->get_storage_model()->get_stored_columns();
+			$stored = $this->get_storage_model()->settings()->get_columns();
 			if ( isset( $stored[ $this->get_name() ] ) ) {
 				$options = $stored[ $this->get_name() ];
 			}
@@ -464,16 +464,13 @@ abstract class CPAC_Column {
 	/**
 	 * @since 2.5.4
 	 */
-	public function get_layout() {
-		return $this->get_storage_model()->get_active_layout();
-	}
 
 	/**
 	 * @since 2.3.4
 	 * @return AC_StorageModel
 	 */
 	public function get_storage_model() {
-		return cpac()->get_storage_model( $this->get_storage_model_key() );
+		return AC()->get_storage_model( $this->get_storage_model_key() );
 	}
 
 	/**

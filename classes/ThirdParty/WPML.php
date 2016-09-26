@@ -49,8 +49,8 @@ class AC_ThirdParty_WPML {
 		}
 
 		foreach ( cpac()->get_storage_models() as $storage_model ) {
-			foreach ( $storage_model->get_stored_columns() as $column_name => $options ) {
-				icl_register_string( 'Admin Columns', $storage_model->key . '_' . $column_name, stripslashes( $options['label'] ) );
+			foreach ( $storage_model->settings()->get_columns() as $column_name => $options ) {
+				icl_register_string( 'Admin Columns', $storage_model->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
 			}
 		}
 	}
