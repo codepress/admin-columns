@@ -724,7 +724,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
 						'grouped_options' => $this->get_grouped_columns( $column->get_storage_model() ),
-						'default'         => $column->get_type(),
+						'default_value'   => $column->get_type(),
 					) );
 
 					$column->field_settings->field( array(
