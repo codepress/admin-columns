@@ -36,7 +36,7 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 	/**
 	 * @since 2.0
 	 */
-	protected function get_screen_link() {
+	public function get_screen_link() {
 		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
 	}
 

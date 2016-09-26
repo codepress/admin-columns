@@ -260,23 +260,8 @@ abstract class AC_StorageModel {
 	 * @since 2.0
 	 * @return string Link
 	 */
-	protected function get_screen_link() {
+	public function get_screen_link() {
 		return add_query_arg( array( 'page' => $this->subpage ), admin_url( $this->page . '.php' ) );
-	}
-
-	/**
-	 * New public function to get screen link instead of making get_screen_link public. To prevent errors in other plugins
-	 * @since 2.5
-	 */
-	public function get_link() {
-		return $this->get_screen_link();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function settings_url() {
-		return $this->get_edit_link();
 	}
 
 	/**

@@ -263,7 +263,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 		wp_send_json_success(
 			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" )
-			. ' <a href="' . esc_attr( $storage_model->get_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) ) . '</a>'
+			. ' <a href="' . esc_attr( $storage_model->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) ) . '</a>'
 		);
 	}
 
@@ -282,7 +282,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		foreach ( cpac()->get_storage_models() as $_storage_model ) {
 			$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 				'key'   => $_storage_model->key,
-				'link'  => $_storage_model->settings_url(),
+				'link'  => $_storage_model->get_edit_link(),
 				'label' => $_storage_model->label,
 			);
 			usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
@@ -386,7 +386,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 					</select>
 					<span class="spinner"></span>
 
-					<?php if ( $link = $storage_model->get_link() ) {
+					<?php if ( $link = $storage_model->get_screen_link() ) {
 						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
 					} ?>
 				</div>
@@ -583,7 +583,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				<div class="cpac-boxes<?php echo esc_attr( $storage_model->is_using_php_export() ? ' disabled' : '' ); ?>">
 
 					<div class="cpac-columns">
-						<form method="post" action="<?php echo esc_attr( $storage_model->get_edit_link() ); ?>">
+						<form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
 
 							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->get_key() ); ?>"/>
 							<input type="hidden" name="cpac_action" value="update_by_type"/>

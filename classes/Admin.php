@@ -57,7 +57,7 @@ class AC_Admin {
 	 * @return false|string URL
 	 */
 	public function get_link( $tab_slug ) {
-		return add_query_arg( array( 'tab' => $tab_slug ), $this->get_settings_url() );
+		return $this->tabs->get_tab( $tab_slug )->get_link();
 	}
 
 	/**

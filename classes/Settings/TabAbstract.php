@@ -58,6 +58,15 @@ Abstract class AC_Settings_TabAbstract {
 		return $this;
 	}
 
+	/**
+	 * @param string $tab_slug
+	 *
+	 * @return false|string URL
+	 */
+	public function get_link() {
+		return add_query_arg( array( 'tab' => $this->slug ), AC()->settings()->get_settings_url() );
+	}
+
 	public function is_current_screen() {
 		return AC()->settings()->is_current_tab( $this->get_slug() );
 	}
