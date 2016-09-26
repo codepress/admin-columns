@@ -93,7 +93,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		$result = $storage_model->settings()->store( $column_data );
 
 		// reset object
-		$storage_model->flush_columns();
+		$storage_model->columns()->flush_columns();
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label() . "</strong>" ) );
@@ -135,7 +135,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 						$storage_model->settings()->delete();
 
 						// TODO
-						$storage_model->flush_columns();
+						$storage_model->columns()->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" ), 'updated' );
 					}
@@ -202,7 +202,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 		$columndata = $formdata[ $this->storage_model->key ][ $column_name ];
 
-		$column = $this->storage_model->create_column_instance( $columndata['type'], $columndata['clone'] );
+		$column = $this->storage_model->columns()->create_column_instance( $columndata['type'], $columndata['clone'] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -372,7 +372,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		$storage_model = $this->get_storage_model();
 		?>
 
-		<div class="columns-container<?php echo $storage_model->has_stored_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>">
+		<div class="columns-container<?php echo $storage_model->settings()->get_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>">
 			<div class="main">
 				<div class="menu">
 					<select title="Select type" id="cpac_storage_modal_select">
@@ -593,7 +593,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 							<?php
-							foreach ( $storage_model->get_columns() as $column ) {
+							foreach ( $storage_model->columns()->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>
@@ -628,7 +628,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 			<div class="for-cloning-only" style="display:none">
 				<?php
-				foreach ( $storage_model->get_column_types() as $column ) {
+				foreach ( $storage_model->columns()->get_column_types() as $column ) {
 					$this->display_column( $column );
 				}
 				?>
@@ -649,7 +649,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	private function get_grouped_columns( $storage_model ) {
 		$grouped = array();
 
-		foreach ( $storage_model->get_column_types() as $type => $column ) {
+		foreach ( $storage_model->columns()->get_column_types() as $type => $column ) {
 			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}

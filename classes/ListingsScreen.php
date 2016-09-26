@@ -39,7 +39,7 @@ class AC_ListingsScreen {
 	public function set_primary_column( $default ) {
 		if ( $this->storage_model ) {
 			if ( ! $this->storage_model->get_column_by_name( $default ) ) {
-				$default = key( $this->storage_model->get_columns() );
+				$default = key( $this->storage_model->columns()->get_columns() );
 			}
 		}
 
@@ -71,9 +71,9 @@ class AC_ListingsScreen {
 			return;
 		}
 
-		$minified = cpac()->minified();
-		$url = cpac()->get_plugin_url();
-		$version = cpac()->get_version();
+		$minified = AC()->minified();
+		$url = AC()->get_plugin_url();
+		$version = AC()->get_version();
 
 		wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $version );
 		wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $version );
@@ -102,7 +102,7 @@ class AC_ListingsScreen {
 
 		// CSS: columns width
 		$css_column_width = false;
-		foreach ( $this->storage_model->get_columns() as $column ) {
+		foreach ( $this->storage_model->columns()->get_columns() as $column ) {
 			if ( $width = $column->get_width() ) {
 				$css_column_width .= ".cp-" . $this->storage_model->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
 			}
@@ -242,8 +242,7 @@ class AC_ListingsScreen {
 			return $this->column_headings;
 		}
 
-		$settings = new AC_Settings( $this->storage_model->get_key() );
-		$stored_columns = $settings->get_columns();
+		$stored_columns = $this->storage_model->settings()->get_columns();
 
 		$stored_columns = apply_filters( 'ac/listings_screen/columns', $stored_columns, $this->storage_model );
 
@@ -258,8 +257,8 @@ class AC_ListingsScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		$this->storage_model->flush_columns(); // flush types, in case a column was deactivated
-		$types = array_keys( $this->storage_model->get_column_types() );
+		$this->storage_model->columns()->flush_columns(); // flush types, in case a column was deactivated
+		$types = array_keys( $this->storage_model->columns()->get_column_types() );
 
 		// add active stored headings
 		foreach ( $stored_columns as $column_name => $options ) {
