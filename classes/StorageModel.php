@@ -151,42 +151,10 @@ abstract class AC_StorageModel {
 	}
 
 	/**
-	 * Get a single row from list table
-	 *
-	 * @since NEWVERSION
-	 */
-	public function get_single_row( $object_id ) {
-		ob_start();
-		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
-
-		return ob_get_clean();
-	}
-
-	/**
 	 * @since NEWVERSION
 	 */
 	public function get_screen_id() {
 		return $this->screen;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
-	public function get_list_table( $args = array() ) {
-
-		$table = false;
-
-		// WP Core tables
-		if ( function_exists( '_get_list_table' ) ) {
-			$table = _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
-		}
-
-		// Custom tables
-		if ( ! $table && class_exists( $this->table_classname ) ) {
-			$table = new $this->table_classname( $args );
-		}
-
-		return $table;
 	}
 
 	/**
@@ -269,6 +237,40 @@ abstract class AC_StorageModel {
 	 */
 	public function get_edit_link() {
 		return apply_filters( 'ac/storage_model/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
+	}
+
+	// TODO: should these be in the AC_Columns?
+
+	/**
+	 * Get a single row from list table
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_single_row( $object_id ) {
+		ob_start();
+		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_list_table( $args = array() ) {
+
+		$table = false;
+
+		// WP Core tables
+		if ( function_exists( '_get_list_table' ) ) {
+			$table = _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		}
+
+		// Custom tables
+		if ( ! $table && class_exists( $this->table_classname ) ) {
+			$table = new $this->table_classname( $args );
+		}
+
+		return $table;
 	}
 
 	// TODO: should these be in the SM?
