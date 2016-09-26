@@ -118,7 +118,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 				'on'  => __( 'Yes' ),
 				'off' => __( 'No' ),
 			),
-			'default'     => 'off'
+			'default_value' => 'off'
 		) );
 	}
 

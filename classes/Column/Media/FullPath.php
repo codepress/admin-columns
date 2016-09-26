@@ -65,7 +65,7 @@ class AC_Column_Media_FullPath extends CPAC_Column {
 				'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
 				'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
 			),
-			'default'     => 'full'
+			'default_value'     => 'full'
 		) );
 	}
 

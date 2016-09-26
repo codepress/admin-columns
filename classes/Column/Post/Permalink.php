@@ -41,7 +41,7 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 				'on'  => __( 'Yes' ),
 				'off' => __( 'No' ),
 			),
-			'default'     => 'off'
+			'default_value'     => 'off'
 		) );
 	}
 

@@ -227,8 +227,21 @@ abstract class AC_StorageModel {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function get_list_table() {
-		return _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+	public function get_list_table( $args = array() ) {
+
+		$table = false;
+
+		// WP Core tables
+		if ( function_exists( '_get_list_table' ) ) {
+			$table = _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		}
+
+		// Custom tables
+		if ( ! $table && class_exists( $this->table_classname ) ) {
+			$table = new $this->table_classname( $args );
+		}
+
+		return $table;
 	}
 
 	/**
@@ -366,17 +379,21 @@ abstract class AC_StorageModel {
 		return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
 	}
 
+
+
+	// Todo
+
 	/**
 	 * @since 2.0
 	 * @return array Column Name | Column Label
 	 */
 	public function get_default_columns() {
-		if ( ! function_exists( '_get_list_table' ) || ! function_exists( 'get_column_headers' ) ) {
+		if ( ! function_exists( 'get_column_headers' ) ) {
 			return array();
 		}
 
 		// trigger WP_List_Table::get_columns()
-		_get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
+		$this->get_list_table();
 
 		return (array) get_column_headers( $this->get_screen_id() );
 	}

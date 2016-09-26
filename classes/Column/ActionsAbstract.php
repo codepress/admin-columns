@@ -93,7 +93,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 				'1' => __( 'Yes' ),
 				''  => __( 'No' ),
 			),
-			'default'     => '',
+			'default_value' => '',
 		) );
 	}
 
