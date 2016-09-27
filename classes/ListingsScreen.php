@@ -220,13 +220,7 @@ class AC_ListingsScreen {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
-			return $columns;
-		}
-
-		// for the rare case where a screen hasn't been set yet and a
-		// plugin uses a custom version of apply_filters( "manage_{$screen->id}_columns", array() )
-		if ( ! get_current_screen() && ! $this->is_doing_ajax() ) {
+		if ( empty( $columns ) || ! $this->storage_model ) {
 			return $columns;
 		}
 
@@ -242,9 +236,7 @@ class AC_ListingsScreen {
 			return $this->column_headings;
 		}
 
-		$stored_columns = $this->storage_model->settings()->get_columns();
-
-		$stored_columns = apply_filters( 'ac/listings_screen/columns', $stored_columns, $this->storage_model );
+		$stored_columns = $settings->get_columns();
 
 		if ( ! $stored_columns ) {
 			return $columns;
@@ -258,33 +250,23 @@ class AC_ListingsScreen {
 		}
 
 		$this->storage_model->columns()->flush_columns(); // flush types, in case a column was deactivated
-		$types = array_keys( $this->storage_model->columns()->get_column_types() );
 
-		// add active stored headings
-		foreach ( $stored_columns as $column_name => $options ) {
+		// TODO: can this be removed?
+		//$types = array_keys( $this->storage_model->columns()->get_column_types() );
 
-			// Strip slashes for HTML tagged labels, like icons and checkboxes
-			$label = stripslashes( $options['label'] );
 
+		foreach ( $this->storage_model->columns()->get_columns() as $column ) {
+			
+			// TODO: can this be removed?
 			// Remove 3rd party columns that are no longer available (deactivated or removed from code)
-			if ( ! in_array( $options['type'], $types ) ) {
-				continue;
-			}
+			//if ( ! in_array( $column->get_type(), $types ) ) {
+			//	continue;
+			//}
 
-			/**
-			 * Filter the stored column headers label for use in a WP_List_Table
-			 *
-			 * @since 2.0
-			 *
-			 * @param string $label Label
-			 * @param string $column_name Column name
-			 * @param array $options Column options
-			 * @param AC_StorageModel $storage_model Storage model class instance
-			 */
-			$label = apply_filters( 'cac/headings/label', $label, $column_name, $options, $this );
-			$label = str_replace( '[cpac_site_url]', site_url(), $label );
+			// TODO: make filter deprecated
+			$label = apply_filters( 'cac/headings/label',  $column->get_label(), $column->get_name(), $column->get_options(), $this );
 
-			$this->column_headings[ $column_name ] = $label;
+			$this->column_headings[ $column->get_name() ] = $label;
 		}
 
 		// Add 3rd party columns that have ( or could ) not been stored.

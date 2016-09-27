@@ -118,6 +118,22 @@ function ac_is_version_gte( $version ) {
 }
 
 /**
+ * Adds columns classnames from specified directory
+ *
+ * @param string $columns_dir Columns directory
+ * @param string $prefix Autoload prefix
+ * @param array $columns Columns [ class_name => autoload ]
+ *
+ * @return array
+ */
+function ac_add_autoload_columns( $columns_dir, $prefix, $columns = array() ) {
+	$_columns = AC()->autoloader()->get_class_names_from_dir( $columns_dir, $prefix );
+
+	// set to autoload (true)
+	return array_merge( $columns, array_fill_keys( $_columns, true ) );
+}
+
+/**
  * Is doing ajax
  *
  * @since 2.3.4

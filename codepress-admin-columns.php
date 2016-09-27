@@ -77,13 +77,9 @@ class CPAC {
 	private $_listings_screen;
 
 	/**
-	 * Registered storage model class instances
-	 * Array of AC_StorageModel instances, with the storage model keys (e.g. post, page, wp-users) as keys
-	 *
-	 * @since 2.0
-	 * @var AC_StorageModel[]
+	 * @var AC_StorageModels
 	 */
-	private $storage_models;
+	private $_storage_models;
 
 	/**
 	 * @since NEWVERSION
@@ -123,12 +119,7 @@ class CPAC {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		$classes_dir = $this->get_plugin_dir() . 'classes/';
-
-		require_once $classes_dir . 'autoloader.php';
-
-		$autoloader = AC_Autoloader::instance();
-		$autoloader->register_prefix( 'AC_', $classes_dir );
+		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
 
@@ -143,6 +134,7 @@ class CPAC {
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
 		$this->_listings_screen = new AC_ListingsScreen();
+		$this->_storage_models = new AC_StorageModels();
 
 		$this->helper = new AC_Helper();
 
@@ -157,6 +149,15 @@ class CPAC {
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+	}
+
+	/**
+	 * @return AC_Autoloader
+	 */
+	public function autoloader() {
+		require_once $this->get_plugin_dir() . 'classes/autoloader.php';
+
+		return AC_Autoloader::instance();
 	}
 
 	/**
@@ -284,125 +285,6 @@ class CPAC {
 	}
 
 	/**
-	 * Get registered storage models
-	 *
-	 * @since 2.5
-	 * @return AC_StorageModel[]
-	 */
-	public function get_storage_models() {
-		if ( empty( $this->storage_models ) ) {
-
-			$storage_models = array();
-
-			$classes_dir = $this->get_plugin_dir() . 'classes/';
-
-			require_once $classes_dir . 'Column.php';
-
-			// Backwards compatibility
-			require_once $classes_dir . 'Deprecated/column-default.php';
-
-			// @deprecated NEWVERSION
-			require_once $classes_dir . 'Deprecated/storage_model.php';
-
-			// Create a storage model per post type
-			foreach ( $this->get_post_types() as $post_type ) {
-
-				$storage_model = new AC_StorageModel_Post();
-				$storage_model->set_post_type( $post_type );
-
-				$storage_models[ $storage_model->key ] = $storage_model;
-			}
-
-			// Create other storage models
-			$storage_model = new AC_StorageModel_User();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			$storage_model = new AC_StorageModel_Media();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			$storage_model = new AC_StorageModel_Comment();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-				$storage_model = new AC_StorageModel_Link();
-				$storage_models[ $storage_model->key ] = $storage_model;
-			}
-
-			/**
-			 * Filter the available storage models
-			 * Used by external plugins to add additional storage models
-			 *
-			 * @since 2.0
-			 *
-			 * @param array $storage_models List of storage model class instances ( [key] => [AC_StorageModel object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
-			 * @param object $this CPAC
-			 */
-			$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
-		}
-
-		return $this->storage_models;
-	}
-
-	/**
-	 * Retrieve a storage model object based on its key
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $key Storage model key (e.g. post, page, wp-users)
-	 *
-	 * @return bool|AC_StorageModel Storage Model object (or false, on failure)
-	 */
-	public function get_storage_model( $key ) {
-		$models = $this->get_storage_models();
-
-		return isset( $models[ $key ] ) ? $models[ $key ] : false;
-	}
-
-	/**
-	 * Get storage model object of currently active storage model
-	 * On the users overview page, for example, this returns the AC_StorageModel object
-	 *
-	 * @since 2.2.4
-	 *
-	 * @return AC_StorageModel
-	 */
-	public function get_current_storage_model() {
-		return $this->_listings_screen->get_storage_model();
-	}
-
-	/**
-	 * Get a list of post types for which Admin Columns is active
-	 *
-	 * @since 1.0
-	 *
-	 * @return array List of post type keys (e.g. post, page)
-	 */
-	public function get_post_types() {
-		$post_types = array();
-
-		if ( post_type_exists( 'post' ) ) {
-			$post_types['post'] = 'post';
-		}
-		if ( post_type_exists( 'page' ) ) {
-			$post_types['page'] = 'page';
-		}
-
-		$post_types = array_merge( $post_types, get_post_types( array(
-			'_builtin' => false,
-			'show_ui'  => true,
-		) ) );
-
-		/**
-		 * Filter the post types for which Admin Columns is active
-		 *
-		 * @since 2.0
-		 *
-		 * @param array $post_types List of active post type names
-		 */
-		return apply_filters( 'cac/post_types', $post_types );
-	}
-
-	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
 	 * @since 1.0
@@ -423,6 +305,29 @@ class CPAC {
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
+	}
+
+	/**
+	 * Retrieve a storage model object based on its key
+	 *
+	 * @since 2.0
+	 *
+	 * @param string $key Storage model key (e.g. post, page, wp-users)
+	 *
+	 * @return bool|AC_StorageModel Storage Model object (or false, on failure)
+	 */
+	public function get_storage_model( $key ) {
+		return $this->_storage_models->get_storage_model( $key );
+	}
+
+	/**
+	 * Get registered storage models
+	 *
+	 * @since 2.5
+	 * @return AC_StorageModel[]
+	 */
+	public function get_storage_models() {
+		return $this->_storage_models->get_storage_models();
 	}
 
 	/**
@@ -460,6 +365,20 @@ class CPAC {
 	 */
 	public function listings_screen() {
 		return $this->_listings_screen;
+	}
+
+	/**
+	 * Get storage model object of currently active storage model
+	 * On the users overview page, for example, this returns the AC_StorageModel object
+	 *
+	 * @since 2.2.4
+	 *
+	 * @return AC_StorageModel
+	 */
+	public function get_current_storage_model() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return $this->listings_screen()->get_storage_model();
 	}
 
 	/**

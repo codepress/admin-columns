@@ -26,7 +26,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return $this->column->get_storage_model_key() . '[' . $this->column->get_name() . '][' . $field_name . ']';
+		return 'columns' . '[' . $this->column->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -35,7 +35,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return 'cpac-' . $this->column->get_storage_model_key() . '-' . $this->column->get_name() . '-' . $field_name;
+		return 'cpac-' . $this->column->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {

@@ -254,23 +254,19 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * @return array [ Column Name => Label ]
+	 */
+	public function get_default_columns() {
+		return array();
+	}
+
+	/**
 	 * @since NEWVERSION
+	 *
+	 * @return WP_List_Table
 	 */
 	public function get_list_table( $args = array() ) {
-
-		$table = false;
-
-		// WP Core tables
-		if ( function_exists( '_get_list_table' ) ) {
-			$table = _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) );
-		}
-
-		// Custom tables
-		if ( ! $table && class_exists( $this->table_classname ) ) {
-			$table = new $this->table_classname( $args );
-		}
-
-		return $table;
+		return class_exists( $this->table_classname ) ? new $this->table_classname( $args ) : false;
 	}
 
 	// TODO: should these be in the SM?
@@ -290,7 +286,7 @@ abstract class AC_StorageModel {
 	 * @return AC_Columns
 	 */
 	public function columns() {
-		if ( null == $this->columns ) {
+		if ( null === $this->columns ) {
 			$this->columns = new AC_Columns( $this->key );
 		}
 

@@ -72,7 +72,7 @@ abstract class CPAC_Column {
 	/**
 	 * @since 2.0
 	 *
-	 * @param object $storage_model AC_StorageModel
+	 * @param string $storage_model
 	 */
 	public function __construct( $storage_model ) {
 
@@ -124,7 +124,7 @@ abstract class CPAC_Column {
 			'classes'          => null,    // Custom CSS classes for this column.
 			'hide_label'       => false,   // Should the Label be hidden?
 			'is_cloneable'     => true,    // Should the column be cloneable
-			'default'          => false,   // Is this a WP default column, used for displaying values
+			//'default'          => false,   // Is this a WP default column, used for displaying values
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
@@ -185,13 +185,20 @@ abstract class CPAC_Column {
 	 * @param string $name Column name
 	 * @param string $label Column label
 	 */
-	public function set_defaults( $name, $label ) {
-		if ( ! $label ) {
-			$label = ucfirst( $name );
+	public function set_defaults( $data ) {
+		$defaults = array(
+			'type'  => false,
+			'label' => false,
+		);
+
+		$data = (object) array_merge( $defaults, $data );
+
+		if ( ! $data->label ) {
+			$data->label = ucfirst( $data->type );
 		}
 
 		// Hide Label when it contains HTML elements
-		if ( strlen( $label ) != strlen( strip_tags( $label ) ) ) {
+		if ( strlen( $data->label ) != strlen( strip_tags( $data->label ) ) ) {
 			$this->set_property( 'hide_label', true );
 		}
 
@@ -200,10 +207,10 @@ abstract class CPAC_Column {
 		}
 
 		$this
-			->set_property( 'type', $name )
-			->set_property( 'name', $name )
-			->set_property( 'label', $label )
-			->set_default_option( 'label', $label );
+			->set_property( 'type', $data->type )
+			->set_property( 'name', $data->type )
+			->set_property( 'label', $data->label )
+			->set_default_option( 'label', $data->label );
 	}
 
 	/**

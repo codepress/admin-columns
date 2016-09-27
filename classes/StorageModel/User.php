@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_User extends AC_StorageModel {
+class AC_StorageModel_User extends AC_WPStorageModel {
 
 	public function init() {
 		$this->key = 'wp-users';
@@ -23,7 +23,11 @@ class AC_StorageModel_User extends AC_StorageModel {
 	 * @return string HTML
 	 */
 	public function get_single_row( $user_id ) {
-		return $this->get_list_table()->single_row( get_userdata( $user_id ) );
+
+		/* @var WP_Users_List_Table $table */
+		$table = $this->get_list_table();
+
+		return $table->single_row( get_userdata( $user_id ) );
 	}
 
 	/**

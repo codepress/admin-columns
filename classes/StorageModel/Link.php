@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_Link extends AC_StorageModel {
+class AC_StorageModel_Link extends AC_WPStorageModel {
 
 	function init() {
 		$this->key = 'wp-links';

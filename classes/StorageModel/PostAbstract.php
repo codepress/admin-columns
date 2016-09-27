@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-abstract class AC_StorageModel_PostAbstract extends AC_StorageModel {
+abstract class AC_StorageModel_PostAbstract extends AC_WPStorageModel {
 
 	/**
 	 * @since 2.0

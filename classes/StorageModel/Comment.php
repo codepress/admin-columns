@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) )  {
 /**
  * @since 2.0
  */
-class AC_StorageModel_Comment extends AC_StorageModel {
+class AC_StorageModel_Comment extends AC_WPStorageModel {
 
 	public function init() {
 		$this->key = 'wp-comments';

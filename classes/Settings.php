@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings {
+final class AC_Settings {
 
 	CONST OPTIONS_KEY = 'cpac_options';
 
@@ -50,7 +50,13 @@ class AC_Settings {
 	}
 
 	public function get_default_headings() {
-		return get_option( $this->get_default_key() );
+		$headings = get_option( $this->get_default_key() );
+
+		if ( empty( $headings ) ) {
+			return array();
+		}
+
+		return $headings;
 	}
 
 	public function delete_default_headings() {

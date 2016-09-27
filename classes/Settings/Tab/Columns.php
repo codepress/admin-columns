@@ -196,20 +196,20 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		// Run Hook
 		$this->set_storage_model( $storage_model );
 
-		if ( empty( $formdata[ $this->storage_model->key ][ $column_name ] ) ) {
+		if ( empty( $formdata['columns'][ $column_name ] ) ) {
 			wp_die();
 		}
 
-		$columndata = $formdata[ $this->storage_model->key ][ $column_name ];
+		$data = $formdata['columns'][ $column_name ];
 
-		$column = $this->storage_model->columns()->create_column_instance( $columndata['type'], $columndata['clone'] );
+		$column = $this->storage_model->columns()->create_column( $data );
 
 		if ( ! $column ) {
 			wp_die();
 		}
 
 		// Add stored options; Used by columns that switch field types.
-		$column->set_stored_options( $columndata );
+		$column->set_stored_options( $data );
 
 		// Only trigger for newly added columns.
 		// TODO: make separate ajax call for "Add column".
@@ -243,7 +243,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 		parse_str( $_POST['data'], $formdata );
 
-		if ( ! isset( $formdata[ $this->storage_model->get_key() ] ) ) {
+		if ( ! isset( $formdata['columns'] ) ) {
 			wp_send_json_error( array(
 					'type'    => 'error',
 					'message' => __( 'You need at least one column', 'codepress-admin-columns' ),
@@ -251,7 +251,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			);
 		}
 
-		$stored = $this->store( $this->storage_model, $formdata[ $this->storage_model->get_key() ] );
+		$stored = $this->store( $this->storage_model, $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -279,7 +279,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 	private function get_grouped_models() {
 		$grouped = array();
-		foreach ( cpac()->get_storage_models() as $_storage_model ) {
+		foreach ( AC()->get_storage_models() as $_storage_model ) {
 			$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
 				'key'   => $_storage_model->key,
 				'link'  => $_storage_model->get_edit_link(),
@@ -565,7 +565,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				<?php if ( ! $storage_model->settings()->get_default_headings() && ! $storage_model->is_using_php_export() ): ?>
 					<div class="cpac-notice">
 						<p>
-							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
+							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_screen_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
 						</p>
 					</div>
 				<?php endif ?>
@@ -654,8 +654,14 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
 
+			$label = $column->get_property( 'label' );
+
+			if ( 0 === strlen( strip_tags( $label ) ) ) {
+				$label = $column->get_type();
+			}
+
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = strip_tags( ( 0 === strlen( strip_tags( $column->get_property( 'label' ) ) ) ) ? ucfirst( $column->get_name() ) : ucfirst( $column->get_property( 'label' ) ) );
+			$grouped[ $column->get_group() ]['options'][ $type ] = ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
 
 			if ( ! $column->is_default() && ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
@@ -666,6 +672,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
+
 
 	/**
 	 * @since 2.0
