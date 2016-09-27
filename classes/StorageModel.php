@@ -100,6 +100,9 @@ abstract class AC_StorageModel {
 	 */
 	abstract function init_manage_value();
 
+
+	// TODO: user getters and setters, make vars protected
+
 	/**
 	 * @since 2.4.4
 	 */
@@ -134,6 +137,19 @@ abstract class AC_StorageModel {
 	}
 
 	/**
+	 * Get a single row from list table
+	 *
+	 * @param int $object_id Object ID
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return false|string HTML
+	 */
+	public function get_single_row( $object_id ) {
+		return false;
+	}
+
+	/**
 	 * @since NEWVERSION
 	 */
 	public function get_key() {
@@ -146,7 +162,7 @@ abstract class AC_StorageModel {
 	 * @since NEWVERSION
 	 * @return string
 	 */
-	public function get_list_selector() {
+	public function get_table_attr_id() {
 		return '#the-list';
 	}
 
@@ -164,7 +180,7 @@ abstract class AC_StorageModel {
 	public function is_current_screen() {
 		$screen = get_current_screen();
 
-		return $screen ? $screen->id === $this->get_screen_id() : false;
+		return $screen && $screen->id === $this->screen;
 	}
 
 	/**
@@ -237,18 +253,6 @@ abstract class AC_StorageModel {
 	 */
 	public function get_edit_link() {
 		return apply_filters( 'ac/storage_model/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
-	}
-
-	/**
-	 * Get a single row from list table
-	 *
-	 * @since NEWVERSION
-	 */
-	public function get_single_row( $object_id ) {
-		ob_start();
-		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
-
-		return ob_get_clean();
 	}
 
 	/**

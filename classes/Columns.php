@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Columns {
+final class AC_Columns {
 
 	/**
 	 * @since 2.0.1
@@ -67,6 +67,7 @@ class AC_Columns {
 	public function flush_columns() {
 		$this->columns = null;
 		$this->column_types = null;
+		$this->default_columns = null;
 	}
 
 	/**
@@ -100,15 +101,26 @@ class AC_Columns {
 	}
 
 	/**
-	 * @param array $class_names
+	 * @param string $dir Absolute path to the column directory
+	 * @param string $prefix Autoload prefix
 	 */
 	public function register_column_types_from_dir( $dir, $prefix ) {
-
 		$class_names = AC()->autoloader()->get_class_names_from_dir( $dir, $prefix );
 
 		foreach ( $class_names as $class_name ) {
 			$this->register_column_type_by_classname( $class_name );
 		}
+	}
+
+	/**
+	 * @return AC_StorageModel|false
+	 */
+	public function get_storage_model() {
+		if ( null === $this->storage_model ) {
+			$this->storage_model = AC()->get_storage_model( $this->storage_model_key );
+		}
+
+		return $this->storage_model;
 	}
 
 	/**
@@ -245,8 +257,11 @@ class AC_Columns {
 				continue;
 			}
 
-			// TODO: replace with ACP_Column_Plugin when pro active
-			$column = new AC_Column_Plugin( $this->storage_model_key );
+			$plugin_column_class_name = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
+
+			/* @var AC_Column_Plugin $column */
+			$column = new $plugin_column_class_name( $this->storage_model_key );
+
 			$column->set_property( 'type', $name );
 			$column->set_property( 'label', $label );
 
@@ -267,6 +282,7 @@ class AC_Columns {
 			}
 		}
 
+		// Register column types
 		foreach ( $class_names as $class_name ) {
 			$this->register_column_type_by_classname( $class_name );
 		}
@@ -307,17 +323,6 @@ class AC_Columns {
 
 			$this->register_column_type_by_classname( $class_name );
 		}
-	}
-
-	/**
-	 * @return AC_StorageModel|false
-	 */
-	public function get_storage_model() {
-		if ( null === $this->storage_model ) {
-			$this->storage_model = AC()->get_storage_model( $this->storage_model_key );
-		}
-
-		return $this->storage_model;
 	}
 
 }

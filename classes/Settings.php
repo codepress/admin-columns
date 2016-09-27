@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-final class AC_Settings {
+class AC_Settings {
 
 	CONST OPTIONS_KEY = 'cpac_options';
 
@@ -26,8 +26,8 @@ final class AC_Settings {
 	public function get_columns() {
 		$columns = get_option( $this->get_key() );
 
-		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this );
-		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->storage_model_key, $columns, $this );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns', $columns, $this->get_storage_model() );
+		$columns = apply_filters( 'cpac/storage_model/stored_columns/storage_key=' . $this->storage_model_key, $columns, $this->get_storage_model() );
 
 		if ( empty( $columns ) ) {
 			return array();
@@ -68,6 +68,10 @@ final class AC_Settings {
 		global $wpdb;
 
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "_%'" );
+	}
+
+	private function get_storage_model() {
+		return AC()->get_storage_model( $this->storage_model_key );
 	}
 
 }

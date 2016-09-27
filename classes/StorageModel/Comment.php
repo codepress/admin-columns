@@ -27,7 +27,7 @@ class AC_StorageModel_Comment extends AC_WPStorageModel {
 	/**
 	 * @since 3.5
 	 */
-	public function get_list_selector() {
+	public function get_table_attr_id() {
 		return '#the-comment-list';
 	}
 

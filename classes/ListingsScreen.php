@@ -8,7 +8,7 @@ class AC_ListingsScreen {
 	/**
 	 * @var array $column_headings
 	 */
-	private $column_headings;
+	private $column_headings = array();
 
 	/**
 	 * @var AC_StorageModel $storage_model
@@ -226,56 +226,35 @@ class AC_ListingsScreen {
 
 		$settings = $this->storage_model->settings();
 
-		// Stores the default columns on the listings screen
+		// Store default headings
 		if ( ! $this->is_doing_ajax() ) {
 			$settings->store_default_headings( $columns );
 		}
 
-		// make sure we run this only once
+		// Run once
 		if ( $this->column_headings ) {
 			return $this->column_headings;
 		}
 
-		$stored_columns = $settings->get_columns();
-
-		if ( ! $stored_columns ) {
+		// Nothing stored. Show default columns on screen.
+		if ( ! $settings->get_columns() ) {
 			return $columns;
 		}
 
-		$this->column_headings = array();
-
-		// add mandatory checkbox
+		// Add mandatory checkbox
 		if ( isset( $columns['cb'] ) ) {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		$this->storage_model->columns()->flush_columns(); // flush types, in case a column was deactivated
-
-		// TODO: can this be removed?
-		//$types = array_keys( $this->storage_model->columns()->get_column_types() );
-
+		// Flush cache. In case any columns are deactivated after saving them.
+		$this->storage_model->columns()->flush_columns();
 
 		foreach ( $this->storage_model->columns()->get_columns() as $column ) {
-			
-			// TODO: can this be removed?
-			// Remove 3rd party columns that are no longer available (deactivated or removed from code)
-			//if ( ! in_array( $column->get_type(), $types ) ) {
-			//	continue;
-			//}
 
-			// TODO: make filter deprecated
+			// @deprecated NEWVERSION
 			$label = apply_filters( 'cac/headings/label',  $column->get_label(), $column->get_name(), $column->get_options(), $this );
 
 			$this->column_headings[ $column->get_name() ] = $label;
-		}
-
-		// Add 3rd party columns that have ( or could ) not been stored.
-		// For example when a plugin has been activated after storing column settings.
-		// When $diff contains items, it means an available column has not been stored.
-		if ( ! $this->storage_model->is_using_php_export() && ( $diff = array_diff( array_keys( $columns ), array_keys( (array) $settings->get_default_headings() ) ) ) ) {
-			foreach ( $diff as $column_name ) {
-				$this->column_headings[ $column_name ] = $columns[ $column_name ];
-			}
 		}
 
 		return $this->column_headings;

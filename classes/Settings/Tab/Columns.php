@@ -133,8 +133,6 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
 					if ( $storage_model = $this->get_storage_model() ) {
 						$storage_model->settings()->delete();
-
-						// TODO
 						$storage_model->columns()->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" ), 'updated' );

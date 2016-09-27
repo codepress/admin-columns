@@ -17,6 +17,18 @@ abstract class AC_WPStorageModel extends AC_StorageModel {
 	}
 
 	/**
+	 * Get a single row from list table
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_single_row( $object_id ) {
+		ob_start();
+		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
+
+		return ob_get_clean();
+	}
+
+	/**
 	 * @since NEWVERSION
 	 *
 	 * @return WP_List_Table|false
@@ -24,6 +36,5 @@ abstract class AC_WPStorageModel extends AC_StorageModel {
 	public function get_list_table( $args = array() ) {
 		return function_exists( '_get_list_table' ) ? _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) ) : false;
 	}
-
 
 }
