@@ -239,8 +239,6 @@ abstract class AC_StorageModel {
 		return apply_filters( 'ac/storage_model/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
 	}
 
-	// TODO: should these be in the AC_Columns?
-
 	/**
 	 * Get a single row from list table
 	 *
@@ -263,13 +261,11 @@ abstract class AC_StorageModel {
 	/**
 	 * @since NEWVERSION
 	 *
-	 * @return WP_List_Table
+	 * @return WP_List_Table|false
 	 */
 	public function get_list_table( $args = array() ) {
 		return class_exists( $this->table_classname ) ? new $this->table_classname( $args ) : false;
 	}
-
-	// TODO: should these be in the SM?
 
 	/**
 	 * @return AC_Settings
