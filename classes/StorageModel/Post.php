@@ -8,7 +8,7 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 
 		$this->key = 'post';
 		$this->type = 'post';
-		$this->page = 'edit';
+		$this->base = 'edit';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 		$this->table_classname = 'WP_Posts_List_Table';
 	}
@@ -23,7 +23,7 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
 		$this->key = $post_type;
-		$this->screen = $this->page . '-' . $post_type;
+		$this->screen = $this->base . '-' . $post_type;
 
 		$post_type_object = get_post_type_object( $this->get_post_type() );
 
@@ -37,7 +37,7 @@ class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
 	 * @since 2.0
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'post_type' => $this->get_post_type() ), admin_url( $this->page . '.php' ) );
+		return add_query_arg( array( 'post_type' => $this->get_post_type() ), parent::get_screen_link() );
 	}
 
 }

@@ -15,7 +15,7 @@ class AC_StorageModel_Comment extends AC_WPStorageModel {
 		$this->singular_label = __( 'Comment' );
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
-		$this->page = 'edit-comments';
+		$this->base = 'edit-comments';
 		$this->screen = 'edit-comments';
 		$this->table_classname = 'WP_Comments_List_Table';
 	}

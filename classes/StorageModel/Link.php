@@ -8,7 +8,7 @@ class AC_StorageModel_Link extends AC_WPStorageModel {
 		$this->label = __( 'Links' );
 		$this->singular_label = __( 'Link' );
 		$this->type = 'link';
-		$this->page = 'link-manager';
+		$this->base = 'link-manager';
 		$this->screen = 'link-manager';
 		$this->table_classname = 'WP_Links_List_Table';
 	}

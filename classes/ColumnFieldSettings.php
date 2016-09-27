@@ -26,7 +26,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return 'columns' . '[' . $this->column->get_name() . '][' . $field_name . ']';
+		return 'columns[' . $this->column->get_name() . '][' . $field_name . ']';
 	}
 
 	/**

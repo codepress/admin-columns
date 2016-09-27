@@ -124,7 +124,6 @@ abstract class CPAC_Column {
 			'classes'          => null,    // Custom CSS classes for this column.
 			'hide_label'       => false,   // Should the Label be hidden?
 			'is_cloneable'     => true,    // Should the column be cloneable
-			//'default'          => false,   // Is this a WP default column, used for displaying values
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
@@ -477,7 +476,7 @@ abstract class CPAC_Column {
 	 * @return AC_StorageModel
 	 */
 	public function get_storage_model() {
-		return AC()->get_storage_model( $this->get_storage_model_key() );
+		return AC()->get_storage_model( $this->storage_model );
 	}
 
 	/**
@@ -524,30 +523,6 @@ abstract class CPAC_Column {
 		 * @param CPAC_Column $column_instance Column class instance
 		 */
 		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->get_option( 'label' ) ) ), $this );
-	}
-
-	/**
-	 * Sanitizes label using intern WordPress function esc_url so it matches the label sorting url.
-	 *
-	 * @since 1.0
-	 *
-	 * @param CPAC_Column $column
-	 *
-	 * @return string Sanitized string
-	 */
-	public function get_sanitized_label() {
-		if ( $this->is_default() ) {
-			$string = $this->get_name();
-		}
-		else {
-			$string = $this->get_option( 'label' );
-			$string = strip_tags( $string );
-			$string = preg_replace( "/[^a-zA-Z0-9]+/", "", $string );
-			$string = str_replace( 'http://', '', $string );
-			$string = str_replace( 'https://', '', $string );
-		}
-
-		return $string;
 	}
 
 	/**

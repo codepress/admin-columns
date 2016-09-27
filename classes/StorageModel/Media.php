@@ -10,7 +10,7 @@ class AC_StorageModel_Media extends AC_StorageModel_PostAbstract {
 		$this->label = __( 'Media Library' );
 		$this->singular_label = __( 'Media' );
 		$this->type = 'media';
-		$this->page = 'upload';
+		$this->base = 'upload';
 		$this->screen = 'upload';
 		$this->post_type = 'attachment';
 		$this->table_classname = 'WP_Media_List_Table';

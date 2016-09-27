@@ -661,7 +661,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			// Labels with html will be replaced by the it's name.
 			$grouped[ $column->get_group() ]['options'][ $type ] = ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
 
-			if ( ! $column->is_default() && ! $column->is_original() ) {
+			if ( ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
 			}
 		}

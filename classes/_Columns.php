@@ -387,7 +387,7 @@ class AC_Columns {
 		// Nothing stored
 		else {
 			foreach ( $this->get_column_types() as $type => $column ) {
-				if ( $column->is_default() || $column->is_original() ) {
+				if ( $column->is_original() ) {
 					$this->columns[ $type ] = $column;
 				}
 			}

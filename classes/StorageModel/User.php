@@ -9,7 +9,7 @@ class AC_StorageModel_User extends AC_WPStorageModel {
 		$this->singular_label = __( 'User' );
 		$this->type = 'user';
 		$this->meta_type = 'user';
-		$this->page = 'users';
+		$this->base = 'users';
 		$this->screen = 'users';
 		$this->table_classname = 'WP_Users_List_Table';
 	}

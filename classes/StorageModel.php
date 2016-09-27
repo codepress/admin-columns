@@ -50,19 +50,19 @@ abstract class AC_StorageModel {
 	 * @since 2.0
 	 * @var string
 	 */
-	public $page;
+	protected $base;
 
 	/**
 	 * @since 2.4.10
 	 * @var string
 	 */
-	public $subpage;
+	protected $page;
 
 	/**
 	 * @since NEWVERSION
 	 * @var string
 	 */
-	public $post_type;
+	protected $post_type;
 
 	/**
 	 * @since NEWVERSION
@@ -74,7 +74,7 @@ abstract class AC_StorageModel {
 	 * @since 2.5
 	 * @var string
 	 */
-	public $screen;
+	protected $screen;
 
 	/**
 	 * @var AC_Settings $settings
@@ -245,7 +245,7 @@ abstract class AC_StorageModel {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->subpage ), admin_url( $this->page . '.php' ) );
+		return add_query_arg( array( 'page' => $this->page ), admin_url( $this->base . '.php' ) );
 	}
 
 	/**
