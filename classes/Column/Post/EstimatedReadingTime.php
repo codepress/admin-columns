@@ -11,11 +11,9 @@ class AC_Column_Post_EstimatedReadingTime extends CPAC_Column {
 
 		$this->properties['type'] = 'column-estimated_reading_time';
 		$this->properties['label'] = __( 'Estimated Reading Time', 'codepress-admin-columns' );
-
-		$this->default_options['words_per_minute'] = 200;
 	}
 
-	private function get_words_per_minute(  ) {
+	private function get_words_per_minute() {
 		return $this->get_option( 'words_per_minute' );
 	}
 
@@ -44,6 +42,8 @@ class AC_Column_Post_EstimatedReadingTime extends CPAC_Column {
 	/**
 	 * @since 2.3.3
 	 */
+
+	// TODO add to column formatter
 	public function convert_seconds_to_readable_time( $seconds ) {
 		$time = 0;
 
@@ -84,12 +84,15 @@ class AC_Column_Post_EstimatedReadingTime extends CPAC_Column {
 	}
 
 	public function display_settings() {
+
+		// TODO add to column fields
 		$this->field_settings->field( array(
-			'type'        => 'text',
-			'name'        => 'words_per_minute',
-			'label'       => __( 'Words per minute', 'codepress-admin-columns' ),
-			'description' => __( 'Estimated reading time in words per minute', 'codepress-admin-columns' ),
-			'placeholder' => __( 'Enter words per minute. For example: 200' )
+			'type'          => 'text',
+			'name'          => 'words_per_minute',
+			'label'         => __( 'Words per minute', 'codepress-admin-columns' ),
+			'description'   => __( 'Estimated reading time in words per minute', 'codepress-admin-columns' ),
+			'placeholder'   => __( 'Enter words per minute. For example: 200' ),
+			'default_value' => 200,
 		) );
 	}
 }

@@ -9,10 +9,8 @@ class AC_Column_Post_Modified extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		$this->properties['type']	 	= 'column-modified';
-		$this->properties['label']	 	= __( 'Last modified', 'codepress-admin-columns' );
-
-		$this->default_options['date_format'] = '';
+		$this->properties['type'] = 'column-modified';
+		$this->properties['label'] = __( 'Last modified', 'codepress-admin-columns' );
 	}
 
 	public function get_value( $post_id ) {

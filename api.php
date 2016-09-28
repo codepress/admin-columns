@@ -145,7 +145,7 @@ function cac_is_doing_ajax() {
 		return false;
 	}
 
-	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
+	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['list_screen'] );
 
 	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
 }
@@ -158,29 +158,29 @@ function cac_is_doing_ajax() {
 function cac_wp_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	$storage_model = false;
+	$list_screen = false;
 
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
 		switch ( filter_input( INPUT_POST, 'action' ) ) {
 			case 'inline-save' :  // Quick edit
-				$storage_model = filter_input( INPUT_POST, 'post_type' );
+				$list_screen = filter_input( INPUT_POST, 'post_type' );
 				break;
 			case 'add-tag' : // Adding term
 			case 'inline-save-tax' : // Quick edit term
-				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+				$list_screen = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
 				break;
 			case 'edit-comment' : // Quick edit comment
 			case 'replyto-comment' :  // Inline reply on comment
-				$storage_model = 'wp-comments';
+				$list_screen = 'wp-comments';
 				break;
 			case 'cacie_column_save' :
-				$storage_model = filter_input( INPUT_POST, 'storage_model' );
+				$list_screen = filter_input( INPUT_POST, 'list_screen' );
 				break;
 		}
 	}
 
-	return $storage_model;
+	return $list_screen;
 }
 
 /**

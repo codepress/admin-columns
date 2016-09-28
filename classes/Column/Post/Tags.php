@@ -11,8 +11,7 @@ class AC_Column_Post_Tags extends AC_Column_DefaultAbstract {
 
 		$this->properties['type'] = 'tags';
 
-		$this->default_options['width'] = 15;
-		$this->default_options['width_unit'] = '%';
+		$this->set_default_option( 'width', 15 );
 	}
 
 	public function get_taxonomy() {

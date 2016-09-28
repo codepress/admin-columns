@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_ListingsScreen {
+class AC_ListScreenManager {
 
 	/**
 	 * @var array $column_headings
@@ -11,13 +11,13 @@ class AC_ListingsScreen {
 	private $column_headings = array();
 
 	/**
-	 * @var AC_ListTableManagerAbstract $storage_model
+	 * @var AC_ListScreenAbstract $list_screen
 	 */
-	private $storage_model;
+	private $list_screen;
 
 	public function __construct() {
-		add_action( 'current_screen', array( $this, 'load_storage_model' ) );
-		add_action( 'admin_init', array( $this, 'load_storage_model_doing_ajax' ) );
+		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
+		add_action( 'admin_init', array( $this, 'load_list_screen_doing_ajax' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
@@ -25,10 +25,10 @@ class AC_ListingsScreen {
 	}
 
 	/**
-	 * @return AC_ListTableManagerAbstract
+	 * @return AC_ListScreenAbstract
 	 */
-	public function get_storage_model() {
-		return $this->storage_model;
+	public function get_list_screen() {
+		return $this->list_screen;
 	}
 
 	/**
@@ -37,9 +37,9 @@ class AC_ListingsScreen {
 	 * @since 2.5.5
 	 */
 	public function set_primary_column( $default ) {
-		if ( $this->storage_model ) {
-			if ( ! $this->storage_model->columns()->get_column_by_name( $default ) ) {
-				$default = key( $this->storage_model->columns()->get_columns() );
+		if ( $this->list_screen ) {
+			if ( ! $this->list_screen->columns()->get_column_by_name( $default ) ) {
+				$default = key( $this->list_screen->columns()->get_columns() );
 			}
 		}
 
@@ -56,8 +56,8 @@ class AC_ListingsScreen {
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
-		if ( $this->storage_model ) {
-			$classes .= " cp-{$this->storage_model->key}";
+		if ( $this->list_screen ) {
+			$classes .= " cp-" . $this->list_screen->get_key();
 		}
 
 		return $classes;
@@ -67,7 +67,7 @@ class AC_ListingsScreen {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-		if ( ! $this->storage_model ) {
+		if ( ! $this->list_screen ) {
 			return;
 		}
 
@@ -85,9 +85,9 @@ class AC_ListingsScreen {
 		wp_enqueue_style( 'cpac-columns' );
 
 		/**
-		 * @param AC_ListTableManagerAbstract $storage_model
+		 * @param AC_ListScreenAbstract $list_screen
 		 */
-		do_action( 'ac/enqueue_listings_scripts', $this->storage_model );
+		do_action( 'ac/enqueue_listings_scripts', $this->list_screen );
 	}
 
 	/**
@@ -96,15 +96,15 @@ class AC_ListingsScreen {
 	 * @since 1.4.0
 	 */
 	public function admin_head_scripts() {
-		if ( ! $this->storage_model ) {
+		if ( ! $this->list_screen ) {
 			return;
 		}
 
 		// CSS: columns width
 		$css_column_width = false;
-		foreach ( $this->storage_model->columns()->get_columns() as $column ) {
+		foreach ( $this->list_screen->columns()->get_columns() as $column ) {
 			if ( $width = $column->get_width() ) {
-				$css_column_width .= ".cp-" . $this->storage_model->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
+				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
 			}
 
 			// Load external scripts
@@ -122,7 +122,7 @@ class AC_ListingsScreen {
 		if ( current_user_can( 'manage_admin_columns' ) && AC()->settings()->get_settings_tab()->show_edit_button() ) : ?>
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->storage_model->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
+					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
 			</script>
 		<?php endif; ?>
@@ -135,16 +135,16 @@ class AC_ListingsScreen {
 		 *
 		 * @param object CPAC Main Class
 		 */
-		do_action( 'cac/admin_head', $this->storage_model, $this );
+		do_action( 'cac/admin_head', $this->list_screen, $this );
 	}
 
 	/**
 	 * Load current storage model
 	 */
-	public function load_storage_model() {
-		foreach ( AC()->get_storage_models() as $storage_model ) {
-			if ( $storage_model->is_current_screen() ) {
-				$this->init_storage_model( $storage_model );
+	public function load_list_screen() {
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen() ) {
+				$this->init_list_screen( $list_screen );
 			}
 		}
 	}
@@ -152,26 +152,27 @@ class AC_ListingsScreen {
 	/**
 	 * @param WP_Screen $current_screen
 	 */
-	public function load_storage_model_doing_ajax() {
-		if ( $storage_model = AC()->get_storage_model( $this->get_storage_model_when_doing_ajax() ) ) {
-			$this->init_storage_model( $storage_model );
+	public function load_list_screen_doing_ajax() {
+		if ( $list_screen = AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) ) {
+			$this->init_list_screen( $list_screen );
 		}
 	}
 
 	/**
-	 * @param AC_ListTableManager $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 */
-	private function init_storage_model( AC_ListTableManagerAbstract $storage_model ) {
+	private function init_list_screen( AC_ListScreenAbstract $list_screen ) {
 
-		do_action( 'cac/loaded_listings_screen', $storage_model );
+		// @since NEWVERSION
+		do_action( 'ac/init_list_screen', $list_screen );
 
-		$this->storage_model = $storage_model;
+		$this->list_screen = $list_screen;
 
 		// Init Values
-		$storage_model->set_manage_value_callback();
+		$list_screen->set_manage_value_callback();
 
 		// Init Headings
-		add_filter( "manage_" . $storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	private function is_doing_ajax() {
@@ -183,48 +184,48 @@ class AC_ListingsScreen {
 	 *
 	 * @since 2.5
 	 */
-	function get_storage_model_when_doing_ajax() {
-		$storage_model = false;
+	function get_list_screen_when_doing_ajax() {
+		$list_screen = false;
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
 			switch ( filter_input( INPUT_POST, 'action' ) ) {
 				case 'inline-save' :  // Quick edit
-					$storage_model = filter_input( INPUT_POST, 'post_type' );
+					$list_screen = filter_input( INPUT_POST, 'post_type' );
 					break;
 				case 'add-tag' : // Adding term
 				case 'inline-save-tax' : // Quick edit term
-					$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
+					$list_screen = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
 					break;
 				case 'edit-comment' : // Quick edit comment
 				case 'replyto-comment' :  // Inline reply on comment
-					$storage_model = 'wp-comments';
+					$list_screen = 'wp-comments';
 					break;
 				case 'cacie_column_save' :
-					$storage_model = filter_input( INPUT_POST, 'storage_model' );
+					$list_screen = filter_input( INPUT_POST, 'list_screen' );
 					break;
 			}
 		}
 
-		return $storage_model;
+		return $list_screen;
 	}
 
 	/**
 	 * Add Table headings
 	 */
 	public function add_table_headings() {
-		add_filter( "manage_" . $this->storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+		add_filter( "manage_" . $this->list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-		if ( empty( $columns ) || ! $this->storage_model ) {
+		if ( empty( $columns ) || ! $this->list_screen ) {
 			return $columns;
 		}
 
-		$settings = $this->storage_model->settings();
+		$settings = $this->list_screen->settings();
 
 		// Store default headings
 		if ( ! $this->is_doing_ajax() ) {
@@ -247,9 +248,9 @@ class AC_ListingsScreen {
 		}
 
 		// Flush cache. In case any columns are deactivated after saving them.
-		$this->storage_model->columns()->flush_columns();
+		$this->list_screen->columns()->flush_columns();
 
-		foreach ( $this->storage_model->columns()->get_columns() as $column ) {
+		foreach ( $this->list_screen->columns()->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
 			$label = apply_filters( 'cac/headings/label',  $column->get_label(), $column->get_name(), $column->get_options(), $this );

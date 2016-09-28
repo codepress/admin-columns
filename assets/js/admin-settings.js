@@ -58,7 +58,7 @@ function cpac_submit_form() {
 				action : 'cpac_columns_update',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
-				storage_model : $container.data( 'type' )
+				list_screen : $container.data( 'type' )
 			},
 
 			// JSON response
@@ -180,7 +180,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		_ajax_nonce : cpac._ajax_nonce,
 		column : column_name,
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
-		storage_model : $container.data( 'type' ),
+		list_screen : $container.data( 'type' ),
 	}, function( data ) {
 
 		if ( data ) {
@@ -234,7 +234,7 @@ jQuery.fn.column_bind_events = function() {
 
 	var column = jQuery( this );
 	var container = column.closest( '.columns-container ' );
-	var storage_model = container.attr( 'data-type' );
+	var list_screen = container.attr( 'data-type' );
 
 	// Current column type
 	var default_value = column.find( '.column-type select option:selected' ).val();
@@ -275,7 +275,7 @@ jQuery.fn.column_bind_events = function() {
 				clone.find( '.column-form' ).replaceWith( column.find( '.column-form' ) );
 
 				// Increment clone id
-				clone.cpac_update_clone_id( storage_model );
+				clone.cpac_update_clone_id( list_screen );
 
 				// Load clone
 				column.replaceWith( clone );
@@ -463,12 +463,12 @@ jQuery.fn.column_clone = function() {
  *
  * @since 2.0
  */
-jQuery.fn.cpac_update_clone_id = function( storage_model ) {
+jQuery.fn.cpac_update_clone_id = function( list_screen ) {
 
 	var el = jQuery( this );
 
 	var type = el.attr( 'data-type' );
-	var all_columns = jQuery( '.columns-container[data-type="' + storage_model + '"]' ).find( '.cpac-columns' );
+	var all_columns = jQuery( '.columns-container[data-type="' + list_screen + '"]' ).find( '.cpac-columns' );
 	var columns = jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
 
 	// get clone ID
@@ -531,12 +531,12 @@ jQuery.fn.cpac_update_clone_id = function( storage_model ) {
 function cpac_create_column( container ) {
 
 	var clone = jQuery( '.for-cloning-only .cpac-column', container ).not( '[data-default="1"]' ).first().clone();
-	var storage_model = container.attr( 'data-type' );
+	var list_screen = container.attr( 'data-type' );
 	var columns = container.find( 'cpac-columns' );
 
 	if ( clone.length > 0 ) {
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
-		clone.cpac_update_clone_id( storage_model );
+		clone.cpac_update_clone_id( list_screen );
 
 		// add to DOM
 		jQuery( '.cpac-columns form', container ).append( clone );

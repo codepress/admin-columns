@@ -72,9 +72,9 @@ class CPAC {
 	private $_upgrade;
 
 	/**
-	 * @var AC_ListingsScreen $listings_screen
+	 * @var AC_ListScreenManager $_list_screen_manager
 	 */
-	private $_listings_screen;
+	private $_list_screen_manager;
 
 	/**
 	 * @since NEWVERSION
@@ -90,9 +90,9 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
-	 * @var AC_ListTableManagerAbstract[]
+	 * @var AC_ListScreenAbstract[]
 	 */
-	private $storage_models;
+	private $list_screens;
 
 	/**
 	 * @since 2.5
@@ -134,7 +134,7 @@ class CPAC {
 		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
-		$this->_listings_screen = new AC_ListingsScreen();
+		$this->_list_screen_manager = new AC_ListScreenManager();
 
 		$this->helper = new AC_Helper();
 
@@ -142,7 +142,7 @@ class CPAC {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
+		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
@@ -338,61 +338,43 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_ListingsScreen
+	 * @return AC_ListScreenManager
 	 */
-	public function listings_screen() {
-		return $this->_listings_screen;
+	public function list_screen_manager() {
+		return $this->_list_screen_manager;
 	}
 
 	/**
-	 * @param AC_ListTableManagerAbstract $storage_model
+	 * @since NEWVERSION
+	 * @param string $key
+	 * @return AC_ListScreenAbstract|false
 	 */
-	public function add_storage_model( AC_ListTableManagerAbstract $storage_model ) {
-		$this->storage_models[] = $storage_model;
-	}
+	public function get_list_screen( $key ) {
+		$screens = $this->get_list_screens();
 
-	/**
-	 * Get registered storage models
-	 *
-	 * @since 2.5
-	 * @return AC_ListTableManagerAbstract[]
-	 */
-	public function get_storage_models() {
-		if ( null === $this->storage_models ) {
-			$this->set_storage_models();
-		}
-
-		return $this->storage_models;
-	}
-
-	/**
-	 * @param AC_ListTableManagerAbstract $storage_model
-	 */
-	public function register_storage_model( AC_ListTableManagerAbstract $storage_model ) {
-		$this->storage_models[ $storage_model->get_key() ] = $storage_model;
-	}
-
-	/**
-	 * Retrieve a storage model object based on its key
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $key Storage model key (e.g. post, page, wp-users)
-	 *
-	 * @return bool|AC_ListTableManagerAbstract Storage Model object (or false, on failure)
-	 */
-	public function get_storage_model( $key ) {
-		$models = $this->get_storage_models();
-
-		return isset( $models[ $key ] ) ? $models[ $key ] : false;
+		return isset( $screens[ $key ] ) ? $screens[ $key ] : false;
 	}
 
 	/**
 	 * Get registered storage models
 	 *
 	 * @since NEWVERSION
+	 * @return AC_ListScreenAbstract[]
 	 */
-	private function set_storage_models() {
+	public function get_list_screens() {
+		if ( null === $this->list_screens ) {
+			$this->set_list_screens();
+		}
+
+		return $this->list_screens;
+	}
+
+	/**
+	 * Get registered list screens
+	 *
+	 * @since NEWVERSION
+	 */
+	private function set_list_screens() {
 
 		$classes_dir = AC()->get_plugin_dir() . 'classes/';
 
@@ -401,28 +383,30 @@ class CPAC {
 		// Backwards compatibility
 		require_once $classes_dir . 'Deprecated/column-default.php';
 
-		// @deprecated NEWVERSION
-		require_once $classes_dir . 'Deprecated/storage_model.php';
-
 		// Create a storage model per post type
 		foreach ( $this->get_post_types() as $post_type ) {
-			$storage_model = new AC_ListTableManager_Post();
-			$this->register_storage_model( $storage_model->set_post_type( $post_type ) );
+			$list_screen = new AC_ListScreen_Post();
+			$this->register_list_screen( $list_screen->set_post_type( $post_type ) );
 		}
 
 		// Create other storage models
-		$this->register_storage_model( new AC_ListTableManager_User() );
-		$this->register_storage_model( new AC_ListTableManager_Media() );
-		$this->register_storage_model( new AC_ListTableManager_Comment() );
+		$this->register_list_screen( new AC_ListScreen_User() );
+		$this->register_list_screen( new AC_ListScreen_Media() );
+		$this->register_list_screen( new AC_ListScreen_Comment() );
 
 		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-			$this->register_storage_model( new AC_ListTableManager_Link() );
+			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
-		// @deprecated NEWVERSION
-		$this->storage_models = apply_filters( 'cac/storage_models', $this->storage_models, AC() );
+		// @since NEWVERSION
+		do_action( 'ac/list_screens', $this );
+	}
 
-		do_action( 'ac/storage_models', $this );
+	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 */
+	public function register_list_screen( AC_ListScreenAbstract $list_screen ) {
+		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
 	/**
@@ -459,16 +443,32 @@ class CPAC {
 
 	/**
 	 * Get storage model object of currently active storage model
-	 * On the users overview page, for example, this returns the AC_ListTableManagerAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
 	 *
 	 * @since 2.2.4
+	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_ListTableManagerAbstract
+	 * @return false
+	 */
+	public function get_storage_model( $key ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen()' );
+
+		return $this->get_list_screen( $key );
+	}
+
+	/**
+	 * Get storage model object of currently active storage model
+	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 *
+	 * @since 2.2.4
+	 * @deprecated NEWVERSION
+	 *
+	 * @return AC_ListScreenAbstract
 	 */
 	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
 
-		return $this->listings_screen()->get_storage_model();
+		return $this->list_screen_manager()->get_list_screen();
 	}
 
 	/**

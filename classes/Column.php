@@ -6,8 +6,6 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  *
- * @param string $storage_model Storage Model Key
- *
  * @property AC_ColumnFieldFormat format
  * @property AC_ColumnFieldSettings field_settings
  */
@@ -16,19 +14,11 @@ abstract class CPAC_Column {
 	/**
 	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
 	 *
-	 * @since 2.0
-	 * @var string $storage_model contains a AC_ListTableManagerAbstract object which the column belongs too.
-	 */
-	private $storage_model;
-
-	/**
-	 * Default options
+	 * @since NEWVERSION
 	 *
-	 * @since 2.0
-	 * @deprecated NEWVERSION
-	 * @var stdClass $options Contains the user set options for the CPAC_Column object.
+	 * @var string $list_screen
 	 */
-	public $options;
+	private $list_screen_key;
 
 	/**
 	 * Default options
@@ -36,19 +26,13 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 * @var array $default_options Default column options.
 	 */
-	public $default_options;
+	private $default_options;
 
 	/**
 	 * @since NEWVERSION
 	 * @var array|null
 	 */
 	private $stored_options = array();
-
-	/**
-	 * @since 2.0
-	 * @var array $properties describes the fixed properties for the CPAC_Column object.
-	 */
-	public $properties = array();
 
 	/**
 	 * Instance for adding field settings to the column
@@ -71,12 +55,37 @@ abstract class CPAC_Column {
 
 	/**
 	 * @since 2.0
-	 *
-	 * @param string $storage_model
+	 * @var array $properties describes the fixed properties for the CPAC_Column object.
 	 */
-	public function __construct( $storage_model_key ) {
+	public $properties = array();
 
-		$this->storage_model = $storage_model_key;
+	/**
+	 * Default options
+	 *
+	 * @since 2.0
+	 * @deprecated NEWVERSION
+	 * @var stdClass $options Contains the user set options for the CPAC_Column object.
+	 */
+	public $options;
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since 2.0
+	 * @see $list_screen_key
+	 */
+	private $storage_model;
+
+	/**
+	 * @since 2.0
+	 *
+	 * @param string $list_screen_key
+	 */
+	public function __construct( $list_screen_key ) {
+
+		$this->list_screen_key = $list_screen_key;
+
+		// @deprecated NEWVERSION
+		$this->storage_model = $this->list_screen_key;
 
 		$this->field_settings = new AC_ColumnFieldSettings( $this );
 		$this->format = new AC_ColumnFieldFormat( $this );
@@ -88,12 +97,16 @@ abstract class CPAC_Column {
 
 	/**
 	 * @since 2.5
-	 * @return false|AC_ListTableManagerAbstract
+	 * @return false|AC_ListScreenAbstract
 	 */
 	public function __get( $key ) {
 		$call = false;
+		// for backwards compatibility
 		if ( 'storage_model' == $key ) {
-			$call = 'get_' . $key;
+			$call = 'get_list_screen';
+		}
+		if ( 'list_screen' == $key ) {
+			$call = 'get_list_screen';
 		}
 		if ( in_array( $key, array( 'format', 'field_settings' ) ) ) {
 			$call = $key;
@@ -129,19 +142,14 @@ abstract class CPAC_Column {
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
 		);
 
-		$default_options = array(
-			'label'      => null,  // Human readable label
-			'width'      => null,  // Width for this column.
-			'width_unit' => '%',   // Unit for width; percentage (%) or pixels (px).
-		);
+		// Unit for width; percentage (%) or pixels (px).
+		$this->set_default_option( 'width_unit', '%' );
 
-		// Options (deprecated)
-		$this->options = $default_options;
+		// @deprecated NEWVERSION
+		$this->options = $this->default_options;
 
-		// Default options
-		$this->default_options = $default_options;
-
-		do_action( 'ac/column/defaults', $this );
+		// @since NEWVERSION
+		do_action( 'ac/column/after_init', $this );
 	}
 
 	/**
@@ -362,7 +370,7 @@ abstract class CPAC_Column {
 		$options = $this->stored_options;
 
 		if ( ! $options ) {
-			$stored = $this->get_storage_model()->settings()->get_columns();
+			$stored = $this->get_list_screen()->settings()->get_columns();
 			if ( isset( $stored[ $this->get_name() ] ) ) {
 				$options = $stored[ $this->get_name() ];
 			}
@@ -457,40 +465,37 @@ abstract class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function get_post_type() {
-		return $this->get_storage_model()->get_post_type();
+		return $this->get_list_screen()->get_post_type();
 	}
 
 	/**
-	 * @since 2.5.4
+	 * @since NEWVERSION
 	 */
-	public function get_storage_model_key() {
-		return $this->storage_model;
+	public function get_list_screen_key() {
+		return $this->list_screen_key;
 	}
 
 	/**
-	 * @since 2.5.4
+	 * @since NEWVERSION
+	 * @return AC_ListScreenAbstract
 	 */
-
-	/**
-	 * @since 2.3.4
-	 * @return AC_ListTableManagerAbstract
-	 */
-	public function get_storage_model() {
-		return AC()->get_storage_model( $this->storage_model );
+	public function get_list_screen() {
+		return AC()->get_list_screen( $this->list_screen_key );
 	}
 
 	/**
+	 * @deprecated NEWVERSION
 	 * @since 2.3.4
 	 */
-	public function get_storage_model_type() {
-		return $this->get_storage_model()->get_type();
+	public function get_list_screen_type() {
+		return $this->get_list_screen()->get_type();
 	}
 
 	/**
 	 * @since 2.3.4
 	 */
 	public function get_meta_type() {
-		return $this->get_storage_model()->get_meta_type();
+		return $this->get_list_screen()->get_meta_type();
 	}
 
 	/**
@@ -545,8 +550,8 @@ abstract class CPAC_Column {
 			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
 		}
 
-		$value = apply_filters( "cac/column/value", $value, $id, $this, $this->get_storage_model_key() );
-		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_storage_model_key() );
+		$value = apply_filters( "cac/column/value", $value, $id, $this, $this->get_list_screen_key() );
+		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_list_screen_key() );
 
 		return $value;
 	}
@@ -562,6 +567,36 @@ abstract class CPAC_Column {
 
 
 	// Deprecated methods
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since 2.3.4
+	 */
+	public function get_storage_model_type() {
+		_deprecated_function( __METHOD__, 'NEWVERSION', '$this->get_list_screen_type()' );
+
+		return $this->get_list_screen()->get_type();
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since 2.5.4
+	 */
+	public function get_storage_model_key() {
+		_deprecated_function( __METHOD__, 'NEWVERSION', '$this->get_list_screen_key()' );
+
+		return $this->get_list_screen_key();
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since 2.3.4
+	 */
+	public function get_storage_model() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return AC()->get_list_screen( $this->list_screen_key );
+	}
 
 	/**
 	 * @param string $field_name

@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_ListTableManager_Link extends AC_ListTableManagerWPAbstract {
+class AC_ListScreen_Link extends AC_ListScreenWPAbstract {
 
 	function init() {
 		$this->key = 'wp-links';

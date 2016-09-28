@@ -11,8 +11,6 @@ class AC_Column_Media_FullPath extends CPAC_Column {
 
 		$this->properties['type'] = 'column-full_path';
 		$this->properties['label'] = __( 'Full path', 'codepress-admin-columns' );
-
-		$this->default_options['path_scope'] = 'full';
 	}
 
 	private function get_pathscope() {

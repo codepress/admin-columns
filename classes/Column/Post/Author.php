@@ -11,8 +11,7 @@ class AC_Column_Post_Author extends AC_Column_DefaultAbstract {
 
 		$this->properties['type'] = 'author';
 
-		$this->default_options['width'] = 10;
-		$this->default_options['width_unit'] = '%';
+		$this->set_default_option( 'width', 10 );
 	}
 
 	public function apply_conditional() {

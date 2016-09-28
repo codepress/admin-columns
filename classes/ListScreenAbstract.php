@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-abstract class AC_ListTableManagerAbstract {
+abstract class AC_ListScreenAbstract {
 
 	/**
 	 * @since 2.0
@@ -121,7 +121,11 @@ abstract class AC_ListTableManagerAbstract {
 	 * @return string
 	 */
 	public function get_label() {
-		return apply_filters( 'ac/storage_model/label', $this->label, $this );
+
+		/**
+		 * @since NEWVERSION
+		 */
+		return apply_filters( 'ac/list_screen/label', $this->label, $this );
 	}
 
 	/**
@@ -200,7 +204,7 @@ abstract class AC_ListTableManagerAbstract {
 	 *
 	 * @since 2.4.1
 	 *
-	 * @return AC_ListTableManagerAbstract
+	 * @return AC_ListScreenAbstract
 	 */
 	public function set_menu_type( $menu_type ) {
 		$this->menu_type = $menu_type;
@@ -228,7 +232,11 @@ abstract class AC_ListTableManagerAbstract {
 	 * @since 2.3.4
 	 */
 	public function is_using_php_export() {
-		return apply_filters( 'ac/storage_model/is_using_php_export', false, $this );
+
+		/**
+		 * @since NEWVERSION
+		 */
+		return apply_filters( 'ac/list_screen/is_using_php_export', false, $this );
 	}
 
 	/**
@@ -264,7 +272,11 @@ abstract class AC_ListTableManagerAbstract {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return apply_filters( 'ac/storage_model/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
+
+		/**
+		 * @since NEWVERSION
+		 */
+		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
 	}
 
 	/**

@@ -19,7 +19,7 @@ class AC_Column_Post_Actions extends AC_Column_ActionsAbstract {
 		$can_edit_post = current_user_can( $post_type_object->cap->edit_post, $post->ID );
 		$quickedit_enabled = false;
 
-		$stored_columns = $this->get_storage_model()->settings()->get_columns();
+		$stored_columns = $this->get_list_screen()->settings()->get_columns();
 
 		foreach ( $stored_columns as $column ) {
 			if ( $column['type'] == 'title' ) {

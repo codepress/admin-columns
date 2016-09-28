@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) )  {
 /**
  * @since 2.0
  */
-class AC_ListTableManager_Comment extends AC_ListTableManagerWPAbstract {
+class AC_ListScreen_Comment extends AC_ListScreenWPAbstract {
 
 	public function __construct() {
 		parent::__construct();

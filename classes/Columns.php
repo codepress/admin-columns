@@ -22,17 +22,17 @@ final class AC_Columns {
 	private $default_columns;
 
 	/**
-	 * @var string $storage_model_key
+	 * @var string $list_screen_key
 	 */
-	private $storage_model_key;
+	private $list_screen_key;
 
 	/**
-	 * @var AC_ListTableManagerAbstract $storage_model
+	 * @var AC_ListScreenAbstract $list_screen
 	 */
-	private $storage_model;
+	private $list_screen;
 
-	public function __construct( $storage_model_key ) {
-		$this->storage_model_key = $storage_model_key;
+	public function __construct( $list_screen_key ) {
+		$this->list_screen_key = $list_screen_key;
 	}
 
 	/**
@@ -95,7 +95,7 @@ final class AC_Columns {
 	 * @param string $class_name
 	 */
 	public function register_column_type_by_classname( $class_name ) {
-		$column = new $class_name( $this->get_storage_model()->get_key() );
+		$column = new $class_name( $this->get_list_screen()->get_key() );
 
 		$this->register_column_type( $column );
 	}
@@ -113,14 +113,14 @@ final class AC_Columns {
 	}
 
 	/**
-	 * @return AC_ListTableManagerAbstract|false
+	 * @return AC_ListScreenAbstract|false
 	 */
-	public function get_storage_model() {
-		if ( null === $this->storage_model ) {
-			$this->storage_model = AC()->get_storage_model( $this->storage_model_key );
+	public function get_list_screen() {
+		if ( null === $this->list_screen ) {
+			$this->list_screen = AC()->get_list_screen( $this->list_screen_key );
 		}
 
-		return $this->storage_model;
+		return $this->list_screen;
 	}
 
 	/**
@@ -155,7 +155,7 @@ final class AC_Columns {
 		$class = get_class( $column_type );
 
 		/* @var CPAC_Column $column */
-		$column = new $class( $this->storage_model_key );
+		$column = new $class( $this->list_screen_key );
 
 		// @deprecated since NEWVERSION
 		$column->options = (object) array_merge( (array) $column->options, $data );
@@ -181,10 +181,18 @@ final class AC_Columns {
 
 	/**
 	 * @since NEWVERSION
+	 * @param string $column_name Column name
+	 */
+	public function deregister_column( $column_name ) {
+		unset( $this->columns[ $column_name ] );
+	}
+
+	/**
+	 * @since NEWVERSION
 	 */
 	private function set_columns() {
 
-		foreach ( $this->get_storage_model()->settings()->get_columns() as $name => $data ) {
+		foreach ( $this->get_list_screen()->settings()->get_columns() as $name => $data ) {
 			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}
@@ -215,13 +223,13 @@ final class AC_Columns {
 	 * @var array [ Column Name =>  Column Label ]
 	 */
 	private function set_default_columns() {
-		$this->default_columns = $this->get_storage_model()->settings()->get_default_headings();
+		$this->default_columns = $this->get_list_screen()->settings()->get_default_headings();
 
 		if ( ! $this->default_columns ) {
-			$this->default_columns = $this->get_storage_model()->get_default_columns();
+			$this->default_columns = $this->get_list_screen()->get_default_columns();
 		}
 
-		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this->get_storage_model() );
+		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this->get_list_screen() );
 	}
 
 	/**
@@ -236,12 +244,12 @@ final class AC_Columns {
 	}
 
 	/**
-	 * @param AC_ListTableManagerAbstract $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 *
 	 * @return mixed
 	 */
-	private function get_class_names( AC_ListTableManagerAbstract $storage_model ) {
-		$column_dir = AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $storage_model->get_type() );
+	private function get_class_names( AC_ListScreenAbstract $list_screen ) {
+		$column_dir = AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $list_screen->get_type() );
 
 		return AC()->autoloader()->get_class_names_from_dir( $column_dir, 'AC_' );
 	}
@@ -260,7 +268,7 @@ final class AC_Columns {
 			$plugin_column_class_name = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
 
 			/* @var AC_Column_Plugin $column */
-			$column = new $plugin_column_class_name( $this->storage_model_key );
+			$column = new $plugin_column_class_name( $this->list_screen_key );
 
 			$column->set_property( 'type', $name );
 			$column->set_property( 'label', $label );
@@ -269,7 +277,7 @@ final class AC_Columns {
 		}
 
 		// Admin Columns
-		$class_names = $this->get_class_names( $this->get_storage_model() );
+		$class_names = $this->get_class_names( $this->get_list_screen() );
 
 		// Add-on placeholders
 		if ( ! cpac_is_pro_active() ) {
@@ -299,11 +307,11 @@ final class AC_Columns {
 	 * @deprecated NEWVERSION
 	 */
 	private function deprecated_register_columns() {
-		$storage_model = $this->get_storage_model();
+		$list_screen = $this->get_list_screen();
 
-		$class_names = apply_filters( 'cac/columns/custom', array(), $storage_model );
-		$class_names = apply_filters( 'cac/columns/custom/type=' . $storage_model->get_type(), $class_names, $storage_model );
-		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $storage_model->get_post_type(), $class_names, $storage_model );
+		$class_names = apply_filters( 'cac/columns/custom', array(), $list_screen );
+		$class_names = apply_filters( 'cac/columns/custom/type=' . $list_screen->get_type(), $class_names, $list_screen );
+		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $list_screen->get_post_type(), $class_names, $list_screen );
 
 		foreach ( $class_names as $class_name => $path ) {
 			$autoload = true;

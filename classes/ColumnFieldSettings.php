@@ -86,6 +86,7 @@ class AC_ColumnFieldSettings {
 			'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_w',
 			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
+			'default_value' => 80,
 		);
 
 		$image_size_h = array(
@@ -95,6 +96,7 @@ class AC_ColumnFieldSettings {
 			'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_h',
 			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
+			'default_value' => 80,
 		);
 
 		// Will return fields only (without main label)
@@ -174,10 +176,11 @@ class AC_ColumnFieldSettings {
 
 	public function word_limit_args() {
 		return array(
-			'type'        => 'number',
-			'name'        => 'excerpt_length',
-			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
+			'type'          => 'number',
+			'name'          => 'excerpt_length',
+			'label'         => __( 'Word Limit', 'codepress-admin-columns' ),
+			'description'   => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
+			'default_value' => 30,
 		);
 	}
 

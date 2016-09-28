@@ -20,10 +20,8 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		$this->properties['classes'] = 'cpac-box-metafield';
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 
-		$this->default_options['image_size'] = 'cpac-custom';
-		$this->default_options['image_size_w'] = 80;
-		$this->default_options['image_size_h'] = 80;
-		$this->default_options['excerpt_length'] = 15;
+		$this->set_default_option( 'image_size', 'cpac-custom' );
+		$this->set_default_option( 'excerpt_length', 15 );
 	}
 
 	public function get_field_key() {
@@ -257,12 +255,12 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
-		if ( $cache = wp_cache_get( $this->get_storage_model_key(), 'cac_columns' ) ) {
+		if ( $cache = wp_cache_get( $this->get_list_screen_key(), 'cac_columns' ) ) {
 			$keys = $cache;
 		}
 		else {
-			$keys = $this->get_storage_model()->get_meta();
-			wp_cache_add( $this->get_storage_model_key(), $keys, 'cac_columns', 10 ); // 10 sec.
+			$keys = $this->get_list_screen()->get_meta();
+			wp_cache_add( $this->get_list_screen_key(), $keys, 'cac_columns', 10 ); // 10 sec.
 		}
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
@@ -283,17 +281,19 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		 * @since 2.0
 		 *
 		 * @param array $keys Available custom field keys
-		 * @param AC_ListTableManagerAbstract $storage_model Storage model class instance
+		 * @param AC_ListScreenAbstract $list_screen Storage model class instance
 		 */
-		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_storage_model() );
+
+		// TODO: naming
+		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
 
 		/**
 		 * Filter the available custom field meta keys for this storage model type
 		 *
 		 * @since 2.0
-		 * @see Filter cac/storage_model/meta_keys
+		 * @see Filter cac/list_screen/meta_keys
 		 */
-		return apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_storage_model_key(), $keys, $this->get_storage_model() );
+		return apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
 	}
 
 	protected function get_grouped_field_options() {
@@ -383,7 +383,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
-				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_storage_model()->singular_label ) . '</strong>' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_list_screen()->get_singular_label() ) . '</strong>' ),
 				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;

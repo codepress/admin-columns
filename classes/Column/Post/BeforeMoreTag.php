@@ -12,7 +12,7 @@ class AC_Column_Post_BeforeMoreTag extends CPAC_Column {
 		$this->properties['type']	 = 'column-before_moretag';
 		$this->properties['label']	 = __( 'Before More Tag', 'codepress-admin-columns' );
 
-		$this->default_options['excerpt_length'] = 15;
+		$this->set_default_option( 'excerpt_length', 15 );
 	}
 
 	function get_value( $post_id ) {

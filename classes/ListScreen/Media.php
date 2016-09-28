@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_ListTableManager_Media extends AC_ListTableManager_PostAbstract {
+class AC_ListScreen_Media extends AC_ListScreen_PostAbstract {
 
 	public function __construct() {
 		parent::__construct();

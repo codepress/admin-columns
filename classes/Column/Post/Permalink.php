@@ -13,8 +13,6 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 
 		$this->properties['type'] = 'column-permalink';
 		$this->properties['label'] = __( 'Permalink', 'codepress-admin-columns' );
-
-		$this->default_options['link_to_post'] = false;
 	}
 
 	public function get_value( $post_id ) {
@@ -33,15 +31,15 @@ class AC_Column_Post_Permalink extends CPAC_Column {
 
 	public function display_settings() {
 		$this->field_settings->field( array(
-			'type'        => 'radio',
-			'name'        => 'link_to_post',
-			'label'       => __( 'Link to post', 'codepress-admin-columns' ),
-			'description' => __( 'This will make the permalink clickable.', 'codepress-admin-columns' ),
-			'options'     => array(
+			'type'          => 'radio',
+			'name'          => 'link_to_post',
+			'label'         => __( 'Link to post', 'codepress-admin-columns' ),
+			'description'   => __( 'This will make the permalink clickable.', 'codepress-admin-columns' ),
+			'options'       => array(
 				'on'  => __( 'Yes' ),
 				'off' => __( 'No' ),
 			),
-			'default_value'     => 'off'
+			'default_value' => 'off',
 		) );
 	}
 

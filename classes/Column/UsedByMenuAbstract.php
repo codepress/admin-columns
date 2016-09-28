@@ -14,8 +14,6 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
 		$this->properties['type'] = 'column-used_by_menu';
 		$this->properties['label'] = __( 'Used by Menu', 'codepress-admin-columns' );
-
-		$this->default_options['link_to_menu'] = false;
 	}
 
 	function apply_conditional() {
@@ -61,9 +59,9 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	 */
 	function get_meta_type() {
 		$object_type = false;
-		$model = $this->get_storage_model();
-		if ( isset( $model->taxonomy ) ) {
-			$object_type = $model->taxonomy;
+		$list_screen = $this->get_list_screen();
+		if ( isset( $list_screen->taxonomy ) ) {
+			$object_type = $list_screen->taxonomy;
 		}
 		elseif ( $post_type = $this->get_post_type() ) {
 			$object_type = $post_type;

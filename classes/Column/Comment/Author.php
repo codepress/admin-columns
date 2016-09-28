@@ -11,8 +11,7 @@ class AC_Column_Comment_Author extends AC_Column_DefaultAbstract {
 
 		$this->properties['type'] = 'author';
 
-		$this->default_options['width'] = 20;
-		$this->default_options['width_unit'] = '%';
+		$this->set_default_option( 'width', 20 );
 	}
 
 }

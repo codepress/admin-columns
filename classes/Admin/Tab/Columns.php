@@ -9,9 +9,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	/**
-	 * @var AC_ListTableManagerAbstract $storage_model
+	 * @var AC_ListScreenAbstract $list_screen
 	 */
-	private $storage_model;
+	private $list_screen;
 
 	public function __construct() {
 
@@ -45,11 +45,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * @since 2.0
 	 *
-	 * @param AC_ListTableManagerAbstract $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-	private function store( AC_ListTableManagerAbstract $storage_model, $column_data ) {
+	private function store( AC_ListScreenAbstract $list_screen, $column_data ) {
 
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
@@ -57,7 +57,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
-			if ( $column = $storage_model->columns()->get_column_by_name( $name ) ) {
+			if ( $column = $list_screen->columns()->get_column_by_name( $name ) ) {
 
 				if ( ! empty( $options['label'] ) ) {
 
@@ -90,25 +90,25 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		// store columns
-		$result = $storage_model->settings()->store( $column_data );
+		$result = $list_screen->settings()->store( $column_data );
 
 		// reset object
-		$storage_model->columns()->flush_columns();
+		$list_screen->columns()->flush_columns();
 
 		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $storage_model->get_label() . "</strong>" ) );
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $list_screen->get_label() . "</strong>" ) );
 		}
+
 
 		/**
 		 * Fires after a new column setup is stored in the database
 		 * Primarily used when columns are saved through the Admin Columns settings screen
 		 *
-		 * @since 2.2.9
+		 * @since NEWVERSION
 		 *
-		 * @param array $columns List of columns ([column id] => (array) [column properties])
-		 * @param AC_ListTableManagerAbstract $storage_model_instance Storage model instance
+		 * @param AC_ListScreenAbstract $list_screen
 		 */
-		do_action( 'cac/storage_model/columns_stored', $storage_model );
+		do_action( 'ac/columns_stored', $list_screen );
 
 		return true;
 	}
@@ -131,11 +131,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
-					if ( $storage_model = $this->get_storage_model() ) {
-						$storage_model->settings()->delete();
-						$storage_model->columns()->flush_columns();
+					if ( $list_screen = $this->get_list_screen() ) {
+						$list_screen->settings()->delete();
+						$list_screen->columns()->flush_columns();
 
-						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $list_screen->get_label() ) . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -147,7 +147,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 
-					do_action( 'ac/settings/restore_all' );
+					// @since NEWVERSION
+					do_action( 'ac/restore_all_columns' );
 				}
 				break;
 
@@ -155,10 +156,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @return false|AC_ListTableManagerAbstract
+	 * @return false|AC_ListScreenAbstract
 	 */
-	private function get_first_storage_model() {
-		$models = array_values( AC()->get_storage_models() );
+	private function get_first_list_screen() {
+		$models = array_values( AC()->get_list_screens() );
 
 		return isset( $models[0] ) ? $models[0] : false;
 	}
@@ -185,14 +186,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		$storage_model = AC()->get_storage_model( $formdata['cpac_key'] );
+		$list_screen = AC()->get_list_screen( $formdata['cpac_key'] );
 
-		if ( ! $storage_model ) {
+		if ( ! $list_screen ) {
 			wp_die();
 		}
 
 		// Run Hook
-		$this->set_storage_model( $storage_model );
+		$this->set_list_screen( $list_screen );
 
 		if ( empty( $formdata['columns'][ $column_name ] ) ) {
 			wp_die();
@@ -200,7 +201,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$data = $formdata['columns'][ $column_name ];
 
-		$column = $this->storage_model->columns()->create_column( $data );
+		$column = $this->list_screen->columns()->create_column( $data );
 
 		if ( ! $column ) {
 			wp_die();
@@ -230,14 +231,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		$storage_model = AC()->get_storage_model( filter_input( INPUT_POST, 'storage_model' ) );
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
-		if ( ! $storage_model ) {
+		if ( ! $list_screen ) {
 			wp_die();
 		}
 
 		// Run Hook
-		$this->set_storage_model( $storage_model );
+		$this->set_list_screen( $list_screen );
 
 		parse_str( $_POST['data'], $formdata );
 
@@ -249,7 +250,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			);
 		}
 
-		$stored = $this->store( $this->storage_model, $formdata['columns'] );
+		$stored = $this->store( $this->list_screen, $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -260,8 +261,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $storage_model->get_label() ) . "</strong>" )
-			. ' <a href="' . esc_attr( $storage_model->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $storage_model->label ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $list_screen->get_label() ) . "</strong>" )
+			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->label ) ) . '</a>'
 		);
 	}
 
@@ -277,24 +278,24 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 	private function get_grouped_models() {
 		$grouped = array();
-		foreach ( AC()->get_storage_models() as $_storage_model ) {
-			$grouped[ $_storage_model->get_menu_type() ][] = (object) array(
-				'key'   => $_storage_model->key,
-				'link'  => $_storage_model->get_edit_link(),
-				'label' => $_storage_model->label,
+		foreach ( AC()->get_list_screens() as $_list_screen ) {
+			$grouped[ $_list_screen->get_menu_type() ][] = (object) array(
+				'key'   => $_list_screen->key,
+				'link'  => $_list_screen->get_edit_link(),
+				'label' => $_list_screen->label,
 			);
-			usort( $grouped[ $_storage_model->get_menu_type() ], array( $this, 'sort_by_label' ) );
+			usort( $grouped[ $_list_screen->get_menu_type() ], array( $this, 'sort_by_label' ) );
 		}
 
 		return $grouped;
 	}
 
-	private function set_user_model_preference( $storage_model_key ) {
-		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $storage_model_key );
+	private function set_user_model_preference( $list_screen_key ) {
+		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $list_screen_key );
 	}
 
 	private function get_user_model_preference() {
-		return cpac()->get_storage_model( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
+		return cpac()->get_list_screen( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
 	}
 
 	/**
@@ -313,97 +314,99 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * Set storage model
 	 */
-	public function set_current_storage_model() {
+	public function set_current_list_screen() {
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
 
 			// By request
-			if ( $_storage_model = AC()->get_storage_model( $_REQUEST['cpac_key'] ) ) {
-				$storage_model = $_storage_model;
+			if ( $_list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
+				$list_screen = $_list_screen;
 			} // User preference
-			else if ( $_storage_model = $this->get_user_model_preference() ) {
-				$storage_model = $_storage_model;
+			else if ( $_list_screen = $this->get_user_model_preference() ) {
+				$list_screen = $_list_screen;
 			} // First one served
 			else {
-				$storage_model = $this->get_first_storage_model();
+				$list_screen = $this->get_first_list_screen();
 			}
 
-			$this->set_user_model_preference( $storage_model->key );
+			$this->set_user_model_preference( $list_screen->key );
 		}
 		else {
 
 			// User preference
 			if ( $exists = $this->get_user_model_preference() ) {
-				$storage_model = $exists;
+				$list_screen = $exists;
 			} // First one served
 			else {
-				$storage_model = $this->get_first_storage_model();
+				$list_screen = $this->get_first_list_screen();
 			}
 		}
 
-		$this->set_storage_model( $storage_model );
+		$this->set_list_screen( $list_screen );
 	}
 
 	/**
-	 * @param $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 */
-	private function set_storage_model( AC_ListTableManagerAbstract $storage_model ) {
-		do_action( 'ac/settings/storage_model', $storage_model );
+	private function set_list_screen( AC_ListScreenAbstract $list_screen ) {
 
-		$this->storage_model = $storage_model;
+		// @since NEWVERSION
+		do_action( 'ac/settings/list_screen', $list_screen );
+
+		$this->list_screen = $list_screen;
 	}
 
 	/**
-	 * @return AC_ListTableManagerAbstract
+	 * @return AC_ListScreenAbstract
 	 */
-	public function get_storage_model() {
-		if ( null == $this->storage_model ) {
-			$this->set_current_storage_model();
+	public function get_list_screen() {
+		if ( null == $this->list_screen ) {
+			$this->set_current_list_screen();
 		}
 
-		return $this->storage_model;
+		return $this->list_screen;
 	}
 
 	/**
 	 * Display
 	 */
 	public function display() {
-		$storage_model = $this->get_storage_model();
+		$list_screen = $this->get_list_screen();
 		?>
 
-		<div class="columns-container<?php echo $storage_model->settings()->get_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $storage_model->get_key() ); ?>">
+		<div class="columns-container<?php echo $list_screen->settings()->get_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
 			<div class="main">
 				<div class="menu">
 					<select title="Select type" id="cpac_storage_modal_select">
 						<?php foreach ( $this->get_grouped_models() as $menu_type => $models ) : ?>
 							<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
 								<?php foreach ( $models as $model ) : ?>
-									<option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $storage_model->get_key() ); ?>><?php echo esc_html( $model->label ); ?></option>
+									<option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $list_screen->get_key() ); ?>><?php echo esc_html( $model->label ); ?></option>
 								<?php endforeach; ?>
 							</optgroup>
 						<?php endforeach; ?>
 					</select>
 					<span class="spinner"></span>
 
-					<?php if ( $link = $storage_model->get_screen_link() ) {
+					<?php if ( $link = $list_screen->get_screen_link() ) {
 						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
 					} ?>
 				</div>
 
-				<?php do_action( 'cac/settings/after_title', $storage_model ); ?>
+				<?php do_action( 'cac/settings/after_title', $list_screen ); ?>
 
 			</div>
 
 			<div class="columns-right">
 				<div class="columns-right-inside">
-					<?php if ( ! $storage_model->is_using_php_export() ) : ?>
+					<?php if ( ! $list_screen->is_using_php_export() ) : ?>
 						<div class="sidebox form-actions">
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
 							<h3>
 								<span class="left"><?php echo esc_html( $mainlabel ); ?></span>
-								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $storage_model->label, $mainlabel ) ) ) : ?>
+								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $list_screen->label, $mainlabel ) ) ) : ?>
 									<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 								<?php else : ?>
-									<span class="clear contenttype"><?php echo esc_html( $storage_model->label ); ?></span>
+									<span class="clear contenttype"><?php echo esc_html( $list_screen->label ); ?></span>
 								<?php endif; ?>
 							</h3>
 
@@ -413,21 +416,21 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							</div>
 
 							<form class="form-reset" method="post">
-								<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->get_key() ); ?>"/>
+								<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
 								<input type="hidden" name="cpac_action" value="restore_by_type"/>
 								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
-								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $storage_model->get_label() . "'" ) ) . '\');"' : ''; ?>
+								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $list_screen->get_label() . "'" ) ) . '\');"' : ''; ?>
 								<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 								<span class="spinner"></span>
 							</form>
 
-							<?php do_action( 'cac/settings/form_actions', $storage_model ); ?>
+							<?php do_action( 'cac/settings/form_actions', $list_screen ); ?>
 
 						</div><!--form-actions-->
 					<?php endif; ?>
 
-					<?php do_action( 'cac/settings/sidebox', $storage_model ); ?>
+					<?php do_action( 'cac/settings/sidebox', $list_screen ); ?>
 
 					<?php if ( ! cpac_is_pro_active() ) : ?>
 
@@ -560,10 +563,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-right-->
 
 			<div class="columns-left">
-				<?php if ( ! $storage_model->settings()->get_default_headings() && ! $storage_model->is_using_php_export() ): ?>
+				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ): ?>
 					<div class="cpac-notice">
 						<p>
-							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $storage_model->get_screen_link() ) . "'>" . esc_html( $storage_model->label ) . "</a>" ); ?>
+							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->label ) . "</a>" ); ?>
 						</p>
 					</div>
 				<?php endif ?>
@@ -572,26 +575,26 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 				<div class="ajax-message"><p></p></div>
 
-				<?php if ( $storage_model->is_using_php_export() ) : ?>
+				<?php if ( $list_screen->is_using_php_export() ) : ?>
 					<div class="notice notice-warning below-h2">
-						<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $storage_model->label ) . '</strong>' ); ?></p>
+						<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->label ) . '</strong>' ); ?></p>
 					</div>
 				<?php endif; ?>
 
-				<div class="cpac-boxes<?php echo esc_attr( $storage_model->is_using_php_export() ? ' disabled' : '' ); ?>">
+				<div class="cpac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
 
 					<div class="cpac-columns">
 						<form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
 
-							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $storage_model->get_key() ); ?>"/>
+							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
 							<input type="hidden" name="cpac_action" value="update_by_type"/>
 
-							<?php do_action( 'cac/settings/form_columns', $storage_model ); ?>
+							<?php do_action( 'cac/settings/form_columns', $list_screen ); ?>
 
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 							<?php
-							foreach ( $storage_model->columns()->get_columns() as $column ) {
+							foreach ( $list_screen->columns()->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>
@@ -600,7 +603,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					</div><!--.cpac-columns-->
 
 					<div class="column-footer">
-						<?php if ( ! $storage_model->is_using_php_export() ) : ?>
+						<?php if ( ! $list_screen->is_using_php_export() ) : ?>
 							<div class="order-message">
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 							</div>
@@ -619,14 +622,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 				</div><!--.cpac-boxes-->
 
-				<?php do_action( 'cac/settings/after_columns', $storage_model ); ?>
+				<?php do_action( 'cac/settings/after_columns', $list_screen ); ?>
 
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
 			<div class="for-cloning-only" style="display:none">
 				<?php
-				foreach ( $storage_model->columns()->get_column_types() as $column ) {
+				foreach ( $list_screen->columns()->get_column_types() as $column ) {
 					$this->display_column( $column );
 				}
 				?>
@@ -640,14 +643,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @param AC_ListTableManagerAbstract $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 *
 	 * @return mixed|void
 	 */
-	private function get_grouped_columns( $storage_model ) {
+	private function get_grouped_columns( $list_screen ) {
 		$grouped = array();
 
-		foreach ( $storage_model->columns()->get_column_types() as $type => $column ) {
+		foreach ( $list_screen->columns()->get_column_types() as $type => $column ) {
 			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
@@ -746,7 +749,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
-						'grouped_options' => $this->get_grouped_columns( $column->get_storage_model() ),
+						'grouped_options' => $this->get_grouped_columns( $column->get_list_screen() ),
 						'default_value'   => $column->get_type(),
 					) );
 
