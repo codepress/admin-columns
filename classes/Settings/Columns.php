@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings {
+class AC_Settings_Columns {
 
 	CONST OPTIONS_KEY = 'cpac_options';
 

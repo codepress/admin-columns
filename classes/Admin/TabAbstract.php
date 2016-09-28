@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-Abstract class AC_Settings_TabAbstract {
+Abstract class AC_Admin_TabAbstract {
 
 	/**
 	 * Should this tab be displayed when no tab is selected

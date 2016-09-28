@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Tabs {
+class AC_Admin_Tabs {
 
 	/**
 	 * @var array
@@ -23,9 +23,9 @@ class AC_Settings_Tabs {
 	}
 
 	/**
-	 * @param AC_Settings_TabAbstract $tab
+	 * @param AC_Admin_TabAbstract $tab
 	 */
-	public function register_tab( AC_Settings_TabAbstract $tab ) {
+	public function register_tab( AC_Admin_TabAbstract $tab ) {
 		$this->tabs[ $tab->get_slug() ] = $tab;
 
 		if ( $tab->is_default() ) {
@@ -36,7 +36,7 @@ class AC_Settings_Tabs {
 	/**
 	 * @param $slug
 	 *
-	 * @return AC_Settings_TabAbstract|false
+	 * @return AC_Admin_TabAbstract|false
 	 */
 	public function get_tab( $slug ) {
 		$tab = false;

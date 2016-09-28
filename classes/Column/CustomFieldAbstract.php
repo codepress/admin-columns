@@ -283,7 +283,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		 * @since 2.0
 		 *
 		 * @param array $keys Available custom field keys
-		 * @param AC_StorageModel $storage_model Storage model class instance
+		 * @param AC_ListTableManagerAbstract $storage_model Storage model class instance
 		 */
 		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_storage_model() );
 

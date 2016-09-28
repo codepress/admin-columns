@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Tab_Settings extends AC_Settings_TabAbstract {
+class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 
 	CONST SETTINGS_KEY = 'cpac_general_options';
 

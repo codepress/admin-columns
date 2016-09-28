@@ -1,10 +1,10 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_Media extends AC_StorageModel_PostAbstract {
+class AC_ListTableManager_Media extends AC_ListTableManager_PostAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
 		$this->key = 'wp-media';
 		$this->label = __( 'Media Library' );
@@ -13,10 +13,10 @@ class AC_StorageModel_Media extends AC_StorageModel_PostAbstract {
 		$this->base = 'upload';
 		$this->screen = 'upload';
 		$this->post_type = 'attachment';
-		$this->table_classname = 'WP_Media_List_Table';
+		$this->list_table = 'WP_Media_List_Table';
 	}
 
-	public function init_manage_value() {
+	public function set_manage_value_callback() {
 		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

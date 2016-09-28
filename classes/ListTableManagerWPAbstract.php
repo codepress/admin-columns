@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-abstract class AC_WPStorageModel extends AC_StorageModel {
+abstract class AC_ListTableManagerWPAbstract extends AC_ListTableManagerAbstract {
 
 	/**
 	 * @since NEWVERSION
@@ -34,7 +34,7 @@ abstract class AC_WPStorageModel extends AC_StorageModel {
 	 * @return WP_List_Table|false
 	 */
 	public function get_list_table( $args = array() ) {
-		return function_exists( '_get_list_table' ) ? _get_list_table( $this->table_classname, array( 'screen' => $this->get_screen_id() ) ) : false;
+		return function_exists( '_get_list_table' ) ? _get_list_table( $this->list_table, array( 'screen' => $this->get_screen_id() ) ) : false;
 	}
 
 }

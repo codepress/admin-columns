@@ -35,7 +35,7 @@ class AC_Columns {
 	private $storage_model_key;
 
 	/**
-	 * @var AC_StorageModel $storage_model
+	 * @var AC_ListTableManagerAbstract $storage_model
 	 */
 	private $storage_model;
 
@@ -44,7 +44,7 @@ class AC_Columns {
 	}
 
 	/**
-	 * @return AC_StorageModel|false
+	 * @return AC_ListTableManager|false
 	 */
 	public function get_storage_model() {
 		if ( null == $this->storage_model ) {
@@ -335,7 +335,7 @@ class AC_Columns {
 		 * @since 2.0
 		 *
 		 * @param array $columns Available custom columns ([class_name] => [class file path])
-		 * @param AC_StorageModel $storage_model Storage model class instance
+		 * @param AC_ListTableManagerAbstract $storage_model Storage model class instance
 		 */
 		$columns = apply_filters( 'cac/columns/custom', $columns, $this->get_storage_model() );
 

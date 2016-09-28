@@ -1,9 +1,11 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_User extends AC_WPStorageModel {
+class AC_ListTableManager_User extends AC_ListTableManagerWPAbstract {
 
-	public function init() {
+	public function __construct() {
+		parent::__construct();
+
 		$this->key = 'wp-users';
 		$this->label = __( 'Users' );
 		$this->singular_label = __( 'User' );
@@ -11,10 +13,13 @@ class AC_StorageModel_User extends AC_WPStorageModel {
 		$this->meta_type = 'user';
 		$this->base = 'users';
 		$this->screen = 'users';
-		$this->table_classname = 'WP_Users_List_Table';
+		$this->list_table = 'WP_Users_List_Table';
 	}
 
-	public function init_manage_value() {
+	/**
+	 * @see set_manage_value_callback()
+	 */
+	public function set_manage_value_callback() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
 	}
 

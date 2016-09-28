@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Tab_Addons extends AC_Settings_TabAbstract {
+class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 
 	public function __construct() {
 		$this

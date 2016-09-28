@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-abstract class AC_StorageModel {
+abstract class AC_ListTableManagerAbstract {
 
 	/**
 	 * @since 2.0
@@ -16,7 +16,7 @@ abstract class AC_StorageModel {
 	/**
 	 * @since 2.3.5
 	 */
-	public $singular_label;
+	protected $singular_label;
 
 	/**
 	 * Identifier for Storage Model; Post type etc.
@@ -30,54 +30,68 @@ abstract class AC_StorageModel {
 	 *
 	 * @since 2.0
 	 */
-	public $type;
+	protected $type;
 
 	/**
 	 * Meta type of storage model; post, user, comment. Mostly used for custom field data.
 	 *
 	 * @since 3.0
 	 */
-	public $meta_type;
+	protected $meta_type;
 
 	/**
 	 * Groups the storage model in the menu.
 	 *
 	 * @since 2.0
 	 */
-	public $menu_type;
+	protected $menu_type;
 
 	/**
+	 * Name of the base PHP file (without extension)
+	 *
 	 * @since 2.0
 	 * @var string
 	 */
 	protected $base;
 
 	/**
+	 * Page menu slug. Applies only when a menu page is used.
+	 *
 	 * @since 2.4.10
 	 * @var string
 	 */
 	protected $page;
 
 	/**
+	 * Post type
+	 *
 	 * @since NEWVERSION
 	 * @var string
 	 */
+
+	// TODO: remove and use method exists
 	protected $post_type;
 
 	/**
+	 * Class name of the WP_List_Table instance
+	 *
 	 * @since NEWVERSION
 	 * @var string
 	 */
-	protected $table_classname;
+	protected $list_table;
 
 	/**
+	 * The unique ID of the screen.
+	 *
+	 * @see get_current_screen()
+	 *
 	 * @since 2.5
 	 * @var string
 	 */
 	protected $screen;
 
 	/**
-	 * @var AC_Settings $settings
+	 * @var AC_Settings_Columns $settings
 	 */
 	private $settings;
 
@@ -87,18 +101,11 @@ abstract class AC_StorageModel {
 	private $columns;
 
 	/**
-	 * Set the above variables of the object
-	 *
-	 * @return void
-	 */
-	abstract function init();
-
-	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
 	 */
-	abstract function init_manage_value();
+	abstract function set_manage_value_callback();
 
 
 	// TODO: user getters and setters, make vars protected
@@ -106,10 +113,8 @@ abstract class AC_StorageModel {
 	/**
 	 * @since 2.4.4
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->menu_type = __( 'Other', 'codepress-admin-columns' );
-
-		$this->init();
 	}
 
 	/**
@@ -117,6 +122,13 @@ abstract class AC_StorageModel {
 	 */
 	public function get_label() {
 		return apply_filters( 'ac/storage_model/label', $this->label, $this );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_singular_label() {
+		return $this->singular_label;
 	}
 
 	/**
@@ -188,7 +200,7 @@ abstract class AC_StorageModel {
 	 *
 	 * @since 2.4.1
 	 *
-	 * @return AC_StorageModel
+	 * @return AC_ListTableManagerAbstract
 	 */
 	public function set_menu_type( $menu_type ) {
 		$this->menu_type = $menu_type;
@@ -268,15 +280,15 @@ abstract class AC_StorageModel {
 	 * @return WP_List_Table|false
 	 */
 	public function get_list_table( $args = array() ) {
-		return class_exists( $this->table_classname ) ? new $this->table_classname( $args ) : false;
+		return class_exists( $this->list_table ) ? new $this->list_table( $args ) : false;
 	}
 
 	/**
-	 * @return AC_Settings
+	 * @return AC_Settings_Columns
 	 */
 	public function settings() {
 		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings( $this->key );
+			$this->settings = new AC_Settings_Columns( $this->key );
 		}
 
 		return $this->settings;

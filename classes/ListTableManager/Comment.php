@@ -7,9 +7,11 @@ if ( ! defined( 'ABSPATH' ) )  {
 /**
  * @since 2.0
  */
-class AC_StorageModel_Comment extends AC_WPStorageModel {
+class AC_ListTableManager_Comment extends AC_ListTableManagerWPAbstract {
 
-	public function init() {
+	public function __construct() {
+		parent::__construct();
+
 		$this->key = 'wp-comments';
 		$this->label = __( 'Comments' );
 		$this->singular_label = __( 'Comment' );
@@ -17,10 +19,10 @@ class AC_StorageModel_Comment extends AC_WPStorageModel {
 		$this->meta_type = 'comment';
 		$this->base = 'edit-comments';
 		$this->screen = 'edit-comments';
-		$this->table_classname = 'WP_Comments_List_Table';
+		$this->list_table = 'WP_Comments_List_Table';
 	}
 
-	public function init_manage_value() {
+	public function set_manage_value_callback() {
 		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

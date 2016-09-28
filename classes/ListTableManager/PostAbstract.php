@@ -1,12 +1,14 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-abstract class AC_StorageModel_PostAbstract extends AC_WPStorageModel {
+abstract class AC_ListTableManager_PostAbstract extends AC_ListTableManagerWPAbstract {
 
 	/**
 	 * @since 2.0
 	 */
-	public function init() {
+	public function __construct() {
+		parent::__construct();
+
 		$this->meta_type = 'post';
 	}
 

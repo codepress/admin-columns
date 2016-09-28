@@ -27,7 +27,7 @@ final class AC_Columns {
 	private $storage_model_key;
 
 	/**
-	 * @var AC_StorageModel $storage_model
+	 * @var AC_ListTableManagerAbstract $storage_model
 	 */
 	private $storage_model;
 
@@ -113,7 +113,7 @@ final class AC_Columns {
 	}
 
 	/**
-	 * @return AC_StorageModel|false
+	 * @return AC_ListTableManagerAbstract|false
 	 */
 	public function get_storage_model() {
 		if ( null === $this->storage_model ) {
@@ -236,11 +236,11 @@ final class AC_Columns {
 	}
 
 	/**
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListTableManagerAbstract $storage_model
 	 *
 	 * @return mixed
 	 */
-	private function get_class_names( AC_StorageModel $storage_model ) {
+	private function get_class_names( AC_ListTableManagerAbstract $storage_model ) {
 		$column_dir = AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $storage_model->get_type() );
 
 		return AC()->autoloader()->get_class_names_from_dir( $column_dir, 'AC_' );

@@ -4,12 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
+class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	/**
-	 * @var AC_StorageModel $storage_model
+	 * @var AC_ListTableManagerAbstract $storage_model
 	 */
 	private $storage_model;
 
@@ -45,11 +45,11 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	/**
 	 * @since 2.0
 	 *
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListTableManagerAbstract $storage_model
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-	private function store( AC_StorageModel $storage_model, $column_data ) {
+	private function store( AC_ListTableManagerAbstract $storage_model, $column_data ) {
 
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
@@ -106,7 +106,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 		 * @since 2.2.9
 		 *
 		 * @param array $columns List of columns ([column id] => (array) [column properties])
-		 * @param AC_StorageModel $storage_model_instance Storage model instance
+		 * @param AC_ListTableManagerAbstract $storage_model_instance Storage model instance
 		 */
 		do_action( 'cac/storage_model/columns_stored', $storage_model );
 
@@ -143,7 +143,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 			case 'restore_all' :
 				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
 
-					AC_Settings::delete_all();
+					AC_Settings_Columns::delete_all();
 
 					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 
@@ -155,7 +155,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
-	 * @return false|AC_StorageModel
+	 * @return false|AC_ListTableManagerAbstract
 	 */
 	private function get_first_storage_model() {
 		$models = array_values( AC()->get_storage_models() );
@@ -346,14 +346,14 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	/**
 	 * @param $storage_model
 	 */
-	private function set_storage_model( AC_StorageModel $storage_model ) {
+	private function set_storage_model( AC_ListTableManagerAbstract $storage_model ) {
 		do_action( 'ac/settings/storage_model', $storage_model );
 
 		$this->storage_model = $storage_model;
 	}
 
 	/**
-	 * @return AC_StorageModel
+	 * @return AC_ListTableManagerAbstract
 	 */
 	public function get_storage_model() {
 		if ( null == $this->storage_model ) {
@@ -640,7 +640,7 @@ class AC_Settings_Tab_Columns extends AC_Settings_TabAbstract {
 	}
 
 	/**
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListTableManagerAbstract $storage_model
 	 *
 	 * @return mixed|void
 	 */

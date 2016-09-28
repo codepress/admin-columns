@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_Link extends AC_WPStorageModel {
+class AC_ListTableManager_Link extends AC_ListTableManagerWPAbstract {
 
 	function init() {
 		$this->key = 'wp-links';
@@ -10,10 +10,10 @@ class AC_StorageModel_Link extends AC_WPStorageModel {
 		$this->type = 'link';
 		$this->base = 'link-manager';
 		$this->screen = 'link-manager';
-		$this->table_classname = 'WP_Links_List_Table';
+		$this->list_table = 'WP_Links_List_Table';
 	}
 
-	public function init_manage_value() {
+	public function set_manage_value_callback() {
 		add_action( 'manage_link_custom_column', array( $this, 'manage_value' ), 100, 2 );
 	}
 

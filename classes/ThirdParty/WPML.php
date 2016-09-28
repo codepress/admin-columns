@@ -59,7 +59,7 @@ class AC_ThirdParty_WPML {
 	 * @param string $label
 	 * @param string $column_name
 	 * @param array $column_options
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListTableManagerAbstract $storage_model
 	 *
 	 * @return string
 	 */

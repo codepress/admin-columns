@@ -1,19 +1,22 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_StorageModel_Post extends AC_StorageModel_PostAbstract {
+class AC_ListTableManager_Post extends AC_ListTableManager_PostAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
 		$this->key = 'post';
 		$this->type = 'post';
 		$this->base = 'edit';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
-		$this->table_classname = 'WP_Posts_List_Table';
+		$this->list_table = 'WP_Posts_List_Table';
 	}
 
-	public function init_manage_value() {
+	/**
+	 * @see set_manage_value_callback()
+	 */
+	public function set_manage_value_callback() {
 		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 

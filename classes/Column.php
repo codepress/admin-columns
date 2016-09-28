@@ -17,7 +17,7 @@ abstract class CPAC_Column {
 	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
 	 *
 	 * @since 2.0
-	 * @var string $storage_model contains a AC_StorageModel object which the column belongs too.
+	 * @var string $storage_model contains a AC_ListTableManagerAbstract object which the column belongs too.
 	 */
 	private $storage_model;
 
@@ -74,9 +74,9 @@ abstract class CPAC_Column {
 	 *
 	 * @param string $storage_model
 	 */
-	public function __construct( $storage_model ) {
+	public function __construct( $storage_model_key ) {
 
-		$this->storage_model = $storage_model;
+		$this->storage_model = $storage_model_key;
 
 		$this->field_settings = new AC_ColumnFieldSettings( $this );
 		$this->format = new AC_ColumnFieldFormat( $this );
@@ -88,7 +88,7 @@ abstract class CPAC_Column {
 
 	/**
 	 * @since 2.5
-	 * @return false|AC_StorageModel
+	 * @return false|AC_ListTableManagerAbstract
 	 */
 	public function __get( $key ) {
 		$call = false;
@@ -473,7 +473,7 @@ abstract class CPAC_Column {
 
 	/**
 	 * @since 2.3.4
-	 * @return AC_StorageModel
+	 * @return AC_ListTableManagerAbstract
 	 */
 	public function get_storage_model() {
 		return AC()->get_storage_model( $this->storage_model );

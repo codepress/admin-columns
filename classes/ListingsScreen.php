@@ -11,7 +11,7 @@ class AC_ListingsScreen {
 	private $column_headings = array();
 
 	/**
-	 * @var AC_StorageModel $storage_model
+	 * @var AC_ListTableManagerAbstract $storage_model
 	 */
 	private $storage_model;
 
@@ -25,7 +25,7 @@ class AC_ListingsScreen {
 	}
 
 	/**
-	 * @return AC_StorageModel
+	 * @return AC_ListTableManagerAbstract
 	 */
 	public function get_storage_model() {
 		return $this->storage_model;
@@ -85,7 +85,7 @@ class AC_ListingsScreen {
 		wp_enqueue_style( 'cpac-columns' );
 
 		/**
-		 * @param AC_StorageModel $storage_model
+		 * @param AC_ListTableManagerAbstract $storage_model
 		 */
 		do_action( 'ac/enqueue_listings_scripts', $this->storage_model );
 	}
@@ -159,16 +159,16 @@ class AC_ListingsScreen {
 	}
 
 	/**
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListTableManager $storage_model
 	 */
-	private function init_storage_model( AC_StorageModel $storage_model ) {
+	private function init_storage_model( AC_ListTableManagerAbstract $storage_model ) {
 
 		do_action( 'cac/loaded_listings_screen', $storage_model );
 
 		$this->storage_model = $storage_model;
 
 		// Init Values
-		$storage_model->init_manage_value();
+		$storage_model->set_manage_value_callback();
 
 		// Init Headings
 		add_filter( "manage_" . $storage_model->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
