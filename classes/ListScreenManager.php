@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_ListScreenManager {
+final class AC_ListScreenManager {
 
 	/**
 	 * @var array $column_headings
@@ -172,7 +172,8 @@ class AC_ListScreenManager {
 		$list_screen->set_manage_value_callback();
 
 		// Init Headings
-		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
+		// Filter is located in get_column_headers()
+		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 	}
 
 	private function is_doing_ajax() {
@@ -184,7 +185,7 @@ class AC_ListScreenManager {
 	 *
 	 * @since 2.5
 	 */
-	function get_list_screen_when_doing_ajax() {
+	public function get_list_screen_when_doing_ajax() {
 		$list_screen = false;
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -208,13 +209,6 @@ class AC_ListScreenManager {
 		}
 
 		return $list_screen;
-	}
-
-	/**
-	 * Add Table headings
-	 */
-	public function add_table_headings() {
-		add_filter( "manage_" . $this->list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 ); // Filter is located in get_column_headers()
 	}
 
 	/**

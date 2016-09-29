@@ -369,6 +369,7 @@ abstract class CPAC_Column {
 	public function get_options() {
 		$options = $this->stored_options;
 
+		// TODO
 		if ( ! $options ) {
 			$stored = $this->get_list_screen()->settings()->get_columns();
 			if ( isset( $stored[ $this->get_name() ] ) ) {
@@ -459,13 +460,6 @@ abstract class CPAC_Column {
 	 */
 	public function is_type( $type ) {
 		return ( $type === $this->get_type() ) || ( 'column-' . $type === $this->get_type() );
-	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function get_post_type() {
-		return $this->get_list_screen()->get_post_type();
 	}
 
 	/**
@@ -573,7 +567,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_storage_model_type() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', '$this->get_list_screen_type()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen_type()' );
 
 		return $this->get_list_screen()->get_type();
 	}
@@ -583,7 +577,7 @@ abstract class CPAC_Column {
 	 * @since 2.5.4
 	 */
 	public function get_storage_model_key() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', '$this->get_list_screen_key()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen_key()' );
 
 		return $this->get_list_screen_key();
 	}
@@ -593,7 +587,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen( CPAC_Column->list_screen_key )' );
 
 		return AC()->get_list_screen( $this->list_screen_key );
 	}
@@ -602,7 +596,7 @@ abstract class CPAC_Column {
 	 * @param string $field_name
 	 */
 	public function attr_name( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->attr_name()' );
 
 		$this->field_settings->attr_name( $field_name );
 	}
@@ -613,7 +607,7 @@ abstract class CPAC_Column {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->get_attr_name()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->get_attr_name()' );
 
 		return $this->field_settings->get_attr_name( $field_name );
 	}
@@ -624,13 +618,13 @@ abstract class CPAC_Column {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->get_attr_id()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->get_attr_id()' );
 
 		return $this->field_settings->get_attr_id( $field_name );
 	}
 
 	public function attr_id( $field_name ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', '$this->field_settings->attr_id()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->attr_id()' );
 
 		$this->field_settings->attr_id( $field_name );
 	}
@@ -641,7 +635,7 @@ abstract class CPAC_Column {
 	 * @return mixed $value
 	 */
 	public function set_properties( $property, $value ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_property()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->set_property()' );
 
 		return $this->set_property( $property, $value );
 	}
@@ -652,7 +646,7 @@ abstract class CPAC_Column {
 	 * @return mixed $value
 	 */
 	public function set_options( $option, $value ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::set_default_option()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->set_default_option()' );
 
 		return $this->set_default_option( $option, $value );
 	}
@@ -733,7 +727,7 @@ abstract class CPAC_Column {
 	 * @since 2.4.8
 	 */
 	public function get_raw_post_field( $field, $id ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->post->get_raw_field( $field, $id )' );
 
 		return ac_helper()->post->get_raw_field( $field, $id );
 	}
@@ -742,7 +736,7 @@ abstract class CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_before() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', "CPAC->get_option( 'before' )" );
 
 		return $this->get_option( 'before' );
 	}
@@ -751,7 +745,7 @@ abstract class CPAC_Column {
 	 * @since 1.0
 	 */
 	public function get_after() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', "CPAC->get_option( 'after' )" );
 
 		return $this->get_option( 'after' );
 	}
@@ -767,7 +761,7 @@ abstract class CPAC_Column {
 	public function get_asset_image( $name = '', $title = '' ) {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION' );
 
-		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", cpac()->get_plugin_url() . "assets/images/" . $name, esc_attr( $title ) ) : false;
+		return $name ? sprintf( "<img alt='' src='%s' title='%s'/>", AC()->get_plugin_url() . "assets/images/" . $name, esc_attr( $title ) ) : false;
 	}
 
 	/**
@@ -925,7 +919,7 @@ abstract class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_text( $name, $label, $description = '', $placeholder = '', $optional_toggle_id = '' ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->fields()' );
 
 		$this->field_settings->fields( array(
 			'type'          => 'text',
@@ -942,7 +936,7 @@ abstract class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_select( $name, $label, $options = array(), $description = '', $optional_toggle_id = '', $js_refresh = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->fields()' );
 
 		$this->field_settings->fields( array(
 			'type'           => 'select',
@@ -960,7 +954,7 @@ abstract class CPAC_Column {
 	 * @deprecated NEWVERSION
 	 */
 	public function display_field_radio( $name, $label, $options = array(), $description = '', $toggle_handle = false, $toggle_trigger = false, $colspan = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->fields()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->fields()' );
 
 		$this->field_settings->fields( array(
 			'type'           => 'radio',
@@ -978,7 +972,7 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_field_preview_size() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->image()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->image()' );
 
 		$this->field_settings->image();
 	}
@@ -987,7 +981,7 @@ abstract class CPAC_Column {
 	 * @since 2.1.1
 	 */
 	public function display_field_before_after() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->before_after()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->before_after()' );
 
 		$this->field_settings->before_after();
 	}
@@ -996,7 +990,7 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_field_date_format() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->date()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->date()' );
 
 		$this->field_settings->date();
 	}
@@ -1005,7 +999,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.2
 	 */
 	public function display_field_user_format() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->user()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->user()' );
 
 		$this->field_settings->user();
 	}
@@ -1014,7 +1008,7 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function display_field_excerpt_length() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->word_limit()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->word_limit()' );
 
 		$this->field_settings->word_limit();
 	}
@@ -1023,7 +1017,7 @@ abstract class CPAC_Column {
 	 * @since 2.4.9
 	 */
 	public function display_field_link_label() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->url()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->url()' );
 
 		$this->field_settings->url();
 	}
@@ -1034,7 +1028,7 @@ abstract class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_property_display() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->post()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->post()' );
 
 		$this->field_settings->post();
 	}
@@ -1045,13 +1039,13 @@ abstract class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	public function display_field_post_link_to() {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->post_link_to()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->post_link_to()' );
 
 		$this->field_settings->post_link_to();
 	}
 
 	public function label_view( $label, $description = '', $for = '', $more_link = false ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->label()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->label()' );
 
 		$this->field_settings->label( array(
 			'label'       => $label,
@@ -1065,7 +1059,7 @@ abstract class CPAC_Column {
 	 * @since 2.4.7
 	 */
 	function display_settings_placeholder( $url ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column::field_settings->placeholder()' );
+		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->field_settings->placeholder()' );
 
 		$this->field_settings->placeholder( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => $url ) );
 	}

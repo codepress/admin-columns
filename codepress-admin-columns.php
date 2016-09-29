@@ -124,6 +124,11 @@ class CPAC {
 
 		require_once $this->get_plugin_dir() . 'api.php';
 
+		require_once $this->get_plugin_dir() . 'classes/Column.php';
+
+		// Backwards compatibility
+		require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
+
 		// Third Party
 		new AC_ThirdParty_ACF();
 		new AC_ThirdParty_NinjaForms();
@@ -356,7 +361,7 @@ class CPAC {
 	}
 
 	/**
-	 * Get registered storage models
+	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
 	 * @return AC_ListScreenAbstract[]
@@ -370,18 +375,28 @@ class CPAC {
 	}
 
 	/**
+	 * Get registered post list screens
+	 *
+	 * @since NEWVERSION
+	 * @return AC_ListScreen_PostAbstract[]
+	 */
+	public function get_post_list_screens() {
+		$screens = array();
+		foreach ( $this->get_list_screens() as $k => $list_screen ) {
+			if ( $list_screen instanceof AC_ListScreen_PostAbstract ) {
+				$screens[] = $list_screen;
+			}
+		}
+
+		return $screens;
+	}
+
+	/**
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
 	 */
 	private function set_list_screens() {
-
-		$classes_dir = AC()->get_plugin_dir() . 'classes/';
-
-		require_once $classes_dir . 'Column.php';
-
-		// Backwards compatibility
-		require_once $classes_dir . 'Deprecated/column-default.php';
 
 		// Create a storage model per post type
 		foreach ( $this->get_post_types() as $post_type ) {

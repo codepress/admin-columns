@@ -16,11 +16,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 		$this->properties['label'] = __( 'Used by Menu', 'codepress-admin-columns' );
 	}
 
-	function apply_conditional() {
-		return $this->get_meta_type() ? true : false;
-	}
-
-	function get_value( $object_id ) {
+	public function get_value( $object_id ) {
 		$menus = array();
 
 		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
@@ -39,7 +35,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 		return implode( ', ', $menus );
 	}
 
-	function get_formatted_value( $object_id ){
+	public function get_formatted_value( $object_id ){
 		$menus = array();
 
 		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
@@ -53,21 +49,12 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * Get object meta type of the storage model
+	 * Get object type for menu query
 	 *
 	 * @since 2.2.5
 	 */
-	function get_meta_type() {
-		$object_type = false;
-		$list_screen = $this->get_list_screen();
-		if ( isset( $list_screen->taxonomy ) ) {
-			$object_type = $list_screen->taxonomy;
-		}
-		elseif ( $post_type = $this->get_post_type() ) {
-			$object_type = $post_type;
-		}
-
-		return $object_type;
+	protected function get_object_type() {
+		return $this->get_meta_type();
 	}
 
 	/**

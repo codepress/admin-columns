@@ -42,14 +42,13 @@ final class AC_Settings_Columns {
 		return update_option( $this->get_default_key(), $column_headings );
 	}
 
+	/**
+	 * @return array [ Column Name => Label ]
+	 */
 	public function get_default_headings() {
 		$headings = get_option( $this->get_default_key() );
 
-		if ( empty( $headings ) ) {
-			return array();
-		}
-
-		return $headings;
+		return $headings ? $headings : array();
 	}
 
 	public function delete_default_headings() {
@@ -61,10 +60,6 @@ final class AC_Settings_Columns {
 		global $wpdb;
 
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "_%'" );
-	}
-
-	private function get_list_screen() {
-		return AC()->get_list_screen( $this->list_screen_key );
 	}
 
 }

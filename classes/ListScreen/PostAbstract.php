@@ -4,6 +4,11 @@ defined( 'ABSPATH' ) or die();
 abstract class AC_ListScreen_PostAbstract extends AC_ListScreenWPAbstract {
 
 	/**
+	 * @var string $post_type
+	 */
+	protected $post_type;
+
+	/**
 	 * @since 2.0
 	 */
 	public function __construct() {
@@ -25,6 +30,13 @@ abstract class AC_ListScreen_PostAbstract extends AC_ListScreenWPAbstract {
 		);
 
 		return (array) get_posts( array_merge( $defaults, $args ) );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_post_type() {
+		return $this->post_type;
 	}
 
 	/**

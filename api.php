@@ -141,11 +141,7 @@ function ac_add_autoload_columns( $columns_dir, $prefix, $columns = array() ) {
 function cac_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-		return false;
-	}
-
-	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['list_screen'] );
+	$is_doing_ajax = AC()->list_screen_manager()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
 
 	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
 }
@@ -156,31 +152,9 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen_when_doing_ajax()' );
 
-	$list_screen = false;
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-
-		switch ( filter_input( INPUT_POST, 'action' ) ) {
-			case 'inline-save' :  // Quick edit
-				$list_screen = filter_input( INPUT_POST, 'post_type' );
-				break;
-			case 'add-tag' : // Adding term
-			case 'inline-save-tax' : // Quick edit term
-				$list_screen = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
-				break;
-			case 'edit-comment' : // Quick edit comment
-			case 'replyto-comment' :  // Inline reply on comment
-				$list_screen = 'wp-comments';
-				break;
-			case 'cacie_column_save' :
-				$list_screen = filter_input( INPUT_POST, 'list_screen' );
-				break;
-		}
-	}
-
-	return $list_screen;
+	return AC()->list_screen_manager()->get_list_screen_when_doing_ajax();
 }
 
 /**
@@ -193,17 +167,7 @@ function cac_wp_is_doing_ajax() {
  * @return bool True if the current screen is the settings screen, false otherwise
  */
 function cac_is_setting_screen( $tab = '' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->settings()->is_current_tab( $tab )' );
 
-	global $pagenow;
-
-	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-		return false;
-	}
-
-	if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
-		return false;
-	}
-
-	return true;
+	return AC()->settings()->is_current_tab( $tab );
 }

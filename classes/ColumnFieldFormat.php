@@ -125,6 +125,10 @@ class AC_ColumnFieldFormat {
 		return $link;
 	}
 
+	private function get_post_type(  ) {
+		
+	}
+
 	/**
 	 * @param int $author_id
 	 *
@@ -153,6 +157,24 @@ class AC_ColumnFieldFormat {
 		}
 
 		return $link;
+	}
+
+	/**
+	 * Estimate reading time in seconds or human readable time format
+	 *
+	 * @param string $content
+	 * @param bool $human_readable
+	 *
+	 * @return string
+	 */
+	public function words_per_minute( $content, $human_readable = true ) {
+		$time = ac_helper()->string->get_estimated_reading_time_in_seconds( $content, $this->column->get_option( 'words_per_minute' ) );
+
+		if ( $human_readable ) {
+			$time = ac_helper()->string->convert_seconds_to_human_readable_time( $time );
+		}
+
+		return $time;
 	}
 
 }

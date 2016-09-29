@@ -295,6 +295,21 @@ class AC_ColumnFieldSettings {
 		) );
 	}
 
+	public function words_per_minute_args() {
+		return array(
+			'type'          => 'text',
+			'name'          => 'words_per_minute',
+			'label'         => __( 'Words per minute', 'codepress-admin-columns' ),
+			'description'   => __( 'Estimated reading time in words per minute', 'codepress-admin-columns' ),
+			'placeholder'   => __( 'Enter words per minute. For example: 200' ),
+			'default_value' => 200,
+		);
+	}
+
+	public function words_per_minute() {
+		$this->field( $this->words_per_minute_args() );
+	}
+
 	/**
 	 * @since 2.4.7
 	 */

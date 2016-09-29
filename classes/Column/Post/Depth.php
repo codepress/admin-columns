@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.3.4
  */
-class AC_Column_Post_Depth extends CPAC_Column {
+class AC_Column_Post_Depth extends AC_ColumnPostAbstract  {
 
 	public function init() {
 		parent::init();

@@ -63,16 +63,6 @@ abstract class AC_ListScreenAbstract {
 	protected $page;
 
 	/**
-	 * Post type
-	 *
-	 * @since NEWVERSION
-	 * @var string
-	 */
-
-	// TODO: remove and use method exists
-	protected $post_type;
-
-	/**
 	 * Class name of the WP_List_Table instance
 	 *
 	 * @since NEWVERSION
@@ -121,11 +111,7 @@ abstract class AC_ListScreenAbstract {
 	 * @return string
 	 */
 	public function get_label() {
-
-		/**
-		 * @since NEWVERSION
-		 */
-		return apply_filters( 'ac/list_screen/label', $this->label, $this );
+		return $this->label;
 	}
 
 	/**
@@ -240,13 +226,6 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @since 2.1.1
-	 */
-	public function get_post_type() {
-		return isset( $this->post_type ) ? $this->post_type : false;
-	}
-
-	/**
 	 * @since 2.3.4
 	 */
 	public function get_type() {
@@ -311,7 +290,7 @@ abstract class AC_ListScreenAbstract {
 	 */
 	public function columns() {
 		if ( null === $this->columns ) {
-			$this->columns = new AC_Columns( $this->key );
+			$this->columns = new AC_Columns( $this );
 		}
 
 		return $this->columns;

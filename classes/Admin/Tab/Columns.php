@@ -96,9 +96,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$list_screen->columns()->flush_columns();
 
 		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $list_screen->get_label() . "</strong>" ) );
+			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );
 		}
-
 
 		/**
 		 * Fires after a new column setup is stored in the database
@@ -111,6 +110,15 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		do_action( 'ac/columns_stored', $list_screen );
 
 		return true;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @param AC_ListScreenAbstract $list_screen
+	 * @return string $label
+	 */
+	private function get_list_screen_message_label( $list_screen ) {
+		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
 	}
 
 	/**
@@ -135,7 +143,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						$list_screen->settings()->delete();
 						$list_screen->columns()->flush_columns();
 
-						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $list_screen->get_label() ) . "</strong>" ), 'updated' );
+						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
 					}
 				}
 				break;
@@ -261,8 +269,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $list_screen->get_label() ) . "</strong>" )
-			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->label ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" )
+			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) ) . '</a>'
 		);
 	}
 
@@ -295,7 +303,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	private function get_user_model_preference() {
-		return cpac()->get_list_screen( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
+		return AC()->get_list_screen( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
 	}
 
 	/**
@@ -420,7 +428,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<input type="hidden" name="cpac_action" value="restore_by_type"/>
 								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
-								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $list_screen->get_label() . "'" ) ) . '\');"' : ''; ?>
+								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $this->get_list_screen_message_label( $list_screen ) . "'" ) ) . '\');"' : ''; ?>
 								<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 								<span class="spinner"></span>
 							</form>

@@ -22,17 +22,12 @@ final class AC_Columns {
 	private $default_columns;
 
 	/**
-	 * @var string $list_screen_key
-	 */
-	private $list_screen_key;
-
-	/**
 	 * @var AC_ListScreenAbstract $list_screen
 	 */
 	private $list_screen;
 
-	public function __construct( $list_screen_key ) {
-		$this->list_screen_key = $list_screen_key;
+	public function __construct( AC_ListScreenAbstract $list_screen ) {
+		$this->list_screen = $list_screen;
 	}
 
 	/**
@@ -116,10 +111,6 @@ final class AC_Columns {
 	 * @return AC_ListScreenAbstract|false
 	 */
 	public function get_list_screen() {
-		if ( null === $this->list_screen ) {
-			$this->list_screen = AC()->get_list_screen( $this->list_screen_key );
-		}
-
 		return $this->list_screen;
 	}
 
@@ -155,7 +146,7 @@ final class AC_Columns {
 		$class = get_class( $column_type );
 
 		/* @var CPAC_Column $column */
-		$column = new $class( $this->list_screen_key );
+		$column = new $class( $this->list_screen->get_key() );
 
 		// @deprecated since NEWVERSION
 		$column->options = (object) array_merge( (array) $column->options, $data );
@@ -229,7 +220,7 @@ final class AC_Columns {
 			$this->default_columns = $this->get_list_screen()->get_default_columns();
 		}
 
-		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this->get_list_screen() );
+		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this->list_screen );
 	}
 
 	/**
@@ -268,7 +259,7 @@ final class AC_Columns {
 			$plugin_column_class_name = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
 
 			/* @var AC_Column_Plugin $column */
-			$column = new $plugin_column_class_name( $this->list_screen_key );
+			$column = new $plugin_column_class_name( $this->list_screen->get_key() );
 
 			$column->set_property( 'type', $name );
 			$column->set_property( 'label', $label );
@@ -302,6 +293,13 @@ final class AC_Columns {
 	}
 
 	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 */
+	private function get_post_type( AC_ListScreenAbstract $list_screen ) {
+		return method_exists( $list_screen, 'get_post_type' ) ? $list_screen->get_post_type() : false;
+	}
+
+	/**
 	 * Old way for registering columns. For backwards compatibility.
 	 *
 	 * @deprecated NEWVERSION
@@ -311,7 +309,7 @@ final class AC_Columns {
 
 		$class_names = apply_filters( 'cac/columns/custom', array(), $list_screen );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $list_screen->get_type(), $class_names, $list_screen );
-		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $list_screen->get_post_type(), $class_names, $list_screen );
+		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_post_type( $list_screen ), $class_names, $list_screen );
 
 		foreach ( $class_names as $class_name => $path ) {
 			$autoload = true;

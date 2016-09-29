@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_Formats extends CPAC_Column {
+class AC_Column_Post_Formats extends AC_ColumnPostAbstract {
 
 	public function init() {
 		parent::init();
