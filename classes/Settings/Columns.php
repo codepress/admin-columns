@@ -26,6 +26,8 @@ final class AC_Settings_Columns {
 	public function get_columns() {
 		$columns = get_option( $this->get_key() );
 
+		$columns = apply_filters( 'ac/column_settings', $columns, AC()->get_list_screen( $this->list_screen_key ) );
+
 		return $columns ? $columns : array();
 	}
 

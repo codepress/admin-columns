@@ -179,7 +179,6 @@ abstract class CPAC_Column {
 	 * @return object
 	 */
 	public function set_clone( $id = null ) {
-
 		if ( $id !== null && $id > 0 ) {
 			$this->set_property( 'name', $this->get_type() . '-' . $id );
 			$this->set_property( 'clone', $id );
@@ -367,6 +366,8 @@ abstract class CPAC_Column {
 	 * @return array Column options set by user
 	 */
 	public function get_options() {
+
+		// TODO: what is this?
 		$options = $this->stored_options;
 
 		// TODO

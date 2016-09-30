@@ -737,7 +737,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						</td>
 						<td class="column_type">
 							<div class="inner">
-								<a href="#"><?php echo $column->get_type_label(); // do not escape ?></a>
+								<a href="#">
+									<?php echo $column->get_type_label(); ?>
+								</a>
 							</div>
 						</td>
 						<td class="column_edit">

@@ -90,6 +90,8 @@ final class AC_Columns {
 	 * @param string $class_name
 	 */
 	public function register_column_type_by_classname( $class_name ) {
+
+		/* @var CPAC_Column $column */
 		$column = new $class_name( $this->get_list_screen()->get_key() );
 
 		$this->register_column_type( $column );
@@ -153,6 +155,8 @@ final class AC_Columns {
 
 		// Populate defaults
 		if ( $column->is_original() ) {
+			$data['label'] = $this->get_default_label( $data['type'] );
+
 			$column->set_defaults( $data );
 		}
 
@@ -232,6 +236,17 @@ final class AC_Columns {
 		}
 
 		return $this->default_columns;
+	}
+
+	/**
+	 * @param string $column_name
+	 *
+	 * @return string|false
+	 */
+	public function get_default_label( $column_name ) {
+		$default_columns = $this->get_default_columns();
+
+		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;
 	}
 
 	/**
