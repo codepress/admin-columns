@@ -189,7 +189,11 @@ final class AC_ListScreenManager {
 		$list_screen = false;
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			if ( 'cpac' == filter_input( INPUT_GET, 'plugin_id' ) ) {
+				$list_screen = filter_input( INPUT_GET, 'list_screen' );
+			}
 
+			// Default WordPress Ajax calls
 			switch ( filter_input( INPUT_POST, 'action' ) ) {
 				case 'inline-save' :  // Quick edit
 					$list_screen = filter_input( INPUT_POST, 'post_type' );
