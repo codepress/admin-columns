@@ -37,7 +37,7 @@ class AC_Notice_Review {
 
 	public function maybe_display_review_notice() {
 
-		if ( cpac()->suppress_site_wide_notices() ) {
+		if ( AC()->suppress_site_wide_notices() ) {
 			return;
 		}
 

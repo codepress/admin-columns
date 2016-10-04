@@ -13,8 +13,8 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 	}
 
 	public function display() {
-		$addon_groups = cpac()->addons()->get_addon_groups();
-		$grouped_addons = cpac()->addons()->get_available_addons( true );
+		$addon_groups = AC()->addons()->get_addon_groups();
+		$grouped_addons = AC()->addons()->get_available_addons( true );
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
@@ -37,7 +37,7 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 							<?php
 
 							// Installed..
-							if ( $plugin_basename = cpac()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
+							if ( $plugin_basename = AC()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
 								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array( 'action' => 'deactivate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
 									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>

@@ -31,7 +31,7 @@ class AC_Admin_Welcome {
 
 		<div id="cpac-welcome" class="wrap about-wrap">
 
-			<h1><?php _e( "Welcome to Admin Columns", 'codepress-admin-columns' ); ?><?php echo cpac()->get_version(); ?></h1>
+			<h1><?php _e( "Welcome to Admin Columns", 'codepress-admin-columns' ); ?><?php echo AC()->get_version(); ?></h1>
 
 			<div class="about-text">
 				<?php _e( "Thank you for updating to the latest version!", 'codepress-admin-columns' ); ?>
@@ -55,7 +55,7 @@ class AC_Admin_Welcome {
 					<h4><?php _e( "Database Changes", 'codepress-admin-columns' ); ?></h4>
 					<p><?php _e( "The database has been changed between versions 1 and 2. But we made sure you can still roll back to version 1x without any issues.", 'codepress-admin-columns' ); ?></p>
 
-					<?php if ( get_option( 'cpac_version', false ) < cpac()->get_upgrade_version() ) : ?>
+					<?php if ( get_option( 'cpac_version', false ) < AC()->get_upgrade_version() ) : ?>
 						<p><?php _e( "Make sure you backup your database and then click", 'codepress-admin-columns' ); ?>
 							<a href="<?php echo esc_url( AC()->settings()->get_upgrade_url() ); ?>" class="button-primary"><?php _e( "Upgrade Database", 'codepress-admin-columns' ); ?></a>
 						</p>
@@ -76,11 +76,11 @@ class AC_Admin_Welcome {
 				<?php endif; ?>
 				<?php if ( 'changelog' === $tab ) : ?>
 
-					<h3><?php _e( "Changelog for", 'codepress-admin-columns' ); ?><?php echo cpac()->get_version(); ?></h3>
+					<h3><?php _e( "Changelog for", 'codepress-admin-columns' ); ?><?php echo AC()->get_version(); ?></h3>
 					<?php
 
-					$items = file_get_contents( cpac()->get_plugin_dir() . 'readme.txt' );
-					$items = explode( '= ' . cpac()->get_version() . ' =', $items );
+					$items = file_get_contents( AC()->get_plugin_dir() . 'readme.txt' );
+					$items = explode( '= ' . AC()->get_version() . ' =', $items );
 					$items = end( $items );
 					$items = current( explode( "\n\n", $items ) );
 					$items = current( explode( "= ", $items ) );

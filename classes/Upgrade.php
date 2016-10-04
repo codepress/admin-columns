@@ -106,7 +106,7 @@ class AC_Upgrade {
 		if ( $version ) {
 
 			// run every upgrade
-			if ( $version < cpac()->get_version() ) {
+			if ( $version < AC()->get_version() ) {
 				// nothing yet
 			}
 
@@ -118,12 +118,12 @@ class AC_Upgrade {
 			}
 
 			// run only when database upgrade is needed
-			if ( $version < cpac()->get_upgrade_version() ) {
+			if ( $version < AC()->get_upgrade_version() ) {
 
 				// display upgrade message on every page except upgrade page itself
 				if ( ! ( isset( $_REQUEST['page'] ) && 'cpac-upgrade' === $_REQUEST['page'] ) ) {
 
-					$message = __( 'Admin Columns', 'codepress-admin-columns' ) . ' v' . cpac()->get_version() . ' ' .
+					$message = __( 'Admin Columns', 'codepress-admin-columns' ) . ' v' . AC()->get_version() . ' ' .
 					           __( 'requires a database upgrade', 'codepress-admin-columns' ) .
 					           ' (<a class="thickbox" href="' . admin_url() .
 					           'plugin-install.php?tab=plugin-information&plugin=codepress-admin-columns&section=changelog&TB_iframe=true&width=640&height=559">' .
@@ -138,16 +138,16 @@ class AC_Upgrade {
 			}
 
 			// run when NO upgrade is needed
-			elseif ( $version < cpac()->get_version() ) {
+			elseif ( $version < AC()->get_version() ) {
 
-				update_option( 'cpac_version', cpac()->get_version() );
+				update_option( 'cpac_version', AC()->get_version() );
 			}
 		}
 
 		// Fresh install
 		else {
 
-			update_option( 'cpac_version', cpac()->get_version() );
+			update_option( 'cpac_version', AC()->get_version() );
 		}
 	}
 
@@ -388,8 +388,8 @@ class AC_Upgrade {
 	 * @since 2.0
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'cpac-upgrade', cpac()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), cpac()->get_version() );
-		wp_enqueue_style( 'cpac-admin', cpac()->get_plugin_url() . 'assets/css/admin-column.css', array(), cpac()->get_version(), 'all' );
+		wp_enqueue_script( 'cpac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . 'assets/css/admin-column.css', array(), AC()->get_version(), 'all' );
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
