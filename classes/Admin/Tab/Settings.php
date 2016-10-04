@@ -18,6 +18,9 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 		$this->options = get_option( self::SETTINGS_KEY );
 
 		register_setting( 'cpac-general-settings', self::SETTINGS_KEY );
+
+		// Requests
+		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 	}
 
 	public function attr_name( $key ) {
@@ -46,6 +49,31 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 	 */
 	public function show_edit_button() {
 		return $this->is_empty_options() || $this->get_option( 'show_edit_button' );
+	}
+
+	/**
+	 * @since 1.0
+	 */
+	public function handle_column_request() {
+
+		if ( ! current_user_can( 'manage_admin_columns' ) || ! $this->is_current_screen() ) {
+			return;
+		}
+
+		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) :
+			case 'restore_all' :
+				if ( wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), 'restore-all' ) ) {
+
+					AC_Settings_Columns::delete_all();
+
+					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+
+					// @since NEWVERSION
+					do_action( 'ac/restore_all_columns' );
+				}
+				break;
+
+		endswitch;
 	}
 
 	public function single_checkbox( $args = array() ) {

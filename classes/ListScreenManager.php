@@ -162,10 +162,6 @@ final class AC_ListScreenManager {
 	 * @param AC_ListScreenAbstract $list_screen
 	 */
 	private function init_list_screen( AC_ListScreenAbstract $list_screen ) {
-
-		// @since NEWVERSION
-		do_action( 'ac/init_list_screen', $list_screen );
-
 		$this->list_screen = $list_screen;
 
 		// Init Values
@@ -174,6 +170,9 @@ final class AC_ListScreenManager {
 		// Init Headings
 		// Filter is located in get_column_headers()
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
+
+		// @since NEWVERSION
+		do_action( 'ac/init_list_screen', $list_screen );
 	}
 
 	private function is_doing_ajax() {
@@ -219,7 +218,12 @@ final class AC_ListScreenManager {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-		if ( empty( $columns ) || ! $this->list_screen ) {
+
+		if ( empty( $columns ) ) {
+			return $columns;
+		}
+
+		if ( ! $this->list_screen ) {
 			return $columns;
 		}
 

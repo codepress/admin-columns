@@ -55,6 +55,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
+		// TODO: how to handle sanitizing
+
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
 			if ( $column = $list_screen->columns()->get_column_by_name( $name ) ) {
@@ -114,7 +116,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 	/**
 	 * @since NEWVERSION
+	 *
 	 * @param AC_ListScreenAbstract $list_screen
+	 *
 	 * @return string $label
 	 */
 	private function get_list_screen_message_label( $list_screen ) {
@@ -134,7 +138,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		switch ( $action ) :
-
 			case 'restore_by_type' :
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
@@ -147,19 +150,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					}
 				}
 				break;
-
-			case 'restore_all' :
-				if ( wp_verify_nonce( $nonce, 'restore-all' ) ) {
-
-					AC_Settings_Columns::delete_all();
-
-					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-
-					// @since NEWVERSION
-					do_action( 'ac/restore_all_columns' );
-				}
-				break;
-
 		endswitch;
 	}
 
@@ -225,6 +215,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		ob_start();
 		$this->display_column( $column );
+
 		wp_send_json_success( ob_get_clean() );
 	}
 
@@ -570,7 +561,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-right-->
 
 			<div class="columns-left">
-				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ): ?>
+				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
 					<div class="cpac-notice">
 						<p>
 							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->label ) . "</a>" ); ?>
@@ -680,7 +671,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
-
 
 	/**
 	 * @since 2.0

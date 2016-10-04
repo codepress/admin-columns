@@ -379,6 +379,8 @@ abstract class CPAC_Column {
 		}
 
 		// replace urls, so export will not have to deal with them
+
+		// TODO: remove
 		if ( isset( $options['label'] ) ) {
 			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
 		}
@@ -394,7 +396,7 @@ abstract class CPAC_Column {
 	 * Get the column properties
 	 *
 	 * @since NEWVERSION
-	 * @return stdClass Column properties
+	 * @return stdClass|array Column properties
 	 */
 	public function get_properties() {
 		return $this->properties;
