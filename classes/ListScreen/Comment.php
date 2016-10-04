@@ -51,4 +51,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWPAbstract {
 		echo $this->columns()->get_display_value_by_column_name( $column_name, $id );
 	}
 
+	public function get_post_type() {
+		return 'comment';
+	}
 }

@@ -215,14 +215,13 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
+		$current_options = $column->get_options();
+		if ( ! isset( $current_options['label'] ) ) {
+			$data['label'] = $column->get_type_label();
+		}
+
 		// Add stored options; Used by columns that switch field types.
 		$column->set_stored_options( $data );
-
-		// Only trigger for newly added columns.
-		// TODO: make separate ajax call for "Add column".
-		if ( ! isset( $columndata['label'] ) ) {
-			$column->set_default_option( 'label', $column->get_type_label() );
-		}
 
 		ob_start();
 		$this->display_column( $column );
@@ -689,7 +688,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function display_column( CPAC_Column $column ) {
 		?>
 
-		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-default="<?php echo esc_attr( $column->is_default() ); ?>">
+		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-default="<?php echo esc_attr( $column->is_original() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>
