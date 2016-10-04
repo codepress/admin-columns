@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class AC_Settings_Columns {
 
-	CONST OPTIONS_KEY = 'cpac_options';
+	CONST OPTIONS_KEY = 'cpac_options_';
 
 	private $list_screen_key;
 
@@ -15,19 +15,19 @@ final class AC_Settings_Columns {
 	}
 
 	public function get_key() {
-		return apply_filters( 'ac/settings/key', self::OPTIONS_KEY . '_' . $this->list_screen_key );
+		return apply_filters( 'ac/settings/key', $this->list_screen_key );
 	}
 
 	// Column settings
 	public function store( $columndata ) {
-		return update_option( $this->get_key(), $columndata );
+		return update_option( self::OPTIONS_KEY . $this->get_key(), $columndata );
 	}
 
 	public function get_columns() {
 
 		// TODO: lazy load?
 
-		$columns = get_option( $this->get_key() );
+		$columns = get_option( self::OPTIONS_KEY . $this->get_key() );
 
 		$columns = apply_filters( 'ac/column_settings', $columns, AC()->get_list_screen( $this->list_screen_key ) );
 
@@ -64,7 +64,7 @@ final class AC_Settings_Columns {
 	public static function delete_all() {
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "_%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "%'" );
 	}
 
 }

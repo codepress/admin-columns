@@ -175,6 +175,9 @@ final class AC_ListScreenManager {
 		do_action( 'ac/init_list_screen', $list_screen );
 	}
 
+	/**
+	 * @return bool True when doing ajax
+	 */
 	private function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
@@ -188,21 +191,36 @@ final class AC_ListScreenManager {
 		$list_screen = false;
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+
 			if ( 'cpac' == filter_input( INPUT_GET, 'plugin_id' ) ) {
 				$list_screen = filter_input( INPUT_GET, 'list_screen' );
 			}
 
+			if ( 'cpac' == filter_input( INPUT_POST, 'plugin_id' ) ) {
+				$list_screen = filter_input( INPUT_POST, 'list_screen' );
+			}
+
 			// Default WordPress Ajax calls
 			switch ( filter_input( INPUT_POST, 'action' ) ) {
-				case 'inline-save' :  // Quick edit
+
+				// Quick edit
+				case 'inline-save' :
 					$list_screen = filter_input( INPUT_POST, 'post_type' );
 					break;
-				case 'add-tag' : // Adding term
-				case 'inline-save-tax' : // Quick edit term
+
+				// Adding term
+				case 'add-tag' :
+
+					// Quick edit term
+				case 'inline-save-tax' :
 					$list_screen = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
 					break;
-				case 'edit-comment' : // Quick edit comment
-				case 'replyto-comment' :  // Inline reply on comment
+
+				// Quick edit comment
+				case 'edit-comment' :
+
+					// Inline reply on comment
+				case 'replyto-comment' :
 					$list_screen = 'wp-comments';
 					break;
 				case 'cacie_column_save' :
@@ -255,7 +273,7 @@ final class AC_ListScreenManager {
 		foreach ( $this->list_screen->columns()->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
-			$label = apply_filters( 'cac/headings/label',  $column->get_label(), $column->get_name(), $column->get_options(), $this );
+			$label = apply_filters( 'cac/headings/label', $column->get_label(), $column->get_name(), $column->get_options(), $this );
 
 			$this->column_headings[ $column->get_name() ] = $label;
 		}
