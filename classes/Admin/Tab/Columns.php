@@ -63,6 +63,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 				if ( ! empty( $options['label'] ) ) {
 
+					// Local site url will be replaced before storing into DB.
+					// This makes it easier when migrating DB to a new install.
+					$options['label'] = str_replace( site_url(), '[cpac_site_url]', $options['label'] );
+
 					// Label can not contains the character ":"" and "'", because
 					// CPAC_Column::get_sanitized_label() will return an empty string
 					// and make an exception for site_url()
@@ -206,12 +210,12 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		$current_options = $column->get_options();
-		if ( ! isset( $current_options['label'] ) ) {
+		if ( empty( $current_options['label'] ) ) {
 			$data['label'] = $column->get_type_label();
 		}
 
 		// Add stored options; Used by columns that switch field types.
-		$column->set_stored_options( $data );
+		$column->set_options( $data );
 
 		ob_start();
 		$this->display_column( $column );

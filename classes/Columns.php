@@ -151,7 +151,8 @@ final class AC_Columns {
 		$column = new $class( $this->list_screen->get_key() );
 
 		// @deprecated since NEWVERSION
-		$column->options = (object) array_merge( (array) $column->options, $data );
+		// TODO: still useful?
+		$column->set_options( array_merge( $column->get_options(), $data ) );
 
 		// Populate defaults
 		if ( $column->is_original() ) {

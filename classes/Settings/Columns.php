@@ -26,12 +26,22 @@ final class AC_Settings_Columns {
 	public function get_columns() {
 
 		// TODO: lazy load?
-
 		$columns = get_option( self::OPTIONS_KEY . $this->get_key() );
 
 		$columns = apply_filters( 'ac/column_settings', $columns, AC()->get_list_screen( $this->list_screen_key ) );
 
 		return $columns ? $columns : array();
+	}
+
+	/**
+	 * @param string $name Column name
+	 *
+	 * @return array|false
+	 */
+	public function get_column( $name ) {
+		$options = $this->get_columns();
+
+		return isset( $options[ $name ] ) ? $options[ $name ] : false;
 	}
 
 	public function delete() {
@@ -40,7 +50,7 @@ final class AC_Settings_Columns {
 
 	// Default headings
 	private function get_default_key() {
-		return self::OPTIONS_KEY . '_' . $this->list_screen_key . "__default";
+		return self::OPTIONS_KEY . $this->list_screen_key . "__default";
 	}
 
 	public function store_default_headings( $column_headings ) {

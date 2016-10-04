@@ -29,12 +29,6 @@ abstract class CPAC_Column {
 	private $default_options;
 
 	/**
-	 * @since NEWVERSION
-	 * @var array|null
-	 */
-	private $stored_options = array();
-
-	/**
 	 * Instance for adding field settings to the column
 	 *
 	 * @var AC_ColumnFieldSettings
@@ -60,13 +54,12 @@ abstract class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * Default options
+	 * Options
 	 *
 	 * @since 2.0
-	 * @deprecated NEWVERSION
-	 * @var stdClass $options Contains the user set options for the CPAC_Column object.
+	 * @var array $options Contains the user set options for the CPAC_Column object.
 	 */
-	public $options;
+	private $options;
 
 	/**
 	 * @deprecated NEWVERSION
@@ -366,30 +359,18 @@ abstract class CPAC_Column {
 	 * @return array Column options set by user
 	 */
 	public function get_options() {
-
-		// TODO: what is this?
-		$options = $this->stored_options;
-
-		// TODO
-		if ( ! $options ) {
-			$stored = $this->get_list_screen()->settings()->get_columns();
-			if ( isset( $stored[ $this->get_name() ] ) ) {
-				$options = $stored[ $this->get_name() ];
-			}
+		if ( null === $this->options ) {
+			$this->options = $this->get_list_screen()->settings()->get_column( $this->get_name() );
 		}
 
-		// replace urls, so export will not have to deal with them
-
-		// TODO: remove
-		if ( isset( $options['label'] ) ) {
-			$options['label'] = stripslashes( str_replace( '[cpac_site_url]', site_url(), $options['label'] ) );
-		}
-
-		return $options ? array_merge( $this->default_options, $options ) : $this->default_options;
+		return $this->options;
 	}
 
-	public function set_stored_options( $options ) {
-		$this->stored_options = $options;
+	/**
+	 * @param array $options
+	 */
+	public function set_options( $options ) {
+		$this->options = $options;
 	}
 
 	/**
@@ -641,17 +622,6 @@ abstract class CPAC_Column {
 		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->set_property()' );
 
 		return $this->set_property( $property, $value );
-	}
-
-	/**
-	 * @param string $option
-	 *
-	 * @return mixed $value
-	 */
-	public function set_options( $option, $value ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'CPAC_Column->set_default_option()' );
-
-		return $this->set_default_option( $option, $value );
 	}
 
 	/**

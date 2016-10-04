@@ -103,6 +103,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
 			'user_by_id'  => __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
 			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
+			'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
 		);
 
 		asort( $custom_field_types );
@@ -228,6 +229,13 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			case "count" :
 				$raw_value = $this->get_raw_value( $id, false );
 				$value = $raw_value ? count( $raw_value ) : $this->get_empty_char();
+				break;
+
+			case "has_content" :
+				$rawvalue = $this->get_raw_value( $id );
+
+				// TODO create ac_helper()->string->html() method for tooltip
+				$value = '<span class="cpac-tip" data-tip="' . esc_attr( $rawvalue ) . '">' . ac_helper()->icon->yes_or_no( $rawvalue ) . '</span>';
 				break;
 
 			default :
