@@ -10,8 +10,10 @@ class AC_Column_Post_Categories extends AC_Column_DefaultPostAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'categories';
+	}
 
-		$this->set_default_option( 'width', 15 );
+	public function get_default_with() {
+		return 15;
 	}
 
 	public function get_taxonomy() {

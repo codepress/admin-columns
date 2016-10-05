@@ -28,6 +28,8 @@ class AC_Addons {
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
 	}
 
+	// TODO: register add-ons method
+
 	/**
 	 * Possibly adds an admin notice when a third party plugin supported by an addon is installed, but the addon isn't
 	 *

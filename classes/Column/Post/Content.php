@@ -11,8 +11,6 @@ class AC_Column_Post_Content extends CPAC_Column {
 
 		$this->properties['type'] = 'column-content';
 		$this->properties['label'] = __( 'Content', 'codepress-admin-columns' );
-
-		$this->set_default_option( 'excerpt_length', 30 );
 	}
 
 	public function get_value( $post_id ) {

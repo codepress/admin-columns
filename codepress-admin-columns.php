@@ -201,8 +201,6 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	public function get_version() {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
 		if ( null === $this->version ) {
 			$this->version = $this->get_plugin_version( __FILE__ );
 		}
@@ -214,6 +212,8 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	public function get_plugin_version( $file ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		$plugin = get_plugin_data( $file, false, false );
 
 		return isset( $plugin['Version'] ) ? $plugin['Version'] : false;

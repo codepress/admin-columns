@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Admin_Tabs {
 
 	/**
-	 * @var array
+	 * @var AC_Admin_TabAbstract[]
 	 */
 	private $tabs;
 
@@ -59,6 +59,13 @@ class AC_Admin_Tabs {
 		}
 
 		return $slug;
+	}
+
+	/**
+	 * @return AC_Admin_TabAbstract|false
+	 */
+	public function get_current_tab() {
+		return $this->get_tab( $this->get_current_slug() );
 	}
 
 	public function display() { ?>

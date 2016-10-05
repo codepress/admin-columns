@@ -23,23 +23,40 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
-		// Scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-
 		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
 	}
 
 	/**
-	 * Admin scripts for this tab
+	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		if ( ! $this->is_current_screen() ) {
-			return;
-		}
+		$minified = AC()->minified();
 
-		do_action( 'ac/admin_scripts/columns', $this );
+		// Width slider
+		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_script( 'jquery-ui-slider' );
+
+		wp_enqueue_script( 'ac-admin-tab-columns', AC()->get_plugin_url() . "assets/js/admin-tab-columns{$minified}.js", array(
+			'jquery',
+			'dashboard',
+			'jquery-ui-slider',
+			'jquery-ui-sortable',
+			'wp-pointer',
+		), AC()->get_version() );
+
+		// Javascript translations
+		wp_localize_script( 'ac-admin-tab-columns', 'cpac_i18n', array(
+			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
+		) );
+
+		// Nonce
+		wp_localize_script( 'ac-admin-tab-columns', 'cpac', array(
+			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
+			'list_screen' => $this->get_list_screen()->get_key()
+		) );
 	}
 
 	/**
@@ -146,6 +163,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
+
 					if ( $list_screen = $this->get_list_screen() ) {
 						$list_screen->settings()->delete();
 						$list_screen->columns()->flush_columns();
@@ -209,13 +227,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		$current_options = $column->get_options();
-		if ( empty( $current_options['label'] ) ) {
-			$data['label'] = $column->get_type_label();
+		// Set label
+		if ( ! $column->get_option( 'label') ) {
+			$column->set_option( 'label', $column->get_type_label() );
 		}
-
-		// Add stored options; Used by columns that switch field types.
-		$column->set_options( $data );
 
 		ob_start();
 		$this->display_column( $column );
@@ -317,6 +332,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * Set storage model
 	 */
 	public function set_current_list_screen() {
+
+		// TODO: still good?
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
 
 			// By request
@@ -330,7 +347,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				$list_screen = $this->get_first_list_screen();
 			}
 
-			$this->set_user_model_preference( $list_screen->key );
+			$this->set_user_model_preference( $list_screen->get_key() );
 		}
 		else {
 
@@ -361,7 +378,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @return AC_ListScreenAbstract
 	 */
 	public function get_list_screen() {
-		if ( null == $this->list_screen ) {
+		if ( null === $this->list_screen ) {
 			$this->set_current_list_screen();
 		}
 
@@ -629,12 +646,29 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
+			<?php // TODO: refactor. ?>
 			<div class="for-cloning-only" style="display:none">
 				<?php
 				foreach ( $list_screen->columns()->get_column_types() as $column ) {
 					$this->display_column( $column );
 				}
 				?>
+			</div>
+
+			<?php
+
+			// TODO: WIP
+			$column_template = false;
+			foreach ( $list_screen->columns()->get_column_types() as $column ) {
+				if ( ! $column->is_original() ) {
+					$column_template = $column;
+					break;
+				}
+			}
+			?>
+
+			<div id="add-new-column-template">
+				<?php $this->display_column( $column_template ); ?>
 			</div>
 
 		</div><!--.columns-container-->

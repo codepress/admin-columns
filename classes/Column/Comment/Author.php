@@ -10,8 +10,10 @@ class AC_Column_Comment_Author extends AC_Column_DefaultAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'author';
+	}
 
-		$this->set_default_option( 'width', 20 );
+	public function get_default_with() {
+		return 20;
 	}
 
 }

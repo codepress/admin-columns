@@ -150,15 +150,29 @@ final class AC_Columns {
 		/* @var CPAC_Column $column */
 		$column = new $class( $this->list_screen->get_key() );
 
-		// @deprecated since NEWVERSION
-		// TODO: still useful?
-		$column->set_options( array_merge( $column->get_options(), $data ) );
+		$column->set_options( $data );
 
-		// Populate defaults
+		// Populate defaults for original columns
 		if ( $column->is_original() ) {
-			$data['label'] = $this->get_default_label( $data['type'] );
+			$label = $this->get_default_label( $data['type'] );
 
-			$column->set_defaults( $data );
+			$column->set_option( 'label', $label );
+
+			if ( ac_helper()->string->contains_html_only( $label ) ) {
+				$column->set_property( 'hide_label', true );
+			}
+
+			if ( ! $column->get_group() ) {
+				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
+			}
+
+			$column
+				->set_property( 'type', $data['type'] )
+				->set_property( 'name', $data['type'] )
+				->set_property( 'label', $label )
+
+				// TODO
+				->set_option( 'label', $label );
 		}
 
 		$column->set_clone( $data['clone'] );

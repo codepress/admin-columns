@@ -45,7 +45,7 @@ final class AC_Settings_Columns {
 	}
 
 	public function delete() {
-		delete_option( $this->get_key() );
+		delete_option( self::OPTIONS_KEY . $this->get_key() );
 	}
 
 	// Default headings

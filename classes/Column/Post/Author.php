@@ -10,8 +10,10 @@ class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'author';
+	}
 
-		$this->set_default_option( 'width', 10 );
+	public function get_default_with() {
+		return 10;
 	}
 
 	public function apply_conditional() {

@@ -10,8 +10,10 @@ class AC_Column_User_Role extends AC_Column_DefaultAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'role';
+	}
 
-		$this->set_default_option( 'width', 15 );
+	public function get_default_with() {
+		return 15;
 	}
 
 }

@@ -6,10 +6,8 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_Date extends AC_Column_DateAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->set_default_option( 'width', 14 );
+	public function get_default_with() {
+		return 14;
 	}
 
 }

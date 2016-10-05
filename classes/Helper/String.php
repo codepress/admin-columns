@@ -230,4 +230,13 @@ class AC_Helper_String {
 		return $time;
 	}
 
+	/**
+	 * @param string $string
+	 *
+	 * @return bool
+	 */
+	public function contains_html_only( $string ) {
+		return strlen( $string ) !== strlen( strip_tags( $string ) );
+	}
+
 }

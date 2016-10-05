@@ -2,48 +2,33 @@
  *	Fires when the dom is ready
  *
  */
-jQuery( document ).ready( function() {
+jQuery( document ).ready( function( $ ) {
 
-	if ( jQuery( '#cpac' ).length === 0 ) {
+	if ( $( '#cpac' ).length === 0 ) {
 		return false;
 	}
 
-	// General
-	cpac_init();
-	cpac_pointer();
-	cpac_submit_form();
-	cpac_reset_columns();
-
-	// Settings Page
-	cpac_clear_input_defaults();
-
-	// Columns Page
-	cpac_menu(); // trigger for all other column events
-	cpac_help();
-	cpac_add_column();
-	cpac_importexport();
-	cpac_sidebar_feedback();
+	cpac_init( $ );
+	cpac_submit_form( $ );
+	cpac_reset_columns( $ );
+	cpac_menu( $ );
+	cpac_add_column( $ );
+	cpac_sidebar_feedback( $ );
 
 } );
-
-function cpac_importexport() {
-	jQuery( '#php-export-results textarea' ).on( 'focus, mouseup', function() {
-		jQuery( this ).select();
-	} ).select().focus();
-}
 
 /*
  * Submit Form
  *
  * @since 2.0.2
  */
-function cpac_submit_form() {
+function cpac_submit_form( $ ) {
 
-	var $save_buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
+	var $save_buttons = $( '.sidebox a.submit, .column-footer a.submit' );
 
-	$save_buttons.click( function( e ) {
+	$save_buttons.click( function() {
 
-		var $button = jQuery( this );
+		var $button = $( this );
 		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
 		var columns_data = $container.find( '.cpac-columns form' ).serialize();
 		var $msg = $container.find( '.ajax-message' );
@@ -52,9 +37,9 @@ function cpac_submit_form() {
 
 		// reset
 		$container.find( '.ajax-message' ).hide().removeClass( 'error updated' );
-		jQuery( '.cpac_message' ).remove(); // placed by restore button
+		$( '.cpac_message' ).remove(); // placed by restore button
 
-		var xhr = jQuery.post( ajaxurl, {
+		var xhr = $.post( ajaxurl, {
 				action : 'cpac_columns_update',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
@@ -96,7 +81,7 @@ function cpac_submit_form() {
 			$container.removeClass( 'saving' );
 		} );
 
-		jQuery( document ).trigger( 'cac_update', $container );
+		$( document ).trigger( 'cac_update', $container );
 	} );
 }
 
@@ -164,6 +149,7 @@ jQuery.fn.column_bind_clone = function() {
 };
 
 jQuery.fn.cpac_column_refresh = function() {
+
 	var el = jQuery( this );
 	var select = el.find( '.column-type select' );
 	var $container = jQuery( this ).closest( '.columns-container' );
@@ -180,7 +166,7 @@ jQuery.fn.cpac_column_refresh = function() {
 		_ajax_nonce : cpac._ajax_nonce,
 		column : column_name,
 		formdata : jQuery( this ).parents( 'form' ).serialize(),
-		list_screen : $container.data( 'type' ),
+		list_screen : $container.data( 'type' )
 	}, function( data ) {
 
 		if ( data ) {
@@ -195,6 +181,7 @@ jQuery.fn.cpac_column_refresh = function() {
 			el.column_bind_clone();
 			el.column_bind_events();
 
+			// Open settings
 			el.addClass( 'opened' ).find( '.column-form' ).show();
 
 			// Allow plugins to hook into this event
@@ -263,8 +250,6 @@ jQuery.fn.column_bind_events = function() {
 				// Set to default
 				jQuery( this ).find( 'option' ).removeAttr( 'selected' );
 				jQuery( this ).find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
-
-				return;
 			}
 			else {
 				var clone = template.clone();
@@ -370,7 +355,7 @@ jQuery.fn.column_bind_events = function() {
  * @since 2.0
  */
 jQuery.fn.column_remove = function() {
-	jQuery( this ).addClass( 'deleting' ).animate( { opacity : 0, height : 0 }, 350, function( e ) {
+	jQuery( this ).addClass( 'deleting' ).animate( { opacity : 0, height : 0 }, 350, function() {
 		jQuery( this ).remove();
 	} );
 };
@@ -472,7 +457,7 @@ jQuery.fn.cpac_update_clone_id = function( list_screen ) {
 	var columns = jQuery( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
 
 	// get clone ID
-	var ids = jQuery.map( columns, function( e, i ) {
+	var ids = jQuery.map( columns, function( e ) {
 		if ( jQuery( e ).attr( 'data-clone' ) ) {
 			return parseInt( jQuery( e ).attr( 'data-clone' ), 10 );
 		}
@@ -512,7 +497,7 @@ jQuery.fn.cpac_update_clone_id = function( list_screen ) {
 
 		// name
 		if ( jQuery( v ).attr( 'name' ) ) {
-			// brackets prevent the replacement of storage model key hwne column name is similar to storage name, e.g. column comment and model wp-comments
+			// brackets prevent the replacement of storage model key when column name is similar to storage name, e.g. column comment and model wp-comments
 			jQuery( v ).attr( 'name', jQuery( v ).attr( 'name' ).replace( '[' + type + clone_suffix + ']', '[' + new_name + ']' ) );
 		}
 
@@ -528,195 +513,59 @@ jQuery.fn.cpac_update_clone_id = function( list_screen ) {
 	} );
 };
 
-function cpac_create_column( container ) {
-
-	var clone = jQuery( '.for-cloning-only .cpac-column', container ).not( '[data-default="1"]' ).first().clone();
-	var list_screen = container.attr( 'data-type' );
-	var columns = container.find( 'cpac-columns' );
-
-	if ( clone.length > 0 ) {
-		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
-		clone.cpac_update_clone_id( list_screen );
-
-		// add to DOM
-		jQuery( '.cpac-columns form', container ).append( clone );
-
-		// refresh column
-		clone.cpac_column_refresh();
-
-		// hook for addons
-		jQuery( document ).trigger( 'column_add', clone );
-	}
-
-	return clone;
-}
-
 /*
  * Add Column
  *
  * @since 2.0
  */
-function cpac_add_column() {
+function cpac_add_column( $ ) {
 
-	jQuery( '#cpac .add_column' ).click( function( e ) {
-		var container = jQuery( this ).closest( '.columns-container' );
-		var clone = cpac_create_column( container );
+	$( '.add_column' ).click( function( e ) {
+		e.preventDefault();
 
-		// open settings
+		var clone = $( '#add-new-column-template' ).find( '.cpac-column' ).clone();
+
+		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
+		clone.cpac_update_clone_id( cpac.list_screen );
+
+		// TODO: animation should go more fluently
+
+		// Open
 		clone.addClass( 'opened' ).find( '.column-form' ).slideDown( 150, function() {
-			jQuery( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
+			$( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
 		} );
 
-		e.preventDefault();
+		// add to DOM
+		$( '.cpac-columns form' ).append( clone );
+
+		// refresh column
+		clone.cpac_column_refresh();
+
+		// hook for addons
+		$( document ).trigger( 'column_add', clone );
 	} );
+
 }
 
 /**
  * @since 2.2.1
  */
-function cpac_sidebar_feedback() {
-	jQuery( function( $ ) {
-		var sidebox = $( '.sidebox#direct-feedback' );
+function cpac_sidebar_feedback( $ ) {
+	var sidebox = $( '.sidebox#direct-feedback' );
 
-		sidebox.find( '#feedback-choice a.no' ).click( function( e ) {
-			e.preventDefault();
-
-			sidebox.find( '#feedback-choice' ).slideUp();
-			sidebox.find( '#feedback-support' ).slideDown();
-		} );
-
-		sidebox.find( '#feedback-choice a.yes' ).click( function( e ) {
-			e.preventDefault();
-
-			sidebox.find( '#feedback-choice' ).slideUp();
-			sidebox.find( '#feedback-rate' ).slideDown();
-		} );
-	} );
-}
-
-/*
- *	Clear Input Defaults
- *
- */
-function cpac_clear_input_defaults() {
-	jQuery.fn.cleardefault = function() {
-		return this.focus( function() {
-			if ( this.value == this.defaultValue ) {
-				this.value = "";
-			}
-		} ).blur( function() {
-			if ( !this.value.length ) {
-				this.value = this.defaultValue;
-			}
-		} );
-	};
-	jQuery( "#cpac-box-plugin_settings .addons input" ).cleardefault();
-}
-
-/*
- * Help
- *
- * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
- */
-function cpac_help() {
-	jQuery( '#cpac a.help' ).click( function( e ) {
+	sidebox.find( '#feedback-choice a.no' ).click( function( e ) {
 		e.preventDefault();
 
-		var panel = jQuery( '#contextual-help-wrap' );
-
-		panel.parent().show();
-		jQuery( 'a[href="#tab-panel-cpac-' + jQuery( this ).attr( 'data-help' ) + '"]', panel ).trigger( 'click' );
-		panel.slideDown( 'fast', function() {
-			panel.focus();
-		} );
-	} );
-}
-
-/*
- * WP Pointer
- *
- */
-function cpac_pointer() {
-	jQuery( '.cpac-pointer' ).each( function() {
-
-		// vars
-		var el = jQuery( this ),
-			html = el.attr( 'rel' ),
-			pos = el.attr( 'data-pos' ),
-			w = el.attr( 'data-width' ),
-			noclick = el.attr( 'data-noclick' );
-
-		var position = {
-			at : 'left top',		// position of wp-pointer relative to the element which triggers the pointer event
-			my : 'right top',	// position of wp-pointer relative to the at-coordinates
-			edge : 'right',		// position of arrow
-		};
-
-		var width = w ? w : 250;
-
-		if ( 'right' == pos ) {
-			position = {
-				at : 'right middle',
-				my : 'left middle',
-				edge : 'left'
-			};
-		}
-
-		if ( 'left' == pos ) {
-			position = {
-				at : 'left middle',
-				my : 'right middle',
-				edge : 'right'
-			};
-		}
-
-		// create pointer
-		el.pointer( {
-			content : jQuery( '#' + html ).html(),
-			position : position,
-			pointerWidth : width,
-			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
-			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-			pointerClass : 'cpac-wp-pointer wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
-		} );
-
-		// click
-		if ( !noclick ) {
-			el.click( function() {
-				if ( el.hasClass( 'open' ) ) {
-					el.removeClass( 'open' );
-				}
-				else {
-					el.addClass( 'open' );
-				}
-			} );
-		}
-
-		// show on hover
-		el.hover( function() {
-			jQuery( this ).pointer( 'open' );
-		}, function() {
-			var el = jQuery( this );
-			setTimeout( function() {
-				if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
-					el.pointer( 'close' );
-				}
-			}, 100 );
-
-		} ).on( 'close', function() {
-			if ( !el.hasClass( 'open' ) && jQuery( '.cpac-wp-pointer.hover' ).length == 0 ) {
-				el.pointer( 'close' );
-			}
-		} );
+		sidebox.find( '#feedback-choice' ).slideUp();
+		sidebox.find( '#feedback-support' ).slideDown();
 	} );
 
-	jQuery( '.cpac-wp-pointer' ).hover( function() {
-		jQuery( this ).addClass( 'hover' );
-	}, function() {
-		jQuery( this ).removeClass( 'hover' );
-		jQuery( '.cpac-pointer' ).trigger( 'close' );
-	} );
+	sidebox.find( '#feedback-choice a.yes' ).click( function( e ) {
+		e.preventDefault();
 
+		sidebox.find( '#feedback-choice' ).slideUp();
+		sidebox.find( '#feedback-rate' ).slideDown();
+	} );
 }
 
 /*
@@ -737,16 +586,16 @@ jQuery.fn.cpac_bind_ordering = function() {
 	} );
 };
 
-function cpac_init() {
+function cpac_init( $ ) {
 
-	var container = jQuery( '.columns-container' );
+	var container = $( '.columns-container' );
 	var boxes = container.find( '.cpac-boxes' );
 
 	// Written for PHP Export
 	if ( boxes.hasClass( 'disabled' ) ) {
 		boxes.find( '.cpac-column' ).each( function( i, col ) {
-			jQuery( col ).column_bind_toggle();
-			jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
+			$( col ).column_bind_toggle();
+			$( col ).find( 'input, select' ).prop( 'disabled', true );
 		} );
 	}
 
@@ -755,10 +604,10 @@ function cpac_init() {
 
 		// we start by binding the toggle and remove events.
 		columns.find( '.cpac-column' ).each( function( i, col ) {
-			jQuery( col ).column_bind_toggle();
-			jQuery( col ).column_bind_remove();
-			jQuery( col ).column_bind_clone();
-			jQuery( col ).cpac_bind_indicator_events();
+			$( col ).column_bind_toggle();
+			$( col ).column_bind_remove();
+			$( col ).column_bind_clone();
+			$( col ).cpac_bind_indicator_events();
 		} );
 
 		// ordering of columns
@@ -766,8 +615,8 @@ function cpac_init() {
 	}
 
 	// hook for addons
-	jQuery( document ).trigger( 'cac_menu_change', columns ); // deprecated
-	jQuery( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
+	$( document ).trigger( 'cac_menu_change', columns ); // deprecated
+	$( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
 }
 
 /*
@@ -775,14 +624,11 @@ function cpac_init() {
  *
  * @since 1.5
  */
-function cpac_menu() {
-
-	//jQuery( '.spinner' ).css( 'visibility', 'visible' );
-
-	jQuery( '#cpac_storage_modal_select' ).on( 'change', function() {
-		jQuery( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
-		jQuery( '.view-link' ).hide();
-		window.location = jQuery( this ).val();
+function cpac_menu( $ ) {
+	$( '#cpac_storage_modal_select' ).on( 'change', function() {
+		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
+		$( '.view-link' ).hide();
+		window.location = $( this ).val();
 	} );
 }
 
@@ -791,8 +637,7 @@ function cpac_menu() {
  *
  * @since NEWVERSION
  */
-function cpac_reset_columns() {
-	var $ = jQuery;
+function cpac_reset_columns( $ ) {
 	var $container = $( '.columns-container' );
 
 	$( 'a[data-clear-columns]' ).on( 'click', function() {

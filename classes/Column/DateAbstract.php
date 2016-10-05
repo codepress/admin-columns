@@ -10,8 +10,10 @@ abstract class AC_Column_DateAbstract extends AC_Column_DefaultAbstract {
 		parent::init();
 
 		$this->properties['type'] = 'date';
+	}
 
-		$this->set_default_option( 'width', 10 );
+	public function get_default_with() {
+		return 10;
 	}
 
 }

@@ -15,6 +15,9 @@ class AC_Admin {
 	 */
 	private $settings_page;
 
+	/**
+	 * @var AC_Admin_Tabs
+	 */
 	private $tabs;
 
 	/**
@@ -24,6 +27,7 @@ class AC_Admin {
 
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$tabs = new AC_Admin_Tabs();
 		$tabs->register_tab( new AC_Admin_Tab_Columns() );
@@ -31,6 +35,33 @@ class AC_Admin {
 		$tabs->register_tab( new AC_Admin_Tab_Addons() );
 
 		$this->tabs = $tabs;
+	}
+
+	/**
+	 * Admin scripts for this tab
+	 */
+	public function admin_scripts() {
+		if ( ! $this->is_admin_screen() ) {
+			return;
+		}
+
+		// Hook
+		do_action( 'ac/admin_scripts' , $this );
+
+		// Tab scripts
+		if ( $tab = $this->tabs->get_current_tab() ) {
+
+			// Hook
+			do_action( 'ac/admin_scripts/tab=' . $tab->get_slug() , $this );
+
+			$tab->admin_scripts();
+		}
+
+		// General scripts
+		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general" . AC()->minified() . ".js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+
+		wp_enqueue_style( 'wp-pointer' );
+		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-column" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 	}
 
 	/**
@@ -121,9 +152,6 @@ class AC_Admin {
 
 		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
 		add_action( 'load-' . $this->settings_page, array( $this, 'help_tabs' ) );
-
-		add_action( 'admin_print_styles-' . $this->settings_page, array( $this, 'admin_styles' ) );
-		add_action( 'admin_print_scripts-' . $this->settings_page, array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -135,16 +163,6 @@ class AC_Admin {
 		return 'manage_admin_columns';
 	}
 
-	/**
-	 * @since 1.0
-	 */
-	public function admin_styles() {
-		$minified = AC()->minified();
-
-		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-column{$minified}.css", array(), AC()->get_version(), 'all' );
-	}
-
 	public function is_admin_screen() {
 		global $pagenow;
 
@@ -153,40 +171,6 @@ class AC_Admin {
 
 	public function is_current_tab( $tab_slug ) {
 		return $this->get_tabs()->get_current_slug() === $tab_slug && $this->is_admin_screen();
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function admin_scripts() {
-
-		do_action( 'ac/enqueue_settings_scripts' );
-
-		// width slider
-		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version(), 'all' );
-		wp_enqueue_script( 'jquery-ui-slider' );
-
-		$minified = AC()->minified();
-
-		wp_enqueue_script( 'cpac-admin-settings', AC()->get_plugin_url() . "assets/js/admin-settings{$minified}.js", array(
-			'jquery',
-			'dashboard',
-			'jquery-ui-slider',
-			'jquery-ui-sortable',
-			'wp-pointer',
-		), AC()->get_version() );
-
-		// javascript translations
-		wp_localize_script( 'cpac-admin-settings', 'cpac_i18n', array(
-			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
-		) );
-
-		// nonce
-		wp_localize_script( 'cpac-admin-settings', 'cpac', array(
-			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
-		) );
-
 	}
 
 	/**

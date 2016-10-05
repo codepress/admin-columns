@@ -19,9 +19,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
 		$this->properties['classes'] = 'cpac-box-metafield';
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
-
-		$this->set_default_option( 'image_size', 'cpac-custom' );
-		$this->set_default_option( 'excerpt_length', 15 );
 	}
 
 	public function get_field_key() {
@@ -233,8 +230,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 			case "has_content" :
 				$rawvalue = $this->get_raw_value( $id );
-
-				// TODO create ac_helper()->string->html() method for tooltip
 				$value = '<span class="cpac-tip" data-tip="' . esc_attr( $rawvalue ) . '">' . ac_helper()->icon->yes_or_no( $rawvalue ) . '</span>';
 				break;
 
@@ -355,10 +350,10 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				break;
 			case 'image' :
 			case 'library_id' :
-				$fields = array_merge( $fields, $this->field_settings->image_args( true ) );
+				$fields = array_merge( $fields, $this->field_settings->image_args_fields_only( 'cpac-custom' ) );
 				break;
 			case 'excerpt' :
-				$fields[] = $this->field_settings->word_limit_args();
+				$fields[] = $this->field_settings->word_limit_args( 15 );
 				break;
 			case 'link' :
 				$fields[] = $this->field_settings->url_args();

@@ -59,6 +59,13 @@ Abstract class AC_Admin_TabAbstract {
 	}
 
 	/**
+	 * Place your enqueue_scripts here
+	 */
+	public function admin_scripts() {
+
+	}
+
+	/**
 	 * @param string $tab_slug
 	 *
 	 * @return false|string URL

@@ -71,14 +71,10 @@ final class AC_ListScreenManager {
 			return;
 		}
 
-		$minified = AC()->minified();
-		$url = AC()->get_plugin_url();
-		$version = AC()->get_version();
-
-		wp_register_script( 'cpac-admin-columns', $url . "assets/js/admin-columns{$minified}.js", array( 'jquery', 'jquery-qtip2' ), $version );
-		wp_register_script( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.js", array( 'jquery' ), $version );
-		wp_register_style( 'jquery-qtip2', $url . "external/qtip2/jquery.qtip{$minified}.css", array(), $version, 'all' );
-		wp_register_style( 'cpac-columns', $url . "assets/css/column{$minified}.css", array(), $version, 'all' );
+		wp_register_script( 'cpac-admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
+		wp_register_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+		wp_register_style( 'cpac-columns', AC()->get_plugin_url() . "assets/css/column" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
 		wp_enqueue_script( 'cpac-admin-columns' );
 		wp_enqueue_style( 'jquery-qtip2' );

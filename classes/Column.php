@@ -12,6 +12,12 @@ defined( 'ABSPATH' ) or die();
 abstract class CPAC_Column {
 
 	/**
+	 * @since 2.0
+	 * @var array $properties describes the fixed properties for the CPAC_Column object.
+	 */
+	public $properties = array();
+
+	/**
 	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
 	 *
 	 * @since NEWVERSION
@@ -19,14 +25,6 @@ abstract class CPAC_Column {
 	 * @var string $list_screen
 	 */
 	private $list_screen_key;
-
-	/**
-	 * Default options
-	 *
-	 * @since 2.0
-	 * @var array $default_options Default column options.
-	 */
-	private $default_options;
 
 	/**
 	 * Instance for adding field settings to the column
@@ -46,12 +44,6 @@ abstract class CPAC_Column {
 	 * @var AC_Helper
 	 */
 	private $helper;
-
-	/**
-	 * @since 2.0
-	 * @var array $properties describes the fixed properties for the CPAC_Column object.
-	 */
-	public $properties = array();
 
 	/**
 	 * Options
@@ -108,10 +100,16 @@ abstract class CPAC_Column {
 		return $call ? call_user_func( array( $this, $call ) ) : false;
 	}
 
+	/**
+	 * @return AC_ColumnFieldSettings
+	 */
 	public function field_settings() {
 		return $this->field_settings;
 	}
 
+	/**
+	 * @return AC_ColumnFieldFormat
+	 */
 	public function format() {
 		return $this->format;
 	}
@@ -134,15 +132,24 @@ abstract class CPAC_Column {
 			'use_before_after' => false,   // Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
 		);
+	}
 
-		// Unit for width; percentage (%) or pixels (px).
-		$this->set_default_option( 'width_unit', '%' );
+	/**
+	 * Get default with unit
+	 *
+	 * @return string
+	 */
+	public function get_default_with_unit() {
+		return '%';
+	}
 
-		// @deprecated NEWVERSION
-		$this->options = $this->default_options;
-
-		// @since NEWVERSION
-		do_action( 'ac/column/after_init', $this );
+	/**
+	 * Get default with unit
+	 *
+	 * @return string
+	 */
+	public function get_default_with() {
+		return false;
 	}
 
 	/**
@@ -178,38 +185,6 @@ abstract class CPAC_Column {
 		}
 
 		return $this;
-	}
-
-	/**
-	 * @param string $name Column name
-	 * @param string $label Column label
-	 */
-	public function set_defaults( $data ) {
-		$defaults = array(
-			'type'  => false,
-			'label' => false,
-		);
-
-		$data = (object) array_merge( $defaults, $data );
-
-		if ( ! $data->label ) {
-			$data->label = ucfirst( $data->type );
-		}
-
-		// Hide Label when it contains HTML elements
-		if ( strlen( $data->label ) != strlen( strip_tags( $data->label ) ) ) {
-			$this->set_property( 'hide_label', true );
-		}
-
-		if ( ! $this->get_group() ) {
-			$this->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
-		}
-
-		$this
-			->set_property( 'type', $data->type )
-			->set_property( 'name', $data->type )
-			->set_property( 'label', $data->label )
-			->set_default_option( 'label', $data->label );
 	}
 
 	/**
@@ -335,6 +310,10 @@ abstract class CPAC_Column {
 	public function get_width() {
 		$width = absint( $this->get_option( 'width' ) );
 
+		if ( ! $width ) {
+			$width = $this->get_default_with();
+		}
+
 		return $width > 0 ? $width : false;
 	}
 
@@ -346,7 +325,7 @@ abstract class CPAC_Column {
 		$width_unit = $this->get_option( 'width_unit' );
 
 		if ( ! $width_unit ) {
-			$width_unit = $this->default_options['width_unit'];
+			$width_unit = $this->get_default_with_unit();
 		}
 
 		return 'px' === $width_unit ? 'px' : '%';
@@ -374,6 +353,13 @@ abstract class CPAC_Column {
 	}
 
 	/**
+	 * @param array $options
+	 */
+	public function set_option( $key, $value ) {
+		$this->options[ $key ] = $value;
+	}
+
+	/**
 	 * Get the column properties
 	 *
 	 * @since NEWVERSION
@@ -393,20 +379,6 @@ abstract class CPAC_Column {
 		$options = $this->get_options();
 
 		return isset( $options[ $name ] ) ? $options[ $name ] : false;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param string $option
-	 * @param string $value
-	 *
-	 * @return $this CPAC_Column
-	 */
-	public function set_default_option( $option, $value ) {
-		$this->default_options[ $option ] = $value;
-
-		return $this;
 	}
 
 	/**
@@ -538,8 +510,8 @@ abstract class CPAC_Column {
 	 * @param string $name
 	 * @param string $label
 	 */
-	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo esc_attr( $this->get_option( $name ) ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
+	public function display_indicator( $name, $label, $active = false ) { ?>
+		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo $active ? 'on' : 'off'; ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
 
