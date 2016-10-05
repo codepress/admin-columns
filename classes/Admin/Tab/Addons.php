@@ -10,6 +10,38 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 		$this
 			->set_slug( 'addons' )
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
+
+		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+	}
+
+	/**
+	 * Display an activation/deactivation message on the addons page if applicable
+	 *
+	 * @since 2.2
+	 */
+	public function maybe_display_addon_statuschange_message() {
+		$message = false;
+
+		if ( ! empty( $_REQUEST['activate'] ) ) {
+			$message = __( 'Add-on successfully activated.', 'codepress-admin-columns' );
+		}
+		else if ( ! empty( $_REQUEST['deactivate'] ) ) {
+			$message = __( 'Add-on successfully deactivated.', 'codepress-admin-columns' );
+		}
+
+		if ( $message ) : ?>
+			<div class="updated cac-notification below-h2">
+				<p><?php echo $message; ?></p>
+			</div>
+			<?php
+		endif;
+	}
+
+	/**
+	 * Admin scripts
+	 */
+	public function admin_scripts() {
+		wp_enqueue_style( 'ac-admin-tab-addons', AC()->get_plugin_url() . 'assets/css/admin-tab-addons' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
 	}
 
 	public function display() {

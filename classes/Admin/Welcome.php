@@ -6,6 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AC_Admin_Welcome {
 
+	public static function admin_scripts() {
+		wp_enqueue_style( 'ac-admin-welcome-css', AC()->get_plugin_url() . 'assets/css/admin-welcome' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function has_upgrade_run() {
 		// Should only be set after upgrade
 		$show_welcome = false !== get_transient( 'cpac_show_welcome' );

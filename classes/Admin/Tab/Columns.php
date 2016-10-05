@@ -46,6 +46,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			'wp-pointer',
 		), AC()->get_version() );
 
+		wp_enqueue_style( 'ac-admin-tab-columns-css', AC()->get_plugin_url() . 'assets/css/admin-tab-columns' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+
 		// Javascript translations
 		wp_localize_script( 'ac-admin-tab-columns', 'cpac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),

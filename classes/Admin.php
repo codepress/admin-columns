@@ -26,7 +26,6 @@ class AC_Admin {
 	function __construct() {
 
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
-		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$tabs = new AC_Admin_Tabs();
@@ -61,7 +60,7 @@ class AC_Admin {
 		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general" . AC()->minified() . ".js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
 
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-column" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-general" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 	}
 
 	/**
@@ -113,35 +112,6 @@ class AC_Admin {
 
 	public function get_welcome_url() {
 		return add_query_arg( array( 'info' => 1 ), $this->get_settings_url() );
-	}
-
-	/**
-	 * Display an activation/deactivation message on the addons page if applicable
-	 *
-	 * @since 2.2
-	 */
-	public function maybe_display_addon_statuschange_message() {
-		if ( empty( $_REQUEST['tab'] ) || $_REQUEST['tab'] != 'addons' ) {
-			return;
-		}
-
-		$message = '';
-
-		if ( ! empty( $_REQUEST['activate'] ) ) {
-			$message = __( 'Add-on successfully activated.', 'codepress-admin-columns' );
-		}
-		else if ( ! empty( $_REQUEST['deactivate'] ) ) {
-			$message = __( 'Add-on successfully deactivated.', 'codepress-admin-columns' );
-		}
-
-		if ( ! $message ) {
-			return;
-		}
-		?>
-		<div class="updated cac-notification below-h2">
-			<p><?php echo $message; ?></p>
-		</div>
-		<?php
 	}
 
 	/**
@@ -241,6 +211,7 @@ class AC_Admin {
 		$welcome_screen = new AC_Admin_Welcome();
 
 		if ( $welcome_screen->has_upgrade_run() ) {
+			$welcome_screen->admin_scripts();
 			$welcome_screen->display();
 
 			return;
