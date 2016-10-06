@@ -86,7 +86,7 @@ abstract class AC_ListScreenAbstract {
 	private $settings;
 
 	/**
-	 * @var AC_Columns $columns
+	 * @var AC_ColumnManager $columns
 	 */
 	private $columns;
 
@@ -286,11 +286,11 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @return AC_Columns
+	 * @return AC_ColumnManager
 	 */
 	public function columns() {
 		if ( null === $this->columns ) {
-			$this->columns = new AC_Columns( $this );
+			$this->columns = new AC_ColumnManager( $this );
 		}
 
 		return $this->columns;

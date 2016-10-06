@@ -25,7 +25,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
-
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
 	}
@@ -181,6 +180,24 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
+	 * @param CPAC_Column $column
+	 *
+	 * @return string
+	 */
+	private function get_column_display( CPAC_Column $column ) {
+
+		// Set label
+		if ( ! $column->get_option( 'label' ) ) {
+			$column->set_option( 'label', $column->get_type_label() );
+		}
+
+		ob_start();
+		$this->display_column( $column );
+
+		return ob_get_clean();
+	}
+
+	/**
 	 * Display HTML markup for column type
 	 *
 	 * @since NEWVERSION
@@ -200,27 +217,20 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// Run Hook
 		$this->set_list_screen( $list_screen );
-		$type = filter_input( INPUT_POST, 'type' );
-		$data = array(
-			'type' => $type,
-		);
 
-		$column = $this->list_screen->columns()->create_column( $data );
-		$original_columns = $_POST['original_columns'];
+		$type = filter_input( INPUT_POST, 'type' );
+
+		$column = $this->list_screen->columns()->create_column( array(
+			'type' => $type,
+		) );
+
+		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $column->get_type_label_clean() . '</strong>' ) ) );
 		}
 
-		// Set label
-		if ( ! $column->get_option( 'label' ) ) {
-			$column->set_option( 'label', $column->get_type_label() );
-		}
-
-		ob_start();
-		$this->display_column( $column );
-
-		wp_send_json_success( ob_get_clean() );
+		wp_send_json_success( $this->get_column_display( $column ) );
 	}
 
 	/**
@@ -266,15 +276,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		// Set label
-		if ( ! $column->get_option( 'label' ) ) {
-			$column->set_option( 'label', $column->get_type_label() );
-		}
-
-		ob_start();
-		$this->display_column( $column );
-
-		wp_send_json_success( ob_get_clean() );
+		wp_send_json_success( $this->get_column_display( $column ) );
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-final class AC_Columns {
+final class AC_ColumnManager {
 
 	/**
 	 * @since 2.0.1
@@ -126,6 +126,13 @@ final class AC_Columns {
 	}
 
 	/**
+	 * @param string $column_type
+	 */
+	public function deregister_column_type( $column_type ) {
+		unset( $this->column_types[ $column_type ] );
+	}
+
+	/**
 	 * @param array $data
 	 *
 	 * @return CPAC_Column|false
@@ -170,7 +177,7 @@ final class AC_Columns {
 		}
 
 		// Set clone
-		if ( $data['clone'] !== null && $data['clone'] > 0 ) {
+		if ( $data['clone'] > 0 ) {
 			$column->set_property( 'name', $column->get_type() . '-' . $data['clone'] );
 			$column->set_property( 'clone', $data['clone'] );
 		}
@@ -308,14 +315,11 @@ final class AC_Columns {
 		$class_names = $this->get_class_names( $this->get_list_screen() );
 
 		// Add-on placeholders
-		if ( ! cpac_is_pro_active() ) {
-
-			if ( cpac_is_acf_active() ) {
-				$class_names[] = 'AC_Column_ACFPlaceholder';
-			}
-			if ( cpac_is_woocommerce_active() ) {
-				$class_names[] = 'AC_Column_WooCommercePlaceholder';
-			}
+		if ( cpac_is_acf_active() ) {
+			$class_names[] = 'AC_Column_ACFPlaceholder';
+		}
+		if ( cpac_is_woocommerce_active() ) {
+			$class_names[] = 'AC_Column_WooCommercePlaceholder';
 		}
 
 		// Register column types
@@ -342,11 +346,10 @@ final class AC_Columns {
 	 * @deprecated NEWVERSION
 	 */
 	private function deprecated_register_columns() {
-		$list_screen = $this->get_list_screen();
 
-		$class_names = apply_filters( 'cac/columns/custom', array(), $list_screen );
-		$class_names = apply_filters( 'cac/columns/custom/type=' . $list_screen->get_type(), $class_names, $list_screen );
-		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_post_type( $list_screen ), $class_names, $list_screen );
+		$class_names = apply_filters( 'cac/columns/custom', array(), $this->get_list_screen() );
+		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_list_screen()->get_type(), $class_names, $this->get_list_screen() );
+		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_post_type( $this->get_list_screen() ), $class_names, $this->get_list_screen() );
 
 		foreach ( $class_names as $class_name => $path ) {
 			$autoload = true;
