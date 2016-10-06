@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) or die();
 
 /**
- * Storage Model
+ * List Screen
  *
  * @since 2.0
  */
@@ -19,28 +19,28 @@ abstract class AC_ListScreenAbstract {
 	protected $singular_label;
 
 	/**
-	 * Identifier for Storage Model; Post type etc.
+	 * Identifier for List Screen; Post type etc.
 	 *
 	 * @since 2.0
 	 */
 	public $key;
 
 	/**
-	 * Type of storage model; Post, Media, User or Comments
+	 * Type of list screen; Post, Media, User or Comments
 	 *
 	 * @since 2.0
 	 */
 	protected $type;
 
 	/**
-	 * Meta type of storage model; post, user, comment. Mostly used for custom field data.
+	 * Meta type of list screen; post, user, comment. Mostly used for custom field data.
 	 *
 	 * @since 3.0
 	 */
 	protected $meta_type;
 
 	/**
-	 * Groups the storage model in the menu.
+	 * Groups the list screen in the menu.
 	 *
 	 * @since 2.0
 	 */

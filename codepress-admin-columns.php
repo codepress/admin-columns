@@ -398,13 +398,13 @@ class CPAC {
 	 */
 	private function set_list_screens() {
 
-		// Create a storage model per post type
+		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
 			$list_screen = new AC_ListScreen_Post();
 			$this->register_list_screen( $list_screen->set_post_type( $post_type ) );
 		}
 
-		// Create other storage models
+		// Create other list screens
 		$this->register_list_screen( new AC_ListScreen_User() );
 		$this->register_list_screen( new AC_ListScreen_Media() );
 		$this->register_list_screen( new AC_ListScreen_Comment() );
@@ -457,7 +457,7 @@ class CPAC {
 	}
 
 	/**
-	 * Get storage model object of currently active storage model
+	 * Get list screen object of currently active list screen
 	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
 	 *
 	 * @since 2.2.4
@@ -472,7 +472,7 @@ class CPAC {
 	}
 
 	/**
-	 * Get storage model object of currently active storage model
+	 * Get list screen object of currently active list screen
 	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
 	 *
 	 * @since 2.2.4

@@ -135,7 +135,7 @@ final class AC_ListScreenManager {
 	}
 
 	/**
-	 * Load current storage model
+	 * Load current list screen
 	 */
 	public function load_list_screen() {
 		foreach ( AC()->get_list_screens() as $list_screen ) {

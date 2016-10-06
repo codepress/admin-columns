@@ -331,7 +331,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Set storage model
+	 * Set list screen
 	 */
 	public function set_current_list_screen() {
 
@@ -397,7 +397,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		<div class="columns-container<?php echo $list_screen->settings()->get_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
 			<div class="main">
 				<div class="menu">
-					<select title="Select type" id="cpac_storage_modal_select">
+					<select title="Select type" id="ac_list_screen">
 						<?php foreach ( $this->get_grouped_models() as $menu_type => $models ) : ?>
 							<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
 								<?php foreach ( $models as $model ) : ?>
