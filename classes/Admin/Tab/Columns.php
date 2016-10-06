@@ -653,6 +653,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<?php
 				foreach ( $list_screen->columns()->get_column_types() as $column ) {
 					$column->set_property( 'name', $column->get_type() );
+					if ( $column->is_original() ) {
+						$column->set_property( 'is_cloneable', false );
+					}
+
 					$this->display_column( $column );
 				}
 				?>
