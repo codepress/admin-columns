@@ -208,14 +208,16 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// Run Hook
 		$this->set_list_screen( $list_screen );
-
+		$type = filter_input( INPUT_POST, 'type' );
 		$data = array(
-			'type' => filter_input( INPUT_POST, 'type' ),
+			'type' => $type,
 		);
 
 		$column = $this->list_screen->columns()->create_column( $data );
 
-		if ( $column->is_original() ) {
+		$original_columns = $_POST['original_columns'];
+
+		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $column->get_label() . '</strong>' ) ) );
 		}
 
@@ -753,7 +755,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function display_column( CPAC_Column $column ) {
 		?>
 
-		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-default="<?php echo esc_attr( $column->is_original() ); ?>">
+		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>
