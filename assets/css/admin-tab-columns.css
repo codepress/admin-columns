@@ -37,6 +37,32 @@
   border-width: 1px;
 }
 /**
+ * Dashicons used on list screens
+ * ----------------------------------------------------------------------------
+ */
+.cpac-column .comment-grey-bubble {
+  height: 16px;
+  width: 16px;
+}
+.cpac-column .comment-grey-bubble:before {
+  content: '\f101';
+  font: normal 20px/0.5 'dashicons';
+  speak: none;
+  display: inline-block;
+  padding: 0;
+  top: 4px;
+  left: 0;
+  position: relative;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none !important;
+}
+.rtl .cpac-column .comment-grey-bubble:before {
+  right: 0;
+  left: auto;
+}
+/**
  * Structure
  * ----------------------------------------------------------------------------
  */

@@ -510,7 +510,8 @@ abstract class CPAC_Column {
 	 * @param string $name
 	 * @param string $label
 	 */
-	public function display_indicator( $name, $label, $active = false ) { ?>
+	public function display_indicator( $name, $label, $default = false ) {
+		$active = false !== $this->get_option( $name ) ? $this->get_option( $name ) : $default; ?>
 		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo $active ? 'on' : 'off'; ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
