@@ -203,7 +203,7 @@ final class AC_Columns {
 	private function set_columns() {
 
 		foreach ( $this->get_list_screen()->settings()->get_columns() as $name => $data ) {
-			if ( $column = $this->create_column( $data ) ) {
+			if ( $column = $this->create_column( (array) $data ) ) {
 				$this->register_column( $column );
 			}
 		}
