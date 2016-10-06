@@ -412,6 +412,11 @@ function cpac_reset_columns( $ ) {
 							// Open settings
 							el.addClass( 'opened' ).find( '.column-form' ).show();
 
+							// trigger refresh
+							if ( el.find( '*[data-refresh=1]' ).length > 0 ) {
+								el.cpac_column_refresh();
+							}
+
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
 						}
