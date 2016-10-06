@@ -214,11 +214,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		);
 
 		$column = $this->list_screen->columns()->create_column( $data );
-
 		$original_columns = $_POST['original_columns'];
 
 		if ( in_array( $type, $original_columns ) ) {
-			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $column->get_label() . '</strong>' ) ) );
+			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $column->get_type_label_clean() . '</strong>' ) ) );
 		}
 
 		// Set label
@@ -694,20 +693,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
-			<?php
-
-			// TODO: WIP
-			$column_template = false;
-			foreach ( $list_screen->columns()->get_column_types() as $column ) {
-				if ( ! $column->is_original() ) {
-					$column_template = $column;
-					break;
-				}
-			}
-			?>
-
 			<div id="add-new-column-template">
-				<?php $this->display_column( $column_template ); ?>
+				<?php foreach ( $list_screen->columns()->get_column_types() as $column ) {
+					if ( ! $column->is_original() ) {
+						$column->set_property( 'name', $column->get_type() );
+						$this->display_column( $column );
+						break;
+					}
+				} ?>
 			</div>
 
 		</div><!--.columns-container-->
@@ -730,14 +723,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
 
-			$label = $column->get_property( 'label' );
-
-			if ( 0 === strlen( strip_tags( $label ) ) ) {
-				$label = $column->get_type();
-			}
-
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
+			$grouped[ $column->get_group() ]['options'][ $type ] = $column->get_type_label_clean();
 
 			if ( ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );
@@ -755,7 +742,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function display_column( CPAC_Column $column ) {
 		?>
 
-		<div class="cpac-column <?php echo esc_attr( implode( ' ', array_filter( array( "cpac-box-" . $column->get_type(), $column->get_property( 'classes' ) ) ) ) ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+		<div class="cpac-column column-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>

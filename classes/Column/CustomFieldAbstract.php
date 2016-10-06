@@ -17,7 +17,6 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 
 		$this->properties['type'] = 'column-meta';
 		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
-		$this->properties['classes'] = 'cpac-box-metafield';
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 	}
 
