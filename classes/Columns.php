@@ -141,11 +141,9 @@ final class AC_Columns {
 
 		// Get class name
 		$_column_type = $this->get_column_type( $data['type'] );
-
 		if ( ! $_column_type ) {
 			return false;
 		}
-
 		$class_name = get_class( $_column_type );
 
 		/* @var CPAC_Column $column */
@@ -166,7 +164,6 @@ final class AC_Columns {
 				$column->set_property( 'hide_label', true );
 			}
 
-			// Fallback
 			if ( ! $column->get_group() ) {
 				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
 			}
@@ -177,6 +174,14 @@ final class AC_Columns {
 			$column->set_property( 'name', $column->get_type() . '-' . $data['clone'] );
 			$column->set_property( 'clone', $data['clone'] );
 		}
+
+		/**
+		 * Add before and after fields to specific columns
+		 *
+		 * @since 2.0
+		 * @deprecated NEWVERSION
+		 */
+		$column->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $column->get_property( 'use_before_after' ), $this ) );
 
 		return $column;
 	}

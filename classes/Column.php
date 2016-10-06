@@ -118,8 +118,6 @@ abstract class CPAC_Column {
 	 * @since 2.2
 	 */
 	public function init() {
-
-		// Default properties
 		$this->properties = array(
 			'clone'            => null,    // Unique clone ID
 			'type'             => null,    // Unique type
@@ -139,14 +137,6 @@ abstract class CPAC_Column {
 	 */
 	public function after_setup() {
 		$this->properties = (object) $this->properties;
-
-		/**
-		 * Add before and after fields to specific columns
-		 *
-		 * @since 2.0
-		 * @deprecated NEWVERSION
-		 */
-		$this->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $this->get_property( 'use_before_after' ), $this ) );
 	}
 
 	/**
@@ -342,16 +332,22 @@ abstract class CPAC_Column {
 
 	/**
 	 * @param array $options
+	 * @return CPAC_Column
 	 */
 	public function set_options( $options ) {
 		$this->options = $options;
+
+		return $this;
 	}
 
 	/**
 	 * @param array $options
+	 * @return CPAC_Column
 	 */
 	public function set_option( $key, $value ) {
 		$this->options[ $key ] = $value;
+
+		return $this;
 	}
 
 	/**

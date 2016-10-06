@@ -685,6 +685,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
+
 			<div id="add-new-column-template">
 				<?php foreach ( $list_screen->columns()->get_column_types() as $column ) {
 					if ( ! $column->is_original() ) {
