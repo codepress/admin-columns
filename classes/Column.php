@@ -135,6 +135,22 @@ abstract class CPAC_Column {
 	}
 
 	/**
+	 * After Setup
+	 *
+	 */
+	public function after_setup() {
+		$this->properties = (object) $this->properties;
+
+		/**
+		 * Add before and after fields to specific columns
+		 *
+		 * @since 2.0
+		 * @deprecated NEWVERSION
+		 */
+		$this->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $this->get_property( 'use_before_after' ), $this ) );
+	}
+
+	/**
 	 * Get default with unit
 	 *
 	 * @return string
@@ -150,41 +166,6 @@ abstract class CPAC_Column {
 	 */
 	public function get_default_with() {
 		return false;
-	}
-
-	/**
-	 * After Setup
-	 *
-	 */
-	public function after_setup() {
-		$this->properties = (object) $this->properties;
-
-		// Column name defaults to column type
-		if ( null === $this->properties->name ) {
-			$this->properties->name = $this->properties->type;
-		}
-
-		/**
-		 * Add before and after fields to specific columns
-		 *
-		 * @since 2.0
-		 * @deprecated NEWVERSION
-		 */
-		$this->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $this->get_property( 'use_before_after' ), $this ) );
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return object
-	 */
-	public function set_clone( $id = null ) {
-		if ( $id !== null && $id > 0 ) {
-			$this->set_property( 'name', $this->get_type() . '-' . $id );
-			$this->set_property( 'clone', $id );
-		}
-
-		return $this;
 	}
 
 	/**
@@ -510,9 +491,8 @@ abstract class CPAC_Column {
 	 * @param string $name
 	 * @param string $label
 	 */
-	public function display_indicator( $name, $label, $default = false ) {
-		$active = false !== $this->get_option( $name ) ? $this->get_option( $name ) : $default; ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo $active ? 'on' : 'off'; ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
+	public function display_indicator( $name, $label ) { ?>
+		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo 'on' === $this->get_option( $name ) ? 'on' : 'off'; ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
 

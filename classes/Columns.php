@@ -139,43 +139,48 @@ final class AC_Columns {
 
 		$data = array_merge( $defaults, $data );
 
-		$column_type = $this->get_column_type( $data['type'] );
+		// Get class name
+		$_column_type = $this->get_column_type( $data['type'] );
 
-		if ( ! $column_type ) {
+		if ( ! $_column_type ) {
 			return false;
 		}
 
-		$class = get_class( $column_type );
+		$class_name = get_class( $_column_type );
 
 		/* @var CPAC_Column $column */
-		$column = new $class( $this->list_screen->get_key() );
+		$column = new $class_name( $this->list_screen->get_key() );
+
+		$column->set_property( 'type', $data['type'] );
+		$column->set_property( 'name', $data['type'] );
 
 		$column->set_options( $data );
 
 		// Populate defaults for original columns
 		if ( $column->is_original() ) {
-			$label = $this->get_default_label( $data['type'] );
 
-			$column->set_option( 'label', $label );
+			$label = $this->get_original_label( $column->get_name() );
 
+			$column
+				->set_property( 'label', $label )
+				->set_option( 'label', $label );
+
+			// Hide label
 			if ( ac_helper()->string->contains_html_only( $label ) ) {
 				$column->set_property( 'hide_label', true );
 			}
 
+			// Fallback
 			if ( ! $column->get_group() ) {
 				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
 			}
-
-			$column
-				->set_property( 'type', $data['type'] )
-				->set_property( 'name', $data['type'] )
-				->set_property( 'label', $label )
-
-				// TODO
-				->set_option( 'label', $label );
 		}
 
-		$column->set_clone( $data['clone'] );
+		// Set clone
+		if ( $data['clone'] !== null && $data['clone'] > 0 ) {
+			$column->set_property( 'name', $column->get_type() . '-' . $data['clone'] );
+			$column->set_property( 'clone', $data['clone'] );
+		}
 
 		return $column;
 	}
@@ -258,7 +263,7 @@ final class AC_Columns {
 	 *
 	 * @return string|false
 	 */
-	public function get_default_label( $column_name ) {
+	public function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;
@@ -291,6 +296,7 @@ final class AC_Columns {
 			/* @var AC_Column_Plugin $column */
 			$column = new $plugin_column_class_name( $this->list_screen->get_key() );
 
+			$column->set_property( 'name', $name );
 			$column->set_property( 'type', $name );
 			$column->set_property( 'label', $label );
 

@@ -648,10 +648,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
-			<?php // TODO: refactor. ?>
+			<?php // TODO: refactor then remove ?>
 			<div class="for-cloning-only" style="display:none">
 				<?php
 				foreach ( $list_screen->columns()->get_column_types() as $column ) {
+					$column->set_property( 'name', $column->get_type() );
 					$this->display_column( $column );
 				}
 				?>
