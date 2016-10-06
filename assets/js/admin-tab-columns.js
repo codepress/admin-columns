@@ -232,36 +232,44 @@ jQuery.fn.column_bind_events = function() {
 		var label = option.text();
 		var msg = jQuery( this ).next( '.msg' ).hide();
 
-
 		var xhr = jQuery.post( ajaxurl, {
 			plugin_id : 'cpac',
-			action : 'cpac_add_column_by_type',
+			action : 'cpac_column_select',
 			_ajax_nonce : cpac._ajax_nonce,
 			type : type,
 			list_screen : list_screen
-		}, function( data ) {
+		}, function( response ) {
 
-			if ( data ) {
+			if ( response ) {
 
-				var el = column.closest( '.cpac-column' );
-				console.log( el );
+				if ( response.success ) {
+					var el = column.closest( '.cpac-column' );
+					console.log( el );
 
-				// Replace current form by new form
-				var newel = jQuery( '<div>' + data.data + '</div>' ).children();
-				el.replaceWith( newel );
-				el = newel;
+					// Replace current form by new form
+					var newel = jQuery( '<div>' + response.data + '</div>' ).children();
+					el.replaceWith( newel );
+					el = newel;
 
-				// Bind events
-				el.column_bind_toggle();
-				el.column_bind_remove();
-				el.column_bind_clone();
-				el.column_bind_events();
+					// Bind events
+					el.column_bind_toggle();
+					el.column_bind_remove();
+					el.column_bind_clone();
+					el.column_bind_events();
 
-				// Open settings
-				el.addClass( 'opened' ).find( '.column-form' ).show();
+					// Open settings
+					el.addClass( 'opened' ).find( '.column-form' ).show();
 
-				// Allow plugins to hook into this event
-				jQuery( document ).trigger( 'column_change', el );
+					// Allow plugins to hook into this event
+					jQuery( document ).trigger( 'column_change', el );
+				}
+
+				// Error message
+				else if ( response.data ) {
+					if ( 'message' === response.data.type ) {
+						msg.html( response.data.error ).show();
+					}
+				}
 			}
 		}, 'json' );
 
