@@ -87,12 +87,15 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 								if ( cpac_is_pro_active() ) :
 									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
 									?>
-									<a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php _e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
+									<a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php
-								else : ?>
-									<a target="_blank" href="<?php echo esc_url( ac_get_site_url( 'pricing-purchase' ) ); ?>" class="button"><?php _e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
-								<?php endif; ?>
-							<?php endif; ?>
+								else :
+									$install_url = ac_get_site_url( 'pricing-purchase' );
+									?>
+									<a target="_blank" href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
+								<?php endif;
+							endif;
+							?>
 						</div>
 					</li>
 				<?php endforeach; // addons ?>

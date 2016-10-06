@@ -22,8 +22,6 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  * This uses the standard CSS styling from WordPress, no additional CSS have to be loaded.
  *
  * @since 1.5.0
- *
- * @return string Message.
  */
 function cpac_admin_notice() {
 	echo implode( $GLOBALS['cpac_messages'] );
@@ -162,7 +160,7 @@ function cac_wp_is_doing_ajax() {
  *
  * @since 2.4.8
  *
- * @param strong $tab Specifies a tab screen (optional)
+ * @param string $tab Specifies a tab screen (optional)
  *
  * @return bool True if the current screen is the settings screen, false otherwise
  */

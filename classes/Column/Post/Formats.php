@@ -20,7 +20,7 @@ class AC_Column_Post_Formats extends AC_ColumnPostAbstract {
 	function get_value( $post_id ) {
 		$format = $this->get_raw_value( $post_id );
 
-		return $format ? esc_html( get_post_format_string( $format ) ) :  __( 'Standard', 'Post format' );
+		return $format ? esc_html( get_post_format_string( $format ) ) : __( 'Standard', 'codepress-admin-columns' );
 	}
 
 	/**

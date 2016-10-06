@@ -448,7 +448,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<span class="spinner"></span>
 
 					<?php if ( $link = $list_screen->get_screen_link() ) {
-						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html( __( 'View', 'codepress-admin-columns' ) ) . '</a>';
+						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html__( 'View', 'codepress-admin-columns' ) . '</a>';
 					} ?>
 				</div>
 
@@ -492,7 +492,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					<?php do_action( 'cac/settings/sidebox', $list_screen ); ?>
 
-					<?php if ( ! cpac_is_pro_active() ) : ?>
+					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
 						<?php $url_args = array(
 							'utm_source'   => 'plugin-installation',
