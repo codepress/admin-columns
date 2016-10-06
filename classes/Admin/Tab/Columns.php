@@ -24,6 +24,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
 		// Ajax calls
+		add_action( 'wp_ajax_cpac_add_column_by_type', array( $this, 'ajax_create_column_by_type' ) );
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
 	}
@@ -186,6 +187,37 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		return isset( $models[0] ) ? $models[0] : false;
 	}
 
+	public function ajax_create_column_by_type(){
+		check_ajax_referer( 'cpac-settings' );
+
+		if ( ! current_user_can( 'manage_admin_columns' ) ) {
+			wp_die();
+		}
+
+		$data = array();
+		$data['type'] = $_POST['type'];
+
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+		if ( ! $list_screen ) {
+			wp_die();
+		}
+
+		// Run Hook
+		$this->set_list_screen( $list_screen );
+
+		$current_columns = $this->list_screen->columns()->get_columns();
+		
+		$column = $this->list_screen->columns()->create_column( $data );
+		// Set label
+		if ( ! $column->get_option( 'label') ) {
+			$column->set_option( 'label', $column->get_type_label() );
+		}
+		ob_start();
+		$this->display_column( $column );
+
+		wp_send_json_success( ob_get_clean() );
+	}
+	
 	/**
 	 * @since 2.2
 	 */

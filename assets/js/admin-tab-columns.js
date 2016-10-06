@@ -232,6 +232,43 @@ jQuery.fn.column_bind_events = function() {
 		var label = option.text();
 		var msg = jQuery( this ).next( '.msg' ).hide();
 
+
+		var xhr = jQuery.post( ajaxurl, {
+			plugin_id : 'cpac',
+			action : 'cpac_add_column_by_type',
+			_ajax_nonce : cpac._ajax_nonce,
+			type : type,
+			list_screen : list_screen
+		}, function( data ) {
+
+			if ( data ) {
+
+				var el = column.closest( '.cpac-column' );
+				console.log( el );
+
+				// Replace current form by new form
+				var newel = jQuery( '<div>' + data.data + '</div>' ).children();
+				el.replaceWith( newel );
+				el = newel;
+
+				// Bind events
+				el.column_bind_toggle();
+				el.column_bind_remove();
+				el.column_bind_clone();
+				el.column_bind_events();
+
+				// Open settings
+				el.addClass( 'opened' ).find( '.column-form' ).show();
+
+				// Allow plugins to hook into this event
+				jQuery( document ).trigger( 'column_change', el );
+			}
+		}, 'json' );
+
+
+
+
+		return;
 		// Find template element for this field type
 		var template = container.find( '.for-cloning-only .cpac-column[data-type="' + type + '"]' );
 
