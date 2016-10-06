@@ -276,6 +276,8 @@ abstract class CPAC_Column {
 	}
 
 	/**
+	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
+	 *
 	 * @return string
 	 */
 	public function get_type_label_clean() {
