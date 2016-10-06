@@ -76,8 +76,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
-		// TODO: how to handle sanitizing
-
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
 			if ( $column = $list_screen->columns()->get_column_by_name( $name ) ) {
@@ -86,13 +84,13 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					// Local site url will be replaced before storing into DB.
 					// This makes it easier when migrating DB to a new install.
-					$options['label'] = str_replace( site_url(), '[cpac_site_url]', $options['label'] );
+					$options['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
 
 					// Label can not contains the character ":"" and "'", because
 					// CPAC_Column::get_sanitized_label() will return an empty string
 					// and make an exception for site_url()
 					// Enable data:image url's
-					if ( false === strpos( $options['label'], site_url() ) && false === strpos( $options['label'], 'data:' ) ) {
+					if ( false === strpos( $options['label'], 'data:' ) ) {
 						$options['label'] = str_replace( ':', '', $options['label'] );
 						$options['label'] = str_replace( "'", '', $options['label'] );
 					}
@@ -107,12 +105,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				}
 
 				$column_data[ $name ] = $column->sanitize_options( $options );
-
-				// Sanitize Label: Need to replace the url for images etc, so we do not have url problem on exports
-				// this can not be done by CPAC_Column::sanitize_storage() because 3rd party plugins are not available there
-				if ( isset( $column_data[ $name ]['label'] ) ) {
-					$column_data[ $name ]['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $column_data[ $name ]['label'] ) ) );
-				}
 			}
 		}
 

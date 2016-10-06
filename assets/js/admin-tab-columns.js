@@ -40,6 +40,7 @@ function cpac_submit_form( $ ) {
 		$( '.cpac_message' ).remove(); // placed by restore button
 
 		var xhr = $.post( ajaxurl, {
+				plugin_id : 'cpac',
 				action : 'cpac_columns_update',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
@@ -272,9 +273,6 @@ jQuery.fn.column_bind_events = function() {
 				}
 			}
 		}, 'json' );
-
-
-
 
 		return;
 		// Find template element for this field type

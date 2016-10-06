@@ -159,14 +159,10 @@ final class AC_Columns {
 		// Populate defaults for original columns
 		if ( $column->is_original() ) {
 
-			$label = $this->get_original_label( $column->get_name() );
-
-			$column
-				->set_property( 'label', $label )
-				->set_option( 'label', $label );
+			$column->set_property( 'label', $this->get_original_label( $column->get_name() ) );
 
 			// Hide label
-			if ( ac_helper()->string->contains_html_only( $label ) ) {
+			if ( ac_helper()->string->contains_html_only( $column->get_type_label() ) ) {
 				$column->set_property( 'hide_label', true );
 			}
 
