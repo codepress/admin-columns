@@ -18,7 +18,7 @@ abstract class CPAC_Column {
 	public $properties = array();
 
 	/**
-	 * A Storage Model can be a Post Type, User, Comment, Link or Media storage type.
+	 * A List Screen can be a Post Type, User, Comment, Link or Media storage type.
 	 *
 	 * @since NEWVERSION
 	 *

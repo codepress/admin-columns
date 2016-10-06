@@ -625,7 +625,7 @@ function cpac_init( $ ) {
  * @since 1.5
  */
 function cpac_menu( $ ) {
-	$( '#cpac_storage_modal_select' ).on( 'change', function() {
+	$( '#ac_list_screen' ).on( 'change', function() {
 		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
 		$( '.view-link' ).hide();
 		window.location = $( this ).val();

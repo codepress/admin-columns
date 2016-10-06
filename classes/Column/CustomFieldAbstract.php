@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die();
 
 /**
  * Custom field column, displaying the contents of meta fields.
- * Suited for all storage models supporting WordPress' default way of handling meta data.
+ * Suited for all list screens supporting WordPress' default way of handling meta data.
  *
  * Supports different types of meta fields, including dates, serialized data, linked content,
  * and boolean values.
@@ -284,12 +284,12 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		 * @since 2.0
 		 *
 		 * @param array $keys Available custom field keys
-		 * @param AC_ListScreenAbstract $list_screen Storage model class instance
+		 * @param AC_ListScreenAbstract $list_screen List screen class instance
 		 */
 		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
 
 		/**
-		 * Filter the available custom field meta keys for this storage model type
+		 * Filter the available custom field meta keys for this list screen type
 		 *
 		 * @since 2.0
 		 * @see Filter cac/list_screen/meta_keys
