@@ -9,7 +9,6 @@ class AC_Column_Plugin extends CPAC_Column {
 		$this->properties['type'] = 'column-plugin';
 		$this->properties['group'] = __( 'Plugins', 'codepress-admin-columns' );
 
-		$this->properties['is_cloneable'] = false;
 		$this->properties['original'] = true;
 	}
 
