@@ -232,10 +232,18 @@ jQuery.fn.column_bind_events = function() {
 		var type = option.val();
 		var label = option.text();
 		var msg = jQuery( this ).next( '.msg' ).hide();
+		var $select = jQuery( this );
 
+		var original_columns = [];
+		container.find( '.cpac-column[data-original=1]' ).each( function() {
+			original_columns.push( jQuery( this ).data( 'type' ) );
+		} );
+
+		column.addClass( 'loading' );
 		var xhr = jQuery.post( ajaxurl, {
 			plugin_id : 'cpac',
 			action : 'cpac_column_select',
+			original_columns : original_columns,
 			_ajax_nonce : cpac._ajax_nonce,
 			type : type,
 			list_screen : list_screen
@@ -245,7 +253,6 @@ jQuery.fn.column_bind_events = function() {
 
 				if ( response.success ) {
 					var el = column.closest( '.cpac-column' );
-					console.log( el );
 
 					// Replace current form by new form
 					var newel = jQuery( '<div>' + response.data + '</div>' ).children();
@@ -269,47 +276,15 @@ jQuery.fn.column_bind_events = function() {
 				else if ( response.data ) {
 					if ( 'message' === response.data.type ) {
 						msg.html( response.data.error ).show();
+						// Set to default
+						$select.find( 'option' ).removeAttr( 'selected' );
+						$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
 					}
 				}
+				column.removeClass( 'loading' );
 			}
 		}, 'json' );
 
-		return;
-		// Find template element for this field type
-		var template = container.find( '.for-cloning-only .cpac-column[data-type="' + type + '"]' );
-
-		if ( template.length ) {
-			if ( template.find( '.is-disabled' ).length ) {
-				msg.html( template.find( '.is-disabled' ).html() ).show();
-
-				// Set to default
-				jQuery( this ).find( 'option' ).removeAttr( 'selected' );
-				jQuery( this ).find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
-			}
-			// Prevent column types that do not allow it to have multiple instances
-			else if ( typeof template.attr( 'data-clone' ) === 'undefined' && jQuery( '.cpac-columns', container ).find( '[data-type="' + type + '"]' ).length ) {
-				msg.html( cpac_i18n.clone.replace( '%s', '<strong>' + label + '</strong>' ) ).show();
-
-				// Set to default
-				jQuery( this ).find( 'option' ).removeAttr( 'selected' );
-				jQuery( this ).find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
-			}
-			else {
-				var clone = template.clone();
-
-				// Open settings
-				clone.addClass( 'opened' ).find( '.column-form' ).show();
-				clone.find( '.column-meta' ).replaceWith( column.find( '.column-meta' ) );
-				clone.find( '.column-form' ).replaceWith( column.find( '.column-form' ) );
-
-				// Increment clone id
-				clone.cpac_update_clone_id( list_screen );
-
-				// Load clone
-				column.replaceWith( clone );
-				clone.cpac_column_refresh();
-			}
-		}
 	} );
 
 	/** change label */
