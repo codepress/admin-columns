@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Addons {
+final class AC_Addons {
 
 	/**
 	 * User meta key for hiding "Install addons" notice
@@ -16,13 +16,7 @@ class AC_Addons {
 	 * @param CPAC
 	 */
 	function __construct() {
-
-		// Redirect to addons settings tab on activation & deactivation
-		if ( is_admin() ) {
-			add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
-		}
-
-		// Handle install request
+		add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
 		add_action( 'admin_notices', array( $this, 'missing_addon_notices' ) );
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
@@ -206,7 +200,7 @@ class AC_Addons {
 	 */
 	public function addon_plugin_statuschange_redirect( $location ) {
 
-		if ( ! isset( $_GET['cpac-redirect'] ) ) {
+		if ( ! is_admin() || ! isset( $_GET['cpac-redirect'] ) ) {
 			return $location;
 		}
 

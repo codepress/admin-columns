@@ -373,8 +373,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * Set list screen
 	 */
 	public function set_current_list_screen() {
-
-		// TODO: still good?
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
 
 			// By request

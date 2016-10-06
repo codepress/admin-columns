@@ -8,7 +8,15 @@ final class AC_Settings_Columns {
 
 	CONST OPTIONS_KEY = 'cpac_options_';
 
+	/**
+	 * @var string $list_screen_key
+	 */
 	private $list_screen_key;
+
+	/**
+	 * @var array $columns
+	 */
+	private $columns;
 
 	public function __construct( $list_screen_key ) {
 		$this->list_screen_key = $list_screen_key;
@@ -23,14 +31,19 @@ final class AC_Settings_Columns {
 		return update_option( self::OPTIONS_KEY . $this->get_key(), $columndata );
 	}
 
+	private function set_columns() {
+		$this->columns = apply_filters( 'ac/column_settings', get_option( self::OPTIONS_KEY . $this->get_key() ), AC()->get_list_screen( $this->list_screen_key ) );
+	}
+
+	/**
+	 * @return array
+	 */
 	public function get_columns() {
+		if ( null === $this->columns ) {
+			$this->set_columns();
+		}
 
-		// TODO: lazy load?
-		$columns = get_option( self::OPTIONS_KEY . $this->get_key() );
-
-		$columns = apply_filters( 'ac/column_settings', $columns, AC()->get_list_screen( $this->list_screen_key ) );
-
-		return $columns ? $columns : array();
+		return $this->columns;
 	}
 
 	/**
