@@ -230,7 +230,6 @@ jQuery.fn.column_bind_events = function() {
 	column.find( '.column-type select' ).change( function() {
 		var option = jQuery( 'optgroup', this ).children( ':selected' );
 		var type = option.val();
-		var label = option.text();
 		var msg = jQuery( this ).next( '.msg' ).hide();
 		var $select = jQuery( this );
 
@@ -240,50 +239,59 @@ jQuery.fn.column_bind_events = function() {
 		} );
 
 		column.addClass( 'loading' );
-		var xhr = jQuery.post( ajaxurl, {
-			plugin_id : 'cpac',
-			action : 'cpac_column_select',
-			original_columns : original_columns,
-			_ajax_nonce : cpac._ajax_nonce,
-			type : type,
-			list_screen : list_screen
-		}, function( response ) {
 
-			if ( response ) {
+		jQuery.ajax( {
+			url : ajaxurl,
+			method : 'post',
+			dataType : 'json',
+			data : {
+				plugin_id : 'cpac',
+				action : 'cpac_column_select',
+				original_columns : original_columns,
+				_ajax_nonce : cpac._ajax_nonce,
+				type : type,
+				list_screen : list_screen
+			}
+		} )
+			.done( function( response ) {
+				if ( response ) {
 
-				if ( response.success ) {
-					var el = column.closest( '.cpac-column' );
+					if ( response.success ) {
+						var el = column.closest( '.cpac-column' );
 
-					// Replace current form by new form
-					var newel = jQuery( '<div>' + response.data + '</div>' ).children();
-					el.replaceWith( newel );
-					el = newel;
+						// Replace current form by new form
+						var newel = jQuery( '<div>' + response.data + '</div>' ).children();
+						el.replaceWith( newel );
+						el = newel;
 
-					// Bind events
-					el.column_bind_toggle();
-					el.column_bind_remove();
-					el.column_bind_clone();
-					el.column_bind_events();
+						// Bind events
+						el.column_bind_toggle();
+						el.column_bind_remove();
+						el.column_bind_clone();
+						el.column_bind_events();
 
-					// Open settings
-					el.addClass( 'opened' ).find( '.column-form' ).show();
+						// Open settings
+						el.addClass( 'opened' ).find( '.column-form' ).show();
 
-					// Allow plugins to hook into this event
-					jQuery( document ).trigger( 'column_change', el );
-				}
+						// Allow plugins to hook into this event
+						jQuery( document ).trigger( 'column_change', el );
+					}
 
-				// Error message
-				else if ( response.data ) {
-					if ( 'message' === response.data.type ) {
-						msg.html( response.data.error ).show();
-						// Set to default
-						$select.find( 'option' ).removeAttr( 'selected' );
-						$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
+					// Error message
+					else if ( response.data ) {
+						if ( 'message' === response.data.type ) {
+							msg.html( response.data.error ).show();
+							// Set to default
+							$select.find( 'option' ).removeAttr( 'selected' );
+							$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
+						}
 					}
 				}
+			} )
+
+			.always( function() {
 				column.removeClass( 'loading' );
-			}
-		}, 'json' );
+			} );
 
 	} );
 
