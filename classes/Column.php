@@ -125,7 +125,6 @@ abstract class CPAC_Column {
 			'type'             => null,    // Unique type
 			'name'             => null,    // Unique name
 			'label'            => null,    // Label which describes this column.
-			'classes'          => null,    // Custom CSS classes for this column.
 			'hide_label'       => false,   // Should the Label be hidden?
 			'is_cloneable'     => true,    // Should the column be cloneable
 			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
@@ -274,6 +273,19 @@ abstract class CPAC_Column {
 	 */
 	public function get_type_label() {
 		return $this->get_property( 'label' );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_type_label_clean() {
+		$label = $this->get_type_label();
+
+		if ( 0 === strlen( strip_tags( $label ) ) ) {
+			$label = $this->get_type();
+		}
+
+		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
 	}
 
 	/**
