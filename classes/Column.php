@@ -460,15 +460,7 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 */
 	public function get_label() {
-		/**
-		 * Filter the column instance label
-		 *
-		 * @since 2.0
-		 *
-		 * @param string $label Column instance label
-		 * @param CPAC_Column $column_instance Column class instance
-		 */
-		return apply_filters( 'cac/column/settings_label', stripslashes( str_replace( '[cpac_site_url]', site_url(), $this->get_option( 'label' ) ) ), $this );
+		return $this->get_option( 'label' );
 	}
 
 	/**
