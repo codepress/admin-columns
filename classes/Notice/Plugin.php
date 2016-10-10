@@ -69,6 +69,7 @@ class AC_Notice_Plugin {
 		</style>
 		<?php
 
-		wp_enqueue_style( 'ac-plugin-row', AC()->get_plugin_url() . 'assets/css/plugin-row.css' );
+		wp_enqueue_style( 'ac-plugin-row', AC()->get_plugin_url() . 'assets/css/plugin-screen' . AC()->minified() . '.css' );
 	}
+
 }

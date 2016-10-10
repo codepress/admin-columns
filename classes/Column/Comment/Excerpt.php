@@ -11,8 +11,6 @@ class AC_Column_Comment_Excerpt extends CPAC_Column {
 
 		$this->properties['type'] = 'column-excerpt';
 		$this->properties['label'] = __( 'Content', 'codepress-admin-columns' );
-
-		$this->default_options['excerpt_length'] = 15;
 	}
 
 	public function get_value( $id ) {
@@ -26,7 +24,7 @@ class AC_Column_Comment_Excerpt extends CPAC_Column {
 	}
 
 	public function display_settings() {
-		$this->field_settings->word_limit();
+		$this->field_settings->word_limit( 15 );
 	}
 
 }

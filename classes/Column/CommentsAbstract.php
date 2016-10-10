@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-abstract class AC_Column_CommentsAbstract extends AC_Column_Default {
+abstract class AC_Column_CommentsAbstract extends AC_Column_DefaultPostAbstract {
 
 	public function init() {
 		parent::init();

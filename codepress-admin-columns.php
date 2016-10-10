@@ -72,18 +72,9 @@ class CPAC {
 	private $_upgrade;
 
 	/**
-	 * @var AC_ListingsScreen $listings_screen
+	 * @var AC_ListScreenManager $_list_screen_manager
 	 */
-	private $_listings_screen;
-
-	/**
-	 * Registered storage model class instances
-	 * Array of AC_StorageModel instances, with the storage model keys (e.g. post, page, wp-users) as keys
-	 *
-	 * @since 2.0
-	 * @var AC_StorageModel[]
-	 */
-	private $storage_models;
+	private $_list_screen_manager;
 
 	/**
 	 * @since NEWVERSION
@@ -96,6 +87,12 @@ class CPAC {
 	 * @var AC_Helper
 	 */
 	private $helper;
+
+	/**
+	 * @since NEWVERSION
+	 * @var AC_ListScreenAbstract[]
+	 */
+	private $list_screens;
 
 	/**
 	 * @since 2.5
@@ -123,14 +120,14 @@ class CPAC {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		$classes_dir = $this->get_plugin_dir() . 'classes/';
-
-		require_once $classes_dir . 'autoloader.php';
-
-		$autoloader = AC_Autoloader::instance();
-		$autoloader->register_prefix( 'AC_', $classes_dir );
+		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
+
+		require_once $this->get_plugin_dir() . 'classes/Column.php';
+
+		// Backwards compatibility
+		require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -142,7 +139,7 @@ class CPAC {
 		$this->_settings = new AC_Admin();
 		$this->_addons = new AC_Addons();
 		$this->_upgrade = new AC_Upgrade();
-		$this->_listings_screen = new AC_ListingsScreen();
+		$this->_list_screen_manager = new AC_ListScreenManager();
 
 		$this->helper = new AC_Helper();
 
@@ -150,13 +147,22 @@ class CPAC {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) ); // Setup callback, important to load after set_storage_models
+		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+	}
+
+	/**
+	 * @return AC_Autoloader
+	 */
+	public function autoloader() {
+		require_once $this->get_plugin_dir() . 'classes/autoloader.php';
+
+		return AC_Autoloader::instance();
 	}
 
 	/**
@@ -195,8 +201,6 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	public function get_version() {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
 		if ( null === $this->version ) {
 			$this->version = $this->get_plugin_version( __FILE__ );
 		}
@@ -208,6 +212,8 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	public function get_plugin_version( $file ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		$plugin = get_plugin_data( $file, false, false );
 
 		return isset( $plugin['Version'] ) ? $plugin['Version'] : false;
@@ -284,145 +290,6 @@ class CPAC {
 	}
 
 	/**
-	 * Get registered storage models
-	 *
-	 * @since 2.5
-	 * @return AC_StorageModel[]
-	 */
-	public function get_storage_models() {
-		if ( empty( $this->storage_models ) ) {
-
-			$storage_models = array();
-
-			$classes_dir = $this->get_plugin_dir() . 'classes/';
-
-			require_once $classes_dir . 'Column.php';
-
-			// Backwards compatibility
-			require_once $classes_dir . 'Deprecated/column-default.php';
-
-			// @deprecated NEWVERSION
-			require_once $classes_dir . 'Deprecated/storage_model.php';
-
-			// Create a storage model per post type
-			foreach ( $this->get_post_types() as $post_type ) {
-
-				$storage_model = new AC_StorageModel_Post();
-				$storage_model->set_post_type( $post_type );
-
-				$storage_models[ $storage_model->key ] = $storage_model;
-			}
-
-			// Create other storage models
-			$storage_model = new AC_StorageModel_User();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			$storage_model = new AC_StorageModel_Media();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			$storage_model = new AC_StorageModel_Comment();
-			$storage_models[ $storage_model->key ] = $storage_model;
-
-			if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
-				$storage_model = new AC_StorageModel_Link();
-				$storage_models[ $storage_model->key ] = $storage_model;
-			}
-
-			/**
-			 * Filter the available storage models
-			 * Used by external plugins to add additional storage models
-			 *
-			 * @since 2.0
-			 *
-			 * @param array $storage_models List of storage model class instances ( [key] => [AC_StorageModel object], where [key] is the storage key, such as "user", "post" or "my_custom_post_type")
-			 * @param object $this CPAC
-			 */
-			$this->storage_models = apply_filters( 'cac/storage_models', $storage_models, $this );
-		}
-
-		return $this->storage_models;
-	}
-
-	/**
-	 * Retrieve a storage model object based on its key
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $key Storage model key (e.g. post, page, wp-users)
-	 *
-	 * @return bool|AC_StorageModel Storage Model object (or false, on failure)
-	 */
-	public function get_storage_model( $key ) {
-		$models = $this->get_storage_models();
-
-		return isset( $models[ $key ] ) ? $models[ $key ] : false;
-	}
-
-	/**
-	 * Get column object
-	 *
-	 * @since 2.5.4
-	 *
-	 * @param $storage_key AC_StorageModel->key
-	 * @param $layout_id AC_StorageModel->layout
-	 * @param $column_name CPAC_Column->name
-	 *
-	 * @return false|CPAC_Column
-	 */
-	public function get_column( $storage_key, $layout_id, $column_name ) {
-		if ( ! $storage_model = $this->get_storage_model( $storage_key ) ) {
-			return false;
-		}
-		$storage_model->set_active_layout( $layout_id );
-
-		return $storage_model->get_column_by_name( $column_name );
-	}
-
-	/**
-	 * Get storage model object of currently active storage model
-	 * On the users overview page, for example, this returns the AC_StorageModel object
-	 *
-	 * @since 2.2.4
-	 *
-	 * @return AC_StorageModel
-	 */
-	public function get_current_storage_model() {
-		return $this->_listings_screen->get_storage_model();
-	}
-
-	/**
-	 * Get a list of post types for which Admin Columns is active
-	 *
-	 * @since 1.0
-	 *
-	 * @return array List of post type keys (e.g. post, page)
-	 */
-	public function get_post_types() {
-		$post_types = array();
-
-		if ( post_type_exists( 'post' ) ) {
-			$post_types['post'] = 'post';
-		}
-		if ( post_type_exists( 'page' ) ) {
-			$post_types['page'] = 'page';
-		}
-
-		$post_types = array_merge( $post_types, get_post_types( array(
-			'_builtin' => false,
-			'show_ui'  => true,
-		) ) );
-
-		/**
-		 * Filter the post types for which Admin Columns is active
-		 *
-		 * @since 2.0
-		 *
-		 * @param array $post_types List of active post type names
-		 */
-		return apply_filters( 'cac/post_types', $post_types );
-	}
-
-	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
 	 * @since 1.0
@@ -476,10 +343,147 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_ListingsScreen
+	 * @return AC_ListScreenManager
 	 */
-	public function listings_screen() {
-		return $this->_listings_screen;
+	public function list_screen_manager() {
+		return $this->_list_screen_manager;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @param string $key
+	 * @return AC_ListScreenAbstract|false
+	 */
+	public function get_list_screen( $key ) {
+		$screens = $this->get_list_screens();
+
+		return isset( $screens[ $key ] ) ? $screens[ $key ] : false;
+	}
+
+	/**
+	 * Get registered list screens
+	 *
+	 * @since NEWVERSION
+	 * @return AC_ListScreenAbstract[]
+	 */
+	public function get_list_screens() {
+		if ( null === $this->list_screens ) {
+			$this->set_list_screens();
+		}
+
+		return $this->list_screens;
+	}
+
+	/**
+	 * Get registered post list screens
+	 *
+	 * @since NEWVERSION
+	 * @return AC_ListScreen_PostAbstract[]
+	 */
+	public function get_post_list_screens() {
+		$screens = array();
+		foreach ( $this->get_list_screens() as $k => $list_screen ) {
+			if ( $list_screen instanceof AC_ListScreen_PostAbstract ) {
+				$screens[] = $list_screen;
+			}
+		}
+
+		return $screens;
+	}
+
+	/**
+	 * Get registered list screens
+	 *
+	 * @since NEWVERSION
+	 */
+	private function set_list_screens() {
+
+		// Create a list screen per post type
+		foreach ( $this->get_post_types() as $post_type ) {
+			$list_screen = new AC_ListScreen_Post();
+			$this->register_list_screen( $list_screen->set_post_type( $post_type ) );
+		}
+
+		// Create other list screens
+		$this->register_list_screen( new AC_ListScreen_User() );
+		$this->register_list_screen( new AC_ListScreen_Media() );
+		$this->register_list_screen( new AC_ListScreen_Comment() );
+
+		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
+			$this->register_list_screen( new AC_ListScreen_Link() );
+		}
+
+		// @since NEWVERSION
+		do_action( 'ac/list_screens', $this );
+	}
+
+	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 */
+	public function register_list_screen( AC_ListScreenAbstract $list_screen ) {
+		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
+	}
+
+	/**
+	 * Get a list of post types for which Admin Columns is active
+	 *
+	 * @since 1.0
+	 *
+	 * @return array List of post type keys (e.g. post, page)
+	 */
+	private function get_post_types() {
+		$post_types = array();
+
+		if ( post_type_exists( 'post' ) ) {
+			$post_types['post'] = 'post';
+		}
+		if ( post_type_exists( 'page' ) ) {
+			$post_types['page'] = 'page';
+		}
+
+		$post_types = array_merge( $post_types, get_post_types( array(
+			'_builtin' => false,
+			'show_ui'  => true,
+		) ) );
+
+		/**
+		 * Filter the post types for which Admin Columns is active
+		 *
+		 * @since 2.0
+		 *
+		 * @param array $post_types List of active post type names
+		 */
+		return apply_filters( 'cac/post_types', $post_types );
+	}
+
+	/**
+	 * Get list screen object of currently active list screen
+	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 *
+	 * @since 2.2.4
+	 * @deprecated NEWVERSION
+	 *
+	 * @return false
+	 */
+	public function get_storage_model( $key ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen()' );
+
+		return $this->get_list_screen( $key );
+	}
+
+	/**
+	 * Get list screen object of currently active list screen
+	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 *
+	 * @since 2.2.4
+	 * @deprecated NEWVERSION
+	 *
+	 * @return AC_ListScreenAbstract
+	 */
+	public function get_current_storage_model() {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
+
+		return $this->list_screen_manager()->get_list_screen();
 	}
 
 	/**

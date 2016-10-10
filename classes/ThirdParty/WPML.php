@@ -22,7 +22,7 @@ class AC_ThirdParty_WPML {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
-		if ( ! cpac()->listings_screen()->get_storage_model() ) {
+		if ( ! AC()->list_screen_manager()->get_list_screen() ) {
 			return;
 		}
 
@@ -48,9 +48,9 @@ class AC_ThirdParty_WPML {
 			return;
 		}
 
-		foreach ( cpac()->get_storage_models() as $storage_model ) {
-			foreach ( $storage_model->get_stored_columns() as $column_name => $options ) {
-				icl_register_string( 'Admin Columns', $storage_model->key . '_' . $column_name, stripslashes( $options['label'] ) );
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			foreach ( $list_screen->settings()->get_columns() as $column_name => $options ) {
+				icl_register_string( 'Admin Columns', $list_screen->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
 			}
 		}
 	}
@@ -59,13 +59,13 @@ class AC_ThirdParty_WPML {
 	 * @param string $label
 	 * @param string $column_name
 	 * @param array $column_options
-	 * @param AC_StorageModel $storage_model
+	 * @param AC_ListScreenAbstract $list_screen
 	 *
 	 * @return string
 	 */
-	public function register_translated_label( $label, $column_name, $column_options, $storage_model ) {
+	public function register_translated_label( $label, $column_name, $column_options, $list_screen ) {
 		if ( function_exists( 'icl_t' ) ) {
-			$name = $storage_model->get_key() . '_' . $column_name;
+			$name = $list_screen->get_key() . '_' . $column_name;
 			$label = icl_t( 'Admin Columns', $name, $label );
 		}
 

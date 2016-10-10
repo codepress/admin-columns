@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.4.7
  */
-class AC_Column_WooCommercePlaceholder extends CPAC_Column {
+class AC_Column_WooCommercePlaceholder extends AC_ColumnPostAbstract {
 
 	public function init() {
 		parent::init();

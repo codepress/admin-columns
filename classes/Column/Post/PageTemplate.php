@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_PageTemplate extends CPAC_Column {
+class AC_Column_Post_PageTemplate extends AC_ColumnPostAbstract {
 
 	public function init() {
 		parent::init();
@@ -22,7 +22,7 @@ class AC_Column_Post_PageTemplate extends CPAC_Column {
 	}
 
 	function apply_conditional() {
-		return 'page' == $this->get_post_type();
+		return 'page' === $this->get_post_type();
 	}
 
 }

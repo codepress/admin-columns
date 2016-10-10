@@ -22,8 +22,6 @@ function cpac_admin_message( $message = '', $type = 'updated' ) {
  * This uses the standard CSS styling from WordPress, no additional CSS have to be loaded.
  *
  * @since 1.5.0
- *
- * @return string Message.
  */
 function cpac_admin_notice() {
 	echo implode( $GLOBALS['cpac_messages'] );
@@ -118,6 +116,22 @@ function ac_is_version_gte( $version ) {
 }
 
 /**
+ * Adds columns classnames from specified directory
+ *
+ * @param string $columns_dir Columns directory
+ * @param string $prefix Autoload prefix
+ * @param array $columns Columns [ class_name => autoload ]
+ *
+ * @return array
+ */
+function ac_add_autoload_columns( $columns_dir, $prefix, $columns = array() ) {
+	$_columns = AC()->autoloader()->get_class_names_from_dir( $columns_dir, $prefix );
+
+	// set to autoload (true)
+	return array_merge( $columns, array_fill_keys( $_columns, true ) );
+}
+
+/**
  * Is doing ajax
  *
  * @since 2.3.4
@@ -125,11 +139,7 @@ function ac_is_version_gte( $version ) {
 function cac_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-		return false;
-	}
-
-	$is_doing_ajax = cac_wp_is_doing_ajax() || isset( $_REQUEST['storage_model'] );
+	$is_doing_ajax = AC()->list_screen_manager()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
 
 	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
 }
@@ -140,31 +150,9 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen_when_doing_ajax()' );
 
-	$storage_model = false;
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-
-		switch ( filter_input( INPUT_POST, 'action' ) ) {
-			case 'inline-save' :  // Quick edit
-				$storage_model = filter_input( INPUT_POST, 'post_type' );
-				break;
-			case 'add-tag' : // Adding term
-			case 'inline-save-tax' : // Quick edit term
-				$storage_model = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
-				break;
-			case 'edit-comment' : // Quick edit comment
-			case 'replyto-comment' :  // Inline reply on comment
-				$storage_model = 'wp-comments';
-				break;
-			case 'cacie_column_save' :
-				$storage_model = filter_input( INPUT_POST, 'storage_model' );
-				break;
-		}
-	}
-
-	return $storage_model;
+	return AC()->list_screen_manager()->get_list_screen_when_doing_ajax();
 }
 
 /**
@@ -172,22 +160,12 @@ function cac_wp_is_doing_ajax() {
  *
  * @since 2.4.8
  *
- * @param strong $tab Specifies a tab screen (optional)
+ * @param string $tab Specifies a tab screen (optional)
  *
  * @return bool True if the current screen is the settings screen, false otherwise
  */
 function cac_is_setting_screen( $tab = '' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->settings()->is_current_tab( $tab )' );
 
-	global $pagenow;
-
-	if ( ! ( 'options-general.php' === $pagenow && isset( $_GET['page'] ) && ( 'codepress-admin-columns' === $_GET['page'] ) ) ) {
-		return false;
-	}
-
-	if ( $tab && ( empty( $_GET['tab'] ) || ( isset( $_GET['tab'] ) && $tab !== $_GET['tab'] ) ) ) {
-		return false;
-	}
-
-	return true;
+	return AC()->settings()->is_current_tab( $tab );
 }

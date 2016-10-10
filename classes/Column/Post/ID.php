@@ -9,8 +9,8 @@ class AC_Column_Post_ID extends CPAC_Column {
 	public function init() {
 		parent::init();
 
-		$this->properties['type']	 	= 'column-postid';
-		$this->properties['label']	 	= __( 'ID', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-postid';
+		$this->properties['label'] = __( 'ID', 'codepress-admin-columns' );
 	}
 
 	function get_value( $post_id ) {

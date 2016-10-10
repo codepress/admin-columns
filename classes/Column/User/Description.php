@@ -11,8 +11,6 @@ class AC_Column_User_Description extends CPAC_Column {
 
 		$this->properties['type'] = 'column-user_description';
 		$this->properties['label'] = __( 'Description', 'codepress-admin-columns' );
-
-		$this->default_options['excerpt_length'] = 30;
 	}
 
 	function get_value( $user_id ) {

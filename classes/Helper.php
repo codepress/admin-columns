@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_FormField formfield
  * @property AC_Helper_Html html
  */
-class AC_Helper {
+final class AC_Helper {
 
 	public function __get( $helper ) {
 		$class = 'AC_Helper_' . ucfirst( $helper );

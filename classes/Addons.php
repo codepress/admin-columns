@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Addons {
+final class AC_Addons {
 
 	/**
 	 * User meta key for hiding "Install addons" notice
@@ -16,17 +16,13 @@ class AC_Addons {
 	 * @param CPAC
 	 */
 	function __construct() {
-
-		// Redirect to addons settings tab on activation & deactivation
-		if ( is_admin() ) {
-			add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
-		}
-
-		// Handle install request
+		add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
 		add_action( 'admin_notices', array( $this, 'missing_addon_notices' ) );
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
 	}
+
+	// TODO: register add-ons method
 
 	/**
 	 * Possibly adds an admin notice when a third party plugin supported by an addon is installed, but the addon isn't
@@ -35,7 +31,7 @@ class AC_Addons {
 	 */
 	public function missing_addon_notices() {
 
-		if ( cpac()->suppress_site_wide_notices() ) {
+		if ( AC()->suppress_site_wide_notices() ) {
 			return;
 		}
 
@@ -204,7 +200,7 @@ class AC_Addons {
 	 */
 	public function addon_plugin_statuschange_redirect( $location ) {
 
-		if ( ! isset( $_GET['cpac-redirect'] ) ) {
+		if ( ! is_admin() || ! isset( $_GET['cpac-redirect'] ) ) {
 			return $location;
 		}
 
@@ -269,13 +265,13 @@ class AC_Addons {
 				'title'       => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
 				'description' => __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 				'group'       => 'integration',
-				'image'       => cpac()->get_plugin_url() . 'assets/images/addons/acf.png'
+				'image'       => AC()->get_plugin_url() . 'assets/images/addons/acf.png'
 			),
 			'cac-addon-woocommerce' => array(
 				'title'       => __( 'WooCommerce', 'codepress-admin-columns' ),
 				'description' => __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 				'group'       => 'integration',
-				'image'       => cpac()->get_plugin_url() . 'assets/images/addons/woocommerce.png'
+				'image'       => AC()->get_plugin_url() . 'assets/images/addons/woocommerce.png'
 			)
 		);
 

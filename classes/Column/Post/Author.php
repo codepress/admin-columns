@@ -4,15 +4,16 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Author extends AC_Column_Default {
+class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
 
 	public function init() {
 		parent::init();
 
 		$this->properties['type'] = 'author';
+	}
 
-		$this->default_options['width'] = 10;
-		$this->default_options['width_unit'] = '%';
+	public function get_default_with() {
+		return 10;
 	}
 
 	public function apply_conditional() {

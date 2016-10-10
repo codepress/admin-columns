@@ -76,7 +76,7 @@ class AC_Autoloader {
 	 * @param string $dir
 	 * @param string $prefix
 	 *
-	 * @return array|false Class names
+	 * @return array Class names
 	 */
 	public function get_class_names_from_dir( $dir, $prefix ) {
 

@@ -26,7 +26,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return $this->column->get_storage_model_key() . '[' . $this->column->get_name() . '][' . $field_name . ']';
+		return 'columns[' . $this->column->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -35,7 +35,7 @@ class AC_ColumnFieldSettings {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return 'cpac-' . $this->column->get_storage_model_key() . '-' . $this->column->get_name() . '-' . $field_name;
+		return 'cpac-' . $this->column->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {
@@ -71,56 +71,64 @@ class AC_ColumnFieldSettings {
 		endif;
 	}
 
-	/**
-	 * @param bool $fields_only Returns fields without the main label
-	 *
-	 * @return array
-	 */
-	public function image_args( $fields_only = false ) {
-		$label = __( 'Image Size', 'codepress-admin-columns' );
-
-		$image_size_w = array(
+	public function image_size_width_args() {
+		return array(
 			'type'          => 'text',
 			'name'          => 'image_size_w',
 			'label'         => __( "Width", 'codepress-admin-columns' ),
 			'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_w',
 			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
+			'default_value' => 80,
 		);
+	}
 
-		$image_size_h = array(
+	public function image_size_height_args() {
+		return array(
 			'type'          => 'text',
 			'name'          => 'image_size_h',
 			'label'         => __( "Height", 'codepress-admin-columns' ),
 			'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_h',
 			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ),
+			'default_value' => 80,
 		);
+	}
 
-		// Will return fields only (without main label)
-		if ( $fields_only ) {
-			return array(
-				array(
-					'label'           => $label,
-					'type'            => 'select',
-					'name'            => 'image_size',
-					'grouped_options' => $this->get_grouped_image_sizes(),
-				),
-				$image_size_w,
-				$image_size_h,
-			);
-		}
-
+	/**
+	 * @return array
+	 */
+	public function image_args_fields_only( $default_value = false ) {
 		return array(
-			'label'  => $label,
+			array(
+				'label'           => __( 'Image Size', 'codepress-admin-columns' ),
+				'type'            => 'select',
+				'name'            => 'image_size',
+				'grouped_options' => $this->get_grouped_image_sizes(),
+				'default_value'   => $default_value,
+			),
+			$this->image_size_width_args(),
+			$this->image_size_height_args(),
+		);
+	}
+
+	/**
+	 * @param bool $fields_only Returns fields without the main label
+	 *
+	 * @return array
+	 */
+	public function image_args( $default_value = false ) {
+		return array(
+			'label'  => __( 'Image Size', 'codepress-admin-columns' ),
 			'fields' => array(
 				array(
 					'type'            => 'select',
 					'name'            => 'image_size',
 					'grouped_options' => $this->get_grouped_image_sizes(),
+					'default_value'   => $default_value,
 				),
-				$image_size_w,
-				$image_size_h,
+				$this->image_size_width_args(),
+				$this->image_size_height_args(),
 			),
 		);
 	}
@@ -172,17 +180,18 @@ class AC_ColumnFieldSettings {
 		$this->field( $this->date_args() );
 	}
 
-	public function word_limit_args() {
+	public function word_limit_args( $default_value = 30 ) {
 		return array(
-			'type'        => 'number',
-			'name'        => 'excerpt_length',
-			'label'       => __( 'Word Limit', 'codepress-admin-columns' ),
-			'description' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
+			'type'          => 'number',
+			'name'          => 'excerpt_length',
+			'label'         => __( 'Word Limit', 'codepress-admin-columns' ),
+			'description'   => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
+			'default_value' => $default_value,
 		);
 	}
 
-	public function word_limit() {
-		$this->field( $this->word_limit_args() );
+	public function word_limit( $default_value = 30 ) {
+		$this->field( $this->word_limit_args( $default_value ) );
 	}
 
 	public function character_limit_args() {
@@ -258,38 +267,55 @@ class AC_ColumnFieldSettings {
 		$this->field( $this->url_args() );
 	}
 
-	public function post_args() {
+	public function post_args( $default_value = 'title' ) {
 		return array(
-			'type'        => 'select',
-			'name'        => 'post_property_display',
-			'label'       => __( 'Property To Display', 'codepress-admin-columns' ),
-			'options'     => array(
+			'type'          => 'select',
+			'name'          => 'post_property_display',
+			'label'         => __( 'Property To Display', 'codepress-admin-columns' ),
+			'options'       => array(
 				'title'  => __( 'Title' ), // default
 				'id'     => __( 'ID' ),
 				'author' => __( 'Author' ),
 			),
-			'description' => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
+			'description'   => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
+			'default_value' => $default_value,
 		);
 	}
 
-	public function post() {
-		$this->field( $this->post_args() );
+	public function post( $default_value = 'title' ) {
+		$this->field( $this->post_args( $default_value ) );
 	}
 
-	public function post_link_to() {
+	public function post_link_to( $default_value = 'edit_post' ) {
 		$this->field( array(
-			'type'        => 'select',
-			'name'        => 'post_link_to',
-			'label'       => __( 'Link To', 'codepress-admin-columns' ),
-			'options'     => array(
+			'type'          => 'select',
+			'name'          => 'post_link_to',
+			'label'         => __( 'Link To', 'codepress-admin-columns' ),
+			'options'       => array(
 				''            => __( 'None' ),
 				'edit_post'   => __( 'Edit Post' ),
 				'view_post'   => __( 'View Post' ),
 				'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
 				'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 			),
-			'description' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
+			'description'   => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
+			'default_value' => $default_value,
 		) );
+	}
+
+	public function words_per_minute_args() {
+		return array(
+			'type'          => 'text',
+			'name'          => 'words_per_minute',
+			'label'         => __( 'Words per minute', 'codepress-admin-columns' ),
+			'description'   => __( 'Estimated reading time in words per minute', 'codepress-admin-columns' ),
+			'placeholder'   => __( 'Enter words per minute. For example: 200' ),
+			'default_value' => 200,
+		);
+	}
+
+	public function words_per_minute() {
+		$this->field( $this->words_per_minute_args() );
 	}
 
 	/**
