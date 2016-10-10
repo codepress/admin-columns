@@ -65,9 +65,9 @@ abstract class CPAC_Column {
 	 *
 	 * @param string $list_screen_key
 	 */
-	public function __construct( $list_screen_key ) {
+	public function __construct( $list_screen_key = '' ) {
 
-		$this->list_screen_key = $list_screen_key;
+		$this->set_list_screen_key( $list_screen_key );
 
 		// @deprecated NEWVERSION
 		$this->storage_model = $this->list_screen_key;
@@ -98,6 +98,16 @@ abstract class CPAC_Column {
 		}
 
 		return $call ? call_user_func( array( $this, $call ) ) : false;
+	}
+
+	/**
+	 * @param string $list_screen_key ID for the list screen.
+	 * @return CPAC_Column
+	 */
+	public function set_list_screen_key( $list_screen_key ) {
+		$this->list_screen_key = $list_screen_key;
+
+		return $this;
 	}
 
 	/**

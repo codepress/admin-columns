@@ -83,7 +83,9 @@ final class AC_ColumnManager {
 	public function get_display_value_by_column_name( $column_name, $id, $value = false ) {
 		$column = $this->get_column_by_name( $column_name );
 
-		return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
+		// TODO: sometimes you want to overwrite the original column value
+		//return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
+		return $column ? $column->get_display_value( $id ) : $value;
 	}
 
 	/**
@@ -119,7 +121,7 @@ final class AC_ColumnManager {
 	/**
 	 * @param CPAC_Column $column
 	 */
-	private function register_column_type( CPAC_Column $column ) {
+	public function register_column_type( CPAC_Column $column ) {
 		if ( $column->apply_conditional() ) {
 			$this->column_types[ $column->get_type() ] = $column;
 		}
@@ -229,6 +231,10 @@ final class AC_ColumnManager {
 				}
 			}
 		}
+
+		if ( null === $this->columns ) {
+			$this->columns = array();
+		}
 	}
 
 	/**
@@ -258,7 +264,7 @@ final class AC_ColumnManager {
 	/**
 	 * @return array  [ Column Name =>  Column Label ]
 	 */
-	private function get_default_columns() {
+	public function get_default_columns() {
 		if ( null === $this->default_columns ) {
 			$this->set_default_columns();
 		}
