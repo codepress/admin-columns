@@ -97,8 +97,18 @@ abstract class AC_ListScreenAbstract {
 	 */
 	abstract function set_manage_value_callback();
 
-
 	// TODO: user getters and setters, make vars protected
+
+	public function __get( $var ) {
+		$vars = array(
+			'type',
+			'key',
+		);
+
+		if ( in_array( $var, $vars ) ) {
+			return call_user_func( array( $this, 'get_' . $var ) );
+		}
+	}
 
 	/**
 	 * @since 2.4.4
