@@ -499,11 +499,8 @@ function cpac_reset_columns( $ ) {
 			} );
 
 		/** display custom image size */
-		column.find( '.column-image_size select' ).change( function() {
-			var custom_image_size = $( this ).closest( '.cpac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
-			if ( 'cpac-custom' === this.value ) {
-				custom_image_size.removeClass( 'hide' );
-			}
+		column.find( '.column-image_size select' ).show_hide_custom_image_size().change( function() {
+			$( this ).show_hide_custom_image_size();
 		} );
 
 		/**    tooltip */
@@ -517,6 +514,20 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="1"] select' ).change( function() {
 			column.cpac_column_refresh();
 		} );
+	};
+
+	/**
+	 * Custom Image Size
+	 *
+	 * @returns {HTMLElement}
+	 */
+	$.fn.show_hide_custom_image_size = function() {
+		var custom_image_size = $( this ).closest( '.cpac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
+		if ( 'cpac-custom' === $( this ).val() ) {
+			custom_image_size.removeClass( 'hide' );
+		}
+
+		return $( this );
 	};
 
 	/*

@@ -78,7 +78,7 @@ class AC_ColumnFieldSettings {
 			'label'         => __( "Width", 'codepress-admin-columns' ),
 			'description'   => __( "Width in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_w',
-			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ) && '' != $this->get_option( 'image_size' ),
+			'hidden'        => true,
 			'default_value' => 80,
 		);
 	}
@@ -90,7 +90,7 @@ class AC_ColumnFieldSettings {
 			'label'         => __( "Height", 'codepress-admin-columns' ),
 			'description'   => __( "Height in pixels", 'codepress-admin-columns' ),
 			'toggle_handle' => 'image_size_h',
-			'hidden'        => 'cpac-custom' !== $this->get_option( 'image_size' ) && '' != $this->get_option( 'image_size' ),
+			'hidden'        => true,
 			'default_value' => 80,
 		);
 	}
