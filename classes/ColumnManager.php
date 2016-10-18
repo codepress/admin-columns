@@ -83,7 +83,7 @@ final class AC_ColumnManager {
 	public function get_display_value_by_column_name( $column_name, $id, $value = false ) {
 		$column = $this->get_column_by_name( $column_name );
 
-		// TODO: sometimes you want to overwrite the original column value
+		// TODO: in 'certain cases' you want to overwrite the original column value
 		//return $column && ! $column->is_original() ? $column->get_display_value( $id ) : $value;
 		return $column ? $column->get_display_value( $id ) : $value;
 	}
@@ -137,37 +137,28 @@ final class AC_ColumnManager {
 	}
 
 	/**
-	 * @param array $data
+	 * @param string $type Column type
+	 * @param array $options Column options
+	 * @param int $clone Column clone ID
 	 *
 	 * @return CPAC_Column|false
 	 */
-	public function create_column( $data = array() ) {
-		$defaults = array(
-			'clone' => false, // (int)
-			'type'  => false, // (string)
-			'label' => false, // (string)
-		);
-
-		$data = array_merge( $defaults, $data );
-
-		// Get class name
-		$_column_type = $this->get_column_type( $data['type'] );
+	public function create_column( $type, $options = array(), $clone = 0 ) {
+		$_column_type = $this->get_column_type( $type );
 		if ( ! $_column_type ) {
 			return false;
 		}
+
 		$class_name = get_class( $_column_type );
 
 		/* @var CPAC_Column $column */
 		$column = new $class_name( $this->list_screen->get_key() );
 
 		$column
-			->set_property( 'type', $data['type'] )
-			->set_property( 'name', $data['type'] );
+			->set_clone( $clone )
+			->set_options( $options );
 
-		$column->set_options( $data );
-
-		// Populate defaults for original columns
-		// TODO: change
+		// TODO: should this logic be moved to CPAC_Column?
 		if ( $column->is_original() ) {
 
 			$column->set_property( 'label', $this->get_original_label( $column->get_name() ) );
@@ -180,13 +171,6 @@ final class AC_ColumnManager {
 			if ( ! $column->get_group() ) {
 				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
 			}
-		}
-
-		// Set clone
-		if ( $data['clone'] > 0 ) {
-			$column
-				->set_property( 'name', $column->get_type() . '-' . $data['clone'] )
-				->set_property( 'clone', $data['clone'] );
 		}
 
 		/**
@@ -223,7 +207,7 @@ final class AC_ColumnManager {
 	private function set_columns() {
 
 		foreach ( $this->get_list_screen()->settings()->get_columns() as $name => $data ) {
-			if ( $column = $this->create_column( (array) $data ) ) {
+			if ( $column = $this->create_column( $data['type'], $data, $data['clone'] ) ) {
 				$this->register_column( $column );
 			}
 		}
@@ -231,7 +215,7 @@ final class AC_ColumnManager {
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
 			foreach ( $this->get_default_columns() as $name => $label ) {
-				if ( $column = $this->create_column( array( 'type' => $name, 'label' => $label ) ) ) {
+				if ( $column = $this->create_column( $name, array( 'label' => $label ) ) ) {
 					$this->register_column( $column );
 				}
 			}
@@ -282,7 +266,7 @@ final class AC_ColumnManager {
 	 *
 	 * @return string|false
 	 */
-	public function get_original_label( $column_name ) {
+	private function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;

@@ -225,13 +225,6 @@ abstract class CPAC_Column {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function is_default() {
-		return $this->get_property( 'default' );
-	}
-
-	/**
-	 * @since NEWVERSION
-	 */
 	public function is_original() {
 		return $this->get_property( 'original' );
 	}
@@ -262,8 +255,9 @@ abstract class CPAC_Column {
 	 * @return string Column name
 	 */
 	public function get_name() {
-		return $this->get_property( 'name' );
+		return $this->get_property( 'clone' ) > 0 ? $this->get_type() . '-' . $this->get_property( 'clone' ) : $this->get_type();
 	}
+
 
 	/**
 	 * Get the type of the column.
@@ -338,6 +332,15 @@ abstract class CPAC_Column {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * @param int $clone
+	 */
+	public function set_clone( $clone ) {
+		$this->set_property( 'clone', absint( $clone ) );
+
+		return $this;
 	}
 
 	/**

@@ -220,9 +220,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$type = filter_input( INPUT_POST, 'type' );
 
-		$column = $this->list_screen->columns()->create_column( array(
-			'type' => $type,
-		) );
+		$column = $this->list_screen->columns()->create_column( $type );
 
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
@@ -270,7 +268,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$data = $formdata['columns'][ $column_name ];
 
-		$column = $this->list_screen->columns()->create_column( $data );
+		$column = $this->list_screen->columns()->create_column( $data['type'], $data, $data['clone'] );
 
 		if ( ! $column ) {
 			wp_die();
