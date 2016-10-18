@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class AC_Column_Post_LastModifiedAuthor extends CPAC_Column {
+class AC_Column_Post_LastModifiedAuthor extends AC_Column_PostAbstract {
 
 	public function init() {
 		parent::init();

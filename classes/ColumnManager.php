@@ -298,13 +298,14 @@ final class AC_ColumnManager {
 
 			$plugin_column_class_name = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
 
+			if ( ! class_exists( $plugin_column_class_name ) ) {
+				continue;
+			}
+
 			/* @var AC_Column_Plugin $column */
 			$column = new $plugin_column_class_name( $this->list_screen->get_key() );
 
-			$column
-				->set_property( 'name', $name )
-				->set_property( 'type', $name )
-				->set_property( 'label', $label );
+			$column->set_property( 'type', $name );
 
 			$this->register_column_type( $column );
 		}

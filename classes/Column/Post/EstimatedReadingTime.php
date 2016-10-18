@@ -15,8 +15,6 @@ class AC_Column_Post_EstimatedReadingTime extends AC_ColumnPostAbstract {
 
 	/**
 	 * Estimate read time in readable format
-	 *
-	 * @see CPAC_Column::get_value()
 	 * @since 2.3.3
 	 */
 	public function get_value( $post_id ) {
@@ -25,8 +23,6 @@ class AC_Column_Post_EstimatedReadingTime extends AC_ColumnPostAbstract {
 
 	/**
 	 * Estimate read time in seconds
-	 *
-	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.3.3
 	 */
 	public function get_raw_value( $post_id ) {
