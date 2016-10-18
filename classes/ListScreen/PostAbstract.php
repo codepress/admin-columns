@@ -40,20 +40,18 @@ abstract class AC_ListScreen_PostAbstract extends AC_ListScreenWPAbstract {
 	}
 
 	/**
+	 * @param string $post_type
+	 */
+	public function set_post_type( $post_type ) {
+		$this->post_type = $post_type;
+	}
+
+	/**
 	 * @since NEWVERSION
 	 * @return WP_Post Post object
 	 */
 	protected function get_object_by_id( $post_id ) {
 		return get_post( $post_id );
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function get_meta() {
-		global $wpdb;
-
-		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->get_post_type() ), ARRAY_N );
 	}
 
 	/**

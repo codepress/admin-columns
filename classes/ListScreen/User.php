@@ -53,14 +53,4 @@ class AC_ListScreen_User extends AC_ListScreenWPAbstract {
 		return $this->columns()->get_display_value_by_column_name( $column_name, $user_id, $value );
 	}
 
-	/**
-	 * @since NEWVERSION
-	 * @return array|null|object
-	 */
-	public function get_meta() {
-		global $wpdb;
-
-		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
-	}
-
 }

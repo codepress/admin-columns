@@ -131,7 +131,9 @@ final class AC_ColumnManager {
 	 * @param string $column_type
 	 */
 	public function deregister_column_type( $column_type ) {
-		unset( $this->column_types[ $column_type ] );
+		if ( isset( $this->column_types[ $column_type ] ) ) {
+			unset( $this->column_types[ $column_type ] );
+		}
 	}
 
 	/**
@@ -141,9 +143,9 @@ final class AC_ColumnManager {
 	 */
 	public function create_column( $data = array() ) {
 		$defaults = array(
-			'clone' => false,
-			'type'  => false,
-			'label' => false,
+			'clone' => false, // (int)
+			'type'  => false, // (string)
+			'label' => false, // (string)
 		);
 
 		$data = array_merge( $defaults, $data );
@@ -158,12 +160,14 @@ final class AC_ColumnManager {
 		/* @var CPAC_Column $column */
 		$column = new $class_name( $this->list_screen->get_key() );
 
-		$column->set_property( 'type', $data['type'] );
-		$column->set_property( 'name', $data['type'] );
+		$column
+			->set_property( 'type', $data['type'] )
+			->set_property( 'name', $data['type'] );
 
 		$column->set_options( $data );
 
 		// Populate defaults for original columns
+		// TODO: change
 		if ( $column->is_original() ) {
 
 			$column->set_property( 'label', $this->get_original_label( $column->get_name() ) );
@@ -180,8 +184,9 @@ final class AC_ColumnManager {
 
 		// Set clone
 		if ( $data['clone'] > 0 ) {
-			$column->set_property( 'name', $column->get_type() . '-' . $data['clone'] );
-			$column->set_property( 'clone', $data['clone'] );
+			$column
+				->set_property( 'name', $column->get_type() . '-' . $data['clone'] )
+				->set_property( 'clone', $data['clone'] );
 		}
 
 		/**
@@ -289,6 +294,8 @@ final class AC_ColumnManager {
 	 * @return mixed
 	 */
 	private function get_class_names( AC_ListScreenAbstract $list_screen ) {
+
+		// TODO: there should be no paths defined in this class
 		$column_dir = AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $list_screen->get_type() );
 
 		return AC()->autoloader()->get_class_names_from_dir( $column_dir, 'AC_' );
@@ -310,9 +317,10 @@ final class AC_ColumnManager {
 			/* @var AC_Column_Plugin $column */
 			$column = new $plugin_column_class_name( $this->list_screen->get_key() );
 
-			$column->set_property( 'name', $name );
-			$column->set_property( 'type', $name );
-			$column->set_property( 'label', $label );
+			$column
+				->set_property( 'name', $name )
+				->set_property( 'type', $name )
+				->set_property( 'label', $label );
 
 			$this->register_column_type( $column );
 		}
@@ -353,6 +361,7 @@ final class AC_ColumnManager {
 	 */
 	private function deprecated_register_columns() {
 
+		// TODO: move out of this class
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this->get_list_screen() );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_list_screen()->get_type(), $class_names, $this->get_list_screen() );
 		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_post_type( $this->get_list_screen() ), $class_names, $this->get_list_screen() );

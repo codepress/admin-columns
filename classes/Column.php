@@ -129,15 +129,15 @@ abstract class CPAC_Column {
 	 */
 	public function init() {
 		$this->properties = array(
-			'clone'            => null,    // Unique clone ID
-			'type'             => null,    // Unique type
-			'name'             => null,    // Unique name
-			'label'            => null,    // Label which describes this column.
-			'hide_label'       => false,   // Should the Label be hidden?
-			'is_cloneable'     => true,    // Should the column be cloneable
-			'original'         => false,   // When a default column has been replaced by custom column we mark it as 'original'
-			'use_before_after' => false,   // Should the column use before and after fields
-			'group'            => __( 'Custom', 'codepress-admin-columns' ), // Group name
+			'name'             => null,    // (string) Unique name, also it's identifier
+			'clone'            => null,    // (int) Unique clone ID
+			'type'             => null,    // (string) Unique type
+			'label'            => null,    // (string) Label which describes this column.
+			'hide_label'       => false,   // (string) Should the Label be hidden?
+			'is_cloneable'     => true,    // (bool) Should the column be cloneable
+			'original'         => false,   // (bool) When a default column has been replaced by custom column we mark it as 'original'
+			'use_before_after' => false,   // (bool) Should the column use before and after fields
+			'group'            => __( 'Custom', 'codepress-admin-columns' ), // (string) Group name
 		);
 	}
 

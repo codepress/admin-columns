@@ -77,6 +77,13 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
+	 * @return array
+	 */
+	public function get_meta() {
+		return array();
+	}
+
+	/**
 	 * Get Custom FieldType Options - Value method
 	 *
 	 * @since 1.0
@@ -261,8 +268,9 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			$keys = $cache;
 		}
 		else {
-			$keys = $this->get_list_screen()->get_meta();
-			wp_cache_add( $this->get_list_screen_key(), $keys, 'cac_columns', 10 ); // 10 sec.
+			$keys = $this->get_meta();
+
+			wp_cache_add( $this->get_list_screen_key(), $keys, 'cac_columns', 12 ); // 12 sec.
 		}
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {

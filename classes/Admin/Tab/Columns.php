@@ -338,9 +338,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$grouped = array();
 		foreach ( AC()->get_list_screens() as $_list_screen ) {
 			$grouped[ $_list_screen->get_menu_type() ][] = (object) array(
-				'key'   => $_list_screen->key,
+				'key'   => $_list_screen->get_key(),
 				'link'  => $_list_screen->get_edit_link(),
-				'label' => $_list_screen->label,
+				'label' => $_list_screen->get_label(),
 			);
 			usort( $grouped[ $_list_screen->get_menu_type() ], array( $this, 'sort_by_label' ) );
 		}
@@ -461,10 +461,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
 							<h3>
 								<span class="left"><?php echo esc_html( $mainlabel ); ?></span>
-								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $list_screen->label, $mainlabel ) ) ) : ?>
+								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $list_screen->get_label(), $mainlabel ) ) ) : ?>
 									<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 								<?php else : ?>
-									<span class="clear contenttype"><?php echo esc_html( $list_screen->label ); ?></span>
+									<span class="clear contenttype"><?php echo esc_html( $list_screen->get_label() ); ?></span>
 								<?php endif; ?>
 							</h3>
 
@@ -624,7 +624,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
 					<div class="cpac-notice">
 						<p>
-							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->label ) . "</a>" ); ?>
+							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" ); ?>
 						</p>
 					</div>
 				<?php endif ?>
@@ -635,7 +635,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 				<?php if ( $list_screen->is_using_php_export() ) : ?>
 					<div class="notice notice-warning below-h2">
-						<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->label ) . '</strong>' ); ?></p>
+						<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
 					</div>
 				<?php endif; ?>
 

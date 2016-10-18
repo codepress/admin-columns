@@ -343,6 +343,15 @@ class CPAC {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 *
+	 * @return AC_Helper
+	 */
+	public function helper() {
+		return $this->helper;
+	}
+
+	/**
 	 * @return AC_ListScreenManager
 	 */
 	public function list_screen_manager() {
@@ -400,8 +409,7 @@ class CPAC {
 
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
-			$list_screen = new AC_ListScreen_Post();
-			$this->register_list_screen( $list_screen->set_post_type( $post_type ) );
+			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
 		}
 
 		// Create other list screens
@@ -484,15 +492,6 @@ class CPAC {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
 
 		return $this->list_screen_manager()->get_list_screen();
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @return AC_Helper
-	 */
-	public function helper() {
-		return $this->helper;
 	}
 
 	/**

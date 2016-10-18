@@ -9,21 +9,21 @@ defined( 'ABSPATH' ) or die();
 abstract class AC_ListScreenAbstract {
 
 	/**
+	 * Identifier for List Screen; Post type etc.
+	 *
 	 * @since 2.0
 	 */
-	public $label;
+	protected $key;
+
+	/**
+	 * @since 2.0
+	 */
+	protected $label;
 
 	/**
 	 * @since 2.3.5
 	 */
 	protected $singular_label;
-
-	/**
-	 * Identifier for List Screen; Post type etc.
-	 *
-	 * @since 2.0
-	 */
-	public $key;
 
 	/**
 	 * Type of list screen; Post, Media, User or Comments
@@ -213,13 +213,6 @@ abstract class AC_ListScreenAbstract {
 	 */
 	public function get_menu_type() {
 		return $this->menu_type;
-	}
-
-	/**
-	 * @return array Meta keys
-	 */
-	public function get_meta() {
-		return array();
 	}
 
 	/**
