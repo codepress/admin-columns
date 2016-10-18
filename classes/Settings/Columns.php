@@ -32,7 +32,9 @@ final class AC_Settings_Columns {
 	}
 
 	private function set_columns() {
-		$this->columns = (array) apply_filters( 'ac/column_settings', get_option( self::OPTIONS_KEY . $this->get_key() ), AC()->get_list_screen( $this->list_screen_key ) );
+		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
+
+		$this->columns = (array) apply_filters( 'ac/column_settings', $options ? $options : array(), AC()->get_list_screen( $this->list_screen_key ) );
 	}
 
 	/**

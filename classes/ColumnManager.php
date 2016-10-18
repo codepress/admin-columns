@@ -96,6 +96,16 @@ final class AC_ColumnManager {
 		/* @var CPAC_Column $column */
 		$column = new $class_name( $this->get_list_screen()->get_key() );
 
+		// Skip original columns that do not exist
+		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
+			return;
+		}
+
+		// Set label of an original column. Label comes from stored default headings.
+		if ( $column->is_original() && ! $column->get_property( 'label' ) ) {
+			$column->set_property( 'label', $this->get_original_label( $column->get_type() ) );
+		}
+
 		$this->register_column_type( $column );
 	}
 
@@ -122,6 +132,8 @@ final class AC_ColumnManager {
 	 * @param CPAC_Column $column
 	 */
 	public function register_column_type( CPAC_Column $column ) {
+
+		// TODO: replace with $column->is_valid( AC_ListScreenAbstract $list_screen );
 		if ( $column->apply_conditional() ) {
 			$this->column_types[ $column->get_type() ] = $column;
 		}
@@ -270,6 +282,18 @@ final class AC_ColumnManager {
 		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;
+	}
+
+	/**
+	 * @param string $column_name
+	 * @since NEWVERSION
+	 *
+	 * @return bool
+	 */
+	private function default_column_exists( $column_name ) {
+		$default_columns = $this->get_default_columns();
+
+		return isset( $default_columns[ $column_name ] );
 	}
 
 	/**
