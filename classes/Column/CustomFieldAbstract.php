@@ -84,6 +84,16 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
+	 * Retrieve metadata object type (e.g., comment, post, or user)
+	 *
+	 * @since NEWVERSION
+	 * @return bool
+	 */
+	public function get_meta_type() {
+		return false;
+	}
+
+	/**
 	 * Get Custom FieldType Options - Value method
 	 *
 	 * @since 1.0

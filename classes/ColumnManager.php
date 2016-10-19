@@ -101,11 +101,6 @@ final class AC_ColumnManager {
 			return;
 		}
 
-		// Set label of an original column. Label comes from stored default headings.
-		if ( $column->is_original() && ! $column->get_property( 'label' ) ) {
-			$column->set_property( 'label', $this->get_original_label( $column->get_type() ) );
-		}
-
 		$this->register_column_type( $column );
 	}
 
@@ -167,6 +162,7 @@ final class AC_ColumnManager {
 		$column = new $class_name( $this->list_screen->get_key() );
 
 		$column
+			->set_type( $type )
 			->set_clone( $clone )
 			->set_options( $options );
 
@@ -278,7 +274,7 @@ final class AC_ColumnManager {
 	 *
 	 * @return string|false
 	 */
-	private function get_original_label( $column_name ) {
+	public function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;

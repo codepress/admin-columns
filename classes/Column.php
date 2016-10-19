@@ -8,6 +8,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @property AC_ColumnFieldFormat format
  * @property AC_ColumnFieldSettings field_settings
+ * @property AC_Helper helper
  */
 abstract class CPAC_Column {
 
@@ -15,7 +16,7 @@ abstract class CPAC_Column {
 	 * @since 2.0
 	 * @var array $properties describes the fixed properties for the CPAC_Column object.
 	 */
-	public $properties = array();
+	public $properties;
 
 	/**
 	 * A List Screen can be a Post Type, User, Comment, Link or Media storage type.
@@ -68,60 +69,8 @@ abstract class CPAC_Column {
 	public function __construct( $list_screen_key = '' ) {
 
 		$this->set_list_screen_key( $list_screen_key );
-
-		// @deprecated NEWVERSION
-		$this->storage_model = $this->list_screen_key;
-
-		$this->field_settings = new AC_ColumnFieldSettings( $this );
-		$this->format = new AC_ColumnFieldFormat( $this );
-		$this->helper = AC()->helper();
-
 		$this->init();
 		$this->after_setup();
-	}
-
-	/**
-	 * @since 2.5
-	 * @return false|AC_ListScreenAbstract
-	 */
-	public function __get( $key ) {
-		$call = false;
-		// for backwards compatibility
-		if ( 'storage_model' == $key ) {
-			$call = 'get_list_screen';
-		}
-		if ( 'list_screen' == $key ) {
-			$call = 'get_list_screen';
-		}
-		if ( in_array( $key, array( 'format', 'field_settings' ) ) ) {
-			$call = $key;
-		}
-
-		return $call ? call_user_func( array( $this, $call ) ) : false;
-	}
-
-	/**
-	 * @param string $list_screen_key ID for the list screen.
-	 * @return CPAC_Column
-	 */
-	public function set_list_screen_key( $list_screen_key ) {
-		$this->list_screen_key = $list_screen_key;
-
-		return $this;
-	}
-
-	/**
-	 * @return AC_ColumnFieldSettings
-	 */
-	public function field_settings() {
-		return $this->field_settings;
-	}
-
-	/**
-	 * @return AC_ColumnFieldFormat
-	 */
-	public function format() {
-		return $this->format;
 	}
 
 	/**
@@ -147,6 +96,39 @@ abstract class CPAC_Column {
 	 */
 	public function after_setup() {
 		$this->properties = (object) $this->properties;
+	}
+
+	/**
+	 * @since 2.5
+	 * @return false|AC_ListScreenAbstract
+	 */
+	public function __get( $key ) {
+		$call = false;
+		// for backwards compatibility
+		if ( 'storage_model' == $key ) {
+			$call = 'get_list_screen';
+		}
+		if ( 'list_screen' == $key ) {
+			$call = 'get_list_screen';
+		}
+		if ( in_array( $key, array( 'format', 'field_settings', 'helper' ) ) ) {
+			$call = $key;
+		}
+
+		return $call ? call_user_func( array( $this, $call ) ) : false;
+	}
+
+	/**
+	 * @param string $list_screen_key ID for the list screen.
+	 * @return CPAC_Column
+	 */
+	public function set_list_screen_key( $list_screen_key ) {
+		$this->list_screen_key = $list_screen_key;
+
+		// @deprecated NEWVERSION
+		$this->storage_model = $list_screen_key;
+
+		return $this;
 	}
 
 	/**
@@ -270,21 +252,6 @@ abstract class CPAC_Column {
 	}
 
 	/**
-	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
-	 *
-	 * @return string
-	 */
-	public function get_type_label_clean() {
-		$label = $this->get_type_label();
-
-		if ( 0 === strlen( strip_tags( $label ) ) ) {
-			$label = $this->get_type();
-		}
-
-		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
-	}
-
-	/**
 	 * @since NEWVERSION
 	 * @return string Group
 	 */
@@ -338,7 +305,16 @@ abstract class CPAC_Column {
 	 * @param int $clone
 	 */
 	public function set_clone( $clone ) {
-		$this->set_property( 'clone', absint( $clone ) );
+		$this->properties->clone = absint( $clone );
+
+		return $this;
+	}
+
+	/**
+	 * @param string $type
+	 */
+	public function set_type( $type ) {
+		$this->properties->type = $type;
 
 		return $this;
 	}
@@ -438,21 +414,6 @@ abstract class CPAC_Column {
 	}
 
 	/**
-	 * @deprecated NEWVERSION
-	 * @since 2.3.4
-	 */
-	public function get_list_screen_type() {
-		return $this->get_list_screen()->get_type();
-	}
-
-	/**
-	 * @since 2.3.4
-	 */
-	public function get_meta_type() {
-		return $this->get_list_screen()->get_meta_type();
-	}
-
-	/**
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
@@ -511,8 +472,50 @@ abstract class CPAC_Column {
 		<?php
 	}
 
+	/**
+	 * @return AC_ColumnFieldSettings
+	 */
+	public function field_settings() {
+		if ( null === $this->field_settings ) {
+			$this->field_settings = new AC_ColumnFieldSettings( $this );
+		}
+
+		return $this->field_settings;
+	}
+
+	/**
+	 * @return AC_ColumnFieldFormat
+	 */
+	public function format() {
+		if ( null === $this->format ) {
+			$this->format = new AC_ColumnFieldFormat( $this );
+		}
+
+		return $this->format;
+	}
+
+	/**
+	 * @return AC_Helper
+	 */
+	public function helper() {
+		if ( null === $this->helper ) {
+			$this->helper = AC()->helper();
+		}
+
+		return $this->helper;
+	}
+
 
 	// Deprecated methods
+
+	/**
+	 * @since 2.3.4
+	 */
+	public function get_meta_type() {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen()->get_meta_type()' );
+
+		return $this->get_list_screen()->get_meta_type();
+	}
 
 	/**
 	 * @deprecated NEWVERSION

@@ -9,6 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Column_User_CustomField extends AC_Column_CustomFieldAbstract {
 
 	/**
+	 * @return string
+	 */
+	public function get_meta_type() {
+		return 'user';
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_meta() {

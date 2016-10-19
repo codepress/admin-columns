@@ -225,7 +225,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
 		if ( in_array( $type, $original_columns ) ) {
-			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $column->get_type_label_clean() . '</strong>' ) ) );
+			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $this->get_clean_type_label( $column ) . '</strong>' ) ) );
 		}
 
 		wp_send_json_success( $this->get_column_display( $column ) );
@@ -702,6 +702,26 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
+	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
+	 *
+	 * @return string
+	 */
+	private function get_clean_type_label( CPAC_Column $column ) {
+
+		$label = $column->get_type_label();
+
+		if ( $column->is_original() ) {
+			$label = $column->get_list_screen()->columns()->get_original_label( $column->get_type() );
+		}
+
+		if ( 0 === strlen( strip_tags( $label ) ) ) {
+			$label = $column->get_type();
+		}
+
+		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
+	}
+
+	/**
 	 * @param AC_ListScreenAbstract $list_screen
 	 *
 	 * @return mixed|void
@@ -715,7 +735,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = $column->get_type_label_clean();
+			$grouped[ $column->get_group() ]['options'][ $type ] = $this->get_clean_type_label( $column );
 
 			if ( ! $column->is_original() ) {
 				natcasesort( $grouped[ $column->get_group() ]['options'] );

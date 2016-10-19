@@ -9,6 +9,8 @@ defined( 'ABSPATH' ) or die();
  */
 abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 
+	abstract protected function get_object_type();
+
 	public function init() {
 		parent::init();
 
@@ -49,20 +51,10 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * Get object type for menu query
-	 *
-	 * @since 2.2.5
-	 */
-	protected function get_object_type() {
-		return $this->get_meta_type();
-	}
-
-	/**
 	 * @see CPAC_Column::get_raw_value()
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {
-		$object_type = $this->get_meta_type();
 
 		$menu_item_ids = get_posts( array(
 			'post_type'   => 'nav_menu_item',
@@ -76,7 +68,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 				),
 				array(
 					'key'   => '_menu_item_object',
-					'value' => $object_type
+					'value' => $this->get_object_type()
 				),
 			)
 		) );
