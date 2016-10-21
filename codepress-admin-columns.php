@@ -123,7 +123,6 @@ class CPAC {
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
-
 		require_once $this->get_plugin_dir() . 'classes/Column.php';
 
 		// Backwards compatibility
@@ -389,10 +388,10 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @return AC_ListScreen_PostAbstract[]
 	 */
-	public function get_post_list_screens() {
+	public function get_list_screens_by_type( $type ) {
 		$screens = array();
 		foreach ( $this->get_list_screens() as $k => $list_screen ) {
-			if ( $list_screen instanceof AC_ListScreen_PostAbstract ) {
+			if ( $type === $list_screen->get_type() ) {
 				$screens[] = $list_screen;
 			}
 		}
@@ -462,6 +461,13 @@ class CPAC {
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/post_types', $post_types );
+	}
+
+	/**
+	 * @return AC_Admin_Tab_Columns
+	 */
+	public function columns_tab() {
+		return $this->settings()->get_tab( 'columns' );
 	}
 
 	/**

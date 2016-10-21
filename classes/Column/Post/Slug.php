@@ -9,8 +9,8 @@ class AC_Column_Post_Slug extends AC_Column_PostAbstract {
 	public function init() {
 		parent::init();
 
-		$this->properties['type']	 = 'column-slug';
-		$this->properties['label']	 = __( 'Slug', 'codepress-admin-columns' );
+		$this->properties['type'] = 'column-slug';
+		$this->properties['label'] = __( 'Slug', 'codepress-admin-columns' );
 	}
 
 	function get_value( $post_id ) {

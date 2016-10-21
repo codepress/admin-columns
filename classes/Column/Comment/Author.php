@@ -4,12 +4,13 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Author extends AC_Column_DefaultAbstract {
+class AC_Column_Comment_Author extends CPAC_Column {
 
 	public function init() {
 		parent::init();
 
 		$this->properties['type'] = 'author';
+		$this->properties['original'] = true;
 	}
 
 	public function get_default_with() {

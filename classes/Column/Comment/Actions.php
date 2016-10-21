@@ -1,10 +1,62 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
+
 /**
  * @since 2.0
  */
 class AC_Column_Comment_Actions extends AC_Column_ActionsAbstract {
+
+	private $actions;
+
+	private function set_actions( $id ) {
+		$comment = get_comment( $id );
+		$table = new AC_WP_Comments_List_Table();
+		$table->single_row(get_comment( $id ));
+
+		$this->actions = $table->get_handle_row_actions( get_comment( $id ), $this->get_name() );
+	}
+
+	public function get_actions( $id ) {
+
+		$this->set_actions();
+
+		$table = new AC_WP_Comments_List_Table();
+
+		if ( $this->actions ) {
+			return;
+		}
+		$this->actions = true;
+
+		$table->single_row(get_comment( $id ));
+
+		//$this->actions = true;
+
+		return $table->get_handle_row_actions( get_comment( $id ), $this->get_name() );
+		echo '<pre>'; print_r( $x ); echo '</pre>'; exit;
+	}
+
+}
+
+// Include
+require_once ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php';
+
+/**
+ * Make the protected method 'handle_row_actions' accessible
+ */
+class AC_WP_Comments_List_Table extends WP_Comments_List_Table {
+
+	public function get_handle_row_actions( $comment, $column ) {
+		return $this->handle_row_actions( $comment, $column, $column );
+	}
+
+}
+
+
+/**
+ * @since 2.0
+ */
+class _____AC_Column_Comment_Actions extends AC_Column_ActionsAbstract {
 
 	/**
 	 * @since 2.3.4

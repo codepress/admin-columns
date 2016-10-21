@@ -7,8 +7,4 @@ abstract class AC_Column_UsedByMenuPostAbstract extends AC_Column_UsedByMenuAbst
 		return $this->get_post_type();
 	}
 
-	private function get_post_type() {
-		return method_exists( $this->get_list_screen(), 'get_post_type' ) ? $this->get_list_screen()->get_post_type() : false;
-	}
-
 }

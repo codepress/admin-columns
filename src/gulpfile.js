@@ -42,6 +42,7 @@ gulp.task( 'styles', function() {
 		'less/admin-general.less',
 		'less/admin-welcome.less',
 		'less/list-screen.less',
+		'less/column-action-icons.less',
 		'less/plugin-screen.less'
 	] )
 		.pipe( plumber( { errorHandler : onError } ) )

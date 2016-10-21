@@ -19,15 +19,6 @@ abstract class CPAC_Column {
 	public $properties;
 
 	/**
-	 * A List Screen can be a Post Type, User, Comment, Link or Media storage type.
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @var string $list_screen
-	 */
-	private $list_screen_key;
-
-	/**
 	 * Instance for adding field settings to the column
 	 *
 	 * @var AC_ColumnFieldSettings
@@ -55,20 +46,9 @@ abstract class CPAC_Column {
 	private $options;
 
 	/**
-	 * @deprecated NEWVERSION
 	 * @since 2.0
-	 * @see $list_screen_key
 	 */
-	private $storage_model;
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param string $list_screen_key
-	 */
-	public function __construct( $list_screen_key = '' ) {
-
-		$this->set_list_screen_key( $list_screen_key );
+	public function __construct() {
 		$this->init();
 		$this->after_setup();
 	}
@@ -77,16 +57,19 @@ abstract class CPAC_Column {
 	 * @since 2.2
 	 */
 	public function init() {
+
+		// TODO: create variables
 		$this->properties = array(
 			'name'             => null,    // (string) Unique name, also it's identifier
 			'clone'            => null,    // (int) Unique clone ID
 			'type'             => null,    // (string) Unique type
 			'label'            => null,    // (string) Label which describes this column.
 			'hide_label'       => false,   // (string) Should the Label be hidden?
-			'is_cloneable'     => true,    // (bool) Should the column be cloneable
 			'original'         => false,   // (bool) When a default column has been replaced by custom column we mark it as 'original'
 			'use_before_after' => false,   // (bool) Should the column use before and after fields
 			'group'            => __( 'Custom', 'codepress-admin-columns' ), // (string) Group name
+			'post_type'        => false,   // (string) Post type (e.g. post, page etc.)
+			'taxonomy'         => false,   // (string) Taxonomy (e.g. category, post_tag etc.)
 		);
 	}
 
@@ -104,31 +87,12 @@ abstract class CPAC_Column {
 	 */
 	public function __get( $key ) {
 		$call = false;
-		// for backwards compatibility
-		if ( 'storage_model' == $key ) {
-			$call = 'get_list_screen';
-		}
-		if ( 'list_screen' == $key ) {
-			$call = 'get_list_screen';
-		}
+
 		if ( in_array( $key, array( 'format', 'field_settings', 'helper' ) ) ) {
 			$call = $key;
 		}
 
 		return $call ? call_user_func( array( $this, $call ) ) : false;
-	}
-
-	/**
-	 * @param string $list_screen_key ID for the list screen.
-	 * @return CPAC_Column
-	 */
-	public function set_list_screen_key( $list_screen_key ) {
-		$this->list_screen_key = $list_screen_key;
-
-		// @deprecated NEWVERSION
-		$this->storage_model = $list_screen_key;
-
-		return $this;
 	}
 
 	/**
@@ -200,6 +164,7 @@ abstract class CPAC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
+	// TODO: deprecate, rename to is_valid
 	public function apply_conditional() {
 		return true;
 	}
@@ -240,7 +205,6 @@ abstract class CPAC_Column {
 		return $this->get_property( 'clone' ) > 0 ? $this->get_type() . '-' . $this->get_property( 'clone' ) : $this->get_type();
 	}
 
-
 	/**
 	 * Get the type of the column.
 	 *
@@ -257,6 +221,40 @@ abstract class CPAC_Column {
 	 */
 	public function get_group() {
 		return $this->get_property( 'group' );
+	}
+
+	/**
+	 * Columns post type
+	 *
+	 * @since NEWVERSION
+	 * @return string Post type
+	 */
+	public function get_post_type() {
+		return $this->get_property( 'post_type' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string Post type
+	 */
+	public function set_post_type( $post_type ) {
+		return $this->set_property( 'post_type', $post_type );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string Taxonomy
+	 */
+	public function get_taxonomy() {
+		return $this->get_property( 'taxonomy' );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string Taxonomy
+	 */
+	public function set_taxonomy( $taxonomy ) {
+		return $this->set_property( 'taxonomy', $taxonomy );
 	}
 
 	/**
@@ -294,10 +292,6 @@ abstract class CPAC_Column {
 	 * @return array Column options set by user
 	 */
 	public function get_options() {
-		if ( null === $this->options ) {
-			$this->options = $this->get_list_screen()->settings()->get_column( $this->get_name() );
-		}
-
 		return $this->options;
 	}
 
@@ -321,6 +315,7 @@ abstract class CPAC_Column {
 
 	/**
 	 * @param array $options
+	 *
 	 * @return CPAC_Column
 	 */
 	public function set_options( $options ) {
@@ -331,6 +326,7 @@ abstract class CPAC_Column {
 
 	/**
 	 * @param array $options
+	 *
 	 * @return CPAC_Column
 	 */
 	public function set_option( $key, $value ) {
@@ -399,21 +395,6 @@ abstract class CPAC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_list_screen_key() {
-		return $this->list_screen_key;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract
-	 */
-	public function get_list_screen() {
-		return AC()->get_list_screen( $this->list_screen_key );
-	}
-
-	/**
 	 * @since 2.5
 	 */
 	public function get_empty_char() {
@@ -457,8 +438,8 @@ abstract class CPAC_Column {
 			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
 		}
 
-		$value = apply_filters( "cac/column/value", $value, $id, $this, $this->get_list_screen_key() );
-		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this, $this->get_list_screen_key() );
+		$value = apply_filters( "cac/column/value", $value, $id, $this );
+		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
 
 		return $value;
 	}
@@ -468,7 +449,7 @@ abstract class CPAC_Column {
 	 * @param string $label
 	 */
 	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?> <?php echo 'on' === $this->get_option( $name ) ? 'on' : 'off'; ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
+		<span class="indicator-<?php echo esc_attr( $name ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
 		<?php
 	}
 
@@ -512,9 +493,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_meta_type() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen()->get_meta_type()' );
-
-		return $this->get_list_screen()->get_meta_type();
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
 	/**
@@ -522,9 +501,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_storage_model_type() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen_type()' );
-
-		return $this->get_list_screen()->get_type();
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
 	/**
@@ -532,9 +509,7 @@ abstract class CPAC_Column {
 	 * @since 2.5.4
 	 */
 	public function get_storage_model_key() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'CPAC_Column->get_list_screen_key()' );
-
-		return $this->get_list_screen_key();
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
 	/**
@@ -542,9 +517,7 @@ abstract class CPAC_Column {
 	 * @since 2.3.4
 	 */
 	public function get_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen( CPAC_Column->list_screen_key )' );
-
-		return AC()->get_list_screen( $this->list_screen_key );
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
 	/**

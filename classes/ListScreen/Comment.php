@@ -42,7 +42,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWPAbstract {
 	}
 
 	public function manage_value( $column_name, $id ) {
-		echo $this->columns()->get_display_value_by_column_name( $column_name, $id );
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	public function get_post_type() {

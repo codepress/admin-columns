@@ -16,8 +16,4 @@ class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
 		return 10;
 	}
 
-	public function apply_conditional() {
-		return in_array( $this->get_post_type(), array( 'post', 'page' ) );
-	}
-
 }

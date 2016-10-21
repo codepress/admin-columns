@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_User_Role extends AC_Column_DefaultAbstract {
+class AC_Column_User_Role extends AC_Column_DefaultUserAbstract {
 
 	public function init() {
 		parent::init();

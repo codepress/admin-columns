@@ -77,7 +77,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
-			if ( $column = $list_screen->columns()->get_column_by_name( $name ) ) {
+			if ( $column = $list_screen->get_column_by_name( $name ) ) {
 
 				if ( ! empty( $options['label'] ) ) {
 
@@ -111,7 +111,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$result = $list_screen->settings()->store( $column_data );
 
 		// reset object
-		$list_screen->columns()->flush_columns();
+		$list_screen->flush_columns();
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );
@@ -161,7 +161,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					if ( $list_screen = $this->get_list_screen() ) {
 						$list_screen->settings()->delete();
-						$list_screen->columns()->flush_columns();
+						$list_screen->flush_columns();
 
 						cpac_settings_message( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
 					}
@@ -220,7 +220,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$type = filter_input( INPUT_POST, 'type' );
 
-		$column = $this->list_screen->columns()->create_column( $type );
+		$column = $list_screen->create_column( $type );
 
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
@@ -268,7 +268,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$data = $formdata['columns'][ $column_name ];
 
-		$column = $this->list_screen->columns()->create_column( $data['type'], $data, $data['clone'] );
+		$column = $this->list_screen->create_column( $data['type'], $data, $data['clone'] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -650,7 +650,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 							<?php
-							foreach ( $list_screen->columns()->get_columns() as $column ) {
+							foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>
@@ -685,7 +685,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 
 			<div id="add-new-column-template">
-				<?php foreach ( $list_screen->columns()->get_column_types() as $column ) {
+				<?php foreach ( $list_screen->get_column_types() as $column ) {
 					if ( ! $column->is_original() ) {
 						$column->set_property( 'name', $column->get_type() );
 						$this->display_column( $column );
@@ -711,7 +711,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$label = $column->get_type_label();
 
 		if ( $column->is_original() ) {
-			$label = $column->get_list_screen()->columns()->get_original_label( $column->get_type() );
+			$label = $this->list_screen->get_original_label( $column->get_type() );
 		}
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
@@ -726,10 +726,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 *
 	 * @return mixed|void
 	 */
-	private function get_grouped_columns( $list_screen ) {
+	private function get_grouped_columns() {
 		$grouped = array();
 
-		foreach ( $list_screen->columns()->get_column_types() as $type => $column ) {
+		foreach ( $this->list_screen->get_column_types() as $type => $column ) {
 			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
 				$grouped[ $column->get_group() ]['title'] = $column->get_group();
 			}
@@ -753,7 +753,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function display_column( CPAC_Column $column ) {
 		?>
 
-		<div class="cpac-column cpac-column-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+		<div class="cpac-column cpac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>
@@ -793,7 +793,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<a class="toggle" href="javascript:;"><?php echo $column->get_label(); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
-								<?php if ( $column->get_property( 'is_cloneable' ) ) : ?>
+								<?php if ( ! $column->is_original() ) : ?>
 									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
@@ -823,7 +823,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						'name'            => 'type',
 						'label'           => __( 'Type', 'codepress-admin-columns' ),
 						'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
-						'grouped_options' => $this->get_grouped_columns( $column->get_list_screen() ),
+						'grouped_options' => $this->get_grouped_columns(),
 						'default_value'   => $column->get_type(),
 					) );
 
@@ -876,7 +876,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						<td class="input">
 							<p>
 								<a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
-								<?php if ( $column->get_property( 'is_cloneable' ) ) : ?>
+								<?php if ( ! $column->is_original() ) : ?>
 									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>

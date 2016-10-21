@@ -38,8 +38,8 @@ final class AC_ListScreenManager {
 	 */
 	public function set_primary_column( $default ) {
 		if ( $this->list_screen ) {
-			if ( ! $this->list_screen->columns()->get_column_by_name( $default ) ) {
-				$default = key( $this->list_screen->columns()->get_columns() );
+			if ( ! $this->list_screen->get_column_by_name( $default ) ) {
+				$default = key( $this->list_screen->get_columns() );
 			}
 		}
 
@@ -98,7 +98,7 @@ final class AC_ListScreenManager {
 
 		// CSS: columns width
 		$css_column_width = false;
-		foreach ( $this->list_screen->columns()->get_columns() as $column ) {
+		foreach ( $this->list_screen->get_columns() as $column ) {
 			if ( $width = $column->get_width() ) {
 				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
 			}
@@ -264,9 +264,9 @@ final class AC_ListScreenManager {
 		}
 
 		// Flush cache. In case any columns are deactivated after saving them.
-		$this->list_screen->columns()->flush_columns();
+		$this->list_screen->flush_columns();
 
-		foreach ( $this->list_screen->columns()->get_columns() as $column ) {
+		foreach ( $this->list_screen->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
 			$label = apply_filters( 'cac/headings/label', $column->get_label(), $column->get_name(), $column->get_options(), $this );
