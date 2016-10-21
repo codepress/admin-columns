@@ -108,6 +108,15 @@ function ac_helper() {
 }
 
 /**
+ * Returns row actions for the WP_List_Tables
+ *
+ * @return AC_Column_ActionColumnHelper
+ */
+function ac_action_column_helper() {
+	return AC_Column_ActionColumnHelper::instance();
+}
+
+/**
  * @since NEWVERSION
  * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
  */

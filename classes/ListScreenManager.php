@@ -167,6 +167,9 @@ final class AC_ListScreenManager {
 		// Filter is located in get_column_headers()
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 
+		// Stores the row actions for each table. Only used by the AC_Column_ActionsAbstract column.
+		ac_action_column_helper();
+
 		// @since NEWVERSION
 		do_action( 'ac/init_list_screen', $list_screen );
 	}
