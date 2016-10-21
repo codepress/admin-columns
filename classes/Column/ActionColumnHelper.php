@@ -4,6 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Holds all the row actions buttons for each content type (e.g. post, comment, user and media).
+ * WP_List_Table does not have a method for retrieving row actions. This class uses their filters to fetch the actions.
+ * For example usage see the AC_Column_ActionsAbstract class.
+ *
+ * Class AC_Column_ActionColumnHelper
+ */
 class AC_Column_ActionColumnHelper {
 
 	private $actions;
@@ -48,6 +55,14 @@ class AC_Column_ActionColumnHelper {
 		$this->actions[ 'user' ][ $user->ID ] = $actions;
 	}
 
+	/**
+	 * Retrieve row actions like 'edit, trash, spam' etc.
+	 *
+	 * @param string $type
+	 * @param int $id Object ID
+	 *
+	 * @return array Array with actions
+	 */
 	public function get( $type, $id ) {
 		return $this->actions[ $type ][ $id ];
 	}

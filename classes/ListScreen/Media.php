@@ -14,6 +14,7 @@ class AC_ListScreen_Media extends AC_ListScreen_PostAbstract {
 		$this->screen = 'upload';
 		$this->post_type = 'attachment';
 		$this->list_table = 'WP_Media_List_Table';
+		$this->menu_type = __( 'Media' );
 	}
 
 	public function set_manage_value_callback() {

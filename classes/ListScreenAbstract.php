@@ -384,7 +384,9 @@ abstract class AC_ListScreenAbstract {
 				return;
 			}
 
-			$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
+			if ( ! $column->get_property( 'group' ) ) {
+				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
+			}
 		}
 
 		$this->column_types[ $column->get_type() ] = $column;
@@ -457,21 +459,21 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param array $data Column options
-	 */
-	private function register_column( CPAC_Column $column ) {
-		$this->columns[ $column->get_name() ] = $column;
-
-		do_action( 'ac/column', $column );
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @param string $column_name Column name
 	 */
 	public function deregister_column( $column_name ) {
 		unset( $this->columns[ $column_name ] );
+	}
+
+	/**
+	 * @param array $data Column options
+	 */
+	private function register_column( CPAC_Column $column ) {
+		$this->columns[ $column->get_name() ] = $column;
+
+		do_action( 'ac/column', $column );
 	}
 
 	/**
@@ -487,7 +489,7 @@ abstract class AC_ListScreenAbstract {
 
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
-			foreach ( $this->get_default_columns() as $name => $label ) {
+			foreach ( $this->get_default_headings() as $name => $label ) {
 				if ( $column = $this->create_column( $name, array( 'label' => $label ) ) ) {
 					$this->register_column( $column );
 				}
