@@ -76,4 +76,35 @@ class AC_Helper_Date {
 		return $timestamp ? date_i18n( $format, $timestamp ) : false;
 	}
 
+	/**
+	 * Translate a jQuery date format to the PHP date format
+	 *
+	 * @since 1.1
+	 *
+	 * @param string $format jQuery date format
+	 *
+	 * @return string PHP date format
+	 */
+	public function parse_jquery_dateformat( $format ) {
+		$replace = array(
+			'^dd^d' => 'j',
+			'dd'    => 'd',
+			'DD'    => 'l',
+			'o'     => 'z',
+			'MM'    => 'F',
+			'^mm^m' => 'n',
+			'mm'    => 'm',
+			'yy'    => 'Y',
+		);
+
+		$replace_from = array();
+		$replace_to = array();
+
+		foreach ( $replace as $from => $to ) {
+			$replace_from[] = '/' . $from . '/';
+			$replace_to[] = $to;
+		}
+
+		return preg_replace( $replace_from, $replace_to, $format );
+	}
 }
