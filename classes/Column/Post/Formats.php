@@ -13,7 +13,6 @@ class AC_Column_Post_Formats extends AC_Column_PostAbstract {
 		$this->properties['label'] = __( 'Post Format', 'codepress-admin-columns' );
 	}
 
-	// TODO: replace with is_valid(). Replace all apply_conditional.
 	function apply_conditional() {
 		return post_type_supports( $this->get_post_type(), 'post-formats' );
 	}

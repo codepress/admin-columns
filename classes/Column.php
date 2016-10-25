@@ -58,7 +58,7 @@ abstract class CPAC_Column {
 	 */
 	public function init() {
 
-		// TODO: create variables
+		// TODO: create variables?
 		$this->properties = array(
 			'name'             => null,    // (string) Unique name, also it's identifier
 			'clone'            => null,    // (int) Unique clone ID
@@ -164,7 +164,7 @@ abstract class CPAC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: deprecate, rename to is_valid
+	// TODO: deprecate, rename to is_valid?
 	public function apply_conditional() {
 		return true;
 	}
