@@ -58,7 +58,7 @@ abstract class AC_ListScreen_PostAbstract extends AC_ListScreenWPAbstract {
 	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $id ) {
-		echo $this->columns()->get_display_value_by_column_name( $column_name, $id );
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 }

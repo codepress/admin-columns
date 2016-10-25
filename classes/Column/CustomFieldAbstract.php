@@ -20,6 +20,10 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
 	}
 
+	protected function get_cache_key() {
+		return $this->get_meta_type();
+	}
+
 	public function get_field_key() {
 		$field = $this->get_option( 'field' );
 
@@ -274,13 +278,13 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
-		if ( $cache = wp_cache_get( $this->get_list_screen_key(), 'cac_columns' ) ) {
+		if ( $cache = wp_cache_get( $this->get_cache_key(), 'cac_columns' ) ) {
 			$keys = $cache;
 		}
 		else {
 			$keys = $this->get_meta();
 
-			wp_cache_add( $this->get_list_screen_key(), $keys, 'cac_columns', 12 ); // 12 sec.
+			wp_cache_add( $this->get_cache_key(), $keys, 'cac_columns', 12 ); // 12 sec.
 		}
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
@@ -294,6 +298,8 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 			}
 		}
 
+		// TODO: deprecate filters
+
 		/**
 		 * Filter the available custom field meta keys
 		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
@@ -303,7 +309,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		 * @param array $keys Available custom field keys
 		 * @param AC_ListScreenAbstract $list_screen List screen class instance
 		 */
-		$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
+		//$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
 
 		/**
 		 * Filter the available custom field meta keys for this list screen type
@@ -311,7 +317,12 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		 * @since 2.0
 		 * @see Filter cac/list_screen/meta_keys
 		 */
-		return apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
+		//$keys = apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
+
+		// @since NEWVERSION
+		$keys = apply_filters( 'ac/column/custom_fields', $keys, $this );
+
+		return $keys;
 	}
 
 	protected function get_grouped_field_options() {
@@ -386,6 +397,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 		$this->field_settings->before_after();
 	}
 
+
 	public function display_field_setting(){
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
@@ -396,12 +408,14 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
 			) );
 		else :
+			$list_screen = AC()->columns_tab()->get_list_screen();
+
 			$this->field_settings->field( array(
 				'type'            => 'select',
 				'name'            => 'field',
 				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
 				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
-				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . esc_html( $this->get_list_screen()->get_singular_label() ) . '</strong>' ),
+				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong><a href="' . esc_url( $list_screen->get_screen_link() ) . '">' . esc_html( $list_screen->get_singular_label() ) . '</a></strong>' ),
 				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;

@@ -24,6 +24,7 @@ class AC_Admin_Tabs {
 
 	/**
 	 * @param AC_Admin_TabAbstract $tab
+	 * @return AC_Admin_Tabs
 	 */
 	public function register_tab( AC_Admin_TabAbstract $tab ) {
 		$this->tabs[ $tab->get_slug() ] = $tab;
@@ -31,6 +32,8 @@ class AC_Admin_Tabs {
 		if ( $tab->is_default() ) {
 			$this->default_slug = $tab->get_slug();
 		}
+
+		return $this;
 	}
 
 	/**

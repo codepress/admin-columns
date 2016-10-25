@@ -23,4 +23,5 @@ class AC_Column_User_CustomField extends AC_Column_CustomFieldAbstract {
 
 		return $wpdb->get_results( "SELECT DISTINCT meta_key FROM {$wpdb->usermeta} ORDER BY 1", ARRAY_N );
 	}
+
 }

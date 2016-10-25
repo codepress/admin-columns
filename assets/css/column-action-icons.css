@@ -1,0 +1,59 @@
+/* =Action Column Icons on list screen
+-------------------------------------------------------------- */
+.column-actions .row-actions {
+  left: 0;
+}
+.column-actions .show-icons .row-actions span a {
+  font-size: 0;
+  zoom: 0;
+}
+.column-actions .show-icons .row-actions span a:before {
+  content: "\f101";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 1;
+  font-family: dashicons, serif;
+  text-decoration: inherit;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: top;
+  text-align: center;
+}
+.column-actions .show-icons .row-actions span.edit a:before {
+  content: "\f464";
+}
+.column-actions .show-icons .row-actions span.delete a:before {
+  content: "\f182";
+}
+.column-actions .show-icons .row-actions span.untrash a:before {
+  content: "\f171";
+}
+.column-actions .show-icons .row-actions span.unspam a:before {
+  content: "\f171";
+}
+.column-actions .show-icons .row-actions span.view a:before {
+  content: "\f177";
+}
+.column-actions .show-icons .row-actions span.inline a:before {
+  content: "\f119";
+}
+.column-actions .show-icons .row-actions span.quickedit a:before {
+  content: "\f119";
+}
+.column-actions .show-icons .row-actions span.approve a:before {
+  content: "\f147";
+}
+.column-actions .show-icons .row-actions span.unapprove a:before {
+  content: "\f158";
+}
+.column-actions .show-icons .row-actions span.reply a:before {
+  content: "\f473";
+}
+.column-actions .show-icons .row-actions span.trash a:before {
+  content: "\f182";
+}
+.column-actions .show-icons .row-actions span.spam a:before {
+  content: "\f117";
+}

@@ -6,7 +6,7 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 	public function __construct( $post_type ) {
 		parent::__construct();
 
-		$this->type = 'post'; // TODO: where is type used? only folders? then create method get_column_dir and using screen var
+		$this->type = 'post';
 		$this->base = 'edit';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 		$this->list_table = 'WP_Posts_List_Table';
@@ -53,6 +53,15 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 		$post_type_object = get_post_type_object( $this->post_type );
 
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
+	}
+
+	/**
+	 * @param CPAC_Column $column
+	 */
+	public function register_column_type( CPAC_Column $column ) {
+		$column->set_post_type( $this->get_post_type() );
+
+		parent::register_column_type( $column );
 	}
 
 }

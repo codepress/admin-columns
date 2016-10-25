@@ -20,6 +20,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWPAbstract {
 		$this->base = 'edit-comments';
 		$this->screen = 'edit-comments';
 		$this->list_table = 'WP_Comments_List_Table';
+		$this->menu_type = $this->label;
 	}
 
 	public function set_manage_value_callback() {
@@ -42,7 +43,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWPAbstract {
 	}
 
 	public function manage_value( $column_name, $id ) {
-		echo $this->columns()->get_display_value_by_column_name( $column_name, $id );
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	public function get_post_type() {

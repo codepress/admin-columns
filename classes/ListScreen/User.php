@@ -14,6 +14,7 @@ class AC_ListScreen_User extends AC_ListScreenWPAbstract {
 		$this->base = 'users';
 		$this->screen = 'users';
 		$this->list_table = 'WP_Users_List_Table';
+		$this->menu_type = $this->label;
 	}
 
 	/**
@@ -50,7 +51,7 @@ class AC_ListScreen_User extends AC_ListScreenWPAbstract {
 	 * @param int $user_id
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
-		return $this->columns()->get_display_value_by_column_name( $column_name, $user_id, $value );
+		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
 	}
 
 }

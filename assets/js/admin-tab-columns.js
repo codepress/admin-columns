@@ -733,9 +733,14 @@ function cpac_reset_columns( $ ) {
 			}
 		} );
 
-		// Toggle additional column settings
+
+		// On load
 		column.find( '[data-trigger]' ).each( function() {
-			var additional = column.find( '[data-handle="' + $( this ).data( 'trigger' ) + '"]' ).addClass( 'hide' );
+
+			var trigger = $( this ).data( 'trigger' );
+
+			// Hide additional column settings
+			var additional = column.find( '[data-handle="' + trigger + '"]' ).addClass( 'hide' );
 			if ( 'on' == $( 'input:checked', this ).val() ) {
 				additional.removeClass( 'hide' );
 			}
@@ -764,6 +769,17 @@ function cpac_reset_columns( $ ) {
 				$( this ).removeClass( 'off' ).addClass( 'on' );
 				radio.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' );
 			}
+		} );
+
+		// Load indicator icon
+		column.find( '[data-trigger]' ).each( function() {
+			var indicator = column.find( '[data-indicator-id="' + $( this ).data( 'trigger' ) + '"]' );
+			if ( indicator.length > 0 ) {
+				if ( 'on' === $( this ).find( 'input:checked' ).val() ) {
+					indicator.addClass( 'on' );
+				}
+			}
+
 		} );
 	};
 

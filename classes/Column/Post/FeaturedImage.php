@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_FeaturedImage extends AC_ColumnPostAbstract {
+class AC_Column_Post_FeaturedImage extends AC_Column_PostAbstract {
 
 	public function init() {
 		parent::init();
