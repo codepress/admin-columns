@@ -373,23 +373,14 @@ abstract class AC_ListScreenAbstract {
 	 */
 	public function register_column_type( CPAC_Column $column ) {
 
-		// TODO: change to is_valid()
-		if ( ! $column->apply_conditional() ) {
+		// Skip original columns that do not exist
+		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return;
 		}
 
-		// Skip original columns that do not exist
-		if ( $column->is_original() ) {
-			if ( ! $this->default_column_exists( $column->get_type() ) ) {
-				return;
-			}
-
-			if ( ! $column->get_property( 'group' ) ) {
-				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
-			}
+		if ( $column->apply_conditional() ) {
+			$this->column_types[ $column->get_type() ] = $column;
 		}
-
-		$this->column_types[ $column->get_type() ] = $column;
 	}
 
 	/**
@@ -426,8 +417,10 @@ abstract class AC_ListScreenAbstract {
 			return false;
 		}
 
+		$class_name = get_class( $_column_type );
+
 		/* @var CPAC_Column $column */
-		$column = clone $_column_type;
+		$column = new $class_name;
 
 		$column
 			->set_clone( $clone )

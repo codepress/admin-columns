@@ -220,7 +220,7 @@ abstract class CPAC_Column {
 	 * @return string Group
 	 */
 	public function get_group() {
-		return $this->get_property( 'group' );
+		return $this->get_property( 'group' ) ? $this->get_property( 'group' ) : __( 'Default', 'codepress-admin-columns' );
 	}
 
 	/**
