@@ -413,6 +413,7 @@ abstract class AC_ListScreenAbstract {
 	 */
 	public function create_column( $type, $options = array(), $clone = 0 ) {
 		$_column_type = $this->get_column_type( $type );
+
 		if ( ! $_column_type ) {
 			return false;
 		}
@@ -423,6 +424,7 @@ abstract class AC_ListScreenAbstract {
 		$column = new $class_name;
 
 		$column
+			->set_type( $type )
 			->set_clone( $clone )
 			->set_options( $options );
 
@@ -522,7 +524,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @return array  [ Column Name =>  Column Label ]
 	 */
-	private function get_default_headings() {
+	public function get_default_headings() {
 		if ( null === $this->default_columns ) {
 			$this->set_default_columns();
 		}
