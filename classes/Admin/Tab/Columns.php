@@ -230,12 +230,18 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
+		$column = $list_screen->get_column_by_type( $type );
+
 		// todo: $original_columns might not be an array
 		if ( in_array( $type, $original_columns ) ) {
-			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $this->get_clean_type_label( $column ) . '</strong>' ) ) );
+			wp_send_json_error( array(
+				'type'  => 'message',
+				'error' => sprintf(
+					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+					'<strong>' . $this->get_clean_type_label( $column ) . '</strong>'
+				),
+			) );
 		}
-
-		$column = $list_screen->get_column_by_type( $type );
 
 		wp_send_json_success( $this->get_column_display( $column ) );
 	}
