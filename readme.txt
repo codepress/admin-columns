@@ -211,6 +211,9 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
+
+Release Date: t.b.d.
+
 * [Improved] Using dashicons instead of image icons
 * [Added] Autoloader added
 * [Added] New user column added: Author name
@@ -222,24 +225,49 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] new method for singleton for Admin Columns main class. 'ac()'
 * [Fixed] ACF select2 error due to ACF update
 
+= 2.5.6.3 =
+
+Release Date: July 6th, 2016
+
+* [Added] Filter for suppressing admin notices, use: `add_filter( 'cac/suppress_site_wide_notices', '__return_true' )`
+* [Fixed] Only enable our plugin for taxonomies that are available in the admin
+
 = 2.5.6.2 =
+
+Release Date: April 29th, 2016
+
 * [Fixed] Hotfix cleanup.
 
 = 2.5.6.1 =
+
+Release Date: April 29th, 2016
+
 * [Fixed] Hotfix. Version 2.5.6 did not display the stored column settings, which has been hotfixed.
 
 = 2.5.6 =
+
+Release Date: April 29th, 2016
+
 * [Fixed] Row actions are now only added to the first column when the primary column isn't available
 * [Fixed] The true/false field option for the Custom Field column will display a cross icon when the value is empty or zero
 
 = 2.5.5 =
+
+Release Date: April 7th, 2016
+
 * [Improved] Columns with empty values will now display a dash symbol
 * [Fixed] Excerpt column: The label "Excerpt from content" will now only display when the post has content
 
 = 2.5.4.1 =
+
+Release Date: March 29th, 2016
+
 * [Fixed] Columns can be marked as original, in case the default has been replaced by an ac-column
 
 = 2.5.4 =
+
+Release Date: March 29th, 2016
+
 * [Fixed] Edit columns button will be positioned correctly on the Trash page
 * [Fixed] Obsolete images have been removed
 * [Fixed] Roles names column will display the available translation
@@ -248,18 +276,30 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] WPML will correctly display it's "+" icons again. Make sure to add/remove the column.
 * [Improved Messages on the settings screen (when using restore columns) are now displayed directly above the columns
 * [Improved] Excerpt column will now display a label "excerpt from content" when the actual excerpt field is empty
-* [Added] New filter 'cac/get_posts/post_status' has been added to change post_status when using CPAC_Storage_model::get_posts()
+* [Added] New filter 'cac/get_posts/post_status' has been added to change post_status when using `CPAC_Storage_model::get_posts()``
 
 = 2.5.3 =
+
+Release Date: March 18th, 2016
+
 * [Fixed] Fixes an issue with some 3rd party column not being visible
 
 = 2.5.2 =
+
+Release Date: March 16th, 2016
+
 * [Fixed] Fixes an issue where some of the WordPress default columns did not display correctly
 
 = 2.5.1 =
+
+Release Date: March 16th, 2016
+
 * [Fixed] Column settings are displayed correctly now
 
 = 2.5 =
+
+Release Date: March 16th, 2016
+
 * [Updated] The main menu has been replaced with a single dropdown menu
 * [Updated] Support for 3rd party columns from other themes or plugins has been greatly improved
 * [Added] Added a new column: Comment status
@@ -275,10 +315,10 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Columns with an imagesize selection setting will have the a default option selected
 * [Removed] Removed loading columns through 'load-edit.php' filter
 * [Added] Column settings are now stored without the need to refresh the page (through ajax)
-* [Added] You can disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+* [Added] You can disable the columns delete confirmation through this filter `ac/delete_confirmation`
 * [Improved] The width of default columns (e.g. date and author) are now displayed
 * [Improved] bbPress columns are loaded correctly
-* [Updated] All languages files have been updated from Transifex (https://www.transifex.com/codepress/admin-columns)
+* [Updated] All languages files have been updated from [Transifex](https://www.transifex.com/codepress/admin-columns)
 *
 * [Developer notes]
 * [Refactor] CPAC now is a singleton class
@@ -303,6 +343,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Refactor:removed] CPAC_Column_Storagemodel::set_stored_columns() method removed
 
 = 2.4.10 =
+
+Release Date: February 9th, 2016
+
 * [Fixed] Data:image sources for images are supported in labels
 * [Fixed] Cloned columns no longer has the wrong options when stored
 * [Added] Added an extra update button to the bottom of the settings page
@@ -312,18 +355,27 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] The storage_model object can now be used within sub pages
 
 = 2.4.9 =
+
+Release Date: Januari 21th, 2016
+
 * [Added] Display format Url added to Custom Fields
-* [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
+* [Added] Allow the use of before and after fields for all columns. Use `add_filter( 'cac/column/properties/use_before_after', '__return_true' )`.
 * [Fixed] Removed Field Groups from post types
 * [Fixed] Removed additional avatars from the comments view
-* [Added] Added the option to replace the Custom Field select menu with a text input. Use add_filter( 'cac/column/meta/use_text_input', '__return_true' ).
+* [Added] Added the option to replace the Custom Field select menu with a text input. Use `add_filter( 'cac/column/meta/use_text_input', '__return_true' )`.
 
 = 2.4.8 =
+
+Release Date: November 26th, 2016
+
 * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
 * [Updated] Minor performance improvements
 * [Fixed] New Yoast plugin compatibility
 
 = 2.4.7 =
+
+Release Date: October 13th, 2015
+
 * [Added] Comment Post column added
 * [Update] User Actions columns extends CPAC_Actions object
 * [Update] PHP export columns no longer uses global
@@ -332,14 +384,23 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] WPML columns will display the correct flag on the overview when switching language
 
 = 2.4.6 =
+
+Release Date: August 13th, 2015
+
 * [Fixed] Page Order column is now available on all supported posttypes
 * [Fixed] Time reading columns shows "-" instead of zero when there is no content
 
 = 2.4.5 =
+
+Release Date: July 1st, 2015
+
 * [Fixed] Estimate Time Reading column will not display a value when there is no content
 * [Fixed] When updating there was a possbile change on a "Cannot modify header information"
 
 = 2.4.4 =
+
+Release Date: June 29th, 2015
+
 * [Fixed] Support for custom post statuses
 * [Fixed] Page Order column is now available on all hierarchical post types
 * [Added] WordPress Default columns has it's own menu group
@@ -348,15 +409,24 @@ You can find a list of the available actions and filters (and examples on how to
 * [Update] Updated all languages from Transifex
 
 = 2.4.3 =
+
+Release Date: May 4th, 2015
+
 * [Fixed] Comment bubble icon is fixed
 
 = 2.4.2 =
+
+Release Date: April 29th, 2015
+
 * [Added] Added new comment columns: type, author and user.
 * [Added] Width indicator text is darker
 * [Fixed] Remove ' symbol from column label, because it causing issues when sorting
 * [Fixed] Review notice will only show on admin columns page and with an improved hide button
 
 = 2.4.1 =
+
+Release Date: April 16th, 2015
+
 * [Added] Added the development filter 'cac/menu_types' to add custom menu types
 * [Added] Added public method set_menu_type() to the storage model
 * [Added] Added review notice
@@ -365,6 +435,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Pro addon notice text has been updated
 
 = 2.4 =
+
+Release Date: March 26th, 2015
+
 * [Added] Added content column for post(types).
 * [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
 * [Added] Column width has a text field to enter the width
@@ -374,12 +447,18 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Added a singular label to all storage_models
 
 = 2.3.4 =
+
+Release Date: March 3rd, 2015
+
 * [Added] A column can have it's own JS/CSS files by using the CPAC_Column::scripts() method
 * [Added] Column Name can be found by hovering over the "Type" label in your column settings
 * [Fixed] Fixed a quick edit issue for comments
 * [Fixed] is_field() method of the custom field column works as intended
 
 = 2.3.3 =
+
+Release Date: Januari 30th, 2015
+
 * [Added] Added user column: Visual Editor
 * [Added] Added post column: Estimated Reading Time
 * [Added] Added method CPAC_Column::get_sorting_value()
@@ -388,7 +467,10 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Fixed media actions column
 
 = 2.3.2 =
-* [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
+
+Release Date: December 20th, 2014
+
+* [Updated] All translations from [Transifex](https://www.transifex.com/projects/p/admin-columns)
 * [Updated] 100% Spanish translation thanks to Carlos
 * [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
 * [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
@@ -401,9 +483,15 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Compatibility issue with Ninja Forms where submission would not be displayed
 
 = 2.3.1 =
+
+Release Date: December 5th, 2014
+
 * [Fixed] Image Uploader failing inside nested Settings pod when using the Pods plugin
 
 = 2.3 =
+
+Release Date: December 5th, 2014
+
 * [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable
 * [Added] CPAC_Settings::get_settings_page() to retrieve setting_page slug
 * [Added] Caching method for CPAC_Storage_Model
@@ -411,6 +499,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Improved word count on post content
 
 = 2.2.9 =
+
+Release Date: October 31th, 2014
+
 * [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
 * [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.
 * [Fixed] Fix "restore" action link in post actions column
@@ -418,45 +509,78 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Partially Italian (it_IT) language, thanks to francesco.
 
 = 2.2.8.1 =
+
+Release Date: October 2nd, 2014
+
 * [Fixed] Quick Edit will display columns correctly after saving
 
 = 2.2.8 =
+
+Release Date: October 1st, 2014
+
 * [Fixed] support for WPML columns
 
 = 2.2.7 =
+
+Release Date: September 24th, 2014
+
 * [Added] Added date format option for "Last modified" column
 * [Updated] Change references from Codepress Admin Columns to Admin Columns
 * [Updated] General code clean-up
 * [Improved] Documentation improvements
 
 = 2.2.6.4 =
+
+Release Date: August 28th, 2014
+
 * [Updated] Portuguese (Brazil) language - thanks to André Mácola Machado
 
 = 2.2.6.3 =
+
+Release Date: August 22nd, 2014
+
 * [Updated] Enable 3rd party plugins to set storage_models outside the post listings screens
 * [Updated] Spanish language updated - thanks to Andrew Kurtis
 
 = 2.2.6.2 =
+
+Release Date: August 29th, 2014
+
 * [Fixed] Fixed “Illegal offset” warning for unset option on edit screen
 
 = 2.2.6.1 =
+
+Release Date: August 15th, 2014
+
 * [Fixed] Fixed dependency on PHP 5.3+ in actions column
 
 = 2.2.6 =
+
+Release Date: August 15th, 2014
+
 * [Changed] Display "edit columns" button by default
 * [Improved] Improved memory usage by only loading columns for the current screen
 * [Changed] Removed floatHead library
 * [Updated] Only display ACF placeholder with ACF active.
 
 = 2.2.5.1 =
+
+Release Date: August 13th, 2014
+
 * [Fixed] Unavailable included JS-file on editing pages
 
 = 2.2.5 =
+
+Release Date: August 1th, 2014
+
 * [Fixed] Error with actions icons.
 * [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts.
 * [Fixed] Only ajax calls from cpac will trigger the loading of storage_models now.
 
 = 2.2.4 =
+
+Release Date: July 11th, 2014
+
 * [Added] New filter `cpac/storage_model/columns_default` for filtering the columns that should be loaded if there are no stored columns
 * [Added] Option (column property `hidden`) to hide column types from the dropdown list of column types
 * [Added] Use tooltip library for enhanced column value representation
@@ -467,16 +591,28 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Updated structure of scripts and styles and way of enqueuing them
 
 = 2.2.3 =
+
+Release Date: July 1th, 2014
+
 * [Added] Added Path column for post(types). Uses the permalink without the home url.
 
 = 2.2.2 =
+
+Release Date: June 27th, 2014
+
 * [Fixed] Custom Fields for Media Library did not work.
 * [Fixed] Column type dropdown displayed an empty item.
 
 = 2.2.1.1 =
+
+Release Date: June 23th, 2014
+
 * [Fixed] Fixed issue with Posts 2 Posts (and other third party plugins) columns not being displayed because of  hooking into late actions on post pages
 
 = 2.2.1 =
+
+Release Date: June 17th, 2014
+
 * [Added] Option to make permalink in permalink column clickable (linking to post)
 * [Added] Direct support box in Admin Columns settings screen sidebar
 * [Added] Added filter to suppress pro add-on notice (`cpac/suppress_proaddon_notice`)
@@ -486,6 +622,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Updated translations from Transifex
 
 = 2.2 =
+
+Release Date: May 28th, 2014
+
 * [Added] AJAX refreshing of columns in columns settings screen
 * [Added] Support for managing columns via code instead of UI
 * [Added] Additional integration possibilities for add-ons
@@ -497,9 +636,15 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Third party plugin integration functions are now prefixed, thereby adhering to coding standards
 
 = 2.1.5 =
+
+Release Date: May 4th, 2014
+
 * [Updated] Compatibility with add-ons
 
 = 2.1.4 =
+
+Release Date: March 21st, 2014
+
 * [Added] CSS now is compiled with LESS
 * [Updated] Menu is split between posttypes and media, comments and users.
 * [Fixed] WordPress SEO 1.5.2 columns support
@@ -511,27 +656,42 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Column labels can no longer contain ":" characters
 
 = 2.1.3 =
+
+Release Date: March 12th, 2014
+
 * [Updated] Undo changes from 2.1.2, will be in the next major release
 * [Fixed] Moved assignment of capabilities to plugin activation hook
 * [Fixed] Hook into manage_columns filters later to prevent overwriting from other plugins
 * [Fixed] Filters for column_path
 
 = 2.1.2 =
+
+Release Date: March 11th, 2014
+
 [Updated] Added ajax check and improved loading.
 [Updated] Menu is split between posttypes and media, comments and users.
 [Added] WooCommerce 2.1 columns support
 [Fixed] Filters for column_path
 
 = 2.1.1 =
+
+Release Date: December 18th, 2013
+
 * [Updated] Added page check to posttype edit screens
 * [Updated] taxonomy raw_value outputs term_ids
 * [Added] Taxnomy support for Media
 * [Fixed] In some cases custom field column would trigger a php warning on post titles type
 
-= 2.1.0 =
+= 2.1 =
+
+Release Date: November 14th, 2013
+
 * [Updated] Improved overall performance for script loading and lowered memory usage
 
 = 2.0.3 =
+
+Release Date: November 12th, 2013
+
 * [Updated] Danish translation - thanks to iosoftgame
 * [Updated] Spanish translation - thanks to redywebs
 * [Added] Chinese translation - thanks to Ã¥â‚¬Â¡Ã¨ÂÅ’
@@ -542,6 +702,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Updated] Changed filter for cac/column/value. See: https://www.admincolumns.com/documentation/.
 
 = 2.0.2 =
+
+Release Date: August 14th, 2013
+
 * [Fixed] Performance issue
 * [Added] Option to show/hide edit-button
 * [Fixed] Bug before/after-field not saving correctly
@@ -552,9 +715,15 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] Arabic translation - thanks to Hassan
 
 = 2.0.1 =
+
+Release Date: August 9th, 2013
+
 * [Fixed] Bug which caused columns to not include properly
 
 = 2.0 =
+
+Release Date: August 9th, 2013
+
 * [Notice] Database needs an update, make sure to backup first
 * [Changed] Sortorder licence is now an Pro Add-on
 * [Changed] Some filters and hooks have been changed, see online documentation
@@ -582,14 +751,23 @@ You can find a list of the available actions and filters (and examples on how to
 * [Addon] Pro add-on includes Sorting, Filtering and Import/Export
 
 = 1.4.9 =
+
+Release Date: December 13th, 2012
+
 * fixed bug: thirdparty columns that were previous loaded through load-edit.php will now use do_action( 'cpac-get-default-columns-{$type}' )
 
 = 1.4.8 =
+
+Release Date: December 12th, 2012
+
 * [Fixed] Issue: removed acf posttype placed by Advaced Custom Fields from settings menu
 * [Fixed] Issue: removed bbPress posttypes topic, forum and reply from admin columns settings menu
 * [Fixed] Issue: license key could not activate properly
 
 = 1.4.7 =
+
+Release Date: December 11th, 2012
+
 * [Upated] Ready for WP 3.5
 * [Added] support for custom fields for Media
 * [Added] color to the custom field types
@@ -600,27 +778,42 @@ You can find a list of the available actions and filters (and examples on how to
 * [Improved] Perfomance on post count on user overview screen
 
 = 1.4.6.4 =
+
+Release Date: September 21st, 2012
+
 * [Added] 'before more tag' column, which will show the content which is placed before the more-tag
 * [Fixed] Issue: file images will now also be displayed when they can not be resized.
 * [Fixed] Issue: the checkbox disappeared when resetting columns and resaving them.
 
 = 1.4.6.3 =
+
+Release Date: September 19st, 2012
+
 * [Added] new custom field type: User by User ID
 * [Added] values to filter 'cpac_get_column_value_custom_field' for better control of the output
 * [Added] an example for above filter to FAQ section
 * [Fixed] Issue: where trash posts did not show with the sorting addon activated
 
 = 1.4.6.2 =
+
+Release Date: August 21st, 2012
+
 * [Fixed] Issue: with a static function which could cause an error in some cases
 * [Added] filter to enable taxonomy filtering. add this to your functions.php to enable taxonomy filtering: `add_filter( 'cpac-remove-filtering-columns', '__return_false' );`
 
 = 1.4.6.1 =
+
+Release Date: August 20th, 2012
+
 * [Fixed] Issue: for possible warning when using Custompress ( props to scottsalisbury for the fix! )
 * [Fixed] Issue: for sorting by postcount for users
 * [Added] 'Display Author As' column for post(types)
 * [Added] sorting support for 'Display Author As' column
 
 = 1.4.6 =
+
+Release Date: August 14th, 2012
+
 * [Added] german language ( thanks to Uli )
 * [Added] danish language ( thanks to Morten Dalgaard Johansen )
 * [Added] filter for setting thumbnail size ( see FAQ on how to use it )
@@ -628,9 +821,15 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: for WordPress SEO by Yoast Columns
 
 = 1.4.5.1 =
+
+Release Date: June 27th, 2012
+
 * [Removed] taxonomy filtering ( will implement show/hide option )
 
 = 1.4.5 =
+
+Release Date: June 27th, 2012
+
 * [Added] french language ( thanks to Alexandre Girard )
 * [Added] filtering by taxonomy ( only displays when column is used )
 * [Added] compatibility with woocommerce
@@ -646,6 +845,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting users by postcount
 
 = 1.4.4 =
+
+Release Date: May 1st, 2012
+
 * [Added] posts columns Last Modified and Comment count
 * [Added] media columns for EXIF and IPTC image data
 * [Added] custom fields columns to the Media Library
@@ -654,9 +856,15 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] possible php warning
 
 = 1.4.3 =
+
+Release Date: April 13th, 2012
+
 * [Removed] taxonomy filtering
 
 = 1.4.2 =
+
+Release Date: April 11th, 2012
+
 * [Fixed] Issue: for unexpected output in the column value
 * [Fixed] Issue: for better 3rd party plugin support
 * [Added] column for Comment status
@@ -668,11 +876,17 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] taxonomy filtering
 
 = 1.4.1 =
+
+Release Date: March 27th, 2012
+
 * [Added] polish translation, thanks to Bartosz.
 * [Upated] the license key validation proces to be complaint with WP rules
 * [Removed] non-breaking-space-character from column output
 
 = 1.4 =
+
+Release Date: March 23rd, 2012
+
 * [Added] support for comment columns
 * [Added] support for link columns
 * [Added] links to taxonomies
@@ -690,6 +904,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: a conflict with the Co-Authors plugin
 
 = 1.3 =
+
+Release Date: December 19th, 2011
+
 * [Added] support for Media columns
 * [Added] Media columns: filename, width, height, dimensions, description, alt, caption and mime-type
 * [Added] date type to posts custom fields
@@ -698,6 +915,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Improved] str_word_count is used for excerpts
 
 = 1.2.1 =
+
+Release Date: December 9th, 2011
+
 * [Added] word count sorting
 * [Added] attachment count sorting
 * [Added] template name sorting
@@ -706,22 +926,27 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting by attachment
 
 = 1.2 =
+
+Release Date: December 6th, 2011
+
 * [Added] support for third party plugins
 * [Added] user custom fields
 * [Added] extra image check
 * [Fixed] Issue: with javascript (jquery) enqueue
 
 = 1.1.3 =
+
+Release Date: December 6th, 2011
+
 * [Fixed] Issue: for WP3.3beta
-
-= 1.1.2 =
 * [Added] Dutch translation
-
-= 1.1.1 =
 * [Fixed] Issue: path separator for require_once
 * [Added] word count column
 
 = 1.1 =
+
+Release Date: November 28th, 2011
+
 * [Added] User Columns.
 * [Added] before / after text for custom fields
 * [Added] custom field type 'Numeric'.
@@ -730,9 +955,7 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] settings link
 
 = 1.0 =
+
+Release Date: November 27th, 2011
+
 * Initial release.
-
-== Upgrade Notice ==
-
-= 2.0 =
-Version 2.0 is a major upgrade, which is partially compatible with prior versions.
