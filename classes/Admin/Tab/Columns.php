@@ -198,16 +198,25 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Display HTML markup for column type
+	 * Check is the ajax request is valid and user is allowed to make it
 	 *
 	 * @since NEWVERSION
 	 */
-	public function ajax_column_select() {
+	private function ajax_validate_request() {
 		check_ajax_referer( 'cpac-settings' );
 
 		if ( ! current_user_can( 'manage_admin_columns' ) ) {
 			wp_die();
 		}
+	}
+
+	/**
+	 * Display HTML markup for column type
+	 *
+	 * @since NEWVERSION
+	 */
+	public function ajax_column_select() {
+		$this->ajax_validate_request();
 
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
@@ -219,14 +228,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$this->set_list_screen( $list_screen );
 
 		$type = filter_input( INPUT_POST, 'type' );
-
-		$column = $list_screen->create_column( $type );
-
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
+		// todo: $original_columns might not be an array
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $this->get_clean_type_label( $column ) . '</strong>' ) ) );
 		}
+
+		$column = $list_screen->get_column_by_type( $type );
 
 		wp_send_json_success( $this->get_column_display( $column ) );
 	}
@@ -235,40 +244,32 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		check_ajax_referer( 'cpac-settings' );
+		$this->ajax_validate_request();
 
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			wp_die();
-		}
-
+		$data = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( empty( $_POST['formdata'] ) || ! $column_name ) {
+		if ( ! $data || ! $column_name ) {
 			wp_die();
 		}
 
-		parse_str( $_POST['formdata'], $formdata );
+		// convert to array
+		parse_str( $data, $data );
 
-		if ( empty( $formdata['cpac_key'] ) ) {
+		if ( empty( $data['cpac_key'] ) || empty( $data['columns'][ $column_name ] ) ) {
 			wp_die();
 		}
 
-		$list_screen = AC()->get_list_screen( $formdata['cpac_key'] );
+		$list_screen = AC()->get_list_screen( $data['cpac_key'] );
 
 		if ( ! $list_screen ) {
 			wp_die();
 		}
 
-		// Run Hook
+		// Run hooks
 		$this->set_list_screen( $list_screen );
 
-		if ( empty( $formdata['columns'][ $column_name ] ) ) {
-			wp_die();
-		}
-
-		$data = $formdata['columns'][ $column_name ];
-
-		$column = $this->list_screen->create_column( $data['type'], $data, $data['clone'] );
+		$column = $this->list_screen->create_column( $data );
 
 		if ( ! $column ) {
 			wp_die();
@@ -281,11 +282,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.5
 	 */
 	public function ajax_columns_save() {
-		check_ajax_referer( 'cpac-settings' );
-
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			wp_die();
-		}
+		$this->ajax_validate_request();
 
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
@@ -385,8 +382,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			}
 
 			$this->set_user_model_preference( $list_screen->get_key() );
-		}
-		else {
+		} else {
 
 			// User preference
 			if ( $exists = $this->get_user_model_preference() ) {
@@ -685,14 +681,20 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 
 			<div id="add-new-column-template">
+				<?php
 
-				<?php foreach ( $list_screen->get_column_types() as $column ) {
+				foreach ( $list_screen->get_column_types() as $type => $class ) {
+					$column = new $class;
+
 					if ( ! $column->is_original() ) {
-						$column->set_property( 'name', $column->get_type() );
+						$column->set_property( 'name', $type );
 						$this->display_column( $column );
+
 						break;
 					}
-				} ?>
+				}
+
+				?>
 			</div>
 
 		</div><!--.columns-container-->
@@ -730,16 +732,19 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function get_grouped_columns() {
 		$grouped = array();
 
-		foreach ( $this->list_screen->get_column_types() as $type => $column ) {
-			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
-				$grouped[ $column->get_group() ]['title'] = $column->get_group();
+		foreach ( $this->list_screen->get_column_types() as $type => $class ) {
+			$column = new $class;
+			$group = $column->get_group();
+
+			if ( ! isset( $grouped[ $group ] ) ) {
+				$grouped[ $group ]['title'] = $group;
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = $this->get_clean_type_label( $column );
+			$grouped[ $group ]['options'][ $type ] = $this->get_clean_type_label( $column );
 
 			if ( ! $column->is_original() ) {
-				natcasesort( $grouped[ $column->get_group() ]['options'] );
+				natcasesort( $grouped[ $group ]['options'] );
 			}
 		}
 
