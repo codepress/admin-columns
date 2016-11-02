@@ -229,7 +229,12 @@ abstract class AC_Column {
 		return AC()->helper();
 	}
 
-
+	/**
+	 * @return AC_Settings_Column
+	 */
+	public function settings() {
+		return new AC_Settings_Column();
+	}
 
 
 
