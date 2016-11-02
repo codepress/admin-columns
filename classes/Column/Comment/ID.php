@@ -14,4 +14,5 @@ class AC_Column_Comment_ID extends AC_Column {
 	public function get_value( $id ) {
 		return $id;
 	}
+
 }

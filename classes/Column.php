@@ -236,8 +236,6 @@ abstract class AC_Column {
 
 
 
-
-
 	/**
 	 * TODO: refactor. remove.
 	 *

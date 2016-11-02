@@ -71,7 +71,7 @@ class AC_Column_Media_ExifData extends AC_Column {
 		$this->field_settings->field( array(
 			'type'    => 'select',
 			'name'    => 'exif_datatype',
-			'label'   => $this->get_type_label(),
+			'label'   => $this->get_label(),
 			'options' => $this->get_exif_types(),
 		) );
 	}
