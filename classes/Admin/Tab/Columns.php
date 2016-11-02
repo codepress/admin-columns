@@ -272,7 +272,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		// Run hooks
+		// todo: move the hooks required here to the init of the list screen
 		$this->set_list_screen( $list_screen );
 
 		$column = $this->list_screen->create_column( $data['columns'][ $column_name ] );
