@@ -25,7 +25,7 @@ abstract class AC_Column {
 	private $group;
 
 	/**
-	 * @var bool Is original column TODO: description
+	 * @var bool An original column will use the already defined column value and label.
 	 */
 	private $original;
 
@@ -76,6 +76,16 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * Get the name of the column.
+	 *
+	 * @since 2.3.4
+	 * @return string Column name
+	 */
+	public function get_name() {
+		return $this->clone > 0 ? $this->type . '-' . $this->clone : $this->type;
+	}
+
+	/**
 	 * Get the type of the column.
 	 *
 	 * @since 2.3.4
@@ -113,16 +123,6 @@ abstract class AC_Column {
 		$this->label = $label;
 
 		return $this;
-	}
-
-	/**
-	 * Get the name of the column.
-	 *
-	 * @since 2.3.4
-	 * @return string Column name
-	 */
-	public function get_name() {
-		return $this->clone > 0 ? $this->type . '-' . $this->clone : $this->type;
 	}
 
 	/**
@@ -180,7 +180,7 @@ abstract class AC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: used to be is_valid(), replace inside all columns
+	// TODO: used to be is_valid(), replace inside all columns (including add-ons)
 	public function is_valid() {
 		return true;
 	}
@@ -228,6 +228,12 @@ abstract class AC_Column {
 	protected function helper() {
 		return AC()->helper();
 	}
+
+
+
+
+
+
 
 
 
