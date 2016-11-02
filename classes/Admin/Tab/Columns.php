@@ -22,9 +22,12 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
 		// Ajax calls
-		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
-		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
-		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
+		$ajax_methods = array( 'column_select', 'column_refresh', 'columns_save' );
+
+		foreach ( $ajax_methods as $method ) {
+			add_action( 'wp_ajax_cpac_' . $method, array( $this, 'ajax_validate_request' ) );
+			add_action( 'wp_ajax_cpac_' . $method, array( $this, 'ajax_' . $method ) );
+		}
 	}
 
 	/**
@@ -196,9 +199,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
+		// make sure a list screen is set on AJAX requests
 		$this->set_current_list_screen();
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) )
 	}
 
 	/**
@@ -207,18 +209,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since NEWVERSION
 	 */
 	public function ajax_column_select() {
-		$this->ajax_validate_request();
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$column = $list_screen->get_column_by_type( $type );
+		$column = $this->get_list_screen()->get_column_by_type( $type );
 
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array(
@@ -237,8 +231,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		$this->ajax_validate_request();
-
 		$data = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
@@ -253,13 +245,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		$list_screen = AC()->get_list_screen( $data['cpac_key'] );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		$column = $list_screen->create_column( $data['columns'][ $column_name ] );
+		$column = $this->get_list_screen()->create_column( $data['columns'][ $column_name ] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -272,14 +258,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.5
 	 */
 	public function ajax_columns_save() {
-		$this->ajax_validate_request();
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
@@ -290,7 +268,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			);
 		}
 
-		$stored = $this->store( $list_screen, $formdata['columns'] );
+		$stored = $this->store( $this->get_list_screen(), $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -301,8 +279,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" )
-			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_list_screen() ) ) . "</strong>" )
+			. ' <a href="' . esc_attr( $this->get_list_screen()->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $this->get_list_screen()->get_label() ) ) . '</a>'
 		);
 	}
 
@@ -368,6 +346,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 			$this->set_user_model_preference( $current_list_screen->get_key() );
 		}
+
+		do_action( 'ac/settings/list_screen', $current_list_screen );
 
 		$this->list_screen = $current_list_screen;
 	}
