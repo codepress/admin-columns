@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_Parent extends AC_Column_PostAbstract  {
+class AC_Column_Post_Parent extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-parent';
-		$this->properties['label'] = __( 'Parent', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-parent' );
+		$this->set_label( __( 'Parent', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {

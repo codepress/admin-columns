@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Slug extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-slug';
-		$this->properties['label'] = __( 'Slug', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-slug' );
+		$this->set_label( __( 'Slug', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $post_id ) {

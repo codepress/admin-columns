@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_PingStatus extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-ping_status';
-		$this->properties['label'] = __( 'Ping Status', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-ping_status' );
+		$this->set_label( __( 'Ping Status', 'codepress-admin-columns' ) );
 	}
 
 	public function is_valid() {

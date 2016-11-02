@@ -8,11 +8,9 @@ class AC_Column_Post_Status extends AC_Column_PostAbstract {
 
 	private $statuses;
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-status';
-		$this->properties['label'] = __( 'Status', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-status' );
+		$this->set_label( __( 'Status', 'codepress-admin-columns' ) );
 	}
 
 	public function get_status( $name ) {
@@ -23,7 +21,7 @@ class AC_Column_Post_Status extends AC_Column_PostAbstract {
 
 	public function get_statuses() {
 		if ( empty( $this->statuses ) ) {
-			$stati = get_post_stati( array( 'internal' => 0 ), 'objects' ) ;
+			$stati = get_post_stati( array( 'internal' => 0 ), 'objects' );
 			foreach ( $stati as $k => $status ) {
 				$this->statuses[ $k ] = $status->label;
 			}

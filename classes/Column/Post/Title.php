@@ -6,10 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Title extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'title';
+	public function __construct() {
+		parent::__construct();
+		$this->set_type( 'title' );
 	}
 
 	public function is_valid() {

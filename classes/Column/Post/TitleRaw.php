@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_TitleRaw extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-title_raw';
-		$this->properties['label'] = __( 'Title without actions', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-title_raw' );
+		$this->set_label( __( 'Title without actions', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $post_id ) {

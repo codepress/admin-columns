@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Order extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-order';
-		$this->properties['label'] = __( 'Order', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-order' );
+		$this->set_label( __( 'Order', 'codepress-admin-columns' ) );
 	}
 
 	public function is_valid() {

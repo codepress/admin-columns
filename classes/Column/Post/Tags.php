@@ -6,10 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Tags extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'tags';
+	public function __construct() {
+		parent::__construct();
+		$this->set_type( 'tags' );
 	}
 
 	public function get_default_with() {
