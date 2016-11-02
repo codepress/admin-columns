@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Media_ExifData extends CPAC_Column {
+class AC_Column_Media_ExifData extends AC_Column {
 
 	public function init() {
 		parent::init();
@@ -65,7 +65,7 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 		return get_post_meta( $id, '_wp_attachment_metadata', true );
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return function_exists( 'exif_read_data' );
 	}
 

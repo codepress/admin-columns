@@ -23,7 +23,7 @@ class AC_Column_Post_WordCount extends AC_Column_PostAbstract {
 		return ac_helper()->string->word_count( get_post_field( 'post_content', $post_id ) );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
 

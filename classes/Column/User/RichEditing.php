@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Column_User_RichEditing extends CPAC_Column {
+class AC_Column_User_RichEditing extends AC_Column {
 
 	public function init() {
 		parent::init();

@@ -1,13 +1,15 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Column_Plugin extends CPAC_Column {
+class AC_Column_Plugin extends AC_Column {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		$this->set_group( __( 'Plugins', 'codepress-admin-columns' ) );
+		$this->set_original( true );
+	}
 
-		$this->properties['group'] = __( 'Plugins', 'codepress-admin-columns' );
-		$this->properties['original'] = true;
+	public function get_value( $id ) {
+		return false;
 	}
 
 }

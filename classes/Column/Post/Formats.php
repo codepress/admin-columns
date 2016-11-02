@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Formats extends AC_Column_PostAbstract {
 
+	// TODO: OLD
 	public function init() {
 		parent::init();
 
@@ -13,7 +14,13 @@ class AC_Column_Post_Formats extends AC_Column_PostAbstract {
 		$this->properties['label'] = __( 'Post Format', 'codepress-admin-columns' );
 	}
 
-	function apply_conditional() {
+	// TODO: NEW
+	public function __construct() {
+		$this->set_type( 'column-post_formats' );
+		$this->set_label( __( 'Post Format', 'codepress-admin-columns' ) );
+	}
+
+	function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'post-formats' );
 	}
 

@@ -14,7 +14,11 @@ class AC_Column_WooCommercePlaceholder extends AC_Column_PostAbstract {
 		$this->properties['group'] = __( 'WooCommerce', 'codepress-admin-columns' );
 	}
 
-	public function apply_conditional() {
+	public function get_value( $id ) {
+		return false;
+	}
+
+	public function is_valid() {
 		return in_array( $this->get_post_type(), array( 'product', 'shop_order', 'shop_coupon' ) );
 	}
 

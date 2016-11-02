@@ -21,7 +21,7 @@ class AC_Column_Post_PageTemplate extends AC_Column_PostAbstract {
 		return get_post_meta( $post_id, '_wp_page_template', true );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return 'page' === $this->get_post_type();
 	}
 

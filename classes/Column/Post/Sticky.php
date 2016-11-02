@@ -15,7 +15,7 @@ class AC_Column_Post_Sticky extends AC_Column_PostAbstract  {
 		$this->properties['label'] = __( 'Sticky', 'codepress-admin-columns' );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return 'post' == $this->get_post_type();
 	}
 

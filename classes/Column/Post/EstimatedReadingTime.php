@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_EstimatedReadingTime extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-estimated_reading_time';
-		$this->properties['label'] = __( 'Estimated Reading Time', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-estimated_reading_time' );
+		$this->set_label( __( 'Estimated Reading Time', 'codepress-admin-columns' ) );
 	}
 
 	/**
@@ -29,7 +27,7 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column_PostAbstract {
 		return $this->format->words_per_minute( get_post_field( 'post_content', $post_id ), false );
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
 

@@ -20,7 +20,7 @@ class AC_Column_Post_Tags extends AC_Column_DefaultPostAbstract {
 		return 'post_tag';
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), $this->get_taxonomy() );
 	}
 

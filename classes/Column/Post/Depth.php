@@ -8,11 +8,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Depth extends AC_Column_PostAbstract  {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-depth';
-		$this->properties['label'] = __( 'Depth', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-depth' );
+		$this->set_label( __( 'Depth', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {
@@ -23,7 +21,7 @@ class AC_Column_Post_Depth extends AC_Column_PostAbstract  {
 		return count( get_post_ancestors( $post_id ) ) + 1;
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return is_post_type_hierarchical( $this->get_post_type() );
 	}
 

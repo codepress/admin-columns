@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-class AC_Column_Comment_AuthorIP extends CPAC_Column {
+class AC_Column_Comment_AuthorIP extends AC_Column {
 
 	public function init() {
 		parent::init();

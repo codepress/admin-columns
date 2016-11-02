@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Excerpt extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-excerpt';
-		$this->properties['label'] = __( 'Excerpt', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-excerpt' );
+		$this->set_label( __( 'Excerpt', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {

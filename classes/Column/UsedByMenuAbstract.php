@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
+abstract class AC_Column_UsedByMenuAbstract extends AC_Column {
 
 	abstract protected function get_object_type();
 
@@ -51,7 +51,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * @see CPAC_Column::get_raw_value()
+	 * @see AC_Column::get_raw_value()
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {

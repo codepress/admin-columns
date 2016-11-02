@@ -86,7 +86,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$options['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
 
 					// Label can not contains the character ":"" and "'", because
-					// CPAC_Column::get_sanitized_label() will return an empty string
+					// AC_Column::get_sanitized_label() will return an empty string
 					// and make an exception for site_url()
 					// Enable data:image url's
 					if ( false === strpos( $options['label'], 'data:' ) ) {
@@ -180,15 +180,15 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @param CPAC_Column $column
+	 * @param AC_Column $column
 	 *
 	 * @return string
 	 */
-	private function get_column_display( CPAC_Column $column ) {
+	private function get_column_display( AC_Column $column ) {
 
 		// Set label
 		if ( ! $column->get_option( 'label' ) ) {
-			$column->set_option( 'label', $column->get_type_label() );
+			$column->set_option( 'label', $column->get_option( 'label' ) );
 		}
 
 		ob_start();
@@ -688,7 +688,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 				<?php foreach ( $list_screen->get_column_types() as $column ) {
 					if ( ! $column->is_original() ) {
-						$column->set_property( 'name', $column->get_type() );
+						//$column->set_property( 'name', $column->get_type() );
 						$this->display_column( $column );
 						break;
 					}
@@ -707,12 +707,16 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 *
 	 * @return string
 	 */
-	private function get_clean_type_label( CPAC_Column $column ) {
+	private function get_clean_type_label( AC_Column $column ) {
 
-		$label = $column->get_type_label();
+		$label = $column->get_option( 'label' );
 
 		if ( $column->is_original() ) {
 			$label = $this->list_screen->get_original_label( $column->get_type() );
+		}
+
+		if ( empty( $label ) ) {
+			$label = $column->get_label();
 		}
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
@@ -751,13 +755,13 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * @since 2.0
 	 */
-	private function display_column( CPAC_Column $column ) {
+	private function display_column( AC_Column $column ) {
 		?>
 
-		<div class="cpac-column cpac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_property( 'is_cloneable' ) ? ' data-clone="' . esc_attr( $column->get_property( 'clone' ) ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+		<div class="cpac-column cpac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_property( 'clone' ) ); ?>"/>
+			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -780,7 +784,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									 *
 									 * @since 2.0
 									 *
-									 * @param CPAC_Column $column_instance Column class instance
+									 * @param AC_Column $column_instance Column class instance
 									 */
 									do_action( 'cac/column/settings_meta', $column );
 
@@ -803,7 +807,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						<td class="column_type">
 							<div class="inner">
 								<a href="#">
-									<?php echo $column->get_type_label(); ?>
+									<?php echo $column->get_label(); ?>
 								</a>
 							</div>
 						</td>
@@ -831,10 +835,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$column->field_settings->field( array(
 						'type'        => 'text',
 						'name'        => 'label',
-						'placeholder' => $column->get_type_label(),
+						'placeholder' => $column->get_label(),
 						'label'       => __( 'Label', 'codepress-admin-columns' ),
 						'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-						'hidden'      => $column->get_property( 'hide_label' ),
+						'hidden'      => $column->is_hide_label(),
 					) );
 
 					$column->field_settings->field( array(
@@ -848,7 +852,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 *
 					 * @since 2.0
 					 *
-					 * @param CPAC_Column $column_instance Column class instance
+					 * @param AC_Column $column_instance Column class instance
 					 */
 					do_action( 'cac/column/settings_before', $column );
 
@@ -858,7 +862,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 */
 					$column->display_settings();
 
-					if ( $column->get_property( 'use_before_after' ) ) {
+					if ( $column->use_before_after() ) {
 						$column->field_settings->before_after();
 					}
 
@@ -867,7 +871,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 *
 					 * @since 2.0
 					 *
-					 * @param CPAC_Column $column_instance Column class instance
+					 * @param AC_Column $column_instance Column class instance
 					 */
 					do_action( 'cac/column/settings_after', $column );
 					?>

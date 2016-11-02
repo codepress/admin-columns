@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_User_ShowToolbar extends CPAC_Column {
+class AC_Column_User_ShowToolbar extends AC_Column {
 
 	public function init() {
 		parent::init();

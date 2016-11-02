@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Media_AvailableSizes extends CPAC_Column {
+class AC_Column_Media_AvailableSizes extends AC_Column {
 
 	private $intermediate_image_sizes = null;
 

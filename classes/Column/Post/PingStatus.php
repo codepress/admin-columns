@@ -13,7 +13,7 @@ class AC_Column_Post_PingStatus extends AC_Column_PostAbstract {
 		$this->properties['label'] = __( 'Ping Status', 'codepress-admin-columns' );
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'comments' );
 	}
 

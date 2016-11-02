@@ -6,18 +6,16 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_BeforeMoreTag extends AC_Column_PostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-before_moretag';
-		$this->properties['label'] = __( 'Before More Tag', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-before_moretag' );
+		$this->set_label( __( 'Before More Tag', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 		return $this->get_raw_value( $post_id );
 	}
 
-	function get_raw_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 		$value = '';
 
 		$p = get_post( $post_id );
@@ -30,7 +28,7 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column_PostAbstract {
 		return $value;
 	}
 
-	function display_settings() {
+	public function display_settings() {
 		$this->field_settings->word_limit( 15 );
 	}
 

@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_AuthorUrl extends CPAC_Column {
+class AC_Column_Comment_AuthorUrl extends AC_Column {
 
 	public function init() {
 		parent::init();

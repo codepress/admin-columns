@@ -25,7 +25,7 @@ class AC_Column_Post_Parent extends AC_Column_PostAbstract  {
 		return $parent_id && is_numeric( $parent_id ) ? $parent_id : false;
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return is_post_type_hierarchical( $this->get_post_type() );
 	}
 
