@@ -233,7 +233,14 @@ abstract class AC_Column {
 	 * @return AC_Settings_Column
 	 */
 	public function settings() {
-		return new AC_Settings_Column();
+		$settings = new AC_Settings_Column( $this );
+
+		$settings
+			->add_field( new AC_Settings_Field_Type )
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Width );
+
+		return $settings;
 	}
 
 

@@ -353,6 +353,23 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		return $grouped_options;
 	}
 
+	public function settings() {
+		$settings = parent::settings();
+
+		// TODO: add custom fields
+		$settings
+			->add_field( new AC_Settings_Field_BeforeAfter() )
+			->add_field( new AC_Settings_Field_WordLimit() );
+
+		$settings->define_group(
+			__( 'Field Type', 'codepress-admin-columns' ),
+			__( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
+			array( 'before_after', 'word_limit' )
+		);
+
+		return $settings;
+	}
+
 	/**
 	 * @see AC_Column::display_settings()
 	 * @since 1.0
