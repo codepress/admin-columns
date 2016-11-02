@@ -365,7 +365,16 @@ class CPAC {
 	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
 
-		return isset( $screens[ $key ] ) ? $screens[ $key ] : false;
+		if ( ! isset( $screens[ $key ] ) ) {
+			return false;
+		}
+
+		$screen = $screens[ $key ];
+
+		// TODO: hook is very similar to ac/init_list_screen. DRY?
+		do_action( 'ac/list_screen', $screen );
+
+		return $screen;
 	}
 
 	/**
@@ -380,23 +389,6 @@ class CPAC {
 		}
 
 		return $this->list_screens;
-	}
-
-	/**
-	 * Get registered post list screens
-	 *
-	 * @since NEWVERSION
-	 * @return AC_ListScreen_PostAbstract[]
-	 */
-	public function get_list_screens_by_type( $type ) {
-		$screens = array();
-		foreach ( $this->get_list_screens() as $k => $list_screen ) {
-			if ( $type === $list_screen->get_type() ) {
-				$screens[] = $list_screen;
-			}
-		}
-
-		return $screens;
 	}
 
 	/**

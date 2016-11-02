@@ -174,9 +174,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @return false|AC_ListScreenAbstract
 	 */
 	private function get_first_list_screen() {
-		$models = array_values( AC()->get_list_screens() );
+		$screens = array_values( AC()->get_list_screens() );
 
-		return isset( $models[0] ) ? $models[0] : false;
+		return AC()->get_list_screen( $screens[0] );
 	}
 
 	/**
@@ -224,9 +224,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		// Run Hook
-		$this->set_list_screen( $list_screen );
-
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
@@ -272,10 +269,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		// todo: move the hooks required here to the init of the list screen
-		$this->set_list_screen( $list_screen );
-
-		$column = $this->list_screen->create_column( $data['columns'][ $column_name ] );
+		$column = $list_screen->create_column( $data['columns'][ $column_name ] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -296,9 +290,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_die();
 		}
 
-		// Run Hook
-		$this->set_list_screen( $list_screen );
-
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
@@ -309,7 +300,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			);
 		}
 
-		$stored = $this->store( $this->list_screen, $formdata['columns'] );
+		$stored = $this->store( $list_screen, $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -399,17 +390,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			}
 		}
 
-		$this->set_list_screen( $list_screen );
-	}
-
-	/**
-	 * @param AC_ListScreenAbstract $list_screen
-	 */
-	private function set_list_screen( AC_ListScreenAbstract $list_screen ) {
-
-		// @since NEWVERSION
-		do_action( 'ac/settings/list_screen', $list_screen );
-
+		// TODO: remove?
 		$this->list_screen = $list_screen;
 	}
 
