@@ -14,11 +14,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private $list_screen;
 
 	public function __construct() {
-
-		$this
-			->set_slug( 'columns' )
-			->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
-			->set_default( true );
+		$this->set_slug( 'columns' )
+		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
+		     ->set_default( true );
 
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
@@ -145,7 +143,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-
 		$action = filter_input( INPUT_POST, 'cpac_action' );
 		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
 
@@ -171,21 +168,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @return false|AC_ListScreenAbstract
-	 */
-	private function get_first_list_screen() {
-		$screens = array_values( AC()->get_list_screens() );
-
-		return AC()->get_list_screen( $screens[0] );
-	}
-
-	/**
 	 * @param AC_Column $column
 	 *
 	 * @return string
 	 */
 	private function get_column_display( AC_Column $column ) {
-
 		// Set label
 		if ( ! $column->get_option( 'label' ) ) {
 			$column->set_option( 'label', $column->get_option( 'label' ) );
@@ -208,6 +195,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		if ( ! current_user_can( 'manage_admin_columns' ) ) {
 			wp_die();
 		}
+
+		$this->set_current_list_screen();
+
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) )
 	}
 
 	/**
@@ -225,11 +216,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		$type = filter_input( INPUT_POST, 'type' );
-		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
 		$column = $list_screen->get_column_by_type( $type );
 
-		// todo: $original_columns might not be an array
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
@@ -362,36 +352,24 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Set list screen
+	 * Set current list screen
 	 */
-	public function set_current_list_screen() {
-		if ( isset( $_REQUEST['cpac_key'] ) ) {
+	private function set_current_list_screen() {
+		$current_list_screen = AC()->get_default_list_screen();
 
-			// By request
-			if ( $_list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
-				$list_screen = $_list_screen;
-			} // User preference
-			else if ( $_list_screen = $this->get_user_model_preference() ) {
-				$list_screen = $_list_screen;
-			} // First one served
-			else {
-				$list_screen = $this->get_first_list_screen();
-			}
-
-			$this->set_user_model_preference( $list_screen->get_key() );
-		} else {
-
-			// User preference
-			if ( $exists = $this->get_user_model_preference() ) {
-				$list_screen = $exists;
-			} // First one served
-			else {
-				$list_screen = $this->get_first_list_screen();
-			}
+		if ( $list_screen = $this->get_user_model_preference() ) {
+			$current_list_screen = $list_screen;
 		}
 
-		// TODO: remove?
-		$this->list_screen = $list_screen;
+		if ( isset( $_REQUEST['cpac_key'] ) ) {
+			if ( $list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
+				$current_list_screen = $list_screen;
+			}
+
+			$this->set_user_model_preference( $current_list_screen->get_key() );
+		}
+
+		$this->list_screen = $current_list_screen;
 	}
 
 	/**
