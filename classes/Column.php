@@ -45,6 +45,11 @@ abstract class AC_Column {
 	private $format;
 
 	/**
+	 * @var AC_ListScreenAbstract
+	 */
+	private $list_screen;
+
+	/**
 	 * @var array $options Contains the user set options for the AC_Column object.
 	 */
 	// TODO: should be an in it's own object
@@ -168,6 +173,17 @@ abstract class AC_Column {
 
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
+
+		return $this;
+	}
+
+	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 *
+	 * @return AC_Column
+	 */
+	public function set_list_screen( AC_ListScreenAbstract $list_screen ) {
+		$this->list_screen = $list_screen;
 
 		return $this;
 	}
