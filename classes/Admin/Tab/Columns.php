@@ -275,7 +275,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		// Run hooks
 		$this->set_list_screen( $list_screen );
 
-		$column = $this->list_screen->create_column( $data );
+		$column = $this->list_screen->create_column( $data['columns'][ $column_name ] );
 
 		if ( ! $column ) {
 			wp_die();
