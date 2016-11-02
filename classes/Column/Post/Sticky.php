@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_Sticky extends AC_Column_PostAbstract  {
+class AC_Column_Post_Sticky extends AC_Column {
 
 	private $stickies = null;
 

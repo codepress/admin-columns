@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.2.4
  */
-class AC_Column_Post_TitleRaw extends AC_Column_PostAbstract {
+class AC_Column_Post_TitleRaw extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-title_raw' );

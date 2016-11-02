@@ -9,11 +9,9 @@ defined( 'ABSPATH' ) or die();
  */
 abstract class AC_Column_TaxonomyAbstract extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-taxonomy';
-		$this->properties['label'] = __( 'Taxonomy', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-taxonomy' );
+		$this->set_label( __( 'Taxonomy', 'codepress-admin-columns' ) );
 	}
 
 	// Display

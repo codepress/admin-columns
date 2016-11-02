@@ -11,11 +11,11 @@ class AC_Column_User_Nickname extends AC_Column {
 		$this->set_label( __( 'Nickname', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $user_id ) {
+	public function get_value( $user_id ) {
 		return $this->get_raw_value( $user_id );
 	}
 
-	function get_raw_value( $user_id ) {
+	public function get_raw_value( $user_id ) {
 		$userdata = get_userdata( $user_id );
 
 		return $userdata->nickname;
