@@ -4,13 +4,12 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Comment_Response extends CPAC_Column {
+class AC_Column_Comment_Response extends AC_Column_DefaultAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'response';
-		$this->properties['original'] = true;
+		$this->set_type( 'response' );
 	}
 
 	public function get_default_with() {

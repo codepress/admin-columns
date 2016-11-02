@@ -6,10 +6,10 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'author';
+		$this->set_type( 'author' );
 	}
 
 	public function get_default_with() {

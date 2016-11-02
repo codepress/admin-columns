@@ -7,15 +7,13 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
+abstract class AC_Column_UsedByMenuAbstract extends AC_Column {
 
 	abstract protected function get_object_type();
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-used_by_menu';
-		$this->properties['label'] = __( 'Used by Menu', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-used_by_menu' );
+		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $object_id ) {
@@ -51,7 +49,7 @@ abstract class AC_Column_UsedByMenuAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * @see CPAC_Column::get_raw_value()
+	 * @see AC_Column::get_raw_value()
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {

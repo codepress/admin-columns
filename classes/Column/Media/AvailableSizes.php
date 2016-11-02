@@ -4,15 +4,13 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Media_AvailableSizes extends CPAC_Column {
+class AC_Column_Media_AvailableSizes extends AC_Column {
 
 	private $intermediate_image_sizes = null;
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-available_sizes';
-		$this->properties['label'] = __( 'Available Sizes', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-available_sizes' );
+		$this->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
 	}
 
 	public function get_intermediate_image_sizes() {

@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_DateGmt extends CPAC_Column {
+class AC_Column_Comment_DateGmt extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-date_gmt';
-		$this->properties['label'] = __( 'Date GMT', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-date_gmt' );
+		$this->set_label( __( 'Date GMT', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

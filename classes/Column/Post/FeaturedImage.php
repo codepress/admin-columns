@@ -4,16 +4,14 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_FeaturedImage extends AC_Column_PostAbstract {
+class AC_Column_Post_FeaturedImage extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-featured_image';
-		$this->properties['label'] = __( 'Featured Image', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-featured_image' );
+		$this->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'thumbnail' );
 	}
 

@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Status extends CPAC_Column {
+class AC_Column_Comment_Status extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-status';
-		$this->properties['label'] = __( 'Status', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-status' );
+		$this->set_label( __( 'Status', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

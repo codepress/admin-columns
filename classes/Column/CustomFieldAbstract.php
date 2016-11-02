@@ -10,14 +10,12 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0
  */
-abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_Column_CustomFieldInterface {
+abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Column_CustomFieldInterface {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-meta';
-		$this->properties['label'] = __( 'Custom Field', 'codepress-admin-columns' );
-		$this->properties['group'] = __( 'Custom Field', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-meta' );
+		$this->set_label( __( 'Custom Field', 'codepress-admin-columns' ) );
+		$this->set_group( __( 'Custom Field', 'codepress-admin-columns' ) );
 	}
 
 	protected function get_cache_key() {
@@ -69,7 +67,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * @see CPAC_Column::sanitize_options()
+	 * @see AC_Column::sanitize_options()
 	 * @since 1.0
 	 */
 	public function sanitize_options( $options ) {
@@ -141,7 +139,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * @see CPAC_Column::get_raw_value()
+	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id, $single = true ) {
@@ -167,7 +165,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * @see CPAC_Column::get_value()
+	 * @see AC_Column::get_value()
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
@@ -356,7 +354,7 @@ abstract class AC_Column_CustomFieldAbstract extends CPAC_Column implements AC_C
 	}
 
 	/**
-	 * @see CPAC_Column::display_settings()
+	 * @see AC_Column::display_settings()
 	 * @since 1.0
 	 */
 	public function display_settings() {

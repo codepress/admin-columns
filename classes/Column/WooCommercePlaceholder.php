@@ -4,17 +4,19 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.4.7
  */
-class AC_Column_WooCommercePlaceholder extends AC_Column_PostAbstract {
+class AC_Column_WooCommercePlaceholder extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-wc_placeholder';
-		$this->properties['label'] = __( 'WooCommerce', 'codepress-admin-columns' );
-		$this->properties['group'] = __( 'WooCommerce', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-wc_placeholder' );
+		$this->set_label( __( 'WooCommerce', 'codepress-admin-columns' ) );
+		$this->set_group( __( 'WooCommerce', 'codepress-admin-columns' ) );
 	}
 
-	public function apply_conditional() {
+	public function get_value( $id ) {
+		return false;
+	}
+
+	public function is_valid() {
 		return in_array( $this->get_post_type(), array( 'product', 'shop_order', 'shop_coupon' ) );
 	}
 

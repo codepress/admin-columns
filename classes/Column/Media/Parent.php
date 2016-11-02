@@ -6,11 +6,10 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_Parent extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'parent';
-		$this->properties['original'] = true;
+		$this->set_type( 'parent' );
 	}
 
 	public function get_default_with() {

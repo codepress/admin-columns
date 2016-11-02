@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die();
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * List Screen
@@ -87,13 +90,13 @@ abstract class AC_ListScreenAbstract {
 
 	/**
 	 * @since 2.0.1
-	 * @var CPAC_Column[]
+	 * @var AC_Column[]
 	 */
 	private $columns;
 
 	/**
 	 * @since 2.2
-	 * @var CPAC_Column[]
+	 * @var AC_Column[]
 	 */
 	private $column_types;
 
@@ -304,7 +307,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @since NEWVERSION
 	 *
-	 * @return CPAC_Column[]
+	 * @return AC_Column[]
 	 */
 	public function get_columns() {
 		if ( null === $this->columns ) {
@@ -338,7 +341,7 @@ abstract class AC_ListScreenAbstract {
 
 	/**
 	 * @since 2.0
-	 * @return false|CPAC_Column
+	 * @return false|AC_Column
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
@@ -349,7 +352,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param string $type
 	 *
-	 * @return false|CPAC_Column
+	 * @return false|AC_Column
 	 */
 	public function get_column_by_type( $type ) {
 		$column_types = $this->get_column_types();
@@ -391,15 +394,15 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param CPAC_Column $column
+	 * @param AC_Column $column
 	 */
-	public function register_column_type( CPAC_Column $column ) {
+	public function register_column_type( AC_Column $column ) {
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return false;
 		}
 
-		if ( ! $column->apply_conditional() ) {
+		if ( ! $column->is_valid() ) {
 			return false;
 		}
 
@@ -483,7 +486,7 @@ abstract class AC_ListScreenAbstract {
 	 * @param array $options Column options
 	 * @param int $clone Column clone ID
 	 *
-	 * @return CPAC_Column|false
+	 * @return AC_Column|false
 	 */
 	public function create_column( array $settings ) {
 		$defaults = array(
@@ -502,28 +505,20 @@ abstract class AC_ListScreenAbstract {
 			return false;
 		}
 
-		/* @var CPAC_Column $column */
+        /* @var AC_Column $column */
 		$column = new $class();
 		$column->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] )
 		       ->set_options( $settings );
 
 		if ( $column->is_original() ) {
-			$column->set_property( 'label', $this->get_original_label( $column->get_type() ) );
+			$column->set_label( $this->get_original_label( $column->get_type() ) );
 
 			// Hide label
-			if ( ac_helper()->string->contains_html_only( $column->get_type_label() ) ) {
-				$column->set_property( 'hide_label', true );
+			if ( ac_helper()->string->contains_html_only( $column->get_option( 'label' ) ) ) {
+				$column->set_hide_label( true );
 			}
 		}
-
-		/**
-		 * Add before and after fields to specific columns
-		 *
-		 * @since 2.0
-		 * @deprecated NEWVERSION
-		 */
-		$column->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $column->get_property( 'use_before_after' ), $this ) );
 
 		return $column;
 	}
@@ -540,7 +535,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param array $data Column options
 	 */
-	private function register_column( CPAC_Column $column ) {
+	private function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
 
 		do_action( 'ac/column', $column );

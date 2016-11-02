@@ -6,14 +6,18 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2
  */
-class AC_Column_ACFPlaceholder extends CPAC_Column {
+class AC_Column_ACFPlaceholder extends AC_Column {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		$this->set_type( 'column-acf_placeholder' );
+		$this->set_label( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) );
+		$this->set_group( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) );
 
-		$this->properties['type'] = 'column-acf_placeholder';
-		$this->properties['label'] = __( 'Advanced Custom Field', 'codepress-admin-columns' );
-		$this->properties['group'] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
+		// TODO: add placeholder message
+	}
+
+	public function get_value( $id ) {
+		return false;
 	}
 
 	public function display_settings() {
