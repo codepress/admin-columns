@@ -6,20 +6,18 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_Height extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-height';
-		$this->properties['label'] = __( 'Height', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-height' );
+		$this->set_label( __( 'Height', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $id ) {
+	public function get_value( $id ) {
 		$value = $this->get_raw_value( $id );
 
 		return $value ? $value . 'px' : $this->get_empty_char();
 	}
 
-	function get_raw_value( $id ) {
+	public function get_raw_value( $id ) {
 		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
 
 		return ! empty( $meta['height'] ) ? $meta['height'] : false;

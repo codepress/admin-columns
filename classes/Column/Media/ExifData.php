@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_ExifData extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-exif_data';
-		$this->properties['label'] = __( 'EXIF data', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-exif_data' );
+		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
 	}
 
 	/**

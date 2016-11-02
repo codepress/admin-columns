@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_User_Nickname extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-nickname';
-		$this->properties['label'] = __( 'Nickname', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-nickname' );
+		$this->set_label( __( 'Nickname', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $user_id ) {

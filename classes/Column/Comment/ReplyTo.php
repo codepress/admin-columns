@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_ReplyTo extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-reply_to';
-		$this->properties['label'] = __( 'In Reply To', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-reply_to' );
+		$this->set_label( __( 'In Reply To', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

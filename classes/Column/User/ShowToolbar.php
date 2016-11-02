@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_User_ShowToolbar extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-user_show_toolbar';
-		$this->properties['label'] = __( 'Show Toolbar', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-user_show_toolbar' );
+		$this->set_label( __( 'Show Toolbar', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $user_id ) {

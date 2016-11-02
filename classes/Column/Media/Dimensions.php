@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_Dimensions extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-dimensions';
-		$this->properties['label'] = __( 'Dimensions', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-dimensions' );
+		$this->set_label( __( 'Dimensions', 'codepress-admin-columns' ) );
 	}
 
 	public function get_surface( $id ) {

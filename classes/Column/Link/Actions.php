@@ -11,7 +11,7 @@ class AC_Column_Link_Actions extends AC_Column {
 		$this->set_label( __( 'Actions', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $id ) {
+	public function get_value( $id ) {
 		$bookmark = get_bookmark( $id );
 
 		return $this->get_column_value_actions( $bookmark );
@@ -28,7 +28,7 @@ class AC_Column_Link_Actions extends AC_Column {
 	 *
 	 * @return string Actions
 	 */
-	private function get_column_value_actions( $link ) {
+	public function get_column_value_actions( $link ) {
 		$actions = array();
 
 		$edit_link = get_edit_bookmark_link( $link );

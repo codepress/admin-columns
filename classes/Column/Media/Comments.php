@@ -4,13 +4,13 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Media_Comments extends AC_Column {
+class AC_Column_Media_Comments extends AC_Column_DefaultAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'comments';
-		$this->properties['hide_label'] = true;
+		$this->set_type( 'comments' );
+		$this->set_hide_label( true );
 	}
 
 	public function is_valid() {

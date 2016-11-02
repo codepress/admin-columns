@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_WordCount extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-word_count';
-		$this->properties['label'] = __( 'Word count', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-word_count' );
+		$this->set_label( __( 'Word count', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

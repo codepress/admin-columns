@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_AuthorAvatar extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-author_avatar';
-		$this->properties['label'] = __( 'Avatar', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-author_avatar' );
+		$this->set_label( __( 'Avatar', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

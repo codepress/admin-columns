@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_Caption extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-caption';
-		$this->properties['label'] = __( 'Caption', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-caption' );
+		$this->set_label( __( 'Caption', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

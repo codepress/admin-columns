@@ -6,14 +6,11 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_Agent extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-agent';
-		$this->properties['label'] = __( 'Agent', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-agent' );
+		$this->set_label( __( 'Agent', 'codepress-admin-columns' ) );
 	}
 
-	// Display
 	public function get_value( $id ) {
 		return $this->get_raw_value( $id );
 	}

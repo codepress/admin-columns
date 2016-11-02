@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Comment_AuthorUrl extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-author_url';
-		$this->properties['label'] = __( 'Author url', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-author_url' );
+		$this->set_label( __( 'Author url', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

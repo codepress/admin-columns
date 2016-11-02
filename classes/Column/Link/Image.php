@@ -6,20 +6,18 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Link_Image extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-image';
-		$this->properties['label'] = __( 'Image', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-image' );
+		$this->set_label( __( 'Image', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $id ) {
+	public function get_value( $id ) {
 		$bookmark = get_bookmark( $id );
 
 		return $this->format->images( $bookmark->link_image );
 	}
 
-	function display_settings() {
+	public function display_settings() {
 		$this->field_settings->image();
 	}
 

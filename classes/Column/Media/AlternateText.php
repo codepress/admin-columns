@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_AlternateText extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-alternate_text';
-		$this->properties['label'] = __( 'Alt', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-alternate_text' );
+		$this->set_label( __( 'Alt', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

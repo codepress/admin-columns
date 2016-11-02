@@ -4,12 +4,12 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_User_Name extends AC_Column_DefaultUserAbstract {
+class AC_Column_User_Name extends AC_Column_DefaultAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'name';
+		$this->set_type( 'name' );
 	}
 
 }

@@ -6,11 +6,9 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Media_FullPath extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-full_path';
-		$this->properties['label'] = __( 'Full path', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-full_path' );
+		$this->set_label( __( 'Full path', 'codepress-admin-columns' ) );
 	}
 
 	private function get_pathscope() {
@@ -18,7 +16,7 @@ class AC_Column_Media_FullPath extends AC_Column {
 	}
 
 	// Display
-	function get_value( $id ) {
+	public function get_value( $id ) {
 		$value = '';
 
 		if ( $file = wp_get_attachment_url( $id ) ) {
