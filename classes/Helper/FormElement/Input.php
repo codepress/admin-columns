@@ -9,8 +9,6 @@ class AC_Helper_FormElement_Input extends AC_Helper_FormElement {
 	protected $type;
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'text' );
 	}
 

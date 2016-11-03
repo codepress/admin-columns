@@ -11,8 +11,6 @@ class AC_Helper_FormElement_Radio extends AC_Helper_FormElement {
 	protected $vertical;
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_class( 'radio-labels' );
 		$this->options = array();
 	}
