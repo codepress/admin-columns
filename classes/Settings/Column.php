@@ -34,7 +34,9 @@ class AC_Settings_Column {
 	 * @param AC_Settings_FieldAbstract $field
 	 */
 	public function add_field( AC_Settings_FieldAbstract $field ) {
-		$this->fields[ $field->get_type() ] = $field->set_column( $this->column );
+		$field->set_column( $this->column );
+
+		$this->fields[ $field->get_type() ] = $field;
 
 		return $this;
 	}
@@ -60,15 +62,12 @@ class AC_Settings_Column {
 	 */
 	public function display() {
 
-
 		foreach ( $this->groups as $group ) {
 			foreach ( $group->get_fields() as $field_type ) {
 				$field = $this->get_field( $field_type );
 
-
 			}
 		}
-
 
 		foreach ( (array) $this->fields as $field ) {
 			$field->display();
