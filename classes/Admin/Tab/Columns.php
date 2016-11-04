@@ -22,12 +22,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 
 		// Ajax calls
-		$ajax_methods = array( 'column_select', 'column_refresh', 'columns_save' );
-
-		foreach ( $ajax_methods as $method ) {
-			add_action( 'wp_ajax_cpac_' . $method, array( $this, 'ajax_validate_request' ) );
-			add_action( 'wp_ajax_cpac_' . $method, array( $this, 'ajax_' . $method ) );
-		}
+		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
+		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
+		add_action( 'wp_ajax_cpac_columns_save', array( $this, 'ajax_columns_save' ) );
 	}
 
 	/**
@@ -209,6 +206,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since NEWVERSION
 	 */
 	public function ajax_column_select() {
+		$this->ajax_validate_request();
+
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
@@ -231,6 +230,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
+		$this->ajax_validate_request();
+
 		$data = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
@@ -258,6 +259,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.5
 	 */
 	public function ajax_columns_save() {
+		$this->ajax_validate_request();
+
 		parse_str( $_POST['data'], $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
