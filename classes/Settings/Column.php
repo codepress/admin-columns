@@ -33,12 +33,10 @@ class AC_Settings_Column {
 	/**
 	 * @param AC_Settings_FieldAbstract $field
 	 */
-	public function add_field( AC_Settings_FieldAbstract $field, $group = false ) {
+	public function add_field( AC_Settings_FieldAbstract $field ) {
+		$field->set_column( $this->column );
 
-		// TODO add by array (field args)
-		// TODO add by field_type (before_after) convert to classname
-
-		$this->fields[ $field->get_type() ] = $field->set_column( $this->column );
+		$this->fields[ $field->get_type() ] = $field;
 
 		if ( $group ) {
 			$field->add_group( $group );
@@ -82,44 +80,9 @@ class AC_Settings_Column {
 	 * Display HTML column settings
 	 */
 	public function display() {
-
-		/*foreach( $this->fields as $field ) {
-
-		}
-
-		foreach ( $this->groups as $group ) {
-
-			$html = '';
-			foreach ( $group->get_fields() as $field_type ) {
-				$field = $this->get_field( $field_type );
-
-				ob_start();
-				$field->display();
-
-				$html .= ob_get_clean();
-			}
-
-			$this->display_group( $html );
-
-			$custom = new AC_Settings_Field_Custom();
-			$custom->set_column( $this->column );
-
-			$custom->field( array(
-				'label'       => $group->get_label(),
-				'description' => $group->get_description(),
-				'type'        => 'html',
-				'html'        => $html,
-			) );
-		}*/
-
 		foreach ( (array) $this->fields as $field ) {
 			$field->display();
 		}
-
-		/*foreach ( $this->groups as $group ) {
-			$group->display();
-		}*/
-
 	}
 
 	/*private function get_groups() {
