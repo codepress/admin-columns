@@ -21,7 +21,7 @@ class AC_Column_Media_Dimensions extends AC_Column {
 	}
 
 	public function get_value( $id ) {
-		$value = $this->get_empty_char();
+		$value = ac_helper()->string->get_empty_char();
 
 		$meta = $this->get_raw_value( $id );
 

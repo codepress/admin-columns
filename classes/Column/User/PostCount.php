@@ -21,7 +21,7 @@ class AC_Column_User_PostCount extends AC_Column {
 	}
 
 	public function get_value( $user_id ) {
-		$value = $this->get_empty_char();
+		$value = ac_helper()->string->get_empty_char();
 
 		$count = $this->get_raw_value( $user_id );
 		if ( $count > 0 ) {

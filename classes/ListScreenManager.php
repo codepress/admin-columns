@@ -104,7 +104,8 @@ final class AC_ListScreenManager {
 			}
 
 			// Load external scripts
-			$column->scripts();
+			// TODO: remove? update doc
+			//$column->scripts();
 		}
 		?>
 		<?php if ( $css_column_width ) : ?>
@@ -171,7 +172,7 @@ final class AC_ListScreenManager {
 		ac_action_column_helper();
 
 		// @since NEWVERSION
-		do_action( 'ac/init_list_screen', $list_screen );
+		do_action( 'ac/listings/list_screen', $list_screen );
 	}
 
 	/**

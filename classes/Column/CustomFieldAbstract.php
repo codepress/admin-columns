@@ -238,12 +238,12 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				break;
 
 			case "color" :
-				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : $this->get_empty_char();
+				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : ac_helper()->string->get_empty_char();
 				break;
 
 			case "count" :
 				$raw_value = $this->get_raw_value( $id, false );
-				$value = $raw_value ? count( $raw_value ) : $this->get_empty_char();
+				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
 				break;
 
 			case "has_content" :
@@ -257,7 +257,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		endswitch;
 
 		if ( ! $value ) {
-			$value = $this->get_empty_char();
+			$value = ac_helper()->string->get_empty_char();
 		}
 
 		/**

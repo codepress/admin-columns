@@ -14,11 +14,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private $list_screen;
 
 	public function __construct() {
-
-		$this
-			->set_slug( 'columns' )
-			->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
-			->set_default( true );
+		$this->set_slug( 'columns' )
+		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
+		     ->set_default( true );
 
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
@@ -26,7 +24,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
-		add_action( 'wp_ajax_cpac_columns_update', array( $this, 'ajax_columns_save' ) );
+		add_action( 'wp_ajax_cpac_columns_save', array( $this, 'ajax_columns_save' ) );
 	}
 
 	/**
@@ -145,7 +143,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-
 		$action = filter_input( INPUT_POST, 'cpac_action' );
 		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
 
@@ -171,21 +168,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @return false|AC_ListScreenAbstract
-	 */
-	private function get_first_list_screen() {
-		$models = array_values( AC()->get_list_screens() );
-
-		return isset( $models[0] ) ? $models[0] : false;
-	}
-
-	/**
 	 * @param AC_Column $column
 	 *
 	 * @return string
 	 */
 	private function get_column_display( AC_Column $column ) {
-
 		// Set label
 		if ( ! $column->get_option( 'label' ) ) {
 			$column->set_option( 'label', $column->get_option( 'label' ) );
@@ -198,34 +185,42 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Display HTML markup for column type
+	 * Check is the ajax request is valid and user is allowed to make it
 	 *
 	 * @since NEWVERSION
 	 */
-	public function ajax_column_select() {
+	private function ajax_validate_request() {
 		check_ajax_referer( 'cpac-settings' );
 
 		if ( ! current_user_can( 'manage_admin_columns' ) ) {
 			wp_die();
 		}
 
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+		// make sure a list screen is set on AJAX requests
+		$this->set_current_list_screen();
+	}
 
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		// Run Hook
-		$this->set_list_screen( $list_screen );
+	/**
+	 * Display HTML markup for column type
+	 *
+	 * @since NEWVERSION
+	 */
+	public function ajax_column_select() {
+		$this->ajax_validate_request();
 
 		$type = filter_input( INPUT_POST, 'type' );
+		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$column = $list_screen->create_column( $type );
-
-		$original_columns = filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$column = $this->get_list_screen()->get_column_by_type( $type );
 
 		if ( in_array( $type, $original_columns ) ) {
-			wp_send_json_error( array( 'type' => 'message', 'error' => sprintf( __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ), '<strong>' . $this->get_clean_type_label( $column ) . '</strong>' ) ) );
+			wp_send_json_error( array(
+				'type'  => 'message',
+				'error' => sprintf(
+					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+					'<strong>' . $this->get_clean_type_label( $column ) . '</strong>'
+				),
+			) );
 		}
 
 		wp_send_json_success( $this->get_column_display( $column ) );
@@ -235,40 +230,23 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		check_ajax_referer( 'cpac-settings' );
+		$this->ajax_validate_request();
 
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			wp_die();
-		}
-
+		$data = filter_input( INPUT_POST, 'formdata' );
 		$column_name = filter_input( INPUT_POST, 'column' );
 
-		if ( empty( $_POST['formdata'] ) || ! $column_name ) {
+		if ( ! $data || ! $column_name ) {
 			wp_die();
 		}
 
-		parse_str( $_POST['formdata'], $formdata );
+		// convert to array
+		parse_str( $data, $data );
 
-		if ( empty( $formdata['cpac_key'] ) ) {
+		if ( empty( $data['cpac_key'] ) || empty( $data['columns'][ $column_name ] ) ) {
 			wp_die();
 		}
 
-		$list_screen = AC()->get_list_screen( $formdata['cpac_key'] );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		// Run Hook
-		$this->set_list_screen( $list_screen );
-
-		if ( empty( $formdata['columns'][ $column_name ] ) ) {
-			wp_die();
-		}
-
-		$data = $formdata['columns'][ $column_name ];
-
-		$column = $this->list_screen->create_column( $data['type'], $data, $data['clone'] );
+		$column = $this->get_list_screen()->create_column( $data['columns'][ $column_name ] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -281,20 +259,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @since 2.5
 	 */
 	public function ajax_columns_save() {
-		check_ajax_referer( 'cpac-settings' );
-
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			wp_die();
-		}
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		// Run Hook
-		$this->set_list_screen( $list_screen );
+		$this->ajax_validate_request();
 
 		parse_str( $_POST['data'], $formdata );
 
@@ -306,7 +271,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			);
 		}
 
-		$stored = $this->store( $this->list_screen, $formdata['columns'] );
+		$stored = $this->store( $this->get_list_screen(), $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -317,8 +282,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" )
-			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_list_screen() ) ) . "</strong>" )
+			. ' <a href="' . esc_attr( $this->get_list_screen()->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $this->get_list_screen()->get_label() ) ) . '</a>'
 		);
 	}
 
@@ -368,47 +333,26 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Set list screen
+	 * Set current list screen
 	 */
-	public function set_current_list_screen() {
+	private function set_current_list_screen() {
+		$current_list_screen = AC()->get_default_list_screen();
+
+		if ( $list_screen = $this->get_user_model_preference() ) {
+			$current_list_screen = $list_screen;
+		}
+
 		if ( isset( $_REQUEST['cpac_key'] ) ) {
-
-			// By request
-			if ( $_list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
-				$list_screen = $_list_screen;
-			} // User preference
-			else if ( $_list_screen = $this->get_user_model_preference() ) {
-				$list_screen = $_list_screen;
-			} // First one served
-			else {
-				$list_screen = $this->get_first_list_screen();
+			if ( $list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
+				$current_list_screen = $list_screen;
 			}
 
-			$this->set_user_model_preference( $list_screen->get_key() );
-		}
-		else {
-
-			// User preference
-			if ( $exists = $this->get_user_model_preference() ) {
-				$list_screen = $exists;
-			} // First one served
-			else {
-				$list_screen = $this->get_first_list_screen();
-			}
+			$this->set_user_model_preference( $current_list_screen->get_key() );
 		}
 
-		$this->set_list_screen( $list_screen );
-	}
+		do_action( 'ac/settings/list_screen', $current_list_screen );
 
-	/**
-	 * @param AC_ListScreenAbstract $list_screen
-	 */
-	private function set_list_screen( AC_ListScreenAbstract $list_screen ) {
-
-		// @since NEWVERSION
-		do_action( 'ac/settings/list_screen', $list_screen );
-
-		$this->list_screen = $list_screen;
+		$this->list_screen = $current_list_screen;
 	}
 
 	/**
@@ -685,14 +629,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 
 			<div id="add-new-column-template">
-
-				<?php foreach ( $list_screen->get_column_types() as $column ) {
-					if ( ! $column->is_original() ) {
-						//$column->set_property( 'name', $column->get_type() );
-						$this->display_column( $column );
+				<?php
+				foreach ( $list_screen->get_column_types() as $column_type ) {
+					if ( ! $column_type->is_original() ) {
+						$this->display_column( $column_type );
 						break;
 					}
-				} ?>
+				}
+				?>
 			</div>
 
 		</div><!--.columns-container-->
@@ -735,16 +679,19 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	public function get_grouped_columns() {
 		$grouped = array();
 
-		foreach ( $this->list_screen->get_column_types() as $type => $column ) {
-			if ( ! isset( $grouped[ $column->get_group() ] ) ) {
-				$grouped[ $column->get_group() ]['title'] = $column->get_group();
+		foreach ( $this->list_screen->get_column_types() as $type => $class ) {
+			$column = new $class;
+			$group = $column->get_group();
+
+			if ( ! isset( $grouped[ $group ] ) ) {
+				$grouped[ $group ]['title'] = $group;
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $column->get_group() ]['options'][ $type ] = $this->get_clean_type_label( $column );
+			$grouped[ $group ]['options'][ $type ] = $this->get_clean_type_label( $column );
 
 			if ( ! $column->is_original() ) {
-				natcasesort( $grouped[ $column->get_group() ]['options'] );
+				natcasesort( $grouped[ $group ]['options'] );
 			}
 		}
 
@@ -796,7 +743,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo $column->get_label(); // do not escape ?></a>
+								<a class="toggle" href="javascript:;"><?php echo $column->get_option( 'label' ); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>

@@ -35,13 +35,26 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
+	 * @var string Post type
+	 */
+	private $post_type;
+
+	/**
+	 * @var string Taxonomy
+	 */
+	private $taxonomy;
+
+
+	/**
 	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
 	 */
+	// TODO: should be an in the settings object
 	private $field_settings;
 
 	/**
 	 * @var AC_ColumnFieldFormat Instance for formatting column values
 	 */
+	// TODO: should be an in the settings object
 	private $format;
 
 	/**
@@ -65,7 +78,8 @@ abstract class AC_Column {
 	 *
 	 * @return string Value for displaying inside the column cell.
 	 */
-	abstract function get_value( $id );
+	// TODO: protected or public? Is it better to always use get_display_value as public
+	abstract protected function get_value( $id );
 
 	/**
 	 * @since NEWVERSION
@@ -135,9 +149,12 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $group Group label
+	 * @return $this
 	 */
 	public function set_group( $group ) {
 		$this->group = $group;
+
+		return $this;
 	}
 
 	/**
@@ -157,6 +174,40 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * @return string Post type
+	 */
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	/**
+	 * @param string $post_type Post type
+	 * @return $this
+	 */
+	public function set_post_type( $post_type ) {
+		$this->post_type = $post_type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string Taxonomy
+	 */
+	public function get_taxonomy() {
+		return $this->taxonomy;
+	}
+
+	/**
+	 * @param string $taxonomy Taxonomy
+	 * @return $this
+	 */
+	public function set_taxonomy( $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+
+		return $this;
+	}
+
+	/**
 	 * Return true when a default column has been replaced by a custom column.
 	 * An original column will then use the original label and value.
 	 *
@@ -166,6 +217,11 @@ abstract class AC_Column {
 		return $this->original;
 	}
 
+	/**
+	 * @param bool $boolean
+	 *
+	 * @return $this
+	 */
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
 
@@ -203,6 +259,7 @@ abstract class AC_Column {
 	/**
 	 * @return AC_ColumnFieldSettings
 	 */
+	// TODO: remove in favor of AC_Settings_Column
 	protected function field_settings() {
 		if ( null === $this->field_settings ) {
 			$this->field_settings = new AC_ColumnFieldSettings( $this );
@@ -214,19 +271,13 @@ abstract class AC_Column {
 	/**
 	 * @return AC_ColumnFieldFormat
 	 */
+	// TODO: remove in favor of AC_Settings_Column
 	protected function format() {
 		if ( null === $this->format ) {
 			$this->format = new AC_ColumnFieldFormat( $this );
 		}
 
 		return $this->format;
-	}
-
-	/**
-	 * @return AC_Helper
-	 */
-	protected function helper() {
-		return AC()->helper();
 	}
 
 	/**
@@ -243,8 +294,6 @@ abstract class AC_Column {
 
 		return $settings;
 	}
-
-
 
 
 
@@ -345,16 +394,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * Get the column properties
-	 *
-	 * @since NEWVERSION
-	 * @return stdClass|array Column properties
-	 */
-	/*public function get_properties() {
-		return $this->properties;
-	}*/
-
-	/**
 	 * Get a single column option
 	 *
 	 * @since 2.3.4
@@ -420,35 +459,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * Overwrite this function in child class.
-	 * Adds (optional) scripts to the listings screen.
-	 *
-	 * @since 2.3.4
-	 */
-	// TODO: remove?
-	public function scripts() {
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	// TODO: is a utility method
-	public function get_empty_char() {
-		return '&ndash;';
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return wpdb
-	 */
-	// TODO: is a utility method
-	public function wpdb() {
-		global $wpdb;
-
-		return $wpdb;
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @param $id
@@ -476,16 +486,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 */
-	// TODO: remove, only used on columns tab. Should be registered with field setting.
-	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
-		<?php
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	// TODO: remove
@@ -502,17 +502,6 @@ abstract class AC_Column {
 	//public function get_type_label() {
 	//	return $this->get_property( 'label' );
 	//}
-
-	/**
-	 * Columns post type
-	 *
-	 * @since NEWVERSION
-	 * @return string Post type
-	 */
-	// TODO: remove
-	public function get_post_type() {
-		return 'post';
-	}
 
 	/**
 	 * @since NEWVERSION
