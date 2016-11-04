@@ -386,8 +386,6 @@ class CPAC {
 		$screens = $this->get_list_screens();
 		$default_screen = array_shift( $screens );
 
-		// todo: maybe filter here for default list screen?
-
 		return $default_screen;
 	}
 
