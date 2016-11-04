@@ -4,16 +4,14 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Link_Actions extends CPAC_Column {
+class AC_Column_Link_Actions extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-actions';
-		$this->properties['label'] = __( 'Actions', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-actions' );
+		$this->set_label( __( 'Actions', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $id ) {
+	public function get_value( $id ) {
 		$bookmark = get_bookmark( $id );
 
 		return $this->get_column_value_actions( $bookmark );
@@ -30,7 +28,7 @@ class AC_Column_Link_Actions extends CPAC_Column {
 	 *
 	 * @return string Actions
 	 */
-	private function get_column_value_actions( $link ) {
+	public function get_column_value_actions( $link ) {
 		$actions = array();
 
 		$edit_link = get_edit_bookmark_link( $link );

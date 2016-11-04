@@ -4,13 +4,12 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Media_Title extends CPAC_Column {
+class AC_Column_Media_Title extends AC_Column_DefaultAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'title';
-		$this->properties['original'] = true;
+		$this->set_type( 'title' );
 	}
 
 }

@@ -4,13 +4,12 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Comment extends CPAC_Column {
+class AC_Column_Comment_Comment extends AC_Column_DefaultAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'comment';
-		$this->properties['original'] = true;
+		$this->set_type( 'comment' );
 	}
 
 }

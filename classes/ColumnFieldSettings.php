@@ -5,7 +5,7 @@ class AC_ColumnFieldSettings {
 
 	private $column;
 
-	public function __construct( CPAC_Column $column ) {
+	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 	}
 

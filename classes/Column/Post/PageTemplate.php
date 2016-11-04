@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_PageTemplate extends AC_Column_PostAbstract {
+class AC_Column_Post_PageTemplate extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-page_template';
-		$this->properties['label'] = __( 'Page Template', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-page_template' );
+		$this->set_label( __( 'Page Template', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $post_id ) {
@@ -21,7 +19,7 @@ class AC_Column_Post_PageTemplate extends AC_Column_PostAbstract {
 		return get_post_meta( $post_id, '_wp_page_template', true );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return 'page' === $this->get_post_type();
 	}
 

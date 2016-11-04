@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Media_ExifData extends CPAC_Column {
+class AC_Column_Media_ExifData extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-exif_data';
-		$this->properties['label'] = __( 'EXIF data', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-exif_data' );
+		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
 	}
 
 	/**
@@ -65,7 +63,7 @@ class AC_Column_Media_ExifData extends CPAC_Column {
 		return get_post_meta( $id, '_wp_attachment_metadata', true );
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return function_exists( 'exif_read_data' );
 	}
 

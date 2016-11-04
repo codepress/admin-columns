@@ -6,22 +6,20 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class AC_Column_Post_AttachmentCount extends AC_Column_PostAbstract {
+class AC_Column_Post_AttachmentCount extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-attachment_count';
-		$this->properties['label'] = __( 'Attachment Count', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-attachment_count' );
+		$this->set_label( __( 'Attachment Count', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $post_id ) {
+	public function get_value( $post_id ) {
 		$count = $this->get_raw_value( $post_id );
 
 		return $count ? $count : $this->get_empty_char();
 	}
 
-	function get_raw_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 		$attachment_ids = get_posts( array(
 			'post_type'   => 'attachment',
 			'numberposts' => - 1,

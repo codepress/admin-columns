@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.4
  */
-class AC_Column_Post_DatePublished extends AC_Column_PostAbstract {
+class AC_Column_Post_DatePublished extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-date_published';
-		$this->properties['label'] = __( 'Date Published' );
+	public function __construct() {
+		$this->set_type( 'column-date_published' );
+		$this->set_label( __( 'Date Published' ) );
 	}
 
 	public function get_value( $post_id ) {

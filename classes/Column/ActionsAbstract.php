@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.6
  */
-abstract class AC_Column_ActionsAbstract extends CPAC_Column {
+abstract class AC_Column_ActionsAbstract extends AC_Column {
 
 	/**
 	 * Get a list of action links for an item (e.g. post) ID.
@@ -22,10 +22,9 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 	/**
 	 * @since 2.2.6
 	 */
-	public function init() {
-		parent::init();
-		$this->properties['type'] = 'column-actions';
-		$this->properties['label'] = __( 'Actions', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-actions' );
+		$this->set_label( __( 'Actions', 'codepress-admin-columns' ) );
 	}
 
 	/**
@@ -51,7 +50,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * @see CPAC_Column::get_value()
+	 * @see AC_Column::get_value()
 	 * @since 2.2.6
 	 */
 	public function get_raw_value( $id ) {
@@ -68,7 +67,7 @@ abstract class AC_Column_ActionsAbstract extends CPAC_Column {
 	}
 
 	/**
-	 * @see CPAC_Column::display_settings()
+	 * @see AC_Column::display_settings()
 	 * @since 2.2.6
 	 */
 	public function display_settings() {

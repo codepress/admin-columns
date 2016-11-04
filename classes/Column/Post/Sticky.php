@@ -4,18 +4,16 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_Sticky extends AC_Column_PostAbstract  {
+class AC_Column_Post_Sticky extends AC_Column {
 
 	private $stickies = null;
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-sticky';
-		$this->properties['label'] = __( 'Sticky', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-sticky' );
+		$this->set_label( __( 'Sticky', 'codepress-admin-columns' ) );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return 'post' == $this->get_post_type();
 	}
 

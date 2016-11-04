@@ -7,13 +7,11 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-class AC_Column_Post_LastModifiedAuthor extends AC_Column_PostAbstract {
+class AC_Column_Post_LastModifiedAuthor extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-last_modified_author';
-		$this->properties['label'] = __( 'Last Modified Author', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-last_modified_author' );
+		$this->set_label( __( 'Last Modified Author', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {

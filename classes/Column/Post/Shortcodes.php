@@ -6,13 +6,11 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.3.5
  */
-class AC_Column_Post_Shortcodes extends AC_Column_PostAbstract {
+class AC_Column_Post_Shortcodes extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-shortcode';
-		$this->properties['label'] = __( 'Shortcodes', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-shortcode' );
+		$this->set_label( __( 'Shortcodes', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {

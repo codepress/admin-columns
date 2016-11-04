@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Shortlink extends AC_Column_PostAbstract {
+class AC_Column_Post_Shortlink extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-shortlink';
-		$this->properties['label'] = __( 'Shortlink', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-shortlink' );
+		$this->set_label( __( 'Shortlink', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $post_id ) {

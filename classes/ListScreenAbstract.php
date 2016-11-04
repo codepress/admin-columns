@@ -87,13 +87,13 @@ abstract class AC_ListScreenAbstract {
 
 	/**
 	 * @since 2.0.1
-	 * @var CPAC_Column[]
+	 * @var AC_Column[]
 	 */
 	private $columns;
 
 	/**
 	 * @since 2.2
-	 * @var CPAC_Column[]
+	 * @var AC_Column[]
 	 */
 	private $column_types;
 
@@ -304,7 +304,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @since NEWVERSION
 	 *
-	 * @return CPAC_Column[]
+	 * @return AC_Column[]
 	 */
 	public function get_columns() {
 		if ( null === $this->columns ) {
@@ -315,7 +315,7 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @return CPAC_Column[]
+	 * @return AC_Column[]
 	 */
 	public function get_column_types() {
 		if ( null === $this->column_types ) {
@@ -338,7 +338,7 @@ abstract class AC_ListScreenAbstract {
 
 	/**
 	 * @since 2.0
-	 * @return false|CPAC_Column
+	 * @return false|AC_Column
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
@@ -369,16 +369,16 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param CPAC_Column $column
+	 * @param AC_Column $column
 	 */
-	public function register_column_type( CPAC_Column $column ) {
+	public function register_column_type( AC_Column $column ) {
 
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return;
 		}
 
-		if ( $column->apply_conditional() ) {
+		if ( $column->is_valid() ) {
 			$this->column_types[ $column->get_type() ] = $column;
 		}
 	}
@@ -409,7 +409,7 @@ abstract class AC_ListScreenAbstract {
 	 * @param array $options Column options
 	 * @param int $clone Column clone ID
 	 *
-	 * @return CPAC_Column|false
+	 * @return AC_Column|false
 	 */
 	public function create_column( $type, $options = array(), $clone = 0 ) {
 		$_column_type = $this->get_column_type( $type );
@@ -420,7 +420,7 @@ abstract class AC_ListScreenAbstract {
 
 		$class_name = get_class( $_column_type );
 
-		/* @var CPAC_Column $column */
+		/* @var AC_Column $column */
 		$column = new $class_name;
 
 		$column
@@ -430,25 +430,13 @@ abstract class AC_ListScreenAbstract {
 
 		if ( $column->is_original() ) {
 
-			$column->set_property( 'label', $this->get_original_label( $column->get_type() ) );
+			$column->set_label( $this->get_original_label( $column->get_type() ) );
 
 			// Hide label
-			if ( ac_helper()->string->contains_html_only( $column->get_type_label() ) ) {
-				$column->set_property( 'hide_label', true );
-			}
-
-			if ( ! $column->get_group() ) {
-				$column->set_property( 'group', __( 'Default', 'codepress-admin-columns' ) );
+			if ( ac_helper()->string->contains_html_only( $column->get_option( 'label' ) ) ) {
+				$column->set_hide_label( true );
 			}
 		}
-
-		/**
-		 * Add before and after fields to specific columns
-		 *
-		 * @since 2.0
-		 * @deprecated NEWVERSION
-		 */
-		$column->set_property( 'use_before_after', apply_filters( 'cac/column/properties/use_before_after', $column->get_property( 'use_before_after' ), $this ) );
 
 		return $column;
 	}
@@ -465,7 +453,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param array $data Column options
 	 */
-	private function register_column( CPAC_Column $column ) {
+	private function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
 
 		do_action( 'ac/column', $column );
@@ -499,7 +487,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param string $type
 	 *
-	 * @return false|CPAC_Column
+	 * @return false|AC_Column
 	 */
 	private function get_column_type( $type ) {
 		$column_types = $this->get_column_types();
@@ -565,9 +553,7 @@ abstract class AC_ListScreenAbstract {
 			/* @var AC_Column_Plugin $column */
 			$column = new $plugin_column_class_name( $this->get_key() );
 
-			$column->set_property( 'type', $name );
-
-			$this->register_column_type( $column );
+			$this->register_column_type( $column->set_type( $name ) );
 		}
 
 		$class_names = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );

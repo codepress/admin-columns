@@ -6,10 +6,10 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Date extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
+	public function __construct() {
+		parent::__construct();
 
-		$this->properties['type'] = 'date';
+		$this->set_type( 'date' );
 	}
 
 	public function get_default_with() {

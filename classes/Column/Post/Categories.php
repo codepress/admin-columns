@@ -6,10 +6,8 @@ defined( 'ABSPATH' ) or die();
  */
 class AC_Column_Post_Categories extends AC_Column_DefaultPostAbstract {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'categories';
+	public function __construct() {
+		$this->set_type( 'column-categories' );
 	}
 
 	public function get_default_with() {
@@ -20,7 +18,7 @@ class AC_Column_Post_Categories extends AC_Column_DefaultPostAbstract {
 		return 'category';
 	}
 
-	public function apply_conditional() {
+	public function is_valid() {
 		return ac_helper()->taxonomy->is_taxonomy_registered( $this->get_post_type(), $this->get_taxonomy() );
 	}
 

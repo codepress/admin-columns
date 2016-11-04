@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Post_WordCount extends AC_Column_PostAbstract {
+class AC_Column_Post_WordCount extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-word_count';
-		$this->properties['label'] = __( 'Word count', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-word_count' );
+		$this->set_label( __( 'Word count', 'codepress-admin-columns' ) );
 	}
 
 	function get_value( $post_id ) {
@@ -23,7 +21,7 @@ class AC_Column_Post_WordCount extends AC_Column_PostAbstract {
 		return ac_helper()->string->word_count( get_post_field( 'post_content', $post_id ) );
 	}
 
-	function apply_conditional() {
+	function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
 

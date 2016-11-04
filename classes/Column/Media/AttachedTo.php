@@ -4,13 +4,11 @@ defined( 'ABSPATH' ) or die();
 /**
  * @since 2.0
  */
-class AC_Column_Media_AttachedTo extends CPAC_Column {
+class AC_Column_Media_AttachedTo extends AC_Column {
 
-	public function init() {
-		parent::init();
-
-		$this->properties['type'] = 'column-attached_to';
-		$this->properties['label'] = __( 'Attached to post', 'codepress-admin-columns' );
+	public function __construct() {
+		$this->set_type( 'column-attached_to' );
+		$this->set_label( __( 'Attached to post', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
