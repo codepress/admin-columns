@@ -57,7 +57,7 @@ function cpac_submit_form( $ ) {
 
 		var xhr = $.post( ajaxurl, {
 				plugin_id : 'cpac',
-				action : 'cpac_columns_update',
+				action : 'cpac_columns_save',
 				data : columns_data,
 				_ajax_nonce : cpac._ajax_nonce,
 				list_screen : $container.data( 'type' )

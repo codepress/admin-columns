@@ -749,7 +749,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo $column->get_label(); // do not escape ?></a>
+								<a class="toggle" href="javascript:;"><?php echo $column->get_option( 'label' ); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
