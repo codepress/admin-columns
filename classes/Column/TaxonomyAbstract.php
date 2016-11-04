@@ -30,16 +30,15 @@ abstract class AC_Column_TaxonomyAbstract extends AC_Column {
 	// Settings
 	public function display_settings() {
 		$this->field_settings->field( array(
-			'type'    => 'select',
-			'name'    => 'taxonomy',
-			'label'   => __( "Taxonomy", 'codepress-admin-columns' ),
-			'options' => ac_helper()->taxonomy->get_taxonomy_selection_options( $this->get_post_type() ),
-			'section' => true,
-		) );
-	}
+			'type'      => 'select',
+			'name'      => 'taxonomy',
+			'label'     => __( "Taxonomy", 'codepress-admin-columns' ),
+			'options'   => ac_helper()->taxonomy->get_taxonomy_selection_options( $this->get_post_type() ),
+			'section'   => true,
 
-	public function get_post_type() {
-		return method_exists( $this->get_list_screen(), 'get_post_type' ) ? $this->get_list_screen()->get_post_type() : false;
+			// TODO: column should not show when no tax is registered
+			'no_result' => __( 'No taxonomies avaialble.' ),
+		) );
 	}
 
 }

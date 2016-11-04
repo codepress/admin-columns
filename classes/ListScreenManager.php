@@ -104,7 +104,8 @@ final class AC_ListScreenManager {
 			}
 
 			// Load external scripts
-			$column->scripts();
+			// TODO: remove? update doc
+			//$column->scripts();
 		}
 		?>
 		<?php if ( $css_column_width ) : ?>

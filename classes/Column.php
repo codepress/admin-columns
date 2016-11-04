@@ -78,7 +78,8 @@ abstract class AC_Column {
 	 *
 	 * @return string Value for displaying inside the column cell.
 	 */
-	abstract function get_value( $id );
+	// TODO: protected or public? Is it better to always use get_display_value as public
+	abstract protected function get_value( $id );
 
 	/**
 	 * @since NEWVERSION
@@ -148,9 +149,12 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $group Group label
+	 * @return $this
 	 */
 	public function set_group( $group ) {
 		$this->group = $group;
+
+		return $this;
 	}
 
 	/**
@@ -255,6 +259,7 @@ abstract class AC_Column {
 	/**
 	 * @return AC_ColumnFieldSettings
 	 */
+	// TODO: remove in favor of AC_Settings_Column
 	protected function field_settings() {
 		if ( null === $this->field_settings ) {
 			$this->field_settings = new AC_ColumnFieldSettings( $this );
@@ -266,6 +271,7 @@ abstract class AC_Column {
 	/**
 	 * @return AC_ColumnFieldFormat
 	 */
+	// TODO: remove in favor of AC_Settings_Column
 	protected function format() {
 		if ( null === $this->format ) {
 			$this->format = new AC_ColumnFieldFormat( $this );
@@ -273,18 +279,6 @@ abstract class AC_Column {
 
 		return $this->format;
 	}
-
-	/**
-	 * @return AC_Helper
-	 */
-	protected function helper() {
-		return AC()->helper();
-	}
-
-
-
-
-
 
 
 
@@ -451,35 +445,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * Overwrite this function in child class.
-	 * Adds (optional) scripts to the listings screen.
-	 *
-	 * @since 2.3.4
-	 */
-	// TODO: remove?
-	public function scripts() {
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	// TODO: is a utility method
-	public function get_empty_char() {
-		return '&ndash;';
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return wpdb
-	 */
-	// TODO: is a utility method
-	public function wpdb() {
-		global $wpdb;
-
-		return $wpdb;
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @param $id
@@ -504,16 +469,6 @@ abstract class AC_Column {
 		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
 
 		return $value;
-	}
-
-	/**
-	 * @param string $name
-	 * @param string $label
-	 */
-	// TODO: remove, only used on columns tab. Should be registered with field setting.
-	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
-		<?php
 	}
 
 	/**

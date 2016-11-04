@@ -53,7 +53,7 @@ class AC_Column_Media_ExifData extends AC_Column {
 			}
 		}
 		if ( empty( $value ) ) {
-			$value = $this->get_empty_char();
+			$value = ac_helper()->string->get_empty_char();
 		}
 
 		return $value;

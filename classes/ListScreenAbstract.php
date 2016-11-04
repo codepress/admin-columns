@@ -114,22 +114,6 @@ abstract class AC_ListScreenAbstract {
 	abstract function set_manage_value_callback();
 
 	/**
-	 * @param string $var
-	 *
-	 * @return mixed|null
-	 */
-	public function __get( $var ) {
-		$vars = array(
-			'type',
-			'key',
-		);
-
-		if ( in_array( $var, $vars ) ) {
-			return call_user_func( array( $this, 'get_' . $var ) );
-		}
-	}
-
-	/**
 	 * @since 2.4.4
 	 */
 	public function __construct() {
@@ -321,7 +305,7 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @return array
+	 * @return AC_Column[]
 	 */
 	public function get_column_types() {
 		if ( null === $this->column_types ) {
@@ -456,7 +440,7 @@ abstract class AC_ListScreenAbstract {
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
 
-		// Backcompat
+		// Backwards compatibility
 		$this->deprecated_register_columns();
 
 		do_action( 'ac/column_types', $this );
@@ -538,7 +522,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param array $data Column options
 	 */
-	private function register_column( AC_Column $column ) {
+	protected function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
 
 		do_action( 'ac/column', $column );

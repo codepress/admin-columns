@@ -630,19 +630,12 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 			<div id="add-new-column-template">
 				<?php
-
-				foreach ( $list_screen->get_column_types() as $type => $class ) {
-					$column = new $class;
-
-					if ( ! $column->is_original() ) {
-						//$column->set_property( 'name', $column->get_type() );
-
-						$this->display_column( $column );
-
+				foreach ( $list_screen->get_column_types() as $column_type ) {
+					if ( ! $column_type->is_original() ) {
+						$this->display_column( $column_type );
 						break;
 					}
 				}
-
 				?>
 			</div>
 

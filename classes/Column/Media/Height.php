@@ -14,7 +14,7 @@ class AC_Column_Media_Height extends AC_Column {
 	public function get_value( $id ) {
 		$value = $this->get_raw_value( $id );
 
-		return $value ? $value . 'px' : $this->get_empty_char();
+		return $value ? $value . 'px' : ac_helper()->string->get_empty_char();
 	}
 
 	public function get_raw_value( $id ) {

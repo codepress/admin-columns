@@ -56,4 +56,14 @@ class AC_Helper_Html {
 		return $string && is_string( $string ) ? $string !== strip_tags( $string ) : false;
 	}
 
+	/**
+	 * Display indicator icon in the column settings header
+	 *
+	 * @param string $name
+	 */
+	public function indicator( $class, $id, $title = false ) { ?>
+		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
+		<?php
+	}
+
 }
