@@ -356,16 +356,38 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	public function settings() {
 		$settings = parent::settings();
 
-		// TODO: add custom fields
+
 		$settings
-			->add_field( new AC_Settings_Field_BeforeAfter() )
+			->add_group( 'Group' )
+			->add_field( new AC_Settings_Field_Image, 'Group' )
+			->add_field( new AC_Settings_Field_Label, 'Group' );
+
+		//$settings->add_field( new AC_Settings_Field_Label );
+
+		//$field = new AC_Settings_Field_Custom( 'field_type' );
+		/*$field = new AC_Settings_Field_Label;
+
+		$field
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label );*/
+
+		/*$field_type = new AC_Settings_Field_Label();
+
+		$field_type
+			->add_field( new AC_Settings_Field_WordLimit() )
+			->add_field( new AC_Settings_Field_WordLimit() )
 			->add_field( new AC_Settings_Field_WordLimit() );
 
-		$settings->define_group(
-			__( 'Field Type', 'codepress-admin-columns' ),
-			__( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
-			array( 'before_after', 'word_limit' )
-		);
+		$settings
+			->add_field( $field_type )
+			->add_field( new AC_Settings_Field_WordLimit() );*/
+
+		//$settings->add_field( new AC_Settings_Field_BeforeAfter() );
+		//$settings->add_field( $field );
+
+
 
 		return $settings;
 	}
@@ -384,7 +406,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				'name'           => 'field_type',
 				'options'        => $this->get_field_labels(),
 				'refresh_column' => true,
-			)
+			),
 		);
 
 		switch ( $this->get_field_type() ) {
@@ -412,8 +434,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		$this->field_settings->before_after();
 	}
 
-
-	public function display_field_setting(){
+	public function display_field_setting() {
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
 			$this->field_settings->field( array(

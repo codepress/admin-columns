@@ -238,7 +238,8 @@ abstract class AC_Column {
 		$settings
 			->add_field( new AC_Settings_Field_Type )
 			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Width );
+			->add_field( new AC_Settings_Field_Width )
+			->add_field( new AC_Settings_Field_BeforeAfter() );
 
 		return $settings;
 	}

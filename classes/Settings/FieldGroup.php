@@ -7,17 +7,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_FieldGroup {
 
 	private $label;
+
 	private $description;
 
 	/**
 	 * @var array
 	 */
-	private $fields;
+	//private $fields;
 
-	public function __construct( $label, $description, $field_types ) {
+	public function __construct( $label, $description ) {
 		$this->label = $label;
 		$this->description = $description;
-		$this->fields = $field_types;
+		//$this->fields = $field_types;
 	}
 
 	public function get_label() {
@@ -28,8 +29,18 @@ class AC_Settings_FieldGroup {
 		return $this->description;
 	}
 
-	public function get_fields() {
-		return $this->fields;
+	/**
+	 * @var AC_Settings_FieldAbstract[]
+	 */
+	private $fields;
+
+	public function add_field( $field ) {
+		$this->fields[] = $field;
 	}
+
+
+	//public function get_fields() {
+	//	return $this->fields;
+	//}
 
 }

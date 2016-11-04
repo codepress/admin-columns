@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Field_Grouped extends AC_Settings_FieldAbstract {
+class AC_Settings_Field_Custom extends AC_Settings_FieldAbstract {
 
-	private $fields;
+	/*private $fields;
 
 	// Only for grouped
 	private $label;
@@ -18,26 +18,29 @@ class AC_Settings_Field_Grouped extends AC_Settings_FieldAbstract {
 
 	public function display() {
 
-		/*if ( $this->label ) {
+		if ( $this->label ) {
 			$this->fields( array(
 				'label'       => $this->label,
 				'description' => $this->description,
 				'fields'      => $this->fields,
 			) );
-		}*/
+		}
 
 	}
 
 	/**
 	 * @param array $fields
+	 * @return AC_Settings_FieldAbstract
 	 */
-	public function add_field( AC_Settings_FieldAbstract $field ) {
+	/*public function add_field( AC_Settings_FieldAbstract $field ) {
 		$this->fields[] = $field;
-	}
 
-	public function use_grouped_fields( $label, $description ) {
+		return $this;
+	}*/
+
+	/*public function use_grouped_fields( $label, $description ) {
 		$this->label = $label;
 		$this->description = $description;
-	}
+	}*/
 
 }
