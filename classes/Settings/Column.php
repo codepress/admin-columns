@@ -38,10 +38,6 @@ class AC_Settings_Column {
 
 		$this->fields[ $field->get_type() ] = $field;
 
-		if ( $group ) {
-			$field->add_group( $group );
-		}
-
 		return $this;
 	}
 
