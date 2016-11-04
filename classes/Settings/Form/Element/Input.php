@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_FormElement_Input extends AC_Settings_FormElement {
+class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract {
 
 	protected $type;
 

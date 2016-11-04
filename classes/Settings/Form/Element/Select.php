@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // todo: remove the grouped options, a nested array tells the tale
-class AC_Settings_FormElement_Select extends AC_Helper_FormElement {
+class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract {
 
 	protected $options;
 
@@ -51,19 +51,7 @@ class AC_Settings_FormElement_Select extends AC_Helper_FormElement {
 	public function display() {
 		$options = $this->get_options();
 		$grouped_options = $this->get_grouped_options();
-
 		$value = $this->get_value();
-
-		$defaults = array(
-			'name'            => '',
-			'options'         => array(),
-			'grouped_options' => array(),
-			'no_result'       => '',
-			'default_value'   => '',
-			'value'           => false,
-			'attr_name'       => '',
-			'attr_id'         => '',
-		);
 
 		?>
 

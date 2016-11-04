@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_FormElement_Radio extends AC_Helper_FormElement {
+class AC_Settings_Form_ElementAbstract_Radio extends AC_Settings_Form_ElementAbstract {
 
 	protected $options;
 
