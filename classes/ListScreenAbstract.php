@@ -113,8 +113,11 @@ abstract class AC_ListScreenAbstract {
 	 */
 	abstract function set_manage_value_callback();
 
-	// TODO: user getters and setters, make vars protected
-
+	/**
+	 * @param string $var
+	 *
+	 * @return mixed|null
+	 */
 	public function __get( $var ) {
 		$vars = array(
 			'type',
@@ -399,11 +402,11 @@ abstract class AC_ListScreenAbstract {
 	public function register_column_type( AC_Column $column ) {
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
-			return false;
+			return;
 		}
 
 		if ( ! $column->is_valid() ) {
-			return false;
+			return;
 		}
 
 		$this->column_types[ $column->get_type() ] = $column;
