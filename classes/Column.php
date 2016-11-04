@@ -35,13 +35,26 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
+	 * @var string Post type
+	 */
+	private $post_type;
+
+	/**
+	 * @var string Taxonomy
+	 */
+	private $taxonomy;
+
+
+	/**
 	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
 	 */
+	// TODO: should be an in the settings object
 	private $field_settings;
 
 	/**
 	 * @var AC_ColumnFieldFormat Instance for formatting column values
 	 */
+	// TODO: should be an in the settings object
 	private $format;
 
 	/**
@@ -157,6 +170,40 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * @return string Post type
+	 */
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	/**
+	 * @param string $post_type Post type
+	 * @return $this
+	 */
+	public function set_post_type( $post_type ) {
+		$this->post_type = $post_type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string Taxonomy
+	 */
+	public function get_taxonomy() {
+		return $this->taxonomy;
+	}
+
+	/**
+	 * @param string $taxonomy Taxonomy
+	 * @return $this
+	 */
+	public function set_taxonomy( $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+
+		return $this;
+	}
+
+	/**
 	 * Return true when a default column has been replaced by a custom column.
 	 * An original column will then use the original label and value.
 	 *
@@ -166,6 +213,11 @@ abstract class AC_Column {
 		return $this->original;
 	}
 
+	/**
+	 * @param bool $boolean
+	 *
+	 * @return $this
+	 */
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
 
@@ -334,16 +386,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * Get the column properties
-	 *
-	 * @since NEWVERSION
-	 * @return stdClass|array Column properties
-	 */
-	/*public function get_properties() {
-		return $this->properties;
-	}*/
-
-	/**
 	 * Get a single column option
 	 *
 	 * @since 2.3.4
@@ -491,17 +533,6 @@ abstract class AC_Column {
 	//public function get_type_label() {
 	//	return $this->get_property( 'label' );
 	//}
-
-	/**
-	 * Columns post type
-	 *
-	 * @since NEWVERSION
-	 * @return string Post type
-	 */
-	// TODO: remove
-	public function get_post_type() {
-		return 'post';
-	}
 
 	/**
 	 * @since NEWVERSION
