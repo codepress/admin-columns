@@ -35,9 +35,7 @@ abstract class AC_Column_TaxonomyAbstract extends AC_Column {
 			'label'     => __( "Taxonomy", 'codepress-admin-columns' ),
 			'options'   => ac_helper()->taxonomy->get_taxonomy_selection_options( $this->get_post_type() ),
 			'section'   => true,
-
-			// TODO: column should not show when no tax is registered
-			'no_result' => __( 'No taxonomies avaialble.' ),
+			'no_result' => __( 'No taxonomies available.' ),
 		) );
 	}
 
