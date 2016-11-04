@@ -373,9 +373,6 @@ class CPAC {
 
 		$screen = $screens[ $key ];
 
-		// TODO: hook is very similar to ac/init_list_screen. DRY?
-		do_action( 'ac/list_screen', $screen );
-
 		return $screen;
 	}
 
