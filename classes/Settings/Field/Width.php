@@ -10,6 +10,10 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 		$this->set_type( 'width' );
 	}
 
+	public function get_value() {
+		return $this->get_width() . $this->get_width_unit();
+	}
+
 	/**
 	 * HTML
 	 */
@@ -28,7 +32,7 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 	 * @return string px or %
 	 */
 	public function get_width_unit() {
-		$width_unit = $this->column->get_option( 'width_unit' );
+		$width_unit = $this->settings->get_option( 'width_unit' );
 
 		if ( ! $width_unit ) {
 			$width_unit = $this->get_default_with_unit();
@@ -51,7 +55,7 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 	 * @return int Width
 	 */
 	public function get_width() {
-		$width = absint( $this->column->get_option( 'width' ) );
+		$width = absint( $this->settings->get_option( 'width' ) );
 
 		if ( ! $width ) {
 			$width = $this->get_default_with();
@@ -76,8 +80,8 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 		ob_start();
 		?>
 		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
-			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->column->get_width() ); ?>"/>
-			<span class="unit"><?php echo esc_html( $this->column->get_width_unit() ); ?></span>
+			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_width() ); ?>"/>
+			<span class="unit"><?php echo esc_html( $this->get_width_unit() ); ?></span>
 		</div>
 		<div class="width-slider"></div>
 
@@ -91,7 +95,7 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 					'%'  => '%',
 				),
 				'class'         => 'unit',
-				'default_value' => $this->column->get_width_unit(),
+				'default_value' => $this->get_width_unit(),
 			) );
 			?>
 		</div>

@@ -10,7 +10,6 @@ class AC_Column_Post_Comments extends AC_Column_DefaultPostAbstract {
 		parent::__construct();
 
 		$this->set_type( 'comments' );
-		$this->set_hide_label( true );
 	}
 
 	public function is_valid() {

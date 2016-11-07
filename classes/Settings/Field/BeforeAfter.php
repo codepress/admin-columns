@@ -10,6 +10,14 @@ class AC_Settings_Field_BeforeAfter extends AC_Settings_FieldAbstract {
 		$this->set_type( 'before_after' );
 	}
 
+	public function get_before() {
+		return $this->settings->get_option( 'before' );
+	}
+
+	public function get_after() {
+		return $this->settings->get_option( 'after' );
+	}
+
 	public function display() {
 		$this->fields( array(
 			'label'  => __( 'Display Options', 'codepress-admin-columns' ),

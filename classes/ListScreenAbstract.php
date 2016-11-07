@@ -494,17 +494,14 @@ abstract class AC_ListScreenAbstract {
 
         /* @var AC_Column $column */
 		$column = new $class();
+
 		$column->set_type( $settings['type'] )
-		       ->set_clone( $settings['clone'] )
-		       ->set_options( $settings );
+		       ->set_clone( $settings['clone'] );
+
+		$column->settings()->set_options( $settings );
 
 		if ( $column->is_original() ) {
 			$column->set_label( $this->get_original_label( $column->get_type() ) );
-
-			// Hide label
-			if ( ac_helper()->string->contains_html_only( $column->get_option( 'label' ) ) ) {
-				$column->set_hide_label( true );
-			}
 		}
 
 		return $column;

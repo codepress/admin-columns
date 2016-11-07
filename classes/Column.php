@@ -3,9 +3,6 @@ defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
- *
- * @property AC_ColumnFieldSettings field_settings
- * @property AC_ColumnFieldFormat format
  */
 abstract class AC_Column {
 
@@ -44,32 +41,10 @@ abstract class AC_Column {
 	 */
 	private $taxonomy;
 
-
 	/**
-	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
+	 * @var AC_Settings_Column
 	 */
-	// TODO: should be an in the settings object
-	private $field_settings;
-
-	/**
-	 * @var AC_ColumnFieldFormat Instance for formatting column values
-	 */
-	// TODO: should be an in the settings object
-	private $format;
-
-	/**
-	 * @var array $options Contains the user set options for the AC_Column object.
-	 */
-	// TODO: should be an in it's own object
-	private $options;
-
-	// (string) Should the Label be hidden?
-	// TODO: should got into field settings
-	protected $hide_label;
-
-	// (bool) Should the column use before and after fields
-	// TODO: should got into field settings
-	protected $use_before_after;
+	private $settings;
 
 	/**
 	 * @since 2.0
@@ -236,7 +211,7 @@ abstract class AC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: used to be is_valid(), replace inside all columns (including add-ons)
+	// TODO: used to be apply_conditional(), replace inside all columns (including add-ons)
 	public function is_valid() {
 		return true;
 	}
@@ -255,6 +230,71 @@ abstract class AC_Column {
 	public function get_raw_value( $id ) {
 		return $id;
 	}
+
+	/**
+	 * @return AC_Settings_Column
+	 */
+	public function settings() {
+
+		// TODO: lazy load ok?
+		if ( null === $this->settings ) {
+			$this->settings = new AC_Settings_Column( $this );
+		}
+
+		$this->settings
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Width )
+			->add_field( new AC_Settings_Field_BeforeAfter() );
+
+		return $this->settings;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param $id
+	 *
+	 * @return string Value
+	 */
+	// TODO: looks like a utility method
+	public function get_display_value( $id ) {
+		$value = '';
+
+		$display_value = $this->get_value( $id );
+
+		if ( $display_value || 0 === $display_value ) {
+			$value = $display_value;
+		}
+
+		if ( is_scalar( $value ) ) {
+			$value = $this->settings()->get_option( 'before' ) . $value . $this->settings()->get_option( 'after' );
+		}
+
+		$value = apply_filters( "cac/column/value", $value, $id, $this );
+		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
+
+		return $value;
+	}
+
+
+
+
+	/**
+	 * TODO: refactor. remove.
+	 *
+	 */
+
+	/**
+	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
+	 */
+	// TODO: should be an in the settings object
+	private $field_settings;
+
+	/**
+	 * @var AC_ColumnFieldFormat Instance for formatting column values
+	 */
+	// TODO: should be an in the settings object
+	private $format;
 
 	/**
 	 * @return AC_ColumnFieldSettings
@@ -281,27 +321,25 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_Settings_Column
+	 * Overwrite this function in child class to sanitize
+	 * user submitted values.
+	 *
+	 * @since 2.0
+	 *
+	 * @param $options array User submitted column options
+	 *
+	 * @return array Options
 	 */
-	public function settings() {
-		$settings = new AC_Settings_Column( $this );
-
-		$settings
-			->add_field( new AC_Settings_Field_Type )
-			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Width )
-			->add_field( new AC_Settings_Field_BeforeAfter() );
-
-		return $settings;
+	// TODO: move to field settings
+	public function sanitize_options( $options ) {
+		return $options;
 	}
 
-
-
-
 	/**
-	 * TODO: refactor. remove.
-	 *
+	 * @since 2.0
 	 */
+	public function display_settings() {
+	}
 
 	/**
 	 * Hide the label field in the column settings
@@ -309,9 +347,9 @@ abstract class AC_Column {
 	 * @return bool
 	 */
 	// TODO: should go into field settings
-	public function is_hide_label() {
+	/*public function is_hide_label() {
 		return $this->hide_label;
-	}
+	}*/
 
 	/**
 	 * @param $bool
@@ -319,27 +357,27 @@ abstract class AC_Column {
 	 * @return AC_Column
 	 */
 	// TODO: should go into field settings
-	public function set_hide_label( $boolean ) {
+	/*public function set_hide_label( $boolean ) {
 
 		// TODO: this was called $this->properties->hide_label. Make sure to replace all.
 		$this->hide_label = $boolean;
 
 		return $this;
-	}
+	}*/
 
 	// TODO: should go into field settings
-	public function use_before_after() {
+	/*public function use_before_after() {
 
 		// TODO: this was called $this->properties->use_before_after. Make sure to replace all.
 		return apply_filters( 'cac/column/properties/use_before_after', $this->use_before_after, $this );
-	}
+	}*/
 
 	// TODO: should go into field settings
-	public function set_use_before_after( $boolean ) {
+	/*public function set_use_before_after( $boolean ) {
 		$this->use_before_after = $boolean;
 
 		return $this;
-	}
+	}*/
 
 
 	// TODO: move all options into it's own class
@@ -351,24 +389,9 @@ abstract class AC_Column {
 	 * @return array Column options set by user
 	 */
 	// TODO: should be it's own class
-	public function get_options() {
+	/*public function get_options() {
 		return $this->options;
-	}
-
-	/**
-	 * Overwrite this function in child class to sanitize
-	 * user submitted values.
-	 *
-	 * @since 2.0
-	 *
-	 * @param $options array User submitted column options
-	 *
-	 * @return array Options
-	 */
-	// TODO: move
-	public function sanitize_options( $options ) {
-		return $options;
-	}
+	}*/
 
 	/**
 	 * @param array $options
@@ -376,22 +399,22 @@ abstract class AC_Column {
 	 * @return AC_Column
 	 */
 	// TODO: $options should be an instance
-	public function set_options( $options ) {
+	/*public function set_options( $options ) {
 		$this->options = $options;
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * @param array $options
 	 *
 	 * @return AC_Column
 	 */
-	public function set_option( $key, $value ) {
+	/*public function set_option( $key, $value ) {
 		$this->options[ $key ] = $value;
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Get a single column option
@@ -399,18 +422,25 @@ abstract class AC_Column {
 	 * @since 2.3.4
 	 * @return string|false Single column option
 	 */
-	public function get_option( $name ) {
-		$options = $this->get_options();
+	// TODO: replace with AC_Settings_Column->get_option()
+	/*public function get_option( $name ) {
+		$value = $this->settings()->get_value( $name );
 
-		return isset( $options[ $name ] ) ? $options[ $name ] : false;
-	}
+		// TODO: remove fallback. use get_value only
+		// Fallback
+		if ( ! $value ) {
+			$value = $this->settings()->get_option( $name );
+		}
+
+		return $value;
+	}*/
 
 	/**
 	 * @since NEWVERSION
 	 * @return int Width
 	 */
 	// TODO: to options object?
-	public function get_width() {
+	/*public function get_width() {
 		$width = absint( $this->get_option( 'width' ) );
 
 		if ( ! $width ) {
@@ -418,13 +448,13 @@ abstract class AC_Column {
 		}
 
 		return $width > 0 ? $width : false;
-	}
+	}*/
 
 	/**
 	 * @since NEWVERSION
 	 * @return string px or %
 	 */
-	public function get_width_unit() {
+	/*public function get_width_unit() {
 		$width_unit = $this->get_option( 'width_unit' );
 
 		if ( ! $width_unit ) {
@@ -432,58 +462,25 @@ abstract class AC_Column {
 		}
 
 		return 'px' === $width_unit ? 'px' : '%';
-	}
+	}*/
 
 	/**
 	 * Get default with unit
 	 *
 	 * @return string
 	 */
-	public function get_default_with_unit() {
+	/*public function get_default_with_unit() {
 		return '%';
-	}
+	}*/
 
 	/**
 	 * Get default with unit
 	 *
 	 * @return string
 	 */
-	public function get_default_with() {
+	/*public function get_default_with() {
 		return false;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function display_settings() {
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param $id
-	 *
-	 * @return string Value
-	 */
-	// TODO: looks like a utility method
-	public function get_display_value( $id ) {
-		$value = '';
-
-		$display_value = $this->get_value( $id );
-
-		if ( $display_value || 0 === $display_value ) {
-			$value = $display_value;
-		}
-
-		if ( is_scalar( $value ) ) {
-			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
-		}
-
-		$value = apply_filters( "cac/column/value", $value, $id, $this );
-		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
-
-		return $value;
-	}
+	}*/
 
 	/**
 	 * @since 2.0

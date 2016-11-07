@@ -23,7 +23,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function get_field_key() {
-		$field = $this->get_option( 'field' );
+		$field = $this->settings()->get_option( 'field' );
 
 		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
 	}
@@ -32,7 +32,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 3.2.1
 	 */
 	public function get_field_type() {
-		return $this->get_option( 'field_type' );
+		return $this->settings()->get_option( 'field_type' );
 	}
 
 	/**
@@ -191,7 +191,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 			case "link" :
 				if ( ac_helper()->string->is_valid_url( $raw_value ) ) {
-					$label = $this->get_option( 'link_label' );
+					$label = $this->settings()->get_option( 'link_label' );
 					if ( ! $label ) {
 						$label = $raw_value;
 					}
@@ -355,12 +355,6 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 	public function settings() {
 		$settings = parent::settings();
-
-
-		$settings
-			->add_group( 'Group' )
-			->add_field( new AC_Settings_Field_Image, 'Group' )
-			->add_field( new AC_Settings_Field_Label, 'Group' );
 
 		//$settings->add_field( new AC_Settings_Field_Label );
 

@@ -174,8 +174,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 */
 	private function get_column_display( AC_Column $column ) {
 		// Set label
-		if ( ! $column->get_option( 'label' ) ) {
-			$column->set_option( 'label', $column->get_option( 'label' ) );
+		if ( ! $column->settings()->get_value( 'label' ) ) {
+			$column->settings()->set_option( 'label', $column->get_label() );
 		}
 
 		ob_start();
@@ -653,7 +653,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 */
 	private function get_clean_type_label( AC_Column $column ) {
 
-		$label = $column->get_option( 'label' );
+		$label = $column->settings()->get_value( 'label' );
 
 		if ( $column->is_original() ) {
 			$label = $this->list_screen->get_original_label( $column->get_type() );
@@ -723,7 +723,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo $column->get_width() ? esc_html( $column->get_width() . $column->get_width_unit() ) : ''; ?>
+										<?php echo esc_html( $column->settings()->get_value('width') ); ?>
 									</span>
 
 									<?php
@@ -743,7 +743,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo $column->get_option( 'label' ); // do not escape ?></a>
+								<a class="toggle" href="javascript:;"><?php echo $column->settings()->get_value( 'label' ); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
@@ -815,13 +815,15 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						 *
 						 * @param AC_Column $column_instance Column class instance
 						 */
-						do_action( 'cac/column/settings_before', $column );
+						//do_action( 'cac/column/settings_before', $column );
 
-						$column->display_settings();
 
-						if ( $column->use_before_after() ) {
+						// TODO: use $column->settings()->display();
+						//$column->display_settings();
+
+						/*if ( $column->use_before_after() ) {
 							$column->field_settings->before_after();
-						}
+						}*/
 
 					}
 
@@ -832,7 +834,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 *
 					 * @param AC_Column $column_instance Column class instance
 					 */
-					do_action( 'cac/column/settings_after', $column );
+					//do_action( 'cac/column/settings_after', $column );
 					?>
 
 					<tr class="column_action section">

@@ -9,7 +9,7 @@ abstract class AC_Settings_FieldAbstract {
 	/**
 	 * @var AC_Column $column
 	 */
-	protected $column;
+	//protected $column;
 
 	/**
 	 * @var string Describe the type of settings
@@ -21,7 +21,26 @@ abstract class AC_Settings_FieldAbstract {
 	 */
 	private $default_value;
 
+	/**
+	 * @var array
+	 */
+	private $options;
+
 	//abstract function display();
+
+	// TODO: make abstract
+	public function get_value() {
+		return false;
+	}
+
+	/**
+	 * @var AC_Settings_Column
+	 */
+	protected $settings;
+
+	public function set_settings( AC_Settings_Column $settings ) {
+		$this->settings = $settings;
+	}
 
 	private $group;
 
@@ -38,11 +57,11 @@ abstract class AC_Settings_FieldAbstract {
 	 *
 	 * @return $this
 	 */
-	public function set_column( AC_Column $column ) {
+	/*public function set_column( AC_Column $column ) {
 		$this->column = $column;
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * @param $default_value
@@ -69,6 +88,15 @@ abstract class AC_Settings_FieldAbstract {
 		return $this;
 	}
 
+	public function set_options( $options ) {
+		$this->options = $options;
+	}
+
+	// Use public get_value
+	protected function get_option( $name ) {
+		return isset( $this->options[ $name ] ) ? $this->options[ $name ] : false;
+	}
+
 	/**
 	 * Get type of the field settings. Used as an ID.
 	 */
@@ -89,7 +117,7 @@ abstract class AC_Settings_FieldAbstract {
 	 * @return string Attribute name
 	 */
 	public function get_attr_name( $field_name ) {
-		return 'columns[' . $this->column->get_name() . '][' . $field_name . ']';
+		return 'columns[' . $this->settings->column->get_name() . '][' . $field_name . ']';
 	}
 
 	/**
@@ -98,7 +126,7 @@ abstract class AC_Settings_FieldAbstract {
 	 * @return string Attribute Name
 	 */
 	public function get_attr_id( $field_name ) {
-		return 'cpac-' . $this->column->get_name() . '-' . $field_name;
+		return 'cpac-' . $this->settings->column->get_name() . '-' . $field_name;
 	}
 
 	public function attr_id( $field_name ) {
@@ -110,6 +138,7 @@ abstract class AC_Settings_FieldAbstract {
 	 *
 	 * @param array $args
 	 */
+	// TODO: should not contain HTML. The column_name should only be available in settings.
 	public function label( $args = array() ) {
 		$defaults = array(
 			'label'       => '',
@@ -156,7 +185,8 @@ abstract class AC_Settings_FieldAbstract {
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		$args['value'] = $this->column->get_option( $args['name'] );
+		//$args['value'] = $this->get_value( $args['name'] );
+		$args['value'] = $this->get_value();
 		$args['attr_name'] = $this->get_attr_name( $args['name'] );
 		$args['attr_id'] = $this->get_attr_id( $args['name'] );
 
@@ -237,7 +267,7 @@ abstract class AC_Settings_FieldAbstract {
 				</table>
 			</td>
 		</tr>
-<?php
+		<?php
 	}
 
 	// TODO
@@ -249,6 +279,7 @@ abstract class AC_Settings_FieldAbstract {
 
 	/**
 	 * @param array $fields
+	 *
 	 * @return AC_Settings_FieldAbstract
 	 */
 	public function add_field( AC_Settings_FieldAbstract $field ) {
@@ -262,11 +293,11 @@ abstract class AC_Settings_FieldAbstract {
 	}
 
 	public function display() {
-		if ( $this->fields ) {
+		/*if ( $this->fields ) {
 			foreach ( $this->fields as $field ) {
 				$field->display();
 			}
-		}
+		}*/
 
 		$this->field( $this->get_args() );
 	}
@@ -278,6 +309,5 @@ abstract class AC_Settings_FieldAbstract {
 
 		return $this;
 	}*/
-
 
 }

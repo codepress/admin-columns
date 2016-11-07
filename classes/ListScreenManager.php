@@ -99,8 +99,8 @@ final class AC_ListScreenManager {
 		// CSS: columns width
 		$css_column_width = false;
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			if ( $width = $column->get_width() ) {
-				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . $column->get_width_unit() . " !important; }";
+			if ( $width = $column->settings()->get_value( 'width' ) ) {
+				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
 			}
 
 			// Load external scripts
@@ -273,7 +273,7 @@ final class AC_ListScreenManager {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
-			$label = apply_filters( 'cac/headings/label', $column->get_option( 'label' ), $column->get_name(), $column->get_options(), $this );
+			$label = apply_filters( 'cac/headings/label', $column->settings()->get_value( 'label' ), $column->get_name(), $column->settings()->get_options(), $this );
 
 			$this->column_headings[ $column->get_name() ] = $label;
 		}
