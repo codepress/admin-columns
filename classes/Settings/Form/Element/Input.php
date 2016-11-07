@@ -6,14 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract {
 
-	protected $type;
-
-	public function __construct() {
-		$this->set_type( 'text' );
-	}
-
 	public function get_type() {
-		return $this->type;
+		$type = $this->get_attribute( 'type' );
+
+		if ( ! $type ) {
+			return 'text';
+		}
+
+		return strtolower( $type );
 	}
 
 	/**
@@ -22,23 +22,19 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract {
 	 * @return $this
 	 */
 	public function set_type( $type ) {
-		$this->type = $type;
+		$this->set_attribute( 'type', $type );
 
 		return $this;
 	}
 
-	public function display() {
-		$attributes = array();
+	public function render() {
+		$template = '<input %s>';
 
-		foreach ( $this->get_attributes() as $key => $value ) {
-			$attributes[] = $this->attribute( $key, true );
-		}
+		$attributes = $this->get_attributes();
+		$attributes['value'] = $this->get_value();
+		$attributes['type'] = $this->get_type();
 
-		?>
-
-		<input <?php echo implode( ' ', $attributes ); ?>>
-
-		<?php
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ) );
 	}
 
 }

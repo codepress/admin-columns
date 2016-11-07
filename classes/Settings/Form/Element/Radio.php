@@ -4,25 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Form_ElementAbstract_Radio extends AC_Settings_Form_ElementAbstract {
+class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract {
 
 	protected $options;
 
-	protected $vertical;
-
 	public function __construct() {
-		$this->set_class( 'radio-labels' );
 		$this->options = array();
-	}
-
-	public function set_vertical( $vertical ) {
-		$this->vertical = (bool) $vertical;
-
-		return $this;
-	}
-
-	public function is_vertical() {
-		return $this->vertical;
 	}
 
 	public function set_options( array $options ) {
@@ -35,7 +22,8 @@ class AC_Settings_Form_ElementAbstract_Radio extends AC_Settings_Form_ElementAbs
 		return $this->options;
 	}
 
-	public function display() {
+	public function render() {
+		$template = '<label %s>%s%s</label>';
 		$options = $this->get_options();
 
 		if ( empty( $options ) ) {
@@ -44,42 +32,29 @@ class AC_Settings_Form_ElementAbstract_Radio extends AC_Settings_Form_ElementAbs
 
 		$value = $this->get_value();
 
-		if ( $this->is_vertical() ) {
-			$this->add_class( 'vertical' );
-		}
+		$output = array();
 
-		?>
+		foreach ( $options as $key => $label ) {
 
-		<div <?php $this->attribute( 'class' ); ?>">
-
-		<?php foreach ( $options as $key => $label ) : ?>
-			<?php
-
-			$input = new AC_Helper_FormElement_Input();
-			$input->set_id( $this->get_id() . '-' . $key )
-			      ->set_name( $this->get_name() )
+			$input = new AC_Settings_Form_Element_Input();
+			$input->set_name( $this->get_name() )
 			      ->set_value( $key )
-			      ->set_type( 'radio' );
+			      ->set_type( 'radio' )
+			      ->set_id( $this->get_id() . '-' . $key );
 
 			if ( checked( $key, $value, false ) ) {
 				$input->set_attribute( 'checked', 'checked' );
 			}
 
-			?>
-			<label for="<?php echo esc_attr( $input->get_id() ); ?>">
-				<?php
+			$attributes = array();
 
-				$input->display();
-				echo esc_html( $label );
+			if ( $input->get_id() ) {
+				$attributes['for'] = $input->get_id();
+			}
 
-				?>
-			</label>
-		<?php endforeach; ?>
+			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $this->get_label() ) );
+		}
 
-		</div>
-
-		<?php
-
+		return implode( "\n", $output );
 	}
-
 }

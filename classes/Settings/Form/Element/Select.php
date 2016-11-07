@@ -4,28 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// todo: remove the grouped options, a nested array tells the tale
 class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract {
 
+	/**
+	 * @var array
+	 */
 	protected $options;
-
-	protected $grouped_options;
-
-	protected $no_result;
 
 	public function __construct() {
 		$this->options = array();
-		$this->grouped_options = array();
-	}
-
-	public function set_no_result( $no_result ) {
-		$this->no_result = $no_result;
-
-		return $this;
-	}
-
-	public function get_no_result() {
-		$this->no_result;
 	}
 
 	public function set_options( array $options ) {
@@ -38,48 +25,47 @@ class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract {
 		return $this->options;
 	}
 
-	public function set_grouped_options( array $grouped_options ) {
-		$this->options = $grouped_options;
+	protected function render_options( array $options ) {
+		$template = '<option %s>%s</option>';
+		$output = array();
 
-		return $this;
+		foreach ( $options as $key => $option ) {
+			if ( isset( $option['options'] ) && is_array( $option['options'] ) ) {
+				$output[] = $this->render_optgroup( $option );
+
+				continue;
+			}
+
+			$attributes = array();
+
+			if ( selected( $key, $this->get_value(), false ) ) {
+				$attributes['selected'] = 'selected';
+			}
+
+			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $option ) );
+		}
+
+		return implode( "\n", $output );
 	}
 
-	public function get_grouped_options() {
-		return $this->grouped_options;
+	protected function render_optgroup( array $group ) {
+		$template = '<optgroup %s>%s</optgroup>';
+		$attributes = array();
+
+		if ( isset( $group['title'] ) ) {
+			$attributes['label'] = esc_attr( $group['title'] );
+		}
+
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $group['options'] ) );
 	}
 
-	public function display() {
-		$options = $this->get_options();
-		$grouped_options = $this->get_grouped_options();
-		$value = $this->get_value();
+	public function render() {
+		$template = '<select %s>%s</select>';
 
-		?>
+		$attributes = $this->get_attributes();
+		$attributes['name'] = $this->get_name();
 
-		<?php if ( $options || $grouped_options ) : ?>
-
-			<select <?php $this->attribute( 'name' ); ?> <?php $this->attribute( 'id' ); ?>>
-				<?php if ( $options ) : ?>
-					<?php foreach ( $options as $key => $label ) : ?>
-						<option value="<?php echo esc_attr( $key ); ?>"<?php selected( $key, $value ); ?>><?php echo esc_html( $label ); ?></option>
-					<?php endforeach; ?>
-				<?php elseif ( $grouped_options ) : ?>
-					<?php foreach ( $grouped_options as $group ) : ?>
-						<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
-							<?php foreach ( $group['options'] as $key => $label ) : ?>
-								<option value="<?php echo $key ?>"<?php selected( $key, $value ) ?>><?php echo esc_html( $label ); ?></option>
-							<?php endforeach; ?>
-						</optgroup>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</select>
-
-			<?php //ajax message ?>
-			<div class="msg"></div>
-
-		<?php elseif ( $this->get_no_result() ) :
-			echo $this->get_no_result();
-		endif;
-
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ) );
 	}
 
 }

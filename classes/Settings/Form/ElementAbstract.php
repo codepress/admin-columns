@@ -6,27 +6,59 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 abstract class AC_Settings_Form_ElementAbstract {
 
-	private $attributes = array();
+	/**
+	 * @var array
+	 */
+	protected $attributes = array();
 
-	protected $name;
+	/**
+	 * Options for element like select
+	 *
+	 * @var array
+	 */
+	protected $options = array();
 
-	protected $id;
+	/**
+	 * The elements value
+	 *
+	 * @var mixed
+	 */
+	protected $value;
 
-	protected $value = false;
+	/**
+	 * Label
+	 *
+	 * @var string
+	 */
+	protected $label;
 
-	protected $default_value = false;
+	/**
+	 * Describes the element
+	 *
+	 * @var string
+	 */
+	protected $description;
 
-	public function set_attribute( $key, $value ) {
-		$this->attributes[ $key ] = $value;
-	}
+	/**
+	 * Explains the element
+	 *
+	 * @var string
+	 */
+	protected $help;
 
-	public function get_attribute( $key ) {
-		$getter = 'get_' . $key;
-
-		if ( method_exists( $this, $getter ) && $getter != __FUNCTION__ ) {
-			return $this->$getter;
+	public function __construct( $name = null, array $options = array() ) {
+		if ( null != $name ) {
+			$this->set_name( $name );
 		}
 
+		if ( ! empty( $options ) ) {
+			$this->set_options( $options );
+		}
+	}
+
+	public abstract function render();
+
+	public function get_attribute( $key ) {
 		if ( ! isset( $this->attributes[ $key ] ) ) {
 			return false;
 		}
@@ -34,36 +66,61 @@ abstract class AC_Settings_Form_ElementAbstract {
 		return $this->attributes[ $key ];
 	}
 
+	public function set_attribute( $key, $value ) {
+		if ( 'value' === $key ) {
+			$this->set_value( $value );
+
+			return $this;
+		}
+
+		$this->attributes[ $key ] = $value;
+
+		return $this;
+	}
+
 	public function get_attributes() {
 		return $this->attributes;
+	}
+
+	public function set_attributes( array $attributes ) {
+		foreach ( $attributes as $key => $value ) {
+			$this->set_attribute( $key, $value );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get attributes as string
+	 *
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	protected function get_attributes_as_string( array $attributes ) {
+		$output = array();
+
+		foreach ( $attributes as $key => $value ) {
+			$output[] = $this->get_attribute_as_string( $key, $value );
+		}
+
+		return implode( ' ', $output );
 	}
 
 	/**
 	 * Render an attribute
 	 *
-	 * @param $key
-	 * @param bool $return Return or echo output
+	 * @param string $key
+	 * @param string $value
 	 *
-	 * @return null|string
+	 * @return string
 	 */
-	protected function attribute( $key, $return = false ) {
-		$attribute = $this->get_attribute( $key );
-
-		if ( ! $attribute ) {
-			return;
-		}
-
-		$output = sprintf( '%s="%s"', $key, esc_attr( $attribute ) );
-
-		if ( $return ) {
-			return $output;
-		}
-
-		echo $output;
+	protected function get_attribute_as_string( $key, $value ) {
+		return sprintf( '%s="%s"', $key, esc_attr( $value ) );
 	}
 
 	public function get_name() {
-		return $this->name;
+		return $this->get_attribute( 'name' );
 	}
 
 	/**
@@ -72,13 +129,11 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 * @return $this
 	 */
 	public function set_name( $name ) {
-		$this->name = $name;
-
-		return $this;
+		return $this->set_attribute( $name );
 	}
 
 	public function get_id() {
-		return $this->id;
+		return $this->get_attribute( 'id' );
 	}
 
 	/**
@@ -87,24 +142,11 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 * @return $this
 	 */
 	public function set_id( $id ) {
-		$this->id = $id;
-
-		return $this;
-	}
-
-	public function get_default_value() {
-		return $this->default_value;
+		return $this->set_attribute( $id );
 	}
 
 	public function get_value() {
-		$value = $this->value;
-
-		if ( empty( $value ) ) {
-			$value = $this->get_default_value();
-		}
-
-		// todo: add stripslashes? some fields have it
-		return $value;
+		return $this->value;
 	}
 
 	/**
@@ -129,6 +171,16 @@ abstract class AC_Settings_Form_ElementAbstract {
 		$parts[] = $class;
 
 		$this->set_class( implode( ' ', $class ) );
+
+		return $this;
+	}
+
+	public function get_label() {
+		return $this->label;
+	}
+
+	public function set_label( $label ) {
+		$this->label = $label;
 
 		return $this;
 	}
