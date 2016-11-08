@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
-	implements AC_Settings_Form_ViewInterface {
+	implements AC_Settings_ViewInterface {
 
 	public function get_type() {
 		$type = $this->get_attribute( 'type' );

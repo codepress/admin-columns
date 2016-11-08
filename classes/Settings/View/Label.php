@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Form_View_Label
-	implements AC_Settings_Form_ViewInterface {
+class AC_Settings_View_Label
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var string
@@ -56,6 +56,10 @@ class AC_Settings_Form_View_Label
 	}
 
 	public function render() {
+		if ( ! $this->label ) {
+			return;
+		}
+
 		$template = '
 			<td class="label %s">
 				<label %s>
@@ -96,7 +100,7 @@ class AC_Settings_Form_View_Label
 	/**
 	 * @param string $link
 	 *
-	 * @return AC_Settings_Form_View_Label
+	 * @return AC_Settings_View_Label
 	 */
 	public function set_link( $link ) {
 		$this->more_link = $link;
@@ -114,7 +118,7 @@ class AC_Settings_Form_View_Label
 	/**
 	 * @param string $description
 	 *
-	 * @return AC_Settings_Form_View_Label
+	 * @return AC_Settings_View_Label
 	 */
 	public function set_description( $description ) {
 		$this->description = $description;

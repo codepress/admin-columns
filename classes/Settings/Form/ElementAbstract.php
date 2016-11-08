@@ -32,6 +32,13 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 */
 	protected $label;
 
+	/**
+	 * Extra description
+	 *
+	 * @var string
+	 */
+	protected $description;
+
 	public function __construct( $name = null, array $options = array() ) {
 		if ( null != $name ) {
 			$this->set_name( $name );
@@ -43,6 +50,16 @@ abstract class AC_Settings_Form_ElementAbstract {
 	}
 
 	public abstract function render();
+
+	protected function render_description() {
+		if ( ! $this->get_description() ) {
+			return;
+		}
+
+		$template = '<p class="help-msg">%s</p>';
+
+		return sprintf( $template, $this->get_description() );
+	}
 
 	public function get_attribute( $key ) {
 		if ( ! isset( $this->attributes[ $key ] ) ) {
@@ -171,6 +188,34 @@ abstract class AC_Settings_Form_ElementAbstract {
 
 	public function set_label( $label ) {
 		$this->label = $label;
+
+		return $this;
+	}
+
+	public function set_options( array $options ) {
+		$this->options = $options;
+
+		return $this;
+	}
+
+	public function get_options() {
+		return $this->options;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_description() {
+		return $this->description;
+	}
+
+	/**
+	 * @param string $description
+	 *
+	 * @return AC_Settings_Form_ElementAbstract
+	 */
+	public function set_description( $description ) {
+		$this->description = $description;
 
 		return $this;
 	}

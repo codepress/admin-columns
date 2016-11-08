@@ -5,22 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
-	implements AC_Settings_Form_ViewInterface {
+	implements AC_Settings_ViewInterface {
 
 	protected $options;
 
 	public function __construct() {
 		$this->options = array();
-	}
-
-	public function set_options( array $options ) {
-		$this->options = $options;
-
-		return $this;
-	}
-
-	public function get_options() {
-		return $this->options;
 	}
 
 	public function render() {

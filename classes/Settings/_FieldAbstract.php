@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_FieldAbstract {
+abstract class _AC_Settings_FieldAbstract {
 
 	/**
 	 * @var string

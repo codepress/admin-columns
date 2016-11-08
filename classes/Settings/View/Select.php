@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Form_View_Select
-	implements AC_Settings_Form_ViewInterface {
+class AC_Settings_View_Select
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var AC_Settings_Form_Element_Select
@@ -45,7 +45,7 @@ class AC_Settings_Form_View_Select
 	/**
 	 * @param string $no_result
 	 *
-	 * @return AC_Settings_Form_View_Select
+	 * @return AC_Settings_View_Select
 	 */
 	public function set_no_result( $no_result ) {
 		$this->no_result = $no_result;

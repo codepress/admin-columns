@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
-	implements AC_Settings_Form_ViewInterface {
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var array
@@ -14,16 +14,6 @@ class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 
 	public function __construct() {
 		$this->options = array();
-	}
-
-	public function set_options( array $options ) {
-		$this->options = $options;
-
-		return $this;
-	}
-
-	public function get_options() {
-		return $this->options;
 	}
 
 	protected function render_options( array $options ) {

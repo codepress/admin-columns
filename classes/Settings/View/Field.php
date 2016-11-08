@@ -1,7 +1,7 @@
 <?php
 
-class AC_Settings_Form_View_Field
-	implements AC_Settings_Form_ViewInterface {
+class AC_Settings_View_Field
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var AC_Settings_FieldAbstract;
@@ -12,17 +12,9 @@ class AC_Settings_Form_View_Field
 		$this->field = $field;
 	}
 
-	public function render_help() {
-		if ( ! $this->field->get_help() ) {
-			return;
-		}
-
-		$template = '<p class="help-msg">%s</p>';
-
-		return sprintf( $template, $this->field->get_help() );
-	}
-
 	public function render() {
+		$args = array();
+
 		$defaults = array(
 			'type'           => 'text',
 			'name'           => '',
@@ -57,9 +49,18 @@ class AC_Settings_Form_View_Field
 		// todo: section cond. on classes
 		$classes[] = 'section';
 
-
 		// todo: map to attribute
 		echo( $field->toggle_trigger ? ' data-trigger="' . esc_attr( $this->get_attr_id( $field->toggle_trigger ) ) . '"' : '' );
+
+		$colspan = 2;
+		$label = new AC_Settings_View_Label( false );
+
+		if ( $this->field->get_label() ) {
+			$colspan = 1;
+
+			//$label = new AC_Settings_View_Label( $this->field->get_label(), $this->field->get_first_element() );
+
+		}
 
 		// todo map to attribute
 		empty( $field->label ) ? ' colspan="2"' : '';
@@ -70,22 +71,24 @@ class AC_Settings_Form_View_Field
 		// todo: map to attribute
 		echo $field->refresh_column ? ' data-refresh="1"' : '';
 
-		?>
-		<tr class="// class attr" // toggle handle // refresh>
+		$template = '
+			<tr class="%s" data-handle="%s" data-refresh="%d">
+				%s
+				<td class="input" data-trigger="%s" colspan="%d">
+					%s
+				</td>
+			</tr>';
 
-			// label
-
-			<td class="input" // data trigger // colspan>
-
-				// field
-
-				// render_help
-
-			</td>
-		</tr>
-
-		<?php
-
+		sprintf(
+			$template,
+			esc_attr( implode( ' ', $classes ) ),
+			'//data-handle',
+			'//data-refresh',
+			$label->render(),
+			'//data-trigger',
+			$colspan,
+			'//field render'
+		);
 
 		?>
 		<tr class="<?php echo esc_attr( $field->type ); ?> column-<?php echo esc_attr( $field->name ); ?><?php echo esc_attr( $field->hidden ? ' hide' : '' ); ?><?php echo esc_attr( $field->section ? ' section' : '' ); ?>"<?php echo $field->toggle_handle ? ' data-handle="' . esc_attr( $this->get_attr_id( $field->toggle_handle ) ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>

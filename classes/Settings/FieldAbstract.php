@@ -1,6 +1,7 @@
 <?php
 
-abstract class AC_Settings_FieldAbstract {
+abstract class AC_Settings_FieldAbstract
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var string
@@ -10,41 +11,92 @@ abstract class AC_Settings_FieldAbstract {
 	/**
 	 * @var string
 	 */
-	private $description;
-
-	/**
-	 * @var string
-	 */
-	private $more_link;
-
-	/**
-	 * @var string
-	 */
-	private $id;
-
-	/**
-	 * @var string
-	 */
 	private $name;
 
 	/**
-	 * @var AC_Settings_FieldAbstract[]
+	 * @var AC_Settings_Form_ElementAbstract[]
 	 */
-	private $fields;
+	private $elements;
 
 	/**
-	 * @var AC_Settings_Form_ElementAbstract;
+	 * Available settings
+	 *
+	 * @var array
 	 */
-	private $form_element;
+	private $settings;
 
-	public function __construct() {
-		$this->fields = array();
+	/**
+	 * @param array $settings
+	 */
+	public function __construct( array $settings = array() ) {
+		$this->elements = array();
+
+		$this->set_settings( $settings );
 	}
 
 	/**
-	 * @return string
+	 * Assign one or more elements that make up this field
+	 */
+	protected abstract function set_elements();
+
+	protected function render_elements() {
+		$elements = '';
+
+		foreach ( $this->get_elements() as $element ) {
+			$elements .= $element->render();
+		}
+
+		return $elements;
+	}
+
+	public function render() {
+		$template = '
+			<table class="%s" data-handle="%s" data-refresh="%d">
+				<tr>
+					%s
+					<td class="input" data-trigger="%s" colspan="%d">
+						%s
+					</td>
+				</tr>
+			</table>';
+
+		$classes = array( 'widefat', $this->name );
+
+		//if ( $this->hide ) {
+		//$classes[] = 'hide';
+		//}
+
+		//$data_trigger = $this->toggle_trigger ? $this->format_attr( 'id', $this->toggle_trigger ) : '';
+		//$data_handle = $this->toggle_handle ? $this->format_attr( 'id', $this->toggle_handle ) : '';
+
+		$colspan = 2;
+		$label = '';
+
+		if ( $this->get_label() ) {
+			$colspan = 1;
+			$label = $this->get_label()->render();
+		}
+
+		sprintf(
+			$template,
+			esc_attr( implode( ' ', $classes ) ),
+			'//data-handle',
+			'//data-refresh',
+			$label,
+			'//data-trigger',
+			$colspan,
+			$this->render_elements()
+		);
+	}
+
+	/**
+	 * @return AC_Settings_View_Label|false
 	 */
 	public function get_label() {
+		if ( ! ( $this->label instanceof AC_Settings_View_Label ) ) {
+			return false;
+		}
+
 		return $this->label;
 	}
 
@@ -53,119 +105,76 @@ abstract class AC_Settings_FieldAbstract {
 	 *
 	 * @return $this
 	 */
-	public function set_label( $label ) {
+	public function set_label( AC_Settings_View_Label $label ) {
 		$this->label = $label;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return AC_Settings_Form_ElementAbstract[]
 	 */
-	public function get_description() {
-		return $this->description;
+	public function get_elements() {
+		return $this->elements;
 	}
 
 	/**
-	 * @param string $description
+	 * @param AC_Settings_Form_ElementAbstract $element
 	 *
 	 * @return $this
 	 */
-	public function set_description( $description ) {
-		$this->description = $description;
+	protected function add_element( AC_Settings_Form_ElementAbstract $element ) {
+		$this->elements[] = $element;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * Return the first element
+	 *
+	 * @return $this|false
 	 */
-	public function get_more_link() {
-		return $this->get_more_link;
+	protected function get_first_element() {
+		$elements = $this->get_elements();
+
+		if ( empty( $elements ) ) {
+			return false;
+		}
+
+		return $elements[0];
 	}
 
 	/**
-	 * @param string $more_link
+	 * @param array $settings
 	 *
 	 * @return $this
 	 */
-	public function set_more_link( $more_link ) {
-		$this->more_link = $more_link;
+	public function set_settings( $settings ) {
+		$this->settings = $settings;
 
 		return $this;
 	}
 
-	protected function display_wrapper() {
-		$class = sprintf( 'widefat %s column-%s', $this->type, $this->name );
+	/**
+	 * Retrieve setting (value) for an element
+	 *
+	 * @param string $name
+	 * @param string $default
+	 *
+	 * @return string
+	 */
+	protected function get_setting( $name, $default = null ) {
+		$setting = $default;
 
-		if ( $this->get_hide() ) {
-			$class .= ' hide';
+		foreach ( $this->settings as $key => $value ) {
+			if ( $key === $name ) {
+				$setting = $value;
+
+				break;
+			}
 		}
 
-		$data_trigger = $this->toggle_trigger ? $this->format_attr( 'id', $this->toggle_trigger ) : '';
-		$data_handle = $this->toggle_handle ? $this->format_attr( 'id', $this->toggle_handle ) : '';
-
-		?>
-
-		<table class="<?php echo esc_attr( $class ); ?>" data-trigger="<?php echo esc_attr( $data_trigger ); ?>" data-handle="<?php echo esc_attr( $data_handle ); ?>" data-refresh="<?php echo esc_attr( $this->refresh_column ); ?>">
-			<tr>
-				<?php
-
-				$colspan = 2;
-
-				// hide the label on the first field
-				if ( $this->get_label() ) {
-					$colspan = 1;
-
-					$this->display_label();
-				}
-
-				?>
-
-				<td class="input" colspan="<?php echo esc_attr( $colspan ); ?>">
-					<?php $this->display_field(); ?>
-
-					<?php if ( $this->get_help() ) : ?>
-						<p class="help-msg">
-							<?php echo $this->get_help(); ?>
-						</p>
-					<?php endif; ?>
-				</td>
-			</tr>
-		</table>
-
-		<?php
-	}
-
-	public function display_label() {
-		$class = 'label';
-
-		if ( $this->get_description() ) {
-			$class .= ' description';
-		}
-
-		// todo: check the for conditional
-		if ( ! $this->for ) {
-			$this->for = $this->get_name();
-		}
-
-		?>
-
-		<td class="<?php echo esc_attr( $class ); ?>">
-			<label for="<?php esc_attr( $this->format_attr( 'id', $this->for ) ); ?>">
-				<span class="label"><?php echo $this->get_label(); ?></span>
-				<?php if ( $this->get_more_link() ) : ?>
-					<a target="_blank" class="more-link" title="<?php esc_attr_e( 'View more', 'codepress-admin-columns' ); ?>" href="<?php echo esc_url( $this->get_more_link() ); ?>">
-						<span class="dashicons dashicons-external"></span>
-					</a>
-				<?php endif; ?>
-				<?php if ( $this->get_description() ) : ?>
-					<p class="description"><?php echo $this->get_description(); ?></p>
-				<?php endif; ?>
-			</label>
-		</td>
-
-		<?php
+		return $setting;
 	}
 
 }
