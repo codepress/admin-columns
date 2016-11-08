@@ -4,7 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_Form_View_Radio {
+class AC_Settings_Form_View_Radio
+	implements AC_Settings_Form_ViewInterface {
 
 	/**
 	 * @var AC_Settings_Form_Element_Radio

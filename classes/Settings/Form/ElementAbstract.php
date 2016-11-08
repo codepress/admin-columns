@@ -32,20 +32,6 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 */
 	protected $label;
 
-	/**
-	 * Describes the element
-	 *
-	 * @var string
-	 */
-	protected $description;
-
-	/**
-	 * Explains the element
-	 *
-	 * @var string
-	 */
-	protected $help;
-
 	public function __construct( $name = null, array $options = array() ) {
 		if ( null != $name ) {
 			$this->set_name( $name );
@@ -115,8 +101,12 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 *
 	 * @return string
 	 */
-	protected function get_attribute_as_string( $key, $value ) {
-		return sprintf( '%s="%s"', $key, esc_attr( $value ) );
+	protected function get_attribute_as_string( $key, $value = null ) {
+		if ( null === $value ) {
+			$value = $this->get_attribute( $key );
+		}
+
+		return ac_helper()->html->get_attribute_as_string( $key, $value );
 	}
 
 	public function get_name() {

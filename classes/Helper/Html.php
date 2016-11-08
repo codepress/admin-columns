@@ -7,6 +7,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Helper_Html {
 
 	/**
+	 * @param string $key
+	 * @param string $value
+	 *
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_attribute_as_string( $key, $value ) {
+		return sprintf( '%s="%s"', $key, esc_attr( $value ) );
+	}
+
+	/**
+	 * @param array $attributes
+	 *
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_attributes_as_string( array $attributes ) {
+		$output = array();
+
+		foreach ( $attributes as $key => $value ) {
+			$output[] = $this->get_attribute_as_string( $key, $value );
+		}
+
+		return implode( ' ', $output );
+	}
+
+	/**
 	 * @param string $url
 	 * @param string $label
 	 *
@@ -38,9 +65,10 @@ class AC_Helper_Html {
 	 */
 	private function get_attributes( $attributes ) {
 		$_attributes = array();
+
 		foreach ( array( 'title', 'id', 'class', 'style', 'target' ) as $attribute ) {
 			if ( ! empty( $attributes[ $attribute ] ) ) {
-				$_attributes[] = $attribute . '="' . esc_attr( $attributes[ $attribute ] ) . '"';
+				$_attributes[] = $this->get_attribute_as_string( $attribute, $attributes[ $attribute ] );
 			}
 		}
 
