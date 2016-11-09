@@ -103,9 +103,10 @@ abstract class AC_Settings_FieldAbstract
 		}
 
 		$for = '';
+		$element = $this->get_first_element();
 
-		if ( $this->get_first_element() ) {
-			$for = ac_helper()->html->get_attribute_as_string( 'for', $this->get_first_element()->get_id() );
+		if ( $element ) {
+			$for = ac_helper()->html->get_attribute_as_string( 'for', $element->get_id() );
 		}
 
 		return sprintf(
@@ -196,7 +197,7 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * @param string $description
 	 *
-	 * @return AC_Settings_View_Label
+	 * @return $this
 	 */
 	public function set_description( $description ) {
 		$this->description = $description;
@@ -274,18 +275,30 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * Return the first element
+	 * Return the first element in this field
 	 *
-	 * @return $this|false
+	 * If there is no element, it will take the first element of the first field.
+	 *
+	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
 	protected function get_first_element() {
 		$elements = $this->get_elements();
 
-		if ( empty( $elements ) ) {
-			return false;
+		if ( $elements ) {
+			return $elements[0];
 		}
 
-		return $elements[0];
+		$field = $this->get_first_field();
+
+		if ( $field ) {
+			$element = $field->get_first_element();
+
+			if ( $element ) {
+				return $element;
+			}
+		}
+
+		return false;
 	}
 
 	/**

@@ -13,7 +13,9 @@ class AC_Settings_Field_BeforeAfter extends AC_Settings_FieldAbstract {
 		      ->set_label( __( 'After', 'codepress-admin-columns' ) )
 		      ->set_description( __( 'This text will appear after the column value.', 'codepress-admin-columns' ) );
 
-		$this->set_label( __( 'Display Options', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Display Options', 'codepress-admin-columns' ) )
+		     ->add_field( $before )
+		     ->add_field( $after );
 	}
 
 }
