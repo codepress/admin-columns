@@ -21,7 +21,7 @@ final class AC_ListScreenManager {
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
-		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
+		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 	}
 
 	/**
