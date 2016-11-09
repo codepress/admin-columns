@@ -490,11 +490,6 @@ abstract class AC_ListScreenAbstract {
 		       ->set_clone( $settings['clone'] )
 		       ->set_options( $settings );
 
-		// Set post type and taxonomy from the column type instance.
-		// TODO: optimise? If we remove these lines, the column will not contain the post_type or tax on a ajax refresh call. e.g. switching field type in CF column.
-		$column->set_post_type( $column_type->get_post_type() );
-		$column->set_taxonomy( $column_type->get_taxonomy() );
-
 		if ( $column->is_original() ) {
 			$column->set_label( $this->get_original_label( $column->get_type() ) );
 

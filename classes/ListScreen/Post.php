@@ -57,11 +57,33 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 
 	/**
 	 * @param AC_Column $column
+	 *
+	 * @return AC_Column
+	 */
+	private function inject_post_type( $column ) {
+		if ( $column ) {
+			$column->set_post_type( $this->post_type );
+		}
+
+		return $column;
+	}
+
+	/**
+	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
-		$column->set_post_type( $this->post_type );
+		parent::register_column_type( $this->inject_post_type( $column ) );
+	}
 
-		parent::register_column_type( $column );
+	/**
+	 * @param array $settings
+	 *
+	 * @return AC_Column|false
+	 */
+	public function create_column( array $settings ) {
+		$column = parent::create_column( $settings );
+
+		return $this->inject_post_type( $column );
 	}
 
 }
