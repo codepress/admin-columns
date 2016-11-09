@@ -7,12 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
-	protected $options;
-
-	public function __construct() {
-		$this->options = array();
-	}
-
 	public function render() {
 		$template = '<label %s>%s%s</label>';
 		$options = $this->get_options();

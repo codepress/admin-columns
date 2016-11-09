@@ -258,7 +258,7 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * @return AC_Settings_Form_ElementAbstract[]
 	 */
-	public function get_elements() {
+	protected function get_elements() {
 		return $this->elements;
 	}
 

@@ -7,6 +7,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
+	public function render() {
+		$template = '<input %s>';
+
+		$attributes = $this->get_attributes();
+		$attributes['value'] = $this->get_value();
+		$attributes['type'] = $this->get_type();
+
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ) );
+	}
+
 	public function get_type() {
 		$type = $this->get_attribute( 'type' );
 
@@ -26,16 +36,6 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 		$this->set_attribute( 'type', $type );
 
 		return $this;
-	}
-
-	public function render() {
-		$template = '<input %s>';
-
-		$attributes = $this->get_attributes();
-		$attributes['value'] = $this->get_value();
-		$attributes['type'] = $this->get_type();
-
-		return sprintf( $template, $this->get_attributes_as_string( $attributes ) );
 	}
 
 }

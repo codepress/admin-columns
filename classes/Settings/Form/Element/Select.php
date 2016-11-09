@@ -7,15 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
-	/**
-	 * @var array
-	 */
-	protected $options;
-
-	public function __construct() {
-		$this->options = array();
-	}
-
 	protected function render_options( array $options ) {
 		$template = '<option %s>%s</option>';
 		$output = array();

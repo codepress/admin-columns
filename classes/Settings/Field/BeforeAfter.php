@@ -2,25 +2,18 @@
 
 class AC_Settings_Field_BeforeAfter extends AC_Settings_FieldAbstract {
 
-	protected function set_fields() {
-		$before = new AC_Settings_Form_Element_Input( 'before' );
-		$before->set_label( 'Before' );
+	public function render_field() {
+		$before = new AC_Settings_Field_Input();
+		$before->add_element( new AC_Settings_Form_Element_Input( 'before' ) )
+		       ->set_label( __( 'Before', 'codepress-admin-columns' ) )
+		       ->set_description( __( 'This text will appear before the column value.', 'codepress-admin-columns' ) );
 
-		$after = new AC_Settings_Form_Element_Input( 'after' );
-		$label = new AC_Settings_View_Label( __( 'Display Options', 'codepress-admin-columns' ), $before );
+		$after = new AC_Settings_Field_Input();
+		$after->add_element( new AC_Settings_Form_Element_Input( 'after' ) )
+		      ->set_label( __( 'After', 'codepress-admin-columns' ) )
+		      ->set_description( __( 'This text will appear after the column value.', 'codepress-admin-columns' ) );
 
-		// todo: add view to element or the other way around? with label etc. I think a field is the logical choice
-
-		$this->add_element( $before )
-		     ->add_element( $after )
-		     ->set_label( $label );
-	}
-
-	public function render() {
-		$before =
-
-		parent::render();
-
+		$this->set_label( __( 'Display Options', 'codepress-admin-columns' ) );
 	}
 
 }

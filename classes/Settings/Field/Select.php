@@ -8,25 +8,22 @@ class AC_Settings_Field_Select extends AC_Settings_FieldAbstract
 	implements AC_Settings_ViewInterface {
 
 	/**
-	 * @var AC_Settings_Form_Element_Select
-	 */
-	protected $select;
-
-	/**
 	 * @var string
 	 */
 	protected $no_result;
 
-	public function __construct( AC_Settings_Form_Element_Select $select ) {
-		$this->select = $select;
-	}
+	public function render_field() {
+		$select = $this->get_first_element();
 
-	public function render() {
-		$options = $this->select->get_options();
+		if ( ! $select ) {
+			return;
+		}
+
+		$options = $select->get_options();
 		$output = $this->get_no_result();
 
 		if ( ! empty( $options ) ) {
-			$output = $this->select->render();
+			$output = $select->render();
 
 			// AJAX message
 			$output .= '<div class="msg"></div>';
@@ -36,9 +33,22 @@ class AC_Settings_Field_Select extends AC_Settings_FieldAbstract
 	}
 
 	/**
+	 * @param AC_Settings_Form_Element_Input $input
+	 *
+	 * @return $this
+	 */
+	public function add_element( AC_Settings_Field_Select $select ) {
+		return parent::add_element( $select );
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_no_result() {
+		if ( empty( $this->no_result ) ) {
+			return false;
+		}
+
 		return $this->no_result;
 	}
 

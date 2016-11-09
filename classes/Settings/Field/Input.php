@@ -8,11 +8,22 @@ class AC_Settings_Field_Input extends AC_Settings_FieldAbstract
 	implements AC_Settings_ViewInterface {
 
 	public function render_field() {
-		if ( ! $this->get_first_element() ) {
+		$input = $this->get_first_element();
+
+		if ( ! $input ) {
 			return;
 		}
 
-		return $this->get_first_element()->render();
+		return $input->render();
+	}
+
+	/**
+	 * @param AC_Settings_Form_Element_Input $input
+	 *
+	 * @return $this
+	 */
+	public function add_element( AC_Settings_Form_Element_Input $input ) {
+		return parent::add_element( $input );
 	}
 
 }
