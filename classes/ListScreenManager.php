@@ -41,6 +41,10 @@ final class AC_ListScreenManager {
 			if ( ! $this->list_screen->get_column_by_name( $default ) ) {
 				$default = key( $this->list_screen->get_columns() );
 			}
+			// Actionbar will always be set as primary
+			if ( $this->list_screen->get_column_by_name( 'column-actions' ) ) {
+				$default = 'column-actions';
+			}
 		}
 
 		return $default;

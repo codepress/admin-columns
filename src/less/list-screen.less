@@ -205,6 +205,115 @@ div.sizes span.not-available {
 	}
 }
 
+.cpac_wp_button {
+	color: #555;
+	background: #f7f7f7;
+	box-shadow: 0 1px 0 #ccc;
+	vertical-align: top;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 13px;
+	line-height: 26px;
+	height: 28px;
+	margin: 0;
+	padding: 0 10px 1px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	white-space: nowrap;
+	box-sizing: border-box;
+
+	&:hover {
+		background: #fafafa;
+		color: #23282d;
+		border-color: #999;
+	}
+}
+
+[class^="column-actions"] {
+
+	&.column-primary {
+		.row-actions {
+			left: 0;
+			position: relative;
+		}
+	}
+
+	.cpac_use_icons + .row-actions {
+		> span {
+			color: transparent;
+			margin-right: -8px;
+
+			a {
+				.cpac_wp_button;
+				display: inline-block;
+				position: relative;
+				min-width: 26px;
+				margin-bottom: 5px;
+
+				&:before {
+					text-indent: 0;
+					font-family: Dashicons, sans-serif;
+					position: absolute;
+					padding-left: 5px;
+					top: 0; left: 0; width: 100%; height: 100%;
+				}
+			}
+
+			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve, &.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete {
+
+				a {
+					text-indent: -3000px;
+					&:before {
+						text-indent: 0;
+						font-family: Dashicons, sans-serif;
+					}
+				}
+			}
+			&.edit a:before {
+				content: "\f464";
+			}
+			&.inline a:before, &.quickedit a:before {
+				content: "\f119";
+			}
+			&.trash {
+				a {
+					border-radius: 3px;
+					border: 1px solid #ccc;
+					&:before {
+						content: "\f182";
+					}
+					&:hover {
+						border-color: #999;
+					}
+				}
+
+			}
+			&.view a:before {
+				content: "\f177";
+			}
+			&.unapprove a:before {
+				content: "\f158";
+			}
+			&.approve a:before {
+				content: "\f147";
+			}
+			&.spam a:before {
+				content: "\f117";
+			}
+			&.reply a:before {
+				content: "\f473";
+			}
+			&.untrash a:before, &.unspam a:before {
+				content: "\f171";
+			}
+			&.delete a:before {
+				content: "\f182";
+			}
+		}
+	}
+}
+
 /* =qTip2
 -------------------------------------------------------------- */
 .cpac-tip {

@@ -171,6 +171,141 @@ div.sizes span.not-available {
   height: 100%;
   text-indent: 0;
 }
+.cpac_wp_button {
+  color: #555;
+  background: #f7f7f7;
+  box-shadow: 0 1px 0 #ccc;
+  vertical-align: top;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 26px;
+  height: 28px;
+  margin: 0;
+  padding: 0 10px 1px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.cpac_wp_button:hover {
+  background: #fafafa;
+  color: #23282d;
+  border-color: #999;
+}
+[class^="column-actions"].column-primary .row-actions {
+  left: 0;
+  position: relative;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span {
+  color: transparent;
+  margin-right: -8px;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span a {
+  color: #555;
+  background: #f7f7f7;
+  box-shadow: 0 1px 0 #ccc;
+  vertical-align: top;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 26px;
+  height: 28px;
+  margin: 0;
+  padding: 0 10px 1px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  min-width: 26px;
+  margin-bottom: 5px;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span a:hover {
+  background: #fafafa;
+  color: #23282d;
+  border-color: #999;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span a:before {
+  text-indent: 0;
+  font-family: Dashicons, sans-serif;
+  position: absolute;
+  padding-left: 5px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.edit a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.inline a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.trash a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.view a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.quickedit a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.approve a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unapprove a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.spam a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.untrash a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unspam a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.reply a,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.delete a {
+  text-indent: -3000px;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.edit a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.inline a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.trash a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.view a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.quickedit a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.approve a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unapprove a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.spam a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.untrash a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unspam a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.reply a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.delete a:before {
+  text-indent: 0;
+  font-family: Dashicons, sans-serif;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.edit a:before {
+  content: "\f464";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.inline a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.quickedit a:before {
+  content: "\f119";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.trash a {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.trash a:before {
+  content: "\f182";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.trash a:hover {
+  border-color: #999;
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.view a:before {
+  content: "\f177";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unapprove a:before {
+  content: "\f158";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.approve a:before {
+  content: "\f147";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.spam a:before {
+  content: "\f117";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.reply a:before {
+  content: "\f473";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.untrash a:before,
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.unspam a:before {
+  content: "\f171";
+}
+[class^="column-actions"] .cpac_use_icons + .row-actions > span.delete a:before {
+  content: "\f182";
+}
 /* =qTip2
 -------------------------------------------------------------- */
 .cpac-tip {
