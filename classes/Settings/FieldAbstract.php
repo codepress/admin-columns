@@ -43,7 +43,7 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * Events to listen to
 	 *
-	 * @var array
+	 * @var AC_Settings_Form_Event[]
 	 */
 	protected $events;
 
@@ -335,34 +335,35 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * Listen to change events
+	 * Listen to events
 	 *
-	 * @param string $target
-	 * @param string $action Defaults to toggle
+	 * @param AC_Settings_Form_Event $event
 	 *
 	 * @return $this
 	 */
-	protected function add_event_change( $target, $action = 'toggle' ) {
-		return $this->add_event( 'change', $target, $action );
+	protected function add_event( AC_Settings_Form_Event $event ) {
+		$this->events[] = $event;
+
+		return $this;
 	}
 
 	/**
-	 * Listen to events
-	 *
-	 * @param string $event Type of event like change, focus
-	 * @param string $target A valid target in the dom.
-	 * @param string $action
-	 *
-	 * @return $this
+	 * @return array
 	 */
-	protected function add_event( $event, $target, $action ) {
-		$this->events[] = array(
-			'type'   => $event,
-			'target' => $target,
-			'action' => $action,
-		);
+	public function get_events( $format = 'json' ) {
+		$events = $this->events;
 
-		return $this;
+		switch ( $format ) {
+			case 'json': {
+				foreach ( $events as $k => $event ) {
+					$events[ $k ] = $event->to_array();
+				}
+
+				$events = json_encode( $events );
+			}
+		}
+
+		return $events;
 	}
 
 }
