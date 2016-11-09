@@ -39,10 +39,8 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 */
 	protected $description;
 
-	public function __construct( $name = null, array $options = array() ) {
-		if ( null != $name ) {
-			$this->set_name( $name );
-		}
+	public function __construct( $name, array $options = array() ) {
+		$this->set_name( $name );
 
 		if ( ! empty( $options ) ) {
 			$this->set_options( $options );

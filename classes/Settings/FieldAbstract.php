@@ -6,97 +6,154 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * @var string
 	 */
-	private $label;
+	protected $label;
 
 	/**
 	 * @var string
 	 */
-	private $name;
+	protected $more_link;
+
+	/**
+	 * @var string
+	 */
+	protected $description;
+
+	/**
+	 * @var bool
+	 */
+	protected $hidden;
+
+	/**
+	 * @var AC_Settings_FieldAbstract[]
+	 */
+	protected $fields;
 
 	/**
 	 * @var AC_Settings_Form_ElementAbstract[]
 	 */
-	private $elements;
+	protected $elements;
 
 	/**
 	 * Available settings
 	 *
 	 * @var array
 	 */
-	private $settings;
+	protected $settings;
+
+	/**
+	 * Events to listen to
+	 *
+	 * @var array
+	 */
+	protected $events;
 
 	/**
 	 * @param array $settings
 	 */
 	public function __construct( array $settings = array() ) {
 		$this->elements = array();
+		$this->events = array();
 
 		$this->set_settings( $settings );
 	}
 
-	/**
-	 * Assign one or more elements that make up this field
-	 */
-	protected abstract function set_elements();
+	abstract protected function render_field();
 
-	protected function render_elements() {
-		$elements = '';
-
-		foreach ( $this->get_elements() as $element ) {
-			$elements .= $element->render();
+	protected function render_description() {
+		if ( ! $this->get_description() ) {
+			return;
 		}
 
-		return $elements;
+		$template = '<p class="description">%s</p>';
+
+		return sprintf( $template, $this->get_description() );
 	}
 
+	protected function render_more_link() {
+		if ( ! $this->get_more_link() ) {
+			return;
+		}
+
+		$template = '
+			<a target="_blank" class="more-link" title="%s" href="%s">
+				<span class="dashicons dashicons-external"></span>
+			</a>';
+
+		return sprintf( $template, esc_attr( __( 'View more', 'codepress-admin-columns' ) ), esc_url( $this->get_more_link() ) );
+	}
+
+	protected function render_label() {
+		if ( ! $this->get_label() ) {
+			return;
+		}
+
+		$template = '
+			<td class="label %s">
+				<label %s>
+					<span class="label">%s</span>
+					%s
+					%s
+				</label>
+			</td>';
+
+		$classes = array();
+
+		if ( $this->get_description() ) {
+			$classes[] = 'description';
+		}
+
+		$for = '';
+
+		if ( $this->get_first_element() ) {
+			$for = ac_helper()->html->get_attribute_as_string( 'for', $this->get_first_element()->get_id() );
+		}
+
+		return sprintf(
+			$template,
+			esc_attr( implode( ' ', $classes ) ),
+			$for,
+			$this->label,
+			$this->render_description(),
+			$this->render_link()
+		);
+	}
+
+	/**
+	 * @param string $field
+	 */
 	public function render() {
 		$template = '
-			<table class="%s" data-handle="%s" data-refresh="%d">
+			<table class="widefat %s" data-events="%s">
 				<tr>
 					%s
-					<td class="input" data-trigger="%s" colspan="%d">
+					<td class="input" colspan="%d">
 						%s
 					</td>
 				</tr>
 			</table>';
 
-		$classes = array( 'widefat', $this->name );
+		$classes = array();
 
-		//if ( $this->hide ) {
-		//$classes[] = 'hide';
-		//}
-
-		//$data_trigger = $this->toggle_trigger ? $this->format_attr( 'id', $this->toggle_trigger ) : '';
-		//$data_handle = $this->toggle_handle ? $this->format_attr( 'id', $this->toggle_handle ) : '';
-
-		$colspan = 2;
-		$label = '';
-
-		if ( $this->get_label() ) {
-			$colspan = 1;
-			$label = $this->get_label()->render();
+		if ( $this->is_hidden() ) {
+			$classes[] = 'hide';
 		}
+
+		$colspan = $this->get_label() ? 1 : 2;
 
 		sprintf(
 			$template,
 			esc_attr( implode( ' ', $classes ) ),
-			'//data-handle',
-			'//data-refresh',
-			$label,
-			'//data-trigger',
+			json_encode( $this->events ),
+			$this->render_label(),
 			$colspan,
-			$this->render_elements()
+			$this->render_field()
 		);
 	}
 
 	/**
-	 * @return AC_Settings_View_Label|false
+	 * @return $this
 	 */
 	public function get_label() {
-		if ( ! ( $this->label instanceof AC_Settings_View_Label ) ) {
-			return false;
-		}
-
 		return $this->label;
 	}
 
@@ -105,10 +162,97 @@ abstract class AC_Settings_FieldAbstract
 	 *
 	 * @return $this
 	 */
-	public function set_label( AC_Settings_View_Label $label ) {
+	public function set_label( $label ) {
 		$this->label = $label;
 
 		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_more_link() {
+		return $this->more_link;
+	}
+
+	/**
+	 * @param string $link
+	 *
+	 * @return $this;
+	 */
+	public function set_more_link( $link ) {
+		$this->more_link = $link;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_description() {
+		return $this->description;
+	}
+
+	/**
+	 * @param string $description
+	 *
+	 * @return AC_Settings_View_Label
+	 */
+	public function set_description( $description ) {
+		$this->description = $description;
+
+		return $this;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function is_hidden() {
+		return $this->hidden;
+	}
+
+	/**
+	 * @param boolean $hidden
+	 *
+	 * @return AC_Settings_FieldAbstract
+	 */
+	public function set_hidden( $hidden ) {
+		$this->hidden = (bool) $hidden;
+
+		return $this;
+	}
+
+	/**
+	 * @return AC_Settings_FieldAbstract[]
+	 */
+	public function get_fields() {
+		return $this->fields;
+	}
+
+	/**
+	 * @param AC_Settings_FieldAbstract $field
+	 *
+	 * @return $this
+	 */
+	public function add_field( AC_Settings_FieldAbstract $field ) {
+		$this->fields[] = $field;
+
+		return $this;
+	}
+
+	/**
+	 * Return the first element
+	 *
+	 * @return $this|false
+	 */
+	protected function get_first_field() {
+		$fields = $this->get_fields();
+
+		if ( empty( $fields ) ) {
+			return false;
+		}
+
+		return $fields[0];
 	}
 
 	/**
@@ -123,7 +267,7 @@ abstract class AC_Settings_FieldAbstract
 	 *
 	 * @return $this
 	 */
-	protected function add_element( AC_Settings_Form_ElementAbstract $element ) {
+	public function add_element( AC_Settings_Form_ElementAbstract $element ) {
 		$this->elements[] = $element;
 
 		return $this;
@@ -175,6 +319,37 @@ abstract class AC_Settings_FieldAbstract
 		}
 
 		return $setting;
+	}
+
+	/**
+	 * Listen to change events
+	 *
+	 * @param string $target
+	 * @param string $action Defaults to toggle
+	 *
+	 * @return $this
+	 */
+	protected function add_event_change( $target, $action = 'toggle' ) {
+		return $this->add_event( 'change', $target, $action );
+	}
+
+	/**
+	 * Listen to events
+	 *
+	 * @param string $event Type of event like change, focus
+	 * @param string $target A valid target in the dom.
+	 * @param string $action
+	 *
+	 * @return $this
+	 */
+	protected function add_event( $event, $target, $action ) {
+		$this->events[] = array(
+			'type'   => $event,
+			'target' => $target,
+			'action' => $action,
+		);
+
+		return $this;
 	}
 
 }
