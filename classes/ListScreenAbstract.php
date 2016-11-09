@@ -348,17 +348,6 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param string $type
-	 *
-	 * @return false|string
-	 */
-	public function get_class_by_type( $type ) {
-		$column = $this->get_column_by_type( $type );
-
-		return $column ? get_class( $column ) : false;
-	}
-
-	/**
 	 * Display column value
 	 *
 	 * @since NEWVERSION
@@ -486,17 +475,25 @@ abstract class AC_ListScreenAbstract {
 			return false;
 		}
 
-		$class = $this->get_class_by_type( $settings['type'] );
+		$column_type = $this->get_column_by_type( $settings['type'] );
 
-		if ( ! $class ) {
+		if ( ! $column_type ) {
 			return false;
 		}
 
+		$class = get_class( $column_type );
+
         /* @var AC_Column $column */
-		$column = new $class();
+		$column = new $class;
+
 		$column->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] )
 		       ->set_options( $settings );
+
+		// Set post type and taxonomy from the column type instance.
+		// TODO: optimise? If we remove these lines, the column will not contain the post_type or tax on a ajax refresh call. e.g. switching field type in CF column.
+		$column->set_post_type( $column_type->get_post_type() );
+		$column->set_taxonomy( $column_type->get_taxonomy() );
 
 		if ( $column->is_original() ) {
 			$column->set_label( $this->get_original_label( $column->get_type() ) );

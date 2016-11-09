@@ -64,13 +64,4 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 		parent::register_column_type( $column );
 	}
 
-	/**
-	 * @param AC_Column $column
-	 */
-	public function register_column( AC_Column $column ) {
-		$column->set_post_type( $this->post_type );
-
-		parent::register_column( $column );
-	}
-
 }
