@@ -48,13 +48,17 @@ abstract class AC_Settings_FieldAbstract
 	protected $events;
 
 	/**
+	 * @var AC_Column
+	 */
+	protected $column;
+
+	/**
 	 * @param array $settings
 	 */
-	public function __construct( array $settings = array() ) {
+	public function __construct( AC_Column $column ) {
+		$this->column = $column;
 		$this->elements = array();
 		$this->events = array();
-
-		$this->set_settings( $settings );
 	}
 
 	abstract protected function render_field();
@@ -115,7 +119,7 @@ abstract class AC_Settings_FieldAbstract
 			$for,
 			$this->label,
 			$this->render_description(),
-			$this->render_link()
+			$this->render_more_link()
 		);
 	}
 
@@ -141,7 +145,7 @@ abstract class AC_Settings_FieldAbstract
 
 		$colspan = $this->get_label() ? 1 : 2;
 
-		sprintf(
+		return sprintf(
 			$template,
 			esc_attr( implode( ' ', $classes ) ),
 			json_encode( $this->events ),
@@ -243,7 +247,11 @@ abstract class AC_Settings_FieldAbstract
 			$element->set_value( $value );
 		}
 
-		$this->elements[ $name ] = $element;
+		// todo: this is not very elegant... maybe a helper and be more verbose when registering?
+		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
+		$element->set_id( sprintf( 'cpac-%s-%s', $this->column->get_name(), $name ) );
+
+		$this->elements[] = $element;
 
 		return $this;
 	}
@@ -259,7 +267,7 @@ abstract class AC_Settings_FieldAbstract
 		$elements = $this->get_elements();
 
 		if ( $elements ) {
-			return $elements[0];
+			return array_shift( $elements );
 		}
 
 		$field = $this->get_first_field();
@@ -281,8 +289,6 @@ abstract class AC_Settings_FieldAbstract
 	 * @return $this
 	 */
 	public function add_field( AC_Settings_FieldAbstract $field ) {
-		$field->set_settings( $this->get_setting() );
-
 		$this->fields[] = $field;
 
 		return $field;
@@ -307,7 +313,7 @@ abstract class AC_Settings_FieldAbstract
 			return false;
 		}
 
-		return $fields[0];
+		return array_shift( $fields );
 	}
 
 	/**
@@ -325,36 +331,14 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * @param array $settings
-	 *
-	 * @return $this
-	 */
-	public function set_settings( $settings ) {
-		$this->settings = $settings;
-
-		return $this;
-	}
-
-	/**
 	 * Retrieve setting (value) for an element
 	 *
 	 * @param string $name
-	 * @param string $default
 	 *
 	 * @return string
 	 */
-	protected function get_setting( $name, $default = null ) {
-		$setting = $default;
-
-		foreach ( $this->settings as $key => $value ) {
-			if ( $key === $name ) {
-				$setting = $value;
-
-				break;
-			}
-		}
-
-		return $setting;
+	protected function get_setting( $name ) {
+		return $this->column->settings()->get_option( $name );
 	}
 
 	/**

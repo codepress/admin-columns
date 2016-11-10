@@ -39,7 +39,8 @@ class AC_Column_Post_FeaturedImage extends AC_Column {
 	public function settings() {
 		$settings = parent::settings();
 
-		$settings->add_field( new AC_Settings_Field_Image );
+		// todo: checkup prev merge
+		//$settings->add_field( new AC_Settings_Field_Image );
 
 		return $settings;
 	}

@@ -770,7 +770,21 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<table class="widefat">
 					<tbody>
 
-					<?php $column->settings()->display(); ?>
+					<?php
+
+					$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
+					$select->set_value( $column->get_type() );
+
+					$field = new AC_Settings_Field_Input( $column );
+					$field->add_element( $select )
+					      ->set_label( __( 'Type', 'codepress-admin-columns' ) )
+					      ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' );
+
+					echo $field->render();
+
+					?>
+
+					<?php //$column->settings()->display(); ?>
 
 					<?php
 

@@ -241,10 +241,11 @@ abstract class AC_Column {
 			$this->settings = new AC_Settings_Column( $this );
 		}
 
-		$this->settings
-			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Width )
-			->add_field( new AC_Settings_Field_BeforeAfter() );
+		// todo: checkup prev branch
+		//$this->settings
+			//->add_field( new AC_Settings_Field_Label )
+			//->add_field( new AC_Settings_Field_Width )
+			//->add_field( new AC_Settings_Field_BeforeAfter() );
 
 		return $this->settings;
 	}
