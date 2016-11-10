@@ -24,14 +24,14 @@ abstract class AC_Settings_FieldAbstract
 	protected $hidden;
 
 	/**
-	 * @var AC_Settings_FieldAbstract[]
-	 */
-	protected $fields;
-
-	/**
 	 * @var AC_Settings_Form_ElementAbstract[]
 	 */
 	protected $elements;
+
+	/**
+	 * @var AC_Settings_FieldAbstract[]
+	 */
+	protected $fields;
 
 	/**
 	 * Available settings
@@ -224,39 +224,6 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * @return AC_Settings_FieldAbstract[]
-	 */
-	public function get_fields() {
-		return $this->fields;
-	}
-
-	/**
-	 * @param AC_Settings_FieldAbstract $field
-	 *
-	 * @return $this
-	 */
-	public function add_field( AC_Settings_FieldAbstract $field ) {
-		$this->fields[] = $field;
-
-		return $this;
-	}
-
-	/**
-	 * Return the first element
-	 *
-	 * @return $this|false
-	 */
-	protected function get_first_field() {
-		$fields = $this->get_fields();
-
-		if ( empty( $fields ) ) {
-			return false;
-		}
-
-		return $fields[0];
-	}
-
-	/**
 	 * @return AC_Settings_Form_ElementAbstract[]
 	 */
 	protected function get_elements() {
@@ -269,7 +236,14 @@ abstract class AC_Settings_FieldAbstract
 	 * @return $this
 	 */
 	public function add_element( AC_Settings_Form_ElementAbstract $element ) {
-		$this->elements[] = $element;
+		$name = $element->get_name();
+		$value = $this->get_setting( $name );
+
+		if ( $value ) {
+			$element->set_value( $value );
+		}
+
+		$this->elements[ $name ] = $element;
 
 		return $this;
 	}
@@ -299,6 +273,55 @@ abstract class AC_Settings_FieldAbstract
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param AC_Settings_Form_ElementAbstract $element
+	 *
+	 * @return $this
+	 */
+	public function add_field( AC_Settings_FieldAbstract $field ) {
+		$field->set_settings( $this->get_setting() );
+
+		$this->fields[] = $field;
+
+		return $field;
+	}
+
+	/**
+	 * @return AC_Settings_FieldAbstract[]
+	 */
+	public function get_fields() {
+		return $this->fields;
+	}
+
+	/**
+	 * Return the first element
+	 *
+	 * @return $this|false
+	 */
+	protected function get_first_field() {
+		$fields = $this->get_fields();
+
+		if ( empty( $fields ) ) {
+			return false;
+		}
+
+		return $fields[0];
+	}
+
+	/**
+	 * Render all fields
+	 * @return string
+	 */
+	public function render_fields() {
+		$output = '';
+
+		foreach ( $this->fields as $field ) {
+			$output .= $field->render();
+		}
+
+		return $output;
 	}
 
 	/**
