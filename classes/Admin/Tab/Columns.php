@@ -723,7 +723,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo esc_html( $column->settings()->get_value('width') ); ?>
+										<?php echo esc_html( $column->settings()->get_value( 'width' ) ); ?>
 									</span>
 
 									<?php
@@ -776,7 +776,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$select->set_value( $column->get_type() );
 
 					$view = new AC_Settings_View( $column );
-					$view->add_element( $select )
+					$view->set_element( $select )
 					     ->set_label( __( 'Type', 'codepress-admin-columns' ) )
 					     ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' );
 
@@ -791,7 +791,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<?php //$column->settings()->display(); ?>
 
 					<?php
-
 
 					// TODO: temp, remove
 					//$column->display_settings();
@@ -834,7 +833,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						 * @param AC_Column $column_instance Column class instance
 						 */
 						//do_action( 'cac/column/settings_before', $column );
-
 
 						// TODO: use $column->settings()->display();
 						//$column->display_settings();

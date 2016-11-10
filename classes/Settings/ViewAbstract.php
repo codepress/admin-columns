@@ -28,9 +28,9 @@ abstract class AC_Settings_ViewAbstract
 	protected $hidden;
 
 	/**
-	 * @var AC_Settings_Form_ElementAbstract[]
+	 * @var AC_Settings_Form_ElementAbstract
 	 */
-	protected $elements;
+	protected $element;
 
 	/**
 	 * @var AC_Settings_ViewAbstract[]
@@ -124,11 +124,10 @@ abstract class AC_Settings_ViewAbstract
 			$classes[] = 'description';
 		}
 
-		$for = '';
-		$element = $this->get_first_element();
+		$for = $this->get_for();
 
-		if ( $element ) {
-			$for = ac_helper()->html->get_attribute_as_string( 'for', $element->get_id() );
+		if ( $for ) {
+			$for = ac_helper()->html->get_attribute_as_string( 'for', $for );
 		}
 
 		return sprintf(
@@ -147,13 +146,13 @@ abstract class AC_Settings_ViewAbstract
 	 * @return string|void
 	 */
 	public function render_layout() {
-		$view = $this->render();
+		$view = '';
 
-		// check for multiple views or single element
-		if ( is_array( $view ) ) {
-			$view = $this->render_views( $view );
-		} elseif ( $view instanceof AC_Settings_Form_ElementAbstract ) {
-			$view = $view->render();
+		// group or single input
+		if ( $this->get_views() ) {
+			$view = $this->render_views();
+		} elseif ( $this->get_element() ) {
+			$view = $this->get_element()->render();
 		}
 
 		$template = '
@@ -278,10 +277,14 @@ abstract class AC_Settings_ViewAbstract
 	}
 
 	/**
-	 * @return AC_Settings_Form_ElementAbstract[]
+	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
-	protected function get_elements() {
-		return $this->elements;
+	public function get_element() {
+		if ( ! $this->element ) {
+			return false;
+		}
+
+		return $this->element;
 	}
 
 	/**
@@ -289,7 +292,7 @@ abstract class AC_Settings_ViewAbstract
 	 *
 	 * @return $this
 	 */
-	public function add_element( AC_Settings_Form_ElementAbstract $element ) {
+	public function set_element( AC_Settings_Form_ElementAbstract $element ) {
 		$name = $element->get_name();
 		$value = $this->get_setting( $name );
 
@@ -301,7 +304,7 @@ abstract class AC_Settings_ViewAbstract
 		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
 		$element->set_id( sprintf( 'cpac-%s-%s', $this->column->get_name(), $name ) );
 
-		$this->elements[] = $element;
+		$this->element = $element;
 
 		return $this;
 	}
@@ -313,17 +316,13 @@ abstract class AC_Settings_ViewAbstract
 	 *
 	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
-	public function get_first_element() {
-		$elements = $this->get_elements();
-
-		if ( $elements ) {
-			return array_shift( $elements );
+	public function get_for() {
+		if ( $this->get_element() instanceof AC_Settings_Form_ElementAbstract ) {
+			return $this->get_element()->get_id();
 		}
 
-		$view = $this->get_first_view();
-
-		if ( $view && $element = $view->get_first_element() ) {
-			return $element;
+		if ( $this->get_views() ) {
+			return $this->get_first_view()->get_for();
 		}
 
 		return false;

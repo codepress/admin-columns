@@ -20,9 +20,9 @@ class AC_Settings_View_WordLimit extends AC_Settings_ViewAbstract {
 
 		$this->set_label( __( 'Word Limit', 'codepress-admin-columns' ) )
 		     ->set_description( __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>' )
-		     ->add_element( $input );
+		     ->set_element( $input );
 
-		$this->render_layout( $input );
+		$this->render_layout();
 	}
 
 	public function set_value( $value ) {

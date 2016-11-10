@@ -7,13 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_View extends AC_Settings_ViewAbstract {
 
 	public function render() {
-		$element = $this->get_first_element();
-
-		if ( ! $element ) {
+		if ( ! $this->get_element() ) {
 			return;
 		}
 
-		return $this->render_wrapper( $this->get_first_element()->render() );
+		return $this->render_layout();
 	}
 
 }
