@@ -134,7 +134,7 @@ abstract class AC_Settings_Form_ElementAbstract {
 	 * @return $this
 	 */
 	public function set_name( $name ) {
-		return $this->set_attribute( $name );
+		return $this->set_attribute( 'name', $name );
 	}
 
 	public function get_id() {

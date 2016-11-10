@@ -18,12 +18,14 @@ class AC_Settings_Field_Input extends AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * @param AC_Settings_Form_Element_Input $input
+	 * @param AC_Settings_Form_ElementAbstract $element
 	 *
 	 * @return $this
 	 */
-	public function add_element( AC_Settings_Form_Element_Input $input ) {
-		return parent::add_element( $input );
+	public function add_element( AC_Settings_Form_ElementAbstract $element ) {
+		// todo: add some form of notification when instance is not input
+
+		return parent::add_element( $element );
 	}
 
 }
