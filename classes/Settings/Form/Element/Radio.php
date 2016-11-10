@@ -7,23 +7,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
+	/**
+	 * @var bool
+	 */
+	protected $vertical;
+
 	public function render() {
-		$template = '<label %s>%s%s</label>';
 		$options = $this->get_options();
 
 		if ( empty( $options ) ) {
 			return;
 		}
 
+		$template = '<div class="radio-labels %s>%s</div>';
+		$vertical = $this->is_vertical() ? 'vertical' : '';
 		$value = $this->get_value();
-
-		$output = array();
+		$elements = array();
 
 		foreach ( $options as $key => $label ) {
-
-			$input = new AC_Settings_Form_Element_Input();
-			$input->set_name( $this->get_name() )
-			      ->set_value( $key )
+			$input = new AC_Settings_Form_Element_Input( $this->get_name() );
+			$input->set_value( $key )
 			      ->set_type( 'radio' )
 			      ->set_id( $this->get_id() . '-' . $key );
 
@@ -37,9 +40,22 @@ class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
 				$attributes['for'] = $input->get_id();
 			}
 
-			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $this->get_label() ) );
+			$elements[] = sprintf( '<label %s>%s%s</label>', $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $this->get_label() ) );
 		}
 
-		return implode( "\n", $output );
+		return sprintf( $template, $vertical, implode( "\n", $elements ) );
 	}
+
+	public function set_vertical( $vertical ) {
+		$this->vertical = (bool) $vertical;
+	}
+
+	public function is_vertical() {
+		if ( empty( $this->vertical ) ) {
+			return false;
+		}
+
+		return $this->vertical;
+	}
+
 }

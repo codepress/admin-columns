@@ -1,6 +1,10 @@
 <?php
 
-abstract class AC_Settings_FieldAbstract
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+abstract class AC_Settings_ViewAbstract
 	implements AC_Settings_ViewInterface {
 
 	/**
@@ -29,9 +33,9 @@ abstract class AC_Settings_FieldAbstract
 	protected $elements;
 
 	/**
-	 * @var AC_Settings_FieldAbstract[]
+	 * @var AC_Settings_ViewAbstract[]
 	 */
-	protected $fields;
+	protected $views;
 
 	/**
 	 * Available settings
@@ -60,8 +64,6 @@ abstract class AC_Settings_FieldAbstract
 		$this->elements = array();
 		$this->events = array();
 	}
-
-	abstract protected function render_field();
 
 	protected function render_description() {
 		if ( ! $this->get_description() ) {
@@ -124,9 +126,9 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * @param string $field
+	 * @param string $view The view that contains the rendered form elements
 	 */
-	public function render() {
+	public function render_wrapper( $view ) {
 		$template = '
 			<table class="widefat %s" data-events="%s">
 				<tr>
@@ -151,7 +153,7 @@ abstract class AC_Settings_FieldAbstract
 			json_encode( $this->events ),
 			$this->render_label(),
 			$colspan,
-			$this->render_field()
+			$view
 		);
 	}
 
@@ -219,7 +221,7 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * @param boolean $hidden
 	 *
-	 * @return AC_Settings_FieldAbstract
+	 * @return AC_Settings_ViewAbstract
 	 */
 	public function set_hidden( $hidden ) {
 		$this->hidden = (bool) $hidden;
@@ -257,23 +259,23 @@ abstract class AC_Settings_FieldAbstract
 	}
 
 	/**
-	 * Return the first element in this field
+	 * Return the first element in this view
 	 *
-	 * If there is no element, it will take the first element of the first field.
+	 * If there is no element, it will take the first element of the first view.
 	 *
 	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
-	protected function get_first_element() {
+	public function get_first_element() {
 		$elements = $this->get_elements();
 
 		if ( $elements ) {
 			return array_shift( $elements );
 		}
 
-		$field = $this->get_first_field();
+		$view = $this->get_first_view();
 
-		if ( $field ) {
-			$element = $field->get_first_element();
+		if ( $view ) {
+			$element = $view->get_first_element();
 
 			if ( $element ) {
 				return $element;
@@ -286,19 +288,19 @@ abstract class AC_Settings_FieldAbstract
 	/**
 	 * @param AC_Settings_Form_ElementAbstract $element
 	 *
-	 * @return $this
+	 * @return AC_Settings_ViewAbstract
 	 */
-	public function add_field( AC_Settings_FieldAbstract $field ) {
-		$this->fields[] = $field;
+	public function add_view( AC_Settings_ViewAbstract $view ) {
+		$this->views[] = $view;
 
-		return $field;
+		return $view;
 	}
 
 	/**
-	 * @return AC_Settings_FieldAbstract[]
+	 * @return AC_Settings_ViewAbstract[]
 	 */
-	public function get_fields() {
-		return $this->fields;
+	public function get_views() {
+		return $this->views;
 	}
 
 	/**
@@ -306,25 +308,25 @@ abstract class AC_Settings_FieldAbstract
 	 *
 	 * @return $this|false
 	 */
-	protected function get_first_field() {
-		$fields = $this->get_fields();
+	public function get_first_view() {
+		$views = $this->get_views();
 
-		if ( empty( $fields ) ) {
+		if ( empty( $views ) ) {
 			return false;
 		}
 
-		return array_shift( $fields );
+		return array_shift( $views );
 	}
 
 	/**
-	 * Render all fields
+	 * Render all views
 	 * @return string
 	 */
-	public function render_fields() {
+	protected function render_views() {
 		$output = '';
 
-		foreach ( $this->fields as $field ) {
-			$output .= $field->render();
+		foreach ( $this->views as $view ) {
+			$output .= $view->render();
 		}
 
 		return $output;

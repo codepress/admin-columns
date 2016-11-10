@@ -7,6 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
+	/**
+	 * @var string
+	 */
+	protected $no_result;
+
 	protected function render_options( array $options ) {
 		$template = '<option %s>%s</option>';
 		$output = array();
@@ -41,13 +46,47 @@ class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $group['options'] ) );
 	}
 
+	protected function render_ajax_message() {
+		return '<div class="msg"></div>';
+	}
+
 	public function render() {
-		$template = '<select %s>%s</select>';
+		if ( ! $this->get_options() ) {
+			return $this->get_no_result();
+		}
+
+		$template = '
+			<select %s>
+				%s
+			</select>
+			%s';
 
 		$attributes = $this->get_attributes();
 		$attributes['name'] = $this->get_name();
 
-		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ) );
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_no_result() {
+		if ( empty( $this->no_result ) ) {
+			return false;
+		}
+
+		return $this->no_result;
+	}
+
+	/**
+	 * @param string $no_result
+	 *
+	 * @return AC_Settings_View_Select
+	 */
+	public function set_no_result( $no_result ) {
+		$this->no_result = $no_result;
+
+		return $this;
 	}
 
 }
