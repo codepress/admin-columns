@@ -777,8 +777,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					$view = new AC_Settings_View( $column );
 					$view->add_element( $select )
-					      ->set_label( __( 'Type', 'codepress-admin-columns' ) )
-					      ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' );
+					     ->set_label( __( 'Type', 'codepress-admin-columns' ) )
+					     ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' );
 
 					echo $view->render();
 

@@ -65,6 +65,16 @@ abstract class AC_Settings_ViewAbstract
 		$this->events = array();
 	}
 
+	/**
+	 * Echo the output from the render function
+	 */
+	public function display() {
+		echo $this->render();
+	}
+
+	/**
+	 * @return string|void
+	 */
 	protected function render_description() {
 		if ( ! $this->get_description() ) {
 			return;
@@ -75,6 +85,9 @@ abstract class AC_Settings_ViewAbstract
 		return sprintf( $template, $this->get_description() );
 	}
 
+	/**
+	 * @return string|void
+	 */
 	protected function render_more_link() {
 		if ( ! $this->get_more_link() ) {
 			return;
@@ -88,6 +101,9 @@ abstract class AC_Settings_ViewAbstract
 		return sprintf( $template, esc_attr( __( 'View more', 'codepress-admin-columns' ) ), esc_url( $this->get_more_link() ) );
 	}
 
+	/**
+	 * @return string|void
+	 */
 	protected function render_label() {
 		if ( ! $this->get_label() ) {
 			return;
@@ -126,9 +142,20 @@ abstract class AC_Settings_ViewAbstract
 	}
 
 	/**
-	 * @param string $view The view that contains the rendered form elements
+	 * @param string|AC_Settings_ViewAbstract|AC_Settings_ViewAbstract[] $view The view that contains the rendered form elements
+	 *
+	 * @return string|void
 	 */
-	public function render_wrapper( $view ) {
+	public function render_layout() {
+		$view = $this->render();
+
+		// check for multiple views or single element
+		if ( is_array( $view ) ) {
+			$view = $this->render_views( $view );
+		} elseif ( $view instanceof AC_Settings_Form_ElementAbstract ) {
+			$view = $view->render();
+		}
+
 		$template = '
 			<table class="widefat %s" data-events="%s">
 				<tr>
@@ -155,6 +182,27 @@ abstract class AC_Settings_ViewAbstract
 			$colspan,
 			$view
 		);
+	}
+
+	/**
+	 * Render all views in this view
+	 *
+	 * @return string|void
+	 */
+	protected function render_views() {
+		$views = array();
+
+		foreach ( $this->views as $view ) {
+			$views[] = $view->render();
+		}
+
+		$views = array_filter( $views );
+
+		if ( empty( $views ) ) {
+			return;
+		}
+
+		return implode( "\n", $views );
 	}
 
 	/**
@@ -274,23 +322,19 @@ abstract class AC_Settings_ViewAbstract
 
 		$view = $this->get_first_view();
 
-		if ( $view ) {
-			$element = $view->get_first_element();
-
-			if ( $element ) {
-				return $element;
-			}
+		if ( $view && $element = $view->get_first_element() ) {
+			return $element;
 		}
 
 		return false;
 	}
 
 	/**
-	 * @param AC_Settings_Form_ElementAbstract $element
+	 * @param AC_Settings_ViewInterface $element
 	 *
-	 * @return AC_Settings_ViewAbstract
+	 * @return AC_Settings_ViewInterface
 	 */
-	public function add_view( AC_Settings_ViewAbstract $view ) {
+	public function add_view( AC_Settings_ViewInterface $view ) {
 		$this->views[] = $view;
 
 		return $view;
@@ -316,20 +360,6 @@ abstract class AC_Settings_ViewAbstract
 		}
 
 		return array_shift( $views );
-	}
-
-	/**
-	 * Render all views
-	 * @return string
-	 */
-	protected function render_views() {
-		$output = '';
-
-		foreach ( $this->views as $view ) {
-			$output .= $view->render();
-		}
-
-		return $output;
 	}
 
 	/**
