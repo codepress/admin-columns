@@ -23,7 +23,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function get_field_key() {
-		$field = $this->get_option( 'field' );
+		$field = $this->settings()->get_option( 'field' );
 
 		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
 	}
@@ -32,7 +32,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 3.2.1
 	 */
 	public function get_field_type() {
-		return $this->get_option( 'field_type' );
+		return $this->settings()->get_option( 'field_type' );
 	}
 
 	/**
@@ -191,7 +191,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 			case "link" :
 				if ( ac_helper()->string->is_valid_url( $raw_value ) ) {
-					$label = $this->get_option( 'link_label' );
+					$label = $this->settings()->get_option( 'link_label' );
 					if ( ! $label ) {
 						$label = $raw_value;
 					}
@@ -238,12 +238,12 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				break;
 
 			case "color" :
-				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : $this->get_empty_char();
+				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : ac_helper()->string->get_empty_char();
 				break;
 
 			case "count" :
 				$raw_value = $this->get_raw_value( $id, false );
-				$value = $raw_value ? count( $raw_value ) : $this->get_empty_char();
+				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
 				break;
 
 			case "has_content" :
@@ -257,7 +257,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		endswitch;
 
 		if ( ! $value ) {
-			$value = $this->get_empty_char();
+			$value = ac_helper()->string->get_empty_char();
 		}
 
 		/**
@@ -353,6 +353,39 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		return $grouped_options;
 	}
 
+	public function settings() {
+		$settings = parent::settings();
+
+		//$settings->add_field( new AC_Settings_Field_Label );
+
+		//$field = new AC_Settings_Field_Custom( 'field_type' );
+		/*$field = new AC_Settings_Field_Label;
+
+		$field
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Label );*/
+
+		/*$field_type = new AC_Settings_Field_Label();
+
+		$field_type
+			->add_field( new AC_Settings_Field_WordLimit() )
+			->add_field( new AC_Settings_Field_WordLimit() )
+			->add_field( new AC_Settings_Field_WordLimit() );
+
+		$settings
+			->add_field( $field_type )
+			->add_field( new AC_Settings_Field_WordLimit() );*/
+
+		//$settings->add_field( new AC_Settings_Field_BeforeAfter() );
+		//$settings->add_field( $field );
+
+
+
+		return $settings;
+	}
+
 	/**
 	 * @see AC_Column::display_settings()
 	 * @since 1.0
@@ -367,7 +400,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				'name'           => 'field_type',
 				'options'        => $this->get_field_labels(),
 				'refresh_column' => true,
-			)
+			),
 		);
 
 		switch ( $this->get_field_type() ) {
@@ -395,8 +428,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		$this->field_settings->before_after();
 	}
 
-
-	public function display_field_setting(){
+	public function display_field_setting() {
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
 			$this->field_settings->field( array(

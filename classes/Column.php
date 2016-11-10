@@ -3,9 +3,6 @@ defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
- *
- * @property AC_ColumnFieldSettings field_settings
- * @property AC_ColumnFieldFormat format
  */
 abstract class AC_Column {
 
@@ -35,28 +32,19 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
-	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
+	 * @var string Post type
 	 */
-	private $field_settings;
+	private $post_type;
 
 	/**
-	 * @var AC_ColumnFieldFormat Instance for formatting column values
+	 * @var string Taxonomy
 	 */
-	private $format;
+	private $taxonomy;
 
 	/**
-	 * @var array $options Contains the user set options for the AC_Column object.
+	 * @var AC_Settings_Column
 	 */
-	// TODO: should be an in it's own object
-	private $options;
-
-	// (string) Should the Label be hidden?
-	// TODO: should got into field settings
-	protected $hide_label;
-
-	// (bool) Should the column use before and after fields
-	// TODO: should got into field settings
-	protected $use_before_after;
+	private $settings;
 
 	/**
 	 * @since 2.0
@@ -65,7 +53,8 @@ abstract class AC_Column {
 	 *
 	 * @return string Value for displaying inside the column cell.
 	 */
-	abstract function get_value( $id );
+	// TODO: protected or public? Is it better to always use get_display_value as public
+	abstract protected function get_value( $id );
 
 	/**
 	 * @since NEWVERSION
@@ -135,9 +124,12 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $group Group label
+	 * @return $this
 	 */
 	public function set_group( $group ) {
 		$this->group = $group;
+
+		return $this;
 	}
 
 	/**
@@ -157,6 +149,40 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * @return string Post type
+	 */
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	/**
+	 * @param string $post_type Post type
+	 * @return $this
+	 */
+	public function set_post_type( $post_type ) {
+		$this->post_type = $post_type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string Taxonomy
+	 */
+	public function get_taxonomy() {
+		return $this->taxonomy;
+	}
+
+	/**
+	 * @param string $taxonomy Taxonomy
+	 * @return $this
+	 */
+	public function set_taxonomy( $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+
+		return $this;
+	}
+
+	/**
 	 * Return true when a default column has been replaced by a custom column.
 	 * An original column will then use the original label and value.
 	 *
@@ -166,6 +192,11 @@ abstract class AC_Column {
 		return $this->original;
 	}
 
+	/**
+	 * @param bool $boolean
+	 *
+	 * @return $this
+	 */
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
 
@@ -180,7 +211,7 @@ abstract class AC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: used to be is_valid(), replace inside all columns (including add-ons)
+	// TODO: used to be apply_conditional(), replace inside all columns (including add-ons)
 	public function is_valid() {
 		return true;
 	}
@@ -201,240 +232,21 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_ColumnFieldSettings
+	 * @return AC_Settings_Column
 	 */
-	protected function field_settings() {
-		if ( null === $this->field_settings ) {
-			$this->field_settings = new AC_ColumnFieldSettings( $this );
+	public function settings() {
+
+		// TODO: lazy load ok?
+		if ( null === $this->settings ) {
+			$this->settings = new AC_Settings_Column( $this );
 		}
 
-		return $this->field_settings;
-	}
+		$this->settings
+			->add_field( new AC_Settings_Field_Label )
+			->add_field( new AC_Settings_Field_Width )
+			->add_field( new AC_Settings_Field_BeforeAfter() );
 
-	/**
-	 * @return AC_ColumnFieldFormat
-	 */
-	protected function format() {
-		if ( null === $this->format ) {
-			$this->format = new AC_ColumnFieldFormat( $this );
-		}
-
-		return $this->format;
-	}
-
-	/**
-	 * @return AC_Helper
-	 */
-	protected function helper() {
-		return AC()->helper();
-	}
-
-
-
-
-
-
-
-
-
-
-	/**
-	 * TODO: refactor. remove.
-	 *
-	 */
-
-	/**
-	 * Hide the label field in the column settings
-	 *
-	 * @return bool
-	 */
-	// TODO: should go into field settings
-	public function is_hide_label() {
-		return $this->hide_label;
-	}
-
-	/**
-	 * @param $bool
-	 *
-	 * @return AC_Column
-	 */
-	// TODO: should go into field settings
-	public function set_hide_label( $boolean ) {
-
-		// TODO: this was called $this->properties->hide_label. Make sure to replace all.
-		$this->hide_label = $boolean;
-
-		return $this;
-	}
-
-	// TODO: should go into field settings
-	public function use_before_after() {
-
-		// TODO: this was called $this->properties->use_before_after. Make sure to replace all.
-		return apply_filters( 'cac/column/properties/use_before_after', $this->use_before_after, $this );
-	}
-
-	// TODO: should go into field settings
-	public function set_use_before_after( $boolean ) {
-		$this->use_before_after = $boolean;
-
-		return $this;
-	}
-
-
-	// TODO: move all options into it's own class
-
-	/**
-	 * Get the stored column options
-	 *
-	 * @since 2.3.4
-	 * @return array Column options set by user
-	 */
-	// TODO: should be it's own class
-	public function get_options() {
-		return $this->options;
-	}
-
-	/**
-	 * Overwrite this function in child class to sanitize
-	 * user submitted values.
-	 *
-	 * @since 2.0
-	 *
-	 * @param $options array User submitted column options
-	 *
-	 * @return array Options
-	 */
-	// TODO: move
-	public function sanitize_options( $options ) {
-		return $options;
-	}
-
-	/**
-	 * @param array $options
-	 *
-	 * @return AC_Column
-	 */
-	// TODO: $options should be an instance
-	public function set_options( $options ) {
-		$this->options = $options;
-
-		return $this;
-	}
-
-	/**
-	 * @param array $options
-	 *
-	 * @return AC_Column
-	 */
-	public function set_option( $key, $value ) {
-		$this->options[ $key ] = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Get the column properties
-	 *
-	 * @since NEWVERSION
-	 * @return stdClass|array Column properties
-	 */
-	/*public function get_properties() {
-		return $this->properties;
-	}*/
-
-	/**
-	 * Get a single column option
-	 *
-	 * @since 2.3.4
-	 * @return string|false Single column option
-	 */
-	public function get_option( $name ) {
-		$options = $this->get_options();
-
-		return isset( $options[ $name ] ) ? $options[ $name ] : false;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return int Width
-	 */
-	// TODO: to options object?
-	public function get_width() {
-		$width = absint( $this->get_option( 'width' ) );
-
-		if ( ! $width ) {
-			$width = $this->get_default_with();
-		}
-
-		return $width > 0 ? $width : false;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return string px or %
-	 */
-	public function get_width_unit() {
-		$width_unit = $this->get_option( 'width_unit' );
-
-		if ( ! $width_unit ) {
-			$width_unit = $this->get_default_with_unit();
-		}
-
-		return 'px' === $width_unit ? 'px' : '%';
-	}
-
-	/**
-	 * Get default with unit
-	 *
-	 * @return string
-	 */
-	public function get_default_with_unit() {
-		return '%';
-	}
-
-	/**
-	 * Get default with unit
-	 *
-	 * @return string
-	 */
-	public function get_default_with() {
-		return false;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function display_settings() {
-	}
-
-	/**
-	 * Overwrite this function in child class.
-	 * Adds (optional) scripts to the listings screen.
-	 *
-	 * @since 2.3.4
-	 */
-	// TODO: remove?
-	public function scripts() {
-	}
-
-	/**
-	 * @since 2.5
-	 */
-	// TODO: is a utility method
-	public function get_empty_char() {
-		return '&ndash;';
-	}
-
-	/**
-	 * @since NEWVERSION
-	 * @return wpdb
-	 */
-	// TODO: is a utility method
-	public function wpdb() {
-		global $wpdb;
-
-		return $wpdb;
+		return $this->settings;
 	}
 
 	/**
@@ -455,7 +267,7 @@ abstract class AC_Column {
 		}
 
 		if ( is_scalar( $value ) ) {
-			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
+			$value = $this->settings()->get_option( 'before' ) . $value . $this->settings()->get_option( 'after' );
 		}
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this );
@@ -464,15 +276,211 @@ abstract class AC_Column {
 		return $value;
 	}
 
+
+
+
 	/**
-	 * @param string $name
-	 * @param string $label
+	 * TODO: refactor. remove.
+	 *
 	 */
-	// TODO: remove, only used on columns tab. Should be registered with field setting.
-	public function display_indicator( $name, $label ) { ?>
-		<span class="indicator-<?php echo esc_attr( $name ); ?>" data-indicator-id="<?php $this->field_settings->attr_id( $name ); ?>" title="<?php echo esc_attr( $label ); ?>"></span>
-		<?php
+
+	/**
+	 * @var AC_ColumnFieldSettings Instance for adding field settings to the column
+	 */
+	// TODO: should be an in the settings object
+	private $field_settings;
+
+	/**
+	 * @var AC_ColumnFieldFormat Instance for formatting column values
+	 */
+	// TODO: should be an in the settings object
+	private $format;
+
+	/**
+	 * @return AC_ColumnFieldSettings
+	 */
+	// TODO: remove in favor of AC_Settings_Column
+	protected function field_settings() {
+		if ( null === $this->field_settings ) {
+			$this->field_settings = new AC_ColumnFieldSettings( $this );
+		}
+
+		return $this->field_settings;
 	}
+
+	/**
+	 * @return AC_ColumnFieldFormat
+	 */
+	// TODO: remove in favor of AC_Settings_Column
+	protected function format() {
+		if ( null === $this->format ) {
+			$this->format = new AC_ColumnFieldFormat( $this );
+		}
+
+		return $this->format;
+	}
+
+	/**
+	 * Overwrite this function in child class to sanitize
+	 * user submitted values.
+	 *
+	 * @since 2.0
+	 *
+	 * @param $options array User submitted column options
+	 *
+	 * @return array Options
+	 */
+	// TODO: move to field settings
+	public function sanitize_options( $options ) {
+		return $options;
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display_settings() {
+	}
+
+	/**
+	 * Hide the label field in the column settings
+	 *
+	 * @return bool
+	 */
+	// TODO: should go into field settings
+	/*public function is_hide_label() {
+		return $this->hide_label;
+	}*/
+
+	/**
+	 * @param $bool
+	 *
+	 * @return AC_Column
+	 */
+	// TODO: should go into field settings
+	/*public function set_hide_label( $boolean ) {
+
+		// TODO: this was called $this->properties->hide_label. Make sure to replace all.
+		$this->hide_label = $boolean;
+
+		return $this;
+	}*/
+
+	// TODO: should go into field settings
+	/*public function use_before_after() {
+
+		// TODO: this was called $this->properties->use_before_after. Make sure to replace all.
+		return apply_filters( 'cac/column/properties/use_before_after', $this->use_before_after, $this );
+	}*/
+
+	// TODO: should go into field settings
+	/*public function set_use_before_after( $boolean ) {
+		$this->use_before_after = $boolean;
+
+		return $this;
+	}*/
+
+
+	// TODO: move all options into it's own class
+
+	/**
+	 * Get the stored column options
+	 *
+	 * @since 2.3.4
+	 * @return array Column options set by user
+	 */
+	// TODO: should be it's own class
+	/*public function get_options() {
+		return $this->options;
+	}*/
+
+	/**
+	 * @param array $options
+	 *
+	 * @return AC_Column
+	 */
+	// TODO: $options should be an instance
+	/*public function set_options( $options ) {
+		$this->options = $options;
+
+		return $this;
+	}*/
+
+	/**
+	 * @param array $options
+	 *
+	 * @return AC_Column
+	 */
+	/*public function set_option( $key, $value ) {
+		$this->options[ $key ] = $value;
+
+		return $this;
+	}*/
+
+	/**
+	 * Get a single column option
+	 *
+	 * @since 2.3.4
+	 * @return string|false Single column option
+	 */
+	// TODO: replace with AC_Settings_Column->get_option()
+	/*public function get_option( $name ) {
+		$value = $this->settings()->get_value( $name );
+
+		// TODO: remove fallback. use get_value only
+		// Fallback
+		if ( ! $value ) {
+			$value = $this->settings()->get_option( $name );
+		}
+
+		return $value;
+	}*/
+
+	/**
+	 * @since NEWVERSION
+	 * @return int Width
+	 */
+	// TODO: to options object?
+	/*public function get_width() {
+		$width = absint( $this->get_option( 'width' ) );
+
+		if ( ! $width ) {
+			$width = $this->get_default_with();
+		}
+
+		return $width > 0 ? $width : false;
+	}*/
+
+	/**
+	 * @since NEWVERSION
+	 * @return string px or %
+	 */
+	/*public function get_width_unit() {
+		$width_unit = $this->get_option( 'width_unit' );
+
+		if ( ! $width_unit ) {
+			$width_unit = $this->get_default_with_unit();
+		}
+
+		return 'px' === $width_unit ? 'px' : '%';
+	}*/
+
+	/**
+	 * Get default with unit
+	 *
+	 * @return string
+	 */
+	/*public function get_default_with_unit() {
+		return '%';
+	}*/
+
+	/**
+	 * Get default with unit
+	 *
+	 * @return string
+	 */
+	/*public function get_default_with() {
+		return false;
+	}*/
 
 	/**
 	 * @since 2.0
@@ -491,17 +499,6 @@ abstract class AC_Column {
 	//public function get_type_label() {
 	//	return $this->get_property( 'label' );
 	//}
-
-	/**
-	 * Columns post type
-	 *
-	 * @since NEWVERSION
-	 * @return string Post type
-	 */
-	// TODO: remove
-	public function get_post_type() {
-		return 'post';
-	}
 
 	/**
 	 * @since NEWVERSION

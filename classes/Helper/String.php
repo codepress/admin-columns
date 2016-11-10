@@ -231,6 +231,13 @@ class AC_Helper_String {
 	}
 
 	/**
+	 * @return string Display empty value
+	 */
+	public function get_empty_char() {
+		return '&ndash;';
+	}
+
+	/**
 	 * @param string $string
 	 *
 	 * @return bool

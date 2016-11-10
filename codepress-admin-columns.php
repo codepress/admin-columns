@@ -359,13 +359,34 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
+	 *
 	 * @param string $key
+	 *
 	 * @return AC_ListScreenAbstract|false
 	 */
 	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
 
-		return isset( $screens[ $key ] ) ? $screens[ $key ] : false;
+		if ( ! isset( $screens[ $key ] ) ) {
+			return false;
+		}
+
+		$screen = $screens[ $key ];
+
+		return $screen;
+	}
+
+	/**
+	 * Returns the default list screen when no choice is made by the user
+	 *
+	 * @since NEWVERSION
+	 * @return AC_ListScreenAbstract
+	 */
+	public function get_default_list_screen() {
+		$screens = $this->get_list_screens();
+		$default_screen = array_shift( $screens );
+
+		return $default_screen;
 	}
 
 	/**
@@ -383,29 +404,11 @@ class CPAC {
 	}
 
 	/**
-	 * Get registered post list screens
-	 *
-	 * @since NEWVERSION
-	 * @return AC_ListScreen_PostAbstract[]
-	 */
-	public function get_list_screens_by_type( $type ) {
-		$screens = array();
-		foreach ( $this->get_list_screens() as $k => $list_screen ) {
-			if ( $type === $list_screen->get_type() ) {
-				$screens[] = $list_screen;
-			}
-		}
-
-		return $screens;
-	}
-
-	/**
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
 	 */
 	private function set_list_screens() {
-
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
 			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );

@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die();
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * List Screen
@@ -109,19 +112,6 @@ abstract class AC_ListScreenAbstract {
 	 * @return void
 	 */
 	abstract function set_manage_value_callback();
-
-	// TODO: user getters and setters, make vars protected
-
-	public function __get( $var ) {
-		$vars = array(
-			'type',
-			'key',
-		);
-
-		if ( in_array( $var, $vars ) ) {
-			return call_user_func( array( $this, 'get_' . $var ) );
-		}
-	}
 
 	/**
 	 * @since 2.4.4
@@ -347,6 +337,28 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
+	 * @param string $type
+	 *
+	 * @return false|AC_Column
+	 */
+	public function get_column_by_type( $type ) {
+		$column_types = $this->get_column_types();
+
+		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return false|string
+	 */
+	public function get_class_by_type( $type ) {
+		$column = $this->get_column_by_type( $type );
+
+		return $column ? get_class( $column ) : false;
+	}
+
+	/**
 	 * Display column value
 	 *
 	 * @since NEWVERSION
@@ -372,26 +384,78 @@ abstract class AC_ListScreenAbstract {
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
-
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return;
 		}
 
-		if ( $column->is_valid() ) {
-			$this->column_types[ $column->get_type() ] = $column;
+		if ( ! $column->is_valid() ) {
+			return;
 		}
+
+		$this->column_types[ $column->get_type() ] = $column;
+	}
+
+	/**
+	 * @param string $column_name
+	 *
+	 * @since NEWVERSION
+	 *
+	 * @return bool
+	 */
+	private function default_column_exists( $column_name ) {
+		$default_columns = $this->get_default_headings();
+
+		return isset( $default_columns[ $column_name ] );
+	}
+
+	/**
+	 * Available column types
+	 */
+	private function set_column_types() {
+		// Register default column types
+		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
+			// ignore the mandatory checkbox column
+			if ( 'cb' == $type ) {
+				continue;
+			}
+
+			$class = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
+
+			if ( ! class_exists( $class ) ) {
+				continue;
+			}
+
+			$this->register_column_type( new $class );
+		}
+
+		// Integration placeholders
+		if ( cpac_is_acf_active() ) {
+			$this->register_column_type( new AC_Column_ACFPlaceholder );
+		}
+
+		if ( cpac_is_woocommerce_active() ) {
+			$this->register_column_type( new AC_Column_WooCommercePlaceholder );
+		}
+
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
+
+		// Backwards compatibility
+		$this->deprecated_register_columns();
+
+		do_action( 'ac/column_types', $this );
 	}
 
 	/**
 	 * @param string $dir Absolute path to the column directory
 	 * @param string $prefix Autoload prefix
 	 */
-	public function register_columns_from_dir( $dir, $prefix ) {
-		$class_names = AC()->autoloader()->get_class_names_from_dir( $dir, $prefix );
+	public function register_column_types_from_dir( $dir, $prefix ) {
+		$prefix = rtrim( $prefix, '_' ) . '_';
+		$classes = AC()->autoloader()->get_class_names_from_dir( $dir, $prefix );
 
-		foreach ( $class_names as $class_name ) {
-			$this->register_column_type( new $class_name );
+		foreach ( $classes as $class ) {
+			$this->register_column_type( new $class );
 		}
 	}
 
@@ -411,31 +475,33 @@ abstract class AC_ListScreenAbstract {
 	 *
 	 * @return AC_Column|false
 	 */
-	public function create_column( $type, $options = array(), $clone = 0 ) {
-		$_column_type = $this->get_column_type( $type );
+	public function create_column( array $settings ) {
+		$defaults = array(
+			'clone' => 0,
+		);
 
-		if ( ! $_column_type ) {
+		$settings = array_merge( $defaults, $settings );
+
+		if ( ! isset( $settings['type'] ) || ! isset( $settings['label'] ) ) {
 			return false;
 		}
 
-		$class_name = get_class( $_column_type );
+		$class = $this->get_class_by_type( $settings['type'] );
 
-		/* @var AC_Column $column */
-		$column = new $class_name;
+		if ( ! $class ) {
+			return false;
+		}
 
-		$column
-			->set_type( $type )
-			->set_clone( $clone )
-			->set_options( $options );
+        /* @var AC_Column $column */
+		$column = new $class();
+
+		$column->set_type( $settings['type'] )
+		       ->set_clone( $settings['clone'] );
+
+		$column->settings()->set_options( $settings );
 
 		if ( $column->is_original() ) {
-
 			$column->set_label( $this->get_original_label( $column->get_type() ) );
-
-			// Hide label
-			if ( ac_helper()->string->contains_html_only( $column->get_option( 'label' ) ) ) {
-				$column->set_hide_label( true );
-			}
 		}
 
 		return $column;
@@ -453,7 +519,7 @@ abstract class AC_ListScreenAbstract {
 	/**
 	 * @param array $data Column options
 	 */
-	private function register_column( AC_Column $column ) {
+	protected function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
 
 		do_action( 'ac/column', $column );
@@ -464,16 +530,16 @@ abstract class AC_ListScreenAbstract {
 	 */
 	private function set_columns() {
 
-		foreach ( $this->settings()->get_columns() as $name => $data ) {
-			if ( $column = $this->create_column( $data['type'], $data, $data['clone'] ) ) {
+		foreach ( $this->settings()->get_columns() as $data ) {
+			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}
 		}
 
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
-			foreach ( $this->get_default_headings() as $name => $label ) {
-				if ( $column = $this->create_column( $name, array( 'label' => $label ) ) ) {
+			foreach ( $this->get_default_headings() as $type => $label ) {
+				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
 					$this->register_column( $column );
 				}
 			}
@@ -485,21 +551,9 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param string $type
-	 *
-	 * @return false|AC_Column
-	 */
-	private function get_column_type( $type ) {
-		$column_types = $this->get_column_types();
-
-		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
-	}
-
-	/**
 	 * @var array [ Column Name =>  Column Label ]
 	 */
 	private function set_default_columns() {
-
 		$this->default_columns = $this->settings()->get_default_headings();
 
 		if ( ! $this->default_columns ) {
@@ -521,68 +575,11 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @param string $column_name
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @return bool
-	 */
-	private function default_column_exists( $column_name ) {
-		$default_columns = $this->get_default_headings();
-
-		return isset( $default_columns[ $column_name ] );
-	}
-
-	/**
-	 * Available column types
-	 */
-	private function set_column_types() {
-
-		// WP default columns
-		foreach ( $this->get_default_headings() as $name => $label ) {
-			if ( 'cb' === $name ) {
-				continue;
-			}
-
-			$plugin_column_class_name = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
-
-			if ( ! class_exists( $plugin_column_class_name ) ) {
-				continue;
-			}
-
-			/* @var AC_Column_Plugin $column */
-			$column = new $plugin_column_class_name( $this->get_key() );
-
-			$this->register_column_type( $column->set_type( $name ) );
-		}
-
-		$class_names = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
-
-		// Add-on placeholders
-		if ( cpac_is_acf_active() ) {
-			$this->register_column_type( new AC_Column_ACFPlaceholder );
-		}
-		if ( cpac_is_woocommerce_active() ) {
-			$this->register_column_type( new AC_Column_WooCommercePlaceholder );
-		}
-
-		foreach ( $class_names as $class_name ) {
-			$this->register_column_type( new $class_name );
-		}
-
-		// For backwards compatibility
-		$this->deprecated_register_columns();
-
-		do_action( 'ac/column_types', $this );
-	}
-
-	/**
 	 * Old way for registering columns. For backwards compatibility.
 	 *
 	 * @deprecated NEWVERSION
 	 */
 	private function deprecated_register_columns() {
-
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_type(), $class_names, $this );
 		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_key(), $class_names, $this );

@@ -28,4 +28,5 @@ class AC_Column_Comment_DateGmt extends AC_Column {
 
 		return $comment->comment_date_gmt;
 	}
+
 }

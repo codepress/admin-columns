@@ -10,7 +10,7 @@ class AC_ColumnFieldSettings {
 	}
 
 	private function get_option( $name ) {
-		return $this->column->get_option( $name );
+		return $this->column->settings()->get_option( $name );
 	}
 
 	/**

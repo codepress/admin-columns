@@ -14,7 +14,7 @@ class AC_Column_Post_WordCount extends AC_Column {
 	function get_value( $post_id ) {
 		$count = $this->get_raw_value( $post_id );
 
-		return $count ? $count : $this->get_empty_char();
+		return $count ? $count : ac_helper()->string->get_empty_char();
 	}
 
 	function get_raw_value( $post_id ) {
