@@ -4,16 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_View_Width extends AC_Settings_ViewAbstract {
+class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 
-	public function __construct( AC_Column $column ) {
-		parent::__construct( $column );
-
-		$this->set_label( __( 'Width', 'codepress-admin-columns' ) );
-	}
-
-	public function render() {
-		// todo: these things are stored as two values, but why? Is the rationale behind 1 input weird?
+	public function __construct() {
+		$this->set_type( 'width' );
 	}
 
 	public function get_value() {

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AC_Settings_View extends AC_Settings_ViewAbstract {
 
 	public function render() {
-		if ( ! $this->get_element() ) {
+		if ( ! $this->get_elements() ) {
 			return;
 		}
 

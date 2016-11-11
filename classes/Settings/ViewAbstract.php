@@ -145,14 +145,13 @@ abstract class AC_Settings_ViewAbstract
 	 *
 	 * @return string|void
 	 */
-	public function render_layout() {
-		$view = '';
+	protected function render_layout( $view ) {
 
-		// group or single input
-		if ( $this->get_views() ) {
+		// render group or single input
+		if ( is_array( $view ) ) {
 			$view = $this->render_views();
-		} elseif ( $this->get_element() ) {
-			$view = $this->get_element()->render();
+		} elseif ( $view instanceof AC_Settings_Form_ElementAbstract ) {
+			$view = $view->render();
 		}
 
 		$template = '
@@ -184,24 +183,28 @@ abstract class AC_Settings_ViewAbstract
 	}
 
 	/**
-	 * Render all views in this view
+	 * Render an array that contains AC_Settings_ViewAbstracts
 	 *
-	 * @return string|void
+	 * @param array $views
+	 *
+	 * @return false|string
 	 */
-	protected function render_views() {
-		$views = array();
+	protected function render_all( array $views ) {
+		$rendered = array();
 
-		foreach ( $this->views as $view ) {
-			$views[] = $view->render();
+		foreach ( $views as $view ) {
+			if ( $view instanceof AC_Settings_ViewAbstract ) {
+				$rendered[] = $view->render();
+			}
 		}
 
-		$views = array_filter( $views );
+		$rendered = array_filter( $rendered );
 
-		if ( empty( $views ) ) {
-			return;
+		if ( empty( $rendered ) ) {
+			return false;
 		}
 
-		return implode( "\n", $views );
+		return implode( "\n", $rendered );
 	}
 
 	/**
@@ -277,14 +280,23 @@ abstract class AC_Settings_ViewAbstract
 	}
 
 	/**
+	 * @return AC_Settings_Form_ElementAbstract[]
+	 */
+	public function get_elements() {
+		return $this->elements;
+	}
+
+	/**
 	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
-	public function get_element() {
-		if ( ! $this->element ) {
+	public function get_first_element() {
+		$elements = $this->get_elements();
+
+		if ( ! $elements ) {
 			return false;
 		}
 
-		return $this->element;
+		return array_shift( $elements );
 	}
 
 	/**
@@ -292,7 +304,7 @@ abstract class AC_Settings_ViewAbstract
 	 *
 	 * @return $this
 	 */
-	public function set_element( AC_Settings_Form_ElementAbstract $element ) {
+	public function add_element( AC_Settings_Form_ElementAbstract $element ) {
 		$name = $element->get_name();
 		$value = $this->get_setting( $name );
 
@@ -304,7 +316,7 @@ abstract class AC_Settings_ViewAbstract
 		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
 		$element->set_id( sprintf( 'cpac-%s-%s', $this->column->get_name(), $name ) );
 
-		$this->element = $element;
+		$this->elements[] = $element;
 
 		return $this;
 	}
@@ -317,8 +329,8 @@ abstract class AC_Settings_ViewAbstract
 	 * @return AC_Settings_Form_ElementAbstract|false
 	 */
 	public function get_for() {
-		if ( $this->get_element() instanceof AC_Settings_Form_ElementAbstract ) {
-			return $this->get_element()->get_id();
+		if ( $this->get_elements() ) {
+			return $this->get_first_element()->get_id();
 		}
 
 		if ( $this->get_views() ) {
