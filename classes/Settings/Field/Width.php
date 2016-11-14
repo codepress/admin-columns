@@ -4,16 +4,61 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class AC_Settings_View_Width extends AC_Settings_ViewAbstract {
+class AC_Settings_View_Width extends AC_Settings_View_Section {
 
 	public function __construct( AC_Column $column ) {
 		parent::__construct( $column );
 
-		$this->set_label( __( 'Width', 'codepress-admin-columns' ) );
+
+	}
+
+	protected function render_elements() {
+		?>
+		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
+			<?php // render input here ?>
+			<span class="unit"><?php echo esc_html( $this->get_width_unit() ); ?></span>
+		</div>
+		<div class="width-slider"></div>
+
+		<div class="unit-select">
+			<?php
+			// render input here
+			?>
+		</div>
+		<?php
 	}
 
 	public function render() {
-		// todo: these things are stored as two values, but why? Is the rationale behind 1 input weird?
+		$width = new AC_Settings_Form_Element_Input( 'width' );
+		$width->set_attribute( 'placeholder', __( 'auto', 'codepress-admin-columns' ) );
+
+		$unit = new AC_Settings_Form_Element_Radio( 'width_unit' );
+		$unit->add_class( 'unit' )
+		     ->set_options( array(
+			     'px' => __( 'px', 'codepress-admin-columns' ),
+			     '%'  => '%',
+		     ) );
+
+		$this->add_element( $width )
+		     ->add_element( $unit );
+
+		// todo: get default values
+		//$unit->set_value();
+		//$width->set_value();
+
+		$section = new AC_Settings_View_Section( $this->column );
+		$section->add_element( $width )
+		        ->add_element( $unit )
+		        ->set_label( __( 'Width', 'codepress-admin-columns' ) );
+
+		// todo: section works fine now. Only thing we need to do: render a different layout aka:
+		// todo: section needs to have default layouts that you can overwrite so this can be replaced
+		// todo: section needs to be final or this needs to make sure not to be attractve: e.g. abstract field gets section in construct
+		// todo:
+
+
+
+
 	}
 
 	public function get_value() {

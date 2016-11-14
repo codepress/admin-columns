@@ -1,10 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-abstract class AC_Settings_Form_ElementAbstract {
+abstract class AC_Settings_Form_ElementAbstract
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var array
@@ -41,13 +38,8 @@ abstract class AC_Settings_Form_ElementAbstract {
 
 	public function __construct( $name, array $options = array() ) {
 		$this->set_name( $name );
-
-		if ( ! empty( $options ) ) {
-			$this->set_options( $options );
-		}
+		$this->set_options( $options );
 	}
-
-	public abstract function render();
 
 	protected function render_description() {
 		if ( ! $this->get_description() ) {
@@ -216,6 +208,10 @@ abstract class AC_Settings_Form_ElementAbstract {
 		$this->description = $description;
 
 		return $this;
+	}
+
+	public function __toString() {
+		return $this->render();
 	}
 
 }

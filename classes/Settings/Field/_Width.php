@@ -77,7 +77,7 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 	 * @return string HTML
 	 */
 	private function width_field() {
-		ob_start();
+		//ob_start();
 		?>
 		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
 			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->get_width() ); ?>"/>
@@ -101,7 +101,7 @@ class AC_Settings_Field_Width extends AC_Settings_FieldAbstract {
 		</div>
 		<?php
 
-		return ob_get_clean();
+		//return ob_get_clean();
 	}
 
 }

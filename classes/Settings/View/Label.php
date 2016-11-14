@@ -1,53 +1,34 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+class AC_Settings_View_Label extends AC_Settings_ViewAbstract {
 
-class AC_Settings_Field_Label extends AC_Settings_FieldAbstract {
+	public function template() {
 
-	//private $hide_label;
-
-	//private $placeholder;
-
-	public function __construct() {
-		$this->set_type( 'label' );
-	}
-
-	/*public function set_hide_label( $boolean ) {
-		$this->hide_label = $boolean;
-	}*/
-
-/*	public function set_placeholder( $placeholder ) {
-		$this->placeholder = $placeholder;
-	}*/
-
-	public function hide_label() {
-		if ( $this->settings->column->is_original() && ac_helper()->string->contains_html_only( $this->settings->get_option( 'label' ) ) ) {
-			return true;
+		if ( ! $this->label ) {
+			return null;
 		}
 
-		return false;
-	}
+		$description = $this->description ? 'description' : '';
 
-	public function get_args() {
-		return array(
-			'type'        => 'text',
-			'name'        => 'label',
-			//'placeholder' => $this->column->get_label(),
-			'placeholder' => $this->settings->column->get_type(),
-			'label'       => __( 'Label', 'codepress-admin-columns' ),
-			'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-			//'hidden'      => $this->column->is_hide_label(),
-			'hidden'      => $this->hide_label(),
-		);
-	}
+		?>
 
-	public function get_value() {
+		<label for="<?php echo esc_attr( $this->for ); ?>">
+			<span class="label <?php echo esc_attr( $description ); ?>"><?php echo $this->label; ?></span>
 
-		// TODO: sanitize?
+			<?php if ( $this->description ) : ?>
+				<span class="description">
+					<?php echo $this->description; ?>
+				</span>
+			<?php endif; ?>
 
-		return $this->settings->get_option( 'label' );
+			<?php if ( $this->read_more ) : ?>
+				<a title="<?php esc_attr_e( 'View more', 'codepress-admin-columns' ); ?>" href="<?php echo esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
+					<span class="dashicons dashicons-external"></span>
+				</a>
+			<?php endif; ?>
+		</label>
+
+		<?php
 	}
 
 }
