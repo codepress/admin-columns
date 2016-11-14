@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Form_Label extends AC_Settings_Form_Part {
+final class AC_Settings_Form_Label extends AC_Settings_Form_Part {
 
 	/**
 	 * @var string

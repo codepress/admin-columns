@@ -36,14 +36,40 @@ abstract class AC_Settings_Form_ElementAbstract
 	 */
 	protected $description;
 
+	/**
+	 * @var AC_Column
+	 */
+	protected $column;
+
+	/**
+	 * Setup element with base name and id
+	 *
+	 * @param string $name
+	 * @param array $options
+	 */
 	public function __construct( $name, array $options = array() ) {
 		$this->set_name( $name );
+		$this->set_id( $name );
 		$this->set_options( $options );
 	}
 
+	/**
+	 * @param AC_Column $column
+	 *
+	 * @return $this
+	 */
+	public function set_column( AC_Column $column ) {
+		$this->column = $column;
+
+		return $this;
+	}
+
+	/**
+	 * @return string|false
+	 */
 	protected function render_description() {
 		if ( ! $this->get_description() ) {
-			return;
+			return false;
 		}
 
 		$template = '<p class="help-msg">%s</p>';
@@ -51,6 +77,37 @@ abstract class AC_Settings_Form_ElementAbstract
 		return sprintf( $template, $this->get_description() );
 	}
 
+	/**
+	 * @return string|false
+	 */
+	public function render_name() {
+		$name = $this->get_name();
+
+		if ( $this->column ) {
+			$name = sprintf( 'columns[%s][%s]', $this->column->get_name(), $name );
+		}
+
+		return $name;
+	}
+
+	/**
+	 * @return string|false
+	 */
+	public function render_id() {
+		$id = $this->get_id();
+
+		if ( $this->column ) {
+			$id = sprintf( 'ac-%s-%s', $this->column->get_name(), $id );
+		}
+
+		return $id;
+	}
+
+	/**
+	 * @param $key
+	 *
+	 * @return string|false
+	 */
 	public function get_attribute( $key ) {
 		if ( ! isset( $this->attributes[ $key ] ) ) {
 			return false;
@@ -167,7 +224,7 @@ abstract class AC_Settings_Form_ElementAbstract
 		$parts = explode( ' ', (string) $this->get_attribute( 'class' ) );
 		$parts[] = $class;
 
-		$this->set_class( implode( ' ', $class ) );
+		$this->set_class( implode( ' ', $parts ) );
 
 		return $this;
 	}

@@ -1,18 +1,22 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+class AC_Settings_Field_Width
+	implements AC_Settings_ViewInterface {
 
-class AC_Settings_View_Width extends AC_Settings_View_Section {
+	protected $field;
 
 	public function __construct( AC_Column $column ) {
-		parent::__construct( $column );
-
 
 	}
 
-	protected function render_elements() {
+	public function __toString() {
+		return $this->render();
+	}
+
+	/**
+	 *
+	 */
+	public function render() {
 		?>
 		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
 			<?php // render input here ?>
@@ -28,7 +32,7 @@ class AC_Settings_View_Width extends AC_Settings_View_Section {
 		<?php
 	}
 
-	public function render() {
+	public function _render() {
 		$width = new AC_Settings_Form_Element_Input( 'width' );
 		$width->set_attribute( 'placeholder', __( 'auto', 'codepress-admin-columns' ) );
 

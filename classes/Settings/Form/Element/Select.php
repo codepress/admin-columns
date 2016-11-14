@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
+final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
 	/**
@@ -62,7 +58,8 @@ class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
 			%s';
 
 		$attributes = $this->get_attributes();
-		$attributes['name'] = $this->get_name();
+		$attributes['name'] = $this->render_name();
+		$attributes['id'] = $this->render_id();
 
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() );
 	}

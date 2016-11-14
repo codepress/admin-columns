@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
@@ -11,6 +7,8 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 		$template = '<input %s>';
 
 		$attributes = $this->get_attributes();
+		$attributes['name'] = $this->render_name();
+		$attributes['id'] = $this->render_id();
 		$attributes['value'] = $this->get_value();
 		$attributes['type'] = $this->get_type();
 

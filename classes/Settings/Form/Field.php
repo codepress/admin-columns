@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Form_Field extends AC_Settings_Form_Part {
+final class AC_Settings_Form_Field extends AC_Settings_Form_Part {
 
 	/**
 	 * @var AC_Settings_Form_Group
@@ -22,13 +22,18 @@ class AC_Settings_Form_Field extends AC_Settings_Form_Part {
 	 */
 	private $column;
 
-	public function __construct( AC_Column $column ) {
+	/**
+	 * @param AC_Column $column
+	 * @param string $label
+	 */
+	public function __construct( AC_Column $column, $label = null ) {
 		$this->group = new AC_Settings_Form_Group();
 		$this->subfields = array();
 		$this->label = new AC_Settings_Form_Label();
 		$this->column = $column;
 
 		$this->set_view( new AC_Settings_View_Field() );
+		$this->set_label( $label );
 	}
 
 	public function render() {
@@ -67,10 +72,7 @@ class AC_Settings_Form_Field extends AC_Settings_Form_Part {
 			$element->set_value( $value );
 		}
 
-		$args = array( $this->column->get_name(), $element->get_name() );
-
-		$element->set_name( vsprintf( 'columns[%s][%s]', $args ) );
-		$element->set_id( vsprintf( 'ac-%s-%s', $args ) );
+		$element->set_column( $this->column );
 
 		$this->get_group()->add_element( $element );
 

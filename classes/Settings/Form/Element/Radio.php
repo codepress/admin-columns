@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
+final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
 	/**
@@ -34,13 +30,17 @@ class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
 				$input->set_attribute( 'checked', 'checked' );
 			}
 
+			if ( $this->column instanceof AC_Column ) {
+				$input->set_column( $this->column );
+			}
+
 			$attributes = array();
 
 			if ( $input->get_id() ) {
-				$attributes['for'] = $input->get_id();
+				$attributes['for'] = $input->render_id();
 			}
 
-			$elements[] = sprintf( '<label %s>%s%s</label>', $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $this->get_label() ) );
+			$elements[] = sprintf( '<label %s>%s%s</label>', $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $label ) );
 		}
 
 		return sprintf( $template, $vertical, implode( "\n", $elements ) );

@@ -54,6 +54,10 @@ class AC_Settings_Form_Part
 		return $this->view->render();
 	}
 
+	public function display() {
+		echo $this->render();
+	}
+
 	public function __toString() {
 		return $this->render();
 	}
