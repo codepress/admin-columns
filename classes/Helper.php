@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property AC_Helper_Taxonomy taxonomy
  * @property AC_Helper_User user
  * @property AC_Helper_Icon icon
- * * @property AC_Helper_Html html
- * @property AC_Helper_FormField formfield
+ * @property AC_Helper_Html html
  */
 final class AC_Helper {
 
+	// todo: maybe change to __call and allow for parameters
 	public function __get( $helper ) {
 		$class = 'AC_Helper_' . ucfirst( $helper );
 
