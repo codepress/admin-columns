@@ -26,9 +26,15 @@ final class AC_Settings_Columns {
 		return apply_filters( 'ac/settings/key', $this->list_screen_key );
 	}
 
-	// Column settings
-	public function store( $columndata ) {
-		return update_option( self::OPTIONS_KEY . $this->get_key(), $columndata );
+	/**
+	 * Store column settings
+	 *
+	 * @param $settings
+	 *
+	 * @return bool
+	 */
+	public function store( $settings ) {
+		return update_option( self::OPTIONS_KEY . $this->get_key(), $settings );
 	}
 
 	private function set_columns() {
