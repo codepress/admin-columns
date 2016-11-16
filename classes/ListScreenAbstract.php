@@ -374,6 +374,7 @@ abstract class AC_ListScreenAbstract {
 	 *
 	 * @return string|false
 	 */
+	// todo: refactor, is now part of the column and needs to be tested
 	public function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_headings();
 
@@ -391,6 +392,11 @@ abstract class AC_ListScreenAbstract {
 
 		if ( ! $column->is_valid() ) {
 			return;
+		}
+
+		// todo: refactor
+		if ( $column->is_original() ) {
+			$column->set_original_label( $this->get_original_label( $column->get_type() ) );
 		}
 
 		$this->column_types[ $column->get_type() ] = $column;

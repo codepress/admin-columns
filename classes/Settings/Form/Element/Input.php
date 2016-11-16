@@ -3,12 +3,22 @@
 class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 	implements AC_Settings_ViewInterface {
 
+	protected function is_valid_type( $type ) {
+		$valid_types = array(
+			'text',
+			'number',
+			'email',
+		);
+
+		return in_array( $type, $valid_types );
+	}
+
 	public function render() {
 		$template = '<input %s>';
 
 		$attributes = $this->get_attributes();
-		$attributes['name'] = $this->render_name();
-		$attributes['id'] = $this->render_id();
+		$attributes['name'] = $this->get_name();
+		$attributes['id'] = $this->get_id();
 		$attributes['value'] = $this->get_value();
 		$attributes['type'] = $this->get_type();
 
@@ -31,7 +41,9 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 	 * @return $this
 	 */
 	public function set_type( $type ) {
-		$this->set_attribute( 'type', $type );
+		if ( $this->is_valid_type( $type ) ) {
+			$this->set_attribute( 'type', $type );
+		}
 
 		return $this;
 	}

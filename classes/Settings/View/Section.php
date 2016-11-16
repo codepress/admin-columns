@@ -3,7 +3,6 @@
 class AC_Settings_View_Section extends AC_Settings_ViewAbstract {
 
 	public function template() {
-
 		?>
 
 		<table class="widefat <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
@@ -12,14 +11,12 @@ class AC_Settings_View_Section extends AC_Settings_ViewAbstract {
 					<?php echo $this->label; ?>
 				</td>
 				<td class="input">
-					<?php echo $this->field; ?>
-					<?php echo $this->sections; ?>
+					<?php echo $this->setting; ?>
 				</td>
 			</tr>
 		</table>
 
 		<?php
-
 	}
 
 }

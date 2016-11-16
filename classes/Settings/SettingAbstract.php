@@ -1,12 +1,16 @@
 <?php
 
-abstract class AC_Settings_FieldAbstractAC_Settings_FieldAbstract
-	implements AC_Settings_ViewInterface {
+abstract class AC_Settings_SettingAbstract {
 
 	/**
 	 * @var AC_Column
 	 */
 	protected $column;
+
+	/**
+	 * @var AC_Settings_Form_ElementAbstract[]
+	 */
+	protected $elements = array();
 
 	/**
 	 * The properties this field manages
@@ -15,12 +19,67 @@ abstract class AC_Settings_FieldAbstractAC_Settings_FieldAbstract
 	 */
 	protected $properties = array();
 
+	/**
+	 * @var AC_Settings_ViewAbstract
+	 */
+	protected $view;
+
 	public function __construct( AC_Column $column, $defaults = array() ) {
 		$this->column = $column;
 
+		$this->init_view();
 		$this->set_properties();
 		$this->set_values( $defaults );
 		$this->load_settings();
+	}
+
+	public function render() {
+		return $this->view->render();
+	}
+
+	private function init_view() {
+		$view = new AC_Settings_View_Section();
+		$view->nest( new AC_Settings_View_Label(), 'label' );
+		$view->nest( new AC_Settings_View_Setting(), 'settings' );
+
+		$this->view = $view;
+	}
+
+	/**
+	 * Add an element to this setting
+	 *
+	 * @param string $name
+	 * @param sting $type
+	 *
+	 * @return AC_Settings_Form_ElementAbstract
+	 */
+	protected function add_element( $name, $type = null ) {
+		switch ( $type ) {
+			case 'radio':
+				$element = new AC_Settings_Form_Element_Radio( $name );
+
+				break;
+			case 'select':
+				$element = new AC_Settings_Form_Element_Select( $name );
+
+				break;
+			default:
+				$element = new AC_Settings_Form_Element_Input( $name );
+				$element->set_type( $type );
+		}
+
+		$element->set_name( sprintf( 'columns[%s][%s]' ), $this->column->get_name(), $name );
+		$element->set_id( sprintf( 'ac-%s-%s' ), $this->column->get_name(), $name );
+
+		$this->elements[ $name ] = $element;
+
+		return $element;
+	}
+
+	// todo: maybe implement __get for elements
+
+	protected function get_element( $name ) {
+		return isset( $this->elements[ $name ] ) ? $this->elements[ $name ] : false;
 	}
 
 	private function set_values( $values ) {
@@ -42,6 +101,12 @@ abstract class AC_Settings_FieldAbstractAC_Settings_FieldAbstract
 
 	protected function has_properties() {
 		return ! empty( $this->properties );
+	}
+
+	protected function add_property( $property ) {
+		$this->properties[] = $property;
+
+		return $this;
 	}
 
 	protected function get_default_property() {
@@ -96,7 +161,7 @@ abstract class AC_Settings_FieldAbstractAC_Settings_FieldAbstract
 	}
 
 	public function __toString() {
-		return $this->render();
+		return $this->view->render();
 	}
 
 }

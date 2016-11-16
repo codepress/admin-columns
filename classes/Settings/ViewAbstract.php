@@ -3,10 +3,38 @@
 abstract class AC_Settings_ViewAbstract
 	implements AC_Settings_ViewInterface {
 
-	private $data;
+	/**
+	 * @var array
+	 */
+	private $data = array();
+
+	/**
+	 * @var AC_Settings_ViewAbstract[]
+	 */
+	private $views = array();
 
 	public function __construct( array $data = array() ) {
 		$this->set_data( $data );
+	}
+
+	/**
+	 * Add a view and load it as a variable, but store it for later retrieval
+	 *
+	 * @param AC_Settings_ViewAbstract $view
+	 * @param string $name
+	 *
+	 * @return $this
+	 */
+	public function nest( AC_Settings_ViewAbstract $view, $name ) {
+		$this->views[ $name ] = $view;
+
+		$this->set( $name, $view );
+
+		return $this;
+	}
+
+	public function get_view( $name ) {
+		return isset( $this->views[ $name ] ) ? $this->views[ $name ] : false;
 	}
 
 	/**
@@ -27,7 +55,7 @@ abstract class AC_Settings_ViewAbstract
 	}
 
 	public function set( $key, $value ) {
-		$this->vars[ $key ] = $value;
+		$this->data[ $key ] = $value;
 
 		return $this;
 	}

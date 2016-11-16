@@ -655,8 +655,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$label = $column->settings()->get_value( 'label' );
 
+		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
 		if ( $column->is_original() ) {
-			$label = $this->list_screen->get_original_label( $column->get_type() );
+			$label = $column->get_original_label();
 		}
 
 		if ( empty( $label ) ) {
@@ -772,20 +773,22 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					<?php
 
-
-					if ( false ) {
-
 						// Type field
 						$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
 						$select->set_value( $column->get_type() );
 
-						$field = new AC_Settings_Form_Field( $column );
-						$field->set_label( __( 'Type', 'codepress-admin-columns' ) )
-						      ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
-						      ->add_element( $select )
-						      ->display();
+						$section = new AC_Settings_Section( $column );
+						$section->set_label( __( 'Type', 'codepress-admin-columns' ) )
+						        ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
+						        ->add_element( $select );
 
-					}
+						echo $section;
+
+						$width = new AC_Settings_Field_Width( $column );
+
+						echo $width;
+
+
 
 					exit;
 

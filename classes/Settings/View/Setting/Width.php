@@ -1,15 +1,6 @@
 <?php
 
-class AC_Settings_View_Field_Width extends AC_Settings_ViewAbstract {
-
-	// todo: maybe move to global scope with regex '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/'
-	public function render() {
-		foreach ( $this->elements as $element ) {
-			$this->set( $element->get_name(), $element );
-		}
-
-		parent::render();
-	}
+class AC_Settings_View_Setting_Width extends AC_Settings_ViewAbstract {
 
 	public function template() {
 		if ( ! $this->width || ! $this->width_unit ) {

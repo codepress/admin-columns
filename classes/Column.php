@@ -27,6 +27,11 @@ abstract class AC_Column {
 	private $original;
 
 	/**
+	 * @var string Original column label
+	 */
+	private $original_label;
+
+	/**
 	 * @var int Unique clone ID
 	 */
 	private $clone;
@@ -124,6 +129,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $group Group label
+	 *
 	 * @return $this
 	 */
 	public function set_group( $group ) {
@@ -157,6 +163,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $post_type Post type
+	 *
 	 * @return $this
 	 */
 	public function set_post_type( $post_type ) {
@@ -174,6 +181,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $taxonomy Taxonomy
+	 *
 	 * @return $this
 	 */
 	public function set_taxonomy( $taxonomy ) {
@@ -199,6 +207,28 @@ abstract class AC_Column {
 	 */
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_original_label() {
+		return $this->original_label;
+	}
+
+	/**
+	 * @param string $original_label
+	 *
+	 * @return $this
+	 */
+	public function set_original_label( $original_label ) {
+		if ( $this->is_original() ) {
+			return false;
+		}
+
+		$this->original_label = $original_label;
 
 		return $this;
 	}
@@ -241,9 +271,9 @@ abstract class AC_Column {
 
 		// todo: checkup prev branch
 		//$this->settings
-			//->add_field( new AC_Settings_Field_Label )
-			//->add_field( new AC_Settings_Field_Width )
-			//->add_field( new AC_Settings_Field_BeforeAfter() );
+		//->add_field( new AC_Settings_Field_Label )
+		//->add_field( new AC_Settings_Field_Width )
+		//->add_field( new AC_Settings_Field_BeforeAfter() );
 
 		return $this->settings;
 	}
@@ -377,7 +407,6 @@ abstract class AC_Column {
 
 		return $this;
 	}*/
-
 
 	// TODO: move all options into it's own class
 

@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Section {
+class AC_Settings_View
+	implements AC_Settings_ViewInterface {
 
 	/**
 	 * @var AC_Settings_Section[]
@@ -51,7 +52,6 @@ class AC_Settings_Section {
 	}
 
 	public function render() {
-
 		$label = $this->get_view( 'label' );
 		$label->set( 'label', $this->label )
 		      ->set( 'description', $this->description )
@@ -69,23 +69,9 @@ class AC_Settings_Section {
 		$section = $this->get_view( 'section' );
 		$section->set( 'label', $label );
 		$section->set( 'field', $field );
+		$section->set( 'sections', $this->sections );
 
-		$view = $this->get_view();
-		$view->label = $this->label;
-
-		if ( $this->group ) {
-			$view->group = $this->group->render();
-		}
-
-		$subfields = array();
-
-		foreach ( $this->subfields as $subfield ) {
-			$subfields[] = $subfield->render();
-		}
-
-		$view->subfields = implode( "\n", array_filter( $subfields ) );
-
-		return $view->render();
+		return $section->render();
 	}
 
 	public function add_section( AC_Settings_Section $section ) {
@@ -196,6 +182,10 @@ class AC_Settings_Section {
 		$this->description = $description;
 
 		return $this;
+	}
+
+	public function __toString() {
+		return $this->render();
 	}
 
 }

@@ -37,11 +37,6 @@ abstract class AC_Settings_Form_ElementAbstract
 	protected $description;
 
 	/**
-	 * @var AC_Column
-	 */
-	protected $column;
-
-	/**
 	 * Setup element with base name and id
 	 *
 	 * @param string $name
@@ -51,17 +46,6 @@ abstract class AC_Settings_Form_ElementAbstract
 		$this->set_name( $name );
 		$this->set_id( $name );
 		$this->set_options( $options );
-	}
-
-	/**
-	 * @param AC_Column $column
-	 *
-	 * @return $this
-	 */
-	public function set_column( AC_Column $column ) {
-		$this->column = $column;
-
-		return $this;
 	}
 
 	/**
@@ -75,32 +59,6 @@ abstract class AC_Settings_Form_ElementAbstract
 		$template = '<p class="help-msg">%s</p>';
 
 		return sprintf( $template, $this->get_description() );
-	}
-
-	/**
-	 * @return string|false
-	 */
-	public function render_name() {
-		$name = $this->get_name();
-
-		if ( $this->column ) {
-			$name = sprintf( 'columns[%s][%s]', $this->column->get_name(), $name );
-		}
-
-		return $name;
-	}
-
-	/**
-	 * @return string|false
-	 */
-	public function render_id() {
-		$id = $this->get_id();
-
-		if ( $this->column ) {
-			$id = sprintf( 'ac-%s-%s', $this->column->get_name(), $id );
-		}
-
-		return $id;
 	}
 
 	/**

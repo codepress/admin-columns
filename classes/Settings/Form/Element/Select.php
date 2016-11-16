@@ -58,8 +58,8 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 			%s';
 
 		$attributes = $this->get_attributes();
-		$attributes['name'] = $this->render_name();
-		$attributes['id'] = $this->render_id();
+		$attributes['name'] = $this->get_name();
+		$attributes['id'] = $this->get_id();
 
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() );
 	}
