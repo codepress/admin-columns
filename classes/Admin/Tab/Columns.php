@@ -772,33 +772,20 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					<?php
 
-					// Type field
-					$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
-					$select->set_value( $column->get_type() );
 
-					$field = new AC_Settings_Form_Field( $column, __( 'Type', 'codepress-admin-columns' ) );
-					$field->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
-					      ->add_element( $select )
-					      ->display();
+					if ( false ) {
 
-					// Width field
-					// todo: change layout to default input and change auto to Auto
-					$width = new AC_Settings_Form_Element_Input( 'width' );
-					$width->set_attribute( 'placeholder', __( 'auto', 'codepress-admin-columns' ) );
+						// Type field
+						$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
+						$select->set_value( $column->get_type() );
 
-					$width_unit = new AC_Settings_Form_Element_Radio( 'width_unit' );
-					$width_unit->add_class( 'unit' )
-					           ->set_options( array(
-						           'px' => 'px',
-						           '%'  => '%',
-					           ) )
-					           ->set_value( 'px' );
+						$field = new AC_Settings_Form_Field( $column );
+						$field->set_label( __( 'Type', 'codepress-admin-columns' ) )
+						      ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
+						      ->add_element( $select )
+						      ->display();
 
-					$field = new AC_Settings_Form_Field( $column, __( 'Width', 'codepress-admin-columns' ) );
-					$field->get_group()->set_view( new AC_Settings_View_Group_Width() );
-					$field->add_element( $width )
-					      ->add_element( $width_unit )
-					      ->display();
+					}
 
 					exit;
 

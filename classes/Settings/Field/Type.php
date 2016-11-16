@@ -1,26 +1,51 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+class AC_Settings_Field_Type extends  {
 
-class AC_Settings_Field_Type extends AC_Settings_FieldAbstract {
+	/**
+	 * @var string
+	 */
+	private $type;
 
-	public function __construct() {
-		$this->set_type( 'type' );
+	/**
+	 * @return string
+	 */
+	protected function set_properties() {
+		$this->properties = array( 'type' );
+
+		return $this;
 	}
 
-	public function display() {
-		$this->field( array(
-			'type'            => 'select',
-			'name'            => 'type',
-			'label'           => __( 'Type', 'codepress-admin-columns' ),
-			'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>',
+	public function render() {
 
-			// TODO: move to this object
-			'grouped_options' => AC()->settings()->get_tab( 'columns' )->get_grouped_columns(),
-			'default_value'   => $this->column->get_type(),
-		) );
+
+		$section = new AC_Settings_Section( $this->column );
+		$section->add_element( $width )
+		     ->add_element( $width_unit )
+		     ->set_label( __( 'Width', 'codepress-admin-columns' ) )
+		     ->set_view( 'field', new AC_Settings_View_Field_Width() );
+
+		return $section->render();
 	}
+
+	/**
+	 * @return string
+	 */
+	public function get_type() {
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return $this
+	 */
+	public function set_type( $type ) {
+		$this->type = $type;
+
+		return $this;
+	}
+
+
 
 }

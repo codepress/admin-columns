@@ -6,7 +6,7 @@ abstract class AC_Settings_ViewAbstract
 	private $data;
 
 	public function __construct( array $data = array() ) {
-		$this->data = $data;
+		$this->set_data( $data );
 	}
 
 	/**
@@ -15,7 +15,7 @@ abstract class AC_Settings_ViewAbstract
 	public abstract function template();
 
 	public function __set( $key, $value ) {
-		$this->data[ $key ] = $value;
+		$this->set( $key, $value );
 	}
 
 	public function __get( $key ) {
@@ -26,15 +26,15 @@ abstract class AC_Settings_ViewAbstract
 		return $this->data[ $key ];
 	}
 
-	public function set_var( $key, $value ) {
+	public function set( $key, $value ) {
 		$this->vars[ $key ] = $value;
 
 		return $this;
 	}
 
-	public function set_vars( array $vars ) {
-		foreach ( $vars as $key => $value ) {
-			$this->set_var( $key, $value );
+	public function set_data( array $data ) {
+		foreach ( $data as $key => $value ) {
+			$this->set( $key, $value );
 		}
 
 		return $this;

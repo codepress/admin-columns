@@ -235,8 +235,6 @@ abstract class AC_Column {
 	 * @return AC_Settings_Column
 	 */
 	public function settings() {
-
-		// TODO: lazy load ok?
 		if ( null === $this->settings ) {
 			$this->settings = new AC_Settings_Column( $this );
 		}
