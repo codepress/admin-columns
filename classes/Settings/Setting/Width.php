@@ -22,9 +22,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 
 	public function render() {
 		$view = $this->get_view();
-
-		$label = $view->get_view( 'label' );
-		$label->set( 'label', __( 'Width', 'codepress-admin-columns' ) );
+		$view->set( 'label', __( 'Width', 'codepress-admin-columns' ) );
 
 		$this->add_element( 'width' )
 		     ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );

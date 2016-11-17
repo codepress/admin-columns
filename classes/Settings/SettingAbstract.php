@@ -59,13 +59,8 @@ abstract class AC_Settings_SettingAbstract {
 				$view = new AC_Settings_View_Setting();
 
 				break;
-			case 'label':
-				$view = new AC_Settings_View_Label();
-
-				break;
 			default:
 				$view = new AC_Settings_View_Section();
-				$view->set_view( new AC_Settings_View_Label(), 'label' );
 				$view->set_view( new AC_Settings_View_Setting(), 'setting' );
 		}
 
