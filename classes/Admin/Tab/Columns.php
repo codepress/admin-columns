@@ -772,28 +772,33 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<tbody>
 
 					<?php
-						$setting = new AC_Settings_Setting_Image( $column );
+					$setting = new AC_Settings_Setting_Image( $column );
 
-						echo $setting->render();
+					echo $setting;
 
+					$setting = new AC_Settings_Setting_Width( $column );
 
-						exit;
-						// Type field
-						$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
-						$select->set_value( $column->get_type() );
+					echo $setting->render();
 
-						$section = new AC_Settings_Section( $column );
-						$section->set_label( __( 'Type', 'codepress-admin-columns' ) )
-						        ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
-						        ->add_element( $select );
+					$setting = new AC_Settings_Setting_BeforeAfter( $column );
 
-						echo $section;
+					echo $setting->render();
 
-						$width = new AC_Settings_Field_Width( $column );
+					exit;
+					// Type field
+					$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
+					$select->set_value( $column->get_type() );
 
-						echo $width;
+					$section = new AC_Settings_Section( $column );
+					$section->set_label( __( 'Type', 'codepress-admin-columns' ) )
+					        ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
+					        ->add_element( $select );
 
+					echo $section;
 
+					$width = new AC_Settings_Field_Width( $column );
+
+					echo $width;
 
 					exit;
 

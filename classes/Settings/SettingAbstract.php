@@ -194,7 +194,9 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	public function __toString() {
-		return $this->render();
+		$view = $this->render();
+
+		return $view->render();
 	}
 
 }

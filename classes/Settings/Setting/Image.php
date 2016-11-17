@@ -30,12 +30,12 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 
 		if ( 'cpac-custom' === $this->get_value() ) {
 			$settings[] = $section = $this->create_view();
-			$section->set( 'setting', $this->add_element( 'image_size_w', 'number' ) )
+			$section->set( 'settings', $this->add_element( 'image_size_w', 'number' ) )
 			        ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 			        ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
 			$settings[] = $section = $this->create_view();
-			$section->set( 'setting', $this->add_element( 'image_size_h', 'number' ) )
+			$section->set( 'settings', $this->add_element( 'image_size_h', 'number' ) )
 			        ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 			        ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 		}
