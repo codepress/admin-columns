@@ -31,13 +31,13 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		     ->add_class( 'unit' )
 		     ->set_options( $this->get_valid_width_units() );
 
-		$setting = new AC_Settings_View_Setting_Width();
+		$settings = new AC_Settings_View_Setting_Width();
 
 		foreach ( $this->elements as $name => $element ) {
-			$setting->set( $name, $element );
+			$settings->set( $name, $element );
 		}
 
-		$view->set_view( $setting, 'setting' );
+		$view->set_view( $settings, 'settings' );
 
 		return $view;
 	}

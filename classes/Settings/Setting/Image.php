@@ -5,7 +5,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	/**
 	 * @var string
 	 */
-	private $image_size = 'cpac-custom';
+	private $image_size;
 
 	/**
 	 * @var integer
@@ -40,8 +40,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 			        ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 		}
 
-		$view->get_view( 'setting' )
-		     ->set( 'settings', $settings );
+		$view->set( 'settings', $settings );
 
 		return $view;
 	}

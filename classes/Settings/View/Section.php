@@ -30,7 +30,17 @@ class AC_Settings_View_Section extends AC_Settings_ViewAbstract {
 					</label>
 				</td>
 				<td class="input">
-					<?php echo $this->setting; ?>
+					<?php
+
+					if ( ! is_array( $this->settings ) ) {
+						$this->settings = array( $this->settings );
+					}
+
+					foreach ( $this->settings as $setting ) {
+						echo $setting;
+					}
+
+					?>
 				</td>
 			</tr>
 		</table>
