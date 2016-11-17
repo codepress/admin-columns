@@ -4,10 +4,6 @@ class AC_Settings_View_Label extends AC_Settings_ViewAbstract {
 
 	public function template() {
 
-		if ( ! $this->label ) {
-			return null;
-		}
-
 		$description = $this->description ? 'description' : '';
 
 		?>

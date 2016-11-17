@@ -22,27 +22,61 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * @var AC_Settings_ViewAbstract
 	 */
-	protected $view;
+	private $view;
 
 	public function __construct( AC_Column $column, $defaults = array() ) {
 		$this->column = $column;
+		$this->view = $this->create_view();
 
-		$this->init_view();
 		$this->set_properties();
 		$this->set_values( $defaults );
 		$this->load_settings();
 	}
 
-	public function render() {
-		return $this->view->render();
+	/**
+	 * Create a string representation of this setting
+	 *
+	 * @return AC_Settings_ViewAbstract
+	 */
+	public abstract function render();
+
+	/**
+	 * Set the properties this field manages
+	 *
+	 */
+	protected abstract function set_properties();
+
+	/**
+	 * Creates a view and sets default subviews.
+	 *
+	 * @param string $type Defaults to 'section'
+	 *
+	 * @return AC_Settings_ViewAbstract
+	 */
+	protected function create_view( $type = 'section' ) {
+		switch ( $type ) {
+			case 'setting':
+				$view = new AC_Settings_View_Setting();
+
+				break;
+			case 'label':
+				$view = new AC_Settings_View_Label();
+
+				break;
+			default:
+				$view = new AC_Settings_View_Section();
+				$view->set_view( new AC_Settings_View_Label(), 'label' );
+				$view->set_view( new AC_Settings_View_Setting(), 'setting' );
+		}
+
+		return $view;
 	}
 
-	private function init_view() {
-		$view = new AC_Settings_View_Section();
-		$view->nest( new AC_Settings_View_Label(), 'label' );
-		$view->nest( new AC_Settings_View_Setting(), 'settings' );
-
-		$this->view = $view;
+	/**
+	 * @return AC_Settings_ViewAbstract
+	 */
+	public function get_view() {
+		return $this->view;
 	}
 
 	/**
@@ -68,15 +102,24 @@ abstract class AC_Settings_SettingAbstract {
 				$element->set_type( $type );
 		}
 
-		$element->set_name( sprintf( 'columns[%s][%s]' ), $this->column->get_name(), $name );
-		$element->set_id( sprintf( 'ac-%s-%s' ), $this->column->get_name(), $name );
+		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
+		$element->set_id( sprintf( 'ac-%s-%s', $this->column->get_name(), $name ) );
+
+		// try to set current value
+		$method = 'get_' . $name;
+
+		if ( method_exists( $this, $method ) ) {
+			$element->set_value( $this->$method() );
+		}
 
 		$this->elements[ $name ] = $element;
 
 		return $element;
 	}
 
-	// todo: maybe implement __get for elements
+	protected function get_elements() {
+		return $this->elements;
+	}
 
 	protected function get_element( $name ) {
 		return isset( $this->elements[ $name ] ) ? $this->elements[ $name ] : false;
@@ -93,11 +136,6 @@ abstract class AC_Settings_SettingAbstract {
 
 		return $this;
 	}
-
-	/**
-	 * Set the properties this field manages
-	 */
-	protected abstract function set_properties();
 
 	protected function has_properties() {
 		return ! empty( $this->properties );
@@ -128,7 +166,7 @@ abstract class AC_Settings_SettingAbstract {
 			return false;
 		}
 
-		return $this->$method;
+		return $this->$method();
 	}
 
 	/**
@@ -161,7 +199,7 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	public function __toString() {
-		return $this->view->render();
+		return $this->render();
 	}
 
 }

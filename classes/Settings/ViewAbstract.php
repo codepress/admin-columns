@@ -25,7 +25,7 @@ abstract class AC_Settings_ViewAbstract
 	 *
 	 * @return $this
 	 */
-	public function nest( AC_Settings_ViewAbstract $view, $name ) {
+	public function set_view( AC_Settings_ViewAbstract $view, $name ) {
 		$this->views[ $name ] = $view;
 
 		$this->set( $name, $view );

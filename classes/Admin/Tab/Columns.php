@@ -772,7 +772,12 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<tbody>
 
 					<?php
+						$setting = new AC_Settings_Setting_Image( $column );
 
+						echo $setting->render();
+
+
+						exit;
 						// Type field
 						$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
 						$select->set_value( $column->get_type() );

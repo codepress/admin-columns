@@ -10,37 +10,38 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	/**
 	 * @var string
 	 */
-	private $width_unit = 'px';
+	private $width_unit = '%';
 
 	protected function set_properties() {
 		$this->properties = array( 'width', 'width_unit' );
 	}
 
+	private function get_valid_width_units() {
+		return array( '%' => '%', 'px' => 'px' );
+	}
+
 	public function render() {
-		$this->set_label( __( 'Width', 'codepress-admin-columns' ) );
+		$view = $this->get_view();
 
-		// todo: change layout to default input and change auto to Auto
+		$label = $view->get_view( 'label' );
+		$label->set( 'label', __( 'Width', 'codepress-admin-columns' ) );
+
 		$this->add_element( 'width' )
-		     ->set_attribute( 'placeholder', __( 'auto', 'codepress-admin-columns' ) )
-		     ->set_value( $this->get_width() );
+		     ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
-		$this->create_element( 'width_unit', 'radio' )
+		$this->add_element( 'width_unit', 'radio' )
 		     ->add_class( 'unit' )
-		     ->set_options( array(
-			     'px' => 'px',
-			     '%'  => '%',
-		     ) )
-		     ->set_value( $this->get_width_unit() );
+		     ->set_options( $this->get_valid_width_units() );
 
-		$view = new AC_Settings_View_Setting_Width();
+		$setting = new AC_Settings_View_Setting_Width();
 
 		foreach ( $this->elements as $name => $element ) {
-			$view->set( $name, $element );
+			$setting->set( $name, $element );
 		}
 
-		$this->view->nest( $view, 'setting' );
+		$view->set_view( $setting, 'setting' );
 
-		return parent::render();
+		return $view;
 	}
 
 	/**
