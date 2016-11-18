@@ -778,11 +778,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					$setting = new AC_Settings_Setting_Width( $column );
 
-					echo $setting->render();
+					echo $setting->view();
 
 					$setting = new AC_Settings_Setting_BeforeAfter( $column );
 
-					echo $setting->render();
+					echo $setting->view();
 
 					exit;
 					// Type field

@@ -20,24 +20,22 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		return array( '%' => '%', 'px' => 'px' );
 	}
 
-	public function render() {
-		$view = $this->get_view();
-		$view->set( 'label', __( 'Width', 'codepress-admin-columns' ) );
+	public function view() {
+		$width = $this->create_element( 'width' )
+		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
-		$this->add_element( 'width' )
-		     ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
+		$unit = $this->create_element( 'width_unit', 'radio' )
+		             ->add_class( 'unit' )
+		             ->set_options( $this->get_valid_width_units() );
 
-		$this->add_element( 'width_unit', 'radio' )
-		     ->add_class( 'unit' )
-		     ->set_options( $this->get_valid_width_units() );
+		$settings = new AC_Settings_View();
+		$settings->set_template( 'settings-width' )
+		         ->set( 'width', $width )
+		         ->set( 'width_unit', $unit );
 
-		$settings = new AC_Settings_View_Setting_Width();
-
-		foreach ( $this->elements as $name => $element ) {
-			$settings->set( $name, $element );
-		}
-
-		$view->set_view( $settings, 'settings' );
+		$view = new AC_Settings_View();
+		$view->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
+		     ->set( 'settings', $settings );
 
 		return $view;
 	}

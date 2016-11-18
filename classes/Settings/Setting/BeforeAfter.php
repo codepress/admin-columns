@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
@@ -16,21 +17,25 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract {
 		$this->properties = array( 'before', 'after' );
 	}
 
-	public function render() {
-		$view = $this->get_view();
-		$view->set( 'label', __( 'Display Options', 'codepress-admin-columns' ) );
+	// todo get_before should apply the trim, or should it be done here?
+	public function format( $value ) {
+		return $this->get_before() . $value . $this->get_after();
+	}
 
-		$settings[] = $section = $this->create_view();
+	public function view() {
+		$section = $settings[] = new AC_Settings_View();
 		$section->set( 'label', __( 'Before', 'codepress-admin-columns' ) )
 		        ->set( 'description', __( 'This text will appear before the column value.', 'codepress-admin-columns' ) )
-		        ->set( 'settings', $this->add_element( 'before' ) );
+		        ->set( 'settings', $this->create_element( 'before' ) );
 
-		$settings[] = $section = $this->create_view();
+		$section = $settings[] = new AC_Settings_View();
 		$section->set( 'label', __( 'After', 'codepress-admin-columns' ) )
 		        ->set( 'description', __( 'This text will appear after the column value.', 'codepress-admin-columns' ) )
-		        ->set( 'settings', $this->add_element( 'after' ) );
+		        ->set( 'settings', $this->create_element( 'after' ) );
 
-		$view->set( 'settings', $settings );
+		$view = new AC_Settings_View();
+		$view->set( 'label', __( 'Display Options', 'codepress-admin-columns' ) )
+		     ->set( 'settings', $settings );
 
 		return $view;
 	}

@@ -21,26 +21,25 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$this->properties = array( 'image_size', 'image_size_w', 'image_size_h' );
 	}
 
-	public function render() {
-		$view = $this->get_view();
-		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) );
-
-		$settings[] = $this->add_element( 'image_size', 'select' )
+	public function view() {
+		$settings[] = $this->create_element( 'image_size', 'select' )
 		                   ->set_options( $this->get_grouped_image_sizes() );
 
 		if ( 'cpac-custom' === $this->get_value() ) {
-			$settings[] = $section = $this->create_view();
-			$section->set( 'settings', $this->add_element( 'image_size_w', 'number' ) )
+			$section = $settings[] = new AC_Settings_View();
+			$section->set( 'settings', $this->create_element( 'image_size_w', 'number' ) )
 			        ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 			        ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
-			$settings[] = $section = $this->create_view();
-			$section->set( 'settings', $this->add_element( 'image_size_h', 'number' ) )
+			$section = $settings[] = new AC_Settings_View();
+			$section->set( 'settings', $this->create_element( 'image_size_h', 'number' ) )
 			        ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 			        ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 		}
 
-		$view->set( 'settings', $settings );
+		$view = new AC_Settings_View();
+		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
+		     ->set( 'settings', $settings );
 
 		return $view;
 	}

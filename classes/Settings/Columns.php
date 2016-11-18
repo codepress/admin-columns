@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 final class AC_Settings_Columns {
 
 	CONST OPTIONS_KEY = 'cpac_options_';
@@ -91,7 +87,6 @@ final class AC_Settings_Columns {
 		delete_option( $this->get_default_key() );
 	}
 
-	// Delete all
 	public static function delete_all() {
 		global $wpdb;
 

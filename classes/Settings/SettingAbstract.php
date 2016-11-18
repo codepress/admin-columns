@@ -8,25 +8,14 @@ abstract class AC_Settings_SettingAbstract {
 	protected $column;
 
 	/**
-	 * @var AC_Settings_Form_ElementAbstract[]
-	 */
-	protected $elements = array();
-
-	/**
 	 * The properties this field manages
 	 *
 	 * @var array
 	 */
 	protected $properties = array();
 
-	/**
-	 * @var AC_Settings_ViewAbstract
-	 */
-	private $view;
-
 	public function __construct( AC_Column $column, $defaults = array() ) {
 		$this->column = $column;
-		$this->view = $this->create_view();
 
 		$this->set_properties();
 		$this->set_values( $defaults );
@@ -38,41 +27,13 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return AC_Settings_ViewAbstract
 	 */
-	public abstract function render();
+	public abstract function view();
 
 	/**
 	 * Set the properties this field manages
 	 *
 	 */
 	protected abstract function set_properties();
-
-	/**
-	 * Creates a view and sets default subviews.
-	 *
-	 * @param string $type Defaults to 'section'
-	 *
-	 * @return AC_Settings_ViewAbstract
-	 */
-	protected function create_view( $type = 'section' ) {
-		switch ( $type ) {
-			case 'setting':
-				$view = new AC_Settings_View_Setting();
-
-				break;
-			default:
-				$view = new AC_Settings_View_Section();
-				$view->set_view( new AC_Settings_View_Setting(), 'setting' );
-		}
-
-		return $view;
-	}
-
-	/**
-	 * @return AC_Settings_ViewAbstract
-	 */
-	public function get_view() {
-		return $this->view;
-	}
 
 	/**
 	 * Add an element to this setting
@@ -82,7 +43,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return AC_Settings_Form_ElementAbstract
 	 */
-	protected function add_element( $name, $type = null ) {
+	protected function create_element( $name, $type = null ) {
 		switch ( $type ) {
 			case 'radio':
 				$element = new AC_Settings_Form_Element_Radio( $name );
@@ -107,17 +68,7 @@ abstract class AC_Settings_SettingAbstract {
 			$element->set_value( $this->$method() );
 		}
 
-		$this->elements[ $name ] = $element;
-
 		return $element;
-	}
-
-	protected function get_elements() {
-		return $this->elements;
-	}
-
-	protected function get_element( $name ) {
-		return isset( $this->elements[ $name ] ) ? $this->elements[ $name ] : false;
 	}
 
 	private function set_values( $values ) {
@@ -194,9 +145,7 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	public function __toString() {
-		$view = $this->render();
-
-		return $view->render();
+		return $this->view()->render();
 	}
 
 }
