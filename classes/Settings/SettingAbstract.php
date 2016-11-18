@@ -14,11 +14,13 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	protected $properties = array();
 
-	public function __construct( AC_Column $column, $defaults = array() ) {
+	/**
+	 * @param AC_Column $column
+	 */
+	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 
 		$this->set_properties();
-		$this->set_values( $defaults );
 		$this->load_settings();
 	}
 
@@ -89,13 +91,11 @@ abstract class AC_Settings_SettingAbstract {
 		return $element;
 	}
 
-	private function set_values( $values ) {
-		foreach ( $values as $property => $value ) {
-			$method = 'set_' . $property;
+	private function set_value( $property, $value ) {
+		$method = 'set_' . $property;
 
-			if ( method_exists( $method ) ) {
-				$this->$method( $value );
-			}
+		if ( method_exists( $method ) ) {
+			$this->$method( $value );
 		}
 
 		return $this;
@@ -131,17 +131,13 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 */
 	private function load_settings() {
-		$settings = array();
-
 		foreach ( $this->properties as $property ) {
 			$setting = $this->get_setting( $property );
 
 			if ( $setting ) {
-				$settings[ $property ] = $setting;
+				$this->set_value( $property, $setting );
 			}
 		}
-
-		$this->set_values( $settings );
 	}
 
 	public function __toString() {
