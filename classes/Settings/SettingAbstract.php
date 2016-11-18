@@ -35,6 +35,24 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	protected abstract function set_properties();
 
+	protected function has_properties() {
+		return ! empty( $this->properties );
+	}
+
+	protected function add_property( $property ) {
+		$this->properties[] = $property;
+
+		return $this;
+	}
+
+	protected function get_default_property() {
+		if ( empty( $this->properties ) ) {
+			return false;
+		}
+
+		return $this->properties[0];
+	}
+
 	/**
 	 * Add an element to this setting
 	 *
@@ -81,24 +99,6 @@ abstract class AC_Settings_SettingAbstract {
 		}
 
 		return $this;
-	}
-
-	protected function has_properties() {
-		return ! empty( $this->properties );
-	}
-
-	protected function add_property( $property ) {
-		$this->properties[] = $property;
-
-		return $this;
-	}
-
-	protected function get_default_property() {
-		if ( empty( $this->properties ) ) {
-			return false;
-		}
-
-		return $this->properties[0];
 	}
 
 	public function get_value( $property = null ) {
