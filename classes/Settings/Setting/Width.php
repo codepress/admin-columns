@@ -53,7 +53,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	 * @return $this
 	 */
 	public function set_width( $width ) {
-		$this->width = $width;
+		$this->width = absint( $width );
 
 		return $this;
 	}
@@ -71,7 +71,9 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	 * @return $this
 	 */
 	public function set_width_unit( $width_unit ) {
-		$this->width_unit = $width_unit;
+		if ( array_key_exists( $width_unit, $this->get_valid_width_units() ) ) {
+			$this->width_unit = $width_unit;
+		}
 
 		return $this;
 	}

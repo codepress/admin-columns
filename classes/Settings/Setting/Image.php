@@ -5,7 +5,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	/**
 	 * @var string
 	 */
-	private $image_size;
+	private $image_size = 'cpac-custom';
 
 	/**
 	 * @var integer
@@ -22,24 +22,31 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$settings[] = $this->create_element( 'image_size', 'select' )
-		                   ->set_options( $this->get_grouped_image_sizes() );
 
-		if ( 'cpac-custom' === $this->get_value() ) {
-			$section = $settings[] = new AC_Settings_View();
-			$section->set( 'settings', $this->create_element( 'image_size_w', 'number' ) )
-			        ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
-			        ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
+		return false;
 
-			$section = $settings[] = new AC_Settings_View();
-			$section->set( 'settings', $this->create_element( 'image_size_h', 'number' ) )
-			        ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
-			        ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
-		}
+		// todo: wip for event research
+		$size = $this->create_element( 'image_size', 'select' )
+		             ->set_options( $this->get_grouped_image_sizes() );
+
+		$event = new AC_Settings_Event_Change( 'toggle', $size, 'cpac-custom' );
+		$event = false;
+
+		$width = new AC_Settings_View();
+		$width->set( 'settings', $this->create_element( 'image_size_w', 'number' ) )
+		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
+		      ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) )
+		      ->set( 'events', $event );
+
+		$height = new AC_Settings_View();
+		$height->set( 'settings', $this->create_element( 'image_size_h', 'number' ) )
+		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
+		       ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) )
+		       ->set( 'events', $event );
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
-		     ->set( 'settings', $settings );
+		     ->set( 'settings', array( $size, $width, $height ) );
 
 		return $view;
 	}

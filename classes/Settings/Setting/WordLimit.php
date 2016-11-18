@@ -1,11 +1,11 @@
 <?php
 
-class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 
 	/**
 	 * @var int
 	 */
-	private $except_length;
+	private $except_length = 30;
 
 	protected function set_properties() {
 		$this->properties = array( 'excerpt_length' );

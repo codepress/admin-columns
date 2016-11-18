@@ -12,14 +12,14 @@ $description = $this->description ? 'description' : '';
 	<tr>
 		<td class="label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
-						<span class="label <?php echo esc_attr( $description ); ?>">
-							<?php echo $this->label; ?>
-						</span>
+					<span class="label <?php echo esc_attr( $description ); ?>">
+						<?php echo $this->label; ?>
+					</span>
 
 				<?php if ( $this->description ) : ?>
 					<span class="description">
-								<?php echo $this->description; ?>
-							</span>
+						<?php echo $this->description; ?>
+					</span>
 				<?php endif; ?>
 
 				<?php if ( $this->read_more ) : ?>

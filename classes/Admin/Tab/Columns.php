@@ -782,10 +782,19 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					$setting = new AC_Settings_Setting_BeforeAfter( $column );
 
+					//$setting->set_default( 30, $key );
+
+					//if ( ! $setting->isset() ) {
+					//	$setting->set_before( 'zookini' );
+				//	}
+
 					echo $setting->view();
 
-					exit;
+					// todo: override default, how to solve
+					// isset, defaults on construct, get_setting
+
 					// Type field
+					/**
 					$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
 					$select->set_value( $column->get_type() );
 
@@ -799,8 +808,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$width = new AC_Settings_Field_Width( $column );
 
 					echo $width;
+					 *
 
-					exit;
+					//exit;
 
 					?>
 
@@ -857,7 +867,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							$column->field_settings->before_after();
 						}*/
 
-					}
+					//}
 
 					/**
 					 * Fires directly after the custom options for a column are displayed in the column form
