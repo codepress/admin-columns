@@ -5,7 +5,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	/**
 	 * @var int
 	 */
-	private $except_length = 30;
+	private $excerpt_length = 30;
 
 	protected function set_properties() {
 		$this->properties = array( 'excerpt_length' );
@@ -27,17 +27,17 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	/**
 	 * @return int
 	 */
-	public function get_except_length() {
-		return $this->except_length;
+	public function get_excerpt_length() {
+		return $this->excerpt_length;
 	}
 
 	/**
-	 * @param int $except_length
+	 * @param int $excerpt_length
 	 *
 	 * @return $this
 	 */
-	public function set_except_length( $except_length ) {
-		$this->except_length = $except_length;
+	public function set_excerpt_length( $excerpt_length ) {
+		$this->excerpt_length = $excerpt_length;
 
 		return $this;
 	}

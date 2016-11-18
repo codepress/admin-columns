@@ -41,14 +41,8 @@ abstract class AC_Settings_SettingAbstract {
 		return ! empty( $this->properties );
 	}
 
-	private function has_property( $property ) {
-		return isset( $this->properties[ $property ] );
-	}
-
-	protected function add_property( $property ) {
-		$this->properties[] = $property;
-
-		return $this;
+	protected function has_property( $property ) {
+		return in_array( $property, $this->properties );
 	}
 
 	protected function get_default_property() {
@@ -95,16 +89,6 @@ abstract class AC_Settings_SettingAbstract {
 		return $element;
 	}
 
-	private function set_value( $property, $value ) {
-		$method = 'set_' . $property;
-
-		if ( method_exists( $method ) ) {
-			$this->$method( $value );
-		}
-
-		return $this;
-	}
-
 	public function get_value( $property = null ) {
 		if ( null === $property ) {
 			$property = $this->get_default_property();
@@ -119,8 +103,38 @@ abstract class AC_Settings_SettingAbstract {
 		return $this->$method();
 	}
 
+	private function set_value( $property, $value ) {
+		$method = 'set_' . $property;
+
+		if ( method_exists( $this, $method ) ) {
+			$this->$method( $value );
+		}
+
+		return $this;
+	}
+
 	/**
-	 * Retrieve setting (value) for an element
+	 * Set a default value unless property is loaded from settings
+	 *
+	 * @param $value
+	 * @param string $property
+	 *
+	 * @return $this
+	 */
+	public function set_default( $value, $property = null ) {
+		if ( null === $property ) {
+			$property = $this->get_default_property();
+		}
+
+		if ( ! $this->is_user_set( $property ) ) {
+			$this->set_value( $property, $value );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Retrieve setting for an element
 	 *
 	 * @param string $name
 	 *
@@ -135,7 +149,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @param string $property
 	 */
-	public function is_user_set( $property ) {
+	private function is_user_set( $property ) {
 		return $this->has_property( $property ) && null !== $this->get_setting( $property );
 	}
 
@@ -156,11 +170,11 @@ abstract class AC_Settings_SettingAbstract {
 	public function __toString() {
 		$view = $this->view();
 
-		if ( $view instanceof AC_Settings_View ) {
-			return $view->render();
+		if ( ! ( $view instanceof AC_Settings_View ) ) {
+			return '';
 		}
 
-		return '';
+		return $view->render();
 	}
 
 }

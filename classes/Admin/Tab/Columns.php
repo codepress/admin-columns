@@ -772,100 +772,102 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<tbody>
 
 					<?php
+
 					$setting = new AC_Settings_Setting_Image( $column );
 
 					echo $setting;
 
 					$setting = new AC_Settings_Setting_Width( $column );
 
-					echo $setting->view();
+					echo $setting;
 
 					$setting = new AC_Settings_Setting_BeforeAfter( $column );
 
-					//$setting->set_default( 30, $key );
+					echo $setting;
 
-					//if ( ! $setting->isset() ) {
-					//	$setting->set_before( 'zookini' );
-				//	}
+					$setting = new AC_Settings_Setting_WordLimit( $column );
+					$setting->set_default( 20 );
 
-					echo $setting->view();
+					echo $setting;
+
+					exit;
 
 					// todo: override default, how to solve
 					// isset, defaults on construct, get_setting
 
 					// Type field
 					/**
-					$select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
-					$select->set_value( $column->get_type() );
-
-					$section = new AC_Settings_Section( $column );
-					$section->set_label( __( 'Type', 'codepress-admin-columns' ) )
-					        ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
-					        ->add_element( $select );
-
-					echo $section;
-
-					$width = new AC_Settings_Field_Width( $column );
-
-					echo $width;
+					 * $select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
+					 * $select->set_value( $column->get_type() );
 					 *
+					 * $section = new AC_Settings_Section( $column );
+					 * $section->set_label( __( 'Type', 'codepress-admin-columns' ) )
+					 * ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
+					 * ->add_element( $select );
+					 *
+					 * echo $section;
+					 *
+					 * $width = new AC_Settings_Field_Width( $column );
+					 *
+					 * echo $width;
+					 *
+					 *
+					 * //exit;
+					 *
+					 * ?>
+					 *
+					 * <?php //$column->settings()->display(); ?>
+					 *
+					 * <?php
+					 *
+					 * // TODO: temp, remove
+					 * //$column->display_settings();
+					 *
+					 * // TODO: move to field
+					 *
+					 * if ( false ) {
+					 *
+					 * /*
+					 * $column->field_settings->field( array(
+					 * 'type'            => 'select',
+					 * 'name'            => 'type',
+					 * 'label'           => __( 'Type', 'codepress-admin-columns' ),
+					 * 'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
+					 * 'grouped_options' => $this->get_grouped_columns(),
+					 * 'default_value'   => $column->get_type(),
+					 * ) );
+					 *
+					 * $column->field_settings->field( array(
+					 * 'type'        => 'text',
+					 * 'name'        => 'label',
+					 * 'placeholder' => $column->get_label(),
+					 * 'label'       => __( 'Label', 'codepress-admin-columns' ),
+					 * 'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
+					 * 'hidden'      => $column->is_hide_label(),
+					 * ) );
+					 *
+					 * $column->field_settings->field( array(
+					 * 'type'  => 'width',
+					 * 'name'  => 'width',
+					 * 'label' => __( 'Width', 'codepress-admin-columns' ),
+					 * ) );
+					 */
 
-					//exit;
+					/**
+					 * Fires directly before the custom options for a column are displayed in the column form
+					 *
+					 * @since 2.0
+					 *
+					 * @param AC_Column $column_instance Column class instance
+					 */
+					//do_action( 'cac/column/settings_before', $column );
 
-					?>
-
-					<?php //$column->settings()->display(); ?>
-
-					<?php
-
-					// TODO: temp, remove
+					// TODO: use $column->settings()->display();
 					//$column->display_settings();
 
-					// TODO: move to field
-
-					if ( false ) {
-
-						/*
-						 $column->field_settings->field( array(
-							'type'            => 'select',
-							'name'            => 'type',
-							'label'           => __( 'Type', 'codepress-admin-columns' ),
-							'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
-							'grouped_options' => $this->get_grouped_columns(),
-							'default_value'   => $column->get_type(),
-						) );
-
-						$column->field_settings->field( array(
-							'type'        => 'text',
-							'name'        => 'label',
-							'placeholder' => $column->get_label(),
-							'label'       => __( 'Label', 'codepress-admin-columns' ),
-							'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-							'hidden'      => $column->is_hide_label(),
-						) );
-
-						$column->field_settings->field( array(
-							'type'  => 'width',
-							'name'  => 'width',
-							'label' => __( 'Width', 'codepress-admin-columns' ),
-						) );
-						*/
-
-						/**
-						 * Fires directly before the custom options for a column are displayed in the column form
-						 *
-						 * @since 2.0
-						 *
-						 * @param AC_Column $column_instance Column class instance
-						 */
-						//do_action( 'cac/column/settings_before', $column );
-
-						// TODO: use $column->settings()->display();
-						//$column->display_settings();
-
-						/*if ( $column->use_before_after() ) {
-							$column->field_settings->before_after();
-						}*/
+					/*if ( $column->use_before_after() ) {
+						$column->field_settings->before_after();
+					}*/
 
 					//}
 
