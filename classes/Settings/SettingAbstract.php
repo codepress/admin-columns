@@ -41,6 +41,10 @@ abstract class AC_Settings_SettingAbstract {
 		return ! empty( $this->properties );
 	}
 
+	private function has_property( $property ) {
+		return isset( $this->properties[ $property ] );
+	}
+
 	protected function add_property( $property ) {
 		$this->properties[] = $property;
 
@@ -124,6 +128,15 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	private function get_setting( $name ) {
 		return $this->column->settings()->get_option( $name );
+	}
+
+	/**
+	 * Check if a property is user set
+	 *
+	 * @param string $property
+	 */
+	public function is_user_set( $property ) {
+		return $this->has_property( $property ) && null !== $this->get_setting( $property );
 	}
 
 	/**

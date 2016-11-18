@@ -100,7 +100,7 @@ class AC_Settings_Column {
 	 * @return string|false Single column option
 	 */
 	public function get_option( $name ) {
-		return isset( $this->options[ $name ] ) ? $this->options[ $name ] : false;
+		return isset( $this->options[ $name ] ) ? $this->options[ $name ] : null;
 	}
 
 	/**
