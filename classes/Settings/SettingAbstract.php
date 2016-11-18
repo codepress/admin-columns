@@ -145,7 +145,13 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	public function __toString() {
-		return $this->view()->render();
+		$view = $this->view();
+
+		if ( $view instanceof AC_Settings_View ) {
+			return $view->render();
+		}
+
+		return '';
 	}
 
 }
