@@ -464,7 +464,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 										</li>
 									</ul>
 									<p>
-										<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) ); ?>
+										<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>
 									</p>
 								</div>
 							</div>
