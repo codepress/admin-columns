@@ -25,12 +25,12 @@ class AC_Settings_View
 	/**
 	 * Add a view and load it as a variable, but store it for later retrieval
 	 *
-	 * @param AC_Settings_ViewAbstract $view
+	 * @param AC_Settings_View $view
 	 * @param string $name
 	 *
 	 * @return $this
 	 */
-	public function set_view( AC_Settings_ViewAbstract $view, $name ) {
+	public function set_view( AC_Settings_View $view, $name ) {
 		$this->views[ $name ] = $view;
 
 		$this->set( $name, $view );

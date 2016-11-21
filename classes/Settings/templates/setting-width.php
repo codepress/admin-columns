@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-
 <div class="description">
 	<?php echo $this->width; ?>
 	<span class="unit"><?php echo esc_html( $this->width_unit->get_value() ); ?></span>

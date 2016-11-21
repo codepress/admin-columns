@@ -722,7 +722,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					<?php
 
-					$setting = new AC_Settings_Setting_Type( $column );
+					/*$setting = new AC_Settings_Setting_Type( $column );
 
 					echo $setting;
 
@@ -741,7 +741,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$setting = new AC_Settings_Setting_WordLimit( $column );
 					$setting->set_default( 20 );
 
-					echo $setting;
+					echo $setting;*/
+
+					echo $column->render();
 
 					//exit;
 
