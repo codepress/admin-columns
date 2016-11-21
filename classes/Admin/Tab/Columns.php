@@ -218,7 +218,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				'type'  => 'message',
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-					'<strong>' . $column->settings()->type->get_clean_type_label() . '</strong>'
+
+				// TODO: works?
+					'<strong>' . $column->get_setting( 'type' )->get_clean_type_label() . '</strong>'
 				),
 			) );
 		}

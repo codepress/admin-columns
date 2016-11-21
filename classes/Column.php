@@ -276,15 +276,22 @@ abstract class AC_Column {
 		return isset( $settings[ $id ] ) ? $settings[ $id ] : false;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
-			$this->settings();
+			$this->register_settings();
 		}
 
 		return $this->settings;
 	}
 
-	public function settings() {
+	/**
+	 * Register settings
+	 */
+	protected function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_Type( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Label( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Width( $this ) );
 
@@ -297,14 +304,6 @@ abstract class AC_Column {
 
 		//return $this->settings;
 	}
-
-	/*public function get_option( $name ) {
-		$value = false;
-
-		foreach ( $this->settings as $setting ) {
-			$value = $setting->get_value( $name );
-		}
-	}*/
 
 
 	/**

@@ -22,12 +22,9 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	 *
 	 * @return string
 	 */
-	private function get_clean_type_label() {
-		$column = $this->column;
-		//$label = $column->settings()->label->get_label();
-// TODO
-		//
-		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
+	public function get_clean_type_label( AC_Column $column ) {
+		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+
 		if ( $column->is_original() ) {
 			$label = $column->get_original_label();
 		}
@@ -51,10 +48,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	private function get_grouped_columns() {
 		$grouped = array();
 
-		foreach ( $this->column->get_list_screen()->get_column_types() as $type => $class ) {
-
-			/* @var AC_Column $column */
-			$column = new $class;
+		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
 			$group = $column->get_group();
 
 			if ( ! isset( $grouped[ $group ] ) ) {
@@ -62,7 +56,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $group ]['options'][ $type ] = $this->get_clean_type_label();
+			$grouped[ $group ]['options'][ $column->get_type() ] = $this->get_clean_type_label( $column );
 
 			if ( ! $column->is_original() ) {
 				natcasesort( $grouped[ $group ]['options'] );

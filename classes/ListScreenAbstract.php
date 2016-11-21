@@ -399,7 +399,7 @@ abstract class AC_ListScreenAbstract {
 			$column->set_original_label( $this->get_original_label( $column->get_type() ) );
 		}
 
-		$this->column_types[ $column->get_type() ] = $column;
+		$this->column_types[ $column->get_type() ] = $column->set_list_screen( $this );
 	}
 
 	/**
