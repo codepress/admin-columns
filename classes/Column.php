@@ -170,6 +170,7 @@ abstract class AC_Column {
 	/**
 	 * @return string Post type
 	 */
+	// todo: maybe refactor since this can be done via the list screen?
 	public function get_post_type() {
 		 return method_exists( $this->list_screen, 'get_post_type' ) ? $this->list_screen->get_post_type() : false;
 	}
@@ -177,6 +178,7 @@ abstract class AC_Column {
 	/**
 	 * @return string Taxonomy
 	 */
+	// todo: maybe refactor since this can be done via the list screen?
 	public function get_taxonomy() {
 		return method_exists( $this->list_screen, 'get_taxonomy' ) ? $this->list_screen->get_taxonomy() : false;
 	}
@@ -205,6 +207,7 @@ abstract class AC_Column {
 	/**
 	 * @return string
 	 */
+	// todo: maybe refactor since this can be done via the list screen?
 	public function get_original_label() {
 		return $this->original_label;
 	}
@@ -214,6 +217,7 @@ abstract class AC_Column {
 	 *
 	 * @return $this
 	 */
+	// todo: maybe refactor since this can be done via the list screen?
 	public function set_original_label( $original_label ) {
 		if ( ! $this->is_original() ) {
 			$this->original_label = $original_label;
