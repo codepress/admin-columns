@@ -12,8 +12,8 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	 */
 	private $width_unit = '%';
 
-	protected function set_properties() {
-		$this->properties = array( 'width', 'width_unit' );
+	protected function set_managed_options() {
+		$this->managed_options = array( 'width', 'width_unit' );
 	}
 
 	private function get_valid_width_units() {

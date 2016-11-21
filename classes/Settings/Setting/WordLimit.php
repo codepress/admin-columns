@@ -7,8 +7,8 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	 */
 	private $excerpt_length = 30;
 
-	protected function set_properties() {
-		$this->properties = array( 'excerpt_length' );
+	protected function set_managed_options() {
+		$this->managed_options = array( 'excerpt_length' );
 	}
 
 	public function view() {

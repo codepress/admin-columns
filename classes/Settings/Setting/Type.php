@@ -13,8 +13,8 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 		parent::__construct( $column );
 	}
 
-	protected function set_properties() {
-		$this->properties = array( 'type' );
+	protected function set_managed_options() {
+		$this->managed_options = array( 'type' );
 	}
 
 	/**
@@ -23,20 +23,20 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	 * @return string
 	 */
 	private function get_clean_type_label() {
-
-		$label = $this->column->settings()->get_option( 'label' );
+		$column = $this->column;
+		$label = $column->settings()->label->get_value();
 
 		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
-		if ( $this->column->is_original() ) {
-			$label = $this->column->get_original_label();
+		if ( $column->is_original() ) {
+			$label = $column->get_original_label();
 		}
 
 		if ( empty( $label ) ) {
-			$label = $this->column->get_label();
+			$label = $column->get_label();
 		}
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
-			$label = $this->column->get_type();
+			$label = $column->get_type();
 		}
 
 		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );

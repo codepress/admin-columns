@@ -115,7 +115,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return string|array|int|bool
 	 */
-	public function get_option( $option = null ) {
+	public function get_value( $option = null ) {
 		if ( null === $option ) {
 			$option = $this->get_managed_option();
 		}
@@ -134,7 +134,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return array
 	 */
-	public function get_options() {
+	public function get_values() {
 		$values = array();
 
 		foreach ( $this->managed_options as $managed_option ) {
@@ -174,7 +174,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return $this
 	 */
-	public function set_default( $value, $option = null ) {
+	public function set_option_default( $value, $option = null ) {
 		if ( null === $option ) {
 			$option = $this->get_managed_option();
 		}
@@ -198,7 +198,7 @@ abstract class AC_Settings_SettingAbstract {
 			$option = $this->get_managed_option();
 		}
 
-		return $this->has_managed_option( $option ) && null !== $this->get_option( $option );
+		return $this->has_managed_option( $option ) && null !== $this->get_value( $option );
 	}
 
 	/**

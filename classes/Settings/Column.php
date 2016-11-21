@@ -55,25 +55,17 @@ class AC_Settings_Column {
 	}
 
 	/**
-	 * @param string $field_type (e.g. label, width, type, before_after )
-	 *
-	 * @return bool
+	 * @return array
 	 */
-	public function get_value( $property ) {
-		foreach ( $this->settings as $setting ) {
-			if ( $setting->has_property( $property ) ) {
-				return $setting->get_value( $property );
-			}
-		}
-
-		return false;
+	public function get_options() {
+		return $this->options;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function get_options() {
-		return $this->options;
+	public function get_option( $key ) {
+		return isset( $this->options[ $key ] ) ? $this->options[ $key ] : null;
 	}
 
 	/**

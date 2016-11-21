@@ -17,8 +17,8 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	 */
 	private $image_size_h = 80;
 
-	protected function set_properties() {
-		$this->properties = array( 'image_size', 'image_size_w', 'image_size_h' );
+	protected function set_managed_options() {
+		$this->managed_options = array( 'image_size', 'image_size_w', 'image_size_h' );
 	}
 
 	public function view() {

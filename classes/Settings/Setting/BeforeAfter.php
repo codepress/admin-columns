@@ -13,8 +13,8 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
 	 */
 	private $after;
 
-	protected function set_properties() {
-		$this->properties = array( 'before', 'after' );
+	protected function set_managed_options() {
+		$this->managed_options = array( 'before', 'after' );
 	}
 
 	// todo get_before should apply the trim, or should it be done here?
