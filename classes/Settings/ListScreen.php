@@ -33,25 +33,25 @@ final class AC_Settings_ListScreen {
 		return update_option( self::OPTIONS_KEY . $this->get_key(), $settings );
 	}
 
-	private function set_columns() {
+	private function set_settings() {
 		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
 
 		if ( ! $options ) {
 			$options = array();
 		}
 
-		$this->columns = apply_filters( 'ac/column_settings', $options, $this->list_screen );
+		$this->settings = apply_filters( 'ac/column_settings', $options, $this->list_screen );
 	}
 
 	/**
 	 * @return array
 	 */
-	public function get_columns() {
-		if ( null === $this->columns ) {
-			$this->set_columns();
+	public function get_settings() {
+		if ( null === $this->settings ) {
+			$this->set_settings();
 		}
 
-		return $this->columns;
+		return $this->settings;
 	}
 
 	/**

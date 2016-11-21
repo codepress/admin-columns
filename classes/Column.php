@@ -37,7 +37,7 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
-	 * @var AC_Settings_Column
+	 * @var array
 	 */
 	private $settings;
 
@@ -255,12 +255,41 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_Settings_Column
+	 * @param AC_Settings_SettingAbstract $setting
+	 *
+	 * @return $this
 	 */
-	public function settings() {
+	protected function add_setting( AC_Settings_SettingAbstract $setting ) {
+		$this->settings[ $setting->get_id() ] = $setting;
+
+		return $this;
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return AC_Settings_SettingAbstract|false
+	 */
+	public function get_setting( $id ) {
 		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings_Column( $this );
+			$this->settings();
 		}
+
+		return isset( $this->settings[ $id ] ) ? $this->settings[ $id ] : false;
+	}
+
+	public function register_settings() {
+
+	}
+
+	public function settings() {
+		$this->add_setting( new AC_Settings_Setting_Label( $this ) );
+
+		//$w = new AC_Settings_Setting_Width( $this );
+		//echo '<pre>'; print_r( $w ); echo '</pre>'; exit;
+
+		$this->add_setting( new AC_Settings_Setting_Width( $this ) );
+
 
 		// todo: checkup prev branch
 		//$this->settings
@@ -268,7 +297,31 @@ abstract class AC_Column {
 		//->add_field( new AC_Settings_Field_Width )
 		//->add_field( new AC_Settings_Field_BeforeAfter() );
 
-		return $this->settings;
+		//return $this->settings;
+	}
+
+	/*public function get_option( $name ) {
+		$value = false;
+
+		foreach ( $this->settings as $setting ) {
+			$value = $setting->get_value( $name );
+		}
+	}*/
+
+
+	/**
+	 * Display settings
+	 *
+	 * @return string
+	 */
+	public function render() {
+		$views = array();
+
+		foreach ( $this->settings as $setting ) {
+			$views[] = $setting->view()->render();
+		}
+
+		return implode( "\n", array_filter( $views ) );
 	}
 
 	/**

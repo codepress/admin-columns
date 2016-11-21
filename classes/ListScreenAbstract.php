@@ -281,7 +281,7 @@ abstract class AC_ListScreenAbstract {
 	}
 
 	/**
-	 * @return AC_Settings_Columns
+	 * @return AC_Settings_ListScreen
 	 */
 	public function settings() {
 		if ( null === $this->settings ) {
@@ -505,7 +505,7 @@ abstract class AC_ListScreenAbstract {
 		       ->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] );
 
-		$column->settings()->set_options( $settings );
+		//$column->settings()->set_options( $settings );
 
 		if ( $column->is_original() ) {
 			$column->set_label( $this->get_original_label( $column->get_type() ) );
@@ -537,7 +537,7 @@ abstract class AC_ListScreenAbstract {
 	 */
 	private function set_columns() {
 
-		foreach ( $this->settings()->get_columns() as $data ) {
+		foreach ( $this->settings()->get_settings() as $data ) {
 			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}

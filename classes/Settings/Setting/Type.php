@@ -24,8 +24,9 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	 */
 	private function get_clean_type_label() {
 		$column = $this->column;
-		$label = $column->settings()->label->get_value();
-
+		//$label = $column->settings()->label->get_label();
+// TODO
+		//
 		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
 		if ( $column->is_original() ) {
 			$label = $column->get_original_label();

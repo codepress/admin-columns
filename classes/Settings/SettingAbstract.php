@@ -207,7 +207,7 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	private function load_options() {
 		foreach ( $this->managed_options as $managed_option ) {
-			$value = $this->column->settings()->get_option( $managed_option );
+			$value = $this->column->get_list_screen()->settings()->get_setting( $managed_option );
 
 			if ( $value ) {
 				$this->set_option( $value, $managed_option );

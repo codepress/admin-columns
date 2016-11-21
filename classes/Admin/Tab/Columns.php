@@ -373,7 +373,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$list_screen = $this->get_list_screen();
 		?>
 
-		<div class="columns-container<?php echo $list_screen->settings()->get_columns() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+		<div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
 			<div class="main">
 				<div class="menu">
 					<select title="Select type" id="ac_list_screen">
@@ -668,7 +668,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo esc_html( $column->settings()->get_value( 'width' ) ); ?>
+										<?php echo esc_html( $column->get_setting( 'width' )->get_value() ); ?>
 									</span>
 
 									<?php
@@ -688,7 +688,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo $column->settings()->get_value( 'label' ); // do not escape ?></a>
+								<a class="toggle" href="javascript:;"><?php echo $column->get_setting( 'label' )->get_value(); // do not escape ?></a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
