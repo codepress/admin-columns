@@ -5,10 +5,10 @@
  */
 
 var gulp = require( 'gulp' ),
-	minifyCSS = require( 'gulp-minify-css' ),
 	gutil = require( 'gulp-util' ),
 	livereload = require( 'gulp-livereload' ),
-	less = require( 'gulp-less' ),
+	sass = require( 'gulp-sass' ),
+	cssnano = require( 'gulp-cssnano' ),
 	rename = require( 'gulp-rename' ),
 	uglify = require( 'gulp-uglify' ),
 	plumber = require( 'gulp-plumber' );
@@ -37,6 +37,24 @@ gulp.task( 'scripts', function() {
 
 gulp.task( 'styles', function() {
 	return gulp.src( [
+		'scss/admin-tab-addons.scss',
+		'scss/admin-tab-columns.scss',
+		'scss/admin-general.scss',
+		'scss/admin-welcome.scss',
+		'scss/list-screen.scss',
+		'scss/plugin-screen.scss'
+	] )
+		.pipe( plumber( { errorHandler : onError } ) )
+		.pipe( sass() )
+		.pipe( gulp.dest( '../assets/css' ) )
+		.pipe( cssnano() )
+		.pipe( rename( { suffix : '.min' } ) )
+		.pipe( gulp.dest( '../assets/css' ) );
+} );
+
+/*
+gulp.task( 'styles_old', function() {
+	return gulp.src( [
 		'less/admin-tab-addons.less',
 		'less/admin-tab-columns.less',
 		'less/admin-general.less',
@@ -51,6 +69,7 @@ gulp.task( 'styles', function() {
 		.pipe( minifyCSS() )
 		.pipe( gulp.dest( '../assets/css' ) );
 } );
+*/
 
 gulp.task( 'language', function() {
 	return gulp.src( [
@@ -79,14 +98,14 @@ gulp.task( 'iconfontBuild', function() {
 			fontHeight : 1001
 		} ) )
 		.on( 'glyphs', function( glyphs, options ) {
-			gulp.src( iconfontdir + 'tpl_iconfont.less' )
+			gulp.src( iconfontdir + 'tpl_iconfont.scss' )
 				.pipe( consolidate( 'lodash', {
 					glyphs : glyphs,
 					fontName : options.fontName,
 					fontPath : "../fonts/"
 				} ) )
-				.pipe( rename( '_iconfont.less' ) )
-				.pipe( gulp.dest( iconfontdir + 'less' ) );
+				.pipe( rename( '_iconfont.scss' ) )
+				.pipe( gulp.dest( iconfontdir + 'scss' ) );
 		} )
 		.pipe( gulp.dest( iconfontdir + 'fonts' ) );
 } );
@@ -98,8 +117,8 @@ gulp.task( 'iconfont', [ 'iconfontBuild' ], function() {
 	gulp.src( iconfontdir + 'fonts/*.*' )
 		.pipe( gulp.dest( '../assets/fonts' ) );
 
-	gulp.src( iconfontdir + 'less/*.*' )
-		.pipe( gulp.dest( 'less' ) );
+	gulp.src( iconfontdir + 'scss/*.*' )
+		.pipe( gulp.dest( 'scss' ) );
 } );
 
 /*
@@ -110,7 +129,7 @@ gulp.task( 'iconfont', [ 'iconfontBuild' ], function() {
  */
 
 gulp.task( 'watch', [ 'default' ], function() {
-	gulp.watch( 'less/**/*.less', [ 'styles' ] );
+	gulp.watch( 'scss/**/*.scss', [ 'styles' ] );
 	gulp.watch( '../assets/js/**/!(*.min.js)', [ 'scripts' ] );
 
 	livereload.listen();

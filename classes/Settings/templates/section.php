@@ -8,7 +8,7 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="widefat <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
+<table class="<?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
 	<tr>
 		<td class="label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
@@ -37,7 +37,15 @@ $description = $this->description ? 'description' : '';
 			}
 
 			foreach ( $this->settings as $setting ) {
-				echo $setting;
+				if ( $setting instanceof AC_Settings_Form_ElementAbstract ) {
+					echo '<div class="cpac_form_element">';
+					echo $setting;
+					echo '</div>';
+				}
+				else {
+					echo $setting;
+				}
+
 			}
 
 			?>

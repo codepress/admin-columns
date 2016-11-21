@@ -330,7 +330,7 @@
 									}
 
 									&.on {
-										color: @blue;
+										color: $blue;
 									}
 								}
 							}
@@ -452,7 +452,7 @@
 					border: none;
 					padding: 10px 10px;
 					background: #ffffff;
-					border-top: 1px solid @bg-gray;
+					border-top: 1px solid $bg-gray;
 					//height: 25px;
 
 					input {
@@ -497,11 +497,11 @@
 					&.label {
 						position: relative;
 						overflow: visible;
-						background: @bg-gray;
-						border-right: 1px solid @border-gray-dark;
+						background: $bg-gray;
+						border-right: 1px solid $border-gray-dark;
 						vertical-align: top;
 						width: 34%;
-						border-top: 1px solid @border-gray;
+						border-top: 1px solid $border-gray;
 						padding-left: 12px;
 
 						span.label {
@@ -640,8 +640,8 @@
 
 								td {
 									&.label {
-										background-color: @bg-gray-light;
-										border-right: 1px solid @border-gray;
+										background-color: $bg-gray-light;
+										border-right: 1px solid $border-gray;
 										width: 35%;
 
 										span {
@@ -652,7 +652,7 @@
 
 									&.input {
 										width: 65%;
-										border-color: @border-gray;
+										border-color: $border-gray;
 									}
 								}
 
@@ -669,7 +669,9 @@
 
 				&.column-label {
 					input {
-						.placeholder({ color: #9a9a9a; });
+						@include placeholder{
+							color: #9a9a9a;
+						}
 					}
 				}
 
@@ -762,7 +764,7 @@
 
 				&.column_action {
 					td {
-						border-top: 1px solid lighten(@border-gray-dark, 4);
+						border-top: 1px solid lighten($border-gray-dark, 4);
 
 						p {
 							margin: 0;
@@ -801,17 +803,13 @@
 				// custom field
 				&.column_field {
 					td {
-						border-top: 1px solid @border-gray-dark;
+						border-top: 1px solid $border-gray-dark;
 					}
-				}
-
-				&:first-child td {
-					border-top: none;
 				}
 
 				&.section {
 					> td {
-						border-top: 1px solid @border-gray-dark;
+						border-top: 1px solid $border-gray-dark;
 					}
 					&.radio td.label label {
 						padding: 0;
@@ -850,8 +848,8 @@
 
 		// header
 		.column-meta {
-			background-color: @bg-gray-dark;
-			border-color: @border-gray-darker;
+			background-color: $bg-gray-dark;
+			border-color: $border-gray-darker;
 
 			&:hover {
 				.column_label .inner > a.close-button {
@@ -898,8 +896,8 @@
 
 		// form
 		.column-form {
-			border: 1px solid @border-gray-darker;
-			border-top: 1px solid lighten(@border-gray-darker, 3);
+			border: 1px solid $border-gray-darker;
+			border-top: 1px solid lighten($border-gray-darker, 3);
 		}
 	}
 }
@@ -942,13 +940,13 @@
 			vertical-align: top;
 
 			&.clear-columns {
-				color: @red;
+				color: $red;
 				text-decoration: none;
 				margin-right: 8px;
 				margin-top: 5px;
 
 				&:hover {
-					color: @red-light;
+					color: $red-light;
 				}
 			}
 		}
@@ -963,7 +961,7 @@
 .columns-right {
 	.sidebox {
 		background: none repeat scroll 0 0 #FFFFFF;
-		border: 1px solid @border-gray-dark;
+		border: 1px solid $border-gray-dark;
 		border-radius: 0 0 0 0;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		position: relative;
@@ -1036,7 +1034,7 @@
 			}
 			.reset-column-type {
 				text-decoration: none;
-				color: @red;
+				color: $red;
 				line-height: 25px;
 				display: inline-block;
 				background: none;
@@ -1047,7 +1045,7 @@
 				margin: 0;
 
 				&:hover {
-					color: @red-light;
+					color: $red-light;
 				}
 			}
 			.form-update {

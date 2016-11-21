@@ -2,8 +2,8 @@
 	font-family: "cpac_icons";
 	src: url('../fonts/cpac_icons.woff') format('woff');
 }
-@font-icons : "cpac_icons";
-[class^="cpacicon-"], [class*=" cpacicon-"], .icon {
+$font-icons : "cpac_icons";
+[class^="icon-"], [class*=" icon-"] {
 	font-family: 'cpac_icons';
 	speak: none;
 	font-style: normal;
@@ -21,10 +21,18 @@
 	}
 }
 
-@icon-move : "\";
-.cpacicon-move:before {
-	content: @icon-move;
+$icon-move : "\";
+.icon-move:before {
+	content: $icon-move;
 }
 
+
 /* Dynamic variables */
-@icon-move : "\";
+$icon-move : "\";
+
+
+
+@mixin iconfont() {
+	font-family: 'cpac_icons';
+	font-size: 100%;
+}
