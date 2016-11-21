@@ -218,7 +218,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				'type'  => 'message',
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-					'<strong>' . $this->get_clean_type_label( $column ) . '</strong>'
+					'<strong>' . $column->settings()->type->get_clean_type_label() . '</strong>'
 				),
 			) );
 		}
@@ -649,61 +649,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
-	 *
-	 * @return string
-	 */
-	private function get_clean_type_label( AC_Column $column ) {
-
-		$label = $column->settings()->get_value( 'label' );
-
-		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
-		if ( $column->is_original() ) {
-			$label = $column->get_original_label();
-		}
-
-		if ( empty( $label ) ) {
-			$label = $column->get_label();
-		}
-
-		if ( 0 === strlen( strip_tags( $label ) ) ) {
-			$label = $column->get_type();
-		}
-
-		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
-	}
-
-	/**
-	 * @param AC_ListScreenAbstract $list_screen
-	 *
-	 * @return mixed|void
-	 */
-	// TODO: move to AC_Settings_Field_Label
-	public function get_grouped_columns() {
-		$grouped = array();
-
-		foreach ( $this->list_screen->get_column_types() as $type => $class ) {
-			$column = new $class;
-			$group = $column->get_group();
-
-			if ( ! isset( $grouped[ $group ] ) ) {
-				$grouped[ $group ]['title'] = $group;
-			}
-
-			// Labels with html will be replaced by the it's name.
-			$grouped[ $group ]['options'][ $type ] = $this->get_clean_type_label( $column );
-
-			if ( ! $column->is_original() ) {
-				natcasesort( $grouped[ $group ]['options'] );
-			}
-		}
-
-		krsort( $grouped );
-
-		return apply_filters( 'cac/grouped_columns', $grouped, $this );
-	}
-
-	/**
 	 * @since 2.0
 	 */
 	private function display_column( AC_Column $column ) {
@@ -778,7 +723,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					<?php
 
 					$setting = new AC_Settings_Setting_Type( $column );
-					$setting->options = $this->get_grouped_columns();
 
 					echo $setting;
 
@@ -799,7 +743,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					echo $setting;
 
-					exit;
+					//exit;
 
 					// todo: override default, how to solve
 					// isset, defaults on construct, get_setting

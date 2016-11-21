@@ -55,22 +55,4 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
 	}
 
-	/**
-	 * @param AC_Column $column
-	 */
-	public function register_column_type( AC_Column $column ) {
-		$column->set_post_type( $this->post_type );
-
-		parent::register_column_type( $column );
-	}
-
-	/**
-	 * @param AC_Column $column
-	 */
-	public function register_column( AC_Column $column ) {
-		$column->set_post_type( $this->post_type );
-
-		parent::register_column( $column );
-	}
-
 }

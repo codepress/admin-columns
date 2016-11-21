@@ -37,19 +37,14 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
-	 * @var string Post type
-	 */
-	private $post_type;
-
-	/**
-	 * @var string Taxonomy
-	 */
-	private $taxonomy;
-
-	/**
 	 * @var AC_Settings_Column
 	 */
 	private $settings;
+
+	/**
+	 * @var AC_ListScreenAbstract
+	 */
+	protected $list_screen;
 
 	/**
 	 * @since 2.0
@@ -94,6 +89,24 @@ abstract class AC_Column {
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;
+
+		return $this;
+	}
+
+	/**
+	 * @return AC_ListScreenAbstract
+	 */
+	public function get_list_screen() {
+		return $this->list_screen;
+	}
+
+	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 *
+	 * @return $this
+	 */
+	public function set_list_screen( AC_ListScreenAbstract $list_screen ) {
+		$this->list_screen = $list_screen;
 
 		return $this;
 	}
@@ -158,36 +171,14 @@ abstract class AC_Column {
 	 * @return string Post type
 	 */
 	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	/**
-	 * @param string $post_type Post type
-	 *
-	 * @return $this
-	 */
-	public function set_post_type( $post_type ) {
-		$this->post_type = $post_type;
-
-		return $this;
+		 return method_exists( $this->list_screen, 'get_post_type' ) ? $this->list_screen->get_post_type() : false;
 	}
 
 	/**
 	 * @return string Taxonomy
 	 */
 	public function get_taxonomy() {
-		return $this->taxonomy;
-	}
-
-	/**
-	 * @param string $taxonomy Taxonomy
-	 *
-	 * @return $this
-	 */
-	public function set_taxonomy( $taxonomy ) {
-		$this->taxonomy = $taxonomy;
-
-		return $this;
+		return method_exists( $this->list_screen, 'get_taxonomy' ) ? $this->list_screen->get_taxonomy() : false;
 	}
 
 	/**
@@ -224,11 +215,9 @@ abstract class AC_Column {
 	 * @return $this
 	 */
 	public function set_original_label( $original_label ) {
-		if ( $this->is_original() ) {
-			return false;
+		if ( ! $this->is_original() ) {
+			$this->original_label = $original_label;
 		}
-
-		$this->original_label = $original_label;
 
 		return $this;
 	}

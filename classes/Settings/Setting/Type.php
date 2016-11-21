@@ -7,9 +7,6 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	 */
 	private $type;
 
-	// todo: remove once column has a list screen
-	public $options;
-
 	public function __construct( AC_Column $column ) {
 		$this->type = $column->get_type();
 
@@ -20,9 +17,66 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 		$this->properties = array( 'type' );
 	}
 
+	/**
+	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
+	 *
+	 * @return string
+	 */
+	private function get_clean_type_label() {
+
+		$label = $this->column->settings()->get_option( 'label' );
+
+		// todo: refactor, is now part of the column and needs to be tested used to come from the LS
+		if ( $this->column->is_original() ) {
+			$label = $this->column->get_original_label();
+		}
+
+		if ( empty( $label ) ) {
+			$label = $this->column->get_label();
+		}
+
+		if ( 0 === strlen( strip_tags( $label ) ) ) {
+			$label = $this->column->get_type();
+		}
+
+		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
+	}
+
+	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 *
+	 * @return mixed|void
+	 */
+	private function get_grouped_columns() {
+		$grouped = array();
+
+		foreach ( $this->column->get_list_screen()->get_column_types() as $type => $class ) {
+
+			/* @var AC_Column $column */
+			$column = new $class;
+			$group = $column->get_group();
+
+			if ( ! isset( $grouped[ $group ] ) ) {
+				$grouped[ $group ]['title'] = $group;
+			}
+
+			// Labels with html will be replaced by the it's name.
+			$grouped[ $group ]['options'][ $type ] = $this->get_clean_type_label();
+
+			if ( ! $column->is_original() ) {
+				natcasesort( $grouped[ $group ]['options'] );
+			}
+		}
+
+		krsort( $grouped );
+
+		return apply_filters( 'cac/grouped_columns', $grouped, $this );
+	}
+
 	public function view() {
+
 		$setting = $this->create_element( 'type', 'select' )
-		                ->set_options( $this->options ); // todo: remove once column has list screen
+		                ->set_options( $this->get_grouped_columns() ); // todo: remove once column has list screen
 
 		$view = new AC_Settings_View();
 		$view->set( 'settings', $setting )

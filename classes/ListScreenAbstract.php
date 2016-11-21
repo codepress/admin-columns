@@ -498,10 +498,11 @@ abstract class AC_ListScreenAbstract {
 			return false;
 		}
 
-        /* @var AC_Column $column */
+		/* @var AC_Column $column */
 		$column = new $class();
 
-		$column->set_type( $settings['type'] )
+		$column->set_list_screen( $this )
+		       ->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] );
 
 		$column->settings()->set_options( $settings );
