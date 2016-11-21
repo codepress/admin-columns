@@ -1,4 +1,4 @@
-x3<?php
+<?php
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
