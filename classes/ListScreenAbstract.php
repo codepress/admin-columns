@@ -374,7 +374,7 @@ abstract class AC_ListScreenAbstract {
 	 *
 	 * @return string|false
 	 */
-	// todo: refactor, is now part of the column and needs to be tested
+	// todo: refactor, is now part of the column and needs to be tested or LS needs to be added to col (prob. better)
 	public function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_headings();
 

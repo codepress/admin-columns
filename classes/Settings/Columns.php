@@ -1,5 +1,6 @@
 <?php
 
+// todo: refactor this into a proper object with good DI
 final class AC_Settings_Columns {
 
 	CONST OPTIONS_KEY = 'cpac_options_';
@@ -14,7 +15,10 @@ final class AC_Settings_Columns {
 	 */
 	private $columns;
 
+	// todo: just give the list screen instead (calling a helper later on is rather weird)
 	public function __construct( $list_screen_key ) {
+		// todo: lazy loading breaks this object; self::$columns should be filled on load
+
 		$this->list_screen_key = $list_screen_key;
 	}
 
@@ -36,7 +40,11 @@ final class AC_Settings_Columns {
 	private function set_columns() {
 		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
 
-		$this->columns = (array) apply_filters( 'ac/column_settings', $options ? $options : array(), AC()->get_list_screen( $this->list_screen_key ) );
+		if ( ! $options ) {
+			$options = array();
+		}
+
+		$this->columns = apply_filters( 'ac/column_settings', $options, AC()->get_list_screen( $this->list_screen_key ) );
 	}
 
 	/**
@@ -61,10 +69,6 @@ final class AC_Settings_Columns {
 		return isset( $options[ $name ] ) ? $options[ $name ] : false;
 	}
 
-	public function delete() {
-		delete_option( self::OPTIONS_KEY . $this->get_key() );
-	}
-
 	// Default headings
 	private function get_default_key() {
 		return self::OPTIONS_KEY . $this->list_screen_key . "__default";
@@ -83,14 +87,23 @@ final class AC_Settings_Columns {
 		return $headings ? $headings : array();
 	}
 
-	public function delete_default_headings() {
-		delete_option( $this->get_default_key() );
+	public function delete() {
+		delete_option( self::OPTIONS_KEY . $this->get_key() );
 	}
 
 	public static function delete_all() {
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '" . self::OPTIONS_KEY . "%'" );
+		$sql = '
+			DELETE
+			FROM $wpdb->options
+			WHERE option_name LIKE %s';
+
+		$wpdb->query( $wpdb->prepare( $sql, self::OPTIONS_KEY . '%' ) );
+	}
+
+	public function delete_default_headings() {
+		delete_option( $this->get_default_key() );
 	}
 
 }

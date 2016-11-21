@@ -594,9 +594,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 							<?php
+
 							foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
+
 							?>
 						</form>
 
@@ -708,9 +710,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		?>
 
 		<div class="cpac-column cpac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
-			<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
-			<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-			<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -768,10 +767,20 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.column-meta-->
 
 			<div class="column-form">
+
+				<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
+				<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
+				<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
+
 				<table class="widefat">
 					<tbody>
 
 					<?php
+
+					$setting = new AC_Settings_Setting_Type( $column );
+					$setting->options = $this->get_grouped_columns();
+
+					echo $setting;
 
 					$setting = new AC_Settings_Setting_Image( $column );
 

@@ -24,15 +24,13 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	function __construct() {
-
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$this->tabs = new AC_Admin_Tabs();
-		$this->tabs
-			->register_tab( new AC_Admin_Tab_Columns() )
-			->register_tab( new AC_Admin_Tab_Settings() )
-			->register_tab( new AC_Admin_Tab_Addons() );
+		$this->tabs->register_tab( new AC_Admin_Tab_Columns() )
+		           ->register_tab( new AC_Admin_Tab_Settings() )
+		           ->register_tab( new AC_Admin_Tab_Addons() );
 	}
 
 	/**
