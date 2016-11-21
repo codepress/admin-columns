@@ -38,7 +38,7 @@ $description = $this->description ? 'description' : '';
 
 			<?php
 
-			if ( $this->sections ) {
+			if ( is_array( $this->sections ) ) {
 				foreach ( $this->sections as $section ) {
 					echo $section;
 				}
