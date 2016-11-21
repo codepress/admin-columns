@@ -30,18 +30,18 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		             ->set_options( $this->get_grouped_image_sizes() );
 
 		$width = new AC_Settings_View();
-		$width->set( 'settings', $this->create_element( 'image_size_w', 'number' ) )
+		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )
 		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 		      ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
 		$height = new AC_Settings_View();
-		$height->set( 'settings', $this->create_element( 'image_size_h', 'number' ) )
+		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 		       ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
-		     ->set( 'element', $size )
+		     ->set( 'setting', $size )
 		     ->set( 'sections', array( $width, $height ) );
 
 		return $view;

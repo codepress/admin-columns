@@ -33,7 +33,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		             ->set_options( $this->get_valid_width_units() );
 
 		$section = new AC_Settings_View();
-		$section->set_template( 'settings-width' )
+		$section->set_template( 'setting-width' )
 		        ->set( 'width', $width )
 		        ->set( 'width_unit', $unit );
 
