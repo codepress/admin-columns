@@ -8,7 +8,7 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="<?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
+<table class="widefat <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
 	<tr>
 		<td class="label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
@@ -29,9 +29,9 @@ $description = $this->description ? 'description' : '';
 				<?php endif; ?>
 			</label>
 		</td>
-		<td>
+		<td class="settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="cpac_form_element">
+				<div class="setting">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>
