@@ -23,7 +23,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function get_field_key() {
-		$field = $this->settings()->get_option( 'field' );
+		$field = $this->s()->get_option( 'field' );
 
 		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
 	}
@@ -278,8 +278,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	public function get_meta_keys() {
 		if ( $cache = wp_cache_get( $this->get_cache_key(), 'cac_columns' ) ) {
 			$keys = $cache;
-		}
-		else {
+		} else {
 			$keys = $this->get_meta();
 
 			wp_cache_add( $this->get_cache_key(), $keys, 'cac_columns', 12 ); // 12 sec.
@@ -287,8 +286,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
 			$keys = false;
-		}
-		else {
+		} else {
 			foreach ( $keys as $k => $key ) {
 
 				// give hidden keys a prefix
@@ -341,8 +339,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
+				} else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -355,6 +352,20 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 	public function settings() {
 		$settings = parent::settings();
+
+		$setting = new AC_Settings_Setting_Type( $column );
+		$setting->options = $this->get_grouped_columns();
+
+		$this->settings()
+		     ->add( new AC_Settings_Setting_Image( $this ) )
+		     ->add( new AC_Settings_Setting_Width( $this ) );
+
+		$setting = new AC_Settings_Setting_Width( $column );
+
+		$setting = new AC_Settings_Setting_BeforeAfter( $column );
+
+		$setting = new AC_Settings_Setting_WordLimit( $column );
+		$setting->set_default( 20 );
 
 		//$settings->add_field( new AC_Settings_Field_Label );
 
@@ -380,8 +391,6 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 
 		//$settings->add_field( new AC_Settings_Field_BeforeAfter() );
 		//$settings->add_field( $field );
-
-
 
 		return $settings;
 	}

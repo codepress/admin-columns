@@ -249,7 +249,7 @@ final class AC_ListScreenManager {
 
 		// Store default headings
 		if ( ! $this->is_doing_ajax() ) {
-			$settings->store_default_headings( $columns );
+			$settings->save_default_headings( $columns );
 		}
 
 		// Run once

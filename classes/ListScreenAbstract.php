@@ -285,7 +285,7 @@ abstract class AC_ListScreenAbstract {
 	 */
 	public function settings() {
 		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings_Columns( $this->key );
+			$this->settings = new AC_Settings_ListScreen( $this );
 		}
 
 		return $this->settings;

@@ -3,6 +3,13 @@
 abstract class AC_Settings_SettingAbstract {
 
 	/**
+	 * A (short) unique reference to this setting
+	 *
+	 * @var string
+	 */
+	protected $id;
+
+	/**
 	 * @var AC_Column
 	 */
 	protected $column;
@@ -20,6 +27,7 @@ abstract class AC_Settings_SettingAbstract {
 	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 
+		$this->set_id();
 		$this->set_properties();
 		$this->load_settings();
 	}
@@ -27,7 +35,7 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * Create a string representation of this setting
 	 *
-	 * @return AC_Settings_ViewAbstract
+	 * @return AC_Settings_View
 	 */
 	public abstract function view();
 
@@ -41,7 +49,7 @@ abstract class AC_Settings_SettingAbstract {
 		return ! empty( $this->properties );
 	}
 
-	protected function has_property( $property ) {
+	public function has_property( $property ) {
 		return in_array( $property, $this->properties );
 	}
 
@@ -57,7 +65,7 @@ abstract class AC_Settings_SettingAbstract {
 	 * Add an element to this setting
 	 *
 	 * @param string $name
-	 * @param sting $type
+	 * @param string $type
 	 *
 	 * @return AC_Settings_Form_ElementAbstract
 	 */
@@ -89,6 +97,15 @@ abstract class AC_Settings_SettingAbstract {
 		return $element;
 	}
 
+	/**
+	 * Get value of this setting, optionally specified with a key
+	 *
+	 * Will return the value of the default property
+	 *
+	 * @param string|null $property
+	 *
+	 * @return string|array|int|bool
+	 */
 	public function get_value( $property = null ) {
 		if ( null === $property ) {
 			$property = $this->get_default_property();
@@ -103,7 +120,34 @@ abstract class AC_Settings_SettingAbstract {
 		return $this->$method();
 	}
 
-	private function set_value( $property, $value ) {
+	/**
+	 * Return the value of all properties
+	 *
+	 * @return array
+	 */
+	public function get_values() {
+		$values = array();
+
+		foreach ( $this->properties as $property ) {
+			$values[ $property ] = $this->get_value( $property );
+		}
+
+		return $values;
+	}
+
+	/**
+	 * Set value of a property
+	 *
+	 * @param string|array|int|bool $value
+	 * @param string $property
+	 *
+	 * @return $this
+	 */
+	private function set_value( $value, $property = null ) {
+		if ( null === $property ) {
+			$property = $this->get_default_property();
+		}
+
 		$method = 'set_' . $property;
 
 		if ( method_exists( $this, $method ) ) {
@@ -116,7 +160,7 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * Set a default value unless property is loaded from settings
 	 *
-	 * @param $value
+	 * @param string|array|int|bool $value
 	 * @param string $property
 	 *
 	 * @return $this
@@ -134,23 +178,32 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	/**
-	 * Retrieve setting for an element
+	 * Check if a property is user set
 	 *
-	 * @param string $name
+	 * @param string|null $property
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	private function get_setting( $name ) {
-		return $this->column->settings()->get_option( $name );
+	private function is_user_set( $property = null ) {
+		if ( null === $property ) {
+			$property = $this->get_default_property();
+		}
+
+		return $this->has_property( $property ) && null !== $this->get_setting( $property );
 	}
 
 	/**
-	 * Check if a property is user set
+	 * Retrieve setting for an element
 	 *
 	 * @param string $property
+	 *
+	 * @return string
 	 */
-	private function is_user_set( $property ) {
-		return $this->has_property( $property ) && null !== $this->get_setting( $property );
+	private function get_setting( $property ) {
+		// todo: make this work!
+		//return $this->column->settings()->get_option( $property );
+
+		return $property;
 	}
 
 	/**
@@ -165,6 +218,33 @@ abstract class AC_Settings_SettingAbstract {
 				$this->set_value( $property, $setting );
 			}
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
+	 * By default it will generate the id, overwrite to hardcode it
+	 *
+	 * @return $this
+	 */
+	protected function set_id() {
+		$r = new ReflectionClass( $this );
+		$id = $r->getShortName();
+
+		// get shortname for prefix syntax
+		if ( false !== strpos( $id, '_' ) ) {
+			$id = substr( strchr( $id, '_' ), 1 );
+		}
+
+		// convert CamelCase to snake_case
+		$this->id = strtolower( preg_replace( '/([a-z])([A-Z]+)/', '$1_$2', $id ) );
+
+		return $this;
 	}
 
 	public function __toString() {

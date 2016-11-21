@@ -3,76 +3,70 @@
 class AC_Settings_Column {
 
 	/**
-	 * @var AC_Settings_FieldAbstract[]
+	 * @var AC_Settings_SettingAbstract[]
 	 */
-	private $fields;
+	private $settings = array();
 
 	/**
-	 * @var AC_Column
-	 */
-	public $column;
-
-	/**
+	 * Stored options for this columns
+	 *
 	 * @var array
 	 */
-	private $options;
+	private $options = array();
 
-	/**
-	 * AC_Settings_Column constructor.
-	 *
-	 * @param AC_Column $column
-	 */
-	public function __construct( AC_Column $column ) {
-		$this->column = $column;
-	}
-
-	/**
-	 * @param AC_Settings_FieldAbstract $field
-	 */
-	public function add_field( AC_Settings_FieldAbstract $field ) {
-
-		// TODO: remove column reference from field
-		//$field->set_column( $this->column );
-
-		// TODO: maybe add settings reference to field. Use settings to display field value in column.
-
-		$field->set_settings( $this );
-
-		$this->fields[ $field->get_type() ] = $field;
+	public function add( AC_Settings_SettingAbstract $setting ) {
+		$this->settings[ $setting->get_id() ] = $setting;
 
 		return $this;
 	}
 
 	/**
-	 * @param string $type
+	 * @param $id
 	 *
-	 * @return AC_Settings_FieldAbstract|false
+	 * @return AC_Settings_SettingAbstract|false
 	 */
-	public function get_field( $type ) {
-		return isset( $this->fields[ $type ] ) ? $this->fields[ $type ] : false;
+	public function get( $id ) {
+		return isset( $this->settings[ $id ] ) ? $this->settings[ $id ] : false;
 	}
 
 	/**
-	 * @return AC_Settings_FieldAbstract[]
+	 * Magic accessor for self::$settings
+	 *
+	 * @param string $id
+	 *
+	 * @return AC_Settings_SettingAbstract|false
 	 */
-	public function get_fields() {
-		return $this->fields;
+	public function __get( $id ) {
+		return $this->get( $id );
 	}
 
-	/**
-	 * Display HTML column settings
-	 */
-	public function display() {
-		foreach ( (array) $this->fields as $field ) {
-			$field->display();
+	public function get_all() {
+		return $this->settings;
+	}
+
+	public function render() {
+		$views = array();
+
+		foreach ( $this->settings as $setting ) {
+			$views[] = $setting->view()->render();
 		}
+
+		return implode( "\n", array_filter( $views ) );
 	}
 
 	/**
-	 * @param array $options
+	 * @param string $field_type (e.g. label, width, type, before_after )
+	 *
+	 * @return bool
 	 */
-	public function set_options( $options ) {
-		$this->options = $options;
+	public function get_value( $property ) {
+		foreach ( $this->settings as $setting ) {
+			if ( $setting->has_property( $property ) ) {
+				return $setting->get_value( $property );
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -87,31 +81,10 @@ class AC_Settings_Column {
 	 *
 	 * @return $this
 	 */
-	public function set_option( $key, $value ) {
-		$this->options[ $key ] = $value;
+	public function set_options( $options ) {
+		$this->options = $options;
 
 		return $this;
-	}
-
-	/**
-	 * Get a single column option
-	 *
-	 * @since 2.3.4
-	 * @return string|false Single column option
-	 */
-	public function get_option( $name ) {
-		return isset( $this->options[ $name ] ) ? $this->options[ $name ] : null;
-	}
-
-	/**
-	 * @param string $field_type (e.g. label, width, type, before_after )
-	 *
-	 * @return bool
-	 */
-	public function get_value( $field_type ) {
-		$field = $this->get_field( $field_type );
-
-		return $field ? $field->get_value() : false;
 	}
 
 }
