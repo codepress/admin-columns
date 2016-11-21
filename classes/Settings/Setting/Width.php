@@ -28,14 +28,14 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		             ->add_class( 'unit' )
 		             ->set_options( $this->get_valid_width_units() );
 
-		$settings = new AC_Settings_View();
-		$settings->set_template( 'settings-width' )
-		         ->set( 'width', $width )
-		         ->set( 'width_unit', $unit );
+		$section = new AC_Settings_View();
+		$section->set_template( 'settings-width' )
+		        ->set( 'width', $width )
+		        ->set( 'width_unit', $unit );
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
-		     ->set( 'settings', $settings );
+		     ->set( 'sections', array( $section ) );
 
 		return $view;
 	}

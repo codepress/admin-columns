@@ -12,9 +12,9 @@ $description = $this->description ? 'description' : '';
 	<tr>
 		<td class="label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
-					<span class="label <?php echo esc_attr( $description ); ?>">
-						<?php echo $this->label; ?>
-					</span>
+				<span class="label <?php echo esc_attr( $description ); ?>">
+					<?php echo $this->label; ?>
+				</span>
 
 				<?php if ( $this->description ) : ?>
 					<span class="description">
@@ -29,23 +29,19 @@ $description = $this->description ? 'description' : '';
 				<?php endif; ?>
 			</label>
 		</td>
-		<td class="input">
+		<td>
+			<?php if ( $this->setting ) : ?>
+				<div class="cpac_form_element">
+					<?php echo $this->setting; ?>
+				</div>
+			<?php endif; ?>
+
 			<?php
 
-			if ( ! is_array( $this->settings ) ) {
-				$this->settings = array( $this->settings );
-			}
-
-			foreach ( $this->settings as $setting ) {
-				if ( $setting instanceof AC_Settings_Form_ElementAbstract ) {
-					echo '<div class="cpac_form_element">';
-					echo $setting;
-					echo '</div>';
+			if ( $this->sections ) {
+				foreach ( $this->sections as $section ) {
+					echo $section;
 				}
-				else {
-					echo $setting;
-				}
-
 			}
 
 			?>

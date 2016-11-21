@@ -174,7 +174,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return $this
 	 */
-	public function set_option_default( $value, $option = null ) {
+	public function set_default( $value, $option = null ) {
 		if ( null === $option ) {
 			$option = $this->get_managed_option();
 		}
@@ -223,21 +223,12 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	/**
-	 * By default it will generate the id, overwrite to hardcode it
+	 * By default it will use the first managed option
 	 *
 	 * @return $this
 	 */
 	protected function set_id() {
-		$r = new ReflectionClass( $this );
-		$id = $r->getShortName();
-
-		// get shortname for prefix syntax
-		if ( false !== strpos( $id, '_' ) ) {
-			$id = substr( strchr( $id, '_' ), 1 );
-		}
-
-		// convert CamelCase to snake_case
-		$this->id = strtolower( preg_replace( '/([a-z])([A-Z]+)/', '$1_$2', $id ) );
+		$this->id = $this->get_managed_option();
 
 		return $this;
 	}
