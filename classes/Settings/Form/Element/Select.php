@@ -19,13 +19,11 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 				continue;
 			}
 
-			$attributes = array();
+			$attributes['key'] = $key;
 
 			if ( selected( $key, $this->get_value(), false ) ) {
 				$attributes['selected'] = 'selected';
 			}
-
-			$attributes['key'] = $key;
 
 			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $option ) );
 		}
