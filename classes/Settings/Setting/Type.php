@@ -17,6 +17,18 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'type' );
 	}
 
+	public function view() {
+		$type = $this->create_element( 'type', 'select' )
+		             ->set_options( $this->get_grouped_columns() ); // todo: remove once column has list screen
+
+		$view = new AC_Settings_View();
+		$view->set( 'setting', $type )
+		     ->set( 'label', __( 'Type', 'codepress-admin-columns' ) )
+		     ->set( 'description', __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>' );
+
+		return $view;
+	}
+
 	/**
 	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
 	 *
@@ -66,18 +78,6 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 		krsort( $grouped );
 
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
-	}
-
-	public function view() {
-		$type = $this->create_element( 'type', 'select' )
-		             ->set_options( $this->get_grouped_columns() ); // todo: remove once column has list screen
-
-		$view = new AC_Settings_View();
-		$view->set( 'setting', $type )
-		     ->set( 'label', __( 'Type', 'codepress-admin-columns' ) )
-		     ->set( 'description', __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>' );
-
-		return $view;
 	}
 
 	/**
