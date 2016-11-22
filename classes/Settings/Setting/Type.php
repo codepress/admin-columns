@@ -8,9 +8,9 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	private $type;
 
 	public function __construct( AC_Column $column ) {
-		$this->type = $column->get_type();
-
 		parent::__construct( $column );
+
+		$this->set_default( $column->get_type() );
 	}
 
 	protected function set_managed_options() {

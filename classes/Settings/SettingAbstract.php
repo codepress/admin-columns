@@ -10,16 +10,16 @@ abstract class AC_Settings_SettingAbstract {
 	protected $id;
 
 	/**
-	 * @var AC_Column
-	 */
-	protected $column;
-
-	/**
 	 * The options this field manages
 	 *
 	 * @var array
 	 */
 	protected $managed_options = array();
+
+	/**
+	 * @var AC_Column
+	 */
+	protected $column;
 
 	/**
 	 * @param AC_Column $column

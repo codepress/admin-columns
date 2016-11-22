@@ -19,9 +19,10 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 				continue;
 			}
 
+			$attributes = array();
 			$attributes['key'] = $key;
 
-			if ( selected( $key, $this->get_value(), false ) ) {
+			if ( selected( $this->get_value(), $key, false ) ) {
 				$attributes['selected'] = 'selected';
 			}
 
