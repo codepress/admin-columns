@@ -29,14 +29,18 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$size = $this->create_element( 'image_size', 'select' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 
+		$event = new AC_Settings_Form_Event( 'toggle', $size->get_id(), 'cpac_custom' );
+
 		$width = new AC_Settings_View();
 		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )
 		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
+		      ->set( 'events', $event->to_json() )
 		      ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
 		$height = new AC_Settings_View();
 		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
+		       ->set( 'events', $event->to_json() )
 		       ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
 		$view = new AC_Settings_View();

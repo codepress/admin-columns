@@ -295,13 +295,8 @@ abstract class AC_Column {
 		     ->add_setting( new AC_Settings_Setting_Label( $this ) )
 		     ->add_setting( new AC_Settings_Setting_Width( $this ) );
 
-		// todo: checkup prev branch
-		//$this->settings
-		//->add_field( new AC_Settings_Field_Label )
-		//->add_field( new AC_Settings_Field_Width )
-		//->add_field( new AC_Settings_Field_BeforeAfter() );
-
-		//return $this->settings;
+		// test
+		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
 	/**

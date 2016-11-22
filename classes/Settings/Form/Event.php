@@ -1,23 +1,30 @@
 <?php
 
-class AC_Settings_Form_Events {
+class AC_Settings_Form_Event {
 
-	private $events = array();
+	/**
+	 * @var string
+	 */
+	private $target;
 
-	public function add( $type, $id, $value ) {
-		$this->events[] = array(
-			'type' => $type,
-			'id' => $id,
-			'value' => $value,
-		);
-	}
+	/**
+	 * @var string|bool|int
+	 */
+	private $value;
 
-	public function get() {
-		return $this->events;
+	/**
+	 * @var string
+	 */
+	private $type;
+
+	public function __construct( $type, $target = null, $value = null ) {
+		$this->type = $type;
+		$this->target = $target;
+		$this->value = $value;
 	}
 
 	public function to_json() {
-		return json_encode( $this->events );
+		return json_encode( get_object_vars( $this ) );
 	}
 
 }
