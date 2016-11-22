@@ -174,9 +174,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 */
 	private function get_column_display( AC_Column $column ) {
 		// Set label
-		if ( ! $column->settings()->get_value( 'label' ) ) {
-			$column->settings()->set_option( 'label', $column->get_label() );
-		}
+		// TODO
+		//if ( ! $column->settings()->get_value( 'label' ) ) {
+		//	$column->settings()->set_option( 'label', $column->get_label() );
+		//}
 
 		ob_start();
 		$this->display_column( $column );
@@ -219,7 +220,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 
-				// TODO: works?
+					// TODO: works?
 					'<strong>' . $column->get_setting( 'type' )->get_clean_type_label() . '</strong>'
 				),
 			) );
@@ -715,9 +716,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 			<div class="column-form">
 
-				<input type="hidden" class="column-name" name="<?php $column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
-				<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-				<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
+				<input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
+				<input type="hidden" class="type" name="<?php // $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
+				<input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
 				<table class="widefat">
 					<tbody>

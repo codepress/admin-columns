@@ -22,6 +22,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	 *
 	 * @return string
 	 */
+	// TODO: remove?
 	public function get_clean_type_label( AC_Column $column ) {
 		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
 

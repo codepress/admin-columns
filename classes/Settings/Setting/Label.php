@@ -7,6 +7,13 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 	 */
 	private $label;
 
+	public function __construct( AC_Column $column ) {
+
+		$this->label = $column->get_label() . '__Default';
+
+		parent::__construct( $column );
+	}
+
 	public function set_id() {
 		$this->id = 'label';
 	}
@@ -26,7 +33,7 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 		}
 
 		$label = $this->create_element( 'label' )
-		              ->set_attribute( 'placeholder', $this->column->get_type() );
+		              ->set_attribute( 'placeholder', $this->column->get_label() );
 
 		$view->set( 'setting', $label )
 		     ->set( 'label', __( 'Label', 'codepress-admin-columns' ) )

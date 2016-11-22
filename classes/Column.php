@@ -291,8 +291,11 @@ abstract class AC_Column {
 	 * Register settings
 	 */
 	protected function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_Type( $this ) );
-		$this->add_setting( new AC_Settings_Setting_Label( $this ) );
+		//$this->add_setting( new AC_Settings_Setting_Type( $this ) );
+
+		$label = new AC_Settings_Setting_Label( $this );
+
+		$this->add_setting( $label );
 		$this->add_setting( new AC_Settings_Setting_Width( $this ) );
 
 
@@ -303,6 +306,17 @@ abstract class AC_Column {
 		//->add_field( new AC_Settings_Field_BeforeAfter() );
 
 		//return $this->settings;
+	}
+
+	/**
+	 * @param string $option_name
+	 *
+	 * @return bool|string
+	 */
+	public function get_option( $option_name ) {
+		$values = $this->get_list_screen()->settings()->get_setting( $this->get_name() );
+
+		return isset( $values[ $option_name ] ) ? $values[ $option_name ] : false;
 	}
 
 
@@ -338,8 +352,9 @@ abstract class AC_Column {
 			$value = $display_value;
 		}
 
+		// TODO
 		if ( is_scalar( $value ) ) {
-			$value = $this->settings()->get_option( 'before' ) . $value . $this->settings()->get_option( 'after' );
+			//$value = $this->settings()->get_option( 'before' ) . $value . $this->settings()->get_option( 'after' );
 		}
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this );
