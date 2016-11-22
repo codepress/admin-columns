@@ -719,7 +719,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<input type="hidden" class="type" name="<?php $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 				<input type="hidden" class="clone" name="<?php $column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
-				<div class="cpac_column_settings">
+				<div class="cpac-column-settings">
 
 					<?php
 
@@ -836,10 +836,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 */
 					//do_action( 'cac/column/settings_after', $column );
 					?>
-					<table class="cpac_column_setting actions">
+					<table class="cpac-column-setting actions">
 						<tr>
-							<td class="col_label"></td>
-							<td class="col_settings">
+							<td class="col-label"></td>
+							<td class="col-settings">
 								<p>
 									<a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 									<?php if ( ! $column->is_original() ) : ?>

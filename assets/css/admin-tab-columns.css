@@ -148,22 +148,22 @@
  * Column
  * ----------------------------------------------------------------------------
  */
-.cpac_column_setting {
+.cpac-column-setting {
   width: 100%;
   clear: both;
   border-spacing: 0;
   margin: 0;
   border-top: 1px solid #e8e8e8; }
-  .cpac_column_setting:first-child {
+  .cpac-column-setting:first-child {
     border-top: 0; }
-  .cpac_column_setting tr.hide {
+  .cpac-column-setting tr.hide {
     display: none; }
-  .cpac_column_setting tr td {
+  .cpac-column-setting tr td {
     vertical-align: top;
     border: none;
     padding: 0;
     background: #fff; }
-  .cpac_column_setting td.col_label {
+  .cpac-column-setting td.col-label {
     position: relative;
     line-height: 26px;
     overflow: visible;
@@ -172,12 +172,12 @@
     width: 34%;
     padding: 10px;
     padding-left: 12px; }
-    .cpac_column_setting td.col_label span.label {
+    .cpac-column-setting td.col-label span.label {
       font-weight: bold;
       display: block;
       color: #333333;
       font-style: normal; }
-    .cpac_column_setting td.col_label div.description {
+    .cpac-column-setting td.col-label div.description {
       font-size: 12px;
       font-style: normal;
       line-height: 16px;
@@ -194,26 +194,26 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       padding: .618em 1em;
       border-radius: 3px; }
-      .cpac_column_setting td.col_label div.description em {
+      .cpac-column-setting td.col-label div.description em {
         margin-top: 3px;
         display: block;
         color: #999; }
-  .cpac_column_setting .cpac_form_input {
+  .cpac-column-setting .cpac-settings-input {
     padding: 10px; }
-    .cpac_column_setting .cpac_form_input select, .cpac_column_setting .cpac_form_input input {
+    .cpac-column-setting .cpac-settings-input select, .cpac-column-setting .cpac-settings-input input {
       width: 99.95%; }
-  .cpac_column_setting .cpac_column_setting td.col_label {
+  .cpac-column-setting .cpac-column-setting td.col_label {
     background-color: #fcfcfc; }
-    .cpac_column_setting .cpac_column_setting td.col_label .label {
+    .cpac-column-setting .cpac-column-setting td.col_label .label {
       font-size: 12px;
       color: #595959; }
-  .cpac_column_setting.actions .col_settings p {
+  .cpac-column-setting.actions .col-settings p {
     padding-left: 10px; }
-  .cpac_column_setting.actions .col_settings a {
+  .cpac-column-setting.actions .col-settings a {
     text-decoration: none; }
-    .cpac_column_setting.actions .col_settings a.close-button, .cpac_column_setting.actions .col_settings a.clone-button {
+    .cpac-column-setting.actions .col-settings a.close-button, .cpac-column-setting.actions .col-settings a.clone-button {
       margin-right: 10px; }
-    .cpac_column_setting.actions .col_settings a.remove-button {
+    .cpac-column-setting.actions .col-settings a.remove-button {
       color: #a00;
       text-decoration: none;
       text-shadow: none;
@@ -221,21 +221,21 @@
       font-size: 12px;
       padding: 0 5px;
       margin-right: 5px; }
-      .cpac_column_setting.actions .col_settings a.remove-button:hover {
+      .cpac-column-setting.actions .col-settings a.remove-button:hover {
         color: #fff;
         background: #f00; }
 
-.cpac_form_input_width {
+.cpac-settings-input-width {
   position: relative; }
-  .cpac_form_input_width input[type=radio] {
+  .cpac-settings-input-width input[type=radio] {
     width: auto; }
-  .cpac_form_input_width div.description {
+  .cpac-settings-input-width div.description {
     font-size: 12px;
     width: 54px;
     position: absolute;
     top: 13px;
     left: 10px; }
-    .cpac_form_input_width div.description input {
+    .cpac-settings-input-width div.description input {
       background: #efefef;
       border: none;
       height: 20px;
@@ -243,24 +243,24 @@
       text-align: right;
       width: 36px;
       font-size: 12px; }
-  .cpac_form_input_width div.width-slider {
+  .cpac-settings-input-width div.width-slider {
     margin-left: 62px;
     margin-right: 94px;
     position: relative;
     margin-top: 8px; }
-    .cpac_form_input_width div.width-slider .ui-slider-handle {
+    .cpac-settings-input-width div.width-slider .ui-slider-handle {
       cursor: ew-resize; }
-  .cpac_form_input_width div.unit-select {
+  .cpac-settings-input-width div.unit-select {
     position: absolute;
     top: 13px;
     right: 10px;
     width: 82px;
     text-align: right; }
-    .cpac_form_input_width div.unit-select .radio-labels {
+    .cpac-settings-input-width div.unit-select .radio-labels {
       padding: 0; }
-      .cpac_form_input_width div.unit-select .radio-labels label {
+      .cpac-settings-input-width div.unit-select .radio-labels label {
         margin-right: 4px; }
-        .cpac_form_input_width div.unit-select .radio-labels label input {
+        .cpac-settings-input-width div.unit-select .radio-labels label input {
           margin-right: 2px; }
 
 .cpac-column .column-meta {

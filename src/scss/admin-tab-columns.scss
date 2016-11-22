@@ -217,7 +217,7 @@
 	//display: block !important;
 }
 
-.cpac_column_setting {
+.cpac-column-setting {
 	width: 100%;
 	clear: both;
 	border-spacing: 0;
@@ -240,7 +240,7 @@
 		}
 	}
 
-	td.col_label {
+	td.col-label {
 		position: relative;
 		line-height: 26px;
 		overflow: visible;
@@ -283,7 +283,7 @@
 		}
 	}
 
-	.cpac_form_input {
+	.cpac-settings-input {
 		padding: 10px;
 
 		select, input {
@@ -292,7 +292,7 @@
 	}
 
 	//Sub Setting
-	.cpac_column_setting {
+	.cpac-column-setting {
 		td.col_label {
 			background-color: $bg-gray-light;
 			.label {
@@ -303,7 +303,7 @@
 	}
 
 	&.actions {
-		.col_settings {
+		.col-settings {
 			p {
 				padding-left: 10px;
 			}
@@ -335,7 +335,7 @@
 
 }
 
-.cpac_form_input_width {
+.cpac-settings-input-width {
 	position: relative;
 
 	input[type=radio] {

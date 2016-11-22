@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="cpac_form_input cpac_form_input_width">
-<div class="description">
-	<?php echo $this->width; ?>
-	<span class="unit"><?php echo esc_html( $this->width_unit->get_value() ); ?></span>
-</div>
-<div class="width-slider"></div>
+<div class="cpac-settings-input cpac-settings-input-width">
+	<div class="description">
+		<?php echo $this->width; ?>
+		<span class="unit"><?php echo esc_html( $this->width_unit->get_value() ); ?></span>
+	</div>
+	<div class="width-slider"></div>
 
-<div class="unit-select">
-	<?php echo $this->width_unit; ?>
-</div>
+	<div class="unit-select">
+		<?php echo $this->width_unit; ?>
+	</div>
 </div>

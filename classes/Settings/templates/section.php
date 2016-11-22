@@ -8,9 +8,9 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="cpac_column_setting <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
+<table class="cpac-column-setting <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
 	<tr>
-		<td class="col_label">
+		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
 				<span class="label <?php echo esc_attr( $description ); ?>">
 					<?php echo $this->label; ?>
@@ -29,9 +29,9 @@ $description = $this->description ? 'description' : '';
 				<?php endif; ?>
 			</label>
 		</td>
-		<td class="col_settings">
+		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="cpac_form_input">
+				<div class="cpac-settings-input">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>
