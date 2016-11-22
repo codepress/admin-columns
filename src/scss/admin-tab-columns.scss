@@ -367,7 +367,7 @@
 			vertical-align: middle;
 			border: 1px solid #dedede;
 			border-left: none;
-			//border-radius: 0 3px 3px 0;
+			color: #505050;
 		}
 	}
 	div.width-slider {
@@ -508,6 +508,7 @@
 									margin-left: 4px;
 
 									&.width {
+										//float: left;
 										margin-right: 3px;
 										cursor: auto;
 										color: #737373;

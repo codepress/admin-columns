@@ -453,8 +453,8 @@ function cpac_reset_columns( $ ) {
 		// indicator
 		var width_indicator = column.find( '.column-meta span.width' );
 		width_indicator.on( 'update', function() {
-			var _width = column.find( 'input.width' ).val();
-			var _unit = column.find( 'input.unit' ).filter( ':checked' ).val();
+			var _width = column.find( '.ac-settings-input-width .description input' ).val();
+			var _unit = column.find( '.ac-settings-input-width .description .unit' ).text();
 			if ( _width > 0 ) {
 				$( this ).text( _width + _unit );
 			} else {
