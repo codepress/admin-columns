@@ -27,8 +27,8 @@ abstract class AC_Settings_SettingAbstract {
 	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 
-		$this->set_id();
 		$this->set_managed_options();
+		$this->set_id();
 		$this->load_options();
 	}
 
