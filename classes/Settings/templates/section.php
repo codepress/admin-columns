@@ -5,10 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $description = $this->description ? 'description' : '';
+$type = $this->type ? esc_attr( 'ac-columns-setting-' . $this->type ) : '';
 
 ?>
 
-<table class="ac-column-setting <?php echo esc_attr( $this->class ); ?>" data-listener='<?php echo $this->listener; ?>'>
+<table class="ac-column-setting <?php echo $type; ?>"'>
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
