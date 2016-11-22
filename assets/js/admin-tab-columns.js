@@ -366,7 +366,7 @@ function cpac_reset_columns( $ ) {
 		// Current column type
 		var default_value = column.find( '.column-type select option:selected' ).val();
 
-		column.find( '[data-column-type-select]' ).change( function() {
+		column.find( '[data-refresh="column"]' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
 			var msg = $( this ).next( '.msg' ).hide();
@@ -413,7 +413,7 @@ function cpac_reset_columns( $ ) {
 							el.addClass( 'opened' ).find( '.column-form' ).show();
 
 							// trigger refresh
-							if ( el.find( '*[data-refresh=1]' ).length > 0 ) {
+							if ( el.find( '[data-refresh=1]' ).length > 0 ) {
 								el.cpac_column_refresh();
 							}
 
