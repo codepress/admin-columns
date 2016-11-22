@@ -25,6 +25,8 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 				$attributes['selected'] = 'selected';
 			}
 
+			$attributes['key'] = $key;
+
 			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $option ) );
 		}
 

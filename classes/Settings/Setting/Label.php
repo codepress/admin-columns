@@ -14,10 +14,6 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 		parent::__construct( $column );
 	}
 
-	public function set_id() {
-		$this->id = 'label';
-	}
-
 	protected function set_managed_options() {
 		$this->managed_options = array( 'label' );
 	}
