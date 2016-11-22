@@ -366,7 +366,7 @@ function cpac_reset_columns( $ ) {
 		// Current column type
 		var default_value = column.find( '.column-type select option:selected' ).val();
 
-		column.find( '.column-type select' ).change( function() {
+		column.find( '.ac-column-setting.column-type select' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
 			var msg = $( this ).next( '.msg' ).hide();
@@ -511,7 +511,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// refresh column and re-bind all events
-		column.find( '[data-refresh="1"] select' ).change( function() {
+		column.find( '[data-refresh="1"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
 	};
