@@ -46,7 +46,7 @@ function cpac_submit_form( $ ) {
 
 		var $button = $( this );
 		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
-		var columns_data = $container.find( '.cpac-columns form' ).serialize();
+		var columns_data = $container.find( '.ac-columns form' ).serialize();
 		var $msg = $container.find( '.ajax-message' );
 
 		$save_buttons.attr( 'disabled', 'disabled' );
@@ -112,7 +112,7 @@ function cpac_add_column( $ ) {
 	$( '.add_column' ).click( function( e ) {
 		e.preventDefault();
 
-		var clone = $( '#add-new-column-template' ).find( '.cpac-column' ).clone();
+		var clone = $( '#add-new-column-template' ).find( '.ac-column' ).clone();
 
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
 		clone.cpac_update_clone_id( cpac.list_screen );
@@ -125,7 +125,7 @@ function cpac_add_column( $ ) {
 		} );
 
 		// add to DOM
-		$( '.cpac-columns form' ).append( clone );
+		$( '.ac-columns form' ).append( clone );
 
 		// refresh column
 		clone.cpac_column_refresh();
@@ -160,21 +160,21 @@ function cpac_sidebar_feedback( $ ) {
 function cpac_init( $ ) {
 
 	var container = $( '.columns-container' );
-	var boxes = container.find( '.cpac-boxes' );
+	var boxes = container.find( '.ac-boxes' );
 
 	// Written for PHP Export
 	if ( boxes.hasClass( 'disabled' ) ) {
-		boxes.find( '.cpac-column' ).each( function( i, col ) {
+		boxes.find( '.ac-column' ).each( function( i, col ) {
 			$( col ).column_bind_toggle();
 			$( col ).find( 'input, select' ).prop( 'disabled', true );
 		} );
 	}
 
 	else {
-		var columns = boxes.find( '.cpac-columns' );
+		var columns = boxes.find( '.ac-columns' );
 
 		// we start by binding the toggle and remove events.
-		columns.find( '.cpac-column' ).each( function( i, col ) {
+		columns.find( '.ac-column' ).each( function( i, col ) {
 			$( col ).column_bind_toggle();
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
@@ -212,7 +212,7 @@ function cpac_reset_columns( $ ) {
 	var $container = $( '.columns-container' );
 
 	$( 'a[data-clear-columns]' ).on( 'click', function() {
-		$container.find( '.cpac-column' ).each( function() {
+		$container.find( '.ac-column' ).each( function() {
 			$( this ).find( '.remove-button' ).trigger( 'click' );
 		} );
 	} );
@@ -235,7 +235,7 @@ function cpac_reset_columns( $ ) {
 	$.fn.column_bind_toggle = function() {
 
 		var column = $( this );
-		var is_disabled = column.closest( 'cpac-boxes' ).hasClass( 'disabled' );
+		var is_disabled = column.closest( 'ac-boxes' ).hasClass( 'disabled' );
 
 		column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button, td.column_label .close-button, tr.column_action .close-button' ).click( function( e ) {
 			e.preventDefault();
@@ -264,7 +264,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_bind_remove = function() {
 		$( this ).find( '.remove-button' ).click( function( e ) {
-			$( this ).closest( '.cpac-column' ).column_remove();
+			$( this ).closest( '.ac-column' ).column_remove();
 
 			e.preventDefault();
 		} );
@@ -279,7 +279,7 @@ function cpac_reset_columns( $ ) {
 		$( this ).find( '.clone-button' ).click( function( e ) {
 			e.preventDefault();
 
-			var column = $( this ).closest( '.cpac-column' );
+			var column = $( this ).closest( '.ac-column' );
 			var clone = column.column_clone();
 
 			if ( typeof clone !== 'undefined' ) {
@@ -373,7 +373,7 @@ function cpac_reset_columns( $ ) {
 			var $select = $( this );
 
 			var original_columns = [];
-			container.find( '.cpac-column[data-original=1]' ).each( function() {
+			container.find( '.ac-column[data-original=1]' ).each( function() {
 				original_columns.push( $( this ).data( 'type' ) );
 			} );
 
@@ -396,7 +396,7 @@ function cpac_reset_columns( $ ) {
 					if ( response ) {
 
 						if ( response.success ) {
-							var el = column.closest( '.cpac-column' );
+							var el = column.closest( '.ac-column' );
 
 							// Replace current form by new form
 							var newel = $( '<div>' + response.data + '</div>' ).children();
@@ -442,7 +442,7 @@ function cpac_reset_columns( $ ) {
 		/** change label */
 		column.find( '.column-form .column-label .input input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
-			$( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
+			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
 
 		/** width */
@@ -522,7 +522,7 @@ function cpac_reset_columns( $ ) {
 	 * @returns {HTMLElement}
 	 */
 	$.fn.show_hide_custom_image_size = function() {
-		var custom_image_size = $( this ).closest( '.cpac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
+		var custom_image_size = $( this ).closest( '.ac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
 		if ( 'cpac-custom' === $( this ).val() ) {
 			custom_image_size.removeClass( 'hide' );
 		}
@@ -587,7 +587,7 @@ function cpac_reset_columns( $ ) {
 
 		var container = $( this ).closest( '.columns-container' );
 		var column = $( this );
-		var columns = $( this ).closest( 'cpac-columns' );
+		var columns = $( this ).closest( 'ac-columns' );
 
 		if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
 			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
@@ -630,7 +630,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 
 		var type = el.attr( 'data-type' );
-		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.cpac-columns' );
+		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.ac-columns' );
 		var columns = $( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
 
 		// get clone ID
@@ -696,7 +696,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$( document ).bind( 'column_init column_change column_add', function( e, column ) {
 
-		var is_disabled = $( column ).closest( '.cpac-boxes' ).hasClass( 'disabled' );
+		var is_disabled = $( column ).closest( '.ac-boxes' ).hasClass( 'disabled' );
 
 		if ( is_disabled ) {
 			return;
@@ -795,7 +795,7 @@ function cpac_reset_columns( $ ) {
 			}
 			else {
 				$( this ).sortable( {
-					items : '.cpac-column'
+					items : '.ac-column'
 				} );
 			}
 		} );

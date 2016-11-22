@@ -291,11 +291,8 @@ abstract class AC_Column {
 	 * Register settings
 	 */
 	protected function register_settings() {
-		//$this->add_setting( new AC_Settings_Setting_Type( $this ) );
-
-		$label = new AC_Settings_Setting_Label( $this );
-
-		$this->add_setting( $label );
+		$this->add_setting( new AC_Settings_Setting_Type( $this ) );
+		$this->add_setting( new AC_Settings_Setting_Label( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Width( $this ) );
 
 
@@ -311,12 +308,12 @@ abstract class AC_Column {
 	/**
 	 * @param string $option_name
 	 *
-	 * @return bool|string
+	 * @return null|string|bool
 	 */
 	public function get_option( $option_name ) {
 		$values = $this->get_list_screen()->settings()->get_setting( $this->get_name() );
 
-		return isset( $values[ $option_name ] ) ? $values[ $option_name ] : false;
+		return isset( $values[ $option_name ] ) ? $values[ $option_name ] : null;
 	}
 
 

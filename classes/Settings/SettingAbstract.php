@@ -209,7 +209,7 @@ abstract class AC_Settings_SettingAbstract {
 		foreach ( $this->managed_options as $managed_option ) {
 			$value = $this->column->get_option( $managed_option );
 
-			if ( $value ) {
+			if ( null !== $value ) {
 				$this->set_option( $value, $managed_option );
 			}
 		}

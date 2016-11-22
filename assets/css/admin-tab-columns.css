@@ -35,11 +35,11 @@
  * Dashicons used on list screens
  * ----------------------------------------------------------------------------
  */
-.cpac-column .comment-grey-bubble {
+.ac-column .comment-grey-bubble {
   height: 16px;
   width: 16px; }
 
-.cpac-column .comment-grey-bubble:before {
+.ac-column .comment-grey-bubble:before {
   content: '\f101';
   font: normal 20px/.5 'dashicons';
   speak: none;
@@ -53,7 +53,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none !important; }
 
-.rtl .cpac-column .comment-grey-bubble:before {
+.rtl .ac-column .comment-grey-bubble:before {
   right: 0;
   left: auto; }
 
@@ -121,49 +121,49 @@
   margin-bottom: 15px;
   padding: 1px 12px; }
 
-.columns-left .cpac-boxes .cpac-columns form {
+.columns-left .ac-boxes .ac-columns form {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin: 0; }
 
-.columns-left .cpac-boxes.disabled {
+.columns-left .ac-boxes.disabled {
   opacity: 0.7; }
-  .columns-left .cpac-boxes.disabled a.remove-button,
-  .columns-left .cpac-boxes.disabled a.clone-button,
-  .columns-left .cpac-boxes.disabled .column_action {
+  .columns-left .ac-boxes.disabled a.remove-button,
+  .columns-left .ac-boxes.disabled a.clone-button,
+  .columns-left .ac-boxes.disabled .column_action {
     display: none !important; }
-  .columns-left .cpac-boxes.disabled .column-meta td.column_sort {
+  .columns-left .ac-boxes.disabled .column-meta td.column_sort {
     display: none; }
-  .columns-left .cpac-boxes.disabled .column-meta td.column_label {
+  .columns-left .ac-boxes.disabled .column-meta td.column_label {
     padding-left: 10px; }
-  .columns-left .cpac-boxes.disabled .meta span {
+  .columns-left .ac-boxes.disabled .meta span {
     cursor: default !important; }
-    .columns-left .cpac-boxes.disabled .meta span:before {
+    .columns-left .ac-boxes.disabled .meta span:before {
       color: #808080 !important; }
-    .columns-left .cpac-boxes.disabled .meta span.off {
+    .columns-left .ac-boxes.disabled .meta span.off {
       opacity: 0.5; }
-  .columns-left .cpac-boxes.disabled .column-footer {
+  .columns-left .ac-boxes.disabled .column-footer {
     display: none; }
 
 /**
  * Column
  * ----------------------------------------------------------------------------
  */
-.cpac-column-setting {
+.ac-column-setting {
   width: 100%;
   clear: both;
   border-spacing: 0;
   margin: 0;
   border-top: 1px solid #e8e8e8; }
-  .cpac-column-setting:first-child {
+  .ac-column-setting:first-child {
     border-top: 0; }
-  .cpac-column-setting tr.hide {
+  .ac-column-setting tr.hide {
     display: none; }
-  .cpac-column-setting tr td {
+  .ac-column-setting tr td {
     vertical-align: top;
     border: none;
     padding: 0;
     background: #fff; }
-  .cpac-column-setting td.col-label {
+  .ac-column-setting td.col-label {
     position: relative;
     line-height: 26px;
     overflow: visible;
@@ -172,12 +172,12 @@
     width: 34%;
     padding: 10px;
     padding-left: 12px; }
-    .cpac-column-setting td.col-label span.label {
+    .ac-column-setting td.col-label span.label {
       font-weight: bold;
       display: block;
       color: #333333;
       font-style: normal; }
-    .cpac-column-setting td.col-label div.description {
+    .ac-column-setting td.col-label div.description {
       font-size: 12px;
       font-style: normal;
       line-height: 16px;
@@ -194,26 +194,26 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       padding: .618em 1em;
       border-radius: 3px; }
-      .cpac-column-setting td.col-label div.description em {
+      .ac-column-setting td.col-label div.description em {
         margin-top: 3px;
         display: block;
         color: #999; }
-  .cpac-column-setting .cpac-settings-input {
+  .ac-column-setting .ac-settings-input {
     padding: 10px; }
-    .cpac-column-setting .cpac-settings-input select, .cpac-column-setting .cpac-settings-input input {
+    .ac-column-setting .ac-settings-input select, .ac-column-setting .ac-settings-input input {
       width: 99.95%; }
-  .cpac-column-setting .cpac-column-setting td.col_label {
+  .ac-column-setting .ac-column-setting td.col_label {
     background-color: #fcfcfc; }
-    .cpac-column-setting .cpac-column-setting td.col_label .label {
+    .ac-column-setting .ac-column-setting td.col_label .label {
       font-size: 12px;
       color: #595959; }
-  .cpac-column-setting.actions .col-settings p {
+  .ac-column-setting.actions .col-settings p {
     padding-left: 10px; }
-  .cpac-column-setting.actions .col-settings a {
+  .ac-column-setting.actions .col-settings a {
     text-decoration: none; }
-    .cpac-column-setting.actions .col-settings a.close-button, .cpac-column-setting.actions .col-settings a.clone-button {
+    .ac-column-setting.actions .col-settings a.close-button, .ac-column-setting.actions .col-settings a.clone-button {
       margin-right: 10px; }
-    .cpac-column-setting.actions .col-settings a.remove-button {
+    .ac-column-setting.actions .col-settings a.remove-button {
       color: #a00;
       text-decoration: none;
       text-shadow: none;
@@ -221,21 +221,21 @@
       font-size: 12px;
       padding: 0 5px;
       margin-right: 5px; }
-      .cpac-column-setting.actions .col-settings a.remove-button:hover {
+      .ac-column-setting.actions .col-settings a.remove-button:hover {
         color: #fff;
         background: #f00; }
 
-.cpac-settings-input-width {
+.ac-settings-input-width {
   position: relative; }
-  .cpac-settings-input-width input[type=radio] {
+  .ac-settings-input-width input[type=radio] {
     width: auto; }
-  .cpac-settings-input-width div.description {
+  .ac-settings-input-width div.description {
     font-size: 12px;
     width: 54px;
     position: absolute;
     top: 13px;
     left: 10px; }
-    .cpac-settings-input-width div.description input {
+    .ac-settings-input-width div.description input {
       background: #efefef;
       border: none;
       height: 20px;
@@ -243,73 +243,73 @@
       text-align: right;
       width: 36px;
       font-size: 12px; }
-  .cpac-settings-input-width div.width-slider {
+  .ac-settings-input-width div.width-slider {
     margin-left: 62px;
     margin-right: 94px;
     position: relative;
     margin-top: 8px; }
-    .cpac-settings-input-width div.width-slider .ui-slider-handle {
+    .ac-settings-input-width div.width-slider .ui-slider-handle {
       cursor: ew-resize; }
-  .cpac-settings-input-width div.unit-select {
+  .ac-settings-input-width div.unit-select {
     position: absolute;
     top: 13px;
     right: 10px;
     width: 82px;
     text-align: right; }
-    .cpac-settings-input-width div.unit-select .radio-labels {
+    .ac-settings-input-width div.unit-select .radio-labels {
       padding: 0; }
-      .cpac-settings-input-width div.unit-select .radio-labels label {
+      .ac-settings-input-width div.unit-select .radio-labels label {
         margin-right: 4px; }
-        .cpac-settings-input-width div.unit-select .radio-labels label input {
+        .ac-settings-input-width div.unit-select .radio-labels label input {
           margin-right: 2px; }
 
-.cpac-column .column-meta {
+.ac-column .column-meta {
   border-style: solid;
   border-color: #dfdfdf;
   border-width: 1px 1px 0;
   background: #fcfcfc; }
-  .cpac-column .column-meta:nth-child(2n) .column-meta {
+  .ac-column .column-meta:nth-child(2n) .column-meta {
     background: #f9f9f9; }
-  .cpac-column .column-meta img {
+  .ac-column .column-meta img {
     margin-right: 3px; }
-  .cpac-column .column-meta table {
+  .ac-column .column-meta table {
     border: none;
     background: transparent;
     border-radius: 0; }
-    .cpac-column .column-meta table tr td {
+    .ac-column .column-meta table tr td {
       vertical-align: top;
       height: 18px;
       padding: 12px 8px;
       border-width: 1px 0 0;
       border-style: solid;
       border-color: transparent; }
-      .cpac-column .column-meta table tr td.column_sort {
+      .ac-column .column-meta table tr td.column_sort {
         position: relative;
         cursor: move;
         padding: 9px 16px; }
-        .cpac-column .column-meta table tr td.column_sort span.cpacicon-move {
+        .ac-column .column-meta table tr td.column_sort span.cpacicon-move {
           position: absolute;
           top: 12px;
           left: 12px;
           font-size: 22px;
           display: inline-block;
           color: #bdbdbd; }
-      .cpac-column .column-meta table tr td.column_label {
+      .ac-column .column-meta table tr td.column_label {
         width: 70%;
         font-weight: bold;
         vertical-align: middle;
         position: relative;
         padding: 15px 0; }
-        .cpac-column .column-meta table tr td.column_label .inner {
+        .ac-column .column-meta table tr td.column_label .inner {
           position: relative;
           overflow: hidden;
           height: 18px; }
-          .cpac-column .column-meta table tr td.column_label .inner > a {
+          .ac-column .column-meta table tr td.column_label .inner > a {
             color: #5a5a5a;
             padding: 0 4px; }
-            .cpac-column .column-meta table tr td.column_label .inner > a:hover {
+            .ac-column .column-meta table tr td.column_label .inner > a:hover {
               color: #333333; }
-            .cpac-column .column-meta table tr td.column_label .inner > a.edit-button, .cpac-column .column-meta table tr td.column_label .inner > a.close-button, .cpac-column .column-meta table tr td.column_label .inner > a.remove-button, .cpac-column .column-meta table tr td.column_label .inner > a.clone-button {
+            .ac-column .column-meta table tr td.column_label .inner > a.edit-button, .ac-column .column-meta table tr td.column_label .inner > a.close-button, .ac-column .column-meta table tr td.column_label .inner > a.remove-button, .ac-column .column-meta table tr td.column_label .inner > a.clone-button {
               display: none;
               color: #0074a2;
               text-decoration: none;
@@ -317,38 +317,38 @@
               font-weight: normal;
               margin-left: 5px;
               font-size: 12px; }
-              .cpac-column .column-meta table tr td.column_label .inner > a.edit-button:hover, .cpac-column .column-meta table tr td.column_label .inner > a.close-button:hover, .cpac-column .column-meta table tr td.column_label .inner > a.remove-button:hover, .cpac-column .column-meta table tr td.column_label .inner > a.clone-button:hover {
+              .ac-column .column-meta table tr td.column_label .inner > a.edit-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.close-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.remove-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.clone-button:hover {
                 color: #2ea2cc; }
-            .cpac-column .column-meta table tr td.column_label .inner > a.remove-button {
+            .ac-column .column-meta table tr td.column_label .inner > a.remove-button {
               color: #a00; }
-              .cpac-column .column-meta table tr td.column_label .inner > a.remove-button:hover {
+              .ac-column .column-meta table tr td.column_label .inner > a.remove-button:hover {
                 color: #f00; }
-          .cpac-column .column-meta table tr td.column_label .inner .meta {
+          .ac-column .column-meta table tr td.column_label .inner .meta {
             display: inline-block;
             float: right;
             font-weight: normal;
             color: #b2b2b2;
             font-size: 12px; }
-            .cpac-column .column-meta table tr td.column_label .inner .meta span {
+            .ac-column .column-meta table tr td.column_label .inner .meta span {
               cursor: pointer;
               margin-left: 4px; }
-              .cpac-column .column-meta table tr td.column_label .inner .meta span.width {
+              .ac-column .column-meta table tr td.column_label .inner .meta span.width {
                 margin-right: 3px;
                 cursor: auto;
                 color: #737373; }
-              .cpac-column .column-meta table tr td.column_label .inner .meta span.disabled {
+              .ac-column .column-meta table tr td.column_label .inner .meta span.disabled {
                 cursor: default; }
-              .cpac-column .column-meta table tr td.column_label .inner .meta span.on {
+              .ac-column .column-meta table tr td.column_label .inner .meta span.on {
                 color: #21759B; }
-        .cpac-column .column-meta table tr td.column_label span.vers {
+        .ac-column .column-meta table tr td.column_label span.vers {
           float: left; }
-      .cpac-column .column-meta table tr td.column_type {
+      .ac-column .column-meta table tr td.column_type {
         width: auto;
         min-width: 120px;
         text-align: right;
         color: #999999;
         padding-right: 0; }
-        .cpac-column .column-meta table tr td.column_type .inner {
+        .ac-column .column-meta table tr td.column_type .inner {
           display: inline-block;
           height: 18px;
           overflow: hidden;
@@ -356,15 +356,15 @@
           white-space: nowrap;
           width: 120px;
           vertical-align: middle; }
-          .cpac-column .column-meta table tr td.column_type .inner a {
+          .ac-column .column-meta table tr td.column_type .inner a {
             margin-top: 2px;
             color: #999999; }
-      .cpac-column .column-meta table tr td.column_edit {
+      .ac-column .column-meta table tr td.column_edit {
         width: 38px;
         min-width: 38px;
         text-align: center;
         cursor: pointer; }
-        .cpac-column .column-meta table tr td.column_edit:after {
+        .ac-column .column-meta table tr td.column_edit:after {
           right: 0;
           content: "\f140";
           font: normal 20px/1 dashicons;
@@ -378,56 +378,56 @@
           -moz-osx-font-smoothing: grayscale;
           text-decoration: none !important;
           color: #b4b9be; }
-    .cpac-column .column-meta table tr:hover td.column_sort span {
+    .ac-column .column-meta table tr:hover td.column_sort span {
       color: #9b9b9b; }
-  .cpac-column .column-meta:hover .column_label .inner > a.remove-button, .cpac-column .column-meta:hover .column_label .inner > a.edit-button, .cpac-column .column-meta:hover .column_label .inner > a.clone-button {
+  .ac-column .column-meta:hover .column_label .inner > a.remove-button, .ac-column .column-meta:hover .column_label .inner > a.edit-button, .ac-column .column-meta:hover .column_label .inner > a.clone-button {
     display: inline-block; }
-  .cpac-column .column-meta span.vers {
+  .ac-column .column-meta span.vers {
     padding-top: 2px; }
-    .cpac-column .column-meta span.vers .comment-grey-bubble {
+    .ac-column .column-meta span.vers .comment-grey-bubble {
       float: right; }
 
-.cpac-column .column-form {
+.ac-column .column-form {
   display: none;
   border-width: 1px 1px 0;
   border-style: solid;
   border-color: #dfdfdf;
   position: relative; }
-  .cpac-column .column-form > tables tr.hide {
+  .ac-column .column-form > tables tr.hide {
     display: none; }
-  .cpac-column .column-form > tables tr.radio > td.input > label {
+  .ac-column .column-form > tables tr.radio > td.input > label {
     padding-left: 0;
     padding-right: 14px; }
-  .cpac-column .column-form > tables tr td {
+  .ac-column .column-form > tables tr td {
     vertical-align: top;
     border: none;
     padding: 10px 10px;
     background: #ffffff;
     border-top: 1px solid #f5f5f5; }
-    .cpac-column .column-form > tables tr td input {
+    .ac-column .column-form > tables tr td input {
       margin: 0; }
-    .cpac-column .column-form > tables tr td select,
-    .cpac-column .column-form > tables tr td input[type=text],
-    .cpac-column .column-form > tables tr td input[type=number] {
+    .ac-column .column-form > tables tr td select,
+    .ac-column .column-form > tables tr td input[type=text],
+    .ac-column .column-form > tables tr td input[type=number] {
       width: 99.95%; }
-      .cpac-column .column-form > tables tr td select.small,
-      .cpac-column .column-form > tables tr td input[type=text].small,
-      .cpac-column .column-form > tables tr td input[type=number].small {
+      .ac-column .column-form > tables tr td select.small,
+      .ac-column .column-form > tables tr td input[type=text].small,
+      .ac-column .column-form > tables tr td input[type=number].small {
         width: 100px; }
-    .cpac-column .column-form > tables tr td select {
+    .ac-column .column-form > tables tr td select {
       margin: 0; }
-    .cpac-column .column-form > tables tr td div.radio-labels {
+    .ac-column .column-form > tables tr td div.radio-labels {
       padding: 3px 0; }
-      .cpac-column .column-form > tables tr td div.radio-labels label {
+      .ac-column .column-form > tables tr td div.radio-labels label {
         margin-right: 14px; }
-        .cpac-column .column-form > tables tr td div.radio-labels label input[type=radio] {
+        .ac-column .column-form > tables tr td div.radio-labels label input[type=radio] {
           margin: -3px 2px 0 0; }
-    .cpac-column .column-form > tables tr td span.suffix {
+    .ac-column .column-form > tables tr td span.suffix {
       line-height: 40px;
       color: #808080; }
-    .cpac-column .column-form > tables tr td select optgroup:nth-child(2n) {
+    .ac-column .column-form > tables tr td select optgroup:nth-child(2n) {
       background: #F9F9F9; }
-    .cpac-column .column-form > tables tr td.label {
+    .ac-column .column-form > tables tr td.label {
       position: relative;
       overflow: visible;
       background: #f5f5f5;
@@ -436,29 +436,29 @@
       width: 34%;
       border-top: 1px solid #e8e8e8;
       padding-left: 12px; }
-      .cpac-column .column-form > tables tr td.label span.label {
+      .ac-column .column-form > tables tr td.label span.label {
         font-weight: bold;
         color: #333333;
         display: block;
         position: relative;
         line-height: 26px; }
-      .cpac-column .column-form > tables tr td.label a.more-link {
+      .ac-column .column-form > tables tr td.label a.more-link {
         position: absolute;
         right: 14px;
         top: 14px;
         display: inline-block; }
-        .cpac-column .column-form > tables tr td.label a.more-link span {
+        .ac-column .column-form > tables tr td.label a.more-link span {
           color: #ccc; }
-        .cpac-column .column-form > tables tr td.label a.more-link:hover span {
+        .ac-column .column-form > tables tr td.label a.more-link:hover span {
           color: #808080; }
-      .cpac-column .column-form > tables tr td.label p {
+      .ac-column .column-form > tables tr td.label p {
         color: #666666;
         display: block;
         font-size: 12px;
         font-style: normal;
         line-height: 16px;
         margin: 0 !important; }
-        .cpac-column .column-form > tables tr td.label p.description {
+        .ac-column .column-form > tables tr td.label p.description {
           display: none;
           position: absolute;
           max-width: 200px;
@@ -471,18 +471,18 @@
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
           padding: .618em 1em;
           border-radius: 3px; }
-          .cpac-column .column-form > tables tr td.label p.description em {
+          .ac-column .column-form > tables tr td.label p.description em {
             margin-top: 3px;
             display: block;
             color: #999; }
-      .cpac-column .column-form > tables tr td.label .info {
+      .ac-column .column-form > tables tr td.label .info {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: 1; }
-        .cpac-column .column-form > tables tr td.label .info:before {
+        .ac-column .column-form > tables tr td.label .info:before {
           position: absolute;
           z-index: 1;
           right: 10px;
@@ -494,7 +494,7 @@
           border: 1px solid #E6E6E6;
           width: 12px;
           height: 12px; }
-        .cpac-column .column-form > tables tr td.label .info:after {
+        .ac-column .column-form > tables tr td.label .info:after {
           position: absolute;
           z-index: 1;
           right: 10px;
@@ -509,9 +509,9 @@
           text-align: center;
           vertical-align: middle;
           line-height: 14px; }
-    .cpac-column .column-form > tables tr td.input {
+    .ac-column .column-form > tables tr td.input {
       vertical-align: top; }
-      .cpac-column .column-form > tables tr td.input div.msg {
+      .ac-column .column-form > tables tr td.input div.msg {
         margin-top: 5px;
         display: none;
         color: #333;
@@ -521,47 +521,47 @@
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px; }
-      .cpac-column .column-form > tables tr td.input .help-msg {
+      .ac-column .column-form > tables tr td.input .help-msg {
         margin: 10px 0 0;
         color: #666;
         font-size: 12px; }
-      .cpac-column .column-form > tables tr td.input .section {
+      .ac-column .column-form > tables tr td.input .section {
         padding: 12px; }
-      .cpac-column .column-form > tables tr td.input.nopadding {
+      .ac-column .column-form > tables tr td.input.nopadding {
         padding: 0; }
-      .cpac-column .column-form > tables tr td.input table {
+      .ac-column .column-form > tables tr td.input table {
         width: 100%;
         border: none; }
-        .cpac-column .column-form > tables tr td.input table tr td.label {
+        .ac-column .column-form > tables tr td.input table tr td.label {
           background-color: #fcfcfc;
           border-right: 1px solid #e8e8e8;
           width: 35%; }
-          .cpac-column .column-form > tables tr td.input table tr td.label span {
+          .ac-column .column-form > tables tr td.input table tr td.label span {
             color: #595959;
             font-size: 12px; }
-        .cpac-column .column-form > tables tr td.input table tr td.input {
+        .ac-column .column-form > tables tr td.input table tr td.input {
           width: 65%;
           border-color: #e8e8e8; }
-        .cpac-column .column-form > tables tr td.input table tr.full td {
+        .ac-column .column-form > tables tr td.input table tr.full td {
           width: 100%;
           height: 29px; }
-  .cpac-column .column-form > tables tr.column-label input ::-webkit-input-placeholder {
+  .ac-column .column-form > tables tr.column-label input ::-webkit-input-placeholder {
     color: #9a9a9a; }
-  .cpac-column .column-form > tables tr.column-label input :-moz-placeholder {
+  .ac-column .column-form > tables tr.column-label input :-moz-placeholder {
     color: #9a9a9a; }
-  .cpac-column .column-form > tables tr.column-label input ::-moz-placeholder {
+  .ac-column .column-form > tables tr.column-label input ::-moz-placeholder {
     color: #9a9a9a; }
-  .cpac-column .column-form > tables tr.column-label input :-ms-input-placeholder {
+  .ac-column .column-form > tables tr.column-label input :-ms-input-placeholder {
     color: #9a9a9a; }
-  .cpac-column .column-form > tables tr.column-width .input {
+  .ac-column .column-form > tables tr.column-width .input {
     position: relative; }
-    .cpac-column .column-form > tables tr.column-width .input div.description {
+    .ac-column .column-form > tables tr.column-width .input div.description {
       font-size: 12px;
       width: 54px;
       position: absolute;
       top: 13px;
       left: 10px; }
-      .cpac-column .column-form > tables tr.column-width .input div.description input {
+      .ac-column .column-form > tables tr.column-width .input div.description input {
         background: #efefef;
         border: none;
         height: 20px;
@@ -569,53 +569,53 @@
         text-align: right;
         width: 36px;
         font-size: 12px; }
-    .cpac-column .column-form > tables tr.column-width .input div.width-slider {
+    .ac-column .column-form > tables tr.column-width .input div.width-slider {
       margin-left: 62px;
       margin-right: 94px;
       position: relative;
       margin-top: 8px; }
-      .cpac-column .column-form > tables tr.column-width .input div.width-slider .ui-slider-handle {
+      .ac-column .column-form > tables tr.column-width .input div.width-slider .ui-slider-handle {
         cursor: ew-resize; }
-    .cpac-column .column-form > tables tr.column-width .input div.unit-select {
+    .ac-column .column-form > tables tr.column-width .input div.unit-select {
       position: absolute;
       top: 13px;
       right: 10px;
       width: 82px;
       text-align: right; }
-      .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels {
+      .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels {
         padding: 0; }
-        .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label {
+        .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label {
           margin-right: 4px; }
-          .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label input {
+          .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label input {
             margin-right: 2px; }
-  .cpac-column .column-form > tables tr.column_image_size {
+  .ac-column .column-form > tables tr.column_image_size {
     border: 10px solid red; }
-    .cpac-column .column-form > tables tr.column_image_size td.input label.custom-size {
+    .ac-column .column-form > tables tr.column_image_size td.input label.custom-size {
       display: inline-block;
       margin-top: 4px;
       margin-bottom: 4px; }
-    .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size {
+    .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size {
       display: inline-block; }
-      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .hidden {
+      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .hidden {
         display: none; }
-      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w,
-      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h {
+      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w,
+      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h {
         margin: 0; }
-        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
-        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
+        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
+        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
           display: none; }
-        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
-        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
+        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
+        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
           margin-right: 3px;
           width: 40px !important; }
-  .cpac-column .column-form > tables tr.column_action td {
+  .ac-column .column-form > tables tr.column_action td {
     border-top: 1px solid #e9e9e9; }
-    .cpac-column .column-form > tables tr.column_action td p {
+    .ac-column .column-form > tables tr.column_action td p {
       margin: 0;
       line-height: 2; }
-      .cpac-column .column-form > tables tr.column_action td p a.close-button, .cpac-column .column-form > tables tr.column_action td p a.clone-button {
+      .ac-column .column-form > tables tr.column_action td p a.close-button, .ac-column .column-form > tables tr.column_action td p a.clone-button {
         margin-right: 10px; }
-      .cpac-column .column-form > tables tr.column_action td p a.remove-button {
+      .ac-column .column-form > tables tr.column_action td p a.remove-button {
         color: #a00;
         text-decoration: none;
         text-shadow: none;
@@ -623,17 +623,17 @@
         font-size: 12px;
         padding: 0 5px;
         margin-right: 5px; }
-        .cpac-column .column-form > tables tr.column_action td p a.remove-button:hover {
+        .ac-column .column-form > tables tr.column_action td p a.remove-button:hover {
           color: #fff;
           background: #f00; }
-  .cpac-column .column-form > tables tr.column_field td {
+  .ac-column .column-form > tables tr.column_field td {
     border-top: 1px solid #dedede; }
-  .cpac-column .column-form > tables tr.section > td {
+  .ac-column .column-form > tables tr.section > td {
     border-top: 1px solid #dedede; }
-  .cpac-column .column-form > tables tr.section.radio td.label label {
+  .ac-column .column-form > tables tr.section.radio td.label label {
     padding: 0; }
 
-.cpac-column.loading .column-form > .spinner {
+.ac-column.loading .column-form > .spinner {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -642,7 +642,7 @@
   margin-top: -10px;
   display: block; }
 
-.cpac-column.loading .column-form:before {
+.ac-column.loading .column-form:before {
   content: '';
   position: absolute;
   width: 100%;
@@ -651,34 +651,34 @@
   z-index: 100;
   opacity: 0.5; }
 
-.cpac-column.opened {
+.ac-column.opened {
   margin-bottom: -1px; }
-  .cpac-column.opened .column-meta {
+  .ac-column.opened .column-meta {
     background-color: #eaeaea;
     border-color: #cccccc; }
-    .cpac-column.opened .column-meta:hover .column_label .inner > a.close-button {
+    .ac-column.opened .column-meta:hover .column_label .inner > a.close-button {
       display: inline-block; }
-    .cpac-column.opened .column-meta .column_edit:after {
+    .ac-column.opened .column-meta .column_edit:after {
       content: "\f142"; }
-    .cpac-column.opened .column-meta table td {
+    .ac-column.opened .column-meta table td {
       border-color: #f8f8f8;
       color: #333;
       text-shadow: 0 1px 0 #FFFFFF; }
-      .cpac-column.opened .column-meta table td a {
+      .ac-column.opened .column-meta table td a {
         color: #333;
         text-shadow: 0 1px 0 #FFFFFF; }
-      .cpac-column.opened .column-meta table td.column_sort span {
+      .ac-column.opened .column-meta table td.column_sort span {
         color: #9b9b9b; }
-      .cpac-column.opened .column-meta table td.column_label .inner .meta span {
+      .ac-column.opened .column-meta table td.column_label .inner .meta span {
         color: #8d8d8d;
         text-shadow: none; }
-      .cpac-column.opened .column-meta table td.column_label .inner a.edit-button {
+      .ac-column.opened .column-meta table td.column_label .inner a.edit-button {
         display: none; }
-      .cpac-column.opened .column-meta table td.column_type {
+      .ac-column.opened .column-meta table td.column_type {
         color: #5C5C5C; }
-      .cpac-column.opened .column-meta table td.column_edit:after {
+      .ac-column.opened .column-meta table td.column_edit:after {
         color: #9b9b9b; }
-  .cpac-column.opened .column-form {
+  .ac-column.opened .column-form {
     border: 1px solid #cccccc;
     border-top: 1px solid #d4d4d4; }
 

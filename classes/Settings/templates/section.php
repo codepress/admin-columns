@@ -8,7 +8,7 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="cpac-column-setting <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
+<table class="ac-column-setting <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
@@ -31,7 +31,7 @@ $description = $this->description ? 'description' : '';
 		</td>
 		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="cpac-settings-input">
+				<div class="ac-settings-input">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>

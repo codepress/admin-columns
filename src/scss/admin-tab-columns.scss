@@ -17,7 +17,7 @@
  * Dashicons used on list screens
  * ----------------------------------------------------------------------------
  */
-.cpac-column {
+.ac-column {
 	.comment-grey-bubble {
 		height: 16px;
 		width: 16px;
@@ -40,7 +40,7 @@
 }
 
 .rtl {
-	.cpac-column {
+	.ac-column {
 		.comment-grey-bubble:before {
 			right: 0;
 			left: auto;
@@ -163,8 +163,8 @@
 		padding: 1px 12px;
 	}
 
-	.cpac-boxes {
-		.cpac-columns {
+	.ac-boxes {
+		.ac-columns {
 			form {
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 				margin: 0;
@@ -217,7 +217,7 @@
 	//display: block !important;
 }
 
-.cpac-column-setting {
+.ac-column-setting {
 	width: 100%;
 	clear: both;
 	border-spacing: 0;
@@ -283,7 +283,7 @@
 		}
 	}
 
-	.cpac-settings-input {
+	.ac-settings-input {
 		padding: 10px;
 
 		select, input {
@@ -292,7 +292,7 @@
 	}
 
 	//Sub Setting
-	.cpac-column-setting {
+	.ac-column-setting {
 		td.col_label {
 			background-color: $bg-gray-light;
 			.label {
@@ -335,7 +335,7 @@
 
 }
 
-.cpac-settings-input-width {
+.ac-settings-input-width {
 	position: relative;
 
 	input[type=radio] {
@@ -390,7 +390,7 @@
 
 }
 
-.cpac-column {
+.ac-column {
 
 	// Column Header
 	.column-meta {

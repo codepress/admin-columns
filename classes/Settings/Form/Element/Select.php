@@ -78,7 +78,7 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 	/**
 	 * @param string $no_result
 	 *
-	 * @return AC_Settings_View_Select
+	 * @return AC_Settings_Form_Element_Select
 	 */
 	public function set_no_result( $no_result ) {
 		$this->no_result = $no_result;

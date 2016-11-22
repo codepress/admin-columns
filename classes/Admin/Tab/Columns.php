@@ -584,9 +584,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					</div>
 				<?php endif; ?>
 
-				<div class="cpac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
+				<div class="ac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
 
-					<div class="cpac-columns">
+					<div class="ac-columns">
 						<form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
 
 							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
@@ -625,7 +625,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						<?php endif; ?>
 					</div><!--.cpac-column-footer-->
 
-				</div><!--.cpac-boxes-->
+				</div><!--.ac-boxes-->
 
 				<?php do_action( 'cac/settings/after_columns', $list_screen ); ?>
 
@@ -657,7 +657,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	private function display_column( AC_Column $column ) {
 		?>
 
-		<div class="cpac-column cpac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 
 			<div class="column-meta">
 				<table class="widefat">
@@ -720,7 +720,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<input type="hidden" class="type" name="<?php // $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 				<input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
-				<div class="cpac-column-settings">
+				<div class="ac-column-settings">
 
 					<?php
 
@@ -837,7 +837,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					 */
 					//do_action( 'cac/column/settings_after', $column );
 					?>
-					<table class="cpac-column-setting actions">
+					<table class="ac-column-setting actions">
 						<tr>
 							<td class="col-label"></td>
 							<td class="col-settings">

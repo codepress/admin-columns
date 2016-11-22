@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="cpac-settings-input cpac-settings-input-width">
+<div class="ac-settings-input ac-settings-input-width">
 	<div class="description">
 		<?php echo $this->width; ?>
 		<span class="unit"><?php echo esc_html( $this->width_unit->get_value() ); ?></span>
