@@ -84,7 +84,7 @@ abstract class AC_ListScreenAbstract {
 	protected $screen;
 
 	/**
-	 * @var AC_Settings_Columns $settings
+	 * @var AC_Settings_ListScreen $settings
 	 */
 	private $settings;
 
@@ -374,7 +374,6 @@ abstract class AC_ListScreenAbstract {
 	 *
 	 * @return string|false
 	 */
-	// todo: refactor, is now part of the column and needs to be tested or LS needs to be added to col (prob. better)
 	public function get_original_label( $column_name ) {
 		$default_columns = $this->get_default_headings();
 
@@ -385,21 +384,17 @@ abstract class AC_ListScreenAbstract {
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
+
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return;
 		}
 
-		if ( ! $column->is_valid() ) {
-			return;
-		}
+		$column->set_list_screen( $this );
 
-		// todo: refactor
-		if ( $column->is_original() ) {
-			$column->set_original_label( $this->get_original_label( $column->get_type() ) );
+		if ( $column->is_valid() ) {
+			$this->column_types[ $column->get_type() ] = $column;
 		}
-
-		$this->column_types[ $column->get_type() ] = $column->set_list_screen( $this );
 	}
 
 	/**
@@ -432,7 +427,11 @@ abstract class AC_ListScreenAbstract {
 				continue;
 			}
 
-			$this->register_column_type( new $class );
+			/* @var AC_Column $column */
+			$column = new $class;
+			$column->set_type( $type );
+
+			$this->register_column_type( $column );
 		}
 
 		// Integration placeholders
@@ -504,12 +503,6 @@ abstract class AC_ListScreenAbstract {
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] );
-
-		//$column->settings()->set_options( $settings );
-
-		if ( $column->is_original() ) {
-			$column->set_label( $this->get_original_label( $column->get_type() ) );
-		}
 
 		return $column;
 	}

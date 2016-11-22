@@ -120,7 +120,7 @@ function cpac_add_column( $ ) {
 		// TODO: animation should go more fluently
 
 		// Open
-		clone.addClass( 'opened' ).find( '.column-form' ).slideDown( 150, function() {
+		clone.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150, function() {
 			$( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
 		} );
 
@@ -237,10 +237,16 @@ function cpac_reset_columns( $ ) {
 		var column = $( this );
 		var is_disabled = column.closest( 'ac-boxes' ).hasClass( 'disabled' );
 
-		column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button, td.column_label .close-button, tr.column_action .close-button' ).click( function( e ) {
+		column.find(
+			'td.column_type a, td.column_edit, ' +
+			'td.column_label a.toggle, ' +
+			'td.column_label .edit-button, ' +
+			//'td.column_label .close-button, ' +
+			'.ac-column-setting-actions .close-button'
+		).click( function( e ) {
 			e.preventDefault();
 
-			column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );
+			column.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
 
 			if ( is_disabled ) {
 				return;
@@ -322,7 +328,7 @@ function cpac_reset_columns( $ ) {
 				el.column_bind_events();
 
 				// Open settings
-				el.addClass( 'opened' ).find( '.column-form' ).show();
+				el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 				// Allow plugins to hook into this event
 				$( document ).trigger( 'column_change', el );
@@ -410,7 +416,7 @@ function cpac_reset_columns( $ ) {
 							el.column_bind_events();
 
 							// Open settings
-							el.addClass( 'opened' ).find( '.column-form' ).show();
+							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 							// trigger refresh
 							if ( el.find( '[data-refresh=1]' ).length > 0 ) {
@@ -440,7 +446,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/** change label */
-		column.find( '.column-form .column-label .input input' ).bind( 'keyup change', function() {
+		column.find( '.ac-settings-input-label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
@@ -451,7 +457,7 @@ function cpac_reset_columns( $ ) {
 		column.column_width_slider();
 
 		// indicator
-		var width_indicator = column.find( '.column-meta span.width' );
+		var width_indicator = column.find( '.ac-column-header span.width' );
 		width_indicator.on( 'update', function() {
 			var _width = column.find( '.ac-settings-input-width .description input' ).val();
 			var _unit = column.find( '.ac-settings-input-width .description .unit' ).text();
@@ -504,7 +510,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/**    tooltip */
-		column.find( '.column-form .col-label .label' ).hover( function() {
+		column.find( '.ac-column-body .col-label .label' ).hover( function() {
 			$( this ).parents( '.col-label' ).find( 'div.description' ).show();
 		}, function() {
 			$( this ).parents( '.col-label' ).find( 'div.description' ).hide();
@@ -555,7 +561,7 @@ function cpac_reset_columns( $ ) {
 			unit = input_unit.filter( ':checked' ).val(),
 			width = input_width.val(),
 			slider = column_width.find( '.width-slider' ),
-			indicator = $( this ).find( '.column-meta span.width' );
+			indicator = $( this ).find( '.ac-column-header span.width' );
 
 		// width
 		if ( '%' == unit && width > 100 ) {
@@ -592,7 +598,7 @@ function cpac_reset_columns( $ ) {
 		if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
 			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
-			column.addClass( 'opened' ).find( '.column-form' ).slideDown( 150 );
+			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
 			column.find( '.msg' ).html( message ).show();
 
 			return;
@@ -732,7 +738,6 @@ function cpac_reset_columns( $ ) {
 				additional.removeClass( 'hide' );
 			}
 		} );
-
 
 		// On load
 		column.find( '[data-trigger]' ).each( function() {

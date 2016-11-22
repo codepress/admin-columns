@@ -145,7 +145,60 @@
     display: none; }
 
 /**
- * Column
+ * Column States
+ * ----------------------------------------------------------------------------
+ */
+.ac-column.loading .ac-column-body > .spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 200;
+  margin-left: -10px;
+  margin-top: -10px;
+  display: block; }
+
+.ac-column.loading .ac-column-body:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  z-index: 100;
+  opacity: 0.5; }
+
+.ac-column.opened {
+  margin-bottom: -1px; }
+  .ac-column.opened .ac-column-header {
+    background-color: #eaeaea;
+    border-color: #cccccc; }
+    .ac-column.opened .ac-column-header:hover .column_label .inner > a.close-button {
+      display: inline-block; }
+    .ac-column.opened .ac-column-header .column_edit:after {
+      content: "\f142"; }
+    .ac-column.opened .ac-column-header table td {
+      border-color: #f8f8f8;
+      color: #333;
+      text-shadow: 0 1px 0 #FFFFFF; }
+      .ac-column.opened .ac-column-header table td a {
+        color: #333;
+        text-shadow: 0 1px 0 #FFFFFF; }
+      .ac-column.opened .ac-column-header table td.column_sort span {
+        color: #9b9b9b; }
+      .ac-column.opened .ac-column-header table td.column_label .inner .meta span {
+        color: #8d8d8d;
+        text-shadow: none; }
+      .ac-column.opened .ac-column-header table td.column_label .inner a.edit-button {
+        display: none; }
+      .ac-column.opened .ac-column-header table td.column_type {
+        color: #5C5C5C; }
+      .ac-column.opened .ac-column-header table td.column_edit:after {
+        color: #9b9b9b; }
+  .ac-column.opened .ac-column-body {
+    border: 1px solid #cccccc;
+    border-top: 1px solid #d4d4d4; }
+
+/**
+ * Column Settings
  * ----------------------------------------------------------------------------
  */
 .ac-column-setting {
@@ -202,28 +255,44 @@
     padding: 10px; }
     .ac-column-setting .ac-settings-input select, .ac-column-setting .ac-settings-input input {
       width: 99.95%; }
+    .ac-column-setting .ac-settings-input div.msg {
+      margin-top: 5px;
+      display: none;
+      color: #333;
+      padding: 6px 8px;
+      background-color: #ffebe8;
+      border: 1px solid #fff;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px; }
+    .ac-column-setting .ac-settings-input .help-msg {
+      margin: 10px 0 0;
+      color: #666;
+      font-size: 12px; }
   .ac-column-setting .ac-column-setting td.col_label {
     background-color: #fcfcfc; }
     .ac-column-setting .ac-column-setting td.col_label .label {
       font-size: 12px;
       color: #595959; }
-  .ac-column-setting.actions .col-settings p {
-    padding-left: 10px; }
-  .ac-column-setting.actions .col-settings a {
-    text-decoration: none; }
-    .ac-column-setting.actions .col-settings a.close-button, .ac-column-setting.actions .col-settings a.clone-button {
-      margin-right: 10px; }
-    .ac-column-setting.actions .col-settings a.remove-button {
-      color: #a00;
-      text-decoration: none;
-      text-shadow: none;
-      font-weight: normal;
-      font-size: 12px;
-      padding: 0 5px;
-      margin-right: 5px; }
-      .ac-column-setting.actions .col-settings a.remove-button:hover {
-        color: #fff;
-        background: #f00; }
+
+.ac-column-setting-actions .col-settings p {
+  padding-left: 10px; }
+
+.ac-column-setting-actions .col-settings a {
+  text-decoration: none; }
+  .ac-column-setting-actions .col-settings a.close-button, .ac-column-setting-actions .col-settings a.clone-button {
+    margin-right: 10px; }
+  .ac-column-setting-actions .col-settings a.remove-button {
+    color: #a00;
+    text-decoration: none;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 0 5px;
+    margin-right: 5px; }
+    .ac-column-setting-actions .col-settings a.remove-button:hover {
+      color: #fff;
+      background: #f00; }
 
 .ac-settings-input-width {
   position: relative; }
@@ -276,53 +345,57 @@
         .ac-settings-input-width div.unit-select .radio-labels label input {
           margin-right: 2px; }
 
-.ac-column .column-meta {
+/**
+ * Column Header
+ * ----------------------------------------------------------------------------
+ */
+.ac-column-header {
   border-style: solid;
   border-color: #dfdfdf;
   border-width: 1px 1px 0;
   background: #fcfcfc; }
-  .ac-column .column-meta:nth-child(2n) .column-meta {
+  .ac-column-header:nth-child(2n) .column-meta {
     background: #f9f9f9; }
-  .ac-column .column-meta img {
+  .ac-column-header img {
     margin-right: 3px; }
-  .ac-column .column-meta table {
+  .ac-column-header table {
     border: none;
     background: transparent;
     border-radius: 0; }
-    .ac-column .column-meta table tr td {
+    .ac-column-header table tr td {
       vertical-align: top;
       height: 18px;
       padding: 12px 8px;
       border-width: 1px 0 0;
       border-style: solid;
       border-color: transparent; }
-      .ac-column .column-meta table tr td.column_sort {
+      .ac-column-header table tr td.column_sort {
         position: relative;
         cursor: move;
         padding: 9px 16px; }
-        .ac-column .column-meta table tr td.column_sort span.cpacicon-move {
+        .ac-column-header table tr td.column_sort span.cpacicon-move {
           position: absolute;
           top: 12px;
           left: 12px;
           font-size: 22px;
           display: inline-block;
           color: #bdbdbd; }
-      .ac-column .column-meta table tr td.column_label {
+      .ac-column-header table tr td.column_label {
         width: 70%;
         font-weight: bold;
         vertical-align: middle;
         position: relative;
         padding: 15px 0; }
-        .ac-column .column-meta table tr td.column_label .inner {
+        .ac-column-header table tr td.column_label .inner {
           position: relative;
           overflow: hidden;
           height: 18px; }
-          .ac-column .column-meta table tr td.column_label .inner > a {
+          .ac-column-header table tr td.column_label .inner > a {
             color: #5a5a5a;
             padding: 0 4px; }
-            .ac-column .column-meta table tr td.column_label .inner > a:hover {
+            .ac-column-header table tr td.column_label .inner > a:hover {
               color: #333333; }
-            .ac-column .column-meta table tr td.column_label .inner > a.edit-button, .ac-column .column-meta table tr td.column_label .inner > a.close-button, .ac-column .column-meta table tr td.column_label .inner > a.remove-button, .ac-column .column-meta table tr td.column_label .inner > a.clone-button {
+            .ac-column-header table tr td.column_label .inner > a.edit-button, .ac-column-header table tr td.column_label .inner > a.close-button, .ac-column-header table tr td.column_label .inner > a.remove-button, .ac-column-header table tr td.column_label .inner > a.clone-button {
               display: none;
               color: #0074a2;
               text-decoration: none;
@@ -330,38 +403,38 @@
               font-weight: normal;
               margin-left: 5px;
               font-size: 12px; }
-              .ac-column .column-meta table tr td.column_label .inner > a.edit-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.close-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.remove-button:hover, .ac-column .column-meta table tr td.column_label .inner > a.clone-button:hover {
+              .ac-column-header table tr td.column_label .inner > a.edit-button:hover, .ac-column-header table tr td.column_label .inner > a.close-button:hover, .ac-column-header table tr td.column_label .inner > a.remove-button:hover, .ac-column-header table tr td.column_label .inner > a.clone-button:hover {
                 color: #2ea2cc; }
-            .ac-column .column-meta table tr td.column_label .inner > a.remove-button {
+            .ac-column-header table tr td.column_label .inner > a.remove-button {
               color: #a00; }
-              .ac-column .column-meta table tr td.column_label .inner > a.remove-button:hover {
+              .ac-column-header table tr td.column_label .inner > a.remove-button:hover {
                 color: #f00; }
-          .ac-column .column-meta table tr td.column_label .inner .meta {
+          .ac-column-header table tr td.column_label .inner .meta {
             display: inline-block;
             float: right;
             font-weight: normal;
             color: #b2b2b2;
             font-size: 12px; }
-            .ac-column .column-meta table tr td.column_label .inner .meta span {
+            .ac-column-header table tr td.column_label .inner .meta span {
               cursor: pointer;
               margin-left: 4px; }
-              .ac-column .column-meta table tr td.column_label .inner .meta span.width {
+              .ac-column-header table tr td.column_label .inner .meta span.width {
                 margin-right: 3px;
                 cursor: auto;
                 color: #737373; }
-              .ac-column .column-meta table tr td.column_label .inner .meta span.disabled {
+              .ac-column-header table tr td.column_label .inner .meta span.disabled {
                 cursor: default; }
-              .ac-column .column-meta table tr td.column_label .inner .meta span.on {
+              .ac-column-header table tr td.column_label .inner .meta span.on {
                 color: #21759B; }
-        .ac-column .column-meta table tr td.column_label span.vers {
+        .ac-column-header table tr td.column_label span.vers {
           float: left; }
-      .ac-column .column-meta table tr td.column_type {
+      .ac-column-header table tr td.column_type {
         width: auto;
         min-width: 120px;
         text-align: right;
         color: #999999;
         padding-right: 0; }
-        .ac-column .column-meta table tr td.column_type .inner {
+        .ac-column-header table tr td.column_type .inner {
           display: inline-block;
           height: 18px;
           overflow: hidden;
@@ -369,15 +442,15 @@
           white-space: nowrap;
           width: 120px;
           vertical-align: middle; }
-          .ac-column .column-meta table tr td.column_type .inner a {
+          .ac-column-header table tr td.column_type .inner a {
             margin-top: 2px;
             color: #999999; }
-      .ac-column .column-meta table tr td.column_edit {
+      .ac-column-header table tr td.column_edit {
         width: 38px;
         min-width: 38px;
         text-align: center;
         cursor: pointer; }
-        .ac-column .column-meta table tr td.column_edit:after {
+        .ac-column-header table tr td.column_edit:after {
           right: 0;
           content: "\f140";
           font: normal 20px/1 dashicons;
@@ -391,274 +464,276 @@
           -moz-osx-font-smoothing: grayscale;
           text-decoration: none !important;
           color: #b4b9be; }
-    .ac-column .column-meta table tr:hover td.column_sort span {
+    .ac-column-header table tr:hover td.column_sort span {
       color: #9b9b9b; }
-  .ac-column .column-meta:hover .column_label .inner > a.remove-button, .ac-column .column-meta:hover .column_label .inner > a.edit-button, .ac-column .column-meta:hover .column_label .inner > a.clone-button {
+  .ac-column-header:hover .column_label .inner > a.remove-button, .ac-column-header:hover .column_label .inner > a.edit-button, .ac-column-header:hover .column_label .inner > a.clone-button {
     display: inline-block; }
-  .ac-column .column-meta span.vers {
+  .ac-column-header span.vers {
     padding-top: 2px; }
-    .ac-column .column-meta span.vers .comment-grey-bubble {
+    .ac-column-header span.vers .comment-grey-bubble {
       float: right; }
 
-.ac-column .column-form {
+/**
+ * Column Body
+ * ----------------------------------------------------------------------------
+ */
+.ac-column-body {
   display: none;
   border-width: 1px 1px 0;
   border-style: solid;
   border-color: #dfdfdf;
   position: relative; }
-  .ac-column .column-form > tables tr.hide {
-    display: none; }
-  .ac-column .column-form > tables tr.radio > td.input > label {
-    padding-left: 0;
-    padding-right: 14px; }
-  .ac-column .column-form > tables tr td {
+
+.ac-column-body___ > table tr.hide {
+  display: none; }
+
+.ac-column-body___ > table tr.radio > td.input > label {
+  padding-left: 0;
+  padding-right: 14px; }
+
+.ac-column-body___ > table tr td {
+  vertical-align: top;
+  border: none;
+  padding: 10px 10px;
+  background: #ffffff;
+  border-top: 1px solid #f5f5f5;
+  /*.ac-settings-input {
+					vertical-align: top;
+
+					div.msg {
+						margin-top: 5px;
+						display: none;
+						color: #333;
+						padding: 6px 8px;
+						background-color: #ffebe8;
+						border: 1px solid #fff;
+						-moz-border-radius: 3px;
+						-webkit-border-radius: 3px;
+						border-radius: 3px;
+					}
+
+					.help-msg {
+						//font-style: italic;
+						margin: 10px 0 0;
+						color: #666;
+						font-size: 12px;
+					}
+
+					.section {
+						padding: 12px;
+					}
+
+					&.nopadding {
+						padding: 0;
+					}
+
+					table {
+						width: 100%;
+						border: none;
+
+						tr {
+
+							td {
+								&.label {
+									background-color: $bg-gray-light;
+									border-right: 1px solid $border-gray;
+									width: 35%;
+
+									span {
+										color: lighten(#333, 15);
+										font-size: 12px;
+									}
+								}
+
+								&.input {
+									width: 65%;
+									border-color: $border-gray;
+								}
+							}
+
+							&.full td {
+								width: 100%;
+								height: 29px;
+							}
+						}
+					}
+				}*/ }
+  .ac-column-body___ > table tr td input {
+    margin: 0; }
+  .ac-column-body___ > table tr td select,
+  .ac-column-body___ > table tr td input[type=text],
+  .ac-column-body___ > table tr td input[type=number] {
+    width: 99.95%; }
+    .ac-column-body___ > table tr td select.small,
+    .ac-column-body___ > table tr td input[type=text].small,
+    .ac-column-body___ > table tr td input[type=number].small {
+      width: 100px; }
+  .ac-column-body___ > table tr td select {
+    margin: 0; }
+  .ac-column-body___ > table tr td div.radio-labels {
+    padding: 3px 0; }
+    .ac-column-body___ > table tr td div.radio-labels label {
+      margin-right: 14px; }
+      .ac-column-body___ > table tr td div.radio-labels label input[type=radio] {
+        margin: -3px 2px 0 0; }
+  .ac-column-body___ > table tr td span.suffix {
+    line-height: 40px;
+    color: #808080; }
+  .ac-column-body___ > table tr td select optgroup:nth-child(2n) {
+    background: #F9F9F9; }
+  .ac-column-body___ > table tr td.label {
+    position: relative;
+    overflow: visible;
+    background: #f5f5f5;
+    border-right: 1px solid #dedede;
     vertical-align: top;
-    border: none;
-    padding: 10px 10px;
-    background: #ffffff;
-    border-top: 1px solid #f5f5f5; }
-    .ac-column .column-form > tables tr td input {
-      margin: 0; }
-    .ac-column .column-form > tables tr td select,
-    .ac-column .column-form > tables tr td input[type=text],
-    .ac-column .column-form > tables tr td input[type=number] {
-      width: 99.95%; }
-      .ac-column .column-form > tables tr td select.small,
-      .ac-column .column-form > tables tr td input[type=text].small,
-      .ac-column .column-form > tables tr td input[type=number].small {
-        width: 100px; }
-    .ac-column .column-form > tables tr td select {
-      margin: 0; }
-    .ac-column .column-form > tables tr td div.radio-labels {
-      padding: 3px 0; }
-      .ac-column .column-form > tables tr td div.radio-labels label {
-        margin-right: 14px; }
-        .ac-column .column-form > tables tr td div.radio-labels label input[type=radio] {
-          margin: -3px 2px 0 0; }
-    .ac-column .column-form > tables tr td span.suffix {
-      line-height: 40px;
-      color: #808080; }
-    .ac-column .column-form > tables tr td select optgroup:nth-child(2n) {
-      background: #F9F9F9; }
-    .ac-column .column-form > tables tr td.label {
+    width: 34%;
+    border-top: 1px solid #e8e8e8;
+    padding-left: 12px;
+    /*a.more-link {
+						position: absolute;
+						right: 14px;
+						top: 14px;
+						display: inline-block;
+
+						span {
+							color: #ccc;
+						}
+
+						&:hover span {
+							color: #808080;
+						}
+					}*/
+    /*.info {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						z-index: 1;
+
+						&:before {
+							position: absolute;
+							z-index: 1;
+							right: 10px;
+							top: 50%;
+							margin-top: -7px;
+							content: '';
+							display: block;
+							border-radius: 32px;
+							border: 1px solid #E6E6E6;
+							width: 12px;
+							height: 12px;
+						}
+
+						&:after {
+							position: absolute;
+							z-index: 1;
+							right: 10px;
+							top: 50%;
+							margin-top: -6px;
+							content: '?';
+							display: block;
+							width: 14px;
+							height: 14px;
+							color: #E6E6E6;
+							font: bold 10px Arial;
+							text-align: center;
+							vertical-align: middle;
+							line-height: 14px;
+						}
+					}*/ }
+    .ac-column-body___ > table tr td.label span.label {
+      font-weight: bold;
+      color: #333333;
+      display: block;
       position: relative;
-      overflow: visible;
-      background: #f5f5f5;
-      border-right: 1px solid #dedede;
-      vertical-align: top;
-      width: 34%;
-      border-top: 1px solid #e8e8e8;
-      padding-left: 12px; }
-      .ac-column .column-form > tables tr td.label span.label {
-        font-weight: bold;
-        color: #333333;
-        display: block;
-        position: relative;
-        line-height: 26px; }
-      .ac-column .column-form > tables tr td.label a.more-link {
-        position: absolute;
-        right: 14px;
-        top: 14px;
-        display: inline-block; }
-        .ac-column .column-form > tables tr td.label a.more-link span {
-          color: #ccc; }
-        .ac-column .column-form > tables tr td.label a.more-link:hover span {
-          color: #808080; }
-      .ac-column .column-form > tables tr td.label p {
-        color: #666666;
-        display: block;
-        font-size: 12px;
-        font-style: normal;
-        line-height: 16px;
-        margin: 0 !important; }
-        .ac-column .column-form > tables tr td.label p.description {
-          display: none;
-          position: absolute;
-          max-width: 200px;
-          z-index: 99;
-          top: 40px;
-          left: 0;
-          font-weight: normal;
-          color: #fff;
-          background-color: #333;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-          padding: .618em 1em;
-          border-radius: 3px; }
-          .ac-column .column-form > tables tr td.label p.description em {
-            margin-top: 3px;
-            display: block;
-            color: #999; }
-      .ac-column .column-form > tables tr td.label .info {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1; }
-        .ac-column .column-form > tables tr td.label .info:before {
-          position: absolute;
-          z-index: 1;
-          right: 10px;
-          top: 50%;
-          margin-top: -7px;
-          content: '';
-          display: block;
-          border-radius: 32px;
-          border: 1px solid #E6E6E6;
-          width: 12px;
-          height: 12px; }
-        .ac-column .column-form > tables tr td.label .info:after {
-          position: absolute;
-          z-index: 1;
-          right: 10px;
-          top: 50%;
-          margin-top: -6px;
-          content: '?';
-          display: block;
-          width: 14px;
-          height: 14px;
-          color: #E6E6E6;
-          font: bold 10px Arial;
-          text-align: center;
-          vertical-align: middle;
-          line-height: 14px; }
-    .ac-column .column-form > tables tr td.input {
-      vertical-align: top; }
-      .ac-column .column-form > tables tr td.input div.msg {
-        margin-top: 5px;
+      line-height: 26px; }
+    .ac-column-body___ > table tr td.label p {
+      color: #666666;
+      display: block;
+      font-size: 12px;
+      font-style: normal;
+      line-height: 16px;
+      margin: 0 !important; }
+      .ac-column-body___ > table tr td.label p.description {
         display: none;
-        color: #333;
-        padding: 6px 8px;
-        background-color: #ffebe8;
-        border: 1px solid #fff;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px; }
-      .ac-column .column-form > tables tr td.input .help-msg {
-        margin: 10px 0 0;
-        color: #666;
-        font-size: 12px; }
-      .ac-column .column-form > tables tr td.input .section {
-        padding: 12px; }
-      .ac-column .column-form > tables tr td.input.nopadding {
-        padding: 0; }
-      .ac-column .column-form > tables tr td.input table {
-        width: 100%;
-        border: none; }
-        .ac-column .column-form > tables tr td.input table tr td.label {
-          background-color: #fcfcfc;
-          border-right: 1px solid #e8e8e8;
-          width: 35%; }
-          .ac-column .column-form > tables tr td.input table tr td.label span {
-            color: #595959;
-            font-size: 12px; }
-        .ac-column .column-form > tables tr td.input table tr td.input {
-          width: 65%;
-          border-color: #e8e8e8; }
-        .ac-column .column-form > tables tr td.input table tr.full td {
-          width: 100%;
-          height: 29px; }
-  .ac-column .column-form > tables tr.column-label input::-webkit-input-placeholder {
-    color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input:-moz-placeholder {
-    color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input::-moz-placeholder {
-    color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input:-ms-input-placeholder {
-    color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column_image_size {
-    border: 10px solid red; }
-    .ac-column .column-form > tables tr.column_image_size td.input label.custom-size {
-      display: inline-block;
-      margin-top: 4px;
-      margin-bottom: 4px; }
-    .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size {
-      display: inline-block; }
-      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .hidden {
-        display: none; }
-      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w,
-      .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h {
-        margin: 0; }
-        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
-        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
-          display: none; }
-        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
-        .ac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
-          margin-right: 3px;
-          width: 40px !important; }
-  .ac-column .column-form > tables tr.column_action td {
-    border-top: 1px solid #e9e9e9; }
-    .ac-column .column-form > tables tr.column_action td p {
-      margin: 0;
-      line-height: 2; }
-      .ac-column .column-form > tables tr.column_action td p a.close-button, .ac-column .column-form > tables tr.column_action td p a.clone-button {
-        margin-right: 10px; }
-      .ac-column .column-form > tables tr.column_action td p a.remove-button {
-        color: #a00;
-        text-decoration: none;
-        text-shadow: none;
+        position: absolute;
+        max-width: 200px;
+        z-index: 99;
+        top: 40px;
+        left: 0;
         font-weight: normal;
-        font-size: 12px;
-        padding: 0 5px;
-        margin-right: 5px; }
-        .ac-column .column-form > tables tr.column_action td p a.remove-button:hover {
-          color: #fff;
-          background: #f00; }
-  .ac-column .column-form > tables tr.column_field td {
-    border-top: 1px solid #dedede; }
-  .ac-column .column-form > tables tr.section > td {
-    border-top: 1px solid #dedede; }
-  .ac-column .column-form > tables tr.section.radio td.label label {
-    padding: 0; }
+        color: #fff;
+        background-color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        padding: .618em 1em;
+        border-radius: 3px; }
+        .ac-column-body___ > table tr td.label p.description em {
+          margin-top: 3px;
+          display: block;
+          color: #999; }
 
-.ac-column.loading .column-form > .spinner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 200;
-  margin-left: -10px;
-  margin-top: -10px;
-  display: block; }
+.ac-column-body___ > table tr.column-label input::-webkit-input-placeholder {
+  color: #9a9a9a; }
 
-.ac-column.loading .column-form:before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #FFF;
-  z-index: 100;
-  opacity: 0.5; }
+.ac-column-body___ > table tr.column-label input:-moz-placeholder {
+  color: #9a9a9a; }
 
-.ac-column.opened {
-  margin-bottom: -1px; }
-  .ac-column.opened .column-meta {
-    background-color: #eaeaea;
-    border-color: #cccccc; }
-    .ac-column.opened .column-meta:hover .column_label .inner > a.close-button {
-      display: inline-block; }
-    .ac-column.opened .column-meta .column_edit:after {
-      content: "\f142"; }
-    .ac-column.opened .column-meta table td {
-      border-color: #f8f8f8;
-      color: #333;
-      text-shadow: 0 1px 0 #FFFFFF; }
-      .ac-column.opened .column-meta table td a {
-        color: #333;
-        text-shadow: 0 1px 0 #FFFFFF; }
-      .ac-column.opened .column-meta table td.column_sort span {
-        color: #9b9b9b; }
-      .ac-column.opened .column-meta table td.column_label .inner .meta span {
-        color: #8d8d8d;
-        text-shadow: none; }
-      .ac-column.opened .column-meta table td.column_label .inner a.edit-button {
+.ac-column-body___ > table tr.column-label input::-moz-placeholder {
+  color: #9a9a9a; }
+
+.ac-column-body___ > table tr.column-label input:-ms-input-placeholder {
+  color: #9a9a9a; }
+
+.ac-column-body___ > table tr.column_image_size {
+  border: 10px solid red; }
+  .ac-column-body___ > table tr.column_image_size td.input label.custom-size {
+    display: inline-block;
+    margin-top: 4px;
+    margin-bottom: 4px; }
+  .ac-column-body___ > table tr.column_image_size td.input .custom_image_size {
+    display: inline-block; }
+    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .hidden {
+      display: none; }
+    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w,
+    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h {
+      margin: 0; }
+      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
+      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
         display: none; }
-      .ac-column.opened .column-meta table td.column_type {
-        color: #5C5C5C; }
-      .ac-column.opened .column-meta table td.column_edit:after {
-        color: #9b9b9b; }
-  .ac-column.opened .column-form {
-    border: 1px solid #cccccc;
-    border-top: 1px solid #d4d4d4; }
+      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
+      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
+        margin-right: 3px;
+        width: 40px !important; }
+
+.ac-column-body___ > table tr.column_action td {
+  border-top: 1px solid #e9e9e9; }
+  .ac-column-body___ > table tr.column_action td p {
+    margin: 0;
+    line-height: 2; }
+    .ac-column-body___ > table tr.column_action td p a.close-button, .ac-column-body___ > table tr.column_action td p a.clone-button {
+      margin-right: 10px; }
+    .ac-column-body___ > table tr.column_action td p a.remove-button {
+      color: #a00;
+      text-decoration: none;
+      text-shadow: none;
+      font-weight: normal;
+      font-size: 12px;
+      padding: 0 5px;
+      margin-right: 5px; }
+      .ac-column-body___ > table tr.column_action td p a.remove-button:hover {
+        color: #fff;
+        background: #f00; }
+
+.ac-column-body___ > table tr.column_field td {
+  border-top: 1px solid #dedede; }
+
+.ac-column-body___ > table tr.section > td {
+  border-top: 1px solid #dedede; }
+
+.ac-column-body___ > table tr.section.radio td.label label {
+  padding: 0; }
 
 /**
  * Column: Footer

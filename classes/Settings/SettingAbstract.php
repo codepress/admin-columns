@@ -95,6 +95,7 @@ abstract class AC_Settings_SettingAbstract {
 
 		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
 		$element->set_id( sprintf( 'ac-%s-%s', $this->column->get_name(), $name ) );
+		$element->add_class( $name );
 
 		// try to set current value
 		$method = 'get_' . $name;

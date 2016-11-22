@@ -44,10 +44,6 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 
 		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
 
-		if ( $column->is_original() ) {
-			$label = $column->get_original_label();
-		}
-
 		if ( empty( $label ) ) {
 			$label = $column->get_label();
 		}

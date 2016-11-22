@@ -118,7 +118,13 @@ abstract class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-		return $this->label;
+		$label = $this->label;
+
+		if ( ! $label && $this->is_original() ) {
+			$label = $this->get_list_screen()->get_original_label( $this->get_name() );
+		}
+
+		return $label;
 	}
 
 	/**
@@ -200,28 +206,6 @@ abstract class AC_Column {
 	 */
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	// todo: maybe refactor since this can be done via the list screen?
-	public function get_original_label() {
-		return $this->original_label;
-	}
-
-	/**
-	 * @param string $original_label
-	 *
-	 * @return $this
-	 */
-	// todo: maybe refactor since this can be done via the list screen?
-	public function set_original_label( $original_label ) {
-		if ( ! $this->is_original() ) {
-			$this->original_label = $original_label;
-		}
 
 		return $this;
 	}

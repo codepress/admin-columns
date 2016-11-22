@@ -71,7 +71,7 @@ abstract class AC_Settings_Form_ElementAbstract
 			return false;
 		}
 
-		return $this->attributes[ $key ];
+		return trim( $this->attributes[ $key ] );
 	}
 
 	public function set_attribute( $key, $value ) {

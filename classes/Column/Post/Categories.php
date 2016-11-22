@@ -7,7 +7,9 @@ defined( 'ABSPATH' ) or die();
 class AC_Column_Post_Categories extends AC_Column_DefaultPostAbstract {
 
 	public function __construct() {
-		$this->set_type( 'column-categories' );
+		parent::__construct();
+
+		$this->set_type( 'categories' );
 	}
 
 	public function get_default_with() {

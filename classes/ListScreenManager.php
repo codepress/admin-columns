@@ -99,7 +99,7 @@ final class AC_ListScreenManager {
 		// CSS: columns width
 		$css_column_width = false;
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			if ( $width = $column->settings()->get_value( 'width' ) ) {
+			if ( $width = $column->get_setting( 'width' )->get_width_and_unit() ) {
 				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
 			}
 
@@ -258,7 +258,7 @@ final class AC_ListScreenManager {
 		}
 
 		// Nothing stored. Show default columns on screen.
-		if ( ! $settings->get_columns() ) {
+		if ( ! $settings->get_settings() ) {
 			return $columns;
 		}
 
@@ -273,9 +273,9 @@ final class AC_ListScreenManager {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
-			$label = apply_filters( 'cac/headings/label', $column->settings()->get_value( 'label' ), $column->get_name(), $column->settings()->get_options(), $this );
+			//$label = apply_filters( 'cac/headings/label', $column->settings()->get_value( 'label' ), $column->get_name(), $column->settings()->get_options(), $this );
 
-			$this->column_headings[ $column->get_name() ] = $label;
+			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();
 		}
 
 		return $this->column_headings;

@@ -31,7 +31,7 @@ $description = $this->description ? 'description' : '';
 		</td>
 		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="ac-settings-input">
+				<div class="ac-settings-input ac-settings-input-<?php echo esc_attr( $this->setting->get_attribute( 'class' ) ); ?>">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>

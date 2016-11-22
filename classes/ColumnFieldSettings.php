@@ -1,6 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
+// TODO: remove
 class AC_ColumnFieldSettings {
 
 	private $column;

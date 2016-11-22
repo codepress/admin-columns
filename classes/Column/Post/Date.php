@@ -16,4 +16,10 @@ class AC_Column_Post_Date extends AC_Column_DefaultPostAbstract {
 		return 10;
 	}
 
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
+	}
+
 }

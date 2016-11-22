@@ -659,7 +659,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 
-			<div class="column-meta">
+			<div class="ac-column-header">
 				<table class="widefat">
 					<tbody>
 					<tr>
@@ -684,14 +684,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									 */
 									do_action( 'cac/column/settings_meta', $column );
 
-									/**
-									 * @deprecated 2.2 Use cac/column/settings_meta instead
-									 */
-									do_action( 'cac/column/label', $column );
+									// TODO: rename filter to:
+									//do_action( 'ac/column/header', $column );
 									?>
 
 								</div>
-								<a class="toggle" href="javascript:;"><?php echo $column->get_setting( 'label' )->get_value(); // do not escape ?></a>
+								<a class="toggle" href="javascript:;">
+									<?php echo $column->get_setting('label')->get_value(); //get_label(); // do not escape ?>
+								</a>
 								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
@@ -714,130 +714,19 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				</table>
 			</div><!--.column-meta-->
 
-			<div class="column-form">
+			<div class="ac-column-body">
 
+
+				<?php // TODO: remove? ?>
 				<input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 				<input type="hidden" class="type" name="<?php // $column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 				<input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
 				<div class="ac-column-settings">
 
-					<?php
+					<?php echo $column->render(); ?>
 
-					/*$setting = new AC_Settings_Setting_Type( $column );
-
-					echo $setting;
-
-					$setting = new AC_Settings_Setting_Image( $column );
-
-					echo $setting;
-
-					$setting = new AC_Settings_Setting_Width( $column );
-
-					echo $setting;
-
-					$setting = new AC_Settings_Setting_BeforeAfter( $column );
-
-					echo $setting;
-
-					$setting = new AC_Settings_Setting_WordLimit( $column );
-					$setting->set_default( 20 );
-
-					echo $setting;*/
-
-					echo $column->render();
-
-					//exit;
-
-					// todo: override default, how to solve
-					// isset, defaults on construct, get_setting
-
-					// Type field
-					/**
-					 * $select = new AC_Settings_Form_Element_Select( 'type', $this->get_grouped_columns() );
-					 * $select->set_value( $column->get_type() );
-					 *
-					 * $section = new AC_Settings_Section( $column );
-					 * $section->set_label( __( 'Type', 'codepress-admin-columns' ) )
-					 * ->set_description( __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>' )
-					 * ->add_element( $select );
-					 *
-					 * echo $section;
-					 *
-					 * $width = new AC_Settings_Field_Width( $column );
-					 *
-					 * echo $width;
-					 *
-					 *
-					 * //exit;
-					 *
-					 * ?>
-					 *
-					 * <?php //$column->settings()->display(); ?>
-					 *
-					 * <?php
-					 *
-					 * // TODO: temp, remove
-					 * //$column->display_settings();
-					 *
-					 * // TODO: move to field
-					 *
-					 * if ( false ) {
-					 *
-					 * /*
-					 * $column->field_settings->field( array(
-					 * 'type'            => 'select',
-					 * 'name'            => 'type',
-					 * 'label'           => __( 'Type', 'codepress-admin-columns' ),
-					 * 'description'     => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $column->get_name() . '</em>',
-					 * 'grouped_options' => $this->get_grouped_columns(),
-					 * 'default_value'   => $column->get_type(),
-					 * ) );
-					 *
-					 * $column->field_settings->field( array(
-					 * 'type'        => 'text',
-					 * 'name'        => 'label',
-					 * 'placeholder' => $column->get_label(),
-					 * 'label'       => __( 'Label', 'codepress-admin-columns' ),
-					 * 'description' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-					 * 'hidden'      => $column->is_hide_label(),
-					 * ) );
-					 *
-					 * $column->field_settings->field( array(
-					 * 'type'  => 'width',
-					 * 'name'  => 'width',
-					 * 'label' => __( 'Width', 'codepress-admin-columns' ),
-					 * ) );
-					 */
-
-					/**
-					 * Fires directly before the custom options for a column are displayed in the column form
-					 *
-					 * @since 2.0
-					 *
-					 * @param AC_Column $column_instance Column class instance
-					 */
-					//do_action( 'cac/column/settings_before', $column );
-
-					// TODO: use $column->settings()->display();
-					//$column->display_settings();
-
-					/*if ( $column->use_before_after() ) {
-						$column->field_settings->before_after();
-					}*/
-
-					//}
-
-					/**
-					 * Fires directly after the custom options for a column are displayed in the column form
-					 *
-					 * @since 2.0
-					 *
-					 * @param AC_Column $column_instance Column class instance
-					 */
-					//do_action( 'cac/column/settings_after', $column );
-					?>
-					<table class="ac-column-setting actions">
+					<table class="ac-column-setting ac-column-setting-actions">
 						<tr>
 							<td class="col-label"></td>
 							<td class="col-settings">
@@ -853,8 +742,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					</table>
 				</div>
-			</div><!--.column-form-->
-		</div><!--.cpac-column-->
+			</div><!--.ac-column-body-->
+		</div><!--.ac-column-->
 		<?php
 	}
 
