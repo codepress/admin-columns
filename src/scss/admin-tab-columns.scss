@@ -343,24 +343,36 @@
 	}
 	div.description {
 		font-size: 12px;
-		width: 54px;
+		width: 68px;
 		position: absolute;
-		top: 13px;
-		left: 10px;
+		display: table;
 
 		input {
-			background: #efefef;
-			border: none;
-			height: 20px;
-			line-height: 20px;
+			margin: 0;
 			text-align: right;
-			width: 36px;
-			font-size: 12px;
+			vertical-align: middle;
+			display: table-cell;
+			//border-radius: 3px 0 0 3px;
+
+			@include placeholder {
+				font-size: 13px;
+			}
+		}
+
+		span {
+			background: #efefef;
+			display: table-cell;
+			width: 26px;
+			text-align: center;
+			vertical-align: middle;
+			border: 1px solid #dedede;
+			border-left: none;
+			//border-radius: 0 3px 3px 0;
 		}
 	}
 	div.width-slider {
-		margin-left: 62px;
-		margin-right: 94px;
+		margin-left: 82px;
+		margin-right: 88px;
 		position: relative;
 		margin-top: 8px;
 
@@ -847,59 +859,6 @@
 					input {
 						@include placeholder {
 							color: #9a9a9a;
-						}
-					}
-				}
-
-				&.column-width {
-					.input {
-						position: relative;
-
-						div.description {
-							font-size: 12px;
-							width: 54px;
-							position: absolute;
-							top: 13px;
-							left: 10px;
-
-							input {
-								background: #efefef;
-								border: none;
-								height: 20px;
-								line-height: 20px;
-								text-align: right;
-								width: 36px;
-								font-size: 12px;
-							}
-						}
-						div.width-slider {
-							margin-left: 62px;
-							margin-right: 94px;
-							position: relative;
-							margin-top: 8px;
-
-							.ui-slider-handle {
-								cursor: ew-resize;
-							}
-						}
-						div.unit-select {
-							position: absolute;
-							top: 13px;
-							right: 10px;
-							width: 82px;
-							text-align: right;
-
-							.radio-labels {
-								padding: 0;
-
-								label {
-									margin-right: 4px;
-
-									input {
-										margin-right: 2px;
-									}
-								}
-							}
 						}
 					}
 				}

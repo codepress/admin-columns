@@ -231,21 +231,33 @@
     width: auto; }
   .ac-settings-input-width div.description {
     font-size: 12px;
-    width: 54px;
+    width: 68px;
     position: absolute;
-    top: 13px;
-    left: 10px; }
+    display: table; }
     .ac-settings-input-width div.description input {
-      background: #efefef;
-      border: none;
-      height: 20px;
-      line-height: 20px;
+      margin: 0;
       text-align: right;
-      width: 36px;
-      font-size: 12px; }
+      vertical-align: middle;
+      display: table-cell; }
+      .ac-settings-input-width div.description input::-webkit-input-placeholder {
+        font-size: 13px; }
+      .ac-settings-input-width div.description input:-moz-placeholder {
+        font-size: 13px; }
+      .ac-settings-input-width div.description input::-moz-placeholder {
+        font-size: 13px; }
+      .ac-settings-input-width div.description input:-ms-input-placeholder {
+        font-size: 13px; }
+    .ac-settings-input-width div.description span {
+      background: #efefef;
+      display: table-cell;
+      width: 26px;
+      text-align: center;
+      vertical-align: middle;
+      border: 1px solid #dedede;
+      border-left: none; }
   .ac-settings-input-width div.width-slider {
-    margin-left: 62px;
-    margin-right: 94px;
+    margin-left: 82px;
+    margin-right: 88px;
     position: relative;
     margin-top: 8px; }
     .ac-settings-input-width div.width-slider .ui-slider-handle {
@@ -545,49 +557,14 @@
         .ac-column .column-form > tables tr td.input table tr.full td {
           width: 100%;
           height: 29px; }
-  .ac-column .column-form > tables tr.column-label input ::-webkit-input-placeholder {
+  .ac-column .column-form > tables tr.column-label input::-webkit-input-placeholder {
     color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input :-moz-placeholder {
+  .ac-column .column-form > tables tr.column-label input:-moz-placeholder {
     color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input ::-moz-placeholder {
+  .ac-column .column-form > tables tr.column-label input::-moz-placeholder {
     color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-label input :-ms-input-placeholder {
+  .ac-column .column-form > tables tr.column-label input:-ms-input-placeholder {
     color: #9a9a9a; }
-  .ac-column .column-form > tables tr.column-width .input {
-    position: relative; }
-    .ac-column .column-form > tables tr.column-width .input div.description {
-      font-size: 12px;
-      width: 54px;
-      position: absolute;
-      top: 13px;
-      left: 10px; }
-      .ac-column .column-form > tables tr.column-width .input div.description input {
-        background: #efefef;
-        border: none;
-        height: 20px;
-        line-height: 20px;
-        text-align: right;
-        width: 36px;
-        font-size: 12px; }
-    .ac-column .column-form > tables tr.column-width .input div.width-slider {
-      margin-left: 62px;
-      margin-right: 94px;
-      position: relative;
-      margin-top: 8px; }
-      .ac-column .column-form > tables tr.column-width .input div.width-slider .ui-slider-handle {
-        cursor: ew-resize; }
-    .ac-column .column-form > tables tr.column-width .input div.unit-select {
-      position: absolute;
-      top: 13px;
-      right: 10px;
-      width: 82px;
-      text-align: right; }
-      .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels {
-        padding: 0; }
-        .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label {
-          margin-right: 4px; }
-          .ac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label input {
-            margin-right: 2px; }
   .ac-column .column-form > tables tr.column_image_size {
     border: 10px solid red; }
     .ac-column .column-form > tables tr.column_image_size td.input label.custom-size {

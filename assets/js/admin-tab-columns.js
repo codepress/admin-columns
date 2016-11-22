@@ -463,7 +463,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// unit selector
-		var width_unit_select = column.find( '.column-width .unit-select label' );
+		var width_unit_select = column.find( '.ac-settings-input-width .unit-select label' );
 		width_unit_select.on( 'click', function() {
 
 			column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
@@ -472,7 +472,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// width_input
-		var width_input = column.find( 'input.width' )
+		var width_input = column.find( '.ac-settings-input-width .description input' )
 			.on( 'keyup', function() {
 				column.column_width_slider(); // re-init slider
 				$( this ).trigger( 'validate' ); // validate input
@@ -504,10 +504,10 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/**    tooltip */
-		column.find( '.column-form .label label .label, .column-form .label .info' ).hover( function() {
-			$( this ).parents( '.label' ).find( 'p.description' ).show();
+		column.find( '.column-form .col-label .label' ).hover( function() {
+			$( this ).parents( '.col-label' ).find( 'div.description' ).show();
 		}, function() {
-			$( this ).parents( '.label' ).find( 'p.description' ).hide();
+			$( this ).parents( '.col-label' ).find( 'div.description' ).hide();
 		} );
 
 		// refresh column and re-bind all events
@@ -548,10 +548,10 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_width_slider = function() {
 
-		var column_width = $( this ).find( '.column-width' );
+		var column_width = $( this ).find( '.ac-settings-input-width' );
 
-		var input_width = column_width.find( 'input.width' ),
-			input_unit = column_width.find( 'input.unit' ),
+		var input_width = column_width.find( '.description input' ),
+			input_unit = column_width.find( '.unit-select input' ),
 			unit = input_unit.filter( ':checked' ).val(),
 			width = input_width.val(),
 			slider = column_width.find( '.width-slider' ),
