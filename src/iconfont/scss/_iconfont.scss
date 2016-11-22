@@ -3,7 +3,7 @@
 	src: url('../fonts/cpac_icons.woff') format('woff');
 }
 $font-icons : "cpac_icons";
-[class^="icon-"], [class*=" icon-"] {
+[class^="cpacicon-"], [class*=" cpacicon-"] {
 	font-family: 'cpac_icons';
 	speak: none;
 	font-style: normal;
@@ -22,7 +22,7 @@ $font-icons : "cpac_icons";
 }
 
 $icon-move : "\";
-.icon-move:before {
+.cpacicon-move:before {
 	content: $icon-move;
 }
 

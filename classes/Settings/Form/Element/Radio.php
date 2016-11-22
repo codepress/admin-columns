@@ -15,7 +15,7 @@ final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstr
 			return;
 		}
 
-		$template = '<div class="radio-labels %s>%s</div>';
+		$template = '<div class="radio-labels %s">%s</div>';
 		$vertical = $this->is_vertical() ? 'vertical' : '';
 		$value = $this->get_value();
 		$elements = array();

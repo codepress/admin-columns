@@ -148,7 +148,6 @@
 	}
 }
 
-
 /**
  * Columns
  * ----------------------------------------------------------------------------
@@ -214,6 +213,183 @@
  * Column
  * ----------------------------------------------------------------------------
  */
+.column-form {
+	//display: block !important;
+}
+
+.cpac-column-setting {
+	width: 100%;
+	clear: both;
+	border-spacing: 0;
+	margin: 0;
+	border-top: 1px solid $border-gray;
+
+	&:first-child {
+		border-top: 0;
+	}
+
+	tr {
+		&.hide {
+			display: none;
+		}
+		td {
+			vertical-align: top;
+			border: none;
+			padding: 0;
+			background: #fff;
+		}
+	}
+
+	td.col-label {
+		position: relative;
+		line-height: 26px;
+		overflow: visible;
+		background: $bg-gray;
+		border-right: 1px solid $border-gray-dark;
+		width: 34%;
+		padding: 10px;
+		padding-left: 12px;
+
+		span.label {
+			font-weight: bold;
+			display: block;
+			color: #333333;
+			font-style: normal;
+		}
+
+		div.description {
+			font-size: 12px;
+			font-style: normal;
+			line-height: 16px;
+			margin: 0 !important;
+			display: none;
+			position: absolute;
+			max-width: 200px;
+			z-index: 99;
+			top: 40px;
+			left: 0;
+			font-weight: normal;
+			color: #fff;
+			background-color: #333;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+			padding: .618em 1em;
+			border-radius: 3px;
+
+			em {
+				margin-top: 3px;
+				display: block;
+				color: #999;
+			}
+		}
+	}
+
+	.cpac-settings-input {
+		padding: 10px;
+
+		select, input {
+			width: 99.95%;
+		}
+	}
+
+	//Sub Setting
+	.cpac-column-setting {
+		td.col_label {
+			background-color: $bg-gray-light;
+			.label {
+				font-size: 12px;
+				color: #595959;
+			}
+		}
+	}
+
+	&.actions {
+		.col-settings {
+			p {
+				padding-left: 10px;
+			}
+			a {
+				text-decoration: none;
+
+				&.close-button,
+				&.clone-button {
+					margin-right: 10px;
+				}
+
+				&.remove-button {
+					color: #a00;
+					text-decoration: none;
+					text-shadow: none;
+					font-weight: normal;
+					font-size: 12px;
+					padding: 0 5px;
+					margin-right: 5px;
+
+					&:hover {
+						color: #fff;
+						background: #f00;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+.cpac-settings-input-width {
+	position: relative;
+
+	input[type=radio] {
+		width: auto;
+	}
+	div.description {
+		font-size: 12px;
+		width: 54px;
+		position: absolute;
+		top: 13px;
+		left: 10px;
+
+		input {
+			background: #efefef;
+			border: none;
+			height: 20px;
+			line-height: 20px;
+			text-align: right;
+			width: 36px;
+			font-size: 12px;
+		}
+	}
+	div.width-slider {
+		margin-left: 62px;
+		margin-right: 94px;
+		position: relative;
+		margin-top: 8px;
+
+		.ui-slider-handle {
+			cursor: ew-resize;
+		}
+	}
+	div.unit-select {
+		position: absolute;
+		top: 13px;
+		right: 10px;
+		width: 82px;
+		text-align: right;
+
+		.radio-labels {
+			padding: 0;
+
+			label {
+				margin-right: 4px;
+
+				input {
+					margin-right: 2px;
+				}
+			}
+		}
+	}
+
+}
+
 .cpac-column {
 
 	// Column Header
@@ -432,9 +608,9 @@
 		border-color: #dfdfdf;
 		position: relative;
 
-		> table {
-			border: none;
-			background: #fcfcfc;
+		> tables {
+			//border: none;
+			//background: #fcfcfc;
 
 			tr {
 
@@ -669,7 +845,7 @@
 
 				&.column-label {
 					input {
-						@include placeholder{
+						@include placeholder {
 							color: #9a9a9a;
 						}
 					}
@@ -952,7 +1128,6 @@
 		}
 	}
 }
-
 
 /**
  * Sidebar
