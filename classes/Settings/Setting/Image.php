@@ -29,7 +29,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$size = $this->create_element( 'image_size', 'select' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 
-		$listener = new AC_Settings_Listener( 'show', '#' . $size->get_id(), 'cpac_custom' );
+		$listener = new AC_Settings_Listener( 'toggle', '#' . $size->get_id(), 'cpac_custom' );
 
 		$width = new AC_Settings_View();
 		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )

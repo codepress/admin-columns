@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Form_Event {
+class AC_Settings_Listener {
 
 	/**
 	 * @var string
