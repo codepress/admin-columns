@@ -220,7 +220,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 
 				// TODO: works?
-					'<strong>' . $column->get_setting( 'type' )->get_clean_type_label() . '</strong>'
+					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>'
 				),
 			) );
 		}

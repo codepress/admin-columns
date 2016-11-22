@@ -74,7 +74,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 			}
 
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $group ]['options'][ $column->get_type() ] = $this->get_clean_type_label( $column );
+			$grouped[ $group ]['options'][ $column->get_type() ] = $this->get_clean_label( $column );
 
 			if ( ! $column->is_original() ) {
 				natcasesort( $grouped[ $group ]['options'] );
