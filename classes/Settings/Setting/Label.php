@@ -8,14 +8,9 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 	private $label;
 
 	public function __construct( AC_Column $column ) {
-
-		$this->label = $column->get_label() . '__Default';
-
 		parent::__construct( $column );
-	}
 
-	public function set_id() {
-		$this->id = 'label';
+		$this->set_default( $column->get_label() );
 	}
 
 	protected function set_managed_options() {

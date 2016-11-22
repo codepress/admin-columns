@@ -172,7 +172,7 @@ abstract class AC_Column {
 	 */
 	// todo: maybe refactor since this can be done via the list screen?
 	public function get_post_type() {
-		 return method_exists( $this->list_screen, 'get_post_type' ) ? $this->list_screen->get_post_type() : false;
+		return method_exists( $this->list_screen, 'get_post_type' ) ? $this->list_screen->get_post_type() : false;
 	}
 
 	/**
@@ -291,10 +291,9 @@ abstract class AC_Column {
 	 * Register settings
 	 */
 	protected function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_Type( $this ) );
-		$this->add_setting( new AC_Settings_Setting_Label( $this ) );
-		$this->add_setting( new AC_Settings_Setting_Width( $this ) );
-
+		$this->add_setting( new AC_Settings_Setting_Type( $this ) )
+		     ->add_setting( new AC_Settings_Setting_Label( $this ) )
+		     ->add_setting( new AC_Settings_Setting_Width( $this ) );
 
 		// todo: checkup prev branch
 		//$this->settings
@@ -315,7 +314,6 @@ abstract class AC_Column {
 
 		return isset( $values[ $option_name ] ) ? $values[ $option_name ] : null;
 	}
-
 
 	/**
 	 * Display settings
