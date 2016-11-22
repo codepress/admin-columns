@@ -19,7 +19,8 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 
 	public function view() {
 		$type = $this->create_element( 'type', 'select' )
-		             ->set_options( $this->get_grouped_columns() ); // todo: remove once column has list screen
+		             ->set_attribute( 'data-refresh', 1 )
+		             ->set_options( $this->get_grouped_columns() );
 
 		$view = new AC_Settings_View();
 		$view->set( 'setting', $type )
