@@ -3,7 +3,7 @@
   font-family: "cpac_icons";
   src: url("../fonts/cpac_icons.woff") format("woff"); }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="cpacicon-"], [class*=" cpacicon-"] {
   font-family: 'cpac_icons';
   speak: none;
   font-style: normal;
@@ -14,10 +14,10 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
-  [class^="icon-"]:before, [class*=" icon-"]:before {
+  [class^="cpacicon-"]:before, [class*=" cpacicon-"]:before {
     font-size: 100%; }
 
-.icon-move:before {
+.cpacicon-move:before {
   content: ""; }
 
 /* Dynamic variables */
@@ -148,6 +148,121 @@
  * Column
  * ----------------------------------------------------------------------------
  */
+.cpac_column_setting {
+  width: 100%;
+  clear: both;
+  border-spacing: 0;
+  margin: 0;
+  border-top: 1px solid #e8e8e8; }
+  .cpac_column_setting:first-child {
+    border-top: 0; }
+  .cpac_column_setting tr.hide {
+    display: none; }
+  .cpac_column_setting tr td {
+    vertical-align: top;
+    border: none;
+    padding: 0;
+    background: #fff; }
+  .cpac_column_setting td.col_label {
+    position: relative;
+    line-height: 26px;
+    overflow: visible;
+    background: #f5f5f5;
+    border-right: 1px solid #dedede;
+    width: 34%;
+    padding: 10px;
+    padding-left: 12px; }
+    .cpac_column_setting td.col_label span.label {
+      font-weight: bold;
+      display: block;
+      color: #333333;
+      font-style: normal; }
+    .cpac_column_setting td.col_label div.description {
+      font-size: 12px;
+      font-style: normal;
+      line-height: 16px;
+      margin: 0 !important;
+      display: none;
+      position: absolute;
+      max-width: 200px;
+      z-index: 99;
+      top: 40px;
+      left: 0;
+      font-weight: normal;
+      color: #fff;
+      background-color: #333;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      padding: .618em 1em;
+      border-radius: 3px; }
+      .cpac_column_setting td.col_label div.description em {
+        margin-top: 3px;
+        display: block;
+        color: #999; }
+  .cpac_column_setting .cpac_form_input {
+    padding: 10px; }
+    .cpac_column_setting .cpac_form_input select, .cpac_column_setting .cpac_form_input input {
+      width: 99.95%; }
+  .cpac_column_setting .cpac_column_setting td.col_label {
+    background-color: #fcfcfc; }
+    .cpac_column_setting .cpac_column_setting td.col_label .label {
+      font-size: 12px;
+      color: #595959; }
+  .cpac_column_setting.actions .col_settings p {
+    padding-left: 10px; }
+  .cpac_column_setting.actions .col_settings a {
+    text-decoration: none; }
+    .cpac_column_setting.actions .col_settings a.close-button, .cpac_column_setting.actions .col_settings a.clone-button {
+      margin-right: 10px; }
+    .cpac_column_setting.actions .col_settings a.remove-button {
+      color: #a00;
+      text-decoration: none;
+      text-shadow: none;
+      font-weight: normal;
+      font-size: 12px;
+      padding: 0 5px;
+      margin-right: 5px; }
+      .cpac_column_setting.actions .col_settings a.remove-button:hover {
+        color: #fff;
+        background: #f00; }
+
+.cpac_form_input_width {
+  position: relative; }
+  .cpac_form_input_width input[type=radio] {
+    width: auto; }
+  .cpac_form_input_width div.description {
+    font-size: 12px;
+    width: 54px;
+    position: absolute;
+    top: 13px;
+    left: 10px; }
+    .cpac_form_input_width div.description input {
+      background: #efefef;
+      border: none;
+      height: 20px;
+      line-height: 20px;
+      text-align: right;
+      width: 36px;
+      font-size: 12px; }
+  .cpac_form_input_width div.width-slider {
+    margin-left: 62px;
+    margin-right: 94px;
+    position: relative;
+    margin-top: 8px; }
+    .cpac_form_input_width div.width-slider .ui-slider-handle {
+      cursor: ew-resize; }
+  .cpac_form_input_width div.unit-select {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    width: 82px;
+    text-align: right; }
+    .cpac_form_input_width div.unit-select .radio-labels {
+      padding: 0; }
+      .cpac_form_input_width div.unit-select .radio-labels label {
+        margin-right: 4px; }
+        .cpac_form_input_width div.unit-select .radio-labels label input {
+          margin-right: 2px; }
+
 .cpac-column .column-meta {
   border-style: solid;
   border-color: #dfdfdf;
@@ -278,248 +393,245 @@
   border-style: solid;
   border-color: #dfdfdf;
   position: relative; }
-  .cpac-column .column-form > table {
+  .cpac-column .column-form > tables tr.hide {
+    display: none; }
+  .cpac-column .column-form > tables tr.radio > td.input > label {
+    padding-left: 0;
+    padding-right: 14px; }
+  .cpac-column .column-form > tables tr td {
+    vertical-align: top;
     border: none;
-    background: #fcfcfc; }
-    .cpac-column .column-form > table tr.hide {
-      display: none; }
-    .cpac-column .column-form > table tr.radio > td.input > label {
-      padding-left: 0;
-      padding-right: 14px; }
-    .cpac-column .column-form > table tr td {
+    padding: 10px 10px;
+    background: #ffffff;
+    border-top: 1px solid #f5f5f5; }
+    .cpac-column .column-form > tables tr td input {
+      margin: 0; }
+    .cpac-column .column-form > tables tr td select,
+    .cpac-column .column-form > tables tr td input[type=text],
+    .cpac-column .column-form > tables tr td input[type=number] {
+      width: 99.95%; }
+      .cpac-column .column-form > tables tr td select.small,
+      .cpac-column .column-form > tables tr td input[type=text].small,
+      .cpac-column .column-form > tables tr td input[type=number].small {
+        width: 100px; }
+    .cpac-column .column-form > tables tr td select {
+      margin: 0; }
+    .cpac-column .column-form > tables tr td div.radio-labels {
+      padding: 3px 0; }
+      .cpac-column .column-form > tables tr td div.radio-labels label {
+        margin-right: 14px; }
+        .cpac-column .column-form > tables tr td div.radio-labels label input[type=radio] {
+          margin: -3px 2px 0 0; }
+    .cpac-column .column-form > tables tr td span.suffix {
+      line-height: 40px;
+      color: #808080; }
+    .cpac-column .column-form > tables tr td select optgroup:nth-child(2n) {
+      background: #F9F9F9; }
+    .cpac-column .column-form > tables tr td.label {
+      position: relative;
+      overflow: visible;
+      background: #f5f5f5;
+      border-right: 1px solid #dedede;
       vertical-align: top;
-      border: none;
-      padding: 10px 10px;
-      background: #ffffff;
-      border-top: 1px solid #f5f5f5; }
-      .cpac-column .column-form > table tr td input {
-        margin: 0; }
-      .cpac-column .column-form > table tr td select,
-      .cpac-column .column-form > table tr td input[type=text],
-      .cpac-column .column-form > table tr td input[type=number] {
-        width: 99.95%; }
-        .cpac-column .column-form > table tr td select.small,
-        .cpac-column .column-form > table tr td input[type=text].small,
-        .cpac-column .column-form > table tr td input[type=number].small {
-          width: 100px; }
-      .cpac-column .column-form > table tr td select {
-        margin: 0; }
-      .cpac-column .column-form > table tr td div.radio-labels {
-        padding: 3px 0; }
-        .cpac-column .column-form > table tr td div.radio-labels label {
-          margin-right: 14px; }
-          .cpac-column .column-form > table tr td div.radio-labels label input[type=radio] {
-            margin: -3px 2px 0 0; }
-      .cpac-column .column-form > table tr td span.suffix {
-        line-height: 40px;
-        color: #808080; }
-      .cpac-column .column-form > table tr td select optgroup:nth-child(2n) {
-        background: #F9F9F9; }
-      .cpac-column .column-form > table tr td.label {
+      width: 34%;
+      border-top: 1px solid #e8e8e8;
+      padding-left: 12px; }
+      .cpac-column .column-form > tables tr td.label span.label {
+        font-weight: bold;
+        color: #333333;
+        display: block;
         position: relative;
-        overflow: visible;
-        background: #f5f5f5;
-        border-right: 1px solid #dedede;
-        vertical-align: top;
-        width: 34%;
-        border-top: 1px solid #e8e8e8;
-        padding-left: 12px; }
-        .cpac-column .column-form > table tr td.label span.label {
-          font-weight: bold;
-          color: #333333;
-          display: block;
-          position: relative;
-          line-height: 26px; }
-        .cpac-column .column-form > table tr td.label a.more-link {
-          position: absolute;
-          right: 14px;
-          top: 14px;
-          display: inline-block; }
-          .cpac-column .column-form > table tr td.label a.more-link span {
-            color: #ccc; }
-          .cpac-column .column-form > table tr td.label a.more-link:hover span {
-            color: #808080; }
-        .cpac-column .column-form > table tr td.label p {
-          color: #666666;
-          display: block;
-          font-size: 12px;
-          font-style: normal;
-          line-height: 16px;
-          margin: 0 !important; }
-          .cpac-column .column-form > table tr td.label p.description {
-            display: none;
-            position: absolute;
-            max-width: 200px;
-            z-index: 99;
-            top: 40px;
-            left: 0;
-            font-weight: normal;
-            color: #fff;
-            background-color: #333;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            padding: .618em 1em;
-            border-radius: 3px; }
-            .cpac-column .column-form > table tr td.label p.description em {
-              margin-top: 3px;
-              display: block;
-              color: #999; }
-        .cpac-column .column-form > table tr td.label .info {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1; }
-          .cpac-column .column-form > table tr td.label .info:before {
-            position: absolute;
-            z-index: 1;
-            right: 10px;
-            top: 50%;
-            margin-top: -7px;
-            content: '';
-            display: block;
-            border-radius: 32px;
-            border: 1px solid #E6E6E6;
-            width: 12px;
-            height: 12px; }
-          .cpac-column .column-form > table tr td.label .info:after {
-            position: absolute;
-            z-index: 1;
-            right: 10px;
-            top: 50%;
-            margin-top: -6px;
-            content: '?';
-            display: block;
-            width: 14px;
-            height: 14px;
-            color: #E6E6E6;
-            font: bold 10px Arial;
-            text-align: center;
-            vertical-align: middle;
-            line-height: 14px; }
-      .cpac-column .column-form > table tr td.input {
-        vertical-align: top; }
-        .cpac-column .column-form > table tr td.input div.msg {
-          margin-top: 5px;
-          display: none;
-          color: #333;
-          padding: 6px 8px;
-          background-color: #ffebe8;
-          border: 1px solid #fff;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          border-radius: 3px; }
-        .cpac-column .column-form > table tr td.input .help-msg {
-          margin: 10px 0 0;
-          color: #666;
-          font-size: 12px; }
-        .cpac-column .column-form > table tr td.input .section {
-          padding: 12px; }
-        .cpac-column .column-form > table tr td.input.nopadding {
-          padding: 0; }
-        .cpac-column .column-form > table tr td.input table {
-          width: 100%;
-          border: none; }
-          .cpac-column .column-form > table tr td.input table tr td.label {
-            background-color: #fcfcfc;
-            border-right: 1px solid #e8e8e8;
-            width: 35%; }
-            .cpac-column .column-form > table tr td.input table tr td.label span {
-              color: #595959;
-              font-size: 12px; }
-          .cpac-column .column-form > table tr td.input table tr td.input {
-            width: 65%;
-            border-color: #e8e8e8; }
-          .cpac-column .column-form > table tr td.input table tr.full td {
-            width: 100%;
-            height: 29px; }
-    .cpac-column .column-form > table tr.column-label input ::-webkit-input-placeholder {
-      color: #9a9a9a; }
-    .cpac-column .column-form > table tr.column-label input :-moz-placeholder {
-      color: #9a9a9a; }
-    .cpac-column .column-form > table tr.column-label input ::-moz-placeholder {
-      color: #9a9a9a; }
-    .cpac-column .column-form > table tr.column-label input :-ms-input-placeholder {
-      color: #9a9a9a; }
-    .cpac-column .column-form > table tr.column-width .input {
-      position: relative; }
-      .cpac-column .column-form > table tr.column-width .input div.description {
-        font-size: 12px;
-        width: 54px;
+        line-height: 26px; }
+      .cpac-column .column-form > tables tr td.label a.more-link {
         position: absolute;
-        top: 13px;
-        left: 10px; }
-        .cpac-column .column-form > table tr.column-width .input div.description input {
-          background: #efefef;
-          border: none;
-          height: 20px;
-          line-height: 20px;
-          text-align: right;
-          width: 36px;
-          font-size: 12px; }
-      .cpac-column .column-form > table tr.column-width .input div.width-slider {
-        margin-left: 62px;
-        margin-right: 94px;
-        position: relative;
-        margin-top: 8px; }
-        .cpac-column .column-form > table tr.column-width .input div.width-slider .ui-slider-handle {
-          cursor: ew-resize; }
-      .cpac-column .column-form > table tr.column-width .input div.unit-select {
-        position: absolute;
-        top: 13px;
-        right: 10px;
-        width: 82px;
-        text-align: right; }
-        .cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels {
-          padding: 0; }
-          .cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels label {
-            margin-right: 4px; }
-            .cpac-column .column-form > table tr.column-width .input div.unit-select .radio-labels label input {
-              margin-right: 2px; }
-    .cpac-column .column-form > table tr.column_image_size {
-      border: 10px solid red; }
-      .cpac-column .column-form > table tr.column_image_size td.input label.custom-size {
-        display: inline-block;
-        margin-top: 4px;
-        margin-bottom: 4px; }
-      .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size {
+        right: 14px;
+        top: 14px;
         display: inline-block; }
-        .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .hidden {
-          display: none; }
-        .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-w,
-        .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-h {
-          margin: 0; }
-          .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
-          .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
-            display: none; }
-          .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
-          .cpac-column .column-form > table tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
-            margin-right: 3px;
-            width: 40px !important; }
-    .cpac-column .column-form > table tr.column_action td {
-      border-top: 1px solid #e9e9e9; }
-      .cpac-column .column-form > table tr.column_action td p {
-        margin: 0;
-        line-height: 2; }
-        .cpac-column .column-form > table tr.column_action td p a.close-button, .cpac-column .column-form > table tr.column_action td p a.clone-button {
-          margin-right: 10px; }
-        .cpac-column .column-form > table tr.column_action td p a.remove-button {
-          color: #a00;
-          text-decoration: none;
-          text-shadow: none;
+        .cpac-column .column-form > tables tr td.label a.more-link span {
+          color: #ccc; }
+        .cpac-column .column-form > tables tr td.label a.more-link:hover span {
+          color: #808080; }
+      .cpac-column .column-form > tables tr td.label p {
+        color: #666666;
+        display: block;
+        font-size: 12px;
+        font-style: normal;
+        line-height: 16px;
+        margin: 0 !important; }
+        .cpac-column .column-form > tables tr td.label p.description {
+          display: none;
+          position: absolute;
+          max-width: 200px;
+          z-index: 99;
+          top: 40px;
+          left: 0;
           font-weight: normal;
-          font-size: 12px;
-          padding: 0 5px;
-          margin-right: 5px; }
-          .cpac-column .column-form > table tr.column_action td p a.remove-button:hover {
-            color: #fff;
-            background: #f00; }
-    .cpac-column .column-form > table tr.column_field td {
-      border-top: 1px solid #dedede; }
-    .cpac-column .column-form > table tr.section > td {
-      border-top: 1px solid #dedede; }
-    .cpac-column .column-form > table tr.section.radio td.label label {
-      padding: 0; }
+          color: #fff;
+          background-color: #333;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+          padding: .618em 1em;
+          border-radius: 3px; }
+          .cpac-column .column-form > tables tr td.label p.description em {
+            margin-top: 3px;
+            display: block;
+            color: #999; }
+      .cpac-column .column-form > tables tr td.label .info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; }
+        .cpac-column .column-form > tables tr td.label .info:before {
+          position: absolute;
+          z-index: 1;
+          right: 10px;
+          top: 50%;
+          margin-top: -7px;
+          content: '';
+          display: block;
+          border-radius: 32px;
+          border: 1px solid #E6E6E6;
+          width: 12px;
+          height: 12px; }
+        .cpac-column .column-form > tables tr td.label .info:after {
+          position: absolute;
+          z-index: 1;
+          right: 10px;
+          top: 50%;
+          margin-top: -6px;
+          content: '?';
+          display: block;
+          width: 14px;
+          height: 14px;
+          color: #E6E6E6;
+          font: bold 10px Arial;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 14px; }
+    .cpac-column .column-form > tables tr td.input {
+      vertical-align: top; }
+      .cpac-column .column-form > tables tr td.input div.msg {
+        margin-top: 5px;
+        display: none;
+        color: #333;
+        padding: 6px 8px;
+        background-color: #ffebe8;
+        border: 1px solid #fff;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px; }
+      .cpac-column .column-form > tables tr td.input .help-msg {
+        margin: 10px 0 0;
+        color: #666;
+        font-size: 12px; }
+      .cpac-column .column-form > tables tr td.input .section {
+        padding: 12px; }
+      .cpac-column .column-form > tables tr td.input.nopadding {
+        padding: 0; }
+      .cpac-column .column-form > tables tr td.input table {
+        width: 100%;
+        border: none; }
+        .cpac-column .column-form > tables tr td.input table tr td.label {
+          background-color: #fcfcfc;
+          border-right: 1px solid #e8e8e8;
+          width: 35%; }
+          .cpac-column .column-form > tables tr td.input table tr td.label span {
+            color: #595959;
+            font-size: 12px; }
+        .cpac-column .column-form > tables tr td.input table tr td.input {
+          width: 65%;
+          border-color: #e8e8e8; }
+        .cpac-column .column-form > tables tr td.input table tr.full td {
+          width: 100%;
+          height: 29px; }
+  .cpac-column .column-form > tables tr.column-label input ::-webkit-input-placeholder {
+    color: #9a9a9a; }
+  .cpac-column .column-form > tables tr.column-label input :-moz-placeholder {
+    color: #9a9a9a; }
+  .cpac-column .column-form > tables tr.column-label input ::-moz-placeholder {
+    color: #9a9a9a; }
+  .cpac-column .column-form > tables tr.column-label input :-ms-input-placeholder {
+    color: #9a9a9a; }
+  .cpac-column .column-form > tables tr.column-width .input {
+    position: relative; }
+    .cpac-column .column-form > tables tr.column-width .input div.description {
+      font-size: 12px;
+      width: 54px;
+      position: absolute;
+      top: 13px;
+      left: 10px; }
+      .cpac-column .column-form > tables tr.column-width .input div.description input {
+        background: #efefef;
+        border: none;
+        height: 20px;
+        line-height: 20px;
+        text-align: right;
+        width: 36px;
+        font-size: 12px; }
+    .cpac-column .column-form > tables tr.column-width .input div.width-slider {
+      margin-left: 62px;
+      margin-right: 94px;
+      position: relative;
+      margin-top: 8px; }
+      .cpac-column .column-form > tables tr.column-width .input div.width-slider .ui-slider-handle {
+        cursor: ew-resize; }
+    .cpac-column .column-form > tables tr.column-width .input div.unit-select {
+      position: absolute;
+      top: 13px;
+      right: 10px;
+      width: 82px;
+      text-align: right; }
+      .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels {
+        padding: 0; }
+        .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label {
+          margin-right: 4px; }
+          .cpac-column .column-form > tables tr.column-width .input div.unit-select .radio-labels label input {
+            margin-right: 2px; }
+  .cpac-column .column-form > tables tr.column_image_size {
+    border: 10px solid red; }
+    .cpac-column .column-form > tables tr.column_image_size td.input label.custom-size {
+      display: inline-block;
+      margin-top: 4px;
+      margin-bottom: 4px; }
+    .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size {
+      display: inline-block; }
+      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .hidden {
+        display: none; }
+      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w,
+      .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h {
+        margin: 0; }
+        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
+        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
+          display: none; }
+        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
+        .cpac-column .column-form > tables tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
+          margin-right: 3px;
+          width: 40px !important; }
+  .cpac-column .column-form > tables tr.column_action td {
+    border-top: 1px solid #e9e9e9; }
+    .cpac-column .column-form > tables tr.column_action td p {
+      margin: 0;
+      line-height: 2; }
+      .cpac-column .column-form > tables tr.column_action td p a.close-button, .cpac-column .column-form > tables tr.column_action td p a.clone-button {
+        margin-right: 10px; }
+      .cpac-column .column-form > tables tr.column_action td p a.remove-button {
+        color: #a00;
+        text-decoration: none;
+        text-shadow: none;
+        font-weight: normal;
+        font-size: 12px;
+        padding: 0 5px;
+        margin-right: 5px; }
+        .cpac-column .column-form > tables tr.column_action td p a.remove-button:hover {
+          color: #fff;
+          background: #f00; }
+  .cpac-column .column-form > tables tr.column_field td {
+    border-top: 1px solid #dedede; }
+  .cpac-column .column-form > tables tr.section > td {
+    border-top: 1px solid #dedede; }
+  .cpac-column .column-form > tables tr.section.radio td.label label {
+    padding: 0; }
 
 .cpac-column.loading .column-form > .spinner {
   position: absolute;

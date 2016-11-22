@@ -3,7 +3,7 @@
 	src: url('<%= fontPath %><%= fontName %>.woff') format('woff');
 }
 $font-icons : "<%= fontName %>";
-[class^="icon-"], [class*=" icon-"] {
+[class^="cpacicon-"], [class*=" cpacicon-"] {
 	font-family: '<%= fontName %>';
 	speak: none;
 	font-style: normal;
@@ -22,7 +22,7 @@ $font-icons : "<%= fontName %>";
 }
 
 <% _.each(glyphs, function( glyph ) { %>$icon-<%= glyph.name %> : "\<%= glyph.unicode.toString(16).toUpperCase() %>";
-.icon-<%= glyph.name %>:before {
+.cpacicon-<%= glyph.name %>:before {
 	content: $icon-<%= glyph.name %>;
 }
 <% }); %>

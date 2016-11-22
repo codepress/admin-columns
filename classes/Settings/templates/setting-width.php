@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+<div class="cpac_form_input cpac_form_input_width">
 <div class="description">
 	<?php echo $this->width; ?>
 	<span class="unit"><?php echo esc_html( $this->width_unit->get_value() ); ?></span>
@@ -13,4 +14,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="unit-select">
 	<?php echo $this->width_unit; ?>
+</div>
 </div>

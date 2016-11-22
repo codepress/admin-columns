@@ -8,18 +8,18 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="widefat <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
+<table class="cpac_column_setting <?php echo esc_attr( $this->class ); ?>" data-events="<?php echo $this->events; ?>">
 	<tr>
-		<td class="label">
+		<td class="col_label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
 				<span class="label <?php echo esc_attr( $description ); ?>">
 					<?php echo $this->label; ?>
 				</span>
 
 				<?php if ( $this->description ) : ?>
-					<span class="description">
+					<div class="description">
 						<?php echo $this->description; ?>
-					</span>
+					</div>
 				<?php endif; ?>
 
 				<?php if ( $this->read_more ) : ?>
@@ -29,9 +29,9 @@ $description = $this->description ? 'description' : '';
 				<?php endif; ?>
 			</label>
 		</td>
-		<td class="settings">
+		<td class="col_settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="setting">
+				<div class="cpac_form_input">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>
