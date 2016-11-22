@@ -30,11 +30,17 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	}
 
 	/**
-	 * Returns the type label as human readable. Basically the same label but without tags or underscores and capitalized.
+	 * Returns the type label as human readable: no tags, underscores and capitalized.
+	 *
+	 * @param AC_Column|null $column
 	 *
 	 * @return string
 	 */
-	public function get_clean_type_label( AC_Column $column ) {
+	public function get_clean_label( AC_Column $column = null ) {
+		if ( null === $column ) {
+			$column = $this->column;
+		}
+
 		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
 
 		if ( $column->is_original() ) {
@@ -77,6 +83,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 
 		krsort( $grouped );
 
+		// todo: rename filter e.g. ac/settings/setting/type/columns
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
