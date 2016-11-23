@@ -28,9 +28,12 @@ class AC_Column_Post_AuthorName extends AC_Column {
 		return ac_helper()->post->get_raw_field( 'post_author', $post_id );
 	}
 
-	public function display_settings() {
-		$this->field_settings->user();
-		$this->field_settings->user_link_to();
+	public function register_settings() {
+		parent::register_settings();
+
+		// TODO: cleanup
+		//$this->field_settings->user();
+		//$this->field_settings->user_link_to();
 	}
 
 }

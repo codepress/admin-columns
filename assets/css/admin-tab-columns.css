@@ -251,8 +251,7 @@
         margin-top: 3px;
         display: block;
         color: #999; }
-  .ac-column-setting td.col-input muppet
-div.msg {
+  .ac-column-setting td.col-input div.msg {
     margin-top: 5px;
     display: none;
     color: #333;

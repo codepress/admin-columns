@@ -351,6 +351,9 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function settings() {
+
+
+
 		return;
 		$settings = parent::settings();
 

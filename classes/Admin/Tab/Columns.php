@@ -221,6 +221,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$column = $this->get_list_screen()->get_column_by_type( $type );
 
+		// Not cloneable message
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
@@ -229,11 +230,61 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					// TODO: works?
 					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>'
-				),
+				)
+			) );
+		}
+
+		// Placeholder message
+		if ( $column instanceof AC_Column_PlaceholderInterface ) {
+			wp_send_json_error( array(
+				'type'  => 'message',
+				'error' => $this->get_placeholder_message( array( 'label' => $column->get_label(), 'type' => $column->get_type(), 'url' => $column->get_url() ) )
 			) );
 		}
 
 		wp_send_json_success( $this->get_column_display( $column ) );
+	}
+
+	/**
+	 * @param array $args
+	 * @return string HTML error message
+	 */
+	private function get_placeholder_message( $args = array() ) {
+		$defaults = array(
+			'label' => '',
+			'url'   => '',
+			'type'  => '',
+		);
+
+		$data = (object) wp_parse_args( $args, $defaults );
+
+		if ( ! $data->label ) {
+			return false;
+		}
+
+		ob_start();
+		?>
+		<div class="is-disabled">
+			<p>
+				<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
+			</p>
+
+			<p>
+				<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+			</p>
+
+			<p>
+				<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); ?>
+			</p>
+			<a target="_blank" href="<?php echo add_query_arg( array(
+				'utm_source'   => 'plugin-installation',
+				'utm_medium'   => $data->type,
+				'utm_campaign' => 'plugin-installation',
+			), $data->url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
+		</div>
+		<?php
+
+		return ob_get_clean();
 	}
 
 	/**
