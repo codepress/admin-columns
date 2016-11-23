@@ -186,12 +186,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @return string
 	 */
 	private function get_column_display( AC_Column $column ) {
-		// Set label
-		// TODO
-		//if ( ! $column->settings()->get_value( 'label' ) ) {
-		//	$column->settings()->set_option( 'label', $column->get_label() );
-		//}
-
 		ob_start();
 		$this->display_column( $column );
 

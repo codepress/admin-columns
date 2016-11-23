@@ -10,7 +10,7 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function get_attribute_as_string( $key, $value ) {
-		return sprintf( '%s="%s"', $key, esc_attr( $value ) );
+		return sprintf( '%s="%s"', $key, esc_attr( trim( $value ) ) );
 	}
 
 	/**
