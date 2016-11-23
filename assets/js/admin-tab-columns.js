@@ -179,6 +179,8 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
+
+			$( col ).trigger( 'init' );
 		} );
 
 		// ordering of columns
@@ -453,6 +455,9 @@ function cpac_reset_columns( $ ) {
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
 
+
+		column.find('.ac-column-setting[data-type="image_size"]').cpac_column_setting_image_size();
+
 		/** width */
 
 		// slider
@@ -506,11 +511,6 @@ function cpac_reset_columns( $ ) {
 				}
 			} );
 
-		/** display custom image size */
-		column.find( '.column-image_size select' ).show_hide_custom_image_size().change( function() {
-			$( this ).show_hide_custom_image_size();
-		} );
-
 		/**    tooltip */
 		column.find( '.ac-column-body .col-label .label' ).hover( function() {
 			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).show();
@@ -522,20 +522,6 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="1"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
-	};
-
-	/**
-	 * Custom Image Size
-	 *
-	 * @returns {HTMLElement}
-	 */
-	$.fn.show_hide_custom_image_size = function() {
-		var custom_image_size = $( this ).closest( '.ac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
-		if ( 'cpac-custom' === $( this ).val() ) {
-			custom_image_size.removeClass( 'hide' );
-		}
-
-		return $( this );
 	};
 
 	/*
@@ -809,3 +795,33 @@ function cpac_reset_columns( $ ) {
 	};
 
 }( jQuery ));
+
+
+
+// Settings fields
+(function( $ ) {
+
+	$.fn.cpac_column_setting_image_size = function() {
+		function initState( $setting, $select ) {
+			if ( 'cpac-custom' == $select.val() ) {
+				$setting.find( '.ac-column-setting' ).show();
+			} else {
+				$setting.find( '.ac-column-setting' ).hide();
+			}
+		};
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $select = $( this ).find( '.ac-settings-input_image_size select' );
+
+			initState( $setting, $select );
+			$select.on( 'change', function() {
+				initState( $setting, $( this ) );
+			} );
+
+		} );
+	};
+
+}( jQuery ));
+
+
