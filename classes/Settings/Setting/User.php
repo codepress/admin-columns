@@ -1,17 +1,80 @@
 <?php
 
-class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
 	 */
-	private $user;
+	private $display_author_as;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'user' );
+	/**
+	 * @var string
+	 */
+	private $user_link_to;
+
+	protected function set_name() {
+		$this->name = 'user';
 	}
 
-	public function view() {
+	protected function set_managed_options() {
+		$this->managed_options = array( 'display_author_as', 'user_link_to' );
+	}
+
+	/**
+	 * @param int $user_id
+	 *
+	 * @return string
+	 */
+	public function format( $user_id ) {
+
+		// TODO
+		return ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
+	}
+
+	/**
+	 * @param int $user_id
+	 *
+	 * @return false|string
+	 */
+	private function get_user_name( $user_id ) {
+		return ac_helper()->user->get_display_name( $user_id, $this->get_display_author_as() );
+	}
+
+	/**
+	 * @param $user_id
+	 *
+	 * @return bool|string
+	 */
+	private function get_user_link( $user_id ) {
+		$link = false;
+
+		switch ( $this->column->get_option( 'user_link_to' ) ) {
+			case 'edit_user' :
+				$link = get_edit_user_link( $user_id );
+				break;
+			case 'view_user_posts' :
+				$link = add_query_arg( array(
+					'post_type' => $this->column->get_post_type(),
+					'author'    => get_the_author_meta( 'ID' ),
+				), 'edit.php' );
+				break;
+			case 'view_author' :
+				$link = get_author_posts_url( $user_id );
+				break;
+			case 'email_user' :
+				$email = get_the_author_meta( 'email', $user_id );
+				$link = $email ? 'mailto:' . $email : false;
+				break;
+		}
+
+		return $link;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_display_options() {
 		$options = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
@@ -26,13 +89,53 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 		// resort for possible translations
 		natcasesort( $options );
 
-		$select = $this->create_element( 'select' )
+		return $options;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_link_options() {
+		$options = array(
+			'edit_user'       => __( 'Edit User Profile' ),
+			'email_user'      => __( 'User Email' ),
+			'view_user_posts' => __( 'View User Posts' ),
+			'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
+		);
+
+		// resort for possible translations
+		natcasesort( $options );
+
+		$options = array_merge( array( '' => __( 'None' ) ), $options );
+
+		return $options;
+	}
+
+	/**
+	 * @return AC_Settings_View
+	 */
+	public function view() {
+
+		$select = $this->create_element( 'select', 'display_author_as' )
 		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $options );
+		               ->set_options( $this->get_display_options() );
+
+		$display_format = new AC_Settings_View();
+		$display_format->set( 'label', __( 'Display', 'codepress-admin-columns' ) )
+		               ->set( 'setting', $select );
+
+		$select = $this->create_element( 'select', 'user_link_to' )
+		               ->set_attribute( 'data-refresh', 'column' )
+		               ->set_options( $this->get_link_options() );
+
+		$link_format = new AC_Settings_View();
+		$link_format->set( 'label', __( 'Link To', 'codepress-admin-columns' ) )
+		               ->set( 'setting', $select );
+
 
 		$view = $this->get_view();
-		$view->set( 'setting', $select )
-		     ->set( 'label', __( 'Display Format', 'codepress-admin-columns' ) );
+		$view->set( 'label', __( 'User', 'codepress-admin-columns' ) )
+		     ->set( 'sections', array( $display_format, $link_format ) );
 
 		return $view;
 	}
@@ -40,17 +143,35 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 	/**
 	 * @return string
 	 */
-	public function get_user() {
-		return $this->user;
+	public function get_display_author_as() {
+		return $this->display_author_as;
 	}
 
 	/**
-	 * @param string $user
+	 * @param string $display_author_as
 	 *
 	 * @return $this
 	 */
-	public function set_user( $user ) {
-		$this->user = $user;
+	public function set_display_author_as( $display_author_as ) {
+		$this->display_author_as = $display_author_as;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_user_link_to() {
+		return $this->user_link_to;
+	}
+
+	/**
+	 * @param string $user_link_to
+	 *
+	 * @return $this
+	 */
+	public function set_user_link_to( $user_link_to ) {
+		$this->user_link_to = $user_link_to;
 
 		return $this;
 	}
