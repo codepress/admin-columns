@@ -279,8 +279,14 @@ abstract class AC_Column {
 		     ->add_setting( new AC_Settings_Setting_Width( $this ) );
 
 		// test
+		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
+		$this->add_setting( new AC_Settings_Setting_LinkLabel( $this ) );
 		$this->add_setting( new AC_Settings_Setting_User( $this ) );
+		$this->add_setting( new AC_Settings_Setting_UserLink( $this ) );
+		$this->add_setting( new AC_Settings_Setting_Post( $this ) );
+		$this->add_setting( new AC_Settings_Setting_PostLink( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
+		$this->add_setting( new AC_Settings_Setting_WordsPerMinute( $this ) );
 	}
 
 	/**

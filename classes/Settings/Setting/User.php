@@ -33,8 +33,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 
 		$view = $this->get_view();
 		$view->set( 'setting', $select )
-		     ->set( 'label', __( 'Display format', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'This is the format of the author name.', 'codepress-admin-columns' ) );
+		     ->set( 'label', __( 'Display Format', 'codepress-admin-columns' ) );
 
 		return $view;
 	}

@@ -208,7 +208,7 @@ class AC_ColumnFieldSettings {
 		$this->field( $this->character_limit_args() );
 	}*/
 
-	public function user_args() {
+	/*public function user_args() {
 		$nametypes = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
@@ -229,22 +229,22 @@ class AC_ColumnFieldSettings {
 			'options'     => $nametypes,
 			'description' => __( 'This is the format of the author name.', 'codepress-admin-columns' ),
 		);
-	}
+	}*/
 
-	public function user() {
+	/*public function user() {
 		$this->field( $this->user_args() );
-	}
+	}*/
 
-	public function url_args() {
+	/*public function url_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'link_label',
 			'label'       => __( 'Link label', 'codepress-admin-columns' ),
 			'description' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
 		);
-	}
+	}*/
 
-	public function user_link_to_args() {
+	/*public function user_link_to_args() {
 		return array(
 			'type'        => 'select',
 			'name'        => 'user_link_to',
@@ -258,17 +258,17 @@ class AC_ColumnFieldSettings {
 			),
 			'description' => __( 'Page the author name should link to.', 'codepress-admin-columns' ),
 		);
-	}
+	}*/
 
-	public function user_link_to() {
+	/*public function user_link_to() {
 		$this->field( $this->user_link_to_args() );
-	}
+	}*/
 
-	public function url() {
+	/*public function url() {
 		$this->field( $this->url_args() );
-	}
+	}*/
 
-	public function post_args( $default_value = 'title' ) {
+	/*public function post_args( $default_value = 'title' ) {
 		return array(
 			'type'          => 'select',
 			'name'          => 'post_property_display',
@@ -281,13 +281,13 @@ class AC_ColumnFieldSettings {
 			'description'   => __( 'Post property to display for related post(s).', 'codepress-admin-columns' ),
 			'default_value' => $default_value,
 		);
-	}
+	}*/
 
-	public function post( $default_value = 'title' ) {
+	/*public function post( $default_value = 'title' ) {
 		$this->field( $this->post_args( $default_value ) );
-	}
+	}*/
 
-	public function post_link_to( $default_value = 'edit_post' ) {
+	/*public function post_link_to( $default_value = 'edit_post' ) {
 		$this->field( array(
 			'type'          => 'select',
 			'name'          => 'post_link_to',
@@ -302,9 +302,9 @@ class AC_ColumnFieldSettings {
 			'description'   => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
 			'default_value' => $default_value,
 		) );
-	}
+	}*/
 
-	public function words_per_minute_args() {
+	/*public function words_per_minute_args() {
 		return array(
 			'type'          => 'text',
 			'name'          => 'words_per_minute',
@@ -313,11 +313,11 @@ class AC_ColumnFieldSettings {
 			'placeholder'   => __( 'Enter words per minute. For example: 200' ),
 			'default_value' => 200,
 		);
-	}
+	}*/
 
-	public function words_per_minute() {
+	/*public function words_per_minute() {
 		$this->field( $this->words_per_minute_args() );
-	}
+	}*/
 
 	/**
 	 * @since 2.4.7
@@ -386,7 +386,7 @@ class AC_ColumnFieldSettings {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function field( $args = array() ) {
+	/*public function field( $args = array() ) {
 		$defaults = array(
 			'type'           => 'text',
 			'name'           => '',
@@ -408,12 +408,12 @@ class AC_ColumnFieldSettings {
 		$args['attr_id'] = $this->get_attr_id( $args['name'] );
 
 		$field = (object) $args;
-		?>
-		<tr class="<?php echo esc_attr( $field->type ); ?> column-<?php echo esc_attr( $field->name ); ?><?php echo esc_attr( $field->hidden ? ' hide' : '' ); ?><?php echo esc_attr( $field->section ? ' section' : '' ); ?>"<?php echo $field->toggle_handle ? ' data-handle="' . esc_attr( $this->get_attr_id( $field->toggle_handle ) ) . '"' : ''; ?><?php echo $field->refresh_column ? ' data-refresh="1"' : ''; ?>>
-			<?php $this->label( array( 'label' => $field->label, 'description' => $field->description, 'for' => ( $field->for ? $field->for : $field->name ), 'more_link' => $field->more_link ) ); ?>
-			<td class="input"<?php echo( $field->toggle_trigger ? ' data-trigger="' . esc_attr( $this->get_attr_id( $field->toggle_trigger ) ) . '"' : '' ); ?><?php echo empty( $field->label ) ? ' colspan="2"' : ''; ?>>
+		*/?><!--
+		<tr class="<?php /*echo esc_attr( $field->type ); */?> column-<?php /*echo esc_attr( $field->name ); */?><?php /*echo esc_attr( $field->hidden ? ' hide' : '' ); */?><?php /*echo esc_attr( $field->section ? ' section' : '' ); */?>"<?php /*echo $field->toggle_handle ? ' data-handle="' . esc_attr( $this->get_attr_id( $field->toggle_handle ) ) . '"' : ''; */?><?php /*echo $field->refresh_column ? ' data-refresh="1"' : ''; */?>>
+			<?php /*$this->label( array( 'label' => $field->label, 'description' => $field->description, 'for' => ( $field->for ? $field->for : $field->name ), 'more_link' => $field->more_link ) ); */?>
+			<td class="input"<?php /*echo( $field->toggle_trigger ? ' data-trigger="' . esc_attr( $this->get_attr_id( $field->toggle_trigger ) ) . '"' : '' ); */?><?php /*echo empty( $field->label ) ? ' colspan="2"' : ''; */?>>
 				<?php
-				switch ( $field->type ) {
+/*				switch ( $field->type ) {
 					case 'select' :
 						ac_helper()->formfield->select( $args );
 						break;
@@ -434,22 +434,22 @@ class AC_ColumnFieldSettings {
 						break;
 				}
 
-				if ( $field->help ) : ?>
+				if ( $field->help ) : */?>
 					<p class="help-msg">
-						<?php echo $field->help; ?>
+						<?php /*echo $field->help; */?>
 					</p>
-				<?php endif; ?>
+				<?php /*endif; */?>
 
 			</td>
 		</tr>
-		<?php
-	}
+		--><?php
+/*	}*/
 
 	/**
 	 * @since 1.0
 	 * @return array Image Sizes.
 	 */
-	private function get_grouped_image_sizes() {
+	/*private function get_grouped_image_sizes() {
 		global $_wp_additional_image_sizes;
 
 		$sizes = array(
@@ -500,22 +500,22 @@ class AC_ColumnFieldSettings {
 		);
 
 		return $sizes;
-	}
+	}*/
 
 	/**
 	 * @since NEWVERSION
 	 */
-	private function width_field() {
-		?>
-		<div class="description" title="<?php echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); ?>">
-			<input class="width" type="text" placeholder="<?php echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); ?>" name="<?php $this->attr_name( 'width' ); ?>" id="<?php $this->attr_id( 'width' ); ?>" value="<?php echo esc_attr( $this->column->get_width() ); ?>"/>
-			<span class="unit"><?php echo esc_html( $this->column->get_width_unit() ); ?></span>
+	/*private function width_field() {
+		*/?><!--
+		<div class="description" title="<?php /*echo esc_attr( __( 'default', 'codepress-admin-columns' ) ); */?>">
+			<input class="width" type="text" placeholder="<?php /*echo esc_attr( __( 'auto', 'codepress-admin-columns' ) ); */?>" name="<?php /*$this->attr_name( 'width' ); */?>" id="<?php /*$this->attr_id( 'width' ); */?>" value="<?php /*echo esc_attr( $this->column->get_width() ); */?>"/>
+			<span class="unit"><?php /*echo esc_html( $this->column->get_width_unit() ); */?></span>
 		</div>
 		<div class="width-slider"></div>
 
 		<div class="unit-select">
 			<?php
-			ac_helper()->formfield->radio( array(
+/*			ac_helper()->formfield->radio( array(
 				'attr_id'       => $this->get_attr_id( 'width_unit' ),
 				'attr_name'     => $this->get_attr_name( 'width_unit' ),
 				'options'       => array(
@@ -525,9 +525,9 @@ class AC_ColumnFieldSettings {
 				'class'         => 'unit',
 				'default_value' => $this->column->get_width_unit(),
 			) );
-			?>
+			*/?>
 		</div>
-		<?php
-	}
+		--><?php
+/*	}*/
 
 }
