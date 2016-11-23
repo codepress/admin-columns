@@ -16,7 +16,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$word_limit = $this->create_element( 'excerpt_length', 'number' )
+		$word_limit = $this->create_element( 'number' )
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );
 

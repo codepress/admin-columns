@@ -91,7 +91,7 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	protected function create_element( $type = 'text', $name = null ) {
 		if ( null === $name ) {
-			$name = $this->get_name();
+			$name = $this->get_managed_option();
 		}
 
 		switch ( $type ) {
