@@ -18,16 +18,16 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 
-		// return an empty view
+		// don't render this field
 		if ( $this->column->is_original() && ac_helper()->string->contains_html_only( $this->label ) ) {
 			$view->set_template( false );
 
 			return $view;
 		}
 
-		$label = $this->create_element( 'label' )
+		$label = $this->create_element()
 		              ->set_attribute( 'placeholder', $this->column->get_label() );
 
 		$view->set( 'setting', $label )

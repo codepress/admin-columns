@@ -7,8 +7,8 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	 */
 	private $excerpt_length = 30;
 
-	protected function set_id() {
-		$this->id = 'word_limit';
+	protected function set_name() {
+		$this->name = 'word_limit';
 	}
 
 	protected function set_managed_options() {
@@ -16,11 +16,11 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$word_limit = $this->create_element( 'excerpt_length', 'number' )
+		$word_limit = $this->create_element( 'number' )
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'label', __( 'Word Limit', 'codepress-admin-columns' ) )
 		     ->set( 'tooltip', __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>' )
 		     ->set( 'setting', $word_limit );

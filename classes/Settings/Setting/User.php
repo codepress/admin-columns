@@ -12,7 +12,6 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-
 		$options = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
@@ -24,17 +23,16 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
 		);
 
-		// sorts when translated
+		// resort for possible translations
 		natcasesort( $options );
 
-		$select = $this->create_element( 'user', 'select' )
+		$select = $this->create_element( 'select' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $options );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'setting', $select )
-		     ->set( 'label', __( 'Display format', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'This is the format of the author name.', 'codepress-admin-columns' ) );
+		     ->set( 'label', __( 'Display Format', 'codepress-admin-columns' ) );
 
 		return $view;
 	}

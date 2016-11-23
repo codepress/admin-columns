@@ -7,8 +7,8 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
 	 */
 	private $character_limit = 30;
 
-	protected function set_id() {
-		$this->id = 'character_limit';
+	protected function set_name() {
+		$this->name = 'character_limit';
 	}
 
 	protected function set_managed_options() {
@@ -16,11 +16,11 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$word_limit = $this->create_element( 'character_limit', 'number' )
+		$word_limit = $this->create_element( 'number' )
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'label', __( 'Character Limit', 'codepress-admin-columns' ) )
 		     ->set( 'tooltip', __( 'Maximum number of characters', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>' )
 		     ->set( 'setting', $word_limit );
