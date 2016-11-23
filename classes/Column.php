@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
@@ -261,7 +260,7 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return array
+	 * @return AC_Settings_SettingAbstract[]
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
@@ -284,14 +283,21 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @param string $option_name
+	 * @param string $key
 	 *
 	 * @return null|string|bool
 	 */
-	public function get_option( $option_name ) {
-		$values = $this->get_list_screen()->settings()->get_setting( $this->get_name() );
+	public function get_option( $key ) {
+		$options = $this->get_options();
 
-		return isset( $values[ $option_name ] ) ? $values[ $option_name ] : null;
+		return isset( $options[ $key ] ) ? $options[ $key ] : null;
+	}
+
+	/**
+	 * @return array|false
+	 */
+	public function get_options() {
+		return $this->get_list_screen()->settings()->get_setting( $this->get_name() );
 	}
 
 	/**

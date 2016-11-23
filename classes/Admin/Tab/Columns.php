@@ -77,6 +77,19 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		foreach ( $column_data as $name => $options ) {
 			if ( $column = $list_screen->get_column_by_name( $name ) ) {
 
+				/**
+				$sanitized = array();
+
+				foreach( $column->get_settings() as $setting ) {
+					$setting->set_options( $options );
+
+					$sanitized += $setting->get_values();
+				}
+
+				print_r( $sanitized );
+				exit;
+				 */
+
 				if ( ! empty( $options['label'] ) ) {
 
 					// Local site url will be replaced before storing into DB.

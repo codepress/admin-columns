@@ -57,12 +57,12 @@ final class AC_Settings_ListScreen {
 	/**
 	 * @param string $name Column name
 	 *
-	 * @return array|false
+	 * @return array
 	 */
 	public function get_setting( $column_name ) {
 		$settings = $this->get_settings();
 
-		return isset( $settings[ $column_name ] ) ? $settings[ $column_name ] : false;
+		return isset( $settings[ $column_name ] ) ? $settings[ $column_name ] : array();
 	}
 
 	/**

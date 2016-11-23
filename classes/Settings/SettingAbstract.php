@@ -139,7 +139,7 @@ abstract class AC_Settings_SettingAbstract {
 		$values = array();
 
 		foreach ( $this->managed_options as $managed_option ) {
-			$values[ $managed_option ] = $this->get_option( $managed_option );
+			$values[ $managed_option ] = $this->get_value( $managed_option );
 		}
 
 		return $values;
@@ -165,6 +165,27 @@ abstract class AC_Settings_SettingAbstract {
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Load the current options from the column
+	 *
+	 */
+	private function load_options() {
+		$this->set_options( $this->column->get_options() );
+	}
+
+	/**
+	 * Set the options of this setting
+	 *
+	 * @param array $options
+	 */
+	public function set_options( array $options ) {
+		foreach ( $options as $key => $value ) {
+			if ( in_array( $key, $this->managed_options ) ) {
+				$this->set_option( $value, $key );
+			}
+		}
 	}
 
 	/**
@@ -200,20 +221,6 @@ abstract class AC_Settings_SettingAbstract {
 		}
 
 		return $this->has_managed_option( $option ) && null !== $this->get_value( $option );
-	}
-
-	/**
-	 * Retrieve settings
-	 *
-	 */
-	private function load_options() {
-		foreach ( $this->managed_options as $managed_option ) {
-			$value = $this->column->get_option( $managed_option );
-
-			if ( null !== $value ) {
-				$this->set_option( $value, $managed_option );
-			}
-		}
 	}
 
 	/**
