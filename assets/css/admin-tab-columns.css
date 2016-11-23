@@ -251,24 +251,21 @@
         margin-top: 3px;
         display: block;
         color: #999; }
-  .ac-column-setting .ac-settings-input {
-    padding: 10px; }
-    .ac-column-setting .ac-settings-input select, .ac-column-setting .ac-settings-input input {
-      width: 99.95%; }
-    .ac-column-setting .ac-settings-input div.msg {
-      margin-top: 5px;
-      display: none;
-      color: #333;
-      padding: 6px 8px;
-      background-color: #ffebe8;
-      border: 1px solid #fff;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-radius: 3px; }
-    .ac-column-setting .ac-settings-input .help-msg {
-      margin: 10px 0 0;
-      color: #666;
-      font-size: 12px; }
+  .ac-column-setting td.col-input muppet
+div.msg {
+    margin-top: 5px;
+    display: none;
+    color: #333;
+    padding: 6px 8px;
+    background-color: #ffebe8;
+    border: 1px solid #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+  .ac-column-setting td.col-input .help-msg {
+    margin: 10px 0 0;
+    color: #666;
+    font-size: 12px; }
   .ac-column-setting .ac-column-setting td.col_label {
     background-color: #fcfcfc; }
     .ac-column-setting .ac-column-setting td.col_label .label {
@@ -294,29 +291,34 @@
       color: #fff;
       background: #f00; }
 
-.ac-settings-input-width {
-  position: relative; }
-  .ac-settings-input-width input[type=radio] {
+.ac-setting-input {
+  padding: 10px; }
+  .ac-setting-input input, .ac-setting-input select {
+    width: 99.95%; }
+  .ac-setting-input input[type=radio] {
     width: auto; }
-  .ac-settings-input-width div.description {
+
+.ac-setting-input-width {
+  position: relative; }
+  .ac-setting-input-width div.description {
     font-size: 12px;
     width: 68px;
     position: absolute;
     display: table; }
-    .ac-settings-input-width div.description input {
+    .ac-setting-input-width div.description input {
       margin: 0;
       text-align: right;
       vertical-align: middle;
       display: table-cell; }
-      .ac-settings-input-width div.description input::-webkit-input-placeholder {
+      .ac-setting-input-width div.description input::-webkit-input-placeholder {
         font-size: 13px; }
-      .ac-settings-input-width div.description input:-moz-placeholder {
+      .ac-setting-input-width div.description input:-moz-placeholder {
         font-size: 13px; }
-      .ac-settings-input-width div.description input::-moz-placeholder {
+      .ac-setting-input-width div.description input::-moz-placeholder {
         font-size: 13px; }
-      .ac-settings-input-width div.description input:-ms-input-placeholder {
+      .ac-setting-input-width div.description input:-ms-input-placeholder {
         font-size: 13px; }
-    .ac-settings-input-width div.description span {
+    .ac-setting-input-width div.description span {
       background: #efefef;
       display: table-cell;
       width: 26px;
@@ -325,24 +327,24 @@
       border: 1px solid #dedede;
       border-left: none;
       color: #505050; }
-  .ac-settings-input-width div.width-slider {
+  .ac-setting-input-width div.width-slider {
     margin-left: 82px;
     margin-right: 88px;
     position: relative;
-    margin-top: 8px; }
-    .ac-settings-input-width div.width-slider .ui-slider-handle {
+    top: 8px; }
+    .ac-setting-input-width div.width-slider .ui-slider-handle {
       cursor: ew-resize; }
-  .ac-settings-input-width div.unit-select {
+  .ac-setting-input-width div.unit-select {
     position: absolute;
-    top: 13px;
-    right: 10px;
+    top: 2px;
+    right: 0;
     width: 82px;
     text-align: right; }
-    .ac-settings-input-width div.unit-select .radio-labels {
+    .ac-setting-input-width div.unit-select .radio-labels {
       padding: 0; }
-      .ac-settings-input-width div.unit-select .radio-labels label {
+      .ac-setting-input-width div.unit-select .radio-labels label {
         margin-right: 4px; }
-        .ac-settings-input-width div.unit-select .radio-labels label input {
+        .ac-setting-input-width div.unit-select .radio-labels label input {
           margin-right: 2px; }
 
 /**

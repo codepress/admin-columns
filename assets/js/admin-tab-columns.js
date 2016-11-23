@@ -448,7 +448,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/** change label */
-		column.find( '.ac-settings-input-label input' ).bind( 'keyup change', function() {
+		column.find( '.ac-setting-input-label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
@@ -461,8 +461,8 @@ function cpac_reset_columns( $ ) {
 		// indicator
 		var width_indicator = column.find( '.ac-column-header span.width' );
 		width_indicator.on( 'update', function() {
-			var _width = column.find( '.ac-settings-input-width .description input' ).val();
-			var _unit = column.find( '.ac-settings-input-width .description .unit' ).text();
+			var _width = column.find( '.ac-setting-input-width .description input' ).val();
+			var _unit = column.find( '.ac-setting-input-width .description .unit' ).text();
 			if ( _width > 0 ) {
 				$( this ).text( _width + _unit );
 			} else {
@@ -471,7 +471,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// unit selector
-		var width_unit_select = column.find( '.ac-settings-input-width .unit-select label' );
+		var width_unit_select = column.find( '.ac-setting-input-width .unit-select label' );
 		width_unit_select.on( 'click', function() {
 
 			column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
@@ -480,7 +480,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// width_input
-		var width_input = column.find( '.ac-settings-input-width .description input' )
+		var width_input = column.find( '.ac-setting-input-width .description input' )
 			.on( 'keyup', function() {
 				column.column_width_slider(); // re-init slider
 				$( this ).trigger( 'validate' ); // validate input
@@ -556,7 +556,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_width_slider = function() {
 
-		var column_width = $( this ).find( '.ac-settings-input-width' );
+		var column_width = $( this ).find( '.ac-setting-input-width' );
 
 		var input_width = column_width.find( '.description input' ),
 			input_unit = column_width.find( '.unit-select input' ),

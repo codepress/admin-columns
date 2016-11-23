@@ -366,12 +366,8 @@
 		}
 	}
 
-	.ac-settings-input {
-		padding: 10px;
-
-		select, input {
-			width: 99.95%;
-		}
+	td.col-input {
+muppet
 
 		div.msg {
 			margin-top: 5px;
@@ -435,12 +431,21 @@
 	}
 }
 
-.ac-settings-input-width {
-	position: relative;
+.ac-setting-input {
+	padding: 10px;
+
+	input, select {
+		width: 99.95%;
+	}
 
 	input[type=radio] {
 		width: auto;
 	}
+}
+
+.ac-setting-input-width {
+	position: relative;
+
 	div.description {
 		font-size: 12px;
 		width: 68px;
@@ -474,7 +479,7 @@
 		margin-left: 82px;
 		margin-right: 88px;
 		position: relative;
-		margin-top: 8px;
+		top: 8px;
 
 		.ui-slider-handle {
 			cursor: ew-resize;
@@ -482,8 +487,8 @@
 	}
 	div.unit-select {
 		position: absolute;
-		top: 13px;
-		right: 10px;
+		top: 2px;
+		right: 0;
 		width: 82px;
 		text-align: right;
 

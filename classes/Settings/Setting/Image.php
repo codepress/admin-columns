@@ -22,7 +22,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$size = $this->create_element( 'image_size', 'select' )
+		$size = $this->create_element( 'select', 'image_size' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 
 		$width = new AC_Settings_View();

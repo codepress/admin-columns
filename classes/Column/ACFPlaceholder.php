@@ -20,11 +20,11 @@ class AC_Column_ACFPlaceholder extends AC_Column {
 		return false;
 	}
 
-	public function register_settings() {
+	//public function register_settings() {
 		//$this->add_setting( new AC_Settings_Setting_Placeholder( $this ) );
 
 		//$this->placeholder( array( 'label' => $this->get_label(), 'type' => $this->get_type(), 'url' => ac_get_site_url( 'advanced-custom-fields-columns' ) ) );
-	}
+	//}
 
 	function placeholder( $args = array() ) {
 		$defaults = array(
