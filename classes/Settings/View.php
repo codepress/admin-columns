@@ -42,12 +42,16 @@ class AC_Settings_View
 		return isset( $this->views[ $name ] ) ? $this->views[ $name ] : false;
 	}
 
-	public function __get( $key ) {
+	public function get( $key ) {
 		if ( ! isset( $this->data[ $key ] ) ) {
-			return false;
+			return null;
 		}
 
 		return $this->data[ $key ];
+	}
+
+	public function __get( $key ) {
+		return $this->get( $key );
 	}
 
 	public function __set( $key, $value ) {
@@ -86,7 +90,9 @@ class AC_Settings_View
 			$file = $path . '/' . $this->template . '.php';
 
 			if ( is_readable( $file ) ) {
-				return $file;
+				include $file;
+
+				return true;
 			}
 		}
 
@@ -96,15 +102,9 @@ class AC_Settings_View
 	public function render() {
 		ob_start();
 
-		if ( $template = $this->resolve_template() ) {
-			include $template;
-		}
+		$this->resolve_template();
 
 		return ob_get_clean();
-	}
-
-	public function __toString() {
-		return $this->render();
 	}
 
 	/**
@@ -123,6 +123,10 @@ class AC_Settings_View
 		$this->template = $template;
 
 		return $this;
+	}
+
+	public function __toString() {
+		return $this->render();
 	}
 
 }

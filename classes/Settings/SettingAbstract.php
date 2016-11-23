@@ -22,13 +22,6 @@ abstract class AC_Settings_SettingAbstract {
 	protected $column;
 
 	/**
-	 * The main view
-	 *
-	 * @var AC_Settings_View
-	 */
-	private $view;
-
-	/**
 	 * @param AC_Column $column
 	 */
 	public function __construct( AC_Column $column ) {
@@ -37,10 +30,6 @@ abstract class AC_Settings_SettingAbstract {
 		$this->set_managed_options();
 		$this->set_name();
 		$this->load_options();
-
-		$this->view = new AC_Settings_View( array(
-			'name' => $this->name,
-		) );
 	}
 
 	/**
@@ -48,7 +37,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return AC_Settings_View
 	 */
-	public abstract function view();
+	protected abstract function get_view();
 
 	/**
 	 * Set the options this field manages
@@ -84,12 +73,12 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * Add an element to this setting
 	 *
-	 * @param string $name
 	 * @param string $type
+	 * @param string|null $name
 	 *
 	 * @return AC_Settings_Form_ElementAbstract
 	 */
-	protected function create_element( $type = 'text', $name = null ) {
+	protected function create_element( $type, $name = null ) {
 		if ( null === $name ) {
 			$name = $this->get_managed_option();
 		}
@@ -139,7 +128,7 @@ abstract class AC_Settings_SettingAbstract {
 		$method = 'get_' . $option;
 
 		if ( ! method_exists( $this, $method ) ) {
-			return false;
+			return null;
 		}
 
 		return $this->$method();
@@ -256,21 +245,23 @@ abstract class AC_Settings_SettingAbstract {
 		return $this;
 	}
 
-	/**
-	 * @return AC_Settings_View
-	 */
-	public function get_view() {
-		return $this->view;
-	}
-
-	public function __toString() {
-		$view = $this->view();
+	public function render() {
+		$view = $this->get_view();
 
 		if ( ! ( $view instanceof AC_Settings_View ) ) {
 			return '';
 		}
 
+		// assign current name to section by default
+		if ( null === $view->get( 'name' ) ) {
+			$view->set( 'name', $this->name );
+		}
+
 		return $view->render();
+	}
+
+	public function __toString() {
+		return $this->render();
 	}
 
 }

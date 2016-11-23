@@ -18,23 +18,23 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$view = $this->get_view();
-
 		// don't render this field
-		if ( $this->column->is_original() && ac_helper()->string->contains_html_only( $this->label ) ) {
+		if ( $this->column->is_original() && ac_helper()->string->contains_html_only( $this->get_label() ) ) {
+			$view = new AC_Settings_View();
 			$view->set_template( false );
 
 			return $view;
 		}
 
-		$label = $this->create_element()
+		$label = $this->create_element( 'text' )
 		              ->set_attribute( 'placeholder', $this->column->get_label() );
 
-		$view->set( 'setting', $label )
-		     ->set( 'label', __( 'Label', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ) );
-
-		return $view;
+		return new AC_Settings_View( array(
+			'name'    => $this->name,
+			'label'   => __( 'Label', 'codepress-admin-columns' ),
+			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
+			'setting' => $label,
+		) );
 	}
 
 	/**

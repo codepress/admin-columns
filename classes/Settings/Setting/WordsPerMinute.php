@@ -12,15 +12,20 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-		$word_limit = $this->create_element( 'number' )
-		                   ->set_attribute( 'min', 0 )
-		                   ->set_attribute( 'step', 1 )
-		                   ->set_attribute( 'placeholder', $this->get_words_per_minute() );
+		$attributes = array(
+			'min'         => 0,
+			'step'        => 1,
+			'placeholder' => $this->get_words_per_minute(),
+		);
 
-		$view = $this->get_view();
-		$view->set( 'label', __( 'Words per minute', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'Estimated reading time in words per minute.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'By default: %s', 'codepress-admin-columns' ), $this->get_words_per_minute() ) )
-		     ->set( 'setting', $word_limit );
+		$setting = $this->create_element( 'number' )
+		                ->set_attributes( $attributes );
+
+		$view = new AC_Settings_View( array(
+			'label'   => __( 'Words per minute', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Estimated reading time in words per minute.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'By default: %s', 'codepress-admin-columns' ), $this->get_words_per_minute() ),
+			'setting' => $setting,
+		) );
 
 		return $view;
 	}

@@ -15,14 +15,14 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 
 	public function view() {
 		// TODO: dropdown date + custom input
-		$date = $this->create_element()
+		$date = $this->create_element( 'text' )
 		             ->set_attribute( 'placeholder', __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i' )
 		             ->set_description( sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>" );
 
-		$view = $this->get_view();
-		$view->set( 'setting', $date )
-		     ->set( 'label', __( 'Date Format', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ) );
+		$view = new AC_Settings_View();
+		$view->setting = $date;
+		$view->label = __( 'Date Format', 'codepress-admin-columns' );
+		$view->tooltip = __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' );
 
 		return $view;
 	}
