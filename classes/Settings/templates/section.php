@@ -8,7 +8,7 @@ $description = $this->description ? 'description' : '';
 
 ?>
 
-<table class="ac-column-setting" data-type="<?php echo esc_atr( $this->type ); ?>">
+<table class="ac-column-setting" data-type="<?php echo esc_attr( $this->type ); ?>">
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
