@@ -22,7 +22,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Word Limit', 'codepress-admin-columns' ) )
-		     ->set( 'description', __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>' )
+		     ->set( 'tooltip', __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>' )
 		     ->set( 'setting', $word_limit );
 
 		return $view;

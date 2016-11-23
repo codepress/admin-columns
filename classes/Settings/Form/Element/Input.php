@@ -15,7 +15,7 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 	}
 
 	public function render() {
-		$template = '<input %s>';
+		$template = '<input %s>%s';
 
 		$attributes = $this->get_attributes();
 		$attributes['name'] = $this->get_name();
@@ -23,7 +23,7 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_ElementAbstract
 		$attributes['value'] = $this->get_value();
 		$attributes['type'] = $this->get_type();
 
-		return sprintf( $template, $this->get_attributes_as_string( $attributes ) );
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_description() );
 	}
 
 	public function get_type() {

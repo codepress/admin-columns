@@ -54,7 +54,9 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	 * @return $this
 	 */
 	public function set_width( $width ) {
-		$this->width = absint( $width );
+		$width = absint( $width );
+
+		$this->width = $width > 0 ? $width : false;
 
 		return $this;
 	}

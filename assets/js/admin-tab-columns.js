@@ -511,9 +511,9 @@ function cpac_reset_columns( $ ) {
 
 		/**    tooltip */
 		column.find( '.ac-column-body .col-label .label' ).hover( function() {
-			$( this ).parents( '.col-label' ).find( 'div.description' ).show();
+			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).show();
 		}, function() {
-			$( this ).parents( '.col-label' ).find( 'div.description' ).hide();
+			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).hide();
 		} );
 
 		// refresh column and re-bind all events

@@ -54,6 +54,12 @@ class AC_Settings_View
 		return $this->set( $key, $value );
 	}
 
+	/**
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return $this
+	 */
 	public function set( $key, $value ) {
 		$this->data[ $key ] = $value;
 

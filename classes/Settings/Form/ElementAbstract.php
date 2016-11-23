@@ -215,9 +215,7 @@ abstract class AC_Settings_Form_ElementAbstract
 	}
 
 	/**
-	 * @param string $description
-	 *
-	 * @return AC_Settings_Form_ElementAbstract
+	 * @return $this
 	 */
 	public function set_description( $description ) {
 		$this->description = $description;

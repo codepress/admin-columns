@@ -4,21 +4,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$description = $this->description ? 'description' : '';
-
 ?>
 
 <table class="ac-column-setting <?php echo esc_attr( $this->class ); ?>" data-listener='<?php echo $this->listener; ?>'>
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
-				<span class="label <?php echo esc_attr( $description ); ?>">
+				<span class="label <?php echo esc_attr( $this->tooltip ? 'tooltip' : '' ); ?>">
 					<?php echo $this->label; ?>
 				</span>
 
-				<?php if ( $this->description ) : ?>
-					<div class="description">
-						<?php echo $this->description; ?>
+				<?php if ( $this->tooltip ) : ?>
+					<div class="tooltip">
+						<?php echo $this->tooltip; ?>
 					</div>
 				<?php endif; ?>
 

@@ -35,13 +35,13 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )
 		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 		      ->set( 'listener', $listener->to_json() )
-		      ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
+		      ->set( 'tooltip', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
 		$height = new AC_Settings_View();
 		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 		       ->set( 'listener', $listener->to_json() )
-		       ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
+		       ->set( 'tooltip', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
