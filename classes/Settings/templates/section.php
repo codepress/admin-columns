@@ -5,11 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $description = $this->description ? 'description' : '';
-$type = $this->type ? esc_attr( 'ac-columns-setting-' . $this->type ) : '';
 
 ?>
 
-<table class="ac-column-setting <?php echo $type; ?>"'>
+<table class="ac-column-setting" data-type="<?php echo esc_atr( $this->type ); ?>">
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
@@ -32,7 +31,12 @@ $type = $this->type ? esc_attr( 'ac-columns-setting-' . $this->type ) : '';
 		</td>
 		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="ac-settings-input ac-settings-input-<?php echo esc_attr( $this->setting->get_attribute( 'class' ) ); ?>">
+				<?php
+
+				$setting_type = $this->type ? 'ac-settings-input_' . $this->type : '';
+
+				?>
+				<div class="ac-settings-input <?php echo esc_attr( $setting_type ); ?>">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>

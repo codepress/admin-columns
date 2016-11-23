@@ -28,13 +28,11 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$width = new AC_Settings_View();
 		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )
 		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
-		      ->set( 'class', 'hidden' )
 		      ->set( 'description', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
 		$height = new AC_Settings_View();
 		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
-		       ->set( 'class', 'hidden' )
 		       ->set( 'description', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
 		$view = new AC_Settings_View();
