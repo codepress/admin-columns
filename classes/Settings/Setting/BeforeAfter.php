@@ -13,8 +13,8 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
 	 */
 	private $after;
 
-	protected function set_id() {
-		$this->id = 'before_after';
+	protected function set_name() {
+		$this->name = 'before_after';
 	}
 
 	protected function set_managed_options() {
@@ -36,7 +36,7 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
 		      ->set( 'description', __( 'This text will appear after the column value.', 'codepress-admin-columns' ) )
 		      ->set( 'setting', $this->create_element( 'after' ) );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'label', __( 'Display Options', 'codepress-admin-columns' ) )
 		     ->set( 'sections', array( $before, $after ) );
 

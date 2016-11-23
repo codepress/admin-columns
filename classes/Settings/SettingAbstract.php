@@ -3,11 +3,11 @@
 abstract class AC_Settings_SettingAbstract {
 
 	/**
-	 * A (short) unique reference to this setting
+	 * A (short) reference to this setting
 	 *
 	 * @var string
 	 */
-	protected $id;
+	protected $name;
 
 	/**
 	 * The options this field manages
@@ -22,14 +22,25 @@ abstract class AC_Settings_SettingAbstract {
 	protected $column;
 
 	/**
+	 * The main view
+	 *
+	 * @var AC_Settings_View
+	 */
+	private $view;
+
+	/**
 	 * @param AC_Column $column
 	 */
 	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 
 		$this->set_managed_options();
-		$this->set_id();
+		$this->set_name();
 		$this->load_options();
+
+		$this->view = new AC_Settings_View( array(
+			'name' => $this->name,
+		) );
 	}
 
 	/**
@@ -78,7 +89,11 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return AC_Settings_Form_ElementAbstract
 	 */
-	protected function create_element( $name, $type = null ) {
+	protected function create_element( $type = 'text', $name = null ) {
+		if ( null === $name ) {
+			$name = $this->get_name();
+		}
+
 		switch ( $type ) {
 			case 'radio':
 				$element = new AC_Settings_Form_Element_Radio( $name );
@@ -95,7 +110,7 @@ abstract class AC_Settings_SettingAbstract {
 
 		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
 		$element->set_id( sprintf( 'ac-%s-%s', $this->column->get_name(), $name ) );
-		$element->add_class( $name );
+		$element->add_class( 'ac-setting-input_' . $name );
 
 		// try to set current value
 		$method = 'get_' . $name;
@@ -226,8 +241,8 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * @return string
 	 */
-	public function get_id() {
-		return $this->id;
+	public function get_name() {
+		return $this->name;
 	}
 
 	/**
@@ -235,10 +250,17 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return $this
 	 */
-	protected function set_id() {
-		$this->id = $this->get_managed_option();
+	protected function set_name() {
+		$this->name = $this->get_managed_option();
 
 		return $this;
+	}
+
+	/**
+	 * @return AC_Settings_View
+	 */
+	public function get_view() {
+		return $this->view;
 	}
 
 	public function __toString() {

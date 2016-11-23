@@ -243,7 +243,7 @@ abstract class AC_Column {
 	 * @return $this
 	 */
 	protected function add_setting( AC_Settings_SettingAbstract $setting ) {
-		$this->settings[ $setting->get_id() ] = $setting;
+		$this->settings[ $setting->get_name() ] = $setting;
 
 		return $this;
 	}

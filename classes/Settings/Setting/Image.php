@@ -30,15 +30,13 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 		      ->set( 'tooltip', __( 'Width in pixels', 'codepress-admin-columns' ) );
 
-
 		$height = new AC_Settings_View();
 		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 		       ->set( 'tooltip', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
-		     ->set( 'type', $this->get_id() )
 		     ->set( 'setting', $size )
 		     ->set( 'sections', array( $width, $height ) );
 
@@ -86,7 +84,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 				$h = isset( $_wp_additional_image_sizes[ $_size ]['height'] ) ? $_wp_additional_image_sizes[ $_size ]['height'] : get_option( "{$_size}_size_h" );
 
 				if ( $w && $h ) {
-					$sizes[ $key ]['options'][ $_size ] .= " ({$w} x {$h})";
+					$sizes[ $key ]['options'][ $_size ] .= " ($w x $h)";
 				}
 			}
 		}

@@ -32,7 +32,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		        ->set( 'width', $width )
 		        ->set( 'unit', $unit );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
 		     ->set( 'sections', array( $section ) );
 
