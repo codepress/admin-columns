@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<table class="ac-column-setting <?php echo esc_attr( $this->class ); ?>" data-listener='<?php echo $this->listener; ?>'>
+<table class="ac-column-setting" data-type="<?php echo esc_attr( $this->type ); ?>">
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
@@ -29,7 +29,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<div class="ac-settings-input ac-settings-input-<?php echo esc_attr( $this->setting->get_attribute( 'class' ) ); ?>">
+				<?php
+
+				$setting_type = $this->type ? 'ac-settings-input_' . $this->type : '';
+
+				?>
+				<div class="ac-settings-input <?php echo esc_attr( $setting_type ); ?>">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>

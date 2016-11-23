@@ -24,6 +24,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 
 		$view = new AC_Settings_View();
 		$view->set( 'setting', $type )
+		     ->set( 'type', $this->get_id() )
 		     ->set( 'label', __( 'Type', 'codepress-admin-columns' ) )
 		     ->set( 'tooltip', __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>' );
 
