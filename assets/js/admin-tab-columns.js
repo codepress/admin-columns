@@ -179,8 +179,6 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
-
-			$( col ).trigger( 'init' );
 		} );
 
 		// ordering of columns
@@ -368,7 +366,6 @@ function cpac_reset_columns( $ ) {
 	 * @since 2.0
 	 */
 	$.fn.column_bind_events = function() {
-
 		var column = $( this );
 		var container = column.closest( '.columns-container ' );
 		var list_screen = container.attr( 'data-type' );
@@ -455,63 +452,7 @@ function cpac_reset_columns( $ ) {
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
 
-
-		column.find('.ac-column-setting[data-type="image_size"]').cpac_column_setting_image_size();
-
-		/** width */
-
-		// slider
-		column.column_width_slider();
-
-		// indicator
-		var width_indicator = column.find( '.ac-column-header span.width' );
-		width_indicator.on( 'update', function() {
-			var _width = column.find( '.ac-setting-input-width .description input' ).val();
-			var _unit = column.find( '.ac-setting-input-width .description .unit' ).text();
-			if ( _width > 0 ) {
-				$( this ).text( _width + _unit );
-			} else {
-				$( this ).text( '' );
-			}
-		} );
-
-		// unit selector
-		var width_unit_select = column.find( '.ac-setting-input-width .unit-select label' );
-		width_unit_select.on( 'click', function() {
-
-			column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
-			column.column_width_slider(); // re-init slider
-			width_indicator.trigger( 'update' ); // update indicator
-		} );
-
-		// width_input
-		var width_input = column.find( '.ac-setting-input-width .description input' )
-			.on( 'keyup', function() {
-				column.column_width_slider(); // re-init slider
-				$( this ).trigger( 'validate' ); // validate input
-				width_indicator.trigger( 'update' ); // update indicator
-			} )
-
-			// width_input:validate
-			.on( 'validate', function() {
-				var _width = width_input.val();
-				var _new_width = $.trim( _width );
-
-				if ( !$.isNumeric( _new_width ) ) {
-					_new_width = _new_width.replace( /\D/g, '' );
-				}
-				if ( _new_width.length > 3 ) {
-					_new_width = _new_width.substring( 0, 3 );
-				}
-				if ( _new_width <= 0 ) {
-					_new_width = '';
-				}
-				if ( _new_width !== _width ) {
-					width_input.val( _new_width );
-				}
-			} );
-
-		/**    tooltip */
+		/** tooltip */
 		column.find( '.ac-column-body .col-label .label' ).hover( function() {
 			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).show();
 		}, function() {
@@ -522,8 +463,16 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="1"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
+
+		$(document).trigger( 'init_settings', column );
 	};
 
+	$.fn.column_bind_settings = function(){
+		var $column = $(this);
+
+		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
+		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
+	}
 	/*
 	 * Column: remove from DOM
 	 *
@@ -532,43 +481,6 @@ function cpac_reset_columns( $ ) {
 	$.fn.column_remove = function() {
 		$( this ).addClass( 'deleting' ).animate( { opacity : 0, height : 0 }, 350, function() {
 			$( this ).remove();
-		} );
-	};
-
-	/*
-	 * Column: remove from DOM
-	 *
-	 * @since 2.0
-	 */
-	$.fn.column_width_slider = function() {
-
-		var column_width = $( this ).find( '.ac-setting-input-width' );
-
-		var input_width = column_width.find( '.description input' ),
-			input_unit = column_width.find( '.unit-select input' ),
-			unit = input_unit.filter( ':checked' ).val(),
-			width = input_width.val(),
-			slider = column_width.find( '.width-slider' ),
-			indicator = $( this ).find( '.ac-column-header span.width' );
-
-		// width
-		if ( '%' == unit && width > 100 ) {
-			width = 100;
-		}
-
-		input_width.val( width );
-
-		slider.slider( {
-			range : 'min',
-			min : 0,
-			max : '%' == unit ? 100 : 500,
-			value : width,
-			slide : function( event, ui ) {
-
-				input_width.val( ui.value );
-				indicator.trigger( 'update' );
-				input_width.trigger( 'validate' );
-			}
 		} );
 	};
 
@@ -796,9 +708,7 @@ function cpac_reset_columns( $ ) {
 
 }( jQuery ));
 
-
-
-// Settings fields
+// Settings fields: Image _size
 (function( $ ) {
 
 	$.fn.cpac_column_setting_image_size = function() {
@@ -812,7 +722,7 @@ function cpac_reset_columns( $ ) {
 
 		$( this ).each( function() {
 			var $setting = $( this );
-			var $select = $( this ).find( '.ac-settings-input_image_size select' );
+			var $select = $( this ).find( '.ac-setting-input select' );
 
 			initState( $setting, $select );
 			$select.on( 'change', function() {
@@ -822,6 +732,111 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
+	$(document).on( 'init_settings', function( e, column ){
+		$( column ).find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
+	} );
+
 }( jQuery ));
 
+// Settings fields: Width
+(function( $ ) {
+	/*
+	 * Column: remove from DOM
+	 *
+	 * @since 2.0
+	 */
+	$.fn.column_width_slider = function() {
 
+		var column_width = $( this ).find( '.ac-setting-input-width' );
+
+		var input_width = column_width.find( '.description input' ),
+			input_unit = column_width.find( '.unit-select input' ),
+			unit = input_unit.filter( ':checked' ).val(),
+			width = input_width.val(),
+			slider = column_width.find( '.width-slider' ),
+			indicator = $( this ).find( '.ac-column-header span.width' );
+
+		// width
+		if ( '%' == unit && width > 100 ) {
+			width = 100;
+		}
+
+		input_width.val( width );
+
+		slider.slider( {
+			range : 'min',
+			min : 0,
+			max : '%' == unit ? 100 : 500,
+			value : width,
+			slide : function( event, ui ) {
+
+				input_width.val( ui.value );
+				indicator.trigger( 'update' );
+				input_width.trigger( 'validate' );
+			}
+		} );
+	};
+
+	$.fn.cpac_column_setting_width = function() {
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $column = $( this ).parents( '.ac-column' );
+			$column.column_width_slider();
+
+			// indicator
+			var $width_indicator = $column.find( '.ac-column-header span.width' );
+			$width_indicator.on( 'update', function() {
+				var _width = $column.find( '.ac-setting-input-width .description input' ).val();
+				var _unit = $column.find( '.ac-setting-input-width .description .unit' ).text();
+				if ( _width > 0 ) {
+					$( this ).text( _width + _unit );
+				} else {
+					$( this ).text( '' );
+				}
+			} );
+
+			// unit selector
+			var width_unit_select = $column.find( '.ac-setting-input-width .unit-select label' );
+			width_unit_select.on( 'click', function() {
+
+				$column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
+				$column.column_width_slider(); // re-init slider
+				$width_indicator.trigger( 'update' ); // update indicator
+			} );
+
+			// width_input
+			var width_input = $column.find( '.ac-setting-input-width .description input' )
+				.on( 'keyup', function() {
+					$column.column_width_slider(); // re-init slider
+					$( this ).trigger( 'validate' ); // validate input
+					$width_indicator.trigger( 'update' ); // update indicator
+				} )
+
+				// width_input:validate
+				.on( 'validate', function() {
+					var _width = width_input.val();
+					var _new_width = $.trim( _width );
+
+					if ( !$.isNumeric( _new_width ) ) {
+						_new_width = _new_width.replace( /\D/g, '' );
+					}
+					if ( _new_width.length > 3 ) {
+						_new_width = _new_width.substring( 0, 3 );
+					}
+					if ( _new_width <= 0 ) {
+						_new_width = '';
+					}
+					if ( _new_width !== _width ) {
+						width_input.val( _new_width );
+					}
+				} );
+
+		} );
+	};
+
+	$(document).on( 'init_settings', function( e, column ){
+		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+	} );
+
+}( jQuery ));
