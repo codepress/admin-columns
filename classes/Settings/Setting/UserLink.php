@@ -12,7 +12,6 @@ class AC_Settings_Setting_UserLink extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-
 		$options = array(
 			'edit_user'       => __( 'Edit User Profile' ),
 			'email_user'      => __( 'User Email' ),
@@ -20,15 +19,15 @@ class AC_Settings_Setting_UserLink extends AC_Settings_SettingAbstract {
 			'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
 		);
 
-		// sorts when translated
+		// resort for possible translations
 		natcasesort( $options );
 
 		$options = array_merge( array( '' => __( 'None' ) ), $options );
 
-		$select = $this->create_element( 'user_link_to', 'select' )
+		$select = $this->create_element( 'select' )
 		               ->set_options( $options );
 
-		$view = new AC_Settings_View();
+		$view = $this->get_view();
 		$view->set( 'setting', $select )
 		     ->set( 'label', __( 'Link To', 'codepress-admin-columns' ) )
 		     ->set( 'tooltip', __( 'Page the author name should link to.', 'codepress-admin-columns' ) );

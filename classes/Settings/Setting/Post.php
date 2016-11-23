@@ -12,17 +12,16 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-
 		$options = array(
 			'title'  => __( 'Title' ),
 			'id'     => __( 'ID' ),
 			'author' => __( 'Author' ),
 		);
 
-		// sorts when translated
+		// resort for possible translations
 		natcasesort( $options );
 
-		$select = $this->create_element( 'post_property_display', 'select' )
+		$select = $this->create_element( 'select' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $options );
 

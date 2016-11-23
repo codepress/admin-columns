@@ -12,7 +12,6 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-
 		$options = array(
 			'edit_post'   => __( 'Edit Post' ),
 			'view_post'   => __( 'View Post' ),
@@ -20,12 +19,12 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
 
-		// sorts when translated
+		// resort for possible translations
 		natcasesort( $options );
 
 		$options = array_merge( array( '' => __( 'None' ) ), $options );
 
-		$select = $this->create_element( 'post_link_to', 'select' )
+		$select = $this->create_element( 'select' )
 		               ->set_options( $options );
 
 		$view = new AC_Settings_View();
