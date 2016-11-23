@@ -17,28 +17,39 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	 */
 	private $image_size_h = 80;
 
+	protected function set_name() {
+		return 'image';
+	}
+
 	protected function set_managed_options() {
 		$this->managed_options = array( 'image_size', 'image_size_w', 'image_size_h' );
 	}
 
-	public function view() {
+	protected function get_view() {
 		$size = $this->create_element( 'select', 'image_size' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 
-		$width = new AC_Settings_View();
-		$width->set( 'setting', $this->create_element( 'image_size_w', 'number' ) )
-		      ->set( 'label', __( 'Width', 'codepress-admin-columns' ) )
-		      ->set( 'tooltip', __( 'Width in pixels', 'codepress-admin-columns' ) );
+		$width = new AC_Settings_View( array(
+			'setting' => $this->create_element( 'number', 'image_size_w' ),
+			'label'   => __( 'Width', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Width in pixels', 'codepress-admin-columns' ),
+		) );
 
-		$height = new AC_Settings_View();
+		$height = new AC_Settings_View( array(
+			'setting' => $this->create_element( 'number', 'image_size_h' ),
+			'label'   => __( 'Height', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Height in pixels', 'codepress-admin-columns' ),
+		) );
+
 		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
 		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
 		       ->set( 'tooltip', __( 'Height in pixels', 'codepress-admin-columns' ) );
 
-		$view = $this->get_view();
-		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
-		     ->set( 'setting', $size )
-		     ->set( 'sections', array( $width, $height ) );
+		$view = new AC_Settings_View( array(
+			'label'    => __( 'Image Size', 'codepress-admin-columns' ),
+			'setting'  => $size,
+			'sections' => array( $width, $height ),
+		) );
 
 		return $view;
 	}

@@ -20,7 +20,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		return array( '%' => '%', 'px' => 'px' );
 	}
 
-	public function view() {
+	protected function get_view() {
 		$width = $this->create_element( $this->get_managed_option() )
 		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 

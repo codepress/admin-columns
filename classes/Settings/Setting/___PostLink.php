@@ -12,7 +12,7 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'post_link_to' );
 	}
 
-	public function view() {
+	protected function get_view() {
 		$options = array(
 			'edit_post'   => __( 'Edit Post' ),
 			'view_post'   => __( 'View Post' ),

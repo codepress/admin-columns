@@ -112,7 +112,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 	/**
 	 * @return AC_Settings_View
 	 */
-	public function view() {
+	protected function get_view() {
 
 		$select = $this->create_element( 'select', 'display_author_as' )
 		               ->set_attribute( 'data-refresh', 'column' )
@@ -130,7 +130,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 		$link_format->set( 'label', __( 'Link To', 'codepress-admin-columns' ) )
 		            ->set( 'setting', $select );
 
-		$view = $this->get_view();
+		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'User', 'codepress-admin-columns' ) )
 		     ->set( 'sections', array( $display_format, $link_format ) );
 

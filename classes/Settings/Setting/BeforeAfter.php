@@ -26,20 +26,21 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
 	}
 
 	protected function get_view() {
-		$before = new AC_Settings_View();
-		$before->set( 'label', __( 'Before', 'codepress-admin-columns' ) )
-		       ->set( 'description', __( 'This text will appear before the column value.', 'codepress-admin-columns' ) )
-		       ->set( 'setting', $this->create_element( 'before' ) );
+		$before = new AC_Settings_View( array(
+			'label'       => __( 'Before', 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
+			'setting'     => $this->create_element( 'text', 'before' ),
+		) );
 
-		$after = new AC_Settings_View();
-		$after->set( 'label', __( 'After', 'codepress - admin - columns' ) )
-		      ->set( 'description', __( 'This text will appear after the column value . ', 'codepress - admin - columns' ) )
-		      ->set( 'setting', $this->create_element( 'after' ) );
+		$after = new AC_Settings_View( array(
+			'label'       => __( 'After', 'codepress-admin-columns' ),
+			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
+			'setting'     => $this->create_element( 'text', 'after' ),
+		) );
 
 		$view = new AC_Settings_View( array(
 			'label'    => __( 'Display Options', 'codepress - admin - columns' ),
 			'sections' => array( $before, $after ),
-			'name'     => $this->name,
 		) );
 
 		return $view;

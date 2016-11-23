@@ -3,6 +3,7 @@
 class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 
 	private $field;
+
 	private $field_type;
 
 	protected function set_name() {
@@ -31,8 +32,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
+				} else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -44,7 +44,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 	}
 
 	private function get_field_labels() {
-
 		$custom_field_types = array(
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
 			'color'       => __( 'Color', 'codepress-admin-columns' ),
@@ -79,8 +78,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		return $custom_field_types;
 	}
 
-	public function view() {
-
+	protected function get_view() {
 		$sections = array();
 
 		$select = $this->create_element( 'select', 'field' )
@@ -124,7 +122,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 				break;
 		}
 
-		$view = $this->get_view();
+		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
 		     ->set( 'sections', $sections );
 

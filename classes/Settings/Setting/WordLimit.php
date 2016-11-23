@@ -15,7 +15,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'excerpt_length' );
 	}
 
-	public function view() {
+	protected function get_view() {
 		$setting = $this->create_element( 'number' )
 		                ->set_attribute( 'min', 0 )
 		                ->set_attribute( 'step', 1 );

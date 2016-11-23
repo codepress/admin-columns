@@ -11,7 +11,7 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'words_per_minute' );
 	}
 
-	public function view() {
+	protected function get_view() {
 		$attributes = array(
 			'min'         => 0,
 			'step'        => 1,
