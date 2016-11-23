@@ -12,7 +12,6 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract {
 	}
 
 	public function view() {
-
 		$options = array(
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
