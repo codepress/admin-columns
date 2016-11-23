@@ -38,6 +38,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Image Size', 'codepress-admin-columns' ) )
+		     ->set( 'type', $this->get_id() )
 		     ->set( 'setting', $size )
 		     ->set( 'sections', array( $width, $height ) );
 
