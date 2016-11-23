@@ -72,7 +72,7 @@ class AC_ColumnFieldSettings {
 		endif;
 	}
 
-	public function image_size_width_args() {
+	/*public function image_size_width_args() {
 		return array(
 			'type'          => 'text',
 			'name'          => 'image_size_w',
@@ -82,9 +82,9 @@ class AC_ColumnFieldSettings {
 			'hidden'        => true,
 			'default_value' => 80,
 		);
-	}
+	}*/
 
-	public function image_size_height_args() {
+	/*public function image_size_height_args() {
 		return array(
 			'type'          => 'text',
 			'name'          => 'image_size_h',
@@ -94,12 +94,12 @@ class AC_ColumnFieldSettings {
 			'hidden'        => true,
 			'default_value' => 80,
 		);
-	}
+	}*/
 
 	/**
 	 * @return array
 	 */
-	public function image_args_fields_only( $default_value = false ) {
+	/*public function image_args_fields_only( $default_value = false ) {
 		return array(
 			array(
 				'label'           => __( 'Image Size', 'codepress-admin-columns' ),
@@ -111,14 +111,14 @@ class AC_ColumnFieldSettings {
 			$this->image_size_width_args(),
 			$this->image_size_height_args(),
 		);
-	}
+	}*/
 
 	/**
 	 * @param bool $fields_only Returns fields without the main label
 	 *
 	 * @return array
 	 */
-	public function image_args( $default_value = false ) {
+	/*public function image_args( $default_value = false ) {
 		return array(
 			'label'  => __( 'Image Size', 'codepress-admin-columns' ),
 			'fields' => array(
@@ -132,31 +132,31 @@ class AC_ColumnFieldSettings {
 				$this->image_size_height_args(),
 			),
 		);
-	}
+	}*/
 
-	public function image() {
+	/*public function image() {
 		$this->fields( $this->image_args() );
-	}
+	}*/
 
-	public function before_args() {
+	/*public function before_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'before',
 			'label'       => __( "Before", 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
 		);
-	}
+	}*/
 
-	public function after_args() {
+	/*public function after_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'after',
 			'label'       => __( "After", 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
 		);
-	}
+	}*/
 
-	public function before_after() {
+	/*public function before_after() {
 		$this->fields( array(
 			'label'  => __( 'Display Options', 'codepress-admin-columns' ),
 			'fields' => array(
@@ -164,9 +164,9 @@ class AC_ColumnFieldSettings {
 				$this->after_args(),
 			),
 		) );
-	}
+	}*/
 
-	public function date_args() {
+	/*public function date_args() {
 		return array(
 			'type'        => 'text',
 			'name'        => 'date_format',
@@ -175,13 +175,13 @@ class AC_ColumnFieldSettings {
 			'description' => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
 			'help'        => sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>",
 		);
-	}
+	}*/
 
-	public function date() {
+	/*public function date() {
 		$this->field( $this->date_args() );
-	}
+	}*/
 
-	public function word_limit_args( $default_value = 30 ) {
+	/*public function word_limit_args( $default_value = 30 ) {
 		return array(
 			'type'          => 'number',
 			'name'          => 'excerpt_length',
@@ -189,24 +189,24 @@ class AC_ColumnFieldSettings {
 			'description'   => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'default_value' => $default_value,
 		);
-	}
+	}*/
 
-	public function word_limit( $default_value = 30 ) {
+	/*public function word_limit( $default_value = 30 ) {
 		$this->field( $this->word_limit_args( $default_value ) );
-	}
+	}*/
 
-	public function character_limit_args() {
+	/*public function character_limit_args() {
 		return array(
 			'type'        => 'number',
 			'name'        => 'character_limit',
 			'label'       => __( 'Character Limit', 'codepress-admin-columns' ),
 			'description' => __( 'Maximum number of characters', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 		);
-	}
+	}*/
 
-	public function character_limit() {
+	/*public function character_limit() {
 		$this->field( $this->character_limit_args() );
-	}
+	}*/
 
 	public function user_args() {
 		$nametypes = array(

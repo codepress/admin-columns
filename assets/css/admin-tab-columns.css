@@ -230,7 +230,7 @@
       display: block;
       color: #333333;
       font-style: normal; }
-    .ac-column-setting td.col-label div.description {
+    .ac-column-setting td.col-label div.tooltip {
       font-size: 12px;
       font-style: normal;
       line-height: 16px;
@@ -247,7 +247,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       padding: .618em 1em;
       border-radius: 3px; }
-      .ac-column-setting td.col-label div.description em {
+      .ac-column-setting td.col-label div.tooltip em {
         margin-top: 3px;
         display: block;
         color: #999; }

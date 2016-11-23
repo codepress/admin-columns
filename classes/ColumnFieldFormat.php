@@ -125,10 +125,6 @@ class AC_ColumnFieldFormat {
 		return $link;
 	}
 
-	private function get_post_type(  ) {
-		
-	}
-
 	/**
 	 * @param int $author_id
 	 *

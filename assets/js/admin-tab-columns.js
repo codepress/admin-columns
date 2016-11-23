@@ -238,10 +238,12 @@ function cpac_reset_columns( $ ) {
 		var is_disabled = column.closest( 'ac-boxes' ).hasClass( 'disabled' );
 
 		column.find(
+			// Header
 			'td.column_type a, td.column_edit, ' +
 			'td.column_label a.toggle, ' +
 			'td.column_label .edit-button, ' +
-			//'td.column_label .close-button, ' +
+			'td.column_label a.close-button, ' +
+			// Body
 			'.ac-column-setting-actions .close-button'
 		).click( function( e ) {
 			e.preventDefault();
@@ -297,7 +299,7 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_refresh = function() {
 
 		var el = $( this );
-		var select = el.find( '.column-type select' );
+		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
 		var column_name = $( this ).find( 'input.column-name' ).val();
 

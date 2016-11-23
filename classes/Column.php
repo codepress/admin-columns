@@ -279,6 +279,7 @@ abstract class AC_Column {
 		     ->add_setting( new AC_Settings_Setting_Width( $this ) );
 
 		// test
+		$this->add_setting( new AC_Settings_Setting_User( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 

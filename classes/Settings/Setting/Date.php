@@ -13,6 +13,8 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 		$view = new AC_Settings_View();
 
 		$date = $this->create_element( 'date_format' )
+
+					// TODO: dropdown date + custom input
 		             ->set_attribute( 'placeholder', __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i' )
 		             ->set_description( sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>" );
 
