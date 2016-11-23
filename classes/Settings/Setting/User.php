@@ -27,8 +27,6 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 	 * @return string
 	 */
 	public function format( $user_id ) {
-
-		// TODO
 		return ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 	}
 
@@ -49,7 +47,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 	private function get_user_link( $user_id ) {
 		$link = false;
 
-		switch ( $this->column->get_option( 'user_link_to' ) ) {
+		switch ( $this->get_user_link_to() ) {
 			case 'edit_user' :
 				$link = get_edit_user_link( $user_id );
 				break;
@@ -130,8 +128,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 
 		$link_format = new AC_Settings_View();
 		$link_format->set( 'label', __( 'Link To', 'codepress-admin-columns' ) )
-		               ->set( 'setting', $select );
-
+		            ->set( 'setting', $select );
 
 		$view = $this->get_view();
 		$view->set( 'label', __( 'User', 'codepress-admin-columns' ) )

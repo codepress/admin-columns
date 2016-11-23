@@ -350,53 +350,10 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		return $grouped_options;
 	}
 
-	public function settings() {
+	public function register_settings() {
+		parent::register_settings();
 
-
-
-		return;
-		$settings = parent::settings();
-
-		$setting = new AC_Settings_Setting_Type( $column );
-		$setting->options = $this->get_grouped_columns();
-
-		$this->settings()
-		     ->add( new AC_Settings_Setting_Image( $this ) )
-		     ->add( new AC_Settings_Setting_Width( $this ) );
-
-		$setting = new AC_Settings_Setting_Width( $column );
-
-		$setting = new AC_Settings_Setting_BeforeAfter( $column );
-
-		$setting = new AC_Settings_Setting_WordLimit( $column );
-		$setting->set_default( 20 );
-
-		//$settings->add_field( new AC_Settings_Field_Label );
-
-		//$field = new AC_Settings_Field_Custom( 'field_type' );
-		/*$field = new AC_Settings_Field_Label;
-
-		$field
-			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Label )
-			->add_field( new AC_Settings_Field_Label );*/
-
-		/*$field_type = new AC_Settings_Field_Label();
-
-		$field_type
-			->add_field( new AC_Settings_Field_WordLimit() )
-			->add_field( new AC_Settings_Field_WordLimit() )
-			->add_field( new AC_Settings_Field_WordLimit() );
-
-		$settings
-			->add_field( $field_type )
-			->add_field( new AC_Settings_Field_WordLimit() );*/
-
-		//$settings->add_field( new AC_Settings_Field_BeforeAfter() );
-		//$settings->add_field( $field );
-
-		return $settings;
+		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
 	}
 
 	/**

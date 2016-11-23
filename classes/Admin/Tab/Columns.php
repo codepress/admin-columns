@@ -78,16 +78,16 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			if ( $column = $list_screen->get_column_by_name( $name ) ) {
 
 				/**
-				$sanitized = array();
-
-				foreach( $column->get_settings() as $setting ) {
-					$setting->set_options( $options );
-
-					$sanitized += $setting->get_values();
-				}
-
-				print_r( $sanitized );
-				exit;
+				 * $sanitized = array();
+				 *
+				 * foreach( $column->get_settings() as $setting ) {
+				 * $setting->set_options( $options );
+				 *
+				 * $sanitized += $setting->get_values();
+				 * }
+				 *
+				 * print_r( $sanitized );
+				 * exit;
 				 */
 
 				if ( ! empty( $options['label'] ) ) {
@@ -230,7 +230,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 					// TODO: works?
 					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>'
-				)
+				),
 			) );
 		}
 
@@ -238,7 +238,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		if ( $column instanceof AC_Column_PlaceholderInterface ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_placeholder_message( array( 'label' => $column->get_label(), 'type' => $column->get_type(), 'url' => $column->get_url() ) )
+				'error' => $this->get_placeholder_message( array( 'label' => $column->get_label(), 'type' => $column->get_type(), 'url' => $column->get_url() ) ),
 			) );
 		}
 
@@ -247,6 +247,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 	/**
 	 * @param array $args
+	 *
 	 * @return string HTML error message
 	 */
 	private function get_placeholder_message( $args = array() ) {
@@ -312,6 +313,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		if ( ! $column ) {
 			wp_die();
 		}
+
+		$column->set_options( $data['columns'][ $column_name ] );
 
 		wp_send_json_success( $this->get_column_display( $column ) );
 	}
@@ -776,6 +779,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 
 				<?php // TODO: remove? ?>
+
 				<input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
 				<input type="hidden" class="type" name="<?php //$column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
 				<input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>

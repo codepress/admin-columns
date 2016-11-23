@@ -1,5 +1,6 @@
 <?php
 
+// TODO: remove
 class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 
 	/**

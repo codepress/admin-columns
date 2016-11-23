@@ -26,11 +26,6 @@ abstract class AC_Column {
 	private $original;
 
 	/**
-	 * @var string Original column label
-	 */
-	private $original_label;
-
-	/**
 	 * @var int Unique clone ID
 	 */
 	private $clone;
@@ -39,6 +34,11 @@ abstract class AC_Column {
 	 * @var array
 	 */
 	private $settings;
+
+	/**
+	 * @var array
+	 */
+	private $options;
 
 	/**
 	 * @var AC_ListScreenAbstract
@@ -175,7 +175,6 @@ abstract class AC_Column {
 	/**
 	 * @return string Post type
 	 */
-	// todo: maybe refactor since this can be done via the list screen?
 	public function get_post_type() {
 		return method_exists( $this->list_screen, 'get_post_type' ) ? $this->list_screen->get_post_type() : false;
 	}
@@ -183,7 +182,6 @@ abstract class AC_Column {
 	/**
 	 * @return string Taxonomy
 	 */
-	// todo: maybe refactor since this can be done via the list screen?
 	public function get_taxonomy() {
 		return method_exists( $this->list_screen, 'get_taxonomy' ) ? $this->list_screen->get_taxonomy() : false;
 	}
@@ -282,10 +280,10 @@ abstract class AC_Column {
 		$this->add_setting( new AC_Settings_Setting_User( $this ) );
 
 		// test
+		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
 		$this->add_setting( new AC_Settings_Setting_LinkLabel( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Post( $this ) );
-		$this->add_setting( new AC_Settings_Setting_PostLink( $this ) );
 		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 		$this->add_setting( new AC_Settings_Setting_WordsPerMinute( $this ) );
 	}
@@ -301,11 +299,21 @@ abstract class AC_Column {
 		return isset( $options[ $key ] ) ? $options[ $key ] : null;
 	}
 
+	public function set_options( $options ) {
+		$this->options = $options;
+	}
+
 	/**
 	 * @return array|false
 	 */
 	public function get_options() {
-		return $this->get_list_screen()->settings()->get_setting( $this->get_name() );
+
+		// Populate options from the list screen
+		if ( null === $this->options ) {
+			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
+		}
+
+		return $this->options;
 	}
 
 	/**
@@ -340,9 +348,8 @@ abstract class AC_Column {
 			$value = $display_value;
 		}
 
-		// TODO
 		if ( is_scalar( $value ) ) {
-			//$value = $this->settings()->get_option( 'before' ) . $value . $this->settings()->get_option( 'after' );
+			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
 		}
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this );

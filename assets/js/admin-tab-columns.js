@@ -302,6 +302,7 @@ function cpac_reset_columns( $ ) {
 		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
 		var column_name = $( this ).find( 'input.column-name' ).val();
+		var formdata = $( this ).parents( 'form' ).serialize();
 
 		// Mark column as loading
 		el.addClass( 'loading' );
@@ -313,7 +314,7 @@ function cpac_reset_columns( $ ) {
 			action : 'cpac_column_refresh',
 			_ajax_nonce : cpac._ajax_nonce,
 			column : column_name,
-			formdata : $( this ).parents( 'form' ).serialize(),
+			formdata : formdata,
 			list_screen : $container.data( 'type' )
 		}, function( response ) {
 
@@ -373,7 +374,8 @@ function cpac_reset_columns( $ ) {
 		// Current column type
 		var default_value = column.find( '.column-type select option:selected' ).val();
 
-		column.find( '[data-refresh="column"]' ).change( function() {
+		//column.find( '[data-refresh="column"]' ).change( function() {
+		column.find( 'select.ac-setting-input_type' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
 			var msg = $( this ).next( '.msg' ).hide();
@@ -460,7 +462,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		// refresh column and re-bind all events
-		column.find( '[data-refresh="1"]' ).change( function() {
+		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
 
