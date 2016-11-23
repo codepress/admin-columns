@@ -29,12 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 		<td class="col-settings">
 			<?php if ( $this->setting ) : ?>
-				<?php
-
-				$setting_type = $this->type ? 'ac-settings-input_' . $this->type : '';
-
-				?>
-				<div class="ac-settings-input <?php echo esc_attr( $setting_type ); ?>">
+				<div class="ac-settings-input <?php echo esc_attr( $this->type ? 'ac-settings-input_' . $this->type : '' ); ?>">
 					<?php echo $this->setting; ?>
 				</div>
 			<?php endif; ?>
