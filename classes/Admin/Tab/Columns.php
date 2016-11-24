@@ -367,6 +367,25 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
+	 * @return AC_Admin_PromoAbstract|false
+	 */
+	public function get_active_promotion() {
+		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo' , 'AC_' );
+
+		foreach ( $classes as $class ) {
+
+			/* @var AC_Admin_PromoAbstract $promo */
+			$promo = new $class;
+
+			if ( $promo->is_active() ) {
+				return $promo;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Display
 	 */
 	public function display() {
@@ -438,7 +457,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							'utm_source'   => 'plugin-installation',
 							'utm_medium'   => 'banner',
 							'utm_campaign' => 'plugin-installation',
-						); ?>
+						);
+
+						$active_promotion = $this->get_active_promotion();
+
+						?>
 						<div class="sidebox" id="ac-pro-version">
 							<div class="padding-box">
 								<h3>
@@ -463,27 +486,47 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 										<li>
 											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Import &amp; Export settings', 'codepress-admin-columns' ); ?></a>
 										</li>
-										<li class="acp-integration">
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img src="<?php echo AC()->get_plugin_url(); ?>assets/images/acf-logo.png" alt="ACF"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
-										</li>
-										<li class="acp-integration">
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img src="<?php echo AC()->get_plugin_url(); ?>assets/images/woocommerce-logo.png" alt="WooCommerce"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
-										</li>
+										<?php if ( ac_is_acf_active() ) : ?>
+											<li class="acp-integration">
+												<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img class="acf" src="<?php echo CPAC_URL; ?>assets/images/logo-acf.png" alt="ACF"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
+											</li>
+										<?php endif; ?>
+										<?php if ( ac_is_woocommerce_active() ) : ?>
+											<li class="acp-integration">
+												<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img class="woocommerce" src="<?php echo CPAC_URL; ?>assets/images/logo-woocommerce.png" alt="WooCommerce"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
+											</li>
+										<?php endif; ?>
 									</ul>
-									<a href="<?php add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ); ?>" class="acp-button"><?php echo sprintf( _( 'Get %s Off' ), '20%' ); ?></a>
+
+									<?php if ( ! $active_promotion ) : ?>
+										<a target="_blank" href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'promo' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>" class="acp-button"><?php echo __( 'Learn more about Pro' ); ?></a>
+									<?php endif; ?>
 								</div>
 							</div>
-							<div class="padding-box ac-pro-newsletter">
-								<h3>Get 20% off</h3>
-								<div class="inside">
-									<p>Submit your email and we'll send you a coupon for 20% off your upgrade to the pro version</p>
-									<form>
-										<input name="name" placeholder="Your Name">
-										<input name="email" placeholder="Your Email">
-										<input type="submit" value="Send me the coupon" class="acp-button">
-									</form>
+
+							<?php if ( $active_promotion ) : ?>
+
+								<div class="padding-box ac-pro-deal">
+									<h3><?php echo esc_html( $active_promotion->get_title() ); ?></h3>
+									<a target="_blank" href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), $active_promotion->get_url() ) ); ?>" class="acp-button"><?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), $active_promotion->get_discount() . '%' ) ); ?></a>
 								</div>
-							</div>
+
+							<?php else : ?>
+
+								<div class="padding-box ac-pro-newsletter">
+									<h3><?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), '20%' ) ); ?></h3>
+									<div class="inside">
+										<p>Submit your email and we'll send you a coupon for 20% off your upgrade to the pro version</p>
+										<form>
+											<input name="name" placeholder="Your Name">
+											<input name="email" placeholder="Your Email">
+											<input type="submit" value="Send me the coupon" class="acp-button">
+										</form>
+									</div>
+								</div>
+
+							<?php endif; ?>
+
 						</div>
 
 						<div class="sidebox" id="direct-feedback">
