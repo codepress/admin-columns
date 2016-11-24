@@ -893,7 +893,7 @@
   background: none;
 }
 .columns-right .sidebox#ac-pro-version .padding-box {
-  padding: 20px 10px 0;
+  padding: 20px 10px 10px;
   background: #3d4350;
   color: #fff;
 }
@@ -906,6 +906,16 @@
 }
 .columns-right .sidebox#ac-pro-version h3 a span {
   color: #e9426e;
+}
+.columns-right .sidebox#ac-pro-version .acp-button {
+  background: #e9426e;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  padding: 6px 20px;
+  border-radius: 3px;
 }
 .columns-right .sidebox#ac-pro-version ul li {
   padding-bottom: 3px;
@@ -926,9 +936,13 @@
   padding: 6px 0;
 }
 .columns-right .sidebox#ac-pro-version ul li.acp-integration img {
-  height: 23px;
+  height: 21px;
   display: inline-block;
   vertical-align: middle;
+  margin-right: 5px;
+}
+.columns-right .sidebox#ac-pro-version ul li.acp-integration img.woocommerce {
+  height: 24px;
 }
 .columns-right .sidebox#ac-pro-version ul li.acp-integration a:before {
   content: '+';
@@ -947,7 +961,7 @@
   margin-bottom: 18px;
 }
 .columns-right .sidebox#ac-pro-version .padding-box.ac-pro-deal a.acp-button {
-  font-size: 18px;
+  font-size: 16px;
 }
 .columns-right .sidebox#ac-pro-version .padding-box.ac-pro-newsletter {
   border: 1px solid #3d4350;
@@ -966,16 +980,6 @@
   margin-top: 15px;
   margin-bottom: 0;
   padding: 7px 20px;
-}
-.columns-right .sidebox#ac-pro-version .acp-button {
-  background: #e9426e;
-  border: none;
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-  display: block;
-  padding: 6px 20px;
-  border-radius: 3px;
 }
 .columns-right .sidebox#add-acf {
   background-color: #5ee8bf;

@@ -845,10 +845,28 @@ class CPAC_Settings {
 										'utm_campaign' => 'plugin-installation',
 									);
 
-									$promotion = array(
-										'title'  => '30% Off from Black Friday untill Cyber Monday',
-										'button' => sprintf( __( 'Get %s Off' ), '30%' ),
+									$active_promotion = false;
+
+									$promotions = array(
+
+										// Black Friday
+										array(
+											'title'      => '30% Off from Black Friday until Cyber Monday',
+											'button'     => sprintf( __( 'Get %s Off' ), '30%' ),
+											'date_start' => '2016-11-24',
+											'date_end'   => '2016-11-29',
+										),
 									);
+
+									$today = date( 'Y-m-d' );
+
+									foreach ( $promotions as $promotion ) {
+										if ( $today >= $promotion['date_start'] && $today <= $promotion['date_end'] ) {
+											$active_promotion = $promotion;
+											break;
+										}
+									}
+
 									?>
 									<div class="sidebox" id="ac-pro-version">
 										<div class="padding-box">
@@ -874,23 +892,27 @@ class CPAC_Settings {
 													<li>
 														<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Import &amp; Export settings', 'codepress-admin-columns' ); ?></a>
 													</li>
-													<li class="acp-integration">
-														<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img src="<?php echo CPAC_URL; ?>assets/images/acf-logo.png" alt="ACF"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
-													</li>
-													<li class="acp-integration">
-														<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img src="<?php echo CPAC_URL; ?>assets/images/woocommerce-logo.png" alt="WooCommerce"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
-													</li>
+													<?php if ( cpac()->is_plugin_acf_active() ) : ?>
+														<li class="acp-integration">
+															<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img class="acf" src="<?php echo CPAC_URL; ?>assets/images/logo-acf.png" alt="ACF"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
+														</li>
+													<?php endif; ?>
+													<?php if ( cpac()->is_plugin_woocommerce_active() ) : ?>
+														<li class="acp-integration">
+															<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><img class="woocommerce" src="<?php echo CPAC_URL; ?>assets/images/logo-woocommerce.png" alt="WooCommerce"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?></a>
+														</li>
+													<?php endif; ?>
 												</ul>
 
-												<?php if ( ! $promotion ) : ?>
-													<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>" class="acp-button"><?php echo __( 'Learn more about Pro' ); ?></a>
+												<?php if ( ! $active_promotion ) : ?>
+													<a target="_blank" href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'promo' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>" class="acp-button"><?php echo __( 'Learn more about Pro' ); ?></a>
 												<?php endif; ?>
 											</div>
 										</div>
-										<?php if ( $promotion ) : ?>
+										<?php if ( $active_promotion ) : ?>
 											<div class="padding-box ac-pro-deal">
-												<h3><?php echo $promotion['title']; ?></h3>
-												<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() . '/pricing-purchase/' ) ); ?>" class="acp-button"><?php echo $promotion['button']; ?></a>
+												<h3><?php echo $active_promotion['title']; ?></h3>
+												<a target="_blank" href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() . '/pricing-purchase/' ) ); ?>" class="acp-button"><?php echo $promotion['button']; ?></a>
 											</div>
 										<?php endif; ?>
 									</div>

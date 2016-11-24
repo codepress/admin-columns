@@ -1111,7 +1111,7 @@
 			background: none;
 
 			.padding-box {
-				padding: 20px 10px 0;
+				padding: 20px 10px 10px;
 				background: @ac-dark;
 				color: #fff;
 			}
@@ -1128,8 +1128,18 @@
 				}
 			}
 
+			.acp-button {
+				background: @ac-pink;
+				border: none;
+				color: #fff;
+				text-decoration: none;
+				text-align: center;
+				display: block;
+				padding: 6px 20px;
+				border-radius: 3px;
+			}
+
 			ul {
-				//margin-bottom: 20px;
 
 				li {
 					padding-bottom: 3px;
@@ -1150,9 +1160,14 @@
 					&.acp-integration {
 						padding: 6px 0;
 						img {
-							height: 23px;
+							height: 21px;
 							display: inline-block;
 							vertical-align: middle;
+							margin-right: 5px;
+
+							&.woocommerce {
+								height: 24px;
+							}
 						}
 						a:before {
 							content: '+';
@@ -1174,7 +1189,7 @@
 					margin-bottom: 18px;
 				}
 				a.acp-button {
-					font-size: 18px;
+					font-size: 16px;
 				}
 			}
 			.padding-box.ac-pro-newsletter {
@@ -1195,16 +1210,6 @@
 					margin-bottom: 0;
 					padding: 7px 20px;
 				}
-			}
-			.acp-button {
-				background: @ac-pink;
-				border: none;
-				color: #fff;
-				text-decoration: none;
-				text-align: center;
-				display: block;
-				padding: 6px 20px;
-				border-radius: 3px;
 			}
 		}
 
