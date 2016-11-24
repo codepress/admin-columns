@@ -1047,7 +1047,7 @@
 			}
 		}
 
-		&#pro-version {
+		/*&#pro-version {
 			.cta {
 				background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
 				background-size: cover;
@@ -1101,6 +1101,115 @@
 						font-size: 15px;
 						text-decoration: none;
 					}
+				}
+			}
+		}*/
+
+		@ac-dark: #3d4350;
+		@ac-pink: #e9426e;
+		&#ac-pro-version {
+			background: none;
+
+			.padding-box {
+				padding: 20px 10px 10px;
+				background: @ac-dark;
+				color: #fff;
+			}
+
+			h3 {
+				font-size: 34px;
+				a {
+					text-decoration: none;
+					color: #fff;
+
+					span {
+						color: @ac-pink;
+					}
+				}
+			}
+
+			.acp-button {
+				background: @ac-pink;
+				border: none;
+				color: #fff;
+				text-decoration: none;
+				text-align: center;
+				display: block;
+				padding: 6px 20px;
+				border-radius: 3px;
+			}
+
+			ul {
+
+				li {
+					padding-bottom: 3px;
+					a {
+						color: #fff;
+						text-decoration: none;
+
+						&:before {
+							content: '\2713';
+							font-weight: bold;
+							font-size: 16px;
+							display: inline-block;
+							vertical-align: top;
+							margin-right: 10px;
+						}
+					}
+
+					&.acp-integration {
+						padding: 6px 0;
+						img {
+							height: 21px;
+							display: inline-block;
+							vertical-align: middle;
+							margin-right: 5px;
+
+							&.woocommerce {
+								height: 24px;
+							}
+						}
+						a:before {
+							content: '+';
+						}
+					}
+				}
+			}
+			.padding-box.ac-pro-deal {
+				border: 1px solid @ac-dark;
+				background: none;
+				color: @ac-dark;
+				padding-bottom: 20px;
+				text-align: center;
+
+				h3 {
+					font-size: 20px;
+					line-height: 26px;
+					padding-top: 0;
+					padding-bottom: 0;
+					margin-bottom: 18px;
+				}
+				a.acp-button {
+					font-size: 16px;
+				}
+			}
+			.padding-box.ac-pro-newsletter {
+				border: 1px solid @ac-dark;
+				background: none;
+				color: @ac-dark;
+
+				h3 {
+					font-size: 20px;
+					padding-bottom: 0;
+				}
+				input {
+					width: 100%;
+					margin-bottom: 8px;
+				}
+				.acp-button {
+					margin-top: 15px;
+					margin-bottom: 0;
+					padding: 7px 20px;
 				}
 			}
 		}
