@@ -18,7 +18,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	private $image_size_h = 80;
 
 	protected function set_name() {
-		return 'image';
+		return $this->name = 'image';
 	}
 
 	protected function set_managed_options() {
@@ -26,9 +26,6 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 	}
 
 	protected function create_view() {
-		$size = $this->create_element( 'select', 'image_size' )
-		             ->set_options( $this->get_grouped_image_sizes() );
-
 		$width = new AC_Settings_View( array(
 			'setting' => $this->create_element( 'number', 'image_size_w' ),
 			'label'   => __( 'Width', 'codepress-admin-columns' ),
@@ -41,9 +38,8 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 			'tooltip' => __( 'Height in pixels', 'codepress-admin-columns' ),
 		) );
 
-		$height->set( 'setting', $this->create_element( 'image_size_h', 'number' ) )
-		       ->set( 'label', __( 'Height', 'codepress-admin-columns' ) )
-		       ->set( 'tooltip', __( 'Height in pixels', 'codepress-admin-columns' ) );
+		$size = $this->create_element( 'select', 'image_size' )
+		             ->set_options( $this->get_grouped_image_sizes() );
 
 		$view = new AC_Settings_View( array(
 			'label'    => __( 'Image Size', 'codepress-admin-columns' ),
