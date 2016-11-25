@@ -29,7 +29,7 @@ final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstr
 				$input->set_attribute( 'checked', 'checked' );
 			}
 
-			$attributes = array();
+			$attributes = $this->get_attributes();
 
 			if ( $input->get_id() ) {
 				$attributes['for'] = $input->get_id();

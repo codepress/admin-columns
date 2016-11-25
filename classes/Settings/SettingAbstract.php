@@ -257,7 +257,7 @@ abstract class AC_Settings_SettingAbstract {
 
 		// set default template for nested sections
 		foreach ( (array) $view->sections as $section ) {
-			if ( $view instanceof AC_View && null === $section->get_template() ) {
+			if ( $section instanceof AC_View && null === $section->get_template() ) {
 				$section->set_template( $template );
 			}
 		}
