@@ -14,11 +14,11 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_SettingAbstract
 
 	protected function create_view() {
 		$view = new AC_Settings_View( array(
-			'set'     => $this->create_element(),
+			'set'     => $this->create_element( 'text' ),
 			'label'   => __( 'Link Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
 		) );
-		
+
 		return $view;
 	}
 
