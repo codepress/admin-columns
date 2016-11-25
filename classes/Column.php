@@ -320,7 +320,7 @@ abstract class AC_Column {
 		$options = array();
 
 		foreach ( $this->get_settings() as $setting ) {
-			$options = array_merge( $options, $setting->get_values() );
+			$options += $setting->get_values();
 		}
 
 		return $options;
@@ -332,13 +332,13 @@ abstract class AC_Column {
 	 * @return string
 	 */
 	public function render() {
-		$views = array();
+		$output = array();
 
 		foreach ( $this->get_settings() as $setting ) {
-			$views[] = $setting->render();
+			$output[] = $setting->render();
 		}
 
-		return implode( "\n", array_filter( $views ) );
+		return implode( "\n", array_filter( $output ) );
 	}
 
 	/**
