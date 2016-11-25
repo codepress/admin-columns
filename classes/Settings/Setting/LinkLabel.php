@@ -12,7 +12,6 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_SettingAbstract
 		$this->managed_options = array( 'link_label' );
 	}
 
-
 	protected function create_view() {
 		$view = new AC_Settings_View( array(
 			'set'     => $this->create_element( 'text' ),
