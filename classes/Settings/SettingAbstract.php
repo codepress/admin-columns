@@ -252,12 +252,23 @@ abstract class AC_Settings_SettingAbstract {
 			return false;
 		}
 
+		$template = 'settings/section';
+
+		// set default template
 		if ( null === $view->get_template() ) {
-			$view->set_template( 'settings/section' );
+			$view->set_template( $template );
 		}
 
+		// set default name
 		if ( null === $view->get( 'name' ) ) {
 			$view->set( 'name', $this->name );
+		}
+
+		// set default template for nested sections
+		foreach ( (array) $view->sections as $section ) {
+			if ( $view instanceof AC_View && null === $section->get_template() ) {
+				$section->set_template( $template );
+			}
 		}
 
 		return $view->render();
