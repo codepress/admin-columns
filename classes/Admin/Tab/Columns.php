@@ -85,33 +85,46 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					$sanitized += $setting->get_values();
 				}
 
+				$column_data[ $name ] = $sanitized;
 
-				// todo: move these sanitized values to the setting
-				if ( ! empty( $options['label'] ) ) {
+				/**
+				 * is moved to the label setting
+				 *
+				 * if ( ! empty( $options['label'] ) ) {
+				 *
+				 * // Local site url will be replaced before storing into DB.
+				 * // This makes it easier when migrating DB to a new install.
+				 * //$options['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
+				 * $options['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
+				 *
+				 * // Label can not contains the character ":"" and "'", because
+				 * // AC_Column::get_sanitized_label() will return an empty string
+				 * // and make an exception for site_url()
+				 * // Enable data:image url's
+				 * if ( false === strpos( $options['label'], 'data:' ) ) {
+				 * $options['label'] = str_replace( ':', '', $options['label'] );
+				 * $options['label'] = str_replace( "'", '', $options['label'] );
+				 * }
+				 * }
+				 */
 
-					// Local site url will be replaced before storing into DB.
-					// This makes it easier when migrating DB to a new install.
-					$options['label'] = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $options['label'] ) ) );
+				/**
+				 * is moved to the width setting
+				 *
+				 * if ( isset( $options['width'] ) ) {
+				 * $options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
+				 * }
+				 */
 
-					// Label can not contains the character ":"" and "'", because
-					// AC_Column::get_sanitized_label() will return an empty string
-					// and make an exception for site_url()
-					// Enable data:image url's
-					if ( false === strpos( $options['label'], 'data:' ) ) {
-						$options['label'] = str_replace( ':', '', $options['label'] );
-						$options['label'] = str_replace( "'", '', $options['label'] );
-					}
-				}
+				/**
+				 * is moved to the width setting
+				 *
+				 * if ( isset( $options['date_format'] ) ) {
+				 * $options['date_format'] = trim( $options['date_format'] );
+				 * }
+				 */
 
-				if ( isset( $options['width'] ) ) {
-					$options['width'] = is_numeric( $options['width'] ) ? trim( $options['width'] ) : '';
-				}
-
-				if ( isset( $options['date_format'] ) ) {
-					$options['date_format'] = trim( $options['date_format'] );
-				}
-
-				$column_data[ $name ] = $column->sanitize_options( $options );
+				//$column_data[ $name ] = $column->sanitize_options( $options );
 			}
 		}
 

@@ -47,9 +47,29 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 	 * @return $this
 	 */
 	public function set_label( $label ) {
-		$this->label = $label;
+		$this->label = trim( $label );
 
 		return $this;
+	}
+
+	// todo: somehow use when storing or maybe always use
+	private function sanitize( $label ) {
+		if ( $label ) {
+			// Local site url will be replaced before storing into DB.
+			// This makes it easier when migrating DB to a new install.
+			$label = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $label ) ) );
+
+			// Label can not contains the character ":"" and "'", because
+			// AC_Column::get_sanitized_label() will return an empty string
+			// and make an exception for site_url()
+			// Enable data:image url's
+			if ( false === strpos( $label, 'data:' ) ) {
+				$label = str_replace( ':', '', $label );
+				$label = str_replace( "'", '', $label );
+			}
+		}
+
+		return $label;
 	}
 
 }

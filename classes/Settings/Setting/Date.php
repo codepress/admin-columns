@@ -41,7 +41,7 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 	 * @return $this
 	 */
 	public function set_date_format( $date_format ) {
-		$this->date_format = $date_format;
+		$this->date_format = trim( $date_format );
 
 		return $this;
 	}
