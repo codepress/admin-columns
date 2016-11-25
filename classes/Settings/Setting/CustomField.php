@@ -32,7 +32,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				} else {
+				}
+				else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -78,17 +79,32 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		return $custom_field_types;
 	}
 
+	public function get_sub_setting() {
+		$setting = false;
+
+		switch ( $this->get_field_type() ) {
+			case 'date' :
+				$setting = new AC_Settings_Setting_Date( $this->column );
+				break;
+			case 'image' :
+			case 'library_id' :
+				$setting = new AC_Settings_Setting_Image( $this->column );
+				break;
+			case 'excerpt' :
+				$setting = new AC_Settings_Setting_CharacterLimit( $this->column );
+				break;
+			case 'title_by_id' :
+				$setting = new AC_Settings_Setting_Post( $this->column );
+				break;
+			case 'user_by_id' :
+				$setting = new AC_Settings_Setting_User( $this->column );
+				break;
+		}
+
+		return $setting;
+	}
+
 	protected function create_view() {
-		$sections = array();
-
-		$select = $this->create_element( 'select', 'field' )
-		               ->set_options( $this->get_grouped_field_options() );
-
-		$field = new AC_Settings_View();
-		$field->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		      ->set( 'setting', $select );
-
-		$sections[] = $field;
 
 		$select = $this->create_element( 'select', 'field_type' )
 		               ->set_attribute( 'data-refresh', 'column' )
@@ -98,33 +114,13 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		$field_type->set( 'label', __( 'Field Type', 'codepress-admin-columns' ) )
 		           ->set( 'setting', $select );
 
-		$sections[] = $field_type;
-
-		// Optional fields
-
-		// TODO: doesn't work when switching field type
-		switch ( $this->get_field_type() ) {
-			case 'date' :
-				$sections[] = new AC_Settings_Setting_Date( $this->column );
-				break;
-			case 'image' :
-			case 'library_id' :
-				$sections[] = new AC_Settings_Setting_Image( $this->column );
-				break;
-			case 'excerpt' :
-				$sections[] = new AC_Settings_Setting_CharacterLimit( $this->column );
-				break;
-			case 'title_by_id' :
-				$sections[] = new AC_Settings_Setting_Post( $this->column );
-				break;
-			case 'user_by_id' :
-				$sections[] = new AC_Settings_Setting_User( $this->column );
-				break;
-		}
+		$select = $this->create_element( 'select', 'field' )
+		               ->set_options( $this->get_grouped_field_options() );
 
 		$view = new AC_Settings_View();
 		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		     ->set( 'sections', $sections );
+		     ->set( 'setting', $select )
+		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
 
 		return $view;
 	}
