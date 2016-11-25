@@ -723,6 +723,7 @@ function cpac_reset_columns( $ ) {
 		};
 
 		$( this ).each( function() {
+			console.log('test');
 			var $setting = $( this );
 			var $select = $( this ).find( '.ac-setting-input select' );
 
@@ -735,7 +736,7 @@ function cpac_reset_columns( $ ) {
 	};
 
 	$(document).on( 'init_settings', function( e, column ){
-		$( column ).find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
+		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
 	} );
 
 }( jQuery ));
