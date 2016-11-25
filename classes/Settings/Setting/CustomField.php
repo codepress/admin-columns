@@ -78,7 +78,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		return $custom_field_types;
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$sections = array();
 
 		$select = $this->create_element( 'select', 'field' )

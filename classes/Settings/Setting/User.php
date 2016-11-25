@@ -112,7 +112,7 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 	/**
 	 * @return AC_Settings_View
 	 */
-	protected function get_view() {
+	protected function create_view() {
 		$select = $this->create_element( 'select', 'display_author_as' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );

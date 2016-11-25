@@ -97,7 +97,7 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract
 		);
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$select = $this->create_element( 'select', 'post_property_display' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );

@@ -11,7 +11,7 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'character_limit' );
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$word_limit = $this->create_element( 'number' )
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );

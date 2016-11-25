@@ -12,7 +12,7 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'post_link_to' );
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$options = array(
 			'edit_post'   => __( 'Edit Post' ),
 			'view_post'   => __( 'View Post' ),
@@ -28,10 +28,11 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 		$select = $this->create_element( 'select' )
 		               ->set_options( $options );
 
-		$view = new AC_Settings_View();
-		$view->set( 'setting', $select )
-		     ->set( 'label', __( 'Link To', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'Page the posts should link to.', 'codepress-admin-columns' ) );
+		$view = new AC_Settings_View( array(
+			'setting' => $select,
+			'label'   => __( 'Link To', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),
+		) );
 
 		return $view;
 	}

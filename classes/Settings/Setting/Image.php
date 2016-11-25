@@ -25,7 +25,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'image_size', 'image_size_w', 'image_size_h' );
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$size = $this->create_element( 'select', 'image_size' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 

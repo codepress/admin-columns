@@ -17,22 +17,24 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	}
 
 	private function get_valid_width_units() {
-		return array( '%' => '%', 'px' => 'px' );
+		return array(
+			'%'  => '%',
+			'px' => 'px',
+		);
 	}
 
-	protected function get_view() {
+	protected function create_view() {
 		$width = $this->create_element( $this->get_managed_option() )
 		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
 		$unit = $this->create_element( 'width_unit', 'radio' )
 		             ->set_options( $this->get_valid_width_units() );
 
-		$section = new AC_Settings_View();
-		$section->set_template( 'setting-width' )
-		        ->set_data( array(
-			        'width' => $width,
-			        'unit'  => $unit,
-		        ) );
+		$section = new AC_Settings_View( array(
+			'width' => $width,
+			'unit'  => $unit,
+		) );
+		$section->set_template( 'setting-width' );
 
 		return new AC_Settings_View( array(
 			'label'    => __( 'Width', 'codepress-admin-columns' ),
@@ -56,7 +58,9 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	public function set_width( $width ) {
 		$width = absint( $width );
 
-		$this->width = $width > 0 ? $width : false;
+		if ( $width > 0 ) {
+			$this->width = $width;
+		}
 
 		return $this;
 	}
@@ -67,11 +71,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	public function get_width_unit() {
 		return $this->width_unit;
 	}
-
-	public function get_width_and_unit() {
-		return $this->get_width() ? $this->get_width() . $this->get_width_unit() : false;
-	}
-
+	
 	/**
 	 * @param string $width_unit
 	 *

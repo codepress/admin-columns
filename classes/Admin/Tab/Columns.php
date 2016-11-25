@@ -732,7 +732,15 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 								<div class="meta">
 
 									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php echo esc_html( $column->get_setting( 'width' )->get_width_and_unit() ); ?>
+										<?php
+
+										$width = $column->get_setting( 'width' );
+
+										if ( $width->get_value() ) {
+											echo esc_html( implode( $width->get_values() ) );
+										}
+
+										?>
 									</span>
 
 									<?php

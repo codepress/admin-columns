@@ -37,7 +37,7 @@ abstract class AC_Settings_SettingAbstract {
 	 *
 	 * @return AC_Settings_View
 	 */
-	protected abstract function get_view();
+	protected abstract function create_view();
 
 	/**
 	 * Set the options this field manages
@@ -246,10 +246,10 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	public function render() {
-		$view = $this->get_view();
+		$view = $this->create_view();
 
 		if ( ! ( $view instanceof AC_Settings_View ) ) {
-			return '';
+			return false;
 		}
 
 		// assign current name to section by default

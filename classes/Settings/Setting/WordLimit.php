@@ -15,16 +15,22 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'excerpt_length' );
 	}
 
-	protected function get_view() {
-		$setting = $this->create_element( 'number' )
-		                ->set_attribute( 'min', 0 )
-		                ->set_attribute( 'step', 1 );
+	protected function create_view() {
+		$attributes = array(
+			'min'  => 0,
+			'step' => 1,
+		);
 
-		return new AC_Settings_View( array(
+		$setting = $this->create_element( 'number' )
+		                ->set_attributes( $attributes );
+
+		$view = new AC_Settings_View( array(
 			'label'   => __( 'Word Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'setting' => $setting,
 		) );
+
+		return $view;
 	}
 
 	/**
