@@ -27,7 +27,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		$width = $this->create_element( $this->get_managed_option() )
 		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
-		$unit = $this->create_element( 'width_unit', 'radio' )
+		$unit = $this->create_element( 'radio', 'width_unit' )
 		             ->set_options( $this->get_valid_width_units() );
 
 		$section = new AC_Settings_View( array(

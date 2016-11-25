@@ -325,7 +325,7 @@ abstract class AC_Column {
 		$views = array();
 
 		foreach ( $this->get_settings() as $setting ) {
-			$views[] = $setting->view()->render();
+			$views[] = $setting->render();
 		}
 
 		return implode( "\n", array_filter( $views ) );

@@ -23,7 +23,8 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function get_field_key() {
-		$field = $this->s()->get_option( 'field' );
+		// TODO
+		$field = $this->get_option( 'field' );
 
 		return substr( $field, 0, 10 ) == "cpachidden" ? str_replace( 'cpachidden', '', $field ) : $field;
 	}
@@ -32,7 +33,8 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 3.2.1
 	 */
 	public function get_field_type() {
-		return $this->settings()->get_option( 'field_type' );
+		// TODO
+		return $this->get_option( 'field_type' );
 	}
 
 	/**

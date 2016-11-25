@@ -12,12 +12,20 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_SettingAbstract
 		$this->managed_options = array( 'link_label' );
 	}
 
+<<<<<<< Updated upstream
 	protected function create_view() {
 		$view = new AC_Settings_View( array(
 			'set'     => $this->create_element(),
 			'label'   => __( 'Link Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),
 		) );
+=======
+	protected function get_view() {
+		$view = new AC_Settings_View();
+		$view->set( 'setting', $this->create_element( 'link_label' ) )
+		     ->set( 'label', __( 'Link Label', 'codepress-admin-columns' ) )
+		     ->set( 'tooltip', __( 'Leave blank to display the url', 'codepress-admin-columns' ) );
+>>>>>>> Stashed changes
 
 		return $view;
 	}

@@ -335,8 +335,8 @@
       cursor: ew-resize; }
   .ac-setting-input-width div.unit-select {
     position: absolute;
-    top: 2px;
-    right: 0;
+    top: 11px;
+    right: 6px;
     width: 82px;
     text-align: right; }
     .ac-setting-input-width div.unit-select .radio-labels {
