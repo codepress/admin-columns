@@ -322,7 +322,7 @@ class AC_ColumnFieldSettings {
 	/**
 	 * @since 2.4.7
 	 */
-	function placeholder( $args = array() ) {
+	/*function placeholder( $args = array() ) {
 		$defaults = array(
 			'label' => '',
 			'url'   => '',
@@ -334,27 +334,27 @@ class AC_ColumnFieldSettings {
 		if ( ! $data->label ) {
 			return;
 		}
-		?>
+		*/?><!--
 		<div class="is-disabled">
 			<p>
-				<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
+				<strong><?php /*printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); */?></strong>
 			</p>
 
 			<p>
-				<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+				<?php /*printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); */?>
 			</p>
 
 			<p>
-				<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); ?>
+				<?php /*printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); */?>
 			</p>
-			<a href="<?php echo add_query_arg( array(
+			<a href="<?php /*echo add_query_arg( array(
 				'utm_source'   => 'plugin-installation',
 				'utm_medium'   => $data->type,
 				'utm_campaign' => 'plugin-installation',
-			), $data->url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
+			), $data->url ); */?>" class="button button-primary"><?php /*_e( 'Find out more', 'codepress-admin-columns' ); */?></a>
 		</div>
-		<?php
-	}
+		--><?php
+/*	}*/
 
 	/**
 	 * @param array $args

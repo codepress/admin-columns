@@ -374,7 +374,6 @@ function cpac_reset_columns( $ ) {
 		// Current column type
 		var default_value = column.find( '.column-type select option:selected' ).val();
 
-		//column.find( '[data-refresh="column"]' ).change( function() {
 		column.find( 'select.ac-setting-input_type' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
@@ -422,9 +421,10 @@ function cpac_reset_columns( $ ) {
 							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 							// trigger refresh
-							if ( el.find( '[data-refresh=1]' ).length > 0 ) {
-								el.cpac_column_refresh();
-							}
+							// TODO: needed?
+							//if ( el.find( '[data-refresh=1]' ).length > 0 ) {
+								//el.cpac_column_refresh();
+							//}
 
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
@@ -434,6 +434,7 @@ function cpac_reset_columns( $ ) {
 						else if ( response.data ) {
 							if ( 'message' === response.data.type ) {
 								msg.html( response.data.error ).show();
+
 								// Set to default
 								$select.find( 'option' ).removeAttr( 'selected' );
 								$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
@@ -466,11 +467,11 @@ function cpac_reset_columns( $ ) {
 			column.cpac_column_refresh();
 		} );
 
-		$(document).trigger( 'init_settings', column );
+		$( document ).trigger( 'init_settings', column );
 	};
 
-	$.fn.column_bind_settings = function(){
-		var $column = $(this);
+	$.fn.column_bind_settings = function() {
+		var $column = $( this );
 
 		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
 		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
@@ -723,7 +724,6 @@ function cpac_reset_columns( $ ) {
 		};
 
 		$( this ).each( function() {
-			console.log('test');
 			var $setting = $( this );
 			var $select = $( this ).find( '.ac-setting-input select' );
 
@@ -735,7 +735,7 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
-	$(document).on( 'init_settings', function( e, column ){
+	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
 	} );
 
@@ -838,7 +838,7 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
-	$(document).on( 'init_settings', function( e, column ){
+	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 	} );
 

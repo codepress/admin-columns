@@ -19,7 +19,6 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 
 	protected function create_view() {
 		$type = $this->create_element( 'select' )
-		             ->set_attribute( 'data-refresh', 'column' )
 		             ->set_options( $this->get_grouped_columns() );
 
 		$view = new AC_View( array(
