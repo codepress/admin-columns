@@ -240,7 +240,7 @@ abstract class AC_Column {
 	 *
 	 * @return $this
 	 */
-	protected function add_setting( AC_Settings_SettingAbstract $setting ) {
+	public function add_setting( AC_Settings_SettingAbstract $setting ) {
 		$this->settings[ $setting->get_name() ] = $setting;
 
 		return $this;
@@ -263,6 +263,8 @@ abstract class AC_Column {
 	public function get_settings() {
 		if ( null === $this->settings ) {
 			$this->register_settings();
+
+			do_action( 'ac/column/settings', $this );
 		}
 
 		return $this->settings;

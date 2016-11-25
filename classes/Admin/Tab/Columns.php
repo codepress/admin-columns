@@ -49,7 +49,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// Javascript translations
 		wp_localize_script( 'ac-admin-tab-columns', 'cpac_i18n', array(
-			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+			'clone' => '<p>' . __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ) . '</p>',
 			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 		) );
 
@@ -226,10 +226,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => sprintf(
-					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+					'<p>' . __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 
 					// TODO: works?
-					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>'
+					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' . '</p>'
 				),
 			) );
 		}
