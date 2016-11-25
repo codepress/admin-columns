@@ -265,6 +265,8 @@ abstract class AC_Column {
 			$this->register_settings();
 
 			do_action( 'ac/column/settings', $this );
+
+			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
 		return $this->settings;
@@ -301,21 +303,27 @@ abstract class AC_Column {
 		return isset( $options[ $key ] ) ? $options[ $key ] : null;
 	}
 
-	public function set_options( $options ) {
-		$this->options = $options;
+	public function set_options( array $options ) {
+		foreach ( $this->get_settings() as $setting ) {
+			$setting->set_options( $options );
+		}
+
+		return $this;
 	}
 
 	/**
-	 * @return array|false
+	 * Get the current options
+	 *
+	 * @return array
 	 */
 	public function get_options() {
+		$options = array();
 
-		// Populate options from the list screen
-		if ( null === $this->options ) {
-			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
+		foreach ( $this->get_settings() as $setting ) {
+			$options = array_merge( $options, $setting->get_values() );
 		}
 
-		return $this->options;
+		return $options;
 	}
 
 	/**

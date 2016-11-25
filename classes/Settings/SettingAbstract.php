@@ -29,7 +29,6 @@ abstract class AC_Settings_SettingAbstract {
 
 		$this->set_managed_options();
 		$this->set_name();
-		$this->load_options();
 	}
 
 	/**
@@ -172,14 +171,6 @@ abstract class AC_Settings_SettingAbstract {
 	}
 
 	/**
-	 * Load the current options from the column
-	 *
-	 */
-	private function load_options() {
-		$this->set_options( $this->column->get_options() );
-	}
-
-	/**
 	 * Set the options of this setting
 	 *
 	 * @param array $options
@@ -252,12 +243,23 @@ abstract class AC_Settings_SettingAbstract {
 			return false;
 		}
 
+		$template = 'settings/section';
+
+		// set default template
 		if ( null === $view->get_template() ) {
-			$view->set_template( 'settings/section' );
+			$view->set_template( $template );
 		}
 
+		// set default name
 		if ( null === $view->get( 'name' ) ) {
 			$view->set( 'name', $this->name );
+		}
+
+		// set default template for nested sections
+		foreach ( (array) $view->sections as $section ) {
+			if ( $view instanceof AC_View && null === $section->get_template() ) {
+				$section->set_template( $template );
+			}
 		}
 
 		return $view->render();
