@@ -1,7 +1,6 @@
 <?php
 
-abstract class AC_Settings_Form_ElementAbstract
-	implements AC_ViewInterface {
+abstract class AC_Settings_Form_ElementAbstract {
 
 	/**
 	 * @var array
@@ -60,6 +59,13 @@ abstract class AC_Settings_Form_ElementAbstract
 
 		return sprintf( $template, $this->get_description() );
 	}
+
+	/**
+	 * Render this element
+	 *
+	 * @return string
+	 */
+	abstract public function render();
 
 	/**
 	 * @param $key

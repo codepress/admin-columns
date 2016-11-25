@@ -1,7 +1,6 @@
 <?php
 
-final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract
-	implements AC_ViewInterface {
+final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_ElementAbstract {
 
 	/**
 	 * @var bool
