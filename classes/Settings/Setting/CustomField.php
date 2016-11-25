@@ -110,14 +110,14 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_field_labels() );
 
-		$field_type = new AC_Settings_View();
+		$field_type = new AC_View();
 		$field_type->set( 'label', __( 'Field Type', 'codepress-admin-columns' ) )
 		           ->set( 'setting', $select );
 
 		$select = $this->create_element( 'select', 'field' )
 		               ->set_options( $this->get_grouped_field_options() );
 
-		$view = new AC_Settings_View();
+		$view = new AC_View();
 		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
 		     ->set( 'setting', $select )
 		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );

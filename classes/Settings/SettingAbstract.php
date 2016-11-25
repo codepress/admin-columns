@@ -35,7 +35,7 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * Create a string representation of this setting
 	 *
-	 * @return AC_Settings_View
+	 * @return AC_View
 	 */
 	protected abstract function create_view();
 
@@ -248,11 +248,14 @@ abstract class AC_Settings_SettingAbstract {
 	public function render() {
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof AC_Settings_View ) ) {
+		if ( ! ( $view instanceof AC_View ) ) {
 			return false;
 		}
 
-		// assign current name to section by default
+		if ( null === $view->get_template() ) {
+			$view->set_template( 'settings/section' );
+		}
+
 		if ( null === $view->get( 'name' ) ) {
 			$view->set( 'name', $this->name );
 		}

@@ -30,17 +30,18 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		$unit = $this->create_element( 'radio', 'width_unit' )
 		             ->set_options( $this->get_valid_width_units() );
 
-		$section = new AC_Settings_View( array(
+		$section = new AC_View( array(
 			'width' => $width,
 			'unit'  => $unit,
 		) );
-		$section->set_template( 'setting-width' );
+		$section->set_template( 'settings/setting-width' );
 
-		return new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'label'    => __( 'Width', 'codepress-admin-columns' ),
 			'sections' => array( $section ),
-			'name'     => $this->name,
 		) );
+
+		return $view;
 	}
 
 	/**
@@ -71,7 +72,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 	public function get_width_unit() {
 		return $this->width_unit;
 	}
-	
+
 	/**
 	 * @param string $width_unit
 	 *

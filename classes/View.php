@@ -1,7 +1,7 @@
 <?php
 
-class AC_Settings_View
-	implements AC_Settings_ViewInterface {
+class AC_View
+	implements AC_ViewInterface {
 
 	/**
 	 * @var array
@@ -9,37 +9,12 @@ class AC_Settings_View
 	private $data = array();
 
 	/**
-	 * @var AC_Settings_ViewAbstract[]
-	 */
-	private $views = array();
-
-	/**
 	 * @var string
 	 */
-	private $template = 'default';
+	private $template;
 
 	public function __construct( array $data = array() ) {
 		$this->set_data( $data );
-	}
-
-	/**
-	 * Add a view and load it as a variable, but store it for later retrieval
-	 *
-	 * @param AC_Settings_View $view
-	 * @param string $name
-	 *
-	 * @return $this
-	 */
-	public function set_view( AC_Settings_View $view, $name ) {
-		$this->views[ $name ] = $view;
-
-		$this->set( $name, $view );
-
-		return $this;
-	}
-
-	public function get_view( $name ) {
-		return isset( $this->views[ $name ] ) ? $this->views[ $name ] : false;
 	}
 
 	public function get( $key ) {
@@ -70,6 +45,10 @@ class AC_Settings_View
 		return $this;
 	}
 
+	public function get_data() {
+		return $this->data;
+	}
+
 	public function set_data( array $data ) {
 		foreach ( $data as $key => $value ) {
 			$this->set( $key, $value );
@@ -84,7 +63,7 @@ class AC_Settings_View
 	 * @return false|string
 	 */
 	private function resolve_template() {
-		$paths = apply_filters( 'ac/settings/view/template_path', array( dirname( __FILE__ ) . '/templates' ), $this->template );
+		$paths = apply_filters( 'ac/view/templates', array( CPAC_DIR . 'templates' ), $this->template );
 
 		foreach ( $paths as $path ) {
 			$file = $path . '/' . $this->template . '.php';

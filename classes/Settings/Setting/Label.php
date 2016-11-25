@@ -25,7 +25,7 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 		$label = $this->create_element( 'text' )
 		              ->set_attribute( 'placeholder', $this->column->get_label() );
 
-		$view = new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'name'    => $this->name,
 			'label'   => __( 'Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),

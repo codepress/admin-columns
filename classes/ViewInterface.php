@@ -1,6 +1,6 @@
 <?php
 
-interface AC_Settings_ViewInterface {
+interface AC_ViewInterface {
 
 	/**
 	 * Get a string representation of this object

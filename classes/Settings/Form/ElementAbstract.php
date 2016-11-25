@@ -1,7 +1,7 @@
 <?php
 
 abstract class AC_Settings_Form_ElementAbstract
-	implements AC_Settings_ViewInterface {
+	implements AC_ViewInterface {
 
 	/**
 	 * @var array

@@ -16,7 +16,7 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );
 
-		$view = new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'label'   => __( 'Character Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Maximum number of characters', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'setting' => $word_limit,

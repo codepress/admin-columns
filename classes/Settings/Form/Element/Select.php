@@ -1,7 +1,7 @@
 <?php
 
 final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbstract
-	implements AC_Settings_ViewInterface {
+	implements AC_ViewInterface {
 
 	/**
 	 * @var string

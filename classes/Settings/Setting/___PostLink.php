@@ -28,7 +28,7 @@ class AC_Settings_Setting_PostLink extends AC_Settings_SettingAbstract {
 		$select = $this->create_element( 'select' )
 		               ->set_options( $options );
 
-		$view = new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'setting' => $select,
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Page the posts should link to.', 'codepress-admin-columns' ),

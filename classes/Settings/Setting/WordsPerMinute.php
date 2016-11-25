@@ -21,7 +21,7 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_SettingAbstract {
 		$setting = $this->create_element( 'number' )
 		                ->set_attributes( $attributes );
 
-		$view = new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'label'   => __( 'Words per minute', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Estimated reading time in words per minute.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'By default: %s', 'codepress-admin-columns' ), $this->get_words_per_minute() ),
 			'setting' => $setting,

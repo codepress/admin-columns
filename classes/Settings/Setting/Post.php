@@ -102,7 +102,7 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );
 
-		$display_format = new AC_Settings_View( array(
+		$display_format = new AC_View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );
@@ -110,12 +110,12 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract
 		$select = $this->create_element( 'select', 'post_link_to' )
 		               ->set_options( $this->get_link_options() );
 
-		$link_format = new AC_Settings_View( array(
+		$link_format = new AC_View( array(
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );
 
-		$view = new AC_Settings_View( array(
+		$view = new AC_View( array(
 			'label'    => __( 'Post', 'codepress-admin-columns' ),
 			'sections' => array( $display_format, $link_format ),
 		) );
