@@ -22,6 +22,36 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 	}
 
 	/**
+	 * @return AC_View
+	 */
+	protected function create_view() {
+		$select = $this->create_element( 'select', 'display_author_as' )
+		               ->set_attribute( 'data-refresh', 'column' )
+		               ->set_options( $this->get_display_options() );
+
+		$display_format = new AC_View( array(
+			'label'   => __( 'Display', 'codepress-admin-columns' ),
+			'setting' => $select,
+		) );
+
+		$select = $this->create_element( 'select', 'user_link_to' )
+		               ->set_attribute( 'data-refresh', 'column' )
+		               ->set_options( $this->get_link_options() );
+
+		$link_format = new AC_View( array(
+			'label'   => __( 'Link To', 'codepress-admin-columns' ),
+			'setting' => $select,
+		) );
+
+		$view = new AC_View( array(
+			'label'    => __( 'User', 'codepress-admin-columns' ),
+			'sections' => array( $display_format, $link_format ),
+		) );
+
+		return $view;
+	}
+
+	/**
 	 * @param int $user_id
 	 *
 	 * @return string
@@ -107,36 +137,6 @@ class AC_Settings_Setting_User extends AC_Settings_SettingAbstract
 		$options = array_merge( array( '' => __( 'None' ) ), $options );
 
 		return $options;
-	}
-
-	/**
-	 * @return AC_View
-	 */
-	protected function create_view() {
-		$select = $this->create_element( 'select', 'display_author_as' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_display_options() );
-
-		$display_format = new AC_View( array(
-			'label'   => __( 'Display', 'codepress-admin-columns' ),
-			'setting' => $select,
-		) );
-
-		$select = $this->create_element( 'select', 'user_link_to' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_link_options() );
-
-		$link_format = new AC_View( array(
-			'label'   => __( 'Link To', 'codepress-admin-columns' ),
-			'setting' => $select,
-		) );
-
-		$view = new AC_View( array(
-			'label'    => __( 'User', 'codepress-admin-columns' ),
-			'sections' => array( $display_format, $link_format ),
-		) );
-
-		return $view;
 	}
 
 	/**

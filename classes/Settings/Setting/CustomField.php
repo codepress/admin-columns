@@ -14,6 +14,26 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'field', 'field_type' );
 	}
 
+	protected function create_view() {
+		$select = $this->create_element( 'select', 'field_type' )
+		               ->set_attribute( 'data-refresh', 'column' )
+		               ->set_options( $this->get_field_labels() );
+
+		$field_type = new AC_View();
+		$field_type->set( 'label', __( 'Field Type', 'codepress-admin-columns' ) )
+		           ->set( 'setting', $select );
+
+		$select = $this->create_element( 'select', 'field' )
+		               ->set_options( $this->get_grouped_field_options() );
+
+		$view = new AC_View();
+		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
+		     ->set( 'setting', $select )
+		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
+
+		return $view;
+	}
+
 	private function get_grouped_field_options() {
 		$grouped_options = array();
 
@@ -32,8 +52,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
+				} else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -102,27 +121,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		}
 
 		return $setting;
-	}
-
-	protected function create_view() {
-
-		$select = $this->create_element( 'select', 'field_type' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_field_labels() );
-
-		$field_type = new AC_View();
-		$field_type->set( 'label', __( 'Field Type', 'codepress-admin-columns' ) )
-		           ->set( 'setting', $select );
-
-		$select = $this->create_element( 'select', 'field' )
-		               ->set_options( $this->get_grouped_field_options() );
-
-		$view = new AC_View();
-		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		     ->set( 'setting', $select )
-		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
-
-		return $view;
 	}
 
 	/**

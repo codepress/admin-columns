@@ -30,6 +30,32 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract
 		return ac_helper()->html->link( $this->get_post_link( $post_id ), $this->get_post_name( $post_id ) );
 	}
 
+	protected function create_view() {
+		$select = $this->create_element( 'select', 'post_property_display' )
+		               ->set_attribute( 'data-refresh', 'column' )
+		               ->set_options( $this->get_display_options() );
+
+		$display_format = new AC_View( array(
+			'label'   => __( 'Display', 'codepress-admin-columns' ),
+			'setting' => $select,
+		) );
+
+		$select = $this->create_element( 'select', 'post_link_to' )
+		               ->set_options( $this->get_link_options() );
+
+		$link_format = new AC_View( array(
+			'label'   => __( 'Link To', 'codepress-admin-columns' ),
+			'setting' => $select,
+		) );
+
+		$view = new AC_View( array(
+			'label'    => __( 'Post', 'codepress-admin-columns' ),
+			'sections' => array( $display_format, $link_format ),
+		) );
+
+		return $view;
+	}
+
 	/**
 	 * @param int $post_id
 	 *
@@ -95,32 +121,6 @@ class AC_Settings_Setting_Post extends AC_Settings_SettingAbstract
 			'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
-	}
-
-	protected function create_view() {
-		$select = $this->create_element( 'select', 'post_property_display' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_display_options() );
-
-		$display_format = new AC_View( array(
-			'label'   => __( 'Display', 'codepress-admin-columns' ),
-			'setting' => $select,
-		) );
-
-		$select = $this->create_element( 'select', 'post_link_to' )
-		               ->set_options( $this->get_link_options() );
-
-		$link_format = new AC_View( array(
-			'label'   => __( 'Link To', 'codepress-admin-columns' ),
-			'setting' => $select,
-		) );
-
-		$view = new AC_View( array(
-			'label'    => __( 'Post', 'codepress-admin-columns' ),
-			'sections' => array( $display_format, $link_format ),
-		) );
-
-		return $view;
 	}
 
 	/**
