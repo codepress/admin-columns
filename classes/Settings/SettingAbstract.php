@@ -29,7 +29,6 @@ abstract class AC_Settings_SettingAbstract {
 
 		$this->set_managed_options();
 		$this->set_name();
-		$this->load_options();
 	}
 
 	/**
@@ -169,14 +168,6 @@ abstract class AC_Settings_SettingAbstract {
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Load the current options from the column
-	 *
-	 */
-	private function load_options() {
-		$this->set_options( $this->column->get_options() );
 	}
 
 	/**
