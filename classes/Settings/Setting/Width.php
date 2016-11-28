@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract
+	implements AC_Settings_HeaderInterface {
 
 	/**
 	 * @var integer
@@ -23,7 +24,7 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		);
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		$width = $this->create_element( $this->get_managed_option() )
 		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
@@ -39,6 +40,21 @@ class AC_Settings_Setting_Width extends AC_Settings_SettingAbstract {
 		$view = new AC_View( array(
 			'label'    => __( 'Width', 'codepress-admin-columns' ),
 			'sections' => array( $section ),
+		) );
+
+		return $view;
+	}
+
+	public function create_header_view() {
+		$width = $this->get_width();
+
+		if ( ! $width ) {
+			return false;
+		}
+
+		$view = new AC_View( array(
+			'title'   => __( 'width', 'codepress-admin-columns' ),
+			'content' => $width . $this->get_width_unit(),
 		) );
 
 		return $view;

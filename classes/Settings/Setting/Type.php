@@ -17,7 +17,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'type' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		$type = $this->create_element( 'select' )
 		             ->set_options( $this->get_grouped_columns() );
 
