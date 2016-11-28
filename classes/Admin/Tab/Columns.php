@@ -272,18 +272,18 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		ob_start();
 		?>
 
-		<p>
-			<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
-		</p>
+        <p>
+            <strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
+        </p>
 
-		<p>
+        <p>
 			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
-		</p>
+        </p>
 
-		<p>
+        <p>
 			<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); ?>
-		</p>
-		<a target="_blank" href="<?php echo add_query_arg( array(
+        </p>
+        <a target="_blank" href="<?php echo add_query_arg( array(
 			'utm_source'   => 'plugin-installation',
 			'utm_medium'   => $data->type,
 			'utm_campaign' => 'plugin-installation',
@@ -443,62 +443,62 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		$list_screen = $this->get_list_screen();
 		?>
 
-		<div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
-			<div class="main">
-				<div class="menu">
-					<select title="Select type" id="ac_list_screen">
+        <div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+            <div class="main">
+                <div class="menu">
+                    <select title="Select type" id="ac_list_screen">
 						<?php foreach ( $this->get_grouped_models() as $menu_type => $models ) : ?>
-							<optgroup label="<?php echo esc_attr( $menu_type ); ?>">
+                            <optgroup label="<?php echo esc_attr( $menu_type ); ?>">
 								<?php foreach ( $models as $model ) : ?>
-									<option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $list_screen->get_key() ); ?>><?php echo esc_html( $model->label ); ?></option>
+                                    <option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $list_screen->get_key() ); ?>><?php echo esc_html( $model->label ); ?></option>
 								<?php endforeach; ?>
-							</optgroup>
+                            </optgroup>
 						<?php endforeach; ?>
-					</select>
-					<span class="spinner"></span>
+                    </select>
+                    <span class="spinner"></span>
 
 					<?php if ( $link = $list_screen->get_screen_link() ) : ?>
-						<a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
+                        <a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
 					<?php endif; ?>
-				</div>
+                </div>
 
 				<?php do_action( 'cac/settings/after_title', $list_screen ); ?>
 
-			</div>
+            </div>
 
-			<div class="columns-right">
-				<div class="columns-right-inside">
+            <div class="columns-right">
+                <div class="columns-right-inside">
 
 					<?php if ( ! $list_screen->is_using_php_export() ) : ?>
-						<div class="sidebox form-actions">
+                        <div class="sidebox form-actions">
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
-							<h3>
-								<span class="left"><?php echo esc_html( $mainlabel ); ?></span>
+                            <h3>
+                                <span class="left"><?php echo esc_html( $mainlabel ); ?></span>
 								<?php if ( 18 > strlen( $mainlabel ) && ( $truncated_label = $this->get_truncated_side_label( $list_screen->get_label(), $mainlabel ) ) ) : ?>
-									<span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
+                                    <span class="right contenttype"><?php echo esc_html( $truncated_label ); ?></span>
 								<?php else : ?>
-									<span class="clear contenttype"><?php echo esc_html( $list_screen->get_label() ); ?></span>
+                                    <span class="clear contenttype"><?php echo esc_html( $list_screen->get_label() ); ?></span>
 								<?php endif; ?>
-							</h3>
+                            </h3>
 
-							<div class="form-update">
-								<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-								<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
-							</div>
+                            <div class="form-update">
+                                <a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+                                <a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+                            </div>
 
-							<form class="form-reset" method="post">
-								<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
-								<input type="hidden" name="cpac_action" value="restore_by_type"/>
+                            <form class="form-reset" method="post">
+                                <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
+                                <input type="hidden" name="cpac_action" value="restore_by_type"/>
 								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
 
 								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $this->get_list_screen_message_label( $list_screen ) . "'" ) ) . '\');"' : ''; ?>
-								<input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
-								<span class="spinner"></span>
-							</form>
+                                <input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
+                                <span class="spinner"></span>
+                            </form>
 
 							<?php do_action( 'cac/settings/form_actions', $list_screen ); ?>
 
-						</div><!--form-actions-->
+                        </div><!--form-actions-->
 					<?php endif; ?>
 
 					<?php do_action( 'cac/settings/sidebox', $list_screen ); ?>
@@ -510,155 +510,155 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							'utm_medium'   => 'banner',
 							'utm_campaign' => 'plugin-installation',
 						); ?>
-						<div class="sidebox" id="pro-version">
-							<div class="padding-box cta">
-								<h3>
-									<a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), ac_get_site_url() ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
-								</h3>
+                        <div class="sidebox" id="pro-version">
+                            <div class="padding-box cta">
+                                <h3>
+                                    <a href="<?php echo add_query_arg( array_merge( $url_args, array( 'utm_content' => 'title' ) ), ac_get_site_url() ); ?>"><?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ) ?></a>
+                                </h3>
 
-								<div class="inside">
-									<ul>
-										<li>
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
-										</li>
-										<li>
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
-										</li>
-										<li>
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
-										</li>
-										<li>
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
-										</li>
-										<li>
-											<a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
-										</li>
-									</ul>
-									<p>
+                                <div class="inside">
+                                    <ul>
+                                        <li>
+                                            <a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-sorting' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Sorting', 'codepress-admin-columns' ); ?></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-filtering' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Filtering', 'codepress-admin-columns' ); ?></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-import-export' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Import/Export', 'codepress-admin-columns' ); ?></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-editing' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Add Inline Edit', 'codepress-admin-columns' ); ?></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo esc_url( add_query_arg( array_merge( $url_args, array( 'utm_content' => 'usp-columns-sets' ) ), ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ) ); ?>"><?php _e( 'Multiple Column Sets', 'codepress-admin-columns' ); ?></a>
+                                        </li>
+                                    </ul>
+                                    <p>
 										<?php printf( __( "Check out %s for more details!", 'codepress-admin-columns' ), '<a href="' . add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) . '">Admin Columns Pro</a>' ); ?>
-									</p>
-								</div>
-							</div>
-						</div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="sidebox" id="direct-feedback">
-							<div id="feedback-choice">
-								<h3><?php _e( 'Are you happy with Admin Columns?', 'codepress-admin-columns' ); ?></h3>
+                        <div class="sidebox" id="direct-feedback">
+                            <div id="feedback-choice">
+                                <h3><?php _e( 'Are you happy with Admin Columns?', 'codepress-admin-columns' ); ?></h3>
 
-								<div class="inside">
-									<a href="#" class="yes"><?php _e( 'Yes' ); ?></a>
-									<a href="#" class="no"><?php _e( 'No' ); ?></a>
-								</div>
-							</div>
-							<div id="feedback-support">
-								<div class="inside">
-									<p><?php _e( "What's wrong? Need help? Let us know!", 'codepress-admin-columns' ); ?></p>
+                                <div class="inside">
+                                    <a href="#" class="yes"><?php _e( 'Yes' ); ?></a>
+                                    <a href="#" class="no"><?php _e( 'No' ); ?></a>
+                                </div>
+                            </div>
+                            <div id="feedback-support">
+                                <div class="inside">
+                                    <p><?php _e( "What's wrong? Need help? Let us know!", 'codepress-admin-columns' ); ?></p>
 
-									<p><?php _e( 'Check out our extensive documentation, or you can open a support topic on WordPress.org!', 'codepress-admin-columns' ); ?></p>
-									<ul class="share">
-										<li>
-											<a href="<?php echo add_query_arg( array(
+                                    <p><?php _e( 'Check out our extensive documentation, or you can open a support topic on WordPress.org!', 'codepress-admin-columns' ); ?></p>
+                                    <ul class="share">
+                                        <li>
+                                            <a href="<?php echo add_query_arg( array(
 												'utm_source'   => 'plugin-installation',
 												'utm_medium'   => 'feedback-docs-button',
 												'utm_campaign' => 'plugin-installation',
 											), ac_get_site_url( 'documentation' ) ); ?>" target="_blank">
-												<div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'codepress-admin-columns' ); ?>
-											</a>
-										</li>
-										<li>
-											<a href="https://wordpress.org/support/plugin/codepress-admin-columns"
-												target="_blank">
-												<div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'codepress-admin-columns' ); ?>
-											</a>
-										</li>
-									</ul>
-									<div class="clear"></div>
-								</div>
-							</div>
-							<div id="feedback-rate">
-								<div class="inside">
-									<p><?php _e( "Woohoo! We're glad to hear that!", 'codepress-admin-columns' ); ?></p>
+                                                <div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'codepress-admin-columns' ); ?>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://wordpress.org/support/plugin/codepress-admin-columns"
+                                                    target="_blank">
+                                                <div class="dashicons dashicons-wordpress"></div> <?php _e( 'Forums', 'codepress-admin-columns' ); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div id="feedback-rate">
+                                <div class="inside">
+                                    <p><?php _e( "Woohoo! We're glad to hear that!", 'codepress-admin-columns' ); ?></p>
 
-									<p><?php _e( 'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!', 'codepress-admin-columns' ); ?></p>
-									<ul class="share">
-										<li>
-											<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
-												<div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'codepress-admin-columns' ); ?>
-											</a>
-										</li>
+                                    <p><?php _e( 'We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!', 'codepress-admin-columns' ); ?></p>
+                                    <ul class="share">
+                                        <li>
+                                            <a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
+                                                <div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'codepress-admin-columns' ); ?>
+                                            </a>
+                                        </li>
 
-										<li>
-											<a href="<?php echo add_query_arg( array(
+                                        <li>
+                                            <a href="<?php echo add_query_arg( array(
 												'hashtags' => 'admincolumns',
 												'text'     => urlencode( __( "I'm using Admin Columns for WordPress!", 'codepress-admin-columns' ) ),
 												'url'      => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ),
 												'via'      => 'wpcolumns',
 											), 'https://twitter.com/intent/tweet' ); ?>" target="_blank">
-												<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
-											</a>
-										</li>
+                                                <div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
+                                            </a>
+                                        </li>
 
-										<li>
-											<a href="<?php echo add_query_arg( array(
+                                        <li>
+                                            <a href="<?php echo add_query_arg( array(
 												'utm_source'   => 'plugin-installation',
 												'utm_medium'   => 'feedback-purchase-button',
 												'utm_campaign' => 'plugin-installation',
 											), ac_get_site_url() ); ?>" target="_blank">
-												<div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
-											</a>
-										</li>
-									</ul>
-									<div class="clear"></div>
-								</div>
-							</div>
-						</div>
+                                                <div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
 
 					<?php endif; ?>
 
-					<div class="sidebox" id="plugin-support">
-						<h3><?php _e( 'Support', 'codepress-admin-columns' ); ?></h3>
+                    <div class="sidebox" id="plugin-support">
+                        <h3><?php _e( 'Support', 'codepress-admin-columns' ); ?></h3>
 
-						<div class="inside">
+                        <div class="inside">
 							<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
-								<p>
+                                <p>
 									<?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?>
-								</p>
+                                </p>
 							<?php endif; ?>
-							<p>
+                            <p>
 								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), ac_get_site_url( 'documentation' ) ); ?>
-							</p>
-						</div>
-					</div><!--plugin-support-->
+                            </p>
+                        </div>
+                    </div><!--plugin-support-->
 
-				</div><!--.columns-right-inside-->
-			</div><!--.columns-right-->
+                </div><!--.columns-right-inside-->
+            </div><!--.columns-right-->
 
-			<div class="columns-left">
+            <div class="columns-left">
 				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
-					<div class="cpac-notice">
-						<p>
+                    <div class="cpac-notice">
+                        <p>
 							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" ); ?>
-						</p>
-					</div>
+                        </p>
+                    </div>
 				<?php endif ?>
 
 				<?php $this->messages(); ?>
 
-				<div class="ajax-message"><p></p></div>
+                <div class="ajax-message"><p></p></div>
 
 				<?php if ( $list_screen->is_using_php_export() ) : ?>
-					<div class="notice notice-warning below-h2">
-						<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
-					</div>
+                    <div class="notice notice-warning below-h2">
+                        <p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
+                    </div>
 				<?php endif; ?>
 
-				<div class="ac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
+                <div class="ac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
 
-					<div class="ac-columns">
-						<form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
+                    <div class="ac-columns">
+                        <form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
 
-							<input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
-							<input type="hidden" name="cpac_action" value="update_by_type"/>
+                            <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
+                            <input type="hidden" name="cpac_action" value="update_by_type"/>
 
 							<?php do_action( 'cac/settings/form_columns', $list_screen ); ?>
 
@@ -667,37 +667,37 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 							<?php foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							} ?>
-						</form>
+                        </form>
 
-					</div><!--.cpac-columns-->
+                    </div><!--.cpac-columns-->
 
-					<div class="column-footer">
+                    <div class="column-footer">
 						<?php if ( ! $list_screen->is_using_php_export() ) : ?>
-							<div class="order-message">
+                            <div class="order-message">
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
-							</div>
-							<div class="button-container">
+                            </div>
+                            <div class="button-container">
 								<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
-									<a href="javascript:;" class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+                                    <a href="javascript:;" class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 								<?php endif; ?>
 
-								<span class="spinner"></span>
-								<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-								<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
-								<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-							</div>
+                                <span class="spinner"></span>
+                                <a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+                                <a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+                                <a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+                            </div>
 						<?php endif; ?>
-					</div><!--.cpac-column-footer-->
+                    </div><!--.cpac-column-footer-->
 
-				</div><!--.ac-boxes-->
+                </div><!--.ac-boxes-->
 
 				<?php do_action( 'cac/settings/after_columns', $list_screen ); ?>
 
-			</div><!--.columns-left-->
-			<div class="clear"></div>
+            </div><!--.columns-left-->
+            <div class="clear"></div>
 
 
-			<div id="add-new-column-template">
+            <div id="add-new-column-template">
 				<?php
 				foreach ( $list_screen->get_column_types() as $column_type ) {
 					if ( ! $column_type->is_original() ) {
@@ -706,11 +706,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					}
 				}
 				?>
-			</div>
+            </div>
 
-		</div><!--.columns-container-->
+        </div><!--.columns-container-->
 
-		<div class="clear"></div>
+        <div class="clear"></div>
 
 		<?php
 	}
@@ -720,18 +720,18 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 */
 	private function display_column( AC_Column $column ) { ?>
 
-		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+        <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 
-			<div class="ac-column-header">
-				<table class="widefat">
-					<tbody>
-					<tr>
-						<td class="column_sort">
-							<span class="cpacicon-move"></span>
-						</td>
-						<td class="column_label">
-							<div class="inner">
-								<div class="meta">
+            <div class="ac-column-header">
+                <table class="widefat">
+                    <tbody>
+                    <tr>
+                        <td class="column_sort">
+                            <span class="cpacicon-move"></span>
+                        </td>
+                        <td class="column_label">
+                            <div class="inner">
+                                <div class="meta">
 									<?php
 
 									$headers = array();
@@ -757,62 +757,62 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									do_action( 'ac/column/header', $column );
 
 									?>
-								</div>
-								<a class="toggle" href="javascript:;">
+                                </div>
+                                <a class="toggle" href="javascript:;">
 									<?php echo $column->get_setting( 'label' )->get_value(); //get_label(); // do not escape ?>
-								</a>
-								<a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
-								<a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+                                </a>
+                                <a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+                                <a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
-									<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+                                    <a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
-								<a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
-							</div>
-						</td>
-						<td class="column_type">
-							<div class="inner">
-								<a href="#">
+                                <a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+                            </div>
+                        </td>
+                        <td class="column_type">
+                            <div class="inner">
+                                <a href="#">
 									<?php echo $column->get_label(); ?>
-								</a>
-							</div>
-						</td>
-						<td class="column_edit">
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div><!--.column-meta-->
+                                </a>
+                            </div>
+                        </td>
+                        <td class="column_edit">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!--.column-meta-->
 
-			<div class="ac-column-body">
+            <div class="ac-column-body">
 
 				<?php // TODO: remove? ?>
 
-				<input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
-				<input type="hidden" class="type" name="<?php //$column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-				<input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
+                <input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
+                <input type="hidden" class="type" name="<?php //$column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
+                <input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
 
-				<div class="ac-column-settings">
+                <div class="ac-column-settings">
 
 					<?php echo $column->render(); ?>
 
-					<table class="ac-column-setting ac-column-setting-actions">
-						<tr>
-							<td class="col-label"></td>
-							<td class="col-settings">
-								<p>
-									<a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+                    <table class="ac-column-setting ac-column-setting-actions">
+                        <tr>
+                            <td class="col-label"></td>
+                            <td class="col-settings">
+                                <p>
+                                    <a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 									<?php if ( ! $column->is_original() ) : ?>
-										<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+                                        <a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 									<?php endif; ?>
-									<a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>
-								</p>
-							</td>
-						</tr>
+                                    <a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>
+                                </p>
+                            </td>
+                        </tr>
 
-					</table>
-				</div>
-			</div><!--.ac-column-body-->
-		</div><!--.ac-column-->
+                    </table>
+                </div>
+            </div><!--.ac-column-body-->
+        </div><!--.ac-column-->
 		<?php
 	}
 

@@ -14,7 +14,7 @@ class AC_Settings_Setting_Taxonomy extends AC_Settings_SettingAbstract {
 	/**
 	 * @return AC_View
 	 */
-	protected function create_view() {
+	public function create_view() {
 		$taxonomy = $this->create_element( 'select', 'taxonomy' )
 		                 ->set_no_result( __( 'No taxonomies available.' ) )
 		                 ->set_options( ac_helper()->taxonomy->get_taxonomy_selection_options( $this->column->get_post_type() ) )

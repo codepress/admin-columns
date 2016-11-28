@@ -177,8 +177,112 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 		return $this;
 	}
 
-	public function format( $string ) {
-		return $string;
+	private function convert_array_to_comma_seperated_string( $array ) {
+		return ac_helper()->array->implode_recursive( ', ', $array );
+	}
+
+	/**
+	 * @param array|string $mixed
+	 *
+	 * @return string|bool
+	 */
+	public function format( $mixed ) {
+		$value = false;
+
+		$sub_setting = $this->get_sub_setting();
+
+		switch ( $this->get_field_type() ) :
+
+			// TODO: continue formatter
+			case "image" :
+			case "library_id" :
+				$images = ac_helper()->string->comma_separated_to_array( $mixed );
+
+
+				$value = $sub_setting->format( $images );
+
+				echo '<pre>'; print_r( $value ); echo '</pre>'; //exit;
+				//$this->column->get_setting( 'image' )->format();
+
+				//$value = implode( ac_helper()->image->get_images( $images, $this->format->image_sizes() ) );
+				break;
+
+			case "excerpt" :
+				$value = $this->format->word_limit( $raw_value );
+				break;
+
+			case "date" :
+				$value = $this->format->date( $raw_value );
+				break;
+
+			case "link" :
+				if ( ac_helper()->string->is_valid_url( $raw_value ) ) {
+					$label = $this->settings()->get_option( 'link_label' );
+					if ( ! $label ) {
+						$label = $raw_value;
+					}
+
+					$value = ac_helper()->html->link( $raw_value, $label );
+				}
+				break;
+
+			case "title_by_id" :
+				$titles = array();
+				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
+					foreach ( (array) $ids as $id ) {
+						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
+							$link = get_edit_post_link( $id );
+							$titles[] = ac_helper()->html->link( $link, $title );
+						}
+					}
+				}
+				$value = implode( ac_helper()->html->divider(), $titles );
+				break;
+
+			case "user_by_id" :
+				$names = array();
+				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
+					foreach ( (array) $ids as $id ) {
+						if ( $username = $this->get_username_by_id( $id ) ) {
+							$names[] = ac_helper()->html->link( get_edit_user_link( $id ), $username );
+						}
+					}
+				}
+				$value = implode( ac_helper()->html->divider(), $names );
+				break;
+
+			case "term_by_id" :
+				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
+					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
+				}
+				break;
+
+			case "checkmark" :
+				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
+
+				$value = ac_helper()->icon->yes_or_no( $is_true );
+				break;
+
+			case "color" :
+				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : ac_helper()->string->get_empty_char();
+				break;
+
+			case "count" :
+				$raw_value = $this->get_raw_value( $id, false );
+				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
+				break;
+
+			case "has_content" :
+				$rawvalue = $this->get_raw_value( $id );
+				$value = '<span class="cpac-tip" data-tip="' . esc_attr( $rawvalue ) . '">' . ac_helper()->icon->yes_or_no( $rawvalue ) . '</span>';
+				break;
+
+			default :
+				$value = $this->convert_array_to_comma_seperated_string( $mixed );
+
+		endswitch;
+
+		return $value;
 	}
 
 }

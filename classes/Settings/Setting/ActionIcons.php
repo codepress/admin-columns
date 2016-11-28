@@ -8,7 +8,7 @@ class AC_Settings_Setting_ActionIcons extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'use_icons' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 
 		$setting = $this->create_element( 'radio' )
 		                ->set_options( array(

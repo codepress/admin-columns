@@ -172,6 +172,11 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
+		$mixed = $this->get_raw_value( $id );
+
+		return $this->get_setting( 'custom_field' )->format( $mixed );
+
+		// TODO: add to format and remove
 		$value = '';
 
 		$raw_value = $this->get_raw_value( $id );
