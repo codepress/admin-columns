@@ -21,9 +21,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_SettingAbstract
 		                ->set_attributes( array(
 			                'min'         => 0,
 			                'step'        => 1,
-
-			                // TODO: needs a get default method
-			                'placeholder' => 20,
+			                'placeholder' => $this->get_default(),
 		                ) );
 
 		$view = new AC_View( array(

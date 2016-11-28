@@ -17,6 +17,13 @@ abstract class AC_Settings_SettingAbstract {
 	protected $managed_options = array();
 
 	/**
+	 * Default values
+	 *
+	 * @var array
+	 */
+	private $defaults = array();
+
+	/**
 	 * @var AC_Column
 	 */
 	protected $column;
@@ -29,6 +36,13 @@ abstract class AC_Settings_SettingAbstract {
 
 		$this->set_managed_options();
 		$this->set_name();
+
+		// parse defaults that are set directly on the properties
+		foreach ( $this->get_values() as $key => $value ) {
+			if ( null !== $value ) {
+				$this->set_default( $value, $key );
+			}
+		}
 	}
 
 	/**
@@ -187,7 +201,7 @@ abstract class AC_Settings_SettingAbstract {
 	 * Set a default value unless option is loaded from settings
 	 *
 	 * @param string|array|int|bool $value
-	 * @param string $option
+	 * @param string|null $option
 	 *
 	 * @return $this
 	 */
@@ -196,11 +210,28 @@ abstract class AC_Settings_SettingAbstract {
 			$option = $this->get_managed_option();
 		}
 
+		$this->defaults[ $option ] = $value;
+
 		if ( ! $this->is_user_set( $option ) ) {
 			$this->set_option( $value, $option );
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Get the default value of an option if set
+	 *
+	 * @param string|null $option
+	 *
+	 * @return @param string|array|int|bool|null
+	 */
+	public function get_default( $option = null ) {
+		if ( null === $option ) {
+			$this->get_managed_option();
+		}
+
+		return isset( $this->defaults[ $option ] ) ? $this->defaults[ $option ] : null;
 	}
 
 	/**
