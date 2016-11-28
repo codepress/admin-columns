@@ -31,6 +31,11 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 		return implode( "\n", $output );
 	}
 
+	/**
+	 * @param array $group
+	 *
+	 * @return string
+	 */
 	protected function render_optgroup( array $group ) {
 		$template = '<optgroup %s>%s</optgroup>';
 		$attributes = array();
@@ -78,7 +83,7 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_ElementAbst
 	/**
 	 * @param string $no_result
 	 *
-	 * @return AC_Settings_Form_Element_Select
+	 * @return $this
 	 */
 	public function set_no_result( $no_result ) {
 		$this->no_result = $no_result;

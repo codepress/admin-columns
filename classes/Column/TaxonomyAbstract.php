@@ -14,7 +14,6 @@ abstract class AC_Column_TaxonomyAbstract extends AC_Column {
 		$this->set_label( __( 'Taxonomy', 'codepress-admin-columns' ) );
 	}
 
-	// Display
 	public function get_value( $post_id ) {
 		return ac_helper()->post->get_terms_for_display( $post_id, $this->get_taxonomy() );
 	}
@@ -27,16 +26,10 @@ abstract class AC_Column_TaxonomyAbstract extends AC_Column {
 		return $this->get_option( 'taxonomy' );
 	}
 
-	// Settings
-	public function display_settings() {
-		$this->field_settings->field( array(
-			'type'      => 'select',
-			'name'      => 'taxonomy',
-			'label'     => __( "Taxonomy", 'codepress-admin-columns' ),
-			'options'   => ac_helper()->taxonomy->get_taxonomy_selection_options( $this->get_post_type() ),
-			'section'   => true,
-			'no_result' => __( 'No taxonomies available.' ),
-		) );
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_Taxonomy( $this ) );
 	}
 
 }

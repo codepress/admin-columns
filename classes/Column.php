@@ -3,6 +3,8 @@
 /**
  * @since NEWVERSION
  */
+
+// TODO: rename: AC_ColumnAbstract
 abstract class AC_Column {
 
 	/**
@@ -244,7 +246,7 @@ abstract class AC_Column {
 	/**
 	 * @param $id
 	 *
-	 * @return AC_Settings_SettingAbstract|false
+	 * @return AC_Settings_SettingAbstract|AC_Settings_FormatInterface|false
 	 */
 	public function get_setting( $id ) {
 		$settings = $this->get_settings();
@@ -434,6 +436,7 @@ abstract class AC_Column {
 	/**
 	 * @since 2.0
 	 */
+	// TODO: remove
 	public function display_settings() {
 	}
 

@@ -12,32 +12,39 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$values = array();
+		return $this->get_setting( 'image' )->format( $this->get_attachment_ids( $post_id ) );
 
-		$ids = (array) $this->get_raw_value( $post_id );
-		foreach ( $ids as $id ) {
+		// TODO make images be wrapped in cacie-item to make them editable
+
+		/*foreach ( $ids as $id ) {
 			if ( $image = $this->format->images( $id ) ) {
 				$values[] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $id ) . '">' . $image . '</div>';
 			}
 		}
 
-		return implode( $values );
+		return implode( $values );*/
 	}
 
 	public function get_raw_value( $post_id ) {
-		$attachments = get_posts( array(
-			'post_type'   => 'attachment',
-			'numberposts' => -1,
-			'post_status' => null,
-			'post_parent' => $post_id,
-			'fields'      => 'ids',
-		) );
-
-		return $attachments;
+		return $this->get_attachment_ids( $post_id );
 	}
 
-	public function display_settings() {
-		$this->field_settings->image();
+	private function get_attachment_ids( $post_id ) {
+		$attachments = get_posts( array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'post_status'    => null,
+			'post_parent'    => $post_id,
+			'fields'         => 'ids',
+		) );
+
+		return $attachments ? $attachments : array();
+	}
+
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
 }

@@ -66,24 +66,10 @@ abstract class AC_Column_ActionsAbstract extends AC_Column {
 		return apply_filters( 'cac/column/actions/action_links', ac_action_column_helper()->get( $this->get_object_type(), $id ), $this, $id );
 	}
 
-	/**
-	 * @see AC_Column::display_settings()
-	 * @since 2.2.6
-	 */
-	public function display_settings() {
-		parent::display_settings();
-		// Use icons
-		$this->field_settings->field( array(
-			'type'          => 'radio',
-			'name'          => 'use_icons',
-			'label'         => __( 'Use icons?', 'codepress-admin-columns' ),
-			'description'   => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
-			'options'       => array(
-				'1' => __( 'Yes' ),
-				''  => __( 'No' ),
-			),
-			'default_value' => '',
-		) );
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_ActionIcons( $this ) );
 	}
 
 	/**

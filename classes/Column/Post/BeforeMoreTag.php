@@ -22,14 +22,23 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 		$extended = get_extended( $p->post_content );
 
 		if ( ! empty( $extended['extended'] ) ) {
-			$value = ac_helper()->string->trim_words( $extended['main'], $this->get_option( 'excerpt_length' ) );
+
+			// TODO: test
+			$value = $this->get_setting( 'word_limit' )->format( $extended['main'] );
+
+			// TODO: remove
+			//$value = ac_helper()->string->trim_words( $extended['main'], $this->get_option( 'excerpt_length' ) );
 		}
 
 		return $value;
 	}
 
-	public function display_settings() {
-		$this->field_settings->word_limit( 15 );
+	public function register_settings() {
+		parent::register_settings();
+
+		$word_limit = new AC_Settings_Setting_WordLimit( $this );
+
+		$this->add_setting( $word_limit->set_default( 15 ) );
 	}
 
 }

@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
@@ -158,6 +159,19 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract {
 		$this->image_size_h = $image_size_h;
 
 		return $this;
+	}
+
+	public function format( $ids ) {
+		$size = $this->get_image_size();
+
+		if ( 'cpac-custom' == $size ) {
+			$size = array(
+				$this->get_image_size_w(),
+				$this->get_image_size_h(),
+			);
+		}
+
+		return ac_helper()->image->get_images_by_ids( $ids, $size );
 	}
 
 }

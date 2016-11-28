@@ -75,7 +75,7 @@ abstract class AC_Settings_SettingAbstract {
 	 * @param string $type
 	 * @param string|null $name
 	 *
-	 * @return AC_Settings_Form_ElementAbstract
+	 * @return AC_Settings_Form_Element_Select|AC_Settings_Form_Element_Input|AC_Settings_Form_Element_Radio
 	 */
 	protected function create_element( $type, $name = null ) {
 		if ( null === $name ) {

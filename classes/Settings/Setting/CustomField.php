@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
+	implements AC_Settings_FormatInterface {
 
 	private $field;
 
@@ -19,16 +20,29 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_field_labels() );
 
+		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
+		if ( $this->get_field_type() ) {
+			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
+		}
+
 		$field_type = new AC_View();
 		$field_type->set( 'label', __( 'Field Type', 'codepress-admin-columns' ) )
+		           ->set( 'tooltip', $tooltip )
 		           ->set( 'setting', $select );
 
-		$select = $this->create_element( 'select', 'field' )
-		               ->set_options( $this->get_grouped_field_options() );
+		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
+		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
+			$field = $this->create_element( 'text', 'field' )
+			              ->set_attribute( 'placeholder', 'Custom field key' );
+		}
+		else {
+			$field = $this->create_element( 'select', 'field' )
+			              ->set_options( $this->get_grouped_field_options() );
+		}
 
 		$view = new AC_View();
 		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		     ->set( 'setting', $select )
+		     ->set( 'setting', $field )
 		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
 
 		return $view;
@@ -52,7 +66,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				} else {
+				}
+				else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -63,6 +78,9 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		return $grouped_options;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function get_field_labels() {
 		$custom_field_types = array(
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
@@ -157,6 +175,10 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract {
 		$this->field_type = $field_type;
 
 		return $this;
+	}
+
+	public function format( $string ) {
+		return $string;
 	}
 
 }

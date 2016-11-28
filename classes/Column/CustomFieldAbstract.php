@@ -363,7 +363,8 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @see AC_Column::display_settings()
 	 * @since 1.0
 	 */
-	public function display_settings() {
+	// TODO: remove
+	public function ____display_settings() {
 
 		$this->display_field_setting();
 
@@ -401,7 +402,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		$this->field_settings->before_after();
 	}
 
-	public function display_field_setting() {
+	/*public function display_field_setting() {
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
 			$this->field_settings->field( array(
@@ -422,7 +423,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				'grouped_options' => $this->get_grouped_field_options(),
 			) );
 		endif;
-	}
+	}*/
 
 	/**
 	 * @since 1.0
