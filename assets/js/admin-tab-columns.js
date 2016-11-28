@@ -234,35 +234,27 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_bind_toggle = function() {
 
-		var column = $( this );
-		var is_disabled = column.closest( 'ac-boxes' ).hasClass( 'disabled' );
+		var $column = $( this );
+		var is_disabled = $column.closest( '.ac-boxes' ).hasClass( 'disabled' );
 
-		column.find(
-			// Header
-			'td.column_type a, td.column_edit, ' +
-			'td.column_label a.toggle, ' +
-			'td.column_label .edit-button, ' +
-			'td.column_label a.close-button, ' +
-			// Body
-			'.ac-column-setting-actions .close-button'
-		).click( function( e ) {
+		$column.find( '[data-toggle="column"]' ).click( function( e ) {
 			e.preventDefault();
 
-			column.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
+			$column.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
 
 			if ( is_disabled ) {
 				return;
 			}
 
-			if ( !column.hasClass( 'events-binded' ) ) {
-				column.column_bind_events();
+			if ( ! $column.hasClass( 'events-binded' ) ) {
+				$column.column_bind_events();
 			}
 
-			column.addClass( 'events-binded' );
+			$column.addClass( 'events-binded' );
 
 			// hook for addons
-			$( document ).trigger( 'column_init', column );
-		} );
+			$( document ).trigger( 'column_init', $.column );
+		} ).css( 'cursor', 'pointer' );
 	};
 
 	/*
@@ -287,11 +279,10 @@ function cpac_reset_columns( $ ) {
 		$( this ).find( '.clone-button' ).click( function( e ) {
 			e.preventDefault();
 
-			var column = $( this ).closest( '.ac-column' );
-			var clone = column.column_clone();
+			var $clone = $( this ).closest( '.ac-column' ).column_clone();
 
-			if ( typeof clone !== 'undefined' ) {
-				clone.removeClass( 'loading' ).hide().slideDown();
+			if ( typeof $clone !== 'undefined' ) {
+				$clone.removeClass( 'loading' ).hide().slideDown();
 			}
 		} );
 	};
@@ -423,7 +414,7 @@ function cpac_reset_columns( $ ) {
 							// trigger refresh
 							// TODO: needed?
 							//if ( el.find( '[data-refresh=1]' ).length > 0 ) {
-								//el.cpac_column_refresh();
+							//el.cpac_column_refresh();
 							//}
 
 							// Allow plugins to hook into this event
@@ -703,7 +694,8 @@ function cpac_reset_columns( $ ) {
 			}
 			else {
 				$( this ).sortable( {
-					items : '.ac-column'
+					items : '.ac-column',
+					handle : '.column_sort'
 				} );
 			}
 		} );
@@ -757,7 +749,7 @@ function cpac_reset_columns( $ ) {
 			unit = input_unit.filter( ':checked' ).val(),
 			width = input_width.val(),
 			slider = column_width.find( '.width-slider' ),
-			indicator = $( this ).find( '.ac-column-header span.width' );
+			indicator = $( this ).find( '.ac-column-header .ac-column-heading-setting--width' );
 
 		// width
 		if ( '%' == unit && width > 100 ) {
@@ -788,7 +780,8 @@ function cpac_reset_columns( $ ) {
 			$column.column_width_slider();
 
 			// indicator
-			var $width_indicator = $column.find( '.ac-column-header span.width' );
+			var $width_indicator = $column.find( '.ac-column-header .ac-column-heading-setting--width' );
+
 			$width_indicator.on( 'update', function() {
 				var _width = $column.find( '.ac-setting-input-width .description input' ).val();
 				var _unit = $column.find( '.ac-setting-input-width .description .unit' ).text();

@@ -215,6 +215,13 @@
  */
 .ac-column {
 
+	a {
+		cursor: pointer;
+
+		&:focus, &:active {
+			box-shadow: none;
+		}
+	}
 	// Loading state
 	&.loading .ac-column-body {
 		> .spinner {

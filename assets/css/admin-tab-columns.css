@@ -148,6 +148,11 @@
  * Column States
  * ----------------------------------------------------------------------------
  */
+.ac-column a {
+  cursor: pointer; }
+  .ac-column a:focus, .ac-column a:active {
+    box-shadow: none; }
+
 .ac-column.loading .ac-column-body > .spinner {
   position: absolute;
   left: 50%;

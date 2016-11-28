@@ -758,25 +758,23 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 									?>
                                 </div>
-                                <a class="toggle" href="javascript:;">
+                                <a class="toggle" data-toggle="column">
 									<?php echo $column->get_setting( 'label' )->get_value(); //get_label(); // do not escape ?>
                                 </a>
-                                <a class="edit-button" href="javascript:;"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
-                                <a class="close-button" href="javascript:;"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+                                <a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+                                <a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 								<?php if ( ! $column->is_original() ) : ?>
                                     <a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
-                                <a class="remove-button" href="javascript:;"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+                                <a class="remove-button"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
                             </div>
                         </td>
                         <td class="column_type">
-                            <div class="inner">
-                                <a href="#">
-									<?php echo $column->get_label(); ?>
-                                </a>
+                            <div class="inner" data-toggle="column">
+	                            <?php echo $column->get_label(); ?>
                             </div>
                         </td>
-                        <td class="column_edit">
+                        <td class="column_edit" data-toggle="column">
                         </td>
                     </tr>
                     </tbody>
@@ -800,7 +798,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
                             <td class="col-label"></td>
                             <td class="col-settings">
                                 <p>
-                                    <a href="#" class="close-button"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+                                    <a href="#" class="close-button"  data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 									<?php if ( ! $column->is_original() ) : ?>
                                         <a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 									<?php endif; ?>
