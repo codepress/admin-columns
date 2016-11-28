@@ -16,7 +16,7 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_SettingAbstract
 		$view = new AC_View( array(
 			'label'   => __( 'Comment status', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Select which comment status you like to display.', 'codepress-admin-columns' ),
-			'setting' => $this->create_element( 'select' )->set_options( $this->get_comment_stati() ),
+			'setting' => $this->create_element( 'select' )->set_options( $this->get_comment_statuses() ),
 		) );
 
 		return $view;
@@ -25,9 +25,9 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_SettingAbstract
 	/**
 	 * @return array
 	 */
-	private function get_comment_stati() {
+	private function get_comment_statuses() {
 		return array(
-			'total_comments' => __( 'Total', 'codepress-admin-columns' ),
+			'total_comments' => __( 'Totals', 'codepress-admin-columns' ),
 			'approved'       => __( 'Approved', 'codepress-admin-columns' ),
 			'moderated'      => __( 'Pending', 'codepress-admin-columns' ),
 			'spam'           => __( 'Spam', 'codepress-admin-columns' ),
@@ -60,12 +60,11 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_SettingAbstract
 	 */
 	public function format( $post_id ) {
 		$value = ac_helper()->string->get_empty_char();
-
 		$status = $this->get_comment_status();
 		$count = $this->column->get_raw_value( $post_id );
 
 		if ( $count > 0 ) {
-			$names = $this->get_comment_stati();
+			$names = $this->get_comment_statuses();
 			$url = esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ) );
 
 			$value = ac_helper()->html->link( $url, $count, array( 'class' => 'cp-' . $status, 'title' => $names[ $status ] ) );
