@@ -236,6 +236,11 @@ abstract class AC_Settings_SettingAbstract {
 		return $this;
 	}
 
+	// TODO: render settings
+	public function render_header() {
+		echo 'indicators';
+	}
+
 	public function render() {
 		$view = $this->create_view();
 

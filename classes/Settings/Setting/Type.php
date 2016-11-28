@@ -58,7 +58,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	/**
 	 * @param AC_ListScreenAbstract $list_screen
 	 *
-	 * @return mixed|void
+	 * @return array
 	 */
 	private function get_grouped_columns() {
 		$grouped = array();

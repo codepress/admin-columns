@@ -36,11 +36,6 @@ abstract class AC_Column {
 	private $settings;
 
 	/**
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * @var AC_ListScreenAbstract
 	 */
 	protected $list_screen;
@@ -326,11 +321,20 @@ abstract class AC_Column {
 		return $options;
 	}
 
+	// TODO: indicator label
+	public function render_settings_header() {
+		foreach ( $this->get_settings() as $setting ) {
+			$setting->render_header();
+		}
+	}
+
 	/**
 	 * Display settings
 	 *
 	 * @return string
 	 */
+
+	// TODO: rename render_settings? render_settings_body?
 	public function render() {
 		$output = array();
 

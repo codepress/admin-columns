@@ -461,9 +461,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					</select>
 					<span class="spinner"></span>
 
-					<?php if ( $link = $list_screen->get_screen_link() ) {
-						echo '<a href="' . esc_attr( $link ) . '" class="page-title-action view-link">' . esc_html__( 'View', 'codepress-admin-columns' ) . '</a>';
-					} ?>
+					<?php if ( $link = $list_screen->get_screen_link() ) : ?>
+						<a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
+					<?php endif; ?>
 				</div>
 
 				<?php do_action( 'cac/settings/after_title', $list_screen ); ?>
@@ -472,6 +472,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 			<div class="columns-right">
 				<div class="columns-right-inside">
+
 					<?php if ( ! $list_screen->is_using_php_export() ) : ?>
 						<div class="sidebox form-actions">
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
@@ -538,7 +539,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 										</li>
 									</ul>
 									<p>
-										<?php printf( __( "Check out <a href='%s'>Admin Columns Pro</a> for more details!", 'codepress-admin-columns' ), add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) ); ?>
+										<?php printf( __( "Check out %s for more details!", 'codepress-admin-columns' ), '<a href="' . add_query_arg( array_merge( $url_args, array( 'utm_content' => 'cta' ) ), ac_get_site_url() ) . '">Admin Columns Pro</a>' ); ?>
 									</p>
 								</div>
 							</div>
@@ -667,13 +668,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
-							<?php
-
-							foreach ( $list_screen->get_columns() as $column ) {
+							<?php foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
-							}
-
-							?>
+							} ?>
 						</form>
 
 					</div><!--.cpac-columns-->
@@ -725,8 +722,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * @since 2.0
 	 */
-	private function display_column( AC_Column $column ) {
-		?>
+	private function display_column( AC_Column $column ) { ?>
 
 		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
 
@@ -754,6 +750,10 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									</span>
 
 									<?php
+
+                                    // TODO: render header settings
+                                    //$column->render_settings_header();
+
 									/**
 									 * Fires in the meta-element for column options, which is displayed right after the column label
 									 *
@@ -763,8 +763,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 									 */
 									do_action( 'cac/column/settings_meta', $column );
 
-									// TODO: rename filter to:
-									//do_action( 'ac/column/header', $column );
+									// TODO: rename all filters to
+									do_action( 'ac/column/header', $column );
 									?>
 
 								</div>
@@ -794,7 +794,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 			</div><!--.column-meta-->
 
 			<div class="ac-column-body">
-
 
 				<?php // TODO: remove? ?>
 
