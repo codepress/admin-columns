@@ -287,13 +287,9 @@
     color: #a00;
     text-decoration: none;
     text-shadow: none;
-    font-weight: normal;
-    font-size: 12px;
-    padding: 0 5px;
     margin-right: 5px; }
     .ac-column-setting-actions .col-settings a.remove-button:hover {
-      color: #fff;
-      background: #f00; }
+      color: #f00; }
 
 .ac-setting-input {
   padding: 10px; }
