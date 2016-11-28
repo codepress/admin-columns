@@ -34,9 +34,9 @@ abstract class AC_Settings_SettingAbstract {
 	/**
 	 * Create a string representation of this setting
 	 *
-	 * @return AC_View
+	 * @return AC_View|false
 	 */
-	protected abstract function create_view();
+	public abstract function create_view();
 
 	/**
 	 * Set the options this field manages
@@ -236,11 +236,38 @@ abstract class AC_Settings_SettingAbstract {
 		return $this;
 	}
 
-	// TODO: render settings
+	/**
+	 * Render the output of self::create_header()
+	 *
+	 * @return false|string
+	 */
 	public function render_header() {
-		echo 'indicators';
+		if ( ! ( $this instanceof AC_Settings_HeaderInterface ) ) {
+			return false;
+		}
+
+		$view = $this->create_header_view();
+
+		if ( ! ( $view instanceof AC_View ) ) {
+			return false;
+		}
+
+		if ( null == $view->get_template() ) {
+			$view->set_template( 'settings/header' );
+		}
+
+		if ( null == $view->setting ) {
+			$view->set( 'setting', $this->get_name() );
+		}
+
+		return $view->render();
 	}
 
+	/**
+	 * Render the output of self::create_view()
+	 *
+	 * @return false|string
+	 */
 	public function render() {
 		$view = $this->create_view();
 

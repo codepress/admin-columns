@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
@@ -736,23 +732,17 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 						<td class="column_label">
 							<div class="inner">
 								<div class="meta">
-
-									<span title="<?php echo esc_attr( __( 'width', 'codepress-admin-columns' ) ); ?>" class="width" data-indicator-id="">
-										<?php
-
-										$width = $column->get_setting( 'width' );
-
-										if ( $width->get_value() ) {
-											echo esc_html( implode( $width->get_values() ) );
-										}
-
-										?>
-									</span>
-
 									<?php
 
-                                    // TODO: render header settings
-                                    //$column->render_settings_header();
+									$headers = array();
+
+									foreach ( $column->get_settings() as $setting ) {
+										if ( $setting instanceof AC_Settings_HeaderInterface ) {
+											$headers[] = $setting->render_header();
+										}
+									}
+
+									echo implode( "\n", array_filter( $headers ) );
 
 									/**
 									 * Fires in the meta-element for column options, which is displayed right after the column label
@@ -765,8 +755,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 									// TODO: rename all filters to
 									do_action( 'ac/column/header', $column );
-									?>
 
+									?>
 								</div>
 								<a class="toggle" href="javascript:;">
 									<?php echo $column->get_setting( 'label' )->get_value(); //get_label(); // do not escape ?>

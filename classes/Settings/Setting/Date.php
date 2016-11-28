@@ -13,7 +13,7 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 		$this->managed_options = array( 'date_format' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		// todo: dropdown date + custom input
 		$date = $this->create_element( 'text' )
 		             ->set_attribute( 'placeholder', __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i' )

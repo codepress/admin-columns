@@ -26,7 +26,7 @@ class AC_Settings_Setting_Image extends AC_Settings_SettingAbstract
 		$this->managed_options = array( 'image_size', 'image_size_w', 'image_size_h' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		$width = new AC_View( array(
 			'setting' => $this->create_element( 'number', 'image_size_w' ),
 			'label'   => __( 'Width', 'codepress-admin-columns' ),

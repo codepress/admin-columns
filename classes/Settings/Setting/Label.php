@@ -17,7 +17,7 @@ class AC_Settings_Setting_Label extends AC_Settings_SettingAbstract {
 		$this->managed_options = array( 'label' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		if ( $this->column->is_original() && ac_helper()->string->contains_html_only( $this->get_label() ) ) {
 			return false;
 		}

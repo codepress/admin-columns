@@ -15,7 +15,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 		$this->managed_options = array( 'field', 'field_type' );
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		$select = $this->create_element( 'select', 'field_type' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_field_labels() );

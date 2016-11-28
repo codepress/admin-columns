@@ -25,7 +25,7 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_SettingAbstract
 		return $this->get_before() . $value . $this->get_after();
 	}
 
-	protected function create_view() {
+	public function create_view() {
 		$before = new AC_View( array(
 			'label'       => __( 'Before', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
