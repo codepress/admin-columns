@@ -12,7 +12,7 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_SettingAbstract
 	/**
 	 * @return AC_View
 	 */
-	protected function create_view() {
+	public function create_view() {
 		$view = new AC_View( array(
 			'label'   => __( 'Comment status', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Select which comment status you like to display.', 'codepress-admin-columns' ),
