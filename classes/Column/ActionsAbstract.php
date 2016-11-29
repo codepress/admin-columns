@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.6
  */
-abstract class AC_Column_ActionsAbstract extends AC_Column {
+abstract class AC_Column_Actions extends AC_Column {
 
 	/**
 	 * Get a list of action links for an item (e.g. post) ID.
@@ -60,7 +60,7 @@ abstract class AC_Column_ActionsAbstract extends AC_Column {
 		 * @since 2.2.9
 		 *
 		 * @param array $actions List of actions ([action name] => [action link]).
-		 * @param AC_Column_ActionsAbstract $this Column object.
+		 * @param AC_Column_Actions $this Column object.
 		 * @param int $id Post/User/Comment ID
 		 */
 		return apply_filters( 'cac/column/actions/action_links', ac_action_column_helper()->get( $this->get_object_type(), $id ), $this, $id );

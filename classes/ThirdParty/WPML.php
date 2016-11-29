@@ -59,7 +59,7 @@ class AC_ThirdParty_WPML {
 	 * @param string $label
 	 * @param string $column_name
 	 * @param array $column_options
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return string
 	 */

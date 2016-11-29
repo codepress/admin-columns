@@ -79,7 +79,7 @@ class AC_Admin {
 	/**
 	 * @param $tab_slug
 	 *
-	 * @return AC_Admin_TabAbstract|false
+	 * @return AC_Admin_Tab|false
 	 */
 	public function get_tab( $tab_slug ) {
 		return $this->tabs->get_tab( $tab_slug );

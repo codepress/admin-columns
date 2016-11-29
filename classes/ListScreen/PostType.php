@@ -1,7 +1,6 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-abstract class AC_ListScreen_PostAbstract extends AC_ListScreenWPAbstract {
+abstract class AC_ListScreen_PostType extends AC_ListScreenWP {
 
 	/**
 	 * @var string $post_type

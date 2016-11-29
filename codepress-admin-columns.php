@@ -90,7 +90,7 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
-	 * @var AC_ListScreenAbstract[]
+	 * @var AC_ListScreen[]
 	 */
 	private $list_screens;
 
@@ -362,7 +362,7 @@ class CPAC {
 	 *
 	 * @param string $key
 	 *
-	 * @return AC_ListScreenAbstract|false
+	 * @return AC_ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
@@ -380,7 +380,7 @@ class CPAC {
 	 * Returns the default list screen when no choice is made by the user
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_default_list_screen() {
 		$screens = $this->get_list_screens();
@@ -393,7 +393,7 @@ class CPAC {
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract[]
+	 * @return AC_ListScreen[]
 	 */
 	public function get_list_screens() {
 		if ( null === $this->list_screens ) {
@@ -428,9 +428,9 @@ class CPAC {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 */
-	public function register_list_screen( AC_ListScreenAbstract $list_screen ) {
+	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
@@ -475,7 +475,7 @@ class CPAC {
 
 	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
@@ -490,12 +490,12 @@ class CPAC {
 
 	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_current_storage_model() {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );

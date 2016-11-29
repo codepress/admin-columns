@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-Abstract class AC_Admin_TabAbstract {
+abstract class AC_Admin_Tab {
 
 	/**
 	 * Should this tab be displayed when no tab is selected

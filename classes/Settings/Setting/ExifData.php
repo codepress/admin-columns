@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_ExifData extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
 
 	/**
 	 * @var string

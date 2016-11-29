@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_Form_ElementAbstract {
+abstract class AC_Settings_Form_Element {
 
 	/**
 	 * @var array

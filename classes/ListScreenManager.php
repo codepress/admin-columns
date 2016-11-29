@@ -8,7 +8,7 @@ final class AC_ListScreenManager {
 	private $column_headings = array();
 
 	/**
-	 * @var AC_ListScreenAbstract $list_screen
+	 * @var AC_ListScreen $list_screen
 	 */
 	private $list_screen;
 
@@ -22,7 +22,7 @@ final class AC_ListScreenManager {
 	}
 
 	/**
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
@@ -78,7 +78,7 @@ final class AC_ListScreenManager {
 		wp_enqueue_style( 'ac-columns' );
 
 		/**
-		 * @param AC_ListScreenAbstract $list_screen
+		 * @param AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/enqueue_listings_scripts', $this->list_screen );
 	}
@@ -156,9 +156,9 @@ final class AC_ListScreenManager {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 */
-	private function init_list_screen( AC_ListScreenAbstract $list_screen ) {
+	private function init_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 
 		// Init Values
@@ -168,7 +168,7 @@ final class AC_ListScreenManager {
 		// Filter is located in get_column_headers()
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 
-		// Stores the row actions for each table. Only used by the AC_Column_ActionsAbstract column.
+		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
 		ac_action_column_helper();
 
 		// @since NEWVERSION

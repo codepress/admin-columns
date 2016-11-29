@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_PathScope extends AC_Settings_SettingAbstract
+class AC_Settings_Setting_PathScope extends AC_Settings_Setting
 implements AC_Settings_FormatInterface {
 
 	/**

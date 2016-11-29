@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_Setting_ToggleAbstract extends AC_Settings_SettingAbstract {
+abstract class AC_Settings_Setting_Toggle extends AC_Settings_Setting {
 
 	public function create_view() {
 		$type = $this->create_element( 'radio' )

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_CustomField extends AC_Column_CustomFieldAbstract {
+class AC_Column_Post_CustomField extends AC_Column_CustomField {
 
 	protected function get_cache_key() {
 		return $this->get_post_type();

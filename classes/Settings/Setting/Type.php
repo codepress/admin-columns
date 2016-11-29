@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_Type extends AC_Settings_Setting {
 
 	/**
 	 * @var string
@@ -56,7 +56,7 @@ class AC_Settings_Setting_Type extends AC_Settings_SettingAbstract {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return array
 	 */

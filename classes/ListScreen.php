@@ -1,15 +1,11 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * List Screen
  *
  * @since 2.0
  */
-abstract class AC_ListScreenAbstract {
+abstract class AC_ListScreen {
 
 	/**
 	 * Identifier for List Screen; Post type etc.
@@ -203,7 +199,7 @@ abstract class AC_ListScreenAbstract {
 	 *
 	 * @since 2.4.1
 	 *
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function set_menu_type( $menu_type ) {
 		$this->menu_type = $menu_type;

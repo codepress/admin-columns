@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-abstract class AC_ListScreenWPAbstract extends AC_ListScreenAbstract {
+abstract class AC_ListScreenWP extends AC_ListScreen {
 
 	/**
 	 * @since NEWVERSION

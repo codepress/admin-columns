@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.2.5
  */
-abstract class AC_Column_UsedByMenuAbstract extends AC_Column {
+abstract class AC_Column_UsedByMenu extends AC_Column {
 
 	abstract protected function get_object_type();
 

@@ -5,7 +5,7 @@ final class AC_Settings_ListScreen {
 	CONST OPTIONS_KEY = 'cpac_options_';
 
 	/**
-	 * @var AC_ListScreenAbstract
+	 * @var AC_ListScreen
 	 */
 	private $list_screen;
 
@@ -14,7 +14,7 @@ final class AC_Settings_ListScreen {
 	 */
 	private $settings;
 
-	public function __construct( AC_ListScreenAbstract $list_screen ) {
+	public function __construct( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_ToggleAbstract
+class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_Toggle
 implements AC_Settings_FormatInterface {
 
 	/**

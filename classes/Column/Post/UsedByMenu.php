@@ -6,5 +6,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_UsedByMenu extends AC_Column_UsedByMenuPostAbstract {
+class AC_Column_Post_UsedByMenu extends AC_Column_UsedByMenuPost {
 }

@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0
  */
-abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Column_CustomFieldInterface {
+abstract class AC_Column_CustomField extends AC_Column implements AC_Column_CustomFieldInterface {
 
 	public function __construct() {
 		$this->set_type( 'column-meta' );
@@ -296,7 +296,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 		 * @since 2.0
 		 *
 		 * @param array $keys Available custom field keys
-		 * @param AC_ListScreenAbstract $list_screen List screen class instance
+		 * @param AC_ListScreen $list_screen List screen class instance
 		 */
 		//$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
 

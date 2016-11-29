@@ -3,8 +3,6 @@
 /**
  * @since NEWVERSION
  */
-
-// TODO: rename: AC_ColumnAbstract
 abstract class AC_Column {
 
 	/**
@@ -38,7 +36,7 @@ abstract class AC_Column {
 	private $settings;
 
 	/**
-	 * @var AC_ListScreenAbstract
+	 * @var AC_ListScreen
 	 */
 	protected $list_screen;
 
@@ -90,18 +88,18 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return $this
 	 */
-	public function set_list_screen( AC_ListScreenAbstract $list_screen ) {
+	public function set_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 
 		return $this;
@@ -233,11 +231,11 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @param AC_Settings_SettingAbstract $setting
+	 * @param AC_Settings_Setting $setting
 	 *
 	 * @return $this
 	 */
-	public function add_setting( AC_Settings_SettingAbstract $setting ) {
+	public function add_setting( AC_Settings_Setting $setting ) {
 
 		$this->settings[ $setting->get_name() ] = $setting;
 
@@ -247,7 +245,7 @@ abstract class AC_Column {
 	/**
 	 * @param $id
 	 *
-	 * @return AC_Settings_SettingAbstract|AC_Settings_FormatInterface|false
+	 * @return AC_Settings_Setting|AC_Settings_FormatInterface|false
 	 */
 	public function get_setting( $id ) {
 		$settings = $this->get_settings();
@@ -256,7 +254,7 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_Settings_SettingAbstract[]
+	 * @return AC_Settings_Setting[]
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {

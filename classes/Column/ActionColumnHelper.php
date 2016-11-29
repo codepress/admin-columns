@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Holds all the row actions buttons for each content type (e.g. post, comment, user and media).
  * WP_List_Table does not have a method for retrieving row actions. This class uses their filters to fetch the actions.
- * For example usage see the AC_Column_ActionsAbstract class.
+ * For example usage see the AC_Column_Actions class.
  *
  * Class AC_Column_ActionColumnHelper
  */

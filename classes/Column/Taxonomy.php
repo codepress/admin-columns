@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 2.0
  */
-abstract class AC_Column_TaxonomyAbstract extends AC_Column {
+abstract class AC_Column_Taxonomy extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-taxonomy' );

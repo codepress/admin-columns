@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_SettingAbstract {
+abstract class AC_Settings_Setting {
 
 	/**
 	 * A (short) reference to this setting

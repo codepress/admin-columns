@@ -1,19 +1,69 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
+class AC_ListScreen_Post extends AC_ListScreen {
 
-	public function __construct( $post_type ) {
+	public function __construct() {
 		parent::__construct();
 
-		$this->type = 'post';
-		$this->base = 'edit';
-		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
-		$this->list_table = 'WP_Posts_List_Table';
+		$base = 'edit';
 
+		$this->post_type = 'post';
+		$this->key = 'post';
+		$this->type = 'post';
+		$this->base = $base;
+		//$this->screen = $base . '-' . $post_type;
+		$this->screen = $base;
+		$this->list_table = 'WP_Posts_List_Table';
+		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	public function get_posts( $args = array() ) {
+		$defaults = array(
+			'posts_per_page' => -1,
+			'post_status'    => apply_filters( 'cac/get_posts/post_status', array( 'any', 'trash' ), $this ),
+			'post_type'      => $this->get_post_type(),
+			'fields'         => 'ids',
+			'no_found_rows'  => 1,
+		);
+
+		return (array) get_posts( array_merge( $defaults, $args ) );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	/**
+	 * @param string $post_type
+	 */
+	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
-		$this->key = $this->post_type;
-		$this->screen = $this->base . '-' . $this->post_type;
+		$this->key = $post_type;
+
+		if ( $post_type != 'post' ) {
+			$this->screen = $this->base . '-' . $post_type;
+		}
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return WP_Post Post object
+	 */
+	protected function get_object_by_id( $post_id ) {
+		return get_post( $post_id );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
 
-class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
+class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	/**
-	 * @var AC_ListScreenAbstract $list_screen
+	 * @var AC_ListScreen $list_screen
 	 */
 	private $list_screen;
 
@@ -59,11 +59,11 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * @since 2.0
 	 *
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-	private function store( AC_ListScreenAbstract $list_screen, $column_data ) {
+	private function store( AC_ListScreen $list_screen, $column_data ) {
 
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
@@ -140,7 +140,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		 *
 		 * @since NEWVERSION
 		 *
-		 * @param AC_ListScreenAbstract $list_screen
+		 * @param AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/columns_stored', $list_screen );
 
@@ -150,7 +150,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	/**
 	 * @since NEWVERSION
 	 *
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return string $label
 	 */
@@ -215,7 +215,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return string
 	 */
@@ -441,7 +441,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_list_screen() {
 		if ( null === $this->list_screen ) {
