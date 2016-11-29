@@ -128,7 +128,14 @@ function cpac_add_column( $ ) {
 		$( '.ac-columns form' ).append( clone );
 
 		// refresh column
-		clone.cpac_column_refresh();
+		// TODO: remove?
+		//clone.cpac_column_refresh();
+
+		// TODO: better?
+		clone.column_bind_toggle();
+		clone.column_bind_remove();
+		clone.column_bind_clone();
+		clone.column_bind_events();
 
 		// hook for addons
 		$( document ).trigger( 'column_add', clone );
@@ -413,8 +420,8 @@ function cpac_reset_columns( $ ) {
 
 							// trigger refresh
 							// TODO: needed?
-							//if ( el.find( '[data-refresh=1]' ).length > 0 ) {
-							//el.cpac_column_refresh();
+							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
+								//el.cpac_column_refresh();
 							//}
 
 							// Allow plugins to hook into this event

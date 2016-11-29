@@ -71,7 +71,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// sanitize user inputs
 		foreach ( $column_data as $name => $options ) {
-			if ( $column = $list_screen->get_column_by_name( $name ) ) {
+			if ( $column = $list_screen->get_column_by_name( $options[ 'type' ] ) ) {
 
 				$sanitized = array();
 
@@ -82,6 +82,14 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				}
 
 				$column_data[ $name ] = $sanitized;
+
+
+				// Determine clone ID
+                // TODO: can we move this to JS?
+				$clone = str_replace( $sanitized['type'] . '-', '', $name );
+				if ( is_numeric( $clone ) ) {
+					$column_data[ $name ][ 'clone' ] = $clone;
+                }
 
 				/**
 				 * is moved to the label setting

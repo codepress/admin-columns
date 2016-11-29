@@ -353,7 +353,8 @@
     .ac-setting-input-width div.unit-select .radio-labels {
       padding: 0; }
       .ac-setting-input-width div.unit-select .radio-labels label {
-        margin-right: 4px; }
+        padding: 0;
+        margin-right: 6px; }
         .ac-setting-input-width div.unit-select .radio-labels label input {
           margin-right: 2px; }
 
