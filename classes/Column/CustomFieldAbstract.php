@@ -172,17 +172,15 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-		$mixed = $this->get_raw_value( $id );
+		//$mixed = $this->get_raw_value( $id );
 
-		return $this->get_setting( 'custom_field' )->format( $mixed );
+		$value = $this->get_setting( 'custom_field' )->format( $id );
 
-		// TODO: add to format and remove
-		$value = '';
-
+		// todo remove
 		$raw_value = $this->get_raw_value( $id );
 		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
-		switch ( $this->get_field_type() ) :
+		switch ( null ) :
 			case "image" :
 			case "library_id" :
 				$images = ac_helper()->string->comma_separated_to_array( $raw_string );
@@ -260,7 +258,7 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 				break;
 
 			default :
-				$value = $raw_string;
+				//$value = $raw_string;
 
 		endswitch;
 

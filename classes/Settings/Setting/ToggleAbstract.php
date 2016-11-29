@@ -9,7 +9,9 @@ abstract class AC_Settings_Setting_ToggleAbstract extends AC_Settings_SettingAbs
 			             'off' => __( 'No' ),
 		             ) );
 
-		$view = new AC_View( array( 'setting' => $type ) );
+		$view = new AC_View( array(
+			'setting' => $type,
+		) );
 
 		return $view;
 	}

@@ -17,7 +17,7 @@ class AC_Settings_Setting_ExifData extends AC_Settings_SettingAbstract {
 
 	public function create_view() {
 		$select = $this->create_element( 'select' )
-		              ->set_options( $this->get_exif_types() );
+		               ->set_options( $this->get_exif_types() );
 
 		$view = new AC_View( array(
 			'label'   => $this->column->get_label(),
@@ -25,24 +25,6 @@ class AC_Settings_Setting_ExifData extends AC_Settings_SettingAbstract {
 		) );
 
 		return $view;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_exif_datatype() {
-		return $this->exif_datatype;
-	}
-
-	/**
-	 * @param string $exif_datatype
-	 *
-	 * @return $this
-	 */
-	public function set_exif_datatype( $exif_datatype ) {
-		$this->exif_datatype = $exif_datatype;
-
-		return $this;
 	}
 
 	/**
@@ -71,6 +53,24 @@ class AC_Settings_Setting_ExifData extends AC_Settings_SettingAbstract {
 		natcasesort( $exif_types );
 
 		return $exif_types;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_exif_datatype() {
+		return $this->exif_datatype;
+	}
+
+	/**
+	 * @param string $exif_datatype
+	 *
+	 * @return $this
+	 */
+	public function set_exif_datatype( $exif_datatype ) {
+		$this->exif_datatype = $exif_datatype;
+
+		return $this;
 	}
 
 }
