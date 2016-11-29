@@ -275,7 +275,7 @@
 					&.column_sort span {
 						color: #9b9b9b;
 					}
-					&.column_label .inner {
+					&.column_label {
 						.meta {
 							span {
 								color: lighten(#808080, 5);
@@ -610,24 +610,30 @@
 							color: #b2b2b2;
 							font-size: 12px;
 
-							span {
+							.ac-column-heading-setting {
 								cursor: pointer;
 								margin-left: 4px;
 
-								&.width {
+								&.ac-column-heading-setting--width {
 									//float: left;
 									margin-right: 3px;
 									cursor: auto;
 									color: #737373;
 								}
 
+								&.ac-column-indicator {
+									margin-left: 0;
+
+									&.on, &.on span {
+										color: $blue;
+									}
+								}
+
 								&.disabled {
 									cursor: default;
 								}
 
-								&.on {
-									color: $blue;
-								}
+
 							}
 						}
 					}

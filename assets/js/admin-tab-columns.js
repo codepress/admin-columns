@@ -651,36 +651,37 @@ function cpac_reset_columns( $ ) {
 	 *
 	 */
 	$.fn.cpac_bind_indicator_events = function() {
+		var $column = $(this);
+		var $indicators = $column.find( '.ac-column-header [data-indicator-toggle]' );
 
-		var column = $( this );
-		var indicator = column.find( '[data-indicator-id]' );
+		$indicators.each( function(){
+			var $indicator = $(this);
+			var setting = $(this).data('setting');
+			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']');
+			var $input = $setting.find( '.col-input:first' ).find('input[type=radio]');
 
-		indicator.unbind( 'click' ).click( function() {
-
-			var id = $( this ).data( 'indicator-id' );
-			var radio = column.find( '[data-trigger="' + id + '"] input' );
-
-			if ( $( this ).hasClass( 'on' ) ) {
-				$( this ).removeClass( 'on' ).addClass( 'off' );
-				radio.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' );
-			}
-			else {
-				$( this ).removeClass( 'off' ).addClass( 'on' );
-				radio.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' );
-			}
-		} );
-
-		// Load indicator icon
-		column.find( '[data-trigger]' ).each( function() {
-			var indicator = column.find( '[data-indicator-id="' + $( this ).data( 'trigger' ) + '"]' );
-			if ( indicator.length > 0 ) {
-				if ( 'on' === $( this ).find( 'input:checked' ).val() ) {
-					indicator.addClass( 'on' );
+			$indicator.unbind('click').on( 'click', function( e ) {
+				e.preventDefault();
+				$indicator.toggleClass('on');
+				if ( $( this ).hasClass( 'on' ) ) {
+					$input.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' ).trigger('change');
 				}
-			}
+				else {
+					$input.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' ).trigger('change');
+				}
+			});
 
-		} );
-	};
+			$input.on('change', function(e){
+				var value = $input.filter(':checked').val();
+				if( 'on' == value ){
+					$indicator.addClass('on');
+				} else {
+					$indicator.removeClass('on');
+				}
+			});
+		});
+
+	}
 
 	/*
 	 * Sortable

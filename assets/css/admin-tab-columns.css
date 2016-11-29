@@ -189,10 +189,10 @@
         text-shadow: 0 1px 0 #FFFFFF; }
       .ac-column.opened .ac-column-header table td.column_sort span {
         color: #9b9b9b; }
-      .ac-column.opened .ac-column-header table td.column_label .inner .meta span {
+      .ac-column.opened .ac-column-header table td.column_label .meta span {
         color: #8d8d8d;
         text-shadow: none; }
-      .ac-column.opened .ac-column-header table td.column_label .inner a.edit-button {
+      .ac-column.opened .ac-column-header table td.column_label a.edit-button {
         display: none; }
       .ac-column.opened .ac-column-header table td.column_type {
         color: #5C5C5C; }
@@ -417,17 +417,19 @@
             font-weight: normal;
             color: #b2b2b2;
             font-size: 12px; }
-            .ac-column-header table tr td.column_label .inner .meta span {
+            .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting {
               cursor: pointer;
               margin-left: 4px; }
-              .ac-column-header table tr td.column_label .inner .meta span.width {
+              .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-heading-setting--width {
                 margin-right: 3px;
                 cursor: auto;
                 color: #737373; }
-              .ac-column-header table tr td.column_label .inner .meta span.disabled {
+              .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator {
+                margin-left: 0; }
+                .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.on, .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.on span {
+                  color: #21759B; }
+              .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.disabled {
                 cursor: default; }
-              .ac-column-header table tr td.column_label .inner .meta span.on {
-                color: #21759B; }
         .ac-column-header table tr td.column_label span.vers {
           float: left; }
       .ac-column-header table tr td.column_type {
