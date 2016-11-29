@@ -11,37 +11,10 @@ class AC_Column_Media_ExifData extends AC_Column {
 		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
 	}
 
-	/**
-	 * Get EXIF data
-	 *
-	 * Get extended image metadata
-	 *
-	 * @since 2.0
-	 *
-	 * @return array EXIF data types
-	 */
-	private function get_exif_types() {
-		$exif_types = array(
-			'aperture'          => __( 'Aperture', 'codepress-admin-columns' ),
-			'credit'            => __( 'Credit', 'codepress-admin-columns' ),
-			'camera'            => __( 'Camera', 'codepress-admin-columns' ),
-			'caption'           => __( 'Caption', 'codepress-admin-columns' ),
-			'created_timestamp' => __( 'Timestamp', 'codepress-admin-columns' ),
-			'copyright'         => __( 'Copyright EXIF', 'codepress-admin-columns' ),
-			'focal_length'      => __( 'Focal Length', 'codepress-admin-columns' ),
-			'iso'               => __( 'ISO', 'codepress-admin-columns' ),
-			'shutter_speed'     => __( 'Shutter Speed', 'codepress-admin-columns' ),
-			'title'             => __( 'Title', 'codepress-admin-columns' ),
-		);
-
-		natcasesort( $exif_types );
-
-		return $exif_types;
-	}
-
 	public function get_value( $id ) {
 		$value = '';
 
+		// TODO: move to setting formatter?
 		$data = $this->get_option( 'exif_datatype' );
 		$meta = $this->get_raw_value( $id );
 
@@ -67,13 +40,10 @@ class AC_Column_Media_ExifData extends AC_Column {
 		return function_exists( 'exif_read_data' );
 	}
 
-	public function display_settings() {
-		$this->field_settings->field( array(
-			'type'    => 'select',
-			'name'    => 'exif_datatype',
-			'label'   => $this->get_label(),
-			'options' => $this->get_exif_types(),
-		) );
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_ExifData( $this ) );
 	}
 
 }

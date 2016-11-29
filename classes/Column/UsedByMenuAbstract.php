@@ -83,18 +83,10 @@ abstract class AC_Column_UsedByMenuAbstract extends AC_Column {
 		return $menu_ids;
 	}
 
-	public function display_settings() {
-		$this->field_settings->field( array(
-			'type'        => 'radio',
-			'name'        => 'link_to_menu',
-			'label'       => __( 'Link to menu', 'codepress-admin-columns' ),
-			'description' => __( 'This will make the title link to the menu.', 'codepress-admin-columns' ),
-			'options'     => array(
-				'on'  => __( 'Yes' ),
-				'off' => __( 'No' ),
-			),
-			'default_value' => 'off'
-		) );
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_LinkToMenu( $this ) );
 	}
 
 }

@@ -228,7 +228,7 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	public function get_default( $option = null ) {
 		if ( null === $option ) {
-			$this->get_managed_option();
+			$option = $this->get_managed_option();
 		}
 
 		return isset( $this->defaults[ $option ] ) ? $this->defaults[ $option ] : null;

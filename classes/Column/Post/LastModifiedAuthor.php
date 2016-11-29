@@ -15,20 +15,17 @@ class AC_Column_Post_LastModifiedAuthor extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$value = '';
-		if ( $user_id = $this->get_raw_value( $post_id ) ) {
-			$value = $this->format->user( $user_id );
-		}
-
-		return $value;
+		return $this->get_setting( 'user' )->format( $this->get_raw_value( $post_id ) );
 	}
 
 	public function get_raw_value( $post_id ) {
 		return get_post_meta( $post_id, '_edit_last', true );
 	}
 
-	public function display_settings() {
-		$this->field_settings->user();
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_User( $this ) );
 	}
 
 }

@@ -14,11 +14,13 @@ class AC_Column_Link_Image extends AC_Column {
 	public function get_value( $id ) {
 		$bookmark = get_bookmark( $id );
 
-		return $this->format->images( $bookmark->link_image );
+		return $this->get_setting( 'image' )->format( $bookmark->link_image );
 	}
 
-	public function display_settings() {
-		$this->field_settings->image();
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
 }

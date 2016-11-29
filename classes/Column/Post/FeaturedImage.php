@@ -17,32 +17,35 @@ class AC_Column_Post_FeaturedImage extends AC_Column {
 
 	public function get_value( $post_id ) {
 		$attachment_id = $this->get_raw_value( $post_id );
-		$thumb = $this->format->images( $attachment_id );
+
+		$thumb = $this->get_setting( 'image' )->format( $attachment_id );
 
 		if ( ! $thumb ) {
 			return false;
 		}
 
-		$link = get_edit_post_link( $post_id );
+		if ( $link = get_edit_post_link( $post_id ) ) {
+			$thumb = ac_helper()->html->link( $link . '#postimagediv', $thumb );
+		}
 
-		return $link ? ac_helper()->html->link( $link . '#postimagediv', $thumb ) : $thumb;
+		return $thumb;
 	}
 
+	/**
+	 * Returns Attachment ID
+	 *
+	 * @param int $post_id
+	 *
+	 * @return int|false
+	 */
 	public function get_raw_value( $post_id ) {
 		return has_post_thumbnail( $post_id ) ? get_post_thumbnail_id( $post_id ) : false;
 	}
 
-	public function display_settings() {
-		$this->field_settings->image();
-	}
+	public function register_settings() {
+		parent::register_settings();
 
-	public function settings() {
-		$settings = parent::settings();
-
-		// todo: checkup prev merge
-		//$settings->add_field( new AC_Settings_Field_Image );
-
-		return $settings;
+		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
 }

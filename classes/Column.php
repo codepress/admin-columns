@@ -260,6 +260,11 @@ abstract class AC_Column {
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
+
+			$this->add_setting( new AC_Settings_Setting_Type( $this ) )
+			     ->add_setting( new AC_Settings_Setting_Label( $this ) )
+			     ->add_setting( new AC_Settings_Setting_Width( $this ) );
+
 			$this->register_settings();
 
 			do_action( 'ac/column/settings', $this );
@@ -274,20 +279,7 @@ abstract class AC_Column {
 	 * Register settings
 	 */
 	protected function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_Type( $this ) )
-		     ->add_setting( new AC_Settings_Setting_Label( $this ) )
-		     ->add_setting( new AC_Settings_Setting_Width( $this ) );
-
-		// tested
-		//$this->add_setting( new AC_Settings_Setting_User( $this ) );
-
-		// test
-		//$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
-		//$this->add_setting( new AC_Settings_Setting_Date( $this ) );
-		//$this->add_setting( new AC_Settings_Setting_LinkLabel( $this ) );
-		//$this->add_setting( new AC_Settings_Setting_Post( $this ) );
-		//$this->add_setting( new AC_Settings_Setting_Image( $this ) );
-		//$this->add_setting( new AC_Settings_Setting_WordsPerMinute( $this ) );
+		// Overwrite in sub class
 	}
 
 	/**

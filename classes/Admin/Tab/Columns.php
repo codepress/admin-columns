@@ -215,6 +215,15 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	}
 
 	/**
+	 * @param AC_ListScreenAbstract $list_screen
+	 *
+	 * @return string
+	 */
+	private function get_error_message_visit_list_screen( $list_screen ) {
+        return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" );
+	}
+
+	/**
 	 * Display HTML markup for column type
 	 *
 	 * @since NEWVERSION
@@ -227,16 +236,22 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		$column = $this->get_list_screen()->get_column_by_type( $type );
 
+		if ( ! $column ) {
+			wp_send_json_error( array(
+				'type'  => 'message',
+				'error' => $this->get_error_message_visit_list_screen( $this->get_list_screen() )
+			) );
+        }
+
 		// Not cloneable message
 		if ( in_array( $type, $original_columns ) ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => sprintf(
-					'<p>' . __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 
 					// TODO: works?
-					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' . '</p>'
-				),
+					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' )
 			) );
 		}
 
@@ -637,7 +652,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
                     <div class="cpac-notice">
                         <p>
-							<?php echo sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" ); ?>
+							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>
                         </p>
                     </div>
 				<?php endif ?>

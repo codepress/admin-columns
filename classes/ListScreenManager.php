@@ -273,6 +273,7 @@ final class AC_ListScreenManager {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
+            // TODO: remove?
 			//$label = apply_filters( 'cac/headings/label', $column->settings()->get_value( 'label' ), $column->get_name(), $column->settings()->get_options(), $this );
 
 			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();
