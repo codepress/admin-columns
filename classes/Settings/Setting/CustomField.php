@@ -18,9 +18,10 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	public function create_view() {
 		$select = $this->create_element( 'select', 'field_type' )
 		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_field_labels() );
+		               ->set_options( $this->get_field_type_options() );
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
+
 		if ( $this->get_field_type() ) {
 			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
 		}
@@ -34,10 +35,9 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
-		}
-		else {
+		} else {
 			$field = $this->create_element( 'select', 'field' )
-			              ->set_options( $this->get_grouped_field_options() );
+			              ->set_options( $this->get_field_options() );
 		}
 
 		$view = new AC_View();
@@ -48,11 +48,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 		return $view;
 	}
 
-	private function get_grouped_field_options() {
-		$grouped_options = array();
+	private function get_field_options() {
+		$options = array();
 
 		if ( $keys = $this->column->get_meta_keys() ) {
-			$grouped_options = array(
+			$options = array(
 				'hidden' => array(
 					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
 					'options' => '',
@@ -65,24 +65,25 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
-					$grouped_options['public']['options'][ $field ] = $field;
+					$options['hidden']['options'][ $field ] = substr( $field, 10 );
+				} else {
+					$options['public']['options'][ $field ] = $field;
 				}
 			}
 
-			krsort( $grouped_options ); // public first
+			krsort( $options ); // public first
 		}
 
-		return $grouped_options;
+		return $options;
 	}
 
 	/**
+	 * Get possible field types
+	 *
 	 * @return array
 	 */
-	private function get_field_labels() {
-		$custom_field_types = array(
+	private function get_field_type_options() {
+		$field_types = array(
 			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
 			'color'       => __( 'Color', 'codepress-admin-columns' ),
 			'count'       => __( 'Counter', 'codepress-admin-columns' ),
@@ -99,21 +100,21 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
 		);
 
-		asort( $custom_field_types );
+		asort( $field_types );
 
 		// Default option comes first
-		$custom_field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $custom_field_types );
+		$field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types );
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
 		 *
 		 * @since 2.0
 		 *
-		 * @param array $custom_field_types Available custom field types ([type] => [label])
+		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
-		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
+		$field_types = apply_filters( 'cac/column/meta/types', $field_types );
 
-		return $custom_field_types;
+		return $field_types;
 	}
 
 	public function get_sub_setting() {
@@ -198,10 +199,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			case "library_id" :
 				$images = ac_helper()->string->comma_separated_to_array( $mixed );
 
-
 				$value = $sub_setting->format( $images );
 
-				echo '<pre>'; print_r( $value ); echo '</pre>'; //exit;
+				echo '<pre>';
+				print_r( $value );
+				echo '</pre>'; //exit;
 				//$this->column->get_setting( 'image' )->format();
 
 				//$value = implode( ac_helper()->image->get_images( $images, $this->format->image_sizes() ) );
