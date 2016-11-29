@@ -332,7 +332,7 @@
 
 	td.col-label {
 		position: relative;
-		line-height: 26px;
+		line-height: 24px;
 		overflow: visible;
 		background: $bg-gray;
 		border-right: 1px solid $border-gray-dark;
@@ -443,6 +443,7 @@
 
 .ac-setting-input {
 	padding: 10px;
+	line-height: 24px;
 
 	input, select {
 		width: 99.95%;
@@ -450,6 +451,13 @@
 
 	input[type=radio] {
 		width: auto;
+		margin-right: 4px;
+	}
+	.radio-labels {
+		> label {
+			padding-right: 10px;
+			vertical-align: top;
+		}
 	}
 }
 
@@ -478,6 +486,7 @@
 			background: #efefef;
 			display: table-cell;
 			width: 26px;
+			line-height: 23px;
 			text-align: center;
 			vertical-align: middle;
 			border: 1px solid #dedede;
@@ -631,6 +640,13 @@
 
 								&.ac-column-indicator {
 									margin-left: 0;
+									font-size: 24px;
+									line-height: 17px;
+									width: 22px;
+
+									&.ac-column-indicator--filter {
+										font-size: 20px;
+									}
 
 									&.on, &.on span {
 										color: $blue;
@@ -640,7 +656,6 @@
 								&.disabled {
 									cursor: default;
 								}
-
 
 							}
 						}
