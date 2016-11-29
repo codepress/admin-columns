@@ -16,6 +16,8 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 	public function create_view() {
 		// todo: dropdown date + custom input
 		$date = $this->create_element( 'text' )
+
+			// TODO set placeholder tp the default value
 		             ->set_attribute( 'placeholder', __( 'Example:', 'codepress-admin-columns' ) . ' d M Y H:i' )
 		             ->set_description( sprintf( __( "Leave empty for WordPress date format, change your <a href='%s'>default date format here</a>.", 'codepress-admin-columns' ), admin_url( 'options-general.php' ) . '#date_format_custom_radio' ) . " <a target='_blank' href='http://codex.wordpress.org/Formatting_Date_and_Time'>" . __( 'Documentation on date and time formatting.', 'codepress-admin-columns' ) . "</a>" );
 
@@ -46,8 +48,9 @@ class AC_Settings_Setting_Date extends AC_Settings_SettingAbstract
 		return $this;
 	}
 
-	public function format( $value ) {
-		return $value;
+	// TODO
+	public function format( $date ) {
+		return ac_helper()->date->date( $date, $this->get_date_format() );
 	}
 
 }

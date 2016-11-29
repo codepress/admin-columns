@@ -201,7 +201,7 @@ class AC_Helper_String {
 	 * @return string
 	 */
 	public function convert_seconds_to_human_readable_time( $seconds ) {
-		$time = 0;
+		$time = false;
 
 		if ( $seconds ) {
 

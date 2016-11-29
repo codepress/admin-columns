@@ -21,6 +21,8 @@ class AC_Column_Comment_Excerpt extends AC_Column {
 		return $comment->comment_content;
 	}
 
+
+
 	public function display_settings() {
 		$this->field_settings->word_limit( 15 );
 	}

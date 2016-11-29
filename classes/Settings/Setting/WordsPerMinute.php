@@ -47,4 +47,13 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_SettingAbstract {
 		return $this;
 	}
 
+	/**
+	 * @param string $string
+	 *
+	 * @return int Seconds
+	 */
+	public function format( $string ) {
+		return ac_helper()->string->get_estimated_reading_time_in_seconds( $string, $this->get_words_per_minute() );
+	}
+
 }

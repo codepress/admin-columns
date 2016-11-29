@@ -16,22 +16,31 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column {
 	 * @since 2.3.3
 	 */
 	public function get_value( $post_id ) {
-		return $this->format->words_per_minute( get_post_field( 'post_content', $post_id ) );
+		return ac_helper()->string->convert_seconds_to_human_readable_time( $this->get_raw_value( $post_id ) );
 	}
 
 	/**
 	 * Estimate read time in seconds
 	 * @since 2.3.3
+	 *
+	 * @return int Seconds
 	 */
 	public function get_raw_value( $post_id ) {
-		return $this->format->words_per_minute( get_post_field( 'post_content', $post_id ), false );
+		return $this->get_setting( 'words_per_minute' )->format( $this->get_post_content( $post_id ) );
+	}
+
+	private function get_post_content( $post_id ) {
+		return get_post_field( 'post_content', $post_id );
 	}
 
 	public function is_valid() {
 		return post_type_supports( $this->get_post_type(), 'editor' );
 	}
 
-	public function display_settings() {
-		$this->field_settings->words_per_minute();
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( new AC_Settings_Setting_WordsPerMinute( $this ) );
 	}
+
 }

@@ -139,7 +139,7 @@ abstract class AC_Column {
 	 * @return string Group
 	 */
 	public function get_group() {
-		return $this->group ? $this->group : __( 'Default', 'codepress-admin-columns' );
+		return $this->group ? $this->group : __( 'Custom', 'codepress-admin-columns' );
 	}
 
 	/**

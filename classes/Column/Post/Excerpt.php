@@ -12,8 +12,10 @@ class AC_Column_Post_Excerpt extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$value = $this->get_formatted_value( $post_id );
-		if ( ! has_excerpt( $post_id ) && $value ) {
+		$excerpt = ac_helper()->post->excerpt( $post_id );
+
+		$value = $this->get_setting( 'word_limit' )->format( $excerpt );
+		if ( $value && ! has_excerpt( $post_id ) ) {
 			$value = '<span class="cpac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
 		}
 
@@ -24,12 +26,10 @@ class AC_Column_Post_Excerpt extends AC_Column {
 		return ac_helper()->post->get_raw_field( 'post_excerpt', $post_id );
 	}
 
-	public function get_formatted_value( $post_id ) {
-		return $this->format->word_limit( ac_helper()->post->excerpt( $post_id ) );
-	}
+	public function register_settings() {
+		parent::register_settings();
 
-	public function display_settings() {
-		$this->field_settings->word_limit();
+		$this->add_setting( new AC_Settings_Setting_WordLimit( $this ) );
 	}
 
 }
