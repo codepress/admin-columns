@@ -197,7 +197,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			case 'excerpt' :
 			case 'date' :
 			case 'link' :
-				$value = $this->get_sub_setting()->format( $value );
+				$value = $this->get_sub_setting()->format( $raw_value );
 
 				break;
 			case 'title_by_id' :
@@ -246,7 +246,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 
 				break;
 			case "count" :
-				$raw_value = $this->get_raw_value( $id, false );
+				$raw_value = $this->column->get_raw_value( $id, false );
 				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
 
 				break;
