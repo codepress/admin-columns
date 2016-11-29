@@ -268,8 +268,6 @@ abstract class AC_Column {
 			$this->register_settings();
 
 			do_action( 'ac/column/settings', $this );
-
-			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
 		return $this->settings;
@@ -293,6 +291,11 @@ abstract class AC_Column {
 		return isset( $options[ $key ] ) ? $options[ $key ] : null;
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return $this
+	 */
 	public function set_options( array $options ) {
 		foreach ( $this->get_settings() as $setting ) {
 			$setting->set_options( $options );
