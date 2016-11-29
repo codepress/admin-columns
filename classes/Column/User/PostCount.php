@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -22,8 +21,8 @@ class AC_Column_User_PostCount extends AC_Column {
 
 	public function get_value( $user_id ) {
 		$value = ac_helper()->string->get_empty_char();
-
 		$count = $this->get_raw_value( $user_id );
+
 		if ( $count > 0 ) {
 			$link = add_query_arg( array( 'post_type' => $this->get_option( 'post_type' ), 'author' => $user_id ), admin_url( 'edit.php' ) );
 			$value = ac_helper()->html->link( $link, $count );
