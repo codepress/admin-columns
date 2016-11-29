@@ -36,46 +36,8 @@ class AC_Column_User_PostCount extends AC_Column {
 		return $this->get_count( $user_id );
 	}
 
-	public function display_settings() {
-
-		$post_types = array();
-		foreach ( (array) $this->get_post_types() as $type ) {
-			$obj = get_post_type_object( $type );
-			$post_types[ $type ] = $obj->labels->name;
-		}
-
-		$this->field_settings->field( array(
-			'type'    => 'select',
-			'name'    => 'post_type',
-			'label'   => __( 'Post Type', 'codepress-admin-columns' ),
-			'options' => $post_types,
-			'section' => true,
-		) );
-	}
-
-	private function get_post_types() {
-		$post_types = array();
-
-		if ( post_type_exists( 'post' ) ) {
-			$post_types['post'] = 'post';
-		}
-		if ( post_type_exists( 'page' ) ) {
-			$post_types['page'] = 'page';
-		}
-
-		$post_types = array_merge( $post_types, get_post_types( array(
-			'_builtin' => false,
-			'show_ui'  => true,
-		) ) );
-
-		/**
-		 * Filter the post types for which Admin Columns is active
-		 *
-		 * @since 2.0
-		 *
-		 * @param array $post_types List of active post type names
-		 */
-		return apply_filters( 'cac/post_types', $post_types );
+	protected function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_PostType( $this ) );
 	}
 
 }
