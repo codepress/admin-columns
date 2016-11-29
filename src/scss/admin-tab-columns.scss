@@ -379,12 +379,20 @@
 			margin-top: 5px;
 			display: none;
 			color: #333;
-			padding: 0 8px 10px 8px;
+			padding: 6px 10px;
 			background-color: #ffebe8;
 			border: 1px solid #fff;
 			-moz-border-radius: 3px;
 			-webkit-border-radius: 3px;
 			border-radius: 3px;
+
+			p {
+				margin: 0.5em 0 1em 0;
+			}
+
+			a.button {
+				margin-bottom: 1em;
+			}
 		}
 
 		.help-msg {

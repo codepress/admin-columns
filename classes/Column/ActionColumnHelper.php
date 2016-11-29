@@ -64,7 +64,7 @@ class AC_Column_ActionColumnHelper {
 	 * @return array Array with actions
 	 */
 	public function get( $type, $id ) {
-		return $this->actions[ $type ][ $id ];
+		return isset( $this->actions[ $type ][ $id ] ) ? $this->actions[ $type ][ $id ] : array();
 	}
 
 }
