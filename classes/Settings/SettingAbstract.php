@@ -43,6 +43,9 @@ abstract class AC_Settings_SettingAbstract {
 				$this->set_default( $value, $key );
 			}
 		}
+
+		// todo: init the settings here or in the column? Doing it double now to check if CF will work
+		$this->set_options( $this->column->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 	}
 
 	/**
