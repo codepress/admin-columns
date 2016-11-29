@@ -246,7 +246,7 @@ function cpac_reset_columns( $ ) {
 				return;
 			}
 
-			if ( ! $column.hasClass( 'events-binded' ) ) {
+			if ( !$column.hasClass( 'events-binded' ) ) {
 				$column.column_bind_events();
 			}
 
@@ -651,35 +651,35 @@ function cpac_reset_columns( $ ) {
 	 *
 	 */
 	$.fn.cpac_bind_indicator_events = function() {
-		var $column = $(this);
+		var $column = $( this );
 		var $indicators = $column.find( '.ac-column-header [data-indicator-toggle]' );
 
-		$indicators.each( function(){
-			var $indicator = $(this);
-			var setting = $(this).data('setting');
-			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']');
-			var $input = $setting.find( '.col-input:first' ).find('input[type=radio]');
+		$indicators.each( function() {
+			var $indicator = $( this );
+			var setting = $( this ).data( 'setting' );
+			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']' );
+			var $input = $setting.find( '.col-input:first' ).find( 'input[type=radio]' );
 
-			$indicator.unbind('click').on( 'click', function( e ) {
+			$indicator.unbind( 'click' ).on( 'click', function( e ) {
 				e.preventDefault();
-				$indicator.toggleClass('on');
+				$indicator.toggleClass( 'on' );
 				if ( $( this ).hasClass( 'on' ) ) {
-					$input.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' ).trigger('change');
+					$input.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' ).trigger( 'change' );
 				}
 				else {
-					$input.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' ).trigger('change');
+					$input.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' ).trigger( 'change' );
 				}
-			});
+			} );
 
-			$input.on('change', function(e){
-				var value = $input.filter(':checked').val();
-				if( 'on' == value ){
-					$indicator.addClass('on');
+			$input.on( 'change', function( e ) {
+				var value = $input.filter( ':checked' ).val();
+				if ( 'on' == value ) {
+					$indicator.addClass( 'on' );
 				} else {
-					$indicator.removeClass('on');
+					$indicator.removeClass( 'on' );
 				}
-			});
-		});
+			} );
+		} );
 
 	}
 
