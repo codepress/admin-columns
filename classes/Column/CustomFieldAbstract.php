@@ -69,19 +69,6 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	/**
-	 * @see AC_Column::sanitize_options()
-	 * @since 1.0
-	 */
-	// todo: why is this? does there always need to be a date_format?
-	public function sanitize_options( $options ) {
-		if ( empty( $options['date_format'] ) ) {
-			$options['date_format'] = get_option( 'date_format' );
-		}
-
-		return $options;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function get_meta() {

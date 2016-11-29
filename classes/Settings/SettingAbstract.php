@@ -277,6 +277,7 @@ abstract class AC_Settings_SettingAbstract {
 			return false;
 		}
 
+		/* @var AC_Settings_HeaderInterface $this */
 		$view = $this->create_header_view();
 
 		if ( ! ( $view instanceof AC_View ) ) {

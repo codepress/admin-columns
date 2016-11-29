@@ -806,7 +806,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
                 <div class="ac-column-settings">
 
-					<?php echo $column->render(); ?>
+					<?php foreach ( $column->get_settings() as $setting ) {
+						    echo $setting->render() . "\n";
+					} ?>
 
                     <table class="ac-column-setting ac-column-setting-actions">
                         <tr>
