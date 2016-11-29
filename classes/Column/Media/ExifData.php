@@ -41,8 +41,6 @@ class AC_Column_Media_ExifData extends AC_Column {
 	}
 
 	public function register_settings() {
-		parent::register_settings();
-
 		$this->add_setting( new AC_Settings_Setting_ExifData( $this ) );
 	}
 

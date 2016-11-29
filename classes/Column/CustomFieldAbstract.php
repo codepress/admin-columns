@@ -359,8 +359,6 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	public function register_settings() {
-		parent::register_settings();
-
 		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
 	}
 

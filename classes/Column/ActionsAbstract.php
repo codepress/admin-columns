@@ -67,8 +67,6 @@ abstract class AC_Column_ActionsAbstract extends AC_Column {
 	}
 
 	public function register_settings() {
-		parent::register_settings();
-
 		$this->add_setting( new AC_Settings_Setting_ActionIcons( $this ) );
 	}
 
@@ -142,4 +140,5 @@ abstract class AC_Column_ActionsAbstract extends AC_Column {
 			'spam'      => 'welcome-comments',
 		);
 	}
+
 }

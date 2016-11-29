@@ -43,8 +43,6 @@ class AC_Column_Post_FeaturedImage extends AC_Column {
 	}
 
 	public function register_settings() {
-		parent::register_settings();
-
 		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
