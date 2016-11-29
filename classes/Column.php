@@ -212,7 +212,6 @@ abstract class AC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: used to be apply_conditional(), replace inside all columns (including add-ons)
 	public function is_valid() {
 		return true;
 	}

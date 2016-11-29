@@ -45,7 +45,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		// Javascript translations
 		wp_localize_script( 'ac-admin-tab-columns', 'cpac_i18n', array(
-			'clone' => '<p>' . __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ) . '</p>',
+			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 		) );
 
@@ -71,16 +71,16 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 
 		foreach ( $column_data as $name => $options ) {
 
-		    // Determine clone ID
+			// Determine clone ID
 			// TODO: can we move this to JS?
 			$clone = str_replace( $options['type'] . '-', '', $name );
 			if ( is_numeric( $clone ) ) {
-				$column_data[ $name ][ 'clone' ] = $clone;
+				$column_data[ $name ]['clone'] = $clone;
 			}
-        }
+		}
 
 		// sanitize user inputs
-        // TODO: sanitize?
+		// TODO: sanitize?
 		/*foreach ( $column_data as $name => $options ) {
 			if ( $column = $list_screen->get_column_by_name( $options[ 'type' ] ) ) {
 
@@ -192,7 +192,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 * @return string
 	 */
 	private function get_error_message_visit_list_screen( $list_screen ) {
-        return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" );
+		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" );
 	}
 
 	/**
@@ -211,9 +211,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_error_message_visit_list_screen( $this->get_list_screen() )
+				'error' => $this->get_error_message_visit_list_screen( $this->get_list_screen() ),
 			) );
-        }
+		}
 
 		// Not cloneable message
 		if ( in_array( $type, $original_columns ) ) {
@@ -223,7 +223,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 
 					// TODO: works?
-					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' )
+					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' ),
 			) );
 		}
 
@@ -707,7 +707,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 	 */
 	private function display_column( AC_Column $column ) { ?>
 
-        <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>"<?php echo $column->get_clone() ? ' data-clone="' . esc_attr( $column->get_clone() ) . '"' : ''; ?> data-original="<?php echo esc_attr( $column->is_original() ); ?>">
+        <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>" data-type="<?php echo esc_attr( $column->get_type() ); ?>" data-clone="<?php echo esc_attr( $column->get_clone() ); ?>" data-original="<?php echo esc_attr( $column->is_original() ); ?>" data-column-name="<?php echo esc_attr( $column->get_name() ); ?>">
 
             <div class="ac-column-header">
                 <table class="widefat">
@@ -758,7 +758,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
                         </td>
                         <td class="column_type">
                             <div class="inner" data-toggle="column">
-	                            <?php echo $column->get_label(); ?>
+								<?php echo $column->get_label(); ?>
                             </div>
                         </td>
                         <td class="column_edit" data-toggle="column">
@@ -769,25 +769,20 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
             </div><!--.column-meta-->
 
             <div class="ac-column-body">
-
-				<?php // TODO: remove? ?>
-
-                <input type="hidden" class="column-name" name="<?php //$column->field_settings->attr_name( 'column-name' ); ?>" value="<?php echo esc_attr( $column->get_name() ); ?>"/>
-                <input type="hidden" class="type" name="<?php //$column->field_settings->attr_name( 'type' ); ?>" value="<?php echo esc_attr( $column->get_type() ); ?>"/>
-                <input type="hidden" class="clone" name="<?php //$column->field_settings->attr_name( 'clone' ); ?>" value="<?php echo esc_attr( $column->get_clone() ); ?>"/>
-
                 <div class="ac-column-settings">
 
-					<?php foreach ( $column->get_settings() as $setting ) {
-						    echo $setting->render() . "\n";
-					} ?>
+					<?php
+					foreach ( $column->get_settings() as $setting ) {
+						echo $setting->render() . "\n";
+					}
+					?>
 
                     <table class="ac-column-setting ac-column-setting-actions">
                         <tr>
                             <td class="col-label"></td>
                             <td class="col-settings">
                                 <p>
-                                    <a href="#" class="close-button"  data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+                                    <a href="#" class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 									<?php if ( ! $column->is_original() ) : ?>
                                         <a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 									<?php endif; ?>
