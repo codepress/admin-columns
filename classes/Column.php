@@ -3,7 +3,6 @@
 /**
  * @since NEWVERSION
  */
-
 // TODO: rename: AC_ColumnAbstract
 abstract class AC_Column {
 
@@ -267,6 +266,8 @@ abstract class AC_Column {
 			$this->register_settings();
 
 			do_action( 'ac/column/settings', $this );
+
+			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
 		return $this->settings;

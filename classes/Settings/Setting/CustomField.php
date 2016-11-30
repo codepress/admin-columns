@@ -3,8 +3,14 @@
 class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	implements AC_Settings_FormatInterface {
 
+	/**
+	 * @var string
+	 */
 	private $field;
 
+	/**
+	 * @var string
+	 */
 	private $field_type;
 
 	protected function set_name() {
