@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 class AC_Column_Plugin extends AC_Column {
 

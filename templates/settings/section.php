@@ -1,11 +1,3 @@
-<?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-?>
-
 <table class="ac-column-setting <?php echo $this->name ? esc_attr( 'ac-column-setting--' . $this->name ) : ''; ?>" data-setting="<?php echo esc_attr( $this->name ); ?>">
 	<tr>
 		<td class="col-label">

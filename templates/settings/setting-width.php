@@ -1,10 +1,3 @@
-<?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-?>
 <div class="ac-setting-input ac-setting-input-width">
 	<div class="description">
 		<?php echo $this->width; ?>

@@ -5,7 +5,7 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_Element {
 	/**
 	 * @var string
 	 */
-	protected $no_result;
+	protected $no_result = '';
 
 	protected function render_options( array $options ) {
 		$template = '<option %s>%s</option>';
@@ -73,10 +73,6 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_Element {
 	 * @return string
 	 */
 	public function get_no_result() {
-		if ( empty( $this->no_result ) ) {
-			return false;
-		}
-
 		return $this->no_result;
 	}
 
@@ -86,7 +82,7 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_Element {
 	 * @return $this
 	 */
 	public function set_no_result( $no_result ) {
-		$this->no_result = $no_result;
+		$this->no_result = (string) $no_result;
 
 		return $this;
 	}

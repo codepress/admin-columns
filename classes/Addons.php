@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 final class AC_Addons {
 

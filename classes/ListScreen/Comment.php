@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )  {
-	exit;
-}
-
 /**
  * @since 2.0
  */

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 $classes = array(
 	'ac-column-heading-setting',
 	'ac-column-indicator--' . $this->setting,

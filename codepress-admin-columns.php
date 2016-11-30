@@ -26,10 +26,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 // Only run plugin in the admin interface
 if ( ! is_admin() ) {
 	return false;
@@ -126,7 +122,8 @@ class CPAC {
 		require_once $this->get_plugin_dir() . 'classes/Column.php';
 
 		// Backwards compatibility
-		require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
+		// todo: AC_Column_Default is no longer called . Still required?
+		//require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();

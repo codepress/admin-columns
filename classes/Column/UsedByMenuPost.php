@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 abstract class AC_Column_UsedByMenuPost extends AC_Column_UsedByMenu {
 

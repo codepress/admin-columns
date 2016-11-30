@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Holds all the row actions buttons for each content type (e.g. post, comment, user and media).
  * WP_List_Table does not have a method for retrieving row actions. This class uses their filters to fetch the actions.

@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 abstract class AC_Column_Default extends AC_Column {
 

@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 abstract class AC_ListScreenWP extends AC_ListScreen {
 
