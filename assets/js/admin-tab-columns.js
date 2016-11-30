@@ -128,7 +128,14 @@ function cpac_add_column( $ ) {
 		$( '.ac-columns form' ).append( clone );
 
 		// refresh column
-		clone.cpac_column_refresh();
+		// TODO: remove?
+		//clone.cpac_column_refresh();
+
+		// TODO: better?
+		clone.column_bind_toggle();
+		clone.column_bind_remove();
+		clone.column_bind_clone();
+		clone.column_bind_events();
 
 		// hook for addons
 		$( document ).trigger( 'column_add', clone );
@@ -292,7 +299,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
-		var column_name = $( this ).find( 'input.column-name' ).val();
+		var column_name = $( this ).data( 'column-name' );
 		var formdata = $( this ).parents( 'form' ).serialize();
 
 		// Mark column as loading
@@ -413,7 +420,7 @@ function cpac_reset_columns( $ ) {
 
 							// trigger refresh
 							// TODO: needed?
-							//if ( el.find( '[data-refresh=1]' ).length > 0 ) {
+							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
 							//el.cpac_column_refresh();
 							//}
 
@@ -489,11 +496,12 @@ function cpac_reset_columns( $ ) {
 		var column = $( this );
 		var columns = $( this ).closest( 'ac-columns' );
 
-		if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
+		if ( '1' === column.attr( 'data-original' ) ) {
+
 			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
 			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
-			column.find( '.msg' ).html( message ).show();
+			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();
 
 			return;
 		}
@@ -557,14 +565,13 @@ function cpac_reset_columns( $ ) {
 		var clone_id = el.attr( 'data-clone' );
 		var clone_suffix = '';
 
-		if ( clone_id ) {
+		if ( clone_id > 0 ) {
 			clone_suffix = '-' + clone_id;
 		}
 
 		// set clone ID
 		el.attr( 'data-clone', id );
-		el.find( 'input.clone' ).val( id );
-		el.find( 'input.column-name' ).val( type + '-' + id );
+		el.attr( 'data-column-name', type + '-' + id );
 
 		// update input names with clone ID
 		var inputs = el.find( 'input, select, label' );
@@ -671,7 +678,7 @@ function cpac_reset_columns( $ ) {
 				}
 			} );
 
-			$input.on( 'change', function( ) {
+			$input.on( 'change', function() {
 				var value = $input.filter( ':checked' ).val();
 				if ( 'on' == value ) {
 					$indicator.addClass( 'on' );

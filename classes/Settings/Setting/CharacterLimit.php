@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
+class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var int
@@ -41,6 +42,17 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_SettingAbstract {
 		$this->character_limit = $character_limit;
 
 		return $this;
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function format( $string ) {
+		$limit = $this->get_character_limit();
+
+		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
 	}
 
 }

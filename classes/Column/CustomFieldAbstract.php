@@ -69,19 +69,6 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	}
 
 	/**
-	 * @see AC_Column::sanitize_options()
-	 * @since 1.0
-	 */
-	// todo: why is this? does there always need to be a date_format?
-	public function sanitize_options( $options ) {
-		if ( empty( $options['date_format'] ) ) {
-			$options['date_format'] = get_option( 'date_format' );
-		}
-
-		return $options;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function get_meta() {
@@ -172,9 +159,23 @@ abstract class AC_Column_CustomFieldAbstract extends AC_Column implements AC_Col
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-		//$mixed = $this->get_raw_value( $id );
-
 		$value = $this->get_setting( 'custom_field' )->format( $id );
+
+		if ( ! $value ) {
+			$value = ac_helper()->string->get_empty_char();
+		}
+
+		/**
+		 * Filter the display value for Custom Field columns
+		 *
+		 * @param mixed $value Custom field value
+		 * @param int $id Object ID
+		 * @param object $this Column instance
+		 */
+		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
+
+		return $value;
+
 
 		// todo remove
 		$raw_value = $this->get_raw_value( $id );

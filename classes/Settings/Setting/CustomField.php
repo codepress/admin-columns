@@ -3,8 +3,14 @@
 class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	implements AC_Settings_FormatInterface {
 
+	/**
+	 * @var string
+	 */
 	private $field;
 
+	/**
+	 * @var string
+	 */
 	private $field_type;
 
 	protected function set_name() {
@@ -51,7 +57,10 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	private function get_field_options() {
 		$options = array();
 
-		if ( $keys = $this->column->get_meta_keys() ) {
+		/* @var AC_Column_CustomFieldAbstract $column */
+		$column = $this->column;
+
+		if ( $keys = $column->get_meta_keys() ) {
 			$options = array(
 				'hidden' => array(
 					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
@@ -118,7 +127,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	}
 
 	public function get_sub_setting() {
-		$setting = false;
 
 		switch ( $this->get_field_type() ) {
 			case 'date' :
@@ -137,6 +145,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			case 'user_by_id' :
 				$setting = new AC_Settings_Setting_User( $this->column );
 				break;
+			default :
+				$setting = false;
 		}
 
 		return $setting;
@@ -193,11 +203,12 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			case 'library_id' :
 				// todo test images, was incomplete when I started it
 				$value = ac_helper()->string->comma_separated_to_array( $raw_value );
+				break;
 
 			case 'excerpt' :
 			case 'date' :
 			case 'link' :
-				$value = $this->get_sub_setting()->format( $value );
+				$value = $this->get_sub_setting()->format( $raw_value );
 
 				break;
 			case 'title_by_id' :
@@ -205,10 +216,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 
 				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
-						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
-							$link = get_edit_post_link( $id );
-							$titles[] = ac_helper()->html->link( $link, $title );
-						}
+						$titles[] = $this->get_sub_setting()->format( $id );
 					}
 				}
 
@@ -220,9 +228,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 
 				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
-						if ( $username = $this->get_username_by_id( $id ) ) {
-							$names[] = ac_helper()->html->link( get_edit_user_link( $id ), $username );
-						}
+						$names[] = $this->get_sub_setting()->format( $id );
 					}
 				}
 
@@ -246,7 +252,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 
 				break;
 			case "count" :
-				$raw_value = $this->get_raw_value( $id, false );
+				$raw_value = $this->column->get_raw_value( $id, false );
 				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
 
 				break;
