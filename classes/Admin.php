@@ -48,7 +48,7 @@ class AC_Admin {
 		if ( $tab = $this->tabs->get_current_tab() ) {
 
 			// Hook
-			do_action( 'ac/admin_scripts/tab=' . $tab->get_slug(), $this );
+			do_action( 'ac/admin_scripts/' . $tab->get_slug(), $this );
 
 			$tab->admin_scripts();
 		}

@@ -80,7 +80,7 @@ final class AC_ListScreenManager {
 		/**
 		 * @param AC_ListScreenAbstract $list_screen
 		 */
-		do_action( 'ac/enqueue_listings_scripts', $this->list_screen );
+		do_action( 'ac/listings_scripts', $this->list_screen );
 	}
 
 	/**
