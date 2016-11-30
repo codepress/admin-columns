@@ -2,14 +2,19 @@
 
 class AC_ListScreen_Post extends AC_ListScreen {
 
+	/**
+	 * @var string $post_type
+	 */
+	protected $post_type;
+
 	public function __construct() {
 		parent::__construct();
 
 		$this->post_type = 'post';
-		$this->key = 'post';
-		$this->type = 'post';
+		$this->key = $this->post_type;
+		$this->type = $this->post_type;
 		$this->base = 'edit';
-		$this->screen = 'edit';
+		$this->screen = $this->base;
 		$this->list_table = 'WP_Posts_List_Table';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 	}

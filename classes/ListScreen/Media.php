@@ -12,10 +12,6 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 		$this->screen = 'upload';
 		$this->list_table = 'WP_Media_List_Table';
 		$this->menu_type = __( 'Media' );
-
-		// todo: won't the parent functions deal with this more properly?
-		$this->label = __( 'Media Library' );
-		$this->singular_label = __( 'Media' );
 	}
 
 	public function set_manage_value_callback() {
