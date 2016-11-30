@@ -658,7 +658,7 @@ function cpac_reset_columns( $ ) {
 			var $indicator = $( this );
 			var setting = $( this ).data( 'setting' );
 			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']' );
-			var $input = $setting.find( '.col-input:first' ).find( 'input[type=radio]' );
+			var $input = $setting.find( '.col-input:first .ac-setting-input:first input[type=radio]' );
 
 			$indicator.unbind( 'click' ).on( 'click', function( e ) {
 				e.preventDefault();
@@ -671,7 +671,7 @@ function cpac_reset_columns( $ ) {
 				}
 			} );
 
-			$input.on( 'change', function( e ) {
+			$input.on( 'change', function( ) {
 				var value = $input.filter( ':checked' ).val();
 				if ( 'on' == value ) {
 					$indicator.addClass( 'on' );
@@ -736,11 +736,7 @@ function cpac_reset_columns( $ ) {
 
 // Settings fields: Width
 (function( $ ) {
-	/*
-	 * Column: remove from DOM
-	 *
-	 * @since 2.0
-	 */
+
 	$.fn.column_width_slider = function() {
 
 		var column_width = $( this ).find( '.ac-setting-input-width' );
@@ -834,6 +830,45 @@ function cpac_reset_columns( $ ) {
 
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+	} );
+
+}( jQuery ));
+
+(function( $ ) {
+
+	$.fn.cpac_column_sub_setting_toggle = function( options ) {
+		var settings = $.extend( {
+			value_show : "on",
+			subfield : '.ac-column-setting'
+		}, options );
+
+		function initState( $setting, $input ) {
+			var value = $input.filter( ':checked' ).val();
+			var $subfields = $setting.find( settings.subfield );
+
+			if ( settings.value_show == value ) {
+				$subfields.show();
+			} else {
+				$subfields.hide();
+			}
+		};
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $input = $( this ).find( '.ac-setting-input input[type="radio"]' );
+
+			initState( $setting, $input );
+			$input.on( 'change', function() {
+				initState( $setting, $input );
+			} );
+
+		} );
+	};
+
+	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
 	} );
 
 }( jQuery ));
