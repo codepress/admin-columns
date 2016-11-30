@@ -41,11 +41,11 @@ final class AC_Addons {
 
 		$plugins = array();
 
-		if ( cpac_is_acf_active() && ! cpac_is_addon_acf_active() ) {
+		if ( ac_is_acf_active() && ! cpac_is_addon_acf_active() ) {
 			$plugins[] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
 		}
 
-		if ( cpac_is_woocommerce_active() && ! cpac_is_addon_woocommerce_active() ) {
+		if ( ac_is_woocommerce_active() && ! cpac_is_addon_woocommerce_active() ) {
 			$plugins[] = __( 'WooCommerce', 'codepress-admin-columns' );
 		}
 

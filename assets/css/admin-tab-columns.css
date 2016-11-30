@@ -989,6 +989,108 @@
 .columns-right .sidebox#direct-feedback #feedback-support .inside ul.share li {
   width: 48%;
 }
+#ac-pro-version {
+  background: none;
+}
+#ac-pro-version .padding-box {
+  padding: 20px 10px 10px;
+  background: #3d4350;
+  color: #fff;
+}
+#ac-pro-version h3 {
+  font-size: 34px;
+}
+#ac-pro-version h3 a {
+  text-decoration: none;
+  color: #fff;
+}
+#ac-pro-version h3 a span {
+  color: #e9426e;
+}
+#ac-pro-version .acp-button {
+  background: #e9426e;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  padding: 6px 20px;
+  border-radius: 3px;
+}
+#ac-pro-version ul li {
+  padding-bottom: 3px;
+}
+#ac-pro-version ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+#ac-pro-version ul li a:before {
+  content: '\2713';
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
+}
+#ac-pro-version ul li.acp-integration {
+  padding: 6px 0;
+}
+#ac-pro-version ul li.acp-integration img {
+  height: 21px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+#ac-pro-version ul li.acp-integration img.woocommerce {
+  height: 24px;
+}
+#ac-pro-version ul li.acp-integration a:before {
+  content: '+';
+}
+#ac-pro-version .padding-box.ac-pro-deal {
+  background: none;
+  color: #3d4350;
+  padding-bottom: 20px;
+  text-align: center;
+  background-color: #fff;
+}
+#ac-pro-version .padding-box.ac-pro-deal h3 {
+  font-size: 20px;
+  line-height: 26px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 18px;
+}
+#ac-pro-version .padding-box.ac-pro-deal a.acp-button {
+  font-size: 16px;
+}
+#ac-pro-version .padding-box.ac-pro-newsletter {
+  background: #fff;
+  color: #3d4350;
+}
+#ac-pro-version .padding-box.ac-pro-newsletter h3 {
+  font-size: 20px;
+  padding-bottom: 0;
+}
+#ac-pro-version .padding-box.ac-pro-newsletter input {
+  width: 100%;
+  margin-bottom: 8px;
+}
+#ac-pro-version .padding-box.ac-pro-newsletter .acp-button {
+  margin-top: 15px;
+  margin-bottom: 0;
+  padding: 7px 20px;
+}
+#ac-pro-version .acp-button {
+  background: #e9426e;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  padding: 6px 20px;
+  border-radius: 3px;
+}
 /* =Responsive
 -------------------------------------------------------------- */
 @media only screen and (max-width: 900px) {
