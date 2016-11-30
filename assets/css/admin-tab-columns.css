@@ -504,257 +504,6 @@
   border-color: #dfdfdf;
   position: relative; }
 
-.ac-column-body___ > table tr.hide {
-  display: none; }
-
-.ac-column-body___ > table tr.radio > td.input > label {
-  padding-left: 0;
-  padding-right: 14px; }
-
-.ac-column-body___ > table tr td {
-  vertical-align: top;
-  border: none;
-  padding: 10px 10px;
-  background: #ffffff;
-  border-top: 1px solid #f5f5f5;
-  /*.ac-settings-input {
-					vertical-align: top;
-
-					div.msg {
-						margin-top: 5px;
-						display: none;
-						color: #333;
-						padding: 6px 8px;
-						background-color: #ffebe8;
-						border: 1px solid #fff;
-						-moz-border-radius: 3px;
-						-webkit-border-radius: 3px;
-						border-radius: 3px;
-					}
-
-					.help-msg {
-						//font-style: italic;
-						margin: 10px 0 0;
-						color: #666;
-						font-size: 12px;
-					}
-
-					.section {
-						padding: 12px;
-					}
-
-					&.nopadding {
-						padding: 0;
-					}
-
-					table {
-						width: 100%;
-						border: none;
-
-						tr {
-
-							td {
-								&.label {
-									background-color: $bg-gray-light;
-									border-right: 1px solid $border-gray;
-									width: 35%;
-
-									span {
-										color: lighten(#333, 15);
-										font-size: 12px;
-									}
-								}
-
-								&.input {
-									width: 65%;
-									border-color: $border-gray;
-								}
-							}
-
-							&.full td {
-								width: 100%;
-								height: 29px;
-							}
-						}
-					}
-				}*/ }
-  .ac-column-body___ > table tr td input {
-    margin: 0; }
-  .ac-column-body___ > table tr td select,
-  .ac-column-body___ > table tr td input[type=text],
-  .ac-column-body___ > table tr td input[type=number] {
-    width: 99.95%; }
-    .ac-column-body___ > table tr td select.small,
-    .ac-column-body___ > table tr td input[type=text].small,
-    .ac-column-body___ > table tr td input[type=number].small {
-      width: 100px; }
-  .ac-column-body___ > table tr td select {
-    margin: 0; }
-  .ac-column-body___ > table tr td div.radio-labels {
-    padding: 3px 0; }
-    .ac-column-body___ > table tr td div.radio-labels label {
-      margin-right: 14px; }
-      .ac-column-body___ > table tr td div.radio-labels label input[type=radio] {
-        margin: -3px 2px 0 0; }
-  .ac-column-body___ > table tr td span.suffix {
-    line-height: 40px;
-    color: #808080; }
-  .ac-column-body___ > table tr td select optgroup:nth-child(2n) {
-    background: #F9F9F9; }
-  .ac-column-body___ > table tr td.label {
-    position: relative;
-    overflow: visible;
-    background: #f5f5f5;
-    border-right: 1px solid #dedede;
-    vertical-align: top;
-    width: 34%;
-    border-top: 1px solid #e8e8e8;
-    padding-left: 12px;
-    /*a.more-link {
-						position: absolute;
-						right: 14px;
-						top: 14px;
-						display: inline-block;
-
-						span {
-							color: #ccc;
-						}
-
-						&:hover span {
-							color: #808080;
-						}
-					}*/
-    /*.info {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 100%;
-						height: 100%;
-						z-index: 1;
-
-						&:before {
-							position: absolute;
-							z-index: 1;
-							right: 10px;
-							top: 50%;
-							margin-top: -7px;
-							content: '';
-							display: block;
-							border-radius: 32px;
-							border: 1px solid #E6E6E6;
-							width: 12px;
-							height: 12px;
-						}
-
-						&:after {
-							position: absolute;
-							z-index: 1;
-							right: 10px;
-							top: 50%;
-							margin-top: -6px;
-							content: '?';
-							display: block;
-							width: 14px;
-							height: 14px;
-							color: #E6E6E6;
-							font: bold 10px Arial;
-							text-align: center;
-							vertical-align: middle;
-							line-height: 14px;
-						}
-					}*/ }
-    .ac-column-body___ > table tr td.label span.label {
-      font-weight: bold;
-      color: #333333;
-      display: block;
-      position: relative;
-      line-height: 26px; }
-    .ac-column-body___ > table tr td.label p {
-      color: #666666;
-      display: block;
-      font-size: 12px;
-      font-style: normal;
-      line-height: 16px;
-      margin: 0 !important; }
-      .ac-column-body___ > table tr td.label p.description {
-        display: none;
-        position: absolute;
-        max-width: 200px;
-        z-index: 99;
-        top: 40px;
-        left: 0;
-        font-weight: normal;
-        color: #fff;
-        background-color: #333;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        padding: .618em 1em;
-        border-radius: 3px; }
-        .ac-column-body___ > table tr td.label p.description em {
-          margin-top: 3px;
-          display: block;
-          color: #999; }
-
-.ac-column-body___ > table tr.column-label input::-webkit-input-placeholder {
-  color: #9a9a9a; }
-
-.ac-column-body___ > table tr.column-label input:-moz-placeholder {
-  color: #9a9a9a; }
-
-.ac-column-body___ > table tr.column-label input::-moz-placeholder {
-  color: #9a9a9a; }
-
-.ac-column-body___ > table tr.column-label input:-ms-input-placeholder {
-  color: #9a9a9a; }
-
-.ac-column-body___ > table tr.column_image_size {
-  border: 10px solid red; }
-  .ac-column-body___ > table tr.column_image_size td.input label.custom-size {
-    display: inline-block;
-    margin-top: 4px;
-    margin-bottom: 4px; }
-  .ac-column-body___ > table tr.column_image_size td.input .custom_image_size {
-    display: inline-block; }
-    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .hidden {
-      display: none; }
-    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w,
-    .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h {
-      margin: 0; }
-      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w.hidden,
-      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h.hidden {
-        display: none; }
-      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-w input[type="text"],
-      .ac-column-body___ > table tr.column_image_size td.input .custom_image_size .custom-size-h input[type="text"] {
-        margin-right: 3px;
-        width: 40px !important; }
-
-.ac-column-body___ > table tr.column_action td {
-  border-top: 1px solid #e9e9e9; }
-  .ac-column-body___ > table tr.column_action td p {
-    margin: 0;
-    line-height: 2; }
-    .ac-column-body___ > table tr.column_action td p a.close-button, .ac-column-body___ > table tr.column_action td p a.clone-button {
-      margin-right: 10px; }
-    .ac-column-body___ > table tr.column_action td p a.remove-button {
-      color: #a00;
-      text-decoration: none;
-      text-shadow: none;
-      font-weight: normal;
-      font-size: 12px;
-      padding: 0 5px;
-      margin-right: 5px; }
-      .ac-column-body___ > table tr.column_action td p a.remove-button:hover {
-        color: #fff;
-        background: #f00; }
-
-.ac-column-body___ > table tr.column_field td {
-  border-top: 1px solid #dedede; }
-
-.ac-column-body___ > table tr.section > td {
-  border-top: 1px solid #dedede; }
-
-.ac-column-body___ > table tr.section.radio td.label label {
-  padding: 0; }
-
 /**
  * Column: Footer
  * ----------------------------------------------------------------------------
@@ -989,8 +738,96 @@
   .columns-right .sidebox#direct-feedback #feedback-support .inside ul.share li {
     width: 48%; }
 
-/* =Responsive
--------------------------------------------------------------- */
+/**
+ * Side box
+ * ----------------------------------------------------------------------------
+ */
+#ac-pro-version {
+  background: none; }
+  #ac-pro-version .padding-box {
+    padding: 20px 10px 10px;
+    background: #3d4350;
+    color: #fff; }
+  #ac-pro-version h3 {
+    font-size: 34px; }
+    #ac-pro-version h3 a {
+      text-decoration: none;
+      color: #fff; }
+      #ac-pro-version h3 a span {
+        color: #e9426e; }
+  #ac-pro-version .acp-button {
+    background: #e9426e;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 6px 20px;
+    border-radius: 3px; }
+  #ac-pro-version ul li {
+    padding-bottom: 3px; }
+    #ac-pro-version ul li a {
+      color: #fff;
+      text-decoration: none; }
+      #ac-pro-version ul li a:before {
+        content: '\2713';
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 10px; }
+    #ac-pro-version ul li.acp-integration {
+      padding: 6px 0; }
+      #ac-pro-version ul li.acp-integration img {
+        height: 21px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px; }
+        #ac-pro-version ul li.acp-integration img.woocommerce {
+          height: 24px; }
+      #ac-pro-version ul li.acp-integration a:before {
+        content: '+'; }
+  #ac-pro-version .padding-box.ac-pro-deal {
+    background: none;
+    color: #3d4350;
+    padding-bottom: 20px;
+    text-align: center;
+    background-color: #fff; }
+    #ac-pro-version .padding-box.ac-pro-deal h3 {
+      font-size: 20px;
+      line-height: 26px;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 18px; }
+    #ac-pro-version .padding-box.ac-pro-deal a.acp-button {
+      font-size: 16px; }
+  #ac-pro-version .padding-box.ac-pro-newsletter {
+    background: #fff;
+    color: #3d4350; }
+    #ac-pro-version .padding-box.ac-pro-newsletter h3 {
+      font-size: 20px;
+      padding-bottom: 0; }
+    #ac-pro-version .padding-box.ac-pro-newsletter input {
+      width: 100%;
+      margin-bottom: 8px; }
+    #ac-pro-version .padding-box.ac-pro-newsletter .acp-button {
+      margin-top: 15px;
+      margin-bottom: 0;
+      padding: 7px 20px; }
+  #ac-pro-version .acp-button {
+    background: #e9426e;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 6px 20px;
+    border-radius: 3px; }
+
+/**
+ * Responsive
+ * ----------------------------------------------------------------------------
+ */
 @media only screen and (max-width: 900px) {
   .columns-container {
     margin-right: 0; }

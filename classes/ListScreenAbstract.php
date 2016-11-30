@@ -435,11 +435,11 @@ abstract class AC_ListScreenAbstract {
 		}
 
 		// Integration placeholders
-		if ( cpac_is_acf_active() ) {
+		if ( ac_is_acf_active() ) {
 			$this->register_column_type( new AC_Column_ACFPlaceholder );
 		}
 
-		if ( cpac_is_woocommerce_active() ) {
+		if ( ac_is_woocommerce_active() ) {
 			$this->register_column_type( new AC_Column_WooCommercePlaceholder );
 		}
 

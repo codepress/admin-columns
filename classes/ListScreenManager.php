@@ -18,7 +18,7 @@ final class AC_ListScreenManager {
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
-		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20, 1 );
+		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 	}
 
 	/**
@@ -273,6 +273,7 @@ final class AC_ListScreenManager {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 
 			// @deprecated NEWVERSION
+
             // TODO: remove?
 			//$label = apply_filters( 'cac/headings/label', $column->settings()->get_value( 'label' ), $column->get_name(), $column->settings()->get_options(), $this );
 
