@@ -221,9 +221,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
 				'type'  => 'message',
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-
-					// TODO: works?
-					'<strong>' . $column->get_setting( 'type' )->get_clean_label() . '</strong>' ),
+					'<strong>' . $column->get_setting( 'type' )->get_value( 'clean_label' ) . '</strong>' ),
 			) );
 		}
 
@@ -576,7 +574,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
                                     <div class="padding-box ac-pro-newsletter">
                                         <h3><?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), '20%' ) ); ?></h3>
                                         <div class="inside">
-                                            <p>Submit your email and we'll send you a coupon for 20% off your upgrade to the pro version</p>
+                                            <p><?php esc_html( sprintf( __( "Submit your email and we'll send you a coupon for %s off your upgrade to the pro version", 'codepress-admin-columns' ), '20%' ) ); ?></p>
                                             <form>
                                                 <input name="name" placeholder="Your Name">
                                                 <input name="email" placeholder="Your Email">
@@ -670,7 +668,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_TabAbstract {
                         <div class="inside">
 							<?php if ( version_compare( get_bloginfo( 'version' ), '3.2', '>' ) ) : ?>
                                 <p>
-									<?php _e( 'Check the <strong>Help</strong> section in the top-right screen.', 'codepress-admin-columns' ); ?>
+									<?php _e( "Check the <strong>Help</strong> section in the top-right screen.", 'codepress-admin-columns' ); ?>
                                 </p>
 							<?php endif; ?>
                             <p>
