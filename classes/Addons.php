@@ -67,52 +67,52 @@ final class AC_Addons {
 				$plugins_list = sprintf( __( '%s and %s', 'codepress-admin-columns' ), $plugins[0], $plugins[1] );
 			}
 			?>
-			<div class="cpac_message updated">
-				<a href="#" class="hide-notice hide-install-addons-notice"></a>
+            <div class="cpac_message updated">
+                <a href="#" class="hide-notice hide-install-addons-notice"></a>
 
-				<p><?php printf(
+                <p><?php printf(
 						__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
 						$plugins_list,
 						'<a href="' . esc_attr( AC()->settings()->get_link( 'addons' ) ) . '">' . esc_html( __( 'the addons page', 'codepress-admin-columns' ) ) . '</a>'
 					); ?>
-			</div>
-			<style type="text/css">
-				body .wrap .cpac_message {
-					position: relative;
-					padding-right: 40px;
-				}
+            </div>
+            <style type="text/css">
+                body .wrap .cpac_message {
+                    position: relative;
+                    padding-right: 40px;
+                }
 
-				.cpac_message .spinner.right {
-					visibility: visible;
-					display: block;
-					right: 8px;
-					text-decoration: none;
-					text-align: right;
-					position: absolute;
-					top: 50%;
-					margin-top: -10px;
-				}
+                .cpac_message .spinner.right {
+                    visibility: visible;
+                    display: block;
+                    right: 8px;
+                    text-decoration: none;
+                    text-align: right;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -10px;
+                }
 
-				.cpac_message .hide-notice {
-					right: 8px;
-					text-decoration: none;
-					width: 32px;
-					text-align: right;
-					position: absolute;
-					top: 50%;
-					height: 32px;
-					margin-top: -16px;
-				}
+                .cpac_message .hide-notice {
+                    right: 8px;
+                    text-decoration: none;
+                    width: 32px;
+                    text-align: right;
+                    position: absolute;
+                    top: 50%;
+                    height: 32px;
+                    margin-top: -16px;
+                }
 
-				.cpac_message .hide-notice:before {
-					display: block;
-					content: '\f335';
-					font-family: 'Dashicons', serif;
-					margin: .5em 0;
-					padding: 2px;
-				}
-			</style>
-			<script type="text/javascript">
+                .cpac_message .hide-notice:before {
+                    display: block;
+                    content: '\f335';
+                    font-family: 'Dashicons', serif;
+                    margin: .5em 0;
+                    padding: 2px;
+                }
+            </style>
+            <script type="text/javascript">
 				jQuery( function( $ ) {
 					$( document ).ready( function() {
 						$( '.updated a.hide-install-addons-notice' ).click( function( e ) {
@@ -136,7 +136,7 @@ final class AC_Addons {
 						} );
 					} );
 				} );
-			</script>
+            </script>
 			<?php
 		}
 	}
@@ -147,7 +147,6 @@ final class AC_Addons {
 	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
-
 		update_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, '1', true );
 	}
 
@@ -184,7 +183,7 @@ final class AC_Addons {
 		$install_url = add_query_arg( array(
 			'action'        => 'install-plugin',
 			'plugin'        => $_GET['plugin'],
-			'cpac-redirect' => true
+			'cpac-redirect' => true,
 		), wp_nonce_url( network_admin_url( 'update.php' ), 'install-plugin_' . $_GET['plugin'] ) );
 
 		wp_redirect( $install_url );
@@ -236,7 +235,7 @@ final class AC_Addons {
 	public function get_addon_groups() {
 
 		$addon_groups = array(
-			'integration' => __( 'Plugins', 'codepress-admin-columns' )
+			'integration' => __( 'Plugins', 'codepress-admin-columns' ),
 		);
 
 		/**
@@ -265,14 +264,14 @@ final class AC_Addons {
 				'title'       => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
 				'description' => __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 				'group'       => 'integration',
-				'image'       => AC()->get_plugin_url() . 'assets/images/addons/acf.png'
+				'image'       => AC()->get_plugin_url() . 'assets/images/addons/acf.png',
 			),
 			'cac-addon-woocommerce' => array(
 				'title'       => __( 'WooCommerce', 'codepress-admin-columns' ),
 				'description' => __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 				'group'       => 'integration',
-				'image'       => AC()->get_plugin_url() . 'assets/images/addons/woocommerce.png'
-			)
+				'image'       => AC()->get_plugin_url() . 'assets/images/addons/woocommerce.png',
+			),
 		);
 
 		/**
@@ -288,7 +287,7 @@ final class AC_Addons {
 			$addons[ $addon_name ] = wp_parse_args( $addon, array(
 				'title' => '',
 				'group' => '',
-				'image' => ''
+				'image' => '',
 			) );
 		}
 

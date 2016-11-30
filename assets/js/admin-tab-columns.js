@@ -473,7 +473,8 @@ function cpac_reset_columns( $ ) {
 
 		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
 		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
-	}
+	};
+
 	/*
 	 * Column: remove from DOM
 	 *
@@ -688,7 +689,7 @@ function cpac_reset_columns( $ ) {
 			} );
 		} );
 
-	}
+	};
 
 	/*
 	 * Sortable
@@ -721,7 +722,7 @@ function cpac_reset_columns( $ ) {
 			} else {
 				$setting.find( '.ac-column-setting' ).hide();
 			}
-		};
+		}
 
 		$( this ).each( function() {
 			var $setting = $( this );
@@ -779,7 +780,6 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_setting_width = function() {
 
 		$( this ).each( function() {
-			var $setting = $( this );
 			var $column = $( this ).parents( '.ac-column' );
 			$column.column_width_slider();
 
@@ -858,7 +858,7 @@ function cpac_reset_columns( $ ) {
 			} else {
 				$subfields.hide();
 			}
-		};
+		}
 
 		$( this ).each( function() {
 			var $setting = $( this );
