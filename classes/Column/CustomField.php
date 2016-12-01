@@ -158,9 +158,23 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
-		//$mixed = $this->get_raw_value( $id );
-
 		$value = $this->get_setting( 'custom_field' )->format( $id );
+
+		if ( ! $value ) {
+			$value = ac_helper()->string->get_empty_char();
+		}
+
+		/**
+		 * Filter the display value for Custom Field columns
+		 *
+		 * @param mixed $value Custom field value
+		 * @param int $id Object ID
+		 * @param object $this Column instance
+		 */
+		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
+
+		return $value;
+
 
 		// todo remove
 		$raw_value = $this->get_raw_value( $id );

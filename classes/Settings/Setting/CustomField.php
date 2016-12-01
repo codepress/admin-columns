@@ -3,8 +3,14 @@
 class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 	implements AC_Settings_FormatInterface {
 
+	/**
+	 * @var string
+	 */
 	private $field;
 
+	/**
+	 * @var string
+	 */
 	private $field_type;
 
 	protected function set_name() {
@@ -40,10 +46,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 			              ->set_options( $this->get_field_options() );
 		}
 
-		$view = new AC_View();
-		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		     ->set( 'setting', $field )
-		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
+		$view = new AC_View( array(
+			'label'    => __( 'Custom Field', 'codepress-admin-columns' ),
+			'setting'  => $field,
+			'sections' => array( $field_type, $this->get_sub_setting() ),
+		) );
 
 		return $view;
 	}
@@ -51,7 +58,10 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 	private function get_field_options() {
 		$options = array();
 
-		if ( $keys = $this->column->get_meta_keys() ) {
+		/* @var AC_Column_CustomFieldAbstract $column */
+		$column = $this->column;
+
+		if ( $keys = $column->get_meta_keys() ) {
 			$options = array(
 				'hidden' => array(
 					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
@@ -118,8 +128,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 	}
 
 	public function get_sub_setting() {
-		$setting = false;
-
 		switch ( $this->get_field_type() ) {
 			case 'date' :
 				$setting = new AC_Settings_Setting_Date( $this->column );
@@ -137,54 +145,19 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 			case 'user_by_id' :
 				$setting = new AC_Settings_Setting_User( $this->column );
 				break;
+			default :
+				$setting = false;
 		}
 
 		return $setting;
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_field() {
-		return $this->field;
-	}
-
-	/**
-	 * @param string $field
-	 *
-	 * @return $this
-	 */
-	public function set_field( $field ) {
-		$this->field = $field;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_field_type() {
-		return $this->field_type;
-	}
-
-	/**
-	 * @param string $field_type
-	 *
-	 * @return $this
-	 */
-	public function set_field_type( $field_type ) {
-		$this->field_type = $field_type;
-
-		return $this;
-	}
-
-	/**
-	 * @param array|string $raw_value
+	 * @param array|string $id
 	 *
 	 * @return string|bool
 	 */
 	public function format( $id ) {
-
 		$raw_value = $this->column->get_raw_value( $id );
 		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
@@ -193,6 +166,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 			case 'library_id' :
 				// todo test images, was incomplete when I started it
 				$value = ac_helper()->string->comma_separated_to_array( $raw_value );
+				break;
 
 			case 'excerpt' :
 			case 'date' :
@@ -205,10 +179,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 
 				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
-						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
-							$link = get_edit_post_link( $id );
-							$titles[] = ac_helper()->html->link( $link, $title );
-						}
+						$titles[] = $this->get_sub_setting()->format( $id );
 					}
 				}
 
@@ -220,9 +191,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 
 				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
 					foreach ( (array) $ids as $id ) {
-						if ( $username = $this->get_username_by_id( $id ) ) {
-							$names[] = ac_helper()->html->link( get_edit_user_link( $id ), $username );
-						}
+						$names[] = $this->get_sub_setting()->format( $id );
 					}
 				}
 
@@ -259,6 +228,49 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_field() {
+		return $this->field;
+	}
+
+	/**
+	 * @param string $field
+	 *
+	 * @return $this
+	 */
+	public function set_field( $field ) {
+		$this->field = $field;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_field_type() {
+		return $this->field_type;
+	}
+
+	/**
+	 * @param string $field_type
+	 *
+	 * @return $this
+	 */
+	public function set_field_type( $field_type ) {
+		$this->field_type = $field_type;
+
+		// expose the managed options of the setting
+		if ( $sub_setting = $this->get_sub_setting() ) {
+			foreach ( $sub_setting->get_managed_options() as $managed_option ) {
+				$this->managed_options[] = $managed_option;
+			}
+		}
+
+		return $this;
 	}
 
 }

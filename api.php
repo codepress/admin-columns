@@ -45,14 +45,14 @@ function cpac_is_wc_version_gte( $version = '1.0' ) {
 /**
  * @return bool True when ACF plugin is activated.
  */
-function cpac_is_acf_active() {
+function ac_is_acf_active() {
 	return class_exists( 'acf', false );
 }
 
 /**
  * @return bool True when WooCommerce plugin is activated.
  */
-function cpac_is_woocommerce_active() {
+function ac_is_woocommerce_active() {
 	return class_exists( 'WooCommerce', false );
 }
 

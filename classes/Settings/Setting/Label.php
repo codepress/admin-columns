@@ -52,7 +52,7 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 		return $this;
 	}
 
-	// todo: somehow use when storing or maybe always use
+	// TODO: somehow use when storing or maybe always use
 	private function sanitize( $label ) {
 		if ( $label ) {
 			// Local site url will be replaced before storing into DB.

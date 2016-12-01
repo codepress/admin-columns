@@ -128,7 +128,14 @@ function cpac_add_column( $ ) {
 		$( '.ac-columns form' ).append( clone );
 
 		// refresh column
-		clone.cpac_column_refresh();
+		// TODO: remove?
+		//clone.cpac_column_refresh();
+
+		// TODO: better?
+		clone.column_bind_toggle();
+		clone.column_bind_remove();
+		clone.column_bind_clone();
+		clone.column_bind_events();
 
 		// hook for addons
 		$( document ).trigger( 'column_add', clone );
@@ -292,7 +299,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
-		var column_name = $( this ).find( 'input.column-name' ).val();
+		var column_name = $( this ).data( 'column-name' );
 		var formdata = $( this ).parents( 'form' ).serialize();
 
 		// Mark column as loading
@@ -413,7 +420,7 @@ function cpac_reset_columns( $ ) {
 
 							// trigger refresh
 							// TODO: needed?
-							//if ( el.find( '[data-refresh=1]' ).length > 0 ) {
+							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
 							//el.cpac_column_refresh();
 							//}
 
@@ -466,7 +473,8 @@ function cpac_reset_columns( $ ) {
 
 		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
 		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
-	}
+	};
+
 	/*
 	 * Column: remove from DOM
 	 *
@@ -489,11 +497,12 @@ function cpac_reset_columns( $ ) {
 		var column = $( this );
 		var columns = $( this ).closest( 'ac-columns' );
 
-		if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
+		if ( '1' === column.attr( 'data-original' ) ) {
+
 			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
 			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
-			column.find( '.msg' ).html( message ).show();
+			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();
 
 			return;
 		}
@@ -557,14 +566,13 @@ function cpac_reset_columns( $ ) {
 		var clone_id = el.attr( 'data-clone' );
 		var clone_suffix = '';
 
-		if ( clone_id ) {
+		if ( clone_id > 0 ) {
 			clone_suffix = '-' + clone_id;
 		}
 
 		// set clone ID
 		el.attr( 'data-clone', id );
-		el.find( 'input.clone' ).val( id );
-		el.find( 'input.column-name' ).val( type + '-' + id );
+		el.attr( 'data-column-name', type + '-' + id );
 
 		// update input names with clone ID
 		var inputs = el.find( 'input, select, label' );
@@ -658,7 +666,7 @@ function cpac_reset_columns( $ ) {
 			var $indicator = $( this );
 			var setting = $( this ).data( 'setting' );
 			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']' );
-			var $input = $setting.find( '.col-input:first' ).find( 'input[type=radio]' );
+			var $input = $setting.find( '.col-input:first .ac-setting-input:first input[type=radio]' );
 
 			$indicator.unbind( 'click' ).on( 'click', function( e ) {
 				e.preventDefault();
@@ -671,7 +679,7 @@ function cpac_reset_columns( $ ) {
 				}
 			} );
 
-			$input.on( 'change', function( e ) {
+			$input.on( 'change', function() {
 				var value = $input.filter( ':checked' ).val();
 				if ( 'on' == value ) {
 					$indicator.addClass( 'on' );
@@ -681,7 +689,7 @@ function cpac_reset_columns( $ ) {
 			} );
 		} );
 
-	}
+	};
 
 	/*
 	 * Sortable
@@ -714,7 +722,7 @@ function cpac_reset_columns( $ ) {
 			} else {
 				$setting.find( '.ac-column-setting' ).hide();
 			}
-		};
+		}
 
 		$( this ).each( function() {
 			var $setting = $( this );
@@ -736,11 +744,7 @@ function cpac_reset_columns( $ ) {
 
 // Settings fields: Width
 (function( $ ) {
-	/*
-	 * Column: remove from DOM
-	 *
-	 * @since 2.0
-	 */
+
 	$.fn.column_width_slider = function() {
 
 		var column_width = $( this ).find( '.ac-setting-input-width' );
@@ -776,7 +780,6 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_setting_width = function() {
 
 		$( this ).each( function() {
-			var $setting = $( this );
 			var $column = $( this ).parents( '.ac-column' );
 			$column.column_width_slider();
 
@@ -834,6 +837,45 @@ function cpac_reset_columns( $ ) {
 
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+	} );
+
+}( jQuery ));
+
+(function( $ ) {
+
+	$.fn.cpac_column_sub_setting_toggle = function( options ) {
+		var settings = $.extend( {
+			value_show : "on",
+			subfield : '.ac-column-setting'
+		}, options );
+
+		function initState( $setting, $input ) {
+			var value = $input.filter( ':checked' ).val();
+			var $subfields = $setting.find( settings.subfield );
+
+			if ( settings.value_show == value ) {
+				$subfields.show();
+			} else {
+				$subfields.hide();
+			}
+		}
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $input = $( this ).find( '.ac-setting-input input[type="radio"]' );
+
+			initState( $setting, $input );
+			$input.on( 'change', function() {
+				initState( $setting, $input );
+			} );
+
+		} );
+	};
+
+	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
 	} );
 
 }( jQuery ));

@@ -14,7 +14,7 @@ class AC_Column_ActionColumnHelper {
 	/**
 	 * @since 2.5
 	 */
-	protected static $_instance = null;
+	private static $_instance = null;
 
 	/**
 	 * @since 2.5
@@ -27,6 +27,8 @@ class AC_Column_ActionColumnHelper {
 		return self::$_instance;
 	}
 
+	//TODO: when action column is the first column. The actions do not show anymore. Create fix.
+
 	public function __construct() {
 		add_filter( 'comment_row_actions', array( $this, 'set_comment' ), 10, 2 );
 		add_filter( 'page_row_actions', array( $this, 'set_post' ), 10, 2 );
@@ -37,18 +39,26 @@ class AC_Column_ActionColumnHelper {
 
 	public function set_comment( $actions, $comment ) {
 		$this->actions[ 'comment' ][ $comment->ID ] = $actions;
+
+		return $actions;
 	}
 
 	public function set_post( $actions, $post ) {
 		$this->actions[ 'post' ][ $post->ID ] = $actions;
+
+		return $actions;
 	}
 
 	public function set_media( $actions, $post ) {
 		$this->actions[ 'media' ][ $post->ID ] = $actions;
+
+		return $actions;
 	}
 
 	public function set_user( $actions, $user ) {
 		$this->actions[ 'user' ][ $user->ID ] = $actions;
+
+		return $actions;
 	}
 
 	/**
@@ -57,7 +67,7 @@ class AC_Column_ActionColumnHelper {
 	 * @param string $type
 	 * @param int $id Object ID
 	 *
-	 * @return array Array with actions
+	 * @return array|false Array with actions
 	 */
 	public function get( $type, $id ) {
 		return isset( $this->actions[ $type ][ $id ] ) ? $this->actions[ $type ][ $id ] : array();

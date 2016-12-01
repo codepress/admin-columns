@@ -210,7 +210,6 @@ abstract class AC_Column {
 	 *
 	 * @return bool Whether the column type should be available
 	 */
-	// TODO: used to be apply_conditional(), replace inside all columns (including add-ons)
 	public function is_valid() {
 		return true;
 	}
@@ -291,6 +290,11 @@ abstract class AC_Column {
 		return isset( $options[ $key ] ) ? $options[ $key ] : null;
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return $this
+	 */
 	public function set_options( array $options ) {
 		foreach ( $this->get_settings() as $setting ) {
 			$setting->set_options( $options );
