@@ -58,12 +58,12 @@ abstract class AC_Settings_SettingAbstract {
 	 */
 	protected abstract function set_managed_options();
 
-	protected function has_managed_options() {
-		return ! empty( $this->managed_options );
-	}
-
 	public function has_managed_option( $option ) {
 		return in_array( $option, $this->managed_options );
+	}
+
+	public function get_managed_options() {
+		return $this->managed_options;
 	}
 
 	/**
@@ -188,13 +188,17 @@ abstract class AC_Settings_SettingAbstract {
 	 * Set the options of this setting
 	 *
 	 * @param array $options
+	 *
+	 * @return $this
 	 */
 	public function set_options( array $options ) {
 		foreach ( $options as $key => $value ) {
-			if ( in_array( $key, $this->managed_options ) ) {
+			if ( $this->has_managed_option( $key ) ) {
 				$this->set_option( $value, $key );
 			}
 		}
+
+		return $this;
 	}
 
 	/**

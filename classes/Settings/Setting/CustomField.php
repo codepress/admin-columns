@@ -46,10 +46,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 			              ->set_options( $this->get_field_options() );
 		}
 
-		$view = new AC_View();
-		$view->set( 'label', __( 'Custom Field', 'codepress-admin-columns' ) )
-		     ->set( 'setting', $field )
-		     ->set( 'sections', array( $field_type, $this->get_sub_setting() ) );
+		$view = new AC_View( array(
+			'label'    => __( 'Custom Field', 'codepress-admin-columns' ),
+			'setting'  => $field,
+			'sections' => array( $field_type, $this->get_sub_setting() ),
+		) );
 
 		return $view;
 	}
@@ -127,7 +128,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	}
 
 	public function get_sub_setting() {
-
 		switch ( $this->get_field_type() ) {
 			case 'date' :
 				$setting = new AC_Settings_Setting_Date( $this->column );
@@ -153,48 +153,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_field() {
-		return $this->field;
-	}
-
-	/**
-	 * @param string $field
-	 *
-	 * @return $this
-	 */
-	public function set_field( $field ) {
-		$this->field = $field;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_field_type() {
-		return $this->field_type;
-	}
-
-	/**
-	 * @param string $field_type
-	 *
-	 * @return $this
-	 */
-	public function set_field_type( $field_type ) {
-		$this->field_type = $field_type;
-
-		return $this;
-	}
-
-	/**
-	 * @param array|string $raw_value
+	 * @param array|string $id
 	 *
 	 * @return string|bool
 	 */
 	public function format( $id ) {
-
 		$raw_value = $this->column->get_raw_value( $id );
 		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
@@ -265,6 +228,49 @@ class AC_Settings_Setting_CustomField extends AC_Settings_SettingAbstract
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_field() {
+		return $this->field;
+	}
+
+	/**
+	 * @param string $field
+	 *
+	 * @return $this
+	 */
+	public function set_field( $field ) {
+		$this->field = $field;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_field_type() {
+		return $this->field_type;
+	}
+
+	/**
+	 * @param string $field_type
+	 *
+	 * @return $this
+	 */
+	public function set_field_type( $field_type ) {
+		$this->field_type = $field_type;
+
+		// expose the managed options of the setting
+		if ( $sub_setting = $this->get_sub_setting() ) {
+			foreach ( $sub_setting->get_managed_options() as $managed_option ) {
+				$this->managed_options[] = $managed_option;
+			}
+		}
+
+		return $this;
 	}
 
 }
