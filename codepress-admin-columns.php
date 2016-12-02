@@ -412,7 +412,10 @@ class CPAC {
 	private function set_list_screens() {
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
-			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
+			$list_screen = new AC_ListScreen_Post();
+			$list_screen->set_post_type( $post_type );
+
+			$this->register_list_screen( $list_screen );
 		}
 
 		// Create other list screens
