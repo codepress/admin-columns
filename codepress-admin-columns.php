@@ -501,6 +501,7 @@ class CPAC {
 	 *
 	 * @return AC_ListScreen
 	 */
+	// TODO: set good reference get_current_list_screen does not exist
 	public function get_current_storage_model() {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
 
