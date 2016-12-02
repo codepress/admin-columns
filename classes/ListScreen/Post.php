@@ -48,9 +48,7 @@ class AC_ListScreen_Post extends AC_ListScreen {
 		$this->post_type = $post_type;
 		$this->key = $post_type;
 
-		if ( $post_type != 'post' ) {
-			$this->screen = $this->base . '-' . $post_type;
-		}
+		$this->screen = $this->base . '-' . $post_type;
 	}
 
 	/**
