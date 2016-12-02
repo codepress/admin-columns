@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-abstract class AC_Admin_PromoAbstract {
+abstract class AC_Admin_Promo {
 
 	/**
 	 * @var array
