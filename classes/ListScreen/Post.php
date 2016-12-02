@@ -10,11 +10,10 @@ class AC_ListScreen_Post extends AC_ListScreen {
 	public function __construct() {
 		parent::__construct();
 
-		$this->post_type = 'post';
-		$this->key = $this->post_type;
-		$this->type = $this->post_type;
+		$this->set_post_type( 'post' );
+
+		$this->type = 'post';
 		$this->base = 'edit';
-		$this->screen = $this->base;
 		$this->list_table = 'WP_Posts_List_Table';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 	}
@@ -47,7 +46,6 @@ class AC_ListScreen_Post extends AC_ListScreen {
 	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
 		$this->key = $post_type;
-
 		$this->screen = $this->base . '-' . $post_type;
 	}
 
