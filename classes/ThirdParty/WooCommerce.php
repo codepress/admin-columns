@@ -13,6 +13,7 @@ class AC_ThirdParty_WooCommerce {
 				unset( $post_types['shop_webhook'] );
 			}
 		}
+
 		return $post_types;
 	}
 

@@ -31,7 +31,7 @@ abstract class AC_Column {
 	private $clone;
 
 	/**
-	 * @var array
+	 * @var AC_Settings_Setting[]
 	 */
 	private $settings;
 
@@ -251,7 +251,7 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * @return AC_Collection
+	 * @return AC_Settings_Collection
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
@@ -266,7 +266,7 @@ abstract class AC_Column {
 			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
-		return new AC_Collection( $this->settings );
+		return new AC_Settings_Collection( $this->settings );
 	}
 
 	/**

@@ -6,7 +6,7 @@ class AC_Collection
 	/**
 	 * @var array
 	 */
-	private $items;
+	protected $items;
 
 	public function __construct( array $items = array() ) {
 		$this->items = $items;
