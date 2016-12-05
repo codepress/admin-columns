@@ -176,7 +176,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		return $value;
 
 
-		// todo remove
+		// TODO: remove
 		$raw_value = $this->get_raw_value( $id );
 		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
