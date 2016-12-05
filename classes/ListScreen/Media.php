@@ -18,7 +18,7 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 	/**
 	 * @param null|string $post_type
 	 *
-	 * return $this;
+	 * @return $this;
 	 */
 	public function set_post_type( $post_type = null ) {
 		$this->post_type = 'attachment';
