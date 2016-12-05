@@ -11,12 +11,10 @@ class AC_Column_Post_Date extends AC_Column_DefaultPost {
 		$this->set_type( 'date' );
 	}
 
-	public function get_default_with() {
-		return 10;
-	}
-
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
+
+		$this->get_settings()->width->set_default( 10 );
 	}
 
 }

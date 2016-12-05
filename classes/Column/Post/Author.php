@@ -11,8 +11,8 @@ class AC_Column_Post_Author extends AC_Column_DefaultPost {
 		$this->set_type( 'author' );
 	}
 
-	public function get_default_with() {
-		return 10;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 10 );
 	}
 
 }

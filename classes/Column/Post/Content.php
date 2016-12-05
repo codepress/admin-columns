@@ -11,7 +11,7 @@ class AC_Column_Post_Content extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		return $this->get_setting( 'word_limit' )->format( $this->get_raw_value( $post_id ) );
+		return $this->get_settings()->word_limit->format( $this->get_raw_value( $post_id ) );
 	}
 
 	public function get_raw_value( $post_id ) {

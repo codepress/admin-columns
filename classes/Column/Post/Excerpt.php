@@ -12,8 +12,8 @@ class AC_Column_Post_Excerpt extends AC_Column {
 
 	public function get_value( $post_id ) {
 		$excerpt = ac_helper()->post->excerpt( $post_id );
+		$value = $this->get_settings()->word_limit->format( $excerpt );
 
-		$value = $this->get_setting( 'word_limit' )->format( $excerpt );
 		if ( $value && ! has_excerpt( $post_id ) ) {
 			$value = '<span class="cpac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
 		}

@@ -23,7 +23,7 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 		if ( ! empty( $extended['extended'] ) ) {
 
 			// TODO: test
-			$value = $this->get_setting( 'word_limit' )->format( $extended['main'] );
+			$value = $this->get_settings()->word_limit->format( $extended['main'] );
 
 			// TODO: remove
 			//$value = ac_helper()->string->trim_words( $extended['main'], $this->get_option( 'excerpt_length' ) );
@@ -34,8 +34,9 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 
 	public function register_settings() {
 		$word_limit = new AC_Settings_Setting_WordLimit( $this );
+		$word_limit->set_default( 15 );
 
-		$this->add_setting( $word_limit->set_default( 15 ) );
+		$this->add_setting( $word_limit );
 	}
 
 }
