@@ -1,6 +1,7 @@
 <?php
 
-class AC_Collection {
+class AC_Collection
+	implements Iterator {
 
 	/**
 	 * @var array
@@ -35,6 +36,28 @@ class AC_Collection {
 
 	public function __get( $key ) {
 		return $this->get( $key );
+	}
+
+	public function rewind() {
+		reset( $this->items );
+	}
+
+	public function current() {
+		return current( $this->items );
+	}
+
+	public function key() {
+		return key( $this->items );
+	}
+
+	public function next() {
+		return next( $this->items );
+	}
+
+	public function valid() {
+		$key = $this->key();
+
+		return ( $key !== null && $key !== false );
 	}
 
 }
