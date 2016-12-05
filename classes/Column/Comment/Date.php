@@ -11,8 +11,8 @@ class AC_Column_Comment_Date extends AC_Column_Default {
 		$this->set_type( 'date' );
 	}
 
-	public function get_default_with() {
-		return 14;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 14 );
 	}
 
 }

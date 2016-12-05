@@ -11,8 +11,8 @@ class AC_Column_Media_Parent extends AC_Column_DefaultPost {
 		$this->set_type( 'parent' );
 	}
 
-	public function get_default_with() {
-		return 15;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 15 );
 	}
 
 }

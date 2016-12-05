@@ -19,7 +19,7 @@ class AC_Column_Comment_User extends AC_Column {
 
 	/**
 	 * @param int $comment_id Comment ID
- 	 *
+	 *
 	 * @return int User ID
 	 */
 	public function get_raw_value( $comment_id ) {

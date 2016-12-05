@@ -244,20 +244,17 @@ abstract class AC_Column {
 	/**
 	 * @param $id
 	 *
-	 * @return AC_Settings_Setting|AC_Settings_FormatInterface|false
+	 * @return AC_Settings_Setting|AC_Settings_FormatInterface|null
 	 */
 	public function get_setting( $id ) {
-		$settings = $this->get_settings();
-
-		return isset( $settings[ $id ] ) ? $settings[ $id ] : false;
+		return $this->get_settings()->get( $id );
 	}
 
 	/**
-	 * @return AC_Settings_Setting[]
+	 * @return AC_Collection
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
-
 			$this->add_setting( new AC_Settings_Setting_Type( $this ) )
 			     ->add_setting( new AC_Settings_Setting_Label( $this ) )
 			     ->add_setting( new AC_Settings_Setting_Width( $this ) );
@@ -269,14 +266,14 @@ abstract class AC_Column {
 			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
-		return $this->settings;
+		return new AC_Collection( $this->settings );
 	}
 
 	/**
 	 * Register settings
 	 */
 	protected function register_settings() {
-		// Overwrite in sub class
+		// Overwrite in child class
 	}
 
 	/**

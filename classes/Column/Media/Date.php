@@ -11,8 +11,8 @@ class AC_Column_Media_Date extends AC_Column_Default  {
 		$this->set_type( 'date' );
 	}
 
-	public function get_default_with() {
-		return 10;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 10 );
 	}
 
 }

@@ -11,8 +11,8 @@ class AC_Column_Comment_Response extends AC_Column_Default {
 		$this->set_type( 'response' );
 	}
 
-	public function get_default_with() {
-		return 15;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 15 );
 	}
 
 }

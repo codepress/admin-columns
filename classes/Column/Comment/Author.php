@@ -11,8 +11,8 @@ class AC_Column_Comment_Author extends AC_Column_Default {
 		$this->set_type( 'author' );
 	}
 
-	public function get_default_with() {
-		return 20;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 20 );
 	}
 
 }

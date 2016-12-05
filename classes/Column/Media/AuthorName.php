@@ -7,5 +7,4 @@
  * @since 2.0
  */
 class AC_Column_Media_AuthorName extends AC_Column_Post_AuthorName {
-
 }
