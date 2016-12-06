@@ -267,12 +267,19 @@ abstract class AC_Column {
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
-			$this->add_setting( new AC_Settings_Setting_Type( $this ) )
-			     ->add_setting( new AC_Settings_Setting_Label( $this ) )
-			     ->add_setting( new AC_Settings_Setting_Width( $this ) );
+			$settings = array(
+				new AC_Settings_Setting_Type( $this ),
+				new AC_Settings_Setting_Label( $this ),
+				new AC_Settings_Setting_Width( $this ),
+			);
+
+			foreach ( $settings as $setting ) {
+				$this->add_setting( $setting );
+			}
 
 			$this->register_settings();
 
+			// TODO: maybe add to self::register settings to allow for control on order of settings
 			do_action( 'ac/column/settings', $this );
 		}
 
