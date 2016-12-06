@@ -7,11 +7,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	 */
 	private $field;
 
-	public function __construct( AC_Column $column ) {
-		parent::__construct( $column );
-
-	}
-
 	public function get_dependent_settings() {
 		return array( new AC_Settings_Setting_FieldType( $this->column ) );
 	}
