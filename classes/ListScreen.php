@@ -253,7 +253,6 @@ abstract class AC_ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-
 		/**
 		 * @since NEWVERSION
 		 */
@@ -497,6 +496,7 @@ abstract class AC_ListScreen {
 		$column = new $class();
 
 		$column->set_list_screen( $this )
+		       ->set_options( $this->settings()->get_setting( $column->get_name() ) )
 		       ->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] );
 

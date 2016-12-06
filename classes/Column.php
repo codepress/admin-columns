@@ -41,6 +41,13 @@ abstract class AC_Column {
 	protected $list_screen;
 
 	/**
+	 * The options managed by the settings
+	 *
+	 * @var array
+	 */
+	protected $options = array();
+
+	/**
 	 * @since 2.0
 	 *
 	 * @param int $id ID
@@ -235,8 +242,13 @@ abstract class AC_Column {
 	 * @return $this
 	 */
 	public function add_setting( AC_Settings_Setting $setting ) {
+		$setting->set_options( $this->options );
 
 		$this->settings[ $setting->get_name() ] = $setting;
+
+		foreach ( $setting->get_dependent_settings() as $dependent_setting ) {
+			$this->add_setting( $dependent_setting );
+		}
 
 		return $this;
 	}
@@ -262,8 +274,6 @@ abstract class AC_Column {
 			$this->register_settings();
 
 			do_action( 'ac/column/settings', $this );
-
-			$this->set_options( $this->get_list_screen()->settings()->get_setting( $this->get_name() ) );
 		}
 
 		return new AC_Settings_Collection( $this->settings );
@@ -293,9 +303,7 @@ abstract class AC_Column {
 	 * @return $this
 	 */
 	public function set_options( array $options ) {
-		foreach ( $this->get_settings() as $setting ) {
-			$setting->set_options( $options );
-		}
+		$this->options = $options;
 
 		return $this;
 	}
@@ -306,13 +314,7 @@ abstract class AC_Column {
 	 * @return array
 	 */
 	public function get_options() {
-		$options = array();
-
-		foreach ( $this->get_settings() as $setting ) {
-			$options += $setting->get_values();
-		}
-
-		return $options;
+		return $this->options;
 	}
 
 	/**

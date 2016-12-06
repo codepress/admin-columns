@@ -58,6 +58,15 @@ abstract class AC_Settings_Setting {
 	 */
 	protected abstract function set_managed_options();
 
+	/**
+	 * Get settings that depend on this setting
+	 *
+	 * @return array
+	 */
+	public function get_dependent_settings() {
+		return array();
+	}
+
 	public function has_managed_option( $option ) {
 		return in_array( $option, $this->managed_options );
 	}
