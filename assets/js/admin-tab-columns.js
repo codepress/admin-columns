@@ -423,7 +423,7 @@ function cpac_reset_columns( $ ) {
 							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
 							//el.cpac_column_refresh();
 							//}
-
+							el.cpac_update_clone_id( container.attr( 'data-type' ) );
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
 						}
@@ -577,7 +577,6 @@ function cpac_reset_columns( $ ) {
 		// update input names with clone ID
 		var inputs = el.find( 'input, select, label' );
 		$( inputs ).each( function( i, v ) {
-
 			var new_name = type + '-' + id;
 
 			// name
