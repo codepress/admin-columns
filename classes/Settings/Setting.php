@@ -45,6 +45,8 @@ abstract class AC_Settings_Setting {
 			}
 
 			$this->managed_options[ $k ] = $v;
+
+			// todo: research: set them on the option/ property? At some point it should belong on the property!
 		}
 
 		return true;
