@@ -70,10 +70,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		}
 
 		foreach ( $column_data as $name => $options ) {
-
-			// Determine clone ID
-			// TODO: can we move this to JS?
 			$clone = str_replace( $options['type'] . '-', '', $name );
+
 			if ( is_numeric( $clone ) ) {
 				$column_data[ $name ]['clone'] = $clone;
 			}
