@@ -16,6 +16,7 @@ class AC_ListScreen_Post extends AC_ListScreen {
 		$this->base = 'edit';
 		$this->list_table = 'WP_Posts_List_Table';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+		$this->meta_type = 'post';
 	}
 
 	/**

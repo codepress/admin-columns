@@ -171,7 +171,9 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 			);
 		}
 
-		return ac_helper()->image->get_images_by_ids( $ids, $size );
+		$images = ac_helper()->image->get_images( $ids, $size );
+
+		return implode( $images );
 	}
 
 }

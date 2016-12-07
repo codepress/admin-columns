@@ -11,17 +11,7 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		return $this->get_setting( 'image' )->format( $this->get_attachment_ids( $post_id ) );
-
-		// TODO make images be wrapped in cacie-item to make them editable
-
-		/*foreach ( $ids as $id ) {
-			if ( $image = $this->format->images( $id ) ) {
-				$values[] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $id ) . '">' . $image . '</div>';
-			}
-		}
-
-		return implode( $values );*/
+		return $this->get_attachment_ids( $post_id );
 	}
 
 	public function get_raw_value( $post_id ) {

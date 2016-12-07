@@ -49,9 +49,9 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		}
 
 		$view = new AC_View( array(
-			'label'    => __( 'Field Type', 'codepress-admin-columns' ),
-			'tooltip'  => $tooltip,
-			'setting'  => $select,
+			'label'   => __( 'Field Type', 'codepress-admin-columns' ),
+			'tooltip' => $tooltip,
+			'setting' => $select,
 		) );
 
 		return $view;
@@ -76,7 +76,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
 			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
 			'user_by_id'  => __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
-			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
+			//'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 			'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
 		);
 
@@ -102,86 +102,46 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 *
 	 * @return string|bool
 	 */
-	public function format( $id ) {
+	public function format( $object_id ) {
 
-		$value = false;
+		if ( ! $this->column instanceof AC_Column_CustomFieldInterface ) {
+			return $object_id;
+		}
 
-		return $value;
+		$value = $object_id;
 
-		// Create an array
-		$raw_value = $this->column->get_raw_value( $id );
-		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
+		$meta_data = $this->column->get_raw_value( $object_id );
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
 			case 'library_id' :
-
-
-
-				// todo test images, was incomplete when I started it
-				$value = ac_helper()->string->comma_separated_to_array( $raw_value );
+				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
+				$value = ac_helper()->string->comma_separated_to_array( $string );
 				break;
 
-			case 'excerpt' :
-			case 'date' :
-			case 'link' :
-
-				$this->get_dependent_settings();
-
-				$value = $this->get_sub_setting()->format( $raw_value );
-
-				break;
 			case 'title_by_id' :
-				$titles = array();
-
-				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
-					foreach ( (array) $ids as $id ) {
-						$titles[] = $this->get_sub_setting()->format( $id );
-					}
-				}
-
-				$value = implode( ac_helper()->html->divider(), $titles );
-
+			case 'user_by_id' :
+				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
+				$value = ac_helper()->string->string_to_array_integers( $string );
 				break;
-			case "user_by_id" :
-				$names = array();
 
-				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
-					foreach ( (array) $ids as $id ) {
-						$names[] = $this->get_sub_setting()->format( $id );
-					}
-				}
-
-				$value = implode( ac_helper()->html->divider(), $names );
-
-				break;
-			case "term_by_id" :
-				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
-					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
-				}
-
-				break;
 			case "checkmark" :
-				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
-
+				$is_true = ( ! empty( $meta_data ) && 'false' !== $meta_data && '0' !== $meta_data );
 				$value = ac_helper()->icon->yes_or_no( $is_true );
-
 				break;
+
 			case "color" :
-				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : ac_helper()->string->get_empty_char();
-
+				$value = $meta_data && is_scalar( $meta_data ) ? ac_helper()->string->get_color_block( $meta_data ) : ac_helper()->string->get_empty_char();
 				break;
+
 			case "count" :
-				$raw_value = $this->column->get_raw_value( $id, false );
-				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
-
+				$meta_data = get_metadata( $this->column->get_list_screen()->get_meta_type(), $object_id, $this->column->get_field_key(), false );
+				$value = $meta_data ? count( $meta_data ) : ac_helper()->string->get_empty_char();
 				break;
+
 			case "has_content" :
-				$value = '<span class="cpac-tip" data-tip="' . esc_attr( $raw_value ) . '">' . ac_helper()->icon->yes_or_no( $raw_value ) . '</span>';
+				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
 				break;
-
-			default :
-				$value = $raw_string;
 		}
 
 		return $value;

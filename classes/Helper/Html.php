@@ -90,4 +90,15 @@ class AC_Helper_Html {
 		<?php
 	}
 
+	/**
+	 * Adds a divider to the implode
+	 *
+	 * @param $array
+	 *
+	 * @return string
+	 */
+	public function implode( $array ) {
+		return is_array( $array ) ? implode( $this->divider(), $array ) : $array;
+	}
+
 }

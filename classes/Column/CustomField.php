@@ -81,7 +81,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	 * @return bool
 	 */
 	public function get_meta_type() {
-		return false;
+		return $this->get_list_screen()->get_meta_type();
 	}
 
 	/**
@@ -158,6 +158,9 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	 * @since 1.0
 	 */
 	public function get_value( $id ) {
+
+		return $id;
+
 		$value = $this->get_setting( 'custom_field' )->format( $id );
 
 		if ( ! $value ) {
@@ -357,6 +360,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	}
 
 	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
 		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
 	}
 

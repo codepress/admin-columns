@@ -6,13 +6,6 @@
 class AC_Column_Comment_CustomField extends AC_Column_CustomField {
 
 	/**
-	 * @return string
-	 */
-	public function get_meta_type() {
-		return 'comment';
-	}
-
-	/**
 	 * @return array
 	 */
 	public function get_meta() {

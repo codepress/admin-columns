@@ -525,7 +525,6 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	private function set_columns() {
-
 		foreach ( $this->settings()->get_settings() as $data ) {
 			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );

@@ -331,9 +331,8 @@ abstract class AC_Column {
 	 *
 	 * @return string Value
 	 */
-	// TODO: looks like a utility method
 	public function get_display_value( $id ) {
-		$value = '';
+		$value = false;
 
 		$display_value = $this->get_value( $id );
 
@@ -341,8 +340,11 @@ abstract class AC_Column {
 			$value = $display_value;
 		}
 
-		if ( is_scalar( $value ) ) {
-			$value = $this->get_option( 'before' ) . $value . $this->get_option( 'after' );
+		// Apply formatting defined in the settings
+		foreach ( $this->get_settings() as $setting ) {
+			if ( $setting instanceof AC_Settings_FormatInterface ) {
+				$value = $setting->format( $value );
+			}
 		}
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this );
