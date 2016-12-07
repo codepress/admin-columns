@@ -1,15 +1,15 @@
 <?php
 
 class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_Toggle
-implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
 	 */
-	private $link_to_post = 'off';
+	private $link_to_post;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'link_to_post' );
+	protected function define_managed_options() {
+		return array( 'link_to_post' => 'off' );
 	}
 
 	public function create_view() {

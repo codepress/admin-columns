@@ -17,8 +17,8 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 		$this->name = 'user';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'display_author_as', 'user_link_to' );
+	protected function define_managed_options() {
+		return array( 'display_author_as', 'user_link_to' );
 	}
 
 	/**

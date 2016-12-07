@@ -5,8 +5,8 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_Setting
 
 	private $comment_status;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'comment_status' );
+	protected function define_managed_options() {
+		return array( 'comment_status' );
 	}
 
 	/**

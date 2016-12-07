@@ -6,10 +6,10 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_Setting
 	/**
 	 * @var int
 	 */
-	private $character_limit = 20;
+	private $character_limit;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'character_limit' );
+	protected function define_managed_options() {
+		return array( 'character_limit' => 20 );
 	}
 
 	public function create_view() {

@@ -8,8 +8,8 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 	 */
 	private $link_label;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'link_label' );
+	protected function define_managed_options() {
+		return array( 'link_label' );
 	}
 
 	public function create_view() {

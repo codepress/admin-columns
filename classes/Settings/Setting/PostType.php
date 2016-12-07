@@ -7,8 +7,8 @@ class AC_Settings_Setting_PostType extends AC_Settings_Setting {
 	 */
 	private $post_type;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'post_type' );
+	protected function define_managed_options() {
+		return array( 'post_type' );
 	}
 
 	public function create_view() {

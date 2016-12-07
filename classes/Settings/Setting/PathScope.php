@@ -1,24 +1,24 @@
 <?php
 
 class AC_Settings_Setting_PathScope extends AC_Settings_Setting
-implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
 	 */
-	private $path_scope = 'full';
+	private $path_scope;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'path_scope' );
+	protected function define_managed_options() {
+		return array( 'path_scope' => 'full' );
 	}
 
 	public function create_view() {
 		$select = $this->create_element( 'select', 'path_scope' )
-		              ->set_options( array(
-			              'full'             => __( 'Full path', 'codepress-admin-columns' ),
-			              'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
-			              'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
-		              ) );
+		               ->set_options( array(
+			               'full'             => __( 'Full path', 'codepress-admin-columns' ),
+			               'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
+			               'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
+		               ) );
 
 		$view = new AC_View( array(
 			'label'   => __( 'Path scope', 'codepress-admin-columns' ),

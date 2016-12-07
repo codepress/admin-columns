@@ -15,8 +15,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		$this->name = 'custom_field';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'field' );
+	protected function define_managed_options() {
+		return array( 'field' );
 	}
 
 	public function create_view() {

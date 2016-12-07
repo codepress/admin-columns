@@ -8,8 +8,8 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 */
 	private $field_type;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'field_type' );
+	protected function define_managed_options() {
+		return array( 'field_type' );
 	}
 
 	public function get_dependent_settings() {

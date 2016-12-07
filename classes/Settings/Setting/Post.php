@@ -17,8 +17,8 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 		$this->name = 'post';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'post_property_display', 'post_link_to' );
+	protected function define_managed_options() {
+		return array( 'post_property_display', 'post_link_to' );
 	}
 
 	/**

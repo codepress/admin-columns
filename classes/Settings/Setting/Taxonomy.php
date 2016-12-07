@@ -7,8 +7,8 @@ class AC_Settings_Setting_Taxonomy extends AC_Settings_Setting {
 	 */
 	private $taxonomy;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'taxonomy' );
+	protected function define_managed_options() {
+		return array( 'taxonomy' );
 	}
 
 	/**

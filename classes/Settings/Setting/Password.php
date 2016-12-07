@@ -12,8 +12,8 @@ class AC_Settings_Setting_Password extends AC_Settings_Setting
 		$this->name = 'password';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'password' );
+	protected function define_managed_options() {
+		return array( 'password' );
 	}
 
 	public function create_view() {

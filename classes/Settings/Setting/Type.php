@@ -13,8 +13,8 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		$this->set_default( $column->get_type() );
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'type' );
+	protected function define_managed_options() {
+		return array( 'type' );
 	}
 
 	public function create_view() {

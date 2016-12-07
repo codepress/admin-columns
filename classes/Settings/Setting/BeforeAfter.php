@@ -17,8 +17,8 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 		$this->name = 'before_after';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'before', 'after' );
+	protected function define_managed_options() {
+		return array( 'before', 'after' );
 	}
 
 	public function format( $value ) {

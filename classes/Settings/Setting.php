@@ -10,18 +10,11 @@ abstract class AC_Settings_Setting {
 	protected $name;
 
 	/**
-	 * The options this field manages
+	 * The options this field manages with optional default values
 	 *
 	 * @var array
 	 */
 	protected $managed_options = array();
-
-	/**
-	 * Default values
-	 *
-	 * @var array
-	 */
-	private $defaults = array();
 
 	/**
 	 * @var AC_Column
@@ -36,13 +29,25 @@ abstract class AC_Settings_Setting {
 
 		$this->set_managed_options();
 		$this->set_name();
+	}
 
-		// parse defaults that are set directly on the properties
-		foreach ( $this->get_values() as $key => $value ) {
-			if ( null !== $value ) {
-				$this->set_default( $value, $key );
-			}
+	private function set_managed_options() {
+		$managed_options = $this->define_managed_options();
+
+		if ( ! is_array( $managed_options ) ) {
+			return false;
 		}
+
+		foreach ( $managed_options as $k => $v ) {
+			if ( is_numeric( $k ) ) {
+				$k = $v;
+				$v = null;
+			}
+
+			$this->managed_options[ $k ] = $v;
+		}
+
+		return true;
 	}
 
 	/**
@@ -53,10 +58,11 @@ abstract class AC_Settings_Setting {
 	public abstract function create_view();
 
 	/**
-	 * Set the options this field manages
+	 * Define the options this field manages
 	 *
+	 * @return array
 	 */
-	protected abstract function set_managed_options();
+	protected abstract function define_managed_options();
 
 	/**
 	 * Get settings that depend on this setting
@@ -68,11 +74,7 @@ abstract class AC_Settings_Setting {
 	}
 
 	public function has_managed_option( $option ) {
-		return in_array( $option, $this->managed_options );
-	}
-
-	public function get_managed_options() {
-		return $this->managed_options;
+		return array_key_exists( $option, $this->managed_options );
 	}
 
 	/**
@@ -83,7 +85,7 @@ abstract class AC_Settings_Setting {
 	 * @return false|string
 	 */
 	protected function get_managed_option( $option = null ) {
-		foreach ( $this->managed_options as $managed_option ) {
+		foreach ( array_keys( $this->managed_options ) as $managed_option ) {
 			if ( null === $option || $option == $managed_option ) {
 				return $managed_option;
 			}
@@ -153,7 +155,14 @@ abstract class AC_Settings_Setting {
 			return null;
 		}
 
-		return $this->$method();
+		$value = $this->$method();
+
+		// get (possible) default
+		if ( null === $value ) {
+			$value = $this->get_default( $option );
+		}
+
+		return $value;
 	}
 
 	/**
@@ -201,9 +210,9 @@ abstract class AC_Settings_Setting {
 	 * @return $this
 	 */
 	public function set_options( array $options ) {
-		foreach ( $options as $key => $value ) {
-			if ( $this->has_managed_option( $key ) ) {
-				$this->set_option( $value, $key );
+		foreach ( $options as $option => $value ) {
+			if ( $this->has_managed_option( $option ) ) {
+				$this->set_option( $value, $option );
 			}
 		}
 
@@ -223,10 +232,8 @@ abstract class AC_Settings_Setting {
 			$option = $this->get_managed_option();
 		}
 
-		$this->defaults[ $option ] = $value;
-
-		if ( ! $this->is_user_set( $option ) ) {
-			$this->set_option( $value, $option );
+		if ( $this->has_managed_option( $option ) ) {
+			$this->managed_options[ $option ] = $value;
 		}
 
 		return $this;
@@ -244,22 +251,7 @@ abstract class AC_Settings_Setting {
 			$option = $this->get_managed_option();
 		}
 
-		return isset( $this->defaults[ $option ] ) ? $this->defaults[ $option ] : null;
-	}
-
-	/**
-	 * Check if a option is user set
-	 *
-	 * @param string|null $option
-	 *
-	 * @return bool
-	 */
-	private function is_user_set( $option = null ) {
-		if ( null === $option ) {
-			$option = $this->get_managed_option();
-		}
-
-		return $this->has_managed_option( $option ) && null !== $this->get_value( $option );
+		return $this->has_managed_option( $option ) ? $this->managed_options[ $option ] : null;
 	}
 
 	/**

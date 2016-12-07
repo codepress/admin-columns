@@ -5,10 +5,10 @@ class AC_Settings_Setting_LinkToMenu extends AC_Settings_Setting_Toggle {
 	/**
 	 * @var string
 	 */
-	private $link_to_menu = 'off';
+	private $link_to_menu;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'link_to_menu' );
+	protected function define_managed_options() {
+		return array( 'link_to_menu' => 'off' );
 	}
 
 	public function create_view() {

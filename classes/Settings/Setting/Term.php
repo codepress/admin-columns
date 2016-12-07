@@ -12,8 +12,8 @@ class AC_Settings_Setting_Term extends AC_Settings_Setting
 		$this->name = 'term';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'term_property' );
+	protected function define_managed_options() {
+		return array( 'term_property' );
 	}
 
 	public function create_view() {

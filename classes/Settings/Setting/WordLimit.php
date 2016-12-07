@@ -6,14 +6,14 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_Setting
 	/**
 	 * @var int
 	 */
-	private $excerpt_length = 20;
+	private $excerpt_length;
 
 	protected function set_name() {
 		$this->name = 'word_limit';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'excerpt_length' );
+	protected function define_managed_options() {
+		return array( 'excerpt_length' => 20 );
 	}
 
 	public function create_view() {

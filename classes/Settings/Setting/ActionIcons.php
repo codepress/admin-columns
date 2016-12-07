@@ -2,10 +2,10 @@
 
 class AC_Settings_Setting_ActionIcons extends AC_Settings_Setting {
 
-	private $use_icons = '';
+	private $use_icons;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'use_icons' );
+	protected function define_managed_options() {
+		return array( 'use_icons' => '' );
 	}
 
 	public function create_view() {

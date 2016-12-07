@@ -5,10 +5,12 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_Setting {
 	/**
 	 * @var int
 	 */
-	private $words_per_minute = 200;
+	private $words_per_minute;
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'words_per_minute' );
+	protected function define_managed_options() {
+		return array(
+			'words_per_minute' => 200,
+		);
 	}
 
 	public function create_view() {

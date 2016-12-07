@@ -11,19 +11,23 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 	/**
 	 * @var integer
 	 */
-	private $image_size_w = 80;
+	private $image_size_w;
 
 	/**
 	 * @var integer
 	 */
-	private $image_size_h = 80;
+	private $image_size_h;
 
 	protected function set_name() {
 		return $this->name = 'image';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'image_size', 'image_size_w', 'image_size_h' );
+	protected function define_managed_options() {
+		return array(
+			'image_size',
+			'image_size_w' => 80,
+			'image_size_h' => 80,
+		);
 	}
 
 	public function create_view() {

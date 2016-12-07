@@ -9,8 +9,8 @@ class AC_Settings_Setting_Date extends AC_Settings_Setting
 		$this->name = 'date';
 	}
 
-	protected function set_managed_options() {
-		$this->managed_options = array( 'date_format' );
+	protected function define_managed_options() {
+		return array( 'date_format' );
 	}
 
 	public function create_view() {
