@@ -61,7 +61,7 @@ abstract class AC_Settings_Setting {
 	/**
 	 * Get settings that depend on this setting
 	 *
-	 * @return array
+	 * @return AC_Settings_Setting[]
 	 */
 	public function get_dependent_settings() {
 		return array();

@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_FieldType extends AC_Settings_Setting
+class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	implements AC_Settings_FormatInterface {
 
 	/**
@@ -103,12 +103,21 @@ class AC_Settings_Setting_FieldType extends AC_Settings_Setting
 	 * @return string|bool
 	 */
 	public function format( $id ) {
+
+		$value = false;
+
+		return $value;
+
+		// Create an array
 		$raw_value = $this->column->get_raw_value( $id );
 		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
 			case 'library_id' :
+
+
+
 				// todo test images, was incomplete when I started it
 				$value = ac_helper()->string->comma_separated_to_array( $raw_value );
 				break;
@@ -116,6 +125,9 @@ class AC_Settings_Setting_FieldType extends AC_Settings_Setting
 			case 'excerpt' :
 			case 'date' :
 			case 'link' :
+
+				$this->get_dependent_settings();
+
 				$value = $this->get_sub_setting()->format( $raw_value );
 
 				break;

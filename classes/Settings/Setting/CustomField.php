@@ -8,7 +8,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	private $field;
 
 	public function get_dependent_settings() {
-		return array( new AC_Settings_Setting_FieldType( $this->column ) );
+		return array( new AC_Settings_Setting_CustomFieldType( $this->column ) );
 	}
 
 	protected function set_name() {
@@ -24,7 +24,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
-		} else {
+		}
+		else {
 			$field = $this->create_element( 'select', 'field' )
 			              ->set_options( $this->get_field_options() );
 		}
@@ -40,7 +41,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	private function get_field_options() {
 		$options = array();
 
-		/* @var AC_Column_CustomFieldAbstract $column */
+		/* @var AC_Column_CustomField $column */
 		$column = $this->column;
 
 		if ( $keys = $column->get_meta_keys() ) {
@@ -58,7 +59,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$options['hidden']['options'][ $field ] = substr( $field, 10 );
-				} else {
+				}
+				else {
 					$options['public']['options'][ $field ] = $field;
 				}
 			}

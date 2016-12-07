@@ -736,7 +736,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 			</div><!--.columns-left-->
 			<div class="clear"></div>
 
-
 			<div id="add-new-column-template">
 				<?php
 				foreach ( $list_screen->get_column_types() as $column_type ) {
