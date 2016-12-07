@@ -70,29 +70,24 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		}
 
 		foreach ( $column_data as $name => $options ) {
+			// set clone
 			$clone = str_replace( $options['type'] . '-', '', $name );
 
 			if ( is_numeric( $clone ) ) {
-				$column_data[ $name ]['clone'] = $clone;
+				$options['clone'] = $clone;
 			}
-		}
 
-		// sanitize user inputs
-		// TODO: sanitize?
-		/*foreach ( $column_data as $name => $options ) {
-			if ( $column = $list_screen->get_column_by_name( $options[ 'type' ] ) ) {
+			$sanitized = array();
 
-				$sanitized = array();
-
+			// sanitize data
+			if ( $column = $list_screen->create_column( $options ) ) {
 				foreach ( $column->get_settings() as $setting ) {
-					$setting->set_options( $options );
-
 					$sanitized += $setting->get_values();
 				}
-
-				$column_data[ $name ] = $sanitized;
 			}
-		}*/
+
+			$column_data[ $name ] = array_merge( $options, $sanitized );
+		}
 
 		// store columns
 		$result = $list_screen->settings()->store( $column_data );

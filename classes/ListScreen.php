@@ -498,7 +498,7 @@ abstract class AC_ListScreen {
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] )
 		       ->set_clone( $settings['clone'] )
-		       ->set_options( $this->settings()->get_setting( $column->get_name() ) ); // inject options after clone is set
+		       ->set_options( $settings ); // inject settings after clone is set
 
 		return $column;
 	}
