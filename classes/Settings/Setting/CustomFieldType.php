@@ -76,7 +76,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
 			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
 			'user_by_id'  => __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
-			//'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
+			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
 			'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
 		);
 
@@ -108,7 +108,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 			return $object_id;
 		}
 
-		$value = $object_id;
+		$value = false;
 
 		$meta_data = $this->column->get_raw_value( $object_id );
 
@@ -142,6 +142,16 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 			case "has_content" :
 				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
 				break;
+
+				// TODO: test with pods
+			case "term_by_id" :
+				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {
+					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $meta_data['term_id'], $meta_data['taxonomy'] ) );
+				}
+				break;
+
+			default :
+				$value = ac_helper()->array->implode_recursive( ', ', $meta_data );
 		}
 
 		return $value;

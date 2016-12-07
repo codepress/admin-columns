@@ -59,7 +59,7 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	public function format( $user_ids ) {
 		$values = false;
 
-		foreach ( $user_ids as $user_id ) {
+		foreach ( (array) $user_ids as $user_id ) {
 			$values[] = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 		}
 
