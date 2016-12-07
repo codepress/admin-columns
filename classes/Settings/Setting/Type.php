@@ -7,14 +7,10 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	 */
 	private $type;
 
-	public function __construct( AC_Column $column ) {
-		parent::__construct( $column );
-
-		$this->set_default( $column->get_type() );
-	}
-
 	protected function define_managed_options() {
-		return array( 'type' );
+		return array(
+			'type' => $this->column->get_type(),
+		);
 	}
 
 	public function create_view() {

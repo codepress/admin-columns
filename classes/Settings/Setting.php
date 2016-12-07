@@ -129,7 +129,7 @@ abstract class AC_Settings_Setting {
 		$method = 'get_' . $name;
 
 		if ( method_exists( $this, $method ) ) {
-			$element->set_value( $this->$method() );
+			$element->set_value( $this->get_value() );
 		}
 
 		return $element;
