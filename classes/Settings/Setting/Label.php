@@ -35,10 +35,30 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	}
 
 	/**
+	 * Convert site_url() to [cpac_site_url] and back for easy migration
+	 *
+	 * @param string $label
+	 * @param string $action
+	 *
+	 * @return string
+	 */
+	private function convert_site_url( $label, $action = 'encode' ) {
+		$input = array( site_url(), '[cpac_site_url]' );
+
+		if ( 'decode' == $action ) {
+			$input = array_reverse( $input );
+		}
+
+		return stripslashes( str_replace( $input[0], $input[1], trim( $label ) ) );
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_label() {
-		return $this->label;
+		$label = $this->convert_site_url( $this->label, 'decode' );
+
+		return $label;
 	}
 
 	/**
@@ -47,29 +67,17 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	 * @return $this
 	 */
 	public function set_label( $label ) {
-		$this->label = trim( $label );
+		$label = $this->convert_site_url( $label );
 
-		return $this;
-	}
-
-	// TODO: somehow use when storing or maybe always use
-	private function sanitize( $label ) {
-		if ( $label ) {
-			// Local site url will be replaced before storing into DB.
-			// This makes it easier when migrating DB to a new install.
-			$label = stripslashes( str_replace( site_url(), '[cpac_site_url]', trim( $label ) ) );
-
-			// Label can not contains the character ":"" and "'", because
-			// AC_Column::get_sanitized_label() will return an empty string
-			// and make an exception for site_url()
-			// Enable data:image url's
-			if ( false === strpos( $label, 'data:' ) ) {
-				$label = str_replace( ':', '', $label );
-				$label = str_replace( "'", '', $label );
-			}
+		// Label can not contains the character ":" and "'", exception are data url's
+		// TODO: move to sorting
+		if ( false === strpos( $label, 'data:' ) ) {
+			$label = str_replace( array( ':', "'" ), '', $label );
 		}
 
-		return $label;
+		$this->label = $label;
+
+		return $this;
 	}
 
 }
