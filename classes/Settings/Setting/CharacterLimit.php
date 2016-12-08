@@ -50,9 +50,15 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_Setting
 	 * @return string
 	 */
 	public function format( $string ) {
-		$limit = $this->get_character_limit();
+		return ac_helper()->string->trim_characters( $string, $this->get_character_limit() );
 
-		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
+		$values = false;
+
+		foreach ( (array) $string as $_string ) {
+			$values[] = ac_helper()->string->trim_characters( $_string, $this->get_character_limit() );
+		}
+
+		return ac_helper()->html->implode( $values );
 	}
 
 }

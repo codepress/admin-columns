@@ -52,7 +52,13 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_Setting
 	}
 
 	public function format( $string ) {
-		return ac_helper()->string->trim_words( $string, $this->get_excerpt_length() );
+		$values = false;
+
+		foreach ( (array) $string as $_string ) {
+			$values[] = ac_helper()->string->trim_words( $_string, $this->get_excerpt_length() );
+		}
+
+		return ac_helper()->html->implode( $values );
 	}
 
 }

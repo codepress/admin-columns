@@ -154,140 +154,13 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	}
 
 	/**
-	 * @see AC_Column::get_value()
-	 * @since 1.0
-	 */
-	public function get_value( $id ) {
-
-		return $id;
-
-		$value = $this->get_setting( 'custom_field' )->format( $id );
-
-		if ( ! $value ) {
-			$value = ac_helper()->string->get_empty_char();
-		}
-
-		/**
-		 * Filter the display value for Custom Field columns
-		 *
-		 * @param mixed $value Custom field value
-		 * @param int $id Object ID
-		 * @param object $this Column instance
-		 */
-		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
-
-		return $value;
-
-
-		// TODO: remove
-		$raw_value = $this->get_raw_value( $id );
-		$raw_string = ac_helper()->array->implode_recursive( ', ', $raw_value );
-
-		switch ( null ) :
-			case "image" :
-			case "library_id" :
-				$images = ac_helper()->string->comma_separated_to_array( $raw_string );
-				$value = implode( ac_helper()->image->get_images( $images, $this->format->image_sizes() ) );
-				break;
-
-			case "excerpt" :
-				$value = $this->format->word_limit( $raw_value );
-				break;
-
-			case "date" :
-				$value = $this->format->date( $raw_value );
-				break;
-
-			case "link" :
-				if ( ac_helper()->string->is_valid_url( $raw_value ) ) {
-					$label = $this->settings()->get_option( 'link_label' );
-					if ( ! $label ) {
-						$label = $raw_value;
-					}
-
-					$value = ac_helper()->html->link( $raw_value, $label );
-				}
-				break;
-
-			case "title_by_id" :
-				$titles = array();
-				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
-					foreach ( (array) $ids as $id ) {
-						if ( $title = ac_helper()->post->get_post_title( $id ) ) {
-							$link = get_edit_post_link( $id );
-							$titles[] = ac_helper()->html->link( $link, $title );
-						}
-					}
-				}
-				$value = implode( ac_helper()->html->divider(), $titles );
-				break;
-
-			case "user_by_id" :
-				$names = array();
-				if ( $ids = ac_helper()->string->string_to_array_integers( $raw_string ) ) {
-					foreach ( (array) $ids as $id ) {
-						if ( $username = $this->get_username_by_id( $id ) ) {
-							$names[] = ac_helper()->html->link( get_edit_user_link( $id ), $username );
-						}
-					}
-				}
-				$value = implode( ac_helper()->html->divider(), $names );
-				break;
-
-			case "term_by_id" :
-				if ( is_array( $raw_value ) && isset( $raw_value['term_id'] ) && isset( $raw_value['taxonomy'] ) ) {
-					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $raw_value['term_id'], $raw_value['taxonomy'] ) );
-				}
-				break;
-
-			case "checkmark" :
-				$is_true = ( ! empty( $raw_value ) && 'false' !== $raw_value && '0' !== $raw_value );
-
-				$value = ac_helper()->icon->yes_or_no( $is_true );
-				break;
-
-			case "color" :
-				$value = $raw_value && is_scalar( $raw_value ) ? ac_helper()->string->get_color_block( $raw_value ) : ac_helper()->string->get_empty_char();
-				break;
-
-			case "count" :
-				$raw_value = $this->get_raw_value( $id, false );
-				$value = $raw_value ? count( $raw_value ) : ac_helper()->string->get_empty_char();
-				break;
-
-			case "has_content" :
-				$rawvalue = $this->get_raw_value( $id );
-				$value = '<span class="cpac-tip" data-tip="' . esc_attr( $rawvalue ) . '">' . ac_helper()->icon->yes_or_no( $rawvalue ) . '</span>';
-				break;
-
-			default :
-				//$value = $raw_string;
-
-		endswitch;
-
-		if ( ! $value ) {
-			$value = ac_helper()->string->get_empty_char();
-		}
-
-		/**
-		 * Filter the display value for Custom Field columns
-		 *
-		 * @param mixed $value Custom field value
-		 * @param int $id Object ID
-		 * @param object $this Column instance
-		 */
-		$value = apply_filters( 'cac/column/meta/value', $value, $id, $this );
-
-		return $value;
-	}
-
-	/**
 	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
 		if ( $cache = wp_cache_get( $this->get_cache_key(), 'cac_columns' ) ) {
 			$keys = $cache;
-		} else {
+		}
+		else {
 			$keys = $this->get_meta();
 
 			wp_cache_add( $this->get_cache_key(), $keys, 'cac_columns', 12 ); // 12 sec.
@@ -295,7 +168,8 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
 			$keys = false;
-		} else {
+		}
+		else {
 			foreach ( $keys as $k => $key ) {
 
 				// give hidden keys a prefix
@@ -348,7 +222,8 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				} else {
+				}
+				else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
@@ -360,75 +235,9 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
 		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
+		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
 	}
-
-	/**
-	 * @see AC_Column::display_settings()
-	 * @since 1.0
-	 */
-	// TODO: remove
-	public function ____display_settings() {
-
-		$this->display_field_setting();
-
-		$fields = array(
-			array(
-				'type'           => 'select',
-				'name'           => 'field_type',
-				'options'        => $this->get_field_labels(),
-				'refresh_column' => true,
-			),
-		);
-
-		switch ( $this->get_field_type() ) {
-			case 'date' :
-				$fields[] = $this->field_settings->date_args();
-				break;
-			case 'image' :
-			case 'library_id' :
-				$fields = array_merge( $fields, $this->field_settings->image_args_fields_only( 'cpac-custom' ) );
-				break;
-			case 'excerpt' :
-				$fields[] = $this->field_settings->word_limit_args( 15 );
-				break;
-			case 'link' :
-				$fields[] = $this->field_settings->url_args();
-				break;
-		}
-
-		$this->field_settings->fields( array(
-			'label'       => __( 'Field Type', 'codepress-admin-columns' ),
-			'description' => __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>',
-			'fields'      => $fields,
-		) );
-
-		$this->field_settings->before_after();
-	}
-
-	/*public function display_field_setting() {
-		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
-		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) :
-			$this->field_settings->field( array(
-				'type'        => 'text',
-				'name'        => 'field',
-				'label'       => __( "Custom Field", 'codepress-admin-columns' ),
-				'description' => __( "Enter your custom field key.", 'codepress-admin-columns' ),
-			) );
-		else :
-			$list_screen = AC()->columns_tab()->get_list_screen();
-
-			$this->field_settings->field( array(
-				'type'            => 'select',
-				'name'            => 'field',
-				'label'           => __( 'Custom Field', 'codepress-admin-columns' ),
-				'description'     => __( 'Select your custom field.', 'codepress-admin-columns' ),
-				'no_result'       => __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong><a href="' . esc_url( $list_screen->get_screen_link() ) . '">' . esc_html( $list_screen->get_singular_label() ) . '</a></strong>' ),
-				'grouped_options' => $this->get_grouped_field_options(),
-			) );
-		endif;
-	}*/
 
 	/**
 	 * @since 1.0

@@ -26,7 +26,11 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	 *
 	 * @return string
 	 */
-	public function format( $post_ids ) {
+	public function format( $post_id ) {
+		return ac_helper()->html->link( $this->get_post_link( $post_id ), $this->get_post_name( $post_id ) );
+
+
+		// TODO
 		$values = false;
 
 		foreach ( $post_ids as $post_id ) {

@@ -48,16 +48,6 @@ abstract class AC_Column {
 	protected $options = array();
 
 	/**
-	 * @since 2.0
-	 *
-	 * @param int $id ID
-	 *
-	 * @return string Value for displaying inside the column cell.
-	 */
-	// TODO: protected or public? Is it better to always use get_display_value as public
-	abstract protected function get_value( $id );
-
-	/**
 	 * @since NEWVERSION
 	 * @return mixed
 	 */
@@ -325,6 +315,28 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * Apply formatting that is defined in the settings
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	public function format_value( $value ) {
+		foreach ( $this->get_settings() as $setting ) {
+			if ( $setting instanceof AC_Settings_FormatInterface ) {
+				$value = $setting->format( $value );
+			}
+		}
+
+		return $value;
+	}
+
+	// TODO
+	protected function get_value( $id ) {
+		return $id;
+	}
+
+	/**
 	 * @since NEWVERSION
 	 *
 	 * @param $id
@@ -332,20 +344,8 @@ abstract class AC_Column {
 	 * @return string Value
 	 */
 	public function get_display_value( $id ) {
-		$value = false;
-
-		$display_value = $this->get_value( $id );
-
-		if ( $display_value || 0 === $display_value ) {
-			$value = $display_value;
-		}
-
-		// Apply formatting defined in the settings
-		foreach ( $this->get_settings() as $setting ) {
-			if ( $setting instanceof AC_Settings_FormatInterface ) {
-				$value = $setting->format( $value );
-			}
-		}
+		$value = $this->get_value( $id );
+		$value = $this->format_value( $value );
 
 		$value = apply_filters( "cac/column/value", $value, $id, $this );
 		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
