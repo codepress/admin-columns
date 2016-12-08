@@ -48,14 +48,6 @@ abstract class AC_Column {
 	protected $options = array();
 
 	/**
-	 * @since NEWVERSION
-	 * @return mixed
-	 */
-	public function __get( $name ) {
-		return in_array( $name, array( 'format', 'field_settings', 'helper' ) ) ? call_user_func( array( $this, $name ) ) : false;
-	}
-
-	/**
 	 * Get the name of the column.
 	 *
 	 * @since 2.3.4

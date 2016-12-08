@@ -51,14 +51,6 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_Setting
 	 */
 	public function format( $string ) {
 		return ac_helper()->string->trim_characters( $string, $this->get_character_limit() );
-
-		$values = false;
-
-		foreach ( (array) $string as $_string ) {
-			$values[] = ac_helper()->string->trim_characters( $_string, $this->get_character_limit() );
-		}
-
-		return ac_helper()->html->implode( $values );
 	}
 
 }

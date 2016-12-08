@@ -52,18 +52,12 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	}
 
 	/**
-	 * @param int[] $user_ids
+	 * @param int $user_id
 	 *
 	 * @return string
 	 */
-	public function format( $user_ids ) {
-		$values = false;
-
-		foreach ( (array) $user_ids as $user_id ) {
-			$values[] = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
-		}
-
-		return ac_helper()->html->implode( $values );
+	public function format( $user_id ) {
+		return ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 	}
 
 	/**
