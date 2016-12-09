@@ -471,13 +471,6 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_Admin_Tab_Columns
-	 */
-	public function columns_tab() {
-		return $this->settings()->get_tab( 'columns' );
-	}
-
-	/**
 	 * Get list screen object of currently active list screen
 	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
