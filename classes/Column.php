@@ -125,6 +125,8 @@ abstract class AC_Column {
 	 * @since NEWVERSION
 	 * @return string Group
 	 */
+
+	// TODO: create object with group name and group priority (just like menu's)
 	public function get_group() {
 		return $this->group ? $this->group : __( 'Custom', 'codepress-admin-columns' );
 	}
