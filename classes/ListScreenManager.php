@@ -97,7 +97,7 @@ final class AC_ListScreenManager {
 		$css_column_width = false;
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			$width = $column->get_setting( 'width' );
+			$width = $column->get_settings()->width;
 
 			if ( $width->get_value() ) {
 				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";

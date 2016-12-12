@@ -11,7 +11,7 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
 		$this->name = 'exif_data';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'exif_datatype' );
 	}
 
@@ -65,12 +65,12 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
 	/**
 	 * @param string $exif_datatype
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_exif_datatype( $exif_datatype ) {
 		$this->exif_datatype = $exif_datatype;
 
-		return $this;
+		return true;
 	}
 
 }

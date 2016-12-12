@@ -15,7 +15,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		$this->name = 'custom_field';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'field' );
 	}
 
@@ -81,12 +81,12 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	/**
 	 * @param string $field
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_field( $field ) {
 		$this->field = $field;
 
-		return $this;
+		return true;
 	}
 
 }

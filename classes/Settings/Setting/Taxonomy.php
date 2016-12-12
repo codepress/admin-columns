@@ -7,7 +7,7 @@ class AC_Settings_Setting_Taxonomy extends AC_Settings_Setting {
 	 */
 	private $taxonomy;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'taxonomy' );
 	}
 
@@ -36,12 +36,12 @@ class AC_Settings_Setting_Taxonomy extends AC_Settings_Setting {
 	/**
 	 * @param string $taxonomy
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_taxonomy( $taxonomy ) {
 		$this->taxonomy = $taxonomy;
 
-		return $this;
+		return true;
 	}
 
 }

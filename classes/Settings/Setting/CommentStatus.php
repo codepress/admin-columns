@@ -5,7 +5,7 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_Setting
 
 	private $comment_status;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'comment_status' );
 	}
 
@@ -45,12 +45,12 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_Setting
 	/**
 	 * @param string $comment_status
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_comment_status( $comment_status ) {
 		$this->comment_status = $comment_status;
 
-		return $this;
+		return true;
 	}
 
 	/**

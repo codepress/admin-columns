@@ -12,8 +12,10 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_Setting
 		$this->name = 'word_limit';
 	}
 
-	protected function define_managed_options() {
-		return array( 'excerpt_length' => 20 );
+	protected function define_options() {
+		return array(
+			'excerpt_length' => 20,
+		);
 	}
 
 	public function create_view() {
@@ -43,12 +45,12 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_Setting
 	/**
 	 * @param int $excerpt_length
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_excerpt_length( $excerpt_length ) {
 		$this->excerpt_length = $excerpt_length;
 
-		return $this;
+		return true;
 	}
 
 	public function format( $string ) {

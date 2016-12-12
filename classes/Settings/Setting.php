@@ -10,11 +10,11 @@ abstract class AC_Settings_Setting {
 	protected $name;
 
 	/**
-	 * The options this field manages with optional default values
+	 * The options this field manages (optionally with default values)
 	 *
 	 * @var array
 	 */
-	protected $managed_options = array();
+	protected $options = array();
 
 	/**
 	 * @var AC_Column
@@ -22,34 +22,20 @@ abstract class AC_Settings_Setting {
 	protected $column;
 
 	/**
+	 * Options that are set by the user and should not be overwritten with defaults
+	 *
+	 * @var array
+	 */
+	private $user_set = array();
+
+	/**
 	 * @param AC_Column $column
 	 */
 	public function __construct( AC_Column $column ) {
 		$this->column = $column;
 
-		$this->set_managed_options();
+		$this->set_options();
 		$this->set_name();
-	}
-
-	private function set_managed_options() {
-		$managed_options = $this->define_managed_options();
-
-		if ( ! is_array( $managed_options ) ) {
-			return false;
-		}
-
-		foreach ( $managed_options as $k => $v ) {
-			if ( is_numeric( $k ) ) {
-				$k = $v;
-				$v = null;
-			}
-
-			$this->managed_options[ $k ] = $v;
-
-			// todo: research: set them on the option/ property? At some point it should belong on the property!
-		}
-
-		return true;
 	}
 
 	/**
@@ -60,11 +46,10 @@ abstract class AC_Settings_Setting {
 	public abstract function create_view();
 
 	/**
-	 * Define the options this field manages
-	 *
+	 * @see AC_Settings_Setting::$options
 	 * @return array
 	 */
-	protected abstract function define_managed_options();
+	protected abstract function define_options();
 
 	/**
 	 * Get settings that depend on this setting
@@ -75,8 +60,30 @@ abstract class AC_Settings_Setting {
 		return array();
 	}
 
-	public function has_managed_option( $option ) {
-		return array_key_exists( $option, $this->managed_options );
+	private function set_options() {
+		foreach ( $this->define_options() as $option => $value ) {
+			if ( is_numeric( $option ) ) {
+				$option = $value;
+				$value = null;
+			}
+
+			$this->set_option( $option, $value );
+			$this->set_default( $value, $option );
+		}
+	}
+
+	/**
+	 * Set an option and set value afterwards
+	 *
+	 * @param string $option
+	 * @param mixed $value
+	 */
+	private function set_option( $option, $value = null ) {
+		$this->options[ $option ] = $value;
+	}
+
+	public function has_option( $option ) {
+		return array_key_exists( $option, $this->options );
 	}
 
 	/**
@@ -86,14 +93,163 @@ abstract class AC_Settings_Setting {
 	 *
 	 * @return false|string
 	 */
-	protected function get_managed_option( $option = null ) {
-		foreach ( array_keys( $this->managed_options ) as $managed_option ) {
-			if ( null === $option || $option == $managed_option ) {
-				return $managed_option;
-			}
+	protected function get_default_option() {
+		reset( $this->options );
+
+		return key( $this->options );
+	}
+
+	/**
+	 * Return the value of all options
+	 *
+	 * @return array
+	 */
+	public function get_values() {
+		$values = array();
+
+		foreach ( array_keys( $this->options ) as $option ) {
+			$values[ $option ] = $this->get_value( $option );
 		}
 
-		return false;
+		return $values;
+	}
+
+	/**
+	 * Get value of this setting, optionally specified with a key
+	 *
+	 * Will return the value of the default option
+	 *
+	 * @param string|null $option
+	 *
+	 * @return string|array|int|bool
+	 */
+	public function get_value( $option = null ) {
+		if ( null === $option ) {
+			$option = $this->get_default_option();
+		}
+
+		if ( ! $this->has_option( $option ) ) {
+			return null;
+		}
+
+		$method = 'get_' . $option;
+
+		if ( ! method_exists( $this, $method ) ) {
+			return null;
+		}
+
+		return $this->$method();
+	}
+
+	/**
+	 * Set the values of this setting
+	 *
+	 * @param array $options
+	 */
+	public function set_values( array $values ) {
+		foreach ( $values as $option => $value ) {
+			$this->set_value( $value, $option );
+		}
+	}
+
+	/**
+	 * Invoke the setter of the setting
+	 *
+	 * @param string|array|int|bool $value
+	 * @param string $option
+	 *
+	 * @return bool
+	 */
+	private function invoke_option_setter( $option, $value ) {
+		$method = 'set_' . $option;
+
+		if ( ! method_exists( $this, $method ) ) {
+			return false;
+		}
+
+		return $this->$method( $value );
+	}
+
+	/**
+	 * Set value of an option
+	 *
+	 * @param string|array|int|bool $value
+	 * @param string|null $option
+	 *
+	 * @return bool
+	 */
+	public function set_value( $value, $option = null ) {
+		if ( null === $option ) {
+			$option = $this->get_default_option();
+		}
+
+		if ( ! $this->has_option( $option ) ) {
+			return false;
+		}
+
+		$result = $this->invoke_option_setter( $option, $value );
+
+		if ( $result ) {
+			$this->user_set[] = $option;
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Set a default value unless option is loaded from settings
+	 *
+	 * @param string|array|int|bool $value
+	 * @param string|null $option
+	 *
+	 * @return bool
+	 */
+	public function set_default( $value, $option = null ) {
+		if ( null === $option ) {
+			$option = $this->get_default_option();
+		}
+
+		if ( ! $this->has_option( $option ) ) {
+			return false;
+		}
+
+		$this->set_option( $option, $value );
+
+		// check if value is user set
+		if ( ! in_array( $option, $this->user_set ) ) {
+			$this->invoke_option_setter( $option, $value );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get the default value of an option if set
+	 *
+	 * @param string|null $option
+	 *
+	 * @return mixed
+	 */
+	public function get_default( $option = null ) {
+		if ( null === $option ) {
+			$option = $this->get_default_option();
+		}
+
+		return $this->has_option( $option ) ? $this->options[ $option ] : null;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_name() {
+		return $this->name;
+	}
+
+	/**
+	 * Default to self::get_default_option()
+	 */
+	protected function set_name() {
+		$this->name = $this->get_default_option();
 	}
 
 	/**
@@ -106,7 +262,7 @@ abstract class AC_Settings_Setting {
 	 */
 	protected function create_element( $type, $name = null ) {
 		if ( null === $name ) {
-			$name = $this->get_managed_option();
+			$name = $this->get_default_option();
 		}
 
 		switch ( $type ) {
@@ -128,150 +284,13 @@ abstract class AC_Settings_Setting {
 		$element->add_class( 'ac-setting-input_' . $name );
 
 		// try to set current value
-		$method = 'get_' . $name;
+		$value = $this->get_value( $name );
 
-		if ( method_exists( $this, $method ) ) {
-			$element->set_value( $this->get_value() );
+		if ( null !== $value ) {
+			$element->set_value( $value );
 		}
 
 		return $element;
-	}
-
-	/**
-	 * Get value of this setting, optionally specified with a key
-	 *
-	 * Will return the value of the default option
-	 *
-	 * @param string|null $option
-	 *
-	 * @return string|array|int|bool
-	 */
-	public function get_value( $option = null ) {
-		if ( null === $option ) {
-			$option = $this->get_managed_option();
-		}
-
-		$method = 'get_' . $option;
-
-		if ( ! method_exists( $this, $method ) ) {
-			return null;
-		}
-
-		$value = $this->$method();
-
-		// get (possible) default
-		if ( null === $value ) {
-			$value = $this->get_default( $option );
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Return the value of all options
-	 *
-	 * @return array
-	 */
-	public function get_values() {
-		$values = array();
-
-		foreach ( $this->managed_options as $managed_option ) {
-			$values[ $managed_option ] = $this->get_value( $managed_option );
-		}
-
-		return $values;
-	}
-
-	/**
-	 * Set value of an option
-	 *
-	 * @param string|array|int|bool $value
-	 * @param string|null $option
-	 *
-	 * @return $this
-	 */
-	private function set_option( $value, $option = null ) {
-		if ( null === $option ) {
-			$option = $this->get_managed_option();
-		}
-
-		$method = 'set_' . $option;
-
-		if ( method_exists( $this, $method ) ) {
-			$this->$method( $value );
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Set the options of this setting
-	 *
-	 * @param array $options
-	 *
-	 * @return $this
-	 */
-	public function set_options( array $options ) {
-		foreach ( $options as $option => $value ) {
-			if ( $this->has_managed_option( $option ) ) {
-				$this->set_option( $value, $option );
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Set a default value unless option is loaded from settings
-	 *
-	 * @param string|array|int|bool $value
-	 * @param string|null $option
-	 *
-	 * @return $this
-	 */
-	public function set_default( $value, $option = null ) {
-		if ( null === $option ) {
-			$option = $this->get_managed_option();
-		}
-
-		if ( $this->has_managed_option( $option ) ) {
-			$this->managed_options[ $option ] = $value;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Get the default value of an option if set
-	 *
-	 * @param string|null $option
-	 *
-	 * @return @param string|array|int|bool|null
-	 */
-	public function get_default( $option = null ) {
-		if ( null === $option ) {
-			$option = $this->get_managed_option();
-		}
-
-		return $this->has_managed_option( $option ) ? $this->managed_options[ $option ] : null;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_name() {
-		return $this->name;
-	}
-
-	/**
-	 * By default it will use the first managed option
-	 *
-	 * @return $this
-	 */
-	protected function set_name() {
-		$this->name = $this->get_managed_option();
-
-		return $this;
 	}
 
 	/**

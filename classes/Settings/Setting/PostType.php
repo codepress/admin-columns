@@ -7,7 +7,7 @@ class AC_Settings_Setting_PostType extends AC_Settings_Setting {
 	 */
 	private $post_type;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'post_type' );
 	}
 
@@ -49,12 +49,12 @@ class AC_Settings_Setting_PostType extends AC_Settings_Setting {
 	/**
 	 * @param string $post_type
 	 *
-	 * @return $this
+	 * @return true
 	 */
 	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
 
-		return $this;
+		return true;
 	}
 
 }

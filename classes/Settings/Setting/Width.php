@@ -13,7 +13,7 @@ class AC_Settings_Setting_Width extends AC_Settings_Setting
 	 */
 	private $width_unit;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array(
 			'width',
 			'width_unit' => '%',
@@ -27,8 +27,12 @@ class AC_Settings_Setting_Width extends AC_Settings_Setting
 		);
 	}
 
+	private function is_valid_width_unit( $width_unit ) {
+		return array_key_exists( $width_unit, $this->get_valid_width_units() );
+	}
+
 	public function create_view() {
-		$width = $this->create_element( $this->get_managed_option() )
+		$width = $this->create_element( 'text' )
 		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
 
 		$unit = $this->create_element( 'radio', 'width_unit' )
@@ -73,16 +77,18 @@ class AC_Settings_Setting_Width extends AC_Settings_Setting
 	/**
 	 * @param int $width
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_width( $width ) {
 		$width = absint( $width );
 
-		if ( $width > 0 ) {
-			$this->width = $width;
+		if ( $width <= 0 ) {
+			return false;
 		}
 
-		return $this;
+		$this->width = $width;
+
+		return true;
 	}
 
 	/**
@@ -95,14 +101,16 @@ class AC_Settings_Setting_Width extends AC_Settings_Setting
 	/**
 	 * @param string $width_unit
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_width_unit( $width_unit ) {
-		if ( array_key_exists( $width_unit, $this->get_valid_width_units() ) ) {
-			$this->width_unit = $width_unit;
+		if ( ! $this->is_valid_width_unit( $width_unit ) ) {
+			return false;
 		}
 
-		return $this;
+		$this->width_unit = $width_unit;
+
+		return true;
 	}
 
 }

@@ -22,7 +22,7 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 		return $this->name = 'image';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array(
 			'image_size',
 			'image_size_w' => 80,
@@ -121,12 +121,12 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 	/**
 	 * @param string $image_size
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_image_size( $image_size ) {
 		$this->image_size = $image_size;
 
-		return $this;
+		return true;
 	}
 
 	/**
@@ -139,12 +139,16 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 	/**
 	 * @param int $image_size_w
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_image_size_w( $image_size_w ) {
+		if ( ! is_numeric( $image_size_w ) ) {
+			return false;
+		}
+
 		$this->image_size_w = $image_size_w;
 
-		return $this;
+		return true;
 	}
 
 	/**
@@ -157,12 +161,16 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 	/**
 	 * @param int $image_size_h
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_image_size_h( $image_size_h ) {
+		if ( ! is_numeric( $image_size_h ) ) {
+			return false;
+		}
+
 		$this->image_size_h = $image_size_h;
 
-		return $this;
+		return true;
 	}
 
 	public function format( $ids ) {

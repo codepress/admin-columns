@@ -9,8 +9,10 @@ class AC_Settings_Setting_Date extends AC_Settings_Setting
 		$this->name = 'date';
 	}
 
-	protected function define_managed_options() {
-		return array( 'date_format' );
+	protected function define_options() {
+		return array(
+			'date_format' => get_option( 'date_format' ),
+		);
 	}
 
 	public function create_view() {
@@ -32,18 +34,18 @@ class AC_Settings_Setting_Date extends AC_Settings_Setting
 	 * @return mixed
 	 */
 	public function get_date_format() {
-		return $this->date_format ? $this->date_format : $this->get_default();
+		return $this->date_format;
 	}
 
 	/**
 	 * @param mixed $date_format
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_date_format( $date_format ) {
 		$this->date_format = trim( $date_format );
 
-		return $this;
+		return true;
 	}
 
 	/**

@@ -7,7 +7,7 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_Setting {
 	 */
 	private $words_per_minute;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array(
 			'words_per_minute' => 200,
 		);

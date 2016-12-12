@@ -7,8 +7,10 @@ class AC_Settings_Setting_LinkToMenu extends AC_Settings_Setting_Toggle {
 	 */
 	private $link_to_menu;
 
-	protected function define_managed_options() {
-		return array( 'link_to_menu' => 'off' );
+	protected function define_options() {
+		return array(
+			'link_to_menu' => 'off',
+		);
 	}
 
 	public function create_view() {
@@ -32,12 +34,12 @@ class AC_Settings_Setting_LinkToMenu extends AC_Settings_Setting_Toggle {
 	/**
 	 * @param string $link_to_menu
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_link_to_menu( $link_to_menu ) {
 		$this->link_to_menu = $link_to_menu;
 
-		return $this;
+		return true;
 	}
 
 }

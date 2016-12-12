@@ -17,7 +17,7 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 		$this->name = 'before_after';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'before', 'after' );
 	}
 
@@ -54,14 +54,14 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 	}
 
 	/**
-	 * @param string $before
+	 * @param $before
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_before( $before ) {
 		$this->before = $before;
 
-		return $this;
+		return true;
 	}
 
 	/**
@@ -72,14 +72,14 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 	}
 
 	/**
-	 * @param string $after
+	 * @param $after
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_after( $after ) {
 		$this->after = $after;
 
-		return $this;
+		return true;
 	}
 
 }

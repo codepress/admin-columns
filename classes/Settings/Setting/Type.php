@@ -7,7 +7,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	 */
 	private $type;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array(
 			'type' => $this->column->get_type(),
 		);
@@ -90,12 +90,12 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	/**
 	 * @param string $type
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;
 
-		return $this;
+		return true;
 	}
 
 }

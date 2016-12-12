@@ -4,8 +4,10 @@ class AC_Settings_Setting_ActionIcons extends AC_Settings_Setting {
 
 	private $use_icons;
 
-	protected function define_managed_options() {
-		return array( 'use_icons' => '' );
+	protected function define_options() {
+		return array(
+			'use_icons' => '',
+		);
 	}
 
 	public function create_view() {
@@ -35,12 +37,12 @@ class AC_Settings_Setting_ActionIcons extends AC_Settings_Setting {
 	/**
 	 * @param int $use_icons
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_use_icons( $use_icons ) {
 		$this->use_icons = $use_icons;
 
-		return $this;
+		return true;
 	}
 
 }

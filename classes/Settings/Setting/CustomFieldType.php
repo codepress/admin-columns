@@ -8,7 +8,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 */
 	private $field_type;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'field_type' );
 	}
 
@@ -147,7 +147,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
 				break;
 
-				// TODO: test with pods
+			// TODO: test with pods
 			case "term_by_id" :
 				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {
 					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $meta_data['term_id'], $meta_data['taxonomy'] ) );
@@ -175,12 +175,18 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	/**
 	 * @param string $field_type
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_field_type( $field_type ) {
+		$valid_field_types = $this->get_field_type_options();
+
+		if ( empty( $field_type ) || ! array_key_exists( $field_type, $valid_field_types ) ) {
+			return false;
+		}
+
 		$this->field_type = $field_type;
 
-		return $this;
+		return true;
 	}
 
 }

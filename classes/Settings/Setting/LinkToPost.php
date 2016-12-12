@@ -8,8 +8,10 @@ class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_Toggle
 	 */
 	private $link_to_post;
 
-	protected function define_managed_options() {
-		return array( 'link_to_post' => 'off' );
+	protected function define_options() {
+		return array(
+			'link_to_post' => 'off',
+		);
 	}
 
 	public function create_view() {
@@ -33,12 +35,12 @@ class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_Toggle
 	/**
 	 * @param string $link_to_post
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_link_to_post( $link_to_post ) {
 		$this->link_to_post = $link_to_post;
 
-		return $this;
+		return true;
 	}
 
 	/**

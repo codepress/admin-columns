@@ -7,14 +7,10 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	 */
 	private $label;
 
-	public function __construct( AC_Column $column ) {
-		parent::__construct( $column );
-
-		$this->set_default( $column->get_label() );
-	}
-
-	protected function define_managed_options() {
-		return array( 'label' );
+	protected function define_options() {
+		return array(
+			'label' => $this->column->get_label(),
+		);
 	}
 
 	public function create_view() {
@@ -64,7 +60,7 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	/**
 	 * @param string $label
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_label( $label ) {
 		$label = $this->convert_site_url( $label );
@@ -77,7 +73,7 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 
 		$this->label = $label;
 
-		return $this;
+		return true;
 	}
 
 }

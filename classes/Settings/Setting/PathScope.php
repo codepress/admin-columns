@@ -8,8 +8,10 @@ class AC_Settings_Setting_PathScope extends AC_Settings_Setting
 	 */
 	private $path_scope;
 
-	protected function define_managed_options() {
-		return array( 'path_scope' => 'full' );
+	protected function define_options() {
+		return array(
+			'path_scope' => 'full',
+		);
 	}
 
 	public function create_view() {
@@ -39,12 +41,12 @@ class AC_Settings_Setting_PathScope extends AC_Settings_Setting
 	/**
 	 * @param string $path_scope
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_path_scope( $path_scope ) {
 		$this->path_scope = $path_scope;
 
-		return $this;
+		return true;
 	}
 
 	public function format( $file ) {

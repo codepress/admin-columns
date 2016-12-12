@@ -17,7 +17,7 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 		$this->name = 'post';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'post_property_display', 'post_link_to' );
 	}
 
@@ -133,12 +133,12 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	/**
 	 * @param string $post_property
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_post_property_display( $post_property ) {
 		$this->post_property = $post_property;
 
-		return $this;
+		return true;
 	}
 
 	/**
@@ -151,12 +151,12 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	/**
 	 * @param string $post_link_to
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_post_link_to( $post_link_to ) {
 		$this->post_link_to = $post_link_to;
 
-		return $this;
+		return true;
 	}
 
 }

@@ -17,7 +17,7 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 		$this->name = 'user';
 	}
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'display_author_as', 'user_link_to' );
 	}
 
@@ -149,12 +149,12 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	/**
 	 * @param string $display_author_as
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_display_author_as( $display_author_as ) {
 		$this->display_author_as = $display_author_as;
 
-		return $this;
+		return true;
 	}
 
 	/**
@@ -167,12 +167,12 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	/**
 	 * @param string $user_link_to
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_user_link_to( $user_link_to ) {
 		$this->user_link_to = $user_link_to;
 
-		return $this;
+		return true;
 	}
 
 }

@@ -8,7 +8,7 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 	 */
 	private $link_label;
 
-	protected function define_managed_options() {
+	protected function define_options() {
 		return array( 'link_label' );
 	}
 
@@ -32,12 +32,12 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 	/**
 	 * @param string $link_label
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_link_label( $link_label ) {
 		$this->link_label = $link_label;
 
-		return $this;
+		return true;
 	}
 
 	// TODO: no label available

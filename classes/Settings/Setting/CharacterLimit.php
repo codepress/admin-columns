@@ -8,8 +8,10 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_Setting
 	 */
 	private $character_limit;
 
-	protected function define_managed_options() {
-		return array( 'character_limit' => 20 );
+	protected function define_options() {
+		return array(
+			'character_limit' => 20,
+		);
 	}
 
 	public function create_view() {
@@ -36,12 +38,12 @@ class AC_Settings_Setting_CharacterLimit extends AC_Settings_Setting
 	/**
 	 * @param int $character_limit
 	 *
-	 * @return $this
+	 * @return bool
 	 */
 	public function set_character_limit( $character_limit ) {
 		$this->character_limit = $character_limit;
 
-		return $this;
+		return true;
 	}
 
 	/**
