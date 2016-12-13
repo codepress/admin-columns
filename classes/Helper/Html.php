@@ -35,12 +35,16 @@ class AC_Helper_Html {
 	 *
 	 * @return string|false HTML Anchor element
 	 */
-	public function link( $url, $label = false, $attributes = array() ) {
-		if ( ! $url ) {
+	public function link( $url, $label = null, $attributes = array() ) {
+		if ( false === $label ) {
 			return $label;
 		}
 
-		if ( ! $label ) {
+	    if ( ! $url ) {
+			return $label;
+		}
+
+		if ( null === $label ) {
 		    $label = $url;
         }
 

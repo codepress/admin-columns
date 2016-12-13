@@ -206,21 +206,6 @@ abstract class AC_Column {
 	}
 
 	/**
-	 * Get the raw, underlying value for the column
-	 * Not suitable for direct display, use get_value() for that
-	 *
-	 * @since 2.0.3
-	 *
-	 * @param int $id ID
-	 *
-	 * @return array|string|bool Raw column value
-	 */
-	// TODO: make abstract?
-	public function get_raw_value( $id ) {
-		return $id;
-	}
-
-	/**
 	 * @param AC_Settings_Setting $setting
 	 *
 	 * @return $this
@@ -327,6 +312,21 @@ abstract class AC_Column {
 
 	// TODO
 	protected function get_value( $id ) {
+		return $id;
+	}
+
+	/**
+	 * Get the raw, underlying value for the column
+	 * Not suitable for direct display, use get_value() for that
+	 *
+	 * @since 2.0.3
+	 *
+	 * @param int $id ID
+	 *
+	 * @return array|string|bool Raw column value
+	 */
+	// TODO: make abstract?
+	public function get_raw_value( $id ) {
 		return $id;
 	}
 

@@ -17,6 +17,29 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$this->set_group( __( 'Custom Field', 'codepress-admin-columns' ) );
 	}
 
+	public function get_value( $object_id ) {
+
+		if ( 'count' === $this->get_field_type() ) {
+			return $object_id;
+		}
+
+		return $this->get_raw_value( $object_id );
+	}
+
+	/**
+	 * @see AC_Column::get_raw_value()
+	 * @since 2.0.3
+	 */
+	public function get_raw_value( $id, $single = true ) {
+		$raw_value = '';
+
+		if ( $field_key = $this->get_field_key() ) {
+			$raw_value = get_metadata( $this->get_meta_type(), $id, $field_key, $single );
+		}
+
+		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $field_key, $this );
+	}
+
 	protected function get_cache_key() {
 		return $this->get_meta_type();
 	}
@@ -125,20 +148,6 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$custom_field_types = apply_filters( 'cac/column/meta/types', $custom_field_types );
 
 		return $custom_field_types;
-	}
-
-	/**
-	 * @see AC_Column::get_raw_value()
-	 * @since 2.0.3
-	 */
-	public function get_raw_value( $id, $single = true ) {
-		$raw_value = '';
-
-		if ( $field_key = $this->get_field_key() ) {
-			$raw_value = get_metadata( $this->get_meta_type(), $id, $field_key, $single );
-		}
-
-		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $field_key, $this );
 	}
 
 	/**

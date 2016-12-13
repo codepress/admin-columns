@@ -102,17 +102,8 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 *
 	 * @return string|bool
 	 */
-
-	// TODO: formatter should only accept the raw value, not ID's
-	public function format( $object_id ) {
-
-		if ( ! $this->column instanceof AC_Column_CustomFieldInterface ) {
-			return $object_id;
-		}
-
-		$value = false;
-
-		$meta_data = $this->column->get_raw_value( $object_id );
+	public function format( $meta_data ) {
+		$value = $meta_data;
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
@@ -137,10 +128,10 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				break;
 
 			case "count" :
-
-				// TODO: remove object_id. Place a switch statement in raw_value perhaps?
-				$meta_data = get_metadata( $this->column->get_list_screen()->get_meta_type(), $object_id, $this->column->get_field_key(), false );
-				$value = $meta_data ? count( $meta_data ) : ac_helper()->string->get_empty_char();
+				if ( $this->column instanceof AC_Column_CustomFieldInterface ) {
+					$meta_data = get_metadata( $this->column->get_list_screen()->get_meta_type(), $meta_data, $this->column->get_field_key(), false );
+					$value = $meta_data ? count( $meta_data ) : ac_helper()->string->get_empty_char();
+				}
 				break;
 
 			case "has_content" :
