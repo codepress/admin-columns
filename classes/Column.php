@@ -300,23 +300,30 @@ abstract class AC_Column {
 	 *
 	 * @return string
 	 */
-	public function format_value( $values ) {
-		if ( ! is_array( $values ) ) {
-			$values = array( $values );
-		}
+	public function format_value( $value ) {
 
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
-				foreach ( $values as $k => $value ) {
-					$values[ $k ] = $setting->format( $value );
+
+				if ( ! is_array( $value ) ) {
+					$value = $setting->format( $value );
+				} else {
+					foreach ( $value as $k => $v ) {
+						$value[ $k ] = $setting->format( $v );
+					}
 				}
+
 			}
 		}
 
-		// control the separator per column for multi-valued columns
-		$separator = apply_filters( 'ac/column/format/separator', ', ', $this );
+		if ( is_array( $value ) ) {
+			// control the separator per column for multi-valued columns
+			$separator = apply_filters( 'ac/column/format/separator', ', ', $this );
 
-		return implode( $separator, $values );
+			$value = implode( $separator, $value );
+		}
+
+		return $value;
 	}
 
 	// TODO
