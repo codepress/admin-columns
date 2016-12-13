@@ -448,7 +448,7 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/** change label */
-		column.find( '.ac-setting-input-label input' ).bind( 'keyup change', function() {
+		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
