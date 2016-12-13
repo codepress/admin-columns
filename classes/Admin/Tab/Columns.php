@@ -562,20 +562,22 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 
 							<?php else : ?>
 
-								<?php // TODO: enable ?>
-								<?php if ( null ) : ?>
-									<div class="padding-box ac-pro-newsletter">
-										<h3><?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), '20%' ) ); ?></h3>
-										<div class="inside">
-											<p><?php esc_html( sprintf( __( "Submit your email and we'll send you a coupon for %s off your upgrade to the pro version", 'codepress-admin-columns' ), '20%' ) ); ?></p>
-											<form>
-												<input name="name" placeholder="Your Name">
-												<input name="email" placeholder="Your Email">
-												<input type="submit" value="Send me the coupon" class="acp-button">
-											</form>
-										</div>
+								<div class="padding-box ac-pro-newsletter">
+									<h3><?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), '20%' ) ); ?></h3>
+									<div class="inside">
+										<p><?php esc_html( sprintf( __( "Submit your email and we'll send you a coupon for %s off your upgrade to the pro version", 'codepress-admin-columns' ), '20%' ) ); ?></p>
+										<?php
+											$user_data = get_userdata( get_current_user_id() );
+										?>
+										<form method="post" action="<?php echo ac_get_site_url() . '/upgrade-to-admin-columns-pro/';?>" target="_blank">
+											<input name="action" type="hidden" value="mc_upgrade_pro">
+											<input name="EMAIL" placeholder="Your Email" value="<?php echo $user_data->user_email; ?>">
+											<input name="FNAME" placeholder="Your First Name">
+											<input name="LNAME" placeholder="Your Last Name">
+											<input type="submit" value="Send me the coupon" class="acp-button">
+										</form>
 									</div>
-								<?php endif; ?>
+								</div>
 
 							<?php endif; ?>
 
