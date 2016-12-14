@@ -27,8 +27,6 @@ class AC_Column_ActionColumnHelper {
 		return self::$_instance;
 	}
 
-	//TODO: when action column is the first column. The actions do not show anymore. Create fix.
-
 	public function __construct() {
 		add_filter( 'comment_row_actions', array( $this, 'set_comment' ), 10, 2 );
 		add_filter( 'page_row_actions', array( $this, 'set_post' ), 10, 2 );
