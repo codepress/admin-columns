@@ -81,6 +81,10 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 				$grouped[ $slug ]['title'] = $group['label'];
 			}
 
+			if ( ! isset( $columns[ $slug ] ) ) {
+				$columns[ $slug ] = array();
+			}
+
 			$grouped[ $slug ]['options'] = $columns[ $slug ];
 		}
 
