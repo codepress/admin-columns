@@ -27,7 +27,25 @@ abstract class AC_Addon {
 	 */
 	private $slug;
 
+	/**
+	 * External website link
+	 *
+	 * @var string
+	 */
+	private $link;
+
+	/**
+	 * Is integration addon installed?
+	 *
+	 * @return bool
+	 */
 	abstract public function is_addon_active();
+
+	/**
+	 * Is original plugin installed?
+	 *
+	 * @return bool
+	 */
 	abstract public function is_plugin_active();
 
 	/**
@@ -40,7 +58,7 @@ abstract class AC_Addon {
 	/**
 	 * @param string $title
 	 */
-	public function set_title( $title ) {
+	protected function set_title( $title ) {
 		$this->title = $title;
 
 		return $this;
@@ -56,8 +74,24 @@ abstract class AC_Addon {
 	/**
 	 * @param string $slug
 	 */
-	public function set_slug( $slug ) {
-		$this->slug = $slug;
+	protected function set_slug( $slug ) {
+		$this->slug = sanitize_key( $slug );
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_link() {
+		return $this->link ? $this->link : ac_get_site_url( 'pricing-purchase' );
+	}
+
+	/**
+	 * @param string $link
+	 */
+	protected function set_link( $link ) {
+		$this->link = $link;
 
 		return $this;
 	}
@@ -72,7 +106,7 @@ abstract class AC_Addon {
 	/**
 	 * @param string $description
 	 */
-	public function set_description( $description ) {
+	protected function set_description( $description ) {
 		$this->description = $description;
 
 		return $this;
@@ -88,7 +122,7 @@ abstract class AC_Addon {
 	/**
 	 * @param string $group
 	 */
-	public function set_group( $group ) {
+	protected function set_group( $group ) {
 		$this->group = $group;
 
 		return $this;
@@ -104,19 +138,10 @@ abstract class AC_Addon {
 	/**
 	 * @param string $image_url
 	 */
-	public function set_image_url( $image_url ) {
+	protected function set_image_url( $image_url ) {
 		$this->image_url = $image_url;
 
 		return $this;
 	}
-
-	/**
-	 * Show notice
-	 *
-	 * @return bool
-	 */
-	/*public function show_notice() {
-		return $this->is_plugin_active() && ! $this->is_addon_active();
-	}*/
 
 }
