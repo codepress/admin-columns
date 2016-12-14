@@ -300,21 +300,30 @@ function cpac_reset_columns( $ ) {
 		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
 		var column_name = $( this ).data( 'column-name' );
-		var formdata = $( this ).parents( 'form' ).serialize();
+		var column_clone = $( this ).data( 'clone' );
+		var data = $( this ).find( ':input' ).serializeArray();
+		var request_data = {
+			plugin_id : 'cpac',
+			action : 'cpac_column_refresh',
+			_ajax_nonce : cpac._ajax_nonce,
+			list_screen : $container.data( 'type' ),
+			column_name : column_name,
+			column_clone : column_clone
+		};
+
+		$.each( request_data, function( name, value ) {
+			data.push( {
+				name : name,
+				value : value
+			} );
+		} );
 
 		// Mark column as loading
 		el.addClass( 'loading' );
 		select.prop( 'disabled', 1 );
 
 		// Fetch new form HTML
-		var xhr = $.post( ajaxurl, {
-			plugin_id : 'cpac',
-			action : 'cpac_column_refresh',
-			_ajax_nonce : cpac._ajax_nonce,
-			column : column_name,
-			formdata : formdata,
-			list_screen : $container.data( 'type' )
-		}, function( response ) {
+		var xhr = $.post( ajaxurl, data, function( response ) {
 
 			if ( response ) {
 				// Replace current form by new form

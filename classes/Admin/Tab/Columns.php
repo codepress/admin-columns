@@ -278,27 +278,25 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	public function ajax_column_refresh() {
 		$this->ajax_validate_request();
 
-		$data = filter_input( INPUT_POST, 'formdata' );
-		$column_name = filter_input( INPUT_POST, 'column' );
+		$options = filter_input( INPUT_POST, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$name = filter_input( INPUT_POST, 'column_name' );
+		$clone = filter_input( INPUT_POST, 'column_clone', FILTER_VALIDATE_INT );
 
-		if ( ! $data || ! $column_name ) {
+		if ( null === $clone || ! $name || empty( $options[ $name ] ) ) {
 			wp_die();
 		}
 
-		// convert to array
-		parse_str( $data, $data );
-
-		if ( empty( $data['cpac_key'] ) || empty( $data['columns'][ $column_name ] ) ) {
-			wp_die();
+		if ( $clone ) {
+			$options[ $name ]['clone'] = $clone;
 		}
 
-		$column = $this->get_list_screen()->create_column( $data['columns'][ $column_name ] );
+		$column = $this->get_list_screen()->create_column( $options[ $name ] );
 
 		if ( ! $column ) {
 			wp_die();
 		}
 
-		$column->set_options( $data['columns'][ $column_name ] );
+		$column->set_options( $options[ $name ] );
 
 		wp_send_json_success( $this->get_column_display( $column ) );
 	}
@@ -567,9 +565,9 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 									<div class="inside">
 										<p><?php esc_html( sprintf( __( "Submit your email and we'll send you a coupon for %s off your upgrade to the pro version", 'codepress-admin-columns' ), '20%' ) ); ?></p>
 										<?php
-											$user_data = get_userdata( get_current_user_id() );
+										$user_data = get_userdata( get_current_user_id() );
 										?>
-										<form method="post" action="<?php echo ac_get_site_url() . '/upgrade-to-admin-columns-pro/';?>" target="_blank">
+										<form method="post" action="<?php echo ac_get_site_url() . '/upgrade-to-admin-columns-pro/'; ?>" target="_blank">
 											<input name="action" type="hidden" value="mc_upgrade_pro">
 											<input name="EMAIL" placeholder="Your Email" value="<?php echo $user_data->user_email; ?>">
 											<input name="FNAME" placeholder="Your First Name">
