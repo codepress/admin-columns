@@ -57,24 +57,32 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	 * @return array
 	 */
 	private function get_grouped_columns() {
-		$grouped = array();
+		$columns = array();
 
+		// get columns and sort them
 		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
 			$group = $column->get_group();
 
-			if ( ! isset( $grouped[ $group ] ) ) {
-				$grouped[ $group ]['title'] = $group;
-			}
-
 			// Labels with html will be replaced by the it's name.
-			$grouped[ $group ]['options'][ $column->get_type() ] = $this->get_clean_label( $column );
+			$columns[ $group ][ $column->get_type() ] = $this->get_clean_label( $column );
 
 			if ( ! $column->is_original() ) {
-				natcasesort( $grouped[ $group ]['options'] );
+				natcasesort( $columns[ $group ] );
 			}
 		}
 
-		krsort( $grouped );
+		$grouped = array();
+
+		// create select
+		foreach ( AC()->groups()->get_groups_sorted() as $group ) {
+			$slug = $group['slug'];
+
+			if ( ! isset( $grouped[ $slug ] ) ) {
+				$grouped[ $slug ]['title'] = $group['label'];
+			}
+
+			$grouped[ $slug ]['options'] = $columns[ $slug ];
+		}
 
 		// todo: rename filter e.g. ac/settings/setting/type/columns
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
