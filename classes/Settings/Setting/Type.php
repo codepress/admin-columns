@@ -73,16 +73,17 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 
 		$grouped = array();
 
-		// create select
+		// create select options
 		foreach ( AC()->groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
-			if ( ! isset( $grouped[ $slug ] ) ) {
-				$grouped[ $slug ]['title'] = $group['label'];
+			// hide empty groups
+			if ( ! isset( $columns[ $slug ] ) ) {
+				continue;
 			}
 
-			if ( ! isset( $columns[ $slug ] ) ) {
-				$columns[ $slug ] = array();
+			if ( ! isset( $grouped[ $slug ] ) ) {
+				$grouped[ $slug ]['title'] = $group['label'];
 			}
 
 			$grouped[ $slug ]['options'] = $columns[ $slug ];

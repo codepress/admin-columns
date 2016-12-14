@@ -14,7 +14,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	public function __construct() {
 		$this->set_type( 'column-meta' );
 		$this->set_label( __( 'Custom Field', 'codepress-admin-columns' ) );
-		$this->set_group( __( 'Custom Field', 'codepress-admin-columns' ) );
+		$this->set_group( 'custom_fields' );
 	}
 
 	public function get_display_value( $id ) {
@@ -172,8 +172,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	public function get_meta_keys() {
 		if ( $cache = wp_cache_get( $this->get_cache_key(), 'cac_columns' ) ) {
 			$keys = $cache;
-		}
-		else {
+		} else {
 			$keys = $this->get_meta();
 
 			wp_cache_add( $this->get_cache_key(), $keys, 'cac_columns', 12 ); // 12 sec.
@@ -181,8 +180,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 
 		if ( is_wp_error( $keys ) || empty( $keys ) ) {
 			$keys = false;
-		}
-		else {
+		} else {
 			foreach ( $keys as $k => $key ) {
 
 				// give hidden keys a prefix
@@ -235,8 +233,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 			foreach ( $keys as $field ) {
 				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
 					$grouped_options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
+				} else {
 					$grouped_options['public']['options'][ $field ] = $field;
 				}
 			}
