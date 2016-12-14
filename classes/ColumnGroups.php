@@ -1,11 +1,9 @@
 <?php
 
 /**
- * Class AC_Settings_Group
- *
  * Holds the groups to which columns can belong.
  */
-final class AC_Settings_Group {
+final class AC_ColumnGroups {
 
 	const SORT_PRIORITY = 1;
 

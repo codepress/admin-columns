@@ -51,7 +51,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Addons
 	 */
-	private $_addons;
+	private $addons;
 
 	/**
 	 * Admin Columns settings class instance
@@ -60,7 +60,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Admin
 	 */
-	private $_settings;
+	private $settings;
 
 	/**
 	 * Admin Columns plugin upgrade class instance
@@ -69,12 +69,17 @@ class CPAC {
 	 * @access private
 	 * @var AC_Upgrade
 	 */
-	private $_upgrade;
+	private $upgrade;
+
+	/**
+	 * @var AC_ColumnGroups Column Groups
+	 */
+	private $groups;
 
 	/**
 	 * @var AC_ListScreenManager $_list_screen_manager
 	 */
-	private $_list_screen_manager;
+	private $list_screen_manager;
 
 	/**
 	 * @since NEWVERSION
@@ -133,10 +138,12 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Includes
-		$this->_settings = new AC_Admin();
-		$this->_addons = new AC_Addons();
-		$this->_upgrade = new AC_Upgrade();
-		$this->_list_screen_manager = new AC_ListScreenManager();
+		$this->settings = new AC_Admin();
+		$this->addons = new AC_Addons();
+		$this->upgrade = new AC_Upgrade();
+		$this->list_screen_manager = new AC_ListScreenManager();
+
+		$this->init_groups();
 
 		$this->helper = new AC_Helper();
 
@@ -151,6 +158,19 @@ class CPAC {
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+	}
+
+	/**
+	 * Initialize groups
+	 */
+	private function init_groups() {
+		$groups = new AC_ColumnGroups();
+
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
+
+		$this->groups = $groups;
 	}
 
 	/**
@@ -316,7 +336,7 @@ class CPAC {
 	 * @return AC_Admin Settings class instance
 	 */
 	public function settings() {
-		return $this->_settings;
+		return $this->settings;
 	}
 
 	/**
@@ -326,7 +346,7 @@ class CPAC {
 	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->_addons;
+		return $this->addons;
 	}
 
 	/**
@@ -336,7 +356,14 @@ class CPAC {
 	 * @return AC_Upgrade Upgrade class instance
 	 */
 	public function upgrade() {
-		return $this->_upgrade;
+		return $this->upgrade;
+	}
+
+	/**
+	 * @return AC_ColumnGroups
+	 */
+	public function groups() {
+		return $this->groups;
 	}
 
 	/**
@@ -352,7 +379,7 @@ class CPAC {
 	 * @return AC_ListScreenManager
 	 */
 	public function list_screen_manager() {
-		return $this->_list_screen_manager;
+		return $this->list_screen_manager;
 	}
 
 	/**
