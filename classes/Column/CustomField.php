@@ -17,6 +17,10 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$this->set_group( __( 'Custom Field', 'codepress-admin-columns' ) );
 	}
 
+	public function get_display_value( $id ) {
+		return apply_filters( "cac/column/meta/value", parent::get_display_value( $id ), $id, $this );
+	}
+
 	public function get_value( $object_id ) {
 
 		if ( 'count' === $this->get_field_type() ) {
