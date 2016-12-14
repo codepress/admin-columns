@@ -325,9 +325,15 @@ abstract class AC_Column {
 		return $value;
 	}
 
-	// TODO
-	protected function get_value( $id ) {
-		return $id;
+	/**
+	 * Display value
+	 *
+	 * @param int $object_id ID
+	 *
+	 * @return mixed
+	 */
+	protected function get_value( $object_id ) {
+		return $object_id;
 	}
 
 	/**
@@ -336,16 +342,17 @@ abstract class AC_Column {
 	 *
 	 * @since 2.0.3
 	 *
-	 * @param int $id ID
+	 * @param int $object_id ID
 	 *
 	 * @return array|string|bool Raw column value
 	 */
-	// TODO: make abstract?
-	public function get_raw_value( $id ) {
-		return $id;
+	public function get_raw_value( $object_id ) {
+		return $object_id;
 	}
 
 	/**
+	 * Render value. Always outputs a string.
+	 *
 	 * @since NEWVERSION
 	 *
 	 * @param $id

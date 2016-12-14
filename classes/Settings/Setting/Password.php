@@ -51,14 +51,13 @@ class AC_Settings_Setting_Password extends AC_Settings_Setting
 	 * @return bool|string
 	 */
 	public function format( $text ) {
-		// TODO: explain this if statement
-		if ( 'text' == $this->get_password() ) {
-			return $text;
+
+		if ( ! $this->get_password() ) {
+			$pwchar = '&#9679;';
+			$text = $text ? str_pad( '', strlen( $text ) * strlen( $pwchar ), $pwchar ) : false;
 		}
 
-		$pwchar = '&#9679;';
-
-		return $text ? str_pad( '', strlen( $text ) * strlen( $pwchar ), $pwchar ) : false;
+		return $text;
 	}
 
 }

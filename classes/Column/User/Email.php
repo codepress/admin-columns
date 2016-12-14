@@ -11,9 +11,4 @@ class AC_Column_User_Email extends AC_Column_Default {
 		$this->set_type( 'email' );
 	}
 
-	// TODO: this was forced
-	public function get_value( $id ) {
-		return $id;
-	}
-
 }

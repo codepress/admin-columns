@@ -102,29 +102,24 @@ final class AC_ListScreenManager {
 			if ( $width->get_value() ) {
 				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
 			}
-
-			// Load external scripts
-			// TODO: remove? update doc
-			//$column->scripts();
 		}
-		?>
-		<?php if ( $css_column_width ) : ?>
-			<style>
-				<?php echo $css_column_width; ?>
-			</style>
-		<?php endif; ?>
-		<?php
+
+		if ( $css_column_width ) : ?>
+            <style>
+                <?php echo $css_column_width; ?>
+            </style>
+			<?php
+		endif;
 
 		// JS: Edit button
 		if ( current_user_can( 'manage_admin_columns' ) && AC()->settings()->get_settings_tab()->show_edit_button() ) : ?>
-			<script>
+            <script>
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
-			</script>
-		<?php endif; ?>
-
-		<?php
+            </script>
+			<?php
+		endif;
 
 		/**
 		 * Add header scripts that only apply to column screens.

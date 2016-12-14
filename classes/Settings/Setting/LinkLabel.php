@@ -40,7 +40,6 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 		return true;
 	}
 
-	// TODO: no label available
 	public function format( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/[^\w.-]/', $url ) ) {
 			return false;

@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
+class AC_Settings_Setting_ExifData extends AC_Settings_Setting
+	implements AC_Settings_FormatInterface {
 
 	/**
 	 * @var string
@@ -16,15 +17,10 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
-		$select = $this->create_element( 'select' )
-		               ->set_options( $this->get_exif_types() );
-
-		$view = new AC_View( array(
+		return new AC_View( array(
 			'label'   => $this->column->get_label(),
-			'setting' => $select,
+			'setting' => $this->create_element( 'select' )->set_options( $this->get_exif_types() ),
 		) );
-
-		return $view;
 	}
 
 	/**
@@ -71,6 +67,26 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting {
 		$this->exif_datatype = $exif_datatype;
 
 		return true;
+	}
+
+	/**
+	 * @param array $meta Exif Meta Data
+	 *
+	 * @return string|false
+	 */
+	public function format( $image_meta ) {
+		$value = false;
+
+		switch ( $this->get_exif_datatype() ) {
+
+			case 'created_timestamp' :
+				if ( isset( $image_meta[ $this->get_exif_datatype() ] ) ) {
+					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $image_meta[ $this->get_exif_datatype() ] ) );
+				}
+				break;
+		}
+
+		return $value;
 	}
 
 }

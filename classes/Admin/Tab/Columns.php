@@ -790,9 +790,6 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 									 *
 									 * @param AC_Column $column_instance Column class instance
 									 */
-									do_action( 'cac/column/settings_meta', $column );
-
-									// TODO: rename all filters to
 									do_action( 'ac/column/header', $column );
 
 									?>
