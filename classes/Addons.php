@@ -10,6 +10,11 @@ final class AC_Addons {
 	const OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY = 'cpac-hide-install-addons-notice';
 
 	/**
+	 * @var AC_Addon[]
+	 */
+	private $addons;
+
+	/**
 	 * @since 2.2
 	 *
 	 * @param CPAC
@@ -21,7 +26,31 @@ final class AC_Addons {
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
 	}
 
-	// TODO: register add-ons method
+	public function register_addon( AC_Addon $addon ) {
+		$this->addons[] = $addon;
+	}
+
+	/**
+	 * Register addon
+	 */
+	private function set_addons() {
+		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Addon', 'AC_' );
+
+		foreach ( $classes as $class ) {
+			$this->register_addon( new $class );
+		}
+    }
+
+	/**
+	 * @return AC_Addon[]
+	 */
+	public function get_addons() {
+	    if ( null === $this->addons ) {
+	        $this->set_addons();
+        }
+
+        return $this->addons;
+	}
 
 	/**
 	 * Possibly adds an admin notice when a third party plugin supported by an addon is installed, but the addon isn't
@@ -40,13 +69,11 @@ final class AC_Addons {
 
 		$plugins = array();
 
-		if ( ac_is_acf_active() && ! cpac_is_addon_acf_active() ) {
-			$plugins[] = __( 'Advanced Custom Fields', 'codepress-admin-columns' );
-		}
-
-		if ( ac_is_woocommerce_active() && ! cpac_is_addon_woocommerce_active() ) {
-			$plugins[] = __( 'WooCommerce', 'codepress-admin-columns' );
-		}
+		foreach ( $this->get_addons() as $addon ) {
+		    if ( $addon->is_plugin_active() && ! $addon->is_addon_active() ) {
+			    $plugins[] = $addon->get_title();
+            }
+        }
 
 		if ( $plugins ) {
 			$num_plugins = count( $plugins );
@@ -257,38 +284,7 @@ final class AC_Addons {
 	 * @return array Available addons ([addon_basename] => (array) [addon_details] if not grouped, a list of these key-value pairs per group otherwise ([group_name] => (array) [group_addons]))
 	 */
 	public function get_available_addons( $grouped = false ) {
-
-		$addons = array(
-			'cac-addon-acf'         => array(
-				'title'       => __( 'Advanced Custom Fields', 'codepress-admin-columns' ),
-				'description' => __( 'Display and edit Advanced Custom Fields fields in the posts overview in seconds!', 'codepress-admin-columns' ),
-				'group'       => 'integration',
-				'image'       => AC()->get_plugin_url() . 'assets/images/addons/acf.png',
-			),
-			'cac-addon-woocommerce' => array(
-				'title'       => __( 'WooCommerce', 'codepress-admin-columns' ),
-				'description' => __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
-				'group'       => 'integration',
-				'image'       => AC()->get_plugin_url() . 'assets/images/addons/woocommerce.png',
-			),
-		);
-
-		/**
-		 * Filter the available addons
-		 *
-		 * @since 2.2
-		 *
-		 * @param array $addons Available addons ([addon_name] => (array) [addon_details])
-		 */
-		$addons = apply_filters( 'cpac/addons/available_addons', $addons );
-
-		foreach ( $addons as $addon_name => $addon ) {
-			$addons[ $addon_name ] = wp_parse_args( $addon, array(
-				'title' => '',
-				'group' => '',
-				'image' => '',
-			) );
-		}
+		$addons = $this->get_addons();
 
 		// Maybe group add-ons
 		if ( $grouped ) {
@@ -334,15 +330,15 @@ final class AC_Addons {
 		$grouped_addons = array();
 
 		foreach ( $addons as $addon_name => $addon ) {
-			if ( ! isset( $groups[ $addon['group'] ] ) ) {
+			if ( ! isset( $groups[ $addon->get_group() ] ) ) {
 				continue;
 			}
 
-			if ( ! isset( $grouped_addons[ $addon['group'] ] ) ) {
-				$grouped_addons[ $addon['group'] ] = array();
+			if ( ! isset( $grouped_addons[ $addon->get_group() ] ) ) {
+				$grouped_addons[ $addon->get_group() ] = array();
 			}
 
-			$grouped_addons[ $addon['group'] ][ $addon_name ] = $addon;
+			$grouped_addons[ $addon->get_group() ][ $addon_name ] = $addon;
 		}
 
 		return $grouped_addons;

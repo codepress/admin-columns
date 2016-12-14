@@ -48,24 +48,26 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
 
 			<ul class="cpac-addons">
-				<?php foreach ( $addons as $addon_name => $addon ) : ?>
+				<?php
+                foreach ( $addons as $addon ) :
+	                /* @var AC_Addon $addon */ ?>
 					<li>
 						<div class="cpac-addon-content">
-							<?php if ( ! empty( $addon['image'] ) ) : ?>
-								<img src="<?php echo esc_attr( $addon['image'] ); ?>"/>
+							<?php if ( $addon->get_image_url() ) : ?>
+								<img src="<?php echo esc_attr( $addon->get_image_url() ); ?>"/>
 							<?php else : ?>
-								<h3><?php echo esc_html( $addon['title'] ); ?></h3>
+								<h3><?php echo esc_html( $addon->get_title() ); ?></h3>
 							<?php endif; ?>
 						</div>
 						<div class="cpac-addon-header">
-							<h3><?php echo esc_html( $addon['title'] ); ?></h3>
-							<p><?php echo esc_html( $addon['description'] ); ?></p>
+							<h3><?php echo esc_html( $addon->get_title() ); ?></h3>
+							<p><?php echo esc_html( $addon->get_description() ); ?></p>
 						</div>
 						<div class="cpac-addon-actions">
 							<?php
 
 							// Installed..
-							if ( $plugin_basename = AC()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
+							if ( $plugin_basename = AC()->addons()->get_installed_addon_plugin_basename( $addon->get_slug() ) ) : ?>
 								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array( 'action' => 'deactivate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
 									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>
@@ -81,7 +83,7 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 							else :
 
 								if ( cpac_is_pro_active() ) :
-									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
+									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
 									?>
 									<a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php

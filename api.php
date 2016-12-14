@@ -64,20 +64,6 @@ function cpac_is_pro_active() {
 }
 
 /**
- * @return bool True when Admin Columns ACF add-on plugin is activated.
- */
-function cpac_is_addon_acf_active() {
-	return class_exists( 'CPAC_Addon_ACF', false );
-}
-
-/**
- * @return bool True when Admin Columns WooCommerce add-on plugin is activated.
- */
-function cpac_is_addon_woocommerce_active() {
-	return class_exists( 'CPAC_Addon_WC', false );
-}
-
-/**
  * Get the url where the Admin Columns website is hosted
  *
  * @return string
