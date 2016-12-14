@@ -248,7 +248,6 @@ abstract class AC_Column {
 
 			$this->register_settings();
 
-			// TODO: maybe add to self::register settings to allow for control on order of settings
 			do_action( 'ac/column/settings', $this );
 		}
 
