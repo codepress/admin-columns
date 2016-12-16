@@ -24,8 +24,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
-		}
-		else {
+		} else {
 			$field = $this->create_element( 'select', 'field' )
 			              ->set_options( $this->get_field_options() );
 		}
@@ -57,12 +56,9 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 			);
 
 			foreach ( $keys as $field ) {
-				if ( substr( $field, 0, 10 ) == "cpachidden" ) {
-					$options['hidden']['options'][ $field ] = substr( $field, 10 );
-				}
-				else {
-					$options['public']['options'][ $field ] = $field;
-				}
+				$group = 0 === strpos( $field[0], '_' ) ? 'hidden' : 'public';
+
+				$options[ $group ]['options'][ $field[0] ] = $field[0];
 			}
 
 			krsort( $options ); // public first
@@ -84,6 +80,15 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	 * @return bool
 	 */
 	public function set_field( $field ) {
+		/**
+		 * Backcompat for WordPress Settings API not storing fields starting with _
+		 */
+		$prefix_hidden = 'cpachidden';
+
+		if ( 0 === strpos( $field, $prefix_hidden ) ) {
+			$field = substr( $field, strlen( $prefix_hidden ) );
+		}
+
 		$this->field = $field;
 
 		return true;
