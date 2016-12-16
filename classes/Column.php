@@ -295,6 +295,9 @@ abstract class AC_Column {
 	/**
 	 * Apply formatting that is defined in the settings
 	 *
+	 * A formatter should return a AC_Collection when other formatters
+	 * should apply the formatter to each member of the collection
+	 *
 	 * @param $value
 	 *
 	 * @return string
@@ -304,22 +307,22 @@ abstract class AC_Column {
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
 
-				if ( ! is_array( $value ) ) {
-					$value = $setting->format( $value );
-				} else {
+				if ( $value instanceof AC_Collection ) {
 					foreach ( $value as $k => $v ) {
-						$value[ $k ] = $setting->format( $v );
+						$value->put( $k, $setting->format( $v ) );
 					}
+				} else {
+					$value = $setting->format( $value );
 				}
 
 			}
 		}
 
-		if ( is_array( $value ) ) {
+		if ( $value instanceof AC_Collection ) {
 			// control the separator per column for multi-valued columns
 			$separator = apply_filters( 'ac/column/format/separator', ', ', $this );
 
-			$value = implode( $separator, $value );
+			$value = $value->implode( $separator );
 		}
 
 		return $value;

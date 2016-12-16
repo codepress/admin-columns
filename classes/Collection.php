@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Designed to hold values or objects of the same type
+ */
 class AC_Collection
 	implements Iterator {
 
@@ -58,6 +61,15 @@ class AC_Collection
 		$key = $this->key();
 
 		return ( $key !== null && $key !== false );
+	}
+
+	/**
+	 * @param string $glue
+	 *
+	 * @return string
+	 */
+	public function implode( $glue = '' ) {
+		return implode( $glue, $this->items );
 	}
 
 }
