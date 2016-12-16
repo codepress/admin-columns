@@ -10,13 +10,6 @@ class AC_Column_Comment_User extends AC_Column {
 		$this->set_label( __( 'User', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $comment_id ) {
-		$user_id = $this->get_raw_value( $comment_id );
-
-		return $this->get_setting( 'user' )->format( $user_id );
-
-	}
-
 	/**
 	 * @param int $comment_id Comment ID
 	 *
