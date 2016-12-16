@@ -37,4 +37,8 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 		return get_post( $post_id );
 	}
 
+	public function get_screen_link() {
+		return remove_query_arg( 'post_type', parent::get_screen_link() );
+	}
+
 }

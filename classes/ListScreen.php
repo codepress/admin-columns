@@ -358,7 +358,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @since NEWVERSION
 	 */
-	public function get_display_value_by_column_name( $column_name, $id, $value = false ) {
+	public function get_display_value_by_column_name( $column_name, $id, $value = null ) {
 
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $id );

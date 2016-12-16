@@ -168,6 +168,7 @@ class CPAC {
 
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
 		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
 
