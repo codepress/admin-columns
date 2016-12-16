@@ -153,6 +153,10 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				$value = ac_helper()->array->implode_recursive( ', ', $meta_data );
 		}
 
+		if ( is_array( $meta_data ) ) {
+			$value = ac_helper()->array->implode_recursive( ' ', $meta_data );
+		}
+
 		return $value;
 	}
 

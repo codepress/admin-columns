@@ -10,10 +10,6 @@ class AC_Column_Post_Attachment extends AC_Column {
 		$this->set_label( __( 'Attachments', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		return $this->get_attachment_ids( $post_id );
-	}
-
 	public function get_raw_value( $post_id ) {
 		return $this->get_attachment_ids( $post_id );
 	}

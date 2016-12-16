@@ -218,6 +218,7 @@ final class AC_ListScreenManager {
 				case 'replyto-comment' :
 					$list_screen = 'wp-comments';
 					break;
+
 				case 'cacie_column_save' :
 					$list_screen = filter_input( INPUT_POST, 'list_screen' );
 					break;
@@ -231,7 +232,6 @@ final class AC_ListScreenManager {
 	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
-
 		if ( empty( $columns ) ) {
 			return $columns;
 		}

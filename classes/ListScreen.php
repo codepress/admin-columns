@@ -359,9 +359,16 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	public function get_display_value_by_column_name( $column_name, $id, $value = false ) {
-		$column = $this->get_column_by_name( $column_name );
 
-		return $column ? $column->get_display_value( $id ) : $value;
+		if ( $column = $this->get_column_by_name( $column_name ) ) {
+			$value = $column->get_value( $id );
+
+			// TODO: comments, change name
+			$value = apply_filters( "cac/column/value", $value, $id, $column );
+			$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $column );
+		}
+
+		return $value;
 	}
 
 	/**

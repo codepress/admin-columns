@@ -11,7 +11,7 @@ final class AC_Settings_Form_Element_Radio extends AC_Settings_Form_Element {
 		$options = $this->get_options();
 
 		if ( empty( $options ) ) {
-			return;
+			return null;
 		}
 
 		$template = '<div class="radio-labels %s">%s</div>';

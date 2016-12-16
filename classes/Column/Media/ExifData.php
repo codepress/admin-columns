@@ -11,9 +11,7 @@ class AC_Column_Media_ExifData extends AC_Column {
 	}
 
 	public function get_value( $object_id ) {
-
-		// TODO: does not work, because array are not accepted by AC_Settings_Setting_ExifData::format
-		return $this->get_raw_value( $object_id );
+		return $this->format_value( $this->get_image_meta( $object_id ) );
 	}
 
 	public function get_raw_value( $id ) {

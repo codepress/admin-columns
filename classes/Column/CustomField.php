@@ -17,17 +17,12 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$this->set_group( 'custom_fields' );
 	}
 
-	public function get_display_value( $id ) {
-		return apply_filters( "cac/column/meta/value", parent::get_display_value( $id ), $id, $this );
-	}
-
 	public function get_value( $object_id ) {
-
 		if ( 'count' === $this->get_field_type() ) {
 			return $object_id;
 		}
 
-		return $this->get_raw_value( $object_id );
+		return parent::get_value( $object_id );
 	}
 
 	/**
@@ -209,7 +204,15 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		 */
 		//$keys = apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
 
-		// @since NEWVERSION
+		/**
+		 * Filter the available custom field meta keys
+		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param array $keys Available custom field keys
+		 * @param AC_ListScreen $list_screen List screen class instance
+		 */
 		$keys = apply_filters( 'ac/column/custom_fields', $keys, $this );
 
 		return $keys;

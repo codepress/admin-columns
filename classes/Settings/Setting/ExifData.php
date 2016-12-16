@@ -70,19 +70,21 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting
 	}
 
 	/**
-	 * @param array $meta Exif Meta Data
+	 * @param array $image_meta Exif Meta Data
 	 *
 	 * @return string|false
 	 */
 	public function format( $image_meta ) {
-		$value = false;
+		if ( ! isset( $image_meta[ $this->get_exif_datatype() ] ) ) {
+			return false;
+		}
+
+		$value = $image_meta[ $this->get_exif_datatype() ];
 
 		switch ( $this->get_exif_datatype() ) {
 
 			case 'created_timestamp' :
-				if ( isset( $image_meta[ $this->get_exif_datatype() ] ) ) {
-					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $image_meta[ $this->get_exif_datatype() ] ) );
-				}
+				$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
 				break;
 		}
 

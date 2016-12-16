@@ -125,8 +125,6 @@ abstract class AC_Column {
 	 * @since NEWVERSION
 	 * @return string Group
 	 */
-
-	// TODO: create object with group name and group priority (just like menu's)
 	public function get_group() {
 		return $this->group ? $this->group : 'custom';
 	}
@@ -222,11 +220,6 @@ abstract class AC_Column {
 		return $this;
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return AC_Settings_Setting|AC_Settings_FormatInterface|null
-	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
 	}
@@ -335,8 +328,8 @@ abstract class AC_Column {
 	 *
 	 * @return mixed
 	 */
-	protected function get_value( $object_id ) {
-		return $object_id;
+	public function get_value( $object_id ) {
+		return $this->format_value( $this->get_raw_value( $object_id ) );
 	}
 
 	/**
@@ -351,25 +344,6 @@ abstract class AC_Column {
 	 */
 	public function get_raw_value( $object_id ) {
 		return $object_id;
-	}
-
-	/**
-	 * Render value. Always outputs a string.
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @param $id
-	 *
-	 * @return string Value
-	 */
-	public function get_display_value( $id ) {
-		$value = $this->get_value( $id );
-		$value = $this->format_value( $value );
-
-		$value = apply_filters( "cac/column/value", $value, $id, $this );
-		$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $this );
-
-		return $value;
 	}
 
 }

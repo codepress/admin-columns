@@ -73,10 +73,8 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
-	/**
-	 * @see set_manage_value_callback()
-	 */
 	public function set_manage_value_callback() {
+		// located in WP_Posts_List_Table::column_default()
 		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 

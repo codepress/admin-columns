@@ -65,7 +65,7 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	 *
 	 * @return false|string
 	 */
-	private function get_user_name( $user_id ) {
+	public function get_user_name( $user_id ) {
 		return ac_helper()->user->get_display_name( $user_id, $this->get_display_author_as() );
 	}
 
