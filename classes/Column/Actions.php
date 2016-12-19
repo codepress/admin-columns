@@ -30,22 +30,12 @@ abstract class AC_Column_Actions extends AC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_value( $id ) {
-		$actions = $this->get_raw_value( $id );
-
-		if ( ! $actions ) {
-			return false;
-		}
 		if ( $this->get_option( 'use_icons' ) ) {
-			return implode( '', $this->convert_actions_to_icons( $actions ) );
-		}
-		$i = 0;
-		$num_actions = count( $actions );
-		foreach ( $actions as $class => $action ) {
-			$actions[ $class ] = '<span class="' . esc_attr( $class ) . '">' . $action . ( $i < $num_actions - 1 ? ' | ' : '' ) . '</span>';
-			$i++;
+			return '<span class="cpac_use_icons"></span>';
 		}
 
-		return implode( '', $actions );
+
+		return '';
 	}
 
 	/**
@@ -142,5 +132,4 @@ abstract class AC_Column_Actions extends AC_Column {
 			'spam'      => 'welcome-comments',
 		);
 	}
-
 }

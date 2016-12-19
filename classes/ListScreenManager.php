@@ -38,9 +38,49 @@ final class AC_ListScreenManager {
 			if ( ! $this->list_screen->get_column_by_name( $default ) ) {
 				$default = key( $this->list_screen->get_columns() );
 			}
+
+			// If actions column is present, set it as primary
+			if ( $this->list_screen->get_column_by_name( 'column-actions' ) ) {
+				$default = 'column-actions';
+			}
+
+			// Set inline edit data if the default column (title) is not present
+			if ( $this->list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
+				add_filter( 'page_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
+				add_filter( 'post_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
+			}
+
+			// Remove inline edit action if the default column (author) is not present
+			if ( $this->list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
+				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
+			}
+
 		}
 
 		return $default;
+	}
+
+	/**
+	 * Sets the inline data when the title columns is not present on a AC_ListScreen_Post screen
+	 *
+	 * @param array $actions
+	 * @param WP_Post $post
+	 */
+	public function set_inline_edit_data( $actions, $post ) {
+		get_inline_data( $post );
+
+		return $actions;
+	}
+
+	/**
+	 * Remove quick edit from actions
+	 *
+	 * @param array $actions
+	 */
+	public function remove_quick_edit_from_actions( $actions ) {
+		unset( $actions['quickedit'] );
+
+		return $actions;
 	}
 
 	/**
@@ -105,9 +145,9 @@ final class AC_ListScreenManager {
 		}
 
 		if ( $css_column_width ) : ?>
-            <style>
-                <?php echo $css_column_width; ?>
-            </style>
+			<style>
+				<?php echo $css_column_width; ?>
+			</style>
 			<?php
 		endif;
 
@@ -120,7 +160,7 @@ final class AC_ListScreenManager {
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
-            </script>
+			</script>
 			<?php
 		endif;
 

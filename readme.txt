@@ -215,6 +215,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: t.b.d.
 
 * [Improved] Using dashicons instead of image icons
+* [Improved] Action column now always is the primary column
 * [Added] Autoloader added
 * [Added] New user column added: Author name
 * [Added] New user column added: Show Toolbar

@@ -22,6 +22,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 */
 	public function get_single_row( $object_id ) {
 		ob_start();
+
 		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
 
 		return ob_get_clean();

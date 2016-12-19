@@ -1,7 +1,16 @@
 jQuery( document ).ready( function( $ ) {
+	cpac_actions_column();
 	cpac_tooltips();
 	cpac_quickedit_events();
 } );
+
+
+function cpac_actions_column(){
+	jQuery('.column-actions .cpac_use_icons + .row-actions > span').each( function(){
+		var $link = jQuery(this).find('a');
+		$link.attr( 'data-tip', $link.text() ).addClass('cpac-tip');
+	});
+}
 
 /**
  * @since 2.2.4
