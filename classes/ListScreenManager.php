@@ -44,11 +44,17 @@ final class AC_ListScreenManager {
 				$default = 'column-actions';
 			}
 
-			// Set inline edit data if the title column is not present
+			// Set inline edit data if the default column (title) is not present
 			if ( $this->list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
 				add_filter( 'page_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 				add_filter( 'post_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 			}
+
+			// Remove inline edit action if the default column (author) is not present
+			if ( $this->list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
+				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
+			}
+
 		}
 
 		return $default;
@@ -62,6 +68,17 @@ final class AC_ListScreenManager {
 	 */
 	public function set_inline_edit_data( $actions, $post ) {
 		get_inline_data( $post );
+
+		return $actions;
+	}
+
+	/**
+	 * Remove quick edit from actions
+	 *
+	 * @param array $actions
+	 */
+	public function remove_quick_edit_from_actions( $actions ) {
+		unset( $actions['quickedit'] );
 
 		return $actions;
 	}
