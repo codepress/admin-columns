@@ -1,0 +1,282 @@
+@import 'admin-variables';
+
+/**
+ * General
+ * ----------------------------------------------------------------------------
+ */
+#cpac {
+	a:focus,
+	a:active {
+		outline: none;
+	}
+
+	h2.cpac-nav-tab-wrapper {
+		margin-bottom: 10px;
+	}
+}
+
+/**
+ * Button
+ * ----------------------------------------------------------------------------
+ */
+.button.loading {
+	padding-right: 25px;
+	position: relative;
+}
+
+/**
+ * Message
+ * ----------------------------------------------------------------------------
+ */
+.cpac_message {
+	&.error.warning {
+		border-left: 4px solid #ffba00;
+	}
+}
+
+.ajax-message {
+	display: none;
+}
+
+/**
+ * Menu
+ * ----------------------------------------------------------------------------
+ */
+.menu {
+	position: relative;
+	margin-bottom: 16px;
+
+	select {
+		display: inline-block;
+		margin: 0;
+	}
+	.spinner {
+		display: none;
+		float: none;
+		visibility: visible;
+		margin: 0 0 0 14px;
+	}
+	.view-link,
+	.view-link:active {
+		display: inline-block;
+		margin: 0 0 0 12px;
+		top: 2px;
+	}
+}
+
+/**
+ * Notifications
+ * ----------------------------------------------------------------------------
+ */
+.cac-notification.updated {
+	border-left-color: #0071aa;
+
+	.learnmore {
+		float: right;
+
+		&:after {
+			content: "\f139";
+			font: normal 20px/1 'dashicons';
+			float: right;
+		}
+	}
+}
+
+/**
+ * Table
+ * ----------------------------------------------------------------------------
+ */
+table.cpac-form-table {
+	max-width: 1100px;
+	margin-top: 20px;
+
+	> tbody > tr > td,
+	> tbody > tr > th {
+		vertical-align: top;
+	}
+
+	td.padding-22 {
+		padding-top: 22px;
+	}
+
+	td {
+	}
+
+	&.settings {
+		tr td {
+			padding-top: 74px;
+		}
+
+		tr:first-child {
+			th {
+				padding-top: 0;
+			}
+
+			td {
+				padding-top: 54px;
+			}
+		}
+	}
+}
+
+/**
+ * WP Pointer
+ * ----------------------------------------------------------------------------
+ */
+.wp-pointer-content {
+	overflow: hidden;
+
+	ol {
+		margin-left: 1.5em;
+		padding: 0 15px;
+	}
+}
+
+.wp-pointer-right {
+	margin-right: 15px;
+}
+
+// WP Pointer
+.wp-pointer.noclick {
+	.wp-pointer-buttons {
+		display: none;
+	}
+}
+
+/* =RTL language
+-------------------------------------------------------------- */
+body.rtl {
+	.wp-pointer-right {
+		margin-left: 15px;
+		margin-right: 0;
+
+		ol {
+			margin-right: 1.5em;
+			margin-left: 0;
+		}
+	}
+
+	.button.loading {
+		padding-left: 25px;
+		padding-right: 0;
+
+		span {
+			left: 6px;
+			right: auto;
+		}
+	}
+
+	.cpac-menu .subsubsub {
+		margin-left: 14px;
+		margin-right: 0;
+	}
+
+	.columns-container {
+		margin-left: 300px;
+		margin-right: 0;
+	}
+
+	.columns-left {
+		float: right;
+
+		// Columns
+		.cpac-columns {
+			.cpac-column {
+
+				// Column Header
+				.column-meta {
+					img {
+						margin-left: 3px;
+						margin-right: 0;
+					}
+					.column_label {
+						.inner {
+							> a.remove-button {
+								margin-right: 12px;
+								margin-left: 0;
+							}
+
+							.meta {
+								float: left;
+							}
+						}
+
+						span.vers {
+							float: right;
+						}
+					}
+					.column_type {
+						text-align: left;
+						padding-left: 0;
+						padding-right: auto;
+					}
+
+					span.vers .comment-grey-bubble {
+						float: left;
+					}
+				}
+
+				.column-form {
+					table tr {
+						&.column_image_size td.input label input {
+							margin-left: 3px;
+							margin-right: 0;
+						}
+
+						td.label {
+							p.description {
+								right: 0;
+								left: auto;
+							}
+							a.more-info {
+								float: left;
+							}
+						}
+					}
+
+					div.description {
+						float: right;
+					}
+
+					div.input-width-range {
+						float: right;
+					}
+
+					a.help {
+						float: left;
+					}
+				}
+			}
+		}
+
+		// Footer
+		.column-footer {
+			.order-message {
+				float: right;
+				padding-right: 22px;
+				padding-left: 0;
+				background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
+			}
+			.button-container {
+				float: left;
+			}
+			.submit {
+				display: none;
+			}
+		}
+	}
+
+	.columns-right {
+		float: left;
+		margin-left: -300px;
+		margin-right: 0;
+	}
+
+	.cpac-placeholder {
+		padding: 5px 0 7px 4px;
+	}
+
+	.cpac_export .ms-container .ms-selection {
+		float: left;
+	}
+}

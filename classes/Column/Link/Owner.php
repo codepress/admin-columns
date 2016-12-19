@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -18,6 +17,7 @@ class AC_Column_Link_Owner extends AC_Column {
 
 		// add user link
 		$userdata = get_userdata( $bookmark->link_owner );
+
 		if ( ! empty( $userdata->data ) ) {
 			$value = $userdata->data->user_nicename;
 		}

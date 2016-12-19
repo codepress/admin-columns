@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
+class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
 	CONST SETTINGS_KEY = 'cpac_general_options';
 
@@ -64,7 +60,8 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 			case 'restore_all' :
 				if ( wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), 'restore-all' ) ) {
 
-					AC_Settings_Columns::delete_all();
+					// todo: make this non static? There is no reason why the list screen should be absent here?
+					AC_Settings_ListScreen::delete_all_settings();
 
 					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 

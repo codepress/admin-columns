@@ -1,7 +1,6 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_ListScreen_Link extends AC_ListScreenWPAbstract {
+class AC_ListScreen_Link extends AC_ListScreenWP {
 
 	public function __construct() {
 		parent::__construct();

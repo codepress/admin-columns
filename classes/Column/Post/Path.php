@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying path (without URL, e.g. "/my-category/sample-post/") to the front-end location of this item.

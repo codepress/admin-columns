@@ -1,25 +1,80 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
+class AC_ListScreen_Post extends AC_ListScreenWP {
 
-	public function __construct( $post_type ) {
+	/**
+	 * @var string $post_type
+	 */
+	protected $post_type;
+
+	public function __construct() {
 		parent::__construct();
+
+		$this->set_post_type();
 
 		$this->type = 'post';
 		$this->base = 'edit';
-		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 		$this->list_table = 'WP_Posts_List_Table';
-
-		$this->post_type = $post_type;
-		$this->key = $this->post_type;
-		$this->screen = $this->base . '-' . $this->post_type;
+		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+		$this->meta_type = 'post';
 	}
 
 	/**
-	 * @see set_manage_value_callback()
+	 * @since 2.4.7
 	 */
+	public function get_posts( $args = array() ) {
+		$defaults = array(
+			'posts_per_page' => -1,
+			'post_status'    => apply_filters( 'cac/get_posts/post_status', array( 'any', 'trash' ), $this ),
+			'post_type'      => $this->get_post_type(),
+			'fields'         => 'ids',
+			'no_found_rows'  => 1,
+		);
+
+		return (array) get_posts( array_merge( $defaults, $args ) );
+	}
+
+	/**
+	 * @since 2.1.1
+	 */
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	/**
+	 * @param null|string $post_type
+	 *
+	 * @return $this;
+	 */
+	public function set_post_type( $post_type = null ) {
+		if ( null === $post_type ) {
+			$post_type = 'post';
+		}
+
+		$this->post_type = $post_type;
+		$this->key = $post_type;
+		$this->screen = $this->base . '-' . $post_type;
+
+		return $this;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return WP_Post Post object
+	 */
+	protected function get_object_by_id( $post_id ) {
+		return get_post( $post_id );
+	}
+
+	/**
+	 * @since 2.4.7
+	 */
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
+	}
+
 	public function set_manage_value_callback() {
+		// located in WP_Posts_List_Table::column_default()
 		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
@@ -53,37 +108,6 @@ class AC_ListScreen_Post extends AC_ListScreen_PostAbstract {
 		$post_type_object = get_post_type_object( $this->post_type );
 
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
-	}
-
-	/**
-	 * @param AC_Column $column
-	 *
-	 * @return AC_Column
-	 */
-	private function inject_post_type( $column ) {
-		if ( $column ) {
-			$column->set_post_type( $this->post_type );
-		}
-
-		return $column;
-	}
-
-	/**
-	 * @param AC_Column $column
-	 */
-	public function register_column_type( AC_Column $column ) {
-		parent::register_column_type( $this->inject_post_type( $column ) );
-	}
-
-	/**
-	 * @param array $settings
-	 *
-	 * @return AC_Column|false
-	 */
-	public function create_column( array $settings ) {
-		$column = parent::create_column( $settings );
-
-		return $this->inject_post_type( $column );
 	}
 
 }

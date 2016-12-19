@@ -1,10 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
+class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 
 	public function __construct() {
 		$this
@@ -30,9 +26,9 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 		}
 
 		if ( $message ) : ?>
-			<div class="updated cac-notification below-h2">
-				<p><?php echo $message; ?></p>
-			</div>
+            <div class="updated cac-notification below-h2">
+                <p><?php echo $message; ?></p>
+            </div>
 			<?php
 		endif;
 	}
@@ -49,35 +45,37 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 		$grouped_addons = AC()->addons()->get_available_addons( true );
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
-			<h3><?php echo $addon_groups[ $group_name ]; ?></h3>
+            <h3><?php echo $addon_groups[ $group_name ]; ?></h3>
 
-			<ul class="cpac-addons">
-				<?php foreach ( $addons as $addon_name => $addon ) : ?>
-					<li>
-						<div class="cpac-addon-content">
-							<?php if ( ! empty( $addon['image'] ) ) : ?>
-								<img src="<?php echo esc_attr( $addon['image'] ); ?>"/>
+            <ul class="cpac-addons">
+				<?php
+				foreach ( $addons as $addon ) :
+					/* @var AC_Addon $addon */ ?>
+                    <li>
+                        <div class="cpac-addon-content">
+							<?php if ( $addon->get_image_url() ) : ?>
+                                <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>"/>
 							<?php else : ?>
-								<h3><?php echo esc_html( $addon['title'] ); ?></h3>
+                                <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
 							<?php endif; ?>
-						</div>
-						<div class="cpac-addon-header">
-							<h3><?php echo esc_html( $addon['title'] ); ?></h3>
-							<p><?php echo esc_html( $addon['description'] ); ?></p>
-						</div>
-						<div class="cpac-addon-actions">
+                        </div>
+                        <div class="cpac-addon-header">
+                            <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
+                            <p><?php echo esc_html( $addon->get_description() ); ?></p>
+                        </div>
+                        <div class="cpac-addon-actions">
 							<?php
 
 							// Installed..
-							if ( $plugin_basename = AC()->addons()->get_installed_addon_plugin_basename( $addon_name ) ) : ?>
+							if ( $plugin_basename = AC()->addons()->get_installed_addon_plugin_basename( $addon->get_slug() ) ) : ?>
 								<?php if ( is_plugin_active( $plugin_basename ) ) : ?>
 									<?php $deactivation_url = wp_nonce_url( add_query_arg( array( 'action' => 'deactivate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'deactivate-plugin_' . $plugin_basename ); ?>
-									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>
-									<a href="<?php echo esc_url( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
+                                    <a href="#" class="button button-disabled cpac-installed"><?php _e( 'Active', 'codepress-admin-columns' ); ?></a>
+                                    <a href="<?php echo esc_url( $deactivation_url ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 								<?php else : ?>
 									<?php $activation_url = wp_nonce_url( add_query_arg( array( 'action' => 'activate', 'plugin' => urlencode( $plugin_basename ), 'cpac-redirect' => true, ), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_basename ); ?>
-									<a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'codepress-admin-columns' ); ?></a>
-									<a href="<?php echo esc_url( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
+                                    <a href="#" class="button button-disabled cpac-installed"><?php _e( 'Installed', 'codepress-admin-columns' ); ?></a>
+                                    <a href="<?php echo esc_url( $activation_url ); ?>" class="button right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 								<?php endif; ?>
 								<?php
 
@@ -85,21 +83,18 @@ class AC_Admin_Tab_Addons extends AC_Admin_TabAbstract {
 							else :
 
 								if ( cpac_is_pro_active() ) :
-									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon_name ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
+									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
 									?>
-									<a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
-									<?php
-								else :
-									$install_url = ac_get_site_url( 'pricing-purchase' );
-									?>
-									<a target="_blank" href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
+                                    <a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
+								<?php else : ?>
+                                    <a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
 								<?php endif;
 							endif;
 							?>
-						</div>
-					</li>
+                        </div>
+                    </li>
 				<?php endforeach; // addons ?>
-			</ul>
+            </ul>
 		<?php endforeach; // grouped_addons
 	}
 

@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -24,15 +23,13 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	function __construct() {
-
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$this->tabs = new AC_Admin_Tabs();
-		$this->tabs
-			->register_tab( new AC_Admin_Tab_Columns() )
-			->register_tab( new AC_Admin_Tab_Settings() )
-			->register_tab( new AC_Admin_Tab_Addons() );
+		$this->tabs->register_tab( new AC_Admin_Tab_Columns() )
+		           ->register_tab( new AC_Admin_Tab_Settings() )
+		           ->register_tab( new AC_Admin_Tab_Addons() );
 	}
 
 	/**
@@ -50,7 +47,7 @@ class AC_Admin {
 		if ( $tab = $this->tabs->get_current_tab() ) {
 
 			// Hook
-			do_action( 'ac/admin_scripts/tab=' . $tab->get_slug(), $this );
+			do_action( 'ac/admin_scripts/' . $tab->get_slug(), $this );
 
 			$tab->admin_scripts();
 		}
@@ -81,7 +78,7 @@ class AC_Admin {
 	/**
 	 * @param $tab_slug
 	 *
-	 * @return AC_Admin_TabAbstract|false
+	 * @return AC_Admin_Tab|false
 	 */
 	public function get_tab( $tab_slug ) {
 		return $this->tabs->get_tab( $tab_slug );

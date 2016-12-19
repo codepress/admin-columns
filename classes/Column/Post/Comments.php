@@ -1,16 +1,14 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Comments extends AC_Column_DefaultPostAbstract {
+class AC_Column_Post_Comments extends AC_Column_DefaultPost {
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->set_type( 'comments' );
-		$this->set_hide_label( true );
 	}
 
 	public function is_valid() {
