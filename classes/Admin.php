@@ -65,14 +65,10 @@ class AC_Admin {
 	 * @return bool
 	 */
 	public function get_general_option( $option ) {
-		return $this->get_settings_tab()->get_option( $option );
-	}
+		/* @var AC_Admin_Tab_Settings $settings */
+		$settings = $this->tabs->get_tab( 'settings' );
 
-	/**
-	 * @return AC_Admin_Tab_Settings
-	 */
-	public function get_settings_tab() {
-		return $this->tabs->get_tab( 'settings' );
+		return $settings->get_option( $option );
 	}
 
 	/**

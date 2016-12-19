@@ -91,7 +91,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 				<?php echo $args->label; ?>
 			</label>
 			<?php if ( $args->instructions ) : ?>
-				<a href="javascript:;" class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+				<a class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
 				</a>
 			<?php endif; ?>

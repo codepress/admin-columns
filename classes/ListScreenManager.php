@@ -111,8 +111,11 @@ final class AC_ListScreenManager {
 			<?php
 		endif;
 
+		/* @var AC_Admin_Tab_Settings $settings */
+		$settings = AC()->settings()->get_tab( 'settings' );
+
 		// JS: Edit button
-		if ( current_user_can( 'manage_admin_columns' ) && AC()->settings()->get_settings_tab()->show_edit_button() ) : ?>
+		if ( current_user_can( 'manage_admin_columns' ) && $settings->show_edit_button() ) : ?>
             <script>
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );

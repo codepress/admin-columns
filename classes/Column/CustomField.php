@@ -17,23 +17,21 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$this->set_group( 'custom_fields' );
 	}
 
-	public function get_value( $object_id ) {
-		if ( 'count' === $this->get_field_type() ) {
-			return $object_id;
-		}
+	public function get_single_raw_value( $id ) {
+		$array = $this->get_raw_value( $id );
 
-		return parent::get_value( $object_id );
+		return isset( $array[0] ) ? $array[0] : false;
 	}
 
 	/**
 	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	public function get_raw_value( $id, $single = true ) {
+	public function get_raw_value( $id ) {
 		$raw_value = '';
 
 		if ( $field_key = $this->get_field_key() ) {
-			$raw_value = get_metadata( $this->get_meta_type(), $id, $field_key, $single );
+			$raw_value = get_metadata( $this->get_meta_type(), $id, $field_key, false );
 		}
 
 		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $field_key, $this );

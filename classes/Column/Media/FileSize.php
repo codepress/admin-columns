@@ -30,12 +30,14 @@ class AC_Column_Media_FileSize extends AC_Column {
 	 *
 	 * @param string $size
 	 *
-	 * @return string Readable filesize
+	 * @return string Readable file size
 	 */
 	public function get_readable_filesize( $size ) {
 		$filesizename = array( "Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" );
 
-		return $size ? round( $size / pow( 1024, ( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $filesizename[ $i ] : '0 Bytes';
+		$i = (int) floor( log( $size, 1024 ) );
+
+		return $size ? round( $size / pow( 1024, $i ), 2 ) . ' ' . $filesizename[ $i ] : '0 Bytes';
 	}
 
 }

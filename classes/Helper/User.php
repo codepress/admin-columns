@@ -6,7 +6,7 @@ class AC_Helper_User {
 	 * @param string $field
 	 * @param int $user_id
 	 *
-	 * @return bool|string
+	 * @return bool|string|array
 	 */
 	public function get_user_field( $field, $user_id ) {
 		$user = get_user_by( 'id', $user_id );

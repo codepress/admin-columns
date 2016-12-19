@@ -477,8 +477,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 							</h3>
 
 							<div class="form-update">
-								<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-								<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+								<a class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+								<a class="button-primary submit save"><?php _e( 'Save' ); ?></a>
 							</div>
 
 							<form class="form-reset" method="post">
@@ -718,13 +718,13 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 							</div>
 							<div class="button-container">
 								<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
-									<a href="javascript:;" class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+									<a class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 								<?php endif; ?>
 
 								<span class="spinner"></span>
-								<a href="javascript:;" class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-								<a href="javascript:;" class="button-primary submit save"><?php _e( 'Save' ); ?></a>
-								<a href="javascript:;" class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+								<a class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+								<a class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+								<a class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
 							</div>
 						<?php endif; ?>
 					</div><!--.cpac-column-footer-->
