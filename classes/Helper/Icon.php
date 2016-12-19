@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_Icon {
 
 	public function dashicon( $args = array() ) {

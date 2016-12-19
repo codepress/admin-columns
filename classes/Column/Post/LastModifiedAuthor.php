@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying information about the author of a post, such as the
@@ -14,21 +13,12 @@ class AC_Column_Post_LastModifiedAuthor extends AC_Column {
 		$this->set_label( __( 'Last Modified Author', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		$value = '';
-		if ( $user_id = $this->get_raw_value( $post_id ) ) {
-			$value = $this->format->user( $user_id );
-		}
-
-		return $value;
-	}
-
 	public function get_raw_value( $post_id ) {
 		return get_post_meta( $post_id, '_edit_last', true );
 	}
 
-	public function display_settings() {
-		$this->field_settings->user();
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_User( $this ) );
 	}
 
 }

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_Post {
 
 	/**
@@ -217,7 +213,7 @@ class AC_Helper_Post {
 
 	/**
 	 * @since NEWVERSION
-	 * 
+	 *
 	 * @param $post_id
 	 * @param $taxonomy
 	 *

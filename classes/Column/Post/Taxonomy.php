@@ -1,12 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Taxonomy extends AC_Column_TaxonomyAbstract {
+class AC_Column_Post_Taxonomy extends AC_Column_Taxonomy {
 
 	/**
 	 * @return bool True when post type has associated taxonomies

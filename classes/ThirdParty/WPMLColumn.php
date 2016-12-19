@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * WPML: display correct flags on the overview screens

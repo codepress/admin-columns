@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.2.4

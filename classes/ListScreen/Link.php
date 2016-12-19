@@ -1,9 +1,10 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
-class AC_ListScreen_Link extends AC_ListScreenWPAbstract {
+class AC_ListScreen_Link extends AC_ListScreenWP {
 
-	function init() {
+	public function __construct() {
+		parent::__construct();
+
 		$this->key = 'wp-links';
 		$this->label = __( 'Links' );
 		$this->singular_label = __( 'Link' );

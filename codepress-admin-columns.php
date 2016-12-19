@@ -51,7 +51,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Addons
 	 */
-	private $_addons;
+	private $addons;
 
 	/**
 	 * Admin Columns settings class instance
@@ -60,7 +60,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Admin
 	 */
-	private $_settings;
+	private $settings;
 
 	/**
 	 * Admin Columns plugin upgrade class instance
@@ -69,12 +69,17 @@ class CPAC {
 	 * @access private
 	 * @var AC_Upgrade
 	 */
-	private $_upgrade;
+	private $upgrade;
+
+	/**
+	 * @var AC_ColumnGroups Column Groups
+	 */
+	private $groups;
 
 	/**
 	 * @var AC_ListScreenManager $_list_screen_manager
 	 */
-	private $_list_screen_manager;
+	private $list_screen_manager;
 
 	/**
 	 * @since NEWVERSION
@@ -90,7 +95,7 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
-	 * @var AC_ListScreenAbstract[]
+	 * @var AC_ListScreen[]
 	 */
 	private $list_screens;
 
@@ -120,13 +125,11 @@ class CPAC {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
+		// Autoload classes
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
 		require_once $this->get_plugin_dir() . 'classes/Column.php';
-
-		// Backwards compatibility
-		require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -135,10 +138,12 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Includes
-		$this->_settings = new AC_Admin();
-		$this->_addons = new AC_Addons();
-		$this->_upgrade = new AC_Upgrade();
-		$this->_list_screen_manager = new AC_ListScreenManager();
+		$this->settings = new AC_Admin();
+		$this->addons = new AC_Addons();
+		$this->upgrade = new AC_Upgrade();
+		$this->list_screen_manager = new AC_ListScreenManager();
+
+		$this->init_groups();
 
 		$this->helper = new AC_Helper();
 
@@ -153,6 +158,21 @@ class CPAC {
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+	}
+
+	/**
+	 * Initialize groups
+	 */
+	private function init_groups() {
+		$groups = new AC_ColumnGroups();
+
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
+		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
+
+		$this->groups = $groups;
 	}
 
 	/**
@@ -318,7 +338,7 @@ class CPAC {
 	 * @return AC_Admin Settings class instance
 	 */
 	public function settings() {
-		return $this->_settings;
+		return $this->settings;
 	}
 
 	/**
@@ -328,7 +348,7 @@ class CPAC {
 	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->_addons;
+		return $this->addons;
 	}
 
 	/**
@@ -338,7 +358,14 @@ class CPAC {
 	 * @return AC_Upgrade Upgrade class instance
 	 */
 	public function upgrade() {
-		return $this->_upgrade;
+		return $this->upgrade;
+	}
+
+	/**
+	 * @return AC_ColumnGroups
+	 */
+	public function groups() {
+		return $this->groups;
 	}
 
 	/**
@@ -354,7 +381,7 @@ class CPAC {
 	 * @return AC_ListScreenManager
 	 */
 	public function list_screen_manager() {
-		return $this->_list_screen_manager;
+		return $this->list_screen_manager;
 	}
 
 	/**
@@ -362,7 +389,7 @@ class CPAC {
 	 *
 	 * @param string $key
 	 *
-	 * @return AC_ListScreenAbstract|false
+	 * @return AC_ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
@@ -380,7 +407,7 @@ class CPAC {
 	 * Returns the default list screen when no choice is made by the user
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_default_list_screen() {
 		$screens = $this->get_list_screens();
@@ -393,7 +420,7 @@ class CPAC {
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract[]
+	 * @return AC_ListScreen[]
 	 */
 	public function get_list_screens() {
 		if ( null === $this->list_screens ) {
@@ -411,7 +438,10 @@ class CPAC {
 	private function set_list_screens() {
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
-			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
+			$list_screen = new AC_ListScreen_Post();
+			$list_screen->set_post_type( $post_type );
+
+			$this->register_list_screen( $list_screen );
 		}
 
 		// Create other list screens
@@ -428,9 +458,9 @@ class CPAC {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 */
-	public function register_list_screen( AC_ListScreenAbstract $list_screen ) {
+	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
@@ -441,7 +471,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private function get_post_types() {
+	public function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
@@ -467,15 +497,8 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_Admin_Tab_Columns
-	 */
-	public function columns_tab() {
-		return $this->settings()->get_tab( 'columns' );
-	}
-
-	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
@@ -490,15 +513,15 @@ class CPAC {
 
 	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen()' );
 
 		return $this->list_screen_manager()->get_list_screen();
 	}

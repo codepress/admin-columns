@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -28,4 +27,5 @@ class AC_Column_Comment_ReplyTo extends AC_Column {
 
 		return $comment->comment_parent;
 	}
+
 }

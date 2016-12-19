@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 class AC_Notice_Review {
 

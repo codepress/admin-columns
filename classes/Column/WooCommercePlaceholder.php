@@ -1,10 +1,10 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.4.7
  */
-class AC_Column_WooCommercePlaceholder extends AC_Column {
+class AC_Column_WooCommercePlaceholder extends AC_Column
+	implements AC_Column_PlaceholderInterface {
 
 	public function __construct() {
 		$this->set_type( 'column-wc_placeholder' );
@@ -16,11 +16,12 @@ class AC_Column_WooCommercePlaceholder extends AC_Column {
 		return false;
 	}
 
+	public function get_url() {
+		return ac_get_site_url( 'woocommerce-columns' );
+	}
+
 	public function is_valid() {
 		return in_array( $this->get_post_type(), array( 'product', 'shop_order', 'shop_coupon' ) );
 	}
 
-	public function display_settings() {
-		$this->field_settings->placeholder( array( 'label' => $this->get_label, 'type' => $this->get_type(), 'url' => ac_get_site_url( 'woocommerce-columns' ) ) );
-	}
 }

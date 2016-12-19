@@ -1,10 +1,33 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_Html {
+
+	/**
+	 * @param string $key
+	 * @param string $value
+	 *
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_attribute_as_string( $key, $value ) {
+		return sprintf( '%s="%s"', $key, esc_attr( trim( $value ) ) );
+	}
+
+	/**
+	 * @param array $attributes
+	 *
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_attributes_as_string( array $attributes ) {
+		$output = array();
+
+		foreach ( $attributes as $key => $value ) {
+			$output[] = $this->get_attribute_as_string( $key, $value );
+		}
+
+		return implode( ' ', $output );
+	}
 
 	/**
 	 * @param string $url
@@ -12,10 +35,18 @@ class AC_Helper_Html {
 	 *
 	 * @return string|false HTML Anchor element
 	 */
-	public function link( $url, $label, $attributes = array() ) {
-		if ( ! $url ) {
+	public function link( $url, $label = null, $attributes = array() ) {
+		if ( false === $label ) {
 			return $label;
 		}
+
+	    if ( ! $url ) {
+			return $label;
+		}
+
+		if ( null === $label ) {
+		    $label = $url;
+        }
 
 		if ( ! $this->contains_html( $label ) ) {
 			$label = esc_html( $label );
@@ -38,9 +69,10 @@ class AC_Helper_Html {
 	 */
 	private function get_attributes( $attributes ) {
 		$_attributes = array();
+
 		foreach ( array( 'title', 'id', 'class', 'style', 'target' ) as $attribute ) {
 			if ( ! empty( $attributes[ $attribute ] ) ) {
-				$_attributes[] = $attribute . '="' . esc_attr( $attributes[ $attribute ] ) . '"';
+				$_attributes[] = $this->get_attribute_as_string( $attribute, $attributes[ $attribute ] );
 			}
 		}
 
@@ -64,6 +96,17 @@ class AC_Helper_Html {
 	public function indicator( $class, $id, $title = false ) { ?>
 		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
 		<?php
+	}
+
+	/**
+	 * Adds a divider to the implode
+	 *
+	 * @param $array
+	 *
+	 * @return string
+	 */
+	public function implode( $array ) {
+		return is_array( $array ) ? implode( $this->divider(), $array ) : $array;
 	}
 
 }

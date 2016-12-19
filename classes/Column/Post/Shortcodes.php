@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Display used shortcodes

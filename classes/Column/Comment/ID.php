@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -14,4 +13,5 @@ class AC_Column_Comment_ID extends AC_Column {
 	public function get_value( $id ) {
 		return $id;
 	}
+
 }
