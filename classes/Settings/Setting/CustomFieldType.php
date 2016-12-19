@@ -159,8 +159,8 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				$value = ac_helper()->array->implode_recursive( ', ', $single_meta_data );
 		}
 
-		if ( is_array( $single_meta_data ) ) {
-			$value = ac_helper()->array->implode_recursive( ' ', $single_meta_data );
+		if ( is_array( $value ) ) {
+			$value = ac_helper()->array->implode_recursive( ' ', $value );
 		}
 
 		return $value;
