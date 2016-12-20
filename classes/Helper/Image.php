@@ -75,7 +75,7 @@ class AC_Helper_Image {
 			$src = $attributes[0];
 
 			if ( is_array( $size ) ) {
-				$image = $this->markup_cover( $src, $size[0], $size[1] );
+				$image = $this->markup_cover( $src, $size[0], $size[1], $id );
 			}
 			else {
 				$image = $this->markup( $src, $attributes[1], $attributes[2], $id );

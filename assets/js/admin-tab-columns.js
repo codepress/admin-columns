@@ -1,8 +1,3 @@
-/*
- *	Fires when the dom is ready
- *
- */
-
 /**
  * AC variables. Defined in DOM.
  * @param {Object} cpac
@@ -718,11 +713,7 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
-}( jQuery ));
-
-// Settings fields: Image _size
-(function( $ ) {
-
+	// Settings fields: Image _size
 	$.fn.cpac_column_setting_image_size = function() {
 		function initState( $setting, $select ) {
 			if ( 'cpac-custom' == $select.val() ) {
@@ -748,11 +739,8 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
 	} );
 
-}( jQuery ));
 
-// Settings fields: Width
-(function( $ ) {
-
+	// Settings fields: Width
 	$.fn.column_width_slider = function() {
 
 		var column_width = $( this ).find( '.ac-setting-input-width' );
@@ -846,10 +834,6 @@ function cpac_reset_columns( $ ) {
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 	} );
-
-}( jQuery ));
-
-(function( $ ) {
 
 	$.fn.cpac_column_sub_setting_toggle = function( options ) {
 		var settings = $.extend( {
