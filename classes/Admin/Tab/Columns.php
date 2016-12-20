@@ -7,7 +7,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	/**
 	 * @var AC_ListScreen $list_screen
 	 */
-	private $list_screen;
+	private $current_list_screen;
 
 	public function __construct() {
 		$this->set_slug( 'columns' )
@@ -52,7 +52,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		// Nonce
 		wp_localize_script( 'ac-admin-tab-columns', 'cpac', array(
 			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
-			'list_screen' => $this->get_list_screen()->get_key(),
+			'list_screen' => $this->get_current_list_screen()->get_key(),
 		) );
 	}
 
@@ -140,7 +140,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 
 				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
 
-					if ( $list_screen = $this->get_list_screen() ) {
+					if ( $list_screen = $this->get_current_list_screen() ) {
 						$list_screen->settings()->delete();
 						$list_screen->flush_columns();
 
@@ -199,12 +199,12 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$column = $this->get_list_screen()->get_column_by_type( $type );
+		$column = $this->get_current_list_screen()->get_column_by_type( $type );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_error_message_visit_list_screen( $this->get_list_screen() ),
+				'error' => $this->get_error_message_visit_list_screen( $this->get_current_list_screen() ),
 			) );
 		}
 
@@ -290,7 +290,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 			$options[ $name ]['clone'] = $clone;
 		}
 
-		$column = $this->get_list_screen()->create_column( $options[ $name ] );
+		$column = $this->get_current_list_screen()->create_column( $options[ $name ] );
 
 		if ( ! $column ) {
 			wp_die();
@@ -317,7 +317,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 			);
 		}
 
-		$stored = $this->store( $this->get_list_screen(), $formdata['columns'] );
+		$stored = $this->store( $this->get_current_list_screen(), $formdata['columns'] );
 
 		if ( is_wp_error( $stored ) ) {
 			wp_send_json_error( array(
@@ -328,8 +328,8 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_list_screen() ) ) . "</strong>" )
-			. ' <a href="' . esc_attr( $this->get_list_screen()->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $this->get_list_screen()->get_label() ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_current_list_screen() ) ) . "</strong>" )
+			. ' <a href="' . esc_attr( $this->get_current_list_screen()->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $this->get_current_list_screen()->get_label() ) ) . '</a>'
 		);
 	}
 
@@ -398,18 +398,18 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 
 		do_action( 'ac/settings/list_screen', $current_list_screen );
 
-		$this->list_screen = $current_list_screen;
+		$this->current_list_screen = $current_list_screen;
 	}
 
 	/**
 	 * @return AC_ListScreen
 	 */
-	public function get_list_screen() {
-		if ( null === $this->list_screen ) {
+	private function get_current_list_screen() {
+		if ( null === $this->current_list_screen ) {
 			$this->set_current_list_screen();
 		}
 
-		return $this->list_screen;
+		return $this->current_list_screen;
 	}
 
 	/**
@@ -435,7 +435,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	 * Display
 	 */
 	public function display() {
-		$list_screen = $this->get_list_screen();
+		$list_screen = $this->get_current_list_screen();
 		?>
 
 		<div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">

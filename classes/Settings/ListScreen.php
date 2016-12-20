@@ -95,10 +95,10 @@ final class AC_Settings_ListScreen {
 	public static function delete_all_settings() {
 		global $wpdb;
 
-		$sql = '
+		$sql = "
 			DELETE
 			FROM $wpdb->options
-			WHERE option_name LIKE %s';
+			WHERE option_name LIKE %s";
 
 		$wpdb->query( $wpdb->prepare( $sql, self::OPTIONS_KEY . '%' ) );
 	}
