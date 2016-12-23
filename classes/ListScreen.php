@@ -418,7 +418,7 @@ abstract class AC_ListScreen {
 	private function set_column_types() {
 		// Register default column types
 		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
-			// ignore the mandatory checkbox column
+			// Ignore the mandatory checkbox column
 			if ( 'cb' == $type ) {
 				continue;
 			}
@@ -436,13 +436,11 @@ abstract class AC_ListScreen {
 			$this->register_column_type( $column );
 		}
 
-		// Integration placeholders
-		if ( ac_is_acf_active() ) {
-			$this->register_column_type( new AC_Column_ACFPlaceholder );
-		}
-
-		if ( ac_is_woocommerce_active() ) {
-			$this->register_column_type( new AC_Column_WooCommercePlaceholder );
+		// Placeholder columns
+		foreach ( AC()->addons()->get_addons() as $addon ) {
+			if ( $addon->is_plugin_active() && ! $addon->is_addon_active() ) {
+				$this->register_column_type( $addon->get_placeholder_column() );
+			}
 		}
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );

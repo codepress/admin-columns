@@ -39,8 +39,6 @@ if ( ! is_admin() ) {
  * The Admin Columns Class
  *
  * @since 1.0
- *
- * @property AC_Helper helper
  */
 class CPAC {
 
@@ -100,6 +98,11 @@ class CPAC {
 	private $list_screens;
 
 	/**
+	 * @var array $notices
+	 */
+	private $notices;
+
+	/**
 	 * @since 2.5
 	 */
 	protected static $_instance = null;
@@ -142,37 +145,33 @@ class CPAC {
 		$this->addons = new AC_Addons();
 		$this->upgrade = new AC_Upgrade();
 		$this->list_screen_manager = new AC_ListScreenManager();
-
-		$this->init_groups();
-
 		$this->helper = new AC_Helper();
+
+		// Column groups
+		$groups = new AC_ColumnGroups();
+
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
+
+		$this->groups = $groups;
 
 		new AC_Notice_Review();
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
-	}
 
-	/**
-	 * Initialize groups
-	 */
-	private function init_groups() {
-		$groups = new AC_ColumnGroups();
-
-		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
-		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
-		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
-
-		$this->groups = $groups;
+		// Notices
+		add_action( 'admin_notices', array( $this, 'display_notices' ) );
+		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
 	}
 
 	/**
@@ -182,23 +181,6 @@ class CPAC {
 		require_once $this->get_plugin_dir() . 'classes/autoloader.php';
 
 		return AC_Autoloader::instance();
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @param string $key
-	 *
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'helper' ) ) ) {
-			return $this->$key();
-		}
-
-		return false;
 	}
 
 	/**
@@ -243,24 +225,6 @@ class CPAC {
 	 */
 	public function get_upgrade_version() {
 		return '2.0.0';
-	}
-
-	/**
-	 * Fire callbacks for admin columns setup completion
-	 *
-	 * @since 2.2
-	 */
-	public function after_setup() {
-
-		/**
-		 * Fires when Admin Columns is fully loaded
-		 * Use this for setting up addon functionality
-		 *
-		 * @since 2.0
-		 *
-		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
-		 */
-		do_action( 'cac/loaded', $this );
 	}
 
 	/**
@@ -494,6 +458,23 @@ class CPAC {
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'cac/post_types', $post_types );
+	}
+
+	/**
+	 * Display admin notice
+	 */
+	public function display_notices() {
+		if ( $this->notices ) {
+			echo implode( $this->notices );
+		}
+	}
+
+	/**
+	 * @param string $message Message body
+	 * @param string $type Updated or error
+	 */
+	public function notice( $message, $type = 'updated' ) {
+		$this->notices[] = '<div class="cpac_message ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
 
 	/**

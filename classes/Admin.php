@@ -74,7 +74,7 @@ class AC_Admin {
 	/**
 	 * @param $tab_slug
 	 *
-	 * @return AC_Admin_Tab|false
+	 * @return AC_Admin_Tab_Columns|AC_Admin_Tab_Settings|AC_Admin_Tab_Addons|false
 	 */
 	public function get_tab( $tab_slug ) {
 		return $this->tabs->get_tab( $tab_slug );

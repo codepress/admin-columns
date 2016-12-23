@@ -43,7 +43,6 @@ abstract class AC_Column_Actions extends AC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_raw_value( $id ) {
-
 		$actions = ac_action_column_helper()->get( $this->get_object_type(), $id );
 
 		/**

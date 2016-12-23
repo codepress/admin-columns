@@ -15,7 +15,13 @@ class AC_Addon_ACF extends AC_Addon {
 	}
 
 	public function is_addon_active() {
-		return class_exists( 'CPAC_Addon_ACF', false );
+		return function_exists( 'ac_addon_acf' );
+	}
+
+	public function get_placeholder_column() {
+		$column = new AC_Column_Placeholder( $this );
+
+		return $column->set_url( ac_get_site_url( 'advanced-custom-fields-columns' ) );
 	}
 
 }

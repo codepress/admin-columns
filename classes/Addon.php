@@ -49,6 +49,11 @@ abstract class AC_Addon {
 	abstract public function is_plugin_active();
 
 	/**
+	 * @return AC_Column_Placeholder
+	 */
+	abstract public function get_placeholder_column();
+
+	/**
 	 * @return string
 	 */
 	public function get_title() {

@@ -69,6 +69,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $type
+	 * @return $this
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;
@@ -113,7 +114,7 @@ abstract class AC_Column {
 	/**
 	 * @param string $label
 	 *
-	 * @return AC_Column
+	 * @return $this
 	 */
 	public function set_label( $label ) {
 		$this->label = $label;
@@ -220,6 +221,20 @@ abstract class AC_Column {
 		return $this;
 	}
 
+	/**
+	 * @param string $id Settings ID
+	 */
+	public function remove_setting( $id ) {
+		if ( isset( $this->settings[ $id ] ) ) {
+			unset( $this->settings[ $id ] );
+		}
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return AC_Settings_Setting_User
+	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
 	}

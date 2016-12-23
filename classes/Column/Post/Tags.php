@@ -7,6 +7,7 @@ class AC_Column_Post_Tags extends AC_Column_DefaultPost {
 
 	public function __construct() {
 		parent::__construct();
+
 		$this->set_type( 'tags' );
 	}
 

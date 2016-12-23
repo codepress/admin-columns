@@ -132,7 +132,7 @@ class AC_Upgrade {
 					           __( "then click", 'codepress-admin-columns' ) . ' <a href="' . admin_url() . 'options-general.php?page=cpac-upgrade" class="button">' .
 					           __( "Upgrade Database", 'codepress-admin-columns' ) . '</a>';
 
-					cpac_admin_message( $message, 'updated' );
+					AC()->notice( $message, 'updated' );
 				}
 			}
 

@@ -640,7 +640,7 @@
 								}
 
 								&.ac-column-indicator {
-									margin-left: 0;
+									margin-left: 3px;
 									font-size: 24px;
 									line-height: 17px;
 									width: 22px;
@@ -1105,6 +1105,11 @@
 		color: #fff;
 	}
 
+	.nopadding {
+		margin: 0;
+		padding: 0;
+	}
+
 	h3 {
 		font-size: 34px;
 		a {
@@ -1126,6 +1131,24 @@
 		display: block;
 		padding: 6px 20px;
 		border-radius: 3px;
+	}
+
+	.more {
+		color: $ac-yellow;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	p {
+		&.center {
+			text-align: center;
+		}
+		&.nomargin {
+			margin-bottom: 0;
+		}
 	}
 
 	ul {
@@ -1165,11 +1188,10 @@
 		}
 	}
 	.padding-box.ac-pro-deal {
-		background: none;
 		color: $ac-dark;
 		padding-bottom: 20px;
 		text-align: center;
-		background-color: #fff;
+		background: lighten( $ac-yellow, 2 );
 
 		h3 {
 			font-size: 20px;

@@ -63,7 +63,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 					// todo: make this non static? There is no reason why the list screen should be absent here?
 					AC_Settings_ListScreen::delete_all_settings();
 
-					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 
 					// @since NEWVERSION
 					do_action( 'ac/restore_all_columns' );

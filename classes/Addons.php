@@ -37,19 +37,39 @@ final class AC_Addons {
 		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Addon', 'AC_' );
 
 		foreach ( $classes as $class ) {
-			$this->register_addon( new $class );
+
+			/* @var AC_Addon $addon */
+			$addon = new $class;
+
+			$this->register_addon( $addon );
+
+			AC()->groups()->register_group( $addon->get_slug(), $addon->get_title(), 4 );
 		}
-    }
+	}
 
 	/**
 	 * @return AC_Addon[]
 	 */
 	public function get_addons() {
-	    if ( null === $this->addons ) {
-	        $this->set_addons();
-        }
+		if ( null === $this->addons ) {
+			$this->set_addons();
+		}
 
-        return $this->addons;
+		return $this->addons;
+	}
+
+	/**
+	 * @return AC_Addon[]
+	 */
+	public function get_addons_promo() {
+		$addons = $this->get_addons();
+		foreach ( $addons as $k => $addon ) {
+			if ( ! $addon->is_plugin_active() || $addon->is_addon_active() ) {
+				unset( $addons[ $k ] );
+			}
+		}
+
+		return $addons;
 	}
 
 	/**
@@ -70,10 +90,10 @@ final class AC_Addons {
 		$plugins = array();
 
 		foreach ( $this->get_addons() as $addon ) {
-		    if ( $addon->is_plugin_active() && ! $addon->is_addon_active() ) {
-			    $plugins[] = $addon->get_title();
-            }
-        }
+			if ( $addon->is_plugin_active() && ! $addon->is_addon_active() ) {
+				$plugins[] = $addon->get_title();
+			}
+		}
 
 		if ( $plugins ) {
 			$num_plugins = count( $plugins );
@@ -188,20 +208,20 @@ final class AC_Addons {
 		}
 
 		if ( ! $this->get_addon( $_GET['plugin'] ) ) {
-			cpac_admin_message( __( 'Addon does not exist.', 'codepress-admin-columns' ), 'error' );
+			AC()->notice( __( 'Addon does not exist.', 'codepress-admin-columns' ), 'error' );
 
 			return;
 		}
 
-		if ( ! cpac_is_pro_active() ) {
-			cpac_admin_message( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
+		if ( ! ac_is_pro_active() ) {
+			AC()->notice( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' );
 
 			return;
 		}
 
 		// Hook: trigger possible warning message before running WP installer ( api errors etc. )
 		if ( $error = apply_filters( 'cac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
-			cpac_admin_message( $error, 'error' );
+			AC()->notice( $error, 'error' );
 
 			return;
 		}

@@ -53,11 +53,13 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 					/* @var AC_Addon $addon */ ?>
                     <li>
                         <div class="cpac-addon-content">
+                            <div class="inner">
 							<?php if ( $addon->get_image_url() ) : ?>
                                 <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>"/>
 							<?php else : ?>
                                 <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
 							<?php endif; ?>
+                            </div>
                         </div>
                         <div class="cpac-addon-header">
                             <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
@@ -82,7 +84,7 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 							// Not installed...
 							else :
 
-								if ( cpac_is_pro_active() ) :
+								if ( ac_is_pro_active() ) :
 									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), AC()->settings()->get_link( 'addons' ) ), 'install-cac-addon' );
 									?>
                                     <a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>

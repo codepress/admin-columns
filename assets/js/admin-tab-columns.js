@@ -8,7 +8,7 @@ var cpac;
  * Translations. Defined in DOM.
  * @param {Object} cpac
  */
-var cpac_i18n;
+var ac_i18n;
 
 /**
  * DOM ready
@@ -296,6 +296,10 @@ function cpac_reset_columns( $ ) {
 		var $container = $( this ).closest( '.columns-container' );
 		var column_name = $( this ).data( 'column-name' );
 		var column_clone = $( this ).data( 'clone' );
+
+		// Allow plugins to hook into this event
+		$( document ).trigger( 'pre_column_refresh', el );
+
 		var data = $( this ).find( ':input' ).serializeArray();
 		var request_data = {
 			plugin_id : 'cpac',
@@ -336,6 +340,8 @@ function cpac_reset_columns( $ ) {
 				el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 				// Allow plugins to hook into this event
+
+				// TODO: change to column_refresh?
 				$( document ).trigger( 'column_change', el );
 			}
 
@@ -348,7 +354,7 @@ function cpac_reset_columns( $ ) {
 		xhr.fail( function( error ) {
 			var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
 
-			$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
+			$msg.addClass( 'error' ).find( 'p' ).html( ac_i18n.error );
 			$msg.slideDown();
 
 			el.slideUp( function() { el.remove() } );
@@ -503,7 +509,7 @@ function cpac_reset_columns( $ ) {
 
 		if ( '1' === column.attr( 'data-original' ) ) {
 
-			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
+			var message = ac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
 			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
 			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();

@@ -19,4 +19,10 @@ class AC_Addon_WooCommerce extends AC_Addon {
 		return class_exists( 'CPAC_Addon_WC', false );
 	}
 
+	public function get_placeholder_column() {
+		$column = new AC_Column_WooCommercePlaceholder( $this );
+
+		return $column->set_url( ac_get_site_url( 'woocommerce-columns' ) );
+	}
+
 }

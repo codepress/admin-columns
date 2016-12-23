@@ -96,6 +96,11 @@ final class AC_ColumnGroups {
 		return $sorted;
 	}
 
+	/**
+	 * @param string $slug
+	 *
+	 * @return bool|mixed
+	 */
 	public function get_group( $slug ) {
 		if ( ! $this->has_group( $slug ) ) {
 			return false;
@@ -104,6 +109,11 @@ final class AC_ColumnGroups {
 		return $this->groups[ $slug ];
 	}
 
+	/**
+	 * @param string $slug
+	 *
+	 * @return bool
+	 */
 	public function has_group( $slug ) {
 		return isset( $this->groups[ $slug ] );
 	}
@@ -122,13 +132,11 @@ final class AC_ColumnGroups {
 			return false;
 		}
 
-		$group = array(
+		$this->groups[ $slug ] = array(
 			'slug'     => $slug,
 			'label'    => $label,
 			'priority' => $priority,
 		);
-
-		$this->groups[ $slug ] = $group;
 
 		return true;
 	}

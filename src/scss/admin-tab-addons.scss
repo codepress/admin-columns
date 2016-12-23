@@ -37,19 +37,22 @@
 		background: radial-gradient(ellipse at center, #0069a4 0%, #085079 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0069a4', endColorstr='#085079', GradientType=1);
 
-		> * {
+		.inner {
 			display: table-cell;
 			vertical-align: middle;
-		}
+			padding: 15px 20px;
 
-		h3 {
-			padding: 0 16px;
-			color: #FFF;
-			line-height: 150%;
-		}
+			h3 {
+				padding: 0 16px;
+				color: #FFF;
+				line-height: 150%;
+			}
 
-		img {
-			width: 100%;
+			img {
+				display: inline-block;
+				max-height: 40px;
+				max-width: 100%;
+			}
 		}
 	}
 
