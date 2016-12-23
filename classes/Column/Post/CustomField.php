@@ -22,34 +22,6 @@ class AC_Column_Post_CustomField extends AC_Column_CustomField {
 	 * @return array
 	 */
 	public function get_meta_values( $ids ) {
-		global $wpdb;
-
-		// escape integers before imploding
-		array_walk( $ids, 'intval' );
-
-		$in = implode( ', ', $ids );
-
-		$sql = "
-			SELECT p.ID, pm.meta_value
-			FROM {$wpdb->posts} p
-			LEFT JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID
-			WHERE p.post_type = %s
-			AND pm.meta_key = %s
-			AND p.ID IN ( $in )
-			ORDER BY pm.meta_value
-		";
-
-		$sql = $wpdb->prepare( $sql, $this->get_post_type(), $this->get_field_key() );
-		$r = $wpdb->get_results( $sql, ARRAY_A );
-
-		$values = array();
-
-		if ( is_array( $r ) ) {
-			foreach ( $r as $row ) {
-				$values[ $row['ID'] ] = $this->get_single_value( $row['meta_value'] );
-			}
-		}
-
-		return $values;
+		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), 'post' );
 	}
 }

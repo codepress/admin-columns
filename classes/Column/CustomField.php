@@ -17,6 +17,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		$this->set_group( 'custom_fields' );
 	}
 
+	// TODO: maybe obsolete?
 	public function get_single_raw_value( $id ) {
 		$array = $this->get_raw_value( $id );
 
