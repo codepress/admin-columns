@@ -117,9 +117,7 @@ function cac_is_setting_screen( $tab = '' ) {
 function cpac_is_wc_version_gte( $version = '1.0' ) {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	$wc_version = defined( 'WC_VERSION' ) && WC_VERSION ? WC_VERSION : null;
-
-	return $wc_version && version_compare( $wc_version, $version, '>=' );
+	return false;
 }
 
 /**
