@@ -9,7 +9,6 @@ class AC_Admin_Promo_BlackFriday extends AC_Admin_Promo {
 
 		// 2016
 		$this->add_date_range( '2016-11-25','2016-11-29' );
-		$this->add_date_range( '2016-11-25','2017-11-29' );
 
 		// 2017
 		$this->add_date_range( '2017-11-24','2017-11-28' );
