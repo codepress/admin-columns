@@ -20,6 +20,10 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	public function get_single_raw_value( $id ) {
 		$array = $this->get_raw_value( $id );
 
+		return $this->get_single_value( $array );
+	}
+
+	public function get_single_value( $array ) {
 		return isset( $array[0] ) ? $array[0] : false;
 	}
 
