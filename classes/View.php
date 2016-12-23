@@ -63,7 +63,7 @@ class AC_View
 	 * @return false|string
 	 */
 	private function resolve_template() {
-		$paths = apply_filters( 'ac/view/templates', array( CPAC_DIR . 'templates' ), $this->template );
+		$paths = apply_filters( 'ac/view/templates', array( AC()->get_plugin_dir() . 'templates' ), $this->template );
 
 		foreach ( $paths as $path ) {
 			$file = $path . '/' . $this->template . '.php';
