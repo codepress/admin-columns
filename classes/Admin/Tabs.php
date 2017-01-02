@@ -75,6 +75,12 @@ class AC_Admin_Tabs {
 				$active_slug = $this->get_current_slug();
 
 				foreach ( $this->tabs as $slug => $tab ) {
+
+				    // skip hidden tabs
+				    if ( $tab->is_hidden() ) {
+				        continue;
+                    }
+
 					$active = $slug == $active_slug ? ' nav-tab-active' : '';
 
 					printf(

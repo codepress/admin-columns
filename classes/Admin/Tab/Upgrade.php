@@ -7,7 +7,8 @@
  *
  * @since 2.0
  */
-class AC_Upgrade {
+// TODO: needs testing, scripts and upgrade message
+class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 
 	public $update_prevented = false;
 
@@ -15,29 +16,16 @@ class AC_Upgrade {
 	 * @since 2.0
 	 */
 	function __construct() {
+		$this
+			->set_slug( 'upgrade' )
+			->set_label( __( 'Upgrade', 'codepress-admin-columns' ) )
+			->set_hidden( true );
 
-		add_action( 'admin_init', array( $this, 'init' ) );
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
 			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
 		}
-	}
-
-	/**
-	 * Admin CSS to hide upgrade menu and place icon
-	 *
-	 * @since 2.2.7
-	 */
-	public function admin_head() { ?>
-		<style type="text/css">
-			#menu-settings a[href="options-general.php?page=cpac-upgrade"] {
-				display: none;
-			}
-		</style>
-		<?php
 	}
 
 	/**
@@ -50,12 +38,12 @@ class AC_Upgrade {
 			return;
 		}
 		?>
-		<div class="message error">
-			<p>
+        <div class="message error">
+            <p>
 				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>
-				<a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
-			</p>
-		</div>
+                <a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
+            </p>
+        </div>
 		<?php
 	}
 
@@ -70,84 +58,6 @@ class AC_Upgrade {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return ! is_plugin_active( 'cac-addon-pro/cac-addon-pro.php' );
-	}
-
-	/**
-	 * Add sub menu page & scripts
-	 *
-	 * @since 2.0
-	 */
-	public function admin_menu() {
-
-		// Don't run on plugin activate
-		if ( isset( $_GET['action'] ) && 'activate-plugin' === $_GET['action'] ) {
-			return;
-		}
-
-		$upgrade_page = add_submenu_page( 'options-general.php', __( 'Upgrade', 'codepress-admin-columns' ), __( 'Upgrade', 'codepress-admin-columns' ), 'manage_options', 'cpac-upgrade', array( $this, 'start_upgrade' ) );
-		add_action( "admin_print_scripts-{$upgrade_page}", array( $this, 'admin_scripts' ) );
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public function init() {
-
-		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_show_welcome', 'display' );
-		$version = get_option( 'cpac_version', false );
-
-		// Maybe version pre 2.0.0 was used
-		if ( ! $version && get_option( 'cpac_options' ) ) {
-			$version = '1.0.0';
-		}
-
-		// Maybe upgrade?
-		if ( $version ) {
-
-			// run every upgrade
-			if ( $version < AC()->get_version() ) {
-				// nothing yet
-			}
-
-			// run only when updating from v1 to v2
-			if ( $version < '2.0.0' ) {
-
-				// show welcome screen
-				set_transient( 'cpac_show_welcome', 'display' );
-			}
-
-			// run only when database upgrade is needed
-			if ( $version < AC()->get_upgrade_version() ) {
-
-				// display upgrade message on every page except upgrade page itself
-				if ( ! ( isset( $_REQUEST['page'] ) && 'cpac-upgrade' === $_REQUEST['page'] ) ) {
-
-					$message = __( 'Admin Columns', 'codepress-admin-columns' ) . ' v' . AC()->get_version() . ' ' .
-					           __( 'requires a database upgrade', 'codepress-admin-columns' ) .
-					           ' (<a class="thickbox" href="' . admin_url() .
-					           'plugin-install.php?tab=plugin-information&plugin=codepress-admin-columns&section=changelog&TB_iframe=true&width=640&height=559">' .
-					           __( 'why?', 'codepress-admin-columns' ) . '</a>). ' .
-					           __( "Please", 'codepress-admin-columns' ) . ' <a href="http://codex.wordpress.org/Backing_Up_Your_Database">' .
-					           __( "backup your database", 'codepress-admin-columns' ) . '</a>, ' .
-					           __( "then click", 'codepress-admin-columns' ) . ' <a href="' . admin_url() . 'options-general.php?page=cpac-upgrade" class="button">' .
-					           __( "Upgrade Database", 'codepress-admin-columns' ) . '</a>';
-
-					AC()->notice( $message, 'updated' );
-				}
-			}
-
-			// run when NO upgrade is needed
-			elseif ( $version < AC()->get_version() ) {
-
-				update_option( 'cpac_version', AC()->get_version() );
-			}
-		}
-
-		// Fresh install
-		else {
-
-			update_option( 'cpac_version', AC()->get_version() );
-		}
 	}
 
 	/**
@@ -197,7 +107,7 @@ class AC_Upgrade {
 								// convert old settings to new
 								$settings = array_merge( $old_column_settings, array(
 									'type'  => $old_column_name,
-									'clone' => ''
+									'clone' => '',
 								) );
 
 								// set name
@@ -368,16 +278,15 @@ class AC_Upgrade {
 
 		// Run upgrade?
 		if ( $next ) : ?>
-			<script type="text/javascript">
+            <script type="text/javascript">
 				run_upgrade( "<?php echo $next; ?>" );
-			</script>
+            </script>
 			<?php
 
 		// No update required
 		else : ?>
-			<p><?php _e( 'No Upgrade Required', 'codepress-admin-columns' ); ?></p>
-			<a href="<?php echo admin_url( 'options-general.php' ); ?>?page=codepress-admin-columns&amp;info"><?php _e( 'Return to welcome screen.', 'codepress-admin-columns' ); ?></a>
-			<?php
+            <p><?php _e( 'No Upgrade Required', 'codepress-admin-columns' ); ?></p>
+            <?php echo ac_helper()->html->link( AC()->admin()->get_link( 'welcome' ), __( 'Return to welcome screen.', 'codepress-admin-columns' ) );
 		endif;
 	}
 
@@ -394,7 +303,67 @@ class AC_Upgrade {
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
 			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . admin_url( 'options-general.php' ) . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",
 			'error'       => __( 'Error', 'codepress-admin-columns' ),
-			'major_error' => __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' )
+			'major_error' => __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' ),
 		) );
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function display() {
+		?>
+        <h1><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></h1>
+		<?php
+
+		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_show_welcome', 'display' );
+		$version = get_option( 'cpac_version', false );
+
+		// Maybe version pre 2.0.0 was used
+		if ( ! $version && get_option( 'cpac_options' ) ) {
+			$version = '1.0.0';
+		}
+
+		// Maybe upgrade?
+		if ( $version ) {
+
+			// run every upgrade
+			if ( $version < AC()->get_version() ) {
+				// nothing yet
+			}
+
+			// run only when updating from v1 to v2
+			if ( $version < '2.0.0' ) {
+
+				// show welcome screen
+				wp_safe_redirect( AC()->admin()->get_link( 'welcome' ) );
+				exit;
+			}
+
+			// run only when database upgrade is needed
+			if ( $version < AC()->get_upgrade_version() ) {
+
+			    // TODO: message only show on current tab, needs rewrite
+				// display upgrade message on every page except upgrade page itself
+				if ( ! ( isset( $_REQUEST['page'] ) && 'upgrade' === $_REQUEST['page'] ) ) {
+
+                    $message = sprintf( "Admin Columns %s requires a database upgrade.", AC()->get_version() );
+                    $message .= sprintf( "Please %s, then click %s.", ac_helper()->html->link( 'http://codex.wordpress.org/Backing_Up_Your_Database', 'backup your database' ), ac_helper()->html->link( $this->get_link(), 'Upgrade Database' ) );
+
+					AC()->notice( $message, 'updated' );
+				}
+			}
+
+			// run when NO upgrade is needed
+			elseif ( $version < AC()->get_version() ) {
+
+				update_option( 'cpac_version', AC()->get_version() );
+			}
+		}
+
+		// Fresh install
+		else {
+
+			update_option( 'cpac_version', AC()->get_version() );
+		}
 	}
 }

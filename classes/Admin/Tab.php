@@ -20,6 +20,11 @@ abstract class AC_Admin_Tab {
 	private $label;
 
 	/**
+	 * @var bool True when menu tab is hidden
+	 */
+	private $hidden = false;
+
+	/**
 	 * Is this the default to to display when no active tab is present
 	 *
 	 * @return bool
@@ -40,6 +45,16 @@ abstract class AC_Admin_Tab {
 
 	public function set_slug( $slug ) {
 		$this->slug = sanitize_key( $slug );
+
+		return $this;
+	}
+
+	public function is_hidden() {
+		return $this->hidden;
+	}
+
+	public function set_hidden( $hidden ) {
+		$this->hidden = (bool) $hidden;
 
 		return $this;
 	}

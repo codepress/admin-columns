@@ -66,16 +66,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Admin
 	 */
-	private $settings;
-
-	/**
-	 * Admin Columns plugin upgrade class instance
-	 *
-	 * @since 2.2.7
-	 * @access private
-	 * @var AC_Upgrade
-	 */
-	private $upgrade;
+	private $admin;
 
 	/**
 	 * @var AC_ColumnGroups Column Groups
@@ -152,7 +143,7 @@ class CPAC {
 		// Includes
 		$this->admin = new AC_Admin();
 		$this->addons = new AC_Addons();
-		$this->upgrade = new AC_Upgrade();
+
 		$this->list_screen_manager = new AC_ListScreenManager();
 		$this->helper = new AC_Helper();
 
@@ -334,16 +325,6 @@ class CPAC {
 	 */
 	public function addons() {
 		return $this->addons;
-	}
-
-	/**
-	 * Get admin columns upgrade class instance
-	 *
-	 * @since 2.2.7
-	 * @return AC_Upgrade Upgrade class instance
-	 */
-	public function upgrade() {
-		return $this->upgrade;
 	}
 
 	/**

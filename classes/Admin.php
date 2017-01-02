@@ -30,6 +30,10 @@ class AC_Admin {
 		$this->tabs->register_tab( new AC_Admin_Tab_Columns() )
 		           ->register_tab( new AC_Admin_Tab_Settings() )
 		           ->register_tab( new AC_Admin_Tab_Addons() );
+
+					// TODO
+		           //->register_tab( new AC_Admin_Tab_Welcome() )
+		           //->register_tab( new AC_Admin_Tab_Upgrade() );
 	}
 
 	/**
@@ -109,16 +113,6 @@ class AC_Admin {
 
 	public function get_settings_url() {
 		return menu_page_url( AC_Admin::MENU_SLUG, false );
-	}
-
-	public function get_upgrade_url() {
-
-		// TODO: make upgrade page as a hidden tab
-		return admin_url( add_query_arg( array( 'page' => 'cpac-upgrade' ), $this->get_page() ) );
-	}
-
-	public function get_welcome_url() {
-		return add_query_arg( array( 'info' => 1 ), $this->get_settings_url() );
 	}
 
 	/**
@@ -207,15 +201,6 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function display() {
-		$welcome_screen = new AC_Admin_Welcome();
-
-		if ( $welcome_screen->has_upgrade_run() ) {
-			$welcome_screen->admin_scripts();
-			$welcome_screen->display();
-
-			return;
-		}
-
 		$this->tabs->display();
 	}
 

@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 2.6beta =
 
 Release Date: t.b.d.
 

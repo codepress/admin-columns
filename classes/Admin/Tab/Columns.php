@@ -599,7 +599,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 										<?php
 										$user_data = get_userdata( get_current_user_id() );
 										?>
-                                        <form method="post" action="<?php echo esc_html( ac_get_site_url() . '/upgrade-to-admin-columns-pro/' ); ?>" target="_blank">
+                                        <form method="post" action="<?php echo esc_html( ac_get_site_url( 'upgrade-to-admin-columns-pro' ) ); ?>" target="_blank">
                                             <input name="action" type="hidden" value="mc_upgrade_pro">
                                             <input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>">
                                             <input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>">
