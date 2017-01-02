@@ -5,14 +5,14 @@
  */
 class AC_Admin {
 
-	CONST PAGE_SLUG = 'codepress-admin-columns';
+	CONST MENU_SLUG = 'codepress-admin-columns';
 
 	/**
-	 * Settings Page
+	 * Settings Page hook suffix
 	 *
 	 * @since 2.0
 	 */
-	private $settings_page;
+	private $hook_suffix;
 
 	/**
 	 * @var AC_Admin_Tabs
@@ -99,16 +99,22 @@ class AC_Admin {
 	/**
 	 * @since 3.1.1
 	 */
-	public function get_settings_page() {
-		return $this->settings_page;
+	public function get_hook_suffix() {
+		return $this->hook_suffix;
+	}
+
+	private function get_page() {
+		return 'options-general.php';
 	}
 
 	public function get_settings_url() {
-		return admin_url( add_query_arg( array( 'page' => self::PAGE_SLUG ), 'options-general.php' ) );
+		return menu_page_url( AC_Admin::MENU_SLUG, false );
 	}
 
 	public function get_upgrade_url() {
-		return admin_url( add_query_arg( array( 'page' => 'cpac-upgrade' ), 'options-general.php' ) );
+
+		// TODO: make upgrade page as a hidden tab
+		return admin_url( add_query_arg( array( 'page' => 'cpac-upgrade' ), $this->get_page() ) );
 	}
 
 	public function get_welcome_url() {
@@ -119,25 +125,17 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', self::PAGE_SLUG, array( $this, 'display' ) );
+		$this->settings_page = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), AC()->get_cap(), self::MENU_SLUG, array( $this, 'display' ) );
 
-		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
-		add_action( 'load-' . $this->settings_page, array( $this, 'help_tabs' ) );
-	}
-
-	/**
-	 * Allows the capability 'manage_admin_columns' to store data through /wp-admin/options.php
-	 *
-	 * @since 2.0
-	 */
-	public function add_capability() {
-		return 'manage_admin_columns';
+		// TODO
+		add_filter( 'option_page_capability_cpac-general-settings', array( AC(), 'get_cap' ) );
+		add_action( 'load-' . $this->hook_suffix, array( $this, 'help_tabs' ) );
 	}
 
 	public function is_admin_screen() {
 		global $pagenow;
 
-		return self::PAGE_SLUG === filter_input( INPUT_GET, 'page' ) && 'options-general.php' === $pagenow;
+		return self::MENU_SLUG === filter_input( INPUT_GET, 'page' ) && $this->get_page() === $pagenow;
 	}
 
 	public function is_current_tab( $tab_slug ) {

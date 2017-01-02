@@ -256,7 +256,7 @@ abstract class AC_ListScreen {
 		/**
 		 * @since NEWVERSION
 		 */
-		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->settings()->get_link( 'columns' ) ) );
+		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->admin()->get_link( 'columns' ) ) );
 	}
 
 	/**

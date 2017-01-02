@@ -19,8 +19,11 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 	}
 
+	/**
+	 * @param string $key
+	 */
 	public function attr_name( $key ) {
-		echo esc_attr( self::SETTINGS_KEY . '[' . $key . ']' );
+		echo esc_attr( self::SETTINGS_KEY . '[' . sanitize_key( $key ) . ']' );
 	}
 
 	/**
@@ -52,7 +55,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 	 */
 	public function handle_column_request() {
 
-		if ( ! current_user_can( 'manage_admin_columns' ) || ! $this->is_current_screen() ) {
+		if ( ! AC()->current_user_has_cap() || ! $this->is_current_screen() ) {
 			return;
 		}
 

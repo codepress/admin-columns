@@ -43,6 +43,14 @@ if ( ! is_admin() ) {
 class CPAC {
 
 	/**
+	 * Basename of the plugin, retrieved through plugin_basename function
+	 *
+	 * @since 1.0
+	 * @var string
+	 */
+	private $plugin_basename;
+
+	/**
 	 * Admin Columns add-ons class instance
 	 *
 	 * @since 2.2
@@ -122,6 +130,7 @@ class CPAC {
 	 * @since 1.0
 	 */
 	function __construct() {
+		$this->plugin_basename = plugin_basename( __FILE__ );
 
 		// Backwards compatibility
 		define( 'CPAC_VERSION', $this->get_version() );
@@ -141,7 +150,7 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Includes
-		$this->settings = new AC_Admin();
+		$this->admin = new AC_Admin();
 		$this->addons = new AC_Addons();
 		$this->upgrade = new AC_Upgrade();
 		$this->list_screen_manager = new AC_ListScreenManager();
@@ -232,7 +241,7 @@ class CPAC {
 	 * @uses load_plugin_textdomain()
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
 	}
 
 	/**
@@ -252,6 +261,22 @@ class CPAC {
 	}
 
 	/**
+	 * Capability to manage admin columns.
+	 *
+	 * @return string
+	 */
+	public function get_cap() {
+		return 'manage_admin_columns';
+	}
+
+	/**
+	 * @return bool True when user can manage admin columns
+	 */
+	public function current_user_has_cap() {
+		return current_user_can( $this->get_cap() );
+	}
+
+	/**
 	 * Add capability to administrator to manage admin columns.
 	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
@@ -259,7 +284,7 @@ class CPAC {
 	 */
 	public function set_capabilities() {
 		if ( $role = get_role( 'administrator' ) ) {
-			$role->add_cap( 'manage_admin_columns' );
+			$role->add_cap( $this->get_cap() );
 		}
 	}
 
@@ -279,11 +304,9 @@ class CPAC {
 	 * @see filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file != plugin_basename( __FILE__ ) ) {
-			return $links;
+		if ( $file === $this->plugin_basename ) {
+			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'settings' ), __( 'Settings' ) ) );
 		}
-
-		array_unshift( $links, '<a href="' . esc_url( admin_url( "options-general.php?page=codepress-admin-columns" ) ) . '">' . __( 'Settings' ) . '</a>' );
 
 		return $links;
 	}
@@ -296,13 +319,11 @@ class CPAC {
 	}
 
 	/**
-	 * Get admin columns settings class instance
-	 *
 	 * @since 2.2
 	 * @return AC_Admin Settings class instance
 	 */
-	public function settings() {
-		return $this->settings;
+	public function admin() {
+		return $this->admin;
 	}
 
 	/**
@@ -513,9 +534,9 @@ class CPAC {
 	 * @since 2.1.1
 	 */
 	public function get_general_option( $option ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->get_general_option( $option )' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->get_general_option( $option )' );
 
-		return $this->settings()->get_general_option( $option );
+		return $this->admin()->get_general_option( $option );
 	}
 
 	/**
@@ -528,9 +549,9 @@ class CPAC {
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	public function is_settings_screen( $tab = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->is_current_tab( $tab )' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
 
-		return $this->settings()->is_current_tab( $tab );
+		return $this->admin()->is_current_tab( $tab );
 	}
 
 	/**

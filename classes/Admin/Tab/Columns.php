@@ -142,7 +142,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		$action = filter_input( INPUT_POST, 'cpac_action' );
 		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
 
-		if ( ! $action || ! $nonce || ! current_user_can( 'manage_admin_columns' ) || ! $this->is_current_screen() ) {
+		if ( ! $action || ! $nonce || ! AC()->current_user_has_cap() || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -183,7 +183,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	private function ajax_validate_request() {
 		check_ajax_referer( 'cpac-settings' );
 
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
+		if ( ! AC()->current_user_has_cap() ) {
 			wp_die();
 		}
 
@@ -267,7 +267,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
         </p>
 
         <p>
-			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, admin_url( 'options-general.php?page=codepress-admin-columns&tab=addons' ) ); ?>
+			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, AC()->admin()->get_link( 'addons' ) ); ?>
         </p>
 
         <p>

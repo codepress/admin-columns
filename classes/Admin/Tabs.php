@@ -79,7 +79,7 @@ class AC_Admin_Tabs {
 
 					printf(
 						'<a href="%s" class="nav-tab%s">%s</a>',
-						esc_url( AC()->settings()->get_link( $slug ) ),
+						esc_url( AC()->admin()->get_link( $slug ) ),
 						$active,
 						esc_html( $tab->get_label() )
 					);
