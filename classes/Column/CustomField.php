@@ -43,7 +43,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	}
 
 	protected function get_cache_key() {
-		return $this->get_meta_type();
+		return $this->get_meta_type() . $this->get_post_type();
 	}
 
 	public function get_field_key() {
@@ -78,11 +78,72 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		return $this->get_field_key();
 	}
 
+	private function get_meta_table_properties() {
+		global $wpdb;
+
+		$table = false;
+
+		switch ( $this->get_meta_type() ) {
+			case 'user':
+				$table = $wpdb->users;
+				$id_column = 'ID';
+
+				break;
+			case 'comment':
+				$table = $wpdb->comments;
+				$id_column = 'comment_ID';
+
+				break;
+			case 'post':
+				$table = $wpdb->posts;
+				$id_column = 'ID';
+
+				break;
+		}
+
+		if ( ! $table ) {
+			return false;
+		}
+
+		// setup meta tables
+		$q = new WP_Meta_Query();
+		$q->get_sql( $this->get_meta_type(), $table, $id_column );
+
+		return (object) array(
+			'table'      => $table,
+			'id'         => $id_column,
+			'meta_id'    => $q->meta_id_column,
+			'meta_table' => $q->meta_table,
+		);
+	}
+
 	/**
 	 * @return array
 	 */
 	public function get_meta() {
-		return array();
+		global $wpdb;
+
+		$p = $this->get_meta_table_properties();
+
+		if ( ! $p ) {
+			return array();
+		}
+
+		$sql = "
+			SELECT DISTINCT mt.meta_key
+			FROM $p->table AS t
+			INNER JOIN $p->meta_table AS m ON mt.$p->meta_id = t.$p->id 
+			%s
+			ORDER BY mt.meta_key ASC
+		";
+
+		$where = '';
+
+		if ( 'post' === $this->get_meta_type() ) {
+			$where = $wpdb->prepare( ' AND t.post_type = %s', $this->get_post_type() );
+		}
+
+		return $wpdb->get_results( sprintf( $sql, $where ), ARRAY_N );
 	}
 
 	/**
@@ -106,6 +167,10 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 		}
 
 		return $username;
+	}
+
+	public function get_meta_values( $ids ) {
+		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), $this->get_list_screen()->get_meta_type() );
 	}
 
 	/**
