@@ -134,7 +134,7 @@ class AC_Column_Meta extends AC_Column
 				break;
 		}
 
-		if ( ! $table ) {
+		if ( ! $table || ! $id_column ) {
 			return false;
 		}
 
