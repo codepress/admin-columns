@@ -9,7 +9,7 @@
  *
  * @since 1.0
  */
-abstract class AC_Column_Meta extends AC_Column
+class AC_Column_Meta extends AC_Column
 	implements AC_Column_MetaInterface {
 
 	public function __construct() {
@@ -133,7 +133,7 @@ abstract class AC_Column_Meta extends AC_Column
 		$sql = "
 			SELECT DISTINCT mt.meta_key
 			FROM $p->table AS t
-			INNER JOIN $p->meta_table AS m ON mt.$p->meta_id = t.$p->id 
+			INNER JOIN $p->meta_table AS mt ON mt.$p->meta_id = t.$p->id 
 			%s
 			ORDER BY mt.meta_key ASC
 		";
