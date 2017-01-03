@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -11,33 +10,24 @@ class AC_Column_Post_Attachment extends AC_Column {
 		$this->set_label( __( 'Attachments', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		$values = array();
-
-		$ids = (array) $this->get_raw_value( $post_id );
-		foreach ( $ids as $id ) {
-			if ( $image = $this->format->images( $id ) ) {
-				$values[] = '<div class="cacie-item" data-cacie-id="' . esc_attr( $id ) . '">' . $image . '</div>';
-			}
-		}
-
-		return implode( $values );
+	public function get_raw_value( $post_id ) {
+		return $this->get_attachment_ids( $post_id );
 	}
 
-	public function get_raw_value( $post_id ) {
+	private function get_attachment_ids( $post_id ) {
 		$attachments = get_posts( array(
-			'post_type'   => 'attachment',
-			'numberposts' => -1,
-			'post_status' => null,
-			'post_parent' => $post_id,
-			'fields'      => 'ids',
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'post_status'    => null,
+			'post_parent'    => $post_id,
+			'fields'         => 'ids',
 		) );
 
-		return $attachments;
+		return $attachments ? $attachments : array();
 	}
 
-	public function display_settings() {
-		$this->field_settings->image();
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
 	}
 
 }

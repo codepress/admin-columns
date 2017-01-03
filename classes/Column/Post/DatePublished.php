@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.4
@@ -12,9 +11,9 @@ class AC_Column_Post_DatePublished extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$raw_value = $this->get_raw_value( $post_id );
+		$date = $this->get_raw_value( $post_id );
 
-		return $this->format->date( $raw_value ) . ' ' . ac_helper()->date->time( $raw_value );
+		return $this->get_setting( 'date' )->format( $date ) . ' ' . ac_helper()->date->time( $date );
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -23,8 +22,8 @@ class AC_Column_Post_DatePublished extends AC_Column {
 		return $post->post_date;
 	}
 
-	public function display_settings() {
-		$this->field_settings->date();
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
 	}
 
 }

@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
@@ -12,7 +11,7 @@ class AC_Column_Comment_Excerpt extends AC_Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->format->word_limit( $this->get_raw_value( $id ) );
+		return $this->get_setting( 'word_limit' )->format( $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {
@@ -21,8 +20,11 @@ class AC_Column_Comment_Excerpt extends AC_Column {
 		return $comment->comment_content;
 	}
 
-	public function display_settings() {
-		$this->field_settings->word_limit( 15 );
+	public function register_settings() {
+		$word_limit = new AC_Settings_Setting_WordLimit( $this );
+		$word_limit->set_default( 15 );
+
+		$this->add_setting( $word_limit );
 	}
 
 }

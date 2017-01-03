@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying full item permalink (including URL).
@@ -14,31 +13,16 @@ class AC_Column_Post_Permalink extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$link = $this->get_raw_value( $post_id );
-
-		if ( 'on' == $this->get_option( 'link_to_post' ) ) {
-			$link = ac_helper()->html->link( $link, $link, array( 'target' => '_blank' ) );
-		}
-
-		return $link;
+		return $this->get_settings()->link_to_post->format( $post_id );
 	}
 
 	public function get_raw_value( $post_id ) {
 		return get_permalink( $post_id );
 	}
 
-	public function display_settings() {
-		$this->field_settings->field( array(
-			'type'          => 'radio',
-			'name'          => 'link_to_post',
-			'label'         => __( 'Link to post', 'codepress-admin-columns' ),
-			'description'   => __( 'This will make the permalink clickable.', 'codepress-admin-columns' ),
-			'options'       => array(
-				'on'  => __( 'Yes' ),
-				'off' => __( 'No' ),
-			),
-			'default_value' => 'off',
-		) );
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_LinkToPost( $this ) );
+
 	}
 
 }

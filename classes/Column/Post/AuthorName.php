@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying information about the author of a post, such as the
@@ -15,9 +14,9 @@ class AC_Column_Post_AuthorName extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$author_id = $this->get_post_author( $post_id );
+		$user_id = $this->get_post_author( $post_id );
 
-		return ac_helper()->html->link( $this->format->user_link_to( $author_id ), $this->format->user( $author_id ) );
+		return $this->get_settings()->user->format( $user_id );
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -28,9 +27,8 @@ class AC_Column_Post_AuthorName extends AC_Column {
 		return ac_helper()->post->get_raw_field( 'post_author', $post_id );
 	}
 
-	public function display_settings() {
-		$this->field_settings->user();
-		$this->field_settings->user_link_to();
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Setting_User( $this ) );
 	}
 
 }

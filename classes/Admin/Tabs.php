@@ -1,13 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Admin_Tabs {
 
 	/**
-	 * @var AC_Admin_TabAbstract[]
+	 * @var AC_Admin_Tab[]
 	 */
 	private $tabs;
 
@@ -23,10 +19,10 @@ class AC_Admin_Tabs {
 	}
 
 	/**
-	 * @param AC_Admin_TabAbstract $tab
+	 * @param AC_Admin_Tab $tab
 	 * @return AC_Admin_Tabs
 	 */
-	public function register_tab( AC_Admin_TabAbstract $tab ) {
+	public function register_tab( AC_Admin_Tab $tab ) {
 		$this->tabs[ $tab->get_slug() ] = $tab;
 
 		if ( $tab->is_default() ) {
@@ -39,7 +35,7 @@ class AC_Admin_Tabs {
 	/**
 	 * @param $slug
 	 *
-	 * @return AC_Admin_TabAbstract|false
+	 * @return AC_Admin_Tab|false
 	 */
 	public function get_tab( $slug ) {
 		$tab = false;
@@ -65,7 +61,7 @@ class AC_Admin_Tabs {
 	}
 
 	/**
-	 * @return AC_Admin_TabAbstract|false
+	 * @return AC_Admin_Tab|false
 	 */
 	public function get_current_tab() {
 		return $this->get_tab( $this->get_current_slug() );
@@ -73,24 +69,25 @@ class AC_Admin_Tabs {
 
 	public function display() { ?>
 		<div id="cpac" class="wrap">
-			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
+			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
 				$active_slug = $this->get_current_slug();
 
 				foreach ( $this->tabs as $slug => $tab ) {
+
+				    // skip hidden tabs
+				    if ( $tab->is_hidden() ) {
+				        continue;
+                    }
+
 					$active = $slug == $active_slug ? ' nav-tab-active' : '';
 
-					printf(
-						'<a href="%s" class="nav-tab%s">%s</a>',
-						esc_url( AC()->settings()->get_link( $slug ) ),
-						$active,
-						esc_html( $tab->get_label() )
-					);
+				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $tab->get_label(), array( 'class' => 'nav-tab ' . $active ) );
 				}
 
 				?>
-			</h2>
+			</h1>
 
 			<?php
 

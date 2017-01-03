@@ -1,8 +1,3 @@
-/*
- *	Fires when the dom is ready
- *
- */
-
 /**
  * AC variables. Defined in DOM.
  * @param {Object} cpac
@@ -13,7 +8,7 @@ var cpac;
  * Translations. Defined in DOM.
  * @param {Object} cpac
  */
-var cpac_i18n;
+var ac_i18n;
 
 /**
  * DOM ready
@@ -46,7 +41,7 @@ function cpac_submit_form( $ ) {
 
 		var $button = $( this );
 		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
-		var columns_data = $container.find( '.cpac-columns form' ).serialize();
+		var columns_data = $container.find( '.ac-columns form' ).serialize();
 		var $msg = $container.find( '.ajax-message' );
 
 		$save_buttons.attr( 'disabled', 'disabled' );
@@ -112,7 +107,7 @@ function cpac_add_column( $ ) {
 	$( '.add_column' ).click( function( e ) {
 		e.preventDefault();
 
-		var clone = $( '#add-new-column-template' ).find( '.cpac-column' ).clone();
+		var clone = $( '#add-new-column-template' ).find( '.ac-column' ).clone();
 
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
 		clone.cpac_update_clone_id( cpac.list_screen );
@@ -120,15 +115,22 @@ function cpac_add_column( $ ) {
 		// TODO: animation should go more fluently
 
 		// Open
-		clone.addClass( 'opened' ).find( '.column-form' ).slideDown( 150, function() {
+		clone.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150, function() {
 			$( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
 		} );
 
 		// add to DOM
-		$( '.cpac-columns form' ).append( clone );
+		$( '.ac-columns form' ).append( clone );
 
 		// refresh column
-		clone.cpac_column_refresh();
+		// TODO: remove?
+		//clone.cpac_column_refresh();
+
+		// TODO: better?
+		clone.column_bind_toggle();
+		clone.column_bind_remove();
+		clone.column_bind_clone();
+		clone.column_bind_events();
 
 		// hook for addons
 		$( document ).trigger( 'column_add', clone );
@@ -160,21 +162,21 @@ function cpac_sidebar_feedback( $ ) {
 function cpac_init( $ ) {
 
 	var container = $( '.columns-container' );
-	var boxes = container.find( '.cpac-boxes' );
+	var boxes = container.find( '.ac-boxes' );
 
 	// Written for PHP Export
 	if ( boxes.hasClass( 'disabled' ) ) {
-		boxes.find( '.cpac-column' ).each( function( i, col ) {
+		boxes.find( '.ac-column' ).each( function( i, col ) {
 			$( col ).column_bind_toggle();
 			$( col ).find( 'input, select' ).prop( 'disabled', true );
 		} );
 	}
 
 	else {
-		var columns = boxes.find( '.cpac-columns' );
+		var columns = boxes.find( '.ac-columns' );
 
 		// we start by binding the toggle and remove events.
-		columns.find( '.cpac-column' ).each( function( i, col ) {
+		columns.find( '.ac-column' ).each( function( i, col ) {
 			$( col ).column_bind_toggle();
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
@@ -212,7 +214,7 @@ function cpac_reset_columns( $ ) {
 	var $container = $( '.columns-container' );
 
 	$( 'a[data-clear-columns]' ).on( 'click', function() {
-		$container.find( '.cpac-column' ).each( function() {
+		$container.find( '.ac-column' ).each( function() {
 			$( this ).find( '.remove-button' ).trigger( 'click' );
 		} );
 	} );
@@ -234,27 +236,27 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_bind_toggle = function() {
 
-		var column = $( this );
-		var is_disabled = column.closest( 'cpac-boxes' ).hasClass( 'disabled' );
+		var $column = $( this );
+		var is_disabled = $column.closest( '.ac-boxes' ).hasClass( 'disabled' );
 
-		column.find( 'td.column_type a, td.column_edit, td.column_label a.toggle, td.column_label .edit-button, td.column_label .close-button, tr.column_action .close-button' ).click( function( e ) {
+		$column.find( '[data-toggle="column"]' ).click( function( e ) {
 			e.preventDefault();
 
-			column.toggleClass( 'opened' ).find( '.column-form' ).slideToggle( 150 );
+			$column.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
 
 			if ( is_disabled ) {
 				return;
 			}
 
-			if ( !column.hasClass( 'events-binded' ) ) {
-				column.column_bind_events();
+			if ( !$column.hasClass( 'events-binded' ) ) {
+				$column.column_bind_events();
 			}
 
-			column.addClass( 'events-binded' );
+			$column.addClass( 'events-binded' );
 
 			// hook for addons
-			$( document ).trigger( 'column_init', column );
-		} );
+			$( document ).trigger( 'column_init', $.column );
+		} ).css( 'cursor', 'pointer' );
 	};
 
 	/*
@@ -264,7 +266,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_bind_remove = function() {
 		$( this ).find( '.remove-button' ).click( function( e ) {
-			$( this ).closest( '.cpac-column' ).column_remove();
+			$( this ).closest( '.ac-column' ).column_remove();
 
 			e.preventDefault();
 		} );
@@ -279,11 +281,10 @@ function cpac_reset_columns( $ ) {
 		$( this ).find( '.clone-button' ).click( function( e ) {
 			e.preventDefault();
 
-			var column = $( this ).closest( '.cpac-column' );
-			var clone = column.column_clone();
+			var $clone = $( this ).closest( '.ac-column' ).column_clone();
 
-			if ( typeof clone !== 'undefined' ) {
-				clone.removeClass( 'loading' ).hide().slideDown();
+			if ( typeof $clone !== 'undefined' ) {
+				$clone.removeClass( 'loading' ).hide().slideDown();
 			}
 		} );
 	};
@@ -291,23 +292,37 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_refresh = function() {
 
 		var el = $( this );
-		var select = el.find( '.column-type select' );
+		var select = el.find( '[data-refresh="column"]' );
 		var $container = $( this ).closest( '.columns-container' );
-		var column_name = $( this ).find( 'input.column-name' ).val();
+		var column_name = $( this ).data( 'column-name' );
+		var column_clone = $( this ).data( 'clone' );
+
+		// Allow plugins to hook into this event
+		$( document ).trigger( 'pre_column_refresh', el );
+
+		var data = $( this ).find( ':input' ).serializeArray();
+		var request_data = {
+			plugin_id : 'cpac',
+			action : 'cpac_column_refresh',
+			_ajax_nonce : cpac._ajax_nonce,
+			list_screen : $container.data( 'type' ),
+			column_name : column_name,
+			column_clone : column_clone
+		};
+
+		$.each( request_data, function( name, value ) {
+			data.push( {
+				name : name,
+				value : value
+			} );
+		} );
 
 		// Mark column as loading
 		el.addClass( 'loading' );
 		select.prop( 'disabled', 1 );
 
 		// Fetch new form HTML
-		var xhr = $.post( ajaxurl, {
-			plugin_id : 'cpac',
-			action : 'cpac_column_refresh',
-			_ajax_nonce : cpac._ajax_nonce,
-			column : column_name,
-			formdata : $( this ).parents( 'form' ).serialize(),
-			list_screen : $container.data( 'type' )
-		}, function( response ) {
+		var xhr = $.post( ajaxurl, data, function( response ) {
 
 			if ( response ) {
 				// Replace current form by new form
@@ -322,9 +337,11 @@ function cpac_reset_columns( $ ) {
 				el.column_bind_events();
 
 				// Open settings
-				el.addClass( 'opened' ).find( '.column-form' ).show();
+				el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 				// Allow plugins to hook into this event
+
+				// TODO: change to column_refresh?
 				$( document ).trigger( 'column_change', el );
 			}
 
@@ -337,7 +354,7 @@ function cpac_reset_columns( $ ) {
 		xhr.fail( function( error ) {
 			var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
 
-			$msg.addClass( 'error' ).find( 'p' ).html( cpac_i18n.error );
+			$msg.addClass( 'error' ).find( 'p' ).html( ac_i18n.error );
 			$msg.slideDown();
 
 			el.slideUp( function() { el.remove() } );
@@ -358,7 +375,6 @@ function cpac_reset_columns( $ ) {
 	 * @since 2.0
 	 */
 	$.fn.column_bind_events = function() {
-
 		var column = $( this );
 		var container = column.closest( '.columns-container ' );
 		var list_screen = container.attr( 'data-type' );
@@ -366,14 +382,14 @@ function cpac_reset_columns( $ ) {
 		// Current column type
 		var default_value = column.find( '.column-type select option:selected' ).val();
 
-		column.find( '.column-type select' ).change( function() {
+		column.find( 'select.ac-setting-input_type' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
 			var msg = $( this ).next( '.msg' ).hide();
 			var $select = $( this );
 
 			var original_columns = [];
-			container.find( '.cpac-column[data-original=1]' ).each( function() {
+			container.find( '.ac-column[data-original=1]' ).each( function() {
 				original_columns.push( $( this ).data( 'type' ) );
 			} );
 
@@ -396,7 +412,7 @@ function cpac_reset_columns( $ ) {
 					if ( response ) {
 
 						if ( response.success ) {
-							var el = column.closest( '.cpac-column' );
+							var el = column.closest( '.ac-column' );
 
 							// Replace current form by new form
 							var newel = $( '<div>' + response.data + '</div>' ).children();
@@ -410,13 +426,14 @@ function cpac_reset_columns( $ ) {
 							el.column_bind_events();
 
 							// Open settings
-							el.addClass( 'opened' ).find( '.column-form' ).show();
+							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
 							// trigger refresh
-							if ( el.find( '*[data-refresh=1]' ).length > 0 ) {
-								el.cpac_column_refresh();
-							}
-
+							// TODO: needed?
+							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
+							//el.cpac_column_refresh();
+							//}
+							el.cpac_update_clone_id( container.attr( 'data-type' ) );
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
 						}
@@ -425,6 +442,7 @@ function cpac_reset_columns( $ ) {
 						else if ( response.data ) {
 							if ( 'message' === response.data.type ) {
 								msg.html( response.data.error ).show();
+
 								// Set to default
 								$select.find( 'option' ).removeAttr( 'selected' );
 								$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
@@ -440,94 +458,31 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		/** change label */
-		column.find( '.column-form .column-label .input input' ).bind( 'keyup change', function() {
+		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
-			$( this ).closest( '.cpac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
+			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
 		} );
 
-		/** width */
-
-		// slider
-		column.column_width_slider();
-
-		// indicator
-		var width_indicator = column.find( '.column-meta span.width' );
-		width_indicator.on( 'update', function() {
-			var _width = column.find( 'input.width' ).val();
-			var _unit = column.find( 'input.unit' ).filter( ':checked' ).val();
-			if ( _width > 0 ) {
-				$( this ).text( _width + _unit );
-			} else {
-				$( this ).text( '' );
-			}
-		} );
-
-		// unit selector
-		var width_unit_select = column.find( '.column-width .unit-select label' );
-		width_unit_select.on( 'click', function() {
-
-			column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
-			column.column_width_slider(); // re-init slider
-			width_indicator.trigger( 'update' ); // update indicator
-		} );
-
-		// width_input
-		var width_input = column.find( 'input.width' )
-			.on( 'keyup', function() {
-				column.column_width_slider(); // re-init slider
-				$( this ).trigger( 'validate' ); // validate input
-				width_indicator.trigger( 'update' ); // update indicator
-			} )
-
-			// width_input:validate
-			.on( 'validate', function() {
-				var _width = width_input.val();
-				var _new_width = $.trim( _width );
-
-				if ( !$.isNumeric( _new_width ) ) {
-					_new_width = _new_width.replace( /\D/g, '' );
-				}
-				if ( _new_width.length > 3 ) {
-					_new_width = _new_width.substring( 0, 3 );
-				}
-				if ( _new_width <= 0 ) {
-					_new_width = '';
-				}
-				if ( _new_width !== _width ) {
-					width_input.val( _new_width );
-				}
-			} );
-
-		/** display custom image size */
-		column.find( '.column-image_size select' ).show_hide_custom_image_size().change( function() {
-			$( this ).show_hide_custom_image_size();
-		} );
-
-		/**    tooltip */
-		column.find( '.column-form .label label .label, .column-form .label .info' ).hover( function() {
-			$( this ).parents( '.label' ).find( 'p.description' ).show();
+		/** tooltip */
+		column.find( '.ac-column-body .col-label .label' ).hover( function() {
+			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).show();
 		}, function() {
-			$( this ).parents( '.label' ).find( 'p.description' ).hide();
+			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).hide();
 		} );
 
 		// refresh column and re-bind all events
-		column.find( '[data-refresh="1"] select' ).change( function() {
+		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
+
+		$( document ).trigger( 'init_settings', column );
 	};
 
-	/**
-	 * Custom Image Size
-	 *
-	 * @returns {HTMLElement}
-	 */
-	$.fn.show_hide_custom_image_size = function() {
-		var custom_image_size = $( this ).closest( '.cpac-column' ).find( '.column-image_size_w, .column-image_size_h' ).addClass( 'hide' );
-		if ( 'cpac-custom' === $( this ).val() ) {
-			custom_image_size.removeClass( 'hide' );
-		}
+	$.fn.column_bind_settings = function() {
+		var $column = $( this );
 
-		return $( this );
+		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
+		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
 	};
 
 	/*
@@ -542,43 +497,6 @@ function cpac_reset_columns( $ ) {
 	};
 
 	/*
-	 * Column: remove from DOM
-	 *
-	 * @since 2.0
-	 */
-	$.fn.column_width_slider = function() {
-
-		var column_width = $( this ).find( '.column-width' );
-
-		var input_width = column_width.find( 'input.width' ),
-			input_unit = column_width.find( 'input.unit' ),
-			unit = input_unit.filter( ':checked' ).val(),
-			width = input_width.val(),
-			slider = column_width.find( '.width-slider' ),
-			indicator = $( this ).find( '.column-meta span.width' );
-
-		// width
-		if ( '%' == unit && width > 100 ) {
-			width = 100;
-		}
-
-		input_width.val( width );
-
-		slider.slider( {
-			range : 'min',
-			min : 0,
-			max : '%' == unit ? 100 : 500,
-			value : width,
-			slide : function( event, ui ) {
-
-				input_width.val( ui.value );
-				indicator.trigger( 'update' );
-				input_width.trigger( 'validate' );
-			}
-		} );
-	};
-
-	/*
 	 * Column: clone
 	 *
 	 * @since 2.3.4
@@ -587,13 +505,14 @@ function cpac_reset_columns( $ ) {
 
 		var container = $( this ).closest( '.columns-container' );
 		var column = $( this );
-		var columns = $( this ).closest( 'cpac-columns' );
+		var columns = $( this ).closest( 'ac-columns' );
 
-		if ( typeof column.attr( 'data-clone' ) === 'undefined' ) {
-			var message = cpac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
+		if ( '1' === column.attr( 'data-original' ) ) {
 
-			column.addClass( 'opened' ).find( '.column-form' ).slideDown( 150 );
-			column.find( '.msg' ).html( message ).show();
+			var message = ac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
+
+			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
+			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();
 
 			return;
 		}
@@ -630,7 +549,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 
 		var type = el.attr( 'data-type' );
-		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.cpac-columns' );
+		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.ac-columns' );
 		var columns = $( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
 
 		// get clone ID
@@ -657,19 +576,17 @@ function cpac_reset_columns( $ ) {
 		var clone_id = el.attr( 'data-clone' );
 		var clone_suffix = '';
 
-		if ( clone_id ) {
+		if ( clone_id > 0 ) {
 			clone_suffix = '-' + clone_id;
 		}
 
 		// set clone ID
 		el.attr( 'data-clone', id );
-		el.find( 'input.clone' ).val( id );
-		el.find( 'input.column-name' ).val( type + '-' + id );
+		el.attr( 'data-column-name', type + '-' + id );
 
 		// update input names with clone ID
 		var inputs = el.find( 'input, select, label' );
 		$( inputs ).each( function( i, v ) {
-
 			var new_name = type + '-' + id;
 
 			// name
@@ -696,7 +613,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$( document ).bind( 'column_init column_change column_add', function( e, column ) {
 
-		var is_disabled = $( column ).closest( '.cpac-boxes' ).hasClass( 'disabled' );
+		var is_disabled = $( column ).closest( '.ac-boxes' ).hasClass( 'disabled' );
 
 		if ( is_disabled ) {
 			return;
@@ -733,7 +650,6 @@ function cpac_reset_columns( $ ) {
 			}
 		} );
 
-
 		// On load
 		column.find( '[data-trigger]' ).each( function() {
 
@@ -752,35 +668,36 @@ function cpac_reset_columns( $ ) {
 	 *
 	 */
 	$.fn.cpac_bind_indicator_events = function() {
+		var $column = $( this );
+		var $indicators = $column.find( '.ac-column-header [data-indicator-toggle]' );
 
-		var column = $( this );
-		var indicator = column.find( '[data-indicator-id]' );
+		$indicators.each( function() {
+			var $indicator = $( this );
+			var setting = $( this ).data( 'setting' );
+			var $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']' );
+			var $input = $setting.find( '.col-input:first .ac-setting-input:first input[type=radio]' );
 
-		indicator.unbind( 'click' ).click( function() {
-
-			var id = $( this ).data( 'indicator-id' );
-			var radio = column.find( '[data-trigger="' + id + '"] input' );
-
-			if ( $( this ).hasClass( 'on' ) ) {
-				$( this ).removeClass( 'on' ).addClass( 'off' );
-				radio.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' );
-			}
-			else {
-				$( this ).removeClass( 'off' ).addClass( 'on' );
-				radio.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' );
-			}
-		} );
-
-		// Load indicator icon
-		column.find( '[data-trigger]' ).each( function() {
-			var indicator = column.find( '[data-indicator-id="' + $( this ).data( 'trigger' ) + '"]' );
-			if ( indicator.length > 0 ) {
-				if ( 'on' === $( this ).find( 'input:checked' ).val() ) {
-					indicator.addClass( 'on' );
+			$indicator.unbind( 'click' ).on( 'click', function( e ) {
+				e.preventDefault();
+				$indicator.toggleClass( 'on' );
+				if ( $( this ).hasClass( 'on' ) ) {
+					$input.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' ).trigger( 'change' );
 				}
-			}
+				else {
+					$input.filter( '[value=off]' ).prop( 'checked', true ).trigger( 'click' ).trigger( 'change' );
+				}
+			} );
 
+			$input.on( 'change', function() {
+				var value = $input.filter( ':checked' ).val();
+				if ( 'on' == value ) {
+					$indicator.addClass( 'on' );
+				} else {
+					$indicator.removeClass( 'on' );
+				}
+			} );
 		} );
+
 	};
 
 	/*
@@ -795,10 +712,168 @@ function cpac_reset_columns( $ ) {
 			}
 			else {
 				$( this ).sortable( {
-					items : '.cpac-column'
+					items : '.ac-column',
+					handle : '.column_sort'
 				} );
 			}
 		} );
 	};
+
+	// Settings fields: Image _size
+	$.fn.cpac_column_setting_image_size = function() {
+		function initState( $setting, $select ) {
+			if ( 'cpac-custom' == $select.val() ) {
+				$setting.find( '.ac-column-setting' ).show();
+			} else {
+				$setting.find( '.ac-column-setting' ).hide();
+			}
+		}
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $select = $( this ).find( '.ac-setting-input select' );
+
+			initState( $setting, $select );
+			$select.on( 'change', function() {
+				initState( $setting, $( this ) );
+			} );
+
+		} );
+	};
+
+	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
+	} );
+
+
+	// Settings fields: Width
+	$.fn.column_width_slider = function() {
+
+		var column_width = $( this ).find( '.ac-setting-input-width' );
+
+		var input_width = column_width.find( '.description input' ),
+			input_unit = column_width.find( '.unit-select input' ),
+			unit = input_unit.filter( ':checked' ).val(),
+			width = input_width.val(),
+			slider = column_width.find( '.width-slider' ),
+			indicator = $( this ).find( '.ac-column-header .ac-column-heading-setting--width' );
+
+		// width
+		if ( '%' == unit && width > 100 ) {
+			width = 100;
+		}
+
+		input_width.val( width );
+
+		slider.slider( {
+			range : 'min',
+			min : 0,
+			max : '%' == unit ? 100 : 500,
+			value : width,
+			slide : function( event, ui ) {
+
+				input_width.val( ui.value );
+				indicator.trigger( 'update' );
+				input_width.trigger( 'validate' );
+			}
+		} );
+	};
+
+	$.fn.cpac_column_setting_width = function() {
+
+		$( this ).each( function() {
+			var $column = $( this ).parents( '.ac-column' );
+			$column.column_width_slider();
+
+			// indicator
+			var $width_indicator = $column.find( '.ac-column-header .ac-column-heading-setting--width' );
+
+			$width_indicator.on( 'update', function() {
+				var _width = $column.find( '.ac-setting-input-width .description input' ).val();
+				var _unit = $column.find( '.ac-setting-input-width .description .unit' ).text();
+				if ( _width > 0 ) {
+					$( this ).text( _width + _unit );
+				} else {
+					$( this ).text( '' );
+				}
+			} );
+
+			// unit selector
+			var width_unit_select = $column.find( '.ac-setting-input-width .unit-select label' );
+			width_unit_select.on( 'click', function() {
+
+				$column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
+				$column.column_width_slider(); // re-init slider
+				$width_indicator.trigger( 'update' ); // update indicator
+			} );
+
+			// width_input
+			var width_input = $column.find( '.ac-setting-input-width .description input' )
+				.on( 'keyup', function() {
+					$column.column_width_slider(); // re-init slider
+					$( this ).trigger( 'validate' ); // validate input
+					$width_indicator.trigger( 'update' ); // update indicator
+				} )
+
+				// width_input:validate
+				.on( 'validate', function() {
+					var _width = width_input.val();
+					var _new_width = $.trim( _width );
+
+					if ( !$.isNumeric( _new_width ) ) {
+						_new_width = _new_width.replace( /\D/g, '' );
+					}
+					if ( _new_width.length > 3 ) {
+						_new_width = _new_width.substring( 0, 3 );
+					}
+					if ( _new_width <= 0 ) {
+						_new_width = '';
+					}
+					if ( _new_width !== _width ) {
+						width_input.val( _new_width );
+					}
+				} );
+
+		} );
+	};
+
+	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+	} );
+
+	$.fn.cpac_column_sub_setting_toggle = function( options ) {
+		var settings = $.extend( {
+			value_show : "on",
+			subfield : '.ac-column-setting'
+		}, options );
+
+		function initState( $setting, $input ) {
+			var value = $input.filter( ':checked' ).val();
+			var $subfields = $setting.find( settings.subfield );
+
+			if ( settings.value_show == value ) {
+				$subfields.show();
+			} else {
+				$subfields.hide();
+			}
+		}
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $input = $( this ).find( '.ac-setting-input input[type="radio"]' );
+
+			initState( $setting, $input );
+			$input.on( 'change', function() {
+				initState( $setting, $input );
+			} );
+
+		} );
+	};
+
+	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
+		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
+	} );
 
 }( jQuery ));

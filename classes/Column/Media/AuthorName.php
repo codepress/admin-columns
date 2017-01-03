@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * Column displaying information about the author of a post, such as the
@@ -8,5 +7,4 @@ defined( 'ABSPATH' ) or die();
  * @since 2.0
  */
 class AC_Column_Media_AuthorName extends AC_Column_Post_AuthorName {
-
 }

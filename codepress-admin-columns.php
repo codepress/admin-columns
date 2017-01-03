@@ -39,10 +39,16 @@ if ( ! is_admin() ) {
  * The Admin Columns Class
  *
  * @since 1.0
- *
- * @property AC_Helper helper
  */
 class CPAC {
+
+	/**
+	 * Basename of the plugin, retrieved through plugin_basename function
+	 *
+	 * @since 1.0
+	 * @var string
+	 */
+	private $plugin_basename;
 
 	/**
 	 * Admin Columns add-ons class instance
@@ -51,7 +57,7 @@ class CPAC {
 	 * @access private
 	 * @var AC_Addons
 	 */
-	private $_addons;
+	private $addons;
 
 	/**
 	 * Admin Columns settings class instance
@@ -60,21 +66,17 @@ class CPAC {
 	 * @access private
 	 * @var AC_Admin
 	 */
-	private $_settings;
+	private $admin;
 
 	/**
-	 * Admin Columns plugin upgrade class instance
-	 *
-	 * @since 2.2.7
-	 * @access private
-	 * @var AC_Upgrade
+	 * @var AC_ColumnGroups Column Groups
 	 */
-	private $_upgrade;
+	private $groups;
 
 	/**
 	 * @var AC_ListScreenManager $_list_screen_manager
 	 */
-	private $_list_screen_manager;
+	private $list_screen_manager;
 
 	/**
 	 * @since NEWVERSION
@@ -90,9 +92,14 @@ class CPAC {
 
 	/**
 	 * @since NEWVERSION
-	 * @var AC_ListScreenAbstract[]
+	 * @var AC_ListScreen[]
 	 */
 	private $list_screens;
+
+	/**
+	 * @var array $notices
+	 */
+	private $notices;
 
 	/**
 	 * @since 2.5
@@ -114,19 +121,18 @@ class CPAC {
 	 * @since 1.0
 	 */
 	function __construct() {
+		$this->plugin_basename = plugin_basename( __FILE__ );
 
 		// Backwards compatibility
 		define( 'CPAC_VERSION', $this->get_version() );
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
+		// Autoload classes
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
 		require_once $this->get_plugin_dir() . 'classes/Column.php';
-
-		// Backwards compatibility
-		require_once $this->get_plugin_dir() . 'classes/Deprecated/column-default.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -135,24 +141,37 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Includes
-		$this->_settings = new AC_Admin();
-		$this->_addons = new AC_Addons();
-		$this->_upgrade = new AC_Upgrade();
-		$this->_list_screen_manager = new AC_ListScreenManager();
+		$this->admin = new AC_Admin();
+		$this->addons = new AC_Addons();
 
+		$this->list_screen_manager = new AC_ListScreenManager();
 		$this->helper = new AC_Helper();
+
+		// Column groups
+		$groups = new AC_ColumnGroups();
+
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
+
+		$this->groups = $groups;
 
 		new AC_Notice_Review();
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'wp_loaded', array( $this, 'after_setup' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+
+		// Notices
+		add_action( 'admin_notices', array( $this, 'display_notices' ) );
+		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
 	}
 
 	/**
@@ -162,23 +181,6 @@ class CPAC {
 		require_once $this->get_plugin_dir() . 'classes/autoloader.php';
 
 		return AC_Autoloader::instance();
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @param string $key
-	 *
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'helper' ) ) ) {
-			return $this->$key();
-		}
-
-		return false;
 	}
 
 	/**
@@ -226,29 +228,11 @@ class CPAC {
 	}
 
 	/**
-	 * Fire callbacks for admin columns setup completion
-	 *
-	 * @since 2.2
-	 */
-	public function after_setup() {
-
-		/**
-		 * Fires when Admin Columns is fully loaded
-		 * Use this for setting up addon functionality
-		 *
-		 * @since 2.0
-		 *
-		 * @param CPAC $cpac_instance Main Admin Columns plugin class instance
-		 */
-		do_action( 'cac/loaded', $this );
-	}
-
-	/**
 	 * @since 2.2
 	 * @uses load_plugin_textdomain()
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
 	}
 
 	/**
@@ -268,6 +252,22 @@ class CPAC {
 	}
 
 	/**
+	 * Capability to manage admin columns.
+	 *
+	 * @return string
+	 */
+	public function get_cap() {
+		return 'manage_admin_columns';
+	}
+
+	/**
+	 * @return bool True when user can manage admin columns
+	 */
+	public function current_user_has_cap() {
+		return current_user_can( $this->get_cap() );
+	}
+
+	/**
 	 * Add capability to administrator to manage admin columns.
 	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
@@ -275,7 +275,7 @@ class CPAC {
 	 */
 	public function set_capabilities() {
 		if ( $role = get_role( 'administrator' ) ) {
-			$role->add_cap( 'manage_admin_columns' );
+			$role->add_cap( $this->get_cap() );
 		}
 	}
 
@@ -295,11 +295,9 @@ class CPAC {
 	 * @see filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file != plugin_basename( __FILE__ ) ) {
-			return $links;
+		if ( $file === $this->plugin_basename ) {
+			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'settings' ), __( 'Settings' ) ) );
 		}
-
-		array_unshift( $links, '<a href="' . esc_url( admin_url( "options-general.php?page=codepress-admin-columns" ) ) . '">' . __( 'Settings' ) . '</a>' );
 
 		return $links;
 	}
@@ -312,13 +310,11 @@ class CPAC {
 	}
 
 	/**
-	 * Get admin columns settings class instance
-	 *
 	 * @since 2.2
 	 * @return AC_Admin Settings class instance
 	 */
-	public function settings() {
-		return $this->_settings;
+	public function admin() {
+		return $this->admin;
 	}
 
 	/**
@@ -328,17 +324,14 @@ class CPAC {
 	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->_addons;
+		return $this->addons;
 	}
 
 	/**
-	 * Get admin columns upgrade class instance
-	 *
-	 * @since 2.2.7
-	 * @return AC_Upgrade Upgrade class instance
+	 * @return AC_ColumnGroups
 	 */
-	public function upgrade() {
-		return $this->_upgrade;
+	public function groups() {
+		return $this->groups;
 	}
 
 	/**
@@ -354,7 +347,7 @@ class CPAC {
 	 * @return AC_ListScreenManager
 	 */
 	public function list_screen_manager() {
-		return $this->_list_screen_manager;
+		return $this->list_screen_manager;
 	}
 
 	/**
@@ -362,7 +355,7 @@ class CPAC {
 	 *
 	 * @param string $key
 	 *
-	 * @return AC_ListScreenAbstract|false
+	 * @return AC_ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
@@ -380,7 +373,7 @@ class CPAC {
 	 * Returns the default list screen when no choice is made by the user
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_default_list_screen() {
 		$screens = $this->get_list_screens();
@@ -393,7 +386,7 @@ class CPAC {
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
-	 * @return AC_ListScreenAbstract[]
+	 * @return AC_ListScreen[]
 	 */
 	public function get_list_screens() {
 		if ( null === $this->list_screens ) {
@@ -411,7 +404,10 @@ class CPAC {
 	private function set_list_screens() {
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
-			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
+			$list_screen = new AC_ListScreen_Post();
+			$list_screen->set_post_type( $post_type );
+
+			$this->register_list_screen( $list_screen );
 		}
 
 		// Create other list screens
@@ -428,9 +424,9 @@ class CPAC {
 	}
 
 	/**
-	 * @param AC_ListScreenAbstract $list_screen
+	 * @param AC_ListScreen $list_screen
 	 */
-	public function register_list_screen( AC_ListScreenAbstract $list_screen ) {
+	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
@@ -441,7 +437,7 @@ class CPAC {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private function get_post_types() {
+	public function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
@@ -463,19 +459,31 @@ class CPAC {
 		 *
 		 * @param array $post_types List of active post type names
 		 */
+
+		// TODO: rename
 		return apply_filters( 'cac/post_types', $post_types );
 	}
 
 	/**
-	 * @return AC_Admin_Tab_Columns
+	 * Display admin notice
 	 */
-	public function columns_tab() {
-		return $this->settings()->get_tab( 'columns' );
+	public function display_notices() {
+		if ( $this->notices ) {
+			echo implode( $this->notices );
+		}
+	}
+
+	/**
+	 * @param string $message Message body
+	 * @param string $type Updated or error
+	 */
+	public function notice( $message, $type = 'updated' ) {
+		$this->notices[] = '<div class="cpac_message ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
 
 	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
@@ -490,15 +498,15 @@ class CPAC {
 
 	/**
 	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreenAbstract object
+	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
 	 * @since 2.2.4
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_ListScreenAbstract
+	 * @return AC_ListScreen
 	 */
 	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_current_list_screen()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen()' );
 
 		return $this->list_screen_manager()->get_list_screen();
 	}
@@ -507,9 +515,9 @@ class CPAC {
 	 * @since 2.1.1
 	 */
 	public function get_general_option( $option ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->get_general_option( $option )' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->get_general_option( $option )' );
 
-		return $this->settings()->get_general_option( $option );
+		return $this->admin()->get_general_option( $option );
 	}
 
 	/**
@@ -522,9 +530,9 @@ class CPAC {
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
 	public function is_settings_screen( $tab = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->settings()->is_current_tab( $tab )' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
 
-		return $this->settings()->is_current_tab( $tab );
+		return $this->admin()->is_current_tab( $tab );
 	}
 
 	/**

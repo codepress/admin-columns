@@ -1,19 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * @since NEWVERSION
  */
-class AC_Column_User_CustomField extends AC_Column_CustomFieldAbstract {
-
-	/**
-	 * @return string
-	 */
-	public function get_meta_type() {
-		return 'user';
-	}
+class AC_Column_User_CustomField extends AC_Column_CustomField {
 
 	/**
 	 * @return array

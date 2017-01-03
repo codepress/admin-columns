@@ -1,10 +1,9 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
+class AC_Column_Post_Author extends AC_Column_DefaultPost {
 
 	public function __construct() {
 		parent::__construct();
@@ -12,8 +11,8 @@ class AC_Column_Post_Author extends AC_Column_DefaultPostAbstract {
 		$this->set_type( 'author' );
 	}
 
-	public function get_default_with() {
-		return 10;
+	public function register_settings() {
+		$this->get_settings()->width->set_default( 10 );
 	}
 
 }

@@ -1,12 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
-class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
+	CONST SETTINGS_NAME = 'cpac_general_options';
 
-	CONST SETTINGS_KEY = 'cpac_general_options';
+	CONST SETTINGS_GROUP = 'cpac-general-settings';
 
 	private $options;
 
@@ -15,16 +13,21 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
 
-		$this->options = get_option( self::SETTINGS_KEY );
+		$this->options = get_option( self::SETTINGS_NAME );
 
-		register_setting( 'cpac-general-settings', self::SETTINGS_KEY );
+		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
+
+		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( AC(), 'get_cap' ) );
 
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 	}
 
+	/**
+	 * @param string $key
+	 */
 	public function attr_name( $key ) {
-		echo esc_attr( self::SETTINGS_KEY . '[' . $key . ']' );
+		echo esc_attr( self::SETTINGS_NAME . '[' . sanitize_key( $key ) . ']' );
 	}
 
 	/**
@@ -41,7 +44,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 	}
 
 	public function delete_options() {
-		delete_option( self::SETTINGS_KEY );
+		delete_option( self::SETTINGS_NAME );
 	}
 
 	/**
@@ -56,7 +59,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 	 */
 	public function handle_column_request() {
 
-		if ( ! current_user_can( 'manage_admin_columns' ) || ! $this->is_current_screen() ) {
+		if ( ! AC()->current_user_has_cap() || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -64,9 +67,10 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 			case 'restore_all' :
 				if ( wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), 'restore-all' ) ) {
 
-					AC_Settings_Columns::delete_all();
+					// todo: make this non static? There is no reason why the list screen should be absent here?
+					AC_Settings_ListScreen::delete_all_settings();
 
-					cpac_admin_message( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 
 					// @since NEWVERSION
 					do_action( 'ac/restore_all_columns' );
@@ -94,7 +98,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 				<?php echo $args->label; ?>
 			</label>
 			<?php if ( $args->instructions ) : ?>
-				<a href="javascript:;" class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+				<a class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
 				</a>
 			<?php endif; ?>
@@ -114,14 +118,14 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 			<tbody>
 			<tr class="general">
 				<th scope="row">
-					<h3><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h3>
+					<h2><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h2>
 					<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
 					<div class="cpac_general">
 						<form method="post" action="options.php">
 
-							<?php settings_fields( 'cpac-general-settings' ); ?>
+							<?php settings_fields( self::SETTINGS_GROUP ); ?>
 
 							<?php
 							$this->single_checkbox( array(
@@ -155,7 +159,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 
 					<tr>
 						<th scope="row">
-							<h3><?php echo esc_html( $title ); ?></h3>
+							<h2><?php echo esc_html( $title ); ?></h2>
 
 							<p><?php echo $description; ?></p>
 						</th>
@@ -176,7 +180,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_TabAbstract {
 
 			<tr class="restore">
 				<th scope="row">
-					<h3><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h3>
+					<h2><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h2>
 					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">

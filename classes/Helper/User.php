@@ -1,16 +1,12 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_User {
 
 	/**
 	 * @param string $field
 	 * @param int $user_id
 	 *
-	 * @return bool|string
+	 * @return bool|string|array
 	 */
 	public function get_user_field( $field, $user_id ) {
 		$user = get_user_by( 'id', $user_id );
@@ -33,23 +29,27 @@ class AC_Helper_User {
 	 * @return false|string
 	 */
 	public function get_display_name( $user, $format = false ) {
-		$user = $this->get_user( $user );
+		$name = false;
 
-		if ( ! $user ) {
-			return false;
-		}
+		if ( $user = $this->get_user( $user ) ) {
+			$name = $user->display_name;
 
-		$name = $user->display_name;
-
-		if ( 'first_last_name' == $format ) {
-			$first = ! empty( $user->first_name ) ? $user->first_name : '';
-			$last = ! empty( $user->last_name ) ? " {$user->last_name}" : '';
-			if ( $first || $last ) {
-				$name = $first . $last;
+			if ( ! empty( $user->{$format} ) ) {
+				$name = $user->{$format};
 			}
-		}
-		elseif ( ! empty( $user->{$format} ) ) {
-			$name = $user->{$format};
+
+			if ( 'first_last_name' == $format ) {
+				$name_parts = array();
+				if ( $user->first_name ) {
+					$name_parts[] = $user->first_name;
+				}
+				if ( $user->last_name ) {
+					$name_parts[] = $user->last_name;
+				}
+				if ( $name_parts ) {
+					$name = implode( ' ', $name_parts );
+				}
+			}
 		}
 
 		return $name;

@@ -1,10 +1,9 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Title extends AC_Column_DefaultPostAbstract {
+class AC_Column_Post_Title extends AC_Column_DefaultPost {
 
 	public function __construct() {
 		parent::__construct();

@@ -1,19 +1,18 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 /**
  * @since 2.0
  */
 class AC_Admin {
 
-	CONST PAGE_SLUG = 'codepress-admin-columns';
+	CONST MENU_SLUG = 'codepress-admin-columns';
 
 	/**
-	 * Settings Page
+	 * Settings Page hook suffix
 	 *
 	 * @since 2.0
 	 */
-	private $settings_page;
+	private $hook_suffix;
 
 	/**
 	 * @var AC_Admin_Tabs
@@ -24,15 +23,17 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	function __construct() {
-
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$this->tabs = new AC_Admin_Tabs();
-		$this->tabs
-			->register_tab( new AC_Admin_Tab_Columns() )
-			->register_tab( new AC_Admin_Tab_Settings() )
-			->register_tab( new AC_Admin_Tab_Addons() );
+		$this->tabs->register_tab( new AC_Admin_Tab_Columns() )
+		           ->register_tab( new AC_Admin_Tab_Settings() )
+		           ->register_tab( new AC_Admin_Tab_Addons() );
+
+					// TODO: not used atm
+		           //->register_tab( new AC_Admin_Tab_Welcome() )
+		           //->register_tab( new AC_Admin_Tab_Upgrade() );
 	}
 
 	/**
@@ -50,7 +51,7 @@ class AC_Admin {
 		if ( $tab = $this->tabs->get_current_tab() ) {
 
 			// Hook
-			do_action( 'ac/admin_scripts/tab=' . $tab->get_slug(), $this );
+			do_action( 'ac/admin_scripts/' . $tab->get_slug(), $this );
 
 			$tab->admin_scripts();
 		}
@@ -68,20 +69,16 @@ class AC_Admin {
 	 * @return bool
 	 */
 	public function get_general_option( $option ) {
-		return $this->get_settings_tab()->get_option( $option );
-	}
+		/* @var AC_Admin_Tab_Settings $settings */
+		$settings = $this->tabs->get_tab( 'settings' );
 
-	/**
-	 * @return AC_Admin_Tab_Settings
-	 */
-	public function get_settings_tab() {
-		return $this->tabs->get_tab( 'settings' );
+		return $settings->get_option( $option );
 	}
 
 	/**
 	 * @param $tab_slug
 	 *
-	 * @return AC_Admin_TabAbstract|false
+	 * @return AC_Admin_Tab_Columns|AC_Admin_Tab_Settings|AC_Admin_Tab_Addons|false
 	 */
 	public function get_tab( $tab_slug ) {
 		return $this->tabs->get_tab( $tab_slug );
@@ -106,45 +103,31 @@ class AC_Admin {
 	/**
 	 * @since 3.1.1
 	 */
-	public function get_settings_page() {
-		return $this->settings_page;
+	public function get_hook_suffix() {
+		return $this->hook_suffix;
+	}
+
+	private function get_page() {
+		return 'options-general.php';
 	}
 
 	public function get_settings_url() {
-		return admin_url( add_query_arg( array( 'page' => self::PAGE_SLUG ), 'options-general.php' ) );
-	}
-
-	public function get_upgrade_url() {
-		return admin_url( add_query_arg( array( 'page' => 'cpac-upgrade' ), 'options-general.php' ) );
-	}
-
-	public function get_welcome_url() {
-		return add_query_arg( array( 'info' => 1 ), $this->get_settings_url() );
+		return menu_page_url( AC_Admin::MENU_SLUG, false );
 	}
 
 	/**
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', self::PAGE_SLUG, array( $this, 'display' ) );
+		$this->hook_suffix = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), AC()->get_cap(), self::MENU_SLUG, array( $this, 'display' ) );
 
-		add_filter( 'option_page_capability_cpac-general-settings', array( $this, 'add_capability' ) );
-		add_action( 'load-' . $this->settings_page, array( $this, 'help_tabs' ) );
-	}
-
-	/**
-	 * Allows the capability 'manage_admin_columns' to store data through /wp-admin/options.php
-	 *
-	 * @since 2.0
-	 */
-	public function add_capability() {
-		return 'manage_admin_columns';
+		add_action( 'load-' . $this->hook_suffix, array( $this, 'help_tabs' ) );
 	}
 
 	public function is_admin_screen() {
 		global $pagenow;
 
-		return self::PAGE_SLUG === filter_input( INPUT_GET, 'page' ) && 'options-general.php' === $pagenow;
+		return self::MENU_SLUG === filter_input( INPUT_GET, 'page' ) && $this->get_page() === $pagenow;
 	}
 
 	public function is_current_tab( $tab_slug ) {
@@ -189,7 +172,7 @@ class AC_Admin {
 						<li><strong>" . __( "Checkmark", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Color", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Counter", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
+						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', admin_url( 'options-general.php' ) ) . "</li>
 						<li><strong>" . __( "Excerpt", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Image", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Media Library", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
@@ -216,15 +199,6 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function display() {
-		$welcome_screen = new AC_Admin_Welcome();
-
-		if ( $welcome_screen->has_upgrade_run() ) {
-			$welcome_screen->admin_scripts();
-			$welcome_screen->display();
-
-			return;
-		}
-
 		$this->tabs->display();
 	}
 

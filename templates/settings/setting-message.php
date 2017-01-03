@@ -1,0 +1,1 @@
+<span class="message"><?php echo $this->message; ?></span>

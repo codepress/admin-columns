@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Promo_BlackFriday extends AC_Admin_PromoAbstract {
+class AC_Admin_Promo_BlackFriday extends AC_Admin_Promo {
 
 	public function __construct() {
 

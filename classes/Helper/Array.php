@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_Array {
 
 	/**
@@ -21,8 +17,7 @@ class AC_Helper_Array {
 			foreach ( $pieces as $r_pieces ) {
 				if ( is_array( $r_pieces ) ) {
 					$retVal[] = $this->implode_recursive( $glue, $r_pieces );
-				}
-				else {
+				} else {
 					$retVal[] = $r_pieces;
 				}
 			}
@@ -58,30 +53,6 @@ class AC_Helper_Array {
 		$keys[ $old_key_pos ] = $new_key;
 
 		return array_combine( $keys, array_values( $input ) );
-	}
-
-	/**
-	 * Sorts an array. Return keys after they have been sorted by value.
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @uses sort()
-	 * @uses natcasesort()
-	 *
-	 * @param array $array ( [object_id] => [value] )
-	 * @param int|string $sort_flags Sorting type flags. See sort().
-	 *
-	 * @return array Array keys
-	 */
-	public function get_array_keys_sorted_by_value( $array, $type = 'string' ) {
-		if ( 'numeric' === strtolower( $type ) ) {
-			asort( $array, SORT_NUMERIC );
-		}
-		else {
-			natcasesort( $array );
-		}
-
-		return array_keys( $array );
 	}
 
 	/**

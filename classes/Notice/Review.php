@@ -1,5 +1,4 @@
 <?php
-defined( 'ABSPATH' ) or die();
 
 class AC_Notice_Review {
 
@@ -41,7 +40,7 @@ class AC_Notice_Review {
 			return;
 		}
 
-		if ( current_user_can( 'manage_admin_columns' ) && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
+		if ( AC()->current_user_has_cap() && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
 			if ( ( time() - ( 86400 * absint( $this->days_since_install ) ) ) >= $this->get_install_timestamp() ) {
 				add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 			}
@@ -62,7 +61,7 @@ class AC_Notice_Review {
 
 		$product = __( 'Admin Columns', 'codepress-admin-columns' );
 
-		if ( cpac_is_pro_active() ) {
+		if ( ac_is_pro_active() ) {
 			$product = __( 'Admin Columns Pro', 'codepress-admin-columns' );
 		}
 		?>
@@ -89,10 +88,10 @@ class AC_Notice_Review {
 						$product,
 						'<a href="' . ac_get_site_url( 'documentation' ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
-					<?php if ( cpac_is_pro_active() ) : ?>
+					<?php if ( ac_is_pro_active() ) : ?>
 						<?php printf(
 							__( 'As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!', 'codepress-admin-columns' ),
-							'<a href="' . ac_get_site_url( 'forumns' ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
+							'<a href="' . esc_url( ac_get_site_url( 'forumns' ) ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
 						); ?>
 					<?php else : ?>
 						<?php printf(

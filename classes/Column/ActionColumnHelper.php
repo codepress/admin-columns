@@ -1,13 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Holds all the row actions buttons for each content type (e.g. post, comment, user and media).
  * WP_List_Table does not have a method for retrieving row actions. This class uses their filters to fetch the actions.
- * For example usage see the AC_Column_ActionsAbstract class.
+ * For example usage see the AC_Column_Actions class.
  *
  * Class AC_Column_ActionColumnHelper
  */
@@ -30,8 +26,6 @@ class AC_Column_ActionColumnHelper {
 
 		return self::$_instance;
 	}
-
-	//TODO: when action column is the first column. The actions do not show anymore. Create fix.
 
 	public function __construct() {
 		add_filter( 'comment_row_actions', array( $this, 'set_comment' ), 10, 2 );
@@ -74,7 +68,7 @@ class AC_Column_ActionColumnHelper {
 	 * @return array|false Array with actions
 	 */
 	public function get( $type, $id ) {
-		 return isset( $this->actions[ $type ][ $id ] ) ? $this->actions[ $type ][ $id ] : false;
+		return isset( $this->actions[ $type ][ $id ] ) ? $this->actions[ $type ][ $id ] : array();
 	}
 
 }

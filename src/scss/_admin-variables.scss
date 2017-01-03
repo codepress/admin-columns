@@ -1,0 +1,36 @@
+@import '_iconfont';
+
+$border-gray-darker: darken(#d1d1d1, 2);
+$border-gray-dark: darken(#E1E1E1, 1);
+$border-gray: darken(#f0f0f0, 3); // e6e6e6
+//@border-gray-light: #f2f2f2;
+
+$bg-gray-dark: #eaeaea;
+$bg-gray: #f5f5f5;
+$bg-gray-light: #fcfcfc;
+
+$blue: #21759B;
+
+$red: #BC0B0B;
+$red-light: #f00;
+
+$ac-dark : #3d4350;
+$ac-pink : #e9426e;
+$ac-yellow : #FFEE85;
+$ac-green : #02DEDE;
+
+// Mixin
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}

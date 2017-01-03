@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_Image {
 
 	/**
@@ -79,15 +75,15 @@ class AC_Helper_Image {
 			$src = $attributes[0];
 
 			if ( is_array( $size ) ) {
-				$image = $this->markup_cover( $src, $size[0], $size[1] );
+				$image = $this->markup_cover( $src, $size[0], $size[1], $id );
 			}
 			else {
-				$image = $this->markup( $src, $attributes[1], $attributes[2] );
+				$image = $this->markup( $src, $attributes[1], $attributes[2], $id );
 			}
 		}
 		// Is File, use icon
 		else if ( $attributes = wp_get_attachment_image_src( $id, $size, true ) ) {
-			$image = $this->markup( $attributes[0], $this->scale_size( $attributes[1], 0.7 ), $this->scale_size( $attributes[2], 0.7 ) );
+			$image = $this->markup( $attributes[0], $this->scale_size( $attributes[1], 0.7 ), $this->scale_size( $attributes[2], 0.7 ), $id );
 		}
 
 		return $image;
@@ -151,7 +147,7 @@ class AC_Helper_Image {
 	public function get_images( $images, $size = 'thumbnail' ) {
 		$thumbnails = array();
 
-		foreach ( $images as $value ) {
+		foreach ( (array) $images as $value ) {
 			if ( ac_helper()->string->is_image( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
 			}
@@ -183,12 +179,12 @@ class AC_Helper_Image {
 
 	// Helpers
 
-	private function markup_cover( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image cpac-cover' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
+	private function markup_cover( $src, $width, $height, $media_id = null ) {
+		return "<span class='cpac-column-value-image cpac-cover' data-media-id='" . $media_id . "' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
 	}
 
-	private function markup( $src, $width, $height ) {
-		return "<span class='cpac-column-value-image'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
+	private function markup( $src, $width, $height, $media_id = null ) {
+		return "<span class='cpac-column-value-image' data-media-id='" . $media_id . "'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
 	}
 
 }

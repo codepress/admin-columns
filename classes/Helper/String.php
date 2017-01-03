@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class AC_Helper_String {
 
 	/**
@@ -57,8 +53,18 @@ class AC_Helper_String {
 	 *
 	 * @return string
 	 */
-	public function trim_words( $text = '', $num_words = 30, $more = null ) {
-		return $text ? wp_trim_words( $text, $num_words, $more ) : false;
+	public function trim_words( $string = '', $num_words = 30, $more = null ) {
+		return $string ? wp_trim_words( $string, $num_words, $more ) : false;
+	}
+
+	/**
+	 * @param string $string
+	 * @param int $limit
+	 *
+	 * @return string
+	 */
+	public function trim_characters( $string, $limit = 10 ) {
+		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
 	}
 
 	/**
@@ -205,7 +211,7 @@ class AC_Helper_String {
 	 * @return string
 	 */
 	public function convert_seconds_to_human_readable_time( $seconds ) {
-		$time = 0;
+		$time = false;
 
 		if ( $seconds ) {
 
