@@ -114,7 +114,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 			<tbody>
 			<tr class="general">
 				<th scope="row">
-					<h3><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h3>
+					<h2><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h2>
 					<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">
@@ -155,7 +155,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
 					<tr>
 						<th scope="row">
-							<h3><?php echo esc_html( $title ); ?></h3>
+							<h2><?php echo esc_html( $title ); ?></h2>
 
 							<p><?php echo $description; ?></p>
 						</th>
@@ -176,7 +176,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
 			<tr class="restore">
 				<th scope="row">
-					<h3><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h3>
+					<h2><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h2>
 					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
 				</th>
 				<td class="padding-22">

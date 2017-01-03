@@ -69,7 +69,7 @@ class AC_Admin_Tabs {
 
 	public function display() { ?>
 		<div id="cpac" class="wrap">
-			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
+			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
 				$active_slug = $this->get_current_slug();
@@ -92,7 +92,7 @@ class AC_Admin_Tabs {
 				}
 
 				?>
-			</h2>
+			</h1>
 
 			<?php
 

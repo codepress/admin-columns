@@ -31,15 +31,18 @@
     background: -ms-radial-gradient(center, ellipse cover, #0069a4 0%, #085079 100%);
     background: radial-gradient(ellipse at center, #0069a4 0%, #085079 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0069a4', endColorstr='#085079', GradientType=1); }
-    .cpac-addons li .cpac-addon-content > * {
+    .cpac-addons li .cpac-addon-content .inner {
       display: table-cell;
-      vertical-align: middle; }
-    .cpac-addons li .cpac-addon-content h3 {
-      padding: 0 16px;
-      color: #FFF;
-      line-height: 150%; }
-    .cpac-addons li .cpac-addon-content img {
-      width: 100%; }
+      vertical-align: middle;
+      padding: 15px 20px; }
+      .cpac-addons li .cpac-addon-content .inner h3 {
+        padding: 0 16px;
+        color: #FFF;
+        line-height: 150%; }
+      .cpac-addons li .cpac-addon-content .inner img {
+        display: inline-block;
+        max-height: 40px;
+        max-width: 100%; }
   .cpac-addons li .cpac-addon-header {
     width: 100%;
     padding: 25px 15px;

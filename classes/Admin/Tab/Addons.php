@@ -45,7 +45,7 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 		$grouped_addons = AC()->addons()->get_available_addons( true );
 		?>
 		<?php foreach ( $grouped_addons as $group_name => $addons ) : ?>
-            <h3><?php echo $addon_groups[ $group_name ]; ?></h3>
+            <h2><?php echo $addon_groups[ $group_name ]; ?></h2>
 
             <ul class="cpac-addons">
 				<?php
@@ -57,7 +57,7 @@ class AC_Admin_Tab_Addons extends AC_Admin_Tab {
 							<?php if ( $addon->get_image_url() ) : ?>
                                 <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>"/>
 							<?php else : ?>
-                                <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
+                                <h2><?php echo esc_html( $addon->get_title() ); ?></h2>
 							<?php endif; ?>
                             </div>
                         </div>

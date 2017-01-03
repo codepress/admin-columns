@@ -436,7 +436,7 @@
                 cursor: auto;
                 color: #737373; }
               .ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator {
-                margin-left: 0;
+                margin-left: 3px;
                 font-size: 24px;
                 line-height: 17px;
                 width: 22px; }
@@ -748,6 +748,9 @@
     padding: 20px 10px 10px;
     background: #3d4350;
     color: #fff; }
+  #ac-pro-version .nopadding {
+    margin: 0;
+    padding: 0; }
   #ac-pro-version h3 {
     font-size: 34px; }
     #ac-pro-version h3 a {
@@ -764,6 +767,15 @@
     display: block;
     padding: 6px 20px;
     border-radius: 3px; }
+  #ac-pro-version .more {
+    color: #FFEE85;
+    text-decoration: none; }
+    #ac-pro-version .more:hover {
+      text-decoration: underline; }
+  #ac-pro-version p.center {
+    text-align: center; }
+  #ac-pro-version p.nomargin {
+    margin-bottom: 0; }
   #ac-pro-version ul li {
     padding-bottom: 3px; }
     #ac-pro-version ul li a {
@@ -788,11 +800,10 @@
       #ac-pro-version ul li.acp-integration a:before {
         content: '+'; }
   #ac-pro-version .padding-box.ac-pro-deal {
-    background: none;
     color: #3d4350;
     padding-bottom: 20px;
     text-align: center;
-    background-color: #fff; }
+    background: #ffef8f; }
     #ac-pro-version .padding-box.ac-pro-deal h3 {
       font-size: 20px;
       line-height: 26px;
