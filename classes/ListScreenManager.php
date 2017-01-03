@@ -151,7 +151,7 @@ final class AC_ListScreenManager {
 			<?php
 		endif;
 
-		/* @var AC_Admin_Tab_Settings $settings */
+		/* @var AC_Admin_Page_Settings $settings */
 		$settings = AC()->admin()->get_tab( 'settings' );
 
 		// JS: Edit button

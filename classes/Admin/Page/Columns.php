@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Tab_Columns extends AC_Admin_Tab {
+class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 	CONST OPTION_CURRENT = 'cpac_current_model';
 

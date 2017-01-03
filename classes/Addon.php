@@ -95,8 +95,10 @@ abstract class AC_Addon {
 	/**
 	 * @param string $link
 	 */
-	protected function set_link( $link ) {
-		$this->link = $link;
+	protected function set_link( $url ) {
+		if ( ac_helper()->string->is_valid_url( $url ) ) {
+			$this->link = $url;
+		}
 
 		return $this;
 	}

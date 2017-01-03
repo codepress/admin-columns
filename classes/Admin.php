@@ -15,7 +15,7 @@ class AC_Admin {
 	private $hook_suffix;
 
 	/**
-	 * @var AC_Admin_Tabs
+	 * @var AC_Admin_Pages
 	 */
 	private $tabs;
 
@@ -26,14 +26,14 @@ class AC_Admin {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
-		$this->tabs = new AC_Admin_Tabs();
-		$this->tabs->register_tab( new AC_Admin_Tab_Columns() )
-		           ->register_tab( new AC_Admin_Tab_Settings() )
-		           ->register_tab( new AC_Admin_Tab_Addons() );
+		$this->tabs = new AC_Admin_Pages();
+		$this->tabs->register_tab( new AC_Admin_Page_Columns() )
+		           ->register_tab( new AC_Admin_Page_Settings() )
+		           ->register_tab( new AC_Admin_Page_Addons() );
 
 					// TODO: not used atm
-		           //->register_tab( new AC_Admin_Tab_Welcome() )
-		           //->register_tab( new AC_Admin_Tab_Upgrade() );
+		           //->register_tab( new AC_Admin_Page_Welcome() );
+		           //->register_tab( new AC_Admin_Page_Upgrade() );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class AC_Admin {
 	 * @return bool
 	 */
 	public function get_general_option( $option ) {
-		/* @var AC_Admin_Tab_Settings $settings */
+		/* @var AC_Admin_Page_Settings $settings */
 		$settings = $this->tabs->get_tab( 'settings' );
 
 		return $settings->get_option( $option );
@@ -78,7 +78,7 @@ class AC_Admin {
 	/**
 	 * @param $tab_slug
 	 *
-	 * @return AC_Admin_Tab_Columns|AC_Admin_Tab_Settings|AC_Admin_Tab_Addons|false
+	 * @return AC_Admin_Page_Columns|AC_Admin_Page_Settings|AC_Admin_Page_Addons|false
 	 */
 	public function get_tab( $tab_slug ) {
 		return $this->tabs->get_tab( $tab_slug );
@@ -94,7 +94,7 @@ class AC_Admin {
 	}
 
 	/**
-	 * @return AC_Admin_Tabs
+	 * @return AC_Admin_Pages
 	 */
 	public function get_tabs() {
 		return $this->tabs;
@@ -131,7 +131,9 @@ class AC_Admin {
 	}
 
 	public function is_current_tab( $tab_slug ) {
-		return $this->get_tabs()->get_current_slug() === $tab_slug && $this->is_admin_screen();
+		$current_tab = $this->get_tabs()->get_current_tab();
+
+		return $current_tab && $current_tab->get_slug() === $tab_slug && $this->is_admin_screen();
 	}
 
 	/**

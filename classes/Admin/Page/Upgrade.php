@@ -8,7 +8,7 @@
  * @since 2.0
  */
 // TODO: needs testing, scripts and upgrade message
-class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
+class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 
     CONST VERSION_KEY = 'cpac_version';
 
@@ -21,7 +21,7 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 		$this
 			->set_slug( 'upgrade' )
 			->set_label( __( 'Upgrade', 'codepress-admin-columns' ) )
-			->set_hidden( true );
+			->set_show_in_menu( false );
 
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 

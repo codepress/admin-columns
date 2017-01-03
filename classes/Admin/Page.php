@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Admin_Tab {
+abstract class AC_Admin_Page {
 
 	/**
 	 * Should this tab be displayed when no tab is selected
@@ -22,7 +22,7 @@ abstract class AC_Admin_Tab {
 	/**
 	 * @var bool True when menu tab is hidden
 	 */
-	private $hidden = false;
+	private $show_in_menu = true;
 
 	/**
 	 * Is this the default to to display when no active tab is present
@@ -49,12 +49,12 @@ abstract class AC_Admin_Tab {
 		return $this;
 	}
 
-	public function is_hidden() {
-		return $this->hidden;
+	public function show_in_menu() {
+		return $this->show_in_menu;
 	}
 
-	public function set_hidden( $hidden ) {
-		$this->hidden = (bool) $hidden;
+	public function set_show_in_menu( $show ) {
+		$this->show_in_menu = (bool) $show;
 
 		return $this;
 	}
