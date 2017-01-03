@@ -1,12 +1,12 @@
 <?php
 
-class AC_Admin_Tab_Welcome extends AC_Admin_Tab {
+class AC_Admin_Page_Welcome extends AC_Admin_Page {
 
 	public function __construct() {
 		$this
 			->set_slug( 'welcome' )
 			->set_label( __( 'Welcome', 'codepress-admin-columns' ) )
-			->set_hidden( true );
+			->set_show_in_menu( false );
 	}
 
 	private function get_sub_tabs() {

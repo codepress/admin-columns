@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Tab_Settings extends AC_Admin_Tab {
+class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 	CONST SETTINGS_NAME = 'cpac_general_options';
 

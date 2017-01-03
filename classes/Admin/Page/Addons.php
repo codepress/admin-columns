@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Tab_Addons extends AC_Admin_Tab {
+class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 	public function __construct() {
 		$this

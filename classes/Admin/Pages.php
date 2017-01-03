@@ -1,9 +1,9 @@
 <?php
 
-class AC_Admin_Tabs {
+class AC_Admin_Pages {
 
 	/**
-	 * @var AC_Admin_Tab[]
+	 * @var AC_Admin_Page[]
 	 */
 	private $tabs;
 
@@ -19,10 +19,10 @@ class AC_Admin_Tabs {
 	}
 
 	/**
-	 * @param AC_Admin_Tab $tab
-	 * @return AC_Admin_Tabs
+	 * @param AC_Admin_Page $tab
+	 * @return AC_Admin_Pages
 	 */
-	public function register_tab( AC_Admin_Tab $tab ) {
+	public function register_tab( AC_Admin_Page $tab ) {
 		$this->tabs[ $tab->get_slug() ] = $tab;
 
 		if ( $tab->is_default() ) {
@@ -35,7 +35,7 @@ class AC_Admin_Tabs {
 	/**
 	 * @param $slug
 	 *
-	 * @return AC_Admin_Tab|false
+	 * @return AC_Admin_Page|false
 	 */
 	public function get_tab( $slug ) {
 		$tab = false;
@@ -48,23 +48,16 @@ class AC_Admin_Tabs {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_current_slug() {
-		$slug = filter_input( INPUT_GET, 'tab' );
-
-		if ( ! $slug && $this->default_slug ) {
-			$slug = $this->default_slug;
-		}
-
-		return $slug;
-	}
-
-	/**
-	 * @return AC_Admin_Tab|false
+	 * @return AC_Admin_Page|false
 	 */
 	public function get_current_tab() {
-		return $this->get_tab( $this->get_current_slug() );
+		$tab = $this->get_tab( filter_input( INPUT_GET, 'tab' ) );
+
+		if ( ! $tab ) {
+		    $tab = $this->get_tab( $this->default_slug );
+        }
+
+        return $tab;
 	}
 
 	public function display() { ?>
@@ -72,16 +65,16 @@ class AC_Admin_Tabs {
 			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
-				$active_slug = $this->get_current_slug();
+				$active_tab = $this->get_current_tab();
 
 				foreach ( $this->tabs as $slug => $tab ) {
 
-				    // skip hidden tabs
-				    if ( $tab->is_hidden() ) {
+				    // skip
+				    if ( ! $tab->show_in_menu() ) {
 				        continue;
                     }
 
-					$active = $slug == $active_slug ? ' nav-tab-active' : '';
+					$active = $slug === $active_tab->get_slug() ? ' nav-tab-active' : '';
 
 				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $tab->get_label(), array( 'class' => 'nav-tab ' . $active ) );
 				}
@@ -95,9 +88,7 @@ class AC_Admin_Tabs {
 
 			do_action( 'cac/settings/after_menu' );
 
-			if ( $tab = $this->get_tab( $active_slug ) ) {
-				$tab->display();
-			}
+            $active_tab->display();
 
 			?>
 		</div>
