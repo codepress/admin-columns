@@ -9,34 +9,26 @@ class AC_Column_Placeholder extends AC_Column
 	implements AC_Column_PlaceholderInterface {
 
 	/**
-	 * @var AC_Addon
+	 * @var string
 	 */
-	private $addon;
+	private $url;
 
 	/**
 	 * @param AC_Addon $addon
 	 */
 	public function set_addon( AC_Addon $addon ) {
-		$this->addon = $addon;
-	}
+		$this->set_type( 'placeholder-' . $addon->get_slug() );
+		$this->set_group( $addon->get_slug() );
+		$this->set_label( $addon->get_title() );
 
-	public function get_group() {
-		return $this->addon->get_slug();
-	}
-
-	public function get_label() {
-		return $this->addon->get_title();
-	}
-
-	public function get_type() {
-		return 'placeholder-' . $this->addon->get_slug();
+		$this->url = $addon->get_link();
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_url() {
-		return $this->addon->get_link();
+		return $this->url;
 	}
 
 }
