@@ -119,7 +119,7 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->hook_suffix = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), AC()->get_cap(), self::MENU_SLUG, array( $this, 'display' ) );
+		$this->hook_suffix = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', self::MENU_SLUG, array( $this, 'display' ) );
 
 		add_action( 'load-' . $this->hook_suffix, array( $this, 'help_tabs' ) );
 	}

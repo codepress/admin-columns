@@ -17,10 +17,14 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
 		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
 
-		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( AC(), 'get_cap' ) );
+		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
 
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
+	}
+
+	public function set_capability() {
+        return 'manage_admin_columns';
 	}
 
 	/**
@@ -59,7 +63,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 	 */
 	public function handle_column_request() {
 
-		if ( ! AC()->current_user_has_cap() || ! $this->is_current_screen() ) {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
 

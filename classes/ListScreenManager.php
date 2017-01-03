@@ -155,7 +155,7 @@ final class AC_ListScreenManager {
 		$settings = AC()->admin()->get_tab( 'settings' );
 
 		// JS: Edit button
-		if ( AC()->current_user_has_cap() && $settings->show_edit_button() ) : ?>
+		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
             <script>
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );

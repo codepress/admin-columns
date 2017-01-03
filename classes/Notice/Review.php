@@ -40,7 +40,7 @@ class AC_Notice_Review {
 			return;
 		}
 
-		if ( AC()->current_user_has_cap() && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
+		if ( AC()->user_can_manage_admin_columns() && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
 			if ( ( time() - ( 86400 * absint( $this->days_since_install ) ) ) >= $this->get_install_timestamp() ) {
 				add_action( 'admin_notices', array( $this, 'display_admin_review_notice' ) );
 			}
