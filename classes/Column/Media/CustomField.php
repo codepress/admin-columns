@@ -3,5 +3,5 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Media_CustomField extends AC_Column_Post_CustomField {
+class AC_Column_Media_Meta extends AC_Column_Post_Meta {
 }

@@ -9,7 +9,8 @@
  *
  * @since 1.0
  */
-abstract class AC_Column_CustomField extends AC_Column implements AC_Column_CustomFieldInterface {
+abstract class AC_Column_Meta extends AC_Column
+	implements AC_Column_MetaInterface {
 
 	public function __construct() {
 		$this->set_type( 'column-meta' );
@@ -225,7 +226,7 @@ abstract class AC_Column_CustomField extends AC_Column implements AC_Column_Cust
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
+		$this->add_setting( new AC_Settings_Setting_Meta( $this ) );
 		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
 	}
 

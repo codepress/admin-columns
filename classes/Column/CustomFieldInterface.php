@@ -1,6 +1,6 @@
 <?php
 
-interface AC_Column_CustomFieldInterface {
+interface AC_Column_MetaInterface {
 
 	/**
 	 * @return string

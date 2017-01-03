@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_CustomField extends AC_Column_CustomField {
+class AC_Column_Post_Meta extends AC_Column_Meta {
 
 	/**
 	protected function get_cache_key() {

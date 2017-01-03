@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Comment_CustomField extends AC_Column_CustomField {
+class AC_Column_Comment_Meta extends AC_Column_Meta {
 
 	/**
 	 * @return array
