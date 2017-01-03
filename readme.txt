@@ -216,6 +216,7 @@ Release Date: t.b.d.
 
 * [Improved] Using dashicons instead of image icons
 * [Improved] Action column now always is the primary column
+* [Improved] Heading structure in Admin is now correct
 * [Added] Autoloader added
 * [Added] New user column added: Author name
 * [Added] New user column added: Show Toolbar
