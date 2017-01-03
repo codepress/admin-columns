@@ -79,7 +79,39 @@ class AC_Column_Meta extends AC_Column
 		return $this->get_field_key();
 	}
 
-	private function get_meta_table_properties() {
+	/**
+	 * Retrieve metadata object type (e.g., comment, post, or user)
+	 *
+	 * @since NEWVERSION
+	 * @return bool
+	 */
+	public function get_meta_type() {
+		return $this->get_list_screen()->get_meta_type();
+	}
+
+	/**
+	 * @since 2.5.6
+	 */
+	public function get_username_by_id( $user_id ) {
+		$username = false;
+
+		if ( $user_id && is_numeric( $user_id ) && ( $userdata = get_userdata( $user_id ) ) ) {
+			$username = $userdata->display_name;
+		}
+
+		return $username;
+	}
+
+	public function get_meta_values( $ids ) {
+		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), $this->get_list_screen()->get_meta_type() );
+	}
+
+	/**
+	 * Returns the properties needed to write custom SQL for the current meta table
+	 *
+	 * @return false|object
+	 */
+	public function get_meta_table_properties() {
 		global $wpdb;
 
 		$table = false;
@@ -119,79 +151,57 @@ class AC_Column_Meta extends AC_Column
 	}
 
 	/**
-	 * @return array
+	 * Create query to fetch all unique meta keys from the correct meta table
+	 *
+	 * @return false|string
 	 */
-	public function get_meta() {
+	private function get_meta_keys_query() {
 		global $wpdb;
 
-		$p = $this->get_meta_table_properties();
+		$properties = $this->get_meta_table_properties();
 
-		if ( ! $p ) {
-			return array();
+		if ( ! $properties ) {
+			return false;
 		}
 
-		$sql = "
+		$query = "
 			SELECT DISTINCT mt.meta_key
-			FROM $p->table AS t
-			INNER JOIN $p->meta_table AS mt ON mt.$p->meta_id = t.$p->id 
-			%s
-			ORDER BY mt.meta_key ASC
+			FROM $properties->table AS t
+			INNER JOIN $properties->meta_table AS mt ON mt.$properties->meta_id = t.$properties->id 
 		";
 
-		$where = '';
-
 		if ( 'post' === $this->get_meta_type() ) {
-			$where = $wpdb->prepare( ' AND t.post_type = %s', $this->get_post_type() );
+			$query .= $wpdb->prepare( ' AND t.post_type = %s', $this->get_post_type() );
 		}
 
-		return $wpdb->get_results( sprintf( $sql, $where ), ARRAY_N );
-	}
+		$query .= "ORDER BY mt.meta_key ASC";
 
-	/**
-	 * Retrieve metadata object type (e.g., comment, post, or user)
-	 *
-	 * @since NEWVERSION
-	 * @return bool
-	 */
-	public function get_meta_type() {
-		return $this->get_list_screen()->get_meta_type();
-	}
-
-	/**
-	 * @since 2.5.6
-	 */
-	public function get_username_by_id( $user_id ) {
-		$username = false;
-
-		if ( $user_id && is_numeric( $user_id ) && ( $userdata = get_userdata( $user_id ) ) ) {
-			$username = $userdata->display_name;
-		}
-
-		return $username;
-	}
-
-	public function get_meta_values( $ids ) {
-		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), $this->get_list_screen()->get_meta_type() );
+		return $query;
 	}
 
 	/**
 	 * @since 2.4.7
 	 */
 	public function get_meta_keys() {
-		$keys = wp_cache_get( $this->get_cache_key(), 'cac_columns' );
+		global $wpdb;
+
+		$keys = wp_cache_get( $this->get_cache_key(), 'ac_columns' );
 
 		if ( ! $keys ) {
-			$keys = $this->get_meta();
+			$query = $this->get_meta_keys_query();
 
-			wp_cache_add( $this->get_cache_key(), $keys, 'cac_columns', 12 );
+			if ( $query ) {
+				$keys = $wpdb->get_results( $query, ARRAY_N );
+
+				wp_cache_add( $this->get_cache_key(), $keys, 'ac_columns', 15 );
+			}
 		}
 
-		if ( is_wp_error( $keys ) || empty( $keys ) ) {
+		if ( empty( $keys ) ) {
 			$keys = false;
 		}
 
 		// TODO: deprecate filters
-
 		/**
 		 * Filter the available custom field meta keys
 		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list

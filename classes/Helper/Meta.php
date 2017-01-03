@@ -2,15 +2,6 @@
 
 class AC_Helper_Meta {
 
-	/**
-	 * @return array
-	 */
-	public function get_meta() {
-		global $wpdb;
-
-		return $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON pm.post_id = p.ID WHERE p.post_type = %s ORDER BY 1", $this->get_post_type() ), ARRAY_N );
-	}
-
 	private function get_query( $meta_type, $table, $id_column, $key, array $in ) {
 		global $wpdb;
 
