@@ -19,9 +19,11 @@ class AC_Addon_ACF extends AC_Addon {
 	}
 
 	public function get_placeholder_column() {
-		$column = new AC_Column_Placeholder( $this );
+		$column = new AC_Column_Placeholder();
+		$column->set_addon( $this );
+		$column->set_url( ac_get_site_url( 'advanced-custom-fields-columns' ) );
 
-		return $column->set_url( ac_get_site_url( 'advanced-custom-fields-columns' ) );
+		return $column;
 	}
 
 }

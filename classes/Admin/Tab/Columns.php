@@ -67,7 +67,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-	private function store( AC_ListScreen $list_screen, $column_data ) {
+	public function store( AC_ListScreen $list_screen, $column_data ) {
 
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );

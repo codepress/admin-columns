@@ -16,7 +16,7 @@ class AC_Column_Placeholder extends AC_Column
 	/**
 	 * @param AC_Addon $addon
 	 */
-	public function __construct( AC_Addon $addon ) {
+	public function set_addon( AC_Addon $addon ) {
 		$this
 			->set_label( $addon->get_title() )
 			->set_group( $addon->get_slug() )
