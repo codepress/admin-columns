@@ -142,7 +142,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 		$action = filter_input( INPUT_POST, 'cpac_action' );
 		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
 
-		if ( ! $action || ! $nonce || ! AC()->current_user_has_cap() || ! $this->is_current_screen() ) {
+		if ( ! $action || ! $nonce || ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -183,7 +183,7 @@ class AC_Admin_Tab_Columns extends AC_Admin_Tab {
 	private function ajax_validate_request() {
 		check_ajax_referer( 'cpac-settings' );
 
-		if ( ! AC()->current_user_has_cap() ) {
+		if ( ! AC()->user_can_manage_admin_columns() ) {
 			wp_die();
 		}
 

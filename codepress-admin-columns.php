@@ -104,7 +104,7 @@ class CPAC {
 	/**
 	 * @since 2.5
 	 */
-	protected static $_instance = null;
+	private static $_instance = null;
 
 	/**
 	 * @since 2.5
@@ -120,7 +120,7 @@ class CPAC {
 	/**
 	 * @since 1.0
 	 */
-	function __construct() {
+	private function __construct() {
 		$this->plugin_basename = plugin_basename( __FILE__ );
 
 		// Backwards compatibility
@@ -252,19 +252,10 @@ class CPAC {
 	}
 
 	/**
-	 * Capability to manage admin columns.
-	 *
-	 * @return string
-	 */
-	public function get_cap() {
-		return 'manage_admin_columns';
-	}
-
-	/**
 	 * @return bool True when user can manage admin columns
 	 */
-	public function current_user_has_cap() {
-		return current_user_can( $this->get_cap() );
+	public function user_can_manage_admin_columns() {
+		return current_user_can( 'manage_admin_columns' );
 	}
 
 	/**
@@ -275,7 +266,7 @@ class CPAC {
 	 */
 	public function set_capabilities() {
 		if ( $role = get_role( 'administrator' ) ) {
-			$role->add_cap( $this->get_cap() );
+			$role->add_cap( 'manage_admin_columns' );
 		}
 	}
 
