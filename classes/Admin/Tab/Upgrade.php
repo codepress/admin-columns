@@ -10,6 +10,8 @@
 // TODO: needs testing, scripts and upgrade message
 class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 
+    CONST VERSION_KEY = 'cpac_version';
+
 	public $update_prevented = false;
 
 	/**
@@ -245,7 +247,7 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 				}
 
 				// update version
-				update_option( 'cpac_version', $version );
+				update_option( self::VERSION_KEY, $version );
 
 				$return = array(
 					'status'  => true,
@@ -268,7 +270,7 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 	*/
 	public function start_upgrade() {
 
-		$version = get_option( 'cpac_version', '1.0.0' );
+		$version = get_option( self::VERSION_KEY, '1.0.0' );
 		$next = false;
 
 		// list of starting points
@@ -296,12 +298,14 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 	 * @since 2.0
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'cpac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_script( 'ac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
+
+		// TODO
 		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . 'assets/css/admin-column.css', array(), AC()->get_version(), 'all' );
 
 		// javascript translations
 		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
-			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . admin_url( 'options-general.php' ) . '?page=codepress-admin-columns&info">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",
+			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . esc_url( AC()->admin()->get_link( 'welcome' ) ) . '">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",
 			'error'       => __( 'Error', 'codepress-admin-columns' ),
 			'major_error' => __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' ),
 		) );
@@ -315,8 +319,7 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
         <h1><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></h1>
 		<?php
 
-		// @dev_only delete_option( 'cpac_version' ); set_transient( 'cpac_show_welcome', 'display' );
-		$version = get_option( 'cpac_version', false );
+		$version = get_option( self::VERSION_KEY, false );
 
 		// Maybe version pre 2.0.0 was used
 		if ( ! $version && get_option( 'cpac_options' ) ) {
@@ -356,14 +359,14 @@ class AC_Admin_Tab_Upgrade extends AC_Admin_Tab {
 			// run when NO upgrade is needed
 			elseif ( $version < AC()->get_version() ) {
 
-				update_option( 'cpac_version', AC()->get_version() );
+				update_option( self::VERSION_KEY, AC()->get_version() );
 			}
 		}
 
 		// Fresh install
 		else {
 
-			update_option( 'cpac_version', AC()->get_version() );
+			update_option( self::VERSION_KEY, AC()->get_version() );
 		}
 	}
 }

@@ -2,7 +2,9 @@
 
 class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 
-	CONST SETTINGS_KEY = 'cpac_general_options';
+	CONST SETTINGS_NAME = 'cpac_general_options';
+
+	CONST SETTINGS_GROUP = 'cpac-general-settings';
 
 	private $options;
 
@@ -11,9 +13,11 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
 
-		$this->options = get_option( self::SETTINGS_KEY );
+		$this->options = get_option( self::SETTINGS_NAME );
 
-		register_setting( 'cpac-general-settings', self::SETTINGS_KEY );
+		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
+
+		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( AC(), 'get_cap' ) );
 
 		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
@@ -23,7 +27,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 	 * @param string $key
 	 */
 	public function attr_name( $key ) {
-		echo esc_attr( self::SETTINGS_KEY . '[' . sanitize_key( $key ) . ']' );
+		echo esc_attr( self::SETTINGS_NAME . '[' . sanitize_key( $key ) . ']' );
 	}
 
 	/**
@@ -40,7 +44,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 	}
 
 	public function delete_options() {
-		delete_option( self::SETTINGS_KEY );
+		delete_option( self::SETTINGS_NAME );
 	}
 
 	/**
@@ -121,7 +125,7 @@ class AC_Admin_Tab_Settings extends AC_Admin_Tab {
 					<div class="cpac_general">
 						<form method="post" action="options.php">
 
-							<?php settings_fields( 'cpac-general-settings' ); ?>
+							<?php settings_fields( self::SETTINGS_GROUP ); ?>
 
 							<?php
 							$this->single_checkbox( array(

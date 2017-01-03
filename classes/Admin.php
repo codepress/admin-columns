@@ -31,7 +31,7 @@ class AC_Admin {
 		           ->register_tab( new AC_Admin_Tab_Settings() )
 		           ->register_tab( new AC_Admin_Tab_Addons() );
 
-					// TODO
+					// TODO: not used atm
 		           //->register_tab( new AC_Admin_Tab_Welcome() )
 		           //->register_tab( new AC_Admin_Tab_Upgrade() );
 	}
@@ -119,10 +119,8 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function settings_menu() {
-		$this->settings_page = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), AC()->get_cap(), self::MENU_SLUG, array( $this, 'display' ) );
+		$this->hook_suffix = add_submenu_page( $this->get_page(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), AC()->get_cap(), self::MENU_SLUG, array( $this, 'display' ) );
 
-		// TODO
-		add_filter( 'option_page_capability_cpac-general-settings', array( AC(), 'get_cap' ) );
 		add_action( 'load-' . $this->hook_suffix, array( $this, 'help_tabs' ) );
 	}
 
@@ -174,7 +172,7 @@ class AC_Admin {
 						<li><strong>" . __( "Checkmark", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Color", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Counter", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item.", 'codepress-admin-columns' ) . "</li>
-						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', get_admin_url() . 'options-general.php' ) . "</li>
+						<li><strong>" . __( "Date", 'codepress-admin-columns' ) . "</strong><br/>" . sprintf( __( "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page.", 'codepress-admin-columns' ), 'http://codex.wordpress.org/Formatting_Date_and_Time', admin_url( 'options-general.php' ) ) . "</li>
 						<li><strong>" . __( "Excerpt", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Image", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>
 						<li><strong>" . __( "Media Library", 'codepress-admin-columns' ) . "</strong><br/>" . __( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ) . "</li>

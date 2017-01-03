@@ -76,7 +76,7 @@ class AC_Admin_Tab_Welcome extends AC_Admin_Tab {
 						// TODO
 						?>
                         <h3>Changes</h3>
-                        <p>TODO</p>
+                        <p>*</p>
 
 						<?php
 				}

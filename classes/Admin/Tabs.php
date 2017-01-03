@@ -83,12 +83,7 @@ class AC_Admin_Tabs {
 
 					$active = $slug == $active_slug ? ' nav-tab-active' : '';
 
-					printf(
-						'<a href="%s" class="nav-tab%s">%s</a>',
-						esc_url( AC()->admin()->get_link( $slug ) ),
-						$active,
-						esc_html( $tab->get_label() )
-					);
+				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $tab->get_label(), array( 'class' => 'nav-tab ' . $active ) );
 				}
 
 				?>
