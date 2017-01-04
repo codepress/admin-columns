@@ -2,6 +2,50 @@
 
 class AC_Helper_Meta {
 
+	/**
+	 * Returns the properties needed to write custom SQL for the current meta table
+	 *
+	 * @return false|object
+	 */
+	public function get_meta_table_properties( $meta_type = 'post' ) {
+		global $wpdb;
+
+		$table = false;
+
+		switch ( $meta_type ) {
+			case 'user':
+				$table = $wpdb->users;
+				$id_column = 'ID';
+
+				break;
+			case 'comment':
+				$table = $wpdb->comments;
+				$id_column = 'comment_ID';
+
+				break;
+			case 'post':
+				$table = $wpdb->posts;
+				$id_column = 'ID';
+
+				break;
+		}
+
+		if ( ! $table || ! $id_column ) {
+			return false;
+		}
+
+		// setup meta tables
+		$q = new WP_Meta_Query();
+		$q->get_sql( $meta_type, $table, $id_column );
+
+		return (object) array(
+			'table'      => $table,
+			'id'         => $id_column,
+			'meta_id'    => $q->meta_id_column,
+			'meta_table' => $q->meta_table,
+		);
+	}
+
 	private function get_query( $meta_type, $table, $id_column, $key, array $in ) {
 		global $wpdb;
 
