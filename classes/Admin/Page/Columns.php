@@ -754,7 +754,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                 </div><!--.ac-boxes-->
 
-				<?php do_action( 'cac/settings/after_columns', $list_screen ); ?>
+				<?php do_action( 'ac/settings/after_columns', $list_screen ); ?>
 
             </div><!--.columns-left-->
             <div class="clear"></div>
@@ -818,7 +818,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									?>
                                 </div>
                                 <a class="toggle" data-toggle="column">
-									<?php echo $column->get_setting( 'label' )->get_value(); //get_label(); // do not escape ?>
+									<?php echo $column->get_setting( 'label' )->get_value(); // do not escape ?>
                                 </a>
                                 <a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
                                 <a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
