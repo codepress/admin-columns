@@ -780,7 +780,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * @since 2.0
 	 */
-	private function display_column( AC_Column $column ) { ?>
+	public function display_column( AC_Column $column ) { ?>
 
         <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>"
                 data-type="<?php echo esc_attr( $column->get_type() ); ?>"

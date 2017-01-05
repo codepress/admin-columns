@@ -12,12 +12,7 @@ class AC_Column_Post_Status extends AC_Column {
 		$this->set_label( __( 'Status', 'codepress-admin-columns' ) );
 	}
 
-	public function get_status( $name ) {
-		$stati = $this->get_statuses();
-
-		return isset( $stati[ $name ] ) ? $stati[ $name ] : false;
-	}
-
+	// TODO: for Editing only?
 	public function get_statuses() {
 		if ( empty( $this->statuses ) ) {
 			$stati = get_post_stati( array( 'internal' => 0 ), 'objects' );
