@@ -21,25 +21,37 @@ final class AC_Settings_ListScreen {
 	 */
 	private $key;
 
+	/**
+	 * AC_Settings_ListScreen constructor.
+	 *
+	 * @param AC_ListScreen $list_screen
+	 */
 	public function __construct( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 
-		$this->set_key( $this->list_screen->get_key() );
+		$this->set_key();
 	}
 
 	/**
 	 * @return string
 	 */
-	// TODO: remove filter. Only sse set_key.
 	public function get_key() {
-		return apply_filters( 'ac/settings/key', $this->key );
+		return $this->key;
 	}
 
 	/**
 	 * @param string $key
+	 * @param string $suffix
+	 *
+	 * @return $this
 	 */
-	public function set_key( $key ) {
-		$this->key = sanitize_key( $key );
+	public function set_key( $suffix = false ) {
+		$this->key = sanitize_key( $this->list_screen->get_key() . $suffix );
+
+		// Force the settings to be re-populated.
+		$this->set_settings();
+
+		return $this;
 	}
 
 	/**
@@ -111,7 +123,7 @@ final class AC_Settings_ListScreen {
 		return delete_option( $this->get_default_key() );
 	}
 
-	// todo: refactor to different name or location
+	// TODO: refactor to different name or location
 	public static function delete_all_settings() {
 		global $wpdb;
 
