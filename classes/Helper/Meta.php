@@ -47,14 +47,16 @@ class AC_Helper_Meta {
 	/**
 	 * Retrieve meta value per id
 	 *
-	 * @todo handle identical meta_keys per id
+	 * @param array $ids
+	 * @param string $meta_key
+	 * @param string $meta_type
+	 *
 	 * @return array
 	 */
-	public function get_values_by_ids( $ids, $meta_key, array $args = array() ) {
+	public function get_values_by_ids( $ids, $meta_key, $meta_type, array $args = array() ) {
 		global $wpdb;
 
 		$defaults = array(
-			'meta_type' => 'post',
 			'orderby'   => null,
 			'order'     => 'ASC',
 			'data_type' => null,
@@ -71,7 +73,7 @@ class AC_Helper_Meta {
 			$args->orderby = $defaults['orderby'];
 		}
 
-		$properties = $this->get_meta_table_properties( $args->meta_type );
+		$properties = $this->get_meta_table_properties( $meta_type );
 
 		if ( ! $properties ) {
 			return array();
