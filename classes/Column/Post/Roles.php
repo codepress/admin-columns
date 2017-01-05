@@ -12,6 +12,7 @@ class AC_Column_Post_Roles extends AC_Column {
 
 	public function get_roles() {
 		$roles = array();
+
 		foreach ( wp_roles()->roles as $k => $role ) {
 			$roles[ $k ] = translate_user_role( $role['name'] );
 		}
@@ -23,6 +24,7 @@ class AC_Column_Post_Roles extends AC_Column {
 		$roles = $this->get_roles();
 
 		$role_names = array();
+		
 		foreach ( $this->get_raw_value( $post_id ) as $role ) {
 			if ( isset( $roles[ $role ] ) ) {
 				$role_names[ $role ] = $roles[ $role ];
