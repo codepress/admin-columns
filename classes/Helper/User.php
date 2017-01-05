@@ -71,4 +71,25 @@ class AC_Helper_User {
 		return $wpdb->get_var( $wpdb->prepare( $sql, $user_id, $post_type ) );
 	}
 
+	/**
+	 * @return array Translatable roles
+	 */
+	public function get_roles() {
+		$roles = array();
+		foreach ( wp_roles()->roles as $k => $role ) {
+			$roles[ $k ] = translate_user_role( $role['name'] );
+		}
+
+		return $roles;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_ids() {
+		global $wpdb;
+
+		return $wpdb->get_col( "SELECT {$wpdb->users}.ID FROM {$wpdb->users}" );
+	}
+
 }

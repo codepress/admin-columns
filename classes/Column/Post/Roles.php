@@ -10,17 +10,13 @@ class AC_Column_Post_Roles extends AC_Column {
 		$this->set_label( __( 'Roles', 'codepress-admin-columns' ) );
 	}
 
-	public function get_roles() {
-		$roles = array();
-		foreach ( wp_roles()->roles as $k => $role ) {
-			$roles[ $k ] = translate_user_role( $role['name'] );
-		}
-
-		return $roles;
-	}
-
+	/**
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
 	public function get_value( $post_id ) {
-		$roles = $this->get_roles();
+		$roles = ac_helper()->user->get_roles();
 
 		$role_names = array();
 		foreach ( $this->get_raw_value( $post_id ) as $role ) {
