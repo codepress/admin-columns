@@ -14,12 +14,32 @@ final class AC_Settings_ListScreen {
 	 */
 	private $settings;
 
+	/**
+	 * Unique storage key. All list screen data is saved to this key in the DB.
+	 *
+	 * @var string
+	 */
+	private $key;
+
 	public function __construct( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
+
+		$this->set_key( $this->list_screen->get_key() );
 	}
 
+	/**
+	 * @return string
+	 */
+	// TODO: remove filter. Only sse set_key.
 	public function get_key() {
-		return apply_filters( 'ac/settings/key', $this->list_screen->get_key() );
+		return apply_filters( 'ac/settings/key', $this->key );
+	}
+
+	/**
+	 * @param string $key
+	 */
+	public function set_key( $key ) {
+		$this->key = sanitize_key( $key );
 	}
 
 	/**
@@ -33,7 +53,7 @@ final class AC_Settings_ListScreen {
 		return update_option( self::OPTIONS_KEY . $this->get_key(), $settings );
 	}
 
-	private function set_settings() {
+	public function set_settings() {
 		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
 
 		if ( ! $options ) {
