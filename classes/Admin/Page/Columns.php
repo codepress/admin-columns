@@ -754,7 +754,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                 </div><!--.ac-boxes-->
 
-				<?php do_action( 'cac/settings/after_columns', $list_screen ); ?>
+				<?php do_action( 'ac/settings/after_columns', $list_screen ); ?>
 
             </div><!--.columns-left-->
             <div class="clear"></div>
@@ -780,7 +780,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * @since 2.0
 	 */
-	private function display_column( AC_Column $column ) { ?>
+	public function display_column( AC_Column $column ) { ?>
 
         <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>"
                 data-type="<?php echo esc_attr( $column->get_type() ); ?>"
