@@ -818,7 +818,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									?>
                                 </div>
                                 <a class="toggle" data-toggle="column">
-									<?php echo $column->get_setting( 'label' )->get_value(); //get_label(); // do not escape ?>
+									<?php echo $column->get_setting( 'label' )->get_value(); // do not escape ?>
                                 </a>
                                 <a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
                                 <a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>

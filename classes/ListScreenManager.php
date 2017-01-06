@@ -170,7 +170,7 @@ final class AC_ListScreenManager {
 		 *
 		 * @param object CPAC Main Class
 		 */
-		do_action( 'cac/admin_head', $this->list_screen, $this );
+		do_action( 'ac/admin_head', $this->list_screen, $this );
 	}
 
 	/**

@@ -15,21 +15,43 @@ final class AC_Settings_ListScreen {
 	private $settings;
 
 	/**
-	 * Storage key. All list screen data is saved to this key in the DB.
+	 * Unique storage key. All list screen data is saved to this key in the DB.
+	 *
+	 * @var string
 	 */
 	private $key;
 
+	/**
+	 * AC_Settings_ListScreen constructor.
+	 *
+	 * @param AC_ListScreen $list_screen
+	 */
 	public function __construct( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-		$this->key = $this->list_screen->get_key();
+
+		$this->set_key();
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_key() {
-		return apply_filters( 'ac/settings/key', $this->key );
+		return $this->key;
 	}
 
-	public function set_key( $key ) {
-		$this->key = $key;
+	/**
+	 * @param string $key
+	 * @param string $suffix
+	 *
+	 * @return $this
+	 */
+	public function set_key( $suffix = false ) {
+		$this->key = sanitize_key( $this->list_screen->get_key() . $suffix );
+
+		// Force the settings to be re-populated.
+		$this->set_settings();
+
+		return $this;
 	}
 
 	/**
@@ -101,7 +123,7 @@ final class AC_Settings_ListScreen {
 		return delete_option( $this->get_default_key() );
 	}
 
-	// todo: refactor to different name or location
+	// TODO: refactor to different name or location
 	public static function delete_all_settings() {
 		global $wpdb;
 
