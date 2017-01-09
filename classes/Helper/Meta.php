@@ -57,9 +57,10 @@ class AC_Helper_Meta {
 		global $wpdb;
 
 		$defaults = array(
-			'orderby'   => null,
-			'order'     => 'ASC',
-			'data_type' => null,
+			'orderby'     => false, // false, meta_key, meta_value, id
+			'order'       => 'ASC', // ASC or DESC
+			'unserialize' => true, // true or false
+			'return'      => 'values', // values or ids
 		);
 
 		$args = (object) array_merge( $defaults, $args );
@@ -71,6 +72,10 @@ class AC_Helper_Meta {
 
 		if ( ! in_array( $args->orderby, array( 'meta_value', 'meta_key', 'id' ) ) ) {
 			$args->orderby = $defaults['orderby'];
+		}
+
+		if ( true !== $args->unserialize || false !== $args->unserialize ) {
+			$args->orderby = $defaults['unserialize'];
 		}
 
 		$properties = $this->get_meta_table_properties( $meta_type );
@@ -99,17 +104,25 @@ class AC_Helper_Meta {
 			$sql .= "ORDER BY $args->orderby $args->order";
 		}
 
-		$results = $wpdb->get_results( $wpdb->prepare( $sql, $meta_key ), ARRAY_A );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, $meta_key ) );
 
 		$values = array();
 
 		if ( is_array( $results ) ) {
-			foreach ( $results as $row ) {
-				if ( ! $args->data_type ) {
-					$row['meta_value'] = maybe_unserialize( $row['meta_value'] );
-				}
+			// convert to single boolean check
+			$return_values = 'values' === $args->return;
 
-				$values[ $row[ $properties->meta_id ] ] = $row['meta_value'];
+			foreach ( $results as $row ) {
+
+				if ( $return_values ) {
+					if ( $args->unserialize ) {
+						$row->meta_value = maybe_unserialize( $row->meta_value );
+					}
+
+					$values[ $row->{$properties->meta_id} ] = $row->meta_value;
+				} else {
+					$values[] = $row->{$properties->meta_id};
+				}
 			}
 		}
 

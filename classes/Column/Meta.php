@@ -102,8 +102,14 @@ class AC_Column_Meta extends AC_Column
 		return $username;
 	}
 
-	public function get_meta_values( $ids ) {
-		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), $this->get_list_screen()->get_meta_type() );
+	/**
+	 * @param int $id
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	public function get_meta_values( $ids, array $args = array() ) {
+		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_field_key(), $this->get_list_screen()->get_meta_type(), $args );
 	}
 
 	/**
