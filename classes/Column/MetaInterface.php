@@ -12,6 +12,4 @@ interface AC_Column_MetaInterface {
 	 */
 	public function get_field_key();
 
-	// remove?
-	public function get_field();
 }

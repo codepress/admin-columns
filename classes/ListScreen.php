@@ -315,6 +315,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @since 2.5
 	 */
+	// TODO: remove?
 	public function flush_columns() {
 		$this->columns = null;
 		$this->column_types = null;
@@ -565,6 +566,7 @@ abstract class AC_ListScreen {
 			$this->default_columns = $this->get_default_columns();
 		}
 
+		// TODO: remove filter?
 		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this );
 	}
 

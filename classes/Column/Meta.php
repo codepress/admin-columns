@@ -85,7 +85,7 @@ class AC_Column_Meta extends AC_Column
 	 * @since NEWVERSION
 	 * @return bool
 	 */
-	public function get_meta_type() {
+	private function get_meta_type() {
 		return $this->get_list_screen()->get_meta_type();
 	}
 

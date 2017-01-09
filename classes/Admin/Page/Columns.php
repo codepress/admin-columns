@@ -90,6 +90,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				}
 			}
 
+
+			// TODO
 			$column_data[ $name ] = array_merge( $options, $sanitized );
 		}
 
@@ -147,6 +149,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		switch ( $action ) :
+
 			case 'restore_by_type' :
 				$key = filter_input( INPUT_POST, 'cpac_key' );
 
@@ -154,7 +157,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 					if ( $list_screen = $this->get_current_list_screen() ) {
 						$list_screen->settings()->delete();
-						$list_screen->flush_columns();
+						$list_screen->settings()->set_settings();
 
 						$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
 					}

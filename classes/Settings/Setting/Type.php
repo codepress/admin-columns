@@ -87,6 +87,15 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			}
 
 			$grouped[ $slug ]['options'] = $columns[ $slug ];
+
+			unset( $columns[ $slug ] );
+		}
+
+		// Add columns to a "default" group when it has an invalid group assigned
+		foreach ( $columns as $group => $_columns ) {
+			foreach ( $_columns as $name => $label ) {
+				$grouped['default']['options'][ $name ] = $label;
+			}
 		}
 
 		// todo: rename filter e.g. ac/settings/setting/type/columns

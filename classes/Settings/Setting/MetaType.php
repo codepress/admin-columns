@@ -39,7 +39,7 @@ class AC_Settings_Setting_MetaType extends AC_Settings_Setting
 
 	public function create_view() {
 		$select = $this->create_element( 'select' )
-		               ->set_attribute( 'data-refresh', 1 )
+		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_field_type_options() );
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );

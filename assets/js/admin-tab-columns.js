@@ -612,7 +612,6 @@ function cpac_reset_columns( $ ) {
 	 *
 	 */
 	$( document ).bind( 'column_init column_change column_add', function( e, column ) {
-
 		var is_disabled = $( column ).closest( '.ac-boxes' ).hasClass( 'disabled' );
 
 		if ( is_disabled ) {

@@ -147,7 +147,7 @@ class AC_Helper_Post {
 
 	/**
 	 * Display terms
-	 * Largerly taken from class-wp-post-list-table.php
+	 * Largely taken from class-wp-post-list-table.php
 	 *
 	 * @since 1.0
 	 *
