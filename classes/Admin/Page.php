@@ -3,7 +3,7 @@
 abstract class AC_Admin_Page {
 
 	/**
-	 * Should this tab be displayed when no tab is selected
+	 * Should this page be displayed when no page is selected
 	 *
 	 * @var bool
 	 */
@@ -20,12 +20,12 @@ abstract class AC_Admin_Page {
 	private $label;
 
 	/**
-	 * @var bool True when menu tab is hidden
+	 * @var bool False when menu page is hidden in menu
 	 */
 	private $show_in_menu = true;
 
 	/**
-	 * Is this the default to to display when no active tab is present
+	 * Is this the default to to display when no active page is present
 	 *
 	 * @return bool
 	 */
@@ -77,9 +77,7 @@ abstract class AC_Admin_Page {
 	}
 
 	/**
-	 * @param string $tab_slug
-	 *
-	 * @return false|string URL
+	 * @return string URL
 	 */
 	public function get_link() {
 		return add_query_arg( array( 'tab' => $this->slug ), AC()->admin()->get_settings_url() );
@@ -90,14 +88,14 @@ abstract class AC_Admin_Page {
 	}
 
 	/**
-	 * Display tab
+	 * Display pages
 	 *
 	 * @return void
 	 */
 	public abstract function display();
 
 	/**
-	 * Cast tab to an array
+	 * Cast page to an array
 	 *
 	 * @return array
 	 */
@@ -110,7 +108,7 @@ abstract class AC_Admin_Page {
 	}
 
 	/**
-	 * Show the label of the tab
+	 * Show the label of the page
 	 *
 	 * @return string
 	 */

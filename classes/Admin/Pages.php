@@ -19,14 +19,14 @@ class AC_Admin_Pages {
 	}
 
 	/**
-	 * @param AC_Admin_Page $tab
+	 * @param AC_Admin_Page $page
 	 * @return AC_Admin_Pages
 	 */
-	public function register_page( AC_Admin_Page $tab ) {
-		$this->pages[ $tab->get_slug() ] = $tab;
+	public function register_page( AC_Admin_Page $page ) {
+		$this->pages[ $page->get_slug() ] = $page;
 
-		if ( $tab->is_default() ) {
-			$this->default_slug = $tab->get_slug();
+		if ( $page->is_default() ) {
+			$this->default_slug = $page->get_slug();
 		}
 
 		return $this;
@@ -38,26 +38,26 @@ class AC_Admin_Pages {
 	 * @return AC_Admin_Page|false
 	 */
 	public function get_page( $slug ) {
-		$tab = false;
+		$page = false;
 
 		if ( isset( $this->pages[ $slug ] ) ) {
-			$tab = $this->pages[ $slug ];
+			$page = $this->pages[ $slug ];
 		}
 
-		return $tab;
+		return $page;
 	}
 
 	/**
 	 * @return AC_Admin_Page|false
 	 */
 	public function get_current_page() {
-		$tab = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
+		$page = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
 
-		if ( ! $tab ) {
-		    $tab = $this->get_page( $this->default_slug );
+		if ( ! $page ) {
+		    $page = $this->get_page( $this->default_slug );
         }
 
-        return $tab;
+        return $page;
 	}
 
 	public function display() { ?>
@@ -65,18 +65,18 @@ class AC_Admin_Pages {
 			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
-				$active_tab = $this->get_current_page();
+				$active_page = $this->get_current_page();
 
-				foreach ( $this->pages as $slug => $tab ) {
+				foreach ( $this->pages as $slug => $page ) {
 
 				    // skip
-				    if ( ! $tab->show_in_menu() ) {
+				    if ( ! $page->show_in_menu() ) {
 				        continue;
                     }
 
-					$active = $slug === $active_tab->get_slug() ? ' nav-tab-active' : '';
+					$active = $slug === $active_page->get_slug() ? ' nav-tab-active' : '';
 
-				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $tab->get_label(), array( 'class' => 'nav-tab ' . $active ) );
+				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $page->get_label(), array( 'class' => 'nav-tab ' . $active ) );
 				}
 
 				?>
@@ -88,7 +88,7 @@ class AC_Admin_Pages {
 
 			do_action( 'cac/settings/after_menu' );
 
-            $active_tab->display();
+            $active_page->display();
 
 			?>
 		</div>
