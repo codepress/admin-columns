@@ -50,7 +50,7 @@ class AC_Admin_Pages {
 	/**
 	 * @return AC_Admin_Page|false
 	 */
-	public function get_current_tab() {
+	public function get_current_page() {
 		$tab = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
 
 		if ( ! $tab ) {
@@ -65,7 +65,7 @@ class AC_Admin_Pages {
 			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
-				$active_tab = $this->get_current_tab();
+				$active_tab = $this->get_current_page();
 
 				foreach ( $this->pages as $slug => $tab ) {
 

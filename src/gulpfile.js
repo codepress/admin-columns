@@ -37,8 +37,8 @@ gulp.task( 'scripts', function() {
 
 gulp.task( 'styles', function() {
 	return gulp.src( [
-		'scss/admin-tab-addons.scss',
-		'scss/admin-tab-columns.scss',
+		'scss/admin-page-addons.scss',
+		'scss/admin-page-columns.scss',
 		'scss/admin-general.scss',
 		'scss/admin-welcome.scss',
 		'scss/list-screen.scss',
@@ -51,25 +51,6 @@ gulp.task( 'styles', function() {
 		.pipe( rename( { suffix : '.min' } ) )
 		.pipe( gulp.dest( '../assets/css' ) );
 } );
-
-/*
-gulp.task( 'styles_old', function() {
-	return gulp.src( [
-		'less/admin-tab-addons.less',
-		'less/admin-tab-columns.less',
-		'less/admin-general.less',
-		'less/admin-welcome.less',
-		'less/list-screen.less',
-		'less/plugin-screen.less'
-	] )
-		.pipe( plumber( { errorHandler : onError } ) )
-		.pipe( less() )
-		.pipe( gulp.dest( '../assets/css' ) )
-		.pipe( rename( { suffix : '.min' } ) )
-		.pipe( minifyCSS() )
-		.pipe( gulp.dest( '../assets/css' ) );
-} );
-*/
 
 gulp.task( 'language', function() {
 	return gulp.src( [

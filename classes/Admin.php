@@ -47,13 +47,13 @@ class AC_Admin {
 		// Hook
 		do_action( 'ac/admin_scripts', $this );
 
-		// Tab scripts
-		if ( $tab = $this->pages->get_current_tab() ) {
+		// Page scripts
+		if ( $page = $this->pages->get_current_page() ) {
 
 			// Hook
-			do_action( 'ac/admin_scripts/' . $tab->get_slug(), $this );
+			do_action( 'ac/admin_scripts/' . $page->get_slug(), $this );
 
-			$tab->admin_scripts();
+			$page->admin_scripts();
 		}
 
 		// General scripts
@@ -131,7 +131,7 @@ class AC_Admin {
 	}
 
 	public function is_current_page( $slug ) {
-		$current_tab = $this->get_pages()->get_current_tab();
+		$current_tab = $this->get_pages()->get_current_page();
 
 		return $current_tab && $current_tab->get_slug() === $slug && $this->is_admin_screen();
 	}

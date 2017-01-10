@@ -35,7 +35,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version(), 'all' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
-		wp_enqueue_script( 'ac-admin-tab-columns', AC()->get_plugin_url() . "assets/js/admin-tab-columns{$minified}.js", array(
+		wp_enqueue_script( 'ac-admin-page-columns', AC()->get_plugin_url() . "assets/js/admin-page-columns{$minified}.js", array(
 			'jquery',
 			'dashboard',
 			'jquery-ui-slider',
@@ -43,16 +43,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			'wp-pointer',
 		), AC()->get_version() );
 
-		wp_enqueue_style( 'ac-admin-tab-columns-css', AC()->get_plugin_url() . 'assets/css/admin-tab-columns' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_plugin_url() . 'assets/css/admin-page-columns' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
 
 		// Javascript translations
-		wp_localize_script( 'ac-admin-tab-columns', 'ac_i18n', array(
+		wp_localize_script( 'ac-admin-page-columns', 'ac_i18n', array(
 			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 		) );
 
 		// Nonce
-		wp_localize_script( 'ac-admin-tab-columns', 'cpac', array(
+		wp_localize_script( 'ac-admin-page-columns', 'cpac', array(
 			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
 			'list_screen' => $this->get_current_list_screen()->get_key(),
 		) );
@@ -758,7 +758,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             <div id="add-new-column-template">
 				<?php
 				foreach ( $list_screen->get_column_types() as $column_type ) {
-					if ( ! $column_type->is_original() ) {
+					if ( 'custom' === $column_type->get_group() ) {
 						$this->display_column( $column_type );
 						break;
 					}
