@@ -48,6 +48,7 @@ class AC_Column_Meta extends AC_Column
 	}
 
 	public function get_field_key() {
+		// TODO
 		return $this->get_settings()->custom_field->get_value();
 	}
 
@@ -87,19 +88,6 @@ class AC_Column_Meta extends AC_Column
 	 */
 	private function get_meta_type() {
 		return $this->get_list_screen()->get_meta_type();
-	}
-
-	/**
-	 * @since 2.5.6
-	 */
-	public function get_username_by_id( $user_id ) {
-		$username = false;
-
-		if ( $user_id && is_numeric( $user_id ) && ( $userdata = get_userdata( $user_id ) ) ) {
-			$username = $userdata->display_name;
-		}
-
-		return $username;
 	}
 
 	/**
