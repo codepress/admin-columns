@@ -13,6 +13,7 @@ abstract class AC_Column_Meta extends AC_Column {
 	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
+	// TODO: maybe use single? It makes more sense in a way...
 	public function get_raw_value( $id ) {
 		$raw_value = '';
 
@@ -29,7 +30,7 @@ abstract class AC_Column_Meta extends AC_Column {
 	 * @since NEWVERSION
 	 * @return bool
 	 */
-	protected function get_meta_type() {
+	public function get_meta_type() {
 		return $this->get_list_screen()->get_meta_type();
 	}
 

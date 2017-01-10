@@ -311,7 +311,6 @@ abstract class AC_Column {
 	 * @return string
 	 */
 	public function format_value( $value ) {
-
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
 

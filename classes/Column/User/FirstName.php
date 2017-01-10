@@ -3,11 +3,15 @@
 /**
  * @since 2.0
  */
-class AC_Column_User_FirstName extends AC_Column {
+class AC_Column_User_FirstName extends AC_Column_Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-first_name' );
 		$this->set_label( __( 'First name', 'codepress-admin-columns' ) );
+	}
+
+	public function get_meta_key() {
+		return 'first_name';
 	}
 
 	public function get_value( $user_id ) {
@@ -15,9 +19,7 @@ class AC_Column_User_FirstName extends AC_Column {
 	}
 
 	public function get_raw_value( $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		return $userdata->first_name;
+		return get_user_meta( $user_id, $this->get_meta_key(), true );
 	}
 
 }
