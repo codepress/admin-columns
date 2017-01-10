@@ -49,9 +49,7 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	 * @return string
 	 */
 	public function get_label() {
-		$label = $this->convert_site_url( $this->label, 'decode' );
-
-		return $label;
+		return $this->convert_site_url( $this->label, 'decode' );
 	}
 
 	/**

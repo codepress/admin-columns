@@ -44,7 +44,7 @@ class AC_Settings_Setting_MetaType extends AC_Settings_Setting
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
 
-		if ( $this->get_field_type() ) {
+		if ( null !== $this->get_field_type() ) {
 			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
 		}
 

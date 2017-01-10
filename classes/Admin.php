@@ -31,7 +31,7 @@ class AC_Admin {
 		           ->register_tab( new AC_Admin_Page_Settings() )
 		           ->register_tab( new AC_Admin_Page_Addons() );
 
-					// TODO: not used atm
+					// TODO: disabled
 		           //->register_tab( new AC_Admin_Page_Welcome() );
 		           //->register_tab( new AC_Admin_Page_Upgrade() );
 	}

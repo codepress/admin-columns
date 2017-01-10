@@ -90,16 +90,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				}
 			}
 
-
-			// TODO
 			$column_data[ $name ] = array_merge( $options, $sanitized );
 		}
 
 		// store columns
 		$result = $list_screen->settings()->store( $column_data );
-
-		// reset object
-		$list_screen->flush_columns();
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );

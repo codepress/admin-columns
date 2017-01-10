@@ -55,7 +55,7 @@ class AC_Column_Meta extends AC_Column
 	 * @since 3.2.1
 	 */
 	public function get_field_type() {
-		return $this->get_option( 'field_type' );
+		return $this->get_setting( 'field_type' )->get_value();
 	}
 
 	/**

@@ -460,8 +460,6 @@ class CPAC {
 		 *
 		 * @param array $post_types List of active post type names
 		 */
-
-		// TODO: rename
 		return apply_filters( 'cac/post_types', $post_types );
 	}
 

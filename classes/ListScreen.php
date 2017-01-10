@@ -315,8 +315,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @since 2.5
 	 */
-	// TODO: remove?
-	public function flush_columns() {
+	public function reset() {
 		$this->columns = null;
 		$this->column_types = null;
 		$this->default_columns = null;
@@ -416,7 +415,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Available column types
 	 */
-	private function set_column_types() {
+	public function set_column_types() {
 		// Register default column types
 		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
 			// Ignore the mandatory checkbox column
@@ -560,14 +559,13 @@ abstract class AC_ListScreen {
 	 * @var array [ Column Name =>  Column Label ]
 	 */
 	private function set_default_columns() {
-		$this->default_columns = $this->settings()->get_default_headings();
+		$default_columns = $this->settings()->get_default_headings();
 
-		if ( ! $this->default_columns ) {
-			$this->default_columns = $this->get_default_columns();
+		if ( ! $default_columns ) {
+			$default_columns = $this->get_default_columns();
 		}
 
-		// TODO: remove filter?
-		$this->default_columns = apply_filters( 'cac/default_column_names', $this->default_columns, $this );
+		$this->default_columns = $default_columns;
 	}
 
 	/**
@@ -578,7 +576,7 @@ abstract class AC_ListScreen {
 			$this->set_default_columns();
 		}
 
-		return $this->default_columns;
+		return apply_filters( 'cac/default_column_names', $this->default_columns, $this );
 	}
 
 	/**

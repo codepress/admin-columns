@@ -305,8 +305,8 @@ final class AC_ListScreenManager {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		// Flush cache. In case any columns are deactivated after saving them.
-		$this->list_screen->flush_columns();
+		// Flush variables. In case any columns are deactivated after saving them.
+		$this->list_screen->reset();
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();

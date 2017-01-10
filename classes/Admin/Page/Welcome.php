@@ -73,11 +73,9 @@ class AC_Admin_Page_Welcome extends AC_Admin_Page {
 						break;
 
 					default :
-						// TODO
 						?>
                         <h3>Changes</h3>
                         <p>*</p>
-
 						<?php
 				}
 				?>
