@@ -123,16 +123,4 @@ final class AC_Settings_ListScreen {
 		return delete_option( $this->get_default_key() );
 	}
 
-	// TODO: refactor to different name or location
-	public static function delete_all_settings() {
-		global $wpdb;
-
-		$sql = "
-			DELETE
-			FROM $wpdb->options
-			WHERE option_name LIKE %s";
-
-		$wpdb->query( $wpdb->prepare( $sql, self::OPTIONS_KEY . '%' ) );
-	}
-
 }

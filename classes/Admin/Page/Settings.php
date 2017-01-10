@@ -59,6 +59,20 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	}
 
 	/**
+	 * Deletes all stored column settings. Does not delete general settings.
+	 */
+	private function delete_all_column_settings() {
+		global $wpdb;
+
+		$sql = "
+			DELETE
+			FROM $wpdb->options
+			WHERE option_name LIKE %s";
+
+		$wpdb->query( $wpdb->prepare( $sql, AC_Settings_ListScreen::OPTIONS_KEY . '%' ) );
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
@@ -71,8 +85,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			case 'restore_all' :
 				if ( wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), 'restore-all' ) ) {
 
-					// todo: make this non static? There is no reason why the list screen should be absent here?
-					AC_Settings_ListScreen::delete_all_settings();
+				    $this->delete_all_column_settings();
 
 					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
 
