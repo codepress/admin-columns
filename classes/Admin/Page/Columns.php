@@ -721,8 +721,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                             <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
                             <input type="hidden" name="cpac_action" value="update_by_type"/>
 
-							<?php do_action( 'cac/settings/form_columns', $list_screen ); ?>
-
 							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
 
 							<?php foreach ( $list_screen->get_columns() as $column ) {

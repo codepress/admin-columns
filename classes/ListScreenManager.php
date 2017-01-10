@@ -152,7 +152,7 @@ final class AC_ListScreenManager {
 		endif;
 
 		/* @var AC_Admin_Page_Settings $settings */
-		$settings = AC()->admin()->get_tab( 'settings' );
+		$settings = AC()->admin()->get_page( 'settings' );
 
 		// JS: Edit button
 		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>

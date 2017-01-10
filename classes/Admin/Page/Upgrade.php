@@ -7,7 +7,6 @@
  *
  * @since 2.0
  */
-// TODO: needs testing, scripts and upgrade message
 class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 
     CONST VERSION_KEY = 'cpac_version';

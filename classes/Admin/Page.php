@@ -86,7 +86,7 @@ abstract class AC_Admin_Page {
 	}
 
 	public function is_current_screen() {
-		return AC()->admin()->is_current_tab( $this->get_slug() );
+		return AC()->admin()->is_current_page( $this->get_slug() );
 	}
 
 	/**

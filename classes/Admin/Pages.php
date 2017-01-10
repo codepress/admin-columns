@@ -5,7 +5,7 @@ class AC_Admin_Pages {
 	/**
 	 * @var AC_Admin_Page[]
 	 */
-	private $tabs;
+	private $pages;
 
 	/**
 	 * Reference that points to default tab
@@ -15,15 +15,15 @@ class AC_Admin_Pages {
 	private $default_slug;
 
 	public function __construct() {
-		$this->tabs = array();
+		$this->pages = array();
 	}
 
 	/**
 	 * @param AC_Admin_Page $tab
 	 * @return AC_Admin_Pages
 	 */
-	public function register_tab( AC_Admin_Page $tab ) {
-		$this->tabs[ $tab->get_slug() ] = $tab;
+	public function register_page( AC_Admin_Page $tab ) {
+		$this->pages[ $tab->get_slug() ] = $tab;
 
 		if ( $tab->is_default() ) {
 			$this->default_slug = $tab->get_slug();
@@ -37,11 +37,11 @@ class AC_Admin_Pages {
 	 *
 	 * @return AC_Admin_Page|false
 	 */
-	public function get_tab( $slug ) {
+	public function get_page( $slug ) {
 		$tab = false;
 
-		if ( isset( $this->tabs[ $slug ] ) ) {
-			$tab = $this->tabs[ $slug ];
+		if ( isset( $this->pages[ $slug ] ) ) {
+			$tab = $this->pages[ $slug ];
 		}
 
 		return $tab;
@@ -51,10 +51,10 @@ class AC_Admin_Pages {
 	 * @return AC_Admin_Page|false
 	 */
 	public function get_current_tab() {
-		$tab = $this->get_tab( filter_input( INPUT_GET, 'tab' ) );
+		$tab = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
 
 		if ( ! $tab ) {
-		    $tab = $this->get_tab( $this->default_slug );
+		    $tab = $this->get_page( $this->default_slug );
         }
 
         return $tab;
@@ -67,7 +67,7 @@ class AC_Admin_Pages {
 
 				$active_tab = $this->get_current_tab();
 
-				foreach ( $this->tabs as $slug => $tab ) {
+				foreach ( $this->pages as $slug => $tab ) {
 
 				    // skip
 				    if ( ! $tab->show_in_menu() ) {
