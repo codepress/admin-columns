@@ -97,14 +97,14 @@ function cac_wp_is_doing_ajax() {
  *
  * @since 2.4.8
  *
- * @param string $tab Specifies a tab screen (optional)
+ * @param string $slug Specifies a page screen (optional)
  *
  * @return bool True if the current screen is the settings screen, false otherwise
  */
-function cac_is_setting_screen( $tab = '' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
+function cac_is_setting_screen( $slug = '' ) {
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->admin()->is_current_page( $slug )' );
 
-	return AC()->admin()->is_current_tab( $tab );
+	return AC()->admin()->is_current_page( $slug );
 }
 
 /**

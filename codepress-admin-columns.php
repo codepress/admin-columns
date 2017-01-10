@@ -528,10 +528,10 @@ class CPAC {
 	 *
 	 * @return bool True if the current screen is the settings screen, false otherwise
 	 */
-	public function is_settings_screen( $tab = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
+	public function is_settings_screen( $slug = '' ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_page( $slug )' );
 
-		return $this->admin()->is_current_tab( $tab );
+		return $this->admin()->is_current_page( $slug );
 	}
 
 	/**
