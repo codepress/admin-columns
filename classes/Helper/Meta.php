@@ -61,6 +61,7 @@ class AC_Helper_Meta {
 			'order'       => 'ASC', // ASC or DESC
 			'unserialize' => true, // true or false
 			'return'      => 'values', // values or ids
+			'single'      => false, // can a meta_key occur multiple times
 		);
 
 		$args = (object) array_merge( $defaults, $args );
@@ -74,7 +75,11 @@ class AC_Helper_Meta {
 			$args->orderby = $defaults['orderby'];
 		}
 
-		if ( true !== $args->unserialize || false !== $args->unserialize ) {
+		if ( ! is_bool( $args->unserialize ) ) {
+			$args->orderby = $defaults['unserialize'];
+		}
+
+		if ( ! is_bool( $args->single ) ) {
 			$args->orderby = $defaults['unserialize'];
 		}
 
@@ -87,22 +92,31 @@ class AC_Helper_Meta {
 		// sanitize ids
 		array_walk( $ids, 'intval' );
 
-		$in = implode( ', ', $ids );
+		$meta_value_field = 'meta_value';
 
-		$sql = "
-			SELECT $properties->meta_id, meta_value
-			FROM $properties->meta_table
-			WHERE meta_key = %s
-			AND $properties->meta_id IN ( $in )
-		";
+		if ( $args->single ) {
+			$meta_value_field = "MAX( meta_value ) AS meta_value";
+		}
+
+		$orderby = '';
 
 		if ( $args->orderby ) {
 			if ( 'id' === $args->orderby ) {
 				$args->orderby = $properties->meta_id;
 			}
 
-			$sql .= "ORDER BY $args->orderby $args->order";
+			$orderby = "ORDER BY $args->orderby $args->order";
 		}
+
+		$in = implode( ', ', $ids );
+
+		$sql = "
+			SELECT $properties->meta_id, $meta_value_field
+			FROM $properties->meta_table
+			WHERE meta_key = %s
+			AND $properties->meta_id IN ( $in )
+			$orderby
+		";
 
 		$results = $wpdb->get_results( $wpdb->prepare( $sql, $meta_key ) );
 

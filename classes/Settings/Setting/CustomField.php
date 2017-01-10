@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Meta extends AC_Settings_Setting {
+class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 
 	/**
 	 * @var string
@@ -8,7 +8,7 @@ class AC_Settings_Setting_Meta extends AC_Settings_Setting {
 	private $field;
 
 	public function get_dependent_settings() {
-		return array( new AC_Settings_Setting_MetaType( $this->column ) );
+		return array( new AC_Settings_Setting_CustomFieldType( $this->column ) );
 	}
 
 	protected function set_name() {

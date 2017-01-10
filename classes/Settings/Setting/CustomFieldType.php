@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_MetaType extends AC_Settings_Setting
+class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	implements AC_Settings_FormatInterface {
 
 	/**
@@ -134,7 +134,7 @@ class AC_Settings_Setting_MetaType extends AC_Settings_Setting
 				break;
 
 			case "count" :
-				if ( $this->column instanceof AC_Column_MetaInterface ) {
+				if ( $this->column instanceof ACP_Column_Meta ) {
 					$value = $meta_data ? count( $meta_data ) : ac_helper()->string->get_empty_char();
 				}
 				break;

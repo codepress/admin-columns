@@ -443,9 +443,8 @@ abstract class AC_ListScreen {
 			}
 		}
 
-		// TODO is this assumption correct: if filled it support WP_Meta_Query?
 		if ( $this->get_meta_type() ) {
-			$this->register_column_type( new AC_Column_Meta() );
+			$this->register_column_type( new AC_Column_CustomField() );
 		}
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
