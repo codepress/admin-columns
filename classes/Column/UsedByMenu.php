@@ -34,6 +34,7 @@ abstract class AC_Column_UsedByMenu extends AC_Column {
 		return implode( ', ', $menus );
 	}
 
+	// TODO: remove?
 	public function get_formatted_value( $object_id ){
 		$menus = array();
 
