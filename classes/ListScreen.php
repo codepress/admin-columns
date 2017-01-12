@@ -416,8 +416,10 @@ abstract class AC_ListScreen {
 	 * Available column types
 	 */
 	public function set_column_types() {
+
 		// Register default column types
 		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
+
 			// Ignore the mandatory checkbox column
 			if ( 'cb' == $type ) {
 				continue;
@@ -443,10 +445,8 @@ abstract class AC_ListScreen {
 			}
 		}
 
-
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
-
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
 
