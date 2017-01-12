@@ -8,7 +8,7 @@
 abstract class AC_ListScreen {
 
 	/**
-	 * Identifier for List Screen; Post type etc.
+	 * Unique Identifier for List Screen.
 	 *
 	 * @since 2.0
 	 */
@@ -25,14 +25,14 @@ abstract class AC_ListScreen {
 	protected $singular_label;
 
 	/**
-	 * Type of list screen; Post, Media, User or Comments
+	 * Type of list screen. Example: post, media, user, comment
 	 *
 	 * @since 2.0
 	 */
 	protected $type;
 
 	/**
-	 * Meta type of list screen; post, user, comment. Mostly used for custom field data.
+	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
 	 *
 	 * @since 3.0
 	 */
@@ -131,13 +131,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $key
-	 */
-	public function set_key( $key ) {
-		$this->key = $key;
-	}
-
-	/**
 	 * Return a single object based on it's ID (post, user, comment etc.)
 	 *
 	 * @since NEWVERSION
@@ -165,6 +158,13 @@ abstract class AC_ListScreen {
 	 */
 	public function get_key() {
 		return $this->key;
+	}
+
+	/**
+	 * @param string $key
+	 */
+	public function set_key( $key ) {
+		$this->key = $key;
 	}
 
 	/**
@@ -443,9 +443,10 @@ abstract class AC_ListScreen {
 			}
 		}
 
-		if ( $this->get_meta_type() ) {
-			$this->register_column_type( new AC_Column_CustomField() );
-		}
+
+		$this->register_column_type( new AC_Column_CustomField() );
+		$this->register_column_type( new AC_Column_UsedByMenu() );
+
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
 

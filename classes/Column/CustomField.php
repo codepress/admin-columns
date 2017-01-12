@@ -142,6 +142,15 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	}
 
 	/**
+	 * Only valid for a Listscreen with a meta type
+	 *
+	 * @return mixed
+	 */
+	public function is_valid() {
+		return $this->get_list_screen()->get_meta_type();
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param string $meta

@@ -6,9 +6,7 @@
  *
  * @since 2.2.5
  */
-abstract class AC_Column_UsedByMenu extends AC_Column {
-
-	abstract protected function get_object_type();
+class AC_Column_UsedByMenu extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
@@ -23,7 +21,7 @@ abstract class AC_Column_UsedByMenu extends AC_Column {
 				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
 
 				$title = $term->name;
-				if ( 'on' == $this->get_option( 'link_to_menu' ) ) {
+				if ( 'on' === $this->get_option( 'link_to_menu' ) ) {
 					$title = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
 				}
 
@@ -31,21 +29,7 @@ abstract class AC_Column_UsedByMenu extends AC_Column {
 			}
 		}
 
-		return implode( ', ', $menus );
-	}
-
-	// TODO: remove?
-	public function get_formatted_value( $object_id ){
-		$menus = array();
-
-		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
-			foreach ( $menu_ids as $menu_id ) {
-				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
-				$menus[] = $term->name;
-			}
-		}
-
-		return implode( ', ', $menus );
+		return $this->format_value( new AC_Collection( $menus ) );
 	}
 
 	/**
@@ -53,6 +37,16 @@ abstract class AC_Column_UsedByMenu extends AC_Column {
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {
+
+		$object_type = $this->get_post_type();
+
+		if ( ! $object_type ) {
+			$object_type = $this->get_taxonomy();
+		}
+
+		if ( ! $object_type ) {
+			$object_type = $this->get_list_screen()->get_type();
+		}
 
 		$menu_item_ids = get_posts( array(
 			'post_type'   => 'nav_menu_item',
@@ -62,13 +56,13 @@ abstract class AC_Column_UsedByMenu extends AC_Column {
 			'meta_query'  => array(
 				array(
 					'key'   => '_menu_item_object_id',
-					'value' => $object_id
+					'value' => $object_id,
 				),
 				array(
 					'key'   => '_menu_item_object',
-					'value' => $this->get_object_type()
+					'value' => $object_type,
 				),
-			)
+			),
 		) );
 
 		if ( ! $menu_item_ids ) {

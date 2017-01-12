@@ -9,7 +9,7 @@ class AC_Settings_Setting_LinkToMenu extends AC_Settings_Setting_Toggle {
 
 	protected function define_options() {
 		return array(
-			'link_to_menu' => 'off',
+			'link_to_menu' => 'on',
 		);
 	}
 

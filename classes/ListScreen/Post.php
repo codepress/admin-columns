@@ -3,14 +3,12 @@
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
 	/**
-	 * @var string $post_type
+	 * @var string
 	 */
 	protected $post_type;
 
 	public function __construct() {
 		parent::__construct();
-
-		$this->set_post_type();
 
 		$this->type = 'post';
 		$this->base = 'edit';
@@ -42,15 +40,11 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 	}
 
 	/**
-	 * @param null|string $post_type
+	 * @param string $post_type
 	 *
 	 * @return $this;
 	 */
-	public function set_post_type( $post_type = null ) {
-		if ( null === $post_type ) {
-			$post_type = 'post';
-		}
-
+	public function set_post_type( $post_type ) {
 		$this->post_type = $post_type;
 		$this->key = $post_type;
 		$this->screen = $this->base . '-' . $post_type;
