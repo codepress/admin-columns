@@ -96,7 +96,7 @@ class AC_Column_CustomField extends AC_Column_Meta {
 			return false;
 		}
 
-		$query = "SELECT DISTINCT mt.meta_key";
+		$query = "SELECT DISTINCT mt.meta_key ";
 
 		if ( 'post' === $this->get_meta_type() ) {
 			$query .= $wpdb->prepare( "
@@ -104,11 +104,12 @@ class AC_Column_CustomField extends AC_Column_Meta {
 				INNER JOIN $properties->meta_table AS mt ON mt.$properties->meta_id = t.$properties->id
 				AND t.post_type = %s
 			", $this->get_post_type() );
-		} else {
+		}
+		else {
 			$query .= "FROM $properties->meta_table AS mt";
 		}
 
-		$query .= "ORDER BY mt.meta_key ASC";
+		$query .= " ORDER BY mt.meta_key ASC";
 
 		return $query;
 	}
