@@ -233,7 +233,7 @@ abstract class AC_Column {
 	/**
 	 * @param string $id
 	 *
-	 * @return AC_Settings_Setting_User
+	 * @return AC_Settings_Setting_User|AC_Settings_Setting_Separator
 	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
@@ -326,13 +326,30 @@ abstract class AC_Column {
 		}
 
 		if ( $value instanceof AC_Collection ) {
-			// control the separator per column for multi-valued columns
-			$separator = apply_filters( 'ac/column/format/separator', ', ', $this );
-
-			$value = $value->implode( $separator );
+			$value = $value->implode( $this->get_separator() );
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_separator() {
+		$separator = ', ';
+
+		if ( $setting = $this->get_setting( 'separator' ) ) {
+			switch ( $setting->get_separator() ) {
+				case 'newline' :
+					$separator = '<br/>';
+					break;
+				case '' :
+					$separator = '&nbsp;';
+					break;
+			}
+		}
+
+		return apply_filters( 'ac/column/separator', $separator, $this );
 	}
 
 	/**

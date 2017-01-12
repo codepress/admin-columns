@@ -10,6 +10,27 @@ abstract class AC_Column_Meta extends AC_Column {
 	abstract public function get_meta_key();
 
 	/**
+	 * Is data stored serialized?
+	 *
+	 * @var bool
+	 */
+	private $serialized = false;
+
+	/**
+	 * @return bool
+	 */
+	public function is_serialized() {
+		return $this->serialized;
+	}
+
+	/**
+	 * @param bool $serialized
+	 */
+	public function set_serialized( $serialized ) {
+		$this->serialized = (bool) $serialized;
+	}
+
+	/**
 	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
