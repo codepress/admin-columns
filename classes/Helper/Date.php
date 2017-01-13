@@ -2,6 +2,11 @@
 
 class AC_Helper_Date {
 
+	/**
+	 * @param string $date
+	 *
+	 * @return int|false
+	 */
 	public function strtotime( $date ) {
 		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
 			return false;
@@ -34,26 +39,72 @@ class AC_Helper_Date {
 	}
 
 	/**
+	 * @param string $date
+	 * @param string$format
+	 *
+	 * @return int|false
+	 */
+	public function strtotime_from_format( $date, $format ) {
+		if ( ! $date ) {
+			return false;
+		}
+
+		$timestamp = false;
+
+		// since PHP 5.3.0
+		// Create timestamp from a specific date format
+		if ( function_exists( 'date_create_from_format' ) && $format ) {
+			if ( $date = date_create_from_format( $format, $date ) ) {
+				$timestamp = date_format( $date, 'U' );
+			}
+		}
+
+		// before PHP 5.3.0
+		else {
+			$timestamp = $this->strtotime( $date );
+		}
+
+		return $timestamp;
+	}
+
+	/**
 	 * @since 1.3.1
 	 *
-	 * @param string $date
+	 * @param string $date PHP Date format
+	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
 	 */
-	public function date( $date, $format = '' ) {
+	public function date( $date, $display_format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
 
+		return $this->date_by_timestamp( $timestamp, $display_format );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 *
+	 * @param string $date PHP Date format
+	 * @param string $display_format Date display format
+	 *
+	 * @return string Formatted date
+	 */
+	public function date_by_timestamp( $timestamp, $display_format = '' ) {
+		if ( ! $timestamp ) {
+			return false;
+		}
+
 		// Get date format from the General Settings
-		if ( ! $format ) {
-			$format = get_option( 'date_format' );
+		if ( ! $display_format ) {
+			$display_format = get_option( 'date_format' );
 		}
 
 		// Fallback in case the date format from General Settings is empty
-		if ( ! $format ) {
-			$format = 'F j, Y';
+		if ( ! $display_format ) {
+			$display_format = 'F j, Y';
 		}
 
-		return $timestamp ? date_i18n( $format, $timestamp ) : false;
+		return date_i18n( $display_format, $timestamp );
 	}
 
 	/**

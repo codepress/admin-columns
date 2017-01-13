@@ -31,7 +31,7 @@ class AC_Admin {
 		           ->register_page( new AC_Admin_Page_Settings() )
 		           ->register_page( new AC_Admin_Page_Addons() );
 
-		// TODO: disabled
+		// TODO: maybe put in new branch?
 		//$this->pages->register_page( new AC_Admin_Page_Welcome() );
 		//$this->pages->register_page( new AC_Admin_Page_Upgrade() );
 	}
