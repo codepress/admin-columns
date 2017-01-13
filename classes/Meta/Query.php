@@ -43,7 +43,7 @@ class AC_Meta_Query {
 		}
 
 		if ( 'id' === $orderby ) {
-			$orderby = $this->query->meta_id_column;
+			$orderby = $this->query->primary_id_column;
 		}
 
 		return sprintf( ' ORDER BY %s %s', $orderby, $this->get( 'order' ) );
@@ -79,7 +79,9 @@ class AC_Meta_Query {
 
 		$fields = $this->parse_fields();
 		$orderby = $this->parse_orderby();
+
 		$join_type = $this->get( 'show_empty' ) ? 'LEFT' : 'INNER';
+		$join_empty = $this->get( 'show_empty' ) ? '' : " AND mt.meta_value != ''";
 
 		$query = $this->query;
 		$type_id = $query->primary_id_column;
@@ -88,13 +90,14 @@ class AC_Meta_Query {
 			SELECT $fields
 			FROM $query->primary_table AS pt
 			$join_type JOIN $query->meta_table AS mt 
-				ON mt.$query->meta_id_column = pt.$type_id AND mt.meta_key = %s
+				ON mt.$query->meta_id_column = pt.$type_id AND mt.meta_key = %s $join_empty
+			WHERE 1=1
 		";
 
 		if ( $ids = $this->get( 'ids' ) ) {
 			$in = implode( ', ', $ids );
 
-			$sql .= " WHERE pt.$type_id IN( $in )";
+			$sql .= " AND pt.$type_id IN( $in )";
 		}
 
 		$sql = $wpdb->prepare( $sql . $orderby, $this->get( 'key' ) );
@@ -166,6 +169,12 @@ class AC_Meta_Query {
 		return isset( $this->args[ $key ] ) ? $this->args[ $key ] : null;
 	}
 
+	/**
+	 * Configure meta query
+	 *
+	 * @param string $key
+	 * @param string|bool|array $value
+	 */
 	public function set( $key, $value ) {
 		switch ( $key ) {
 			case 'order':
@@ -211,7 +220,7 @@ class AC_Meta_Query {
 				}
 
 				break;
-			case 'show_empty': // add row even when no matching meta_key was found
+			case 'show_empty': // add row even when no matching meta_key or meta_value was found
 			case 'single': // discard all values but the first (only works with no return value set)
 			case 'unserialize': // try to unserialize a value
 			case 'distinct': // return unique value (only works with a single field)
