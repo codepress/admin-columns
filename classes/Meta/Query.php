@@ -17,6 +17,11 @@ class AC_Meta_Query {
 	 */
 	private $fields = array( 'id', 'meta_key', 'meta_value' );
 
+	/**
+	 * AC_Meta_Query constructor.
+	 *
+	 * @param array $args
+	 */
 	public function __construct( array $args = array() ) {
 		$this->args = array(
 			'order'  => 'ASC',
