@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Media_Parent extends AC_Column_DefaultPost {
+class AC_Column_Media_Parent extends AC_Column_Default {
 
 	public function __construct() {
 		parent::__construct();
