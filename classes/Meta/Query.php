@@ -102,8 +102,6 @@ class AC_Meta_Query {
 
 		$sql = $wpdb->prepare( $sql . $orderby, $this->get( 'key' ) );
 
-		echo $sql;
-
 		$results = $wpdb->get_results( $sql );
 
 		if ( ! is_array( $results ) ) {

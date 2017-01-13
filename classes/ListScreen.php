@@ -359,7 +359,6 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	public function get_display_value_by_column_name( $column_name, $id, $value = null ) {
-
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $id );
 
@@ -386,7 +385,6 @@ abstract class AC_ListScreen {
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
-
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
 			return;
@@ -416,7 +414,6 @@ abstract class AC_ListScreen {
 	 * Available column types
 	 */
 	public function set_column_types() {
-
 		// Register default column types
 		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
 

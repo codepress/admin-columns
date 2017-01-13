@@ -42,6 +42,7 @@ abstract class AC_Column_Meta extends AC_Column {
 			$raw_value = $this->get_meta_value( $id, $meta_key, false );
 		}
 
+		// TODO: maybe make decprecated? So many classes extend from this class and in no way certain it will run
 		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $meta_key, $this );
 	}
 
