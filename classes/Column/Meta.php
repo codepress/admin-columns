@@ -69,22 +69,19 @@ abstract class AC_Column_Meta extends AC_Column {
 	}
 
 	/**
-	 * @param int $id
 	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function get_meta_values( $ids, array $args = array() ) {
-		return ac_helper()->meta->get_values_by_ids( $ids, $this->get_meta_key(), $this->get_meta_type(), $args );
-	}
+	public function get_meta_values( array $args = array() ) {
+		$defaults = array(
+			'type' => $this->get_meta_type(),
+			'key'  => $this->get_meta_key(),
+		);
 
-	/**
-	 * Returns the properties needed to write custom SQL for the current meta table
-	 *
-	 * @return false|object
-	 */
-	public function get_meta_table_properties() {
-		return ac_helper()->meta->get_meta_table_properties( $this->get_meta_type() );
+		$query = new AC_Meta_Query( array_merge( $defaults, $args ) );
+
+		return $query->get_results();
 	}
 
 }
