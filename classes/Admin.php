@@ -27,13 +27,14 @@ class AC_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		$this->pages = new AC_Admin_Pages();
-		$this->pages->register_page( new AC_Admin_Page_Columns() )
-		           ->register_page( new AC_Admin_Page_Settings() )
-		           ->register_page( new AC_Admin_Page_Addons() );
+		$this->pages
+			->register_page( new AC_Admin_Page_Columns() )
+			->register_page( new AC_Admin_Page_Settings() )
+			->register_page( new AC_Admin_Page_Addons() )
 
-		// TODO: maybe put in new branch?
-		//$this->pages->register_page( new AC_Admin_Page_Welcome() );
-		//$this->pages->register_page( new AC_Admin_Page_Upgrade() );
+			// Hidden
+			->register_page( new AC_Admin_Page_Welcome() )
+			->register_page( new AC_Admin_Page_Upgrade() );
 	}
 
 	/**
