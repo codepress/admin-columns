@@ -12,7 +12,7 @@ class AC_Column_Comment_Author extends AC_Column_Default {
 	}
 
 	public function register_settings() {
-		$this->get_settings()->width->set_default( 20 );
+		$this->get_setting( 'width' )->set_default( 20 );
 	}
 
 }

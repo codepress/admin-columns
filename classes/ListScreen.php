@@ -186,12 +186,11 @@ abstract class AC_ListScreen {
 
 	/**
 	 * @since 2.0.3
+	 * @param WP_Screen $screen
 	 * @return boolean
 	 */
-	public function is_current_screen() {
-		$screen = get_current_screen();
-
-		return $screen && $screen->id === $this->screen;
+	public function is_current_screen( $wp_screen ) {
+		return $wp_screen && $wp_screen->id === $this->screen;
 	}
 
 	/**
@@ -256,7 +255,7 @@ abstract class AC_ListScreen {
 		/**
 		 * @since NEWVERSION
 		 */
-		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->admin()->get_link( 'columns' ) ) );
+		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->admin_columns_screen()->get_link() ) );
 	}
 
 	/**

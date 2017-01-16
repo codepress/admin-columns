@@ -1,6 +1,6 @@
 <?php
 
-final class AC_ListScreenManager {
+final class AC_TableScreen {
 
 	/**
 	 * @var array $column_headings
@@ -176,9 +176,9 @@ final class AC_ListScreenManager {
 	/**
 	 * Load current list screen
 	 */
-	public function load_list_screen() {
+	public function load_list_screen( $current_screen ) {
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen() ) {
+			if ( $list_screen->is_current_screen( $current_screen ) ) {
 				$this->init_list_screen( $list_screen );
 			}
 		}

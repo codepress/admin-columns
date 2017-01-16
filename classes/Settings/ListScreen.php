@@ -70,6 +70,8 @@ final class AC_Settings_ListScreen {
 	public function set_settings() {
 		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
 
+		$options = apply_filters( 'ac/column_settings', $options );
+
 		$this->settings = $options ? $options : array();
 	}
 
@@ -81,8 +83,7 @@ final class AC_Settings_ListScreen {
 			$this->set_settings();
 		}
 
-		// TODO: remove filter
-		return apply_filters( 'ac/column_settings', $this->settings, $this->list_screen );
+		return $this->settings;
 	}
 
 	/**

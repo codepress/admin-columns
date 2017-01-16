@@ -38,6 +38,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			$column = $this->column;
 		}
 
+		// TODO: can we remove this?
 		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
 
 		if ( empty( $label ) ) {
@@ -98,7 +99,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			}
 		}
 
-		// todo: rename filter e.g. ac/settings/setting/type/columns
+		// TODO: rename filter e.g. ac/settings/setting/type/columns
 		return apply_filters( 'cac/grouped_columns', $grouped, $this );
 	}
 
