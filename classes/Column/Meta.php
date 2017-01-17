@@ -34,12 +34,11 @@ abstract class AC_Column_Meta extends AC_Column {
 	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	// TODO: maybe use single? It makes more sense in a way...
 	public function get_raw_value( $id ) {
 		$raw_value = '';
 
 		if ( $meta_key = $this->get_meta_key() ) {
-			$raw_value = $this->get_meta_value( $id, $meta_key, false );
+			$raw_value = $this->get_meta_value( $id, $meta_key, true );
 		}
 
 		// TODO: maybe make decprecated? So many classes extend from this class and in no way certain it will run. Used by Pods.
