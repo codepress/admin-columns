@@ -25,7 +25,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
-			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
+			add_action( 'ac/settings/after_menu', array( $this, 'proaddon_notice' ) );
 		}
 	}
 

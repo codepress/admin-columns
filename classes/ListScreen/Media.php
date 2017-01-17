@@ -2,8 +2,8 @@
 
 class AC_ListScreen_Media extends AC_ListScreen_Post {
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $key, $layout = false ) {
+		parent::__construct( $key, $layout );
 
 		$this->post_type = 'attachment';
 		$this->key = 'wp-media';

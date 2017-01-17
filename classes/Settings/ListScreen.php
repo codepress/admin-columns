@@ -19,7 +19,7 @@ final class AC_Settings_ListScreen {
 	 *
 	 * @var string
 	 */
-	private $key;
+	//private $key;
 
 	/**
 	 * AC_Settings_ListScreen constructor.
@@ -28,32 +28,6 @@ final class AC_Settings_ListScreen {
 	 */
 	public function __construct( AC_ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-
-		$this->set_key();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_key() {
-		return $this->key;
-	}
-
-	/**
-	 * @param string $key
-	 * @param string $suffix
-	 *
-	 * @return $this
-	 */
-	public function set_key( $suffix = false ) {
-		$this->key = sanitize_key( $this->list_screen->get_key() . $suffix );
-
-		// TODO
-
-		// Force the settings to be re-populated.
-		$this->set_settings();
-
-		return $this;
 	}
 
 	/**
@@ -64,13 +38,14 @@ final class AC_Settings_ListScreen {
 	 * @return bool
 	 */
 	public function store( $settings ) {
-		return update_option( self::OPTIONS_KEY . $this->get_key(), $settings );
+		return update_option( self::OPTIONS_KEY . $this->list_screen->get_storage_key(), $settings );
 	}
 
 	public function set_settings() {
-		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
+		$options = get_option( self::OPTIONS_KEY . $this->list_screen->get_storage_key() );
 
-		$options = apply_filters( 'ac/column_settings', $options );
+		// TODO: remove 3rd argument
+		$options = apply_filters( 'ac/column_settings', $options, $this->list_screen, $this );
 
 		$this->settings = $options ? $options : array();
 	}
@@ -116,7 +91,7 @@ final class AC_Settings_ListScreen {
 	}
 
 	public function delete() {
-		return delete_option( self::OPTIONS_KEY . $this->get_key() );
+		return delete_option( self::OPTIONS_KEY . $this->list_screen->get_storage_key() );
 	}
 
 	public function delete_default_headings() {

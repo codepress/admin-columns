@@ -5,11 +5,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	CONST OPTION_CURRENT = 'cpac_current_model';
 
 	/**
-	 * @var AC_ListScreen $list_screen
-	 */
-	private $current_list_screen;
-
-	/**
 	 * @var array
 	 */
 	private $notices;
@@ -20,7 +15,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		     ->set_default( true );
 
 		// Requests
-		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
+		add_action( 'admin_init', array( $this, 'set_current_list_screen_preference' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
@@ -61,6 +57,59 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		) );
 
 		do_action( 'ac/settings_scripts' );
+	}
+
+	/**
+	 * @param string $layout
+	 */
+	/*public function set_current_layout( $layout ) {
+		$this->current_layout = $layout;
+	}*/
+
+	public function set_current_list_screen_preference() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
+
+		// List screen
+		if ( $list_screen = filter_input( INPUT_GET, 'cpac_key' ) ) {
+			$this->set_list_screen_preference( $list_screen );
+		}
+	}
+
+	public function set_layout_preference( $layout ) {
+		update_user_meta( get_current_user_id(), self::OPTION_CURRENT . '_layout', $layout );
+	}
+
+	public function get_layout_preference() {
+		return get_user_meta( get_current_user_id(), self::OPTION_CURRENT . '_layout', true );
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_first_available_list_screen() {
+		$list_screens = AC()->get_list_screens();
+		$list_screens = array_shift( $list_screens );
+
+		return array_shift( $list_screens );
+	}
+
+	/**
+	 * @return AC_ListScreen
+	 */
+	public function get_current_list_screen() {
+		$list_screen = $this->get_list_screen_preference();
+
+		// TODO: what will happen when list screen (post type) is disabled.
+
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_first_available_list_screen();
+		}
+
+		$layout = apply_filters( 'ac/settings/layout', null, $list_screen );
+
+		return AC()->get_list_screen( $list_screen, $layout );
 	}
 
 	/**
@@ -138,26 +187,23 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * @since 1.0
 	 */
-	public function handle_column_request() {
+	public function handle_request() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) :
+		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
 
 			case 'restore_by_type' :
-
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					if ( $list_screen = $this->get_current_list_screen() ) {
-						$list_screen->settings()->delete();
-						$list_screen->settings()->set_settings();
+					$list_screen = $this->get_current_list_screen();
+					$list_screen->settings()->delete();
 
-						$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
-					}
+					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
 				}
 				break;
-		endswitch;
+		}
 	}
 
 	/**
@@ -184,8 +230,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			wp_die();
 		}
 
+		// TODO: remove?
 		// make sure a list screen is set on AJAX requests
-		$this->set_current_list_screen();
+		//$this->set_list_screen_preference( $_POST['cpac_key'] );
 	}
 
 	/**
@@ -350,26 +397,53 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		return strcmp( $a->label, $b->label );
 	}
 
-	private function get_grouped_models() {
+	/**
+	 * @return array
+	 */
+	private function get_grouped_list_screens() {
+
+		$list_screens = array();
+
+		foreach ( AC()->get_list_screens() as $base => $options ) {
+			foreach ( $options as $key => $label ) {
+
+				/**
+				 * @param string $group Group slug
+				 * @param string $key Listscreen key
+				 */
+				$slug = apply_filters( 'ac/list_screen_group', $base, $key );
+
+				$list_screens[ $slug ][ $base . $key ] = $label;
+			}
+		}
+
 		$grouped = array();
-		foreach ( AC()->get_list_screens() as $_list_screen ) {
-			$grouped[ $_list_screen->get_menu_type() ][] = (object) array(
-				'key'   => $_list_screen->get_key(),
-				'link'  => $_list_screen->get_edit_link(),
-				'label' => $_list_screen->get_label(),
-			);
-			usort( $grouped[ $_list_screen->get_menu_type() ], array( $this, 'sort_by_label' ) );
+
+		foreach ( AC()->list_screen_groups()->get_groups_sorted() as $group ) {
+			$slug = $group['slug'];
+
+			if ( empty( $list_screens[ $slug ] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $grouped[ $slug ] ) ) {
+				$grouped[ $slug ]['title'] = $group['label'];
+			}
+
+			$grouped[ $slug ]['options'] = $list_screens[ $slug ];
+
+			unset( $list_screens[ $slug ] );
 		}
 
 		return $grouped;
 	}
 
-	private function set_user_model_preference( $list_screen_key ) {
+	private function set_list_screen_preference( $list_screen_key ) {
 		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $list_screen_key );
 	}
 
-	private function get_user_model_preference() {
-		return AC()->get_list_screen( get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true ) );
+	private function get_list_screen_preference() {
+		return get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true );
 	}
 
 	/**
@@ -383,40 +457,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		return $label;
-	}
-
-	/**
-	 * Set current list screen
-	 */
-	private function set_current_list_screen() {
-		$current_list_screen = AC()->get_default_list_screen();
-
-		if ( $list_screen = $this->get_user_model_preference() ) {
-			$current_list_screen = $list_screen;
-		}
-
-		if ( isset( $_REQUEST['cpac_key'] ) ) {
-			if ( $list_screen = AC()->get_list_screen( $_REQUEST['cpac_key'] ) ) {
-				$current_list_screen = $list_screen;
-			}
-
-			$this->set_user_model_preference( $current_list_screen->get_key() );
-		}
-
-		do_action( 'ac/settings/list_screen', $current_list_screen );
-
-		$this->current_list_screen = $current_list_screen;
-	}
-
-	/**
-	 * @return AC_ListScreen
-	 */
-	private function get_current_list_screen() {
-		if ( null === $this->current_list_screen ) {
-			$this->set_current_list_screen();
-		}
-
-		return $this->current_list_screen;
 	}
 
 	/**
@@ -442,29 +482,33 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Display
 	 */
 	public function display() {
-		$list_screen = $this->get_current_list_screen();
-		?>
+		$list_screen = $this->get_current_list_screen(); ?>
 
         <div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
             <div class="main">
                 <div class="menu">
-                    <select title="Select type" id="ac_list_screen">
-						<?php foreach ( $this->get_grouped_models() as $menu_type => $models ) : ?>
-                            <optgroup label="<?php echo esc_attr( $menu_type ); ?>">
-								<?php foreach ( $models as $model ) : ?>
-                                    <option value="<?php echo esc_attr( $model->link ); ?>" <?php selected( $model->key, $list_screen->get_key() ); ?>><?php echo esc_html( $model->label ); ?></option>
-								<?php endforeach; ?>
-                            </optgroup>
-						<?php endforeach; ?>
-                    </select>
-                    <span class="spinner"></span>
+                    <form>
+						<?php $this->nonce_field( 'select-list-screen' ); ?>
+                        <input type="hidden" name="page" value="<?php echo esc_attr( AC_Admin::MENU_SLUG ); ?>">
 
-					<?php if ( $link = $list_screen->get_screen_link() ) : ?>
-                        <a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
-					<?php endif; ?>
+                        <select name="cpac_key" title="Select type" id="ac_list_screen">
+							<?php foreach ( $this->get_grouped_list_screens() as $group ) : ?>
+                                <optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
+									<?php foreach ( $group['options'] as $key => $label ) : ?>
+                                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $list_screen->get_key() ); ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+                                </optgroup>
+							<?php endforeach; ?>
+                        </select>
+                        <span class="spinner"></span>
+
+						<?php if ( $link = $list_screen->get_screen_link() ) : ?>
+                            <a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
+						<?php endif; ?>
+                    </form>
                 </div>
 
-				<?php do_action( 'cac/settings/after_title', $list_screen ); ?>
+				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
             </div>
 

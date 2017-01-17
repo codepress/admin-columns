@@ -84,9 +84,7 @@ class AC_Admin_Pages {
 
 			<?php
 
-			do_action( 'cpac_messages' );
-
-			do_action( 'cac/settings/after_menu' );
+			do_action( 'ac/settings/after_menu' );
 
             $active_page->display();
 

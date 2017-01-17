@@ -2,8 +2,8 @@
 
 class AC_ListScreen_User extends AC_ListScreenWP {
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $key, $layout = false ) {
+		parent::__construct( $key, $layout );
 
 		$this->key = 'wp-users';
 		$this->label = __( 'Users' );

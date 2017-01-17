@@ -2,19 +2,29 @@
 
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
-	/**
-	 * @var string
-	 */
-	protected $post_type;
-
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $layout = false ) {
+		parent::__construct( $layout );
 
 		$this->type = 'post';
 		$this->base = 'edit';
 		$this->list_table = 'WP_Posts_List_Table';
 		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
 		$this->meta_type = 'post';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_storage_key() {
+		return $this->get_post_type();
+	}
+
+	public function get_key() {
+		return $this->get_post_type();
+	}
+
+	public function get_screen_id() {
+		return $this->base . '-' . $this->get_post_type();
 	}
 
 	/**
@@ -30,26 +40,6 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 		);
 
 		return (array) get_posts( array_merge( $defaults, $args ) );
-	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	/**
-	 * @param string $post_type
-	 *
-	 * @return $this;
-	 */
-	public function set_post_type( $post_type ) {
-		$this->post_type = $post_type;
-		$this->key = $post_type;
-		$this->screen = $this->base . '-' . $post_type;
-
-		return $this;
 	}
 
 	/**
@@ -69,7 +59,7 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 
 	public function set_manage_value_callback() {
 		// located in WP_Posts_List_Table::column_default()
-		add_action( "manage_" . $this->post_type . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
 	/**
@@ -99,7 +89,7 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 	 * @return string|false
 	 */
 	private function get_post_type_label_var( $var ) {
-		$post_type_object = get_post_type_object( $this->post_type );
+		$post_type_object = get_post_type_object( $this->get_post_type() );
 
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
 	}

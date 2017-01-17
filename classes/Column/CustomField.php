@@ -90,6 +90,9 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	private function get_meta_keys_query() {
 		global $wpdb;
 
+		// TODO
+		return;
+
 		$properties = $this->get_meta_table_properties();
 
 		if ( ! $properties ) {

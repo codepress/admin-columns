@@ -12,6 +12,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 		// trigger WP_List_Table::get_columns()
 		$this->get_list_table();
 
+		// TODO
 		return (array) get_column_headers( $this->get_screen_id() );
 	}
 

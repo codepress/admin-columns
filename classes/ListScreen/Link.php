@@ -2,8 +2,8 @@
 
 class AC_ListScreen_Link extends AC_ListScreenWP {
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $key, $layout = false ) {
+		parent::__construct( $key, $layout );
 
 		$this->key = 'wp-links';
 		$this->label = __( 'Links' );

@@ -3,7 +3,7 @@
 /**
  * Holds the groups to which columns can belong.
  */
-final class AC_ColumnGroups {
+final class AC_Groups {
 
 	const SORT_PRIORITY = 1;
 

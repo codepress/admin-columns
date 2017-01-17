@@ -5,8 +5,8 @@
  */
 class AC_ListScreen_Comment extends AC_ListScreenWP {
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $layout = false ) {
+		parent::__construct( $layout );
 
 		$this->key = 'wp-comments';
 		$this->label = __( 'Comments' );

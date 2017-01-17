@@ -75,7 +75,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		$grouped = array();
 
 		// create select options
-		foreach ( AC()->groups()->get_groups_sorted() as $group ) {
+		foreach ( AC()->column_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups

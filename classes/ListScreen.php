@@ -39,13 +39,6 @@ abstract class AC_ListScreen {
 	protected $meta_type;
 
 	/**
-	 * Groups the list screen in the menu.
-	 *
-	 * @since 2.0
-	 */
-	protected $menu_type;
-
-	/**
 	 * Name of the base PHP file (without extension)
 	 *
 	 * @since 2.0
@@ -77,6 +70,8 @@ abstract class AC_ListScreen {
 	 * @since 2.5
 	 * @var string
 	 */
+
+	// TODO: private?
 	protected $screen;
 
 	/**
@@ -103,6 +98,21 @@ abstract class AC_ListScreen {
 	private $default_columns;
 
 	/**
+	 * @var string
+	 */
+	private $layout;
+
+	/**
+	 * @var string
+	 */
+	private $post_type;
+
+	/**
+	 * @var string
+	 */
+	private $taxonomy;
+
+	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
@@ -112,8 +122,15 @@ abstract class AC_ListScreen {
 	/**
 	 * @since 2.4.4
 	 */
-	public function __construct() {
-		$this->menu_type = __( 'Other', 'codepress-admin-columns' );
+	public function __construct( $layout = false ) {
+		$this->layout = $layout;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_storage_key() {
+		return $this->key;
 	}
 
 	/**
@@ -122,6 +139,44 @@ abstract class AC_ListScreen {
 	public function get_label() {
 		return $this->label;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function get_layout() {
+		return $this->layout;
+	}
+
+	public function set_post_type( $post_type ) {
+		$this->post_type = (string) $post_type;
+	}
+
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	public function set_taxonomy( $taxonomy ) {
+		$this->taxonomy = (string) $taxonomy;
+	}
+
+	public function get_taxonomy() {
+		return $this->taxonomy;
+	}
+
+	public function get_base() {
+		$this->base;
+	}
+
+	/**
+	 * @param string $layout
+	 *
+	 * @return $this
+	 */
+	/*public function set_layout( $layout ) {
+		$this->layout = (string) $layout;
+
+		return $this;
+	}*/
 
 	/**
 	 * @return string
@@ -163,9 +218,9 @@ abstract class AC_ListScreen {
 	/**
 	 * @param string $key
 	 */
-	public function set_key( $key ) {
+	/*public function set_key( $key ) {
 		$this->key = $key;
-	}
+	}*/
 
 	/**
 	 * ID attribute of targeted list table
@@ -186,12 +241,14 @@ abstract class AC_ListScreen {
 
 	/**
 	 * @since 2.0.3
+	 *
 	 * @param WP_Screen $screen
+	 *
 	 * @return boolean
 	 */
-	public function is_current_screen( $wp_screen ) {
+	/*public function is_current_screen( $wp_screen ) {
 		return $wp_screen && $wp_screen->id === $this->screen;
-	}
+	}*/
 
 	/**
 	 * Set menu type
@@ -200,24 +257,25 @@ abstract class AC_ListScreen {
 	 *
 	 * @return AC_ListScreen
 	 */
-	public function set_menu_type( $menu_type ) {
+	/*public function set_menu_type( $menu_type ) {
 		$this->menu_type = $menu_type;
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * @since 2.5
 	 */
-	public function get_menu_type() {
+	/*public function get_menu_type() {
 		return $this->menu_type;
-	}
+	}*/
 
 	/**
 	 * Are column set by third party plugin
 	 *
 	 * @since 2.3.4
 	 */
+	// TODO: remove?
 	public function is_using_php_export() {
 
 		/**
@@ -245,17 +303,14 @@ abstract class AC_ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->page ), admin_url( $this->base . '.php' ) );
+		return add_query_arg( array( 'page' => $this->page, 'layout' => $this->layout ), admin_url( $this->base . '.php' ) );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		/**
-		 * @since NEWVERSION
-		 */
-		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->admin_columns_screen()->get_link() ) );
+		return add_query_arg( array( 'cpac_key' => $this->key, 'layout_id' => $this->layout ), AC()->admin_columns_screen()->get_link() );
 	}
 
 	/**
