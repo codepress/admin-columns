@@ -35,6 +35,11 @@ final class AC_Meta_Query {
 	/**
 	 * @var array
 	 */
+	private $join_where = array();
+
+	/**
+	 * @var array
+	 */
 	private $where = array();
 
 	/**
@@ -56,7 +61,7 @@ final class AC_Meta_Query {
 
 		if ( $predict ) {
 			if ( $column instanceof AC_Column_Meta ) {
-				$this->where( 'meta_key', $column->get_meta_key() );
+				$this->join_where( 'meta_key', $column->get_meta_key() );
 			}
 
 			if ( $column->get_post_type() ) {
@@ -111,22 +116,41 @@ final class AC_Meta_Query {
 		return $this;
 	}
 
-	// TODO: where case for count
-	public function join( $where = false, $type = 'inner' ) {
+	public function join( $type = 'inner' ) {
 		$this->join = strtoupper( $type );
 
 		return $this;
 	}
 
-	public function left_join( $where = false ) {
-		return $this->join( $where, 'left' );
+	public function left_join() {
+		return $this->join( 'left' );
+	}
+
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
+	public function join_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+		// set default join
+		if ( ! $this->join ) {
+			$this->join();
+		}
+
+		$this->join_where[] = $this->get_where_clause( $field, $operator, $value, $boolean );
+
+		return $this;
 	}
 
 	public function order_by( $order_by, $order = 'asc' ) {
-		$this->order_by[] = array(
-			'order_by' => $order_by,
-			'order'    => strtoupper( $order ),
-		);
+		$parts = explode( ',', $order_by );
+
+		foreach ( $parts as $order_by ) {
+			$this->order_by[] = array(
+				'order_by' => trim( $order_by ),
+				'order'    => strtoupper( $order ),
+			);
+		}
 
 		return $this;
 	}
@@ -183,6 +207,11 @@ final class AC_Meta_Query {
 		return $where;
 	}
 
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
 	public function remove_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
 		$where = $this->get_where_clause( $field, $operator, $value, $boolean );
 
@@ -195,12 +224,22 @@ final class AC_Meta_Query {
 		return $this;
 	}
 
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
 	public function where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
 		$this->where[] = $this->get_where_clause( $field, $operator, $value, $boolean );
 
 		return $this;
 	}
 
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
 	public function or_where( $field, $operator = null, $value = null ) {
 		return $this->where( $field, $operator, $value, 'OR' );
 	}
@@ -291,6 +330,10 @@ final class AC_Meta_Query {
 		$select = 'SELECT ';
 		$select .= $this->distinct ? 'DISTINCT ' : '';
 
+		if ( empty( $this->select ) ) {
+			$this->select( 'id' );
+		}
+
 		$fields = array();
 
 		foreach ( $this->select as $field ) {
@@ -317,7 +360,13 @@ final class AC_Meta_Query {
 
 		if ( $this->join ) {
 			$from = sprintf( $from_tpl, $this->query->primary_table, 'pt' );
-			$join = sprintf( ' %s JOIN %s AS mt ON mt.%s = pt.%s', $this->join, $this->query->meta_table, $this->query->meta_id_column, $this->query->primary_id_column );
+			$join = sprintf( ' %s JOIN %s AS mt ON mt.%s = pt.%s %s',
+				$this->join,
+				$this->query->meta_table,
+				$this->query->meta_id_column,
+				$this->query->primary_id_column,
+				$this->parse_where( '', $this->join_where )
+			);
 		}
 
 		// parse WHERE

@@ -43,7 +43,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		$keys = wp_cache_get( $cache_key, 'ac_settings_custom_field' );
 
 		if ( ! $keys ) {
-			$query = new AC_Meta_Query( $this->column );
+			$query = new AC_Meta_Query( $this->column, false );
 			$query->select( 'meta_key' )
 			      ->distinct()
 			      ->order_by( 'meta_key' );
