@@ -2,8 +2,7 @@
 
 class AC_ListScreen_User extends AC_ListScreenWP {
 
-	public function __construct( $key, $layout = false ) {
-		parent::__construct( $key, $layout );
+	public function __construct() {
 
 		$this->key = 'wp-users';
 		$this->label = __( 'Users' );
@@ -13,7 +12,7 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		$this->base = 'users';
 		$this->screen = 'users';
 		$this->list_table = 'WP_Users_List_Table';
-		$this->menu_type = $this->label;
+		$this->group = 'user';
 	}
 
 	/**

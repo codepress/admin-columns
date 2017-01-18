@@ -63,6 +63,11 @@ abstract class AC_ListScreen {
 	protected $list_table;
 
 	/**
+	 * Menu Group
+	 */
+	protected $group;
+
+	/**
 	 * The unique ID of the screen.
 	 *
 	 * @see get_current_screen()
@@ -105,12 +110,15 @@ abstract class AC_ListScreen {
 	/**
 	 * @var string
 	 */
-	private $post_type;
+	// TODO
+	protected $post_type;
 
 	/**
 	 * @var string
 	 */
 	private $taxonomy;
+
+	private $storage_key;
 
 	/**
 	 * Contains the hook that contains the manage_value callback
@@ -120,17 +128,15 @@ abstract class AC_ListScreen {
 	abstract function set_manage_value_callback();
 
 	/**
-	 * @since 2.4.4
-	 */
-	public function __construct( $layout = false ) {
-		$this->layout = $layout;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_storage_key() {
-		return $this->key;
+		// TODO
+		return $this->storage_key ? $this->storage_key : $this->key;
+	}
+
+	public function set_storage_key( $key ) {
+		$this->storage_key = $key;
 	}
 
 	/**
@@ -145,6 +151,17 @@ abstract class AC_ListScreen {
 	 */
 	public function get_layout() {
 		return $this->layout;
+	}
+
+	public function set_layout( $layout ) {
+		if ( $layout ) {
+			$this->layout = (string) $layout;
+
+			// TODO
+			$this->set_storage_key( $this->get_key() . $this->layout );
+			$this->settings()->set_settings();
+			$this->reset();
+		}
 	}
 
 	public function set_post_type( $post_type ) {
@@ -216,13 +233,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $key
-	 */
-	/*public function set_key( $key ) {
-		$this->key = $key;
-	}*/
-
-	/**
 	 * ID attribute of targeted list table
 	 *
 	 * @since NEWVERSION
@@ -246,29 +256,16 @@ abstract class AC_ListScreen {
 	 *
 	 * @return boolean
 	 */
-	/*public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->screen;
-	}*/
-
-	/**
-	 * Set menu type
-	 *
-	 * @since 2.4.1
-	 *
-	 * @return AC_ListScreen
-	 */
-	/*public function set_menu_type( $menu_type ) {
-		$this->menu_type = $menu_type;
-
-		return $this;
-	}*/
+	public function is_current_screen( $wp_screen ) {
+		return $wp_screen && $wp_screen->id === $this->get_screen_id();
+	}
 
 	/**
 	 * @since 2.5
 	 */
-	/*public function get_menu_type() {
-		return $this->menu_type;
-	}*/
+	public function get_group() {
+		return $this->group;
+	}
 
 	/**
 	 * Are column set by third party plugin

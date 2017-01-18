@@ -322,6 +322,8 @@ class CPAC {
 		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+
+		// TODO: 3rd party
 		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
 
 		$this->column_groups = $groups;
@@ -338,35 +340,6 @@ class CPAC {
 		}
 
 		return $this->column_groups;
-	}
-
-	/**
-	 * Column groups
-	 */
-	public function set_list_screen_groups() {
-		$groups = new AC_Groups();
-
-		$groups->register_group( 'edit', __( 'Post Type' ), 5 );
-		$groups->register_group( 'users', __( 'Users' ) );
-		$groups->register_group( 'upload', __( 'Media' ) );
-		$groups->register_group( 'comments', __( 'Comments' ) );
-
-		// TODO: link manager?
-
-		$this->list_screen_groups = $groups;
-
-		do_action( 'ac/list_screen_groups', $groups );
-	}
-
-	/**
-	 * @return AC_Groups
-	 */
-	public function list_screen_groups() {
-		if ( null === $this->list_screen_groups ) {
-			$this->set_list_screen_groups();
-		}
-
-		return $this->list_screen_groups;
 	}
 
 	/**
@@ -394,7 +367,7 @@ class CPAC {
 	 */
 
 	// TODO
-	/*public function get_list_screen( $key ) {
+	public function get_list_screen( $key ) {
 		$screens = $this->get_list_screens();
 
 		if ( ! isset( $screens[ $key ] ) ) {
@@ -404,7 +377,7 @@ class CPAC {
 		$screen = $screens[ $key ];
 
 		return $screen;
-	}*/
+	}
 
 	/**
 	 * Returns the default list screen when no choice is made by the user
@@ -412,12 +385,12 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @return AC_ListScreen
 	 */
-	/*public function get_default_list_screen() {
+	public function get_default_list_screen() {
 		$screens = $this->get_list_screens();
 		$default_screen = array_shift( $screens );
 
 		return $default_screen;
-	}*/
+	}
 
 	/**
 	 * Get registered list screens
@@ -425,20 +398,20 @@ class CPAC {
 	 * @since NEWVERSION
 	 * @return AC_ListScreen[]
 	 */
-	/*public function get_list_screens() {
+	public function get_list_screens() {
 		if ( null === $this->list_screens ) {
 			$this->set_list_screens();
 		}
 
 		return $this->list_screens;
-	}*/
+	}
 
 	/**
 	 * Get registered list screens
 	 *
 	 * @since NEWVERSION
 	 */
-	/*private function set_list_screens() {
+	private function set_list_screens() {
 
 		// Create a list screen per post type
 		foreach ( $this->get_post_types() as $post_type ) {
@@ -460,18 +433,45 @@ class CPAC {
 
 		// @since NEWVERSION
 		//do_action( 'ac/list_screens', $this );
-	}*/
+	}
 
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	/*public function register_list_screen( AC_ListScreen $list_screen ) {
+	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
-	}*/
+	}
 
-	//private $_list_screens;
+	/**
+	 * Column groups
+	 */
+	public function set_list_screen_groups() {
+		$groups = new AC_Groups();
 
-	// TODO: remove old register_list_screen and replace it with this
+		$groups->register_group( 'post_type', __( 'Post Type' ), 5 );
+		$groups->register_group( 'user', __( 'Users' ) );
+		$groups->register_group( 'media', __( 'Media' ) );
+		$groups->register_group( 'comment', __( 'Comments' ) );
+
+		// TODO: link manager?
+
+		$this->list_screen_groups = $groups;
+
+		do_action( 'ac/list_screen_groups', $groups );
+	}
+
+	/**
+	 * @return AC_Groups
+	 */
+	public function list_screen_groups() {
+		if ( null === $this->list_screen_groups ) {
+			$this->set_list_screen_groups();
+		}
+
+		return $this->list_screen_groups;
+	}
+
+	// TODO: remove
 
 	/**
 	 * @param string $key
@@ -479,7 +479,7 @@ class CPAC {
 	 *
 	 * @return AC_ListScreen|false
 	 */
-	public function get_list_screen( $key, $layout = false ) {
+	/*public function get_list_screen( $key, $layout = false ) {
 		$base = $this->get_list_screen_base_by_key( $key );
 
 		$classes = $this->get_list_screen_types();
@@ -488,7 +488,6 @@ class CPAC {
 			return false;
 		}
 
-		/** @var AC_ListScreen $list_screen */
 		$list_screen = new $classes[ $base ]( $layout );
 
 		// Strip base from key
@@ -505,12 +504,12 @@ class CPAC {
 		}
 
 		return $list_screen;
-	}
+	}*/
 
 	/**
 	 * @var array [ $key => $class_name ]
 	 */
-	private $list_screen_types;
+	//private $list_screen_types;
 
 	/**
 	 * @param string $type Type
@@ -518,16 +517,16 @@ class CPAC {
 	 *
 	 * @return $this
 	 */
-	public function register_list_screen_type( $base, $class ) {
+	/*public function register_list_screen_type( $base, $class ) {
 		$this->list_screen_types[ $base ] = $class;
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Register screen types
 	 */
-	public function set_list_screen_types() {
+	/*public function set_list_screen_types() {
 		$this
 			->register_list_screen_type( 'edit', 'AC_ListScreen_Post' )
 			->register_list_screen_type( 'users', 'AC_ListScreen_User' )
@@ -536,27 +535,27 @@ class CPAC {
 			->register_list_screen_type( 'link-manager', 'AC_ListScreen_Link' );
 
 		do_action( 'ac/list_screen_type', $this );
-	}
+	}*/
 
 	/**
 	 * @return array
 	 */
-	public function get_list_screen_types() {
+	/*public function get_list_screen_types() {
 		if ( null === $this->list_screen_types ) {
 			$this->set_list_screen_types();
 		}
 
 		return $this->list_screen_types;
-	}
+	}*/
 
 	/**
 	 * @param string $screen_base
 	 * @param string $label
 	 * @param string $key Use WP_Screen::taxonomy ot WP_Screen::post_type
 	 */
-	public function register_list_screen( $screen_base, $label, $key = '' ) {
+	/*public function register_list_screen( $screen_base, $label, $key = '' ) {
 		$this->list_screens[ $screen_base ][ $key ] = $label;
-	}
+	}*/
 
 	/**
 	 * Returns types based on list screen key
@@ -565,7 +564,7 @@ class CPAC {
 	 *
 	 * @return string|false List screen type
 	 */
-	private function get_list_screen_base_by_key( $key ) {
+	/*private function get_list_screen_base_by_key( $key ) {
 		foreach ( $this->get_list_screens() as $base => $list_screens ) {
 			foreach ( $list_screens as $type => $label ) {
 				if ( $key === $base . $type ) {
@@ -575,12 +574,12 @@ class CPAC {
 		}
 
 		return false;
-	}
+	}*/
 
 	/**
 	 * Set available list screens
 	 */
-	private function set_list_screens() {
+	/*private function set_list_screens() {
 		foreach ( $this->get_post_types() as $post_type ) {
 			$post_type_object = get_post_type_object( $post_type );
 
@@ -598,18 +597,18 @@ class CPAC {
 		}
 
 		do_action( 'ac/list_screens', $this );
-	}
+	}*/
 
 	/**
 	 * @return array
 	 */
-	public function get_list_screens() {
+	/*public function get_list_screens() {
 		if ( null === $this->list_screens ) {
 			$this->set_list_screens();
 		}
 
 		return $this->list_screens;
-	}
+	}*/
 
 	/**
 	 * Get a list of post types for which Admin Columns is active

@@ -2,21 +2,13 @@
 
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
-	public function __construct( $layout = false ) {
-		parent::__construct( $layout );
+	public function __construct() {
 
 		$this->type = 'post';
 		$this->base = 'edit';
 		$this->list_table = 'WP_Posts_List_Table';
-		$this->menu_type = __( 'Post Type', 'codepress-admin-columns' );
+		$this->group = 'post_type';
 		$this->meta_type = 'post';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_storage_key() {
-		return $this->get_post_type();
 	}
 
 	public function get_key() {

@@ -99,17 +99,19 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return AC_ListScreen
 	 */
 	public function get_current_list_screen() {
-		$list_screen = $this->get_list_screen_preference();
+		$list_screen_key = $this->get_list_screen_preference();
 
 		// TODO: what will happen when list screen (post type) is disabled.
 
-		if ( ! $list_screen ) {
-			$list_screen = $this->get_first_available_list_screen();
+		if ( ! $list_screen_key ) {
+			$list_screen_key = $this->get_first_available_list_screen();
 		}
 
-		$layout = apply_filters( 'ac/settings/layout', null, $list_screen );
+		$list_screen = AC()->get_list_screen( $list_screen_key );
 
-		return AC()->get_list_screen( $list_screen, $layout );
+		do_action( 'ac/settings/list_screen', $list_screen );
+
+		return $list_screen;
 	}
 
 	/**
@@ -402,24 +404,24 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	private function get_grouped_list_screens() {
 
+		// TODO
 		$list_screens = array();
 
-		foreach ( AC()->get_list_screens() as $base => $options ) {
-			foreach ( $options as $key => $label ) {
+		foreach ( AC()->get_list_screens() as $list_screen ) {
 
-				/**
-				 * @param string $group Group slug
-				 * @param string $key Listscreen key
-				 */
-				$slug = apply_filters( 'ac/list_screen_group', $base, $key );
+			/**
+			 * @param string $group Group slug
+			 * @param string $key Listscreen key
+			 */
+			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen->get_key() );
 
-				$list_screens[ $slug ][ $base . $key ] = $label;
-			}
+			$list_screens[ $group ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
 
 		foreach ( AC()->list_screen_groups()->get_groups_sorted() as $group ) {
+
 			$slug = $group['slug'];
 
 			if ( empty( $list_screens[ $slug ] ) ) {

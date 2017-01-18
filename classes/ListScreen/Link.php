@@ -2,8 +2,7 @@
 
 class AC_ListScreen_Link extends AC_ListScreenWP {
 
-	public function __construct( $key, $layout = false ) {
-		parent::__construct( $key, $layout );
+	public function __construct( ) {
 
 		$this->key = 'wp-links';
 		$this->label = __( 'Links' );
@@ -12,6 +11,7 @@ class AC_ListScreen_Link extends AC_ListScreenWP {
 		$this->base = 'link-manager';
 		$this->screen = 'link-manager';
 		$this->list_table = 'WP_Links_List_Table';
+		$this->group = 'link';
 	}
 
 	public function set_manage_value_callback() {

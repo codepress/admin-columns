@@ -5,8 +5,7 @@
  */
 class AC_ListScreen_Comment extends AC_ListScreenWP {
 
-	public function __construct( $layout = false ) {
-		parent::__construct( $layout );
+	public function __construct() {
 
 		$this->key = 'wp-comments';
 		$this->label = __( 'Comments' );
@@ -16,7 +15,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		$this->base = 'edit-comments';
 		$this->screen = 'edit-comments';
 		$this->list_table = 'WP_Comments_List_Table';
-		$this->menu_type = $this->label;
+		$this->group = 'comment';
 	}
 
 	public function set_manage_value_callback() {

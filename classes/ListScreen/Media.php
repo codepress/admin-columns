@@ -2,8 +2,7 @@
 
 class AC_ListScreen_Media extends AC_ListScreen_Post {
 
-	public function __construct( $key, $layout = false ) {
-		parent::__construct( $key, $layout );
+	public function __construct() {
 
 		$this->post_type = 'attachment';
 		$this->key = 'wp-media';
@@ -11,7 +10,7 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 		$this->type = 'media';
 		$this->base = 'upload';
 		$this->list_table = 'WP_Media_List_Table';
-		$this->menu_type = __( 'Media' );
+		$this->group = 'media';
 	}
 
 	public function set_manage_value_callback() {

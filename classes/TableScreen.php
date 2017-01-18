@@ -181,6 +181,15 @@ final class AC_TableScreen {
 	 * Load current list screen
 	 */
 	public function load_list_screen( $current_screen ) {
+		foreach (  AC()->get_list_screens() as $list_screen ) {
+		    if ( $list_screen->is_current_screen( $current_screen ) ) {
+		        $this->set_current_list_screen( $list_screen );
+		        return;
+            }
+        }
+	}
+
+	/*public function load_list_screen( $current_screen ) {
 	    $key = false;
 
 		if ( $current_screen->post_type ) {
@@ -196,6 +205,7 @@ final class AC_TableScreen {
 		echo '<pre>'; print_r( $current_screen ); echo '</pre>'; //exit;
 
 		$screens = AC()->get_list_screens();
+		foreach (  AC()->get_list_screens() )
 
 		if ( ! isset( $screens[ $current_screen->base ] ) ) {
 			return;
@@ -207,7 +217,7 @@ final class AC_TableScreen {
 
 		$this->set_current_list_screen( $key );
 
-	}
+	}*/
 
 	/*public function get_current_list_screen() {
         return $this->current_list_screen;
@@ -226,29 +236,21 @@ final class AC_TableScreen {
 	}
 
 	public function get_current_list_screen() {
-	    return;
-	    $list_screen = $this->get_list_screen_preference();
+	    return $this->current_list_screen;
+
+
+	   //  TODO: remove
+	 /*   $list_screen = $this->get_list_screen_preference();
 	    
 		$layout = apply_filters( 'ac/listings/layout', null, $list_screen );
 
-        return AC()->get_list_screen( $list_screen_key );
+        return AC()->get_list_screen( $list_screen_key );*/
 	}
 
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	private function set_current_list_screen( $list_screen_key ) {
-	    if ( ! $list_screen_key ) {
-	        return;
-        }
-
-		do_action( 'ac/listings/set_list_screen', $list_screen_key );
-
-		$list_screen = AC()->get_list_screen( $list_screen_key, $this->current_layout );
-
-		if ( ! $list_screen ) {
-		    return;
-        }
+	private function set_current_list_screen( $list_screen ) {
 
 		$this->current_list_screen = $list_screen;
 
@@ -263,7 +265,7 @@ final class AC_TableScreen {
 		ac_action_column_helper();
 
 		// @since NEWVERSION
-		//do_action( 'ac/listings/list_screen', $list_screen );
+		do_action( 'ac/listings/list_screen', $list_screen );
 	}
 
 	/**
