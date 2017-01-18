@@ -69,20 +69,4 @@ abstract class AC_Column_Meta extends AC_Column {
 		return get_metadata( $this->get_meta_type(), $id, $meta_key, $single );
 	}
 
-	/**
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	public function get_meta_values( array $args = array() ) {
-		$defaults = array(
-			'type' => $this->get_meta_type(),
-			'key'  => $this->get_meta_key(),
-		);
-
-		$query = new AC_Meta_Query( array_merge( $defaults, $args ) );
-
-		return $query->get_results();
-	}
-
 }

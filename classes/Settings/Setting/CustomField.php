@@ -37,28 +37,87 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		return $view;
 	}
 
+	private function get_meta_keys() {
+		$cache_key = $this->column->get_list_screen()->get_key();
+
+		$keys = wp_cache_get( $cache_key, 'ac_settings_custom_field' );
+
+		if ( ! $keys ) {
+			$query = new AC_Meta_Query( $this->column );
+			$query->select( 'meta_key' )
+			      ->distinct()
+			      ->order_by( 'meta_key' );
+
+			if ( $this->column->get_post_type() ) {
+				$query->where_post_type( $this->column->get_post_type() );
+			}
+
+			$keys = $query->get();
+
+			if ( $keys ) {
+				wp_cache_add( $cache_key, $keys, 'ac_settings_custom_field', 15 );
+			}
+		}
+
+		if ( empty( $keys ) ) {
+			$keys = false;
+		}
+
+		// TODO: deprecate filters
+		/**
+		 * Filter the available custom field meta keys
+		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
+		 *
+		 * @since 2.0
+		 *
+		 * @param array $keys Available custom field keys
+		 * @param AC_ListScreen $list_screen List screen class instance
+		 */
+		//$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
+
+		/**
+		 * Filter the available custom field meta keys for this list screen type
+		 *
+		 * @since 2.0
+		 * @see Filter cac/list_screen/meta_keys
+		 */
+		//$keys = apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
+
+		/**
+		 * Filter the available custom field meta keys
+		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param array $keys Available custom field keys
+		 * @param AC_ListScreen $list_screen List screen class instance
+		 */
+
+		// TODO: change name?
+		$keys = apply_filters( 'ac/column/custom_fields', $keys, $this );
+
+		return $keys;
+	}
+
 	private function get_field_options() {
 		$options = array();
 
-		/* @var AC_Column_Meta $column */
-		$column = $this->column;
-
-		if ( $keys = $column->get_meta_keys() ) {
+		if ( $keys = $this->get_meta_keys() ) {
 			$options = array(
 				'hidden' => array(
 					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
-					'options' => '',
+					'options' => array(),
 				),
 				'public' => array(
 					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
-					'options' => '',
+					'options' => array(),
 				),
 			);
 
 			foreach ( $keys as $field ) {
 				$group = 0 === strpos( $field[0], '_' ) ? 'hidden' : 'public';
 
-				$options[ $group ]['options'][ $field[0] ] = $field[0];
+				$options[ $group ]['options'][ $field ] = $field;
 			}
 
 			krsort( $options ); // public first
