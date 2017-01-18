@@ -3,13 +3,14 @@
 class AC_ListScreen_Media extends AC_ListScreen_Post {
 
 	public function __construct() {
+		parent::__construct( 'attachment' );
 
-		$this->post_type = 'attachment';
-		$this->key = 'wp-media';
 		$this->screen = 'upload';
 		$this->type = 'media';
 		$this->base = 'upload';
 		$this->list_table = 'WP_Media_List_Table';
+
+		$this->set_key( 'wp-media' );
 		$this->set_group( 'media' );
 	}
 
