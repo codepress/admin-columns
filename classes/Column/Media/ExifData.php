@@ -6,6 +6,8 @@
 class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-exif_data' );
 		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
 	}

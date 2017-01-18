@@ -6,6 +6,8 @@
 class AC_Column_Media_Height extends AC_Column_Media_Meta {
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-height' );
 		$this->set_label( __( 'Height', 'codepress-admin-columns' ) );
 	}

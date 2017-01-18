@@ -69,6 +69,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $type
+	 *
 	 * @return $this
 	 */
 	public function set_type( $type ) {

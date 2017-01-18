@@ -2,6 +2,10 @@
 
 abstract class AC_Column_Media_Meta extends AC_Column_Meta {
 
+	public function __construct() {
+		$this->set_serialized( true );
+	}
+
 	public function get_meta_key() {
 		return '_wp_attachment_metadata';
 	}
