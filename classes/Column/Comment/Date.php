@@ -12,7 +12,7 @@ class AC_Column_Comment_Date extends AC_Column_Default {
 	}
 
 	public function register_settings() {
-		$this->get_settings()->width->set_default( 14 );
+		$this->get_setting( 'width' )->set_default( 14 );
 	}
 
 }

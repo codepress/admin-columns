@@ -38,8 +38,8 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 	/**
 	 * @since 2.4.10
 	 */
-	public function is_current_screen() {
-		return parent::is_current_screen() && 'delete' !== filter_input( INPUT_GET, 'action' );
+	public function is_current_screen( $wp_screen ) {
+		return parent::is_current_screen( $wp_screen ) && 'delete' !== filter_input( INPUT_GET, 'action' );
 	}
 
 	/**

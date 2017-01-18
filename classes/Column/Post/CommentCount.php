@@ -19,7 +19,7 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 	 * @return mixed
 	 */
 	public function get_value( $post_id ) {
-		return $this->get_settings()->comment_status->format( $post_id );
+		return $this->get_setting( 'comment_status' )->format( $post_id );
 	}
 
 	/**

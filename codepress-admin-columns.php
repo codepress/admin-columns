@@ -74,9 +74,9 @@ class CPAC {
 	private $groups;
 
 	/**
-	 * @var AC_ListScreenManager $_list_screen_manager
+	 * @var AC_TableScreen
 	 */
-	private $list_screen_manager;
+	private $table_screen;
 
 	/**
 	 * @since NEWVERSION
@@ -144,7 +144,7 @@ class CPAC {
 		$this->admin = new AC_Admin();
 		$this->addons = new AC_Addons();
 
-		$this->list_screen_manager = new AC_ListScreenManager();
+		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 
 		new AC_Notice_Review();
@@ -345,10 +345,10 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_ListScreenManager
+	 * @return AC_TableScreen
 	 */
-	public function list_screen_manager() {
-		return $this->list_screen_manager;
+	public function table_screen() {
+		return $this->table_screen;
 	}
 
 	/**
@@ -483,6 +483,13 @@ class CPAC {
 	}
 
 	/**
+	 * @return AC_Admin_Page_Columns
+	 */
+	public function admin_columns_screen() {
+		return $this->admin()->get_page( 'columns' );
+	}
+
+	/**
 	 * Get list screen object of currently active list screen
 	 * On the users overview page, for example, this returns the AC_ListScreen object
 	 *
@@ -507,9 +514,9 @@ class CPAC {
 	 * @return AC_ListScreen
 	 */
 	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->table_screen()->get_list_screen()' );
 
-		return $this->list_screen_manager()->get_list_screen();
+		return $this->table_screen()->get_list_screen();
 	}
 
 	/**

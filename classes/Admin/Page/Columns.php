@@ -9,6 +9,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	private $current_list_screen;
 
+	/**
+	 * @var array
+	 */
 	private $notices;
 
 	public function __construct() {
@@ -136,19 +139,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		$action = filter_input( INPUT_POST, 'cpac_action' );
-		$nonce = filter_input( INPUT_POST, '_cpac_nonce' );
-
-		if ( ! $action || ! $nonce || ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
 
-		switch ( $action ) :
+		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) :
 
 			case 'restore_by_type' :
-				$key = filter_input( INPUT_POST, 'cpac_key' );
 
-				if ( $key && wp_verify_nonce( $nonce, 'restore-type' ) ) {
+				if ( $this->verify_nonce( 'restore-type' ) ) {
 
 					if ( $list_screen = $this->get_current_list_screen() ) {
 						$list_screen->settings()->delete();
@@ -492,7 +491,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                             <form class="form-reset" method="post">
                                 <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
                                 <input type="hidden" name="cpac_action" value="restore_by_type"/>
-								<?php wp_nonce_field( 'restore-type', '_cpac_nonce' ); ?>
+
+								<?php $this->nonce_field( 'restore-type' ); ?>
 
 								<?php $onclick = AC()->use_delete_confirmation() ? ' onclick="return confirm(\'' . esc_js( sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $this->get_list_screen_message_label( $list_screen ) . "'" ) ) . '\');"' : ''; ?>
                                 <input class="reset-column-type" type="submit"<?php echo $onclick; ?> value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
@@ -721,7 +721,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                             <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
                             <input type="hidden" name="cpac_action" value="update_by_type"/>
 
-							<?php wp_nonce_field( 'update-type', '_cpac_nonce' ); ?>
+							<?php $this->nonce_field( 'update-type' ); ?>
 
 							<?php foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );

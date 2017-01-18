@@ -116,4 +116,20 @@ abstract class AC_Admin_Page {
 		return $this->get_label();
 	}
 
+	/**
+	 * @param string $action
+	 *
+	 * @return bool
+	 */
+	public function verify_nonce( $action ) {
+		return wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), $action );
+	}
+
+	/**
+	 * Nonce Field
+	 */
+	public function nonce_field( $action ) {
+		wp_nonce_field( $action, '_cpac_nonce', false );
+	}
+
 }

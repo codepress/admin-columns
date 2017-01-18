@@ -83,7 +83,7 @@ class AC_Admin_Page_Welcome extends AC_Admin_Page {
             </div>
 
             <div class="cpac-content-footer">
-                <a class="button-primary button-large" href="<?php echo esc_url( AC()->admin()->get_link( 'columns' ) ); ?>"><?php _e( "Start using Admin Columns", 'codepress-admin-columns' ); ?></a>
+                <a class="button-primary button-large" href="<?php echo esc_url( AC()->admin_columns_screen()->get_link() ); ?>"><?php _e( "Start using Admin Columns", 'codepress-admin-columns' ); ?></a>
             </div>
 
         </div>

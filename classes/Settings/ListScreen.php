@@ -48,6 +48,8 @@ final class AC_Settings_ListScreen {
 	public function set_key( $suffix = false ) {
 		$this->key = sanitize_key( $this->list_screen->get_key() . $suffix );
 
+		// TODO
+
 		// Force the settings to be re-populated.
 		$this->set_settings();
 
@@ -68,11 +70,9 @@ final class AC_Settings_ListScreen {
 	public function set_settings() {
 		$options = get_option( self::OPTIONS_KEY . $this->get_key() );
 
-		if ( ! $options ) {
-			$options = array();
-		}
+		$options = apply_filters( 'ac/column_settings', $options, $this->list_screen, $this );
 
-		$this->settings = apply_filters( 'ac/column_settings', $options, $this->list_screen );
+		$this->settings = $options ? $options : array();
 	}
 
 	/**

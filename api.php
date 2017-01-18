@@ -76,7 +76,7 @@ function ac_action_column_helper() {
 function cac_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	$is_doing_ajax = AC()->list_screen_manager()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
+	$is_doing_ajax = AC()->table_screen()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
 
 	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
 }
@@ -87,9 +87,9 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen_when_doing_ajax()' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->table_screen()->get_list_screen_when_doing_ajax()' );
 
-	return AC()->list_screen_manager()->get_list_screen_when_doing_ajax();
+	return AC()->table_screen()->get_list_screen_when_doing_ajax();
 }
 
 /**
