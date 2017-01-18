@@ -432,7 +432,7 @@ class CPAC {
 		}
 
 		// @since NEWVERSION
-		//do_action( 'ac/list_screens', $this );
+		do_action( 'ac/list_screens', $this );
 	}
 
 	/**
@@ -691,9 +691,9 @@ class CPAC {
 	 * @return AC_ListScreen
 	 */
 	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->table_screen()->get_list_screen()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->table_screen()->get_current_list_screen()' );
 
-		return $this->table_screen()->get_list_screen();
+		return $this->table_screen()->get_current_list_screen();
 	}
 
 	/**

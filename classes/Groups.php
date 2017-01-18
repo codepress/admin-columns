@@ -109,6 +109,12 @@ final class AC_Groups {
 		return $this->groups[ $slug ];
 	}
 
+	public function get_group_label( $slug ) {
+		$group = $this->get_group( $slug );
+
+		return $group ? $group['label'] : false;
+	}
+
 	/**
 	 * @param string $slug
 	 *

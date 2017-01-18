@@ -12,7 +12,7 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		$this->base = 'users';
 		$this->screen = 'users';
 		$this->list_table = 'WP_Users_List_Table';
-		$this->group = 'user';
+		$this->set_group( 'user' );
 	}
 
 	/**

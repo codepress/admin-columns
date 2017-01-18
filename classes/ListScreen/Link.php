@@ -11,7 +11,7 @@ class AC_ListScreen_Link extends AC_ListScreenWP {
 		$this->base = 'link-manager';
 		$this->screen = 'link-manager';
 		$this->list_table = 'WP_Links_List_Table';
-		$this->group = 'link';
+		$this->set_group( 'link' );
 	}
 
 	public function set_manage_value_callback() {

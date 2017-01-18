@@ -14,7 +14,7 @@ final class AC_TableScreen {
 
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
-		//add_action( 'admin_init', array( $this, 'load_list_screen_doing_ajax' ) );
+		add_action( 'admin_init', array( $this, 'load_list_screen_doing_ajax' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
@@ -98,7 +98,6 @@ final class AC_TableScreen {
 	 */
 	public function admin_scripts() {
 
-		// TODO
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
@@ -112,10 +111,19 @@ final class AC_TableScreen {
 		wp_enqueue_style( 'jquery-qtip2' );
 		wp_enqueue_style( 'ac-columns' );
 
+		wp_localize_script( 'ac-columns', 'AC', array(
+				'current_list_screen' => $this->current_list_screen->get_key(),
+			)
+		);
+
 		/**
 		 * @param AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/listings_scripts', $this->current_list_screen );
+	}
+
+	public function get_current_list_screen() {
+		return $this->current_list_screen;
 	}
 
 	/**
@@ -124,8 +132,6 @@ final class AC_TableScreen {
 	 * @since 1.4.0
 	 */
 	public function admin_head_scripts() {
-
-	    // TODO
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
@@ -171,86 +177,34 @@ final class AC_TableScreen {
 	}
 
 	/**
-	 * @param string $layout
-	 */
-	public function set_current_layout( $layout ) {
-		$this->current_layout = $layout;
-	}
-
-	/**
 	 * Load current list screen
 	 */
 	public function load_list_screen( $current_screen ) {
-		foreach (  AC()->get_list_screens() as $list_screen ) {
-		    if ( $list_screen->is_current_screen( $current_screen ) ) {
-		        $this->set_current_list_screen( $list_screen );
-		        return;
-            }
-        }
-	}
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $current_screen ) ) {
+				$this->set_current_list_screen( $list_screen );
 
-	/*public function load_list_screen( $current_screen ) {
-	    $key = false;
-
-		if ( $current_screen->post_type ) {
-			$key = $current_screen->post_type;
+				return;
+			}
 		}
-		if ( $current_screen->taxonomy ) {
-			$key = $current_screen->taxonomy;
-		}
-
-
-		return;
-
-		echo '<pre>'; print_r( $current_screen ); echo '</pre>'; //exit;
-
-		$screens = AC()->get_list_screens();
-		foreach (  AC()->get_list_screens() )
-
-		if ( ! isset( $screens[ $current_screen->base ] ) ) {
-			return;
-		}
-
-
-
-		echo '<pre>'; print_r( $screens ); echo '</pre>'; exit;
-
-		$this->set_current_list_screen( $key );
-
-	}*/
-
-	/*public function get_current_list_screen() {
-        return $this->current_list_screen;
-	}*/
-
-	public function get_current_layout() {
-        return $this->current_layout;
 	}
 
 	/**
+	 * Runs when doing native WordPress ajax calls, like quick edit.
+	 *
 	 * @param WP_Screen $current_screen
 	 */
-	// TODO: remove?
 	public function load_list_screen_doing_ajax() {
-        $this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) );
-	}
-
-	public function get_current_list_screen() {
-	    return $this->current_list_screen;
-
-
-	   //  TODO: remove
-	 /*   $list_screen = $this->get_list_screen_preference();
-	    
-		$layout = apply_filters( 'ac/listings/layout', null, $list_screen );
-
-        return AC()->get_list_screen( $list_screen_key );*/
+		$this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) );
 	}
 
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
 	private function set_current_list_screen( $list_screen ) {
+		if ( ! $list_screen ) {
+			return;
+		}
 
 		$this->current_list_screen = $list_screen;
 
@@ -338,11 +292,9 @@ final class AC_TableScreen {
 			return $columns;
 		}
 
-		$settings = $this->current_list_screen->settings();
-
 		// Store default headings
 		if ( ! $this->is_doing_ajax() ) {
-			$settings->save_default_headings( $columns );
+			$this->current_list_screen->save_default_headings( $columns );
 		}
 
 		// Run once
@@ -351,7 +303,7 @@ final class AC_TableScreen {
 		}
 
 		// Nothing stored. Show default columns on screen.
-		if ( ! $settings->get_settings() ) {
+		if ( ! $this->current_list_screen->get_settings() ) {
 			return $columns;
 		}
 
@@ -361,7 +313,7 @@ final class AC_TableScreen {
 		}
 
 		// Flush variables. In case any columns are deactivated after saving them.
-		$this->current_list_screen->reset();
+		//$this->current_list_screen->reset();
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();

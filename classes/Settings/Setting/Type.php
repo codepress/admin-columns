@@ -39,7 +39,8 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		}
 
 		// TODO: can we remove this?
-		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+		//$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+		$label = $column->get_label();
 
 		if ( empty( $label ) ) {
 			$label = $column->get_label();

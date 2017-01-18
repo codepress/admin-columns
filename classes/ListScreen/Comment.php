@@ -15,7 +15,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		$this->base = 'edit-comments';
 		$this->screen = 'edit-comments';
 		$this->list_table = 'WP_Comments_List_Table';
-		$this->group = 'comment';
+		$this->set_group( 'comment' );
 	}
 
 	public function set_manage_value_callback() {

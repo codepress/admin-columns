@@ -7,8 +7,9 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 		$this->type = 'post';
 		$this->base = 'edit';
 		$this->list_table = 'WP_Posts_List_Table';
-		$this->group = 'post_type';
 		$this->meta_type = 'post';
+
+		$this->set_group( 'post_type' );
 	}
 
 	public function get_key() {

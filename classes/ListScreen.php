@@ -7,6 +7,10 @@
  */
 abstract class AC_ListScreen {
 
+	CONST OPTIONS_KEY = 'cpac_options_';
+
+	// TODO: getters and setters
+
 	/**
 	 * Unique Identifier for List Screen.
 	 *
@@ -65,7 +69,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Menu Group
 	 */
-	protected $group;
+	private $group;
 
 	/**
 	 * The unique ID of the screen.
@@ -78,11 +82,6 @@ abstract class AC_ListScreen {
 
 	// TODO: private?
 	protected $screen;
-
-	/**
-	 * @var AC_Settings_ListScreen $settings
-	 */
-	private $settings;
 
 	/**
 	 * @since 2.0.1
@@ -118,6 +117,9 @@ abstract class AC_ListScreen {
 	 */
 	private $taxonomy;
 
+	/**
+	 * @var string
+	 */
 	private $storage_key;
 
 	/**
@@ -132,7 +134,7 @@ abstract class AC_ListScreen {
 	 */
 	public function get_storage_key() {
 		// TODO
-		return $this->storage_key ? $this->storage_key : $this->key;
+		return $this->storage_key ? $this->storage_key : $this->get_key();
 	}
 
 	public function set_storage_key( $key ) {
@@ -159,9 +161,10 @@ abstract class AC_ListScreen {
 
 			// TODO
 			$this->set_storage_key( $this->get_key() . $this->layout );
-			$this->settings()->set_settings();
 			$this->reset();
 		}
+
+		return $this;
 	}
 
 	public function set_post_type( $post_type ) {
@@ -268,6 +271,13 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @param string $group
+	 */
+	public function set_group( $group ) {
+		$this->group = (string) $group;
+	}
+
+	/**
 	 * Are column set by third party plugin
 	 *
 	 * @since 2.3.4
@@ -327,17 +337,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @return AC_Settings_ListScreen
-	 */
-	public function settings() {
-		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings_ListScreen( $this );
-		}
-
-		return $this->settings;
-	}
-
-	/**
 	 * @since NEWVERSION
 	 *
 	 * @return AC_Column[]
@@ -366,10 +365,11 @@ abstract class AC_ListScreen {
 	 *
 	 * @since 2.5
 	 */
-	public function reset() {
+	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
 		$this->default_columns = null;
+		$this->settings = null;
 	}
 
 	/**
@@ -583,7 +583,7 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	private function set_columns() {
-		foreach ( $this->settings()->get_settings() as $data ) {
+		foreach ( $this->get_settings() as $data ) {
 			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}
@@ -607,7 +607,7 @@ abstract class AC_ListScreen {
 	 * @var array [ Column Name =>  Column Label ]
 	 */
 	private function set_default_columns() {
-		$default_columns = $this->settings()->get_default_headings();
+		$default_columns = $this->get_stored_default_headings();
 
 		if ( ! $default_columns ) {
 			$default_columns = $this->get_default_columns();
@@ -632,6 +632,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @deprecated NEWVERSION
 	 */
+	// TODO
 	private function deprecated_register_columns() {
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_type(), $class_names, $this );
@@ -653,6 +654,76 @@ abstract class AC_ListScreen {
 				$this->register_column_type( new $class_name );
 			}
 		}
+	}
+
+	// TODO
+
+	private $settings;
+
+	/**
+	 * Store column settings
+	 *
+	 * @param $settings
+	 *
+	 * @return bool
+	 */
+	public function store( $settings ) {
+		return update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+	}
+
+	/**
+	 * Populate settings from the database
+	 */
+	public function populate_stored_settings() {
+		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
+	}
+
+	/**
+	 * @param array $settings Column settings
+	 */
+	public function set_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+
+		$this->settings = $settings;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_settings() {
+		if ( null === $this->settings ) {
+			$this->populate_stored_settings();
+		}
+
+		return $this->settings;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_default_key() {
+		return self::OPTIONS_KEY . $this->get_key() . "__default";
+	}
+
+	public function save_default_headings( $column_headings ) {
+		return update_option( $this->get_default_key(), $column_headings );
+	}
+
+	/**
+	 * @return array [ Column Name => Label ]
+	 */
+	public function get_stored_default_headings() {
+		return get_option( $this->get_default_key(), array() );
+	}
+
+	public function delete() {
+		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
+	}
+
+	public function delete_default_headings() {
+		return delete_option( $this->get_default_key() );
 	}
 
 }

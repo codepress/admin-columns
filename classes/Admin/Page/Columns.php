@@ -148,7 +148,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		// store columns
-		$result = $list_screen->settings()->store( $column_data );
+		$result = $list_screen->store( $column_data );
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );
@@ -200,7 +200,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
 					$list_screen = $this->get_current_list_screen();
-					$list_screen->settings()->delete();
+					$list_screen->delete();
 
 					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
 				}
@@ -403,8 +403,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return array
 	 */
 	private function get_grouped_list_screens() {
-
-		// TODO
 		$list_screens = array();
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
@@ -421,8 +419,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$grouped = array();
 
 		foreach ( AC()->list_screen_groups()->get_groups_sorted() as $group ) {
-
 			$slug = $group['slug'];
+
+			// TODO: fallback group called 'other' or 'custom'
 
 			if ( empty( $list_screens[ $slug ] ) ) {
 				continue;
@@ -486,7 +485,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	public function display() {
 		$list_screen = $this->get_current_list_screen(); ?>
 
-        <div class="columns-container<?php echo $list_screen->settings()->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+        <div class="columns-container<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
             <div class="main">
                 <div class="menu">
                     <form>
@@ -741,7 +740,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             </div><!--.columns-right-->
 
             <div class="columns-left">
-				<?php if ( ! $list_screen->settings()->get_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
+				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
                     <div class="cpac-notice">
                         <p>
 							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>

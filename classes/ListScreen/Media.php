@@ -10,7 +10,7 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 		$this->type = 'media';
 		$this->base = 'upload';
 		$this->list_table = 'WP_Media_List_Table';
-		$this->group = 'media';
+		$this->set_group( 'media' );
 	}
 
 	public function set_manage_value_callback() {
