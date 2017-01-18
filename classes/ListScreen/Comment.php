@@ -6,15 +6,15 @@
 class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 	public function __construct() {
-
-		$this->key = 'wp-comments';
 		$this->label = __( 'Comments' );
 		$this->singular_label = __( 'Comment' );
 		$this->type = 'comment';
 		$this->meta_type = 'comment';
 		$this->base = 'edit-comments';
-		$this->screen = 'edit-comments';
 		$this->list_table = 'WP_Comments_List_Table';
+
+		$this->set_key( 'wp-comments' );
+		$this->set_screen_id( 'edit-comments' );
 		$this->set_group( 'comment' );
 	}
 

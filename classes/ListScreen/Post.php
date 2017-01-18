@@ -2,37 +2,30 @@
 
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
-	public function __construct() {
+	/**
+	 * @var string Post type
+	 */
+	private $post_type;
+
+	public function __construct( $post_type ) {
 
 		$this->type = 'post';
 		$this->base = 'edit';
 		$this->list_table = 'WP_Posts_List_Table';
 		$this->meta_type = 'post';
+		$this->post_type = $post_type;
 
+		$this->set_key( $post_type );
 		$this->set_group( 'post_type' );
+		$this->set_screen_id( $this->base . '-' . $post_type );
 	}
 
-	public function get_key() {
-		return $this->get_post_type();
+	protected function set_post_type( $post_type ) {
+		$this->post_type = (string) $post_type;
 	}
 
-	public function get_screen_id() {
-		return $this->base . '-' . $this->get_post_type();
-	}
-
-	/**
-	 * @since 2.4.7
-	 */
-	public function get_posts( $args = array() ) {
-		$defaults = array(
-			'posts_per_page' => -1,
-			'post_status'    => apply_filters( 'cac/get_posts/post_status', array( 'any', 'trash' ), $this ),
-			'post_type'      => $this->get_post_type(),
-			'fields'         => 'ids',
-			'no_found_rows'  => 1,
-		);
-
-		return (array) get_posts( array_merge( $defaults, $args ) );
+	public function get_post_type() {
+		return $this->post_type;
 	}
 
 	/**

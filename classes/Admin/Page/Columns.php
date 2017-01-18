@@ -321,7 +321,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
         </p>
         <a target="_blank" href="<?php echo add_query_arg( array(
 			'utm_source'   => 'plugin-installation',
-			'utm_medium'   => $data->type,
+			'utm_medium'   => $data->type . '-notification',
 			'utm_campaign' => 'plugin-installation',
 		), $data->url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
 
@@ -516,7 +516,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             <div class="columns-right">
                 <div class="columns-right-inside">
 
-					<?php if ( ! $list_screen->is_using_php_export() ) : ?>
+					<?php if ( ! $list_screen->has_external_setttings() ) : ?>
                         <div class="sidebox form-actions">
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
                             <h3>
@@ -554,14 +554,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
 						<?php
-
-						$pro_url = add_query_arg( array(
-							'utm_source'   => 'plugin-installation',
-							'utm_medium'   => 'banner',
-							'utm_campaign' => 'plugin-installation',
-						),
-							ac_get_site_url( 'upgrade-to-admin-columns-pro' )
-						);
+						$pro_url = ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' );
 
 						$active_promotion = $this->get_active_promotion();
 
@@ -674,7 +667,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                     </p>
                                     <ul class="share">
                                         <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_source' => 'plugin-installation', 'utm_medium' => 'feedback-docs-button', 'utm_campaign' => 'plugin-installation' ), ac_get_site_url( 'documentation' ) ) ); ?>" target="_blank">
+                                            <a href="<?php echo esc_url( ac_get_site_utm_url( 'documentation', 'feedback-docs-button' ) ); ?>" target="_blank">
                                                 <div class="dashicons dashicons-editor-help"></div> <?php _e( 'Docs', 'codepress-admin-columns' ); ?>
                                             </a>
                                         </li>
@@ -731,7 +724,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 </p>
 							<?php endif; ?>
                             <p>
-								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), ac_get_site_url( 'documentation' ) ); ?>
+								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), ac_get_site_utm_url( 'documentation', 'support' ) ); ?>
                             </p>
                         </div>
                     </div><!--plugin-support-->
@@ -740,7 +733,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             </div><!--.columns-right-->
 
             <div class="columns-left">
-				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_using_php_export() ) : ?>
+				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->has_external_setttings() ) : ?>
                     <div class="cpac-notice">
                         <p>
 							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>
@@ -752,13 +745,13 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                 <div class="ajax-message"><p></p></div>
 
-				<?php if ( $list_screen->is_using_php_export() ) : ?>
+				<?php if ( $list_screen->has_external_setttings() ) : ?>
                     <div class="notice notice-warning below-h2">
                         <p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
                     </div>
 				<?php endif; ?>
 
-                <div class="ac-boxes<?php echo esc_attr( $list_screen->is_using_php_export() ? ' disabled' : '' ); ?>">
+                <div class="ac-boxes<?php echo esc_attr( $list_screen->has_external_setttings() ? ' disabled' : '' ); ?>">
 
                     <div class="ac-columns">
                         <form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
@@ -776,7 +769,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                     </div><!--.cpac-columns-->
 
                     <div class="column-footer">
-						<?php if ( ! $list_screen->is_using_php_export() ) : ?>
+						<?php if ( ! $list_screen->has_external_setttings() ) : ?>
                             <div class="order-message">
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
                             </div>

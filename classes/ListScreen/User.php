@@ -3,15 +3,15 @@
 class AC_ListScreen_User extends AC_ListScreenWP {
 
 	public function __construct() {
-
-		$this->key = 'wp-users';
 		$this->label = __( 'Users' );
 		$this->singular_label = __( 'User' );
 		$this->type = 'user';
 		$this->meta_type = 'user';
 		$this->base = 'users';
-		$this->screen = 'users';
 		$this->list_table = 'WP_Users_List_Table';
+
+		$this->set_screen_id( 'users' );
+		$this->set_key( 'wp-users' );
 		$this->set_group( 'user' );
 	}
 

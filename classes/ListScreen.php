@@ -15,16 +15,19 @@ abstract class AC_ListScreen {
 	 * Unique Identifier for List Screen.
 	 *
 	 * @since 2.0
+	 * @var string
 	 */
-	protected $key;
+	private $key;
 
 	/**
 	 * @since 2.0
+	 * @var string
 	 */
 	protected $label;
 
 	/**
 	 * @since 2.3.5
+	 * @var string
 	 */
 	protected $singular_label;
 
@@ -32,6 +35,7 @@ abstract class AC_ListScreen {
 	 * Type of list screen. Example: post, media, user, comment
 	 *
 	 * @since 2.0
+	 * @var string
 	 */
 	protected $type;
 
@@ -39,6 +43,7 @@ abstract class AC_ListScreen {
 	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
 	 *
 	 * @since 3.0
+	 * @var string
 	 */
 	protected $meta_type;
 
@@ -67,21 +72,20 @@ abstract class AC_ListScreen {
 	protected $list_table;
 
 	/**
-	 * Menu Group
+	 * Group slug. Used for menu.
+	 * @var string
 	 */
 	private $group;
 
 	/**
 	 * The unique ID of the screen.
 	 *
-	 * @see get_current_screen()
+	 * @see WP_Screen::id
 	 *
 	 * @since 2.5
 	 * @var string
 	 */
-
-	// TODO: private?
-	protected $screen;
+	private $screen_id;
 
 	/**
 	 * @since 2.0.1
@@ -102,25 +106,24 @@ abstract class AC_ListScreen {
 	private $default_columns;
 
 	/**
-	 * @var string
+	 * @var string Layout ID
 	 */
 	private $layout;
 
 	/**
-	 * @var string
-	 */
-	// TODO
-	protected $post_type;
-
-	/**
-	 * @var string
-	 */
-	private $taxonomy;
-
-	/**
-	 * @var string
+	 * @var string Storage key used for saving column data to the database
 	 */
 	private $storage_key;
+
+	/**
+	 * @var array Column settings data
+	 */
+	private $settings;
+
+	/**
+	 * @var bool True when column settings are set externally.
+	 */
+	private $external_settings = false;
 
 	/**
 	 * Contains the hook that contains the manage_value callback
@@ -137,8 +140,27 @@ abstract class AC_ListScreen {
 		return $this->storage_key ? $this->storage_key : $this->get_key();
 	}
 
-	public function set_storage_key( $key ) {
+	/**
+	 * @param string $key
+	 */
+	private function set_storage_key( $key ) {
 		$this->storage_key = $key;
+
+		$this->reset();
+	}
+
+	/**
+	 * @param string $key
+	 */
+	protected function set_key( $key ) {
+		$this->key = $key;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_key() {
+		return $this->key;
 	}
 
 	/**
@@ -155,48 +177,25 @@ abstract class AC_ListScreen {
 		return $this->layout;
 	}
 
-	public function set_layout( $layout ) {
-		if ( $layout ) {
-			$this->layout = (string) $layout;
-
-			// TODO
-			$this->set_storage_key( $this->get_key() . $this->layout );
-			$this->reset();
-		}
-
-		return $this;
-	}
-
-	public function set_post_type( $post_type ) {
-		$this->post_type = (string) $post_type;
-	}
-
-	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	public function set_taxonomy( $taxonomy ) {
-		$this->taxonomy = (string) $taxonomy;
-	}
-
-	public function get_taxonomy() {
-		return $this->taxonomy;
-	}
-
-	public function get_base() {
-		$this->base;
-	}
-
 	/**
 	 * @param string $layout
 	 *
 	 * @return $this
 	 */
-	/*public function set_layout( $layout ) {
-		$this->layout = (string) $layout;
+	public function set_layout( $layout ) {
+		$this->layout = $layout;
+
+		$this->set_storage_key( $this->get_key() . $this->layout );
 
 		return $this;
-	}*/
+	}
+
+	/**
+	 * Get screen base
+	 */
+	public function get_base() {
+		$this->base;
+	}
 
 	/**
 	 * @return string
@@ -229,13 +228,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_key() {
-		return $this->key;
-	}
-
-	/**
 	 * ID attribute of targeted list table
 	 *
 	 * @since NEWVERSION
@@ -249,7 +241,11 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	public function get_screen_id() {
-		return $this->screen;
+		return $this->screen_id;
+	}
+
+	protected function set_screen_id( $screen_id ) {
+		$this->screen_id = $screen_id;
 	}
 
 	/**
@@ -278,17 +274,20 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * Are column set by third party plugin
+	 * Settings are loaded externally
 	 *
 	 * @since 2.3.4
 	 */
-	// TODO: remove?
-	public function is_using_php_export() {
+	public function has_external_setttings() {
+		return $this->external_settings;
+	}
 
-		/**
-		 * @since NEWVERSION
-		 */
-		return apply_filters( 'ac/list_screen/is_using_php_export', false, $this );
+	/**
+	 * @param bool $bool
+	 */
+	// TODO: maybe add private method to set_settings or set_settings with extra parameter for external settings
+	public function set_external_setttings( $bool ) {
+		$this->external_settings = $bool;
 	}
 
 	/**
@@ -303,6 +302,13 @@ abstract class AC_ListScreen {
 	 */
 	public function get_meta_type() {
 		return $this->meta_type;
+	}
+
+	/**
+	 * @param $meta_type
+	 */
+	protected function set_meta_type( $meta_type ) {
+		$this->meta_type = $meta_type;
 	}
 
 	/**
@@ -655,10 +661,6 @@ abstract class AC_ListScreen {
 			}
 		}
 	}
-
-	// TODO
-
-	private $settings;
 
 	/**
 	 * Store column settings

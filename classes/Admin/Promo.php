@@ -55,7 +55,8 @@ abstract class AC_Admin_Promo {
 	 */
 	public function get_url() {
 		if ( null === $this->url ) {
-			$this->set_url( ac_get_site_url() . '/pricing-purchase/' );
+		    // TODO: utm_args
+			$this->set_url( ac_get_site_utm_url( 'pricing-purchase', 'addon' ) );
 		}
 
 		return $this->url;

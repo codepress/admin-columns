@@ -23,19 +23,38 @@ function ac_get_site_url( $path = '' ) {
 }
 
 /**
+ * Url with utm tags
+ *
+ * @param string $path
+ * @param string $utm_medium
+ * @param string $utm_content
+ *
+ * @return string
+ */
+function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null ) {
+	$url = ac_get_site_url( $path );
+
+	// TODO: do we need utm_campaign
+
+	$args = array(
+		'utm_source'   => 'plugin-installation',
+		'utm_campaign' => 'plugin-installation',
+		'utm_medium'   => $utm_medium,
+		'utm_content'  => $utm_content,
+	);
+
+	array_walk( $args, 'sanitize_key' );
+
+	return add_query_arg( $args, $url );
+}
+
+/**
  * Admin Columns Twitter username
  *
  * @return string
  */
 function ac_get_twitter_handle() {
 	return 'wpcolumns';
-}
-
-/**
- * @see ac_get_site_url()
- */
-function ac_site_url( $path = '' ) {
-	echo ac_get_site_url( $path );
 }
 
 /**
