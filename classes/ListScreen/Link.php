@@ -3,9 +3,9 @@
 class AC_ListScreen_Link extends AC_ListScreenWP {
 
 	public function __construct() {
+
 		$this->set_label( __( 'Links' ) );
 		$this->set_singular_label( __( 'Link' ) );
-		$this->set_type( 'link' );
 		$this->set_screen_base( 'link-manager' );
 		$this->set_list_table_class( 'WP_Links_List_Table' );
 		$this->set_key( 'wp-links' );

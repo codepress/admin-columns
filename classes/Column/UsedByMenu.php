@@ -45,7 +45,7 @@ class AC_Column_UsedByMenu extends AC_Column {
 		}
 
 		if ( ! $object_type ) {
-			$object_type = $this->get_list_screen()->get_type();
+			$object_type = $this->get_list_screen()->get_meta_type();
 		}
 
 		$menu_item_ids = get_posts( array(

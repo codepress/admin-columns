@@ -4,11 +4,10 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 
 	public function __construct( $post_type ) {
 
-		$this->set_type( 'post' );
 		$this->set_screen_base( 'edit' );
 		$this->set_list_table_class( 'WP_Posts_List_Table' );
 		$this->set_meta_type( 'post' );
-		$this->set_group( 'post_type' );
+		$this->set_group( 'post' );
 
 		$this->set_post_type( $post_type );
 		$this->set_key( $post_type );

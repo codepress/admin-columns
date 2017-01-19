@@ -60,13 +60,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		do_action( 'ac/settings_scripts' );
 	}
 
-	/**
-	 * @param string $layout
-	 */
-	/*public function set_current_layout( $layout ) {
-		$this->current_layout = $layout;
-	}*/
-
 	public function set_current_list_screen_preference() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
@@ -91,24 +84,19 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	private function get_first_available_list_screen() {
 		$list_screens = AC()->get_list_screens();
-		$list_screens = array_shift( $list_screens );
 
 		return array_shift( $list_screens );
 	}
 
 	/**
-	 * @return AC_ListScreen
+	 * @return AC_ListScreen|false
 	 */
 	public function get_current_list_screen() {
-		$list_screen_key = $this->get_list_screen_preference();
+		$list_screen = AC()->get_list_screen( $this->get_list_screen_preference() );
 
-		// TODO: what will happen when list screen (post type) is disabled.
-
-		if ( ! $list_screen_key ) {
-			$list_screen_key = $this->get_first_available_list_screen();
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_first_available_list_screen();
 		}
-
-		$list_screen = AC()->get_list_screen( $list_screen_key );
 
 		do_action( 'ac/settings/list_screen', $list_screen );
 
@@ -513,7 +501,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
 						<?php $active_promotion = $this->get_active_promotion(); ?>
-                        
+
                         <div class="sidebox" id="ac-pro-version">
                             <div class="padding-box">
                                 <h3>

@@ -30,14 +30,6 @@ abstract class AC_ListScreen {
 	private $singular_label;
 
 	/**
-	 * Type of list screen. Example: post, media, user, comment
-	 *
-	 * @since 2.0
-	 * @var string
-	 */
-	private $type;
-
-	/**
 	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
 	 *
 	 * @since 3.0
@@ -168,14 +160,6 @@ abstract class AC_ListScreen {
 		$this->singular_label = $label;
 	}
 
-	public function get_type() {
-		return $this->type;
-	}
-
-	protected function set_type( $type ) {
-		$this->type = $type;
-	}
-
 	public function get_meta_type() {
 		return $this->meta_type;
 	}
@@ -235,7 +219,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @return WP_List_Table|false
 	 */
-	protected function get_list_table( $args = array() ) {
+	public function get_list_table( $args = array() ) {
 		return class_exists( $this->list_table_class ) ? new $this->list_table_class( $args ) : false;
 	}
 
@@ -431,7 +415,7 @@ abstract class AC_ListScreen {
 
 			// TODO: comments, change name
 			$value = apply_filters( "cac/column/value", $value, $id, $column );
-			$value = apply_filters( "cac/column/value/" . $this->get_type(), $value, $id, $column );
+			$value = apply_filters( "cac/column/value/" . $this->get_group(), $value, $id, $column );
 		}
 
 		return $value;
@@ -512,7 +496,7 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_type() ), 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_group() ), 'AC_' );
 
 		// Backwards compatibility
 		$this->deprecated_register_columns();
@@ -651,7 +635,7 @@ abstract class AC_ListScreen {
 	// TODO
 	private function deprecated_register_columns() {
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
-		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_type(), $class_names, $this );
+		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_group(), $class_names, $this );
 		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_key(), $class_names, $this );
 
 		foreach ( $class_names as $class_name => $path ) {

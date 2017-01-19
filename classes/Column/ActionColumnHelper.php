@@ -20,14 +20,14 @@ class AC_Column_ActionColumnHelper {
 	 * @since 2.5
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
+		if ( null === self::$_instance ) {
 			self::$_instance = new self();
 		}
 
 		return self::$_instance;
 	}
 
-	public function __construct() {
+	private function __construct() {
 		add_filter( 'comment_row_actions', array( $this, 'set_comment' ), 10, 2 );
 		add_filter( 'page_row_actions', array( $this, 'set_post' ), 10, 2 );
 		add_filter( 'post_row_actions', array( $this, 'set_post' ), 10, 2 );

@@ -3,12 +3,19 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_User_Role extends AC_Column_Default {
+class AC_Column_User_Role extends AC_Column_Meta {
 
 	public function __construct() {
-		parent::__construct();
 
 		$this->set_type( 'role' );
+		$this->set_group( 'default' );
+		$this->set_original( true );
+	}
+
+	public function get_meta_key() {
+		global $wpdb;
+
+		return $wpdb->get_blog_prefix() . 'capabilities'; // WPMU compat
 	}
 
 	public function register_settings() {

@@ -6,7 +6,6 @@ class AC_ListScreen_Media extends AC_ListScreen_Post {
 		parent::__construct( 'attachment' );
 
 		$this->set_screen_id( 'upload' );
-		$this->set_type( 'media' );
 		$this->set_screen_base( 'upload' );
 		$this->set_list_table_class( 'WP_Media_List_Table' );
 		$this->set_key( 'wp-media' );
