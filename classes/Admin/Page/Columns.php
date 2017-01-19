@@ -220,10 +220,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		if ( ! AC()->user_can_manage_admin_columns() ) {
 			wp_die();
 		}
-
-		// TODO: remove?
-		// make sure a list screen is set on AJAX requests
-		//$this->set_list_screen_preference( $_POST['cpac_key'] );
 	}
 
 	/**

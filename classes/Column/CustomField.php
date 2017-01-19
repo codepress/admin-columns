@@ -77,9 +77,7 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	 * @return mixed
 	 */
 	public function is_valid() {
-
-		// TODO: taxonomy
-		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'comment' ) );
+		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'comment', 'term' ) );
 	}
 
 }
