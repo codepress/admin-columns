@@ -8,7 +8,6 @@
  * @property AC_Helper_Array array
  * @property AC_Helper_Date date
  * @property AC_Helper_Image image
- * @property AC_Helper_Meta meta
  * @property AC_Helper_Post post
  * @property AC_Helper_String string
  * @property AC_Helper_Taxonomy taxonomy
