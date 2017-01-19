@@ -423,21 +423,10 @@ final class AC_Meta_Query {
 	 * @return string
 	 */
 	public function get_sql() {
-		$sql = $this->sql;
+		$sql = preg_replace( '/ +/', ' ', $this->sql );
+		$sql = preg_replace( '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY)/', "\n$1", $sql );
 
-		// remove spaces
-		$sql = preg_replace( '/ +/', ' ', $sql );
-
-		$lines = array( 'FROM', 'LEFT', 'INNER', 'WHERE', 'AND (', 'OR (', 'ORDER BY', 'GROUP BY' );
-
-		// parse easy replaces
-		foreach ( $lines as $line ) {
-			$line .= ' ';
-
-			$sql = str_replace( $line, "\n" . $line, $sql );
-		}
-
-		return "\n" . $sql . "\n";
+		return $sql . "\n";
 	}
 
 	private function set_sql( $sql ) {
