@@ -187,7 +187,6 @@ abstract class AC_Column {
 	 *
 	 * @return $this
 	 */
-	// TODO: can be removed?
 	public function set_original( $boolean ) {
 		$this->original = (bool) $boolean;
 

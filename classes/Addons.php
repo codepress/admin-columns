@@ -193,7 +193,7 @@ final class AC_Addons {
 	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
-		update_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, '1', true );
+		ac_helper()->user->update_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, '1', true );
 	}
 
 	/**

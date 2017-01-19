@@ -105,12 +105,10 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	public function format( $meta_data ) {
 		$value = false;
 
-		$single_meta_data = is_array( $meta_data ) && isset( $meta_data[0] ) ? $meta_data[0] : $meta_data;
-
 		switch ( $this->get_field_type() ) {
 			case 'image' :
 			case 'library_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $single_meta_data );
+				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
 				$value = ac_helper()->string->comma_separated_to_array( $string );
 
 				$value = new AC_Collection( $value );
@@ -118,19 +116,19 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 
 			case 'title_by_id' :
 			case 'user_by_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $single_meta_data );
+				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
 				$value = ac_helper()->string->string_to_array_integers( $string );
 
 				$value = new AC_Collection( $value );
 				break;
 
 			case "checkmark" :
-				$is_true = ( ! empty( $single_meta_data ) && 'false' !== $single_meta_data && '0' !== $single_meta_data );
+				$is_true = ( ! empty( $meta_data ) && 'false' !== $meta_data && '0' !== $meta_data );
 				$value = ac_helper()->icon->yes_or_no( $is_true );
 				break;
 
 			case "color" :
-				$value = $single_meta_data && is_scalar( $single_meta_data ) ? ac_helper()->string->get_color_block( $single_meta_data ) : ac_helper()->string->get_empty_char();
+				$value = $meta_data && is_scalar( $meta_data ) ? ac_helper()->string->get_color_block( $meta_data ) : ac_helper()->string->get_empty_char();
 				break;
 
 			case "count" :
@@ -140,23 +138,23 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				break;
 
 			case "has_content" :
-				$value = ac_helper()->icon->yes_or_no( $single_meta_data, $single_meta_data );
+				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
 				break;
 
 			// TODO: test with pods
 			case "term_by_id" :
 				$value = false;
-				if ( is_array( $single_meta_data ) && isset( $single_meta_data['term_id'] ) && isset( $single_meta_data['taxonomy'] ) ) {
-					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $single_meta_data['term_id'], $single_meta_data['taxonomy'] ) );
+				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {
+					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $meta_data['term_id'], $meta_data['taxonomy'] ) );
 				}
 				break;
 
 			case "link" :
-				$value = ac_helper()->html->link( $single_meta_data );
+				$value = ac_helper()->html->link( $meta_data );
 				break;
 
 			default :
-				$value = ac_helper()->array->implode_recursive( ', ', $single_meta_data );
+				$value = ac_helper()->array->implode_recursive( ', ', $meta_data );
 		}
 
 		if ( is_array( $value ) ) {

@@ -24,9 +24,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
-		} else {
+		}
+		else {
 			$field = $this->create_element( 'select', 'field' )
-			              ->set_options( $this->get_field_options() );
+			              ->set_options( $this->get_field_options() )
+			              ->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
 		}
 
 		$view = new AC_View( array(

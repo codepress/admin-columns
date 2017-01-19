@@ -17,6 +17,23 @@ class AC_Column_CustomField extends AC_Column_Meta {
 		$this->set_group( 'custom_fields' );
 	}
 
+	/**
+	 * Display value
+	 *
+	 * @param int $object_id ID
+	 *
+	 * @return mixed
+	 */
+	public function get_value( $object_id ) {
+
+		// Does not need formatting
+		if ( 'count' === $this->get_field_type() ) {
+			return count( $this->get_meta_value( $object_id, $this->get_meta_key(), false ) );
+		}
+
+		return $this->format_value( $this->get_raw_value( $object_id ) );
+	}
+
 	public function get_meta_key() {
 		return $this->get_setting( 'custom_field' )->get_value();
 	}
@@ -60,36 +77,9 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	 * @return mixed
 	 */
 	public function is_valid() {
-		return $this->get_list_screen()->get_meta_type();
-	}
 
-	/**
-	 * @since 1.0
-	 *
-	 * @param string $meta
-	 *
-	 * @return int[] Array with integers
-	 */
-	public function get_ids_from_meta( $meta ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->string->string_to_array_integers()' );
-
-		return ac_helper()->string->string_to_array_integers( $meta );
-	}
-
-	/**
-	 * Get meta by ID
-	 *
-	 * @since 1.0
-	 *
-	 * @param int $id ID
-	 *
-	 * @deprecated
-	 * @return string Meta Value
-	 */
-	public function get_meta_by_id( $id ) {
-		_deprecated_function( __METHOD__, 'AC NEWVERSION', 'ac_helper()->array->implode_recursive()' );
-
-		return ac_helper()->array->implode_recursive( ', ', $this->get_raw_value( $id ) );
+		// TODO: taxonomy
+		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'comment' ) );
 	}
 
 }

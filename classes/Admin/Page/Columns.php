@@ -72,11 +72,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	public function set_layout_preference( $layout ) {
-		update_user_meta( get_current_user_id(), self::OPTION_CURRENT . '_layout', $layout );
+		ac_helper()->user->update_meta_site( self::OPTION_CURRENT . '_layout', $layout );
 	}
 
 	public function get_layout_preference() {
-		return get_user_meta( get_current_user_id(), self::OPTION_CURRENT . '_layout', true );
+		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT . '_layout', true );
 	}
 
 	/**
@@ -386,11 +386,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	private function set_list_screen_preference( $list_screen_key ) {
-		update_user_meta( get_current_user_id(), self::OPTION_CURRENT, $list_screen_key );
+		ac_helper()->user->update_meta_site( self::OPTION_CURRENT, $list_screen_key );
 	}
 
 	private function get_list_screen_preference() {
-		return get_user_meta( get_current_user_id(), self::OPTION_CURRENT, true );
+		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT, true );
 	}
 
 	/**
