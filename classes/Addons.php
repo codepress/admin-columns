@@ -43,7 +43,7 @@ final class AC_Addons {
 
 			$this->register_addon( $addon );
 
-			AC()->groups()->register_group( $addon->get_slug(), $addon->get_title(), 4 );
+			AC()->column_groups()->register_group( $addon->get_slug(), $addon->get_title(), 4 );
 		}
 	}
 

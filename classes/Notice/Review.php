@@ -86,12 +86,12 @@ class AC_Notice_Review {
 					<?php printf(
 						__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'codepress-admin-columns' ),
 						$product,
-						'<a href="' . ac_get_site_url( 'documentation' ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
+						'<a href="' . esc_url( ac_get_site_utm_url( 'documentation', 'review-notice' ) ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 					); ?>
 					<?php if ( ac_is_pro_active() ) : ?>
 						<?php printf(
 							__( 'As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!', 'codepress-admin-columns' ),
-							'<a href="' . esc_url( ac_get_site_url( 'forumns' ) ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
+							'<a href="' . esc_url( ac_get_site_utm_url( 'forumns', 'review-notice' ) ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
 						); ?>
 					<?php else : ?>
 						<?php printf(

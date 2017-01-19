@@ -7,7 +7,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			->set_slug( 'addons' )
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
 
-		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+		add_action( 'ac/settings/after_menu', array( $this, 'maybe_display_addon_statuschange_message' ) );
 	}
 
 	/**

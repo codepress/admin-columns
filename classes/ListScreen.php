@@ -7,51 +7,43 @@
  */
 abstract class AC_ListScreen {
 
+	CONST OPTIONS_KEY = 'cpac_options_';
+
 	/**
 	 * Unique Identifier for List Screen.
 	 *
 	 * @since 2.0
+	 * @var string
 	 */
-	protected $key;
+	private $key;
 
 	/**
 	 * @since 2.0
+	 * @var string
 	 */
-	protected $label;
+	private $label;
 
 	/**
 	 * @since 2.3.5
+	 * @var string
 	 */
-	protected $singular_label;
+	private $singular_label;
 
 	/**
 	 * Type of list screen. Example: post, media, user, comment
 	 *
 	 * @since 2.0
+	 * @var string
 	 */
-	protected $type;
+	private $type;
 
 	/**
 	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
 	 *
 	 * @since 3.0
-	 */
-	protected $meta_type;
-
-	/**
-	 * Groups the list screen in the menu.
-	 *
-	 * @since 2.0
-	 */
-	protected $menu_type;
-
-	/**
-	 * Name of the base PHP file (without extension)
-	 *
-	 * @since 2.0
 	 * @var string
 	 */
-	protected $base;
+	private $meta_type;
 
 	/**
 	 * Page menu slug. Applies only when a menu page is used.
@@ -59,7 +51,7 @@ abstract class AC_ListScreen {
 	 * @since 2.4.10
 	 * @var string
 	 */
-	protected $page;
+	private $page;
 
 	/**
 	 * Class name of the WP_List_Table instance
@@ -67,22 +59,33 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 * @var string
 	 */
-	protected $list_table;
+	private $list_table_class;
+
+	/**
+	 * Group slug. Used for menu.
+	 * @var string
+	 */
+	private $group;
+
+	/**
+	 * Name of the base PHP file (without extension).
+	 *
+	 * @see WP_Screen::base
+	 *
+	 * @since 2.0
+	 * @var string
+	 */
+	private $screen_base;
 
 	/**
 	 * The unique ID of the screen.
 	 *
-	 * @see get_current_screen()
+	 * @see WP_Screen::id
 	 *
 	 * @since 2.5
 	 * @var string
 	 */
-	protected $screen;
-
-	/**
-	 * @var AC_Settings_ListScreen $settings
-	 */
-	private $settings;
+	private $screen_id;
 
 	/**
 	 * @since 2.0.1
@@ -103,6 +106,31 @@ abstract class AC_ListScreen {
 	private $default_columns;
 
 	/**
+	 * @var string Layout ID
+	 */
+	private $layout;
+
+	/**
+	 * @var string Storage key used for saving column data to the database
+	 */
+	private $storage_key;
+
+	/**
+	 * @var array Column settings data
+	 */
+	private $settings;
+
+	/**
+	 * @var bool True when column settings can not be overwritten
+	 */
+	private $read_only = false;
+
+	/**
+	 * @var string Post type
+	 */
+	private $post_type;
+
+	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
@@ -110,24 +138,145 @@ abstract class AC_ListScreen {
 	abstract function set_manage_value_callback();
 
 	/**
-	 * @since 2.4.4
+	 * Default column headers
+	 *
+	 * @return array
 	 */
-	public function __construct() {
-		$this->menu_type = __( 'Other', 'codepress-admin-columns' );
+	abstract function get_column_headers();
+
+	public function get_key() {
+		return $this->key;
 	}
 
-	/**
-	 * @return string
-	 */
+	protected function set_key( $key ) {
+		$this->key = $key;
+	}
+
 	public function get_label() {
 		return $this->label;
 	}
 
+	protected function set_label( $label ) {
+		$this->label = $label;
+	}
+
+	public function get_singular_label() {
+		return $this->singular_label;
+	}
+
+	protected function set_singular_label( $label ) {
+		$this->singular_label = $label;
+	}
+
+	public function get_type() {
+		return $this->type;
+	}
+
+	protected function set_type( $type ) {
+		$this->type = $type;
+	}
+
+	public function get_meta_type() {
+		return $this->meta_type;
+	}
+
+	protected function set_meta_type( $meta_type ) {
+		$this->meta_type = $meta_type;
+	}
+
+	public function get_screen_base() {
+		return $this->screen_base;
+	}
+
+	protected function set_screen_base( $screen_base ) {
+		$this->screen_base = $screen_base;
+	}
+
+	public function get_screen_id() {
+		return $this->screen_id;
+	}
+
+	protected function set_screen_id( $screen_id ) {
+		$this->screen_id = $screen_id;
+	}
+
+	public function get_page() {
+		return $this->page;
+	}
+
+	protected function set_page( $page ) {
+		$this->page = $page;
+	}
+
+	public function get_group() {
+		return $this->group;
+	}
+
+	public function set_group( $group ) {
+		$this->group = $group;
+	}
+
+	public function get_list_table_class() {
+		return $this->list_table_class;
+	}
+
+	protected function set_list_table_class( $list_table ) {
+		$this->list_table_class = $list_table;
+	}
+
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	protected function set_post_type( $post_type ) {
+		$this->post_type = (string) $post_type;
+	}
+
+	/**
+	 * @return WP_List_Table|false
+	 */
+	protected function get_list_table( $args = array() ) {
+		return class_exists( $this->list_table_class ) ? new $this->list_table_class( $args ) : false;
+	}
+
 	/**
 	 * @return string
 	 */
-	public function get_singular_label() {
-		return $this->singular_label;
+	public function get_storage_key() {
+		if ( null === $this->storage_key ) {
+			$this->set_storage_key( $this->get_key() );
+		}
+
+		return $this->storage_key;
+	}
+
+	/**
+	 * @param string $key
+	 */
+	private function set_storage_key( $key ) {
+		$this->storage_key = $key;
+
+		$this->reset();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_layout() {
+		return $this->layout;
+	}
+
+	/**
+	 * @param string $layout
+	 *
+	 * @return $this
+	 */
+	public function set_layout( $layout ) {
+		$this->layout = $layout;
+
+		$this->set_storage_key( $this->get_key() . $this->layout );
+
+		return $this;
 	}
 
 	/**
@@ -154,20 +303,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_key() {
-		return $this->key;
-	}
-
-	/**
-	 * @param string $key
-	 */
-	public function set_key( $key ) {
-		$this->key = $key;
-	}
-
-	/**
 	 * ID attribute of targeted list table
 	 *
 	 * @since NEWVERSION
@@ -178,66 +313,28 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 */
-	public function get_screen_id() {
-		return $this->screen;
-	}
-
-	/**
 	 * @since 2.0.3
+	 *
 	 * @param WP_Screen $screen
+	 *
 	 * @return boolean
 	 */
 	public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->screen;
+		return $wp_screen && $wp_screen->id === $this->get_screen_id();
 	}
 
 	/**
-	 * Set menu type
-	 *
-	 * @since 2.4.1
-	 *
-	 * @return AC_ListScreen
+	 * Settings can not be overwritten
 	 */
-	public function set_menu_type( $menu_type ) {
-		$this->menu_type = $menu_type;
-
-		return $this;
+	public function is_read_only() {
+		return $this->read_only;
 	}
 
 	/**
-	 * @since 2.5
+	 * @param bool $bool
 	 */
-	public function get_menu_type() {
-		return $this->menu_type;
-	}
-
-	/**
-	 * Are column set by third party plugin
-	 *
-	 * @since 2.3.4
-	 */
-	public function is_using_php_export() {
-
-		/**
-		 * @since NEWVERSION
-		 */
-		return apply_filters( 'ac/list_screen/is_using_php_export', false, $this );
-	}
-
-	/**
-	 * @since 2.3.4
-	 */
-	public function get_type() {
-		return $this->type;
-	}
-
-	/**
-	 * @since 2.3.4
-	 */
-	public function get_meta_type() {
-		return $this->meta_type;
+	public function set_read_only( $read_only ) {
+		$this->read_only = (bool) $read_only;
 	}
 
 	/**
@@ -245,44 +342,14 @@ abstract class AC_ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->page ), admin_url( $this->base . '.php' ) );
+		return add_query_arg( array( 'page' => $this->page, 'layout' => $this->layout ), admin_url( $this->get_screen_base() . '.php' ) );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		/**
-		 * @since NEWVERSION
-		 */
-		return apply_filters( 'ac/list_screen/edit_link', add_query_arg( array( 'cpac_key' => $this->key ), AC()->admin_columns_screen()->get_link() ) );
-	}
-
-	/**
-	 * @return array [ Column Name => Label ]
-	 */
-	public function get_default_columns() {
-		return array();
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @return WP_List_Table|false
-	 */
-	public function get_list_table( $args = array() ) {
-		return class_exists( $this->list_table ) ? new $this->list_table( $args ) : false;
-	}
-
-	/**
-	 * @return AC_Settings_ListScreen
-	 */
-	public function settings() {
-		if ( null === $this->settings ) {
-			$this->settings = new AC_Settings_ListScreen( $this );
-		}
-
-		return $this->settings;
+		return add_query_arg( array( 'cpac_key' => $this->key, 'layout_id' => $this->layout ), AC()->admin_columns_screen()->get_link() );
 	}
 
 	/**
@@ -314,10 +381,11 @@ abstract class AC_ListScreen {
 	 *
 	 * @since 2.5
 	 */
-	public function reset() {
+	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
 		$this->default_columns = null;
+		$this->settings = null;
 	}
 
 	/**
@@ -375,7 +443,7 @@ abstract class AC_ListScreen {
 	 * @return string|false
 	 */
 	public function get_original_label( $column_name ) {
-		$default_columns = $this->get_default_headings();
+		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;
 	}
@@ -404,7 +472,7 @@ abstract class AC_ListScreen {
 	 * @return bool
 	 */
 	private function default_column_exists( $column_name ) {
-		$default_columns = $this->get_default_headings();
+		$default_columns = $this->get_default_columns();
 
 		return isset( $default_columns[ $column_name ] );
 	}
@@ -414,7 +482,7 @@ abstract class AC_ListScreen {
 	 */
 	public function set_column_types() {
 		// Register default column types
-		foreach ( array_keys( $this->get_default_headings() ) as $type ) {
+		foreach ( array_keys( $this->get_default_columns() ) as $type ) {
 
 			// Ignore the mandatory checkbox column
 			if ( 'cb' == $type ) {
@@ -531,7 +599,7 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	private function set_columns() {
-		foreach ( $this->settings()->get_settings() as $data ) {
+		foreach ( $this->get_settings() as $data ) {
 			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}
@@ -539,7 +607,7 @@ abstract class AC_ListScreen {
 
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
-			foreach ( $this->get_default_headings() as $type => $label ) {
+			foreach ( $this->get_default_columns() as $type => $label ) {
 				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
 					$this->register_column( $column );
 				}
@@ -555,10 +623,10 @@ abstract class AC_ListScreen {
 	 * @var array [ Column Name =>  Column Label ]
 	 */
 	private function set_default_columns() {
-		$default_columns = $this->settings()->get_default_headings();
+		$default_columns = $this->get_stored_default_headings();
 
 		if ( ! $default_columns ) {
-			$default_columns = $this->get_default_columns();
+			$default_columns = $this->get_column_headers();
 		}
 
 		$this->default_columns = $default_columns;
@@ -567,12 +635,12 @@ abstract class AC_ListScreen {
 	/**
 	 * @return array  [ Column Name =>  Column Label ]
 	 */
-	public function get_default_headings() {
+	public function get_default_columns() {
 		if ( null === $this->default_columns ) {
 			$this->set_default_columns();
 		}
 
-		return apply_filters( 'cac/default_column_names', $this->default_columns, $this );
+		return $this->default_columns;
 	}
 
 	/**
@@ -580,6 +648,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @deprecated NEWVERSION
 	 */
+	// TODO
 	private function deprecated_register_columns() {
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_type(), $class_names, $this );
@@ -601,6 +670,72 @@ abstract class AC_ListScreen {
 				$this->register_column_type( new $class_name );
 			}
 		}
+	}
+
+	/**
+	 * Store column settings
+	 *
+	 * @param $settings
+	 *
+	 * @return bool
+	 */
+	public function store( $settings ) {
+		return update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+	}
+
+	/**
+	 * Populate settings from the database
+	 */
+	public function populate_stored_settings() {
+		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
+	}
+
+	/**
+	 * @param array $settings Column settings
+	 */
+	public function set_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+
+		$this->settings = $settings;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_settings() {
+		if ( null === $this->settings ) {
+			$this->populate_stored_settings();
+		}
+
+		return $this->settings;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_default_key() {
+		return self::OPTIONS_KEY . $this->get_key() . "__default";
+	}
+
+	public function save_default_headings( $column_headings ) {
+		return update_option( $this->get_default_key(), $column_headings );
+	}
+
+	/**
+	 * @return array [ Column Name => Label ]
+	 */
+	public function get_stored_default_headings() {
+		return get_option( $this->get_default_key(), array() );
+	}
+
+	public function delete() {
+		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
+	}
+
+	public function delete_default_headings() {
+		return delete_option( $this->get_default_key() );
 	}
 
 }

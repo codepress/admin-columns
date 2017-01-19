@@ -9,7 +9,7 @@ class AC_Addon_WooCommerce extends AC_Addon {
 			->set_description( __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ) )
 			->set_slug( 'cac-addon-woocommerce' )
 			->set_image_url( AC()->get_plugin_url() . 'assets/images/addons/woocommerce.png' )
-			->set_link( ac_get_site_url( 'woocommerce-columns' ) );
+			->set_link( ac_get_site_utm_url( 'woocommerce-columns', 'addon', 'woocommerce' ) );
 	}
 
 	public function is_plugin_active() {

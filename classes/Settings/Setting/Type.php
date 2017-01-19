@@ -14,8 +14,9 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
-		$type = $this->create_element( 'select' )
-		             ->set_options( $this->get_grouped_columns() );
+		$type = $this
+			->create_element( 'select' )
+			->set_options( $this->get_grouped_columns() );
 
 		$view = new AC_View( array(
 			'setting' => $type,
@@ -39,7 +40,8 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		}
 
 		// TODO: can we remove this?
-		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+		//$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+		$label = $column->get_label();
 
 		if ( empty( $label ) ) {
 			$label = $column->get_label();
@@ -75,7 +77,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		$grouped = array();
 
 		// create select options
-		foreach ( AC()->groups()->get_groups_sorted() as $group ) {
+		foreach ( AC()->column_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups
@@ -99,8 +101,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			}
 		}
 
-		// TODO: rename filter e.g. ac/settings/setting/type/columns
-		return apply_filters( 'cac/grouped_columns', $grouped, $this );
+		return $grouped;
 	}
 
 	/**

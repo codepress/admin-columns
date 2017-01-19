@@ -69,7 +69,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			FROM $wpdb->options
 			WHERE option_name LIKE %s";
 
-		$wpdb->query( $wpdb->prepare( $sql, AC_Settings_ListScreen::OPTIONS_KEY . '%' ) );
+		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
 	}
 
 	/**

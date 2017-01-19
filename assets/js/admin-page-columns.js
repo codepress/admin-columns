@@ -22,6 +22,7 @@ jQuery( document ).ready( function( $ ) {
 	cpac_init( $ );
 	cpac_submit_form( $ );
 	cpac_reset_columns( $ );
+
 	cpac_menu( $ );
 	cpac_add_column( $ );
 	cpac_sidebar_feedback( $ );
@@ -199,9 +200,10 @@ function cpac_init( $ ) {
  */
 function cpac_menu( $ ) {
 	$( '#ac_list_screen' ).on( 'change', function() {
-		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
 		$( '.view-link' ).hide();
-		window.location = $( this ).val();
+		$(this).parents( 'form' ).submit();
+
+		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
 	} );
 }
 

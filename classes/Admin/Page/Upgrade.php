@@ -25,7 +25,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
-			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
+			add_action( 'ac/settings/after_menu', array( $this, 'proaddon_notice' ) );
 		}
 	}
 
@@ -42,7 +42,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
         <div class="message error">
             <p>
 				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>
-                <a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
+                <a href="<?php echo ac_get_site_utm_url( 'pro-addon-information', 'pro-notice' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
             </p>
         </div>
 		<?php

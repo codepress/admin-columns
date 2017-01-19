@@ -21,6 +21,8 @@ class AC_ThirdParty_WPML {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
+
+		// TODO
 		if ( ! AC()->table_screen()->get_list_screen() ) {
 			return;
 		}
@@ -50,7 +52,7 @@ class AC_ThirdParty_WPML {
 		foreach ( AC()->get_list_screens() as $list_screen ) {
 
 			// TODO
-			foreach ( $list_screen->settings()->get_settings() as $column_name => $options ) {
+			foreach ( $list_screen->get_settings() as $column_name => $options ) {
 				icl_register_string( 'Admin Columns', $list_screen->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
 			}
 		}

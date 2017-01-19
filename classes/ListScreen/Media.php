@@ -3,15 +3,15 @@
 class AC_ListScreen_Media extends AC_ListScreen_Post {
 
 	public function __construct() {
-		parent::__construct();
+		parent::__construct( 'attachment' );
 
-		$this->post_type = 'attachment';
-		$this->key = 'wp-media';
-		$this->screen = 'upload';
-		$this->type = 'media';
-		$this->base = 'upload';
-		$this->list_table = 'WP_Media_List_Table';
-		$this->menu_type = __( 'Media' );
+		$this->set_screen_id( 'upload' );
+		$this->set_type( 'media' );
+		$this->set_screen_base( 'upload' );
+		$this->set_list_table_class( 'WP_Media_List_Table' );
+		$this->set_key( 'wp-media' );
+		$this->set_group( 'media' );
+		$this->set_screen_id( 'upload' );
 	}
 
 	public function set_manage_value_callback() {
