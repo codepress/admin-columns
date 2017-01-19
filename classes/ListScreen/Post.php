@@ -2,30 +2,17 @@
 
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
-	/**
-	 * @var string Post type
-	 */
-	private $post_type;
-
 	public function __construct( $post_type ) {
 
-		$this->type = 'post';
-		$this->base = 'edit';
-		$this->list_table = 'WP_Posts_List_Table';
-		$this->meta_type = 'post';
-		$this->post_type = $post_type;
-
-		$this->set_key( $post_type );
+		$this->set_type( 'post' );
+		$this->set_screen_base( 'edit' );
+		$this->set_list_table_class( 'WP_Posts_List_Table' );
+		$this->set_meta_type( 'post' );
 		$this->set_group( 'post_type' );
-		$this->set_screen_id( $this->base . '-' . $post_type );
-	}
 
-	protected function set_post_type( $post_type ) {
-		$this->post_type = (string) $post_type;
-	}
-
-	public function get_post_type() {
-		return $this->post_type;
+		$this->set_post_type( $post_type );
+		$this->set_key( $post_type );
+		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
 	/**

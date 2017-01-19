@@ -21,6 +21,8 @@ class AC_ThirdParty_WPML {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
+
+		// TODO
 		if ( ! AC()->table_screen()->get_list_screen() ) {
 			return;
 		}

@@ -31,19 +31,28 @@ function ac_get_site_url( $path = '' ) {
  *
  * @return string
  */
-function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null ) {
+function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_campaign = false ) {
 	$url = ac_get_site_url( $path );
 
-	// TODO: do we need utm_campaign
+	if ( ! $utm_campaign ) {
+		$utm_campaign = 'plugin-installation';
+	}
 
 	$args = array(
+		// Referrer: plugin
 		'utm_source'   => 'plugin-installation',
-		'utm_campaign' => 'plugin-installation',
+
+		// Specific promotions or sales
+		'utm_campaign' => $utm_campaign,
+
+		// Marketing medium: banner, support documentation, email
 		'utm_medium'   => $utm_medium,
+
+		// Used for differentiation of medium
 		'utm_content'  => $utm_content,
 	);
 
-	array_walk( $args, 'sanitize_key' );
+	$args = array_map( 'sanitize_key', $args );
 
 	return add_query_arg( $args, $url );
 }

@@ -55,8 +55,10 @@ abstract class AC_Admin_Promo {
 	 */
 	public function get_url() {
 		if ( null === $this->url ) {
-		    // TODO: utm_args
-			$this->set_url( ac_get_site_utm_url( 'pricing-purchase', 'addon' ) );
+
+			$campaign = str_replace( get_parent_class( $this ) . '_', '', get_class( $this ) );
+
+			$this->set_url( ac_get_site_utm_url( 'pricing-purchase', 'promo', null, $campaign ) );
 		}
 
 		return $this->url;
@@ -66,14 +68,7 @@ abstract class AC_Admin_Promo {
 	 * @param int $url
 	 */
 	public function set_url( $url ) {
-		$default = array(
-			'utm_source'   => 'plugin-installation',
-			'utm_medium'   => 'banner',
-			'utm_campaign' => 'plugin-installation',
-			'utm_content'  => 'promo',
-		);
-
-		$this->url = add_query_arg( $default, $url );
+		$this->url = $url;
 	}
 
 	/**
@@ -99,8 +94,8 @@ abstract class AC_Admin_Promo {
 	}
 
 	/**
-     * Active date range
-     *
+	 * Active date range
+	 *
 	 * @return array|false
 	 */
 	private function get_active_date_range() {
@@ -135,7 +130,7 @@ abstract class AC_Admin_Promo {
 			<?php echo esc_html( sprintf( __( 'Get %s Off', 'codepress-admin-columns' ), $this->get_discount() . '%' ) ); ?>
         </a>
         <p class="nomargin">
-            <?php echo esc_html( sprintf( __( "Discount is valid until %s", 'codepress-admin-columns' ), $this->end_date() ) ); ?>
+			<?php echo esc_html( sprintf( __( "Discount is valid until %s", 'codepress-admin-columns' ), $this->end_date() ) ); ?>
         </p>
 		<?php
 	}

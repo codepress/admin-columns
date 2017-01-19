@@ -323,9 +323,6 @@ class CPAC {
 		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
-		// TODO: 3rd party
-		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
-
 		$this->column_groups = $groups;
 
 		do_action( 'ac/column_groups', $groups );

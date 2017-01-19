@@ -89,7 +89,11 @@ abstract class AC_Addon {
 	 * @return string
 	 */
 	public function get_link() {
-		return $this->link ? $this->link : ac_get_site_utm_url( 'pricing-purchase', 'addon' );
+		if ( null === $this->link ) {
+			$this->set_link( ac_get_site_utm_url( 'pricing-purchase', 'addon' ) );
+		}
+
+		return $this->link;
 	}
 
 	/**

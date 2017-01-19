@@ -10,6 +10,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private $notices;
 
 	public function __construct() {
+
 		$this->set_slug( 'columns' )
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
@@ -280,54 +281,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		if ( $column instanceof AC_Column_PlaceholderInterface ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_placeholder_message( array( 'label' => $column->get_label(), 'type' => $column->get_type(), 'url' => $column->get_url() ) ),
+				'error' => $column->get_message(),
 			) );
 		}
 
 		wp_send_json_success( $this->get_column_display( $column ) );
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return string HTML error message
-	 */
-	private function get_placeholder_message( $args = array() ) {
-		$defaults = array(
-			'label' => '',
-			'url'   => '',
-			'type'  => '',
-		);
-
-		$data = (object) wp_parse_args( $args, $defaults );
-
-		if ( ! $data->label ) {
-			return false;
-		}
-
-		ob_start();
-		?>
-
-        <p>
-            <strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $data->label ); ?></strong>
-        </p>
-
-        <p>
-			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $data->label, AC()->admin()->get_link( 'addons' ) ); ?>
-        </p>
-
-        <p>
-			<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $data->label, $data->label ); ?>
-        </p>
-        <a target="_blank" href="<?php echo add_query_arg( array(
-			'utm_source'   => 'plugin-installation',
-			'utm_medium'   => $data->type . '-notification',
-			'utm_campaign' => 'plugin-installation',
-		), $data->url ); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
-
-		<?php
-
-		return ob_get_clean();
 	}
 
 	/**
@@ -483,7 +441,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Display
 	 */
 	public function display() {
-		$list_screen = $this->get_current_list_screen(); ?>
+		$list_screen = $this->get_current_list_screen();
+		?>
 
         <div class="columns-container<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
             <div class="main">
@@ -516,7 +475,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             <div class="columns-right">
                 <div class="columns-right-inside">
 
-					<?php if ( ! $list_screen->has_external_setttings() ) : ?>
+					<?php if ( ! $list_screen->is_read_only() ) : ?>
                         <div class="sidebox form-actions">
 							<?php $mainlabel = __( 'Store settings', 'codepress-admin-columns' ); ?>
                             <h3>
@@ -553,16 +512,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
-						<?php
-						$pro_url = ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' );
-
-						$active_promotion = $this->get_active_promotion();
-
-						?>
+						<?php $active_promotion = $this->get_active_promotion(); ?>
+                        
                         <div class="sidebox" id="ac-pro-version">
                             <div class="padding-box">
                                 <h3>
-                                    <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'title' ), $pro_url ) ); ?>">
+                                    <a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'title' ) ); ?>">
 										<?php _e( 'Upgrade to', 'codepress-admin-columns' ); ?>&nbsp;<span><?php _e( 'Pro', 'codepress-admin-columns' ); ?></span>
                                     </a>
                                 </h3>
@@ -570,36 +525,29 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 <div class="inside">
                                     <p><?php _e( 'Take Admin Columns to the next level:', 'codepress-admin-columns' ); ?></p>
                                     <ul>
-                                        <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'usp-sorting' ), $pro_url ) ); ?>">
-												<?php _e( 'Add sortable columns', 'codepress-admin-columns' ); ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'usp-filtering' ), $pro_url ) ); ?>">
-												<?php _e( 'Add filterable columns', 'codepress-admin-columns' ); ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'usp-editing' ), $pro_url ) ); ?>">
-												<?php _e( 'Edit your column content directly', 'codepress-admin-columns' ); ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'column-sets' ), $pro_url ) ); ?>">
-												<?php _e( 'Create multiple columns sets', 'codepress-admin-columns' ); ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'import-export' ), $pro_url ) ); ?>">
-												<?php _e( 'Import &amp; Export settings', 'codepress-admin-columns' ); ?>
-                                            </a>
-                                        </li>
+
+										<?php
+
+										$items = array(
+											'sorting'       => __( 'Add sortable columns', 'codepress-admin-columns' ),
+											'filtering'     => __( 'Add filterable columns', 'codepress-admin-columns' ),
+											'editing'       => __( 'Edit your column content directly', 'codepress-admin-columns' ),
+											'column-sets'   => __( 'Create multiple columns sets', 'codepress-admin-columns' ),
+											'import-export' => __( 'Import &amp; Export settings', 'codepress-admin-columns' ),
+										);
+
+										foreach ( $items as $utm_content => $label ) : ?>
+                                            <li>
+                                                <a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'usp-' . $utm_content ) ); ?>">
+													<?php echo esc_html( $label ); ?>
+                                                </a>
+                                            </li>
+										<?php endforeach; ?>
 
 										<?php foreach ( AC()->addons()->get_addons_promo() as $addon ) : ?>
                                             <li class="acp-integration">
-                                                <a href="<?php echo esc_url( add_query_arg( array( 'utm_content' => $addon->get_slug() ), $pro_url ) ); ?>">
-                                                    <img class="acf" src="<?php echo esc_attr( $addon->get_image_url() ); ?>" alt="<?php echo esc_attr( $addon->get_title() ); ?>"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?>
+                                                <a href="<?php echo esc_url( $addon->get_link() ); ?>">
+                                                    <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>" alt="<?php echo esc_attr( $addon->get_title() ); ?>"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?>
                                                 </a>
                                             </li>
 										<?php endforeach; ?>
@@ -608,7 +556,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                                     <p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
-                                            <a target="_blank" href="<?php echo esc_url( add_query_arg( array( 'utm_content' => 'promo' ), $pro_url ) ); ?>" class="more">
+                                            <a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ) ); ?>" class="more">
 												<?php _e( 'Learn more about Pro', 'codepress-admin-columns' ); ?>
                                             </a>
 										<?php endif; ?>
@@ -635,7 +583,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 										<?php
 										$user_data = get_userdata( get_current_user_id() );
 										?>
-                                        <form method="post" action="<?php echo esc_html( ac_get_site_url( 'upgrade-to-admin-columns-pro' ) ); ?>" target="_blank">
+                                        <form method="post" action="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'send-coupon' ) ); ?>" target="_blank">
                                             <input name="action" type="hidden" value="mc_upgrade_pro">
                                             <input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>">
                                             <input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>">
@@ -702,7 +650,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                         </li>
 
                                         <li>
-                                            <a href="<?php echo add_query_arg( array( 'utm_medium' => 'feedback-purchase-button' ), $pro_url ); ?>" target="_blank">
+                                            <a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'feedback-purchase-button' ) ); ?>" target="_blank">
                                                 <div class="dashicons dashicons-cart"></div> <?php _e( 'Buy Pro', 'codepress-admin-columns' ); ?>
                                             </a>
                                         </li>
@@ -733,7 +681,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             </div><!--.columns-right-->
 
             <div class="columns-left">
-				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->has_external_setttings() ) : ?>
+				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) : ?>
                     <div class="cpac-notice">
                         <p>
 							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>
@@ -745,13 +693,13 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                 <div class="ajax-message"><p></p></div>
 
-				<?php if ( $list_screen->has_external_setttings() ) : ?>
+				<?php if ( $list_screen->is_read_only() ) : ?>
                     <div class="notice notice-warning below-h2">
                         <p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
                     </div>
 				<?php endif; ?>
 
-                <div class="ac-boxes<?php echo esc_attr( $list_screen->has_external_setttings() ? ' disabled' : '' ); ?>">
+                <div class="ac-boxes<?php echo esc_attr( $list_screen->is_read_only() ? ' disabled' : '' ); ?>">
 
                     <div class="ac-columns">
                         <form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
@@ -769,7 +717,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                     </div><!--.cpac-columns-->
 
                     <div class="column-footer">
-						<?php if ( ! $list_screen->has_external_setttings() ) : ?>
+						<?php if ( ! $list_screen->is_read_only() ) : ?>
                             <div class="order-message">
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
                             </div>
