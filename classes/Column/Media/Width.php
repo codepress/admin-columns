@@ -6,6 +6,8 @@
 class AC_Column_Media_Width extends AC_Column_Media_Meta {
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-width' );
 		$this->set_label( __( 'Width', 'codepress-admin-columns' ) );
 	}

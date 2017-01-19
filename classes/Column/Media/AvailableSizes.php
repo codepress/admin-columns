@@ -8,6 +8,8 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 	private $intermediate_image_sizes = null;
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-available_sizes' );
 		$this->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
 	}

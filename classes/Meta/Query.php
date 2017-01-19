@@ -1,106 +1,401 @@
 <?php
 
-class AC_Meta_Query {
+final class AC_Meta_Query {
 
 	/**
-	 * @var array
-	 */
-	private $args;
-
-	/**
-	 * @var false|WP_Meta_Query
+	 * @var WP_Meta_Query
 	 */
 	private $query;
 
 	/**
-	 * @var array
+	 * @var string
 	 */
-	private $fields = array( 'id', 'meta_key', 'meta_value' );
+	private $sql;
 
 	/**
-	 * AC_Meta_Query constructor.
-	 *
-	 * @param array $args
+	 * @var array
 	 */
-	public function __construct( array $args = array() ) {
-		$this->args = array(
-			'order'  => 'ASC',
-			'fields' => $this->fields,
+	private $select = array();
+
+	/**
+	 * @var string|false
+	 */
+	private $count = false;
+
+	/**
+	 * @var bool
+	 */
+	private $distinct = false;
+
+	/**
+	 * @var bool
+	 */
+	private $join = false;
+
+	/**
+	 * @var array
+	 */
+	private $join_where = array();
+
+	/**
+	 * @var array
+	 */
+	private $where = array();
+
+	/**
+	 * @var array
+	 */
+	private $group_by = array();
+
+	/**
+	 * @var array
+	 */
+	private $order_by = array();
+
+	/**
+	 * @param AC_Column $column
+	 * @param bool $predict Tries to setup query for common use cases based on column type
+	 */
+	public function __construct( AC_Column $column, $predict = true ) {
+		$this->set_query( $column->get_list_screen()->get_meta_type() );
+
+		if ( $predict ) {
+			if ( $column instanceof AC_Column_Meta ) {
+				$this->join_where( 'meta_key', $column->get_meta_key() );
+			}
+
+			if ( $column->get_post_type() ) {
+				$this->where_post_type( $column->get_post_type() );
+			}
+		}
+
+	}
+
+	/**
+	 * Add a single field or multiple comma separated
+	 *
+	 * @param string $field e.g. id or id, meta_value
+	 *
+	 * @return $this
+	 */
+	public function select( $field ) {
+		$fields = explode( ',', $field );
+
+		foreach ( $fields as $field ) {
+			$this->select[] = trim( $field );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Add a COUNT clause AS count
+	 *
+	 * @param string $field
+	 *
+	 * @return $this
+	 */
+	public function count( $field ) {
+		$this->count = $field;
+
+		return $this;
+	}
+
+	/**
+	 * Group by an aggregated column.
+	 *
+	 * Supports: count
+	 *
+	 * @param string $field
+	 *
+	 * @return $this
+	 */
+	public function group_by( $field ) {
+		$this->group_by = $field;
+
+		return $this;
+	}
+
+	public function join( $type = 'inner' ) {
+		$this->join = strtoupper( $type );
+
+		return $this;
+	}
+
+	public function left_join() {
+		return $this->join( 'left' );
+	}
+
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
+	public function join_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+		// set default join
+		if ( ! $this->join ) {
+			$this->join();
+		}
+
+		$this->join_where[] = $this->get_where_clause( $field, $operator, $value, $boolean );
+
+		return $this;
+	}
+
+	public function order_by( $order_by, $order = 'asc' ) {
+		$parts = explode( ',', $order_by );
+
+		foreach ( $parts as $order_by ) {
+			$this->order_by[] = array(
+				'order_by' => trim( $order_by ),
+				'order'    => strtoupper( $order ),
+			);
+		}
+
+		return $this;
+	}
+
+	public function distinct() {
+		$this->distinct = true;
+
+		return $this;
+	}
+
+	/**
+	 * Set a where clause
+	 *
+	 * @param string|array $field
+	 * @param string $operator
+	 * @param string|int|array $value
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	private function get_where_clause( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+		// allows to omit operator
+		if ( null === $value ) {
+			$value = $operator;
+			$operator = '=';
+		}
+
+		$where = array(
+			'nested'   => false,
+			'boolean'  => strtoupper( $boolean ),
+			'field'    => $field,
+			'operator' => strtoupper( $operator ),
+			'value'    => $value,
 		);
 
-		$this->set_args( $args );
-	}
-
-	public function is_valid_field( $field ) {
-		return in_array( $field, $this->fields );
-	}
-
-	public function parse_orderby() {
-		$orderby = $this->get( 'orderby' );
-
-		if ( ! $orderby ) {
-			return '';
+		// set default join
+		if ( $field === 'post_type' && ! $this->join ) {
+			$this->join();
 		}
 
-		if ( 'id' === $orderby ) {
-			$orderby = $this->query->primary_id_column;
+		$nested = array();
+
+		if ( is_array( $field ) ) {
+			for ( $i = 0; $i < count( $field ); $i++ ) {
+				$nested[] = array_pop( $this->where );
+			}
 		}
 
-		return sprintf( ' ORDER BY %s %s', $orderby, $this->get( 'order' ) );
-	}
-
-	public function parse_value( $value ) {
-		if ( $this->get( 'unserialize' ) ) {
-			$value = maybe_unserialize( $value );
+		if ( $nested ) {
+			$where['nested'] = true;
+			$where['field'] = array_reverse( $nested );
 		}
 
-		return $value;
+		return $where;
 	}
 
-	public function parse_fields() {
-		$fields = $this->get( 'fields' );
-		$id = array_search( 'id', $fields );
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
+	public function remove_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+		$where = $this->get_where_clause( $field, $operator, $value, $boolean );
 
-		if ( $id !== false ) {
-			$fields[ $id ] = 'pt.' . $this->query->primary_id_column;
+		foreach ( $this->where as $k => $v ) {
+			if ( $v == $where ) {
+				unset( $this->where[ $k ] );
+			}
 		}
 
-		$distinct = $this->get( 'distinct' ) ? 'DISTINCT ' : '';
-
-		return $distinct . implode( ', ', $fields );
+		return $this;
 	}
 
-	public function get_results() {
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
+	public function where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+		$this->where[] = $this->get_where_clause( $field, $operator, $value, $boolean );
+
+		return $this;
+	}
+
+	/**
+	 * @see get_where_clause()
+	 *
+	 * @return $this
+	 */
+	public function or_where( $field, $operator = null, $value = null ) {
+		return $this->where( $field, $operator, $value, 'OR' );
+	}
+
+	/**
+	 * @param array $in
+	 *
+	 * @return $this
+	 */
+	public function where_in( array $in ) {
+		return $this->where( 'id', 'in', $in );
+	}
+
+	public function where_is_null( $field ) {
+		return $this->where( $field, '', 'IS NULL' );
+	}
+
+	public function where_post_type( $post_type ) {
+		return $this->where( 'post_type', '=', $post_type );
+	}
+
+	private function get_id() {
+		$id = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt' . $this->query->meta_id_column;
+
+		return $id . ' AS id';
+	}
+
+	private function parse_field( $field ) {
+		switch ( $field ) {
+			case 'meta_key':
+			case 'meta_value':
+				$field = 'mt.' . $field;
+
+				break;
+			case 'post_type':
+				$field = 'pt.' . $field;
+
+				break;
+		}
+
+		return $field;
+	}
+
+	private function parse_where( $where, $clauses ) {
+		global $wpdb;
+
+		foreach ( $clauses as $clause ) {
+
+			if ( $clause['nested'] ) {
+				$clause['field'][0]['boolean'] = null;
+
+				$where .= sprintf( ' %s ( %s ) ', $clause['boolean'], $this->parse_where( '', $clause['field'] ) );
+			} else {
+				switch ( $clause['operator'] ) {
+					case 'IN':
+						$clause['value'] = sprintf( ' ( %s ) ', implode( ', ', array_map( 'intval', $clause['value'] ) ) );
+
+						break;
+					default:
+						$valid_raw = array( 'IS NULL', 'IS NOT NULL' );
+
+						if ( ! in_array( $clause['value'], $valid_raw ) ) {
+							$clause['value'] = $wpdb->prepare( '%s', $clause['value'] );
+						}
+				}
+
+				$clause['field'] = $this->parse_field( $clause['field'] );
+
+				$where .= implode( ' ', $clause );
+			}
+
+		}
+
+		return $where;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get() {
 		global $wpdb;
 
 		if ( ! $this->query ) {
 			return array();
 		}
 
-		$fields = $this->parse_fields();
-		$orderby = $this->parse_orderby();
+		// parse SELECT
+		$select = 'SELECT ';
+		$select .= $this->distinct ? 'DISTINCT ' : '';
 
-		$join_type = $this->get( 'show_empty' ) ? 'LEFT' : 'INNER';
-		$join_empty = $this->get( 'show_empty' ) ? '' : " AND mt.meta_value != ''";
-
-		$query = $this->query;
-		$type_id = $query->primary_id_column;
-
-		$sql = "
-			SELECT $fields
-			FROM $query->primary_table AS pt
-			$join_type JOIN $query->meta_table AS mt 
-				ON mt.$query->meta_id_column = pt.$type_id AND mt.meta_key = %s $join_empty
-			WHERE 1=1
-		";
-
-		if ( $ids = $this->get( 'ids' ) ) {
-			$in = implode( ', ', $ids );
-
-			$sql .= " AND pt.$type_id IN( $in )";
+		if ( empty( $this->select ) ) {
+			$this->select( 'id' );
 		}
 
-		$sql = $wpdb->prepare( $sql . $orderby, $this->get( 'key' ) );
+		$fields = array();
+
+		foreach ( $this->select as $field ) {
+			$field = $this->parse_field( $field );
+
+			if ( 'id' === $field ) {
+				$field = $this->get_id();
+			}
+
+			$fields[] = $field;
+		}
+
+		if ( $this->count ) {
+			$fields[] = sprintf( 'COUNT(%s) AS count', $this->parse_field( $this->count ) );
+		}
+
+		$select .= implode( ', ', $fields );
+
+		// parse FROM
+		$from_tpl = ' FROM %s AS %s';
+
+		$from = sprintf( $from_tpl, $this->query->meta_table, 'mt' );
+		$join = '';
+
+		if ( $this->join ) {
+			$from = sprintf( $from_tpl, $this->query->primary_table, 'pt' );
+			$join = sprintf( ' %s JOIN %s AS mt ON mt.%s = pt.%s %s',
+				$this->join,
+				$this->query->meta_table,
+				$this->query->meta_id_column,
+				$this->query->primary_id_column,
+				$this->parse_where( '', $this->join_where )
+			);
+		}
+
+		// parse WHERE
+		$where = $this->parse_where( ' WHERE 1=1', $this->where );
+
+		// parse GROUP BY
+		$group_by = '';
+
+		if ( $this->group_by ) {
+			$group_by = ' GROUP BY ' . $this->parse_field( $this->group_by );
+		}
+
+		// parse ORDER BY
+		$order_by = '';
+
+		if ( ! empty( $this->order_by ) ) {
+			$order_by_clauses = array();
+
+			foreach ( $this->order_by as $order_by_clause ) {
+				$order_by_clauses[] = $this->parse_field( $order_by_clause['order_by'] ) . ' ' . $order_by_clause['order'];
+			}
+
+			$order_by = ' ORDER BY ' . implode( ', ', $order_by_clauses );
+		}
+
+		// build query and store it
+		$sql = $select . $from . $join . $where . $group_by . $order_by;
+
+		$this->set_sql( $sql );
 
 		$results = $wpdb->get_results( $sql );
 
@@ -108,124 +403,41 @@ class AC_Meta_Query {
 			return array();
 		}
 
-		$values = array();
+		$return = $results;
 
-		$return = $this->get( 'return' );
+		if ( count( $fields ) === 1 ) {
+			$return = array();
+			$field = $this->select[0];
 
-		switch ( $return ) {
-			case 'id':
-				foreach ( $results as $result ) {
-					$values[] = $result->$type_id;
-				}
-
-				break;
-			case 'meta_key':
-				foreach ( $results as $result ) {
-					$values[] = $result->meta_key;
-				}
-
-				break;
-			case 'meta_value':
-				foreach ( $results as $result ) {
-					$values[] = $this->parse_value( $result->meta_value );
-				}
-
-				break;
-			default:
-				$ids = array();
-				$single = $this->get( 'single' );
-
-				foreach ( $results as $result ) {
-					$id = $result->$type_id;
-
-					if ( $single ) {
-						if ( in_array( $id, $ids ) ) {
-							continue;
-						}
-
-						$ids[] = $id;
-					}
-
-					$values[ $id ] = $this->parse_value( $result->meta_value );
-				}
+			foreach ( $results as $result ) {
+				$return[] = $result->$field;
+			}
 		}
 
-		return $values;
-	}
-
-	public function get_args() {
-		return $this->args;
-	}
-
-	public function set_args( array $args = array() ) {
-		foreach ( $args as $key => $value ) {
-			$this->set( $key, $value );
-		}
-	}
-
-	public function get( $key ) {
-		return isset( $this->args[ $key ] ) ? $this->args[ $key ] : null;
+		return $return;
 	}
 
 	/**
-	 * Configure meta query
+	 * Return last sql that was queries
 	 *
-	 * @param string $key
-	 * @param string|bool|array $value
+	 * @return string
 	 */
-	public function set( $key, $value ) {
-		switch ( $key ) {
-			case 'order':
-				$value = 'ASC' === $value ? 'ASC' : 'DESC';
+	public function get_sql() {
+		$sql = preg_replace( '/ +/', ' ', $this->sql );
+		$sql = preg_replace( '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY)/', "\n$1", $sql );
 
-				break;
-			case 'type':
-				if ( ! $this->set_query( $value ) ) {
-					$value = null;
-				}
+		return $sql . "\n";
+	}
 
-				break;
-			case 'key':
-				$value = sanitize_key( $value );
+	private function set_sql( $sql ) {
+		$this->sql = $sql;
+	}
 
-				break;
-			case 'ids':
-				$value = is_array( $value ) ? array_map( 'intval', $value ) : null;
-
-				break;
-			case 'return':
-			case 'orderby':
-				if ( ! $this->is_valid_field( $value ) ) {
-					$value = null;
-				}
-
-				break;
-			case 'fields':
-				if ( ! is_array( $value ) ) {
-					$value = array( $value );
-				}
-
-				foreach ( $value as $k => $field ) {
-					if ( ! $this->is_valid_field( $field ) ) {
-						unset( $value[ $k ] );
-					}
-				}
-
-				$value = array_values( $value );
-
-				if ( empty( $value ) ) {
-					$value = $this->fields;
-				}
-
-				break;
-			case 'show_empty': // add row even when no matching meta_key or meta_value was found
-			case 'single': // discard all values but the first (only works with no return value set)
-			case 'unserialize': // try to unserialize a value
-			case 'distinct': // return unique value (only works with a single field)
-				$value = true === $value ? true : null;
-		}
-
-		$this->args[ $key ] = $value;
+	/**
+	 * @return WP_Meta_Query
+	 */
+	public function get_query() {
+		return $this->query;
 	}
 
 	private function set_query( $type ) {

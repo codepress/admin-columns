@@ -34,15 +34,17 @@ abstract class AC_Column_Meta extends AC_Column {
 	 * @see AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
-	// TODO: maybe use single? It makes more sense in a way...
+	// TODO: now that this is single, we need to look at all the Model_Meta and possibily all cols. to maybe remove get_raw_value
 	public function get_raw_value( $id ) {
 		$raw_value = '';
 
+		// TODO can this be false?
 		if ( $meta_key = $this->get_meta_key() ) {
-			$raw_value = $this->get_meta_value( $id, $meta_key, false );
+			$raw_value = $this->get_meta_value( $id, $meta_key, true );
 		}
 
-		// TODO: maybe make decprecated? So many classes extend from this class and in no way certain it will run. Used by Pods.
+		// TODO: maybe make decprecated? So many classes extend from this class and in no way certain it will run.
+		// TODO: Used by Pods, needed after creating a addon? Pods can extend from column_meta?
 		return apply_filters( 'cac/column/meta/raw_value', $raw_value, $id, $meta_key, $this );
 	}
 
@@ -67,22 +69,6 @@ abstract class AC_Column_Meta extends AC_Column {
 	 */
 	public function get_meta_value( $id, $meta_key, $single = true ) {
 		return get_metadata( $this->get_meta_type(), $id, $meta_key, $single );
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	public function get_meta_values( array $args = array() ) {
-		$defaults = array(
-			'type' => $this->get_meta_type(),
-			'key'  => $this->get_meta_key(),
-		);
-
-		$query = new AC_Meta_Query( array_merge( $defaults, $args ) );
-
-		return $query->get_results();
 	}
 
 }
