@@ -274,6 +274,7 @@ final class AC_Meta_Query {
 				$field = 'mt.' . $field;
 
 				break;
+			case 'taxonomy':
 			case 'post_type':
 				$field = 'pt.' . $field;
 
@@ -292,8 +293,7 @@ final class AC_Meta_Query {
 				$clause['field'][0]['boolean'] = null;
 
 				$where .= sprintf( ' %s ( %s ) ', $clause['boolean'], $this->parse_where( '', $clause['field'] ) );
-			}
-			else {
+			} else {
 				switch ( $clause['operator'] ) {
 					case 'IN':
 						$clause['value'] = sprintf( ' ( %s ) ', implode( ', ', array_map( 'intval', $clause['value'] ) ) );
@@ -443,6 +443,7 @@ final class AC_Meta_Query {
 
 	private function set_query( $type ) {
 		global $wpdb;
+
 		switch ( $type ) {
 			case 'user':
 				$table = $wpdb->users;
