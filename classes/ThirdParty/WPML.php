@@ -47,7 +47,7 @@ class AC_ThirdParty_WPML {
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
 			foreach ( $list_screen->get_settings() as $column_name => $options ) {
-				do_action( 'wpml_register_single_string', 'Admin Columns', $list_screen->get_key() . '_' . $column_name . '_' . sanitize_title_with_dashes( $options['label'] ), $options['label'] );
+				do_action( 'wpml_register_single_string', 'Admin Columns', $options['label'], $options['label'] );
 			}
 		}
 	}
@@ -59,9 +59,8 @@ class AC_ThirdParty_WPML {
 	 * @return string
 	 */
 	public function register_translated_label( $label, $column ) {
-		if ( function_exists( 'icl_t' ) ) {
-			$name = $column->get_list_screen()->get_key() . '_' . $column->get_name() . '_' . sanitize_title_with_dashes( $column->get_setting( 'label' )->get_value() );
-			$label = apply_filters( 'wpml_translate_single_string', $label, 'Admin Columns', $name, ICL_LANGUAGE_CODE );
+		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+			$label = apply_filters( 'wpml_translate_single_string', $label, 'Admin Columns', $label, ICL_LANGUAGE_CODE );
 		}
 
 		return $label;
