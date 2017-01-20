@@ -317,7 +317,7 @@ final class AC_TableScreen {
 		//$this->current_list_screen->reset();
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
-			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();
+			$this->column_headings[ $column->get_name() ] = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
 		}
 
 		return $this->column_headings;
