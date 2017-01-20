@@ -117,7 +117,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		foreach ( $column_data as $name => $options ) {
-			// set clone
+
+		    // Set clone
 			$clone = str_replace( $options['type'] . '-', '', $name );
 
 			if ( is_numeric( $clone ) ) {
@@ -126,12 +127,19 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 			$sanitized = array();
 
-			// sanitize data
+			// Sanitize data
 			if ( $column = $list_screen->create_column( $options ) ) {
 				foreach ( $column->get_settings() as $setting ) {
 					$sanitized += $setting->get_values();
+
+					// Encode site url
+					if ( 'label' === $setting->get_name() ) {
+						$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
+                    }
 				}
 			}
+
+			// Encode site url
 
 			$column_data[ $name ] = array_merge( $options, $sanitized );
 		}

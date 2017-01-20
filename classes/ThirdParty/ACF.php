@@ -3,7 +3,7 @@
 class AC_ThirdParty_ACF {
 
 	public function __construct() {
-		add_filter( 'cac/post_types', array( $this, 'remove_acf_from_cpac_post_types' ) );
+		add_filter( 'ac/post_types', array( $this, 'remove_acf_field_group' ) );
 	}
 
 	/**
@@ -13,7 +13,7 @@ class AC_ThirdParty_ACF {
 	 *
 	 * @return array Post Types
 	 */
-	function remove_acf_from_cpac_post_types( $post_types ) {
+	function remove_acf_field_group( $post_types ) {
 		if ( class_exists( 'Acf', false ) ) {
 			if ( isset( $post_types['acf'] ) ) {
 				unset( $post_types['acf'] );

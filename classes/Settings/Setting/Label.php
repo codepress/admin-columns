@@ -52,7 +52,11 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	 * @param string $label
 	 */
 	public function set_label( $label ) {
-		$this->label = $this->convert_site_url( $label );
+		$this->label = $label;
+	}
+
+	public function get_encoded_label() {
+		return $this->convert_site_url( $this->label  );
 	}
 
 }

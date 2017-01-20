@@ -8,26 +8,24 @@ class AC_ThirdParty_WPML {
 	function __construct() {
 
 		// display correct flags on the overview screens
-		add_action( 'cac/loaded', array( $this, 'replace_flags' ) );
+		add_action( 'ac/listings/list_screen', array( $this, 'replace_flags' ) );
 
 		// enable the translation of the column labels
 		add_action( 'wp_loaded', array( $this, 'register_column_labels' ), 99 );
 
 		// enable the WPML translation of column headings
+
+		// TODO: filter no longer exists
 		add_filter( 'cac/headings/label', array( $this, 'register_translated_label' ), 10, 4 );
 	}
 
-	public function replace_flags() {
+	public function replace_flags( $list_screen ) {
 		if ( ! class_exists( 'SitePress', false ) ) {
 			return;
 		}
 
-		// TODO
-		if ( ! AC()->table_screen()->get_current_list_screen() ) {
-			return;
-		}
-
 		$settings = get_option( 'icl_sitepress_settings' );
+
 		if ( ! isset( $settings['custom_posts_sync_option'] ) ) {
 			return;
 		}
@@ -50,8 +48,6 @@ class AC_ThirdParty_WPML {
 		}
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-
-			// TODO
 			foreach ( $list_screen->get_settings() as $column_name => $options ) {
 				icl_register_string( 'Admin Columns', $list_screen->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
 			}
