@@ -30,8 +30,7 @@ class AC_Helper_Date {
 			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
 				$date = strtotime( $date );
 			}
-		}
-		else {
+		} else {
 			$date = strtotime( $date );
 		}
 
@@ -40,7 +39,7 @@ class AC_Helper_Date {
 
 	/**
 	 * @param string $date
-	 * @param string$format
+	 * @param string $format
 	 *
 	 * @return int|false
 	 */
@@ -57,9 +56,7 @@ class AC_Helper_Date {
 			if ( $date = date_create_from_format( $format, $date ) ) {
 				$timestamp = date_format( $date, 'U' );
 			}
-		}
-
-		// before PHP 5.3.0
+		} // before PHP 5.3.0
 		else {
 			$timestamp = $this->strtotime( $date );
 		}
