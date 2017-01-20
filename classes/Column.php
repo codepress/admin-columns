@@ -240,7 +240,7 @@ abstract class AC_Column {
 	/**
 	 * @param string $id
 	 *
-	 * @return AC_Settings_Setting_User|AC_Settings_Setting_Separator
+	 * @return AC_Settings_Setting_User|AC_Settings_Setting_Separator|AC_Settings_Setting_Label
 	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );

@@ -55,6 +55,12 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 		$this->label = $label;
 	}
 
+	/**
+	 * Encode label with site_url.
+	 * Used when loading the setting from PHP or when a site is migrated to another domain.
+	 *
+	 * @return string
+	 */
 	public function get_encoded_label() {
 		return $this->convert_site_url( $this->label  );
 	}
