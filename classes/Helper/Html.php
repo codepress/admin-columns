@@ -40,13 +40,13 @@ class AC_Helper_Html {
 			return $label;
 		}
 
-	    if ( ! $url ) {
+		if ( ! $url ) {
 			return $label;
 		}
 
 		if ( null === $label ) {
-		    $label = $url;
-        }
+			$label = $url;
+		}
 
 		if ( ! $this->contains_html( $label ) ) {
 			$label = esc_html( $label );
@@ -94,7 +94,7 @@ class AC_Helper_Html {
 	 * @param string $name
 	 */
 	public function indicator( $class, $id, $title = false ) { ?>
-		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
+        <span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
 		<?php
 	}
 
@@ -107,6 +107,24 @@ class AC_Helper_Html {
 	 */
 	public function implode( $array ) {
 		return is_array( $array ) ? implode( $this->divider(), $array ) : $array;
+	}
+
+	/**
+	 * Remove attribute from an html tag
+	 *
+	 * @param string $html HTML tag
+	 * @param string|array $attribute Attribute: style, class, alt, data etc.
+	 *
+	 * @return mixed
+	 */
+	public function strip_attributes( $html, $attributes ) {
+		if ( $this->contains_html( $html ) ) {
+			foreach ( (array) $attributes as $attribute ) {
+				$html = preg_replace( '/(<[^>]+) ' . $attribute . '=".*?"/i', '$1', $html );
+			}
+		}
+
+		return $html;
 	}
 
 }

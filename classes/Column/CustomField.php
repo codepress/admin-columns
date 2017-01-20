@@ -14,7 +14,7 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	public function __construct() {
 		$this->set_type( 'column-meta' );
 		$this->set_label( __( 'Custom Field', 'codepress-admin-columns' ) );
-		$this->set_group( 'custom_fields' );
+		$this->set_group( 'custom_field' );
 	}
 
 	/**
@@ -26,7 +26,7 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	 */
 	public function get_value( $object_id ) {
 
-		// Does not need formatting
+		// Count does not need formatting
 		if ( 'count' === $this->get_field_type() ) {
 			return count( $this->get_meta_value( $object_id, $this->get_meta_key(), false ) );
 		}

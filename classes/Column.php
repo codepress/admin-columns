@@ -103,13 +103,13 @@ abstract class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-		$label = $this->label;
 
-		if ( ! $label && $this->is_original() ) {
-			$label = $this->get_list_screen()->get_original_label( $this->get_name() );
+		// Original heading
+		if ( null === $this->label ) {
+			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_name() ) );
 		}
 
-		return $label;
+		return $this->label;
 	}
 
 	/**
@@ -128,7 +128,11 @@ abstract class AC_Column {
 	 * @return string Group
 	 */
 	public function get_group() {
-		return $this->group ? $this->group : 'custom';
+		if ( null === $this->group ) {
+			$this->set_group( 'custom' );
+		}
+
+		return $this->group;
 	}
 
 	/**
@@ -153,7 +157,9 @@ abstract class AC_Column {
 	 * @param int $clone
 	 */
 	public function set_clone( $clone ) {
-		$this->clone = absint( $clone );
+		if ( $clone && is_numeric( $clone ) ) {
+			$this->clone = $clone;
+		}
 
 		return $this;
 	}
@@ -319,7 +325,8 @@ abstract class AC_Column {
 					foreach ( $value as $k => $v ) {
 						$value->put( $k, $setting->format( $v ) );
 					}
-				} else {
+				}
+				else {
 					$value = $setting->format( $value );
 				}
 

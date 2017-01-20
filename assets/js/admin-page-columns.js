@@ -436,6 +436,7 @@ function cpac_reset_columns( $ ) {
 							//el.cpac_column_refresh();
 							//}
 							el.cpac_update_clone_id( container.attr( 'data-type' ) );
+
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
 						}
@@ -462,7 +463,7 @@ function cpac_reset_columns( $ ) {
 		/** change label */
 		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
-			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
+			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).html( value );
 		} );
 
 		/** tooltip */
@@ -549,6 +550,10 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_update_clone_id = function( list_screen ) {
 
 		var el = $( this );
+
+		if ( el.data('original') ) {
+			return;
+		}
 
 		var type = el.attr( 'data-type' );
 		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.ac-columns' );

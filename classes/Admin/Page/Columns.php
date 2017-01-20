@@ -363,8 +363,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		foreach ( AC()->list_screen_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
-			// TODO: fallback group called 'other' or 'custom'
-
 			if ( empty( $list_screens[ $slug ] ) ) {
 				continue;
 			}
@@ -796,7 +794,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                         </td>
                         <td class="column_type">
                             <div class="inner" data-toggle="column">
-								<?php echo $column->get_label(); ?>
+								<?php echo ac_helper()->html->strip_attributes( $column->get_label(), array( 'style', 'class' ) ); ?>
                             </div>
                         </td>
                         <td class="column_edit" data-toggle="column">
@@ -804,7 +802,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                     </tr>
                     </tbody>
                 </table>
-            </div><!--.column-meta-->
+            </div>
 
             <div class="ac-column-body">
                 <div class="ac-column-settings">
@@ -833,8 +831,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                     </table>
                 </div>
-            </div><!--.ac-column-body-->
-        </div><!--.ac-column-->
+            </div>
+        </div>
 		<?php
 	}
 

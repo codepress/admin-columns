@@ -11,7 +11,7 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		$this->set_list_table_class( 'WP_Users_List_Table' );
 		$this->set_screen_id( 'users' );
 		$this->set_key( 'wp-users' );
-		$this->set_group( 'user' );
+		$this->set_group( 'userx' );
 	}
 
 	/**

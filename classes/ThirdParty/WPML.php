@@ -23,7 +23,7 @@ class AC_ThirdParty_WPML {
 		}
 
 		// TODO
-		if ( ! AC()->table_screen()->get_list_screen() ) {
+		if ( ! AC()->table_screen()->get_current_list_screen() ) {
 			return;
 		}
 

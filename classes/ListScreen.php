@@ -540,7 +540,7 @@ abstract class AC_ListScreen {
 
 		$settings = array_merge( $defaults, $settings );
 
-		if ( ! isset( $settings['type'] ) || ! isset( $settings['label'] ) ) {
+		if ( ! isset( $settings['type'] ) ) {
 			return false;
 		}
 

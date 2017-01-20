@@ -14,10 +14,6 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
-		if ( $this->column->is_original() && ac_helper()->string->contains_html_only( $this->get_label() ) ) {
-			return false;
-		}
-
 		$view = new AC_View( array(
 			'label'   => __( 'Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
@@ -54,21 +50,9 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 
 	/**
 	 * @param string $label
-	 *
-	 * @return bool
 	 */
 	public function set_label( $label ) {
-		$label = $this->convert_site_url( $label );
-
-		// Label can not contains the character ":" and "'", exception are data url's
-		// TODO: move to sorting
-		if ( false === strpos( $label, 'data:' ) ) {
-			$label = str_replace( array( ':', "'" ), '', $label );
-		}
-
-		$this->label = $label;
-
-		return true;
+		$this->label = $this->convert_site_url( $label );
 	}
 
 }

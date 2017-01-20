@@ -166,6 +166,12 @@ class CPAC {
 		// Notices
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
 		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
+
+		add_action( 'plugins_loaded', array( $this, 'ready' ) );
+	}
+
+	public function ready() {
+		do_action( 'ac/ready', $this );
 	}
 
 	/**
@@ -319,7 +325,7 @@ class CPAC {
 		$groups = new AC_Groups();
 
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 6 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 6 );
 		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 7 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
@@ -513,73 +519,6 @@ class CPAC {
 	 */
 	public function admin_columns_screen() {
 		return $this->admin()->get_page( 'columns' );
-	}
-
-	/**
-	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreen object
-	 *
-	 * @since 2.2.4
-	 * @deprecated NEWVERSION
-	 *
-	 * @return false
-	 */
-	public function get_storage_model( $key ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen()' );
-
-		return $this->get_list_screen( $key );
-	}
-
-	/**
-	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreen object
-	 *
-	 * @since 2.2.4
-	 * @deprecated NEWVERSION
-	 *
-	 * @return AC_ListScreen
-	 */
-	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->table_screen()->get_current_list_screen()' );
-
-		return $this->table_screen()->get_current_list_screen();
-	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function get_general_option( $option ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->get_general_option( $option )' );
-
-		return $this->admin()->get_general_option( $option );
-	}
-
-	/**
-	 * Whether the current screen is the Admin Columns settings screen
-	 *
-	 * @since 2.2
-	 *
-	 * @param string $tab Specifies a tab screen (optional)
-	 *
-	 * @return bool True if the current screen is the settings screen, false otherwise
-	 */
-	public function is_settings_screen( $slug = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_page( $slug )' );
-
-		return $this->admin()->is_current_page( $slug );
-	}
-
-	/**
-	 * Get a list of taxonomies supported by Admin Columns
-	 *
-	 * @since 1.0
-	 *
-	 * @return array List of taxonomies
-	 */
-	public function get_taxonomies() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
-
-		return array();
 	}
 
 }

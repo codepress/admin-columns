@@ -20,8 +20,9 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
+
 		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
-		if ( apply_filters( 'cac/column/meta/use_text_input', false ) ) {
+		if ( apply_filters( 'ac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
 		}
@@ -64,39 +65,6 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		if ( empty( $keys ) ) {
 			$keys = false;
 		}
-
-		// TODO: deprecate filters
-		/**
-		 * Filter the available custom field meta keys
-		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
-		 *
-		 * @since 2.0
-		 *
-		 * @param array $keys Available custom field keys
-		 * @param AC_ListScreen $list_screen List screen class instance
-		 */
-		//$keys = apply_filters( 'cac/storage_model/meta_keys', $keys, $this->get_list_screen() );
-
-		/**
-		 * Filter the available custom field meta keys for this list screen type
-		 *
-		 * @since 2.0
-		 * @see Filter cac/list_screen/meta_keys
-		 */
-		//$keys = apply_filters( "cac/storage_model/meta_keys/storage_key=" . $this->get_list_screen_key(), $keys, $this->get_list_screen() );
-
-		/**
-		 * Filter the available custom field meta keys
-		 * If showing hidden fields is enabled, they are prefixed with "cpachidden" in the list
-		 *
-		 * @since NEWVERSION
-		 *
-		 * @param array $keys Available custom field keys
-		 * @param AC_ListScreen $list_screen List screen class instance
-		 */
-
-		// TODO: change name?
-		$keys = apply_filters( 'ac/column/custom_fields', $keys, $this );
 
 		return $keys;
 	}
@@ -141,9 +109,8 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	 * @return bool
 	 */
 	public function set_field( $field ) {
-		/**
-		 * Backcompat for WordPress Settings API not storing fields starting with _
-		 */
+
+		// Backwards compatible for WordPress Settings API not storing fields starting with _
 		$prefix_hidden = 'cpachidden';
 
 		if ( 0 === strpos( $field, $prefix_hidden ) ) {
