@@ -15,8 +15,7 @@ class AC_ThirdParty_WPML {
 
 		// enable the WPML translation of column headings
 
-		// TODO: filter no longer exists
-		add_filter( 'cac/headings/label', array( $this, 'register_translated_label' ), 10, 4 );
+		add_filter( 'ac/headings/label', array( $this, 'register_translated_label' ), 100, 2 );
 	}
 
 	public function replace_flags( $list_screen ) {
@@ -41,7 +40,6 @@ class AC_ThirdParty_WPML {
 
 	// Create translatable column labels
 	public function register_column_labels() {
-
 		// don't load this unless required by WPML
 		if ( ! isset( $_GET['page'] ) || 'wpml-string-translation/menu/string-translation.php' !== $_GET['page'] ) {
 			return;
@@ -49,23 +47,21 @@ class AC_ThirdParty_WPML {
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
 			foreach ( $list_screen->get_settings() as $column_name => $options ) {
-				icl_register_string( 'Admin Columns', $list_screen->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
+				do_action( 'wpml_register_single_string', 'Admin Columns', $list_screen->get_key() . '_' . $column_name . '_' . sanitize_title_with_dashes( $options['label'] ), $options['label'] );
 			}
 		}
 	}
 
 	/**
 	 * @param string $label
-	 * @param string $column_name
-	 * @param array $column_options
-	 * @param AC_ListScreen $list_screen
+	 * @param AC_Column $column
 	 *
 	 * @return string
 	 */
-	public function register_translated_label( $label, $column_name, $column_options, $list_screen ) {
+	public function register_translated_label( $label, $column ) {
 		if ( function_exists( 'icl_t' ) ) {
-			$name = $list_screen->get_key() . '_' . $column_name;
-			$label = icl_t( 'Admin Columns', $name, $label );
+			$name = $column->get_list_screen()->get_key() . '_' . $column->get_name() . '_' . sanitize_title_with_dashes( $column->get_setting( 'label' )->get_value() );
+			$label = apply_filters( 'wpml_translate_single_string', $label, 'Admin Columns', $name, ICL_LANGUAGE_CODE );
 		}
 
 		return $label;
