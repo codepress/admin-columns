@@ -83,7 +83,7 @@ final class AC_Addons {
 			return;
 		}
 
-		if ( get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
+		if ( ac_helper()->user->get_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
 			return;
 		}
 
