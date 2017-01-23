@@ -141,7 +141,6 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
 				break;
 
-			// TODO: test with pods
 			case "term_by_id" :
 				$value = false;
 				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {

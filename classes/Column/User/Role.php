@@ -15,7 +15,7 @@ class AC_Column_User_Role extends AC_Column_Meta {
 	public function get_meta_key() {
 		global $wpdb;
 
-		return $wpdb->get_blog_prefix() . 'capabilities'; // WPMU compat
+		return $wpdb->get_blog_prefix() . 'capabilities'; // WPMU compatible
 	}
 
 	public function register_settings() {

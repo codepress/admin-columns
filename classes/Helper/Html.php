@@ -63,6 +63,20 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * @param $label
+	 * @param $tooltip
+	 *
+	 * @return string
+	 */
+	public function tooltip( $label, $tooltip ) {
+	    if ( $label ) {
+		    $label = '<div class="cpac-tip" data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</div>';
+	    }
+
+	    return $label;
+	}
+
+	/**
 	 * @param array $attributes
 	 *
 	 * @return string

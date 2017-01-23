@@ -312,10 +312,6 @@ final class AC_TableScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		// TODO
-		// Flush variables. In case any columns are deactivated after saving them.
-		//$this->current_list_screen->reset();
-
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 			$this->column_headings[ $column->get_name() ] = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
 		}

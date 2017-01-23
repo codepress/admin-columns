@@ -34,24 +34,14 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	 *
 	 * @return string
 	 */
-	public function get_clean_label( AC_Column $column = null ) {
-		if ( null === $column ) {
-			$column = $this->column;
-		}
-
-		// TODO: can we remove this?
-		//$label = $column->get_list_screen()->settings()->get_setting( 'label' );
+	private function get_clean_label( AC_Column $column ) {
 		$label = $column->get_label();
 
-		if ( empty( $label ) ) {
-			$label = $column->get_label();
-		}
-
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
-			$label = $column->get_type();
+			$label = ucfirst( str_replace( '_', ' ', $column->get_type() ) );
 		}
 
-		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
+		return strip_tags( $label );
 	}
 
 	/**
@@ -66,7 +56,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
 			$group = $column->get_group();
 
-			// Labels with html will be replaced by the it's name.
+			// Labels with html will be replaced by it's name.
 			$columns[ $group ][ $column->get_type() ] = $this->get_clean_label( $column );
 
 			if ( ! $column->is_original() ) {

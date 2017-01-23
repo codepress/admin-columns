@@ -298,12 +298,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'ac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
-
-		// TODO
-		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . 'assets/css/admin-column.css', array(), AC()->get_version(), 'all' );
-
-		// javascript translations
-		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
+		wp_localize_script( 'ac-upgrade', 'cpac_upgrade_i18n', array(
 			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . esc_url( AC()->admin()->get_link( 'welcome' ) ) . '">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",
 			'error'       => __( 'Error', 'codepress-admin-columns' ),
 			'major_error' => __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' ),

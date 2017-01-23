@@ -2,6 +2,11 @@
 
 class AC_ListScreen_Post extends AC_ListScreenWP {
 
+	/**
+	 * @var string Post type
+	 */
+	private $post_type;
+
 	public function __construct( $post_type ) {
 
 		$this->set_screen_base( 'edit' );
@@ -64,6 +69,14 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 		$post_type_object = get_post_type_object( $this->get_post_type() );
 
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
+	}
+
+	public function get_post_type() {
+		return $this->post_type;
+	}
+
+	protected function set_post_type( $post_type ) {
+		$this->post_type = (string) $post_type;
 	}
 
 }

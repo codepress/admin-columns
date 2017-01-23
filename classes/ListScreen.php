@@ -118,11 +118,6 @@ abstract class AC_ListScreen {
 	private $read_only = false;
 
 	/**
-	 * @var string Post type
-	 */
-	private $post_type;
-
-	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
@@ -206,14 +201,6 @@ abstract class AC_ListScreen {
 
 	protected function set_list_table_class( $list_table ) {
 		$this->list_table_class = $list_table;
-	}
-
-	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	protected function set_post_type( $post_type ) {
-		$this->post_type = (string) $post_type;
 	}
 
 	/**

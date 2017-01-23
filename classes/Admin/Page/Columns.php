@@ -110,6 +110,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
+
+	// TODO: to listscreen?
 	public function store( AC_ListScreen $list_screen, $column_data ) {
 
 		if ( ! $column_data ) {
@@ -118,7 +120,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		foreach ( $column_data as $name => $options ) {
 
-		    // Set clone
+			// Set clone
 			$clone = str_replace( $options['type'] . '-', '', $name );
 
 			if ( is_numeric( $clone ) ) {
@@ -731,14 +733,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             <div class="clear"></div>
 
             <div id="add-new-column-template">
-				<?php
-				foreach ( $list_screen->get_column_types() as $column_type ) {
-					if ( 'custom' === $column_type->get_group() ) {
-						$this->display_column( $column_type );
-						break;
-					}
-				}
-				?>
+				<?php $this->display_column_template( $list_screen ); ?>
             </div>
 
         </div><!--.columns-container-->
@@ -746,6 +741,26 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
         <div class="clear"></div>
 
 		<?php
+	}
+
+	/**
+	 * Get first custom group column
+	 */
+	private function display_column_template( AC_ListScreen $list_screen ) {
+		$columns = array();
+
+		foreach ( $list_screen->get_column_types() as $column_type ) {
+			if ( 'custom' === $column_type->get_group() ) {
+				$columns[ $column_type->get_label() ] = $column_type;
+			}
+		}
+
+		array_multisort( array_keys( $columns ), SORT_NATURAL, $columns );
+
+		/** @var AC_Column $column */
+		$column = array_shift( $columns );
+
+		$this->display_column( $column );
 	}
 
 	/**
