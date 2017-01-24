@@ -110,43 +110,59 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @param array $columns
 	 * @param array $default_columns Default columns heading names.
 	 */
-
-	// TODO: to listscreen?
 	public function store( AC_ListScreen $list_screen, $column_data ) {
 
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
-		foreach ( $column_data as $name => $options ) {
+		// TODO: to listscreen?
 
-			// Set clone
-			$clone = str_replace( $options['type'] . '-', '', $name );
+		$settings = array();
 
-			if ( is_numeric( $clone ) ) {
-				$options['clone'] = $clone;
+		$current_settings = $list_screen->get_settings();
+
+		foreach ( $column_data as $key => $options ) {
+			if ( empty( $options['type'] ) ) {
+				continue;
+			}
+
+			$column = $list_screen->create_column( $options );
+
+			if ( ! $column ) {
+				continue;
+			}
+
+			// Skip duplicate original columns
+			if ( $column->is_original() ) {
+				$types = wp_list_pluck( $settings, 'type' );
+				if ( in_array( $column->get_type(), $types, true ) ) {
+					continue;
+				}
 			}
 
 			$sanitized = array();
 
-			if ( $column = $list_screen->create_column( $options ) ) {
-
-				// Sanitize data
-				foreach ( $column->get_settings() as $setting ) {
-					$sanitized += $setting->get_values();
-				}
-
-				// Encode site url
-				if ( $setting = $column->get_setting( 'label' ) ) {
-					$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
-				}
+			// Sanitize data
+			foreach ( $column->get_settings() as $setting ) {
+				$sanitized += $setting->get_values();
 			}
 
-			$column_data[ $name ] = array_merge( $options, $sanitized );
+			// Encode site url
+			if ( $setting = $column->get_setting( 'label' ) ) {
+				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
+			}
+
+			// New column, new key
+			if ( ! in_array( $key, array_keys( $current_settings ), true ) ) {
+				$key = uniqid();
+			}
+
+			$settings[ $key ] = array_merge( $options, $sanitized );
 		}
 
 		// store columns
-		$result = $list_screen->store( $column_data );
+		$result = $list_screen->store( $settings );
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );
@@ -289,17 +305,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$options = filter_input( INPUT_POST, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$name = filter_input( INPUT_POST, 'column_name' );
-		$clone = filter_input( INPUT_POST, 'column_clone', FILTER_VALIDATE_INT );
 
-		if ( null === $clone || ! $name || empty( $options[ $name ] ) ) {
+		if ( empty( $options[ $name ] ) ) {
 			wp_die();
 		}
 
-		if ( $clone ) {
-			$options[ $name ]['clone'] = $clone;
-		}
-
-		$column = $this->get_current_list_screen()->create_column( $options[ $name ] );
+		$column = $this->get_current_list_screen()->create_column( $options[ $name ], $name );
 
 		if ( ! $column ) {
 			wp_die();
@@ -770,7 +781,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
         <div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>"
                 data-type="<?php echo esc_attr( $column->get_type() ); ?>"
-                data-clone="<?php echo esc_attr( $column->get_clone() ); ?>"
                 data-original="<?php echo esc_attr( $column->is_original() ); ?>"
                 data-column-name="<?php echo esc_attr( $column->get_name() ); ?>">
 
