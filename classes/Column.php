@@ -117,7 +117,7 @@ abstract class AC_Column {
 
 		// Original heading
 		if ( null === $this->label ) {
-			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_name() ) );
+			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
 		}
 
 		return $this->label;

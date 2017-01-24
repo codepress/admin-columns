@@ -413,10 +413,10 @@ abstract class AC_ListScreen {
 	 *
 	 * @return string|false
 	 */
-	public function get_original_label( $column_name ) {
+	public function get_original_label( $column_type ) {
 		$default_columns = $this->get_default_columns();
 
-		return isset( $default_columns[ $column_name ] ) ? $default_columns[ $column_name ] : false;
+		return isset( $default_columns[ $column_type ] ) ? $default_columns[ $column_type ] : false;
 	}
 
 	/**
@@ -425,14 +425,18 @@ abstract class AC_ListScreen {
 	public function register_column_type( AC_Column $column ) {
 		// Skip original columns that do not exist
 		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
-			return;
+			return false;
 		}
 
 		$column->set_list_screen( $this );
 
-		if ( $column->is_valid() ) {
-			$this->column_types[ $column->get_type() ] = $column;
+		if ( ! $column->is_valid() ) {
+			return false;
 		}
+
+		$this->column_types[ $column->get_type() ] = $column;
+
+		return true;
 	}
 
 	/**
@@ -452,6 +456,7 @@ abstract class AC_ListScreen {
 	 * Available column types
 	 */
 	public function set_column_types() {
+
 		// Register default column types
 		foreach ( array_keys( $this->get_default_columns() ) as $type ) {
 

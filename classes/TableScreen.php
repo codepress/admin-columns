@@ -87,7 +87,7 @@ final class AC_TableScreen {
 	 */
 	public function admin_class( $classes ) {
 		if ( $this->current_list_screen ) {
-			$classes .= " cp-" . $this->current_list_screen->get_key();
+			$classes .= " ac-" . $this->current_list_screen->get_key();
 		}
 
 		return $classes;
@@ -143,7 +143,7 @@ final class AC_TableScreen {
 			$width = $column->get_settings()->width;
 
 			if ( $width->get_value() ) {
-				$css_column_width .= ".cp-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
+				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
 			}
 		}
 
