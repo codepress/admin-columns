@@ -59,6 +59,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $name
+	 *
 	 * @return $this
 	 */
 	public function set_name( $name ) {
@@ -317,8 +318,7 @@ abstract class AC_Column {
 					foreach ( $value as $k => $v ) {
 						$value->put( $k, $setting->format( $v ) );
 					}
-				}
-				else {
+				} else {
 					$value = $setting->format( $value );
 				}
 
