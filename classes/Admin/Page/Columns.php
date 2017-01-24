@@ -282,7 +282,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				'type'  => 'message',
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-					'<strong>' . $column->get_setting( 'type' )->get_value( 'clean_label' ) . '</strong>' ),
+					'<strong>' . $column->get_label() . '</strong>' ),
 			) );
 		}
 

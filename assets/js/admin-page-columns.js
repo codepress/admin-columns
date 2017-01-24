@@ -382,7 +382,7 @@ function cpac_reset_columns( $ ) {
 		var list_screen = container.attr( 'data-type' );
 
 		// Current column type
-		var default_value = column.find( '.column-type select option:selected' ).val();
+		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
 
 		// Type selector
 		column.find( 'select.ac-setting-input_type' ).change( function() {
