@@ -514,19 +514,13 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $type Column type
-	 * @param array $options Column options
-	 * @param int $clone Column clone ID
+	 * @param array $settings Column options
+	 * @param string $name Unique column name
 	 *
 	 * @return AC_Column|false
 	 */
-	public function create_column( array $settings ) {
-		$defaults = array(
-			'clone' => 0,
-		);
-
-		$settings = array_merge( $defaults, $settings );
-
+	// TODO
+	public function create_column( array $settings, $name = false ) {
 		if ( ! isset( $settings['type'] ) ) {
 			return false;
 		}
@@ -541,9 +535,14 @@ abstract class AC_ListScreen {
 		$column = new $class();
 
 		$column->set_list_screen( $this )
-		       ->set_type( $settings['type'] )
-		       ->set_clone( $settings['clone'] )
-		       ->set_options( $settings ); // inject settings after clone is set
+		       ->set_type( $settings['type'] );
+
+		if ( $column->is_original() ) {
+			$name = $column->get_type();
+		}
+
+		$column->set_name( $name );
+		$column->set_options( $settings );
 
 		return $column;
 	}
@@ -562,16 +561,15 @@ abstract class AC_ListScreen {
 	 */
 	protected function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
-
-		do_action( 'ac/column', $column );
 	}
 
 	/**
 	 * @since NEWVERSION
 	 */
 	private function set_columns() {
-		foreach ( $this->get_settings() as $data ) {
-			if ( $column = $this->create_column( $data ) ) {
+		foreach ( $this->get_settings() as $name => $data ) {
+			$data['name'] = $name;
+			if ( $column = $this->create_column( $data, $name ) ) {
 				$this->register_column( $column );
 			}
 		}

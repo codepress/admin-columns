@@ -6,6 +6,11 @@
 abstract class AC_Column {
 
 	/**
+	 * @var string Unique Name
+	 */
+	private $name;
+
+	/**
 	 * @var string Unique type
 	 */
 	private $type;
@@ -26,11 +31,6 @@ abstract class AC_Column {
 	private $original;
 
 	/**
-	 * @var int Unique clone ID
-	 */
-	private $clone;
-
-	/**
 	 * @var AC_Settings_Setting[]
 	 */
 	private $settings;
@@ -48,13 +48,23 @@ abstract class AC_Column {
 	protected $options = array();
 
 	/**
-	 * Get the name of the column.
+	 * Get the unique name of the column
 	 *
 	 * @since 2.3.4
 	 * @return string Column name
 	 */
 	public function get_name() {
-		return $this->clone > 0 ? $this->type . '-' . $this->clone : $this->type;
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 * @return $this
+	 */
+	public function set_name( $name ) {
+		$this->name = $name;
+
+		return $this;
 	}
 
 	/**
@@ -142,24 +152,6 @@ abstract class AC_Column {
 	 */
 	public function set_group( $group ) {
 		$this->group = $group;
-
-		return $this;
-	}
-
-	/**
-	 * @return int Clone ID
-	 */
-	public function get_clone() {
-		return $this->clone;
-	}
-
-	/**
-	 * @param int $clone
-	 */
-	public function set_clone( $clone ) {
-		if ( $clone && is_numeric( $clone ) ) {
-			$this->clone = $clone;
-		}
 
 		return $this;
 	}
