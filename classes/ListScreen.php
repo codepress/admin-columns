@@ -519,7 +519,6 @@ abstract class AC_ListScreen {
 	 *
 	 * @return AC_Column|false
 	 */
-	// TODO
 	public function create_column( array $settings, $name = false ) {
 		if ( ! isset( $settings['type'] ) ) {
 			return false;
@@ -617,7 +616,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @deprecated NEWVERSION
 	 */
-	// TODO
+	// TODO: test or remove?
 	private function deprecated_register_columns() {
 		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
 		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_group(), $class_names, $this );
@@ -644,7 +643,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Store column settings
 	 *
-	 * @param $settings
+	 * @param array $settings
 	 *
 	 * @return bool
 	 */
@@ -688,6 +687,11 @@ abstract class AC_ListScreen {
 		return self::OPTIONS_KEY . $this->get_key() . "__default";
 	}
 
+	/**
+	 * @param array $column_headings Default column headings
+	 *
+	 * @return bool
+	 */
 	public function save_default_headings( $column_headings ) {
 		return update_option( $this->get_default_key(), $column_headings );
 	}
@@ -699,10 +703,16 @@ abstract class AC_ListScreen {
 		return get_option( $this->get_default_key(), array() );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function delete() {
 		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function delete_default_headings() {
 		return delete_option( $this->get_default_key() );
 	}

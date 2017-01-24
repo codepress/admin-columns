@@ -115,7 +115,7 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->table_screen()->get_list_screen_when_doing_ajax()' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
 	return AC()->table_screen()->get_list_screen_when_doing_ajax();
 }

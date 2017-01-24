@@ -102,12 +102,12 @@ final class AC_TableScreen {
 			return;
 		}
 
-		wp_register_script( 'cpac-admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_register_script( 'admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
 		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
 		wp_register_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 		wp_register_style( 'ac-columns', AC()->get_plugin_url() . "assets/css/list-screen" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
-		wp_enqueue_script( 'cpac-admin-columns' );
+		wp_enqueue_script( 'admin-columns' );
 		wp_enqueue_style( 'jquery-qtip2' );
 		wp_enqueue_style( 'ac-columns' );
 

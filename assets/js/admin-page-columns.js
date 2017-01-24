@@ -15,7 +15,7 @@ var ac_i18n;
  *
  * @type {number}
  */
-var ac_column_name = 0;
+var temporary_column_name = 0;
 
 /**
  * DOM ready
@@ -559,21 +559,21 @@ function cpac_reset_columns( $ ) {
 
 			// name
 			if ( $( v ).attr( 'name' ) ) {
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + ac_column_name + ']' ) );
+				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temporary_column_name + ']' ) );
 			}
 
 			// id
 			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + ac_column_name + '-' ) );
+				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temporary_column_name + '-' ) );
 			}
 
 			// TODO: for
 		} );
 
-		$el.attr( 'data-column-name', ac_column_name );
+		$el.attr( 'data-column-name', temporary_column_name );
 
 		// increment
-		ac_column_name++;
+		temporary_column_name++;
 	};
 
 	/*
