@@ -99,7 +99,6 @@ final class AC_TableScreen {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
@@ -113,9 +112,10 @@ final class AC_TableScreen {
 		wp_enqueue_style( 'jquery-qtip2' );
 		wp_enqueue_style( 'ac-columns' );
 
-		wp_localize_script( 'ac-columns', 'AC', array(
+		wp_localize_script( 'admin-columns', 'AC', array(
 				'current_list_screen' => $this->current_list_screen->get_key(),
 				'current_layout'      => $this->current_list_screen->get_layout(),
+				'column_types'        => $this->get_column_types_mapping( $this->current_list_screen ),
 			)
 		);
 
@@ -123,6 +123,20 @@ final class AC_TableScreen {
 		 * @param AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/listings_scripts', $this->current_list_screen );
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return array
+	 */
+	private function get_column_types_mapping( AC_ListScreen $list_screen ) {
+	    $types = array();
+	    foreach ( $list_screen->get_columns() as $column ) {
+	        $types[ $column->get_name() ] = $column->get_type();
+        }
+
+        return $types;
 	}
 
 	public function get_current_list_screen() {

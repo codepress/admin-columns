@@ -117,8 +117,6 @@ function cpac_add_column( $ ) {
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
 		clone.cpac_update_clone_id();
 
-		// TODO: animation should go more fluently
-
 		// Open
 		clone.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150, function() {
 			$( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
