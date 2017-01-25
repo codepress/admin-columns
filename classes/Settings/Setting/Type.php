@@ -18,10 +18,17 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			->create_element( 'select' )
 			->set_options( $this->get_grouped_columns() );
 
+		// Tooltip
+		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+
+		if ( $this->column->get_name() ) {
+			$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
+		}
+
 		$view = new AC_View( array(
 			'setting' => $type,
 			'label'   => __( 'Type', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>',
+			'tooltip' => $tooltip,
 		) );
 
 		return $view;
