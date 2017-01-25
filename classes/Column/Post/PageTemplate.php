@@ -15,12 +15,24 @@ class AC_Column_Post_PageTemplate extends AC_Column_Meta {
 	}
 
 	function get_value( $post_id ) {
-		return array_search( $this->get_raw_value( $post_id ), get_page_templates() );
+		return array_search( $this->get_raw_value( $post_id ), $this->get_page_templates() );
 	}
 
-	// TODO: 4.7 supports post_type templates
 	function is_valid() {
-		return 'page' === $this->get_post_type();
+		return $this->get_page_templates() ? true : false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_page_templates() {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '4.7', '>=' ) ) {
+			return get_page_templates( null, $this->get_post_type() );
+		}
+
+		return get_page_templates();
 	}
 
 }

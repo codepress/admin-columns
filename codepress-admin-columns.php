@@ -346,6 +346,8 @@ class CPAC {
 	}
 
 	/**
+	 * Contains simple helper methods
+	 *
 	 * @since NEWVERSION
 	 *
 	 * @return AC_Helper
@@ -355,7 +357,7 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_TableScreen
+	 * @return AC_TableScreen Returns the screen manager for the list table
 	 */
 	public function table_screen() {
 		return $this->table_screen;
