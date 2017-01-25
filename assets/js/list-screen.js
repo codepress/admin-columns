@@ -1,13 +1,21 @@
 jQuery( document ).ready( function( $ ) {
-	cpac_actions_column( $ );
-	cpac_tooltips( $ );
 	cpac_quickedit_events( $ );
 	cpac_set_column_classes( $ )
+	cpac_actions_column( $ );
+	cpac_tooltips( $ );
 } );
 
-function cpac_actions_column( $ ) {
-	$( '.column-actions .cpac_use_icons + .row-actions > span' ).each( function() {
-		var $link = $( this ).find( 'a' );
+function cpac_actions_column() {
+	jQuery( '.column-actions' ).each( function() {
+		var $column = jQuery( this );
+
+		if ( $column.find( '.cpac_use_icons' ).length > 0 ) {
+			$column.addClass( 'cpac_use_icons' );
+		}
+	} );
+
+	jQuery( '.column-actions.cpac_use_icons .row-actions > span' ).each( function() {
+		var $link = jQuery( this ).find( 'a' );
 		$link.attr( 'data-tip', $link.text() ).addClass( 'cpac-tip' );
 	} );
 }
