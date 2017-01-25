@@ -26,4 +26,8 @@ class AC_Column_Post_Formats extends AC_Column {
 		return $format ? $format : false;
 	}
 
+	public function get_taxonomy() {
+		return 'post_format';
+	}
+
 }
