@@ -4,12 +4,19 @@ jQuery( document ).ready( function( $ ) {
 	cpac_quickedit_events();
 } );
 
+function cpac_actions_column() {
+	jQuery( '.column-actions' ).each( function() {
+		var $column = jQuery( this );
 
-function cpac_actions_column(){
-	jQuery('.column-actions .cpac_use_icons + .row-actions > span').each( function(){
-		var $link = jQuery(this).find('a');
-		$link.attr( 'data-tip', $link.text() ).addClass('cpac-tip');
-	});
+		if ( $column.find( '.cpac_use_icons' ).length > 0 ) {
+			$column.addClass( 'cpac_use_icons' );
+		}
+	} );
+
+	jQuery( '.column-actions .cpac_use_icons + .row-actions > span' ).each( function() {
+		var $link = jQuery( this ).find( 'a' );
+		$link.attr( 'data-tip', $link.text() ).addClass( 'cpac-tip' );
+	} );
 }
 
 /**

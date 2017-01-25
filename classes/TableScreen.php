@@ -33,9 +33,11 @@ final class AC_TableScreen {
 			}
 
 			// If actions column is present, set it as primary
-			if ( $this->current_list_screen->get_column_by_name( 'column-actions' ) ) {
-				$default = 'column-actions';
-			}
+            foreach( $this->current_list_screen->get_columns() as $column ){
+			    if( 'column-actions' == $column->get_type() ){
+				    $default = $column->get_name();
+                }
+            };
 
 			// Set inline edit data if the default column (title) is not present
 			if ( $this->current_list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
