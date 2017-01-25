@@ -45,16 +45,14 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_plugin_url() . 'assets/css/admin-page-columns' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
 
-		// Javascript translations
-		wp_localize_script( 'ac-admin-page-columns', 'ac_i18n', array(
-			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
-		) );
-
-		// Nonce
-		wp_localize_script( 'ac-admin-page-columns', 'cpac', array(
+		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
 			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
 			'list_screen' => $this->get_current_list_screen()->get_key(),
+			'layout'      => $this->get_current_list_screen()->get_layout(),
+			'i18n'        => array(
+				'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+				'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
+			),
 		) );
 
 		do_action( 'ac/settings_scripts' );
@@ -101,84 +99,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		do_action( 'ac/settings/list_screen', $list_screen );
 
 		return $list_screen;
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param AC_ListScreen $list_screen
-	 * @param array $columns
-	 * @param array $default_columns Default columns heading names.
-	 */
-	public function store( AC_ListScreen $list_screen, $column_data ) {
-
-		if ( ! $column_data ) {
-			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
-		}
-
-		// TODO: to listscreen?
-
-		$settings = array();
-
-		$current_settings = $list_screen->get_settings();
-
-		foreach ( $column_data as $key => $options ) {
-			if ( empty( $options['type'] ) ) {
-				continue;
-			}
-
-			$column = $list_screen->create_column( $options );
-
-			if ( ! $column ) {
-				continue;
-			}
-
-			// Skip duplicate original columns
-			if ( $column->is_original() ) {
-				$types = wp_list_pluck( $settings, 'type' );
-				if ( in_array( $column->get_type(), $types, true ) ) {
-					continue;
-				}
-			}
-
-			$sanitized = array();
-
-			// Sanitize data
-			foreach ( $column->get_settings() as $setting ) {
-				$sanitized += $setting->get_values();
-			}
-
-			// Encode site url
-			if ( $setting = $column->get_setting( 'label' ) ) {
-				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
-			}
-
-			// New column, new key
-			if ( ! in_array( $key, array_keys( $current_settings ), true ) ) {
-				$key = uniqid();
-			}
-
-			$settings[ $key ] = array_merge( $options, $sanitized );
-		}
-
-		// store columns
-		$result = $list_screen->store( $settings );
-
-		if ( ! $result ) {
-			return new WP_Error( 'same-settings', sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) );
-		}
-
-		/**
-		 * Fires after a new column setup is stored in the database
-		 * Primarily used when columns are saved through the Admin Columns settings screen
-		 *
-		 * @since NEWVERSION
-		 *
-		 * @param AC_ListScreen $list_screen
-		 */
-		do_action( 'ac/columns_stored', $list_screen );
-
-		return true;
 	}
 
 	/**
@@ -267,12 +187,13 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$column = $this->get_current_list_screen()->get_column_by_type( $type );
+		$list_screen = $this->get_current_list_screen();
+		$column = $list_screen->get_column_by_type( $type );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_error_message_visit_list_screen( $this->get_current_list_screen() ),
+				'error' => $this->get_error_message_visit_list_screen( $list_screen ),
 			) );
 		}
 
@@ -335,12 +256,21 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			);
 		}
 
-		$stored = $this->store( $this->get_current_list_screen(), $formdata['columns'] );
+		$result = $this->get_current_list_screen()->store( $formdata['columns'] );
 
-		if ( is_wp_error( $stored ) ) {
+		if ( is_wp_error( $result ) ) {
+
+			if ( 'same-settings' === $result->get_error_code() ) {
+				wp_send_json_error( array(
+						'type'    => 'notice notice-warning',
+						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_current_list_screen() ) ) . "</strong>" ),
+					)
+				);
+			}
+
 			wp_send_json_error( array(
-					'type'    => 'same-settings' === $stored->get_error_code() ? 'notice notice-warning' : 'error',
-					'message' => $stored->get_error_message(),
+					'type'    => 'error',
+					'message' => $result->get_error_message(),
 				)
 			);
 		}

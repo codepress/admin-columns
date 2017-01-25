@@ -1,14 +1,11 @@
 /**
  * AC variables. Defined in DOM.
- * @param {Object} cpac
+ * @param AC {Object}
+ * @param AC.list_screen {String}
+ * @param AC.layout {String}
+ * @param AC.i81n {String}
  */
-var cpac;
-
-/**
- * Translations. Defined in DOM.
- * @param {Object} cpac
- */
-var ac_i18n;
+var AC;
 
 /**
  * Temporary column name used for form elements.
@@ -61,8 +58,9 @@ function cpac_submit_form( $ ) {
 				plugin_id : 'cpac',
 				action : 'cpac_columns_save',
 				data : columns_data,
-				_ajax_nonce : cpac._ajax_nonce,
-				list_screen : $container.data( 'type' )
+				_ajax_nonce : AC._ajax_nonce,
+				list_screen : AC.list_screen,
+				layout : AC.layout
 			},
 
 			// JSON response
@@ -307,7 +305,7 @@ function cpac_reset_columns( $ ) {
 		var request_data = {
 			plugin_id : 'cpac',
 			action : 'cpac_column_refresh',
-			_ajax_nonce : cpac._ajax_nonce,
+			_ajax_nonce : AC._ajax_nonce,
 			list_screen : $container.data( 'type' ),
 			column_name : column_name
 		};
@@ -356,7 +354,7 @@ function cpac_reset_columns( $ ) {
 		xhr.fail( function( error ) {
 			var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
 
-			$msg.addClass( 'error' ).find( 'p' ).html( ac_i18n.error );
+			$msg.addClass( 'error' ).find( 'p' ).html( AC.i18n.error );
 			$msg.slideDown();
 
 			el.slideUp( function() { el.remove() } );
@@ -406,7 +404,7 @@ function cpac_reset_columns( $ ) {
 					plugin_id : 'cpac',
 					action : 'cpac_column_select',
 					original_columns : original_columns,
-					_ajax_nonce : cpac._ajax_nonce,
+					_ajax_nonce : AC._ajax_nonce,
 					type : type,
 					list_screen : list_screen
 				}
@@ -513,7 +511,7 @@ function cpac_reset_columns( $ ) {
 
 		if ( '1' === column.attr( 'data-original' ) ) {
 
-			var message = ac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
+			var message = AC.i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
 			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
 			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();

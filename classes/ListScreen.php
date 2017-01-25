@@ -400,9 +400,18 @@ abstract class AC_ListScreen {
 		if ( $column = $this->get_column_by_name( $column_name ) ) {
 			$value = $column->get_value( $id );
 
-			// TODO: comments, change name
-			$value = apply_filters( "cac/column/value", $value, $id, $column );
-			$value = apply_filters( "cac/column/value/" . $this->get_group(), $value, $id, $column );
+			/**
+			 * Column display value
+			 *
+			 * @param string $value Column display value
+			 * @param int $id Object ID
+			 * @param AC_Column $column Column object
+			 * @param AC_ListScreen $this
+			 */
+			$value = apply_filters( "ac/column/value", $value, $id, $column, $this );
+
+			// @deprecated NEWVERSION
+			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', "ac/column/value" );
 		}
 
 		return $value;
@@ -621,11 +630,11 @@ abstract class AC_ListScreen {
 	 *
 	 * @deprecated NEWVERSION
 	 */
-	// TODO: test or remove?
 	private function deprecated_register_columns() {
-		$class_names = apply_filters( 'cac/columns/custom', array(), $this );
-		$class_names = apply_filters( 'cac/columns/custom/type=' . $this->get_group(), $class_names, $this );
-		$class_names = apply_filters( 'cac/columns/custom/post_type=' . $this->get_key(), $class_names, $this );
+
+		$class_names = apply_filters_deprecated( 'cac/columns/custom', array( array(), $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
+		$class_names = apply_filters_deprecated( 'cac/columns/custom/type=' . $this->get_group(), array( $class_names, $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
+		$class_names = apply_filters_deprecated( 'cac/columns/custom/post_type=' . $this->get_key(), array( $class_names, $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
 
 		foreach ( $class_names as $class_name => $path ) {
 			$autoload = true;
@@ -646,14 +655,77 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * Store column settings
+	 * Store column data
 	 *
-	 * @param array $settings
+	 * @param array $column_data
 	 *
-	 * @return bool
+	 * @return WP_Error|true
 	 */
-	public function store( $settings ) {
-		return update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+	public function store( $column_data ) {
+		if ( ! $column_data ) {
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+		}
+
+		$settings = array();
+
+		$current_settings = $this->get_settings();
+
+		foreach ( $column_data as $key => $options ) {
+			if ( empty( $options['type'] ) ) {
+				continue;
+			}
+
+			$column = $this->create_column( $options );
+
+			if ( ! $column ) {
+				continue;
+			}
+
+			// Skip duplicate original columns
+			if ( $column->is_original() ) {
+				$types = wp_list_pluck( $settings, 'type' );
+				if ( in_array( $column->get_type(), $types, true ) ) {
+					continue;
+				}
+			}
+
+			$sanitized = array();
+
+			// Sanitize data
+			foreach ( $column->get_settings() as $setting ) {
+				$sanitized += $setting->get_values();
+			}
+
+			// Encode site url
+			if ( $setting = $column->get_setting( 'label' ) ) {
+				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
+			}
+
+			// New column, new key
+			if ( ! in_array( $key, array_keys( $current_settings ), true ) ) {
+				$key = uniqid();
+			}
+
+			$settings[ $key ] = array_merge( $options, $sanitized );
+		}
+
+		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+
+		if ( ! $result ) {
+			return new WP_Error( 'same-settings' );
+		}
+
+		/**
+		 * Fires after a new column setup is stored in the database
+		 * Primarily used when columns are saved through the Admin Columns settings screen
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param AC_ListScreen $list_screen
+		 */
+		do_action( 'ac/columns_stored', $this );
+
+		return true;
 	}
 
 	/**

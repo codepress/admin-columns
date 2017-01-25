@@ -115,6 +115,7 @@ final class AC_TableScreen {
 
 		wp_localize_script( 'ac-columns', 'AC', array(
 				'current_list_screen' => $this->current_list_screen->get_key(),
+				'current_layout'      => $this->current_list_screen->get_layout(),
 			)
 		);
 
@@ -142,7 +143,7 @@ final class AC_TableScreen {
 		$css_column_width = false;
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
-			$width = $column->get_settings()->width;
+			$width = $column->get_setting( 'width' );
 
 			if ( $width->get_value() ) {
 				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
@@ -241,11 +242,7 @@ final class AC_TableScreen {
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
-			if ( 'cpac' == filter_input( INPUT_GET, 'plugin_id' ) ) {
-				$list_screen = filter_input( INPUT_GET, 'list_screen' );
-			}
-
-			if ( 'cpac' == filter_input( INPUT_POST, 'plugin_id' ) ) {
+			if ( 'cpac' === filter_input( INPUT_POST, 'plugin_id' ) ) {
 				$list_screen = filter_input( INPUT_POST, 'list_screen' );
 			}
 
