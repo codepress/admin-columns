@@ -731,8 +731,10 @@ abstract class AC_ListScreen {
 	/**
 	 * Populate settings from the database
 	 */
-	public function populate_stored_settings() {
+	public function populate_settings() {
 		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
+
+		do_action( 'ac/list_screen/settings', $this );
 	}
 
 	/**
@@ -751,7 +753,7 @@ abstract class AC_ListScreen {
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
-			$this->populate_stored_settings();
+			$this->populate_settings();
 		}
 
 		return $this->settings;
