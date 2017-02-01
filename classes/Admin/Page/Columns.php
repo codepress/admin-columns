@@ -435,7 +435,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 <span class="spinner"></span>
                             </form>
 
-							<?php do_action( 'cac/settings/form_actions', $list_screen ); ?>
+							<?php do_action( 'ac/settings/form_actions', $list_screen ); ?>
 
                         </div><!--form-actions-->
 					<?php endif; ?>

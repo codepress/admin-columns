@@ -34,11 +34,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 	 *
 	 * @since 2.2
 	 */
-	public function proaddon_notice() {
-		if ( apply_filters( 'cpac/suppress_proaddon_notice', false ) ) {
-			return;
-		}
-		?>
+	public function proaddon_notice() {	?>
         <div class="message error">
             <p>
 				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>

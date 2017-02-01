@@ -220,7 +220,7 @@ final class AC_Addons {
 		}
 
 		// Hook: trigger possible warning message before running WP installer ( api errors etc. )
-		if ( $error = apply_filters( 'cac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
+		if ( $error = apply_filters( 'ac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
 			AC()->notice( $error, 'error' );
 
 			return;

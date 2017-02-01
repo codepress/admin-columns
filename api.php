@@ -106,7 +106,7 @@ function cac_is_doing_ajax() {
 
 	$is_doing_ajax = AC()->table_screen()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
 
-	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
+	return apply_filters_deprecated( 'cac/is_doing_ajax', array( $is_doing_ajax ), 'NEWVERSION' );
 }
 
 /**

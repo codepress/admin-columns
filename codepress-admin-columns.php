@@ -525,12 +525,16 @@ class CPAC {
 
 }
 
-// @deprecated since NEWVERSION
+/**
+ * @deprecated NEWVERSION
+ */
 function cpac() {
 	return AC();
 }
 
-// @since NEWVERSION
+/**
+ * @since NEWVERSION
+ */
 function AC() {
 	return CPAC::instance();
 }

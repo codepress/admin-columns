@@ -153,7 +153,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 							) );
 							?>
 
-							<?php do_action( 'cac/settings/general', $this ); ?>
+							<?php do_action( 'ac/settings/general', $this ); ?>
 
                             <p>
                                 <input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
@@ -166,7 +166,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			<?php
 
 			/** Allow plugins to add their own custom settings to the settings page. */
-			if ( $groups = apply_filters( 'cac/settings/groups', array() ) ) {
+			if ( $groups = apply_filters( 'ac/settings/groups', array() ) ) {
 
 				foreach ( $groups as $id => $group ) {
 
@@ -185,7 +185,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 							<?php
 
 							/** Use this Hook to add additional fields to the group */
-							do_action( "cac/settings/groups/row=" . $id );
+							do_action( "ac/settings/group/" . $id );
 
 							?>
                         </td>

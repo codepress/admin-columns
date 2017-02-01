@@ -403,15 +403,19 @@ abstract class AC_ListScreen {
 			/**
 			 * Column display value
 			 *
+			 * @since NEWVERSION
+			 *
 			 * @param string $value Column display value
 			 * @param int $id Object ID
 			 * @param AC_Column $column Column object
 			 * @param AC_ListScreen $this
 			 */
-			$value = apply_filters( "ac/column/value", $value, $id, $column, $this );
+			$value = apply_filters( 'ac/column/value', $value, $id, $column, $this );
 
-			// @deprecated NEWVERSION
-			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', "ac/column/value" );
+			/**
+			 * @deprecated NEWVERSION
+			 */
+			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', 'ac/column/value' );
 		}
 
 		return $value;
@@ -498,9 +502,6 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . ucfirst( $this->get_group() ), 'AC_' );
-
-		// Backwards compatibility
-		$this->deprecated_register_columns();
 
 		do_action( 'ac/column_types', $this );
 	}
@@ -623,35 +624,6 @@ abstract class AC_ListScreen {
 		}
 
 		return $this->default_columns;
-	}
-
-	/**
-	 * Old way for registering columns. For backwards compatibility.
-	 *
-	 * @deprecated NEWVERSION
-	 */
-	private function deprecated_register_columns() {
-
-		$class_names = apply_filters_deprecated( 'cac/columns/custom', array( array(), $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
-		$class_names = apply_filters_deprecated( 'cac/columns/custom/type=' . $this->get_group(), array( $class_names, $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
-		$class_names = apply_filters_deprecated( 'cac/columns/custom/post_type=' . $this->get_key(), array( $class_names, $this ), 'NEWVERSION', 'AC_ListScreen::register_column_type()' );
-
-		foreach ( $class_names as $class_name => $path ) {
-			$autoload = true;
-
-			// check for autoload condition
-			if ( true !== $path ) {
-				$autoload = false;
-
-				if ( is_readable( $path ) ) {
-					require_once $path;
-				}
-			}
-
-			if ( class_exists( $class_name, $autoload ) ) {
-				$this->register_column_type( new $class_name );
-			}
-		}
 	}
 
 	/**

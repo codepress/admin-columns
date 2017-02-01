@@ -92,7 +92,8 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
-		$field_types = apply_filters( 'cac/column/meta/types', $field_types );
+		$field_types = apply_filters( 'ac/column/custom_field/field_types', $field_types );
+		$field_types = apply_filters_deprecated( 'cac/column/meta/types', array( $field_types ), 'NEWVERSION' );
 
 		return $field_types;
 	}
