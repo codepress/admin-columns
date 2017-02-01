@@ -113,7 +113,7 @@ class AC_Admin {
 	}
 
 	public function get_settings_url() {
-		return menu_page_url( AC_Admin::MENU_SLUG, false );
+		return add_query_arg( array( 'page' => self::MENU_SLUG ), admin_url( $this->get_parent_slug() ) );
 	}
 
 	/**
