@@ -20,7 +20,7 @@ abstract class AC_Addon {
 	/**
 	 * @var string
 	 */
-	private $image_url;
+	private $logo;
 
 	/**
 	 * @var string
@@ -142,15 +142,15 @@ abstract class AC_Addon {
 	/**
 	 * @return string
 	 */
-	public function get_image_url() {
-		return $this->image_url;
+	public function get_logo() {
+		return $this->logo;
 	}
 
 	/**
-	 * @param string $image_url
+	 * @param string $logo
 	 */
-	protected function set_image_url( $image_url ) {
-		$this->image_url = $image_url;
+	protected function set_logo( $logo ) {
+		$this->logo = $logo;
 
 		return $this;
 	}

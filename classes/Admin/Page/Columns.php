@@ -301,9 +301,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 			/**
 			 * @param string $group Group slug
-			 * @param string $key Listscreen key
+			 * @param AC_ListScreen $list_screen
 			 */
-			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen->get_key() );
+			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen );
 
 			$list_screens[ $group ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
@@ -479,7 +479,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 										<?php foreach ( AC()->addons()->get_addons_promo() as $addon ) : ?>
                                             <li class="acp-integration">
                                                 <a href="<?php echo esc_url( $addon->get_link() ); ?>">
-                                                    <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>" alt="<?php echo esc_attr( $addon->get_title() ); ?>"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?>
+                                                    <img src="<?php echo esc_attr( $addon->get_logo() ); ?>" alt="<?php echo esc_attr( $addon->get_title() ); ?>"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?>
                                                 </a>
                                             </li>
 										<?php endforeach; ?>
@@ -654,7 +654,17 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
                             </div>
                             <div class="button-container">
-								<?php if ( apply_filters( 'ac/settings/enable_clear_columns_button', false ) ) : ?>
+								<?php
+
+								/**
+								 * Display a clear button below the column settings. The clear button removes all column settings from the current page.
+								 *
+								 * @since NEWVERSION
+								 *
+								 * @param bool
+								 */
+								if ( apply_filters( 'ac/enable_clear_columns_button', false ) ) :
+									?>
                                     <a class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
 								<?php endif; ?>
 

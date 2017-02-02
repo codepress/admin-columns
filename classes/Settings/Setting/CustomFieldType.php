@@ -86,14 +86,19 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		$field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types );
 
 		/**
+		 * @since 2.0
+		 * @deprecated NEWVERSION
+		 */
+		$field_types = apply_filters_deprecated( 'cac/column/meta/types', array( $field_types ), 'NEWVERSION' );
+
+		/**
 		 * Filter the available custom field types for the meta (custom field) field
 		 *
-		 * @since 2.0
+		 * @since NEWVERSION
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
 		$field_types = apply_filters( 'ac/column/custom_field/field_types', $field_types );
-		$field_types = apply_filters_deprecated( 'cac/column/meta/types', array( $field_types ), 'NEWVERSION' );
 
 		return $field_types;
 	}

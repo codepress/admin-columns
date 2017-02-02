@@ -54,8 +54,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
                     <li>
                         <div class="cpac-addon-content">
                             <div class="inner">
-							<?php if ( $addon->get_image_url() ) : ?>
-                                <img src="<?php echo esc_attr( $addon->get_image_url() ); ?>"/>
+							<?php if ( $addon->get_logo() ) : ?>
+                                <img src="<?php echo esc_attr( $addon->get_logo() ); ?>"/>
 							<?php else : ?>
                                 <h2><?php echo esc_html( $addon->get_title() ); ?></h2>
 							<?php endif; ?>

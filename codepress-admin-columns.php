@@ -424,7 +424,8 @@ class CPAC {
 		$this->register_list_screen( new AC_ListScreen_Media() );
 		$this->register_list_screen( new AC_ListScreen_Comment() );
 
-		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
+		// as of 3.5 link manager is removed
+		if ( get_option( 'link_manager_enabled' ) ) {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 

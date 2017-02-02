@@ -21,7 +21,13 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 
 	public function create_view() {
 
-		// DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
+		/**
+		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
+		 *
+		 * @since NEWVERSION
+		 * @param bool false
+		 */
+
 		if ( apply_filters( 'ac/column/meta/use_text_input', false ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );

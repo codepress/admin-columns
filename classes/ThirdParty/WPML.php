@@ -8,14 +8,13 @@ class AC_ThirdParty_WPML {
 	function __construct() {
 
 		// display correct flags on the overview screens
-		add_action( 'ac/listings/list_screen', array( $this, 'replace_flags' ) );
+		add_action( 'ac/table/list_screen', array( $this, 'replace_flags' ) );
 
 		// enable the translation of the column labels
 		add_action( 'wp_loaded', array( $this, 'register_column_labels' ), 99 );
 
 		// enable the WPML translation of column headings
-
-		add_filter( 'ac/headings/label', array( $this, 'register_translated_label' ), 100, 2 );
+		add_filter( 'ac/headings/label', array( $this, 'register_translated_label' ), 100 );
 	}
 
 	public function replace_flags( $list_screen ) {
@@ -58,7 +57,7 @@ class AC_ThirdParty_WPML {
 	 *
 	 * @return string
 	 */
-	public function register_translated_label( $label, $column ) {
+	public function register_translated_label( $label ) {
 		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 			$label = apply_filters( 'wpml_translate_single_string', $label, 'Admin Columns', $label, ICL_LANGUAGE_CODE );
 		}

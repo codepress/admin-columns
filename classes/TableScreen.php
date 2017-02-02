@@ -33,11 +33,11 @@ final class AC_TableScreen {
 			}
 
 			// If actions column is present, set it as primary
-            foreach( $this->current_list_screen->get_columns() as $column ){
-			    if( 'column-actions' == $column->get_type() ){
-				    $default = $column->get_name();
-                }
-            };
+			foreach ( $this->current_list_screen->get_columns() as $column ) {
+				if ( 'column-actions' == $column->get_type() ) {
+					$default = $column->get_name();
+				}
+			};
 
 			// Set inline edit data if the default column (title) is not present
 			if ( $this->current_list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
@@ -122,7 +122,7 @@ final class AC_TableScreen {
 		/**
 		 * @param AC_ListScreen $list_screen
 		 */
-		do_action( 'ac/listings_scripts', $this->current_list_screen );
+		do_action( 'ac/table_scripts', $this->current_list_screen );
 	}
 
 	/**
@@ -131,12 +131,12 @@ final class AC_TableScreen {
 	 * @return array
 	 */
 	private function get_column_types_mapping( AC_ListScreen $list_screen ) {
-	    $types = array();
-	    foreach ( $list_screen->get_columns() as $column ) {
-	        $types[ $column->get_name() ] = $column->get_type();
-        }
+		$types = array();
+		foreach ( $list_screen->get_columns() as $column ) {
+			$types[ $column->get_name() ] = $column->get_type();
+		}
 
-        return $types;
+		return $types;
 	}
 
 	public function get_current_list_screen() {
@@ -236,7 +236,7 @@ final class AC_TableScreen {
 		ac_action_column_helper();
 
 		// @since NEWVERSION
-		do_action( 'ac/listings/list_screen', $list_screen );
+		do_action( 'ac/table/list_screen', $list_screen );
 	}
 
 	/**
@@ -325,8 +325,24 @@ final class AC_TableScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
+		add_filter( 'cac/headings/label', 'my_cac_headings_label', 10, 4 );
+
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
-			$this->column_headings[ $column->get_name() ] = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
+
+			/**
+			 * @since NEWVERSION
+			 *
+			 * @param string $label
+			 * @param AC_Column $column
+			 */
+			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
+
+			/**
+			 * @deprecated NEWVERSION
+			 */
+			$label = apply_filters_deprecated( 'cac/headings/label', array( $label, $column->get_name(), false, false ), 'NEWVERSION', 'ac/headings/label' );
+
+			$this->column_headings[ $column->get_name() ] = $label;
 		}
 
 		return $this->column_headings;

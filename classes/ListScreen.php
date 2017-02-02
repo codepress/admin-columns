@@ -401,6 +401,11 @@ abstract class AC_ListScreen {
 			$value = $column->get_value( $id );
 
 			/**
+			 * @deprecated NEWVERSION
+			 */
+			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', 'ac/column/value' );
+
+			/**
 			 * Column display value
 			 *
 			 * @since NEWVERSION
@@ -411,11 +416,6 @@ abstract class AC_ListScreen {
 			 * @param AC_ListScreen $this
 			 */
 			$value = apply_filters( 'ac/column/value', $value, $id, $column, $this );
-
-			/**
-			 * @deprecated NEWVERSION
-			 */
-			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', 'ac/column/value' );
 		}
 
 		return $value;

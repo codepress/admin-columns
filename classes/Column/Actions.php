@@ -53,9 +53,9 @@ abstract class AC_Column_Actions extends AC_Column {
 		 * @param AC_Column_Actions $this Column object.
 		 * @param int $id Post/User/Comment ID
 		 */
-		$actions =  apply_filters_deprecated( 'cac/column/actions/action_links', array( $actions, $this, $id ), 'NEWVERSION', 'ac/column/actions/action_links' );
+		$actions =  apply_filters_deprecated( 'cac/column/actions/action_links', array( $actions, $this, $id ), 'NEWVERSION' );
 
-		return apply_filters( 'ac/column/actions/action_links', $actions, $this, $id );
+		return $actions;
 	}
 
 	public function register_settings() {
