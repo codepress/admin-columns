@@ -335,7 +335,6 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 			// run only when database upgrade is needed
 			if ( $version < AC()->get_upgrade_version() ) {
 
-			    // TODO: message only show on current tab, needs rewrite
 				// display upgrade message on every page except upgrade page itself
 				if ( ! ( isset( $_REQUEST['page'] ) && 'upgrade' === $_REQUEST['page'] ) ) {
 

@@ -53,15 +53,15 @@ class AC_Settings_Setting_Width extends AC_Settings_Setting
 	}
 
 	public function create_header_view() {
-		$width = $this->get_width();
+		$content = false;
 
-		if ( ! $width ) {
-			return false;
+		if ( $width = $this->get_width() ) {
+			$content = $width . $this->get_width_unit();
 		}
 
 		$view = new AC_View( array(
 			'title'   => __( 'width', 'codepress-admin-columns' ),
-			'content' => $width . $this->get_width_unit(),
+			'content' => $content,
 		) );
 
 		return $view;
