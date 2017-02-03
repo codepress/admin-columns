@@ -325,8 +325,6 @@ final class AC_TableScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		add_filter( 'cac/headings/label', 'my_cac_headings_label', 10, 4 );
-
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 
 			/**
