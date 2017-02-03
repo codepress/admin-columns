@@ -32,6 +32,9 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 			case 'user_by_id' :
 				$settings[] = new AC_Settings_Setting_User( $this->column );
 				break;
+			case 'link' :
+				$settings[] = new AC_Settings_Setting_LinkLabel( $this->column );
+				break;
 		}
 
 		return $settings;
@@ -152,10 +155,6 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {
 					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $meta_data['term_id'], $meta_data['taxonomy'] ) );
 				}
-				break;
-
-			case "link" :
-				$value = ac_helper()->html->link( $meta_data );
 				break;
 
 			default :
