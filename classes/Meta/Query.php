@@ -261,14 +261,12 @@ final class AC_Meta_Query {
 		return $this->where( 'post_type', '=', $post_type );
 	}
 
-	private function get_id() {
-		$id = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt' . $this->query->meta_id_column;
-
-		return $id . ' AS id';
-	}
-
 	private function parse_field( $field ) {
 		switch ( $field ) {
+			case 'id':
+				$field = $this->join ? 'pt.' . $this->query->primary_id_column : 'mt' . $this->query->meta_id_column;
+
+				break;
 			case 'meta_key':
 			case 'meta_value':
 				$field = 'mt.' . $field;
@@ -338,13 +336,7 @@ final class AC_Meta_Query {
 		$fields = array();
 
 		foreach ( $this->select as $field ) {
-			$field = $this->parse_field( $field );
-
-			if ( 'id' === $field ) {
-				$field = $this->get_id();
-			}
-
-			$fields[] = $field;
+			$fields[] = $this->parse_field( $field );;
 		}
 
 		if ( $this->count ) {
