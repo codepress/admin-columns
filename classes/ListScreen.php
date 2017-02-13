@@ -526,7 +526,7 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . AC()->autoloader()->convert_string_to_classname( $this->get_group() ), 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . $this->get_group_dir(), 'AC_' );
 
 		do_action( 'ac/column_types', $this );
 	}
@@ -542,6 +542,18 @@ abstract class AC_ListScreen {
 		foreach ( $classes as $class ) {
 			$this->register_column_type( new $class );
 		}
+	}
+
+	/**
+	 * @param string $string Converts string to uppercase class name
+	 *
+	 * @return string
+	 */
+	public function get_group_dir() {
+		$array = explode( '_', str_replace( '-', '_', $this->get_group() ) );
+		$array = array_map( 'ucfirst', $array );
+
+		return implode( $array );
 	}
 
 	/**

@@ -113,16 +113,4 @@ class AC_Autoloader {
 		return $class_names;
 	}
 
-	/**
-	 * @param string $string Converts string to uppercase class name
-	 *
-	 * @return string
-	 */
-	public function convert_string_to_classname( $string ) {
-		$array = explode( '_', str_replace( '-', '_', $string ) );
-		$array = array_map( 'ucfirst', $array );
-
-		return implode( $array );
-	}
-
 }
