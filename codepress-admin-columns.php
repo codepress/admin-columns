@@ -414,15 +414,18 @@ class CPAC {
 	 */
 	private function set_list_screens() {
 
-		// Create a list screen per post type
+		// Post types
 		foreach ( $this->get_post_types() as $post_type ) {
 			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
 		}
 
-		// Create other list screens
-		$this->register_list_screen( new AC_ListScreen_User() );
 		$this->register_list_screen( new AC_ListScreen_Media() );
 		$this->register_list_screen( new AC_ListScreen_Comment() );
+
+		// Users, not for network users
+		if ( ! is_multisite() ) {
+			$this->register_list_screen( new AC_ListScreen_User() );
+		}
 
 		// as of 3.5 link manager is removed
 		if ( get_option( 'link_manager_enabled' ) ) {
