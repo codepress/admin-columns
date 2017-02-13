@@ -98,6 +98,12 @@ abstract class AC_ListScreen {
 	private $default_columns;
 
 	/**
+	 * @since NEWVERSION
+	 * @var array [ Name => Label ]
+	 */
+	private $plugin_columns;
+
+	/**
 	 * @var string Layout ID
 	 */
 	private $layout;
@@ -355,7 +361,9 @@ abstract class AC_ListScreen {
 	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
-		$this->default_columns = null;
+
+		// TODO
+		//$this->default_columns = null;
 		$this->settings = null;
 	}
 
@@ -422,28 +430,19 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $column_name
-	 *
-	 * @return string|false
-	 */
-	public function get_original_label( $column_type ) {
-		$default_columns = $this->get_default_columns();
-
-		return isset( $default_columns[ $column_type ] ) ? $default_columns[ $column_type ] : false;
-	}
-
-	/**
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
 		// Skip original columns that do not exist
-		if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
-			return false;
-		}
+
+		// TODO: remove?
+		//if ( $column->is_original() && ! $this->default_column_exists( $column->get_type() ) ) {
+		//	return false;
+		//}
 
 		$column->set_list_screen( $this );
 
-		if ( ! $column->is_valid() ) {
+		if ( ! $column->is_valid() || ! $column->get_type() ) {
 			return false;
 		}
 
@@ -453,16 +452,18 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $column_name
+	 * @param string $type
 	 *
-	 * @since NEWVERSION
-	 *
-	 * @return bool
+	 * @return string Label
 	 */
-	private function default_column_exists( $column_name ) {
-		$default_columns = $this->get_default_columns();
+	public function get_original_label( $type ) {
+		$original_columns = array_merge( $this->get_column_headers(), $this->get_plugin_columns() );
 
-		return isset( $default_columns[ $column_name ] );
+		if ( ! isset( $original_columns[ $type ] ) ) {
+			return false;
+		}
+
+		return $original_columns[ $type ];
 	}
 
 	/**
@@ -470,25 +471,31 @@ abstract class AC_ListScreen {
 	 */
 	public function set_column_types() {
 
-		// Register default column types
-		foreach ( array_keys( $this->get_default_columns() ) as $type ) {
+		// Register default columns
+		foreach ( $this->get_column_headers() as $type => $label ) {
 
 			// Ignore the mandatory checkbox column
-			if ( 'cb' == $type ) {
+			if ( 'cb' === $type ) {
 				continue;
 			}
 
+			$column = new AC_Column_Default();
+
+			$this->register_column_type( $column->set_type( $type ) );
+		}
+
+		// Register plugin columns
+		foreach ( $this->get_plugin_columns() as $type => $label ) {
 			$class = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
 
 			if ( ! class_exists( $class ) ) {
 				continue;
 			}
 
-			/* @var AC_Column $column */
+			/** @var AC_Column $column */
 			$column = new $class;
-			$column->set_type( $type );
 
-			$this->register_column_type( $column );
+			$this->register_column_type( $column->set_type( $type ) );
 		}
 
 		// Placeholder columns
@@ -590,11 +597,17 @@ abstract class AC_ListScreen {
 
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
-			foreach ( $this->get_default_columns() as $type => $label ) {
+			foreach ( $this->get_column_types() as $column ) {
+				if ( $column->is_original() ) {
+					$this->register_column( $column->set_name( $column->get_type() ) );
+				}
+			}
+
+			/*foreach ( $this->get_default_columns() as $type => $label ) {
 				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
 					$this->register_column( $column );
 				}
-			}
+			}*/
 		}
 
 		if ( null === $this->columns ) {
@@ -605,7 +618,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @var array [ Column Name =>  Column Label ]
 	 */
-	private function set_default_columns() {
+	/*private function __set_default_columns() {
 		$default_columns = $this->get_stored_default_headings();
 
 		if ( ! $default_columns ) {
@@ -613,17 +626,28 @@ abstract class AC_ListScreen {
 		}
 
 		$this->default_columns = $default_columns;
-	}
+	}*/
 
 	/**
 	 * @return array  [ Column Name =>  Column Label ]
 	 */
-	public function get_default_columns() {
+	/*public function __get_default_columns() {
 		if ( null === $this->default_columns ) {
 			$this->set_default_columns();
 		}
 
 		return $this->default_columns;
+	}*/
+
+	/*public function get_default_columns() {
+		return $this->get_column_headers();
+	}*/
+
+	/**
+	 * @return array  [ Column Name =>  Column Label ]
+	 */
+	public function get_plugin_columns() {
+		return array_diff( $this->get_stored_default_headings(), $this->get_column_headers() );
 	}
 
 	/**

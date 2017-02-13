@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Column_Default extends AC_Column {
+class AC_Column_Default extends AC_Column {
 
 	public function __construct() {
 		$this->set_group( 'default' );

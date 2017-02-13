@@ -158,16 +158,16 @@ class CPAC {
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
-		// Set capabilities
-		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-
-		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
-
 		// Notices
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
 		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'ready' ) );
+
+		// Set capabilities
+		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
+
+		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
 	}
 
 	public function ready() {

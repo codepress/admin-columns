@@ -1,13 +1,9 @@
 <?php
 
-class AC_ListScreen_Post extends AC_ListScreenWP {
-
-	/**
-	 * @var string Post type
-	 */
-	private $post_type;
+class AC_ListScreen_Post extends AC_ListScreenPost {
 
 	public function __construct( $post_type ) {
+		parent::__construct( $post_type );
 
 		$this->set_screen_base( 'edit' );
 		$this->set_list_table_class( 'WP_Posts_List_Table' );
@@ -25,13 +21,6 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 	 */
 	protected function get_object_by_id( $post_id ) {
 		return get_post( $post_id );
-	}
-
-	/**
-	 * @since 2.4.7
-	 */
-	public function manage_value( $column_name, $id ) {
-		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	public function set_manage_value_callback() {
@@ -61,22 +50,10 @@ class AC_ListScreen_Post extends AC_ListScreenWP {
 	}
 
 	/**
-	 * @param $var
-	 *
-	 * @return string|false
+	 * @since 2.4.7
 	 */
-	private function get_post_type_label_var( $var ) {
-		$post_type_object = get_post_type_object( $this->get_post_type() );
-
-		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
-	}
-
-	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	protected function set_post_type( $post_type ) {
-		$this->post_type = (string) $post_type;
+	public function manage_value( $column_name, $id ) {
+		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 }
