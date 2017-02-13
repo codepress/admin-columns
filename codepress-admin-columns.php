@@ -450,7 +450,7 @@ class CPAC {
 		$groups->register_group( 'user', __( 'Users' ) );
 		$groups->register_group( 'media', __( 'Media' ) );
 		$groups->register_group( 'comment', __( 'Comments' ) );
-		$groups->register_group( 'link', __( 'Links' ) );
+		$groups->register_group( 'link', __( 'Links' ), 15 );
 
 		$this->list_screen_groups = $groups;
 
