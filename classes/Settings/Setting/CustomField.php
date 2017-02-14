@@ -72,7 +72,11 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 			$keys = false;
 		}
 
-		return $keys;
+		/**
+		 * @param array $keys Distinct meta keys from DB
+		 * @param AC_Settings_Setting_CustomField $this
+		 */
+		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
 	}
 
 	private function get_field_options() {

@@ -9,10 +9,19 @@
 	a:active {
 		outline: none;
 	}
+}
 
-	h2.cpac-nav-tab-wrapper {
-		margin-bottom: 10px;
+.wrap {
+
+	.nav-tab-wrapper {
+		margin-bottom: 24px;
 	}
+
+	.notice {
+		margin-top: 16px;
+		margin-bottom: 16px;
+	}
+
 }
 
 /**
@@ -44,6 +53,8 @@
  */
 .menu {
 	position: relative;
+	padding: 0;
+	margin-top: 16px;
 	margin-bottom: 16px;
 
 	select {

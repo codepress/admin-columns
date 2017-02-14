@@ -9,7 +9,6 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 		$this->set_list_table_class( 'WP_Posts_List_Table' );
 		$this->set_group( 'post' );
 
-		$this->set_post_type( $post_type );
 		$this->set_key( $post_type );
 		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}

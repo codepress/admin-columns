@@ -29,8 +29,12 @@
 #cpac a:active {
   outline: none; }
 
-#cpac h2.cpac-nav-tab-wrapper {
-  margin-bottom: 10px; }
+.wrap .nav-tab-wrapper {
+  margin-bottom: 24px; }
+
+.wrap .notice {
+  margin-top: 16px;
+  margin-bottom: 16px; }
 
 /**
  * Button
@@ -56,6 +60,8 @@
  */
 .menu {
   position: relative;
+  padding: 0;
+  margin-top: 16px;
   margin-bottom: 16px; }
   .menu select {
     display: inline-block;

@@ -92,18 +92,6 @@ abstract class AC_ListScreen {
 	private $column_types;
 
 	/**
-	 * @since NEWVERSION
-	 * @var array [ Name => Label ]
-	 */
-	private $default_columns;
-
-	/**
-	 * @since NEWVERSION
-	 * @var array [ Name => Label ]
-	 */
-	private $plugin_columns;
-
-	/**
 	 * @var string Layout ID
 	 */
 	private $layout;

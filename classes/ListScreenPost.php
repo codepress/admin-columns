@@ -7,28 +7,39 @@ abstract class AC_ListScreenPost extends AC_ListScreenWP {
 	 */
 	private $post_type;
 
+	/**
+	 * @param string $post_type
+	 */
 	public function __construct( $post_type ) {
 		$this->set_meta_type( 'post' );
+		$this->set_post_type( $post_type );
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_post_type() {
 		return $this->post_type;
 	}
 
+	/**
+	 * @param string $post_type
+	 */
 	protected function set_post_type( $post_type ) {
 		$this->post_type = (string) $post_type;
 	}
 
 	/**
 	 * @since NEWVERSION
-	 * @return WP_Post Post object
+	 * @param int $post_id Post ID
+	 * @return WP_Post
 	 */
 	protected function get_object_by_id( $post_id ) {
 		return get_post( $post_id );
 	}
 
 	/**
-	 * @param $var
+	 * @param string $var
 	 *
 	 * @return string|false
 	 */
