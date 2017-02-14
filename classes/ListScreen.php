@@ -349,9 +349,6 @@ abstract class AC_ListScreen {
 	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
-
-		// TODO
-		//$this->default_columns = null;
 		$this->settings = null;
 	}
 
@@ -516,6 +513,16 @@ abstract class AC_ListScreen {
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . $this->get_group_dir(), 'AC_' );
 
+		/**
+		 * @deprecated NEWVERSION
+		 */
+		AC()->deprecated_filter( 'cac/columns/custom', 'NEWVERSION' );
+
+		/**
+		 * @since NEWVERSION
+		 * @param AC_ListScreen $this
+		 * @link TODO
+		 */
 		do_action( 'ac/column_types', $this );
 	}
 

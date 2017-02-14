@@ -527,6 +527,26 @@ class CPAC {
 		return $this->admin()->get_page( 'columns' );
 	}
 
+	/**
+	 * @param string $tag
+	 * @param null $doc_tag
+	 */
+	public function deprecated_filter( $tag, $version, $doc_tag = null ) {
+		if ( has_filter( $tag ) ) {
+			// TODO
+		}
+	}
+
+	/**
+	 * @param string $tag
+	 * @param null $doc_tag
+	 */
+	public function deprecated_action( $tag, $version, $doc_tag = null ) {
+		if ( has_action( $tag ) ) {
+			// TODO
+		}
+	}
+
 }
 
 /**
