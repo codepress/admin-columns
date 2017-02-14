@@ -516,7 +516,13 @@ abstract class AC_ListScreen {
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . $this->get_group_dir(), 'AC_' );
 
+		/**
+		 * Register column types
+		 *
+		 * @param AC_ListScreen $this
+		 */
 		do_action( 'ac/column_types', $this );
+		do_action( 'ac/column_types/' . $this->get_key(), $this );
 	}
 
 	/**

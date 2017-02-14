@@ -353,6 +353,18 @@ abstract class AC_Column {
 	}
 
 	/**
+	 * Enqueue CSS + JavaScript on the admin listings screen!
+	 *
+	 * This action is called in the admin_head action on the listings screen where your column values are displayed.
+	 * Use this action to add CSS + JavaScript
+	 *
+	 * @since 3.3.4
+	 */
+	public function scripts() {
+		// Overwrite in child class
+	}
+
+	/**
 	 * Display value
 	 *
 	 * @param int $object_id ID
