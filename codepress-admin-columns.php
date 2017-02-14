@@ -172,6 +172,9 @@ class CPAC {
 
 	public function ready() {
 		do_action( 'ac/ready', $this );
+		if( has_filter('cac/columns/custom') ){
+
+		}
 	}
 
 	/**
@@ -525,26 +528,6 @@ class CPAC {
 	 */
 	public function admin_columns_screen() {
 		return $this->admin()->get_page( 'columns' );
-	}
-
-	/**
-	 * @param string $tag
-	 * @param null $doc_tag
-	 */
-	public function deprecated_filter( $tag, $version, $doc_tag = null ) {
-		if ( has_filter( $tag ) ) {
-			// TODO
-		}
-	}
-
-	/**
-	 * @param string $tag
-	 * @param null $doc_tag
-	 */
-	public function deprecated_action( $tag, $version, $doc_tag = null ) {
-		if ( has_action( $tag ) ) {
-			// TODO
-		}
 	}
 
 }
