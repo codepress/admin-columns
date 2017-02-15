@@ -402,7 +402,8 @@ abstract class AC_ListScreen {
 			/**
 			 * @deprecated NEWVERSION
 			 */
-			$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', 'ac/column/value' );
+			// TODO this can give a fatal, so I suggest to move this to the help tab
+			//$value = apply_filters_deprecated( "cac/column/value", array( $value, $id, $column, $this ), 'NEWVERSION', 'ac/column/value' );
 
 			/**
 			 * Column display value

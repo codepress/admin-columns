@@ -11,7 +11,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			->set_slug( 'help' )
 			->set_label( __( 'Help', 'codepress-admin-columns' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	/**
@@ -25,7 +25,14 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	public function init() {
 		$types = array( 'post', 'user', 'comment', 'link', 'media' );
 		$post_types = get_post_types();
+		$columns = array();
+		foreach ( AC()->get_list_screens() as $ls ) {
+			foreach ( $ls->get_column_types() as $column ) {
+				$columns[ $column->get_type() ] = $column->get_type();
+			}
+		}
 
+		$this->deprecated_filter( 'cac/headings/label', 'NEWVERSION', 'cac-columns-custom' );
 		$this->deprecated_filter( 'cac/columns/custom', 'NEWVERSION', 'cac-columns-custom' );
 		foreach ( $types as $type ) {
 			$this->deprecated_filter( 'cac/columns/custom/type=' . $type, 'NEWVERSION', 'cac-columns-custom' );
@@ -44,12 +51,27 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$this->deprecated_filter( 'cac/column/meta/types', 'NEWVERSION', 'cac-column-meta-types' );
 		$this->deprecated_filter( 'cac/columns/custom', 'NEWVERSION', 'cac-columns-custom' );
 		foreach ( $types as $type ) {
-			$this->deprecated_filter( 'cac/columns/custom/type=' . $type , 'NEWVERSION', 'cac-columns-custom' );
+			$this->deprecated_filter( 'cac/columns/custom/type=' . $type, 'NEWVERSION', 'cac-columns-custom' );
 		}
 		foreach ( $post_types as $post_type ) {
-			$this->deprecated_filter( 'cac/columns/custom/post_type=' . $post_type , 'NEWVERSION', 'cac-columns-custom' );
+			$this->deprecated_filter( 'cac/columns/custom/post_type=' . $post_type, 'NEWVERSION', 'cac-columns-custom' );
 		}
-		$this->deprecated_action( 'cac/test', '1.2' );
+
+		$this->deprecated_filter( 'cac/settings/tabs', 'NEWVERSION', 'filter-reference/cac-settings-tabs' );
+		$this->deprecated_filter( 'cac/editable/is_column_editable', 'NEWVERSION', 'cac-editable-is_column_editable' );
+		$this->deprecated_filter( 'cac/editable/editables_data', 'NEWVERSION', 'cac-editable-editables_data' );
+		$this->deprecated_filter( 'cac/editable/options', 'NEWVERSION', 'cac-editable-editables_data' );
+
+		$this->deprecated_filter( 'cac/editable/column_value', 'NEWVERSION', 'cac-editable-column_value' );
+		foreach ( $columns as $column_type ) {
+			$this->deprecated_filter( 'cac/editable/column_value/column=' . $column_type, 'NEWVERSION', 'cac-editable-column_value' );
+		}
+
+		$this->deprecated_filter( 'cac/editable/column_save', 'NEWVERSION', 'cac-editable-column_save' );
+		foreach ( $columns as $column_type ) {
+			$this->deprecated_filter( 'cac/editable/column_save/column=' . $column_type, 'NEWVERSION', 'cac-editable-column_save' );
+		}
+
 
 	}
 
