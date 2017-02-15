@@ -7,10 +7,12 @@ class AC_ListScreen_Link extends AC_ListScreenWP {
 		$this->set_label( __( 'Links' ) );
 		$this->set_singular_label( __( 'Link' ) );
 		$this->set_screen_base( 'link-manager' );
-		$this->set_list_table_class( 'WP_Links_List_Table' );
 		$this->set_key( 'wp-links' );
 		$this->set_screen_id( 'link-manager' );
 		$this->set_group( 'link' );
+
+		/* @see WP_Links_List_Table */
+		$this->set_list_table_class( 'WP_Links_List_Table' );
 	}
 
 	public function set_manage_value_callback() {

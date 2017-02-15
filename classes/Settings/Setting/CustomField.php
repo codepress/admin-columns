@@ -22,13 +22,17 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	public function create_view() {
 
 		/**
+		 * @deprecated NEWVERSION
+		 */
+		$use_text_input = apply_filters_deprecated( 'cac/column/meta/use_text_input', array( false ), 'NEWVSERION', 'ac/column/custom_field/use_text_input' );
+
+		/**
 		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		 *
 		 * @since NEWVERSION
 		 * @param bool false
 		 */
-
-		if ( apply_filters( 'ac/column/meta/use_text_input', false ) ) {
+		if ( apply_filters( 'ac/column/custom_field/use_text_input', $use_text_input ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
 		}

@@ -6,11 +6,12 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 		parent::__construct( $post_type );
 
 		$this->set_screen_base( 'edit' );
-		$this->set_list_table_class( 'WP_Posts_List_Table' );
 		$this->set_group( 'post' );
-
 		$this->set_key( $post_type );
 		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
+
+		/* @see WP_Posts_List_Table */
+		$this->set_list_table_class( 'WP_Posts_List_Table' );
 	}
 
 	/**

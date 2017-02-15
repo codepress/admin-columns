@@ -6,11 +6,11 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	public function get_column_headers() {
-		if ( ! function_exists( 'get_column_headers' ) ) {
-			return array();
-		}
 
-		// trigger WP_List_Table::get_columns()
+		/**
+         * Populate columns for get_column_headers()
+		 * @see WP_List_Table::get_columns()
+		 */
 		$this->get_list_table();
 
 		return (array) get_column_headers( $this->get_screen_id() );
@@ -30,15 +30,9 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 *
-	 * @return WP_List_Table|false
+	 * @return bool|object
 	 */
-	public function get_list_table( $args = array() ) {
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return false;
-		}
-
+	public function get_list_table() {
 		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
 	}
 

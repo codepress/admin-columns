@@ -77,6 +77,20 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * @param string $string
+	 * @param int $max_chars
+	 *
+	 * @return string
+	 */
+	public function codearea( $string, $max_chars = 1000 ) {
+	    if ( ! $string ) {
+	        return false;
+        }
+
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . substr( $string, 0, $max_chars ) . '</textarea>';
+	}
+
+	/**
 	 * @param array $attributes
 	 *
 	 * @return string

@@ -123,6 +123,11 @@ final class AC_TableScreen {
 		 * @param AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/table_scripts', $this->current_list_screen );
+
+		// Column specific scripts
+		foreach ( $this->current_list_screen->get_columns() as $column ) {
+			$column->scripts();
+        }
 	}
 
 	/**
