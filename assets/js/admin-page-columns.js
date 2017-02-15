@@ -427,11 +427,6 @@ function cpac_reset_columns( $ ) {
 							// Open settings
 							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
-							// trigger refresh
-							// TODO: needed?
-							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
-							//el.cpac_column_refresh();
-							//}
 							el.cpac_update_clone_id();
 
 							// Allow plugins to hook into this event
