@@ -70,6 +70,9 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			WHERE option_name LIKE %s";
 
 		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
+
+		// @since NEWVERSION
+		do_action( 'ac/restore_all_columns' );
 	}
 
 	/**
@@ -89,9 +92,6 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 					$this->delete_all_column_settings();
 
 					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-
-					// @since NEWVERSION
-					do_action( 'ac/restore_all_columns' );
 				}
 				break;
 

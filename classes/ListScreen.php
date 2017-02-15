@@ -92,6 +92,11 @@ abstract class AC_ListScreen {
 	private $column_types;
 
 	/**
+	 * @var array [ Column name => Label ]
+	 */
+	private $default_columns;
+
+	/**
 	 * @var string Layout ID
 	 */
 	private $layout;
@@ -193,15 +198,15 @@ abstract class AC_ListScreen {
 		return $this->list_table_class;
 	}
 
-	protected function set_list_table_class( $list_table ) {
-		$this->list_table_class = $list_table;
+	protected function set_list_table_class( $list_table_class ) {
+		$this->list_table_class = $list_table_class;
 	}
 
 	/**
 	 * @return WP_List_Table|false
 	 */
-	public function get_list_table( $args = array() ) {
-		return class_exists( $this->list_table_class ) ? new $this->list_table_class( $args ) : false;
+	public function get_list_table() {
+		return new $this->list_table_class;
 	}
 
 	/**
@@ -349,9 +354,7 @@ abstract class AC_ListScreen {
 	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
-
-		// TODO
-		//$this->default_columns = null;
+		$this->default_columns = null;
 		$this->settings = null;
 	}
 
@@ -456,11 +459,19 @@ abstract class AC_ListScreen {
 		return $original_columns[ $type ];
 	}
 
+	private function get_default_columns() {
+		if ( null === $this->default_columns ) {
+			$this->default_columns = $this->get_column_headers();
+		}
+
+		return $this->default_columns;
+	}
+
 	/**
 	 * @return array { Column name => Column label ]
 	 */
 	private function get_original_columns() {
-		return array_merge( $this->get_column_headers(), $this->get_plugin_columns() );
+		return array_merge( $this->get_default_columns(), $this->get_plugin_columns() );
 	}
 
 	/**
@@ -478,7 +489,7 @@ abstract class AC_ListScreen {
 	public function set_column_types() {
 
 		// Register default columns
-		foreach ( $this->get_column_headers() as $type => $label ) {
+		foreach ( $this->get_default_columns() as $type => $label ) {
 
 			// Ignore the mandatory checkbox column
 			if ( 'cb' === $type ) {
@@ -637,7 +648,7 @@ abstract class AC_ListScreen {
 	 * @return array  [ Column Name =>  Column Label ]
 	 */
 	public function get_plugin_columns() {
-		return array_diff( $this->get_stored_default_headings(), $this->get_column_headers() );
+		return array_diff( $this->get_stored_default_headings(), $this->get_default_columns() );
 	}
 
 	/**

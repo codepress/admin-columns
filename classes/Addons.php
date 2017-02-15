@@ -291,7 +291,7 @@ final class AC_Addons {
 		 *
 		 * @param array $addon_groups Available addon groups ([group_name] => [label])
 		 */
-		$addon_groups = apply_filters( 'cpac/addons/addon_groups', $addon_groups );
+		$addon_groups = apply_filters( 'ac/addons/groups', $addon_groups );
 
 		return $addon_groups;
 	}
