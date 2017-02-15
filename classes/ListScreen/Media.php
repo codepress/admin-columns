@@ -7,11 +7,13 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 
 		$this->set_screen_id( 'upload' );
 		$this->set_screen_base( 'upload' );
-		$this->set_list_table_class( 'WP_Media_List_Table' );
 		$this->set_key( 'wp-media' );
 		$this->set_group( 'media' );
 		$this->set_screen_id( 'upload' );
 		$this->set_label( __( 'Media' ) );
+
+		/* @see WP_Media_List_Table */
+		$this->set_list_table_class( 'WP_Media_List_Table' );
 	}
 
 	public function set_manage_value_callback() {

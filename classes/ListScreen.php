@@ -461,7 +461,7 @@ abstract class AC_ListScreen {
 
 	private function get_default_columns() {
 		if ( null === $this->default_columns ) {
-			$this->default_columns = $this->get_column_headers();
+			$this->default_columns = (array) $this->get_column_headers();
 		}
 
 		return $this->default_columns;

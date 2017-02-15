@@ -33,10 +33,6 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 * @return bool|object
 	 */
 	public function get_list_table() {
-		if ( ! function_exists( '_get_list_table' ) ) {
-			return false;
-		}
-
 		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
 	}
 
