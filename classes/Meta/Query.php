@@ -336,7 +336,14 @@ final class AC_Meta_Query {
 		$fields = array();
 
 		foreach ( $this->select as $field ) {
-			$fields[] = $this->parse_field( $field );;
+			$parsed = $this->parse_field( $field );
+
+			// output 'id' in the results
+			if ( 'id' === $field ) {
+				$parsed .= ' AS id';
+			}
+
+			$fields[] = $parsed;
 		}
 
 		if ( $this->count ) {
