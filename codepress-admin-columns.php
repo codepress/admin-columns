@@ -381,6 +381,15 @@ class CPAC {
 	}
 
 	/**
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+	public function list_screen_exists( $key ) {
+		return $this->get_list_screen( $key ) ? true : false;
+	}
+
+	/**
 	 * Returns the default list screen when no choice is made by the user
 	 *
 	 * @since NEWVERSION

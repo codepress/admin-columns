@@ -9,15 +9,19 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	private $notices;
 
+	/**
+	 * @var AC_ListScreen
+	 */
+	private $current_list_screen;
+
 	public function __construct() {
 
 		$this->set_slug( 'columns' )
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
 
-		// Requests
-		add_action( 'admin_init', array( $this, 'handle_request' ) );
-		add_action( 'admin_init', array( $this, 'set_current_list_screen_preference' ) );
+		// Init and request
+		add_action( 'admin_init', array( $this, 'init' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
@@ -58,17 +62,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		do_action( 'ac/settings_scripts' );
 	}
 
-	public function set_current_list_screen_preference() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
-			return;
-		}
-
-		// List screen
-		if ( $list_screen = filter_input( INPUT_GET, 'cpac_key' ) ) {
-			$this->set_list_screen_preference( $list_screen );
-		}
-	}
-
 	public function set_layout_preference( $layout ) {
 		ac_helper()->user->update_meta_site( self::OPTION_CURRENT . '_layout', $layout );
 	}
@@ -77,28 +70,53 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT . '_layout', true );
 	}
 
-	/**
-	 * @return string
-	 */
-	private function get_first_available_list_screen() {
-		$list_screens = AC()->get_list_screens();
+	private function set_current_list_screen() {
 
-		return array_shift( $list_screens );
-	}
+		// User selected
+		$key = filter_input( INPUT_GET, 'cpac_key' );
 
-	/**
-	 * @return AC_ListScreen|false
-	 */
-	public function get_current_list_screen() {
-		$list_screen = AC()->get_list_screen( $this->get_list_screen_preference() );
-
-		if ( ! $list_screen ) {
-			$list_screen = $this->get_first_available_list_screen();
+		// Preference
+		if ( ! $key ) {
+			$key = $this->get_list_screen_preference();
 		}
 
-		do_action( 'ac/settings/list_screen', $list_screen );
+		// First one
+		if ( ! $key ) {
+			$key = key( AC()->get_list_screens() );
+		}
 
-		return $list_screen;
+		$this->set_list_screen_preference( $key );
+
+		$this->current_list_screen = AC()->get_list_screen( $key );
+	}
+
+	public function get_current_list_screen() {
+		return $this->current_list_screen;
+	}
+
+	public function init() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
+
+		// Set list screen
+		$this->set_current_list_screen();
+
+		// Handle requests
+		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
+
+			case 'restore_by_type' :
+				if ( $this->verify_nonce( 'restore-type' ) ) {
+					$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'cpac_key' ) );
+					$list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+					$list_screen->delete();
+
+					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
+				}
+				break;
+		}
+
+		do_action( 'ac/settings/init', $this );
 	}
 
 	/**
@@ -118,28 +136,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="cpac_message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function handle_request() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
-			return;
-		}
-
-		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
-
-			case 'restore_by_type' :
-				if ( $this->verify_nonce( 'restore-type' ) ) {
-
-					$list_screen = $this->get_current_list_screen();
-					$list_screen->delete();
-
-					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
-				}
-				break;
-		}
 	}
 
 	/**
@@ -187,7 +183,14 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$type = filter_input( INPUT_POST, 'type' );
 		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$list_screen = $this->get_current_list_screen();
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+
+		if ( ! $list_screen ) {
+			wp_die();
+		}
+
+		$list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+
 		$column = $list_screen->get_column_by_type( $type );
 
 		if ( ! $column ) {
@@ -231,7 +234,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			wp_die();
 		}
 
-		$column = $this->get_current_list_screen()->create_column( $options[ $name ], $name );
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+
+		if ( ! $list_screen ) {
+		    wp_die();
+        }
+
+        $list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+
+		$column = $list_screen->create_column( $options[ $name ], $name );
 
 		if ( ! $column ) {
 			wp_die();
@@ -256,14 +267,22 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			);
 		}
 
-		$result = $this->get_current_list_screen()->store( $formdata['columns'] );
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+
+		if ( ! $list_screen ) {
+		    wp_die();
+        }
+
+        $list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+
+		$result = $list_screen->store( $formdata['columns'] );
 
 		if ( is_wp_error( $result ) ) {
 
 			if ( 'same-settings' === $result->get_error_code() ) {
 				wp_send_json_error( array(
 						'type'    => 'notice notice-warning',
-						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_current_list_screen() ) ) . "</strong>" ),
+						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ),
 					)
 				);
 			}
@@ -276,8 +295,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $this->get_current_list_screen() ) ) . "</strong>" )
-			. ' <a href="' . esc_attr( $this->get_current_list_screen()->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $this->get_current_list_screen()->get_label() ) ) . '</a>'
+			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" )
+			. ' <a href="' . esc_attr( $list_screen->get_screen_link() ) . '">' . esc_html( sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) ) . '</a>'
 		);
 	}
 
@@ -426,6 +445,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                             <form class="form-reset" method="post">
                                 <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
+                                <input type="hidden" name="layout" value="<?php echo esc_attr( $list_screen->get_layout() ); ?>"/>
                                 <input type="hidden" name="cpac_action" value="restore_by_type"/>
 
 								<?php $this->nonce_field( 'restore-type' ); ?>
