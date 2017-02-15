@@ -10,7 +10,6 @@ class AC_Notice_Plugin {
 
 	public function display( $args = array() ) {
 		$defaults = array(
-			// message
 			'message' => '',
 
 			// yellow: notice-warning
@@ -41,12 +40,12 @@ class AC_Notice_Plugin {
 		}
 
 		$row_classes = array();
-		if ( $data->plugin ) {
-			if ( is_plugin_active( $data->plugin ) ) {
-				$row_classes[] = 'active';
-				if ( $this->plugin_has_update( $data->plugin ) ) {
-					$row_classes[] = 'update';
-				}
+
+		if ( $data->plugin && is_plugin_active( $data->plugin ) ) {
+			$row_classes[] = 'active';
+
+			if ( $this->plugin_has_update( $data->plugin ) ) {
+				$row_classes[] = 'update';
 			}
 		}
 
