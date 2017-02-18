@@ -833,4 +833,23 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
 	} );
 
+	/**
+	 * Populates the main Label with the selected label from the dropdown,
+	 */
+	$( document ).bind( 'column_change', function( e, column ) {
+		var $column = $( column );
+		var $select = $column.find( 'select[data-label="update"]' );
+
+		if ( 0 === $select.length ) {
+			return;
+		}
+
+		var $label = $column.find( 'input.ac-setting-input_label' );
+		var field_label = $select.find( 'option:selected' ).text();
+
+		// Set new label
+		$label.val( field_label );
+		$label.trigger( 'change' );
+	} );
+
 }( jQuery ));

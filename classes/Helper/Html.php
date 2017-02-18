@@ -155,4 +155,23 @@ class AC_Helper_Html {
 		return $html;
 	}
 
+	/**
+     * Small HTML block with grey background and rounded corners
+     *
+	 * @param string|array $items
+	 *
+	 * @return string
+	 */
+	public function small_block( $items ) {
+	    $blocks = array();
+
+        foreach ( (array) $items as $item ) {
+            if ( $item && is_string( $item ) ) {
+	            $blocks[] = '<span class="ac-small-block">' . $item . '</span>';
+            }
+        }
+
+        return implode( $blocks );
+	}
+
 }

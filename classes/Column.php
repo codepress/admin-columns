@@ -214,7 +214,7 @@ abstract class AC_Column {
 
 		$this->settings[ $setting->get_name() ] = $setting;
 
-		foreach ( $setting->get_dependent_settings() as $dependent_setting ) {
+		foreach ( (array) $setting->get_dependent_settings() as $dependent_setting ) {
 			$this->add_setting( $dependent_setting );
 		}
 
