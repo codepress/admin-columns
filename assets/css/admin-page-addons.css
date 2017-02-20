@@ -58,21 +58,18 @@
       .ac-addons li .addon-content > *:last-child {
         margin-bottom: 0; }
     .ac-addons li .addon-actions {
-      background: #EEE;
-      border-top: 1px solid #DDD;
+      background: #eee;
+      border-top: 1px solid #ddd;
       padding: 8px;
       overflow: hidden; }
-      .ac-addons li .addon-actions a.installed:before {
-        content: "\f147";
-        font-family: 'dashicons', sans-serif;
-        vertical-align: middle;
-        margin: 0;
-        margin-top: -px;
-        margin-left: -5px;
-        margin-right: 3px; }
-      .ac-addons li .addon-actions .button.active,
-      .ac-addons li .addon-actions .button.active:hover {
+      .ac-addons li .addon-actions .button.active, .ac-addons li .addon-actions .button.active:hover {
         cursor: default;
-        border-color: #46b450;
-        color: #317d38;
+        border-color: #69c471;
+        color: #35883c;
         background-color: #d7efd9; }
+        .ac-addons li .addon-actions .button.active:before, .ac-addons li .addon-actions .button.active:hover:before {
+          content: "\f147";
+          font-family: 'dashicons', sans-serif;
+          vertical-align: middle;
+          font-size: 17px;
+          margin: -2px 3px 0 -5px; }
