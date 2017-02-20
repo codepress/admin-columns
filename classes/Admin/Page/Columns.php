@@ -132,7 +132,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type Updated or error
+	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="cpac_message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -237,10 +237,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
 		if ( ! $list_screen ) {
-		    wp_die();
-        }
+			wp_die();
+		}
 
-        $list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+		$list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
 
 		$column = $list_screen->create_column( $options[ $name ], $name );
 
@@ -270,10 +270,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
 		if ( ! $list_screen ) {
-		    wp_die();
-        }
+			wp_die();
+		}
 
-        $list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
+		$list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
 
 		$result = $list_screen->store( $formdata['columns'] );
 
@@ -319,7 +319,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		foreach ( AC()->get_list_screens() as $list_screen ) {
 
 			/**
-			 * @param string $group Group slug
+			 * @param string        $group Group slug
 			 * @param AC_ListScreen $list_screen
 			 */
 			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen );
@@ -477,7 +477,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 <div class="inside">
                                     <p><?php _e( 'Take Admin Columns to the next level:', 'codepress-admin-columns' ); ?></p>
                                     <ul>
-
 										<?php
 
 										$items = array(
@@ -496,15 +495,20 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                             </li>
 										<?php endforeach; ?>
 
-										<?php foreach ( AC()->addons()->get_addons_promo() as $addon ) : ?>
-                                            <li class="acp-integration">
-                                                <a href="<?php echo esc_url( $addon->get_link() ); ?>">
-                                                    <img src="<?php echo esc_attr( $addon->get_logo() ); ?>" alt="<?php echo esc_attr( $addon->get_title() ); ?>"> <?php _e( 'Columns', 'codepress-admin-columns' ); ?>
-                                                </a>
-                                            </li>
-										<?php endforeach; ?>
-
                                     </ul>
+
+									<?php if ( $promos = AC()->addons()->get_addons_promo() ) : ?>
+                                        <strong><?php _e( 'Extra Columns for:', 'codepress-admin-columns' ); ?></strong>
+                                        <ul>
+											<?php foreach ( $promos as $addon ) : ?>
+                                                <li class="acp-integration">
+                                                    <a href="<?php echo esc_url( $addon->get_link() ); ?>" target="_blank">
+	                                                    <?php $addon->display_promo(); ?>
+                                                    </a>
+                                                </li>
+											<?php endforeach; ?>
+                                        </ul>
+									<?php endif; ?>
 
                                     <p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>

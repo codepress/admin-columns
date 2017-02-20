@@ -23,6 +23,13 @@ abstract class AC_Addon {
 	private $logo;
 
 	/**
+	 * Icon is a small version of the logo. Mainly used on the promo banner.
+	 *
+	 * @var string
+	 */
+	private $icon;
+
+	/**
 	 * Plugin folder name
 	 *
 	 * @var string
@@ -119,16 +126,13 @@ abstract class AC_Addon {
 	 * @return string
 	 */
 	public function get_group() {
-		return $this->group ? $this->group : 'integration';
-	}
+		$group = 'default';
 
-	/**
-	 * @param string $group
-	 */
-	protected function set_group( $group ) {
-		$this->group = $group;
+		if ( $this->is_plugin_active() ) {
+			$group = 'recommended';
+		}
 
-		return $this;
+		return $group;
 	}
 
 	/**
@@ -145,6 +149,36 @@ abstract class AC_Addon {
 		$this->logo = $logo;
 
 		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_icon() {
+		return $this->icon;
+	}
+
+	/**
+	 * @param string $icon
+	 */
+	protected function set_icon( $icon ) {
+		$this->icon = $icon;
+
+		return $this;
+	}
+
+	public function display_icon() {
+		if ( $this->get_icon() ) : ?>
+            <img class="icon <?php echo $this->get_slug(); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
+		<?php endif;
+	}
+
+	public function display_promo() {
+		if ( $this->get_icon() ) :
+			$this->display_icon();
+		else :
+			echo $this->get_title();
+		endif;
 	}
 
 	/**
@@ -229,6 +263,41 @@ abstract class AC_Addon {
 		}
 
 		return $plugin['Version'];
+	}
+
+	/**
+     * Activate plugin
+     *
+	 * @return string
+	 */
+	public function get_activation_url() {
+		return $this->get_plugin_action_url( 'activate' );
+	}
+
+	/**
+	 * Deactivate plugin
+	 *
+	 * @return string
+	 */
+	public function get_deactivation_url() {
+		return $this->get_plugin_action_url( 'deactivate' );
+	}
+
+	/**
+     * Activate or Deactivate plugin
+     *
+	 * @param string $action
+	 *
+	 * @return string
+	 */
+	private function get_plugin_action_url( $action = 'activate' ) {
+		$plugin_url = add_query_arg( array(
+			'action'        => $action,
+			'plugin'        => $this->get_addon_basename(),
+			'ac-redirect' => true,
+		), admin_url( 'plugins.php' ) );
+
+		return wp_nonce_url( $plugin_url, $action . '-plugin_' . $this->get_addon_basename() );
 	}
 
 }

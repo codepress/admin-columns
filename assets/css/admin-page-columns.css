@@ -751,6 +751,8 @@
   #ac-pro-version .nopadding {
     margin: 0;
     padding: 0; }
+  #ac-pro-version h2 {
+    color: #fff; }
   #ac-pro-version h3 {
     font-size: 34px; }
     #ac-pro-version h3 a {
@@ -789,14 +791,21 @@
         vertical-align: top;
         margin-right: 10px; }
     #ac-pro-version ul li.acp-integration {
-      padding: 6px 0; }
+      padding: 0;
+      min-height: 23px;
+      line-height: 23px; }
       #ac-pro-version ul li.acp-integration img {
-        height: 21px;
+        height: 23px;
         display: inline-block;
         vertical-align: middle;
-        margin-right: 5px; }
-        #ac-pro-version ul li.acp-integration img.woocommerce {
-          height: 24px; }
+        margin-right: 3px; }
+        #ac-pro-version ul li.acp-integration img.ac-addon-pods {
+          margin-top: -4px; }
+        #ac-pro-version ul li.acp-integration img.ac-addon-types {
+          height: 18px; }
+        #ac-pro-version ul li.acp-integration img.cac-addon-acf {
+          margin-top: -4px;
+          height: 15px; }
       #ac-pro-version ul li.acp-integration a:before {
         content: '+'; }
   #ac-pro-version .padding-box.ac-pro-deal {
