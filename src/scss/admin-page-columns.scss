@@ -1110,6 +1110,10 @@
 		padding: 0;
 	}
 
+	h2 {
+		color: #fff;
+	}
+
 	h3 {
 		font-size: 34px;
 		a {
@@ -1155,6 +1159,7 @@
 
 		li {
 			padding-bottom: 3px;
+
 			a {
 				color: #fff;
 				text-decoration: none;
@@ -1170,17 +1175,28 @@
 			}
 
 			&.acp-integration {
-				padding: 6px 0;
+				padding: 0;
+				min-height: 23px;
+				line-height: 23px;
+
 				img {
-					height: 21px;
+					height: 23px;
 					display: inline-block;
 					vertical-align: middle;
-					margin-right: 5px;
+					margin-right: 3px;
 
-					&.woocommerce {
-						height: 24px;
+					&.ac-addon-pods {
+						margin-top: -4px;
+					}
+					&.ac-addon-types {
+						height: 18px
+					}
+					&.cac-addon-acf {
+						margin-top: -4px;
+						height: 15px
 					}
 				}
+
 				a:before {
 					content: '+';
 				}
