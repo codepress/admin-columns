@@ -2,18 +2,41 @@
 
 class AC_Admin_Page_Help extends AC_Admin_Page {
 
+    CONST TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
+
 	private $messages = array();
 
 	public function __construct() {
+
 		$this
 			->set_slug( 'help' )
-			->set_label( __( 'Help', 'codepress-admin-columns' ) );
+			->set_label( $this->get_label_with_count() );
 
 		// TODO: maybe hide page when no hooks are found
 
 		// Init and request
-		add_action( 'admin_init', array( $this, 'init_label' ) );
+		add_action( 'admin_init', array( $this, 'init' ), 9 );
 		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
+	}
+
+	private function get_label_with_count() {
+		$label = __( 'Help', 'codepress-admin-columns' );
+		if ( $count = $this->get_message_count() ) {
+			$label .= '<span class="ac-badge">' . $count . '</span>';
+		}
+
+		return $label;
+	}
+
+	public function init() {
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+		    return;
+        }
+
+        // Run once
+        if ( false === $this->get_message_count() ) {
+	        $this->run_hooks();
+        }
 	}
 
 	/**
@@ -28,35 +51,27 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	}
 
 	/**
-	 * Set the label of the tab. Adds a counter to it when deprecated hooks are used on the site.
-	 */
-	public function init_label() {
-		$count_notices = get_transient( 'ac-deprecated-notices-count' );
-
-		if ( ! $count_notices ) {
-			$this->run_hooks();
-
-			$count_filters = count( $this->get_messages( 'filter' ) );
-			$count_actions = count( $this->get_messages( 'action' ) );
-
-			$count_notices = $count_actions + $count_filters;
-
-			set_transient( 'ac-deprecated-notices-count', $count_notices );
-		}
-
-		if ( $count_notices > 0 ) {
-			$label = $this->get_label() . '<span class="ac-badge">' . $count_notices . '</span>';
-
-			$this->set_label( $label );
-		}
-	}
-
-	/**
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
 		wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+	}
 
+	private function update_message_count() {
+		$count_filters = count( $this->get_messages( 'filter' ) );
+		$count_actions = count( $this->get_messages( 'action' ) );
+
+		$count_notices = $count_actions + $count_filters;
+
+		set_transient( self::TRANSIENT_COUNT_KEY, $count_notices );
+	}
+
+	private function get_message_count() {
+        return get_transient( self::TRANSIENT_COUNT_KEY );
+	}
+
+	public function delete_message_count() {
+		delete_transient( self::TRANSIENT_COUNT_KEY );
 	}
 
 	/**
@@ -125,6 +140,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		}
 
 		// Actions
+
+
+        $this->update_message_count();
 	}
 
 	private function get_groups() {
@@ -190,6 +208,16 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		return $this->messages[ $type ];
 	}
 
+	private function get_group_label( $type ) {
+		$groups = $this->get_groups();
+
+		if ( ! isset( $groups[ $type ] ) ) {
+			return false;
+		}
+
+		return $groups[ $type ];
+	}
+
 	/**
 	 * @param string $page Website page slug
 	 *
@@ -200,17 +228,10 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	}
 
 	/**
-	 * @param string $type
+	 * @param string $hook Action or Filter
+	 *
+	 * @return string|false
 	 */
-	private function display_messages( $type ) {
-		foreach ( $this->get_messages( $type ) as $message ) { ?>
-            <div class="ac-deprecated-message">
-                <p><?php echo $message; ?></p>
-            </div>
-			<?php
-		}
-	}
-
 	private function get_callback_message( $hook ) {
 		global $wp_filter;
 		$callbacks = array();
@@ -232,16 +253,23 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		return sprintf( _n( 'The callback is %s', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
 	}
 
-	public function display() { ?>
+	public function display() {
+		?>
+
         <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
+
         <p><?php // TODO: add explanation ?>In this help section...</p>
 
-		<?php foreach ( $this->get_groups() as $type => $label ) : ?>
-			<?php if ( $this->get_messages( $type ) ) : ?>
+		<?php foreach ( $this->get_groups() as $type => $label ) {
+			if ( $messages = $this->get_messages( $type ) ) : ?>
                 <h3><?php echo esc_html( $label ); ?></h3>
-				<?php echo $this->display_messages( $type ); ?>
-			<?php endif; ?>
-		<?php endforeach;
+				<?php foreach ( $messages as $message ) : ?>
+                    <div class="ac-deprecated-message">
+                        <p><?php echo $message; ?></p>
+                    </div>
+				<?php endforeach; ?>
+			<?php endif;
+		}
 	}
 
 }
