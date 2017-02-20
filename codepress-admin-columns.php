@@ -157,6 +157,7 @@ class CPAC {
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function ready() {
@@ -516,7 +517,7 @@ class CPAC {
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type    Updated or error
+	 * @param string $type Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="cpac_message ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -529,6 +530,14 @@ class CPAC {
 		return $this->admin()->get_page( 'columns' );
 	}
 
+	/**
+	 * @since NEWVERSION
+	 */
+	public function admin_scripts() {
+		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/cpac-message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
+		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/cpac-message" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+
+	}
 }
 
 /**

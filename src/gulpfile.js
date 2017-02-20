@@ -11,10 +11,10 @@ var gulp = require( 'gulp' ),
 	cssnano = require( 'gulp-cssnano' ),
 	rename = require( 'gulp-rename' ),
 	uglify = require( 'gulp-uglify' ),
-	plumber = require( 'gulp-plumber' );
-	wpPot = require( 'gulp-wp-pot' );
-	gettext = require( 'gulp-gettext' );
-	iconfont = require( 'gulp-iconfont' );
+	plumber = require( 'gulp-plumber' ),
+	wpPot = require( 'gulp-wp-pot' ),
+	gettext = require( 'gulp-gettext' ),
+	iconfont = require( 'gulp-iconfont' ),
 	consolidate = require( 'gulp-consolidate' );
 
 var iconfontdir = "iconfont/";
@@ -42,7 +42,8 @@ gulp.task( 'styles', function() {
 		'scss/admin-general.scss',
 		'scss/admin-welcome.scss',
 		'scss/list-screen.scss',
-		'scss/plugin-screen.scss'
+		'scss/plugin-screen.scss',
+		'scss/cpac-message.scss'
 	] )
 		.pipe( plumber( { errorHandler : onError } ) )
 		.pipe( sass() )
