@@ -389,7 +389,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 									<?php
 								// Installed
 								else : ?>
-                                    <a href="<?php echo esc_url( $addon->get_activation_url() ); ?>" class="button right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
+                                    <a href="<?php echo esc_url( $addon->get_activation_url() ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 								<?php endif;
 
 							// Not installed...

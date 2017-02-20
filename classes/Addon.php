@@ -15,11 +15,6 @@ abstract class AC_Addon {
 	/**
 	 * @var string
 	 */
-	private $group;
-
-	/**
-	 * @var string
-	 */
 	private $logo;
 
 	/**
