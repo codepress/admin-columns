@@ -150,6 +150,11 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		return $groups;
 	}
 
+	/**
+	 * @param string      $hook
+	 * @param string      $version
+	 * @param string|null $page
+	 */
 	private function deprecated_filter( $hook, $version, $page = null ) {
 		if ( has_filter( $hook ) ) {
 			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
@@ -158,6 +163,11 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		}
 	}
 
+	/**
+	 * @param string      $hook
+	 * @param string      $version
+	 * @param string|null $page
+	 */
 	private function deprecated_action( $hook, $version, $page = null ) {
 		if ( has_action( $hook ) ) {
 			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
@@ -204,16 +214,6 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		return $this->messages[ $type ];
 	}
 
-	private function get_group_label( $type ) {
-		$groups = $this->get_groups();
-
-		if ( ! isset( $groups[ $type ] ) ) {
-			return false;
-		}
-
-		return $groups[ $type ];
-	}
-
 	/**
 	 * @param string $page Website page slug
 	 *
@@ -230,31 +230,49 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 */
 	private function get_callback_message( $hook ) {
 		global $wp_filter;
+
+		if ( ! isset( $wp_filter[ $hook ] ) ) {
+			return false;
+		}
+
+		if ( empty( $wp_filter[ $hook ]->callbacks ) ) {
+			return false;
+		}
+
 		$callbacks = array();
 
-		if ( isset( $wp_filter[ $hook ] ) && ! empty( $wp_filter[ $hook ]->callbacks ) ) {
-			foreach ( $wp_filter[ $hook ]->callbacks as $callback ) {
-				foreach ( $callback as $cb ) {
-					if ( is_scalar( $cb['function'] ) ) {
-						$callbacks[] = $cb['function'];
-					}
+		foreach ( $wp_filter[ $hook ]->callbacks as $callback ) {
+			foreach ( $callback as $cb ) {
+
+			    // Function
+				if ( is_scalar( $cb['function'] ) ) {
+					$callbacks[] = $cb['function'];
+				}
+
+				// Method
+				if ( is_array( $cb['function'] ) ) {
+					$callbacks[] = get_class( $cb['function'][0] ) . '::' . $cb['function'][1];
 				}
 			}
 		}
 
-		if ( empty( $callbacks ) ) {
+		if ( ! $callbacks ) {
 			return false;
 		}
 
-		return sprintf( _n( 'The callback is %s.', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
+		return sprintf( _n( 'The callback used is %s.', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
 	}
 
+	/**
+	 * Render help page
+	 */
 	public function display() {
 		?>
-
         <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
-
-        <p><?php // TODO: add explanation ?>In this help section...</p>
+        <p>
+			<?php _e( 'The Admin Columns plugin has undergone some major changes in version 4.' ); ?> <br/>
+			<?php _e( 'This site is using some actions or filters that have changed. Please see our documentation to resolve them.' ); ?>
+        </p>
 
 		<?php foreach ( $this->get_groups() as $type => $label ) {
 			if ( $messages = $this->get_messages( $type ) ) : ?>
