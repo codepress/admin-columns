@@ -86,22 +86,29 @@ $addon-color-lightblue: #0069a4;
 			padding: 8px;
 			overflow: hidden;
 
-			.button {
-				&.active,
-				&.active:hover {
-					cursor: default;
-					border-color: lighten(#46b450, 10);
-					color: darken(#46b450, 12);
-					background-color: lighten(#46b450, 40);
+			span.active,
+			span.active:hover {
+				display: inline-block;
+				height: 28px;
+				line-height: 28px;
+				cursor: default;
+				border-color: lighten(#46b450, 10);
+				color: darken(#46b450, 10);
+				margin-left: 8px;
 
-					&:before {
-						content: "\f147";
-						font-family: 'dashicons', sans-serif;
-						vertical-align: middle;
-						font-size: 17px;
-						margin: -2px 3px 0 -5px;
-					}
+				&:before {
+					content: "\f147";
+					font-family: 'dashicons', sans-serif;
+					vertical-align: middle;
+					font-size: 17px;
+					margin: -2px 3px 0 -5px;
 				}
+			}
+		}
+
+		&.ac-addon-types .addon-header .inner {
+			img {
+				max-height: 68px;
 			}
 		}
 	}

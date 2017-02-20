@@ -20,7 +20,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
 
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
-		add_filter( 'wp_redirect', array( $this, 'addon_plugin_statuschange_redirect' ) );
+		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
 		add_action( 'admin_notices', array( $this, 'missing_addon_notices' ) );
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
@@ -42,7 +42,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		$addon = $this->get_addon( dirname( filter_input( INPUT_GET, 'plugin' ) ) );
+		$addon = $this->get_addon( filter_input( INPUT_GET, 'plugin' ) );
 
 		if ( ! $addon ) {
 			return;
@@ -120,6 +120,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		return $missing;
+	}
+
+	private function get_addon_by_basename( $basename ) {
+		return $this->get_addon( dirname( $basename ) );
 	}
 
 	/**
@@ -275,8 +279,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		$install_url = add_query_arg( array(
-			'action'        => 'install-plugin',
-			'plugin'        => $addon->get_slug(),
+			'action'      => 'install-plugin',
+			'plugin'      => $addon->get_slug(),
 			'ac-redirect' => true,
 		), wp_nonce_url( network_admin_url( 'update.php' ), 'install-plugin_' . $addon->get_slug() ) );
 
@@ -288,42 +292,36 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
 	 *
 	 * @since 2.2
-	 *
-	 * @see   filter:wp_redirect
 	 */
-	public function addon_plugin_statuschange_redirect( $location ) {
-		if ( ! is_admin() || ! filter_input( INPUT_GET, 'ac-redirect' ) ) {
+	public function redirect_after_status_change( $location ) {
+		global $pagenow;
+
+		if ( 'plugins.php' !== $pagenow || ! is_admin() || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
 			return $location;
 		}
 
-		$urlparts = parse_url( $location );
+		$status = filter_input( INPUT_GET, 'action' );
 
-		if ( ! $urlparts ) {
+		if ( ! $status ) {
 			return $location;
 		}
 
-		if ( ! empty( $urlparts['query'] ) ) {
-			$admin_url = $urlparts['scheme'] . '://' . $urlparts['host'] . $urlparts['path'];
+		$addon = $this->get_addon_by_basename( filter_input( INPUT_GET, 'plugin' ) );
 
-			// activate or deactivate plugin
-			if ( admin_url( 'plugins.php' ) == $admin_url ) {
-				parse_str( $urlparts['query'], $request );
-
-				if ( empty( $request['error'] ) ) {
-					$location = add_query_arg( array(
-						'status' => empty( $request['activate'] ) ? 'deactivate' : 'activate',
-						'plugin' => isset( $_GET['plugin'] ) ? $_GET['plugin'] : false,
-					), $this->get_link() );
-				}
-			}
+		if ( ! $addon ) {
+			return $location;
 		}
+
+		$location = add_query_arg( array(
+			'status' => $status,
+			'plugin' => $addon->get_slug(),
+		), $this->get_link() );
 
 		return $location;
 	}
 
 	/**
 	 * Addons are grouped into addon groups by providing the group an addon belongs to.
-	 * @see   AC_Addons::get_addons
 	 *
 	 * @since 2.2
 	 *
@@ -368,19 +366,19 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
 	 */
 	private function get_grouped_addons() {
-		$sorted = array();
+		$active = array();
+		$inactive = array();
 
-		// By alphabet
-		/* @var AC_Addon[] $addons */
-		$addons = array_reverse( $this->get_addons() );
-
-		foreach ( $addons as $addon ) {
+		foreach ( $this->get_addons() as $addon ) {
 			if ( $addon->is_addon_active() ) {
-				array_unshift( $sorted, $addon );
+				$active[] = $addon;
 			} else {
-				array_push( $sorted, $addon );
+				$inactive[] = $addon;
 			}
 		}
+
+		/* @var AC_Addon[] $sorted */
+		$sorted = array_merge( $active, $inactive );
 
 		$grouped = array();
 		foreach ( $this->get_addon_groups() as $group => $label ) {
@@ -422,7 +420,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				<?php
 				foreach ( $addons as $addon ) :
 					/* @var AC_Addon $addon */ ?>
-                    <li>
+                    <li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
                         <div class="addon-header">
                             <div class="inner">
 								<?php if ( $addon->get_logo() ) : ?>
@@ -444,7 +442,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 								// Active
 								if ( $addon->is_addon_active() ) : ?>
-                                    <span class="button active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
+                                    <span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
                                     <a href="<?php echo esc_url( $addon->get_deactivation_url() ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 									<?php
 								// Installed

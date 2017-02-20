@@ -62,14 +62,21 @@
       border-top: 1px solid #ddd;
       padding: 8px;
       overflow: hidden; }
-      .ac-addons li .addon-actions .button.active, .ac-addons li .addon-actions .button.active:hover {
+      .ac-addons li .addon-actions span.active,
+      .ac-addons li .addon-actions span.active:hover {
+        display: inline-block;
+        height: 28px;
+        line-height: 28px;
         cursor: default;
         border-color: #69c471;
-        color: #35883c;
-        background-color: #d7efd9; }
-        .ac-addons li .addon-actions .button.active:before, .ac-addons li .addon-actions .button.active:hover:before {
+        color: #388f40;
+        margin-left: 8px; }
+        .ac-addons li .addon-actions span.active:before,
+        .ac-addons li .addon-actions span.active:hover:before {
           content: "\f147";
           font-family: 'dashicons', sans-serif;
           vertical-align: middle;
           font-size: 17px;
           margin: -2px 3px 0 -5px; }
+    .ac-addons li.ac-addon-types .addon-header .inner img {
+      max-height: 68px; }
