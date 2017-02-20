@@ -2,45 +2,51 @@
 
 class AC_Admin_Page_Help extends AC_Admin_Page {
 
-	private $deprecated_filters = array();
-
-	private $deprecated_actions = array();
+	private $messages = array();
 
 	public function __construct() {
 		$this
 			->set_slug( 'help' )
 			->set_label( __( 'Help', 'codepress-admin-columns' ) );
 
+		// TODO: maybe hide page when no hooks are found
+
 		// Init and request
 		add_action( 'admin_init', array( $this, 'init_label' ) );
-		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
 	}
 
-	public function init() {
+	/**
+	 * Run all hooks when opening the help tab.
+	 */
+	public function run_hooks_on_help_tab() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
 
-		$this->init_deprecated_filters();
-
+		$this->run_hooks();
 	}
 
+	/**
+	 * Set the label of the tab. Adds a counter to it when deprecated hooks are used on the site.
+	 */
 	public function init_label() {
 		$count_notices = get_transient( 'ac-deprecated-notices-count' );
 
 		if ( ! $count_notices ) {
-			$this->init_deprecated_filters();
+			$this->run_hooks();
 
-			$count_filters = count( $this->deprecated_filters );
-			$count_actions = count( $this->deprecated_actions );
+			$count_filters = count( $this->get_messages( 'filter' ) );
+			$count_actions = count( $this->get_messages( 'action' ) );
+
 			$count_notices = $count_actions + $count_filters;
 
 			set_transient( 'ac-deprecated-notices-count', $count_notices );
 		}
 
 		if ( $count_notices > 0 ) {
-			$label = $this->get_label();
-			$label .= '<span class="ac-badge">' . $count_notices . '</span>';
+			$label = $this->get_label() . '<span class="ac-badge">' . $count_notices . '</span>';
+
 			$this->set_label( $label );
 		}
 	}
@@ -53,20 +59,22 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 
 	}
 
-	public function init_deprecated_filters() {
-		if ( ! AC()->admin()->is_admin_screen() ) {
-			return;
-		}
+	/**
+	 * This will run all deprecated hooks and adds a message when a hook has been used on the site.
+	 */
+	public function run_hooks() {
 
 		$types = array( 'post', 'user', 'comment', 'link', 'media' );
 		$post_types = get_post_types();
-		$columns = array();
 
+		$columns = array();
 		foreach ( AC()->get_list_screens() as $ls ) {
 			foreach ( $ls->get_column_types() as $column ) {
 				$columns[ $column->get_type() ] = $column->get_type();
 			}
 		}
+
+		// Filters
 
 		$this->deprecated_filter( 'cac/headings/label', 'NEWVERSION', 'cac-columns-custom' );
 		$this->deprecated_filter( 'cac/column/meta/value', 'NEWVERSION', 'cac-column-meta-value' );
@@ -116,69 +124,99 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			$this->deprecated_filter( 'cac/editable/column_save/column=' . $column_type, 'NEWVERSION', 'cac-editable-column_save' );
 		}
 
+		// Actions
 	}
 
-	public function display() {
-		?>
-        <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
+	private function get_groups() {
+		$groups = array(
+			'filter' => __( 'Deprecated Filters', 'codepress-admin-columns' ),
+			'action' => __( 'Deprecated Actions', 'codepress-admin-columns' ),
+		);
 
-        <h3>Deprecated Filters</h3>
-		<?php echo $this->display_deprecated_filters(); ?>
-
-        <h3>Deprecated Actions</h3>
-		<?php echo $this->display_deprecated_actions();
+		return $groups;
 	}
 
-	private function deprecated_filter( $tag, $version, $doc_tag = null ) {
-		if ( has_filter( $tag ) ) {
-			$message = sprintf( 'The filter <strong>"%s"</strong> used on your website is deprecated since <strong>%s</strong>.', $tag, $version );
-			if ( $doc_tag ) {
-				$message .= ' <a href="' . $this->get_documentation_url( $doc_tag ) . '" target="_blank">View our documentation</a>';
-			}
+	private function deprecated_filter( $hook, $version, $page = null ) {
+		if ( has_filter( $hook ) ) {
+			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
 
-			$this->deprecated_filters[ $tag ] = $message;
+			$this->add_deprecated_message( 'filter', $message, $hook, $page );
 		}
 	}
 
-	private function deprecated_action( $tag, $version, $doc_tag = null ) {
-		if ( has_action( $tag ) ) {
-			$message = sprintf( 'The action <strong>"%s"</strong> used on your website is deprecated since <strong>%s</strong>.', $tag, $version );
-			if ( $doc_tag ) {
-				$message .= ' <a href="' . $this->get_documentation_url( $doc_tag ) . '">View our documentation</a>';
-			}
+	private function deprecated_action( $hook, $version, $page = null ) {
+		if ( has_action( $hook ) ) {
+			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
 
-			$this->deprecated_actions[ $tag ] = $message;
+			$this->add_deprecated_message( 'action', $message, $hook, $page );
 		}
 	}
 
-	private function display_deprecated_filters() {
-		foreach ( $this->deprecated_filters as $filter => $message ) {
-			?>
-            <div class="cac_deprecated_message">
+	/**
+	 * @param string $type
+	 * @param string $message
+	 * @param string $hook
+	 * @param null   $page
+	 */
+	private function add_deprecated_message( $type, $message, $hook, $page = null ) {
+		if ( $callback_message = $this->get_callback_message( $hook ) ) {
+			$message .= ' ' . $callback_message;
+		}
+		if ( $page ) {
+			$message .= ' ' . $this->get_documention_link( $page );
+		}
+
+		$this->add_message( $message, $type );
+	}
+
+	/**
+	 * @param string $message
+	 * @param string $type
+	 */
+	private function add_message( $message, $type = 'filter' ) {
+		$this->messages[ $type ][] = $message;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return array|false
+	 */
+	private function get_messages( $type = 'filter' ) {
+		if ( ! isset( $this->messages[ $type ] ) ) {
+			return array();
+		}
+
+		return $this->messages[ $type ];
+	}
+
+	/**
+	 * @param string $page Website page slug
+	 *
+	 * @return false|string
+	 */
+	private function get_documention_link( $page ) {
+		return ac_helper()->html->link( ac_get_site_url( 'documentation/' . $page ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+	}
+
+	/**
+	 * @param string $type
+	 */
+	private function display_messages( $type ) {
+		foreach ( $this->get_messages( $type ) as $message ) { ?>
+            <div class="ac-deprecated-message">
                 <p><?php echo $message; ?></p>
-				<?php $this->display_callbacks( $filter ); ?>
             </div>
 			<?php
 		}
 	}
 
-	private function display_deprecated_actions() {
-		foreach ( $this->deprecated_actions as $action => $message ) {
-			?>
-            <div class="cac_deprecated_message">
-                <p><?php echo $message; ?></p>
-				<?php $this->display_callbacks( $action, 'action' ); ?>
-            </div>
-			<?php
-		}
-	}
-
-	private function display_callbacks( $tag, $type = 'filter' ) {
+	private function get_callback_message( $hook ) {
 		global $wp_filter;
 		$callbacks = array();
 
-		if ( isset( $wp_filter[ $tag ] ) && ! empty( $wp_filter[ $tag ]->callbacks ) ) {
-			foreach ( $wp_filter[ $tag ]->callbacks as $callback ) {
+		if ( isset( $wp_filter[ $hook ] ) && ! empty( $wp_filter[ $hook ]->callbacks ) ) {
+			foreach ( $wp_filter[ $hook ]->callbacks as $callback ) {
 				foreach ( $callback as $cb ) {
 					if ( is_scalar( $cb['function'] ) ) {
 						$callbacks[] = $cb['function'];
@@ -187,13 +225,23 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			}
 		}
 
-		if ( ! empty( $callbacks ) ) {
-			echo '<strong>' . sprintf( __( 'Callbacks used', 'codepress-admin-columns' ), $type ) . ': </strong>';
-			echo implode( ', ', $callbacks );
+		if ( empty( $callbacks ) ) {
+			return false;
 		}
+
+		return sprintf( _n( 'The callback is %s', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
 	}
 
-	private function get_documentation_url( $doc_tag ) {
-		return ac_get_site_url( 'documentation/' . $doc_tag );
+	public function display() { ?>
+        <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
+        <p><?php // TODO: add explanation ?>In this help section...</p>
+
+		<?php foreach ( $this->get_groups() as $type => $label ) : ?>
+			<?php if ( $this->get_messages( $type ) ) : ?>
+                <h3><?php echo esc_html( $label ); ?></h3>
+				<?php echo $this->display_messages( $type ); ?>
+			<?php endif; ?>
+		<?php endforeach;
 	}
+
 }
