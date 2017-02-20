@@ -166,75 +166,15 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				$plugins_list = sprintf( __( '%s and %s', 'codepress-admin-columns' ), $plugins[0], $plugins[1] );
 			}
 
-			// TODO: move to CSS/JS file
 			?>
             <div class="cpac_message updated">
                 <a href="#" class="hide-notice hide-install-addons-notice"></a>
 
                 <p><?php printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), $plugins_list, ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) ); ?>
             </div>
-            <style type="text/css">
-                body .wrap .cpac_message {
-                    position: relative;
-                    padding-right: 40px;
-                }
-
-                .cpac_message .spinner.right {
-                    visibility: visible;
-                    display: block;
-                    right: 8px;
-                    text-decoration: none;
-                    text-align: right;
-                    position: absolute;
-                    top: 50%;
-                    margin-top: -10px;
-                }
-
-                .cpac_message .hide-notice {
-                    right: 8px;
-                    text-decoration: none;
-                    width: 32px;
-                    text-align: right;
-                    position: absolute;
-                    top: 50%;
-                    height: 32px;
-                    margin-top: -16px;
-                }
-
-                .cpac_message .hide-notice:before {
-                    display: block;
-                    content: '\f335';
-                    font-family: 'Dashicons', serif;
-                    margin: .5em 0;
-                    padding: 2px;
-                }
-            </style>
-            <script type="text/javascript">
-				jQuery( function( $ ) {
-					$( document ).ready( function() {
-						$( '.updated a.hide-install-addons-notice' ).click( function( e ) {
-							e.preventDefault();
-
-							var el = $( this ).parents( '.cpac_message' );
-							var el_close = el.find( '.hide-notice' );
-
-							el_close.hide();
-							el_close.after( '<div class="spinner right"></div>' );
-							el.find( '.spinner' ).show();
-
-							$.post( ajaxurl, {
-								'action' : 'cpac_hide_install_addons_notice'
-							}, function() {
-								el.find( '.spinner' ).remove();
-								el.slideUp();
-							} );
-
-							return false;
-						} );
-					} );
-				} );
-            </script>
 			<?php
+			wp_enqueue_script( 'ac-sitewide-notices' );
+			wp_enqueue_style( 'ac-sitewide-notices' );
 		}
 	}
 
