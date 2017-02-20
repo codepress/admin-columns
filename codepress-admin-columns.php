@@ -51,18 +51,9 @@ class CPAC {
 	private $plugin_basename;
 
 	/**
-	 * Admin Columns add-ons class instance
-	 *
-	 * @since 2.2
-	 * @access private
-	 * @var AC_Addons
-	 */
-	private $addons;
-
-	/**
 	 * Admin Columns settings class instance
 	 *
-	 * @since 2.2
+	 * @since  2.2
 	 * @access private
 	 * @var AC_Admin
 	 */
@@ -145,10 +136,8 @@ class CPAC {
 		new AC_ThirdParty_WooCommerce();
 		new AC_ThirdParty_WPML();
 
-		// Includes
+		// Init
 		$this->admin = new AC_Admin();
-		$this->addons = new AC_Addons();
-
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 
@@ -229,7 +218,7 @@ class CPAC {
 
 	/**
 	 * @since 2.2
-	 * @uses load_plugin_textdomain()
+	 * @uses  load_plugin_textdomain()
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
@@ -283,7 +272,7 @@ class CPAC {
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
 	 * @since 1.0
-	 * @see filter:plugin_action_links
+	 * @see   filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->plugin_basename ) {
@@ -312,10 +301,10 @@ class CPAC {
 	 * Get admin columns add-ons class instance
 	 *
 	 * @since 2.2
-	 * @return AC_Addons Add-ons class instance
+	 * @return AC_Admin_Page_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->addons;
+		return $this->admin()->get_page( 'addons' );
 	}
 
 	/**
@@ -328,6 +317,10 @@ class CPAC {
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 6 );
 		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 7 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+
+		foreach ( $this->addons()->get_missing_addons() as $addon ) {
+			$groups->register_group( $addon->get_slug(), $addon->get_title(), 5 );
+		}
 
 		$this->column_groups = $groups;
 
@@ -523,7 +516,7 @@ class CPAC {
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type Updated or error
+	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="cpac_message ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';

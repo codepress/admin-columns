@@ -16,10 +16,6 @@ class AC_Addon_WooCommerce extends AC_Addon {
 		return class_exists( 'WooCommerce', false );
 	}
 
-	public function is_addon_active() {
-		return class_exists( 'CPAC_Addon_WC', false );
-	}
-
 	public function get_placeholder_column() {
 		$column = new AC_Column_WooCommercePlaceholder();
 		$column->set_addon( $this );
