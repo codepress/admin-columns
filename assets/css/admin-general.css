@@ -208,8 +208,8 @@ body.rtl .cpac_export .ms-container .ms-selection {
   border-radius: 10px;
   font-size: 9px;
   line-height: 17px;
-  padding: 0 5px;
-  margin: 1px 0 0 2px;
+  padding: 0 6px;
+  margin: -1px 0 0 4px;
   vertical-align: middle;
   color: #fff;
   font-weight: 600; }

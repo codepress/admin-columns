@@ -12,7 +12,10 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			->set_slug( 'help' )
 			->set_label( $this->get_label_with_count() );
 
-		// TODO: maybe hide page when no hooks are found
+		// Hide page when there are no messages
+        if ( ! $this->get_message_count() ) {
+            $this->set_show_in_menu( false );
+        }
 
 		// Init and request
 		add_action( 'admin_init', array( $this, 'init' ), 9 );
