@@ -2,7 +2,7 @@
 
 class AC_Admin_Page_Help extends AC_Admin_Page {
 
-    CONST TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
+	CONST TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
 
 	private $messages = array();
 
@@ -10,36 +10,38 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 
 		$this
 			->set_slug( 'help' )
-			->set_label( $this->get_label_with_count() );
+			->set_label_with_count();
 
 		// Hide page when there are no messages
-        if ( ! $this->get_message_count() ) {
-            $this->set_show_in_menu( false );
-        }
+		if ( ! $this->get_message_count() ) {
+			$this->set_show_in_menu( false );
+		}
 
 		// Init and request
 		add_action( 'admin_init', array( $this, 'init' ), 9 );
 		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
 	}
 
-	private function get_label_with_count() {
+	private function set_label_with_count() {
 		$label = __( 'Help', 'codepress-admin-columns' );
 		if ( $count = $this->get_message_count() ) {
 			$label .= '<span class="ac-badge">' . $count . '</span>';
 		}
 
-		return $label;
+		$this->set_label( $label );
+
+		return $this;
 	}
 
 	public function init() {
 		if ( ! AC()->user_can_manage_admin_columns() ) {
-		    return;
-        }
+			return;
+		}
 
-        // Run once
-        if ( false === $this->get_message_count() ) {
-	        $this->run_hooks();
-        }
+		// Run once
+		if ( false === $this->get_message_count() ) {
+			$this->run_hooks();
+		}
 	}
 
 	/**
@@ -70,7 +72,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	}
 
 	private function get_message_count() {
-        return get_transient( self::TRANSIENT_COUNT_KEY );
+		return get_transient( self::TRANSIENT_COUNT_KEY );
 	}
 
 	public function delete_message_count() {
@@ -123,15 +125,6 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			$this->deprecated_filter( 'cac/column/value/' . $type, 'NEWVERSION', 'cac-column-value' );
 		}
 
-		$this->deprecated_filter( 'cac/columns/custom', 'NEWVERSION', 'cac-columns-custom' );
-		foreach ( $types as $type ) {
-			$this->deprecated_filter( 'cac/columns/custom/type=' . $type, 'NEWVERSION', 'cac-columns-custom' );
-		}
-
-		foreach ( $post_types as $post_type ) {
-			$this->deprecated_filter( 'cac/columns/custom/post_type=' . $post_type, 'NEWVERSION', 'cac-columns-custom' );
-		}
-
 		$this->deprecated_filter( 'cac/editable/column_value', 'NEWVERSION', 'cac-editable-column_value' );
 		foreach ( $columns as $column_type ) {
 			$this->deprecated_filter( 'cac/editable/column_value/column=' . $column_type, 'NEWVERSION', 'cac-editable-column_value' );
@@ -144,8 +137,8 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 
 		// Actions
 
-
-        $this->update_message_count();
+		$this->update_message_count();
+		$this->set_label_with_count();
 	}
 
 	private function get_groups() {
@@ -253,7 +246,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			return false;
 		}
 
-		return sprintf( _n( 'The callback is %s', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
+		return sprintf( _n( 'The callback is %s.', 'The callbacks are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
 	}
 
 	public function display() {
