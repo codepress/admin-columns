@@ -26,7 +26,7 @@ span.status-closed {
 	vertical-align: middle;
 	float: left;
 	margin-bottom: 4px;
-	
+
 	body.edit-tags-php & {
 		float: none;
 	}
@@ -68,7 +68,7 @@ body.users-php .tablenav .actions {
 	.tablenav.top .actions {
 		display: block !important;
 		margin-bottom: 4px;
-		
+
 		* {
 			display: none;
 		}
@@ -123,6 +123,14 @@ body.upload-php .tablenav.top .cpac-edit {
 .cpac-suffix {
 	margin-left: 8px;
 	color: #808080;
+}
+
+.ac-small-block {
+	display: inline-block;
+	border-radius: 3px;
+	background-color: rgba( 224, 224, 224, 0.6 );
+	padding: 2px 7px;
+	margin: 0 5px 5px 0;
 }
 
 /* =Images Column
@@ -199,7 +207,7 @@ div.sizes span.not-available {
 	margin-right: 4px;
 	padding: 0 13px;
 	overflow: hidden;
-	
+
 	&:before {
 		position: absolute;
 		top: 0;
@@ -227,7 +235,7 @@ div.sizes span.not-available {
 	border-radius: 3px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	
+
 	&:hover {
 		background: #fafafa;
 		color: #23282d;
@@ -236,24 +244,24 @@ div.sizes span.not-available {
 }
 
 .column-actions {
-	
+
 	.row-actions {
 		left: 0;
 		position: relative;
 	}
-	
+
 	&.cpac_use_icons .row-actions {
 		> span {
 			color: transparent;
 			margin-right: -8px;
-			
+
 			a {
 				@extend .cpac_wp_button;
 				display: inline-block;
 				position: relative;
 				min-width: 26px;
 				margin-bottom: 5px;
-				
+
 				&:before {
 					text-indent: 0;
 					font-family: Dashicons, sans-serif;
@@ -265,9 +273,9 @@ div.sizes span.not-available {
 					height: 100%;
 				}
 			}
-			
+
 			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve, &.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete {
-				
+
 				a {
 					text-indent: -3000px;
 					&:before {
@@ -293,7 +301,7 @@ div.sizes span.not-available {
 						border-color: #999;
 					}
 				}
-				
+
 			}
 			&.view a:before {
 				content: "\f177";

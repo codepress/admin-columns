@@ -349,7 +349,7 @@ final class AC_TableScreen {
 			$this->column_headings[ $column->get_name() ] = $label;
 		}
 
-		return $this->column_headings;
+		return apply_filters( 'ac/headings', $this->column_headings, $this->current_list_screen );
 	}
 
 }

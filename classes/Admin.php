@@ -22,7 +22,7 @@ class AC_Admin {
 	/**
 	 * @since 2.0
 	 */
-	function __construct() {
+	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 

@@ -18,7 +18,10 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	}
 
 	protected function define_options() {
-		return array( 'post_property_display', 'post_link_to' );
+		return array(
+			'post_property_display',
+			'post_link_to' => 'edit_post',
+		);
 	}
 
 	/**

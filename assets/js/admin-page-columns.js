@@ -293,7 +293,6 @@ function cpac_reset_columns( $ ) {
 
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
-		var $container = $( this ).closest( '.columns-container' );
 		var column_name = $( this ).attr( 'data-column-name' );
 
 		// Allow plugins to hook into this event
@@ -304,7 +303,8 @@ function cpac_reset_columns( $ ) {
 			plugin_id : 'cpac',
 			action : 'cpac_column_refresh',
 			_ajax_nonce : AC._ajax_nonce,
-			list_screen : $container.data( 'type' ),
+			list_screen : AC.list_screen,
+			layout : AC.layout,
 			column_name : column_name
 		};
 
@@ -375,7 +375,6 @@ function cpac_reset_columns( $ ) {
 	$.fn.column_bind_events = function() {
 		var column = $( this );
 		var container = column.closest( '.columns-container ' );
-		var list_screen = container.attr( 'data-type' );
 
 		// Current column type
 		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
@@ -404,7 +403,8 @@ function cpac_reset_columns( $ ) {
 					original_columns : original_columns,
 					_ajax_nonce : AC._ajax_nonce,
 					type : type,
-					list_screen : list_screen
+					list_screen : AC.list_screen,
+					layout : AC.layout
 				}
 			} )
 				.done( function( response ) {
@@ -427,11 +427,6 @@ function cpac_reset_columns( $ ) {
 							// Open settings
 							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
-							// trigger refresh
-							// TODO: needed?
-							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
-							//el.cpac_column_refresh();
-							//}
 							el.cpac_update_clone_id();
 
 							// Allow plugins to hook into this event
@@ -836,6 +831,25 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
+	} );
+
+	/**
+	 * Populates the main Label with the selected label from the dropdown,
+	 */
+	$( document ).bind( 'column_change', function( e, column ) {
+		var $column = $( column );
+		var $select = $column.find( 'select[data-label="update"]' );
+
+		if ( 0 === $select.length ) {
+			return;
+		}
+
+		var $label = $column.find( 'input.ac-setting-input_label' );
+		var field_label = $select.find( 'option:selected' ).text();
+
+		// Set new label
+		$label.val( field_label );
+		$label.trigger( 'change' );
 	} );
 
 }( jQuery ));
