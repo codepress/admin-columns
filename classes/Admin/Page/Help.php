@@ -2,16 +2,47 @@
 
 class AC_Admin_Page_Help extends AC_Admin_Page {
 
-	protected $deprecated_filters = array();
+	private $deprecated_filters = array();
 
-	protected $deprecated_actions = array();
+	private $deprecated_actions = array();
 
 	public function __construct() {
 		$this
 			->set_slug( 'help' )
 			->set_label( __( 'Help', 'codepress-admin-columns' ) );
 
+		// Init and request
+		add_action( 'admin_init', array( $this, 'init_label' ) );
+		add_action( 'admin_init', array( $this, 'init' ) );
+	}
 
+	public function init() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
+
+		$this->init_deprecated_filters();
+
+	}
+
+	public function init_label() {
+		$count_notices = get_transient( 'ac-deprecated-notices-count' );
+
+		if ( ! $count_notices ) {
+			$this->init_deprecated_filters();
+
+			$count_filters = count( $this->deprecated_filters );
+			$count_actions = count( $this->deprecated_actions );
+			$count_notices = $count_actions + $count_filters;
+
+			set_transient( 'ac-deprecated-notices-count', $count_notices );
+		}
+
+		if ( $count_notices > 0 ) {
+			$label = $this->get_label();
+			$label .= '<span class="ac-badge">' . $count_notices . '</span>';
+			$this->set_label( $label );
+		}
 	}
 
 	/**
@@ -23,15 +54,16 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	}
 
 	public function init_deprecated_filters() {
-	    if( ! AC()->admin()->is_admin_screen() ){
-	        return;
-        }
+		if ( ! AC()->admin()->is_admin_screen() ) {
+			return;
+		}
+
 		$types = array( 'post', 'user', 'comment', 'link', 'media' );
 		$post_types = get_post_types();
 		$columns = array();
 
 		foreach ( AC()->get_list_screens() as $ls ) {
-            foreach ( $ls->get_column_types() as $column ) {
+			foreach ( $ls->get_column_types() as $column ) {
 				$columns[ $column->get_type() ] = $column->get_type();
 			}
 		}
@@ -51,7 +83,6 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$this->deprecated_filter( 'cac/column/actions/action_links', 'NEWVERSION', 'cac-column_actions-action_links' );
 		$this->deprecated_filter( 'cac/acf/format_acf_value', 'NEWVERSION' );
 
-
 		$this->deprecated_filter( 'cac/columns/custom', 'NEWVERSION', 'cac-columns-custom' );
 		foreach ( $types as $type ) {
 			$this->deprecated_filter( 'cac/columns/custom/type=' . $type, 'NEWVERSION', 'cac-columns-custom' );
@@ -65,7 +96,6 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		foreach ( $types as $type ) {
 			$this->deprecated_filter( 'cac/column/value/' . $type, 'NEWVERSION', 'cac-column-value' );
 		}
-
 
 		$this->deprecated_filter( 'cac/columns/custom', 'NEWVERSION', 'cac-columns-custom' );
 		foreach ( $types as $type ) {
@@ -86,13 +116,10 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			$this->deprecated_filter( 'cac/editable/column_save/column=' . $column_type, 'NEWVERSION', 'cac-editable-column_save' );
 		}
 
-
 	}
 
 	public function display() {
-
-		$this->init_deprecated_filters();
-	    ?>
+		?>
         <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
 
         <h3>Deprecated Filters</h3>

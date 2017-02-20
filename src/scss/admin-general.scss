@@ -291,3 +291,16 @@ body.rtl {
 		float: left;
 	}
 }
+
+.ac-badge {
+	display: inline-block;
+	background: #d54e21;
+	border-radius: 10px;
+	font-size: 9px;
+	line-height: 17px;
+	padding: 0 5px;
+	margin: 1px 0 0 2px;
+	vertical-align: middle;
+	color: #fff;
+	font-weight: 600;
+}
