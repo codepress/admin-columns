@@ -22,8 +22,12 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
 	}
 
+	/**
+	 * @return $this
+	 */
 	private function set_label_with_count() {
 		$label = __( 'Help', 'codepress-admin-columns' );
+
 		if ( $count = $this->get_message_count() ) {
 			$label .= '<span class="ac-badge">' . $count . '</span>';
 		}
@@ -33,6 +37,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		return $this;
 	}
 
+	/**
+	 * Run all hooks once
+	 */
 	public function init() {
 		if ( ! AC()->user_can_manage_admin_columns() ) {
 			return;
@@ -63,12 +70,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	}
 
 	private function update_message_count() {
-		$count_filters = count( $this->get_messages( 'filter' ) );
-		$count_actions = count( $this->get_messages( 'action' ) );
+		$count = count( $this->get_messages( 'filter' ) ) + count( $this->get_messages( 'action' ) );
 
-		$count_notices = $count_actions + $count_filters;
-
-		set_transient( self::TRANSIENT_COUNT_KEY, $count_notices );
+		set_transient( self::TRANSIENT_COUNT_KEY, $count, WEEK_IN_SECONDS );
 	}
 
 	private function get_message_count() {
@@ -150,7 +154,6 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
         $this->deprecated_action( 'cac/settings/after_menu', 'NEWVERION' );
 
 		$this->update_message_count();
-		$this->set_label_with_count();
 	}
 
 	private function get_groups() {
@@ -238,9 +241,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	/**
 	 * @param string $hook Action or Filter
 	 *
-	 * @return string|false
+	 * @return array|false
 	 */
-	private function get_callback_message( $hook ) {
+	private function get_callbacks( $hook ) {
 		global $wp_filter;
 
 		if ( ! isset( $wp_filter[ $hook ] ) ) {
@@ -256,7 +259,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		foreach ( $wp_filter[ $hook ]->callbacks as $callback ) {
 			foreach ( $callback as $cb ) {
 
-			    // Function
+				// Function
 				if ( is_scalar( $cb['function'] ) ) {
 					$callbacks[] = $cb['function'];
 				}
@@ -267,6 +270,21 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 				}
 			}
 		}
+
+		if ( ! $callbacks ) {
+			return false;
+		}
+
+		return $callbacks;
+	}
+
+	/**
+	 * @param string $hook Action or Filter
+	 *
+	 * @return string|false
+	 */
+	private function get_callback_message( $hook ) {
+		$callbacks = $this->get_callbacks( $hook );
 
 		if ( ! $callbacks ) {
 			return false;
