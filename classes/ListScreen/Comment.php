@@ -6,17 +6,27 @@
 class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 	public function __construct() {
-		parent::__construct();
 
-		$this->key = 'wp-comments';
-		$this->label = __( 'Comments' );
-		$this->singular_label = __( 'Comment' );
-		$this->type = 'comment';
-		$this->meta_type = 'comment';
-		$this->base = 'edit-comments';
-		$this->screen = 'edit-comments';
-		$this->list_table = 'WP_Comments_List_Table';
-		$this->menu_type = $this->label;
+		$this->set_label( __( 'Comments' ) );
+		$this->set_singular_label( __( 'Comment' ) );
+		$this->set_meta_type( 'comment' );
+		$this->set_screen_base( 'edit-comments' );
+		$this->set_key( 'wp-comments' );
+		$this->set_screen_id( 'edit-comments' );
+		$this->set_group( 'comment' );
+
+		/* @see WP_Comments_List_Table */
+		$this->set_list_table_class( 'WP_Comments_List_Table' );
+	}
+
+	public function get_column_headers() {
+		$table = $this->get_list_table();
+
+		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
+		// Here we remove the filter from the constructor.
+		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10 );
+
+		return (array) get_column_headers( $this->get_screen_id() );
 	}
 
 	public function set_manage_value_callback() {
@@ -38,11 +48,12 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		return get_comment( $comment_id );
 	}
 
+	/**
+	 * @param string $column_name
+	 * @param int $id
+	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
-	public function get_post_type() {
-		return 'comment';
-	}
 }

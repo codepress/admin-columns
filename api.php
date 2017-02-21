@@ -23,19 +23,47 @@ function ac_get_site_url( $path = '' ) {
 }
 
 /**
+ * Url with utm tags
+ *
+ * @param string $path
+ * @param string $utm_medium
+ * @param string $utm_content
+ *
+ * @return string
+ */
+function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_campaign = false ) {
+	$url = ac_get_site_url( $path );
+
+	if ( ! $utm_campaign ) {
+		$utm_campaign = 'plugin-installation';
+	}
+
+	$args = array(
+		// Referrer: plugin
+		'utm_source'   => 'plugin-installation',
+
+		// Specific promotions or sales
+		'utm_campaign' => $utm_campaign,
+
+		// Marketing medium: banner, support documentation, email
+		'utm_medium'   => $utm_medium,
+
+		// Used for differentiation of medium
+		'utm_content'  => $utm_content,
+	);
+
+	$args = array_map( 'sanitize_key', $args );
+
+	return add_query_arg( $args, $url );
+}
+
+/**
  * Admin Columns Twitter username
  *
  * @return string
  */
 function ac_get_twitter_handle() {
 	return 'wpcolumns';
-}
-
-/**
- * @see ac_get_site_url()
- */
-function ac_site_url( $path = '' ) {
-	echo ac_get_site_url( $path );
 }
 
 /**
@@ -76,9 +104,9 @@ function ac_action_column_helper() {
 function cac_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	$is_doing_ajax = AC()->list_screen_manager()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
+	$is_doing_ajax = AC()->table_screen()->get_list_screen_when_doing_ajax() || ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['list_screen'] ) );
 
-	return apply_filters( 'cac/is_doing_ajax', $is_doing_ajax );
+	return apply_filters_deprecated( 'cac/is_doing_ajax', array( $is_doing_ajax ), 'NEWVERSION' );
 }
 
 /**
@@ -87,9 +115,9 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen_when_doing_ajax()' );
+	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
 
-	return AC()->list_screen_manager()->get_list_screen_when_doing_ajax();
+	return AC()->table_screen()->get_list_screen_when_doing_ajax();
 }
 
 /**
@@ -97,14 +125,14 @@ function cac_wp_is_doing_ajax() {
  *
  * @since 2.4.8
  *
- * @param string $tab Specifies a tab screen (optional)
+ * @param string $slug Specifies a page screen (optional)
  *
  * @return bool True if the current screen is the settings screen, false otherwise
  */
-function cac_is_setting_screen( $tab = '' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
+function cac_is_setting_screen( $slug = '' ) {
+	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->admin()->is_current_page( $slug )' );
 
-	return AC()->admin()->is_current_tab( $tab );
+	return AC()->admin()->is_current_page( $slug );
 }
 
 /**

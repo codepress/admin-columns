@@ -19,7 +19,7 @@ class AC_Autoloader {
 	}
 
 	public static function instance() {
-		if ( is_null( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -79,7 +79,6 @@ class AC_Autoloader {
 	 * @return array Class names
 	 */
 	public function get_class_names_from_dir( $dir, $prefix ) {
-
 		$path = trailingslashit( $dir );
 		$classes_dir = $this->get_path_by_prefix( $prefix );
 
@@ -94,14 +93,20 @@ class AC_Autoloader {
 
 		if ( is_dir( $dir ) ) {
 			$iterator = new DirectoryIterator( $dir );
-			foreach ( $iterator as $leaf ) {
 
+			foreach ( $iterator as $leaf ) {
 				// skip non php files
 				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== pathinfo( $leaf->getFilename(), PATHINFO_EXTENSION ) ) {
 					continue;
 				}
 
-				$class_names[] = $prefix . str_replace( '.php', '', $leaf->getFilename() );
+				$class_name = $prefix . str_replace( '.php', '', $leaf->getFilename() );
+
+				$r = new ReflectionClass( $class_name );
+
+				if ( $r->isInstantiable() ) {
+					$class_names[] = $class_name;
+				}
 			}
 		}
 

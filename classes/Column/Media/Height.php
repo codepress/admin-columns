@@ -3,9 +3,11 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_Height extends AC_Column {
+class AC_Column_Media_Height extends AC_Column_Media_Meta {
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-height' );
 		$this->set_label( __( 'Height', 'codepress-admin-columns' ) );
 	}
@@ -17,9 +19,9 @@ class AC_Column_Media_Height extends AC_Column {
 	}
 
 	public function get_raw_value( $id ) {
-		$meta = get_post_meta( $id, '_wp_attachment_metadata', true );
+		$value = parent::get_raw_value( $id );
 
-		return ! empty( $meta['height'] ) ? $meta['height'] : false;
+		return ! empty( $value['height'] ) ? $value['height'] : false;
 	}
 
 }

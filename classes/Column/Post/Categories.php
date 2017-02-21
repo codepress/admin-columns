@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Categories extends AC_Column_DefaultPost {
+class AC_Column_Post_Categories extends AC_Column_Default {
 
 	public function __construct() {
 		parent::__construct();
@@ -12,7 +12,7 @@ class AC_Column_Post_Categories extends AC_Column_DefaultPost {
 	}
 
 	public function register_settings() {
-		$this->get_settings()->width->set_default( 15 );
+		$this->get_setting( 'width' )->set_default( 15 );
 	}
 
 	public function get_taxonomy() {

@@ -3,7 +3,7 @@
 /**
  * Holds the groups to which columns can belong.
  */
-final class AC_ColumnGroups {
+final class AC_Groups {
 
 	const SORT_PRIORITY = 1;
 
@@ -107,6 +107,12 @@ final class AC_ColumnGroups {
 		}
 
 		return $this->groups[ $slug ];
+	}
+
+	public function get_group_label( $slug ) {
+		$group = $this->get_group( $slug );
+
+		return $group ? $group['label'] : false;
 	}
 
 	/**

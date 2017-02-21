@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Post_Date extends AC_Column_DefaultPost {
+class AC_Column_Post_Date extends AC_Column_Default {
 
 	public function __construct() {
 		parent::__construct();
@@ -14,7 +14,7 @@ class AC_Column_Post_Date extends AC_Column_DefaultPost {
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Setting_Date( $this ) );
 
-		$this->get_settings()->width->set_default( 10 );
+		$this->get_setting( 'width' )->set_default( 10 );
 	}
 
 }

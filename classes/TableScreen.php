@@ -1,6 +1,6 @@
 <?php
 
-final class AC_ListScreenManager {
+final class AC_TableScreen {
 
 	/**
 	 * @var array $column_headings
@@ -10,7 +10,7 @@ final class AC_ListScreenManager {
 	/**
 	 * @var AC_ListScreen $list_screen
 	 */
-	private $list_screen;
+	private $current_list_screen;
 
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
@@ -22,36 +22,31 @@ final class AC_ListScreenManager {
 	}
 
 	/**
-	 * @return AC_ListScreen
-	 */
-	public function get_list_screen() {
-		return $this->list_screen;
-	}
-
-	/**
 	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
 	 *
 	 * @since 2.5.5
 	 */
 	public function set_primary_column( $default ) {
-		if ( $this->list_screen ) {
-			if ( ! $this->list_screen->get_column_by_name( $default ) ) {
-				$default = key( $this->list_screen->get_columns() );
+		if ( $this->current_list_screen ) {
+			if ( ! $this->current_list_screen->get_column_by_name( $default ) ) {
+				$default = key( $this->current_list_screen->get_columns() );
 			}
 
 			// If actions column is present, set it as primary
-			if ( $this->list_screen->get_column_by_name( 'column-actions' ) ) {
-				$default = 'column-actions';
-			}
+			foreach ( $this->current_list_screen->get_columns() as $column ) {
+				if ( 'column-actions' == $column->get_type() ) {
+					$default = $column->get_name();
+				}
+			};
 
 			// Set inline edit data if the default column (title) is not present
-			if ( $this->list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
+			if ( $this->current_list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
 				add_filter( 'page_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 				add_filter( 'post_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 			}
 
 			// Remove inline edit action if the default column (author) is not present
-			if ( $this->list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
+			if ( $this->current_list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
 				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
 			}
 
@@ -93,8 +88,8 @@ final class AC_ListScreenManager {
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
-		if ( $this->list_screen ) {
-			$classes .= " cp-" . $this->list_screen->get_key();
+		if ( $this->current_list_screen ) {
+			$classes .= " ac-" . $this->current_list_screen->get_key();
 		}
 
 		return $classes;
@@ -104,23 +99,53 @@ final class AC_ListScreenManager {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-		if ( ! $this->list_screen ) {
+		if ( ! $this->current_list_screen ) {
 			return;
 		}
 
-		wp_register_script( 'cpac-admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_register_script( 'admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
 		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
 		wp_register_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 		wp_register_style( 'ac-columns', AC()->get_plugin_url() . "assets/css/list-screen" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
-		wp_enqueue_script( 'cpac-admin-columns' );
+		wp_enqueue_script( 'admin-columns' );
 		wp_enqueue_style( 'jquery-qtip2' );
 		wp_enqueue_style( 'ac-columns' );
+
+		wp_localize_script( 'admin-columns', 'AC', array(
+				'current_list_screen' => $this->current_list_screen->get_key(),
+				'current_layout'      => $this->current_list_screen->get_layout(),
+				'column_types'        => $this->get_column_types_mapping( $this->current_list_screen ),
+			)
+		);
 
 		/**
 		 * @param AC_ListScreen $list_screen
 		 */
-		do_action( 'ac/listings_scripts', $this->list_screen );
+		do_action( 'ac/table_scripts', $this->current_list_screen );
+
+		// Column specific scripts
+		foreach ( $this->current_list_screen->get_columns() as $column ) {
+			$column->scripts();
+        }
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return array
+	 */
+	private function get_column_types_mapping( AC_ListScreen $list_screen ) {
+		$types = array();
+		foreach ( $list_screen->get_columns() as $column ) {
+			$types[ $column->get_name() ] = $column->get_type();
+		}
+
+		return $types;
+	}
+
+	public function get_current_list_screen() {
+		return $this->current_list_screen;
 	}
 
 	/**
@@ -129,38 +154,38 @@ final class AC_ListScreenManager {
 	 * @since 1.4.0
 	 */
 	public function admin_head_scripts() {
-		if ( ! $this->list_screen ) {
+		if ( ! $this->current_list_screen ) {
 			return;
 		}
 
 		// CSS: columns width
 		$css_column_width = false;
 
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$width = $column->get_settings()->width;
+		foreach ( $this->current_list_screen->get_columns() as $column ) {
+			$width = $column->get_setting( 'width' );
 
 			if ( $width->get_value() ) {
-				$css_column_width .= ".cp-" . $this->list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
+				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
 			}
 		}
 
 		if ( $css_column_width ) : ?>
-			<style>
-				<?php echo $css_column_width; ?>
-			</style>
+            <style>
+                <?php echo $css_column_width; ?>
+            </style>
 			<?php
 		endif;
 
 		/* @var AC_Admin_Page_Settings $settings */
-		$settings = AC()->admin()->get_tab( 'settings' );
+		$settings = AC()->admin()->get_page( 'settings' );
 
 		// JS: Edit button
 		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
             <script>
 				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
+					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->current_list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
-			</script>
+            </script>
 			<?php
 		endif;
 
@@ -170,34 +195,40 @@ final class AC_ListScreenManager {
 		 *
 		 * @param object CPAC Main Class
 		 */
-		do_action( 'ac/admin_head', $this->list_screen, $this );
+		do_action( 'ac/admin_head', $this->current_list_screen, $this );
 	}
 
 	/**
 	 * Load current list screen
 	 */
-	public function load_list_screen() {
+	public function load_list_screen( $current_screen ) {
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen() ) {
-				$this->init_list_screen( $list_screen );
+			if ( $list_screen->is_current_screen( $current_screen ) ) {
+				$this->set_current_list_screen( $list_screen );
+
+				return;
 			}
 		}
 	}
 
 	/**
+	 * Runs when doing native WordPress ajax calls, like quick edit.
+	 *
 	 * @param WP_Screen $current_screen
 	 */
 	public function load_list_screen_doing_ajax() {
-		if ( $list_screen = AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) ) {
-			$this->init_list_screen( $list_screen );
-		}
+		$this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) );
 	}
 
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	private function init_list_screen( AC_ListScreen $list_screen ) {
-		$this->list_screen = $list_screen;
+	private function set_current_list_screen( $list_screen ) {
+		if ( ! $list_screen ) {
+			return;
+		}
+
+		$this->current_list_screen = $list_screen;
 
 		// Init Values
 		$list_screen->set_manage_value_callback();
@@ -210,7 +241,7 @@ final class AC_ListScreenManager {
 		ac_action_column_helper();
 
 		// @since NEWVERSION
-		do_action( 'ac/listings/list_screen', $list_screen );
+		do_action( 'ac/table/list_screen', $list_screen );
 	}
 
 	/**
@@ -230,11 +261,7 @@ final class AC_ListScreenManager {
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
-			if ( 'cpac' == filter_input( INPUT_GET, 'plugin_id' ) ) {
-				$list_screen = filter_input( INPUT_GET, 'list_screen' );
-			}
-
-			if ( 'cpac' == filter_input( INPUT_POST, 'plugin_id' ) ) {
+			if ( 'cpac' === filter_input( INPUT_POST, 'plugin_id' ) ) {
 				$list_screen = filter_input( INPUT_POST, 'list_screen' );
 			}
 
@@ -279,15 +306,13 @@ final class AC_ListScreenManager {
 			return $columns;
 		}
 
-		if ( ! $this->list_screen ) {
+		if ( ! $this->current_list_screen ) {
 			return $columns;
 		}
 
-		$settings = $this->list_screen->settings();
-
 		// Store default headings
 		if ( ! $this->is_doing_ajax() ) {
-			$settings->save_default_headings( $columns );
+			$this->current_list_screen->save_default_headings( $columns );
 		}
 
 		// Run once
@@ -296,7 +321,7 @@ final class AC_ListScreenManager {
 		}
 
 		// Nothing stored. Show default columns on screen.
-		if ( ! $settings->get_settings() ) {
+		if ( ! $this->current_list_screen->get_settings() ) {
 			return $columns;
 		}
 
@@ -305,14 +330,20 @@ final class AC_ListScreenManager {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
-		// Flush cache. In case any columns are deactivated after saving them.
-		$this->list_screen->flush_columns();
+		foreach ( $this->current_list_screen->get_columns() as $column ) {
 
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$this->column_headings[ $column->get_name() ] = $column->get_setting( 'label' )->get_value();
+			/**
+			 * @since NEWVERSION
+			 *
+			 * @param string $label
+			 * @param AC_Column $column
+			 */
+			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
+
+			$this->column_headings[ $column->get_name() ] = $label;
 		}
 
-		return $this->column_headings;
+		return apply_filters( 'ac/headings', $this->column_headings, $this->current_list_screen );
 	}
 
 }

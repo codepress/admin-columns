@@ -17,16 +17,17 @@ class AC_Settings_Setting_Term extends AC_Settings_Setting
 	}
 
 	public function create_view() {
-		$select = $this->create_element( 'select' )
-		               ->set_options( array(
-			               ''     => __( 'Title' ),
-			               'slug' => __( 'Slug' ),
-			               'id'   => __( 'ID' ),
-		               ) );
+		$setting = $this
+			->create_element( 'select' )
+			->set_options( array(
+				''     => __( 'Title' ),
+				'slug' => __( 'Slug' ),
+				'id'   => __( 'ID' ),
+			) );
 
 		$view = new AC_View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
-			'setting' => $select,
+			'setting' => $setting,
 		) );
 
 		return $view;
@@ -66,6 +67,10 @@ class AC_Settings_Setting_Term extends AC_Settings_Setting
 			default :
 				$label = ac_helper()->taxonomy->get_term_field( 'name', $term_id, $this->column->get_taxonomy() );
 				break;
+		}
+
+		if ( empty( $label ) ) {
+			return false;
 		}
 
 		return $label;

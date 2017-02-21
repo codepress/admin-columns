@@ -21,7 +21,7 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 		$extended = get_extended( $p->post_content );
 
 		if ( ! empty( $extended['extended'] ) ) {
-			$value = $this->get_settings()->word_limit->format( $extended['main'] );
+			$value = $this->get_setting( 'word_limit' )->format( $extended['main'] );
 		}
 
 		return $value;

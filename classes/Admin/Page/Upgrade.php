@@ -7,7 +7,6 @@
  *
  * @since 2.0
  */
-// TODO: needs testing, scripts and upgrade message
 class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 
     CONST VERSION_KEY = 'cpac_version';
@@ -26,7 +25,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
-			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
+			add_action( 'ac/settings/after_menu', array( $this, 'proaddon_notice' ) );
 		}
 	}
 
@@ -35,15 +34,11 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 	 *
 	 * @since 2.2
 	 */
-	public function proaddon_notice() {
-		if ( apply_filters( 'cpac/suppress_proaddon_notice', false ) ) {
-			return;
-		}
-		?>
+	public function proaddon_notice() {	?>
         <div class="message error">
             <p>
 				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'codepress-admin-columns' ); ?>
-                <a href="<?php ac_site_url( 'pro-addon-information' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
+                <a href="<?php echo ac_get_site_utm_url( 'pro-addon-information', 'pro-notice' ); ?>" target="_blank"><?php _e( 'Learn more', 'codepress-admin-columns' ); ?></a>
             </p>
         </div>
 		<?php
@@ -299,12 +294,7 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'ac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
-
-		// TODO
-		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . 'assets/css/admin-column.css', array(), AC()->get_version(), 'all' );
-
-		// javascript translations
-		wp_localize_script( 'cpac-upgrade', 'cpac_upgrade_i18n', array(
+		wp_localize_script( 'ac-upgrade', 'cpac_upgrade_i18n', array(
 			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . esc_url( AC()->admin()->get_link( 'welcome' ) ) . '">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",
 			'error'       => __( 'Error', 'codepress-admin-columns' ),
 			'major_error' => __( 'Sorry. Something went wrong during the upgrade process. Please report this on the support forum.', 'codepress-admin-columns' ),
@@ -345,7 +335,6 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 			// run only when database upgrade is needed
 			if ( $version < AC()->get_upgrade_version() ) {
 
-			    // TODO: message only show on current tab, needs rewrite
 				// display upgrade message on every page except upgrade page itself
 				if ( ! ( isset( $_REQUEST['page'] ) && 'upgrade' === $_REQUEST['page'] ) ) {
 
@@ -369,4 +358,5 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 			update_option( self::VERSION_KEY, AC()->get_version() );
 		}
 	}
+
 }

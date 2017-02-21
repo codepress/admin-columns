@@ -51,32 +51,28 @@ class CPAC {
 	private $plugin_basename;
 
 	/**
-	 * Admin Columns add-ons class instance
-	 *
-	 * @since 2.2
-	 * @access private
-	 * @var AC_Addons
-	 */
-	private $addons;
-
-	/**
 	 * Admin Columns settings class instance
 	 *
-	 * @since 2.2
+	 * @since  2.2
 	 * @access private
 	 * @var AC_Admin
 	 */
 	private $admin;
 
 	/**
-	 * @var AC_ColumnGroups Column Groups
+	 * @var AC_Groups Column Groups
 	 */
-	private $groups;
+	private $column_groups;
 
 	/**
-	 * @var AC_ListScreenManager $_list_screen_manager
+	 * @var AC_Groups Listscreen Groups
 	 */
-	private $list_screen_manager;
+	private $list_screen_groups;
+
+	/**
+	 * @var AC_TableScreen
+	 */
+	private $table_screen;
 
 	/**
 	 * @since NEWVERSION
@@ -110,7 +106,7 @@ class CPAC {
 	 * @since 2.5
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
+		if ( null === self::$_instance ) {
 			self::$_instance = new self();
 		}
 
@@ -140,23 +136,10 @@ class CPAC {
 		new AC_ThirdParty_WooCommerce();
 		new AC_ThirdParty_WPML();
 
-		// Includes
+		// Init
 		$this->admin = new AC_Admin();
-		$this->addons = new AC_Addons();
-
-		$this->list_screen_manager = new AC_ListScreenManager();
+		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
-
-		// Column groups
-		$groups = new AC_ColumnGroups();
-
-		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'custom_fields', __( 'Custom Fields', 'codepress-admin-columns' ), 10 );
-		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
-		$groups->register_group( 'bbpress', __( 'bbPress', 'codepress-admin-columns' ), 99 );
-
-		$this->groups = $groups;
 
 		new AC_Notice_Review();
 
@@ -164,14 +147,24 @@ class CPAC {
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
+		// Notices
+		add_action( 'admin_notices', array( $this, 'display_notices' ) );
+		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
+
+		add_action( 'plugins_loaded', array( $this, 'ready' ) );
+
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
 
-		// Notices
-		add_action( 'admin_notices', array( $this, 'display_notices' ) );
-		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
+	public function ready() {
+		do_action( 'ac/ready', $this );
+		if( has_filter('cac/columns/custom') ){
+
+		}
 	}
 
 	/**
@@ -229,7 +222,7 @@ class CPAC {
 
 	/**
 	 * @since 2.2
-	 * @uses load_plugin_textdomain()
+	 * @uses  load_plugin_textdomain()
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
@@ -283,7 +276,7 @@ class CPAC {
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
 	 * @since 1.0
-	 * @see filter:plugin_action_links
+	 * @see   filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->plugin_basename ) {
@@ -312,20 +305,46 @@ class CPAC {
 	 * Get admin columns add-ons class instance
 	 *
 	 * @since 2.2
-	 * @return AC_Addons Add-ons class instance
+	 * @return AC_Admin_Page_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->addons;
+		return $this->admin()->get_page( 'addons' );
 	}
 
 	/**
-	 * @return AC_ColumnGroups
+	 * Column groups
 	 */
-	public function groups() {
-		return $this->groups;
+	public function set_column_groups() {
+		$groups = new AC_Groups();
+
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 6 );
+		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 7 );
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+
+		foreach ( $this->addons()->get_missing_addons() as $addon ) {
+			$groups->register_group( $addon->get_slug(), $addon->get_title(), 5 );
+		}
+
+		$this->column_groups = $groups;
+
+		do_action( 'ac/column_groups', $groups );
 	}
 
 	/**
+	 * @return AC_Groups
+	 */
+	public function column_groups() {
+		if ( null === $this->column_groups ) {
+			$this->set_column_groups();
+		}
+
+		return $this->column_groups;
+	}
+
+	/**
+	 * Contains simple helper methods
+	 *
 	 * @since NEWVERSION
 	 *
 	 * @return AC_Helper
@@ -335,10 +354,10 @@ class CPAC {
 	}
 
 	/**
-	 * @return AC_ListScreenManager
+	 * @return AC_TableScreen Returns the screen manager for the list table
 	 */
-	public function list_screen_manager() {
-		return $this->list_screen_manager;
+	public function table_screen() {
+		return $this->table_screen;
 	}
 
 	/**
@@ -355,9 +374,16 @@ class CPAC {
 			return false;
 		}
 
-		$screen = $screens[ $key ];
+		return $screens[ $key ];
+	}
 
-		return $screen;
+	/**
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+	public function list_screen_exists( $key ) {
+		return $this->get_list_screen( $key ) ? true : false;
 	}
 
 	/**
@@ -393,20 +419,22 @@ class CPAC {
 	 * @since NEWVERSION
 	 */
 	private function set_list_screens() {
-		// Create a list screen per post type
-		foreach ( $this->get_post_types() as $post_type ) {
-			$list_screen = new AC_ListScreen_Post();
-			$list_screen->set_post_type( $post_type );
 
-			$this->register_list_screen( $list_screen );
+		// Post types
+		foreach ( $this->get_post_types() as $post_type ) {
+			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
 		}
 
-		// Create other list screens
-		$this->register_list_screen( new AC_ListScreen_User() );
 		$this->register_list_screen( new AC_ListScreen_Media() );
 		$this->register_list_screen( new AC_ListScreen_Comment() );
 
-		if ( apply_filters( 'pre_option_link_manager_enabled', false ) ) { // as of 3.5 link manager is removed
+		// Users, not for network users
+		if ( ! is_multisite() ) {
+			$this->register_list_screen( new AC_ListScreen_User() );
+		}
+
+		// as of 3.5 link manager is removed
+		if ( get_option( 'link_manager_enabled' ) ) {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
@@ -419,6 +447,34 @@ class CPAC {
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
+	}
+
+	/**
+	 * Column groups
+	 */
+	public function set_list_screen_groups() {
+		$groups = new AC_Groups();
+
+		$groups->register_group( 'post', __( 'Post Type' ), 5 );
+		$groups->register_group( 'user', __( 'Users' ) );
+		$groups->register_group( 'media', __( 'Media' ) );
+		$groups->register_group( 'comment', __( 'Comments' ) );
+		$groups->register_group( 'link', __( 'Links' ), 15 );
+
+		$this->list_screen_groups = $groups;
+
+		do_action( 'ac/list_screen_groups', $groups );
+	}
+
+	/**
+	 * @return AC_Groups
+	 */
+	public function list_screen_groups() {
+		if ( null === $this->list_screen_groups ) {
+			$this->set_list_screen_groups();
+		}
+
+		return $this->list_screen_groups;
 	}
 
 	/**
@@ -450,9 +506,7 @@ class CPAC {
 		 *
 		 * @param array $post_types List of active post type names
 		 */
-
-		// TODO: rename
-		return apply_filters( 'cac/post_types', $post_types );
+		return apply_filters( 'ac/post_types', $post_types );
 	}
 
 	/**
@@ -473,80 +527,32 @@ class CPAC {
 	}
 
 	/**
-	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreen object
-	 *
-	 * @since 2.2.4
-	 * @deprecated NEWVERSION
-	 *
-	 * @return false
+	 * @return AC_Admin_Page_Columns
 	 */
-	public function get_storage_model( $key ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->get_list_screen()' );
-
-		return $this->get_list_screen( $key );
+	public function admin_columns_screen() {
+		return $this->admin()->get_page( 'columns' );
 	}
 
 	/**
-	 * Get list screen object of currently active list screen
-	 * On the users overview page, for example, this returns the AC_ListScreen object
-	 *
-	 * @since 2.2.4
-	 * @deprecated NEWVERSION
-	 *
-	 * @return AC_ListScreen
+	 * @since NEWVERSION
 	 */
-	public function get_current_storage_model() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->list_screen_manager()->get_list_screen()' );
+	public function admin_scripts() {
+		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/cpac-message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
+		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/cpac-message" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
-		return $this->list_screen_manager()->get_list_screen();
 	}
-
-	/**
-	 * @since 2.1.1
-	 */
-	public function get_general_option( $option ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->get_general_option( $option )' );
-
-		return $this->admin()->get_general_option( $option );
-	}
-
-	/**
-	 * Whether the current screen is the Admin Columns settings screen
-	 *
-	 * @since 2.2
-	 *
-	 * @param string $tab Specifies a tab screen (optional)
-	 *
-	 * @return bool True if the current screen is the settings screen, false otherwise
-	 */
-	public function is_settings_screen( $tab = '' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->admin()->is_current_tab( $tab )' );
-
-		return $this->admin()->is_current_tab( $tab );
-	}
-
-	/**
-	 * Get a list of taxonomies supported by Admin Columns
-	 *
-	 * @since 1.0
-	 *
-	 * @return array List of taxonomies
-	 */
-	public function get_taxonomies() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
-
-		return array();
-	}
-
 }
 
-// @deprecated since NEWVERSION
+/**
+ * @deprecated NEWVERSION
+ */
 function cpac() {
 	return AC();
 }
 
-// @since NEWVERSION
+/**
+ * @since NEWVERSION
+ */
 function AC() {
 	return CPAC::instance();
 }

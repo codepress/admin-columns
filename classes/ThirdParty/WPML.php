@@ -8,24 +8,22 @@ class AC_ThirdParty_WPML {
 	function __construct() {
 
 		// display correct flags on the overview screens
-		add_action( 'cac/loaded', array( $this, 'replace_flags' ) );
+		add_action( 'ac/table/list_screen', array( $this, 'replace_flags' ) );
 
 		// enable the translation of the column labels
 		add_action( 'wp_loaded', array( $this, 'register_column_labels' ), 99 );
 
 		// enable the WPML translation of column headings
-		add_filter( 'cac/headings/label', array( $this, 'register_translated_label' ), 10, 4 );
+		add_filter( 'ac/headings/label', array( $this, 'register_translated_label' ), 100 );
 	}
 
-	public function replace_flags() {
+	public function replace_flags( $list_screen ) {
 		if ( ! class_exists( 'SitePress', false ) ) {
-			return;
-		}
-		if ( ! AC()->list_screen_manager()->get_list_screen() ) {
 			return;
 		}
 
 		$settings = get_option( 'icl_sitepress_settings' );
+
 		if ( ! isset( $settings['custom_posts_sync_option'] ) ) {
 			return;
 		}
@@ -41,31 +39,27 @@ class AC_ThirdParty_WPML {
 
 	// Create translatable column labels
 	public function register_column_labels() {
-
 		// don't load this unless required by WPML
 		if ( ! isset( $_GET['page'] ) || 'wpml-string-translation/menu/string-translation.php' !== $_GET['page'] ) {
 			return;
 		}
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-			foreach ( $list_screen->settings()->get_columns() as $column_name => $options ) {
-				icl_register_string( 'Admin Columns', $list_screen->get_key() . '_' . $column_name, stripslashes( $options['label'] ) );
+			foreach ( $list_screen->get_settings() as $column_name => $options ) {
+				do_action( 'wpml_register_single_string', 'Admin Columns', $options['label'], $options['label'] );
 			}
 		}
 	}
 
 	/**
 	 * @param string $label
-	 * @param string $column_name
-	 * @param array $column_options
-	 * @param AC_ListScreen $list_screen
+	 * @param AC_Column $column
 	 *
 	 * @return string
 	 */
-	public function register_translated_label( $label, $column_name, $column_options, $list_screen ) {
-		if ( function_exists( 'icl_t' ) ) {
-			$name = $list_screen->get_key() . '_' . $column_name;
-			$label = icl_t( 'Admin Columns', $name, $label );
+	public function register_translated_label( $label ) {
+		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+			$label = apply_filters( 'wpml_translate_single_string', $label, 'Admin Columns', $label, ICL_LANGUAGE_CODE );
 		}
 
 		return $label;

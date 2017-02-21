@@ -42,7 +42,7 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 
 	public function format( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/[^\w.-]/', $url ) ) {
-			return false;
+			return $url;
 		}
 
 		$label = $this->get_value();

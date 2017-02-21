@@ -6,6 +6,11 @@
 abstract class AC_Column {
 
 	/**
+	 * @var string Unique Name
+	 */
+	private $name;
+
+	/**
 	 * @var string Unique type
 	 */
 	private $type;
@@ -26,11 +31,6 @@ abstract class AC_Column {
 	private $original;
 
 	/**
-	 * @var int Unique clone ID
-	 */
-	private $clone;
-
-	/**
 	 * @var AC_Settings_Setting[]
 	 */
 	private $settings;
@@ -48,13 +48,24 @@ abstract class AC_Column {
 	protected $options = array();
 
 	/**
-	 * Get the name of the column.
+	 * Get the unique name of the column
 	 *
 	 * @since 2.3.4
 	 * @return string Column name
 	 */
 	public function get_name() {
-		return $this->clone > 0 ? $this->type . '-' . $this->clone : $this->type;
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return $this
+	 */
+	public function set_name( $name ) {
+		$this->name = $name;
+
+		return $this;
 	}
 
 	/**
@@ -69,6 +80,7 @@ abstract class AC_Column {
 
 	/**
 	 * @param string $type
+	 *
 	 * @return $this
 	 */
 	public function set_type( $type ) {
@@ -102,13 +114,13 @@ abstract class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-		$label = $this->label;
 
-		if ( ! $label && $this->is_original() ) {
-			$label = $this->get_list_screen()->get_original_label( $this->get_name() );
+		// Original heading
+		if ( null === $this->label ) {
+			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
 		}
 
-		return $label;
+		return $this->label;
 	}
 
 	/**
@@ -127,7 +139,11 @@ abstract class AC_Column {
 	 * @return string Group
 	 */
 	public function get_group() {
-		return $this->group ? $this->group : 'custom';
+		if ( null === $this->group ) {
+			$this->set_group( 'custom' );
+		}
+
+		return $this->group;
 	}
 
 	/**
@@ -137,22 +153,6 @@ abstract class AC_Column {
 	 */
 	public function set_group( $group ) {
 		$this->group = $group;
-
-		return $this;
-	}
-
-	/**
-	 * @return int Clone ID
-	 */
-	public function get_clone() {
-		return $this->clone;
-	}
-
-	/**
-	 * @param int $clone
-	 */
-	public function set_clone( $clone ) {
-		$this->clone = absint( $clone );
 
 		return $this;
 	}
@@ -214,7 +214,7 @@ abstract class AC_Column {
 
 		$this->settings[ $setting->get_name() ] = $setting;
 
-		foreach ( $setting->get_dependent_settings() as $dependent_setting ) {
+		foreach ( (array) $setting->get_dependent_settings() as $dependent_setting ) {
 			$this->add_setting( $dependent_setting );
 		}
 
@@ -233,7 +233,7 @@ abstract class AC_Column {
 	/**
 	 * @param string $id
 	 *
-	 * @return AC_Settings_Setting_User
+	 * @return AC_Settings_Setting_User|AC_Settings_Setting_Separator|AC_Settings_Setting_Label
 	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
@@ -311,7 +311,6 @@ abstract class AC_Column {
 	 * @return string
 	 */
 	public function format_value( $value ) {
-
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
 
@@ -327,13 +326,42 @@ abstract class AC_Column {
 		}
 
 		if ( $value instanceof AC_Collection ) {
-			// control the separator per column for multi-valued columns
-			$separator = apply_filters( 'ac/column/format/separator', ', ', $this );
-
-			$value = $value->implode( $separator );
+			$value = $value->implode( $this->get_separator() );
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_separator() {
+		$separator = ', ';
+
+		if ( $setting = $this->get_setting( 'separator' ) ) {
+			switch ( $setting->get_separator() ) {
+				case 'newline' :
+					$separator = '<br/>';
+					break;
+				case '' :
+					$separator = '&nbsp;';
+					break;
+			}
+		}
+
+		return apply_filters( 'ac/column/separator', $separator, $this );
+	}
+
+	/**
+	 * Enqueue CSS + JavaScript on the admin listings screen!
+	 *
+	 * This action is called in the admin_head action on the listings screen where your column values are displayed.
+	 * Use this action to add CSS + JavaScript
+	 *
+	 * @since 3.3.4
+	 */
+	public function scripts() {
+		// Overwrite in child class
 	}
 
 	/**

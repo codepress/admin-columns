@@ -9,10 +9,19 @@
 	a:active {
 		outline: none;
 	}
+}
 
-	h2.cpac-nav-tab-wrapper {
-		margin-bottom: 10px;
+.wrap {
+
+	.nav-tab-wrapper {
+		margin-bottom: 24px;
 	}
+
+	.notice {
+		margin-top: 16px;
+		margin-bottom: 16px;
+	}
+
 }
 
 /**
@@ -44,6 +53,8 @@
  */
 .menu {
 	position: relative;
+	padding: 0;
+	margin-top: 16px;
 	margin-bottom: 16px;
 
 	select {
@@ -279,4 +290,17 @@ body.rtl {
 	.cpac_export .ms-container .ms-selection {
 		float: left;
 	}
+}
+
+.ac-badge {
+	display: inline-block;
+	background: #d54e21;
+	border-radius: 10px;
+	font-size: 9px;
+	line-height: 17px;
+	padding: 0 6px;
+	margin: -1px 0 0 4px;
+	vertical-align: middle;
+	color: #fff;
+	font-weight: 600;
 }

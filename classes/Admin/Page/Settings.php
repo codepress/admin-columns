@@ -24,7 +24,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	}
 
 	public function set_capability() {
-        return 'manage_admin_columns';
+		return 'manage_admin_columns';
 	}
 
 	/**
@@ -59,6 +59,23 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	}
 
 	/**
+	 * Deletes all stored column settings. Does not delete general settings.
+	 */
+	private function delete_all_column_settings() {
+		global $wpdb;
+
+		$sql = "
+			DELETE
+			FROM $wpdb->options
+			WHERE option_name LIKE %s";
+
+		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
+
+		// @since NEWVERSION
+		do_action( 'ac/restore_all_columns' );
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
@@ -68,16 +85,13 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		}
 
 		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) :
-			case 'restore_all' :
-				if ( wp_verify_nonce( filter_input( INPUT_POST, '_cpac_nonce' ), 'restore-all' ) ) {
 
-					// todo: make this non static? There is no reason why the list screen should be absent here?
-					AC_Settings_ListScreen::delete_all_settings();
+			case 'restore_all' :
+				if ( $this->verify_nonce( 'restore-all' ) ) {
+
+					$this->delete_all_column_settings();
 
 					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
-
-					// @since NEWVERSION
-					do_action( 'ac/restore_all_columns' );
 				}
 				break;
 
@@ -96,38 +110,38 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 		$current_value = $this->is_empty_options() ? $args->default_value : $this->get_option( $args->name );
 		?>
-		<p>
-			<label for="<?php echo $args->name; ?>">
-				<input name="<?php $this->attr_name( $args->name ); ?>" id="<?php echo $args->name; ?>" type="checkbox" value="1" <?php checked( $current_value, '1' ); ?>>
+        <p>
+            <label for="<?php echo $args->name; ?>">
+                <input name="<?php $this->attr_name( $args->name ); ?>" id="<?php echo $args->name; ?>" type="checkbox" value="1" <?php checked( $current_value, '1' ); ?>>
 				<?php echo $args->label; ?>
-			</label>
+            </label>
 			<?php if ( $args->instructions ) : ?>
-				<a class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+                <a class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
-				</a>
+                </a>
 			<?php endif; ?>
-		</p>
+        </p>
 		<?php if ( $args->instructions ) : ?>
-			<div id="pointer-<?php echo $args->name; ?>" style="display:none;">
-				<h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
+            <div id="pointer-<?php echo $args->name; ?>" style="display:none;">
+                <h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
 				<?php echo $args->instructions; ?>
-			</div>
+            </div>
 			<?php
 		endif;
 
 	}
 
 	public function display() { ?>
-		<table class="form-table cpac-form-table settings">
-			<tbody>
-			<tr class="general">
-				<th scope="row">
-					<h2><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h2>
-					<p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
-				</th>
-				<td class="padding-22">
-					<div class="cpac_general">
-						<form method="post" action="options.php">
+        <table class="form-table cpac-form-table settings">
+            <tbody>
+            <tr class="general">
+                <th scope="row">
+                    <h2><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h2>
+                    <p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
+                </th>
+                <td class="padding-22">
+                    <div class="cpac_general">
+                        <form method="post" action="options.php">
 
 							<?php settings_fields( self::SETTINGS_GROUP ); ?>
 
@@ -139,20 +153,20 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 							) );
 							?>
 
-							<?php do_action( 'cac/settings/general', $this ); ?>
+							<?php do_action( 'ac/settings/general', $this ); ?>
 
-							<p>
-								<input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
-							</p>
-						</form>
-					</div>
-				</td>
-			</tr>
+                            <p>
+                                <input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
+                            </p>
+                        </form>
+                    </div>
+                </td>
+            </tr>
 
 			<?php
 
 			/** Allow plugins to add their own custom settings to the settings page. */
-			if ( $groups = apply_filters( 'cac/settings/groups', array() ) ) {
+			if ( $groups = apply_filters( 'ac/settings/groups', array() ) ) {
 
 				foreach ( $groups as $id => $group ) {
 
@@ -161,43 +175,45 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 					?>
 
-					<tr>
-						<th scope="row">
-							<h2><?php echo esc_html( $title ); ?></h2>
+                    <tr>
+                        <th scope="row">
+                            <h2><?php echo esc_html( $title ); ?></h2>
 
-							<p><?php echo $description; ?></p>
-						</th>
-						<td class="padding-22">
+                            <p><?php echo $description; ?></p>
+                        </th>
+                        <td class="padding-22">
 							<?php
 
 							/** Use this Hook to add additional fields to the group */
-							do_action( "cac/settings/groups/row=" . $id );
+							do_action( "ac/settings/group/" . $id );
 
 							?>
-						</td>
-					</tr>
+                        </td>
+                    </tr>
 
 					<?php
 				}
 			}
 			?>
 
-			<tr class="restore">
-				<th scope="row">
-					<h2><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h2>
-					<p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
-				</th>
-				<td class="padding-22">
-					<form method="post">
-						<?php wp_nonce_field( 'restore-all', '_cpac_nonce' ); ?>
-						<input type="hidden" name="cpac_action" value="restore_all">
-						<input type="submit" class="button" name="cpac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');">
-					</form>
-				</td>
-			</tr>
+            <tr class="restore">
+                <th scope="row">
+                    <h2><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h2>
+                    <p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
+                </th>
+                <td class="padding-22">
+                    <form method="post">
 
-			</tbody>
-		</table>
+						<?php $this->nonce_field( 'restore-all' ); ?>
+
+                        <input type="hidden" name="cpac_action" value="restore_all">
+                        <input type="submit" class="button" name="cpac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');">
+                    </form>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
 
 		<?php
 	}

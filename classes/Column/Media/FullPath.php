@@ -10,7 +10,6 @@ class AC_Column_Media_FullPath extends AC_Column {
 		$this->set_label( __( 'Full path', 'codepress-admin-columns' ) );
 	}
 
-	// Display
 	public function get_value( $id ) {
 		return $this->get_setting( 'path_scope' )->format( wp_get_attachment_url( $id ) );
 	}

@@ -14,13 +14,21 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
-		$type = $this->create_element( 'select' )
-		             ->set_options( $this->get_grouped_columns() );
+		$type = $this
+			->create_element( 'select' )
+			->set_options( $this->get_grouped_columns() );
+
+		// Tooltip
+		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+
+		if ( $this->column->get_name() ) {
+			$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
+		}
 
 		$view = new AC_View( array(
 			'setting' => $type,
 			'label'   => __( 'Type', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em><em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>',
+			'tooltip' => $tooltip,
 		) );
 
 		return $view;
@@ -33,22 +41,14 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 	 *
 	 * @return string
 	 */
-	public function get_clean_label( AC_Column $column = null ) {
-		if ( null === $column ) {
-			$column = $this->column;
-		}
-
-		$label = $column->get_list_screen()->settings()->get_setting( 'label' );
-
-		if ( empty( $label ) ) {
-			$label = $column->get_label();
-		}
+	private function get_clean_label( AC_Column $column ) {
+		$label = $column->get_label();
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
-			$label = $column->get_type();
+			$label = ucfirst( str_replace( '_', ' ', $column->get_type() ) );
 		}
 
-		return ucfirst( str_replace( '_', ' ', strip_tags( $label ) ) );
+		return strip_tags( $label );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
 			$group = $column->get_group();
 
-			// Labels with html will be replaced by the it's name.
+			// Labels with html will be replaced by it's name.
 			$columns[ $group ][ $column->get_type() ] = $this->get_clean_label( $column );
 
 			if ( ! $column->is_original() ) {
@@ -74,7 +74,7 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 		$grouped = array();
 
 		// create select options
-		foreach ( AC()->groups()->get_groups_sorted() as $group ) {
+		foreach ( AC()->column_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups
@@ -87,10 +87,18 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 			}
 
 			$grouped[ $slug ]['options'] = $columns[ $slug ];
+
+			unset( $columns[ $slug ] );
 		}
 
-		// todo: rename filter e.g. ac/settings/setting/type/columns
-		return apply_filters( 'cac/grouped_columns', $grouped, $this );
+		// Add columns to a "default" group when it has an invalid group assigned
+		foreach ( $columns as $group => $_columns ) {
+			foreach ( $_columns as $name => $label ) {
+				$grouped['default']['options'][ $name ] = $label;
+			}
+		}
+
+		return $grouped;
 	}
 
 	/**

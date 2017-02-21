@@ -11,9 +11,13 @@ class AC_Column_Post_Parent extends AC_Column {
 	}
 
 	public function get_value( $post_id ) {
-		$parent_id = $this->get_raw_value( $post_id );
+		$title = false;
 
-		return $parent_id ? ac_helper()->html->link( get_edit_post_link( $parent_id ), ac_helper()->post->get_raw_field( 'post_title', $parent_id ) ) : false;
+		if ( $parent_id = $this->get_raw_value( $post_id ) ) {
+			$title = ac_helper()->html->link( get_edit_post_link( $parent_id ), ac_helper()->post->get_raw_field( 'post_title', $parent_id ) );
+		}
+
+		return $title;
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -35,6 +35,7 @@ span.status-closed {
 span.dashicons.green {
 	color: #46b450;
 }
+
 span.dashicons.red {
 	color: #dc3232;
 }
@@ -42,10 +43,10 @@ span.dashicons.red {
 .cpac_status_yes {
 	color: #46b450;
 }
+
 .cpac_status_no {
 	color: #dc3232;
 }
-
 
 body.edit-php {
 	#delete_all {
@@ -96,6 +97,7 @@ body.upload-php .tablenav.top .cpac-edit {
 	font-size: 11px;
 	font-weight: bold;
 }
+
 .cpac-rounded {
 	display: inline-block;
 	border-radius: 10px;
@@ -107,17 +109,28 @@ body.upload-php .tablenav.top .cpac-edit {
 	margin-left: 7px;
 	font-size: 12px;
 }
+
 .cpac-rounded.cpac-rounded-first {
 	margin-left: 0;
 }
+
 .cpac-spacing {
 	display: inline-block;
 	margin-right: 10px;
 	margin-bottom: 4px;
 }
+
 .cpac-suffix {
 	margin-left: 8px;
 	color: #808080;
+}
+
+.ac-small-block {
+	display: inline-block;
+	border-radius: 3px;
+	background-color: rgba( 224, 224, 224, 0.6 );
+	padding: 2px 7px;
+	margin: 0 5px 5px 0;
 }
 
 /* =Images Column
@@ -230,16 +243,14 @@ div.sizes span.not-available {
 	}
 }
 
-[class^="column-actions"] {
+.column-actions {
 
-	&.column-primary {
-		.row-actions {
-			left: 0;
-			position: relative;
-		}
+	.row-actions {
+		left: 0;
+		position: relative;
 	}
 
-	.cpac_use_icons + .row-actions {
+	&.cpac_use_icons .row-actions {
 		> span {
 			color: transparent;
 			margin-right: -8px;
@@ -256,7 +267,10 @@ div.sizes span.not-available {
 					font-family: Dashicons, sans-serif;
 					position: absolute;
 					padding-left: 5px;
-					top: 0; left: 0; width: 100%; height: 100%;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
 				}
 			}
 

@@ -40,13 +40,13 @@ class AC_Helper_Html {
 			return $label;
 		}
 
-	    if ( ! $url ) {
+		if ( ! $url ) {
 			return $label;
 		}
 
 		if ( null === $label ) {
-		    $label = $url;
-        }
+			$label = $url;
+		}
 
 		if ( ! $this->contains_html( $label ) ) {
 			$label = esc_html( $label );
@@ -60,6 +60,34 @@ class AC_Helper_Html {
 	 */
 	public function divider() {
 		return '<span class="cpac-divider"></span>';
+	}
+
+	/**
+	 * @param $label
+	 * @param $tooltip
+	 *
+	 * @return string
+	 */
+	public function tooltip( $label, $tooltip ) {
+	    if ( $label ) {
+		    $label = '<div class="cpac-tip" data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</div>';
+	    }
+
+	    return $label;
+	}
+
+	/**
+	 * @param string $string
+	 * @param int $max_chars
+	 *
+	 * @return string
+	 */
+	public function codearea( $string, $max_chars = 1000 ) {
+	    if ( ! $string ) {
+	        return false;
+        }
+
+        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . substr( $string, 0, $max_chars ) . '</textarea>';
 	}
 
 	/**
@@ -94,7 +122,7 @@ class AC_Helper_Html {
 	 * @param string $name
 	 */
 	public function indicator( $class, $id, $title = false ) { ?>
-		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
+        <span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
 		<?php
 	}
 
@@ -107,6 +135,43 @@ class AC_Helper_Html {
 	 */
 	public function implode( $array ) {
 		return is_array( $array ) ? implode( $this->divider(), $array ) : $array;
+	}
+
+	/**
+	 * Remove attribute from an html tag
+	 *
+	 * @param string $html HTML tag
+	 * @param string|array $attribute Attribute: style, class, alt, data etc.
+	 *
+	 * @return mixed
+	 */
+	public function strip_attributes( $html, $attributes ) {
+		if ( $this->contains_html( $html ) ) {
+			foreach ( (array) $attributes as $attribute ) {
+				$html = preg_replace( '/(<[^>]+) ' . $attribute . '=".*?"/i', '$1', $html );
+			}
+		}
+
+		return $html;
+	}
+
+	/**
+     * Small HTML block with grey background and rounded corners
+     *
+	 * @param string|array $items
+	 *
+	 * @return string
+	 */
+	public function small_block( $items ) {
+	    $blocks = array();
+
+        foreach ( (array) $items as $item ) {
+            if ( $item && is_string( $item ) ) {
+	            $blocks[] = '<span class="ac-small-block">' . $item . '</span>';
+            }
+        }
+
+        return implode( $blocks );
 	}
 
 }

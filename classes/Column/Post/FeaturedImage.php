@@ -3,11 +3,15 @@
 /**
  * @since 2.0
  */
-class AC_Column_Post_FeaturedImage extends AC_Column {
+class AC_Column_Post_FeaturedImage extends AC_Column_Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-featured_image' );
 		$this->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
+	}
+
+	public function get_meta_key() {
+		return '_thumbnail_id';
 	}
 
 	public function is_valid() {

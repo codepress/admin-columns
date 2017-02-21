@@ -1,14 +1,18 @@
 /**
  * AC variables. Defined in DOM.
- * @param {Object} cpac
+ * @param AC {Object}
+ * @param AC.list_screen {String}
+ * @param AC.layout {String}
+ * @param AC.i81n {String}
  */
-var cpac;
+var AC;
 
 /**
- * Translations. Defined in DOM.
- * @param {Object} cpac
+ * Temporary column name used for form elements.
+ *
+ * @type {number}
  */
-var ac_i18n;
+var temporary_column_name = 0;
 
 /**
  * DOM ready
@@ -54,8 +58,9 @@ function cpac_submit_form( $ ) {
 				plugin_id : 'cpac',
 				action : 'cpac_columns_save',
 				data : columns_data,
-				_ajax_nonce : cpac._ajax_nonce,
-				list_screen : $container.data( 'type' )
+				_ajax_nonce : AC._ajax_nonce,
+				list_screen : AC.list_screen,
+				layout : AC.layout
 			},
 
 			// JSON response
@@ -110,9 +115,7 @@ function cpac_add_column( $ ) {
 		var clone = $( '#add-new-column-template' ).find( '.ac-column' ).clone();
 
 		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
-		clone.cpac_update_clone_id( cpac.list_screen );
-
-		// TODO: animation should go more fluently
+		clone.cpac_update_clone_id();
 
 		// Open
 		clone.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150, function() {
@@ -121,10 +124,6 @@ function cpac_add_column( $ ) {
 
 		// add to DOM
 		$( '.ac-columns form' ).append( clone );
-
-		// refresh column
-		// TODO: remove?
-		//clone.cpac_column_refresh();
 
 		// TODO: better?
 		clone.column_bind_toggle();
@@ -199,9 +198,10 @@ function cpac_init( $ ) {
  */
 function cpac_menu( $ ) {
 	$( '#ac_list_screen' ).on( 'change', function() {
-		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
 		$( '.view-link' ).hide();
-		window.location = $( this ).val();
+		$( this ).parents( 'form' ).submit();
+
+		$( this ).prop( 'disabled', true ).next( '.spinner' ).css( 'display', 'inline-block' );
 	} );
 }
 
@@ -293,9 +293,7 @@ function cpac_reset_columns( $ ) {
 
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
-		var $container = $( this ).closest( '.columns-container' );
-		var column_name = $( this ).data( 'column-name' );
-		var column_clone = $( this ).data( 'clone' );
+		var column_name = $( this ).attr( 'data-column-name' );
 
 		// Allow plugins to hook into this event
 		$( document ).trigger( 'pre_column_refresh', el );
@@ -304,10 +302,10 @@ function cpac_reset_columns( $ ) {
 		var request_data = {
 			plugin_id : 'cpac',
 			action : 'cpac_column_refresh',
-			_ajax_nonce : cpac._ajax_nonce,
-			list_screen : $container.data( 'type' ),
-			column_name : column_name,
-			column_clone : column_clone
+			_ajax_nonce : AC._ajax_nonce,
+			list_screen : AC.list_screen,
+			layout : AC.layout,
+			column_name : column_name
 		};
 
 		$.each( request_data, function( name, value ) {
@@ -354,7 +352,7 @@ function cpac_reset_columns( $ ) {
 		xhr.fail( function( error ) {
 			var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
 
-			$msg.addClass( 'error' ).find( 'p' ).html( ac_i18n.error );
+			$msg.addClass( 'error' ).find( 'p' ).html( AC.i18n.error );
 			$msg.slideDown();
 
 			el.slideUp( function() { el.remove() } );
@@ -377,11 +375,11 @@ function cpac_reset_columns( $ ) {
 	$.fn.column_bind_events = function() {
 		var column = $( this );
 		var container = column.closest( '.columns-container ' );
-		var list_screen = container.attr( 'data-type' );
 
 		// Current column type
-		var default_value = column.find( '.column-type select option:selected' ).val();
+		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
 
+		// Type selector
 		column.find( 'select.ac-setting-input_type' ).change( function() {
 			var option = $( 'optgroup', this ).children( ':selected' );
 			var type = option.val();
@@ -403,9 +401,10 @@ function cpac_reset_columns( $ ) {
 					plugin_id : 'cpac',
 					action : 'cpac_column_select',
 					original_columns : original_columns,
-					_ajax_nonce : cpac._ajax_nonce,
+					_ajax_nonce : AC._ajax_nonce,
 					type : type,
-					list_screen : list_screen
+					list_screen : AC.list_screen,
+					layout : AC.layout
 				}
 			} )
 				.done( function( response ) {
@@ -428,12 +427,8 @@ function cpac_reset_columns( $ ) {
 							// Open settings
 							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 
-							// trigger refresh
-							// TODO: needed?
-							//if ( el.find( '[data-refresh=column]' ).length > 0 ) {
-							//el.cpac_column_refresh();
-							//}
-							el.cpac_update_clone_id( container.attr( 'data-type' ) );
+							el.cpac_update_clone_id();
+
 							// Allow plugins to hook into this event
 							$( document ).trigger( 'column_change', el );
 						}
@@ -460,7 +455,7 @@ function cpac_reset_columns( $ ) {
 		/** change label */
 		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
 			var value = $( this ).val();
-			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).text( value );
+			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).html( value );
 		} );
 
 		/** tooltip */
@@ -509,7 +504,7 @@ function cpac_reset_columns( $ ) {
 
 		if ( '1' === column.attr( 'data-original' ) ) {
 
-			var message = ac_i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
+			var message = AC.i18n.clone.replace( '%s', '<strong>' + column.find( '.column_label .toggle' ).text() + '</strong>' );
 
 			column.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150 );
 			column.find( '.ac-setting-input_type' ).next( '.msg' ).html( message ).show();
@@ -519,7 +514,8 @@ function cpac_reset_columns( $ ) {
 
 		var clone = $( this ).clone();
 
-		clone.cpac_update_clone_id( container.attr( 'data-type' ) );
+		clone.cpac_update_clone_id();
+
 		$( this ).after( clone );
 
 		// rebind events
@@ -544,67 +540,31 @@ function cpac_reset_columns( $ ) {
 	 *
 	 * @since 2.0
 	 */
-	$.fn.cpac_update_clone_id = function( list_screen ) {
-
-		var el = $( this );
-
-		var type = el.attr( 'data-type' );
-		var all_columns = $( '.columns-container[data-type="' + list_screen + '"]' ).find( '.ac-columns' );
-		var columns = $( all_columns ).find( '*[data-type="' + type + '"]' ).not( el );
-
-		// get clone ID
-		var ids = $.map( columns, function( e ) {
-			if ( $( e ).attr( 'data-clone' ) ) {
-				return parseInt( $( e ).attr( 'data-clone' ), 10 );
-			}
-			return 0;
-		} );
-
-		ids.sort();
-		var max_id = Math.max.apply( null, ids ) + 1;
-		for ( var id = 0; id <= max_id; id++ ) {
-			if ( -1 === $.inArray( id, ids ) ) {
-				break;
-			}
-		}
-
-		// only increment when needed
-		//if ( 0 === id )
-		//	return;
-
-		// get original clone ID
-		var clone_id = el.attr( 'data-clone' );
-		var clone_suffix = '';
-
-		if ( clone_id > 0 ) {
-			clone_suffix = '-' + clone_id;
-		}
-
-		// set clone ID
-		el.attr( 'data-clone', id );
-		el.attr( 'data-column-name', type + '-' + id );
+	$.fn.cpac_update_clone_id = function() {
+		var $el = $( this );
+		var original_column_name = $el.attr( 'data-column-name' );
 
 		// update input names with clone ID
-		var inputs = el.find( 'input, select, label' );
+		var inputs = $el.find( 'input, select, label' );
 		$( inputs ).each( function( i, v ) {
-			var new_name = type + '-' + id;
 
 			// name
 			if ( $( v ).attr( 'name' ) ) {
-				// brackets prevent the replacement of storage model key when column name is similar to storage name, e.g. column comment and model wp-comments
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( '[' + type + clone_suffix + ']', '[' + new_name + ']' ) );
-			}
-
-			// for
-			if ( $( v ).attr( 'for' ) ) {
-				$( v ).attr( 'for', $( v ).attr( 'for' ).replace( type + clone_suffix + '-', new_name + '-' ) );
+				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temporary_column_name + ']' ) );
 			}
 
 			// id
 			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( type + clone_suffix + '-', new_name + '-' ) );
+				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temporary_column_name + '-' ) );
 			}
+
+			// TODO: for
 		} );
+
+		$el.attr( 'data-column-name', temporary_column_name );
+
+		// increment
+		temporary_column_name++;
 	};
 
 	/*
@@ -612,7 +572,6 @@ function cpac_reset_columns( $ ) {
 	 *
 	 */
 	$( document ).bind( 'column_init column_change column_add', function( e, column ) {
-
 		var is_disabled = $( column ).closest( '.ac-boxes' ).hasClass( 'disabled' );
 
 		if ( is_disabled ) {
@@ -745,7 +704,6 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
 	} );
 
-
 	// Settings fields: Width
 	$.fn.column_width_slider = function() {
 
@@ -837,10 +795,6 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
-	$( document ).on( 'init_settings', function( e, column ) {
-		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
-	} );
-
 	$.fn.cpac_column_sub_setting_toggle = function( options ) {
 		var settings = $.extend( {
 			value_show : "on",
@@ -871,9 +825,31 @@ function cpac_reset_columns( $ ) {
 	};
 
 	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+
+		// TODO: pro?
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
+	} );
+
+	/**
+	 * Populates the main Label with the selected label from the dropdown,
+	 */
+	$( document ).bind( 'column_change', function( e, column ) {
+		var $column = $( column );
+		var $select = $column.find( 'select[data-label="update"]' );
+
+		if ( 0 === $select.length ) {
+			return;
+		}
+
+		var $label = $column.find( 'input.ac-setting-input_label' );
+		var field_label = $select.find( 'option:selected' ).text();
+
+		// Set new label
+		$label.val( field_label );
+		$label.trigger( 'change' );
 	} );
 
 }( jQuery ));

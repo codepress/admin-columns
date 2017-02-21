@@ -5,38 +5,27 @@
  */
 class AC_Column_Post_Status extends AC_Column {
 
-	private $statuses;
-
 	public function __construct() {
 		$this->set_type( 'column-status' );
 		$this->set_label( __( 'Status', 'codepress-admin-columns' ) );
 	}
 
-	public function get_status( $name ) {
-		$stati = $this->get_statuses();
-
-		return isset( $stati[ $name ] ) ? $stati[ $name ] : false;
-	}
-
-	public function get_statuses() {
-		if ( empty( $this->statuses ) ) {
-			$stati = get_post_stati( array( 'internal' => 0 ), 'objects' );
-			foreach ( $stati as $k => $status ) {
-				$this->statuses[ $k ] = $status->label;
-			}
-		}
-
-		return $this->statuses;
-	}
-
 	public function get_value( $post_id ) {
-		$statuses = $this->get_statuses();
-		if ( isset( $statuses['future'] ) ) {
-			$statuses['future'] .= " <p class='description'>" . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( get_post_field( 'post_date', $post_id ) ) ) . "</p>";
-		}
+		global $wp_post_statuses;
+
 		$post_status = $this->get_raw_value( $post_id );
 
-		return isset( $statuses[ $post_status ] ) ? $statuses[ $post_status ] : '';
+		if ( ! isset($wp_post_statuses[ $post_status] )) {
+			return false;
+		}
+
+		$label = $wp_post_statuses[ $post_status]->label;
+
+		if ( 'future' === $post_status ) {
+			$label .= " <p class='description'>" . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( get_post_field( 'post_date', $post_id ) ) ) . "</p>";
+		}
+
+		return $label;
 	}
 
 	public function get_raw_value( $post_id ) {

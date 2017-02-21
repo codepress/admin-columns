@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 4.6
+Tested up to: 4.7.1
 Stable tag: 2.6beta
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -225,6 +225,7 @@ Release Date: t.b.d.
 * [Improved] Using dashicons instead of image icons
 * [Improved] Action column now always is the primary column
 * [Improved] Heading structure in Admin is now correct
+* [Improved] Page Template column supports post types (since WP 4.7)
 * [Added] Autoloader added
 * [Added] New user column added: Author name
 * [Added] New user column added: Show Toolbar

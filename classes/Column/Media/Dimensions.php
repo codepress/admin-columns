@@ -3,9 +3,11 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_Dimensions extends AC_Column {
+class AC_Column_Media_Dimensions extends AC_Column_Media_Meta {
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->set_type( 'column-dimensions' );
 		$this->set_label( __( 'Dimensions', 'codepress-admin-columns' ) );
 	}
@@ -29,10 +31,6 @@ class AC_Column_Media_Dimensions extends AC_Column {
 		}
 
 		return $value;
-	}
-
-	public function get_raw_value( $id ) {
-		return get_post_meta( $id, '_wp_attachment_metadata', true );
 	}
 
 }
