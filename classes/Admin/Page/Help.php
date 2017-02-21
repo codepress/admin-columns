@@ -172,7 +172,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 */
 	private function deprecated_filter( $hook, $version, $page = null ) {
 		if ( has_filter( $hook ) ) {
-			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
+			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
 			$this->add_deprecated_message( 'filter', $message, $hook, $page );
 		}
@@ -185,7 +185,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 */
 	private function deprecated_action( $hook, $version, $page = null ) {
 		if ( has_action( $hook ) ) {
-			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<strong>"' . $hook . '"</strong>', '<strong>' . $version . '</strong>' );
+			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
 			$this->add_deprecated_message( 'action', $message, $hook, $page );
 		}
@@ -290,7 +290,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			return false;
 		}
 
-		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s', count( $callbacks ), 'codepress-admin-columns' ), '<strong>' . implode( '</strong>, </strong>', $callbacks ) . '</strong>' );
+		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s', count( $callbacks ), 'codepress-admin-columns' ), '<code>' . implode( '</code>, <code>', $callbacks ) . '</code>' );
 	}
 
 	/**

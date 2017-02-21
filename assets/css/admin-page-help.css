@@ -5,6 +5,7 @@
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   border-left: 4px solid #ffb900; }
   .ac-deprecated-message p {
-    margin: 0; }
+    margin: 0;
+    line-height: 24px; }
   .ac-deprecated-message a {
     display: inline-block; }
