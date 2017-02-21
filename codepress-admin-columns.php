@@ -162,6 +162,9 @@ class CPAC {
 
 	public function ready() {
 		do_action( 'ac/ready', $this );
+		if( has_filter('cac/columns/custom') ){
+
+		}
 	}
 
 	/**
