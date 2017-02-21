@@ -102,7 +102,10 @@ class AC_Admin_Rollback {
 			return;
 		}
 
-		// do rollback
+		// TODO: put back database options that start with prefix
+		// TODO: remove options that start with prefix
+		// TODO: remove backup option
+		// TODO: move
 	}
 
 	public function register( $groups ) {
