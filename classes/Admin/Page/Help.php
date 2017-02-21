@@ -136,6 +136,18 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		}
 
 		// Actions
+        $this->deprecated_action( 'cac/admin_head', 'NEWVERION', 'cac-admin_head' );
+        $this->deprecated_action( 'cac/loaded', 'NEWVERION', 'cac-cacloaded' );
+        $this->deprecated_action( 'cac/inline-edit/after_ajax_column_save', 'NEWVERION', 'cacinline-editafter_ajax_column_save' );
+        $this->deprecated_action( 'cac/settings/after_title', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/form_actions', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/sidebox', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/form_columns', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/after_columns', 'NEWVERION' );
+        $this->deprecated_action( 'cac/column/settings_meta', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/general', 'NEWVERION' );
+        $this->deprecated_action( 'cpac_messages', 'NEWVERION' );
+        $this->deprecated_action( 'cac/settings/after_menu', 'NEWVERION' );
 
 		$this->update_message_count();
 		$this->set_label_with_count();
