@@ -26,11 +26,15 @@ class AC_Autoloader {
 		return self::$instance;
 	}
 
+	public static function string_to_classname( $string ) {
+		return implode( array_map( 'ucfirst', explode( '_', str_replace( '-', '_', $string ) ) ) );
+	}
+
 	/**
 	 * Register a prefix that should autoload
 	 *
 	 * @param $prefix string Unique prefix to this set of classes
-	 * @param $path string Path to directory where classes are stored
+	 * @param $path   string Path to directory where classes are stored
 	 */
 	public function register_prefix( $prefix, $path ) {
 		$prefix = rtrim( $prefix, '_' ) . '_';

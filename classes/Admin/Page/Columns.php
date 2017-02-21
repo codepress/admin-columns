@@ -667,7 +667,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 							<?php foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
-							} ?>
+							}
+							?>
                         </form>
 
                     </div><!--.cpac-columns-->

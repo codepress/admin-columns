@@ -550,10 +550,7 @@ abstract class AC_ListScreen {
 	 * @return string
 	 */
 	public function get_group_dir() {
-		$array = explode( '_', str_replace( '-', '_', $this->get_group() ) );
-		$array = array_map( 'ucfirst', $array );
-
-		return implode( $array );
+		return AC_Autoloader::string_to_classname( $this->get_group() );
 	}
 
 	/**

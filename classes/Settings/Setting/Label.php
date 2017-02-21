@@ -14,10 +14,15 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	}
 
 	public function create_view() {
+
+		$setting = $this
+			->create_element( 'text' )
+			->set_attribute( 'placeholder', $this->column->get_label() );
+
 		$view = new AC_View( array(
 			'label'   => __( 'Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-			'setting' => $this->create_element( 'text' )->set_attribute( 'placeholder', $this->column->get_label() ),
+			'setting' => $setting,
 		) );
 
 		return $view;
@@ -62,7 +67,7 @@ class AC_Settings_Setting_Label extends AC_Settings_Setting {
 	 * @return string
 	 */
 	public function get_encoded_label() {
-		return $this->convert_site_url( $this->label  );
+		return $this->convert_site_url( $this->label );
 	}
 
 }

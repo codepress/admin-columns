@@ -10,7 +10,7 @@ Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPLv2
 
-Copyright 2011-2016  AdminColumns.com  info@admincolumns.com
+Copyright 2011-2017  AdminColumns.com  info@admincolumns.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by
@@ -162,9 +162,6 @@ class CPAC {
 
 	public function ready() {
 		do_action( 'ac/ready', $this );
-		if( has_filter('cac/columns/custom') ){
-
-		}
 	}
 
 	/**
@@ -520,7 +517,7 @@ class CPAC {
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type Updated or error
+	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="cpac_message ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
