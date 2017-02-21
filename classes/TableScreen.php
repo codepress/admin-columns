@@ -340,12 +340,6 @@ final class AC_TableScreen {
 			 */
 			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
 
-			/**
-			 * @deprecated NEWVERSION
-             * TODO This one is moved to Help tab, although this filter still works, I suggest to remove the filter
-			 */
-			//$label = apply_filters_deprecated( 'cac/headings/label', array( $label, $column->get_name(), false, false ), 'NEWVERSION', 'ac/headings/label' );
-
 			$this->column_headings[ $column->get_name() ] = $label;
 		}
 

@@ -358,4 +358,5 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 			update_option( self::VERSION_KEY, AC()->get_version() );
 		}
 	}
+
 }

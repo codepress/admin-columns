@@ -503,7 +503,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 											<?php foreach ( $promos as $addon ) : ?>
                                                 <li class="acp-integration">
                                                     <a href="<?php echo esc_url( $addon->get_link() ); ?>" target="_blank">
-	                                                    <?php $addon->display_promo(); ?>
+														<?php $addon->display_promo(); ?>
                                                     </a>
                                                 </li>
 											<?php endforeach; ?>

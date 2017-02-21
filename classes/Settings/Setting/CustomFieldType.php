@@ -92,8 +92,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		 * @since 2.0
 		 * @deprecated NEWVERSION
 		 */
-		//TODO this filter can give a fatal. Moved to Help tab
-		//$field_types = apply_filters_deprecated( 'cac/column/meta/types', array( $field_types ), 'NEWVERSION', 'ac/column/custom_field/field_types' );
+		$field_types = apply_filters_deprecated( 'cac/column/meta/types', array( $field_types ), 'NEWVERSION', 'ac/column/custom_field/field_types' );
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
