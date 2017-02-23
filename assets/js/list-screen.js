@@ -44,7 +44,7 @@ function cpac_tooltips( $ ) {
 		return;
 	}
 
-	$( '.cpac-tip' ).qtip( {
+	$( '[data-tip]' ).qtip( {
 		content : {
 			attr : 'data-tip'
 		},

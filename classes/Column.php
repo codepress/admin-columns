@@ -141,6 +141,10 @@ abstract class AC_Column {
 	public function get_group() {
 		if ( null === $this->group ) {
 			$this->set_group( 'custom' );
+
+			if ( $this->is_original() ) {
+				$this->set_group( 'default' );
+			}
 		}
 
 		return $this->group;
@@ -177,6 +181,8 @@ abstract class AC_Column {
 	 *
 	 * @since NEWVERSION
 	 */
+
+	// TODO: remove. Use the listscreen default headings to determine an original column
 	public function is_original() {
 		return $this->original;
 	}
@@ -388,5 +394,7 @@ abstract class AC_Column {
 	public function get_raw_value( $object_id ) {
 		return $object_id;
 	}
+
+	// TODO: maybe add get_empty_char here
 
 }

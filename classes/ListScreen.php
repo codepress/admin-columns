@@ -62,7 +62,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Name of the base PHP file (without extension).
 	 *
-	 * @see WP_Screen::base
+	 * @see   WP_Screen::base
 	 *
 	 * @since 2.0
 	 * @var string
@@ -72,7 +72,7 @@ abstract class AC_ListScreen {
 	/**
 	 * The unique ID of the screen.
 	 *
-	 * @see WP_Screen::id
+	 * @see   WP_Screen::id
 	 *
 	 * @since 2.5
 	 * @var string
@@ -396,23 +396,28 @@ abstract class AC_ListScreen {
 	 * @since NEWVERSION
 	 */
 	public function get_display_value_by_column_name( $column_name, $id, $value = null ) {
-		if ( $column = $this->get_column_by_name( $column_name ) ) {
-			$value = $column->get_value( $id );
+		$column = $this->get_column_by_name( $column_name );
 
-			/**
-			 * Column display value
-			 *
-			 * @since NEWVERSION
-			 *
-			 * @param string $value Column display value
-			 * @param int $id Object ID
-			 * @param AC_Column $column Column object
-			 * @param AC_ListScreen $this
-			 */
-			$value = apply_filters( 'ac/column/value', $value, $id, $column, $this );
+		if ( ! $column ) {
+			return $value;
 		}
 
-		return $value;
+		// TODO: does this work with Ninja Forms addon. That addon seems to overwrite the value on an original column. Maybe add var to AC_Listscreen when value can be overwritten
+		if ( $column->is_original() ) {
+			return $value;
+		}
+
+		/**
+		 * Column display value
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param string        $value  Column display value
+		 * @param int           $id     Object ID
+		 * @param AC_Column     $column Column object
+		 * @param AC_ListScreen $this
+		 */
+		return apply_filters( 'ac/column/value', $column->get_value( $id ), $id, $column, $this );
 	}
 
 	/**
@@ -532,7 +537,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $dir Absolute path to the column directory
+	 * @param string $dir    Absolute path to the column directory
 	 * @param string $prefix Autoload prefix
 	 */
 	public function register_column_types_from_dir( $dir, $prefix ) {
@@ -563,8 +568,8 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param array $settings Column options
-	 * @param string $name Unique column name
+	 * @param array  $settings Column options
+	 * @param string $name     Unique column name
 	 *
 	 * @return AC_Column|false
 	 */

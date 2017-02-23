@@ -70,7 +70,7 @@ class AC_Helper_Html {
 	 */
 	public function tooltip( $label, $tooltip ) {
 	    if ( $label ) {
-		    $label = '<div class="cpac-tip" data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</div>';
+		    $label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</div>';
 	    }
 
 	    return $label;
@@ -98,11 +98,11 @@ class AC_Helper_Html {
 	private function get_attributes( $attributes ) {
 		$_attributes = array();
 
-		foreach ( array( 'title', 'id', 'class', 'style', 'target' ) as $attribute ) {
-			if ( ! empty( $attributes[ $attribute ] ) ) {
-				$_attributes[] = $this->get_attribute_as_string( $attribute, $attributes[ $attribute ] );
-			}
-		}
+		foreach ( $attributes as $attribute => $value ) {
+		    if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
+			    $_attributes[] = $this->get_attribute_as_string( $attribute, $value );
+		    }
+        }
 
 		return ' ' . implode( ' ', $_attributes );
 	}

@@ -12,10 +12,6 @@ class AC_Helper_Icon {
 
 		$data = (object) wp_parse_args( $args, $defaults );
 
-		if ( $data->tooltip ) {
-			$data->class .= ' cpac-tip';
-		}
-
 		return '<span class="dashicons dashicons-' . $data->icon . ' ' . esc_attr( trim( $data->class ) ) . '"' . ( $data->title ? ' title="' . esc_attr( $data->title ) . '"' : '' ) . '' . ( $data->tooltip ? 'data-tip="' . esc_attr( $data->tooltip ) . '"' : '' ) . '></span>';
 	}
 

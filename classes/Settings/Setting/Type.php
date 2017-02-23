@@ -61,7 +61,12 @@ class AC_Settings_Setting_Type extends AC_Settings_Setting {
 
 		// get columns and sort them
 		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
-			$group = $column->get_group();
+
+			/**
+			 * @param string $group Group slug
+			 * @param AC_Column $column
+			 */
+			$group = apply_filters( 'ac/column_group', $column->get_group(), $column );
 
 			// Labels with html will be replaced by it's name.
 			$columns[ $group ][ $column->get_type() ] = $this->get_clean_label( $column );
