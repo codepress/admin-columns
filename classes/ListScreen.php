@@ -391,36 +391,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * Display column value
-	 *
-	 * @since NEWVERSION
-	 */
-	public function get_display_value_by_column_name( $column_name, $id, $value = null ) {
-		$column = $this->get_column_by_name( $column_name );
-
-		if ( ! $column ) {
-			return $value;
-		}
-
-		// TODO: does this work with Ninja Forms addon. That addon seems to overwrite the value on an original column. Maybe add var to AC_Listscreen when value can be overwritten
-		if ( $column->is_original() ) {
-			return $value;
-		}
-
-		/**
-		 * Column display value
-		 *
-		 * @since NEWVERSION
-		 *
-		 * @param string        $value  Column display value
-		 * @param int           $id     Object ID
-		 * @param AC_Column     $column Column object
-		 * @param AC_ListScreen $this
-		 */
-		return apply_filters( 'ac/column/value', $column->get_value( $id ), $id, $column, $this );
-	}
-
-	/**
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
@@ -496,9 +466,13 @@ abstract class AC_ListScreen {
 				continue;
 			}
 
-			$column = new AC_Column_Default();
+			$column = new AC_Column();
 
-			$this->register_column_type( $column->set_type( $type ) );
+			$column
+				->set_type( $type )
+				->set_original( true );
+
+			$this->register_column_type( $column );
 		}
 
 		// Register plugin columns
@@ -788,6 +762,39 @@ abstract class AC_ListScreen {
 	 */
 	public function delete_default_headings() {
 		return delete_option( $this->get_default_key() );
+	}
+
+	/**
+	 * @param string $column_name
+	 * @param int    $id
+	 * @param null   $original_value
+	 *
+	 * @return string
+	 */
+	public function get_display_value_by_column_name( $column_name, $id, $original_value = null ) {
+		$column = $this->get_column_by_name( $column_name );
+
+		if ( ! $column ) {
+			return $original_value;
+		}
+
+		$value = $column->get_value( $id );
+
+		// You can overwrite the display value for original columns by making sure get_value() does not return NULL.
+		if ( $column->is_original() && is_null( $value ) ) {
+			return $original_value;
+		}
+
+		/**
+		 * Column display value
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param string    $value  Column display value
+		 * @param int       $id     Object ID
+		 * @param AC_Column $column Column object
+		 */
+		return apply_filters( 'ac/column/value', $value, $id, $column );
 	}
 
 }

@@ -3,12 +3,11 @@
 /**
  * @since NEWVERSION
  */
-class AC_Column_Comment_Response extends AC_Column_Default {
+class AC_Column_Comment_Response extends AC_Column {
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'response' );
+		$this->set_original( true );
 	}
 
 	public function register_settings() {

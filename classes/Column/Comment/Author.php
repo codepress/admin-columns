@@ -3,11 +3,10 @@
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Author extends AC_Column_Default {
+class AC_Column_Comment_Author extends AC_Column {
 
 	public function __construct() {
-		parent::__construct();
-
+		$this->set_original( true );
 		$this->set_type( 'author' );
 	}
 

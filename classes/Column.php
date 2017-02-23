@@ -3,7 +3,7 @@
 /**
  * @since NEWVERSION
  */
-abstract class AC_Column {
+class AC_Column {
 
 	/**
 	 * @var string Unique Name
@@ -312,7 +312,7 @@ abstract class AC_Column {
 	 * A formatter should return a AC_Collection when other formatters
 	 * should apply the formatter to each member of the collection
 	 *
-	 * @param $value
+	 * @param AC_Collection|string $value
 	 *
 	 * @return string
 	 */
@@ -389,10 +389,10 @@ abstract class AC_Column {
 	 *
 	 * @param int $object_id ID
 	 *
-	 * @return array|string|bool Raw column value
+	 * @return mixed Raw column value. Default is NULL.
 	 */
 	public function get_raw_value( $object_id ) {
-		return $object_id;
+		return null;
 	}
 
 	// TODO: maybe add get_empty_char here
