@@ -7,8 +7,4 @@ class AC_Column_Plugin extends AC_Column {
 		$this->set_original( true );
 	}
 
-	public function get_value( $id ) {
-		return false;
-	}
-
 }
