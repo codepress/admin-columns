@@ -10,7 +10,7 @@ class AC_Column_Post_AuthorName extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-author_name' );
-		$this->set_label( __( 'Display Author As', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Author', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {
