@@ -165,6 +165,8 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 			<?php
 
+            // TODO: replace filter with register_group method?
+
 			/** Allow plugins to add their own custom settings to the settings page. */
 			if ( $groups = apply_filters( 'ac/settings/groups', array() ) ) {
 

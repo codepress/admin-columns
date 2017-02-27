@@ -25,6 +25,13 @@ abstract class AC_Admin_Page {
 	private $show_in_menu = true;
 
 	/**
+	 * Display pages
+	 *
+	 * @return void
+	 */
+	public abstract function display();
+
+	/**
 	 * Is this the default to to display when no active page is present
 	 *
 	 * @return bool
@@ -86,13 +93,6 @@ abstract class AC_Admin_Page {
 	public function is_current_screen() {
 		return AC()->admin()->is_current_page( $this->get_slug() );
 	}
-
-	/**
-	 * Display pages
-	 *
-	 * @return void
-	 */
-	public abstract function display();
 
 	/**
 	 * Cast page to an array
