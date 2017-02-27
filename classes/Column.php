@@ -181,8 +181,6 @@ class AC_Column {
 	 *
 	 * @since NEWVERSION
 	 */
-
-	// TODO: remove. Use the listscreen default headings to determine an original column
 	public function is_original() {
 		return $this->original;
 	}
@@ -394,7 +392,5 @@ class AC_Column {
 	public function get_raw_value( $object_id ) {
 		return null;
 	}
-
-	// TODO: maybe add get_empty_char here
 
 }
