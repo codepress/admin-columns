@@ -52,7 +52,15 @@ class AC_Helper_Html {
 			$label = esc_html( $label );
 		}
 
-		return $label || '0' === $label ? '<a href="' . esc_url( $url ) . '"' . $this->get_attributes( $attributes ) . '>' . $label . '</a>' : false;
+		if ( ! $label ) {
+		    return false;
+        }
+
+		$allowed = wp_allowed_protocols();
+		$allowed[] = 'skype';
+		$allowed[] = 'call';
+
+		return '<a href="' . esc_url( $url, $allowed ) . '"' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
 	}
 
 	/**
