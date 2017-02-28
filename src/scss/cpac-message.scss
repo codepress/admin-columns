@@ -4,15 +4,25 @@ body .wrap .cpac_message {
 }
 
 .cpac_message {
-	.spinner.right {
-		visibility: visible;
-		display: block;
-		right: 8px;
-		text-decoration: none;
-		text-align: right;
-		position: absolute;
-		top: 50%;
-		margin-top: -10px;
+	.spinner {
+
+		&.right {
+			visibility: visible;
+			display: block;
+			right: 8px;
+			text-decoration: none;
+			text-align: right;
+			position: absolute;
+			top: 50%;
+			margin-top: -10px;
+		}
+		&.inline {
+			display: inline-block;
+			position: absolute;
+			margin: 4px 0 0 4px;
+			padding: 0;
+			float: none;
+		}
 	}
 
 	.hide-notice {
@@ -32,5 +42,9 @@ body .wrap .cpac_message {
 			margin: .5em 0;
 			padding: 2px;
 		}
+	}
+
+	&.error.warning {
+		border-left: 4px solid #ffba00;
 	}
 }
