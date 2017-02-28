@@ -12,6 +12,13 @@ body .wrap .cpac_message {
   top: 50%;
   margin-top: -10px; }
 
+.cpac_message .spinner.inline {
+  display: inline-block;
+  position: absolute;
+  margin: 4px 0 0 4px;
+  padding: 0;
+  float: none; }
+
 .cpac_message .hide-notice {
   right: 8px;
   text-decoration: none;
@@ -27,3 +34,6 @@ body .wrap .cpac_message {
     font-family: 'Dashicons', serif;
     margin: .5em 0;
     padding: 2px; }
+
+.cpac_message.error.warning {
+  border-left: 4px solid #ffba00; }
