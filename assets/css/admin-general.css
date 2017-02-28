@@ -100,14 +100,12 @@ table.cpac-form-table {
   table.cpac-form-table > tbody > tr > td,
   table.cpac-form-table > tbody > tr > th {
     vertical-align: top; }
-  table.cpac-form-table td.padding-22 {
-    padding-top: 22px; }
+  table.cpac-form-table.settings tr th {
+    font-weight: normal; }
+    table.cpac-form-table.settings tr th h2 {
+      margin: 0; }
   table.cpac-form-table.settings tr td {
-    padding-top: 74px; }
-  table.cpac-form-table.settings tr:first-child th {
-    padding-top: 0; }
-  table.cpac-form-table.settings tr:first-child td {
-    padding-top: 54px; }
+    padding-top: 58px; }
 
 /**
  * WP Pointer

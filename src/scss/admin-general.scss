@@ -106,25 +106,17 @@ table.cpac-form-table {
 		vertical-align: top;
 	}
 
-	td.padding-22 {
-		padding-top: 22px;
-	}
-
-	td {
-	}
-
 	&.settings {
-		tr td {
-			padding-top: 74px;
-		}
-
-		tr:first-child {
+		tr {
 			th {
-				padding-top: 0;
-			}
+				h2 {
+					margin: 0;
+				}
 
+				font-weight: normal;
+			}
 			td {
-				padding-top: 54px;
+				padding-top: 58px;
 			}
 		}
 	}

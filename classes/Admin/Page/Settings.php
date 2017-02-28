@@ -116,7 +116,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 				<?php echo $args->label; ?>
             </label>
 			<?php if ( $args->instructions ) : ?>
-                <a class="cpac-pointer" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+                <a class="cpac-pointer instructions" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
                 </a>
 			<?php endif; ?>
@@ -139,7 +139,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
                     <h2><?php _e( 'General Settings', 'codepress-admin-columns' ); ?></h2>
                     <p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
                 </th>
-                <td class="padding-22">
+                <td>
                     <div class="cpac_general">
                         <form method="post" action="options.php">
 
@@ -183,7 +183,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
                             <p><?php echo $description; ?></p>
                         </th>
-                        <td class="padding-22">
+                        <td>
 							<?php
 
 							/** Use this Hook to add additional fields to the group */
@@ -203,7 +203,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
                     <h2><?php _e( 'Restore Settings', 'codepress-admin-columns' ); ?></h2>
                     <p><?php _e( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ); ?></p>
                 </th>
-                <td class="padding-22">
+                <td>
                     <form method="post">
 
 						<?php $this->nonce_field( 'restore-all' ); ?>
