@@ -65,12 +65,14 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 		// Addon
 		$addon = $this->get_addon_by_basename( $basename );
-		$string = __( '%s add-on successfully activated.', 'codepress-admin-columns' );
+		$activate_string = __( '%s add-on successfully activated.', 'codepress-admin-columns' );
+		$deactivate_string = __( '%s add-on successfully deactivated.', 'codepress-admin-columns' );
 
 		// Plugin
 		if ( ! $addon ) {
 			$addon = $this->get_addon_by_plugin_basename( $basename );
-			$string = __( '%s plugin successfully activated.', 'codepress-admin-columns' );
+			$activate_string = __( '%s plugin successfully activated.', 'codepress-admin-columns' );
+			$deactivate_string = __( '%s plugin successfully deactivated.', 'codepress-admin-columns' );
 		}
 
 		if ( ! $addon ) {
@@ -79,10 +81,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 		switch ( $status ) {
 			case 'activate' :
-				AC()->notice( sprintf( $string, '<strong>' . $addon->get_title() . '</strong>' ) );
+				AC()->notice( sprintf( $activate_string, '<strong>' . $addon->get_title() . '</strong>' ) );
 				break;
 			case 'deactivate' :
-				AC()->notice( sprintf( $string, '<strong>' . $addon->get_title() . '</strong>' ) );
+				AC()->notice( sprintf( $deactivate_string, '<strong>' . $addon->get_title() . '</strong>' ) );
 				break;
 		}
 	}
@@ -177,6 +179,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * @since 2.4.9
 	 */
 	public function missing_addon_notices() {
+		if ( $this->is_current_screen() ) {
+			return;
+		}
+
 		if ( AC()->suppress_site_wide_notices() ) {
 			return;
 		}
@@ -321,6 +327,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 */
 	public function get_addon_groups() {
 		$addon_groups = array(
+			'installed'   => __( 'Installed', 'codepress-admin-columns' ),
 			'recommended' => __( 'Recommended', 'codepress-admin-columns' ),
 			'default'     => __( 'Available', 'codepress-admin-columns' ),
 		);
@@ -381,10 +388,23 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 					$addon_group = 'recommended';
 				}
 
+				if ( $addon->is_active() ) {
+					$addon_group = 'installed';
+				}
+
+				if ( ! isset( $grouped[ $group ] ) ) {
+					$grouped[ $group ]['title'] = $label;
+				}
+
 				if ( $addon_group === $group ) {
-					$grouped[ $label ][] = $addon;
+					$grouped[ $group ]['addons'][] = $addon;
 				}
 			}
+
+			if ( empty( $grouped[ $group ]['addons'] ) ) {
+				unset( $grouped[ $group ] );
+			}
+
 		}
 
 		return $grouped;
@@ -411,59 +431,61 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 	public function display() {
 
-		foreach ( $this->get_grouped_addons() as $group => $addons ) : ?>
-            <h2><?php echo esc_html( $group ); ?></h2>
+		foreach ( $this->get_grouped_addons() as $group_slug => $group ) : ?>
+            <div class="ac-addon group-<?php echo esc_attr( $group_slug ); ?>">
+                <h2><?php echo esc_html( $group['title'] ); ?></h2>
 
-            <ul class="ac-addons">
-				<?php
-				foreach ( $addons as $addon ) :
-					/* @var AC_Addon $addon */ ?>
-                    <li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
-                        <div class="addon-header">
-                            <div class="inner">
-								<?php if ( $addon->get_logo() ) : ?>
-                                    <img src="<?php echo esc_attr( $addon->get_logo() ); ?>"/>
-								<?php else : ?>
-                                    <h2><?php echo esc_html( $addon->get_title() ); ?></h2>
-								<?php endif; ?>
+                <ul>
+					<?php
+					foreach ( $group['addons'] as $addon ) :
+						/* @var AC_Addon $addon */ ?>
+                        <li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
+                            <div class="addon-header">
+                                <div class="inner">
+									<?php if ( $addon->get_logo() ) : ?>
+                                        <img src="<?php echo esc_attr( $addon->get_logo() ); ?>"/>
+									<?php else : ?>
+                                        <h2><?php echo esc_html( $addon->get_title() ); ?></h2>
+									<?php endif; ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="addon-content">
-                            <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
-                            <p><?php echo esc_html( $addon->get_description() ); ?></p>
-                        </div>
-                        <div class="addon-actions">
-							<?php
+                            <div class="addon-content">
+                                <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
+                                <p><?php echo esc_html( $addon->get_description() ); ?></p>
+                            </div>
+                            <div class="addon-actions">
+								<?php
 
-							// Installed..
-							if ( $addon->is_installed() ) :
+								// Installed..
+								if ( $addon->is_installed() ) :
 
-								// Active
-								if ( $addon->is_active() ) : ?>
-                                    <span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
-                                    <a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
-									<?php
-								// Installed
-								else : ?>
-                                    <a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
-								<?php endif;
+									// Active
+									if ( $addon->is_active() ) : ?>
+                                        <span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
+                                        <a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
+										<?php
+									// Installed
+									else : ?>
+                                        <a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
+									<?php endif;
 
-							// Not installed...
-							else :
+								// Not installed...
+								else :
 
-								if ( ac_is_pro_active() ) :
-									$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-cac-addon' );
-									?>
-                                    <a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
-								<?php else : ?>
-                                    <a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
-								<?php endif;
-							endif;
-							?>
-                        </div>
-                    </li>
-				<?php endforeach; // addons ?>
-            </ul>
+									if ( ac_is_pro_active() ) :
+										$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-cac-addon' );
+										?>
+                                        <a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
+									<?php else : ?>
+                                        <a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
+									<?php endif;
+								endif;
+								?>
+                            </div>
+                        </li>
+					<?php endforeach; // addons ?>
+                </ul>
+            </div>
 		<?php endforeach; // grouped_addons
 	}
 
