@@ -2,6 +2,8 @@
 -------------------------------------------------------------- */
 $addon-color-blue: #085079;
 $addon-color-lightblue: #0069a4;
+$addon-color-lightyellow: #fff8e5;
+$addon-color-link: #0073aa;
 
 /* =Addons
 -------------------------------------------------------------- */
@@ -61,6 +63,19 @@ $addon-color-lightblue: #0069a4;
 					max-height: 52px;
 					max-width: 100%;
 				}
+			}
+		}
+
+		.addon-notice {
+			background-color: $addon-color-lightyellow;
+			margin: 0;
+			padding: 15px;
+			//font-style: italic;
+
+			a {
+				font-weight: bold;
+				text-decoration: none;
+				color: $addon-color-link;
 			}
 		}
 

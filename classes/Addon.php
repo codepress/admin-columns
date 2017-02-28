@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Addon {
+class AC_Addon {
 
 	/**
 	 * @var string
@@ -32,6 +32,13 @@ abstract class AC_Addon {
 	private $slug;
 
 	/**
+	 * Plugin basename. Example: plugin/plugin.php
+	 *
+	 * @var string
+	 */
+	private $plugin;
+
+	/**
 	 * External website link
 	 *
 	 * @var string
@@ -39,11 +46,11 @@ abstract class AC_Addon {
 	private $link;
 
 	/**
-	 * Is original plugin installed?
+	 * Plugin URL. Place where the plugin can be downloaded from. Default is install plugin screen.
 	 *
-	 * @return bool
+	 * @var string Url
 	 */
-	abstract public function is_plugin_active();
+	private $plugin_url;
 
 	/**
 	 * @return string
@@ -75,6 +82,24 @@ abstract class AC_Addon {
 	 */
 	protected function set_slug( $slug ) {
 		$this->slug = sanitize_key( $slug );
+
+		return $this;
+	}
+
+	/**
+	 * Plugin folder name
+	 *
+	 * @return string
+	 */
+	public function get_plugin() {
+		return $this->plugin;
+	}
+
+	/**
+	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
+	 */
+	protected function set_plugin( $plugin ) {
+		$this->plugin = $plugin;
 
 		return $this;
 	}
@@ -120,19 +145,6 @@ abstract class AC_Addon {
 	/**
 	 * @return string
 	 */
-	public function get_group() {
-		$group = 'default';
-
-		if ( $this->is_plugin_active() ) {
-			$group = 'recommended';
-		}
-
-		return $group;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function get_logo() {
 		return $this->logo;
 	}
@@ -162,6 +174,58 @@ abstract class AC_Addon {
 		return $this;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return $this->get_plugin_info( $this->get_slug() ) ? true : false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_active() {
+		return is_plugin_active( $this->get_basename() );
+	}
+
+	/**
+	 * @return string|false Returns the plugin version if the plugin is installed, false otherwise
+	 */
+	public function get_version() {
+		return $this->get_plugin_var( $this->get_slug(), 'Version' );
+	}
+
+	/**
+	 * @return string Basename
+	 */
+	public function get_basename() {
+		return $this->get_plugin_var( $this->get_slug(), 'Basename' );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_plugin_installed() {
+		return $this->get_plugin_info( $this->get_plugin() ) ? true : false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_plugin_active() {
+		return is_plugin_active( $this->get_plugin_var( $this->get_plugin(), 'Basename' ) );
+	}
+
+	/**
+	 * @return string Basename
+	 */
+	public function get_plugin_basename() {
+		return $this->get_plugin_var( $this->get_plugin(), 'Basename' );
+	}
+
+	/**
+	 * Icon
+	 */
 	public function display_icon() {
 		if ( $this->get_icon() ) : ?>
             <img class="icon <?php echo $this->get_slug(); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
@@ -196,77 +260,12 @@ abstract class AC_Addon {
 	}
 
 	/**
-	 * Is integration addon installed AND active
+	 * Activate plugin
 	 *
-	 * @return bool
-	 */
-	public function is_addon_active() {
-		return is_plugin_active( $this->get_addon_basename() );
-	}
-
-	/**
-	 * Is integration addon installed, but NOT active.
-	 *
-	 * @return bool
-	 */
-	public function is_addon_installed() {
-		return $this->get_addon_basename() ? true : false;
-	}
-
-	/**
-	 * Plugin header information. Version,
-	 *
-	 * @return array|false
-	 */
-	public function get_addon_plugin() {
-		$basename = $this->get_addon_basename();
-
-		if ( ! $basename ) {
-			return false;
-		}
-
-		$plugins = get_plugins();
-
-		return $plugins[ $basename ];
-	}
-
-	/**
-	 * Get the plugin basename (see plugin_basename()) from a plugin, for example "my-plugin/my-plugin.php"
-	 *
-	 * @return string|false Returns the plugin basename if the plugin is installed, false otherwise
-	 */
-	public function get_addon_basename() {
-		$plugins = (array) get_plugins();
-
-		foreach ( $plugins as $basename => $plugin ) {
-			if ( $this->get_slug() === dirname( $basename ) ) {
-				return $basename;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return string|false Returns the plugin version if the plugin is installed, false otherwise
-	 */
-	public function get_addon_version() {
-		$plugin = $this->get_addon_plugin();
-
-		if ( ! isset( $plugin['Version'] ) ) {
-			return false;
-		}
-
-		return $plugin['Version'];
-	}
-
-	/**
-     * Activate plugin
-     *
 	 * @return string
 	 */
-	public function get_activation_url() {
-		return $this->get_plugin_action_url( 'activate' );
+	public function get_activation_url( $basename ) {
+		return $this->get_plugin_action_url( 'activate', $basename );
 	}
 
 	/**
@@ -274,25 +273,81 @@ abstract class AC_Addon {
 	 *
 	 * @return string
 	 */
-	public function get_deactivation_url() {
-		return $this->get_plugin_action_url( 'deactivate' );
+	public function get_deactivation_url( $basename ) {
+		return $this->get_plugin_action_url( 'deactivate', $basename );
 	}
 
 	/**
-     * Activate or Deactivate plugin
-     *
+	 * Activate or Deactivate plugin
+	 *
 	 * @param string $action
 	 *
 	 * @return string
 	 */
-	private function get_plugin_action_url( $action = 'activate' ) {
+	private function get_plugin_action_url( $action = 'activate', $basename ) {
 		$plugin_url = add_query_arg( array(
-			'action'        => $action,
-			'plugin'        => $this->get_addon_basename(),
+			'action'      => $action,
+			'plugin'      => $basename,
 			'ac-redirect' => true,
 		), admin_url( 'plugins.php' ) );
 
-		return wp_nonce_url( $plugin_url, $action . '-plugin_' . $this->get_addon_basename() );
+		return wp_nonce_url( $plugin_url, $action . '-plugin_' . $basename );
+	}
+
+	/**
+	 * @param string $plugin Plugin folder name / slug
+	 */
+	private function get_plugin_info( $plugin ) {
+		$plugins = (array) get_plugins();
+
+		foreach ( $plugins as $basename => $info ) {
+			if ( $plugin === dirname( $basename ) ) {
+				$info['Basename'] = $basename;
+
+				return $info;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $plugin
+	 * @param string $var
+	 *
+	 * @return string|false
+	 */
+	private function get_plugin_var( $plugin, $var ) {
+		$info = $this->get_plugin_info( $plugin );
+
+		if ( ! isset( $info[ $var ] ) ) {
+			return false;
+		}
+
+		return $info[ $var ];
+	}
+
+	/**
+	 * @param string $plugin_url
+     * @return $this
+	 */
+	public function set_plugin_url( $plugin_url ) {
+		$this->plugin_url = $plugin_url;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $search_term
+	 *
+	 * @return string
+	 */
+	public function get_plugin_url() {
+		if ( null === $this->plugin_url ) {
+			$this->set_plugin_url( add_query_arg( array( 'tab' => 'search', 'type' => 'term', 's' => $this->get_title() ), admin_url( 'plugin-install.php' ) ) );
+		}
+
+		return $this->plugin_url;
 	}
 
 }

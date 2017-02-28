@@ -491,7 +491,7 @@ abstract class AC_ListScreen {
 
 		// Placeholder columns
 		foreach ( AC()->addons()->get_addons() as $addon ) {
-			if ( $addon->is_plugin_active() && ! $addon->is_addon_active() ) {
+			if ( $addon->is_plugin_active() && ! $addon->is_active() ) {
 				$this->register_column_type( $addon->get_placeholder_column() );
 			}
 		}

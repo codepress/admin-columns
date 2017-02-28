@@ -47,6 +47,14 @@
           display: inline-block;
           max-height: 52px;
           max-width: 100%; }
+    .ac-addons li .addon-notice {
+      background-color: #fff8e5;
+      margin: 0;
+      padding: 15px; }
+      .ac-addons li .addon-notice a {
+        font-weight: bold;
+        text-decoration: none;
+        color: #0073aa; }
     .ac-addons li .addon-content {
       width: 100%;
       padding: 25px 15px;
