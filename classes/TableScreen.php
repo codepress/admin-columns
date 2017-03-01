@@ -58,7 +58,7 @@ final class AC_TableScreen {
 	/**
 	 * Sets the inline data when the title columns is not present on a AC_ListScreen_Post screen
 	 *
-	 * @param array $actions
+	 * @param array   $actions
 	 * @param WP_Post $post
 	 */
 	public function set_inline_edit_data( $actions, $post ) {
@@ -103,19 +103,20 @@ final class AC_TableScreen {
 			return;
 		}
 
-		wp_register_script( 'admin-columns', AC()->get_plugin_url() . "assets/js/list-screen" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		// Tooltip
 		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
-		wp_register_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
-		wp_register_style( 'ac-columns', AC()->get_plugin_url() . "assets/css/list-screen" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
-		wp_enqueue_script( 'admin-columns' );
-		wp_enqueue_style( 'jquery-qtip2' );
-		wp_enqueue_style( 'ac-columns' );
+		// Main
+		wp_enqueue_script( 'ac-table', AC()->get_plugin_url() . "assets/js/table" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_enqueue_style( 'ac-table', AC()->get_plugin_url() . "assets/css/table" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
 
-		wp_localize_script( 'admin-columns', 'AC', array(
-				'current_list_screen' => $this->current_list_screen->get_key(),
-				'current_layout'      => $this->current_list_screen->get_layout(),
-				'column_types'        => $this->get_column_types_mapping( $this->current_list_screen ),
+		wp_localize_script( 'ac-table', 'AC', array(
+				'list_screen'  => $this->current_list_screen->get_key(),
+				'layout'       => $this->current_list_screen->get_layout(),
+				'column_types' => $this->get_column_types_mapping( $this->current_list_screen ),
+				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
+				'table_id'     => $this->current_list_screen->get_table_attr_id(),
 			)
 		);
 
@@ -127,7 +128,7 @@ final class AC_TableScreen {
 		// Column specific scripts
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 			$column->scripts();
-        }
+		}
 	}
 
 	/**
@@ -335,7 +336,7 @@ final class AC_TableScreen {
 			/**
 			 * @since NEWVERSION
 			 *
-			 * @param string $label
+			 * @param string    $label
 			 * @param AC_Column $column
 			 */
 			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );

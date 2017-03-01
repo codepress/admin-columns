@@ -42,9 +42,9 @@ gulp.task( 'styles', function() {
 		'scss/admin-page-help.scss',
 		'scss/admin-general.scss',
 		'scss/admin-welcome.scss',
-		'scss/list-screen.scss',
+		'scss/table.scss',
 		'scss/plugin-screen.scss',
-		'scss/cpac-message.scss'
+		'scss/message.scss'
 	] )
 		.pipe( plumber( { errorHandler : onError } ) )
 		.pipe( sass() )
@@ -62,7 +62,7 @@ gulp.task( 'language', function() {
 		.pipe( wpPot( {
 			domain : 'codepress-admin-columns',
 			destFile : 'codepress-admin-columns.pot',
-			package : 'Codepress Admin Columns',
+			package : 'Admin Columns',
 			bugReport : 'https://www.admincolumns.com',
 			lastTranslator : 'Codepress <info@codepress.nl',
 			team : 'Admin Columns <info@admincolumns.com>'
