@@ -520,7 +520,7 @@ class CPAC {
 	 * @param string $type    'updated', 'error' or 'notice-warning'
 	 */
 	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="cpac_message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
 
 	/**

@@ -135,7 +135,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="cpac_message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
 
 	/**

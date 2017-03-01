@@ -1,8 +1,8 @@
-body .wrap .cpac_message {
+body .wrap .ac-message {
   position: relative;
   padding-right: 40px; }
 
-.cpac_message .spinner.right {
+.ac-message .spinner.right {
   visibility: visible;
   display: block;
   right: 8px;
@@ -12,14 +12,14 @@ body .wrap .cpac_message {
   top: 50%;
   margin-top: -10px; }
 
-.cpac_message .spinner.inline {
+.ac-message .spinner.inline {
   display: inline-block;
   position: absolute;
   margin: 4px 0 0 4px;
   padding: 0;
   float: none; }
 
-.cpac_message .hide-notice {
+.ac-message .hide-notice {
   right: 8px;
   text-decoration: none;
   width: 32px;
@@ -28,12 +28,17 @@ body .wrap .cpac_message {
   top: 50%;
   height: 32px;
   margin-top: -16px; }
-  .cpac_message .hide-notice:before {
+  .ac-message .hide-notice:before {
     display: block;
     content: '\f335';
     font-family: 'Dashicons', serif;
     margin: .5em 0;
     padding: 2px; }
 
-.cpac_message.error.warning {
+.ac-message .buttons {
+  margin-top: 8px; }
+  .ac-message .buttons .button {
+    margin-right: 3px; }
+
+.ac-message.error.warning {
   border-left: 4px solid #ffba00; }

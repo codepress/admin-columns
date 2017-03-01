@@ -218,7 +218,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			}
 
 			?>
-            <div class="cpac_message updated">
+            <div class="ac-message updated">
                 <a href="#" class="hide-notice hide-install-addons-notice"></a>
 
                 <p><?php printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), $plugins_list, ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) ); ?>

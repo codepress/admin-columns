@@ -1,9 +1,9 @@
-body .wrap .cpac_message {
+body .wrap .ac-message {
 	position: relative;
 	padding-right: 40px;
 }
 
-.cpac_message {
+.ac-message {
 	.spinner {
 
 		&.right {
@@ -41,6 +41,14 @@ body .wrap .cpac_message {
 			font-family: 'Dashicons', serif;
 			margin: .5em 0;
 			padding: 2px;
+		}
+	}
+
+	.buttons {
+		margin-top: 8px;
+
+		.button {
+			margin-right: 3px;
 		}
 	}
 
