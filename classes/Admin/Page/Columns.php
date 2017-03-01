@@ -389,6 +389,17 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return string
+	 */
+	private function get_read_only_message( AC_ListScreen $list_screen ) {
+	    $message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+
+	    return apply_filters( 'ac/read_only_message', $message, $list_screen );
+	}
+
+	/**
 	 * Display
 	 */
 	public function display() {
@@ -651,7 +662,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 				<?php if ( $list_screen->is_read_only() ) : ?>
                     <div class="notice notice-warning below-h2">
-                        <p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' ); ?></p>
+                        <p><?php echo $this->get_read_only_message( $list_screen ); ?></p>
                     </div>
 				<?php endif; ?>
 
