@@ -5,13 +5,13 @@ class AC_Helper_Image {
 	/**
 	 * Resize image
 	 *
-	 * @param string $file
-	 * @param int $max_w
-	 * @param int $max_h
-	 * @param bool $crop
+	 * @param string      $file
+	 * @param int         $max_w
+	 * @param int         $max_h
+	 * @param bool        $crop
 	 * @param null|string $suffix
 	 * @param null|string $dest_path
-	 * @param int $jpeg_quality
+	 * @param int         $jpeg_quality
 	 *
 	 * @return bool|string|WP_Error
 	 */
@@ -41,7 +41,7 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param int[]|int $ids
+	 * @param int[]|int    $ids
 	 * @param array|string $size
 	 *
 	 * @return string HTML Images
@@ -58,7 +58,7 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param int $id
+	 * @param int          $id
 	 * @param string|array $size
 	 *
 	 * @return string
@@ -76,21 +76,19 @@ class AC_Helper_Image {
 
 			if ( is_array( $size ) ) {
 				$image = $this->markup_cover( $src, $size[0], $size[1], $id );
-			}
-			else {
+			} else {
 				$image = $this->markup( $src, $attributes[1], $attributes[2], $id );
 			}
-		}
-		// Is File, use icon
+		} // Is File, use icon
 		else if ( $attributes = wp_get_attachment_image_src( $id, $size, true ) ) {
-			$image = $this->markup( $attributes[0], $this->scale_size( $attributes[1], 0.7 ), $this->scale_size( $attributes[2], 0.7 ), $id );
+			$image = $this->markup( $attributes[0], $this->scale_size( $attributes[1], 0.8 ), $this->scale_size( $attributes[2], 0.8 ), $id, true );
 		}
 
 		return $image;
 	}
 
 	/**
-	 * @param $size
+	 * @param     $size
 	 * @param int $scale
 	 *
 	 * @return float
@@ -100,7 +98,7 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param string $url
+	 * @param string       $url
 	 * @param array|string $size
 	 *
 	 * @return string
@@ -110,8 +108,7 @@ class AC_Helper_Image {
 
 		if ( is_string( $size ) && ( $sizes = $this->get_image_sizes_by_name( $size ) ) ) {
 			$dimensions = array( $sizes['width'], $sizes['height'] );
-		}
-		else if ( is_array( $size ) ) {
+		} else if ( is_array( $size ) ) {
 			$dimensions = $size;
 		}
 
@@ -123,14 +120,11 @@ class AC_Helper_Image {
 				$src = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized );
 
 				$image = $this->markup( $src, $dimensions[0], $dimensions[1] );
-			}
-			else {
+			} else {
 
 				$image = $this->markup( $url, $dimensions[0], $dimensions[1] );
 			}
-		}
-
-		//External image
+		} // External image
 		else {
 			$image = $this->markup_cover( $image_path, $dimensions[0], $dimensions[1] );
 		}
@@ -139,7 +133,7 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param array $images
+	 * @param mixed        $images
 	 * @param array|string $size
 	 *
 	 * @return array
@@ -150,14 +144,23 @@ class AC_Helper_Image {
 		foreach ( (array) $images as $value ) {
 			if ( ac_helper()->string->is_image( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
-			}
-			// Media Attachment
+			} // Media Attachment
 			else if ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
 				$thumbnails[] = $this->get_image_by_id( $value, $size );
 			}
 		}
 
 		return $thumbnails;
+	}
+
+	/**
+	 * @param int|string $image ID of Url
+	 * @param string     $size
+	 *
+	 * @return string
+	 */
+	public function get_image( $image, $size = 'thumbnail' ) {
+		return implode( $this->get_images( $image, $size ) );
 	}
 
 	/**
@@ -179,12 +182,47 @@ class AC_Helper_Image {
 
 	// Helpers
 
-	private function markup_cover( $src, $width, $height, $media_id = null ) {
-		return "<span class='cpac-column-value-image cpac-cover' data-media-id='" . $media_id . "' style='width:" . esc_attr( $width ) . "px;height:" . esc_attr( $height ) . "px;background-size:cover;background-image:url(" . esc_attr( $src ) . ");background-position:center;'></span>";
+	private function get_file_name( $media_id ) {
+		$file = get_post_meta( $media_id, '_wp_attached_file', true );
+
+		if ( ! $file ) {
+			return false;
+		}
+
+		return basename( $file );
 	}
 
-	private function markup( $src, $width, $height, $media_id = null ) {
-		return "<span class='cpac-column-value-image' data-media-id='" . $media_id . "'><img style='max-width:" . esc_attr( $width ) . "px;max-height:" . esc_attr( $height ) . "px;' src='" . esc_attr( $src ) . "' alt=''/></span>";
+	private function get_file_tooltip_attr( $media_id ) {
+		$filename = $this->get_file_name( $media_id );
+
+		if ( ! $filename ) {
+			return false;
+		}
+
+		return ' data-tip="' . esc_attr( $filename ) . '"';
+	}
+
+	private function markup_cover( $src, $width, $height, $media_id = null ) {
+		ob_start(); ?>
+        <span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url(<?php echo esc_attr( $src ); ?>);background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
+
+		<?php
+		return ob_get_clean();
+	}
+
+	private function markup( $src, $width, $height, $media_id = null, $add_extension = false ) {
+		ob_start(); ?>
+        <span class="ac-image" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
+			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>">
+
+			<?php if ( $add_extension ) : ?>
+                <span class="ac-extension"><?php echo pathinfo( $this->get_file_name( $media_id ), PATHINFO_EXTENSION ); ?></span>
+			<?php endif; ?>
+
+		</span>
+
+		<?php
+		return ob_get_clean();
 	}
 
 }

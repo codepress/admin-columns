@@ -168,7 +168,7 @@ class CPAC {
 	 * @return AC_Autoloader
 	 */
 	public function autoloader() {
-		require_once $this->get_plugin_dir() . 'classes/autoloader.php';
+		require_once $this->get_plugin_dir() . 'classes/Autoloader.php';
 
 		return AC_Autoloader::instance();
 	}

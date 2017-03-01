@@ -300,8 +300,11 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		?>
         <h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
         <p>
-			<?php _e( 'The Admin Columns plugin has undergone some major changes in version 4.' ); ?> <br/>
-			<?php _e( 'This site is using some actions or filters that have changed. Please see our documentation to resolve them.' ); ?>
+			<?php _e( 'The Admin Columns plugin has undergone some major changes in version 4.', 'codepress-admin-columns' ); ?> <br/>
+
+            <?php // TODO update documentation link ?>
+
+			<?php printf( __( 'This site is using some actions or filters that have changed. Please read %s to resolve them.', 'codepress-admin-columns' ), ac_helper()->html->link( ac_get_site_utm_url( 'documentation', 'help' ), __( 'our documentation', 'codepress-admin-columns' ) ) ); ?>
         </p>
 
 		<?php foreach ( $this->get_groups() as $type => $label ) {

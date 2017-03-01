@@ -102,20 +102,26 @@ body.upload-php .tablenav.top .cpac-edit {
 
 /* =Images Column
 -------------------------------------------------------------- */
-.cpac-column-value-image {
+.ac-image {
   display: inline-block;
   background: transparent;
   margin-right: 2px;
   overflow: hidden;
   max-width: 100%; }
+  .ac-image img {
+    display: block;
+    margin: 0 auto; }
+  .ac-image .ac-extension {
+    font-size: 12px;
+    line-height: 22px;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold; }
 
-.rtl .cpac-column-value-image {
+.rtl .ac-image {
   margin-left: 2px;
   margin-right: 0; }
-
-.cpac-column-value-image img {
-  display: block;
-  margin: 0 auto; }
 
 .column-column-attachment img {
   padding-right: 5px;

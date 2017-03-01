@@ -339,7 +339,7 @@ class AC_Column {
 	/**
 	 * @return string
 	 */
-	private function get_separator() {
+	public function get_separator() {
 		$separator = ', ';
 
 		if ( $setting = $this->get_setting( 'separator' ) ) {
@@ -353,7 +353,7 @@ class AC_Column {
 			}
 		}
 
-		return apply_filters( 'ac/column/separator', $separator, $this );
+		return $separator;
 	}
 
 	/**

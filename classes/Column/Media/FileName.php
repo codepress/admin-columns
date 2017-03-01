@@ -15,10 +15,7 @@ class AC_Column_Media_FileName extends AC_Column_Meta {
 	}
 
 	public function get_value( $id ) {
-		$file = wp_get_attachment_url( $id );
-		$filename = $this->get_raw_value( $id );
-
-		return "<a title='{$filename}' href='{$file}'>{$filename}</a>";
+		return ac_helper()->html->link( wp_get_attachment_url( $id ), $this->get_raw_value( $id ) );
 	}
 
 	public function get_raw_value( $id ) {
