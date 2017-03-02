@@ -98,6 +98,11 @@ class CPAC {
 	private $notices;
 
 	/**
+	 * @var AC_API
+	 */
+	private $api;
+
+	/**
 	 * @since 2.5
 	 */
 	private static $_instance = null;
@@ -140,6 +145,7 @@ class CPAC {
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
+		$this->api = new AC_API();
 
 		new AC_Notice_Review();
 
@@ -288,6 +294,14 @@ class CPAC {
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return AC_API
+	 */
+	public function api() {
+		return $this->api;
 	}
 
 	/**
