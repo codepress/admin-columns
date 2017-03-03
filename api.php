@@ -93,6 +93,25 @@ function ac_action_column_helper() {
 }
 
 /**
+ * Manually set the columns for a list screen
+ * This overrides the database settings and thus renders the settings screen for this list screen useless
+ *
+ * If you like to register a column of your own please have a look at our documentation.
+ * We also have a free start-kit available, which contains all the necessary files.
+ *
+ * Documentation: https://www.admincolumns.com/documentation/developer-docs/creating-new-column-type/
+ * Starter-kit: https://github.com/codepress/ac-column-template/
+ *
+ * @since 2.2
+ *
+ * @param string|array $list_screen_key List screen key or keys
+ * @param array $column_data
+ */
+function ac_register_columns( $list_screen_keys, $column_data ) {
+	AC()->api()->load_columndata( $list_screen_keys, $column_data );
+}
+
+/**
  * Deprecated functions
  */
 
