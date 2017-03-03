@@ -4,8 +4,8 @@ jQuery( document ).ready( function( $ ) {
 		return false;
 	}
 
-	cpac_pointer( $ );
-	cpac_help( $ );
+	ac_pointer( $ );
+	ac_help( $ );
 
 } );
 
@@ -13,9 +13,9 @@ jQuery( document ).ready( function( $ ) {
  * WP Pointer
  *
  */
-function cpac_pointer( $ ) {
+function ac_pointer( $ ) {
 
-	$( '.cpac-pointer' ).each( function() {
+	$( '.ac-pointer' ).each( function() {
 		// vars
 		var el = $( this ),
 			html = el.attr( 'rel' ),
@@ -54,7 +54,7 @@ function cpac_pointer( $ ) {
 			pointerWidth : width,
 			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
 			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-			pointerClass : 'cpac-wp-pointer wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
+			pointerClass : 'ac-wp-pointer wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
 		} );
 
 		// click
@@ -75,23 +75,23 @@ function cpac_pointer( $ ) {
 		}, function() {
 			var el = $( this );
 			setTimeout( function() {
-				if ( !el.hasClass( 'open' ) && $( '.cpac-wp-pointer.hover' ).length == 0 ) {
+				if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length == 0 ) {
 					el.pointer( 'close' );
 				}
 			}, 100 );
 
 		} ).on( 'close', function() {
-			if ( !el.hasClass( 'open' ) && $( '.cpac-wp-pointer.hover' ).length == 0 ) {
+			if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length == 0 ) {
 				el.pointer( 'close' );
 			}
 		} );
 	} );
 
-	$( '.cpac-wp-pointer' ).hover( function() {
+	$( '.ac-wp-pointer' ).hover( function() {
 		$( this ).addClass( 'hover' );
 	}, function() {
 		$( this ).removeClass( 'hover' );
-		$( '.cpac-pointer' ).trigger( 'close' );
+		$( '.ac-pointer' ).trigger( 'close' );
 	} );
 
 }
@@ -101,7 +101,7 @@ function cpac_pointer( $ ) {
  *
  * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
  */
-function cpac_help( $ ) {
+function ac_help( $ ) {
 	$( 'a.help' ).click( function( e ) {
 		e.preventDefault();
 

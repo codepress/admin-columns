@@ -21,7 +21,7 @@ function cpac_actions_column( $, $selector ) {
 
 	$( $selector ).find( '.cpac_use_icons + .hidden + .row-actions > span' ).each( function() {
 		var $link = $( this ).find( 'a' );
-		$link.attr( 'data-tip', $link.text() ).addClass( 'cpac-tip' );
+		$link.attr( 'data-tip', $link.text() ).addClass( 'ac-tip' );
 	} );
 }
 

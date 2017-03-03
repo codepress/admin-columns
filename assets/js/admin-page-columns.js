@@ -32,6 +32,10 @@ jQuery( document ).ready( function( $ ) {
 
 } );
 
+function ac_get_ajax_message( message, attr_class ) {
+	return jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
+}
+
 /*
  * Submit Form
  *
@@ -44,15 +48,14 @@ function cpac_submit_form( $ ) {
 	$save_buttons.click( function() {
 
 		var $button = $( this );
-		var $container = $button.closest( '.columns-container' ).addClass( 'saving' );
+		var $container = $button.closest( '.ac-admin' ).addClass( 'saving' );
 		var columns_data = $container.find( '.ac-columns form' ).serialize();
-		var $msg = $container.find( '.ajax-message' );
+		var msg = null;
 
 		$save_buttons.attr( 'disabled', 'disabled' );
 
 		// reset
-		$container.find( '.ajax-message' ).hide().removeClass( 'error updated' );
-		$( '.cpac_message' ).remove(); // placed by restore button
+		$container.find( '.ac-message' ).remove(); // placed by restore button
 
 		var xhr = $.post( ajaxurl, {
 				plugin_id : 'cpac',
@@ -67,16 +70,18 @@ function cpac_submit_form( $ ) {
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
-						$msg.addClass( 'updated' ).find( 'p' ).html( response.data );
-						$msg.slideDown();//.delay( 2000 ).slideUp();
+						msg = ac_get_ajax_message( response.data, 'updated' );
+						$( '.ac-boxes' ).before( msg );
+						msg.slideDown();
 
 						$container.addClass( 'stored' );
 					}
 
 					// Error message
 					else if ( response.data ) {
-						$msg.addClass( response.data.type ).find( 'p' ).html( response.data.message );
-						$msg.slideDown();
+						msg = ac_get_ajax_message( response.data.message, 'notice notice-warning' );
+						$( '.ac-boxes' ).before( msg );
+						msg.slideDown();
 					}
 				}
 
@@ -160,7 +165,7 @@ function cpac_sidebar_feedback( $ ) {
 
 function cpac_init( $ ) {
 
-	var container = $( '.columns-container' );
+	var container = $( '.ac-admin' );
 	var boxes = container.find( '.ac-boxes' );
 
 	// Written for PHP Export
@@ -211,7 +216,7 @@ function cpac_menu( $ ) {
  * @since NEWVERSION
  */
 function cpac_reset_columns( $ ) {
-	var $container = $( '.columns-container' );
+	var $container = $( '.ac-admin' );
 
 	$( 'a[data-clear-columns]' ).on( 'click', function() {
 		$container.find( '.ac-column' ).each( function() {
@@ -350,7 +355,7 @@ function cpac_reset_columns( $ ) {
 		}, 'json' );
 
 		xhr.fail( function( error ) {
-			var $msg = el.closest( '.columns-container' ).find( '.ajax-message' );
+			var $msg = el.closest( '.ac-admin' ).find( '.ajax-message' );
 
 			$msg.addClass( 'error' ).find( 'p' ).html( AC.i18n.error );
 			$msg.slideDown();
@@ -374,7 +379,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_bind_events = function() {
 		var column = $( this );
-		var container = column.closest( '.columns-container ' );
+		var container = column.closest( '.ac-admin ' );
 
 		// Current column type
 		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
@@ -498,7 +503,7 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_clone = function() {
 
-		var container = $( this ).closest( '.columns-container' );
+		var container = $( this ).closest( '.ac-admin' );
 		var column = $( this );
 		var columns = $( this ).closest( 'ac-columns' );
 

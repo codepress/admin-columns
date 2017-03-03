@@ -406,7 +406,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screen = $this->get_current_list_screen();
 		?>
 
-        <div class="columns-container<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+        <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
             <div class="main">
                 <div class="menu">
                     <form>
@@ -434,7 +434,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
             </div>
 
-            <div class="columns-right">
+            <div class="ac-right">
                 <div class="columns-right-inside">
 
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
@@ -645,9 +645,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                     </div><!--plugin-support-->
 
                 </div><!--.columns-right-inside-->
-            </div><!--.columns-right-->
+            </div><!--.ac-right-->
 
-            <div class="columns-left">
+            <div class="ac-left">
 				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) : ?>
                     <div class="cpac-notice">
                         <p>
@@ -658,10 +658,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 				<?php $this->display_notices(); ?>
 
-                <div class="ajax-message"><p></p></div>
+                <div class="ac-message ajax-message"><p></p></div>
 
 				<?php if ( $list_screen->is_read_only() ) : ?>
-                    <div class="notice notice-warning below-h2">
+                    <div class="ac-notice notice-warning below-h2">
                         <p><?php echo $this->get_read_only_message( $list_screen ); ?></p>
                     </div>
 				<?php endif; ?>
@@ -682,7 +682,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 							?>
                         </form>
 
-                    </div><!--.cpac-columns-->
+                    </div>
 
                     <div class="column-footer">
 						<?php if ( ! $list_screen->is_read_only() ) : ?>
@@ -710,20 +710,20 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 <a class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
                             </div>
 						<?php endif; ?>
-                    </div><!--.cpac-column-footer-->
+                    </div>
 
                 </div><!--.ac-boxes-->
 
 				<?php do_action( 'ac/settings/after_columns', $list_screen ); ?>
 
-            </div><!--.columns-left-->
+            </div><!--.ac-left-->
             <div class="clear"></div>
 
             <div id="add-new-column-template">
 				<?php $this->display_column_template( $list_screen ); ?>
             </div>
 
-        </div><!--.columns-container-->
+        </div><!--.ac-admin-->
 
         <div class="clear"></div>
 

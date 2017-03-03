@@ -52,7 +52,7 @@
  * Structure
  * ----------------------------------------------------------------------------
  */
-.columns-container {
+.ac-admin {
 	margin-right: 300px;
 	max-width: 740px;
 
@@ -60,7 +60,7 @@
 		display: none;
 	}
 
-	.columns-left {
+	.ac-left {
 		float: left;
 		width: 100%;
 
@@ -86,12 +86,12 @@
 		}
 	}
 
-	.columns-right {
+	.ac-right {
 		float: right;
 		margin-right: -300px;
 		width: 280px;
 
-		.columns-right-inside.fixed {
+		.ac-right-inside.fixed {
 			width: 280px;
 		}
 	}
@@ -104,7 +104,7 @@
 	}
 
 	&.saving {
-		.columns-right-inside {
+		.ac-right-inside {
 			.spinner {
 				visibility: visible;
 			}
@@ -121,7 +121,7 @@
 	}
 
 	&.stored {
-		.columns-right .sidebox.form-actions {
+		.ac-right .sidebox.form-actions {
 			.submit {
 				&.save {
 					display: none;
@@ -152,15 +152,23 @@
  * Columns
  * ----------------------------------------------------------------------------
  */
-.columns-left {
+.ac-left {
 
-	.cpac-notice {
+	.ac-notice {
 		background: #fff;
 		border-left: 4px solid #ffba00;
 		-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		margin-bottom: 15px;
 		padding: 1px 12px;
+	}
+
+	.ajax-message {
+		display: none;
+	}
+
+	.ac-message {
+		margin-top: 0 !important;
 	}
 
 	.ac-boxes {
@@ -193,12 +201,13 @@
 			// indicators
 			.meta span {
 				cursor: default !important;
+				opacity: 0.45;
 
 				&:before {
 					color: #808080 !important;
 				}
-				&.off {
-					opacity: 0.5;
+				&.on {
+					opacity: 1;
 				}
 			}
 
@@ -815,7 +824,7 @@
  * Sidebar
  * ----------------------------------------------------------------------------
  */
-.columns-right {
+.ac-right {
 	.sidebox {
 		background: none repeat scroll 0 0 #FFFFFF;
 		border: 1px solid $border-gray-dark;
@@ -1255,18 +1264,18 @@
  * ----------------------------------------------------------------------------
  */
 @media only screen and (max-width: 900px) {
-	.columns-container {
+	.ac-admin {
 		margin-right: 0;
 
 		.menu {
 			float: none;
 		}
 
-		.columns-left {
+		.ac-left {
 			float: none;
 		}
 
-		.columns-right {
+		.ac-right {
 			float: none;
 			margin-top: 0;
 			margin-right: 0;

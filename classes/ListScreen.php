@@ -147,6 +147,10 @@ abstract class AC_ListScreen {
 	}
 
 	public function get_singular_label() {
+		if ( null === $this->singular_label ) {
+			$this->set_singular_label( $this->label );
+		}
+
 		return $this->singular_label;
 	}
 
@@ -670,7 +674,7 @@ abstract class AC_ListScreen {
 			}
 
 			// New column, new key
-			if ( ! in_array( $key, array_keys( $current_settings ), true ) ) {
+			if ( ! $column->is_original() && ! in_array( $key, array_keys( $current_settings ), true ) ) {
 				$key = uniqid();
 			}
 

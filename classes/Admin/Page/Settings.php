@@ -116,7 +116,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 				<?php echo $args->label; ?>
             </label>
 			<?php if ( $args->instructions ) : ?>
-                <a class="cpac-pointer instructions" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
+                <a class="ac-pointer instructions" rel="pointer-<?php echo $args->name; ?>" data-pos="right">
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
                 </a>
 			<?php endif; ?>
@@ -132,7 +132,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	}
 
 	public function display() { ?>
-        <table class="form-table cpac-form-table settings">
+        <table class="form-table ac-form-table settings">
             <tbody>
             <tr class="general">
                 <th scope="row">
@@ -140,32 +140,30 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
                     <p><?php _e( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ); ?></p>
                 </th>
                 <td>
-                    <div class="cpac_general">
-                        <form method="post" action="options.php">
+                    <form method="post" action="options.php">
 
-							<?php settings_fields( self::SETTINGS_GROUP ); ?>
+						<?php settings_fields( self::SETTINGS_GROUP ); ?>
 
-							<?php
-							$this->single_checkbox( array(
-								'name'          => 'show_edit_button',
-								'label'         => __( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ),
-								'default_value' => '1',
-							) );
-							?>
+						<?php
+						$this->single_checkbox( array(
+							'name'          => 'show_edit_button',
+							'label'         => __( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ),
+							'default_value' => '1',
+						) );
+						?>
 
-							<?php do_action( 'ac/settings/general', $this ); ?>
+						<?php do_action( 'ac/settings/general', $this ); ?>
 
-                            <p>
-                                <input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
-                            </p>
-                        </form>
-                    </div>
+                        <p>
+                            <input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
+                        </p>
+                    </form>
                 </td>
             </tr>
 
 			<?php
 
-            // TODO: replace filter with register_group method?
+			// TODO: replace filter with register_group method?
 
 			/** Allow plugins to add their own custom settings to the settings page. */
 			if ( $groups = apply_filters( 'ac/settings/groups', array() ) ) {
