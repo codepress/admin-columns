@@ -700,8 +700,14 @@ abstract class AC_ListScreen {
 	 * Populate settings from the database
 	 */
 	public function populate_settings() {
+
+		// Load from DB
 		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
 
+		// Load from API
+		AC()->api()->set_column_settings( $this );
+
+		// TODO: remove?
 		do_action( 'ac/list_screen/settings', $this );
 	}
 
@@ -714,6 +720,8 @@ abstract class AC_ListScreen {
 		}
 
 		$this->settings = $settings;
+
+		return $this;
 	}
 
 	/**
