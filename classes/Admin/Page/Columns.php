@@ -73,7 +73,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private function set_current_list_screen() {
 
 		// User selected
-		$key = filter_input( INPUT_GET, 'cpac_key' );
+		$key = filter_input( INPUT_GET, 'list_screen' );
 
 		// Preference
 		if ( ! $key ) {
@@ -107,7 +107,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
-					$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'cpac_key' ) );
+					$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 					$list_screen->set_layout( filter_input( INPUT_POST, 'layout' ) );
 					$list_screen->delete();
 
@@ -413,7 +413,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 						<?php $this->nonce_field( 'select-list-screen' ); ?>
                         <input type="hidden" name="page" value="<?php echo esc_attr( AC_Admin::MENU_SLUG ); ?>">
 
-                        <select name="cpac_key" title="Select type" id="ac_list_screen">
+                        <select name="list_screen" title="Select type" id="ac_list_screen">
 							<?php foreach ( $this->get_grouped_list_screens() as $group ) : ?>
                                 <optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
 									<?php foreach ( $group['options'] as $key => $label ) : ?>
@@ -435,7 +435,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
             </div>
 
             <div class="ac-right">
-                <div class="columns-right-inside">
+                <div class="ac-right-inner">
 
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
                         <div class="sidebox form-actions">
@@ -455,7 +455,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                             </div>
 
                             <form class="form-reset" method="post">
-                                <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
+                                <input type="hidden" name="list_screen" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
                                 <input type="hidden" name="layout" value="<?php echo esc_attr( $list_screen->get_layout() ); ?>"/>
                                 <input type="hidden" name="cpac_action" value="restore_by_type"/>
 
@@ -644,7 +644,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                         </div>
                     </div><!--plugin-support-->
 
-                </div><!--.columns-right-inside-->
+                </div><!--.ac-right-inner-->
             </div><!--.ac-right-->
 
             <div class="ac-left">
@@ -658,8 +658,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 				<?php $this->display_notices(); ?>
 
-                <div class="ac-message ajax-message"><p></p></div>
-
 				<?php if ( $list_screen->is_read_only() ) : ?>
                     <div class="ac-notice notice-warning below-h2">
                         <p><?php echo $this->get_read_only_message( $list_screen ); ?></p>
@@ -671,7 +669,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                     <div class="ac-columns">
                         <form method="post" action="<?php echo esc_attr( $this->get_link() ); ?>">
 
-                            <input type="hidden" name="cpac_key" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
+                            <input type="hidden" name="list_screen" value="<?php echo esc_attr( $list_screen->get_key() ); ?>"/>
                             <input type="hidden" name="cpac_action" value="update_by_type"/>
 
 							<?php $this->nonce_field( 'update-type' ); ?>

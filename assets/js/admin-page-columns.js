@@ -12,7 +12,7 @@ var AC;
  *
  * @type {number}
  */
-var temporary_column_name = 0;
+var incremental_column_name = 0;
 
 /**
  * DOM ready
@@ -32,8 +32,10 @@ jQuery( document ).ready( function( $ ) {
 
 } );
 
-function ac_get_ajax_message( message, attr_class ) {
-	return jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
+function ac_show_ajax_message( message, attr_class ) {
+	var msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
+	jQuery( '.ac-boxes' ).before( msg );
+	msg.slideDown();
 }
 
 /*
@@ -50,7 +52,6 @@ function cpac_submit_form( $ ) {
 		var $button = $( this );
 		var $container = $button.closest( '.ac-admin' ).addClass( 'saving' );
 		var columns_data = $container.find( '.ac-columns form' ).serialize();
-		var msg = null;
 
 		$save_buttons.attr( 'disabled', 'disabled' );
 
@@ -70,18 +71,14 @@ function cpac_submit_form( $ ) {
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
-						msg = ac_get_ajax_message( response.data, 'updated' );
-						$( '.ac-boxes' ).before( msg );
-						msg.slideDown();
+						ac_show_ajax_message( response.data, 'updated' );
 
 						$container.addClass( 'stored' );
 					}
 
 					// Error message
 					else if ( response.data ) {
-						msg = ac_get_ajax_message( response.data.message, 'notice notice-warning' );
-						$( '.ac-boxes' ).before( msg );
-						msg.slideDown();
+						ac_show_ajax_message( response.data.message, 'notice notice-warning' );
 					}
 				}
 
@@ -503,7 +500,6 @@ function cpac_reset_columns( $ ) {
 	 */
 	$.fn.column_clone = function() {
 
-		var container = $( this ).closest( '.ac-admin' );
 		var column = $( this );
 		var columns = $( this ).closest( 'ac-columns' );
 
@@ -555,21 +551,21 @@ function cpac_reset_columns( $ ) {
 
 			// name
 			if ( $( v ).attr( 'name' ) ) {
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temporary_column_name + ']' ) );
+				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + incremental_column_name + ']' ) );
 			}
 
 			// id
 			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temporary_column_name + '-' ) );
+				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + incremental_column_name + '-' ) );
 			}
 
 			// TODO: for
 		} );
 
-		$el.attr( 'data-column-name', temporary_column_name );
+		$el.attr( 'data-column-name', incremental_column_name );
 
 		// increment
-		temporary_column_name++;
+		incremental_column_name++;
 	};
 
 	/*

@@ -323,7 +323,7 @@ abstract class AC_ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'cpac_key' => $this->key, 'layout_id' => $this->layout ), AC()->admin_columns_screen()->get_link() );
+		return add_query_arg( array( 'list_screen' => $this->key, 'layout_id' => $this->layout ), AC()->admin_columns_screen()->get_link() );
 	}
 
 	/**
