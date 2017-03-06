@@ -37,6 +37,23 @@
 	font-weight: 600;
 }
 
+a.external {
+	&:after {
+		content: "\f504";
+		display: inline-block;
+		margin-left: 4px;
+		font-size: 17px;
+		color: #797979;
+		line-height: 1;
+		font-family: dashicons, serif;
+		text-decoration: none;
+		font-weight: normal;
+		font-style: normal;
+		vertical-align: top;
+		text-align: center;
+	}
+}
+
 /**
  * Button
  * ----------------------------------------------------------------------------
