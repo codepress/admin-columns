@@ -142,7 +142,11 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function implode( $array ) {
-		return is_array( $array ) ? implode( $this->divider(), $array ) : $array;
+	    if ( ! is_array( $array ) ) {
+	        return $array;
+        }
+
+		return implode( $this->divider(), $array );
 	}
 
 	/**

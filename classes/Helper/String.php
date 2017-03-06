@@ -252,4 +252,22 @@ class AC_Helper_String {
 		return strlen( $string ) !== strlen( strip_tags( $string ) );
 	}
 
+	/**
+	 * @param string $value
+	 *
+	 * @return bool
+	 */
+	public function is_empty( $value ) {
+		return ! $this->is_not_empty( $value );
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return bool
+	 */
+	public function is_not_empty( $value ) {
+		return $value || 0 === $value;
+	}
+
 }

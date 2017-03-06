@@ -12,6 +12,8 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		return array( 'field_type' );
 	}
 
+	// TODO: move to Pro
+
 	public function get_dependent_settings() {
 		$settings = array();
 
@@ -40,10 +42,36 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		return $settings;
 	}
 
+	private function get_description_object_ids( $input ) {
+		$description = __( "This field type uses %s.", 'codepress-admin-columns' );
+		$description .= ' ' . __( "Multiple %s should be sepearated by a comma.", 'codepress-admin-columns' );
+
+		return sprintf( $description, '<strong>' . $input . '</strong>', $input );
+
+	}
+
+	public function get_description() {
+		$description = false;
+
+		switch ( $this->get_field_type() ) {
+			case 'title_by_id' :
+				$description = $this->get_description_object_ids( "Post ID's" );
+				break;
+			case 'user_by_id' :
+				$description = $this->get_description_object_ids( "User ID's" );
+				break;
+		}
+
+		return $description;
+	}
+
 	public function create_view() {
-		$select = $this->create_element( 'select' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_field_type_options() );
+		$select = $this->create_element( 'select' );
+
+		$select->set_attribute( 'data-refresh', 'column' )
+		       ->set_options( $this->get_field_type_options() );
+
+		$select->set_description( $this->get_description() );
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
 
@@ -67,26 +95,25 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 */
 	private function get_field_type_options() {
 		$field_types = array(
-			'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
-			'color'       => __( 'Color', 'codepress-admin-columns' ),
-			'count'       => __( 'Counter', 'codepress-admin-columns' ),
-			'date'        => __( 'Date', 'codepress-admin-columns' ),
-			'excerpt'     => __( 'Excerpt' ),
-			'image'       => __( 'Image', 'codepress-admin-columns' ),
-			'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
-			'link'        => __( 'Url', 'codepress-admin-columns' ),
-			'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
-			'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
-			'title_by_id' => __( 'Post Title (Post ID\'s)', 'codepress-admin-columns' ),
-			'user_by_id'  => __( 'Username (User ID\'s)', 'codepress-admin-columns' ),
-			'term_by_id'  => __( 'Term Name (Term ID\'s)', 'codepress-admin-columns' ),
-			'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
+			'basic'      => array(
+				'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
+				'color'       => __( 'Color', 'codepress-admin-columns' ),
+				'count'       => __( 'Counter', 'codepress-admin-columns' ),
+				'date'        => __( 'Date', 'codepress-admin-columns' ),
+				'excerpt'     => __( 'Excerpt' ),
+				'image'       => __( 'Image', 'codepress-admin-columns' ),
+				'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
+				'link'        => __( 'Url', 'codepress-admin-columns' ),
+				'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
+				'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
+				'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
+			),
+			'relational' => array(
+				'title_by_id' => __( 'Post', 'codepress-admin-columns' ),
+				'user_by_id'  => __( 'User', 'codepress-admin-columns' ),
+				'term_by_id'  => __( 'Term', 'codepress-admin-columns' ),
+			),
 		);
-
-		asort( $field_types );
-
-		// Default option comes first
-		$field_types = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types );
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
@@ -95,9 +122,33 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
-		$field_types = apply_filters( 'ac/column/custom_field/field_types', $field_types );
+		$field_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
 
-		return $field_types;
+		$groups = array(
+			'basic'      => __( 'Basic', 'codepress-admin-columns' ),
+			'relational' => __( 'Relational', 'codepress-admin-columns' ),
+			'custom'     => __( 'Custom', 'codepress-admin-columns' ),
+		);
+
+		asort( $field_types['basic'] );
+		asort( $field_types['relational'] );
+		asort( $field_types['custom'] );
+
+		// Default option comes first
+		$field_types['basic'] = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types['basic'] );
+
+		$grouped_options = array();
+		foreach ( $field_types as $group => $fields ) {
+
+			if ( ! $fields ) {
+				continue;
+			}
+
+			$grouped_options[ $group ]['title'] = $groups[ $group ];
+			$grouped_options[ $group ]['options'] = $fields;
+		}
+
+		return $grouped_options;
 	}
 
 	/**
@@ -175,13 +226,15 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 * @return bool
 	 */
 	public function set_field_type( $field_type ) {
-		$valid_field_types = $this->get_field_type_options();
-
-		if ( empty( $field_type ) || ! array_key_exists( $field_type, $valid_field_types ) ) {
+		if ( empty( $field_type ) ) {
 			return false;
 		}
 
-		$this->field_type = $field_type;
+		foreach ( $this->get_field_type_options() as $types ) {
+			if ( array_key_exists( $field_type, $types['options'] ) ) {
+				$this->field_type = $field_type;
+			}
+		}
 
 		return true;
 	}

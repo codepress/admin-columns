@@ -66,7 +66,7 @@ final class AC_Settings_Form_Element_Select extends AC_Settings_Form_Element {
 		$attributes['name'] = $this->get_name();
 		$attributes['id'] = $this->get_id();
 
-		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() );
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() . $this->render_description() );
 	}
 
 	/**

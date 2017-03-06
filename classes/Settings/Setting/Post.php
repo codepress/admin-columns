@@ -34,9 +34,10 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	}
 
 	public function create_view() {
-		$select = $this->create_element( 'select', 'post_property_display' )
-		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( $this->get_display_options() );
+		$select = $this->create_element( 'select', 'post_property_display' );
+
+		$select->set_attribute( 'data-refresh', 'column' )
+		       ->set_options( $this->get_display_options() );
 
 		$display_format = new AC_View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),

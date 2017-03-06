@@ -30,13 +30,13 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		 *
 		 * @since NEWVERSION
+		 *
 		 * @param bool false
 		 */
 		if ( apply_filters( 'ac/column/custom_field/use_text_input', $use_text_input ) ) {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
-		}
-		else {
+		} else {
 			$field = $this->create_element( 'select', 'field' )
 			              ->set_options( $this->get_field_options() )
 			              ->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
@@ -50,10 +50,30 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		return $view;
 	}
 
-	private function get_meta_keys() {
-		$cache_key = $this->column->get_list_screen()->get_key();
+	protected function get_cache_name() {
+		return 'ac_settings_custom_field';
+	}
 
-		$keys = wp_cache_get( $cache_key, 'ac_settings_custom_field' );
+	/**
+	 * Get temp cache
+	 */
+	protected function get_cache() {
+		wp_cache_get( $this->column->get_list_screen()->get_key(), $this->get_cache_name() );
+	}
+
+	/**
+	 * @param array $data
+	 * @param int   $expire Seconds
+	 */
+	protected function set_cache( $data, $expire = 15 ) {
+		wp_cache_add( $this->column->get_list_screen()->get_key(), $data, $this->get_cache_name(), $expire );
+	}
+
+	/**
+	 * @return array|false
+	 */
+	protected function get_meta_keys() {
+		$keys = $this->get_cache();
 
 		if ( ! $keys ) {
 			$query = new AC_Meta_Query( $this->column, false );
@@ -67,9 +87,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 
 			$keys = $query->get();
 
-			if ( $keys ) {
-				wp_cache_add( $cache_key, $keys, 'ac_settings_custom_field', 15 );
-			}
+			$this->set_cache( $keys );
 		}
 
 		if ( empty( $keys ) ) {
@@ -77,7 +95,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		}
 
 		/**
-		 * @param array $keys Distinct meta keys from DB
+		 * @param array                           $keys Distinct meta keys from DB
 		 * @param AC_Settings_Setting_CustomField $this
 		 */
 		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
