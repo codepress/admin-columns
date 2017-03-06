@@ -23,6 +23,10 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 	}
 
+	public function admin_scripts() {
+    	wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+	}
+
 	public function set_capability() {
 		return 'manage_admin_columns';
 	}

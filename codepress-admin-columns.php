@@ -389,6 +389,25 @@ class CPAC {
 	}
 
 	/**
+	 * @param WP_Screen $wp_screen
+	 *
+	 * @return AC_ListScreen|bool
+	 */
+	public function get_list_screen_by_wpscreen( $wp_screen ) {
+		if ( ! $wp_screen instanceof WP_Screen ) {
+			return false;
+		}
+
+		foreach ( $this->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $wp_screen ) ) {
+				return $list_screen;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * @param string $key
 	 *
 	 * @return bool

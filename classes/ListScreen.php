@@ -710,9 +710,6 @@ abstract class AC_ListScreen {
 
 		// Load from API
 		AC()->api()->set_column_settings( $this );
-
-		// TODO: remove?
-		do_action( 'ac/list_screen/settings', $this );
 	}
 
 	/**

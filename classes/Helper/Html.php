@@ -67,7 +67,7 @@ class AC_Helper_Html {
 	 * @since 2.5
 	 */
 	public function divider() {
-		return '<span class="cpac-divider"></span>';
+		return '<span class="ac-divider"></span>';
 	}
 
 	/**

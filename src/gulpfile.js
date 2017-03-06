@@ -39,6 +39,7 @@ gulp.task( 'styles', function() {
 	return gulp.src( [
 		'scss/admin-page-addons.scss',
 		'scss/admin-page-columns.scss',
+		'scss/admin-page-settings.scss',
 		'scss/admin-page-help.scss',
 		'scss/admin-general.scss',
 		'scss/admin-welcome.scss',
