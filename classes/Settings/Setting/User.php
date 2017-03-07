@@ -157,8 +157,6 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 		return true;
 	}
 
-	// TODO: add to separate settings object
-
 	/**
 	 * @return string
 	 */

@@ -19,15 +19,15 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	}
 
 	public function get_dependent_settings() {
-		$setting = array(
-			new AC_Settings_Setting_PostLink( $this->column )
-		);
+		$setting = array();
 
 		switch ( $this->get_post_property_display() ) {
 			case 'thumbnail' :
 				$setting[] = new AC_Settings_Setting_Image( $this->column );
 				break;
 		}
+
+		$setting[] = new AC_Settings_Setting_PostLink( $this->column );
 
 		return $setting;
 	}

@@ -141,15 +141,23 @@ class AC_Helper_Html {
 	 *
 	 * @return string
 	 */
-	public function implode( $array ) {
+	public function implode( $array, $divider = true ) {
 	    if ( ! is_array( $array ) ) {
 	        return $array;
         }
 
         // Remove empty values
-		$array = array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
+		$array = $this->remove_empty( $array );
 
-		return implode( $this->divider(), $array );
+	    if ( true === $divider ) {
+		    $divider = $this->divider();
+        }
+
+		return implode( $divider, $array );
+	}
+
+	public function remove_empty( $array ) {
+        return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
 	}
 
 	/**
