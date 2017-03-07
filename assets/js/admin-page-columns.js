@@ -825,8 +825,47 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
+	$.fn.cpac_column_setting_date = function() {
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $input = $setting.find( '.ac-setting-input-more input[type=text]' );
+
+			if ( 'custom' != $setting.find( 'input[type=radio]:checked' ).val() ) {
+				$input.prop( 'readonly', true );
+			}
+
+			$setting.find( 'input[type=radio]' ).on( 'click change', function() {
+				if ( 'custom' != $( this ).val() ) {
+					$input.prop( 'readonly', true );
+					$input.val( $( this ).val() ).trigger( 'change' );
+				} else {
+					$input.prop( 'readonly', false );
+				}
+			} );
+
+			$input.on( 'change', function() {
+				var $example = $input.next( '[data-date-example]' );
+				$example.html( '<span class="spinner is-active"></span>' );
+				$.ajax( {
+					url : ajaxurl,
+					method : 'post',
+					data : {
+						action : 'date_format',
+						date : $input.val()
+					}
+				} ).done( function( date ) {
+					$example.text( date );
+				} );
+
+			} );
+
+		} );
+	};
+
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
+		$( column ).find( '.ac-column-setting--date' ).cpac_column_setting_date();
 
 		// TODO: pro?
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();

@@ -467,6 +467,37 @@
 			padding-right: 10px;
 			vertical-align: top;
 		}
+		&.vertical {
+			input[type=radio] {
+				margin-right: 6px;
+			}
+			> label {
+				display: block;
+				margin-bottom: 5px;
+			}
+		}
+	}
+}
+
+.ac-setting-input-date {
+
+	.ac-setting-input-more {
+		input[type=text] {
+			display: inline-block;
+			width: 60px;
+			margin-right: 5px;
+		}
+	}
+
+	.ac-setting-input-date__value {
+		display: inline-block;
+		width: 105px;
+	}
+	.ac-setting-input-date__example {
+		.spinner {
+			float: none;
+			vertical-align: top;
+		}
 	}
 }
 
