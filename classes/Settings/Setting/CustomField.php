@@ -50,15 +50,29 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		return $view;
 	}
 
-	protected function get_cache_name() {
-		return 'ac_settings_custom_field';
+	/**
+	 * @return string
+	 */
+	protected function get_cache_key() {
+		return $this->column->get_list_screen()->get_storage_key() . $this->get_post_type();
+	}
+
+	protected function get_meta_type() {
+		return $this->column->get_list_screen()->get_meta_type();
+	}
+
+	/**
+	 * @return string Post type
+	 */
+	protected function get_post_type() {
+		return $this->column->get_post_type();
 	}
 
 	/**
 	 * Get temp cache
 	 */
 	protected function get_cache() {
-		wp_cache_get( $this->column->get_list_screen()->get_key(), $this->get_cache_name() );
+		wp_cache_get( $this->get_cache_key(), 'ac_settings_custom_field' );
 	}
 
 	/**
@@ -66,7 +80,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	 * @param int   $expire Seconds
 	 */
 	protected function set_cache( $data, $expire = 15 ) {
-		wp_cache_add( $this->column->get_list_screen()->get_key(), $data, $this->get_cache_name(), $expire );
+		wp_cache_add( $this->get_cache_key(), $data, 'ac_settings_custom_field', $expire );
 	}
 
 	/**
@@ -76,13 +90,14 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 		$keys = $this->get_cache();
 
 		if ( ! $keys ) {
-			$query = new AC_Meta_Query( $this->column, false );
+			$query = new AC_Meta_Query( $this->get_meta_type() );
+
 			$query->select( 'meta_key' )
 			      ->distinct()
 			      ->order_by( 'meta_key' );
 
-			if ( $this->column->get_post_type() ) {
-				$query->where_post_type( $this->column->get_post_type() );
+			if ( $this->get_post_type() ) {
+				$query->where_post_type( $this->get_post_type() );
 			}
 
 			$keys = $query->get();

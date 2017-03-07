@@ -146,6 +146,9 @@ class AC_Helper_Html {
 	        return $array;
         }
 
+        // Remove empty values
+		$array = array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
+
 		return implode( $this->divider(), $array );
 	}
 

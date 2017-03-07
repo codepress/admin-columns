@@ -22,8 +22,8 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 	}
 
 	public function format( $value ) {
-		if ( false === $value || null === $value ) {
-			return $value;
+		if ( ac_helper()->string->is_empty( $value ) ) {
+			return false;
 		}
 
 		return $this->get_before() . $value . $this->get_after();

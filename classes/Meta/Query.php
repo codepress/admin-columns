@@ -1,6 +1,6 @@
 <?php
 
-final class AC_Meta_Query {
+class AC_Meta_Query {
 
 	/**
 	 * @var WP_Meta_Query
@@ -53,22 +53,10 @@ final class AC_Meta_Query {
 	private $order_by = array();
 
 	/**
-	 * @param AC_Column $column
-	 * @param bool $predict Tries to setup query for common use cases based on column type
+	 * @param string $meta_type
 	 */
-	public function __construct( AC_Column $column, $predict = true ) {
-		$this->set_query( $column->get_list_screen()->get_meta_type() );
-
-		if ( $predict ) {
-			if ( $column instanceof AC_Column_Meta ) {
-				$this->join_where( 'meta_key', $column->get_meta_key() );
-			}
-
-			if ( $column->get_post_type() ) {
-				$this->where_post_type( $column->get_post_type() );
-			}
-		}
-
+	public function __construct( $meta_type ) {
+		$this->set_query( $meta_type );
 	}
 
 	/**
