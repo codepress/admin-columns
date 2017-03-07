@@ -50,6 +50,8 @@ class AC_Settings_Setting_WordsPerMinute extends AC_Settings_Setting {
 	}
 
 	/**
+	 * Returns estimate reading time in seconds
+	 *
 	 * @param string $string
 	 *
 	 * @return int Seconds

@@ -10,27 +10,26 @@ class AC_Column_Post_FeaturedImage extends AC_Column_Meta {
 		$this->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
 	}
 
+	// Meta
+
 	public function get_meta_key() {
 		return '_thumbnail_id';
 	}
 
-	public function is_valid() {
-		return post_type_supports( $this->get_post_type(), 'thumbnail' );
-	}
+	// Display
 
 	public function get_value( $post_id ) {
-		$attachment_id = $this->get_raw_value( $post_id );
-		$thumb = $this->get_settings()->image->format( $attachment_id );
+		$value = parent::get_value( $post_id );
 
-		if ( ! $thumb ) {
+		if ( ! $value ) {
 			return false;
 		}
 
 		if ( $link = get_edit_post_link( $post_id ) ) {
-			$thumb = ac_helper()->html->link( $link . '#postimagediv', $thumb );
+			$value = ac_helper()->html->link( $link . '#postimagediv', $value );
 		}
 
-		return $thumb;
+		return $value;
 	}
 
 	/**
@@ -41,11 +40,19 @@ class AC_Column_Post_FeaturedImage extends AC_Column_Meta {
 	 * @return int|false
 	 */
 	public function get_raw_value( $post_id ) {
-		return has_post_thumbnail( $post_id ) ? get_post_thumbnail_id( $post_id ) : false;
+		if ( ! has_post_thumbnail( $post_id ) ) {
+			return false;
+		}
+
+		return get_post_thumbnail_id( $post_id );
 	}
 
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
+	}
+
+	public function is_valid() {
+		return post_type_supports( $this->get_post_type(), 'thumbnail' );
 	}
 
 }

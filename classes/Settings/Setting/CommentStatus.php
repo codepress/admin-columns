@@ -26,13 +26,17 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_Setting
 	 * @return array
 	 */
 	private function get_comment_statuses() {
-		return array(
+		$options = array(
 			'total_comments' => __( 'Totals', 'codepress-admin-columns' ),
 			'approved'       => __( 'Approved', 'codepress-admin-columns' ),
 			'moderated'      => __( 'Pending', 'codepress-admin-columns' ),
 			'spam'           => __( 'Spam', 'codepress-admin-columns' ),
 			'trash'          => __( 'Trash', 'codepress-admin-columns' ),
 		);
+
+		asort( $options );
+
+		return $options;
 	}
 
 	/**
@@ -58,14 +62,15 @@ class AC_Settings_Setting_CommentStatus extends AC_Settings_Setting
 	 *
 	 * @return string
 	 */
-	public function format( $post_id ) {
+	public function format( $post_id, $object_id = null ) {
 		$value = ac_helper()->string->get_empty_char();
+
 		$status = $this->get_comment_status();
 		$count = $this->column->get_raw_value( $post_id );
 
 		if ( $count > 0 ) {
 			$names = $this->get_comment_statuses();
-			$url = esc_url( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ) );
+			$url = add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) );
 
 			$value = ac_helper()->html->link( $url, $count, array( 'class' => 'cp-' . $status, 'title' => $names[ $status ] ) );
 		}

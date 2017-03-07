@@ -21,7 +21,7 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 		return array( 'before', 'after' );
 	}
 
-	public function format( $value ) {
+	public function format( $value, $object_id = null ) {
 		if ( ac_helper()->string->is_empty( $value ) ) {
 			return false;
 		}

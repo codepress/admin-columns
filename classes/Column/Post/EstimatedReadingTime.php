@@ -25,11 +25,7 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column {
 	 * @return int Seconds
 	 */
 	public function get_raw_value( $post_id ) {
-		return $this->get_setting( 'words_per_minute' )->format( $this->get_post_content( $post_id ) );
-	}
-
-	private function get_post_content( $post_id ) {
-		return get_post_field( 'post_content', $post_id );
+		return $this->get_setting( 'words_per_minute' )->format( ac_helper()->post->get_raw_field( 'post_content', $post_id ) );
 	}
 
 	public function is_valid() {

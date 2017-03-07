@@ -48,7 +48,7 @@ class AC_Settings_Setting_LinkToPost extends AC_Settings_Setting_Toggle
 	 *
 	 * @return false|string
 	 */
-	public function format( $post_id ) {
+	public function format( $post_id, $object_id = null ) {
 		$link = get_permalink( $post_id );
 
 		if ( 'on' === $this->get_link_to_post() ) {

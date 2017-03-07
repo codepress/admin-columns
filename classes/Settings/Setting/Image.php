@@ -173,7 +173,7 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 		return true;
 	}
 
-	public function format( $id ) {
+	public function format( $media_id, $object_id = null ) {
 		$size = $this->get_image_size();
 
 		if ( 'cpac-custom' == $size ) {
@@ -183,7 +183,7 @@ class AC_Settings_Setting_Image extends AC_Settings_Setting
 			);
 		}
 
-		return ac_helper()->image->get_image( $id, $size );
+		return ac_helper()->image->get_image( $media_id, $size );
 	}
 
 }

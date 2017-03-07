@@ -74,7 +74,7 @@ class AC_Settings_Setting_ExifData extends AC_Settings_Setting
 	 *
 	 * @return string|false
 	 */
-	public function format( $image_meta ) {
+	public function format( $image_meta, $object_id = null ) {
 		if ( ! isset( $image_meta[ $this->get_exif_datatype() ] ) ) {
 			return false;
 		}

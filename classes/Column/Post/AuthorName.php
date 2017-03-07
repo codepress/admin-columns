@@ -13,12 +13,6 @@ class AC_Column_Post_AuthorName extends AC_Column {
 		$this->set_label( __( 'Author', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		$user_id = $this->get_post_author( $post_id );
-
-		return $this->get_settings()->user->format( $user_id );
-	}
-
 	public function get_raw_value( $post_id ) {
 		return $this->get_post_author( $post_id );
 	}

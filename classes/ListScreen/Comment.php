@@ -19,14 +19,14 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		$this->set_list_table_class( 'WP_Comments_List_Table' );
 	}
 
-	public function get_column_headers() {
-		$table = $this->get_list_table();
+	public function get_list_table() {
+		$table = parent::get_list_table();
 
 		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
 		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10 );
 
-		return (array) get_column_headers( $this->get_screen_id() );
+		return $table;
 	}
 
 	public function set_manage_value_callback() {

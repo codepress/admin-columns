@@ -53,7 +53,7 @@ class AC_Settings_Setting_WordLimit extends AC_Settings_Setting
 		return true;
 	}
 
-	public function format( $string ) {
+	public function format( $string, $object_id = null ) {
 		$values = false;
 
 		foreach ( (array) $string as $_string ) {

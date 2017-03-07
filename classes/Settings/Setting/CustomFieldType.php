@@ -43,10 +43,10 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	}
 
 	private function get_description_object_ids( $input ) {
-		$description = __( "This field type uses %s.", 'codepress-admin-columns' );
-		$description .= ' ' . __( "Multiple %s should be sepearated by a comma.", 'codepress-admin-columns' );
+		$description = sprintf( __( "Uses the ID from a %s.", 'codepress-admin-columns' ), $input );
+		$description .= ' ' . __( "Multiple ID's should be separated by a comma.", 'codepress-admin-columns' );
 
-		return sprintf( $description, '<strong>' . $input . '</strong>', $input );
+		return $description;
 
 	}
 
@@ -55,10 +55,10 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 
 		switch ( $this->get_field_type() ) {
 			case 'title_by_id' :
-				$description = $this->get_description_object_ids( "Post ID's" );
+				$description = $this->get_description_object_ids( __( "post type", 'codepress-admin-columns' ) );
 				break;
 			case 'user_by_id' :
-				$description = $this->get_description_object_ids( "User ID's" );
+				$description = $this->get_description_object_ids( __( "user", 'codepress-admin-columns' ) );
 				break;
 		}
 
@@ -156,7 +156,7 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	 *
 	 * @return string|bool
 	 */
-	public function format( $meta_data ) {
+	public function format( $meta_data, $object_id = null ) {
 		$value = false;
 
 		switch ( $this->get_field_type() ) {

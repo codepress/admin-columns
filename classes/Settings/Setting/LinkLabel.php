@@ -40,7 +40,7 @@ class AC_Settings_Setting_LinkLabel extends AC_Settings_Setting
 		return true;
 	}
 
-	public function format( $url ) {
+	public function format( $url, $object_id = null ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/[^\w.-]/', $url ) ) {
 			return $url;
 		}

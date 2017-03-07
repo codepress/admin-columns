@@ -56,7 +56,7 @@ class AC_Settings_Setting_Term extends AC_Settings_Setting
 	 *
 	 * @return mixed
 	 */
-	public function format( $term_id ) {
+	public function format( $term_id, $object_id = null ) {
 		switch ( $this->get_term_property() ) {
 			case 'slug' :
 				$label = ac_helper()->taxonomy->get_term_field( 'slug', $term_id, $this->column->get_taxonomy() );

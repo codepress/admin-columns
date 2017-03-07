@@ -16,19 +16,12 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 	/**
 	 * @param int $post_id
 	 *
-	 * @return mixed
-	 */
-	public function get_value( $post_id ) {
-		return $this->get_setting( 'comment_status' )->format( $post_id );
-	}
-
-	/**
-	 * @param int $post_id
-	 *
 	 * @return string
 	 */
 	public function get_raw_value( $post_id ) {
-		$value = '';
+		$value = false;
+
+		// TODO: formats what?
 
 		$status = $this->get_option( 'comment_status' );
 		$count = wp_count_comments( $post_id );

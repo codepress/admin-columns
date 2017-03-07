@@ -10,14 +10,14 @@ class AC_Column_Comment_Post extends AC_Column {
 		$this->set_label( __( 'Post', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $comment_id ) {
-		return $this->get_setting( 'post' )->format( $this->get_raw_value( $comment_id ) );
-	}
-
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
 
-		return $comment ? $comment->comment_post_ID : false;
+		if ( ! $comment ) {
+			return false;
+		}
+
+		return $comment->comment_post_ID;
 	}
 
 	public function register_settings() {

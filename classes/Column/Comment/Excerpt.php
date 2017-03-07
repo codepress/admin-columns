@@ -10,10 +10,6 @@ class AC_Column_Comment_Excerpt extends AC_Column {
 		$this->set_label( __( 'Content', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $id ) {
-		return $this->get_setting( 'word_limit' )->format( $this->get_raw_value( $id ) );
-	}
-
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
 

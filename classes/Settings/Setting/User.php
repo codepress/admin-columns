@@ -56,7 +56,7 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 	 *
 	 * @return string
 	 */
-	public function format( $user_id ) {
+	public function format( $user_id, $object_id = null ) {
 		return ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 	}
 
@@ -156,6 +156,8 @@ class AC_Settings_Setting_User extends AC_Settings_Setting
 
 		return true;
 	}
+
+	// TODO: add to separate settings object
 
 	/**
 	 * @return string

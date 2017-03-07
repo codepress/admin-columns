@@ -50,7 +50,7 @@ class AC_Settings_Setting_Password extends AC_Settings_Setting
 	 *
 	 * @return bool|string
 	 */
-	public function format( $text ) {
+	public function format( $text, $object_id = null ) {
 
 		if ( ! $this->get_password() ) {
 			$pwchar = '&#9679;';

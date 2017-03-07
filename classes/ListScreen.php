@@ -762,15 +762,15 @@ abstract class AC_ListScreen {
 	/**
 	 * @return bool
 	 */
-	public function delete() {
-		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
+	public function delete_default_headings() {
+		return delete_option( $this->get_default_key() );
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function delete_default_headings() {
-		return delete_option( $this->get_default_key() );
+	public function delete() {
+		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
 	}
 
 	/**

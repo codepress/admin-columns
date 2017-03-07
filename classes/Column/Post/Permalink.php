@@ -12,10 +12,6 @@ class AC_Column_Post_Permalink extends AC_Column {
 		$this->set_label( __( 'Permalink', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		return $this->get_setting( 'link_to_post' )->format( $post_id );
-	}
-
 	public function get_raw_value( $post_id ) {
 		return get_permalink( $post_id );
 	}

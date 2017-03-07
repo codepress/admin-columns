@@ -49,7 +49,7 @@ class AC_Settings_Setting_PathScope extends AC_Settings_Setting
 		return true;
 	}
 
-	public function format( $file ) {
+	public function format( $file, $object_id = null ) {
 		$value = '';
 
 		if ( $file ) {

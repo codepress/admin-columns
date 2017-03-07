@@ -58,7 +58,7 @@ class AC_Settings_Setting_Date extends AC_Settings_Setting
 	 *
 	 * @return string
 	 */
-	public function format( $date ) {
+	public function format( $date, $object_id = null ) {
 		return ac_helper()->date->date( $date, $this->get_date_format() );
 	}
 
