@@ -113,7 +113,7 @@ final class AC_TableScreen {
 
 		wp_localize_script( 'ac-table', 'AC', array(
 				'list_screen'  => $this->current_list_screen->get_key(),
-				'layout'       => $this->current_list_screen->get_layout(),
+				'layout'       => $this->current_list_screen->get_layout_id(),
 				'column_types' => $this->get_column_types_mapping( $this->current_list_screen ),
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
 				'table_id'     => $this->current_list_screen->get_table_attr_id(),

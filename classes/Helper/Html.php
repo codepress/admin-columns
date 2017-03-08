@@ -48,13 +48,13 @@ class AC_Helper_Html {
 			$label = $url;
 		}
 
-		if ( ! $this->contains_html( $label ) ) {
-			$label = esc_html( $label );
-		}
-
 		if ( ! $label ) {
 		    return false;
         }
+
+		if ( ! $this->contains_html( $label ) ) {
+			$label = esc_html( $label );
+		}
 
 		$allowed = wp_allowed_protocols();
 		$allowed[] = 'skype';

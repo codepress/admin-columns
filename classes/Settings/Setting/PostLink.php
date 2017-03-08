@@ -20,6 +20,9 @@ class AC_Settings_Setting_PostLink extends AC_Settings_Setting
 	 * @return string
 	 */
 	public function format( $value, $object_id = null ) {
+		if ( ! $value ) {
+			return false;
+		}
 
 		switch ( $this->get_post_link_to() ) {
 

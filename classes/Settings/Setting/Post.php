@@ -57,20 +57,26 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 		return $value;
 	}
 
+	protected function get_post_type() {
+		return $this->column->get_post_type();
+	}
+
 	public function create_view() {
 		$select = $this->create_element( 'select' )
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );
 
+		$post_type = get_post_type_object( $this->get_post_type() );
+
 		$view = new AC_View( array(
-			'label'   => __( 'Post Field', 'codepress-admin-columns' ),
+			'label'   => sprintf( __( '%s Field', 'codepress-admin-columns' ), $post_type->labels->singular_name ),
 			'setting' => $select,
 		) );
 
 		return $view;
 	}
 
-	private function get_display_options() {
+	protected function get_display_options() {
 		$options = array(
 			'title'     => __( 'Title' ),
 			'id'        => __( 'ID' ),

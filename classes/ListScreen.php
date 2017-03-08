@@ -99,7 +99,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @var string Layout ID
 	 */
-	private $layout;
+	private $layout_id;
 
 	/**
 	 * @var string Storage key used for saving column data to the database
@@ -236,19 +236,19 @@ abstract class AC_ListScreen {
 	/**
 	 * @return string
 	 */
-	public function get_layout() {
-		return $this->layout;
+	public function get_layout_id() {
+		return $this->layout_id;
 	}
 
 	/**
-	 * @param string $layout
+	 * @param string $layout_id
 	 *
 	 * @return $this
 	 */
-	public function set_layout( $layout ) {
-		$this->layout = $layout;
+	public function set_layout_id( $layout_id ) {
+		$this->layout_id = $layout_id;
 
-		$this->set_storage_key( $this->get_key() . $this->layout );
+		$this->set_storage_key( $this->get_key() . $layout_id );
 
 		return $this;
 	}
@@ -316,14 +316,14 @@ abstract class AC_ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->page, 'layout' => $this->layout ), admin_url( $this->get_screen_base() . '.php' ) );
+		return add_query_arg( array( 'page' => $this->page, 'layout' => $this->get_layout_id() ), admin_url( $this->get_screen_base() . '.php' ) );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'list_screen' => $this->key, 'layout_id' => $this->layout ), AC()->admin_columns_screen()->get_link() );
+		return add_query_arg( array( 'list_screen' => $this->key, 'layout_id' => $this->get_layout_id() ), AC()->admin_columns_screen()->get_link() );
 	}
 
 	/**

@@ -315,15 +315,17 @@ class AC_Column {
 	 * @return string
 	 */
 	public function format_value( $value ) {
+		$object_id = $value;
+
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
 
 				if ( $value instanceof AC_Collection ) {
 					foreach ( $value as $k => $v ) {
-						$value->put( $k, $setting->format( $v ) );
+						$value->put( $k, $setting->format( $v, $object_id ) );
 					}
 				} else {
-					$value = $setting->format( $value );
+					$value = $setting->format( $value, $object_id );
 				}
 
 			}
