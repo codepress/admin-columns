@@ -37,7 +37,13 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				if ( ! $addon->is_plugin_installed() ) {
 					AC()->notice( sprintf( __( '%s plugin needs to be installed for the add-on to work. Get the plugin from %s.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>', ac_helper()->html->link( $addon->get_plugin_url(), __( 'this page', 'codepress-admin=n-columns' ) ) ), 'notice-warning' );
 				} else if ( ! $addon->is_plugin_active() ) {
-					AC()->notice( sprintf( __( '%s is installed, but not active. Please %s.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>', ac_helper()->html->link( $addon->get_activation_url( $addon->get_plugin_basename() ), __( 'activate', 'codepress-admin=n-columns' ), array( 'class' => '' ) ) ), 'notice-warning' );
+				    $message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>' );
+
+				    if ( current_user_can( 'activate_plugins' ) ) {
+					     $message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_activation_url( $addon->get_plugin_basename() ), __( 'here', 'codepress-admin=n-columns' ) ) );
+                    }
+
+					AC()->notice( $message, 'notice-warning' );
 				}
 
 			}
@@ -384,7 +390,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			foreach ( $sorted as $addon ) {
 				$addon_group = 'default';
 
-				if ( $addon->is_plugin_installed() ) {
+				if ( $addon->is_plugin_active() ) {
 					$addon_group = 'recommended';
 				}
 
