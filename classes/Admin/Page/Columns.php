@@ -70,6 +70,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT . '_layout', true );
 	}
 
+	private function get_first_list_screen() {
+        $list_screens = AC()->get_list_screens();
+
+        return reset( $list_screens );
+	}
+
 	private function set_current_list_screen() {
 
 		// User selected
@@ -85,9 +91,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			$key = key( AC()->get_list_screens() );
 		}
 
-		$this->set_list_screen_preference( $key );
+		$list_screen = AC()->get_list_screen( $key );
 
-		$this->current_list_screen = AC()->get_list_screen( $key );
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_first_list_screen();
+        }
+
+		$this->set_list_screen_preference( $list_screen->get_key() );
+
+		$this->current_list_screen = $list_screen;
 	}
 
 	public function get_current_list_screen() {
