@@ -615,7 +615,7 @@ abstract class AC_ListScreen {
 		if ( null === $this->columns ) {
 			foreach ( $this->get_original_columns() as $type => $label ) {
 				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
-					$this->register_column( $column );
+					$this->register_column( $column->set_original( true ) );
 				}
 			}
 		}
