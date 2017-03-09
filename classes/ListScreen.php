@@ -369,7 +369,13 @@ abstract class AC_ListScreen {
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
 
-		return isset( $columns[ $name ] ) ? $columns[ $name ] : false;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $name ) {
+				return $column;
+			}
+		}
+
+		return false;
 	}
 
 	/**
