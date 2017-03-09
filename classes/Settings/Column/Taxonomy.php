@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Taxonomy extends AC_Settings_Setting {
+class AC_Settings_Column_Taxonomy extends AC_Settings_Column {
 
 	/**
 	 * @var string

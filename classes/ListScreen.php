@@ -503,7 +503,7 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . $this->get_group_dir(), 'AC_' );
+		$this->register_column_types_from_dir( $this->get_local_column_path(), 'AC_' );
 
 		/**
 		 * Register column types
@@ -532,8 +532,14 @@ abstract class AC_ListScreen {
 	 *
 	 * @return string
 	 */
-	public function get_group_dir() {
-		return AC_Autoloader::string_to_classname( $this->get_group() );
+	public function get_local_column_path() {
+		$path = AC()->get_plugin_dir() . 'classes/Column/' . AC_Autoloader::string_to_classname( $this->get_group() );
+
+		if ( ! is_dir( $path ) ) {
+			return false;
+		}
+
+		return $path;
 	}
 
 	/**
@@ -591,7 +597,7 @@ abstract class AC_ListScreen {
 	 * @param array $data Column options
 	 */
 	protected function register_column( AC_Column $column ) {
-		$this->columns[ $column->get_name() ] = $column;
+		$this->columns[ $column->get_type() ] = $column;
 	}
 
 	/**

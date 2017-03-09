@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_ActionIcons extends AC_Settings_Setting {
+class AC_Settings_Column_ActionIcons extends AC_Settings_Column {
 
 	private $use_icons;
 

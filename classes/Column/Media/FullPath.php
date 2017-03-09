@@ -15,7 +15,7 @@ class AC_Column_Media_FullPath extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_PathScope( $this ) );
+		$this->add_setting( new AC_Settings_Column_PathScope( $this ) );
 	}
 
 }

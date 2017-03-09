@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
+class AC_Settings_Column_CustomField extends AC_Settings_Column {
 
 	/**
 	 * @var string
@@ -8,7 +8,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 	private $field;
 
 	public function get_dependent_settings() {
-		return array( new AC_Settings_Setting_CustomFieldType( $this->column ) );
+		return array( new AC_Settings_Column_CustomFieldType( $this->column ) );
 	}
 
 	protected function set_name() {
@@ -111,7 +111,7 @@ class AC_Settings_Setting_CustomField extends AC_Settings_Setting {
 
 		/**
 		 * @param array                           $keys Distinct meta keys from DB
-		 * @param AC_Settings_Setting_CustomField $this
+		 * @param AC_Settings_Column_CustomField $this
 		 */
 		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
 	}

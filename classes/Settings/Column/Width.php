@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Width extends AC_Settings_Setting
+class AC_Settings_Column_Width extends AC_Settings_Column
 	implements AC_Settings_HeaderInterface {
 
 	/**

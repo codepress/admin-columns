@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_Setting {
+abstract class AC_Settings_Column {
 
 	/**
 	 * A (short) reference to this setting
@@ -46,7 +46,7 @@ abstract class AC_Settings_Setting {
 	public abstract function create_view();
 
 	/**
-	 * @see AC_Settings_Setting::$options
+	 * @see AC_Settings_Column::$options
 	 * @return array
 	 */
 	protected abstract function define_options();
@@ -54,7 +54,7 @@ abstract class AC_Settings_Setting {
 	/**
 	 * Get settings that depend on this setting
 	 *
-	 * @return AC_Settings_Setting[]
+	 * @return AC_Settings_Column[]
 	 */
 	public function get_dependent_settings() {
 		return array();

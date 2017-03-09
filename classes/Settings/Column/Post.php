@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Post extends AC_Settings_Setting
+class AC_Settings_Column_Post extends AC_Settings_Column
 	implements AC_Settings_FormatInterface {
 
 	/**
@@ -23,11 +23,11 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 
 		switch ( $this->get_post_property_display() ) {
 			case 'thumbnail' :
-				$setting[] = new AC_Settings_Setting_Image( $this->column );
+				$setting[] = new AC_Settings_Column_Image( $this->column );
 				break;
 		}
 
-		$setting[] = new AC_Settings_Setting_PostLink( $this->column );
+		$setting[] = new AC_Settings_Column_PostLink( $this->column );
 
 		return $setting;
 	}

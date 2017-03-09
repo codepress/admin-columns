@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
+class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	implements AC_Settings_FormatInterface {
 
 	/**
@@ -19,23 +19,23 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 
 		switch ( $this->get_field_type() ) {
 			case 'date' :
-				$settings[] = new AC_Settings_Setting_Date( $this->column );
+				$settings[] = new AC_Settings_Column_Date( $this->column );
 				break;
 			case 'image' :
 			case 'library_id' :
-				$settings[] = new AC_Settings_Setting_Image( $this->column );
+				$settings[] = new AC_Settings_Column_Image( $this->column );
 				break;
 			case 'excerpt' :
-				$settings[] = new AC_Settings_Setting_CharacterLimit( $this->column );
+				$settings[] = new AC_Settings_Column_CharacterLimit( $this->column );
 				break;
 			case 'title_by_id' :
-				$settings[] = new AC_Settings_Setting_Post( $this->column );
+				$settings[] = new AC_Settings_Column_Post( $this->column );
 				break;
 			case 'user_by_id' :
-				$settings[] = new AC_Settings_Setting_User( $this->column );
+				$settings[] = new AC_Settings_Column_User( $this->column );
 				break;
 			case 'link' :
-				$settings[] = new AC_Settings_Setting_LinkLabel( $this->column );
+				$settings[] = new AC_Settings_Column_LinkLabel( $this->column );
 				break;
 		}
 

@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_Message extends AC_Settings_Setting {
+class AC_Settings_Column_Message extends AC_Settings_Column {
 
 	private $label;
 

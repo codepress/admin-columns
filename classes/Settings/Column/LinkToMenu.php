@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Setting_LinkToMenu extends AC_Settings_Setting_Toggle {
+class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle {
 
 	/**
 	 * @var string

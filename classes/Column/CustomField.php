@@ -39,8 +39,8 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_CustomField( $this ) );
-		$this->add_setting( new AC_Settings_Setting_BeforeAfter( $this ) );
+		$this->add_setting( new AC_Settings_Column_CustomField( $this ) );
+		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
 	}
 
 	/**

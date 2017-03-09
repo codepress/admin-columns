@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Settings_Setting_Toggle extends AC_Settings_Setting {
+abstract class AC_Settings_Column_Toggle extends AC_Settings_Column {
 
 	public function create_view() {
 		$setting = $this

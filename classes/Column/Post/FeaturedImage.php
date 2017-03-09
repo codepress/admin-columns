@@ -48,7 +48,7 @@ class AC_Column_Post_FeaturedImage extends AC_Column_Meta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_Image( $this ) );
+		$this->add_setting( new AC_Settings_Column_Image( $this ) );
 	}
 
 	public function is_valid() {

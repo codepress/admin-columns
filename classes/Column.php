@@ -31,7 +31,7 @@ class AC_Column {
 	private $original;
 
 	/**
-	 * @var AC_Settings_Setting[]
+	 * @var AC_Settings_Column[]
 	 */
 	private $settings;
 
@@ -209,11 +209,11 @@ class AC_Column {
 	}
 
 	/**
-	 * @param AC_Settings_Setting $setting
+	 * @param AC_Settings_Column $setting
 	 *
 	 * @return $this
 	 */
-	public function add_setting( AC_Settings_Setting $setting ) {
+	public function add_setting( AC_Settings_Column $setting ) {
 		$setting->set_values( $this->options );
 
 		$this->settings[ $setting->get_name() ] = $setting;
@@ -237,7 +237,7 @@ class AC_Column {
 	/**
 	 * @param string $id
 	 *
-	 * @return AC_Settings_Setting|AC_Settings_Setting_User|AC_Settings_Setting_Separator|AC_Settings_Setting_Label
+	 * @return AC_Settings_Column|AC_Settings_Column_User|AC_Settings_Column_Separator|AC_Settings_Column_Label
 	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
@@ -249,9 +249,9 @@ class AC_Column {
 	public function get_settings() {
 		if ( null === $this->settings ) {
 			$settings = array(
-				new AC_Settings_Setting_Type( $this ),
-				new AC_Settings_Setting_Label( $this ),
-				new AC_Settings_Setting_Width( $this ),
+				new AC_Settings_Column_Type( $this ),
+				new AC_Settings_Column_Label( $this ),
+				new AC_Settings_Column_Width( $this ),
 			);
 
 			foreach ( $settings as $setting ) {
