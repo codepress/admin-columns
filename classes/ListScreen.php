@@ -401,6 +401,15 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @param string $type Column type
+	 */
+	public function deregister_column_type( $type ) {
+		if ( isset( $this->column_types[ $type ] ) ) {
+			unset( $this->column_types[ $type ] );
+		}
+	}
+
+	/**
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
@@ -409,7 +418,7 @@ abstract class AC_ListScreen {
 		}
 
 		// Skip original columns that do not exist
-		if ( $column->is_original() && ! $this->original_column_exists( $column->get_type() ) ) {
+		if ( $column->is_original() && ! $this->original_column_exists( $column ) ) {
 			return false;
 		}
 
@@ -455,12 +464,12 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $type
+	 * @param AC_Column $column
 	 *
 	 * @return bool
 	 */
-	private function original_column_exists( $type ) {
-		return $this->get_original_label( $type ) ? true : false;
+	private function original_column_exists( $column ) {
+		return $this->get_original_label( $column->get_type() ) ? true : false;
 	}
 
 	/**
@@ -549,15 +558,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $column_type
-	 */
-	public function deregister_column_type( $column_type ) {
-		if ( isset( $this->column_types[ $column_type ] ) ) {
-			unset( $this->column_types[ $column_type ] );
-		}
-	}
-
-	/**
 	 * @param array  $settings Column options
 	 * @param string $name     Unique column name
 	 *
@@ -579,6 +579,10 @@ abstract class AC_ListScreen {
 
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] );
+
+		if ( $this->original_column_exists( $column ) ) {
+			$column->set_original( true );
+		}
 
 		if ( $column->is_original() ) {
 			$name = $column->get_type();
@@ -603,7 +607,7 @@ abstract class AC_ListScreen {
 	 * @param array $data Column options
 	 */
 	protected function register_column( AC_Column $column ) {
-		$this->columns[ $column->get_type() ] = $column;
+		$this->columns[ $column->get_name() ] = $column;
 	}
 
 	/**

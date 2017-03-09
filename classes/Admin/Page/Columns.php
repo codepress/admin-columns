@@ -661,7 +661,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
             <div class="ac-left">
 				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) : ?>
-                    <div class="cpac-notice">
+                    <div class="notice notice-warning">
                         <p>
 							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>
                         </p>
