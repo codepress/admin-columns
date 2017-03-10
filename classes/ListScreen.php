@@ -117,6 +117,11 @@ abstract class AC_ListScreen {
 	private $read_only = false;
 
 	/**
+	 * @var bool
+	 */
+	private $network_only = false;
+
+	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
@@ -305,10 +310,24 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param bool $bool
+	 * @param bool $read_only
 	 */
 	public function set_read_only( $read_only ) {
 		$this->read_only = (bool) $read_only;
+	}
+
+	/**
+	 * Settings can not be overwritten
+	 */
+	public function is_network_only() {
+		return $this->network_only;
+	}
+
+	/**
+	 * @param bool $network_only
+	 */
+	public function set_network_only( $network_only ) {
+		$this->network_only = (bool) $network_only;
 	}
 
 	/**
