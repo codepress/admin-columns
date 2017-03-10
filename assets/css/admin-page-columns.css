@@ -307,14 +307,18 @@
   line-height: 24px; }
   .ac-setting-input input, .ac-setting-input select {
     width: 99.95%; }
+  .ac-setting-input input[type=checkbox],
   .ac-setting-input input[type=radio] {
     width: auto;
     margin-right: 4px; }
+  .ac-setting-input .checkbox-labels > label,
   .ac-setting-input .radio-labels > label {
     padding-right: 10px;
     vertical-align: top; }
+  .ac-setting-input .checkbox-labels.vertical input[type=radio],
   .ac-setting-input .radio-labels.vertical input[type=radio] {
     margin-right: 6px; }
+  .ac-setting-input .checkbox-labels.vertical > label,
   .ac-setting-input .radio-labels.vertical > label {
     display: block;
     margin-bottom: 5px; }

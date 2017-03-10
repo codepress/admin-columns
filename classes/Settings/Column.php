@@ -39,17 +39,17 @@ abstract class AC_Settings_Column {
 	}
 
 	/**
+	 * @see AC_Settings_Column::$options
+	 * @return array
+	 */
+	protected abstract function define_options();
+
+	/**
 	 * Create a string representation of this setting
 	 *
 	 * @return AC_View|false
 	 */
 	public abstract function create_view();
-
-	/**
-	 * @see AC_Settings_Column::$options
-	 * @return array
-	 */
-	protected abstract function define_options();
 
 	/**
 	 * Get settings that depend on this setting
@@ -76,7 +76,7 @@ abstract class AC_Settings_Column {
 	 * Set an option and set value afterwards
 	 *
 	 * @param string $option
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	private function set_option( $option, $value = null ) {
 		$this->options[ $option ] = $value;
@@ -156,7 +156,7 @@ abstract class AC_Settings_Column {
 	 * Invoke the setter of the setting
 	 *
 	 * @param string|array|int|bool $value
-	 * @param string $option
+	 * @param string                $option
 	 *
 	 * @return bool
 	 */
@@ -174,7 +174,7 @@ abstract class AC_Settings_Column {
 	 * Set value of an option
 	 *
 	 * @param string|array|int|bool $value
-	 * @param string|null $option
+	 * @param string|null           $option
 	 *
 	 * @return bool
 	 */
@@ -200,7 +200,7 @@ abstract class AC_Settings_Column {
 	 * Set a default value unless option is loaded from settings
 	 *
 	 * @param string|array|int|bool $value
-	 * @param string|null $option
+	 * @param string|null           $option
 	 *
 	 * @return bool
 	 */
@@ -255,7 +255,7 @@ abstract class AC_Settings_Column {
 	/**
 	 * Add an element to this setting
 	 *
-	 * @param string $type
+	 * @param string      $type
 	 * @param string|null $name
 	 *
 	 * @return AC_Settings_Form_Element_Select|AC_Settings_Form_Element_Input|AC_Settings_Form_Element_Radio
@@ -266,11 +266,16 @@ abstract class AC_Settings_Column {
 		}
 
 		switch ( $type ) {
-			case 'radio':
+
+			case 'checkbox' :
+				$element = new AC_Settings_Form_Element_Checkbox( $name );
+
+				break;
+			case 'radio' :
 				$element = new AC_Settings_Form_Element_Radio( $name );
 
 				break;
-			case 'select':
+			case 'select' :
 				$element = new AC_Settings_Form_Element_Select( $name );
 
 				break;

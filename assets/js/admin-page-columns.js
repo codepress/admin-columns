@@ -257,7 +257,7 @@ function cpac_reset_columns( $ ) {
 			$column.addClass( 'events-binded' );
 
 			// hook for addons
-			$( document ).trigger( 'column_init', $.column );
+			$( document ).trigger( 'column_init', $column );
 		} ).css( 'cursor', 'pointer' );
 	};
 
@@ -876,7 +876,8 @@ function cpac_reset_columns( $ ) {
 	/**
 	 * Populates the main Label with the selected label from the dropdown,
 	 */
-	$( document ).bind( 'column_change', function( e, column ) {
+	$( document ).bind( 'column_init', function( e, column ) {
+
 		var $column = $( column );
 		var $select = $column.find( 'select[data-label="update"]' );
 
@@ -884,12 +885,14 @@ function cpac_reset_columns( $ ) {
 			return;
 		}
 
-		var $label = $column.find( 'input.ac-setting-input_label' );
-		var field_label = $select.find( 'option:selected' ).text();
+		$select.bind( 'change', function() {
+			var $label = $column.find( 'input.ac-setting-input_label' );
+			var field_label = $select.find( 'option:selected' ).text();
 
-		// Set new label
-		$label.val( field_label );
-		$label.trigger( 'change' );
+			// Set new label
+			$label.val( field_label );
+			$label.trigger( 'change' );
+		});
 	} );
 
 }( jQuery ));

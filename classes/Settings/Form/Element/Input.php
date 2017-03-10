@@ -8,6 +8,7 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_Element {
 			'number',
 			'email',
 			'radio',
+			'checkbox',
 		);
 
 		return in_array( $type, $valid_types );

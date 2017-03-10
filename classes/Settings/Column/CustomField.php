@@ -117,27 +117,35 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column {
 	}
 
 	private function get_field_options() {
-		$options = array();
+		return $this->group_meta_keys( $this->get_meta_keys() );
+	}
 
-		if ( $keys = $this->get_meta_keys() ) {
-			$options = array(
-				'hidden' => array(
-					'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
-					'options' => array(),
-				),
-				'public' => array(
-					'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
-					'options' => array(),
-				),
-			);
+	private function group_meta_keys( $keys ) {
+		if ( ! $keys ) {
+			return array();
+		}
 
-			foreach ( $keys as $field ) {
-				$group = 0 === strpos( $field[0], '_' ) ? 'hidden' : 'public';
+		$options = array(
+			'hidden' => array(
+				'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+				'options' => array(),
+			),
+			'public' => array(
+				'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+				'options' => array(),
+			),
+		);
 
-				$options[ $group ]['options'][ $field ] = $field;
-			}
+		foreach ( $keys as $field ) {
+			$group = 0 === strpos( $field[0], '_' ) ? 'hidden' : 'public';
 
-			krsort( $options ); // public first
+			$options[ $group ]['options'][ $field ] = $field;
+		}
+
+		krsort( $options ); // public first
+
+		if ( empty( $options['hidden']['options'] ) ) {
+			$options = $options['public']['options'];
 		}
 
 		return $options;
