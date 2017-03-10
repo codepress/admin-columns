@@ -20,6 +20,7 @@ class AC_Admin_Pages {
 
 	/**
 	 * @param AC_Admin_Page $page
+	 *
 	 * @return AC_Admin_Pages
 	 */
 	public function register_page( AC_Admin_Page $page ) {
@@ -54,42 +55,38 @@ class AC_Admin_Pages {
 		$page = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
 
 		if ( ! $page ) {
-		    $page = $this->get_page( $this->default_slug );
-        }
+			$page = $this->get_page( $this->default_slug );
+		}
 
-        return $page;
+		return $page;
 	}
 
 	public function display() { ?>
-		<div id="cpac" class="wrap">
-			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
+        <div id="cpac" class="wrap">
+            <h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
 				$active_page = $this->get_current_page();
 
 				foreach ( $this->pages as $slug => $page ) {
+					if ( $page->show_in_menu() ) {
+						$active = $slug === $active_page->get_slug() ? ' nav-tab-active' : '';
 
-				    // skip
-				    if ( ! $page->show_in_menu() ) {
-				        continue;
-                    }
-
-					$active = $slug === $active_page->get_slug() ? ' nav-tab-active' : '';
-
-				    echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $page->get_label(), array( 'class' => 'nav-tab ' . $active ) );
+						echo ac_helper()->html->link( AC()->admin()->get_link( $slug ), $page->get_label(), array( 'class' => 'nav-tab ' . $active ) );
+					}
 				}
 
 				?>
-			</h1>
+            </h1>
 
 			<?php
 
 			do_action( 'ac/settings/after_menu' );
 
-            $active_page->display();
+			$active_page->display();
 
 			?>
-		</div>
+        </div>
 
 		<?php
 	}

@@ -181,7 +181,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return string
 	 */
 	private function get_error_message_visit_list_screen( $list_screen ) {
-		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" );
+		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) );
 	}
 
 	/**
