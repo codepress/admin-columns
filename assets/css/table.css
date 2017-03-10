@@ -56,6 +56,11 @@ body.users-php .tablenav .actions a.add-new-h2 {
 body.upload-php .tablenav.top .cpac-edit {
   float: none; }
 
+/* =Network screen
+-------------------------------------------------------------- */
+#form-site-list .tablenav .actions .cpac-edit {
+  float: none; }
+
 /* =General Column
 -------------------------------------------------------------- */
 .ac-inline-info {
@@ -145,7 +150,6 @@ div.cpac-color span {
   height: 16px;
   line-height: 16px;
   margin-right: 12px;
-  min-width: 30px;
   overflow: hidden;
   padding: 4px 5px;
   font-size: 10px;
