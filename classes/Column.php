@@ -310,32 +310,35 @@ class AC_Column {
 	 * A formatter should return a AC_Collection when other formatters
 	 * should apply the formatter to each member of the collection
 	 *
-	 * @param AC_Collection|string $value
+	 * @param $value
 	 *
 	 * @return string
 	 */
 	public function format_value( $value ) {
-		$object_id = $value;
 
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
-
 				if ( $value instanceof AC_Collection ) {
-					foreach ( $value as $k => $v ) {
-						$value->put( $k, $setting->format( $v, $object_id ) );
+					foreach ( $value as $item ) {
+						$setting->format( $item );
 					}
 				} else {
-					$value = $setting->format( $value, $object_id );
+					$value = $setting->format( $value );
 				}
-
 			}
 		}
 
 		if ( $value instanceof AC_Collection ) {
-			$value = $value->implode( $this->get_separator() );
+			$items = array();
+
+			foreach ( $value as $item ) {
+				$items[] = $item->render();
+			}
+
+			return implode( $this->get_separator(), $items );
 		}
 
-		return $value;
+		return $value->render();
 	}
 
 	/**
@@ -378,7 +381,10 @@ class AC_Column {
 	 * @return mixed
 	 */
 	public function get_value( $object_id ) {
-		return $this->format_value( $this->get_raw_value( $object_id ) );
+		$value = new AC_Value( $object_id );
+		$value->set( $this->get_raw_value( $object_id ) );
+
+		return $this->format_value( $value );
 	}
 
 	/**

@@ -21,12 +21,12 @@ class AC_Settings_Setting_BeforeAfter extends AC_Settings_Setting
 		return array( 'before', 'after' );
 	}
 
-	public function format( $value, $object_id = null ) {
-		if ( ac_helper()->string->is_empty( $value ) ) {
-			return false;
+	public function format( AC_Value $value ) {
+		if ( $this->get_before() || $this->get_after() ) {
+			$value->add_wrapper( $this->before, $this->after );
 		}
 
-		return $this->get_before() . $value . $this->get_after();
+		return $value;
 	}
 
 	public function create_view() {

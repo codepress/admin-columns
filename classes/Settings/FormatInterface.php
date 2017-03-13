@@ -3,11 +3,10 @@
 interface AC_Settings_FormatInterface {
 
 	/**
-	 * @param string|int $value
-	 * @param int $id Object ID
+	 * @param AC_Value $value
 	 *
-	 * @return string
+	 * @return AC_Value
 	 */
-	public function format( $value, $object_id = null );
+	public function format( AC_Value $value );
 
 }

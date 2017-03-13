@@ -19,7 +19,7 @@ class AC_Settings_Setting_PostLink extends AC_Settings_Setting
 	 *
 	 * @return string
 	 */
-	public function format( $value, $object_id = null ) {
+	public function format( AC_Value $value ) {
 		if ( ! $value ) {
 			return false;
 		}
@@ -27,7 +27,10 @@ class AC_Settings_Setting_PostLink extends AC_Settings_Setting
 		switch ( $this->get_post_link_to() ) {
 
 			case 'edit_post' :
-				$link = get_edit_post_link( $object_id );
+				$link = get_edit_post_link( $value->get_id() );
+
+				$value->add_wrapper( sprintf( '<a href="%s">', $link ), '</a>' );
+
 				break;
 
 			case 'view_post' :
@@ -46,6 +49,7 @@ class AC_Settings_Setting_PostLink extends AC_Settings_Setting
 				$link = false;
 		}
 
+		return $value;
 		return ac_helper()->html->link( $link, $value );
 	}
 

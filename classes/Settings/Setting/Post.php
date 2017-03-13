@@ -35,9 +35,9 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 	/**
 	 * @param int $post_id
 	 *
-	 * @return string
+	 * @return AC_Value $value
 	 */
-	public function format( $value, $post_id = null ) {
+	public function format( AC_Value $value ) {
 
 		switch ( $this->get_post_property_display() ) {
 
@@ -50,7 +50,7 @@ class AC_Settings_Setting_Post extends AC_Settings_Setting
 				break;
 
 			case 'title' :
-				$value = ac_helper()->post->get_raw_field( 'post_title', $value );
+				$value->set( ac_helper()->post->get_raw_field( 'post_title', $value->get_id() ) );
 				break;
 		}
 

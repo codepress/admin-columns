@@ -152,12 +152,12 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 	}
 
 	/**
-	 * @param array|string $id
+	 * @param AC_Value $value
 	 *
 	 * @return string|bool
 	 */
-	public function format( $meta_data, $object_id = null ) {
-		$value = false;
+	public function format( AC_Value $value ) {
+		//$value = false;
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
@@ -170,10 +170,13 @@ class AC_Settings_Setting_CustomFieldType extends AC_Settings_Setting
 
 			case 'title_by_id' :
 			case 'user_by_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
-				$value = ac_helper()->string->string_to_array_integers( $string );
+				$string = ac_helper()->array->implode_recursive( ', ', $value->get() );
+				$value = new AC_Collection();
 
-				$value = new AC_Collection( $value );
+				foreach( ac_helper()->string->string_to_array_integers( $string ) as $id ) {
+					$value->push( new AC_Value( $id ) );
+				}
+
 				break;
 
 			case "checkmark" :
