@@ -47,7 +47,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @see wp_trim_words();
+	 * @see   wp_trim_words();
 	 *
 	 * @since NEWVERSION
 	 *
@@ -59,7 +59,7 @@ class AC_Helper_String {
 
 	/**
 	 * @param string $string
-	 * @param int $limit
+	 * @param int    $limit
 	 *
 	 * @return string
 	 */
@@ -72,8 +72,8 @@ class AC_Helper_String {
 	 *
 	 * Example: #FF0 will be fff000 based on the $prefix parameter
 	 *
-	 * @param string $hex Valid hex color
-	 * @param bool $prefix Prefix with a # or not
+	 * @param string $hex    Valid hex color
+	 * @param bool   $prefix Prefix with a # or not
 	 *
 	 * @return string
 	 */
@@ -145,12 +145,10 @@ class AC_Helper_String {
 		if ( is_scalar( $string ) ) {
 			if ( strpos( $string, ',' ) !== false ) {
 				$array = array_filter( explode( ',', ac_helper()->string->strip_trim( str_replace( ' ', '', $string ) ) ) );
-			}
-			else {
+			} else {
 				$array = array( $string );
 			}
-		}
-		else if ( is_array( $string ) ) {
+		} else if ( is_array( $string ) ) {
 			$array = $string;
 		}
 
@@ -227,8 +225,7 @@ class AC_Helper_String {
 			}
 			if ( $minutes < 1 ) {
 				$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'codepress-admin-columns' );
-			}
-			else {
+			} else {
 				$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'codepress-admin-columns' );
 			}
 		}
@@ -268,6 +265,30 @@ class AC_Helper_String {
 	 */
 	public function is_not_empty( $value ) {
 		return $value || 0 === $value;
+	}
+
+	/**
+	 * Return an array into a comma separated sentence. For example [minute, hours, days] becomes: "minute, hours or days".
+	 *
+	 * @param array $words
+	 *
+	 * @return string
+	 */
+	public function enumeration_list( $words, $compound = 'or' ) {
+		if ( empty( $words ) || ! is_array( $words ) ) {
+			return false;
+		}
+
+		if ( 'or' === $compound ) {
+			$compound = __( ' or ', 'codepress-admin-columns' );
+		} else {
+			$compound = __( ' and ', 'codepress-admin-columns' );
+		}
+
+		$last = end( $words );
+		$delimiter = ', ';
+
+		return str_replace( $delimiter . $last, $compound . $last, implode( $delimiter, $words ) );
 	}
 
 }
