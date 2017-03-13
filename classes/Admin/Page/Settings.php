@@ -88,7 +88,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) :
+		switch ( filter_input( INPUT_POST, 'ac_action' ) ) :
 
 			case 'restore_all' :
 				if ( $this->verify_nonce( 'restore-all' ) ) {
@@ -208,8 +208,8 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 						<?php $this->nonce_field( 'restore-all' ); ?>
 
-                        <input type="hidden" name="cpac_action" value="restore_all">
-                        <input type="submit" class="button" name="cpac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');">
+                        <input type="hidden" name="ac_action" value="restore_all">
+                        <input type="submit" class="button" name="ac-restore-defaults" value="<?php echo esc_attr( __( 'Restore default settings', 'codepress-admin-columns' ) ); ?>" onclick="return confirm('<?php echo esc_js( __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ) ); ?>');">
                     </form>
                 </td>
             </tr>

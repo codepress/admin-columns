@@ -33,7 +33,7 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_WordsPerMinute( $this ) );
+		$this->add_setting( new AC_Settings_Column_WordsPerMinute( $this ) );
 	}
 
 }

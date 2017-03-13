@@ -28,7 +28,7 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 	}
 
 	public function register_settings() {
-		$word_limit = new AC_Settings_Setting_WordLimit( $this );
+		$word_limit = new AC_Settings_Column_WordLimit( $this );
 		$word_limit->set_default( 15 );
 
 		$this->add_setting( $word_limit );

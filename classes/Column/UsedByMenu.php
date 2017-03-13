@@ -78,7 +78,7 @@ class AC_Column_UsedByMenu extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_LinkToMenu( $this ) );
+		$this->add_setting( new AC_Settings_Column_LinkToMenu( $this ) );
 	}
 
 }

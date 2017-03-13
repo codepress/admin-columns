@@ -77,8 +77,8 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function tooltip( $label, $tooltip ) {
-	    if ( $label ) {
-		    $label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</div>';
+	    if ( $label && $tooltip ) {
+		    $label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
 	    }
 
 	    return $label;

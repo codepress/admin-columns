@@ -36,7 +36,7 @@ class AC_Column_Taxonomy extends AC_Column {
 	// Settings
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_Taxonomy( $this ) );
+		$this->add_setting( new AC_Settings_Column_Taxonomy( $this ) );
 	}
 
 }

@@ -70,6 +70,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT . '_layout', true );
 	}
 
+	private function get_first_list_screen() {
+        $list_screens = AC()->get_list_screens();
+
+        return reset( $list_screens );
+	}
+
 	private function set_current_list_screen() {
 
 		// User selected
@@ -85,9 +91,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			$key = key( AC()->get_list_screens() );
 		}
 
-		$this->set_list_screen_preference( $key );
+		$list_screen = AC()->get_list_screen( $key );
 
-		$this->current_list_screen = AC()->get_list_screen( $key );
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_first_list_screen();
+        }
+
+		$this->set_list_screen_preference( $list_screen->get_key() );
+
+		$this->current_list_screen = $list_screen;
 	}
 
 	public function get_current_list_screen() {
@@ -169,7 +181,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return string
 	 */
 	private function get_error_message_visit_list_screen( $list_screen ) {
-		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), "<a href='" . esc_url( $list_screen->get_screen_link() ) . "'>" . esc_html( $list_screen->get_label() ) . "</a>" );
+		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) );
 	}
 
 	/**
@@ -649,7 +661,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
             <div class="ac-left">
 				<?php if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) : ?>
-                    <div class="cpac-notice">
+                    <div class="notice notice-warning">
                         <p>
 							<?php echo $this->get_error_message_visit_list_screen( $list_screen ); ?>
                         </p>

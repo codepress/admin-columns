@@ -17,7 +17,7 @@ class AC_Column_Post_Permalink extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Setting_LinkToPost( $this ) );
+		$this->add_setting( new AC_Settings_Column_LinkToPost( $this ) );
 
 	}
 

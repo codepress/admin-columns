@@ -14,10 +14,10 @@
  * @property AC_Helper_User user
  * @property AC_Helper_Icon icon
  * @property AC_Helper_Html html
+ * @property AC_Helper_Network network
  */
 final class AC_Helper {
 
-	// todo: maybe change to __call and allow for parameters
 	public function __get( $helper ) {
 		$class = 'AC_Helper_' . ucfirst( $helper );
 

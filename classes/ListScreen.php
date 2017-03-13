@@ -117,6 +117,11 @@ abstract class AC_ListScreen {
 	private $read_only = false;
 
 	/**
+	 * @var bool
+	 */
+	private $network_only = false;
+
+	/**
 	 * Contains the hook that contains the manage_value callback
 	 *
 	 * @return void
@@ -305,10 +310,24 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param bool $bool
+	 * @param bool $read_only
 	 */
 	public function set_read_only( $read_only ) {
 		$this->read_only = (bool) $read_only;
+	}
+
+	/**
+	 * Settings can not be overwritten
+	 */
+	public function is_network_only() {
+		return $this->network_only;
+	}
+
+	/**
+	 * @param bool $network_only
+	 */
+	public function set_network_only( $network_only ) {
+		$this->network_only = (bool) $network_only;
 	}
 
 	/**
@@ -369,7 +388,13 @@ abstract class AC_ListScreen {
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
 
-		return isset( $columns[ $name ] ) ? $columns[ $name ] : false;
+		foreach ( $columns as $column ) {
+			if ( $column->get_name() === $name ) {
+				return $column;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -395,6 +420,15 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @param string $type Column type
+	 */
+	public function deregister_column_type( $type ) {
+		if ( isset( $this->column_types[ $type ] ) ) {
+			unset( $this->column_types[ $type ] );
+		}
+	}
+
+	/**
 	 * @param AC_Column $column
 	 */
 	public function register_column_type( AC_Column $column ) {
@@ -403,7 +437,7 @@ abstract class AC_ListScreen {
 		}
 
 		// Skip original columns that do not exist
-		if ( $column->is_original() && ! $this->original_column_exists( $column->get_type() ) ) {
+		if ( $column->is_original() && ! $this->original_column_exists( $column ) ) {
 			return false;
 		}
 
@@ -449,12 +483,12 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $type
+	 * @param AC_Column $column
 	 *
 	 * @return bool
 	 */
-	private function original_column_exists( $type ) {
-		return $this->get_original_label( $type ) ? true : false;
+	private function original_column_exists( $column ) {
+		return $this->get_original_label( $column->get_type() ) ? true : false;
 	}
 
 	/**
@@ -503,7 +537,7 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/' . $this->get_group_dir(), 'AC_' );
+		$this->register_column_types_from_dir( $this->get_local_column_path(), 'AC_' );
 
 		/**
 		 * Register column types
@@ -532,17 +566,14 @@ abstract class AC_ListScreen {
 	 *
 	 * @return string
 	 */
-	public function get_group_dir() {
-		return AC_Autoloader::string_to_classname( $this->get_group() );
-	}
+	public function get_local_column_path() {
+		$path = AC()->get_plugin_dir() . 'classes/Column/' . AC_Autoloader::string_to_classname( $this->get_group() );
 
-	/**
-	 * @param string $column_type
-	 */
-	public function deregister_column_type( $column_type ) {
-		if ( isset( $this->column_types[ $column_type ] ) ) {
-			unset( $this->column_types[ $column_type ] );
+		if ( ! is_dir( $path ) ) {
+			return false;
 		}
+
+		return $path;
 	}
 
 	/**
@@ -567,6 +598,10 @@ abstract class AC_ListScreen {
 
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] );
+
+		if ( $this->original_column_exists( $column ) ) {
+			$column->set_original( true );
+		}
 
 		if ( $column->is_original() ) {
 			$name = $column->get_type();
@@ -609,7 +644,7 @@ abstract class AC_ListScreen {
 		if ( null === $this->columns ) {
 			foreach ( $this->get_original_columns() as $type => $label ) {
 				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
-					$this->register_column( $column );
+					$this->register_column( $column->set_original( true ) );
 				}
 			}
 		}

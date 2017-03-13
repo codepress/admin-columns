@@ -458,10 +458,12 @@
 		width: 99.95%;
 	}
 
+	input[type=checkbox],
 	input[type=radio] {
 		width: auto;
 		margin-right: 4px;
 	}
+	.checkbox-labels,
 	.radio-labels {
 		> label {
 			padding-right: 10px;
