@@ -136,6 +136,33 @@ body.upload-php .tablenav.top .cpac-edit {
   padding-left: 5px;
   padding-right: 0; }
 
+.ac-progress-bar {
+  width: 100%;
+  display: flex; }
+  .ac-progress-bar .ac-label-main {
+    width: 65px; }
+  .ac-progress-bar .ac-bar-container {
+    flex: auto;
+    background-color: #a6a6a6;
+    min-height: 22px;
+    line-height: 22px;
+    position: relative; }
+    .ac-progress-bar .ac-bar-container .ac-bar {
+      height: 100%;
+      background-color: #46b450;
+      border-right: 1px solid #fff; }
+    .ac-progress-bar .ac-bar-container .ac-label-left {
+      color: #fff;
+      position: absolute;
+      left: 5px; }
+    .ac-progress-bar .ac-bar-container .ac-label-right {
+      color: #fff;
+      position: absolute;
+      right: 5px; }
+  .ac-progress-bar.full .ac-bar-container .ac-bar {
+    background-color: #f00;
+    border: none; }
+
 /* =Color Column
 -------------------------------------------------------------- */
 div.cpac-color {

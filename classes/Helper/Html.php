@@ -49,8 +49,8 @@ class AC_Helper_Html {
 		}
 
 		if ( ! $label ) {
-		    return false;
-        }
+			return false;
+		}
 
 		if ( ! $this->contains_html( $label ) ) {
 			$label = esc_html( $label );
@@ -77,25 +77,25 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function tooltip( $label, $tooltip ) {
-	    if ( $label && $tooltip ) {
-		    $label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
-	    }
+		if ( $label && $tooltip ) {
+			$label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
+		}
 
-	    return $label;
+		return $label;
 	}
 
 	/**
 	 * @param string $string
-	 * @param int $max_chars
+	 * @param int    $max_chars
 	 *
 	 * @return string
 	 */
 	public function codearea( $string, $max_chars = 1000 ) {
-	    if ( ! $string ) {
-	        return false;
-        }
+		if ( ! $string ) {
+			return false;
+		}
 
-        return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . substr( $string, 0, $max_chars ) . '</textarea>';
+		return '<textarea style="color: #808080; width: 100%; min-height: 60px;" readonly>' . substr( $string, 0, $max_chars ) . '</textarea>';
 	}
 
 	/**
@@ -107,10 +107,10 @@ class AC_Helper_Html {
 		$_attributes = array();
 
 		foreach ( $attributes as $attribute => $value ) {
-		    if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
-			    $_attributes[] = $this->get_attribute_as_string( $attribute, $value );
-		    }
-        }
+			if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
+				$_attributes[] = $this->get_attribute_as_string( $attribute, $value );
+			}
+		}
 
 		return ' ' . implode( ' ', $_attributes );
 	}
@@ -142,28 +142,28 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function implode( $array, $divider = true ) {
-	    if ( ! is_array( $array ) ) {
-	        return $array;
-        }
+		if ( ! is_array( $array ) ) {
+			return $array;
+		}
 
-        // Remove empty values
+		// Remove empty values
 		$array = $this->remove_empty( $array );
 
-	    if ( true === $divider ) {
-		    $divider = $this->divider();
-        }
+		if ( true === $divider ) {
+			$divider = $this->divider();
+		}
 
 		return implode( $divider, $array );
 	}
 
 	public function remove_empty( $array ) {
-        return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
+		return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
 	}
 
 	/**
 	 * Remove attribute from an html tag
 	 *
-	 * @param string $html HTML tag
+	 * @param string       $html      HTML tag
 	 * @param string|array $attribute Attribute: style, class, alt, data etc.
 	 *
 	 * @return mixed
@@ -179,22 +179,72 @@ class AC_Helper_Html {
 	}
 
 	/**
-     * Small HTML block with grey background and rounded corners
-     *
+	 * Small HTML block with grey background and rounded corners
+	 *
 	 * @param string|array $items
 	 *
 	 * @return string
 	 */
 	public function small_block( $items ) {
-	    $blocks = array();
+		$blocks = array();
 
-        foreach ( (array) $items as $item ) {
-            if ( $item && is_string( $item ) ) {
-	            $blocks[] = '<span class="ac-small-block">' . $item . '</span>';
-            }
-        }
+		foreach ( (array) $items as $item ) {
+			if ( $item && is_string( $item ) ) {
+				$blocks[] = '<span class="ac-small-block">' . $item . '</span>';
+			}
+		}
 
-        return implode( $blocks );
+		return implode( $blocks );
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	public function progress_bar( $args = array() ) {
+		$defaults = array(
+			'current'     => 0,
+			'total'       => 100,
+			'label_left'  => '',
+			'label_right' => '',
+			'label_main'  => '',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$args['current'] = absint( $args['current'] );
+		$args['total'] = absint( $args['total'] );
+
+		if ( $args['total'] < 0 ) {
+			return false;
+		}
+
+		$percentage = round( ( $args['current'] / $args['total'] ) * 100 );
+
+		$class = '';
+		if ( $percentage > 100 ) {
+			$percentage = 100;
+			$class = ' full';
+		}
+
+		ob_start();
+		?>
+        <div class="ac-progress-bar<?php echo esc_attr( $class ); ?>">
+			<?php if ( $args['label_main'] ) : ?>
+                <span class="ac-label-main"><?php echo esc_html( $args['label_main'] ); ?></span>
+			<?php endif; ?>
+            <div class="ac-bar-container">
+                <span class="ac-label-left"><?php echo esc_html( $args['label_left'] ); ?></span>
+                <span class="ac-label-right"><?php echo esc_html( $args['label_right'] ); ?></span>
+				<?php if ( $percentage ) : ?>
+                    <div class="ac-bar" style="width:<?php echo esc_attr( $percentage ); ?>%"></div>
+				<?php endif; ?>
+            </div>
+        </div>
+		<?php
+
+		return ob_get_clean();
 	}
 
 }
