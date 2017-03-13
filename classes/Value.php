@@ -76,7 +76,7 @@ class AC_Value {
 	 * @return $this
 	 */
 	public function add_wrapper( $before, $after, $priority = 10 ) {
-		$this->wrappers[ absint( $priority ) ][] = (object) array(
+		$this->wrappers[ absint( $priority ) ][] = array(
 			'before' => $before,
 			'after'  => $after,
 		);
@@ -96,11 +96,18 @@ class AC_Value {
 
 		foreach ( $this->wrappers as $priority => $wrappers ) {
 			foreach ( $wrappers as $wrapper ) {
-				$value = $wrapper->before . $value . $wrapper->after;
+				$value = $wrapper['before'] . $value . $wrapper['after'];
 			}
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->render();
 	}
 
 }
