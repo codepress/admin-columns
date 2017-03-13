@@ -14,22 +14,22 @@ class AC_Column_UsedByMenu extends AC_Column {
 	}
 
 	public function get_value( $object_id ) {
-		$menus = array();
+		$menus = new AC_Collection();
 
 		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
 			foreach ( $menu_ids as $menu_id ) {
 				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
-
 				$title = $term->name;
+
 				if ( 'on' === $this->get_option( 'link_to_menu' ) ) {
 					$title = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
 				}
 
-				$menus[] = $title;
+				$menus->push(  new AC_Value( $title ) );
 			}
 		}
 
-		return $this->format_value( new AC_Collection( $menus ) );
+		return $this->format_value( $menus );
 	}
 
 	/**
