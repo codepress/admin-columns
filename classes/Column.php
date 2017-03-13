@@ -315,7 +315,6 @@ class AC_Column {
 	 * @return string
 	 */
 	public function format_value( $value ) {
-
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
 				if ( $value instanceof AC_Collection ) {
@@ -338,7 +337,11 @@ class AC_Column {
 			return implode( $this->get_separator(), $items );
 		}
 
-		return $value->render();
+		if ( $value instanceof AC_Value ) {
+			return $value->render();
+		}
+
+		return $value;
 	}
 
 	/**
@@ -381,8 +384,7 @@ class AC_Column {
 	 * @return mixed
 	 */
 	public function get_value( $object_id ) {
-		$value = new AC_Value( $object_id );
-		$value->set( $this->get_raw_value( $object_id ) );
+		$value = new AC_Value( $this->get_raw_value( $object_id ), $object_id );
 
 		return $this->format_value( $value );
 	}

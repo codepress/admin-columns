@@ -5,7 +5,6 @@ class AC_Value {
 	/**
 	 * @var AC_Collection|string
 	 */
-	// TODO: name $value is ok-ish. Maybe use data or format or...
 	protected $value;
 
 	/**
@@ -19,9 +18,15 @@ class AC_Value {
 	protected $wrappers = array();
 
 	/**
-	 * @param null|int $id
+	 * @param string $value
+	 * @param int    $id
 	 */
-	public function __construct( $id = null ) {
+	public function __construct( $value, $id = null ) {
+		if ( null === $id ) {
+			$id = $value;
+		}
+
+		$this->set( $value );
 		$this->set_id( $id );
 	}
 
@@ -30,7 +35,6 @@ class AC_Value {
 	 *
 	 * @return $this
 	 */
-	// TODO: maybe add a __set for just value?
 	public function set( $value ) {
 		$this->value = $value;
 
