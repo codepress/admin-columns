@@ -128,13 +128,6 @@ abstract class AC_ListScreen {
 	 */
 	abstract function set_manage_value_callback();
 
-	/**
-	 * Default column headers
-	 *
-	 * @return array
-	 */
-	abstract function get_column_headers();
-
 	public function get_key() {
 		return $this->key;
 	}
@@ -212,13 +205,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @return WP_List_Table|false
-	 */
-	public function get_list_table() {
-		return new $this->list_table_class;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_storage_key() {
@@ -266,19 +252,6 @@ abstract class AC_ListScreen {
 	 */
 	protected function get_object_by_id( $id ) {
 		return null;
-	}
-
-	/**
-	 * Get a single row from list table
-	 *
-	 * @param int $object_id Object ID
-	 *
-	 * @since NEWVERSION
-	 *
-	 * @return false|string HTML
-	 */
-	public function get_single_row( $object_id ) {
-		return false;
 	}
 
 	/**
@@ -839,6 +812,40 @@ abstract class AC_ListScreen {
 		 * @param AC_Column $column Column object
 		 */
 		return apply_filters( 'ac/column/value', $value, $id, $column );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function get_column_headers() {
+
+		/**
+		 * Populate columns for get_column_headers()
+		 * @see WP_List_Table::get_columns()
+		 */
+		$this->get_list_table();
+
+		return (array) get_column_headers( $this->get_screen_id() );
+	}
+
+	/**
+	 * Get a single row from list table
+	 *
+	 * @since NEWVERSION
+	 */
+	public function get_single_row( $object_id ) {
+		ob_start();
+
+		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * @return WP_List_Table|object
+	 */
+	public function get_list_table() {
+		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
 	}
 
 }

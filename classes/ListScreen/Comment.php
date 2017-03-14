@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_ListScreen_Comment extends AC_ListScreenWP {
+class AC_ListScreen_Comment extends AC_ListScreen {
 
 	public function __construct() {
 

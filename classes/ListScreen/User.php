@@ -1,6 +1,6 @@
 <?php
 
-class AC_ListScreen_User extends AC_ListScreenWP {
+class AC_ListScreen_User extends AC_ListScreen {
 
 	public function __construct() {
 
