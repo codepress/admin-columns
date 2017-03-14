@@ -14,7 +14,7 @@ final class AC_TableScreen {
 
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
-		add_action( 'admin_init', array( $this, 'load_list_screen_doing_ajax' ) );
+		add_action( 'admin_init', array( $this, 'load_list_screen_doing_quick_edit' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
@@ -201,21 +201,20 @@ final class AC_TableScreen {
 
 	/**
 	 * Load current list screen
-     * @param WP_Screen $current_screen
-	 */
-	public function load_list_screen( $current_screen ) {
-	    if ( $list_screen = AC()->get_list_screen_by_wpscreen( $current_screen ) ) {
-		    $this->set_current_list_screen( $list_screen );
-        }
-	}
-
-	/**
-	 * Runs when doing native WordPress ajax calls, like quick edit.
 	 *
 	 * @param WP_Screen $current_screen
 	 */
-	public function load_list_screen_doing_ajax() {
-		$this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_ajax() ) );
+	public function load_list_screen( $current_screen ) {
+		if ( $list_screen = AC()->get_list_screen_by_wpscreen( $current_screen ) ) {
+			$this->set_current_list_screen( $list_screen );
+		}
+	}
+
+	/**
+	 * Runs when doing Quick Edit, a native WordPress ajax call
+	 */
+	public function load_list_screen_doing_quick_edit() {
+		$this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_quick_edit() ) );
 	}
 
 	/**
@@ -243,27 +242,15 @@ final class AC_TableScreen {
 	}
 
 	/**
-	 * @return bool True when doing ajax
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
 	 * Is WordPress doing ajax
 	 *
 	 * @since 2.5
 	 */
-	public function get_list_screen_when_doing_ajax() {
+	public function get_list_screen_when_doing_quick_edit() {
 		$list_screen = false;
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( AC()->is_doing_ajax() ) {
 
-			if ( 'cpac' === filter_input( INPUT_POST, 'plugin_id' ) ) {
-				$list_screen = filter_input( INPUT_POST, 'list_screen' );
-			}
-
-			// Default WordPress Ajax calls
 			switch ( filter_input( INPUT_POST, 'action' ) ) {
 
 				// Quick edit
@@ -286,10 +273,6 @@ final class AC_TableScreen {
 				case 'replyto-comment' :
 					$list_screen = 'wp-comments';
 					break;
-
-				case 'cacie_column_save' :
-					$list_screen = filter_input( INPUT_POST, 'list_screen' );
-					break;
 			}
 		}
 
@@ -309,7 +292,7 @@ final class AC_TableScreen {
 		}
 
 		// Store default headings
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! AC()->is_doing_ajax() ) {
 			$this->current_list_screen->save_default_headings( $columns );
 		}
 

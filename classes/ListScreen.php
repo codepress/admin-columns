@@ -378,7 +378,11 @@ abstract class AC_ListScreen {
 	public function get_column_by_type( $type ) {
 		$column_types = $this->get_column_types();
 
-		return isset( $column_types[ $type ] ) ? $column_types[ $type ] : false;
+		if ( ! isset( $column_types[ $type ] ) ) {
+			return false;
+		}
+
+		return $column_types[ $type ];
 	}
 
 	/**
@@ -389,7 +393,11 @@ abstract class AC_ListScreen {
 	public function get_class_by_type( $type ) {
 		$column = $this->get_column_by_type( $type );
 
-		return $column ? get_class( $column ) : false;
+		if ( ! $column ) {
+			return false;
+		}
+
+		return get_class( $column );
 	}
 
 	/**
@@ -409,11 +417,6 @@ abstract class AC_ListScreen {
 			return false;
 		}
 
-		// Skip original columns that do not exist
-		if ( $column->is_original() && ! $this->original_column_exists( $column ) ) {
-			return false;
-		}
-
 		$column->set_list_screen( $this );
 
 		if ( ! $column->is_valid() ) {
@@ -426,42 +429,36 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @return array
+	 */
+	private function get_original_columns() {
+		return array_merge( $this->get_default_columns(), $this->get_stored_default_headings() );
+	}
+
+	/**
 	 * @param string $type
 	 *
 	 * @return string Label
 	 */
 	public function get_original_label( $type ) {
-		$original_columns = $this->get_original_columns();
+		$columns = $this->get_original_columns();
 
-		if ( ! isset( $original_columns[ $type ] ) ) {
+		if ( ! isset( $columns[ $type ] ) ) {
 			return false;
 		}
 
-		return $original_columns[ $type ];
+		return $columns[ $type ];
 	}
 
+	/**
+	 * @return array
+	 */
 	private function get_default_columns() {
 		if ( null === $this->default_columns ) {
 			$this->default_columns = (array) $this->get_column_headers();
 		}
 
 		return $this->default_columns;
-	}
-
-	/**
-	 * @return array { Column name => Column label ]
-	 */
-	private function get_original_columns() {
-		return array_merge( $this->get_default_columns(), $this->get_plugin_columns() );
-	}
-
-	/**
-	 * @param AC_Column $column
-	 *
-	 * @return bool
-	 */
-	private function original_column_exists( $column ) {
-		return $this->get_original_label( $column->get_type() ) ? true : false;
 	}
 
 	/**
@@ -494,7 +491,7 @@ abstract class AC_ListScreen {
 				continue;
 			}
 
-			/** @var AC_Column $column */
+			/** @var AC_Column_Plugin $column */
 			$column = new $class;
 
 			$this->register_column_type( $column->set_type( $type ) );
@@ -550,12 +547,26 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param array  $settings Column options
-	 * @param string $name     Unique column name
+	 * @param string $type Column type
+	 *
+	 * @return bool
+	 */
+	private function is_original_column( $type ) {
+		$column = $this->get_column_by_type( $type );
+
+		if ( ! $column ) {
+			return false;
+		}
+
+		return $column->is_original();
+	}
+
+	/**
+	 * @param array $settings Column options
 	 *
 	 * @return AC_Column|false
 	 */
-	public function create_column( array $settings, $name = false ) {
+	public function create_column( array $settings ) {
 		if ( ! isset( $settings['type'] ) ) {
 			return false;
 		}
@@ -572,15 +583,17 @@ abstract class AC_ListScreen {
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] );
 
-		if ( $this->original_column_exists( $column ) ) {
+		if ( isset( $settings['name'] ) ) {
+			$column->set_name( $settings['name'] );
+		}
+
+		// Mark as original
+		if ( $this->is_original_column( $settings['type'] ) ) {
+
 			$column->set_original( true );
+			$column->set_name( $settings['type'] );
 		}
 
-		if ( $column->is_original() ) {
-			$name = $column->get_type();
-		}
-
-		$column->set_name( $name );
 		$column->set_options( $settings );
 
 		return $column;
@@ -608,7 +621,7 @@ abstract class AC_ListScreen {
 	private function set_columns() {
 		foreach ( $this->get_settings() as $name => $data ) {
 			$data['name'] = $name;
-			if ( $column = $this->create_column( $data, $name ) ) {
+			if ( $column = $this->create_column( $data ) ) {
 				$this->register_column( $column );
 			}
 		}
@@ -616,8 +629,8 @@ abstract class AC_ListScreen {
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
 			foreach ( $this->get_original_columns() as $type => $label ) {
-				if ( $column = $this->create_column( array( 'type' => $type, 'label' => $label ) ) ) {
-					$this->register_column( $column->set_original( true ) );
+				if ( $column = $this->create_column( array( 'type' => $type, 'original' => true ) ) ) {
+					$this->register_column( $column );
 				}
 			}
 		}
@@ -628,7 +641,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @return array  [ Column Name =>  Column Label ]
+	 * @return array [ Column Name => Column Label ]
 	 */
 	public function get_plugin_columns() {
 		return array_diff( $this->get_stored_default_headings(), $this->get_default_columns() );
@@ -648,12 +661,17 @@ abstract class AC_ListScreen {
 
 		$settings = array();
 
-		$current_settings = $this->get_settings();
-
-		foreach ( $column_data as $key => $options ) {
+		foreach ( $column_data as $column_name => $options ) {
 			if ( empty( $options['type'] ) ) {
 				continue;
 			}
+
+			// New column, new key
+			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
+				$column_name = uniqid();
+			}
+
+			$options['name'] = $column_name;
 
 			$column = $this->create_column( $options );
 
@@ -663,8 +681,7 @@ abstract class AC_ListScreen {
 
 			// Skip duplicate original columns
 			if ( $column->is_original() ) {
-				$types = wp_list_pluck( $settings, 'type' );
-				if ( in_array( $column->get_type(), $types, true ) ) {
+				if ( in_array( $column->get_type(), wp_list_pluck( $settings, 'type' ), true ) ) {
 					continue;
 				}
 			}
@@ -681,12 +698,7 @@ abstract class AC_ListScreen {
 				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
 			}
 
-			// New column, new key
-			if ( ! $column->is_original() && ! in_array( $key, array_keys( $current_settings ), true ) ) {
-				$key = uniqid();
-			}
-
-			$settings[ $key ] = array_merge( $options, $sanitized );
+			$settings[ $column_name ] = array_merge( $options, $sanitized );
 		}
 
 		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );

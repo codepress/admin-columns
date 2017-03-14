@@ -59,7 +59,6 @@ function cpac_submit_form( $ ) {
 		$container.find( '.ac-message' ).remove(); // placed by restore button
 
 		var xhr = $.post( ajaxurl, {
-				plugin_id : 'cpac',
 				action : 'cpac_columns_save',
 				data : columns_data,
 				_ajax_nonce : AC._ajax_nonce,
@@ -302,7 +301,6 @@ function cpac_reset_columns( $ ) {
 
 		var data = $( this ).find( ':input' ).serializeArray();
 		var request_data = {
-			plugin_id : 'cpac',
 			action : 'cpac_column_refresh',
 			_ajax_nonce : AC._ajax_nonce,
 			list_screen : AC.list_screen,
@@ -400,7 +398,6 @@ function cpac_reset_columns( $ ) {
 				method : 'post',
 				dataType : 'json',
 				data : {
-					plugin_id : 'cpac',
 					action : 'cpac_column_select',
 					original_columns : original_columns,
 					_ajax_nonce : AC._ajax_nonce,
@@ -544,6 +541,7 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_update_clone_id = function() {
 		var $el = $( this );
 		var original_column_name = $el.attr( 'data-column-name' );
+		var temp_column_name = '_new_column_' + incremental_column_name;
 
 		// update input names with clone ID
 		var inputs = $el.find( 'input, select, label' );
@@ -551,18 +549,18 @@ function cpac_reset_columns( $ ) {
 
 			// name
 			if ( $( v ).attr( 'name' ) ) {
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + incremental_column_name + ']' ) );
+				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temp_column_name + ']' ) );
 			}
 
 			// id
 			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + incremental_column_name + '-' ) );
+				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temp_column_name + '-' ) );
 			}
 
-			// TODO: for
+			// TODO for
 		} );
 
-		$el.attr( 'data-column-name', incremental_column_name );
+		$el.attr( 'data-column-name', temp_column_name );
 
 		// increment
 		incremental_column_name++;

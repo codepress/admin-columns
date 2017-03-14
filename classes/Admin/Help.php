@@ -14,7 +14,9 @@ abstract class AC_Admin_Help {
 	 * @return string Based on class name
 	 */
 	public function get_id() {
-		return sanitize_key( strtolower( end( explode( '_', get_class( $this ) ) ) ) );
+		$parts = explode( '_', get_class( $this ) );
+
+		return sanitize_key( strtolower( end( $parts ) ) );
 	}
 
 	/**

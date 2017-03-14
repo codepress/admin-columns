@@ -246,6 +246,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			wp_die();
 		}
 
+		$settings = $options[ $name ];
+
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
 		if ( ! $list_screen ) {
@@ -254,7 +256,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
-		$column = $list_screen->create_column( $options[ $name ], $name );
+		$settings['name'] = $name;
+
+		$column = $list_screen->create_column( $settings );
 
 		if ( ! $column ) {
 			wp_die();
@@ -686,7 +690,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 							<?php $this->nonce_field( 'update-type' ); ?>
 
-							<?php foreach ( $list_screen->get_columns() as $column ) {
+							<?php
+
+							/**
+							 * Columns
+							 */
+                            foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>
