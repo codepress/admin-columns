@@ -59,12 +59,18 @@ class AC_Helper_String {
 
 	/**
 	 * @param string $string
-	 * @param int    $limit
+	 * @param int $limit
 	 *
 	 * @return string
 	 */
-	public function trim_characters( $string, $limit = 10 ) {
-		return is_numeric( $limit ) && 0 < $limit && strlen( $string ) > $limit ? substr( $string, 0, $limit ) . __( '&hellip;' ) : $string;
+	public function trim_characters( $string, $limit = 10, $trail = '&hellip;' ) {
+		$limit = absint( $limit );
+
+		if ( 1 > $limit || strlen( $string ) <= $limit ) {
+			return $string;
+		}
+
+		return substr( $string, 0, $limit ) . $trail;
 	}
 
 	/**
