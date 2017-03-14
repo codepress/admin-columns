@@ -12,9 +12,9 @@ class AC_Helper_File {
 	 *
 	 * @return string|false Readable file size
 	 */
-	public function get_readable_filesize( $bytes, $decimals = 2 ) {
+	public function get_readable_filesize( $bytes, $decimals = 2, $empty_text = false ) {
 		if ( ! $bytes ) {
-			return false;
+			return $empty_text;
 		}
 
 		$filesize_units = array( 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );

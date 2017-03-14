@@ -143,24 +143,48 @@ body.upload-php .tablenav.top .cpac-edit {
     width: 65px; }
   .ac-progress-bar .ac-bar-container {
     flex: auto;
+    background-color: #fff;
+    min-height: 22px;
+    line-height: 22px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 2px; }
+    .ac-progress-bar .ac-bar-container .ac-bar {
+      height: 100%;
+      background-color: #69c471;
+      border-right: 1px solid #fff; }
+    .ac-progress-bar .ac-bar-container .ac-label-left,
+    .ac-progress-bar .ac-bar-container .ac-label-right {
+      text-shadow: rgba(255, 255, 255, 0.65) 0 0 5px;
+      color: #555;
+      position: absolute; }
+    .ac-progress-bar .ac-bar-container .ac-label-left {
+      left: 5px; }
+    .ac-progress-bar .ac-bar-container .ac-label-right {
+      right: 5px; }
+  .ac-progress-bar.full .ac-bar-container .ac-bar {
+    background-color: rgba(255, 0, 0, 0.45);
+    border: none; }
+  .ac-progress-bar.dark .ac-bar-container {
+    flex: auto;
     background-color: #a6a6a6;
     min-height: 22px;
     line-height: 22px;
     position: relative; }
-    .ac-progress-bar .ac-bar-container .ac-bar {
+    .ac-progress-bar.dark .ac-bar-container .ac-bar {
       height: 100%;
       background-color: #46b450;
       border-right: 1px solid #fff; }
-    .ac-progress-bar .ac-bar-container .ac-label-left {
+    .ac-progress-bar.dark .ac-bar-container .ac-label-left {
       color: #fff;
       position: absolute;
       left: 5px; }
-    .ac-progress-bar .ac-bar-container .ac-label-right {
+    .ac-progress-bar.dark .ac-bar-container .ac-label-right {
       color: #fff;
       position: absolute;
       right: 5px; }
-  .ac-progress-bar.full .ac-bar-container .ac-bar {
-    background-color: #f00;
+  .ac-progress-bar.dark.full .ac-bar-container .ac-bar {
+    background-color: rgba(255, 0, 0, 0.68);
     border: none; }
 
 /* =Color Column

@@ -205,13 +205,19 @@ class AC_Helper_Html {
 	public function progress_bar( $args = array() ) {
 		$defaults = array(
 			'current'     => 0,
-			'total'       => 100,
+			'total'       => 100, // -1 is infinitive
 			'label_left'  => '',
 			'label_right' => '',
 			'label_main'  => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+
+		if ( -1 === $args['total'] ) {
+			$args['current'] = 0;
+			$args['total'] = 100;
+			$args['label_right'] = '&infin;';
+		}
 
 		$args['current'] = absint( $args['current'] );
 		$args['total'] = absint( $args['total'] );
@@ -220,7 +226,16 @@ class AC_Helper_Html {
 			return false;
 		}
 
-		$percentage = round( ( $args['current'] / $args['total'] ) * 100 );
+		$percentage = 0;
+
+		if ( $args['total'] > 0 ) {
+			$percentage = round( ( $args['current'] / $args['total'] ) * 100 );
+        }
+
+		// Allowed size is zero, but current has a value
+		if ( 0 === $args['total'] && $args['current'] > 0  ){
+		    $percentage = 101;
+        }
 
 		$class = '';
 		if ( $percentage > 100 ) {
