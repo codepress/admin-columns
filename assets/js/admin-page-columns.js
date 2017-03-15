@@ -464,6 +464,18 @@ function cpac_reset_columns( $ ) {
 			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).hide();
 		} );
 
+		/**
+		 * Populates the main Label with the selected label from the dropdown,
+		 */
+		column.find( 'select[data-label="update"]' ).change( function() {
+			var $label = column.find( 'input.ac-setting-input_label' );
+			var field_label = $(this).find( 'option:selected' ).text();
+
+			// Set new label
+			$label.val( field_label );
+			$label.trigger( 'change' );
+		} );
+
 		// refresh column and re-bind all events
 		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
@@ -873,28 +885,6 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
-	} );
-
-	/**
-	 * Populates the main Label with the selected label from the dropdown,
-	 */
-	$( document ).bind( 'column_init', function( e, column ) {
-
-		var $column = $( column );
-		var $select = $column.find( 'select[data-label="update"]' );
-
-		if ( 0 === $select.length ) {
-			return;
-		}
-
-		$select.bind( 'change', function() {
-			var $label = $column.find( 'input.ac-setting-input_label' );
-			var field_label = $select.find( 'option:selected' ).text();
-
-			// Set new label
-			$label.val( field_label );
-			$label.trigger( 'change' );
-		} );
 	} );
 
 }( jQuery ));
