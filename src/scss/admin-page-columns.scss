@@ -415,11 +415,19 @@
 	.ac-column-setting {
 		td.col_label {
 			background-color: $bg-gray-light;
+
 			.label {
 				font-size: 12px;
 				color: #595959;
 			}
 		}
+	}
+
+	span.ac-setting-error {
+		display: block;
+		margin: 0;
+		background-color: $bg-red-light;
+		padding: 7px 10px;
 	}
 }
 
