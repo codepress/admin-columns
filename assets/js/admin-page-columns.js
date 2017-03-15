@@ -828,17 +828,21 @@ function cpac_reset_columns( $ ) {
 		$( this ).each( function() {
 			var $setting = $( this );
 			var $input = $setting.find( '.ac-setting-input-more input[type=text]' );
+			var $help = $setting.find( '.ac-setting-input-more .help-msg' );
 
 			if ( 'custom' != $setting.find( 'input[type=radio]:checked' ).val() ) {
 				$input.prop( 'readonly', true );
+				$help.hide();
 			}
 
 			$setting.find( 'input[type=radio]' ).on( 'click change', function() {
 				if ( 'custom' != $( this ).val() ) {
 					$input.prop( 'readonly', true );
 					$input.val( $( this ).val() ).trigger( 'change' );
+					$help.hide();
 				} else {
 					$input.prop( 'readonly', false );
+					$help.show();
 				}
 			} );
 
@@ -890,7 +894,7 @@ function cpac_reset_columns( $ ) {
 			// Set new label
 			$label.val( field_label );
 			$label.trigger( 'change' );
-		});
+		} );
 	} );
 
 }( jQuery ));
