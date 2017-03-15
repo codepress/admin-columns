@@ -50,6 +50,11 @@ final class AC_TableScreen {
 				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
 			}
 
+			// Adds the default hidden bulk edit markup for the new primary column
+			if ( $this->current_list_screen instanceof ACP_ListScreen_Taxonomy && 'name' !== $default ) {
+				add_filter( 'tag_row_actions', array( $this, 'add_taxonomy_hidden_quick_edit_markup' ), 20, 2 );
+			}
+
 		}
 
 		return $default;
@@ -74,6 +79,20 @@ final class AC_TableScreen {
 	 */
 	public function remove_quick_edit_from_actions( $actions ) {
 		unset( $actions['quickedit'] );
+
+		return $actions;
+	}
+
+	/**
+	 * Add the default markup for the default primary column for the Taxonomy list screen which is necessary for bulk edit
+	 *
+	 * @param $actions
+	 * @param $term
+	 */
+	public function add_taxonomy_hidden_quick_edit_markup( $actions, $term ) {
+		$list_table = $this->get_current_list_screen()->get_list_table();
+
+		echo sprintf( '<div class="hidden">%s</div>', $list_table->column_name( $term ) );
 
 		return $actions;
 	}
@@ -171,9 +190,9 @@ final class AC_TableScreen {
 		}
 
 		if ( $css_column_width ) : ?>
-            <style>
-                <?php echo $css_column_width; ?>
-            </style>
+			<style>
+				<?php echo $css_column_width; ?>
+			</style>
 			<?php
 		endif;
 
@@ -182,11 +201,11 @@ final class AC_TableScreen {
 
 		// JS: Edit button
 		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
-            <script>
+			<script>
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->current_list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
-            </script>
+			</script>
 			<?php
 		endif;
 
