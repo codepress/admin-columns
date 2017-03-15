@@ -308,6 +308,18 @@ div.sizes span.not-available {
   .column-actions.cpac_use_icons .row-actions > span.delete a:before {
     content: "\f182"; }
 
+/* Responsive table screen
+-------------------------------------------------------------- */
+@media screen and (max-width: 782px) {
+  .wp-list-table.widefat thead th {
+    display: none; }
+    .wp-list-table.widefat thead th.column-primary {
+      display: table-cell; }
+  .wp-list-table.widefat tbody tr:not(.inline-edit-row):not(.no-items) td {
+    display: none; }
+    .wp-list-table.widefat tbody tr:not(.inline-edit-row):not(.no-items) td.column-primary {
+      display: block; } }
+
 /* =qTip2
 -------------------------------------------------------------- */
 .ac-tip {

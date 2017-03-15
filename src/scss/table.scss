@@ -421,6 +421,34 @@ div.sizes span.not-available {
 	}
 }
 
+/* Responsive table screen
+-------------------------------------------------------------- */
+
+.wp-list-table.widefat {
+	@media screen and (max-width: 782px) {
+		thead {
+			th {
+				display: none;
+
+				&.column-primary {
+					display: table-cell;
+				}
+			}
+		}
+		tbody {
+			tr:not(.inline-edit-row):not(.no-items) {
+				td {
+					display: none;
+					&.column-primary {
+						display: block;
+					}
+				}
+			}
+		}
+
+	}
+}
+
 /* =qTip2
 -------------------------------------------------------------- */
 .ac-tip {
