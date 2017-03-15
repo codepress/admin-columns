@@ -310,32 +310,22 @@ class AC_Column {
 	 * A formatter should return a AC_Collection when other formatters
 	 * should apply the formatter to each member of the collection
 	 *
-	 * @param AC_Value|AC_Collection $value
+	 *
+	 * @param int   $id
+	 * @param mixed $value
 	 *
 	 * @return string
 	 */
-	public function format_value( $value ) {
-		if ( ! ( $value instanceof AC_Collection || $value instanceof AC_Value ) ) {
-			return $value;
+	public function format_value( $id, $value = null ) {
+		$formatter = new AC_ValueFormatter( $id, $value );
+		$formatter->add_formatters( $this->get_settings() )
+		          ->apply_formatters();
+
+		if ( $formatter->value instanceof AC_Collection ) {
+			$formatter->value = $formatter->value->implode( $this->get_separator() );
 		}
 
-		foreach ( $this->get_settings() as $setting ) {
-			if ( $setting instanceof AC_Settings_FormatInterface ) {
-				if ( $value instanceof AC_Collection ) {
-					foreach ( $value as $item ) {
-						$setting->format( $item );
-					}
-				} else {
-					$setting->format( $value );
-				}
-			}
-		}
-
-		if ( $value instanceof AC_Collection ) {
-			return $value->implode( $this->get_separator() );
-		}
-
-		return $value->render();
+		return $formatter->value;
 	}
 
 	/**
@@ -344,15 +334,9 @@ class AC_Column {
 	public function get_separator() {
 		$separator = ', ';
 
+		/* @var $setting AC_Settings_Column_Separator */
 		if ( $setting = $this->get_setting( 'separator' ) ) {
-			switch ( $setting->get_separator() ) {
-				case 'newline' :
-					$separator = '<br/>';
-					break;
-				case '' :
-					$separator = '&nbsp;';
-					break;
-			}
+			$separator = $setting->get_formatted_separator();
 		}
 
 		return $separator;
@@ -373,14 +357,12 @@ class AC_Column {
 	/**
 	 * Display value
 	 *
-	 * @param int $object_id ID
+	 * @param int $id
 	 *
 	 * @return mixed
 	 */
-	public function get_value( $object_id ) {
-		$value = new AC_Value( $this->get_raw_value( $object_id ), $object_id );
-
-		return $this->format_value( $value );
+	public function get_value( $id ) {
+		return $this->format_value( $id, $this->get_raw_value( $id ) );
 	}
 
 	/**
@@ -389,11 +371,11 @@ class AC_Column {
 	 *
 	 * @since 2.0.3
 	 *
-	 * @param int $object_id ID
+	 * @param int $id
 	 *
 	 * @return mixed Raw column value. Default is NULL.
 	 */
-	public function get_raw_value( $object_id ) {
+	public function get_raw_value( $id ) {
 		return null;
 	}
 
