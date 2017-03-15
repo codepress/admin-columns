@@ -28,6 +28,7 @@ final class AC_TableScreen {
 	 */
 	public function set_primary_column( $default ) {
 		if ( $this->current_list_screen ) {
+
 			if ( ! $this->current_list_screen->get_column_by_name( $default ) ) {
 				$default = key( $this->current_list_screen->get_columns() );
 			}
@@ -49,7 +50,6 @@ final class AC_TableScreen {
 			if ( $this->current_list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
 				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
 			}
-
 		}
 
 		return $default;
@@ -230,14 +230,19 @@ final class AC_TableScreen {
 		// Init Values
 		$list_screen->set_manage_value_callback();
 
-		// Init Headings
-		// Filter is located in get_column_headers()
+		/**
+		 * Init Headings
+		 * @see get_column_headers() for filter location
+         */
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 
 		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
 		ac_action_column_helper();
 
-		// @since NEWVERSION
+		/**
+         * @since NEWVERSION
+		 * @param AC_ListScreen
+		 */
 		do_action( 'ac/table/list_screen', $list_screen );
 	}
 
@@ -253,23 +258,19 @@ final class AC_TableScreen {
 
 			switch ( filter_input( INPUT_POST, 'action' ) ) {
 
-				// Quick edit
+				// Quick edit post
 				case 'inline-save' :
 					$list_screen = filter_input( INPUT_POST, 'post_type' );
 					break;
 
-				// Adding term
+				// Adding term & Quick edit term
 				case 'add-tag' :
-
-					// Quick edit term
 				case 'inline-save-tax' :
 					$list_screen = 'wp-taxonomy_' . filter_input( INPUT_POST, 'taxonomy' );
 					break;
 
-				// Quick edit comment
+				// Quick edit comment & Inline reply on comment
 				case 'edit-comment' :
-
-					// Inline reply on comment
 				case 'replyto-comment' :
 					$list_screen = 'wp-comments';
 					break;
