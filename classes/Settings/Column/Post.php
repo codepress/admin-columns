@@ -33,28 +33,32 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 	}
 
 	/**
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return AC_Value $value
+	 * @return AC_ValueFormatter
 	 */
-	public function format( AC_Value $value ) {
+	public function format( AC_ValueFormatter $value_formatter ) {
 
 		switch ( $this->get_post_property_display() ) {
-
 			case 'author' :
-				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value ) );
-				break;
+				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value_formatter->get_id() ) );
 
+				break;
 			case 'thumbnail' :
-				$value = get_post_thumbnail_id( $value );
-				break;
+				$value_formatter->value = get_post_thumbnail_id( $value_formatter->get_id() );
 
+				break;
 			case 'title' :
-				$value->set( ac_helper()->post->get_raw_field( 'post_title', $value->get_id() ) );
+				$value_formatter->value = ac_helper()->post->get_raw_field( 'post_title', $value_formatter->get_id() );
+
 				break;
 		}
 
-		return $value;
+		return $value_formatter;
+	}
+
+	public function get_format_priority() {
+		return self::DEFAULT_FORMAT_PRIORITY;
 	}
 
 	protected function get_post_type() {

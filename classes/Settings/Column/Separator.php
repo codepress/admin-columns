@@ -40,7 +40,6 @@ class AC_Settings_Column_Separator extends AC_Settings_Column {
 	}
 
 	public function get_formatted_separator() {
-
 		switch ( $this->separator ) {
 			case 'comma' :
 				$separator = ', ';
@@ -48,6 +47,7 @@ class AC_Settings_Column_Separator extends AC_Settings_Column {
 			case 'newline' :
 				$separator = '<br/>';
 				break;
+			// TODO: none is not listed in the create_view
 			case 'none' :
 				$separator = '';
 				break;

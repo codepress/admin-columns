@@ -305,44 +305,6 @@ class AC_Column {
 	}
 
 	/**
-	 * Apply formatting that is defined in the settings
-	 *
-	 * A formatter should return a AC_Collection when other formatters
-	 * should apply the formatter to each member of the collection
-	 *
-	 *
-	 * @param int   $id
-	 * @param mixed $value
-	 *
-	 * @return string
-	 */
-	public function format_value( $id, $value = null ) {
-		$formatter = new AC_ValueFormatter( $id, $value );
-		$formatter->add_formatters( $this->get_settings() )
-		          ->apply_formatters();
-
-		if ( $formatter->value instanceof AC_Collection ) {
-			$formatter->value = $formatter->value->implode( $this->get_separator() );
-		}
-
-		return $formatter->value;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_separator() {
-		$separator = ', ';
-
-		/* @var $setting AC_Settings_Column_Separator */
-		if ( $setting = $this->get_setting( 'separator' ) ) {
-			$separator = $setting->get_formatted_separator();
-		}
-
-		return $separator;
-	}
-
-	/**
 	 * Enqueue CSS + JavaScript on the admin listings screen!
 	 *
 	 * This action is called in the admin_head action on the listings screen where your column values are displayed.
@@ -355,11 +317,37 @@ class AC_Column {
 	}
 
 	/**
+	 * Apply formatting that is defined in the settings
+	 *
+	 * A formatter should return a AC_Collection when other formatters
+	 * should apply the formatter to each member of the collection
+	 *
+	 *
+	 * @param int   $id
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function format_value( $id, $value = null ) {
+		$value_formatter = new AC_ValueFormatter( $id );
+		$value_formatter->set_separator( $this->get_separator() )
+		                ->set_value( $value );
+
+		foreach ( $this->get_settings() as $setting ) {
+			if ( $setting instanceof AC_Settings_FormatInterface ) {
+				$value_formatter->add_formatter( $setting );
+			}
+		}
+
+		return $value_formatter->apply_formatters();
+	}
+
+	/**
 	 * Display value
 	 *
 	 * @param int $id
 	 *
-	 * @return mixed
+	 * @return int|string
 	 */
 	public function get_value( $id ) {
 		return $this->format_value( $id, $this->get_raw_value( $id ) );
@@ -377,6 +365,20 @@ class AC_Column {
 	 */
 	public function get_raw_value( $id ) {
 		return null;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_separator() {
+		$separator = ', ';
+
+		/* @var $setting AC_Settings_Column_Separator */
+		if ( $setting = $this->get_setting( 'separator' ) ) {
+			$separator = $setting->get_formatted_separator();
+		}
+
+		return $separator;
 	}
 
 }

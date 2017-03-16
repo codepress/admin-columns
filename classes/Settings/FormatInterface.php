@@ -2,10 +2,7 @@
 
 interface AC_Settings_FormatInterface {
 
-	/**
-	 * The higher this integer, the later this formatter will be applied on the value
-	 */
-	const FORMAT_PRIORITY = 10;
+	const DEFAULT_FORMAT_PRIORITY = 10;
 
 	/**
 	 * @param AC_ValueFormatter $value
@@ -13,5 +10,12 @@ interface AC_Settings_FormatInterface {
 	 * @return AC_ValueFormatter|AC_Collection
 	 */
 	public function format( AC_ValueFormatter $formatter );
+
+	/**
+	 * Decides the order in which a formatter is applied
+	 *
+	 * @return int
+	 */
+	public function get_format_priority();
 
 }

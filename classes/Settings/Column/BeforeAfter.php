@@ -21,12 +21,21 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 		return array( 'before', 'after' );
 	}
 
-	public function format( AC_Value $value ) {
+	/**
+	 * @param AC_ValueFormatter $value_formatter
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_ValueFormatter $value_formatter ) {
 		if ( $this->get_before() || $this->get_after() ) {
-			$value->add_wrapper( $this->before, $this->after );
+			$value_formatter->value = $this->get_before() . $value_formatter->value . $this->get_after();
 		}
 
-		return $value;
+		return $value_formatter;
+	}
+
+	public function get_format_priority() {
+		return 30;
 	}
 
 	public function create_view() {

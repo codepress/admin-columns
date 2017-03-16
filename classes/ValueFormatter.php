@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @property int   $id
- * @property mixed $value
- */
 final class AC_ValueFormatter {
 
 	/**
 	 * @var mixed
 	 */
-	private $value;
+	public $value;
 
 	/**
 	 * @var int
@@ -17,46 +13,66 @@ final class AC_ValueFormatter {
 	private $id;
 
 	/**
+	 * @var string
+	 */
+	private $separator;
+
+	/**
 	 * @var array
 	 */
 	private $formatters = array();
 
 	/**
+	 * @param int|null $id
+	 */
+	public function __construct( $id = null ) {
+		$this->set_id( $id );
+		$this->set_separator( ', ' );
+	}
+
+	/**
 	 * @param int $id
+	 *
+	 * @return $this
 	 */
-	public function __construct( $id, $value = null ) {
+	protected function set_id( $id ) {
 		$this->id = absint( $id );
+
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_separator() {
+		return $this->separator;
+	}
+
+	/**
+	 * @param string $separator
+	 *
+	 * @return $this
+	 */
+	public function set_separator( $separator ) {
+		$this->separator = $separator;
+
+		return $this;
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return $this
+	 */
+	public function set_value( $value ) {
 		$this->value = $value;
-	}
-
-	/**
-	 * @param $key
-	 *
-	 * @return null
-	 */
-	public function __get( $property ) {
-		$accessible = array( 'id', 'value' );
-
-		if ( ! in_array( $property, $accessible, true ) ) {
-			return null;
-		}
-
-		return $this->$property;
-	}
-
-	/**
-	 * Array of object to check for AC_Settings_FormatInterface objects
-	 *
-	 * @param Iterator|array $formatters
-	 *
-	 * @return $this;
-	 */
-	public function add_formatters( $formatters ) {
-		foreach ( $formatters as $formatter ) {
-			if ( $formatter instanceof AC_Settings_FormatInterface ) {
-				$this->add_formatter( $formatter );
-			}
-		}
 
 		return $this;
 	}
@@ -67,7 +83,8 @@ final class AC_ValueFormatter {
 	 * @return $this
 	 */
 	public function add_formatter( AC_Settings_FormatInterface $formatter ) {
-		$this->formatters[ $formatter::FORMAT_PRIORITY ][] = $formatter;
+		$priority = absint( $formatter->get_format_priority() );
+		$this->formatters[ $priority ][] = $formatter;
 
 		return $this;
 	}
@@ -75,7 +92,9 @@ final class AC_ValueFormatter {
 	/**
 	 * Apply formatters
 	 *
-	 * @return $this
+	 * @param string $separator Used when the result is an AC_Collection
+	 *
+	 * @return string
 	 */
 	public function apply_formatters() {
 		ksort( $this->formatters );
@@ -84,8 +103,16 @@ final class AC_ValueFormatter {
 			/* @var $formatter AC_Settings_FormatInterface */
 			foreach ( $formatters as $formatter ) {
 				if ( $this->value instanceof AC_Collection ) {
-					foreach ( $this->value as $self ) {
-						$formatter->format( $self );
+					foreach ( $this->value as $k => $value ) {
+
+						// Allow formatters to return an array of id's
+						if ( ! ( $value instanceof AC_ValueFormatter ) ) {
+							$value = new AC_ValueFormatter( $value );
+
+							$this->value->put( $k, $value );
+						}
+
+						$formatter->format( $value );
 					}
 				} else {
 					$formatter->format( $this );
@@ -93,14 +120,15 @@ final class AC_ValueFormatter {
 			}
 		}
 
-		return $this;
+		if ( $this->value instanceof AC_Collection ) {
+			$this->value = $this->value->implode( $this->separator );
+		}
+
+		return $this->value;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function __toString() {
-		return $this->apply_formatters()->value;
+		return $this->apply_formatters();
 	}
 
 }
