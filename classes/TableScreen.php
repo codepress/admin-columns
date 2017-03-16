@@ -191,9 +191,9 @@ final class AC_TableScreen {
 		}
 
 		if ( $css_column_width ) : ?>
-			<style>
-				<?php echo $css_column_width; ?>
-			</style>
+            <style>
+                <?php echo $css_column_width; ?>
+            </style>
 			<?php
 		endif;
 
@@ -202,11 +202,11 @@ final class AC_TableScreen {
 
 		// JS: Edit button
 		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
-			<script>
+            <script>
 				jQuery( document ).ready( function() {
 					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->current_list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
 				} );
-			</script>
+            </script>
 			<?php
 		endif;
 
@@ -253,14 +253,15 @@ final class AC_TableScreen {
 		/**
 		 * Init Headings
 		 * @see get_column_headers() for filter location
-         */
+		 */
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 
 		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
 		ac_action_column_helper();
 
 		/**
-         * @since NEWVERSION
+		 * @since NEWVERSION
+		 *
 		 * @param AC_ListScreen
 		 */
 		do_action( 'ac/table/list_screen', $list_screen );

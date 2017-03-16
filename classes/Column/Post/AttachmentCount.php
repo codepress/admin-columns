@@ -15,16 +15,20 @@ class AC_Column_Post_AttachmentCount extends AC_Column {
 	public function get_value( $post_id ) {
 		$count = $this->get_raw_value( $post_id );
 
-		return $count ? $count : ac_helper()->string->get_empty_char();
+		if ( ! $count ) {
+			$count = ac_helper()->string->get_empty_char();
+		}
+
+		return $count;
 	}
 
 	public function get_raw_value( $post_id ) {
 		$attachment_ids = get_posts( array(
-			'post_type'   => 'attachment',
-			'numberposts' => - 1,
-			'post_status' => null,
-			'post_parent' => $post_id,
-			'fields'      => 'ids'
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'post_status'    => null,
+			'post_parent'    => $post_id,
+			'fields'         => 'ids',
 		) );
 
 		return count( $attachment_ids );

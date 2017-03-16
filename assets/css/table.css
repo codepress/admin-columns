@@ -109,10 +109,10 @@ body.upload-php .tablenav.top .cpac-edit {
 -------------------------------------------------------------- */
 .ac-image {
   display: inline-block;
-  background: transparent;
   margin-right: 2px;
   overflow: hidden;
-  max-width: 100%; }
+  max-width: 100%;
+  background-color: #ccc; }
   .ac-image img {
     display: block;
     margin: 0 auto; }
@@ -123,6 +123,8 @@ body.upload-php .tablenav.top .cpac-edit {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold; }
+  .ac-image.ac-icon {
+    background-color: transparent; }
 
 .rtl .ac-image {
   margin-left: 2px;
