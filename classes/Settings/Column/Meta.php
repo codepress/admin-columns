@@ -7,7 +7,7 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 	 */
 	private $field;
 
-	abstract protected function get_keys();
+	abstract protected function get_meta_keys();
 
 	protected function define_options() {
 		return array( 'field' );
@@ -31,7 +31,7 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 		$keys = $this->get_cache();
 
 		if ( ! $keys ) {
-			$keys = $this->get_keys();
+			$keys = $this->get_meta_keys();
 
 			$this->set_cache( $keys );
 		}

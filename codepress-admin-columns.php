@@ -568,7 +568,7 @@ class CPAC {
 	 */
 	public function admin_scripts() {
 		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
-		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message" . AC()->minified() . ".css", array(), AC()->get_version() );
 	}
 
 	/**

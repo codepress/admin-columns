@@ -66,7 +66,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help' . AC()->minified() . '.css', array(), AC()->get_version() );
 	}
 
 	private function update_message_count() {
@@ -103,7 +103,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$this->deprecated_filter( 'cac/headings/label', 'NEWVERSION', 'cac-columns-custom' );
 		$this->deprecated_filter( 'cac/column/meta/value', 'NEWVERSION', 'cac-column-meta-value' );
 		$this->deprecated_filter( 'cac/column/meta/types', 'NEWVERSION', 'cac-column-meta-types' );
-		$this->deprecated_filter( 'cac/settings/tabs', 'NEWVERSION', 'filter-reference/cac-settings-tabs' );
+		$this->deprecated_filter( 'cac/settings/tabs', 'NEWVERSION', 'cac-settings-tabs' );
 		$this->deprecated_filter( 'cac/editable/is_column_editable', 'NEWVERSION', 'cac-editable-is_column_editable' );
 		$this->deprecated_filter( 'cac/editable/editables_data', 'NEWVERSION', 'cac-editable-editables_data' );
 		$this->deprecated_filter( 'cac/editable/options', 'NEWVERSION', 'cac-editable-editables_data' );
@@ -168,26 +168,26 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	/**
 	 * @param string      $hook
 	 * @param string      $version
-	 * @param string|null $page
+	 * @param string|null $page_slug
 	 */
-	private function deprecated_filter( $hook, $version, $page = null ) {
+	private function deprecated_filter( $hook, $version, $page_slug = null ) {
 		if ( has_filter( $hook ) ) {
 			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
-			$this->add_deprecated_message( 'filter', $message, $hook, $page );
+			$this->add_deprecated_message( 'filter', $message, $hook, 'filter-reference/' . $page_slug );
 		}
 	}
 
 	/**
 	 * @param string      $hook
 	 * @param string      $version
-	 * @param string|null $page
+	 * @param string|null $page_slug
 	 */
-	private function deprecated_action( $hook, $version, $page = null ) {
+	private function deprecated_action( $hook, $version, $page_slug = null ) {
 		if ( has_action( $hook ) ) {
 			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
-			$this->add_deprecated_message( 'action', $message, $hook, $page );
+			$this->add_deprecated_message( 'action', $message, $hook, 'action-reference/' . $page_slug );
 		}
 	}
 

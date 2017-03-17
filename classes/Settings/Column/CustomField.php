@@ -65,7 +65,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 	/**
 	 * @return array|false
 	 */
-	protected function get_keys() {
+	protected function get_meta_keys() {
 		$query = new AC_Meta_Query( $this->get_meta_type() );
 
 		$query->select( 'meta_key' )

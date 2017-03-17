@@ -119,7 +119,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version() );
 	}
 
 	public function register_addon( AC_Addon $addon ) {
