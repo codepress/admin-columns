@@ -50,7 +50,14 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 				break;
 
 			case 'title' :
-				$value = ac_helper()->post->get_raw_field( 'post_title', $value );
+				$post = get_post( $value );
+
+				$value = $post->post_title;
+
+				if ( 'attachment' == $post->post_type ) {
+					$value = ac_helper()->image->get_file_name( $post->ID );
+				}
+
 				break;
 		}
 

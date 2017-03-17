@@ -180,9 +180,12 @@ class AC_Helper_Image {
 		return $sizes;
 	}
 
-	// Helpers
-
-	private function get_file_name( $media_id ) {
+	/**
+	 * @param int $media_id
+	 *
+	 * @return bool|string
+	 */
+	public function get_file_name( $media_id ) {
 		$file = get_post_meta( $media_id, '_wp_attached_file', true );
 
 		if ( ! $file ) {
@@ -191,6 +194,8 @@ class AC_Helper_Image {
 
 		return basename( $file );
 	}
+
+	// Helpers
 
 	private function get_file_tooltip_attr( $media_id ) {
 		$filename = $this->get_file_name( $media_id );
