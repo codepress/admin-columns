@@ -4,7 +4,7 @@ class AC_Helper_Post {
 
 	/**
 	 * @param string $field Field
-	 * @param int $id Post ID
+	 * @param int    $id    Post ID
 	 *
 	 * @return string|false
 	 */
@@ -51,7 +51,7 @@ class AC_Helper_Post {
 	public function get_post_values_by_field( $post_field, $post_type ) {
 		global $wpdb;
 
-		$post_field = sanitize_key( $post_field );
+		$post_field = '`' . sanitize_key( $post_field ) . '`';
 
 		$sql = "
 			SELECT DISTINCT {$post_field}
@@ -72,7 +72,7 @@ class AC_Helper_Post {
 	 *
 	 * @since 1.0
 	 *
-	 * @param int $id Post ID
+	 * @param int    $id       Post ID
 	 * @param string $taxonomy Taxonomy name
 	 */
 	public function get_terms_for_display( $post_id, $taxonomy ) {
@@ -102,6 +102,26 @@ class AC_Helper_Post {
 		}
 
 		return ac_helper()->string->trim_words( $excerpt, $words );
+	}
+
+	/**
+	 * @param string $post_type
+	 * @param bool   $plural
+	 *
+	 * @return bool
+	 */
+	public function get_post_type_label( $post_type, $plural = false ) {
+		$post_type = get_post_type_object( $post_type );
+
+		if ( ! $post_type ) {
+			return false;
+		}
+
+		if ( $plural ) {
+			return $post_type->labels->name;
+		}
+
+		return $post_type->labels->singular_name;
 	}
 
 }

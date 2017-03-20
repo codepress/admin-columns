@@ -15,6 +15,7 @@
  * @property AC_Helper_Icon icon
  * @property AC_Helper_Html html
  * @property AC_Helper_Network network
+ * @property AC_Helper_File file
  */
 final class AC_Helper {
 

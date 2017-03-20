@@ -59,7 +59,6 @@ function cpac_submit_form( $ ) {
 		$container.find( '.ac-message' ).remove(); // placed by restore button
 
 		var xhr = $.post( ajaxurl, {
-				plugin_id : 'cpac',
 				action : 'cpac_columns_save',
 				data : columns_data,
 				_ajax_nonce : AC._ajax_nonce,
@@ -302,7 +301,6 @@ function cpac_reset_columns( $ ) {
 
 		var data = $( this ).find( ':input' ).serializeArray();
 		var request_data = {
-			plugin_id : 'cpac',
 			action : 'cpac_column_refresh',
 			_ajax_nonce : AC._ajax_nonce,
 			list_screen : AC.list_screen,
@@ -400,7 +398,6 @@ function cpac_reset_columns( $ ) {
 				method : 'post',
 				dataType : 'json',
 				data : {
-					plugin_id : 'cpac',
 					action : 'cpac_column_select',
 					original_columns : original_columns,
 					_ajax_nonce : AC._ajax_nonce,
@@ -465,6 +462,18 @@ function cpac_reset_columns( $ ) {
 			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).show();
 		}, function() {
 			$( this ).parents( '.col-label' ).find( 'div.tooltip' ).hide();
+		} );
+
+		/**
+		 * Populates the main Label with the selected label from the dropdown,
+		 */
+		column.find( 'select[data-label="update"]' ).change( function() {
+			var $label = column.find( 'input.ac-setting-input_label' );
+			var field_label = $(this).find( 'option:selected' ).text();
+
+			// Set new label
+			$label.val( field_label );
+			$label.trigger( 'change' );
 		} );
 
 		// refresh column and re-bind all events
@@ -544,6 +553,7 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_update_clone_id = function() {
 		var $el = $( this );
 		var original_column_name = $el.attr( 'data-column-name' );
+		var temp_column_name = '_new_column_' + incremental_column_name;
 
 		// update input names with clone ID
 		var inputs = $el.find( 'input, select, label' );
@@ -551,18 +561,18 @@ function cpac_reset_columns( $ ) {
 
 			// name
 			if ( $( v ).attr( 'name' ) ) {
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + incremental_column_name + ']' ) );
+				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temp_column_name + ']' ) );
 			}
 
 			// id
 			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + incremental_column_name + '-' ) );
+				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temp_column_name + '-' ) );
 			}
 
-			// TODO: for
+			// TODO for
 		} );
 
-		$el.attr( 'data-column-name', incremental_column_name );
+		$el.attr( 'data-column-name', temp_column_name );
 
 		// increment
 		incremental_column_name++;
@@ -830,17 +840,21 @@ function cpac_reset_columns( $ ) {
 		$( this ).each( function() {
 			var $setting = $( this );
 			var $input = $setting.find( '.ac-setting-input-more input[type=text]' );
+			var $help = $setting.find( '.ac-setting-input-more .help-msg' );
 
 			if ( 'custom' != $setting.find( 'input[type=radio]:checked' ).val() ) {
 				$input.prop( 'readonly', true );
+				$help.hide();
 			}
 
 			$setting.find( 'input[type=radio]' ).on( 'click change', function() {
 				if ( 'custom' != $( this ).val() ) {
 					$input.prop( 'readonly', true );
 					$input.val( $( this ).val() ).trigger( 'change' );
+					$help.hide();
 				} else {
 					$input.prop( 'readonly', false );
+					$help.show();
 				}
 			} );
 
@@ -871,28 +885,6 @@ function cpac_reset_columns( $ ) {
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
-	} );
-
-	/**
-	 * Populates the main Label with the selected label from the dropdown,
-	 */
-	$( document ).bind( 'column_init', function( e, column ) {
-
-		var $column = $( column );
-		var $select = $column.find( 'select[data-label="update"]' );
-
-		if ( 0 === $select.length ) {
-			return;
-		}
-
-		$select.bind( 'change', function() {
-			var $label = $column.find( 'input.ac-setting-input_label' );
-			var field_label = $select.find( 'option:selected' ).text();
-
-			// Set new label
-			$label.val( field_label );
-			$label.trigger( 'change' );
-		});
 	} );
 
 }( jQuery ));

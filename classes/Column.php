@@ -28,7 +28,7 @@ class AC_Column {
 	/**
 	 * @var bool An original column will use the already defined column value and label.
 	 */
-	private $original;
+	private $original = false;
 
 	/**
 	 * @var AC_Settings_Column[]

@@ -19,9 +19,7 @@ class AC_Column_Media_FileName extends AC_Column_Meta {
 	}
 
 	public function get_raw_value( $id ) {
-		$file = wp_get_attachment_url( $id );
-
-		return basename( $file );
+		return ac_helper()->image->get_file_name( $id );
 	}
 
 }

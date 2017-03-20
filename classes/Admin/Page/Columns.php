@@ -36,7 +36,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$minified = AC()->minified();
 
 		// Width slider
-		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
 		wp_enqueue_script( 'ac-admin-page-columns', AC()->get_plugin_url() . "assets/js/admin-page-columns{$minified}.js", array(
@@ -47,7 +47,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			'wp-pointer',
 		), AC()->get_version() );
 
-		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_plugin_url() . 'assets/css/admin-page-columns' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_plugin_url() . 'assets/css/admin-page-columns' . AC()->minified() . '.css', array(), AC()->get_version() );
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
 			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
@@ -246,6 +246,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			wp_die();
 		}
 
+		$settings = $options[ $name ];
+
 		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
 
 		if ( ! $list_screen ) {
@@ -254,7 +256,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
-		$column = $list_screen->create_column( $options[ $name ], $name );
+		$settings['name'] = $name;
+
+		$column = $list_screen->create_column( $settings );
 
 		if ( ! $column ) {
 			wp_die();
@@ -686,7 +690,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 							<?php $this->nonce_field( 'update-type' ); ?>
 
-							<?php foreach ( $list_screen->get_columns() as $column ) {
+							<?php
+
+							/**
+							 * Columns
+							 */
+                            foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>

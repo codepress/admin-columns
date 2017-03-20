@@ -5,6 +5,8 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 
 	private $comment_status;
 
+	private $admin_url;
+
 	public function get_name() {
 		return 'comment_count';
 	}
@@ -33,7 +35,6 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	 */
 	private function get_comment_statuses() {
 		$options = array(
-			'total_comments' => __( 'Total', 'codepress-admin-columns' ),
 			'approved'       => __( 'Approved', 'codepress-admin-columns' ),
 			'moderated'      => __( 'Pending', 'codepress-admin-columns' ),
 			'spam'           => __( 'Spam', 'codepress-admin-columns' ),
@@ -42,7 +43,22 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 
 		asort( $options );
 
+		// First
+		$options = array( 'total_comments' => __( 'Total', 'codepress-admin-columns' ) ) + $options;
+
 		return $options;
+	}
+
+	public function set_admin_url( $admin_url ) {
+		$this->admin_url = $admin_url;
+	}
+
+	private function get_admin_url() {
+		if ( null === $this->admin_url ) {
+			$this->set_admin_url( admin_url( 'edit-comments.php' ) );
+		}
+
+		return $this->admin_url;
 	}
 
 	/**
@@ -72,7 +88,19 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		$status = $this->get_comment_status();
 		$value_formatter->value = isset( $value_formatter->value->$status ) ? $value_formatter->$status : 0;
 
+<<<<<<< HEAD
 		return $value_formatter;
+=======
+		if ( isset( $count->{$status} ) ) {
+			$value = $count->{$status};
+		}
+
+		if ( 0 === $value ) {
+			$value = ac_helper()->string->get_empty_char();
+		}
+
+		return ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $value );
+>>>>>>> develop
 	}
 
 }

@@ -105,14 +105,23 @@ body.upload-php .tablenav.top .cpac-edit {
   padding: 2px 7px;
   margin: 0 5px 5px 0; }
 
+.ac-more-link-show {
+  cursor: pointer; }
+
+.ac-show-more-block {
+  display: none; }
+
+.ac-more-link-hide {
+  cursor: pointer; }
+
 /* =Images Column
 -------------------------------------------------------------- */
 .ac-image {
   display: inline-block;
-  background: transparent;
   margin-right: 2px;
   overflow: hidden;
-  max-width: 100%; }
+  max-width: 100%;
+  background-color: #ccc; }
   .ac-image img {
     display: block;
     margin: 0 auto; }
@@ -123,6 +132,8 @@ body.upload-php .tablenav.top .cpac-edit {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold; }
+  .ac-image.ac-icon {
+    background-color: transparent; }
 
 .rtl .ac-image {
   margin-left: 2px;
@@ -135,6 +146,57 @@ body.upload-php .tablenav.top .cpac-edit {
 .rtl .column-column-attachment img {
   padding-left: 5px;
   padding-right: 0; }
+
+.ac-progress-bar {
+  width: 100%;
+  display: flex; }
+  .ac-progress-bar .ac-label-main {
+    width: 65px; }
+  .ac-progress-bar .ac-bar-container {
+    flex: auto;
+    background-color: #fff;
+    min-height: 22px;
+    line-height: 22px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 2px; }
+    .ac-progress-bar .ac-bar-container .ac-bar {
+      height: 100%;
+      background-color: #69c471;
+      border-right: 1px solid #fff; }
+    .ac-progress-bar .ac-bar-container .ac-label-left,
+    .ac-progress-bar .ac-bar-container .ac-label-right {
+      text-shadow: rgba(255, 255, 255, 0.65) 0 0 5px;
+      color: #555;
+      position: absolute; }
+    .ac-progress-bar .ac-bar-container .ac-label-left {
+      left: 5px; }
+    .ac-progress-bar .ac-bar-container .ac-label-right {
+      right: 5px; }
+  .ac-progress-bar.full .ac-bar-container .ac-bar {
+    background-color: rgba(255, 0, 0, 0.45);
+    border: none; }
+  .ac-progress-bar.dark .ac-bar-container {
+    flex: auto;
+    background-color: #a6a6a6;
+    min-height: 22px;
+    line-height: 22px;
+    position: relative; }
+    .ac-progress-bar.dark .ac-bar-container .ac-bar {
+      height: 100%;
+      background-color: #46b450;
+      border-right: 1px solid #fff; }
+    .ac-progress-bar.dark .ac-bar-container .ac-label-left {
+      color: #fff;
+      position: absolute;
+      left: 5px; }
+    .ac-progress-bar.dark .ac-bar-container .ac-label-right {
+      color: #fff;
+      position: absolute;
+      right: 5px; }
+  .ac-progress-bar.dark.full .ac-bar-container .ac-bar {
+    background-color: rgba(255, 0, 0, 0.68);
+    border: none; }
 
 /* =Color Column
 -------------------------------------------------------------- */
@@ -256,6 +318,18 @@ div.sizes span.not-available {
     content: "\f171"; }
   .column-actions.cpac_use_icons .row-actions > span.delete a:before {
     content: "\f182"; }
+
+/* Responsive table screen
+-------------------------------------------------------------- */
+@media screen and (max-width: 782px) {
+  .wp-list-table.widefat thead th {
+    display: none; }
+    .wp-list-table.widefat thead th.column-primary {
+      display: table-cell; }
+  .wp-list-table.widefat tbody tr:not(.inline-edit-row):not(.no-items) td {
+    display: none; }
+    .wp-list-table.widefat tbody tr:not(.inline-edit-row):not(.no-items) td.column-primary {
+      display: block; } }
 
 /* =qTip2
 -------------------------------------------------------------- */

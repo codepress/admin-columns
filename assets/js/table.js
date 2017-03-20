@@ -1,16 +1,35 @@
 jQuery( document ).ready( function( $ ) {
-	cpac_quickedit_events( $ );
-	cpac_set_column_classes( $ );
-	cpac_actions_column( $, $( '.column-actions' ) );
-	cpac_tooltips( $ );
+	ac_quickedit_events( $ );
+	ac_set_column_classes( $ );
+	ac_actions_column( $, $( '.column-actions' ) );
+	ac_tooltips( $ );
+	ac_show_more( $ );
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
-		cpac_set_column_classes( $ );
-		cpac_actions_column( $, $( this ).find( '.column-actions' ) );
+		ac_set_column_classes( $ );
+		ac_actions_column( $, $( this ).find( '.column-actions' ) );
+		ac_show_more( $ );
 	} );
 } );
 
-function cpac_actions_column( $, $selector ) {
+function ac_show_more( $ ) {
+	$( '.ac-more-link-show' ).click( function( e ) {
+		e.preventDefault();
+		var td = $( this ).hide().closest( 'td' );
+
+		td.find( '.ac-show-more-block' ).show();
+
+	} );
+	$( '.ac-more-link-hide' ).click( function( e ) {
+		e.preventDefault();
+		var td = $( this ).closest( 'td' );
+
+		td.find( '.ac-more-link-show' ).show();
+		td.find( '.ac-show-more-block' ).hide();
+	} );
+}
+
+function ac_actions_column( $, $selector ) {
 	$( $selector ).each( function() {
 		var $column = $( this );
 
@@ -25,7 +44,7 @@ function cpac_actions_column( $, $selector ) {
 	} );
 }
 
-function cpac_set_column_classes( $ ) {
+function ac_set_column_classes( $ ) {
 	for ( var name in AC.column_types ) {
 		if ( AC.column_types.hasOwnProperty( name ) ) {
 			var type = AC.column_types[ name ];
@@ -38,7 +57,7 @@ function cpac_set_column_classes( $ ) {
 /**
  * @since 2.2.4
  */
-function cpac_tooltips( $ ) {
+function ac_tooltips( $ ) {
 
 	if ( typeof $.fn.qtip === 'undefined' ) {
 		return;
@@ -59,7 +78,7 @@ function cpac_tooltips( $ ) {
 	} );
 }
 
-function cpac_quickedit_events( $ ) {
+function ac_quickedit_events( $ ) {
 
 	$( document ).ajaxComplete( function( event, request ) {
 		var $result = $( '<div>' ).append( request.responseText );

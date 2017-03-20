@@ -138,19 +138,29 @@ body.upload-php .tablenav.top .cpac-edit {
 .ac-small-block {
 	display: inline-block;
 	border-radius: 3px;
-	background-color: rgba( 224, 224, 224, 0.6 );
+	background-color: rgba(224, 224, 224, 0.6);
 	padding: 2px 7px;
 	margin: 0 5px 5px 0;
+}
+
+.ac-more-link-show {
+	cursor: pointer;
+}
+.ac-show-more-block {
+	display: none;
+}
+.ac-more-link-hide {
+	cursor: pointer;
 }
 
 /* =Images Column
 -------------------------------------------------------------- */
 .ac-image {
 	display: inline-block;
-	background: transparent;
 	margin-right: 2px;
 	overflow: hidden;
 	max-width: 100%;
+	background-color: #ccc; // some transparent image won't be visible otherwise
 
 	img {
 		display: block;
@@ -164,6 +174,10 @@ body.upload-php .tablenav.top .cpac-edit {
 		text-align: center;
 		text-transform: uppercase;
 		font-weight: bold;
+	}
+
+	&.ac-icon {
+		background-color: transparent;
 	}
 }
 
@@ -180,6 +194,81 @@ body.upload-php .tablenav.top .cpac-edit {
 .rtl .column-column-attachment img {
 	padding-left: 5px;
 	padding-right: 0;
+}
+
+.ac-progress-bar {
+	width: 100%;
+	display: flex;
+
+	.ac-label-main {
+		width: 65px;
+	}
+
+	.ac-bar-container {
+		flex: auto;
+		background-color: #fff;
+		min-height: 22px;
+		line-height: 22px;
+		position: relative;
+		border: 1px solid #ccc;
+		border-radius: 2px;
+
+		.ac-bar {
+			height: 100%;
+			background-color: lighten(#46b450, 10);
+			border-right: 1px solid #fff;
+		}
+		.ac-label-left,
+		.ac-label-right {
+			text-shadow: rgba(255, 255, 255, 0.65) 0 0 5px;
+			color: #555;
+			position: absolute;
+		}
+		.ac-label-left {
+			left: 5px;
+		}
+		.ac-label-right {
+			right: 5px;
+		}
+	}
+
+	&.full .ac-bar-container {
+		.ac-bar {
+			background-color: rgba(255, 0, 0, 0.45);
+			border: none;
+		}
+	}
+
+	&.dark {
+		.ac-bar-container {
+			flex: auto;
+			background-color: #a6a6a6;
+			min-height: 22px;
+			line-height: 22px;
+			position: relative;
+
+			.ac-bar {
+				height: 100%;
+				background-color: #46b450;
+				border-right: 1px solid #fff;
+			}
+			.ac-label-left {
+				color: #fff;
+				position: absolute;
+				left: 5px;
+			}
+			.ac-label-right {
+				color: #fff;
+				position: absolute;
+				right: 5px;
+			}
+		}
+
+		&.full .ac-bar-container .ac-bar {
+			background-color: rgba(255, 0, 0, 0.68);
+			border: none;
+		}
+	}
 }
 
 /* =Color Column
@@ -343,6 +432,34 @@ div.sizes span.not-available {
 				content: "\f182";
 			}
 		}
+	}
+}
+
+/* Responsive table screen
+-------------------------------------------------------------- */
+
+.wp-list-table.widefat {
+	@media screen and (max-width: 782px) {
+		thead {
+			th {
+				display: none;
+
+				&.column-primary {
+					display: table-cell;
+				}
+			}
+		}
+		tbody {
+			tr:not(.inline-edit-row):not(.no-items) {
+				td {
+					display: none;
+					&.column-primary {
+						display: block;
+					}
+				}
+			}
+		}
+
 	}
 }
 

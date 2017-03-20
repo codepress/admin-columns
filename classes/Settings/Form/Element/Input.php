@@ -4,6 +4,7 @@ class AC_Settings_Form_Element_Input extends AC_Settings_Form_Element {
 
 	protected function is_valid_type( $type ) {
 		$valid_types = array(
+			'hidden',
 			'text',
 			'number',
 			'email',

@@ -24,7 +24,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	}
 
 	public function admin_scripts() {
-    	wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version(), 'all' );
+    	wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version() );
 	}
 
 	public function set_capability() {

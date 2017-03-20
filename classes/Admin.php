@@ -62,7 +62,7 @@ class AC_Admin {
 		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general" . AC()->minified() . ".js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
 
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-general" . AC()->minified() . ".css", array(), AC()->get_version(), 'all' );
+		wp_enqueue_style( 'cpac-admin', AC()->get_plugin_url() . "assets/css/admin-general" . AC()->minified() . ".css", array(), AC()->get_version() );
 	}
 
 	/**

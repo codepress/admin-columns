@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_ListScreenPost extends AC_ListScreenWP {
+abstract class AC_ListScreenPost extends AC_ListScreen {
 
 	/**
 	 * @var string Post type

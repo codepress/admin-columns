@@ -180,9 +180,12 @@ class AC_Helper_Image {
 		return $sizes;
 	}
 
-	// Helpers
-
-	private function get_file_name( $media_id ) {
+	/**
+	 * @param int $media_id
+	 *
+	 * @return bool|string
+	 */
+	public function get_file_name( $media_id ) {
 		$file = get_post_meta( $media_id, '_wp_attached_file', true );
 
 		if ( ! $file ) {
@@ -191,6 +194,8 @@ class AC_Helper_Image {
 
 		return basename( $file );
 	}
+
+	// Helpers
 
 	private function get_file_tooltip_attr( $media_id ) {
 		$filename = $this->get_file_name( $media_id );
@@ -211,8 +216,14 @@ class AC_Helper_Image {
 	}
 
 	private function markup( $src, $width, $height, $media_id = null, $add_extension = false ) {
+	    $class = false;
+
+	    if ( $media_id && ! wp_attachment_is_image( $media_id ) ) {
+	        $class = ' ac-icon';
+        }
+
 		ob_start(); ?>
-        <span class="ac-image" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
+        <span class="ac-image<?php echo $class; ?>" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
 			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>">
 
 			<?php if ( $add_extension ) : ?>

@@ -226,15 +226,17 @@ Release Date: t.b.d.
 * [Improved] Action column now always is the primary column
 * [Improved] Heading structure in Admin is now correct
 * [Improved] Page Template column supports post types (since WP 4.7)
-* [Added] Autoloader added
+* [Added] Autoloader
 * [Added] New user column added: Author name
 * [Added] New user column added: Show Toolbar
 * [Added] New column for shortlink added
 * [Added] Filter for suppressing admin notices
 * [Added] New helpers added for array, date, formfield, icon, image, post, string ,taxonomy and user. Helpers can be accessed by using 'ac_helper()->array()'' etc
 * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
-* [Added] new method for singleton for Admin Columns main class. 'ac()'
+* [Added] New method for singleton for Admin Columns main class. 'ac()'
 * [Fixed] ACF select2 error due to ACF update
+* [Fixed] Comment Response column is no longer displayed in the table when viewing "Comments On".
+* [Refactor] Complete refactor of core code
 
 = 2.5.6.3 =
 

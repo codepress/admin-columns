@@ -286,6 +286,11 @@
     .ac-column-setting .ac-column-setting td.col_label .label {
       font-size: 12px;
       color: #595959; }
+  .ac-column-setting span.ac-setting-error {
+    display: block;
+    margin: 0;
+    background-color: #ffebe8;
+    padding: 7px 10px; }
 
 .ac-column-setting-actions .col-settings p {
   padding-left: 10px; }
