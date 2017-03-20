@@ -230,12 +230,12 @@ class AC_Helper_Html {
 
 		if ( $args['total'] > 0 ) {
 			$percentage = round( ( $args['current'] / $args['total'] ) * 100 );
-        }
+		}
 
 		// Allowed size is zero, but current has a value
-		if ( 0 === $args['total'] && $args['current'] > 0  ){
-		    $percentage = 101;
-        }
+		if ( 0 === $args['total'] && $args['current'] > 0 ) {
+			$percentage = 101;
+		}
 
 		$class = '';
 		if ( $percentage > 100 ) {
@@ -258,6 +258,30 @@ class AC_Helper_Html {
             </div>
         </div>
 		<?php
+
+		return ob_get_clean();
+	}
+
+	public function more( $array, $number = 10, $glue = ', ' ) {
+		$first_set = array_slice( $array, 0, $number );
+		$last_set = array_slice( $array, $number );
+
+		ob_start();
+
+		if ( $first_set ) {
+
+			echo implode( $glue, $first_set );
+
+			if ( $last_set ) { ?>
+                <span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
+                <span class="ac-show-more-block">
+					<?php echo $glue . implode( $glue, $first_set ); ?>
+                    <br/>
+                    <span class="ac-more-link-hide">( <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a> )</span>
+                </span>
+				<?php
+			}
+		}
 
 		return ob_get_clean();
 	}

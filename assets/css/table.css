@@ -105,6 +105,15 @@ body.upload-php .tablenav.top .cpac-edit {
   padding: 2px 7px;
   margin: 0 5px 5px 0; }
 
+.ac-more-link-show {
+  cursor: pointer; }
+
+.ac-show-more-block {
+  display: none; }
+
+.ac-more-link-hide {
+  cursor: pointer; }
+
 /* =Images Column
 -------------------------------------------------------------- */
 .ac-image {
