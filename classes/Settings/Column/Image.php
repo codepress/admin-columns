@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_Image extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -173,17 +173,21 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 		return true;
 	}
 
-	public function format( $media_id, $object_id = null ) {
+	/**
+	 * @param AC_ValueFormatter $value_formatter
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_ValueFormatter $value_formatter ) {
 		$size = $this->get_image_size();
 
 		if ( 'cpac-custom' == $size ) {
-			$size = array(
-				$this->get_image_size_w(),
-				$this->get_image_size_h(),
-			);
+			$size = array( $this->get_image_size_w(), $this->get_image_size_h() );
 		}
 
-		return ac_helper()->image->get_image( $media_id, $size );
+		$value_formatter->value = ac_helper()->image->get_image( $value_formatter->get_id(), $size );
+
+		return $value_formatter;
 	}
 
 }

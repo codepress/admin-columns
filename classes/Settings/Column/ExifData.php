@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_ExifData extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -70,25 +70,24 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 	}
 
 	/**
-	 * @param array $image_meta Exif Meta Data
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string|false
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $image_meta, $object_id = null ) {
-		if ( ! isset( $image_meta[ $this->get_exif_datatype() ] ) ) {
-			return false;
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$exif_datatype = $this->get_exif_datatype();
+		$value_formatter->value = isset( $value_formatter->value[ $exif_datatype ] ) ? $value_formatter->value[ $exif_datatype ] : false;
+
+		if ( false !== $value_formatter->value ) {
+			switch ( $exif_datatype ) {
+				case 'created_timestamp' :
+					$value_formatter->value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value_formatter->value ) );
+
+					break;
+			}
 		}
 
-		$value = $image_meta[ $this->get_exif_datatype() ];
-
-		switch ( $this->get_exif_datatype() ) {
-
-			case 'created_timestamp' :
-				$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
-				break;
-		}
-
-		return $value;
+		return $value_formatter;
 	}
 
 }

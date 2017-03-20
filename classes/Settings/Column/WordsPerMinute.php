@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var int
@@ -61,10 +61,6 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 		$value_formatter->value = ac_helper()->string->get_estimated_reading_time_in_seconds( $value_formatter->value, $this->get_words_per_minute() );
 
 		return $value_formatter;
-	}
-
-	public function get_format_priority() {
-		return self::DEFAULT_FORMAT_PRIORITY;
 	}
 
 }

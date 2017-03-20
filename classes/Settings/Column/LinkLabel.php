@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_LinkLabel extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -40,18 +40,25 @@ class AC_Settings_Column_LinkLabel extends AC_Settings_Column
 		return true;
 	}
 
-	public function format( $url, $object_id = null ) {
-		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/[^\w.-]/', $url ) ) {
-			return $url;
+	/**
+	 * @param AC_ValueFormatter $value_formatter
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$url = $value_formatter->value;
+
+		if ( filter_var( $url, FILTER_VALIDATE_URL ) && preg_match( '/[^\w.-]/', $url ) ) {
+			$label = $this->get_value();
+
+			if ( ! $label ) {
+				$label = $url;
+			}
+
+			$value_formatter->value = ac_helper()->html->link( $url, $label );
 		}
 
-		$label = $this->get_value();
-
-		if ( ! $label ) {
-			$label = $url;
-		}
-
-		return ac_helper()->html->link( $url, $label );
+		return $value_formatter;
 	}
 
 }

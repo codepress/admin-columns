@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Column_Separator extends AC_Settings_Column {
+class AC_Settings_Column_Separator extends AC_Settings_Column
+	implements AC_Settings_FormatCollectionInterface {
 
 	/**
 	 * @var string
@@ -39,7 +40,13 @@ class AC_Settings_Column_Separator extends AC_Settings_Column {
 		return $this;
 	}
 
-	public function get_formatted_separator() {
+	/**
+	 * @param AC_Collection $collection
+	 * @param int           $id
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_Collection $collection, $id ) {
 		switch ( $this->separator ) {
 			case 'comma' :
 				$separator = ', ';
@@ -52,10 +59,14 @@ class AC_Settings_Column_Separator extends AC_Settings_Column {
 				$separator = '';
 				break;
 			default :
-				$separator = '&nbsp;';
+				// TODO: check if this makes sense over using &nbsp;
+				$separator = $this->column->get_separator();
 		}
 
-		return $separator;
+		$value_formatter = new AC_ValueFormatter( $id );
+		$value_formatter->value = $collection->implode( $separator );
+
+		return $value_formatter;
 	}
 
 }

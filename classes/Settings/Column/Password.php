@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_Password extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -46,18 +46,19 @@ class AC_Settings_Column_Password extends AC_Settings_Column
 	}
 
 	/**
-	 * @param $text
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return bool|string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $text, $object_id = null ) {
-
+	public function format( AC_ValueFormatter $value_formatter ) {
 		if ( ! $this->get_password() ) {
 			$pwchar = '&#9679;';
-			$text = $text ? str_pad( '', strlen( $text ) * strlen( $pwchar ), $pwchar ) : false;
+			$value_formatter->value = $value_formatter->value
+				? str_pad( '', strlen( $value_formatter->value ) * strlen( $pwchar ), $pwchar )
+				: false;
 		}
 
-		return $text;
+		return $value_formatter;
 	}
 
 }

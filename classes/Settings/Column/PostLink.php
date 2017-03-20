@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_PostLink extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -48,13 +48,6 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 		}
 
 		return $value_formatter;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function get_format_priority() {
-		return 30;
 	}
 
 	public function create_view() {

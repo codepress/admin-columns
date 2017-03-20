@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_CommentCount extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	private $comment_status;
 
@@ -11,7 +11,7 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 
 	protected function define_options() {
 		return array(
-			'comment_status' => 'total_comments'
+			'comment_status' => 'total_comments',
 		);
 	}
 
@@ -64,21 +64,15 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	}
 
 	/**
-	 * @param stdClass $count
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $count, $object_id = null ) {
-		$value = 0;
-
+	public function format( AC_ValueFormatter $value_formatter ) {
 		$status = $this->get_comment_status();
+		$value_formatter->value = isset( $value_formatter->value->$status ) ? $value_formatter->$status : 0;
 
-		if ( isset( $count->{$status} ) ) {
-			$value = $count->{$status};
-		}
-
-		return $value;
+		return $value_formatter;
 	}
 
 }

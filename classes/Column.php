@@ -371,14 +371,7 @@ class AC_Column {
 	 * @return string
 	 */
 	public function get_separator() {
-		$separator = ', ';
-
-		/* @var $setting AC_Settings_Column_Separator */
-		if ( $setting = $this->get_setting( 'separator' ) ) {
-			$separator = $setting->get_formatted_separator();
-		}
-
-		return $separator;
+		return ', ';
 	}
 
 }

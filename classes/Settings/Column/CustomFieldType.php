@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -152,9 +152,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	}
 
 	/**
-	 * @param AC_Value $value
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string|bool
+	 * @return AC_ValueFormatter|AC_Collection
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
 		$value = $value_formatter->value;
@@ -165,7 +165,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			case 'title_by_id' :
 			case 'user_by_id' :
 				$string = ac_helper()->array->implode_recursive( ', ', $value );
-				$value_formatter->value = new AC_Collection( ac_helper()->string->string_to_array_integers( $string ) );
+				$value_formatter->value = AC_ValueFormatter::cast_ids( ac_helper()->string->string_to_array_integers( $string ) );
 
 				break;
 			case "checkmark" :
@@ -207,10 +207,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		//}
 
 		return $value_formatter;
-	}
-
-	public function get_format_priority() {
-		return self::DEFAULT_FORMAT_PRIORITY;
 	}
 
 	/**

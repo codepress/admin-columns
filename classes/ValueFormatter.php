@@ -31,6 +31,23 @@ final class AC_ValueFormatter {
 	}
 
 	/**
+	 * Cast an array with ids to an collection with AC_ValueFormatter[]
+	 *
+	 * @param array $ids
+	 *
+	 * @return AC_Collection
+	 */
+	public static function cast_ids( array $ids ) {
+		$collection = new AC_Collection;
+
+		foreach ( $ids as $id ) {
+			$collection->push( new AC_ValueFormatter( $id ) );
+		}
+
+		return $collection;
+	}
+
+	/**
 	 * @param int $id
 	 *
 	 * @return $this
@@ -83,8 +100,7 @@ final class AC_ValueFormatter {
 	 * @return $this
 	 */
 	public function add_formatter( AC_Settings_FormatInterface $formatter ) {
-		$priority = absint( $formatter->get_format_priority() );
-		$this->formatters[ $priority ][] = $formatter;
+		$this->formatters[] = $formatter;
 
 		return $this;
 	}
@@ -97,26 +113,17 @@ final class AC_ValueFormatter {
 	 * @return string
 	 */
 	public function apply_formatters() {
-		ksort( $this->formatters );
-
-		foreach ( $this->formatters as $priority => $formatters ) {
-			/* @var $formatter AC_Settings_FormatInterface */
-			foreach ( $formatters as $formatter ) {
-				if ( $this->value instanceof AC_Collection ) {
-					foreach ( $this->value as $k => $value ) {
-
-						// Allow formatters to return an array of id's
-						if ( ! ( $value instanceof AC_ValueFormatter ) ) {
-							$value = new AC_ValueFormatter( $value );
-
-							$this->value->put( $k, $value );
-						}
-
+		foreach ( $this->formatters as $formatter ) {
+			if ( $this->value instanceof AC_Collection ) {
+				if ( $formatter instanceof AC_Settings_FormatValueInterface ) {
+					foreach ( $this->value as $value ) {
 						$formatter->format( $value );
 					}
-				} else {
-					$formatter->format( $this );
+				} elseif ( $formatter instanceof AC_Settings_FormatCollectionInterface ) {
+					$formatter->format( $this->value, $this->id );
 				}
+			} elseif ( $formatter instanceof AC_Settings_FormatValueInterface ) {
+				$formatter->format( $this );
 			}
 		}
 

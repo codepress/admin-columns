@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_Post extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -38,7 +38,6 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 	 * @return AC_ValueFormatter
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-
 		switch ( $this->get_post_property_display() ) {
 			case 'author' :
 				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value_formatter->get_id() ) );
@@ -55,10 +54,6 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 		}
 
 		return $value_formatter;
-	}
-
-	public function get_format_priority() {
-		return self::DEFAULT_FORMAT_PRIORITY;
 	}
 
 	protected function get_post_type() {

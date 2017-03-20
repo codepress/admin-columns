@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_WordLimit extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var int
@@ -68,10 +68,6 @@ class AC_Settings_Column_WordLimit extends AC_Settings_Column
 		$value_formatter->value = ac_helper()->html->implode( $values );
 
 		return $value_formatter;
-	}
-
-	public function get_format_priority() {
-		return self::DEFAULT_FORMAT_PRIORITY;
 	}
 
 }

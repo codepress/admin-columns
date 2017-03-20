@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_LinkToPost extends AC_Settings_Column_Toggle
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -44,18 +44,20 @@ class AC_Settings_Column_LinkToPost extends AC_Settings_Column_Toggle
 	}
 
 	/**
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return false|string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $post_id, $object_id = null ) {
-		$link = get_permalink( $post_id );
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$link = get_permalink( $value_formatter->get_id() );
 
 		if ( 'on' === $this->get_link_to_post() ) {
 			$link = ac_helper()->html->link( $link, $link, array( 'target' => '_blank' ) );
 		}
 
-		return $link;
+		$value_formatter->value = $link;
+
+		return $value_formatter;
 	}
 
 }
