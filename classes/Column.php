@@ -305,60 +305,6 @@ class AC_Column {
 	}
 
 	/**
-	 * Apply formatting that is defined in the settings
-	 *
-	 * A formatter should return a AC_Collection when other formatters
-	 * should apply the formatter to each member of the collection
-	 *
-	 * @param AC_Collection|string $value
-	 *
-	 * @return string
-	 */
-	public function format_value( $value ) {
-		$object_id = $value;
-
-		foreach ( $this->get_settings() as $setting ) {
-			if ( $setting instanceof AC_Settings_FormatInterface ) {
-
-				if ( $value instanceof AC_Collection ) {
-					foreach ( $value as $k => $v ) {
-						$value->put( $k, $setting->format( $v, $object_id ) );
-					}
-				} else {
-					$value = $setting->format( $value, $object_id );
-				}
-
-			}
-		}
-
-		if ( $value instanceof AC_Collection ) {
-			$value = $value->implode( $this->get_separator() );
-		}
-
-		return $value;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_separator() {
-		$separator = ', ';
-
-		if ( $setting = $this->get_setting( 'separator' ) ) {
-			switch ( $setting->get_separator() ) {
-				case 'newline' :
-					$separator = '<br/>';
-					break;
-				case '' :
-					$separator = '&nbsp;';
-					break;
-			}
-		}
-
-		return $separator;
-	}
-
-	/**
 	 * Enqueue CSS + JavaScript on the admin listings screen!
 	 *
 	 * This action is called in the admin_head action on the listings screen where your column values are displayed.
@@ -371,14 +317,40 @@ class AC_Column {
 	}
 
 	/**
+	 * Apply formatting that is defined in the settings
+	 *
+	 * A formatter should return a AC_Collection when other formatters
+	 * should apply the formatter to each member of the collection
+	 *
+	 *
+	 * @param int   $id
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function format_value( $id, $value = null ) {
+		$value_formatter = new AC_ValueFormatter( $id );
+		$value_formatter->set_separator( $this->get_separator() )
+		                ->set_value( $value );
+
+		foreach ( $this->get_settings() as $setting ) {
+			if ( $setting instanceof AC_Settings_FormatInterface ) {
+				$value_formatter->add_formatter( $setting );
+			}
+		}
+
+		return $value_formatter->apply_formatters();
+	}
+
+	/**
 	 * Display value
 	 *
-	 * @param int $object_id ID
+	 * @param int $id
 	 *
-	 * @return mixed
+	 * @return int|string
 	 */
-	public function get_value( $object_id ) {
-		return $this->format_value( $this->get_raw_value( $object_id ) );
+	public function get_value( $id ) {
+		return $this->format_value( $id, $this->get_raw_value( $id ) );
 	}
 
 	/**
@@ -387,12 +359,19 @@ class AC_Column {
 	 *
 	 * @since 2.0.3
 	 *
-	 * @param int $object_id ID
+	 * @param int $id
 	 *
 	 * @return mixed Raw column value. Default is NULL.
 	 */
-	public function get_raw_value( $object_id ) {
+	public function get_raw_value( $id ) {
 		return null;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_separator() {
+		return ', ';
 	}
 
 }

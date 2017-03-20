@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -152,65 +152,61 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	}
 
 	/**
-	 * @param array|string $id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string|bool
+	 * @return AC_ValueFormatter|AC_Collection
 	 */
-	public function format( $meta_data, $object_id = null ) {
-		$value = false;
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$value = $value_formatter->value;
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
 			case 'library_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
-				$value = ac_helper()->string->comma_separated_to_array( $string );
-
-				$value = new AC_Collection( $value );
-				break;
-
 			case 'title_by_id' :
 			case 'user_by_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $meta_data );
-				$value = ac_helper()->string->string_to_array_integers( $string );
+				$string = ac_helper()->array->implode_recursive( ', ', $value );
+				$value_formatter->value = AC_ValueFormatter::cast_ids( ac_helper()->string->string_to_array_integers( $string ) );
 
-				$value = new AC_Collection( $value );
 				break;
-
 			case "checkmark" :
-				$is_true = ( ! empty( $meta_data ) && 'false' !== $meta_data && '0' !== $meta_data );
-				$value = ac_helper()->icon->yes_or_no( $is_true );
-				break;
+				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
+				$value_formatter->value = ac_helper()->icon->yes_or_no( $is_true );
 
+				break;
 			case "color" :
-				$value = $meta_data && is_scalar( $meta_data ) ? ac_helper()->string->get_color_block( $meta_data ) : ac_helper()->string->get_empty_char();
-				break;
+				$value_formatter->value = ac_helper()->string->get_empty_char();
 
+				if ( $value && is_scalar( $value ) ) {
+					$value_formatter->value = ac_helper()->string->get_color_block( $value );
+				}
+
+				break;
 			case "count" :
 				if ( $this->column instanceof AC_Column_Meta ) {
-					$value = $meta_data ? count( $meta_data ) : ac_helper()->string->get_empty_char();
+					$value_formatter->value = $value ? count( $value ) : ac_helper()->string->get_empty_char();
 				}
-				break;
 
+				break;
 			case "has_content" :
-				$value = ac_helper()->icon->yes_or_no( $meta_data, $meta_data );
-				break;
+				$value_formatter->value = ac_helper()->icon->yes_or_no( $value, $value );
 
+				break;
 			case "term_by_id" :
-				$value = false;
-				if ( is_array( $meta_data ) && isset( $meta_data['term_id'] ) && isset( $meta_data['taxonomy'] ) ) {
-					$value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $meta_data['term_id'], $meta_data['taxonomy'] ) );
+				if ( is_array( $value ) && isset( $value['term_id'] ) && isset( $value['taxonomy'] ) ) {
+					$value_formatter->value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $value['term_id'], $value['taxonomy'] ) );
 				}
+
 				break;
-
 			default :
-				$value = ac_helper()->array->implode_recursive( ', ', $meta_data );
+				$value_formatter->value = ac_helper()->array->implode_recursive( ', ', $value );
 		}
 
-		if ( is_array( $value ) ) {
-			$value = ac_helper()->array->implode_recursive( ' ', $value );
-		}
+		// TODO: obsolete?
+		//if ( is_array( $value ) ) {
+		//	$value = ac_helper()->array->implode_recursive( ' ', $value );
+		//}
 
-		return $value;
+		return $value_formatter;
 	}
 
 	/**

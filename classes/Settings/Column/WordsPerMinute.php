@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column {
+class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var int
@@ -52,12 +53,14 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column {
 	/**
 	 * Returns estimate reading time in seconds
 	 *
-	 * @param string $string
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return int Seconds
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $string ) {
-		return ac_helper()->string->get_estimated_reading_time_in_seconds( $string, $this->get_words_per_minute() );
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$value_formatter->value = ac_helper()->string->get_estimated_reading_time_in_seconds( $value_formatter->value, $this->get_words_per_minute() );
+
+		return $value_formatter;
 	}
 
 }

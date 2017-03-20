@@ -29,6 +29,10 @@ class AC_Collection
 		return $this;
 	}
 
+	public function push( $value ) {
+		$this->items[] = $value;
+	}
+
 	public function get( $key, $default = null ) {
 		if ( $this->has( $key ) ) {
 			return $this->items[ $key ];

@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -21,12 +21,17 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 		return array( 'before', 'after' );
 	}
 
-	public function format( $value, $object_id = null ) {
-		if ( ac_helper()->string->is_empty( $value ) ) {
-			return false;
+	/**
+	 * @param AC_ValueFormatter $value_formatter
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_ValueFormatter $value_formatter ) {
+		if ( $this->get_before() || $this->get_after() ) {
+			$value_formatter->value = $this->get_before() . $value_formatter->value . $this->get_after();
 		}
 
-		return $this->get_before() . $value . $this->get_after();
+		return $value_formatter;
 	}
 
 	public function create_view() {

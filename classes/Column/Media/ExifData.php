@@ -12,10 +12,6 @@ class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $object_id ) {
-		return $this->format_value( $this->get_raw_value( $object_id ) );
-	}
-
 	public function get_raw_value( $id ) {
 		$value = parent::get_raw_value( $id );
 

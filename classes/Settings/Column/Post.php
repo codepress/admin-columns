@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_Post extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -33,35 +33,32 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 	}
 
 	/**
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $value, $post_id = null ) {
-
+	public function format( AC_ValueFormatter $value_formatter ) {
 		switch ( $this->get_post_property_display() ) {
-
 			case 'author' :
-				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value ) );
-				break;
+				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value_formatter->get_id() ) );
 
+				break;
 			case 'thumbnail' :
-				$value = get_post_thumbnail_id( $value );
+				$value_formatter->value = get_post_thumbnail_id( $value_formatter->get_id() );
+
 				break;
-
 			case 'title' :
-				$post = get_post( $value );
-
-				$value = $post->post_title;
+				$post = get_post( $value_formatter->get_id() );
+				$value_formatter->value = $post->post_title;
 
 				if ( 'attachment' == $post->post_type ) {
-					$value = ac_helper()->image->get_file_name( $post->ID );
+					$value_formatter->value = ac_helper()->image->get_file_name( $post->ID );
 				}
 
 				break;
 		}
 
-		return $value;
+		return $value_formatter;
 	}
 
 	protected function get_post_type() {

@@ -13,31 +13,29 @@ class AC_Column_UsedByMenu extends AC_Column {
 		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $object_id ) {
+	public function get_value( $id ) {
 		$menus = array();
 
-		if ( $menu_ids = $this->get_raw_value( $object_id ) ) {
+		if ( $menu_ids = $this->get_raw_value( $id ) ) {
 			foreach ( $menu_ids as $menu_id ) {
 				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
 
-				$title = $term->name;
 				if ( 'on' === $this->get_option( 'link_to_menu' ) ) {
-					$title = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
+					$term->name = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
 				}
 
-				$menus[] = $title;
+				$menus[] = $term->name;
 			}
 		}
 
-		return $this->format_value( new AC_Collection( $menus ) );
+		return implode( $this->get_separator(), $menus );
 	}
 
 	/**
-	 * @see AC_Column::get_raw_value()
+	 * @see   AC_Column::get_raw_value()
 	 * @since 2.2.5
 	 */
 	function get_raw_value( $object_id ) {
-
 		$object_type = $this->get_post_type();
 
 		if ( ! $object_type ) {
@@ -49,11 +47,11 @@ class AC_Column_UsedByMenu extends AC_Column {
 		}
 
 		$menu_item_ids = get_posts( array(
-			'post_type'   => 'nav_menu_item',
-			'numberposts' => -1,
-			'post_status' => 'publish',
-			'fields'      => 'ids',
-			'meta_query'  => array(
+			'post_type'      => 'nav_menu_item',
+			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'fields'         => 'ids',
+			'meta_query'     => array(
 				array(
 					'key'   => '_menu_item_object_id',
 					'value' => $object_id,
@@ -70,6 +68,7 @@ class AC_Column_UsedByMenu extends AC_Column {
 		}
 
 		$menu_ids = wp_get_object_terms( $menu_item_ids, 'nav_menu', array( 'fields' => 'ids' ) );
+
 		if ( ! $menu_ids || is_wp_error( $menu_ids ) ) {
 			return false;
 		}

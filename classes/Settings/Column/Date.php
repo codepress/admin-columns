@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_Date extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	private $date_format;
 
@@ -54,12 +54,14 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	}
 
 	/**
-	 * @param string $date
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function format( $date, $object_id = null ) {
-		return ac_helper()->date->date( $date, $this->get_date_format() );
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $this->get_date_format() );
+
+		return $value_formatter;
 	}
 
 }

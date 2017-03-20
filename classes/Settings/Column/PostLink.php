@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_PostLink extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -15,38 +15,39 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 	}
 
 	/**
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $value, $object_id = null ) {
-		if ( ! $value ) {
-			return false;
-		}
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$id = $value_formatter->get_id();
 
 		switch ( $this->get_post_link_to() ) {
-
 			case 'edit_post' :
-				$link = get_edit_post_link( $object_id );
-				break;
+				$link = get_edit_post_link( $id );
 
+				break;
 			case 'view_post' :
-				$link = get_permalink( $object_id );
-				break;
+				$link = get_permalink( $id );
 
+				break;
 			case 'edit_author' :
-				$link = get_edit_user_link( ac_helper()->post->get_raw_field( 'post_author', $object_id ) );
-				break;
+				$link = get_edit_user_link( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
+				break;
 			case 'view_author' :
-				$link = get_author_posts_url( ac_helper()->post->get_raw_field( 'post_author', $object_id ) );
-				break;
+				$link = get_author_posts_url( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
+				break;
 			default :
 				$link = false;
 		}
 
-		return ac_helper()->html->link( $link, $value );
+		if ( $link ) {
+			$value_formatter->value = ac_helper()->html->link( $link, $value_formatter->value );
+		}
+
+		return $value_formatter;
 	}
 
 	public function create_view() {

@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_PathScope extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -49,13 +49,19 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 		return true;
 	}
 
-	public function format( $file, $object_id = null ) {
-		$value = '';
+	/**
+	 * @param AC_ValueFormatter $value_formatter
+	 *
+	 * @return AC_ValueFormatter
+	 */
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$file = $value_formatter->value;
 
 		if ( $file ) {
+			$file = str_replace( 'https://', 'http://', $file );
+
 			switch ( $this->get_path_scope() ) {
 				case 'relative-domain' :
-					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', home_url( '/' ) );
 
 					if ( strpos( $file, $url ) === 0 ) {
@@ -64,9 +70,8 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 
 					break;
 				case 'relative-uploads' :
-					$uploaddir = wp_upload_dir();
-					$file = str_replace( 'https://', 'http://', $file );
-					$url = str_replace( 'https://', 'http://', $uploaddir['baseurl'] );
+					$upload_dir = wp_upload_dir();
+					$url = str_replace( 'https://', 'http://', $upload_dir['baseurl'] );
 
 					if ( strpos( $file, $url ) === 0 ) {
 						$file = substr( $file, strlen( $url ) );
@@ -75,10 +80,12 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 					break;
 			}
 
-			$value = $file;
+			$value_formatter->value = $file;
+		} else {
+			$value_formatter->value = '';
 		}
 
-		return $value;
+		return $value_formatter;
 	}
 
 }

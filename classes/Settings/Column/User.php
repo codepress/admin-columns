@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_User extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -52,12 +52,15 @@ class AC_Settings_Column_User extends AC_Settings_Column
 	}
 
 	/**
-	 * @param int $user_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $user_id, $object_id = null ) {
-		return ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
+	public function format( AC_ValueFormatter $value_formatter ) {
+		$user_id = $value_formatter->get_id();
+		$value_formatter->value = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
+
+		return $value_formatter;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 
 class AC_Settings_Column_CommentCount extends AC_Settings_Column
-	implements AC_Settings_FormatInterface {
+	implements AC_Settings_FormatValueInterface {
 
 	private $comment_status;
 
@@ -13,7 +13,7 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 
 	protected function define_options() {
 		return array(
-			'comment_status' => 'total_comments'
+			'comment_status' => 'total_comments',
 		);
 	}
 
@@ -35,10 +35,10 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	 */
 	private function get_comment_statuses() {
 		$options = array(
-			'approved'       => __( 'Approved', 'codepress-admin-columns' ),
-			'moderated'      => __( 'Pending', 'codepress-admin-columns' ),
-			'spam'           => __( 'Spam', 'codepress-admin-columns' ),
-			'trash'          => __( 'Trash', 'codepress-admin-columns' ),
+			'approved'  => __( 'Approved', 'codepress-admin-columns' ),
+			'moderated' => __( 'Pending', 'codepress-admin-columns' ),
+			'spam'      => __( 'Spam', 'codepress-admin-columns' ),
+			'trash'     => __( 'Trash', 'codepress-admin-columns' ),
 		);
 
 		asort( $options );
@@ -80,25 +80,20 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	}
 
 	/**
-	 * @param stdClass $count
-	 * @param int $post_id
+	 * @param AC_ValueFormatter $value_formatter
 	 *
-	 * @return string
+	 * @return AC_ValueFormatter
 	 */
-	public function format( $count, $object_id = null ) {
-		$value = 0;
-
+	public function format( AC_ValueFormatter $value_formatter ) {
 		$status = $this->get_comment_status();
 
-		if ( isset( $count->{$status} ) ) {
-			$value = $count->{$status};
+		if ( isset( $value_formatter->value->$status ) ) {
+			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $status );
+		} else {
+			$value_formatter->value = ac_helper()->string->get_empty_char();
 		}
 
-		if ( 0 === $value ) {
-			$value = ac_helper()->string->get_empty_char();
-		}
-
-		return ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $value );
+		return $value_formatter;
 	}
 
 }
