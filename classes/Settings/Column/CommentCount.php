@@ -35,10 +35,10 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	 */
 	private function get_comment_statuses() {
 		$options = array(
-			'approved'       => __( 'Approved', 'codepress-admin-columns' ),
-			'moderated'      => __( 'Pending', 'codepress-admin-columns' ),
-			'spam'           => __( 'Spam', 'codepress-admin-columns' ),
-			'trash'          => __( 'Trash', 'codepress-admin-columns' ),
+			'approved'  => __( 'Approved', 'codepress-admin-columns' ),
+			'moderated' => __( 'Pending', 'codepress-admin-columns' ),
+			'spam'      => __( 'Spam', 'codepress-admin-columns' ),
+			'trash'     => __( 'Trash', 'codepress-admin-columns' ),
 		);
 
 		asort( $options );
@@ -86,21 +86,14 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
 		$status = $this->get_comment_status();
-		$value_formatter->value = isset( $value_formatter->value->$status ) ? $value_formatter->$status : 0;
 
-<<<<<<< HEAD
+		if ( isset( $value_formatter->value->$status ) ) {
+			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $status );
+		} else {
+			$value_formatter->value = ac_helper()->string->get_empty_char();
+		}
+
 		return $value_formatter;
-=======
-		if ( isset( $count->{$status} ) ) {
-			$value = $count->{$status};
-		}
-
-		if ( 0 === $value ) {
-			$value = ac_helper()->string->get_empty_char();
-		}
-
-		return ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $value );
->>>>>>> develop
 	}
 
 }
