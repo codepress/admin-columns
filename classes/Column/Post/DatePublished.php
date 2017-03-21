@@ -10,12 +10,6 @@ class AC_Column_Post_DatePublished extends AC_Column {
 		$this->set_label( __( 'Date Published' ) );
 	}
 
-	public function get_value( $post_id ) {
-		$date = $this->get_raw_value( $post_id );
-
-		return $this->get_setting( 'date' )->format( $date ) . ' ' . ac_helper()->date->time( $date );
-	}
-
 	public function get_raw_value( $post_id ) {
 		$post = get_post( $post_id );
 
@@ -23,7 +17,10 @@ class AC_Column_Post_DatePublished extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Date( $this ) );
+		$date = new AC_Settings_Column_Date( $this );
+		//$date->set_default( get_option( 'date_format') . ' ' . get_option( 'time_format' ) );
+
+		$this->add_setting( $date );
 	}
 
 }
