@@ -18,6 +18,7 @@ class AC_Column_Post_DatePublished extends AC_Column {
 
 	public function register_settings() {
 		$date = new AC_Settings_Column_Date( $this );
+		// TODO: set default using time
 		//$date->set_default( get_option( 'date_format') . ' ' . get_option( 'time_format' ) );
 
 		$this->add_setting( $date );

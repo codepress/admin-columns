@@ -59,7 +59,7 @@ class AC_Helper_String {
 
 	/**
 	 * @param string $string
-	 * @param int $limit
+	 * @param int    $limit
 	 *
 	 * @return string
 	 */
@@ -194,49 +194,6 @@ class AC_Helper_String {
 	 */
 	public function is_valid_url( $url ) {
 		return filter_var( $url, FILTER_VALIDATE_URL ) || preg_match( '/[^\w.-]/', $url );
-	}
-
-	/**
-	 * @param $content
-	 *
-	 * @return int Words per minute
-	 */
-	public function get_estimated_reading_time_in_seconds( $string, $words_per_minute = 200 ) {
-		$word_count = $this->word_count( $string );
-
-		return $word_count && $words_per_minute ? (int) floor( ( $word_count / $words_per_minute ) * 60 ) : 0;
-	}
-
-	/**
-	 * @since NEWVERSION
-	 *
-	 * @param int $seconds
-	 *
-	 * @return string
-	 */
-	public function convert_seconds_to_human_readable_time( $seconds ) {
-		$time = false;
-
-		if ( $seconds ) {
-
-			$minutes = floor( $seconds / 60 );
-			$seconds = floor( $seconds % 60 );
-
-			$time = $minutes;
-			if ( $minutes && $seconds < 10 ) {
-				$seconds = '0' . $seconds;
-			}
-			if ( '00' != $seconds ) {
-				$time .= ':' . $seconds;
-			}
-			if ( $minutes < 1 ) {
-				$time = $seconds . ' ' . _n( 'second', 'seconds', $seconds, 'codepress-admin-columns' );
-			} else {
-				$time .= ' ' . _n( 'minute', 'minutes', $minutes, 'codepress-admin-columns' );
-			}
-		}
-
-		return $time;
 	}
 
 	/**
