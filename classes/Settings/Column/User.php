@@ -57,7 +57,8 @@ class AC_Settings_Column_User extends AC_Settings_Column
 	 * @return AC_ValueFormatter
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-		$user_id = $value_formatter->get_id();
+		$user_id = $value_formatter->value;
+
 		$value_formatter->value = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 
 		return $value_formatter;
@@ -81,21 +82,27 @@ class AC_Settings_Column_User extends AC_Settings_Column
 		$link = false;
 
 		switch ( $this->get_user_link_to() ) {
+
 			case 'edit_user' :
 				$link = get_edit_user_link( $user_id );
+
 				break;
 			case 'view_user_posts' :
 				$link = add_query_arg( array(
 					'post_type' => $this->column->get_post_type(),
 					'author'    => get_the_author_meta( 'ID' ),
 				), 'edit.php' );
+
 				break;
 			case 'view_author' :
 				$link = get_author_posts_url( $user_id );
+
 				break;
 			case 'email_user' :
-				$email = get_the_author_meta( 'email', $user_id );
-				$link = $email ? 'mailto:' . $email : false;
+				if ( $email = get_the_author_meta( 'email', $user_id ) ) {
+					$link = 'mailto:' . $email;
+				}
+
 				break;
 		}
 

@@ -88,7 +88,7 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		$status = $this->get_comment_status();
 
 		if ( isset( $value_formatter->value->$status ) ) {
-			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $status );
+			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $value_formatter->value->$status );
 		} else {
 			$value_formatter->value = ac_helper()->string->get_empty_char();
 		}
