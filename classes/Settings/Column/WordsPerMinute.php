@@ -15,12 +15,13 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	}
 
 	public function create_view() {
-		$setting = $this->create_element( 'number' )
-		                ->set_attributes( array(
-			                'min'         => 0,
-			                'step'        => 1,
-			                'placeholder' => $this->get_words_per_minute(),
-		                ) );
+		$setting = $this->create_element( 'number' );
+		$setting
+			->set_attributes( array(
+				'min'         => 0,
+				'step'        => 1,
+				'placeholder' => $this->get_words_per_minute(),
+			) );
 
 		$view = new AC_View( array(
 			'label'   => __( 'Words per minute', 'codepress-admin-columns' ),

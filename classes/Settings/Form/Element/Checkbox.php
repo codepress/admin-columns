@@ -62,6 +62,10 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 			$elements[] = sprintf( '<label %s>%s%s</label>', $this->get_attributes_as_string( $attributes ), $input->render(), esc_html( $label ) );
 		}
 
+		if ( $description = $this->render_description() ) {
+			$elements[] = $description;
+		}
+
 		return $elements;
 	}
 
