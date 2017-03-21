@@ -31,6 +31,27 @@ final class AC_ValueFormatter {
 	}
 
 	/**
+	 * Create an collection with AC_ValueFormatter objects based on an array
+	 *
+	 * @param int   $id
+	 * @param array $values
+	 *
+	 * @return AC_Collection
+	 */
+	public static function create_collection( $id, array $values ) {
+		$collection = new AC_Collection;
+
+		foreach ( $values as $value ) {
+			$value_formatter = new AC_ValueFormatter( $id );
+			$value_formatter->value = $value;
+
+			$collection->push( $value_formatter );
+		}
+
+		return $collection;
+	}
+
+	/**
 	 * Cast an array with ids to an collection with AC_ValueFormatter[]
 	 *
 	 * @param array $ids

@@ -33,6 +33,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case 'user_by_id' :
 				$settings[] = new AC_Settings_Column_User( $this->column );
+
 				break;
 			case 'link' :
 				$settings[] = new AC_Settings_Column_LinkLabel( $this->column );
@@ -167,7 +168,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$string = ac_helper()->array->implode_recursive( ', ', $value );
 				$ids = ac_helper()->string->string_to_array_integers( $string );
 
-				$value_formatter->value = AC_ValueFormatter::cast_ids( $ids );
+				$value_formatter->value = AC_ValueFormatter::create_collection( $value_formatter->get_id(), $ids );
 
 				break;
 			case "checkmark" :
