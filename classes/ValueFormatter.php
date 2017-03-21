@@ -52,23 +52,6 @@ final class AC_ValueFormatter {
 	}
 
 	/**
-	 * Cast an array with ids to an collection with AC_ValueFormatter[]
-	 *
-	 * @param array $ids
-	 *
-	 * @return AC_Collection
-	 */
-	public static function cast_ids( array $ids ) {
-		$collection = new AC_Collection;
-
-		foreach ( $ids as $id ) {
-			$collection->push( new AC_ValueFormatter( $id ) );
-		}
-
-		return $collection;
-	}
-
-	/**
 	 * @param int $id
 	 *
 	 * @return $this
