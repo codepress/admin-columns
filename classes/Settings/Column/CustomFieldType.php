@@ -165,7 +165,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			case 'title_by_id' :
 			case 'user_by_id' :
 				$string = ac_helper()->array->implode_recursive( ', ', $value );
-				$value_formatter->value = AC_ValueFormatter::cast_ids( ac_helper()->string->string_to_array_integers( $string ) );
+				$ids = ac_helper()->string->string_to_array_integers( $string );
+
+				$value_formatter->value = AC_ValueFormatter::cast_ids( $ids );
 
 				break;
 			case "checkmark" :

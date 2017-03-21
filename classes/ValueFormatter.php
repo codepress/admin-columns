@@ -131,7 +131,7 @@ final class AC_ValueFormatter {
 			$this->value = $this->value->implode( $this->separator );
 		}
 
-		return $this->value;
+		return (string) $this->value;
 	}
 
 	public function __toString() {
