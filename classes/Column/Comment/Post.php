@@ -20,6 +20,10 @@ class AC_Column_Comment_Post extends AC_Column {
 		return $comment->comment_post_ID;
 	}
 
+	public function get_value( $id ) {
+		return $this->format_value( $this->get_raw_value( $id ) );
+	}
+
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_Post( $this ) );
 	}
