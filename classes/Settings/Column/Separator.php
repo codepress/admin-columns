@@ -63,10 +63,7 @@ class AC_Settings_Column_Separator extends AC_Settings_Column
 				$separator = $this->column->get_separator();
 		}
 
-		$value_formatter = new AC_ValueFormatter( $id );
-		$value_formatter->value = $collection->implode( $separator );
-
-		return $value_formatter;
+		return new AC_ValueFormatter( $collection->implode( $separator ), $id );
 	}
 
 }

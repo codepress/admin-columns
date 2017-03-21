@@ -86,11 +86,11 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
 		$status = $this->get_comment_status();
+		$value_formatter->value = ac_helper()->string->get_empty_char();
 
 		if ( isset( $value_formatter->value->$status ) ) {
-			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() ), $value_formatter->value->$status );
-		} else {
-			$value_formatter->value = ac_helper()->string->get_empty_char();
+			$url = add_query_arg( array( 'comment_status' => $status ), $this->get_admin_url() );
+			$value_formatter->value = ac_helper()->html->link( $url, $value_formatter->value->$status );
 		}
 
 		return $value_formatter;

@@ -23,29 +23,31 @@ final class AC_ValueFormatter {
 	private $formatters = array();
 
 	/**
-	 * @param int|null $id
+	 * @param mixed    $value
+	 * @param null|int $id
 	 */
-	public function __construct( $id = null ) {
-		$this->set_id( $id );
+	public function __construct( $value, $id = null ) {
+		$this->set_value( $value );
 		$this->set_separator( ', ' );
+
+		if ( null !== $id ) {
+			$this->set_id( $id );
+		}
 	}
 
 	/**
 	 * Create an collection with AC_ValueFormatter objects based on an array
 	 *
-	 * @param int   $id
-	 * @param array $values
+	 * @param array    $values
+	 * @param null|int $id
 	 *
 	 * @return AC_Collection
 	 */
-	public static function create_collection( $id, array $values ) {
+	public static function create_collection( array $values, $id = null ) {
 		$collection = new AC_Collection;
 
 		foreach ( $values as $value ) {
-			$value_formatter = new AC_ValueFormatter( $id );
-			$value_formatter->value = $value;
-
-			$collection->push( $value_formatter );
+			$collection->push( new AC_ValueFormatter( $value, $id ) );
 		}
 
 		return $collection;
@@ -56,7 +58,7 @@ final class AC_ValueFormatter {
 	 *
 	 * @return $this
 	 */
-	protected function set_id( $id ) {
+	public function set_id( $id ) {
 		$this->id = absint( $id );
 
 		return $this;

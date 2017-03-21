@@ -317,21 +317,16 @@ class AC_Column {
 	}
 
 	/**
-	 * Apply formatting that is defined in the settings
+	 * Apply formatters that are defined in the settings
 	 *
-	 * A formatter should return a AC_Collection when other formatters
-	 * should apply the formatter to each member of the collection
-	 *
-	 *
-	 * @param int   $id
-	 * @param mixed $value
+	 * @param mixed    $value
+	 * @param int|null $id
 	 *
 	 * @return string
 	 */
-	public function format_value( $id, $value = null ) {
-		$value_formatter = new AC_ValueFormatter( $id );
-		$value_formatter->set_separator( $this->get_separator() )
-		                ->set_value( $value );
+	public function format_value( $value, $id = null ) {
+		$value_formatter = new AC_ValueFormatter( $value, $id );
+		$value_formatter->set_separator( $this->get_separator() );
 
 		foreach ( $this->get_settings() as $setting ) {
 			if ( $setting instanceof AC_Settings_FormatInterface ) {
@@ -350,7 +345,7 @@ class AC_Column {
 	 * @return int|string
 	 */
 	public function get_value( $id ) {
-		return $this->format_value( $id, $this->get_raw_value( $id ) );
+		return $this->format_value( $this->get_raw_value( $id ), $id );
 	}
 
 	/**
