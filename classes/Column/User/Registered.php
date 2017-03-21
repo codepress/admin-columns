@@ -11,16 +11,11 @@ class AC_Column_User_Registered extends AC_Column {
 	}
 
 	public function get_value( $user_id ) {
-		$user_registered = $this->get_raw_value( $user_id );
-
-		// GMT offset is used
-		return $this->get_setting( 'date' )->format( get_date_from_gmt( $user_registered ) );
+		return $this->format_value( $user_id, get_date_from_gmt( $this->get_raw_value( $user_id ) ) );
 	}
 
 	public function get_raw_value( $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		return $userdata->user_registered;
+		return get_userdata( $user_id )->user_registered;
 	}
 
 	public function register_settings() {
