@@ -185,7 +185,7 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 			$size = array( $this->get_image_size_w(), $this->get_image_size_h() );
 		}
 
-		$value_formatter->value = ac_helper()->image->get_image( $value_formatter->get_id(), $size );
+		$value_formatter->value = ac_helper()->image->get_image( $value_formatter->value, $size );
 
 		return $value_formatter;
 	}

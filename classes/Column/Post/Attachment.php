@@ -14,8 +14,13 @@ class AC_Column_Post_Attachment extends AC_Column {
 		return $this->get_attachment_ids( $post_id );
 	}
 
+	/**
+	 * @param $post_id
+	 *
+	 * @return int[] Attachment ID's
+	 */
 	private function get_attachment_ids( $post_id ) {
-		$attachments = get_posts( array(
+		$attachment_ids = get_posts( array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
 			'post_status'    => null,
@@ -23,7 +28,11 @@ class AC_Column_Post_Attachment extends AC_Column {
 			'fields'         => 'ids',
 		) );
 
-		return $attachments ? $attachments : array();
+		if ( ! $attachment_ids ) {
+			return array();
+		}
+
+		return $attachment_ids;
 	}
 
 	public function register_settings() {
