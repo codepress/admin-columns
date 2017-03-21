@@ -10,6 +10,16 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column {
 		$this->set_label( __( 'Estimated Reading Time', 'codepress-admin-columns' ) );
 	}
 
+	public function get_value( $id ) {
+		$value = parent::get_value( $id );
+
+		if ( false === $value ) {
+			$value = ac_helper()->string->get_empty_char();
+		}
+
+		return $value;
+	}
+
 	/**
 	 * Estimate read time in seconds
 	 * @since 2.3.3

@@ -26,7 +26,15 @@ class AC_Helper_String {
 	 * @return int Number of words
 	 */
 	public function word_count( $string ) {
+		if ( empty( $string ) ) {
+			return false;
+		}
+
 		$string = $this->strip_trim( $string );
+
+		if ( empty( $string ) ) {
+			return false;
+		}
 
 		$patterns = array(
 			'strip' => '/<[a-zA-Z\/][^<>]*>/',

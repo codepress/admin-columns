@@ -35,7 +35,7 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	 * @return int
 	 */
 	public function get_words_per_minute() {
-		return $this->words_per_minute;
+		return absint( $this->words_per_minute );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	protected function make_human_readable( $seconds ) {
 		$time = false;
 
-		if ( $seconds ) {
+		if ( is_numeric( $seconds ) ) {
 			$minutes = floor( $seconds / 60 );
 			$seconds = floor( $seconds % 60 );
 
@@ -92,15 +92,26 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	 * @return int
 	 */
 	protected function get_estimated_reading_time_in_seconds( $string ) {
-		$word_count = ac_helper()->string->word_count( $string );
-		$words_per_minute = $this->get_words_per_minute();
-		$seconds = 0;
 
-		if ( $word_count && $words_per_minute ) {
-			$seconds = (int) floor( ( $word_count / $words_per_minute ) * 60 );
+		if ( $this->get_words_per_minute() <= 0 ) {
+			return false;
+		}
+
+		$word_count = ac_helper()->string->word_count( $string );
+
+		if ( ! $word_count ) {
+			return false;
+		}
+
+		$seconds = (int) floor( ( $word_count / $this->get_words_per_minute() ) * 60 );
+
+		// Nobody can read a word in 0 seconds ;)
+		if ( $seconds < 1 ) {
+			$seconds = 1;
 		}
 
 		return $seconds;
+
 	}
 
 	/**
