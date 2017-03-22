@@ -13,8 +13,8 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 		$this->set_label( __( 'Comment count', 'codepress-admin-columns' ) );
 	}
 
-	public function get_raw_value( $post_id ) {
-		return $post_id;
+	public function get_value( $id ) {
+		return $this->format_value( $id );
 	}
 
 	public function is_valid() {
