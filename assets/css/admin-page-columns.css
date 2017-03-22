@@ -329,9 +329,14 @@
     margin-bottom: 5px; }
 
 .ac-setting-input-date .ac-setting-input-more input[type=text] {
-  display: inline-block;
+  display: none;
   width: 60px;
   margin-right: 5px; }
+  .ac-setting-input-date .ac-setting-input-more input[type=text].display {
+    display: inline-block; }
+
+.ac-setting-input-date .ac-setting-input-diff .ac-setting-input-date__value {
+  width: auto; }
 
 .ac-setting-input-date .ac-setting-input-date__value {
   display: inline-block;

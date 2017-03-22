@@ -839,8 +839,10 @@ function cpac_reset_columns( $ ) {
 
 		$( this ).each( function() {
 			var $setting = $( this );
-			var $input = $setting.find( '.ac-setting-input-more input[type=text]' );
+			var $input = $setting.find( '.ac-setting-input-more input[type=text]' ); // Both
+			var $input_display = $setting.find( '.ac-setting-input-more input[type=text].shadow' ); // Display only
 			var $help = $setting.find( '.ac-setting-input-more .help-msg' );
+			var $example = $input.next( '[data-date-example]' );
 
 			if ( 'custom' != $setting.find( 'input[type=radio]:checked' ).val() ) {
 				$input.prop( 'readonly', true );
@@ -856,10 +858,19 @@ function cpac_reset_columns( $ ) {
 					$input.prop( 'readonly', false );
 					$help.show();
 				}
+
+				if ( 'diff' == $( this ).val() ) {
+					$input_display.val('');
+					$example.html( $(this).data('example') );
+				}
 			} );
 
 			$input.on( 'change', function() {
-				var $example = $input.next( '[data-date-example]' );
+				if( 'diff' == $input.val() ){
+					$example.text('');
+					return;
+				}
+
 				$example.html( '<span class="spinner is-active"></span>' );
 				$.ajax( {
 					url : ajaxurl,

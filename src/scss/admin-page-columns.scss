@@ -493,9 +493,19 @@
 
 	.ac-setting-input-more {
 		input[type=text] {
-			display: inline-block;
+			display: none;
 			width: 60px;
 			margin-right: 5px;
+
+			&.display {
+				display: inline-block;
+			}
+		}
+	}
+
+	.ac-setting-input-diff {
+		.ac-setting-input-date__value {
+			width: auto;
 		}
 	}
 

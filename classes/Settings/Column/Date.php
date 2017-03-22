@@ -59,9 +59,27 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	 * @return mixed
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-		$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $this->get_date_format() );
+		switch ( $this->get_date_format() ) {
+			case 'diff':
+				$value = $this->format_human_time_diff( ac_helper()->date->date( $value_formatter->value, 'U' ) );
+				break;
+			default:
+				$value = ac_helper()->date->date( $value_formatter->value, $this->get_date_format() );
+		}
+
+		$value_formatter->value = $value;
 
 		return $value_formatter;
+	}
+
+	/**
+	 * @param int $date Unix time stamp
+	 */
+	public function format_human_time_diff( $time ){
+		$suffix = $time < current_time( 'U' ) ? __( ' ago', 'codepress-admin-columns' ) : '';
+		$prefix = $time > current_time( 'U' ) ? __( 'in ', 'codepress-admin-columns' ) : '';
+
+		return $prefix . human_time_diff( $time, current_time( 'U' ) ) . $suffix;
 	}
 
 }
