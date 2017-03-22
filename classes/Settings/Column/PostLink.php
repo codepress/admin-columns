@@ -20,7 +20,7 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 	 * @return AC_ValueFormatter
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-		$id = $value_formatter->get_id();
+		$id = $value_formatter->get_original_value();
 
 		switch ( $this->get_post_link_to() ) {
 			case 'edit_post' :

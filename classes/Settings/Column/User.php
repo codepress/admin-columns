@@ -58,7 +58,6 @@ class AC_Settings_Column_User extends AC_Settings_Column
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
 		$user_id = $value_formatter->value;
-
 		$value_formatter->value = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
 
 		return $value_formatter;

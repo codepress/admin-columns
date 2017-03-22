@@ -38,21 +38,23 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 	 * @return AC_ValueFormatter
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
+		$id = $value_formatter->get_original_value();
+
 		switch ( $this->get_post_property_display() ) {
 			case 'author' :
-				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $value_formatter->get_id() ) );
+				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
 				break;
 			case 'thumbnail' :
-				$value_formatter->value = get_post_thumbnail_id( $value_formatter->get_id() );
+				$value_formatter->value = get_post_thumbnail_id( $id );
 
 				break;
 			case 'title' :
-				$post = get_post( $value_formatter->get_id() );
+				$post = get_post( $id );
 				$value_formatter->value = $post->post_title;
 
 				if ( 'attachment' == $post->post_type ) {
-					$value_formatter->value = ac_helper()->image->get_file_name( $post->ID );
+					$value_formatter->value = ac_helper()->image->get_file_name( $id );
 				}
 
 				break;

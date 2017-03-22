@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class AC_ValueFormatter
+ *
+ */
 final class AC_ValueFormatter {
 
 	/**
@@ -8,9 +12,9 @@ final class AC_ValueFormatter {
 	public $value;
 
 	/**
-	 * @var int
+	 * @var mixed
 	 */
-	private $id;
+	private $original_value;
 
 	/**
 	 * @var string
@@ -23,16 +27,13 @@ final class AC_ValueFormatter {
 	private $formatters = array();
 
 	/**
-	 * @param mixed    $value
-	 * @param null|int $id
+	 * @param mixed $value
 	 */
-	public function __construct( $value, $id = null ) {
-		$this->set_value( $value );
-		$this->set_separator( ', ' );
+	public function __construct( $value ) {
+		$this->value = $value;
+		$this->original_value = $value;
 
-		if ( null !== $id ) {
-			$this->set_id( $id );
-		}
+		$this->set_separator( ', ' );
 	}
 
 	/**
@@ -43,39 +44,14 @@ final class AC_ValueFormatter {
 	 *
 	 * @return AC_Collection
 	 */
-	public static function create_collection( array $values, $id = null ) {
+	public static function create_collection( array $values ) {
 		$collection = new AC_Collection;
 
 		foreach ( $values as $value ) {
-			$collection->push( new AC_ValueFormatter( $value, $id ) );
+			$collection->push( new AC_ValueFormatter( $value ) );
 		}
 
 		return $collection;
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return $this
-	 */
-	public function set_id( $id ) {
-		$this->id = absint( $id );
-
-		return $this;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function get_id() {
-		return $this->id;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_separator() {
-		return $this->separator;
 	}
 
 	/**
@@ -90,14 +66,10 @@ final class AC_ValueFormatter {
 	}
 
 	/**
-	 * @param mixed $value
-	 *
-	 * @return $this
+	 * @return mixed
 	 */
-	public function set_value( $value ) {
-		$this->value = $value;
-
-		return $this;
+	public function get_original_value() {
+		return $this->original_value;
 	}
 
 	/**
@@ -126,7 +98,7 @@ final class AC_ValueFormatter {
 						$formatter->format( $value );
 					}
 				} elseif ( $formatter instanceof AC_Settings_FormatCollectionInterface ) {
-					$formatter->format( $this->value, $this->id );
+					$formatter->format( $this->value, $this->original_value );
 				}
 			} elseif ( $formatter instanceof AC_Settings_FormatValueInterface ) {
 				$formatter->format( $this );

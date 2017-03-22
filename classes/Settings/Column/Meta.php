@@ -18,8 +18,8 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 	 */
 	protected function get_setting_field() {
 		$setting = $this->create_element( 'select', 'field' )
-		              ->set_options( $this->group_keys( $this->get_cached_keys() ) )
-		              ->set_no_result( __( 'No fields available.', 'codepress-admin-columns' ) );
+		                ->set_options( $this->group_keys( $this->get_cached_keys() ) )
+		                ->set_no_result( __( 'No fields available.', 'codepress-admin-columns' ) );
 
 		return $setting;
 	}

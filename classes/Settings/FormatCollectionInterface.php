@@ -4,10 +4,10 @@ interface AC_Settings_FormatCollectionInterface extends AC_Settings_FormatInterf
 
 	/**
 	 * @param AC_Collection $collection
-	 * @param int           $id
+	 * @param mixed         $original_value
 	 *
-	 * @return AC_ValueFormatter|AC_Collection
+	 * @return AC_ValueFormatter
 	 */
-	public function format( AC_Collection $collection, $id );
+	public function format( AC_Collection $collection, $original_value );
 
 }

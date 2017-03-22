@@ -93,7 +93,6 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	 * @return int
 	 */
 	protected function get_estimated_reading_time_in_seconds( $string ) {
-
 		if ( $this->get_words_per_minute() <= 0 ) {
 			return false;
 		}

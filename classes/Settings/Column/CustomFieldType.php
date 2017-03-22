@@ -168,7 +168,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$string = ac_helper()->array->implode_recursive( ', ', $value );
 				$ids = ac_helper()->string->string_to_array_integers( $string );
 
-				$value_formatter->value = AC_ValueFormatter::create_collection( $ids, $value_formatter->get_id() );
+				$value_formatter->value = AC_ValueFormatter::create_collection( $ids );
 
 				break;
 			case "checkmark" :

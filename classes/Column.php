@@ -319,13 +319,12 @@ class AC_Column {
 	/**
 	 * Apply formatters that are defined in the settings
 	 *
-	 * @param mixed    $value
-	 * @param int|null $id
+	 * @param mixed $value
 	 *
 	 * @return string
 	 */
-	public function format_value( $value, $id = null ) {
-		$value_formatter = new AC_ValueFormatter( $value, $id );
+	public function format_value( $value ) {
+		$value_formatter = new AC_ValueFormatter( $value );
 		$value_formatter->set_separator( $this->get_separator() );
 
 		foreach ( $this->get_settings() as $setting ) {
@@ -345,7 +344,7 @@ class AC_Column {
 	 * @return int|string
 	 */
 	public function get_value( $id ) {
-		return $this->format_value( $this->get_raw_value( $id ), $id );
+		return $this->format_value( $this->get_raw_value( $id ) );
 	}
 
 	/**
