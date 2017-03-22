@@ -469,7 +469,7 @@ function cpac_reset_columns( $ ) {
 		 */
 		column.find( 'select[data-label="update"]' ).change( function() {
 			var $label = column.find( 'input.ac-setting-input_label' );
-			var field_label = $(this).find( 'option:selected' ).text();
+			var field_label = $( this ).find( 'option:selected' ).text();
 
 			// Set new label
 			$label.val( field_label );
@@ -840,7 +840,7 @@ function cpac_reset_columns( $ ) {
 		$( this ).each( function() {
 			var $setting = $( this );
 			var $input = $setting.find( '.ac-setting-input-more input[type=text]' ); // Both
-			var $input_display = $setting.find( '.ac-setting-input-more input[type=text].shadow' ); // Display only
+			var $input_display = $setting.find( '.ac-setting-input-more input[type=text].display' ); // Display only
 			var $help = $setting.find( '.ac-setting-input-more .help-msg' );
 			var $example = $input.next( '[data-date-example]' );
 
@@ -860,14 +860,14 @@ function cpac_reset_columns( $ ) {
 				}
 
 				if ( 'diff' == $( this ).val() ) {
-					$input_display.val('');
-					$example.html( $(this).data('example') );
+					$input_display.val( '' );
+					$example.html( $( this ).data( 'example' ) );
 				}
 			} );
 
 			$input.on( 'change', function() {
-				if( 'diff' == $input.val() ){
-					$example.text('');
+				if ( 'diff' == $input.val() ) {
+					$example.text( '' );
 					return;
 				}
 

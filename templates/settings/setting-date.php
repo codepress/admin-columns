@@ -1,7 +1,7 @@
-<table class="ac-column-setting <?php echo $this->name ? esc_attr( 'ac-column-setting--' . $this->name ) : ''; ?>" data-setting="<?php echo esc_attr( $this->name ); ?>">
-	<tr>
-		<td class="col-label">
-			<label for="<?php echo esc_attr( $this->for ); ?>">
+<table class="ac-column-setting<?php echo $this->name ? esc_attr( ' ac-column-setting--' . $this->name ) : ''; ?>" data-setting="<?php echo esc_attr( $this->name ); ?>">
+    <tr>
+        <td class="col-label">
+            <label for="<?php echo esc_attr( $this->for ); ?>">
 				<span class="label <?php echo esc_attr( $this->tooltip ? 'tooltip' : '' ); ?>">
 					<?php echo $this->label; ?>
 				</span>
@@ -12,8 +12,13 @@
 				<div class="radio-labels vertical">
 					<?php
 					$input_name = uniqid();
-					$options = array( 'j F Y', 'Y-m-d', 'm/d/Y', 'd/m/Y' );
 					$date_format = $this->date_format;
+					$options = array(
+						'j F Y',
+						'Y-m-d',
+						'm/d/Y',
+						'd/m/Y'
+					);
 					?>
 
 					<label class="ac-setting-input-diff">

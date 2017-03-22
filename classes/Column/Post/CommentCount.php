@@ -13,26 +13,8 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 		$this->set_label( __( 'Comment count', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
-		$value = parent::get_value( $post_id );
-
-		if ( ! $value ) {
-			return ac_helper()->string->get_empty_char();
-		}
-
-		$status = $this->get_setting( 'comment_count' )->get_value();
-		$url = add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) );
-
-		return ac_helper()->html->link( $url, $value, array( 'class' => 'cp-' . $status ) );
-	}
-
-	/**
-	 * @param int $post_id
-	 *
-	 * @return string
-	 */
-	public function get_raw_value( $post_id ) {
-		return wp_count_comments( $post_id );
+	public function get_value( $id ) {
+		return $this->format_value( $id );
 	}
 
 	public function is_valid() {

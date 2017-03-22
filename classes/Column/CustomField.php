@@ -31,7 +31,6 @@ class AC_Column_CustomField extends AC_Column_Meta {
 			return count( $this->get_meta_value( $object_id, $this->get_meta_key(), false ) );
 		}
 
-		// TODO: this is branched, BUT should be changed in core too
 		return parent::get_value( $object_id );
 	}
 
