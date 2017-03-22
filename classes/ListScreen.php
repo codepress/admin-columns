@@ -272,7 +272,7 @@ abstract class AC_ListScreen {
 	 * @return boolean
 	 */
 	public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->get_screen_id();
+		return $wp_screen && $wp_screen->id === $this->get_screen_id() && $wp_screen->base === $this->get_screen_base();
 	}
 
 	/**
@@ -420,6 +420,11 @@ abstract class AC_ListScreen {
 		$column->set_list_screen( $this );
 
 		if ( ! $column->is_valid() ) {
+			return false;
+		}
+
+		// Skip the custom registered columns which are marked 'original' but are not available for this list screen
+		if ( $column->is_original() && ! in_array( $column->get_type(), array_keys( $this->get_original_columns() ) ) ) {
 			return false;
 		}
 

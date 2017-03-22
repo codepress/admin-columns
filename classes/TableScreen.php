@@ -272,6 +272,7 @@ final class AC_TableScreen {
 	 * Is WordPress doing ajax
 	 *
 	 * @since 2.5
+     * @return string List screen key
 	 */
 	public function get_list_screen_when_doing_quick_edit() {
 		$list_screen = false;

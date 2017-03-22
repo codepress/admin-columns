@@ -24,18 +24,6 @@ class AC_ListScreen_User extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 * @return string HTML
-	 */
-	public function get_single_row( $user_id ) {
-
-		/* @var WP_Users_List_Table $table */
-		$table = $this->get_list_table();
-
-		return $table->single_row( get_userdata( $user_id ) );
-	}
-
-	/**
 	 * @since 2.4.10
 	 */
 	public function is_current_screen( $wp_screen ) {
@@ -51,6 +39,18 @@ class AC_ListScreen_User extends AC_ListScreen {
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
 		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return string HTML
+	 */
+	public function get_single_row( $user_id ) {
+
+		/* @var WP_Users_List_Table $table */
+		$table = $this->get_list_table();
+
+		return $table->single_row( get_userdata( $user_id ) );
 	}
 
 }
