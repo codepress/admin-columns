@@ -52,7 +52,7 @@ class AC_Settings_Column_Password extends AC_Settings_Column
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
 		if ( ! $this->get_password() ) {
-			$pwchar = '&#9679;';
+			$pwchar = '&#8226;';
 			$value_formatter->value = $value_formatter->value
 				? str_pad( '', strlen( $value_formatter->value ) * strlen( $pwchar ), $pwchar )
 				: false;
