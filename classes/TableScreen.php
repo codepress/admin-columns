@@ -187,6 +187,7 @@ final class AC_TableScreen {
 
 			if ( $width->get_value() ) {
 				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
+				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . implode( $width->get_values() ) . " !important; }";
 			}
 		}
 

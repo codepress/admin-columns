@@ -20,16 +20,20 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		switch ( $this->get_field_type() ) {
 			case 'date' :
 				$settings[] = new AC_Settings_Column_Date( $this->column );
+
 				break;
 			case 'image' :
 			case 'library_id' :
 				$settings[] = new AC_Settings_Column_Image( $this->column );
+
 				break;
 			case 'excerpt' :
 				$settings[] = new AC_Settings_Column_CharacterLimit( $this->column );
+
 				break;
 			case 'title_by_id' :
 				$settings[] = new AC_Settings_Column_Post( $this->column );
+
 				break;
 			case 'user_by_id' :
 				$settings[] = new AC_Settings_Column_User( $this->column );
@@ -37,6 +41,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case 'link' :
 				$settings[] = new AC_Settings_Column_LinkLabel( $this->column );
+
 				break;
 		}
 
@@ -57,9 +62,11 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		switch ( $this->get_field_type() ) {
 			case 'title_by_id' :
 				$description = $this->get_description_object_ids( __( "Post Type", 'codepress-admin-columns' ) );
+
 				break;
 			case 'user_by_id' :
 				$description = $this->get_description_object_ids( __( "User", 'codepress-admin-columns' ) );
+
 				break;
 		}
 
@@ -203,11 +210,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			default :
 				$value_formatter->value = ac_helper()->array->implode_recursive( ', ', $value );
 		}
-
-		// TODO: obsolete?
-		//if ( is_array( $value ) ) {
-		//	$value = ac_helper()->array->implode_recursive( ' ', $value );
-		//}
 
 		return $value_formatter;
 	}

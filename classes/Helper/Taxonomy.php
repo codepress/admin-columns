@@ -35,7 +35,7 @@ class AC_Helper_Taxonomy {
 	}
 
 	/**
-	 * @param string $object_type Post, User etc.
+	 * @param string $object_type post, page, user etc.
 	 * @param string $taxonomy Taxonomy Name
 	 *
 	 * @return bool
