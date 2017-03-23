@@ -24,7 +24,10 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 			$field = $this->create_element( 'text', 'field' )
 			              ->set_attribute( 'placeholder', 'Custom field key' );
 		} else {
+
+			// Meta field
 			$field = $this->get_setting_field();
+
 			$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
 		}
 

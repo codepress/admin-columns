@@ -491,7 +491,7 @@
 
 .ac-setting-input-date {
 
-	.ac-setting-input-more {
+	/*.ac-setting-input-more {
 		input[type=text] {
 			display: none;
 			width: 60px;
@@ -501,23 +501,40 @@
 				display: inline-block;
 			}
 		}
-	}
+	}*/
 
-	.ac-setting-input-diff {
+	/*.ac-setting-input-diff {
 		.ac-setting-input-date__value {
 			width: auto;
 		}
 	}
+*/
+	.ac-setting-input-date__custom {
+		display: inline-block;
+		width: 60px;
+		margin-right: 5px;
+	}
 
 	.ac-setting-input-date__value {
 		display: inline-block;
-		width: 105px;
+		width: 155px;
+	}
+	.ac-setting-input-date__more {
+		margin-left: 8px;
 	}
 	.ac-setting-input-date__example {
 		.spinner {
 			float: none;
 			vertical-align: top;
 		}
+	}
+
+	code {
+		display: inline-block;
+		min-width: 52px;
+		padding-top: 0;
+		padding-bottom: 0;
+		text-align: center;
 	}
 }
 

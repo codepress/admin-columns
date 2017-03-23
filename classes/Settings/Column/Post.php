@@ -34,6 +34,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 
 	public function format( $value, $original_value ) {
 		$id = $original_value;
+		$value = false;
 
 		switch ( $this->get_post_property_display() ) {
 			case 'author' :
@@ -45,11 +46,12 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 
 				break;
 			case 'title' :
-				$post = get_post( $id );
-				$value = $post->post_title;
+				if ( $post = get_post( $id ) ) {
+					$value = $post->post_title;
 
-				if ( 'attachment' == $post->post_type ) {
-					$value = ac_helper()->image->get_file_name( $id );
+					if ( 'attachment' == $post->post_type ) {
+						$value = ac_helper()->image->get_file_name( $id );
+					}
 				}
 
 				break;
@@ -76,7 +78,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 			'title'     => __( 'Title' ),
 			'id'        => __( 'ID' ),
 			'author'    => __( 'Author' ),
-			'thumbnail' => __( 'Thumbnail' ),
+			'thumbnail' => __( 'Featured Image' ),
 		);
 
 		asort( $options );

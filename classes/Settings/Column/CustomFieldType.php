@@ -18,6 +18,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		$settings = array();
 
 		switch ( $this->get_field_type() ) {
+
 			case 'date' :
 				$settings[] = new AC_Settings_Column_Date( $this->column );
 
@@ -104,22 +105,26 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	private function get_field_type_options() {
 		$field_types = array(
 			'basic'      => array(
-				'checkmark'   => __( 'Checkmark (true/false)', 'codepress-admin-columns' ),
-				'color'       => __( 'Color', 'codepress-admin-columns' ),
-				'count'       => __( 'Counter', 'codepress-admin-columns' ),
-				'date'        => __( 'Date', 'codepress-admin-columns' ),
-				'excerpt'     => __( 'Excerpt' ),
-				'image'       => __( 'Image', 'codepress-admin-columns' ),
-				'library_id'  => __( 'Media Library', 'codepress-admin-columns' ),
-				'link'        => __( 'Url', 'codepress-admin-columns' ),
-				'array'       => __( 'Multiple Values', 'codepress-admin-columns' ),
-				'numeric'     => __( 'Numeric', 'codepress-admin-columns' ),
+				'color'   => __( 'Color', 'codepress-admin-columns' ),
+				'date'    => __( 'Date', 'codepress-admin-columns' ),
+				'excerpt' => __( 'Text' ),
+				'image'   => __( 'Image', 'codepress-admin-columns' ),
+				'link'    => __( 'Url', 'codepress-admin-columns' ),
+				'numeric' => __( 'Number', 'codepress-admin-columns' ),
+			),
+			'choice'     => array(
 				'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
+				'checkmark'   => __( 'True / False', 'codepress-admin-columns' ),
 			),
 			'relational' => array(
+				'library_id'  => __( 'Media', 'codepress-admin-columns' ),
 				'title_by_id' => __( 'Post', 'codepress-admin-columns' ),
 				'user_by_id'  => __( 'User', 'codepress-admin-columns' ),
 				'term_by_id'  => __( 'Term', 'codepress-admin-columns' ),
+			),
+			'array'      => array(
+				'count' => __( 'Number of Fields', 'codepress-admin-columns' ),
+				'array' => __( 'Multiple Values', 'codepress-admin-columns' ),
 			),
 		);
 
@@ -132,18 +137,20 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		 */
 		$field_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
 
+		foreach ( $field_types as $fields ) {
+			asort( $fields );
+		}
+
+		// Default option comes first
+		//$field_types['basic'] = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types['basic'] );
+
 		$groups = array(
 			'basic'      => __( 'Basic', 'codepress-admin-columns' ),
 			'relational' => __( 'Relational', 'codepress-admin-columns' ),
+			'choice'     => __( 'Choice', 'codepress-admin-columns' ),
+			'array'      => __( 'Array', 'codepress-admin-columns' ),
 			'custom'     => __( 'Custom', 'codepress-admin-columns' ),
 		);
-
-		asort( $field_types['basic'] );
-		asort( $field_types['relational'] );
-		asort( $field_types['custom'] );
-
-		// Default option comes first
-		$field_types['basic'] = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types['basic'] );
 
 		$grouped_options = array();
 		foreach ( $field_types as $group => $fields ) {
@@ -155,6 +162,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			$grouped_options[ $group ]['title'] = $groups[ $group ];
 			$grouped_options[ $group ]['options'] = $fields;
 		}
+
+		// Default option comes first
+		$grouped_options = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $grouped_options );
 
 		return $grouped_options;
 	}
@@ -224,15 +234,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	 * @return bool
 	 */
 	public function set_field_type( $field_type ) {
-		if ( empty( $field_type ) ) {
-			return false;
-		}
-
-		foreach ( $this->get_field_type_options() as $types ) {
-			if ( array_key_exists( $field_type, $types['options'] ) ) {
-				$this->field_type = $field_type;
-			}
-		}
+		$this->field_type = $field_type;
 
 		return true;
 	}
