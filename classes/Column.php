@@ -36,6 +36,11 @@ class AC_Column {
 	private $settings;
 
 	/**
+	 * @var AC_Settings_FormatValueInterface[]|AC_Settings_FormatCollectionInterface[]
+	 */
+	private $formatters;
+
+	/**
 	 * @var AC_ListScreen
 	 */
 	protected $list_screen;
@@ -114,7 +119,6 @@ class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-
 		// Original heading
 		if ( null === $this->label ) {
 			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
@@ -243,6 +247,18 @@ class AC_Column {
 		return $this->get_settings()->get( $id );
 	}
 
+	public function get_formatters() {
+		if ( null === $this->formatters ) {
+			foreach ( $this->get_settings() as $setting ) {
+				if ( $setting instanceof AC_Settings_FormatValueInterface || $setting instanceof AC_Settings_FormatCollectionInterface ) {
+					$this->formatters[] = $setting;
+				}
+			}
+		}
+
+		return $this->formatters;
+	}
+
 	/**
 	 * @return AC_Settings_Collection
 	 */
@@ -263,6 +279,7 @@ class AC_Column {
 			do_action( 'ac/column/settings', $this );
 		}
 
+		// TODO: we either make good use of this or we return to array-land
 		return new AC_Settings_Collection( $this->settings );
 	}
 
@@ -317,34 +334,46 @@ class AC_Column {
 	}
 
 	/**
-	 * Apply formatters that are defined in the settings
+	 * Apply available formatters (recursive) on the value
 	 *
 	 * @param mixed $value
+	 * @param mixed $original_value
+	 * @param int   $current Current index of self::$formatters
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function format_value( $value ) {
-		$value_formatter = new AC_ValueFormatter( $value );
-		$value_formatter->set_separator( $this->get_separator() );
+	public function get_formatted_value( $value, $original_value = null, $current = 0 ) {
+		$formatters = $this->get_formatters();
+		$available = count( $formatters );
 
-		foreach ( $this->get_settings() as $setting ) {
-			if ( $setting instanceof AC_Settings_FormatInterface ) {
-				$value_formatter->add_formatter( $setting );
+		if ( null === $original_value ) {
+			$original_value = $value;
+		}
+
+		if ( $available > $current ) {
+			$is_collection = $value instanceof AC_Collection;
+			$is_value_formatter = $formatters[ $current ] instanceof AC_Settings_FormatValueInterface;
+
+			if ( $is_collection && $is_value_formatter ) {
+				foreach ( $value as $k => $v ) {
+					$value->put( $k, $this->get_formatted_value( $v, null, $current ) );
+				}
+
+				while ( $available > $current ) {
+					if ( $formatters[ $current ] instanceof AC_Settings_FormatCollectionInterface ) {
+						return $this->get_formatted_value( $value, $original_value, $current );
+					}
+
+					++$current;
+				}
+			} elseif ( ( $is_collection && ! $is_value_formatter ) || $is_value_formatter ) {
+				$value = $formatters[ $current ]->format( $value, $original_value );
+
+				return $this->get_formatted_value( $value, $original_value, ++$current );
 			}
 		}
 
-		return $value_formatter->apply_formatters();
-	}
-
-	/**
-	 * Display value
-	 *
-	 * @param int $id
-	 *
-	 * @return int|string
-	 */
-	public function get_value( $id ) {
-		return $this->format_value( $this->get_raw_value( $id ) );
+		return $value;
 	}
 
 	/**
@@ -359,6 +388,23 @@ class AC_Column {
 	 */
 	public function get_raw_value( $id ) {
 		return null;
+	}
+
+	/**
+	 * Display value
+	 *
+	 * @param int $id
+	 *
+	 * @return int|string
+	 */
+	public function get_value( $id ) {
+		$value = $this->get_formatted_value( $this->get_raw_value( $id ), $id );
+
+		if ( $value instanceof AC_Collection ) {
+			$value = $value->filter()->implode( $this->get_separator() );
+		}
+
+		return (string) $value;
 	}
 
 	/**

@@ -49,13 +49,9 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$file = $value_formatter->value;
+	public function format( $value, $original_value ) {
+		$file = $value;
+		$value = '';
 
 		if ( $file ) {
 			$file = str_replace( 'https://', 'http://', $file );
@@ -80,12 +76,10 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 					break;
 			}
 
-			$value_formatter->value = $file;
-		} else {
-			$value_formatter->value = '';
+			$value = $file;
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }

@@ -51,13 +51,8 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$term_id = $value_formatter->get_original_value();
+	public function format( $value, $original_value ) {
+		$term_id = $original_value;
 
 		switch ( $this->get_term_property() ) {
 			case 'slug' :
@@ -76,9 +71,7 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 			$label = ac_helper()->string->get_empty_char();
 		}
 
-		$value_formatter->value = ac_helper()->html->link( get_edit_term_link( $term_id, $this->column->get_taxonomy() ), $label );
-
-		return $value_formatter;
+		return ac_helper()->html->link( get_edit_term_link( $term_id, $this->column->get_taxonomy() ), $label );
 	}
 
 }

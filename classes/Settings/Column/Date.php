@@ -101,26 +101,18 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return mixed
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		if ( $date_format = $this->get_date_format() ) {
-
 			if ( 'diff' === $date_format ) {
-				$value = $this->format_human_time_diff( ac_helper()->date->date( $value_formatter->value, 'U' ) );
+				$value = $this->format_human_time_diff( ac_helper()->date->date( $value, 'U' ) );
 			} else {
-				$value = ac_helper()->date->date( $value_formatter->value, $date_format );
+				$value = ac_helper()->date->date( $value, $date_format );
 			}
 		} else {
-			$value = ac_helper()->date->date( $value_formatter->value, get_option( 'date_format' ) );
+			$value = ac_helper()->date->date( $value, get_option( 'date_format' ) );
 		}
 
-		$value_formatter->value = $value;
-
-		return $value_formatter;
+		return $value;
 	}
 
 	/**

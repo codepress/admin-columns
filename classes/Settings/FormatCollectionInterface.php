@@ -1,12 +1,12 @@
 <?php
 
-interface AC_Settings_FormatCollectionInterface extends AC_Settings_FormatInterface {
+interface AC_Settings_FormatCollectionInterface {
 
 	/**
 	 * @param AC_Collection $collection
 	 * @param mixed         $original_value
 	 *
-	 * @return AC_ValueFormatter
+	 * @return mixed
 	 */
 	public function format( AC_Collection $collection, $original_value );
 

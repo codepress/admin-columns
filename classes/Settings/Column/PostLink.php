@@ -14,13 +14,8 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 		);
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$id = $value_formatter->get_original_value();
+	public function format( $value, $original_value ) {
+		$id = $original_value;
 
 		switch ( $this->get_post_link_to() ) {
 			case 'edit_post' :
@@ -44,10 +39,10 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 		}
 
 		if ( $link ) {
-			$value_formatter->value = ac_helper()->html->link( $link, $value_formatter->value );
+			$value = ac_helper()->html->link( $link, $value );
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 	public function create_view() {

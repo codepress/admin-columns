@@ -105,26 +105,16 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 
 		$seconds = (int) floor( ( $word_count / $this->get_words_per_minute() ) * 60 );
 
-		// Nobody can read a word in 0 seconds ;)
+		// No one can read a word in 0 seconds ;)
 		if ( $seconds < 1 ) {
 			$seconds = 1;
 		}
 
 		return $seconds;
-
 	}
 
-	/**
-	 * Returns estimate reading time in seconds
-	 *
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$value_formatter->value = $this->make_human_readable( $this->get_estimated_reading_time_in_seconds( $value_formatter->value ) );
-
-		return $value_formatter;
+	public function format( $value, $original_value ) {
+		return $this->make_human_readable( $this->get_estimated_reading_time_in_seconds( $value ) );
 	}
 
 }
