@@ -17,9 +17,10 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 	 * @return AC_Settings_Form_Element_Select
 	 */
 	protected function get_setting_field() {
-		$setting = $this->create_element( 'select', 'field' )
-		                ->set_options( $this->group_keys( $this->get_cached_keys() ) )
-		                ->set_no_result( __( 'No fields available.', 'codepress-admin-columns' ) );
+		$setting = $this
+			->create_element( 'select', 'field' )
+			->set_options( $this->group_keys( $this->get_cached_keys() ) )
+			->set_no_result( __( 'No fields available.', 'codepress-admin-columns' ) );
 
 		return $setting;
 	}
@@ -120,7 +121,18 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 		krsort( $options ); // public first
 
 		if ( empty( $options['hidden']['options'] ) ) {
-			$options = $options['public']['options'];
+			unset( $options['hidden'] );
+		}
+
+		if ( empty( $options['public']['options'] ) ) {
+			unset( $options['public'] );
+		}
+
+		// Remove groups when there is only one group
+		if ( 1 === count( $options ) ) {
+			$options = array_pop( $options );
+
+			$options = $options['options'];
 		}
 
 		return $options;

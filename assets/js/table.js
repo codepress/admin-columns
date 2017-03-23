@@ -82,8 +82,10 @@ function ac_quickedit_events( $ ) {
 
 	$( document ).ajaxComplete( function( event, request ) {
 		var $result = $( '<div>' ).append( request.responseText );
+
 		if ( $result.find( 'tr.iedit' ).length == 1 ) {
 			var id = $result.find( 'tr.iedit' ).attr( 'id' );
+
 			$( 'tr#' + id ).trigger( 'updated' );
 		}
 	} );

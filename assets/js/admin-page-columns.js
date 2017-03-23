@@ -838,6 +838,87 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_setting_date = function() {
 
 		$( this ).each( function() {
+
+			var $container = $( this );
+
+			// Custom input
+			var $radio_custom = $container.find( 'input.custom' );
+			var $input_custom = $container.find( '.ac-setting-input-date__custom' );
+			var $example_custom = $container.find( '.ac-setting-input-date__example' );
+			var $selected = $container.find( 'input[type=radio]:checked' );
+			var $help_msg = $container.find( '.help-msg' );
+
+			// Click Event
+			$container.find( 'input[type=radio]' ).on( 'change', function() {
+
+				var $input = $( this );
+				var $input_container = $input.closest( 'label' );
+				var date_format = $input_container.find( 'code' ).text();
+
+				$help_msg.hide();
+
+				if ( date_format ) {
+					$input_custom.val( date_format ).trigger( 'change' );
+				}
+
+				if ( $input.hasClass( 'diff' ) ) {
+					$input_custom.val( '' );
+					$example_custom.text( '' );
+				}
+
+				$input_custom.prop( 'disabled', true );
+
+				// Custom input selected
+				if ( $input.hasClass( 'custom' ) ) {
+					$input.val( $input_custom.val() );
+					$input_custom.prop( 'disabled', false );
+					$help_msg.show();
+				}
+
+				// Show more description
+				$container.find( '.ac-setting-input-date__more' ).hide();
+				$input_container.find( '.ac-setting-input-date__more' ).show();
+
+			} );
+
+			// Custom input
+			$input_custom.on( 'change', function() {
+
+				$example_custom.html( '<span class="spinner is-active"></span>' );
+				$radio_custom.val( $input_custom.val() );
+
+				var $custom_value = $( this ).val();
+
+				if ( !$custom_value ) {
+					$example_custom.text( '' );
+					return;
+				}
+
+				$.ajax( {
+					url : ajaxurl,
+					method : 'post',
+					data : {
+						action : 'date_format',
+						date : $custom_value
+					}
+				} ).done( function( date ) {
+					$example_custom.text( date );
+				} );
+
+			} );
+
+			// Select custom input as a default
+			if ( 0 === $selected.length ) {
+				$radio_custom.trigger( 'click' );
+			}
+
+		} );
+
+	};
+
+	$.fn.___cpac_column_setting_date = function() {
+
+		$( this ).each( function() {
 			var $setting = $( this );
 			var $input = $setting.find( '.ac-setting-input-more input[type=text]' ); // Both
 			var $input_display = $setting.find( '.ac-setting-input-more input[type=text].display' ); // Display only
@@ -850,19 +931,29 @@ function cpac_reset_columns( $ ) {
 			}
 
 			$setting.find( 'input[type=radio]' ).on( 'click change', function() {
-				if ( 'custom' != $( this ).val() ) {
+
+				var $radio = $( this );
+				var $input_container = $radio.closest( 'label' );
+				var date_format = $input_container.find( 'code' ).text();
+				var value = $radio.val();
+
+				if ( 'custom' != value ) {
 					$input.prop( 'readonly', true );
-					$input.val( $( this ).val() ).trigger( 'change' );
+					$input.val( date_format ).trigger( 'change' );
 					$help.hide();
 				} else {
 					$input.prop( 'readonly', false );
 					$help.show();
 				}
 
-				if ( 'diff' == $( this ).val() ) {
+				if ( 'diff' == value ) {
 					$input_display.val( '' );
-					$example.html( $( this ).data( 'example' ) );
+					$example.html( $radio.data( 'example' ) );
 				}
+
+				$setting.find( '.ac-setting-input-date__more' ).hide();
+				$input_container.find( '.ac-setting-input-date__more' ).show();
+
 			} );
 
 			$input.on( 'change', function() {
