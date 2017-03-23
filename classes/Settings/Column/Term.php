@@ -57,24 +57,26 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 	 * @return AC_ValueFormatter
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-		$id = $value_formatter->get_original_value();
+		$term_id = $value_formatter->get_original_value();
 
 		switch ( $this->get_term_property() ) {
 			case 'slug' :
-				$label = ac_helper()->taxonomy->get_term_field( 'slug', $id, $this->column->get_taxonomy() );
+				$label = ac_helper()->taxonomy->get_term_field( 'slug', $term_id, $this->column->get_taxonomy() );
 
 				break;
 			case 'id' :
-				$label = $id;
+				$label = $term_id;
 
 				break;
 			default :
-				$label = ac_helper()->taxonomy->get_term_field( 'name', $id, $this->column->get_taxonomy() );
+				$label = ac_helper()->taxonomy->get_term_field( 'name', $term_id, $this->column->get_taxonomy() );
 		}
 
-		if ( empty( $label ) ) {
-			$value_formatter->value = '';
+		if ( ! $label ) {
+			$label = ac_helper()->string->get_empty_char();
 		}
+
+		$value_formatter->value = ac_helper()->html->link( get_edit_term_link( $term_id, $this->column->get_taxonomy() ), $label );
 
 		return $value_formatter;
 	}

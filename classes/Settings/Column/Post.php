@@ -50,11 +50,12 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 
 				break;
 			case 'title' :
-				$post = get_post( $id );
-				$value_formatter->value = $post->post_title;
+				if ( $post = get_post( $id ) ) {
+					$value_formatter->value = $post->post_title;
 
-				if ( 'attachment' == $post->post_type ) {
-					$value_formatter->value = ac_helper()->image->get_file_name( $id );
+					if ( 'attachment' === $post->post_type ) {
+						$value_formatter->value = ac_helper()->image->get_file_name( $post->ID );
+					}
 				}
 
 				break;
