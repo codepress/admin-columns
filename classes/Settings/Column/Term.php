@@ -51,13 +51,8 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$id = $value_formatter->get_original_value();
+	public function format( $value, $original_value ) {
+		$id = $original_value;
 
 		switch ( $this->get_term_property() ) {
 			case 'slug' :
@@ -73,10 +68,10 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 		}
 
 		if ( empty( $label ) ) {
-			$value_formatter->value = '';
+			$value = '';
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }

@@ -40,13 +40,8 @@ class AC_Settings_Column_LinkLabel extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$url = $value_formatter->value;
+	public function format( $value, $original_value ) {
+		$url = $value;
 
 		if ( filter_var( $url, FILTER_VALIDATE_URL ) && preg_match( '/[^\w.-]/', $url ) ) {
 			$label = $this->get_value();
@@ -55,10 +50,10 @@ class AC_Settings_Column_LinkLabel extends AC_Settings_Column
 				$label = $url;
 			}
 
-			$value_formatter->value = ac_helper()->html->link( $url, $label );
+			$value = ac_helper()->html->link( $url, $label );
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }

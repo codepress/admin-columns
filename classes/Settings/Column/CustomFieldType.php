@@ -159,13 +159,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		return $grouped_options;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter|AC_Collection
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$value = $value_formatter->value;
+	public function format( $value, $original_value ) {
 
 		switch ( $this->get_field_type() ) {
 			case 'image' :
@@ -175,43 +169,46 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$string = ac_helper()->array->implode_recursive( ', ', $value );
 				$ids = ac_helper()->string->string_to_array_integers( $string );
 
-				$value_formatter->value = AC_ValueFormatter::create_collection( $ids );
+				$value = new AC_Collection( $ids );
 
 				break;
 			case "checkmark" :
 				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
-				$value_formatter->value = ac_helper()->icon->yes_or_no( $is_true );
+				$value = ac_helper()->icon->yes_or_no( $is_true );
 
 				break;
 			case "color" :
-				$value_formatter->value = ac_helper()->string->get_empty_char();
 
 				if ( $value && is_scalar( $value ) ) {
-					$value_formatter->value = ac_helper()->string->get_color_block( $value );
+					$value = ac_helper()->string->get_color_block( $value );
+				} else {
+					$value = ac_helper()->string->get_empty_char();
 				}
 
 				break;
 			case "count" :
 				if ( $this->column instanceof AC_Column_Meta ) {
-					$value_formatter->value = $value ? count( $value ) : ac_helper()->string->get_empty_char();
+					$value = $value ? count( $value ) : ac_helper()->string->get_empty_char();
 				}
 
 				break;
 			case "has_content" :
-				$value_formatter->value = ac_helper()->icon->yes_or_no( $value, $value );
+				$value = ac_helper()->icon->yes_or_no( $value, $value );
 
 				break;
 			case "term_by_id" :
 				if ( is_array( $value ) && isset( $value['term_id'] ) && isset( $value['taxonomy'] ) ) {
-					$value_formatter->value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $value['term_id'], $value['taxonomy'] ) );
+					$value->value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $value['term_id'], $value['taxonomy'] ) );
 				}
 
 				break;
 			default :
-				$value_formatter->value = ac_helper()->array->implode_recursive( ', ', $value );
+				$value = ac_helper()->array->implode_recursive( ', ', $value );
 		}
 
-		return $value_formatter;
+		// TODO: make an array an collection again>
+
+		return $value;
 	}
 
 	/**

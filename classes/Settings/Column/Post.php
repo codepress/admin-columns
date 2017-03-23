@@ -32,35 +32,30 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 		return $setting;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$id = $value_formatter->get_original_value();
+	public function format( $value, $original_value ) {
+		$id = $original_value;
 
 		switch ( $this->get_post_property_display() ) {
 			case 'author' :
-				$value_formatter->value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
+				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
 				break;
 			case 'thumbnail' :
-				$value_formatter->value = get_post_thumbnail_id( $id );
+				$value = get_post_thumbnail_id( $id );
 
 				break;
 			case 'title' :
 				$post = get_post( $id );
-				$value_formatter->value = $post->post_title;
+				$value = $post->post_title;
 
 				if ( 'attachment' == $post->post_type ) {
-					$value_formatter->value = ac_helper()->image->get_file_name( $id );
+					$value = ac_helper()->image->get_file_name( $id );
 				}
 
 				break;
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 	public function create_view() {

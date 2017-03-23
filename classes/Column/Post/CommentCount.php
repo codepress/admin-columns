@@ -14,7 +14,7 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 	}
 
 	public function get_value( $id ) {
-		return $this->format_value( $id );
+		return $this->get_formatted_value( $id );
 	}
 
 	public function is_valid() {

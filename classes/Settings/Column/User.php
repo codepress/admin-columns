@@ -52,18 +52,6 @@ class AC_Settings_Column_User extends AC_Settings_Column
 	}
 
 	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$user_id = $value_formatter->value;
-		$value_formatter->value = ac_helper()->html->link( $this->get_user_link( $user_id ), $this->get_user_name( $user_id ) );
-
-		return $value_formatter;
-	}
-
-	/**
 	 * @param int $user_id
 	 *
 	 * @return false|string
@@ -182,6 +170,10 @@ class AC_Settings_Column_User extends AC_Settings_Column
 		$this->user_link_to = $user_link_to;
 
 		return true;
+	}
+
+	public function format( $value, $original_value ) {
+		return ac_helper()->html->link( $this->get_user_link( $value ), $this->get_user_name( $value ) );
 	}
 
 }

@@ -69,25 +69,20 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		$exif_datatype = $this->get_exif_datatype();
-		$value_formatter->value = isset( $value_formatter->value[ $exif_datatype ] ) ? $value_formatter->value[ $exif_datatype ] : false;
+		$value = isset( $value[ $exif_datatype ] ) ? $value[ $exif_datatype ] : '';
 
-		if ( false !== $value_formatter->value ) {
+		if ( false !== $value ) {
 			switch ( $exif_datatype ) {
 				case 'created_timestamp' :
-					$value_formatter->value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value_formatter->value ) );
+					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
 
 					break;
 			}
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }

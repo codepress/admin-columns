@@ -1,12 +1,13 @@
 <?php
 
-interface AC_Settings_FormatValueInterface extends AC_Settings_FormatInterface {
+interface AC_Settings_FormatValueInterface {
 
 	/**
-	 * @param AC_ValueFormatter $value
+	 * @param mixed $value
+	 * @param mixed $original_value
 	 *
-	 * @return AC_ValueFormatter|AC_Collection
+	 * @return mixed
 	 */
-	public function format( AC_ValueFormatter $value_formatter );
+	public function format( $value, $original_value );
 
 }

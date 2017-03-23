@@ -53,21 +53,14 @@ class AC_Settings_Column_WordLimit extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		$values = array();
 
-		foreach ( (array) $value_formatter->value as $_string ) {
+		foreach ( (array) $value as $_string ) {
 			$values[] = ac_helper()->string->trim_words( $_string, $this->get_excerpt_length() );
 		}
 
-		$value_formatter->value = ac_helper()->html->implode( $values );
-
-		return $value_formatter;
+		return ac_helper()->html->implode( $values );
 	}
 
 }

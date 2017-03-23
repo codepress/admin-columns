@@ -79,25 +79,17 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		$status = $this->get_comment_status();
-
-		$post_id = $value_formatter->value;
-		$count = wp_count_comments( $post_id );
+		$count = wp_count_comments( $value );
 
 		if ( empty( $count->$status ) ) {
-			$value_formatter->value = ac_helper()->string->get_empty_char();
-		}
-		else {
-			$value_formatter->value = ac_helper()->html->link( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), $this->get_admin_url() ), $count->$status );
+			$value = ac_helper()->string->get_empty_char();
+		} else {
+			$value = ac_helper()->html->link( add_query_arg( array( 'p' => $value, 'comment_status' => $status ), $this->get_admin_url() ), $count->$status );
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }
