@@ -3,7 +3,7 @@
 class AC_Helper_Taxonomy {
 
 	/**
-	 * @param WP_Term[] $terms Term objects
+	 * @param WP_Term[]   $terms Term objects
 	 * @param null|string $post_type
 	 *
 	 * @return string
@@ -17,7 +17,7 @@ class AC_Helper_Taxonomy {
 				$args = array(
 					'post_type' => $post_type,
 					'taxonomy'  => $t->taxonomy,
-					'term'      => $t->slug
+					'term'      => $t->slug,
 				);
 
 				$page = 'attachment' === $post_type ? 'upload' : 'edit';
@@ -36,7 +36,7 @@ class AC_Helper_Taxonomy {
 
 	/**
 	 * @param string $object_type post, page, user etc.
-	 * @param string $taxonomy Taxonomy Name
+	 * @param string $taxonomy    Taxonomy Name
 	 *
 	 * @return bool
 	 */
@@ -72,16 +72,48 @@ class AC_Helper_Taxonomy {
 		}
 
 		natcasesort( $options );
+
 		return $options;
 	}
 
 	/**
+	 * @param string $field
+	 * @param int    $term_id
+	 * @param string $taxonomy
+	 *
 	 * @since NEWVERSION
 	 */
 	public function get_term_field( $field, $term_id, $taxonomy ) {
 		$term = get_term_by( 'id', $term_id, $taxonomy );
 
-		return $term && isset( $term->{$field} ) ? $term->{$field} : false;
+		if ( ! $term || is_wp_error( $term ) ) {
+			return false;
+		}
+
+		if ( ! isset( $term->{$field} ) ) {
+			return false;
+		}
+
+		return $term->{$field};
+	}
+
+	/**
+	 * @param int    $term_ids
+	 * @param string $taxonomy
+	 *
+	 * @return WP_Term[]
+	 */
+	public function get_terms_by_ids( $term_ids, $taxonomy ) {
+		$terms = array();
+
+		foreach ( (array) $term_ids as $term_id ) {
+			$term = get_term( $term_id, $taxonomy );
+			if ( $term && ! is_wp_error( $term ) ) {
+				$terms[] = $term;
+			}
+		}
+
+		return $terms;
 	}
 
 }

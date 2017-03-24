@@ -179,6 +179,10 @@ final class AC_TableScreen {
 			return;
 		}
 
+		if ( ! $this->current_list_screen->get_settings() ) {
+			return;
+		}
+
 		// CSS: columns width
 		$css_column_width = false;
 
@@ -205,7 +209,7 @@ final class AC_TableScreen {
 		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
             <script>
 				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<a href="<?php echo esc_url( $this->current_list_screen->get_edit_link() ); ?>" class="cpac-edit add-new-h2"><?php _e( 'Edit columns', 'codepress-admin-columns' ); ?></a>' );
+					jQuery( '.tablenav.top .actions:last' ).append( '<?php echo ac_helper()->html->link( $this->current_list_screen->get_edit_link(), __( 'Edit columns', 'codepress-admin-columns' ), array( 'class' => 'cpac-edit add-new-h2' ) ); ?>' );
 				} );
             </script>
 			<?php

@@ -52,7 +52,9 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 	}
 
 	public function format( $value, $original_value ) {
-		$term_id = $original_value;
+
+		// For ACP_Column_Taxonomy_Parent
+		$term_id = $value;
 
 		switch ( $this->get_term_property() ) {
 			case 'slug' :
