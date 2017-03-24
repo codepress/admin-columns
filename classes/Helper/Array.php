@@ -8,7 +8,7 @@ class AC_Helper_Array {
 	 * @since NEWVERSION
 	 *
 	 * @param string $glue
-	 * @param array $pieces
+	 * @param array  $pieces
 	 *
 	 * @return string Imploded array
 	 */
@@ -38,7 +38,7 @@ class AC_Helper_Array {
 	 *
 	 * @since 2.2.7
 	 *
-	 * @param array $input Input array.
+	 * @param array      $input   Input array.
 	 * @param int|string $old_key Key to replace.
 	 * @param int|string $new_key Key to replace $old_key with
 	 */
@@ -60,8 +60,8 @@ class AC_Helper_Array {
 	 *
 	 * @since 1.0
 	 *
-	 * @param array $array
-	 * @param int $parentId
+	 * @param array  $array
+	 * @param int    $parentId
 	 * @param string $parentKey
 	 * @param string $selfKey
 	 * @param string $childrenKey
@@ -82,6 +82,17 @@ class AC_Helper_Array {
 		}
 
 		return $indent;
+	}
+
+	/**
+	 * Remove empty values from array
+	 *
+	 * @param array $array
+	 *
+	 * @return array
+	 */
+	public function filter( $array ) {
+		return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
 	}
 
 }

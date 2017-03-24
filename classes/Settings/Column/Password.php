@@ -45,20 +45,13 @@ class AC_Settings_Column_Password extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		if ( ! $this->get_password() ) {
 			$pwchar = '&#8226;';
-			$value_formatter->value = $value_formatter->value
-				? str_pad( '', strlen( $value_formatter->value ) * strlen( $pwchar ), $pwchar )
-				: false;
+			$value = $value ? str_pad( '', strlen( $value ) * strlen( $pwchar ), $pwchar ) : '';
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 }

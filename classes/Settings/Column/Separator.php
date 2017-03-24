@@ -42,15 +42,8 @@ class AC_Settings_Column_Separator extends AC_Settings_Column
 		return $this;
 	}
 
-	/**
-	 * @param AC_Collection $collection
-	 * @param mixed         $original_value
-	 *
-	 * @return AC_ValueFormatter
-	 */
 	public function format( AC_Collection $collection, $original_value ) {
 		switch ( $this->separator ) {
-
 			case 'comma' :
 				$separator = ', ';
 
@@ -71,10 +64,7 @@ class AC_Settings_Column_Separator extends AC_Settings_Column
 				$separator = $this->column->get_separator();
 		}
 
-		$value_formatter = new AC_ValueFormatter( $original_value );
-		$value_formatter->value = $collection->implode( $separator );
-
-		return $value_formatter;
+		return $collection->filter()->implode( $separator );
 	}
 
 }

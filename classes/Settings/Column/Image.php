@@ -173,12 +173,7 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
+	public function format( $value, $original_value ) {
 		$size = $this->get_image_size();
 
 		if ( 'cpac-custom' == $size ) {
@@ -187,12 +182,10 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 
 		// fallback size
 		if ( empty( $size ) ) {
-			$size = 'thumbnail';
+			$size = array( 80, 80 );
 		}
 
-		$value_formatter->value = ac_helper()->image->get_image( $value_formatter->value, $size );
-
-		return $value_formatter;
+		return ac_helper()->image->get_image( $value, $size );
 	}
 
 }

@@ -11,7 +11,7 @@ class AC_Column_User_Registered extends AC_Column {
 	}
 
 	public function get_value( $user_id ) {
-		return $this->format_value( get_date_from_gmt( $this->get_raw_value( $user_id ) ) );
+		return $this->get_formatted_value( get_date_from_gmt( $this->get_raw_value( $user_id ) ) );
 	}
 
 	public function get_raw_value( $user_id ) {

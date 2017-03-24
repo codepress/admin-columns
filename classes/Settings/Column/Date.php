@@ -102,26 +102,29 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	}
 
 	/**
-	 * @param AC_ValueFormatter $value_formatter
+	 * @param $value
 	 *
 	 * @return mixed
 	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-
+	public function format( $value, $original_value ) {
 		$date_format = $this->get_date_format();
 
 		switch ( $date_format ) {
+
 			case 'wp_default' :
-				$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $this->get_wp_date_format() );
+				$value = ac_helper()->date->date( $value, $this->get_wp_date_format() );
+
 				break;
 			case 'diff' :
-				$value_formatter->value = $this->format_human_time_diff( ac_helper()->date->date( $value_formatter->value, $date_format ) );
+				$value = $this->format_human_time_diff( ac_helper()->date->date( $value, $date_format ) );
+
 				break;
 			default :
-				$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $date_format );
+
+				$value = ac_helper()->date->date( $value, $date_format );
 		}
 
-		return $value_formatter;
+		return $value;
 	}
 
 	/**

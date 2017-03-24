@@ -46,15 +46,8 @@ class AC_Settings_Column_CharacterLimit extends AC_Settings_Column
 		return true;
 	}
 
-	/**
-	 * @param AC_ValueFormatter $value_formatter
-	 *
-	 * @return AC_ValueFormatter
-	 */
-	public function format( AC_ValueFormatter $value_formatter ) {
-		$value_formatter->value = ac_helper()->string->trim_characters( $value_formatter->value, $this->get_character_limit() );
-
-		return $value_formatter;
+	public function format( $value, $original_value ) {
+		return ac_helper()->string->trim_characters( $value, $this->get_character_limit() );
 	}
 
 }
