@@ -107,18 +107,19 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	 * @return mixed
 	 */
 	public function format( AC_ValueFormatter $value_formatter ) {
-		if ( $date_format = $this->get_date_format() ) {
 
-			if ( 'diff' === $date_format ) {
-				$value = $this->format_human_time_diff( ac_helper()->date->date( $value_formatter->value, 'U' ) );
-			} else {
-				$value = ac_helper()->date->date( $value_formatter->value, $date_format );
-			}
-		} else {
-			$value = ac_helper()->date->date( $value_formatter->value, get_option( 'date_format' ) );
+		$date_format = $this->get_date_format();
+
+		switch ( $date_format ) {
+			case 'wp_default' :
+				$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $this->get_wp_date_format() );
+				break;
+			case 'diff' :
+				$value_formatter->value = $this->format_human_time_diff( ac_helper()->date->date( $value_formatter->value, $date_format ) );
+				break;
+			default :
+				$value_formatter->value = ac_helper()->date->date( $value_formatter->value, $date_format );
 		}
-
-		$value_formatter->value = $value;
 
 		return $value_formatter;
 	}

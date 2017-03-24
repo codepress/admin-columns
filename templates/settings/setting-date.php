@@ -18,46 +18,6 @@
                         </label>
 					<?php endforeach; ?>
 
-					<?php
-
-                    /*
-					$custom_current = false;
-
-					switch ( $this->date_format ) {
-						case 'diff' :
-							$example = '';
-							$display_format = '';
-
-							break;
-						case 'wp_default' :
-							$example = date_i18n( get_option( 'date_format' ) );
-							$display_format = get_option( 'date_format' );
-
-							break;
-						default :
-							$example = date_i18n( $this->date_format, time() );
-							$display_format = $this->date_format;
-
-							if ( ! in_array( $this->date_format, array_keys( $this->date_options ) ) ) {
-								$custom_current = true;
-							}
-					}
-
-
-					?>
-                    <label class="ac-setting-input-more">
-                        <input type="radio" name="<?php echo $input_name; ?>" value="custom"<?php checked( $custom_current ); ?>>
-                        <span class="ac-setting-input-date__value"><?php _e( 'Custom:' ); ?></span>
-                        <input type="text" name="<?php echo $input_name; ?>" value="<?php echo $display_format; ?>" class="display">
-
-						<?php echo $this->setting; ?>
-
-                        <span class="ac-setting-input-date__example" data-date-example=""><?php echo $example; ?></span>
-                        <p class="help-msg"><?php echo $this->description; ?></p>
-                    </label>
-
-                    <?php */ ?>
-
                 </div>
             </div>
         </td>
