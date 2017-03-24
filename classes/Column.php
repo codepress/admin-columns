@@ -260,7 +260,7 @@ class AC_Column {
 	}
 
 	/**
-	 * @return AC_Settings_Collection
+	 * @return AC_Collection
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
@@ -279,8 +279,7 @@ class AC_Column {
 			do_action( 'ac/column/settings', $this );
 		}
 
-		// TODO: we either make good use of this or we return to array-land
-		return new AC_Settings_Collection( $this->settings );
+		return new AC_Collection( $this->settings );
 	}
 
 	/**
