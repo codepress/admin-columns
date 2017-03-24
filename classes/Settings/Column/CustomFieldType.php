@@ -122,7 +122,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				'user_by_id'  => __( 'User', 'codepress-admin-columns' ),
 				'term_by_id'  => __( 'Term', 'codepress-admin-columns' ),
 			),
-			'array'      => array(
+			'multiple'   => array(
 				'count' => __( 'Number of Fields', 'codepress-admin-columns' ),
 				'array' => __( 'Multiple Values', 'codepress-admin-columns' ),
 			),
@@ -141,14 +141,11 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			asort( $fields );
 		}
 
-		// Default option comes first
-		//$field_types['basic'] = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $field_types['basic'] );
-
 		$groups = array(
 			'basic'      => __( 'Basic', 'codepress-admin-columns' ),
 			'relational' => __( 'Relational', 'codepress-admin-columns' ),
 			'choice'     => __( 'Choice', 'codepress-admin-columns' ),
-			'array'      => __( 'Array', 'codepress-admin-columns' ),
+			'multiple'   => __( 'Multiple', 'codepress-admin-columns' ),
 			'custom'     => __( 'Custom', 'codepress-admin-columns' ),
 		);
 
@@ -172,6 +169,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	public function format( $value, $original_value ) {
 
 		switch ( $this->get_field_type() ) {
+
+			case 'date' :
+				$value = ac_helper()->date->strtotime( $value );
+
+				break;
+
 			case 'image' :
 			case 'library_id' :
 			case 'title_by_id' :
@@ -198,7 +201,11 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case "count" :
 				if ( $this->column instanceof AC_Column_Meta ) {
-					$value = $value ? count( $value ) : ac_helper()->string->get_empty_char();
+					if ( $value ) {
+						$value = count( $value );
+					} else {
+						$value = ac_helper()->string->get_empty_char();
+					}
 				}
 
 				break;
@@ -215,8 +222,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			default :
 				$value = ac_helper()->array->implode_recursive( ', ', $value );
 		}
-
-		// TODO: make an array an collection again>
 
 		return $value;
 	}

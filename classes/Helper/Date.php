@@ -43,7 +43,7 @@ class AC_Helper_Date {
 	 *
 	 * @return int|false
 	 */
-	public function strtotime_from_format( $date, $format ) {
+	public function get_timestamp_from_format( $date, $format ) {
 		if ( ! $date ) {
 			return false;
 		}
@@ -113,11 +113,16 @@ class AC_Helper_Date {
 	 */
 	public function time( $date, $format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
+
 		if ( ! $format ) {
 			$format = get_option( 'time_format' );
 		}
 
-		return $timestamp ? date_i18n( $format, $timestamp ) : false;
+		if ( ! $timestamp ) {
+			return false;
+		}
+
+		return date_i18n( $format, $timestamp );
 	}
 
 	/**

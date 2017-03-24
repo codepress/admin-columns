@@ -95,4 +95,26 @@ class AC_Helper_Array {
 		return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
 	}
 
+	/**
+	 * Insert element into array at specific position
+	 *
+	 * @param array  $array
+	 * @param array  $insert
+	 * @param string $position
+	 *
+	 * @return array
+	 */
+	public function insert( $array, $insert, $position ) {
+		$new = array();
+		foreach ( $array as $key => $value ) {
+			$new[ $key ] = $value;
+			if ( $key === $position ) {
+				$new = array_merge( $new, $insert );
+			}
+
+		}
+
+		return $new;
+	}
+
 }

@@ -854,8 +854,7 @@ function cpac_reset_columns( $ ) {
 				var $input = $( this );
 				var $input_container = $input.closest( 'label' );
 				var date_format = $input_container.find( 'code' ).text();
-
-				$help_msg.hide();
+				var description = $input_container.find( '.ac-setting-input-date__more' ).html();
 
 				if ( date_format ) {
 					$input_custom.val( date_format ).trigger( 'change' );
@@ -876,8 +875,10 @@ function cpac_reset_columns( $ ) {
 				}
 
 				// Show more description
-				$container.find( '.ac-setting-input-date__more' ).hide();
-				$input_container.find( '.ac-setting-input-date__more' ).show();
+				$help_msg.hide();
+				if ( description ) {
+					$help_msg.html( description ).show();
+				}
 
 			} );
 
@@ -906,6 +907,9 @@ function cpac_reset_columns( $ ) {
 				} );
 
 			} );
+
+			// Update date example box
+			$selected.trigger( 'change' );
 
 			// Select custom input as a default
 			if ( 0 === $selected.length ) {

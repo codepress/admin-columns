@@ -328,42 +328,27 @@
     display: block;
     margin-bottom: 5px; }
 
-.ac-setting-input-date {
-  /*.ac-setting-input-more {
-		input[type=text] {
-			display: none;
-			width: 60px;
-			margin-right: 5px;
+.ac-setting-input-date .ac-setting-input-date__custom {
+  display: inline-block;
+  width: 71px;
+  margin-right: 5px; }
 
-			&.display {
-				display: inline-block;
-			}
-		}
-	}*/
-  /*.ac-setting-input-diff {
-		.ac-setting-input-date__value {
-			width: auto;
-		}
-	}
-*/ }
-  .ac-setting-input-date .ac-setting-input-date__custom {
-    display: inline-block;
-    width: 60px;
-    margin-right: 5px; }
-  .ac-setting-input-date .ac-setting-input-date__value {
-    display: inline-block;
-    width: 155px; }
-  .ac-setting-input-date .ac-setting-input-date__more {
-    margin-left: 8px; }
+.ac-setting-input-date .ac-setting-input-date__value {
+  display: inline-block;
+  width: 165px; }
+
+.ac-setting-input-date .ac-setting-input-date__example {
+  margin-left: 8px; }
   .ac-setting-input-date .ac-setting-input-date__example .spinner {
     float: none;
     vertical-align: top; }
-  .ac-setting-input-date code {
-    display: inline-block;
-    min-width: 52px;
-    padding-top: 0;
-    padding-bottom: 0;
-    text-align: center; }
+
+.ac-setting-input-date code {
+  display: inline-block;
+  min-width: 60px;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center; }
 
 .ac-setting-input-width {
   position: relative; }

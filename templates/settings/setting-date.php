@@ -19,6 +19,7 @@
 					<?php endforeach; ?>
 
                 </div>
+                <p class="help-msg"></p>
             </div>
         </td>
     </tr>
