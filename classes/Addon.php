@@ -223,7 +223,7 @@ class AC_Addon {
 	 */
 	public function display_icon() {
 		if ( $this->get_icon() ) : ?>
-            <img class="icon <?php echo $this->get_slug(); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
+            <img class="icon <?php echo esc_attr( $this->get_slug() ); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
 		<?php endif;
 	}
 
@@ -309,7 +309,11 @@ class AC_Addon {
 	 */
 	public function get_plugin_url() {
 		if ( null === $this->plugin_url ) {
-			$this->set_plugin_url( add_query_arg( array( 'tab' => 'search', 'type' => 'term', 's' => $this->get_title() ), admin_url( 'plugin-install.php' ) ) );
+			$this->set_plugin_url( add_query_arg( array(
+				'tab'  => 'search',
+				'type' => 'term',
+				's'    => $this->get_title(),
+			), admin_url( 'plugin-install.php' ) ) );
 		}
 
 		return $this->plugin_url;

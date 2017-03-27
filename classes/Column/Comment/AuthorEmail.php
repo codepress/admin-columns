@@ -7,7 +7,7 @@ class AC_Column_Comment_AuthorEmail extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-author_email' );
-		$this->set_label( __( 'Author email', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Author Email', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

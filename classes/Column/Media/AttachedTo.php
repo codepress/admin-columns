@@ -7,7 +7,7 @@ class AC_Column_Media_AttachedTo extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-attached_to' );
-		$this->set_label( __( 'Attached to post', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Attached to Post', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

@@ -7,7 +7,7 @@ class AC_Column_Media_FullPath extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-full_path' );
-		$this->set_label( __( 'Full path', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Full Path', 'codepress-admin-columns' ) );
 	}
 
 	public function get_raw_value( $id ) {

@@ -7,7 +7,7 @@ class AC_Column_Media_FileSize extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-file_size' );
-		$this->set_label( __( 'File size', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'File Size', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

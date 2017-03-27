@@ -9,7 +9,7 @@ class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 		parent::__construct();
 
 		$this->set_type( 'column-exif_data' );
-		$this->set_label( __( 'EXIF data', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'EXIF Data', 'codepress-admin-columns' ) );
 	}
 
 	public function get_raw_value( $id ) {

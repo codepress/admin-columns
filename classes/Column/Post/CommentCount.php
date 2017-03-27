@@ -10,7 +10,7 @@ class AC_Column_Post_CommentCount extends AC_Column  {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_count' );
-		$this->set_label( __( 'Comment count', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Comment Count', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

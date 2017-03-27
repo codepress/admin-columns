@@ -3,9 +3,10 @@
 class AC_Settings_Column_CommentCount extends AC_Settings_Column
 	implements AC_Settings_FormatValueInterface {
 
+	/**
+	 * @var string
+	 */
 	private $comment_status;
-
-	private $admin_url;
 
 	public function get_name() {
 		return 'comment_count';
@@ -49,18 +50,6 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		return $options;
 	}
 
-	public function set_admin_url( $admin_url ) {
-		$this->admin_url = $admin_url;
-	}
-
-	private function get_admin_url() {
-		if ( null === $this->admin_url ) {
-			$this->set_admin_url( admin_url( 'edit-comments.php' ) );
-		}
-
-		return $this->admin_url;
-	}
-
 	/**
 	 * @return int
 	 */
@@ -79,17 +68,21 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		return true;
 	}
 
-	public function format( $value, $original_value ) {
+	/**
+	 * @param int $post_id
+	 * @param int $original_value
+	 *
+	 * @return false|string
+	 */
+	public function format( $post_id, $original_value ) {
 		$status = $this->get_comment_status();
-		$count = wp_count_comments( $value );
+		$count = wp_count_comments( $post_id );
 
 		if ( empty( $count->$status ) ) {
-			$value = ac_helper()->string->get_empty_char();
-		} else {
-			$value = ac_helper()->html->link( add_query_arg( array( 'p' => $value, 'comment_status' => $status ), $this->get_admin_url() ), $count->$status );
+			return ac_helper()->string->get_empty_char();
 		}
 
-		return $value;
+		return ac_helper()->html->link( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ), $count->$status );
 	}
 
 }

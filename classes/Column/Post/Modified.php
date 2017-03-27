@@ -7,7 +7,7 @@ class AC_Column_Post_Modified extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-modified' );
-		$this->set_label( __( 'Last modified', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Last Modified', 'codepress-admin-columns' ) );
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -137,6 +137,10 @@ final class AC_TableScreen {
 				'column_types' => $this->get_column_types_mapping( $this->current_list_screen ),
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
 				'table_id'     => $this->current_list_screen->get_table_attr_id(),
+				'edit_link'    => $this->get_edit_link( $this->current_list_screen ),
+				'i18n'         => array(
+					'edit_columns' => esc_html( __( 'Edit columns', 'codepress-admin-columns' ) ),
+				),
 			)
 		);
 
@@ -170,6 +174,52 @@ final class AC_TableScreen {
 	}
 
 	/**
+	 * Applies the width setting to the table headers
+	 */
+	private function display_width_styles() {
+		if ( $this->current_list_screen->get_settings() ) {
+
+			// CSS: columns width
+			$css_column_width = false;
+
+			foreach ( $this->current_list_screen->get_columns() as $column ) {
+				$width = $column->get_setting( 'width' );
+
+				if ( $width->get_value() ) {
+					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
+					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . implode( $width->get_values() ) . " !important; }";
+				}
+			}
+
+			if ( $css_column_width ) : ?>
+                <style>
+                    <?php echo $css_column_width; ?>
+                </style>
+				<?php
+			endif;
+		}
+	}
+
+	/**
+     * @param AC_ListScreen $list_screen
+	 * @return string|false
+	 */
+	private function get_edit_link( AC_ListScreen $list_screen ) {
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+			return false;
+		}
+
+		/* @var AC_Admin_Page_Settings $settings */
+		$settings = AC()->admin()->get_page( 'settings' );
+
+		if ( ! $settings->show_edit_button() ) {
+			return false;
+		}
+
+		return $list_screen->get_edit_link();
+	}
+
+	/**
 	 * Admin CSS for Column width and Settings Icon
 	 *
 	 * @since 1.4.0
@@ -179,41 +229,7 @@ final class AC_TableScreen {
 			return;
 		}
 
-		if ( ! $this->current_list_screen->get_settings() ) {
-			return;
-		}
-
-		// CSS: columns width
-		$css_column_width = false;
-
-		foreach ( $this->current_list_screen->get_columns() as $column ) {
-			$width = $column->get_setting( 'width' );
-
-			if ( $width->get_value() ) {
-				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
-				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . implode( $width->get_values() ) . " !important; }";
-			}
-		}
-
-		if ( $css_column_width ) : ?>
-            <style>
-                <?php echo $css_column_width; ?>
-            </style>
-			<?php
-		endif;
-
-		/* @var AC_Admin_Page_Settings $settings */
-		$settings = AC()->admin()->get_page( 'settings' );
-
-		// JS: Edit button
-		if ( AC()->user_can_manage_admin_columns() && $settings->show_edit_button() ) : ?>
-            <script>
-				jQuery( document ).ready( function() {
-					jQuery( '.tablenav.top .actions:last' ).append( '<?php echo ac_helper()->html->link( $this->current_list_screen->get_edit_link(), __( 'Edit columns', 'codepress-admin-columns' ), array( 'class' => 'cpac-edit add-new-h2' ) ); ?>' );
-				} );
-            </script>
-			<?php
-		endif;
+		$this->display_width_styles();
 
 		/**
 		 * Add header scripts that only apply to column screens.
@@ -276,7 +292,7 @@ final class AC_TableScreen {
 	 * Is WordPress doing ajax
 	 *
 	 * @since 2.5
-     * @return string List screen key
+	 * @return string List screen key
 	 */
 	public function get_list_screen_when_doing_quick_edit() {
 		$list_screen = false;

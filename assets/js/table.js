@@ -4,6 +4,7 @@ jQuery( document ).ready( function( $ ) {
 	ac_actions_column( $, $( '.column-actions' ) );
 	ac_tooltips( $ );
 	ac_show_more( $ );
+	ac_edit_button( $ );
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		ac_set_column_classes( $ );
@@ -11,6 +12,12 @@ jQuery( document ).ready( function( $ ) {
 		ac_show_more( $ );
 	} );
 } );
+
+function ac_edit_button( $ ) {
+	if ( AC.edit_link ) {
+		$( '.tablenav.top .actions:last' ).append( '<a class="cpac-edit add-new-h2" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
+	}
+}
 
 function ac_show_more( $ ) {
 	$( '.ac-more-link-show' ).click( function( e ) {
