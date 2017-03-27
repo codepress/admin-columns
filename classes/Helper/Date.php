@@ -67,7 +67,7 @@ class AC_Helper_Date {
 	/**
 	 * @since 1.3.1
 	 *
-	 * @param string $date PHP Date format
+	 * @param string $date           PHP Date format
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
@@ -81,7 +81,7 @@ class AC_Helper_Date {
 	/**
 	 * @since NEWVERSION
 	 *
-	 * @param string $date PHP Date format
+	 * @param string $date           PHP Date format
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
@@ -156,4 +156,5 @@ class AC_Helper_Date {
 
 		return preg_replace( $replace_from, $replace_to, $format );
 	}
+
 }

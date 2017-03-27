@@ -7,8 +7,8 @@ class AC_Helper_Array {
 	 *
 	 * @since NEWVERSION
 	 *
-	 * @param string $glue
-	 * @param array  $pieces
+	 * @param string       $glue
+	 * @param string|array $pieces
 	 *
 	 * @return string Imploded array
 	 */

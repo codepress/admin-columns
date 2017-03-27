@@ -26,7 +26,7 @@ class AC_Column_Post_Roles extends AC_Column {
 			}
 		}
 
-		return implode( ', ', $role_names );
+		return implode( __( ', ' ), $role_names );
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -27,14 +27,14 @@ class AC_Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @var string
+	 * @var AC_PluginInformation
 	 */
-	private $slug;
+	private $addon;
 
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
 	 *
-	 * @var string
+	 * @var AC_PluginInformation
 	 */
 	private $plugin;
 
@@ -51,6 +51,10 @@ class AC_Addon {
 	 * @var string Url
 	 */
 	private $plugin_url;
+
+	public function __construct( $addon_dirname ) {
+		$this->addon = new AC_PluginInformation( $addon_dirname );
+	}
 
 	/**
 	 * @return string
@@ -73,24 +77,6 @@ class AC_Addon {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
-		return $this->slug;
-	}
-
-	/**
-	 * @param string $slug Plugin folder name
-	 */
-	protected function set_slug( $slug ) {
-		$this->slug = sanitize_key( $slug );
-
-		return $this;
-	}
-
-	/**
-	 * Plugin folder name
-	 *
-	 * @return string
-	 */
 	public function get_plugin() {
 		return $this->plugin;
 	}
@@ -99,7 +85,7 @@ class AC_Addon {
 	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
 	 */
 	protected function set_plugin( $plugin ) {
-		$this->plugin = $plugin;
+		$this->plugin = new AC_PluginInformation( $plugin );
 
 		return $this;
 	}
@@ -175,52 +161,61 @@ class AC_Addon {
 	}
 
 	/**
+	 * Plugin folder name
+	 *
+	 * @return string
+	 */
+	public function get_slug() {
+		return $this->addon->get_dirname();
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function is_installed() {
-		return $this->get_plugin_info( $this->get_slug() ) ? true : false;
+		return $this->addon->is_installed();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_active() {
-		return is_plugin_active( $this->get_basename() );
+		return $this->addon->is_active();
 	}
 
 	/**
 	 * @return string|false Returns the plugin version if the plugin is installed, false otherwise
 	 */
 	public function get_version() {
-		return $this->get_plugin_var( $this->get_slug(), 'Version' );
+		return $this->addon->get_version();
 	}
 
 	/**
 	 * @return string Basename
 	 */
 	public function get_basename() {
-		return $this->get_plugin_var( $this->get_slug(), 'Basename' );
+		return $this->addon->get_basename();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_plugin_installed() {
-		return $this->get_plugin_info( $this->get_plugin() ) ? true : false;
+		return $this->plugin->is_installed();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_plugin_active() {
-		return is_plugin_active( $this->get_plugin_var( $this->get_plugin(), 'Basename' ) );
+		return $this->plugin->is_active();
 	}
 
 	/**
 	 * @return string Basename
 	 */
 	public function get_plugin_basename() {
-		return $this->get_plugin_var( $this->get_plugin(), 'Basename' );
+		return $this->plugin->get_basename();
 	}
 
 	/**
@@ -233,11 +228,13 @@ class AC_Addon {
 	}
 
 	public function display_promo() {
-		if ( $this->get_icon() ) :
+		if ( $this->get_icon() ) {
 			$this->display_icon();
-		else :
-			echo $this->get_title();
-		endif;
+
+			return;
+		}
+
+		echo $this->get_title();
 	}
 
 	/**
@@ -295,41 +292,9 @@ class AC_Addon {
 	}
 
 	/**
-	 * @param string $plugin Plugin folder name / slug
-	 */
-	private function get_plugin_info( $plugin ) {
-		$plugins = (array) get_plugins();
-
-		foreach ( $plugins as $basename => $info ) {
-			if ( $plugin === dirname( $basename ) ) {
-				$info['Basename'] = $basename;
-
-				return $info;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * @param string $plugin
-	 * @param string $var
-	 *
-	 * @return string|false
-	 */
-	private function get_plugin_var( $plugin, $var ) {
-		$info = $this->get_plugin_info( $plugin );
-
-		if ( ! isset( $info[ $var ] ) ) {
-			return false;
-		}
-
-		return $info[ $var ];
-	}
-
-	/**
 	 * @param string $plugin_url
-     * @return $this
+	 *
+	 * @return $this
 	 */
 	public function set_plugin_url( $plugin_url ) {
 		$this->plugin_url = $plugin_url;

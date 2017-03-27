@@ -12,8 +12,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		return array( 'field_type' );
 	}
 
-	// TODO: move to Pro
-
 	public function get_dependent_settings() {
 		$settings = array();
 
@@ -32,14 +30,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$settings[] = new AC_Settings_Column_CharacterLimit( $this->column );
 
 				break;
-			case 'title_by_id' :
-				$settings[] = new AC_Settings_Column_Post( $this->column );
-
-				break;
-			case 'user_by_id' :
-				$settings[] = new AC_Settings_Column_User( $this->column );
-
-				break;
 			case 'link' :
 				$settings[] = new AC_Settings_Column_LinkLabel( $this->column );
 
@@ -49,12 +39,33 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		return $settings;
 	}
 
+	public function create_view() {
+		$select = $this->create_element( 'select' );
+
+		$select->set_attribute( 'data-refresh', 'column' )
+		       ->set_options( $this->get_grouped_options() )
+		       ->set_description( $this->get_description() );
+
+		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
+
+		if ( null !== $this->get_field_type() ) {
+			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
+		}
+
+		$view = new AC_View( array(
+			'label'   => __( 'Field Type', 'codepress-admin-columns' ),
+			'tooltip' => $tooltip,
+			'setting' => $select,
+		) );
+
+		return $view;
+	}
+
 	private function get_description_object_ids( $input ) {
 		$description = sprintf( __( "Uses the id from a %s to display information about it.", 'codepress-admin-columns' ), '<em>' . $input . '</em>' );
 		$description .= ' ' . __( "Multiple ids should be separated by a comma.", 'codepress-admin-columns' );
 
 		return $description;
-
 	}
 
 	public function get_description() {
@@ -74,35 +85,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		return $description;
 	}
 
-	public function create_view() {
-		$select = $this->create_element( 'select' );
-
-		$select->set_attribute( 'data-refresh', 'column' )
-		       ->set_options( $this->get_field_type_options() );
-
-		$select->set_description( $this->get_description() );
-
-		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
-
-		if ( null !== $this->get_field_type() ) {
-			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
-		}
-
-		$view = new AC_View( array(
-			'label'   => __( 'Field Type', 'codepress-admin-columns' ),
-			'tooltip' => $tooltip,
-			'setting' => $select,
-		) );
-
-		return $view;
-	}
-
 	/**
 	 * Get possible field types
 	 *
 	 * @return array
 	 */
-	private function get_field_type_options() {
+	protected function get_field_type_options() {
 		$field_types = array(
 			'basic'      => array(
 				'color'   => __( 'Color', 'codepress-admin-columns' ),
@@ -120,7 +108,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				'library_id'  => __( 'Media', 'codepress-admin-columns' ),
 				'title_by_id' => __( 'Post', 'codepress-admin-columns' ),
 				'user_by_id'  => __( 'User', 'codepress-admin-columns' ),
-				'term_by_id'  => __( 'Term', 'codepress-admin-columns' ),
 			),
 			'multiple'   => array(
 				'count' => __( 'Number of Fields', 'codepress-admin-columns' ),
@@ -136,6 +123,15 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
 		$field_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
+
+		return $field_types;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_grouped_options() {
+		$field_types = $this->get_field_type_options();
 
 		foreach ( $field_types as $fields ) {
 			asort( $fields );
@@ -166,6 +162,17 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		return $grouped_options;
 	}
 
+	/**
+	 * @param string|array $string
+	 *
+	 * @return array
+	 */
+	private function get_ids_from_array_or_string( $string ) {
+		$string = ac_helper()->array->implode_recursive( ',', $string );
+
+		return ac_helper()->string->string_to_array_integers( $string );
+	}
+
 	public function format( $value, $original_value ) {
 
 		switch ( $this->get_field_type() ) {
@@ -175,14 +182,29 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 
 				break;
 
+			case "title_by_id" :
+				$values = array();
+				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
+					$post = get_post( $id );
+					$values[] = ac_helper()->html->link( get_edit_post_link( $post ), $post->post_title );
+				}
+
+				$value = implode( ac_helper()->html->divider(), $values );
+				break;
+
+			case "user_by_id" :
+				$values = array();
+				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
+					$user = get_userdata( $id );
+					$values[] = ac_helper()->html->link( get_edit_user_link( $user ), ac_helper()->user->get_display_name( $user ) );
+				}
+
+				$value = implode( ac_helper()->html->divider(), $values );
+				break;
+
 			case 'image' :
 			case 'library_id' :
-			case 'title_by_id' :
-			case 'user_by_id' :
-				$string = ac_helper()->array->implode_recursive( ', ', $value );
-				$ids = ac_helper()->string->string_to_array_integers( $string );
-
-				$value = new AC_Collection( $ids );
+				$value = new AC_Collection( $this->get_ids_from_array_or_string( $value ) );
 
 				break;
 			case "checkmark" :
@@ -213,14 +235,8 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$value = ac_helper()->icon->yes_or_no( $value, $value );
 
 				break;
-			case "term_by_id" :
-				if ( is_array( $value ) && isset( $value['term_id'] ) && isset( $value['taxonomy'] ) ) {
-					$value->value = ac_helper()->taxonomy->display( (array) get_term_by( 'id', $value['term_id'], $value['taxonomy'] ) );
-				}
-
-				break;
 			default :
-				$value = ac_helper()->array->implode_recursive( ', ', $value );
+				$value = ac_helper()->array->implode_recursive( __( ', ' ), $value );
 		}
 
 		return $value;

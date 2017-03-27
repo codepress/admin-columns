@@ -3,9 +3,10 @@
 class AC_Addon_ACF extends AC_Addon {
 
 	public function __construct() {
+		parent::__construct( 'cac-addon-acf' );
+
 		$this
 			->set_title( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) )
-			->set_slug( 'cac-addon-acf' )
 			->set_logo( AC()->get_plugin_url() . 'assets/images/addons/acf.png' )
 			->set_icon( $this->get_logo() )
 			->set_link( ac_get_site_utm_url( 'advanced-custom-fields-columns', 'addon', 'acf' ) )

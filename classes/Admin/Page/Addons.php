@@ -216,7 +216,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 			if ( $num_plugins > 1 ) {
 				if ( $num_plugins > 2 ) {
-					$plugins_list = implode( ', ', array_slice( $plugins, 0, $num_plugins - 1 ) );
+					$plugins_list = implode( __( ', ' ), array_slice( $plugins, 0, $num_plugins - 1 ) );
 					$plugins = array( $plugins_list, $plugins[ $num_plugins - 1 ] );
 				}
 

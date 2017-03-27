@@ -15,7 +15,6 @@ class AC_Meta_QueryColumn extends AC_Meta_Query {
 		if ( $column->get_post_type() ) {
 			$this->where_post_type( $column->get_post_type() );
 		}
-
 	}
 
 }

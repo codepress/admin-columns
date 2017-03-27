@@ -180,7 +180,7 @@ class AC_Helper_String {
 		$values = $this->comma_separated_to_array( $string );
 
 		foreach ( $values as $k => $value ) {
-			if ( ! is_numeric( $value ) ) {
+			if ( ! is_numeric( trim( $value ) ) ) {
 				unset( $values[ $k ] );
 			}
 		}
@@ -194,7 +194,11 @@ class AC_Helper_String {
 	 * @param string $hex Color Hex Code
 	 */
 	public function get_color_block( $hex ) {
-		return $hex ? '<div class="cpac-color"><span style="background-color:' . esc_attr( $hex ) . ';color:' . esc_attr( $this->hex_get_contrast( $hex ) ) . '">' . esc_html( $hex ) . '</span></div>' : false;
+		if ( ! $hex ) {
+			return false;
+		}
+
+		return '<div class="cpac-color"><span style="background-color:' . esc_attr( $hex ) . ';color:' . esc_attr( $this->hex_get_contrast( $hex ) ) . '">' . esc_html( $hex ) . '</span></div>';
 	}
 
 	/**

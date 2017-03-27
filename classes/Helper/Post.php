@@ -67,19 +67,6 @@ class AC_Helper_Post {
 	}
 
 	/**
-	 * Display terms
-	 * Largely taken from class-wp-post-list-table.php
-	 *
-	 * @since 1.0
-	 *
-	 * @param int    $id       Post ID
-	 * @param string $taxonomy Taxonomy name
-	 */
-	public function get_terms_for_display( $post_id, $taxonomy ) {
-		return ac_helper()->taxonomy->display( get_the_terms( $post_id, $taxonomy ), get_post_type( $post_id ) );
-	}
-
-	/**
 	 * @since 1.0
 	 *
 	 * @param int $post_id Post ID
