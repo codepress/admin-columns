@@ -286,4 +286,15 @@ class AC_Helper_Html {
 		return ob_get_clean();
 	}
 
+	/**
+     * Return round HTML span
+     *
+	 * @param $string
+	 *
+	 * @return string
+	 */
+	public function rounded( $string ) {
+        return '<span class="ac-rounded">' . $string . '</span>';
+	}
+
 }

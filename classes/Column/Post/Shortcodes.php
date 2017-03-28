@@ -20,8 +20,12 @@ class AC_Column_Post_Shortcodes extends AC_Column {
 		$display = array();
 		foreach ( $shortcodes as $sc => $count ) {
 			$string = '[' . $sc . ']';
-			$string = $count > 1 ? $string . '<span class="cpac-rounded">' . $count . '</span>' : $string;
-			$display[ $sc ] = '<span class="cpac-spacing">' . $string . '</span>';
+
+			if ( $count > 1 ) {
+				$string .= ac_helper()->html->rounded( $count );
+			}
+
+			$display[ $sc ] = '<span class="ac-spacing">' . $string . '</span>';
 		}
 
 		return implode( ' ', $display );

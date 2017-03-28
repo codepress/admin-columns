@@ -3,34 +3,11 @@
 class AC_Helper_Post {
 
 	/**
-	 * @param string $field Field
-	 * @param int    $id    Post ID
-	 *
-	 * @return string|false
-	 */
-	public function get_raw_field( $field, $id ) {
-		global $wpdb;
-
-		if ( ! $id || ! is_numeric( $id ) ) {
-			return false;
-		}
-
-		$sql = "
-			SELECT " . $wpdb->_real_escape( $field ) . "
-			FROM $wpdb->posts
-			WHERE ID = %d
-			LIMIT 1
-		";
-
-		return $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
-	}
-
-	/**
 	 * @param int $id
 	 *
 	 * @return bool
 	 */
-	public function post_exists( $id ) {
+	public function exists( $id ) {
 		return $this->get_raw_field( 'ID', $id ) ? true : false;
 	}
 
@@ -39,31 +16,8 @@ class AC_Helper_Post {
 	 *
 	 * @return false|string Post Title
 	 */
-	public function get_post_title( $id ) {
+	public function get_raw_post_title( $id ) {
 		return ac_helper()->post->get_raw_field( 'post_title', $id );
-	}
-
-	/**
-	 * Get values by post field
-	 *
-	 * @since 1.0
-	 */
-	public function get_post_values_by_field( $post_field, $post_type ) {
-		global $wpdb;
-
-		$post_field = '`' . sanitize_key( $post_field ) . '`';
-
-		$sql = "
-			SELECT DISTINCT {$post_field}
-			FROM {$wpdb->posts}
-			WHERE post_type = %s
-			AND {$post_field} <> ''
-			ORDER BY 1
-		";
-
-		$values = $wpdb->get_col( $wpdb->prepare( $sql, $post_type ) );
-
-		return $values && ! is_wp_error( $values ) ? $values : array();
 	}
 
 	/**
@@ -109,6 +63,52 @@ class AC_Helper_Post {
 		}
 
 		return $post_type->labels->singular_name;
+	}
+
+	/**
+	 * @param string $field Field
+	 * @param int    $id    Post ID
+	 *
+	 * @return string|false
+	 */
+	public function get_raw_field( $field, $id ) {
+		global $wpdb;
+
+		if ( ! $id || ! is_numeric( $id ) ) {
+			return false;
+		}
+
+		$sql = "
+			SELECT " . $wpdb->_real_escape( $field ) . "
+			FROM $wpdb->posts
+			WHERE ID = %d
+			LIMIT 1
+		";
+
+		return $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
+	}
+
+	/**
+	 * Get Post Title or Media Filename
+	 *
+	 * @param int|WP_Post $post
+	 *
+	 * @return bool|string
+	 */
+	public function get_title( $post ) {
+		$post = get_post( $post );
+
+		if ( ! $post ) {
+			return false;
+		}
+
+		$title = $post->post_title;
+
+		if ( 'attachment' == $post->post_type ) {
+			$title = ac_helper()->image->get_file_name( $post->ID );
+		}
+
+		return $title;
 	}
 
 }

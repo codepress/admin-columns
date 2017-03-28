@@ -75,7 +75,7 @@ body.upload-php .tablenav.top .cpac-edit {
   font-size: 11px;
   font-weight: bold; }
 
-.cpac-rounded {
+.ac-rounded {
   display: inline-block;
   border-radius: 10px;
   min-width: 8px;
@@ -84,12 +84,12 @@ body.upload-php .tablenav.top .cpac-edit {
   background-color: #e0e0e0;
   text-align: center;
   margin-left: 7px;
+  margin-right: 7px;
   font-size: 12px; }
+  .ac-rounded.ac-rounded-first {
+    margin-left: 0; }
 
-.cpac-rounded.cpac-rounded-first {
-  margin-left: 0; }
-
-.cpac-spacing {
+.ac-spacing {
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 4px; }
@@ -135,14 +135,19 @@ body.upload-php .tablenav.top .cpac-edit {
   .ac-image.ac-icon {
     background-color: transparent; }
 
-.rtl .ac-image {
-  margin-left: 2px;
-  margin-right: 0; }
+/*.rtl .ac-image {
+	margin-left: 2px;
+	margin-right: 0;
+}
 
-.column-column-attachment img {
-  padding-right: 5px;
-  padding-bottom: 4px; }
+.column-column-attachment .ac-image {
+	background: transparent;
 
+	img {
+		padding-right: 5px;
+		padding-bottom: 4px;
+	}
+}*/
 .rtl .column-column-attachment img {
   padding-left: 5px;
   padding-right: 0; }

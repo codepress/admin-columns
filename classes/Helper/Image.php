@@ -181,18 +181,27 @@ class AC_Helper_Image {
 	}
 
 	/**
-	 * @param int $media_id
+	 * @param int $attachment_id
 	 *
 	 * @return bool|string
 	 */
-	public function get_file_name( $media_id ) {
-		$file = get_post_meta( $media_id, '_wp_attached_file', true );
+	public function get_file_name( $attachment_id ) {
+		$file = get_post_meta( $attachment_id, '_wp_attached_file', true );
 
 		if ( ! $file ) {
 			return false;
 		}
 
 		return basename( $file );
+	}
+
+	/**
+	 * @param int $attachment_id
+	 *
+	 * @return string File extension
+	 */
+	public function get_file_extension( $attachment_id ) {
+        return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
 	}
 
 	// Helpers
@@ -227,7 +236,7 @@ class AC_Helper_Image {
 			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>">
 
 			<?php if ( $add_extension ) : ?>
-                <span class="ac-extension"><?php echo pathinfo( $this->get_file_name( $media_id ), PATHINFO_EXTENSION ); ?></span>
+                <span class="ac-extension"><?php echo esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
 			<?php endif; ?>
 
 		</span>

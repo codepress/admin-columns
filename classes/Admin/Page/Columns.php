@@ -356,6 +356,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				$grouped[ $slug ]['title'] = $group['label'];
 			}
 
+			natcasesort( $list_screens[ $slug ] );
+
 			$grouped[ $slug ]['options'] = $list_screens[ $slug ];
 
 			unset( $list_screens[ $slug ] );

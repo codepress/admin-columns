@@ -12,7 +12,23 @@ class AC_Helper_Icon {
 
 		$data = (object) wp_parse_args( $args, $defaults );
 
-		return '<span class="dashicons dashicons-' . $data->icon . ' ' . esc_attr( trim( $data->class ) ) . '"' . ( $data->title ? ' title="' . esc_attr( $data->title ) . '"' : '' ) . '' . ( $data->tooltip ? 'data-tip="' . esc_attr( $data->tooltip ) . '"' : '' ) . '></span>';
+		$class = 'dashicons dashicons-' . $data->icon;
+
+		if ( $data->class ) {
+			$class .= ' ' . trim( $data->class );
+		}
+
+		$attributes = array();
+
+		if ( $data->title ) {
+			$attributes[] = 'title="' . esc_attr( $data->title ) . '"';
+		}
+
+		if ( $data->tooltip ) {
+			$attributes[] = 'data-tip="' . esc_attr( $data->tooltip ) . '"';
+		}
+
+		return '<span class="' . esc_attr( $class ) . '" ' . implode( ' ', $attributes ) . '></span>';
 	}
 
 	/**
@@ -24,7 +40,7 @@ class AC_Helper_Icon {
 			$title = __( 'Yes' );
 		}
 
-		return self::dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
+		return $this->dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
 	}
 
 	/**
@@ -36,7 +52,7 @@ class AC_Helper_Icon {
 			$title = __( 'No' );
 		}
 
-		return self::dashicon( array( 'icon' => 'no', 'class' => 'red', 'title' => $title, 'tooltip' => $tooltip ) );
+		return $this->dashicon( array( 'icon' => 'no', 'class' => 'red', 'title' => $title, 'tooltip' => $tooltip ) );
 	}
 
 	/**
@@ -47,7 +63,7 @@ class AC_Helper_Icon {
 	 * @return string HTML Dashicon
 	 */
 	public function yes_or_no( $is_true, $tooltip = '' ) {
-		return $is_true ? self::yes( $tooltip ) : self::no( $tooltip );
+		return $is_true ? $this->yes( $tooltip ) : $this->no( $tooltip );
 	}
 
 }
