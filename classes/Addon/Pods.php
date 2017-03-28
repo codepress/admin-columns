@@ -11,7 +11,7 @@ class AC_Addon_Pods extends AC_Addon {
 			->set_icon( $this->get_logo() )
 			->set_link( ac_get_site_utm_url( 'pods-columns', 'addon', 'pods' ) )
 			->set_description( $this->get_fields_description( $this->get_title() ) )
-			->set_plugin( 'pods' );
+			->add_plugin( 'pods' );
 	}
 
 }

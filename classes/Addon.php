@@ -34,9 +34,9 @@ class AC_Addon {
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
 	 *
-	 * @var AC_PluginInformation
+	 * @var AC_PluginInformation[]
 	 */
-	private $plugin;
+	private $plugins;
 
 	/**
 	 * External website link
@@ -75,19 +75,26 @@ class AC_Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @return AC_PluginInformation
+	 * @return AC_PluginInformation[]
 	 */
-	public function get_plugin() {
-		return $this->plugin;
+	public function get_plugins() {
+		return $this->plugins;
 	}
 
 	/**
 	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
 	 */
-	protected function set_plugin( $plugin ) {
-		$this->plugin = new AC_PluginInformation( $plugin );
+	protected function add_plugin( $plugin ) {
+		$this->plugins[] = new AC_PluginInformation( $plugin );
 
 		return $this;
+	}
+
+	/**
+	 * @return AC_PluginInformation
+	 */
+	public function get_plugin() {
+        return $this->plugins[0];
 	}
 
 	/**
@@ -201,21 +208,28 @@ class AC_Addon {
 	 * @return bool
 	 */
 	public function is_plugin_installed() {
-		return $this->plugin->is_installed();
+		return $this->get_plugin()->is_installed();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_plugin_active() {
-		return $this->plugin->is_active();
+		return $this->get_plugin()->is_active();
 	}
 
 	/**
 	 * @return string Basename
 	 */
 	public function get_plugin_basename() {
-		return $this->plugin->get_basename();
+		return $this->get_plugin()->get_basename();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_plugin_activation_url() {
+        return $this->get_activation_url( $this->get_plugin_basename() );
 	}
 
 	/**

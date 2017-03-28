@@ -5,7 +5,7 @@ jQuery( function( $ ) {
 		$( '.updated a.hide-install-addons-notice' ).click( function( e ) {
 			e.preventDefault();
 
-			var el = $( this ).parents( '.cpac_message' );
+			var el = $( this ).parents( '.ac-message' );
 			var el_close = el.find( '.hide-notice' );
 
 			el_close.hide();

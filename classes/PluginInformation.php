@@ -52,6 +52,13 @@ class AC_PluginInformation {
 	}
 
 	/**
+	 * @return string Name
+	 */
+	public function get_name() {
+		return $this->get_plugin_var( 'Name' );
+	}
+
+	/**
 	 * @return array|false
 	 */
 	public function get_plugin_info() {
