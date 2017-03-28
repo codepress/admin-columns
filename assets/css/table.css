@@ -29,12 +29,6 @@ span.dashicons.green {
 span.dashicons.red {
   color: #dc3232; }
 
-.cpac_status_yes {
-  color: #46b450; }
-
-.cpac_status_no {
-  color: #dc3232; }
-
 body.edit-php #delete_all {
   float: left;
   margin-right: 3px; }
@@ -135,19 +129,6 @@ body.upload-php .tablenav.top .cpac-edit {
   .ac-image.ac-icon {
     background-color: transparent; }
 
-/*.rtl .ac-image {
-	margin-left: 2px;
-	margin-right: 0;
-}
-
-.column-column-attachment .ac-image {
-	background: transparent;
-
-	img {
-		padding-right: 5px;
-		padding-bottom: 4px;
-	}
-}*/
 .rtl .column-column-attachment img {
   padding-left: 5px;
   padding-right: 0; }

@@ -32,23 +32,58 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		foreach ( $this->get_addons() as $addon ) {
-			if ( $addon->is_active() ) {
-				if ( ! $addon->is_plugin_installed() ) {
-					AC()->notice( sprintf( __( '%s plugin needs to be installed for the add-on to work. Get the plugin from %s.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>', ac_helper()->html->link( $addon->get_plugin_url(), __( 'this page', 'codepress-admin=n-columns' ) ) ), 'notice-warning' );
-				} else if ( ! $addon->is_plugin_active() ) {
-				    $message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>' );
+		foreach ( $this->get_active_addons() as $addon ) {
+			if ( ! $addon->is_plugin_installed() ) {
+				AC()->notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ), 'notice-warning' );
+			} else if ( ! $addon->is_plugin_active() ) {
+				$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_title() . '</strong>' );
 
-				    if ( current_user_can( 'activate_plugins' ) ) {
-					     $message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_activation_url( $addon->get_plugin_basename() ), __( 'here', 'codepress-admin=n-columns' ) ) );
-                    }
-
-					AC()->notice( $message, 'notice-warning' );
+				if ( current_user_can( 'activate_plugins' ) ) {
+					$message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_activation_url( $addon->get_plugin_basename() ), __( 'here', 'codepress-admin=n-columns' ) ) );
 				}
 
+				AC()->notice( $message, 'notice-warning' );
 			}
 		}
 
+		$installed = array();
+
+		foreach ( $this->get_installed_addons() as $addon ) {
+			$installed[] = $addon->get_title();
+        }
+
+		if ( ! ac_is_pro_active() ) {
+			AC()->notice( sprintf( _n( '%s add-on require %s.', '%s add-ons require %s.', count( $installed ), 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $installed, 'and' ), ac_helper()->html->link( ac_get_site_url(), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) ), 'notice-warning' );
+		}
+
+	}
+
+	/**
+	 * @return AC_addon[]
+	 */
+	private function get_active_addons() {
+	    $addons = array();
+		foreach ( $this->get_addons() as $addon ) {
+			if ( $addon->is_active() ) {
+			    $addons[] = $addon;
+            }
+        }
+
+        return $addons;
+	}
+
+	/**
+	 * @return AC_addon[]
+	 */
+	private function get_installed_addons() {
+		$addons = array();
+		foreach ( $this->get_addons() as $addon ) {
+			if ( $addon->is_installed() ) {
+				$addons[] = $addon;
+			}
+		}
+
+		return $addons;
 	}
 
 	/**
@@ -185,6 +220,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * @since 2.4.9
 	 */
 	public function missing_addon_notices() {
+	    if ( ! current_user_can( 'manage_admin_columns' ) ) {
+	        return;
+        }
+
 		if ( $this->is_current_screen() ) {
 			return;
 		}
@@ -200,28 +239,17 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		$plugins = array();
 
 		foreach ( $this->get_addons() as $addon ) {
-			if ( $addon->is_plugin_active() && ! $addon->is_active() ) {
+			if ( $addon->show_missing_notice_on_current_page() && $addon->is_plugin_active() && ! $addon->is_active() ) {
 				$plugins[] = $addon->get_title();
 			}
 		}
 
 		if ( $plugins ) {
-			$num_plugins = count( $plugins );
-
 			foreach ( $plugins as $index => $plugin ) {
 				$plugins[ $index ] = '<strong>' . $plugin . '</strong>';
 			}
 
-			$plugins_list = $plugins[0];
-
-			if ( $num_plugins > 1 ) {
-				if ( $num_plugins > 2 ) {
-					$plugins_list = implode( __( ', ' ), array_slice( $plugins, 0, $num_plugins - 1 ) );
-					$plugins = array( $plugins_list, $plugins[ $num_plugins - 1 ] );
-				}
-
-				$plugins_list = sprintf( __( '%s and %s', 'codepress-admin-columns' ), $plugins[0], $plugins[1] );
-			}
+			$plugins_list = ac_helper()->string->enumeration_list( $plugins, 'and' );
 
 			?>
             <div class="ac-message updated">
@@ -394,7 +422,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 					$addon_group = 'recommended';
 				}
 
-				if ( $addon->is_active() ) {
+				if ( $addon->is_installed() ) {
 					$addon_group = 'installed';
 				}
 

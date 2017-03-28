@@ -811,7 +811,8 @@
     text-align: center;
     display: block;
     padding: 6px 20px;
-    border-radius: 3px; }
+    border-radius: 3px;
+    cursor: pointer; }
   #ac-pro-version .more {
     color: #FFEE85;
     text-decoration: none; }
@@ -874,7 +875,7 @@
       width: 100%;
       margin-bottom: 8px; }
     #ac-pro-version .padding-box.ac-pro-newsletter .acp-button {
-      margin-top: 15px;
+      margin-top: 12px;
       margin-bottom: 0;
       padding: 7px 20px; }
   #ac-pro-version .acp-button {

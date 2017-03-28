@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle {
+class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle
+	implements AC_Settings_FormatValueInterface {
 
 	/**
 	 * @var string
@@ -40,6 +41,32 @@ class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle {
 		$this->link_to_menu = $link_to_menu;
 
 		return true;
+	}
+
+	/**
+	 * @param int[] $menu_ids
+	 * @param mixed $original_value
+	 *
+	 * @return false|string
+	 */
+	public function format( $menu_ids, $original_value ) {
+		if ( ! $menu_ids ) {
+			return ac_helper()->string->get_empty_char();
+		}
+
+		$values = array();
+
+		foreach ( $menu_ids as $menu_id ) {
+			$term = get_term_by( 'id', $menu_id, 'nav_menu' );
+
+			if ( 'on' === $this->get_link_to_menu() ) {
+				$term->name = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
+			}
+
+			$values[] = $term->name;
+		}
+
+		return implode( $this->column->get_separator(), $values );
 	}
 
 }

@@ -995,6 +995,7 @@
 				font-weight: normal;
 				margin-top: 6px;
 			}
+
 			.inside {
 				ul {
 					margin: 0 0 10px 0;
@@ -1193,6 +1194,7 @@
 		display: block;
 		padding: 6px 20px;
 		border-radius: 3px;
+		cursor: pointer;
 	}
 
 	.more {
@@ -1261,6 +1263,7 @@
 			}
 		}
 	}
+
 	.padding-box.ac-pro-deal {
 		color: $ac-dark;
 		padding-bottom: 20px;
@@ -1278,6 +1281,7 @@
 			font-size: 16px;
 		}
 	}
+
 	.padding-box.ac-pro-newsletter {
 		background: #fff;
 		color: $ac-dark;
@@ -1291,11 +1295,12 @@
 			margin-bottom: 8px;
 		}
 		.acp-button {
-			margin-top: 15px;
+			margin-top: 12px;
 			margin-bottom: 0;
 			padding: 7px 20px;
 		}
 	}
+
 	.acp-button {
 		background: $ac-pink;
 		border: none;

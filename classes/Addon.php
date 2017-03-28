@@ -75,7 +75,7 @@ class AC_Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @return string
+	 * @return AC_PluginInformation
 	 */
 	public function get_plugin() {
 		return $this->plugin;
@@ -317,6 +317,15 @@ class AC_Addon {
 		}
 
 		return $this->plugin_url;
+	}
+
+	/**
+     * Show notice on admin page only
+     *
+	 * @return bool
+	 */
+	public function show_missing_notice_on_current_page() {
+        return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
 	}
 
 }

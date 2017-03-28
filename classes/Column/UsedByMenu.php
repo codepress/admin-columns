@@ -13,24 +13,6 @@ class AC_Column_UsedByMenu extends AC_Column {
 		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $id ) {
-		$menus = array();
-
-		if ( $menu_ids = $this->get_raw_value( $id ) ) {
-			foreach ( $menu_ids as $menu_id ) {
-				$term = get_term_by( 'id', $menu_id, 'nav_menu' );
-
-				if ( 'on' === $this->get_option( 'link_to_menu' ) ) {
-					$term->name = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
-				}
-
-				$menus[] = $term->name;
-			}
-		}
-
-		return implode( $this->get_separator(), $menus );
-	}
-
 	/**
 	 * @see   AC_Column::get_raw_value()
 	 * @since 2.2.5
@@ -78,6 +60,10 @@ class AC_Column_UsedByMenu extends AC_Column {
 
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_LinkToMenu( $this ) );
+	}
+
+	public function is_valid() {
+		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'term', 'comment' ) );
 	}
 
 }
