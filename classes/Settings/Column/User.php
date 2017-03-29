@@ -32,6 +32,7 @@ class AC_Settings_Column_User extends AC_Settings_Column
 		$display_format = new AC_View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
+			'for'     => $select->get_id(),
 		) );
 
 		$select = $this->create_element( 'select', 'user_link_to' )
@@ -41,6 +42,7 @@ class AC_Settings_Column_User extends AC_Settings_Column
 		$link_format = new AC_View( array(
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
+			'for'     => $select->get_id(),
 		) );
 
 		$view = new AC_View( array(
