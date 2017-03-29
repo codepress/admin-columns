@@ -520,7 +520,6 @@ abstract class AC_ListScreen {
 		 * @param AC_ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
-		do_action( 'ac/column_types/' . $this->get_key(), $this );
 	}
 
 	/**
