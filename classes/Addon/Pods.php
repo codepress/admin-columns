@@ -14,4 +14,12 @@ class AC_Addon_Pods extends AC_Addon {
 			->add_plugin( 'pods' );
 	}
 
+	public function show_missing_notice_on_current_page() {
+		global $pagenow;
+
+		$is_page = 'admin.php' === $pagenow && in_array( filter_input( INPUT_GET, 'page' ), array( 'pods-add-new', 'pods-settings' ) );
+
+		return parent::show_missing_notice_on_current_page() || $is_page;
+	}
+
 }

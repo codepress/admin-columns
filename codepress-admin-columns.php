@@ -157,7 +157,7 @@ class CPAC {
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
 		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'ready' ) );
+		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
@@ -167,6 +167,11 @@ class CPAC {
 	}
 
 	public function ready() {
+
+		/**
+		 * For loading external resources, e.g. column settings.
+		 * Can be called from plugins and themes.
+		 */
 		do_action( 'ac/ready', $this );
 	}
 

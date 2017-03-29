@@ -822,6 +822,8 @@
     text-align: center; }
   #ac-pro-version p.nomargin {
     margin-bottom: 0; }
+  #ac-pro-version ul.features a:hover {
+    text-decoration: underline; }
   #ac-pro-version ul li {
     padding-bottom: 3px; }
     #ac-pro-version ul li a {

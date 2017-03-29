@@ -505,7 +505,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                                 <div class="inside">
                                     <p><?php _e( 'Take Admin Columns to the next level:', 'codepress-admin-columns' ); ?></p>
-                                    <ul>
+                                    <ul class="features">
 										<?php
 
 										$items = array(
@@ -518,9 +518,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 										foreach ( $items as $utm_content => $label ) : ?>
                                             <li>
-                                                <a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'usp-' . $utm_content ) ); ?>">
-													<?php echo esc_html( $label ); ?>
-                                                </a>
+                                                <a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'usp-' . $utm_content ) ); ?>"><?php echo esc_html( $label ); ?></a>
                                             </li>
 										<?php endforeach; ?>
 
@@ -531,9 +529,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                         <ul>
 											<?php foreach ( $promos as $addon ) : ?>
                                                 <li class="acp-integration">
-                                                    <a href="<?php echo esc_url( $addon->get_link() ); ?>" target="_blank">
-														<?php $addon->display_promo(); ?>
-                                                    </a>
+                                                    <a href="<?php echo esc_url( $addon->get_link() ); ?>" target="_blank"><?php $addon->display_promo(); ?></a>
                                                 </li>
 											<?php endforeach; ?>
                                         </ul>

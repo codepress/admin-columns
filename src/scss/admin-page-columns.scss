@@ -1217,6 +1217,12 @@
 
 	ul {
 
+		&.features {
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+
 		li {
 			padding-bottom: 3px;
 
