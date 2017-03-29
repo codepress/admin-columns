@@ -339,7 +339,7 @@ class CPAC {
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
 		foreach ( $this->addons()->get_missing_addons() as $addon ) {
-			$groups->register_group( $addon->get_slug(), $addon->get_title(), 5 );
+			$groups->register_group( $addon->get_slug(), $addon->get_title(), 11 );
 		}
 
 		$this->column_groups = $groups;

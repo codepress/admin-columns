@@ -59,7 +59,7 @@ function cpac_submit_form( $ ) {
 		$container.find( '.ac-message' ).remove(); // placed by restore button
 
 		var xhr = $.post( ajaxurl, {
-				action : 'cpac_columns_save',
+				action : 'ac_columns_save',
 				data : columns_data,
 				_ajax_nonce : AC._ajax_nonce,
 				list_screen : AC.list_screen,
@@ -301,7 +301,7 @@ function cpac_reset_columns( $ ) {
 
 		var data = $( this ).find( ':input' ).serializeArray();
 		var request_data = {
-			action : 'cpac_column_refresh',
+			action : 'ac_column_refresh',
 			_ajax_nonce : AC._ajax_nonce,
 			list_screen : AC.list_screen,
 			layout : AC.layout,
@@ -398,7 +398,7 @@ function cpac_reset_columns( $ ) {
 				method : 'post',
 				dataType : 'json',
 				data : {
-					action : 'cpac_column_select',
+					action : 'ac_column_select',
 					original_columns : original_columns,
 					_ajax_nonce : AC._ajax_nonce,
 					type : type,

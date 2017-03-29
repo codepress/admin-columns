@@ -24,9 +24,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		add_action( 'admin_init', array( $this, 'init' ) );
 
 		// Ajax calls
-		add_action( 'wp_ajax_cpac_column_select', array( $this, 'ajax_column_select' ) );
-		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
-		add_action( 'wp_ajax_cpac_columns_save', array( $this, 'ajax_columns_save' ) );
+		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
+		add_action( 'wp_ajax_ac_column_refresh', array( $this, 'ajax_column_refresh' ) );
+		add_action( 'wp_ajax_ac_columns_save', array( $this, 'ajax_columns_save' ) );
 	}
 
 	/**
@@ -223,7 +223,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		// Placeholder message
-		if ( $column instanceof AC_Column_PlaceholderInterface ) {
+		if ( $column instanceof AC_Column_Placeholder ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => $column->get_message(),
@@ -484,7 +484,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                 <span class="spinner"></span>
                             </form>
 
-							<?php do_action( 'ac/settings/form_actions', $list_screen ); ?>
+							<?php do_action( 'ac/settings/form_actions', $this ); ?>
 
                         </div><!--form-actions-->
 					<?php endif; ?>
