@@ -49,6 +49,10 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 				$value = ac_helper()->post->get_title( $id );
 
 				break;
+			case 'id' :
+				$value = $id;
+
+				break;
 		}
 
 		return $value;
