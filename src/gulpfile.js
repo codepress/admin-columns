@@ -61,13 +61,12 @@ gulp.task( 'language', function() {
 	] )
 		.pipe( wpPot( {
 			domain : 'codepress-admin-columns',
-			destFile : 'codepress-admin-columns.pot',
 			package : 'Admin Columns',
 			bugReport : 'https://www.admincolumns.com',
 			lastTranslator : 'Codepress <info@codepress.nl',
 			team : 'Admin Columns <info@admincolumns.com>'
 		} ) )
-		.pipe( gulp.dest( '../languages' ) );
+		.pipe( gulp.dest( '../languages/codepress-admin-columns.pot' ) );
 } );
 
 /**

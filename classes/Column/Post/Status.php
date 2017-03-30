@@ -15,11 +15,11 @@ class AC_Column_Post_Status extends AC_Column {
 
 		$post_status = $this->get_raw_value( $post_id );
 
-		if ( ! isset($wp_post_statuses[ $post_status] )) {
+		if ( ! isset( $wp_post_statuses[ $post_status ] ) ) {
 			return false;
 		}
 
-		$label = $wp_post_statuses[ $post_status]->label;
+		$label = $wp_post_statuses[ $post_status ]->label;
 
 		if ( 'future' === $post_status ) {
 			$label .= " <p class='description'>" . date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( get_post_field( 'post_date', $post_id ) ) ) . "</p>";

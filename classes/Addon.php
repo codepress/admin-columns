@@ -94,7 +94,7 @@ class AC_Addon {
 	 * @return AC_PluginInformation
 	 */
 	public function get_plugin() {
-        return $this->plugins[0];
+		return $this->plugins[0];
 	}
 
 	/**
@@ -229,7 +229,7 @@ class AC_Addon {
 	 * @return string
 	 */
 	public function get_plugin_activation_url() {
-        return $this->get_activation_url( $this->get_plugin_basename() );
+		return $this->get_activation_url( $this->get_plugin_basename() );
 	}
 
 	/**
@@ -334,12 +334,12 @@ class AC_Addon {
 	}
 
 	/**
-     * Show notice on admin page only
-     *
+	 * Show notice on admin page only
+	 *
 	 * @return bool
 	 */
 	public function show_missing_notice_on_current_page() {
-        return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
+		return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
 	}
 
 }
