@@ -18,15 +18,13 @@ class AC_Notice_Plugin {
 			// blue: notice-info
 			// green: notice-success
 			'class'   => 'notice-warning notice-alt',
-			'icon'    => 'info',
+			'icon'    => null,
 
 			// filename
 			'plugin'  => '',
 		);
 
-		$args = wp_parse_args( $args, $defaults );
-
-		$data = (object) $args;
+		$data = (object) wp_parse_args( $args, $defaults );
 
 		$classes = array( 'notice', 'inline' );
 
@@ -34,9 +32,12 @@ class AC_Notice_Plugin {
 			$classes[] = $data->class;
 		}
 
-		if ( $data->icon ) {
-			$classes[] = 'icon';
-			$classes[] = 'icon-' . $data->icon;
+		switch ( $data->icon ) {
+			case 'info': {
+				$data->icon = '\f348';
+
+				break;
+			}
 		}
 
 		$row_classes = array();
@@ -49,25 +50,42 @@ class AC_Notice_Plugin {
 			}
 		}
 
+		// set styling
+		$tr_plugin = ".plugins tr[data-plugin='$data->plugin']";
+
+		$tpl = '
+			%1$s th,
+			%1$s td {
+				padding-bottom: 0;
+				box-shadow: none;
+			}';
+
+		$css = sprintf( $tpl, $tr_plugin );
+
+		if ( $data->icon ) {
+			$tpl = '
+				%s .update-message p:before { 
+					content: "%s"; 
+				}';
+
+			$css .= sprintf( $tpl, $tr_plugin, $data->icon );
+		}
+
 		?>
-		<tr class="plugin-update-tr plugin-update-tr-admin-columns <?php echo esc_attr( implode( ' ', $row_classes ) ); ?>" data-slug="<?php echo esc_attr( basename( $data->plugin ) ); ?>" data-plugin="<?php echo esc_attr( $data->plugin ); ?>">
+
+		<tr class="plugin-update-tr <?php echo esc_attr( implode( ' ', $row_classes ) ); ?>" data-slug="<?php echo esc_attr( basename( $data->plugin ) ); ?>" data-plugin="<?php echo esc_attr( $data->plugin ); ?>">
 			<td colspan="3" class="plugin-update colspanchange">
-				<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+				<div class="update-message <?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 					<p><?php echo $data->message; ?></p>
 				</div>
 			</td>
 		</tr>
 
 		<style>
-			.plugins tr[data-plugin='<?php echo $data->plugin; ?>'] th,
-			.plugins tr[data-plugin='<?php echo $data->plugin; ?>'] td {
-				padding-bottom: 0;
-				box-shadow: none;
-			}
+			<?php echo $css; ?>
 		</style>
-		<?php
 
-		wp_enqueue_style( 'ac-plugin-row', AC()->get_plugin_url() . 'assets/css/plugin-screen' . AC()->minified() . '.css' );
+		<?php
 	}
 
 }

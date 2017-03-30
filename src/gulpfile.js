@@ -44,7 +44,6 @@ gulp.task( 'styles', function() {
 		'scss/admin-general.scss',
 		'scss/admin-welcome.scss',
 		'scss/table.scss',
-		'scss/plugin-screen.scss',
 		'scss/message.scss'
 	] )
 		.pipe( plumber( { errorHandler : onError } ) )
