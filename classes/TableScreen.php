@@ -108,11 +108,13 @@ final class AC_TableScreen {
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
-		if ( $this->current_list_screen ) {
-			$classes .= " ac-" . $this->current_list_screen->get_key();
+		if ( ! $this->current_list_screen ) {
+			return $classes;
 		}
 
-		return $classes;
+		$classes .= " ac-" . $this->current_list_screen->get_key();
+
+		return apply_filters( 'ac/table/body_class', $classes, $this );
 	}
 
 	/**
@@ -201,7 +203,8 @@ final class AC_TableScreen {
 	}
 
 	/**
-     * @param AC_ListScreen $list_screen
+	 * @param AC_ListScreen $list_screen
+	 *
 	 * @return string|false
 	 */
 	private function get_edit_link( AC_ListScreen $list_screen ) {
