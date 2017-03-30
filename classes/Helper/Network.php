@@ -19,7 +19,7 @@ class AC_Helper_Network {
 			WHERE option_name = %s
 		";
 
-		return $wpdb->get_var( $wpdb->prepare( $sql, $option) );
+		return (string) $wpdb->get_var( $wpdb->prepare( $sql, $option) );
 	}
 
 	/**
