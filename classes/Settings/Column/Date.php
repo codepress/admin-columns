@@ -131,6 +131,10 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	 * @return string
 	 */
 	public function format( $date, $original_value ) {
+		if ( ! $date ) {
+			return false;
+		}
+
 		$timestamp = strtotime( $date );
 
 		switch ( $this->get_date_format() ) {

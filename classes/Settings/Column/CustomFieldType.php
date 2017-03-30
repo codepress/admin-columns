@@ -178,7 +178,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		switch ( $this->get_field_type() ) {
 
 			case 'date' :
-				$value = ac_helper()->date->strtotime( $value );
+				if ( $timestamp = ac_helper()->date->strtotime( $value ) ) {
+					$value = date( 'c', $timestamp );
+				}
 
 				break;
 
