@@ -268,8 +268,9 @@ div.sizes span.not-available {
     .column-actions.cpac_use_icons .row-actions > span a:before {
       text-indent: 0;
       font-family: Dashicons, sans-serif;
+      font-size: 16px;
       position: absolute;
-      padding-left: 5px;
+      padding-left: 4px;
       top: 0;
       left: 0;
       width: 100%;
