@@ -6,7 +6,7 @@
  *
  * @since 2.0
  */
-class AC_Column_Post_CommentCount extends AC_Column  {
+class AC_Column_Post_CommentCount extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_count' );
