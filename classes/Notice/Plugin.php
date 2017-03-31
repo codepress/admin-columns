@@ -27,7 +27,7 @@ final class AC_Notice_Plugin {
 	 */
 	public function __construct( $plugin_basename ) {
 		$this->plugin_basename = $plugin_basename;
-		$this->set_class( 'warning' );
+		$this->set_type( 'warning' );
 	}
 
 	/**
