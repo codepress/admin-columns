@@ -53,15 +53,10 @@ class AC_Settings_Column_Width extends AC_Settings_Column
 	}
 
 	public function create_header_view() {
-		$content = false;
-
-		if ( $width = $this->get_width() ) {
-			$content = $width . $this->get_width_unit();
-		}
 
 		$view = new AC_View( array(
 			'title'   => __( 'width', 'codepress-admin-columns' ),
-			'content' => $content,
+			'content' => $this->get_display_width(),
 		) );
 
 		return $view;
@@ -79,16 +74,24 @@ class AC_Settings_Column_Width extends AC_Settings_Column
 	 *
 	 * @return bool
 	 */
-	public function set_width( $width ) {
-		$width = absint( $width );
+	public function set_width( $value ) {
 
-		if ( $width <= 0 ) {
-			return false;
+		// Backwards compatible for AC 2.9
+		if ( '' === $value ) {
+			$this->width = $value;
+
+			return true;
 		}
 
-		$this->width = $width;
+		$value = absint( $value );
 
-		return true;
+		if ( $value > 0 ) {
+			$this->width = $value;
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -111,6 +114,16 @@ class AC_Settings_Column_Width extends AC_Settings_Column
 		$this->width_unit = $width_unit;
 
 		return true;
+	}
+
+	public function get_display_width() {
+		$value = false;
+
+		if ( $width = $this->get_width() ) {
+			$value = $width . $this->get_width_unit();
+		}
+
+		return $value;
 	}
 
 }

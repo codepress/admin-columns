@@ -185,11 +185,13 @@ final class AC_TableScreen {
 			$css_column_width = false;
 
 			foreach ( $this->current_list_screen->get_columns() as $column ) {
-				$width = $column->get_setting( 'width' );
 
-				if ( $width->get_value() ) {
-					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . implode( $width->get_values() ) . " !important; }";
-					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . implode( $width->get_values() ) . " !important; }";
+				/* @var AC_Settings_Column_Width $setting */
+				$setting = $column->get_setting( 'width' );
+
+				if ( $width = $setting->get_display_width() ) {
+					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
+					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
 				}
 			}
 
