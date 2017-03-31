@@ -134,10 +134,14 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 		if ( ! $date ) {
 			return false;
 		}
+		$date_format = $this->get_date_format();
+		if ( ! $date_format ) {
+			$date_format = $this->get_default();
+		}
 
 		$timestamp = strtotime( $date );
 
-		switch ( $this->get_date_format() ) {
+		switch ( $date_format ) {
 
 			case 'wp_default' :
 				$date = date_i18n( $this->get_wp_date_format(), $timestamp );
