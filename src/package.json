@@ -11,7 +11,7 @@
         "gulp-rename": "*",
         "gulp-sass": "2.3.2",
         "gulp-uglify": "2.1.2",
-        "gulp-cssnano": "*",
+        "gulp-cssnano": "2.1.2",
         "gulp-concat": "*",
         "gulp-wp-pot": "*",
         "gulp-gettext": "*",
