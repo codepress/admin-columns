@@ -335,7 +335,7 @@ class CPAC {
 
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 20 );
-		$groups->register_group( 'plugin', __( 'Plugins', 'codepress-admin-columns' ), 30 );
+		$groups->register_group( 'plugin', __( 'Plugins' ), 30 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
 		foreach ( $this->addons()->get_missing_addons() as $addon ) {
