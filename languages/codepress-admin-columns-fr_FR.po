@@ -6,14 +6,14 @@
 # Etic <pub@eticweb.ca>, 2014
 # Jean-Christophe Brebion <pro@jcbrebion.com>, 2014
 # Mohamed-Younès BOUMEDIENE <m-boumediene@live.fr>, 2014
-# Mohamed-Younès BOUMEDIENE <m-boumediene@live.fr>, 2014
+# Mohamed-Younès BOUMEDIENE <m-boumediene@live.fr>, 2014,2016
 # Etic <pub@eticweb.ca>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2017-04-03 12:31+0000\n"
+"Last-Translator: Mohamed-Younès BOUMEDIENE <m-boumediene@live.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/codepress/admin-columns/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Éditer les colonnes"
 
 #: ../classes/addons.php:110
 msgid "Plugins"
-msgstr ""
+msgstr "Extension"
 
 #: ../classes/addons.php:135
 msgid "Advanced Custom Fields"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: ../classes/addons.php:141
 msgid "WooCommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: ../classes/addons.php:142
 msgid ""
@@ -64,7 +64,7 @@ msgstr "Moyen"
 
 #: ../classes/column.php:626
 msgid "Large"
-msgstr "Large"
+msgstr "Grand"
 
 #: ../classes/column.php:627
 msgid "Full"
@@ -76,15 +76,15 @@ msgstr ""
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "Plus petit que"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "Plus grand que"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "Ensemble"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -182,7 +182,7 @@ msgstr "Nom et prénom"
 
 #: ../classes/column.php:1187
 msgid "Display format"
-msgstr ""
+msgstr "Afficher le format"
 
 #: ../classes/column.php:1187
 msgid "This is the format of the author name."
@@ -194,7 +194,7 @@ msgstr "Modifier"
 
 #: ../classes/column.php1352, ../classes/column.php:1444
 msgid "Clone"
-msgstr ""
+msgstr "Cloner"
 
 #: ../classes/column.php:1354
 msgid "Remove"
@@ -212,7 +212,7 @@ msgstr "Choisissez le type de colonne."
 
 #: ../classes/column.php:1372
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: ../classes/column.php:1382
 msgid "Label"
@@ -232,7 +232,7 @@ msgstr "Par défaut"
 
 #: ../classes/column.php:1392
 msgid "auto"
-msgstr ""
+msgstr "auto"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
@@ -265,11 +265,11 @@ msgstr "Admin Columns"
 
 #: ../classes/review_notice.php:58
 msgid "Admin Columns Pro"
-msgstr ""
+msgstr "Admin Columns Pro"
 
 #: ../classes/review_notice.php:68
 msgid "click here"
-msgstr ""
+msgstr "cliquez ici"
 
 #: ../classes/review_notice.php:72
 msgid "Leave a review!"
@@ -1200,14 +1200,14 @@ msgstr ""
 #: ../classes/column/post/estimated-reading-time.php:66
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "second"
+msgstr[1] "seconds"
 
 #: ../classes/column/post/estimated-reading-time.php:69
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "minute"
+msgstr[1] "minutes"
 
 #: ../classes/column/post/estimated-reading-time.php:107
 msgid "Words per minute"

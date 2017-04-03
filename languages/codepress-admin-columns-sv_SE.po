@@ -1,13 +1,13 @@
 # Copyright (C) 2015 Codepress Admin Columns
 # This file is distributed under the same license as the Codepress Admin Columns package.
 # Translators:
-# Fredrik Andersson <fidde.andersson@telia.com>, 2013-2015
+# Fredrik Andersson <fidde.andersson@telia.com>, 2013-2016
 # Tobias Schutter <info@codepress.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
+"PO-Revision-Date: 2017-04-03 12:32+0000\n"
 "Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/codepress/admin-columns/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
@@ -67,19 +67,19 @@ msgstr "Hel"
 
 #: ../classes/column.php:1059
 msgid "Exact match"
-msgstr ""
+msgstr "Exakt matchning"
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "Mindre än"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "Större än"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "Mellan"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -97,7 +97,7 @@ msgstr "Exempel:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href='%s'>default date"
 " format here</a>."
-msgstr ""
+msgstr "Lämna tomt för WordPress datum format, ändra din <a href='%s'>standard format för datum här</a>."
 
 #: ../classes/column.php:1099
 msgid "Documentation on date and time formatting."
@@ -231,27 +231,27 @@ msgstr "auto"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
-msgstr ""
+msgstr "Egenskap att visa"
 
 #: ../classes/column.php:1472
 msgid "Post property to display for related post(s)."
-msgstr ""
+msgstr "Inläggets egenskaper för att visa relaterade nyhet(er)."
 
 #: ../classes/column.php1484, ../classes/column/post/author-name.php:95
 msgid "Link To"
-msgstr ""
+msgstr "Länk till"
 
 #: ../classes/column.php:1489
 msgid "Edit Post Author"
-msgstr ""
+msgstr "Redigera författare"
 
 #: ../classes/column.php:1490
 msgid "View Public Post Author Page"
-msgstr ""
+msgstr "Visa publik sida för författare"
 
 #: ../classes/column.php:1492
 msgid "Page the posts should link to."
-msgstr ""
+msgstr "Sida som inlägget ska länka till."
 
 #: ../classes/review_notice.php55, ../classes/settings.php170,
 #: ../classes/settings.php599, ../classes/upgrade.php:135
@@ -558,7 +558,7 @@ msgstr "guide för att visa en komplett lista på förändringar."
 msgid ""
 "When you have found a bug please <a href='%s'>report them to us</a> so we "
 "can fix it in the next release."
-msgstr ""
+msgstr "Om du har hittat en bugg, vänligen <a href='%s'> rapportera dem till oss</a> så att vi kan åtgärda det i nästa utgåva."
 
 #: ../classes/settings.php:450
 msgid "Important!"
@@ -618,7 +618,7 @@ msgstr "Återställ till standardinställningar"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. 'OK' to delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Varning! ALLA sparade admin kolumners data kommer att raderas. Detta kan inte ångras. 'OK' för att radera, 'Avbryt' för att stoppa"
 
 #: ../classes/settings.php:582
 msgid "Posttypes"
@@ -654,7 +654,7 @@ msgstr "Spara inställningar"
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
 " delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Varning! Den %s kolumner data kommer att raderas. Detta kan inte ångras. 'OK' för att radera, 'Avbryt' för att stoppa"
 
 #: ../classes/settings.php:688
 msgid "Restore"
@@ -686,15 +686,15 @@ msgstr "Lägg till snabbredigering"
 
 #: ../classes/settings.php:717
 msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Kolla på <a href=\"%s\">Admin Columns Pro</a> för mer information!"
 
 #: ../classes/settings.php:730
 msgid "Subscribe to receive news &amp; updates below."
-msgstr ""
+msgstr "Prenumerera för att få nyheter &amp; uppdateringar nedan."
 
 #: ../classes/settings.php:737
 msgid "Your Email"
-msgstr ""
+msgstr "Din e-post"
 
 #: ../classes/settings.php:748
 msgid "Are you happy with Admin Columns?"
@@ -804,7 +804,7 @@ msgstr "Inställningar för %s uppdaterades framgångsrikt."
 
 #: ../classes/storage_model.php:643
 msgid "Columns by Plugins"
-msgstr ""
+msgstr "Kolumner genom tillägg"
 
 #: ../classes/storage_model.php:862
 msgid "View"
@@ -1008,7 +1008,7 @@ msgstr "Innehåll"
 
 #: ../classes/column/comment/post.php:19
 msgid "Post"
-msgstr ""
+msgstr "Inlägg"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
@@ -1145,11 +1145,11 @@ msgstr "Visa som författare"
 
 #: ../classes/column/post/author-name.php:100
 msgid "View Public Author Page"
-msgstr ""
+msgstr "Visa publik sida för författare"
 
 #: ../classes/column/post/author-name.php:102
 msgid "Page the author name should link to."
-msgstr ""
+msgstr "Sida som författarens namn ska länka till."
 
 #: ../classes/column/post/before-moretag.php:19
 msgid "Before More Tag"
@@ -1230,7 +1230,7 @@ msgstr "Senast ändrad"
 
 #: ../classes/column/post/order.php:19
 msgid "Order"
-msgstr ""
+msgstr "Order"
 
 #: ../classes/column/post/page-template.php:19
 msgid "Page Template"

@@ -3,13 +3,13 @@
 # Translators:
 # Adriano Estevam <aestevam@gmail.com>, 2013
 # André Mácola Machado <andremacola@gmail.com>, 2014
-# André Mácola Machado <andremacola@gmail.com>, 2014-2015
+# André Mácola Machado <andremacola@gmail.com>, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2017-04-03 12:32+0000\n"
+"Last-Translator: André Mácola Machado <andremacola@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/codepress/admin-columns/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,19 +68,19 @@ msgstr "Original"
 
 #: ../classes/column.php:1059
 msgid "Exact match"
-msgstr ""
+msgstr "Expressão exata"
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "Menor que"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "Maior que"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "Entre"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -98,7 +98,7 @@ msgstr "Exemplo"
 msgid ""
 "Leave empty for WordPress date format, change your <a href='%s'>default date"
 " format here</a>."
-msgstr ""
+msgstr "Deixe em branco para o formato de data do Wordpress, mude para o seu <a href='%s'>formato padrão de data aqui</a>."
 
 #: ../classes/column.php:1099
 msgid "Documentation on date and time formatting."
@@ -232,27 +232,27 @@ msgstr "auto"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
-msgstr ""
+msgstr "Propriedade para exibir"
 
 #: ../classes/column.php:1472
 msgid "Post property to display for related post(s)."
-msgstr ""
+msgstr "Propriedade de posts para exibir em posts relacionado(s)."
 
 #: ../classes/column.php1484, ../classes/column/post/author-name.php:95
 msgid "Link To"
-msgstr ""
+msgstr "Linkar Para"
 
 #: ../classes/column.php:1489
 msgid "Edit Post Author"
-msgstr ""
+msgstr "Editar Autor do Post"
 
 #: ../classes/column.php:1490
 msgid "View Public Post Author Page"
-msgstr ""
+msgstr "Ver Posts Públicos do Autor"
 
 #: ../classes/column.php:1492
 msgid "Page the posts should link to."
-msgstr ""
+msgstr "Página de posts devem linkar para."
 
 #: ../classes/review_notice.php55, ../classes/settings.php170,
 #: ../classes/settings.php599, ../classes/upgrade.php:135
@@ -559,7 +559,7 @@ msgstr "Guia para visualização de todas as alterações."
 msgid ""
 "When you have found a bug please <a href='%s'>report them to us</a> so we "
 "can fix it in the next release."
-msgstr ""
+msgstr "Ao encontrar um bug, por favor <a href=\"%s\">reporte para nós</a> para arrumarmos na próxima versão."
 
 #: ../classes/settings.php:450
 msgid "Important!"
@@ -619,7 +619,7 @@ msgstr "Restaurar configuração padrão"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. 'OK' to delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Atenção! Todos os dados salvos do administrador de colunas serão excluídos. Isto não poderá ser desfeito. 'OK' para excluir, 'Cancelar' para interromper"
 
 #: ../classes/settings.php:582
 msgid "Posttypes"
@@ -655,7 +655,7 @@ msgstr "Configurações armazenadas"
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
 " delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Atenção! Dados das colunas %s serão excluídos. Isto não poderá ser desfeito. 'OK' para excluir, 'Cancelar' para interromper"
 
 #: ../classes/settings.php:688
 msgid "Restore"
@@ -687,15 +687,15 @@ msgstr "Adicionar Edição Direta"
 
 #: ../classes/settings.php:717
 msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Confira <a href='%s'>Admin de Colunas Pro</a> para mais detalhes!"
 
 #: ../classes/settings.php:730
 msgid "Subscribe to receive news &amp; updates below."
-msgstr ""
+msgstr "Se inscreva para receber as novidades & atualizações abaixo."
 
 #: ../classes/settings.php:737
 msgid "Your Email"
-msgstr ""
+msgstr "Seu Email"
 
 #: ../classes/settings.php:748
 msgid "Are you happy with Admin Columns?"
@@ -1009,7 +1009,7 @@ msgstr "Conteúdo"
 
 #: ../classes/column/comment/post.php:19
 msgid "Post"
-msgstr ""
+msgstr "Post"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
@@ -1146,11 +1146,11 @@ msgstr "Exibir Autor Como"
 
 #: ../classes/column/post/author-name.php:100
 msgid "View Public Author Page"
-msgstr ""
+msgstr "Ver Página Pública do Autor"
 
 #: ../classes/column/post/author-name.php:102
 msgid "Page the author name should link to."
-msgstr ""
+msgstr "Nome do autor que deverá linkar para."
 
 #: ../classes/column/post/before-moretag.php:19
 msgid "Before More Tag"

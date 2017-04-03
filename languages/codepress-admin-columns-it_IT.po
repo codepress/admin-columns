@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Codepress Admin Columns package.
 # Translators:
 # Adriano Genovese <adrygese@gmail.com>, 2015
-# Adriano Genovese <adrygese@gmail.com>, 2015
+# Adriano Genovese <adrygese@gmail.com>, 2015-2016
 # francesco <francesco.tosi@gmail.com>, 2014
 # Werther <werther.d@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2017-04-03 12:31+0000\n"
+"Last-Translator: Adriano Genovese <adrygese@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/codepress/admin-columns/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,19 +69,19 @@ msgstr "Dimensione reale"
 
 #: ../classes/column.php:1059
 msgid "Exact match"
-msgstr ""
+msgstr "Corrispondenza esatta"
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "Minore di"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "Maggiore di"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "Fra"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -99,7 +99,7 @@ msgstr "Esempio:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href='%s'>default date"
 " format here</a>."
-msgstr ""
+msgstr "Lasciare vuoto per utilizzare il formato data di WordPress, o modifica <a href=\"%s\">qui il formato data</a>."
 
 #: ../classes/column.php:1099
 msgid "Documentation on date and time formatting."
@@ -233,7 +233,7 @@ msgstr "auto"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
-msgstr ""
+msgstr "Proprietà da Visualizzare"
 
 #: ../classes/column.php:1472
 msgid "Post property to display for related post(s)."
@@ -241,15 +241,15 @@ msgstr ""
 
 #: ../classes/column.php1484, ../classes/column/post/author-name.php:95
 msgid "Link To"
-msgstr ""
+msgstr "Link a"
 
 #: ../classes/column.php:1489
 msgid "Edit Post Author"
-msgstr ""
+msgstr "Modifica Articolo Autore"
 
 #: ../classes/column.php:1490
 msgid "View Public Post Author Page"
-msgstr ""
+msgstr "Visualizza Pagina Articolo Autore pubblico"
 
 #: ../classes/column.php:1492
 msgid "Page the posts should link to."
@@ -688,7 +688,7 @@ msgstr "Aggiungi modifica diretta"
 
 #: ../classes/settings.php:717
 msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Scopri <a href=\"%s\">Admin Columns Pro</a> per maggiori dettagli!"
 
 #: ../classes/settings.php:730
 msgid "Subscribe to receive news &amp; updates below."
@@ -696,7 +696,7 @@ msgstr ""
 
 #: ../classes/settings.php:737
 msgid "Your Email"
-msgstr ""
+msgstr "La tua Email"
 
 #: ../classes/settings.php:748
 msgid "Are you happy with Admin Columns?"
@@ -1010,7 +1010,7 @@ msgstr "Contenuto"
 
 #: ../classes/column/comment/post.php:19
 msgid "Post"
-msgstr ""
+msgstr "Articolo"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
@@ -1147,7 +1147,7 @@ msgstr ""
 
 #: ../classes/column/post/author-name.php:100
 msgid "View Public Author Page"
-msgstr ""
+msgstr "Visualizza Pagina Autore pubblica"
 
 #: ../classes/column/post/author-name.php:102
 msgid "Page the author name should link to."

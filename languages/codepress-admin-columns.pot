@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../codepress-admin-columns.php:336, ../classes/Admin/Help/CustomField.php:18, ../classes/Settings/Column/CustomFieldType.php:160, ../classes/Settings/Column/Image.php:67, ../classes/Settings/Column/Separator.php:19
+#: ../codepress-admin-columns.php:336, ../classes/Admin/Help/CustomField.php:18, ../classes/Settings/Column/CustomFieldType.php:164, ../classes/Settings/Column/Image.php:67, ../classes/Settings/Column/Separator.php:19
 msgid "Default"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: ../codepress-admin-columns.php:339, ../classes/Settings/Column/CustomFieldType.php:145, ../classes/Settings/Column/Image.php:107
+#: ../codepress-admin-columns.php:339, ../classes/Settings/Column/CustomFieldType.php:149, ../classes/Settings/Column/Image.php:107
 msgid "Custom"
 msgstr ""
 
@@ -302,14 +302,6 @@ msgstr ""
 
 #: ../classes/Admin/Help/CustomField.php:63
 msgid "Value: can be one or more User ID's (seperated by ',')."
-msgstr ""
-
-#: ../classes/Admin/Help/CustomField.php:66
-msgid "Term Name"
-msgstr ""
-
-#: ../classes/Admin/Help/CustomField.php:67
-msgid "Value: should be an array with term_id and taxonomy."
 msgstr ""
 
 #: ../classes/Admin/Help/Introduction.php:6
@@ -1156,19 +1148,19 @@ msgstr ""
 msgid "Number of Fields"
 msgstr ""
 
-#: ../classes/Settings/Column/CustomFieldType.php:141
+#: ../classes/Settings/Column/CustomFieldType.php:145
 msgid "Basic"
 msgstr ""
 
-#: ../classes/Settings/Column/CustomFieldType.php:142
+#: ../classes/Settings/Column/CustomFieldType.php:146
 msgid "Relational"
 msgstr ""
 
-#: ../classes/Settings/Column/CustomFieldType.php:143
+#: ../classes/Settings/Column/CustomFieldType.php:147
 msgid "Choice"
 msgstr ""
 
-#: ../classes/Settings/Column/CustomFieldType.php:144
+#: ../classes/Settings/Column/CustomFieldType.php:148
 msgid "Multiple"
 msgstr ""
 

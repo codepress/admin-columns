@@ -1,12 +1,13 @@
 # Copyright (C) 2015 Codepress Admin Columns
 # This file is distributed under the same license as the Codepress Admin Columns package.
 # Translators:
+# Ivan Pankin <pankin.iv@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2017-04-03 12:32+0000\n"
+"Last-Translator: Ivan Pankin <pankin.iv@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/codepress/admin-columns/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr "Редактировать столбцы"
 
 #: ../classes/addons.php:110
 msgid "Plugins"
-msgstr ""
+msgstr "Плагины"
 
 #: ../classes/addons.php:135
 msgid "Advanced Custom Fields"
@@ -39,13 +40,13 @@ msgstr "Показать и изменить поля Advanced Custom Fields в 
 
 #: ../classes/addons.php:141
 msgid "WooCommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: ../classes/addons.php:142
 msgid ""
 "Enhance the products, orders and coupons overviews with new columns and "
 "inline editing."
-msgstr ""
+msgstr "Усовершенствуйте обзор ваших товаров, заказов и купонов с помощью новых столбцов и быстрого редактирования."
 
 #: ../classes/column.php:624
 msgid "Thumbnail"
@@ -65,19 +66,19 @@ msgstr "Полный"
 
 #: ../classes/column.php:1059
 msgid "Exact match"
-msgstr ""
+msgstr "Точное совпадение"
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "Меньше, чем"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "Больше чем"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "Между"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -95,7 +96,7 @@ msgstr "Пример:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href='%s'>default date"
 " format here</a>."
-msgstr ""
+msgstr "Оставьте пустым для формата даты, заданного в настройках WordPress, либо измените <a href=\"%s\">основной формат даты здесь</a>."
 
 #: ../classes/column.php:1099
 msgid "Documentation on date and time formatting."
@@ -139,11 +140,11 @@ msgstr "После"
 
 #: ../classes/column.php:1168
 msgid "This text will appear after the custom field value."
-msgstr "Этот текст появится перед значением настраиваемого поля."
+msgstr "Этот текст появится после значения настраиваемого поля."
 
 #: ../classes/column.php:1177
 msgid "Display Name"
-msgstr "Отображаемое имя"
+msgstr "Показывать имя"
 
 #: ../classes/column.php1178, ../classes/settings.php:733
 msgid "First Name"
@@ -175,7 +176,7 @@ msgstr "Имя и Фамилия"
 
 #: ../classes/column.php:1187
 msgid "Display format"
-msgstr ""
+msgstr "Формат отображения"
 
 #: ../classes/column.php:1187
 msgid "This is the format of the author name."
@@ -187,7 +188,7 @@ msgstr "Редактировать"
 
 #: ../classes/column.php1352, ../classes/column.php:1444
 msgid "Clone"
-msgstr ""
+msgstr "Дублировать"
 
 #: ../classes/column.php:1354
 msgid "Remove"
@@ -205,7 +206,7 @@ msgstr "Выбрать тип колонки"
 
 #: ../classes/column.php:1372
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: ../classes/column.php:1382
 msgid "Label"
@@ -225,31 +226,31 @@ msgstr "по умолчанию"
 
 #: ../classes/column.php:1392
 msgid "auto"
-msgstr ""
+msgstr "автоматически"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
-msgstr ""
+msgstr "Свойства отображения"
 
 #: ../classes/column.php:1472
 msgid "Post property to display for related post(s)."
-msgstr ""
+msgstr "Свойство записи для отображения на связанной странице(-ах)"
 
 #: ../classes/column.php1484, ../classes/column/post/author-name.php:95
 msgid "Link To"
-msgstr ""
+msgstr "Ссылка на"
 
 #: ../classes/column.php:1489
 msgid "Edit Post Author"
-msgstr ""
+msgstr "Изменить автора записи"
 
 #: ../classes/column.php:1490
 msgid "View Public Post Author Page"
-msgstr ""
+msgstr "Просмотреть общедоступную страницу автора записи"
 
 #: ../classes/column.php:1492
 msgid "Page the posts should link to."
-msgstr ""
+msgstr " Страница с записями должна иметь ссылку на"
 
 #: ../classes/review_notice.php55, ../classes/settings.php170,
 #: ../classes/settings.php599, ../classes/upgrade.php:135
@@ -258,52 +259,52 @@ msgstr "Admin Columns"
 
 #: ../classes/review_notice.php:58
 msgid "Admin Columns Pro"
-msgstr ""
+msgstr "Admin Columns Pro"
 
 #: ../classes/review_notice.php:68
 msgid "click here"
-msgstr ""
+msgstr "кликните здесь"
 
 #: ../classes/review_notice.php:72
 msgid "Leave a review!"
-msgstr ""
+msgstr "Оставить отзыв!"
 
 #: ../classes/review_notice.php:73
 msgid "Permanently hide notice"
-msgstr ""
+msgstr "Постоянно скрывать уведомление"
 
 #: ../classes/review_notice.php:80
 msgid ""
 "We're sorry to hear that; maybe we can help! If you're having problems "
 "properly setting up %s or if you would like help with some more advanced "
 "features, please visit our %s."
-msgstr ""
+msgstr "Нам жаль это слышать; может, мы сможем помочь! Если у Вас возникли трудности  по корректной настройке %s или если вы хотели бы помочь с некоторыми более продвинутыми функциями, пожалуйста, посетите наш %s."
 
 #: ../classes/review_notice.php:82
 msgid "documentation page"
-msgstr ""
+msgstr "страница с документацией"
 
 #: ../classes/review_notice.php:86
 msgid ""
 "As an Admin Columns Pro user, you can also use your AdminColumns.com account"
 " to access product support through %s!"
-msgstr ""
+msgstr "Являясь пользователем Admin Columns Pro, Вы можете также использовать аккаунт на AdminColumns.com для получения технической поддержки через %s!"
 
 #: ../classes/review_notice.php:87
 msgid "our forums"
-msgstr ""
+msgstr "наш форум"
 
 #: ../classes/review_notice.php:91
 msgid "You can also find help on the %s, and %s."
-msgstr ""
+msgstr "Вы можете также получить помощь на %s, и %s."
 
 #: ../classes/review_notice.php:92
 msgid "Admin Columns forums on WordPress.org"
-msgstr ""
+msgstr "Форум Admin Columns на сайте WordPress.org"
 
 #: ../classes/review_notice.php:93
 msgid "find answers to some frequently asked questions"
-msgstr ""
+msgstr "найти ответы на некоторые часто задаваемые вопросы"
 
 #: ../classes/settings.php:113
 msgid "Add-on successfully activated."
@@ -556,7 +557,7 @@ msgstr "руководство, чтобы увидеть полный спис�
 msgid ""
 "When you have found a bug please <a href='%s'>report them to us</a> so we "
 "can fix it in the next release."
-msgstr ""
+msgstr "Если Вы найдете ошибку, пожалуйста, <a href='%s'>сообщите о ней нам</a>, чтобы мы могли исправить её в следующих версиях плагина."
 
 #: ../classes/settings.php:450
 msgid "Important!"
@@ -598,7 +599,7 @@ msgstr "Настроить параметры Admin Columns."
 
 #: ../classes/settings.php:512
 msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
-msgstr ""
+msgstr "Показать кнопку \"Редактировать столбцы\" на административных экранах. По умолчанию: <code>включено</code>."
 
 #: ../classes/settings.php:559
 msgid "Restore Settings"
@@ -616,7 +617,7 @@ msgstr "Восстановить настройки по умолчанию"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. 'OK' to delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Внимание! ВСЕ сохраненные данные Admin Columns будут удалены. Без возможности восстановления. Выберите 'OK' чтобы удалить навсегда, или 'Cancel' для отмены"
 
 #: ../classes/settings.php:582
 msgid "Posttypes"
@@ -642,7 +643,7 @@ msgstr "Дополнения"
 msgid ""
 "The columns for %s are set up via PHP and can therefore not be edited in the"
 " admin panel."
-msgstr ""
+msgstr "Столбцы для %s заданы через PHP и поэтому не могут быть изменены в админ-панели."
 
 #: ../classes/settings.php:679
 msgid "Store settings"
@@ -652,7 +653,7 @@ msgstr "Настройки памяти"
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
 " delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Внимание! Данные столбцов %s будут удалены. Без возможности восстановления. Выберите 'OK' чтобы удалить навсегда, либо 'Cancel' для отмены"
 
 #: ../classes/settings.php:688
 msgid "Restore"
@@ -684,59 +685,59 @@ msgstr "Добавить Прямое редактирование"
 
 #: ../classes/settings.php:717
 msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "Зайдите на страницу <a href='%s'>Admin Columns Pro</a> для получения более подробной информации!"
 
 #: ../classes/settings.php:730
 msgid "Subscribe to receive news &amp; updates below."
-msgstr ""
+msgstr "Подписаться на получение новостей &amp; обновлений можно ниже."
 
 #: ../classes/settings.php:737
 msgid "Your Email"
-msgstr ""
+msgstr "Ваш  E-mail"
 
 #: ../classes/settings.php:748
 msgid "Are you happy with Admin Columns?"
-msgstr ""
+msgstr "Довольны ли Вы плагином Admin Columns?"
 
 #: ../classes/settings.php:756
 msgid "What's wrong? Need help? Let us know!"
-msgstr ""
+msgstr "Что-то не так? Нужна помощь? Дайте нам знать!"
 
 #: ../classes/settings.php:757
 msgid ""
 "Check out our extensive documentation, or you can open a support topic on "
 "WordPress.org!"
-msgstr ""
+msgstr "Ознакомьтесь с нашей подробной документацией, или запустите топик с обсуждением вашего вопроса на WordPress.org!"
 
 #: ../classes/settings.php:765
 msgid "Docs"
-msgstr ""
+msgstr "Docs"
 
 #: ../classes/settings.php:770
 msgid "Forums"
-msgstr ""
+msgstr "Форум"
 
 #: ../classes/settings.php:779
 msgid "Woohoo! We're glad to hear that!"
-msgstr ""
+msgstr "Иииихаааа! Мы рады слышать это!"
 
 #: ../classes/settings.php:780
 msgid ""
 "We would really love it if you could show your appreciation by giving us a "
 "rating on WordPress.org or tweet about Admin Columns!"
-msgstr ""
+msgstr "Мы были бы очень рады, если бы вы присвоили высокую оценку, давая нам рейтинг на WordPress.org или твиттнули об Admin Columns!"
 
 #: ../classes/settings.php:784
 msgid "Rate"
-msgstr ""
+msgstr "Оценить"
 
 #: ../classes/settings.php:795
 msgid "Tweet"
-msgstr ""
+msgstr "Твиттнуть"
 
 #: ../classes/settings.php:805
 msgid "Buy Pro"
-msgstr ""
+msgstr "Купить PRO-версию"
 
 #: ../classes/settings.php:817
 msgid "Support"
@@ -798,11 +799,11 @@ msgstr "Вы пытаетесь сохранить те же настройки 
 
 #: ../classes/storage_model.php:303
 msgid "Settings for %s updated successfully."
-msgstr ""
+msgstr "Настройки для %s обновлены успешно."
 
 #: ../classes/storage_model.php:643
 msgid "Columns by Plugins"
-msgstr ""
+msgstr "Столбцы с использованием плагина"
 
 #: ../classes/storage_model.php:862
 msgid "View"
@@ -812,7 +813,7 @@ msgstr "Смотреть"
 msgid ""
 "The pro add-on is no longer supported. Please login to your account and "
 "download Admin Columns Pro"
-msgstr ""
+msgstr "PRO-расширение больше не поддерживается. Пожалуйста, зайдите в ваш аккаунт и скачайте Admin Columns Pro"
 
 #: ../classes/upgrade.php95, ../classes/upgrade.php:95
 msgid "Upgrade"
@@ -883,7 +884,7 @@ msgid ""
 "Admin Columns Pro - Developer offers full Advanced Custom Fields "
 "integeration, allowing you to easily display and edit ACF fields from within"
 " your posts overview."
-msgstr "Admin Columns Pro - Разработчик предлагает полную интеграцию Advanced Custom Fields, что позволяет легко просматривать и редактировать ACF поля из вашего обзора сообщений."
+msgstr "Admin Columns Pro - Разработчик предлагает полную интеграцию Advanced Custom Fields, что позволяет легко просматривать и редактировать ACF-поля прямо из окна обзора постов."
 
 #: ../classes/column/acf-placeholder.php:44
 msgid "Find out more"
@@ -895,11 +896,11 @@ msgstr "действия"
 
 #: ../classes/column/actions.php:96
 msgid "Use icons?"
-msgstr ""
+msgstr "Использовать иконки?"
 
 #: ../classes/column/actions.php:96
 msgid "Use icons instead of text for displaying the actions."
-msgstr ""
+msgstr "Используйте иконки вместо текста для отображения действий."
 
 #: ../classes/column/custom-field.php:96
 msgid "Checkmark (true/false)"
@@ -919,7 +920,7 @@ msgstr "Имя пользователя (User ID's)"
 
 #: ../classes/column/custom-field.php:107
 msgid "Term Name (Term ID's)"
-msgstr ""
+msgstr "Название элемента таксономии (ID элементов таксономии)"
 
 #: ../classes/column/custom-field.php:391
 msgid "Select your custom field."
@@ -931,7 +932,7 @@ msgstr "Нет доступных пользовательских полей."
 
 #: ../classes/column/custom-field.php:401
 msgid "Please create a %s item first."
-msgstr ""
+msgstr "Пожалуйста, сначала создайте элемент %s."
 
 #: ../classes/column/custom-field.php:408
 msgid "Field Type"
@@ -947,15 +948,15 @@ msgstr "Таксономия"
 
 #: ../classes/column/used-by-menu.php:20
 msgid "Used by Menu"
-msgstr ""
+msgstr "Используется в меню"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "Link to menu"
-msgstr ""
+msgstr "Ссылка на меню"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "This will make the title link to the menu."
-msgstr ""
+msgstr "Это позволит сделать ссылку на заголовок в меню."
 
 #: ../classes/column/comment/ID.php19, ../classes/column/media/ID.php19,
 #: ../classes/column/post/ID.php19, ../classes/column/link/ID.php:19
@@ -985,7 +986,7 @@ msgstr "IP автора"
 
 #: ../classes/column/comment/author-name.php:12
 msgid "Author name"
-msgstr ""
+msgstr "Имя автора"
 
 #: ../classes/column/comment/author-url.php:19
 msgid "Author url"
@@ -1002,11 +1003,11 @@ msgstr "Дата GMT"
 #: ../classes/column/comment/excerpt.php19,
 #: ../classes/column/post/content.php:19
 msgid "Content"
-msgstr ""
+msgstr "Контент"
 
 #: ../classes/column/comment/post.php:19
 msgid "Post"
-msgstr ""
+msgstr "Запись"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
@@ -1014,7 +1015,7 @@ msgstr "В ответ на"
 
 #: ../classes/column/comment/user.php:11
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: ../classes/column/comment/word-count.php19,
 #: ../classes/column/post/word-count.php:19
@@ -1027,7 +1028,7 @@ msgstr "Вариант"
 
 #: ../classes/column/media/attached-to.php:19
 msgid "Attached to post"
-msgstr ""
+msgstr "Прикрепленный к записи"
 
 #: ../classes/column/media/available-sizes.php:20
 msgid "Available Sizes"
@@ -1107,19 +1108,19 @@ msgstr "Полный путь"
 
 #: ../classes/column/media/full-path.php:83
 msgid "Path scope"
-msgstr ""
+msgstr "Границы пути"
 
 #: ../classes/column/media/full-path.php:84
 msgid "Part of the file path to display"
-msgstr ""
+msgstr "Часть пути к файлу для отображения"
 
 #: ../classes/column/media/full-path.php:97
 msgid "Relative to domain"
-msgstr ""
+msgstr "По отношению к домену"
 
 #: ../classes/column/media/full-path.php:102
 msgid "Relative to main uploads folder "
-msgstr ""
+msgstr "По отношению к основной папке с загрузками"
 
 #: ../classes/column/media/height.php:19
 msgid "Height"
@@ -1135,7 +1136,7 @@ msgstr "Кол-во приложений"
 
 #: ../classes/column/post/attachment.php:19
 msgid "Attachments"
-msgstr ""
+msgstr "Вложения"
 
 #: ../classes/column/post/author-name.php:20
 msgid "Display Author As"
@@ -1143,11 +1144,11 @@ msgstr "Показать автора как"
 
 #: ../classes/column/post/author-name.php:100
 msgid "View Public Author Page"
-msgstr ""
+msgstr "Просмотреть общедоступную страницу автора"
 
 #: ../classes/column/post/author-name.php:102
 msgid "Page the author name should link to."
-msgstr ""
+msgstr "Страница с именами авторов должна иметь ссылку на"
 
 #: ../classes/column/post/before-moretag.php:19
 msgid "Before More Tag"
@@ -1184,35 +1185,35 @@ msgstr "Выберите статус комментария для отобра
 
 #: ../classes/column/post/depth.php:19
 msgid "Depth"
-msgstr ""
+msgstr "Уровень вложенности"
 
 #: ../classes/column/post/estimated-reading-time.php:19
 msgid "Estimated Reading Time"
-msgstr ""
+msgstr "Предполагаемое время чтения"
 
 #: ../classes/column/post/estimated-reading-time.php:66
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "секунда"
+msgstr[1] "секунд"
+msgstr[2] "секунд"
+msgstr[3] "секунд"
 
 #: ../classes/column/post/estimated-reading-time.php:69
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "минута"
+msgstr[1] "минут"
+msgstr[2] "минут"
+msgstr[3] "минут"
 
 #: ../classes/column/post/estimated-reading-time.php:107
 msgid "Words per minute"
-msgstr ""
+msgstr "Слов в минуту"
 
 #: ../classes/column/post/estimated-reading-time.php:108
 msgid "Estimated reading time in words per minute"
-msgstr ""
+msgstr "Предполагаемое время чтения, слов в минуту"
 
 #: ../classes/column/post/featured-image.php:19
 msgid "Featured Image"
@@ -1224,7 +1225,7 @@ msgstr "Формат сообщения"
 
 #: ../classes/column/post/last-modified-author.php:20
 msgid "Last Modified Author"
-msgstr ""
+msgstr "Последние, измененные автором"
 
 #: ../classes/column/post/modified.php:19
 msgid "Last modified"
@@ -1232,7 +1233,7 @@ msgstr "Изменен"
 
 #: ../classes/column/post/order.php:19
 msgid "Order"
-msgstr ""
+msgstr "Заказ"
 
 #: ../classes/column/post/page-template.php:19
 msgid "Page Template"
@@ -1244,7 +1245,7 @@ msgstr "Родитель"
 
 #: ../classes/column/post/path.php:19
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
 #: ../classes/column/post/permalink.php:19
 msgid "Permalink"
@@ -1252,11 +1253,11 @@ msgstr "Постоянная ссылка"
 
 #: ../classes/column/post/permalink.php:68
 msgid "Link to post"
-msgstr ""
+msgstr "Ссылка на запись"
 
 #: ../classes/column/post/permalink.php:68
 msgid "This will make the permalink clickable."
-msgstr ""
+msgstr "Это позволит сделать постоянную ссылку кликабельной."
 
 #: ../classes/column/post/ping-status.php:19
 msgid "Ping status"
@@ -1268,7 +1269,7 @@ msgstr "Роли"
 
 #: ../classes/column/post/shortcodes.php:19
 msgid "Shortcodes"
-msgstr ""
+msgstr "Шорткоды"
 
 #: ../classes/column/post/slug.php:19
 msgid "Slug"
@@ -1284,7 +1285,7 @@ msgstr "Липучка"
 
 #: ../classes/column/post/title-raw.php:19
 msgid "Title without actions"
-msgstr ""
+msgstr "Название без действий"
 
 #: ../classes/column/link/length.php:19
 msgid "Length"
@@ -1308,7 +1309,7 @@ msgstr "Цель"
 
 #: ../classes/column/user/display-name.php:19
 msgid "Display name"
-msgstr ""
+msgstr "Показать название"
 
 #: ../classes/column/user/first-name.php:19
 msgid "First name"
@@ -1332,7 +1333,7 @@ msgstr "Зарегестрировано"
 
 #: ../classes/column/user/rich-editing.php:19
 msgid "Visual Editor"
-msgstr ""
+msgstr "Визуальный редактор"
 
 #: ../classes/column/user/url.php:19
 msgid "Url"
