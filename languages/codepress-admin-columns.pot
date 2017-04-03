@@ -48,7 +48,7 @@ msgstr ""
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/TableScreen.php:142
+#: ../classes/TableScreen.php:144
 msgid "Edit columns"
 msgstr ""
 
@@ -358,51 +358,55 @@ msgstr ""
 msgid "%s successfully deactivated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:234
+#: ../classes/Admin/Page/Addons.php:124
+msgid "%s could not be activated."
+msgstr ""
+
+#: ../classes/Admin/Page/Addons.php:238
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:234
+#: ../classes/Admin/Page/Addons.php:238
 msgid "the addons page"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:265
+#: ../classes/Admin/Page/Addons.php:269
 msgid "Addon does not exist."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:271
+#: ../classes/Admin/Page/Addons.php:275
 msgid "You need Admin Columns Pro."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:341
+#: ../classes/Admin/Page/Addons.php:346
 msgid "Installed"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:342
+#: ../classes/Admin/Page/Addons.php:347
 msgid "Recommended"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:343
+#: ../classes/Admin/Page/Addons.php:348
 msgid "Available"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:474
+#: ../classes/Admin/Page/Addons.php:479
 msgid "Active"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:475
+#: ../classes/Admin/Page/Addons.php:480
 msgid "Deactivate"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:479
+#: ../classes/Admin/Page/Addons.php:484
 msgid "Activate"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:488
+#: ../classes/Admin/Page/Addons.php:493
 msgid "Download & Install"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:490
+#: ../classes/Admin/Page/Addons.php:495
 msgid "Get this add-on"
 msgstr ""
 
@@ -1204,7 +1208,7 @@ msgstr ""
 msgid "date and time formatting"
 msgstr ""
 
-#: ../classes/Settings/Column/Date.php:171
+#: ../classes/Settings/Column/Date.php:177
 msgid "in %s"
 msgstr ""
 
@@ -1408,7 +1412,7 @@ msgstr ""
 msgid "Auto"
 msgstr ""
 
-#: ../classes/Settings/Column/Width.php:63
+#: ../classes/Settings/Column/Width.php:58
 msgid "width"
 msgstr ""
 

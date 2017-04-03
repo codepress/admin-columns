@@ -91,7 +91,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	 * @return array
 	 */
 	protected function get_field_type_options() {
-		$field_types = array(
+		$grouped_types = array(
 			'basic'      => array(
 				'color'   => __( 'Color', 'codepress-admin-columns' ),
 				'date'    => __( 'Date', 'codepress-admin-columns' ),
@@ -122,9 +122,13 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */
-		$field_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
+		$grouped_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
 
-		return $field_types;
+		foreach ( $grouped_types as $k => $fields ) {
+			natcasesort( $grouped_types[ $k ] );
+		}
+
+		return $grouped_types;
 	}
 
 	/**
