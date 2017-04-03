@@ -586,7 +586,7 @@ class CPAC {
 }
 
 /**
- * @deprecated NEWVERSION
+ * @deprecated 3.0
  */
 function cpac() {
 	return AC();

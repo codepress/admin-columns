@@ -9,7 +9,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 	public function create_view() {
 
 		/**
-		 * @deprecated NEWVERSION
+		 * @deprecated 3.0
 		 */
 		$use_text_input = apply_filters_deprecated( 'cac/column/meta/use_text_input', array( false ), 'NEWVSERION', 'ac/column/custom_field/use_text_input' );
 
