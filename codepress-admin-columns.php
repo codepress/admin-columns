@@ -490,7 +490,7 @@ class CPAC {
 	public function set_list_screen_groups() {
 		$groups = new AC_Groups();
 
-		$groups->register_group( 'post', __( 'Post Type' ), 5 );
+		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'user', __( 'Users' ) );
 		$groups->register_group( 'media', __( 'Media' ) );
 		$groups->register_group( 'comment', __( 'Comments' ) );

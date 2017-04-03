@@ -24,12 +24,12 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: ../codepress-admin-columns.php:338
-msgid "Plugins"
-msgstr ""
-
 #: ../codepress-admin-columns.php:339, ../classes/Settings/Column/CustomFieldType.php:149, ../classes/Settings/Column/Image.php:107
 msgid "Custom"
+msgstr ""
+
+#: ../codepress-admin-columns.php:493, ../classes/Settings/Column/CustomFieldType.php:76, ../classes/Settings/Column/PostType.php:19
+msgid "Post Type"
 msgstr ""
 
 #: ../classes/Addon.php:270
@@ -1122,10 +1122,6 @@ msgstr ""
 
 #: ../classes/Settings/Column/CustomFieldType.php:66
 msgid "Multiple ids should be separated by a comma."
-msgstr ""
-
-#: ../classes/Settings/Column/CustomFieldType.php:76, ../classes/Settings/Column/PostType.php:19
-msgid "Post Type"
 msgstr ""
 
 #: ../classes/Settings/Column/CustomFieldType.php:101
