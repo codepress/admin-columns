@@ -117,4 +117,15 @@ class AC_Helper_Array {
 		return $new;
 	}
 
+	/**
+	 * Get duplicates from array
+	 *
+	 * @param array $array
+	 *
+	 * @return array
+	 */
+	public function get_duplicates( array $array ) {
+		return array_intersect( $array, array_unique( array_diff_key( $array, array_unique( $array ) ) ) );
+	}
+
 }
