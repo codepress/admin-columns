@@ -118,7 +118,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
 		 */

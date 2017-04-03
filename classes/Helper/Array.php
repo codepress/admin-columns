@@ -5,7 +5,7 @@ class AC_Helper_Array {
 	/**
 	 * Implode for multi dimensional array
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string       $glue
 	 * @param string|array $pieces

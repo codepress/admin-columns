@@ -6,7 +6,7 @@ class AC_Helper_Html {
 	 * @param string $key
 	 * @param string $value
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	public function get_attribute_as_string( $key, $value ) {
@@ -16,7 +16,7 @@ class AC_Helper_Html {
 	/**
 	 * @param array $attributes
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	public function get_attributes_as_string( array $attributes ) {

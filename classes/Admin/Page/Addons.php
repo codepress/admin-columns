@@ -376,7 +376,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	/**
 	 * Group a list of add-ons
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
 	 */

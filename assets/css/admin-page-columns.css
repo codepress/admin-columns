@@ -670,53 +670,6 @@
     text-align: center; }
     .ac-right .sidebox.form-actions .submit.save {
       display: block; }
-  .ac-right .sidebox#pro-version .cta {
-    background: transparent url(../images/get_the_addon.png) no-repeat 0 0;
-    background-size: cover; }
-  .ac-right .sidebox#pro-version .padding-box {
-    padding: 8px 15px 0; }
-  .ac-right .sidebox#pro-version h3 a {
-    color: #fff;
-    font-size: 19px;
-    text-decoration: none;
-    font-weight: normal;
-    margin-top: 6px; }
-  .ac-right .sidebox#pro-version .inside ul {
-    margin: 0 0 10px 0; }
-    .ac-right .sidebox#pro-version .inside ul li {
-      margin: 0;
-      padding: 0; }
-      .ac-right .sidebox#pro-version .inside ul li a {
-        display: inline-block;
-        min-height: 24px;
-        font-size: 19px;
-        line-height: 24px;
-        margin-bottom: 1px;
-        padding: 0 5px;
-        background: #000;
-        color: #fff;
-        text-decoration: none; }
-      .ac-right .sidebox#pro-version .inside ul li.acf a {
-        background-color: #5ee8bf;
-        color: #808080; }
-  .ac-right .sidebox#pro-version .inside p {
-    color: #fff;
-    font-size: 12px; }
-    .ac-right .sidebox#pro-version .inside p a {
-      color: #fff;
-      display: inline-block;
-      background: #a4c518;
-      padding: 0 2px;
-      font-size: 15px;
-      text-decoration: none; }
-  .ac-right .sidebox#add-acf {
-    background-color: #5ee8bf; }
-    .ac-right .sidebox#add-acf h3 {
-      padding: 0; }
-      .ac-right .sidebox#add-acf h3 a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 15px; }
   .ac-right .sidebox#direct-feedback #feedback-support,
   .ac-right .sidebox#direct-feedback #feedback-rate {
     display: none; }

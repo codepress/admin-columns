@@ -19,7 +19,7 @@ class AC_Helper_String {
 	/**
 	 * Count the number of words in a string (multibyte-compatible)
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param $string
 	 *
@@ -57,7 +57,7 @@ class AC_Helper_String {
 	/**
 	 * @see   wp_trim_words();
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @return string
 	 */
@@ -108,7 +108,7 @@ class AC_Helper_String {
 	/**
 	 * Get RGB values from a hex color string
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
 	 *
@@ -123,7 +123,7 @@ class AC_Helper_String {
 	/**
 	 * Get contrasting hex color based on given hex color
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
 	 *
@@ -148,7 +148,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $string
 	 *
@@ -170,7 +170,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $string
 	 *
@@ -189,7 +189,7 @@ class AC_Helper_String {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $hex Color Hex Code
 	 */

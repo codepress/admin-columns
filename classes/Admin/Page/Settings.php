@@ -75,7 +75,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
 
-		// @since NEWVERSION
+		// @since 3.0
 		do_action( 'ac/restore_all_columns' );
 	}
 

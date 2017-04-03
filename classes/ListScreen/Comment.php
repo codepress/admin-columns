@@ -41,7 +41,7 @@ class AC_ListScreen_Comment extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return WP_Comment Comment
 	 */
 	protected function get_object_by_id( $comment_id ) {

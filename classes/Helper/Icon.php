@@ -32,7 +32,7 @@ class AC_Helper_Icon {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	public function yes( $tooltip = false, $title = true ) {
@@ -44,7 +44,7 @@ class AC_Helper_Icon {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	public function no( $tooltip = false, $title = true ) {
@@ -56,7 +56,7 @@ class AC_Helper_Icon {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param bool $display
 	 *

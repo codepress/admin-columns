@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  */
 class AC_Column {
 
@@ -139,7 +139,7 @@ class AC_Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string Group
 	 */
 	public function get_group() {
@@ -183,7 +183,7 @@ class AC_Column {
 	 * Return true when a default column has been replaced by a custom column.
 	 * An original column will then use the original label and value.
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function is_original() {
 		return $this->original;

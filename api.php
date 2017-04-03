@@ -69,14 +69,14 @@ function ac_get_twitter_handle() {
 /**
  * Simple helper methods for AC_Column objects
  *
- * @since NEWVERSION
+ * @since 3.0
  */
 function ac_helper() {
 	return AC()->helper();
 }
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
  */
 function ac_is_version_gte( $version ) {
@@ -121,11 +121,11 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  * @since 2.3.4
  */
 function cac_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, '3.0' );
 
 	$is_doing_ajax = AC()->table_screen()->get_list_screen_when_doing_quick_edit() || ( AC()->is_doing_ajax() && isset( $_REQUEST['list_screen'] ) );
 
-	return apply_filters_deprecated( 'cac/is_doing_ajax', array( $is_doing_ajax ), 'NEWVERSION' );
+	return apply_filters_deprecated( 'cac/is_doing_ajax', array( $is_doing_ajax ), '3.0' );
 }
 
 /**
@@ -134,7 +134,7 @@ function cac_is_doing_ajax() {
  * @since 2.5
  */
 function cac_wp_is_doing_ajax() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, '3.0' );
 
 	return AC()->table_screen()->get_list_screen_when_doing_quick_edit();
 }
@@ -149,7 +149,7 @@ function cac_wp_is_doing_ajax() {
  * @return bool True if the current screen is the settings screen, false otherwise
  */
 function cac_is_setting_screen( $slug = '' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'AC()->admin()->is_current_page( $slug )' );
+	_deprecated_function( __FUNCTION__, '3.0', 'AC()->admin()->is_current_page( $slug )' );
 
 	return AC()->admin()->is_current_page( $slug );
 }
@@ -158,21 +158,21 @@ function cac_is_setting_screen( $slug = '' ) {
  * Returns true if the installed version of WooCommerce is version X or greater
  *
  * @since 2.3.4
- * @deprecated NEWVERSION
+ * @deprecated 3.0
  * @return boolean true if the installed version of WooCommerce is version X or greater
  */
 function cpac_is_wc_version_gte( $version = '1.0' ) {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION' );
+	_deprecated_function( __FUNCTION__, '3.0' );
 
 	return false;
 }
 
 /**
- * @deprecated NEWVERSION
+ * @deprecated 3.0
  * @return bool True when Admin Columns Pro plugin is activated.
  */
 function cpac_is_pro_active() {
-	_deprecated_function( __FUNCTION__, 'NEWVERSION', 'ac_is_pro_active' );
+	_deprecated_function( __FUNCTION__, '3.0', 'ac_is_pro_active' );
 
 	return ac_is_pro_active();
 }

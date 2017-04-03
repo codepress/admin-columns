@@ -132,7 +132,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param AC_ListScreen $list_screen
 	 *
@@ -165,7 +165,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * Check is the ajax request is valid and user is allowed to make it
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	private function ajax_validate_request() {
 		check_ajax_referer( 'cpac-settings' );
@@ -187,7 +187,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * Display HTML markup for column type
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function ajax_column_select() {
 		$this->ajax_validate_request();
@@ -712,7 +712,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 								/**
 								 * Display a clear button below the column settings. The clear button removes all column settings from the current page.
 								 *
-								 * @since NEWVERSION
+								 * @since 3.0
 								 *
 								 * @param bool
 								 */

@@ -286,7 +286,7 @@ final class AC_TableScreen {
 		ac_action_column_helper();
 
 		/**
-		 * @since NEWVERSION
+		 * @since 3.0
 		 *
 		 * @param AC_ListScreen
 		 */
@@ -363,7 +363,7 @@ final class AC_TableScreen {
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 
 			/**
-			 * @since NEWVERSION
+			 * @since 3.0
 			 *
 			 * @param string    $label
 			 * @param AC_Column $column

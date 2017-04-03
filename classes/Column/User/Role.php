@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  */
 class AC_Column_User_Role extends AC_Column_Meta {
 

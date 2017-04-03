@@ -15,7 +15,7 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return WP_Post Post object
 	 */
 	protected function get_object_by_id( $post_id ) {

@@ -42,7 +42,7 @@ class AC_ListScreen_User extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string HTML
 	 */
 	public function get_single_row( $user_id ) {

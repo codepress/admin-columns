@@ -2,9 +2,9 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 3.5
-Tested up to: 4.7.1
-Stable tag: 2.6beta
+Requires at least: 4.5
+Tested up to: 4.7.3
+Stable tag: 3.0
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -218,15 +218,17 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 2.6beta =
+= 3.0 =
 
-Release Date: t.b.d.
+Release Date: April 4th, 2017
 
+* [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](https://www.admincolumns.com/documentation/upgrading-from-v3-to-v4/)
+* [Improved] Updated the User Interface
 * [Improved] Using dashicons instead of image icons
 * [Improved] Action column now always is the primary column
 * [Improved] Heading structure in Admin is now correct
 * [Improved] Page Template column supports post types (since WP 4.7)
-* [Added] Autoloader
+* [Improved] Improved Custom Field column types
 * [Added] New user column added: Author name
 * [Added] New user column added: Show Toolbar
 * [Added] New column for shortlink added
@@ -234,9 +236,13 @@ Release Date: t.b.d.
 * [Added] New helpers added for array, date, formfield, icon, image, post, string ,taxonomy and user. Helpers can be accessed by using 'ac_helper()->array()'' etc
 * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
 * [Added] New method for singleton for Admin Columns main class. 'ac()'
-* [Fixed] ACF select2 error due to ACF update
 * [Fixed] Comment Response column is no longer displayed in the table when viewing "Comments On".
-* [Refactor] Complete refactor of core code
+
+= 2.5.6.4 =
+
+Release Date: November 24th, 2016
+
+* [Update] Updated promo banner
 
 = 2.5.6.3 =
 
