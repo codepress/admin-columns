@@ -55,7 +55,7 @@ class AC_Settings_Column_WordsPerMinute extends AC_Settings_Column
 	 *
 	 * @param int $seconds
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	protected function make_human_readable( $seconds ) {

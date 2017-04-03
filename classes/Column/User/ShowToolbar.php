@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  */
 class AC_Column_User_ShowToolbar extends AC_Column {
 

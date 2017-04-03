@@ -58,7 +58,7 @@ class AC_Helper_Taxonomy {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_taxonomy_selection_options( $post_type ) {
 		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
@@ -81,7 +81,7 @@ class AC_Helper_Taxonomy {
 	 * @param int    $term_id
 	 * @param string $taxonomy
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_term_field( $field, $term_id, $taxonomy ) {
 		$term = get_term_by( 'id', $term_id, $taxonomy );

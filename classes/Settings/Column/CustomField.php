@@ -16,7 +16,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		/**
 		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0
 		 *
 		 * @param bool false
 		 */

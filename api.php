@@ -69,14 +69,14 @@ function ac_get_twitter_handle() {
 /**
  * Simple helper methods for AC_Column objects
  *
- * @since NEWVERSION
+ * @since 3.0
  */
 function ac_helper() {
 	return AC()->helper();
 }
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
  */
 function ac_is_version_gte( $version ) {

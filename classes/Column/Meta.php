@@ -41,7 +41,7 @@ abstract class AC_Column_Meta extends AC_Column {
 	/**
 	 * Retrieve metadata object type (e.g., comment, post, or user)
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return bool
 	 */
 	public function get_meta_type() {

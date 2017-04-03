@@ -30,7 +30,7 @@ abstract class AC_ListScreenPost extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @param int $post_id Post ID
 	 * @return WP_Post
 	 */

@@ -20,7 +20,7 @@ class AC_ListScreen_Link extends AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return stdClass
 	 */
 	protected function get_object_by_id( $bookmark_id ) {

@@ -1,20 +1,21 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0beta
+Version: 3.0
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
 Text Domain: codepress-admin-columns
 Domain Path: /languages
-License: GPLv2
+License: GPL v3
 
-Copyright 2011-2017  AdminColumns.com  info@admincolumns.com
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License version 2 as published by
-the Free Software Foundation.
+Admin Columns Plugin
+Copyright (C) 20011-2017, Admin Columns - info@admincolumns.com
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,15 +23,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Only run plugin in the admin interface
+// Only run plugin in the admin
 if ( ! is_admin() ) {
 	return false;
 }
@@ -75,19 +75,19 @@ class CPAC {
 	private $table_screen;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @var null|string $version Version number
 	 */
 	private $version = null;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @var AC_Helper
 	 */
 	private $helper;
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @var AC_ListScreen[]
 	 */
 	private $list_screens;
@@ -185,7 +185,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string Path to plugin dir
 	 */
 	public function get_plugin_dir() {
@@ -193,14 +193,14 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_plugin_url() {
 		return plugin_dir_url( __FILE__ );
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_version() {
 		if ( null === $this->version ) {
@@ -211,7 +211,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_plugin_version( $file ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -222,7 +222,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_upgrade_version() {
 		return '2.0.0';
@@ -237,7 +237,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function minified() {
 		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -302,7 +302,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return AC_API
 	 */
 	public function api() {
@@ -361,7 +361,7 @@ class CPAC {
 	/**
 	 * Contains simple helper methods
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @return AC_Helper
 	 */
@@ -377,7 +377,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $key
 	 *
@@ -424,7 +424,7 @@ class CPAC {
 	/**
 	 * Returns the default list screen when no choice is made by the user
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return AC_ListScreen
 	 */
 	public function get_default_list_screen() {
@@ -437,7 +437,7 @@ class CPAC {
 	/**
 	 * Get registered list screens
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return AC_ListScreen[]
 	 */
 	public function get_list_screens() {
@@ -451,7 +451,7 @@ class CPAC {
 	/**
 	 * Get registered list screens
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	private function set_list_screens() {
 
@@ -473,7 +473,7 @@ class CPAC {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
-		// @since NEWVERSION
+		// @since 3.0
 		do_action( 'ac/list_screens', $this );
 	}
 
@@ -569,7 +569,7 @@ class CPAC {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function admin_scripts() {
 		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
@@ -593,7 +593,7 @@ function cpac() {
 }
 
 /**
- * @since NEWVERSION
+ * @since 3.0
  */
 function AC() {
 	return CPAC::instance();

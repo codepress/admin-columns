@@ -84,7 +84,7 @@ class AC_Helper_Date {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $date           PHP Date format
 	 * @param string $display_format Date display format

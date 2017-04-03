@@ -48,7 +48,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Class name of the WP_List_Table instance
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @var string
 	 */
 	private $list_table_class;
@@ -247,7 +247,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Return a single object based on it's ID (post, user, comment etc.)
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return mixed
 	 */
 	protected function get_object_by_id( $id ) {
@@ -257,7 +257,7 @@ abstract class AC_ListScreen {
 	/**
 	 * ID attribute of targeted list table
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 * @return string
 	 */
 	public function get_table_attr_id() {
@@ -319,7 +319,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @return AC_Column[]
 	 */
@@ -604,7 +604,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 *
 	 * @param string $column_name Column name
 	 */
@@ -620,7 +620,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	private function set_columns() {
 		foreach ( $this->get_settings() as $name => $data ) {
@@ -715,7 +715,7 @@ abstract class AC_ListScreen {
 		 * Fires after a new column setup is stored in the database
 		 * Primarily used when columns are saved through the Admin Columns settings screen
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0
 		 *
 		 * @param AC_ListScreen $list_screen
 		 */
@@ -821,7 +821,7 @@ abstract class AC_ListScreen {
 		/**
 		 * Column display value
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0
 		 *
 		 * @param string    $value  Column display value
 		 * @param int       $id     Object ID
@@ -831,7 +831,7 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_column_headers() {
 
@@ -847,7 +847,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Get a single row from list table
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0
 	 */
 	public function get_single_row( $object_id ) {
 		ob_start();
