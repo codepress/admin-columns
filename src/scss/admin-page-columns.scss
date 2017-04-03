@@ -848,7 +848,7 @@
 	.button-container {
 		float: right;
 		display: inline-block;
-		height: 29px;
+		min-height: 29px;
 
 		a {
 			display: inline-block;

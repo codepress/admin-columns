@@ -10,7 +10,7 @@
         "gulp-plumber": "*",
         "gulp-rename": "*",
         "gulp-sass": "2.3.2",
-        "gulp-uglify": "*",
+        "gulp-uglify": "2.1.2",
         "gulp-cssnano": "*",
         "gulp-concat": "*",
         "gulp-wp-pot": "*",

@@ -572,7 +572,7 @@
   .column-footer .button-container {
     float: right;
     display: inline-block;
-    height: 29px; }
+    min-height: 29px; }
     .column-footer .button-container a {
       display: inline-block;
       margin-left: 5px;
