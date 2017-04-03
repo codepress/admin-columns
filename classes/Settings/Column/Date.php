@@ -134,7 +134,9 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 		if ( ! $date ) {
 			return false;
 		}
+
 		$date_format = $this->get_date_format();
+
 		if ( ! $date_format ) {
 			$date_format = $this->get_default();
 		}
