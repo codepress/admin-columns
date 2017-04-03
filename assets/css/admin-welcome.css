@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "cpac_icons";
+  src: url("../fonts/cpac_icons.woff") format("woff"); }
+
+[class^="cpacicon-"], [class*=" cpacicon-"] {
+  font-family: 'cpac_icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+  [class^="cpacicon-"]:before, [class*=" cpacicon-"]:before {
+    font-size: 100%; }
+
+.cpacicon-move:before {
+  content: ""; }
+
+/* Dynamic variables */
+/**
+ * Welcome Screen
+ * ----------------------------------------------------------------------------
+ */
+.cpac-content-body hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 transparent;
+  border-color: #DFDFDF;
+  border-image: none;
+  border-style: solid;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 30px 0;
+  opacity: 0.2; }
+
+#cpac-welcome.about-wrap div.error {
+  display: block !important; }
+
+.cpac-alert {
+  display: inline-block;
+  background: none repeat scroll 0 0 #FCF8E3;
+  border: 1px solid #FBEED5;
+  border-radius: 4px 4px 4px 4px;
+  color: #C09853;
+  margin: 20px 0;
+  padding: 16px 14px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+
+.cpac-alert p {
+  margin: 0; }
+
+.cpac-alert.cpac-alert-success {
+  background-color: #DFF0D8;
+  border-color: #D6E9C6;
+  color: #468847; }
+
+.cpac-alert.cpac-alert-error {
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48; }
+
+.cpac-alert a.button-primary {
+  height: 28px;
+  line-height: 28px;
+  display: inline-block; }
+
+#cpac-download-add-ons-table {
+  max-width: 600px; }
+
+.wp-core-ui .button-large {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  padding: 0 15px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5); }

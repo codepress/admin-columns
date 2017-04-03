@@ -1,0 +1,44 @@
+body .wrap .ac-message {
+  position: relative;
+  padding-right: 40px; }
+
+.ac-message .spinner.right {
+  visibility: visible;
+  display: block;
+  right: 8px;
+  text-decoration: none;
+  text-align: right;
+  position: absolute;
+  top: 50%;
+  margin-top: -10px; }
+
+.ac-message .spinner.inline {
+  display: inline-block;
+  position: absolute;
+  margin: 4px 0 0 4px;
+  padding: 0;
+  float: none; }
+
+.ac-message .hide-notice {
+  right: 8px;
+  text-decoration: none;
+  width: 32px;
+  text-align: right;
+  position: absolute;
+  top: 50%;
+  height: 32px;
+  margin-top: -16px; }
+  .ac-message .hide-notice:before {
+    display: block;
+    content: '\f335';
+    font-family: 'Dashicons', serif;
+    margin: .5em 0;
+    padding: 2px; }
+
+.ac-message .buttons {
+  margin-top: 8px; }
+  .ac-message .buttons .button {
+    margin-right: 3px; }
+
+.ac-message.error.warning {
+  border-left: 4px solid #ffba00; }

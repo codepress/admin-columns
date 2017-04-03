@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the Codepress Admin Columns package.
 # Translators:
 # Hassan, 2013
-# Hassan, 2013
+# Hassan, 2013,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2015-10-12 13:09+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2017-04-03 12:32+0000\n"
+"Last-Translator: Hassan\n"
 "Language-Team: Arabic (http://www.transifex.com/codepress/admin-columns/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,27 +27,27 @@ msgstr "تحرير الأعمدة"
 
 #: ../classes/addons.php:110
 msgid "Plugins"
-msgstr ""
+msgstr "إضافات"
 
 #: ../classes/addons.php:135
 msgid "Advanced Custom Fields"
-msgstr ""
+msgstr "Advanced Custom Fields"
 
 #: ../classes/addons.php:136
 msgid ""
 "Display and edit Advanced Custom Fields fields in the posts overview in "
 "seconds!"
-msgstr ""
+msgstr "قم بعرض وتعديل حقول Advanced Custom Fields في قائمة التدوينات في ثواني!"
 
 #: ../classes/addons.php:141
 msgid "WooCommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: ../classes/addons.php:142
 msgid ""
 "Enhance the products, orders and coupons overviews with new columns and "
 "inline editing."
-msgstr ""
+msgstr "قم بتحسين المنتجات، والطلبات، والكوبونات بإضافة أعمدة جديدة وتعديل فوري."
 
 #: ../classes/column.php:624
 msgid "Thumbnail"
@@ -67,19 +67,19 @@ msgstr "كامل"
 
 #: ../classes/column.php:1059
 msgid "Exact match"
-msgstr ""
+msgstr "تطابق تام"
 
 #: ../classes/column.php:1060
 msgid "Lesser than"
-msgstr ""
+msgstr "أقل من"
 
 #: ../classes/column.php:1061
 msgid "Greater than"
-msgstr ""
+msgstr "أكبر من"
 
 #: ../classes/column.php:1062
 msgid "Between"
-msgstr ""
+msgstr "بين"
 
 #: ../classes/column.php:1089
 msgid "Date Format"
@@ -97,7 +97,7 @@ msgstr "مثال:"
 msgid ""
 "Leave empty for WordPress date format, change your <a href='%s'>default date"
 " format here</a>."
-msgstr ""
+msgstr "أترك خاليا لتنسيق ووردبريس الإفتراضي للتاريخ، قم بتغيير <a href=\"%s\">تنسيق التاريخ الخاص بك هنا</a>."
 
 #: ../classes/column.php:1099
 msgid "Documentation on date and time formatting."
@@ -177,7 +177,7 @@ msgstr "الاسم الأول والأخير"
 
 #: ../classes/column.php:1187
 msgid "Display format"
-msgstr ""
+msgstr "تنسيق العرض"
 
 #: ../classes/column.php:1187
 msgid "This is the format of the author name."
@@ -189,7 +189,7 @@ msgstr "تحرير"
 
 #: ../classes/column.php1352, ../classes/column.php:1444
 msgid "Clone"
-msgstr ""
+msgstr "نسخ"
 
 #: ../classes/column.php:1354
 msgid "Remove"
@@ -207,7 +207,7 @@ msgstr "اختر نوع عمود"
 
 #: ../classes/column.php:1372
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: ../classes/column.php:1382
 msgid "Label"
@@ -227,31 +227,31 @@ msgstr "إفتراضي"
 
 #: ../classes/column.php:1392
 msgid "auto"
-msgstr ""
+msgstr "تلقائي"
 
 #: ../classes/column.php:1466
 msgid "Property To Display"
-msgstr ""
+msgstr "الخاصية المراد عرضها"
 
 #: ../classes/column.php:1472
 msgid "Post property to display for related post(s)."
-msgstr ""
+msgstr "خاصية التدوينة المراد عرضها للتدوينات ذات الصلة"
 
 #: ../classes/column.php1484, ../classes/column/post/author-name.php:95
 msgid "Link To"
-msgstr ""
+msgstr "رابط لـ"
 
 #: ../classes/column.php:1489
 msgid "Edit Post Author"
-msgstr ""
+msgstr "تعديل كاتب التدوينة"
 
 #: ../classes/column.php:1490
 msgid "View Public Post Author Page"
-msgstr ""
+msgstr "عرض الصفحة العامة لكاتب الصفحة"
 
 #: ../classes/column.php:1492
 msgid "Page the posts should link to."
-msgstr ""
+msgstr "صفحات يجب على التدوينات الربط إليها"
 
 #: ../classes/review_notice.php55, ../classes/settings.php170,
 #: ../classes/settings.php599, ../classes/upgrade.php:135
@@ -260,60 +260,60 @@ msgstr "Admin Columns"
 
 #: ../classes/review_notice.php:58
 msgid "Admin Columns Pro"
-msgstr ""
+msgstr "Admin Columns Pro"
 
 #: ../classes/review_notice.php:68
 msgid "click here"
-msgstr ""
+msgstr "اضغط هنا"
 
 #: ../classes/review_notice.php:72
 msgid "Leave a review!"
-msgstr ""
+msgstr "اترك تقييماً!"
 
 #: ../classes/review_notice.php:73
 msgid "Permanently hide notice"
-msgstr ""
+msgstr "إخفاء التنبيه للأبد"
 
 #: ../classes/review_notice.php:80
 msgid ""
 "We're sorry to hear that; maybe we can help! If you're having problems "
 "properly setting up %s or if you would like help with some more advanced "
 "features, please visit our %s."
-msgstr ""
+msgstr "نحن آسفون لسماع ذلك، ربما يمكننا أن نساعد! إذا كنت تواجه مشاكل في تثبيت %s بصورة صحيحة أو إذا كنت ترغب في مساعدة مع بعض الميزات الأكثر تقدماً، يرجى زيارة %s."
 
 #: ../classes/review_notice.php:82
 msgid "documentation page"
-msgstr ""
+msgstr "صفحة التوثيق"
 
 #: ../classes/review_notice.php:86
 msgid ""
 "As an Admin Columns Pro user, you can also use your AdminColumns.com account"
 " to access product support through %s!"
-msgstr ""
+msgstr "كمستخدم للإضافة الاحترافية، يمكنك أيضا استخدام حساب AdminColumns.com الخاص بك للوصول لدعم المنتجات من خلال %s!"
 
 #: ../classes/review_notice.php:87
 msgid "our forums"
-msgstr ""
+msgstr "منتدياتنا"
 
 #: ../classes/review_notice.php:91
 msgid "You can also find help on the %s, and %s."
-msgstr ""
+msgstr "يمكنك أيضاً الحصول على المساعدة في %s و %s."
 
 #: ../classes/review_notice.php:92
 msgid "Admin Columns forums on WordPress.org"
-msgstr ""
+msgstr "منتديات Admin Columns على WordPress.org"
 
 #: ../classes/review_notice.php:93
 msgid "find answers to some frequently asked questions"
-msgstr ""
+msgstr "العثور على إجابات لبعض الأسئلة الشائعة"
 
 #: ../classes/settings.php:113
 msgid "Add-on successfully activated."
-msgstr ""
+msgstr "تم تنشيط الملحق بنجاح."
 
 #: ../classes/settings.php:116
 msgid "Add-on successfully deactivated."
-msgstr ""
+msgstr "تم تعطيل الملحق بنجاح."
 
 #: ../classes/settings.php:170
 msgid "Admin Columns Settings"
@@ -558,7 +558,7 @@ msgstr "توجيه لعرض القائمة الكاملة للتغييرات."
 msgid ""
 "When you have found a bug please <a href='%s'>report them to us</a> so we "
 "can fix it in the next release."
-msgstr ""
+msgstr "عندما تجد أخطاء الرجاء <a href=\"%s\">التبيلغ عنها لنا</a> لكي نتمكن من إصلاحها في النسخة القادمة."
 
 #: ../classes/settings.php:450
 msgid "Important!"
@@ -600,7 +600,7 @@ msgstr "قم بتخصيص إعدادات Admin Columns."
 
 #: ../classes/settings.php:512
 msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
-msgstr ""
+msgstr "إظهار زر \"تحرير الأعمدة\" على الشاشات الإدارية. الإفتراضي هو <code>نعم</code>."
 
 #: ../classes/settings.php:559
 msgid "Restore Settings"
@@ -618,19 +618,19 @@ msgstr "استرجاع الإعدادات الإفتراضية"
 msgid ""
 "Warning! ALL saved admin columns data will be deleted. This cannot be "
 "undone. 'OK' to delete, 'Cancel' to stop"
-msgstr ""
+msgstr "تحذير! كافة بيانات الأعمدة المحفوظة سيتم حذفها. لا يمكن التراجع عن هذا. 'موافق' للحذف، 'إلغاء' للإيقاف"
 
 #: ../classes/settings.php:582
 msgid "Posttypes"
-msgstr ""
+msgstr "أنواع التدوينات"
 
 #: ../classes/settings.php:583
 msgid "Others"
-msgstr ""
+msgstr "أخرى"
 
 #: ../classes/settings.php:584
 msgid "Taxonomies"
-msgstr ""
+msgstr "تصنيفات"
 
 #: ../classes/settings.php:600
 msgid "Settings"
@@ -638,13 +638,13 @@ msgstr "إعدادات"
 
 #: ../classes/settings.php:601
 msgid "Add-ons"
-msgstr ""
+msgstr "ملحقات"
 
 #: ../classes/settings.php:669
 msgid ""
 "The columns for %s are set up via PHP and can therefore not be edited in the"
 " admin panel."
-msgstr ""
+msgstr "تم إنشاء الأعمدة لـ%s عبر PHP وبالتالي لا يمكن تحريرها في لوحة الإدارة."
 
 #: ../classes/settings.php:679
 msgid "Store settings"
@@ -654,7 +654,7 @@ msgstr "حفظ الإعدادات"
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
 " delete, 'Cancel' to stop"
-msgstr ""
+msgstr "تحذير! بيانات أعمدة %s سيتم حذفها. لا يمكن التراجع عن هذا. 'موافق' للحذف، 'إلغاء' للإيقاف"
 
 #: ../classes/settings.php:688
 msgid "Restore"
@@ -666,7 +666,7 @@ msgstr "أعمدة"
 
 #: ../classes/settings.php:707
 msgid "Get Admin Columns Pro"
-msgstr ""
+msgstr "أحصل على Admin Columns Pro"
 
 #: ../classes/settings.php:711
 msgid "Add Sorting"
@@ -682,63 +682,63 @@ msgstr "أضف استيراد/تصدير"
 
 #: ../classes/settings.php:714
 msgid "Add Direct Editing"
-msgstr ""
+msgstr "أضف تعديل مباشر"
 
 #: ../classes/settings.php:717
 msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
-msgstr ""
+msgstr "تعرف على <a href=\"%s\">الملحق الإحترافي</a> للمزيد من التفاصيل!"
 
 #: ../classes/settings.php:730
 msgid "Subscribe to receive news &amp; updates below."
-msgstr ""
+msgstr "سجل اشتراكك أدناه لتستقبل الأخبار والتحديثات."
 
 #: ../classes/settings.php:737
 msgid "Your Email"
-msgstr ""
+msgstr "بريدك الإلكتروني"
 
 #: ../classes/settings.php:748
 msgid "Are you happy with Admin Columns?"
-msgstr ""
+msgstr "هل أنت راض عن Admin Columns؟"
 
 #: ../classes/settings.php:756
 msgid "What's wrong? Need help? Let us know!"
-msgstr ""
+msgstr "ما المشكلة؟ تحتاج لمساعدة؟ أخبرنا!"
 
 #: ../classes/settings.php:757
 msgid ""
 "Check out our extensive documentation, or you can open a support topic on "
 "WordPress.org!"
-msgstr ""
+msgstr "تعرف على توثيقنا واسع النطاق، أو يمكنك فتح موضوع دعم على WordPress.org!"
 
 #: ../classes/settings.php:765
 msgid "Docs"
-msgstr ""
+msgstr "التوثيق"
 
 #: ../classes/settings.php:770
 msgid "Forums"
-msgstr ""
+msgstr "المنتديات"
 
 #: ../classes/settings.php:779
 msgid "Woohoo! We're glad to hear that!"
-msgstr ""
+msgstr "مرحى! نحن سعيدون لسماع ذلك!"
 
 #: ../classes/settings.php:780
 msgid ""
 "We would really love it if you could show your appreciation by giving us a "
 "rating on WordPress.org or tweet about Admin Columns!"
-msgstr ""
+msgstr "نحن نحب حقاً إذا كان باستطاعتك إظهار تقديرك بإعطائنا تقييم على WordPress.org أو قم بالتغريد عنAdmin Columns!"
 
 #: ../classes/settings.php:784
 msgid "Rate"
-msgstr ""
+msgstr "قيّم"
 
 #: ../classes/settings.php:795
 msgid "Tweet"
-msgstr ""
+msgstr "غرّد"
 
 #: ../classes/settings.php:805
 msgid "Buy Pro"
-msgstr ""
+msgstr "اشتر النسخة الاحترافية"
 
 #: ../classes/settings.php:817
 msgid "Support"
@@ -764,27 +764,27 @@ msgstr "أضف عمود"
 
 #: ../classes/settings.php:936
 msgid "Active"
-msgstr ""
+msgstr "نشط"
 
 #: ../classes/settings.php:937
 msgid "Deactivate"
-msgstr ""
+msgstr "تعطيل"
 
 #: ../classes/settings.php:944
 msgid "Installed"
-msgstr ""
+msgstr "مثبت"
 
 #: ../classes/settings.php:945
 msgid "Activate"
-msgstr ""
+msgstr "تنشيط"
 
 #: ../classes/settings.php:959
 msgid "Download & Install"
-msgstr ""
+msgstr "تحميل وتثبيت"
 
 #: ../classes/settings.php:964
 msgid "Get this add-on"
-msgstr ""
+msgstr "احصل على هذا الملحق"
 
 #: ../classes/storage_model.php:262
 msgid "settings succesfully restored."
@@ -800,11 +800,11 @@ msgstr "انت تحاول حفظ نفس الإعدادات لـ %s."
 
 #: ../classes/storage_model.php:303
 msgid "Settings for %s updated successfully."
-msgstr ""
+msgstr "إعدادات %s تم تحديثها بنجاح."
 
 #: ../classes/storage_model.php:643
 msgid "Columns by Plugins"
-msgstr ""
+msgstr "أعمدة من إضافات"
 
 #: ../classes/storage_model.php:862
 msgid "View"
@@ -814,7 +814,7 @@ msgstr "عرض"
 msgid ""
 "The pro add-on is no longer supported. Please login to your account and "
 "download Admin Columns Pro"
-msgstr ""
+msgstr "تم إيقاف الدعم للملحق الإضافي . الرجاء الدخول على حسابك وتنزيل Admin Columns Pro"
 
 #: ../classes/upgrade.php95, ../classes/upgrade.php:95
 msgid "Upgrade"
@@ -872,24 +872,24 @@ msgstr "عفوا. حدث خطأ أثناء عملية الترقية. الرجا
 
 #: ../classes/column/acf-placeholder.php:19
 msgid "ACF Field"
-msgstr ""
+msgstr "حقل ACF"
 
 #: ../classes/column/acf-placeholder.php:35
 msgid ""
 "If you have a developer licence please download & install your ACF add-on "
 "from the <a href='%s'>add-ons tab</a>."
-msgstr ""
+msgstr "إذا كان لديك نسخة مطوّر الرجاء تنزيل وتثبيت ملحق ACF الخاص بك من <a href='%s'>تبويبة الملحقات</a>."
 
 #: ../classes/column/acf-placeholder.php:38
 msgid ""
 "Admin Columns Pro - Developer offers full Advanced Custom Fields "
 "integeration, allowing you to easily display and edit ACF fields from within"
 " your posts overview."
-msgstr ""
+msgstr "Admin Columns Pro - Developer توفر دمج تام مع Advanced Custom Fields، لتجعلك تعرض وتعدل حقول ACF بسهولة من قائمة تدويناتك."
 
 #: ../classes/column/acf-placeholder.php:44
 msgid "Find out more"
-msgstr ""
+msgstr "معرفة المزيد"
 
 #: ../classes/column/actions.php29, ../classes/column/link/actions.php:19
 msgid "Actions"
@@ -897,11 +897,11 @@ msgstr "تطبيقات"
 
 #: ../classes/column/actions.php:96
 msgid "Use icons?"
-msgstr ""
+msgstr "استخدم أيقونات؟"
 
 #: ../classes/column/actions.php:96
 msgid "Use icons instead of text for displaying the actions."
-msgstr ""
+msgstr "استخدام أيقونات بدلاً من النص لعرض الإجراءات."
 
 #: ../classes/column/custom-field.php:96
 msgid "Checkmark (true/false)"
@@ -921,7 +921,7 @@ msgstr "اسم مستخدم (أرقام مستخدمين)"
 
 #: ../classes/column/custom-field.php:107
 msgid "Term Name (Term ID's)"
-msgstr ""
+msgstr "اسم العبارة (أرقام العبارات)"
 
 #: ../classes/column/custom-field.php:391
 msgid "Select your custom field."
@@ -933,7 +933,7 @@ msgstr "لا توجد حقول مخصوصة متوفرة."
 
 #: ../classes/column/custom-field.php:401
 msgid "Please create a %s item first."
-msgstr ""
+msgstr "الرجاء إنشاء %s أولاً."
 
 #: ../classes/column/custom-field.php:408
 msgid "Field Type"
@@ -949,15 +949,15 @@ msgstr "التصنيف"
 
 #: ../classes/column/used-by-menu.php:20
 msgid "Used by Menu"
-msgstr ""
+msgstr "مستخدم بواسطة القائمة"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "Link to menu"
-msgstr ""
+msgstr "ربط بالقائمة"
 
 #: ../classes/column/used-by-menu.php:133
 msgid "This will make the title link to the menu."
-msgstr ""
+msgstr "هذا سوف يجعل العنوان رابطاً للقائمة."
 
 #: ../classes/column/comment/ID.php19, ../classes/column/media/ID.php19,
 #: ../classes/column/post/ID.php19, ../classes/column/link/ID.php:19
@@ -987,7 +987,7 @@ msgstr "عنوان آي بي الكاتب"
 
 #: ../classes/column/comment/author-name.php:12
 msgid "Author name"
-msgstr ""
+msgstr "اسم الكاتب"
 
 #: ../classes/column/comment/author-url.php:19
 msgid "Author url"
@@ -1004,11 +1004,11 @@ msgstr "تاريخ GMT"
 #: ../classes/column/comment/excerpt.php19,
 #: ../classes/column/post/content.php:19
 msgid "Content"
-msgstr ""
+msgstr "المحتوى"
 
 #: ../classes/column/comment/post.php:19
 msgid "Post"
-msgstr ""
+msgstr "تدوينة"
 
 #: ../classes/column/comment/reply-to.php:19
 msgid "In Reply To"
@@ -1016,7 +1016,7 @@ msgstr "ردا على"
 
 #: ../classes/column/comment/user.php:11
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 #: ../classes/column/comment/word-count.php19,
 #: ../classes/column/post/word-count.php:19
@@ -1029,7 +1029,7 @@ msgstr "بديل"
 
 #: ../classes/column/media/attached-to.php:19
 msgid "Attached to post"
-msgstr ""
+msgstr "مرفق في التدوينة"
 
 #: ../classes/column/media/available-sizes.php:20
 msgid "Available Sizes"
@@ -1109,19 +1109,19 @@ msgstr "مسار كامل"
 
 #: ../classes/column/media/full-path.php:83
 msgid "Path scope"
-msgstr ""
+msgstr "نطاق المسار"
 
 #: ../classes/column/media/full-path.php:84
 msgid "Part of the file path to display"
-msgstr ""
+msgstr "جزء من مسار الملف للعرض"
 
 #: ../classes/column/media/full-path.php:97
 msgid "Relative to domain"
-msgstr ""
+msgstr "نسبي للنطاق"
 
 #: ../classes/column/media/full-path.php:102
 msgid "Relative to main uploads folder "
-msgstr ""
+msgstr "نسبي لمجلد المرفوعات الأساسي"
 
 #: ../classes/column/media/height.php:19
 msgid "Height"
@@ -1137,7 +1137,7 @@ msgstr "عدد المرفقات"
 
 #: ../classes/column/post/attachment.php:19
 msgid "Attachments"
-msgstr ""
+msgstr "مرفقات"
 
 #: ../classes/column/post/author-name.php:20
 msgid "Display Author As"
@@ -1145,11 +1145,11 @@ msgstr "عرض الكاتب كـ"
 
 #: ../classes/column/post/author-name.php:100
 msgid "View Public Author Page"
-msgstr ""
+msgstr "عرض الصفحة العامة للكاتب"
 
 #: ../classes/column/post/author-name.php:102
 msgid "Page the author name should link to."
-msgstr ""
+msgstr "صفحات يجب على اسم الكاتب الربط إليها."
 
 #: ../classes/column/post/before-moretag.php:19
 msgid "Before More Tag"
@@ -1186,39 +1186,39 @@ msgstr "اختر حالة التعليق الذي تريد عرضه."
 
 #: ../classes/column/post/depth.php:19
 msgid "Depth"
-msgstr ""
+msgstr "عمق"
 
 #: ../classes/column/post/estimated-reading-time.php:19
 msgid "Estimated Reading Time"
-msgstr ""
+msgstr "زمن القراءة التقريبي"
 
 #: ../classes/column/post/estimated-reading-time.php:66
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "ثانية"
+msgstr[1] "ثانية"
+msgstr[2] "ثانيتان"
+msgstr[3] "ثواني"
+msgstr[4] "ثواني"
+msgstr[5] "ثواني"
 
 #: ../classes/column/post/estimated-reading-time.php:69
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "دقيقة"
+msgstr[1] "دقيقة"
+msgstr[2] "دقيقتان"
+msgstr[3] "دقائق"
+msgstr[4] "دقائق"
+msgstr[5] "دقائق"
 
 #: ../classes/column/post/estimated-reading-time.php:107
 msgid "Words per minute"
-msgstr ""
+msgstr "كلمة في الدقيقة"
 
 #: ../classes/column/post/estimated-reading-time.php:108
 msgid "Estimated reading time in words per minute"
-msgstr ""
+msgstr "زمن القراءة التقريبي بعدد الكلمات في الدقيقة"
 
 #: ../classes/column/post/featured-image.php:19
 msgid "Featured Image"
@@ -1230,7 +1230,7 @@ msgstr "تنسيق التدوينة"
 
 #: ../classes/column/post/last-modified-author.php:20
 msgid "Last Modified Author"
-msgstr ""
+msgstr "كاتب آخر تحديث"
 
 #: ../classes/column/post/modified.php:19
 msgid "Last modified"
@@ -1238,7 +1238,7 @@ msgstr "آخر تحديث"
 
 #: ../classes/column/post/order.php:19
 msgid "Order"
-msgstr ""
+msgstr "ترتيب"
 
 #: ../classes/column/post/page-template.php:19
 msgid "Page Template"
@@ -1250,19 +1250,19 @@ msgstr "الأب"
 
 #: ../classes/column/post/path.php:19
 msgid "Path"
-msgstr ""
+msgstr "مسار"
 
 #: ../classes/column/post/permalink.php:19
 msgid "Permalink"
-msgstr ""
+msgstr "رابط دائم"
 
 #: ../classes/column/post/permalink.php:68
 msgid "Link to post"
-msgstr ""
+msgstr "ربط بالتدوينة"
 
 #: ../classes/column/post/permalink.php:68
 msgid "This will make the permalink clickable."
-msgstr ""
+msgstr "هذا سوف يجعل الرابط الدائم قابل للضغط."
 
 #: ../classes/column/post/ping-status.php:19
 msgid "Ping status"
@@ -1274,7 +1274,7 @@ msgstr "الأدوار"
 
 #: ../classes/column/post/shortcodes.php:19
 msgid "Shortcodes"
-msgstr ""
+msgstr "Shortcodes"
 
 #: ../classes/column/post/slug.php:19
 msgid "Slug"
@@ -1290,7 +1290,7 @@ msgstr "لاصق"
 
 #: ../classes/column/post/title-raw.php:19
 msgid "Title without actions"
-msgstr ""
+msgstr "عنوان بدون إجراءات"
 
 #: ../classes/column/link/length.php:19
 msgid "Length"
@@ -1314,7 +1314,7 @@ msgstr "هدف"
 
 #: ../classes/column/user/display-name.php:19
 msgid "Display name"
-msgstr ""
+msgstr "اسم العرض"
 
 #: ../classes/column/user/first-name.php:19
 msgid "First name"
@@ -1338,7 +1338,7 @@ msgstr "مسجل"
 
 #: ../classes/column/user/rich-editing.php:19
 msgid "Visual Editor"
-msgstr ""
+msgstr "المحرر المرئي"
 
 #: ../classes/column/user/url.php:19
 msgid "Url"
