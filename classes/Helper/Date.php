@@ -48,6 +48,11 @@ class AC_Helper_Date {
 			return false;
 		}
 
+		// Already a timestamp
+		if ( 'U' === $format ) {
+			return $date;
+		}
+
 		$timestamp = false;
 
 		// since PHP 5.3.0
