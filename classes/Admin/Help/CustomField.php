@@ -62,10 +62,6 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <strong><?php _e( "Usernames", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
             </li>
-            <li>
-                <strong><?php _e( "Term Name", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should be an array with term_id and taxonomy.", 'codepress-admin-columns' ); ?>
-            </li>
         </ul>
 
 		<?php
