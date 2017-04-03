@@ -228,9 +228,20 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 
 				break;
 			case "count" :
+
 				if ( $this->column instanceof AC_Column_Meta ) {
+					$value = $this->column->get_meta_value( $original_value, $this->column->get_meta_key(), false );
+
 					if ( $value ) {
-						$value = count( $value );
+						if ( 1 === count( $value ) && is_array( $value[0] ) ) {
+
+							// Value contains a single serialized array with multiple values
+							$value = count( $value[0] );
+						} else {
+
+							// Count multiple usage of meta keys
+							$value = count( $value );
+						}
 					} else {
 						$value = ac_helper()->string->get_empty_char();
 					}

@@ -17,23 +17,6 @@ class AC_Column_CustomField extends AC_Column_Meta {
 		$this->set_group( 'custom_field' );
 	}
 
-	/**
-	 * Display value
-	 *
-	 * @param int $object_id ID
-	 *
-	 * @return mixed
-	 */
-	public function get_value( $object_id ) {
-
-		// Count does not need formatting
-		if ( 'count' === $this->get_field_type() ) {
-			return count( $this->get_meta_value( $object_id, $this->get_meta_key(), false ) );
-		}
-
-		return parent::get_value( $object_id );
-	}
-
 	public function get_meta_key() {
 		return $this->get_setting( 'custom_field' )->get_value();
 	}
