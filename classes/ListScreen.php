@@ -304,11 +304,18 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @return string
+	 */
+	protected function get_admin_url() {
+		return admin_url( $this->get_screen_base() . '.php' );
+	}
+
+	/**
 	 * @since 2.0
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->page, 'layout' => $this->get_layout_id() ), admin_url( $this->get_screen_base() . '.php' ) );
+		return add_query_arg( array( 'page' => $this->get_page(), 'layout' => $this->get_layout_id() ), $this->get_admin_url() );
 	}
 
 	/**
