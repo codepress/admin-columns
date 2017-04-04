@@ -140,18 +140,18 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		}
 
 		// Actions
-        $this->deprecated_action( 'cac/admin_head', 'NEWVERION', 'cac-admin_head' );
-        $this->deprecated_action( 'cac/loaded', 'NEWVERION', 'cac-cacloaded' );
-        $this->deprecated_action( 'cac/inline-edit/after_ajax_column_save', 'NEWVERION', 'cacinline-editafter_ajax_column_save' );
-        $this->deprecated_action( 'cac/settings/after_title', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/form_actions', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/sidebox', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/form_columns', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/after_columns', 'NEWVERION' );
-        $this->deprecated_action( 'cac/column/settings_meta', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/general', 'NEWVERION' );
-        $this->deprecated_action( 'cpac_messages', 'NEWVERION' );
-        $this->deprecated_action( 'cac/settings/after_menu', 'NEWVERION' );
+        $this->deprecated_action( 'cac/admin_head', '3.0', 'cac-admin_head' );
+        $this->deprecated_action( 'cac/loaded', '3.0', 'cac-cacloaded' );
+        $this->deprecated_action( 'cac/inline-edit/after_ajax_column_save', '3.0', 'cacinline-editafter_ajax_column_save' );
+        $this->deprecated_action( 'cac/settings/after_title', '3.0' );
+        $this->deprecated_action( 'cac/settings/form_actions', '3.0' );
+        $this->deprecated_action( 'cac/settings/sidebox', '3.0' );
+        $this->deprecated_action( 'cac/settings/form_columns', '3.0' );
+        $this->deprecated_action( 'cac/settings/after_columns', '3.0' );
+        $this->deprecated_action( 'cac/column/settings_meta', '3.0' );
+        $this->deprecated_action( 'cac/settings/general', '3.0' );
+        $this->deprecated_action( 'cpac_messages', '3.0' );
+        $this->deprecated_action( 'cac/settings/after_menu', '3.0' );
 
 		$this->update_message_count();
 	}
