@@ -88,7 +88,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		// First one
 		if ( ! $key ) {
-			$key = key( AC()->get_list_screens() );
+			$list_screens = AC()->get_list_screens();
+
+			reset( $list_screens );
+
+			$key = key( $list_screens );
 		}
 
 		$list_screen = AC()->get_list_screen( $key );
