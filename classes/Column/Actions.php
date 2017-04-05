@@ -42,20 +42,7 @@ abstract class AC_Column_Actions extends AC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_raw_value( $id ) {
-		$actions = ac_action_column_helper()->get( $this->get_object_type(), $id );
-
-		/**
-		 * Filter the action links for the actions column
-		 *
-		 * @since 2.2.9
-		 *
-		 * @param array $actions List of actions ([action name] => [action link]).
-		 * @param AC_Column_Actions $this Column object.
-		 * @param int $id Post/User/Comment ID
-		 */
-		$actions =  apply_filters_deprecated( 'cac/column/actions/action_links', array( $actions, $this, $id ), '3.0' );
-
-		return $actions;
+		return ac_action_column_helper()->get( $this->get_object_type(), $id );
 	}
 
 	public function register_settings() {

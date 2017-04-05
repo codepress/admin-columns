@@ -114,6 +114,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$this->deprecated_filter( 'cac/addon/filtering/dropdown_empty_option', '3.0', 'cac-addon-filtering-taxonomy-terms_args' );
 		$this->deprecated_filter( 'cac/column/actions/action_links', '3.0', 'cac-column_actions-action_links' );
 		$this->deprecated_filter( 'cac/acf/format_acf_value', '3.0' );
+		$this->deprecated_filter( 'cac/addon/filtering/taxonomy/terms_args', '3.0' );
+		$this->deprecated_filter( 'cac/column/meta/use_text_input', '3.0' );
+		$this->deprecated_filter( 'cac/hide_renewal_notice', '3.0' );
 
 		$this->deprecated_filter( 'cac/columns/custom', '3.0', 'cac-columns-custom' );
 		foreach ( $types as $type ) {
