@@ -8,7 +8,7 @@ class AC_Helper_Date {
 	 * @return int|false
 	 */
 	public function strtotime( $date ) {
-		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) ) {
+		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) || ! is_scalar( $date ) ) {
 			return false;
 		}
 

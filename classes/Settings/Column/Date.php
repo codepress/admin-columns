@@ -131,7 +131,7 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 	 * @return string
 	 */
 	public function format( $date, $original_value ) {
-		if ( ! $date ) {
+		if ( ! $date || ! is_scalar( $date ) ) {
 			return false;
 		}
 
