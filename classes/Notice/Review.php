@@ -44,7 +44,7 @@ class AC_Notice_Review {
 		if ( AC()->user_can_manage_admin_columns() && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
 
 			// Display notice after 30 days
-			if ( ( time() - MONTH_IN_SECONDS ) >= $this->get_install_timestamp() ) {
+			if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) >= $this->get_install_timestamp() ) {
 				add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
 			}
 		}
