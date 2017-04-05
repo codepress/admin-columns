@@ -820,8 +820,8 @@ abstract class AC_ListScreen {
 
 		$value = $column->get_value( $id );
 
-		// You can overwrite the display value for original columns by making sure get_value() does not return NULL.
-		if ( $column->is_original() && is_null( $value ) ) {
+		// You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
+		if ( $column->is_original() && '' === $value ) {
 			return $original_value;
 		}
 

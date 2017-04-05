@@ -383,7 +383,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return mixed Raw column value. Default is NULL.
+	 * @return string
 	 */
 	public function get_raw_value( $id ) {
 		return null;
