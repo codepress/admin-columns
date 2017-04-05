@@ -21,4 +21,8 @@ class AC_Addon_WooCommerce extends AC_Addon {
 		return $column;
 	}
 
+	public function is_plugin_active() {
+		return class_exists( 'WooCommerce', false );
+	}
+
 }
