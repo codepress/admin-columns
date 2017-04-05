@@ -222,7 +222,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date: April 4th, 2017
 
-* [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](https://www.admincolumns.com/documentation/upgrading-from-v3-to-v4/)
+* [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](https://www.admincolumns.com/documentation/faq/upgrading-from-v3-to-v4/)
 * [Improved] Updated the User Interface
 * [Improved] Using dashicons instead of image icons
 * [Improved] Action column now always is the primary column

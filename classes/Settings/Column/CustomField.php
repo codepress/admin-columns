@@ -11,7 +11,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		/**
 		 * @deprecated 3.0
 		 */
-		$use_text_input = apply_filters_deprecated( 'cac/column/meta/use_text_input', array( false ), 'NEWVSERION', 'ac/column/custom_field/use_text_input' );
+		$use_text_input = apply_filters_deprecated( 'cac/column/meta/use_text_input', array( false ), '3.0', 'ac/column/custom_field/use_text_input' );
 
 		/**
 		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
