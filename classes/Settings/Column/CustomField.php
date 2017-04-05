@@ -15,7 +15,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		 *
 		 * @param bool false
 		 */
-		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', $use_text_input );
+		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
 
 		if ( $use_text_input ) {
 			$field = $this->create_element( 'text', 'field' )
