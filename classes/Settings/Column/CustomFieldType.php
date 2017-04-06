@@ -99,6 +99,8 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				'image'   => __( 'Image', 'codepress-admin-columns' ),
 				'link'    => __( 'Url', 'codepress-admin-columns' ),
 				'numeric' => __( 'Number', 'codepress-admin-columns' ),
+				'word_count' => __( 'Word Count', 'codepress-admin-columns' ),
+				'character_count' => __( 'Character Count', 'codepress-admin-columns' ),
 			),
 			'choice'     => array(
 				'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
@@ -250,6 +252,20 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case "has_content" :
 				$value = ac_helper()->icon->yes_or_no( $value, $value );
+
+				break;
+			case "word_count" :
+				$value = str_word_count( $value );
+				if( ! $value ){
+					$value = ac_helper()->string->get_empty_char();
+				}
+
+				break;
+			case "character_count" :
+				$value = strlen( $value );
+				if( ! $value ){
+					$value = ac_helper()->string->get_empty_char();
+				}
 
 				break;
 			default :
