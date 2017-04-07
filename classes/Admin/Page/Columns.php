@@ -20,7 +20,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
 
-		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -76,6 +77,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	public function set_current_list_screen() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
 
 		// User selected
 		$key = filter_input( INPUT_GET, 'list_screen' );
@@ -105,6 +109,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$this->set_list_screen_preference( $list_screen->get_key() );
 
 		$this->current_list_screen = $list_screen;
+
+		do_action( 'ac/settings/list_screen', $list_screen );
 	}
 
 	/**
@@ -136,12 +142,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screen->set_default_columns( $table_headers );
 	}
 
-	public function init() {
+	public function handle_request() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
-
-		$this->set_current_list_screen();
 
 		// Handle requests
 		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
@@ -157,7 +161,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				break;
 		}
 
-		do_action( 'ac/settings/init', $this );
+		do_action( 'ac/settings/handle_request', $this );
 	}
 
 	/**
