@@ -20,8 +20,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
 
-		// Init and request
-		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -71,12 +71,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	private function get_first_list_screen() {
-        $list_screens = AC()->get_list_screens();
+		$list_screens = AC()->get_list_screens();
 
-        return reset( $list_screens );
+		return reset( $list_screens );
 	}
 
-	private function set_current_list_screen() {
+	public function set_current_list_screen() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
 
 		// User selected
 		$key = filter_input( INPUT_GET, 'list_screen' );
@@ -99,24 +102,48 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		if ( ! $list_screen ) {
 			$list_screen = $this->get_first_list_screen();
-        }
+		}
+
+		$this->set_default_table_headers( $list_screen );
 
 		$this->set_list_screen_preference( $list_screen->get_key() );
 
 		$this->current_list_screen = $list_screen;
 	}
 
+	/**
+	 * @return AC_ListScreen
+	 */
 	public function get_current_list_screen() {
 		return $this->current_list_screen;
 	}
 
-	public function init() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+	/**
+	 * Populate the list screen with columns headers from WP_List_Table
+	 *
+	 * @param AC_ListScreen $list_screen
+	 */
+	private function set_default_table_headers( AC_ListScreen $list_screen ) {
+		if ( $list_screen->get_stored_default_headings() ) {
 			return;
 		}
 
-		// Set list screen
-		$this->set_current_list_screen();
+		/**
+		 * Populate columns for get_column_headers()
+		 * @see WP_List_Table::get_columns()
+		 */
+		$list_screen->get_list_table();
+
+		$table_headers = (array) get_column_headers( $list_screen->get_screen_id() );
+
+		// Load original columns
+		$list_screen->set_default_columns( $table_headers );
+	}
+
+	public function handle_request() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
 
 		// Handle requests
 		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
@@ -206,6 +233,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
+
+		// TODO
+		//$this->set_default_table_headers( $list_screen );
 
 		$column = $list_screen->get_column_by_type( $type );
 
@@ -416,9 +446,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return string
 	 */
 	private function get_read_only_message( AC_ListScreen $list_screen ) {
-	    $message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
-	    return apply_filters( 'ac/read_only_message', $message, $list_screen );
+		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
 	/**
@@ -426,6 +456,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	public function display() {
 		$list_screen = $this->get_current_list_screen();
+
 		?>
 
         <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
@@ -697,7 +728,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 							/**
 							 * Columns
 							 */
-                            foreach ( $list_screen->get_columns() as $column ) {
+							foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>
