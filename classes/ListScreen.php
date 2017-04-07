@@ -47,7 +47,7 @@ abstract class AC_ListScreen {
 
 	/**
 	 * Class name of the WP_List_Table instance
-	 *
+	 * @see WP_List_Table
 	 * @since 3.0
 	 * @var string
 	 */
@@ -357,7 +357,6 @@ abstract class AC_ListScreen {
 	private function reset() {
 		$this->columns = null;
 		$this->column_types = null;
-		$this->default_columns = null;
 		$this->settings = null;
 	}
 
@@ -465,12 +464,15 @@ abstract class AC_ListScreen {
 	/**
 	 * @return array
 	 */
-	private function get_default_columns() {
-		if ( null === $this->default_columns ) {
-			$this->default_columns = (array) $this->get_column_headers();
-		}
+	public function get_default_columns() {
+		return (array) $this->default_columns;
+	}
 
-		return $this->default_columns;
+	/**
+	 * @param array $columns
+	 */
+	public function set_default_columns( $columns ) {
+		$this->default_columns = $columns;
 	}
 
 	/**
@@ -497,6 +499,12 @@ abstract class AC_ListScreen {
 
 		// Register plugin columns
 		foreach ( $this->get_plugin_columns() as $type => $label ) {
+
+			// Ignore the mandatory checkbox column
+			if ( 'cb' === $type ) {
+				continue;
+			}
+
 			$class = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
 
 			if ( ! class_exists( $class ) ) {
@@ -821,7 +829,7 @@ abstract class AC_ListScreen {
 		$value = $column->get_value( $id );
 
 		// You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
-		if ( $column->is_original() && '' === $value ) {
+		if ( $column->is_original() && ac_helper()->string->is_empty( $value ) ) {
 			return $original_value;
 		}
 
@@ -835,20 +843,6 @@ abstract class AC_ListScreen {
 		 * @param AC_Column $column Column object
 		 */
 		return apply_filters( 'ac/column/value', $value, $id, $column );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function get_column_headers() {
-
-		/**
-		 * Populate columns for get_column_headers()
-		 * @see WP_List_Table::get_columns()
-		 */
-		$this->get_list_table();
-
-		return (array) get_column_headers( $this->get_screen_id() );
 	}
 
 	/**
