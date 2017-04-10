@@ -133,7 +133,6 @@ class CPAC {
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
-		require_once $this->get_plugin_dir() . 'classes/Column.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();

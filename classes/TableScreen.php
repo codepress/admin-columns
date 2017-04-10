@@ -15,6 +15,7 @@ final class AC_TableScreen {
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'load_list_screen_doing_quick_edit' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
@@ -118,9 +119,15 @@ final class AC_TableScreen {
 
 	/**
 	 * @since 2.2.4
-     * @param AC_ListScreen $list_screen
+	 *
+	 * @param AC_ListScreen $list_screen
 	 */
-	public function admin_scripts( $list_screen ) {
+	public function admin_scripts() {
+		if ( ! $this->current_list_screen ) {
+			return;
+		}
+
+		$list_screen = $this->current_list_screen;
 
 		// Tooltip
 		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
@@ -352,9 +359,6 @@ final class AC_TableScreen {
 		if ( $this->column_headings ) {
 			return $this->column_headings;
 		}
-
-		// Load scripts
-		$this->admin_scripts( $this->current_list_screen );
 
 		// Nothing stored. Show default columns on screen.
 		if ( ! $this->current_list_screen->get_settings() ) {
