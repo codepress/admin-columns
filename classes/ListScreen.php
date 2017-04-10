@@ -47,7 +47,7 @@ abstract class AC_ListScreen {
 
 	/**
 	 * Class name of the WP_List_Table instance
-	 * @see WP_List_Table
+	 * @see   WP_List_Table
 	 * @since 3.0
 	 * @var string
 	 */
