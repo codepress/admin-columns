@@ -119,7 +119,6 @@ class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-		// Original heading
 		if ( null === $this->label ) {
 			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
 		}

@@ -94,7 +94,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @var array [ Column name => Label ]
 	 */
-	private $default_columns;
+	private $original_columns;
 
 	/**
 	 * @var string Layout ID
@@ -354,7 +354,7 @@ abstract class AC_ListScreen {
 	 *
 	 * @since 2.5
 	 */
-	private function reset() {
+	public function reset() {
 		$this->columns = null;
 		$this->column_types = null;
 		$this->settings = null;
@@ -440,13 +440,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @return array
-	 */
-	private function get_original_columns() {
-		return array_merge( $this->get_default_columns(), $this->get_stored_default_headings() );
-	}
-
-	/**
 	 * @param string $type
 	 *
 	 * @return string Label
@@ -464,15 +457,19 @@ abstract class AC_ListScreen {
 	/**
 	 * @return array
 	 */
-	public function get_default_columns() {
-		return (array) $this->default_columns;
+	public function get_original_columns() {
+		if ( null === $this->original_columns ) {
+			$this->set_original_columns( $this->get_stored_default_headings() );
+		}
+
+		return $this->original_columns;
 	}
 
 	/**
 	 * @param array $columns
 	 */
-	public function set_default_columns( $columns ) {
-		$this->default_columns = $columns;
+	public function set_original_columns( $columns ) {
+		$this->original_columns = $columns;
 	}
 
 	/**
@@ -481,7 +478,7 @@ abstract class AC_ListScreen {
 	public function set_column_types() {
 
 		// Register default columns
-		foreach ( $this->get_default_columns() as $type => $label ) {
+		foreach ( $this->get_original_columns() as $type => $label ) {
 
 			// Ignore the mandatory checkbox column
 			if ( 'cb' === $type ) {
@@ -495,26 +492,6 @@ abstract class AC_ListScreen {
 				->set_original( true );
 
 			$this->register_column_type( $column );
-		}
-
-		// Register plugin columns
-		foreach ( $this->get_plugin_columns() as $type => $label ) {
-
-			// Ignore the mandatory checkbox column
-			if ( 'cb' === $type ) {
-				continue;
-			}
-
-			$class = apply_filters( 'ac/plugin_column_class_name', 'AC_Column_Plugin' );
-
-			if ( ! class_exists( $class ) ) {
-				continue;
-			}
-
-			/** @var AC_Column_Plugin $column */
-			$column = new $class;
-
-			$this->register_column_type( $column->set_type( $type ) );
 		}
 
 		// Placeholder columns
@@ -566,21 +543,6 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $type Column type
-	 *
-	 * @return bool
-	 */
-	private function is_original_column( $type ) {
-		$column = $this->get_column_by_type( $type );
-
-		if ( ! $column ) {
-			return false;
-		}
-
-		return $column->is_original();
-	}
-
-	/**
 	 * @param array $settings Column options
 	 *
 	 * @return AC_Column|false
@@ -607,9 +569,7 @@ abstract class AC_ListScreen {
 		}
 
 		// Mark as original
-		if ( $this->is_original_column( $settings['type'] ) ) {
-
-			$column->set_original( true );
+		if ( $column->is_original() ) {
 			$column->set_name( $settings['type'] );
 		}
 
@@ -638,6 +598,7 @@ abstract class AC_ListScreen {
 	 * @since 3.0
 	 */
 	private function set_columns() {
+
 		foreach ( $this->get_settings() as $name => $data ) {
 			$data['name'] = $name;
 			if ( $column = $this->create_column( $data ) ) {
@@ -657,13 +618,6 @@ abstract class AC_ListScreen {
 		if ( null === $this->columns ) {
 			$this->columns = array();
 		}
-	}
-
-	/**
-	 * @return array [ Column Name => Column Label ]
-	 */
-	public function get_plugin_columns() {
-		return array_diff( $this->get_stored_default_headings(), $this->get_default_columns() );
 	}
 
 	/**
