@@ -543,6 +543,21 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * @param string $type Column type
+	 *
+	 * @return bool
+	 */
+	private function is_original_column( $type ) {
+		$column = $this->get_column_by_type( $type );
+
+		if ( ! $column ) {
+			return false;
+		}
+
+		return $column->is_original();
+	}
+
+	/**
 	 * @param array $settings Column options
 	 *
 	 * @return AC_Column|false
@@ -569,7 +584,9 @@ abstract class AC_ListScreen {
 		}
 
 		// Mark as original
-		if ( $column->is_original() ) {
+		if ( $this->is_original_column( $settings['type'] ) ) {
+
+			$column->set_original( true );
 			$column->set_name( $settings['type'] );
 		}
 
