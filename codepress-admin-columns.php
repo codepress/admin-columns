@@ -473,10 +473,10 @@ class CPAC {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
-		// @since 3.0
-
-		// TODO
-		//do_action( 'ac/list_screens', $this );
+		/**
+		 * @since 3.0
+		 */
+		do_action( 'ac/list_screens', $this );
 	}
 
 	/**
