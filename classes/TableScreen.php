@@ -55,7 +55,6 @@ final class AC_TableScreen {
 			if ( $this->current_list_screen instanceof ACP_ListScreen_Taxonomy && 'name' !== $default ) {
 				add_filter( 'tag_row_actions', array( $this, 'add_taxonomy_hidden_quick_edit_markup' ), 20, 2 );
 			}
-
 		}
 
 		return $default;
