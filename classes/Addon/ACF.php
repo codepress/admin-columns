@@ -30,6 +30,10 @@ class AC_Addon_ACF extends AC_Addon {
 		return parent::get_plugin();
 	}
 
+	public function is_plugin_active() {
+		return class_exists( 'acf', false );
+	}
+
 	public function show_missing_notice_on_current_page() {
 		global $pagenow;
 

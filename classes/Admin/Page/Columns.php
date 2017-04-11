@@ -20,8 +20,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
 
-		// Init and request
-		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -50,10 +50,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_plugin_url() . 'assets/css/admin-page-columns' . AC()->minified() . '.css', array(), AC()->get_version() );
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
-			'_ajax_nonce' => wp_create_nonce( 'cpac-settings' ),
-			'list_screen' => $this->get_current_list_screen()->get_key(),
-			'layout'      => $this->get_current_list_screen()->get_layout_id(),
-			'i18n'        => array(
+			'_ajax_nonce'      => wp_create_nonce( 'ac-settings' ),
+			'list_screen'      => $this->get_current_list_screen()->get_key(),
+			'layout'           => $this->get_current_list_screen()->get_layout_id(),
+			'original_columns' => $this->get_current_list_screen()->get_original_columns(),
+			'i18n'             => array(
 				'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 				'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 			),
@@ -71,12 +72,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	private function get_first_list_screen() {
-        $list_screens = AC()->get_list_screens();
+		$list_screens = AC()->get_list_screens();
 
-        return reset( $list_screens );
+		return reset( $list_screens );
 	}
 
-	private function set_current_list_screen() {
+	public function set_current_list_screen() {
+		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+			return;
+		}
 
 		// User selected
 		$key = filter_input( INPUT_GET, 'list_screen' );
@@ -99,24 +103,48 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		if ( ! $list_screen ) {
 			$list_screen = $this->get_first_list_screen();
-        }
+		}
+
+		if ( ! $list_screen->get_original_columns() ) {
+			$this->set_original_table_headers( $list_screen );
+		}
 
 		$this->set_list_screen_preference( $list_screen->get_key() );
 
 		$this->current_list_screen = $list_screen;
+
+		do_action( 'ac/settings/list_screen', $list_screen );
 	}
 
+	/**
+	 * @return AC_ListScreen
+	 */
 	public function get_current_list_screen() {
 		return $this->current_list_screen;
 	}
 
-	public function init() {
+	/**
+	 * Populate the list screen with columns headers from WP_List_Table
+	 *
+	 * @see WP_List_Table::get_columns()
+	 *
+	 * @param AC_ListScreen $list_screen
+	 */
+	private function set_original_table_headers( AC_ListScreen $list_screen ) {
+		$list_screen->get_list_table();
+
+		$table_headers = (array) get_column_headers( $list_screen->get_screen_id() );
+
+		$list_screen->set_original_columns( $table_headers );
+	}
+
+	/**
+	 * Handle request
+	 */
+	public function handle_request() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
-
-		// Set list screen
-		$this->set_current_list_screen();
 
 		// Handle requests
 		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
@@ -132,7 +160,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				break;
 		}
 
-		do_action( 'ac/settings/init', $this );
+		do_action( 'ac/settings/handle_request', $this );
 	}
 
 	/**
@@ -170,13 +198,26 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Check is the ajax request is valid and user is allowed to make it
 	 *
 	 * @since 3.0
+	 * @return AC_ListScreen
 	 */
 	private function ajax_validate_request() {
-		check_ajax_referer( 'cpac-settings' );
+		check_ajax_referer( 'ac-settings' );
 
 		if ( ! AC()->user_can_manage_admin_columns() ) {
 			wp_die();
 		}
+
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+
+		if ( ! $list_screen ) {
+			wp_die();
+		}
+
+		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
+
+		$list_screen->set_original_columns( (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) );
+
+		return $list_screen;
 	}
 
 	/**
@@ -194,20 +235,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @since 3.0
 	 */
 	public function ajax_column_select() {
-		$this->ajax_validate_request();
+		$list_screen = $this->ajax_validate_request();
 
-		$type = filter_input( INPUT_POST, 'type' );
-		$original_columns = (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
-
-		$column = $list_screen->get_column_by_type( $type );
+		$column = $list_screen->get_column_by_type( filter_input( INPUT_POST, 'type' ) );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(
@@ -216,8 +246,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			) );
 		}
 
+		$current_original_columns = (array) filter_input( INPUT_POST, 'current_original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
 		// Not cloneable message
-		if ( in_array( $type, $original_columns ) ) {
+		if ( in_array( $column->get_type(), $current_original_columns ) ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => sprintf(
@@ -241,7 +273,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @since 2.2
 	 */
 	public function ajax_column_refresh() {
-		$this->ajax_validate_request();
+		$list_screen = $this->ajax_validate_request();
 
 		$options = filter_input( INPUT_POST, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$name = filter_input( INPUT_POST, 'column_name' );
@@ -251,14 +283,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		$settings = $options[ $name ];
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
 		$settings['name'] = $name;
 
@@ -275,7 +299,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @since 2.5
 	 */
 	public function ajax_columns_save() {
-		$this->ajax_validate_request();
+		$list_screen = $this->ajax_validate_request();
 
 		parse_str( $_POST['data'], $formdata );
 
@@ -286,14 +310,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				)
 			);
 		}
-
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
-		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
 		$result = $list_screen->store( $formdata['columns'] );
 
@@ -416,9 +432,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return string
 	 */
 	private function get_read_only_message( AC_ListScreen $list_screen ) {
-	    $message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
-	    return apply_filters( 'ac/read_only_message', $message, $list_screen );
+		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
 	/**
@@ -426,6 +442,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	public function display() {
 		$list_screen = $this->get_current_list_screen();
+
 		?>
 
         <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
@@ -697,7 +714,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 							/**
 							 * Columns
 							 */
-                            foreach ( $list_screen->get_columns() as $column ) {
+							foreach ( $list_screen->get_columns() as $column ) {
 								$this->display_column( $column );
 							}
 							?>

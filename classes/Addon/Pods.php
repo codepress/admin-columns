@@ -22,4 +22,8 @@ class AC_Addon_Pods extends AC_Addon {
 		return parent::show_missing_notice_on_current_page() || $is_page;
 	}
 
+	public function is_plugin_active() {
+		return function_exists( 'pods' );
+	}
+
 }

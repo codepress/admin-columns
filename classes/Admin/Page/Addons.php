@@ -39,7 +39,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		foreach ( $addons as $addon ) {
-			if ( ! $addon->is_plugin_installed() ) {
+
+		    // is_plugin_installed does not work when plugins are included in a theme, that's why we check is_plugin_active
+			if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() ) {
 				AC()->notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ), 'notice-warning' );
 			} else if ( ! $addon->is_plugin_active() ) {
 				$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );

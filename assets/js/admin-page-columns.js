@@ -63,7 +63,8 @@ function cpac_submit_form( $ ) {
 				data : columns_data,
 				_ajax_nonce : AC._ajax_nonce,
 				list_screen : AC.list_screen,
-				layout : AC.layout
+				layout : AC.layout,
+				original_columns : AC.original_columns
 			},
 
 			// JSON response
@@ -305,7 +306,8 @@ function cpac_reset_columns( $ ) {
 			_ajax_nonce : AC._ajax_nonce,
 			list_screen : AC.list_screen,
 			layout : AC.layout,
-			column_name : column_name
+			column_name : column_name,
+			original_columns : AC.original_columns
 		};
 
 		$.each( request_data, function( name, value ) {
@@ -386,9 +388,9 @@ function cpac_reset_columns( $ ) {
 			var msg = $( this ).next( '.msg' ).hide();
 			var $select = $( this );
 
-			var original_columns = [];
+			var current_original_columns = [];
 			container.find( '.ac-column[data-original=1]' ).each( function() {
-				original_columns.push( $( this ).data( 'type' ) );
+				current_original_columns.push( $( this ).data( 'type' ) );
 			} );
 
 			column.addClass( 'loading' );
@@ -399,11 +401,12 @@ function cpac_reset_columns( $ ) {
 				dataType : 'json',
 				data : {
 					action : 'ac_column_select',
-					original_columns : original_columns,
-					_ajax_nonce : AC._ajax_nonce,
 					type : type,
+					current_original_columns : current_original_columns,
+					original_columns : AC.original_columns,
 					list_screen : AC.list_screen,
-					layout : AC.layout
+					layout : AC.layout,
+					_ajax_nonce : AC._ajax_nonce,
 				}
 			} )
 				.done( function( response ) {

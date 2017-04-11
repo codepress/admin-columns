@@ -133,7 +133,6 @@ class CPAC {
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
-		require_once $this->get_plugin_dir() . 'classes/Column.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -334,8 +333,8 @@ class CPAC {
 		$groups = new AC_Groups();
 
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
-		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 20 );
-		$groups->register_group( 'plugin', __( 'Plugins' ), 30 );
+		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
 		foreach ( $this->addons()->get_missing_addons() as $addon ) {
@@ -473,7 +472,9 @@ class CPAC {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
-		// @since 3.0
+		/**
+		 * @since 3.0
+		 */
 		do_action( 'ac/list_screens', $this );
 	}
 

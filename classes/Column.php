@@ -119,7 +119,6 @@ class AC_Column {
 	 * @return string Label of column's type
 	 */
 	public function get_label() {
-		// Original heading
 		if ( null === $this->label ) {
 			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
 		}
@@ -383,7 +382,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return mixed Raw column value. Default is NULL.
+	 * @return string
 	 */
 	public function get_raw_value( $id ) {
 		return null;
