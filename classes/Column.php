@@ -55,7 +55,7 @@ class AC_Column {
 	/**
 	 * @var string|bool
 	 */
-	private $empty_char = false;
+	private $empty_char;
 
 	/**
 	 * Get the unique name of the column
@@ -422,22 +422,18 @@ class AC_Column {
 	}
 
 	/**
-	 * @param string|bool $char When 'true' a dash character is used.
+	 * @param string
 	 */
 	public function set_empty_char( $char ) {
-		if ( true === $char ) {
-			$char = '&ndash;';
-		}
-
-		$this->empty_char = $char;
+		$this->empty_char = (string) $char;
 	}
 
 	/**
 	 * @return bool|string
 	 */
-	public function get_empty_char( $char = false ) {
-		if ( $char ) {
-			$this->set_empty_char( $char );
+	public function get_empty_char() {
+		if ( null === $this->empty_char ) {
+			$this->set_empty_char( '&ndash;' );
 		}
 
 		return $this->empty_char;
