@@ -30,6 +30,10 @@ jQuery( document ).ready( function( $ ) {
 	cpac_add_column( $ );
 	cpac_sidebar_feedback( $ );
 
+	if( AC.unsaved_confirmation && 1 == AC.unsaved_confirmation ){
+		$( '.ac-columns form' ).cpac_unsaved_changes();
+	}
+
 } );
 
 function ac_show_ajax_message( message, attr_class ) {
@@ -934,3 +938,34 @@ function cpac_reset_columns( $ ) {
 	} );
 
 }( jQuery ));
+
+(function( $ ) {
+
+	$.fn.cpac_unsaved_changes = function() {
+
+		function get_state() {
+			return $el.serialize()
+		}
+
+		$( this ).each( function() {
+			$el = $( this );
+			$el.data( 'cac_state', get_state() );
+
+			$( document ).on( 'cac_update', function() {
+				$el.data( 'cac_state', get_state() );
+			} );
+
+			window.onbeforeunload = function( e ) {
+				if ( $el.data( 'cac_state' ) != get_state() ) {
+					var e = e || window.event;
+					// For IE and Firefox
+					if ( e ) {
+						e.returnValue = false;
+					}
+					return false;
+				}
+			};
+		} );
+	};
+
+})( jQuery );

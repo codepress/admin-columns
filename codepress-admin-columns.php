@@ -300,6 +300,10 @@ class CPAC {
 		return apply_filters( 'ac/delete_confirmation', true );
 	}
 
+	public function use_unsaved_confirmation() {
+		return apply_filters( 'ac/unsaved_confirmation', true );
+	}
+
 	/**
 	 * @since 3.0
 	 * @return AC_API
