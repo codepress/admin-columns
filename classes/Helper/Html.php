@@ -57,8 +57,8 @@ class AC_Helper_Html {
 		}
 
 		if ( array_key_exists( 'tooltip', $attributes ) ) {
-			$attributes['data-ac-tip'] = $attributes['tip'];
-			unset( $attributes['tip'] );
+			$attributes['data-ac-tip'] = $attributes['tooltip'];
+			unset( $attributes['tooltip'] );
 		}
 
 		$allowed = wp_allowed_protocols();
