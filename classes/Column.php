@@ -435,7 +435,11 @@ class AC_Column {
 	/**
 	 * @return bool|string
 	 */
-	public function get_empty_char() {
+	public function get_empty_char( $char = false ) {
+		if ( $char ) {
+			$this->set_empty_char( $char );
+		}
+
 		return $this->empty_char;
 	}
 
