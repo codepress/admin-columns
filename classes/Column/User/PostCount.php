@@ -8,6 +8,7 @@ class AC_Column_User_PostCount extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-user_postcount' );
 		$this->set_label( __( 'Post Count', 'codepress-admin-columns' ) );
+		$this->set_empty_char( true );
 	}
 
 	/**
@@ -20,7 +21,7 @@ class AC_Column_User_PostCount extends AC_Column {
 	}
 
 	public function get_value( $user_id ) {
-		$value = ac_helper()->string->get_empty_char();
+		$value = $this->get_empty_char();
 		$count = $this->get_raw_value( $user_id );
 
 		if ( $count > 0 ) {
