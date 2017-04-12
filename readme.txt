@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: tbd
+
+* [Improved] Column will now have a default empty value (dash character)
+
 = 3.0 =
 
 Release Date: April 4th, 2017

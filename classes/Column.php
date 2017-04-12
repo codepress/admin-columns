@@ -53,6 +53,11 @@ class AC_Column {
 	protected $options = array();
 
 	/**
+	 * @var string|bool
+	 */
+	private $empty_char = false;
+
+	/**
 	 * Get the unique name of the column
 	 *
 	 * @since 2.3.4
@@ -402,6 +407,10 @@ class AC_Column {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
+		if ( ! $value ) {
+			$value = $this->get_empty_char();
+		}
+
 		return (string) $value;
 	}
 
@@ -410,6 +419,24 @@ class AC_Column {
 	 */
 	public function get_separator() {
 		return ', ';
+	}
+
+	/**
+	 * @param string|bool $char When 'true' a dash character is used.
+	 */
+	public function set_empty_char( $char ) {
+		if ( true === $char ) {
+			$char = '&ndash;';
+		}
+
+		$this->empty_char = $char;
+	}
+
+	/**
+	 * @return bool|string
+	 */
+	public function get_empty_char() {
+		return $this->empty_char;
 	}
 
 }

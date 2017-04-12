@@ -23,6 +23,25 @@ class AC_Helper_User {
 	}
 
 	/**
+	 * @param array $role_names
+	 *
+	 * @return array
+	 */
+	public function translate_roles( $role_names ) {
+		$roles = array();
+
+		$wp_roles = wp_roles()->roles;
+
+		foreach ( (array) $role_names as $role ) {
+			if ( isset( $wp_roles[ $role ] ) ) {
+				$roles[ $role ] = translate_user_role( $wp_roles[ $role ]['name'] );
+			}
+		}
+
+		return $roles;
+	}
+
+	/**
 	 * @param $user
 	 * @param bool $format
 	 *

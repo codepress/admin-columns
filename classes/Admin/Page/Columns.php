@@ -215,10 +215,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
-        // Load default headings
+		// Load default headings
 		if ( ! $list_screen->get_stored_default_headings() ) {
 			$list_screen->set_original_columns( (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) );
-        }
+		}
 
 		return $list_screen;
 	}
