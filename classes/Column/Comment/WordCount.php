@@ -8,7 +8,7 @@ class AC_Column_Comment_WordCount extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-word_count' );
 		$this->set_label( __( 'Word Count', 'codepress-admin-columns' ) );
-		$this->set_empty_char( true );
+		$this->get_empty_char();
 	}
 
 	public function get_raw_value( $post_id ) {

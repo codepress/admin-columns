@@ -8,7 +8,7 @@ class AC_Column_User_PostCount extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-user_postcount' );
 		$this->set_label( __( 'Post Count', 'codepress-admin-columns' ) );
-		$this->set_empty_char( true );
+		$this->get_empty_char();
 	}
 
 	/**
