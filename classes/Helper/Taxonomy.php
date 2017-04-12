@@ -35,6 +35,19 @@ class AC_Helper_Taxonomy {
 	}
 
 	/**
+	 * @param WP_Term $term
+	 *
+	 * @return false|string
+	 */
+	public function get_term_display_name( $term ) {
+		if ( ! $term || is_wp_error( $term ) ) {
+			return false;
+		}
+
+		return sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' );
+	}
+
+	/**
 	 * @param string $object_type post, page, user etc.
 	 * @param string $taxonomy    Taxonomy Name
 	 *

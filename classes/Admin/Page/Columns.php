@@ -356,14 +356,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screens = array();
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-
-			/**
-			 * @param string        $group Group slug
-			 * @param AC_ListScreen $list_screen
-			 */
-			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen );
-
-			$list_screens[ $group ][ $list_screen->get_key() ] = $list_screen->get_label();
+			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
