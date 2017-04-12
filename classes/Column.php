@@ -407,7 +407,7 @@ class AC_Column {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
-		if ( ! $value ) {
+		if ( ! $value && ! $this->is_original() ) {
 			$value = $this->get_empty_char();
 		}
 
@@ -436,7 +436,7 @@ class AC_Column {
 			$this->set_empty_char( '&ndash;' );
 		}
 
-		return $this->empty_char;
+		return apply_filters( 'ac/empty_char', $this->empty_char, $this );
 	}
 
 }

@@ -47,7 +47,7 @@ function ac_actions_column( $, $selector ) {
 
 	$( $selector ).find( '.cpac_use_icons + .hidden + .row-actions > span' ).each( function() {
 		var $link = $( this ).find( 'a' );
-		$link.attr( 'data-tip', $link.text() ).addClass( 'ac-tip' );
+		$link.attr( 'data-ac-tip', $link.text() ).addClass( 'ac-tip' );
 	} );
 }
 
@@ -70,9 +70,9 @@ function ac_tooltips( $ ) {
 		return;
 	}
 
-	$( '[data-tip]' ).qtip( {
+	$( '[data-ac-tip]' ).qtip( {
 		content : {
-			attr : 'data-tip'
+			attr : 'data-ac-tip'
 		},
 		position : {
 			my : 'top center',

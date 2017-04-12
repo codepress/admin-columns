@@ -207,13 +207,7 @@ class AC_Helper_Image {
 	// Helpers
 
 	private function get_file_tooltip_attr( $media_id ) {
-		$filename = $this->get_file_name( $media_id );
-
-		if ( ! $filename ) {
-			return false;
-		}
-
-		return ' data-tip="' . esc_attr( $filename ) . '"';
+		return ac_helper()->html->get_tooltip_attr( $this->get_file_name( $media_id ) );
 	}
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {

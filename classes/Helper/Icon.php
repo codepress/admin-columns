@@ -25,7 +25,7 @@ class AC_Helper_Icon {
 		}
 
 		if ( $data->tooltip ) {
-			$attributes[] = 'data-tip="' . esc_attr( $data->tooltip ) . '"';
+			$attributes[] = ac_helper()->html->get_tooltip_attr( $data->tooltip );
 		}
 
 		return '<span class="' . esc_attr( $class ) . '" ' . implode( ' ', $attributes ) . '></span>';

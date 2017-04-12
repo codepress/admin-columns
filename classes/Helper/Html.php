@@ -56,11 +56,16 @@ class AC_Helper_Html {
 			$label = esc_html( $label );
 		}
 
+		if ( array_key_exists( 'tooltip', $attributes ) ) {
+			$attributes['data-ac-tip'] = $attributes['tip'];
+			unset( $attributes['tip'] );
+		}
+
 		$allowed = wp_allowed_protocols();
 		$allowed[] = 'skype';
 		$allowed[] = 'call';
 
-		return '<a href="' . esc_url( $url, $allowed ) . '"' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
+		return '<a href="' . esc_url( $url, $allowed ) . '" ' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
 	}
 
 	/**
@@ -71,6 +76,19 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function get_tooltip_attr( $content ) {
+		if ( ! $content ) {
+			return false;
+		}
+
+		return 'data-ac-tip="' . esc_attr( $content ) . '"';
+	}
+
+	/**
 	 * @param $label
 	 * @param $tooltip
 	 *
@@ -78,7 +96,7 @@ class AC_Helper_Html {
 	 */
 	public function tooltip( $label, $tooltip ) {
 		if ( $label && $tooltip ) {
-			$label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
+			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . '>' . $label . '</span>';
 		}
 
 		return $label;
@@ -287,14 +305,14 @@ class AC_Helper_Html {
 	}
 
 	/**
-     * Return round HTML span
-     *
+	 * Return round HTML span
+	 *
 	 * @param $string
 	 *
 	 * @return string
 	 */
 	public function rounded( $string ) {
-        return '<span class="ac-rounded">' . $string . '</span>';
+		return '<span class="ac-rounded">' . $string . '</span>';
 	}
 
 }
