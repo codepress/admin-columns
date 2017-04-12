@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date:
+
+* [Improved] Must confirm leaving the page when there are unsaved changes
+
 = 3.0 =
 
 Release Date: April 4th, 2017
