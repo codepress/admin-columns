@@ -52,6 +52,20 @@ body.upload-php .tablenav.top .cpac-edit {
 
 /* =Column values
 -------------------------------------------------------------- */
+.ac-toggle-box-link:focus {
+  outline: none;
+  box-shadow: none; }
+
+.ac-toggle-box-link .spinner {
+  float: none;
+  margin-top: -2px; }
+
+.ac-toggle-box-link.loading .spinner {
+  visibility: visible; }
+
+.ac-toggle-box-contents-ajax {
+  padding: 5px 0 0; }
+
 .ac-toggle-box-contents {
   display: none;
   padding: 5px 0 0; }

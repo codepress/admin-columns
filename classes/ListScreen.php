@@ -804,6 +804,10 @@ abstract class AC_ListScreen {
 			return $original_value;
 		}
 
+		if ( $column instanceof AC_Column_AjaxValue && $value !== $column->get_empty_char() ) {
+			$value = $this->toggle_box_ajax( $id, $value, $column->get_name() );
+		}
+
 		/**
 		 * Column display value
 		 *
@@ -814,6 +818,20 @@ abstract class AC_ListScreen {
 		 * @param AC_Column $column Column object
 		 */
 		return apply_filters( 'ac/column/value', $value, $id, $column );
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $label
+	 * @param string $column_name
+	 */
+	private function toggle_box_ajax( $id, $label, $column_name ) {
+		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
+			'class'              => 'ac-toggle-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $id,
+			'data-ajax-populate' => 1,
+		) );
 	}
 
 	/**
