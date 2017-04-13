@@ -64,6 +64,9 @@ function ac_toggle_box_ajax_init( $ ) {
 
 				// We only need to run the ajax request once. Unbind the event, and replace with a Toggle Box.
 				$this.unbind( 'click', do_retrieve_ajax_value ).bind( 'click', do_toggle_value );
+
+				// Re-init WC tooltips
+				$( document.body ).trigger( 'init_tooltips' );
 			}
 		} );
 
