@@ -5,6 +5,7 @@ jQuery( document ).ready( function( $ ) {
 	ac_tooltips( $ );
 	ac_show_more( $ );
 	ac_edit_button( $ );
+	ac_toggle_box( $ );
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		ac_set_column_classes( $ );
@@ -17,6 +18,13 @@ function ac_edit_button( $ ) {
 	if ( AC.edit_link ) {
 		$( '.tablenav.top .actions:last' ).append( '<a class="cpac-edit add-new-h2" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
 	}
+}
+
+function ac_toggle_box( $ ) {
+	$( '.ac-toggle-box-link' ).click( function( e ) {
+		e.preventDefault();
+		$( this ).next( '.ac-toggle-box-contents' ).toggle();
+	} );
 }
 
 function ac_show_more( $ ) {

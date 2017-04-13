@@ -103,6 +103,26 @@ class AC_Helper_Html {
 	}
 
 	/**
+     * Displays a toggle Box.
+     *
+	 * @param string $label
+	 * @param string $contents
+	 */
+	public function toggle_box( $label, $contents ) {
+	    if ( ! $label ) {
+	        return;
+        }
+
+		if ( $contents ) : ?>
+            <a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
+            <div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
+			<?php
+		else :
+			echo $label;
+		endif;
+	}
+
+	/**
 	 * @param string $string
 	 * @param int    $max_chars
 	 *

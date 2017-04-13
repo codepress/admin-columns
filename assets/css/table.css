@@ -50,6 +50,23 @@ body.users-php .tablenav .actions a.add-new-h2 {
 body.upload-php .tablenav.top .cpac-edit {
   float: none; }
 
+/* =Column values
+-------------------------------------------------------------- */
+.ac-toggle-box-contents {
+  display: none;
+  padding: 5px 0 0; }
+
+table.ac-table-items {
+  border-spacing: 0; }
+  table.ac-table-items tr td {
+    border: 0;
+    margin: 0;
+    padding: 0 0 3px; }
+    table.ac-table-items tr td.ac-table-item-qty {
+      color: #999;
+      padding-right: 6px;
+      text-align: left; }
+
 /* =Network screen
 -------------------------------------------------------------- */
 #form-site-list .tablenav .actions .cpac-edit {
