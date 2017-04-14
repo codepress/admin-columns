@@ -65,8 +65,8 @@ function ac_toggle_box_ajax_init( $ ) {
 				// We only need to run the ajax request once. Unbind the event, and replace with a Toggle Box.
 				$this.unbind( 'click', do_retrieve_ajax_value ).bind( 'click', do_toggle_value );
 
-				// Re-init WC tooltips
-				$( document.body ).trigger( 'init_tooltips' );
+				// Added hook on Table Cell
+				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
 			}
 		} );
 
@@ -150,7 +150,7 @@ function ac_quickedit_events( $ ) {
 	$( document ).ajaxComplete( function( event, request ) {
 		var $result = $( '<div>' ).append( request.responseText );
 
-		if ( $result.find( 'tr.iedit' ).length == 1 ) {
+		if ( $result.find( 'tr.iedit' ).length === 1 ) {
 			var id = $result.find( 'tr.iedit' ).attr( 'id' );
 
 			$( 'tr#' + id ).trigger( 'updated' );
