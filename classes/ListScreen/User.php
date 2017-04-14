@@ -53,4 +53,8 @@ class AC_ListScreen_User extends AC_ListScreen {
 		return $table->single_row( get_userdata( $user_id ) );
 	}
 
+	protected function register_column_types() {
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', 'AC_' );
+	}
+
 }

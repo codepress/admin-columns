@@ -126,7 +126,13 @@ abstract class AC_ListScreen {
 	 *
 	 * @return void
 	 */
-	abstract function set_manage_value_callback();
+	abstract public function set_manage_value_callback();
+
+	/**
+	 * Register column types
+	 * @return void
+	 */
+	abstract protected function register_column_types();
 
 	public function get_key() {
 		return $this->key;
@@ -504,7 +510,8 @@ abstract class AC_ListScreen {
 		$this->register_column_type( new AC_Column_CustomField() );
 		$this->register_column_type( new AC_Column_UsedByMenu() );
 
-		$this->register_column_types_from_dir( $this->get_local_column_path(), 'AC_' );
+		// Load Custom columns
+		$this->register_column_types();
 
 		/**
 		 * Register column types
@@ -525,21 +532,6 @@ abstract class AC_ListScreen {
 		foreach ( $classes as $class ) {
 			$this->register_column_type( new $class );
 		}
-	}
-
-	/**
-	 * @param string $string Converts string to uppercase class name
-	 *
-	 * @return string
-	 */
-	public function get_local_column_path() {
-		$path = AC()->get_plugin_dir() . 'classes/Column/' . AC_Autoloader::string_to_classname( $this->get_group() );
-
-		if ( ! is_dir( $path ) ) {
-			return false;
-		}
-
-		return $path;
 	}
 
 	/**
@@ -804,6 +796,10 @@ abstract class AC_ListScreen {
 			return $original_value;
 		}
 
+		if ( $column instanceof AC_Column_AjaxValue && $value !== $column->get_empty_char() ) {
+			$value = $this->toggle_box_ajax( $id, $value, $column->get_name() );
+		}
+
 		/**
 		 * Column display value
 		 *
@@ -814,6 +810,20 @@ abstract class AC_ListScreen {
 		 * @param AC_Column $column Column object
 		 */
 		return apply_filters( 'ac/column/value', $value, $id, $column );
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $label
+	 * @param string $column_name
+	 */
+	private function toggle_box_ajax( $id, $label, $column_name ) {
+		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
+			'class'              => 'ac-toggle-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $id,
+			'data-ajax-populate' => 1,
+		) );
 	}
 
 	/**
