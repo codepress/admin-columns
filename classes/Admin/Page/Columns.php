@@ -33,6 +33,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
+	    $list_screen = $this->get_current_list_screen();
+
+	    if ( ! $list_screen ) {
+	        return;
+        }
+
 		$minified = AC()->minified();
 
 		// Width slider
@@ -51,9 +57,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
 			'_ajax_nonce'      => wp_create_nonce( 'ac-settings' ),
-			'list_screen'      => $this->get_current_list_screen()->get_key(),
-			'layout'           => $this->get_current_list_screen()->get_layout_id(),
-			'original_columns' => $this->get_current_list_screen()->get_original_columns(),
+			'list_screen'      => $list_screen->get_key(),
+			'layout'           => $list_screen->get_layout_id(),
+			'original_columns' => $list_screen->get_original_columns(),
 			'i18n'             => array(
 				'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 				'error' => __( 'Invalid response.', 'codepress-admin-columns' ),

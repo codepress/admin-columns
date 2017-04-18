@@ -103,6 +103,11 @@ class CPAC {
 	private $api;
 
 	/**
+	 * @var AC_Addons
+	 */
+	private $addons;
+
+	/**
 	 * @since 2.5
 	 */
 	private static $_instance = null;
@@ -145,12 +150,14 @@ class CPAC {
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
+		$this->addons = new AC_Addons();
 
 		new AC_Notice_Review();
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Notices
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
@@ -160,9 +167,7 @@ class CPAC {
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function ready() {
@@ -317,13 +322,11 @@ class CPAC {
 	}
 
 	/**
-	 * Get admin columns add-ons class instance
-	 *
 	 * @since 2.2
-	 * @return AC_Admin_Page_Addons Add-ons class instance
+	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->admin()->get_page( 'addons' );
+		return $this->addons;
 	}
 
 	/**
