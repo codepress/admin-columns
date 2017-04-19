@@ -2,7 +2,7 @@
 
 class AC_Admin_Page_Columns extends AC_Admin_Page {
 
-	CONST OPTION_CURRENT = 'cpac_current_model';
+	const OPTION_CURRENT = 'cpac_current_model';
 
 	/**
 	 * @var array

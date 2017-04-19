@@ -5,7 +5,7 @@
  */
 class AC_Admin {
 
-	CONST MENU_SLUG = 'codepress-admin-columns';
+	const MENU_SLUG = 'codepress-admin-columns';
 
 	/**
 	 * Settings Page hook suffix

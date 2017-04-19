@@ -7,7 +7,7 @@
  */
 abstract class AC_ListScreen {
 
-	CONST OPTIONS_KEY = 'cpac_options_';
+	const OPTIONS_KEY = 'cpac_options_';
 
 	/**
 	 * Unique Identifier for List Screen.

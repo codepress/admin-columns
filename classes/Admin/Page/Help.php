@@ -2,7 +2,7 @@
 
 class AC_Admin_Page_Help extends AC_Admin_Page {
 
-	CONST TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
+	const TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
 
 	private $messages = array();
 

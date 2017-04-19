@@ -2,9 +2,9 @@
 
 class AC_Admin_Page_Settings extends AC_Admin_Page {
 
-	CONST SETTINGS_NAME = 'cpac_general_options';
+	const SETTINGS_NAME = 'cpac_general_options';
 
-	CONST SETTINGS_GROUP = 'cpac-general-settings';
+	const SETTINGS_GROUP = 'cpac-general-settings';
 
 	private $options;
 
