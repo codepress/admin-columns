@@ -35,13 +35,8 @@ class AC_Admin {
 
 		$this->pages
 			->register_page( new AC_Admin_Page_Columns() )
-			->register_page( new AC_Admin_Page_Settings() );
-
-		if ( current_user_can( 'install_plugins' ) ) {
-			$this->pages->register_page( new AC_Admin_Page_Addons() );
-		}
-
-		$this->pages
+			->register_page( new AC_Admin_Page_Settings() )
+			->register_page( new AC_Admin_Page_Addons() )
 			->register_page( new AC_Admin_Page_Help() )
 			// Hidden
 			->register_page( new AC_Admin_Page_Welcome() )

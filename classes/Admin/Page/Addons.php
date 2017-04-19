@@ -27,9 +27,13 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_admin_columns' ) ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'install_plugins' ) ) {
-		    return;
-        }
+			return;
+		}
 
 		$addons = AC()->addons()->get_active_addons();
 
@@ -392,20 +396,19 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 									// Active
 									if ( $addon->is_active() ) : ?>
                                         <span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
-                                        <a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
-										<?php
+
+										<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
+                                            <a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
+										<?php endif;
 									// Installed
-									else : ?>
+                                    elseif ( current_user_can( 'activate_plugins' ) ) : ?>
                                         <a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
 
 								// Not installed...
 								else :
-
-									if ( ac_is_pro_active() ) :
-										$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' );
-										?>
-                                        <a href="<?php echo esc_url( $install_url ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
+									if ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
+                                        <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php else : ?>
                                         <a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
