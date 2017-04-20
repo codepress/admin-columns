@@ -6,9 +6,11 @@ class AC_Helper_String {
 	 * @since 1.3.1
 	 */
 	public function shorten_url( $url ) {
+		if ( ! $url ) {
+			return false;
+		}
 
-		// TODO
-		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
+		return ac_helper()->html->link( $url, url_shorten( $url ), array( 'title' => $url ) );
 	}
 
 	/**

@@ -70,7 +70,7 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 		}
 
 		if ( ! $label ) {
-			$label = $this->column->get_empty_char();
+			$label = false;
 		}
 
 		return ac_helper()->html->link( get_edit_term_link( $term_id, $this->column->get_taxonomy() ), $label );
