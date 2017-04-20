@@ -1,3 +1,5 @@
+@import '_colors';
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -82,7 +84,6 @@ body.upload-php .tablenav.top .cpac-edit {
 		outline: none;
 		box-shadow: none;
 	}
-
 	.spinner {
 		float: none;
 		margin-top: -2px;
@@ -117,6 +118,73 @@ table.ac-table-items {
 				padding-right: 6px;
 				text-align: left;
 			}
+		}
+	}
+}
+
+/* =Storage Space column
+-------------------------------------------------------------- */
+.ac-upload-space {
+	.ac-upload-space-labels {
+		overflow: hidden;
+
+		&:before {
+			color: #82878c;
+			content: "\f104";
+			display: inline-block;
+			font-family: 'dashicons', serif;
+			width: 20px;
+			height: 20px;
+			font-size: 18px;
+			line-height: 1;
+			text-decoration: inherit;
+			font-weight: normal;
+			font-style: normal;
+			vertical-align: top;
+			text-align: center;
+			margin-right: 4px;
+		}
+
+		.size-right {
+			float: right;
+		}
+	}
+	.ac-upload-space-progress {
+		margin-top: 6px;
+		height: 3px;
+		background: white;
+		border: 1px solid #dfdfdf;
+		position: relative;
+
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-success;
+			height: 100%;
+			display: block;
+		}
+	}
+
+	&.warning {
+		.ac-upload-space-labels {
+			&:before {
+				color: $wp-color-warning;
+				content: "\f534";
+				margin-top: 1px;
+			}
+		}
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-warning;
+		}
+	}
+	&.full {
+		.ac-upload-space-labels {
+			&:before {
+				color: $wp-color-notification;
+				content: "\f153";
+				margin-top: 1px;
+			}
+		}
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-error;
 		}
 	}
 }

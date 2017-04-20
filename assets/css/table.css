@@ -81,6 +81,55 @@ table.ac-table-items {
       padding-right: 6px;
       text-align: left; }
 
+/* =Storage Space column
+-------------------------------------------------------------- */
+.ac-upload-space .ac-upload-space-labels {
+  overflow: hidden; }
+  .ac-upload-space .ac-upload-space-labels:before {
+    color: #82878c;
+    content: "\f104";
+    display: inline-block;
+    font-family: 'dashicons', serif;
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+    line-height: 1;
+    text-decoration: inherit;
+    font-weight: normal;
+    font-style: normal;
+    vertical-align: top;
+    text-align: center;
+    margin-right: 4px; }
+  .ac-upload-space .ac-upload-space-labels .size-right {
+    float: right; }
+
+.ac-upload-space .ac-upload-space-progress {
+  margin-top: 6px;
+  height: 3px;
+  background: white;
+  border: 1px solid #dfdfdf;
+  position: relative; }
+  .ac-upload-space .ac-upload-space-progress .ac-upload-space-progress-bar {
+    background-color: #46b450;
+    height: 100%;
+    display: block; }
+
+.ac-upload-space.warning .ac-upload-space-labels:before {
+  color: #ffb900;
+  content: "\f534";
+  margin-top: 1px; }
+
+.ac-upload-space.warning .ac-upload-space-progress-bar {
+  background-color: #ffb900; }
+
+.ac-upload-space.full .ac-upload-space-labels:before {
+  color: #d54e21;
+  content: "\f153";
+  margin-top: 1px; }
+
+.ac-upload-space.full .ac-upload-space-progress-bar {
+  background-color: #dc3232; }
+
 /* =Network screen
 -------------------------------------------------------------- */
 #form-site-list .tablenav .actions .cpac-edit {
