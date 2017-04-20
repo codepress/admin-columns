@@ -387,7 +387,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function get_raw_value( $id ) {
 		return null;

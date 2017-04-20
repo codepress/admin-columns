@@ -67,6 +67,9 @@ function ac_toggle_box_ajax_init( $ ) {
 
 				// Added hook on Table Cell
 				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
+
+				// Re-init tooltips
+				ac_tooltips( $ );
 			}
 		} );
 

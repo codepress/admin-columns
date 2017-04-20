@@ -22,6 +22,9 @@ final class AC_TableScreen {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
 	}
 
+	/**
+	 * Get column value by ajax.
+	 */
 	public function ajax_get_column_value() {
 		check_ajax_referer( 'ac-ajax' );
 
@@ -52,6 +55,7 @@ final class AC_TableScreen {
 
 		// Trigger ajax callback
 		echo $column->get_ajax_value( $id );
+		exit;
 	}
 
 	private function ajax_error( $message ) {
