@@ -6,6 +6,8 @@ class AC_Helper_String {
 	 * @since 1.3.1
 	 */
 	public function shorten_url( $url ) {
+
+		// TODO
 		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
 	}
 
@@ -212,6 +214,8 @@ class AC_Helper_String {
 	 * @return string Display empty value
 	 */
 	public function get_empty_char() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
 		return '&ndash;';
 	}
 
