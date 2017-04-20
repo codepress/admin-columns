@@ -123,6 +123,28 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC_Column::get_ajax_value.
+	 *
+	 * @param int    $id
+	 * @param string $label
+	 * @param string $column_name
+	 *
+	 * @return string|false HTML
+	 */
+	public function toggle_box_ajax( $id, $label, $column_name ) {
+		if ( ! $label ) {
+			return false;
+		}
+
+		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
+			'class'              => 'ac-toggle-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $id,
+			'data-ajax-populate' => 1,
+		) );
+	}
+
+	/**
 	 * @param string $string
 	 * @param int    $max_chars
 	 *
