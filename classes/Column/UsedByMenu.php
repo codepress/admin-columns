@@ -11,7 +11,6 @@ class AC_Column_UsedByMenu extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
 		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
-		$this->get_empty_char();
 	}
 
 	/**

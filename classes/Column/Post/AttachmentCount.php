@@ -10,7 +10,6 @@ class AC_Column_Post_AttachmentCount extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-attachment_count' );
 		$this->set_label( __( 'Attachment Count', 'codepress-admin-columns' ) );
-		$this->get_empty_char();
 	}
 
 	public function get_raw_value( $post_id ) {

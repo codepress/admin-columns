@@ -8,7 +8,6 @@ class AC_Column_Post_EstimatedReadingTime extends AC_Column {
 	public function __construct() {
 		$this->set_type( 'column-estimated_reading_time' );
 		$this->set_label( __( 'Estimated Reading Time', 'codepress-admin-columns' ) );
-		$this->get_empty_char();
 	}
 
 	/**
