@@ -146,11 +146,11 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Init
+		$this->addons = new AC_Addons();
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
-		$this->addons = new AC_Addons();
 
 		new AC_Notice_Review();
 
@@ -598,6 +598,7 @@ function cpac() {
 
 /**
  * @since 3.0
+ * @return CPAC
  */
 function AC() {
 	return CPAC::instance();

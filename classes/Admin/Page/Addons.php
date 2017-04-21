@@ -20,6 +20,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		add_action( 'admin_init', array( $this, 'show_missing_plugin_notice' ) );
 		add_action( 'admin_notices', array( $this, 'missing_addon_notices' ) );
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function show_missing_plugin_notice() {
@@ -125,7 +126,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    if ( $this->is_current_screen() ) {
+		    wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    }
 	}
 
 	/**

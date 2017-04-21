@@ -18,13 +18,14 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
 
 		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
-
-		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function admin_scripts() {
-    	wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    if ( $this->is_current_screen() ) {
+		    wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    }
 	}
 
 	public function set_capability() {

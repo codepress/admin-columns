@@ -35,4 +35,11 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
+	protected function register_column_types() {
+		$this->register_column_type( new AC_Column_CustomField() );
+		$this->register_column_type( new AC_Column_UsedByMenu() );
+
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Media', 'AC_' );
+	}
+
 }

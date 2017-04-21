@@ -126,27 +126,44 @@ table.ac-table-items {
 -------------------------------------------------------------- */
 .ac-upload-space {
 	.ac-upload-space-labels {
-		overflow: hidden;
+		display: table;
+		width: 100%;
 
-		&:before {
-			color: #82878c;
-			content: "\f104";
-			display: inline-block;
-			font-family: 'dashicons', serif;
-			width: 20px;
-			height: 20px;
-			font-size: 18px;
-			line-height: 1;
-			text-decoration: inherit;
-			font-weight: normal;
-			font-style: normal;
-			vertical-align: top;
-			text-align: center;
-			margin-right: 4px;
-		}
+		.inner {
+			display: table-row;
 
-		.size-right {
-			float: right;
+			.ac-upload-space-icon {
+				display: table-cell;
+
+				&:before {
+					color: #82878c;
+					content: "\f104";
+					display: inline-block;
+					font-family: 'dashicons', serif;
+					width: 20px;
+					height: 20px;
+					font-size: 18px;
+					line-height: 1;
+					text-decoration: inherit;
+					font-weight: normal;
+					font-style: normal;
+					vertical-align: top;
+					text-align: center;
+					margin-right: 4px;
+				}
+			}
+
+			.ac-upload-space-left {
+				display: table-cell;
+				white-space: nowrap;
+			}
+			.ac-upload-space-right {
+				width: 100%;
+				text-align: right;
+				padding-left: 6px;
+				display: table-cell;
+				white-space: nowrap;
+			}
 		}
 	}
 	.ac-upload-space-progress {
@@ -164,25 +181,23 @@ table.ac-table-items {
 	}
 
 	&.warning {
-		.ac-upload-space-labels {
-			&:before {
-				color: $wp-color-warning;
-				content: "\f534";
-				margin-top: 1px;
-			}
+		.ac-upload-space-icon:before {
+			color: $wp-color-warning;
+			content: "\f534";
+			margin-top: 1px;
 		}
+
 		.ac-upload-space-progress-bar {
 			background-color: $wp-color-warning;
 		}
 	}
 	&.full {
-		.ac-upload-space-labels {
-			&:before {
-				color: $wp-color-notification;
-				content: "\f153";
-				margin-top: 1px;
-			}
+		.ac-upload-space-icon:before {
+			color: $wp-color-notification;
+			content: "\f153";
+			margin-top: 1px;
 		}
+
 		.ac-upload-space-progress-bar {
 			background-color: $wp-color-error;
 		}

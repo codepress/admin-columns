@@ -20,6 +20,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		// Init and request
 		add_action( 'admin_init', array( $this, 'init' ), 9 );
 		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -66,7 +67,9 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    if ( $this->is_current_screen() ) {
+		    wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    }
 	}
 
 	private function update_message_count() {

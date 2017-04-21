@@ -23,6 +23,7 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'set_pages' ) );
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
@@ -30,7 +31,7 @@ class AC_Admin {
 	/**
 	 * Load pages
 	 */
-	private function set_pages() {
+	public function set_pages() {
 		$this->pages = new AC_Admin_Pages();
 
 		$this->pages
@@ -49,10 +50,6 @@ class AC_Admin {
 	 * @return AC_Admin_Pages|false
 	 */
 	public function get_pages() {
-		if ( null === $this->pages ) {
-			$this->set_pages();
-		}
-
 		return $this->pages;
 	}
 
@@ -64,19 +61,11 @@ class AC_Admin {
 			return;
 		}
 
-		do_action( 'ac/admin_scripts', $this );
-
-		if ( $page = $this->get_pages()->get_current_page() ) {
-			do_action( 'ac/admin_scripts/' . $page->get_slug(), $this );
-
-			$page->admin_scripts();
-		}
-
-		// General scripts
 		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general" . AC()->minified() . ".js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
-
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'ac-admin', AC()->get_plugin_url() . "assets/css/admin-general" . AC()->minified() . ".css", array(), AC()->get_version() );
+
+		do_action( 'ac/admin_scripts', $this );
 	}
 
 	/**

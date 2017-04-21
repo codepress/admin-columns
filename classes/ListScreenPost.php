@@ -49,8 +49,4 @@ abstract class AC_ListScreenPost extends AC_ListScreen {
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
 	}
 
-	protected function register_column_types() {
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Post', 'AC_' );
-	}
-
 }

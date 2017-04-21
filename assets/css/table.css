@@ -84,24 +84,36 @@ table.ac-table-items {
 /* =Storage Space column
 -------------------------------------------------------------- */
 .ac-upload-space .ac-upload-space-labels {
-  overflow: hidden; }
-  .ac-upload-space .ac-upload-space-labels:before {
-    color: #82878c;
-    content: "\f104";
-    display: inline-block;
-    font-family: 'dashicons', serif;
-    width: 20px;
-    height: 20px;
-    font-size: 18px;
-    line-height: 1;
-    text-decoration: inherit;
-    font-weight: normal;
-    font-style: normal;
-    vertical-align: top;
-    text-align: center;
-    margin-right: 4px; }
-  .ac-upload-space .ac-upload-space-labels .size-right {
-    float: right; }
+  display: table;
+  width: 100%; }
+  .ac-upload-space .ac-upload-space-labels .inner {
+    display: table-row; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-icon {
+      display: table-cell; }
+      .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-icon:before {
+        color: #82878c;
+        content: "\f104";
+        display: inline-block;
+        font-family: 'dashicons', serif;
+        width: 20px;
+        height: 20px;
+        font-size: 18px;
+        line-height: 1;
+        text-decoration: inherit;
+        font-weight: normal;
+        font-style: normal;
+        vertical-align: top;
+        text-align: center;
+        margin-right: 4px; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-left {
+      display: table-cell;
+      white-space: nowrap; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-right {
+      width: 100%;
+      text-align: right;
+      padding-left: 6px;
+      display: table-cell;
+      white-space: nowrap; }
 
 .ac-upload-space .ac-upload-space-progress {
   margin-top: 6px;
@@ -114,7 +126,7 @@ table.ac-table-items {
     height: 100%;
     display: block; }
 
-.ac-upload-space.warning .ac-upload-space-labels:before {
+.ac-upload-space.warning .ac-upload-space-icon:before {
   color: #ffb900;
   content: "\f534";
   margin-top: 1px; }
@@ -122,7 +134,7 @@ table.ac-table-items {
 .ac-upload-space.warning .ac-upload-space-progress-bar {
   background-color: #ffb900; }
 
-.ac-upload-space.full .ac-upload-space-labels:before {
+.ac-upload-space.full .ac-upload-space-icon:before {
   color: #d54e21;
   content: "\f153";
   margin-top: 1px; }

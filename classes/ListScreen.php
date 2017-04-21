@@ -481,7 +481,7 @@ abstract class AC_ListScreen {
 	/**
 	 * Available column types
 	 */
-	public function set_column_types() {
+	private function set_column_types() {
 
 		// Register default columns
 		foreach ( $this->get_original_columns() as $type => $label ) {
@@ -506,9 +506,6 @@ abstract class AC_ListScreen {
 				$this->register_column_type( $addon->get_placeholder_column() );
 			}
 		}
-
-		$this->register_column_type( new AC_Column_CustomField() );
-		$this->register_column_type( new AC_Column_UsedByMenu() );
 
 		// Load Custom columns
 		$this->register_column_types();

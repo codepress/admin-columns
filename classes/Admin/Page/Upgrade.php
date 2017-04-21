@@ -27,6 +27,8 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 		if ( ! $this->allow_upgrade() ) {
 			add_action( 'ac/settings/after_menu', array( $this, 'proaddon_notice' ) );
 		}
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -293,6 +295,10 @@ class AC_Admin_Page_Upgrade extends AC_Admin_Page {
 	 * @since 2.0
 	 */
 	public function admin_scripts() {
+	    if ( ! $this->is_current_screen() ) {
+	        return;
+        }
+
 		wp_enqueue_script( 'ac-upgrade', AC()->get_plugin_url() . 'assets/js/upgrade.js', array( 'jquery' ), AC()->get_version() );
 		wp_localize_script( 'ac-upgrade', 'cpac_upgrade_i18n', array(
 			'complete'    => __( 'Upgrade Complete!', 'codepress-admin-columns' ) . '</p><p><a href="' . esc_url( AC()->admin()->get_link( 'welcome' ) ) . '">' . __( 'Return to settings.', 'codepress-admin-columns' ) . "</a>",

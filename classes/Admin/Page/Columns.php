@@ -22,6 +22,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -33,11 +34,15 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-	    $list_screen = $this->get_current_list_screen();
-
-	    if ( ! $list_screen ) {
+	    if ( ! $this->is_current_screen() ) {
 	        return;
         }
+
+		$list_screen = $this->get_current_list_screen();
+
+		if ( ! $list_screen ) {
+			return;
+		}
 
 		$minified = AC()->minified();
 
@@ -66,7 +71,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			),
 		) );
 
-		do_action( 'ac/settings_scripts' );
+		do_action( 'ac/settings/scripts' );
 	}
 
 	public function set_layout_preference( $layout ) {
@@ -111,6 +116,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			$list_screen = $this->get_first_list_screen();
 		}
 
+		// Load table headers
 		if ( ! $list_screen->get_original_columns() ) {
 			$this->set_original_table_headers( $list_screen );
 		}
@@ -547,7 +553,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                                     </ul>
 
-									<?php if ( $promos = AC()->addons()->get_addons_promo() ) : ?>
+									<?php if ( $promos = AC()->addons()->get_missing_addons() ) : ?>
                                         <strong><?php _e( 'Extra Columns for:', 'codepress-admin-columns' ); ?></strong>
                                         <ul>
 											<?php foreach ( $promos as $addon ) : ?>
