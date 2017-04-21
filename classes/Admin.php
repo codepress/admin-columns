@@ -137,6 +137,9 @@ class AC_Admin {
 		new AC_Admin_Help_CustomField();
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function is_admin_screen() {
 		global $pagenow;
 
