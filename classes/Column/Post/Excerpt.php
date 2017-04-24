@@ -13,7 +13,7 @@ class AC_Column_Post_Excerpt extends AC_Column {
 	public function get_value( $post_id ) {
 		$value = parent::get_value( $post_id );
 
-		if ( $value && ! has_excerpt( $post_id ) ) {
+		if ( $value && ! has_excerpt( $post_id ) && $value !== $this->get_empty_char() ) {
 			$value = '<span class="ac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
 		}
 
