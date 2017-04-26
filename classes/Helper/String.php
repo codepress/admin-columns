@@ -216,7 +216,7 @@ class AC_Helper_String {
 	 * @return string Display empty value
 	 */
 	public function get_empty_char() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.0' );
 
 		return '&ndash;';
 	}
