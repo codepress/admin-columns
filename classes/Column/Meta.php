@@ -31,11 +31,17 @@ abstract class AC_Column_Meta extends AC_Column {
 	}
 
 	/**
-	 * @see AC_Column::get_raw_value()
+	 * @see   AC_Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id ) {
-		return $this->get_meta_value( $id, $this->get_meta_key(), true );
+		$value = $this->get_meta_value( $id, $this->get_meta_key(), true );
+
+		if( ! $value ){
+			return false;
+		}
+
+		return $value;
 	}
 
 	/**

@@ -53,6 +53,11 @@ class AC_Column {
 	protected $options = array();
 
 	/**
+	 * @var string|bool
+	 */
+	private $empty_char;
+
+	/**
 	 * Get the unique name of the column
 	 *
 	 * @since 2.3.4
@@ -382,7 +387,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function get_raw_value( $id ) {
 		return null;
@@ -402,6 +407,10 @@ class AC_Column {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
+		if ( ! $value && ! $this->is_original() ) {
+			$value = $this->get_empty_char();
+		}
+
 		return (string) $value;
 	}
 
@@ -410,6 +419,24 @@ class AC_Column {
 	 */
 	public function get_separator() {
 		return ', ';
+	}
+
+	/**
+	 * @param string
+	 */
+	public function set_empty_char( $char ) {
+		$this->empty_char = (string) $char;
+	}
+
+	/**
+	 * @return bool|string
+	 */
+	public function get_empty_char() {
+		if ( null === $this->empty_char ) {
+			$this->set_empty_char( '&ndash;' );
+		}
+
+		return apply_filters( 'ac/empty_char', $this->empty_char, $this );
 	}
 
 }

@@ -50,6 +50,98 @@ body.users-php .tablenav .actions a.add-new-h2 {
 body.upload-php .tablenav.top .cpac-edit {
   float: none; }
 
+/* =Column values
+-------------------------------------------------------------- */
+.ac-toggle-box-link:focus {
+  outline: none;
+  box-shadow: none; }
+
+.ac-toggle-box-link .spinner {
+  float: none;
+  margin-top: -2px; }
+
+.ac-toggle-box-link.loading .spinner {
+  visibility: visible; }
+
+.ac-toggle-box-contents-ajax {
+  padding: 5px 0 0; }
+
+.ac-toggle-box-contents {
+  display: none;
+  padding: 5px 0 0; }
+
+table.ac-table-items {
+  border-spacing: 0; }
+  table.ac-table-items tr td {
+    border: 0;
+    margin: 0;
+    padding: 0 0 3px; }
+    table.ac-table-items tr td.ac-table-item-qty {
+      color: #999;
+      padding-right: 6px;
+      text-align: left; }
+
+/* =Storage Space column
+-------------------------------------------------------------- */
+.ac-upload-space .ac-upload-space-labels {
+  display: table;
+  width: 100%; }
+  .ac-upload-space .ac-upload-space-labels .inner {
+    display: table-row; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-icon {
+      display: table-cell; }
+      .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-icon:before {
+        color: #82878c;
+        content: "\f104";
+        display: inline-block;
+        font-family: 'dashicons', serif;
+        width: 20px;
+        height: 20px;
+        font-size: 18px;
+        line-height: 1;
+        text-decoration: inherit;
+        font-weight: normal;
+        font-style: normal;
+        vertical-align: top;
+        text-align: center;
+        margin-right: 4px; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-left {
+      display: table-cell;
+      white-space: nowrap; }
+    .ac-upload-space .ac-upload-space-labels .inner .ac-upload-space-right {
+      width: 100%;
+      text-align: right;
+      padding-left: 6px;
+      display: table-cell;
+      white-space: nowrap; }
+
+.ac-upload-space .ac-upload-space-progress {
+  margin-top: 6px;
+  height: 3px;
+  background: white;
+  border: 1px solid #dfdfdf;
+  position: relative; }
+  .ac-upload-space .ac-upload-space-progress .ac-upload-space-progress-bar {
+    background-color: #46b450;
+    height: 100%;
+    display: block; }
+
+.ac-upload-space.warning .ac-upload-space-icon:before {
+  color: #ffb900;
+  content: "\f534";
+  margin-top: 1px; }
+
+.ac-upload-space.warning .ac-upload-space-progress-bar {
+  background-color: #ffb900; }
+
+.ac-upload-space.full .ac-upload-space-icon:before {
+  color: #d54e21;
+  content: "\f153";
+  margin-top: 1px; }
+
+.ac-upload-space.full .ac-upload-space-progress-bar {
+  background-color: #dc3232; }
+
 /* =Network screen
 -------------------------------------------------------------- */
 #form-site-list .tablenav .actions .cpac-edit {

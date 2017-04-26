@@ -56,11 +56,16 @@ class AC_Helper_Html {
 			$label = esc_html( $label );
 		}
 
+		if ( array_key_exists( 'tooltip', $attributes ) ) {
+			$attributes['data-ac-tip'] = $attributes['tooltip'];
+			unset( $attributes['tooltip'] );
+		}
+
 		$allowed = wp_allowed_protocols();
 		$allowed[] = 'skype';
 		$allowed[] = 'call';
 
-		return '<a href="' . esc_url( $url, $allowed ) . '"' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
+		return '<a href="' . esc_url( $url, $allowed ) . '" ' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
 	}
 
 	/**
@@ -71,6 +76,19 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function get_tooltip_attr( $content ) {
+		if ( ! $content ) {
+			return false;
+		}
+
+		return 'data-ac-tip="' . esc_attr( $content ) . '"';
+	}
+
+	/**
 	 * @param $label
 	 * @param $tooltip
 	 *
@@ -78,10 +96,52 @@ class AC_Helper_Html {
 	 */
 	public function tooltip( $label, $tooltip ) {
 		if ( $label && $tooltip ) {
-			$label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
+			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . '>' . $label . '</span>';
 		}
 
 		return $label;
+	}
+
+	/**
+     * Displays a toggle Box.
+     *
+	 * @param string $label
+	 * @param string $contents
+	 */
+	public function toggle_box( $label, $contents ) {
+	    if ( ! $label ) {
+	        return;
+        }
+
+		if ( $contents ) : ?>
+            <a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
+            <div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
+			<?php
+		else :
+			echo $label;
+		endif;
+	}
+
+	/**
+	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC_Column::get_ajax_value.
+	 *
+	 * @param int    $id
+	 * @param string $label
+	 * @param string $column_name
+	 *
+	 * @return string|false HTML
+	 */
+	public function toggle_box_ajax( $id, $label, $column_name ) {
+		if ( ! $label ) {
+			return false;
+		}
+
+		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
+			'class'              => 'ac-toggle-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $id,
+			'data-ajax-populate' => 1,
+		) );
 	}
 
 	/**
@@ -287,14 +347,14 @@ class AC_Helper_Html {
 	}
 
 	/**
-     * Return round HTML span
-     *
+	 * Return round HTML span
+	 *
 	 * @param $string
 	 *
 	 * @return string
 	 */
 	public function rounded( $string ) {
-        return '<span class="ac-rounded">' . $string . '</span>';
+		return '<span class="ac-rounded">' . $string . '</span>';
 	}
 
 }

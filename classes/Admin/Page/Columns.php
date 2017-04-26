@@ -2,7 +2,7 @@
 
 class AC_Admin_Page_Columns extends AC_Admin_Page {
 
-	CONST OPTION_CURRENT = 'cpac_current_model';
+	const OPTION_CURRENT = 'cpac_current_model';
 
 	/**
 	 * @var array
@@ -22,6 +22,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -33,6 +34,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
+	    if ( ! $this->is_current_screen() ) {
+	        return;
+        }
+
+		$list_screen = $this->get_current_list_screen();
+
+		if ( ! $list_screen ) {
+			return;
+		}
+
 		$minified = AC()->minified();
 
 		// Width slider
@@ -51,16 +62,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
 			'_ajax_nonce'      => wp_create_nonce( 'ac-settings' ),
-			'list_screen'      => $this->get_current_list_screen()->get_key(),
-			'layout'           => $this->get_current_list_screen()->get_layout_id(),
-			'original_columns' => $this->get_current_list_screen()->get_original_columns(),
+			'list_screen'      => $list_screen->get_key(),
+			'layout'           => $list_screen->get_layout_id(),
+			'original_columns' => $list_screen->get_original_columns(),
 			'i18n'             => array(
 				'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 				'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
 			),
 		) );
 
-		do_action( 'ac/settings_scripts' );
+		do_action( 'ac/settings/scripts' );
 	}
 
 	public function set_layout_preference( $layout ) {
@@ -105,6 +116,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			$list_screen = $this->get_first_list_screen();
 		}
 
+		// Load table headers
 		if ( ! $list_screen->get_original_columns() ) {
 			$this->set_original_table_headers( $list_screen );
 		}
@@ -215,7 +227,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
-		$list_screen->set_original_columns( (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) );
+		// Load default headings
+		if ( ! $list_screen->get_stored_default_headings() ) {
+			$list_screen->set_original_columns( (array) filter_input( INPUT_POST, 'original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) );
+		}
 
 		return $list_screen;
 	}
@@ -353,14 +368,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$list_screens = array();
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-
-			/**
-			 * @param string        $group Group slug
-			 * @param AC_ListScreen $list_screen
-			 */
-			$group = apply_filters( 'ac/list_screen_group', $list_screen->get_group(), $list_screen );
-
-			$list_screens[ $group ][ $list_screen->get_key() ] = $list_screen->get_label();
+			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
@@ -545,7 +553,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
                                     </ul>
 
-									<?php if ( $promos = AC()->addons()->get_addons_promo() ) : ?>
+									<?php if ( $promos = AC()->addons()->get_missing_addons() ) : ?>
                                         <strong><?php _e( 'Extra Columns for:', 'codepress-admin-columns' ); ?></strong>
                                         <ul>
 											<?php foreach ( $promos as $addon ) : ?>

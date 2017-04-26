@@ -223,7 +223,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				if ( $value && is_scalar( $value ) ) {
 					$value = ac_helper()->string->get_color_block( $value );
 				} else {
-					$value = ac_helper()->string->get_empty_char();
+					$value = false;
 				}
 
 				break;
@@ -243,7 +243,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 							$value = count( $value );
 						}
 					} else {
-						$value = ac_helper()->string->get_empty_char();
+						$value = false;
 					}
 				}
 

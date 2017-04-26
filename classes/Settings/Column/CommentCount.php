@@ -79,7 +79,7 @@ class AC_Settings_Column_CommentCount extends AC_Settings_Column
 		$count = wp_count_comments( $post_id );
 
 		if ( empty( $count->$status ) ) {
-			return ac_helper()->string->get_empty_char();
+			return $this->column->get_empty_char();
 		}
 
 		return ac_helper()->html->link( add_query_arg( array( 'p' => $post_id, 'comment_status' => $status ), admin_url( 'edit-comments.php' ) ), $count->$status );

@@ -77,13 +77,6 @@ abstract class AC_Admin_Page {
 	}
 
 	/**
-	 * Place your enqueue_scripts here
-	 */
-	public function admin_scripts() {
-
-	}
-
-	/**
 	 * @return string URL
 	 */
 	public function get_link() {

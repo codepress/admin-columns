@@ -32,7 +32,7 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 		$sizes = $this->get_raw_value( $id );
 
 		if ( ! $sizes ) {
-			return ac_helper()->string->get_empty_char();
+			return $this->get_empty_char();
 		}
 
 		$paths = array();
