@@ -235,7 +235,7 @@ final class AC_TableScreen {
 
 				if ( $width = $setting->get_display_width() ) {
 					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
-					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
+					$css_column_width .= "body.acp-overflow-table.ac-" . $this->current_list_screen->get_key() . " .wrap th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
 				}
 			}
 
@@ -310,7 +310,7 @@ final class AC_TableScreen {
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	private function set_current_list_screen( $list_screen ) {
+	public function set_current_list_screen( $list_screen ) {
 		if ( ! $list_screen ) {
 			return;
 		}
