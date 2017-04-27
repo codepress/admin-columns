@@ -131,7 +131,21 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
             </div>
 			<?php
 		endif;
+	}
 
+	/**
+	 * @param bool $type
+	 *
+	 * @return string
+	 */
+	public function get_default_text( $type = 'on' ) {
+	    $string = __( 'off', 'codepress-admin-columns' );
+
+	    if ( 'on' === $type ) {
+		    $string = __( 'on', 'codepress-admin-columns' );
+        }
+
+		return sprintf( __( "Default is %s.", 'codepress-admin-columns' ), '<code>' . $string . '</code>' );
 	}
 
 	public function display() { ?>
@@ -150,7 +164,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 						<?php
 						$this->single_checkbox( array(
 							'name'          => 'show_edit_button',
-							'label'         => __( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ),
+							'label'         => sprintf( __( "Show %s button on table screen.", 'codepress-admin-columns' ), '"' . __( 'Edit columns', 'codepress-admin-columns' ) . '"' ) . ' ' . $this->get_default_text( 'on' ),
 							'default_value' => '1',
 						) );
 						?>
