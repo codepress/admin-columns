@@ -37,14 +37,6 @@ abstract class AC_Column_Actions extends AC_Column {
 		return '';
 	}
 
-	/**
-	 * @see AC_Column::get_value()
-	 * @since 2.2.6
-	 */
-	public function get_raw_value( $id ) {
-		return ac_action_column_helper()->get( $this->get_object_type(), $id );
-	}
-
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_ActionIcons( $this ) );
 	}
