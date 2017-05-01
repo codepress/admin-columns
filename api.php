@@ -63,7 +63,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
  * @return string
  */
 function ac_get_twitter_handle() {
-	return 'wpcolumns';
+	return 'admincolumns';
 }
 
 /**
