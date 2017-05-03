@@ -220,7 +220,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 3.0 =
 
-Release Date: April 25th, 2017
+Release Date: May 3rd, 2017
 
 * [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](https://www.admincolumns.com/documentation/faq/upgrading-from-v3-to-v4/)
 * [Improved] Column will now have a default empty value (dash character)
