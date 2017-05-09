@@ -218,6 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date:
+
+* [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+
+
 = 3.0 =
 
 Release Date: May 3rd, 2017

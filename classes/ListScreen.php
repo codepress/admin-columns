@@ -475,7 +475,7 @@ abstract class AC_ListScreen {
 	 * @param array $columns
 	 */
 	public function set_original_columns( $columns ) {
-		$this->original_columns = $columns;
+		$this->original_columns = (array) $columns;
 	}
 
 	/**
