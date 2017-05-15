@@ -30,24 +30,26 @@ class AC_Notice_Review {
 	}
 
 	public function maybe_display_review_notice() {
-		global $pagenow;
-
-		// Only show review notice on plugin or settings screen
-		if ( ! in_array( $pagenow, array( 'options-general.php', 'plugins.php' ) ) ) {
-			return;
-		}
-
 		if ( AC()->suppress_site_wide_notices() ) {
 			return;
 		}
 
-		if ( AC()->user_can_manage_admin_columns() && ( ! get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true ) ) ) {
-
-			// Display notice after 30 days
-			if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) >= $this->get_install_timestamp() ) {
-				add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
-			}
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+			return;
 		}
+
+		if ( $this->is_review_notice_shown() ) {
+			return;
+		}
+
+		// Display notice after 30 days
+		if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) >= $this->get_install_timestamp() ) {
+			add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
+		}
+	}
+
+	public function is_review_notice_shown() {
+		return '1' === get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true );
 	}
 
 	public function ajax_hide_review_notice() {
