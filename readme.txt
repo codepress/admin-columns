@@ -223,6 +223,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date:
 
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+* [Improved] Fallback for the autoloader to work with lowercase files
 
 
 = 3.0 =
