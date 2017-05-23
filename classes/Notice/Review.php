@@ -14,11 +14,11 @@ class AC_Notice_Review {
 	}
 
 	public function insert_install_timestamp() {
-		add_site_option( self::OPTION_INSTALL_DATE, time() );
+		ac_helper()->user->update_meta_site( self::OPTION_INSTALL_DATE, time() );
 	}
 
 	private function get_install_timestamp() {
-		$timestamp = get_site_option( self::OPTION_INSTALL_DATE, '' );
+		$timestamp = ac_helper()->user->get_meta_site( self::OPTION_INSTALL_DATE, '' );
 
 		if ( '' == $timestamp ) {
 			$this->insert_install_timestamp();
