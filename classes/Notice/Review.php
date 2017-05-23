@@ -18,7 +18,7 @@ class AC_Notice_Review {
 	}
 
 	private function get_install_timestamp() {
-		$timestamp = ac_helper()->user->get_meta_site( self::OPTION_INSTALL_DATE, '' );
+		$timestamp = ac_helper()->user->get_meta_site( self::OPTION_INSTALL_DATE, true );
 
 		if ( '' == $timestamp ) {
 			$this->insert_install_timestamp();
