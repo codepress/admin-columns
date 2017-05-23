@@ -218,9 +218,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 3.0.1 =
 
-Release Date:
+Release Date: May 23rd, 2017
 
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
 * [Improved] Fallback for the autoloader to work with lowercase files
