@@ -171,7 +171,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	 *
 	 * @return array
 	 */
-	private function get_ids_from_array_or_string( $string ) {
+	protected function get_ids_from_array_or_string( $string ) {
 		$string = ac_helper()->array->implode_recursive( ',', $string );
 
 		return ac_helper()->string->string_to_array_integers( $string );
