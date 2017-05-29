@@ -224,6 +224,7 @@ Release Date: May 23rd, 2017
 
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
 * [Improved] Fallback for the autoloader to work with lowercase files
+* [Improved] User Nicename available as an option for User display
 
 
 = 3.0 =
