@@ -564,6 +564,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                         </ul>
 									<?php endif; ?>
 
+									<p class="center">
+										Prices starting from $39.20 <sup>$49</sup>
+									</p>
                                     <p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
                                             <a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ) ); ?>" class="more">
@@ -588,7 +591,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                     </h3>
                                     <div class="inside">
                                         <p>
-											<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a coupon for %s off.", 'codepress-admin-columns' ), '20%' ) ); ?>
+											<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a discount for %s off.", 'codepress-admin-columns' ), '20%' ) ); ?>
                                         </p>
 										<?php
 										$user_data = get_userdata( get_current_user_id() );
@@ -597,7 +600,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
                                             <input name="action" type="hidden" value="mc_upgrade_pro">
                                             <input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>">
                                             <input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>">
-                                            <input type="submit" value="<?php esc_attr_e( "Send me the coupon", 'codepress-admin-columns' ); ?>" class="acp-button">
+                                            <input type="submit" value="<?php esc_attr_e( "Send me the discount", 'codepress-admin-columns' ); ?>" class="acp-button">
                                         </form>
                                     </div>
                                 </div>
