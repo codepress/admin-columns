@@ -203,6 +203,11 @@ table.ac-table-items {
 .ac-more-link-hide {
   cursor: pointer; }
 
+.ac-post-format-icon {
+  margin-right: 5px;
+  display: inline-block;
+  color: #ccc; }
+
 /* =Images Column
 -------------------------------------------------------------- */
 .ac-image {

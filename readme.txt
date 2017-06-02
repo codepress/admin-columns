@@ -218,13 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 3.0.1 =
+= NEWVERSION =
 
-Release Date: May 23rd, 2017
+Release Date:
 
+* [Improved] Published date shows when a post is not published
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
-* [Improved] Fallback for the autoloader to work with lowercase files
-* [Improved] User Nicename available as an option for User display
+* [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
 
 
 = 3.0 =
