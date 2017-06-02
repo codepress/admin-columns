@@ -10,6 +10,15 @@ class AC_Column_Post_DatePublished extends AC_Column {
 		$this->set_label( __( 'Date Published' ) );
 	}
 
+	public function get_value( $id ) {
+		$date = $this->get_raw_value( $id );
+		if ( 'publish' !== get_post_status( $id ) ) {
+			$date .= sprintf( ' <span class="dashicons dashicons-hidden gray" data-ac-tip="%s"></span>', __( 'Not Published', 'codepress-admin-columns' ) );
+		}
+
+		return $date;
+	}
+
 	public function get_raw_value( $post_id ) {
 		$post = get_post( $post_id );
 
