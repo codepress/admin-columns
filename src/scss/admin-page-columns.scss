@@ -1113,6 +1113,12 @@
 		}
 	}
 
+	sup {
+		text-decoration: line-through;
+		font-size: 13px;
+		color: #ccc;
+	}
+
 	.acp-button {
 		background: $ac-pink;
 		border: none;

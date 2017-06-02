@@ -222,6 +222,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date:
 
+* [Improved] Published date shows when a post is not published
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
 * [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
 

@@ -50,15 +50,26 @@ class AC_Autoloader {
 	 * @param $class
 	 */
 	public function autoload( $class ) {
-		foreach ( $this->prefixes as $prefix => $path ) {
+		foreach ( $this->prefixes as $prefix => $prefix_path ) {
 			if ( 0 !== strpos( $class, $prefix ) ) {
 				continue;
 			}
 
-			$file = $path . str_replace( array( $prefix, '_' ), array( '', '/' ), $class ) . '.php';
+			$class_path = str_replace( array( $prefix, '_' ), array( '', '/' ), $class );
+			$file = $prefix_path . $class_path . '.php';
 
 			if ( is_readable( $file ) ) {
 				require_once $file;
+
+				break;
+			}
+
+			// Git does not detect case-difference in a filename and older versions used same filename but with a different case
+			$basename = basename( $file );
+			$file_lc = str_replace( $basename, strtolower( $basename ), $file );
+
+			if ( is_readable( $file_lc ) ) {
+				require_once $file_lc;
 
 				break;
 			}
