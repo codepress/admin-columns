@@ -565,7 +565,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									<?php endif; ?>
 
 									<p class="center">
-										Prices starting from $39.20 <sup>$49</sup>
+										<?php printf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$39.20 <sup>$49</sup>' ); ?>
 									</p>
 									<p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
