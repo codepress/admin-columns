@@ -760,6 +760,8 @@
     text-decoration: line-through;
     font-size: 13px;
     color: #ccc; }
+  #ac-pro-version .ac-pro-prices {
+    color: #ffcac0; }
   #ac-pro-version .acp-button {
     background: #e9426e;
     border: none;
