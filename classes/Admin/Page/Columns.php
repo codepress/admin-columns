@@ -472,7 +472,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 						<span class="spinner"></span>
 
 						<?php if ( $link = $list_screen->get_screen_link() ) : ?>
-							<a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php echo esc_html__( 'View', 'codepress-admin-columns' ); ?></a>
+							<a href="<?php echo esc_url( $link ); ?>" class="page-title-action view-link"><?php esc_html_e( 'View', 'codepress-admin-columns' ); ?></a>
 						<?php endif; ?>
 					</form>
 				</div>
@@ -565,9 +565,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									<?php endif; ?>
 
 									<p class="center">
-										<a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'pricing' ) ); ?>" class="ac-pro-prices">
-										<?php printf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$39.20 <sup>$49</sup>' ); ?>
-										</a>
+										<?php echo ac_helper()->html->link( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ), sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$39.20' ), array( 'class' => 'ac-pro-prices' ) ); ?> <sup>$49</sup>
 									</p>
 									<p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
