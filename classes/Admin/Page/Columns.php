@@ -564,8 +564,10 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 										</ul>
 									<?php endif; ?>
 
-									<p class="center ac-pro-prices">
+									<p class="center">
+										<a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'pricing' ) ); ?>" class="ac-pro-prices">
 										<?php printf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$39.20 <sup>$49</sup>' ); ?>
+										</a>
 									</p>
 									<p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
@@ -598,8 +600,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 										?>
 										<form method="post" action="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'send-coupon' ) ); ?>" target="_blank">
 											<input name="action" type="hidden" value="mc_upgrade_pro">
-											<input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>">
-											<input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>">
+											<input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>" required>
+											<input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>" required>
 											<input type="submit" value="<?php esc_attr_e( "Send me the discount", 'codepress-admin-columns' ); ?>" class="acp-button">
 										</form>
 									</div>
