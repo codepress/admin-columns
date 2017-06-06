@@ -1119,6 +1119,19 @@
 		color: #ccc;
 	}
 
+	.ac-pro-prices {
+		color: #ffcac0;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+
+			sup {
+				text-decoration: none;
+			}
+		}
+	}
+
 	.acp-button {
 		background: $ac-pink;
 		border: none;
