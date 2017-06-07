@@ -99,5 +99,6 @@
             vertical-align: middle;
             font-size: 17px;
             margin: -2px 3px 0 -5px; }
-      .ac-addon ul li.ac-addon-types .addon-header .inner img {
+      .ac-addon ul li.ac-addon-types .addon-header .inner img,
+      .ac-addon ul li.ac-addon-buddypress .addon-header .inner img {
         max-height: 68px; }

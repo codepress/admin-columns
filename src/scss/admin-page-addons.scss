@@ -141,7 +141,8 @@ $addon-color-link: #0073aa;
 				}
 			}
 
-			&.ac-addon-types .addon-header .inner {
+			&.ac-addon-types .addon-header .inner,
+			&.ac-addon-buddypress .addon-header .inner {
 				img {
 					max-height: 68px;
 				}
