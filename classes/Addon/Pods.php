@@ -14,6 +14,11 @@ class AC_Addon_Pods extends AC_Addon {
 			->add_plugin( 'pods' );
 	}
 
+	public function display_promo() {
+		echo $this->get_title() . ' ';
+		$this->display_icon();
+	}
+
 	public function show_missing_notice_on_current_page() {
 		global $pagenow;
 
