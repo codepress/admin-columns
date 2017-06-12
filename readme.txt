@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 4.7.5
+Tested up to: 4.8
 Stable tag: 3.0.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
@@ -219,15 +219,19 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
-Release Date:
 
+Release Date: tbd
 
 = 3.0.1 =
-Release Date: June 6th, 2017
+
+Release Date: June 12th, 2017
 
 * [Improved] Published date shows when a post is not published
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
 * [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
+* [Improved] Fallback for the autoloader to work with lowercase files
+* [Improved] User Nicename available as an option for User display
+* [Fixed] Media Path now shows correct http protocol
 
 = 3.0 =
 
