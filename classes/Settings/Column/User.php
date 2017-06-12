@@ -111,6 +111,7 @@ class AC_Settings_Column_User extends AC_Settings_Column
 			'user_email'      => __( 'User Email', 'codepress-admin-columns' ),
 			'ID'              => __( 'User ID', 'codepress-admin-columns' ),
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
+			'user_nicename'   => __( 'User Nicename', 'codepress-admin-columns' ),
 		);
 
 		// resort for possible translations

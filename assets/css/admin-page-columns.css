@@ -756,6 +756,17 @@
       color: #fff; }
       #ac-pro-version h3 a span {
         color: #e9426e; }
+  #ac-pro-version sup {
+    text-decoration: line-through;
+    font-size: 13px;
+    color: #ccc; }
+  #ac-pro-version .ac-pro-prices {
+    color: #ffcac0;
+    text-decoration: none; }
+    #ac-pro-version .ac-pro-prices:hover {
+      text-decoration: underline; }
+      #ac-pro-version .ac-pro-prices:hover sup {
+        text-decoration: none; }
   #ac-pro-version .acp-button {
     background: #e9426e;
     border: none;

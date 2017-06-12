@@ -16,19 +16,19 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../codepress-admin-columns.php:336, ../classes/Admin/Help/CustomField.php:18, ../classes/Settings/Column/CustomFieldType.php:164, ../classes/Settings/Column/Image.php:67, ../classes/Settings/Column/Separator.php:19
+#: ../codepress-admin-columns.php:338, ../classes/Admin/Help/CustomField.php:18, ../classes/Settings/Column/CustomFieldType.php:164, ../classes/Settings/Column/Image.php:67, ../classes/Settings/Column/Separator.php:19
 msgid "Default"
 msgstr ""
 
-#: ../codepress-admin-columns.php:337, ../classes/Settings/Column/Meta.php:110
+#: ../codepress-admin-columns.php:340, ../classes/Settings/Column/Meta.php:110
 msgid "Custom Fields"
 msgstr ""
 
-#: ../codepress-admin-columns.php:339, ../classes/Settings/Column/CustomFieldType.php:149, ../classes/Settings/Column/Image.php:107
+#: ../codepress-admin-columns.php:341, ../classes/Settings/Column/CustomFieldType.php:149, ../classes/Settings/Column/Image.php:107
 msgid "Custom"
 msgstr ""
 
-#: ../codepress-admin-columns.php:493, ../classes/Settings/Column/CustomFieldType.php:76, ../classes/Settings/Column/PostType.php:19
+#: ../codepress-admin-columns.php:497, ../classes/Settings/Column/CustomFieldType.php:76, ../classes/Settings/Column/PostType.php:19
 msgid "Post Type"
 msgstr ""
 
@@ -36,19 +36,35 @@ msgstr ""
 msgid "Display and edit %s fields in the posts overview in seconds!"
 msgstr ""
 
-#: ../classes/Admin.php:124
+#: ../classes/Admin.php:126
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: ../classes/Admin.php:124, ../classes/Notice/Review.php:58, ../classes/Admin/Page/Columns.php:20
+#: ../classes/Admin.php:126, ../classes/Notice/Review.php:60, ../classes/Admin/Page/Columns.php:20
 msgid "Admin Columns"
 msgstr ""
 
-#: ../classes/ListScreen.php:663
+#: ../classes/ListScreen.php:638
 msgid "No columns settings available."
 msgstr ""
 
-#: ../classes/TableScreen.php:144
+#: ../classes/TableScreen.php:35
+msgid "Invalid item ID."
+msgstr ""
+
+#: ../classes/TableScreen.php:41
+msgid "Invalid list screen."
+msgstr ""
+
+#: ../classes/TableScreen.php:49
+msgid "Invalid column."
+msgstr ""
+
+#: ../classes/TableScreen.php:53
+msgid "Invalid method."
+msgstr ""
+
+#: ../classes/TableScreen.php:188, ../classes/Admin/Page/Settings.php:167
 msgid "Edit columns"
 msgstr ""
 
@@ -112,67 +128,67 @@ msgstr ""
 msgid "Used by Menu"
 msgstr ""
 
-#: ../classes/Helper/Html.php:276
+#: ../classes/Helper/Html.php:336
 msgid "Show %s more"
 msgstr ""
 
-#: ../classes/Helper/Html.php:280
+#: ../classes/Helper/Html.php:340
 msgid "Hide"
 msgstr ""
 
-#: ../classes/Helper/String.php:258
+#: ../classes/Helper/String.php:264
 msgid " or "
 msgstr ""
 
-#: ../classes/Helper/String.php:260
+#: ../classes/Helper/String.php:266
 msgid " and "
 msgstr ""
 
-#: ../classes/Notice/Review.php:61, ../classes/Admin/Page/Addons.php:61
+#: ../classes/Notice/Review.php:63, ../classes/Admin/Page/Addons.php:67
 msgid "Admin Columns Pro"
 msgstr ""
 
-#: ../classes/Notice/Review.php:70
+#: ../classes/Notice/Review.php:72
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: ../classes/Notice/Review.php:74
+#: ../classes/Notice/Review.php:76
 msgid "click here"
 msgstr ""
 
-#: ../classes/Notice/Review.php:78
+#: ../classes/Notice/Review.php:80
 msgid "Leave a review!"
 msgstr ""
 
-#: ../classes/Notice/Review.php:79
+#: ../classes/Notice/Review.php:81
 msgid "Permanently hide notice"
 msgstr ""
 
-#: ../classes/Notice/Review.php:86
+#: ../classes/Notice/Review.php:88
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: ../classes/Notice/Review.php:88
+#: ../classes/Notice/Review.php:90
 msgid "documentation page"
 msgstr ""
 
-#: ../classes/Notice/Review.php:92
+#: ../classes/Notice/Review.php:94
 msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
 msgstr ""
 
-#: ../classes/Notice/Review.php:93
+#: ../classes/Notice/Review.php:95
 msgid "our forums"
 msgstr ""
 
-#: ../classes/Notice/Review.php:97
+#: ../classes/Notice/Review.php:99
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: ../classes/Notice/Review.php:98
+#: ../classes/Notice/Review.php:100
 msgid "Admin Columns forums on WordPress.org"
 msgstr ""
 
-#: ../classes/Notice/Review.php:99
+#: ../classes/Notice/Review.php:101
 msgid "find answers to some frequently asked questions"
 msgstr ""
 
@@ -312,331 +328,335 @@ msgstr ""
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:20
+#: ../classes/Admin/Page/Addons.php:15
 msgid "Add-ons"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:43
+#: ../classes/Admin/Page/Addons.php:49
 msgid "%s plugin needs to be installed for the add-on to work."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:45
+#: ../classes/Admin/Page/Addons.php:51
 msgid "%s plugin is installed, but not active."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:48
+#: ../classes/Admin/Page/Addons.php:54
 msgid "Click %s to activate the plugin."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:61
+#: ../classes/Admin/Page/Addons.php:67
 msgid "%s add-on requires %s."
 msgid_plural "%s add-ons requires %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/Admin/Page/Addons.php:108
+#: ../classes/Admin/Page/Addons.php:100
 msgid "%s plugin successfully activated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:109
+#: ../classes/Admin/Page/Addons.php:101
 msgid "%s plugin successfully deactivated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:114
+#: ../classes/Admin/Page/Addons.php:106
 msgid "%s successfully activated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:115
+#: ../classes/Admin/Page/Addons.php:107
 msgid "%s successfully deactivated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:124
+#: ../classes/Admin/Page/Addons.php:116
 msgid "%s could not be activated."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:238
+#: ../classes/Admin/Page/Addons.php:179
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:238
+#: ../classes/Admin/Page/Addons.php:179
 msgid "the addons page"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:269
+#: ../classes/Admin/Page/Addons.php:210
 msgid "Addon does not exist."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:275
+#: ../classes/Admin/Page/Addons.php:216
 msgid "You need Admin Columns Pro."
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:346
+#: ../classes/Admin/Page/Addons.php:287
 msgid "Installed"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:347
+#: ../classes/Admin/Page/Addons.php:288
 msgid "Recommended"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:348
+#: ../classes/Admin/Page/Addons.php:289
 msgid "Available"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:479
+#: ../classes/Admin/Page/Addons.php:401
 msgid "Active"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:480
+#: ../classes/Admin/Page/Addons.php:404
 msgid "Deactivate"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:484
+#: ../classes/Admin/Page/Addons.php:408
 msgid "Activate"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:493
+#: ../classes/Admin/Page/Addons.php:414
 msgid "Download & Install"
 msgstr ""
 
-#: ../classes/Admin/Page/Addons.php:495
+#: ../classes/Admin/Page/Addons.php:416
 msgid "Get this add-on"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:57, ../classes/Admin/Page/Columns.php:220
+#: ../classes/Admin/Page/Columns.php:69, ../classes/Admin/Page/Columns.php:271
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:58
+#: ../classes/Admin/Page/Columns.php:70
 msgid "Invalid response."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:126
+#: ../classes/Admin/Page/Columns.php:170
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:184
+#: ../classes/Admin/Page/Columns.php:244
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:281
+#: ../classes/Admin/Page/Columns.php:324
 msgid "You need at least one column"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:301
+#: ../classes/Admin/Page/Columns.php:336
 msgid "You are trying to store the same settings for %s."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:314
+#: ../classes/Admin/Page/Columns.php:349
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:315
+#: ../classes/Admin/Page/Columns.php:350
 msgid "View %s screen"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:415
+#: ../classes/Admin/Page/Columns.php:443
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:446
+#: ../classes/Admin/Page/Columns.php:475
 msgid "View"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:460
+#: ../classes/Admin/Page/Columns.php:489
 msgid "Store settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:482
+#: ../classes/Admin/Page/Columns.php:511
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:483
+#: ../classes/Admin/Page/Columns.php:512
 msgid "Restore columns"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:502
+#: ../classes/Admin/Page/Columns.php:531
 msgid "Upgrade to"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:502
+#: ../classes/Admin/Page/Columns.php:531
 msgid "Pro"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:507
+#: ../classes/Admin/Page/Columns.php:536
 msgid "Take Admin Columns to the next level:"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:512
+#: ../classes/Admin/Page/Columns.php:541
 msgid "Add sortable columns"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:513
+#: ../classes/Admin/Page/Columns.php:542
 msgid "Add filterable columns"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:514
+#: ../classes/Admin/Page/Columns.php:543
 msgid "Edit your column content directly"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:515
+#: ../classes/Admin/Page/Columns.php:544
 msgid "Create multiple columns sets"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:516
+#: ../classes/Admin/Page/Columns.php:545
 msgid "Import &amp; Export settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:528
+#: ../classes/Admin/Page/Columns.php:557
 msgid "Extra Columns for:"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:541
+#: ../classes/Admin/Page/Columns.php:568
+msgid "Prices starting from %s"
+msgstr ""
+
+#: ../classes/Admin/Page/Columns.php:573
 msgid "Learn more about Pro"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:558
+#: ../classes/Admin/Page/Columns.php:590
 msgid "Get %s Off!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:562
-msgid "Submit your email and we'll send you a coupon for %s off."
+#: ../classes/Admin/Page/Columns.php:594
+msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:569
+#: ../classes/Admin/Page/Columns.php:601
 msgid "Your Email"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:570
+#: ../classes/Admin/Page/Columns.php:602
 msgid "Your First Name"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:571
-msgid "Send me the coupon"
+#: ../classes/Admin/Page/Columns.php:603
+msgid "Send me the discount"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:582
+#: ../classes/Admin/Page/Columns.php:614
 msgid "Are you happy with Admin Columns?"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:592
+#: ../classes/Admin/Page/Columns.php:624
 msgid "What's wrong? Need help? Let us know!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:595
+#: ../classes/Admin/Page/Columns.php:627
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:600
+#: ../classes/Admin/Page/Columns.php:632
 msgid "Docs"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:605
+#: ../classes/Admin/Page/Columns.php:637
 msgid "Forums"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:615
+#: ../classes/Admin/Page/Columns.php:647
 msgid "Woohoo! We're glad to hear that!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:618
+#: ../classes/Admin/Page/Columns.php:650
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:623
+#: ../classes/Admin/Page/Columns.php:655
 msgid "Rate"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:628
+#: ../classes/Admin/Page/Columns.php:660
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:629
+#: ../classes/Admin/Page/Columns.php:661
 msgid "Tweet"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:635
+#: ../classes/Admin/Page/Columns.php:667
 msgid "Buy Pro"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:647
+#: ../classes/Admin/Page/Columns.php:679
 msgid "Support"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:652
+#: ../classes/Admin/Page/Columns.php:684
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:656
+#: ../classes/Admin/Page/Columns.php:688
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:707
+#: ../classes/Admin/Page/Columns.php:739
 msgid "Drag and drop to reorder"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:721
+#: ../classes/Admin/Page/Columns.php:753
 msgid "Clear all columns "
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:727
+#: ../classes/Admin/Page/Columns.php:759
 msgid "Add Column"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:812
+#: ../classes/Admin/Page/Columns.php:844
 msgid "Edit"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:813, ../classes/Admin/Page/Columns.php:848
+#: ../classes/Admin/Page/Columns.php:845, ../classes/Admin/Page/Columns.php:880
 msgid "Close"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:815, ../classes/Admin/Page/Columns.php:850
+#: ../classes/Admin/Page/Columns.php:847, ../classes/Admin/Page/Columns.php:882
 msgid "Clone"
 msgstr ""
 
-#: ../classes/Admin/Page/Columns.php:817
+#: ../classes/Admin/Page/Columns.php:849
 msgid "Remove"
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:29, ../classes/Admin/Page/Help.php:301
+#: ../classes/Admin/Page/Help.php:30, ../classes/Admin/Page/Help.php:307
 msgid "Help"
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:161
+#: ../classes/Admin/Page/Help.php:167
 msgid "Deprecated Filters"
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:162
+#: ../classes/Admin/Page/Help.php:168
 msgid "Deprecated Actions"
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:175
+#: ../classes/Admin/Page/Help.php:181
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:188
+#: ../classes/Admin/Page/Help.php:194
 msgid "The action %s used on this website is deprecated since %s."
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:238
+#: ../classes/Admin/Page/Help.php:244
 msgid "View documentation"
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:293
+#: ../classes/Admin/Page/Help.php:299
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/Admin/Page/Help.php:303
+#: ../classes/Admin/Page/Help.php:309
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:305
+#: ../classes/Admin/Page/Help.php:311
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: ../classes/Admin/Page/Help.php:305
+#: ../classes/Admin/Page/Help.php:311
 msgid "our documentation"
 msgstr ""
 
@@ -644,83 +664,95 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:98
+#: ../classes/Admin/Page/Settings.php:97
 msgid "Default settings succesfully restored."
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:124
+#: ../classes/Admin/Page/Settings.php:123
 msgid "Instructions"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:130
+#: ../classes/Admin/Page/Settings.php:129
 msgid "Notice"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:143
+#: ../classes/Admin/Page/Settings.php:142
+msgid "off"
+msgstr ""
+
+#: ../classes/Admin/Page/Settings.php:145
+msgid "on"
+msgstr ""
+
+#: ../classes/Admin/Page/Settings.php:148
+msgid "Default is %s."
+msgstr ""
+
+#: ../classes/Admin/Page/Settings.php:156
 msgid "General Settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:144
+#: ../classes/Admin/Page/Settings.php:157
 msgid "Customize your Admin Columns settings."
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:154
-msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
+#: ../classes/Admin/Page/Settings.php:167
+msgid "Show %s button on table screen."
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:203
+#: ../classes/Admin/Page/Settings.php:216
 msgid "Restore Settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:204
+#: ../classes/Admin/Page/Settings.php:217
 msgid "This will delete all column settings and restore the default settings."
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:212
+#: ../classes/Admin/Page/Settings.php:225
 msgid "Restore default settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Settings.php:212
+#: ../classes/Admin/Page/Settings.php:225
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:22, ../classes/Admin/Page/Upgrade.php:309
+#: ../classes/Admin/Page/Upgrade.php:22, ../classes/Admin/Page/Upgrade.php:315
 msgid "Upgrade"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:40
+#: ../classes/Admin/Page/Upgrade.php:42
 msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:41
+#: ../classes/Admin/Page/Upgrade.php:43
 msgid "Learn more"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:249
+#: ../classes/Admin/Page/Upgrade.php:251
 msgid "Migrating Column Settings"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:285
+#: ../classes/Admin/Page/Upgrade.php:287
 msgid "No Upgrade Required"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:286
+#: ../classes/Admin/Page/Upgrade.php:288
 msgid "Return to welcome screen."
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:298
+#: ../classes/Admin/Page/Upgrade.php:304
 msgid "Upgrade Complete!"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:298
+#: ../classes/Admin/Page/Upgrade.php:304
 msgid "Return to settings."
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:299
+#: ../classes/Admin/Page/Upgrade.php:305
 msgid "Error"
 msgstr ""
 
-#: ../classes/Admin/Page/Upgrade.php:300
+#: ../classes/Admin/Page/Upgrade.php:306
 msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
 msgstr ""
 
@@ -1028,8 +1060,8 @@ msgstr ""
 msgid "Show Toolbar"
 msgstr ""
 
-#: ../classes/Column/User/Url.php:10, ../classes/Settings/Column/CustomFieldType.php:100
-msgid "Url"
+#: ../classes/Column/User/Url.php:10
+msgid "Website"
 msgstr ""
 
 #: ../classes/Settings/Column/ActionIcons.php:22
@@ -1096,15 +1128,15 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: ../classes/Settings/Column/CustomField.php:31
+#: ../classes/Settings/Column/CustomField.php:28
 msgid "No custom fields available."
 msgstr ""
 
-#: ../classes/Settings/Column/CustomField.php:31
+#: ../classes/Settings/Column/CustomField.php:28
 msgid "Please create a %s item first."
 msgstr ""
 
-#: ../classes/Settings/Column/CustomField.php:35, ../classes/Settings/Column/Meta.php:59, ../classes/Settings/Column/Post.php:67
+#: ../classes/Settings/Column/CustomField.php:32, ../classes/Settings/Column/Meta.php:59, ../classes/Settings/Column/Post.php:67
 msgid "Field"
 msgstr ""
 
@@ -1122,6 +1154,10 @@ msgstr ""
 
 #: ../classes/Settings/Column/CustomFieldType.php:66
 msgid "Multiple ids should be separated by a comma."
+msgstr ""
+
+#: ../classes/Settings/Column/CustomFieldType.php:100
+msgid "Url"
 msgstr ""
 
 #: ../classes/Settings/Column/CustomFieldType.php:101
@@ -1392,7 +1428,11 @@ msgstr ""
 msgid "First and Last Name"
 msgstr ""
 
-#: ../classes/Settings/Column/User.php:130
+#: ../classes/Settings/Column/User.php:114
+msgid "User Nicename"
+msgstr ""
+
+#: ../classes/Settings/Column/User.php:131
 msgid "View Public Author Page"
 msgstr ""
 

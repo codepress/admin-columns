@@ -296,6 +296,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
 		var column_name = $( this ).attr( 'data-column-name' );
+		var opened = el.hasClass( 'opened' );
 
 		// Allow plugins to hook into this event
 		$( document ).trigger( 'pre_column_refresh', el );
@@ -337,7 +338,9 @@ function cpac_reset_columns( $ ) {
 				el.column_bind_events();
 
 				// Open settings
-				el.addClass( 'opened' ).find( '.ac-column-body' ).show();
+				if ( opened ) {
+					el.addClass( 'opened' ).find( '.ac-column-body' ).show();
+				}
 
 				// Allow plugins to hook into this event
 
