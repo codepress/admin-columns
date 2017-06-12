@@ -221,12 +221,12 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 
 Release Date: tbd
+* [Improved] Published date shows when a post is not published
 
 = 3.0.1 =
 
 Release Date: June 12th, 2017
 
-* [Improved] Published date shows when a post is not published
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
 * [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
 * [Improved] Fallback for the autoloader to work with lowercase files
