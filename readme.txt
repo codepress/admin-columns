@@ -218,6 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: tbd
+
+* [Improved] Character limit now strips tags before trimming
+
+
 = 3.0.1 =
 
 Release Date: June 12th, 2017
