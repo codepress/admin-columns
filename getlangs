@@ -1,6 +1,6 @@
 #!/bin/bash
 
-langs=( nl ja ro da de es fa fr hu it pl  )
+langs=( ar da de es en-nz fa fr he hu it ja nl pl pt-br ro ru sv-se zh-cn )
 exts=( po mo )
 
 mkdir -p "languages"
@@ -21,7 +21,16 @@ do :
 
     for ext in "${exts[@]}"
     do :
-        curl $url$ext --silent --output codepress-admin-columns-$lang_${$lang^^}.$ext &
+        IFS="-" langparts=($lang)
+
+        if [ ${#langparts[1]} -eq 0 ]; then
+            langparts[1]=${langparts[0]}
+        fi
+
+        ulang=$(echo "${langparts[1]}" | tr '[:lower:]' '[:upper:]')
+        locale=${langparts[0]}_$ulang
+
+        curl $url$ext --silent --output codepress-admin-columns-$locale.$ext &
     done
 done
 
