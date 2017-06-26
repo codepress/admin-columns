@@ -1,0 +1,28 @@
+#!/bin/bash
+
+langs=( nl ja ro da de es fa fr hu it pl  )
+exts=( po mo )
+
+mkdir -p "languages"
+
+if [ -d languages ]
+then
+    cd languages
+
+    for ext in "${exts[@]}"
+    do :
+        rm -rf "*.${ext}"
+    done
+fi
+
+for lang in "${langs[@]}"
+do :
+    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${lang}/default/export-translations?format="
+
+    for ext in "${exts[@]}"
+    do :
+        curl $url$ext --silent --output codepress-admin-columns-$lang_${$lang^^}.$ext &
+    done
+done
+
+wait

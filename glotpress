@@ -1,3 +1,0 @@
-#!/bin/bash
-
-wget https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/ja/default/export-translations?format=mo
