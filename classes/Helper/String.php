@@ -70,6 +70,8 @@ class AC_Helper_String {
 	}
 
 	/**
+	 * Trims a string and strips tags if there is any HTML
+	 *
 	 * @param string $string
 	 * @param int    $limit
 	 *
@@ -81,6 +83,8 @@ class AC_Helper_String {
 		if ( 1 > $limit || strlen( $string ) <= $limit ) {
 			return $string;
 		}
+
+		$string = wp_strip_all_tags( $string );
 
 		return substr( $string, 0, $limit ) . $trail;
 	}
