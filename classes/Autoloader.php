@@ -117,10 +117,14 @@ class AC_Autoloader {
 
 				$class_name = $prefix . str_replace( '.php', '', $leaf->getFilename() );
 
-				$r = new ReflectionClass( $class_name );
+				try {
+					$r = new ReflectionClass( $class_name );
 
-				if ( $r->isInstantiable() ) {
-					$class_names[] = $class_name;
+					if ( $r->isInstantiable() ) {
+						$class_names[] = $class_name;
+					}
+				} catch( ReflectionException $e ) {
+					// Class doesn't exist or couldn't be loaded
 				}
 			}
 		}
