@@ -17,8 +17,8 @@ fi
 
 for lang in "${langs[@]}"
 do :
-    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${lang}/default/export-translations?format="
-
+    url="https://translate.wordpress.org/projects/wp--plugins/codepress-admin-columns/stable/${lang}/default/export-translations?format="
+echo -e  url
     for ext in "${exts[@]}"
     do :
         IFS="-" langparts=($lang)
@@ -30,7 +30,8 @@ do :
         ulang=$(echo "${langparts[1]}" | tr '[:lower:]' '[:upper:]')
         locale=${langparts[0]}_$ulang
 
-        curl $url$ext --silent --output codepress-admin-columns-$locale.$ext &
+        echo $url$ext
+        #curl $url$ext --silent --output codepress-admin-columns-$locale.$ext &
     done
 done
 

@@ -332,7 +332,7 @@ var toggleMenu = function(){
 </script>
 <script type="text/javascript">_qevents.push( { qacct:"p-18-mFEk4J448M"} );</script>
 <noscript><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif" style="display: none;" border="0" height="1" width="1" alt=""/></noscript>
-<!-- 6 queries. 0.090 seconds -->
+<!-- 6 queries. 0.048 seconds -->
 <script type="text/javascript" src="//gravatar.com/js/gprofiles.js"></script>
 
 <script type="text/javascript">
