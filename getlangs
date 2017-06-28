@@ -1,6 +1,26 @@
 #!/bin/bash
 
-langs=( ar da de es en-nz fa fr he hu it ja nl pl pt-br ro ru sv-se zh-cn )
+languages=(
+    'ar::ar_AR'
+    'da::da_DK'
+    'de::de_DE'
+    'es::es_ES'
+    'en-nz::en_NZ'
+    'fa::fa_IR'
+    'fr::fr_FR'
+    'he::he_IL'
+    'hu::hu_HU'
+    'it::it_IT'
+    'ja::ja_JA'
+    'nl::nl_NL'
+    'pl::pl_PL'
+    'pt-br::bt_BR'
+    'ro::ro_RO'
+    'ru::ru_RU'
+    'sv::sv_SE'
+    'zh-cn::zh_CN'
+
+)
 exts=( po mo )
 
 mkdir -p "languages"
@@ -15,24 +35,17 @@ then
     done
 fi
 
-for lang in "${langs[@]}"
-do :
-    url="https://translate.wordpress.org/projects/wp--plugins/codepress-admin-columns/stable/${lang}/default/export-translations?format="
-echo -e  url
-    for ext in "${exts[@]}"
-    do :
-        IFS="-" langparts=($lang)
+for index in "${languages[@]}" ; do
+    KEY="${index%%::*}"
+    LOCALE="${index##*::}"
 
-        if [ ${#langparts[1]} -eq 0 ]; then
-            langparts[1]=${langparts[0]}
-        fi
+    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations?format="
 
-        ulang=$(echo "${langparts[1]}" | tr '[:lower:]' '[:upper:]')
-        locale=${langparts[0]}_$ulang
+    for ext in "${exts[@]}"; do
 
-        echo $url$ext
-        #curl $url$ext --silent --output codepress-admin-columns-$locale.$ext &
+        curl $url$ext --silent --output codepress-admin-columns-$LOCALE.$ext &
     done
+
 done
 
 wait
