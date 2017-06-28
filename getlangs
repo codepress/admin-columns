@@ -1,0 +1,51 @@
+#!/bin/bash
+
+languages=(
+    'ar::ar_AR'
+    'da::da_DK'
+    'de::de_DE'
+    'es::es_ES'
+    'en-nz::en_NZ'
+    'fa::fa_IR'
+    'fr::fr_FR'
+    'he::he_IL'
+    'hu::hu_HU'
+    'it::it_IT'
+    'ja::ja_JA'
+    'nl::nl_NL'
+    'pl::pl_PL'
+    'pt-br::bt_BR'
+    'ro::ro_RO'
+    'ru::ru_RU'
+    'sv::sv_SE'
+    'zh-cn::zh_CN'
+
+)
+exts=( po mo )
+
+mkdir -p "languages"
+
+if [ -d languages ]
+then
+    cd languages
+
+    for ext in "${exts[@]}"
+    do :
+        rm -rf "*.${ext}"
+    done
+fi
+
+for index in "${languages[@]}" ; do
+    KEY="${index%%::*}"
+    LOCALE="${index##*::}"
+
+    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations?format="
+
+    for ext in "${exts[@]}"; do
+
+        curl $url$ext --silent --output codepress-admin-columns-$LOCALE.$ext &
+    done
+
+done
+
+wait

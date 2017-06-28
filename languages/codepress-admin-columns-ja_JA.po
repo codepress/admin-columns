@@ -1,570 +1,568 @@
-# Translation of Plugins - Admin Columns - Stable (latest release) in Dutch
+# Translation of Plugins - Admin Columns - Stable (latest release) in Japanese
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-15 10:59:29+0000\n"
+"PO-Revision-Date: 2017-05-23 20:52:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
-"Language: nl\n"
+"Language: ja_JP\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: classes/Settings/Column/User.php:118
 msgid "User Nicename"
-msgstr "Gebruiker schermnaam"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:607
 msgid "Send me the discount"
-msgstr "Stuur mij de korting"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:572
 msgid "Prices starting from %s"
-msgstr "Prijzen vanaf %s"
+msgstr ""
 
 #: classes/Addon/BuddyPress.php:17
 msgid "Display any of your Profile Fields for BuddyPress on your users overview."
-msgstr "Toon een veld van je BuddyPress-profiel in je gebruikersoverzicht."
+msgstr ""
 
 #: classes/Addon/BuddyPress.php:13
 msgid "BuddyPress"
-msgstr "BuddyPress"
+msgstr ""
 
 #: templates/settings/section.php:23
 msgid "View more"
-msgstr "Meer tonen"
+msgstr "さらに表示"
 
 #: classes/TableScreen.php:57
 msgid "Invalid method."
-msgstr "Ongeldige methode."
+msgstr "無効なメソッド。"
 
 #: classes/TableScreen.php:53
 msgid "Invalid column."
-msgstr "Ongeldige kolom."
+msgstr "無効な列。"
 
 #: classes/TableScreen.php:45
 msgid "Invalid list screen."
-msgstr "Ongeldige lijst-weergave."
+msgstr "無効なリスト画面。"
 
 #: classes/TableScreen.php:39
 msgid "Invalid item ID."
-msgstr "Ongeldig item-ID."
+msgstr "無効な項目 ID。"
 
 #: classes/Settings/Column/WordsPerMinute.php:32
 msgid "By default: %s"
-msgstr "Standaard: %s"
+msgstr "デフォルト: %s"
 
 #: classes/Settings/Column/WordLimit.php:35
 msgid "Maximum number of words"
-msgstr "Maximale aantal woorden"
+msgstr "単語数の上限"
 
 #: classes/Settings/Column/WordLimit.php:34
 msgid "Word Limit"
-msgstr "Woordlimiet"
+msgstr "単語数制限"
 
 #: classes/Settings/Column/Width.php:40
 msgid "Auto"
-msgstr "Auto"
+msgstr "自動"
 
 #: classes/Settings/Column/Term.php:33 classes/Settings/Column/User.php:37
 msgid "Display"
-msgstr "Tonen"
+msgstr "表示"
 
 #: classes/Settings/Column/Taxonomy.php:23
 msgid "No taxonomies available."
-msgstr "Geen taxonomiën beschikbaar."
+msgstr "利用可能なタクソノミーはありません。"
 
 #: classes/Settings/Column/Separator.php:32
 msgid "Select a repeater sub field."
-msgstr "Selecteer een repeater-subveld"
+msgstr "リピーターのサブフィールドを選択してください。"
 
 #: classes/Settings/Column/Separator.php:31
 msgid "Separator"
-msgstr "Scheidingsteken"
+msgstr "区切り"
 
 #: classes/Settings/Column/Separator.php:27
 msgid "Whitespace"
-msgstr "Witruimte"
+msgstr "半角スペース"
 
 #: classes/Settings/Column/Separator.php:25
 msgid "New line"
-msgstr "Nieuwe regel"
+msgstr "改行"
 
 #: classes/Settings/Column/Separator.php:24
 msgid "Comma Separated"
-msgstr "Kommagescheiden"
+msgstr "カンマ区切り"
 
 #: classes/Settings/Column/Password.php:23
 msgid "Plain text"
-msgstr "Platte tekst"
+msgstr "プレーンテキスト"
 
 #: classes/Settings/Column/Password.php:22
 msgid "Password"
-msgstr "Wachtwoord"
+msgstr "パスワード"
 
 #: classes/Settings/Column/Meta.php:27
 msgid "No fields available."
-msgstr "Geen velden beschikbaar."
+msgstr "利用可能なフィールドはありません。"
 
 #: classes/Settings/Column/Image.php:112
 msgid "Custom Size"
-msgstr "Aangepaste grootte"
+msgstr "カスタムサイズ"
 
 #: classes/Settings/Column/Image.php:108
 msgid "Full Size"
-msgstr "Volledige grootte"
+msgstr "フルサイズ"
 
 #: classes/Settings/Column/Image.php:54
 msgid "Image Size"
-msgstr "Afbeeldingsformaat"
+msgstr "画像サイズ"
 
 #: classes/Settings/Column/Image.php:47
 msgid "Height in pixels"
-msgstr "Hoogte in pixels"
+msgstr "高さ (ピクセル)"
 
 #: classes/Settings/Column/Image.php:41
 msgid "Width in pixels"
-msgstr "Breedte in pixels"
+msgstr "幅 (ピクセル)"
 
 #: classes/Settings/Column/Date.php:181
 msgid "in %s"
-msgstr "in %s"
+msgstr ""
 
 #: classes/Settings/Column/Date.php:178
 msgid "%s ago"
-msgstr "%s geleden"
+msgstr "%s前"
 
 #: classes/Settings/Column/Date.php:99
 msgid "date and time formatting"
-msgstr "datum- en tijdopmaak"
+msgstr "日付と時刻の書式"
 
 #: classes/Settings/Column/Date.php:99
 msgid "Learn more about %s."
-msgstr "Leer meer over %s."
+msgstr "%s についてもっと詳しく読む。"
 
 #: classes/Settings/Column/Date.php:98
 msgid "Custom:"
-msgstr "Aangepast:"
+msgstr "カスタム:"
 
 #: classes/Settings/Column/Date.php:81
 msgid "The %s can be changed in %s."
-msgstr "De %s kun je aanpassen in %s."
+msgstr ""
 
 #: classes/Settings/Column/Date.php:76
 msgid "WordPress Date Format"
-msgstr "WordPress datumformat"
+msgstr "WordPress の日付書式"
 
 #: classes/Settings/Column/Date.php:70
 msgid "or"
-msgstr "of"
+msgstr "又は"
 
 #: classes/Settings/Column/Date.php:70
 msgid "For example: %s."
-msgstr "Bijvoorbeeld: %s."
+msgstr "例: %s。"
 
 #: classes/Settings/Column/Date.php:70
 msgid "The difference is returned in a human readable format."
-msgstr "Het verschil wordt teruggegeven in een menselijk leesbaar format."
+msgstr ""
 
 #: classes/Settings/Column/Date.php:69
 msgid "Time Difference"
-msgstr "Tijdsverschil"
+msgstr "時差"
 
 #: classes/Settings/Column/CustomFieldType.php:152
 msgid "Multiple"
-msgstr "Meerdere"
+msgstr "複数"
 
 #: classes/Settings/Column/CustomFieldType.php:151
 msgid "Choice"
-msgstr "Keuze"
+msgstr "選択肢"
 
 #: classes/Settings/Column/CustomFieldType.php:150
 msgid "Relational"
-msgstr "Relationeel"
+msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:149
 msgid "Basic"
-msgstr "Basis"
+msgstr "基本"
 
 #: classes/Settings/Column/CustomFieldType.php:117
 msgid "Number of Fields"
-msgstr "Aantal velden"
+msgstr "フィールドの数"
 
 #: classes/Settings/Column/CustomFieldType.php:109
 msgid "True / False"
-msgstr "True / false"
+msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:108
 msgid "Has Content"
-msgstr "Heeft inhoud"
+msgstr "コンテンツあり"
 
 #: classes/Settings/Column/CustomFieldType.php:105
 msgid "Number"
-msgstr "Nummer"
+msgstr "番号"
 
 #: classes/Settings/Column/CustomFieldType.php:102
 msgid "Text"
-msgstr "Tekst"
+msgstr "テキスト"
 
 #: classes/Settings/Column/CustomFieldType.php:70
 msgid "Multiple ids should be separated by a comma."
-msgstr "Meerdere ID's moeten worden gescheiden door een komma. "
+msgstr "複数の ID はカンマで区切ってください。"
 
 #: classes/Settings/Column/CustomFieldType.php:69
 msgid "Uses the id from a %s to display information about it."
-msgstr "Gebruikt het ID van een %s om informatie weer te geven."
+msgstr ""
 
 #: classes/Settings/Column/CustomField.php:36
 #: classes/Settings/Column/Meta.php:63 classes/Settings/Column/Post.php:71
 msgid "Field"
-msgstr "Veld"
+msgstr "フィールド"
 
 #: classes/Settings/Column/CharacterLimit.php:28
 #: classes/Settings/Column/WordLimit.php:35
 msgid "Leave empty for no limit"
-msgstr "Laat leeg voor geen limiet"
+msgstr "制限しない場合は空白にする"
 
 #: classes/Settings/Column/CharacterLimit.php:28
 msgid "Maximum number of characters"
-msgstr "Maximum aantal karakters."
+msgstr "最大文字数"
 
 #: classes/Settings/Column/CharacterLimit.php:27
 msgid "Character Limit"
-msgstr "Karakterlimiet"
+msgstr "文字制限"
 
 #: classes/Settings/Column/BeforeAfter.php:56
 msgid "Display Options"
-msgstr "Weergaveopties"
+msgstr "表示設定"
 
 #: classes/Settings/Column/BeforeAfter.php:50
 msgid "This text will appear after the column value."
-msgstr "Deze tekst zal na de kolomwaarde verschijnen."
+msgstr ""
 
 #: classes/Helper/String.php:270
 msgid " and "
-msgstr " en "
+msgstr "と"
 
 #: classes/Helper/String.php:268
 msgid " or "
-msgstr " of "
+msgstr "または"
 
 #: classes/Helper/Html.php:344
 msgid "Hide"
-msgstr "Verbergen"
+msgstr "非表示"
 
 #: classes/Helper/Html.php:340
 msgid "Show %s more"
-msgstr "%s meer tonen"
+msgstr ""
 
 #: classes/Column/User/Url.php:14
 msgid "Website"
-msgstr "Website"
+msgstr "サイト"
 
 #: classes/Column/User/ShowToolbar.php:14
 msgid "Show Toolbar"
-msgstr "Toolbar tonen"
+msgstr "ツールバーを表示"
 
 #: classes/Column/Post/Shortlink.php:14
 msgid "Shortlink"
-msgstr "Shortlink"
+msgstr "短縮リンク"
 
 #: classes/Column/Post/Roles.php:33 classes/Column/Taxonomy.php:27
 #: classes/Settings/Column/CustomFieldType.php:260
 msgid ", "
-msgstr ", "
+msgstr "、"
 
 #: classes/Column/Post/Formats.php:24
 msgid "Standard"
-msgstr "Standaard"
+msgstr "標準"
 
 #: classes/Column/Post/CommentStatus.php:17
 msgid "Comment Status"
-msgstr "Reactiestatus"
+msgstr "コメントの状態"
 
 #: classes/Column/Post/AttachmentCount.php:16
 msgid "Attachment Count"
-msgstr "Bijlagetelling"
+msgstr "添付ファイルの数"
 
 #: classes/Column/Media/FullPath.php:14
 msgid "Full Path"
-msgstr "Volledig pad"
+msgstr "完全なパス"
 
 #: classes/Admin/Promo.php:137
 msgid "Discount is valid until %s"
-msgstr "Korting is geldig tot %s"
+msgstr "割引は%sまで有効です"
 
 #: classes/Admin/Page/Welcome.php:12
 msgid "Welcome"
-msgstr "Welkom"
+msgstr "ようこそ"
 
 #: classes/Admin/Page/Settings.php:171
 msgid "Show %s button on table screen."
-msgstr "Toon %s-knop bij tabel-weergave."
+msgstr "%s ボタンをテーブル画面に表示"
 
 #: classes/Admin/Page/Settings.php:152
 msgid "Default is %s."
-msgstr "Standaard is %s."
+msgstr "デフォルトは %s です。"
 
 #: classes/Admin/Page/Settings.php:149
 msgid "on"
-msgstr "aan"
+msgstr "オン"
 
 #: classes/Admin/Page/Settings.php:146
 msgid "off"
-msgstr "uit"
+msgstr "オフ"
 
 #: classes/Admin/Page/Settings.php:133
 msgid "Notice"
-msgstr "Opmerking"
+msgstr "注意"
 
 #: classes/Admin/Page/Settings.php:127
 msgid "Instructions"
-msgstr "Instructies"
+msgstr "手順"
 
 #: classes/Admin/Page/Help.php:315
 msgid "our documentation"
-msgstr "onze documentatie"
+msgstr "ドキュメンテーション"
 
 #: classes/Admin/Page/Help.php:315
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
-msgstr "Deze site maakt gebruik van enkele acties of filters die zijn veranderd. Lees %s om ze op te lossen."
+msgstr ""
 
 #: classes/Admin/Page/Help.php:313
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
-msgstr "De Admin Columns plugin heeft enkele grote aanpassing gekregen in versie 4."
+msgstr ""
 
 #: classes/Admin/Page/Help.php:303
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s"
-msgstr[0] "De callback die wordt gebruikt is %s."
-msgstr[1] "De callbacks die worden gebruikt zijn %s."
+msgstr[0] ""
 
 #: classes/Admin/Page/Help.php:248
 msgid "View documentation"
-msgstr "Bekijk documentatie."
+msgstr "ドキュメンテーションを表示"
 
 #: classes/Admin/Page/Help.php:198
 msgid "The action %s used on this website is deprecated since %s."
-msgstr "De actie %s die wordt gebruikt op deze website is verouderd sinds %s."
+msgstr ""
 
 #: classes/Admin/Page/Help.php:185
 msgid "The filter %s used on this website is deprecated since %s."
-msgstr "Het filter %s dat wordt gebruikt op deze website is verouderd sinds %s."
+msgstr ""
 
 #: classes/Admin/Page/Help.php:172
 msgid "Deprecated Actions"
-msgstr "Verouderde acties"
+msgstr "非推奨アクション"
 
 #: classes/Admin/Page/Help.php:171
 msgid "Deprecated Filters"
-msgstr "Verouderde filters"
+msgstr "被推奨フィルター"
 
 #: classes/Admin/Page/Help.php:34 classes/Admin/Page/Help.php:311
 msgid "Help"
-msgstr "Hulp"
+msgstr "ヘルプ"
 
 #: classes/Admin/Page/Columns.php:849 classes/Admin/Page/Columns.php:884
 msgid "Close"
-msgstr "Sluiten"
+msgstr "閉じる"
 
 #: classes/Admin/Page/Columns.php:757
 msgid "Clear all columns "
-msgstr "Alle kolommen legen "
+msgstr "すべての列をクリア"
 
 #: classes/Admin/Page/Columns.php:664
 msgid "I'm using Admin Columns for WordPress!"
-msgstr "Ik gebruik Admin Columns voor WordPress."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:606
 msgid "Your First Name"
-msgstr "Je voornaam"
+msgstr "名"
 
 #: classes/Admin/Page/Columns.php:605
 msgid "Your Email"
-msgstr "Je e-mailadres"
+msgstr "メールアドレス"
 
 #: classes/Admin/Page/Columns.php:598
 msgid "Submit your email and we'll send you a discount for %s off."
-msgstr "Stuur je e-mail en wij sturen je een code voor %s korting."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:594
 msgid "Get %s Off!"
-msgstr "Krijg %s korting."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:561
 msgid "Extra Columns for:"
-msgstr "Extra kolommen voor:"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:547
 msgid "Edit your column content directly"
-msgstr "Bewerk je kolom-inhoud rechtstreeks."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:535
 msgid "Pro"
-msgstr "Pro"
+msgstr "プロ版"
 
 #: classes/Admin/Page/Columns.php:328
 msgid "You need at least one column"
-msgstr "Je hebt minstens één kolom nodig"
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:293
 msgid "Available"
-msgstr "Beschikbaar"
+msgstr "利用可能"
 
 #: classes/Admin/Page/Addons.php:292
 msgid "Recommended"
-msgstr "Aangeraden"
+msgstr "おすすめ"
 
 #: classes/Admin/Page/Addons.php:120
 msgid "%s could not be activated."
-msgstr "%s kan niet worden geactiveerd."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:110
 msgid "%s successfully activated."
-msgstr "%s succesvol geactiveerd."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:105
 msgid "%s plugin successfully deactivated."
-msgstr "%s plugin succesvol uitgeschakeld."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:104
 msgid "%s plugin successfully activated."
-msgstr "%s plugin succesvol geactiveerd."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:71
 msgid "%s add-on requires %s."
 msgid_plural "%s add-ons requires %s."
-msgstr[0] "%s add-on vereist %s."
-msgstr[1] "%s add-ons vereisen %s."
+msgstr[0] ""
 
 #: classes/Admin/Page/Addons.php:58
 msgid "here"
-msgstr "hier"
+msgstr "ここ"
 
 #: classes/Admin/Page/Addons.php:58
 msgid "Click %s to activate the plugin."
-msgstr "Klik %s om de plugin te activeren."
+msgstr "プラグインを有効化するには「%s」をクリックしてください。"
 
 #: classes/Admin/Page/Addons.php:55
 msgid "%s plugin is installed, but not active."
-msgstr "%s plugin is geïnstalleerd, maar niet actief."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:53
 msgid "%s plugin needs to be installed for the add-on to work."
-msgstr "%s plugin dient geïnstalleerd te zijn, om de add-on te laten werken."
+msgstr ""
 
 #: classes/Addon.php:274
 msgid "Display and edit %s fields in the posts overview in seconds!"
-msgstr "Toon en bewerk %s-velden in het berichtenoverzicht in enkele seconden."
+msgstr ""
 
 #: classes/Addon/Types.php:13
 msgid "Toolset Types"
-msgstr "Toolset-types"
+msgstr "ツールセットの種類"
 
 #: classes/Addon/Pods.php:13
 msgid "Pods"
-msgstr "Pods"
+msgstr ""
 
 #: classes/API.php:139
 msgid "Imported"
-msgstr "Geïmporteerd"
+msgstr "インポート済み"
 
 #: classes/Admin/Page/Columns.php:577
 msgid "Learn more about Pro"
-msgstr "Meer weten over Pro"
+msgstr "プロ版についてさらに詳しく読む"
 
 #: classes/Admin/Page/Columns.php:549
 msgid "Import &amp; Export settings"
-msgstr "Import &amp; Expor-instellingen"
+msgstr "インポート &amp; エクスポート設定"
 
 #: classes/Admin/Page/Columns.php:548
 msgid "Create multiple columns sets"
-msgstr "Maak meerdere kolommenverzamelingen."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:546
 msgid "Add filterable columns"
-msgstr "Voeg filterbare kolom toe"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:545
 msgid "Add sortable columns"
-msgstr "Voeg sorteerbare kolom toe"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:540
 msgid "Take Admin Columns to the next level:"
-msgstr "Breng Admin Columns naar een hoger niveau:"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:535
 msgid "Upgrade to"
-msgstr "Upgraden naar"
+msgstr "アップグレード:"
 
 #: classes/Admin/Promo.php:134
 msgid "Get %s Off"
-msgstr "Krijg %s korting"
+msgstr "%s割引を適用"
 
 #: classes/Column/Post/Excerpt.php:21
 msgid "Excerpt from content"
-msgstr "Samenvatting vanuit inhoud"
+msgstr "コンテンツからの抜粋"
 
 #: classes/Admin/Page/Columns.php:447
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
-msgstr "De kolommen voor %s zijn via PHP ingesteld, en kunnen daarom niet aangepast worden."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:248
 msgid "Please visit the %s screen once to load all available columns"
-msgstr "Bezoek eenmalig het %s-scherm om alle beschikbare kolommen te laden"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:516
 msgid "Restore columns"
-msgstr "Herstel originele kolommen"
+msgstr "列を復元"
 
 #: classes/Admin/Page/Columns.php:174
 msgid "Settings for %s restored successfully."
-msgstr "Kolom-instellingen voor %s succesvol hersteld in originele staat."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:354
 msgid "View %s screen"
-msgstr "Bekijk %s-scherm"
+msgstr "%s 画面を表示"
 
 #: classes/Admin/Page/Columns.php:74
 msgid "Invalid response."
-msgstr "Ongeldige respons."
+msgstr "無効なレスポンス。"
 
 #: classes/Admin/Help/CustomField.php:51
 msgid "Value: should contain Attachment IDs ( seperated by a ',' comma )."
-msgstr "Waarde: moet een bijlage ID bevatten ( gescheiden door een ',' komma )."
+msgstr ""
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Leave blank to display the url"
-msgstr "Laat leeg om URL weer te geven"
+msgstr ""
 
 #: classes/Settings/Column/LinkLabel.php:22
 msgid "Link Label"
-msgstr "Link label"
+msgstr "リンクのラベル"
 
 #: classes/Admin/Page/Addons.php:220
 msgid "You need Admin Columns Pro."
-msgstr "Hiervoor heeft u Admin Columns Pro nodig."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:214
 msgid "Addon does not exist."
-msgstr "Add-on bestaat niet."
+msgstr "アドオンが存在しません。"
 
 #: classes/Admin/Page/Addons.php:183
 msgid "the addons page"
-msgstr "de add-ons-pagina"
+msgstr "アドオンのページ"
 
 #: classes/Admin/Page/Addons.php:183
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
-msgstr "Wist je dat Admin Columns Pro een add-on heeft voor integratie met %s? Met de juiste licentie kun je onze add-ons downloaden via %s."
+msgstr ""
 
 #: classes/Settings/Column/Meta.php:114 codepress-admin-columns.php:340
 msgid "Custom Fields"
-msgstr "Extra velden"
+msgstr "カスタムフィールド"
 
 #: classes/Settings/Column/Meta.php:110
 msgid "Hidden Custom Fields"
-msgstr "Verborgen extra velden"
+msgstr "カスタムフィールドを非表示"
 
 #. Author of the plugin/theme
 msgid "AdminColumns.com"
@@ -572,7 +570,7 @@ msgstr "AdminColumns.com"
 
 #. Description of the plugin/theme
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
-msgstr "Pas de kolommen aan op de beheerschermen van post(types), pagina's, media, reacties en gebruikers met een eenvoudige drag-and-drop-interface."
+msgstr ""
 
 #. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
@@ -583,398 +581,405 @@ msgstr "https://www.admincolumns.com"
 
 #: classes/Admin/Page/Settings.php:171 classes/TableScreen.php:192
 msgid "Edit columns"
-msgstr "Kolommen bewerken"
+msgstr "列の編集"
 
 #: classes/Admin/Page/Upgrade.php:310
 msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
-msgstr "Excuseert. Er liep iets fout tijdens bij het upgraden. Gelieve dit te melden in het support forum."
+msgstr "申し訳ありません。アップグレードプロセス中にエラーが発生しました。サポートフォーラムへ報告してください。"
 
 #: classes/Admin/Page/Upgrade.php:309
 msgid "Error"
-msgstr "Fout"
+msgstr "エラー"
 
 #: classes/Admin/Page/Upgrade.php:308
 msgid "Return to settings."
-msgstr "Terug naar instellingen."
+msgstr "設定に戻る。"
 
 #: classes/Admin/Page/Upgrade.php:308
 msgid "Upgrade Complete!"
-msgstr "Upgrade voltooid!"
+msgstr "アップグレードが完了しました。"
 
 #: classes/Admin/Page/Upgrade.php:292
 msgid "Return to welcome screen."
-msgstr "Ga terug naar het welkomst scherm."
+msgstr "「ようこそ」の画面へ戻ります"
 
 #: classes/Admin/Page/Upgrade.php:291
 msgid "No Upgrade Required"
-msgstr "Geen upgrade verreist"
+msgstr "アップグレード不可"
 
 #: classes/Admin/Page/Upgrade.php:255
 msgid "Migrating Column Settings"
-msgstr "Migreer Kolom Instellingen"
+msgstr "移行列の設定"
 
 #: classes/Admin/Page/Upgrade.php:26 classes/Admin/Page/Upgrade.php:319
 msgid "Upgrade"
-msgstr "Upgraden"
+msgstr "アップグレード"
 
 #: classes/Admin/Page/Upgrade.php:46
 msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
-msgstr "The pro add-on wordt niet langer ondersteund. Login op je account en download Admin Columns Pro"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:353
 msgid "Settings for %s updated successfully."
-msgstr "Instellingen voor %s succesvol bijgewerkt."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:340
 msgid "You are trying to store the same settings for %s."
-msgstr "U probeerd dezelfde instellingen op te slaan voor %s."
+msgstr "%sはすでに設定済みです "
 
 #: classes/ListScreen.php:642
 msgid "No columns settings available."
-msgstr "Geen kolom instellingen beschikbaar."
+msgstr "設定された列はありません"
 
 #: classes/ListScreen/User.php:11 codepress-admin-columns.php:498
 msgid "Users"
-msgstr "Gebruikers"
+msgstr "ユーザー"
 
 #: classes/ListScreen/Media.php:16
 #: classes/Settings/Column/CustomFieldType.php:112
 #: codepress-admin-columns.php:499
 msgid "Media"
-msgstr "Media"
+msgstr "メディア"
 
 #: classes/ListScreen/Link.php:12
 msgid "Link"
-msgstr "Link"
+msgstr "リンク"
 
 #: classes/ListScreen/Link.php:11 codepress-admin-columns.php:501
 msgid "Links"
-msgstr "Links"
+msgstr "リンク"
 
 #: classes/ListScreen/Comment.php:15
 msgid "Comment"
-msgstr "Reactie"
+msgstr "コメント"
 
 #: classes/ListScreen/Comment.php:14 codepress-admin-columns.php:500
 msgid "Comments"
-msgstr "Reacties"
+msgstr "コメント"
 
 #: classes/Admin/Page/Addons.php:420
 msgid "Get this add-on"
-msgstr "Ga naar deze add-on"
+msgstr "このアドオンを入手"
 
 #: classes/Admin/Page/Addons.php:418
 msgid "Download & Install"
-msgstr "Downloadem & installeren"
+msgstr "ダウンロード & インストール"
 
 #: classes/Admin/Page/Addons.php:412
 msgid "Activate"
-msgstr "Activeren"
+msgstr "有効化"
 
 #: classes/Admin/Page/Addons.php:291
 msgid "Installed"
-msgstr "Geïnstalleerd"
+msgstr "インストール済み"
 
 #: classes/Admin/Page/Addons.php:408
 msgid "Deactivate"
-msgstr "Deactiveren"
+msgstr "停止"
 
 #: classes/Admin/Page/Addons.php:405
 msgid "Active"
-msgstr "Actief"
+msgstr "有効"
 
 #: classes/Admin/Page/Columns.php:763
 msgid "Add Column"
-msgstr "Kolom toevoegen"
+msgstr "列を追加"
 
 #: classes/Admin/Page/Columns.php:743
 msgid "Drag and drop to reorder"
-msgstr "Sleep om te herordenen"
+msgstr "ドロップ＆ドラッグで表示順序を変更できます"
 
 #: classes/Admin/Page/Columns.php:692
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
-msgstr "Voor de volledige documentatie, bug reports, suggesties en tips <a href='%s'>bezoek de Admin Columns website</a>"
+msgstr "ドキュメント・バグレポート・機能の提案などは<a href='%s'> Admin Columns website</a>を訪れてください。"
 
 #: classes/Admin/Page/Columns.php:688
 msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr "Bekijk de sectie <strong>Help</strong> in het scherm rechtsboven."
+msgstr "画面右上の<strong>Help</strong>を確認してください。"
 
 #: classes/Admin/Page/Columns.php:683
 msgid "Support"
-msgstr "Ondersteuning"
+msgstr "サポート"
 
 #: classes/Admin/Page/Columns.php:671
 msgid "Buy Pro"
-msgstr "Pro kopen"
+msgstr "Pro 版を購入"
 
 #: classes/Admin/Page/Columns.php:665
 msgid "Tweet"
-msgstr "Tweeten"
+msgstr "ツイートする"
 
 #: classes/Admin/Page/Columns.php:659
 msgid "Rate"
-msgstr "Beoordelen"
+msgstr "評価"
 
 #: classes/Admin/Page/Columns.php:654
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
-msgstr "We zouden het fanatastisch vinden als je eeb beoordeling zou kunnen achterlaten op WordPress.org of een tweet over Admin Columns!"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:651
 msgid "Woohoo! We're glad to hear that!"
-msgstr "Woohoo! We zijn blij dat te horen!"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:641
 msgid "Forums"
-msgstr "Forums"
+msgstr "フォーラム"
 
 #: classes/Admin/Page/Columns.php:636
 msgid "Docs"
-msgstr "Documenten"
+msgstr "ドキュメント"
 
 #: classes/Admin/Page/Columns.php:631
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
-msgstr "Bekijk onze uitgebreide documentatie, of je kunt een support ticket openen op WordPress.org!"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:628
 msgid "What's wrong? Need help? Let us know!"
-msgstr "Wat is er aan de hand? Hulp nodig? Vertel het ons!"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:618
 msgid "Are you happy with Admin Columns?"
-msgstr "Ben je blij met Admin Columns?"
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:515
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr "Waarschuwing. De kolomdata van %s wordt verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen met verwijderen."
+msgstr ""
 
 #: classes/Admin/Page/Columns.php:504 classes/Admin/Page/Columns.php:761
 msgid "Update"
-msgstr "Bijwerken"
+msgstr "更新"
 
 #: classes/Admin/Page/Columns.php:493
 msgid "Store settings"
-msgstr "Instellingen opslaan"
+msgstr "ストアー設定"
 
 #: classes/Admin/Page/Addons.php:19
 msgid "Add-ons"
-msgstr "Add-ons"
+msgstr "アドオン"
 
 #: classes/Admin/Page/Settings.php:18 codepress-admin-columns.php:295
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "設定"
 
 #: classes/Settings/Column/Image.php:89
 msgid "Others"
-msgstr "Overige"
+msgstr "その他"
 
 #: classes/Admin/Page/Settings.php:229
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr "Waarschuwing! ALLE gegevens van de opgeslagen beheerderskolommen zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
+msgstr ""
 
 #: classes/Admin/Page/Settings.php:229
 msgid "Restore default settings"
-msgstr "Herstel standaard instellingen"
+msgstr "デフォルト設定に復元する"
 
 #: classes/Admin/Page/Settings.php:221
 msgid "This will delete all column settings and restore the default settings."
-msgstr "Hiermee worden alle kolommen instellingen verwijderd en de standaardinstellingen hersteld."
+msgstr "追加された全ての列を削除し、デフォルト設定に戻します。"
 
 #: classes/Admin/Page/Settings.php:220
 msgid "Restore Settings"
-msgstr "Herstel Instellingen"
+msgstr "設定を修復"
 
 #: classes/Admin/Page/Columns.php:505 classes/Admin/Page/Columns.php:762
 #: classes/Admin/Page/Settings.php:179
 msgid "Save"
-msgstr "Bewaar"
+msgstr "保存"
 
 #: classes/Admin/Page/Settings.php:161
 msgid "Customize your Admin Columns settings."
-msgstr "Pas je Admin Column instellingen aan."
+msgstr "管理画面の列表示をカスタマイズします。"
 
 #: classes/Admin/Page/Settings.php:160 classes/Settings/Column/Date.php:81
 msgid "General Settings"
-msgstr "Algemene Instellingen"
+msgstr "一般設定"
 
 #: classes/Admin/Page/Welcome.php:90
 msgid "Start using Admin Columns"
-msgstr "Start met Admin Columns"
+msgstr "Admin Columns をはじめましょう"
 
 #: classes/Admin/Page/Upgrade.php:47
 msgid "Learn more"
-msgstr "Meer weten"
+msgstr "詳細"
 
 #: classes/Admin/Page/Welcome.php:29
 msgid "Changelog for"
-msgstr "Changelog voor"
+msgstr "変更履歴の"
 
 #: classes/Admin/Page/Welcome.php:62
 msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
-msgstr "Admin Columns ziet er nog beter uit dan ooit. Veel plezier ermee."
+msgstr ""
+"Admin Columns は洗練された管理画面を提供します。\n"
+"私たちは、あなたやあなたのユーザーが喜ぶことを願っています。"
 
 #: classes/Admin/Page/Welcome.php:61
 msgid "Thank you for updating to the latest version!"
-msgstr "Bedankt voor het updaten naar de laatste versie!"
+msgstr "最新のバージョンに更新して頂きありがとうございます。"
 
 #: classes/Admin/Page/Welcome.php:58
 msgid "Welcome to Admin Columns"
-msgstr "Welkom bij Admin Columns"
+msgstr "Admin Columns へようこそ"
 
 #: classes/Admin/Help/CustomField.php:35
 msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
-msgstr "Waarde: Kan een string of een array zijn. Dit zal een teller weergeven met het aantal keren dat een metatoets door het item werd gebruikt."
+msgstr "値: 文字列または配列。meta_keyの場合は回数を表示します。"
 
 #: classes/Admin/Help/CustomField.php:31
 msgid "Value: hex value color, such as #808080."
-msgstr "Waarde: hex waarde kleur, vb: #808080"
+msgstr "値: HEXカラーコード　#808080など"
 
 #: classes/Admin/Help/CustomField.php:27
 msgid "Value: should be a 1 (one) or 0 (zero)."
-msgstr "Waarde: moet 1 of 0 zijn."
+msgstr "値: 1(one)または0(zero)"
 
 #: classes/Admin/Help/CustomField.php:26
 msgid "Checkmark"
-msgstr "Checkmark"
+msgstr "チェックマーク"
 
 #: classes/Admin/Help/CustomField.php:67
 msgid "Value: can be one or more User ID's (seperated by ',')."
-msgstr "Waarde: één of meer User ID's ( gescheiden door een komma )"
+msgstr "値: 複数のユーザーの場合は(、)で区切ってください。"
 
 #: classes/Admin/Help/CustomField.php:66
 msgid "Usernames"
-msgstr "Gebruikersnamen"
+msgstr "ユーザー名"
 
 #: classes/Admin/Help/CustomField.php:63
 msgid "Value: can be one or more Post ID's (seperated by ',')."
-msgstr "Waarde: één of meer Post ID's ( gescheiden door een komma )"
+msgstr "値: 複数の場合は、投稿 ID を(、)で区切ってください。"
 
 #: classes/Admin/Help/CustomField.php:62
 msgid "Post Titles"
-msgstr "Post titels"
+msgstr "投稿タイトル"
 
 #: classes/Admin/Help/CustomField.php:39
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
-msgstr "Waarde: Kan een unix tijdstempel zijn, of een datumnotatie, zoals beschreven in de <a href='%s'>Codex</a>. Je kunt de uitgestuurde datumnotatie wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
+msgstr "値: <a href='%s'>Codex</a>の説明であるように unix タイムスタンプや日付形式を指定できます。設定＞一般<a href='%s'>日付のフォーマット</a>設定を利用できます。"
 
 #: classes/Admin/Help/CustomField.php:59
 msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Waarde: Enkel reeksen.<br/>Als je de 'sorteer-addon' hebt, zal die gebruikt worden voor het sorteren, zodat je je berichten kunt sorteren volgens de numerieke waarden (van aangepaste velden)."
+msgstr "値: 整数だけ<br/>サポートします。ソートアドオンが有効な場合(カスタムフィールド)記事を並び変えることができます。"
 
 #: classes/Admin/Help/CustomField.php:55
 msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
-msgstr "Waarde: moet een reeks zijn. Dit zal elke (multi-dimensionale) reeks afvlakken."
+msgstr "値: 配列でなければいけません。(配列をフラット化します)"
 
 #: classes/Admin/Help/CustomField.php:43
 msgid "Value: This will show the first 20 words of the Post content."
-msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
+msgstr "値: 投稿内容の最初の20文字が表示されます。"
 
 #: classes/Admin/Help/CustomField.php:47
 msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
-msgstr "Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' komma )."
+msgstr "値: 画像 URL やファイル ID を含んでいる必要があります。(複数の場合は\"、”で区切ってください)"
 
 #: classes/Admin/Help/CustomField.php:23
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
-msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door een ',' komma."
+msgstr "値: 文字列または配列になります。配列は、区切ります。"
 
 #: classes/Admin/Help/CustomField.php:18
 msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
-msgstr "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. Er zijn 10 typen welke je kan gebruiken."
+msgstr "カスタムフィールドには設定可能な10種類のタイプあります"
 
 #: classes/Admin/Help/Basics.php:29
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
-msgstr "Klik je op de driehoek, dan krijg je de kolomopties te zien. En met de versleepbare slider kun je de breedte van kolommen bepalen, uitgedrukt in percentages."
+msgstr "三角形をクリックすると、列のオプションが表示されます。ドラッグ可能なスライダーを使用することで、パーセンテージで列の幅を設定することができます。"
 
 #: classes/Admin/Help/Basics.php:27
 msgid "Change column width"
-msgstr "Verander kolom breedte"
+msgstr "列幅を変更"
 
 #: classes/Admin/Help/Basics.php:24
 msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
-msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de kolom label aanpassen."
+msgstr ""
+"列の表示オプションを表示します。\n"
+"見出しや列のラベルを変更できます。"
 
 #: classes/Admin/Help/Basics.php:22
 msgid "Change label"
-msgstr "Wijzig label"
+msgstr "ラベルの変更"
 
 #: classes/Admin/Help/Basics.php:19
 msgid "By dragging the columns you can change the order which they will appear in."
-msgstr "Door de kolommen te verslepen kan je de volgorde aanpassen."
+msgstr "列幅をドラッグして表示される場所を変更することが可能です。"
 
 #: classes/Admin/Help/Basics.php:17
 msgid "Change order"
-msgstr "Verander volgorde"
+msgstr "並びを変更"
 
 #: classes/Admin/Help/Basics.php:10
 msgid "Basics"
-msgstr "Basisinfo"
+msgstr "基本"
 
 #: classes/Admin/Help/Introduction.php:18
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr "Met deze plugin kun je bijkomende kolommen toevoegen en verwijderen van uit de administratieschermen van van berichten(types), pagina's, mediabibliotheken, reacties, links and gebruikers. Wijzig en herschik de kolomlabels."
+msgstr ""
+"このプラグインは管理画面に表示される列の追加・削除や並び変えを可能にします。\n"
+"投稿・メディアページ・コメント・リンク・ユーザー・カスタム投稿(post type)に対応し\n"
+"ＰＲＯ版ではソート・フィルタリングも可能になります。"
 
 #: classes/Admin/Help/Introduction.php:10
 msgid "Overview"
-msgstr "Overzicht"
+msgstr "概要"
 
 #: classes/Admin/Page/Settings.php:101
 msgid "Default settings succesfully restored."
-msgstr "Standaard instellingen succesvol hersteld."
+msgstr "初期設定を復元しました。"
 
 #: classes/Admin/Page/Columns.php:73 classes/Admin/Page/Columns.php:275
 msgid "%s column is already present and can not be duplicated."
-msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
+msgstr "%s 列はすでに存在します。複製することができません "
 
 #: classes/Admin.php:130
 msgid "Admin Columns Settings"
-msgstr "Admin Columns Instellingen"
+msgstr "Admin Columns 設定"
 
 #: classes/Admin/Page/Addons.php:111
 msgid "%s successfully deactivated."
-msgstr "%s werd gedeactiveerd."
+msgstr "%s を無効化しました。"
 
 #: classes/Notice/Review.php:105
 msgid "find answers to some frequently asked questions"
-msgstr "vind antwoorden op veel gestelde vragen"
+msgstr ""
 
 #: classes/Notice/Review.php:104
 msgid "Admin Columns forums on WordPress.org"
-msgstr "Admin Columns forums op WordPress.org"
+msgstr ""
 
 #: classes/Notice/Review.php:103
 msgid "You can also find help on the %s, and %s."
-msgstr "Je kunt ook hulp vinden op de %, en %s."
+msgstr ""
 
 #: classes/Notice/Review.php:99
 msgid "our forums"
-msgstr "onze forums"
+msgstr "フォーラム"
 
 #: classes/Notice/Review.php:98
 msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
-msgstr "Als Admin Columns Pro gebruiker kun je ook gebruik maken van je AdminColumns.com account voor direct ondersteuning op %s!"
+msgstr ""
 
 #: classes/Notice/Review.php:94
 msgid "documentation page"
-msgstr "documentatie pagina"
+msgstr "ドキュメントページ"
 
 #: classes/Notice/Review.php:92
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
-msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere features, bezoek dan onze %s."
+msgstr ""
 
 #: classes/Notice/Review.php:85
 msgid "Permanently hide notice"
-msgstr "Verberg deze notice permanent"
+msgstr ""
 
 #: classes/Notice/Review.php:84
 msgid "Leave a review!"
-msgstr "Laat een review achter!"
+msgstr "レビューを残す"
 
 #: classes/Notice/Review.php:80
 msgid "click here"
-msgstr "klik hier"
+msgstr "ここをクリック"
 
 #: classes/Notice/Review.php:76
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
-msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een review achter willen laten op WordPress.org? Als je niet blij bent met %s, %s a.u.b."
+msgstr ""
 
 #: classes/Admin/Page/Addons.php:71 classes/Notice/Review.php:67
 msgid "Admin Columns Pro"
@@ -989,380 +994,378 @@ msgstr "Admin Columns"
 
 #: classes/Column/Placeholder.php:45
 msgid "Find out more"
-msgstr "Meer weten"
+msgstr "もっと見る"
 
 #: classes/Column/Placeholder.php:43
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
-msgstr "Admin Columns Pro biedt volledige integratie met %s, waardoor je eenvoudig specifieke %s-velden kunt weergeven, sorteren en aanpassen."
+msgstr ""
 
 #: classes/Column/Placeholder.php:39
 msgid "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>."
-msgstr "Als je een Business of Developer-licentie hebt, download en installeer de %s-add-on dan via het <a href='%s'>add-ons-scherm</a>."
+msgstr ""
 
 #: classes/Column/Placeholder.php:35
 msgid "The %s column is only available in Admin Columns Pro - Business or Developer."
-msgstr "De %s-kolom is alleen beschikbaar in Admin Columns Pro - Business of Developer."
+msgstr ""
 
 #: classes/Settings/Column/PostLink.php:68
 msgid "View Public Post Author Page"
-msgstr "Bekijk Publieke Bericht Auteur pagina"
+msgstr ""
 
 #: classes/Settings/Column/PostLink.php:67
 msgid "Edit Post Author"
-msgstr "Wijzig Bericht Auteur"
+msgstr "投稿者を編集"
 
 #: classes/Settings/Column/PostLink.php:66
 msgid "View Post"
-msgstr "Bericht bekijken"
+msgstr "投稿を表示"
 
 #: classes/Settings/Column/PostLink.php:65
 msgid "Edit Post"
-msgstr "Bericht bewerken"
+msgstr "投稿を編集"
 
 #: classes/Settings/Column/Label.php:28
 msgid "This is the name which will appear as the column header."
-msgstr "Deze naam zal verschijnen als kolom kop."
+msgstr "列に表示される名前"
 
 #: classes/Settings/Column/Label.php:27
 msgid "Label"
-msgstr "Label"
+msgstr "ラベル"
 
 #: classes/Settings/Column/Type.php:29
 msgid "Name"
-msgstr "Naam"
+msgstr "名称"
 
 #: classes/Settings/Column/Type.php:26
 msgid "Choose a column type."
-msgstr "Kies een kolom type."
+msgstr "カラム形式を選択。"
 
 #: classes/Admin/Page/Columns.php:851 classes/Admin/Page/Columns.php:886
 msgid "Clone"
-msgstr "Kloon"
+msgstr "複製"
 
 #: classes/Settings/Column/Password.php:27
 msgid "Display format"
-msgstr "Weergave formaat"
+msgstr "表示形式"
 
 #: classes/Settings/Column/User.php:117
 msgid "First and Last Name"
-msgstr "Voor- en achternaam"
+msgstr "姓名"
 
 #: classes/Settings/Column/User.php:115 classes/Settings/Column/User.php:133
 msgid "User Email"
-msgstr "Gebruiker Email"
+msgstr "メールアドレス"
 
 #: classes/Settings/Column/User.php:114
 msgid "User Login"
-msgstr "Gebruikers login"
+msgstr "ユーザーログイン"
 
 #: classes/Settings/Column/User.php:112
 msgid "Last Name"
-msgstr "Achternaam"
+msgstr "姓"
 
 #: classes/Column/User/FirstName.php:14 classes/Settings/Column/User.php:111
 msgid "First Name"
-msgstr "Voornaam"
+msgstr "名"
 
 #: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:110
 msgid "Display Name"
-msgstr "Schermnaam"
+msgstr "表示名"
 
 #: classes/Settings/Column/BeforeAfter.php:49
 msgid "After"
-msgstr "Na"
+msgstr "更新後 "
 
 #: classes/Settings/Column/BeforeAfter.php:41
 msgid "This text will appear before the column value."
-msgstr "Deze tekst wordt getoond voor de kolomwaarde."
+msgstr "このテキストはカラムの値の前に表示されます。"
 
 #: classes/Settings/Column/BeforeAfter.php:40
 msgid "Before"
-msgstr "Voor"
+msgstr "前"
 
 #: classes/Settings/Column/Width.php:62
 msgid "width"
-msgstr "breedte"
+msgstr "幅"
 
 #: classes/Settings/Column/CustomFieldType.php:153
 #: classes/Settings/Column/Image.php:111 codepress-admin-columns.php:341
 msgid "Custom"
-msgstr "Aangepast"
+msgstr "カスタム"
 
 #: classes/Settings/Column/Date.php:33
 msgid "This will determine how the date will be displayed."
-msgstr "Dit bepaald hoe de datum wordt weergegeven."
+msgstr "日付の表示方法を設定する。"
 
 #: classes/Settings/Column/Date.php:32
 msgid "Date Format"
-msgstr "Datumnotatie"
+msgstr "日付フォーマット"
 
 #: classes/Settings/Column/Image.php:75
 msgid "Large"
-msgstr "Groot"
+msgstr "大"
 
 #: classes/Settings/Column/Image.php:74
 msgid "Medium"
-msgstr "Gemiddeld"
+msgstr "中"
 
 #: classes/Settings/Column/Image.php:73
 msgid "Thumbnail"
-msgstr "Thumbnail"
+msgstr "サムネイル"
 
 #: classes/Settings/Column/CustomFieldType.php:104
 msgid "Url"
-msgstr "Url"
+msgstr "URL"
 
 #: classes/Column/User/RichEditing.php:11
 msgid "Visual Editor"
-msgstr "Visuele editor"
+msgstr "ビジュアルエディター"
 
 #: classes/Column/User/Registered.php:14
 msgid "Registered"
-msgstr "Registratie"
+msgstr "登録済み"
 
 #: classes/Settings/Column/CustomFieldType.php:80
 #: classes/Settings/Column/PostType.php:23 codepress-admin-columns.php:497
 msgid "Post Type"
-msgstr "Post Type"
+msgstr "投稿タイプ"
 
 #: classes/Column/User/PostCount.php:14
 msgid "Post Count"
-msgstr "Aantal posts"
+msgstr "投稿数"
 
 #: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:113
 msgid "Nickname"
-msgstr "Nickname"
+msgstr "ニックネーム"
 
 #: classes/Column/User/LastName.php:14
 msgid "Last name"
-msgstr "Achternaam"
+msgstr "姓"
 
 #: classes/Column/Post/CommentCount.php:17
 #: classes/Column/User/CommentCount.php:14
 msgid "Comment Count"
-msgstr "Reacties-telling"
+msgstr "コメント数"
 
 #: classes/Admin/Page/Columns.php:853 classes/Admin/Page/Columns.php:888
 msgid "Remove"
-msgstr "Verwijderen"
+msgstr "削除"
 
 #: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:116
 msgid "User ID"
-msgstr "Gebruiker ID"
+msgstr "ユーザー ID"
 
 #: classes/Settings/Column/LinkToMenu.php:26
 msgid "This will make the title link to the menu."
-msgstr "Dit linkt de titel naar het menu"
+msgstr ""
 
 #: classes/Settings/Column/LinkToMenu.php:25
 msgid "Link to menu"
-msgstr "Link naar menu"
+msgstr "メニューへのリンク"
 
 #: classes/Column/UsedByMenu.php:17
 msgid "Used by Menu"
-msgstr "Ingebruik door menu"
+msgstr "メニューで使用中"
 
 #: classes/Column/Taxonomy.php:17 classes/Settings/Column/Taxonomy.php:29
 msgid "Taxonomy"
-msgstr "Taxonomy"
+msgstr "タクソノミー"
 
 #: classes/Column/Post/TitleRaw.php:14
 msgid "Title without actions"
-msgstr "Titel zonder acties"
+msgstr "アクションのないタイトル"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "Sticky"
+msgstr "先頭固定表示"
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:14
 msgid "Status"
-msgstr "Status"
+msgstr "状態"
 
 #: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:28
 msgid "Slug"
-msgstr "Slug"
+msgstr "スラッグ"
 
 #: classes/Column/Post/Shortcodes.php:16
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "ショートコード"
 
 #: classes/Column/Post/Roles.php:14
 msgid "Roles"
-msgstr "Rollen"
+msgstr "権限"
 
 #: classes/Column/Post/PingStatus.php:14
 msgid "Ping Status"
-msgstr "Ping status"
+msgstr "Ping ステータス"
 
 #: classes/Column/Post/Permalink.php:16
 msgid "Permalink"
-msgstr "Permalink"
+msgstr "パーマリンク"
 
 #: classes/Column/Post/Path.php:16
 msgid "Path"
-msgstr "Pad"
+msgstr "パス"
 
 #: classes/Column/Post/Parent.php:14
 msgid "Parent"
-msgstr "Hoofd"
+msgstr "親"
 
 #: classes/Column/Post/PageTemplate.php:14
 msgid "Page Template"
-msgstr "Pagina Template"
+msgstr "ページテンプレート"
 
 #: classes/Column/Post/Order.php:14
 msgid "Order"
-msgstr "Volgorde"
+msgstr "注文"
 
 #: classes/Column/Post/Modified.php:14
 msgid "Last Modified"
-msgstr "Laatst gewijzigd"
+msgstr "最終更新日"
 
 #: classes/Column/Post/LastModifiedAuthor.php:17
 msgid "Last Modified Author"
-msgstr "Laatst Gewijzigd Auteur"
+msgstr "最終更新者"
 
 #: classes/Column/Post/Formats.php:14
 msgid "Post Format"
-msgstr "Post formaat"
+msgstr "投稿フォーマット"
 
 #: classes/Column/Post/FeaturedImage.php:14 classes/Settings/Column/Post.php:83
 msgid "Featured Image"
-msgstr "Uitgelichte afbeelding"
+msgstr "アイキャッチ画像"
 
 #: classes/Settings/Column/WordsPerMinute.php:32
 msgid "Estimated reading time in words per minute."
-msgstr "Geschatte leestijd in woorden per minuut."
+msgstr ""
 
 #: classes/Settings/Column/WordsPerMinute.php:31
 msgid "Words per minute"
-msgstr "Woorden per minuut"
+msgstr "1分あたりの単語数"
 
 #: classes/Settings/Column/WordsPerMinute.php:85
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] "minuut"
-msgstr[1] "minuten"
+msgstr[0] "分"
 
 #: classes/Settings/Column/WordsPerMinute.php:83
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] "seconde"
-msgstr[1] "seconden"
+msgstr[0] "秒"
 
 #: classes/Column/Post/EstimatedReadingTime.php:14
 msgid "Estimated Reading Time"
-msgstr "Gemiddelde leestijd"
+msgstr "推定読了時間"
 
 #: classes/Column/Post/Depth.php:16
 msgid "Depth"
-msgstr "Diepte"
+msgstr "深さ"
 
 #: classes/Column/Post/DatePublished.php:14
 msgid "Date Published"
-msgstr "Datum gepubliceerd "
+msgstr "発行日"
 
 #: classes/Settings/Column/CommentCount.php:31
 msgid "Select which comment status you like to display."
-msgstr "Selecteer welke reactie status die je wil weergeven."
+msgstr "表示させたいコメントステータスを選択します。"
 
 #: classes/Settings/Column/CommentCount.php:30
 msgid "Comment status"
-msgstr "Comment status"
+msgstr "コメントステータス"
 
 #: classes/Column/Comment/Status.php:25
 #: classes/Settings/Column/CommentCount.php:45
 msgid "Spam"
-msgstr "Spam"
+msgstr "スパム"
 
 #: classes/Column/Comment/Status.php:27
 #: classes/Settings/Column/CommentCount.php:44
 msgid "Pending"
-msgstr "Pending"
+msgstr "保留"
 
 #: classes/Settings/Column/CommentCount.php:52
 msgid "Total"
-msgstr "Totaal"
+msgstr "合計"
 
 #: classes/Column/Post/BeforeMoreTag.php:14
 msgid "Before More Tag"
-msgstr "Voor de meer-tag"
+msgstr "タグの前に"
 
 #: classes/Settings/Column/User.php:135
 msgid "View Public Author Page"
-msgstr "Bekijk Publieke Auteur Pagina"
+msgstr "公開投稿者ページを表示"
 
 #: classes/Settings/Column/User.php:134
 msgid "View User Posts"
-msgstr "Bekijk gebruikersberichten"
+msgstr "ユーザーの投稿を表示"
 
 #: classes/Settings/Column/User.php:132
 msgid "Edit User Profile"
-msgstr "Gebruikersprofiel aanpassen"
+msgstr "ユーザープロファイルを編集"
 
 #: classes/Settings/Column/PostLink.php:73
 #: classes/Settings/Column/Separator.php:26
 #: classes/Settings/Column/User.php:141
 msgid "None"
-msgstr "Geen"
+msgstr "なし"
 
 #: classes/Settings/Column/PostLink.php:56 classes/Settings/Column/User.php:47
 msgid "Link To"
-msgstr "Link aan"
+msgstr "リンク先"
 
 #: classes/Column/Post/Attachment.php:14
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "添付ファイル"
 
 #: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:40
 #: classes/Settings/Column/Width.php:52
 msgid "Width"
-msgstr "Breedte"
+msgstr "幅"
 
 #: classes/Column/Media/MimeType.php:14
 msgid "Mime Type"
-msgstr "Mime-type"
+msgstr "MIME タイプ"
 
 #: classes/Column/Media/Height.php:16 classes/Settings/Column/Image.php:46
 msgid "Height"
-msgstr "Hoogte"
+msgstr "高さ"
 
 #: classes/Settings/Column/PathScope.php:26
 msgid "Relative to main uploads folder "
-msgstr "Relatief aan de uploads directory"
+msgstr "メインのアップロードフォルダーに対して相対"
 
 #: classes/Settings/Column/PathScope.php:25
 msgid "Relative to domain"
-msgstr "Relatief aan het domein"
+msgstr "ドメインに対して相対"
 
 #: classes/Settings/Column/PathScope.php:31
 msgid "Part of the file path to display"
-msgstr "Deel van bestands locatie voor weergave"
+msgstr "表示するファイルパスの部分"
 
 #: classes/Settings/Column/PathScope.php:30
 msgid "Path scope"
-msgstr "Path scope"
+msgstr "パススコープ"
 
 #: classes/Settings/Column/PathScope.php:24
 msgid "Full path"
-msgstr "Volledige pad"
+msgstr "フルパス"
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
-msgstr "Bestandsgrootte"
+msgstr "ファイルサイズ"
 
 #: classes/Column/Media/FileName.php:14
 msgid "Filename"
-msgstr "Bestandsnaam"
+msgstr "ファイル名"
 
 #: classes/Settings/Column/ExifData.php:50 classes/Settings/Column/Post.php:80
 #: classes/Settings/Column/Term.php:27
 msgid "Title"
-msgstr "Titel"
+msgstr "タイトル"
 
 #: classes/Settings/Column/ExifData.php:49
 msgid "Shutter Speed"
-msgstr "Sluitertijd"
+msgstr "シャッタースピード"
 
 #: classes/Settings/Column/ExifData.php:48
 msgid "ISO"
@@ -1370,51 +1373,51 @@ msgstr "ISO"
 
 #: classes/Settings/Column/ExifData.php:47
 msgid "Focal Length"
-msgstr "Brandpuntsafstand"
+msgstr "焦点距離"
 
 #: classes/Settings/Column/ExifData.php:46
 msgid "Copyright EXIF"
-msgstr "Copyright EXIF"
+msgstr "EXIF著作権 "
 
 #: classes/Settings/Column/ExifData.php:45
 msgid "Timestamp"
-msgstr "Timestamp"
+msgstr "タイムスタンプ"
 
 #: classes/Settings/Column/ExifData.php:43
 msgid "Camera"
-msgstr "Camera"
+msgstr "カメラ"
 
 #: classes/Settings/Column/ExifData.php:42
 msgid "Credit"
-msgstr "Credit"
+msgstr "クレジット"
 
 #: classes/Settings/Column/ExifData.php:41
 msgid "Aperture"
-msgstr "Aperture"
+msgstr "口径"
 
 #: classes/Column/Media/ExifData.php:16
 msgid "EXIF Data"
-msgstr "EXIF data"
+msgstr "EXIF データ"
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
-msgstr "Afmetingen"
+msgstr "寸法"
 
 #: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:44
 msgid "Caption"
-msgstr "Onderschrift"
+msgstr "キャプション"
 
 #: classes/Column/Media/AvailableSizes.php:49
 msgid "full size"
-msgstr "volledige grootte"
+msgstr "フルサイズ"
 
 #: classes/Column/Media/AvailableSizes.php:18
 msgid "Available Sizes"
-msgstr "Beschikbare Afmetingen"
+msgstr "利用可能なサイズ"
 
 #: classes/Column/Media/AttachedTo.php:14
 msgid "Attached to Post"
-msgstr "Bijgevoegd aan bericht"
+msgstr "投稿に添付"
 
 #: classes/Column/Media/AlternateText.php:14
 msgid "Alt"
@@ -1422,188 +1425,186 @@ msgstr "Alt"
 
 #: classes/Admin/Page/Columns.php:479
 msgid "View"
-msgstr "Bekijk"
+msgstr "表示"
 
 #: classes/Column/Comment/Status.php:23 classes/Column/Comment/Status.php:24
 #: classes/Settings/Column/CommentCount.php:46
 msgid "Trash"
-msgstr "Prullenbak"
+msgstr "ゴミ箱"
 
 #: classes/Column/Link/Target.php:14
 msgid "Target"
-msgstr "Doel"
+msgstr "ターゲット"
 
 #: classes/Column/Link/Rss.php:14
 msgid "Rss"
-msgstr "Rss"
+msgstr "RSS"
 
 #: classes/Column/Link/Owner.php:14
 msgid "Owner"
-msgstr "Eigenaar"
+msgstr "保有者"
 
 #: classes/Column/Link/Notes.php:14
 msgid "Notes"
-msgstr "Beschrijving"
+msgstr "注"
 
 #: classes/Column/Link/Length.php:14
 msgid "Length"
-msgstr "Lengte"
+msgstr "長さ"
 
 #: classes/Column/Link/Description.php:14
 #: classes/Column/Media/Description.php:16
 #: classes/Column/User/Description.php:14
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "説明"
 
 #: classes/Column/Link/Actions.php:40
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr "削除"
 
 #: classes/Column/Link/Actions.php:40
 msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
-"Je staat op het op punt om deze link te verwijderen '%s'\n"
-"  'Annuleren' om af te breken, 'OK' om te verwijderen."
 
 #: classes/Settings/Column/CustomFieldType.php:53
 msgid "This will determine how the value will be displayed."
-msgstr "Dit zal bepalen hoe de waarde wordt weergeven."
+msgstr "表示される方法を設定します"
 
 #: classes/Settings/Column/CustomFieldType.php:60
 msgid "Field Type"
-msgstr "Veld type"
+msgstr "フィールド形式"
 
 #: classes/Settings/Column/CustomField.php:32
 msgid "Please create a %s item first."
-msgstr "Maak eerste een %s item aan."
+msgstr ""
 
 #: classes/Settings/Column/CustomField.php:32
 msgid "No custom fields available."
-msgstr "Geen custom fields beschikbaar."
+msgstr "カスタムフィールドがありません"
 
 #: classes/Admin/Help/CustomField.php:58
 msgid "Numeric"
-msgstr "Numerieke"
+msgstr "数字"
 
 #: classes/Admin/Help/CustomField.php:54
 #: classes/Settings/Column/CustomFieldType.php:118
 msgid "Multiple Values"
-msgstr "Meerdere waarden"
+msgstr "複数の値"
 
 #: classes/Admin/Help/CustomField.php:50
 msgid "Media Library"
-msgstr "Mediabibliotheek"
+msgstr "メディアライブラリー"
 
 #: classes/Admin/Help/CustomField.php:46 classes/Column/Link/Image.php:14
 #: classes/Settings/Column/CustomFieldType.php:103
 msgid "Image"
-msgstr "Afbeelding"
+msgstr "画像"
 
 #: classes/Admin/Help/CustomField.php:42 classes/Column/Post/Excerpt.php:14
 msgid "Excerpt"
-msgstr "Samenvatting"
+msgstr "抜粋"
 
 #: classes/Admin/Help/CustomField.php:34
 msgid "Counter"
-msgstr "Teller"
+msgstr "カウンター"
 
 #: classes/Admin/Help/CustomField.php:30
 #: classes/Settings/Column/CustomFieldType.php:100
 msgid "Color"
-msgstr "Kleur"
+msgstr "色"
 
 #: classes/Admin/Help/CustomField.php:22
 #: classes/Settings/Column/CustomFieldType.php:168
 #: classes/Settings/Column/Image.php:71
 #: classes/Settings/Column/Separator.php:23 codepress-admin-columns.php:338
 msgid "Default"
-msgstr "Standaard"
+msgstr "デフォルト"
 
 #: classes/Admin/Help/CustomField.php:10 classes/Column/CustomField.php:20
 msgid "Custom Field"
-msgstr "Custom veld"
+msgstr "カスタムフィールド"
 
 #: classes/Column/Comment/WordCount.php:14 classes/Column/Post/WordCount.php:14
 msgid "Word Count"
-msgstr "Aantal woorden"
+msgstr "単語数"
 
 #: classes/Column/Comment/User.php:14 classes/ListScreen/User.php:12
 #: classes/Settings/Column/CustomFieldType.php:84
 #: classes/Settings/Column/CustomFieldType.php:114
 #: classes/Settings/Column/User.php:53
 msgid "User"
-msgstr "Gebruiker"
+msgstr "ユーザー"
 
 #: classes/Column/Comment/Type.php:14
 #: classes/Settings/Column/CustomFieldType.php:56
 #: classes/Settings/Column/Type.php:26 classes/Settings/Column/Type.php:34
 msgid "Type"
-msgstr "Type"
+msgstr "タイプ"
 
 #: classes/Column/Comment/ReplyTo.php:14
 msgid "In Reply To"
-msgstr "Antwoord op"
+msgstr "返信先"
 
 #: classes/Column/Comment/Post.php:14
 #: classes/Settings/Column/CustomFieldType.php:113
 msgid "Post"
-msgstr "Bericht"
+msgstr "投稿"
 
 #: classes/Column/Comment/Excerpt.php:14 classes/Column/Post/Content.php:14
 msgid "Content"
-msgstr "Content"
+msgstr "コンテンツ"
 
 #: classes/Admin/Help/CustomField.php:38
 #: classes/Settings/Column/CustomFieldType.php:101
 msgid "Date"
-msgstr "Datum"
+msgstr "日付"
 
 #: classes/Column/Comment/DateGmt.php:20
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr "Verstuurd op <a href=\"%1$s\">%2$s om %3$s</a>"
+msgstr ""
 
 #: classes/Column/Comment/DateGmt.php:14
 msgid "Date GMT"
-msgstr "Datum GMT"
+msgstr "日時 (GMT)"
 
 #: classes/Column/Post/AuthorName.php:17 classes/Settings/Column/Post.php:82
 msgid "Author"
-msgstr "Auteur"
+msgstr "登録者"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author Url"
-msgstr "Auteur url"
+msgstr "投稿者 URL"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
-msgstr "Auteur naam"
+msgstr "投稿者名"
 
 #: classes/Column/Comment/AuthorIP.php:11
 msgid "Author IP"
-msgstr "Auteur IP"
+msgstr "投稿者 IP"
 
 #: classes/Column/Comment/AuthorEmail.php:14
 msgid "Author Email"
-msgstr "Auteur e-mailadres"
+msgstr "投稿者メール"
 
 #: classes/Column/Comment/AuthorAvatar.php:14
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "アバター"
 
 #: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:26
 #: classes/Settings/Column/CommentCount.php:43
 msgid "Approved"
-msgstr "Goedgekeurd"
+msgstr "承認済み"
 
 #: classes/Column/Comment/Agent.php:14
 msgid "Agent"
-msgstr "Agent"
+msgstr "エージェント"
 
 #: classes/Admin/Page/Columns.php:848 classes/Column/Link/Actions.php:39
 msgid "Edit"
-msgstr "Bewerken"
+msgstr "編集"
 
 #: classes/Column/Comment/ID.php:14 classes/Column/Link/ID.php:14
 #: classes/Column/Media/ID.php:14 classes/Column/Post/ID.php:14
@@ -1615,29 +1616,29 @@ msgstr "ID"
 #: classes/Settings/Column/ActionIcons.php:22
 #: classes/Settings/Column/Toggle.php:14
 msgid "No"
-msgstr "Nee"
+msgstr "いいえ"
 
 #: classes/Admin/Page/Columns.php:621 classes/Helper/Icon.php:44
 #: classes/Settings/Column/ActionIcons.php:21
 #: classes/Settings/Column/Toggle.php:13
 msgid "Yes"
-msgstr "Ja"
+msgstr "はい"
 
 #: classes/Settings/Column/ActionIcons.php:27
 msgid "Use icons instead of text for displaying the actions."
-msgstr "Gebruik iconen in plaats van tekst om actions te tonen."
+msgstr "アクションの表示にはテキストの代わりにアイコンを使用します。"
 
 #: classes/Settings/Column/ActionIcons.php:26
 msgid "Use icons?"
-msgstr "Gebruik iconen?"
+msgstr "アイコンを使いますか ?"
 
 #: classes/Column/Actions.php:30 classes/Column/Link/Actions.php:14
 msgid "Actions"
-msgstr "Acties"
+msgstr "アクション"
 
 #: classes/Addon/WooCommerce.php:14
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
-msgstr "Verbeter de producten, orders en coupons overzichten met de nieuwe kolommen en inline editing."
+msgstr ""
 
 #: classes/Addon/WooCommerce.php:13
 msgid "WooCommerce"
@@ -1649,4 +1650,4 @@ msgstr "Advanced Custom Fields"
 
 #: classes/Admin/Page/Addons.php:120 codepress-admin-columns.php:339
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "プラグイン"
