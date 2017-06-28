@@ -1,0 +1,1652 @@
+# Translation of Plugins - Admin Columns - Stable (latest release) in Dutch
+# This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-06-15 10:59:29+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: nl\n"
+"Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: classes/Settings/Column/User.php:118
+msgid "User Nicename"
+msgstr "Gebruiker schermnaam"
+
+#: classes/Admin/Page/Columns.php:607
+msgid "Send me the discount"
+msgstr "Stuur mij de korting"
+
+#: classes/Admin/Page/Columns.php:572
+msgid "Prices starting from %s"
+msgstr "Prijzen vanaf %s"
+
+#: classes/Addon/BuddyPress.php:17
+msgid "Display any of your Profile Fields for BuddyPress on your users overview."
+msgstr "Toon een veld van je BuddyPress-profiel in je gebruikersoverzicht."
+
+#: classes/Addon/BuddyPress.php:13
+msgid "BuddyPress"
+msgstr "BuddyPress"
+
+#: templates/settings/section.php:23
+msgid "View more"
+msgstr "Meer tonen"
+
+#: classes/TableScreen.php:57
+msgid "Invalid method."
+msgstr "Ongeldige methode."
+
+#: classes/TableScreen.php:53
+msgid "Invalid column."
+msgstr "Ongeldige kolom."
+
+#: classes/TableScreen.php:45
+msgid "Invalid list screen."
+msgstr "Ongeldige lijst-weergave."
+
+#: classes/TableScreen.php:39
+msgid "Invalid item ID."
+msgstr "Ongeldig item-ID."
+
+#: classes/Settings/Column/WordsPerMinute.php:32
+msgid "By default: %s"
+msgstr "Standaard: %s"
+
+#: classes/Settings/Column/WordLimit.php:35
+msgid "Maximum number of words"
+msgstr "Maximale aantal woorden"
+
+#: classes/Settings/Column/WordLimit.php:34
+msgid "Word Limit"
+msgstr "Woordlimiet"
+
+#: classes/Settings/Column/Width.php:40
+msgid "Auto"
+msgstr "Auto"
+
+#: classes/Settings/Column/Term.php:33 classes/Settings/Column/User.php:37
+msgid "Display"
+msgstr "Tonen"
+
+#: classes/Settings/Column/Taxonomy.php:23
+msgid "No taxonomies available."
+msgstr "Geen taxonomiën beschikbaar."
+
+#: classes/Settings/Column/Separator.php:32
+msgid "Select a repeater sub field."
+msgstr "Selecteer een repeater-subveld"
+
+#: classes/Settings/Column/Separator.php:31
+msgid "Separator"
+msgstr "Scheidingsteken"
+
+#: classes/Settings/Column/Separator.php:27
+msgid "Whitespace"
+msgstr "Witruimte"
+
+#: classes/Settings/Column/Separator.php:25
+msgid "New line"
+msgstr "Nieuwe regel"
+
+#: classes/Settings/Column/Separator.php:24
+msgid "Comma Separated"
+msgstr "Kommagescheiden"
+
+#: classes/Settings/Column/Password.php:23
+msgid "Plain text"
+msgstr "Platte tekst"
+
+#: classes/Settings/Column/Password.php:22
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: classes/Settings/Column/Meta.php:27
+msgid "No fields available."
+msgstr "Geen velden beschikbaar."
+
+#: classes/Settings/Column/Image.php:112
+msgid "Custom Size"
+msgstr "Aangepaste grootte"
+
+#: classes/Settings/Column/Image.php:108
+msgid "Full Size"
+msgstr "Volledige grootte"
+
+#: classes/Settings/Column/Image.php:54
+msgid "Image Size"
+msgstr "Afbeeldingsformaat"
+
+#: classes/Settings/Column/Image.php:47
+msgid "Height in pixels"
+msgstr "Hoogte in pixels"
+
+#: classes/Settings/Column/Image.php:41
+msgid "Width in pixels"
+msgstr "Breedte in pixels"
+
+#: classes/Settings/Column/Date.php:181
+msgid "in %s"
+msgstr "in %s"
+
+#: classes/Settings/Column/Date.php:178
+msgid "%s ago"
+msgstr "%s geleden"
+
+#: classes/Settings/Column/Date.php:99
+msgid "date and time formatting"
+msgstr "datum- en tijdopmaak"
+
+#: classes/Settings/Column/Date.php:99
+msgid "Learn more about %s."
+msgstr "Leer meer over %s."
+
+#: classes/Settings/Column/Date.php:98
+msgid "Custom:"
+msgstr "Aangepast:"
+
+#: classes/Settings/Column/Date.php:81
+msgid "The %s can be changed in %s."
+msgstr "De %s kun je aanpassen in %s."
+
+#: classes/Settings/Column/Date.php:76
+msgid "WordPress Date Format"
+msgstr "WordPress datumformat"
+
+#: classes/Settings/Column/Date.php:70
+msgid "or"
+msgstr "of"
+
+#: classes/Settings/Column/Date.php:70
+msgid "For example: %s."
+msgstr "Bijvoorbeeld: %s."
+
+#: classes/Settings/Column/Date.php:70
+msgid "The difference is returned in a human readable format."
+msgstr "Het verschil wordt teruggegeven in een menselijk leesbaar format."
+
+#: classes/Settings/Column/Date.php:69
+msgid "Time Difference"
+msgstr "Tijdsverschil"
+
+#: classes/Settings/Column/CustomFieldType.php:152
+msgid "Multiple"
+msgstr "Meerdere"
+
+#: classes/Settings/Column/CustomFieldType.php:151
+msgid "Choice"
+msgstr "Keuze"
+
+#: classes/Settings/Column/CustomFieldType.php:150
+msgid "Relational"
+msgstr "Relationeel"
+
+#: classes/Settings/Column/CustomFieldType.php:149
+msgid "Basic"
+msgstr "Basis"
+
+#: classes/Settings/Column/CustomFieldType.php:117
+msgid "Number of Fields"
+msgstr "Aantal velden"
+
+#: classes/Settings/Column/CustomFieldType.php:109
+msgid "True / False"
+msgstr "True / false"
+
+#: classes/Settings/Column/CustomFieldType.php:108
+msgid "Has Content"
+msgstr "Heeft inhoud"
+
+#: classes/Settings/Column/CustomFieldType.php:105
+msgid "Number"
+msgstr "Nummer"
+
+#: classes/Settings/Column/CustomFieldType.php:102
+msgid "Text"
+msgstr "Tekst"
+
+#: classes/Settings/Column/CustomFieldType.php:70
+msgid "Multiple ids should be separated by a comma."
+msgstr "Meerdere ID's moeten worden gescheiden door een komma. "
+
+#: classes/Settings/Column/CustomFieldType.php:69
+msgid "Uses the id from a %s to display information about it."
+msgstr "Gebruikt het ID van een %s om informatie weer te geven."
+
+#: classes/Settings/Column/CustomField.php:36
+#: classes/Settings/Column/Meta.php:63 classes/Settings/Column/Post.php:71
+msgid "Field"
+msgstr "Veld"
+
+#: classes/Settings/Column/CharacterLimit.php:28
+#: classes/Settings/Column/WordLimit.php:35
+msgid "Leave empty for no limit"
+msgstr "Laat leeg voor geen limiet"
+
+#: classes/Settings/Column/CharacterLimit.php:28
+msgid "Maximum number of characters"
+msgstr "Maximum aantal karakters."
+
+#: classes/Settings/Column/CharacterLimit.php:27
+msgid "Character Limit"
+msgstr "Karakterlimiet"
+
+#: classes/Settings/Column/BeforeAfter.php:56
+msgid "Display Options"
+msgstr "Weergaveopties"
+
+#: classes/Settings/Column/BeforeAfter.php:50
+msgid "This text will appear after the column value."
+msgstr "Deze tekst zal na de kolomwaarde verschijnen."
+
+#: classes/Helper/String.php:270
+msgid " and "
+msgstr " en "
+
+#: classes/Helper/String.php:268
+msgid " or "
+msgstr " of "
+
+#: classes/Helper/Html.php:344
+msgid "Hide"
+msgstr "Verbergen"
+
+#: classes/Helper/Html.php:340
+msgid "Show %s more"
+msgstr "%s meer tonen"
+
+#: classes/Column/User/Url.php:14
+msgid "Website"
+msgstr "Website"
+
+#: classes/Column/User/ShowToolbar.php:14
+msgid "Show Toolbar"
+msgstr "Toolbar tonen"
+
+#: classes/Column/Post/Shortlink.php:14
+msgid "Shortlink"
+msgstr "Shortlink"
+
+#: classes/Column/Post/Roles.php:33 classes/Column/Taxonomy.php:27
+#: classes/Settings/Column/CustomFieldType.php:260
+msgid ", "
+msgstr ", "
+
+#: classes/Column/Post/Formats.php:24
+msgid "Standard"
+msgstr "Standaard"
+
+#: classes/Column/Post/CommentStatus.php:17
+msgid "Comment Status"
+msgstr "Reactiestatus"
+
+#: classes/Column/Post/AttachmentCount.php:16
+msgid "Attachment Count"
+msgstr "Bijlagetelling"
+
+#: classes/Column/Media/FullPath.php:14
+msgid "Full Path"
+msgstr "Volledig pad"
+
+#: classes/Admin/Promo.php:137
+msgid "Discount is valid until %s"
+msgstr "Korting is geldig tot %s"
+
+#: classes/Admin/Page/Welcome.php:12
+msgid "Welcome"
+msgstr "Welkom"
+
+#: classes/Admin/Page/Settings.php:171
+msgid "Show %s button on table screen."
+msgstr "Toon %s-knop bij tabel-weergave."
+
+#: classes/Admin/Page/Settings.php:152
+msgid "Default is %s."
+msgstr "Standaard is %s."
+
+#: classes/Admin/Page/Settings.php:149
+msgid "on"
+msgstr "aan"
+
+#: classes/Admin/Page/Settings.php:146
+msgid "off"
+msgstr "uit"
+
+#: classes/Admin/Page/Settings.php:133
+msgid "Notice"
+msgstr "Opmerking"
+
+#: classes/Admin/Page/Settings.php:127
+msgid "Instructions"
+msgstr "Instructies"
+
+#: classes/Admin/Page/Help.php:315
+msgid "our documentation"
+msgstr "onze documentatie"
+
+#: classes/Admin/Page/Help.php:315
+msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
+msgstr "Deze site maakt gebruik van enkele acties of filters die zijn veranderd. Lees %s om ze op te lossen."
+
+#: classes/Admin/Page/Help.php:313
+msgid "The Admin Columns plugin has undergone some major changes in version 4."
+msgstr "De Admin Columns plugin heeft enkele grote aanpassing gekregen in versie 4."
+
+#: classes/Admin/Page/Help.php:303
+msgid "The callback used is %s."
+msgid_plural "The callbacks used are %s"
+msgstr[0] "De callback die wordt gebruikt is %s."
+msgstr[1] "De callbacks die worden gebruikt zijn %s."
+
+#: classes/Admin/Page/Help.php:248
+msgid "View documentation"
+msgstr "Bekijk documentatie."
+
+#: classes/Admin/Page/Help.php:198
+msgid "The action %s used on this website is deprecated since %s."
+msgstr "De actie %s die wordt gebruikt op deze website is verouderd sinds %s."
+
+#: classes/Admin/Page/Help.php:185
+msgid "The filter %s used on this website is deprecated since %s."
+msgstr "Het filter %s dat wordt gebruikt op deze website is verouderd sinds %s."
+
+#: classes/Admin/Page/Help.php:172
+msgid "Deprecated Actions"
+msgstr "Verouderde acties"
+
+#: classes/Admin/Page/Help.php:171
+msgid "Deprecated Filters"
+msgstr "Verouderde filters"
+
+#: classes/Admin/Page/Help.php:34 classes/Admin/Page/Help.php:311
+msgid "Help"
+msgstr "Hulp"
+
+#: classes/Admin/Page/Columns.php:849 classes/Admin/Page/Columns.php:884
+msgid "Close"
+msgstr "Sluiten"
+
+#: classes/Admin/Page/Columns.php:757
+msgid "Clear all columns "
+msgstr "Alle kolommen legen "
+
+#: classes/Admin/Page/Columns.php:664
+msgid "I'm using Admin Columns for WordPress!"
+msgstr "Ik gebruik Admin Columns voor WordPress."
+
+#: classes/Admin/Page/Columns.php:606
+msgid "Your First Name"
+msgstr "Je voornaam"
+
+#: classes/Admin/Page/Columns.php:605
+msgid "Your Email"
+msgstr "Je e-mailadres"
+
+#: classes/Admin/Page/Columns.php:598
+msgid "Submit your email and we'll send you a discount for %s off."
+msgstr "Stuur je e-mail en wij sturen je een code voor %s korting."
+
+#: classes/Admin/Page/Columns.php:594
+msgid "Get %s Off!"
+msgstr "Krijg %s korting."
+
+#: classes/Admin/Page/Columns.php:561
+msgid "Extra Columns for:"
+msgstr "Extra kolommen voor:"
+
+#: classes/Admin/Page/Columns.php:547
+msgid "Edit your column content directly"
+msgstr "Bewerk je kolom-inhoud rechtstreeks."
+
+#: classes/Admin/Page/Columns.php:535
+msgid "Pro"
+msgstr "Pro"
+
+#: classes/Admin/Page/Columns.php:328
+msgid "You need at least one column"
+msgstr "Je hebt minstens één kolom nodig"
+
+#: classes/Admin/Page/Addons.php:293
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: classes/Admin/Page/Addons.php:292
+msgid "Recommended"
+msgstr "Aangeraden"
+
+#: classes/Admin/Page/Addons.php:120
+msgid "%s could not be activated."
+msgstr "%s kan niet worden geactiveerd."
+
+#: classes/Admin/Page/Addons.php:110
+msgid "%s successfully activated."
+msgstr "%s succesvol geactiveerd."
+
+#: classes/Admin/Page/Addons.php:105
+msgid "%s plugin successfully deactivated."
+msgstr "%s plugin succesvol uitgeschakeld."
+
+#: classes/Admin/Page/Addons.php:104
+msgid "%s plugin successfully activated."
+msgstr "%s plugin succesvol geactiveerd."
+
+#: classes/Admin/Page/Addons.php:71
+msgid "%s add-on requires %s."
+msgid_plural "%s add-ons requires %s."
+msgstr[0] "%s add-on vereist %s."
+msgstr[1] "%s add-ons vereisen %s."
+
+#: classes/Admin/Page/Addons.php:58
+msgid "here"
+msgstr "hier"
+
+#: classes/Admin/Page/Addons.php:58
+msgid "Click %s to activate the plugin."
+msgstr "Klik %s om de plugin te activeren."
+
+#: classes/Admin/Page/Addons.php:55
+msgid "%s plugin is installed, but not active."
+msgstr "%s plugin is geïnstalleerd, maar niet actief."
+
+#: classes/Admin/Page/Addons.php:53
+msgid "%s plugin needs to be installed for the add-on to work."
+msgstr "%s plugin dient geïnstalleerd te zijn, om de add-on te laten werken."
+
+#: classes/Addon.php:274
+msgid "Display and edit %s fields in the posts overview in seconds!"
+msgstr "Toon en bewerk %s-velden in het berichtenoverzicht in enkele seconden."
+
+#: classes/Addon/Types.php:13
+msgid "Toolset Types"
+msgstr "Toolset-types"
+
+#: classes/Addon/Pods.php:13
+msgid "Pods"
+msgstr "Pods"
+
+#: classes/API.php:139
+msgid "Imported"
+msgstr "Geïmporteerd"
+
+#: classes/Admin/Page/Columns.php:577
+msgid "Learn more about Pro"
+msgstr "Meer weten over Pro"
+
+#: classes/Admin/Page/Columns.php:549
+msgid "Import &amp; Export settings"
+msgstr "Import &amp; Expor-instellingen"
+
+#: classes/Admin/Page/Columns.php:548
+msgid "Create multiple columns sets"
+msgstr "Maak meerdere kolommenverzamelingen."
+
+#: classes/Admin/Page/Columns.php:546
+msgid "Add filterable columns"
+msgstr "Voeg filterbare kolom toe"
+
+#: classes/Admin/Page/Columns.php:545
+msgid "Add sortable columns"
+msgstr "Voeg sorteerbare kolom toe"
+
+#: classes/Admin/Page/Columns.php:540
+msgid "Take Admin Columns to the next level:"
+msgstr "Breng Admin Columns naar een hoger niveau:"
+
+#: classes/Admin/Page/Columns.php:535
+msgid "Upgrade to"
+msgstr "Upgraden naar"
+
+#: classes/Admin/Promo.php:134
+msgid "Get %s Off"
+msgstr "Krijg %s korting"
+
+#: classes/Column/Post/Excerpt.php:21
+msgid "Excerpt from content"
+msgstr "Samenvatting vanuit inhoud"
+
+#: classes/Admin/Page/Columns.php:447
+msgid "The columns for %s are set up via PHP and can therefore not be edited."
+msgstr "De kolommen voor %s zijn via PHP ingesteld, en kunnen daarom niet aangepast worden."
+
+#: classes/Admin/Page/Columns.php:248
+msgid "Please visit the %s screen once to load all available columns"
+msgstr "Bezoek eenmalig het %s-scherm om alle beschikbare kolommen te laden"
+
+#: classes/Admin/Page/Columns.php:516
+msgid "Restore columns"
+msgstr "Herstel originele kolommen"
+
+#: classes/Admin/Page/Columns.php:174
+msgid "Settings for %s restored successfully."
+msgstr "Kolom-instellingen voor %s succesvol hersteld in originele staat."
+
+#: classes/Admin/Page/Columns.php:354
+msgid "View %s screen"
+msgstr "Bekijk %s-scherm"
+
+#: classes/Admin/Page/Columns.php:74
+msgid "Invalid response."
+msgstr "Ongeldige respons."
+
+#: classes/Admin/Help/CustomField.php:51
+msgid "Value: should contain Attachment IDs ( seperated by a ',' comma )."
+msgstr "Waarde: moet een bijlage ID bevatten ( gescheiden door een ',' komma )."
+
+#: classes/Settings/Column/LinkLabel.php:23
+msgid "Leave blank to display the url"
+msgstr "Laat leeg om URL weer te geven"
+
+#: classes/Settings/Column/LinkLabel.php:22
+msgid "Link Label"
+msgstr "Link label"
+
+#: classes/Admin/Page/Addons.php:220
+msgid "You need Admin Columns Pro."
+msgstr "Hiervoor heeft u Admin Columns Pro nodig."
+
+#: classes/Admin/Page/Addons.php:214
+msgid "Addon does not exist."
+msgstr "Add-on bestaat niet."
+
+#: classes/Admin/Page/Addons.php:183
+msgid "the addons page"
+msgstr "de add-ons-pagina"
+
+#: classes/Admin/Page/Addons.php:183
+msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
+msgstr "Wist je dat Admin Columns Pro een add-on heeft voor integratie met %s? Met de juiste licentie kun je onze add-ons downloaden via %s."
+
+#: classes/Settings/Column/Meta.php:114 codepress-admin-columns.php:340
+msgid "Custom Fields"
+msgstr "Extra velden"
+
+#: classes/Settings/Column/Meta.php:110
+msgid "Hidden Custom Fields"
+msgstr "Verborgen extra velden"
+
+#. Author of the plugin/theme
+msgid "AdminColumns.com"
+msgstr "AdminColumns.com"
+
+#. Description of the plugin/theme
+msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
+msgstr "Pas de kolommen aan op de beheerschermen van post(types), pagina's, media, reacties en gebruikers met een eenvoudige drag-and-drop-interface."
+
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "https://www.admincolumns.com"
+msgstr "https://www.admincolumns.com"
+
+#: classes/Admin/Page/Settings.php:171 classes/TableScreen.php:192
+msgid "Edit columns"
+msgstr "Kolommen bewerken"
+
+#: classes/Admin/Page/Upgrade.php:310
+msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
+msgstr "Excuseert. Er liep iets fout tijdens bij het upgraden. Gelieve dit te melden in het support forum."
+
+#: classes/Admin/Page/Upgrade.php:309
+msgid "Error"
+msgstr "Fout"
+
+#: classes/Admin/Page/Upgrade.php:308
+msgid "Return to settings."
+msgstr "Terug naar instellingen."
+
+#: classes/Admin/Page/Upgrade.php:308
+msgid "Upgrade Complete!"
+msgstr "Upgrade voltooid!"
+
+#: classes/Admin/Page/Upgrade.php:292
+msgid "Return to welcome screen."
+msgstr "Ga terug naar het welkomst scherm."
+
+#: classes/Admin/Page/Upgrade.php:291
+msgid "No Upgrade Required"
+msgstr "Geen upgrade verreist"
+
+#: classes/Admin/Page/Upgrade.php:255
+msgid "Migrating Column Settings"
+msgstr "Migreer Kolom Instellingen"
+
+#: classes/Admin/Page/Upgrade.php:26 classes/Admin/Page/Upgrade.php:319
+msgid "Upgrade"
+msgstr "Upgraden"
+
+#: classes/Admin/Page/Upgrade.php:46
+msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
+msgstr "The pro add-on wordt niet langer ondersteund. Login op je account en download Admin Columns Pro"
+
+#: classes/Admin/Page/Columns.php:353
+msgid "Settings for %s updated successfully."
+msgstr "Instellingen voor %s succesvol bijgewerkt."
+
+#: classes/Admin/Page/Columns.php:340
+msgid "You are trying to store the same settings for %s."
+msgstr "U probeerd dezelfde instellingen op te slaan voor %s."
+
+#: classes/ListScreen.php:642
+msgid "No columns settings available."
+msgstr "Geen kolom instellingen beschikbaar."
+
+#: classes/ListScreen/User.php:11 codepress-admin-columns.php:498
+msgid "Users"
+msgstr "Gebruikers"
+
+#: classes/ListScreen/Media.php:16
+#: classes/Settings/Column/CustomFieldType.php:112
+#: codepress-admin-columns.php:499
+msgid "Media"
+msgstr "Media"
+
+#: classes/ListScreen/Link.php:12
+msgid "Link"
+msgstr "Link"
+
+#: classes/ListScreen/Link.php:11 codepress-admin-columns.php:501
+msgid "Links"
+msgstr "Links"
+
+#: classes/ListScreen/Comment.php:15
+msgid "Comment"
+msgstr "Reactie"
+
+#: classes/ListScreen/Comment.php:14 codepress-admin-columns.php:500
+msgid "Comments"
+msgstr "Reacties"
+
+#: classes/Admin/Page/Addons.php:420
+msgid "Get this add-on"
+msgstr "Ga naar deze add-on"
+
+#: classes/Admin/Page/Addons.php:418
+msgid "Download & Install"
+msgstr "Downloadem & installeren"
+
+#: classes/Admin/Page/Addons.php:412
+msgid "Activate"
+msgstr "Activeren"
+
+#: classes/Admin/Page/Addons.php:291
+msgid "Installed"
+msgstr "Geïnstalleerd"
+
+#: classes/Admin/Page/Addons.php:408
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+#: classes/Admin/Page/Addons.php:405
+msgid "Active"
+msgstr "Actief"
+
+#: classes/Admin/Page/Columns.php:763
+msgid "Add Column"
+msgstr "Kolom toevoegen"
+
+#: classes/Admin/Page/Columns.php:743
+msgid "Drag and drop to reorder"
+msgstr "Sleep om te herordenen"
+
+#: classes/Admin/Page/Columns.php:692
+msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
+msgstr "Voor de volledige documentatie, bug reports, suggesties en tips <a href='%s'>bezoek de Admin Columns website</a>"
+
+#: classes/Admin/Page/Columns.php:688
+msgid "Check the <strong>Help</strong> section in the top-right screen."
+msgstr "Bekijk de sectie <strong>Help</strong> in het scherm rechtsboven."
+
+#: classes/Admin/Page/Columns.php:683
+msgid "Support"
+msgstr "Ondersteuning"
+
+#: classes/Admin/Page/Columns.php:671
+msgid "Buy Pro"
+msgstr "Pro kopen"
+
+#: classes/Admin/Page/Columns.php:665
+msgid "Tweet"
+msgstr "Tweeten"
+
+#: classes/Admin/Page/Columns.php:659
+msgid "Rate"
+msgstr "Beoordelen"
+
+#: classes/Admin/Page/Columns.php:654
+msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgstr "We zouden het fanatastisch vinden als je eeb beoordeling zou kunnen achterlaten op WordPress.org of een tweet over Admin Columns!"
+
+#: classes/Admin/Page/Columns.php:651
+msgid "Woohoo! We're glad to hear that!"
+msgstr "Woohoo! We zijn blij dat te horen!"
+
+#: classes/Admin/Page/Columns.php:641
+msgid "Forums"
+msgstr "Forums"
+
+#: classes/Admin/Page/Columns.php:636
+msgid "Docs"
+msgstr "Documenten"
+
+#: classes/Admin/Page/Columns.php:631
+msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgstr "Bekijk onze uitgebreide documentatie, of je kunt een support ticket openen op WordPress.org!"
+
+#: classes/Admin/Page/Columns.php:628
+msgid "What's wrong? Need help? Let us know!"
+msgstr "Wat is er aan de hand? Hulp nodig? Vertel het ons!"
+
+#: classes/Admin/Page/Columns.php:618
+msgid "Are you happy with Admin Columns?"
+msgstr "Ben je blij met Admin Columns?"
+
+#: classes/Admin/Page/Columns.php:515
+msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr "Waarschuwing. De kolomdata van %s wordt verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen met verwijderen."
+
+#: classes/Admin/Page/Columns.php:504 classes/Admin/Page/Columns.php:761
+msgid "Update"
+msgstr "Bijwerken"
+
+#: classes/Admin/Page/Columns.php:493
+msgid "Store settings"
+msgstr "Instellingen opslaan"
+
+#: classes/Admin/Page/Addons.php:19
+msgid "Add-ons"
+msgstr "Add-ons"
+
+#: classes/Admin/Page/Settings.php:18 codepress-admin-columns.php:295
+msgid "Settings"
+msgstr "Instellingen"
+
+#: classes/Settings/Column/Image.php:89
+msgid "Others"
+msgstr "Overige"
+
+#: classes/Admin/Page/Settings.php:229
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr "Waarschuwing! ALLE gegevens van de opgeslagen beheerderskolommen zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
+
+#: classes/Admin/Page/Settings.php:229
+msgid "Restore default settings"
+msgstr "Herstel standaard instellingen"
+
+#: classes/Admin/Page/Settings.php:221
+msgid "This will delete all column settings and restore the default settings."
+msgstr "Hiermee worden alle kolommen instellingen verwijderd en de standaardinstellingen hersteld."
+
+#: classes/Admin/Page/Settings.php:220
+msgid "Restore Settings"
+msgstr "Herstel Instellingen"
+
+#: classes/Admin/Page/Columns.php:505 classes/Admin/Page/Columns.php:762
+#: classes/Admin/Page/Settings.php:179
+msgid "Save"
+msgstr "Bewaar"
+
+#: classes/Admin/Page/Settings.php:161
+msgid "Customize your Admin Columns settings."
+msgstr "Pas je Admin Column instellingen aan."
+
+#: classes/Admin/Page/Settings.php:160 classes/Settings/Column/Date.php:81
+msgid "General Settings"
+msgstr "Algemene Instellingen"
+
+#: classes/Admin/Page/Welcome.php:90
+msgid "Start using Admin Columns"
+msgstr "Start met Admin Columns"
+
+#: classes/Admin/Page/Upgrade.php:47
+msgid "Learn more"
+msgstr "Meer weten"
+
+#: classes/Admin/Page/Welcome.php:29
+msgid "Changelog for"
+msgstr "Changelog voor"
+
+#: classes/Admin/Page/Welcome.php:62
+msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
+msgstr "Admin Columns ziet er nog beter uit dan ooit. Veel plezier ermee."
+
+#: classes/Admin/Page/Welcome.php:61
+msgid "Thank you for updating to the latest version!"
+msgstr "Bedankt voor het updaten naar de laatste versie!"
+
+#: classes/Admin/Page/Welcome.php:58
+msgid "Welcome to Admin Columns"
+msgstr "Welkom bij Admin Columns"
+
+#: classes/Admin/Help/CustomField.php:35
+msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
+msgstr "Waarde: Kan een string of een array zijn. Dit zal een teller weergeven met het aantal keren dat een metatoets door het item werd gebruikt."
+
+#: classes/Admin/Help/CustomField.php:31
+msgid "Value: hex value color, such as #808080."
+msgstr "Waarde: hex waarde kleur, vb: #808080"
+
+#: classes/Admin/Help/CustomField.php:27
+msgid "Value: should be a 1 (one) or 0 (zero)."
+msgstr "Waarde: moet 1 of 0 zijn."
+
+#: classes/Admin/Help/CustomField.php:26
+msgid "Checkmark"
+msgstr "Checkmark"
+
+#: classes/Admin/Help/CustomField.php:67
+msgid "Value: can be one or more User ID's (seperated by ',')."
+msgstr "Waarde: één of meer User ID's ( gescheiden door een komma )"
+
+#: classes/Admin/Help/CustomField.php:66
+msgid "Usernames"
+msgstr "Gebruikersnamen"
+
+#: classes/Admin/Help/CustomField.php:63
+msgid "Value: can be one or more Post ID's (seperated by ',')."
+msgstr "Waarde: één of meer Post ID's ( gescheiden door een komma )"
+
+#: classes/Admin/Help/CustomField.php:62
+msgid "Post Titles"
+msgstr "Post titels"
+
+#: classes/Admin/Help/CustomField.php:39
+msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
+msgstr "Waarde: Kan een unix tijdstempel zijn, of een datumnotatie, zoals beschreven in de <a href='%s'>Codex</a>. Je kunt de uitgestuurde datumnotatie wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
+
+#: classes/Admin/Help/CustomField.php:59
+msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgstr "Waarde: Enkel reeksen.<br/>Als je de 'sorteer-addon' hebt, zal die gebruikt worden voor het sorteren, zodat je je berichten kunt sorteren volgens de numerieke waarden (van aangepaste velden)."
+
+#: classes/Admin/Help/CustomField.php:55
+msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr "Waarde: moet een reeks zijn. Dit zal elke (multi-dimensionale) reeks afvlakken."
+
+#: classes/Admin/Help/CustomField.php:43
+msgid "Value: This will show the first 20 words of the Post content."
+msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
+
+#: classes/Admin/Help/CustomField.php:47
+msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
+msgstr "Waarde: moet een afbeeldings URL of Media ID zijn ( gescheiden door een ',' komma )."
+
+#: classes/Admin/Help/CustomField.php:23
+msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door een ',' komma."
+
+#: classes/Admin/Help/CustomField.php:18
+msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
+msgstr "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. Er zijn 10 typen welke je kan gebruiken."
+
+#: classes/Admin/Help/Basics.php:29
+msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
+msgstr "Klik je op de driehoek, dan krijg je de kolomopties te zien. En met de versleepbare slider kun je de breedte van kolommen bepalen, uitgedrukt in percentages."
+
+#: classes/Admin/Help/Basics.php:27
+msgid "Change column width"
+msgstr "Verander kolom breedte"
+
+#: classes/Admin/Help/Basics.php:24
+msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
+msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de kolom label aanpassen."
+
+#: classes/Admin/Help/Basics.php:22
+msgid "Change label"
+msgstr "Wijzig label"
+
+#: classes/Admin/Help/Basics.php:19
+msgid "By dragging the columns you can change the order which they will appear in."
+msgstr "Door de kolommen te verslepen kan je de volgorde aanpassen."
+
+#: classes/Admin/Help/Basics.php:17
+msgid "Change order"
+msgstr "Verander volgorde"
+
+#: classes/Admin/Help/Basics.php:10
+msgid "Basics"
+msgstr "Basisinfo"
+
+#: classes/Admin/Help/Introduction.php:18
+msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
+msgstr "Met deze plugin kun je bijkomende kolommen toevoegen en verwijderen van uit de administratieschermen van van berichten(types), pagina's, mediabibliotheken, reacties, links and gebruikers. Wijzig en herschik de kolomlabels."
+
+#: classes/Admin/Help/Introduction.php:10
+msgid "Overview"
+msgstr "Overzicht"
+
+#: classes/Admin/Page/Settings.php:101
+msgid "Default settings succesfully restored."
+msgstr "Standaard instellingen succesvol hersteld."
+
+#: classes/Admin/Page/Columns.php:73 classes/Admin/Page/Columns.php:275
+msgid "%s column is already present and can not be duplicated."
+msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
+
+#: classes/Admin.php:130
+msgid "Admin Columns Settings"
+msgstr "Admin Columns Instellingen"
+
+#: classes/Admin/Page/Addons.php:111
+msgid "%s successfully deactivated."
+msgstr "%s werd gedeactiveerd."
+
+#: classes/Notice/Review.php:105
+msgid "find answers to some frequently asked questions"
+msgstr "vind antwoorden op veel gestelde vragen"
+
+#: classes/Notice/Review.php:104
+msgid "Admin Columns forums on WordPress.org"
+msgstr "Admin Columns forums op WordPress.org"
+
+#: classes/Notice/Review.php:103
+msgid "You can also find help on the %s, and %s."
+msgstr "Je kunt ook hulp vinden op de %, en %s."
+
+#: classes/Notice/Review.php:99
+msgid "our forums"
+msgstr "onze forums"
+
+#: classes/Notice/Review.php:98
+msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgstr "Als Admin Columns Pro gebruiker kun je ook gebruik maken van je AdminColumns.com account voor direct ondersteuning op %s!"
+
+#: classes/Notice/Review.php:94
+msgid "documentation page"
+msgstr "documentatie pagina"
+
+#: classes/Notice/Review.php:92
+msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
+msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere features, bezoek dan onze %s."
+
+#: classes/Notice/Review.php:85
+msgid "Permanently hide notice"
+msgstr "Verberg deze notice permanent"
+
+#: classes/Notice/Review.php:84
+msgid "Leave a review!"
+msgstr "Laat een review achter!"
+
+#: classes/Notice/Review.php:80
+msgid "click here"
+msgstr "klik hier"
+
+#: classes/Notice/Review.php:76
+msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
+msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een review achter willen laten op WordPress.org? Als je niet blij bent met %s, %s a.u.b."
+
+#: classes/Admin/Page/Addons.php:71 classes/Notice/Review.php:67
+msgid "Admin Columns Pro"
+msgstr "Admin Columns Pro"
+
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: classes/Admin/Page/Columns.php:24 classes/Admin.php:130
+#: classes/Notice/Review.php:64
+msgid "Admin Columns"
+msgstr "Admin Columns"
+
+#: classes/Column/Placeholder.php:45
+msgid "Find out more"
+msgstr "Meer weten"
+
+#: classes/Column/Placeholder.php:43
+msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
+msgstr "Admin Columns Pro biedt volledige integratie met %s, waardoor je eenvoudig specifieke %s-velden kunt weergeven, sorteren en aanpassen."
+
+#: classes/Column/Placeholder.php:39
+msgid "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>."
+msgstr "Als je een Business of Developer-licentie hebt, download en installeer de %s-add-on dan via het <a href='%s'>add-ons-scherm</a>."
+
+#: classes/Column/Placeholder.php:35
+msgid "The %s column is only available in Admin Columns Pro - Business or Developer."
+msgstr "De %s-kolom is alleen beschikbaar in Admin Columns Pro - Business of Developer."
+
+#: classes/Settings/Column/PostLink.php:68
+msgid "View Public Post Author Page"
+msgstr "Bekijk Publieke Bericht Auteur pagina"
+
+#: classes/Settings/Column/PostLink.php:67
+msgid "Edit Post Author"
+msgstr "Wijzig Bericht Auteur"
+
+#: classes/Settings/Column/PostLink.php:66
+msgid "View Post"
+msgstr "Bericht bekijken"
+
+#: classes/Settings/Column/PostLink.php:65
+msgid "Edit Post"
+msgstr "Bericht bewerken"
+
+#: classes/Settings/Column/Label.php:28
+msgid "This is the name which will appear as the column header."
+msgstr "Deze naam zal verschijnen als kolom kop."
+
+#: classes/Settings/Column/Label.php:27
+msgid "Label"
+msgstr "Label"
+
+#: classes/Settings/Column/Type.php:29
+msgid "Name"
+msgstr "Naam"
+
+#: classes/Settings/Column/Type.php:26
+msgid "Choose a column type."
+msgstr "Kies een kolom type."
+
+#: classes/Admin/Page/Columns.php:851 classes/Admin/Page/Columns.php:886
+msgid "Clone"
+msgstr "Kloon"
+
+#: classes/Settings/Column/Password.php:27
+msgid "Display format"
+msgstr "Weergave formaat"
+
+#: classes/Settings/Column/User.php:117
+msgid "First and Last Name"
+msgstr "Voor- en achternaam"
+
+#: classes/Settings/Column/User.php:115 classes/Settings/Column/User.php:133
+msgid "User Email"
+msgstr "Gebruiker Email"
+
+#: classes/Settings/Column/User.php:114
+msgid "User Login"
+msgstr "Gebruikers login"
+
+#: classes/Settings/Column/User.php:112
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: classes/Column/User/FirstName.php:14 classes/Settings/Column/User.php:111
+msgid "First Name"
+msgstr "Voornaam"
+
+#: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:110
+msgid "Display Name"
+msgstr "Schermnaam"
+
+#: classes/Settings/Column/BeforeAfter.php:49
+msgid "After"
+msgstr "Na"
+
+#: classes/Settings/Column/BeforeAfter.php:41
+msgid "This text will appear before the column value."
+msgstr "Deze tekst wordt getoond voor de kolomwaarde."
+
+#: classes/Settings/Column/BeforeAfter.php:40
+msgid "Before"
+msgstr "Voor"
+
+#: classes/Settings/Column/Width.php:62
+msgid "width"
+msgstr "breedte"
+
+#: classes/Settings/Column/CustomFieldType.php:153
+#: classes/Settings/Column/Image.php:111 codepress-admin-columns.php:341
+msgid "Custom"
+msgstr "Aangepast"
+
+#: classes/Settings/Column/Date.php:33
+msgid "This will determine how the date will be displayed."
+msgstr "Dit bepaald hoe de datum wordt weergegeven."
+
+#: classes/Settings/Column/Date.php:32
+msgid "Date Format"
+msgstr "Datumnotatie"
+
+#: classes/Settings/Column/Image.php:75
+msgid "Large"
+msgstr "Groot"
+
+#: classes/Settings/Column/Image.php:74
+msgid "Medium"
+msgstr "Gemiddeld"
+
+#: classes/Settings/Column/Image.php:73
+msgid "Thumbnail"
+msgstr "Thumbnail"
+
+#: classes/Settings/Column/CustomFieldType.php:104
+msgid "Url"
+msgstr "Url"
+
+#: classes/Column/User/RichEditing.php:11
+msgid "Visual Editor"
+msgstr "Visuele editor"
+
+#: classes/Column/User/Registered.php:14
+msgid "Registered"
+msgstr "Registratie"
+
+#: classes/Settings/Column/CustomFieldType.php:80
+#: classes/Settings/Column/PostType.php:23 codepress-admin-columns.php:497
+msgid "Post Type"
+msgstr "Post Type"
+
+#: classes/Column/User/PostCount.php:14
+msgid "Post Count"
+msgstr "Aantal posts"
+
+#: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:113
+msgid "Nickname"
+msgstr "Nickname"
+
+#: classes/Column/User/LastName.php:14
+msgid "Last name"
+msgstr "Achternaam"
+
+#: classes/Column/Post/CommentCount.php:17
+#: classes/Column/User/CommentCount.php:14
+msgid "Comment Count"
+msgstr "Reacties-telling"
+
+#: classes/Admin/Page/Columns.php:853 classes/Admin/Page/Columns.php:888
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:116
+msgid "User ID"
+msgstr "Gebruiker ID"
+
+#: classes/Settings/Column/LinkToMenu.php:26
+msgid "This will make the title link to the menu."
+msgstr "Dit linkt de titel naar het menu"
+
+#: classes/Settings/Column/LinkToMenu.php:25
+msgid "Link to menu"
+msgstr "Link naar menu"
+
+#: classes/Column/UsedByMenu.php:17
+msgid "Used by Menu"
+msgstr "Ingebruik door menu"
+
+#: classes/Column/Taxonomy.php:17 classes/Settings/Column/Taxonomy.php:29
+msgid "Taxonomy"
+msgstr "Taxonomy"
+
+#: classes/Column/Post/TitleRaw.php:14
+msgid "Title without actions"
+msgstr "Titel zonder acties"
+
+#: classes/Column/Post/Sticky.php:16
+msgid "Sticky"
+msgstr "Sticky"
+
+#: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:14
+msgid "Status"
+msgstr "Status"
+
+#: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:28
+msgid "Slug"
+msgstr "Slug"
+
+#: classes/Column/Post/Shortcodes.php:16
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: classes/Column/Post/Roles.php:14
+msgid "Roles"
+msgstr "Rollen"
+
+#: classes/Column/Post/PingStatus.php:14
+msgid "Ping Status"
+msgstr "Ping status"
+
+#: classes/Column/Post/Permalink.php:16
+msgid "Permalink"
+msgstr "Permalink"
+
+#: classes/Column/Post/Path.php:16
+msgid "Path"
+msgstr "Pad"
+
+#: classes/Column/Post/Parent.php:14
+msgid "Parent"
+msgstr "Hoofd"
+
+#: classes/Column/Post/PageTemplate.php:14
+msgid "Page Template"
+msgstr "Pagina Template"
+
+#: classes/Column/Post/Order.php:14
+msgid "Order"
+msgstr "Volgorde"
+
+#: classes/Column/Post/Modified.php:14
+msgid "Last Modified"
+msgstr "Laatst gewijzigd"
+
+#: classes/Column/Post/LastModifiedAuthor.php:17
+msgid "Last Modified Author"
+msgstr "Laatst Gewijzigd Auteur"
+
+#: classes/Column/Post/Formats.php:14
+msgid "Post Format"
+msgstr "Post formaat"
+
+#: classes/Column/Post/FeaturedImage.php:14 classes/Settings/Column/Post.php:83
+msgid "Featured Image"
+msgstr "Uitgelichte afbeelding"
+
+#: classes/Settings/Column/WordsPerMinute.php:32
+msgid "Estimated reading time in words per minute."
+msgstr "Geschatte leestijd in woorden per minuut."
+
+#: classes/Settings/Column/WordsPerMinute.php:31
+msgid "Words per minute"
+msgstr "Woorden per minuut"
+
+#: classes/Settings/Column/WordsPerMinute.php:85
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuut"
+msgstr[1] "minuten"
+
+#: classes/Settings/Column/WordsPerMinute.php:83
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "seconde"
+msgstr[1] "seconden"
+
+#: classes/Column/Post/EstimatedReadingTime.php:14
+msgid "Estimated Reading Time"
+msgstr "Gemiddelde leestijd"
+
+#: classes/Column/Post/Depth.php:16
+msgid "Depth"
+msgstr "Diepte"
+
+#: classes/Column/Post/DatePublished.php:14
+msgid "Date Published"
+msgstr "Datum gepubliceerd "
+
+#: classes/Settings/Column/CommentCount.php:31
+msgid "Select which comment status you like to display."
+msgstr "Selecteer welke reactie status die je wil weergeven."
+
+#: classes/Settings/Column/CommentCount.php:30
+msgid "Comment status"
+msgstr "Comment status"
+
+#: classes/Column/Comment/Status.php:25
+#: classes/Settings/Column/CommentCount.php:45
+msgid "Spam"
+msgstr "Spam"
+
+#: classes/Column/Comment/Status.php:27
+#: classes/Settings/Column/CommentCount.php:44
+msgid "Pending"
+msgstr "Pending"
+
+#: classes/Settings/Column/CommentCount.php:52
+msgid "Total"
+msgstr "Totaal"
+
+#: classes/Column/Post/BeforeMoreTag.php:14
+msgid "Before More Tag"
+msgstr "Voor de meer-tag"
+
+#: classes/Settings/Column/User.php:135
+msgid "View Public Author Page"
+msgstr "Bekijk Publieke Auteur Pagina"
+
+#: classes/Settings/Column/User.php:134
+msgid "View User Posts"
+msgstr "Bekijk gebruikersberichten"
+
+#: classes/Settings/Column/User.php:132
+msgid "Edit User Profile"
+msgstr "Gebruikersprofiel aanpassen"
+
+#: classes/Settings/Column/PostLink.php:73
+#: classes/Settings/Column/Separator.php:26
+#: classes/Settings/Column/User.php:141
+msgid "None"
+msgstr "Geen"
+
+#: classes/Settings/Column/PostLink.php:56 classes/Settings/Column/User.php:47
+msgid "Link To"
+msgstr "Link aan"
+
+#: classes/Column/Post/Attachment.php:14
+msgid "Attachments"
+msgstr "Attachments"
+
+#: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:40
+#: classes/Settings/Column/Width.php:52
+msgid "Width"
+msgstr "Breedte"
+
+#: classes/Column/Media/MimeType.php:14
+msgid "Mime Type"
+msgstr "Mime-type"
+
+#: classes/Column/Media/Height.php:16 classes/Settings/Column/Image.php:46
+msgid "Height"
+msgstr "Hoogte"
+
+#: classes/Settings/Column/PathScope.php:26
+msgid "Relative to main uploads folder "
+msgstr "Relatief aan de uploads directory"
+
+#: classes/Settings/Column/PathScope.php:25
+msgid "Relative to domain"
+msgstr "Relatief aan het domein"
+
+#: classes/Settings/Column/PathScope.php:31
+msgid "Part of the file path to display"
+msgstr "Deel van bestands locatie voor weergave"
+
+#: classes/Settings/Column/PathScope.php:30
+msgid "Path scope"
+msgstr "Path scope"
+
+#: classes/Settings/Column/PathScope.php:24
+msgid "Full path"
+msgstr "Volledige pad"
+
+#: classes/Column/Media/FileSize.php:14
+msgid "File Size"
+msgstr "Bestandsgrootte"
+
+#: classes/Column/Media/FileName.php:14
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: classes/Settings/Column/ExifData.php:50 classes/Settings/Column/Post.php:80
+#: classes/Settings/Column/Term.php:27
+msgid "Title"
+msgstr "Titel"
+
+#: classes/Settings/Column/ExifData.php:49
+msgid "Shutter Speed"
+msgstr "Sluitertijd"
+
+#: classes/Settings/Column/ExifData.php:48
+msgid "ISO"
+msgstr "ISO"
+
+#: classes/Settings/Column/ExifData.php:47
+msgid "Focal Length"
+msgstr "Brandpuntsafstand"
+
+#: classes/Settings/Column/ExifData.php:46
+msgid "Copyright EXIF"
+msgstr "Copyright EXIF"
+
+#: classes/Settings/Column/ExifData.php:45
+msgid "Timestamp"
+msgstr "Timestamp"
+
+#: classes/Settings/Column/ExifData.php:43
+msgid "Camera"
+msgstr "Camera"
+
+#: classes/Settings/Column/ExifData.php:42
+msgid "Credit"
+msgstr "Credit"
+
+#: classes/Settings/Column/ExifData.php:41
+msgid "Aperture"
+msgstr "Aperture"
+
+#: classes/Column/Media/ExifData.php:16
+msgid "EXIF Data"
+msgstr "EXIF data"
+
+#: classes/Column/Media/Dimensions.php:16
+msgid "Dimensions"
+msgstr "Afmetingen"
+
+#: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:44
+msgid "Caption"
+msgstr "Onderschrift"
+
+#: classes/Column/Media/AvailableSizes.php:49
+msgid "full size"
+msgstr "volledige grootte"
+
+#: classes/Column/Media/AvailableSizes.php:18
+msgid "Available Sizes"
+msgstr "Beschikbare Afmetingen"
+
+#: classes/Column/Media/AttachedTo.php:14
+msgid "Attached to Post"
+msgstr "Bijgevoegd aan bericht"
+
+#: classes/Column/Media/AlternateText.php:14
+msgid "Alt"
+msgstr "Alt"
+
+#: classes/Admin/Page/Columns.php:479
+msgid "View"
+msgstr "Bekijk"
+
+#: classes/Column/Comment/Status.php:23 classes/Column/Comment/Status.php:24
+#: classes/Settings/Column/CommentCount.php:46
+msgid "Trash"
+msgstr "Prullenbak"
+
+#: classes/Column/Link/Target.php:14
+msgid "Target"
+msgstr "Doel"
+
+#: classes/Column/Link/Rss.php:14
+msgid "Rss"
+msgstr "Rss"
+
+#: classes/Column/Link/Owner.php:14
+msgid "Owner"
+msgstr "Eigenaar"
+
+#: classes/Column/Link/Notes.php:14
+msgid "Notes"
+msgstr "Beschrijving"
+
+#: classes/Column/Link/Length.php:14
+msgid "Length"
+msgstr "Lengte"
+
+#: classes/Column/Link/Description.php:14
+#: classes/Column/Media/Description.php:16
+#: classes/Column/User/Description.php:14
+msgid "Description"
+msgstr "Beschrijving"
+
+#: classes/Column/Link/Actions.php:40
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: classes/Column/Link/Actions.php:40
+msgid ""
+"You are about to delete this link '%s'\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Je staat op het op punt om deze link te verwijderen '%s'\n"
+"  'Annuleren' om af te breken, 'OK' om te verwijderen."
+
+#: classes/Settings/Column/CustomFieldType.php:53
+msgid "This will determine how the value will be displayed."
+msgstr "Dit zal bepalen hoe de waarde wordt weergeven."
+
+#: classes/Settings/Column/CustomFieldType.php:60
+msgid "Field Type"
+msgstr "Veld type"
+
+#: classes/Settings/Column/CustomField.php:32
+msgid "Please create a %s item first."
+msgstr "Maak eerste een %s item aan."
+
+#: classes/Settings/Column/CustomField.php:32
+msgid "No custom fields available."
+msgstr "Geen custom fields beschikbaar."
+
+#: classes/Admin/Help/CustomField.php:58
+msgid "Numeric"
+msgstr "Numerieke"
+
+#: classes/Admin/Help/CustomField.php:54
+#: classes/Settings/Column/CustomFieldType.php:118
+msgid "Multiple Values"
+msgstr "Meerdere waarden"
+
+#: classes/Admin/Help/CustomField.php:50
+msgid "Media Library"
+msgstr "Mediabibliotheek"
+
+#: classes/Admin/Help/CustomField.php:46 classes/Column/Link/Image.php:14
+#: classes/Settings/Column/CustomFieldType.php:103
+msgid "Image"
+msgstr "Afbeelding"
+
+#: classes/Admin/Help/CustomField.php:42 classes/Column/Post/Excerpt.php:14
+msgid "Excerpt"
+msgstr "Samenvatting"
+
+#: classes/Admin/Help/CustomField.php:34
+msgid "Counter"
+msgstr "Teller"
+
+#: classes/Admin/Help/CustomField.php:30
+#: classes/Settings/Column/CustomFieldType.php:100
+msgid "Color"
+msgstr "Kleur"
+
+#: classes/Admin/Help/CustomField.php:22
+#: classes/Settings/Column/CustomFieldType.php:168
+#: classes/Settings/Column/Image.php:71
+#: classes/Settings/Column/Separator.php:23 codepress-admin-columns.php:338
+msgid "Default"
+msgstr "Standaard"
+
+#: classes/Admin/Help/CustomField.php:10 classes/Column/CustomField.php:20
+msgid "Custom Field"
+msgstr "Custom veld"
+
+#: classes/Column/Comment/WordCount.php:14 classes/Column/Post/WordCount.php:14
+msgid "Word Count"
+msgstr "Aantal woorden"
+
+#: classes/Column/Comment/User.php:14 classes/ListScreen/User.php:12
+#: classes/Settings/Column/CustomFieldType.php:84
+#: classes/Settings/Column/CustomFieldType.php:114
+#: classes/Settings/Column/User.php:53
+msgid "User"
+msgstr "Gebruiker"
+
+#: classes/Column/Comment/Type.php:14
+#: classes/Settings/Column/CustomFieldType.php:56
+#: classes/Settings/Column/Type.php:26 classes/Settings/Column/Type.php:34
+msgid "Type"
+msgstr "Type"
+
+#: classes/Column/Comment/ReplyTo.php:14
+msgid "In Reply To"
+msgstr "Antwoord op"
+
+#: classes/Column/Comment/Post.php:14
+#: classes/Settings/Column/CustomFieldType.php:113
+msgid "Post"
+msgstr "Bericht"
+
+#: classes/Column/Comment/Excerpt.php:14 classes/Column/Post/Content.php:14
+msgid "Content"
+msgstr "Content"
+
+#: classes/Admin/Help/CustomField.php:38
+#: classes/Settings/Column/CustomFieldType.php:101
+msgid "Date"
+msgstr "Datum"
+
+#: classes/Column/Comment/DateGmt.php:20
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr "Verstuurd op <a href=\"%1$s\">%2$s om %3$s</a>"
+
+#: classes/Column/Comment/DateGmt.php:14
+msgid "Date GMT"
+msgstr "Datum GMT"
+
+#: classes/Column/Post/AuthorName.php:17 classes/Settings/Column/Post.php:82
+msgid "Author"
+msgstr "Auteur"
+
+#: classes/Column/Comment/AuthorUrl.php:14
+msgid "Author Url"
+msgstr "Auteur url"
+
+#: classes/Column/Comment/AuthorName.php:14
+msgid "Author Name"
+msgstr "Auteur naam"
+
+#: classes/Column/Comment/AuthorIP.php:11
+msgid "Author IP"
+msgstr "Auteur IP"
+
+#: classes/Column/Comment/AuthorEmail.php:14
+msgid "Author Email"
+msgstr "Auteur e-mailadres"
+
+#: classes/Column/Comment/AuthorAvatar.php:14
+msgid "Avatar"
+msgstr "Avatar"
+
+#: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:26
+#: classes/Settings/Column/CommentCount.php:43
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+#: classes/Column/Comment/Agent.php:14
+msgid "Agent"
+msgstr "Agent"
+
+#: classes/Admin/Page/Columns.php:848 classes/Column/Link/Actions.php:39
+msgid "Edit"
+msgstr "Bewerken"
+
+#: classes/Column/Comment/ID.php:14 classes/Column/Link/ID.php:14
+#: classes/Column/Media/ID.php:14 classes/Column/Post/ID.php:14
+#: classes/Settings/Column/Post.php:81 classes/Settings/Column/Term.php:29
+msgid "ID"
+msgstr "ID"
+
+#: classes/Admin/Page/Columns.php:622 classes/Helper/Icon.php:56
+#: classes/Settings/Column/ActionIcons.php:22
+#: classes/Settings/Column/Toggle.php:14
+msgid "No"
+msgstr "Nee"
+
+#: classes/Admin/Page/Columns.php:621 classes/Helper/Icon.php:44
+#: classes/Settings/Column/ActionIcons.php:21
+#: classes/Settings/Column/Toggle.php:13
+msgid "Yes"
+msgstr "Ja"
+
+#: classes/Settings/Column/ActionIcons.php:27
+msgid "Use icons instead of text for displaying the actions."
+msgstr "Gebruik iconen in plaats van tekst om actions te tonen."
+
+#: classes/Settings/Column/ActionIcons.php:26
+msgid "Use icons?"
+msgstr "Gebruik iconen?"
+
+#: classes/Column/Actions.php:30 classes/Column/Link/Actions.php:14
+msgid "Actions"
+msgstr "Acties"
+
+#: classes/Addon/WooCommerce.php:14
+msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgstr "Verbeter de producten, orders en coupons overzichten met de nieuwe kolommen en inline editing."
+
+#: classes/Addon/WooCommerce.php:13
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: classes/Addon/ACF.php:13
+msgid "Advanced Custom Fields"
+msgstr "Advanced Custom Fields"
+
+#: classes/Admin/Page/Addons.php:120 codepress-admin-columns.php:339
+msgid "Plugins"
+msgstr "Plugins"
