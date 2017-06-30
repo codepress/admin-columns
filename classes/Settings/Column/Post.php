@@ -64,7 +64,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 		               ->set_options( $this->get_display_options() );
 
 		$view = new AC_View( array(
-			'label'   => __( 'Field', 'codepress-admin-columns' ),
+			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );
 
