@@ -410,6 +410,12 @@ final class AC_TableScreen {
 			$this->column_headings['cb'] = $columns['cb'];
 		}
 
+		// In case columns are empty because they were put in memory before 'default headings' were
+		// stored, causing an empty list table on first visit.
+		if ( ! $this->current_list_screen->get_columns() ) {
+			$this->current_list_screen->reset();
+		}
+
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
 
 			/**

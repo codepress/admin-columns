@@ -363,6 +363,7 @@ abstract class AC_ListScreen {
 	public function reset() {
 		$this->columns = null;
 		$this->column_types = null;
+		$this->original_columns = null;
 		$this->settings = null;
 	}
 
