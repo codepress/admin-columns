@@ -387,6 +387,7 @@ final class AC_TableScreen {
 		// On first visit when stored headings are empty, we force get_columns() to be re-populated
 		if ( ! $this->current_list_screen->get_stored_default_headings() ) {
 			$this->current_list_screen->reset();
+			$this->current_list_screen->reset_original_columns();
 		}
 
 		// Store default headings
