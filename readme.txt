@@ -218,9 +218,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 3.0.2 =
 
-Release Date: tbd
+Release Date: July 3rd, 2017
 
 * [Fixed] No columns were shown when you saved your columns without visiting the overview page first
 * [Improved] Character limit now strips tags before trimming
