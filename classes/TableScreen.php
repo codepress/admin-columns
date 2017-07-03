@@ -387,7 +387,6 @@ final class AC_TableScreen {
 		// On first visit when stored headings are empty, we force get_columns() to be re-populated
 		if ( ! $this->current_list_screen->get_stored_default_headings() ) {
 			$this->current_list_screen->reset();
-			$this->current_list_screen->set_original_columns( null );
 		}
 
 		// Store default headings
@@ -408,12 +407,6 @@ final class AC_TableScreen {
 		// Add mandatory checkbox
 		if ( isset( $columns['cb'] ) ) {
 			$this->column_headings['cb'] = $columns['cb'];
-		}
-
-		// In case columns are empty because they were put in memory before 'default headings' were
-		// stored, causing an empty list table on first visit.
-		if ( ! $this->current_list_screen->get_columns() ) {
-			$this->current_list_screen->reset();
 		}
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
