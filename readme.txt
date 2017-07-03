@@ -218,6 +218,14 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.0.2 =
+
+Release Date: July 3rd, 2017
+
+* [Fixed] No columns were shown when you saved your columns without visiting the overview page first
+* [Improved] Character limit now strips tags before trimming
+* [Improved] Translations for the core are now fetched from Glotpress
+
 = 3.0.1 =
 
 Release Date: June 12th, 2017

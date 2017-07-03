@@ -1,1337 +1,1650 @@
-# Copyright (C) 2015 Codepress Admin Columns
-# This file is distributed under the same license as the Codepress Admin Columns package.
-# Translators:
-# tpr <tproli@gmail.com>, 2014
-# tpr <tproli@gmail.com>, 2014
+# Translation of Plugins - Admin Columns - Stable (latest release) in Hungarian
+# This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin Columns\n"
-"Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2017-04-03 12:31+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/codepress/admin-columns/language/hu_HU/)\n"
+"PO-Revision-Date: 2016-04-29 09:18:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu_HU\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: hu\n"
+"Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
-#: ../codepress-admin-columns.php:451
-msgid "Edit columns"
-msgstr "Oszlopok szerkesztése"
-
-#: ../classes/addons.php:110
-msgid "Plugins"
-msgstr ""
-
-#: ../classes/addons.php:135
-msgid "Advanced Custom Fields"
-msgstr ""
-
-#: ../classes/addons.php:136
-msgid ""
-"Display and edit Advanced Custom Fields fields in the posts overview in "
-"seconds!"
-msgstr ""
-
-#: ../classes/addons.php:141
-msgid "WooCommerce"
-msgstr ""
-
-#: ../classes/addons.php:142
-msgid ""
-"Enhance the products, orders and coupons overviews with new columns and "
-"inline editing."
-msgstr ""
-
-#: ../classes/column.php:624
-msgid "Thumbnail"
-msgstr "Bélyegkép"
-
-#: ../classes/column.php:625
-msgid "Medium"
-msgstr "Közepes"
-
-#: ../classes/column.php:626
-msgid "Large"
-msgstr "Nagy"
-
-#: ../classes/column.php:627
-msgid "Full"
-msgstr "Teljes méretű"
-
-#: ../classes/column.php:1059
-msgid "Exact match"
-msgstr ""
-
-#: ../classes/column.php:1060
-msgid "Lesser than"
-msgstr ""
-
-#: ../classes/column.php:1061
-msgid "Greater than"
-msgstr ""
-
-#: ../classes/column.php:1062
-msgid "Between"
-msgstr ""
-
-#: ../classes/column.php:1089
-msgid "Date Format"
-msgstr "Dátumformátum"
-
-#: ../classes/column.php:1090
-msgid "This will determine how the date will be displayed."
-msgstr "Meghatározza, hogy fog a dátum megjelenni."
-
-#: ../classes/column.php:1096
-msgid "Example:"
-msgstr "Például:"
-
-#: ../classes/column.php:1098
-msgid ""
-"Leave empty for WordPress date format, change your <a href='%s'>default date"
-" format here</a>."
-msgstr ""
-
-#: ../classes/column.php:1099
-msgid "Documentation on date and time formatting."
-msgstr "Dokumentáció a dátum- és időformátumokhoz."
-
-#: ../classes/column.php:1113
-msgid "Excerpt length"
-msgstr "Kivonat hossza"
-
-#: ../classes/column.php:1114
-msgid "Number of words"
-msgstr "Szavak száma"
-
-#: ../classes/column.php:1132
-msgid "Preview size"
-msgstr "Előnézet mérete"
-
-#: ../classes/column.php1149, ../classes/storage_model.php:642
-msgid "Custom"
-msgstr "Egyedi"
-
-#: ../classes/column.php1152, ../classes/column.php:1328
-msgid "width"
-msgstr "szélesség"
-
-#: ../classes/column.php:1155
-msgid "height"
-msgstr "magasság"
-
-#: ../classes/column.php:1167
-msgid "Before"
-msgstr "Előtte"
-
-#: ../classes/column.php:1167
-msgid "This text will appear before the custom field value."
-msgstr "Ez a szöveg fog megjelenni az egyedi mező értéke előtt."
-
-#: ../classes/column.php:1168
-msgid "After"
-msgstr "Utána"
-
-#: ../classes/column.php:1168
-msgid "This text will appear after the custom field value."
-msgstr "Ez a szöveg fog megjelenni az egyedi mező értéke után."
-
-#: ../classes/column.php:1177
-msgid "Display Name"
-msgstr "Megjelenő név"
-
-#: ../classes/column.php1178, ../classes/settings.php:733
-msgid "First Name"
-msgstr "Utónév"
-
-#: ../classes/column.php:1179
-msgid "Last Name"
-msgstr "Vezetéknév"
-
-#: ../classes/column.php1180, ../classes/column/user/nickname.php:19
-msgid "Nickname"
-msgstr "Becenév"
-
-#: ../classes/column.php:1181
-msgid "User Login"
-msgstr "Felhasználó bejelentkezés"
-
-#: ../classes/column.php:1182
-msgid "User Email"
-msgstr "Felhasználó email"
-
-#: ../classes/column.php1183, ../classes/column/user/ID.php:19
-msgid "User ID"
-msgstr "Felhasználó ID "
-
-#: ../classes/column.php:1184
-msgid "First and Last Name"
-msgstr "Elő- és utónév"
-
-#: ../classes/column.php:1187
-msgid "Display format"
-msgstr ""
-
-#: ../classes/column.php:1187
-msgid "This is the format of the author name."
-msgstr "Ez a szerző nevének formátuma"
-
-#: ../classes/column.php:1350
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: ../classes/column.php1352, ../classes/column.php:1444
-msgid "Clone"
+#: classes/Settings/Column/User.php:118
+msgid "User Nicename"
 msgstr ""
-
-#: ../classes/column.php:1354
-msgid "Remove"
-msgstr "Eltávolítás"
-
-#: ../classes/column.php1372, ../classes/column.php1372,
-#: ../classes/column/custom-field.php408,
-#: ../classes/column/comment/type.php:13
-msgid "Type"
-msgstr "Típus"
 
-#: ../classes/column.php:1372
-msgid "Choose a column type."
-msgstr "Válassz egy oszloptípust."
-
-#: ../classes/column.php:1372
-msgid "Name"
+#: classes/Admin/Page/Columns.php:607
+msgid "Send me the discount"
 msgstr ""
-
-#: ../classes/column.php:1382
-msgid "Label"
-msgstr "Címke"
-
-#: ../classes/column.php:1382
-msgid "This is the name which will appear as the column header."
-msgstr "Ez a név fog megjelenni az oszlop fejlécében."
 
-#: ../classes/column.php1389, ../classes/column/media/width.php:19
-msgid "Width"
-msgstr "Szélesség"
-
-#: ../classes/column.php:1391
-msgid "default"
-msgstr "alapértelmezett"
-
-#: ../classes/column.php:1392
-msgid "auto"
+#: classes/Admin/Page/Columns.php:572
+msgid "Prices starting from %s"
 msgstr ""
 
-#: ../classes/column.php:1466
-msgid "Property To Display"
+#: classes/Addon/BuddyPress.php:17
+msgid "Display any of your Profile Fields for BuddyPress on your users overview."
 msgstr ""
 
-#: ../classes/column.php:1472
-msgid "Post property to display for related post(s)."
+#: classes/Addon/BuddyPress.php:13
+msgid "BuddyPress"
 msgstr ""
 
-#: ../classes/column.php1484, ../classes/column/post/author-name.php:95
-msgid "Link To"
+#: templates/settings/section.php:23
+msgid "View more"
 msgstr ""
 
-#: ../classes/column.php:1489
-msgid "Edit Post Author"
+#: classes/TableScreen.php:57
+msgid "Invalid method."
 msgstr ""
 
-#: ../classes/column.php:1490
-msgid "View Public Post Author Page"
+#: classes/TableScreen.php:53
+msgid "Invalid column."
 msgstr ""
 
-#: ../classes/column.php:1492
-msgid "Page the posts should link to."
+#: classes/TableScreen.php:45
+msgid "Invalid list screen."
 msgstr ""
-
-#: ../classes/review_notice.php55, ../classes/settings.php170,
-#: ../classes/settings.php599, ../classes/upgrade.php:135
-msgid "Admin Columns"
-msgstr "Admin Columns"
 
-#: ../classes/review_notice.php:58
-msgid "Admin Columns Pro"
+#: classes/TableScreen.php:39
+msgid "Invalid item ID."
 msgstr ""
 
-#: ../classes/review_notice.php:68
-msgid "click here"
+#: classes/Settings/Column/WordsPerMinute.php:32
+msgid "By default: %s"
 msgstr ""
 
-#: ../classes/review_notice.php:72
-msgid "Leave a review!"
+#: classes/Settings/Column/WordLimit.php:35
+msgid "Maximum number of words"
 msgstr ""
 
-#: ../classes/review_notice.php:73
-msgid "Permanently hide notice"
+#: classes/Settings/Column/WordLimit.php:34
+msgid "Word Limit"
 msgstr ""
 
-#: ../classes/review_notice.php:80
-msgid ""
-"We're sorry to hear that; maybe we can help! If you're having problems "
-"properly setting up %s or if you would like help with some more advanced "
-"features, please visit our %s."
+#: classes/Settings/Column/Width.php:40
+msgid "Auto"
 msgstr ""
 
-#: ../classes/review_notice.php:82
-msgid "documentation page"
+#: classes/Settings/Column/Term.php:33 classes/Settings/Column/User.php:37
+msgid "Display"
 msgstr ""
 
-#: ../classes/review_notice.php:86
-msgid ""
-"As an Admin Columns Pro user, you can also use your AdminColumns.com account"
-" to access product support through %s!"
+#: classes/Settings/Column/Taxonomy.php:23
+msgid "No taxonomies available."
 msgstr ""
 
-#: ../classes/review_notice.php:87
-msgid "our forums"
+#: classes/Settings/Column/Separator.php:32
+msgid "Select a repeater sub field."
 msgstr ""
 
-#: ../classes/review_notice.php:91
-msgid "You can also find help on the %s, and %s."
+#: classes/Settings/Column/Separator.php:31
+msgid "Separator"
 msgstr ""
 
-#: ../classes/review_notice.php:92
-msgid "Admin Columns forums on WordPress.org"
+#: classes/Settings/Column/Separator.php:27
+msgid "Whitespace"
 msgstr ""
 
-#: ../classes/review_notice.php:93
-msgid "find answers to some frequently asked questions"
+#: classes/Settings/Column/Separator.php:25
+msgid "New line"
 msgstr ""
 
-#: ../classes/settings.php:113
-msgid "Add-on successfully activated."
+#: classes/Settings/Column/Separator.php:24
+msgid "Comma Separated"
 msgstr ""
 
-#: ../classes/settings.php:116
-msgid "Add-on successfully deactivated."
+#: classes/Settings/Column/Password.php:23
+msgid "Plain text"
 msgstr ""
-
-#: ../classes/settings.php:170
-msgid "Admin Columns Settings"
-msgstr "Admin Columns beállítások"
-
-#: ../classes/settings.php:228
-msgid "%s column is already present and can not be duplicated."
-msgstr "A %s oszlop már a listában van, és nem szerepelhet egynél többször."
-
-#: ../classes/settings.php:284
-msgid "Default settings succesfully restored."
-msgstr "Alapértelmezett beállítások sikeresen visszaállítva."
-
-#: ../classes/settings.php:301
-msgid "Overview"
-msgstr "Áttekintés"
-
-#: ../classes/settings.php:304
-msgid ""
-"This plugin is for adding and removing additional columns to the "
-"administration screens for post(types), pages, media library, comments, "
-"links and users. Change the column's label and reorder them."
-msgstr "A plugin segítségével további oszlopokat lehet hozzáadni bejegyzések (egyedi bejegyzéstípusok), oldalak, médiatár, hivatkozások és felhasználók adminisztrációs felületekhez."
-
-#: ../classes/settings.php:307
-msgid "Basics"
-msgstr "Alapok"
-
-#: ../classes/settings.php:309
-msgid "Change order"
-msgstr "Sorrend megváltoztatása"
-
-#: ../classes/settings.php:310
-msgid ""
-"By dragging the columns you can change the order which they will appear in."
-msgstr "Az oszlopok más helyre húzásával lehet változtatni az oszlopok sorrendjén."
-
-#: ../classes/settings.php:311
-msgid "Change label"
-msgstr "Címke megváltoztatása"
-
-#: ../classes/settings.php:312
-msgid ""
-"By clicking on the triangle you will see the column options. Here you can "
-"change each label of the columns heading."
-msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit."
-
-#: ../classes/settings.php:313
-msgid "Change column width"
-msgstr "Oszlopszélesség módosítása"
-
-#: ../classes/settings.php:314
-msgid ""
-"By clicking on the triangle you will see the column options. By using the "
-"draggable slider you can set the width of the columns in percentages."
-msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit. A csúszka húzásával beállítható az oszlopok százalékos szélessége."
-
-#: ../classes/settings.php318, ../classes/storage_model.php641,
-#: ../classes/column/custom-field.php23,
-#: ../classes/column/custom-field.php:391
-msgid "Custom Field"
-msgstr "Egyedi mező"
-
-#: ../classes/settings.php:320
-msgid "'Custom Field' column"
-msgstr "\"Egyedi mező\" oszlop"
-
-#: ../classes/settings.php:321
-msgid ""
-"The custom field colum uses the custom fields from posts and users. There "
-"are 10 types which you can set."
-msgstr "Az egyedi mező oszlop a bejegyzések és felhasználók egyedi mezőit használja. 10-féle típust lehet beállítani."
-
-#: ../classes/settings.php323, ../classes/storage_model.php640,
-#: ../classes/column/custom-field.php:95
-msgid "Default"
-msgstr "Alapértelmezett"
-
-#: ../classes/settings.php:323
-msgid ""
-"Value: Can be either a string or array. Arrays will be flattened and values "
-"are seperated by a ',' comma."
-msgstr "Érték: karakterlánc vagy tömb. A tömbökből egydimenziós tömbök lesznek, az értékek vesszővel lesznek elválasztva \",\"."
-
-#: ../classes/settings.php324, ../classes/column/custom-field.php101,
-#: ../classes/column/link/image.php:19
-msgid "Image"
-msgstr "Kép"
-
-#: ../classes/settings.php:324
-msgid ""
-"Value: should contain an image URL or Attachment IDs ( seperated by a ',' "
-"comma )."
-msgstr "Érték: kép URL vagy Csatolmány ID-t fog tartalmazni,  vesszővel elválasztva (\",\")"
-
-#: ../classes/settings.php325, ../classes/column/post/excerpt.php:19
-msgid "Excerpt"
-msgstr "Kivonat"
-
-#: ../classes/settings.php:325
-msgid "Value: This will show the first 20 words of the Post content."
-msgstr "Érték: az első 20 szót fogja tartalmazni a Bejegyzés tartalmából."
-
-#: ../classes/settings.php326, ../classes/column/custom-field.php:103
-msgid "Multiple Values"
-msgstr "Többszörös érték"
-
-#: ../classes/settings.php:326
-msgid ""
-"Value: should be an array. This will flatten any ( multi dimensional ) "
-"array."
-msgstr "Érték: tömb. A többdimenziós tömbökből egydimenziósak lesznek."
-
-#: ../classes/settings.php327, ../classes/column/custom-field.php:104
-msgid "Numeric"
-msgstr "Numerikus"
-
-#: ../classes/settings.php:327
-msgid ""
-"Value: Integers only.<br/>If you have the 'sorting addon' this will be used "
-"for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Érték: csak egész számok.<br/>Ha rendelkezésre áll a \"Rendezés\" kiegészítő, ez az érték fog a rendezés alapjául szolgálni, tehát a bejegyzéseket numerikus (egyedi mező) értékek alapján lehet rendezni. "
-
-#: ../classes/settings.php328, ../classes/column/custom-field.php99,
-#: ../classes/column/comment/date.php:19
-msgid "Date"
-msgstr "Dátum"
-
-#: ../classes/settings.php:328
-msgid ""
-"Value: Can be unix time stamp or a date format as described in the <a "
-"href='%s'>Codex</a>. You can change the outputted date format at the <a "
-"href='%s'>general settings</a> page."
-msgstr "Érték: unix időpecsét vagy a <a href='%s'>Codex</a>-ben leírt dátumformátum. A visszaadott dátum értékét az <a href='%s'>általános beállítások</a> oldalon lehet beállítani."
-
-#: ../classes/settings.php:329
-msgid "Post Titles"
-msgstr "Bejegyzések címei"
-
-#: ../classes/settings.php:329
-msgid "Value: can be one or more Post ID's (seperated by ',')."
-msgstr "Érték: egy vagy több bejegyzés ID-ja (vesszővel elválasztva \",\")."
-
-#: ../classes/settings.php:330
-msgid "Usernames"
-msgstr "Felhasználónevek"
-
-#: ../classes/settings.php:330
-msgid "Value: can be one or more User ID's (seperated by ',')."
-msgstr "Érték: egy vagy több felhasználó ID-ja (vesszővel elválasztva \",\")."
-
-#: ../classes/settings.php:331
-msgid "Checkmark"
-msgstr "Pipa"
-
-#: ../classes/settings.php:331
-msgid "Value: should be a 1 (one) or 0 (zero)."
-msgstr "Érték: 1 (egy) vagy 0 (nulla)."
-
-#: ../classes/settings.php332, ../classes/column/custom-field.php:97
-msgid "Color"
-msgstr "Szín"
-
-#: ../classes/settings.php:332
-msgid "Value: hex value color, such as #808080."
-msgstr "Érték: hex színkód, pl. #808080."
-
-#: ../classes/settings.php333, ../classes/column/custom-field.php:98
-msgid "Counter"
-msgstr "Számláló"
-
-#: ../classes/settings.php:333
-msgid ""
-"Value: Can be either a string or array. This will display a count of the "
-"number of times the meta key is used by the item."
-msgstr "Érték: karakterlánc vagy tömb. Megjeleníti, hogy az elem hányszor használja a meta kulcsot."
-
-#: ../classes/settings.php:422
-msgid "Welcome to Admin Columns"
-msgstr "Üdvözöl az Admin Columns"
-
-#: ../classes/settings.php:425
-msgid "Thank you for updating to the latest version!"
-msgstr "Köszönjük, hogy frissítetted a legújabb verzióra!"
-
-#: ../classes/settings.php:426
-msgid ""
-"Admin Columns is more polished and enjoyable than ever before. We hope you "
-"like it."
-msgstr "Az Admin Columns még fejlettebb és élvezetesebb, mint valaha. Reméljük tetszeni fog."
-
-#: ../classes/settings.php:431
-msgid "What’s New"
-msgstr "Újdonságok"
-
-#: ../classes/settings.php:432
-msgid "Changelog"
-msgstr "Változtatások listája"
 
-#: ../classes/settings.php:437
-msgid "Important"
-msgstr "Fontos"
-
-#: ../classes/settings.php:439
-msgid "Database Changes"
-msgstr "Adatbázis változtatások"
-
-#: ../classes/settings.php:440
-msgid ""
-"The database has been changed between versions 1 and 2. But we made sure you"
-" can still roll back to version 1x without any issues."
-msgstr "Az adatbázis változott az 1-es és a 2-es verzió között. A lefelé történő frissítés 1-es verziója probléma nélkül lehetséges."
-
-#: ../classes/settings.php:443
-msgid "Make sure you backup your database and then click"
-msgstr "Bizonyosodj meg róla, hogy van adatbázis mentésed, majd kattints"
-
-#: ../classes/settings.php443, ../classes/upgrade.php:143
-msgid "Upgrade Database"
-msgstr "Adatbázis frissítése"
-
-#: ../classes/settings.php:446
-msgid "Potential Issues"
-msgstr "Lehetséges problémák"
-
-#: ../classes/settings.php:447
-msgid ""
-"Do to the sizable refactoring the code, surounding Addons and "
-"action/filters, your website may not operate correctly. It is important that"
-" you read the full"
-msgstr "A kód refraktorálása után, beleértve a kiegészítőket és filtereket, előfordulhat, hogy a weboldal nem fog megfelelően működni. Fontos, hogy olvasd el a teljes"
-
-#: ../classes/settings.php:447
-msgid "Migrating from v1 to v2"
-msgstr "Frissítés v1-ről v2-re"
-
-#: ../classes/settings.php:447
-msgid "guide to view the full list of changes."
-msgstr "leírást a változtatások teljes listájáért."
-
-#: ../classes/settings.php:447
-msgid ""
-"When you have found a bug please <a href='%s'>report them to us</a> so we "
-"can fix it in the next release."
+#: classes/Settings/Column/Password.php:22
+msgid "Password"
 msgstr ""
-
-#: ../classes/settings.php:450
-msgid "Important!"
-msgstr "Fontos!"
-
-#: ../classes/settings.php:450
-msgid ""
-"If you updated the Admin Columns plugin without prior knowledge of such "
-"changes, Please roll back to the latest"
-msgstr "Ha frissítetted az Admin Columns bővítményt az ilyen jellegű változtatások hatásának előzetes tudta nélkül, kérjük állítsd vissza a korábbi"
-
-#: ../classes/settings.php:450
-msgid "version 1"
-msgstr "verzió 1"
 
-#: ../classes/settings.php:450
-msgid "of this plugin."
-msgstr "a bővítménynek."
-
-#: ../classes/settings.php:456
-msgid "Changelog for"
-msgstr "Változtatások listája"
-
-#: ../classes/settings.php471, ../classes/upgrade.php:63
-msgid "Learn more"
-msgstr "Bővebb információ"
-
-#: ../classes/settings.php:481
-msgid "Start using Admin Columns"
-msgstr "Admin Columns használatának megkezdése"
-
-#: ../classes/settings.php:500
-msgid "General Settings"
-msgstr "Általános beállítások"
-
-#: ../classes/settings.php:501
-msgid "Customize your Admin Columns settings."
-msgstr "Az Admin Columns beállítások módosítása"
-
-#: ../classes/settings.php:512
-msgid "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>."
+#: classes/Settings/Column/Meta.php:27
+msgid "No fields available."
 msgstr ""
 
-#: ../classes/settings.php:559
-msgid "Restore Settings"
-msgstr "Beállítások visszaállítása"
-
-#: ../classes/settings.php:560
-msgid "This will delete all column settings and restore the default settings."
-msgstr "Törli minden oszlop beállítást és visszaállítja az alapértelmezett beállításokat."
-
-#: ../classes/settings.php:566
-msgid "Restore default settings"
-msgstr "Alapértelmezett beállítások visszaállítása"
-
-#: ../classes/settings.php:566
-msgid ""
-"Warning! ALL saved admin columns data will be deleted. This cannot be "
-"undone. 'OK' to delete, 'Cancel' to stop"
+#: classes/Settings/Column/Image.php:112
+msgid "Custom Size"
 msgstr ""
 
-#: ../classes/settings.php:582
-msgid "Posttypes"
+#: classes/Settings/Column/Image.php:108
+msgid "Full Size"
 msgstr ""
 
-#: ../classes/settings.php:583
-msgid "Others"
+#: classes/Settings/Column/Image.php:54
+msgid "Image Size"
 msgstr ""
 
-#: ../classes/settings.php:584
-msgid "Taxonomies"
+#: classes/Settings/Column/Image.php:47
+msgid "Height in pixels"
 msgstr ""
 
-#: ../classes/settings.php:600
-msgid "Settings"
-msgstr "Beállítások"
-
-#: ../classes/settings.php:601
-msgid "Add-ons"
+#: classes/Settings/Column/Image.php:41
+msgid "Width in pixels"
 msgstr ""
 
-#: ../classes/settings.php:669
-msgid ""
-"The columns for %s are set up via PHP and can therefore not be edited in the"
-" admin panel."
+#: classes/Settings/Column/Date.php:181
+msgid "in %s"
 msgstr ""
-
-#: ../classes/settings.php:679
-msgid "Store settings"
-msgstr "Beállítások tárolása"
 
-#: ../classes/settings.php:687
-msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
-" delete, 'Cancel' to stop"
+#: classes/Settings/Column/Date.php:178
+msgid "%s ago"
 msgstr ""
-
-#: ../classes/settings.php:688
-msgid "Restore"
-msgstr "Visszaállítás"
-
-#: ../classes/settings.php:688
-msgid "columns"
-msgstr "oszlopok"
 
-#: ../classes/settings.php:707
-msgid "Get Admin Columns Pro"
+#: classes/Settings/Column/Date.php:99
+msgid "date and time formatting"
 msgstr ""
 
-#: ../classes/settings.php:711
-msgid "Add Sorting"
-msgstr "Rendezés hozzáadása"
-
-#: ../classes/settings.php:712
-msgid "Add Filtering"
-msgstr "Szűrés hozzáadása"
-
-#: ../classes/settings.php:713
-msgid "Add Import/Export"
-msgstr "Import/export hozzáadása"
-
-#: ../classes/settings.php:714
-msgid "Add Direct Editing"
+#: classes/Settings/Column/Date.php:99
+msgid "Learn more about %s."
 msgstr ""
 
-#: ../classes/settings.php:717
-msgid "Check out <a href='%s'>Admin Columns Pro</a> for more details!"
+#: classes/Settings/Column/Date.php:98
+msgid "Custom:"
 msgstr ""
 
-#: ../classes/settings.php:730
-msgid "Subscribe to receive news &amp; updates below."
+#: classes/Settings/Column/Date.php:81
+msgid "The %s can be changed in %s."
 msgstr ""
 
-#: ../classes/settings.php:737
-msgid "Your Email"
+#: classes/Settings/Column/Date.php:76
+msgid "WordPress Date Format"
 msgstr ""
 
-#: ../classes/settings.php:748
-msgid "Are you happy with Admin Columns?"
+#: classes/Settings/Column/Date.php:70
+msgid "or"
 msgstr ""
 
-#: ../classes/settings.php:756
-msgid "What's wrong? Need help? Let us know!"
+#: classes/Settings/Column/Date.php:70
+msgid "For example: %s."
 msgstr ""
 
-#: ../classes/settings.php:757
-msgid ""
-"Check out our extensive documentation, or you can open a support topic on "
-"WordPress.org!"
+#: classes/Settings/Column/Date.php:70
+msgid "The difference is returned in a human readable format."
 msgstr ""
 
-#: ../classes/settings.php:765
-msgid "Docs"
+#: classes/Settings/Column/Date.php:69
+msgid "Time Difference"
 msgstr ""
 
-#: ../classes/settings.php:770
-msgid "Forums"
+#: classes/Settings/Column/CustomFieldType.php:152
+msgid "Multiple"
 msgstr ""
 
-#: ../classes/settings.php:779
-msgid "Woohoo! We're glad to hear that!"
+#: classes/Settings/Column/CustomFieldType.php:151
+msgid "Choice"
 msgstr ""
 
-#: ../classes/settings.php:780
-msgid ""
-"We would really love it if you could show your appreciation by giving us a "
-"rating on WordPress.org or tweet about Admin Columns!"
+#: classes/Settings/Column/CustomFieldType.php:150
+msgid "Relational"
 msgstr ""
 
-#: ../classes/settings.php:784
-msgid "Rate"
+#: classes/Settings/Column/CustomFieldType.php:149
+msgid "Basic"
 msgstr ""
 
-#: ../classes/settings.php:795
-msgid "Tweet"
+#: classes/Settings/Column/CustomFieldType.php:117
+msgid "Number of Fields"
 msgstr ""
 
-#: ../classes/settings.php:805
-msgid "Buy Pro"
+#: classes/Settings/Column/CustomFieldType.php:109
+msgid "True / False"
 msgstr ""
-
-#: ../classes/settings.php:817
-msgid "Support"
-msgstr "Támogatás"
-
-#: ../classes/settings.php:820
-msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr "Tekintsd meg a <strong>Súgó</strong> részt a képernyő jobb felső sarkában."
-
-#: ../classes/settings.php:823
-msgid ""
-"For full documentation, bug reports, feature suggestions and other tips <a "
-"href='%s'>visit the Admin Columns website</a>"
-msgstr "A teljes dokumentációhoz, problémák jelentéséhez, új javaslatok beküldéséhez és egyéb tippekért <a href='%s'>keresd fel az Admin Columns weboldalát</a>"
 
-#: ../classes/settings.php:852
-msgid "Drag and drop to reorder"
-msgstr "Húzd az elemeket más helyre a sorrend megváltoztatásához"
-
-#: ../classes/settings.php:855
-msgid "Add Column"
-msgstr "Oszlop hozzáadása"
-
-#: ../classes/settings.php:936
-msgid "Active"
+#: classes/Settings/Column/CustomFieldType.php:108
+msgid "Has Content"
 msgstr ""
 
-#: ../classes/settings.php:937
-msgid "Deactivate"
+#: classes/Settings/Column/CustomFieldType.php:105
+msgid "Number"
 msgstr ""
 
-#: ../classes/settings.php:944
-msgid "Installed"
+#: classes/Settings/Column/CustomFieldType.php:102
+msgid "Text"
 msgstr ""
 
-#: ../classes/settings.php:945
-msgid "Activate"
+#: classes/Settings/Column/CustomFieldType.php:70
+msgid "Multiple ids should be separated by a comma."
 msgstr ""
 
-#: ../classes/settings.php:959
-msgid "Download & Install"
+#: classes/Settings/Column/CustomFieldType.php:69
+msgid "Uses the id from a %s to display information about it."
 msgstr ""
 
-#: ../classes/settings.php:964
-msgid "Get this add-on"
+#: classes/Settings/Column/CustomField.php:36
+#: classes/Settings/Column/Meta.php:63 classes/Settings/Column/Post.php:71
+msgid "Field"
 msgstr ""
-
-#: ../classes/storage_model.php:262
-msgid "settings succesfully restored."
-msgstr "Beállítások sikeresen visszaállítva."
 
-#: ../classes/storage_model.php:278
-msgid "No columns settings available."
-msgstr "Nincs elérhető oszlopbeállítás."
-
-#: ../classes/storage_model.php:299
-msgid "You are trying to store the same settings for %s."
-msgstr "Ugyanazokat a beállításokat próbálod menteni a %s-nél."
-
-#: ../classes/storage_model.php:303
-msgid "Settings for %s updated successfully."
+#: classes/Settings/Column/CharacterLimit.php:28
+#: classes/Settings/Column/WordLimit.php:35
+msgid "Leave empty for no limit"
 msgstr ""
 
-#: ../classes/storage_model.php:643
-msgid "Columns by Plugins"
+#: classes/Settings/Column/CharacterLimit.php:28
+msgid "Maximum number of characters"
 msgstr ""
 
-#: ../classes/storage_model.php:862
-msgid "View"
-msgstr "Megtekintés"
-
-#: ../classes/upgrade.php:62
-msgid ""
-"The pro add-on is no longer supported. Please login to your account and "
-"download Admin Columns Pro"
+#: classes/Settings/Column/CharacterLimit.php:27
+msgid "Character Limit"
 msgstr ""
-
-#: ../classes/upgrade.php95, ../classes/upgrade.php:95
-msgid "Upgrade"
-msgstr "Frissítés"
 
-#: ../classes/upgrade.php:136
-msgid "requires a database upgrade"
-msgstr "adatbázis frissítést igényel"
-
-#: ../classes/upgrade.php:139
-msgid "why?"
-msgstr "miért?"
-
-#: ../classes/upgrade.php:140
-msgid "Please"
-msgstr "Kérlek"
-
-#: ../classes/upgrade.php:141
-msgid "backup your database"
-msgstr "készíts biztonsági mentést az adatbázisról"
-
-#: ../classes/upgrade.php:142
-msgid "then click"
-msgstr "majd kattints az"
-
-#: ../classes/upgrade.php:351
-msgid "Migrating Column Settings"
-msgstr "Oszlopbeállítások migrálása"
-
-#: ../classes/upgrade.php:387
-msgid "No Upgrade Required"
-msgstr "Nincs szükség frissítésre"
-
-#: ../classes/upgrade.php:388
-msgid "Return to welcome screen."
-msgstr "Vissza a nyitóoldalra"
-
-#: ../classes/upgrade.php:406
-msgid "Upgrade Complete!"
-msgstr "Frissítés kész!"
-
-#: ../classes/upgrade.php:406
-msgid "Return to settings."
-msgstr "Vissza a beállításokhoz."
-
-#: ../classes/upgrade.php:407
-msgid "Error"
-msgstr "Hiba"
-
-#: ../classes/upgrade.php:408
-msgid ""
-"Sorry. Something went wrong during the upgrade process. Please report this "
-"on the support forum."
-msgstr "Sajnáljuk. Hiba történt a frissítés során. Kérjük jelezd a támogatói fórumon."
-
-#: ../classes/column/acf-placeholder.php:19
-msgid "ACF Field"
+#: classes/Settings/Column/BeforeAfter.php:56
+msgid "Display Options"
 msgstr ""
 
-#: ../classes/column/acf-placeholder.php:35
-msgid ""
-"If you have a developer licence please download & install your ACF add-on "
-"from the <a href='%s'>add-ons tab</a>."
+#: classes/Settings/Column/BeforeAfter.php:50
+msgid "This text will appear after the column value."
 msgstr ""
 
-#: ../classes/column/acf-placeholder.php:38
-msgid ""
-"Admin Columns Pro - Developer offers full Advanced Custom Fields "
-"integeration, allowing you to easily display and edit ACF fields from within"
-" your posts overview."
+#: classes/Helper/String.php:270
+msgid " and "
 msgstr ""
 
-#: ../classes/column/acf-placeholder.php:44
-msgid "Find out more"
+#: classes/Helper/String.php:268
+msgid " or "
 msgstr ""
-
-#: ../classes/column/actions.php29, ../classes/column/link/actions.php:19
-msgid "Actions"
-msgstr "Műveletek"
 
-#: ../classes/column/actions.php:96
-msgid "Use icons?"
+#: classes/Helper/Html.php:344
+msgid "Hide"
 msgstr ""
 
-#: ../classes/column/actions.php:96
-msgid "Use icons instead of text for displaying the actions."
+#: classes/Helper/Html.php:340
+msgid "Show %s more"
 msgstr ""
 
-#: ../classes/column/custom-field.php:96
-msgid "Checkmark (true/false)"
-msgstr "Pipa (igaz/hamis)"
-
-#: ../classes/column/custom-field.php:102
-msgid "Media Library"
-msgstr "Médiatár"
-
-#: ../classes/column/custom-field.php:105
-msgid "Post Title (Post ID's)"
-msgstr "Bejegyzés címe (bejegyzés ID)"
-
-#: ../classes/column/custom-field.php:106
-msgid "Username (User ID's)"
-msgstr "Felhasználónév (Felhasználó ID)"
-
-#: ../classes/column/custom-field.php:107
-msgid "Term Name (Term ID's)"
+#: classes/Column/User/Url.php:14
+msgid "Website"
 msgstr ""
-
-#: ../classes/column/custom-field.php:391
-msgid "Select your custom field."
-msgstr "Válassz egyedi mezőt."
-
-#: ../classes/column/custom-field.php:401
-msgid "No custom fields available."
-msgstr "Nincsenek egyedi mezők."
 
-#: ../classes/column/custom-field.php:401
-msgid "Please create a %s item first."
+#: classes/Column/User/ShowToolbar.php:14
+msgid "Show Toolbar"
 msgstr ""
 
-#: ../classes/column/custom-field.php:408
-msgid "Field Type"
-msgstr "Mező típusa"
-
-#: ../classes/column/custom-field.php:408
-msgid "This will determine how the value will be displayed."
-msgstr "Meghatározza, hogy fog az érték megjelenni."
-
-#: ../classes/column/taxonomy.php20, ../classes/column/taxonomy.php:83
-msgid "Taxonomy"
-msgstr "Taxonómia"
-
-#: ../classes/column/used-by-menu.php:20
-msgid "Used by Menu"
+#: classes/Column/Post/Shortlink.php:14
+msgid "Shortlink"
 msgstr ""
 
-#: ../classes/column/used-by-menu.php:133
-msgid "Link to menu"
+#: classes/Column/Post/Roles.php:33 classes/Column/Taxonomy.php:27
+#: classes/Settings/Column/CustomFieldType.php:260
+msgid ", "
 msgstr ""
 
-#: ../classes/column/used-by-menu.php:133
-msgid "This will make the title link to the menu."
+#: classes/Column/Post/Formats.php:24
+msgid "Standard"
 msgstr ""
-
-#: ../classes/column/comment/ID.php19, ../classes/column/media/ID.php19,
-#: ../classes/column/post/ID.php19, ../classes/column/link/ID.php:19
-msgid "ID"
-msgstr "ID"
-
-#: ../classes/column/comment/agent.php:19
-msgid "Agent"
-msgstr "Ügynök"
-
-#: ../classes/column/comment/approved.php19,
-#: ../classes/column/post/comment-count.php:35
-msgid "Approved"
-msgstr "Jóváhagyva"
 
-#: ../classes/column/comment/author-avatar.php:19
-msgid "Avatar"
-msgstr "Avatar"
-
-#: ../classes/column/comment/author-email.php:19
-msgid "Author email"
-msgstr "Szerző email-je"
-
-#: ../classes/column/comment/author-ip.php:19
-msgid "Author IP"
-msgstr "Szerző IP-je"
-
-#: ../classes/column/comment/author-name.php:12
-msgid "Author name"
+#: classes/Column/Post/CommentStatus.php:17
+msgid "Comment Status"
 msgstr ""
-
-#: ../classes/column/comment/author-url.php:19
-msgid "Author url"
-msgstr "Szerző URL-je"
-
-#: ../classes/column/comment/author.php:19
-msgid "Author"
-msgstr "Szerző"
-
-#: ../classes/column/comment/date-gmt.php:19
-msgid "Date GMT"
-msgstr "GMT dátum"
 
-#: ../classes/column/comment/excerpt.php19,
-#: ../classes/column/post/content.php:19
-msgid "Content"
+#: classes/Column/Post/AttachmentCount.php:16
+msgid "Attachment Count"
 msgstr ""
 
-#: ../classes/column/comment/post.php:19
-msgid "Post"
+#: classes/Column/Media/FullPath.php:14
+msgid "Full Path"
 msgstr ""
 
-#: ../classes/column/comment/reply-to.php:19
-msgid "In Reply To"
-msgstr "Válaszolva erre:"
-
-#: ../classes/column/comment/user.php:11
-msgid "User"
+#: classes/Admin/Promo.php:137
+msgid "Discount is valid until %s"
 msgstr ""
-
-#: ../classes/column/comment/word-count.php19,
-#: ../classes/column/post/word-count.php:19
-msgid "Word count"
-msgstr "Szavak száma"
-
-#: ../classes/column/media/alternate-text.php:19
-msgid "Alt"
-msgstr "Alt"
 
-#: ../classes/column/media/attached-to.php:19
-msgid "Attached to post"
+#: classes/Admin/Page/Welcome.php:12
+msgid "Welcome"
 msgstr ""
-
-#: ../classes/column/media/available-sizes.php:20
-msgid "Available Sizes"
-msgstr "Elérhető méretek"
-
-#: ../classes/column/media/available-sizes.php:40
-msgid "full size"
-msgstr "teljes méret"
-
-#: ../classes/column/media/caption.php19,
-#: ../classes/column/media/exif-data.php:41
-msgid "Caption"
-msgstr "Kép felirata"
-
-#: ../classes/column/media/description.php19,
-#: ../classes/column/link/description.php19,
-#: ../classes/column/user/description.php:19
-msgid "Description"
-msgstr "Leírás"
 
-#: ../classes/column/media/dimensions.php:19
-msgid "Dimensions"
-msgstr "Kép kiterjedése"
-
-#: ../classes/column/media/exif-data.php:19
-msgid "EXIF data"
-msgstr "EXIF adato"
-
-#: ../classes/column/media/exif-data.php:38
-msgid "Aperture"
-msgstr "Rekesz"
-
-#: ../classes/column/media/exif-data.php:39
-msgid "Credit"
-msgstr "Érdem"
-
-#: ../classes/column/media/exif-data.php:40
-msgid "Camera"
-msgstr "Fényképezőgép"
-
-#: ../classes/column/media/exif-data.php:42
-msgid "Timestamp"
-msgstr "Időbélyeg"
-
-#: ../classes/column/media/exif-data.php:43
-msgid "Copyright EXIF"
-msgstr "EXIF szerzői jog"
-
-#: ../classes/column/media/exif-data.php:44
-msgid "Focal Length"
-msgstr "Fókusztávolság"
-
-#: ../classes/column/media/exif-data.php:45
-msgid "ISO"
-msgstr "ISO"
-
-#: ../classes/column/media/exif-data.php:46
-msgid "Shutter Speed"
-msgstr "Zársebesség"
-
-#: ../classes/column/media/exif-data.php:47
-msgid "Title"
-msgstr "Cím"
-
-#: ../classes/column/media/file-name.php:19
-msgid "File name"
-msgstr "Fájlnév"
-
-#: ../classes/column/media/file-size.php:19
-msgid "File size"
-msgstr "Fájlméret"
-
-#: ../classes/column/media/full-path.php19,
-#: ../classes/column/media/full-path.php:92
-msgid "Full path"
-msgstr "Teljes útvonal"
-
-#: ../classes/column/media/full-path.php:83
-msgid "Path scope"
+#: classes/Admin/Page/Settings.php:171
+msgid "Show %s button on table screen."
 msgstr ""
 
-#: ../classes/column/media/full-path.php:84
-msgid "Part of the file path to display"
+#: classes/Admin/Page/Settings.php:152
+msgid "Default is %s."
 msgstr ""
 
-#: ../classes/column/media/full-path.php:97
-msgid "Relative to domain"
+#: classes/Admin/Page/Settings.php:149
+msgid "on"
 msgstr ""
 
-#: ../classes/column/media/full-path.php:102
-msgid "Relative to main uploads folder "
+#: classes/Admin/Page/Settings.php:146
+msgid "off"
 msgstr ""
-
-#: ../classes/column/media/height.php:19
-msgid "Height"
-msgstr "Magasság"
-
-#: ../classes/column/media/mime-type.php:19
-msgid "Mime type"
-msgstr "Mime típus"
 
-#: ../classes/column/post/attachment-count.php:19
-msgid "No. of Attachments"
-msgstr "Csatolmányok száma"
-
-#: ../classes/column/post/attachment.php:19
-msgid "Attachments"
+#: classes/Admin/Page/Settings.php:133
+msgid "Notice"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:20
-msgid "Display Author As"
-msgstr "Szerző megjelenítése mint"
-
-#: ../classes/column/post/author-name.php:100
-msgid "View Public Author Page"
+#: classes/Admin/Page/Settings.php:127
+msgid "Instructions"
 msgstr ""
 
-#: ../classes/column/post/author-name.php:102
-msgid "Page the author name should link to."
+#: classes/Admin/Page/Help.php:315
+msgid "our documentation"
 msgstr ""
-
-#: ../classes/column/post/before-moretag.php:19
-msgid "Before More Tag"
-msgstr "A \"További\" címke előtti rész"
-
-#: ../classes/column/post/comment-count.php:20
-msgid "Comment count"
-msgstr "Hozzászólások száma"
-
-#: ../classes/column/post/comment-count.php:34
-msgid "Total"
-msgstr "Összesen"
-
-#: ../classes/column/post/comment-count.php:36
-msgid "Pending"
-msgstr "Folyamatban"
-
-#: ../classes/column/post/comment-count.php:37
-msgid "Spam"
-msgstr "Levélszemét"
-
-#: ../classes/column/post/comment-count.php:38
-msgid "Trash"
-msgstr "Kuka"
-
-#: ../classes/column/post/comment-count.php99,
-#: ../classes/column/post/comment-status.php:20
-msgid "Comment status"
-msgstr "Hozzászólás státusza"
-
-#: ../classes/column/post/comment-count.php:99
-msgid "Select which comment status you like to display."
-msgstr "Válasz ki, melyik hozzászólás státuszt szeretnéd megjeleníteni."
 
-#: ../classes/column/post/depth.php:19
-msgid "Depth"
+#: classes/Admin/Page/Help.php:315
+msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:19
-msgid "Estimated Reading Time"
+#: classes/Admin/Page/Help.php:313
+msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:66
-msgid "second"
-msgid_plural "seconds"
+#: classes/Admin/Page/Help.php:303
+msgid "The callback used is %s."
+msgid_plural "The callbacks used are %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/column/post/estimated-reading-time.php:69
+#: classes/Admin/Page/Help.php:248
+msgid "View documentation"
+msgstr ""
+
+#: classes/Admin/Page/Help.php:198
+msgid "The action %s used on this website is deprecated since %s."
+msgstr ""
+
+#: classes/Admin/Page/Help.php:185
+msgid "The filter %s used on this website is deprecated since %s."
+msgstr ""
+
+#: classes/Admin/Page/Help.php:172
+msgid "Deprecated Actions"
+msgstr ""
+
+#: classes/Admin/Page/Help.php:171
+msgid "Deprecated Filters"
+msgstr ""
+
+#: classes/Admin/Page/Help.php:34 classes/Admin/Page/Help.php:311
+msgid "Help"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:849 classes/Admin/Page/Columns.php:884
+msgid "Close"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:757
+msgid "Clear all columns "
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:664
+msgid "I'm using Admin Columns for WordPress!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:606
+msgid "Your First Name"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:605
+msgid "Your Email"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:598
+msgid "Submit your email and we'll send you a discount for %s off."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:594
+msgid "Get %s Off!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:561
+msgid "Extra Columns for:"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:547
+msgid "Edit your column content directly"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:535
+msgid "Pro"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:328
+msgid "You need at least one column"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:293
+msgid "Available"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:292
+msgid "Recommended"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:120
+msgid "%s could not be activated."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:110
+msgid "%s successfully activated."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:105
+msgid "%s plugin successfully deactivated."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:104
+msgid "%s plugin successfully activated."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:71
+msgid "%s add-on requires %s."
+msgid_plural "%s add-ons requires %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Admin/Page/Addons.php:58
+msgid "here"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:58
+msgid "Click %s to activate the plugin."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:55
+msgid "%s plugin is installed, but not active."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:53
+msgid "%s plugin needs to be installed for the add-on to work."
+msgstr ""
+
+#: classes/Addon.php:274
+msgid "Display and edit %s fields in the posts overview in seconds!"
+msgstr ""
+
+#: classes/Addon/Types.php:13
+msgid "Toolset Types"
+msgstr ""
+
+#: classes/Addon/Pods.php:13
+msgid "Pods"
+msgstr ""
+
+#: classes/API.php:139
+msgid "Imported"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:577
+msgid "Learn more about Pro"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:549
+msgid "Import &amp; Export settings"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:548
+msgid "Create multiple columns sets"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:546
+msgid "Add filterable columns"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:545
+msgid "Add sortable columns"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:540
+msgid "Take Admin Columns to the next level:"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:535
+msgid "Upgrade to"
+msgstr ""
+
+#: classes/Admin/Promo.php:134
+msgid "Get %s Off"
+msgstr ""
+
+#: classes/Column/Post/Excerpt.php:21
+msgid "Excerpt from content"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:447
+msgid "The columns for %s are set up via PHP and can therefore not be edited."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:248
+msgid "Please visit the %s screen once to load all available columns"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:516
+msgid "Restore columns"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:174
+msgid "Settings for %s restored successfully."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:354
+msgid "View %s screen"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:74
+msgid "Invalid response."
+msgstr ""
+
+#: classes/Admin/Help/CustomField.php:51
+msgid "Value: should contain Attachment IDs ( seperated by a ',' comma )."
+msgstr ""
+
+#: classes/Settings/Column/LinkLabel.php:23
+msgid "Leave blank to display the url"
+msgstr ""
+
+#: classes/Settings/Column/LinkLabel.php:22
+msgid "Link Label"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:220
+msgid "You need Admin Columns Pro."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:214
+msgid "Addon does not exist."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:183
+msgid "the addons page"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:183
+msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
+msgstr ""
+
+#: classes/Settings/Column/Meta.php:114 codepress-admin-columns.php:340
+msgid "Custom Fields"
+msgstr " Egyedi mezők"
+
+#: classes/Settings/Column/Meta.php:110
+msgid "Hidden Custom Fields"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "AdminColumns.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
+msgstr ""
+
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "https://www.admincolumns.com"
+msgstr ""
+
+#: classes/Admin/Page/Settings.php:171 classes/TableScreen.php:192
+msgid "Edit columns"
+msgstr "Oszlopok szerkesztése"
+
+#: classes/Admin/Page/Upgrade.php:310
+msgid "Sorry. Something went wrong during the upgrade process. Please report this on the support forum."
+msgstr "Sajnáljuk. Hiba történt a frissítés során. Kérjük jelezd a támogatói fórumon."
+
+#: classes/Admin/Page/Upgrade.php:309
+msgid "Error"
+msgstr "Hiba"
+
+#: classes/Admin/Page/Upgrade.php:308
+msgid "Return to settings."
+msgstr "Vissza a beállításokhoz."
+
+#: classes/Admin/Page/Upgrade.php:308
+msgid "Upgrade Complete!"
+msgstr "Frissítés kész!"
+
+#: classes/Admin/Page/Upgrade.php:292
+msgid "Return to welcome screen."
+msgstr "Vissza a nyitóoldalra"
+
+#: classes/Admin/Page/Upgrade.php:291
+msgid "No Upgrade Required"
+msgstr "Nincs szükség frissítésre"
+
+#: classes/Admin/Page/Upgrade.php:255
+msgid "Migrating Column Settings"
+msgstr "Oszlopbeállítások migrálása"
+
+#: classes/Admin/Page/Upgrade.php:26 classes/Admin/Page/Upgrade.php:319
+msgid "Upgrade"
+msgstr "Frissítés"
+
+#: classes/Admin/Page/Upgrade.php:46
+msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:353
+msgid "Settings for %s updated successfully."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:340
+msgid "You are trying to store the same settings for %s."
+msgstr "Ugyanazokat a beállításokat próbálod menteni a %s-nél."
+
+#: classes/ListScreen.php:642
+msgid "No columns settings available."
+msgstr "Nincs elérhető oszlopbeállítás."
+
+#: classes/ListScreen/User.php:11 codepress-admin-columns.php:498
+msgid "Users"
+msgstr ""
+
+#: classes/ListScreen/Media.php:16
+#: classes/Settings/Column/CustomFieldType.php:112
+#: codepress-admin-columns.php:499
+msgid "Media"
+msgstr ""
+
+#: classes/ListScreen/Link.php:12
+msgid "Link"
+msgstr ""
+
+#: classes/ListScreen/Link.php:11 codepress-admin-columns.php:501
+msgid "Links"
+msgstr ""
+
+#: classes/ListScreen/Comment.php:15
+msgid "Comment"
+msgstr ""
+
+#: classes/ListScreen/Comment.php:14 codepress-admin-columns.php:500
+msgid "Comments"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:420
+msgid "Get this add-on"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:418
+msgid "Download & Install"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:412
+msgid "Activate"
+msgstr "Sikeresen regisztrált oldalunkra!"
+
+#: classes/Admin/Page/Addons.php:291
+msgid "Installed"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:408
+msgid "Deactivate"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:405
+msgid "Active"
+msgstr "Bekapcsolva"
+
+#: classes/Admin/Page/Columns.php:763
+msgid "Add Column"
+msgstr "Oszlop hozzáadása"
+
+#: classes/Admin/Page/Columns.php:743
+msgid "Drag and drop to reorder"
+msgstr "Húzd az elemeket más helyre a sorrend megváltoztatásához"
+
+#: classes/Admin/Page/Columns.php:692
+msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
+msgstr "A teljes dokumentációhoz, problémák jelentéséhez, új javaslatok beküldéséhez és egyéb tippekért <a href='%s'>keresd fel az Admin Columns weboldalát</a>"
+
+#: classes/Admin/Page/Columns.php:688
+msgid "Check the <strong>Help</strong> section in the top-right screen."
+msgstr "Tekintsd meg a <strong>Súgó</strong> részt a képernyő jobb felső sarkában."
+
+#: classes/Admin/Page/Columns.php:683
+msgid "Support"
+msgstr "Segítség"
+
+#: classes/Admin/Page/Columns.php:671
+msgid "Buy Pro"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:665
+msgid "Tweet"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:659
+msgid "Rate"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:654
+msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:651
+msgid "Woohoo! We're glad to hear that!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:641
+msgid "Forums"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:636
+msgid "Docs"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:631
+msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:628
+msgid "What's wrong? Need help? Let us know!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:618
+msgid "Are you happy with Admin Columns?"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:515
+msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:504 classes/Admin/Page/Columns.php:761
+msgid "Update"
+msgstr "Frisítés"
+
+#: classes/Admin/Page/Columns.php:493
+msgid "Store settings"
+msgstr "Beállítások tárolása"
+
+#: classes/Admin/Page/Addons.php:19
+msgid "Add-ons"
+msgstr ""
+
+#: classes/Admin/Page/Settings.php:18 codepress-admin-columns.php:295
+msgid "Settings"
+msgstr "Beállítások"
+
+#: classes/Settings/Column/Image.php:89
+msgid "Others"
+msgstr ""
+
+#: classes/Admin/Page/Settings.php:229
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
+#: classes/Admin/Page/Settings.php:229
+msgid "Restore default settings"
+msgstr "Alapértelmezett beállítások visszaállítása"
+
+#: classes/Admin/Page/Settings.php:221
+msgid "This will delete all column settings and restore the default settings."
+msgstr "Törli minden oszlop beállítást és visszaállítja az alapértelmezett beállításokat."
+
+#: classes/Admin/Page/Settings.php:220
+msgid "Restore Settings"
+msgstr "Beállítások visszaállítása"
+
+#: classes/Admin/Page/Columns.php:505 classes/Admin/Page/Columns.php:762
+#: classes/Admin/Page/Settings.php:179
+msgid "Save"
+msgstr ""
+
+#: classes/Admin/Page/Settings.php:161
+msgid "Customize your Admin Columns settings."
+msgstr "Az Admin Columns beállítások módosítása"
+
+#: classes/Admin/Page/Settings.php:160 classes/Settings/Column/Date.php:81
+msgid "General Settings"
+msgstr "Általános beállítások"
+
+#: classes/Admin/Page/Welcome.php:90
+msgid "Start using Admin Columns"
+msgstr "Admin Columns használatának megkezdése"
+
+#: classes/Admin/Page/Upgrade.php:47
+msgid "Learn more"
+msgstr "Bővebb információ"
+
+#: classes/Admin/Page/Welcome.php:29
+msgid "Changelog for"
+msgstr "Változtatások listája"
+
+#: classes/Admin/Page/Welcome.php:62
+msgid "Admin Columns is more polished and enjoyable than ever before. We hope you like it."
+msgstr "Az Admin Columns még fejlettebb és élvezetesebb, mint valaha. Reméljük tetszeni fog."
+
+#: classes/Admin/Page/Welcome.php:61
+msgid "Thank you for updating to the latest version!"
+msgstr "Köszönjük, hogy frissítetted a legújabb verzióra!"
+
+#: classes/Admin/Page/Welcome.php:58
+msgid "Welcome to Admin Columns"
+msgstr "Üdvözöl az Admin Columns"
+
+#: classes/Admin/Help/CustomField.php:35
+msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
+msgstr "Érték: karakterlánc vagy tömb. Megjeleníti, hogy az elem hányszor használja a meta kulcsot."
+
+#: classes/Admin/Help/CustomField.php:31
+msgid "Value: hex value color, such as #808080."
+msgstr "Érték: hex színkód, pl. #808080."
+
+#: classes/Admin/Help/CustomField.php:27
+msgid "Value: should be a 1 (one) or 0 (zero)."
+msgstr "Érték: 1 (egy) vagy 0 (nulla)."
+
+#: classes/Admin/Help/CustomField.php:26
+msgid "Checkmark"
+msgstr "Pipa"
+
+#: classes/Admin/Help/CustomField.php:67
+msgid "Value: can be one or more User ID's (seperated by ',')."
+msgstr "Érték: egy vagy több felhasználó ID-ja (vesszővel elválasztva \",\")."
+
+#: classes/Admin/Help/CustomField.php:66
+msgid "Usernames"
+msgstr "Felhasználónevek"
+
+#: classes/Admin/Help/CustomField.php:63
+msgid "Value: can be one or more Post ID's (seperated by ',')."
+msgstr "Érték: egy vagy több bejegyzés ID-ja (vesszővel elválasztva \",\")."
+
+#: classes/Admin/Help/CustomField.php:62
+msgid "Post Titles"
+msgstr "Bejegyzések címei"
+
+#: classes/Admin/Help/CustomField.php:39
+msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
+msgstr "Érték: unix időpecsét vagy a <a href='%s'>Codex</a>-ben leírt dátumformátum. A visszaadott dátum értékét az <a href='%s'>általános beállítások</a> oldalon lehet beállítani."
+
+#: classes/Admin/Help/CustomField.php:59
+msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
+msgstr "Érték: csak egész számok.<br/>Ha rendelkezésre áll a \"Rendezés\" kiegészítő, ez az érték fog a rendezés alapjául szolgálni, tehát a bejegyzéseket numerikus (egyedi mező) értékek alapján lehet rendezni. "
+
+#: classes/Admin/Help/CustomField.php:55
+msgid "Value: should be an array. This will flatten any ( multi dimensional ) array."
+msgstr "Érték: tömb. A többdimenziós tömbökből egydimenziósak lesznek."
+
+#: classes/Admin/Help/CustomField.php:43
+msgid "Value: This will show the first 20 words of the Post content."
+msgstr "Érték: az első 20 szót fogja tartalmazni a Bejegyzés tartalmából."
+
+#: classes/Admin/Help/CustomField.php:47
+msgid "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma )."
+msgstr "Érték: kép URL vagy Csatolmány ID-t fog tartalmazni,  vesszővel elválasztva (\",\")"
+
+#: classes/Admin/Help/CustomField.php:23
+msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma."
+msgstr "Érték: karakterlánc vagy tömb. A tömbökből egydimenziós tömbök lesznek, az értékek vesszővel lesznek elválasztva \",\"."
+
+#: classes/Admin/Help/CustomField.php:18
+msgid "The custom field colum uses the custom fields from posts and users. There are 10 types which you can set."
+msgstr "Az egyedi mező oszlop a bejegyzések és felhasználók egyedi mezőit használja. 10-féle típust lehet beállítani."
+
+#: classes/Admin/Help/Basics.php:29
+msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
+msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit. A csúszka húzásával beállítható az oszlopok százalékos szélessége."
+
+#: classes/Admin/Help/Basics.php:27
+msgid "Change column width"
+msgstr "Oszlopszélesség módosítása"
+
+#: classes/Admin/Help/Basics.php:24
+msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
+msgstr "A nyílra kattintva láthatóvá válnak az oszlop beállításai. Itt lehet módosítani az oszlopok fejléceinek neveit."
+
+#: classes/Admin/Help/Basics.php:22
+msgid "Change label"
+msgstr "Címke megváltoztatása"
+
+#: classes/Admin/Help/Basics.php:19
+msgid "By dragging the columns you can change the order which they will appear in."
+msgstr "Az oszlopok más helyre húzásával lehet változtatni az oszlopok sorrendjén."
+
+#: classes/Admin/Help/Basics.php:17
+msgid "Change order"
+msgstr "Sorrend megváltoztatása"
+
+#: classes/Admin/Help/Basics.php:10
+msgid "Basics"
+msgstr "Alapok"
+
+#: classes/Admin/Help/Introduction.php:18
+msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
+msgstr "A plugin segítségével további oszlopokat lehet hozzáadni bejegyzések (egyedi bejegyzéstípusok), oldalak, médiatár, hivatkozások és felhasználók adminisztrációs felületekhez."
+
+#: classes/Admin/Help/Introduction.php:10
+msgid "Overview"
+msgstr "Áttekintés"
+
+#: classes/Admin/Page/Settings.php:101
+msgid "Default settings succesfully restored."
+msgstr "Alapértelmezett beállítások sikeresen visszaállítva."
+
+#: classes/Admin/Page/Columns.php:73 classes/Admin/Page/Columns.php:275
+msgid "%s column is already present and can not be duplicated."
+msgstr "A %s oszlop már a listában van, és nem szerepelhet egynél többször."
+
+#: classes/Admin.php:130
+msgid "Admin Columns Settings"
+msgstr "Admin Columns beállítások"
+
+#: classes/Admin/Page/Addons.php:111
+msgid "%s successfully deactivated."
+msgstr ""
+
+#: classes/Notice/Review.php:105
+msgid "find answers to some frequently asked questions"
+msgstr ""
+
+#: classes/Notice/Review.php:104
+msgid "Admin Columns forums on WordPress.org"
+msgstr ""
+
+#: classes/Notice/Review.php:103
+msgid "You can also find help on the %s, and %s."
+msgstr ""
+
+#: classes/Notice/Review.php:99
+msgid "our forums"
+msgstr ""
+
+#: classes/Notice/Review.php:98
+msgid "As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!"
+msgstr ""
+
+#: classes/Notice/Review.php:94
+msgid "documentation page"
+msgstr ""
+
+#: classes/Notice/Review.php:92
+msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
+msgstr ""
+
+#: classes/Notice/Review.php:85
+msgid "Permanently hide notice"
+msgstr ""
+
+#: classes/Notice/Review.php:84
+msgid "Leave a review!"
+msgstr ""
+
+#: classes/Notice/Review.php:80
+msgid "click here"
+msgstr ""
+
+#: classes/Notice/Review.php:76
+msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:71 classes/Notice/Review.php:67
+msgid "Admin Columns Pro"
+msgstr ""
+
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: classes/Admin/Page/Columns.php:24 classes/Admin.php:130
+#: classes/Notice/Review.php:64
+msgid "Admin Columns"
+msgstr "Admin Columns"
+
+#: classes/Column/Placeholder.php:45
+msgid "Find out more"
+msgstr ""
+
+#: classes/Column/Placeholder.php:43
+msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
+msgstr ""
+
+#: classes/Column/Placeholder.php:39
+msgid "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>."
+msgstr ""
+
+#: classes/Column/Placeholder.php:35
+msgid "The %s column is only available in Admin Columns Pro - Business or Developer."
+msgstr ""
+
+#: classes/Settings/Column/PostLink.php:68
+msgid "View Public Post Author Page"
+msgstr ""
+
+#: classes/Settings/Column/PostLink.php:67
+msgid "Edit Post Author"
+msgstr ""
+
+#: classes/Settings/Column/PostLink.php:66
+msgid "View Post"
+msgstr ""
+
+#: classes/Settings/Column/PostLink.php:65
+msgid "Edit Post"
+msgstr ""
+
+#: classes/Settings/Column/Label.php:28
+msgid "This is the name which will appear as the column header."
+msgstr "Ez a név fog megjelenni az oszlop fejlécében."
+
+#: classes/Settings/Column/Label.php:27
+msgid "Label"
+msgstr "Címke"
+
+#: classes/Settings/Column/Type.php:29
+msgid "Name"
+msgstr "Név"
+
+#: classes/Settings/Column/Type.php:26
+msgid "Choose a column type."
+msgstr "Válassz egy oszloptípust."
+
+#: classes/Admin/Page/Columns.php:851 classes/Admin/Page/Columns.php:886
+msgid "Clone"
+msgstr ""
+
+#: classes/Settings/Column/Password.php:27
+msgid "Display format"
+msgstr ""
+
+#: classes/Settings/Column/User.php:117
+msgid "First and Last Name"
+msgstr "Elő- és utónév"
+
+#: classes/Settings/Column/User.php:115 classes/Settings/Column/User.php:133
+msgid "User Email"
+msgstr "Felhasználó email"
+
+#: classes/Settings/Column/User.php:114
+msgid "User Login"
+msgstr "Felhasználó bejelentkezés"
+
+#: classes/Settings/Column/User.php:112
+msgid "Last Name"
+msgstr "Családnév"
+
+#: classes/Column/User/FirstName.php:14 classes/Settings/Column/User.php:111
+msgid "First Name"
+msgstr "Keresztnév"
+
+#: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:110
+msgid "Display Name"
+msgstr "Megjelenő név"
+
+#: classes/Settings/Column/BeforeAfter.php:49
+msgid "After"
+msgstr "Utána"
+
+#: classes/Settings/Column/BeforeAfter.php:41
+msgid "This text will appear before the column value."
+msgstr ""
+
+#: classes/Settings/Column/BeforeAfter.php:40
+msgid "Before"
+msgstr "Előtte"
+
+#: classes/Settings/Column/Width.php:62
+msgid "width"
+msgstr "szélesség"
+
+#: classes/Settings/Column/CustomFieldType.php:153
+#: classes/Settings/Column/Image.php:111 codepress-admin-columns.php:341
+msgid "Custom"
+msgstr "Egyedi"
+
+#: classes/Settings/Column/Date.php:33
+msgid "This will determine how the date will be displayed."
+msgstr "Meghatározza, hogy fog a dátum megjelenni."
+
+#: classes/Settings/Column/Date.php:32
+msgid "Date Format"
+msgstr "Dátumformátum"
+
+#: classes/Settings/Column/Image.php:75
+msgid "Large"
+msgstr "Nagy"
+
+#: classes/Settings/Column/Image.php:74
+msgid "Medium"
+msgstr "Közepes"
+
+#: classes/Settings/Column/Image.php:73
+msgid "Thumbnail"
+msgstr "Bélyegkép"
+
+#: classes/Settings/Column/CustomFieldType.php:104
+msgid "Url"
+msgstr "URL"
+
+#: classes/Column/User/RichEditing.php:11
+msgid "Visual Editor"
+msgstr ""
+
+#: classes/Column/User/Registered.php:14
+msgid "Registered"
+msgstr "Feliratkozott"
+
+#: classes/Settings/Column/CustomFieldType.php:80
+#: classes/Settings/Column/PostType.php:23 codepress-admin-columns.php:497
+msgid "Post Type"
+msgstr "Bejegyzés típus"
+
+#: classes/Column/User/PostCount.php:14
+msgid "Post Count"
+msgstr "Bejegyzések száma"
+
+#: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:113
+msgid "Nickname"
+msgstr "Becenév"
+
+#: classes/Column/User/LastName.php:14
+msgid "Last name"
+msgstr "Vezetéknév"
+
+#: classes/Column/Post/CommentCount.php:17
+#: classes/Column/User/CommentCount.php:14
+msgid "Comment Count"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:853 classes/Admin/Page/Columns.php:888
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:116
+msgid "User ID"
+msgstr "Felhasználó ID "
+
+#: classes/Settings/Column/LinkToMenu.php:26
+msgid "This will make the title link to the menu."
+msgstr ""
+
+#: classes/Settings/Column/LinkToMenu.php:25
+msgid "Link to menu"
+msgstr ""
+
+#: classes/Column/UsedByMenu.php:17
+msgid "Used by Menu"
+msgstr ""
+
+#: classes/Column/Taxonomy.php:17 classes/Settings/Column/Taxonomy.php:29
+msgid "Taxonomy"
+msgstr "Taxonómia"
+
+#: classes/Column/Post/TitleRaw.php:14
+msgid "Title without actions"
+msgstr ""
+
+#: classes/Column/Post/Sticky.php:16
+msgid "Sticky"
+msgstr "Kiemelt"
+
+#: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:14
+msgid "Status"
+msgstr "Státusz"
+
+#: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:28
+msgid "Slug"
+msgstr "Keresőbarát név/slug"
+
+#: classes/Column/Post/Shortcodes.php:16
+msgid "Shortcodes"
+msgstr ""
+
+#: classes/Column/Post/Roles.php:14
+msgid "Roles"
+msgstr "Jogkörök"
+
+#: classes/Column/Post/PingStatus.php:14
+msgid "Ping Status"
+msgstr ""
+
+#: classes/Column/Post/Permalink.php:16
+msgid "Permalink"
+msgstr ""
+
+#: classes/Column/Post/Path.php:16
+msgid "Path"
+msgstr ""
+
+#: classes/Column/Post/Parent.php:14
+msgid "Parent"
+msgstr "Szülő"
+
+#: classes/Column/Post/PageTemplate.php:14
+msgid "Page Template"
+msgstr "Oldal sablon"
+
+#: classes/Column/Post/Order.php:14
+msgid "Order"
+msgstr ""
+
+#: classes/Column/Post/Modified.php:14
+msgid "Last Modified"
+msgstr ""
+
+#: classes/Column/Post/LastModifiedAuthor.php:17
+msgid "Last Modified Author"
+msgstr ""
+
+#: classes/Column/Post/Formats.php:14
+msgid "Post Format"
+msgstr "Bejegyzés formátum"
+
+#: classes/Column/Post/FeaturedImage.php:14 classes/Settings/Column/Post.php:83
+msgid "Featured Image"
+msgstr "Kiemelt kép"
+
+#: classes/Settings/Column/WordsPerMinute.php:32
+msgid "Estimated reading time in words per minute."
+msgstr ""
+
+#: classes/Settings/Column/WordsPerMinute.php:31
+msgid "Words per minute"
+msgstr ""
+
+#: classes/Settings/Column/WordsPerMinute.php:85
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../classes/column/post/estimated-reading-time.php:107
-msgid "Words per minute"
+#: classes/Settings/Column/WordsPerMinute.php:83
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Column/Post/EstimatedReadingTime.php:14
+msgid "Estimated Reading Time"
 msgstr ""
 
-#: ../classes/column/post/estimated-reading-time.php:108
-msgid "Estimated reading time in words per minute"
+#: classes/Column/Post/Depth.php:16
+msgid "Depth"
 msgstr ""
 
-#: ../classes/column/post/featured-image.php:19
-msgid "Featured Image"
-msgstr "Kiemelt kép"
-
-#: ../classes/column/post/formats.php:19
-msgid "Post Format"
-msgstr "Bejegyzés formátum"
-
-#: ../classes/column/post/last-modified-author.php:20
-msgid "Last Modified Author"
+#: classes/Column/Post/DatePublished.php:14
+msgid "Date Published"
 msgstr ""
 
-#: ../classes/column/post/modified.php:19
-msgid "Last modified"
-msgstr "Utoljára módosítva"
+#: classes/Settings/Column/CommentCount.php:31
+msgid "Select which comment status you like to display."
+msgstr "Válasz ki, melyik hozzászólás státuszt szeretnéd megjeleníteni."
 
-#: ../classes/column/post/order.php:19
-msgid "Order"
+#: classes/Settings/Column/CommentCount.php:30
+msgid "Comment status"
+msgstr "Hozzászólás státusza"
+
+#: classes/Column/Comment/Status.php:25
+#: classes/Settings/Column/CommentCount.php:45
+msgid "Spam"
+msgstr "Levélszemét"
+
+#: classes/Column/Comment/Status.php:27
+#: classes/Settings/Column/CommentCount.php:44
+msgid "Pending"
+msgstr "Folyamatban"
+
+#: classes/Settings/Column/CommentCount.php:52
+msgid "Total"
+msgstr "Összesen"
+
+#: classes/Column/Post/BeforeMoreTag.php:14
+msgid "Before More Tag"
+msgstr "A \"További\" címke előtti rész"
+
+#: classes/Settings/Column/User.php:135
+msgid "View Public Author Page"
 msgstr ""
 
-#: ../classes/column/post/page-template.php:19
-msgid "Page Template"
-msgstr "Oldal sablon"
-
-#: ../classes/column/post/parent.php:19
-msgid "Parent"
-msgstr "Szülő"
-
-#: ../classes/column/post/path.php:19
-msgid "Path"
+#: classes/Settings/Column/User.php:134
+msgid "View User Posts"
 msgstr ""
 
-#: ../classes/column/post/permalink.php:19
-msgid "Permalink"
+#: classes/Settings/Column/User.php:132
+msgid "Edit User Profile"
 msgstr ""
 
-#: ../classes/column/post/permalink.php:68
-msgid "Link to post"
+#: classes/Settings/Column/PostLink.php:73
+#: classes/Settings/Column/Separator.php:26
+#: classes/Settings/Column/User.php:141
+msgid "None"
+msgstr "Nincs"
+
+#: classes/Settings/Column/PostLink.php:56 classes/Settings/Column/User.php:47
+msgid "Link To"
 msgstr ""
 
-#: ../classes/column/post/permalink.php:68
-msgid "This will make the permalink clickable."
+#: classes/Column/Post/Attachment.php:14
+msgid "Attachments"
 msgstr ""
 
-#: ../classes/column/post/ping-status.php:19
-msgid "Ping status"
-msgstr "Ping státusz"
+#: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:40
+#: classes/Settings/Column/Width.php:52
+msgid "Width"
+msgstr "Szélesség"
 
-#: ../classes/column/post/roles.php:19
-msgid "Roles"
-msgstr "Jogkörök"
-
-#: ../classes/column/post/shortcodes.php:19
-msgid "Shortcodes"
+#: classes/Column/Media/MimeType.php:14
+msgid "Mime Type"
 msgstr ""
 
-#: ../classes/column/post/slug.php:19
-msgid "Slug"
-msgstr "Keresőbarát név/slug"
+#: classes/Column/Media/Height.php:16 classes/Settings/Column/Image.php:46
+msgid "Height"
+msgstr "Magasság"
 
-#: ../classes/column/post/status.php:21
-msgid "Status"
-msgstr "Státusz"
-
-#: ../classes/column/post/sticky.php:19
-msgid "Sticky"
-msgstr "Ragadós"
-
-#: ../classes/column/post/title-raw.php:19
-msgid "Title without actions"
+#: classes/Settings/Column/PathScope.php:26
+msgid "Relative to main uploads folder "
 msgstr ""
 
-#: ../classes/column/link/length.php:19
-msgid "Length"
-msgstr "Hossz"
+#: classes/Settings/Column/PathScope.php:25
+msgid "Relative to domain"
+msgstr ""
 
-#: ../classes/column/link/notes.php:19
-msgid "Notes"
-msgstr "Megjegyzések"
+#: classes/Settings/Column/PathScope.php:31
+msgid "Part of the file path to display"
+msgstr ""
 
-#: ../classes/column/link/owner.php:19
-msgid "Owner"
-msgstr "Tulajdonos"
+#: classes/Settings/Column/PathScope.php:30
+msgid "Path scope"
+msgstr ""
 
-#: ../classes/column/link/rss.php:19
-msgid "Rss"
-msgstr "RSS"
+#: classes/Settings/Column/PathScope.php:24
+msgid "Full path"
+msgstr "Teljes útvonal"
 
-#: ../classes/column/link/target.php:19
+#: classes/Column/Media/FileSize.php:14
+msgid "File Size"
+msgstr ""
+
+#: classes/Column/Media/FileName.php:14
+msgid "Filename"
+msgstr ""
+
+#: classes/Settings/Column/ExifData.php:50 classes/Settings/Column/Post.php:80
+#: classes/Settings/Column/Term.php:27
+msgid "Title"
+msgstr "Cím"
+
+#: classes/Settings/Column/ExifData.php:49
+msgid "Shutter Speed"
+msgstr "Zársebesség"
+
+#: classes/Settings/Column/ExifData.php:48
+msgid "ISO"
+msgstr "ISO"
+
+#: classes/Settings/Column/ExifData.php:47
+msgid "Focal Length"
+msgstr "Fókusztávolság"
+
+#: classes/Settings/Column/ExifData.php:46
+msgid "Copyright EXIF"
+msgstr "EXIF szerzői jog"
+
+#: classes/Settings/Column/ExifData.php:45
+msgid "Timestamp"
+msgstr "Időbélyeg"
+
+#: classes/Settings/Column/ExifData.php:43
+msgid "Camera"
+msgstr "Fényképezőgép"
+
+#: classes/Settings/Column/ExifData.php:42
+msgid "Credit"
+msgstr "Érdem"
+
+#: classes/Settings/Column/ExifData.php:41
+msgid "Aperture"
+msgstr "Rekesz"
+
+#: classes/Column/Media/ExifData.php:16
+msgid "EXIF Data"
+msgstr ""
+
+#: classes/Column/Media/Dimensions.php:16
+msgid "Dimensions"
+msgstr "Kép kiterjedése"
+
+#: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:44
+msgid "Caption"
+msgstr "Kép felirata"
+
+#: classes/Column/Media/AvailableSizes.php:49
+msgid "full size"
+msgstr "teljes méret"
+
+#: classes/Column/Media/AvailableSizes.php:18
+msgid "Available Sizes"
+msgstr "Elérhető méretek"
+
+#: classes/Column/Media/AttachedTo.php:14
+msgid "Attached to Post"
+msgstr ""
+
+#: classes/Column/Media/AlternateText.php:14
+msgid "Alt"
+msgstr "Alt"
+
+#: classes/Admin/Page/Columns.php:479
+msgid "View"
+msgstr "Megtekintés"
+
+#: classes/Column/Comment/Status.php:23 classes/Column/Comment/Status.php:24
+#: classes/Settings/Column/CommentCount.php:46
+msgid "Trash"
+msgstr "Kuka"
+
+#: classes/Column/Link/Target.php:14
 msgid "Target"
 msgstr "Cél"
 
-#: ../classes/column/user/display-name.php:19
-msgid "Display name"
+#: classes/Column/Link/Rss.php:14
+msgid "Rss"
+msgstr "RSS"
+
+#: classes/Column/Link/Owner.php:14
+msgid "Owner"
+msgstr "Tulajdonos"
+
+#: classes/Column/Link/Notes.php:14
+msgid "Notes"
+msgstr "Megjegyzések"
+
+#: classes/Column/Link/Length.php:14
+msgid "Length"
+msgstr "Hossz"
+
+#: classes/Column/Link/Description.php:14
+#: classes/Column/Media/Description.php:16
+#: classes/Column/User/Description.php:14
+msgid "Description"
+msgstr "Leírás"
+
+#: classes/Column/Link/Actions.php:40
+msgid "Delete"
+msgstr "Törlés"
+
+#: classes/Column/Link/Actions.php:40
+msgid ""
+"You are about to delete this link '%s'\n"
+"  'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
-#: ../classes/column/user/first-name.php:19
-msgid "First name"
-msgstr "Utónév"
+#: classes/Settings/Column/CustomFieldType.php:53
+msgid "This will determine how the value will be displayed."
+msgstr "Meghatározza, hogy fog az érték megjelenni."
 
-#: ../classes/column/user/last-name.php:19
-msgid "Last name"
-msgstr "Vezetéknév"
+#: classes/Settings/Column/CustomFieldType.php:60
+msgid "Field Type"
+msgstr "Mező típusa"
 
-#: ../classes/column/user/post-count.php:19
-msgid "Post Count"
-msgstr "Bejegyzések száma"
-
-#: ../classes/column/user/post-count.php:89
-msgid "Post Type"
-msgstr "Bejegyzés típus"
-
-#: ../classes/column/user/registered.php:19
-msgid "Registered"
-msgstr "Feliratkozott"
-
-#: ../classes/column/user/rich-editing.php:19
-msgid "Visual Editor"
+#: classes/Settings/Column/CustomField.php:32
+msgid "Please create a %s item first."
 msgstr ""
 
-#: ../classes/column/user/url.php:19
-msgid "Url"
-msgstr "URL"
+#: classes/Settings/Column/CustomField.php:32
+msgid "No custom fields available."
+msgstr "Nincsenek egyedi mezők."
+
+#: classes/Admin/Help/CustomField.php:58
+msgid "Numeric"
+msgstr "Numerikus"
+
+#: classes/Admin/Help/CustomField.php:54
+#: classes/Settings/Column/CustomFieldType.php:118
+msgid "Multiple Values"
+msgstr "Többszörös érték"
+
+#: classes/Admin/Help/CustomField.php:50
+msgid "Media Library"
+msgstr "Médiatár"
+
+#: classes/Admin/Help/CustomField.php:46 classes/Column/Link/Image.php:14
+#: classes/Settings/Column/CustomFieldType.php:103
+msgid "Image"
+msgstr "Kép"
+
+#: classes/Admin/Help/CustomField.php:42 classes/Column/Post/Excerpt.php:14
+msgid "Excerpt"
+msgstr "Kivonat"
+
+#: classes/Admin/Help/CustomField.php:34
+msgid "Counter"
+msgstr "Számláló"
+
+#: classes/Admin/Help/CustomField.php:30
+#: classes/Settings/Column/CustomFieldType.php:100
+msgid "Color"
+msgstr "Szín"
+
+#: classes/Admin/Help/CustomField.php:22
+#: classes/Settings/Column/CustomFieldType.php:168
+#: classes/Settings/Column/Image.php:71
+#: classes/Settings/Column/Separator.php:23 codepress-admin-columns.php:338
+msgid "Default"
+msgstr "Alapérték"
+
+#: classes/Admin/Help/CustomField.php:10 classes/Column/CustomField.php:20
+msgid "Custom Field"
+msgstr "Egyedi mező"
+
+#: classes/Column/Comment/WordCount.php:14 classes/Column/Post/WordCount.php:14
+msgid "Word Count"
+msgstr ""
+
+#: classes/Column/Comment/User.php:14 classes/ListScreen/User.php:12
+#: classes/Settings/Column/CustomFieldType.php:84
+#: classes/Settings/Column/CustomFieldType.php:114
+#: classes/Settings/Column/User.php:53
+msgid "User"
+msgstr "Felhasználó"
+
+#: classes/Column/Comment/Type.php:14
+#: classes/Settings/Column/CustomFieldType.php:56
+#: classes/Settings/Column/Type.php:26 classes/Settings/Column/Type.php:34
+msgid "Type"
+msgstr "Típus"
+
+#: classes/Column/Comment/ReplyTo.php:14
+msgid "In Reply To"
+msgstr "Válaszolva erre:"
+
+#: classes/Column/Comment/Post.php:14
+#: classes/Settings/Column/CustomFieldType.php:113
+msgid "Post"
+msgstr ""
+
+#: classes/Column/Comment/Excerpt.php:14 classes/Column/Post/Content.php:14
+msgid "Content"
+msgstr "Tartalom"
+
+#: classes/Admin/Help/CustomField.php:38
+#: classes/Settings/Column/CustomFieldType.php:101
+msgid "Date"
+msgstr "Dátum"
+
+#: classes/Column/Comment/DateGmt.php:20
+msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
+msgstr ""
+
+#: classes/Column/Comment/DateGmt.php:14
+msgid "Date GMT"
+msgstr "GMT dátum"
+
+#: classes/Column/Post/AuthorName.php:17 classes/Settings/Column/Post.php:82
+msgid "Author"
+msgstr "Szerző"
+
+#: classes/Column/Comment/AuthorUrl.php:14
+msgid "Author Url"
+msgstr ""
+
+#: classes/Column/Comment/AuthorName.php:14
+msgid "Author Name"
+msgstr ""
+
+#: classes/Column/Comment/AuthorIP.php:11
+msgid "Author IP"
+msgstr "Szerző IP-je"
+
+#: classes/Column/Comment/AuthorEmail.php:14
+msgid "Author Email"
+msgstr ""
+
+#: classes/Column/Comment/AuthorAvatar.php:14
+msgid "Avatar"
+msgstr "Avatar"
+
+#: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:26
+#: classes/Settings/Column/CommentCount.php:43
+msgid "Approved"
+msgstr "Jóváhagyva"
+
+#: classes/Column/Comment/Agent.php:14
+msgid "Agent"
+msgstr "Ügynök"
+
+#: classes/Admin/Page/Columns.php:848 classes/Column/Link/Actions.php:39
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: classes/Column/Comment/ID.php:14 classes/Column/Link/ID.php:14
+#: classes/Column/Media/ID.php:14 classes/Column/Post/ID.php:14
+#: classes/Settings/Column/Post.php:81 classes/Settings/Column/Term.php:29
+msgid "ID"
+msgstr "ID"
+
+#: classes/Admin/Page/Columns.php:622 classes/Helper/Icon.php:56
+#: classes/Settings/Column/ActionIcons.php:22
+#: classes/Settings/Column/Toggle.php:14
+msgid "No"
+msgstr "Nem"
+
+#: classes/Admin/Page/Columns.php:621 classes/Helper/Icon.php:44
+#: classes/Settings/Column/ActionIcons.php:21
+#: classes/Settings/Column/Toggle.php:13
+msgid "Yes"
+msgstr "Igen"
+
+#: classes/Settings/Column/ActionIcons.php:27
+msgid "Use icons instead of text for displaying the actions."
+msgstr ""
+
+#: classes/Settings/Column/ActionIcons.php:26
+msgid "Use icons?"
+msgstr ""
+
+#: classes/Column/Actions.php:30 classes/Column/Link/Actions.php:14
+msgid "Actions"
+msgstr "Műveletek"
+
+#: classes/Addon/WooCommerce.php:14
+msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
+msgstr ""
+
+#: classes/Addon/WooCommerce.php:13
+msgid "WooCommerce"
+msgstr ""
+
+#: classes/Addon/ACF.php:13
+msgid "Advanced Custom Fields"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:120 codepress-admin-columns.php:339
+msgid "Plugins"
+msgstr ""
