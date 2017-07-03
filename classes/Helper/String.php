@@ -66,7 +66,11 @@ class AC_Helper_String {
 	 * @return string
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
-		return $string ? wp_trim_words( $string, $num_words, $more ) : false;
+		if ( ! $string ) {
+			return false;
+		}
+
+		return wp_trim_words( $string, $num_words, $more );
 	}
 
 	/**
@@ -77,14 +81,22 @@ class AC_Helper_String {
 	 *
 	 * @return string
 	 */
-	public function trim_characters( $string, $limit = 10, $trail = '&hellip;' ) {
+	public function trim_characters( $string, $limit = 10, $trail = null ) {
 		$limit = absint( $limit );
 
-		if ( 1 > $limit || strlen( $string ) <= $limit ) {
+		if ( 1 > $limit ) {
 			return $string;
 		}
 
 		$string = wp_strip_all_tags( $string );
+
+		if ( strlen( $string ) <= $limit ) {
+			return $string;
+		}
+
+		if ( null === $trail ) {
+			$trail = __( '&hellip;' );
+		}
 
 		return substr( $string, 0, $limit ) . $trail;
 	}
