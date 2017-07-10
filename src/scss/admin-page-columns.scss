@@ -1103,6 +1103,7 @@
 
 	h3 {
 		font-size: 34px;
+		line-height: 40px;
 		a {
 			text-decoration: none;
 			color: #fff;
@@ -1176,14 +1177,17 @@
 			a {
 				color: #fff;
 				text-decoration: none;
+				padding-left: 25px;
+				position: relative;
+				display: block;
 
 				&:before {
 					content: '\2713';
 					font-weight: bold;
 					font-size: 16px;
-					display: inline-block;
-					vertical-align: top;
-					margin-right: 10px;
+					position: absolute;
+					left: 0;
+					top: 0;
 				}
 			}
 
