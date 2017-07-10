@@ -34,12 +34,19 @@ span.status-closed {
 	}
 }
 
-span.dashicons.green {
-	color: #46b450;
-}
-
-span.dashicons.red {
-	color: #dc3232;
+span.dashicons {
+	&.red {
+		color: #dc3232;
+	}
+	&.green {
+		color: #46b450;
+	}
+	&.light-gray {
+		color: #bbb;
+	}
+	&.gray {
+		color: #8a8a8a;
+	}
 }
 
 body.edit-php {
