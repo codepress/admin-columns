@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date:
+* [Improved] Column widths are now only applied when on a non mobile view.
+
+
 = 3.0.2 =
 
 Release Date: July 3rd, 2017
