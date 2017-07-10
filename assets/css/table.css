@@ -23,11 +23,17 @@ span.status-closed {
   body.edit-tags-php .tablenav.top .cpac-edit {
     float: none; }
 
+span.dashicons.red {
+  color: #dc3232; }
+
 span.dashicons.green {
   color: #46b450; }
 
-span.dashicons.red {
-  color: #dc3232; }
+span.dashicons.light-gray {
+  color: #bbb; }
+
+span.dashicons.gray {
+  color: #8a8a8a; }
 
 body.edit-php #delete_all {
   float: left;
