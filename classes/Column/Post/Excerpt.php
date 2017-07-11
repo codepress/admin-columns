@@ -14,7 +14,7 @@ class AC_Column_Post_Excerpt extends AC_Column {
 		$value = parent::get_value( $post_id );
 
 		if ( $value && ! has_excerpt( $post_id ) && $value !== $this->get_empty_char() ) {
-			$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'info', 'class' => 'gray' ) ), __( 'Excerpt is missing.' ) . ' ' . __( 'Current excerpt is generated from the content.' ) ) . ' ' . $value;
+			$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'flag', 'class' => 'gray' ) ), __( 'Excerpt is missing.' ) . ' ' . __( 'Current excerpt is generated from the content.' ) ) . ' ' . $value;
 		}
 
 		return $value;

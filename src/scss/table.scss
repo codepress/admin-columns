@@ -1,5 +1,24 @@
 @import '_colors';
 
+/* =Status icons
+-------------------------------------------------------------- */
+.column-status {
+	.dashicons {
+		font-size: 22px;
+
+		&.large {
+			width: 25px;
+			height: 28px;
+			font-size: 28px;
+		}
+
+		&.dashicons-lock {
+			font-size: 15px;
+			margin-left: -2px;
+		}
+	}
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -35,6 +54,18 @@ span.status-closed {
 }
 
 span.dashicons {
+	&.flip {
+		&:before {
+			transform: scale(-1, 1);
+			display: inline-block;
+		}
+	}
+	&.yellow {
+		color: #ffb900;
+	}
+	&.orange {
+		color: #d54e21;
+	}
 	&.red {
 		color: #dc3232;
 	}
@@ -46,6 +77,12 @@ span.dashicons {
 	}
 	&.gray {
 		color: #8a8a8a;
+	}
+	&.blue {
+		color: #0073aa;
+	}
+	&.light-blue {
+		color: #00a0d2;
 	}
 }
 
