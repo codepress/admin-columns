@@ -222,6 +222,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date:
 * [Improved] Column widths are now only applied when on a non mobile view.
+* [Improved] Status column can now display icons instead of text
 
 
 = 3.0.2 =
