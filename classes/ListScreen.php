@@ -374,7 +374,10 @@ abstract class AC_ListScreen {
 		$columns = $this->get_columns();
 
 		foreach ( $columns as $column ) {
-			if ( $column->get_name() === $name ) {
+
+			// Do not do a var type check. All column names
+			// are stored as strings, even integers.
+			if ( $column->get_name() == $name ) {
 				return $column;
 			}
 		}
