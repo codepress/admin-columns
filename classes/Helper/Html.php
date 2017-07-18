@@ -103,19 +103,19 @@ class AC_Helper_Html {
 	}
 
 	/**
-     * Displays a toggle Box.
-     *
+	 * Displays a toggle Box.
+	 *
 	 * @param string $label
 	 * @param string $contents
 	 */
 	public function toggle_box( $label, $contents ) {
-	    if ( ! $label ) {
-	        return;
-        }
+		if ( ! $label ) {
+			return;
+		}
 
 		if ( $contents ) : ?>
-            <a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
-            <div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
+			<a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
+			<div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
 			<?php
 		else :
 			echo $label;
@@ -190,7 +190,7 @@ class AC_Helper_Html {
 	 * @param string $name
 	 */
 	public function indicator( $class, $id, $title = false ) { ?>
-        <span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
+		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
 		<?php
 	}
 
@@ -305,18 +305,18 @@ class AC_Helper_Html {
 
 		ob_start();
 		?>
-        <div class="ac-progress-bar<?php echo esc_attr( $class ); ?>">
+		<div class="ac-progress-bar<?php echo esc_attr( $class ); ?>">
 			<?php if ( $args['label_main'] ) : ?>
-                <span class="ac-label-main"><?php echo esc_html( $args['label_main'] ); ?></span>
+				<span class="ac-label-main"><?php echo esc_html( $args['label_main'] ); ?></span>
 			<?php endif; ?>
-            <div class="ac-bar-container">
-                <span class="ac-label-left"><?php echo esc_html( $args['label_left'] ); ?></span>
-                <span class="ac-label-right"><?php echo esc_html( $args['label_right'] ); ?></span>
+			<div class="ac-bar-container">
+				<span class="ac-label-left"><?php echo esc_html( $args['label_left'] ); ?></span>
+				<span class="ac-label-right"><?php echo esc_html( $args['label_right'] ); ?></span>
 				<?php if ( $percentage ) : ?>
-                    <div class="ac-bar" style="width:<?php echo esc_attr( $percentage ); ?>%"></div>
+					<div class="ac-bar" style="width:<?php echo esc_attr( $percentage ); ?>%"></div>
 				<?php endif; ?>
-            </div>
-        </div>
+			</div>
+		</div>
 		<?php
 
 		return ob_get_clean();
@@ -333,10 +333,10 @@ class AC_Helper_Html {
 			echo implode( $glue, $first_set );
 
 			if ( $last_set ) { ?>
-                <span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
-                <span class="ac-show-more-block">
+				<span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
+				<span class="ac-show-more-block">
 					<?php echo $glue . implode( $glue, $first_set ); ?>
-                    <br/>
+					<br/>
                     <span class="ac-more-link-hide">( <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a> )</span>
                 </span>
 				<?php
@@ -355,6 +355,43 @@ class AC_Helper_Html {
 	 */
 	public function rounded( $string ) {
 		return '<span class="ac-rounded">' . $string . '</span>';
+	}
+
+	/**
+	 * Returns star rating based on X start from $max count. Does support decimals.
+	 *
+	 * @param int $count
+	 * @param int $max
+	 *
+	 * @return string
+	 */
+	public function stars( $count, $max = null ) {
+		$stars = array();
+
+		$stars['filled'] = floor( $count );
+		$stars['half'] = floor( round( ( $count * 2 ) ) - ( $stars['filled'] * 2 ) ) ? 1 : 0;
+		$stars['empty'] = 0;
+
+		if ( $max ) {
+			$stars['empty'] = $max - ( $stars['filled'] + $stars['half'] );
+
+			if ( ( $stars['filled'] + $stars['half'] ) > $max ) {
+				$stars['filled'] = $max;
+				$stars['half'] = 0;
+			}
+		}
+
+		ob_start();
+		?>
+		<span class="ac-value-stars">
+		<?php foreach ( $stars as $type => $count ) : ?>
+			<?php for ( $i = 1; $i <= $count; $i++ ) : ?>
+				<?php echo ac_helper()->icon->dashicon( array( 'icon' => 'star-' . $type, 'class' => 'ac-value-star' ) ); ?>
+			<?php endfor; ?>
+		<?php endforeach; ?>
+		</span>
+		<?php
+		return ob_get_clean();
 	}
 
 }
