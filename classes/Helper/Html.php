@@ -358,7 +358,7 @@ class AC_Helper_Html {
 	}
 
 	/**
-	 * Returns star rating based on X start from $max count. Does support decimals
+	 * Returns star rating based on X start from $max count. Does support decimals.
 	 *
 	 * @param int $count
 	 * @param int $max
@@ -384,9 +384,9 @@ class AC_Helper_Html {
 		ob_start();
 		?>
 		<span class="ac-value-stars">
-		<?php foreach ( $stars as $type => $count ): ?>
-			<?php for ( $i = 1; $i <= $count; $i++ ): ?>
-				<span class="ac-value-star dashicons dashicons-star-<?php echo $type; ?>"></span>
+		<?php foreach ( $stars as $type => $count ) : ?>
+			<?php for ( $i = 1; $i <= $count; $i++ ) : ?>
+				<?php echo ac_helper()->icon->dashicon( array( 'icon' => 'star-' . $type, 'class' => 'ac-value-star' ) ); ?>
 			<?php endfor; ?>
 		<?php endforeach; ?>
 		</span>
