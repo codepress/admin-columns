@@ -223,7 +223,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date:
 * [Added] Helper to display star ratings
 * [Improved] Status column can now display icons instead of text
-* [Improved] Status column can now display icons instead of text
+* [Improved] Use multibyte function to trim strings for showing a maximum character count
 
 
 = 3.0.2 =
