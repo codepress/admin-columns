@@ -220,13 +220,14 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 
-Release Date:
-* [Added] Helper to display star ratings
-* [Fixed] Image URLs are supported again for the Custom Field column
-* [Fixed] Settings are stored correctly, even if the column setings are not opened
-* [Improved] Status column can now display icons instead of text
-* [Improved] Use multibyte function to trim strings for showing a maximum character count
+Release Date: TBD
 
+* [Fixed] Image URLs are supported again for the Custom Field column
+* [Fixed] Column with a date setting did not always store it's value date format correctly
+* [Improved] Post Status column can now also be displayed as an icon
+* [Improved] Use multibyte function to trim strings for showing a maximum character count
+* [Improved] Excerpt column now displays a text icon when the excerpt is generated from it's content
+* [Added] Added a helper to display star ratings
 
 = 3.0.2 =
 
