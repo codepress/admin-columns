@@ -182,6 +182,7 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
+			$( col ).column_bind_events();
 		} );
 
 		// ordering of columns
@@ -249,12 +250,6 @@ function cpac_reset_columns( $ ) {
 			if ( is_disabled ) {
 				return;
 			}
-
-			if ( !$column.hasClass( 'events-binded' ) ) {
-				$column.column_bind_events();
-			}
-
-			$column.addClass( 'events-binded' );
 
 			// hook for addons
 			$( document ).trigger( 'column_init', $column );
