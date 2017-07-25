@@ -182,7 +182,6 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
-			$( col ).column_bind_events();
 		} );
 
 		// ordering of columns
@@ -250,6 +249,12 @@ function cpac_reset_columns( $ ) {
 			if ( is_disabled ) {
 				return;
 			}
+
+			if ( !$column.hasClass( 'events-binded' ) ) {
+				$column.column_bind_events();
+			}
+
+			$column.addClass( 'events-binded' );
 
 			// hook for addons
 			$( document ).trigger( 'column_init', $column );
@@ -845,6 +850,7 @@ function cpac_reset_columns( $ ) {
 			// Custom input
 			var $radio_custom = $container.find( 'input.custom' );
 			var $input_custom = $container.find( '.ac-setting-input-date__custom' );
+			var $input_value = $container.find( '.ac-setting-input-date__value' );
 			var $example_custom = $container.find( '.ac-setting-input-date__example' );
 			var $selected = $container.find( 'input[type=radio]:checked' );
 			var $help_msg = $container.find( '.help-msg' );
@@ -881,6 +887,7 @@ function cpac_reset_columns( $ ) {
 					$help_msg.html( description ).show();
 				}
 
+				$input_value.val( $input.val() );
 			} );
 
 			// Custom input
@@ -907,6 +914,7 @@ function cpac_reset_columns( $ ) {
 					$example_custom.text( date );
 				} );
 
+				$input_value.val( $custom_value );
 			} );
 
 			// Update date example box
