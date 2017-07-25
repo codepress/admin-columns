@@ -210,7 +210,7 @@ function cpac_menu( $ ) {
 /*
  * Reset columns
  *
- * @since NEWVERSION
+ * @since 3.0.3
  */
 function cpac_reset_columns( $ ) {
 	var $container = $( '.ac-admin' );
