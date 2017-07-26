@@ -17,8 +17,11 @@
   [class^="cpacicon-"]:before, [class*=" cpacicon-"]:before {
     font-size: 100%; }
 
-.cpacicon-move:before {
+.cpacicon-draft:before {
   content: ""; }
+
+.cpacicon-move:before {
+  content: ""; }
 
 /* Dynamic variables */
 /**

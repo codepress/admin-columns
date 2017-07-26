@@ -29,7 +29,7 @@
 		speak: none;
 		display: inline-block;
 		padding: 0;
-		top: 4px;
+		top: 5px;
 		left: 0;
 		position: relative;
 		vertical-align: top;
@@ -638,12 +638,17 @@
 					vertical-align: middle;
 					position: relative;
 					padding: 15px 0;
-					//padding-left: 0;
 
 					.inner {
 						position: relative;
 						overflow: hidden;
 						height: 18px;
+
+						.toggle {
+							img {
+								max-height: 20px;
+							}
+						}
 
 						> a {
 							color: #5a5a5a;
@@ -691,7 +696,6 @@
 								margin-left: 4px;
 
 								&.ac-column-heading-setting--width {
-									//float: left;
 									margin-right: 3px;
 									cursor: auto;
 									color: #737373;
@@ -722,7 +726,8 @@
 
 					// wp default icon
 					span.vers {
-						float: left;
+						//float: left;
+
 					}
 				}
 				// .column-label
@@ -800,10 +805,6 @@
 	// WP Default icons
 	span.vers {
 		padding-top: 2px;
-
-		.comment-grey-bubble {
-			float: right;
-		}
 	}
 
 }

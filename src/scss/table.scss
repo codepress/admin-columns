@@ -1,5 +1,24 @@
 @import '_colors';
 
+/* =Status icons
+-------------------------------------------------------------- */
+.column-status {
+	.dashicons {
+		font-size: 22px;
+
+		&.large {
+			width: 25px;
+			height: 28px;
+			font-size: 28px;
+		}
+
+		&.dashicons-lock {
+			font-size: 15px;
+			margin-left: -2px;
+		}
+	}
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -16,6 +35,17 @@ span.status-closed {
 	color: red;
 }
 
+.ac-value-stars {
+	white-space: nowrap;
+	word-wrap: normal;
+	display: block;
+
+	.ac-value-star {
+		font-size: 16px;
+		width: auto;
+		margin-right: -3px;
+	}
+}
 .actions #post-query-submit {
 	float: left;
 	vertical-align: middle;
@@ -34,12 +64,37 @@ span.status-closed {
 	}
 }
 
-span.dashicons.green {
-	color: #46b450;
-}
-
-span.dashicons.red {
-	color: #dc3232;
+span.dashicons {
+	&.flip {
+		&:before {
+			transform: scale(-1, 1);
+			display: inline-block;
+		}
+	}
+	&.yellow {
+		color: #ffb900;
+	}
+	&.orange {
+		color: #d54e21;
+	}
+	&.red {
+		color: #dc3232;
+	}
+	&.green {
+		color: #46b450;
+	}
+	&.light-gray {
+		color: #bbb;
+	}
+	&.gray {
+		color: #8a8a8a;
+	}
+	&.blue {
+		color: #0073aa;
+	}
+	&.light-blue {
+		color: #00a0d2;
+	}
 }
 
 body.edit-php {

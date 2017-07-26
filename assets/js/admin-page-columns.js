@@ -29,7 +29,6 @@ jQuery( document ).ready( function( $ ) {
 	cpac_menu( $ );
 	cpac_add_column( $ );
 	cpac_sidebar_feedback( $ );
-
 } );
 
 function ac_show_ajax_message( message, attr_class ) {
@@ -210,7 +209,7 @@ function cpac_menu( $ ) {
 /*
  * Reset columns
  *
- * @since NEWVERSION
+ * @since 3.0.3
  */
 function cpac_reset_columns( $ ) {
 	var $container = $( '.ac-admin' );
@@ -486,6 +485,12 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
+
+		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+		var column_label = column.find( '.column_label .toggle' );
+		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( column.find( '.column_type .inner' ).html() );
+		}
 
 		$( document ).trigger( 'init_settings', column );
 	};
@@ -850,6 +855,7 @@ function cpac_reset_columns( $ ) {
 			// Custom input
 			var $radio_custom = $container.find( 'input.custom' );
 			var $input_custom = $container.find( '.ac-setting-input-date__custom' );
+			var $input_value = $container.find( '.ac-setting-input-date__value' );
 			var $example_custom = $container.find( '.ac-setting-input-date__example' );
 			var $selected = $container.find( 'input[type=radio]:checked' );
 			var $help_msg = $container.find( '.help-msg' );
@@ -886,6 +892,7 @@ function cpac_reset_columns( $ ) {
 					$help_msg.html( description ).show();
 				}
 
+				$input_value.val( $input.val() );
 			} );
 
 			// Custom input
@@ -912,6 +919,7 @@ function cpac_reset_columns( $ ) {
 					$example_custom.text( date );
 				} );
 
+				$input_value.val( $custom_value );
 			} );
 
 			// Update date example box
