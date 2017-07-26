@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-03 16:39:31+0000\n"
+"PO-Revision-Date: 2017-07-06 14:09:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -775,7 +775,7 @@ msgstr ""
 
 #: classes/Admin/Page/Settings.php:229
 msgid "Restore default settings"
-msgstr "Restaurează setări implicite"
+msgstr "Restaurează setările implicite"
 
 #: classes/Admin/Page/Settings.php:221
 msgid "This will delete all column settings and restore the default settings."
