@@ -222,6 +222,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date: July 26th, 2017
 
+* [Fixed] Show the type instead of an empty label in the edit columns screen
 * [Fixed] Image URLs are supported again for the Custom Field column
 * [Fixed] Column with a date setting did not always store it's value date format correctly
 * [Improved] Post Status column can now also be displayed as an icon
