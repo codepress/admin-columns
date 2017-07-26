@@ -14,14 +14,6 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 		$this->set_list_table_class( 'WP_Posts_List_Table' );
 	}
 
-	/**
-	 * @since 3.0
-	 * @return WP_Post Post object
-	 */
-	protected function get_object_by_id( $post_id ) {
-		return get_post( $post_id );
-	}
-
 	public function set_manage_value_callback() {
 		/* @see WP_Posts_List_Table::column_default */
 		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
