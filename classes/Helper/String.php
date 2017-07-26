@@ -90,7 +90,7 @@ class AC_Helper_String {
 
 		$string = wp_strip_all_tags( $string );
 
-		if ( strlen( $string ) <= $limit ) {
+		if ( mb_strlen( $string ) <= $limit ) {
 			return $string;
 		}
 
@@ -98,7 +98,7 @@ class AC_Helper_String {
 			$trail = __( '&hellip;' );
 		}
 
-		return substr( $string, 0, $limit ) . $trail;
+		return mb_substr( $string, 0, $limit ) . $trail;
 	}
 
 	/**
@@ -164,7 +164,7 @@ class AC_Helper_String {
 	 * @return bool
 	 */
 	public function is_image( $url ) {
-		return $url && is_string( $url ) ? in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) ) : false;
+		return $url && is_string( $url ) && in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) );
 	}
 
 	/**

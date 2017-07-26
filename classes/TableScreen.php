@@ -240,9 +240,11 @@ final class AC_TableScreen {
 			}
 
 			if ( $css_column_width ) : ?>
-                <style>
-                    <?php echo $css_column_width; ?>
-                </style>
+				<style>
+					@media screen and (min-width: 783px) {
+					<?php echo $css_column_width; ?>
+					}
+				</style>
 				<?php
 			endif;
 		}

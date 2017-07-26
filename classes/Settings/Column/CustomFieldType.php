@@ -171,6 +171,17 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	 *
 	 * @return array
 	 */
+	private function get_values_from_array_or_string( $string ) {
+		$string = ac_helper()->array->implode_recursive( ',', $string );
+
+		return ac_helper()->string->comma_separated_to_array( $string );
+	}
+
+	/**
+	 * @param string|array $string
+	 *
+	 * @return array
+	 */
 	private function get_ids_from_array_or_string( $string ) {
 		$string = ac_helper()->array->implode_recursive( ',', $string );
 
@@ -206,9 +217,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				}
 
 				$value = implode( ac_helper()->html->divider(), $values );
-				break;
 
-			case 'image' :
+				break;
+			case 'image':
+				$value = new AC_Collection( $this->get_values_from_array_or_string( $value ) );
+
+				break;
 			case 'library_id' :
 				$value = new AC_Collection( $this->get_ids_from_array_or_string( $value ) );
 

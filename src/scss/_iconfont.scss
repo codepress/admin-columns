@@ -21,14 +21,19 @@ $font-icons : "cpac_icons";
 	}
 }
 
-$icon-move : "\";
+$icon-draft : "\";
+.cpacicon-draft:before {
+	content: $icon-draft;
+}
+$icon-move : "\";
 .cpacicon-move:before {
 	content: $icon-move;
 }
 
 
 /* Dynamic variables */
-$icon-move : "\";
+$icon-draft : "\";
+$icon-move : "\";
 
 
 

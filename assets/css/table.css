@@ -1,3 +1,15 @@
+/* =Status icons
+-------------------------------------------------------------- */
+.column-status .dashicons {
+  font-size: 22px; }
+  .column-status .dashicons.large {
+    width: 25px;
+    height: 28px;
+    font-size: 28px; }
+  .column-status .dashicons.dashicons-lock {
+    font-size: 15px;
+    margin-left: -2px; }
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -8,6 +20,15 @@
 
 span.status-closed {
   color: red; }
+
+.ac-value-stars {
+  white-space: nowrap;
+  word-wrap: normal;
+  display: block; }
+  .ac-value-stars .ac-value-star {
+    font-size: 16px;
+    width: auto;
+    margin-right: -3px; }
 
 .actions #post-query-submit {
   float: left;
@@ -23,11 +44,33 @@ span.status-closed {
   body.edit-tags-php .tablenav.top .cpac-edit {
     float: none; }
 
-span.dashicons.green {
-  color: #46b450; }
+span.dashicons.flip:before {
+  transform: scale(-1, 1);
+  display: inline-block; }
+
+span.dashicons.yellow {
+  color: #ffb900; }
+
+span.dashicons.orange {
+  color: #d54e21; }
 
 span.dashicons.red {
   color: #dc3232; }
+
+span.dashicons.green {
+  color: #46b450; }
+
+span.dashicons.light-gray {
+  color: #bbb; }
+
+span.dashicons.gray {
+  color: #8a8a8a; }
+
+span.dashicons.blue {
+  color: #0073aa; }
+
+span.dashicons.light-blue {
+  color: #00a0d2; }
 
 body.edit-php #delete_all {
   float: left;
