@@ -29,7 +29,6 @@ jQuery( document ).ready( function( $ ) {
 	cpac_menu( $ );
 	cpac_add_column( $ );
 	cpac_sidebar_feedback( $ );
-
 } );
 
 function ac_show_ajax_message( message, attr_class ) {
@@ -486,6 +485,12 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
+
+		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+		var column_label = column.find( '.column_label .toggle' );
+		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( column.find( '.column_type .inner' ).html() );
+		}
 
 		$( document ).trigger( 'init_settings', column );
 	};
