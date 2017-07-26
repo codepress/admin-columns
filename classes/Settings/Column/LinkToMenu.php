@@ -66,7 +66,7 @@ class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle
 			$values[] = $term->name;
 		}
 
-		return implode( $this->column->get_separator(), $values );
+		return wp_sprintf( '%l', $values );
 	}
 
 }
