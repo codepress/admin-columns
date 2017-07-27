@@ -46,6 +46,7 @@ span.status-closed {
 		margin-right: -3px;
 	}
 }
+
 .actions #post-query-submit {
 	float: left;
 	vertical-align: middle;
@@ -172,6 +173,72 @@ table.ac-table-items {
 				color: #999;
 				padding-right: 6px;
 				text-align: left;
+			}
+		}
+	}
+}
+
+/* =Image in Content column
+-------------------------------------------------------------- */
+.ac-image-details {
+	.ac-image-info {
+		display: inline-block;
+		border-radius: 7px;
+		padding: 0 9px;
+		min-height: 20px;
+		background-color: #e9e9e9;
+		text-align: center;
+		font-size: 11px;
+		font-weight: bold;
+		margin: 0 6px 5px 0;
+
+		> span {
+			margin-right: 6px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		span {
+			vertical-align: middle;
+			line-height: 20px;
+
+			&.image-id {
+				font-size: 11px;
+				color: #757575;
+			}
+			&.image-file-size {
+				font-size: 12px;
+			}
+			&.image-extension {
+				text-transform: uppercase;
+				font-size: 11px;
+				color: #757575;
+			}
+			&.suffix {
+				display: inline-block;
+				text-transform: uppercase;
+				font-size: 10px;
+				color: #757575;
+				padding-left: 3px;
+				margin-top: -2px;
+			}
+			&.dashicons {
+				margin-top: -2px;
+				color: #757575;
+				font-size: 14px;
+				width: 16px;
+			}
+		}
+	}
+
+	a.ac-image-info {
+		&:hover {
+			color: $wp-color-link;
+
+			span.dashicons {
+				color: $ac-dark;
 			}
 		}
 	}

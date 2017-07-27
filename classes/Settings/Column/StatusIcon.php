@@ -78,7 +78,7 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
 					break;
 				case 'future' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Future' ) . ': <em>' . $this->get_future_date( $post_id ) . '</em>' );
+					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . $this->get_future_date( $post_id ) . '</em>' );
 					break;
 			}
 
