@@ -10,12 +10,12 @@ class AC_Column_Post_TitleRaw extends AC_Column {
 		$this->set_label( __( 'Title without actions', 'codepress-admin-columns' ) );
 	}
 
-	function get_value( $post_id ) {
-		return $this->get_raw_value( $post_id );
-	}
-
 	function get_raw_value( $post_id ) {
 		return get_post_field( 'post_title', $post_id );
+	}
+
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Column_PostLink( $this ) );
 	}
 
 }
