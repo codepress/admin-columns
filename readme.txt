@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: tbd
+
+* [Improved] Post Link setting can be extended now
+
 = 3.0.3 =
 
 Release Date: July 26th, 2017
