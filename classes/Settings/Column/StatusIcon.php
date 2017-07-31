@@ -47,10 +47,6 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 		return true;
 	}
 
-	private function get_future_date( $post_id )  {
-		return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( get_post_field( 'post_date', $post_id ) ) );
-	}
-
 	/**
 	 * @param string $status
 	 * @param int    $post_id
@@ -62,25 +58,10 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 
 		$value = $status;
 
-		if ( $this->get_use_icon() ) {
+		$post = get_post( $post_id );
 
-			switch ( $status ) {
-				case 'private' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'hidden', 'class' => 'gray' ) ), __( 'Private' ) );
-					break;
-				case 'publish' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'blue large' ) ), __( 'Published' ) );
-					break;
-				case 'draft' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'edit', 'class' => 'green' ) ), __( 'Draft' ) );
-					break;
-				case 'pending' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
-					break;
-				case 'future' :
-					$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . $this->get_future_date( $post_id ) . '</em>' );
-					break;
-			}
+		if ( $this->get_use_icon() ) {
+			$value = ac_helper()->post->get_status_icon( $post );
 
 			if ( get_post_field( 'post_password', $post_id ) ) {
 				$value .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'lock', 'class' => 'gray' ) ), __( 'Password protected' ) );
@@ -89,7 +70,7 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 			$value = $wp_post_statuses[ $status ]->label;
 
 			if ( 'future' === $status ) {
-				$value .= " <p class='description'>" . $this->get_future_date( $post_id ) . "</p>";
+				$value .= " <p class='description'>" . ac_helper()->post->get_future_date( $post ) . "</p>";
 			}
 		}
 

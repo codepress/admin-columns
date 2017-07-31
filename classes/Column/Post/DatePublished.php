@@ -10,6 +10,18 @@ class AC_Column_Post_DatePublished extends AC_Column {
 		$this->set_label( __( 'Date Published' ) );
 	}
 
+	public function get_value( $id ) {
+		$value = parent::get_value( $id );
+
+		$post = get_post( $id );
+
+		if ( 'publish' !== get_post_status( $post ) ) {
+			$value = ac_helper()->post->get_status_icon( $post );
+		}
+
+		return $value;
+	}
+
 	public function get_raw_value( $post_id ) {
 		$post = get_post( $post_id );
 
