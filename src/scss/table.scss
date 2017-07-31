@@ -178,6 +178,14 @@ table.ac-table-items {
 	}
 }
 
+/* =Post Format column
+-------------------------------------------------------------- */
+.ac-post-state-format {
+	&:before {
+		color: rgba(167, 167, 167, 1);
+	}
+}
+
 /* =Image in Content column
 -------------------------------------------------------------- */
 .ac-image-details {
