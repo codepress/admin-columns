@@ -111,4 +111,42 @@ class AC_Helper_Post {
 		return $title;
 	}
 
+	/**
+	 * @param WP_Post $post
+	 *
+	 * @return string
+	 */
+	public function get_future_date( $post ) {
+		return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $post->post_date ) );
+	}
+
+	/**
+	 * @param WP_Post $post Post
+	 *
+	 * @return false|string Dash icon with tooltip
+	 */
+	public function get_status_icon( $post ) {
+		$icon = false;
+
+		switch ( $post->post_status ) {
+			case 'private' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'hidden', 'class' => 'gray' ) ), __( 'Private' ) );
+				break;
+			case 'publish' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'blue large' ) ), __( 'Published' ) );
+				break;
+			case 'draft' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'edit', 'class' => 'green' ) ), __( 'Draft' ) );
+				break;
+			case 'pending' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
+				break;
+			case 'future' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . $this->get_future_date( $post ) . '</em>' );
+				break;
+		}
+
+		return $icon;
+	}
+
 }

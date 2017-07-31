@@ -11,12 +11,15 @@ class AC_Column_Post_DatePublished extends AC_Column {
 	}
 
 	public function get_value( $id ) {
-		$date = $this->get_raw_value( $id );
-		if ( 'publish' !== get_post_status( $id ) ) {
-			$date .= sprintf( ' <span class="dashicons dashicons-hidden gray" data-ac-tip="%s"></span>', __( 'Not Published', 'codepress-admin-columns' ) );
+		$value = parent::get_value( $id );
+
+		$post = get_post( $id );
+
+		if ( 'publish' !== get_post_status( $post ) ) {
+			$value = ac_helper()->post->get_status_icon( $post );
 		}
 
-		return $date;
+		return $value;
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -21,6 +21,15 @@
 span.status-closed {
   color: red; }
 
+.ac-value-stars {
+  white-space: nowrap;
+  word-wrap: normal;
+  display: block; }
+  .ac-value-stars .ac-value-star {
+    font-size: 16px;
+    width: auto;
+    margin-right: -3px; }
+
 .actions #post-query-submit {
   float: left;
   vertical-align: middle;
@@ -117,6 +126,58 @@ table.ac-table-items {
       color: #999;
       padding-right: 6px;
       text-align: left; }
+
+/* =Post Format column
+-------------------------------------------------------------- */
+.ac-post-state-format:before {
+  color: #a7a7a7; }
+
+/* =Image in Content column
+-------------------------------------------------------------- */
+.ac-image-details .ac-image-info {
+  display: inline-block;
+  border-radius: 7px;
+  padding: 0 9px;
+  min-height: 20px;
+  background-color: #e9e9e9;
+  text-align: left;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0 6px 5px 0;
+  white-space: nowrap; }
+  .ac-image-details .ac-image-info > span {
+    margin-right: 6px; }
+    .ac-image-details .ac-image-info > span:last-child {
+      margin-right: 0; }
+  .ac-image-details .ac-image-info span {
+    vertical-align: middle;
+    line-height: 20px; }
+    .ac-image-details .ac-image-info span.image-id {
+      font-size: 11px;
+      color: #757575; }
+    .ac-image-details .ac-image-info span.image-file-size {
+      font-size: 12px; }
+    .ac-image-details .ac-image-info span.image-extension {
+      text-transform: uppercase;
+      font-size: 11px;
+      color: #757575; }
+    .ac-image-details .ac-image-info span.suffix {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: #757575;
+      padding-left: 3px;
+      margin-top: -2px; }
+    .ac-image-details .ac-image-info span.dashicons {
+      margin-top: -2px;
+      color: #757575;
+      font-size: 14px;
+      width: 16px; }
+
+.ac-image-details a.ac-image-info:hover {
+  color: #0073aa; }
+  .ac-image-details a.ac-image-info:hover span.dashicons {
+    color: #3d4350; }
 
 /* =Storage Space column
 -------------------------------------------------------------- */

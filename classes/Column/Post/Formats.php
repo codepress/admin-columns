@@ -15,9 +15,7 @@ class AC_Column_Post_Formats extends AC_Column {
 	}
 
 	public function get_raw_value( $post_id ) {
-		$format = get_post_format( $post_id );
-
-		return $format ? $format : false;
+		return get_post_format( $post_id );
 	}
 
 	public function get_taxonomy() {
@@ -25,7 +23,7 @@ class AC_Column_Post_Formats extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_PostFormat( $this ) );
+		$this->add_setting( new AC_Settings_Column_PostFormatIcon( $this ) );
 	}
 
 }

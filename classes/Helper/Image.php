@@ -145,8 +145,7 @@ class AC_Helper_Image {
 		foreach ( (array) $images as $value ) {
 			if ( $skip_image_check && $value && is_string( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
-			}
-			else if ( ac_helper()->string->is_image( $value ) ) {
+			} else if ( ac_helper()->string->is_image( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
 			} // Media Attachment
 			else if ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
@@ -241,6 +240,82 @@ class AC_Helper_Image {
 
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Return dimensions and file type
+	 *
+	 * @see filesize
+	 *
+	 * @param string $url
+	 *
+	 * @return false|array
+	 */
+	public function get_local_image_info( $url ) {
+		$path = $this->get_local_image_path( $url );
+
+		if ( ! $path ) {
+			return false;
+		}
+
+		return getimagesize( $path );
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return false|string
+	 */
+	public function get_local_image_path( $url ) {
+		$path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
+
+		if ( ! file_exists( $path ) ) {
+			return false;
+		}
+
+		return $path;
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return false|int
+	 */
+	public function get_local_image_size( $url ) {
+		$path = $this->get_local_image_path( $url );
+
+		if ( ! $path ) {
+			return false;
+		}
+
+		return filesize( $path );
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return array
+	 */
+	public function get_image_urls_from_string( $string ) {
+		if ( ! $string ) {
+			return array();
+		}
+
+		$dom = new domDocument;
+		@$dom->loadHTML( $string );
+		$dom->preserveWhiteSpace = false;
+
+		$urls = array();
+
+		$images = $dom->getElementsByTagName( 'img' );
+
+		foreach ( $images as $img ) {
+
+			/** @var DOMElement $img */
+			$urls[] = $img->getAttribute( 'src' );
+		}
+
+		return $urls;
 	}
 
 }
