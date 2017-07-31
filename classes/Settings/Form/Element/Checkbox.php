@@ -36,6 +36,10 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 	}
 
 	private function get_elements() {
+		if ( 'checkbox' === $this->get_type() ) {
+			$this->set_name( $this->get_name() . '[]' );
+		}
+
 		$options = $this->get_options();
 
 		if ( empty( $options ) ) {
@@ -54,6 +58,10 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 			      ->set_id( $this->get_id() . '-' . $key );
 
 			if ( checked( $key, $value, false ) ) {
+				$input->set_attribute( 'checked', 'checked' );
+			}
+
+			if ( is_array( $value ) && in_array( $key, $value ) ) {
 				$input->set_attribute( 'checked', 'checked' );
 			}
 
