@@ -14,20 +14,16 @@ class AC_Column_Post_Formats extends AC_Column {
 		return post_type_supports( $this->get_post_type(), 'post-formats' );
 	}
 
-	public function get_value( $post_id ) {
-		$format = $this->get_raw_value( $post_id );
-
-		return $format ? esc_html( get_post_format_string( $format ) ) : __( 'Standard', 'codepress-admin-columns' );
-	}
-
 	public function get_raw_value( $post_id ) {
-		$format = get_post_format( $post_id );
-
-		return $format ? $format : false;
+		return get_post_format( $post_id );
 	}
 
 	public function get_taxonomy() {
 		return 'post_format';
+	}
+
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Column_PostFormatIcon( $this ) );
 	}
 
 }

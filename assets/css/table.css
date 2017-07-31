@@ -124,6 +124,11 @@ table.ac-table-items {
       padding-right: 6px;
       text-align: left; }
 
+/* =Post Format column
+-------------------------------------------------------------- */
+.ac-post-state-format:before {
+  color: #a7a7a7; }
+
 /* =Image in Content column
 -------------------------------------------------------------- */
 .ac-image-details .ac-image-info {
