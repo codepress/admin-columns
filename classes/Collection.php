@@ -86,11 +86,17 @@ class AC_Collection
 	 * Limit array to max number of items
 	 *
 	 * @param int $length
+	 *
+	 * @return int Number of removed items
 	 */
 	public function limit( $length ) {
+		$count = $this->count();
+
 		if ( 0 < $length ) {
 			$this->items = array_slice( $this->items, 0, $length );
 		}
+
+		return $count - $this->count();
 	}
 
 	/**

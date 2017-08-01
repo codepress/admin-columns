@@ -302,7 +302,8 @@ table.ac-table-items {
   margin-right: 2px;
   overflow: hidden;
   max-width: 100%;
-  background-color: #ccc; }
+  background-color: #ccc;
+  vertical-align: middle; }
   .ac-image img {
     display: block;
     margin: 0 auto; }

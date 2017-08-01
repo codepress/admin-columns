@@ -43,7 +43,9 @@ class AC_Settings_Column_NumberOfItems extends AC_Settings_Column {
 	 * @return bool
 	 */
 	public function set_number_of_items( $number_of_items ) {
-		$this->number_of_items = absint( $number_of_items );
+		if ( $number_of_items ) {
+			$this->number_of_items = absint( $number_of_items );
+		}
 
 		return true;
 	}
