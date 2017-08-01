@@ -69,6 +69,10 @@ class AC_Collection
 		return ( $key !== null && $key !== false );
 	}
 
+	public function count() {
+		return count( $this->items );
+	}
+
 	/**
 	 * Filter collection items
 	 *
@@ -76,6 +80,17 @@ class AC_Collection
 	 */
 	public function filter() {
 		return new AC_Collection( ac_helper()->array->filter( $this->items ) );
+	}
+
+	/**
+	 * Limit array to max number of items
+	 *
+	 * @param int $length
+	 */
+	public function limit( $length ) {
+		if ( 0 < $length ) {
+			$this->items = array_slice( $this->items, 0, $length );
+		}
 	}
 
 	/**
