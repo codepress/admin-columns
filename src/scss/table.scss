@@ -410,9 +410,13 @@ table.ac-table-items {
 
 /* =Images Column
 -------------------------------------------------------------- */
+.ac-image-container {
+	margin-bottom: -6px;
+}
 .ac-image {
 	display: inline-block;
 	margin-right: 2px;
+	margin-bottom: 6px;
 	overflow: hidden;
 	max-width: 100%;
 	background-color: #ccc; // some transparent image won't be visible otherwise
