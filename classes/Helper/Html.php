@@ -402,4 +402,18 @@ class AC_Helper_Html {
 		return ob_get_clean();
 	}
 
+	/**
+	 * @param string $value HTML
+	 * @param int $removed
+	 *
+	 * @return string
+	 */
+	public function images( $value, $removed = false ) {
+		if ( $removed ) {
+			$value .= ac_helper()->html->rounded( '+' . $removed );
+		}
+
+		return '<div class="ac-image-container">' . $value . '</div>';
+	}
+
 }

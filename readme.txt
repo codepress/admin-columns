@@ -223,6 +223,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Improved] Post Link setting can be extended now
+* [Improved] Attachment column: you can now limit the number of items being displayed
 
 = 3.0.3 =
 
