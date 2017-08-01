@@ -112,15 +112,6 @@ class AC_Helper_Post {
 	}
 
 	/**
-	 * @param WP_Post $post
-	 *
-	 * @return string
-	 */
-	public function get_future_date( $post ) {
-		return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $post->post_date ) );
-	}
-
-	/**
 	 * @param WP_Post $post Post
 	 *
 	 * @return false|string Dash icon with tooltip
@@ -142,7 +133,12 @@ class AC_Helper_Post {
 				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
 				break;
 			case 'future' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . $this->get_future_date( $post ) . '</em>' );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . '</em>' );
+
+				// Missed schedule
+				if ( ( time() - mysql2date( 'G', $post->post_date_gmt ) ) > 0 ) {
+					$icon .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'flag', 'class' => 'gray' ) ), __( 'Missed schedule' ) );
+				}
 				break;
 		}
 

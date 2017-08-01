@@ -63,14 +63,14 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 		if ( $this->get_use_icon() ) {
 			$value = ac_helper()->post->get_status_icon( $post );
 
-			if ( get_post_field( 'post_password', $post_id ) ) {
+			if ( $post->post_password ) {
 				$value .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'lock', 'class' => 'gray' ) ), __( 'Password protected' ) );
 			}
 		} else if ( isset( $wp_post_statuses[ $status ] ) ) {
 			$value = $wp_post_statuses[ $status ]->label;
 
 			if ( 'future' === $status ) {
-				$value .= " <p class='description'>" . ac_helper()->post->get_future_date( $post ) . "</p>";
+				$value .= " <p class='description'>" . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . "</p>";
 			}
 		}
 
