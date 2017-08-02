@@ -33,8 +33,22 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 		return $value;
 	}
 
+	protected function get_before_element() {
+		$text = $this->create_element( 'text', 'before' );
+		$text->set_attribute( 'placeholder', $this->get_default( 'before' ) );
+
+		return $text;
+	}
+
+	protected function get_after_element() {
+		$text = $this->create_element( 'text', 'after' );
+		$text->set_attribute( 'placeholder', $this->get_default( 'after' ) );
+
+		return $text;
+	}
+
 	public function create_view() {
-		$setting = $this->create_element( 'text', 'before' );
+		$setting = $this->get_before_element();
 
 		$before = new AC_View( array(
 			'label'       => __( 'Before', 'codepress-admin-columns' ),
@@ -43,7 +57,7 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 			'for'         => $setting->get_id(),
 		) );
 
-		$setting = $this->create_element( 'text', 'after' );
+		$setting = $this->get_after_element();
 
 		$after = new AC_View( array(
 			'label'       => __( 'After', 'codepress-admin-columns' ),
