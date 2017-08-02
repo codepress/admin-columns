@@ -28,7 +28,6 @@ class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_ExifData( $this ) );
-		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
 	}
 
 }

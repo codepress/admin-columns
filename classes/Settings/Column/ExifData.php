@@ -17,10 +17,41 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 	}
 
 	public function create_view() {
+		$setting = $this->create_element( 'select' )
+		                ->set_attribute( 'data-label', 'update' )
+		                ->set_attribute( 'data-refresh', 'column' )
+		                ->set_options( $this->get_exif_types() );
+
 		return new AC_View( array(
 			'label'   => $this->column->get_label(),
-			'setting' => $this->create_element( 'select' )->set_options( $this->get_exif_types() ),
+			'setting' => $setting,
 		) );
+	}
+
+	public function get_dependent_settings() {
+
+		switch ( $this->get_exif_datatype() ) {
+			case 'aperture' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_Aperture( $this->column ) );
+
+				break;
+			case 'focal_length' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_FocalLength( $this->column ) );
+
+				break;
+			case 'iso' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_ISO( $this->column ) );
+
+				break;
+			case 'shutter_speed' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_ShutterSpeed( $this->column ) );
+
+				break;
+			default :
+				$settings = array( new AC_Settings_Column_BeforeAfter( $this->column ) );
+		}
+
+		return $settings;
 	}
 
 	/**

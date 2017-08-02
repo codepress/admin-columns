@@ -225,6 +225,7 @@ Release Date: tbd
 * [Improved] Post Link setting can be extended now
 * [Improved] Attachment column: you can now limit the number of items being displayed
 * [Improved] Only apply before/after when the value is not empty
+* [Improved] EXIF Data now have added before and after fields
 
 = 3.0.3 =
 
