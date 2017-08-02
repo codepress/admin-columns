@@ -413,6 +413,7 @@ table.ac-table-items {
 .ac-image-container {
 	margin-bottom: -6px;
 }
+
 .ac-image {
 	display: inline-block;
 	margin-right: 2px;
@@ -632,7 +633,9 @@ div.sizes span.not-available {
 				}
 			}
 
-			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve, &.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete {
+			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve,
+			&.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete,
+			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate {
 
 				a {
 					text-indent: -3000px;
@@ -681,6 +684,24 @@ div.sizes span.not-available {
 			}
 			&.delete a:before {
 				content: "\f182";
+			}
+			&.backend a:before {
+				content: "\f226";
+			}
+			&.visit a:before {
+				content: "\f115";
+			}
+			&.deactivate a:before {
+				content: "\f530";
+			}
+			&.archive a:before {
+				content: "\f480";
+			}
+			&.unarchive a:before {
+				content: "\f322";
+			}
+			&.activate a:before {
+				content: "\f177";
 			}
 		}
 	}
