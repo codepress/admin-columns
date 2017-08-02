@@ -54,9 +54,9 @@ class AC_ListScreen_User extends AC_ListScreen {
 	}
 
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField() );
-		$this->register_column_type( new AC_Column_UsedByMenu() );
-		$this->register_column_type( new AC_Column_Actions() );
+		$this->register_column_type( new AC_Column_CustomField );
+		$this->register_column_type( new AC_Column_Menu );
+		$this->register_column_type( new AC_Column_Actions );
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', 'AC_' );
 	}
