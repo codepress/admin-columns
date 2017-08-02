@@ -15,7 +15,11 @@ class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 	public function get_raw_value( $id ) {
 		$value = parent::get_raw_value( $id );
 
-		return ! empty( $value['image_meta'] ) ? $value['image_meta'] : false;
+		if ( empty( $value['image_meta'] ) ) {
+			return false;
+		}
+
+		return $value['image_meta'];
 	}
 
 	public function is_valid() {
@@ -24,6 +28,7 @@ class AC_Column_Media_ExifData extends AC_Column_Media_Meta {
 
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_ExifData( $this ) );
+		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
 	}
 
 }

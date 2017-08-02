@@ -22,6 +22,10 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 	}
 
 	public function format( $value, $original_value ) {
+		if ( ac_helper()->string->is_empty( $value ) ) {
+			return $value;
+		}
+
 		if ( $this->get_before() || $this->get_after() ) {
 			$value = $this->get_before() . $value . $this->get_after();
 		}
