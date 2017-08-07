@@ -24,13 +24,13 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 		if ( $available_sizes = $this->get_available_sizes( $sizes ) ) {
 
 			$url = wp_get_attachment_url( $id );
-			$paths[] = ac_helper()->html->link( $url, __( 'original', 'codepress-admin-columns' ), array( 'title' => basename( $url ) ) );
+			$paths[] = ac_helper()->html->tooltip( ac_helper()->html->link( $url, __( 'original', 'codepress-admin-columns' ) ), basename( $url ) );
 
 			foreach ( $available_sizes as $size ) {
 				$src = wp_get_attachment_image_src( $id, $size );
 
 				if ( ! empty( $src[0] ) ) {
-					$paths[] = ac_helper()->html->link( $src[0], $size, array( 'title' => basename( $src[0] ) ) );
+					$paths[] = ac_helper()->html->tooltip( ac_helper()->html->link( $src[0], $size ), basename( $src[0] ) );
 				}
 			}
 		}
