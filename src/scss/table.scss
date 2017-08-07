@@ -27,6 +27,77 @@
 	}
 }
 
+/* =Comments bubble
+-------------------------------------------------------------- */
+.ac-comment-bubble {
+	.post-com-count {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.post-com-count-no-comments,
+	.post-com-count-approved {
+		margin-top: 5px;
+	}
+	.comment-count-no-comments,
+	.comment-count-approved {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		display: block;
+		padding: 0 8px;
+		min-width: 24px;
+		height: 2em;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		background-color: #72777c;
+		color: #fff;
+		font-size: 11px;
+		line-height: 21px;
+		text-align: center;
+	}
+
+	.post-com-count-no-comments:after,
+	.post-com-count-approved:after {
+		content: "";
+		display: block;
+		margin-left: 8px;
+		width: 0;
+		height: 0;
+		border-top: 5px solid #72777c;
+		border-right: 5px solid transparent;
+	}
+
+	.post-com-count-approved:hover .comment-count-approved,
+	.post-com-count-approved:focus .comment-count-approved {
+		background: #0073aa;
+	}
+
+	.post-com-count-approved:hover:after,
+	.post-com-count-approved:focus:after {
+		border-top-color: #0073aa;
+	}
+
+	.post-com-count-pending {
+		position: relative;
+		left: -3px;
+		padding: 0 5px;
+		min-width: 7px;
+		height: 17px;
+		border: 2px solid #fff;
+		-webkit-border-radius: 11px;
+		border-radius: 11px;
+		background: #ca4a1f;
+		color: #fff;
+		font-size: 9px;
+		line-height: 17px;
+		text-align: center;
+	}
+
+	.post-com-count-no-pending {
+		display: none;
+	}
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
