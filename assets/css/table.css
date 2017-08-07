@@ -10,10 +10,10 @@
     font-size: 15px;
     margin-left: -2px; }
 
-/* =Colors
+/* =Available Sizes column
 -------------------------------------------------------------- */
-.ac-gray {
-  color: #8a8a8a; }
+.ac-image-sizes .ac-missing-size {
+  color: #929292; }
 
 /* =General
 -------------------------------------------------------------- */

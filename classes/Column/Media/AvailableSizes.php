@@ -40,7 +40,7 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 
 			if ( $missing = $this->get_missing_sizes( $sizes ) ) {
 				foreach ( $missing as $size ) {
-					$paths[] = ac_helper()->html->tooltip( $size, sprintf( __( 'Missing image file for size %s.', 'codepress-admin-columns' ), '<em>"' . $size . '"</em>' ), array( 'class' => 'ac-light-gray' ) );
+					$paths[] = ac_helper()->html->tooltip( $size, sprintf( __( 'Missing image file for size %s.', 'codepress-admin-columns' ), '<em>"' . $size . '"</em>' ), array( 'class' => 'ac-missing-size' ) );
 				}
 			}
 		}
