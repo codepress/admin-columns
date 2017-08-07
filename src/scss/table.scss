@@ -19,6 +19,12 @@
 	}
 }
 
+/* =Colors
+-------------------------------------------------------------- */
+.ac-gray {
+	color: #8a8a8a;
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -549,12 +555,6 @@ div.cpac-color span {
 	float: right;
 	margin-left: 12px;
 	margin-right: 0;
-}
-
-/* =Available Sizes column
--------------------------------------------------------------- */
-div.sizes span.not-available {
-	color: #999;
 }
 
 /* =Actions column

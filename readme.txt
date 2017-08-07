@@ -226,6 +226,8 @@ Release Date: tbd
 * [Improved] Attachment column: you can now limit the number of items being displayed
 * [Improved] Only apply before/after when the value is not empty
 * [Improved] EXIF Data now have added before and after fields
+* [Improved] Renamed Alt column to Alternative Text
+* [Improved] Available Sizes column for media now has the option to include missing file sizes
 
 = 3.0.3 =
 

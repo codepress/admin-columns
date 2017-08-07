@@ -94,9 +94,9 @@ class AC_Helper_Html {
 	 *
 	 * @return string
 	 */
-	public function tooltip( $label, $tooltip ) {
+	public function tooltip( $label, $tooltip, $attributes = array() ) {
 		if ( $label && $tooltip ) {
-			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . '>' . $label . '</span>';
+			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . $this->get_attributes( $attributes ) . '>' . $label . '</span>';
 		}
 
 		return $label;
