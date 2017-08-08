@@ -228,6 +228,7 @@ Release Date: tbd
 * [Improved] EXIF Data now have added before and after fields
 * [Improved] Renamed Alt column to Alternative Text
 * [Improved] Available Sizes column for media now has the option to include missing file sizes
+* [Improved] Added Orientation and Keywords to EXIF data column
 
 = 3.0.3 =
 

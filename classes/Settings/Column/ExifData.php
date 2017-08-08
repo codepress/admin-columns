@@ -70,11 +70,13 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 			'camera'            => __( 'Camera', 'codepress-admin-columns' ),
 			'caption'           => __( 'Caption', 'codepress-admin-columns' ),
 			'created_timestamp' => __( 'Timestamp', 'codepress-admin-columns' ),
-			'copyright'         => __( 'Copyright EXIF', 'codepress-admin-columns' ),
+			'copyright'         => __( 'Copyright', 'codepress-admin-columns' ),
 			'focal_length'      => __( 'Focal Length', 'codepress-admin-columns' ),
 			'iso'               => __( 'ISO', 'codepress-admin-columns' ),
 			'shutter_speed'     => __( 'Shutter Speed', 'codepress-admin-columns' ),
 			'title'             => __( 'Title', 'codepress-admin-columns' ),
+			'orientation'       => __( 'Orientation', 'codepress-admin-columns' ),
+			'keywords'          => __( 'Keywords', 'codepress-admin-columns' ),
 		);
 
 		natcasesort( $exif_types );
@@ -108,6 +110,10 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 			switch ( $exif_datatype ) {
 				case 'created_timestamp' :
 					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
+
+					break;
+				case 'keywords' :
+					$value = ac_helper()->array->implode_recursive( ', ', $value );
 
 					break;
 			}
