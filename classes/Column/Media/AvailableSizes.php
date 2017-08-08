@@ -3,13 +3,17 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
+class AC_Column_Media_AvailableSizes extends AC_Column_Media_MetaValue {
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->set_type( 'column-available_sizes' );
 		$this->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
+	}
+
+	protected function get_option_name() {
+		return 'sizes';
 	}
 
 	public function get_value( $id ) {
@@ -77,21 +81,6 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 
 		// image does not have these additional sizes rendered yet
 		return array_diff( array_keys( (array) $additional_size ), array_keys( (array) $image_sizes ) );
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return false|array
-	 */
-	public function get_raw_value( $id ) {
-		$value = parent::get_raw_value( $id );
-
-		if ( ! isset( $value['sizes'] ) ) {
-			return false;
-		}
-
-		return $value['sizes'];
 	}
 
 	public function register_settings() {

@@ -10,7 +10,7 @@ class AC_Column_Post_ID extends AC_Column {
 		$this->set_label( __( 'ID', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $post_id ) {
+	public function get_raw_value( $post_id ) {
 		return $post_id;
 	}
 
