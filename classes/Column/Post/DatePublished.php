@@ -15,10 +15,20 @@ class AC_Column_Post_DatePublished extends AC_Column {
 
 		$post = get_post( $id );
 
-		if ( 'publish' === get_post_status( $post ) ) {
-			$value = ac_helper()->html->tooltip( $value, ac_helper()->date->date( $post->post_date, __( 'Y/m/d g:i:s a' ) ) );
-		} else {
-			$value = ac_helper()->post->get_status_icon( $post );
+		switch ( get_post_status( $id ) ) {
+
+			// Icons
+			case 'private' :
+			case 'draft' :
+			case 'pending' :
+			case 'future' :
+				$value = ac_helper()->post->get_status_icon( $post );
+
+				break;
+
+				// Tooltip
+			default :
+				$value = ac_helper()->html->tooltip( $value, ac_helper()->date->date( $post->post_date, 'wp_date_time' ) );
 		}
 
 		return $value;

@@ -230,6 +230,7 @@ Release Date: tbd
 * [Improved] Available Sizes column for media now has the option to include missing file sizes
 * [Improved] Added Orientation and Keywords to EXIF data column
 * [Removed] Removed the "Attached to Post" column. The column has been replaced by the "Uploaded to" column in WordPress 4.0
+* [Fixed] Time difference option in the date column now uses the correct GMT offset
 
 = 3.0.3 =
 

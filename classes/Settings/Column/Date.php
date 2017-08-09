@@ -171,13 +171,15 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 			return false;
 		}
 
+		$current_time = current_time( 'timestamp' );
+
 		$tpl = __( '%s ago' );
 
-		if ( $timestamp > current_time( 'U' ) ) {
+		if ( $timestamp > $current_time ) {
 			$tpl = __( 'in %s', 'codepress-admin-columns' );
 		}
 
-		return sprintf( $tpl, human_time_diff( $timestamp ) );
+		return sprintf( $tpl, human_time_diff( $timestamp, $current_time ) );
 	}
 
 }
