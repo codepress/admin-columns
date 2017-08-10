@@ -6,34 +6,17 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		$this->name = 'custom_field';
 	}
 
-	public function create_view() {
-
-		/**
-		 * DOM can get overloaded when dropdown contains to many custom fields. Use this filter to replace the dropdown with a text input.
-		 *
-		 * @since 3.0
-		 *
-		 * @param bool false
-		 */
+	protected function get_setting_field() {
 		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
 
 		if ( $use_text_input ) {
-			$field = $this->create_element( 'text', 'field' )
-			              ->set_attribute( 'placeholder', 'Custom field key' );
-		} else {
-
-			// Meta field
-			$field = $this->get_setting_field();
-
-			$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
+			return $this->create_element( 'text', 'field' )->set_attribute( 'placeholder', __( 'Custom field key', 'codepress-admin-columns' ) );
 		}
 
-		$view = new AC_View( array(
-			'label'   => __( 'Field', 'codepress-admin-columns' ),
-			'setting' => $field,
-		) );
+		$field = parent::get_setting_field();
+		$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
 
-		return $view;
+		return $field;
 	}
 
 	public function get_dependent_settings() {
@@ -97,10 +80,8 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 	public function set_field( $field ) {
 
 		// Backwards compatible for WordPress Settings API not storing fields starting with _
-		$prefix_hidden = 'cpachidden';
-
-		if ( 0 === strpos( $field, $prefix_hidden ) ) {
-			$field = substr( $field, strlen( $prefix_hidden ) );
+		if ( 0 === strpos( $field, 'cpachidden' ) ) {
+			$field = substr( $field, strlen( 'cpachidden' ) );
 		}
 
 		return parent::set_field( $field );
