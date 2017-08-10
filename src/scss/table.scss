@@ -132,7 +132,7 @@ span.status-closed {
 	margin-bottom: 4px;
 }
 
-.tablenav.top .cpac-edit {
+.tablenav.top .ac-button {
 	top: 2px;
 	display: inline-block;
 	vertical-align: middle;
@@ -201,14 +201,14 @@ body.users-php .tablenav .actions {
 		* {
 			display: none;
 		}
-		.cpac-edit {
+		.ac-button {
 			display: inline-block;
 		}
 	}
 }
 
 // Media screen
-body.upload-php .tablenav.top .cpac-edit {
+body.upload-php .tablenav.top .ac-button {
 	float: none;
 }
 
@@ -418,7 +418,7 @@ table.ac-table-items {
 -------------------------------------------------------------- */
 #form-site-list {
 	.tablenav .actions {
-		.cpac-edit {
+		.ac-button {
 			float: none;
 		}
 	}

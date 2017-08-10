@@ -36,7 +36,7 @@ function ac_actions_tooltips( $ ) {
 
 function ac_edit_button( $ ) {
 	if ( AC.edit_link ) {
-		$( '.tablenav.top .actions:last' ).append( '<a class="cpac-edit add-new-h2" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
+		$( '.tablenav.top .actions:last' ).append( '<a class="ac-button add-new-h2" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
 	}
 }
 

@@ -103,13 +103,13 @@ span.status-closed {
   vertical-align: middle;
   margin-bottom: 4px; }
 
-.tablenav.top .cpac-edit {
+.tablenav.top .ac-button {
   top: 2px;
   display: inline-block;
   vertical-align: middle;
   float: left;
   margin-bottom: 4px; }
-  body.edit-tags-php .tablenav.top .cpac-edit {
+  body.edit-tags-php .tablenav.top .ac-button {
     float: none; }
 
 span.dashicons.flip:before {
@@ -155,10 +155,10 @@ body.users-php .tablenav .actions a.add-new-h2 {
     margin-bottom: 4px; }
     .tablenav.top .actions * {
       display: none; }
-    .tablenav.top .actions .cpac-edit {
+    .tablenav.top .actions .ac-button {
       display: inline-block; } }
 
-body.upload-php .tablenav.top .cpac-edit {
+body.upload-php .tablenav.top .ac-button {
   float: none; }
 
 /* =Column values
@@ -307,7 +307,7 @@ table.ac-table-items {
 
 /* =Network screen
 -------------------------------------------------------------- */
-#form-site-list .tablenav .actions .cpac-edit {
+#form-site-list .tablenav .actions .ac-button {
   float: none; }
 
 /* =General Column
