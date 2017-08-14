@@ -18,7 +18,14 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	}
 
 	public function get_meta_key() {
-		return $this->get_setting( 'custom_field' )->get_value();
+		return $this->get_custom_field_setting()->get_custom_field();
+	}
+
+	/**
+	 * @return AC_Settings_Column_CustomField|AC_Settings_Column
+	 */
+	private function get_custom_field_setting() {
+		return $this->get_setting( 'custom_field' );
 	}
 
 	public function register_settings() {

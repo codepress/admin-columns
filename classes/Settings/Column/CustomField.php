@@ -6,13 +6,21 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		$this->name = 'custom_field';
 	}
 
-	protected function get_setting_field() {
-		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
+	public function use_text_input_only(  ) {
+		return apply_filters( 'ac/column/custom_field/use_text_input', false );
+	}
 
-		if ( $use_text_input ) {
+	/**
+	 * @return AC_Settings_Form_Element_Select
+	 */
+	protected function get_setting_field() {
+
+		// Use text input only
+		if ( $this->use_text_input_only() ) {
 			return $this->create_element( 'text', 'field' )->set_attribute( 'placeholder', __( 'Custom field key', 'codepress-admin-columns' ) );
 		}
 
+		// Field selector
 		$field = parent::get_setting_field();
 		$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
 
@@ -85,6 +93,10 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		}
 
 		return parent::set_field( $field );
+	}
+
+	public function get_custom_field() {
+		return $this->get_field();
 	}
 
 }

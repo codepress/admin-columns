@@ -703,7 +703,29 @@ function cpac_reset_columns( $ ) {
 	// Settings fields: Image _size
 	$.fn.cpac_column_setting_image_size = function() {
 		function initState( $setting, $select ) {
-			if ( 'cpac-custom' == $select.val() ) {
+			if ( 'cpac-custom' === $select.val() ) {
+				$setting.find( '.ac-column-setting' ).show();
+			} else {
+				$setting.find( '.ac-column-setting' ).hide();
+			}
+		}
+
+		$( this ).each( function() {
+			var $setting = $( this );
+			var $select = $( this ).find( '.ac-setting-input select' );
+
+			initState( $setting, $select );
+			$select.on( 'change', function() {
+				initState( $setting, $( this ) );
+			} );
+
+		} );
+	};
+
+	// Settings fields: Custom Field > New Field
+	$.fn.ac_column_setting_new_meta_field = function() {
+		function initState( $setting, $select ) {
+			if ( '__new-field__' === $select.val() ) {
 				$setting.find( '.ac-column-setting' ).show();
 			} else {
 				$setting.find( '.ac-column-setting' ).hide();
@@ -724,6 +746,7 @@ function cpac_reset_columns( $ ) {
 
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
+		$( column ).find( '.ac-column-setting--custom_field' ).ac_column_setting_new_meta_field();
 	} );
 
 	// Settings fields: Width
@@ -739,7 +762,7 @@ function cpac_reset_columns( $ ) {
 			indicator = $( this ).find( '.ac-column-header .ac-column-heading-setting--width' );
 
 		// width
-		if ( '%' == unit && width > 100 ) {
+		if ( '%' === unit && width > 100 ) {
 			width = 100;
 		}
 
