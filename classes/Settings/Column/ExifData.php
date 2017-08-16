@@ -13,7 +13,7 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 	}
 
 	protected function define_options() {
-		return array( 'exif_datatype' );
+		return array( 'exif_datatype' => 'aperture' );
 	}
 
 	public function create_view() {
