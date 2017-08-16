@@ -436,6 +436,20 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
+	 * @return int
+	 */
+	private function get_discount_percentage() {
+		return 20;
+	}
+
+	/**
+	 * @return int
+	 */
+	private function get_lowest_pro_price() {
+		return 49;
+	}
+
+	/**
 	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return string
@@ -566,7 +580,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									<?php endif; ?>
 
 									<p class="center">
-										<?php echo ac_helper()->html->link( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ), sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$39.20' ), array( 'class' => 'ac-pro-prices' ) ); ?> <sup>$49</sup>
+										<?php echo ac_helper()->html->link( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ), sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ), array( 'class' => 'ac-pro-prices' ) ); ?>
 									</p>
 									<p class="center nopadding">
 										<?php if ( ! $active_promotion ) : ?>
@@ -588,11 +602,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 								<div class="padding-box ac-pro-newsletter">
 									<h3>
-										<?php echo esc_html( sprintf( __( 'Get %s Off!', 'codepress-admin-columns' ), '20%' ) ); ?>
+										<?php echo esc_html( sprintf( __( 'Get %s Off!', 'codepress-admin-columns' ), $this->get_discount_percentage() . '%' ) ); ?>
 									</h3>
 									<div class="inside">
 										<p>
-											<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a discount for %s off.", 'codepress-admin-columns' ), '20%' ) ); ?>
+											<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a discount for %s off.", 'codepress-admin-columns' ), $this->get_discount_percentage() . '%' ) ); ?>
 										</p>
 										<?php
 										$user_data = get_userdata( get_current_user_id() );
