@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since NEWVERSION
+ * @since 4.0.8
  */
 abstract class AC_Column_Media_MetaValue extends AC_Column_Media_Meta {
 
