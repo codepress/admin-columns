@@ -10,6 +10,74 @@
     font-size: 15px;
     margin-left: -2px; }
 
+/* =Available Sizes column
+-------------------------------------------------------------- */
+.ac-image-sizes .ac-missing-size {
+  color: #929292; }
+
+/* =Comments bubble
+-------------------------------------------------------------- */
+.ac-comment-bubble .post-com-count {
+  display: inline-block;
+  vertical-align: top; }
+
+.ac-comment-bubble .post-com-count-no-comments,
+.ac-comment-bubble .post-com-count-approved {
+  margin-top: 5px; }
+
+.ac-comment-bubble .comment-count-no-comments,
+.ac-comment-bubble .comment-count-approved {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 8px;
+  min-width: 24px;
+  height: 2em;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #72777c;
+  color: #fff;
+  font-size: 11px;
+  line-height: 21px;
+  text-align: center; }
+
+.ac-comment-bubble .post-com-count-no-comments:after,
+.ac-comment-bubble .post-com-count-approved:after {
+  content: "";
+  display: block;
+  margin-left: 8px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid #72777c;
+  border-right: 5px solid transparent; }
+
+.ac-comment-bubble .post-com-count-approved:hover .comment-count-approved,
+.ac-comment-bubble .post-com-count-approved:focus .comment-count-approved {
+  background: #0073aa; }
+
+.ac-comment-bubble .post-com-count-approved:hover:after,
+.ac-comment-bubble .post-com-count-approved:focus:after {
+  border-top-color: #0073aa; }
+
+.ac-comment-bubble .post-com-count-pending {
+  position: relative;
+  left: -3px;
+  padding: 0 5px;
+  min-width: 7px;
+  height: 17px;
+  border: 2px solid #fff;
+  -webkit-border-radius: 11px;
+  border-radius: 11px;
+  background: #ca4a1f;
+  color: #fff;
+  font-size: 9px;
+  line-height: 17px;
+  text-align: center; }
+
+.ac-comment-bubble .post-com-count-no-pending {
+  display: none; }
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -35,13 +103,13 @@ span.status-closed {
   vertical-align: middle;
   margin-bottom: 4px; }
 
-.tablenav.top .cpac-edit {
+.tablenav.top .ac-button {
   top: 2px;
   display: inline-block;
   vertical-align: middle;
   float: left;
   margin-bottom: 4px; }
-  body.edit-tags-php .tablenav.top .cpac-edit {
+  body.edit-tags-php .tablenav.top .ac-button {
     float: none; }
 
 span.dashicons.flip:before {
@@ -87,10 +155,10 @@ body.users-php .tablenav .actions a.add-new-h2 {
     margin-bottom: 4px; }
     .tablenav.top .actions * {
       display: none; }
-    .tablenav.top .actions .cpac-edit {
+    .tablenav.top .actions .ac-button {
       display: inline-block; } }
 
-body.upload-php .tablenav.top .cpac-edit {
+body.upload-php .tablenav.top .ac-button {
   float: none; }
 
 /* =Column values
@@ -123,6 +191,58 @@ table.ac-table-items {
       color: #999;
       padding-right: 6px;
       text-align: left; }
+
+/* =Post Format column
+-------------------------------------------------------------- */
+.ac-post-state-format:before {
+  color: #a7a7a7; }
+
+/* =Image in Content column
+-------------------------------------------------------------- */
+.ac-image-details .ac-image-info {
+  display: inline-block;
+  border-radius: 7px;
+  padding: 0 9px;
+  min-height: 20px;
+  background-color: #e9e9e9;
+  text-align: left;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0 6px 5px 0;
+  white-space: nowrap; }
+  .ac-image-details .ac-image-info > span {
+    margin-right: 6px; }
+    .ac-image-details .ac-image-info > span:last-child {
+      margin-right: 0; }
+  .ac-image-details .ac-image-info span {
+    vertical-align: middle;
+    line-height: 20px; }
+    .ac-image-details .ac-image-info span.image-id {
+      font-size: 11px;
+      color: #757575; }
+    .ac-image-details .ac-image-info span.image-file-size {
+      font-size: 12px; }
+    .ac-image-details .ac-image-info span.image-extension {
+      text-transform: uppercase;
+      font-size: 11px;
+      color: #757575; }
+    .ac-image-details .ac-image-info span.suffix {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: #757575;
+      padding-left: 3px;
+      margin-top: -2px; }
+    .ac-image-details .ac-image-info span.dashicons {
+      margin-top: -2px;
+      color: #757575;
+      font-size: 14px;
+      width: 16px; }
+
+.ac-image-details a.ac-image-info:hover {
+  color: #0073aa; }
+  .ac-image-details a.ac-image-info:hover span.dashicons {
+    color: #3d4350; }
 
 /* =Storage Space column
 -------------------------------------------------------------- */
@@ -187,7 +307,7 @@ table.ac-table-items {
 
 /* =Network screen
 -------------------------------------------------------------- */
-#form-site-list .tablenav .actions .cpac-edit {
+#form-site-list .tablenav .actions .ac-button {
   float: none; }
 
 /* =General Column
@@ -245,12 +365,17 @@ table.ac-table-items {
 
 /* =Images Column
 -------------------------------------------------------------- */
+.ac-image-container {
+  margin-bottom: -6px; }
+
 .ac-image {
   display: inline-block;
   margin-right: 2px;
+  margin-bottom: 6px;
   overflow: hidden;
   max-width: 100%;
-  background-color: #ccc; }
+  background-color: #ccc;
+  vertical-align: middle; }
   .ac-image img {
     display: block;
     margin: 0 auto; }
@@ -345,11 +470,6 @@ div.cpac-color span {
   margin-left: 12px;
   margin-right: 0; }
 
-/* =Available Sizes column
--------------------------------------------------------------- */
-div.sizes span.not-available {
-  color: #999; }
-
 /* =Actions column
 -------------------------------------------------------------- */
 .button.cpac-button-action {
@@ -410,9 +530,9 @@ div.sizes span.not-available {
       left: 0;
       width: 100%;
       height: 100%; }
-  .column-actions.cpac_use_icons .row-actions > span.edit a, .column-actions.cpac_use_icons .row-actions > span.inline a, .column-actions.cpac_use_icons .row-actions > span.trash a, .column-actions.cpac_use_icons .row-actions > span.view a, .column-actions.cpac_use_icons .row-actions > span.quickedit a, .column-actions.cpac_use_icons .row-actions > span.approve a, .column-actions.cpac_use_icons .row-actions > span.unapprove a, .column-actions.cpac_use_icons .row-actions > span.spam a, .column-actions.cpac_use_icons .row-actions > span.untrash a, .column-actions.cpac_use_icons .row-actions > span.unspam a, .column-actions.cpac_use_icons .row-actions > span.reply a, .column-actions.cpac_use_icons .row-actions > span.delete a {
+  .column-actions.cpac_use_icons .row-actions > span.edit a, .column-actions.cpac_use_icons .row-actions > span.inline a, .column-actions.cpac_use_icons .row-actions > span.trash a, .column-actions.cpac_use_icons .row-actions > span.view a, .column-actions.cpac_use_icons .row-actions > span.quickedit a, .column-actions.cpac_use_icons .row-actions > span.approve a, .column-actions.cpac_use_icons .row-actions > span.unapprove a, .column-actions.cpac_use_icons .row-actions > span.spam a, .column-actions.cpac_use_icons .row-actions > span.untrash a, .column-actions.cpac_use_icons .row-actions > span.unspam a, .column-actions.cpac_use_icons .row-actions > span.reply a, .column-actions.cpac_use_icons .row-actions > span.delete a, .column-actions.cpac_use_icons .row-actions > span.backend a, .column-actions.cpac_use_icons .row-actions > span.visit a, .column-actions.cpac_use_icons .row-actions > span.deactivate a, .column-actions.cpac_use_icons .row-actions > span.archive a, .column-actions.cpac_use_icons .row-actions > span.unarchive a, .column-actions.cpac_use_icons .row-actions > span.activate a {
     text-indent: -3000px; }
-    .column-actions.cpac_use_icons .row-actions > span.edit a:before, .column-actions.cpac_use_icons .row-actions > span.inline a:before, .column-actions.cpac_use_icons .row-actions > span.trash a:before, .column-actions.cpac_use_icons .row-actions > span.view a:before, .column-actions.cpac_use_icons .row-actions > span.quickedit a:before, .column-actions.cpac_use_icons .row-actions > span.approve a:before, .column-actions.cpac_use_icons .row-actions > span.unapprove a:before, .column-actions.cpac_use_icons .row-actions > span.spam a:before, .column-actions.cpac_use_icons .row-actions > span.untrash a:before, .column-actions.cpac_use_icons .row-actions > span.unspam a:before, .column-actions.cpac_use_icons .row-actions > span.reply a:before, .column-actions.cpac_use_icons .row-actions > span.delete a:before {
+    .column-actions.cpac_use_icons .row-actions > span.edit a:before, .column-actions.cpac_use_icons .row-actions > span.inline a:before, .column-actions.cpac_use_icons .row-actions > span.trash a:before, .column-actions.cpac_use_icons .row-actions > span.view a:before, .column-actions.cpac_use_icons .row-actions > span.quickedit a:before, .column-actions.cpac_use_icons .row-actions > span.approve a:before, .column-actions.cpac_use_icons .row-actions > span.unapprove a:before, .column-actions.cpac_use_icons .row-actions > span.spam a:before, .column-actions.cpac_use_icons .row-actions > span.untrash a:before, .column-actions.cpac_use_icons .row-actions > span.unspam a:before, .column-actions.cpac_use_icons .row-actions > span.reply a:before, .column-actions.cpac_use_icons .row-actions > span.delete a:before, .column-actions.cpac_use_icons .row-actions > span.backend a:before, .column-actions.cpac_use_icons .row-actions > span.visit a:before, .column-actions.cpac_use_icons .row-actions > span.deactivate a:before, .column-actions.cpac_use_icons .row-actions > span.archive a:before, .column-actions.cpac_use_icons .row-actions > span.unarchive a:before, .column-actions.cpac_use_icons .row-actions > span.activate a:before {
       text-indent: 0;
       font-family: Dashicons, sans-serif; }
   .column-actions.cpac_use_icons .row-actions > span.edit a:before {
@@ -440,6 +560,18 @@ div.sizes span.not-available {
     content: "\f171"; }
   .column-actions.cpac_use_icons .row-actions > span.delete a:before {
     content: "\f182"; }
+  .column-actions.cpac_use_icons .row-actions > span.backend a:before {
+    content: "\f226"; }
+  .column-actions.cpac_use_icons .row-actions > span.visit a:before {
+    content: "\f115"; }
+  .column-actions.cpac_use_icons .row-actions > span.deactivate a:before {
+    content: "\f530"; }
+  .column-actions.cpac_use_icons .row-actions > span.archive a:before {
+    content: "\f480"; }
+  .column-actions.cpac_use_icons .row-actions > span.unarchive a:before {
+    content: "\f322"; }
+  .column-actions.cpac_use_icons .row-actions > span.activate a:before {
+    content: "\f177"; }
 
 /* Responsive table screen
 -------------------------------------------------------------- */

@@ -836,6 +836,17 @@ abstract class AC_ListScreen {
 	}
 
 	/**
+	 * get_object_by_id made 'public' for backwards compatibility
+	 *
+	 * @param int $object_id
+	 *
+	 * @return mixed
+	 */
+	public function get_object( $object_id ) {
+		return $this->get_object_by_id( $object_id );
+	}
+
+	/**
 	 * @return WP_List_Table|object
 	 */
 	public function get_list_table() {

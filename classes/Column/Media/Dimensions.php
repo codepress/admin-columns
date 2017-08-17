@@ -12,25 +12,22 @@ class AC_Column_Media_Dimensions extends AC_Column_Media_Meta {
 		$this->set_label( __( 'Dimensions', 'codepress-admin-columns' ) );
 	}
 
-	public function get_surface( $id ) {
-		$meta = $this->get_raw_value( $id );
-
-		$height = ! empty( $meta['height'] ) ? $meta['height'] : 0;
-		$width = ! empty( $meta['width'] ) ? $meta['width'] : 0;
-
-		return $height * $width;
-	}
-
 	public function get_value( $id ) {
-		$value = $this->get_empty_char();
-
 		$meta = $this->get_raw_value( $id );
 
-		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
-			$value = "{$meta['width']} x {$meta['height']}";
+		if ( empty( $meta['width'] ) || empty( $meta['height'] ) ) {
+			return $this->get_empty_char();
 		}
 
-		return $value;
+		$value = $meta['width'] . '&nbsp;&times;&nbsp;' . $meta['height'];
+
+		$tooltip = sprintf( __( 'Width : %s px', 'codepress-admin-columns' ), $meta['width'] ) . "<br/>\n" . sprintf( __( 'Height : %s px', 'codepress-admin-columns' ), $meta['height'] );
+
+		return ac_helper()->html->tooltip( $this->get_formatted_value( $value ), $tooltip );
+	}
+
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
 	}
 
 }

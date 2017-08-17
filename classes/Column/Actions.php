@@ -5,18 +5,7 @@
  *
  * @since 2.2.6
  */
-abstract class AC_Column_Actions extends AC_Column {
-
-	/**
-	 * Get a list of action links for an item (e.g. post) ID.
-	 *
-	 * @since 2.2.6
-	 *
-	 * @param int $id Item ID to get the list of actions for.
-	 *
-	 * @return array List of actions ([action name] => [action link]).
-	 */
-	abstract protected function get_object_type();
+class AC_Column_Actions extends AC_Column {
 
 	/**
 	 * @since 2.2.6

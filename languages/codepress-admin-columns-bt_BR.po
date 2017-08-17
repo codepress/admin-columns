@@ -11,15 +11,59 @@ msgstr ""
 "Language: pt_BR\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: classes/Settings/Column/StatusIcon.php:90
+msgid "Password protected"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:85
+msgid "Future"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:82
+msgid "Pending for review"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:79
+msgid "Draft"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:76
+msgid "Published"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:73
+msgid "Private"
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:29
+msgid "Use an icon instead of text for displaying the status."
+msgstr ""
+
+#: classes/Settings/Column/StatusIcon.php:28
+msgid "Use an icon?"
+msgstr ""
+
+#: classes/Helper/String.php:102
+msgid "&hellip;"
+msgstr ""
+
+#: classes/Column/Post/Excerpt.php:21
+msgid "Current excerpt is generated from the content."
+msgstr ""
+
+#: classes/Column/Post/Excerpt.php:21
+msgid "Excerpt is missing."
+msgstr ""
+
 #: classes/Settings/Column/User.php:118
 msgid "User Nicename"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:607
+#: classes/Admin/Page/Columns.php:608
 msgid "Send me the discount"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:572
+#: classes/Admin/Page/Columns.php:573
 msgid "Prices starting from %s"
 msgstr ""
 
@@ -67,7 +111,8 @@ msgstr ""
 msgid "Auto"
 msgstr ""
 
-#: classes/Settings/Column/Term.php:33 classes/Settings/Column/User.php:37
+#: classes/Settings/Column/Post.php:71 classes/Settings/Column/Term.php:33
+#: classes/Settings/Column/User.php:37
 msgid "Display"
 msgstr ""
 
@@ -216,7 +261,7 @@ msgid "Uses the id from a %s to display information about it."
 msgstr ""
 
 #: classes/Settings/Column/CustomField.php:36
-#: classes/Settings/Column/Meta.php:63 classes/Settings/Column/Post.php:71
+#: classes/Settings/Column/Meta.php:63
 msgid "Field"
 msgstr ""
 
@@ -241,11 +286,11 @@ msgstr ""
 msgid "This text will appear after the column value."
 msgstr ""
 
-#: classes/Helper/String.php:270
+#: classes/Helper/String.php:286
 msgid " and "
 msgstr ""
 
-#: classes/Helper/String.php:268
+#: classes/Helper/String.php:284
 msgid " or "
 msgstr ""
 
@@ -270,7 +315,7 @@ msgid "Shortlink"
 msgstr ""
 
 #: classes/Column/Post/Roles.php:33 classes/Column/Taxonomy.php:27
-#: classes/Settings/Column/CustomFieldType.php:260
+#: classes/Settings/Column/CustomFieldType.php:274
 msgid ", "
 msgstr ""
 
@@ -364,43 +409,43 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:849 classes/Admin/Page/Columns.php:884
+#: classes/Admin/Page/Columns.php:850 classes/Admin/Page/Columns.php:885
 msgid "Close"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:757
+#: classes/Admin/Page/Columns.php:758
 msgid "Clear all columns "
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:664
+#: classes/Admin/Page/Columns.php:665
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:606
+#: classes/Admin/Page/Columns.php:607
 msgid "Your First Name"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:605
+#: classes/Admin/Page/Columns.php:606
 msgid "Your Email"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:598
+#: classes/Admin/Page/Columns.php:599
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:594
+#: classes/Admin/Page/Columns.php:595
 msgid "Get %s Off!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:561
+#: classes/Admin/Page/Columns.php:562
 msgid "Extra Columns for:"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:547
+#: classes/Admin/Page/Columns.php:548
 msgid "Edit your column content directly"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:535
+#: classes/Admin/Page/Columns.php:536
 msgid "Pro"
 msgstr ""
 
@@ -470,31 +515,31 @@ msgstr ""
 msgid "Imported"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:577
+#: classes/Admin/Page/Columns.php:578
 msgid "Learn more about Pro"
 msgstr "Saiba mais sobre a versão Pro"
 
-#: classes/Admin/Page/Columns.php:549
+#: classes/Admin/Page/Columns.php:550
 msgid "Import &amp; Export settings"
 msgstr "Configurações de importação &amp; exportação"
 
-#: classes/Admin/Page/Columns.php:548
+#: classes/Admin/Page/Columns.php:549
 msgid "Create multiple columns sets"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:546
+#: classes/Admin/Page/Columns.php:547
 msgid "Add filterable columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:545
+#: classes/Admin/Page/Columns.php:546
 msgid "Add sortable columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:540
+#: classes/Admin/Page/Columns.php:541
 msgid "Take Admin Columns to the next level:"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:535
+#: classes/Admin/Page/Columns.php:536
 msgid "Upgrade to"
 msgstr ""
 
@@ -502,11 +547,7 @@ msgstr ""
 msgid "Get %s Off"
 msgstr ""
 
-#: classes/Column/Post/Excerpt.php:21
-msgid "Excerpt from content"
-msgstr ""
-
-#: classes/Admin/Page/Columns.php:447
+#: classes/Admin/Page/Columns.php:448
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
@@ -514,7 +555,7 @@ msgstr ""
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:516
+#: classes/Admin/Page/Columns.php:517
 msgid "Restore columns"
 msgstr "Restaurar colunas"
 
@@ -522,7 +563,7 @@ msgstr "Restaurar colunas"
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:354
+#: classes/Admin/Page/Columns.php:335
 msgid "View %s screen"
 msgstr ""
 
@@ -574,9 +615,9 @@ msgstr ""
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
 msgstr ""
 
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://www.admincolumns.com"
 msgstr "https://www.admincolumns.com"
@@ -621,15 +662,15 @@ msgstr "Atualização"
 msgid "The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro"
 msgstr "O add-on pro não é mais suportado. Por favor faça o login na sua conta e realize o download do Administrador de Colunas Pro"
 
-#: classes/Admin/Page/Columns.php:353
+#: classes/Admin/Page/Columns.php:355
 msgid "Settings for %s updated successfully."
 msgstr "Ajustes para %s atualizados com sucesso."
 
-#: classes/Admin/Page/Columns.php:340
+#: classes/Admin/Page/Columns.php:342
 msgid "You are trying to store the same settings for %s."
 msgstr "Você está tentando armazenar a mesma configuração para %s."
 
-#: classes/ListScreen.php:642
+#: classes/ListScreen.php:652
 msgid "No columns settings available."
 msgstr "Nenhuma configuração de colunas disponível."
 
@@ -683,75 +724,75 @@ msgstr "Desativado"
 msgid "Active"
 msgstr "Ativa"
 
-#: classes/Admin/Page/Columns.php:763
+#: classes/Admin/Page/Columns.php:764
 msgid "Add Column"
 msgstr "Adicionar Coluna"
 
-#: classes/Admin/Page/Columns.php:743
+#: classes/Admin/Page/Columns.php:744
 msgid "Drag and drop to reorder"
 msgstr "Arrastar e solte para reordenar"
 
-#: classes/Admin/Page/Columns.php:692
+#: classes/Admin/Page/Columns.php:693
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
 msgstr "Para a documentação completa, reportação de bugs, sugestões de recursos e outras dicas <a href='%s'>visite o site do Admin de Colunas</a>"
 
-#: classes/Admin/Page/Columns.php:688
+#: classes/Admin/Page/Columns.php:689
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr "Confira a seção de <strong>Ajuda</strong> no canto superior direito da tela."
 
-#: classes/Admin/Page/Columns.php:683
+#: classes/Admin/Page/Columns.php:684
 msgid "Support"
 msgstr "Suporte"
 
-#: classes/Admin/Page/Columns.php:671
+#: classes/Admin/Page/Columns.php:672
 msgid "Buy Pro"
 msgstr "Comprar o Pro"
 
-#: classes/Admin/Page/Columns.php:665
+#: classes/Admin/Page/Columns.php:666
 msgid "Tweet"
 msgstr "Tweetar"
 
-#: classes/Admin/Page/Columns.php:659
+#: classes/Admin/Page/Columns.php:660
 msgid "Rate"
 msgstr "Quantidade"
 
-#: classes/Admin/Page/Columns.php:654
+#: classes/Admin/Page/Columns.php:655
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
 msgstr "Nós realmente adoraríamos se você puder mostrar seu apreço nos avaliando no WordPress.org ou twittar sobre o Administrador de Colunas!"
 
-#: classes/Admin/Page/Columns.php:651
+#: classes/Admin/Page/Columns.php:652
 msgid "Woohoo! We're glad to hear that!"
 msgstr "Woohoo! Estamos felizes em saber disto!"
 
-#: classes/Admin/Page/Columns.php:641
+#: classes/Admin/Page/Columns.php:642
 msgid "Forums"
 msgstr "Forums"
 
-#: classes/Admin/Page/Columns.php:636
+#: classes/Admin/Page/Columns.php:637
 msgid "Docs"
 msgstr "Docs"
 
-#: classes/Admin/Page/Columns.php:631
+#: classes/Admin/Page/Columns.php:632
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
 msgstr "Confira a nossa extensa documentação, ou você pode abrir um tópico de suporte no WordPress.org!"
 
-#: classes/Admin/Page/Columns.php:628
+#: classes/Admin/Page/Columns.php:629
 msgid "What's wrong? Need help? Let us know!"
 msgstr "Algum problema? Precisa de ajuda? Deixe-nos saber!"
 
-#: classes/Admin/Page/Columns.php:618
+#: classes/Admin/Page/Columns.php:619
 msgid "Are you happy with Admin Columns?"
 msgstr "Você está feliz com o Admin Columns?"
 
-#: classes/Admin/Page/Columns.php:515
+#: classes/Admin/Page/Columns.php:516
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:504 classes/Admin/Page/Columns.php:761
+#: classes/Admin/Page/Columns.php:505 classes/Admin/Page/Columns.php:762
 msgid "Update"
 msgstr "Atualizar"
 
-#: classes/Admin/Page/Columns.php:493
+#: classes/Admin/Page/Columns.php:494
 msgid "Store settings"
 msgstr "Configurações armazenadas"
 
@@ -783,7 +824,7 @@ msgstr "Apagará todas as configurações de colunas e restaurar a configuraçã
 msgid "Restore Settings"
 msgstr "Restaurar Configurações"
 
-#: classes/Admin/Page/Columns.php:505 classes/Admin/Page/Columns.php:762
+#: classes/Admin/Page/Columns.php:506 classes/Admin/Page/Columns.php:763
 #: classes/Admin/Page/Settings.php:179
 msgid "Save"
 msgstr "Salvar"
@@ -980,7 +1021,7 @@ msgstr ""
 msgid "Admin Columns Pro"
 msgstr "Admin de Colunas Pro"
 
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.1)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.0.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: classes/Admin/Page/Columns.php:24 classes/Admin.php:130
 #: classes/Notice/Review.php:64
@@ -1035,7 +1076,7 @@ msgstr "Nome"
 msgid "Choose a column type."
 msgstr "Escolha um tipo."
 
-#: classes/Admin/Page/Columns.php:851 classes/Admin/Page/Columns.php:886
+#: classes/Admin/Page/Columns.php:852 classes/Admin/Page/Columns.php:887
 msgid "Clone"
 msgstr "Clone"
 
@@ -1142,7 +1183,7 @@ msgstr "Sobrenome"
 msgid "Comment Count"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:853 classes/Admin/Page/Columns.php:888
+#: classes/Admin/Page/Columns.php:854 classes/Admin/Page/Columns.php:889
 msgid "Remove"
 msgstr "Remover"
 
@@ -1174,7 +1215,7 @@ msgstr "Título sem ações"
 msgid "Sticky"
 msgstr "Sticky"
 
-#: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:14
+#: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:11
 msgid "Status"
 msgstr "Status"
 
@@ -1420,7 +1461,7 @@ msgstr ""
 msgid "Alt"
 msgstr "Alt"
 
-#: classes/Admin/Page/Columns.php:479
+#: classes/Admin/Page/Columns.php:480
 msgid "View"
 msgstr "Ver"
 
@@ -1599,7 +1640,7 @@ msgstr "Aprovado"
 msgid "Agent"
 msgstr "Agente"
 
-#: classes/Admin/Page/Columns.php:848 classes/Column/Link/Actions.php:39
+#: classes/Admin/Page/Columns.php:849 classes/Column/Link/Actions.php:39
 msgid "Edit"
 msgstr "Editar"
 
@@ -1609,14 +1650,16 @@ msgstr "Editar"
 msgid "ID"
 msgstr "ID"
 
-#: classes/Admin/Page/Columns.php:622 classes/Helper/Icon.php:56
+#: classes/Admin/Page/Columns.php:623 classes/Helper/Icon.php:56
 #: classes/Settings/Column/ActionIcons.php:22
+#: classes/Settings/Column/StatusIcon.php:24
 #: classes/Settings/Column/Toggle.php:14
 msgid "No"
 msgstr "Não"
 
-#: classes/Admin/Page/Columns.php:621 classes/Helper/Icon.php:44
+#: classes/Admin/Page/Columns.php:622 classes/Helper/Icon.php:44
 #: classes/Settings/Column/ActionIcons.php:21
+#: classes/Settings/Column/StatusIcon.php:23
 #: classes/Settings/Column/Toggle.php:13
 msgid "Yes"
 msgstr "Sim"

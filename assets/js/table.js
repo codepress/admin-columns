@@ -7,6 +7,7 @@ jQuery( document ).ready( function( $ ) {
 	ac_edit_button( $ );
 	ac_toggle_box( $ );
 	ac_toggle_box_ajax_init( $ );
+	ac_actions_tooltips( $ );
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		ac_set_column_classes( $ );
@@ -15,9 +16,27 @@ jQuery( document ).ready( function( $ ) {
 	} );
 } );
 
+function ac_actions_tooltips( $ ) {
+	$( '.row-actions a' ).qtip( {
+		content : {
+			text : function() {
+				return $( this ).text();
+			}
+		},
+		position : {
+			my : 'top center',
+			at : 'bottom center'
+		},
+		style : {
+			tip : true,
+			classes : 'qtip-tipsy'
+		}
+	} );
+}
+
 function ac_edit_button( $ ) {
 	if ( AC.edit_link ) {
-		$( '.tablenav.top .actions:last' ).append( '<a class="cpac-edit add-new-h2" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
+		$( '.tablenav.top .actions:last' ).append( '<a class="ac-button add-new-h2 ac-button-edit" href="' + AC.edit_link + '">' + AC.i18n.edit_columns + '</a>' );
 	}
 }
 
