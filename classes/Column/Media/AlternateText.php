@@ -7,7 +7,7 @@ class AC_Column_Media_AlternateText extends AC_Column_Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-alternate_text' );
-		$this->set_label( __( 'Alt', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Alternative Text', 'codepress-admin-columns' ) );
 	}
 
 	public function get_meta_key() {

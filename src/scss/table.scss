@@ -19,6 +19,85 @@
 	}
 }
 
+/* =Available Sizes column
+-------------------------------------------------------------- */
+.ac-image-sizes {
+	.ac-missing-size {
+		color: lighten( $ac-gray, 3 );
+	}
+}
+
+/* =Comments bubble
+-------------------------------------------------------------- */
+.ac-comment-bubble {
+	.post-com-count {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.post-com-count-no-comments,
+	.post-com-count-approved {
+		margin-top: 5px;
+	}
+	.comment-count-no-comments,
+	.comment-count-approved {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		display: block;
+		padding: 0 8px;
+		min-width: 24px;
+		height: 2em;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		background-color: #72777c;
+		color: #fff;
+		font-size: 11px;
+		line-height: 21px;
+		text-align: center;
+	}
+
+	.post-com-count-no-comments:after,
+	.post-com-count-approved:after {
+		content: "";
+		display: block;
+		margin-left: 8px;
+		width: 0;
+		height: 0;
+		border-top: 5px solid #72777c;
+		border-right: 5px solid transparent;
+	}
+
+	.post-com-count-approved:hover .comment-count-approved,
+	.post-com-count-approved:focus .comment-count-approved {
+		background: #0073aa;
+	}
+
+	.post-com-count-approved:hover:after,
+	.post-com-count-approved:focus:after {
+		border-top-color: #0073aa;
+	}
+
+	.post-com-count-pending {
+		position: relative;
+		left: -3px;
+		padding: 0 5px;
+		min-width: 7px;
+		height: 17px;
+		border: 2px solid #fff;
+		-webkit-border-radius: 11px;
+		border-radius: 11px;
+		background: #ca4a1f;
+		color: #fff;
+		font-size: 9px;
+		line-height: 17px;
+		text-align: center;
+	}
+
+	.post-com-count-no-pending {
+		display: none;
+	}
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -53,7 +132,7 @@ span.status-closed {
 	margin-bottom: 4px;
 }
 
-.tablenav.top .cpac-edit {
+.tablenav.top .ac-button {
 	top: 2px;
 	display: inline-block;
 	vertical-align: middle;
@@ -125,14 +204,14 @@ body.users-php .tablenav .actions {
 		* {
 			display: none;
 		}
-		.cpac-edit {
+		.ac-button {
 			display: inline-block;
 		}
 	}
 }
 
 // Media screen
-body.upload-php .tablenav.top .cpac-edit {
+body.upload-php .tablenav.top .ac-button {
 	float: none;
 }
 
@@ -342,7 +421,7 @@ table.ac-table-items {
 -------------------------------------------------------------- */
 #form-site-list {
 	.tablenav .actions {
-		.cpac-edit {
+		.ac-button {
 			float: none;
 		}
 	}
@@ -418,12 +497,18 @@ table.ac-table-items {
 
 /* =Images Column
 -------------------------------------------------------------- */
+.ac-image-container {
+	margin-bottom: -6px;
+}
+
 .ac-image {
 	display: inline-block;
 	margin-right: 2px;
+	margin-bottom: 6px;
 	overflow: hidden;
 	max-width: 100%;
 	background-color: #ccc; // some transparent image won't be visible otherwise
+	vertical-align: middle;
 
 	img {
 		display: block;
@@ -553,12 +638,6 @@ div.cpac-color span {
 	margin-right: 0;
 }
 
-/* =Available Sizes column
--------------------------------------------------------------- */
-div.sizes span.not-available {
-	color: #999;
-}
-
 /* =Actions column
 -------------------------------------------------------------- */
 .button.cpac-button-action {
@@ -635,7 +714,9 @@ div.sizes span.not-available {
 				}
 			}
 
-			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve, &.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete {
+			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve,
+			&.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete,
+			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate {
 
 				a {
 					text-indent: -3000px;
@@ -684,6 +765,24 @@ div.sizes span.not-available {
 			}
 			&.delete a:before {
 				content: "\f182";
+			}
+			&.backend a:before {
+				content: "\f226";
+			}
+			&.visit a:before {
+				content: "\f115";
+			}
+			&.deactivate a:before {
+				content: "\f530";
+			}
+			&.archive a:before {
+				content: "\f480";
+			}
+			&.unarchive a:before {
+				content: "\f322";
+			}
+			&.activate a:before {
+				content: "\f177";
 			}
 		}
 	}

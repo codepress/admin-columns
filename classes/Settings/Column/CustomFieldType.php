@@ -229,7 +229,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case "checkmark" :
 				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
-				$value = ac_helper()->icon->yes_or_no( $is_true );
+
+				if ( $is_true ) {
+					$value = ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'green' ) );
+				} else {
+					$value = ac_helper()->icon->dashicon( array( 'icon' => 'no-alt', 'class' => 'red' ) );
+				}
 
 				break;
 			case "color" :

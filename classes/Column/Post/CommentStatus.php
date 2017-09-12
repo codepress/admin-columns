@@ -10,7 +10,7 @@ class AC_Column_Post_CommentStatus extends AC_Column  {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_status' );
-		$this->set_label( __( 'Comment Status', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Allow Comments', 'codepress-admin-columns' ) );
 	}
 
 	public function is_valid() {

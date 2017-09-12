@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 4.8
-Stable tag: 3.0.3
+Tested up to: 4.8.1
+Stable tag: 3.0.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -218,6 +218,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+
 = NEWVERSION =
 
 Release Date: tbd
@@ -226,6 +227,28 @@ Release Date: tbd
 * [Improved] Column widths are now only applied when on a non mobile view.
 * [Improved] Status column can now display icons instead of text
 * [Improved] Post Link setting can be extended now
+
+= 3.0.4 =
+
+Release Date: August 17, 2017
+
+* [Improved] Attachment column: you can now limit the number of items being displayed
+* [Improved] Only apply before/after when the value is not empty
+* [Improved] EXIF Data now have added before and after fields
+* [Improved] Renamed Alt column to Alternative Text
+* [Improved] Renamed Before More Tag column to More Tag
+* [Improved] Renamed Comment Status column to Allow Comments
+* [Improved] Renamed Title without actions column to Title Only
+* [Improved] Available Sizes column for media now has the option to include missing file sizes
+* [Improved] Added Orientation and Keywords to EXIF data column
+* [Improved] Added a tooltip to the actions column
+* [Improved] Date Published column now shows a status icon when the post has not yet been published
+* [Improved] Post Formats column now has the option to show an icons
+* [Improved] Author column can now display the role(s) of the author
+* [Improved] Added many helper methods to ac_helper()
+* [Removed] Removed the "Attached to Post" column. The column has been replaced by the "Uploaded to" column in WordPress 4.0
+* [Fixed] Time difference option in the date column now uses the correct GMT offset
+
 
 = 3.0.3 =
 

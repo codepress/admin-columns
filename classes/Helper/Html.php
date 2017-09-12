@@ -94,9 +94,9 @@ class AC_Helper_Html {
 	 *
 	 * @return string
 	 */
-	public function tooltip( $label, $tooltip ) {
+	public function tooltip( $label, $tooltip, $attributes = array() ) {
 		if ( $label && $tooltip ) {
-			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . '>' . $label . '</span>';
+			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . $this->get_attributes( $attributes ) . '>' . $label . '</span>';
 		}
 
 		return $label;
@@ -400,6 +400,20 @@ class AC_Helper_Html {
 		</span>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * @param string $value HTML
+	 * @param int $removed
+	 *
+	 * @return string
+	 */
+	public function images( $value, $removed = false ) {
+		if ( $removed ) {
+			$value .= ac_helper()->html->rounded( '+' . $removed );
+		}
+
+		return '<div class="ac-image-container">' . $value . '</div>';
 	}
 
 }

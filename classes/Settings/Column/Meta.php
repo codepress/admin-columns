@@ -103,11 +103,11 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 
 		$options = array(
 			'hidden' => array(
-				'title'   => __( 'Hidden Custom Fields', 'codepress-admin-columns' ),
+				'title'   => __( 'Hidden', 'codepress-admin-columns' ),
 				'options' => array(),
 			),
 			'public' => array(
-				'title'   => __( 'Custom Fields', 'codepress-admin-columns' ),
+				'title'   => __( 'Public', 'codepress-admin-columns' ),
 				'options' => array(),
 			),
 		);

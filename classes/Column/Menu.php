@@ -6,11 +6,11 @@
  *
  * @since 2.2.5
  */
-class AC_Column_UsedByMenu extends AC_Column {
+class AC_Column_Menu extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
-		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Menu', 'codepress-admin-columns' ) );
 	}
 
 	/**
