@@ -20,7 +20,9 @@ class AC_Column_Taxonomy extends AC_Column {
 	// Display
 
 	public function get_value( $post_id ) {
-		return implode( __( ', ' ), ac_helper()->taxonomy->get_term_links( get_the_terms( $post_id, $this->get_taxonomy() ), get_post_type( $post_id ) ) );
+		$terms = ac_helper()->taxonomy->get_term_links( get_the_terms( $post_id, $this->get_taxonomy() ), get_post_type( $post_id ) );
+
+		return ac_helper()->string->enumeration_list( $terms, 'and' );
 	}
 
 	public function get_raw_value( $post_id ) {

@@ -3,9 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
-
-	private $intermediate_image_sizes = null;
+class AC_Column_Media_AvailableSizes extends AC_Column_Media_MetaValue {
 
 	public function __construct() {
 		parent::__construct();
@@ -14,18 +12,8 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 		$this->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
 	}
 
-	public function get_intermediate_image_sizes() {
-		if ( null === $this->intermediate_image_sizes ) {
-			$this->intermediate_image_sizes = get_intermediate_image_sizes();
-		}
-
-		return $this->intermediate_image_sizes;
-	}
-
-	public function get_available_sizes( $id ) {
-		$sizes = $this->get_raw_value( $id );
-
-		return $sizes ? array_intersect( array_keys( $sizes ), $this->get_intermediate_image_sizes() ) : false;
+	protected function get_option_name() {
+		return 'sizes';
 	}
 
 	public function get_value( $id ) {
@@ -37,45 +25,66 @@ class AC_Column_Media_AvailableSizes extends AC_Column_Media_Meta {
 
 		$paths = array();
 
-		// available sizes
-		if ( $intersect = array_intersect( array_keys( $sizes ), get_intermediate_image_sizes() ) ) {
+		if ( $available_sizes = $this->get_available_sizes( $sizes ) ) {
 
 			$url = wp_get_attachment_url( $id );
-			$filename = basename( $url );
-			$paths[] = "<a title='{$filename}' href='{$url}'>" . __( 'full size', 'codepress-admin-columns' ) . "</a>";
+			$paths[] = ac_helper()->html->tooltip( ac_helper()->html->link( $url, __( 'original', 'codepress-admin-columns' ) ), basename( $url ) );
 
-			foreach ( $intersect as $size ) {
+			foreach ( $available_sizes as $size ) {
 				$src = wp_get_attachment_image_src( $id, $size );
 
 				if ( ! empty( $src[0] ) ) {
-					$filename = basename( $src[0] );
-					$paths[] = "<a title='{$filename}' href='{$src[0]}' class='available'>{$size}</a>";
+					$paths[] = ac_helper()->html->tooltip( ac_helper()->html->link( $src[0], $size ), basename( $src[0] ) );
 				}
 			}
 		}
 
-		global $_wp_additional_image_sizes;
+		// include missing image sizes?
+		if ( '1' === $this->get_setting( 'include_missing_sizes' )->get_value() ) {
 
-		if ( ! empty( $_wp_additional_image_sizes ) ) {
-			if ( isset( $_wp_additional_image_sizes['post-thumbnail'] ) ) {
-				unset( $_wp_additional_image_sizes['post-thumbnail'] );
-			}
-
-			// image does not have these additional sizes rendered yet
-			if ( $missing = array_diff( array_keys( $_wp_additional_image_sizes ), array_keys( $sizes ) ) ) {
+			if ( $missing = $this->get_missing_sizes( $sizes ) ) {
 				foreach ( $missing as $size ) {
-					$paths[] = "<span title='Missing size: Try regenerate thumbnails with the plugin: Force Regenerate Thumbnails' href='javascript:;' class='not-available'>{$size}</span>";
+					$paths[] = ac_helper()->html->tooltip( $size, sprintf( __( 'Missing image file for size %s.', 'codepress-admin-columns' ), '<em>"' . $size . '"</em>' ), array( 'class' => 'ac-missing-size' ) );
 				}
 			}
 		}
 
-		return "<div class='sizes'>" . implode( ac_helper()->html->divider(), $paths ) . "</div>";
+		return "<div class='ac-image-sizes'>" . implode( ac_helper()->html->divider(), $paths ) . "</div>";
 	}
 
-	public function get_raw_value( $id ) {
-		$value = parent::get_raw_value( $id );
+	/**
+	 * @param array $image_sizes
+	 *
+	 * @return array
+	 */
+	public function get_available_sizes( $image_sizes ) {
+		return array_intersect( array_keys( (array) $image_sizes ), (array) get_intermediate_image_sizes() );
+	}
 
-		return isset( $value['sizes'] ) ? $value['sizes'] : false;
+	/**
+	 * @param array $image_sizes
+	 *
+	 * @return array
+	 */
+	public function get_missing_sizes( $image_sizes ) {
+		global $_wp_additional_image_sizes;
+
+		if ( empty( $_wp_additional_image_sizes ) ) {
+			return array();
+		}
+
+		$additional_size = $_wp_additional_image_sizes;
+
+		if ( isset( $additional_size['post-thumbnail'] ) ) {
+			unset( $additional_size['post-thumbnail'] );
+		}
+
+		// image does not have these additional sizes rendered yet
+		return array_diff( array_keys( (array) $additional_size ), array_keys( (array) $image_sizes ) );
+	}
+
+	public function register_settings() {
+		$this->add_setting( new AC_Settings_Column_MissingImageSize( $this ) );
 	}
 
 }

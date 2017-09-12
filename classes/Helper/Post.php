@@ -111,4 +111,38 @@ class AC_Helper_Post {
 		return $title;
 	}
 
+	/**
+	 * @param WP_Post $post Post
+	 *
+	 * @return false|string Dash icon with tooltip
+	 */
+	public function get_status_icon( $post ) {
+		$icon = false;
+
+		switch ( $post->post_status ) {
+			case 'private' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'hidden', 'class' => 'gray' ) ), __( 'Private' ) );
+				break;
+			case 'publish' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'blue large' ) ), __( 'Published' ) );
+				break;
+			case 'draft' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'edit', 'class' => 'green' ) ), __( 'Draft' ) );
+				break;
+			case 'pending' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
+				break;
+			case 'future' :
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . '</em>' );
+
+				// Missed schedule
+				if ( ( time() - mysql2date( 'G', $post->post_date_gmt ) ) > 0 ) {
+					$icon .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'flag', 'class' => 'gray' ) ), __( 'Missed schedule' ) );
+				}
+				break;
+		}
+
+		return $icon;
+	}
+
 }

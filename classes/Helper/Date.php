@@ -96,6 +96,18 @@ class AC_Helper_Date {
 			return false;
 		}
 
+		switch ( $display_format ) {
+
+			case 'wp_date' :
+				$display_format = get_option( 'date_format' );
+
+				break;
+			case 'wp_date_time' :
+				$display_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+
+				break;
+		}
+
 		// Get date format from the General Settings
 		if ( ! $display_format ) {
 			$display_format = get_option( 'date_format' );

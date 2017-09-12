@@ -7,7 +7,7 @@ class AC_Column_Post_TitleRaw extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-title_raw' );
-		$this->set_label( __( 'Title without actions', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Title Only', 'codepress-admin-columns' ) );
 	}
 
 	function get_raw_value( $post_id ) {

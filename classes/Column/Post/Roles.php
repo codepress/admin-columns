@@ -32,7 +32,11 @@ class AC_Column_Post_Roles extends AC_Column {
 	public function get_raw_value( $post_id ) {
 		$userdata = get_userdata( get_post_field( 'post_author', $post_id ) );
 
-		return empty( $userdata->roles[0] ) ? array() : $userdata->roles;
+		if ( empty( $userdata->roles[0] ) ) {
+			return array();
+		}
+
+		return $userdata->roles;
 	}
 
 }

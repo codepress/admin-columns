@@ -176,7 +176,7 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 	protected function get_size_args() {
 		$size = $this->get_image_size();
 
-		if ( 'cpac-custom' == $size ) {
+		if ( 'cpac-custom' === $size ) {
 			$size = array( $this->get_image_size_w(), $this->get_image_size_h() );
 		}
 

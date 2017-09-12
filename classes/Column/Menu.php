@@ -6,18 +6,25 @@
  *
  * @since 2.2.5
  */
-class AC_Column_UsedByMenu extends AC_Column {
+class AC_Column_Menu extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
-		$this->set_label( __( 'Used by Menu', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Menu', 'codepress-admin-columns' ) );
 	}
 
 	/**
 	 * @see   AC_Column::get_raw_value()
 	 * @since 2.2.5
 	 */
-	function get_raw_value( $object_id ) {
+	public function get_raw_value( $object_id ) {
+		return $this->get_menus( $object_id, array( 'fields' => 'ids' ) );
+	}
+
+	/**
+	 * @return string Object type: 'post', 'page' or 'user'
+	 */
+	public function get_object_type() {
 		$object_type = $this->get_post_type();
 
 		if ( ! $object_type ) {
@@ -28,6 +35,30 @@ class AC_Column_UsedByMenu extends AC_Column {
 			$object_type = $this->get_list_screen()->get_meta_type();
 		}
 
+		return $object_type;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_item_type() {
+		$item_type = $this->get_list_screen()->get_meta_type();
+
+		switch ( $item_type ) {
+			case 'post' :
+				$item_type = 'post_type';
+				break;
+		}
+
+		return $item_type;
+	}
+
+	/**
+	 * @param int $object_id
+	 *
+	 * @return array
+	 */
+	public function get_menu_item_ids( $object_id ) {
 		$menu_item_ids = get_posts( array(
 			'post_type'      => 'nav_menu_item',
 			'posts_per_page' => -1,
@@ -40,19 +71,32 @@ class AC_Column_UsedByMenu extends AC_Column {
 				),
 				array(
 					'key'   => '_menu_item_object',
-					'value' => $object_type,
+					'value' => $this->get_object_type(),
 				),
 			),
 		) );
 
+		return $menu_item_ids;
+	}
+
+	/**
+	 * @param int   $object_id
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	public function get_menus( $object_id, $args = array() ) {
+
+		$menu_item_ids = $this->get_menu_item_ids( $object_id );
+
 		if ( ! $menu_item_ids ) {
-			return false;
+			return array();
 		}
 
-		$menu_ids = wp_get_object_terms( $menu_item_ids, 'nav_menu', array( 'fields' => 'ids' ) );
+		$menu_ids = wp_get_object_terms( $menu_item_ids, 'nav_menu', $args );
 
 		if ( ! $menu_ids || is_wp_error( $menu_ids ) ) {
-			return false;
+			return array();
 		}
 
 		return $menu_ids;

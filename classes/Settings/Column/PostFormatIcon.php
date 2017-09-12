@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Column_StatusIcon extends AC_Settings_Column
+class AC_Settings_Column_PostFormatIcon extends AC_Settings_Column
 	implements AC_Settings_FormatValueInterface {
 
 	/**
@@ -9,7 +9,7 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 	private $use_icon;
 
 	protected function define_options() {
-		return array( 'use_icon' => '' );
+		return array( 'use_icon' => '1' );
 	}
 
 	public function create_view() {
@@ -22,7 +22,7 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 
 		$view = new AC_View( array(
 			'label'   => __( 'Use an icon?', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Use an icon instead of text for displaying the status.', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Use an icon instead of text for displaying.', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
 
@@ -47,30 +47,29 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 		return true;
 	}
 
+	private function use_icon() {
+		return '1' === $this->get_use_icon();
+	}
+
 	/**
 	 * @param string $status
 	 * @param int    $post_id
 	 *
 	 * @return string
 	 */
-	public function format( $status, $post_id ) {
-		global $wp_post_statuses;
+	public function format( $format, $post_id ) {
 
-		$value = $status;
+		if ( $this->use_icon() ) {
+			$value = $this->column->get_empty_char();
 
-		$post = get_post( $post_id );
-
-		if ( $this->get_use_icon() ) {
-			$value = ac_helper()->post->get_status_icon( $post );
-
-			if ( $post->post_password ) {
-				$value .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'lock', 'class' => 'gray' ) ), __( 'Password protected' ) );
+			if ( $format ) {
+				$value = ac_helper()->html->tooltip( '<span class="ac-post-state-format post-state-format post-format-icon post-format-' . esc_attr( $format ) . '"></span>', get_post_format_string( $format ) );
 			}
-		} else if ( isset( $wp_post_statuses[ $status ] ) ) {
-			$value = $wp_post_statuses[ $status ]->label;
+		} else {
+			$value = __( 'Standard', 'codepress-admin-columns' );
 
-			if ( 'future' === $status ) {
-				$value .= " <p class='description'>" . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . "</p>";
+			if ( $format ) {
+				$value = esc_html( get_post_format_string( $format ) );
 			}
 		}
 
