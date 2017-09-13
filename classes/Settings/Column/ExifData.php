@@ -109,7 +109,7 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 		if ( false != $value ) {
 			switch ( $exif_datatype ) {
 				case 'created_timestamp' :
-					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
+					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value );
 
 					break;
 				case 'keywords' :
