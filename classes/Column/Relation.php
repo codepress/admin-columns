@@ -1,29 +1,34 @@
 <?php
 
-interface AC_Column_RelationInterface {
+abstract class AC_Column_Relation {
 
 	/**
-	 * @return bool
+	 * @var string
 	 */
-	public function is_relation_taxonomy();
+	protected $id;
 
 	/**
-	 * @return bool
+	 * @param string $id
 	 */
-	public function is_relation_post_type();
+	public function __construct( $id ) {
+		$this->id = $id;
+	}
 
 	/**
-	 * Should return a relation object or false on failure
-	 *
-	 * @return stdClass|false
-	 */
-	public function get_relation_object();
-
-	/**
-	 * Return the post_type or taxonomy
-	 *
 	 * @return string
 	 */
-	public function get_relation_object_type();
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	abstract public function get_type();
+
+	/**
+	 * @return false|stdClass
+	 */
+	abstract public function get_labels();
 
 }
