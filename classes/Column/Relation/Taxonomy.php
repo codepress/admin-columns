@@ -7,19 +7,23 @@ class AC_Column_Relation_Taxonomy extends AC_Column_Relation {
 	 */
 	private $taxonomy;
 
+	public function __construct( $id ) {
+		parent::__construct( $id );
+
+		$this->taxonomy = get_taxonomy( $this->get_id() );
+	}
+
 	public function get_type() {
 		return 'taxonomy';
 	}
 
+	public function get_taxonomy() {
+		return $this->taxonomy;
+	}
+
 	public function get_labels() {
 		if ( ! $this->taxonomy ) {
-			$taxonomy = get_taxonomy( $this->get_id() );
-
-			if ( ! $taxonomy ) {
-				return false;
-			}
-
-			$this->taxonomy = $taxonomy;
+			return false;
 		}
 
 		return $this->taxonomy->labels;
