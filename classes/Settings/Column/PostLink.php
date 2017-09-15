@@ -57,18 +57,13 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 	}
 
 	protected function get_display_options() {
-		$options = array(
+		return array(
+			''            => __( 'None' ),
 			'edit_post'   => __( 'Edit Post' ),
 			'view_post'   => __( 'View Post' ),
 			'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
-
-		asort( $options );
-
-		$options = array_merge( array( '' => __( 'None' ) ), $options );
-
-		return $options;
 	}
 
 	/**
