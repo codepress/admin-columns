@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_Column_Relation {
+abstract class AC_Relation {
 
 	/**
 	 * @var string

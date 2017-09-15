@@ -1,6 +1,6 @@
 <?php
 
-class AC_Column_Relation_Post extends AC_Column_Relation {
+class AC_Relation_Post extends AC_Relation {
 
 	/**
 	 * @var stdClass
