@@ -129,13 +129,9 @@ class AC_Helper_Html {
 	 * @param string $label
 	 * @param string $column_name
 	 *
-	 * @return string|false HTML
+	 * @return string
 	 */
-	public function toggle_box_ajax( $id, $label, $column_name ) {
-		if ( ! $label ) {
-			return false;
-		}
-
+	public function get_ajax_toggle_box_link( $id, $label, $column_name ) {
 		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
 			'class'              => 'ac-toggle-box-link',
 			'data-column'        => $column_name,
@@ -404,7 +400,7 @@ class AC_Helper_Html {
 
 	/**
 	 * @param string $value HTML
-	 * @param int $removed
+	 * @param int    $removed
 	 *
 	 * @return string
 	 */
