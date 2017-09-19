@@ -11,10 +11,24 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function get_value( $id ) {
-		$collection = new AC_Collection( (array) $this->get_raw_value( $id ) );
-		$removed = $collection->limit( $this->get_setting( 'number_of_items' )->get_value() );
+		$attachment_ids = (array) $this->get_raw_value( $id );
 
-		return ac_helper()->html->images( $this->get_formatted_value( $collection->all() ), $removed );
+		switch ( $this->get_setting( 'attachment_display' )->get_value() ) {
+			case 'thumbnail':
+				$collection = new AC_Collection( $attachment_ids );
+				$removed = $collection->limit( $this->get_setting( 'number_of_items' )->get_value() );
+
+				$value = ac_helper()->html->images( $this->get_formatted_value( $collection->all() ), $removed );
+				break;
+			default:
+				$value = count( $attachment_ids );
+		}
+
+		if ( ! $value ) {
+			$value = $this->get_empty_char();
+		}
+
+		return $value;
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -43,8 +57,7 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Image( $this ) );
-		$this->add_setting( new AC_Settings_Column_NumberOfItems( $this ) );
+		$this->add_setting( new AC_Settings_Column_AttachmentDisplay( $this ) );
 	}
 
 }
