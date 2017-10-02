@@ -218,11 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION
-Release Date: tbd
+= 3.0.5 =
+
+Release Date: October 02, 2017
 
 * [Changed] Changed Ajax value interface
 * [Improvement] Column interface for post relations
+* [Added] Added before/after fields for ID column
 
 = 3.0.4 =
 
