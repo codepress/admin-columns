@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION
+Release Date: tbd
+
+* [Changed] Changed Ajax value interface
+* [Improvement] Column interface for post relations
+
 = 3.0.4 =
 
 Release Date: August 17, 2017
