@@ -218,7 +218,6 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-
 = NEWVERSION =
 
 Release Date: tbd
@@ -227,6 +226,16 @@ Release Date: tbd
 * [Improved] Column widths are now only applied when on a non mobile view.
 * [Improved] Status column can now display icons instead of text
 * [Improved] Post Link setting can be extended now
+
+
+= 3.0.5 =
+
+Release Date: October 02, 2017
+
+* [Changed] Changed Ajax value interface
+* [Improvement] Column interface for post relations
+* [Added] Added before/after fields for ID column
+
 
 = 3.0.4 =
 

@@ -328,9 +328,6 @@ final class AC_TableScreen {
 		 */
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
 
-		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
-		ac_action_column_helper();
-
 		/**
 		 * @since 3.0
 		 *
