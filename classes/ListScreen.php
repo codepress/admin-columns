@@ -240,7 +240,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @param string $layout_id
 	 *
-	 * @return $this
+	 * @return AC_ListScreen
 	 */
 	public function set_layout_id( $layout_id ) {
 		$this->layout_id = $layout_id;
