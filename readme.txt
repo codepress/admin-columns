@@ -224,7 +224,6 @@ Release Date: October 4th, 2017
 
 * [Added] Events Calendar integration add-on is now available from the add-ons tab
 * [Changed] Changed Ajax value interface
-* [Improvement] 
 * [Improvement] Column interface for post relations
 * [Improvement] Attachment count column combined with Attachment column
 * [Added] Added before/after fields for ID column
