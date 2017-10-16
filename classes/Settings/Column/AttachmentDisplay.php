@@ -1,6 +1,7 @@
 <?php
 
-class AC_Settings_Column_AttachmentDisplay extends AC_Settings_Column {
+class AC_Settings_Column_AttachmentDisplay extends AC_Settings_Column
+	implements AC_Settings_FormatValueInterface {
 
 	private $attachment_display;
 
@@ -15,8 +16,7 @@ class AC_Settings_Column_AttachmentDisplay extends AC_Settings_Column {
 
 		switch ( $this->get_attachment_display() ) {
 			case 'thumbnail':
-				$settings[] = new AC_Settings_Column_Image( $this->column );
-				$settings[] = new AC_Settings_Column_NumberOfItems( $this->column );
+				$settings[] = new AC_Settings_Column_Images( $this->column );
 		}
 
 		return $settings;
@@ -57,4 +57,13 @@ class AC_Settings_Column_AttachmentDisplay extends AC_Settings_Column {
 		return true;
 	}
 
+	public function format( $value, $original_value ) {
+		switch ( $this->get_attachment_display() ) {
+			case 'count':
+				$value = count( $value );
+				break;
+		}
+
+		return $value;
+	}
 }
