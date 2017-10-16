@@ -218,10 +218,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 3.0.5 =
+= NEWVERSION =
 
-Release Date: October 02, 2017
+Release Date: October 4th, 2017
 
+* [Added] Events Calendar integration add-on is now available from the add-ons tab
 * [Changed] Changed Ajax value interface
 * [Improvement] Column interface for post relations
 * [Added] Added before/after fields for ID column
