@@ -708,7 +708,7 @@ div.cpac-color span {
 
 			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve,
 			&.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete,
-			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate {
+			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate, &.download {
 
 				a {
 					text-indent: -3000px;
@@ -775,6 +775,9 @@ div.cpac-color span {
 			}
 			&.activate a:before {
 				content: "\f177";
+			}
+			&.download a:before {
+				content: "\f316";
 			}
 		}
 	}

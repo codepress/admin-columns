@@ -163,7 +163,7 @@ class AC_Helper_Html {
 		$_attributes = array();
 
 		foreach ( $attributes as $attribute => $value ) {
-			if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
+			if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target', 'rel', 'download' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
 				$_attributes[] = $this->get_attribute_as_string( $attribute, $value );
 			}
 		}
