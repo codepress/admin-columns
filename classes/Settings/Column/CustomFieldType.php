@@ -26,12 +26,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$settings[] = new AC_Settings_Column_Image( $this->column );
 
 				break;
-			case 'textarea':
-				$settings[] = new AC_Settings_Column_WordLimit( $this->column );
-
-				break;
 			case 'excerpt' :
-				$settings[] = new AC_Settings_Column_CharacterLimit( $this->column );
+				$char_limit = new AC_Settings_Column_CharacterLimit( $this->column );
+				$char_limit->set_default( false );
+
+				$settings[] = new AC_Settings_Column_WordLimit( $this->column );
+				$settings[] = $char_limit;
 
 				break;
 			case 'link' :
@@ -100,7 +100,6 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				'color'    => __( 'Color', 'codepress-admin-columns' ),
 				'date'     => __( 'Date', 'codepress-admin-columns' ),
 				'excerpt'  => __( 'Text' ),
-				'textarea' => __( 'Textarea', 'codepress-admin-columns' ),
 				'image'    => __( 'Image', 'codepress-admin-columns' ),
 				'link'     => __( 'Url', 'codepress-admin-columns' ),
 				'numeric'  => __( 'Number', 'codepress-admin-columns' ),
