@@ -79,7 +79,7 @@ final class AC_TableScreen {
 				if ( 'column-actions' == $column->get_type() ) {
 					$default = $column->get_name();
 
-					if ( $this->current_list_screen instanceof AC_ListScreen_Media && 'title' ) {
+					if ( $this->current_list_screen instanceof AC_ListScreen_Media ) {
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
 					}
 				}
