@@ -27,11 +27,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 
 				break;
 			case 'excerpt' :
-				$char_limit = new AC_Settings_Column_CharacterLimit( $this->column );
-				$char_limit->set_default( false );
-
-				$settings[] = new AC_Settings_Column_WordLimit( $this->column );
-				$settings[] = $char_limit;
+				$settings[] = new AC_Settings_Column_StringLimit( $this->column );
 
 				break;
 			case 'link' :
@@ -97,12 +93,12 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	protected function get_field_type_options() {
 		$grouped_types = array(
 			'basic'      => array(
-				'color'    => __( 'Color', 'codepress-admin-columns' ),
-				'date'     => __( 'Date', 'codepress-admin-columns' ),
-				'excerpt'  => __( 'Text' ),
-				'image'    => __( 'Image', 'codepress-admin-columns' ),
-				'link'     => __( 'Url', 'codepress-admin-columns' ),
-				'numeric'  => __( 'Number', 'codepress-admin-columns' ),
+				'color'   => __( 'Color', 'codepress-admin-columns' ),
+				'date'    => __( 'Date', 'codepress-admin-columns' ),
+				'excerpt' => __( 'Text' ),
+				'image'   => __( 'Image', 'codepress-admin-columns' ),
+				'link'    => __( 'Url', 'codepress-admin-columns' ),
+				'numeric' => __( 'Number', 'codepress-admin-columns' ),
 			),
 			'choice'     => array(
 				'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
