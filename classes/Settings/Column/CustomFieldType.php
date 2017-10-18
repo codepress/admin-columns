@@ -213,7 +213,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$values = array();
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
 					$user = get_userdata( $id );
-					$values[] = ac_helper()->html->link( get_edit_user_link( $user ), ac_helper()->user->get_display_name( $user ) );
+					$values[] = ac_helper()->html->link( get_edit_user_link( $id ), ac_helper()->user->get_display_name( $user ) );
 				}
 
 				$value = implode( ac_helper()->html->divider(), $values );
