@@ -13,13 +13,12 @@ class AC_Settings_Column_NumberOfItems extends AC_Settings_Column {
 
 	protected function define_options() {
 		return array(
-			'number_of_items',
+			'number_of_items' => 10
 		);
 	}
 
 	public function create_view() {
 		$item_limit = $this->create_element( 'number' )
-		                   ->set_attribute( 'placeholder', 0 )
 		                   ->set_attribute( 'step', 1 );
 
 		$view = new AC_View( array(

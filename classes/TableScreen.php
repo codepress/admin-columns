@@ -78,6 +78,10 @@ final class AC_TableScreen {
 			foreach ( $this->current_list_screen->get_columns() as $column ) {
 				if ( 'column-actions' == $column->get_type() ) {
 					$default = $column->get_name();
+
+					if ( $this->current_list_screen instanceof AC_ListScreen_Media ) {
+						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
+					}
 				}
 			};
 
@@ -99,6 +103,22 @@ final class AC_TableScreen {
 		}
 
 		return $default;
+	}
+
+	/**
+	 * Add a download link to the table screen
+	 *
+	 * @param array   $actions
+	 * @param WP_Post $post
+	 */
+	public function set_media_row_actions( $actions, $post ) {
+		$link_attributes = array(
+			'download' => '',
+			'title'    => __( 'Download', 'codepress-admin-columns' ),
+		);
+		$actions['download'] = ac_helper()->html->link( wp_get_attachment_url( $post->ID ), __( 'Download', 'codepress-admin-columns' ), $link_attributes );
+
+		return $actions;
 	}
 
 	/**
@@ -327,9 +347,6 @@ final class AC_TableScreen {
 		 * @see get_column_headers() for filter location
 		 */
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
-
-		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
-		ac_action_column_helper();
 
 		/**
 		 * @since 3.0

@@ -240,7 +240,7 @@ abstract class AC_ListScreen {
 	/**
 	 * @param string $layout_id
 	 *
-	 * @return $this
+	 * @return AC_ListScreen
 	 */
 	public function set_layout_id( $layout_id ) {
 		$this->layout_id = $layout_id;
@@ -813,11 +813,6 @@ abstract class AC_ListScreen {
 		 * @param AC_Column $column Column object
 		 */
 		$value = apply_filters( 'ac/column/value', $value, $id, $column );
-
-		// Display a toggle box with an ajax callback.
-		if ( $column instanceof AC_Column_AjaxValue && $value !== $column->get_empty_char() ) {
-			$value = ac_helper()->html->toggle_box_ajax( $id, $value, $column->get_name() );
-		}
 
 		return $value;
 	}

@@ -57,16 +57,29 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 	}
 
 	protected function get_display_options() {
+		// Default options
 		$options = array(
+			''            => __( 'None' ),
 			'edit_post'   => __( 'Edit Post' ),
 			'view_post'   => __( 'View Post' ),
 			'edit_author' => __( 'Edit Post Author', 'codepress-admin-columns' ),
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
 
-		asort( $options );
+		if ( $this->column instanceof AC_Column_RelationInterface ) {
+			$relation_options = array(
+				'edit_post'   => _x( 'Edit %s', 'post' ),
+				'view_post'   => _x( 'View %s', 'post' ),
+				'edit_author' => _x( 'Edit %s Author', 'post', 'codepress-admin-columns' ),
+				'view_author' => _x( 'View Public %s Author Page', 'post', 'codepress-admin-columns' ),
+			);
 
-		$options = array_merge( array( '' => __( 'None' ) ), $options );
+			$label = $this->column->get_relation_object()->get_labels()->singular_name;
+
+			foreach ( $relation_options as $k => $option ) {
+				$options[ $k ] = sprintf( $option, $label );
+			}
+		}
 
 		return $options;
 	}
