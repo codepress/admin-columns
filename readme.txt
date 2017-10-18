@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 4.7.3
-Stable tag: 3.0
+Tested up to: 4.8.1
+Stable tag: 3.0.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -218,11 +218,73 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: October 4th, 2017
+
+* [Added] Events Calendar integration add-on is now available from the add-ons tab
+* [Changed] Changed Ajax value interface
+* [Improvement] Column interface for post relations
+* [Improvement] Attachment count column combined with Attachment column
+* [Added] Added before/after fields for ID column
+
+= 3.0.4 =
+
+Release Date: August 17, 2017
+
+* [Improved] Attachment column: you can now limit the number of items being displayed
+* [Improved] Only apply before/after when the value is not empty
+* [Improved] EXIF Data now have added before and after fields
+* [Improved] Renamed Alt column to Alternative Text
+* [Improved] Renamed Before More Tag column to More Tag
+* [Improved] Renamed Comment Status column to Allow Comments
+* [Improved] Renamed Title without actions column to Title Only
+* [Improved] Available Sizes column for media now has the option to include missing file sizes
+* [Improved] Added Orientation and Keywords to EXIF data column
+* [Improved] Added a tooltip to the actions column
+* [Improved] Date Published column now shows a status icon when the post has not yet been published
+* [Improved] Post Formats column now has the option to show an icons
+* [Improved] Author column can now display the role(s) of the author
+* [Improved] Added many helper methods to ac_helper()
+* [Removed] Removed the "Attached to Post" column. The column has been replaced by the "Uploaded to" column in WordPress 4.0
+* [Fixed] Time difference option in the date column now uses the correct GMT offset
+
+= 3.0.3 =
+
+Release Date: July 26th, 2017
+
+* [Fixed] Show the type instead of an empty label in the edit columns screen
+* [Fixed] Image URLs are supported again for the Custom Field column
+* [Fixed] Column with a date setting did not always store it's value date format correctly
+* [Improved] Post Status column can now also be displayed as an icon
+* [Improved] Use multibyte function to trim strings for showing a maximum character count
+* [Improved] Excerpt column now displays a text icon when the excerpt is generated from it's content
+* [Added] Added a helper to display star ratings
+
+= 3.0.2 =
+
+Release Date: July 3rd, 2017
+
+* [Fixed] No columns were shown when you saved your columns without visiting the overview page first
+* [Improved] Character limit now strips tags before trimming
+* [Improved] Translations for the core are now fetched from Glotpress
+
+= 3.0.1 =
+
+Release Date: June 12th, 2017
+
+* [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+* [Improved] Fallback for the autoloader to work with lowercase files
+* [Improved] User Nicename available as an option for User display
+* [Fixed] Media Path now shows correct http protocol
+
 = 3.0 =
 
-Release Date: April 4th, 2017
+Release Date: May 3rd, 2017
 
 * [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](https://www.admincolumns.com/documentation/faq/upgrading-from-v3-to-v4/)
+* [Improved] Column will now have a default empty value (dash character)
+* [Improved] A column can now use an ajax callback for displaying it's contents (with AC_Column_AjaxValue interface)
 * [Improved] Updated the User Interface
 * [Improved] Using dashicons instead of image icons
 * [Improved] Action column now always is the primary column

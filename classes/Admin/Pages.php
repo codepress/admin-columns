@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Pages {
+final class AC_Admin_Pages {
 
 	/**
 	 * @var AC_Admin_Page[]

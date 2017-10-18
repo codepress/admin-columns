@@ -7,7 +7,7 @@ class AC_Column_Post_BeforeMoreTag extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-before_moretag' );
-		$this->set_label( __( 'Before More Tag', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'More Tag', 'codepress-admin-columns' ) );
 	}
 
 	public function get_raw_value( $post_id ) {

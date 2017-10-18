@@ -25,7 +25,7 @@ class AC_Helper_Icon {
 		}
 
 		if ( $data->tooltip ) {
-			$attributes[] = 'data-tip="' . esc_attr( $data->tooltip ) . '"';
+			$attributes[] = ac_helper()->html->get_tooltip_attr( $data->tooltip );
 		}
 
 		return '<span class="' . esc_attr( $class ) . '" ' . implode( ' ', $attributes ) . '></span>';
@@ -35,24 +35,24 @@ class AC_Helper_Icon {
 	 * @since 3.0
 	 * @return string
 	 */
-	public function yes( $tooltip = false, $title = true ) {
+	public function yes( $tooltip = false, $title = true, $class = 'green' ) {
 		if ( true === $title ) {
 			$title = __( 'Yes' );
 		}
 
-		return $this->dashicon( array( 'icon' => 'yes', 'class' => 'green', 'title' => $title, 'tooltip' => $tooltip ) );
+		return $this->dashicon( array( 'icon' => 'yes', 'class' => $class, 'title' => $title, 'tooltip' => $tooltip ) );
 	}
 
 	/**
 	 * @since 3.0
 	 * @return string
 	 */
-	public function no( $tooltip = false, $title = true ) {
+	public function no( $tooltip = false, $title = true, $class = 'red' ) {
 		if ( true === $title ) {
 			$title = __( 'No' );
 		}
 
-		return $this->dashicon( array( 'icon' => 'no', 'class' => 'red', 'title' => $title, 'tooltip' => $tooltip ) );
+		return $this->dashicon( array( 'icon' => 'no-alt', 'class' => $class, 'title' => $title, 'tooltip' => $tooltip ) );
 	}
 
 	/**

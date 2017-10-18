@@ -54,10 +54,10 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 		$value = '';
 
 		if ( $file ) {
-			$file = str_replace( 'https://', 'http://', $file );
 
 			switch ( $this->get_path_scope() ) {
 				case 'relative-domain' :
+					$file = str_replace( 'https://', 'http://', $file );
 					$url = str_replace( 'https://', 'http://', home_url( '/' ) );
 
 					if ( strpos( $file, $url ) === 0 ) {
@@ -66,6 +66,7 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 
 					break;
 				case 'relative-uploads' :
+					$file = str_replace( 'https://', 'http://', $file );
 					$upload_dir = wp_upload_dir();
 					$url = str_replace( 'https://', 'http://', $upload_dir['baseurl'] );
 

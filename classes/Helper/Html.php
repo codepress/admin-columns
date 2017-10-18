@@ -56,11 +56,16 @@ class AC_Helper_Html {
 			$label = esc_html( $label );
 		}
 
+		if ( array_key_exists( 'tooltip', $attributes ) ) {
+			$attributes['data-ac-tip'] = $attributes['tooltip'];
+			unset( $attributes['tooltip'] );
+		}
+
 		$allowed = wp_allowed_protocols();
 		$allowed[] = 'skype';
 		$allowed[] = 'call';
 
-		return '<a href="' . esc_url( $url, $allowed ) . '"' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
+		return '<a href="' . esc_url( $url, $allowed ) . '" ' . $this->get_attributes( $attributes ) . '>' . $label . '</a>';
 	}
 
 	/**
@@ -71,17 +76,68 @@ class AC_Helper_Html {
 	}
 
 	/**
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function get_tooltip_attr( $content ) {
+		if ( ! $content ) {
+			return false;
+		}
+
+		return 'data-ac-tip="' . esc_attr( $content ) . '"';
+	}
+
+	/**
 	 * @param $label
 	 * @param $tooltip
 	 *
 	 * @return string
 	 */
-	public function tooltip( $label, $tooltip ) {
-		if ( $label && $tooltip ) {
-			$label = '<span data-tip="' . esc_attr( $tooltip ) . '">' . $label . '</span>';
+	public function tooltip( $label, $tooltip, $attributes = array() ) {
+		if ( ac_helper()->string->is_not_empty( $label ) && $tooltip ) {
+			$label = '<span ' . $this->get_tooltip_attr( $tooltip ) . $this->get_attributes( $attributes ) . '>' . $label . '</span>';
 		}
 
 		return $label;
+	}
+
+	/**
+	 * Displays a toggle Box.
+	 *
+	 * @param string $label
+	 * @param string $contents
+	 */
+	public function toggle_box( $label, $contents ) {
+		if ( ! $label ) {
+			return;
+		}
+
+		if ( $contents ) : ?>
+			<a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
+			<div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
+			<?php
+		else :
+			echo $label;
+		endif;
+	}
+
+	/**
+	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC_Column::get_ajax_value.
+	 *
+	 * @param int    $id
+	 * @param string $label
+	 * @param string $column_name
+	 *
+	 * @return string
+	 */
+	public function get_ajax_toggle_box_link( $id, $label, $column_name ) {
+		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
+			'class'              => 'ac-toggle-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $id,
+			'data-ajax-populate' => 1,
+		) );
 	}
 
 	/**
@@ -107,12 +163,53 @@ class AC_Helper_Html {
 		$_attributes = array();
 
 		foreach ( $attributes as $attribute => $value ) {
-			if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
+			if ( in_array( $attribute, array( 'title', 'id', 'class', 'style', 'target', 'rel', 'download' ) ) || 'data-' === substr( $attribute, 0, 5 ) ) {
 				$_attributes[] = $this->get_attribute_as_string( $attribute, $value );
 			}
 		}
 
 		return ' ' . implode( ' ', $_attributes );
+	}
+
+	/**
+	 * Returns an array with internal / external  links
+	 *
+	 * @param $string
+	 *
+	 * @return false|array [ internal | external ]
+	 */
+	public function get_internal_external_links( $string ) {
+		// Just do a very simple check to check for possible links
+		if ( false === strpos( $string, '<a' ) ) {
+			return false;
+		}
+
+		$internal_links = array();
+		$external_links = array();
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( $string );
+
+		$links = $dom->getElementsByTagName( 'a' );
+
+		foreach ( $links as $link ) {
+			/** @var DOMElement $link */
+			$href = $link->getAttribute( 'href' );
+
+			if ( false !== strpos( $href, home_url() ) ) {
+				$internal_links[] = $href;
+			} else {
+				$external_links[] = $href;
+			}
+		}
+
+		if ( empty( $internal_links ) && empty( $external_links ) ) {
+			return false;
+		}
+
+		return array(
+			$internal_links, $external_links,
+		);
 	}
 
 	/**
@@ -130,7 +227,7 @@ class AC_Helper_Html {
 	 * @param string $name
 	 */
 	public function indicator( $class, $id, $title = false ) { ?>
-        <span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
+		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
 		<?php
 	}
 
@@ -245,18 +342,18 @@ class AC_Helper_Html {
 
 		ob_start();
 		?>
-        <div class="ac-progress-bar<?php echo esc_attr( $class ); ?>">
+		<div class="ac-progress-bar<?php echo esc_attr( $class ); ?>">
 			<?php if ( $args['label_main'] ) : ?>
-                <span class="ac-label-main"><?php echo esc_html( $args['label_main'] ); ?></span>
+				<span class="ac-label-main"><?php echo esc_html( $args['label_main'] ); ?></span>
 			<?php endif; ?>
-            <div class="ac-bar-container">
-                <span class="ac-label-left"><?php echo esc_html( $args['label_left'] ); ?></span>
-                <span class="ac-label-right"><?php echo esc_html( $args['label_right'] ); ?></span>
+			<div class="ac-bar-container">
+				<span class="ac-label-left"><?php echo esc_html( $args['label_left'] ); ?></span>
+				<span class="ac-label-right"><?php echo esc_html( $args['label_right'] ); ?></span>
 				<?php if ( $percentage ) : ?>
-                    <div class="ac-bar" style="width:<?php echo esc_attr( $percentage ); ?>%"></div>
+					<div class="ac-bar" style="width:<?php echo esc_attr( $percentage ); ?>%"></div>
 				<?php endif; ?>
-            </div>
-        </div>
+			</div>
+		</div>
 		<?php
 
 		return ob_get_clean();
@@ -273,10 +370,10 @@ class AC_Helper_Html {
 			echo implode( $glue, $first_set );
 
 			if ( $last_set ) { ?>
-                <span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
-                <span class="ac-show-more-block">
+				<span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
+				<span class="ac-show-more-block">
 					<?php echo $glue . implode( $glue, $first_set ); ?>
-                    <br/>
+					<br/>
                     <span class="ac-more-link-hide">( <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a> )</span>
                 </span>
 				<?php
@@ -287,14 +384,73 @@ class AC_Helper_Html {
 	}
 
 	/**
-     * Return round HTML span
-     *
+	 * Return round HTML span
+	 *
 	 * @param $string
 	 *
 	 * @return string
 	 */
 	public function rounded( $string ) {
-        return '<span class="ac-rounded">' . $string . '</span>';
+		return '<span class="ac-rounded">' . $string . '</span>';
+	}
+
+	/**
+	 * Returns star rating based on X start from $max count. Does support decimals.
+	 *
+	 * @param int $count
+	 * @param int $max
+	 *
+	 * @return string
+	 */
+	public function stars( $count, $max = 0 ) {
+		$stars = array(
+			'filled' => floor( $count ),
+			'half'   => floor( round( ( $count * 2 ) ) - ( floor( $count ) * 2 ) ) ? 1 : 0,
+			'empty'  => 0,
+		);
+
+		$max = absint( $max );
+
+		if ( $max > 0 ) {
+			$star_count = $stars['filled'] + $stars['half'];
+
+			$stars['empty'] = $max - $star_count;
+
+			if ( $star_count > $max ) {
+				$stars['filled'] = $max;
+				$stars['half'] = 0;
+			}
+		}
+
+		$icons = array();
+
+		foreach ( $stars as $type => $count ) {
+			for ( $i = 1; $i <= $count; $i++ ) {
+				$icons[] = ac_helper()->icon->dashicon( array( 'icon' => 'star-' . $type, 'class' => 'ac-value-star' ) );
+			}
+		}
+
+		ob_start();
+		?>
+		<span class="ac-value-stars">
+			<?php echo implode( ' ', $icons ); ?>
+		</span>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * @param string $value HTML
+	 * @param int    $removed
+	 *
+	 * @return string
+	 */
+	public function images( $value, $removed = false ) {
+		if ( $removed ) {
+			$value .= ac_helper()->html->rounded( '+' . $removed );
+		}
+
+		return '<div class="ac-image-container">' . $value . '</div>';
 	}
 
 }

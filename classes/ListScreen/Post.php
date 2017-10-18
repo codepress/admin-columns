@@ -14,14 +14,6 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 		$this->set_list_table_class( 'WP_Posts_List_Table' );
 	}
 
-	/**
-	 * @since 3.0
-	 * @return WP_Post Post object
-	 */
-	protected function get_object_by_id( $post_id ) {
-		return get_post( $post_id );
-	}
-
 	public function set_manage_value_callback() {
 		/* @see WP_Posts_List_Table::column_default */
 		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
@@ -53,6 +45,14 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
+	}
+
+	protected function register_column_types() {
+		$this->register_column_type( new AC_Column_CustomField );
+		$this->register_column_type( new AC_Column_Menu );
+		$this->register_column_type( new AC_Column_Actions );
+
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Post', 'AC_' );
 	}
 
 }

@@ -5,7 +5,7 @@
  */
 class AC_ThirdParty_WPMLColumn {
 
-	CONST COLUMN_NAME = 'icl_translations';
+	const COLUMN_NAME = 'icl_translations';
 
 	private $column;
 

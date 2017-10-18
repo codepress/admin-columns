@@ -63,7 +63,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
  * @return string
  */
 function ac_get_twitter_handle() {
-	return 'wpcolumns';
+	return 'admincolumns';
 }
 
 /**
@@ -81,15 +81,6 @@ function ac_helper() {
  */
 function ac_is_version_gte( $version ) {
 	return version_compare( AC()->get_version(), $version, '>=' );
-}
-
-/**
- * Returns row actions for the WP_List_Tables
- *
- * @return AC_Column_ActionColumnHelper
- */
-function ac_action_column_helper() {
-	return AC_Column_ActionColumnHelper::instance();
 }
 
 /**

@@ -15,10 +15,51 @@ final class AC_TableScreen {
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'load_list_screen_doing_quick_edit' ) );
-		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
+		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
+	}
+
+	/**
+	 * Get column value by ajax.
+	 */
+	public function ajax_get_column_value() {
+		check_ajax_referer( 'ac-ajax' );
+
+		// Get ID of entry to edit
+		$id = intval( filter_input( INPUT_POST, 'pk' ) );
+
+		if ( ! $id ) {
+			$this->ajax_error( __( 'Invalid item ID.', 'codepress-admin-columns' ) );
+		}
+
+		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+
+		if ( ! $list_screen ) {
+			$this->ajax_error( __( 'Invalid list screen.', 'codepress-admin-columns' ) );
+		}
+
+		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
+
+		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
+
+		if ( ! $column ) {
+			$this->ajax_error( __( 'Invalid column.', 'codepress-admin-columns' ) );
+		}
+
+		if ( ! $column instanceof AC_Column_AjaxValue ) {
+			$this->ajax_error( __( 'Invalid method.', 'codepress-admin-columns' ) );
+		}
+
+		// Trigger ajax callback
+		echo $column->get_ajax_value( $id );
+		exit;
+	}
+
+	private function ajax_error( $message ) {
+		wp_die( $message, null, 400 );
 	}
 
 	/**
@@ -37,6 +78,10 @@ final class AC_TableScreen {
 			foreach ( $this->current_list_screen->get_columns() as $column ) {
 				if ( 'column-actions' == $column->get_type() ) {
 					$default = $column->get_name();
+
+					if ( $this->current_list_screen instanceof AC_ListScreen_Media ) {
+						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
+					}
 				}
 			};
 
@@ -55,10 +100,25 @@ final class AC_TableScreen {
 			if ( $this->current_list_screen instanceof ACP_ListScreen_Taxonomy && 'name' !== $default ) {
 				add_filter( 'tag_row_actions', array( $this, 'add_taxonomy_hidden_quick_edit_markup' ), 20, 2 );
 			}
-
 		}
 
 		return $default;
+	}
+
+	/**
+	 * Add a download link to the table screen
+	 *
+	 * @param array   $actions
+	 * @param WP_Post $post
+	 */
+	public function set_media_row_actions( $actions, $post ) {
+		$link_attributes = array(
+			'download' => '',
+			'title'    => __( 'Download', 'codepress-admin-columns' ),
+		);
+		$actions['download'] = ac_helper()->html->link( wp_get_attachment_url( $post->ID ), __( 'Download', 'codepress-admin-columns' ), $link_attributes );
+
+		return $actions;
 	}
 
 	/**
@@ -119,11 +179,15 @@ final class AC_TableScreen {
 
 	/**
 	 * @since 2.2.4
+	 *
+	 * @param AC_ListScreen $list_screen
 	 */
 	public function admin_scripts() {
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
+
+		$list_screen = $this->current_list_screen;
 
 		// Tooltip
 		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
@@ -134,12 +198,12 @@ final class AC_TableScreen {
 		wp_enqueue_style( 'ac-table', AC()->get_plugin_url() . "assets/css/table" . AC()->minified() . ".css", array(), AC()->get_version() );
 
 		wp_localize_script( 'ac-table', 'AC', array(
-				'list_screen'  => $this->current_list_screen->get_key(),
-				'layout'       => $this->current_list_screen->get_layout_id(),
-				'column_types' => $this->get_column_types_mapping( $this->current_list_screen ),
+				'list_screen'  => $list_screen->get_key(),
+				'layout'       => $list_screen->get_layout_id(),
+				'column_types' => $this->get_column_types_mapping( $list_screen ),
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
-				'table_id'     => $this->current_list_screen->get_table_attr_id(),
-				'edit_link'    => $this->get_edit_link( $this->current_list_screen ),
+				'table_id'     => $list_screen->get_table_attr_id(),
+				'edit_link'    => $this->get_edit_link( $list_screen ),
 				'i18n'         => array(
 					'edit_columns' => esc_html( __( 'Edit columns', 'codepress-admin-columns' ) ),
 				),
@@ -149,10 +213,10 @@ final class AC_TableScreen {
 		/**
 		 * @param AC_ListScreen $list_screen
 		 */
-		do_action( 'ac/table_scripts', $this->current_list_screen );
+		do_action( 'ac/table_scripts', $list_screen );
 
 		// Column specific scripts
-		foreach ( $this->current_list_screen->get_columns() as $column ) {
+		foreach ( $list_screen->get_columns() as $column ) {
 			$column->scripts();
 		}
 	}
@@ -191,14 +255,16 @@ final class AC_TableScreen {
 
 				if ( $width = $setting->get_display_width() ) {
 					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
-					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table.acp-overflow-table th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
+					$css_column_width .= "body.acp-overflow-table.ac-" . $this->current_list_screen->get_key() . " .wrap th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
 				}
 			}
 
 			if ( $css_column_width ) : ?>
-                <style>
-                    <?php echo $css_column_width; ?>
-                </style>
+				<style>
+					@media screen and (min-width: 783px) {
+					<?php echo $css_column_width; ?>
+					}
+				</style>
 				<?php
 			endif;
 		}
@@ -229,7 +295,7 @@ final class AC_TableScreen {
 	 *
 	 * @since 1.4.0
 	 */
-	public function admin_head_scripts() {
+	public function admin_footer_scripts() {
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
@@ -242,7 +308,7 @@ final class AC_TableScreen {
 		 *
 		 * @param object CPAC Main Class
 		 */
-		do_action( 'ac/admin_head', $this->current_list_screen, $this );
+		do_action( 'ac/admin_footer', $this->current_list_screen, $this );
 	}
 
 	/**
@@ -266,7 +332,7 @@ final class AC_TableScreen {
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	private function set_current_list_screen( $list_screen ) {
+	public function set_current_list_screen( $list_screen ) {
 		if ( ! $list_screen ) {
 			return;
 		}
@@ -281,9 +347,6 @@ final class AC_TableScreen {
 		 * @see get_column_headers() for filter location
 		 */
 		add_filter( "manage_" . $list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
-
-		// Stores the row actions for each table. Only used by the AC_Column_Actions column.
-		ac_action_column_helper();
 
 		/**
 		 * @since 3.0
@@ -358,6 +421,13 @@ final class AC_TableScreen {
 		// Add mandatory checkbox
 		if ( isset( $columns['cb'] ) ) {
 			$this->column_headings['cb'] = $columns['cb'];
+		}
+
+		// On first visit 'columns' can be empty, because they were put in memory before 'default headings'
+		// were stored. We force get_columns() to be re-populated.
+		if ( ! $this->current_list_screen->get_columns() ) {
+			$this->current_list_screen->reset();
+			$this->current_list_screen->reset_original_columns();
 		}
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {

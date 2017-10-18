@@ -9,7 +9,6 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 		$this->set_screen_base( 'upload' );
 		$this->set_key( 'wp-media' );
 		$this->set_group( 'media' );
-		$this->set_screen_id( 'upload' );
 		$this->set_label( __( 'Media' ) );
 
 		/* @see WP_Media_List_Table */
@@ -34,6 +33,14 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
+	}
+
+	protected function register_column_types() {
+		$this->register_column_type( new AC_Column_CustomField );
+		$this->register_column_type( new AC_Column_Menu );
+		$this->register_column_type( new AC_Column_Actions );
+
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Media', 'AC_' );
 	}
 
 }

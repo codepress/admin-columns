@@ -13,14 +13,45 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 	}
 
 	protected function define_options() {
-		return array( 'exif_datatype' );
+		return array( 'exif_datatype' => 'aperture' );
 	}
 
 	public function create_view() {
+		$setting = $this->create_element( 'select' )
+		                ->set_attribute( 'data-label', 'update' )
+		                ->set_attribute( 'data-refresh', 'column' )
+		                ->set_options( $this->get_exif_types() );
+
 		return new AC_View( array(
 			'label'   => $this->column->get_label(),
-			'setting' => $this->create_element( 'select' )->set_options( $this->get_exif_types() ),
+			'setting' => $setting,
 		) );
+	}
+
+	public function get_dependent_settings() {
+
+		switch ( $this->get_exif_datatype() ) {
+			case 'aperture' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_Aperture( $this->column ) );
+
+				break;
+			case 'focal_length' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_FocalLength( $this->column ) );
+
+				break;
+			case 'iso' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_ISO( $this->column ) );
+
+				break;
+			case 'shutter_speed' :
+				$settings = array( new AC_Settings_Column_BeforeAfter_ShutterSpeed( $this->column ) );
+
+				break;
+			default :
+				$settings = array( new AC_Settings_Column_BeforeAfter( $this->column ) );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -39,11 +70,13 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 			'camera'            => __( 'Camera', 'codepress-admin-columns' ),
 			'caption'           => __( 'Caption', 'codepress-admin-columns' ),
 			'created_timestamp' => __( 'Timestamp', 'codepress-admin-columns' ),
-			'copyright'         => __( 'Copyright EXIF', 'codepress-admin-columns' ),
+			'copyright'         => __( 'Copyright', 'codepress-admin-columns' ),
 			'focal_length'      => __( 'Focal Length', 'codepress-admin-columns' ),
 			'iso'               => __( 'ISO', 'codepress-admin-columns' ),
 			'shutter_speed'     => __( 'Shutter Speed', 'codepress-admin-columns' ),
 			'title'             => __( 'Title', 'codepress-admin-columns' ),
+			'orientation'       => __( 'Orientation', 'codepress-admin-columns' ),
+			'keywords'          => __( 'Keywords', 'codepress-admin-columns' ),
 		);
 
 		natcasesort( $exif_types );
@@ -73,10 +106,14 @@ class AC_Settings_Column_ExifData extends AC_Settings_Column
 		$exif_datatype = $this->get_exif_datatype();
 		$value = isset( $value[ $exif_datatype ] ) ? $value[ $exif_datatype ] : '';
 
-		if ( false !== $value ) {
+		if ( false != $value ) {
 			switch ( $exif_datatype ) {
 				case 'created_timestamp' :
-					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $value ) );
+					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value );
+
+					break;
+				case 'keywords' :
+					$value = ac_helper()->array->implode_recursive( ', ', $value );
 
 					break;
 			}

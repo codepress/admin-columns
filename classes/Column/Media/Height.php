@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_Height extends AC_Column_Media_Meta {
+class AC_Column_Media_Height extends AC_Column_Media_MetaValue {
 
 	public function __construct() {
 		parent::__construct();
@@ -12,16 +12,18 @@ class AC_Column_Media_Height extends AC_Column_Media_Meta {
 		$this->set_label( __( 'Height', 'codepress-admin-columns' ) );
 	}
 
+	protected function get_option_name() {
+		return 'height';
+	}
+
 	public function get_value( $id ) {
 		$value = $this->get_raw_value( $id );
 
-		return $value ? $value . 'px' : ac_helper()->string->get_empty_char();
-	}
+		if ( ! $value ) {
+			return $this->get_empty_char();
+		}
 
-	public function get_raw_value( $id ) {
-		$value = parent::get_raw_value( $id );
-
-		return ! empty( $value['height'] ) ? $value['height'] : false;
+		return $value . 'px';
 	}
 
 }

@@ -36,7 +36,7 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Image( $this ) );
+		$this->add_setting( new AC_Settings_Column_AttachmentDisplay( $this ) );
 	}
 
 }

@@ -73,7 +73,7 @@
         padding: 25px 15px;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        min-height: 160px; }
+        min-height: 162px; }
         .ac-addon ul li .addon-content > *:first-child {
           margin-top: 0; }
         .ac-addon ul li .addon-content > *:last-child {
@@ -99,5 +99,6 @@
             vertical-align: middle;
             font-size: 17px;
             margin: -2px 3px 0 -5px; }
-      .ac-addon ul li.ac-addon-types .addon-header .inner img {
+      .ac-addon ul li.ac-addon-types .addon-header .inner img,
+      .ac-addon ul li.ac-addon-buddypress .addon-header .inner img {
         max-height: 68px; }

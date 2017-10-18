@@ -51,7 +51,7 @@ class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle
 	 */
 	public function format( $menu_ids, $original_value ) {
 		if ( ! $menu_ids ) {
-			return ac_helper()->string->get_empty_char();
+			return $this->column->get_empty_char();
 		}
 
 		$values = array();
@@ -66,7 +66,7 @@ class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle
 			$values[] = $term->name;
 		}
 
-		return implode( $this->column->get_separator(), $values );
+		return wp_sprintf( '%l', $values );
 	}
 
 }

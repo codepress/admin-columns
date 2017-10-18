@@ -1,3 +1,103 @@
+@import '_colors';
+
+/* =Status icons
+-------------------------------------------------------------- */
+.column-status {
+	.dashicons {
+		font-size: 22px;
+
+		&.large {
+			width: 25px;
+			height: 28px;
+			font-size: 28px;
+		}
+
+		&.dashicons-lock {
+			font-size: 15px;
+			margin-left: -2px;
+		}
+	}
+}
+
+/* =Available Sizes column
+-------------------------------------------------------------- */
+.ac-image-sizes {
+	.ac-missing-size {
+		color: lighten( $ac-gray, 3 );
+	}
+}
+
+/* =Comments bubble
+-------------------------------------------------------------- */
+.ac-comment-bubble {
+	.post-com-count {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.post-com-count-no-comments,
+	.post-com-count-approved {
+		margin-top: 5px;
+	}
+	.comment-count-no-comments,
+	.comment-count-approved {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		display: block;
+		padding: 0 8px;
+		min-width: 24px;
+		height: 2em;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		background-color: #72777c;
+		color: #fff;
+		font-size: 11px;
+		line-height: 21px;
+		text-align: center;
+	}
+
+	.post-com-count-no-comments:after,
+	.post-com-count-approved:after {
+		content: "";
+		display: block;
+		margin-left: 8px;
+		width: 0;
+		height: 0;
+		border-top: 5px solid #72777c;
+		border-right: 5px solid transparent;
+	}
+
+	.post-com-count-approved:hover .comment-count-approved,
+	.post-com-count-approved:focus .comment-count-approved {
+		background: #0073aa;
+	}
+
+	.post-com-count-approved:hover:after,
+	.post-com-count-approved:focus:after {
+		border-top-color: #0073aa;
+	}
+
+	.post-com-count-pending {
+		position: relative;
+		left: -3px;
+		padding: 0 5px;
+		min-width: 7px;
+		height: 17px;
+		border: 2px solid #fff;
+		-webkit-border-radius: 11px;
+		border-radius: 11px;
+		background: #ca4a1f;
+		color: #fff;
+		font-size: 9px;
+		line-height: 17px;
+		text-align: center;
+	}
+
+	.post-com-count-no-pending {
+		display: none;
+	}
+}
+
 /* =General
 -------------------------------------------------------------- */
 .ac-divider {
@@ -14,13 +114,25 @@ span.status-closed {
 	color: red;
 }
 
+.ac-value-stars {
+	white-space: nowrap;
+	word-wrap: normal;
+	display: block;
+
+	.ac-value-star {
+		font-size: 16px;
+		width: auto;
+		margin-right: -3px;
+	}
+}
+
 .actions #post-query-submit {
 	float: left;
 	vertical-align: middle;
 	margin-bottom: 4px;
 }
 
-.tablenav.top .cpac-edit {
+.tablenav.top .ac-button {
 	top: 2px;
 	display: inline-block;
 	vertical-align: middle;
@@ -32,12 +144,37 @@ span.status-closed {
 	}
 }
 
-span.dashicons.green {
-	color: #46b450;
-}
-
-span.dashicons.red {
-	color: #dc3232;
+span.dashicons {
+	&.flip {
+		&:before {
+			transform: scale(-1, 1);
+			display: inline-block;
+		}
+	}
+	&.yellow {
+		color: #ffb900;
+	}
+	&.orange {
+		color: #d54e21;
+	}
+	&.red {
+		color: #dc3232;
+	}
+	&.green {
+		color: #46b450;
+	}
+	&.light-gray {
+		color: #bbb;
+	}
+	&.gray {
+		color: #8a8a8a;
+	}
+	&.blue {
+		color: #0073aa;
+	}
+	&.light-blue {
+		color: #00a0d2;
+	}
 }
 
 body.edit-php {
@@ -64,22 +201,224 @@ body.users-php .tablenav .actions {
 		* {
 			display: none;
 		}
-		.cpac-edit {
+		.ac-button {
 			display: inline-block;
 		}
 	}
 }
 
 // Media screen
-body.upload-php .tablenav.top .cpac-edit {
+body.upload-php .tablenav.top .ac-button {
 	float: none;
+}
+
+/* =Column values
+-------------------------------------------------------------- */
+.ac-toggle-box-link {
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+	.spinner {
+		float: none;
+		margin-top: -2px;
+	}
+	&.loading {
+		.spinner {
+			visibility: visible;
+		}
+	}
+}
+
+.ac-toggle-box-contents-ajax {
+	padding: 5px 0 0;
+}
+
+.ac-toggle-box-contents {
+	display: none;
+	padding: 5px 0 0;
+}
+
+table.ac-table-items {
+	border-spacing: 0;
+
+	tr {
+		td {
+			border: 0;
+			margin: 0;
+			padding: 0 0 3px;
+
+			&.ac-table-item-qty {
+				color: #999;
+				padding-right: 6px;
+				text-align: left;
+			}
+		}
+	}
+}
+
+/* =Post Format column
+-------------------------------------------------------------- */
+.ac-post-state-format {
+	&:before {
+		color: rgba(167, 167, 167, 1);
+	}
+}
+
+/* =Image in Content column
+-------------------------------------------------------------- */
+.ac-image-details {
+	.ac-image-info {
+		display: inline-block;
+		border-radius: 7px;
+		padding: 0 9px;
+		min-height: 20px;
+		background-color: #e9e9e9;
+		text-align: left;
+		font-size: 11px;
+		font-weight: bold;
+		margin: 0 6px 5px 0;
+		white-space: nowrap;
+
+		> span {
+			margin-right: 6px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		span {
+			vertical-align: middle;
+			line-height: 20px;
+
+			&.image-id {
+				font-size: 11px;
+				color: #757575;
+			}
+			&.image-file-size {
+				font-size: 12px;
+			}
+			&.image-extension {
+				text-transform: uppercase;
+				font-size: 11px;
+				color: #757575;
+			}
+			&.suffix {
+				display: inline-block;
+				text-transform: uppercase;
+				font-size: 10px;
+				color: #757575;
+				padding-left: 3px;
+				margin-top: -2px;
+			}
+			&.dashicons {
+				margin-top: -2px;
+				color: #757575;
+				font-size: 14px;
+				width: 16px;
+			}
+		}
+	}
+
+	a.ac-image-info {
+		&:hover {
+			color: $wp-color-link;
+
+			span.dashicons {
+				color: $ac-dark;
+			}
+		}
+	}
+}
+
+/* =Storage Space column
+-------------------------------------------------------------- */
+.ac-upload-space {
+	.ac-upload-space-labels {
+		display: table;
+		width: 100%;
+
+		.inner {
+			display: table-row;
+
+			.ac-upload-space-icon {
+				display: table-cell;
+
+				&:before {
+					color: #82878c;
+					content: "\f104";
+					display: inline-block;
+					font-family: 'dashicons', serif;
+					width: 20px;
+					height: 20px;
+					font-size: 18px;
+					line-height: 1;
+					text-decoration: inherit;
+					font-weight: normal;
+					font-style: normal;
+					vertical-align: top;
+					text-align: center;
+					margin-right: 4px;
+				}
+			}
+
+			.ac-upload-space-left {
+				display: table-cell;
+				white-space: nowrap;
+			}
+			.ac-upload-space-right {
+				width: 100%;
+				text-align: right;
+				padding-left: 6px;
+				display: table-cell;
+				white-space: nowrap;
+			}
+		}
+	}
+	.ac-upload-space-progress {
+		margin-top: 6px;
+		height: 3px;
+		background: white;
+		border: 1px solid #dfdfdf;
+		position: relative;
+
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-success;
+			height: 100%;
+			display: block;
+		}
+	}
+
+	&.warning {
+		.ac-upload-space-icon:before {
+			color: $wp-color-warning;
+			content: "\f534";
+			margin-top: 1px;
+		}
+
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-warning;
+		}
+	}
+	&.full {
+		.ac-upload-space-icon:before {
+			color: $wp-color-notification;
+			content: "\f153";
+			margin-top: 1px;
+		}
+
+		.ac-upload-space-progress-bar {
+			background-color: $wp-color-error;
+		}
+	}
 }
 
 /* =Network screen
 -------------------------------------------------------------- */
 #form-site-list {
 	.tablenav .actions {
-		.cpac-edit {
+		.ac-button {
 			float: none;
 		}
 	}
@@ -150,12 +489,18 @@ body.upload-php .tablenav.top .cpac-edit {
 
 /* =Images Column
 -------------------------------------------------------------- */
+.ac-image-container {
+	margin-bottom: -6px;
+}
+
 .ac-image {
 	display: inline-block;
 	margin-right: 2px;
+	margin-bottom: 6px;
 	overflow: hidden;
 	max-width: 100%;
 	background-color: #ccc; // some transparent image won't be visible otherwise
+	vertical-align: middle;
 
 	img {
 		display: block;
@@ -285,12 +630,6 @@ div.cpac-color span {
 	margin-right: 0;
 }
 
-/* =Available Sizes column
--------------------------------------------------------------- */
-div.sizes span.not-available {
-	color: #999;
-}
-
 /* =Actions column
 -------------------------------------------------------------- */
 .button.cpac-button-action {
@@ -367,7 +706,9 @@ div.sizes span.not-available {
 				}
 			}
 
-			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve, &.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete {
+			&.edit, &.inline, &.trash, &.view, &.quickedit, &.approve,
+			&.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete,
+			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate, &.download {
 
 				a {
 					text-indent: -3000px;
@@ -416,6 +757,27 @@ div.sizes span.not-available {
 			}
 			&.delete a:before {
 				content: "\f182";
+			}
+			&.backend a:before {
+				content: "\f226";
+			}
+			&.visit a:before {
+				content: "\f115";
+			}
+			&.deactivate a:before {
+				content: "\f530";
+			}
+			&.archive a:before {
+				content: "\f480";
+			}
+			&.unarchive a:before {
+				content: "\f322";
+			}
+			&.activate a:before {
+				content: "\f177";
+			}
+			&.download a:before {
+				content: "\f316";
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0
+Version: 3.0.4
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -103,6 +103,11 @@ class CPAC {
 	private $api;
 
 	/**
+	 * @var AC_Addons
+	 */
+	private $addons;
+
+	/**
 	 * @since 2.5
 	 */
 	private static $_instance = null;
@@ -133,7 +138,6 @@ class CPAC {
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
 
 		require_once $this->get_plugin_dir() . 'api.php';
-		require_once $this->get_plugin_dir() . 'classes/Column.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -142,6 +146,7 @@ class CPAC {
 		new AC_ThirdParty_WPML();
 
 		// Init
+		$this->addons = new AC_Addons();
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
@@ -152,6 +157,7 @@ class CPAC {
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Notices
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
@@ -161,9 +167,7 @@ class CPAC {
 
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function ready() {
@@ -318,13 +322,11 @@ class CPAC {
 	}
 
 	/**
-	 * Get admin columns add-ons class instance
-	 *
 	 * @since 2.2
-	 * @return AC_Admin_Page_Addons Add-ons class instance
+	 * @return AC_Addons Add-ons class instance
 	 */
 	public function addons() {
-		return $this->admin()->get_page( 'addons' );
+		return $this->addons;
 	}
 
 	/**
@@ -334,8 +336,8 @@ class CPAC {
 		$groups = new AC_Groups();
 
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
-		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 20 );
-		$groups->register_group( 'plugin', __( 'Plugins' ), 30 );
+		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
 		foreach ( $this->addons()->get_missing_addons() as $addon ) {
@@ -473,7 +475,9 @@ class CPAC {
 			$this->register_list_screen( new AC_ListScreen_Link() );
 		}
 
-		// @since 3.0
+		/**
+		 * @since 3.0
+		 */
 		do_action( 'ac/list_screens', $this );
 	}
 
@@ -594,6 +598,7 @@ function cpac() {
 
 /**
  * @since 3.0
+ * @return CPAC
  */
 function AC() {
 	return CPAC::instance();

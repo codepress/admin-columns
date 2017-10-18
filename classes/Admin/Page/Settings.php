@@ -2,9 +2,9 @@
 
 class AC_Admin_Page_Settings extends AC_Admin_Page {
 
-	CONST SETTINGS_NAME = 'cpac_general_options';
+	const SETTINGS_NAME = 'cpac_general_options';
 
-	CONST SETTINGS_GROUP = 'cpac-general-settings';
+	const SETTINGS_GROUP = 'cpac-general-settings';
 
 	private $options;
 
@@ -18,13 +18,14 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
 
 		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
-
-		// Requests
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	public function admin_scripts() {
-    	wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    if ( $this->is_current_screen() ) {
+		    wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings' . AC()->minified() . '.css', array(), AC()->get_version() );
+	    }
 	}
 
 	public function set_capability() {
@@ -83,7 +84,6 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
 		}
@@ -92,7 +92,6 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 			case 'restore_all' :
 				if ( $this->verify_nonce( 'restore-all' ) ) {
-
 					$this->delete_all_column_settings();
 
 					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
@@ -132,7 +131,21 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
             </div>
 			<?php
 		endif;
+	}
 
+	/**
+	 * @param bool $type
+	 *
+	 * @return string
+	 */
+	public function get_default_text( $type = 'on' ) {
+	    $string = __( 'off', 'codepress-admin-columns' );
+
+	    if ( 'on' === $type ) {
+		    $string = __( 'on', 'codepress-admin-columns' );
+        }
+
+		return sprintf( __( "Default is %s.", 'codepress-admin-columns' ), '<code>' . $string . '</code>' );
 	}
 
 	public function display() { ?>
@@ -151,7 +164,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 						<?php
 						$this->single_checkbox( array(
 							'name'          => 'show_edit_button',
-							'label'         => __( "Show \"Edit Columns\" button on admin screens. Default is <code>on</code>.", 'codepress-admin-columns' ),
+							'label'         => sprintf( __( "Show %s button on table screen.", 'codepress-admin-columns' ), '"' . __( 'Edit columns', 'codepress-admin-columns' ) . '"' ) . ' ' . $this->get_default_text( 'on' ),
 							'default_value' => '1',
 						) );
 						?>

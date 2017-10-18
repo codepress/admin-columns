@@ -27,7 +27,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 
 				break;
 			case 'excerpt' :
-				$settings[] = new AC_Settings_Column_CharacterLimit( $this->column );
+				$settings[] = new AC_Settings_Column_StringLimit( $this->column );
 
 				break;
 			case 'link' :
@@ -173,6 +173,17 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	 *
 	 * @return array
 	 */
+	private function get_values_from_array_or_string( $string ) {
+		$string = ac_helper()->array->implode_recursive( ',', $string );
+
+		return ac_helper()->string->comma_separated_to_array( $string );
+	}
+
+	/**
+	 * @param string|array $string
+	 *
+	 * @return array
+	 */
 	private function get_ids_from_array_or_string( $string ) {
 		$string = ac_helper()->array->implode_recursive( ',', $string );
 
@@ -204,20 +215,28 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				$values = array();
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
 					$user = get_userdata( $id );
-					$values[] = ac_helper()->html->link( get_edit_user_link( $user ), ac_helper()->user->get_display_name( $user ) );
+					$values[] = ac_helper()->html->link( get_edit_user_link( $id ), ac_helper()->user->get_display_name( $user ) );
 				}
 
 				$value = implode( ac_helper()->html->divider(), $values );
-				break;
 
-			case 'image' :
+				break;
+			case 'image':
+				$value = new AC_Collection( $this->get_values_from_array_or_string( $value ) );
+
+				break;
 			case 'library_id' :
 				$value = new AC_Collection( $this->get_ids_from_array_or_string( $value ) );
 
 				break;
 			case "checkmark" :
 				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
-				$value = ac_helper()->icon->yes_or_no( $is_true );
+
+				if ( $is_true ) {
+					$value = ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'green' ) );
+				} else {
+					$value = ac_helper()->icon->dashicon( array( 'icon' => 'no-alt', 'class' => 'red' ) );
+				}
 
 				break;
 			case "color" :
@@ -225,7 +244,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				if ( $value && is_scalar( $value ) ) {
 					$value = ac_helper()->string->get_color_block( $value );
 				} else {
-					$value = ac_helper()->string->get_empty_char();
+					$value = false;
 				}
 
 				break;
@@ -245,7 +264,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 							$value = count( $value );
 						}
 					} else {
-						$value = ac_helper()->string->get_empty_char();
+						$value = false;
 					}
 				}
 

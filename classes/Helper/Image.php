@@ -135,14 +135,17 @@ class AC_Helper_Image {
 	/**
 	 * @param mixed        $images
 	 * @param array|string $size
+	 * @param bool         $skip_image_check Skips image check. Useful when the url does not have an image extension like jpg or gif (e.g. gravatar).
 	 *
 	 * @return array
 	 */
-	public function get_images( $images, $size = 'thumbnail' ) {
+	public function get_images( $images, $size = 'thumbnail', $skip_image_check = false ) {
 		$thumbnails = array();
 
 		foreach ( (array) $images as $value ) {
-			if ( ac_helper()->string->is_image( $value ) ) {
+			if ( $skip_image_check && $value && is_string( $value ) ) {
+				$thumbnails[] = $this->get_image_by_url( $value, $size );
+			} else if ( ac_helper()->string->is_image( $value ) ) {
 				$thumbnails[] = $this->get_image_by_url( $value, $size );
 			} // Media Attachment
 			else if ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
@@ -159,8 +162,8 @@ class AC_Helper_Image {
 	 *
 	 * @return string
 	 */
-	public function get_image( $image, $size = 'thumbnail' ) {
-		return implode( $this->get_images( $image, $size ) );
+	public function get_image( $image, $size = 'thumbnail', $skip_image_check = false ) {
+		return implode( $this->get_images( $image, $size, $skip_image_check ) );
 	}
 
 	/**
@@ -201,48 +204,122 @@ class AC_Helper_Image {
 	 * @return string File extension
 	 */
 	public function get_file_extension( $attachment_id ) {
-        return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
+		return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
 	}
 
 	// Helpers
 
 	private function get_file_tooltip_attr( $media_id ) {
-		$filename = $this->get_file_name( $media_id );
-
-		if ( ! $filename ) {
-			return false;
-		}
-
-		return ' data-tip="' . esc_attr( $filename ) . '"';
+		return ac_helper()->html->get_tooltip_attr( $this->get_file_name( $media_id ) );
 	}
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {
 		ob_start(); ?>
-        <span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url(<?php echo esc_attr( $src ); ?>);background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
+		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url(<?php echo esc_attr( $src ); ?>);background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
 
 		<?php
 		return ob_get_clean();
 	}
 
 	private function markup( $src, $width, $height, $media_id = null, $add_extension = false ) {
-	    $class = false;
+		$class = false;
 
-	    if ( $media_id && ! wp_attachment_is_image( $media_id ) ) {
-	        $class = ' ac-icon';
-        }
+		if ( $media_id && ! wp_attachment_is_image( $media_id ) ) {
+			$class = ' ac-icon';
+		}
 
 		ob_start(); ?>
-        <span class="ac-image<?php echo $class; ?>" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
+		<span class="ac-image<?php echo $class; ?>" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
 			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>">
 
 			<?php if ( $add_extension ) : ?>
-                <span class="ac-extension"><?php echo esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
+				<span class="ac-extension"><?php echo esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
 			<?php endif; ?>
 
 		</span>
 
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Return dimensions and file type
+	 *
+	 * @see filesize
+	 *
+	 * @param string $url
+	 *
+	 * @return false|array
+	 */
+	public function get_local_image_info( $url ) {
+		$path = $this->get_local_image_path( $url );
+
+		if ( ! $path ) {
+			return false;
+		}
+
+		return getimagesize( $path );
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return false|string
+	 */
+	public function get_local_image_path( $url ) {
+		$path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
+
+		if ( ! file_exists( $path ) ) {
+			return false;
+		}
+
+		return $path;
+	}
+
+	/**
+	 * @param string $url
+	 *
+	 * @return false|int
+	 */
+	public function get_local_image_size( $url ) {
+		$path = $this->get_local_image_path( $url );
+
+		if ( ! $path ) {
+			return false;
+		}
+
+		return filesize( $path );
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return array
+	 */
+	public function get_image_urls_from_string( $string ) {
+		if ( ! $string ) {
+			return array();
+		}
+
+		if ( ! class_exists( 'DOMDocument' ) ) {
+			return array();
+		}
+
+		$dom = new DOMDocument;
+		@$dom->loadHTML( $string );
+		$dom->preserveWhiteSpace = false;
+
+		$urls = array();
+
+		$images = $dom->getElementsByTagName( 'img' );
+
+		foreach ( $images as $img ) {
+
+			/** @var DOMElement $img */
+			$urls[] = $img->getAttribute( 'src' );
+		}
+
+		return $urls;
 	}
 
 }

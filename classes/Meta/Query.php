@@ -406,7 +406,7 @@ class AC_Meta_Query {
 	}
 
 	/**
-	 * Return last sql that was queries
+	 * Return last sql that was queried
 	 *
 	 * @return string
 	 */

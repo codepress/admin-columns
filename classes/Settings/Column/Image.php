@@ -173,10 +173,10 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 		return true;
 	}
 
-	public function format( $value, $original_value ) {
+	protected function get_size_args() {
 		$size = $this->get_image_size();
 
-		if ( 'cpac-custom' == $size ) {
+		if ( 'cpac-custom' === $size ) {
 			$size = array( $this->get_image_size_w(), $this->get_image_size_h() );
 		}
 
@@ -185,7 +185,11 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 			$size = array( 80, 80 );
 		}
 
-		return ac_helper()->image->get_image( $value, $size );
+		return $size;
+	}
+
+	public function format( $value, $original_value ) {
+		return ac_helper()->image->get_image( $value, $this->get_size_args() );
 	}
 
 }

@@ -29,7 +29,6 @@ jQuery( document ).ready( function( $ ) {
 	cpac_menu( $ );
 	cpac_add_column( $ );
 	cpac_sidebar_feedback( $ );
-
 } );
 
 function ac_show_ajax_message( message, attr_class ) {
@@ -63,7 +62,8 @@ function cpac_submit_form( $ ) {
 				data : columns_data,
 				_ajax_nonce : AC._ajax_nonce,
 				list_screen : AC.list_screen,
-				layout : AC.layout
+				layout : AC.layout,
+				original_columns : AC.original_columns
 			},
 
 			// JSON response
@@ -181,6 +181,7 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
+			$( col ).column_onload();
 		} );
 
 		// ordering of columns
@@ -209,7 +210,7 @@ function cpac_menu( $ ) {
 /*
  * Reset columns
  *
- * @since NEWVERSION
+ * @since 3.0.3
  */
 function cpac_reset_columns( $ ) {
 	var $container = $( '.ac-admin' );
@@ -295,6 +296,7 @@ function cpac_reset_columns( $ ) {
 		var el = $( this );
 		var select = el.find( '[data-refresh="column"]' );
 		var column_name = $( this ).attr( 'data-column-name' );
+		var opened = el.hasClass( 'opened' );
 
 		// Allow plugins to hook into this event
 		$( document ).trigger( 'pre_column_refresh', el );
@@ -305,7 +307,8 @@ function cpac_reset_columns( $ ) {
 			_ajax_nonce : AC._ajax_nonce,
 			list_screen : AC.list_screen,
 			layout : AC.layout,
-			column_name : column_name
+			column_name : column_name,
+			original_columns : AC.original_columns
 		};
 
 		$.each( request_data, function( name, value ) {
@@ -335,7 +338,9 @@ function cpac_reset_columns( $ ) {
 				el.column_bind_events();
 
 				// Open settings
-				el.addClass( 'opened' ).find( '.ac-column-body' ).show();
+				if ( opened ) {
+					el.addClass( 'opened' ).find( '.ac-column-body' ).show();
+				}
 
 				// Allow plugins to hook into this event
 
@@ -367,6 +372,16 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
+	$.fn.column_onload = function() {
+		var column = $( this );
+
+		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+		var column_label = column.find( '.column_label .toggle' );
+		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( column.find( '.column_type .inner' ).html() );
+		}
+	};
+
 	/*
 	 * Form Events
 	 *
@@ -376,6 +391,7 @@ function cpac_reset_columns( $ ) {
 		var column = $( this );
 		var container = column.closest( '.ac-admin ' );
 
+		column.column_onload();
 		// Current column type
 		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
 
@@ -386,9 +402,9 @@ function cpac_reset_columns( $ ) {
 			var msg = $( this ).next( '.msg' ).hide();
 			var $select = $( this );
 
-			var original_columns = [];
+			var current_original_columns = [];
 			container.find( '.ac-column[data-original=1]' ).each( function() {
-				original_columns.push( $( this ).data( 'type' ) );
+				current_original_columns.push( $( this ).data( 'type' ) );
 			} );
 
 			column.addClass( 'loading' );
@@ -399,11 +415,12 @@ function cpac_reset_columns( $ ) {
 				dataType : 'json',
 				data : {
 					action : 'ac_column_select',
-					original_columns : original_columns,
-					_ajax_nonce : AC._ajax_nonce,
 					type : type,
+					current_original_columns : current_original_columns,
+					original_columns : AC.original_columns,
 					list_screen : AC.list_screen,
-					layout : AC.layout
+					layout : AC.layout,
+					_ajax_nonce : AC._ajax_nonce,
 				}
 			} )
 				.done( function( response ) {
@@ -713,6 +730,7 @@ function cpac_reset_columns( $ ) {
 
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
+		$( column ).find( '.ac-column-setting--images' ).cpac_column_setting_image_size();
 	} );
 
 	// Settings fields: Width
@@ -844,6 +862,7 @@ function cpac_reset_columns( $ ) {
 			// Custom input
 			var $radio_custom = $container.find( 'input.custom' );
 			var $input_custom = $container.find( '.ac-setting-input-date__custom' );
+			var $input_value = $container.find( '.ac-setting-input-date__value' );
 			var $example_custom = $container.find( '.ac-setting-input-date__example' );
 			var $selected = $container.find( 'input[type=radio]:checked' );
 			var $help_msg = $container.find( '.help-msg' );
@@ -880,6 +899,7 @@ function cpac_reset_columns( $ ) {
 					$help_msg.html( description ).show();
 				}
 
+				$input_value.val( $input.val() );
 			} );
 
 			// Custom input
@@ -906,6 +926,7 @@ function cpac_reset_columns( $ ) {
 					$example_custom.text( date );
 				} );
 
+				$input_value.val( $custom_value );
 			} );
 
 			// Update date example box

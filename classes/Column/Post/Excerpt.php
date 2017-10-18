@@ -13,8 +13,8 @@ class AC_Column_Post_Excerpt extends AC_Column {
 	public function get_value( $post_id ) {
 		$value = parent::get_value( $post_id );
 
-		if ( $value && ! has_excerpt( $post_id ) ) {
-			$value = '<span class="ac-inline-info">' . __( 'Excerpt from content', 'codepress-admin-columns' ) . '</span> ' . $value;
+		if ( $value && ! has_excerpt( $post_id ) && $value !== $this->get_empty_char() ) {
+			$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'media-text', 'class' => 'gray' ) ), __( 'Excerpt is missing.' ) . ' ' . __( 'Current excerpt is generated from the content.' ) ) . ' ' . $value;
 		}
 
 		return $value;

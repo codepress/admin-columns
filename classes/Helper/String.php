@@ -6,7 +6,11 @@ class AC_Helper_String {
 	 * @since 1.3.1
 	 */
 	public function shorten_url( $url ) {
-		return $url ? '<a title="' . esc_attr( $url ) . '" href="' . esc_attr( $url ) . '">' . esc_html( url_shorten( $url ) ) . '</a>' : false;
+		if ( ! $url ) {
+			return false;
+		}
+
+		return ac_helper()->html->link( $url, url_shorten( $url ), array( 'title' => $url ) );
 	}
 
 	/**
@@ -62,23 +66,39 @@ class AC_Helper_String {
 	 * @return string
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
-		return $string ? wp_trim_words( $string, $num_words, $more ) : false;
+		if ( ! $string ) {
+			return false;
+		}
+
+		return wp_trim_words( $string, $num_words, $more );
 	}
 
 	/**
+	 * Trims a string and strips tags if there is any HTML
+	 *
 	 * @param string $string
 	 * @param int    $limit
 	 *
 	 * @return string
 	 */
-	public function trim_characters( $string, $limit = 10, $trail = '&hellip;' ) {
+	public function trim_characters( $string, $limit = 10, $trail = null ) {
 		$limit = absint( $limit );
 
-		if ( 1 > $limit || strlen( $string ) <= $limit ) {
+		if ( 1 > $limit ) {
 			return $string;
 		}
 
-		return substr( $string, 0, $limit ) . $trail;
+		$string = wp_strip_all_tags( $string );
+
+		if ( mb_strlen( $string ) <= $limit ) {
+			return $string;
+		}
+
+		if ( null === $trail ) {
+			$trail = __( '&hellip;' );
+		}
+
+		return mb_substr( $string, 0, $limit ) . $trail;
 	}
 
 	/**
@@ -144,7 +164,7 @@ class AC_Helper_String {
 	 * @return bool
 	 */
 	public function is_image( $url ) {
-		return $url && is_string( $url ) ? in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) ) : false;
+		return $url && is_string( $url ) && in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) );
 	}
 
 	/**
@@ -212,6 +232,8 @@ class AC_Helper_String {
 	 * @return string Display empty value
 	 */
 	public function get_empty_char() {
+		_deprecated_function( __METHOD__, '3.0', 'AC_Column::get_empty_char' );
+
 		return '&ndash;';
 	}
 
@@ -254,10 +276,12 @@ class AC_Helper_String {
 			return false;
 		}
 
+		if ( 'and' === $compound ) {
+			return wp_sprintf( '%l', $words );
+		}
+
 		if ( 'or' === $compound ) {
 			$compound = __( ' or ', 'codepress-admin-columns' );
-		} else {
-			$compound = __( ' and ', 'codepress-admin-columns' );
 		}
 
 		$last = end( $words );
