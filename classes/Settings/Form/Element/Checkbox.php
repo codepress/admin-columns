@@ -7,6 +7,8 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 	 */
 	protected $vertical;
 
+	protected $multiple;
+
 	protected function get_type() {
 		return 'checkbox';
 	}
@@ -36,7 +38,7 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 	}
 
 	private function get_elements() {
-		if ( 'checkbox' === $this->get_type() ) {
+		if ( $this->is_multiple() ) {
 			$this->set_name( $this->get_name() . '[]' );
 		}
 
@@ -73,8 +75,24 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 		return $elements;
 	}
 
+	public function set_multiple( $multiple ) {
+		$this->multiple = (bool) $multiple;
+
+		return $this;
+	}
+
+	public function is_multiple() {
+		if ( empty( $this->multiple ) ) {
+			return false;
+		}
+
+		return $this->multiple;
+	}
+
 	public function set_vertical( $vertical ) {
 		$this->vertical = (bool) $vertical;
+
+		return $this;
 	}
 
 	public function is_vertical() {
