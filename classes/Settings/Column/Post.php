@@ -76,7 +76,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 			'title'     => __( 'Title' ),
 			'id'        => __( 'ID' ),
 			'author'    => __( 'Author' ),
-			'thumbnail' => __( 'Featured Image' ),
+			'thumbnail' => _x( 'Featured Image', 'post' ),
 		);
 
 		asort( $options );

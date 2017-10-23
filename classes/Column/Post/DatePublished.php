@@ -7,7 +7,7 @@ class AC_Column_Post_DatePublished extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-date_published' );
-		$this->set_label( __( 'Date Published' ) );
+		$this->set_label( __( 'Date Published', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
@@ -26,7 +26,7 @@ class AC_Column_Post_DatePublished extends AC_Column {
 
 				break;
 
-				// Tooltip
+			// Tooltip
 			default :
 				$value = ac_helper()->html->tooltip( $value, ac_helper()->date->date( $post->post_date, 'wp_date_time' ) );
 		}
