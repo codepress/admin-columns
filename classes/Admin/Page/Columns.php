@@ -439,7 +439,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return int
 	 */
 	private function get_discount_percentage() {
-		return 20;
+		return 10;
 	}
 
 	/**

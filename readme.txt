@@ -223,10 +223,11 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: October 4th, 2017
 
 * [Added] Events Calendar integration add-on is now available from the add-ons tab
+* [Added] Added before/after fields for ID column
 * [Changed] Changed Ajax value interface
 * [Improvement] Column interface for post relations
 * [Improvement] Attachment count column combined with Attachment column
-* [Added] Added before/after fields for ID column
+* [Improvement] Pro banner
 
 = 3.0.4 =
 
