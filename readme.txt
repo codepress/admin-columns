@@ -225,6 +225,7 @@ Release Date: October 4th, 2017
 * [Added] Events Calendar integration add-on is now available from the add-ons tab
 * [Added] Added before/after fields for ID column
 * [Changed] Changed Ajax value interface
+* [Fixed] Fixed php warning on count() for php 7.2
 * [Improvement] Column interface for post relations
 * [Improvement] Attachment count column combined with Attachment column
 * [Improvement] Pro banner
