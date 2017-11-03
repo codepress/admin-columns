@@ -445,6 +445,17 @@ abstract class AC_ListScreen {
 
 		$this->column_types[ $column->get_type() ] = $column;
 
+		/**
+		 * Fires when a column type is registered to a list screen. Can be used to attach additional
+		 * functionality to a column type, such as exporting, sorting or filtering
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param AC_Column     $column      Column type object
+		 * @param AC_ListScreen $list_screen List screen object to which the column was registered
+		 */
+		do_action( 'ac/list_screen/column_type_registered', $column, $this );
+
 		return true;
 	}
 
@@ -608,6 +619,17 @@ abstract class AC_ListScreen {
 	 */
 	protected function register_column( AC_Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
+
+		/**
+		 * Fires when a column is registered to a list screen, i.e. when it is created. Can be used
+		 * to attach additional functionality to a column, such as exporting, sorting or filtering
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param AC_Column     $column      Column type object
+		 * @param AC_ListScreen $list_screen List screen object to which the column was registered
+		 */
+		do_action( 'ac/list_screen/column_registered', $column, $this );
 	}
 
 	/**
