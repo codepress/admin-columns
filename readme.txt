@@ -220,7 +220,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = NEWVERSION =
 
-Release Date: October 4th, 2017
+Release Date: tbd
 
 * [Added] Events Calendar integration add-on is now available from the add-ons tab
 * [Added] Added before/after fields for ID column
@@ -229,6 +229,8 @@ Release Date: October 4th, 2017
 * [Improvement] Column interface for post relations
 * [Improvement] Attachment count column combined with Attachment column
 * [Improvement] Pro banner
+* [Improved] Published date shows when a post is not published
+* [Improved] Custom field keys for users are now grouped by site option
 
 = 3.0.4 =
 
@@ -276,6 +278,7 @@ Release Date: July 3rd, 2017
 Release Date: June 12th, 2017
 
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+* [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
 * [Improved] Fallback for the autoloader to work with lowercase files
 * [Improved] User Nicename available as an option for User display
 * [Fixed] Media Path now shows correct http protocol

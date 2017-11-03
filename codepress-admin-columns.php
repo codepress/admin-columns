@@ -30,25 +30,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Only run plugin in the admin
 if ( ! is_admin() ) {
 	return false;
 }
+
+require_once 'classes/Autoloader.php';
+require_once 'classes/Plugin.php';
+require_once 'api.php';
 
 /**
  * The Admin Columns Class
  *
  * @since 1.0
  */
-class CPAC {
-
-	/**
-	 * Basename of the plugin, retrieved through plugin_basename function
-	 *
-	 * @since 1.0
-	 * @var string
-	 */
-	private $plugin_basename;
+class CPAC extends AC_Plugin {
 
 	/**
 	 * Admin Columns settings class instance
@@ -73,12 +68,6 @@ class CPAC {
 	 * @var AC_TableScreen
 	 */
 	private $table_screen;
-
-	/**
-	 * @since 3.0
-	 * @var null|string $version Version number
-	 */
-	private $version = null;
 
 	/**
 	 * @since 3.0
@@ -110,34 +99,29 @@ class CPAC {
 	/**
 	 * @since 2.5
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * @since 2.5
 	 */
 	public static function instance() {
-		if ( null === self::$_instance ) {
-			self::$_instance = new self();
+		if ( null === self::$instance ) {
+			self::$instance = new self;
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$this->plugin_basename = plugin_basename( __FILE__ );
-
 		// Backwards compatibility
 		define( 'CPAC_VERSION', $this->get_version() );
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		// Autoload classes
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
-
-		require_once $this->get_plugin_dir() . 'api.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -170,8 +154,21 @@ class CPAC {
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
 	}
 
-	public function ready() {
+	/**
+	 * @return string
+	 */
+	protected function get_file() {
+		return __FILE__;
+	}
 
+	/**
+	 * @return string
+	 */
+	protected function get_version_key() {
+		return 'ac_version';
+	}
+
+	public function ready() {
 		/**
 		 * For loading external resources, e.g. column settings.
 		 * Can be called from plugins and themes.
@@ -183,35 +180,7 @@ class CPAC {
 	 * @return AC_Autoloader
 	 */
 	public function autoloader() {
-		require_once $this->get_plugin_dir() . 'classes/Autoloader.php';
-
 		return AC_Autoloader::instance();
-	}
-
-	/**
-	 * @since 3.0
-	 * @return string Path to plugin dir
-	 */
-	public function get_plugin_dir() {
-		return plugin_dir_path( __FILE__ );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function get_plugin_url() {
-		return plugin_dir_url( __FILE__ );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function get_version() {
-		if ( null === $this->version ) {
-			$this->version = $this->get_plugin_version( __FILE__ );
-		}
-
-		return $this->version;
 	}
 
 	/**
@@ -226,18 +195,11 @@ class CPAC {
 	}
 
 	/**
-	 * @since 3.0
-	 */
-	public function get_upgrade_version() {
-		return '2.0.0';
-	}
-
-	/**
 	 * @since 2.2
 	 * @uses  load_plugin_textdomain()
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
 	}
 
 	/**
@@ -291,7 +253,7 @@ class CPAC {
 	 * @see   filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file === $this->plugin_basename ) {
+		if ( $file === $this->get_basename() ) {
 			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'settings' ), __( 'Settings' ) ) );
 		}
 
@@ -553,13 +515,17 @@ class CPAC {
 	 */
 	public function display_notices() {
 		if ( $this->notices ) {
-			echo implode( $this->notices );
+			echo implode( array_unique( $this->notices ) );
 		}
 	}
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type    'updated', 'error' or 'notice-warning'
+	 * @param string $type
+	 *                        'updated' is green
+	 *                        'error' is red
+	 *                        'notice-warning' is yellow
+	 *                        'notice-info' is blue
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -586,7 +552,6 @@ class CPAC {
 	public function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
-
 }
 
 /**

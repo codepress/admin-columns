@@ -143,27 +143,64 @@ class AC_Helper_User {
 	 *
 	 * @param string       $key
 	 * @param array|string $value
+	 * @param array|string $prev_value
 	 */
 	public function update_meta_site( $key, $value, $prev_value = '' ) {
-		return update_user_meta( get_current_user_id(), $key . get_current_blog_id(), $value, $prev_value );
+		return $this->update_user_meta_site( get_current_user_id(), $key, $value, $prev_value );
 	}
 
 	/**
 	 * Get current user meta data
 	 *
 	 * @param string $key
+	 * @param bool   $single
 	 */
 	public function get_meta_site( $key, $single = false ) {
-		return get_user_meta( get_current_user_id(), $key . get_current_blog_id(), $single );
+		return $this->get_user_meta_site( get_current_user_id(), $key, $single );
 	}
 
 	/**
 	 * Get current user meta data
 	 *
 	 * @param string $key
+	 * @param string $value
 	 */
 	public function delete_meta_site( $key, $value = '' ) {
-		return delete_user_meta( get_current_user_id(), $key . get_current_blog_id(), $value );
+		return $this->delete_user_meta_site( get_current_user_id(), $key, $value );
+	}
+
+	/**
+	 * Store current user meta data that is compatible with multi sites
+	 *
+	 * @param int          $user_id
+	 * @param string       $key
+	 * @param array|string $value
+	 * @param array|string $prev_value
+	 */
+	public function update_user_meta_site( $user_id, $key, $value, $prev_value = '' ) {
+		return update_user_meta( $user_id, $key . get_current_blog_id(), $value, $prev_value );
+	}
+
+	/**
+	 * Get current user meta data
+	 *
+	 * @param int    $user_id
+	 * @param string $key
+	 * @param bool   $single
+	 */
+	public function get_user_meta_site( $user_id, $key, $single = false ) {
+		return get_user_meta( $user_id, $key . get_current_blog_id(), $single );
+	}
+
+	/**
+	 * Get current user meta data
+	 *
+	 * @param int    $user_id
+	 * @param string $key
+	 * @param string $value
+	 */
+	public function delete_user_meta_site( $user_id, $key, $value = '' ) {
+		return delete_user_meta( $user_id, $key . get_current_blog_id(), $value );
 	}
 
 }

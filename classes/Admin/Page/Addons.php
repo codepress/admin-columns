@@ -2,13 +2,6 @@
 
 class AC_Admin_Page_Addons extends AC_Admin_Page {
 
-	/**
-	 * User meta key for hiding "Install addons" notice
-	 *
-	 * @since 2.4.9
-	 */
-	const OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY = 'cpac-hide-install-addons-notice';
-
 	public function __construct() {
 		$this
 			->set_slug( 'addons' )
@@ -153,7 +146,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		if ( ac_helper()->user->get_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
+		if ( $this->hide_notice() ) {
 			return;
 		}
 
@@ -186,12 +179,19 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	}
 
 	/**
+	 * @return bool
+	 */
+	private function hide_notice() {
+		return (bool) get_user_meta( get_current_user_id(), 'ac-hide-notice-addons', true );
+	}
+
+	/**
 	 * Ajax callback for hiding the "Missing addons" notice used for notifying users of available integration addons for plugins they have installed
 	 *
 	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
-		ac_helper()->user->update_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, '1', true );
+		update_user_meta( get_current_user_id(), 'ac-hide-notice-addons', true );
 	}
 
 	/**

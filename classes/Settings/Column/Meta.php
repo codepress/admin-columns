@@ -47,6 +47,13 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 		return $this->column->get_list_screen()->get_storage_key();
 	}
 
+	/**
+	 * @return string
+	 */
+	protected function get_meta_type() {
+		return $this->column->get_list_screen()->get_meta_type();
+	}
+
 	protected function get_cache_group() {
 		return 'ac_settings_meta';
 	}
@@ -96,46 +103,98 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 		wp_cache_add( $this->get_cache_key(), $data, $this->get_cache_group(), $expire );
 	}
 
+	/**
+	 * @return array
+	 */
+	protected function get_meta_groups() {
+		global $wpdb;
+
+		$groups = array(
+			''  => __( 'Public', 'codepress-admin-columns' ),
+			'_' => __( 'Hidden', 'codepress-admin-columns' ),
+		);
+
+		// User only
+		if ( 'user' === $this->get_meta_type() ) {
+
+			if ( is_multisite() ) {
+				foreach ( get_sites() as $site ) {
+					$groups[ $wpdb->get_blog_prefix( $site->blog_id ) ] = __( 'Network Site:', 'codepress-admin-columns' ) . ' ' . ac_helper()->network->get_site_option( $site->blog_id, 'blogname' );
+				}
+			} else {
+				$groups[ $wpdb->get_blog_prefix() ] = __( 'Site Options', 'codepress-admin-columns' );
+			}
+		}
+
+		return $groups;
+	}
+
+	/**
+	 * @param array $keys
+	 *
+	 * @return array
+	 */
 	private function group_keys( $keys ) {
 		if ( ! $keys ) {
 			return array();
 		}
 
-		$options = array(
-			'hidden' => array(
-				'title'   => __( 'Hidden', 'codepress-admin-columns' ),
-				'options' => array(),
-			),
-			'public' => array(
-				'title'   => __( 'Public', 'codepress-admin-columns' ),
-				'options' => array(),
-			),
-		);
+		$grouped = array();
 
-		foreach ( $keys as $field ) {
-			$group = 0 === strpos( $field[0], '_' ) ? 'hidden' : 'public';
+		$groups = $this->get_meta_groups();
 
-			$options[ $group ]['options'][ $field ] = $field;
+		// groups are ordered desc because the prefixes without a blog id ( e.g. wp_ ) should be matched last.
+		krsort( $groups );
+
+		foreach ( $groups as $prefix => $title ) {
+
+			$options = array();
+
+			foreach ( $keys as $k => $key ) {
+
+				// Match prefix with meta key
+				if ( $prefix && 0 === strpos( $key, $prefix ) ) {
+					$options[ $key ] = $key;
+
+					unset( $keys[ $k ] );
+				}
+			}
+
+			if ( $options ) {
+				$grouped[ $prefix ] = array(
+					'title'   => $title,
+					'options' => $options,
+				);
+			}
 		}
 
-		krsort( $options ); // public first
+		ksort( $grouped );
 
-		if ( empty( $options['hidden']['options'] ) ) {
-			unset( $options['hidden'] );
+		// Default group
+		if ( $keys ) {
+			$default = array(
+				'title'   => $groups[''],
+				'options' => array_combine( $keys, $keys ),
+			);
+
+			array_unshift( $grouped, $default );
 		}
 
-		if ( empty( $options['public']['options'] ) ) {
-			unset( $options['public'] );
+		// Place the hidden group at the end
+		if ( isset( $grouped['_'] ) ) {
+			array_push( $grouped, $grouped['_'] );
+
+			unset( $grouped['_'] );
 		}
 
 		// Remove groups when there is only one group
-		if ( 1 === count( $options ) ) {
-			$options = array_pop( $options );
+		if ( 1 === count( $grouped ) ) {
+			$grouped = array_pop( $grouped );
 
-			$options = $options['options'];
+			$grouped = $grouped['options'];
 		}
 
-		return $options;
+		return $grouped;
 	}
 
 }
