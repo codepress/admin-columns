@@ -46,6 +46,11 @@ class AC_Column {
 	protected $list_screen;
 
 	/**
+	 * @var AC_Container
+	 */
+	private $services;
+
+	/**
 	 * The options managed by the settings
 	 *
 	 * @var array
@@ -115,6 +120,20 @@ class AC_Column {
 		$this->list_screen = $list_screen;
 
 		return $this;
+	}
+
+	/**
+	 * Container to inject and get services for this column
+	 *
+	 * @since NEWVERSION
+	 * @return AC_Container
+	 */
+	public function services() {
+		if ( null === $this->services ) {
+			$this->services = new AC_Container();
+		}
+
+		return $this->services;
 	}
 
 	/**
