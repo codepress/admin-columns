@@ -35,12 +35,12 @@ class AC_Plugin_Updater {
 	 * @param array     $updates Key should contain version, value should be an array with callbacks
 	 */
 	public function parse_updates( AC_Plugin $plugin, array $updates ) {
-		if ( $this->show_notice || version_compare( $plugin->get_version(), $plugin->get_stored_version(), '>=' ) ) {
+		if ( $this->show_notice || version_compare( $plugin->get_version(), $plugin->get_stored_version(), '<=' ) ) {
 			return;
 		}
 
 		foreach ( $updates as $version => $callbacks ) {
-			if ( version_compare( $plugin->get_version(), $version, '>=' ) ) {
+			if ( version_compare( $plugin->get_stored_version(), $version, '>=' ) ) {
 				continue;
 			}
 
@@ -59,6 +59,12 @@ class AC_Plugin_Updater {
 		}
 
 		$plugin->update_stored_version();
+
+		add_action( 'admin_init', array( $this, 'redirect_after_update' ) );
+	}
+
+	public function redirect_after_update() {
+		wp_redirect( remove_query_arg( 'ac_do_update' ) );
 	}
 
 	public function show_update_notice() {
