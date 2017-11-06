@@ -231,6 +231,11 @@ Release Date: tbd
 * [Improvement] Pro banner
 * [Improved] Published date shows when a post is not published
 * [Improved] Custom field keys for users are now grouped by site option
+* [Improvement] Added the AC_Plugin class as a more DRY approach to asking meta data about a plugin
+* [Improvement] Redone the way user preferences are stored. Less records and better compatible with Multisite.
+* [Improvement] Added the option to write database updates and apply them on a new version
+* [Improvement] Empty character is just a method now instead of getter/setter with a filter
+* [Improvement] Added AC_Services class to register services to a column on the fly (DI approach)
 
 = 3.0.4 =
 
