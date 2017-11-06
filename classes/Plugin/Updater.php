@@ -56,9 +56,9 @@ class AC_Plugin_Updater {
 					call_user_func( $callback );
 				}
 			}
-
-			$plugin->update_stored_version();
 		}
+
+		$plugin->update_stored_version();
 	}
 
 	public function show_update_notice() {
