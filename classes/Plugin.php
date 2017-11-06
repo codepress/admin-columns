@@ -139,10 +139,19 @@ abstract class AC_Plugin {
 		$key = $this->get_version_key();
 
 		if ( $this->is_network_only() ) {
-			$this->stored_version = get_site_option( $key );
+			$stored_version = get_site_option( $key );
 		} else {
-			$this->stored_version = get_option( $key );
+			$stored_version = get_option( $key );
 		}
+
+		// No version found? Assume a clean install.
+		if ( empty( $this->stored_version ) ) {
+			$this->update_stored_version();
+
+			$stored_version = $this->get_version();
+		}
+
+		$this->stored_version = $stored_version;
 	}
 
 	/**
