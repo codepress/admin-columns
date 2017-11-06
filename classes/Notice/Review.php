@@ -50,11 +50,11 @@ class AC_Notice_Review {
 	 * @return bool
 	 */
 	public function hide_notice() {
-		return (bool) get_user_meta( get_current_user_id(), 'ac-hide-notice-review', true );
+		return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_review', true );
 	}
 
 	public function ajax_hide_review_notice() {
-		update_user_meta( get_current_user_id(), 'ac-hide-notice-review', true );
+		update_user_meta( get_current_user_id(), 'ac_hide_notice_review', true );
 	}
 
 	public function display_review_notice() {

@@ -182,7 +182,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * @return bool
 	 */
 	private function hide_notice() {
-		return (bool) get_user_meta( get_current_user_id(), 'ac-hide-notice-addons', true );
+		return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 	}
 
 	/**
@@ -191,7 +191,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
-		update_user_meta( get_current_user_id(), 'ac-hide-notice-addons', true );
+		update_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 	}
 
 	/**
