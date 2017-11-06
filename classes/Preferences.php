@@ -31,7 +31,7 @@ class AC_Preferences {
 		}
 
 		$this->user_id = intval( $user_id );
-		$this->label = sanitize_key( $label );
+		$this->label = sanitize_key( (string) $label );
 		$this->data = $this->load();
 	}
 
@@ -98,6 +98,10 @@ class AC_Preferences {
 	 * Reset all preferences for all users that match on the current label
 	 */
 	public function reset_for_all_users() {
+		if ( empty( $this->label ) ) {
+			return false;
+		}
+
 		global $wpdb;
 
 		$sql = "
