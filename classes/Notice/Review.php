@@ -3,24 +3,18 @@
 class AC_Notice_Review {
 
 	public function __construct() {
-		register_activation_hook( __FILE__, array( $this, 'insert_install_timestamp' ) );
-
 		add_action( 'admin_init', array( $this, 'maybe_display_review_notice' ) );
-		add_action( 'wp_ajax_cpac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
-	}
-
-	public function insert_install_timestamp() {
-		update_option( 'ac-install-timestamp', time() );
+		add_action( 'wp_ajax_ac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
 	}
 
 	/**
 	 * @return string
 	 */
-	private function get_install_timestamp() {
-		$timestamp = get_option( 'ac-install-timestamp' );
+	private function get_first_login_timestamp() {
+		$timestamp = get_user_meta( get_current_user_id(), 'ac-first-login-timestamp', true );
 
-		if ( '' == $timestamp ) {
-			$this->insert_install_timestamp();
+		if ( empty( $timestamp ) ) {
+			update_user_meta( get_current_user_id(), 'ac-first-login-timestamp', time() );
 
 			$timestamp = time();
 		}
@@ -28,6 +22,9 @@ class AC_Notice_Review {
 		return $timestamp;
 	}
 
+	/**
+	 * Display review notice after 30 days of first login by an admin
+	 */
 	public function maybe_display_review_notice() {
 		if ( AC()->suppress_site_wide_notices() ) {
 			return;
@@ -41,10 +38,12 @@ class AC_Notice_Review {
 			return;
 		}
 
-		// Display notice after 30 days
-		if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) >= $this->get_install_timestamp() ) {
-			add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
+		// Display notice after 30 days of first login
+		if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) <= $this->get_first_login_timestamp() ) {
+			return;
 		}
+
+		add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
 	}
 
 	/**
@@ -128,7 +127,7 @@ class AC_Notice_Review {
 						}
 
 						$.post( ajaxurl, {
-							'action' : 'cpac_hide_review_notice'
+							'action' : 'ac_hide_review_notice'
 						}, function() {
 							if ( !soft ) {
 								el.find( '.spinner' ).remove();
