@@ -19,7 +19,11 @@ class AC_Helper_User {
 			$user = get_userdata( $user );
 		}
 
-		if ( ! $user || is_a( $user, 'WP_User' ) ) {
+		if ( ! $user ) {
+			return false;
+		}
+
+		if ( ! is_a( $user, 'WP_User' ) ) {
 			return false;
 		}
 
