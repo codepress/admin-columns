@@ -48,7 +48,7 @@ class AC_Preferences {
 	 * @return array|string
 	 */
 	private function load() {
-		return get_user_option( $this->get_key(), $this->user_id );
+		return (array) get_user_option( $this->get_key(), $this->user_id );
 	}
 
 	/**
