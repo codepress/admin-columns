@@ -309,6 +309,7 @@ Release Date: May 3rd, 2017
 * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
 * [Added] New method for singleton for Admin Columns main class. 'ac()'
 * [Fixed] Comment Response column is no longer displayed in the table when viewing "Comments On".
+* [Fixed] Post Roles columns works again
 
 = 2.5.6.4 =
 
