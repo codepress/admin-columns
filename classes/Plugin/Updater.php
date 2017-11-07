@@ -58,7 +58,7 @@ class AC_Plugin_Updater {
 			}
 		}
 
-		$plugin->update_stored_version();
+		$plugin->update_stored_version( $plugin->get_version() );
 
 		add_action( 'admin_init', array( $this, 'redirect_after_update' ) );
 	}
