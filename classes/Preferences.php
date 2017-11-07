@@ -12,7 +12,7 @@ class AC_Preferences {
 	 *
 	 * @var array
 	 */
-	protected $data;
+	protected $data = array();
 
 	/**
 	 * The label for this set of preferences
@@ -32,7 +32,7 @@ class AC_Preferences {
 
 		$this->user_id = intval( $user_id );
 		$this->label = sanitize_key( (string) $label );
-		$this->data = $this->load();
+		$this->load();
 	}
 
 	/**
@@ -44,17 +44,20 @@ class AC_Preferences {
 		return 'ac_preferences_' . $this->label;
 	}
 
-	/**
-	 * @return array|string
-	 */
 	private function load() {
-		return (array) get_user_option( $this->get_key(), $this->user_id );
+		$data = get_user_option( $this->get_key(), $this->user_id );
+
+		if ( is_array( $data ) ) {
+			foreach ( $data as $k => $v ) {
+				$this->set( $k, $v, false );
+			}
+		}
 	}
 
 	/**
 	 * @return bool
 	 */
-	private function save() {
+	public function save() {
 		return (bool) update_user_option( $this->user_id, $this->get_key(), $this->data );
 	}
 
@@ -74,24 +77,38 @@ class AC_Preferences {
 	/**
 	 * @param string $key
 	 * @param mixed  $data
+	 * @param bool   $save Immediately save changes to database
 	 *
 	 * @return bool
 	 */
-	public function set( $key, $data ) {
+	public function set( $key, $data, $save = true ) {
 		$this->data[ $key ] = $data;
 
-		return $this->save();
+		if ( $save ) {
+			return $this->save();
+		}
+
+		return true;
 	}
 
 	/**
 	 * @param string $key
+	 * @param bool   $save Immediately save changes to database
 	 *
 	 * @return bool
 	 */
-	public function delete( $key ) {
+	public function delete( $key, $save = true ) {
+		if ( ! $this->get( $key ) ) {
+			return false;
+		}
+
 		unset( $this->data[ $key ] );
 
-		return $this->save();
+		if ( $save ) {
+			return $this->save();
+		}
+
+		return true;
 	}
 
 	/**
