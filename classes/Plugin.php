@@ -144,27 +144,20 @@ abstract class AC_Plugin {
 			$stored_version = get_option( $key );
 		}
 
-		// No version found? Assume a clean install.
-		if ( empty( $this->stored_version ) ) {
-			$this->update_stored_version();
-
-			$stored_version = $this->get_version();
-		}
-
 		$this->stored_version = $stored_version;
 	}
 
 	/**
 	 * Update the stored version to match the (current) version
 	 */
-	public function update_stored_version() {
+	public function update_stored_version( $version ) {
 		$key = $this->get_version_key();
 
 		if ( $this->is_network_only() ) {
-			return update_site_option( $key, $this->get_version() );
+			return update_site_option( $key, $version );
 		}
 
-		return update_option( $key, $this->get_version() );
+		return update_option( $key, $version );
 	}
 
 }
