@@ -169,6 +169,7 @@ class CPAC extends AC_Plugin {
 	}
 
 	public function ready() {
+
 		/**
 		 * For loading external resources, e.g. column settings.
 		 * Can be called from plugins and themes.

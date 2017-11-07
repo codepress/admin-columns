@@ -44,6 +44,15 @@ abstract class AC_Plugin {
 	}
 
 	/**
+	 * Check if plugin is network activated
+	 *
+	 * @return bool
+	 */
+	public function is_network_active() {
+		return is_plugin_active_for_network( $this->get_basename() );
+	}
+
+	/**
 	 * Calls get_plugin_data() for this plugin
 	 *
 	 * @see get_plugin_data()
@@ -67,7 +76,7 @@ abstract class AC_Plugin {
 	}
 
 	protected function set_basename() {
-		$this->plugin_basename = plugin_basename( $this->get_file() );
+		$this->basename = plugin_basename( $this->get_file() );
 	}
 
 	/**
