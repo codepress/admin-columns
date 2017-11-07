@@ -16,17 +16,9 @@ class AC_Column_Post_Roles extends AC_Column {
 	 * @return string
 	 */
 	public function get_value( $post_id ) {
-		$roles = ac_helper()->user->get_roles();
+		$names = ac_helper()->user->get_role_names( $this->get_raw_value( $post_id ) );
 
-		$role_names = array();
-
-		foreach ( $this->get_raw_value( $post_id ) as $role ) {
-			if ( isset( $roles[ $role ] ) ) {
-				$role_names[ $role ] = $roles[ $role ];
-			}
-		}
-
-		return implode( __( ', ' ), $role_names );
+		return implode( __( ', ' ), $names );
 	}
 
 	public function get_raw_value( $post_id ) {

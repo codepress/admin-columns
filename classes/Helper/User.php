@@ -130,6 +130,25 @@ class AC_Helper_User {
 	}
 
 	/**
+	 * @param array $roles
+	 *
+	 * @return array Role Names
+	 */
+	public function get_role_names( $roles ) {
+		$role_names = array();
+
+		$labels = $this->get_roles();
+
+		foreach ( $roles as $role ) {
+			if ( isset( $labels[ $role ] ) ) {
+				$role_names[ $role ] = $labels[ $role ];
+			}
+		}
+
+		return $role_names;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_ids() {
