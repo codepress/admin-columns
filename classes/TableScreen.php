@@ -80,6 +80,8 @@ final class AC_TableScreen {
 					$default = $column->get_name();
 
 					if ( $this->current_list_screen instanceof AC_ListScreen_Media ) {
+
+						// Add download button to the actions column
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
 					}
 				}

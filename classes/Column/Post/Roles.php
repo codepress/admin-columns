@@ -18,6 +18,10 @@ class AC_Column_Post_Roles extends AC_Column {
 	public function get_value( $post_id ) {
 		$names = ac_helper()->user->get_role_names( $this->get_raw_value( $post_id ) );
 
+		if ( ! $names ) {
+			return $this->get_empty_char();
+		}
+
 		return implode( __( ', ' ), $names );
 	}
 

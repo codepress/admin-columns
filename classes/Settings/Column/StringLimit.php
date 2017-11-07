@@ -38,11 +38,14 @@ class AC_Settings_Column_StringLimit extends AC_Settings_Column {
 		$setting = array();
 
 		switch ( $this->get_string_limit() ) {
+
 			case 'character_limit' :
 				$setting[] = new AC_Settings_Column_CharacterLimit( $this->column );
+
 				break;
 			case 'word_limit' :
 				$setting[] = new AC_Settings_Column_WordLimit( $this->column );
+
 				break;
 		}
 

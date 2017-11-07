@@ -179,6 +179,10 @@ class AC_Helper_Html {
 	 * @return false|array [ internal | external ]
 	 */
 	public function get_internal_external_links( $string ) {
+		if ( ! class_exists( 'DOMDocument' ) ) {
+			return false;
+		}
+
 		// Just do a very simple check to check for possible links
 		if ( false === strpos( $string, '<a' ) ) {
 			return false;
