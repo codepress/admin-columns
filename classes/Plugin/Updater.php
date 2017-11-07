@@ -34,37 +34,27 @@ class AC_Plugin_Updater {
 	 * @param AC_Plugin $plugin
 	 * @param array     $updates Key should contain version, value should be an array with callbacks
 	 */
-	public function parse_updates( AC_Plugin $plugin, array $updates ) {
-		if ( $this->show_notice || version_compare( $plugin->get_version(), $plugin->get_stored_version(), '<=' ) ) {
+	public function parse_updates( AC_Plugin_Update $update ) {
+		if ( $this->show_notice || ! $update->needs_update() ) {
 			return;
 		}
 
-		foreach ( $updates as $version => $callbacks ) {
-			if ( version_compare( $plugin->get_stored_version(), $version, '>=' ) ) {
-				continue;
-			}
+		// Stop further checking, queue update message
+		if ( ! $this->apply_updates ) {
+			// TODO: maybe one hook later and have this class itself on admin_init?
+			add_action( 'admin_init', array( $this, 'show_update_notice' ) );
 
-			// Stop further checking, queue update message
-			if ( ! $this->apply_updates ) {
-				add_action( 'admin_init', array( $this, 'show_update_notice' ) );
-
-				return;
-			}
-
-			foreach ( $callbacks as $callback ) {
-				if ( is_callable( $callback ) ) {
-					call_user_func( $callback );
-				}
-			}
+			return;
 		}
 
-		$plugin->update_stored_version( $plugin->get_version() );
+		$update->apply_update();
 
 		add_action( 'admin_init', array( $this, 'redirect_after_update' ) );
 	}
 
 	public function redirect_after_update() {
 		wp_redirect( remove_query_arg( 'ac_do_update' ) );
+		exit;
 	}
 
 	public function show_update_notice() {

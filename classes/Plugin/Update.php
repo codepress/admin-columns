@@ -18,7 +18,16 @@ abstract class AC_Plugin_Update {
 	}
 
 	/**
-	 * Apply the update
+	 * Check if this update needs to be applied
+	 *
+	 * @return bool
+	 */
+	public function needs_update() {
+		return version_compare( $this->plugin->get_version(), $this->plugin->get_stored_version(), '<=' );
+	}
+
+	/**
+	 * Apply this update
 	 *
 	 * @return void
 	 */
@@ -33,13 +42,15 @@ abstract class AC_Plugin_Update {
 
 	/**
 	 * Set the version this update applies to
+	 *
+	 * @return void
 	 */
 	protected abstract function set_version();
 
 	/**
 	 * Update the stored version to self::$version
 	 */
-	protected function update_version() {
+	protected function update_stored_version() {
 		$this->plugin->update_stored_version( $this->version );
 	}
 
