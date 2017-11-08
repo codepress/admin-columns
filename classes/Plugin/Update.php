@@ -33,7 +33,7 @@ abstract class AC_Plugin_Update {
 	 * @return bool
 	 */
 	protected function is_less_or_equal_stored_version() {
-		return version_compare( $this->version, $this->stored_version, '<=' );
+		return version_compare( $this->version, $this->stored_version, '>' );
 	}
 
 	/**
