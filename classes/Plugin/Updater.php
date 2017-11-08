@@ -17,6 +17,8 @@ class AC_Plugin_Updater {
 	 */
 	protected $apply_updates;
 
+	protected $first_install;
+
 	protected function __construct() {
 		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
 		$this->show_notice = false;
@@ -28,6 +30,25 @@ class AC_Plugin_Updater {
 		}
 
 		return self::$instance;
+	}
+
+	/**
+	 * Check if the plugin was updated or that it's a first install
+	 *
+	 */
+	public function is_plugin_update() {
+		global $wpdb;
+
+		$sql = "
+			SELECT option_id
+			FROM {$wpdb->options}
+			WHERE option_name LIKE 'cpac_options_%'
+			LIMIT 1
+		";
+
+		$results = $wpdb->get_results( $sql );
+
+		return is_array( $results ) && ! empty( $results );
 	}
 
 	/**

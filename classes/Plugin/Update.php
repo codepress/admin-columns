@@ -22,7 +22,12 @@ abstract class AC_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	public function needs_update() {
+	public abstract function needs_update();
+
+	/**
+	 * @return bool
+	 */
+	protected function is_less_or_equal_stored_version() {
 		return version_compare( $this->plugin->get_version(), $this->plugin->get_stored_version(), '<=' );
 	}
 
