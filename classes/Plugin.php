@@ -35,15 +35,6 @@ abstract class AC_Plugin {
 	abstract protected function get_file();
 
 	/**
-	 * Check if this plugin is network activated only
-	 *
-	 * @return bool
-	 */
-	public function is_network_only() {
-		return is_network_only_plugin( basename( $this->get_plugin_dir() ) );
-	}
-
-	/**
 	 * Check if plugin is network activated
 	 *
 	 * @return bool
@@ -147,7 +138,7 @@ abstract class AC_Plugin {
 	protected function set_stored_version() {
 		$key = $this->get_version_key();
 
-		if ( $this->is_network_only() ) {
+		if ( $this->is_network_active() ) {
 			$stored_version = get_site_option( $key );
 		} else {
 			$stored_version = get_option( $key );
@@ -162,7 +153,7 @@ abstract class AC_Plugin {
 	public function update_stored_version( $version ) {
 		$key = $this->get_version_key();
 
-		if ( $this->is_network_only() ) {
+		if ( $this->is_network_active() ) {
 			return update_site_option( $key, $version );
 		}
 
