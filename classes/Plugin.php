@@ -10,11 +10,6 @@ abstract class AC_Plugin {
 	/**
 	 * @var string
 	 */
-	private $stored_version;
-
-	/**
-	 * @var string
-	 */
 	private $plugin_dir;
 
 	/**
@@ -133,28 +128,14 @@ abstract class AC_Plugin {
 	 * @return string
 	 */
 	public function get_stored_version() {
-		if ( null === $this->stored_version ) {
-			$this->set_stored_version();
-		}
-
-		return $this->stored_version;
-	}
-
-	protected function set_stored_version() {
-		$this->stored_version = get_option( $this->get_version_key() );
+		return get_option( $this->get_version_key() );
 	}
 
 	/**
 	 * Update the stored version to match the (current) version
 	 */
 	public function update_stored_version( $version ) {
-		$result = update_option( $this->get_version_key(), $version );
-
-		if ( $result ) {
-			$this->stored_version = $version;
-		}
-
-		return $result;
+		return update_option( $this->get_version_key(), $version );
 	}
 
 	/**
