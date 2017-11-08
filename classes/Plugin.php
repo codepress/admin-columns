@@ -28,6 +28,11 @@ abstract class AC_Plugin {
 	private $basename;
 
 	/**
+	 * @var bool
+	 */
+	private $fresh_install;
+
+	/**
 	 * Return the file from this plugin
 	 *
 	 * @return string
@@ -144,6 +149,32 @@ abstract class AC_Plugin {
 	 */
 	public function update_stored_version( $version ) {
 		return update_option( $this->get_version_key(), $version );
+	}
+
+	/**
+	 * Check if the plugin was updated or is a fresh install
+	 */
+	public function is_fresh_install() {
+		if ( null === $this->fresh_install ) {
+			$this->set_fresh_install();
+		}
+
+		return $this->fresh_install;
+	}
+
+	protected function set_fresh_install() {
+		global $wpdb;
+
+		$sql = "
+			SELECT option_id
+			FROM {$wpdb->options}
+			WHERE option_name LIKE 'cpac_options_%'
+			LIMIT 1
+		";
+
+		$results = $wpdb->get_results( $sql );
+
+		$this->fresh_install = empty( $results );
 	}
 
 }

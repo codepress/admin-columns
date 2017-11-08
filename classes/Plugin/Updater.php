@@ -18,89 +18,54 @@ class AC_Plugin_Updater {
 	protected $apply_updates;
 
 	/**
-	 * Contains updates with plugin basename as key
-	 *
-	 * @var array
+	 * @var AC_Plugin_Update[]
 	 */
 	protected $updates;
 
 	/**
-	 * Contains all plugins that have one or more updates available
-	 *
-	 * @var AC_Plugin[]
+	 * @var AC_Plugin
 	 */
-	protected $plugins;
+	protected $plugin;
 
-	protected function __construct() {
+	/**
+	 * @param AC_Plugin $plugin
+	 */
+	public function __construct( AC_Plugin $plugin ) {
+		$this->plugin = $plugin;
 		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
-		$this->set_fresh_install();
 	}
 
-	public static function instance() {
-		if ( self::$instance === null ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Check if the plugin was updated or that it's a first install
-	 */
-	private function set_fresh_install() {
-		global $wpdb;
-
-		$sql = "
-			SELECT option_id
-			FROM {$wpdb->options}
-			WHERE option_name LIKE 'cpac_options_%'
-			LIMIT 1
-		";
-
-		$results = $wpdb->get_results( $sql );
-
-		$this->fresh_install = empty( $results );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_fresh_install() {
-		return $this->fresh_install;
-	}
-
-	public function add_update( AC_Plugin $plugin, AC_Plugin_Update $update ) {
-		$this->plugins[ $plugin->get_basename() ] = $plugin;
-		$this->updates[ $plugin->get_basename() ][ $update->get_version() ] = $update;
+	public function add_update( AC_Plugin_Update $update ) {
+		$this->updates[ $update->get_version() ] = $update;
 	}
 
 	public function parse_updates() {
-		foreach ( $this->plugins as $basename => $plugin ) {
-			if ( $this->is_fresh_install() ) {
-				$plugin->update_stored_version( $plugin->get_version() );
+		$plugin = $this->plugin;
 
-				continue;
-			}
+		if ( $plugin->is_fresh_install() ) {
+			$plugin->update_stored_version( $plugin->get_version() );
 
-			krsort( $this->updates[ $basename ], SORT_NUMERIC );
+			return;
+		}
 
-			/* @var AC_Plugin_Update $update */
-			foreach ( $this->updates[ $basename ] as $update ) {
-				if ( $update->needs_update() ) {
-					if ( ! $this->apply_updates ) {
-						$this->show_update_notice();
+		krsort( $this->updates, SORT_NUMERIC );
 
-						return;
-					}
+		/* @var AC_Plugin_Update $update */
+		foreach ( $this->updates as $update ) {
+			if ( $update->needs_update() ) {
+				if ( ! $this->apply_updates ) {
+					$this->show_update_notice();
 
-					$update->apply_update();
-					$plugin->update_stored_version( $update->get_version() );
+					return;
 				}
-			}
 
-			if ( $this->apply_updates ) {
-				$plugin->update_stored_version( $plugin->get_version() );
+				$update->apply_update();
+				$plugin->update_stored_version( $update->get_version() );
 			}
+		}
+
+		if ( $this->apply_updates ) {
+			$plugin->update_stored_version( $plugin->get_version() );
 		}
 	}
 
