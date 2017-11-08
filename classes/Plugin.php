@@ -148,7 +148,13 @@ abstract class AC_Plugin {
 	 * Update the stored version to match the (current) version
 	 */
 	public function update_stored_version( $version ) {
-		return update_option( $this->get_version_key(), $version );
+		$result = update_option( $this->get_version_key(), $version );
+
+		if ( $result ) {
+			$this->stored_version = $version;
+		}
+
+		return $result;
 	}
 
 	/**
