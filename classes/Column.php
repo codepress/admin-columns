@@ -120,7 +120,7 @@ class AC_Column {
 	/**
 	 * Container to inject and get services for this column
 	 *
-	 * @since NEWVERSION
+	 * @since 3.0.5
 	 * @return AC_Container
 	 */
 	public function services() {

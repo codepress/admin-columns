@@ -218,9 +218,9 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 3.0.5 =
 
-Release Date: tbd
+Release Date: November 9th, 2017
 
 * [Added] Events Calendar integration add-on is now available from the add-ons tab
 * [Added] Added before/after fields for ID column

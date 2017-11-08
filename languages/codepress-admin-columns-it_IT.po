@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-11 20:50:22+0000\n"
+"PO-Revision-Date: 2017-11-06 22:38:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,47 +13,47 @@ msgstr ""
 
 #: classes/Settings/Column/StatusIcon.php:90
 msgid "Password protected"
-msgstr ""
+msgstr "Protetto da password"
 
 #: classes/Settings/Column/StatusIcon.php:85
 msgid "Future"
-msgstr ""
+msgstr "Futuro"
 
 #: classes/Settings/Column/StatusIcon.php:82
 msgid "Pending for review"
-msgstr ""
+msgstr "In attesa di revisione"
 
 #: classes/Settings/Column/StatusIcon.php:79
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
 #: classes/Settings/Column/StatusIcon.php:76
 msgid "Published"
-msgstr ""
+msgstr "Pubblicato"
 
 #: classes/Settings/Column/StatusIcon.php:73
 msgid "Private"
-msgstr ""
+msgstr "Privato"
 
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon instead of text for displaying the status."
-msgstr ""
+msgstr "Usare un'icona anziché il testo per visualizzare lo stato."
 
 #: classes/Settings/Column/StatusIcon.php:28
 msgid "Use an icon?"
-msgstr ""
+msgstr "Usare un'icona?"
 
 #: classes/Helper/String.php:102
 msgid "&hellip;"
-msgstr ""
+msgstr "&hellip;"
 
 #: classes/Column/Post/Excerpt.php:21
 msgid "Current excerpt is generated from the content."
-msgstr ""
+msgstr "Il riassunto corrente è generato dal contenuto."
 
 #: classes/Column/Post/Excerpt.php:21
 msgid "Excerpt is missing."
-msgstr ""
+msgstr "Riassunto mancante."
 
 #: classes/Settings/Column/User.php:118
 msgid "User Nicename"
@@ -61,11 +61,11 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:608
 msgid "Send me the discount"
-msgstr ""
+msgstr "Inviami lo sconto"
 
 #: classes/Admin/Page/Columns.php:573
 msgid "Prices starting from %s"
-msgstr ""
+msgstr "Prezzi a partire da %s"
 
 #: classes/Addon/BuddyPress.php:17
 msgid "Display any of your Profile Fields for BuddyPress on your users overview."
@@ -146,7 +146,7 @@ msgstr ""
 
 #: classes/Settings/Column/Password.php:22
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: classes/Settings/Column/Meta.php:27
 msgid "No fields available."
@@ -198,7 +198,7 @@ msgstr ""
 
 #: classes/Settings/Column/Date.php:76
 msgid "WordPress Date Format"
-msgstr ""
+msgstr "Formato data WordPress"
 
 #: classes/Settings/Column/Date.php:70
 msgid "or"
@@ -234,7 +234,7 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:117
 msgid "Number of Fields"
-msgstr ""
+msgstr "Numero di campi"
 
 #: classes/Settings/Column/CustomFieldType.php:109
 msgid "True / False"
@@ -447,7 +447,7 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:536
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: classes/Admin/Page/Columns.php:328
 msgid "You need at least one column"
@@ -569,15 +569,15 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:74
 msgid "Invalid response."
-msgstr ""
+msgstr "Risposta non valida."
 
 #: classes/Admin/Help/CustomField.php:51
 msgid "Value: should contain Attachment IDs ( seperated by a ',' comma )."
-msgstr ""
+msgstr "Valore: dovrebbe contenere gli ID degli allegati (separati da ',' virgole)."
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Leave blank to display the url"
-msgstr ""
+msgstr "Lasciare vuoto per visualizzare l'url"
 
 #: classes/Settings/Column/LinkLabel.php:22
 msgid "Link Label"
@@ -609,7 +609,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "AdminColumns.com"
-msgstr ""
+msgstr "AdminColumns.com"
 
 #. Description of the plugin/theme
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
@@ -1155,7 +1155,7 @@ msgstr "Url"
 
 #: classes/Column/User/RichEditing.php:11
 msgid "Visual Editor"
-msgstr ""
+msgstr "Editor visuale"
 
 #: classes/Column/User/Registered.php:14
 msgid "Registered"
@@ -1505,6 +1505,8 @@ msgid ""
 "You are about to delete this link '%s'\n"
 "  'Cancel' to stop, 'OK' to delete."
 msgstr ""
+"Stai per eliminare questo link '%s'\n"
+"'Annulla' per interrompere, 'OK' per eliminare."
 
 #: classes/Settings/Column/CustomFieldType.php:53
 msgid "This will determine how the value will be displayed."
