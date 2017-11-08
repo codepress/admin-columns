@@ -101,6 +101,7 @@ class AC_Plugin_Update_V305 extends AC_Plugin_Update {
 	private function delete_deprecated_options() {
 		delete_option( 'cpac_version' );
 		delete_option( 'cpac_version_prev' );
+		delete_option( 'cpac-install-timestamp' );
 	}
 
 	/**
