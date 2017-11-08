@@ -10,18 +10,21 @@ class AC_Plugin_Updater {
 	/**
 	 * @var bool
 	 */
-	protected $show_notice;
+	protected $show_notice = false;
 
 	/**
 	 * @var bool
 	 */
 	protected $apply_updates;
 
+	/**
+	 * @var bool
+	 */
 	protected $first_install;
 
 	protected function __construct() {
 		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
-		$this->show_notice = false;
+		$this->set_first_install();
 	}
 
 	public static function instance() {
@@ -36,7 +39,7 @@ class AC_Plugin_Updater {
 	 * Check if the plugin was updated or that it's a first install
 	 *
 	 */
-	public function is_plugin_update() {
+	private function set_first_install() {
 		global $wpdb;
 
 		$sql = "
@@ -48,7 +51,14 @@ class AC_Plugin_Updater {
 
 		$results = $wpdb->get_results( $sql );
 
-		return is_array( $results ) && ! empty( $results );
+		$this->first_install = empty( $results );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_first_install() {
+		return $this->first_install;
 	}
 
 	/**
