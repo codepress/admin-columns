@@ -40,6 +40,12 @@ class AC_Plugin_Updater {
 	}
 
 	public function parse_updates() {
+
+		// Network wide updating is not allowed
+		if ( is_network_admin() ) {
+			return;
+		}
+
 		$plugin = $this->plugin;
 
 		if ( $plugin->is_fresh_install() ) {
