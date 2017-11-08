@@ -218,6 +218,26 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.0.5 =
+
+Release Date: November 9th, 2017
+
+* [Added] Events Calendar integration add-on is now available from the add-ons tab
+* [Added] Added before/after fields for ID column
+* [Changed] Changed Ajax value interface
+* [Fixed] Fixed php warning on count() for php 7.2
+* [Improved] Column interface for post relations
+* [Improved] Attachment count column combined with Attachment column
+* [Improved] Pro banner
+* [Improved] Published date shows when a post is not published
+* [Improved] Custom field keys for users are now grouped by site option
+* [Improved] Added the AC_Plugin class as a more DRY approach to asking meta data about a plugin
+* [Improved] Redone the way user preferences are stored. Less records and better compatible with Multisite.
+* [Improved] Added the option to write database updates and apply them on a new version
+* [Improved] Empty character is just a method now instead of getter/setter with a filter
+* [Improved] Added AC_Services class to register services to a column on the fly (DI approach)
+* [Improved] Custom fields for users are now grouped per network site
+
 = 3.0.4 =
 
 Release Date: August 17, 2017
@@ -264,6 +284,7 @@ Release Date: July 3rd, 2017
 Release Date: June 12th, 2017
 
 * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+* [Added] The Last Modified Author and Last Modified Date columns are now available for the Media overview
 * [Improved] Fallback for the autoloader to work with lowercase files
 * [Improved] User Nicename available as an option for User display
 * [Fixed] Media Path now shows correct http protocol
@@ -289,6 +310,7 @@ Release Date: May 3rd, 2017
 * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
 * [Added] New method for singleton for Admin Columns main class. 'ac()'
 * [Fixed] Comment Response column is no longer displayed in the table when viewing "Comments On".
+* [Fixed] Post Roles columns works again
 
 = 2.5.6.4 =
 

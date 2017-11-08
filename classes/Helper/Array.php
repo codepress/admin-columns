@@ -128,4 +128,17 @@ class AC_Helper_Array {
 		return array_intersect( $array, array_unique( array_diff_key( $array, array_unique( $array ) ) ) );
 	}
 
+	/**
+	 * Returns all integers from an array or comma separated string
+	 *
+	 * @param array|string $mixed
+	 *
+	 * @return int[]
+	 */
+	public function get_integers_from_mixed( $mixed ) {
+		$string = ac_helper()->array->implode_recursive( ',', $mixed );
+
+		return ac_helper()->string->string_to_array_integers( $string );
+	}
+
 }

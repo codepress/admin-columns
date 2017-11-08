@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0.4
+Version: 3.0.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -30,25 +30,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Only run plugin in the admin
 if ( ! is_admin() ) {
 	return false;
 }
+
+require_once 'classes/Autoloader.php';
+require_once 'classes/Plugin.php';
+require_once 'api.php';
 
 /**
  * The Admin Columns Class
  *
  * @since 1.0
  */
-class CPAC {
-
-	/**
-	 * Basename of the plugin, retrieved through plugin_basename function
-	 *
-	 * @since 1.0
-	 * @var string
-	 */
-	private $plugin_basename;
+class CPAC extends AC_Plugin {
 
 	/**
 	 * Admin Columns settings class instance
@@ -73,12 +68,6 @@ class CPAC {
 	 * @var AC_TableScreen
 	 */
 	private $table_screen;
-
-	/**
-	 * @since 3.0
-	 * @var null|string $version Version number
-	 */
-	private $version = null;
 
 	/**
 	 * @since 3.0
@@ -110,34 +99,29 @@ class CPAC {
 	/**
 	 * @since 2.5
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * @since 2.5
 	 */
 	public static function instance() {
-		if ( null === self::$_instance ) {
-			self::$_instance = new self();
+		if ( null === self::$instance ) {
+			self::$instance = new self;
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$this->plugin_basename = plugin_basename( __FILE__ );
-
 		// Backwards compatibility
 		define( 'CPAC_VERSION', $this->get_version() );
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		// Autoload classes
 		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
-
-		require_once $this->get_plugin_dir() . 'api.php';
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -156,6 +140,7 @@ class CPAC {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
+		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -168,6 +153,20 @@ class CPAC {
 		// Set capabilities
 		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
 		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_file() {
+		return __FILE__;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_version_key() {
+		return 'ac_version';
 	}
 
 	public function ready() {
@@ -183,35 +182,7 @@ class CPAC {
 	 * @return AC_Autoloader
 	 */
 	public function autoloader() {
-		require_once $this->get_plugin_dir() . 'classes/Autoloader.php';
-
 		return AC_Autoloader::instance();
-	}
-
-	/**
-	 * @since 3.0
-	 * @return string Path to plugin dir
-	 */
-	public function get_plugin_dir() {
-		return plugin_dir_path( __FILE__ );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function get_plugin_url() {
-		return plugin_dir_url( __FILE__ );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function get_version() {
-		if ( null === $this->version ) {
-			$this->version = $this->get_plugin_version( __FILE__ );
-		}
-
-		return $this->version;
 	}
 
 	/**
@@ -226,18 +197,25 @@ class CPAC {
 	}
 
 	/**
-	 * @since 3.0
-	 */
-	public function get_upgrade_version() {
-		return '2.0.0';
-	}
-
-	/**
 	 * @since 2.2
 	 * @uses  load_plugin_textdomain()
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->plugin_basename ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
+	}
+
+	/**
+	 * Handle installation and updates
+	 */
+	public function install() {
+		$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', 'AC_' );
+		$updater = new AC_Plugin_Updater( $this );
+
+		foreach ( $classes as $class ) {
+			$updater->add_update( new $class( $this->get_stored_version() ) );
+		}
+
+		$updater->parse_updates();
 	}
 
 	/**
@@ -291,7 +269,7 @@ class CPAC {
 	 * @see   filter:plugin_action_links
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file === $this->plugin_basename ) {
+		if ( $file === $this->get_basename() ) {
 			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'settings' ), __( 'Settings' ) ) );
 		}
 
@@ -486,6 +464,16 @@ class CPAC {
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
+
+		/**
+		 * Fires when a list screen is registered.
+		 *
+		 * @since 3.0.5
+		 *
+		 * @param AC_ListScreen $list_screen List screen object
+		 * @param CPAC          $ac          Main admin columns class instance
+		 */
+		do_action( 'ac/registered_list_screen', $list_screen, $this );
 	}
 
 	/**
@@ -553,13 +541,17 @@ class CPAC {
 	 */
 	public function display_notices() {
 		if ( $this->notices ) {
-			echo implode( $this->notices );
+			echo implode( array_unique( $this->notices ) );
 		}
 	}
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type    'updated', 'error' or 'notice-warning'
+	 * @param string $type
+	 *                        'updated' is green
+	 *                        'error' is red
+	 *                        'notice-warning' is yellow
+	 *                        'notice-info' is blue
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -586,7 +578,6 @@ class CPAC {
 	public function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
-
 }
 
 /**

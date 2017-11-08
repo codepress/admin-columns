@@ -32,11 +32,16 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 		return $setting;
 	}
 
-	public function format( $value, $original_value ) {
-		$id = $original_value;
-		$value = false;
+	/**
+	 * @param int $id
+	 * @param mixed $original_value
+	 *
+	 * @return string|int
+	 */
+	public function format( $id, $original_value ) {
 
 		switch ( $this->get_post_property_display() ) {
+
 			case 'author' :
 				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
@@ -49,10 +54,8 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 				$value = ac_helper()->post->get_title( $id );
 
 				break;
-			case 'id' :
+			default :
 				$value = $id;
-
-				break;
 		}
 
 		return $value;
@@ -76,7 +79,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 			'title'     => __( 'Title' ),
 			'id'        => __( 'ID' ),
 			'author'    => __( 'Author' ),
-			'thumbnail' => __( 'Featured Image' ),
+			'thumbnail' => _x( 'Featured Image', 'post' ),
 		);
 
 		asort( $options );

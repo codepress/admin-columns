@@ -2,13 +2,6 @@
 
 class AC_Admin_Page_Addons extends AC_Admin_Page {
 
-	/**
-	 * User meta key for hiding "Install addons" notice
-	 *
-	 * @since 2.4.9
-	 */
-	const OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY = 'cpac-hide-install-addons-notice';
-
 	public function __construct() {
 		$this
 			->set_slug( 'addons' )
@@ -113,7 +106,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				if ( $plugin->is_active() ) {
 					AC()->notice( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
 				} else {
-					AC()->notice( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( 'Please visit the %s page.', ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ), 'error' );
+					AC()->notice( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ), 'error' );
 				}
 				break;
 			case 'deactivate' :
@@ -126,9 +119,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-	    if ( $this->is_current_screen() ) {
-		    wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version() );
-	    }
+		if ( $this->is_current_screen() ) {
+			wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons' . AC()->minified() . '.css', array(), AC()->get_version() );
+		}
 	}
 
 	/**
@@ -153,7 +146,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		if ( ac_helper()->user->get_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, true ) ) {
+		if ( $this->hide_notice() ) {
 			return;
 		}
 
@@ -173,11 +166,11 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			$plugins_list = ac_helper()->string->enumeration_list( $plugins, 'and' );
 
 			?>
-            <div class="ac-message updated">
-                <a href="#" class="hide-notice hide-install-addons-notice"></a>
+			<div class="ac-message updated">
+				<a href="#" class="hide-notice hide-install-addons-notice"></a>
 
-                <p><?php printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), $plugins_list, ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) ); ?>
-            </div>
+				<p><?php printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), $plugins_list, ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) ); ?>
+			</div>
 			<?php
 
 			wp_enqueue_script( 'ac-sitewide-notices' );
@@ -186,12 +179,19 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	}
 
 	/**
+	 * @return bool
+	 */
+	private function hide_notice() {
+		return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
+	}
+
+	/**
 	 * Ajax callback for hiding the "Missing addons" notice used for notifying users of available integration addons for plugins they have installed
 	 *
 	 * @since 2.4.9
 	 */
 	public function ajax_hide_install_addons_notice() {
-		ac_helper()->user->update_meta_site( self::OPTION_ADMIN_NOTICE_INSTALL_ADDONS_KEY, '1', true );
+		update_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 	}
 
 	/**
@@ -369,28 +369,28 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	public function display() {
 
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) : ?>
-            <div class="ac-addon group-<?php echo esc_attr( $group_slug ); ?>">
-                <h2><?php echo esc_html( $group['title'] ); ?></h2>
+			<div class="ac-addon group-<?php echo esc_attr( $group_slug ); ?>">
+				<h2><?php echo esc_html( $group['title'] ); ?></h2>
 
-                <ul>
+				<ul>
 					<?php
 					foreach ( $group['addons'] as $addon ) :
 						/* @var AC_Addon $addon */ ?>
-                        <li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
-                            <div class="addon-header">
-                                <div class="inner">
+						<li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
+							<div class="addon-header">
+								<div class="inner">
 									<?php if ( $addon->get_logo() ) : ?>
-                                        <img src="<?php echo esc_attr( $addon->get_logo() ); ?>"/>
+										<img src="<?php echo esc_attr( $addon->get_logo() ); ?>"/>
 									<?php else : ?>
-                                        <h2><?php echo esc_html( $addon->get_title() ); ?></h2>
+										<h2><?php echo esc_html( $addon->get_title() ); ?></h2>
 									<?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="addon-content">
-                                <h3><?php echo esc_html( $addon->get_title() ); ?></h3>
-                                <p><?php echo esc_html( $addon->get_description() ); ?></p>
-                            </div>
-                            <div class="addon-actions">
+								</div>
+							</div>
+							<div class="addon-content">
+								<h3><?php echo esc_html( $addon->get_title() ); ?></h3>
+								<p><?php echo esc_html( $addon->get_description() ); ?></p>
+							</div>
+							<div class="addon-actions">
 								<?php
 
 								// Installed..
@@ -398,30 +398,30 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 									// Active
 									if ( $addon->is_active() ) : ?>
-                                        <span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
+										<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
 
 										<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
-                                            <a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
+											<a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 										<?php endif;
 									// Installed
-                                    elseif ( current_user_can( 'activate_plugins' ) ) : ?>
-                                        <a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
+									elseif ( current_user_can( 'activate_plugins' ) ) : ?>
+										<a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
 
 								// Not installed...
 								else :
 									if ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-                                        <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
+										<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button"><?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?></a>
 									<?php else : ?>
-                                        <a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
+										<a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
 								endif;
 								?>
-                            </div>
-                        </li>
+							</div>
+						</li>
 					<?php endforeach; // addons ?>
-                </ul>
-            </div>
+				</ul>
+			</div>
 		<?php endforeach; // grouped_addons
 	}
 

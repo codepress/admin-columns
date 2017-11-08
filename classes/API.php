@@ -16,9 +16,13 @@ class AC_API {
 	 * @param AC_ListScreen $list_screen
 	 */
 	public function set_column_settings( AC_ListScreen $list_screen ) {
-		if ( $settings = $this->get_column_settings( $list_screen ) ) {
-			$list_screen->set_settings( $settings )->set_read_only( true );
+		$settings = $this->get_column_settings( $list_screen );
+
+		if ( ! $settings ) {
+			return;
 		}
+
+		$list_screen->set_settings( $settings )->set_read_only( true );
 	}
 
 	/**
@@ -27,11 +31,15 @@ class AC_API {
 	 * @return array|false
 	 */
 	public function get_column_settings( AC_ListScreen $list_screen ) {
-		if ( $columndata = $this->get_columndata( $list_screen->get_key() ) ) {
-			foreach ( $columndata as $data ) {
-				if ( $list_screen->get_storage_key() === $list_screen->get_key() . $data['layout']['id'] ) {
-					return $data['columns'];
-				}
+		$columndata = $this->get_columndata( $list_screen->get_key() );
+
+		if ( ! $columndata ) {
+			return false;
+		}
+
+		foreach ( $columndata as $data ) {
+			if ( $list_screen->get_storage_key() === $list_screen->get_key() . $data['layout']['id'] ) {
+				return $data['columns'];
 			}
 		}
 
@@ -44,11 +52,16 @@ class AC_API {
 	 * @return array
 	 */
 	public function get_layouts_settings( $list_screen ) {
+		$columndata = $this->get_columndata( $list_screen->get_key() );
+
+		if ( ! $columndata ) {
+			return array();
+
+		}
+
 		$layouts = array();
-		if ( $columndata = $this->get_columndata( $list_screen->get_key() ) ) {
-			foreach ( $columndata as $data ) {
-				$layouts[] = $data['layout'];
-			}
+		foreach ( $columndata as $data ) {
+			$layouts[] = $data['layout'];
 		}
 
 		return $layouts;

@@ -2,8 +2,6 @@
 
 class AC_Admin_Page_Columns extends AC_Admin_Page {
 
-	const OPTION_CURRENT = 'cpac_current_model';
-
 	/**
 	 * @var array
 	 */
@@ -74,14 +72,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		do_action( 'ac/settings/scripts' );
 	}
 
-	public function set_layout_preference( $layout ) {
-		ac_helper()->user->update_meta_site( self::OPTION_CURRENT . '_layout', $layout );
-	}
-
-	public function get_layout_preference() {
-		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT . '_layout', true );
-	}
-
 	private function get_first_list_screen() {
 		$list_screens = AC()->get_list_screens();
 
@@ -98,7 +88,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		// Preference
 		if ( ! $key ) {
-			$key = $this->get_list_screen_preference();
+			$key = $this->preferences()->get( 'list_screen' );
 		}
 
 		// First one
@@ -121,7 +111,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			$this->set_original_table_headers( $list_screen );
 		}
 
-		$this->set_list_screen_preference( $list_screen->get_key() );
+		$this->preferences()->set( 'list_screen', $list_screen->get_key() );
 
 		$this->current_list_screen = $list_screen;
 
@@ -335,7 +325,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			if ( 'same-settings' === $result->get_error_code() ) {
 				wp_send_json_error( array(
 						'type'    => 'notice notice-warning',
-						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) . ' ' . $view_link
+						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) . ' ' . $view_link,
 					)
 				);
 			}
@@ -395,12 +385,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		return $grouped;
 	}
 
-	private function set_list_screen_preference( $list_screen_key ) {
-		ac_helper()->user->update_meta_site( self::OPTION_CURRENT, $list_screen_key );
-	}
-
-	private function get_list_screen_preference() {
-		return ac_helper()->user->get_meta_site( self::OPTION_CURRENT, true );
+	private function preferences() {
+		return new AC_Preferences( 'settings' );
 	}
 
 	/**
@@ -439,7 +425,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return int
 	 */
 	private function get_discount_percentage() {
-		return 20;
+		return 10;
 	}
 
 	/**

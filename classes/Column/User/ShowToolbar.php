@@ -11,11 +11,11 @@ class AC_Column_User_ShowToolbar extends AC_Column {
 	}
 
 	public function get_value( $user_id ) {
-		return ac_helper()->icon->yes_or_no( 'true' == $this->show_admin_bar_front( $user_id ) );
+		return ac_helper()->icon->yes_or_no( $this->get_raw_value( $user_id ) );
 	}
 
 	public function get_raw_value( $user_id ) {
-		return $this->show_admin_bar_front( $user_id );
+		return 'true' == $this->show_admin_bar_front( $user_id );
 	}
 
 	private function show_admin_bar_front( $user_id ) {

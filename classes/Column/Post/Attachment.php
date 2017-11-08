@@ -10,13 +10,6 @@ class AC_Column_Post_Attachment extends AC_Column {
 		$this->set_label( __( 'Attachments', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $id ) {
-		$collection = new AC_Collection( (array) $this->get_raw_value( $id ) );
-		$removed = $collection->limit( $this->get_setting( 'number_of_items' )->get_value() );
-
-		return ac_helper()->html->images( $this->get_formatted_value( $collection->all() ), $removed );
-	}
-
 	public function get_raw_value( $post_id ) {
 		return $this->get_attachment_ids( $post_id );
 	}
@@ -43,8 +36,7 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Image( $this ) );
-		$this->add_setting( new AC_Settings_Column_NumberOfItems( $this ) );
+		$this->add_setting( new AC_Settings_Column_AttachmentDisplay( $this ) );
 	}
 
 }

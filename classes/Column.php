@@ -46,16 +46,16 @@ class AC_Column {
 	protected $list_screen;
 
 	/**
+	 * @var AC_Container
+	 */
+	private $services;
+
+	/**
 	 * The options managed by the settings
 	 *
 	 * @var array
 	 */
 	protected $options = array();
-
-	/**
-	 * @var string|bool
-	 */
-	private $empty_char;
 
 	/**
 	 * Get the unique name of the column
@@ -115,6 +115,20 @@ class AC_Column {
 		$this->list_screen = $list_screen;
 
 		return $this;
+	}
+
+	/**
+	 * Container to inject and get services for this column
+	 *
+	 * @since 3.0.5
+	 * @return AC_Container
+	 */
+	public function services() {
+		if ( null === $this->services ) {
+			$this->services = new AC_Container();
+		}
+
+		return $this->services;
 	}
 
 	/**
@@ -347,7 +361,7 @@ class AC_Column {
 	 */
 	public function get_formatted_value( $value, $original_value = null, $current = 0 ) {
 		$formatters = $this->get_formatters();
-		$available = count( $formatters );
+		$available = count( (array) $formatters );
 
 		if ( null === $original_value ) {
 			$original_value = $value;
@@ -422,21 +436,10 @@ class AC_Column {
 	}
 
 	/**
-	 * @param string
-	 */
-	public function set_empty_char( $char ) {
-		$this->empty_char = (string) $char;
-	}
-
-	/**
-	 * @return bool|string
+	 * @return string
 	 */
 	public function get_empty_char() {
-		if ( null === $this->empty_char ) {
-			$this->set_empty_char( '&ndash;' );
-		}
-
-		return apply_filters( 'ac/empty_char', $this->empty_char, $this );
+		return '&ndash;';
 	}
 
 }

@@ -2,26 +2,19 @@
 
 class AC_Notice_Review {
 
-	const OPTION_INSTALL_DATE = 'cpac-install-timestamp';
-
-	const OPTION_ADMIN_NOTICE_KEY = 'cpac-hide-review-notice';
-
-	function __construct() {
-		register_activation_hook( __FILE__, array( $this, 'insert_install_timestamp' ) );
-
+	public function __construct() {
 		add_action( 'admin_init', array( $this, 'maybe_display_review_notice' ) );
-		add_action( 'wp_ajax_cpac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
+		add_action( 'wp_ajax_ac_hide_review_notice', array( $this, 'ajax_hide_review_notice' ) );
 	}
 
-	public function insert_install_timestamp() {
-		ac_helper()->user->update_meta_site( self::OPTION_INSTALL_DATE, time() );
-	}
+	/**
+	 * @return string
+	 */
+	private function get_first_login_timestamp() {
+		$timestamp = get_user_meta( get_current_user_id(), 'ac-first-login-timestamp', true );
 
-	private function get_install_timestamp() {
-		$timestamp = ac_helper()->user->get_meta_site( self::OPTION_INSTALL_DATE, true );
-
-		if ( '' == $timestamp ) {
-			$this->insert_install_timestamp();
+		if ( empty( $timestamp ) ) {
+			update_user_meta( get_current_user_id(), 'ac-first-login-timestamp', time() );
 
 			$timestamp = time();
 		}
@@ -29,6 +22,9 @@ class AC_Notice_Review {
 		return $timestamp;
 	}
 
+	/**
+	 * Display review notice after 30 days of first login by an admin
+	 */
 	public function maybe_display_review_notice() {
 		if ( AC()->suppress_site_wide_notices() ) {
 			return;
@@ -38,22 +34,27 @@ class AC_Notice_Review {
 			return;
 		}
 
-		if ( $this->is_review_notice_shown() ) {
+		if ( $this->hide_notice() ) {
 			return;
 		}
 
-		// Display notice after 30 days
-		if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) >= $this->get_install_timestamp() ) {
-			add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
+		// Display notice after 30 days of first login
+		if ( ( time() - ( 30 * DAY_IN_SECONDS ) ) <= $this->get_first_login_timestamp() ) {
+			return;
 		}
+
+		add_action( 'admin_notices', array( $this, 'display_review_notice' ) );
 	}
 
-	public function is_review_notice_shown() {
-		return '1' === get_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, true );
+	/**
+	 * @return bool
+	 */
+	public function hide_notice() {
+		return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_review', true );
 	}
 
 	public function ajax_hide_review_notice() {
-		update_user_meta( get_current_user_id(), self::OPTION_ADMIN_NOTICE_KEY, '1', true );
+		update_user_meta( get_current_user_id(), 'ac_hide_notice_review', true );
 	}
 
 	public function display_review_notice() {
@@ -66,24 +67,24 @@ class AC_Notice_Review {
 		wp_enqueue_style( 'ac-sitewide-notices' );
 
 		?>
-        <div class="ac-message updated">
-            <div class="info">
-                <p>
+		<div class="ac-message updated">
+			<div class="info">
+				<p>
 					<?php printf( __(
 						"We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s.", 'codepress-admin-columns' ),
 						'<strong>' . $product . '</strong>',
 						$product,
 						'<a class="hide-review-notice hide-review-notice-soft" href="#">' . __( 'click here', 'codepress-admin-columns' ) . '</a>'
 					); ?>
-                </p>
-                <p class="buttons">
-                    <a class="button button-primary" href="https://wordpress.org/support/view/plugin-reviews/codepress-admin-columns?rate=5#postform" target="_blank"><?php _e( 'Leave a review!', 'codepress-admin-columns' ); ?></a>
-                    <a class="button button-secondary hide-review-notice" href='#'><?php _e( "Permanently hide notice", 'codepress-admin-columns' ); ?></a>
-                </p>
-            </div>
-            <div class="help hidden">
-                <a href="#" class="hide-notice hide-review-notice"></a>
-                <p>
+				</p>
+				<p class="buttons">
+					<a class="button button-primary" href="https://wordpress.org/support/view/plugin-reviews/codepress-admin-columns?rate=5#postform" target="_blank"><?php _e( 'Leave a review!', 'codepress-admin-columns' ); ?></a>
+					<a class="button button-secondary hide-review-notice" href='#'><?php _e( "Permanently hide notice", 'codepress-admin-columns' ); ?></a>
+				</p>
+			</div>
+			<div class="help hidden">
+				<a href="#" class="hide-notice hide-review-notice"></a>
+				<p>
 					<?php printf(
 						__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'codepress-admin-columns' ),
 						$product,
@@ -101,11 +102,11 @@ class AC_Notice_Review {
 							'<a href="https://wordpress.org/plugins/codepress-admin-columns/faq/#plugin-info" target="_blank">' . __( 'find answers to some frequently asked questions', 'codepress-admin-columns' ) . '</a>'
 						); ?>
 					<?php endif; ?>
-                </p>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <script type="text/javascript">
+				</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<script type="text/javascript">
 			jQuery( function( $ ) {
 				$( document ).ready( function() {
 					$( '.updated a.hide-review-notice' ).click( function( e ) {
@@ -126,7 +127,7 @@ class AC_Notice_Review {
 						}
 
 						$.post( ajaxurl, {
-							'action' : 'cpac_hide_review_notice'
+							'action' : 'ac_hide_review_notice'
 						}, function() {
 							if ( !soft ) {
 								el.find( '.spinner' ).remove();
@@ -138,7 +139,7 @@ class AC_Notice_Review {
 					} );
 				} );
 			} );
-        </script>
+		</script>
 		<?php
 	}
 

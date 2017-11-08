@@ -19,7 +19,15 @@ class AC_Helper_User {
 			$user = get_userdata( $user );
 		}
 
-		return $user && is_a( $user, 'WP_User' ) ? $user : false;
+		if ( ! $user ) {
+			return false;
+		}
+
+		if ( ! is_a( $user, 'WP_User' ) ) {
+			return false;
+		}
+
+		return $user;
 	}
 
 	/**
@@ -48,36 +56,40 @@ class AC_Helper_User {
 	 * @return false|string
 	 */
 	public function get_display_name( $user, $format = false ) {
-		$name = false;
+		$user = $this->get_user( $user );
 
-		if ( $user = $this->get_user( $user ) ) {
+		if ( ! $user ) {
+			return false;
+		}
 
-			$name = $user->display_name;
+		$name = $user->display_name;
 
-			switch ( $format ) {
-				case 'first_last_name' :
-					$name_parts = array();
-					if ( $user->first_name ) {
-						$name_parts[] = $user->first_name;
-					}
-					if ( $user->last_name ) {
-						$name_parts[] = $user->last_name;
-					}
-					if ( $name_parts ) {
-						$name = implode( ' ', $name_parts );
-					}
-					break;
+		switch ( $format ) {
 
-				case 'roles' :
-					$name = ac_helper()->string->enumeration_list( $this->get_roles_names( $user->roles ), 'and' );
-					break;
+			case 'first_last_name' :
 
-				default :
-					if ( ! empty( $user->{$format} ) ) {
-						$name = $user->{$format};
-					}
-			}
+				$name_parts = array();
 
+				if ( $user->first_name ) {
+					$name_parts[] = $user->first_name;
+				}
+				if ( $user->last_name ) {
+					$name_parts[] = $user->last_name;
+				}
+
+				if ( $name_parts ) {
+					$name = implode( ' ', $name_parts );
+				}
+
+				break;
+			case 'roles' :
+				$name = ac_helper()->string->enumeration_list( $this->get_roles_names( $user->roles ), 'and' );
+
+				break;
+			default :
+				if ( ! empty( $user->{$format} ) ) {
+					$name = $user->{$format};
+				}
 		}
 
 		return $name;
@@ -130,40 +142,31 @@ class AC_Helper_User {
 	}
 
 	/**
+	 * @param array $roles
+	 *
+	 * @return array Role Names
+	 */
+	public function get_role_names( $roles ) {
+		$role_names = array();
+
+		$labels = $this->get_roles();
+
+		foreach ( $roles as $role ) {
+			if ( isset( $labels[ $role ] ) ) {
+				$role_names[ $role ] = $labels[ $role ];
+			}
+		}
+
+		return $role_names;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_ids() {
 		global $wpdb;
 
 		return $wpdb->get_col( "SELECT {$wpdb->users}.ID FROM {$wpdb->users}" );
-	}
-
-	/**
-	 * Store current user meta data that is compatible with multi sites
-	 *
-	 * @param string       $key
-	 * @param array|string $value
-	 */
-	public function update_meta_site( $key, $value, $prev_value = '' ) {
-		return update_user_meta( get_current_user_id(), $key . get_current_blog_id(), $value, $prev_value );
-	}
-
-	/**
-	 * Get current user meta data
-	 *
-	 * @param string $key
-	 */
-	public function get_meta_site( $key, $single = false ) {
-		return get_user_meta( get_current_user_id(), $key . get_current_blog_id(), $single );
-	}
-
-	/**
-	 * Get current user meta data
-	 *
-	 * @param string $key
-	 */
-	public function delete_meta_site( $key, $value = '' ) {
-		return delete_user_meta( get_current_user_id(), $key . get_current_blog_id(), $value );
 	}
 
 }

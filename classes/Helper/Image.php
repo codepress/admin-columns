@@ -301,7 +301,11 @@ class AC_Helper_Image {
 			return array();
 		}
 
-		$dom = new domDocument;
+		if ( ! class_exists( 'DOMDocument' ) ) {
+			return array();
+		}
+
+		$dom = new DOMDocument;
 		@$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
 

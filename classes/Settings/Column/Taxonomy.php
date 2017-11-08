@@ -16,7 +16,7 @@ class AC_Settings_Column_Taxonomy extends AC_Settings_Column {
 	 */
 	public function create_view() {
 		$taxonomy = $this->create_element( 'select', 'taxonomy' );
-		$taxonomy->set_no_result( __( 'No taxonomies available.' ) )
+		$taxonomy->set_no_result( __( 'No taxonomies available.', 'codepress-admin-columns' ) )
 		         ->set_options( ac_helper()->taxonomy->get_taxonomy_selection_options( $this->column->get_post_type() ) )
 		         ->set_attribute( 'data-label', 'update' )
 		         ->set_attribute( 'data-refresh', 'column' );

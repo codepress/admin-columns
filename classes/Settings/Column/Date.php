@@ -91,7 +91,7 @@ class AC_Settings_Column_Date extends AC_Settings_Column
 		}
 
 		$custom_label = $this->get_html_label( array(
-				'label'       => __( 'Custom:', 'codepress-admin columns' ),
+				'label'       => __( 'Custom:', 'codepress-admin-columns' ),
 				'description' => sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'http://codex.wordpress.org/Formatting_Date_and_Time', __( 'date and time formatting', 'codepress-admin-columns' ) ), array( 'target' => '_blank' ) ),
 			)
 		);

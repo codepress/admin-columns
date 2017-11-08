@@ -84,15 +84,6 @@ function ac_is_version_gte( $version ) {
 }
 
 /**
- * Returns row actions for the WP_List_Tables
- *
- * @return AC_Column_ActionColumnHelper
- */
-function ac_action_column_helper() {
-	return AC_Column_ActionColumnHelper::instance();
-}
-
-/**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
  *

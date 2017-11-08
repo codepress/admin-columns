@@ -181,6 +181,7 @@ function cpac_init( $ ) {
 			$( col ).column_bind_remove();
 			$( col ).column_bind_clone();
 			$( col ).cpac_bind_indicator_events();
+			$( col ).column_onload();
 		} );
 
 		// ordering of columns
@@ -371,6 +372,16 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
+	$.fn.column_onload = function() {
+		var column = $( this );
+
+		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+		var column_label = column.find( '.column_label .toggle' );
+		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( column.find( '.column_type .inner' ).html() );
+		}
+	};
+
 	/*
 	 * Form Events
 	 *
@@ -380,6 +391,7 @@ function cpac_reset_columns( $ ) {
 		var column = $( this );
 		var container = column.closest( '.ac-admin ' );
 
+		column.column_onload();
 		// Current column type
 		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
 
@@ -485,12 +497,6 @@ function cpac_reset_columns( $ ) {
 		column.find( '[data-refresh="column"]' ).change( function() {
 			column.cpac_column_refresh();
 		} );
-
-		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-		var column_label = column.find( '.column_label .toggle' );
-		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
-			column_label.html( column.find( '.column_type .inner' ).html() );
-		}
 
 		$( document ).trigger( 'init_settings', column );
 	};
@@ -724,6 +730,7 @@ function cpac_reset_columns( $ ) {
 
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
+		$( column ).find( '.ac-column-setting--images' ).cpac_column_setting_image_size();
 	} );
 
 	// Settings fields: Width
