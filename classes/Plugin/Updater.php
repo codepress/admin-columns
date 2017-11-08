@@ -75,11 +75,13 @@ class AC_Plugin_Updater {
 	}
 
 	public function parse_updates() {
-		if ( $this->is_fresh_install() ) {
-			return;
-		}
-
 		foreach ( $this->plugins as $basename => $plugin ) {
+			if ( $this->is_fresh_install() ) {
+				$plugin->update_stored_version( $plugin->get_version() );
+
+				continue;
+			}
+
 			krsort( $this->updates[ $basename ], SORT_NUMERIC );
 
 			/* @var AC_Plugin_Update $update */
