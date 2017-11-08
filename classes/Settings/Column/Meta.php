@@ -119,7 +119,13 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 
 			if ( is_multisite() ) {
 				foreach ( get_sites() as $site ) {
-					$groups[ $wpdb->get_blog_prefix( $site->blog_id ) ] = __( 'Network Site:', 'codepress-admin-columns' ) . ' ' . ac_helper()->network->get_site_option( $site->blog_id, 'blogname' );
+					$label = __( 'Network Site:', 'codepress-admin-columns' ) . ' ' . ac_helper()->network->get_site_option( $site->blog_id, 'blogname' );
+
+					if ( get_current_blog_id() == $site->blog_id ) {
+						$label .= ' (' . __( 'current', 'codepress-admin-columns' ) . ')';
+					}
+
+					$groups[ $wpdb->get_blog_prefix( $site->blog_id ) ] = $label;
 				}
 			} else {
 				$groups[ $wpdb->get_blog_prefix() ] = __( 'Site Options', 'codepress-admin-columns' );
