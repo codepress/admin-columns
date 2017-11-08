@@ -226,16 +226,17 @@ Release Date: tbd
 * [Added] Added before/after fields for ID column
 * [Changed] Changed Ajax value interface
 * [Fixed] Fixed php warning on count() for php 7.2
-* [Improvement] Column interface for post relations
-* [Improvement] Attachment count column combined with Attachment column
-* [Improvement] Pro banner
+* [Improved] Column interface for post relations
+* [Improved] Attachment count column combined with Attachment column
+* [Improved] Pro banner
 * [Improved] Published date shows when a post is not published
 * [Improved] Custom field keys for users are now grouped by site option
-* [Improvement] Added the AC_Plugin class as a more DRY approach to asking meta data about a plugin
-* [Improvement] Redone the way user preferences are stored. Less records and better compatible with Multisite.
-* [Improvement] Added the option to write database updates and apply them on a new version
-* [Improvement] Empty character is just a method now instead of getter/setter with a filter
-* [Improvement] Added AC_Services class to register services to a column on the fly (DI approach)
+* [Improved] Added the AC_Plugin class as a more DRY approach to asking meta data about a plugin
+* [Improved] Redone the way user preferences are stored. Less records and better compatible with Multisite.
+* [Improved] Added the option to write database updates and apply them on a new version
+* [Improved] Empty character is just a method now instead of getter/setter with a filter
+* [Improved] Added AC_Services class to register services to a column on the fly (DI approach)
+* [Improved] Custom fields for users are now grouped per network site
 
 = 3.0.4 =
 
