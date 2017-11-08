@@ -10,7 +10,7 @@ class AC_Plugin_Updater {
 	/**
 	 * @var bool
 	 */
-	protected $show_notice = false;
+	protected $first_install;
 
 	/**
 	 * @var bool
@@ -18,13 +18,12 @@ class AC_Plugin_Updater {
 	protected $apply_updates;
 
 	/**
-	 * @var bool
+	 * @var array
 	 */
-	protected $first_install;
+	protected $updates;
 
 	protected function __construct() {
 		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
-		$this->set_first_install();
 	}
 
 	public static function instance() {
@@ -58,34 +57,40 @@ class AC_Plugin_Updater {
 	 * @return bool
 	 */
 	public function is_first_install() {
+		if ( null === $this->first_install ) {
+			$this->set_first_install();
+		}
+
 		return $this->first_install;
+	}
+
+	public function add_update( AC_Plugin_Update $update ) {
+		$this->updates[ $update->get_basename() ][ $update->get_version() ] = $update;
 	}
 
 	/**
 	 * @param AC_Plugin $plugin
 	 * @param array     $updates Key should contain version, value should be an array with callbacks
 	 */
-	public function parse_updates( AC_Plugin_Update $update ) {
-		if ( $this->show_notice || ! $update->needs_update() ) {
-			return;
+	public function parse_updates() {
+		ksort( $this->updates );
+
+		foreach ( $this->updates as $basename => $updates ) {
+			krsort( $this->updates[ $basename ], SORT_NUMERIC );
+
+			/* @var AC_Plugin_Update $update */
+			foreach ( $updates as $update ) {
+				if ( $update->needs_update() ) {
+					if ( ! $this->apply_updates ) {
+						$this->show_update_notice();
+
+						return;
+					}
+
+					$update->apply_update();
+				}
+			}
 		}
-
-		// Stop further checking, queue update message
-		if ( ! $this->apply_updates ) {
-			// TODO: maybe one hook later and have this class itself on admin_init?
-			add_action( 'admin_init', array( $this, 'show_update_notice' ) );
-
-			return;
-		}
-
-		$update->apply_update();
-
-		add_action( 'admin_init', array( $this, 'redirect_after_update' ) );
-	}
-
-	public function redirect_after_update() {
-		wp_redirect( remove_query_arg( 'ac_do_update' ) );
-		exit;
 	}
 
 	public function show_update_notice() {

@@ -51,6 +51,13 @@ abstract class AC_Plugin_Update {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function get_basename() {
+		return $this->plugin->get_basename();
+	}
+
+	/**
 	 * Set the version this update applies to
 	 *
 	 * @return void

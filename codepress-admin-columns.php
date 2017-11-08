@@ -140,6 +140,7 @@ class CPAC extends AC_Plugin {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
+		add_action( 'admin_init', array( $this, 'run_updater' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -519,6 +520,17 @@ class CPAC extends AC_Plugin {
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'ac/post_types', $post_types );
+	}
+
+	/**
+	 * Check if there are updates and apply or notify about them
+	 */
+	public function run_updater() {
+		$updater = AC_Plugin_Updater::instance();
+
+		if ( ! $updater->is_first_install() ) {
+			$updater->parse_updates();
+		}
 	}
 
 	/**
