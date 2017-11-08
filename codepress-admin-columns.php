@@ -140,6 +140,7 @@ class CPAC extends AC_Plugin {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
+		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -201,6 +202,20 @@ class CPAC extends AC_Plugin {
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
+	}
+
+	/**
+	 * Handle installation and updates
+	 */
+	public function install() {
+		$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', 'AC_' );
+		$updater = new AC_Plugin_Updater( $this );
+
+		foreach ( $classes as $class ) {
+			$updater->add_update( new $class( $this->get_stored_version() ) );
+		}
+
+		$updater->parse_updates();
 	}
 
 	/**
