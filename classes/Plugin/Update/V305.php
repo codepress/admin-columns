@@ -1,6 +1,6 @@
 <?php
 
-class ACP_Plugin_Update_V305 extends AC_Plugin_Update {
+class AC_Plugin_Update_V305 extends AC_Plugin_Update {
 
 	/**
 	 * @return bool
