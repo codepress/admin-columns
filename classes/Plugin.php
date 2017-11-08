@@ -136,28 +136,14 @@ abstract class AC_Plugin {
 	}
 
 	protected function set_stored_version() {
-		$key = $this->get_version_key();
-
-		if ( $this->is_network_active() ) {
-			$stored_version = get_site_option( $key );
-		} else {
-			$stored_version = get_option( $key );
-		}
-
-		$this->stored_version = $stored_version;
+		$this->stored_version = get_option( $this->get_version_key() );
 	}
 
 	/**
 	 * Update the stored version to match the (current) version
 	 */
 	public function update_stored_version( $version ) {
-		$key = $this->get_version_key();
-
-		if ( $this->is_network_active() ) {
-			return update_site_option( $key, $version );
-		}
-
-		return update_option( $key, $version );
+		return update_option( $this->get_version_key(), $version );
 	}
 
 }

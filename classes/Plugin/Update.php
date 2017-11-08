@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class AC_Plugin_Update
+ *
+ * Assumes this regex for versions: ^[1-9]\.[0-9]\.[1-9][0-9]?$
+ */
 abstract class AC_Plugin_Update {
 
 	/**
