@@ -12,7 +12,6 @@ class ACP_Plugin_Update_V305 extends AC_Plugin_Update {
 	public function apply_update() {
 		$this->migrate_user_specific_settings();
 		$this->delete_deprecated_settings();
-		$this->update_stored_version();
 	}
 
 	protected function set_version() {
@@ -96,6 +95,8 @@ class ACP_Plugin_Update_V305 extends AC_Plugin_Update {
 	private function delete_deprecated_settings() {
 		$this->delete( 'cpac_current_model' );
 		$this->delete( 'cpac-install-timestamp' );
+		$this->delete( 'cpac_version' );
+		$this->delete( 'cpac_version_prev' );
 	}
 
 	/**
