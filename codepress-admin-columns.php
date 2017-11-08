@@ -527,10 +527,7 @@ class CPAC extends AC_Plugin {
 	 */
 	public function run_updater() {
 		$updater = AC_Plugin_Updater::instance();
-
-		if ( ! $updater->is_first_install() ) {
-			$updater->parse_updates();
-		}
+		$updater->parse_updates();
 	}
 
 	/**

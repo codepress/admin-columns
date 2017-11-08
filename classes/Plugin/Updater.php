@@ -10,7 +10,7 @@ class AC_Plugin_Updater {
 	/**
 	 * @var bool
 	 */
-	protected $first_install;
+	protected $fresh_install;
 
 	/**
 	 * @var bool
@@ -18,12 +18,22 @@ class AC_Plugin_Updater {
 	protected $apply_updates;
 
 	/**
+	 * Contains updates with plugin basename as key
+	 *
 	 * @var array
 	 */
 	protected $updates;
 
+	/**
+	 * Contains all plugins that have one or more updates available
+	 *
+	 * @var AC_Plugin[]
+	 */
+	protected $plugins;
+
 	protected function __construct() {
 		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
+		$this->set_fresh_install();
 	}
 
 	public static function instance() {
@@ -36,9 +46,8 @@ class AC_Plugin_Updater {
 
 	/**
 	 * Check if the plugin was updated or that it's a first install
-	 *
 	 */
-	private function set_first_install() {
+	private function set_fresh_install() {
 		global $wpdb;
 
 		$sql = "
@@ -50,36 +59,31 @@ class AC_Plugin_Updater {
 
 		$results = $wpdb->get_results( $sql );
 
-		$this->first_install = empty( $results );
+		$this->fresh_install = empty( $results );
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function is_first_install() {
-		if ( null === $this->first_install ) {
-			$this->set_first_install();
+	public function is_fresh_install() {
+		return $this->fresh_install;
+	}
+
+	public function add_update( AC_Plugin $plugin, AC_Plugin_Update $update ) {
+		$this->plugins[ $plugin->get_basename() ] = $plugin;
+		$this->updates[ $plugin->get_basename() ][ $update->get_version() ] = $update;
+	}
+
+	public function parse_updates() {
+		if ( $this->is_fresh_install() ) {
+			return;
 		}
 
-		return $this->first_install;
-	}
-
-	public function add_update( AC_Plugin_Update $update ) {
-		$this->updates[ $update->get_basename() ][ $update->get_version() ] = $update;
-	}
-
-	/**
-	 * @param AC_Plugin $plugin
-	 * @param array     $updates Key should contain version, value should be an array with callbacks
-	 */
-	public function parse_updates() {
-		ksort( $this->updates );
-
-		foreach ( $this->updates as $basename => $updates ) {
+		foreach ( $this->plugins as $basename => $plugin ) {
 			krsort( $this->updates[ $basename ], SORT_NUMERIC );
 
 			/* @var AC_Plugin_Update $update */
-			foreach ( $updates as $update ) {
+			foreach ( $this->updates[ $basename ] as $update ) {
 				if ( $update->needs_update() ) {
 					if ( ! $this->apply_updates ) {
 						$this->show_update_notice();
@@ -88,7 +92,12 @@ class AC_Plugin_Updater {
 					}
 
 					$update->apply_update();
+					$plugin->update_stored_version( $update->get_version() );
 				}
+			}
+
+			if ( $this->apply_updates ) {
+				$plugin->update_stored_version( $plugin->get_version() );
 			}
 		}
 	}

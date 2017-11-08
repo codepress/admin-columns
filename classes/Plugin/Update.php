@@ -10,15 +10,15 @@ abstract class AC_Plugin_Update {
 	/**
 	 * @var string
 	 */
-	protected $version;
+	protected $stored_version;
 
 	/**
-	 * @var AC_Plugin
+	 * @var string
 	 */
-	protected $plugin;
+	protected $version;
 
-	public function __construct( AC_Plugin $plugin ) {
-		$this->plugin = $plugin;
+	public function __construct( $stored_version ) {
+		$this->stored_version = $stored_version;
 		$this->set_version();
 	}
 
@@ -33,7 +33,7 @@ abstract class AC_Plugin_Update {
 	 * @return bool
 	 */
 	protected function is_less_or_equal_stored_version() {
-		return version_compare( $this->plugin->get_version(), $this->plugin->get_stored_version(), '<=' );
+		return version_compare( $this->version, $this->stored_version, '<=' );
 	}
 
 	/**
@@ -51,24 +51,10 @@ abstract class AC_Plugin_Update {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_basename() {
-		return $this->plugin->get_basename();
-	}
-
-	/**
 	 * Set the version this update applies to
 	 *
 	 * @return void
 	 */
 	protected abstract function set_version();
-
-	/**
-	 * Update the stored version to self::$version
-	 */
-	protected function update_stored_version() {
-		$this->plugin->update_stored_version( $this->version );
-	}
 
 }
