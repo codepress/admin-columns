@@ -449,7 +449,7 @@ abstract class AC_ListScreen {
 		 * Fires when a column type is registered to a list screen. Can be used to attach additional
 		 * functionality to a column type, such as exporting, sorting or filtering
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0.5
 		 *
 		 * @param AC_Column     $column      Column type object
 		 * @param AC_ListScreen $list_screen List screen object to which the column was registered
@@ -624,7 +624,7 @@ abstract class AC_ListScreen {
 		 * Fires when a column is registered to a list screen, i.e. when it is created. Can be used
 		 * to attach additional functionality to a column, such as exporting, sorting or filtering
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0.5
 		 *
 		 * @param AC_Column     $column      Column type object
 		 * @param AC_ListScreen $list_screen List screen object to which the column was registered

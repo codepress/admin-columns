@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0.4
+Version: 3.0.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -468,7 +468,7 @@ class CPAC extends AC_Plugin {
 		/**
 		 * Fires when a list screen is registered.
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0.5
 		 *
 		 * @param AC_ListScreen $list_screen List screen object
 		 * @param CPAC          $ac          Main admin columns class instance
