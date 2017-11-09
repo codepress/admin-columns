@@ -127,7 +127,9 @@ class AC_Preferences {
 			WHERE meta_key LIKE %s
 		";
 
-		return (bool) $wpdb->query( $wpdb->prepare( $sql, $wpdb->esc_like( $this->get_key() ) . '%' ) );
+		$sql = $wpdb->prepare( $sql, $wpdb->esc_like( $wpdb->get_blog_prefix() . $this->get_key() ) . '%' );
+
+		return (bool) $wpdb->query( $sql );
 	}
 
 }
