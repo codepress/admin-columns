@@ -5,11 +5,6 @@ abstract class AC_Plugin {
 	/**
 	 * @var string
 	 */
-	private $version;
-
-	/**
-	 * @var string
-	 */
 	private $plugin_dir;
 
 	/**
@@ -103,21 +98,7 @@ abstract class AC_Plugin {
 	/**
 	 * @return string
 	 */
-	public function get_version() {
-		if ( null === $this->version ) {
-			$this->set_version();
-		}
-
-		return $this->version;
-	}
-
-	protected function set_version() {
-		$data = $this->get_plugin_data();
-
-		if ( isset( $data['Version'] ) ) {
-			$this->version = $data['Version'];
-		}
-	}
+	public abstract function get_version();
 
 	/**
 	 * @return string

@@ -169,6 +169,13 @@ class CPAC extends AC_Plugin {
 		return 'ac_version';
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_version() {
+		return '3.0.5';
+	}
+
 	public function ready() {
 
 		/**
