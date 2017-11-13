@@ -174,11 +174,12 @@ class AC_Helper_Html {
 	/**
 	 * Returns an array with internal / external  links
 	 *
-	 * @param $string
+	 * @param string $string
+	 * @param array  $internal_domains Domains which determine internal links. Default is home_url().
 	 *
 	 * @return false|array [ internal | external ]
 	 */
-	public function get_internal_external_links( $string ) {
+	public function get_internal_external_links( $string, $internal_domains = array() ) {
 		if ( ! class_exists( 'DOMDocument' ) ) {
 			return false;
 		}
@@ -186,6 +187,10 @@ class AC_Helper_Html {
 		// Just do a very simple check to check for possible links
 		if ( false === strpos( $string, '<a' ) ) {
 			return false;
+		}
+
+		if ( ! $internal_domains ) {
+			$internal_domains = array( home_url() );
 		}
 
 		$internal_links = array();
@@ -200,7 +205,15 @@ class AC_Helper_Html {
 			/** @var DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
-			if ( false !== strpos( $href, home_url() ) ) {
+			$internal = false;
+
+			foreach ( (array) $internal_domains as $domain ) {
+				if ( false !== strpos( $href, $domain ) ) {
+					$internal = true;
+				}
+			}
+
+			if ( $internal ) {
 				$internal_links[] = $href;
 			} else {
 				$external_links[] = $href;
