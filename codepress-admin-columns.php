@@ -35,6 +35,7 @@ if ( ! is_admin() ) {
 }
 
 require_once 'classes/Autoloader.php';
+require_once 'classes/Addon.php';
 require_once 'classes/Plugin.php';
 require_once 'api.php';
 
