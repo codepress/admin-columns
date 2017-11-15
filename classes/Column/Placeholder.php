@@ -8,14 +8,14 @@
 class AC_Column_Placeholder extends AC_Column {
 
 	/**
-	 * @var AC_Addon
+	 * @var AC_Admin_Addon
 	 */
 	private $addon;
 
 	/**
-	 * @param AC_Addon $addon
+	 * @param AC_Admin_Addon $addon
 	 */
-	public function set_addon( AC_Addon $addon ) {
+	public function set_addon( AC_Admin_Addon $addon ) {
 		$this->addon = $addon;
 
 		$this->set_type( 'placeholder-' . $addon->get_slug() );

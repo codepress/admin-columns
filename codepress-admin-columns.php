@@ -92,7 +92,7 @@ class CPAC extends AC_Plugin {
 	private $api;
 
 	/**
-	 * @var AC_Addons
+	 * @var AC_Admin_Addons
 	 */
 	private $addons;
 
@@ -130,7 +130,7 @@ class CPAC extends AC_Plugin {
 		new AC_ThirdParty_WPML();
 
 		// Init
-		$this->addons = new AC_Addons();
+		$this->addons = new AC_Admin_Addons();
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
@@ -308,7 +308,7 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @since 2.2
-	 * @return AC_Addons Add-ons class instance
+	 * @return AC_Admin_Addons Add-ons class instance
 	 */
 	public function addons() {
 		return $this->addons;

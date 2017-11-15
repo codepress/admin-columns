@@ -1,14 +1,14 @@
 <?php
 
-class AC_Addons {
+class AC_Admin_Addons {
 
 	/**
-	 * @var AC_Addon[]
+	 * @var AC_Admin_Addon[]
 	 */
 	private $addons;
 
 	/**
-	 * @return AC_Addon[]
+	 * @return AC_Admin_Addon[]
 	 */
 	public function get_addons() {
 		if ( null === $this->addons ) {
@@ -19,7 +19,7 @@ class AC_Addons {
 	}
 
 	/**
-	 * @return AC_Addon[]
+	 * @return AC_Admin_Addon[]
 	 */
 	public function get_active_promo() {
 		$addons = $this->get_addons();
@@ -36,7 +36,7 @@ class AC_Addons {
 	/**
 	 * All addons where 3d party is installed but integration is not installed
 	 *
-	 * @return AC_Addon[]
+	 * @return AC_Admin_Addon[]
 	 */
 	public function get_missing_addons() {
 		$missing = array();
@@ -51,7 +51,7 @@ class AC_Addons {
 	}
 
 	/**
-	 * @return AC_addon[]
+	 * @return AC_Admin_Addon[]
 	 */
 	public function get_active_addons() {
 		$addons = array();
@@ -72,7 +72,7 @@ class AC_Addons {
 	 *
 	 * @param string $slug Addon slug
 	 *
-	 * @return AC_Addon|false Returns addon details if the add-on exists, false otherwise
+	 * @return AC_Admin_Addon|false Returns addon details if the add-on exists, false otherwise
 	 */
 	public function get_addon( $slug ) {
 		foreach ( $this->get_addons() as $addon ) {
@@ -85,9 +85,9 @@ class AC_Addons {
 	}
 
 	/**
-	 * @param AC_Addon $addon
+	 * @param AC_Admin_Addon $addon
 	 */
-	public function register_addon( AC_Addon $addon ) {
+	public function register_addon( AC_Admin_Addon $addon ) {
 		$this->addons[] = $addon;
 	}
 
