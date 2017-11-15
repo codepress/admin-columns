@@ -95,7 +95,7 @@ class AC_Admin_Addons {
 	 * Register addon
 	 */
 	private function set_addons() {
-		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Addon', 'AC_' );
+		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Addon', 'AC_' );
 
 		foreach ( $classes as $class ) {
 			$this->register_addon( new $class );
