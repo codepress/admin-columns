@@ -19,10 +19,14 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 			->set_options( $this->get_grouped_columns() );
 
 		// Tooltip
-		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' ) . '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' );
 
-		if ( $this->column->get_name() ) {
-			$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$tooltip .=  '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+
+			if ( $this->column->get_name() ) {
+				$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
+			}
 		}
 
 		$view = new AC_View( array(
