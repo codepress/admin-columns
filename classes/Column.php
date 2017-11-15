@@ -412,7 +412,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return int|string
+	 * @return string
 	 */
 	public function get_value( $id ) {
 		$value = $this->get_formatted_value( $this->get_raw_value( $id ), $id );
