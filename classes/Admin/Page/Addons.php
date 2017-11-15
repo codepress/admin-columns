@@ -333,7 +333,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			}
 		}
 
-		/* @var AC_Admin_Addon[] $sorted */
+		/* @var AC_Addon[] $sorted */
 		$sorted = array_merge( $active, $inactive );
 
 		$grouped = array();
@@ -375,7 +375,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				<ul>
 					<?php
 					foreach ( $group['addons'] as $addon ) :
-						/* @var AC_Admin_Addon $addon */ ?>
+						/* @var AC_Addon $addon */ ?>
 						<li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
 							<div class="addon-header">
 								<div class="inner">

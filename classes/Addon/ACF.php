@@ -1,6 +1,6 @@
 <?php
 
-class AC_Admin_Addon_ACF extends AC_Admin_Addon {
+class AC_Addon_ACF extends AC_Addon {
 
 	public function __construct() {
 		parent::__construct( 'cac-addon-acf' );

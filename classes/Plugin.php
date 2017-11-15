@@ -1,6 +1,33 @@
 <?php
 
-abstract class AC_Plugin extends AC_Addon {
+abstract class AC_Plugin {
+
+	/**
+	 * @var string
+	 */
+	private $plugin_dir;
+
+	/**
+	 * @var string
+	 */
+	private $plugin_url;
+
+	/**
+	 * @var string
+	 */
+	private $basename;
+
+	/**
+	 * @var bool
+	 */
+	private $fresh_install;
+
+	/**
+	 * Return the file from this plugin
+	 *
+	 * @return string
+	 */
+	abstract protected function get_file();
 
 	/**
 	 * Check if plugin is network activated
@@ -24,28 +51,54 @@ abstract class AC_Plugin extends AC_Addon {
 	}
 
 	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param $key
-	 *
-	 * @return false|string
+	 * @return string
 	 */
-	protected function get_plugin_header( $key ) {
-		$data = $this->get_plugin_data();
-
-		if ( ! isset( $data[ $key ] ) ) {
-			return false;
+	public function get_basename() {
+		if ( null === $this->basename ) {
+			$this->set_basename();
 		}
 
-		return $data[ $key ];
+		return $this->basename;
+	}
+
+	protected function set_basename() {
+		$this->basename = plugin_basename( $this->get_file() );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_version() {
-		return $this->get_plugin_header( 'Version' );
+	public function get_plugin_dir() {
+		if ( null === $this->plugin_dir ) {
+			$this->set_plugin_dir();
+		}
+
+		return $this->plugin_dir;
 	}
+
+	protected function set_plugin_dir() {
+		$this->plugin_dir = plugin_dir_path( $this->get_file() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_plugin_url() {
+		if ( null === $this->plugin_url ) {
+			$this->set_plugin_url();
+		}
+
+		return $this->plugin_url;
+	}
+
+	protected function set_plugin_url() {
+		$this->plugin_url = plugin_dir_url( $this->get_file() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public abstract function get_version();
 
 	/**
 	 * @return string
@@ -70,6 +123,14 @@ abstract class AC_Plugin extends AC_Addon {
 	 * Check if the plugin was updated or is a fresh install
 	 */
 	public function is_fresh_install() {
+		if ( null === $this->fresh_install ) {
+			$this->set_fresh_install();
+		}
+
+		return $this->fresh_install;
+	}
+
+	protected function set_fresh_install() {
 		global $wpdb;
 
 		$sql = "
@@ -81,7 +142,7 @@ abstract class AC_Plugin extends AC_Addon {
 
 		$results = $wpdb->get_results( $sql );
 
-		return empty( $results );
+		$this->fresh_install = empty( $results );
 	}
 
 }
