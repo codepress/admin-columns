@@ -1,6 +1,6 @@
 <?php
 
-class AC_Addon_Types extends AC_Addon {
+class AC_Admin_Addon_Types extends AC_Admin_Addon {
 
 	public function __construct() {
 		parent::__construct( 'ac-addon-types' );

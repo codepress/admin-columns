@@ -45,14 +45,14 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 		// Specific promotions or sales
 		'utm_campaign' => $utm_campaign,
 
-		// Marketing medium: banner, support documentation, email
+		// Marketing medium: banner, documentation or email
 		'utm_medium'   => $utm_medium,
 
 		// Used for differentiation of medium
 		'utm_content'  => $utm_content,
 	);
 
-	$args = array_map( 'sanitize_key', $args );
+	$args = array_map( 'sanitize_key', array_filter( $args ) );
 
 	return add_query_arg( $args, $url );
 }
@@ -96,7 +96,7 @@ function ac_is_version_gte( $version ) {
  * @since 2.2
  *
  * @param string|array $list_screen_key List screen key or keys
- * @param array $column_data
+ * @param array        $column_data
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
@@ -146,7 +146,7 @@ function cac_is_setting_screen( $slug = '' ) {
 /**
  * Returns true if the installed version of WooCommerce is version X or greater
  *
- * @since 2.3.4
+ * @since      2.3.4
  * @deprecated 3.0
  * @return boolean true if the installed version of WooCommerce is version X or greater
  */

@@ -46,11 +46,6 @@ class AC_Column {
 	protected $list_screen;
 
 	/**
-	 * @var AC_Container
-	 */
-	private $services;
-
-	/**
 	 * The options managed by the settings
 	 *
 	 * @var array
@@ -115,20 +110,6 @@ class AC_Column {
 		$this->list_screen = $list_screen;
 
 		return $this;
-	}
-
-	/**
-	 * Container to inject and get services for this column
-	 *
-	 * @since 3.0.5
-	 * @return AC_Container
-	 */
-	public function services() {
-		if ( null === $this->services ) {
-			$this->services = new AC_Container();
-		}
-
-		return $this->services;
 	}
 
 	/**
@@ -394,6 +375,28 @@ class AC_Column {
 	}
 
 	/**
+	 * True when the column is sortable by default
+	 *
+	 * return bool
+	 */
+	public function is_native_sortable() {
+		if ( ! $this->is_original() ) {
+			return false;
+		}
+
+		$table = $this->get_list_screen()->get_list_table();
+
+		if ( ! $table instanceof WP_List_Table ) {
+			return false;
+		}
+
+		$column_info = $table->get_column_info();
+		$sortables = $column_info[2];
+
+		return isset( $sortables[ $this->get_type() ] );
+	}
+
+	/**
 	 * Get the raw, underlying value for the column
 	 * Not suitable for direct display, use get_value() for that
 	 *
@@ -412,7 +415,7 @@ class AC_Column {
 	 *
 	 * @param int $id
 	 *
-	 * @return int|string
+	 * @return string
 	 */
 	public function get_value( $id ) {
 		$value = $this->get_formatted_value( $this->get_raw_value( $id ), $id );

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0.5
+Version: 3.0.6
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -35,6 +35,7 @@ if ( ! is_admin() ) {
 }
 
 require_once 'classes/Autoloader.php';
+require_once 'classes/Addon.php';
 require_once 'classes/Plugin.php';
 require_once 'api.php';
 
@@ -92,7 +93,7 @@ class CPAC extends AC_Plugin {
 	private $api;
 
 	/**
-	 * @var AC_Addons
+	 * @var AC_Admin_Addons
 	 */
 	private $addons;
 
@@ -130,7 +131,7 @@ class CPAC extends AC_Plugin {
 		new AC_ThirdParty_WPML();
 
 		// Init
-		$this->addons = new AC_Addons();
+		$this->addons = new AC_Admin_Addons();
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
@@ -173,7 +174,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.0.5';
+		return '3.0.6';
 	}
 
 	public function ready() {
@@ -308,7 +309,7 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @since 2.2
-	 * @return AC_Addons Add-ons class instance
+	 * @return AC_Admin_Addons Add-ons class instance
 	 */
 	public function addons() {
 		return $this->addons;

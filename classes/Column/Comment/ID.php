@@ -14,4 +14,8 @@ class AC_Column_Comment_ID extends AC_Column {
 		return $id;
 	}
 
+	public function get_raw_value( $id ) {
+		return $id;
+	}
+
 }

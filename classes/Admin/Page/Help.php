@@ -147,7 +147,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 
 		// Actions
         $this->deprecated_action( 'cac/admin_head', '3.0', 'cac-admin_head' );
-        $this->deprecated_action( 'cac/loaded', '3.0', 'cac-cacloaded' );
+        $this->deprecated_action( 'cac/loaded', '3.0', 'cac-loaded' );
         $this->deprecated_action( 'cac/inline-edit/after_ajax_column_save', '3.0', 'cacinline-editafter_ajax_column_save' );
         $this->deprecated_action( 'cac/settings/after_title', '3.0' );
         $this->deprecated_action( 'cac/settings/form_actions', '3.0' );
@@ -180,7 +180,12 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		if ( has_filter( $hook ) ) {
 			$message = sprintf( __( 'The filter %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
-			$this->add_deprecated_message( 'filter', $message, $hook, 'filter-reference/' . $page_slug );
+			$page = '#filter-reference';
+			if ( $page_slug ) {
+				$page = 'filter-reference/' . $page_slug;
+			}
+
+			$this->add_deprecated_message( 'filter', $message, $hook, $page );
 		}
 	}
 
@@ -193,7 +198,12 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		if ( has_action( $hook ) ) {
 			$message = sprintf( __( 'The action %s used on this website is deprecated since %s.', 'codepress-admin-columns' ), '<code>' . $hook . '</code>', '<strong>' . $version . '</strong>' );
 
-			$this->add_deprecated_message( 'action', $message, $hook, 'action-reference/' . $page_slug );
+			$page = '#action-reference';
+			if ( $page_slug ) {
+				$page = 'action-reference/' . $page_slug;
+			}
+
+			$this->add_deprecated_message( 'action', $message, $hook, $page );
 		}
 	}
 
@@ -241,7 +251,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * @return false|string
 	 */
 	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_url( 'documentation/' . $page ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( ac_get_site_url( 'documentation' ) . $page, __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
 	}
 
 	/**
