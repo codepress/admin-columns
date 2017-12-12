@@ -1,6 +1,6 @@
 <?php
 
-class AC_Plugin_Update_V307 extends AC_Plugin_Update {
+class AC_Plugin_Update_V3007 extends AC_Plugin_Update {
 
 	public function apply_update() {
 		$this->update_roles_column();

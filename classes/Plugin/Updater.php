@@ -32,7 +32,9 @@ class AC_Plugin_Updater {
 	 */
 	public function __construct( AC_Plugin $plugin ) {
 		$this->plugin = $plugin;
-		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
+		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+		//$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
+		$this->apply_updates = true;
 	}
 
 	public function add_update( AC_Plugin_Update $update ) {
@@ -71,7 +73,8 @@ class AC_Plugin_Updater {
 
 		if ( $this->apply_updates ) {
 			$plugin->update_stored_version( $plugin->get_version() );
-			$this->show_completed_notice();
+			// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+			//$this->show_completed_notice();
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class AC_Plugin_Update_V305 extends AC_Plugin_Update {
+class AC_Plugin_Update_V3005 extends AC_Plugin_Update {
 
 	public function apply_update() {
 		$this->migrate_user_specific_settings();
