@@ -71,9 +71,9 @@ class AC_Plugin_Updater {
 			}
 		}
 
-		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
 		if ( $this->apply_updates ) {
 			$plugin->update_stored_version( $plugin->get_version() );
+			// TODO: https://github.com/codepress/admin-columns-issues/issues/982
 			//$this->show_completed_notice();
 		}
 	}
