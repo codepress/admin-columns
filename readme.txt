@@ -222,7 +222,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date: December 22nd, 2017
 
-
+* [Added] New setting for content fields: String limit (Limit on words or characters)
+* [Improved] Merged the roles column into the author column
+* [Improved] Added Before/After fields for the following columns: Content, Excerpt, User Description
+* [Improved] Removed deprecated Welcome page
+* [Improved] Removed deprecated Upgrade page
 
 = 3.0.6 =
 
