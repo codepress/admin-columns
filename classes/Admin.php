@@ -38,10 +38,7 @@ class AC_Admin {
 			->register_page( new AC_Admin_Page_Columns() )
 			->register_page( new AC_Admin_Page_Settings() )
 			->register_page( new AC_Admin_Page_Addons() )
-			->register_page( new AC_Admin_Page_Help() )
-			// Hidden
-			->register_page( new AC_Admin_Page_Welcome() )
-			->register_page( new AC_Admin_Page_Upgrade() );
+			->register_page( new AC_Admin_Page_Help() );
 
 		do_action( 'ac/admin_pages', $this->pages );
 	}

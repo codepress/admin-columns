@@ -23,7 +23,6 @@ class AC_Settings_Column_WordLimit extends AC_Settings_Column
 		                ->set_attributes( array(
 			                'min'         => 0,
 			                'step'        => 1,
-			                'placeholder' => $this->get_default(),
 		                ) );
 
 		$view = new AC_View( array(

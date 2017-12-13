@@ -70,6 +70,10 @@ class AC_Helper_String {
 			return false;
 		}
 
+		if ( ! $num_words ) {
+			return $string;
+		}
+
 		return wp_trim_words( $string, $num_words, $more );
 	}
 

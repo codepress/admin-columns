@@ -17,7 +17,8 @@ class AC_Settings_Column_StringLimit extends AC_Settings_Column {
 		                ->set_options( $this->get_limit_options() );
 
 		$view = new AC_View( array(
-			'label'   => __( 'Maximum Length', 'codepress-admin-columns' ),
+			'label'   => __( 'Text Limit', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Limit text to a certain number of characters or words', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
 
@@ -26,9 +27,9 @@ class AC_Settings_Column_StringLimit extends AC_Settings_Column {
 
 	private function get_limit_options() {
 		$options = array(
-			''                => __( 'No Maximum Length', 'codepress-admin-columns' ),
-			'character_limit' => __( 'Limit on Characters', 'codepress-admin-columns' ),
-			'word_limit'      => __( 'Limit on Words', 'codepress-admin-columns' ),
+			''                => __( 'No limit', 'codepress-admin-columns' ),
+			'character_limit' => __( 'Character Limit', 'codepress-admin-columns' ),
+			'word_limit'      => __( 'Word Limit', 'codepress-admin-columns' ),
 		);
 
 		return $options;

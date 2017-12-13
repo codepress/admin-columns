@@ -1,13 +1,6 @@
 <?php
 
-class AC_Plugin_Update_V305 extends AC_Plugin_Update {
-
-	/**
-	 * @return bool
-	 */
-	public function needs_update() {
-		return $this->is_less_or_equal_stored_version();
-	}
+class AC_Plugin_Update_V3005 extends AC_Plugin_Update {
 
 	public function apply_update() {
 		$this->migrate_user_specific_settings();

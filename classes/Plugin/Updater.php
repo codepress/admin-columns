@@ -32,7 +32,9 @@ class AC_Plugin_Updater {
 	 */
 	public function __construct( AC_Plugin $plugin ) {
 		$this->plugin = $plugin;
-		$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
+		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+		//$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
+		$this->apply_updates = true;
 	}
 
 	public function add_update( AC_Plugin_Update $update ) {
@@ -40,7 +42,6 @@ class AC_Plugin_Updater {
 	}
 
 	public function parse_updates() {
-
 		// Network wide updating is not allowed
 		if ( is_network_admin() ) {
 			return;
@@ -72,10 +73,21 @@ class AC_Plugin_Updater {
 
 		if ( $this->apply_updates ) {
 			$plugin->update_stored_version( $plugin->get_version() );
+			// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+			//$this->show_completed_notice();
 		}
 	}
 
-	public function show_update_notice() {
+	protected function show_completed_notice() {
+		$message = sprintf( '<strong>%s</strong> &ndash; %s',
+			esc_html__( 'Admin Columns', 'codepress-admin-columns' ),
+			esc_html__( 'Your database is up to date. You are awesome.', 'codepress-admin-columns' )
+		);
+
+		AC()->notice( $message );
+	}
+
+	protected function show_update_notice() {
 		$url = add_query_arg( array( 'ac_do_update' => 'true' ), AC()->admin()->get_settings_url() );
 
 		$message = sprintf( '<strong>%s</strong> &ndash; %s <a href="%s" class="button ac-update-now">%s</a>',
