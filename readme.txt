@@ -220,7 +220,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 3.0.7 =
 
-Release Date: December 22nd, 2017
+Release Date: December 12th, 2017
 
 * [Added] New setting for content fields: String limit (Limit on words or characters)
 * [Improved] Merged the roles column into the author column
