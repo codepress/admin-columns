@@ -801,6 +801,17 @@ abstract class AC_ListScreen {
 	 * @return bool
 	 */
 	public function delete() {
+
+		/**
+		 * Fires before a column setup is removed from the database
+		 * Primarily used when columns are deleted through the Admin Columns settings screen
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param AC_ListScreen $list_screen
+		 */
+		do_action( 'ac/columns_delete', $this );
+
 		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
 	}
 
