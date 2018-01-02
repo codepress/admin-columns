@@ -12,17 +12,19 @@ class AC_Settings_Column_Date extends AC_Settings_Column_DateTimeFormat {
 		);
 	}
 
-	protected function get_custom_format_options() {
-		$default_option = $this->get_default_date_option( array(
-			'label' => __( 'WordPress Date Format', 'codepress-admin-columns' ),
-		) );
+	private function get_diff_html_label() {
+		//todo make readable
+		return $this->get_html_label(
+			__( 'Time Difference', 'codepress-admin-columns' ),
+			'',
+			__( 'The difference is returned in a human readable format.', 'codepress-admin-columns' ) . ' <br/>' . sprintf( __( 'For example: %s.', 'codepress-admin-columns' ), '"' . $this->format_human_time_diff( strtotime( "-1 hour" ) ) . '" ' . __( 'or' ) . ' "' . $this->format_human_time_diff( strtotime( "-2 days" ) ) . '"' )
+		);
+	}
 
+	protected function get_custom_format_options() {
 		$options = array(
-			'diff' => $this->get_html_label( array(
-					'label'       => __( 'Time Difference', 'codepress-admin-columns' ),
-					'description' => __( 'The difference is returned in a human readable format.', 'codepress-admin-columns' ) . ' <br/>' . sprintf( __( 'For example: %s.', 'codepress-admin-columns' ), '"' . $this->format_human_time_diff( strtotime( "-1 hour" ) ) . '" ' . __( 'or' ) . ' "' . $this->format_human_time_diff( strtotime( "-2 days" ) ) . '"' ),
-				)
-			),
+			'diff'       => $this->get_diff_html_label(),
+			'wp_default' => $this->get_default_html_label( __( 'WordPress Date Format', 'codepress-admin-columns' ) ),
 		);
 
 		$formats = array(
@@ -32,7 +34,11 @@ class AC_Settings_Column_Date extends AC_Settings_Column_DateTimeFormat {
 			'd/m/Y',
 		);
 
-		return array_merge( $options, $default_option, $this->get_formatted_date_options( $formats ) );
+		foreach ( $formats as $format ) {
+			$options[ $format ] = $this->get_html_label_from_date_format( $format );
+		}
+
+		return $options;
 	}
 
 	protected function get_wp_default_format() {
@@ -45,19 +51,13 @@ class AC_Settings_Column_Date extends AC_Settings_Column_DateTimeFormat {
 	 * @return string
 	 */
 	public function format( $date, $original_value ) {
-		if ( ! $date || ! is_scalar( $date ) ) {
+		$timestamp = $this->get_timestamp( $date );
+
+		if ( ! $timestamp ) {
 			return false;
 		}
 
-		$date_format = $this->get_date_format();
-
-		if ( ! $date_format ) {
-			$date_format = $this->get_default();
-		}
-
-		$timestamp = strtotime( $date );
-
-		if ( 'diff' === $date_format ) {
+		if ( 'diff' === $this->get_date_format() ) {
 			return $this->format_human_time_diff( $timestamp );
 		}
 
