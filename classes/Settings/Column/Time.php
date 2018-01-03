@@ -6,7 +6,8 @@ class AC_Settings_Column_Time extends AC_Settings_Column_DateTimeFormat
 	public function create_view() {
 		$view = parent::create_view();
 
-		$view->set( 'label', 'BLABLA' );
+		$view->set( 'label', __( 'Time Format', 'codepress-admin-columns' ) );
+		$view->set( 'tooltip', __( 'This will determine how the time will be displayed.', 'codepress-admin-columns' ) );
 
 		return $view;
 	}

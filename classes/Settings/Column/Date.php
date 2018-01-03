@@ -2,23 +2,15 @@
 
 class AC_Settings_Column_Date extends AC_Settings_Column_DateTimeFormat {
 
-	protected function set_name() {
-		$this->name = 'date';
-	}
-
-	protected function define_options() {
-		return array(
-			'date_format' => 'wp_default',
-		);
-	}
-
 	private function get_diff_html_label() {
-		//todo make readable
-		return $this->get_html_label(
-			__( 'Time Difference', 'codepress-admin-columns' ),
-			'',
-			__( 'The difference is returned in a human readable format.', 'codepress-admin-columns' ) . ' <br/>' . sprintf( __( 'For example: %s.', 'codepress-admin-columns' ), '"' . $this->format_human_time_diff( strtotime( "-1 hour" ) ) . '" ' . __( 'or' ) . ' "' . $this->format_human_time_diff( strtotime( "-2 days" ) ) . '"' )
-		);
+		$description = __( 'The difference is returned in a human readable format.', 'codepress-admin-columns' ) . ' <br/>' .
+		               sprintf( __( 'For example: %s.', 'codepress-admin-columns' ),
+			               '"' . $this->format_human_time_diff( strtotime( "-1 hour" ) ) . '" '
+			               . __( 'or', 'codepress-admin-columns' ) .
+			               ' "' . $this->format_human_time_diff( strtotime( "-2 days" ) ) . '"'
+		               );
+
+		return $this->get_html_label( __( 'Time Difference', 'codepress-admin-columns' ), '', $description );
 	}
 
 	protected function get_custom_format_options() {

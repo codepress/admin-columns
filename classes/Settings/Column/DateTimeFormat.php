@@ -117,7 +117,13 @@ abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
 	 * @return mixed
 	 */
 	public function get_date_format() {
-		return $this->date_format;
+		$date_format = $this->date_format;
+
+		if ( ! $date_format ) {
+			$date_format = $this->get_default();
+		}
+
+		return $date_format;
 	}
 
 	/**
@@ -158,10 +164,6 @@ abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
 
 		$date_format = $this->get_date_format();
 
-		if ( ! $date_format ) {
-			$date_format = $this->get_default();
-		}
-
 		switch ( $date_format ) {
 
 			case 'wp_default' :
@@ -169,7 +171,7 @@ abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
 
 				break;
 			default :
-				$date = date_i18n( $this->get_date_format(), $timestamp );
+				$date = date_i18n( $date_format, $timestamp );
 		}
 
 		return $date;
