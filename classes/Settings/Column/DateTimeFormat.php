@@ -143,8 +143,16 @@ abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
 	 * @return false|int
 	 */
 	protected function get_timestamp( $date ) {
-		if ( ! $date || ! is_scalar( $date ) ) {
+		if ( empty( $date ) ) {
 			return false;
+		}
+
+		if ( ! is_scalar( $date ) ) {
+			return false;
+		}
+
+		if ( is_numeric( $date ) ) {
+			return $date;
 		}
 
 		return strtotime( $date );
