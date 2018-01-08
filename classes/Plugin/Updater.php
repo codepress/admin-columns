@@ -41,9 +41,26 @@ class AC_Plugin_Updater {
 		$this->updates[ $update->get_version() ] = $update;
 	}
 
-	public function parse_updates() {
-		// Network wide updating is not allowed
+	/**
+	 * Checks conditions like user permissions
+	 *
+	 */
+	public function can_parse_updates() {
+		// Check user permissions
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+			return false;
+		}
+
+		// Network wide updating is not supported yet
 		if ( is_network_admin() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public function parse_updates() {
+		if ( ! $this->can_parse_updates() ) {
 			return;
 		}
 
