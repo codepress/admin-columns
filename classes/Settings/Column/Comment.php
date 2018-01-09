@@ -88,7 +88,7 @@ class AC_Settings_Column_Comment extends AC_Settings_Column
 			'id'           => __( 'ID' ),
 			'author'       => __( 'Author' ),
 			'author_email' => __( 'Author Email', 'codepress-admin-column' ),
-			'date'         => __( 'Datum' ),
+			'date'         => __( 'Date' ),
 		);
 
 		asort( $options );
