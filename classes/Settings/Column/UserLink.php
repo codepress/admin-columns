@@ -10,12 +10,11 @@ class AC_Settings_Column_UserLink extends AC_Settings_Column
 
 	protected function define_options() {
 		return array(
-			'user_link_to' => 'edit_post',
+			'user_link_to' => 'edit_user',
 		);
 	}
 
-	public function format( $value, $original_value ) {
-		$user_id = $original_value;
+	public function format( $value, $user_id ) {
 		$link = false;
 
 		switch ( $this->get_user_link_to() ) {
@@ -26,7 +25,7 @@ class AC_Settings_Column_UserLink extends AC_Settings_Column
 			case 'view_user_posts' :
 				$link = add_query_arg( array(
 					'post_type' => $this->column->get_post_type(),
-					'author'    => get_the_author_meta( 'ID' ),
+					'author'    => $user_id,
 				), 'edit.php' );
 
 				break;

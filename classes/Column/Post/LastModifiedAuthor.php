@@ -13,6 +13,16 @@ class AC_Column_Post_LastModifiedAuthor extends AC_Column_Meta {
 		$this->set_label( __( 'Last Modified Author', 'codepress-admin-columns' ) );
 	}
 
+	public function get_value( $id ) {
+		$raw_value = $this->get_raw_value( $id );
+
+		if( ! $raw_value ){
+			return $this->get_empty_char();
+		}
+
+		return $this->get_formatted_value( $raw_value, $raw_value );
+	}
+
 	public function get_meta_key() {
 		return '_edit_last';
 	}
