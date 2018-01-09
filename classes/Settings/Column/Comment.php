@@ -22,18 +22,21 @@ class AC_Settings_Column_Comment extends AC_Settings_Column
 	}
 
 	public function get_dependent_settings() {
-		$setting = array();
 
 		switch ( $this->get_comment_property_display() ) {
+
 			case 'date' :
-				$setting[] = new AC_Settings_Column_Date( $this->column );
+				return array( new AC_Settings_Column_Date( $this->column ) );
+
 				break;
 			case 'comment' :
-				$setting[] = new AC_Settings_Column_StringLimit( $this->column );
-				break;
-		}
+				return array( new AC_Settings_Column_StringLimit( $this->column ) );
 
-		return $setting;
+				break;
+
+			default :
+				return array();
+		}
 	}
 
 	/**
@@ -43,23 +46,23 @@ class AC_Settings_Column_Comment extends AC_Settings_Column
 	 * @return string|int
 	 */
 	public function format( $id, $original_value ) {
-		$comment = get_comment( $id );
 
 		switch ( $this->get_comment_property_display() ) {
+
 			case 'date' :
-				$value = $comment->comment_date;
+				$value = $this->get_comment_property( 'comment_date', $id );
 
 				break;
 			case 'author' :
-				$value = $comment->comment_author;
+				$value = $this->get_comment_property( 'comment_author', $id );
 
 				break;
 			case 'author_email' :
-				$value = $comment->comment_author_email;
+				$value = $this->get_comment_property( 'comment_author_email', $id );
 
 				break;
 			case 'comment' :
-				$value = $comment->comment_content;
+				$value = $this->get_comment_property( 'comment_content', $id );
 
 				break;
 			default :
@@ -67,6 +70,22 @@ class AC_Settings_Column_Comment extends AC_Settings_Column
 		}
 
 		return $value;
+	}
+
+	/**
+	 * @param string $property
+	 * @param int    $id
+	 *
+	 * @return false|string
+	 */
+	private function get_comment_property( $property, $id ) {
+		$comment = get_comment( $id );
+
+		if ( ! isset( $comment->{$property} ) ) {
+			return false;
+		}
+
+		return $comment->{$property};
 	}
 
 	public function create_view() {
@@ -91,7 +110,7 @@ class AC_Settings_Column_Comment extends AC_Settings_Column
 			'date'         => __( 'Date' ),
 		);
 
-		asort( $options );
+		natcasesort( $options );
 
 		return $options;
 	}
