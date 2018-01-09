@@ -49,4 +49,8 @@ abstract class AC_ListScreenPost extends AC_ListScreen {
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
 	}
 
+	public function get_default_orderby() {
+		return array( 'date', true );
+	}
+
 }

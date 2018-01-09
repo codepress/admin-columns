@@ -61,4 +61,11 @@ class AC_ListScreen_User extends AC_ListScreen {
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', 'AC_' );
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_default_orderby() {
+		return 'username';
+	}
+
 }

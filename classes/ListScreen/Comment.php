@@ -56,12 +56,22 @@ class AC_ListScreen_Comment extends AC_ListScreen {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
+	/**
+	 * Register column types
+	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC_Column_CustomField );
 		$this->register_column_type( new AC_Column_Menu );
 		$this->register_column_type( new AC_Column_Actions );
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment', 'AC_' );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_default_orderby() {
+		return array( 'comment_date', true );
 	}
 
 }

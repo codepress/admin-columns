@@ -881,4 +881,18 @@ abstract class AC_ListScreen {
 		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
 	}
 
+	/**
+	 * Get the default sortable column. The format is:
+	 * 'orderby'
+	 * or
+	 * array( 'orderby', true )
+	 *
+	 * The second format will make the initial sorting order be descending
+	 *
+	 * @return array|string
+	 */
+	public function get_default_orderby() {
+		return '';
+	}
+
 }
