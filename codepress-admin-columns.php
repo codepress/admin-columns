@@ -122,7 +122,7 @@ class CPAC extends AC_Plugin {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
+		$this->autoloader()->register_prefix( $this->get_prefix(), $this->get_plugin_dir() . 'classes/' );
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -177,6 +177,10 @@ class CPAC extends AC_Plugin {
 		return '3.0.7';
 	}
 
+	public function get_prefix() {
+		return 'AC_';
+	}
+
 	public function ready() {
 
 		/**
@@ -216,18 +220,17 @@ class CPAC extends AC_Plugin {
 	 * Handle installation and updates
 	 */
 	public function install() {
-		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
-			return;
-		}
-
-		$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', 'AC_' );
 		$updater = new AC_Plugin_Updater( $this );
 
-		foreach ( $classes as $class ) {
-			$updater->add_update( new $class( $this->get_stored_version() ) );
-		}
+		if ( $updater->check_update_conditions() ) {
+			$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', $this->get_prefix() );
 
-		$updater->parse_updates();
+			foreach ( $classes as $class ) {
+				$updater->add_update( new $class( $this->get_stored_version() ) );
+			}
+
+			$updater->parse_updates();
+		}
 	}
 
 	/**
