@@ -45,8 +45,7 @@ class AC_Plugin_Updater {
 	 * Checks conditions like user permissions
 	 *
 	 */
-	public function can_parse_updates() {
-		// Check user permissions
+	public function check_update_conditions() {
 		if ( ! AC()->user_can_manage_admin_columns() ) {
 			return false;
 		}
@@ -60,14 +59,12 @@ class AC_Plugin_Updater {
 	}
 
 	public function parse_updates() {
-		if ( ! $this->can_parse_updates() ) {
+		if ( ! $this->check_update_conditions() ) {
 			return;
 		}
 
-		$plugin = $this->plugin;
-
-		if ( $plugin->is_fresh_install() ) {
-			$plugin->update_stored_version( $plugin->get_version() );
+		if ( $this->plugin->is_new_install() ) {
+			$this->plugin->update_stored_version();
 
 			return;
 		}
@@ -84,15 +81,17 @@ class AC_Plugin_Updater {
 				}
 
 				$update->apply_update();
-				$plugin->update_stored_version( $update->get_version() );
+				$this->plugin->update_stored_version( $update->get_version() );
 			}
 		}
 
-		if ( $this->apply_updates ) {
-			$plugin->update_stored_version( $plugin->get_version() );
-			// TODO: https://github.com/codepress/admin-columns-issues/issues/982
-			//$this->show_completed_notice();
+		if ( ! $this->apply_updates ) {
+			return;
 		}
+
+		$this->plugin->update_stored_version();
+		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+		//$this->show_completed_notice();
 	}
 
 	protected function show_completed_notice() {
