@@ -218,6 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.0.8 =
+
+Release Date: TBD
+
+* [Improved] Admin Columns Capability is now always set
+* [Improved] Database update message is only visible for administartors
+
 = 3.0.7 =
 
 Release Date: December 12th, 2017
