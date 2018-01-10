@@ -152,8 +152,7 @@ class CPAC extends AC_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
-		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
 	}
 
 	/**
@@ -241,12 +240,25 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Add caps for Multisite admins
+	 * Add capability to administrator to manage admin columns.
+	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
+	 *
+	 * @since 2.0.4
 	 */
-	public function set_capabilities_multisite() {
-		if ( is_multisite() && current_user_can( 'administrator' ) ) {
-			$this->set_capabilities();
+	public function set_capabilities() {
+		if ( ! current_user_can( 'administrator' ) || get_option( 'ac_capabilities_set' ) ) {
+			return;
 		}
+
+		$role = get_role( 'administrator' );
+
+		if ( ! $role ) {
+			return;
+		}
+
+		$role->add_cap( 'manage_admin_columns' );
+
+		update_option( 'ac_capabilities_set', 1, false );
 	}
 
 	/**
@@ -254,18 +266,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function user_can_manage_admin_columns() {
 		return current_user_can( 'manage_admin_columns' );
-	}
-
-	/**
-	 * Add capability to administrator to manage admin columns.
-	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
-	 *
-	 * @since 2.0.4
-	 */
-	public function set_capabilities() {
-		if ( $role = get_role( 'administrator' ) ) {
-			$role->add_cap( 'manage_admin_columns' );
-		}
 	}
 
 	/**
