@@ -14,9 +14,9 @@ class AC_Column_Post_AuthorName extends AC_Column {
 	}
 
 	public function get_value( $id ) {
-		$raw_value = $this->get_raw_value( $id );
+		$user_id = $this->get_raw_value( $id );
 
-		return $this->get_formatted_value( $raw_value, $raw_value );
+		return $this->get_formatted_value( $user_id, $user_id );
 	}
 
 	public function get_raw_value( $post_id ) {
