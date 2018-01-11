@@ -11,8 +11,10 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
+	/**
+	 * @see WP_Posts_List_Table::column_default
+	 */
 	public function set_manage_value_callback() {
-		/* @see WP_Posts_List_Table::column_default */
 		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
 	}
 
