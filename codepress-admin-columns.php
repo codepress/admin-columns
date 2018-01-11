@@ -480,16 +480,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
-
-		/**
-		 * Fires when a list screen is registered.
-		 *
-		 * @since 3.0.5
-		 *
-		 * @param AC_ListScreen $list_screen List screen object
-		 * @param CPAC          $ac          Main admin columns class instance
-		 */
-		do_action( 'ac/registered_list_screen', $list_screen, $this );
 	}
 
 	/**
