@@ -46,14 +46,6 @@ abstract class AC_ListScreen {
 	private $page;
 
 	/**
-	 * Class name of the WP_List_Table instance
-	 * @see   WP_List_Table
-	 * @since 3.0
-	 * @var string
-	 */
-	private $list_table_class;
-
-	/**
 	 * Group slug. Used for menu.
 	 * @var string
 	 */
@@ -202,14 +194,6 @@ abstract class AC_ListScreen {
 		$this->group = $group;
 	}
 
-	public function get_list_table_class() {
-		return $this->list_table_class;
-	}
-
-	protected function set_list_table_class( $list_table_class ) {
-		$this->list_table_class = $list_table_class;
-	}
-
 	/**
 	 * @return string
 	 */
@@ -248,16 +232,6 @@ abstract class AC_ListScreen {
 		$this->set_storage_key( $this->get_key() . $layout_id );
 
 		return $this;
-	}
-
-	/**
-	 * Return a single object based on it's ID (post, user, comment etc.)
-	 *
-	 * @since 3.0
-	 * @return mixed
-	 */
-	protected function get_object_by_id( $id ) {
-		return null;
 	}
 
 	/**
@@ -851,48 +825,23 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * Get a single row from list table
+	 * Get default column headers
 	 *
-	 * @since 3.0
+	 * @return array
 	 */
-	public function get_single_row( $object_id ) {
-		ob_start();
-
-		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
-
-		return ob_get_clean();
+	public function get_default_column_headers() {
+		return array();
 	}
 
 	/**
-	 * get_object_by_id made 'public' for backwards compatibility
-	 *
-	 * @param int $object_id
-	 *
-	 * @return mixed
-	 */
-	public function get_object( $object_id ) {
-		return $this->get_object_by_id( $object_id );
-	}
-
-	/**
-	 * @return WP_List_Table|object
-	 */
-	public function get_list_table() {
-		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
-	}
-
-	/**
-	 * Get the default sortable column. The format is:
-	 * 'orderby'
-	 * or
-	 * array( 'orderby', true )
+	 * Get the default sortable column. The format is: 'orderby' or [ 'orderby', true ]
 	 *
 	 * The second format will make the initial sorting order be descending
 	 *
-	 * @return array|string
+	 * @return array [ $column_name, $descending ]
 	 */
 	public function get_default_orderby() {
-		return '';
+		return array();
 	}
 
 }

@@ -108,7 +108,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		// Load table headers
 		if ( ! $list_screen->get_original_columns() ) {
-			$this->set_original_table_headers( $list_screen );
+			$list_screen->set_original_columns( $list_screen->get_default_column_headers() );
 		}
 
 		$this->preferences()->set( 'list_screen', $list_screen->get_key() );
@@ -123,21 +123,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	public function get_current_list_screen() {
 		return $this->current_list_screen;
-	}
-
-	/**
-	 * Populate the list screen with columns headers from WP_List_Table
-	 *
-	 * @see WP_List_Table::get_columns()
-	 *
-	 * @param AC_ListScreen $list_screen
-	 */
-	private function set_original_table_headers( AC_ListScreen $list_screen ) {
-		$list_screen->get_list_table();
-
-		$table_headers = (array) get_column_headers( $list_screen->get_screen_id() );
-
-		$list_screen->set_original_columns( $table_headers );
 	}
 
 	/**

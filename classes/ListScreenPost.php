@@ -1,6 +1,6 @@
 <?php
 
-abstract class AC_ListScreenPost extends AC_ListScreen {
+abstract class AC_ListScreenPost extends AC_ListScreenWP {
 
 	/**
 	 * @var string Post type
@@ -30,12 +30,12 @@ abstract class AC_ListScreenPost extends AC_ListScreen {
 	}
 
 	/**
-	 * @since 3.0
-	 * @param int $post_id Post ID
+	 * @param int $id
+	 *
 	 * @return WP_Post
 	 */
-	protected function get_object_by_id( $post_id ) {
-		return get_post( $post_id );
+	protected function get_object( $id ) {
+		return get_post( $id );
 	}
 
 	/**
@@ -49,6 +49,9 @@ abstract class AC_ListScreenPost extends AC_ListScreen {
 		return $post_type_object && isset( $post_type_object->labels->{$var} ) ? $post_type_object->labels->{$var} : false;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_default_orderby() {
 		return array( 'date', true );
 	}

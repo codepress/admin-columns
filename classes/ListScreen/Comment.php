@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_ListScreen_Comment extends AC_ListScreen {
+class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 	public function __construct() {
 
@@ -14,13 +14,24 @@ class AC_ListScreen_Comment extends AC_ListScreen {
 		$this->set_key( 'wp-comments' );
 		$this->set_screen_id( 'edit-comments' );
 		$this->set_group( 'comment' );
-
-		/* @see WP_Comments_List_Table */
-		$this->set_list_table_class( 'WP_Comments_List_Table' );
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @return WP_Comment
+	 */
+	protected function get_object( $id ) {
+		return get_comment( $id );
+	}
+
+	/**
+	 * @return WP_Comments_List_Table
+	 */
 	public function get_list_table() {
-		$table = parent::get_list_table();
+		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
+
+		$table = new WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
 
 		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
@@ -38,14 +49,6 @@ class AC_ListScreen_Comment extends AC_ListScreen {
 	 */
 	public function get_table_attr_id() {
 		return '#the-comment-list';
-	}
-
-	/**
-	 * @since 3.0
-	 * @return WP_Comment Comment
-	 */
-	protected function get_object_by_id( $comment_id ) {
-		return get_comment( $comment_id );
 	}
 
 	/**

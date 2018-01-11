@@ -153,9 +153,11 @@ final class AC_TableScreen {
 	 * @param $term
 	 */
 	public function add_taxonomy_hidden_quick_edit_markup( $actions, $term ) {
-		$list_table = $this->get_current_list_screen()->get_list_table();
+		$list_screen = $this->get_current_list_screen();
 
-		echo sprintf( '<div class="hidden">%s</div>', $list_table->column_name( $term ) );
+		if ( $list_screen instanceof ACP_ListScreen_Taxonomy ) {
+			echo sprintf( '<div class="hidden">%s</div>', $list_screen->get_list_table()->column_name( $term ) );
+		}
 
 		return $actions;
 	}

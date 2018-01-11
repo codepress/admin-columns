@@ -463,11 +463,6 @@ class CPAC extends AC_Plugin {
 			$this->register_list_screen( new AC_ListScreen_User() );
 		}
 
-		// as of 3.5 link manager is removed
-		if ( get_option( 'link_manager_enabled' ) ) {
-			$this->register_list_screen( new AC_ListScreen_Link() );
-		}
-
 		/**
 		 * @since 3.0
 		 */
