@@ -450,17 +450,23 @@ class CPAC extends AC_Plugin {
 	 */
 	private function set_list_screens() {
 
+		$list_screens = array();
+
 		// Post types
 		foreach ( $this->get_post_types() as $post_type ) {
-			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
+			$list_screens[] = new AC_ListScreen_Post( $post_type );
 		}
 
-		$this->register_list_screen( new AC_ListScreen_Media() );
-		$this->register_list_screen( new AC_ListScreen_Comment() );
+		$list_screens[] = new AC_ListScreen_Media();
+		$list_screens[] = new AC_ListScreen_Comment();
 
 		// Users, not for network users
 		if ( ! is_multisite() ) {
-			$this->register_list_screen( new AC_ListScreen_User() );
+			$list_screens[] = new AC_ListScreen_User();
+		}
+
+		foreach ( $list_screens as $list_screen ) {
+			$this->register_list_screen( $list_screen );
 		}
 
 		/**
