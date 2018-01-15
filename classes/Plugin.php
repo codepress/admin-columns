@@ -53,10 +53,6 @@ abstract class AC_Plugin extends AC_Addon {
 	 * @param null|string $updates_dir
 	 */
 	public function install() {
-		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
-			return;
-		}
-
 		$updater = new AC_Plugin_Updater( $this );
 
 		if ( ! $updater->check_update_conditions() ) {
