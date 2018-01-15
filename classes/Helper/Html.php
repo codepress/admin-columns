@@ -213,6 +213,10 @@ class AC_Helper_Html {
 				}
 			}
 
+			if ( 0 === strpos( $href, '#' ) ) {
+				$internal = true;
+			}
+
 			if ( $internal ) {
 				$internal_links[] = $href;
 			} else {

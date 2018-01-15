@@ -224,6 +224,7 @@ Release Date: TBD
 
 * [Improved] Admin Columns Capability is now always set
 * [Improved] Database update message is only visible for administartors
+* [Improved] Links starting with # are now marked as internal
 
 = 3.0.7 =
 
