@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since NEWVERSION
+ * @since 3.0.8
  */
 class AC_Settings_Column_Comment extends AC_Settings_Column
 	implements AC_Settings_FormatValueInterface {

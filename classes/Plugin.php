@@ -59,7 +59,7 @@ abstract class AC_Plugin extends AC_Addon {
 
 		$updater = new AC_Plugin_Updater( $this );
 
-		if ( $updater->check_update_conditions() ) {
+		if ( ! $updater->check_update_conditions() ) {
 			return;
 		}
 
