@@ -1,6 +1,6 @@
 <?php
 
-final class AC_Form_Element_Select extends AC_Form_Element {
+class AC_Form_Element_Select extends AC_Form_Element {
 
 	/**
 	 * @var string
@@ -8,7 +8,6 @@ final class AC_Form_Element_Select extends AC_Form_Element {
 	protected $no_result = '';
 
 	protected function render_options( array $options ) {
-		$template = '<option %s>%s</option>';
 		$output = array();
 
 		foreach ( $options as $key => $option ) {
@@ -18,17 +17,28 @@ final class AC_Form_Element_Select extends AC_Form_Element {
 				continue;
 			}
 
-			$attributes = array();
-			$attributes['value'] = $key;
-
-			if ( selected( $this->get_value(), $key, false ) ) {
-				$attributes['selected'] = 'selected';
-			}
-
-			$output[] = sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $option ) );
+			$output[] = $this->render_option( $key, $option );
 		}
 
 		return implode( "\n", $output );
+	}
+
+	protected function render_option( $key, $label ) {
+		$template = '<option %s>%s</option>';
+		$attributes = $this->get_option_attributes( $key );
+
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $label ) );
+	}
+
+	protected function get_option_attributes( $key ) {
+		$attributes = array();
+		$attributes['value'] = $key;
+
+		if ( selected( $this->get_value(), $key, false ) ) {
+			$attributes['selected'] = 'selected';
+		}
+
+		return $attributes;
 	}
 
 	/**
