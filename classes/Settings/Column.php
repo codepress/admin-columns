@@ -258,7 +258,7 @@ abstract class AC_Settings_Column {
 	 * @param string      $type
 	 * @param string|null $name
 	 *
-	 * @return AC_Settings_Form_Element_Select|AC_Settings_Form_Element_Input|AC_Settings_Form_Element_Radio
+	 * @return AC_Form_Element_Select|AC_Form_Element_Input|AC_Form_Element_Radio
 	 */
 	protected function create_element( $type, $name = null ) {
 		if ( null === $name ) {
@@ -268,19 +268,19 @@ abstract class AC_Settings_Column {
 		switch ( $type ) {
 
 			case 'checkbox' :
-				$element = new AC_Settings_Form_Element_Checkbox( $name );
+				$element = new AC_Form_Element_Checkbox( $name );
 
 				break;
 			case 'radio' :
-				$element = new AC_Settings_Form_Element_Radio( $name );
+				$element = new AC_Form_Element_Radio( $name );
 
 				break;
 			case 'select' :
-				$element = new AC_Settings_Form_Element_Select( $name );
+				$element = new AC_Form_Element_Select( $name );
 
 				break;
 			default:
-				$element = new AC_Settings_Form_Element_Input( $name );
+				$element = new AC_Form_Element_Input( $name );
 				$element->set_type( $type );
 		}
 

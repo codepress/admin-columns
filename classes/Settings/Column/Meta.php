@@ -14,7 +14,7 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 	}
 
 	/**
-	 * @return AC_Settings_Form_Element_Select
+	 * @return AC_Form_Element_Select
 	 */
 	protected function get_setting_field() {
 		$setting = $this
