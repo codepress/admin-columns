@@ -391,7 +391,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return AC_Admin_Promo|false
 	 */
 	public function get_active_promotion() {
-		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', 'AC_' );
+		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', AC()->get_prefix() );
 
 		foreach ( $classes as $class ) {
 
