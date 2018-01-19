@@ -276,7 +276,7 @@ abstract class AC_Settings_Column {
 
 				break;
 			case 'select' :
-				$element = new AC_Form_Element_Select( $name );
+				$element = new AC_Settings_Form_Element_Select( $name );
 
 				break;
 			default:

@@ -57,10 +57,6 @@ class AC_Form_Element_Select extends AC_Form_Element {
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $group['options'] ) );
 	}
 
-	protected function render_ajax_message() {
-		return '<div class="msg"></div>';
-	}
-
 	public function render() {
 		if ( ! $this->get_options() ) {
 			return $this->get_no_result();
@@ -76,7 +72,7 @@ class AC_Form_Element_Select extends AC_Form_Element {
 		$attributes['name'] = $this->get_name();
 		$attributes['id'] = $this->get_id();
 
-		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_ajax_message() . $this->render_description() );
+		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $this->get_options() ), $this->render_description() );
 	}
 
 	/**
