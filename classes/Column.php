@@ -132,7 +132,7 @@ class AC_Column {
 	 * @return $this
 	 */
 	public function set_label( $label ) {
-		$this->label = (string) $label;
+		$this->label = $label;
 
 		return $this;
 	}
