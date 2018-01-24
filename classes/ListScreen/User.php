@@ -72,7 +72,7 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		$this->register_column_type( new AC_Column_Menu );
 		$this->register_column_type( new AC_Column_Actions );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', AC()->get_prefix() );
 	}
 
 	/**

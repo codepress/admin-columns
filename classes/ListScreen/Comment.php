@@ -67,7 +67,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		$this->register_column_type( new AC_Column_Menu );
 		$this->register_column_type( new AC_Column_Actions );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment', 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment', AC()->get_prefix() );
 	}
 
 	/**

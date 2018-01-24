@@ -1,6 +1,6 @@
 <?php
 
-class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
+class AC_Form_Element_Checkbox extends AC_Form_Element {
 
 	/**
 	 * @var bool
@@ -53,7 +53,7 @@ class AC_Settings_Form_Element_Checkbox extends AC_Settings_Form_Element {
 		$value = (array) $this->get_value();
 
 		foreach ( $options as $key => $label ) {
-			$input = new AC_Settings_Form_Element_Input( $this->get_name() );
+			$input = new AC_Form_Element_Input( $this->get_name() );
 
 			$input->set_value( $key )
 			      ->set_type( $this->get_type() )

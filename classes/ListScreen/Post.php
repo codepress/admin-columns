@@ -21,7 +21,7 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	/**
 	 * @return WP_Posts_List_Table
 	 */
-	public function get_list_table() {
+	protected function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
 		return new WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
@@ -56,11 +56,9 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	}
 
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Menu );
-		$this->register_column_type( new AC_Column_Actions );
+		parent::register_column_types();
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Post', 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Post', AC()->get_prefix() );
 	}
 
 }

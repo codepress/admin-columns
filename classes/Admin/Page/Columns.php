@@ -391,7 +391,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @return AC_Admin_Promo|false
 	 */
 	public function get_active_promotion() {
-		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', 'AC_' );
+		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', AC()->get_prefix() );
 
 		foreach ( $classes as $class ) {
 
@@ -766,21 +766,46 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * Get first custom group column
+	 * @param AC_ListScreen $list_screen
+	 * @param string        $group
+	 *
+	 * @return AC_Column|false
 	 */
-	private function display_column_template( AC_ListScreen $list_screen ) {
+	private function get_column_template_by_group( AC_ListScreen $list_screen, $group = false ) {
+		$types = $list_screen->get_column_types();
+
+		if ( ! $group ) {
+			return array_shift( $types );
+		}
+
 		$columns = array();
 
-		foreach ( $list_screen->get_column_types() as $column_type ) {
-			if ( 'custom' === $column_type->get_group() ) {
+		foreach ( $types as $column_type ) {
+			if ( $group === $column_type->get_group() ) {
 				$columns[ $column_type->get_label() ] = $column_type;
 			}
 		}
 
 		array_multisort( array_keys( $columns ), SORT_NATURAL, $columns );
 
-		/** @var AC_Column $column */
 		$column = array_shift( $columns );
+
+		if ( ! $column ) {
+			return false;
+		}
+
+		return $column;
+	}
+
+	/**
+	 * Get first custom group column
+	 */
+	private function display_column_template( AC_ListScreen $list_screen ) {
+		$column = $this->get_column_template_by_group( $list_screen, 'custom' );
+
+		if ( ! $column ) {
+			$column = $this->get_column_template_by_group( $list_screen );
+		}
 
 		$this->display_column( $column );
 	}

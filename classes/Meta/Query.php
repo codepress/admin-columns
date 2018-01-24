@@ -53,6 +53,11 @@ class AC_Meta_Query {
 	private $order_by = array();
 
 	/**
+	 * @var int|false
+	 */
+	private $limit = false;
+
+	/**
 	 * @param string $meta_type
 	 */
 	public function __construct( $meta_type ) {
@@ -143,6 +148,10 @@ class AC_Meta_Query {
 		return $this;
 	}
 
+	public function limit( $limit ) {
+		$this->limit = absint( $limit );
+	}
+
 	public function distinct() {
 		$this->distinct = true;
 
@@ -152,10 +161,10 @@ class AC_Meta_Query {
 	/**
 	 * Set a where clause
 	 *
-	 * @param string|array $field
-	 * @param string $operator
+	 * @param string|array     $field
+	 * @param string           $operator
 	 * @param string|int|array $value
-	 * @param string $type
+	 * @param string           $type
 	 *
 	 * @return array
 	 */
@@ -380,8 +389,14 @@ class AC_Meta_Query {
 			$order_by = ' ORDER BY ' . implode( ', ', $order_by_clauses );
 		}
 
+		$limit = '';
+
+		if ( $this->limit ) {
+			$limit = ' LIMIT ' . $this->limit;
+		}
+
 		// build query and store it
-		$sql = $select . $from . $join . $where . $group_by . $order_by;
+		$sql = $select . $from . $join . $where . $group_by . $order_by . $limit;
 
 		$this->set_sql( $sql );
 
@@ -412,7 +427,7 @@ class AC_Meta_Query {
 	 */
 	public function get_sql() {
 		$sql = preg_replace( '/ +/', ' ', $this->sql );
-		$sql = preg_replace( '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY)/', "\n$1", $sql );
+		$sql = preg_replace( '/(SELECT|FROM|LEFT|INNER|WHERE|(AND|OR) \(|(AND|OR) (?!\()|ORDER BY|GROUP BY|LIMIT)/', "\n$1", $sql );
 
 		return $sql . "\n";
 	}

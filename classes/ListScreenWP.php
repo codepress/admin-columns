@@ -30,16 +30,22 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	}
 
 	/**
-	 * @return array [ $column_name => [ $orderby => $order ], ... ]
+	 * @return array [ $column_name => [ $orderby, $order ], ... ]
 	 */
 	public function get_default_sortable_columns() {
-		$column_info = $this->get_list_table()->get_column_info();
+		$sortables = array();
 
-		if ( empty( $column_info[2] ) ) {
-			return array();
+		foreach ( $this->get_list_table()->get_sortable_columns() as $name => $data ) {
+			$data = (array) $data;
+
+			if ( ! isset( $data[1] ) ) {
+				$data[1] = false;
+			}
+
+			$sortables[ $name ] = $data;
 		}
 
-		return $column_info[2];
+		return $sortables;
 	}
 
 	/**

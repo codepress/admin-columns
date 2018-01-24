@@ -624,7 +624,8 @@
       position: relative;
       background: #fff;
       z-index: 2;
-      padding-right: 8px; }
+      padding-right: 8px;
+      float: none; }
     .ac-right .sidebox h3 span.contenttype {
       display: block;
       line-height: 20px;
