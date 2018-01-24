@@ -780,7 +780,7 @@ abstract class AC_ListScreen {
 		 * Fires before a column setup is removed from the database
 		 * Primarily used when columns are deleted through the Admin Columns settings screen
 		 *
-		 * @since NEWVERSION
+		 * @since 3.0.8
 		 *
 		 * @param AC_ListScreen $list_screen
 		 */

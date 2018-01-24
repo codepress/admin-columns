@@ -205,6 +205,10 @@ class AC_Helper_Html {
 			/** @var DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
+			if ( 0 === strpos( $href, '#' ) ) {
+				continue;
+			}
+
 			$internal = false;
 
 			foreach ( (array) $internal_domains as $domain ) {
