@@ -467,6 +467,10 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function images( $value, $removed = false ) {
+		if ( ! $value ) {
+			return false;
+		}
+
 		if ( $removed ) {
 			$value .= ac_helper()->html->rounded( '+' . $removed );
 		}
