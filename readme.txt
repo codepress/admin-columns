@@ -218,13 +218,15 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 3.0.8 =
+= 3.1 =
 
-Release Date: TBD
+Release Date: January 25th, 2018
 
 * [Improved] Admin Columns Capability is now always set
 * [Improved] Database update message is only visible for administartors
 * [Improved] Links starting with # are now marked as internal
+* [Removed] Removed support for the Link/Bookmark list table
+* [Added] Added date time settings for columns that use dates
 
 = 3.0.7 =
 
