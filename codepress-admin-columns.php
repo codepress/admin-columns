@@ -141,7 +141,6 @@ class CPAC extends AC_Plugin {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -153,6 +152,9 @@ class CPAC extends AC_Plugin {
 
 		// Set capabilities
 		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
+
+		// Updater
+		add_action( 'init', array( $this, 'install' ) );
 	}
 
 	/**
