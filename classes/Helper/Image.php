@@ -104,7 +104,7 @@ class AC_Helper_Image {
 	 * @return string
 	 */
 	public function get_image_by_url( $url, $size ) {
-		$dimensions = array( 80, 80 );
+		$dimensions = array( 60, 60 );
 
 		if ( is_string( $size ) && ( $sizes = $this->get_image_sizes_by_name( $size ) ) ) {
 			$dimensions = array( $sizes['width'], $sizes['height'] );

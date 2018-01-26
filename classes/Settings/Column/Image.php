@@ -25,8 +25,8 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 	protected function define_options() {
 		return array(
 			'image_size'   => 'cpac-custom',
-			'image_size_w' => 80,
-			'image_size_h' => 80,
+			'image_size_w' => 60,
+			'image_size_h' => 60,
 		);
 	}
 
@@ -182,7 +182,7 @@ class AC_Settings_Column_Image extends AC_Settings_Column
 
 		// fallback size
 		if ( empty( $size ) ) {
-			$size = array( 80, 80 );
+			$size = array( 60, 60 );
 		}
 
 		return $size;
