@@ -216,23 +216,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Handle installation and updates
-	 */
-	public function install() {
-		$updater = new AC_Plugin_Updater( $this );
-
-		if ( $updater->check_update_conditions() ) {
-			$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', $this->get_prefix() );
-
-			foreach ( $classes as $class ) {
-				$updater->add_update( new $class( $this->get_stored_version() ) );
-			}
-
-			$updater->parse_updates();
-		}
-	}
-
-	/**
 	 * @since 3.0
 	 */
 	public function minified() {
