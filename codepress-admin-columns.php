@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0.8
+Version: 3.1
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -141,7 +141,6 @@ class CPAC extends AC_Plugin {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -153,6 +152,9 @@ class CPAC extends AC_Plugin {
 
 		// Set capabilities
 		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
+
+		// Updater
+		add_action( 'init', array( $this, 'install' ) );
 	}
 
 	/**
@@ -173,7 +175,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.0.8';
+		return '3.1';
 	}
 
 	public function get_prefix() {
@@ -213,23 +215,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
-	}
-
-	/**
-	 * Handle installation and updates
-	 */
-	public function install() {
-		$updater = new AC_Plugin_Updater( $this );
-
-		if ( $updater->check_update_conditions() ) {
-			$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', $this->get_prefix() );
-
-			foreach ( $classes as $class ) {
-				$updater->add_update( new $class( $this->get_stored_version() ) );
-			}
-
-			$updater->parse_updates();
-		}
 	}
 
 	/**

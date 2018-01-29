@@ -367,4 +367,5 @@ abstract class AC_Settings_Column {
 	public function get_column() {
 		return $this->column;
 	}
+
 }
