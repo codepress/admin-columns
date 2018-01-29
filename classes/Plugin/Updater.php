@@ -41,16 +41,30 @@ class AC_Plugin_Updater {
 		$this->updates[ $update->get_version() ] = $update;
 	}
 
-	public function parse_updates() {
-		// Network wide updating is not allowed
+	/**
+	 * Checks conditions like user permissions
+	 *
+	 */
+	public function check_update_conditions() {
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+			return false;
+		}
+
+		// Network wide updating is not supported yet
 		if ( is_network_admin() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public function parse_updates() {
+		if ( ! $this->check_update_conditions() ) {
 			return;
 		}
 
-		$plugin = $this->plugin;
-
-		if ( $plugin->is_fresh_install() ) {
-			$plugin->update_stored_version( $plugin->get_version() );
+		if ( $this->plugin->is_new_install() ) {
+			$this->plugin->update_stored_version();
 
 			return;
 		}
@@ -67,15 +81,17 @@ class AC_Plugin_Updater {
 				}
 
 				$update->apply_update();
-				$plugin->update_stored_version( $update->get_version() );
+				$this->plugin->update_stored_version( $update->get_version() );
 			}
 		}
 
-		if ( $this->apply_updates ) {
-			$plugin->update_stored_version( $plugin->get_version() );
-			// TODO: https://github.com/codepress/admin-columns-issues/issues/982
-			//$this->show_completed_notice();
+		if ( ! $this->apply_updates ) {
+			return;
 		}
+
+		$this->plugin->update_stored_version();
+		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
+		//$this->show_completed_notice();
 	}
 
 	protected function show_completed_notice() {

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.0.7
+Version: 3.1
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -122,7 +122,7 @@ class CPAC extends AC_Plugin {
 		define( 'CPAC_URL', $this->get_plugin_url() );
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
-		$this->autoloader()->register_prefix( 'AC_', $this->get_plugin_dir() . 'classes/' );
+		$this->autoloader()->register_prefix( $this->get_prefix(), $this->get_plugin_dir() . 'classes/' );
 
 		// Third Party
 		new AC_ThirdParty_ACF();
@@ -141,7 +141,6 @@ class CPAC extends AC_Plugin {
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
-		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -152,8 +151,10 @@ class CPAC extends AC_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
-		register_activation_hook( __FILE__, array( $this, 'set_capabilities' ) );
-		add_action( 'admin_init', array( $this, 'set_capabilities_multisite' ) );
+		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
+
+		// Updater
+		add_action( 'init', array( $this, 'install' ) );
 	}
 
 	/**
@@ -174,7 +175,11 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.0.7';
+		return '3.1';
+	}
+
+	public function get_prefix() {
+		return 'AC_';
 	}
 
 	public function ready() {
@@ -213,44 +218,10 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Handle installation and updates
-	 */
-	public function install() {
-		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
-			return;
-		}
-
-		$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', 'AC_' );
-		$updater = new AC_Plugin_Updater( $this );
-
-		foreach ( $classes as $class ) {
-			$updater->add_update( new $class( $this->get_stored_version() ) );
-		}
-
-		$updater->parse_updates();
-	}
-
-	/**
 	 * @since 3.0
 	 */
 	public function minified() {
 		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	}
-
-	/**
-	 * Add caps for Multisite admins
-	 */
-	public function set_capabilities_multisite() {
-		if ( is_multisite() && current_user_can( 'administrator' ) ) {
-			$this->set_capabilities();
-		}
-	}
-
-	/**
-	 * @return bool True when user can manage admin columns
-	 */
-	public function user_can_manage_admin_columns() {
-		return current_user_can( 'manage_admin_columns' );
 	}
 
 	/**
@@ -260,9 +231,26 @@ class CPAC extends AC_Plugin {
 	 * @since 2.0.4
 	 */
 	public function set_capabilities() {
-		if ( $role = get_role( 'administrator' ) ) {
-			$role->add_cap( 'manage_admin_columns' );
+		if ( ! current_user_can( 'administrator' ) || get_option( 'ac_capabilities_set' ) ) {
+			return;
 		}
+
+		$role = get_role( 'administrator' );
+
+		if ( ! $role ) {
+			return;
+		}
+
+		$role->add_cap( 'manage_admin_columns' );
+
+		update_option( 'ac_capabilities_set', 1, false );
+	}
+
+	/**
+	 * @return bool True when user can manage admin columns
+	 */
+	public function user_can_manage_admin_columns() {
+		return current_user_can( 'manage_admin_columns' );
 	}
 
 	/**
@@ -447,22 +435,23 @@ class CPAC extends AC_Plugin {
 	 */
 	private function set_list_screens() {
 
+		$list_screens = array();
+
 		// Post types
 		foreach ( $this->get_post_types() as $post_type ) {
-			$this->register_list_screen( new AC_ListScreen_Post( $post_type ) );
+			$list_screens[] = new AC_ListScreen_Post( $post_type );
 		}
 
-		$this->register_list_screen( new AC_ListScreen_Media() );
-		$this->register_list_screen( new AC_ListScreen_Comment() );
+		$list_screens[] = new AC_ListScreen_Media();
+		$list_screens[] = new AC_ListScreen_Comment();
 
 		// Users, not for network users
 		if ( ! is_multisite() ) {
-			$this->register_list_screen( new AC_ListScreen_User() );
+			$list_screens[] = new AC_ListScreen_User();
 		}
 
-		// as of 3.5 link manager is removed
-		if ( get_option( 'link_manager_enabled' ) ) {
-			$this->register_list_screen( new AC_ListScreen_Link() );
+		foreach ( $list_screens as $list_screen ) {
+			$this->register_list_screen( $list_screen );
 		}
 
 		/**
@@ -476,16 +465,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
-
-		/**
-		 * Fires when a list screen is registered.
-		 *
-		 * @since 3.0.5
-		 *
-		 * @param AC_ListScreen $list_screen List screen object
-		 * @param CPAC          $ac          Main admin columns class instance
-		 */
-		do_action( 'ac/registered_list_screen', $list_screen, $this );
 	}
 
 	/**

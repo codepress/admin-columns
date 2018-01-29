@@ -205,6 +205,10 @@ class AC_Helper_Html {
 			/** @var DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
+			if ( 0 === strpos( $href, '#' ) ) {
+				continue;
+			}
+
 			$internal = false;
 
 			foreach ( (array) $internal_domains as $domain ) {
@@ -463,6 +467,10 @@ class AC_Helper_Html {
 	 * @return string
 	 */
 	public function images( $value, $removed = false ) {
+		if ( ! $value ) {
+			return false;
+		}
+
 		if ( $removed ) {
 			$value .= ac_helper()->html->rounded( '+' . $removed );
 		}

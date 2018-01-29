@@ -153,9 +153,11 @@ final class AC_TableScreen {
 	 * @param $term
 	 */
 	public function add_taxonomy_hidden_quick_edit_markup( $actions, $term ) {
-		$list_table = $this->get_current_list_screen()->get_list_table();
+		$list_screen = $this->get_current_list_screen();
 
-		echo sprintf( '<div class="hidden">%s</div>', $list_table->column_name( $term ) );
+		if ( $list_screen instanceof ACP_ListScreen_Taxonomy ) {
+			echo sprintf( '<div class="hidden">%s</div>', $list_screen->get_list_table()->column_name( $term ) );
+		}
 
 		return $actions;
 	}
@@ -206,6 +208,7 @@ final class AC_TableScreen {
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
 				'table_id'     => $list_screen->get_table_attr_id(),
 				'edit_link'    => $this->get_edit_link( $list_screen ),
+				'screen'       => $this->get_current_screen_id(),
 				'i18n'         => array(
 					'edit_columns' => esc_html( __( 'Edit columns', 'codepress-admin-columns' ) ),
 				),
@@ -221,6 +224,19 @@ final class AC_TableScreen {
 		foreach ( $list_screen->get_columns() as $column ) {
 			$column->scripts();
 		}
+	}
+
+	/**
+	 * @return false|string
+	 */
+	private function get_current_screen_id() {
+		$screen = get_current_screen();
+
+		if ( ! $screen ) {
+			return false;
+		}
+
+		return $screen->id;
 	}
 
 	/**
@@ -267,7 +283,7 @@ final class AC_TableScreen {
 					<?php echo $css_column_width; ?>
 					}
 				</style>
-				<?php
+			<?php
 			endif;
 		}
 	}

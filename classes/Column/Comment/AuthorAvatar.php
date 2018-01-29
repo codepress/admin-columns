@@ -13,7 +13,7 @@ class AC_Column_Comment_AuthorAvatar extends AC_Column {
 	public function get_value( $id ) {
 		$comment = get_comment( $id );
 
-		return get_avatar( $comment, 80 );
+		return get_avatar( $comment, 60 );
 	}
 
 }

@@ -56,7 +56,6 @@ class AC_API {
 
 		if ( ! $columndata ) {
 			return array();
-
 		}
 
 		$layouts = array();

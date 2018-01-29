@@ -46,14 +46,6 @@ abstract class AC_ListScreen {
 	private $page;
 
 	/**
-	 * Class name of the WP_List_Table instance
-	 * @see   WP_List_Table
-	 * @since 3.0
-	 * @var string
-	 */
-	private $list_table_class;
-
-	/**
 	 * Group slug. Used for menu.
 	 * @var string
 	 */
@@ -202,14 +194,6 @@ abstract class AC_ListScreen {
 		$this->group = $group;
 	}
 
-	public function get_list_table_class() {
-		return $this->list_table_class;
-	}
-
-	protected function set_list_table_class( $list_table_class ) {
-		$this->list_table_class = $list_table_class;
-	}
-
 	/**
 	 * @return string
 	 */
@@ -248,16 +232,6 @@ abstract class AC_ListScreen {
 		$this->set_storage_key( $this->get_key() . $layout_id );
 
 		return $this;
-	}
-
-	/**
-	 * Return a single object based on it's ID (post, user, comment etc.)
-	 *
-	 * @since 3.0
-	 * @return mixed
-	 */
-	protected function get_object_by_id( $id ) {
-		return null;
 	}
 
 	/**
@@ -445,17 +419,6 @@ abstract class AC_ListScreen {
 
 		$this->column_types[ $column->get_type() ] = $column;
 
-		/**
-		 * Fires when a column type is registered to a list screen. Can be used to attach additional
-		 * functionality to a column type, such as exporting, sorting or filtering
-		 *
-		 * @since 3.0.5
-		 *
-		 * @param AC_Column     $column      Column type object
-		 * @param AC_ListScreen $list_screen List screen object to which the column was registered
-		 */
-		do_action( 'ac/list_screen/column_type_registered', $column, $this );
-
 		return true;
 	}
 
@@ -537,6 +500,9 @@ abstract class AC_ListScreen {
 		 * @param AC_ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
+
+		// For backwards compatibility
+		do_action( 'acp/column_types', $this );
 	}
 
 	/**
@@ -801,6 +767,17 @@ abstract class AC_ListScreen {
 	 * @return bool
 	 */
 	public function delete() {
+
+		/**
+		 * Fires before a column setup is removed from the database
+		 * Primarily used when columns are deleted through the Admin Columns settings screen
+		 *
+		 * @since 3.0.8
+		 *
+		 * @param AC_ListScreen $list_screen
+		 */
+		do_action( 'ac/columns_delete', $this );
+
 		return delete_option( self::OPTIONS_KEY . $this->get_storage_key() );
 	}
 
@@ -840,34 +817,23 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * Get a single row from list table
+	 * Get default column headers
 	 *
-	 * @since 3.0
+	 * @return array
 	 */
-	public function get_single_row( $object_id ) {
-		ob_start();
-
-		$this->get_list_table()->single_row( $this->get_object_by_id( $object_id ) );
-
-		return ob_get_clean();
+	public function get_default_column_headers() {
+		return array();
 	}
 
 	/**
-	 * get_object_by_id made 'public' for backwards compatibility
+	 * Get the default sortable column. The format is: 'orderby' or [ 'orderby', true ]
 	 *
-	 * @param int $object_id
+	 * The second format will make the initial sorting order be descending
 	 *
-	 * @return mixed
+	 * @return array [ $column_name, $descending ]
 	 */
-	public function get_object( $object_id ) {
-		return $this->get_object_by_id( $object_id );
-	}
-
-	/**
-	 * @return WP_List_Table|object
-	 */
-	public function get_list_table() {
-		return _get_list_table( $this->get_list_table_class(), array( 'screen' => $this->get_screen_id() ) );
+	public function get_default_orderby() {
+		return array();
 	}
 
 }

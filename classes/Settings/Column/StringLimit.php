@@ -8,7 +8,7 @@ class AC_Settings_Column_StringLimit extends AC_Settings_Column {
 	private $string_limit;
 
 	protected function define_options() {
-		return array( 'string_limit' );
+		return array( 'string_limit' => 'word_limit' );
 	}
 
 	public function create_view() {

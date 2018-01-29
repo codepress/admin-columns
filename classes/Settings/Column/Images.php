@@ -11,7 +11,7 @@ class AC_Settings_Column_Images extends AC_Settings_Column_Image {
 	}
 
 	public function format( $value, $original_value ) {
-		$collection = new AC_Collection( $value );
+		$collection = new AC_Collection( (array) $value );
 		$removed = $collection->limit( $this->column->get_setting( 'number_of_items' )->get_value() );
 
 		return ac_helper()->html->images( parent::format( $collection->all(), $original_value ), $removed );

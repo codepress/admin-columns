@@ -1,6 +1,6 @@
 <?php
 
-class AC_ListScreen_User extends AC_ListScreen {
+class AC_ListScreen_User extends AC_ListScreenWP {
 
 	public function __construct() {
 
@@ -11,9 +11,6 @@ class AC_ListScreen_User extends AC_ListScreen {
 		$this->set_screen_id( 'users' );
 		$this->set_key( 'wp-users' );
 		$this->set_group( 'user' );
-
-		/* @see WP_Users_List_Table */
-		$this->set_list_table_class( 'WP_Users_List_Table' );
 	}
 
 	/**
@@ -21,6 +18,15 @@ class AC_ListScreen_User extends AC_ListScreen {
 	 */
 	public function set_manage_value_callback() {
 		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
+	}
+
+	/**
+	 * @return WP_Users_List_Table
+	 */
+	public function get_list_table() {
+		require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
+
+		return new WP_Users_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**
@@ -35,22 +41,30 @@ class AC_ListScreen_User extends AC_ListScreen {
 	 *
 	 * @param string $value
 	 * @param string $column_name
-	 * @param int $user_id
+	 * @param int    $user_id
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
 		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
 	}
 
 	/**
+	 * @param int $id
+	 *
+	 * @return WP_User
+	 */
+	protected function get_object( $id ) {
+		return get_userdata( $id );
+	}
+
+	/**
 	 * @since 3.0
+	 *
+	 * @param int $id
+	 *
 	 * @return string HTML
 	 */
-	public function get_single_row( $user_id ) {
-
-		/* @var WP_Users_List_Table $table */
-		$table = $this->get_list_table();
-
-		return $table->single_row( get_userdata( $user_id ) );
+	public function get_single_row( $id ) {
+		return $this->get_list_table()->single_row( $this->get_object( $id ) );
 	}
 
 	protected function register_column_types() {
@@ -58,7 +72,14 @@ class AC_ListScreen_User extends AC_ListScreen {
 		$this->register_column_type( new AC_Column_Menu );
 		$this->register_column_type( new AC_Column_Actions );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', 'AC_' );
+		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', AC()->get_prefix() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_default_orderby() {
+		return 'username';
 	}
 
 }

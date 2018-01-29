@@ -10,23 +10,15 @@ class AC_Column_Post_FeaturedImage extends AC_Column_Meta {
 		$this->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
 	}
 
-	// Meta
-
 	public function get_meta_key() {
 		return '_thumbnail_id';
 	}
 
-	// Display
-
-	public function get_value( $post_id ) {
-		$value = parent::get_value( $post_id );
+	public function get_value( $id ) {
+		$value = parent::get_value( $id );
 
 		if ( ! $value ) {
-			return false;
-		}
-
-		if ( $link = get_edit_post_link( $post_id ) ) {
-			$value = ac_helper()->html->link( $link . '#postimagediv', $value );
+			return $this->get_empty_char();
 		}
 
 		return $value;

@@ -41,6 +41,38 @@ abstract class AC_Plugin extends AC_Addon {
 	}
 
 	/**
+	 * Return the prefix that is used by this plugin
+	 *
+	 * @return string
+	 */
+	abstract public function get_prefix();
+
+	/**
+	 * Apply updates to the database
+	 *
+	 * @param null|string $updates_dir
+	 */
+	public function install() {
+		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
+			return;
+		}
+
+		$updater = new AC_Plugin_Updater( $this );
+
+		if ( ! $updater->check_update_conditions() ) {
+			return;
+		}
+
+		$classes = AC()->autoloader()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update', $this->get_prefix() );
+
+		foreach ( $classes as $class ) {
+			$updater->add_update( new $class( $this->get_stored_version() ) );
+		}
+
+		$updater->parse_updates();
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_version() {
@@ -62,14 +94,18 @@ abstract class AC_Plugin extends AC_Addon {
 	/**
 	 * Update the stored version to match the (current) version
 	 */
-	public function update_stored_version( $version ) {
+	public function update_stored_version( $version = null ) {
+		if ( null === $version ) {
+			$version = $this->get_version();
+		}
+
 		return update_option( $this->get_version_key(), $version );
 	}
 
 	/**
-	 * Check if the plugin was updated or is a fresh install
+	 * Check if the plugin was updated or is a new install
 	 */
-	public function is_fresh_install() {
+	public function is_new_install() {
 		global $wpdb;
 
 		$sql = "
