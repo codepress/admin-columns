@@ -10,10 +10,6 @@ class AC_Column_User_CommentCount extends AC_Column {
 		$this->set_label( __( 'Comment Count', 'codepress-admin-columns' ) );
 	}
 
-	public function get_value( $user_id ) {
-		return $this->get_raw_value( $user_id );
-	}
-
 	public function get_raw_value( $user_id ) {
 		return get_comments( array(
 			'user_id' => $user_id,
