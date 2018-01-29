@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.1.1 =
+
+Release Date: January 29th, 2018
+
+* [Fixed] Fixed fatal error for custom taxonomy columns
+
 = 3.1 =
 
 Release Date: January 29th, 2018
