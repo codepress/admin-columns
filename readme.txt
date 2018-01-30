@@ -218,11 +218,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 3.1.2 =
+= 3.1.3 =
 
 Release Date: January 30th, 2018
 
-* [Fixed] Added AC_ListScreen::get_object_by_id with deprecated message
+* [Fixed] Added protected AC_ListScreen::get_object_by_id with deprecated message
 
 = 3.1.1 =
 
