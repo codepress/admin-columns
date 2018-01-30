@@ -92,4 +92,17 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 		return (array) get_column_headers( $this->get_screen_id() );
 	}
 
+	/**
+	 * @deprecated NEWVERSION
+	 *
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	public function get_object_by_id( $id ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenWP::get_object()' );
+
+		return false;
+	}
+
 }
