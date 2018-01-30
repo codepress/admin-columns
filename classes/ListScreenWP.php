@@ -30,25 +30,6 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	abstract protected function get_object( $id );
 
 	/**
-	 * @deprecated 3.1
-	 * @return string
-	 */
-	public function get_list_table_class() {
-		return $this->list_table_class;
-	}
-
-	/**
-	 * @deprecated 3.1
-	 *
-	 * @param string $list_table_class
-	 */
-	public function set_list_table_class( $list_table_class ) {
-		_deprecated_function( __METHOD__, '3.1', 'AC_ListScreenWP::get_list_table()' );
-
-		$this->list_table_class = (string) $list_table_class;
-	}
-
-	/**
 	 * @param int $id
 	 *
 	 * @return string HTML
@@ -93,16 +74,36 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.1
+	 *
+	 * @return string
+	 */
+	public function get_list_table_class() {
+		return $this->list_table_class;
+	}
+
+	/**
+	 * @deprecated 3.1
+	 *
+	 * @param string $list_table_class
+	 */
+	public function set_list_table_class( $list_table_class ) {
+		_deprecated_function( __METHOD__, '3.1', 'AC_ListScreenWP::get_list_table()' );
+
+		$this->list_table_class = (string) $list_table_class;
+	}
+
+	/**
+	 * @deprecated 3.1.2
 	 *
 	 * @param int $id
 	 *
-	 * @return bool
+	 * @return object
 	 */
 	public function get_object_by_id( $id ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenWP::get_object()' );
 
-		return false;
+		return $this->get_object( $id );
 	}
 
 }
