@@ -42,8 +42,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			return;
 		}
 
-		$minified = AC()->minified();
-
 		// Width slider
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_plugin_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-ui-slider' );
