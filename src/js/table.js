@@ -14,6 +14,7 @@ jQuery( document ).ready( function( $ ) {
 		ac_actions_column( $, $( this ).find( '.column-actions' ) );
 		ac_show_more( $ );
 	} );
+
 } );
 
 function ac_actions_tooltips( $ ) {

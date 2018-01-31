@@ -1,5 +1,4 @@
 jQuery( document ).ready( function( $ ) {
-
 	if ( $( '#cpac' ).length === 0 ) {
 		return false;
 	}
