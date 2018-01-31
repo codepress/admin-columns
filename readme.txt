@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: tbd
+
+[Removed] Removed 'acp/column_types' action
+
 = 3.1.3 =
 
 Release Date: January 30th, 2018

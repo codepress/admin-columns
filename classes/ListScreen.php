@@ -500,9 +500,6 @@ abstract class AC_ListScreen {
 		 * @param AC_ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
-
-		// For backwards compatibility
-		do_action( 'acp/column_types', $this );
 	}
 
 	/**

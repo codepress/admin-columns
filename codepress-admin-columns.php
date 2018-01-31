@@ -455,7 +455,11 @@ class CPAC extends AC_Plugin {
 		}
 
 		/**
+		 * Register list screens
+		 *
 		 * @since 3.0
+		 *
+		 * @param CPAC $this
 		 */
 		do_action( 'ac/list_screens', $this );
 	}
