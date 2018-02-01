@@ -827,7 +827,7 @@ abstract class AC_ListScreen {
 	 *
 	 * The second format will make the initial sorting order be descending
 	 *
-	 * @return array [ $column_name, $descending ]
+	 * @return array [ string $column_name, bool $descending ]
 	 */
 	public function get_default_orderby() {
 		return array();
