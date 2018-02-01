@@ -14,6 +14,12 @@ module.exports = {
 			production : `babel js --presets es2015 --out-dir ${core_path}js/ --minified`,
 			development : `babel js --presets es2015 --out-dir ${core_path}js/ --minified --watch`,
 		},
+		webfont : {
+			build : `nps "webfont.create_fonts" & nps "webfont.copy_fonts" & nps "webfont.copy_scss"`,
+			create_fonts : `webfont svg/*.svg --dest webfont/fonts --dest-styles webfont/scss`,
+			copy_fonts : `cp -a webfont/fonts/. ${core_path}fonts/`,
+			copy_scss : `cp webfont/scss/template.scss scss/_webfont.scss`,
+		},
 
 	}
 };

@@ -9,11 +9,22 @@
     "babel-cli": "latest",
     "babel-preset-es2015": "latest",
     "node-sass": "latest",
-    "rimraf": "latest"
+    "rimraf": "latest",
+    "webfont": "latest"
   },
   "scripts": {
     "ac:build:production": "nps build.production",
     "ac:build:development": "nps build.development",
-    "ac:languages": "node languages.js & ./pull-languages"
+    "ac:languages": "node languages.js & ./pull-languages",
+    "iconfont": "nps webfont.build"
+  },
+  "webfont": {
+    "formats": "woff",
+    "template": "./webfont/template.scss.njk",
+    "fontName": "cpac_icons",
+    "fontHeight": "1000",
+    "cssTemplateFontPath": "../fonts/",
+    "cssTemplateClassName": "cpacicon",
+    "normalize": true
   }
 }
