@@ -17,6 +17,7 @@ final class AC_TableScreen {
 		add_action( 'admin_init', array( $this, 'load_list_screen_doing_quick_edit' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
+		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
@@ -262,12 +263,10 @@ final class AC_TableScreen {
 	 */
 	private function display_width_styles() {
 		if ( $this->current_list_screen->get_settings() ) {
-
 			// CSS: columns width
 			$css_column_width = false;
 
 			foreach ( $this->current_list_screen->get_columns() as $column ) {
-
 				/* @var AC_Settings_Column_Width $setting */
 				$setting = $column->get_setting( 'width' );
 
@@ -278,12 +277,14 @@ final class AC_TableScreen {
 			}
 
 			if ( $css_column_width ) : ?>
+
 				<style>
 					@media screen and (min-width: 783px) {
 					<?php echo $css_column_width; ?>
 					}
 				</style>
-			<?php
+
+				<?php
 			endif;
 		}
 	}
@@ -309,11 +310,11 @@ final class AC_TableScreen {
 	}
 
 	/**
-	 * Admin CSS for Column width and Settings Icon
+	 * Admin header scripts
 	 *
-	 * @since 1.4.0
+	 * @since NEWVERSION
 	 */
-	public function admin_footer_scripts() {
+	public function admin_head_scripts() {
 		if ( ! $this->current_list_screen ) {
 			return;
 		}
@@ -322,9 +323,32 @@ final class AC_TableScreen {
 
 		/**
 		 * Add header scripts that only apply to column screens.
+		 *
+		 * @since NEWVERSION
+		 *
+		 * @param AC_ListScreen
+		 * @param AC_TableScreen
+		 */
+		do_action( 'ac/admin_head', $this->current_list_screen, $this );
+	}
+
+	/**
+	 * Admin footer scripts
+	 *
+	 * @since 1.4.0
+	 */
+	public function admin_footer_scripts() {
+		if ( ! $this->current_list_screen ) {
+			return;
+		}
+
+		/**
+		 * Add footer scripts that only apply to column screens.
+		 *
 		 * @since 2.3.5
 		 *
-		 * @param object CPAC Main Class
+		 * @param AC_ListScreen
+		 * @param AC_TableScreen
 		 */
 		do_action( 'ac/admin_footer', $this->current_list_screen, $this );
 	}
