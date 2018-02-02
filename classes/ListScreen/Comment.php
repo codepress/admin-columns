@@ -70,11 +70,4 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment', AC()->get_prefix() );
 	}
 
-	/**
-	 * @return array
-	 */
-	public function get_default_orderby() {
-		return array( 'comment_date', true );
-	}
-
 }
