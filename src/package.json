@@ -15,8 +15,8 @@
   "scripts": {
     "ac:build:production": "nps build.production",
     "ac:build:development": "nps build.development",
-    "ac:languages": "node languages.js & ./pull-languages",
-    "iconfont": "nps webfont.build"
+    "ac:languages": "node languages.js",
+    "ac:webfont": "nps webfont.build"
   },
   "webfont": {
     "formats": "woff",
