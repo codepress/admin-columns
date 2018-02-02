@@ -563,8 +563,8 @@ class CPAC extends AC_Plugin {
 	 * @since 3.0
 	 */
 	public function admin_scripts() {
-		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
-		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message" . AC()->minified() . ".css", array(), AC()->get_version() );
+		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message.js", array( 'jquery' ), AC()->get_version() );
+		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
 	}
 
 	/**

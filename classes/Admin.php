@@ -58,9 +58,9 @@ class AC_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general" . AC()->minified() . ".js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'ac-admin', AC()->get_plugin_url() . "assets/css/admin-general" . AC()->minified() . ".css", array(), AC()->get_version() );
+		wp_enqueue_style( 'ac-admin', AC()->get_plugin_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
 
 		do_action( 'ac/admin_scripts', $this );
 	}
