@@ -822,15 +822,4 @@ abstract class AC_ListScreen {
 		return array();
 	}
 
-	/**
-	 * Get the default sortable column. The format is: 'orderby' or [ 'orderby', true ]
-	 *
-	 * The second format will make the initial sorting order be descending
-	 *
-	 * @return array [ string $column_name, bool $descending ]
-	 */
-	public function get_default_orderby() {
-		return array();
-	}
-
 }
