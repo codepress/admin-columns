@@ -262,31 +262,36 @@ final class AC_TableScreen {
 	 * Applies the width setting to the table headers
 	 */
 	private function display_width_styles() {
-		if ( $this->current_list_screen->get_settings() ) {
-			// CSS: columns width
-			$css_column_width = false;
-
-			foreach ( $this->current_list_screen->get_columns() as $column ) {
-				/* @var AC_Settings_Column_Width $setting */
-				$setting = $column->get_setting( 'width' );
-
-				if ( $width = $setting->get_display_width() ) {
-					$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
-					$css_column_width .= "body.acp-overflow-table.ac-" . $this->current_list_screen->get_key() . " .wrap th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
-				}
-			}
-
-			if ( $css_column_width ) : ?>
-
-				<style>
-					@media screen and (min-width: 783px) {
-					<?php echo $css_column_width; ?>
-					}
-				</style>
-
-				<?php
-			endif;
+		if ( ! $this->current_list_screen || ! $this->current_list_screen->get_settings() ) {
+			return;
 		}
+
+		// CSS: columns width
+		$css_column_width = false;
+
+		foreach ( $this->current_list_screen->get_columns() as $column ) {
+			/* @var AC_Settings_Column_Width $setting */
+			$setting = $column->get_setting( 'width' );
+
+			if ( $width = $setting->get_display_width() ) {
+				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
+				$css_column_width .= "body.acp-overflow-table.ac-" . $this->current_list_screen->get_key() . " .wrap th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
+			}
+		}
+
+		if ( ! $css_column_width ) {
+			return;
+		}
+
+		?>
+
+		<style>
+			@media screen and (min-width: 783px) {
+			<?php echo $css_column_width; ?>
+			}
+		</style>
+
+		<?php
 	}
 
 	/**
