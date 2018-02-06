@@ -1,7 +1,7 @@
 {
   "name": "admincolumns",
   "version": "1.0.0",
-  "description": "Sass and JS for Admin Columns integration",
+  "description": "Sass and JS for Admin Columns",
   "private": true,
   "devDependencies": {
     "nps": "latest",
