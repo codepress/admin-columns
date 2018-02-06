@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.1.3
+Version: 3.1.4
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -175,7 +175,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.3';
+		return '3.1.4';
 	}
 
 	public function get_prefix() {
@@ -455,7 +455,11 @@ class CPAC extends AC_Plugin {
 		}
 
 		/**
+		 * Register list screens
+		 *
 		 * @since 3.0
+		 *
+		 * @param CPAC $this
 		 */
 		do_action( 'ac/list_screens', $this );
 	}
@@ -559,8 +563,8 @@ class CPAC extends AC_Plugin {
 	 * @since 3.0
 	 */
 	public function admin_scripts() {
-		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
-		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message" . AC()->minified() . ".css", array(), AC()->get_version() );
+		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message.js", array( 'jquery' ), AC()->get_version() );
+		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
 	}
 
 	/**

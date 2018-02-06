@@ -500,9 +500,6 @@ abstract class AC_ListScreen {
 		 * @param AC_ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
-
-		// For backwards compatibility
-		do_action( 'acp/column_types', $this );
 	}
 
 	/**
@@ -822,17 +819,6 @@ abstract class AC_ListScreen {
 	 * @return array
 	 */
 	public function get_default_column_headers() {
-		return array();
-	}
-
-	/**
-	 * Get the default sortable column. The format is: 'orderby' or [ 'orderby', true ]
-	 *
-	 * The second format will make the initial sorting order be descending
-	 *
-	 * @return array [ $column_name, $descending ]
-	 */
-	public function get_default_orderby() {
 		return array();
 	}
 
