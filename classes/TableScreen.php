@@ -317,7 +317,7 @@ final class AC_TableScreen {
 	/**
 	 * Admin header scripts
 	 *
-	 * @since NEWVERSION
+	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
 		if ( ! $this->current_list_screen ) {
@@ -329,7 +329,7 @@ final class AC_TableScreen {
 		/**
 		 * Add header scripts that only apply to column screens.
 		 *
-		 * @since NEWVERSION
+		 * @since 3.1.4
 		 *
 		 * @param AC_ListScreen
 		 * @param AC_TableScreen

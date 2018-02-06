@@ -101,7 +101,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 * @return object
 	 */
 	protected function get_object_by_id( $id ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenWP::get_object()' );
+		_deprecated_function( __METHOD__, '3.1.4', 'AC_ListScreenWP::get_object()' );
 
 		return $this->get_object( $id );
 	}
