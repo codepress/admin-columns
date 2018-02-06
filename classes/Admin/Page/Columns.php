@@ -369,7 +369,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	private function preferences() {
-		return new AC_Preferences( 'settings' );
+		return new AC_Preferences_Site( 'settings' );
 	}
 
 	/**
