@@ -75,11 +75,4 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', AC()->get_prefix() );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_default_orderby() {
-		return 'username';
-	}
-
 }

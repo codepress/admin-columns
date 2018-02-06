@@ -1,0 +1,30 @@
+{% for glyph in glyphs
+%}${{ className }}-{{ glyph.name }}: "\{{ glyph.unicode[0].charCodeAt(0).toString(16) }}";
+{% endfor %}
+@font-face {
+    font-family: "{{ fontName }}";
+    src: url("{{ fontPath }}{{ fontName }}.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+}
+
+%{{ className }}, [class^="{{ className }}-"], [class*=" {{ className }}-"] {
+    display: inline-block;
+    transform: translate(0, 0);
+    text-rendering: auto;
+    font: normal normal 400 14px/1 {{ fontName }};
+    font-size: inherit;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.{{ className }} {
+    @extend %{{ className }};
+}
+
+{% for glyph in glyphs
+%}
+
+.{{ className }}-{{ glyph.name }}::before {
+    content: ${{ className }}-{{ glyph.name }};
+}{% endfor %}

@@ -199,8 +199,8 @@ final class AC_TableScreen {
 		wp_enqueue_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version() );
 
 		// Main
-		wp_enqueue_script( 'ac-table', AC()->get_plugin_url() . "assets/js/table" . AC()->minified() . ".js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
-		wp_enqueue_style( 'ac-table', AC()->get_plugin_url() . "assets/css/table" . AC()->minified() . ".css", array(), AC()->get_version() );
+		wp_enqueue_script( 'ac-table', AC()->get_plugin_url() . "assets/js/table.js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_enqueue_style( 'ac-table', AC()->get_plugin_url() . "assets/css/table.css", array(), AC()->get_version() );
 
 		wp_localize_script( 'ac-table', 'AC', array(
 				'list_screen'  => $list_screen->get_key(),
@@ -274,8 +274,8 @@ final class AC_TableScreen {
 			$setting = $column->get_setting( 'width' );
 
 			if ( $width = $setting->get_display_width() ) {
-				$css_column_width .= ".ac-" . $this->current_list_screen->get_key() . " .wrap table th.column-" . $column->get_name() . " { width: " . $width . " !important; }";
-				$css_column_width .= "body.acp-overflow-table.ac-" . $this->current_list_screen->get_key() . " .wrap th.column-" . $column->get_name() . " { min-width: " . $width . " !important; }";
+				$css_column_width .= ".ac-" . esc_attr( $this->current_list_screen->get_key() ) . " .wrap table th.column-" . esc_attr( $column->get_name() ) . " { width: " . $width . " !important; }";
+				$css_column_width .= "body.acp-overflow-table.ac-" . esc_attr( $this->current_list_screen->get_key() ) . " .wrap th.column-" . esc_attr( $column->get_name() ) . " { min-width: " . $width . " !important; }";
 			}
 		}
 
