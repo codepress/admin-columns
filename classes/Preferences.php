@@ -5,7 +5,7 @@ class AC_Preferences {
 	/**
 	 * @var int
 	 */
-	private $user_id;
+	protected $user_id;
 
 	/**
 	 * Preferences of this user
@@ -32,7 +32,14 @@ class AC_Preferences {
 
 		$this->user_id = intval( $user_id );
 		$this->label = sanitize_key( (string) $label );
-		$this->load();
+
+		$data = $this->load();
+
+		if ( is_array( $data ) ) {
+			foreach ( $data as $k => $v ) {
+				$this->set( $k, $v, false );
+			}
+		}
 	}
 
 	/**
@@ -40,18 +47,15 @@ class AC_Preferences {
 	 *
 	 * @return string
 	 */
-	private function get_key() {
+	protected function get_key() {
 		return 'ac_preferences_' . $this->label;
 	}
 
-	private function load() {
-		$data = get_user_option( $this->get_key(), $this->user_id );
-
-		if ( is_array( $data ) ) {
-			foreach ( $data as $k => $v ) {
-				$this->set( $k, $v, false );
-			}
-		}
+	/**
+	 * return array|false
+	 */
+	protected function load() {
+		return get_user_option( $this->get_key(), $this->user_id );
 	}
 
 	/**
@@ -112,7 +116,7 @@ class AC_Preferences {
 	}
 
 	/**
-	 * Reset all preferences for all users that match on the current label
+	 * Reset site preferences for all users that match on the current label
 	 */
 	public function reset_for_all_users() {
 		if ( empty( $this->label ) ) {
