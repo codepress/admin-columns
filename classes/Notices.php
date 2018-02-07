@@ -22,7 +22,7 @@ class AC_Notices {
 
 		$messages = array();
 
-		foreach ( $this->notices as $notice ) {
+		foreach ( (array) $this->notices as $notice ) {
 
 			// Load scripts & styles
 			$notice->scripts();
