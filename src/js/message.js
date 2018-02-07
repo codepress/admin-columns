@@ -2,20 +2,21 @@ jQuery( function( $ ) {
 
 	$( document ).on( 'click', '.ac-notice [data-dismiss], .ac-notice button.notice-dismiss', function() {
 		let $notice = $( this ).parents( '.ac-notice' );
-		let key = $notice.data( 'key' );
+		let name = $notice.data( 'name' );
 
-		if ( !key ) {
+		if ( !name ) {
 			return false;
 		}
 
-		setTimeout( function(){
+		setTimeout( function() {
 			"use strict";
 			$notice.fadeOut().remove();
-	}, 3000 );
+		}, 3000 );
 
 		$.get( ajaxurl, {
-			action : 'ac_dismiss_notice',
-			key : key
+			action : 'ac_notices',
+			name : name,
+			_ajax_nonce : $notice.data( 'nonce' )
 		}, function() {
 			$notice.fadeOut().remove();
 		} );
