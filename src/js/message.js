@@ -13,7 +13,7 @@ jQuery( function( $ ) {
 			$notice.fadeOut().remove();
 		}, 3000 );
 
-		$.get( ajaxurl, {
+		$.post( ajaxurl, {
 			action : 'ac_notices',
 			name : name,
 			_ajax_nonce : $notice.data( 'nonce' )

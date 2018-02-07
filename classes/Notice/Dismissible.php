@@ -29,10 +29,6 @@ class AC_Notice_Dismissible extends AC_Notice
 		$this->name = sanitize_key( $name );
 	}
 
-	public function register() {
-		add_action( 'wp_ajax_ac_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
-	}
-
 	/**
 	 * @return AC_Preferences_User
 	 */
