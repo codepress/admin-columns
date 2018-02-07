@@ -8,7 +8,12 @@ jQuery( function( $ ) {
 			return false;
 		}
 
-		$.post( ajaxurl, {
+		setTimeout( function(){
+			"use strict";
+			$notice.fadeOut().remove();
+	}, 3000 );
+
+		$.get( ajaxurl, {
 			action : 'ac_dismiss_notice',
 			key : key
 		}, function() {
