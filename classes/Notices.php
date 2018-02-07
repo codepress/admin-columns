@@ -16,6 +16,10 @@ class AC_Notices {
 	 * Display admin notice
 	 */
 	public function display() {
+		if ( ! $this->notices ) {
+			return;
+		}
+
 		$messages = array();
 
 		foreach ( $this->notices as $notice ) {
@@ -26,9 +30,7 @@ class AC_Notices {
 			$messages[] = $notice->render();
 		}
 
-		if ( $messages ) {
-			echo implode( array_unique( $messages ) );
-		}
+		echo implode( array_unique( $messages ) );
 	}
 
 	/**

@@ -7,8 +7,6 @@ class AC_Notice_Review extends AC_Notice {
 	}
 
 	public function register() {
-		parent::register();
-
 		add_action( 'wp_ajax_ac_hide_notice_review', array( $this, 'ajax_dismiss_notice' ) );
 	}
 
