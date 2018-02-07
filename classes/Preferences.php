@@ -1,6 +1,6 @@
 <?php
 
-class AC_Preferences {
+abstract class AC_Preferences {
 
 	/**
 	 * @var int
@@ -20,6 +20,20 @@ class AC_Preferences {
 	 * @var string
 	 */
 	protected $label;
+
+	/**
+	 * Retrieves data from DB
+	 *
+	 * return array|false
+	 */
+	abstract protected function load();
+
+	/**
+	 * Stores data to DB
+	 *
+	 * @return bool
+	 */
+	abstract public function save();
 
 	/**
 	 * @param string   $label
@@ -49,20 +63,6 @@ class AC_Preferences {
 	 */
 	protected function get_key() {
 		return 'ac_preferences_' . $this->label;
-	}
-
-	/**
-	 * return array|false
-	 */
-	protected function load() {
-		return get_user_option( $this->get_key(), $this->user_id );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function save() {
-		return (bool) update_user_option( $this->user_id, $this->get_key(), $this->data );
 	}
 
 	/**

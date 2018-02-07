@@ -55,7 +55,7 @@ class AC_Notice_Review extends AC_Notice {
 	 * @return AC_Preferences
 	 */
 	private function preferences() {
-		return new AC_Preferences( 'notices' );
+		return new AC_Preferences_Site( 'notices' );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class AC_Notice_Review extends AC_Notice {
 	 */
 	public function display() {
 		if ( $this->hide_notice() ) {
-			//return;
+			return;
 		}
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
