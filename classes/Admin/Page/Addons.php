@@ -116,10 +116,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		// return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 		// update_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 
-		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
-		wp_enqueue_script( 'ac-notice-addon', AC()->get_plugin_url() . "assets/js/message-addon.js", array( 'jquery' ), AC()->get_version() );
+		//wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
+		//wp_enqueue_script( 'ac-notice-addon', AC()->get_plugin_url() . "assets/js/message-addon.js", array( 'jquery' ), AC()->get_version() );
 
-		AC()->notices()->register( new AC_Notice_Simple( $message, 'notice notice-warning' ) );
+		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-reminder', $message, 'notice notice-warning' ) );
 	}
 
 	/**

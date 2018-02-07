@@ -27,6 +27,9 @@ class AC_Notices {
 			// Load scripts & styles
 			$notice->scripts();
 
+			// Load hooks
+			$notice->register();
+
 			$messages[] = $notice->render();
 		}
 

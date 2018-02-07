@@ -1,15 +1,12 @@
 <?php
 /**
- * @var AC_Notice $this
+ * @var AC_Notice_Dismissible $this
  */
 ?>
 
-<div class="ac-notice notice notice-success is-dismissible" data-key="ac-remove">
+<div class="ac-notice notice notice-success is-dismissible" data-key="<?php echo esc_attr( $this->get_name() ); ?>">
 	<p>
 		<?php echo $this->get( 'message' ); ?>
 	</p>
-
-	<button data-dismiss="">X</button>
-
 	<div class="clear"></div>
 </div>

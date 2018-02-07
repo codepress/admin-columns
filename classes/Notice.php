@@ -24,4 +24,11 @@ class AC_Notice extends AC_View {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
 	}
 
+	/**
+	 * Register hooks
+	 */
+	public function register() {
+		// Overwrite in child class
+	}
+
 }
