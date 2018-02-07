@@ -71,6 +71,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Nudge for integrations
 	 */
 	public function notice_nudge() {
+		// TODO
 		if ( $this->is_current_screen() && ! AC()->is_doing_ajax() ) {
 			return;
 		}
