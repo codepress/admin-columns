@@ -1,58 +1,54 @@
 <?php
 
-class AC_Notice_Review extends AC_Notice {
+class AC_Notice_Review {
 
-	public function get_name() {
-		return 'review';
+	public function __construct() {
+		add_action( 'admin_init', array( $this, 'register_notice' ) );
+		add_action( 'wp_ajax_ac_notice_dismiss_review', array( $this, 'ajax_notice_dismiss' ) );
 	}
 
-	public function register() {
-		add_action( 'wp_ajax_ac_hide_notice_review', array( $this, 'ajax_dismiss_notice' ) );
-	}
-
-	/**
-	 * @return bool
-	 */
-	protected function hide_notice() {
+	public function register_notice() {
 		if ( $this->is_dimissed() ) {
-			return true;
+			return;
 		}
 
 		if ( AC()->suppress_site_wide_notices() ) {
-			return true;
+			return;
 		}
 
 		if ( ! AC()->user_can_manage_admin_columns() ) {
-			return true;
+			return;
 		}
 
-		if ( $this->is_delayed() ) {
-			return true;
+		if ( ! $this->days_past_since_first_login( 30 ) ) {
+			return;
 		}
 
-		return false;
+		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
+
+		AC()->notices()->register( new AC_Notice_Dismissible( 'review', $this->get_message() ) );
 	}
 
 	/**
-	 * Delay notice by 30 days since first login
+	 * Did x days pass after first login
 	 *
 	 * @return bool
 	 */
-	private function is_delayed() {
-		return ( time() - ( 30 * DAY_IN_SECONDS ) ) <= $this->get_first_login_timestamp();
+	private function days_past_since_first_login( $days ) {
+		return ( time() - ( $days * DAY_IN_SECONDS ) ) > $this->get_first_login_timestamp();
 	}
 
 	/**
 	 * @return bool
 	 */
 	private function is_dimissed() {
-		return (bool) $this->preferences()->get( 'hide-' . $this->get_name() );
+		return (bool) $this->preference()->get( 'dismiss-review' );
 	}
 
 	/**
 	 * @return AC_Preferences
 	 */
-	private function preferences() {
+	private function preference() {
 		return new AC_Preferences_Site( 'notices' );
 	}
 
@@ -60,11 +56,11 @@ class AC_Notice_Review extends AC_Notice {
 	 * @return string
 	 */
 	private function get_first_login_timestamp() {
-		$timestamp = $this->preferences()->get( 'first-login-' . $this->get_name() );
+		$timestamp = $this->preference()->get( 'first-login-review' );
 
 		if ( empty( $timestamp ) ) {
 			$timestamp = time();
-			$this->preferences()->set( 'first-login-' . $this->get_name(), $timestamp );
+			$this->preference()->set( 'first-login-review', $timestamp );
 		}
 
 		return $timestamp;
@@ -73,21 +69,10 @@ class AC_Notice_Review extends AC_Notice {
 	/**
 	 * Hide notice
 	 */
-	public function ajax_dismiss_notice() {
-		$this->preferences()->set( 'hide-' . $this->get_name(), true );
-	}
+	public function ajax_notice_dismiss() {
+		check_ajax_referer( 'ac-ajax' );
 
-	/**
-	 * Display review notice after 30 days of first login by an admin
-	 */
-	public function display() {
-		if ( $this->hide_notice() ) {
-			return;
-		}
-
-		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
-
-		parent::display();
+		$this->preference()->set( 'dismiss-review', true );
 	}
 
 	protected function get_message() {

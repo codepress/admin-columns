@@ -14,7 +14,7 @@ jQuery( function( $ ) {
 		}, 3000 );
 
 		$.post( ajaxurl, {
-			action : 'ac_notices',
+			action : 'ac_notice_dismiss_' + name,
 			name : name,
 			_ajax_nonce : $notice.data( 'nonce' )
 		}, function() {

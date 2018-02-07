@@ -13,7 +13,8 @@ class AC_Notices {
 		add_action( 'admin_notices', array( $this, 'display' ) );
 		add_action( 'network_admin_notices', array( $this, 'display' ) );
 
-		add_action( 'wp_ajax_ac_notices', array( $this, 'ajax_notices' ) );
+		// Site wide notices
+		new AC_Notice_Review;
 	}
 
 	/**
@@ -43,21 +44,6 @@ class AC_Notices {
 		}
 
 		echo implode( array_unique( array_filter( $messages ) ) );
-	}
-
-	/**
-	 * Hide notice
-	 */
-	public function ajax_notices() {
-		check_ajax_referer( 'ac-ajax' );
-
-		foreach ( $this->notices as $notice ) {
-			if ( $notice instanceof AC_Notice_Updatable ) {
-				$notice->update();
-			}
-		}
-
-		exit;
 	}
 
 }

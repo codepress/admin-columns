@@ -7,25 +7,58 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			->set_slug( 'addons' )
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
 
+		// Activation Plugins
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
-		add_action( 'admin_init', array( $this, 'notice_missing' ) );
-		add_action( 'admin_init', array( $this, 'notice_nudge' ) );
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 
-		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
+		// Notices
+		add_action( 'admin_init', array( $this, 'notice_addon_missing' ) );
+		add_action( 'admin_init', array( $this, 'notice_addon_nudge' ) );
+		add_action( 'wp_ajax_ac_notice_dismiss_addon-missing', array( $this, 'ajax_notice_dismiss' ) );
+		add_action( 'wp_ajax_ac_notice_dismiss_addon-nudge', array( $this, 'ajax_notice_dismiss' ) );
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	/**
+	 * @return AC_Preferences_User
+	 */
+	private function preference() {
+		return new AC_Preferences_User( 'notices' );
+	}
+
+	/**
+	 * Dismiss upgrade nudge
+	 */
+	public function ajax_notice_dismiss() {
+		check_ajax_referer( 'ac-ajax' );
+
+		$this->preference()->set( 'dismiss-' . filter_input( INPUT_POST, 'name' ), true );
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	private function is_notice_dismissed( $name ) {
+		return (bool) $this->preference()->get( 'dismiss-' . $name );
 	}
 
 	/**
 	 * Notice for missing addons
 	 */
-	public function notice_missing() {
-		if ( $this->is_current_screen() && ! AC()->is_doing_ajax() ) {
+	public function notice_addon_missing() {
+		if ( $this->is_current_screen() ) {
 			return;
 		}
 
 		if ( ! current_user_can( 'manage_admin_columns' ) || ! current_user_can( 'install_plugins' ) ) {
+			return;
+		}
+
+		if ( $this->is_notice_dismissed( 'addon-missing' ) ) {
 			return;
 		}
 
@@ -64,15 +97,14 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		AC()->notices()->register( new AC_Notice_Simple( $message, 'notice notice-warning' ) );
+		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-missing', $message, 'notice notice-warning' ) );
 	}
 
 	/**
 	 * Nudge for integrations
 	 */
-	public function notice_nudge() {
-		// TODO
-		if ( $this->is_current_screen() && ! AC()->is_doing_ajax() ) {
+	public function notice_addon_nudge() {
+		if ( $this->is_current_screen() ) {
 			return;
 		}
 
@@ -81,6 +113,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		if ( AC()->suppress_site_wide_notices() ) {
+			return;
+		}
+
+		if ( $this->is_notice_dismissed( 'addon-nudge' ) ) {
 			return;
 		}
 
@@ -112,15 +148,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 		$message = ob_get_clean();
 
-		// TODO: handle ajax callback. General dismiss callback?
-
-		// return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
-		// update_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
-
-		//wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
-		//wp_enqueue_script( 'ac-notice-addon', AC()->get_plugin_url() . "assets/js/message-addon.js", array( 'jquery' ), AC()->get_version() );
-
-		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-reminder', $message, 'notice notice-warning' ) );
+		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-nudge', $message, 'notice notice-warning' ) );
 	}
 
 	/**
@@ -183,24 +211,6 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		if ( $this->is_current_screen() ) {
 			wp_enqueue_style( 'ac-admin-page-addons', AC()->get_plugin_url() . 'assets/css/admin-page-addons.css', array(), AC()->get_version() );
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	// TODO
-	private function hide_notice() {
-		return (bool) get_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
-	}
-
-	/**
-	 * Ajax callback for hiding the "Missing addons" notice used for notifying users of available integration addons for plugins they have installed
-	 *
-	 * @since 2.4.9
-	 */
-	// TODO
-	public function ajax_hide_install_addons_notice() {
-		update_user_meta( get_current_user_id(), 'ac_hide_notice_addons', true );
 	}
 
 	/**

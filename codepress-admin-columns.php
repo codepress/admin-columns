@@ -548,16 +548,12 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @param string $message Message body
+	 * @see AC_Notice
+	 *
+	 * @param string $message
 	 * @param string $type
-	 *                        'updated' is green
-	 *                        'error' is red
-	 *                        'notice-warning' is yellow
-	 *                        'notice-info' is blue
 	 */
 	public function notice( $message, $type = 'updated' ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->notices()->register()' );
-
 		$this->notices()->register( new AC_Notice_Simple( $message, 'notice ' . $type ) );
 	}
 

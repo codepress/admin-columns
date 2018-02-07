@@ -3,10 +3,12 @@
 class AC_Notice extends AC_View {
 
 	/**
-	 * AC_Notice constructor.
-	 *
-	 * @param string $message
+	 * @param string $message Message body
 	 * @param string $type
+	 *                        'updated' is green
+	 *                        'error' is red
+	 *                        'notice-warning' is yellow
+	 *                        'notice-info' is blue
 	 */
 	public function __construct( $message, $type = 'updated' ) {
 		parent::__construct( array(
@@ -22,13 +24,6 @@ class AC_Notice extends AC_View {
 	 */
 	public function scripts() {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
-	}
-
-	/**
-	 * Register hooks
-	 */
-	public function register() {
-		// Overwrite in child class
 	}
 
 }
