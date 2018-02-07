@@ -4,19 +4,20 @@ jQuery( function( $ ) {
 		e.preventDefault();
 
 		let $notice = $( this ).parents( '.ac-notice' );
-		let key = $notice.data( 'key' );
+		let name = $notice.data( 'name' );
 
-		if ( !key ) {
+		if ( !name ) {
 			return false;
 		}
 
-		$notice.fadeOut( 500, function(){
+		$notice.fadeOut( 500, function() {
 			$notice.remove();
-		});
+		} );
 
 		$.post( ajaxurl, {
-			action : 'ac_dismiss_notice',
-			key : key
+			action : 'ac_notices',
+			name : name,
+			_ajax_nonce : $notice.data( 'nonce' )
 		} );
 
 	} );

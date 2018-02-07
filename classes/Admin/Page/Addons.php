@@ -21,7 +21,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Notice for missing addons
 	 */
 	public function notice_missing() {
-		if ( ! $this->is_current_screen() ) {
+		if ( $this->is_current_screen() && ! AC()->is_doing_ajax() ) {
 			return;
 		}
 
@@ -71,7 +71,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	 * Nudge for integrations
 	 */
 	public function notice_nudge() {
-		if ( $this->is_current_screen() ) {
+		if ( $this->is_current_screen() && ! AC()->is_doing_ajax() ) {
 			return;
 		}
 
