@@ -1,6 +1,8 @@
 jQuery( function( $ ) {
 
-	$( document ).on( 'click', '.ac-notice [data-dismiss], .ac-notice button.notice-dismiss', function() {
+	$( document ).on( 'click', '.ac-notice [data-dismiss], .ac-notice button.notice-dismiss', function( e ) {
+		e.preventDefault();
+
 		let $notice = $( this ).parents( '.ac-notice' );
 		let key = $notice.data( 'key' );
 
@@ -8,16 +10,13 @@ jQuery( function( $ ) {
 			return false;
 		}
 
-		setTimeout( function(){
-			"use strict";
-			$notice.fadeOut().remove();
-	}, 3000 );
+		$notice.fadeOut( 500, function(){
+			$notice.remove();
+		});
 
-		$.get( ajaxurl, {
+		$.post( ajaxurl, {
 			action : 'ac_dismiss_notice',
 			key : key
-		}, function() {
-			$notice.fadeOut().remove();
 		} );
 
 	} );
