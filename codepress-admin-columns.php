@@ -83,7 +83,8 @@ class CPAC extends AC_Plugin {
 	private $list_screens;
 
 	/**
-	 * @var array $notices
+	 * @since NEWVERSION
+	 * @var AC_Notices
 	 */
 	private $notices;
 
@@ -136,18 +137,11 @@ class CPAC extends AC_Plugin {
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
-
-		new AC_Notice_Review();
+		$this->notices = new AC_Notices();
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-
-		// Notices
-		add_action( 'admin_notices', array( $this, 'display_notices' ) );
-		add_action( 'network_admin_notices', array( $this, 'display_notices' ) );
-
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
@@ -305,6 +299,14 @@ class CPAC extends AC_Plugin {
 	 */
 	public function addons() {
 		return $this->addons;
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return AC_Notices
+	 */
+	public function notices() {
+		return $this->notices;
 	}
 
 	/**
@@ -532,12 +534,17 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Display admin notice
+	 * @return AC_Admin_Page_Columns
 	 */
-	public function display_notices() {
-		if ( $this->notices ) {
-			echo implode( array_unique( $this->notices ) );
-		}
+	public function admin_columns_screen() {
+		return $this->admin()->get_page( 'columns' );
+	}
+
+	/**
+	 * @return bool True when doing ajax
+	 */
+	public function is_doing_ajax() {
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	/**
@@ -549,30 +556,11 @@ class CPAC extends AC_Plugin {
 	 *                        'notice-info' is blue
 	 */
 	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC()->notices()->register()' );
+
+		$this->notices()->register( new AC_Notice_Simple( $message, 'notice ' . $type ) );
 	}
 
-	/**
-	 * @return AC_Admin_Page_Columns
-	 */
-	public function admin_columns_screen() {
-		return $this->admin()->get_page( 'columns' );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function admin_scripts() {
-		wp_register_script( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/js/message.js", array( 'jquery' ), AC()->get_version() );
-		wp_register_style( 'ac-sitewide-notices', AC()->get_plugin_url() . "assets/css/message.css", array(), AC()->get_version() );
-	}
-
-	/**
-	 * @return bool True when doing ajax
-	 */
-	public function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
 }
 
 /**

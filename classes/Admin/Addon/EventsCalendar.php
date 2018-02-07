@@ -11,7 +11,7 @@ class AC_Admin_Addon_EventsCalendar extends AC_Admin_Addon {
 			->set_icon( AC()->get_plugin_url() . 'assets/images/addons/events-calendar-icon.png' )
 			->set_link( ac_get_site_utm_url( 'events-calendar', 'addon', 'events-calendar' ) )
 			->set_description( "Manage columns for your event, organizer or venue overviews." )
-			->add_plugin( 'events-calendar' );
+			->add_plugin( 'the-events-calendar' );
 	}
 
 	public function display_promo() {
