@@ -196,17 +196,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @since 3.0
-	 */
-	public function get_plugin_version( $file ) {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		$plugin = get_plugin_data( $file, false, false );
-
-		return isset( $plugin['Version'] ) ? $plugin['Version'] : false;
-	}
-
-	/**
 	 * @since 2.2
 	 * @uses  load_plugin_textdomain()
 	 */
@@ -560,6 +549,17 @@ class CPAC extends AC_Plugin {
 		$this->notices()->register( new AC_Notice_Simple( $message, 'notice ' . $type ) );
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @deprecated NEWVERSION
+	 * @since 3.0
+	 */
+	public function get_plugin_version( $file ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
+>>>>>>> develop
 }
 
 /**
