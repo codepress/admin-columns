@@ -9,12 +9,8 @@ class AC_Notices {
 
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
-
 		add_action( 'admin_notices', array( $this, 'display' ) );
 		add_action( 'network_admin_notices', array( $this, 'display' ) );
-
-		// Site wide notices
-		new AC_Notice_Review;
 	}
 
 	/**

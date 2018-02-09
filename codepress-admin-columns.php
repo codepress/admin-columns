@@ -139,6 +139,9 @@ class CPAC extends AC_Plugin {
 		$this->api = new AC_API();
 		$this->notices = new AC_Notices();
 
+		// Notices
+		new AC_Notice_Review;
+
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
