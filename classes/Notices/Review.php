@@ -1,9 +1,9 @@
 <?php
 
-class AC_Notice_Review {
+class AC_Notices_Review {
 
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'register_notice' ) );
+		add_action( 'current_screen', array( $this, 'register_notice' ) );
 		add_action( 'wp_ajax_ac_notice_dismiss_review', array( $this, 'ajax_notice_dismiss' ) );
 	}
 

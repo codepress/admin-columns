@@ -1,6 +1,6 @@
 <?php
 
-class AC_Notices {
+class AC_NoticeManager {
 
 	/**
 	 * @var AC_Notice[]

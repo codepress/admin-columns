@@ -84,7 +84,7 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @since NEWVERSION
-	 * @var AC_Notices
+	 * @var AC_NoticeManager
 	 */
 	private $notices;
 
@@ -137,10 +137,10 @@ class CPAC extends AC_Plugin {
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
-		$this->notices = new AC_Notices();
+		$this->notices = new AC_NoticeManager();
 
 		// Notices
-		new AC_Notice_Review;
+		new AC_Notices_Review;
 
 		// Hooks
 		add_action( 'init', array( $this, 'localize' ) );
@@ -295,7 +295,7 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @since NEWVERSION
-	 * @return AC_Notices
+	 * @return AC_NoticeManager
 	 */
 	public function notices() {
 		return $this->notices;
@@ -551,7 +551,7 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @deprecated NEWVERSION
-	 * @since 3.0
+	 * @since      3.0
 	 */
 	public function get_plugin_version( $file ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
