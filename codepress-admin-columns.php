@@ -549,8 +549,6 @@ class CPAC extends AC_Plugin {
 		$this->notices()->register( new AC_Notice_Simple( $message, 'notice ' . $type ) );
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * @deprecated NEWVERSION
 	 * @since 3.0
@@ -559,7 +557,6 @@ class CPAC extends AC_Plugin {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
->>>>>>> develop
 }
 
 /**
