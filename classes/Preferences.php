@@ -1,11 +1,11 @@
 <?php
 
-class AC_Preferences {
+abstract class AC_Preferences {
 
 	/**
 	 * @var int
 	 */
-	private $user_id;
+	protected $user_id;
 
 	/**
 	 * Preferences of this user
@@ -22,6 +22,20 @@ class AC_Preferences {
 	protected $label;
 
 	/**
+	 * Retrieves data from DB
+	 *
+	 * return array|false
+	 */
+	abstract protected function load();
+
+	/**
+	 * Stores data to DB
+	 *
+	 * @return bool
+	 */
+	abstract public function save();
+
+	/**
 	 * @param string   $label
 	 * @param null|int $user_id
 	 */
@@ -32,20 +46,8 @@ class AC_Preferences {
 
 		$this->user_id = intval( $user_id );
 		$this->label = sanitize_key( (string) $label );
-		$this->load();
-	}
 
-	/**
-	 * Return the key used to store and retrieve this preference
-	 *
-	 * @return string
-	 */
-	private function get_key() {
-		return 'ac_preferences_' . $this->label;
-	}
-
-	private function load() {
-		$data = get_user_option( $this->get_key(), $this->user_id );
+		$data = $this->load();
 
 		if ( is_array( $data ) ) {
 			foreach ( $data as $k => $v ) {
@@ -55,10 +57,12 @@ class AC_Preferences {
 	}
 
 	/**
-	 * @return bool
+	 * Return the key used to store and retrieve this preference
+	 *
+	 * @return string
 	 */
-	public function save() {
-		return (bool) update_user_option( $this->user_id, $this->get_key(), $this->data );
+	protected function get_key() {
+		return 'ac_preferences_' . $this->label;
 	}
 
 	/**
@@ -112,7 +116,7 @@ class AC_Preferences {
 	}
 
 	/**
-	 * Reset all preferences for all users that match on the current label
+	 * Reset site preferences for all users that match on the current label
 	 */
 	public function reset_for_all_users() {
 		if ( empty( $this->label ) ) {
