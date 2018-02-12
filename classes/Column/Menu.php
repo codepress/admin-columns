@@ -6,7 +6,7 @@
  *
  * @since 2.2.5
  */
-class AC_Column_Menu extends AC_Column {
+abstract class AC_Column_Menu extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
@@ -21,10 +21,14 @@ class AC_Column_Menu extends AC_Column {
 		return $this->get_menus( $object_id, array( 'fields' => 'ids' ) );
 	}
 
+	public abstract function get_object_type();
+
+	public abstract function get_item_type();
+
 	/**
 	 * @return string Object type: 'post', 'page' or 'user'
 	 */
-	public function get_object_type() {
+	public function ___get_object_type_() {
 		$object_type = $this->get_post_type();
 
 		if ( ! $object_type ) {
@@ -41,7 +45,7 @@ class AC_Column_Menu extends AC_Column {
 	/**
 	 * @return string
 	 */
-	public function get_item_type() {
+	public function ___get_item_type() {
 		$item_type = $this->get_list_screen()->get_meta_type();
 
 		switch ( $item_type ) {
@@ -106,7 +110,7 @@ class AC_Column_Menu extends AC_Column {
 		$this->add_setting( new AC_Settings_Column_LinkToMenu( $this ) );
 	}
 
-	public function is_valid() {
+	public function __is_valid() {
 		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'term', 'comment' ) );
 	}
 

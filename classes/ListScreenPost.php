@@ -54,7 +54,8 @@ abstract class AC_ListScreenPost extends AC_ListScreenWP {
 	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Menu );
+		//TODO Remove
+		//$this->register_column_type( new AC_Column_Menu );
 		$this->register_column_type( new AC_Column_Actions );
 	}
 
