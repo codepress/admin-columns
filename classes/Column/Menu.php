@@ -110,8 +110,4 @@ abstract class AC_Column_Menu extends AC_Column {
 		$this->add_setting( new AC_Settings_Column_LinkToMenu( $this ) );
 	}
 
-	public function __is_valid() {
-		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'term', 'comment' ) );
-	}
-
 }
