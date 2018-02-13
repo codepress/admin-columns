@@ -21,8 +21,14 @@ abstract class AC_Column_Menu extends AC_Column {
 		return $this->get_menus( $object_id, array( 'fields' => 'ids' ) );
 	}
 
+	/**
+	 * @return string
+	 */
 	public abstract function get_object_type();
 
+	/**
+	 * @return string
+	 */
 	public abstract function get_item_type();
 
 	/**
