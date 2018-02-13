@@ -26,38 +26,6 @@ abstract class AC_Column_Menu extends AC_Column {
 	public abstract function get_item_type();
 
 	/**
-	 * @return string Object type: 'post', 'page' or 'user'
-	 */
-	public function ___get_object_type_() {
-		$object_type = $this->get_post_type();
-
-		if ( ! $object_type ) {
-			$object_type = $this->get_taxonomy();
-		}
-
-		if ( ! $object_type ) {
-			$object_type = $this->get_list_screen()->get_meta_type();
-		}
-
-		return $object_type;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function ___get_item_type() {
-		$item_type = $this->get_list_screen()->get_meta_type();
-
-		switch ( $item_type ) {
-			case 'post' :
-				$item_type = 'post_type';
-				break;
-		}
-
-		return $item_type;
-	}
-
-	/**
 	 * @param int $object_id
 	 *
 	 * @return array
