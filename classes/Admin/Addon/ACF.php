@@ -3,7 +3,7 @@
 class AC_Admin_Addon_ACF extends AC_Admin_Addon {
 
 	public function __construct() {
-		parent::__construct( 'cac-addon-acf' );
+		parent::__construct( 'ac-addon-acf' );
 
 		$this
 			->set_title( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) )
