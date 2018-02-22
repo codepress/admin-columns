@@ -88,17 +88,16 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, 'ac_action' ) ) :
-
+		switch ( filter_input( INPUT_POST, 'ac_action' ) ) {
 			case 'restore_all' :
 				if ( $this->verify_nonce( 'restore-all' ) ) {
 					$this->delete_all_column_settings();
 
-					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+					ac_notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
 				}
-				break;
 
-		endswitch;
+				break;
+		}
 	}
 
 	public function single_checkbox( $args = array() ) {

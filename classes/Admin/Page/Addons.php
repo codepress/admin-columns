@@ -97,7 +97,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-missing', $message, 'notice notice-warning' ) );
+		$notice = new AC_Notice( $message, AC_Notice::WARNING );
+		$notice->set_dismissible( true, 'addon-missing' );
+
+		AC_Notices::add( $notice );
 	}
 
 	/**
@@ -148,7 +151,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 		$message = ob_get_clean();
 
-		AC()->notices()->register( new AC_Notice_Dismissible( 'addon-nudge', $message, 'notice notice-warning' ) );
+		$notice = new AC_Notice( $message, AC_Notice::WARNING );
+		$notice->set_dismissible( true, 'addon-nudge' );
+
+		AC_Notices::add( $notice );
 	}
 
 	/**
@@ -193,13 +199,14 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		switch ( $status ) {
 			case 'activate' :
 				if ( $plugin->is_active() ) {
-					AC()->notices()->register( new AC_Notice_Simple( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) ) );
+					ac_notice( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
 				} else {
-					AC()->notices()->register( new AC_Notice_Simple( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ), 'error' ) );
+					ac_notice( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ), AC_Notice::ERROR );
 				}
+
 				break;
 			case 'deactivate' :
-				AC()->notices()->register( new AC_Notice_Simple( sprintf( $deactivate_string, '<strong>' . $plugin->get_name() . '</strong>' ) ) );
+				ac_notice( sprintf( $deactivate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
 				break;
 		}
 	}
@@ -223,23 +230,20 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		$addon = AC()->addons()->get_addon( filter_input( INPUT_GET, 'plugin' ) );
+		$plugin = filter_input( INPUT_GET, 'plugin' );
+		$addon = AC()->addons()->get_addon( $plugin );
 
 		if ( ! $addon ) {
-			AC()->notices()->register( new AC_Notice_Simple( __( 'Addon does not exist.', 'codepress-admin-columns' ), 'error' ) );
-
-			return;
+			$error = __( 'Addon does not exist.', 'codepress-admin-columns' );
+		} elseif ( ! ac_is_pro_active() ) {
+			$error = __( 'You need Admin Columns Pro.', 'codepress-admin-columns' );
+		} else {
+			// Trigger possible warning message before running WP installer
+			$error = apply_filters( 'ac/addons/install_request/maybe_error', false, $plugin );
 		}
 
-		if ( ! ac_is_pro_active() ) {
-			AC()->notices()->register( new AC_Notice_Simple( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), 'error' ) );
-
-			return;
-		}
-
-		// Hook: trigger possible warning message before running WP installer ( api errors etc. )
-		if ( $error = apply_filters( 'ac/addons/install_request/maybe_error', false, $_GET['plugin'] ) ) {
-			AC()->notices()->register( new AC_Notice_Simple( $error, 'error' ) );
+		if ( false !== $error ) {
+			ac_notice( $error, AC_Notice::ERROR );
 
 			return;
 		}

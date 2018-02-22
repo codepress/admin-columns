@@ -83,12 +83,6 @@ class CPAC extends AC_Plugin {
 	private $list_screens;
 
 	/**
-	 * @since NEWVERSION
-	 * @var AC_NoticeManager
-	 */
-	private $notices;
-
-	/**
 	 * @var AC_API
 	 */
 	private $api;
@@ -137,9 +131,9 @@ class CPAC extends AC_Plugin {
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
-		$this->notices = new AC_NoticeManager();
 
 		// Notices
+		// TODO: Notice
 		new AC_Notices_Review;
 
 		// Hooks
@@ -294,19 +288,10 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @since NEWVERSION
-	 * @return AC_NoticeManager
-	 */
-	public function notices() {
-		return $this->notices;
-	}
-
-	/**
 	 * Column groups
 	 */
 	public function set_column_groups() {
 		$groups = new AC_Groups();
-
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
 		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
@@ -537,16 +522,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
-	 * @see AC_Notice
-	 *
-	 * @param string $message
-	 * @param string $type
-	 */
-	public function notice( $message, $type = 'updated' ) {
-		$this->notices()->register( new AC_Notice_Simple( $message, 'notice ' . $type ) );
 	}
 
 	/**

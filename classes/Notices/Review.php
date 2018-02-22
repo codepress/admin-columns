@@ -8,6 +8,7 @@ class AC_Notices_Review {
 	}
 
 	public function register_notice() {
+		// TODO: dimissed? ;)
 		if ( $this->is_dimissed() ) {
 			return;
 		}
@@ -26,7 +27,10 @@ class AC_Notices_Review {
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
-		AC()->notices()->register( new AC_Notice_Dismissible( 'review', $this->get_message() ) );
+		$notice = new AC_Notice( $this->get_message() );
+		$notice->set_dismissible( true, 'review' );
+
+		AC_Notices::add( $notice );
 	}
 
 	/**

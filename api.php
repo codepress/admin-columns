@@ -76,6 +76,20 @@ function ac_helper() {
 }
 
 /**
+ * @param string      $message
+ * @param string|null $type
+ *
+ * @return AC_Notice
+ */
+function ac_notice( $message, $type = null ) {
+	$notice = new AC_Notice( $message, $type );
+
+	AC_Notices::add( $notice );
+
+	return $notice;
+}
+
+/**
  * @since 3.0
  * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
  */

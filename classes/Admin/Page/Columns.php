@@ -163,6 +163,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @param string $message Message body
 	 * @param string $type    Updated or error
 	 */
+
+	// TODO: Notice find out what this is...
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
