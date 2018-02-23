@@ -8,21 +8,20 @@ class AC_Notices_Review {
 	}
 
 	public function register_notice() {
-		// TODO: dimissed? ;)
-		if ( $this->is_dimissed() ) {
-			return;
+		if ( $this->is_dismissed() ) {
+			//return;
 		}
 
 		if ( AC()->suppress_site_wide_notices() ) {
-			return;
+			//return;
 		}
 
 		if ( ! AC()->user_can_manage_admin_columns() ) {
-			return;
+			//return;
 		}
 
 		if ( ! $this->days_past_since_first_login( 30 ) ) {
-			return;
+			//return;
 		}
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
@@ -45,7 +44,7 @@ class AC_Notices_Review {
 	/**
 	 * @return bool
 	 */
-	private function is_dimissed() {
+	private function is_dismissed() {
 		return (bool) $this->preference()->get( 'dismiss-review' );
 	}
 

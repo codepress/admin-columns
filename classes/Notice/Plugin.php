@@ -65,6 +65,7 @@ final class AC_Notice_Plugin {
 			}
 
 			<?php if ( $this->icon ) : ?>
+
 			.plugins tr[data-plugin='<?php echo $this->plugin_basename; ?>'] .update-message p:before {
 				content: "<?php echo $this->icon ?>";
 			}

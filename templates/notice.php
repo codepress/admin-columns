@@ -2,7 +2,6 @@
 
 /* @var AC_Notice $this */
 
-$dismiss_action = $this->get_dismiss_action();
 $classes = 'ac-notice notice notice-' . $this->type;
 
 ?>
@@ -11,7 +10,7 @@ $classes = 'ac-notice notice notice-' . $this->type;
 		<?php echo $this->message; ?>
 	</p>
 
-	<?php if ( $dismiss_action ) : ?>
-		<a href="#" class="notice-dismiss" data-action="<?php echo esc_attr( $dismiss_action ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ac-ajax' ) ); ?>"></a>
+	<?php if ( $this->is_dismissible() ) : ?>
+		<a href="#" class="notice-dismiss" data-action="<?php echo esc_attr( $this->get_name() ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ac-ajax' ) ); ?>"></a>
 	<?php endif; ?>
 </div>

@@ -141,6 +141,10 @@ class CPAC extends AC_Plugin {
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
+		// Notices
+		add_action( 'admin_notices', array( 'AC_Notices', 'display' ) );
+		add_action( 'network_admin_notices', array( 'AC_Notices', 'display' ) );
+
 		// Set capabilities
 		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
 
