@@ -26,7 +26,7 @@ class AC_Notices_Review {
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
-		$notice = new AC_Notice( $this->get_message() );
+		$notice = new AC_Notice( $this->get_message(), AC_Notice::INFO );
 		$notice->set_dismissible( true, 'review' );
 
 		AC_Notices::add( $notice );

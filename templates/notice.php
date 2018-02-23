@@ -2,10 +2,10 @@
 
 /* @var AC_Notice $this */
 
-$classes = 'ac-notice notice notice-' . $this->type;
+$classes = 'ac-notice notice '. $this->type;
 
 ?>
-<div class="<?php esc_attr( $classes ); ?>">
+<div class="<?php echo esc_attr( $classes ); ?>">
 	<p>
 		<?php echo $this->message; ?>
 	</p>
