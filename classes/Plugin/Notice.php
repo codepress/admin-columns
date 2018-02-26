@@ -1,6 +1,6 @@
 <?php
 
-final class AC_Notice_Plugin {
+final class AC_Plugin_Notice {
 
 	/**
 	 * @var string
@@ -41,7 +41,7 @@ final class AC_Notice_Plugin {
 		return isset( $current->response[ $this->plugin_basename ] );
 	}
 
-	public function hook_notice() {
+	public function register() {
 		add_action( 'after_plugin_row_' . $this->plugin_basename, array( $this, 'display_notice' ), 11 );
 	}
 

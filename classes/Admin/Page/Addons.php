@@ -97,10 +97,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		$notice = new AC_Notice( $message, AC_Notice::WARNING );
+		$notice = ac_notice( $message, AC_Notice::WARNING );
 		$notice->set_dismissible( true, 'addon-missing' );
-
-		AC_Notices::add( $notice );
 	}
 
 	/**

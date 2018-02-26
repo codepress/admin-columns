@@ -13,7 +13,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private $current_list_screen;
 
 	public function __construct() {
-
 		$this->set_slug( 'columns' )
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
@@ -164,7 +163,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * @param string $type    Updated or error
 	 */
 
-	// TODO: Notice find out what this is...
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
 	}
@@ -176,6 +174,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 */
 	private function get_column_display( AC_Column $column ) {
 		ob_start();
+
 		$this->display_column( $column );
 
 		return ob_get_clean();

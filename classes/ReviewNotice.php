@@ -1,50 +1,30 @@
 <?php
 
-class AC_Notices_Review {
+final class AC_ReviewNotice {
 
-	public function __construct() {
-		add_action( 'current_screen', array( $this, 'register_notice' ) );
-		add_action( 'wp_ajax_ac_notice_dismiss_review', array( $this, 'ajax_notice_dismiss' ) );
+	public function register() {
+		add_action( 'wp_ajax_ac_notice_dismiss_review', array( $this, 'ajax_dismiss_notice' ) );
 	}
 
-	public function register_notice() {
-		if ( $this->is_dismissed() ) {
-			//return;
-		}
-
-		if ( AC()->suppress_site_wide_notices() ) {
-			//return;
-		}
-
-		if ( ! AC()->user_can_manage_admin_columns() ) {
-			//return;
-		}
-
-		if ( ! $this->days_past_since_first_login( 30 ) ) {
-			//return;
-		}
-
+	public function display() {
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
-		$notice = new AC_Notice( $this->get_message(), AC_Notice::INFO );
-		$notice->set_dismissible( true, 'review' );
-
-		AC_Notices::add( $notice );
+		ac_notice( $this->get_message(), AC_Notice::INFO );
 	}
 
 	/**
-	 * Did x days pass after first login
+	 * Check if the amount of days is larger then the first login
 	 *
 	 * @return bool
 	 */
-	private function days_past_since_first_login( $days ) {
-		return ( time() - ( $days * DAY_IN_SECONDS ) ) > $this->get_first_login_timestamp();
+	public function first_login_compare( $days ) {
+		return time() - $days * DAY_IN_SECONDS > $this->get_first_login();
 	}
 
 	/**
 	 * @return bool
 	 */
-	private function is_dismissed() {
+	public function is_dismissed() {
 		return (bool) $this->preference()->get( 'dismiss-review' );
 	}
 
@@ -56,29 +36,29 @@ class AC_Notices_Review {
 	}
 
 	/**
-	 * @return string
+	 * Return the Unix timestamp of first login
+	 *
+	 * @return integer
 	 */
-	private function get_first_login_timestamp() {
+	private function get_first_login() {
 		$timestamp = $this->preference()->get( 'first-login-review' );
 
 		if ( empty( $timestamp ) ) {
 			$timestamp = time();
+
 			$this->preference()->set( 'first-login-review', $timestamp );
 		}
 
 		return $timestamp;
 	}
 
-	/**
-	 * Hide notice
-	 */
-	public function ajax_notice_dismiss() {
+	public function ajax_dismiss_notice() {
 		check_ajax_referer( 'ac-ajax' );
 
 		$this->preference()->set( 'dismiss-review', true );
 	}
 
-	protected function get_message() {
+	private function get_message() {
 		$product = __( 'Admin Columns', 'codepress-admin-columns' );
 
 		if ( ac_is_pro_active() ) {
@@ -86,7 +66,9 @@ class AC_Notices_Review {
 		}
 
 		ob_start();
+
 		?>
+
 		<div class="info">
 			<p>
 				<?php printf( __(
@@ -104,26 +86,31 @@ class AC_Notices_Review {
 		<div class="help hidden">
 			<a href="#" class="hide-notice hide-review-notice"></a>
 			<p>
-				<?php printf(
+				<?php
+
+				printf(
 					__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'codepress-admin-columns' ),
 					$product,
 					'<a href="' . esc_url( ac_get_site_utm_url( 'documentation', 'review-notice' ) ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
-				); ?>
-				<?php if ( ac_is_pro_active() ) : ?>
-					<?php printf(
-						__( 'As an Admin Columns Pro user, you can also use your AdminColumns.com account to access product support through %s!', 'codepress-admin-columns' ),
-						'<a href="' . esc_url( ac_get_site_utm_url( 'forumns', 'review-notice' ) ) . '" target="_blank">' . __( 'our forums', 'codepress-admin-columns' ) . '</a>'
-					); ?>
-				<?php else : ?>
-					<?php printf(
+				);
+
+				if ( ac_is_pro_active() ) {
+					printf(
+						__( 'You can also use your admincolumns.com account to access support through %s!', 'codepress-admin-columns' ),
+						'<a href="' . esc_url( ac_get_site_utm_url( 'forumns', 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'
+					);
+				} else {
+					printf(
 						__( 'You can also find help on the %s, and %s.', 'codepress-admin-columns' ),
-						'<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __( 'Admin Columns forums on WordPress.org', 'codepress-admin-columns' ) . '</a>',
-						'<a href="https://wordpress.org/plugins/codepress-admin-columns/faq/#plugin-info" target="_blank">' . __( 'find answers to some frequently asked questions', 'codepress-admin-columns' ) . '</a>'
-					); ?>
-				<?php endif; ?>
+						'<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __( 'Admin Columns forum on WordPress.org', 'codepress-admin-columns' ) . '</a>',
+						'<a href="https://wordpress.org/plugins/codepress-admin-columns/faq/#plugin-info" target="_blank">' . __( 'find answers to frequently asked questions', 'codepress-admin-columns' ) . '</a>'
+					);
+				}
+
+				?>
 			</p>
 		</div>
-		<div class="clear"></div>
+
 		<?php
 
 		return ob_get_clean();
