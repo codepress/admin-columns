@@ -941,9 +941,39 @@ function cpac_reset_columns( $ ) {
 
 	};
 
+	$.fn.cpac_column_setting_label = function() {
+
+		$( this ).each( function() {
+			let $container = $( this );
+			let $icon_picker = $( this ).find( '.acp-ipicker' );
+			let $icon_btn = $container.find( '.ac-setting-label-icon' );
+			let $field = $container.find( '.ac-setting-input_label' );
+
+			$icon_picker.hide();
+
+			$icon_btn.on( 'click', function( e ) {
+				e.preventDefault();
+				$icon_picker.show();
+			} );
+
+			$container.find( '.acp-ipicker__icon' ).on( 'click', function() {
+				let dashicon = $( this ).data( 'dashicon' );
+
+				$container.find( '.acp-ipicker__icon' ).removeClass( 'active' );
+				$( this ).addClass( 'active' );
+				$field.val( `<span class="dashicons dashicons-${dashicon}"></span>` ).trigger( 'change' );
+			} );
+
+			console.log( 'HI' );
+			// Custom input
+		} );
+
+	};
+
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 		$( column ).find( '.ac-column-setting--date' ).cpac_column_setting_date();
+		$( column ).find( '.ac-column-setting--label' ).cpac_column_setting_label();
 
 		// TODO: pro?
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();

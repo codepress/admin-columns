@@ -1297,3 +1297,51 @@
 	}
 
 }
+
+/**
+ * Label Settings
+ * ----------------------------------------------------------------------------
+ */
+.acp-ipicker {
+	background: #fff;
+	width: 100%;
+	height: 150px;
+	display: flex;
+
+	&.fixed {
+		position: absolute;
+		top: 0; right:0; bottom: 0; left: 0;
+		height: auto;
+	}
+
+	&__icons {
+		flex: 1 1 auto;
+		overflow: scroll;
+	}
+
+	&__icon {
+		display: block;
+		float: left;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+
+		.dashicons {
+			width: 40px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 25px;
+		}
+
+		&:hover, &.active {
+			background: $blue;
+			color: #fff;
+		}
+	}
+
+	&__handles {
+		flex: 0 0 100px;
+		text-align: center;
+		padding-top: 20px;
+	}
+}
