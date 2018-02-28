@@ -15,8 +15,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		// Notices
 		add_action( 'admin_init', array( $this, 'notice_addon_missing' ) );
 		add_action( 'admin_init', array( $this, 'notice_addon_nudge' ) );
-		add_action( 'wp_ajax_ac_notice_dismiss_addon-missing', array( $this, 'ajax_notice_dismiss' ) );
-		add_action( 'wp_ajax_ac_notice_dismiss_addon-nudge', array( $this, 'ajax_notice_dismiss' ) );
+		add_action( 'wp_ajax_ac_notice_dismiss_addon-missing', array( $this, 'ajax_notice_dismiss_missing' ) );
+		add_action( 'wp_ajax_ac_notice_dismiss_addon-nudge', array( $this, 'ajax_notice_dismiss_nudge' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
@@ -31,10 +31,19 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	/**
 	 * Dismiss upgrade nudge
 	 */
-	public function ajax_notice_dismiss() {
+	public function ajax_notice_dismiss_nudge() {
 		check_ajax_referer( 'ac-ajax' );
 
-		$this->preference()->set( 'dismiss-' . filter_input( INPUT_POST, 'name' ), true );
+		$this->preference()->set( 'dismiss-addon-nudge', true );
+	}
+
+	/**
+	 * Dismiss missing
+	 */
+	public function ajax_notice_dismiss_missing() {
+		check_ajax_referer( 'ac-ajax' );
+
+		$this->preference()->set( 'dismiss-addon-missing_' . filter_input( INPUT_POST, 'addon' ) . '_' . filter_input( INPUT_POST, 'version' ), true );
 	}
 
 	/**
@@ -58,14 +67,12 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		if ( $this->is_notice_dismissed( 'addon-missing' ) ) {
-			return;
-		}
-
-		$message = false;
-
 		if ( ac_is_pro_active() ) {
 			foreach ( AC()->addons()->get_active_addons() as $addon ) {
+				$message = false;
+				if ( $this->is_notice_dismissed( 'addon-missing_' . $addon->get_slug() . '_' . $addon->get_version() ) ) {
+					continue;
+				}
 
 				if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() ) {
 
@@ -75,14 +82,16 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 					// Addon is active. Plugin is installed, but not active.
 					$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
-
 					if ( current_user_can( 'activate_plugins' ) ) {
 						$message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), __( 'here', 'codepress-admin=n-columns' ) ) );
 					}
 				}
 
-				$notice = ac_notice( $message, AC_Notice::WARNING );
-				$notice->set_dismissible( true, 'addon-missing' );
+				if ( $message ) {
+					$notice = ac_notice( $message, AC_Notice::WARNING );
+					$notice->set_dismissible( true, 'addon-missing', array( 'addon' => $addon->get_slug(), 'version' => $addon->get_version() ) );
+				}
+
 			}
 		} else {
 			$titles = array();
