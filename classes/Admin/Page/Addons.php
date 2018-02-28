@@ -80,6 +80,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 						$message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), __( 'here', 'codepress-admin=n-columns' ) ) );
 					}
 				}
+
+				$notice = ac_notice( $message, AC_Notice::WARNING );
+				$notice->set_dismissible( true, 'addon-missing' );
 			}
 		} else {
 			$titles = array();
@@ -90,15 +93,11 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 			if ( $titles ) {
 				$message = sprintf( _n( '%s add-on requires %s.', '%s add-ons requires %s.', count( $titles ), 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( ac_get_site_url(), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) );
+				$notice = ac_notice( $message, AC_Notice::WARNING );
+				$notice->set_dismissible( true, 'addon-missing' );
 			}
 		}
 
-		if ( ! $message ) {
-			return;
-		}
-
-		$notice = ac_notice( $message, AC_Notice::WARNING );
-		$notice->set_dismissible( true, 'addon-missing' );
 	}
 
 	/**
