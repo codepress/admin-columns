@@ -13,6 +13,7 @@ jQuery( function( $ ) {
 
 		$.post( ajaxurl, {
 			action : 'ac_notice_dismiss_' + action,
+			name : action,
 			_ajax_nonce : nonce
 		} );
 	} );

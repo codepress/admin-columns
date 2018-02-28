@@ -140,12 +140,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		ob_start();
-		?>
-		<a href="#" class="hide-notice hide-install-addons-notice"></a>
-		<p>
-			<?php printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) ); ?>
-		</p>
-		<?php
+
+		printf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( $this->get_link(), __( 'the addons page', 'codepress-admin-columns' ) ) );
 
 		$message = ob_get_clean();
 
