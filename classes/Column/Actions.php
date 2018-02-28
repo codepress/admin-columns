@@ -19,7 +19,7 @@ class AC_Column_Actions extends AC_Column {
 	 * @since 2.2.6
 	 */
 	public function get_value( $id ) {
-		if ( $this->get_option( 'use_icons' ) ) {
+		if ( $this->get_setting( 'use_icons' )->get_value() ) {
 			return '<span class="cpac_use_icons"></span>';
 		}
 

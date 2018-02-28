@@ -96,7 +96,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 
 		$columns = array();
 		foreach ( AC()->get_list_screens() as $ls ) {
-			foreach ( $ls->get_column_types() as $column ) {
+			foreach ( (array) $ls->get_column_types() as $column ) {
 				$columns[ $column->get_type() ] = $column->get_type();
 			}
 		}
