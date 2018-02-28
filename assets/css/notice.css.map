@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "notice.css",
+	"sources": [
+		"../../src/scss/notice.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,UAAU,AAAC,CACV,QAAQ,CAAE,QAAQ,CAClB,UAAU,CAAE,EAAE,CACd,QAAQ,CAAE,MAAM,CAChB,aAAa,CAAE,IAAI,CAMnB,AAVD,AAMC,UANS,CAMT,eAAe,AAAC,CACf,eAAe,CAAE,IAAI,CACrB"
+}

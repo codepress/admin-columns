@@ -34,7 +34,7 @@ class AC_Notice extends AC_View {
 			'type'    => $type,
 		) );
 
-		$this->set_template( 'notice' );
+		$this->set_template( 'notice-text' );
 	}
 
 	/**

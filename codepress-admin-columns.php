@@ -204,7 +204,7 @@ class CPAC extends AC_Plugin {
 		$notice = new AC_ReviewNotice();
 		$notice->register();
 
-		if ( $notice->is_dismissed() || $notice->first_login_compare( 30 ) ) {
+		if ( ! $notice->is_dismissed() && $notice->first_login_compare( 30 ) ) {
 			$notice->display();
 		}
 	}

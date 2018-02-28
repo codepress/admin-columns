@@ -9,7 +9,9 @@ final class AC_ReviewNotice {
 	public function display() {
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
-		ac_notice( $this->get_message(), AC_Notice::INFO );
+		$notice = ac_notice( $this->get_message(), AC_Notice::INFO );
+		$notice->set_dismissible( true, 'review' );
+		$notice->set_template( 'notice-html' );
 	}
 
 	/**
@@ -80,7 +82,7 @@ final class AC_ReviewNotice {
 			</p>
 			<p class="buttons">
 				<a class="button button-primary" href="https://wordpress.org/support/view/plugin-reviews/codepress-admin-columns?rate=5#postform" target="_blank"><?php _e( 'Leave a review!', 'codepress-admin-columns' ); ?></a>
-				<a class="button button-secondary hide-review-notice" href='#'><?php _e( "Permanently hide notice", 'codepress-admin-columns' ); ?></a>
+				<a class="button button-secondary hide-review-notice" href='#' data-dismiss=""><?php _e( "Permanently hide notice", 'codepress-admin-columns' ); ?></a>
 			</p>
 		</div>
 		<div class="help hidden">

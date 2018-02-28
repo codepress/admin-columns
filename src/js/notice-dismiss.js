@@ -1,10 +1,11 @@
 jQuery( function( $ ) {
 
-	$( document ).on( 'click', '.ac-notice .notice-dismiss', function( e ) {
+	$( document ).on( 'click', '.ac-notice [data-dismiss]', function( e ) {
 		e.preventDefault();
 
 		let $notice = $( this ).parents( '.ac-notice' );
-		let action = $( this ).data( 'action' );
+		let action = $notice.data( 'action' );
+		let nonce = $notice.data( 'nonce' );
 
 		$notice.fadeOut( 500, function() {
 			$notice.remove();
@@ -12,7 +13,7 @@ jQuery( function( $ ) {
 
 		$.post( ajaxurl, {
 			action : 'ac_notice_dismiss_' + action,
-			_ajax_nonce : $( this ).data( 'nonce' )
+			_ajax_nonce : nonce
 		} );
 	} );
 
