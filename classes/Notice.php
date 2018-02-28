@@ -11,16 +11,6 @@ class AC_Notice extends AC_View {
 	const INFO = 'notice-info';
 
 	/**
-	 * @var string
-	 */
-	protected $name;
-
-	/**
-	 * @var bool
-	 */
-	protected $dismissible;
-
-	/**
 	 * @param string      $message Message body
 	 * @param string|null $type
 	 */
@@ -38,42 +28,30 @@ class AC_Notice extends AC_View {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_name() {
-		return $this->name;
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return $this
-	 */
-	public function set_name( $name ) {
-		$this->name = sanitize_key( $name );
-
-		return $this;
-	}
-
-	/**
 	 * @return bool
 	 */
 	public function is_dismissible() {
-		return $this->dismissible;
+		return (bool) $this->get( 'dismissible' );
 	}
 
 	/**
-	 * @param bool        $dismissible
-	 * @param string|null $name
+	 * @param bool   $dismissible
+	 * @param string $action
+	 * @param array  $params
 	 *
 	 * @return $this
 	 */
-	public function set_dismissible( $dismissible, $name = null ) {
-		$this->dismissible = $dismissible;
+	public function set_dismissible( $dismissible, $action = null, array $params = array() ) {
+		if ( $dismissible ) {
+			$dismissible = $params;
 
-		if ( null !== $name ) {
-			$this->set_name( $name );
+			if ( $action ) {
+				$dismissible['action'] = 'ac_notice_dismiss_' . (string) $action;
+				$dismissible['_ajax_nonce'] = wp_create_nonce( 'ac-ajax' );
+			}
 		}
+
+		$this->set( 'dismissible', $dismissible );
 
 		return $this;
 	}
@@ -84,7 +62,7 @@ class AC_Notice extends AC_View {
 	public function scripts() {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 
-		if ( $this->dismissible ) {
+		if ( $this->is_dismissible() ) {
 			wp_enqueue_script( 'ac-message', AC()->get_plugin_url() . 'assets/js/notice-dismiss.js', array(), AC()->get_version(), true );
 		}
 	}

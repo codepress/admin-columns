@@ -11,6 +11,7 @@ jQuery( function( $ ) {
 			$notice.remove();
 		} );
 
+		// TODO @stefan
 		$.post( ajaxurl, {
 			action : 'ac_notice_dismiss_' + action,
 			name : action,
