@@ -1,9 +1,9 @@
 <?php
 
-final class AC_ReviewNotice {
+final class AC_ReviewNotice extends AC_DismissableNotice {
 
-	public function register() {
-		add_action( 'wp_ajax_ac_notice_dismiss_review', array( $this, 'ajax_dismiss_notice' ) );
+	public function get_name() {
+		return 'review';
 	}
 
 	public function display() {
@@ -21,20 +21,6 @@ final class AC_ReviewNotice {
 	 */
 	public function first_login_compare( $days ) {
 		return time() - $days * DAY_IN_SECONDS > $this->get_first_login();
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_dismissed() {
-		return (bool) $this->preference()->get( 'dismiss-review' );
-	}
-
-	/**
-	 * @return AC_Preferences
-	 */
-	private function preference() {
-		return new AC_Preferences_Site( 'notices' );
 	}
 
 	/**

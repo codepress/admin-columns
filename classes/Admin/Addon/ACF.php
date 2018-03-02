@@ -34,12 +34,10 @@ class AC_Admin_Addon_ACF extends AC_Admin_Addon {
 		return class_exists( 'acf', false );
 	}
 
-	public function show_missing_notice_on_current_page() {
+	public function is_notice_screen() {
 		global $pagenow;
 
-		$is_acf_page = 'edit.php' === $pagenow && 'acf-field-group' === filter_input( INPUT_GET, 'post_type' );
-
-		return parent::show_missing_notice_on_current_page() || $is_acf_page;
+		return 'edit.php' === $pagenow && 'acf-field-group' === filter_input( INPUT_GET, 'post_type' );
 	}
 
 }

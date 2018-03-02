@@ -334,12 +334,10 @@ class AC_Admin_Addon {
 	}
 
 	/**
-	 * Show notice on admin page only
-	 *
-	 * @return bool
+	 * @return bool Should a notice be always shown
 	 */
-	public function show_missing_notice_on_current_page() {
-		return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
+	public function is_notice_screen() {
+		return true;
 	}
 
 }

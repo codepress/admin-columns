@@ -19,12 +19,10 @@ class AC_Admin_Addon_EventsCalendar extends AC_Admin_Addon {
 		$this->display_icon();
 	}
 
-	public function show_missing_notice_on_current_page() {
+	public function is_notice_screen() {
 		global $pagenow;
 
-		$is_page = 'edit.php' === $pagenow && in_array( filter_input( INPUT_GET, 'post_type' ), array( 'tribe_events', 'tribe_venue', 'tribe_organizer' ) );
-
-		return parent::show_missing_notice_on_current_page() || $is_page;
+		return 'edit.php' === $pagenow && in_array( filter_input( INPUT_GET, 'post_type' ), array( 'tribe_events', 'tribe_venue', 'tribe_organizer' ) );
 	}
 
 	public function is_plugin_active() {

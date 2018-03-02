@@ -132,7 +132,9 @@ class CPAC extends AC_Plugin {
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
 
-		add_action( 'init', array( $this, 'init_review_notice' ) );
+		// Notices
+		new AC_NoticeManager();
+
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
@@ -194,19 +196,6 @@ class CPAC extends AC_Plugin {
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
-	}
-
-	public function init_review_notice() {
-		if ( AC()->suppress_site_wide_notices() || ! AC()->user_can_manage_admin_columns() ) {
-			return;
-		}
-
-		$notice = new AC_ReviewNotice();
-		$notice->register();
-
-		if ( ! $notice->is_dismissed() && $notice->first_login_compare( 30 ) ) {
-			$notice->display();
-		}
 	}
 
 	/**

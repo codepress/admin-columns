@@ -14,12 +14,10 @@ class AC_Admin_Addon_Types extends AC_Admin_Addon {
 			->add_plugin( 'types' );
 	}
 
-	public function show_missing_notice_on_current_page() {
+	public function is_notice_screen() {
 		global $pagenow;
 
-		$is_page = 'admin.php' === $pagenow && in_array( filter_input( INPUT_GET, 'page' ), array( 'toolset-dashboard', 'wpcf-cpt', 'wpcf-cf', 'toolset-settings' ) );
-
-		return parent::show_missing_notice_on_current_page() || $is_page;
+		return 'admin.php' === $pagenow && in_array( filter_input( INPUT_GET, 'page' ), array( 'toolset-dashboard', 'wpcf-cpt', 'wpcf-cf', 'toolset-settings' ) );
 	}
 
 	public function is_plugin_active() {
