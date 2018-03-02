@@ -33,6 +33,9 @@ abstract class AC_DismissableNotice {
 		return (bool) $this->preference()->get( 'dismiss_' . $this->get_name() );
 	}
 
+	/**
+	 * @return void
+	 */
 	public function ajax_dismiss_notice() {
 		check_ajax_referer( 'ac-ajax' );
 

@@ -7,11 +7,22 @@ final class AC_ReviewNotice extends AC_DismissableNotice {
 	}
 
 	public function display() {
+		if ( ! $this->is_notice_screen() ) {
+			return;
+		}
+
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
 		$notice = ac_notice( $this->get_message(), AC_Notice::INFO );
 		$notice->set_dismissible( true, 'review' );
 		$notice->set_template( 'notice-html' );
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_notice_screen() {
+		return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
 	}
 
 	/**

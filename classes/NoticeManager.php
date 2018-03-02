@@ -2,13 +2,9 @@
 
 class AC_NoticeManager {
 
-	/**
-	 * $GLOBALS['current_screen'] must be populated and list screens loaded
-	 * before trying to display notices
-	 */
 	public function __construct() {
-		add_action( 'current_screen', array( $this, 'review_notice' ), 11 );
-		add_action( 'current_screen', array( $this, 'integration_notice' ), 11 );
+		add_action( 'init', array( $this, 'review_notice' ) );
+		add_action( 'init', array( $this, 'integration_notice' ) );
 	}
 
 	/**

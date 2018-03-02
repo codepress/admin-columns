@@ -13,9 +13,9 @@ final class AC_IntegrationPromoNotice extends AC_DismissableNotice {
 		$titles = array();
 
 		foreach ( AC()->addons()->get_addons() as $addon ) {
-			 if ( ! AC()->admin()->is_admin_screen() && ! AC()->table_screen()->get_current_list_screen() && ! $addon->is_notice_screen() ) {
-			 	continue;
-			 }
+			if ( ! $this->is_notice_screen( $addon ) ) {
+				continue;
+			}
 
 			if ( $addon->is_plugin_active() && ! $addon->is_active() ) {
 				$addons[] = '<strong>' . $addon->get_title() . '</strong>';
@@ -30,6 +30,15 @@ final class AC_IntegrationPromoNotice extends AC_DismissableNotice {
 
 		$notice = ac_notice( $message, AC_Notice::WARNING );
 		$notice->set_dismissible( true, 'integration' );
+	}
+
+	/**
+	 * @param AC_Admin_Addon $addon
+	 *
+	 * @return bool
+	 */
+	private function is_notice_screen( AC_Admin_Addon $addon ) {
+		return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen() || $addon->is_notice_screen();
 	}
 
 }
