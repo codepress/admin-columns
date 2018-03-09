@@ -1,70 +1,109 @@
 <?php
 
-class AC_Notice extends AC_View {
+abstract class AC_Notice
+	implements AC_Message {
 
-	const SUCCESS = 'updated';
+	const SUCCESS = 'notice-updated';
 
-	const ERROR = 'error';
+	const ERROR = 'notice-error';
 
 	const WARNING = 'notice-warning';
 
 	const INFO = 'notice-info';
 
 	/**
+	 * @var string
+	 */
+	protected $message;
+
+	/**
+	 * @var string
+	 */
+	protected $type;
+
+	/**
+	 * @var string
+	 */
+	protected $class;
+
+	/**
 	 * @param string      $message Message body
 	 * @param string|null $type
+	 * @param array       $data
 	 */
 	public function __construct( $message, $type = null ) {
 		if ( null === $type ) {
 			$type = self::SUCCESS;
 		}
 
-		parent::__construct( array(
-			'message' => $message,
-			'type'    => $type,
-		) );
-
-		$this->set_template( 'notice-text' );
+		$this->set_message( $message )
+		     ->set_type( $type )
+		     ->set_class();
 	}
 
+	abstract public function display();
+
 	/**
-	 * @return bool
+	 * @return string
 	 */
-	public function is_dismissible() {
-		return (bool) $this->get( 'dismissible' );
+	public function get_message() {
+		return $this->message;
 	}
 
 	/**
-	 * @param bool   $dismissible
-	 * @param string $action
-	 * @param array  $params
+	 * Only simple HTML is allowed (a, br and strong) the rest is stripped
+	 *
+	 * @param string $message
 	 *
 	 * @return $this
 	 */
-	public function set_dismissible( $dismissible, $action = null, array $params = array() ) {
-		if ( $dismissible ) {
-			$dismissible = $params;
-
-			if ( $action ) {
-				$dismissible['action'] = 'ac_notice_dismiss_' . (string) $action;
-				$dismissible['_ajax_nonce'] = wp_create_nonce( 'ac-ajax' );
-			}
-		}
-
-		$this->set( 'dismissible', $dismissible );
+	public function set_message( $message ) {
+		$this->message = wp_kses( $message, array(
+			'strong' => array(),
+			'br'     => array(),
+			'a'      => array(
+				'class' => true,
+				'data'  => true,
+				'href'  => true,
+				'id'    => true,
+				'title' => true,
+			),
+		) );
 
 		return $this;
 	}
 
 	/**
-	 * Enqueue scripts & styles
+	 * @return string
 	 */
-	public function scripts() {
-		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
+	public function get_type() {
+		return $this->type;
+	}
 
-		if ( $this->is_dismissible() ) {
-			wp_enqueue_script( 'ac-message', AC()->get_plugin_url() . 'assets/js/notice-dismiss.js', array(), AC()->get_version(), true );
+	/**
+	 * @param string $type
+	 *
+	 * @return $this
+	 */
+	public function set_type( $type ) {
+		$this->type = $type;
+
+		return $this;
+	}
+
+	/**
+	 * @param null|string $class
+	 *
+	 * @return $this
+	 */
+	protected function set_class( $class = null ) {
+		if ( null === $class ) {
+			$class = $this->type;
 		}
+
+		$this->class = $class;
+
+		return $this;
 	}
 
 }

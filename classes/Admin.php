@@ -33,7 +33,6 @@ class AC_Admin {
 	 */
 	public function set_pages() {
 		$this->pages = new AC_Admin_Pages();
-
 		$this->pages
 			->register_page( new AC_Admin_Page_Columns() )
 			->register_page( new AC_Admin_Page_Settings() )

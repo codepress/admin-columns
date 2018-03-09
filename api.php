@@ -81,6 +81,8 @@ function ac_helper() {
  *
  * @return AC_Notice
  */
+
+// TODO: refactor away in favor of late hook that scans notices before dealing with them e.g. AC_Notices should be made removed
 function ac_notice( $message, $type = null ) {
 	$notice = new AC_Notice( $message, $type );
 
