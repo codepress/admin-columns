@@ -84,11 +84,11 @@ function ac_helper() {
 
 // TODO: refactor away in favor of late hook that scans notices before dealing with them e.g. AC_Notices should be made removed
 function ac_notice( $message, $type = null ) {
-	$notice = new AC_Notice( $message, $type );
+	//$notice = new AC_Notice( $message, $type );
 
-	AC_Notices::add( $notice );
+	//AC_Notices::add( $notice );
 
-	return $notice;
+	//return $notice;
 }
 
 /**

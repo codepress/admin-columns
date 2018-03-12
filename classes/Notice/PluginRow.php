@@ -44,7 +44,7 @@ class AC_Notice_Plugin extends AC_Notice {
 			'class'           => $this->class,
 			'message'         => $this->message,
 			'type'            => $this->type,
-			'statis'          => $this->status,
+			'status'          => $this->status,
 		);
 
 		$view = new AC_View( $data );

@@ -133,15 +133,11 @@ class CPAC extends AC_Plugin {
 		$this->api = new AC_API();
 
 		// Notices
-		new AC_NoticeManager();
+		AC_Notice_GlobalManager::register();
 
 		add_action( 'init', array( $this, 'localize' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
-
-		// Notices
-		add_action( 'admin_notices', array( 'AC_Notices', 'display' ) );
-		add_action( 'network_admin_notices', array( 'AC_Notices', 'display' ) );
 
 		// Set capabilities
 		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
@@ -234,11 +230,7 @@ class CPAC extends AC_Plugin {
 		return current_user_can( 'manage_admin_columns' );
 	}
 
-	/**
-	 * Disable side wide notices
-	 *
-	 * @return bool True when no notices should be displayed
-	 */
+	// TODO: remove
 	public function suppress_site_wide_notices() {
 		return apply_filters( 'ac/suppress_site_wide_notices', false );
 	}

@@ -12,7 +12,7 @@ class AC_Notice_Global extends AC_Notice {
 	 */
 	protected $dismissible_callback;
 
-	public function display() {
+	public function render() {
 		$data = array(
 			'message'              => $this->message,
 			'type'                 => $this->type,
@@ -23,7 +23,15 @@ class AC_Notice_Global extends AC_Notice {
 		$view = new AC_View( $data );
 		$view->set_template( 'message/notice' );
 
-		echo $view;
+		return $view->render();
+	}
+
+	public function display() {
+		echo $this->render();
+	}
+
+	public function register() {
+		AC_Notice_GlobalManager::add_notice( $this );
 	}
 
 	/**
