@@ -497,9 +497,14 @@ class CPAC extends AC_Plugin {
 	 *                        'error' is red
 	 *                        'notice-warning' is yellow
 	 *                        'notice-info' is blue
+	 * @param bool   $paragraph
 	 */
-	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+	public function notice( $message, $type = 'updated', $paragraph = true ) {
+		if ( $paragraph ) {
+			$message = '<p>' . $message . '</p>';
+		}
+
+		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '">' . $message . '</div>';
 	}
 
 	/**
