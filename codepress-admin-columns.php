@@ -207,13 +207,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @since 3.0
-	 */
-	public function minified() {
-		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	}
-
-	/**
 	 * Add capability to administrator to manage admin columns.
 	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
@@ -555,6 +548,14 @@ class CPAC extends AC_Plugin {
 	 * @since      3.0
 	 */
 	public function get_default_list_screen() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since      3.0
+	 */
+	public function minified() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
