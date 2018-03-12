@@ -361,11 +361,19 @@ final class AC_TableScreen {
 	/**
 	 * Load current list screen
 	 *
-	 * @param WP_Screen $current_screen
+	 * @param WP_Screen $wp_screen
 	 */
-	public function load_list_screen( $current_screen ) {
-		if ( $list_screen = AC()->get_list_screen_by_wpscreen( $current_screen ) ) {
-			$this->set_current_list_screen( $list_screen );
+	public function load_list_screen( $wp_screen ) {
+		if ( ! $wp_screen instanceof WP_Screen ) {
+			return false;
+		}
+
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $wp_screen ) ) {
+
+				$this->set_current_list_screen( $list_screen );
+				break;
+			}
 		}
 	}
 

@@ -363,44 +363,12 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @param WP_Screen $wp_screen
-	 *
-	 * @return AC_ListScreen|bool
-	 */
-	public function get_list_screen_by_wpscreen( $wp_screen ) {
-		if ( ! $wp_screen instanceof WP_Screen ) {
-			return false;
-		}
-
-		foreach ( $this->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen( $wp_screen ) ) {
-				return $list_screen;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * @param string $key
 	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
 		return $this->get_list_screen( $key ) ? true : false;
-	}
-
-	/**
-	 * Returns the default list screen when no choice is made by the user
-	 *
-	 * @since 3.0
-	 * @return AC_ListScreen
-	 */
-	public function get_default_list_screen() {
-		$screens = $this->get_list_screens();
-		$default_screen = array_shift( $screens );
-
-		return $default_screen;
 	}
 
 	/**
@@ -565,9 +533,28 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @deprecated NEWVERSION
-	 * @since 3.0
+	 *
+	 * @param WP_Screen $wp_screen
+	 */
+	public function get_list_screen_by_wpscreen( $wp_screen ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @since      3.0
 	 */
 	public function get_plugin_version( $file ) {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
+	/**
+	 * Returns the default list screen when no choice is made by the user
+	 *
+	 * @deprecated NEWVERSION
+	 * @since      3.0
+	 */
+	public function get_default_list_screen() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
