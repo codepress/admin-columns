@@ -15,19 +15,19 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: codepress-admin-columns.php:316, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
+#: codepress-admin-columns.php:298, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
 msgid "Default"
 msgstr ""
 
-#: codepress-admin-columns.php:318
+#: codepress-admin-columns.php:300
 msgid "Custom Fields"
 msgstr ""
 
-#: codepress-admin-columns.php:319, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
+#: codepress-admin-columns.php:301, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
 msgid "Custom"
 msgstr ""
 
-#: codepress-admin-columns.php:480, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:19
+#: codepress-admin-columns.php:430, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:20
 msgid "Post Type"
 msgstr ""
 
@@ -43,27 +43,27 @@ msgstr ""
 msgid "No columns settings available."
 msgstr ""
 
-#: classes/TableScreen.php:35
+#: classes/TableScreen.php:36
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/TableScreen.php:41
+#: classes/TableScreen.php:42
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/TableScreen.php:49
+#: classes/TableScreen.php:50
 msgid "Invalid column."
 msgstr ""
 
-#: classes/TableScreen.php:53
+#: classes/TableScreen.php:54
 msgid "Invalid method."
 msgstr ""
 
-#: classes/TableScreen.php:119, classes/TableScreen.php:121
+#: classes/TableScreen.php:120, classes/TableScreen.php:122
 msgid "Download"
 msgstr ""
 
-#: classes/TableScreen.php:213, classes/Admin/Page/Settings.php:167
+#: classes/TableScreen.php:214, classes/Admin/Page/Settings.php:167
 msgid "Edit columns"
 msgstr ""
 

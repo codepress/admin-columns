@@ -40,13 +40,4 @@ class AC_Column_CustomField extends AC_Column_Meta {
 		return $this->get_meta_key();
 	}
 
-	/**
-	 * Only valid for a Listscreen with a meta type
-	 *
-	 * @return mixed
-	 */
-	public function is_valid() {
-		return in_array( $this->get_list_screen()->get_meta_type(), array( 'post', 'user', 'comment', 'term' ) );
-	}
-
 }

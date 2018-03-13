@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.1.4
+Version: 3.1.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -175,7 +175,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.4';
+		return '3.1.5';
 	}
 
 	public function get_prefix() {
@@ -199,29 +199,11 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @since 3.0
-	 */
-	public function get_plugin_version( $file ) {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		$plugin = get_plugin_data( $file, false, false );
-
-		return isset( $plugin['Version'] ) ? $plugin['Version'] : false;
-	}
-
-	/**
 	 * @since 2.2
 	 * @uses  load_plugin_textdomain()
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public function minified() {
-		return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	}
 
 	/**
@@ -374,44 +356,12 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @param WP_Screen $wp_screen
-	 *
-	 * @return AC_ListScreen|bool
-	 */
-	public function get_list_screen_by_wpscreen( $wp_screen ) {
-		if ( ! $wp_screen instanceof WP_Screen ) {
-			return false;
-		}
-
-		foreach ( $this->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen( $wp_screen ) ) {
-				return $list_screen;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * @param string $key
 	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
 		return $this->get_list_screen( $key ) ? true : false;
-	}
-
-	/**
-	 * Returns the default list screen when no choice is made by the user
-	 *
-	 * @since 3.0
-	 * @return AC_ListScreen
-	 */
-	public function get_default_list_screen() {
-		$screens = $this->get_list_screens();
-		$default_screen = array_shift( $screens );
-
-		return $default_screen;
 	}
 
 	/**
@@ -547,9 +497,14 @@ class CPAC extends AC_Plugin {
 	 *                        'error' is red
 	 *                        'notice-warning' is yellow
 	 *                        'notice-info' is blue
+	 * @param bool   $paragraph
 	 */
-	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+	public function notice( $message, $type = 'updated', $paragraph = true ) {
+		if ( $paragraph ) {
+			$message = '<p>' . $message . '</p>';
+		}
+
+		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '">' . $message . '</div>';
 	}
 
 	/**
@@ -573,6 +528,42 @@ class CPAC extends AC_Plugin {
 	public function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
+
+	/**
+	 * @deprecated 3.1.5
+	 *
+	 * @param WP_Screen $wp_screen
+	 */
+	public function get_list_screen_by_wpscreen( $wp_screen ) {
+		_deprecated_function( __METHOD__, '3.1.5' );
+	}
+
+	/**
+	 * @deprecated 3.1.5
+	 * @since      3.0
+	 */
+	public function get_plugin_version( $file ) {
+		_deprecated_function( __METHOD__, '3.1.5' );
+	}
+
+	/**
+	 * Returns the default list screen when no choice is made by the user
+	 *
+	 * @deprecated 3.1.5
+	 * @since      3.0
+	 */
+	public function get_default_list_screen() {
+		_deprecated_function( __METHOD__, '3.1.5' );
+	}
+
+	/**
+	 * @deprecated 3.1.5
+	 * @since      3.0
+	 */
+	public function minified() {
+		_deprecated_function( __METHOD__, '3.1.5' );
+	}
+
 }
 
 /**
