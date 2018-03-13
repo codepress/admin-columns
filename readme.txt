@@ -224,7 +224,6 @@ Release Date: March 13th, 2018
 
 * [Improved] Minor improvements and PHP warning fixes
 
-
 = 3.1.4 =
 
 Release Date: February 6th, 2018
