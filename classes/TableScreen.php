@@ -365,7 +365,7 @@ final class AC_TableScreen {
 	 */
 	public function load_list_screen( $wp_screen ) {
 		if ( ! $wp_screen instanceof WP_Screen ) {
-			return false;
+			return;
 		}
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
