@@ -220,7 +220,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 = 3.1.5 =
 
-Release Date: TBD
+Release Date: March 13th, 2018
 
 * [Improved] Minor improvements and PHP warning fixes
 
