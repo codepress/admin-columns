@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.1.4
+Version: 3.1.5
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -175,7 +175,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.4';
+		return '3.1.5';
 	}
 
 	public function get_prefix() {
@@ -530,38 +530,38 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.1.5
 	 *
 	 * @param WP_Screen $wp_screen
 	 */
 	public function get_list_screen_by_wpscreen( $wp_screen ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.1.5' );
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.1.5
 	 * @since      3.0
 	 */
 	public function get_plugin_version( $file ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.1.5' );
 	}
 
 	/**
 	 * Returns the default list screen when no choice is made by the user
 	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.1.5
 	 * @since      3.0
 	 */
 	public function get_default_list_screen() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.1.5' );
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.1.5
 	 * @since      3.0
 	 */
 	public function minified() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.1.5' );
 	}
 
 }
