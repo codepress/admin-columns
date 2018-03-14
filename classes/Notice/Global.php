@@ -31,7 +31,13 @@ class AC_Notice_Global extends AC_Notice {
 	}
 
 	public function register() {
-		AC_Notice_GlobalManager::add_notice( $this );
+		if ( apply_filters( 'ac/suppress_site_wide_notices', false ) ) {
+			return;
+		}
+
+		add_action( 'admin_notices', array( $this, 'display' ) );
+		add_action( 'network_admin_notices', array( $this, 'display' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 	}
 
 	/**
@@ -91,8 +97,6 @@ class AC_Notice_Global extends AC_Notice {
 	/**
 	 * Enqueue scripts & styles
 	 */
-
-	// TODO: when is this called?
 	public function scripts() {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 

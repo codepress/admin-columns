@@ -1,5 +1,6 @@
 <?php
 
+// TODO: move to check and AC_Message
 final class AC_IntegrationPromoNotice extends AC_DismissableNotice {
 
 	/**

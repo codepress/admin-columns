@@ -24,6 +24,14 @@ abstract class AC_Plugin extends AC_Addon {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @return false|string
+	 */
+	public function get_name() {
+		return $this->get_plugin_header( 'Plugin Name' );
+	}
+
+	/**
 	 * Return a plugin header from the plugin data
 	 *
 	 * @param $key
@@ -70,6 +78,16 @@ abstract class AC_Plugin extends AC_Addon {
 		}
 
 		$updater->parse_updates();
+	}
+
+	/**
+	 * Check if a plugin is in beta
+	 *
+	 * @since NEWVERSION
+	 * @return bool
+	 */
+	public function is_beta() {
+		return false !== strpos( $this->get_version(), 'beta' );
 	}
 
 	/**

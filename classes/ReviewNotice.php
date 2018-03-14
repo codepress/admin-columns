@@ -1,5 +1,6 @@
 <?php
 
+// TODO: move to check and AC_Message
 final class AC_ReviewNotice extends AC_DismissableNotice {
 
 	public function get_name() {
