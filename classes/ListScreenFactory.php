@@ -2,6 +2,9 @@
 
 class AC_ListScreenFactory {
 
+	/**
+	 * @var AC_ListScreen[]
+	 */
 	static $types;
 
 	/**

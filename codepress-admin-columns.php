@@ -454,7 +454,8 @@ class CPAC extends AC_Plugin {
 	 * @param AC_ListScreen $list_screen
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::register_list_screen()' );
+		// TODO: update all add-ons
+		//_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::register_list_screen()' );
 
 		AC_ListScreenFactory::register_list_screen( $list_screen );
 	}
