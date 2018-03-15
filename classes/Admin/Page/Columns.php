@@ -70,12 +70,6 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		do_action( 'ac/settings/scripts' );
 	}
 
-	private function get_first_list_screen() {
-		$list_screens = AC()->get_list_screens();
-
-		return reset( $list_screens );
-	}
-
 	public function set_current_list_screen() {
 		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
 			return;
@@ -91,17 +85,19 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		// First one
 		if ( ! $key ) {
-			$list_screens = AC()->get_list_screens();
+			$list_screens = AC_ListScreenFactory::get_types();
 
 			reset( $list_screens );
 
 			$key = key( $list_screens );
 		}
 
-		$list_screen = AC()->get_list_screen( $key );
+		$list_screen = AC_ListScreenFactory::get_list_screen( $key );
 
 		if ( ! $list_screen ) {
-			$list_screen = $this->get_first_list_screen();
+			$list_screens = AC_ListScreenFactory::get_types();
+
+			$list_screen = reset( $list_screens );
 		}
 
 		// Load table headers
@@ -136,8 +132,8 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
-					$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
-					$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
+
+					$list_screen = AC_ListScreenFactory::get_list_screen( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 					$list_screen->delete();
 
 					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
@@ -192,13 +188,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			wp_die();
 		}
 
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+		$list_screen = AC_ListScreenFactory::get_list_screen( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();
 		}
-
-		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
 		// Load default headings
 		if ( ! $list_screen->get_stored_default_headings() ) {
@@ -341,7 +335,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 

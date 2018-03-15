@@ -371,11 +371,9 @@ class CPAC extends AC_Plugin {
 	 * @return AC_ListScreen[]
 	 */
 	public function get_list_screens() {
-		if ( null === $this->list_screens ) {
-			$this->set_list_screens();
-		}
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_types' );
 
-		return $this->list_screens;
+		return AC_ListScreenFactory::get_types();
 	}
 
 	/**
@@ -418,7 +416,10 @@ class CPAC extends AC_Plugin {
 	 * @param AC_ListScreen $list_screen
 	 */
 	public function register_list_screen( AC_ListScreen $list_screen ) {
-		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
+
+		AC_ListScreenFactory::register_list_screen( $list_screen );
+
+		//$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
 	/**

@@ -95,7 +95,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$post_types = get_post_types();
 
 		$columns = array();
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
 			foreach ( $list_screen->get_column_types() as $column ) {
 				$columns[ $column->get_type() ] = $column->get_type();
 			}

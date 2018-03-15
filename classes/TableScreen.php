@@ -36,13 +36,11 @@ final class AC_TableScreen {
 			$this->ajax_error( __( 'Invalid item ID.', 'codepress-admin-columns' ) );
 		}
 
-		$list_screen = AC()->get_list_screen( filter_input( INPUT_POST, 'list_screen' ) );
+		$list_screen = AC_ListScreenFactory::get_list_screen( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			$this->ajax_error( __( 'Invalid list screen.', 'codepress-admin-columns' ) );
 		}
-
-		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
 		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
 
@@ -359,29 +357,40 @@ final class AC_TableScreen {
 	}
 
 	/**
+	 * @param WP_Screen $wp_screen
+	 *
+	 * @return AC_ListScreen|false
+	 */
+	private function get_list_screen_by_wp_screen( WP_Screen $wp_screen ) {
+		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
+			if ( $wp_screen->id !== $list_screen->get_screen_id() ) {
+				continue;
+			}
+			if ( $wp_screen->base !== $list_screen->get_screen_base() ) {
+				continue;
+			}
+
+			return $list_screen;
+		}
+
+		return false;
+	}
+
+
+	/**
 	 * Load current list screen
 	 *
 	 * @param WP_Screen $wp_screen
 	 */
 	public function load_list_screen( $wp_screen ) {
-		if ( ! $wp_screen instanceof WP_Screen ) {
-			return;
-		}
-
-		foreach ( AC()->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen( $wp_screen ) ) {
-
-				$this->set_current_list_screen( $list_screen );
-				break;
-			}
-		}
+		$this->set_current_list_screen( $this->get_list_screen_by_wp_screen( $wp_screen ) );
 	}
 
 	/**
 	 * Runs when doing Quick Edit, a native WordPress ajax call
 	 */
 	public function load_list_screen_doing_quick_edit() {
-		$this->set_current_list_screen( AC()->get_list_screen( $this->get_list_screen_when_doing_quick_edit() ) );
+		$this->set_current_list_screen( AC_ListScreenFactory::get_list_screen( $this->get_list_screen_when_doing_quick_edit() ) );
 	}
 
 	/**
