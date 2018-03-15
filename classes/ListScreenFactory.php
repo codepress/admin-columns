@@ -37,7 +37,7 @@ class AC_ListScreenFactory {
 		 *
 		 * @param CPAC $this
 		 */
-		do_action( 'ac/list_screens' );
+		do_action( 'ac/list_screens', AC() );
 
 		return self::$types;
 	}
@@ -76,7 +76,7 @@ class AC_ListScreenFactory {
 	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
-	private static function get_post_types() {
+	public static function get_post_types() {
 		$post_types = array();
 
 		if ( post_type_exists( 'post' ) ) {
