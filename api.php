@@ -114,7 +114,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 function cac_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, '3.0' );
 
-	return AC()->table_screen()->get_list_screen_when_doing_quick_edit() || ( AC()->is_doing_ajax() && isset( $_REQUEST['list_screen'] ) );
+	return false;
 }
 
 /**
@@ -125,7 +125,7 @@ function cac_is_doing_ajax() {
 function cac_wp_is_doing_ajax() {
 	_deprecated_function( __FUNCTION__, '3.0' );
 
-	return AC()->table_screen()->get_list_screen_when_doing_quick_edit();
+	return false;
 }
 
 /**
