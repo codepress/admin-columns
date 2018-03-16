@@ -39,7 +39,7 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/ListScreen.php:633
+#: classes/ListScreen.php:632
 msgid "No columns settings available."
 msgstr ""
 
