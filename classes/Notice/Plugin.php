@@ -48,7 +48,7 @@ class AC_Notice_Plugin extends AC_Notice {
 		);
 
 		$view = new AC_View( $data );
-		$view->set_template( 'message/plugin-row' );
+		$view->set_template( 'notice/plugin' );
 
 		echo $view;
 	}

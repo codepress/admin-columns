@@ -59,7 +59,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				if ( $plugin->is_active() ) {
 					ac_notice( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
 				} else {
-					ac_notice( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ), AC_Notice::ERROR );
+					ac_notice_error( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ) );
 				}
 
 				break;
@@ -101,7 +101,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		if ( false !== $error ) {
-			ac_notice( $error, AC_Notice::ERROR );
+			ac_notice_error( $error );
 
 			return;
 		}

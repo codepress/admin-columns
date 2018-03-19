@@ -76,27 +76,60 @@ function ac_helper() {
 }
 
 /**
- * @param string      $message
- * @param string|null $type
- *
- * @return AC_Notice
- */
-
-// TODO: refactor away in favor of late hook that scans notices before dealing with them e.g. AC_Notices should be made removed
-function ac_notice( $message, $type = null ) {
-	//$notice = new AC_Notice( $message, $type );
-
-	//AC_Notices::add( $notice );
-
-	//return $notice;
-}
-
-/**
  * @since 3.0
  * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
  */
 function ac_is_version_gte( $version ) {
 	return version_compare( AC()->get_version(), $version, '>=' );
+}
+
+/**
+ * Creates and registers a global notice
+ *
+ * @param string $message
+ * @param string $type
+ *
+ * @since NEWVERSION
+ * @return AC_Notice_Global
+ */
+function ac_notice( $message, $type = null ) {
+	$notice = new AC_Notice_Global( $message, $type );
+	$notice->register();
+
+	return $notice;
+}
+
+/**
+ * @param string $message
+ *
+ * @since NEWVERSION
+ * @see   ac_notice()
+ * @return AC_Notice_Global
+ */
+function ac_notice_error( $message ) {
+	return ac_notice( $message, AC_Notice::ERROR );
+}
+
+/**
+ * @param string $message
+ *
+ * @since NEWVERSION
+ * @see   ac_notice()
+ * @return AC_Notice_Global
+ */
+function ac_notice_warning( $message ) {
+	return ac_notice( $message, AC_Notice::WARNING );
+}
+
+/**
+ * @param string $message
+ *
+ * @since NEWVERSION
+ * @see   ac_notice()
+ * @return AC_Notice_Global
+ */
+function ac_notice_info( $message ) {
+	return ac_notice( $message, AC_Notice::INFO );
 }
 
 /**

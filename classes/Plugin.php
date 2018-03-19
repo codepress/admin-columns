@@ -28,7 +28,7 @@ abstract class AC_Plugin extends AC_Addon {
 	 * @return false|string
 	 */
 	public function get_name() {
-		return $this->get_plugin_header( 'Plugin Name' );
+		return $this->get_plugin_header( 'Name' );
 	}
 
 	/**

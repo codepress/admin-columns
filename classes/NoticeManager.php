@@ -1,5 +1,6 @@
 <?php
 
+// TODO: remove
 class AC_NoticeManager {
 
 	public function __construct() {
@@ -18,6 +19,7 @@ class AC_NoticeManager {
 		$notice = new AC_ReviewNotice();
 		$notice->register();
 
+		// TODO: move to notice in question
 		if ( ! $notice->is_dismissed() && $notice->first_login_compare( 30 ) ) {
 			$notice->display();
 		}

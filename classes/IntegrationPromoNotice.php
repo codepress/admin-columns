@@ -29,8 +29,7 @@ final class AC_IntegrationPromoNotice extends AC_DismissableNotice {
 
 		$message = sprintf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( AC()->admin()->get_link( 'addons' ), __( 'the addons page', 'codepress-admin-columns' ) ) );
 
-		$notice = ac_notice( $message, AC_Notice::WARNING );
-		$notice->set_dismissible( true, 'integration' );
+		ac_notice_warning( $message )->set_dismissible_callback( 'integration' );
 	}
 
 	/**

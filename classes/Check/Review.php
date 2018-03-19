@@ -1,29 +1,45 @@
 <?php
 
-// TODO: move to check and AC_Message
-final class AC_ReviewNotice extends AC_DismissableNotice {
+// TODO finish writing and remove prefix for notice dismiss from the JS
+class AC_Check_Review {
 
-	public function get_name() {
-		return 'review';
+	/**
+	 * @var int
+	 */
+	protected $show_after;
+
+	public function __construct( $show_after ) {
+		$this->show_after = absint( $show_after );
 	}
 
-	public function display() {
-		if ( ! $this->is_notice_screen() ) {
+	public function register() {
+		add_action( 'wp_ajax_' . $this->get_dismiss_callback_key(), array( $this, 'ajax_dismiss_notice' ) );
+		add_action( 'ac/screen', array( $this, 'display' ) );
+	}
+
+	public function display( AC_Screen $screen ) {
+		if ( ! $screen->is_ready() || $screen->is_admin_screen() || $screen->is_list_screen() ) {
 			return;
 		}
 
-		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
+		if ( ! $this->first_login_compare() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
 		ac_notice_info( $this->get_message() )
-			->set_dismissible_callback( 'review' )
+			->set_dismissible_callback( $this->get_dismiss_callback_key() )
 			->set_template( 'notice/global-raw' );
 	}
 
 	/**
-	 * @return bool
+	 * Key used for setting up and catching AJAX callback
+	 *
+	 * @return string
 	 */
-	private function is_notice_screen() {
-		return AC()->admin()->is_admin_screen() || AC()->table_screen()->get_current_list_screen();
+	protected function get_dismiss_callback_key() {
+		return strtolower( __CLASS__ ) . '_dismiss';
 	}
 
 	/**
@@ -31,8 +47,8 @@ final class AC_ReviewNotice extends AC_DismissableNotice {
 	 *
 	 * @return bool
 	 */
-	public function first_login_compare( $days ) {
-		return time() - $days * DAY_IN_SECONDS > $this->get_first_login();
+	public function first_login_compare() {
+		return time() - $this->show_after * DAY_IN_SECONDS > $this->get_first_login();
 	}
 
 	/**

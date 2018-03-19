@@ -51,24 +51,12 @@ abstract class AC_Notice
 	}
 
 	/**
-	 * Only simple HTML is allowed (a, br and strong) the rest is stripped
-	 *
 	 * @param string $message
 	 *
 	 * @return $this
 	 */
 	public function set_message( $message ) {
-		$this->message = wp_kses( $message, array(
-			'strong' => array(),
-			'br'     => array(),
-			'a'      => array(
-				'class' => true,
-				'data'  => true,
-				'href'  => true,
-				'id'    => true,
-				'title' => true,
-			),
-		) );
+		$this->message = $message;
 
 		return $this;
 	}

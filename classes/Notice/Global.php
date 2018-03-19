@@ -12,6 +12,11 @@ class AC_Notice_Global extends AC_Notice {
 	 */
 	protected $dismissible_callback;
 
+	/**
+	 * @var string
+	 */
+	protected $template;
+
 	public function render() {
 		$data = array(
 			'message'              => $this->message,
@@ -20,10 +25,27 @@ class AC_Notice_Global extends AC_Notice {
 			'dismissible_callback' => $this->dismissible_callback,
 		);
 
+		$template = $this->template;
+
+		if ( ! $template ) {
+			$template = 'notice/global';
+		}
+
 		$view = new AC_View( $data );
-		$view->set_template( 'message/notice' );
+		$view->set_template( $template );
 
 		return $view->render();
+	}
+
+	/**
+	 * @param string $template
+	 *
+	 * @return $this
+	 */
+	public function set_template( $template ) {
+		$this->template = $template;
+
+		return $this;
 	}
 
 	public function display() {

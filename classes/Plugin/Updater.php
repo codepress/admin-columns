@@ -113,7 +113,7 @@ class AC_Plugin_Updater {
 			esc_html__( 'Run the updater', 'codepress-admin-columns' )
 		);
 
-		ac_notice( $message, AC_Notice::INFO );
+		ac_notice_info( $message );
 	}
 
 }
