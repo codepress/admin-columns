@@ -102,7 +102,7 @@ class AC_Admin_Addon {
 	 */
 	public function get_link() {
 		if ( null === $this->link ) {
-			$this->set_link( ac_get_site_utm_url( 'pricing-purchase', 'addon' ) );
+			$this->set_link( ac_get_site_utm_url( 'pricing-purchase', 'addon', $this->addon->get_dirname() ) );
 		}
 
 		return $this->link;
