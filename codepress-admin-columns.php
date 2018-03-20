@@ -212,6 +212,8 @@ class CPAC extends AC_Plugin {
 	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
 	 * @since 2.0.4
+	 *
+	 * @return bool
 	 */
 	public function set_capabilities() {
 		if ( ! current_user_can( 'administrator' ) ) {
@@ -233,6 +235,8 @@ class CPAC extends AC_Plugin {
 	 * Check if the capabilities are set or settable
 	 *
 	 * @since NEWVERSION
+	 *
+	 * @return bool
 	 */
 	public function check_capabilities() {
 		if ( ! current_user_can( 'administrator' ) ) {
