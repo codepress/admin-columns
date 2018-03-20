@@ -151,7 +151,8 @@ class CPAC extends AC_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
-		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
+		add_action( 'admin_init', array( $this, 'check_capabilities' ) );
+		register_activation_hook( $this->get_file(), array( $this, 'set_capabilities' ) );
 
 		// Updater
 		add_action( 'init', array( $this, 'install' ) );
@@ -213,19 +214,36 @@ class CPAC extends AC_Plugin {
 	 * @since 2.0.4
 	 */
 	public function set_capabilities() {
-		if ( ! current_user_can( 'administrator' ) || get_option( 'ac_capabilities_set' ) ) {
-			return;
+		if ( ! current_user_can( 'administrator' ) ) {
+			return false;
 		}
 
 		$role = get_role( 'administrator' );
 
 		if ( ! $role ) {
-			return;
+			return false;
 		}
 
 		$role->add_cap( 'manage_admin_columns' );
 
-		update_option( 'ac_capabilities_set', 1, false );
+		return update_option( 'ac_capabilities_set', 1, false );
+	}
+
+	/**
+	 * Check if the capabilities are set or settable
+	 *
+	 * @since NEWVERSION
+	 */
+	public function check_capabilities() {
+		if ( ! current_user_can( 'administrator' ) ) {
+			return false;
+		}
+
+		if ( get_option( 'ac_capabilities_set' ) ) {
+			return true;
+		}
+
+		return $this->set_capabilities();
 	}
 
 	/**
