@@ -20,6 +20,10 @@ module.exports = {
 			copy_fonts : `cp -a webfont/fonts/. ${core_path}fonts/`,
 			copy_scss : `cp webfont/scss/template.scss scss/_webfont.scss`,
 		},
-
+		languages : {
+			production : 'nps "languages.build_pot" & nps "languages.pull_language"',
+			build_pot : "node languages.js",
+			pull_languages : "( cd .. ; ./getlangs )"
+		}
 	}
 };

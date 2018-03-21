@@ -15,19 +15,19 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: codepress-admin-columns.php:298, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
+#: codepress-admin-columns.php:316, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
 msgid "Default"
 msgstr ""
 
-#: codepress-admin-columns.php:300
+#: codepress-admin-columns.php:318
 msgid "Custom Fields"
 msgstr ""
 
-#: codepress-admin-columns.php:301, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
+#: codepress-admin-columns.php:319, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
 msgid "Custom"
 msgstr ""
 
-#: codepress-admin-columns.php:430, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:20
+#: codepress-admin-columns.php:448, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:20
 msgid "Post Type"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/ListScreen.php:633
+#: classes/ListScreen.php:632
 msgid "No columns settings available."
 msgstr ""
 
