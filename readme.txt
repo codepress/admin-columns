@@ -218,6 +218,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.1.6 =
+
+Release Date: March 21st, 2018
+
+* [Improved] It's now possible to reset the Admin Columns capability by reactivating the plugin
+
 = 3.1.5 =
 
 Release Date: March 13th, 2018
