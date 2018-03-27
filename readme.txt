@@ -218,6 +218,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+
+Release Date: TBD
+
+* [Fixed] Possible Catchable Fatal error for Author column fixed
+* [Improved] Logic for File Size column for media improved
+
 = 3.1.6 =
 
 Release Date: March 21st, 2018
