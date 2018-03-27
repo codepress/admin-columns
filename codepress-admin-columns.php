@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.1.5
+Version: 3.1.6
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -135,7 +135,8 @@ class CPAC extends AC_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 
 		// Set capabilities
-		add_action( 'admin_init', array( $this, 'set_capabilities' ) );
+		add_action( 'admin_init', array( $this, 'check_capabilities' ) );
+		register_activation_hook( $this->get_file(), array( $this, 'set_capabilities' ) );
 
 		// Updater
 		add_action( 'init', array( $this, 'install' ) );
@@ -159,7 +160,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.5';
+		return '3.1.6';
 	}
 
 	public function get_prefix() {
@@ -195,21 +196,42 @@ class CPAC extends AC_Plugin {
 	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
 	 *
 	 * @since 2.0.4
+	 *
+	 * @return bool
 	 */
 	public function set_capabilities() {
-		if ( ! current_user_can( 'administrator' ) || get_option( 'ac_capabilities_set' ) ) {
-			return;
+		if ( ! current_user_can( 'administrator' ) ) {
+			return false;
 		}
 
 		$role = get_role( 'administrator' );
 
 		if ( ! $role ) {
-			return;
+			return false;
 		}
 
 		$role->add_cap( 'manage_admin_columns' );
 
-		update_option( 'ac_capabilities_set', 1, false );
+		return update_option( 'ac_capabilities_set', 1, false );
+	}
+
+	/**
+	 * Check if the capabilities are set or settable
+	 *
+	 * @since 3.1.6
+	 *
+	 * @return bool
+	 */
+	public function check_capabilities() {
+		if ( ! current_user_can( 'administrator' ) ) {
+			return false;
+		}
+
+		if ( get_option( 'ac_capabilities_set' ) ) {
+			return true;
+		}
+
+		return $this->set_capabilities();
 	}
 
 	/**
@@ -236,7 +258,7 @@ class CPAC extends AC_Plugin {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'settings' ), __( 'Settings' ) ) );
+			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
 		}
 
 		return $links;

@@ -17,7 +17,7 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 	public function create_view() {
 		$select = $this->create_element( 'select', 'path_scope' )
 		               ->set_options( array(
-			               'full'             => __( 'Full path', 'codepress-admin-columns' ),
+			               'full'             => __( 'Full Path', 'codepress-admin-columns' ),
 			               'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
 			               'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
 		               ) );
