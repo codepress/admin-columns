@@ -14,34 +14,50 @@ abstract class AC_Notice
 	/**
 	 * @var string
 	 */
-	protected $message;
+	private $message;
 
 	/**
 	 * @var string
 	 */
-	protected $type;
+	private $type;
 
-	/**
-	 * @var string
-	 */
-	protected $class;
-
-	/**
-	 * @param string      $message Message body
-	 * @param string|null $type
-	 * @param array       $data
-	 */
-	public function __construct( $message, $type = null ) {
-		if ( null === $type ) {
-			$type = self::SUCCESS;
-		}
-
-		$this->set_message( $message )
-		     ->set_type( $type )
-		     ->set_class();
+	public function __construct() {
+		$this->type = self::SUCCESS;
 	}
 
-	abstract public function display();
+	/**
+	 * Create a view that can be rendered
+	 *
+	 * @return AC_View
+	 */
+	abstract protected function create_view();
+
+	/**
+	 * Render an AC_View
+	 *
+	 * @return string
+	 * @throws Exception
+	 */
+	public function render() {
+		if ( empty( $this->message ) ) {
+			throw new Exception( 'Message cannot be empty' );
+		}
+
+		$view = $this->create_view();
+
+		if ( ! ( $view instanceof AC_View ) ) {
+			throw new Exception( 'AC_Notice::create_view should return an instance of AC_View' );
+		}
+
+		return $view->render();
+	}
+
+	/**
+	 * Display self::render to the screen
+	 */
+	public function display() {
+		echo $this->render();
+	}
 
 	/**
 	 * @return string
@@ -56,7 +72,19 @@ abstract class AC_Notice
 	 * @return $this
 	 */
 	public function set_message( $message ) {
-		$this->message = $message;
+		$sanitized = wp_kses( $message, array(
+			'strong' => array(),
+			'br'     => array(),
+			'a'      => array(
+				'class' => true,
+				'data'  => true,
+				'href'  => true,
+				'id'    => true,
+				'title' => true,
+			),
+		) );
+
+		$this->message = $sanitized;
 
 		return $this;
 	}
@@ -75,21 +103,6 @@ abstract class AC_Notice
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;
-
-		return $this;
-	}
-
-	/**
-	 * @param null|string $class
-	 *
-	 * @return $this
-	 */
-	protected function set_class( $class = null ) {
-		if ( null === $class ) {
-			$class = $this->type;
-		}
-
-		$this->class = $class;
 
 		return $this;
 	}

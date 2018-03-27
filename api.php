@@ -87,49 +87,16 @@ function ac_is_version_gte( $version ) {
  * Creates and registers a global notice
  *
  * @param string $message
- * @param string $type
  *
  * @since NEWVERSION
  * @return AC_Notice_Global
  */
-function ac_notice( $message, $type = null ) {
-	$notice = new AC_Notice_Global( $message, $type );
+function ac_notice( $message ) {
+	$notice = new AC_Notice_Global();
+	$notice->set_message( $message );
 	$notice->register();
 
 	return $notice;
-}
-
-/**
- * @param string $message
- *
- * @since NEWVERSION
- * @see   ac_notice()
- * @return AC_Notice_Global
- */
-function ac_notice_error( $message ) {
-	return ac_notice( $message, AC_Notice::ERROR );
-}
-
-/**
- * @param string $message
- *
- * @since NEWVERSION
- * @see   ac_notice()
- * @return AC_Notice_Global
- */
-function ac_notice_warning( $message ) {
-	return ac_notice( $message, AC_Notice::WARNING );
-}
-
-/**
- * @param string $message
- *
- * @since NEWVERSION
- * @see   ac_notice()
- * @return AC_Notice_Global
- */
-function ac_notice_info( $message ) {
-	return ac_notice( $message, AC_Notice::INFO );
 }
 
 /**

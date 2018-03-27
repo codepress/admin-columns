@@ -1,19 +1,11 @@
-<?php
+<div class="ac-notice notice <?php echo esc_attr( $this->class ); ?>" data-dismissible="<?php echo esc_attr( $this->dismissible ); ?>">
+	<div class="ac-notice__body">
+		<?php echo $this->message; ?>
+	</div>
 
-// sanitize message...
-$this->message = wp_kses( $this->message, array(
-	'strong' => array(),
-	'br'     => array(),
-	'a'      => array(
-		'class' => true,
-		'data'  => true,
-		'href'  => true,
-		'id'    => true,
-		'title' => true,
-	),
-) );
-
-// ... then add p container
-$this->message = '<p>' . $this->message . '</p>';
-
-require 'global-raw.php';
+	<?php if ( $this->dismissable ) : ?>
+		<a href="#" class="ac-notice__dismiss">
+			<?php _e( 'dismiss' ); ?>
+		</a>
+	<?php endif; ?>
+</div>

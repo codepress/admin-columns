@@ -3,53 +3,21 @@
 class AC_Notice_Global extends AC_Notice {
 
 	/**
-	 * @var bool
+	 * @var array
 	 */
 	protected $dismissible;
 
-	/**
-	 * @var array
-	 */
-	protected $dismissible_callback;
-
-	/**
-	 * @var string
-	 */
-	protected $template;
-
-	public function render() {
+	public function create_view() {
 		$data = array(
 			'message'              => $this->message,
 			'type'                 => $this->type,
 			'dismissible'          => $this->dismissible,
-			'dismissible_callback' => $this->dismissible_callback,
 		);
 
-		$template = $this->template;
-
-		if ( ! $template ) {
-			$template = 'notice/global';
-		}
-
 		$view = new AC_View( $data );
-		$view->set_template( $template );
+		$view->set_template( 'notice/global' );
 
-		return $view->render();
-	}
-
-	/**
-	 * @param string $template
-	 *
-	 * @return $this
-	 */
-	public function set_template( $template ) {
-		$this->template = $template;
-
-		return $this;
-	}
-
-	public function display() {
-		echo $this->render();
+		return $view;
 	}
 
 	public function register() {
@@ -65,17 +33,8 @@ class AC_Notice_Global extends AC_Notice {
 	/**
 	 * @return bool
 	 */
-	public function is_dismissible() {
-		return $this->dismissible;
-	}
-
-	/**
-	 * @param $dismissible
-	 */
-	public function set_dismissible( $dismissible ) {
-		$this->dismissible = (bool) $dismissible;
-
-		return $this;
+	public function get_dismissible() {
+		return ! empty( $this->dismissible );
 	}
 
 	/**
@@ -84,7 +43,7 @@ class AC_Notice_Global extends AC_Notice {
 	 *
 	 * @return $this
 	 */
-	public function set_dismissible_callback( $callback, array $params = array() ) {
+	public function set_dismissible( array $params = array() ) {
 		$this->set_dismissible( true );
 
 		$this->dismissible_callback = array_merge( $params, array(
