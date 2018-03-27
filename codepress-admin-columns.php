@@ -61,12 +61,6 @@ class CPAC extends AC_Plugin {
 	private $table_screen;
 
 	/**
-	 * @since 3.0
-	 * @var AC_Helper
-	 */
-	private $helper;
-
-	/**
 	 * @var array $notices
 	 */
 	private $notices;
@@ -118,7 +112,6 @@ class CPAC extends AC_Plugin {
 		$this->addons = new AC_Admin_Addons();
 		$this->admin = new AC_Admin();
 		$this->table_screen = new AC_TableScreen();
-		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
 
 		new AC_Notice_Review();
@@ -296,17 +289,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Contains simple helper methods
-	 *
-	 * @since 3.0
-	 *
-	 * @return AC_Helper
-	 */
-	public function helper() {
-		return $this->helper;
-	}
-
-	/**
 	 * @return AC_TableScreen Returns the screen manager for the list table
 	 */
 	public function table_screen() {
@@ -477,6 +459,20 @@ class CPAC extends AC_Plugin {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
 		return new AC_Groups();
+	}
+
+	/**
+	 * Contains simple helper methods
+	 *
+	 * @since      3.0
+	 * @deprecated NEWVERSION
+	 *
+	 * @return AC_Helper
+	 */
+	public function helper() {
+		_deprecated_function( __METHOD__, '3.1.5', 'ac_helper()' );
+
+		return ac_helper();
 	}
 
 }

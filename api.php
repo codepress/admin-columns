@@ -72,7 +72,7 @@ function ac_get_twitter_handle() {
  * @since 3.0
  */
 function ac_helper() {
-	return AC()->helper();
+	return new AC_Helper();
 }
 
 /**
