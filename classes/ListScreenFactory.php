@@ -104,4 +104,21 @@ class AC_ListScreenFactory {
 		return apply_filters( 'ac/post_types', $post_types );
 	}
 
+	/**
+	 * @return AC_Groups
+	 */
+	public static function groups() {
+		$groups = new AC_Groups();
+
+		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
+		$groups->register_group( 'user', __( 'Users' ) );
+		$groups->register_group( 'media', __( 'Media' ) );
+		$groups->register_group( 'comment', __( 'Comments' ) );
+		$groups->register_group( 'link', __( 'Links' ), 15 );
+
+		do_action( 'ac/list_screen_groups', $groups );
+
+		return $groups;
+	}
+
 }

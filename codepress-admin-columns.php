@@ -292,43 +292,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @return AC_Groups
-	 */
-	public function column_groups() {
-		$groups = new AC_Groups();
-
-		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
-		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
-		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
-		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
-
-		foreach ( $this->addons()->get_missing_addons() as $addon ) {
-			$groups->register_group( $addon->get_slug(), $addon->get_title(), 11 );
-		}
-
-		do_action( 'ac/column_groups', $groups );
-
-		return $groups;
-	}
-
-	/**
-	 * @return AC_Groups
-	 */
-	public function list_screen_groups() {
-		$groups = new AC_Groups();
-
-		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'user', __( 'Users' ) );
-		$groups->register_group( 'media', __( 'Media' ) );
-		$groups->register_group( 'comment', __( 'Comments' ) );
-		$groups->register_group( 'link', __( 'Links' ), 15 );
-
-		do_action( 'ac/list_screen_groups', $groups );
-
-		return $groups;
-	}
-
-	/**
 	 * Display admin notice
 	 */
 	public function display_notices() {
@@ -374,6 +337,13 @@ class CPAC extends AC_Plugin {
 	 */
 	public function is_doing_ajax() {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 */
+	public function register_list_screen( AC_ListScreen $list_screen ) {
+		AC_ListScreenFactory::register_list_screen( $list_screen );
 	}
 
 	/**
@@ -428,12 +398,14 @@ class CPAC extends AC_Plugin {
 	/**
 	 * @param string $key
 	 *
+	 * @deprecated NEWVERSION
+	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
-		return $this->get_list_screen( $key ) ? true : false;
+		return AC_ListScreenFactory::get_list_screen( $key ) ? true : false;
 	}
 
 	/**
@@ -451,16 +423,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
-	 */
-	public function register_list_screen( AC_ListScreen $list_screen ) {
-		// TODO: update all add-ons
-		//_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::register_list_screen()' );
-
-		AC_ListScreenFactory::register_list_screen( $list_screen );
-	}
-
-	/**
 	 * Get a list of post types for which Admin Columns is active
 	 *
 	 * @since      1.0
@@ -472,6 +434,27 @@ class CPAC extends AC_Plugin {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_post_types()' );
 
 		return AC_ListScreenFactory::get_post_types();
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 *
+	 * @return AC_Groups
+	 */
+	public function list_screen_groups() {
+		_deprecated_function( __METHOD__, '3.1.5', 'AC_ListScreenFactory::groups' );
+
+		return AC_ListScreenFactory::groups();
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @return AC_Groups
+	 */
+	public function column_groups() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return new AC_Groups();
 	}
 
 }

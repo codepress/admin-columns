@@ -56,6 +56,26 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	}
 
 	/**
+	 * @return AC_Groups
+	 */
+	private function column_groups() {
+		$groups = new AC_Groups();
+
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
+		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+
+		foreach ( AC()->addons()->get_missing_addons() as $addon ) {
+			$groups->register_group( $addon->get_slug(), $addon->get_title(), 11 );
+		}
+
+		do_action( 'ac/column_groups', $groups );
+
+		return $groups;
+	}
+
+	/**
 	 * @param AC_ListScreen $list_screen
 	 *
 	 * @return array
@@ -83,7 +103,7 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 		$grouped = array();
 
 		// create select options
-		foreach ( AC()->column_groups()->get_groups_sorted() as $group ) {
+		foreach ( $this->column_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups

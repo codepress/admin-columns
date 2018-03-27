@@ -341,7 +341,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 		$grouped = array();
 
-		foreach ( AC()->list_screen_groups()->get_groups_sorted() as $group ) {
+		foreach ( AC_ListScreenFactory::groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			if ( empty( $list_screens[ $slug ] ) ) {
