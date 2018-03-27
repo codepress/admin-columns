@@ -76,28 +76,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		// User selected
-		$key = filter_input( INPUT_GET, 'list_screen' );
+		$list_screen = AC_ListScreenFactory::get_list_screen( filter_input( INPUT_GET, 'list_screen' ) );
 
 		// Preference
-		if ( ! $key ) {
-			$key = $this->preferences()->get( 'list_screen' );
+		if ( ! $list_screen ) {
+			$list_screen = AC_ListScreenFactory::get_list_screen( $this->preferences()->get( 'list_screen' ) );
 		}
 
 		// First one
-		if ( ! $key ) {
-			$list_screens = AC_ListScreenFactory::get_types();
-
-			reset( $list_screens );
-
-			$key = key( $list_screens );
-		}
-
-		$list_screen = AC_ListScreenFactory::get_list_screen( $key );
-
 		if ( ! $list_screen ) {
-			$list_screens = AC_ListScreenFactory::get_types();
-
-			$list_screen = reset( $list_screens );
+			$list_screen = AC_ListScreenFactory::get_list_screen( key( AC_ListScreenFactory::get_types() ) );
 		}
 
 		// Load table headers
