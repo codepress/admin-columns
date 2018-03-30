@@ -29,8 +29,8 @@ class AC_Settings_Column_AttachmentDisplay extends AC_Settings_Column
 		$setting = $this->create_element( 'select' )
 		                ->set_attribute( 'data-refresh', 'column' )
 		                ->set_options( array(
-			                'thumbnail' => __( 'Thumbnails' ),
-			                'count'     => __( 'Count' ),
+			                'thumbnail' => __( 'Thumbnails', 'codepress-admin-columns' ),
+			                'count'     => __( 'Count', 'codepress-admin-columns' ),
 		                ) );
 
 		$view = new AC_View( array(

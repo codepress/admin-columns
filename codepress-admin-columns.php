@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.1.6
+Version: 3.1.7
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -176,7 +176,7 @@ class CPAC extends AC_Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.6';
+		return '3.1.7';
 	}
 
 	public function get_prefix() {
@@ -274,7 +274,7 @@ class CPAC extends AC_Plugin {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'columns' ), __( 'Settings' ) ) );
+			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
 		}
 
 		return $links;
