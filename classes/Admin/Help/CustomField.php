@@ -19,7 +19,7 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Checkmark", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
             </li>
             <li>
@@ -43,7 +43,7 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Media Library", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "Media", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
             </li>
             <li>
@@ -51,15 +51,15 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Numeric", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "Number", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Post Titles", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "Post", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Usernames", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "User", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
             </li>
         </ul>
