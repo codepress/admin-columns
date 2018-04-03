@@ -19,10 +19,6 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: Should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
-            </li>
-            <li>
                 <strong><?php _e( "Color", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Hex value color, such as #808080.", 'codepress-admin-columns' ); ?>
             </li>
@@ -57,6 +53,10 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
             <li>
                 <strong><?php _e( "Post", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Should contain one or more Post IDs, separated by commas.", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
+                <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "User", 'codepress-admin-columns' ); ?></strong><br/>
