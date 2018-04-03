@@ -95,9 +95,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			'basic'      => array(
 				'color'   => __( 'Color', 'codepress-admin-columns' ),
 				'date'    => __( 'Date', 'codepress-admin-columns' ),
-				'excerpt' => __( 'Text' ),
+				'excerpt' => __( 'Excerpt', 'codepress-admin-columns' ),
 				'image'   => __( 'Image', 'codepress-admin-columns' ),
-				'link'    => __( 'Url', 'codepress-admin-columns' ),
+				'link'    => __( 'URL', 'codepress-admin-columns' ),
 				'numeric' => __( 'Number', 'codepress-admin-columns' ),
 			),
 			'choice'     => array(
