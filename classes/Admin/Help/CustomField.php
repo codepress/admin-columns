@@ -35,6 +35,10 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
+                <strong><?php _e( "Has Content", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: This will show if the field has content or not.", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
                 <strong><?php _e( "Image", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
@@ -57,6 +61,10 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
             <li>
                 <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
+                <strong><?php _e( "URL", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain a URL.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "User", 'codepress-admin-columns' ); ?></strong><br/>
