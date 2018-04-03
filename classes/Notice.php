@@ -14,12 +14,12 @@ abstract class AC_Notice
 	/**
 	 * @var string
 	 */
-	private $message;
+	protected $message;
 
 	/**
 	 * @var string
 	 */
-	private $type;
+	protected $type;
 
 	public function __construct() {
 		$this->type = self::SUCCESS;

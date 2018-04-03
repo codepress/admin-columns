@@ -1,17 +1,31 @@
 <?php
 
+// TODO split up to diss.
 class AC_Notice_Global extends AC_Notice {
 
 	/**
-	 * @var array
+	 * @var bool
 	 */
-	protected $dismissible;
+	protected $dismissible = false;
+
+	/**
+	 * @var AC_Ajax_Handler
+	 */
+	protected $handler;
+
+	public function __construct( AC_Ajax_Handler $handler = null ) {
+		if ( null === $handler ) {
+			$handler = new AC_Ajax_NullHandler();
+		}
+
+		$this->handler = $handler;
+	}
 
 	public function create_view() {
 		$data = array(
-			'message'              => $this->message,
-			'type'                 => $this->type,
-			'dismissible'          => $this->dismissible,
+			'message'     => $this->message,
+			'type'        => $this->type,
+			'dismissible' => $this->dismissible,
 		);
 
 		$view = new AC_View( $data );
@@ -33,44 +47,29 @@ class AC_Notice_Global extends AC_Notice {
 	/**
 	 * @return bool
 	 */
-	public function get_dismissible() {
-		return ! empty( $this->dismissible );
+	public function is_dismissible() {
+		return $this->dismissible;
 	}
 
 	/**
-	 * @param string $callback
-	 * @param array  $params
+	 * @param array $params
 	 *
 	 * @return $this
 	 */
-	public function set_dismissible( array $params = array() ) {
-		$this->set_dismissible( true );
-
-		$this->dismissible_callback = array_merge( $params, array(
-			'action'      => $callback,
-			'_ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
-		) );
+	public function set_dismissible( $dismissible ) {
+		$this->dismissible = (bool) $dismissible;
 
 		return $this;
 	}
 
 	/**
-	 * @param null|string $class
+	 * @param string $key
+	 * @param mixed  $data
 	 *
 	 * @return $this
 	 */
-	protected function set_class( $class = null ) {
-		if ( null === $class ) {
-			if ( $this->type === self::SUCCESS ) {
-				$class = 'updated';
-			}
-
-			if ( $this->type === self::ERROR ) {
-				$class = 'error';
-			}
-		}
-
-		parent::set_class( $class );
+	public function set_data( $key, $data ) {
+		$this->data[ $key ] = $data;
 
 		return $this;
 	}
@@ -82,7 +81,7 @@ class AC_Notice_Global extends AC_Notice {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 
 		if ( $this->is_dismissible() ) {
-			wp_enqueue_script( 'ac-message', AC()->get_plugin_url() . 'assets/js/notice-dismiss.js', array(), AC()->get_version(), true );
+			wp_enqueue_script( 'ac-message', AC()->get_plugin_url() . 'assets/js/notice.js', array(), AC()->get_version(), true );
 		}
 	}
 
