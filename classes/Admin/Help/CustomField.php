@@ -3,7 +3,7 @@
 class AC_Admin_Help_CustomField extends AC_Admin_Help {
 
 	public function get_title() {
-		return __( "Custom Field", 'codepress-admin-columns' );
+		return __( "Custom Fields", 'codepress-admin-columns' );
 	}
 
 	public function get_content() {
