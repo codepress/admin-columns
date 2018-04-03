@@ -11,7 +11,7 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
 		?>
 
         <p>
-            <?php _e( "The custom field column uses the custom fields from posts and users. There are 10 types which you can set.", 'codepress-admin-columns' ); ?>
+            <?php _e( "The custom field column uses the custom fields from posts and users. There are 14 types which you can set.", 'codepress-admin-columns' ); ?>
         </p>
         <ul>
             <li>
