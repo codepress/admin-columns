@@ -16,15 +16,15 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
         <ul>
             <li>
                 <strong><?php _e( "Default", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Color", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Hex value color, such as #808080.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Counter", 'codepress-admin-columns' ); ?></strong><br/>
@@ -40,15 +40,15 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
             </li>
             <li>
                 <strong><?php _e( "Image", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Media", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should contain one or more Attachment IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Multiple Values", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Number", 'codepress-admin-columns' ); ?></strong><br/>
@@ -56,11 +56,11 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
             </li>
             <li>
                 <strong><?php _e( "Post", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should contain one or more Post IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "User", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should contain one or more User IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
         </ul>
 
