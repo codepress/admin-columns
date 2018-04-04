@@ -1,110 +1,34 @@
 <?php
 
-abstract class AC_Notice
-	implements AC_Message {
+class AC_Notice extends AC_Message {
 
-	const SUCCESS = 'notice-updated';
+	public function create_view() {
+		$data = array(
+			'message' => $this->message,
+			'type'    => $this->type,
+		);
 
-	const ERROR = 'notice-error';
+		$view = new AC_View( $data );
+		$view->set_template( 'notice' );
 
-	const WARNING = 'notice-warning';
-
-	const INFO = 'notice-info';
-
-	/**
-	 * @var string
-	 */
-	protected $message;
-
-	/**
-	 * @var string
-	 */
-	protected $type;
-
-	public function __construct() {
-		$this->type = self::SUCCESS;
+		return $view;
 	}
 
-	/**
-	 * Create a view that can be rendered
-	 *
-	 * @return AC_View
-	 */
-	abstract protected function create_view();
-
-	/**
-	 * Render an AC_View
-	 *
-	 * @return string
-	 * @throws Exception
-	 */
-	public function render() {
-		if ( empty( $this->message ) ) {
-			throw new Exception( 'Message cannot be empty' );
+	public function register() {
+		if ( apply_filters( 'ac/suppress_site_wide_notices', false ) ) {
+			return;
 		}
 
-		$view = $this->create_view();
-
-		if ( ! ( $view instanceof AC_View ) ) {
-			throw new Exception( 'AC_Notice::create_view should return an instance of AC_View' );
-		}
-
-		return $view->render();
+		add_action( 'admin_notices', array( $this, 'display' ) );
+		add_action( 'network_admin_notices', array( $this, 'display' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 	}
 
 	/**
-	 * Display self::render to the screen
+	 * Enqueue scripts & styles
 	 */
-	public function display() {
-		echo $this->render();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_message() {
-		return $this->message;
-	}
-
-	/**
-	 * @param string $message
-	 *
-	 * @return $this
-	 */
-	public function set_message( $message ) {
-		$sanitized = wp_kses( $message, array(
-			'strong' => array(),
-			'br'     => array(),
-			'a'      => array(
-				'class' => true,
-				'data'  => true,
-				'href'  => true,
-				'id'    => true,
-				'title' => true,
-			),
-		) );
-
-		$this->message = $sanitized;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_type() {
-		return $this->type;
-	}
-
-	/**
-	 * @param string $type
-	 *
-	 * @return $this
-	 */
-	public function set_type( $type ) {
-		$this->type = $type;
-
-		return $this;
+	public function scripts() {
+		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 	}
 
 }

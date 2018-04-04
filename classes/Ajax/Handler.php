@@ -8,20 +8,28 @@ class AC_Ajax_Handler {
 	protected $params;
 
 	/**
-	 * @param string $action
+	 * @var string|array
 	 */
-	public function __construct( $action ) {
-		$this->set_action( $action );
-	}
+	protected $callback;
 
-	public function register( callable $callback, $priority = 10 ) {
-		if ( ! is_int( $priority ) ) {
-			throw new InvalidArgumentException( 'Argument priority needs to be an integer.' );
+	/**
+	 * @throws Exception
+	 */
+	public function register() {
+		if ( ! $this->get_action() ) {
+			throw new Exception( 'Action parameter is missing.' );
 		}
 
-		add_action( $this->get_action(), $callback, $priority );
+		if ( ! $this->get_callback() ) {
+			throw new Exception( 'A callback is missing.' );
+		}
+
+		add_action( $this->get_action(), $this->get_callback() );
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function get_action() {
 		return $this->get_param( 'action' );
 	}
@@ -29,7 +37,7 @@ class AC_Ajax_Handler {
 	/**
 	 * @param string $action
 	 */
-	protected function set_action( $action ) {
+	public function set_action( $action ) {
 		$prefix = 'wp_ajax_';
 
 		if ( strpos( $action, $prefix ) !== 0 ) {
@@ -37,6 +45,24 @@ class AC_Ajax_Handler {
 		}
 
 		$this->set_param( 'action', $action );
+	}
+
+	/**
+	 * @param string|array $callback
+	 *
+	 * @return $this
+	 */
+	public function set_callback( $callback ) {
+		$this->callback = $callback;
+
+		return $this;
+	}
+
+	/**
+	 * @return array|string
+	 */
+	public function get_callback() {
+		return $this->callback;
 	}
 
 	/**
@@ -55,6 +81,11 @@ class AC_Ajax_Handler {
 		return $this->params;
 	}
 
+	/**
+	 * @param $key
+	 *
+	 * @return mixed|null
+	 */
 	public function get_param( $key ) {
 		if ( ! array_key_exists( $key, $this->params ) ) {
 			return null;
