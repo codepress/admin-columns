@@ -19,7 +19,7 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 		               ->set_options( array(
 			               'full'             => __( 'Full Path', 'codepress-admin-columns' ),
 			               'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
-			               'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
+			               'relative-uploads' => __( 'Relative to main uploads folder', 'codepress-admin-columns' ),
 		               ) );
 
 		$view = new AC_View( array(
