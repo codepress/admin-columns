@@ -1,6 +1,6 @@
 <?php
 
-class AC_Notice_Dismissible extends AC_Notice {
+class AC_Message_Notice_Dismissible extends AC_Message_Notice {
 
 	/**
 	 * @var AC_Ajax_Handler

@@ -1,6 +1,6 @@
 <?php
 
-class AC_Notice extends AC_Message {
+class AC_Message_Notice extends AC_Message {
 
 	public function create_view() {
 		$data = array(
@@ -9,7 +9,7 @@ class AC_Notice extends AC_Message {
 		);
 
 		$view = new AC_View( $data );
-		$view->set_template( 'notice' );
+		$view->set_template( 'message/notice' );
 
 		return $view;
 	}

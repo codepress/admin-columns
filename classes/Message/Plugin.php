@@ -1,6 +1,6 @@
 <?php
 
-class AC_PluginMessage extends AC_Message {
+class AC_Message_Plugin extends AC_Message {
 
 	/**
 	 * @var string
@@ -57,7 +57,7 @@ class AC_PluginMessage extends AC_Message {
 		);
 
 		$view = new AC_View( $data );
-		$view->set_template( 'plugin-message' );
+		$view->set_template( 'message/plugin' );
 
 		return $view;
 	}
