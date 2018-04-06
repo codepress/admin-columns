@@ -445,7 +445,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 						<?php $this->nonce_field( 'select-list-screen' ); ?>
 						<input type="hidden" name="page" value="<?php echo esc_attr( AC_Admin::MENU_SLUG ); ?>">
 
-						<select name="list_screen" title="Select type" id="ac_list_screen">
+						<select name="list_screen" title="<?php esc_attr_e( 'Select type', 'codepress-admin-columns' ); ?>" id="ac_list_screen">
 							<?php foreach ( $this->get_grouped_list_screens() as $group ) : ?>
 								<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
 									<?php foreach ( $group['options'] as $key => $label ) : ?>

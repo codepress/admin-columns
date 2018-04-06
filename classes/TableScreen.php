@@ -195,8 +195,8 @@ final class AC_TableScreen {
 		$list_screen = $this->current_list_screen;
 
 		// Tooltip
-		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".js", array( 'jquery' ), AC()->get_version() );
-		wp_enqueue_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip" . AC()->minified() . ".css", array(), AC()->get_version() );
+		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
 
 		// Main
 		wp_enqueue_script( 'ac-table', AC()->get_plugin_url() . "assets/js/table.js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
@@ -361,11 +361,19 @@ final class AC_TableScreen {
 	/**
 	 * Load current list screen
 	 *
-	 * @param WP_Screen $current_screen
+	 * @param WP_Screen $wp_screen
 	 */
-	public function load_list_screen( $current_screen ) {
-		if ( $list_screen = AC()->get_list_screen_by_wpscreen( $current_screen ) ) {
-			$this->set_current_list_screen( $list_screen );
+	public function load_list_screen( $wp_screen ) {
+		if ( ! $wp_screen instanceof WP_Screen ) {
+			return;
+		}
+
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $wp_screen ) ) {
+
+				$this->set_current_list_screen( $list_screen );
+				break;
+			}
 		}
 	}
 

@@ -13,6 +13,7 @@ class AC_Settings_Column_PostType extends AC_Settings_Column {
 
 	public function create_view() {
 		$setting = $this->create_element( 'select' )
+		                ->set_attribute( 'data-label', 'update' )
 		                ->set_options( $this->get_post_type_labels() );
 
 		$view = new AC_View( array(
@@ -35,6 +36,8 @@ class AC_Settings_Column_PostType extends AC_Settings_Column {
 			$post_type_object = get_post_type_object( $post_type );
 			$options[ $post_type ] = $post_type_object->labels->name;
 		}
+
+		natcasesort( $options );
 
 		return $options;
 	}

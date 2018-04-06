@@ -95,8 +95,8 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 		$post_types = get_post_types();
 
 		$columns = array();
-		foreach ( AC()->get_list_screens() as $ls ) {
-			foreach ( (array) $ls->get_column_types() as $column ) {
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			foreach ( $list_screen->get_column_types() as $column ) {
 				$columns[ $column->get_type() ] = $column->get_type();
 			}
 		}
@@ -251,7 +251,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * @return false|string
 	 */
 	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_url( 'documentation' ) . $page, __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation', 'documentation' ) . $page, __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
 	}
 
 	/**

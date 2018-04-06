@@ -13,9 +13,9 @@
     "webfont": "latest"
   },
   "scripts": {
-    "ac:build:production": "nps build.production",
+    "ac:build:production": "nps build.production && npm run ac:languages",
     "ac:build:development": "nps build.development",
-    "ac:languages": "node languages.js",
+    "ac:languages": "nps languages.production",
     "ac:webfont": "nps webfont.build"
   },
   "webfont": {

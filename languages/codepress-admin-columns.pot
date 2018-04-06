@@ -15,19 +15,23 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: codepress-admin-columns.php:316, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
+#: codepress-admin-columns.php:277, classes/Admin/Page/Settings.php:14
+msgid "Settings"
+msgstr ""
+
+#: codepress-admin-columns.php:320, classes/Admin/Help/CustomField.php:18, classes/Settings/Column/CustomFieldType.php:164, classes/Settings/Column/Image.php:67, classes/Settings/Column/Separator.php:19
 msgid "Default"
 msgstr ""
 
-#: codepress-admin-columns.php:318
+#: codepress-admin-columns.php:322
 msgid "Custom Fields"
 msgstr ""
 
-#: codepress-admin-columns.php:319, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
+#: codepress-admin-columns.php:323, classes/Settings/Column/CustomFieldType.php:149, classes/Settings/Column/Image.php:107
 msgid "Custom"
 msgstr ""
 
-#: codepress-admin-columns.php:480, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:19
+#: codepress-admin-columns.php:452, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/PostType.php:20
 msgid "Post Type"
 msgstr ""
 
@@ -39,31 +43,31 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/ListScreen.php:633
+#: classes/ListScreen.php:632
 msgid "No columns settings available."
 msgstr ""
 
-#: classes/TableScreen.php:35
+#: classes/TableScreen.php:36
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/TableScreen.php:41
+#: classes/TableScreen.php:42
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/TableScreen.php:49
+#: classes/TableScreen.php:50
 msgid "Invalid column."
 msgstr ""
 
-#: classes/TableScreen.php:53
+#: classes/TableScreen.php:54
 msgid "Invalid method."
 msgstr ""
 
-#: classes/TableScreen.php:119, classes/TableScreen.php:121
+#: classes/TableScreen.php:120, classes/TableScreen.php:122
 msgid "Download"
 msgstr ""
 
-#: classes/TableScreen.php:213, classes/Admin/Page/Settings.php:167
+#: classes/TableScreen.php:214, classes/Admin/Page/Settings.php:167
 msgid "Edit columns"
 msgstr ""
 
@@ -71,8 +75,8 @@ msgstr ""
 msgid "Display and edit %s fields in the posts overview in seconds!"
 msgstr ""
 
-#: classes/Admin/Promo.php:130
-msgid "Get %s Off"
+#: classes/Admin/Promo.php:130, classes/Admin/Page/Columns.php:574
+msgid "Get %s Off!"
 msgstr ""
 
 #: classes/Admin/Promo.php:133
@@ -377,75 +381,75 @@ msgid_plural "%s add-ons requires %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Page/Addons.php:93
+#: classes/Admin/Page/Addons.php:92
 msgid "%s plugin successfully activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:94
+#: classes/Admin/Page/Addons.php:93
 msgid "%s plugin successfully deactivated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:99
+#: classes/Admin/Page/Addons.php:98
 msgid "%s successfully activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:100
+#: classes/Admin/Page/Addons.php:99
 msgid "%s successfully deactivated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:109
+#: classes/Admin/Page/Addons.php:108
 msgid "%s could not be activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:109
+#: classes/Admin/Page/Addons.php:108
 msgid "Please visit the %s page."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:172
+#: classes/Admin/Page/Addons.php:171
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:172
+#: classes/Admin/Page/Addons.php:171
 msgid "the addons page"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:210
+#: classes/Admin/Page/Addons.php:209
 msgid "Addon does not exist."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:216
+#: classes/Admin/Page/Addons.php:215
 msgid "You need Admin Columns Pro."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:287
+#: classes/Admin/Page/Addons.php:286
 msgid "Installed"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:288
+#: classes/Admin/Page/Addons.php:287
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:289
+#: classes/Admin/Page/Addons.php:288
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:401
+#: classes/Admin/Page/Addons.php:400
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:404
+#: classes/Admin/Page/Addons.php:403
 msgid "Deactivate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:408
+#: classes/Admin/Page/Addons.php:407
 msgid "Activate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:414
+#: classes/Admin/Page/Addons.php:413
 msgid "Download & Install"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:416
+#: classes/Admin/Page/Addons.php:415
 msgid "Get this add-on"
 msgstr ""
 
@@ -483,6 +487,10 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:427
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:447
+msgid "Select type"
 msgstr ""
 
 #: classes/Admin/Page/Columns.php:459
@@ -543,10 +551,6 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:557
 msgid "Learn more about Pro"
-msgstr ""
-
-#: classes/Admin/Page/Columns.php:574
-msgid "Get %s Off!"
 msgstr ""
 
 #: classes/Admin/Page/Columns.php:578
@@ -689,10 +693,6 @@ msgstr ""
 
 #: classes/Admin/Page/Help.php:321
 msgid "our documentation"
-msgstr ""
-
-#: classes/Admin/Page/Settings.php:14
-msgid "Settings"
 msgstr ""
 
 #: classes/Admin/Page/Settings.php:97
@@ -889,7 +889,7 @@ msgstr ""
 msgid "File Size"
 msgstr ""
 
-#: classes/Column/Media/FullPath.php:10
+#: classes/Column/Media/FullPath.php:10, classes/Settings/Column/PathScope.php:20
 msgid "Full Path"
 msgstr ""
 
@@ -1009,8 +1009,8 @@ msgstr ""
 msgid "User ID"
 msgstr ""
 
-#: classes/Column/User/LastName.php:10
-msgid "Last name"
+#: classes/Column/User/LastName.php:10, classes/Settings/Column/User.php:61
+msgid "Last Name"
 msgstr ""
 
 #: classes/Column/User/Nickname.php:10, classes/Settings/Column/User.php:62
@@ -1043,6 +1043,14 @@ msgstr ""
 
 #: classes/Settings/Column/ActionIcons.php:23
 msgid "Use icons instead of text for displaying the actions."
+msgstr ""
+
+#: classes/Settings/Column/AttachmentDisplay.php:32
+msgid "Thumbnails"
+msgstr ""
+
+#: classes/Settings/Column/AttachmentDisplay.php:33
+msgid "Count"
 msgstr ""
 
 #: classes/Settings/Column/AttachmentDisplay.php:37, classes/Settings/Column/Comment.php:97, classes/Settings/Column/Post.php:70, classes/Settings/Column/Term.php:29, classes/Settings/Column/User.php:37
@@ -1373,10 +1381,6 @@ msgstr ""
 msgid "Display format"
 msgstr ""
 
-#: classes/Settings/Column/PathScope.php:20
-msgid "Full path"
-msgstr ""
-
 #: classes/Settings/Column/PathScope.php:21
 msgid "Relative to domain"
 msgstr ""
@@ -1493,10 +1497,6 @@ msgstr ""
 
 #: classes/Settings/Column/Type.php:28
 msgid "Name"
-msgstr ""
-
-#: classes/Settings/Column/User.php:61
-msgid "Last Name"
 msgstr ""
 
 #: classes/Settings/Column/User.php:63
