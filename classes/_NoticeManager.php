@@ -1,6 +1,6 @@
 <?php
 
-// TODO: remove
+// TODO: remove once integrated
 class AC_NoticeManager {
 
 	public function __construct() {

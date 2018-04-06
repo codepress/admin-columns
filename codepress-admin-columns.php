@@ -227,11 +227,6 @@ class CPAC extends AC_Plugin {
 		return current_user_can( 'manage_admin_columns' );
 	}
 
-	// TODO: remove
-	public function suppress_site_wide_notices() {
-		return apply_filters( 'ac/suppress_site_wide_notices', false );
-	}
-
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *

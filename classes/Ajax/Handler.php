@@ -2,6 +2,8 @@
 
 class AC_Ajax_Handler {
 
+	const NONCE_KEY = 'ac-ajax';
+
 	/**
 	 * @var array
 	 */
@@ -36,6 +38,8 @@ class AC_Ajax_Handler {
 
 	/**
 	 * @param string $action
+	 *
+	 * @return $this
 	 */
 	public function set_action( $action ) {
 		$prefix = 'wp_ajax_';
@@ -45,6 +49,8 @@ class AC_Ajax_Handler {
 		}
 
 		$this->set_param( 'action', $action );
+
+		return $this;
 	}
 
 	/**
@@ -69,9 +75,13 @@ class AC_Ajax_Handler {
 	 * @return $this
 	 */
 	public function set_nonce() {
-		$this->set_param( 'nonce', wp_create_nonce( 'ac-ajax' ) );
+		$this->set_param( 'nonce', wp_create_nonce( self::NONCE_KEY ) );
 
 		return $this;
+	}
+
+	public function verify_request() {
+		check_ajax_referer( self::NONCE_KEY );
 	}
 
 	/**

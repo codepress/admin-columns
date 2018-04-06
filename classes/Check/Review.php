@@ -1,6 +1,6 @@
 <?php
 
-// TODO finish writing and remove prefix for notice dismiss from the JS
+// TODO: decide where the check is for the showing notices or not...
 class AC_Check_Review {
 
 	/**
@@ -13,8 +13,9 @@ class AC_Check_Review {
 	}
 
 	public function register() {
-		add_action( 'wp_ajax_' . $this->get_dismiss_callback_key(), array( $this, 'ajax_dismiss_notice' ) );
 		add_action( 'ac/screen', array( $this, 'display' ) );
+
+		$this->get_ajax_handler()->register();
 	}
 
 	public function display( AC_Screen $screen ) {
@@ -28,18 +29,25 @@ class AC_Check_Review {
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
-		ac_notice_info( $this->get_message() )
-			->set_dismissible_callback( $this->get_dismiss_callback_key() )
-			->set_template( 'notice/global-raw' );
+		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
+		$notice->set_type( AC_Message::INFO )
+		       ->set_message( $this->get_message() )
+		       ->register();
 	}
 
 	/**
-	 * Key used for setting up and catching AJAX callback
-	 *
-	 * @return string
+	 * @return AC_Ajax_Handler
 	 */
-	protected function get_dismiss_callback_key() {
-		return strtolower( __CLASS__ ) . '_dismiss';
+	protected function get_ajax_handler() {
+		$handler = new AC_Ajax_Handler();
+		$handler->set_action( 'ac_check_review_dismiss_notice' )
+		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+
+		return $handler;
+	}
+
+	protected function get_preferences() {
+		return new AC_Preferences_User( 'check-review' );
 	}
 
 	/**
@@ -47,7 +55,7 @@ class AC_Check_Review {
 	 *
 	 * @return bool
 	 */
-	public function first_login_compare() {
+	protected function first_login_compare() {
 		return time() - $this->show_after * DAY_IN_SECONDS > $this->get_first_login();
 	}
 
@@ -56,30 +64,27 @@ class AC_Check_Review {
 	 *
 	 * @return integer
 	 */
-	private function get_first_login() {
-		$timestamp = $this->preference()->get( 'first-login-review' );
+	protected function get_first_login() {
+		$timestamp = $this->get_preferences()->get( 'first-login-review' );
 
 		if ( empty( $timestamp ) ) {
 			$timestamp = time();
 
-			$this->preference()->set( 'first-login-review', $timestamp );
+			$this->get_preferences()->set( 'first-login-review', $timestamp );
 		}
 
 		return $timestamp;
 	}
 
 	public function ajax_dismiss_notice() {
-		check_ajax_referer( 'ac-ajax' );
-
-		$this->preference()->set( 'dismiss-review', true );
+		$this->get_ajax_handler()->verify_request();
+		$this->get_preferences()->set( 'dismiss-review', true );
 	}
 
-	private function get_message() {
-		$product = __( 'Admin Columns', 'codepress-admin-columns' );
-
-		if ( ac_is_pro_active() ) {
-			$product = __( 'Admin Columns Pro', 'codepress-admin-columns' );
-		}
+	protected function get_message() {
+		$product = ac_is_pro_active()
+			? __( 'Admin Columns Pro', 'codepress-admin-columns' )
+			: __( 'Admin Columns', 'codepress-admin-columns' );
 
 		ob_start();
 
