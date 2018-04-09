@@ -132,16 +132,11 @@ class CPAC extends AC_Plugin {
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
 
+		add_action( 'init', array( $this, 'init_user' ), 9 );
 		add_action( 'init', array( $this, 'localize' ) );
+		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
-
-		// Set capabilities
-		add_action( 'admin_init', array( $this, 'check_capabilities' ) );
-		register_activation_hook( $this->get_file(), array( $this, 'set_capabilities' ) );
-
-		// Updater
-		add_action( 'init', array( $this, 'install' ) );
 	}
 
 	/**
@@ -193,53 +188,24 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-	 * Add capability to administrator to manage admin columns.
-	 * You can use the capability 'manage_admin_columns' to grant other roles this privilege as well.
+	 * Initialize current user and make sure any administrator user can use Admin Columns
 	 *
-	 * @since 2.0.4
-	 *
-	 * @return bool
+	 * @since NEWVERSION
 	 */
-	public function set_capabilities() {
-		if ( ! current_user_can( 'administrator' ) ) {
-			return false;
+	public function init_user() {
+		$user = new AC_User();
+
+		if ( ! $user->is_administrator() ) {
+			return;
 		}
 
-		$role = get_role( 'administrator' );
+		register_activation_hook( $this->get_file(), array( $user, 'add_manage_cap' ) );
 
-		if ( ! $role ) {
-			return false;
+		if ( $user->can_manage() ) {
+			return;
 		}
 
-		$role->add_cap( 'manage_admin_columns' );
-
-		return update_option( 'ac_capabilities_set', 1, false );
-	}
-
-	/**
-	 * Check if the capabilities are set or settable
-	 *
-	 * @since 3.1.6
-	 *
-	 * @return bool
-	 */
-	public function check_capabilities() {
-		if ( ! current_user_can( 'administrator' ) ) {
-			return false;
-		}
-
-		if ( get_option( 'ac_capabilities_set' ) ) {
-			return true;
-		}
-
-		return $this->set_capabilities();
-	}
-
-	/**
-	 * @return bool True when user can manage admin columns
-	 */
-	public function user_can_manage_admin_columns() {
-		return current_user_can( 'manage_admin_columns' );
+		add_action( 'admin_init', array( $user, 'add_manage_cap' ) );
 	}
 
 	/**
@@ -479,35 +445,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * Display admin notice
-	 */
-	public function display_notices() {
-		if ( $this->notices ) {
-			echo implode( array_unique( $this->notices ) );
-		}
-	}
-
-	/**
-	 * @param string $message Message body
-	 * @param string $type
-	 *                        'updated' is green
-	 *                        'error' is red
-	 *                        'notice-warning' is yellow
-	 *                        'notice-info' is blue
-	 * @param bool   $paragraph
-	 */
-	public function notice( $message, $type = 'updated', $paragraph = true ) {
-		if ( $paragraph ) {
-			$message = '<p>' . $message . '</p>';
-		}
-
-		$this->notices[] = '<div class="ac-message notice ' . esc_attr( $type ) . '">' . $message . '</div>';
-	}
-
-	/**
->>>>>>> master
 	 * @return AC_Admin_Page_Columns
 	 */
 	public function admin_columns_screen() {
@@ -522,9 +459,6 @@ class CPAC extends AC_Plugin {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * @deprecated NEWVERSION
-=======
 	 * @deprecated 3.1.5
 	 *
 	 * @param WP_Screen $wp_screen
@@ -535,7 +469,6 @@ class CPAC extends AC_Plugin {
 
 	/**
 	 * @deprecated 3.1.5
->>>>>>> master
 	 * @since      3.0
 	 */
 	public function get_plugin_version( $file ) {
