@@ -1,8 +1,8 @@
 <?php
 
-class AC_User {
+class AC_Capabilities {
 
-	const MANAGE_CAP = 'manage_admin_columns';
+	const MANAGE = 'manage_admin_columns';
 
 	/**
 	 * @var \WP_User
@@ -29,14 +29,14 @@ class AC_User {
 	 *
 	 * @return bool
 	 */
-	public function can_manage() {
-		return $this->is_administrator() || $this->user->has_cap( self::MANAGE_CAP );
+	public function has_manage() {
+		return $this->user->has_cap( self::MANAGE );
 	}
 
 	/**
 	 * Add the capability to manage admin columns.
 	 */
-	public function add_manage_cap() {
-		$this->user->add_cap( self::MANAGE_CAP );
+	public function add_manage() {
+		$this->user->add_cap( self::MANAGE );
 	}
 }

@@ -132,7 +132,7 @@ class CPAC extends AC_Plugin {
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
 
-		add_action( 'init', array( $this, 'init_user' ), 9 );
+		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
@@ -192,20 +192,20 @@ class CPAC extends AC_Plugin {
 	 *
 	 * @since NEWVERSION
 	 */
-	public function init_user() {
-		$user = new AC_User();
+	public function init_capabilities() {
+		$caps = new AC_Capabilities();
 
-		if ( ! $user->is_administrator() ) {
+		if ( ! $caps->is_administrator() ) {
 			return;
 		}
 
-		register_activation_hook( $this->get_file(), array( $user, 'add_manage_cap' ) );
+		register_activation_hook( $this->get_file(), array( $caps, 'add_manage' ) );
 
-		if ( $user->can_manage() ) {
+		if ( $caps->has_manage() ) {
 			return;
 		}
 
-		add_action( 'admin_init', array( $user, 'add_manage_cap' ) );
+		add_action( 'admin_init', array( $caps, 'add_manage' ) );
 	}
 
 	/**

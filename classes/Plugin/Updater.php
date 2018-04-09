@@ -46,7 +46,7 @@ class AC_Plugin_Updater {
 	 *
 	 */
 	public function check_update_conditions() {
-		if ( ! AC()->user_can_manage_admin_columns() ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
 			return false;
 		}
 
