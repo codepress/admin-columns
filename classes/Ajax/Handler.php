@@ -14,6 +14,10 @@ class AC_Ajax_Handler {
 	 */
 	protected $callback;
 
+	public function __construct() {
+		$this->set_nonce();
+	}
+
 	/**
 	 * @throws Exception
 	 */
@@ -74,8 +78,17 @@ class AC_Ajax_Handler {
 	/**
 	 * @return $this
 	 */
-	public function set_nonce() {
+	protected function set_nonce() {
 		$this->set_param( 'nonce', wp_create_nonce( self::NONCE_KEY ) );
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function no_nonce() {
+		unset( $this->params['nonce'] );
 
 		return $this;
 	}
@@ -110,7 +123,9 @@ class AC_Ajax_Handler {
 	 * @return $this
 	 */
 	public function set_params( array $params ) {
-		$this->params = $params;
+		foreach ( $params as $key => $value ) {
+			$this->set_param( $key, $value );
+		}
 
 		return $this;
 	}
@@ -122,7 +137,14 @@ class AC_Ajax_Handler {
 	 * @return $this
 	 */
 	public function set_param( $key, $value ) {
-		$this->params[ $key ] = $value;
+		switch ( $key ) {
+			case 'action':
+				$this->set_action( $value );
+
+				break;
+			default:
+				$this->params[ $key ] = $value;
+		}
 
 		return $this;
 	}

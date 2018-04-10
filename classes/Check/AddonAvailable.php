@@ -1,16 +1,19 @@
 <?php
 
-// TODO: move to check and AC_Message
-final class AC_IntegrationPromoNotice extends AC_DismissableNotice {
+class AC_Check_AddonAvailable
+	implements AC_Registrable {
 
-	/**
-	 * @return string
-	 */
-	public function get_name() {
-		return 'integration-promo';
+	public function __construct() {
+
 	}
 
-	public function display() {
+	public function register() {
+		add_action( 'ac/screen', array( $this, 'display' ) );
+	}
+
+	public function display( AC_Screen $screen ) {
+		if ( ! $screen->is_ready() || ! $screen->is_admin_screen() || $screen->is_list_screen() )
+
 		$titles = array();
 
 		foreach ( AC()->addons()->get_addons() as $addon ) {
