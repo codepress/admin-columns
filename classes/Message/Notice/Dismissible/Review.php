@@ -5,7 +5,7 @@ class AC_Message_Notice_Dismissible_Review extends AC_Message_Notice_Dismissible
 	public function create_view() {
 		$view = parent::create_view();
 
-		$view->set( 'class', $view->get( 'class' ) . ' review' );
+		$view->set( 'class', $this->type . ' review' );
 
 		return $view;
 	}
