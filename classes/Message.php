@@ -76,25 +76,7 @@ abstract class AC_Message {
 	 * @return $this
 	 */
 	public function set_message( $message ) {
-		$sanitized = wp_kses( $message, array(
-			'strong' => true,
-			'br'     => true,
-			'a'      => array(
-				'class'        => true,
-				'data-dismiss' => true,
-				'href'         => true,
-				'id'           => true,
-				'title'        => true,
-			),
-			'div'    => array(
-				'class' => true,
-			),
-			'p'      => array(
-				'class' => true,
-			),
-		) );
-
-		$this->message = $sanitized;
+		$this->message = $message;
 
 		return $this;
 	}
