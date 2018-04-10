@@ -42,7 +42,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Run all hooks once
 	 */
 	public function init() {
-		if ( ! AC()->user_can_manage_admin_columns() ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
 			return;
 		}
 
@@ -56,7 +56,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Run all hooks when opening the help tab.
 	 */
 	public function run_hooks_on_help_tab() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 

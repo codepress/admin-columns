@@ -12,7 +12,7 @@ class AC_NoticeManager {
 	 * Ask for a review after 30 days
 	 */
 	public function review_notice() {
-		if ( AC()->suppress_site_wide_notices() || ! AC()->user_can_manage_admin_columns() ) {
+		if ( AC()->suppress_site_wide_notices() || ! current_user_can( AC_Capabilities::MANAGE ) ) {
 			return;
 		}
 

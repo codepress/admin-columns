@@ -30,7 +30,7 @@ class AC_Notice_Review {
 			return;
 		}
 
-		if ( ! AC()->user_can_manage_admin_columns() ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
 			return;
 		}
 
