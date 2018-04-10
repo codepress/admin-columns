@@ -20,6 +20,11 @@ abstract class AC_Message {
 	 */
 	protected $type;
 
+	/**
+	 * @var string
+	 */
+	protected $id;
+
 	public function __construct() {
 		$this->type = self::SUCCESS;
 	}
@@ -112,4 +117,21 @@ abstract class AC_Message {
 		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return $this
+	 */
+	public function set_id( $id ) {
+		$this->id = $id;
+
+		return $this;
+	}
 }
