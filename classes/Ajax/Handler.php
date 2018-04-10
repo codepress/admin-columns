@@ -30,7 +30,7 @@ class AC_Ajax_Handler {
 			throw new Exception( 'Callback is missing.' );
 		}
 
-		add_action( $this->get_action(), $this->get_callback() );
+		add_action( 'wp_ajax_' . $this->get_action(), $this->get_callback() );
 	}
 
 	/**
@@ -46,12 +46,6 @@ class AC_Ajax_Handler {
 	 * @return $this
 	 */
 	public function set_action( $action ) {
-		$prefix = 'wp_ajax_';
-
-		if ( strpos( $action, $prefix ) !== 0 ) {
-			$action = $prefix . $action;
-		}
-
 		$this->params['action'] = $action;
 
 		return $this;
