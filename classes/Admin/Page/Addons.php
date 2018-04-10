@@ -11,9 +11,18 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
 		add_action( 'admin_init', array( $this, 'show_missing_plugin_notice' ) );
-		add_action( 'admin_notices', array( $this, 'missing_addon_notices' ) );
 		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	/**
+	 * @param string $message
+	 */
+	private function warning_notice( $message ) {
+		$notice = new AC_Message_Notice();
+		$notice->set_message( $message )
+		       ->set_type( AC_Message_Notice::WARNING )
+		       ->register();
 	}
 
 	public function show_missing_plugin_notice() {
@@ -39,7 +48,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 			// is_plugin_installed does not work when plugins are included in a theme, that's why we check is_plugin_active
 			if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() ) {
-				AC()->notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ), 'notice-warning' );
+				$this->warning_notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ) );
+
 			} else if ( ! $addon->is_plugin_active() ) {
 				$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
 
@@ -47,7 +57,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 					$message .= ' ' . sprintf( __( 'Click %s to activate the plugin.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), __( 'here', 'codepress-admin=n-columns' ) ) );
 				}
 
-				AC()->notice( $message, 'notice-warning' );
+				$this->warning_notice( $message );
 			}
 		}
 
@@ -58,7 +68,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		if ( ! ac_is_pro_active() ) {
-			AC()->notice( sprintf( _n( '%s add-on requires %s.', '%s add-ons requires %s.', count( $titles ), 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) ), 'notice-warning' );
+			$message = sprintf( _n( '%s add-on requires %s.', '%s add-ons requires %s.', count( $titles ), 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) );
+
+			$this->warning_notice( $message );
 		}
 	}
 
