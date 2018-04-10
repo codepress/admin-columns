@@ -84,9 +84,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		$capabilities = new AC_Capabilities();
-
-		if ( ! $capabilities->has_manage() || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 

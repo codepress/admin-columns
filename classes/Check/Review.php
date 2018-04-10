@@ -1,7 +1,8 @@
 <?php
 
 // TODO: decide where the check is for the showing notices or not...
-class AC_Check_Review {
+class AC_Check_Review
+	implements AC_Registrable {
 
 	/**
 	 * @var int
