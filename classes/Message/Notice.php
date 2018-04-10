@@ -6,8 +6,11 @@ class AC_Message_Notice extends AC_Message {
 		$data = array(
 			'message' => $this->message,
 			'class'   => $this->type,
-			'id'      => $this->id,
 		);
+
+		if ( $this->id ) {
+			$data['class'] .= ' ' . $this->id;
+		}
 
 		$view = new AC_View( $data );
 		$view->set_template( 'message/notice' );

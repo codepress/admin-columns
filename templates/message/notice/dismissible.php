@@ -2,7 +2,7 @@
 	<a href="#" class="ac-notice__dismiss">
 		<?php _e( 'dismiss' ); ?>
 	</a>
-	
+
 	<div class="ac-notice__body">
 		<?php echo $this->message; ?>
 	</div>

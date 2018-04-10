@@ -36,6 +36,7 @@ class AC_Check_Review
 
 		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
 		$notice->set_type( AC_Message::SUCCESS )
+		       ->set_id( 'review' )
 		       ->set_message( $this->get_message() )
 		       ->register();
 	}
