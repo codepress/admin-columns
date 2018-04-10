@@ -72,14 +72,20 @@ abstract class AC_Message {
 	 */
 	public function set_message( $message ) {
 		$sanitized = wp_kses( $message, array(
-			'strong' => array(),
-			'br'     => array(),
+			'strong' => true,
+			'br'     => true,
 			'a'      => array(
 				'class' => true,
 				'data'  => true,
 				'href'  => true,
 				'id'    => true,
 				'title' => true,
+			),
+			'div'    => array(
+				'class' => true,
+			),
+			'p'      => array(
+				'class' => true,
 			),
 		) );
 

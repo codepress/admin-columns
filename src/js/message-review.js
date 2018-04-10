@@ -1,32 +1,31 @@
 jQuery( function( $ ) {
-	$( document ).ready( function() {
-		$( '.updated a.hide-review-notice' ).click( function( e ) {
-			e.preventDefault();
 
-			let el = $( this ).parents( '.ac-message' );
-			let el_close = el.find( '.hide-notice' );
-			let soft = $( this ).hasClass( 'hide-review-notice-soft' );
+	$( document ).on( 'click', 'a.hide-review-notice', function( e ) {
+		e.preventDefault();
 
-			if ( soft ) {
-				el.find( '.info' ).slideUp();
-				el.find( '.help' ).slideDown();
+		let $notice = $( this ).closest( '.ac-notice' );
+		let dismissible_callback = $notice.data( 'dismissible-callback' );
+
+		let el_close = $notice.find( '.hide-review-notice' );
+		let soft = $( this ).hasClass( 'hide-review-notice-soft' );
+
+		if ( soft ) {
+			$notice.find( '.info' ).slideUp();
+			$notice.find( '.help' ).slideDown();
+		}
+		else {
+			el_close.hide();
+			el_close.after( '<div class="spinner right"></div>' );
+
+			$notice.find( '.spinner' ).show();
+		}
+
+		$.post( ajaxurl, dismissible_callback, function() {
+			if ( !soft ) {
+				$notice.find( '.spinner' ).remove();
+				$notice.slideUp();
 			}
-			else {
-				el_close.hide();
-				el_close.after( '<div class="spinner right"></div>' );
-				el.find( '.spinner' ).show();
-			}
-
-			$.post( ajaxurl, {
-				'action' : 'ac_hide_notice_review'
-			}, function() {
-				if ( !soft ) {
-					el.find( '.spinner' ).remove();
-					el.slideUp();
-				}
-			} );
-
-			return false;
 		} );
+
 	} );
 } );

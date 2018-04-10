@@ -119,6 +119,8 @@ class CPAC extends AC_Plugin {
 
 		$this->autoloader()->register_prefix( $this->get_prefix(), $this->get_plugin_dir() . 'classes/' );
 
+		new AC_Screen();
+
 		// Third Party
 		new AC_ThirdParty_ACF();
 		new AC_ThirdParty_NinjaForms();
@@ -131,6 +133,10 @@ class CPAC extends AC_Plugin {
 		$this->table_screen = new AC_TableScreen();
 		$this->helper = new AC_Helper();
 		$this->api = new AC_API();
+
+		// Review notice
+		$review = new AC_Check_Review( 30 );
+		$review->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'localize' ) );

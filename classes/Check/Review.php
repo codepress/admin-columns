@@ -20,7 +20,11 @@ class AC_Check_Review
 	}
 
 	public function display( AC_Screen $screen ) {
-		if ( ! $screen->is_ready() || $screen->is_admin_screen() || $screen->is_list_screen() ) {
+		if ( ! $screen->is_ready() ) {
+			return;
+		}
+
+		if ( ! $screen->is_admin_screen() && ! $screen->is_list_screen() ) {
 			return;
 		}
 
