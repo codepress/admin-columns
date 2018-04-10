@@ -79,7 +79,7 @@ class AC_Ajax_Handler {
 			$nonce = wp_create_nonce( self::NONCE_ACTION );
 		}
 
-		$this->params['nonce'] = $nonce;
+		$this->params['_ajax_nonce'] = $nonce;
 
 		return $this;
 	}
@@ -88,7 +88,7 @@ class AC_Ajax_Handler {
 	 * @return $this
 	 */
 	public function unset_nonce() {
-		unset( $this->params['nonce'] );
+		unset( $this->params['_ajax_nonce'] );
 
 		return $this;
 	}
