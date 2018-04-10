@@ -2,7 +2,7 @@
 
 class AC_Ajax_Handler {
 
-	const NONCE_KEY = 'ac-ajax';
+	const NONCE_ACTION = 'ac-ajax';
 
 	/**
 	 * @var array
@@ -27,7 +27,7 @@ class AC_Ajax_Handler {
 		}
 
 		if ( ! $this->get_callback() ) {
-			throw new Exception( 'A callback is missing.' );
+			throw new Exception( 'Callback is missing.' );
 		}
 
 		add_action( $this->get_action(), $this->get_callback() );
@@ -52,7 +52,7 @@ class AC_Ajax_Handler {
 			$action = $prefix . $action;
 		}
 
-		$this->set_param( 'action', $action );
+		$this->params['action'] = $action;
 
 		return $this;
 	}
@@ -76,10 +76,16 @@ class AC_Ajax_Handler {
 	}
 
 	/**
+	 * @param null|string $nonce
+	 *
 	 * @return $this
 	 */
-	protected function set_nonce() {
-		$this->set_param( 'nonce', wp_create_nonce( self::NONCE_KEY ) );
+	public function set_nonce( $nonce = null ) {
+		if ( null === $nonce ) {
+			$nonce = wp_create_nonce( self::NONCE_ACTION );
+		}
+
+		$this->params['nonce'] = $nonce;
 
 		return $this;
 	}
@@ -93,8 +99,12 @@ class AC_Ajax_Handler {
 		return $this;
 	}
 
-	public function verify_request() {
-		check_ajax_referer( self::NONCE_KEY );
+	public function verify_request( $action = null ) {
+		if ( null === $action ) {
+			$action = self::NONCE_ACTION;
+		}
+
+		check_ajax_referer( $action );
 	}
 
 	/**
@@ -140,6 +150,10 @@ class AC_Ajax_Handler {
 		switch ( $key ) {
 			case 'action':
 				$this->set_action( $value );
+
+				break;
+			case 'nonce':
+				$this->set_nonce( $value );
 
 				break;
 			default:
