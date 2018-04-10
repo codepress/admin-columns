@@ -3,6 +3,7 @@ jQuery( function( $ ) {
 	$( document ).on( 'click', 'a.hide-review-notice', function( e ) {
 		e.preventDefault();
 
+		// TODO: animations are not always correct and ajax handling needs work
 		let $notice = $( this ).closest( '.ac-notice' );
 		let dismissible_callback = $notice.data( 'dismissible-callback' );
 

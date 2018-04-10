@@ -2,7 +2,7 @@
 
 abstract class AC_Message {
 
-	const SUCCESS = 'notice-updated';
+	const SUCCESS = 'updated';
 
 	const ERROR = 'notice-error';
 

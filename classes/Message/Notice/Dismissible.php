@@ -19,6 +19,7 @@ class AC_Message_Notice_Dismissible extends AC_Message_Notice {
 
 	public function create_view() {
 		$view = parent::create_view();
+
 		$view->set_template( 'message/notice/dismissible' )
 		     ->set( 'dismissible_callback', $this->handler->get_params() );
 

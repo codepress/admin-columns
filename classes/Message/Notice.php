@@ -5,7 +5,7 @@ class AC_Message_Notice extends AC_Message {
 	public function create_view() {
 		$data = array(
 			'message' => $this->message,
-			'type'    => $this->type,
+			'class'   => $this->type,
 		);
 
 		$view = new AC_View( $data );
