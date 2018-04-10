@@ -137,12 +137,16 @@ class CPAC extends AC_Plugin {
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'localize' ) );
 		add_action( 'init', array( $this, 'install' ) );
-		add_action( 'init', array( $this, 'notices' ) );
+		add_action( 'init', array( $this, 'checks' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
 	}
 
-	public function notices() {
+	/**
+	 * Init checks
+	 */
+	// TODO
+	public function checks() {
 		$review = new AC_Check_Review( 30 );
 		$review->register();
 	}
