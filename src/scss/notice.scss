@@ -1,4 +1,5 @@
 .ac-notice {
+	$e : &;
 	position: relative;
 	min-height: 1%;
 	overflow: hidden;
@@ -6,6 +7,17 @@
 
 	.notice-dismiss {
 		text-decoration: none;
+	}
+
+	&__dismiss {
+		float: right;
+		margin: .5em;
+	}
+
+	&.review {
+		#{$e}__dismiss {
+			display: none;
+		}
 	}
 
 }

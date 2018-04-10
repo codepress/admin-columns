@@ -80,11 +80,11 @@ abstract class AC_Message {
 			'strong' => true,
 			'br'     => true,
 			'a'      => array(
-				'class' => true,
-				'data'  => true,
-				'href'  => true,
-				'id'    => true,
-				'title' => true,
+				'class'        => true,
+				'data-dismiss' => true,
+				'href'         => true,
+				'id'           => true,
+				'title'        => true,
 			),
 			'div'    => array(
 				'class' => true,

@@ -21,15 +21,15 @@ class AC_Check_Review
 
 	public function display( AC_Screen $screen ) {
 		if ( ! $screen->is_ready() ) {
-			return;
+			//return;
 		}
 
 		if ( ! $screen->is_admin_screen() && ! $screen->is_list_screen() ) {
-			return;
+			//return;
 		}
 
 		if ( ! $this->first_login_compare() ) {
-			return;
+			//return;
 		}
 
 		//wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
