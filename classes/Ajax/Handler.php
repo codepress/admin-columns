@@ -87,7 +87,7 @@ class AC_Ajax_Handler {
 	/**
 	 * @return $this
 	 */
-	public function no_nonce() {
+	public function unset_nonce() {
 		unset( $this->params['nonce'] );
 
 		return $this;
