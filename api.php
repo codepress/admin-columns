@@ -84,22 +84,6 @@ function ac_is_version_gte( $version ) {
 }
 
 /**
- * Creates and registers a global notice
- *
- * @param string $message
- *
- * @since NEWVERSION
- * @return AC_Notice_Global
- */
-function ac_notice( $message ) {
-	$notice = new AC_Notice_Global();
-	$notice->set_message( $message );
-	$notice->register();
-
-	return $notice;
-}
-
-/**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
  *

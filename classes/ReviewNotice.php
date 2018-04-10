@@ -14,9 +14,14 @@ final class AC_ReviewNotice extends AC_DismissableNotice {
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . "assets/js/message-review.js", array( 'jquery' ), AC()->get_version() );
 
-		ac_notice_info( $this->get_message() )
-			->set_dismissible_callback( 'review' )
-			->set_template( 'notice/global-raw' );
+		// TODO: correct callback + test
+		$ajax_handler = new AC_Ajax_Handler();
+		$ajax_handler->set_callback( 'review' );
+
+		$notice = new AC_Message_Notice_Dismissible( $ajax_handler );
+		$notice->set_message( $this->get_message() )
+		       ->set_type( AC_Message_Notice_Dismissible::INFO )
+		       ->register();
 	}
 
 	/**

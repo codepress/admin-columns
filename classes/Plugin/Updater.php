@@ -100,7 +100,9 @@ class AC_Plugin_Updater {
 			esc_html__( 'Your database is up to date. You are awesome.', 'codepress-admin-columns' )
 		);
 
-		ac_notice( $message );
+		$notice = new AC_Message_Notice();
+		$notice->set_message( $message )
+		       ->register();
 	}
 
 	protected function show_update_notice() {
@@ -113,7 +115,10 @@ class AC_Plugin_Updater {
 			esc_html__( 'Run the updater', 'codepress-admin-columns' )
 		);
 
-		ac_notice_info( $message );
+		$notice = new AC_Message_Notice();
+		$notice->set_message( $message )
+		       ->set_type( AC_Message_Notice::INFO )
+		       ->register();
 	}
 
 }

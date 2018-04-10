@@ -102,16 +102,25 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		switch ( $status ) {
+
 			case 'activate' :
+				$notice = new AC_Message_Notice();
+
 				if ( $plugin->is_active() ) {
-					ac_notice( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
+					$notice->set_message( sprintf( $activate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
 				} else {
-					ac_notice_error( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ) );
+					$notice->set_message( sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) ) ) )
+					       ->set_type( AC_Message_Notice::ERROR );
 				}
+
+				$notice->register();
 
 				break;
 			case 'deactivate' :
-				ac_notice( sprintf( $deactivate_string, '<strong>' . $plugin->get_name() . '</strong>' ) );
+				$notice = new AC_Message_Notice();
+
+				$notice->set_message( sprintf( $deactivate_string, '<strong>' . $plugin->get_name() . '</strong>' ) )
+				       ->register();
 				break;
 		}
 	}
@@ -148,7 +157,11 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		if ( false !== $error ) {
-			ac_notice_error( $error );
+			$notice = new AC_Message_Notice();
+
+			$notice->set_message( $error )
+			       ->set_type( AC_Message_Notice::ERROR )
+			       ->register();
 
 			return;
 		}
