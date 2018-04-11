@@ -21,13 +21,13 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		$notice = new AC_Message_Notice();
 
 		if ( ! $addon->is_plugin_installed() ) {
-			$message = sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), $addon->get_title() );
+			$message = sprintf( __( '%s needs to be installed for the add-on to work.', 'codepress-admin-columns' ), $addon->get_title() );
 
 			if ( current_user_can( 'install_plugins' ) ) {
 				$message .= ' ' . sprintf( __( 'Install %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) );
 			}
 		} else {
-			$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
+			$message = sprintf( __( '%s is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
 
 			if ( current_user_can( 'activate_plugins' ) ) {
 				$message .= ' ' . sprintf( __( 'Activate %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), $addon->get_title() ) );
