@@ -29,8 +29,8 @@ class AC_Message_Notice_Dismissible extends AC_Message_Notice {
 	/**
 	 * Enqueue scripts & styles
 	 */
-	public function scripts() {
-		parent::scripts();
+	public function enqueue_scripts() {
+		parent::enqueue_scripts();
 
 		wp_enqueue_script( 'ac-message', AC()->get_plugin_url() . 'assets/js/notice-dismissible.js', array(), AC()->get_version(), true );
 	}

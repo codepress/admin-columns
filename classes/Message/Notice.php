@@ -22,13 +22,13 @@ class AC_Message_Notice extends AC_Message {
 
 		add_action( 'admin_notices', array( $this, 'display' ) );
 		add_action( 'network_admin_notices', array( $this, 'display' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
 	 * Enqueue scripts & styles
 	 */
-	public function scripts() {
+	public function enqueue_scripts() {
 		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 	}
 
