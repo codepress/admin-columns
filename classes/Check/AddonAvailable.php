@@ -12,9 +12,9 @@ class AC_Check_AddonAvailable
 	}
 
 	public function display( AC_Screen $screen ) {
-		if ( ! $screen->is_ready() || ! $screen->is_admin_screen() || $screen->is_list_screen() )
-
-		$titles = array();
+		if ( ! $screen->is_ready() || ! $screen->is_admin_screen() || $screen->is_list_screen() ) {
+			$titles = array();
+		}
 
 		foreach ( AC()->addons()->get_addons() as $addon ) {
 			if ( ! $this->is_notice_screen( $addon ) ) {
@@ -31,7 +31,6 @@ class AC_Check_AddonAvailable
 		}
 
 		$message = sprintf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( AC()->admin()->get_link( 'addons' ), __( 'the addons page', 'codepress-admin-columns' ) ) );
-
 
 		$ajax_handler = new AC_Ajax_Handler();
 		// TODO

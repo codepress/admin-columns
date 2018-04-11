@@ -8,11 +8,11 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
 
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
-		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
-		add_action( 'admin_init', array( $this, 'show_missing_plugin_notice' ) );
-		add_action( 'wp_ajax_cpac_hide_install_addons_notice', array( $this, 'ajax_hide_install_addons_notice' ) );
+		add_action( 'admin_init', array( $this, 'notices' ) );
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 	}
 
 	/**
@@ -25,16 +25,8 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		       ->register();
 	}
 
-	public function show_missing_plugin_notice() {
+	public function notices() {
 		if ( ! $this->is_current_screen() ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'install_plugins' ) ) {
 			return;
 		}
 
@@ -47,10 +39,10 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		foreach ( $addons as $addon ) {
 
 			// is_plugin_installed does not work when plugins are included in a theme, that's why we check is_plugin_active
-			if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() ) {
+			if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() && current_user_can( 'install_plugins' ) ) {
 				$this->warning_notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ) );
 
-			} else if ( ! $addon->is_plugin_active() ) {
+			} else if ( ! $addon->is_plugin_active() && current_user_can( 'activate_plugins' ) ) {
 				$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
 
 				if ( current_user_can( 'activate_plugins' ) ) {
@@ -356,7 +348,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 										<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
 											<a href="<?php echo esc_url( $addon->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 										<?php endif;
-									// Installed
+									// Not active
 									elseif ( current_user_can( 'activate_plugins' ) ) : ?>
 										<a href="<?php echo esc_url( $addon->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
