@@ -117,7 +117,7 @@ class AC_Check_Review
 					"We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s.", 'codepress-admin-columns' ),
 					'<strong>' . $product . '</strong>',
 					$product,
-					'<a class="hide-review-notice hide-review-notice-soft" href="#">' . __( 'click here', 'codepress-admin-columns' ) . '</a>'
+					'<a class="hide-review-notice-soft" href="#">' . __( 'click here', 'codepress-admin-columns' ) . '</a>'
 				); ?>
 			</p>
 			<p class="buttons">
