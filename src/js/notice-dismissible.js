@@ -1,6 +1,6 @@
 jQuery( function( $ ) {
 
-	$( document ).on( 'click', '.ac-notice__dismiss, [data-dismiss]', function( e ) {
+	$( '.ac-notice' ).on( 'click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function( e ) {
 		e.preventDefault();
 
 		let $notice = $( this ).closest( '.ac-notice' );
