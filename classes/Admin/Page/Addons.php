@@ -17,12 +17,16 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 	/**
 	 * @param string $message
+	 *
+	 * @return AC_Message_Notice
 	 */
-	private function warning_notice( $message ) {
+	protected function register_notice( $message ) {
 		$notice = new AC_Message_Notice();
 		$notice->set_message( $message )
-		       ->set_type( AC_Message_Notice::WARNING )
+		       ->set_type( $notice::WARNING )
 		       ->register();
+
+		return $notice;
 	}
 
 	public function show_missing_plugin_notice() {
@@ -30,7 +34,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		if ( ! current_user_can( 'manage_admin_columns' ) ) {
+		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
 			return;
 		}
 

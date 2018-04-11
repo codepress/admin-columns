@@ -41,9 +41,7 @@ class AC_Check_Review
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
 		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
-
-		$notice->set_type( AC_Message::SUCCESS )
-		       ->set_message( $this->get_message() )
+		$notice->set_message( $this->get_message() )
 		       ->set_id( 'review' )
 		       ->register();
 	}
