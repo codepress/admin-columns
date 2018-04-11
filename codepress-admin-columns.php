@@ -147,7 +147,7 @@ class CPAC extends AC_Plugin {
 	 */
 	// TODO
 	public function checks() {
-		$review = new AC_Check_Review( 30 );
+		$review = new AC_Check_Review();
 		$review->register();
 	}
 
