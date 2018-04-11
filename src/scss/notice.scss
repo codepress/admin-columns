@@ -15,7 +15,7 @@
 	}
 
 	&.review {
-		#{$e}__dismiss {
+		#{$e}__dismiss, .notice-dismiss {
 			display: none;
 		}
 	}
