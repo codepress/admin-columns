@@ -11,4 +11,10 @@ jQuery( function( $ ) {
 		$.post( ajaxurl, $notice.data( 'dismissible-callback' ) );
 	} );
 
+	$( document ).on( 'click', 'a.hide-review-notice', function( e ) {
+		e.preventDefault();
+
+		$( this ).closest( '.ac-notice' ).find( '.notice-dismiss' ).trigger( 'click' );
+	} );
+
 } );
