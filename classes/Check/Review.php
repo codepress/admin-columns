@@ -4,12 +4,15 @@ class AC_Check_Review
 	implements AC_Registrable {
 
 	/**
-	 * @var int
+	 * @var int Show message after x days
 	 */
-	protected $show_after;
+	protected $show_after = 30;
 
-	public function __construct( $show_after ) {
-		$this->show_after = absint( $show_after );
+	/**
+	 * @param int $show_after_days
+	 */
+	public function set_show_after( $show_after_days ) {
+		$this->show_after = absint( $show_after_days );
 	}
 
 	public function register() {
