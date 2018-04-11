@@ -25,6 +25,12 @@ class AC_Message_Notice extends AC_Message {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 	}
 
+	public function display() {
+		$this->scripts();
+
+		parent::display();
+	}
+
 	/**
 	 * Enqueue scripts & styles
 	 */

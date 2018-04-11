@@ -147,11 +147,14 @@ class CPAC extends AC_Plugin {
 	 */
 	// TODO
 	public function checks() {
-		$review = new AC_Check_Review();
-		$review->register();
+		$checks = array(
+			new AC_Check_Review(),
+			new AC_Check_AddonAvailable(),
+		);
 
-		$addon_available = new AC_Check_AddonAvailable();
-		$addon_available->register();
+		foreach ( $checks as $check ) {
+			$check->register();
+		}
 	}
 
 	/**

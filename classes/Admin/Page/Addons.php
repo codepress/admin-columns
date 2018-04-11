@@ -42,7 +42,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			if ( ! $addon->is_plugin_installed() && ! $addon->is_plugin_active() && current_user_can( 'install_plugins' ) ) {
 				$this->warning_notice( sprintf( __( '%s plugin needs to be installed for the add-on to work.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) ) );
 
-			} else if ( ! $addon->is_plugin_active() && current_user_can( 'activate_plugins' ) ) {
+			} else if ( ! $addon->is_plugin_active() ) {
 				$message = sprintf( __( '%s plugin is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
 
 				if ( current_user_can( 'activate_plugins' ) ) {
