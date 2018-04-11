@@ -1,6 +1,5 @@
 <?php
 
-// TODO: decide where the check is for the showing notices or not...
 class AC_Check_Review
 	implements AC_Registrable {
 
@@ -19,12 +18,19 @@ class AC_Check_Review
 		$this->get_ajax_handler()->register();
 	}
 
+	/**
+	 * @param AC_Screen $screen
+	 */
 	public function display( AC_Screen $screen ) {
 		if ( ! $screen->is_ready() ) {
 			return;
 		}
 
 		if ( ! $screen->is_admin_screen() && ! $screen->is_list_screen() ) {
+			return;
+		}
+
+		if ( $this->get_preferences()->get( 'dismiss-review' ) ) {
 			return;
 		}
 
@@ -35,9 +41,10 @@ class AC_Check_Review
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
 		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
+
 		$notice->set_type( AC_Message::SUCCESS )
-		       ->set_id( 'review' )
 		       ->set_message( $this->get_message() )
+		       ->set_id( 'review' )
 		       ->register();
 	}
 
@@ -82,11 +89,18 @@ class AC_Check_Review
 		return $timestamp;
 	}
 
+	/**
+	 * Ajax dismiss notice
+	 * @since NEWVERSION
+	 */
 	public function ajax_dismiss_notice() {
 		$this->get_ajax_handler()->verify_request();
 		$this->get_preferences()->set( 'dismiss-review', true );
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function get_message() {
 		$product = ac_is_pro_active()
 			? __( 'Admin Columns Pro', 'codepress-admin-columns' )
@@ -124,7 +138,7 @@ class AC_Check_Review
 				if ( ac_is_pro_active() ) {
 					printf(
 						__( 'You can also use your admincolumns.com account to access support through %s!', 'codepress-admin-columns' ),
-						'<a href="' . esc_url( ac_get_site_utm_url( 'forumns', 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'
+						'<a href="' . esc_url( ac_get_site_utm_url( 'topics', 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'
 					);
 				} else {
 					printf(
