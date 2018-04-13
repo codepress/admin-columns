@@ -1,5 +1,7 @@
 <?php
 
+use AC\Message\Notice;
+
 class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 	public function __construct() {
@@ -8,39 +10,12 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
-		add_action( 'admin_init', array( $this, 'notices' ) );
+		add_action( 'admin_init', array( $this, 'show_action_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 	}
 
-	protected function check_addon_status( AC_Admin_Addon $addon ) {
-		if ( $addon->is_plugin_active() ) {
-			return;
-		}
-
-		$notice = new AC_Message_Notice();
-
-		if ( ! $addon->is_plugin_installed() ) {
-			$message = sprintf( __( '%s needs to be installed for the add-on to work.', 'codepress-admin-columns' ), $addon->get_title() );
-
-			if ( current_user_can( 'install_plugins' ) ) {
-				$message .= ' ' . sprintf( __( 'Install %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) );
-			}
-		} else {
-			$message = sprintf( __( '%s is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
-
-			if ( current_user_can( 'activate_plugins' ) ) {
-				$message .= ' ' . sprintf( __( 'Activate %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), $addon->get_title() ) );
-			}
-
-			$notice->set_type( $notice::WARNING );
-		}
-
-		$notice->set_message( $message )
-		       ->register();
-	}
-
-	public function notices() {
+	public function show_action_notices() {
 		if ( ! $this->is_current_screen() ) {
 			return;
 		}
@@ -55,21 +30,24 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		$titles = array();
-
 		foreach ( $addons as $addon ) {
-			$this->check_addon_status( $addon );
-
-			$titles[] = '<strong>' . esc_html( $addon->get_title() ) . '</strong>';
+			if ( ! $addon->is_plugin_active() ) {
+				$this->show_addon_action_notice( $addon );
+			}
 		}
 
 		if ( ! ac_is_pro_active() ) {
+			$titles = array();
+
+			foreach ( $addons as $addon ) {
+				$titles[] = '<strong>' . esc_html( $addon->get_title() ) . '</strong>';
+			}
+
 			$message = sprintf( _n( '%s add-on requires %s.', '%s add-ons requires %s.', count( $titles ), 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) );
 
-			$notice = new AC_Message_Notice();
-			$notice->set_message( $message )
-			       ->set_type( $notice::WARNING )
-			       ->register();
+			Notice::with_register()
+			      ->set_message( $message )
+			      ->set_type( Notice::WARNING );
 		}
 	}
 
@@ -106,26 +84,47 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 	}
 
 	protected function show_activation_notice( AC_PluginInformation $plugin ) {
-		$notice = new AC_Message_Notice();
-		$notice->register();
+		$notice = Notice::with_register();
 
 		if ( $plugin->is_active() ) {
-			$notice->set_message( sprintf( __( '%s successfully activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) );
+			$message = sprintf( __( '%s successfully activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' );
+		} else {
+			$plugins_link = ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) );
+			$message = sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), $plugins_link );
 
-			return;
+			$notice->set_type( $notice::ERROR );
 		}
 
-		$plugins_link = ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) );
-		$message = sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), $plugins_link );
-
-		$notice->set_message( $message )
-		       ->set_type( $notice::ERROR );
+		$notice->set_message( $message );
 	}
 
 	protected function show_deactivation_notice( AC_PluginInformation $plugin ) {
-		$notice = new AC_Message_Notice();
-		$notice->set_message( sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' ) )
-		       ->register();
+		$message = sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' );
+
+		Notice::with_register()
+		      ->set_message( $message );
+	}
+
+	protected function show_addon_action_notice( AC_Admin_Addon $addon ) {
+		$notice = Notice::with_register();
+
+		if ( ! $addon->is_plugin_installed() ) {
+			$message = sprintf( __( '%s needs to be installed for the add-on to work.', 'codepress-admin-columns' ), $addon->get_title() );
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$message .= ' ' . sprintf( __( 'Install %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_url(), $addon->get_title(), array( 'target' => '_blank' ) ) );
+			}
+		} else {
+			$message = sprintf( __( '%s is installed, but not active.', 'codepress-admin-columns' ), '<strong>' . $addon->get_plugin()->get_plugin_var( 'Name' ) . '</strong>' );
+
+			if ( current_user_can( 'activate_plugins' ) ) {
+				$message .= ' ' . sprintf( __( 'Activate %s here.', 'codepress-admin-columns' ), ac_helper()->html->link( $addon->get_plugin_activation_url(), $addon->get_title() ) );
+			}
+
+			$notice->set_type( $notice::WARNING );
+		}
+
+		$notice->set_message( $message );
 	}
 
 	/**
@@ -160,10 +159,9 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 
 		if ( false !== $error ) {
-			$notice = new AC_Message_Notice();
-			$notice->set_message( $error )
-			       ->set_type( AC_Message_Notice::ERROR )
-			       ->register();
+			Notice::with_register()
+			      ->set_message( $error )
+			      ->set_type( Notice::ERROR );
 
 			return;
 		}

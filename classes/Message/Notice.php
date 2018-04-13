@@ -1,6 +1,17 @@
 <?php
 
-class AC_Message_Notice extends AC_Message {
+namespace AC\Message;
+
+use AC\Message;
+
+class Notice extends Message {
+
+	public static function with_register() {
+		$notice = new self();
+		$notice->register();
+
+		return $notice;
+	}
 
 	public function create_view() {
 		$data = array(
@@ -9,7 +20,7 @@ class AC_Message_Notice extends AC_Message {
 			'id'      => $this->id,
 		);
 
-		$view = new AC_View( $data );
+		$view = new \AC_View( $data );
 		$view->set_template( 'message/notice' );
 
 		return $view;

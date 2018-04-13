@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Message {
+namespace AC;
+
+abstract class Message {
 
 	const SUCCESS = 'updated';
 
@@ -44,13 +46,13 @@ abstract class AC_Message {
 	 */
 	public function render() {
 		if ( empty( $this->message ) ) {
-			throw new Exception( 'Message cannot be empty' );
+			throw new \Exception( 'Message cannot be empty' );
 		}
 
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof AC_View ) ) {
-			throw new Exception( 'AC_Notice::create_view should return an instance of AC_View' );
+		if ( ! ( $view instanceof \AC_View ) ) {
+			throw new \Exception( 'AC_Notice::create_view should return an instance of AC_View' );
 		}
 
 		return $view->render();
