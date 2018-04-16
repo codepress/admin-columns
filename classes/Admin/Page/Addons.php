@@ -5,9 +5,15 @@ use AC\Message\Notice;
 class AC_Admin_Page_Addons extends AC_Admin_Page {
 
 	public function __construct() {
-		$this->set_slug( 'addons' )
-		     ->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
+		$this
+			->set_slug( 'addons' )
+			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
+	}
 
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
 		add_action( 'admin_init', array( $this, 'show_action_notices' ) );
