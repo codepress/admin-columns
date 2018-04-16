@@ -502,12 +502,12 @@ abstract class AC_ListScreen {
 	}
 
 	/**
-	 * @param string $dir    Absolute path to the column directory
-	 * @param string $prefix Autoload prefix
+	 * @param string $dir Absolute path to the column directory
 	 */
-	public function register_column_types_from_dir( $dir, $prefix ) {
-		$prefix = rtrim( $prefix, '_' ) . '_';
-		$classes = AC()->autoloader()->get_class_names_from_dir( $dir, $prefix );
+
+	// TODO: remove prefix from add-ons
+	public function register_column_types_from_dir( $dir, $prefix = null ) {
+		$classes = AC\Autoloader::instance()->get_class_names_from_dir( $dir );
 
 		foreach ( $classes as $class ) {
 			$this->register_column_type( new $class );

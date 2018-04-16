@@ -16,7 +16,7 @@ class Autoloader {
 	 */
 	protected $prefixes;
 
-	private function __construct() {
+	protected function __construct() {
 		$this->prefixes = array();
 
 		spl_autoload_register( array( $this, 'autoload' ) );
@@ -38,11 +38,10 @@ class Autoloader {
 	 * Register a prefix that should autoload
 	 *
 	 * @param $prefix string Unique prefix to this set of classes
-	 * @param $path   string Path to directory where classes are stored
+	 * @param $dir    string Path to directory where classes are stored
 	 */
-	public function register_prefix( $prefix, $path ) {
-		$prefix = rtrim( $prefix, '_' );
-		$this->prefixes[ $prefix ] = trailingslashit( $path );
+	public function register_prefix( $prefix, $dir ) {
+		$this->prefixes[ rtrim( $prefix, '_' ) ] = trailingslashit( $dir );
 
 		// make sure that more specific prefixes are checked first
 		krsort( $this->prefixes );
@@ -51,11 +50,11 @@ class Autoloader {
 	/**
 	 * @param string $class
 	 * @param string $prefix
-	 * @param string $path
+	 * @param string $dir
 	 *
 	 * @return string
 	 */
-	private function classname_to_file( $class, $prefix, $path ) {
+	protected function classname_to_file( $class, $prefix, $dir ) {
 		$file = $class;
 
 		// remove optional prefix
@@ -67,7 +66,7 @@ class Autoloader {
 		$file = str_replace( array( '_', '\\' ), '/', $file );
 
 		// concatenate path and add php extension
-		$file = $path . $file . '.php';
+		$file = $dir . $file . '.php';
 
 		return $file;
 	}
@@ -78,12 +77,12 @@ class Autoloader {
 	 * @return bool
 	 */
 	public function autoload( $class ) {
-		foreach ( $this->prefixes as $prefix => $path ) {
+		foreach ( $this->prefixes as $prefix => $dir ) {
 			if ( 0 !== strpos( $class, $prefix ) ) {
 				continue;
 			}
 
-			$file = $this->classname_to_file( $class, $prefix, $path );
+			$file = $this->classname_to_file( $class, $prefix, $dir );
 
 			if ( ! is_readable( $file ) ) {
 				continue;
@@ -98,55 +97,53 @@ class Autoloader {
 	}
 
 	/**
-	 * @param string $prefix
-	 *
-	 * @return false|string
-	 */
-	private function get_path_by_prefix( $prefix ) {
-		return isset( $this->prefixes[ $prefix ] ) ? $this->prefixes[ $prefix ] : false;
-	}
-
-	/**
-	 * Get list of all class names from a directory
+	 * Get list of all auto-loadable class names from a directory
 	 *
 	 * @param string $dir
-	 * @param string $prefix
+	 * @param bool   $use_namespaces Keep underscore until namespaces are mandatory
 	 *
-	 * @return array Class names
+	 * @return array
 	 */
-	public function get_class_names_from_dir( $dir, $prefix ) {
-		$path = trailingslashit( $dir );
-		$classes_dir = $this->get_path_by_prefix( $prefix ); // TODO: refactor away this function?
-
-		// skip if directory is not auto loaded
-		if ( false === strpos( $path, $classes_dir ) ) {
+	public function get_class_names_from_dir( $dir, $use_namespaces = false ) {
+		if ( ! is_dir( $dir ) ) {
 			return array();
 		}
 
-		$class_names = array();
+		$separator = $use_namespaces ? '\\' : '_';
+		$class_base = false;
 
-		$prefix = $prefix . str_replace( array( $classes_dir, '/' ), array( '', '_' ), untrailingslashit( $path ) ) . '_';
+		foreach ( $this->prefixes as $prefix => $prefix_dir ) {
+			if ( 0 !== strpos( $dir, $prefix_dir ) ) {
+				continue;
+			}
 
-		if ( is_dir( $dir ) ) {
-			$iterator = new \DirectoryIterator( $dir );
+			$class_prefix = str_replace( $prefix_dir, '', $dir );
+			$class_base = str_replace( '/', $separator, $prefix . '/' . $class_prefix . '/' );
 
-			foreach ( $iterator as $leaf ) {
-				// skip non php files
-				if ( $leaf->isDot() || $leaf->isDir() || 'php' !== pathinfo( $leaf->getFilename(), PATHINFO_EXTENSION ) ) {
-					continue;
-				}
+			break;
+		}
 
-				$class_name = $prefix . str_replace( '.php', '', $leaf->getFilename() );
+		if ( ! $class_base ) {
+			return array();
+		}
 
-				$r = new \ReflectionClass( $class_name );
+		$classes = array();
+		$iterator = new \FilesystemIterator( $dir, \FilesystemIterator::SKIP_DOTS );
 
-				if ( $r->isInstantiable() ) {
-					$class_names[] = $class_name;
-				}
+		foreach ( $iterator as $leaf ) {
+			/* @var \DirectoryIterator $leaf */
+			if ( $leaf->isDir() || 'php' !== $leaf->getExtension() ) {
+				continue;
+			}
+
+			$r = new \ReflectionClass( $class_base . $leaf->getBasename( '.php' ) );
+
+			if ( $r->isInstantiable() ) {
+				$classes[] = $r->getName();
 			}
 		}
 
-		return $class_names;
+		return $classes;
 	}
 
 }
