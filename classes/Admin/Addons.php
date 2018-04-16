@@ -85,20 +85,15 @@ class AC_Admin_Addons {
 	}
 
 	/**
-	 * @param AC_Admin_Addon $addon
-	 */
-	public function register_addon( AC_Admin_Addon $addon ) {
-		$this->addons[] = $addon;
-	}
-
-	/**
 	 * Register addon
 	 */
 	private function set_addons() {
+		$this->addons = array();
+
 		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Addon', AC()->get_prefix() );
 
 		foreach ( $classes as $class ) {
-			$this->register_addon( new $class );
+			$this->addons[] = new $class;
 		}
 	}
 

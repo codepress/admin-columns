@@ -44,7 +44,7 @@ class AC_ThirdParty_WPML {
 			return;
 		}
 
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
 			foreach ( $list_screen->get_settings() as $column_name => $options ) {
 				do_action( 'wpml_register_single_string', 'Admin Columns', $options['label'], $options['label'] );
 			}

@@ -6,20 +6,24 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 	const SETTINGS_GROUP = 'cpac-general-settings';
 
-	private $options;
-
 	public function __construct() {
 		$this
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
+	}
 
-		$this->options = get_option( self::SETTINGS_NAME );
-
-		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
-
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
 		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
+		add_action( 'admin_init', array( $this, 'register_setting' ) );
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	public function register_setting() {
+		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
 	}
 
 	public function admin_scripts() {
@@ -39,17 +43,23 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		echo esc_attr( self::SETTINGS_NAME . '[' . sanitize_key( $key ) . ']' );
 	}
 
+	private function get_options() {
+		return get_option( self::SETTINGS_NAME );
+	}
+
 	/**
 	 * @param $key
 	 *
 	 * @return false|string When '0' there are no options stored.
 	 */
 	public function get_option( $key ) {
-		return isset( $this->options[ $key ] ) ? $this->options[ $key ] : false;
+		$options = $this->get_options();
+
+		return isset( $options[ $key ] ) ? $options[ $key ] : false;
 	}
 
 	private function is_empty_options() {
-		return false === $this->options;
+		return false === $this->get_options();
 	}
 
 	public function delete_options() {
