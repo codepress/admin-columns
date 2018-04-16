@@ -61,6 +61,15 @@ final class AC_Admin_Pages {
 		return $page;
 	}
 
+	/**
+	 * Register page hooks
+	 */
+	public function register() {
+		foreach  ( $this->pages as $page ) {
+			$page->register();
+		}
+	}
+
 	public function display() { ?>
         <div id="cpac" class="wrap">
             <h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">

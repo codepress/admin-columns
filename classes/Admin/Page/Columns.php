@@ -17,7 +17,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		$this->set_slug( 'columns' )
 		     ->set_label( __( 'Admin Columns', 'codepress-admin-columns' ) )
 		     ->set_default( true );
+	}
 
+	public function register() {
 		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );

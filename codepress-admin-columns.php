@@ -110,7 +110,10 @@ class CPAC extends AC_Plugin {
 
 		// Init
 		$this->addons = new AC_Admin_Addons();
+
 		$this->admin = new AC_Admin();
+		$this->admin->register();
+
 		$this->table_screen = new AC_TableScreen();
 		$this->api = new AC_API();
 

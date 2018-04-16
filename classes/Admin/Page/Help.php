@@ -7,20 +7,25 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	private $messages = array();
 
 	public function __construct() {
-
 		$this
 			->set_slug( 'help' )
 			->set_label_with_count();
+	}
 
-		// Hide page when there are no messages
-		if ( ! $this->get_message_count() ) {
-			$this->set_show_in_menu( false );
-		}
-
-		// Init and request
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
 		add_action( 'admin_init', array( $this, 'init' ), 9 );
 		add_action( 'admin_init', array( $this, 'run_hooks_on_help_tab' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function show_in_menu() {
+		return $this->get_message_count() > 0;
 	}
 
 	/**
