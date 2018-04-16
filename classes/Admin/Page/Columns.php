@@ -76,7 +76,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	public function set_current_list_screen() {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -126,7 +126,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Handle request
 	 */
 	public function handle_request() {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -189,7 +189,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private function ajax_validate_request() {
 		check_ajax_referer( 'ac-settings' );
 
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			wp_die();
 		}
 

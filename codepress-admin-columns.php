@@ -6,6 +6,7 @@ Description: Customize columns on the administration screens for post(types), pa
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
+Requires PHP: 5.3
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPL v3

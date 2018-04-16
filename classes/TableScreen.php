@@ -300,7 +300,7 @@ final class AC_TableScreen {
 	 * @return string|false
 	 */
 	private function get_edit_link( AC_ListScreen $list_screen ) {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return false;
 		}
 

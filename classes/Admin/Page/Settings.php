@@ -84,7 +84,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -93,7 +93,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 				if ( $this->verify_nonce( 'restore-all' ) ) {
 					$this->delete_all_column_settings();
 
-					$notice = new AC_Message_Notice();
+					$notice = new AC\Message\Notice();
 					$notice->set_message( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) )
 					       ->register();
 				}

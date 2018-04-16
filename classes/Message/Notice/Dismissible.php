@@ -1,17 +1,23 @@
 <?php
 
-class AC_Message_Notice_Dismissible extends AC_Message_Notice {
+namespace AC\Message\Notice;
+
+use AC\Ajax\Handler;
+use AC\Ajax\NullHandler;
+use AC\Message\Notice;
+
+class Dismissible extends Notice {
 
 	/**
-	 * @var AC_Ajax_Handler
+	 * @var Handler
 	 */
 	protected $handler;
 
-	public function __construct( AC_Ajax_Handler $handler = null ) {
+	public function __construct( Handler $handler = null ) {
 		parent::__construct();
 
 		if ( null === $handler ) {
-			$handler = new AC_Ajax_Handler_Null();
+			$handler = new NullHandler();
 		}
 
 		$this->handler = $handler;

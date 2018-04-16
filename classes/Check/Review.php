@@ -43,17 +43,17 @@ class AC_Check_Review
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
-		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
+		$notice = new AC\Message\Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $this->get_message() )
 		       ->set_id( 'review' )
 		       ->register();
 	}
 
 	/**
-	 * @return AC_Ajax_Handler
+	 * @return AC\Ajax\Handler
 	 */
 	protected function get_ajax_handler() {
-		$handler = new AC_Ajax_Handler();
+		$handler = new AC\Ajax\Handler();
 		$handler->set_action( 'ac_check_review_dismiss_notice' )
 		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 

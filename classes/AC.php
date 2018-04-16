@@ -1,11 +1,13 @@
 <?php
 
+use AC\Capabilities;
+
 /**
  * The Admin Columns Class
  *
  * @since 1.0
  */
-class AC extends AC_Plugin {
+class AC extends \AC_Plugin {
 
 	/**
 	 * Admin Columns settings class instance
@@ -79,20 +81,20 @@ class AC extends AC_Plugin {
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
 		// TODO: check this
-		new AC_Screen();
+		new \AC_Screen();
 
 		// Third Party
-		new AC_ThirdParty_ACF();
-		new AC_ThirdParty_NinjaForms();
-		new AC_ThirdParty_WooCommerce();
-		new AC_ThirdParty_WPML();
+		new \AC_ThirdParty_ACF();
+		new \AC_ThirdParty_NinjaForms();
+		new \AC_ThirdParty_WooCommerce();
+		new \AC_ThirdParty_WPML();
 
 		// Init
-		$this->addons = new AC_Admin_Addons();
-		$this->admin = new AC_Admin();
-		$this->table_screen = new AC_TableScreen();
-		$this->helper = new AC_Helper();
-		$this->api = new AC_API();
+		$this->addons = new \AC_Admin_Addons();
+		$this->admin = new \AC_Admin();
+		$this->table_screen = new \AC_TableScreen();
+		$this->helper = new \AC_Helper();
+		$this->api = new \AC_API();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -106,8 +108,8 @@ class AC extends AC_Plugin {
 	 */
 	public function notice_checks() {
 		$checks = array(
-			new AC_Check_Review(),
-			new AC_Check_AddonAvailable(),
+			new \AC_Check_Review(),
+			new \AC_Check_AddonAvailable(),
 		);
 
 		foreach ( $checks as $check ) {
@@ -149,19 +151,12 @@ class AC extends AC_Plugin {
 	}
 
 	/**
-	 * @return AC_Autoloader
-	 */
-	public function autoloader() {
-		return AC_Autoloader::instance();
-	}
-
-	/**
 	 * Initialize current user and make sure any administrator user can use Admin Columns
 	 *
 	 * @since NEWVERSION
 	 */
 	public function init_capabilities() {
-		$caps = new AC_Capabilities();
+		$caps = new Capabilities();
 
 		if ( ! $caps->is_administrator() ) {
 			return;
@@ -225,7 +220,7 @@ class AC extends AC_Plugin {
 	 * Column groups
 	 */
 	public function set_column_groups() {
-		$groups = new AC_Groups();
+		$groups = new \AC_Groups();
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
 		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
@@ -320,15 +315,15 @@ class AC extends AC_Plugin {
 
 		// Post types
 		foreach ( $this->get_post_types() as $post_type ) {
-			$list_screens[] = new AC_ListScreen_Post( $post_type );
+			$list_screens[] = new \AC_ListScreen_Post( $post_type );
 		}
 
-		$list_screens[] = new AC_ListScreen_Media();
-		$list_screens[] = new AC_ListScreen_Comment();
+		$list_screens[] = new \AC_ListScreen_Media();
+		$list_screens[] = new \AC_ListScreen_Comment();
 
 		// Users, not for network users
 		if ( ! is_multisite() ) {
-			$list_screens[] = new AC_ListScreen_User();
+			$list_screens[] = new \AC_ListScreen_User();
 		}
 
 		foreach ( $list_screens as $list_screen ) {
@@ -348,7 +343,7 @@ class AC extends AC_Plugin {
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
-	public function register_list_screen( AC_ListScreen $list_screen ) {
+	public function register_list_screen( \AC_ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
 	}
 
@@ -356,7 +351,7 @@ class AC extends AC_Plugin {
 	 * Column groups
 	 */
 	public function set_list_screen_groups() {
-		$groups = new AC_Groups();
+		$groups = new \AC_Groups();
 
 		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'user', __( 'Users' ) );
@@ -429,7 +424,7 @@ class AC extends AC_Plugin {
 	/**
 	 * @deprecated 3.1.5
 	 *
-	 * @param WP_Screen $wp_screen
+	 * @param \WP_Screen $wp_screen
 	 */
 	public function get_list_screen_by_wpscreen( $wp_screen ) {
 		_deprecated_function( __METHOD__, '3.1.5' );

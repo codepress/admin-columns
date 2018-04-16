@@ -20,7 +20,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return;
 		}
 

@@ -1,9 +1,11 @@
 <?php
 
-class AC_Autoloader {
+namespace AC;
+
+class Autoloader {
 
 	/**
-	 * @var AC_Autoloader;
+	 * @var self;
 	 */
 	protected static $instance;
 
@@ -12,9 +14,11 @@ class AC_Autoloader {
 	 *
 	 * @var array
 	 */
-	protected $prefixes = array();
+	protected $prefixes;
 
 	private function __construct() {
+		$this->prefixes = array();
+
 		spl_autoload_register( array( $this, 'autoload' ) );
 	}
 
@@ -37,43 +41,60 @@ class AC_Autoloader {
 	 * @param $path   string Path to directory where classes are stored
 	 */
 	public function register_prefix( $prefix, $path ) {
-		$prefix = rtrim( $prefix, '_' ) . '_';
-		$path = trailingslashit( $path );
-
-		$this->prefixes[ $prefix ] = $path;
+		$prefix = rtrim( $prefix, '_' );
+		$this->prefixes[ $prefix ] = trailingslashit( $path );
 
 		// make sure that more specific prefixes are checked first
 		krsort( $this->prefixes );
 	}
 
 	/**
-	 * @param $class
+	 * @param string $class
+	 * @param string $prefix
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	private function classname_to_file( $class, $prefix, $path ) {
+		$file = $class;
+
+		// remove optional prefix
+		if ( $class !== $prefix ) {
+			$file = substr( $class, strlen( $prefix ) );
+		}
+
+		// swap _ and \ to /
+		$file = str_replace( array( '_', '\\' ), '/', $file );
+
+		// concatenate path and add php extension
+		$file = $path . $file . '.php';
+
+		return $file;
+	}
+
+	/**
+	 * @param string $class
+	 *
+	 * @return bool
 	 */
 	public function autoload( $class ) {
-		foreach ( $this->prefixes as $prefix => $prefix_path ) {
+		foreach ( $this->prefixes as $prefix => $path ) {
 			if ( 0 !== strpos( $class, $prefix ) ) {
 				continue;
 			}
 
-			$class_path = str_replace( array( $prefix, '_' ), array( '', '/' ), $class );
-			$file = $prefix_path . $class_path . '.php';
+			$file = $this->classname_to_file( $class, $prefix, $path );
 
-			if ( is_readable( $file ) ) {
-				require_once $file;
-
-				break;
+			if ( ! is_readable( $file ) ) {
+				continue;
 			}
 
-			// Git does not detect case-difference in a filename and older versions used same filename but with a different case
-			$basename = basename( $file );
-			$file_lc = str_replace( $basename, strtolower( $basename ), $file );
+			require_once $file;
 
-			if ( is_readable( $file_lc ) ) {
-				require_once $file_lc;
-
-				break;
-			}
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -95,7 +116,7 @@ class AC_Autoloader {
 	 */
 	public function get_class_names_from_dir( $dir, $prefix ) {
 		$path = trailingslashit( $dir );
-		$classes_dir = $this->get_path_by_prefix( $prefix );
+		$classes_dir = $this->get_path_by_prefix( $prefix ); // TODO: refactor away this function?
 
 		// skip if directory is not auto loaded
 		if ( false === strpos( $path, $classes_dir ) ) {
@@ -107,7 +128,7 @@ class AC_Autoloader {
 		$prefix = $prefix . str_replace( array( $classes_dir, '/' ), array( '', '_' ), untrailingslashit( $path ) ) . '_';
 
 		if ( is_dir( $dir ) ) {
-			$iterator = new DirectoryIterator( $dir );
+			$iterator = new \DirectoryIterator( $dir );
 
 			foreach ( $iterator as $leaf ) {
 				// skip non php files
@@ -117,7 +138,7 @@ class AC_Autoloader {
 
 				$class_name = $prefix . str_replace( '.php', '', $leaf->getFilename() );
 
-				$r = new ReflectionClass( $class_name );
+				$r = new \ReflectionClass( $class_name );
 
 				if ( $r->isInstantiable() ) {
 					$class_names[] = $class_name;

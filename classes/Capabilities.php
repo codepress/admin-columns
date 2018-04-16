@@ -1,6 +1,8 @@
 <?php
 
-class AC_Capabilities {
+namespace AC;
+
+class Capabilities {
 
 	const MANAGE = 'manage_admin_columns';
 
@@ -9,7 +11,7 @@ class AC_Capabilities {
 	 */
 	protected $user;
 
-	public function __construct( WP_User $user = null ) {
+	public function __construct( \WP_User $user = null ) {
 		if ( null === $user ) {
 			$user = wp_get_current_user();
 		}

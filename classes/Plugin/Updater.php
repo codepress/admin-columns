@@ -46,7 +46,7 @@ class AC_Plugin_Updater {
 	 *
 	 */
 	public function check_update_conditions() {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return false;
 		}
 
@@ -100,7 +100,7 @@ class AC_Plugin_Updater {
 			esc_html__( 'Your database is up to date. You are awesome.', 'codepress-admin-columns' )
 		);
 
-		$notice = new AC_Message_Notice();
+		$notice = new AC\Message\Notice();
 		$notice->set_message( $message )
 		       ->register();
 	}
@@ -115,9 +115,9 @@ class AC_Plugin_Updater {
 			esc_html__( 'Run the updater', 'codepress-admin-columns' )
 		);
 
-		$notice = new AC_Message_Notice();
+		$notice = new AC\Message\Notice();
 		$notice->set_message( $message )
-		       ->set_type( AC_Message_Notice::INFO )
+		       ->set_type( $notice::INFO )
 		       ->register();
 	}
 

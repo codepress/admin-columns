@@ -10,15 +10,14 @@ class AC_Check_AddonAvailable
 	}
 
 	/**
-	 * @return AC_Ajax_Handler
+	 * @return AC\Ajax\Handler
 	 */
 	private function get_ajax_handler() {
-		$ajax_handler = new AC_Ajax_Handler();
+		$handler = new AC\Ajax\Handler();
+		$handler->set_action( 'ac_dismiss_notice_addon_available' )
+		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
-		$ajax_handler->set_action( 'ac_dismiss_notice_addon_avaialble' )
-		             ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
-
-		return $ajax_handler;
+		return $handler;
 	}
 
 	/**
@@ -40,7 +39,7 @@ class AC_Check_AddonAvailable
 	 * @param AC_Screen $screen
 	 */
 	public function display( AC_Screen $screen ) {
-		if ( ! current_user_can( AC_Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return;
 		}
 
@@ -72,7 +71,7 @@ class AC_Check_AddonAvailable
 
 		$message = sprintf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( AC()->admin()->get_link( 'addons' ), __( 'the addons page', 'codepress-admin-columns' ) ) );
 
-		$notice = new AC_Message_Notice_Dismissible( $this->get_ajax_handler() );
+		$notice = new AC\Message\Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $message )
 		       ->register();
 	}
