@@ -1,6 +1,10 @@
 <?php
 
-class AC_Plugin_Update_V3105 extends AC_Plugin_Update {
+namespace AC\Plugin\Update;
+
+use AC\Plugin\Update;
+
+class V3105 extends Update {
 
 	public function apply_update() {
 		$this->update_user_preferences();
@@ -28,7 +32,7 @@ class AC_Plugin_Update_V3105 extends AC_Plugin_Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$notices = new AC_Preferences_User( 'notices' );
+				$notices = new \AC_Preferences_User( 'notices' );
 				$notices->set( 'dismiss-' . $new, (bool) $value );
 
 				delete_user_meta( $user_id, $old );

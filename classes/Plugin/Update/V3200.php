@@ -1,6 +1,10 @@
 <?php
 
-class AC_Plugin_Update_V3200 extends AC_Plugin_Update {
+namespace AC\Plugin\Update;
+
+use AC\Plugin\Update;
+
+class V3200 extends Update {
 
 	public function get_dir() {
 		return AC()->get_plugin_dir() . '/classes';
@@ -18,8 +22,8 @@ class AC_Plugin_Update_V3200 extends AC_Plugin_Update {
 	 * Set all files to the proper case
 	 */
 	private function uppercase_class_files() {
-		$iterator = new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator( $this->get_dir(), FilesystemIterator::SKIP_DOTS )
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator( $this->get_dir(), \FilesystemIterator::SKIP_DOTS )
 		);
 
 		foreach ( $iterator as $leaf ) {

@@ -1,6 +1,8 @@
 <?php
 
-final class AC_TableScreen {
+namespace AC;
+
+final class TableScreen {
 
 	/**
 	 * @var array $column_headings
@@ -8,7 +10,7 @@ final class AC_TableScreen {
 	private $column_headings = array();
 
 	/**
-	 * @var AC_ListScreen $list_screen
+	 * @var \AC_ListScreen $list_screen
 	 */
 	private $current_list_screen;
 
@@ -36,7 +38,7 @@ final class AC_TableScreen {
 			$this->ajax_error( __( 'Invalid item ID.', 'codepress-admin-columns' ) );
 		}
 
-		$list_screen = AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			$this->ajax_error( __( 'Invalid list screen.', 'codepress-admin-columns' ) );
@@ -48,7 +50,7 @@ final class AC_TableScreen {
 			$this->ajax_error( __( 'Invalid column.', 'codepress-admin-columns' ) );
 		}
 
-		if ( ! $column instanceof AC_Column_AjaxValue ) {
+		if ( ! $column instanceof \AC_Column_AjaxValue ) {
 			$this->ajax_error( __( 'Invalid method.', 'codepress-admin-columns' ) );
 		}
 
@@ -78,7 +80,7 @@ final class AC_TableScreen {
 				if ( 'column-actions' == $column->get_type() ) {
 					$default = $column->get_name();
 
-					if ( $this->current_list_screen instanceof AC_ListScreen_Media ) {
+					if ( $this->current_list_screen instanceof \AC_ListScreen_Media ) {
 
 						// Add download button to the actions column
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
@@ -87,18 +89,19 @@ final class AC_TableScreen {
 			};
 
 			// Set inline edit data if the default column (title) is not present
-			if ( $this->current_list_screen instanceof AC_ListScreen_Post && 'title' !== $default ) {
+			if ( $this->current_list_screen instanceof \AC_ListScreen_Post && 'title' !== $default ) {
 				add_filter( 'page_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 				add_filter( 'post_row_actions', array( $this, 'set_inline_edit_data' ), 20, 2 );
 			}
 
 			// Remove inline edit action if the default column (author) is not present
-			if ( $this->current_list_screen instanceof AC_ListScreen_Comment && 'comment' !== $default ) {
+			if ( $this->current_list_screen instanceof \AC_ListScreen_Comment && 'comment' !== $default ) {
 				add_filter( 'comment_row_actions', array( $this, 'remove_quick_edit_from_actions' ), 20, 2 );
 			}
 
 			// Adds the default hidden bulk edit markup for the new primary column
-			if ( $this->current_list_screen instanceof ACP_ListScreen_Taxonomy && 'name' !== $default ) {
+			// TODO
+			if ( $this->current_list_screen instanceof \ACP_ListScreen_Taxonomy && 'name' !== $default ) {
 				add_filter( 'tag_row_actions', array( $this, 'add_taxonomy_hidden_quick_edit_markup' ), 20, 2 );
 			}
 		}
@@ -110,7 +113,7 @@ final class AC_TableScreen {
 	 * Add a download link to the table screen
 	 *
 	 * @param array   $actions
-	 * @param WP_Post $post
+	 * @param \WP_Post $post
 	 */
 	public function set_media_row_actions( $actions, $post ) {
 		$link_attributes = array(
@@ -126,7 +129,7 @@ final class AC_TableScreen {
 	 * Sets the inline data when the title columns is not present on a AC_ListScreen_Post screen
 	 *
 	 * @param array   $actions
-	 * @param WP_Post $post
+	 * @param \WP_Post $post
 	 */
 	public function set_inline_edit_data( $actions, $post ) {
 		get_inline_data( $post );
@@ -154,7 +157,7 @@ final class AC_TableScreen {
 	public function add_taxonomy_hidden_quick_edit_markup( $actions, $term ) {
 		$list_screen = $this->get_current_list_screen();
 
-		if ( $list_screen instanceof ACP_ListScreen_Taxonomy ) {
+		if ( $list_screen instanceof \ACP_ListScreen_Taxonomy ) {
 			echo sprintf( '<div class="hidden">%s</div>', $list_screen->get_list_table()->column_name( $term ) );
 		}
 
@@ -183,7 +186,7 @@ final class AC_TableScreen {
 	/**
 	 * @since 2.2.4
 	 *
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 */
 	public function admin_scripts() {
 		if ( ! $this->current_list_screen ) {
@@ -215,7 +218,7 @@ final class AC_TableScreen {
 		);
 
 		/**
-		 * @param AC_ListScreen $list_screen
+		 * @param \AC_ListScreen $list_screen
 		 */
 		do_action( 'ac/table_scripts', $list_screen );
 
@@ -239,11 +242,11 @@ final class AC_TableScreen {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 *
 	 * @return array
 	 */
-	private function get_column_types_mapping( AC_ListScreen $list_screen ) {
+	private function get_column_types_mapping( \AC_ListScreen $list_screen ) {
 		$types = array();
 		foreach ( $list_screen->get_columns() as $column ) {
 			$types[ $column->get_name() ] = $column->get_type();
@@ -268,7 +271,7 @@ final class AC_TableScreen {
 		$css_column_width = false;
 
 		foreach ( $this->current_list_screen->get_columns() as $column ) {
-			/* @var AC_Settings_Column_Width $setting */
+			/* @var \AC_Settings_Column_Width $setting */
 			$setting = $column->get_setting( 'width' );
 
 			if ( $width = $setting->get_display_width() ) {
@@ -293,16 +296,16 @@ final class AC_TableScreen {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 *
 	 * @return string|false
 	 */
-	private function get_edit_link( AC_ListScreen $list_screen ) {
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+	private function get_edit_link( \AC_ListScreen $list_screen ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return false;
 		}
 
-		/* @var AC_Admin_Page_Settings $settings */
+		/* @var Admin\Page\Settings $settings */
 		$settings = AC()->admin()->get_page( 'settings' );
 
 		if ( ! $settings->show_edit_button() ) {
@@ -329,8 +332,8 @@ final class AC_TableScreen {
 		 *
 		 * @since 3.1.4
 		 *
-		 * @param AC_ListScreen
-		 * @param AC_TableScreen
+		 * @param \AC_ListScreen
+		 * @param TableScreen
 		 */
 		do_action( 'ac/admin_head', $this->current_list_screen, $this );
 	}
@@ -350,8 +353,8 @@ final class AC_TableScreen {
 		 *
 		 * @since 2.3.5
 		 *
-		 * @param AC_ListScreen
-		 * @param AC_TableScreen
+		 * @param \AC_ListScreen
+		 * @param TableScreen
 		 */
 		do_action( 'ac/admin_footer', $this->current_list_screen, $this );
 	}
@@ -359,10 +362,10 @@ final class AC_TableScreen {
 	/**
 	 * Load current list screen
 	 *
-	 * @param WP_Screen $wp_screen
+	 * @param \WP_Screen $wp_screen
 	 */
 	public function load_list_screen( $wp_screen ) {
-		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
 			if ( $wp_screen->id !== $list_screen->get_screen_id() ) {
 				continue;
 			}
@@ -403,12 +406,12 @@ final class AC_TableScreen {
 					$list_screen = false;
 			}
 
-			$this->set_current_list_screen( AC_ListScreenFactory::create( $list_screen ) );
+			$this->set_current_list_screen( \AC_ListScreenFactory::create( $list_screen ) );
 		}
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 */
 	public function set_current_list_screen( $list_screen ) {
 		if ( ! $list_screen ) {
@@ -429,7 +432,7 @@ final class AC_TableScreen {
 		/**
 		 * @since 3.0
 		 *
-		 * @param AC_ListScreen
+		 * @param \AC_ListScreen
 		 */
 		do_action( 'ac/table/list_screen', $list_screen );
 	}
@@ -479,7 +482,7 @@ final class AC_TableScreen {
 			 * @since 3.0
 			 *
 			 * @param string    $label
-			 * @param AC_Column $column
+			 * @param \AC_Column $column
 			 */
 			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
 

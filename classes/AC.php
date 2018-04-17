@@ -17,17 +17,17 @@ class AC extends \AC_Plugin {
 	 *
 	 * @since  2.2
 	 * @access private
-	 * @var \AC_Admin
+	 * @var Admin
 	 */
 	private $admin;
 
 	/**
-	 * @var \AC_TableScreen
+	 * @var TableScreen
 	 */
 	private $table_screen;
 
 	/**
-	 * @var \AC_API
+	 * @var API
 	 */
 	private $api;
 
@@ -76,7 +76,7 @@ class AC extends \AC_Plugin {
 		$this->admin = new Admin();
 		$this->admin->register();
 
-		$this->table_screen = new \AC_TableScreen();
+		$this->table_screen = new TableScreen();
 		$this->api = new API();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
@@ -177,7 +177,7 @@ class AC extends \AC_Plugin {
 
 	/**
 	 * @since 3.0
-	 * @return \AC_API
+	 * @return API
 	 */
 	public function api() {
 		return $this->api;
@@ -200,7 +200,7 @@ class AC extends \AC_Plugin {
 	}
 
 	/**
-	 * @return \AC_TableScreen Returns the screen manager for the list table
+	 * @return TableScreen Returns the screen manager for the list table
 	 */
 	public function table_screen() {
 		return $this->table_screen;
@@ -345,7 +345,7 @@ class AC extends \AC_Plugin {
 	 * @since      3.0
 	 * @deprecated NEWVERSION
 	 *
-	 * @return \AC_Helper
+	 * @return Helper
 	 */
 	public function helper() {
 		_deprecated_function( __METHOD__, '3.1.5', 'ac_helper()' );

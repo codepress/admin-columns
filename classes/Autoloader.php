@@ -62,11 +62,11 @@ class Autoloader {
 			$file = substr( $class, strlen( $prefix ) );
 		}
 
-		// swap _ and \ to /
-		$file = str_replace( array( '_', '\\' ), '/', $file );
-
 		// concatenate path and add php extension
 		$file = $dir . $file . '.php';
+
+		// swap _ and \ to /
+		$file = str_replace( array( '_', '\\' ), '/', $file );
 
 		return $file;
 	}
