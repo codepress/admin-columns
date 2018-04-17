@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Date {
+namespace AC\Helper;
+
+class Date {
 
 	/**
 	 * @param string $date

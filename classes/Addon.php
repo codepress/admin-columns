@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Addon {
+namespace AC;
+
+abstract class Addon {
 
 	/**
 	 * Return the file from this plugin

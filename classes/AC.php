@@ -1,6 +1,9 @@
 <?php
 
-use AC\Capabilities;
+namespace AC;
+
+use AC\ThirdParty;
+use AC\Check;
 
 /**
  * The Admin Columns Class
@@ -14,22 +17,22 @@ class AC extends \AC_Plugin {
 	 *
 	 * @since  2.2
 	 * @access private
-	 * @var AC_Admin
+	 * @var \AC_Admin
 	 */
 	private $admin;
 
 	/**
-	 * @var AC_TableScreen
+	 * @var \AC_TableScreen
 	 */
 	private $table_screen;
 
 	/**
-	 * @var AC_API
+	 * @var \AC_API
 	 */
 	private $api;
 
 	/**
-	 * @var AC_Admin_Addons
+	 * @var Admin\Addons
 	 */
 	private $addons;
 
@@ -59,22 +62,22 @@ class AC extends \AC_Plugin {
 		define( 'CPAC_DIR', $this->get_plugin_dir() );
 
 		// TODO: check this
-		new \AC_Screen();
+		new Screen();
 
 		// Third Party
-		new \AC_ThirdParty_ACF();
-		new \AC_ThirdParty_NinjaForms();
-		new \AC_ThirdParty_WooCommerce();
-		new \AC_ThirdParty_WPML();
+		new ThirdParty\ACF();
+		new ThirdParty\NinjaForms();
+		new ThirdParty\WooCommerce();
+		new ThirdParty\WPML();
 
 		// Init
-		$this->addons = new AC_Admin_Addons();
+		$this->addons = new Admin\Addons();
 
-		$this->admin = new AC_Admin();
+		$this->admin = new Admin();
 		$this->admin->register();
 
-		$this->table_screen = new AC_TableScreen();
-		$this->api = new AC_API();
+		$this->table_screen = new \AC_TableScreen();
+		$this->api = new API();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -88,8 +91,8 @@ class AC extends \AC_Plugin {
 	 */
 	public function notice_checks() {
 		$checks = array(
-			new \AC_Check_Review(),
-			new \AC_Check_AddonAvailable(),
+			new Check\Review(),
+			new Check\AddonAvailable(),
 		);
 
 		foreach ( $checks as $check ) {
@@ -174,7 +177,7 @@ class AC extends \AC_Plugin {
 
 	/**
 	 * @since 3.0
-	 * @return AC_API
+	 * @return \AC_API
 	 */
 	public function api() {
 		return $this->api;
@@ -182,7 +185,7 @@ class AC extends \AC_Plugin {
 
 	/**
 	 * @since 2.2
-	 * @return AC_Admin Settings class instance
+	 * @return Admin Settings class instance
 	 */
 	public function admin() {
 		return $this->admin;
@@ -190,21 +193,21 @@ class AC extends \AC_Plugin {
 
 	/**
 	 * @since 2.2
-	 * @return AC_Admin_Addons Add-ons class instance
+	 * @return Admin\Addons Add-ons class instance
 	 */
 	public function addons() {
 		return $this->addons;
 	}
 
 	/**
-	 * @return AC_TableScreen Returns the screen manager for the list table
+	 * @return \AC_TableScreen Returns the screen manager for the list table
 	 */
 	public function table_screen() {
 		return $this->table_screen;
 	}
 
 	/**
-	 * @return AC_Admin_Page_Columns
+	 * @return Admin\Page\Columns
 	 */
 	public function admin_columns_screen() {
 		return $this->admin()->get_page( 'columns' );
@@ -218,16 +221,16 @@ class AC extends \AC_Plugin {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 */
-	public function register_list_screen( AC_ListScreen $list_screen ) {
-		AC_ListScreenFactory::register_list_screen( $list_screen );
+	public function register_list_screen( \AC_ListScreen $list_screen ) {
+		\AC_ListScreenFactory::register_list_screen( $list_screen );
 	}
 
 	/**
 	 * @deprecated 3.1.5
 	 *
-	 * @param WP_Screen $wp_screen
+	 * @param \WP_Screen $wp_screen
 	 */
 	public function get_list_screen_by_wpscreen( $wp_screen ) {
 		_deprecated_function( __METHOD__, '3.1.5' );
@@ -265,12 +268,12 @@ class AC extends \AC_Plugin {
 	 *
 	 * @param string $key
 	 *
-	 * @return AC_ListScreen|false
+	 * @return \AC_ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::create()' );
 
-		return AC_ListScreenFactory::create( $key );
+		return \AC_ListScreenFactory::create( $key );
 	}
 
 	/**
@@ -283,7 +286,7 @@ class AC extends \AC_Plugin {
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
-		return AC_ListScreenFactory::create( $key ) ? true : false;
+		return \AC_ListScreenFactory::create( $key ) ? true : false;
 	}
 
 	/**
@@ -292,12 +295,12 @@ class AC extends \AC_Plugin {
 	 * @since      3.0
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_ListScreen[]
+	 * @return \AC_ListScreen[]
 	 */
 	public function get_list_screens() {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_types()' );
 
-		return AC_ListScreenFactory::get_types();
+		return \AC_ListScreenFactory::get_types();
 	}
 
 	/**
@@ -311,29 +314,29 @@ class AC extends \AC_Plugin {
 	public function get_post_types() {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_post_types()' );
 
-		return AC_ListScreenFactory::get_post_types();
+		return \AC_ListScreenFactory::get_post_types();
 	}
 
 	/**
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_Groups
+	 * @return \AC_Groups
 	 */
 	public function list_screen_groups() {
 		_deprecated_function( __METHOD__, '3.1.5', 'AC_ListScreenFactory::groups' );
 
-		return AC_ListScreenFactory::groups();
+		return \AC_ListScreenFactory::groups();
 	}
 
 	/**
 	 *
 	 * @deprecated NEWVERSION
-	 * @return AC_Groups
+	 * @return \AC_Groups
 	 */
 	public function column_groups() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
-		return new AC_Groups();
+		return new \AC_Groups();
 	}
 
 	/**
@@ -342,7 +345,7 @@ class AC extends \AC_Plugin {
 	 * @since      3.0
 	 * @deprecated NEWVERSION
 	 *
-	 * @return AC_Helper
+	 * @return \AC_Helper
 	 */
 	public function helper() {
 		_deprecated_function( __METHOD__, '3.1.5', 'ac_helper()' );

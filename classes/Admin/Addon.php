@@ -1,6 +1,8 @@
 <?php
 
-class AC_Admin_Addon {
+namespace AC\Admin;
+
+class Addon {
 
 	/**
 	 * @var string
@@ -27,14 +29,14 @@ class AC_Admin_Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @var AC_PluginInformation
+	 * @var \AC_PluginInformation
 	 */
 	private $addon;
 
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
 	 *
-	 * @var AC_PluginInformation[]
+	 * @var \AC_PluginInformation[]
 	 */
 	private $plugins;
 
@@ -53,7 +55,7 @@ class AC_Admin_Addon {
 	private $plugin_url;
 
 	public function __construct( $addon_dirname ) {
-		$this->addon = new AC_PluginInformation( $addon_dirname );
+		$this->addon = new \AC_PluginInformation( $addon_dirname );
 	}
 
 	/**
@@ -75,7 +77,7 @@ class AC_Admin_Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @return AC_PluginInformation[]
+	 * @return \AC_PluginInformation[]
 	 */
 	public function get_plugins() {
 		return $this->plugins;
@@ -85,13 +87,13 @@ class AC_Admin_Addon {
 	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
 	 */
 	protected function add_plugin( $plugin ) {
-		$this->plugins[] = new AC_PluginInformation( $plugin );
+		$this->plugins[] = new \AC_PluginInformation( $plugin );
 
 		return $this;
 	}
 
 	/**
-	 * @return AC_PluginInformation
+	 * @return \AC_PluginInformation
 	 */
 	public function get_plugin() {
 		return $this->plugins[0];
@@ -252,10 +254,10 @@ class AC_Admin_Addon {
 	}
 
 	/**
-	 * @return AC_Column_Placeholder
+	 * @return \AC_Column_Placeholder
 	 */
 	public function get_placeholder_column() {
-		$column = new AC_Column_Placeholder();
+		$column = new \AC_Column_Placeholder();
 		$column->set_addon( $this );
 
 		return $column;

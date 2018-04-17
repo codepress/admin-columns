@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Taxonomy {
+namespace AC\Helper;
+
+class Taxonomy {
 
 	/**
 	 * @param WP_Term[]   $terms Term objects

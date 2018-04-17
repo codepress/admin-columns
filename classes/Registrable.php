@@ -1,6 +1,8 @@
 <?php
 
-interface AC_Registrable {
+namespace AC;
+
+interface Registrable {
 
 	public function register();
 

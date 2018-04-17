@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_String {
+namespace AC\Helper;
+
+class Strings {
 
 	/**
 	 * @since 1.3.1
@@ -63,7 +65,7 @@ class AC_Helper_String {
 	 *
 	 * @since 3.0
 	 *
-	 * @return string
+	 * @return false|string
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
 		if ( ! $string ) {

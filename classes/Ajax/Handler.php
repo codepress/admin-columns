@@ -95,6 +95,9 @@ class Handler {
 		return $this;
 	}
 
+	/**
+	 * @param string $action
+	 */
 	public function verify_request( $action = null ) {
 		if ( null === $action ) {
 			$action = self::NONCE_ACTION;

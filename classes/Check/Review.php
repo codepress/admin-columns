@@ -1,7 +1,14 @@
 <?php
 
-class AC_Check_Review
-	implements AC_Registrable {
+namespace AC\Check;
+
+use AC\Ajax;
+use AC\Registrable;
+use AC\Screen;
+use AC\Message;
+
+class Review
+	implements Registrable {
 
 	/**
 	 * @var int Show message after x days
@@ -22,9 +29,9 @@ class AC_Check_Review
 	}
 
 	/**
-	 * @param AC_Screen $screen
+	 * @param Screen $screen
 	 */
-	public function display( AC_Screen $screen ) {
+	public function display( Screen $screen ) {
 		if ( ! $screen->is_ready() ) {
 			return;
 		}
@@ -43,17 +50,17 @@ class AC_Check_Review
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_plugin_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
-		$notice = new AC\Message\Notice\Dismissible( $this->get_ajax_handler() );
+		$notice = new Message\Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $this->get_message() )
 		       ->set_id( 'review' )
 		       ->register();
 	}
 
 	/**
-	 * @return AC\Ajax\Handler
+	 * @return Ajax\Handler
 	 */
 	protected function get_ajax_handler() {
-		$handler = new AC\Ajax\Handler();
+		$handler = new Ajax\Handler();
 		$handler->set_action( 'ac_check_review_dismiss_notice' )
 		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
@@ -61,7 +68,7 @@ class AC_Check_Review
 	}
 
 	protected function get_preferences() {
-		return new AC_Preferences_User( 'check-review' );
+		return new \AC_Preferences_User( 'check-review' );
 	}
 
 	/**

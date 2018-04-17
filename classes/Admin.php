@@ -1,9 +1,14 @@
 <?php
 
+namespace AC;
+
+use AC\Admin\Help;
+use AC\Admin\Page;
+
 /**
  * @since 2.0
  */
-class AC_Admin {
+class Admin {
 
 	const MENU_SLUG = 'codepress-admin-columns';
 
@@ -15,7 +20,7 @@ class AC_Admin {
 	private $hook_suffix;
 
 	/**
-	 * @var AC_Admin_Pages
+	 * @var Admin\Pages
 	 */
 	private $pages;
 
@@ -23,12 +28,12 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	public function __construct() {
-		$this->pages = new AC_Admin_Pages();
+		$this->pages = new Admin\Pages();
 		$this->pages
-			->register_page( new AC_Admin_Page_Columns() )
-			->register_page( new AC_Admin_Page_Settings() )
-			->register_page( new AC_Admin_Page_Addons() )
-			->register_page( new AC_Admin_Page_Help() );
+			->register_page( new Page\Columns() )
+			->register_page( new Page\Settings() )
+			->register_page( new Page\Addons() )
+			->register_page( new Page\Help() );
 	}
 
 	/**
@@ -42,7 +47,7 @@ class AC_Admin {
 	}
 
 	/**
-	 * @return AC_Admin_Pages|false
+	 * @return Admin\Pages|false
 	 */
 	public function get_pages() {
 		return $this->pages;
@@ -69,7 +74,7 @@ class AC_Admin {
 	 * @return bool
 	 */
 	public function get_general_option( $option ) {
-		/* @var AC_Admin_Page_Settings $settings */
+		/* @var Page\Settings $settings */
 		$settings = $this->get_pages()->get_page( 'settings' );
 
 		return $settings->get_option( $option );
@@ -78,7 +83,7 @@ class AC_Admin {
 	/**
 	 * @param $slug
 	 *
-	 * @return AC_Admin_Page_Columns|AC_Admin_Page_Settings|AC_Admin_Page_Addons|false
+	 * @return Admin\Page\Columns|Admin\Page\Settings|Admin\Page\Addons|false
 	 */
 	public function get_page( $slug ) {
 		return $this->get_pages()->get_page( $slug );
@@ -127,9 +132,9 @@ class AC_Admin {
 	 * Load help tabs
 	 */
 	public function load_help_tabs() {
-		new AC_Admin_Help_Introduction();
-		new AC_Admin_Help_Basics();
-		new AC_Admin_Help_CustomField();
+		new Help\Introduction();
+		new Help\Basics();
+		new Help\CustomField();
 	}
 
 	/**

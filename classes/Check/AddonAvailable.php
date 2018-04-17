@@ -1,7 +1,15 @@
 <?php
 
-class AC_Check_AddonAvailable
-	implements AC_Registrable {
+namespace AC\Check;
+
+use AC\Ajax;
+use AC\Capabilities;
+use AC\Registrable;
+use AC\Screen;
+use AC\Message\Notice;
+
+class AddonAvailable
+	implements Registrable {
 
 	public function register() {
 		add_action( 'ac/screen', array( $this, 'display' ) );
@@ -10,10 +18,10 @@ class AC_Check_AddonAvailable
 	}
 
 	/**
-	 * @return AC\Ajax\Handler
+	 * @return Ajax\Handler
 	 */
 	private function get_ajax_handler() {
-		$handler = new AC\Ajax\Handler();
+		$handler = new Ajax\Handler();
 		$handler->set_action( 'ac_dismiss_notice_addon_available' )
 		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
@@ -21,10 +29,12 @@ class AC_Check_AddonAvailable
 	}
 
 	/**
-	 * @return AC_Preferences_User
+	 * @return \AC_Preferences_User
 	 */
 	protected function get_preferences() {
-		return new AC_Preferences_User( 'check-addon-available' );
+
+		// TODO
+		return new \AC_Preferences_User( 'check-addon-available' );
 	}
 
 	/**
@@ -38,8 +48,8 @@ class AC_Check_AddonAvailable
 	/**
 	 * @param AC_Screen $screen
 	 */
-	public function display( AC_Screen $screen ) {
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+	public function display( Screen $screen ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
@@ -71,7 +81,7 @@ class AC_Check_AddonAvailable
 
 		$message = sprintf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( AC()->admin()->get_link( 'addons' ), __( 'the addons page', 'codepress-admin-columns' ) ) );
 
-		$notice = new AC\Message\Notice\Dismissible( $this->get_ajax_handler() );
+		$notice = new Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $message )
 		       ->register();
 	}

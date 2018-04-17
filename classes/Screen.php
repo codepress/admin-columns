@@ -1,9 +1,10 @@
 <?php
+namespace AC;
 
-class AC_Screen {
+class Screen {
 
 	/**
-	 * @var WP_Screen
+	 * @var \WP_Screen
 	 */
 	protected $screen;
 
@@ -19,7 +20,7 @@ class AC_Screen {
 	/**
 	 * @param WP_Screen $screen
 	 */
-	public function init( WP_Screen $screen ) {
+	public function init( \WP_Screen $screen ) {
 		$this->screen = $screen;
 		$this->ready = true;
 
@@ -43,7 +44,7 @@ class AC_Screen {
 	}
 
 	/**
-	 * @return WP_Screen
+	 * @return \WP_Screen
 	 */
 	public function get_screen() {
 		return $this->screen;
@@ -57,10 +58,10 @@ class AC_Screen {
 	}
 
 	/**
-	 * @return AC_ListScreen|false
+	 * @return \AC_ListScreen|false
 	 */
 	public function get_list_screen() {
-		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
 			if ( $list_screen->is_current_screen( $this->screen ) ) {
 				return $list_screen;
 			}

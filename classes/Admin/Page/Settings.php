@@ -1,6 +1,12 @@
 <?php
 
-class AC_Admin_Page_Settings extends AC_Admin_Page {
+namespace AC\Admin\Page;
+
+use AC\Capabilities;
+use AC\Message;
+use AC\Admin\Page;
+
+class Settings extends Page {
 
 	const SETTINGS_NAME = 'cpac_general_options';
 
@@ -84,7 +90,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			FROM $wpdb->options
 			WHERE option_name LIKE %s";
 
-		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
+		$wpdb->query( $wpdb->prepare( $sql, \AC_ListScreen::OPTIONS_KEY . '%' ) );
 
 		// @since 3.0
 		do_action( 'ac/restore_all_columns' );
@@ -94,7 +100,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -103,7 +109,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 				if ( $this->verify_nonce( 'restore-all' ) ) {
 					$this->delete_all_column_settings();
 
-					$notice = new AC\Message\Notice();
+					$notice = new Message\Notice();
 					$notice->set_message( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) )
 					       ->register();
 				}

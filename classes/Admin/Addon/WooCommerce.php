@@ -1,6 +1,10 @@
 <?php
 
-class AC_Admin_Addon_WooCommerce extends AC_Admin_Addon {
+namespace AC\Admin\Addon;
+
+use AC\Admin\Addon;
+
+class WooCommerce extends Addon {
 
 	public function __construct() {
 		parent::__construct( 'ac-addon-woocommerce' );
@@ -15,7 +19,7 @@ class AC_Admin_Addon_WooCommerce extends AC_Admin_Addon {
 	}
 
 	public function get_placeholder_column() {
-		$column = new AC_Column_WooCommercePlaceholder();
+		$column = new \AC_Column_WooCommercePlaceholder();
 		$column->set_addon( $this );
 
 		return $column;

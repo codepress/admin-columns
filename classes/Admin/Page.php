@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Admin_Page {
+namespace AC\Admin;
+
+abstract class Page {
 
 	/**
 	 * Should this page be displayed when no page is selected

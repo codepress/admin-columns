@@ -1,5 +1,7 @@
 <?php
 
+use AC\Admin\Addon;
+
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
  *
@@ -8,14 +10,14 @@
 class AC_Column_Placeholder extends AC_Column {
 
 	/**
-	 * @var AC_Admin_Addon
+	 * @var Addon
 	 */
 	private $addon;
 
 	/**
-	 * @param AC_Admin_Addon $addon
+	 * @param Addon $addon
 	 */
-	public function set_addon( AC_Admin_Addon $addon ) {
+	public function set_addon( Addon $addon ) {
 		$this->addon = $addon;
 
 		$this->set_type( 'placeholder-' . $addon->get_slug() );

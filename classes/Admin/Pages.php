@@ -1,9 +1,11 @@
 <?php
 
-final class AC_Admin_Pages {
+namespace AC\Admin;
+
+final class Pages {
 
 	/**
-	 * @var AC_Admin_Page[]
+	 * @var Page[]
 	 */
 	private $pages;
 
@@ -19,11 +21,11 @@ final class AC_Admin_Pages {
 	}
 
 	/**
-	 * @param AC_Admin_Page $page
+	 * @param Page $page
 	 *
-	 * @return AC_Admin_Pages
+	 * @return Pages
 	 */
-	public function register_page( AC_Admin_Page $page ) {
+	public function register_page( Page $page ) {
 		$this->pages[ $page->get_slug() ] = $page;
 
 		if ( $page->is_default() ) {
@@ -36,7 +38,7 @@ final class AC_Admin_Pages {
 	/**
 	 * @param $slug
 	 *
-	 * @return AC_Admin_Page|false
+	 * @return Page|false
 	 */
 	public function get_page( $slug ) {
 		$page = false;
@@ -49,7 +51,7 @@ final class AC_Admin_Pages {
 	}
 
 	/**
-	 * @return AC_Admin_Page|false
+	 * @return Page|false
 	 */
 	public function get_current_page() {
 		$page = $this->get_page( filter_input( INPUT_GET, 'tab' ) );
@@ -65,14 +67,14 @@ final class AC_Admin_Pages {
 	 * Register page hooks
 	 */
 	public function register() {
-		foreach  ( $this->pages as $page ) {
+		foreach ( $this->pages as $page ) {
 			$page->register();
 		}
 	}
 
 	public function display() { ?>
-        <div id="cpac" class="wrap">
-            <h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
+		<div id="cpac" class="wrap">
+			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
 				<?php
 
 				$active_page = $this->get_current_page();
@@ -86,7 +88,7 @@ final class AC_Admin_Pages {
 				}
 
 				?>
-            </h1>
+			</h1>
 
 			<?php
 
@@ -95,7 +97,7 @@ final class AC_Admin_Pages {
 			$active_page->display();
 
 			?>
-        </div>
+		</div>
 
 		<?php
 	}

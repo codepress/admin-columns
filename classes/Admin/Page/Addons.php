@@ -1,8 +1,13 @@
 <?php
 
+namespace AC\Admin\Page;
+
+use AC;
+use AC\Admin\Addon;
+use AC\Admin\Page;
 use AC\Message\Notice;
 
-class AC_Admin_Page_Addons extends AC_Admin_Page {
+class Addons extends Page {
 
 	public function __construct() {
 		$this
@@ -75,7 +80,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			return;
 		}
 
-		$plugin = new AC_PluginInformation( dirname( $basename ) );
+		$plugin = new \AC_PluginInformation( dirname( $basename ) );
 
 		switch ( $status ) {
 			case 'activate' :
@@ -89,7 +94,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		}
 	}
 
-	protected function show_activation_notice( AC_PluginInformation $plugin ) {
+	protected function show_activation_notice( \AC_PluginInformation $plugin ) {
 		$notice = Notice::with_register();
 
 		if ( $plugin->is_active() ) {
@@ -104,14 +109,14 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		$notice->set_message( $message );
 	}
 
-	protected function show_deactivation_notice( AC_PluginInformation $plugin ) {
+	protected function show_deactivation_notice( \AC_PluginInformation $plugin ) {
 		$message = sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' );
 
 		Notice::with_register()
 		      ->set_message( $message );
 	}
 
-	protected function show_addon_action_notice( AC_Admin_Addon $addon ) {
+	protected function show_addon_action_notice( Addon $addon ) {
 		$notice = Notice::with_register();
 
 		if ( ! $addon->is_plugin_installed() ) {
@@ -280,7 +285,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 			}
 		}
 
-		/* @var AC_Admin_Addon[] $sorted */
+		/* @var Addon[] $sorted */
 		$sorted = array_merge( $active, $inactive );
 
 		$grouped = array();
@@ -322,7 +327,7 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 				<ul>
 					<?php
 					foreach ( $group['addons'] as $addon ) :
-						/* @var AC_Admin_Addon $addon */ ?>
+						/* @var Addon $addon */ ?>
 						<li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
 							<div class="addon-header">
 								<div class="inner">

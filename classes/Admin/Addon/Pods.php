@@ -1,6 +1,10 @@
 <?php
 
-class AC_Admin_Addon_Pods extends AC_Admin_Addon {
+namespace AC\Admin\Addon;
+
+use AC\Admin\Addon;
+
+class Pods extends Addon {
 
 	public function __construct() {
 		parent::__construct( 'ac-addon-pods' );

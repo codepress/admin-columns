@@ -1,6 +1,13 @@
 <?php
 
-class AC_Admin_Page_Columns extends AC_Admin_Page {
+namespace AC\Admin\Page;
+
+use AC\Admin;
+use AC\Admin\Page;
+use AC\Admin\Promo;
+use AC\Capabilities;
+
+class Columns extends Page {
 
 	/**
 	 * @var array
@@ -8,7 +15,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private $notices;
 
 	/**
-	 * @var AC_ListScreen
+	 * @var \AC_ListScreen
 	 */
 	private $current_list_screen;
 
@@ -72,21 +79,21 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	public function set_current_list_screen() {
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
 		// User selected
-		$list_screen = AC_ListScreenFactory::create( filter_input( INPUT_GET, 'list_screen' ) );
+		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_GET, 'list_screen' ) );
 
 		// Preference
 		if ( ! $list_screen ) {
-			$list_screen = AC_ListScreenFactory::create( $this->preferences()->get( 'list_screen' ) );
+			$list_screen = \AC_ListScreenFactory::create( $this->preferences()->get( 'list_screen' ) );
 		}
 
 		// First one
 		if ( ! $list_screen ) {
-			$list_screen = AC_ListScreenFactory::create( key( AC_ListScreenFactory::get_types() ) );
+			$list_screen = \AC_ListScreenFactory::create( key( \AC_ListScreenFactory::get_types() ) );
 		}
 
 		// Load table headers
@@ -102,7 +109,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @return AC_ListScreen
+	 * @return \AC_ListScreen
 	 */
 	public function get_current_list_screen() {
 		return $this->current_list_screen;
@@ -112,7 +119,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Handle request
 	 */
 	public function handle_request() {
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -122,7 +129,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					$list_screen = AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 					$list_screen->delete();
 
 					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
@@ -136,7 +143,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * @since 3.0
 	 *
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 *
 	 * @return string $label
 	 */
@@ -154,11 +161,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @param AC_Column $column
+	 * @param \AC_Column $column
 	 *
 	 * @return string
 	 */
-	private function get_column_display( AC_Column $column ) {
+	private function get_column_display( \AC_Column $column ) {
 		ob_start();
 
 		$this->display_column( $column );
@@ -170,16 +177,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	 * Check is the ajax request is valid and user is allowed to make it
 	 *
 	 * @since 3.0
-	 * @return AC_ListScreen
+	 * @return \AC_ListScreen
 	 */
 	private function ajax_validate_request() {
 		check_ajax_referer( 'ac-settings' );
 
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			wp_die();
 		}
 
-		$list_screen = AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();
@@ -194,7 +201,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 *
 	 * @return string
 	 */
@@ -232,7 +239,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		}
 
 		// Placeholder message
-		if ( $column instanceof AC_Column_Placeholder ) {
+		if ( $column instanceof \AC_Column_Placeholder ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => $column->get_message(),
@@ -326,13 +333,13 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
 
-		foreach ( AC_ListScreenFactory::groups()->get_groups_sorted() as $group ) {
+		foreach ( \AC_ListScreenFactory::groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			if ( empty( $list_screens[ $slug ] ) ) {
@@ -354,7 +361,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	private function preferences() {
-		return new AC_Preferences_Site( 'settings' );
+		return new \AC_Preferences_Site( 'settings' );
 	}
 
 	/**
@@ -371,14 +378,14 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @return AC_Admin_Promo|false
+	 * @return Promo|false
 	 */
 	public function get_active_promotion() {
-		$classes = AC()->autoloader()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', AC()->get_prefix() );
+		$classes = \AC\Autoloader::instance()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', true );
 
 		foreach ( $classes as $class ) {
 
-			/* @var AC_Admin_Promo $promo */
+			/* @var Promo $promo */
 			$promo = new $class;
 
 			if ( $promo->is_active() ) {
@@ -404,11 +411,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 *
 	 * @return string
 	 */
-	private function get_read_only_message( AC_ListScreen $list_screen ) {
+	private function get_read_only_message( \AC_ListScreen $list_screen ) {
 		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
@@ -427,7 +434,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				<div class="menu">
 					<form>
 						<?php $this->nonce_field( 'select-list-screen' ); ?>
-						<input type="hidden" name="page" value="<?php echo esc_attr( AC_Admin::MENU_SLUG ); ?>">
+						<input type="hidden" name="page" value="<?php echo esc_attr( Admin::MENU_SLUG ); ?>">
 
 						<select name="list_screen" title="<?php esc_attr_e( 'Select type', 'codepress-admin-columns' ); ?>" id="ac_list_screen">
 							<?php foreach ( $this->get_grouped_list_screens() as $group ) : ?>
@@ -749,12 +756,12 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
-	 * @param string        $group
+	 * @param \AC_ListScreen $list_screen
+	 * @param string         $group
 	 *
-	 * @return AC_Column|false
+	 * @return \AC_Column|false
 	 */
-	private function get_column_template_by_group( AC_ListScreen $list_screen, $group = false ) {
+	private function get_column_template_by_group( \AC_ListScreen $list_screen, $group = false ) {
 		$types = $list_screen->get_column_types();
 
 		if ( ! $group ) {
@@ -783,7 +790,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * Get first custom group column
 	 */
-	private function display_column_template( AC_ListScreen $list_screen ) {
+	private function display_column_template( \AC_ListScreen $list_screen ) {
 		$column = $this->get_column_template_by_group( $list_screen, 'custom' );
 
 		if ( ! $column ) {
@@ -796,7 +803,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 	/**
 	 * @since 2.0
 	 */
-	public function display_column( AC_Column $column ) { ?>
+	public function display_column( \AC_Column $column ) { ?>
 
 		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>"
 				data-type="<?php echo esc_attr( $column->get_type() ); ?>"
@@ -816,7 +823,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									<?php
 
 									foreach ( $column->get_settings() as $setting ) {
-										if ( $setting instanceof AC_Settings_HeaderInterface ) {
+										if ( $setting instanceof \AC_Settings_HeaderInterface ) {
 											echo $setting->render_header();
 										}
 									}
@@ -826,7 +833,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 									 *
 									 * @since 2.0
 									 *
-									 * @param AC_Column $column_instance Column class instance
+									 * @param \AC_Column $column_instance Column class instance
 									 */
 									do_action( 'ac/column/header', $column );
 

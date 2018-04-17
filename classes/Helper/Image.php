@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Image {
+namespace AC\Helper;
+
+class Image {
 
 	/**
 	 * Resize image
@@ -305,7 +307,7 @@ class AC_Helper_Image {
 			return array();
 		}
 
-		$dom = new DOMDocument;
+		$dom = new \DOMDocument;
 		@$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
 
@@ -315,7 +317,7 @@ class AC_Helper_Image {
 
 		foreach ( $images as $img ) {
 
-			/** @var DOMElement $img */
+			/** @var \DOMElement $img */
 			$urls[] = $img->getAttribute( 'src' );
 		}
 

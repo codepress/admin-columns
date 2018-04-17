@@ -1,6 +1,10 @@
 <?php
 
-class AC_Admin_Promo_BlackFriday extends AC_Admin_Promo {
+namespace AC\Admin\Promo;
+
+use AC\Admin\Promo;
+
+class BlackFriday extends Promo {
 
 	public function __construct() {
 
@@ -8,10 +12,10 @@ class AC_Admin_Promo_BlackFriday extends AC_Admin_Promo {
 		$this->set_discount( 30 );
 
 		// 2016
-		$this->add_date_range( '2016-11-25','2016-11-29' );
+		$this->add_date_range( '2016-11-25', '2016-11-29' );
 
 		// 2017
-		$this->add_date_range( '2017-11-24','2017-11-28' );
+		$this->add_date_range( '2017-11-24', '2017-11-28' );
 	}
 
 }

@@ -1,6 +1,10 @@
 <?php
 
-class AC_Admin_Addon_NinjaForms extends AC_Admin_Addon {
+namespace AC\Admin\Addon;
+
+use AC\Admin\Addon;
+
+class NinjaForms extends Addon {
 
 	public function __construct() {
 		parent::__construct( 'ac-addon-ninjaforms' );

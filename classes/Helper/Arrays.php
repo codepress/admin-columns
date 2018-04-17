@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Array {
+namespace AC\Helper;
+
+class Arrays {
 
 	/**
 	 * Implode for multi dimensional array

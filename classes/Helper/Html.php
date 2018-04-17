@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Html {
+namespace AC\Helper;
+
+class Html {
 
 	/**
 	 * @param string $key

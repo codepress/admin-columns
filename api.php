@@ -2,10 +2,10 @@
 
 /**
  * @since 3.0
- * @return AC
+ * @return AC\AC
  */
 function AC() {
-	return AC::instance();
+	return AC\AC::instance();
 }
 
 /**
@@ -80,7 +80,7 @@ function ac_get_twitter_handle() {
  * @since 3.0
  */
 function ac_helper() {
-	return new AC_Helper();
+	return new \AC_Helper();
 }
 
 /**
