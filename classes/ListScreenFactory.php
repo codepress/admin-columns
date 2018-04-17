@@ -83,11 +83,10 @@ class AC_ListScreenFactory {
 	public static function get_post_types() {
 		$post_types = array();
 
-		if ( post_type_exists( 'post' ) ) {
-			$post_types['post'] = 'post';
-		}
-		if ( post_type_exists( 'page' ) ) {
-			$post_types['page'] = 'page';
+		foreach ( array( 'post', 'page' ) as $builtin ) {
+			if ( post_type_exists( $builtin ) ) {
+				$post_types[ $builtin ] = $builtin;
+			}
 		}
 
 		$post_types = array_merge( $post_types, get_post_types( array(
@@ -110,7 +109,6 @@ class AC_ListScreenFactory {
 	 */
 	public static function groups() {
 		$groups = new AC_Groups();
-
 		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'user', __( 'Users' ) );
 		$groups->register_group( 'media', __( 'Media' ) );

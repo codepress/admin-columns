@@ -60,7 +60,7 @@ class AC_Screen {
 	 * @return AC_ListScreen|false
 	 */
 	public function get_list_screen() {
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( AC_ListScreenFactory::get_types() as $list_screen ) {
 			if ( $list_screen->is_current_screen( $this->screen ) ) {
 				return $list_screen;
 			}
