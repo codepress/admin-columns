@@ -30,10 +30,6 @@ class Autoloader {
 		return self::$instance;
 	}
 
-	public static function string_to_classname( $string ) {
-		return implode( array_map( 'ucfirst', explode( '_', str_replace( '-', '_', $string ) ) ) );
-	}
-
 	/**
 	 * Register a prefix that should autoload
 	 *
@@ -41,7 +37,11 @@ class Autoloader {
 	 * @param $dir    string Path to directory where classes are stored
 	 */
 	public function register_prefix( $prefix, $dir ) {
-		$this->prefixes[ rtrim( $prefix, '_' ) ] = trailingslashit( $dir );
+		$prefix = rtrim( $prefix, '_' );
+		$dir = trailingslashit( $dir );
+
+		$this->prefixes[ str_replace( '_', '\\', $prefix ) ] = $dir;
+		$this->prefixes[ str_replace( '\\', '_', $prefix ) ] = $dir;
 
 		// make sure that more specific prefixes are checked first
 		krsort( $this->prefixes );
@@ -96,38 +96,80 @@ class Autoloader {
 		return false;
 	}
 
+	public static function string_to_classname( $string ) {
+		return implode( array_map( 'ucfirst', explode( '_', str_replace( '-', '_', $string ) ) ) );
+	}
+
+	/**
+	 * Check if a file contains a class with a namespace
+	 *
+	 * @param string $file
+	 *
+	 * @return bool
+	 */
+	protected function is_namespace( $file ) {
+		$tokens = token_get_all( file_get_contents( $file ) );
+
+		foreach ( $tokens as $token ) {
+			if ( is_array( $token ) && token_name( $token[0] ) == 'T_NAMESPACE' ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if a directory matches with a prefix
+	 *
+	 * @param $dir
+	 *
+	 * @return string|false
+	 */
+	protected function get_prefix( $dir ) {
+		foreach ( $this->prefixes as $prefix => $prefix_dir ) {
+			if ( 0 === strpos( $dir, $prefix_dir ) ) {
+				return $prefix;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if a class can be instantiated
+	 *
+	 * @param string $class
+	 *
+	 * @return bool
+	 */
+	protected function is_instantiable( $class ) {
+		$r = new \ReflectionClass( $class );
+
+		return $r->isInstantiable();
+	}
+
 	/**
 	 * Get list of all auto-loadable class names from a directory
 	 *
 	 * @param string $dir
-	 * @param bool   $use_namespaces Keep underscore until namespaces are mandatory
 	 *
 	 * @return array
 	 */
-	public function get_class_names_from_dir( $dir, $use_namespaces = false ) {
+	public function get_class_names_from_dir( $dir ) {
+		$list = array();
+
 		if ( ! is_dir( $dir ) ) {
-			return array();
+			return $list;
 		}
 
-		$separator = $use_namespaces ? '\\' : '_';
-		$class_base = false;
+		$prefix = $this->get_prefix( $dir );
 
-		foreach ( $this->prefixes as $prefix => $prefix_dir ) {
-			if ( 0 !== strpos( $dir, $prefix_dir ) ) {
-				continue;
-			}
-
-			$class_prefix = str_replace( $prefix_dir, '', $dir );
-			$class_base = str_replace( '/', $separator, $prefix . '/' . $class_prefix . '/' );
-
-			break;
+		if ( ! $prefix ) {
+			return $list;
 		}
 
-		if ( ! $class_base ) {
-			return array();
-		}
-
-		$classes = array();
+		$class_prefix = $prefix . '/' . str_replace( $this->prefixes[ $prefix ], '', $dir ) . '/';
 		$iterator = new \FilesystemIterator( $dir, \FilesystemIterator::SKIP_DOTS );
 
 		foreach ( $iterator as $leaf ) {
@@ -136,14 +178,16 @@ class Autoloader {
 				continue;
 			}
 
-			$r = new \ReflectionClass( $class_base . $leaf->getBasename( '.php' ) );
+			$separator = $this->is_namespace( $leaf->getPathname() ) ? '\\' : '_';
+			$class = str_replace( '/', $separator, $class_prefix ) . $leaf->getBasename( '.php' );
 
-			if ( $r->isInstantiable() ) {
-				$classes[] = $r->getName();
+			if ( ! $this->is_instantiable( $class ) ) {
+				continue;
 			}
+
+			$list[] = $class;
 		}
 
-		return $classes;
+		return $list;
 	}
-
 }

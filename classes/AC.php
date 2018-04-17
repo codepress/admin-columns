@@ -122,7 +122,7 @@ class AC extends \AC_Plugin {
 	}
 
 	public function get_prefix() {
-		return 'AC_';
+		return 'AC';
 	}
 
 	public function ready() {
