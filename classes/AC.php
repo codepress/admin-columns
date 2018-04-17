@@ -224,7 +224,7 @@ class AC extends \AC_Plugin {
 	 * @param \AC_ListScreen $list_screen
 	 */
 	public function register_list_screen( \AC_ListScreen $list_screen ) {
-		\AC_ListScreenFactory::register_list_screen( $list_screen );
+		ListScreenFactory::register_list_screen( $list_screen );
 	}
 
 	/**
@@ -271,9 +271,9 @@ class AC extends \AC_Plugin {
 	 * @return \AC_ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::create()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::create()' );
 
-		return \AC_ListScreenFactory::create( $key );
+		return ListScreenFactory::create( $key );
 	}
 
 	/**
@@ -286,7 +286,7 @@ class AC extends \AC_Plugin {
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
-		return \AC_ListScreenFactory::create( $key ) ? true : false;
+		return ListScreenFactory::create( $key ) ? true : false;
 	}
 
 	/**
@@ -298,9 +298,9 @@ class AC extends \AC_Plugin {
 	 * @return \AC_ListScreen[]
 	 */
 	public function get_list_screens() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_types()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::get_types()' );
 
-		return \AC_ListScreenFactory::get_types();
+		return ListScreenFactory::get_types();
 	}
 
 	/**
@@ -312,9 +312,9 @@ class AC extends \AC_Plugin {
 	 * @return array List of post type keys (e.g. post, page)
 	 */
 	public function get_post_types() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC_ListScreenFactory::get_post_types()' );
+		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::get_post_types()' );
 
-		return \AC_ListScreenFactory::get_post_types();
+		return ListScreenFactory::get_post_types();
 	}
 
 	/**
@@ -323,9 +323,9 @@ class AC extends \AC_Plugin {
 	 * @return \AC_Groups
 	 */
 	public function list_screen_groups() {
-		_deprecated_function( __METHOD__, '3.1.5', 'AC_ListScreenFactory::groups' );
+		_deprecated_function( __METHOD__, '3.1.5', 'ListScreenFactory::groups' );
 
-		return \AC_ListScreenFactory::groups();
+		return ListScreenFactory::groups();
 	}
 
 	/**

@@ -6,6 +6,7 @@ use AC\Admin;
 use AC\Admin\Page;
 use AC\Admin\Promo;
 use AC\Capabilities;
+use AC\ListScreenFactory;
 
 class Columns extends Page {
 
@@ -84,16 +85,16 @@ class Columns extends Page {
 		}
 
 		// User selected
-		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_GET, 'list_screen' ) );
+		$list_screen = ListScreenFactory::create( filter_input( INPUT_GET, 'list_screen' ) );
 
 		// Preference
 		if ( ! $list_screen ) {
-			$list_screen = \AC_ListScreenFactory::create( $this->preferences()->get( 'list_screen' ) );
+			$list_screen = ListScreenFactory::create( $this->preferences()->get( 'list_screen' ) );
 		}
 
 		// First one
 		if ( ! $list_screen ) {
-			$list_screen = \AC_ListScreenFactory::create( key( \AC_ListScreenFactory::get_types() ) );
+			$list_screen = ListScreenFactory::create( key( ListScreenFactory::get_types() ) );
 		}
 
 		// Load table headers
@@ -129,7 +130,7 @@ class Columns extends Page {
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 					$list_screen->delete();
 
 					$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
@@ -186,7 +187,7 @@ class Columns extends Page {
 			wp_die();
 		}
 
-		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();
@@ -333,13 +334,13 @@ class Columns extends Page {
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( ListScreenFactory::get_types() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
 
-		foreach ( \AC_ListScreenFactory::groups()->get_groups_sorted() as $group ) {
+		foreach ( ListScreenFactory::groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			if ( empty( $list_screens[ $slug ] ) ) {

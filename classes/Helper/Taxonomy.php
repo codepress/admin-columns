@@ -5,7 +5,7 @@ namespace AC\Helper;
 class Taxonomy {
 
 	/**
-	 * @param WP_Term[]   $terms Term objects
+	 * @param \WP_Term[]   $terms Term objects
 	 * @param null|string $post_type
 	 *
 	 * @return array
@@ -37,7 +37,7 @@ class Taxonomy {
 	}
 
 	/**
-	 * @param WP_Term $term
+	 * @param \WP_Term $term
 	 *
 	 * @return false|string
 	 */
@@ -116,7 +116,7 @@ class Taxonomy {
 	 * @param int    $term_ids
 	 * @param string $taxonomy
 	 *
-	 * @return WP_Term[]
+	 * @return \WP_Term[]
 	 */
 	public function get_terms_by_ids( $term_ids, $taxonomy ) {
 		$terms = array();

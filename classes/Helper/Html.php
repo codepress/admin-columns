@@ -198,13 +198,13 @@ class Html {
 		$internal_links = array();
 		$external_links = array();
 
-		$dom = new DOMDocument();
+		$dom = new \DOMDocument();
 		$dom->loadHTML( $string );
 
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var DOMElement $link */
+			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
 			if ( 0 === strpos( $href, '#' ) ) {

@@ -38,7 +38,7 @@ final class TableScreen {
 			$this->ajax_error( __( 'Invalid item ID.', 'codepress-admin-columns' ) );
 		}
 
-		$list_screen = \AC_ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			$this->ajax_error( __( 'Invalid list screen.', 'codepress-admin-columns' ) );
@@ -112,7 +112,7 @@ final class TableScreen {
 	/**
 	 * Add a download link to the table screen
 	 *
-	 * @param array   $actions
+	 * @param array    $actions
 	 * @param \WP_Post $post
 	 */
 	public function set_media_row_actions( $actions, $post ) {
@@ -128,7 +128,7 @@ final class TableScreen {
 	/**
 	 * Sets the inline data when the title columns is not present on a AC_ListScreen_Post screen
 	 *
-	 * @param array   $actions
+	 * @param array    $actions
 	 * @param \WP_Post $post
 	 */
 	public function set_inline_edit_data( $actions, $post ) {
@@ -365,7 +365,7 @@ final class TableScreen {
 	 * @param \WP_Screen $wp_screen
 	 */
 	public function load_list_screen( $wp_screen ) {
-		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( ListScreenFactory::get_types() as $list_screen ) {
 			if ( $wp_screen->id !== $list_screen->get_screen_id() ) {
 				continue;
 			}
@@ -406,7 +406,7 @@ final class TableScreen {
 					$list_screen = false;
 			}
 
-			$this->set_current_list_screen( \AC_ListScreenFactory::create( $list_screen ) );
+			$this->set_current_list_screen( ListScreenFactory::create( $list_screen ) );
 		}
 	}
 
@@ -481,7 +481,7 @@ final class TableScreen {
 			/**
 			 * @since 3.0
 			 *
-			 * @param string    $label
+			 * @param string     $label
 			 * @param \AC_Column $column
 			 */
 			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );

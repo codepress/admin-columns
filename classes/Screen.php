@@ -18,7 +18,7 @@ class Screen {
 	}
 
 	/**
-	 * @param WP_Screen $screen
+	 * @param \WP_Screen $screen
 	 */
 	public function init( \WP_Screen $screen ) {
 		$this->screen = $screen;
@@ -61,7 +61,7 @@ class Screen {
 	 * @return \AC_ListScreen|false
 	 */
 	public function get_list_screen() {
-		foreach ( \AC_ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( ListScreenFactory::get_types() as $list_screen ) {
 			if ( $list_screen->is_current_screen( $this->screen ) ) {
 				return $list_screen;
 			}

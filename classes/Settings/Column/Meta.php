@@ -1,5 +1,7 @@
 <?php
 
+use AC\Form\Element\Select;
+
 abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 
 	/**
@@ -14,7 +16,7 @@ abstract class AC_Settings_Column_Meta extends AC_Settings_Column {
 	}
 
 	/**
-	 * @return AC_Form_Element_Select
+	 * @return Select
 	 */
 	protected function get_setting_field() {
 		$setting = $this

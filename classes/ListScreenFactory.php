@@ -1,9 +1,11 @@
 <?php
 
-class AC_ListScreenFactory {
+namespace AC;
+
+class ListScreenFactory {
 
 	/**
-	 * @var AC_ListScreen[]
+	 * @var \AC_ListScreen[]
 	 */
 	static $types;
 
@@ -11,7 +13,7 @@ class AC_ListScreenFactory {
 	 * @param string $type
 	 * @param int    $id Optional (layout) ID
 	 *
-	 * @return AC_ListScreen|false
+	 * @return \AC_ListScreen|false
 	 */
 	public static function create( $type, $id = null ) {
 		$types = self::get_types();
@@ -31,22 +33,22 @@ class AC_ListScreenFactory {
 	 * Get registered list screens
 	 *
 	 * @since 3.0
-	 * @return AC_ListScreen[]
+	 * @return \AC_ListScreen[]
 	 */
 	public static function get_types() {
 		$list_screens = array();
 
 		// Post types
 		foreach ( self::get_post_types() as $post_type ) {
-			$list_screens[] = new AC_ListScreen_Post( $post_type );
+			$list_screens[] = new \AC_ListScreen_Post( $post_type );
 		}
 
-		$list_screens[] = new AC_ListScreen_Media();
-		$list_screens[] = new AC_ListScreen_Comment();
+		$list_screens[] = new \AC_ListScreen_Media();
+		$list_screens[] = new \AC_ListScreen_Comment();
 
 		// Users, not for network users
 		if ( ! is_multisite() ) {
-			$list_screens[] = new AC_ListScreen_User();
+			$list_screens[] = new \AC_ListScreen_User();
 		}
 
 		foreach ( $list_screens as $list_screen ) {
@@ -67,9 +69,9 @@ class AC_ListScreenFactory {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param \AC_ListScreen $list_screen
 	 */
-	public static function register_list_screen( AC_ListScreen $list_screen ) {
+	public static function register_list_screen( \AC_ListScreen $list_screen ) {
 		self::$types[ $list_screen->get_key() ] = $list_screen;
 	}
 
@@ -105,10 +107,10 @@ class AC_ListScreenFactory {
 	}
 
 	/**
-	 * @return AC_Groups
+	 * @return \AC_Groups
 	 */
 	public static function groups() {
-		$groups = new AC_Groups();
+		$groups = new \AC_Groups();
 		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
 		$groups->register_group( 'user', __( 'Users' ) );
 		$groups->register_group( 'media', __( 'Media' ) );
