@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Preferences {
+namespace AC;
+
+abstract class Preferences {
 
 	/**
 	 * @var int

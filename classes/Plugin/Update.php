@@ -2,11 +2,6 @@
 
 namespace AC\Plugin;
 
-/**
- * Class AC_Plugin_Update
- *
- * Assumes this regex for versions: ^[1-9]\.[0-9]\.[1-9][0-9]?$
- */
 abstract class Update {
 
 	/**
@@ -15,7 +10,7 @@ abstract class Update {
 	protected $stored_version;
 
 	/**
-	 * @var string
+	 * @var string Assumes this regex for versions: ^[1-9]\.[0-9]\.[1-9][0-9]?$
 	 */
 	protected $version;
 

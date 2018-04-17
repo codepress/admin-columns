@@ -2,10 +2,10 @@
 
 /**
  * @since 3.0
- * @return AC\AC
+ * @return AC\AdminColumns
  */
 function AC() {
-	return AC\AC::instance();
+	return AC\AdminColumns::instance();
 }
 
 /**

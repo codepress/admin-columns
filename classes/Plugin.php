@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Plugin extends AC\Addon {
+namespace AC;
+
+abstract class Plugin extends Addon {
 
 	/**
 	 * Check if plugin is network activated
@@ -65,13 +67,13 @@ abstract class AC_Plugin extends AC\Addon {
 			return;
 		}
 
-		$updater = new AC\Plugin\Updater( $this );
+		$updater = new Plugin\Updater( $this );
 
 		if ( ! $updater->check_update_conditions() ) {
 			return;
 		}
 
-		$classes = AC\Autoloader::instance()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update' );
+		$classes = Autoloader::instance()->get_class_names_from_dir( $this->get_plugin_dir() . 'classes/Plugin/Update' );
 
 		foreach ( $classes as $class ) {
 			$updater->add_update( new $class( $this->get_stored_version() ) );

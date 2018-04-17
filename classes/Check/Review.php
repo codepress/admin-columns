@@ -68,7 +68,7 @@ class Review
 	}
 
 	protected function get_preferences() {
-		return new \AC_Preferences_User( 'check-review' );
+		return new AC\Preferences\User( 'check-review' );
 	}
 
 	/**

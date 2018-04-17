@@ -4,6 +4,7 @@ namespace AC\Plugin;
 
 use AC\Capabilities;
 use AC\Message;
+use AC\Plugin;
 
 class Updater {
 
@@ -33,9 +34,9 @@ class Updater {
 	protected $plugin;
 
 	/**
-	 * @param \AC_Plugin $plugin
+	 * @param Plugin $plugin
 	 */
-	public function __construct( \AC_Plugin $plugin ) {
+	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
 		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
 		//$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );

@@ -21,6 +21,7 @@ class ACF extends Addon {
 
 	public function display_promo() {
 		echo $this->get_title() . ' ';
+
 		$this->display_icon();
 	}
 

@@ -1,6 +1,10 @@
 <?php
 
-class AC_Preferences_Site extends AC_Preferences {
+namespace AC\Preferences;
+
+use AC\Preferences;
+
+class Site extends Preferences {
 
 	/**
 	 * return array|false

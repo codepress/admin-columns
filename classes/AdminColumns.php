@@ -10,7 +10,7 @@ use AC\Check;
  *
  * @since 1.0
  */
-class AC extends \AC_Plugin {
+class AdminColumns extends Plugin {
 
 	/**
 	 * Admin Columns settings class instance

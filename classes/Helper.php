@@ -22,10 +22,19 @@ namespace AC;
  */
 final class Helper {
 
-
 	// TODO: test
 	public function __get( $helper ) {
-		$class = 'Helper\\' . ucfirst( $helper );
+		$class = 'AC\Helper\\' . ucfirst( $helper );
+
+		// TODO: hotfix
+		if ( $helper === 'string' ) {
+			$class = 'AC\Helper\Strings';
+		}
+
+		// TODO: hotfix
+		if ( $helper === 'array' ) {
+			$class = 'AC\Helper\Arrays';
+		}
 
 		if ( class_exists( $class ) ) {
 			return new $class;
