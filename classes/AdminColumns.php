@@ -56,13 +56,21 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		// Backwards compatibility
-		define( 'CPAC_VERSION', $this->get_version() );
-		define( 'CPAC_URL', $this->get_plugin_url() );
-		define( 'CPAC_DIR', $this->get_plugin_dir() );
-
 		// TODO: check this
 		new Screen();
+
+		class_alias( 'AC\ListScreen\Post', 'AC_ListScreen_Post' );
+
+		$post = new ListScreen\Post( 'post' );
+
+		print_r( $post );
+
+
+		$old_post = new \AC_ListScreen_Post( 'post' );
+
+		print_r( $old_post );
+
+		exit;
 
 		// Third Party
 		new ThirdParty\ACF();

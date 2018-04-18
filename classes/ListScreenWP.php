@@ -1,9 +1,11 @@
 <?php
 
+namespace AC;
+
 /**
  * @since 3.1
  */
-abstract class AC_ListScreenWP extends AC_ListScreen {
+abstract class ListScreenWP extends ListScreen {
 
 	/**
 	 * Class name of the WP_List_Table instance

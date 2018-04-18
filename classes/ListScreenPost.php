@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_ListScreenPost extends AC_ListScreenWP {
+namespace AC;
+
+abstract class ListScreenPost extends ListScreenWP {
 
 	/**
 	 * @var string Post type

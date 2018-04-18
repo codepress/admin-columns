@@ -1,6 +1,10 @@
 <?php
 
-class AC_ListScreen_Post extends AC_ListScreenPost {
+namespace AC\ListScreen;
+
+use AC\ListScreenPost;
+
+class Post extends ListScreenPost {
 
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
