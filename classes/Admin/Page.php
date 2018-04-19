@@ -122,6 +122,8 @@ abstract class Page {
 
 	/**
 	 * Nonce Field
+	 *
+	 * @param string $action
 	 */
 	public function nonce_field( $action ) {
 		wp_nonce_field( $action, '_ac_nonce', false );
