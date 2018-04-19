@@ -4,6 +4,7 @@ namespace AC\Settings;
 
 use AC;
 use AC\Form\Element;
+use AC\View;
 
 abstract class Column {
 
@@ -52,7 +53,7 @@ abstract class Column {
 	/**
 	 * Create a string representation of this setting
 	 *
-	 * @return AC\View|false
+	 * @return View|false
 	 */
 	public abstract function create_view();
 
@@ -316,7 +317,7 @@ abstract class Column {
 		/* @var Header $this */
 		$view = $this->create_header_view();
 
-		if ( ! ( $view instanceof AC\View ) ) {
+		if ( ! ( $view instanceof View ) ) {
 			return false;
 		}
 
@@ -339,7 +340,7 @@ abstract class Column {
 	public function render() {
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof AC\View ) ) {
+		if ( ! ( $view instanceof View ) ) {
 			return false;
 		}
 
@@ -357,7 +358,7 @@ abstract class Column {
 
 		// set default template for nested sections
 		foreach ( (array) $view->sections as $section ) {
-			if ( $section instanceof AC\View && null === $section->get_template() ) {
+			if ( $section instanceof View && null === $section->get_template() ) {
 				$section->set_template( $template );
 			}
 		}

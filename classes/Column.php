@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Collection;
 use AC\Settings;
 
 /**
@@ -41,7 +40,7 @@ class Column {
 	private $settings;
 
 	/**
-	 * @var Settings\FormatValueInterface[]|Settings\FormatCollectionInterface[]
+	 * @var Settings\FormatValue[]|Settings\FormatCollection[]
 	 */
 	private $formatters;
 
@@ -254,7 +253,7 @@ class Column {
 	public function get_formatters() {
 		if ( null === $this->formatters ) {
 			foreach ( $this->get_settings() as $setting ) {
-				if ( $setting instanceof Settings\FormatValueInterface || $setting instanceof Settings\FormatCollectionInterface ) {
+				if ( $setting instanceof Settings\FormatValue || $setting instanceof Settings\FormatCollection ) {
 					$this->formatters[] = $setting;
 				}
 			}
@@ -269,9 +268,9 @@ class Column {
 	public function get_settings() {
 		if ( null === $this->settings ) {
 			$settings = array(
-				new Settings\Column_Type( $this ),
-				new Settings\Column_Label( $this ),
-				new Settings\Column_Width( $this ),
+				new Settings\Column\Type( $this ),
+				new Settings\Column\Label( $this ),
+				new Settings\Column\Width( $this ),
 			);
 
 			foreach ( $settings as $setting ) {
@@ -355,7 +354,7 @@ class Column {
 
 		if ( $available > $current ) {
 			$is_collection = $value instanceof Collection;
-			$is_value_formatter = $formatters[ $current ] instanceof Settings\FormatValueInterface;
+			$is_value_formatter = $formatters[ $current ] instanceof Settings\FormatValue;
 
 			if ( $is_collection && $is_value_formatter ) {
 				foreach ( $value as $k => $v ) {
@@ -363,7 +362,7 @@ class Column {
 				}
 
 				while ( $available > $current ) {
-					if ( $formatters[ $current ] instanceof Settings\FormatCollectionInterface ) {
+					if ( $formatters[ $current ] instanceof Settings\FormatCollection ) {
 						return $this->get_formatted_value( $value, $original_value, $current );
 					}
 

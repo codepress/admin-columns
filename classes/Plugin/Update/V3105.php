@@ -3,6 +3,7 @@
 namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
+use AC\Preferences;
 
 class V3105 extends Update {
 
@@ -32,7 +33,7 @@ class V3105 extends Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$notices = new \AC_Preferences_User( 'notices' );
+				$notices = new Preferences\User( 'notices' );
 				$notices->set( 'dismiss-' . $new, (bool) $value );
 
 				delete_user_meta( $user_id, $old );

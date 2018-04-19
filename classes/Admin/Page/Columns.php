@@ -5,8 +5,13 @@ namespace AC\Admin\Page;
 use AC\Admin;
 use AC\Admin\Page;
 use AC\Admin\Promo;
+use AC\Autoloader;
 use AC\Capabilities;
+use AC\Column;
+use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Preferences;
+use AC\Settings;
 
 class Columns extends Page {
 
@@ -16,7 +21,7 @@ class Columns extends Page {
 	private $notices;
 
 	/**
-	 * @var \AC_ListScreen
+	 * @var ListScreen
 	 */
 	private $current_list_screen;
 
@@ -110,7 +115,7 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @return \AC_ListScreen
+	 * @return ListScreen
 	 */
 	public function get_current_list_screen() {
 		return $this->current_list_screen;
@@ -144,7 +149,7 @@ class Columns extends Page {
 	/**
 	 * @since 3.0
 	 *
-	 * @param \AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 *
 	 * @return string $label
 	 */
@@ -162,11 +167,11 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @param \AC_Column $column
+	 * @param Column $column
 	 *
 	 * @return string
 	 */
-	private function get_column_display( \AC_Column $column ) {
+	private function get_column_display( Column $column ) {
 		ob_start();
 
 		$this->display_column( $column );
@@ -178,7 +183,7 @@ class Columns extends Page {
 	 * Check is the ajax request is valid and user is allowed to make it
 	 *
 	 * @since 3.0
-	 * @return \AC_ListScreen
+	 * @return ListScreen
 	 */
 	private function ajax_validate_request() {
 		check_ajax_referer( 'ac-settings' );
@@ -202,7 +207,7 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @param \AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 *
 	 * @return string
 	 */
@@ -240,7 +245,7 @@ class Columns extends Page {
 		}
 
 		// Placeholder message
-		if ( $column instanceof \AC_Column_Placeholder ) {
+		if ( $column instanceof Column\Placeholder ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
 				'error' => $column->get_message(),
@@ -362,7 +367,7 @@ class Columns extends Page {
 	}
 
 	private function preferences() {
-		return new \AC_Preferences_Site( 'settings' );
+		return new Preferences\Site( 'settings' );
 	}
 
 	/**
@@ -382,7 +387,7 @@ class Columns extends Page {
 	 * @return Promo|false
 	 */
 	public function get_active_promotion() {
-		$classes = \AC\Autoloader::instance()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo', true );
+		$classes = Autoloader::instance()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Promo' );
 
 		foreach ( $classes as $class ) {
 
@@ -412,11 +417,11 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @param \AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 *
 	 * @return string
 	 */
-	private function get_read_only_message( \AC_ListScreen $list_screen ) {
+	private function get_read_only_message( ListScreen $list_screen ) {
 		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
@@ -757,12 +762,12 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @param \AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 * @param string         $group
 	 *
-	 * @return \AC_Column|false
+	 * @return Column|false
 	 */
-	private function get_column_template_by_group( \AC_ListScreen $list_screen, $group = false ) {
+	private function get_column_template_by_group( ListScreen $list_screen, $group = false ) {
 		$types = $list_screen->get_column_types();
 
 		if ( ! $group ) {
@@ -791,7 +796,7 @@ class Columns extends Page {
 	/**
 	 * Get first custom group column
 	 */
-	private function display_column_template( \AC_ListScreen $list_screen ) {
+	private function display_column_template( ListScreen $list_screen ) {
 		$column = $this->get_column_template_by_group( $list_screen, 'custom' );
 
 		if ( ! $column ) {
@@ -804,7 +809,7 @@ class Columns extends Page {
 	/**
 	 * @since 2.0
 	 */
-	public function display_column( \AC_Column $column ) { ?>
+	public function display_column( Column $column ) { ?>
 
 		<div class="ac-column ac-<?php echo esc_attr( $column->get_type() ); ?>"
 				data-type="<?php echo esc_attr( $column->get_type() ); ?>"
@@ -824,7 +829,7 @@ class Columns extends Page {
 									<?php
 
 									foreach ( $column->get_settings() as $setting ) {
-										if ( $setting instanceof \AC_Settings_HeaderInterface ) {
+										if ( $setting instanceof Settings\Header ) {
 											echo $setting->render_header();
 										}
 									}
@@ -834,7 +839,7 @@ class Columns extends Page {
 									 *
 									 * @since 2.0
 									 *
-									 * @param \AC_Column $column_instance Column class instance
+									 * @param Column $column_instance Column class instance
 									 */
 									do_action( 'ac/column/header', $column );
 

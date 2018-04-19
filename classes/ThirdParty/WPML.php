@@ -2,6 +2,7 @@
 
 namespace AC\Thirdparty;
 
+use AC\Column;
 use AC\ListScreenFactory;
 
 /**
@@ -57,7 +58,7 @@ class WPML {
 
 	/**
 	 * @param string $label
-	 * @param \AC_Column $column
+	 * @param Column $column
 	 *
 	 * @return string
 	 */

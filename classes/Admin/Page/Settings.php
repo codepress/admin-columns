@@ -2,9 +2,10 @@
 
 namespace AC\Admin\Page;
 
+use AC\Admin\Page;
 use AC\Capabilities;
 use AC\Message;
-use AC\Admin\Page;
+use AC\ListScreen;
 
 class Settings extends Page {
 
@@ -90,7 +91,7 @@ class Settings extends Page {
 			FROM $wpdb->options
 			WHERE option_name LIKE %s";
 
-		$wpdb->query( $wpdb->prepare( $sql, \AC_ListScreen::OPTIONS_KEY . '%' ) );
+		$wpdb->query( $wpdb->prepare( $sql, ListScreen::OPTIONS_KEY . '%' ) );
 
 		// @since 3.0
 		do_action( 'ac/restore_all_columns' );

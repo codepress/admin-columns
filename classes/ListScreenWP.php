@@ -8,9 +8,9 @@ namespace AC;
 abstract class ListScreenWP extends ListScreen {
 
 	/**
-	 * Class name of the WP_List_Table instance
+	 * Class name of the \WP_List_Table instance
 	 *
-	 * @see        WP_List_Table
+	 * @see        \WP_List_Table
 	 *
 	 * @since      3.0
 	 * @deprecated 3.1
@@ -20,7 +20,7 @@ abstract class ListScreenWP extends ListScreen {
 	private $list_table_class;
 
 	/**
-	 * @return WP_List_Table
+	 * @return \WP_List_Table
 	 */
 	abstract protected function get_list_table();
 
@@ -65,7 +65,7 @@ abstract class ListScreenWP extends ListScreen {
 	/**
 	 * Get default column headers
 	 *
-	 * @see WP_List_Table::get_columns()
+	 * @see \WP_List_Table::get_columns()
 	 *
 	 * @return array
 	 */

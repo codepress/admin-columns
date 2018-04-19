@@ -6,6 +6,7 @@ use AC;
 use AC\Admin\Addon;
 use AC\Admin\Page;
 use AC\Message\Notice;
+use AC\PluginInformation;
 
 class Addons extends Page {
 
@@ -80,7 +81,7 @@ class Addons extends Page {
 			return;
 		}
 
-		$plugin = new \AC_PluginInformation( dirname( $basename ) );
+		$plugin = new PluginInformation( dirname( $basename ) );
 
 		switch ( $status ) {
 			case 'activate' :
@@ -94,7 +95,7 @@ class Addons extends Page {
 		}
 	}
 
-	protected function show_activation_notice( \AC_PluginInformation $plugin ) {
+	protected function show_activation_notice( PluginInformation $plugin ) {
 		$notice = Notice::with_register();
 
 		if ( $plugin->is_active() ) {
@@ -109,7 +110,7 @@ class Addons extends Page {
 		$notice->set_message( $message );
 	}
 
-	protected function show_deactivation_notice( \AC_PluginInformation $plugin ) {
+	protected function show_deactivation_notice( PluginInformation $plugin ) {
 		$message = sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' );
 
 		Notice::with_register()

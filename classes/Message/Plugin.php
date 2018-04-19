@@ -3,6 +3,7 @@
 namespace AC\Message;
 
 use AC\Message;
+use AC\View;
 
 class Plugin extends Message {
 
@@ -60,7 +61,7 @@ class Plugin extends Message {
 			'status'          => $status,
 		);
 
-		$view = new \AC_View( $data );
+		$view = new View( $data );
 		$view->set_template( 'message/plugin' );
 
 		return $view;

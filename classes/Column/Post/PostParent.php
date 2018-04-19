@@ -7,8 +7,7 @@ use AC\Column;
 /**
  * @since 2.0
  */
-// TODO
-class Parent extends Column {
+class PostParent extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-parent' );

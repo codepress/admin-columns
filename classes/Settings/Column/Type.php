@@ -6,6 +6,7 @@ use AC;
 use AC\Groups;
 use AC\ListScreen;
 use AC\Settings\Column;
+use AC\View;
 
 class Type extends Column {
 

@@ -59,19 +59,6 @@ class AdminColumns extends Plugin {
 		// TODO: check this
 		new Screen();
 
-		class_alias( 'AC\ListScreen\Post', 'AC_ListScreen_Post' );
-
-		$post = new ListScreen\Post( 'post' );
-
-		print_r( $post );
-
-
-		$old_post = new ListScreen\Post( 'post' );
-
-		print_r( $old_post );
-
-		exit;
-
 		// Third Party
 		new ThirdParty\ACF();
 		new ThirdParty\NinjaForms();

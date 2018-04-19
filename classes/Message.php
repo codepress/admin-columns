@@ -34,15 +34,15 @@ abstract class Message {
 	/**
 	 * Create a view that can be rendered
 	 *
-	 * @return AC_View
+	 * @return View
 	 */
 	abstract protected function create_view();
 
 	/**
-	 * Render an AC_View
+	 * Render an View
 	 *
 	 * @return string
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function render() {
 		if ( empty( $this->message ) ) {
@@ -51,8 +51,8 @@ abstract class Message {
 
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof \AC_View ) ) {
-			throw new \Exception( 'AC_Notice::create_view should return an instance of AC_View' );
+		if ( ! ( $view instanceof View ) ) {
+			throw new \Exception( 'AC_Notice::create_view should return an instance of View' );
 		}
 
 		return $view->render();

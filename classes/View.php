@@ -2,8 +2,7 @@
 
 namespace AC;
 
-class View
-	implements ViewInterface {
+class View {
 
 	/**
 	 * @var array
@@ -87,6 +86,11 @@ class View
 		return false;
 	}
 
+	/**
+	 * Get a string representation of this object
+	 *
+	 * @return string
+	 */
 	public function render() {
 		ob_start();
 
@@ -113,6 +117,11 @@ class View
 		return $this;
 	}
 
+	/**
+	 * Should call self::render when treated as a string
+	 *
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->render();
 	}

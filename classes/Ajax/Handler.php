@@ -21,7 +21,7 @@ class Handler {
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function register() {
 		if ( ! $this->get_action() ) {

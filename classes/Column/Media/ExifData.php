@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * @since 2.0
  */
-class ExifData extends AC_Column_Media_MetaValue {
+class ExifData extends Column\Media\MetaValue {
 
 	public function __construct() {
 		parent::__construct();
@@ -21,7 +26,7 @@ class ExifData extends AC_Column_Media_MetaValue {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_ExifData( $this ) );
+		$this->add_setting( new Settings\Column\ExifData( $this ) );
 	}
 
 }

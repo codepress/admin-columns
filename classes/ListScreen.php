@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Column;
-
 /**
  * List Screen
  *
@@ -508,10 +506,8 @@ abstract class ListScreen {
 	/**
 	 * @param string $dir Absolute path to the column directory
 	 */
-
-	// TODO: remove prefix from add-ons
-	public function register_column_types_from_dir( $dir, $prefix = null ) {
-		$classes = AC\Autoloader::instance()->get_class_names_from_dir( $dir );
+	public function register_column_types_from_dir( $dir ) {
+		$classes = Autoloader::instance()->get_class_names_from_dir( $dir );
 
 		foreach ( $classes as $class ) {
 			$this->register_column_type( new $class );

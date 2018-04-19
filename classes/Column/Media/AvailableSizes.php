@@ -3,6 +3,7 @@
 namespace AC\Column\Media;
 
 use AC\Column;
+use AC\Settings;
 
 /**
  * @since 2.0
@@ -88,7 +89,7 @@ class AvailableSizes extends Column\Media\MetaValue {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_MissingImageSize( $this ) );
+		$this->add_setting( new Settings\Column\MissingImageSize( $this ) );
 	}
 
 }

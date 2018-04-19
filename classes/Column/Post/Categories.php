@@ -1,5 +1,9 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */

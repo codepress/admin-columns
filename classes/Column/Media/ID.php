@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class ID extends AC_Column {
+class ID extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-mediaid' );

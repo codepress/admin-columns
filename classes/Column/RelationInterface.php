@@ -4,6 +4,7 @@ namespace AC\Column;
 
 use AC\Relation;
 
+// TODO: change class name to Relation?
 interface RelationInterface {
 
 	/**

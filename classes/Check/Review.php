@@ -6,6 +6,7 @@ use AC\Ajax;
 use AC\Registrable;
 use AC\Screen;
 use AC\Message;
+use AC\Preferences;
 
 class Review
 	implements Registrable {
@@ -67,8 +68,11 @@ class Review
 		return $handler;
 	}
 
+	/**
+	 * @return Preferences\User
+	 */
 	protected function get_preferences() {
-		return new AC\Preferences\User( 'check-review' );
+		return new Preferences\User( 'check-review' );
 	}
 
 	/**

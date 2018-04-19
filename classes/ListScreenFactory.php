@@ -60,7 +60,7 @@ class ListScreenFactory {
 		 *
 		 * @since 3.0
 		 *
-		 * @param AC
+		 * @param \AC\
 		 */
 		// TODO
 		do_action( 'ac/list_screens', AC() );

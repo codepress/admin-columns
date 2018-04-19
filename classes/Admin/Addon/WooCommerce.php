@@ -3,6 +3,7 @@
 namespace AC\Admin\Addon;
 
 use AC\Admin\Addon;
+use AC\Column;
 
 class WooCommerce extends Addon {
 
@@ -19,7 +20,7 @@ class WooCommerce extends Addon {
 	}
 
 	public function get_placeholder_column() {
-		$column = new \AC_Column_WooCommercePlaceholder();
+		$column = new Column\WooCommercePlaceholder();
 		$column->set_addon( $this );
 
 		return $column;

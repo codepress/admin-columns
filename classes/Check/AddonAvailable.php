@@ -4,9 +4,10 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
+use AC\Message\Notice;
+use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
-use AC\Message\Notice;
 
 class AddonAvailable
 	implements Registrable {
@@ -29,12 +30,12 @@ class AddonAvailable
 	}
 
 	/**
-	 * @return \AC_Preferences_User
+	 * @return Preferences\User
 	 */
 	protected function get_preferences() {
 
 		// TODO
-		return new \AC_Preferences_User( 'check-addon-available' );
+		return new Preferences\User( 'check-addon-available' );
 	}
 
 	/**
@@ -46,7 +47,7 @@ class AddonAvailable
 	}
 
 	/**
-	 * @param AC_Screen $screen
+	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {

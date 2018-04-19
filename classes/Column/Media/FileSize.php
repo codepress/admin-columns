@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class FileSize extends AC_Column {
+class FileSize extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-file_size' );

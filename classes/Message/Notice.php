@@ -3,6 +3,7 @@
 namespace AC\Message;
 
 use AC\Message;
+use AC\View;
 
 class Notice extends Message {
 
@@ -20,7 +21,7 @@ class Notice extends Message {
 			'id'      => $this->id,
 		);
 
-		$view = new \AC_View( $data );
+		$view = new View( $data );
 		$view->set_template( 'message/notice' );
 
 		return $view;

@@ -23,12 +23,12 @@ class Post extends ListScreenPost {
 	}
 
 	/**
-	 * @return WP_Posts_List_Table
+	 * @return \WP_Posts_List_Table
 	 */
 	protected function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
-		return new WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new \WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**

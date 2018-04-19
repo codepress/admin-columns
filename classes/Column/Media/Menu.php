@@ -1,5 +1,9 @@
 <?php
 
-class Menu extends AC_Column_Post_Menu {
+namespace AC\Column\Media;
+
+use AC\Column;
+
+class Menu extends Column\Post\Menu {
 
 }

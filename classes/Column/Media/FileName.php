@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class FileName extends AC_Column_Meta {
+class FileName extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-file_name' );

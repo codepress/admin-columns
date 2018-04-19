@@ -58,7 +58,7 @@ class Screen {
 	}
 
 	/**
-	 * @return \AC_ListScreen|false
+	 * @return ListScreen|false
 	 */
 	public function get_list_screen() {
 		foreach ( ListScreenFactory::get_types() as $list_screen ) {
