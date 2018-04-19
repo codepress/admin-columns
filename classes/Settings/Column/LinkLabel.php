@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_LinkLabel extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class LinkLabel extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -13,7 +18,7 @@ class AC_Settings_Column_LinkLabel extends AC_Settings_Column
 	}
 
 	public function create_view() {
-		$view = new AC_View( array(
+		$view = new View( array(
 			'setting' => $this->create_element( 'text' ),
 			'label'   => __( 'Link Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Leave blank to display the url', 'codepress-admin-columns' ),

@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Media_AvailableSizes extends AC_Column_Media_MetaValue {
+class AvailableSizes extends Column\Media\MetaValue {
 
 	public function __construct() {
 		parent::__construct();

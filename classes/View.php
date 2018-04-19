@@ -1,7 +1,9 @@
 <?php
 
-class AC_View
-	implements AC_ViewInterface {
+namespace AC;
+
+class View
+	implements ViewInterface {
 
 	/**
 	 * @var array

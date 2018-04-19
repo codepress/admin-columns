@@ -1,6 +1,10 @@
 <?php
 
-class AC_Option_Timestamp extends AC_Option {
+namespace AC\Option;
+
+use AC\Option;
+
+class Timestamp extends Option {
 
 	/**
 	 * @param int|null $time
@@ -28,7 +32,7 @@ class AC_Option_Timestamp extends AC_Option {
 	 */
 	public function save( $value ) {
 		if ( preg_match( '/^1-9[0-9]*$/', $value ) ) {
-			throw new Exception( 'Value needs to be a positive integer' );
+			throw new \Exception( 'Value needs to be a positive integer' );
 		}
 
 		return parent::save( $value );

@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_PathScope extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class PathScope extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -22,7 +27,7 @@ class AC_Settings_Column_PathScope extends AC_Settings_Column
 			               'relative-uploads' => __( 'Relative to main uploads folder ', 'codepress-admin-columns' ),
 		               ) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Path scope', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Part of the file path to display', 'codepress-admin-columns' ),
 			'setting' => $select,

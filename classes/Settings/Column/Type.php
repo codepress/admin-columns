@@ -1,6 +1,13 @@
 <?php
 
-class AC_Settings_Column_Type extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC;
+use AC\Groups;
+use AC\ListScreen;
+use AC\Settings\Column;
+
+class Type extends Column {
 
 	/**
 	 * @var string
@@ -22,14 +29,14 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' );
 
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$tooltip .=  '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
 
 			if ( $this->column->get_name() ) {
 				$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
 			}
 		}
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'setting' => $type,
 			'label'   => __( 'Type', 'codepress-admin-columns' ),
 			'tooltip' => $tooltip,
@@ -41,11 +48,11 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	/**
 	 * Returns the type label as human readable: no tags, underscores and capitalized.
 	 *
-	 * @param AC_Column|null $column
+	 * @param AC\Column|null $column
 	 *
 	 * @return string
 	 */
-	private function get_clean_label( AC_Column $column ) {
+	private function get_clean_label( AC\Column $column ) {
 		$label = $column->get_label();
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
@@ -56,10 +63,10 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	}
 
 	/**
-	 * @return AC_Groups
+	 * @return Groups
 	 */
 	private function column_groups() {
-		$groups = new AC_Groups();
+		$groups = new Groups();
 
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
 		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
@@ -76,7 +83,7 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 *
 	 * @return array
 	 */
@@ -88,7 +95,7 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 
 			/**
 			 * @param string $group Group slug
-			 * @param AC_Column $column
+			 * @param Column $column
 			 */
 			$group = apply_filters( 'ac/column_group', $column->get_group(), $column );
 

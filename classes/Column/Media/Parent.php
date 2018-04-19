@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Media_Parent extends AC_Column {
+// TODO
+class Parent extends Column {
 
 	public function __construct() {
 		$this->set_original( true );

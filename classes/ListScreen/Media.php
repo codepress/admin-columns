@@ -1,6 +1,10 @@
 <?php
 
-class AC_ListScreen_Media extends AC_ListScreenPost {
+namespace AC\ListScreen;
+
+use AC;
+
+class Media extends AC\ListScreenPost {
 
 	public function __construct() {
 		parent::__construct( 'attachment' );
@@ -17,12 +21,12 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 	}
 
 	/**
-	 * @return WP_Media_List_Table
+	 * @return \WP_Media_List_Table
 	 */
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
 
-		return new WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new \WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_FullPath extends AC_Column {
+class FullPath extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-full_path' );

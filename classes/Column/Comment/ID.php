@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Comment_ID extends AC_Column {
+class ID extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_id' );

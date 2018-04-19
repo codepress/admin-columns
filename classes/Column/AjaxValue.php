@@ -1,6 +1,8 @@
 <?php
 
-interface AC_Column_AjaxValue {
+namespace AC\Column;
+
+interface AjaxValue {
 
 	/**
 	 * @param int $id

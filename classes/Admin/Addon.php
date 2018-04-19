@@ -2,6 +2,8 @@
 
 namespace AC\Admin;
 
+use AC;
+
 class Addon {
 
 	/**
@@ -29,14 +31,14 @@ class Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @var \AC_PluginInformation
+	 * @var AC\PluginInformation
 	 */
 	private $addon;
 
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
 	 *
-	 * @var \AC_PluginInformation[]
+	 * @var AC\PluginInformation[]
 	 */
 	private $plugins;
 
@@ -55,7 +57,7 @@ class Addon {
 	private $plugin_url;
 
 	public function __construct( $addon_dirname ) {
-		$this->addon = new \AC_PluginInformation( $addon_dirname );
+		$this->addon = new AC\PluginInformation( $addon_dirname );
 	}
 
 	/**
@@ -77,7 +79,7 @@ class Addon {
 	/**
 	 * Plugin folder name
 	 *
-	 * @return \AC_PluginInformation[]
+	 * @return AC\PluginInformation[]
 	 */
 	public function get_plugins() {
 		return $this->plugins;
@@ -87,13 +89,13 @@ class Addon {
 	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
 	 */
 	protected function add_plugin( $plugin ) {
-		$this->plugins[] = new \AC_PluginInformation( $plugin );
+		$this->plugins[] = new AC\PluginInformation( $plugin );
 
 		return $this;
 	}
 
 	/**
-	 * @return \AC_PluginInformation
+	 * @return AC\PluginInformation
 	 */
 	public function get_plugin() {
 		return $this->plugins[0];
@@ -239,7 +241,7 @@ class Addon {
 	 */
 	public function display_icon() {
 		if ( $this->get_icon() ) : ?>
-            <img class="icon <?php echo esc_attr( $this->get_slug() ); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
+			<img class="icon <?php echo esc_attr( $this->get_slug() ); ?>" src="<?php echo esc_attr( $this->get_icon() ); ?>" alt="<?php echo esc_attr( $this->get_title() ); ?>">
 		<?php endif;
 	}
 
@@ -254,10 +256,10 @@ class Addon {
 	}
 
 	/**
-	 * @return \AC_Column_Placeholder
+	 * @return AC\Column\Placeholder
 	 */
 	public function get_placeholder_column() {
-		$column = new \AC_Column_Placeholder();
+		$column = new AC\Column\Placeholder();
 		$column->set_addon( $this );
 
 		return $column;

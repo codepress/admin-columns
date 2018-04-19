@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Media_Caption extends AC_Column {
+class Caption extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-caption' );

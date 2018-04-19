@@ -1,7 +1,12 @@
 <?php
 
-abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+abstract class DateTimeFormat extends Settings\Column
+	implements Settings\FormatValue {
 
 	private $date_format;
 
@@ -43,7 +48,7 @@ abstract class AC_Settings_Column_DateTimeFormat extends AC_Settings_Column
 			->create_element( 'text' )
 			->set_attribute( 'placeholder', $this->get_default() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'setting'      => $setting,
 			'date_format'  => $this->get_date_format(),
 			'date_options' => $this->get_date_options(),

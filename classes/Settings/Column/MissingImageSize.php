@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_MissingImageSize extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class MissingImageSize extends Settings\Column {
 
 	private $include_missing_sizes;
 
@@ -18,7 +23,7 @@ class AC_Settings_Column_MissingImageSize extends AC_Settings_Column {
 			                ''  => __( 'No' ),
 		                ) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Include missing sizes?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Include sizes that are missing an image file.', 'codepress-admin-columns' ),
 			'setting' => $setting,

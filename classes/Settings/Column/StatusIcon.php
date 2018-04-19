@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_StatusIcon extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class StatusIcon extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var bool
@@ -20,7 +25,7 @@ class AC_Settings_Column_StatusIcon extends AC_Settings_Column
 			                ''  => __( 'No' ),
 		                ) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Use an icon?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use an icon instead of text for displaying the status.', 'codepress-admin-columns' ),
 			'setting' => $setting,

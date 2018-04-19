@@ -1,13 +1,16 @@
 <?php
 
+namespace AC\Column;
+
 use AC\Admin\Addon;
+use AC\Column;
 
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
  *
  * @since 2.2
  */
-class AC_Column_Placeholder extends AC_Column {
+class Placeholder extends Column {
 
 	/**
 	 * @var Addon

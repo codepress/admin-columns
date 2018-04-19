@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\ListScreen;
+
+use AC;
+
 /**
  * @since 2.0
  */
-class AC_ListScreen_Comment extends AC_ListScreenWP {
+class Comment extends AC\ListScreenWP {
 
 	public function __construct() {
 
@@ -19,21 +23,21 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 	/**
 	 * @param int $id
 	 *
-	 * @return WP_Comment
+	 * @return \WP_Comment
 	 */
 	protected function get_object( $id ) {
 		return get_comment( $id );
 	}
 
 	/**
-	 * @return WP_Comments_List_Table
+	 * @return \WP_Comments_List_Table
 	 */
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
 
-		$table = new WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		$table = new \WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
 
-		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
+		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
 		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10 );
 
@@ -63,8 +67,8 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 	 * Register column types
 	 */
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Actions );
+		$this->register_column_type( new AC\Column\CustomField );
+		$this->register_column_type( new AC\Column\Actions );
 
 		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment' );
 	}

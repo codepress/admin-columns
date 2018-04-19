@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Column;
+
 /**
  * List Screen
  *
@@ -56,7 +58,7 @@ abstract class ListScreen {
 	/**
 	 * Name of the base PHP file (without extension).
 	 *
-	 * @see   WP_Screen::base
+	 * @see   \WP_Screen::base
 	 *
 	 * @since 2.0
 	 * @var string
@@ -66,7 +68,7 @@ abstract class ListScreen {
 	/**
 	 * The unique ID of the screen.
 	 *
-	 * @see   WP_Screen::id
+	 * @see   \WP_Screen::id
 	 *
 	 * @since 2.5
 	 * @var string
@@ -75,13 +77,13 @@ abstract class ListScreen {
 
 	/**
 	 * @since 2.0.1
-	 * @var AC_Column[]
+	 * @var Column[]
 	 */
 	private $columns;
 
 	/**
 	 * @since 2.2
-	 * @var AC_Column[]
+	 * @var Column[]
 	 */
 	private $column_types;
 
@@ -249,7 +251,7 @@ abstract class ListScreen {
 	/**
 	 * @since 2.0.3
 	 *
-	 * @param WP_Screen $screen
+	 * @param \WP_Screen $screen
 	 *
 	 * @return boolean
 	 */
@@ -310,7 +312,7 @@ abstract class ListScreen {
 	/**
 	 * @since 3.0
 	 *
-	 * @return AC_Column[]
+	 * @return Column[]
 	 */
 	public function get_columns() {
 		if ( null === $this->columns ) {
@@ -321,7 +323,7 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @return AC_Column[]
+	 * @return Column[]
 	 */
 	public function get_column_types() {
 		if ( null === $this->column_types ) {
@@ -344,7 +346,7 @@ abstract class ListScreen {
 
 	/**
 	 * @since 2.0
-	 * @return false|AC_Column
+	 * @return false|Column
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
@@ -364,7 +366,7 @@ abstract class ListScreen {
 	/**
 	 * @param string $type
 	 *
-	 * @return false|AC_Column
+	 * @return false|Column
 	 */
 	public function get_column_by_type( $type ) {
 		$column_types = $this->get_column_types();
@@ -401,9 +403,9 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param AC_Column $column
+	 * @param Column $column
 	 */
-	public function register_column_type( AC_Column $column ) {
+	public function register_column_type( Column $column ) {
 		if ( ! $column->get_type() ) {
 			return;
 		}
@@ -476,7 +478,7 @@ abstract class ListScreen {
 				continue;
 			}
 
-			$column = new AC_Column();
+			$column = new Column();
 
 			$column
 				->set_type( $type )
@@ -498,7 +500,7 @@ abstract class ListScreen {
 		/**
 		 * Register column types
 		 *
-		 * @param AC_ListScreen $this
+		 * @param ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
 	}
@@ -534,7 +536,7 @@ abstract class ListScreen {
 	/**
 	 * @param array $settings Column options
 	 *
-	 * @return AC_Column|false
+	 * @return Column|false
 	 */
 	public function create_column( array $settings ) {
 		if ( ! isset( $settings['type'] ) ) {
@@ -547,7 +549,7 @@ abstract class ListScreen {
 			return false;
 		}
 
-		/* @var AC_Column $column */
+		/* @var Column $column */
 		$column = new $class();
 
 		$column->set_list_screen( $this )
@@ -581,7 +583,7 @@ abstract class ListScreen {
 	/**
 	 * @param array $data Column options
 	 */
-	protected function register_column( AC_Column $column ) {
+	protected function register_column( Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
 
 		/**
@@ -590,8 +592,8 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0.5
 		 *
-		 * @param AC_Column     $column      Column type object
-		 * @param AC_ListScreen $list_screen List screen object to which the column was registered
+		 * @param Column        $column      Column type object
+		 * @param ListScreen $list_screen List screen object to which the column was registered
 		 */
 		do_action( 'ac/list_screen/column_registered', $column, $this );
 	}
@@ -627,11 +629,11 @@ abstract class ListScreen {
 	 *
 	 * @param array $column_data
 	 *
-	 * @return WP_Error|true
+	 * @return \WP_Error|true
 	 */
 	public function store( $column_data ) {
 		if ( ! $column_data ) {
-			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+			return new \WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
 		$settings = array();
@@ -679,7 +681,7 @@ abstract class ListScreen {
 		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
 
 		if ( ! $result ) {
-			return new WP_Error( 'same-settings' );
+			return new \WP_Error( 'same-settings' );
 		}
 
 		/**
@@ -688,7 +690,7 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0
 		 *
-		 * @param AC_ListScreen $list_screen
+		 * @param ListScreen $list_screen
 		 */
 		do_action( 'ac/columns_stored', $this );
 
@@ -772,7 +774,7 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0.8
 		 *
-		 * @param AC_ListScreen $list_screen
+		 * @param ListScreen $list_screen
 		 */
 		do_action( 'ac/columns_delete', $this );
 
@@ -805,9 +807,9 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0
 		 *
-		 * @param string    $value  Column display value
-		 * @param int       $id     Object ID
-		 * @param AC_Column $column Column object
+		 * @param string $value  Column display value
+		 * @param int    $id     Object ID
+		 * @param Column $column Column object
 		 */
 		$value = apply_filters( 'ac/column/value', $value, $id, $column );
 

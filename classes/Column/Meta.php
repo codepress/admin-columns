@@ -1,6 +1,10 @@
 <?php
 
-abstract class AC_Column_Meta extends AC_Column {
+namespace AC\Column;
+
+use AC\Column;
+
+abstract class Meta extends Column {
 
 	/**
 	 * Return the meta_key of this column

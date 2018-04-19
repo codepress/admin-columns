@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_UserLink extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class UserLink extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -51,7 +56,7 @@ class AC_Settings_Column_UserLink extends AC_Settings_Column
 	public function create_view() {
 		$select = $this->create_element( 'select' )->set_options( $this->get_display_options() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );

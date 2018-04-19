@@ -1,11 +1,15 @@
 <?php
 
-interface AC_Column_RelationInterface {
+namespace AC\Column;
+
+use AC\Relation;
+
+interface RelationInterface {
 
 	/**
 	 * Return information about the relation this column has.
 	 *
-	 * @return AC_Relation
+	 * @return Relation
 	 */
 	public function get_relation_object();
 

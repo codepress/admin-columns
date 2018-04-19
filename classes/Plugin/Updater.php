@@ -29,7 +29,7 @@ class Updater {
 	protected $updates;
 
 	/**
-	 * @var \AC_Plugin
+	 * @var Plugin
 	 */
 	protected $plugin;
 

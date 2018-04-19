@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_User_LastName extends AC_Column_Meta {
+class LastName extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-last_name' );

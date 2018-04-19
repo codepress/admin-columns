@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_FileSize extends AC_Column {
+class FileSize extends AC_Column {
 
 	public function __construct() {
 		$this->set_type( 'column-file_size' );

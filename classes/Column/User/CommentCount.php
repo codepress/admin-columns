@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_User_CommentCount extends AC_Column {
+class CommentCount extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-user_commentcount' );

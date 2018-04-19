@@ -1,9 +1,14 @@
 <?php
 
+namespace AC;
+
+use AC\Collection;
+use AC\Settings;
+
 /**
  * @since 3.0
  */
-class AC_Column {
+class Column {
 
 	/**
 	 * @var string Unique Name
@@ -31,17 +36,17 @@ class AC_Column {
 	private $original = false;
 
 	/**
-	 * @var AC_Settings_Column[]
+	 * @var Settings\Column[]
 	 */
 	private $settings;
 
 	/**
-	 * @var AC_Settings_FormatValueInterface[]|AC_Settings_FormatCollectionInterface[]
+	 * @var Settings\FormatValueInterface[]|Settings\FormatCollectionInterface[]
 	 */
 	private $formatters;
 
 	/**
-	 * @var AC_ListScreen
+	 * @var ListScreen
 	 */
 	protected $list_screen;
 
@@ -95,18 +100,18 @@ class AC_Column {
 	}
 
 	/**
-	 * @return AC_ListScreen
+	 * @return ListScreen
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 *
 	 * @return $this
 	 */
-	public function set_list_screen( AC_ListScreen $list_screen ) {
+	public function set_list_screen( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
 
 		return $this;
@@ -212,11 +217,11 @@ class AC_Column {
 	}
 
 	/**
-	 * @param AC_Settings_Column $setting
+	 * @param Settings\Column $setting
 	 *
 	 * @return $this
 	 */
-	public function add_setting( AC_Settings_Column $setting ) {
+	public function add_setting( Settings\Column $setting ) {
 		$setting->set_values( $this->options );
 
 		$this->settings[ $setting->get_name() ] = $setting;
@@ -240,7 +245,7 @@ class AC_Column {
 	/**
 	 * @param string $id
 	 *
-	 * @return AC_Settings_Column|AC_Settings_Column_User|AC_Settings_Column_Separator|AC_Settings_Column_Label
+	 * @return Settings\Column|Settings\Column\User|Settings\Column\Separator|Settings\Column\Label
 	 */
 	public function get_setting( $id ) {
 		return $this->get_settings()->get( $id );
@@ -249,7 +254,7 @@ class AC_Column {
 	public function get_formatters() {
 		if ( null === $this->formatters ) {
 			foreach ( $this->get_settings() as $setting ) {
-				if ( $setting instanceof AC_Settings_FormatValueInterface || $setting instanceof AC_Settings_FormatCollectionInterface ) {
+				if ( $setting instanceof Settings\FormatValueInterface || $setting instanceof Settings\FormatCollectionInterface ) {
 					$this->formatters[] = $setting;
 				}
 			}
@@ -259,14 +264,14 @@ class AC_Column {
 	}
 
 	/**
-	 * @return AC_Collection
+	 * @return Collection
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
 			$settings = array(
-				new AC_Settings_Column_Type( $this ),
-				new AC_Settings_Column_Label( $this ),
-				new AC_Settings_Column_Width( $this ),
+				new Settings\Column_Type( $this ),
+				new Settings\Column_Label( $this ),
+				new Settings\Column_Width( $this ),
 			);
 
 			foreach ( $settings as $setting ) {
@@ -278,7 +283,7 @@ class AC_Column {
 			do_action( 'ac/column/settings', $this );
 		}
 
-		return new AC_Collection( $this->settings );
+		return new Collection( $this->settings );
 	}
 
 	/**
@@ -349,8 +354,8 @@ class AC_Column {
 		}
 
 		if ( $available > $current ) {
-			$is_collection = $value instanceof AC_Collection;
-			$is_value_formatter = $formatters[ $current ] instanceof AC_Settings_FormatValueInterface;
+			$is_collection = $value instanceof Collection;
+			$is_value_formatter = $formatters[ $current ] instanceof Settings\FormatValueInterface;
 
 			if ( $is_collection && $is_value_formatter ) {
 				foreach ( $value as $k => $v ) {
@@ -358,7 +363,7 @@ class AC_Column {
 				}
 
 				while ( $available > $current ) {
-					if ( $formatters[ $current ] instanceof AC_Settings_FormatCollectionInterface ) {
+					if ( $formatters[ $current ] instanceof Settings\FormatCollectionInterface ) {
 						return $this->get_formatted_value( $value, $original_value, $current );
 					}
 
@@ -398,7 +403,7 @@ class AC_Column {
 	public function get_value( $id ) {
 		$value = $this->get_formatted_value( $this->get_raw_value( $id ), $id );
 
-		if ( $value instanceof AC_Collection ) {
+		if ( $value instanceof Collection ) {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 

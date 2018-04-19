@@ -1,6 +1,8 @@
 <?php
 
-class AC_Option {
+namespace AC;
+
+class Option {
 
 	/**
 	 * @var string

@@ -1,9 +1,13 @@
 <?php
 
-class AC_Relation_Taxonomy extends AC_Relation {
+namespace AC\Relation;
+
+use AC\Relation;
+
+class Taxonomy extends Relation {
 
 	/**
-	 * @var stdClass
+	 * @var \stdClass
 	 */
 	private $taxonomy;
 

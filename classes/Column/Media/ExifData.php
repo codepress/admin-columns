@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class AC_Column_Media_ExifData extends AC_Column_Media_MetaValue {
+class ExifData extends AC_Column_Media_MetaValue {
 
 	public function __construct() {
 		parent::__construct();

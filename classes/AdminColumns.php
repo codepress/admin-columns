@@ -66,7 +66,7 @@ class AdminColumns extends Plugin {
 		print_r( $post );
 
 
-		$old_post = new \AC_ListScreen_Post( 'post' );
+		$old_post = new ListScreen\Post( 'post' );
 
 		print_r( $old_post );
 
@@ -229,9 +229,9 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @param \AC_ListScreen $list_screen
+	 * @param ListScreen $list_screen
 	 */
-	public function register_list_screen( \AC_ListScreen $list_screen ) {
+	public function register_list_screen( ListScreen $list_screen ) {
 		ListScreenFactory::register_list_screen( $list_screen );
 	}
 
@@ -276,7 +276,7 @@ class AdminColumns extends Plugin {
 	 *
 	 * @param string $key
 	 *
-	 * @return \AC_ListScreen|false
+	 * @return ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::create()' );
@@ -303,7 +303,7 @@ class AdminColumns extends Plugin {
 	 * @since      3.0
 	 * @deprecated NEWVERSION
 	 *
-	 * @return \AC_ListScreen[]
+	 * @return ListScreen[]
 	 */
 	public function get_list_screens() {
 		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::get_types()' );
@@ -328,7 +328,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @deprecated NEWVERSION
 	 *
-	 * @return \AC_Groups
+	 * @return Groups
 	 */
 	public function list_screen_groups() {
 		_deprecated_function( __METHOD__, '3.1.5', 'ListScreenFactory::groups' );
@@ -339,12 +339,12 @@ class AdminColumns extends Plugin {
 	/**
 	 *
 	 * @deprecated NEWVERSION
-	 * @return \AC_Groups
+	 * @return Groups
 	 */
 	public function column_groups() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
-		return new \AC_Groups();
+		return new Groups();
 	}
 
 	/**

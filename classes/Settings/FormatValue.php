@@ -1,6 +1,8 @@
 <?php
 
-interface AC_Settings_FormatValueInterface {
+namespace AC\Settings;
+
+interface FormatValue {
 
 	/**
 	 * @param mixed $value

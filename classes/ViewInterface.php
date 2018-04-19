@@ -1,6 +1,8 @@
 <?php
 
-interface AC_ViewInterface {
+namespace AC;
+
+interface ViewInterface {
 
 	/**
 	 * Get a string representation of this object

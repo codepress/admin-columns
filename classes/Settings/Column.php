@@ -1,8 +1,11 @@
 <?php
 
+namespace AC\Settings;
+
+use AC;
 use AC\Form\Element;
 
-abstract class AC_Settings_Column {
+abstract class Column {
 
 	/**
 	 * A (short) reference to this setting
@@ -19,7 +22,7 @@ abstract class AC_Settings_Column {
 	protected $options = array();
 
 	/**
-	 * @var AC_Column
+	 * @var AC\Column
 	 */
 	protected $column;
 
@@ -31,9 +34,9 @@ abstract class AC_Settings_Column {
 	private $user_set = array();
 
 	/**
-	 * @param AC_Column $column
+	 * @param Column $column
 	 */
-	public function __construct( AC_Column $column ) {
+	public function __construct( AC\Column $column ) {
 		$this->column = $column;
 
 		$this->set_options();
@@ -49,14 +52,14 @@ abstract class AC_Settings_Column {
 	/**
 	 * Create a string representation of this setting
 	 *
-	 * @return AC_View|false
+	 * @return AC\View|false
 	 */
 	public abstract function create_view();
 
 	/**
 	 * Get settings that depend on this setting
 	 *
-	 * @return AC_Settings_Column[]
+	 * @return Column[]
 	 */
 	public function get_dependent_settings() {
 		return array();
@@ -278,7 +281,7 @@ abstract class AC_Settings_Column {
 
 				break;
 			case 'select' :
-				$element = new AC_Settings_Form_Element_Select( $name );
+				$element = new Element\Select( $name );
 
 				break;
 			default:
@@ -306,14 +309,14 @@ abstract class AC_Settings_Column {
 	 * @return false|string
 	 */
 	public function render_header() {
-		if ( ! ( $this instanceof AC_Settings_HeaderInterface ) ) {
+		if ( ! ( $this instanceof Header ) ) {
 			return false;
 		}
 
-		/* @var AC_Settings_HeaderInterface $this */
+		/* @var Header $this */
 		$view = $this->create_header_view();
 
-		if ( ! ( $view instanceof AC_View ) ) {
+		if ( ! ( $view instanceof AC\View ) ) {
 			return false;
 		}
 
@@ -336,7 +339,7 @@ abstract class AC_Settings_Column {
 	public function render() {
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof AC_View ) ) {
+		if ( ! ( $view instanceof AC\View ) ) {
 			return false;
 		}
 
@@ -354,7 +357,7 @@ abstract class AC_Settings_Column {
 
 		// set default template for nested sections
 		foreach ( (array) $view->sections as $section ) {
-			if ( $section instanceof AC_View && null === $section->get_template() ) {
+			if ( $section instanceof AC\View && null === $section->get_template() ) {
 				$section->set_template( $template );
 			}
 		}

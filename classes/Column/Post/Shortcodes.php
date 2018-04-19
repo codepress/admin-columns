@@ -1,11 +1,15 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * Display used shortcodes
  *
  * @since 2.3.5
  */
-class AC_Column_Post_Shortcodes extends AC_Column {
+class Shortcodes extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-shortcode' );

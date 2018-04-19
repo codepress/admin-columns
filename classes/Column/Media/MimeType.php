@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Media_MimeType extends AC_Column {
+class MimeType extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-mime_type' );

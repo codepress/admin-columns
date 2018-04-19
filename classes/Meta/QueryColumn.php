@@ -1,14 +1,18 @@
 <?php
 
-class AC_Meta_QueryColumn extends AC_Meta_Query {
+namespace AC\Meta;
+
+use AC\Column;
+
+class QueryColumn extends Query {
 
 	/**
-	 * @param AC_Column $column
+	 * @param Column $column
 	 */
-	public function __construct( AC_Column $column ) {
+	public function __construct( Column $column ) {
 		parent::__construct( $column->get_list_screen()->get_meta_type() );
 
-		if ( $column instanceof AC_Column_Meta ) {
+		if ( $column instanceof Column\Meta ) {
 			$this->join_where( 'meta_key', $column->get_meta_key() );
 		}
 

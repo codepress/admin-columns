@@ -1,5 +1,10 @@
 <?php
 
+namespace AC\Column;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * Custom field column, displaying the contents of meta fields.
  * Suited for all list screens supporting WordPress' default way of handling meta data.
@@ -9,7 +14,7 @@
  *
  * @since 1.0
  */
-class AC_Column_CustomField extends AC_Column_Meta {
+class CustomField extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-meta' );
@@ -22,8 +27,8 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_CustomField( $this ) );
-		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
+		$this->add_setting( new Settings\Column\CustomField( $this ) );
+		$this->add_setting( new Settings\Column\BeforeAfter( $this ) );
 	}
 
 	/**

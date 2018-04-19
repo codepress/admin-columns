@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_Term extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Term extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -25,7 +30,7 @@ class AC_Settings_Column_Term extends AC_Settings_Column
 				'id'   => __( 'ID' ),
 			) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );

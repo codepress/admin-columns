@@ -1,6 +1,10 @@
 <?php
 
-class AC_Column_User_RichEditing extends AC_Column {
+namespace AC\Column\User;
+
+use AC\Column;
+
+class RichEditing extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-rich_editing' );

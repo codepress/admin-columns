@@ -1,12 +1,17 @@
 <?php
 
+namespace AC\Column;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * Column displaying the menus the item is used in. Supported by all object types that
  * can be referenced in menus (i.e. posts).
  *
  * @since 2.2.5
  */
-abstract class AC_Column_Menu extends AC_Column {
+abstract class Menu extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-used_by_menu' );
@@ -81,7 +86,7 @@ abstract class AC_Column_Menu extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_LinkToMenu( $this ) );
+		$this->add_setting( new Settings\Column\LinkToMenu( $this ) );
 	}
 
 }
