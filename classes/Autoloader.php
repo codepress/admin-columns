@@ -69,10 +69,6 @@ class Autoloader {
 	 * @return bool
 	 */
 	public function autoload( $class ) {
-
-		print_r( $class );
-		echo "\n";
-
 		foreach ( $this->prefixes as $prefix => $dir ) {
 			if ( 0 !== strpos( $class, $prefix ) ) {
 				continue;

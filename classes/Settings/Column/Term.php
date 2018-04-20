@@ -57,8 +57,6 @@ class Term extends Settings\Column
 	}
 
 	public function format( $value, $original_value ) {
-
-		// For ACP_Column_Taxonomy_Parent
 		$term_id = $value;
 
 		switch ( $this->get_term_property() ) {
