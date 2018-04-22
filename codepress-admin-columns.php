@@ -69,4 +69,6 @@ if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
 	return;
 }
 
+define( 'AC_FILE', __FILE__ );
+
 require_once 'bootstrap.php';

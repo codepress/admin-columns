@@ -1,7 +1,5 @@
 <?php
 
-define( 'AC_FILE', __FILE__ );
-
 require_once 'api.php';
 require_once 'classes/Autoloader.php';
 
