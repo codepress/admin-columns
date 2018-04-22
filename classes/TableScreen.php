@@ -260,7 +260,7 @@ final class TableScreen {
 	/**
 	 * @return ListScreen
 	 */
-	public function get_current_list_screen() {ListScreenFactory
+	public function get_current_list_screen() {
 		return $this->current_list_screen;
 	}
 
