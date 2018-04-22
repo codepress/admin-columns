@@ -260,7 +260,7 @@ final class TableScreen {
 	/**
 	 * @return ListScreen
 	 */
-	public function get_current_list_screen() {
+	public function get_current_list_screen() {ListScreenFactory
 		return $this->current_list_screen;
 	}
 
@@ -370,16 +370,7 @@ final class TableScreen {
 	 * @param \WP_Screen $wp_screen
 	 */
 	public function load_list_screen( $wp_screen ) {
-		foreach ( ListScreenFactory::get_types() as $list_screen ) {
-			if ( $wp_screen->id !== $list_screen->get_screen_id() ) {
-				continue;
-			}
-			if ( $wp_screen->base !== $list_screen->get_screen_base() ) {
-				continue;
-			}
-
-			$this->set_current_list_screen( $list_screen );
-		}
+		$this->set_current_list_screen( ListScreenFactory::create_by_screen( $wp_screen ) );
 	}
 
 	/**

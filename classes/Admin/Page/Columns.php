@@ -10,6 +10,7 @@ use AC\Capabilities;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\ListScreenGroups;
 use AC\Preferences;
 use AC\Settings;
 
@@ -99,7 +100,7 @@ class Columns extends Page {
 
 		// First one
 		if ( ! $list_screen ) {
-			$list_screen = ListScreenFactory::create( key( ListScreenFactory::get_types() ) );
+			$list_screen = ListScreenFactory::create( key( AC()->get_list_screens() ) );
 		}
 
 		// Load table headers
@@ -339,13 +340,13 @@ class Columns extends Page {
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		foreach ( ListScreenFactory::get_types() as $list_screen ) {
+		foreach ( AC()->get_list_screens() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = array();
 
-		foreach ( ListScreenFactory::groups()->get_groups_sorted() as $group ) {
+		foreach ( ListScreenGroups::get_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			if ( empty( $list_screens[ $slug ] ) ) {
