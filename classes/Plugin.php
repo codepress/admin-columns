@@ -16,10 +16,23 @@ abstract class Plugin extends Addon {
 	/**
 	 * Calls get_plugin_data() for this plugin
 	 *
+	 * @deprecated
 	 * @see get_plugin_data()
 	 * @return array
 	 */
 	protected function get_plugin_data() {
+		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
+
+		return $this->get_data();
+	}
+
+	/**
+	 * Calls get_plugin_data() for this plugin
+	 *
+	 * @see get_plugin_data()
+	 * @return array
+	 */
+	protected function get_data() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return get_plugin_data( $this->get_file(), false, false );
@@ -38,10 +51,24 @@ abstract class Plugin extends Addon {
 	 *
 	 * @param $key
 	 *
+	 * @deprecated
 	 * @return false|string
 	 */
 	protected function get_plugin_header( $key ) {
-		$data = $this->get_plugin_data();
+		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
+
+		return $this->get_header( $key );
+	}
+
+	/**
+	 * Return a plugin header from the plugin data
+	 *
+	 * @param $key
+	 *
+	 * @return false|string
+	 */
+	protected function get_header( $key ) {
+		$data = $this->get_data();
 
 		if ( ! isset( $data[ $key ] ) ) {
 			return false;
@@ -96,7 +123,7 @@ abstract class Plugin extends Addon {
 	 * @return string
 	 */
 	public function get_version() {
-		return $this->get_plugin_header( 'Version' );
+		return $this->get_header( 'Version' );
 	}
 
 	/**
