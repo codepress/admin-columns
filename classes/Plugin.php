@@ -132,6 +132,15 @@ abstract class Plugin extends Addon {
 	abstract protected function get_version_key();
 
 	/**
+	 * @param string $version
+	 *
+	 * @return bool
+	 */
+	public function is_version_gte( $version ) {
+		return version_compare( $this->get_version(), $version, '>=' );
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_stored_version() {
