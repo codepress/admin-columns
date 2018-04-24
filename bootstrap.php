@@ -5,4 +5,10 @@ require_once 'classes/Autoloader.php';
 
 AC\Autoloader::instance()->register_prefix( 'AC', __DIR__ . '/classes' );
 
-AC();
+/**
+ * For loading external resources, e.g. column settings.
+ * Can be called from plugins and themes.
+ */
+do_action( 'ac/ready', AC() );
+
+// TODO: check if moving this hook is ok!

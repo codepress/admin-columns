@@ -50,4 +50,4 @@ function ac_init() {
 	require_once 'bootstrap.php';
 }
 
-add_action( 'after_setup_theme', 'ac_init', 5 );
+add_action( 'after_setup_theme', 'ac_init' );
