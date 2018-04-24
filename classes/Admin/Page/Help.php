@@ -78,7 +78,7 @@ class Help extends Page {
 	 */
 	public function admin_scripts() {
 		if ( $this->is_current_screen() ) {
-			wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help.css', array(), AC()->get_version() );
+			wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_url() . 'assets/css/admin-page-help.css', array(), AC()->get_version() );
 		}
 	}
 

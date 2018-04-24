@@ -11,8 +11,8 @@ class EventsCalendar extends Addon {
 
 		$this
 			->set_title( __( 'The Events Calendar', 'codepress-admin-columns' ) )
-			->set_logo( AC()->get_plugin_url() . 'assets/images/addons/events-calendar.png' )
-			->set_icon( AC()->get_plugin_url() . 'assets/images/addons/events-calendar-icon.png' )
+			->set_logo( AC()->get_url() . 'assets/images/addons/events-calendar.png' )
+			->set_icon( AC()->get_url() . 'assets/images/addons/events-calendar-icon.png' )
 			->set_link( ac_get_site_utm_url( 'events-calendar', 'addon', 'events-calendar' ) )
 			->set_description( "Manage columns for your event, organizer or venue overviews." )
 			->add_plugin( 'the-events-calendar' );

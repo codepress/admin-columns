@@ -7,7 +7,7 @@ use AC\Plugin\Update;
 class V3200 extends Update {
 
 	public function get_dir() {
-		return AC()->get_plugin_dir() . '/classes';
+		return AC()->get_dir() . '/classes';
 	}
 
 	public function apply_update() {

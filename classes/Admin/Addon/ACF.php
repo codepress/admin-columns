@@ -11,7 +11,7 @@ class ACF extends Addon {
 
 		$this
 			->set_title( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) )
-			->set_logo( AC()->get_plugin_url() . 'assets/images/addons/acf.png' )
+			->set_logo( AC()->get_url() . 'assets/images/addons/acf.png' )
 			->set_icon( $this->get_logo() )
 			->set_link( ac_get_site_utm_url( 'advanced-custom-fields-columns', 'addon', 'acf' ) )
 			->set_description( $this->get_fields_description( $this->get_title() ) )

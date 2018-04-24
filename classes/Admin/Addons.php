@@ -94,7 +94,7 @@ class Addons {
 	private function set_addons() {
 		$this->addons = array();
 
-		$classes = AC\Autoloader::instance()->get_class_names_from_dir( AC()->get_plugin_dir() . 'classes/Admin/Addon' );
+		$classes = AC\Autoloader::instance()->get_class_names_from_dir( AC()->get_dir() . 'classes/Admin/Addon' );
 
 		foreach ( $classes as $class ) {
 			$this->addons[] = new $class;

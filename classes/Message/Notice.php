@@ -41,7 +41,7 @@ class Notice extends Message {
 	 * Enqueue scripts & styles
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'ac-message', AC()->get_plugin_url() . 'assets/css/notice.css', array(), AC()->get_version() );
+		wp_enqueue_style( 'ac-message', AC()->get_url() . 'assets/css/notice.css', array(), AC()->get_version() );
 	}
 
 }

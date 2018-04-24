@@ -36,7 +36,7 @@ class ListScreenFactory {
 		}
 
 		foreach ( AC()->get_list_screens() as $list_screen ) {
-			if ( $wp_screen->id === $list_screen->get_screen_id() &&  $wp_screen->base === $list_screen->get_screen_base() ) {
+			if ( $list_screen->is_current_screen( $wp_screen ) ) {
 				return self::create( $list_screen->get_key(), $id );
 			}
 		}

@@ -35,7 +35,7 @@ class Settings extends Page {
 
 	public function admin_scripts() {
 		if ( $this->is_current_screen() ) {
-			wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
+			wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
 		}
 	}
 

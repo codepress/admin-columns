@@ -198,12 +198,12 @@ final class TableScreen {
 		$list_screen = $this->current_list_screen;
 
 		// Tooltip
-		wp_register_script( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
-		wp_enqueue_style( 'jquery-qtip2', AC()->get_plugin_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
+		wp_register_script( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
 
 		// Main
-		wp_enqueue_script( 'ac-table', AC()->get_plugin_url() . "assets/js/table.js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
-		wp_enqueue_style( 'ac-table', AC()->get_plugin_url() . "assets/css/table.css", array(), AC()->get_version() );
+		wp_enqueue_script( 'ac-table', AC()->get_url() . "assets/js/table.js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
+		wp_enqueue_style( 'ac-table', AC()->get_url() . "assets/css/table.css", array(), AC()->get_version() );
 
 		wp_localize_script( 'ac-table', 'AC', array(
 				'list_screen'  => $list_screen->get_key(),

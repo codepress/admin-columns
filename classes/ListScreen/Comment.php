@@ -70,7 +70,7 @@ class Comment extends AC\ListScreenWP {
 		$this->register_column_type( new AC\Column\CustomField );
 		$this->register_column_type( new AC\Column\Actions );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment' );
+		$this->register_column_types_from_dir( AC()->get_dir() . 'classes/Column/Comment' );
 	}
 
 }
