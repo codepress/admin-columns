@@ -35,40 +35,19 @@ if ( ! is_admin() ) {
 	return;
 }
 
-/**
- * Show legacy PHP message on the plugins screen
- */
-function ac_legacy_php_version_notice() {
-	$screen = get_current_screen();
+define( 'AC_FILE', __FILE__ );
 
-	if ( ! $screen->id !== 'plugins' ) {
+require_once 'classes/Dependencies.php';
+
+function ac_init() {
+	$dependencies = new AC_Dependencies( plugin_basename( AC_FILE ) );
+	$dependencies->check_php_version( '5.3' );
+
+	if ( $dependencies->has_missing() ) {
 		return;
 	}
 
-	$message = sprintf( __( 'Admin Columns requires at least PHP 5.3.0 to function properly. Your server currently runs PHP %s.', 'codepress-admin-columns' ), PHP_VERSION );
-	$message .= ' ' . __( 'You can ask your hosting provider to upgrade to the latest version of PHP.', 'codepress-admin-columns' );
-
-	printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html( $message ) );
+	require_once 'bootstrap.php';
 }
 
-/**
- * Load text-domain
- */
-function ac_localize() {
-	load_plugin_textdomain( 'codepress-admin-columns', false, dirname( __FILE__ ) . '/languages/' );
-}
-
-add_action( 'plugins_loaded', 'ac_localize' );
-
-/**
- * Check current PHP version
- */
-if ( version_compare( PHP_VERSION, '5.3.0', '<' ) ) {
-	add_action( 'admin_notices', 'ac_legacy_php_version_notice' );
-
-	return;
-}
-
-define( 'AC_FILE', __FILE__ );
-
-require_once 'bootstrap.php';
+add_action( 'after_setup_theme', 'ac_init', 5 );

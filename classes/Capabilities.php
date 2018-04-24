@@ -23,7 +23,7 @@ class Capabilities {
 	 * @return bool
 	 */
 	public function is_administrator() {
-		return $this->user->has_cap( 'administrator' );
+		return is_super_admin( $this->user->ID ) || $this->user->has_cap( 'administrator' );
 	}
 
 	/**

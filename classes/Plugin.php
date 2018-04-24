@@ -78,13 +78,6 @@ abstract class Plugin extends Addon {
 	}
 
 	/**
-	 * Return the prefix that is used by this plugin
-	 *
-	 * @return string
-	 */
-	abstract public function get_prefix();
-
-	/**
 	 * Apply updates to the database
 	 *
 	 * @param null|string $updates_dir

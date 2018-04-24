@@ -33,7 +33,7 @@ class Review
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
-		if ( ! $screen->is_ready() ) {
+		if ( ! $screen->has_screen() ) {
 			return;
 		}
 

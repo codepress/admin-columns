@@ -84,14 +84,6 @@ function ac_helper() {
 }
 
 /**
- * @since 3.0
- * @return bool True when a minimum version of Admin Columns Pro plugin is activated.
- */
-function ac_is_version_gte( $version ) {
-	return version_compare( AC()->get_version(), $version, '>=' );
-}
-
-/**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
  *

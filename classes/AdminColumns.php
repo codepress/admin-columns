@@ -5,11 +5,6 @@ namespace AC;
 use AC\ThirdParty;
 use AC\Check;
 
-/**
- * The Admin Columns Class
- *
- * @since 1.0
- */
 class AdminColumns extends Plugin {
 
 	/**
@@ -61,9 +56,6 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		// TODO: check this
-		new Screen();
-
 		// Third Party
 		new ThirdParty\ACF();
 		new ThirdParty\NinjaForms();
@@ -72,18 +64,21 @@ class AdminColumns extends Plugin {
 
 		// Init
 		$this->addons = new Admin\Addons();
+		$this->table_screen = new TableScreen();
+		$this->api = new API();
 
 		$this->admin = new Admin();
 		$this->admin->register();
 
-		$this->table_screen = new TableScreen();
-		$this->api = new API();
+		$screen = new Screen();
+		$screen->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'after_setup_theme', array( $this, 'ready' ) );
+		add_action( 'plugins_loaded', array( $this, 'localize' ) );
 	}
 
 	/**
@@ -119,10 +114,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_version() {
 		return '3.1.7';
-	}
-
-	public function get_prefix() {
-		return 'AC';
 	}
 
 	public function ready() {
@@ -291,6 +282,13 @@ class AdminColumns extends Plugin {
 		 * @param array $post_types List of active post type names
 		 */
 		return apply_filters( 'ac/post_types', $post_types );
+	}
+
+	/**
+	 * Load text-domain
+	 */
+	public function localize() {
+		load_plugin_textdomain( 'codepress-admin-columns', false, $this->get_dir() . '/languages/' );
 	}
 
 	/**

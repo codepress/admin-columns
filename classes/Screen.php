@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 class Screen {
@@ -11,9 +12,13 @@ class Screen {
 	/**
 	 * @var bool
 	 */
-	protected $ready = false;
+	protected $ready;
 
 	public function __construct() {
+		$this->ready = false;
+	}
+
+	public function register() {
 		add_action( 'current_screen', array( $this, 'init' ) );
 	}
 
@@ -21,17 +26,9 @@ class Screen {
 	 * @param \WP_Screen $screen
 	 */
 	public function init( \WP_Screen $screen ) {
-		$this->screen = $screen;
-		$this->ready = true;
+		$this->set_screen( $screen );
 
 		do_action( 'ac/screen', $this, $this->screen->id );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_ready() {
-		return $this->ready;
 	}
 
 	/**
@@ -40,7 +37,18 @@ class Screen {
 	 * @return bool
 	 */
 	public function is_screen( $id ) {
-		return $this->screen->id === $id;
+		return $this->has_screen() && $this->get_screen()->id === $id;
+	}
+
+	/**
+	 * @param \WP_Screen $screen
+	 *
+	 * @return $this
+	 */
+	public function set_screen( \WP_Screen $screen ) {
+		$this->screen = $screen;
+
+		return $this;
 	}
 
 	/**
@@ -48,6 +56,10 @@ class Screen {
 	 */
 	public function get_screen() {
 		return $this->screen;
+	}
+
+	public function has_screen() {
+		return ! empty( $this->screen );
 	}
 
 	/**
