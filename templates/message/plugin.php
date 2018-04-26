@@ -1,3 +1,11 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+?>
+
 <style>
 	.plugins tr[data-plugin='<?php echo $this->plugin_basename; ?>'] th,
 	.plugins tr[data-plugin='<?php echo $this->plugin_basename; ?>'] td {

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once 'api.php';
 require_once 'classes/Autoloader.php';
 
@@ -10,5 +14,3 @@ AC\Autoloader::instance()->register_prefix( 'AC', __DIR__ . '/classes' );
  * Can be called from plugins and themes.
  */
 do_action( 'ac/ready', AC() );
-
-// TODO: check if moving this hook is ok!
