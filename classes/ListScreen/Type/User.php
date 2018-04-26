@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\ListScreen;
+namespace AC\ListScreen\Type;
 
 use AC;
 

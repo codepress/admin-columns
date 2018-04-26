@@ -222,15 +222,15 @@ class AdminColumns extends Plugin {
 
 		// Post types
 		foreach ( $this->get_post_types() as $post_type ) {
-			$list_screens[] = new ListScreen\Post( $post_type );
+			$list_screens[] = new ListScreen\Type\Post( $post_type );
 		}
 
-		$list_screens[] = new ListScreen\Media();
-		$list_screens[] = new ListScreen\Comment();
+		$list_screens[] = new ListScreen\Type\Media();
+		$list_screens[] = new ListScreen\Type\Comment();
 
 		// Users, not for network users
 		if ( ! is_multisite() ) {
-			$list_screens[] = new ListScreen\User();
+			$list_screens[] = new ListScreen\Type\User();
 		}
 
 		foreach ( $list_screens as $list_screen ) {
