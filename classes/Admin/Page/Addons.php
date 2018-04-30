@@ -6,7 +6,12 @@ class AC_Admin_Page_Addons extends AC_Admin_Page {
 		$this
 			->set_slug( 'addons' )
 			->set_label( __( 'Add-ons', 'codepress-admin-columns' ) );
+	}
 
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
