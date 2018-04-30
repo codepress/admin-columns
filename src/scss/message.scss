@@ -4,6 +4,8 @@ body .wrap .ac-message {
 }
 
 .ac-message {
+	position: relative;
+
 	.spinner {
 
 		&.right {

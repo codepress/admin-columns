@@ -512,6 +512,7 @@ class CPAC extends AC_Plugin {
 	public function display_notices() {
 		if ( $this->notices ) {
 			echo implode( array_unique( $this->notices ) );
+			wp_enqueue_style( 'ac-sitewide-notices' );
 		}
 	}
 
