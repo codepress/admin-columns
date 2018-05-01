@@ -23,6 +23,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		add_action( 'current_screen', array( $this, 'set_current_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'handle_request' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'display_modal' ) );
 
 		// Ajax calls
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
@@ -758,6 +759,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				<?php $this->display_column_template( $list_screen ); ?>
 			</div>
 
+
 		</div><!--.ac-admin-->
 
 		<div class="clear"></div>
@@ -904,4 +906,38 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		<?php
 	}
 
+	public function display_modal() {
+		?>
+		<div class="ac-modal -active" id="ac-modal-pro">
+			<div class="ac-modal__dialog -mascot">
+				<div class="ac-modal__dialog__header">
+					<?php _e( 'Do you like Admin Columns?', 'codepress-admin-columns' ); ?>
+					<button class="ac-modal__dialog__close">
+						<span class="dashicons dashicons-no"></span>
+					</button>
+				</div>
+				<div class="ac-modal__dialog__content">
+					<p class="ac-modal__dialog__content__lead">
+						<?php _e( 'Upgrade to PRO, and take Admin Columns to the next level:', 'codepress-admin-columns' ); ?>
+					</p>
+					<ul class="ac-modal__dialog__list">
+						<li><?php _e( 'Sort & Filter on all your content', 'codepress-admin-columns' ); ?></li>
+						<li><?php _e( 'Directly edit your content from the overview', 'codepress-admin-columns' ); ?></li>
+						<li><?php _e( 'Export all column data to CSV', 'codepress-admin-columns' ); ?></li>
+						<li><?php _e( 'Create multiple column groups per overview', 'codepress-admin-columns' ); ?></li>
+						<li><?php _e( 'And get access to add-ons!', 'codepress-admin-columns' ); ?></li>
+					</ul>
+				</div>
+				<div class="ac-modal__dialog__footer">
+					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
+
+					<a class="button button-primary" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
+					<img src="<?php echo AC()->get_plugin_url(); ?>/assets/images/mascot.png" alt="Admin Columns Mascot" class="ac-modal__dialog__mascot">
+				</div>
+			</div>
+		</div>
+
+
+		<?php
+	}
 }

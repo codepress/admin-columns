@@ -584,6 +584,23 @@
 	}
 }
 
+.ac-column-setting--pro {
+	.radio-labels {
+		display: inline-block;
+	}
+	.ac-setting-input {
+		background: $bg-gray;
+	}
+	.acp-button {
+		background: $ac-pink;
+		color: #fff;
+		border: none;
+		border-radius: 3px;
+		padding: 5px 10px;
+		letter-spacing: 2px;
+	}
+}
+
 /**
  * Column Header
  * ----------------------------------------------------------------------------
@@ -1296,4 +1313,122 @@
 		}
 	}
 
+}
+
+/**
+ * Modal
+ */
+.ac-modal {
+	position: fixed;
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+	z-index: 100000;
+	top: 0;
+	background: rgba(0, 0, 0, .5);
+	display: none;
+
+	&.-active {
+		display: block;
+	}
+
+	&__dialog {
+		border: 1px solid #C8C8C8;
+		background: #fff;
+		position: fixed;
+		top: 200px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 650px;
+		max-width: 90%;
+
+		&__header {
+			background: $bg-gray;
+			font-size: 20px;
+			color: #979696;
+			padding: 17px 25px;
+		}
+
+		&__close {
+			border: none;
+			background: none;
+			position: absolute;
+			right: 20px;
+			top: 15px;
+			color: #989797;
+		}
+
+		&__content {
+			padding: 25px;
+
+			&__lead {
+				font-weight: bold;
+				font-size: 15px;
+				margin-top: 5px;
+				margin-bottom: 25px;
+				color: #6D6D6D;
+			}
+		}
+
+		&__list {
+			li {
+				&:before {
+					content: '\f147';
+					font-family: Dashicons;
+					position: absolute;
+					left: 0;
+					top: 0;
+					color: #3D4350;
+				}
+
+				&:nth-child(2n) {
+					color: $ac-pink;
+				}
+
+				position: relative;
+				padding-left: 25px;
+				font-weight: 400;
+				font-size: 16px;
+				letter-spacing: 0.5px;
+				margin-bottom: 10px;
+			}
+		}
+
+		&__footer {
+			padding: 18px 25px;
+			border-top: 1px solid #DBDBDB;
+			color: #979696;
+			font-size: 16px;
+
+			.button {
+				margin-left: 50px;
+				margin-top: -5px;
+			}
+		}
+
+		&__mascot {
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
+			width: 150px;
+			z-index: 4;
+		}
+	}
+
+	@media only screen and (max-width: 720px) {
+		&__dialog {
+			&__mascot {
+				display: none;
+			}
+			&__footer {
+				&__content {
+					display: block;
+				}
+				.button {
+					margin-left: 0;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
 }
