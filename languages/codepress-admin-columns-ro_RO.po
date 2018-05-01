@@ -1158,7 +1158,7 @@ msgstr "Editează autor articol"
 
 #: classes/Settings/Column/PostLink.php:68
 msgid "View Post"
-msgstr "Vezi articol"
+msgstr "Vezi articolul"
 
 #: classes/Settings/Column/PostLink.php:67
 msgid "Edit Post"

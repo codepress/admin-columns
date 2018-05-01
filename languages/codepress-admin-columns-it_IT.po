@@ -1307,7 +1307,7 @@ msgstr "Tassonomia"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "In Rilievo"
+msgstr ""
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:11
 msgid "Status"
@@ -1413,7 +1413,7 @@ msgstr "Spam"
 #: classes/Column/Comment/Status.php:27
 #: classes/Settings/Column/CommentCount.php:47
 msgid "Pending"
-msgstr "Pendente"
+msgstr ""
 
 #: classes/Settings/Column/CommentCount.php:55
 msgid "Total"
@@ -1573,7 +1573,7 @@ msgstr "Descrizione"
 
 #: classes/Column/Link/Actions.php:40
 msgid "Delete"
-msgstr "Cancella"
+msgstr ""
 
 #: classes/Column/Link/Actions.php:40
 msgid ""
@@ -1610,7 +1610,7 @@ msgstr "Valori multipli"
 
 #: classes/Admin/Help/CustomField.php:50
 msgid "Media Library"
-msgstr "Media Library"
+msgstr ""
 
 #: classes/Admin/Help/CustomField.php:46 classes/Column/Link/Image.php:14
 #: classes/Settings/Column/CustomFieldType.php:103
