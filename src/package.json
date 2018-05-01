@@ -10,7 +10,7 @@
     "babel-preset-es2015": "latest",
     "node-sass": "latest",
     "rimraf": "latest",
-    "webfont": "latest"
+    "webfont": "8.1.2"
   },
   "scripts": {
     "ac:build:production": "nps build.production && npm run ac:languages",
