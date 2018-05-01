@@ -6,12 +6,8 @@ abstract class AC_Settings_Column_Pro extends AC_Settings_Column {
 
 	abstract protected function get_tooltip();
 
-	protected function define_options() {
-		return array();
-	}
-
 	public function create_view() {
-		$setting = $this->create_element( 'radio', $this->get_name() )
+		$setting = $this->create_element( 'radio' )
 		                ->set_options( array(
 			                'on'  => __( 'Yes' ),
 			                'off' => __( 'No' ),
