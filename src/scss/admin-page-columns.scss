@@ -589,7 +589,7 @@
 	.col-label {
 		.dashicons {
 			color: #A99D9F;
-			transform: scale(.9,.9);
+			transform: scale(.9, .9);
 			margin-top: 2px;
 			display: inline-block;
 			margin-right: 3px;
@@ -1360,18 +1360,29 @@
 
 		&__header {
 			background: $bg-gray;
-			font-size: 20px;
-			color: #979696;
+			font-size: 18px;
+			color: #807F7F;
 			padding: 17px 25px;
 		}
 
 		&__close {
+			display: inline-block;
+			padding: 0;
+			margin: 0;
 			border: none;
 			background: none;
 			position: absolute;
-			right: 20px;
-			top: 15px;
+			right: 0;
+			top: 0;
+			width: 52px;
+			height: 52px;
+			text-align: center;
 			color: #989797;
+			cursor: pointer;
+
+			&:hover {
+				background: darken($bg-gray, 8);
+			}
 		}
 
 		&__content {
@@ -1411,14 +1422,22 @@
 		}
 
 		&__footer {
-			padding: 18px 25px;
+			padding: 20px 24px;
 			border-top: 1px solid #DBDBDB;
 			color: #979696;
 			font-size: 16px;
 
 			.button {
-				margin-left: 50px;
-				margin-top: -5px;
+				margin-left: 0;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+
+			span {
+				display: inline-block;
+				margin-top: 4px;
+				margin-left: 10px;
+				font-size: 14px;
 			}
 		}
 

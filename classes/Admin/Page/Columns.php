@@ -925,18 +925,16 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 						<li><?php _e( 'Directly edit your content from the overview', 'codepress-admin-columns' ); ?></li>
 						<li><?php _e( 'Export all column data to CSV', 'codepress-admin-columns' ); ?></li>
 						<li><?php _e( 'Create multiple column groups per overview', 'codepress-admin-columns' ); ?></li>
-						<li><?php _e( 'And get access to add-ons!', 'codepress-admin-columns' ); ?></li>
+						<li><?php _e( 'Get add-ons for ACF, WooCommerce and many more', 'codepress-admin-columns' ); ?></li>
 					</ul>
 				</div>
 				<div class="ac-modal__dialog__footer">
-					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
-
-					<a class="button button-primary" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
-					<img src="<?php echo AC()->get_plugin_url(); ?>/assets/images/mascot.png" alt="Admin Columns Mascot" class="ac-modal__dialog__mascot">
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
+					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
+					<img src="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/mascot.png" alt="Admin Columns Mascot" class="ac-modal__dialog__mascot">
 				</div>
 			</div>
 		</div>
-
 
 		<?php
 	}

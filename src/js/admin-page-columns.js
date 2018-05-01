@@ -969,6 +969,7 @@ function cpac_reset_columns( $ ) {
 
 	// AC Modal Events (todo move to separate logic)
 	$().ready( function() {
+
 		$( document ).on( 'click', '[data-ac-open-modal]', function( e ) {
 			e.preventDefault();
 
@@ -979,6 +980,15 @@ function cpac_reset_columns( $ ) {
 			e.preventDefault();
 
 			$( this ).closest( '.ac-modal' ).removeClass( '-active' );
+		} );
+
+		$( '.ac-modal' ).on( 'click', function( e ) {
+			$( this ).removeClass( '-active' );
+		} );
+
+		// Prevent bubbling
+		$( '.ac-modal__dialog' ).on( 'click', function( e ) {
+			e.stopPropagation();
 		} );
 
 		$( document ).keyup( function( e ) {
