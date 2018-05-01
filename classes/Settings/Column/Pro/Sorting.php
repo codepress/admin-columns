@@ -15,7 +15,7 @@ class AC_Settings_Column_Pro_Sorting extends AC_Settings_Column {
 
 		$view = new AC_View();
 		$view->set( 'label', __( 'Sorting', 'codepress-admin-columns' ) )
-		     ->set( 'tooltip', __( 'This will make the column support sorting.', 'codepress-admin-columns' ) )
+		     ->set( 'tooltip', __( 'This will make the column sortable.', 'codepress-admin-columns' ) )
 		     ->set( 'setting', $sort )
 		     ->set_template( 'settings/setting-pro' );
 

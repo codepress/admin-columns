@@ -945,13 +945,12 @@ function cpac_reset_columns( $ ) {
 	$.fn.cpac_column_setting_pro = function() {
 
 		$( this ).each( function() {
-			var $container = $( this );
+			let $container = $( this );
 
 			$container.find( 'input' ).on( 'click', function( e ) {
 				e.preventDefault();
 
 				$container.find( '[data-ac-open-modal]' ).trigger( 'click' );
-				return false;
 			} )
 
 		} );

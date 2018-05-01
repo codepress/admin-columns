@@ -3,7 +3,7 @@
 class AC_Settings_Column_Pro_Editing extends AC_Settings_Column {
 
 	protected function define_options() {
-		return array( 'pro_feature_editing' => 'off' );
+		return array( 'pro_feature_editing' );
 	}
 
 	public function create_view() {

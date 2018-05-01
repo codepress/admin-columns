@@ -3,7 +3,7 @@
 class AC_Settings_Column_Pro_Filtering extends AC_Settings_Column {
 
 	protected function define_options() {
-		return array( 'pro_feature_filtering' => 'off' );
+		return array( 'pro_feature_filtering' );
 	}
 
 	public function create_view() {
