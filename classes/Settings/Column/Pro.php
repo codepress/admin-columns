@@ -11,11 +11,12 @@ abstract class AC_Settings_Column_Pro extends AC_Settings_Column {
 	}
 
 	public function create_view() {
-		$setting = $this->create_element( 'radio' )
-		             ->set_options( array(
-			             'on'  => __( 'Yes' ),
-			             'off' => __( 'No' ),
-		             ) );
+		$setting = $this->create_element( 'radio', $this->get_name() )
+		                ->set_options( array(
+			                'on'  => __( 'Yes' ),
+			                'off' => __( 'No' ),
+		                ) )
+		                ->set_value( 'off' );
 
 		$view = new AC_View();
 		$view->set( 'label', $this->get_label() )

@@ -598,6 +598,14 @@
 	}
 	.radio-labels {
 		display: inline-block;
+
+		input {
+			background-color: #F0F0F0;
+
+			&:checked:before {
+				background-color: #808080;
+			}
+		}
 	}
 	.ac-setting-input {
 		background: $bg-gray;
