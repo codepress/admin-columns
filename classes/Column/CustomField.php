@@ -24,6 +24,13 @@ class AC_Column_CustomField extends AC_Column_Meta {
 	public function register_settings() {
 		$this->add_setting( new AC_Settings_Column_CustomField( $this ) );
 		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
+
+		if ( ! ac_is_pro_active() ) {
+			$this->add_setting( new AC_Settings_Column_Pro_Sorting( $this ) );
+			$this->add_setting( new AC_Settings_Column_Pro_Editing( $this ) );
+			$this->add_setting( new AC_Settings_Column_Pro_Filtering( $this ) );
+			$this->add_setting( new AC_Settings_Column_Pro_Export( $this ) );
+		}
 	}
 
 	/**
