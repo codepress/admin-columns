@@ -585,6 +585,17 @@
 }
 
 .ac-column-setting--pro {
+
+	.col-label {
+		.dashicons {
+			color: #A99D9F;
+			transform: scale(.9,.9);
+			margin-top: 2px;
+			display: inline-block;
+			margin-right: 3px;
+			cursor: pointer;
+		}
+	}
 	.radio-labels {
 		display: inline-block;
 	}
@@ -596,8 +607,13 @@
 		color: #fff;
 		border: none;
 		border-radius: 3px;
-		padding: 5px 10px;
+		padding: 3px 10px;
 		letter-spacing: 2px;
+		cursor: pointer;
+		font-size: 13px;
+		vertical-align: middle;
+		margin-top: -1px;
+		margin-left: 5px;
 	}
 }
 

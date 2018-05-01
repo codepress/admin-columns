@@ -908,7 +908,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 
 	public function display_modal() {
 		?>
-		<div class="ac-modal -active" id="ac-modal-pro">
+		<div class="ac-modal" id="ac-modal-pro">
 			<div class="ac-modal__dialog -mascot">
 				<div class="ac-modal__dialog__header">
 					<?php _e( 'Do you like Admin Columns?', 'codepress-admin-columns' ); ?>
