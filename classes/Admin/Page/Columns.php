@@ -929,7 +929,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 					</ul>
 				</div>
 				<div class="ac-modal__dialog__footer">
-					<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
 					<img src="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/mascot.png" alt="Admin Columns Mascot" class="ac-modal__dialog__mascot">
 				</div>
