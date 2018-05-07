@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 4.9.4
-Stable tag: 3.1.7
+Tested up to: 4.9.5
+Stable tag: 3.1.10
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -218,6 +218,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+
 = NEWVERSION =
 
 Release Date: TBD
@@ -226,6 +227,24 @@ Release Date: TBD
 * [Removed] Deprecated functions before 3.0 after 12 months.
 
 
+= 3.1.10 =
+
+Release Date: May 1st, 2018
+
+* [Fixed] Removed wrongly placed promotional modal
+
+= 3.1.9 =
+
+Release Date: May 1st, 2018
+
+* [Added] Added promotional features to the Custom Field column
+
+= 3.1.8 =
+
+Release Date: April 30th, 2018
+
+* [Improved] Styling for dismissable notice (wrong placed dismiss button)
+* [Improved] Changed Full Path Label to Path
 
 = 3.1.7 =
 

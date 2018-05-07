@@ -941,14 +941,62 @@ function cpac_reset_columns( $ ) {
 
 	};
 
+	// Settings fields: Pro
+	$.fn.cpac_column_setting_pro = function() {
+
+		$( this ).each( function() {
+			let $container = $( this );
+
+			$container.find( 'input' ).on( 'click', function( e ) {
+				e.preventDefault();
+
+				$container.find( '[data-ac-open-modal]' ).trigger( 'click' );
+			} )
+
+		} );
+	};
+
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 		$( column ).find( '.ac-column-setting--date' ).cpac_column_setting_date();
+		$( column ).find( '.ac-column-setting--pro' ).cpac_column_setting_pro();
 
 		// TODO: pro?
 		$( column ).find( '.ac-column-setting--filter' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--sort' ).cpac_column_sub_setting_toggle();
 		$( column ).find( '.ac-column-setting--edit' ).cpac_column_sub_setting_toggle();
+	} );
+
+	// AC Modal Events (todo move to separate logic)
+	$().ready( function() {
+
+		$( document ).on( 'click', '[data-ac-open-modal]', function( e ) {
+			e.preventDefault();
+
+			$( $( this ).data( 'ac-open-modal' ) ).addClass( '-active' );
+		} );
+
+		$( '.ac-modal__dialog__close' ).on( 'click', function( e ) {
+			e.preventDefault();
+
+			$( this ).closest( '.ac-modal' ).removeClass( '-active' );
+		} );
+
+		$( '.ac-modal' ).on( 'click', function( e ) {
+			$( this ).removeClass( '-active' );
+		} );
+
+		// Prevent bubbling
+		$( '.ac-modal__dialog' ).on( 'click', function( e ) {
+			e.stopPropagation();
+		} );
+
+		$( document ).keyup( function( e ) {
+			if ( e.keyCode === 27 ) {
+				$( '.ac-modal' ).removeClass( '-active' );
+			}
+		} );
+
 	} );
 
 }( jQuery ));
