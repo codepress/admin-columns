@@ -3,7 +3,7 @@
 class AC_Admin_Help_CustomField extends AC_Admin_Help {
 
 	public function get_title() {
-		return __( "Custom Field", 'codepress-admin-columns' );
+		return __( "Custom Fields", 'codepress-admin-columns' );
 	}
 
 	public function get_content() {
@@ -11,20 +11,16 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
 		?>
 
         <p>
-            <?php _e( "The custom field column uses the custom fields from posts and users. There are 10 types which you can set.", 'codepress-admin-columns' ); ?>
+            <?php _e( "The custom field column uses the custom fields from posts and users. There are 14 types which you can set.", 'codepress-admin-columns' ); ?>
         </p>
         <ul>
             <li>
                 <strong><?php _e( "Default", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by a ',' comma.", 'codepress-admin-columns' ); ?>
-            </li>
-            <li>
-                <strong><?php _e( "Checkmark", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Color", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: hex value color, such as #808080.", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Hex value color, such as #808080.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Counter", 'codepress-admin-columns' ); ?></strong><br/>
@@ -39,28 +35,40 @@ class AC_Admin_Help_CustomField extends AC_Admin_Help {
                 <?php _e( "Value: This will show the first 20 words of the Post content.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Image", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should contain an image URL or Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
+                <strong><?php _e( "Has Content", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: This will show if the field has content or not.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Media Library", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should contain Attachment IDs ( seperated by a ',' comma ).", 'codepress-admin-columns' ); ?>
+                <strong><?php _e( "Image", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas.", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
+                <strong><?php _e( "Media", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain one or more Attachment IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
                 <strong><?php _e( "Multiple Values", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ); ?>
+                <?php _e( "Value: Should be an array. This will flatten any ( multi dimensional ) array.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Numeric", 'codepress-admin-columns' ); ?></strong><br/>
+                <strong><?php _e( "Number", 'codepress-admin-columns' ); ?></strong><br/>
                 <?php _e( "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Post Titles", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: can be one or more Post ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
+                <strong><?php _e( "Post", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain one or more Post IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
             <li>
-                <strong><?php _e( "Usernames", 'codepress-admin-columns' ); ?></strong><br/>
-                <?php _e( "Value: can be one or more User ID's (seperated by ',').", 'codepress-admin-columns' ); ?>
+                <strong><?php _e( "True / False", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should be a 1 (one) or 0 (zero).", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
+                <strong><?php _e( "URL", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain a URL.", 'codepress-admin-columns' ); ?>
+            </li>
+            <li>
+                <strong><?php _e( "User", 'codepress-admin-columns' ); ?></strong><br/>
+                <?php _e( "Value: Should contain one or more User IDs, separated by commas.", 'codepress-admin-columns' ); ?>
             </li>
         </ul>
 

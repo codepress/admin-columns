@@ -62,8 +62,8 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 	}
 
 	private function get_description_object_ids( $input ) {
-		$description = sprintf( __( "Uses the id from a %s to display information about it.", 'codepress-admin-columns' ), '<em>' . $input . '</em>' );
-		$description .= ' ' . __( "Multiple ids should be separated by a comma.", 'codepress-admin-columns' );
+		$description = sprintf( __( "Uses one or more %s IDs to display information about it.", 'codepress-admin-columns' ), '<em>' . $input . '</em>' );
+		$description .= ' ' . __( "Multiple IDs should be separated by commas.", 'codepress-admin-columns' );
 
 		return $description;
 	}
@@ -95,9 +95,9 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			'basic'      => array(
 				'color'   => __( 'Color', 'codepress-admin-columns' ),
 				'date'    => __( 'Date', 'codepress-admin-columns' ),
-				'excerpt' => __( 'Text' ),
+				'excerpt' => __( 'Excerpt', 'codepress-admin-columns' ),
 				'image'   => __( 'Image', 'codepress-admin-columns' ),
-				'link'    => __( 'Url', 'codepress-admin-columns' ),
+				'link'    => __( 'URL', 'codepress-admin-columns' ),
 				'numeric' => __( 'Number', 'codepress-admin-columns' ),
 			),
 			'choice'     => array(

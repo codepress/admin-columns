@@ -672,7 +672,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 								</p>
 							<?php endif; ?>
 							<p>
-								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>", 'codepress-admin-columns' ), ac_get_site_utm_url( 'documentation', 'support' ) ); ?>
+								<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.", 'codepress-admin-columns' ), ac_get_site_utm_url( 'documentation', 'support' ) ); ?>
 							</p>
 						</div>
 					</div><!--plugin-support-->
