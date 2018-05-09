@@ -38,7 +38,7 @@ All of the new columns support sorting on all screens, and many of them support 
 = Third party plugin integration =
 Admin Columns works perfectly with just about all external plugins with custom columns. Examples include Yoast SEO (SEO columns), WooCommerce, Advanced Custom Fields, Types and Pods. Not only can you reorganize the custom columns added by these plugins, you can also add custom columns provided by Admin Columns in the overview!
 
-The Developer license of [Admin Columns Pro](https://www.admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) includes [Advanced Custom Fields](https://www.admincolumns.com/advanced-custom-fields-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) and [WooCommerce](https://www.admincolumns.com/woocommerce-integration/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) add-ons for easy integration and inline editing of data from these plugins.
+The Developer license of [Admin Columns Pro](https://www.admincolumns.com/admin-columns-pro/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) includes [Advanced Custom Fields](https://www.admincolumns.com/advanced-custom-fields/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) and [WooCommerce](https://www.admincolumns.com/woocommerce-columns/?utm_source=wordpressorg&utm_medium=readme&utm_content=thirdpartyplugins) add-ons for easy integration and inline editing of data from these plugins.
 
 = Custom field column =
 Admin Columns allows you to display custom fields for posts (post meta) and users (user meta) for all custom fields you have. With many different custom field types supported, such as files, images, numbers and even post and user relations, you can create a beautiful overview of your custom content!
@@ -50,8 +50,8 @@ Admin Columns can change your post (posts, pages and custom post types), user, c
 
 = Post types columns =
 
-* **[PRO]** Advanced Custom Field data
 * Actions
+* **[PRO]** Advanced Custom Field column
 * Attachment
 * Attachment count
 * Author
