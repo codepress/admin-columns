@@ -311,7 +311,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			return false;
 		}
 
-		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s', count( $callbacks ), 'codepress-admin-columns' ), '<code>' . implode( '</code>, <code>', $callbacks ) . '</code>' );
+		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s.', count( $callbacks ), 'codepress-admin-columns' ), '<code>' . implode( '</code>, <code>', $callbacks ) . '</code>' );
 	}
 
 	/**

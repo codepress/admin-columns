@@ -10,7 +10,7 @@ class AC_Admin_Addon_NinjaForms extends AC_Admin_Addon {
 			->set_logo( AC()->get_plugin_url() . 'assets/images/addons/ninja-forms.png' )
 			->set_icon( AC()->get_plugin_url() . 'assets/images/addons/ninja-forms-icon.png' )
 			->set_link( ac_get_site_utm_url( 'ninja-forms', 'addon', 'ninjaforms' ) )
-			->set_description( "Add Ninja Forms columns that can be sorted, filtered and directly edited!" )
+			->set_description( __( 'Add Ninja Forms columns that can be sorted, filtered and directly edited!', 'codepress-admin-columns' ) )
 			->add_plugin( 'ninjaforms' );
 	}
 
