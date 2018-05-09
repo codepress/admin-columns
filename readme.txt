@@ -45,6 +45,15 @@ Admin Columns allows you to display custom fields for posts (post meta) and user
 
 To ensure proper formatting of your custom fields, Admin Columns provides a set of custom field types, which automatically format your meta data properly.
 
+* Color
+* Date
+* Images
+* Number
+* Text
+* URL
+* True/False
+* **[Pro]** Relational: Posts, Users and Media
+
 = Supported content types =
 Admin Columns can change your post (posts, pages and custom post types), user, comment, media and taxonomy (Admin Columns Pro only) lists! Below, you can find a list of supported column types for each content type.
 
