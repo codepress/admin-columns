@@ -910,7 +910,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		if ( ! $this->is_current_screen() ) {
 			return;
 		}
-		
+
 		?>
 		<div class="ac-modal" id="ac-modal-pro">
 			<div class="ac-modal__dialog -mascot">
