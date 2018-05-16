@@ -238,7 +238,7 @@ class Strings {
 	 * @return string Display empty value
 	 */
 	public function get_empty_char() {
-		_deprecated_function( __METHOD__, '3.0', 'AC_Column::get_empty_char' );
+		_deprecated_function( __METHOD__, '3.0', 'AC\Column::get_empty_char' );
 
 		return '&ndash;';
 	}

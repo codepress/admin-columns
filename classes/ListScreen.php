@@ -128,22 +128,45 @@ abstract class ListScreen {
 	 */
 	abstract protected function register_column_types();
 
+	/**
+	 * @return string
+	 */
 	public function get_key() {
 		return $this->key;
 	}
 
+	/**
+	 * @param string $key
+	 *
+	 * @return self
+	 */
 	protected function set_key( $key ) {
 		$this->key = $key;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_label() {
 		return $this->label;
 	}
 
+	/**
+	 * @param string $label
+	 *
+	 * @return self
+	 */
 	protected function set_label( $label ) {
 		$this->label = $label;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_singular_label() {
 		if ( null === $this->singular_label ) {
 			$this->set_singular_label( $this->label );
@@ -152,48 +175,105 @@ abstract class ListScreen {
 		return $this->singular_label;
 	}
 
+	/**
+	 * @param string $label
+	 *
+	 * @return self
+	 */
 	protected function set_singular_label( $label ) {
 		$this->singular_label = $label;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_meta_type() {
 		return $this->meta_type;
 	}
 
+	/**
+	 * @param string $meta_type
+	 *
+	 * @return self
+	 */
 	protected function set_meta_type( $meta_type ) {
 		$this->meta_type = $meta_type;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_screen_base() {
 		return $this->screen_base;
 	}
 
+	/**
+	 * @param string $screen_base
+	 *
+	 * @return self
+	 */
 	protected function set_screen_base( $screen_base ) {
 		$this->screen_base = $screen_base;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_screen_id() {
 		return $this->screen_id;
 	}
 
+	/**
+	 * @param string $screen_id
+	 *
+	 * @return self
+	 */
 	protected function set_screen_id( $screen_id ) {
 		$this->screen_id = $screen_id;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_page() {
 		return $this->page;
 	}
 
+	/**
+	 * @param string $page
+	 *
+	 * @return self
+	 */
 	protected function set_page( $page ) {
 		$this->page = $page;
+
+		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_group() {
 		return $this->group;
 	}
 
+	/**
+	 * @param string $group
+	 *
+	 * @return self
+	 */
 	public function set_group( $group ) {
 		$this->group = $group;
+
+		return $this;
 	}
 
 	/**
@@ -226,7 +306,7 @@ abstract class ListScreen {
 	/**
 	 * @param string $layout_id
 	 *
-	 * @return ListScreen
+	 * @return self
 	 */
 	public function set_layout_id( $layout_id ) {
 		$this->layout_id = $layout_id;

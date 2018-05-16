@@ -126,7 +126,7 @@ final class TableScreen {
 	}
 
 	/**
-	 * Sets the inline data when the title columns is not present on a AC_ListScreen_Post screen
+	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
 	 *
 	 * @param array    $actions
 	 * @param \WP_Post $post

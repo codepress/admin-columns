@@ -9,11 +9,11 @@ class Media extends AC\ListScreenPost {
 	public function __construct() {
 		parent::__construct( 'attachment' );
 
-		$this->set_screen_id( 'upload' );
-		$this->set_screen_base( 'upload' );
-		$this->set_key( 'wp-media' );
-		$this->set_group( 'media' );
-		$this->set_label( __( 'Media' ) );
+		$this->set_screen_id( 'upload' )
+		     ->set_screen_base( 'upload' )
+		     ->set_key( 'wp-media' )
+		     ->set_group( 'media' )
+		     ->set_label( __( 'Media' ) );
 	}
 
 	public function set_manage_value_callback() {

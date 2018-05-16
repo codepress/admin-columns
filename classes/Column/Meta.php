@@ -35,7 +35,7 @@ abstract class Meta extends Column {
 	}
 
 	/**
-	 * @see   AC_Column::get_raw_value()
+	 * @see   Column::get_raw_value()
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id ) {

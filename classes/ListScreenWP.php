@@ -90,7 +90,7 @@ abstract class ListScreenWP extends ListScreen {
 	 * @param string $list_table_class
 	 */
 	public function set_list_table_class( $list_table_class ) {
-		_deprecated_function( __METHOD__, '3.1', 'AC_ListScreenWP::get_list_table()' );
+		_deprecated_function( __METHOD__, '3.1', 'AC\ListScreenWP::get_list_table()' );
 
 		$this->list_table_class = (string) $list_table_class;
 	}
@@ -103,7 +103,7 @@ abstract class ListScreenWP extends ListScreen {
 	 * @return object
 	 */
 	protected function get_object_by_id( $id ) {
-		_deprecated_function( __METHOD__, '3.1.4', 'AC_ListScreenWP::get_object()' );
+		_deprecated_function( __METHOD__, '3.1.4', 'AC\ListScreenWP::get_object()' );
 
 		return $this->get_object( $id );
 	}

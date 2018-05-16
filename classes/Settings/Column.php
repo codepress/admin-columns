@@ -45,7 +45,7 @@ abstract class Column {
 	}
 
 	/**
-	 * @see AC_Settings_Column::$options
+	 * @see AC\Settings_Column::$options
 	 * @return array
 	 */
 	protected abstract function define_options();
