@@ -282,7 +282,7 @@ abstract class Column {
 
 				break;
 			case 'select' :
-				$element = new Element\Select( $name );
+				$element = new AC\Settings\Form\Element\Select( $name );
 
 				break;
 			default:
