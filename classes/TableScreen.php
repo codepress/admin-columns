@@ -370,7 +370,14 @@ final class TableScreen {
 	 * @param \WP_Screen $wp_screen
 	 */
 	public function load_list_screen( $wp_screen ) {
-		$this->set_current_list_screen( ListScreenFactory::create_by_screen( $wp_screen ) );
+
+		foreach ( AC()->get_list_screens() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $wp_screen ) ) {
+				$this->set_current_list_screen( ListScreenFactory::create( $list_screen->get_key() ) );
+
+				break;
+			}
+		}
 	}
 
 	/**
