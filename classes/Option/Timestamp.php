@@ -2,9 +2,11 @@
 
 namespace AC\Option;
 
+use AC\Expirable;
 use AC\Option;
 
-class Timestamp extends Option {
+class Timestamp extends Option
+	implements Expirable {
 
 	/**
 	 * @param int|null $time
