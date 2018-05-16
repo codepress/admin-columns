@@ -504,10 +504,10 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param string $dir Absolute path to the column directory
+	 * @param string $namespace Namespace from the current path
 	 */
-	public function register_column_types_from_dir( $dir ) {
-		$classes = Autoloader::instance()->get_class_names_from_dir( $dir );
+	public function register_column_types_from_dir( $namespace ) {
+		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
 
 		foreach ( $classes as $class ) {
 			$this->register_column_type( new $class );
@@ -588,7 +588,7 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0.5
 		 *
-		 * @param Column        $column      Column type object
+		 * @param Column     $column      Column type object
 		 * @param ListScreen $list_screen List screen object to which the column was registered
 		 */
 		do_action( 'ac/list_screen/column_registered', $column, $this );

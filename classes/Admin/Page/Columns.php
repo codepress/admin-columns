@@ -389,7 +389,7 @@ class Columns extends Page {
 	 * @return Promo|false
 	 */
 	public function get_active_promotion() {
-		$classes = Autoloader::instance()->get_class_names_from_dir( AC()->get_dir() . 'classes/Admin/Promo' );
+		$classes = Autoloader::instance()->get_class_names_from_dir( 'AC\Admin\Promo' );
 
 		foreach ( $classes as $class ) {
 

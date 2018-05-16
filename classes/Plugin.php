@@ -93,7 +93,7 @@ abstract class Plugin extends Addon {
 			return;
 		}
 
-		$classes = Autoloader::instance()->get_class_names_from_dir( $this->get_dir() . 'classes/Plugin/Update' );
+		$classes = Autoloader::instance()->get_class_names_from_dir( __NAMESPACE__ . '\Plugin\Update' );
 
 		foreach ( $classes as $class ) {
 			$updater->add_update( new $class( $this->get_stored_version() ) );
