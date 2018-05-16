@@ -17,7 +17,7 @@ class AdminColumns extends Plugin {
 	private $admin;
 
 	/**
-	 * @var TableScreen
+	 * @var Table\Screen
 	 */
 	private $table_screen;
 
@@ -64,7 +64,7 @@ class AdminColumns extends Plugin {
 
 		// Init
 		$this->addons = new Admin\Addons();
-		$this->table_screen = new TableScreen();
+		$this->table_screen = new Table\Screen();
 		$this->api = new API();
 
 		$this->admin = new Admin();
@@ -176,7 +176,7 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return TableScreen Returns the screen manager for the list table
+	 * @return Table\Screen Returns the screen manager for the list table
 	 */
 	public function table_screen() {
 		return $this->table_screen;
