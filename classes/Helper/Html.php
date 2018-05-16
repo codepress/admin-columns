@@ -125,7 +125,7 @@ class Html {
 	}
 
 	/**
-	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC_Column::get_ajax_value.
+	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
 	 *
 	 * @param int    $id
 	 * @param string $label

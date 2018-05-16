@@ -3,7 +3,7 @@
 namespace AC;
 
 /**
- * Class AC_Helper
+ * Class AC\Helper
  *
  * Implements __call to work around any keyword restrictions for PHP versions > 7
  *

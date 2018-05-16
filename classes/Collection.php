@@ -3,8 +3,6 @@
 namespace AC;
 
 /**
- * Class AC_Collection
- *
  * Used to hold values from the same type
  */
 class Collection

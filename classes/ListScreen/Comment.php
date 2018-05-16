@@ -11,13 +11,13 @@ class Comment extends AC\ListScreenWP {
 
 	public function __construct() {
 
-		$this->set_label( __( 'Comments' ) );
-		$this->set_singular_label( __( 'Comment' ) );
-		$this->set_meta_type( 'comment' );
-		$this->set_screen_base( 'edit-comments' );
-		$this->set_key( 'wp-comments' );
-		$this->set_screen_id( 'edit-comments' );
-		$this->set_group( 'comment' );
+		$this->set_label( __( 'Comments' ) )
+		     ->set_singular_label( __( 'Comment' ) )
+		     ->set_meta_type( 'comment' )
+		     ->set_screen_base( 'edit-comments' )
+		     ->set_key( 'wp-comments' )
+		     ->set_screen_id( 'edit-comments' )
+		     ->set_group( 'comment' );
 	}
 
 	/**

@@ -43,7 +43,7 @@ abstract class Plugin extends Addon {
 	 * @return false|string
 	 */
 	public function get_name() {
-		return $this->get_plugin_header( 'Name' );
+		return $this->get_header( 'Name' );
 	}
 
 	/**

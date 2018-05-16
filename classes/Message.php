@@ -52,7 +52,7 @@ abstract class Message {
 		$view = $this->create_view();
 
 		if ( ! ( $view instanceof View ) ) {
-			throw new \Exception( 'AC_Notice::create_view should return an instance of View' );
+			throw new \Exception( 'AC\Notice::create_view should return an instance of View' );
 		}
 
 		return $view->render();

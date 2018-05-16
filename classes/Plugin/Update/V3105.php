@@ -20,7 +20,6 @@ class V3105 extends Update {
 	 */
 	private function update_user_preferences() {
 
-		// TODO: test
 		$mapping = array(
 			'ac_hide_notice_addons' => 'addon-nudge',
 			'ac_hide_notice_review' => 'dismiss-review',

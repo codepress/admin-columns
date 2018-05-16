@@ -8,13 +8,13 @@ class User extends AC\ListScreenWP {
 
 	public function __construct() {
 
-		$this->set_label( __( 'Users' ) );
-		$this->set_singular_label( __( 'User' ) );
-		$this->set_meta_type( 'user' );
-		$this->set_screen_base( 'users' );
-		$this->set_screen_id( 'users' );
-		$this->set_key( 'wp-users' );
-		$this->set_group( 'user' );
+		$this->set_label( __( 'Users' ) )
+		     ->set_singular_label( __( 'User' ) )
+		     ->set_meta_type( 'user' )
+		     ->set_screen_base( 'users' )
+		     ->set_screen_id( 'users' )
+		     ->set_key( 'wp-users' )
+		     ->set_group( 'user' );
 	}
 
 	/**

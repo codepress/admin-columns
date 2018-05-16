@@ -9,10 +9,10 @@ class Post extends ListScreenPost {
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
 
-		$this->set_screen_base( 'edit' );
-		$this->set_group( 'post' );
-		$this->set_key( $post_type );
-		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
+		$this->set_screen_base( 'edit' )
+		     ->set_group( 'post' )
+		     ->set_key( $post_type )
+		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
 	/**
