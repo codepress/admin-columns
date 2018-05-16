@@ -47,7 +47,7 @@ function ac_init() {
 		return;
 	}
 
-	require_once 'bootstrap.php';
+	require_once __DIR__ . '/bootstrap.php';
 }
 
 add_action( 'after_setup_theme', 'ac_init', 1 );
