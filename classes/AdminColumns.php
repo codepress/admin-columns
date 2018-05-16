@@ -2,8 +2,9 @@
 
 namespace AC;
 
-use AC\ThirdParty;
 use AC\Check;
+use AC\Table;
+use AC\ThirdParty;
 
 class AdminColumns extends Plugin {
 
