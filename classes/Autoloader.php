@@ -110,11 +110,6 @@ class Autoloader {
 		return true;
 	}
 
-	// TODO: remove this to the only place it's used
-	public static function string_to_classname( $string ) {
-		return implode( array_map( 'ucfirst', explode( '_', str_replace( '-', '_', $string ) ) ) );
-	}
-
 	/**
 	 * Get list of all auto-loadable class names from a directory
 	 *
@@ -136,12 +131,7 @@ class Autoloader {
 		/* @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			if ( 'php' === $leaf->getExtension() ) {
-				$class = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
-				$reflection = new \ReflectionClass( $class );
-
-				if ( $reflection->isInstantiable() ) {
-					$classes[] = $class;
-				}
+				$classes[] = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
 			}
 		}
 

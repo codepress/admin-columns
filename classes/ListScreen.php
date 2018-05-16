@@ -510,7 +510,11 @@ abstract class ListScreen {
 		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
 
 		foreach ( $classes as $class ) {
-			$this->register_column_type( new $class );
+			$reflection = new \ReflectionClass( $class );
+
+			if ( $reflection->isInstantiable() ) {
+				$this->register_column_type( new $class );
+			}
 		}
 	}
 
