@@ -23,6 +23,7 @@ class AddonAvailable
 	 */
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
+
 		$handler->set_action( 'ac_dismiss_notice_addon_available' )
 		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
@@ -33,8 +34,6 @@ class AddonAvailable
 	 * @return Preferences\User
 	 */
 	protected function get_preferences() {
-
-		// TODO
 		return new Preferences\User( 'check-addon-available' );
 	}
 
