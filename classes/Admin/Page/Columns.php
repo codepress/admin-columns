@@ -723,6 +723,9 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 					<div class="column-footer">
 						<?php if ( ! $list_screen->is_read_only() ) : ?>
 							<div class="order-message">
+								<svg class="order-message__icon" width="18" height="18">
+									<use xlink:href="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/symbols.svg#arrow-left-top"/>
+								</svg>
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 							</div>
 							<div class="button-container">
@@ -910,7 +913,7 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 		if ( ! $this->is_current_screen() ) {
 			return;
 		}
-		
+
 		?>
 		<div class="ac-modal" id="ac-modal-pro">
 			<div class="ac-modal__dialog -mascot">
@@ -935,7 +938,11 @@ class AC_Admin_Page_Columns extends AC_Admin_Page {
 				<div class="ac-modal__dialog__footer">
 					<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
-					<img src="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/mascot.png" alt="<?php _e( 'Admin Columns Mascot', 'codepress-admin-columns' ); ?>" class="ac-modal__dialog__mascot">
+
+					<svg class="ac-modal__dialog__mascot">
+						<use xlink:href="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"/>
+					</svg>
+
 				</div>
 			</div>
 		</div>
