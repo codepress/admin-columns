@@ -136,7 +136,12 @@ class Autoloader {
 		/* @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			if ( 'php' === $leaf->getExtension() ) {
-				$classes[] = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
+				$class = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
+				$reflection = new \ReflectionClass( $class );
+
+				if ( $reflection->isInstantiable() ) {
+					$classes[] = $class;
+				}
 			}
 		}
 
