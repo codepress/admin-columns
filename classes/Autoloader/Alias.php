@@ -41,7 +41,7 @@ class Alias {
 	 */
 	public function add_alias( $original, $alias = null ) {
 		if ( strpos( $original, '/' ) ) {
-			throw new \Exception( 'Namespaces use \ instead of / as divider.' );
+			throw new \Exception( 'Namespaces use \ instead of /.' );
 		}
 
 		if ( null === $alias ) {
