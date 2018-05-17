@@ -2,7 +2,7 @@
 
 namespace AC\Autoloader;
 
-class Alias {
+class Underscore {
 
 	/**
 	 * @var self;
@@ -19,7 +19,6 @@ class Alias {
 	protected function __construct() {
 		$this->aliases = array();
 
-		// prepended autoload
 		spl_autoload_register( array( $this, 'autoload' ), true, true );
 	}
 
@@ -62,7 +61,7 @@ class Alias {
 	 *
 	 * @return bool
 	 */
-	public function original_exists( $alias ) {
+	public function alias_exists( $alias ) {
 		return isset( $this->aliases[ $alias ] );
 	}
 
@@ -72,7 +71,7 @@ class Alias {
 	 * @return false|string
 	 */
 	public function get_original( $alias ) {
-		if ( ! $this->original_exists( $alias ) ) {
+		if ( ! $this->alias_exists( $alias ) ) {
 			return false;
 		}
 
@@ -80,13 +79,38 @@ class Alias {
 	}
 
 	public function autoload( $alias ) {
-		if ( ! $this->original_exists( $alias ) ) {
+		if ( ! strpos( $alias, '_' ) ) {
 			return false;
 		}
 
-		class_alias( $this->get_original( $alias ), $alias );
+		if ( $this->alias_exists( $alias ) ) {
+			$this->class_alias( $this->get_original( $alias ), $alias );
 
-		return true;
+			return true;
+		}
+
+		$prefixes = array( 'AC_', 'ACP_', 'ACA_' );
+
+		foreach ( $prefixes as $prefix ) {
+			if ( 0 === strpos( $alias, $prefix ) ) {
+				$this->class_alias( str_replace( '_', '\\', $alias ), $alias );
+
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+
+	protected function class_alias( $original, $alias ) {
+		class_alias( $original, $alias );
+
+		if ( WP_DEBUG ) {
+			$error = sprintf( '%s is a <strong>deprecated class</strong> since version %s! Use %s instead.', $alias, 4.3, $original );
+
+			trigger_error( $error );
+		}
 	}
 
 }
