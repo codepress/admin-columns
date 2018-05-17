@@ -11,6 +11,74 @@ msgstr ""
 "Language: hu\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: classes/Settings/Column/Pro/Sorting.php:14
+msgid "This will make the column sortable."
+msgstr ""
+
+#: classes/Settings/Column/Pro/Sorting.php:10
+msgid "Sorting"
+msgstr ""
+
+#: classes/Settings/Column/Pro/Filtering.php:14
+msgid "This will make the column filterable."
+msgstr ""
+
+#: classes/Settings/Column/Pro/Filtering.php:10
+msgid "Filtering"
+msgstr ""
+
+#: classes/Settings/Column/Pro/Export.php:14
+msgid "Export your column data to CSV."
+msgstr ""
+
+#: classes/Settings/Column/Pro/Export.php:10
+msgid "Export"
+msgstr ""
+
+#: classes/Settings/Column/Pro/Editing.php:14
+msgid "Edit your content directly from the overview."
+msgstr ""
+
+#: classes/Settings/Column/Pro/Editing.php:10
+msgid "Editing"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:941
+msgid "Only %s for 1 site"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:936
+msgid "Get add-ons for ACF, WooCommerce and many more"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:935
+msgid "Create multiple column groups per overview"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:934
+msgid "Export all column data to CSV"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:933
+msgid "Directly edit your content from the overview"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:932
+msgid "Sort & Filter on all your content"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:929
+msgid "Upgrade to PRO, and take Admin Columns to the next level:"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:922
+msgid "Do you like Admin Columns?"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:454
+msgid "Select type"
+msgstr ""
+
 #: classes/Settings/Column/Time.php:20
 msgid "WordPress Time Format"
 msgstr ""
@@ -184,7 +252,7 @@ msgstr ""
 msgid "Alternative Text"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:113
+#: classes/Admin/Page/Addons.php:117
 msgid "Please visit the %s page."
 msgstr ""
 
@@ -241,11 +309,11 @@ msgstr ""
 msgid "User Nicename"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:591
+#: classes/Admin/Page/Columns.php:594
 msgid "Send me the discount"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:556
+#: classes/Admin/Page/Columns.php:559
 msgid "Prices starting from %s"
 msgstr ""
 
@@ -503,7 +571,7 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#: classes/Column/Media/FullPath.php:14
+#: classes/Settings/Column/PathScope.php:24
 msgid "Full Path"
 msgstr ""
 
@@ -511,159 +579,159 @@ msgstr ""
 msgid "Discount is valid until %s"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:171
+#: classes/Admin/Page/Settings.php:181
 msgid "Show %s button on table screen."
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:152
+#: classes/Admin/Page/Settings.php:162
 msgid "Default is %s."
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:149
+#: classes/Admin/Page/Settings.php:159
 msgid "on"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:146
+#: classes/Admin/Page/Settings.php:156
 msgid "off"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:133
+#: classes/Admin/Page/Settings.php:143
 msgid "Notice"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:127
+#: classes/Admin/Page/Settings.php:137
 msgid "Instructions"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:325
+#: classes/Admin/Page/Help.php:330
 msgid "our documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:325
+#: classes/Admin/Page/Help.php:330
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:323
+#: classes/Admin/Page/Help.php:328
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:313
+#: classes/Admin/Page/Help.php:318
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Page/Help.php:258
+#: classes/Admin/Page/Help.php:263
 msgid "View documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:203
+#: classes/Admin/Page/Help.php:208
 msgid "The action %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:185
+#: classes/Admin/Page/Help.php:190
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:172
+#: classes/Admin/Page/Help.php:177
 msgid "Deprecated Actions"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:171
+#: classes/Admin/Page/Help.php:176
 msgid "Deprecated Filters"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:34 classes/Admin/Page/Help.php:321
+#: classes/Admin/Page/Help.php:39 classes/Admin/Page/Help.php:326
 msgid "Help"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:858 classes/Admin/Page/Columns.php:893
+#: classes/Admin/Page/Columns.php:862 classes/Admin/Page/Columns.php:897
 msgid "Close"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:741
+#: classes/Admin/Page/Columns.php:744
 msgid "Clear all columns "
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:648
+#: classes/Admin/Page/Columns.php:651
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:590
+#: classes/Admin/Page/Columns.php:593
 msgid "Your First Name"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:589
+#: classes/Admin/Page/Columns.php:592
 msgid "Your Email"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:582
+#: classes/Admin/Page/Columns.php:585
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:578
+#: classes/Admin/Page/Columns.php:581 classes/Admin/Promo.php:134
 msgid "Get %s Off!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:545
+#: classes/Admin/Page/Columns.php:548
 msgid "Extra Columns for:"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:531
+#: classes/Admin/Page/Columns.php:534
 msgid "Edit your column content directly"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:519
+#: classes/Admin/Page/Columns.php:522
 msgid "Pro"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:301
+#: classes/Admin/Page/Columns.php:304
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:293
+#: classes/Admin/Page/Addons.php:297
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:292
+#: classes/Admin/Page/Addons.php:296
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:113
+#: classes/Admin/Page/Addons.php:117
 msgid "%s could not be activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:103
+#: classes/Admin/Page/Addons.php:107
 msgid "%s successfully activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:98
+#: classes/Admin/Page/Addons.php:102
 msgid "%s plugin successfully deactivated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:97
+#: classes/Admin/Page/Addons.php:101
 msgid "%s plugin successfully activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:64
+#: classes/Admin/Page/Addons.php:69
 msgid "%s add-on requires %s."
 msgid_plural "%s add-ons requires %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Page/Addons.php:51
+#: classes/Admin/Page/Addons.php:56
 msgid "here"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:51
+#: classes/Admin/Page/Addons.php:56
 msgid "Click %s to activate the plugin."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:48
+#: classes/Admin/Page/Addons.php:53
 msgid "%s plugin is installed, but not active."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:46
+#: classes/Admin/Page/Addons.php:51
 msgid "%s plugin needs to be installed for the add-on to work."
 msgstr ""
 
@@ -683,59 +751,55 @@ msgstr ""
 msgid "Imported"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:561
+#: classes/Admin/Page/Columns.php:564
 msgid "Learn more about Pro"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:533
+#: classes/Admin/Page/Columns.php:536
 msgid "Import &amp; Export settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:532
+#: classes/Admin/Page/Columns.php:535
 msgid "Create multiple columns sets"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:530
+#: classes/Admin/Page/Columns.php:533
 msgid "Add filterable columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:529
+#: classes/Admin/Page/Columns.php:532
 msgid "Add sortable columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:524
+#: classes/Admin/Page/Columns.php:527
 msgid "Take Admin Columns to the next level:"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:519
+#: classes/Admin/Page/Columns.php:522
 msgid "Upgrade to"
 msgstr ""
 
-#: classes/Admin/Promo.php:134
-msgid "Get %s Off"
-msgstr ""
-
-#: classes/Admin/Page/Columns.php:431
+#: classes/Admin/Page/Columns.php:434
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:221
+#: classes/Admin/Page/Columns.php:224
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:500
+#: classes/Admin/Page/Columns.php:503
 msgid "Restore columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:147
+#: classes/Admin/Page/Columns.php:150
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:308
+#: classes/Admin/Page/Columns.php:311
 msgid "View %s screen"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:70
+#: classes/Admin/Page/Columns.php:73
 msgid "Invalid response."
 msgstr ""
 
@@ -751,23 +815,23 @@ msgstr ""
 msgid "Link Label"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:220
+#: classes/Admin/Page/Addons.php:224
 msgid "You need Admin Columns Pro."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:214
+#: classes/Admin/Page/Addons.php:218
 msgid "Addon does not exist."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:176
+#: classes/Admin/Page/Addons.php:180
 msgid "the addons page"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:176
+#: classes/Admin/Page/Addons.php:180
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: codepress-admin-columns.php:300
+#: codepress-admin-columns.php:325
 msgid "Custom Fields"
 msgstr " Egyedi mezők"
 
@@ -779,22 +843,28 @@ msgstr ""
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
 msgstr ""
 
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.5)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.10) 
+#. #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.5)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.10) 
+#. #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://www.admincolumns.com"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:171 classes/TableScreen.php:218
+#: classes/Admin/Page/Settings.php:181 classes/TableScreen.php:218
 msgid "Edit columns"
 msgstr "Oszlopok szerkesztése"
 
-#: classes/Admin/Page/Columns.php:328
+#: classes/Admin/Page/Columns.php:940
+msgid "Upgrade"
+msgstr "Frissítés"
+
+#: classes/Admin/Page/Columns.php:331
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:315
+#: classes/Admin/Page/Columns.php:318
 msgid "You are trying to store the same settings for %s."
 msgstr "Ugyanazokat a beállításokat próbálod menteni a %s-nél."
 
@@ -802,17 +872,17 @@ msgstr "Ugyanazokat a beállításokat próbálod menteni a %s-nél."
 msgid "No columns settings available."
 msgstr "Nincs elérhető oszlopbeállítás."
 
-#: classes/ListScreen/User.php:11 codepress-admin-columns.php:431
+#: classes/ListScreen/User.php:11 codepress-admin-columns.php:456
 msgid "Users"
 msgstr ""
 
 #: classes/ListScreen/Media.php:16
 #: classes/Settings/Column/CustomFieldType.php:112
-#: codepress-admin-columns.php:432
+#: codepress-admin-columns.php:457
 msgid "Media"
 msgstr ""
 
-#: codepress-admin-columns.php:434
+#: codepress-admin-columns.php:459
 msgid "Links"
 msgstr ""
 
@@ -820,103 +890,103 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: classes/ListScreen/Comment.php:14 codepress-admin-columns.php:433
+#: classes/ListScreen/Comment.php:14 codepress-admin-columns.php:458
 msgid "Comments"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:420
+#: classes/Admin/Page/Addons.php:424
 msgid "Get this add-on"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:418
+#: classes/Admin/Page/Addons.php:422
 msgid "Download & Install"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:412
+#: classes/Admin/Page/Addons.php:416
 msgid "Activate"
 msgstr "Sikeresen regisztrált oldalunkra!"
 
-#: classes/Admin/Page/Addons.php:291
+#: classes/Admin/Page/Addons.php:295
 msgid "Installed"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:408
+#: classes/Admin/Page/Addons.php:412
 msgid "Deactivate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:405
+#: classes/Admin/Page/Addons.php:409
 msgid "Active"
 msgstr "Bekapcsolva"
 
-#: classes/Admin/Page/Columns.php:747
+#: classes/Admin/Page/Columns.php:750
 msgid "Add Column"
 msgstr "Oszlop hozzáadása"
 
-#: classes/Admin/Page/Columns.php:727
+#: classes/Admin/Page/Columns.php:730
 msgid "Drag and drop to reorder"
 msgstr "Húzd az elemeket más helyre a sorrend megváltoztatásához"
 
-#: classes/Admin/Page/Columns.php:676
+#: classes/Admin/Page/Columns.php:679
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>"
 msgstr "A teljes dokumentációhoz, problémák jelentéséhez, új javaslatok beküldéséhez és egyéb tippekért <a href='%s'>keresd fel az Admin Columns weboldalát</a>"
 
-#: classes/Admin/Page/Columns.php:672
+#: classes/Admin/Page/Columns.php:675
 msgid "Check the <strong>Help</strong> section in the top-right screen."
 msgstr "Tekintsd meg a <strong>Súgó</strong> részt a képernyő jobb felső sarkában."
 
-#: classes/Admin/Page/Columns.php:667
+#: classes/Admin/Page/Columns.php:670
 msgid "Support"
 msgstr "Segítség"
 
-#: classes/Admin/Page/Columns.php:655
+#: classes/Admin/Page/Columns.php:658
 msgid "Buy Pro"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:649
+#: classes/Admin/Page/Columns.php:652
 msgid "Tweet"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:643
+#: classes/Admin/Page/Columns.php:646
 msgid "Rate"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:638
+#: classes/Admin/Page/Columns.php:641
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:635
+#: classes/Admin/Page/Columns.php:638
 msgid "Woohoo! We're glad to hear that!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:625
+#: classes/Admin/Page/Columns.php:628
 msgid "Forums"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:620
+#: classes/Admin/Page/Columns.php:623
 msgid "Docs"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:615
+#: classes/Admin/Page/Columns.php:618
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:612
+#: classes/Admin/Page/Columns.php:615
 msgid "What's wrong? Need help? Let us know!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:602
+#: classes/Admin/Page/Columns.php:605
 msgid "Are you happy with Admin Columns?"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:499
+#: classes/Admin/Page/Columns.php:502
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:488 classes/Admin/Page/Columns.php:745
+#: classes/Admin/Page/Columns.php:491 classes/Admin/Page/Columns.php:748
 msgid "Update"
 msgstr "Frisítés"
 
-#: classes/Admin/Page/Columns.php:477
+#: classes/Admin/Page/Columns.php:480
 msgid "Store settings"
 msgstr "Beállítások tárolása"
 
@@ -924,7 +994,7 @@ msgstr "Beállítások tárolása"
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:18 codepress-admin-columns.php:255
+#: classes/Admin/Page/Settings.php:16 codepress-admin-columns.php:280
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -932,32 +1002,32 @@ msgstr "Beállítások"
 msgid "Others"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:229
+#: classes/Admin/Page/Settings.php:239
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:229
+#: classes/Admin/Page/Settings.php:239
 msgid "Restore default settings"
 msgstr "Alapértelmezett beállítások visszaállítása"
 
-#: classes/Admin/Page/Settings.php:221
+#: classes/Admin/Page/Settings.php:231
 msgid "This will delete all column settings and restore the default settings."
 msgstr "Törli minden oszlop beállítást és visszaállítja az alapértelmezett beállításokat."
 
-#: classes/Admin/Page/Settings.php:220
+#: classes/Admin/Page/Settings.php:230
 msgid "Restore Settings"
 msgstr "Beállítások visszaállítása"
 
-#: classes/Admin/Page/Columns.php:489 classes/Admin/Page/Columns.php:746
-#: classes/Admin/Page/Settings.php:179
+#: classes/Admin/Page/Columns.php:492 classes/Admin/Page/Columns.php:749
+#: classes/Admin/Page/Settings.php:189
 msgid "Save"
 msgstr ""
 
-#: classes/Admin/Page/Settings.php:161
+#: classes/Admin/Page/Settings.php:171
 msgid "Customize your Admin Columns settings."
 msgstr "Az Admin Columns beállítások módosítása"
 
-#: classes/Admin/Page/Settings.php:160
+#: classes/Admin/Page/Settings.php:170
 #: classes/Settings/Column/DateTimeFormat.php:39
 msgid "General Settings"
 msgstr "Általános beállítások"
@@ -1058,19 +1128,19 @@ msgstr "A plugin segítségével további oszlopokat lehet hozzáadni bejegyzés
 msgid "Overview"
 msgstr "Áttekintés"
 
-#: classes/Admin/Page/Settings.php:101
+#: classes/Admin/Page/Settings.php:111
 msgid "Default settings succesfully restored."
 msgstr "Alapértelmezett beállítások sikeresen visszaállítva."
 
-#: classes/Admin/Page/Columns.php:69 classes/Admin/Page/Columns.php:248
+#: classes/Admin/Page/Columns.php:72 classes/Admin/Page/Columns.php:251
 msgid "%s column is already present and can not be duplicated."
 msgstr "A %s oszlop már a listában van, és nem szerepelhet egynél többször."
 
-#: classes/Admin.php:127
+#: classes/Admin.php:126
 msgid "Admin Columns Settings"
 msgstr "Admin Columns beállítások"
 
-#: classes/Admin/Page/Addons.php:104
+#: classes/Admin/Page/Addons.php:108
 msgid "%s successfully deactivated."
 msgstr ""
 
@@ -1118,13 +1188,14 @@ msgstr ""
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:64 classes/Notice/Review.php:68
+#: classes/Admin/Page/Addons.php:69 classes/Notice/Review.php:68
 msgid "Admin Columns Pro"
 msgstr ""
 
-#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.5)  #-#-#-#-#
+#. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.1.10) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: classes/Admin/Page/Columns.php:22 classes/Admin.php:127
+#: classes/Admin/Page/Columns.php:22 classes/Admin.php:126
 #: classes/Notice/Review.php:65 classes/Plugin/Updater.php:103
 #: classes/Plugin/Updater.php:114
 msgid "Admin Columns"
@@ -1178,7 +1249,7 @@ msgstr "Név"
 msgid "Choose a column type."
 msgstr "Válassz egy oszloptípust."
 
-#: classes/Admin/Page/Columns.php:860 classes/Admin/Page/Columns.php:895
+#: classes/Admin/Page/Columns.php:864 classes/Admin/Page/Columns.php:899
 msgid "Clone"
 msgstr ""
 
@@ -1198,7 +1269,7 @@ msgstr "Felhasználó email"
 msgid "User Login"
 msgstr "Felhasználó bejelentkezés"
 
-#: classes/Settings/Column/User.php:65
+#: classes/Column/User/LastName.php:14 classes/Settings/Column/User.php:65
 msgid "Last Name"
 msgstr "Családnév"
 
@@ -1227,7 +1298,7 @@ msgid "width"
 msgstr "szélesség"
 
 #: classes/Settings/Column/CustomFieldType.php:153
-#: classes/Settings/Column/Image.php:111 codepress-admin-columns.php:301
+#: classes/Settings/Column/Image.php:111 codepress-admin-columns.php:326
 msgid "Custom"
 msgstr "Egyedi"
 
@@ -1264,7 +1335,7 @@ msgid "Registered"
 msgstr "Feliratkozott"
 
 #: classes/Settings/Column/CustomFieldType.php:80
-#: classes/Settings/Column/PostType.php:24 codepress-admin-columns.php:430
+#: classes/Settings/Column/PostType.php:24 codepress-admin-columns.php:455
 msgid "Post Type"
 msgstr "Bejegyzés típus"
 
@@ -1276,16 +1347,12 @@ msgstr "Bejegyzések száma"
 msgid "Nickname"
 msgstr "Becenév"
 
-#: classes/Column/User/LastName.php:14
-msgid "Last name"
-msgstr "Vezetéknév"
-
 #: classes/Column/Post/CommentCount.php:17
 #: classes/Column/User/CommentCount.php:14
 msgid "Comment Count"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:862 classes/Admin/Page/Columns.php:897
+#: classes/Admin/Page/Columns.php:866 classes/Admin/Page/Columns.php:901
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -1333,7 +1400,7 @@ msgstr ""
 msgid "Permalink"
 msgstr ""
 
-#: classes/Column/Post/Path.php:16
+#: classes/Column/Media/FullPath.php:14 classes/Column/Post/Path.php:16
 msgid "Path"
 msgstr ""
 
@@ -1475,10 +1542,6 @@ msgstr ""
 msgid "Path scope"
 msgstr ""
 
-#: classes/Settings/Column/PathScope.php:24
-msgid "Full path"
-msgstr "Teljes útvonal"
-
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
 msgstr ""
@@ -1536,7 +1599,7 @@ msgstr "Kép felirata"
 msgid "Available Sizes"
 msgstr "Elérhető méretek"
 
-#: classes/Admin/Page/Columns.php:463
+#: classes/Admin/Page/Columns.php:466
 msgid "View"
 msgstr "Megtekintés"
 
@@ -1631,7 +1694,7 @@ msgstr "Szín"
 #: classes/Admin/Help/CustomField.php:22
 #: classes/Settings/Column/CustomFieldType.php:168
 #: classes/Settings/Column/Image.php:71
-#: classes/Settings/Column/Separator.php:23 codepress-admin-columns.php:298
+#: classes/Settings/Column/Separator.php:23 codepress-admin-columns.php:323
 msgid "Default"
 msgstr "Alapérték"
 
@@ -1717,7 +1780,7 @@ msgstr "Jóváhagyva"
 msgid "Agent"
 msgstr "Ügynök"
 
-#: classes/Admin/Page/Columns.php:857 classes/Column/Link/Actions.php:39
+#: classes/Admin/Page/Columns.php:861 classes/Column/Link/Actions.php:39
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -1728,20 +1791,20 @@ msgstr "Szerkesztés"
 msgid "ID"
 msgstr "ID"
 
-#: classes/Admin/Page/Columns.php:606 classes/Helper/Icon.php:61
+#: classes/Admin/Page/Columns.php:609 classes/Helper/Icon.php:61
 #: classes/Settings/Column/ActionIcons.php:22
 #: classes/Settings/Column/MissingImageSize.php:22
 #: classes/Settings/Column/PostFormatIcon.php:24
-#: classes/Settings/Column/StatusIcon.php:24
+#: classes/Settings/Column/Pro.php:17 classes/Settings/Column/StatusIcon.php:24
 #: classes/Settings/Column/Toggle.php:14
 msgid "No"
 msgstr "Nem"
 
-#: classes/Admin/Page/Columns.php:605 classes/Helper/Icon.php:49
+#: classes/Admin/Page/Columns.php:608 classes/Helper/Icon.php:49
 #: classes/Settings/Column/ActionIcons.php:21
 #: classes/Settings/Column/MissingImageSize.php:21
 #: classes/Settings/Column/PostFormatIcon.php:23
-#: classes/Settings/Column/StatusIcon.php:23
+#: classes/Settings/Column/Pro.php:16 classes/Settings/Column/StatusIcon.php:23
 #: classes/Settings/Column/Toggle.php:13
 msgid "Yes"
 msgstr "Igen"
@@ -1770,6 +1833,6 @@ msgstr ""
 msgid "Advanced Custom Fields"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:113 codepress-admin-columns.php:299
+#: classes/Admin/Page/Addons.php:117 codepress-admin-columns.php:324
 msgid "Plugins"
 msgstr ""
