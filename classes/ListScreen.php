@@ -631,7 +631,6 @@ abstract class ListScreen {
 
 		/* @var Column $column */
 		$column = new $class();
-
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] );
 
@@ -641,7 +640,6 @@ abstract class ListScreen {
 
 		// Mark as original
 		if ( $this->is_original_column( $settings['type'] ) ) {
-
 			$column->set_original( true );
 			$column->set_name( $settings['type'] );
 		}
