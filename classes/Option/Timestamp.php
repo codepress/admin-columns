@@ -28,7 +28,7 @@ class Timestamp extends Option
 	}
 
 	/**
-	 * @param $value
+	 * @param int $value
 	 *
 	 * @return bool
 	 */

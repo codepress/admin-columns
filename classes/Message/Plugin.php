@@ -36,11 +36,11 @@ class Plugin extends Message {
 
 	public function create_view() {
 		switch ( $this->type ) {
-			case self::SUCCESS:
+			case self::SUCCESS :
 				$class = 'updated-message notice-success';
 
 				break;
-			case self::INFO:
+			case self::INFO :
 				$class = self::WARNING;
 
 				break;
@@ -67,6 +67,9 @@ class Plugin extends Message {
 		return $view;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function get_icon_by_current_type() {
 		$mapping = array(
 			self::SUCCESS => '\f147',
