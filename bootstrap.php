@@ -8,6 +8,7 @@ require_once __DIR__ . '/api.php';
 require_once __DIR__ . '/classes/Autoloader.php';
 
 AC\Autoloader::instance()->register_prefix( 'AC', __DIR__ . '/classes' );
+AC\Autoloader\Underscore::instance();
 
 /**
  * For loading external resources, e.g. column settings.
