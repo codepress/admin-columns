@@ -38,13 +38,9 @@ class Underscore {
 	 *
 	 * return $this
 	 */
-	public function add_alias( $original, $alias = null ) {
+	public function add_alias( $original, $alias ) {
 		if ( strpos( $original, '/' ) ) {
 			throw new \Exception( 'Namespaces use \ instead of /.' );
-		}
-
-		if ( null === $alias ) {
-			$alias = str_replace( '\\', '_', $original );
 		}
 
 		if ( ! strpos( $alias, '_' ) ) {
@@ -78,32 +74,40 @@ class Underscore {
 		return $this->aliases[ $alias ];
 	}
 
-	public function autoload( $alias ) {
-		if ( ! strpos( $alias, '_' ) ) {
-			return false;
-		}
-
-		if ( $this->alias_exists( $alias ) ) {
-			$this->class_alias( $this->get_original( $alias ), $alias );
-
-			return true;
-		}
-
-		$prefixes = array( 'AC_', 'ACP_', 'ACA_' );
+	/**
+	 * Check if the prefix is within the domain of Admin Columns
+	 *
+	 * @param string $alias
+	 *
+	 * @return bool
+	 */
+	protected function is_valid_prefix( $alias ) {
+		$prefixes = array( 'AC', 'ACP', 'ACA' );
 
 		foreach ( $prefixes as $prefix ) {
-			if ( 0 === strpos( $alias, $prefix ) ) {
-				$this->class_alias( str_replace( '_', '\\', $alias ), $alias );
-
+			if ( 0 === strpos( $alias, $prefix . '_' ) ) {
 				return true;
 			}
-
 		}
 
 		return false;
 	}
 
-	protected function class_alias( $original, $alias ) {
+	public function autoload( $alias ) {
+		if ( ! $this->is_valid_prefix( $alias ) ) {
+			return false;
+		}
+
+		$original = $this->get_original( $alias );
+
+		if ( ! $original ) {
+			$original = str_replace( '_', '\\', $alias );
+		}
+
+		if ( ! class_exists( $original ) ) {
+			return false;
+		}
+
 		class_alias( $original, $alias );
 
 		if ( WP_DEBUG ) {
@@ -111,6 +115,8 @@ class Underscore {
 
 			trigger_error( $error );
 		}
+
+		return true;
 	}
 
 }
