@@ -33,7 +33,7 @@ class Timestamp extends Option
 	 * @return bool
 	 */
 	public function validate( $value ) {
-		return preg_match( '/^0|1-9[0-9]*$/', $value );
+		return preg_match( '/^[1-9][0-9]*$/', $value );
 	}
 
 	/**
