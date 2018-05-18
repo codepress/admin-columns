@@ -43,13 +43,34 @@ class Underscore {
 			throw new \Exception( 'Namespaces use \ instead of /.' );
 		}
 
-		if ( ! strpos( $alias, '_' ) ) {
-			throw new \Exception( 'Only use for deprecated _ class notation like AC_Column.' );
+		if ( ! $this->register_alias( $original, $alias ) ) {
+			throw new \Exception( sprintf( 'Failed to register alias for %s', $original ) );
 		}
 
 		$this->aliases[ $alias ] = $original;
 
 		return $this;
+	}
+
+	/**
+	 * Check if original exists and if so, create the class alias
+	 *
+	 * @param string $original
+	 * @param string $alias
+	 *
+	 * @return bool
+	 */
+	protected function register_alias( $original, $alias ) {
+		if ( ! class_exists( $original ) && ! interface_exists( $original ) ) {
+
+			var_dump( $original );
+			exit;
+			return false;
+		}
+
+		class_alias( $original, $alias );
+
+		return true;
 	}
 
 	/**
@@ -102,13 +123,11 @@ class Underscore {
 
 		if ( ! $original ) {
 			$original = str_replace( '_', '\\', $alias );
-		}
 
-		if ( ! class_exists( $original ) ) {
-			return false;
+			if ( ! $this->register_alias( $original, $alias ) ) {
+				return false;
+			}
 		}
-
-		class_alias( $original, $alias );
 
 		if ( WP_DEBUG ) {
 			$error = sprintf( '%s is a <strong>deprecated class</strong> since version %s! Use %s instead.', $alias, 4.3, $original );

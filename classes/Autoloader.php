@@ -35,12 +35,16 @@ class Autoloader {
 	 *
 	 * @param $prefix string Unique prefix to this set of classes
 	 * @param $dir    string Path to directory where classes are stored
+	 *
+	 * @return $this
 	 */
 	public function register_prefix( $prefix, $dir ) {
 		$this->prefixes[ $prefix ] = trailingslashit( $dir );
 
 		// make sure that more specific prefixes are checked first
 		krsort( $this->prefixes );
+
+		return $this;
 	}
 
 	/**
