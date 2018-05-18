@@ -62,9 +62,6 @@ class Underscore {
 	 */
 	protected function register_alias( $original, $alias ) {
 		if ( ! class_exists( $original ) && ! interface_exists( $original ) ) {
-
-			var_dump( $original );
-			exit;
 			return false;
 		}
 
