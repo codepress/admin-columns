@@ -36,12 +36,17 @@ class Transient
 		return $this->option->get();
 	}
 
+	public function delete() {
+		$this->option->delete();
+		$this->timestamp->delete();
+	}
+
 	/**
 	 * @param mixed $data
-	 * @param int   $expires
+	 * @param int   $expiration Time until expiration in seconds. Default 0 (no expiration).
 	 */
-	public function save( $data, $expires ) {
-		return $this->option->save( $data ) && $this->timestamp->save( $expires );
+	public function save( $data, $expiration ) {
+		return $this->option->save( $data ) && $this->timestamp->save( time() + intval( $expiration ) );
 	}
 
 }
