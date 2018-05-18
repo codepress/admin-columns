@@ -32,8 +32,17 @@ class Timestamp extends Option
 	 *
 	 * @return bool
 	 */
+	public function validate( $value ) {
+		return preg_match( '/^0|1-9[0-9]*$/', $value );
+	}
+
+	/**
+	 * @param int $value
+	 *
+	 * @return bool
+	 */
 	public function save( $value ) {
-		if ( preg_match( '/^1-9[0-9]*$/', $value ) ) {
+		if ( ! $this->validate( $value ) ) {
 			throw new \Exception( 'Value needs to be a positive integer' );
 		}
 
