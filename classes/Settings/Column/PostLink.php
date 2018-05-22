@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Settings;
 use AC\View;
 
@@ -71,7 +72,7 @@ class PostLink extends Settings\Column
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
 
-		if ( $this->column instanceof \AC\Column\Relation ) {
+		if ( $this->column instanceof AC\Column\Relation ) {
 			$relation_options = array(
 				'edit_post'   => _x( 'Edit %s', 'post' ),
 				'view_post'   => _x( 'View %s', 'post' ),

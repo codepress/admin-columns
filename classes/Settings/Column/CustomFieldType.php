@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Collection;
 use AC\Settings;
 use AC\View;
@@ -24,20 +25,20 @@ class CustomFieldType extends Settings\Column
 		switch ( $this->get_field_type() ) {
 
 			case 'date' :
-				$settings[] = new Settings\Column\Date( $this->column );
+				$settings[] = new Date( $this->column );
 
 				break;
 			case 'image' :
 			case 'library_id' :
-				$settings[] = new Settings\Column\Image( $this->column );
+				$settings[] = new Image( $this->column );
 
 				break;
 			case 'excerpt' :
-				$settings[] = new Settings\Column\StringLimit( $this->column );
+				$settings[] = new StringLimit( $this->column );
 
 				break;
 			case 'link' :
-				$settings[] = new Settings\Column\LinkLabel( $this->column );
+				$settings[] = new LinkLabel( $this->column );
 
 				break;
 		}
@@ -254,7 +255,7 @@ class CustomFieldType extends Settings\Column
 				break;
 			case "count" :
 
-				if ( $this->column instanceof \AC\Column\Meta ) {
+				if ( $this->column instanceof AC\Column\Meta ) {
 					$value = $this->column->get_meta_value( $original_value, $this->column->get_meta_key(), false );
 
 					if ( $value ) {
