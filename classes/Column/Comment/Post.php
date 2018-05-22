@@ -2,6 +2,7 @@
 
 namespace AC\Column\Comment;
 
+use AC;
 use AC\Column;
 
 /**
@@ -25,7 +26,7 @@ class Post extends Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new \AC\Settings\Column\Post( $this ) );
+		$this->add_setting( new AC\Settings\Column\Post( $this ) );
 	}
 
 }
