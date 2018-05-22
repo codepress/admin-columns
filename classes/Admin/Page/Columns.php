@@ -721,7 +721,7 @@ class Columns extends Page {
 						<?php if ( ! $list_screen->is_read_only() ) : ?>
 							<div class="order-message">
 								<svg class="order-message__icon" width="18" height="18">
-									<use xlink:href="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/symbols.svg#arrow-left-top"/>
+									<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#arrow-left-top"/>
 								</svg>
 								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
 							</div>
@@ -936,7 +936,7 @@ class Columns extends Page {
 					<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 					<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->get_lowest_pro_price() ); ?></span>
 					<svg class="ac-modal__dialog__mascot">
-						<use xlink:href="<?php echo esc_url( AC()->get_plugin_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"/>
+						<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"/>
 					</svg>
 				</div>
 			</div>
