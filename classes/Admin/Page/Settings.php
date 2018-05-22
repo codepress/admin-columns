@@ -205,13 +205,13 @@ class Settings extends Page {
 
 					$title = isset( $group['title'] ) ? $group['title'] : '';
 					$description = isset( $group['description'] ) ? $group['description'] : '';
+					$attr_id = isset( $group['id'] ) ? $group['id'] : '';
 
 					?>
 
-					<tr>
+					<tr id="<?php echo esc_attr( $attr_id ); ?>">
 						<th scope="row">
 							<h2><?php echo esc_html( $title ); ?></h2>
-
 							<p><?php echo $description; ?></p>
 						</th>
 						<td>
