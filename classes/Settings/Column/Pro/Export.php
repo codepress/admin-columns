@@ -1,6 +1,10 @@
 <?php
 
-class AC_Settings_Column_Pro_Export extends AC_Settings_Column_Pro {
+namespace AC\Settings\Column\Pro;
+
+use AC\Settings;
+
+class Export extends Settings\Column\Pro {
 
 	protected function get_label() {
 		return __( 'Export', 'codepress-admin-columns' );

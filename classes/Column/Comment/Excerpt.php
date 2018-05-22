@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Excerpt extends AC_Column {
+class Excerpt extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-excerpt' );
@@ -17,7 +21,7 @@ class AC_Column_Comment_Excerpt extends AC_Column {
 	}
 
 	public function register_settings() {
-		$word_limit = new AC_Settings_Column_WordLimit( $this );
+		$word_limit = new \AC\Settings\Column\WordLimit( $this );
 		$word_limit->set_default( 15 );
 
 		$this->add_setting( $word_limit );

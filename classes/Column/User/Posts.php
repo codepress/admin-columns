@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_User_Posts extends AC_Column {
+class Posts extends Column {
 
 	public function __construct() {
 		$this->set_original( true );

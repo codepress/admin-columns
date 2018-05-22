@@ -213,6 +213,15 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+
+= NEWVERSION =
+
+Release Date: TBD
+
+* [Removed] Support for PHP 5.2. The minimum version required to run Admin Columns is now PHP 5.3+.
+* [Removed] Deprecated functions before 3.0 after 12 months.
+
+
 = 3.1.10 =
 
 Release Date: May 1st, 2018

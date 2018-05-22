@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Form_Element {
+namespace AC\Form;
+
+abstract class Element {
 
 	/**
 	 * @var array

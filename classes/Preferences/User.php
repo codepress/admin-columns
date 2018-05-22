@@ -1,6 +1,10 @@
 <?php
 
-class AC_Preferences_User extends AC_Preferences {
+namespace AC\Preferences;
+
+use AC\Preferences;
+
+class User extends Preferences {
 
 	/**
 	 * @return bool

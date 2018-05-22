@@ -1,7 +1,13 @@
 <?php
 
-class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Collection;
+use AC\Settings;
+use AC\View;
+
+class CustomFieldType extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -18,20 +24,20 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 		switch ( $this->get_field_type() ) {
 
 			case 'date' :
-				$settings[] = new AC_Settings_Column_Date( $this->column );
+				$settings[] = new Settings\Column\Date( $this->column );
 
 				break;
 			case 'image' :
 			case 'library_id' :
-				$settings[] = new AC_Settings_Column_Image( $this->column );
+				$settings[] = new Settings\Column\Image( $this->column );
 
 				break;
 			case 'excerpt' :
-				$settings[] = new AC_Settings_Column_StringLimit( $this->column );
+				$settings[] = new Settings\Column\StringLimit( $this->column );
 
 				break;
 			case 'link' :
-				$settings[] = new AC_Settings_Column_LinkLabel( $this->column );
+				$settings[] = new Settings\Column\LinkLabel( $this->column );
 
 				break;
 		}
@@ -52,7 +58,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
 		}
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Field Type', 'codepress-admin-columns' ),
 			'tooltip' => $tooltip,
 			'setting' => $select,
@@ -220,11 +226,11 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 
 				break;
 			case 'image':
-				$value = new AC_Collection( $this->get_values_from_array_or_string( $value ) );
+				$value = new Collection( $this->get_values_from_array_or_string( $value ) );
 
 				break;
 			case 'library_id' :
-				$value = new AC_Collection( $this->get_ids_from_array_or_string( $value ) );
+				$value = new Collection( $this->get_ids_from_array_or_string( $value ) );
 
 				break;
 			case "checkmark" :
@@ -248,7 +254,7 @@ class AC_Settings_Column_CustomFieldType extends AC_Settings_Column
 				break;
 			case "count" :
 
-				if ( $this->column instanceof AC_Column_Meta ) {
+				if ( $this->column instanceof \AC\Column\Meta ) {
 					$value = $this->column->get_meta_value( $original_value, $this->column->get_meta_key(), false );
 
 					if ( $value ) {

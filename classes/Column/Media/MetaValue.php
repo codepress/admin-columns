@@ -1,9 +1,11 @@
 <?php
 
+namespace AC\Column\Media;
+
 /**
  * @since 4.0.8
  */
-abstract class AC_Column_Media_MetaValue extends AC_Column_Media_Meta {
+abstract class MetaValue extends Meta {
 
 	abstract protected function get_option_name();
 

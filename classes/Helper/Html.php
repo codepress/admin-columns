@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Html {
+namespace AC\Helper;
+
+class Html {
 
 	/**
 	 * @param string $key
@@ -123,7 +125,7 @@ class AC_Helper_Html {
 	}
 
 	/**
-	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC_Column::get_ajax_value.
+	 * Display a toggle box which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
 	 *
 	 * @param int    $id
 	 * @param string $label
@@ -196,13 +198,13 @@ class AC_Helper_Html {
 		$internal_links = array();
 		$external_links = array();
 
-		$dom = new DOMDocument();
+		$dom = new \DOMDocument();
 		$dom->loadHTML( $string );
 
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var DOMElement $link */
+			/** @var \DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
 			if ( 0 === strpos( $href, '#' ) ) {

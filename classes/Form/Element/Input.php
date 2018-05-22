@@ -1,6 +1,10 @@
 <?php
 
-class AC_Form_Element_Input extends AC_Form_Element {
+namespace AC\Form\Element;
+
+use AC\Form\Element;
+
+class Input extends Element {
 
 	protected function is_valid_type( $type ) {
 		$valid_types = array(

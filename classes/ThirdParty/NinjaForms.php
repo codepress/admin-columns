@@ -1,6 +1,8 @@
 <?php
 
-class AC_ThirdParty_NinjaForms {
+namespace AC\Thirdparty;
+
+class NinjaForms {
 
 	public function __construct() {
 		add_filter( 'ac/post_types', array( $this, 'remove_nf_sub' ) );

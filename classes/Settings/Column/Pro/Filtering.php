@@ -1,6 +1,10 @@
 <?php
 
-class AC_Settings_Column_Pro_Filtering extends AC_Settings_Column_Pro {
+namespace AC\Settings\Column\Pro;
+
+use AC\Settings;
+
+class Filtering extends Settings\Column\Pro {
 
 	protected function get_label() {
 		return __( 'Filtering', 'codepress-admin-columns' );

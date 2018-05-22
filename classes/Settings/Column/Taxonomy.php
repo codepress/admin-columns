@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_Taxonomy extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Taxonomy extends Settings\Column {
 
 	/**
 	 * @var string
@@ -12,7 +17,7 @@ class AC_Settings_Column_Taxonomy extends AC_Settings_Column {
 	}
 
 	/**
-	 * @return AC_View
+	 * @return View
 	 */
 	public function create_view() {
 		$taxonomy = $this->create_element( 'select', 'taxonomy' );
@@ -21,7 +26,7 @@ class AC_Settings_Column_Taxonomy extends AC_Settings_Column {
 		         ->set_attribute( 'data-label', 'update' )
 		         ->set_attribute( 'data-refresh', 'column' );
 
-		return new AC_View( array(
+		return new View( array(
 			'setting' => $taxonomy,
 			'label'   => __( 'Taxonomy', 'codepress-admin-columns' ),
 		) );

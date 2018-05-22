@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Settings;
+
 /**
  * @since 2.0
  */
-class AC_Column_Media_Dimensions extends AC_Column_Media_Meta {
+class Dimensions extends Meta {
 
 	public function __construct() {
 		parent::__construct();
@@ -27,7 +31,7 @@ class AC_Column_Media_Dimensions extends AC_Column_Media_Meta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
+		$this->add_setting( new Settings\Column\BeforeAfter( $this ) );
 	}
 
 }

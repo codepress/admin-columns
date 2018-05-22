@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Post_Categories extends AC_Column {
+class Categories extends Column {
 
 	public function __construct() {
 		$this->set_original( true );
