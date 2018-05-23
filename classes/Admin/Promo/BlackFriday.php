@@ -16,6 +16,9 @@ class BlackFriday extends Promo {
 
 		// 2017
 		$this->add_date_range( '2017-11-24', '2017-11-28' );
+
+		// 2018
+		$this->add_date_range( '2018-11-23', '2018-11-27' );
 	}
 
 }
