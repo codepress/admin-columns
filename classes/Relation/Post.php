@@ -7,7 +7,7 @@ use AC\Relation;
 class Post extends Relation {
 
 	/**
-	 * @var \stdClass
+	 * @var object
 	 */
 	private $post_type_object;
 

@@ -29,7 +29,7 @@ abstract class Relation {
 	abstract public function get_type();
 
 	/**
-	 * @return false|\stdClass
+	 * @return false|object
 	 */
 	abstract public function get_labels();
 

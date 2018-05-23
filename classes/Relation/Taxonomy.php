@@ -7,7 +7,7 @@ use AC\Relation;
 class Taxonomy extends Relation {
 
 	/**
-	 * @var \stdClass
+	 * @var object
 	 */
 	private $taxonomy;
 
