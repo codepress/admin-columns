@@ -16,19 +16,6 @@ abstract class Plugin extends Addon {
 	/**
 	 * Calls get_plugin_data() for this plugin
 	 *
-	 * @deprecated
-	 * @see get_plugin_data()
-	 * @return array
-	 */
-	protected function get_plugin_data() {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
-
-		return $this->get_data();
-	}
-
-	/**
-	 * Calls get_plugin_data() for this plugin
-	 *
 	 * @see get_plugin_data()
 	 * @return array
 	 */
@@ -44,20 +31,6 @@ abstract class Plugin extends Addon {
 	 */
 	public function get_name() {
 		return $this->get_header( 'Name' );
-	}
-
-	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param $key
-	 *
-	 * @deprecated
-	 * @return false|string
-	 */
-	protected function get_plugin_header( $key ) {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
-
-		return $this->get_header( $key );
 	}
 
 	/**
@@ -167,6 +140,33 @@ abstract class Plugin extends Addon {
 		$results = $wpdb->get_results( $sql );
 
 		return empty( $results );
+	}
+
+	/**
+	 * Return a plugin header from the plugin data
+	 *
+	 * @param $key
+	 *
+	 * @deprecated
+	 * @return false|string
+	 */
+	protected function get_plugin_header( $key ) {
+		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
+
+		return $this->get_header( $key );
+	}
+
+	/**
+	 * Calls get_plugin_data() for this plugin
+	 *
+	 * @deprecated
+	 * @see get_plugin_data()
+	 * @return array
+	 */
+	protected function get_plugin_data() {
+		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
+
+		return $this->get_data();
 	}
 
 }

@@ -20,20 +20,16 @@ abstract class Addon {
 
 	/**
 	 * @return string
-	 *
-	 * @deprecated
 	 */
-	public function get_plugin_dir() {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Addon::get_dir()' );
-
-		return $this->get_dir();
+	public function get_dir() {
+		return plugin_dir_path( $this->get_file() );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_dir() {
-		return plugin_dir_path( $this->get_file() );
+	public function get_url() {
+		return plugin_dir_url( $this->get_file() );
 	}
 
 	/**
@@ -49,9 +45,12 @@ abstract class Addon {
 
 	/**
 	 * @return string
+	 *
+	 * @deprecated
 	 */
-	public function get_url() {
-		return plugin_dir_url( $this->get_file() );
-	}
+	public function get_plugin_dir() {
+		_deprecated_function( __METHOD__, '3.2', 'AC\Addon::get_dir()' );
 
+		return $this->get_dir();
+	}
 }
