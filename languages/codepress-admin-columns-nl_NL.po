@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-13 07:02:22+0000\n"
+"PO-Revision-Date: 2018-05-25 10:06:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,75 +13,75 @@ msgstr ""
 
 #: classes/Settings/Column/Pro/Sorting.php:14
 msgid "This will make the column sortable."
-msgstr ""
+msgstr "Dit maakt de kolom sorteerbaar."
 
 #: classes/Settings/Column/Pro/Sorting.php:10
 msgid "Sorting"
-msgstr ""
+msgstr "Sorteren"
 
 #: classes/Settings/Column/Pro/Filtering.php:14
 msgid "This will make the column filterable."
-msgstr ""
+msgstr "Dit maakt de kolom filterbaar"
 
 #: classes/Settings/Column/Pro/Filtering.php:10
 msgid "Filtering"
-msgstr ""
+msgstr "Filteren"
 
 #: classes/Settings/Column/Pro/Export.php:14
 msgid "Export your column data to CSV."
-msgstr ""
+msgstr "Exporteer kolomdata naar CSV."
 
 #: classes/Settings/Column/Pro/Export.php:10
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: classes/Settings/Column/Pro/Editing.php:14
 msgid "Edit your content directly from the overview."
-msgstr ""
+msgstr "Wijzig je content direct vanaf het overzicht."
 
 #: classes/Settings/Column/Pro/Editing.php:10
 msgid "Editing"
-msgstr ""
+msgstr "Wijzigen"
 
 #: classes/Admin/Page/Columns.php:941
 msgid "Only %s for 1 site"
-msgstr ""
+msgstr "Vanaf %s for 1 site"
 
 #: classes/Admin/Page/Columns.php:936
 msgid "Get add-ons for ACF, WooCommerce and many more"
-msgstr ""
+msgstr "Verkrijg add-ons voor ACF, WooCommerce en meer"
 
 #: classes/Admin/Page/Columns.php:935
 msgid "Create multiple column groups per overview"
-msgstr ""
+msgstr "Maak meerdere kolomgroepen aan per overzicht"
 
 #: classes/Admin/Page/Columns.php:934
 msgid "Export all column data to CSV"
-msgstr ""
+msgstr "Exporteer alle kolomdata naar CSV"
 
 #: classes/Admin/Page/Columns.php:933
 msgid "Directly edit your content from the overview"
-msgstr ""
+msgstr "Wijzig direct je data vanaf het overzicht"
 
 #: classes/Admin/Page/Columns.php:932
 msgid "Sort & Filter on all your content"
-msgstr ""
+msgstr "Sorteer en filter op al je data"
 
 #: classes/Admin/Page/Columns.php:929
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
-msgstr ""
+msgstr "Upgrade naar PRO en breng Admin Columns naar het volgende niveau"
 
 #: classes/Admin/Page/Columns.php:922
 msgid "Do you like Admin Columns?"
-msgstr ""
+msgstr "Tevreden met Admin Columns?"
 
 #: classes/Admin/Page/Columns.php:454
 msgid "Select type"
-msgstr ""
+msgstr "Selecteer een type"
 
 #: classes/Settings/Column/Time.php:20
 msgid "WordPress Time Format"
-msgstr ""
+msgstr "WordPress tijd formaat"
 
 #: classes/Settings/Column/Time.php:14
 msgid "This will determine how the time will be displayed."
@@ -114,12 +114,12 @@ msgstr "Download"
 #: classes/Settings/Column/PostLink.php:78
 msgctxt "post"
 msgid "View Public %s Author Page"
-msgstr ""
+msgstr "Bekijk publieke %s auteurpagina"
 
 #: classes/Settings/Column/PostLink.php:77
 msgctxt "post"
 msgid "Edit %s Author"
-msgstr ""
+msgstr "Bewerk %s auteur"
 
 #: classes/Settings/Column/PostLink.php:76
 msgctxt "post"
@@ -133,32 +133,32 @@ msgstr "Bewerk %s"
 
 #: classes/Settings/Column/PostFormatIcon.php:29
 msgid "Use an icon instead of text for displaying."
-msgstr ""
+msgstr "Vertoon met een icoon in plaats van tekst."
 
 #: classes/Settings/Column/Post.php:86
 msgctxt "post"
 msgid "Featured Image"
-msgstr ""
+msgstr "Uitgelichte afbeelding"
 
 #: classes/Settings/Column/NumberOfItems.php:30
 msgid "Maximum number of items"
-msgstr ""
+msgstr "Maximale hoeveelheid items"
 
 #: classes/Settings/Column/NumberOfItems.php:29
 msgid "Number of Items"
-msgstr ""
+msgstr "Hoeveelheid items"
 
 #: classes/Settings/Column/MissingImageSize.php:27
 msgid "Include sizes that are missing an image file."
-msgstr ""
+msgstr "Gebruik ook groottes zonder afbeeldingsbestand."
 
 #: classes/Settings/Column/MissingImageSize.php:26
 msgid "Include missing sizes?"
-msgstr ""
+msgstr "Gebruik ook ontbrekende groottes?"
 
 #: classes/Settings/Column/Meta.php:135
 msgid "Site Options"
-msgstr ""
+msgstr "Site opties"
 
 #: classes/Settings/Column/Meta.php:129
 msgid "current"
@@ -166,7 +166,7 @@ msgstr "huidig"
 
 #: classes/Settings/Column/Meta.php:126
 msgid "Network Site:"
-msgstr ""
+msgstr "Netwerk site"
 
 #: classes/Settings/Column/Meta.php:118
 msgid "Hidden"
@@ -174,15 +174,15 @@ msgstr "Verborgen"
 
 #: classes/Settings/Column/Meta.php:117
 msgid "Public"
-msgstr ""
+msgstr "Publiek"
 
 #: classes/Settings/Column/ExifData.php:83
 msgid "Keywords"
-msgstr ""
+msgstr "Trefwoorden"
 
 #: classes/Settings/Column/ExifData.php:82
 msgid "Orientation"
-msgstr ""
+msgstr "Oriëntatie"
 
 #: classes/Settings/Column/ExifData.php:77
 msgid "Copyright"
@@ -190,15 +190,15 @@ msgstr "Copyright"
 
 #: classes/Settings/Column/CustomField.php:17
 msgid "Custom field key"
-msgstr ""
+msgstr "Custom field key"
 
 #: classes/Settings/Column/AttachmentDisplay.php:37
 msgid "Count"
-msgstr ""
+msgstr "Aantal"
 
 #: classes/Settings/Column/AttachmentDisplay.php:36
 msgid "Thumbnails"
-msgstr ""
+msgstr "Thumbnails"
 
 #: classes/Plugin/Updater.php:117
 msgid "Run the updater"
@@ -210,11 +210,11 @@ msgstr "We moeten de database updaten naar de laatste versie."
 
 #: classes/Helper/Post.php:144
 msgid "Missed schedule"
-msgstr ""
+msgstr "Inplannen gemist"
 
 #: classes/Helper/Post.php:140
 msgid "Scheduled"
-msgstr ""
+msgstr "Ingepland"
 
 #: classes/Column/Post/TitleRaw.php:14
 msgid "Title Only"
@@ -222,39 +222,39 @@ msgstr "Alleen titel"
 
 #: classes/Column/Post/CommentStatus.php:17
 msgid "Allow Comments"
-msgstr ""
+msgstr "Reacties toestaan"
 
 #: classes/Column/Post/BeforeMoreTag.php:14
 msgid "More Tag"
-msgstr ""
+msgstr "More Tag"
 
 #: classes/Column/Menu.php:17
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: classes/Column/Media/Dimensions.php:28
 msgid "Height : %s px"
-msgstr ""
+msgstr "Hoogte: %s px"
 
 #: classes/Column/Media/Dimensions.php:28
 msgid "Width : %s px"
-msgstr ""
+msgstr "Breedte: %s px"
 
 #: classes/Column/Media/AvailableSizes.php:51
 msgid "Missing image file for size %s."
-msgstr ""
+msgstr "Ontbrekend afbeeldingsbestand voor grootte %s."
 
 #: classes/Column/Media/AvailableSizes.php:35
 msgid "original"
-msgstr ""
+msgstr "Origineel"
 
 #: classes/Column/Media/AlternateText.php:14
 msgid "Alternative Text"
-msgstr ""
+msgstr "Alternatieve tekst"
 
 #: classes/Admin/Page/Addons.php:117
 msgid "Please visit the %s page."
-msgstr ""
+msgstr "Bezoek alsjeblieft de %s pagina."
 
 #: classes/Admin/Addon/NinjaForms.php:13
 msgid "Ninja Forms"
@@ -266,11 +266,11 @@ msgstr "The Events Calendar"
 
 #: classes/Settings/Column/StatusIcon.php:71
 msgid "Password protected"
-msgstr ""
+msgstr "Wachtwoord beschermd"
 
 #: classes/Helper/Post.php:137
 msgid "Pending for review"
-msgstr ""
+msgstr "Wachtend op beoordeling"
 
 #: classes/Helper/Post.php:134
 msgid "Draft"
@@ -286,12 +286,12 @@ msgstr "Privé"
 
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon instead of text for displaying the status."
-msgstr ""
+msgstr "Toon een icoon in plaats van een tekst voor het tonen van de status."
 
 #: classes/Settings/Column/PostFormatIcon.php:28
 #: classes/Settings/Column/StatusIcon.php:28
 msgid "Use an icon?"
-msgstr ""
+msgstr "Icoon gebruiken?"
 
 #: classes/Helper/String.php:106
 msgid "&hellip;"
@@ -299,11 +299,11 @@ msgstr "&hellip;"
 
 #: classes/Column/Post/Excerpt.php:21
 msgid "Current excerpt is generated from the content."
-msgstr ""
+msgstr "Huidige samenvatting is gegenereerd op basis de inhoud."
 
 #: classes/Column/Post/Excerpt.php:21
 msgid "Excerpt is missing."
-msgstr ""
+msgstr "Samenvatting niet aanwezig."
 
 #: classes/Settings/Column/User.php:71
 msgid "User Nicename"
@@ -900,7 +900,7 @@ msgstr "Ga naar deze add-on"
 
 #: classes/Admin/Page/Addons.php:422
 msgid "Download & Install"
-msgstr "Downloadem & installeren"
+msgstr "Downloaden & installeren"
 
 #: classes/Admin/Page/Addons.php:416
 msgid "Activate"
@@ -1090,7 +1090,7 @@ msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de w
 
 #: classes/Admin/Help/CustomField.php:18
 msgid "The custom field column uses the custom fields from posts and users. There are 10 types which you can set."
-msgstr ""
+msgstr "De 'custom veld' kolom gebruikt custom velden voor berichten en gebruikers. Er zijn 10 typen welke je kan gebruiken."
 
 #: classes/Admin/Help/Basics.php:29
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
