@@ -158,8 +158,8 @@ class Addons extends Page {
 			return;
 		}
 
-		$plugin = filter_input( INPUT_GET, 'plugin' );
-		$addon = AC()->addons()->get_addon( $plugin );
+		$plugin_name = filter_input( INPUT_GET, 'plugin' );
+		$addon = AC()->addons()->get_addon( $plugin_name );
 
 		if ( ! $addon ) {
 			$error = __( 'Addon does not exist.', 'codepress-admin-columns' );
@@ -167,7 +167,7 @@ class Addons extends Page {
 			$error = __( 'You need Admin Columns Pro.', 'codepress-admin-columns' );
 		} else {
 			// Trigger possible warning message before running WP installer
-			$error = apply_filters( 'ac/addons/install_request/maybe_error', false, $plugin );
+			$error = apply_filters( 'ac/addons/install_request/maybe_error', false, $addon->get_slug() );
 		}
 
 		if ( false !== $error ) {
