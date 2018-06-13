@@ -56,11 +56,13 @@ class BeforeAfter extends Column
 	public function create_view() {
 		$setting = $this->get_before_element();
 
+		$for = $setting->get_id();
+
 		$before = new View( array(
 			'label'       => __( 'Before', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
 			'setting'     => $setting,
-			'for'         => $setting->get_id(),
+			'for'         => $for,
 		) );
 
 		$setting = $this->get_after_element();
@@ -75,6 +77,7 @@ class BeforeAfter extends Column
 		$view = new View( array(
 			'label'    => __( 'Display Options', 'codepress-admin-columns' ),
 			'sections' => array( $before, $after ),
+			'for'      => $for,
 		) );
 
 		return $view;

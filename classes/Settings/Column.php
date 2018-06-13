@@ -356,6 +356,15 @@ abstract class Column {
 			$view->set( 'name', $this->name );
 		}
 
+		// set default for
+		if ( null === $view->get( 'for' ) ) {
+			$setting = $view->get( 'setting' );
+
+			if ( $setting instanceof AC\Form\Element ) {
+				$view->set( 'for', $setting->get_id() );
+			}
+		}
+
 		// set default template for nested sections
 		foreach ( (array) $view->sections as $section ) {
 			if ( $section instanceof View && null === $section->get_template() ) {
