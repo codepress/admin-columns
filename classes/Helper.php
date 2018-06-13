@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC;
+
 /**
  * Class AC\Helper
  *
@@ -24,22 +26,21 @@ final class Helper {
 
 	public function __get( $helper ) {
 
-		// Hotfix
 		switch ( $helper ) {
+
+			// Hotfix
 			case 'string' :
-				$helper = 'strings';
+				return new AC\Helper\Strings;
 
-				break;
 			case 'array' :
-				$helper = 'arrays';
+				return new AC\Helper\Arrays;
 
-				break;
-		}
+			default :
+				$class = 'AC\Helper\\' . ucfirst( $helper );
 
-		$class = 'AC\Helper\\' . ucfirst( $helper );
-
-		if ( class_exists( $class ) ) {
-			return new $class;
+				if ( class_exists( $class ) ) {
+					return new $class;
+				}
 		}
 
 		return false;
