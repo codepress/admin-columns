@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 
-= NEWVERSION =
+= 3.2 =
 
 Release Date: TBD
 
