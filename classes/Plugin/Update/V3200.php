@@ -57,6 +57,7 @@ class V3200 extends Update {
 				delete_user_meta( $user_id, $old );
 			}
 		}
+
 	}
 
 	private function update_notice_preference_addons() {
