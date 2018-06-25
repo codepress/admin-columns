@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-12 18:45:19+0000\n"
+"PO-Revision-Date: 2018-05-29 13:55:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -307,15 +307,15 @@ msgstr ""
 
 #: classes/Settings/Column/User.php:71
 msgid "User Nicename"
-msgstr ""
+msgstr "Ausgeschriebener Name"
 
 #: classes/Admin/Page/Columns.php:594
 msgid "Send me the discount"
-msgstr ""
+msgstr "Sende mir einen Rabatt"
 
 #: classes/Admin/Page/Columns.php:559
 msgid "Prices starting from %s"
-msgstr ""
+msgstr "Preise starten bei %s"
 
 #: classes/Admin/Addon/BuddyPress.php:17
 msgid "Display any of your Profile Fields for BuddyPress on your users overview."
@@ -343,7 +343,7 @@ msgstr ""
 
 #: classes/TableScreen.php:40
 msgid "Invalid item ID."
-msgstr ""
+msgstr "Ungültige Eintrags-ID."
 
 #: classes/Settings/Column/WordsPerMinute.php:32
 msgid "By default: %s"
@@ -351,7 +351,7 @@ msgstr ""
 
 #: classes/Settings/Column/WordLimit.php:34
 msgid "Maximum number of words"
-msgstr ""
+msgstr "Maximale Anzahl an Wörtern"
 
 #: classes/Settings/Column/StringLimit.php:36
 #: classes/Settings/Column/WordLimit.php:33
@@ -410,7 +410,7 @@ msgstr "Individuelle Größe"
 
 #: classes/Settings/Column/Image.php:108
 msgid "Full Size"
-msgstr ""
+msgstr "Volle Größe"
 
 #: classes/Settings/Column/Image.php:54
 msgid "Image Size"
@@ -426,7 +426,7 @@ msgstr "Breite in Pixeln"
 
 #: classes/Settings/Column/Date.php:78
 msgid "in %s"
-msgstr ""
+msgstr "in %s"
 
 #: classes/Settings/Column/Date.php:75
 msgid "%s ago"
@@ -442,7 +442,7 @@ msgstr ""
 
 #: classes/Settings/Column/DateTimeFormat.php:107
 msgid "Custom:"
-msgstr ""
+msgstr "Individuell:"
 
 #: classes/Settings/Column/DateTimeFormat.php:39
 msgid "The %s can be changed in %s."
@@ -466,7 +466,7 @@ msgstr ""
 
 #: classes/Settings/Column/Date.php:17
 msgid "Time Difference"
-msgstr ""
+msgstr "Zeitunterschied"
 
 #: classes/Settings/Column/CustomFieldType.php:152
 msgid "Multiple"
@@ -520,11 +520,11 @@ msgstr "Feld"
 #: classes/Settings/Column/NumberOfItems.php:30
 #: classes/Settings/Column/WordLimit.php:34
 msgid "Leave empty for no limit"
-msgstr ""
+msgstr "Leer lassen für unlimitiert"
 
 #: classes/Settings/Column/CharacterLimit.php:28
 msgid "Maximum number of characters"
-msgstr ""
+msgstr "Maximale Zeichen-Anzahl"
 
 #: classes/Settings/Column/CharacterLimit.php:27
 #: classes/Settings/Column/StringLimit.php:35
@@ -537,7 +537,7 @@ msgstr ""
 
 #: classes/Settings/Column/BeforeAfter.php:68
 msgid "This text will appear after the column value."
-msgstr ""
+msgstr "Dieser Text wird hinter dem Spaltenwert angezeigt."
 
 #: classes/Helper/String.php:292
 msgid " or "
@@ -597,15 +597,15 @@ msgstr "aus"
 
 #: classes/Admin/Page/Settings.php:143
 msgid "Notice"
-msgstr ""
+msgstr "Notiz"
 
 #: classes/Admin/Page/Settings.php:137
 msgid "Instructions"
-msgstr ""
+msgstr "Anweisungen"
 
 #: classes/Admin/Page/Help.php:330
 msgid "our documentation"
-msgstr ""
+msgstr "unsere Dokumentation"
 
 #: classes/Admin/Page/Help.php:330
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
@@ -1000,7 +1000,7 @@ msgstr "Einstellungen"
 
 #: classes/Settings/Column/Image.php:89
 msgid "Others"
-msgstr ""
+msgstr "Andere"
 
 #: classes/Admin/Page/Settings.php:239
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"

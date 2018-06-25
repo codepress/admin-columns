@@ -26,7 +26,7 @@ abstract class Plugin extends Addon {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2
 	 * @return false|string
 	 */
 	public function get_name() {
@@ -78,7 +78,7 @@ abstract class Plugin extends Addon {
 	/**
 	 * Check if a plugin is in beta
 	 *
-	 * @since NEWVERSION
+	 * @since 3.2
 	 * @return bool
 	 */
 	public function is_beta() {

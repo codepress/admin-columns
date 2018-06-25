@@ -103,7 +103,7 @@ class Review
 
 	/**
 	 * Ajax dismiss notice
-	 * @since NEWVERSION
+	 * @since 3.2
 	 */
 	public function ajax_dismiss_notice() {
 		$this->get_ajax_handler()->verify_request();

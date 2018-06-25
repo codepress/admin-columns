@@ -1095,23 +1095,23 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:60
+#: classes/Settings/Column/BeforeAfter.php:62
 msgid "Before"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:61
+#: classes/Settings/Column/BeforeAfter.php:63
 msgid "This text will appear before the column value."
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:69
+#: classes/Settings/Column/BeforeAfter.php:71
 msgid "After"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:70
+#: classes/Settings/Column/BeforeAfter.php:72
 msgid "This text will appear after the column value."
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:76
+#: classes/Settings/Column/BeforeAfter.php:78
 msgid "Display Options"
 msgstr ""
 
