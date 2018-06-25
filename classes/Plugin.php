@@ -66,7 +66,8 @@ abstract class Plugin extends Addon {
 			return;
 		}
 
-		$classes = Autoloader::instance()->get_class_names_from_dir( __NAMESPACE__ . '\Plugin\Update' );
+		$reflection = new \ReflectionObject( $this );
+		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
 
 		foreach ( $classes as $class ) {
 			$updater->add_update( new $class( $this->get_stored_version() ) );
