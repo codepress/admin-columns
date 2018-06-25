@@ -1,12 +1,20 @@
 <?php
 
-namespace AC\Option;
+namespace AC\Storage;
 
 use AC\Expirable;
-use AC\Option;
 
-class Timestamp extends Option
-	implements Expirable {
+final class Timestamp
+	implements KeyValuePairStorage, Expirable {
+
+	/**
+	 * @var KeyValuePairStorage
+	 */
+	protected $storage;
+
+	public function __construct( KeyValuePairStorage $storage ) {
+		$this->storage = $storage;
+	}
 
 	/**
 	 * @param int|null $time
@@ -36,6 +44,14 @@ class Timestamp extends Option
 		return preg_match( '/^[1-9][0-9]*$/', $value );
 	}
 
+	public function get() {
+		return $this->storage->get();
+	}
+
+	public function delete() {
+		return $this->storage->delete();
+	}
+
 	/**
 	 * @param int $value
 	 *
@@ -46,7 +62,7 @@ class Timestamp extends Option
 			throw new \Exception( 'Value needs to be a positive integer' );
 		}
 
-		return parent::save( $value );
+		return $this->storage->save( $value );
 	}
 
 }
