@@ -4,6 +4,7 @@ namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Preferences;
+use AC\Option;
 
 class V3200 extends Update {
 
@@ -15,6 +16,7 @@ class V3200 extends Update {
 		$this->uppercase_class_files();
 		$this->update_notice_preference_review();
 		$this->update_notice_preference_addons();
+		$this->update_notice_preference_expired();
 	}
 
 	protected function set_version() {
@@ -49,8 +51,8 @@ class V3200 extends Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$option = new Preferences\User( 'check-review' );
-				$option->set( $new, $value );
+				$option = new Preferences\User( 'check-review', $user_id );
+				$option->set( $new, $value, true );
 
 				delete_user_meta( $user_id, $old );
 			}
@@ -67,12 +69,19 @@ class V3200 extends Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$option = new Preferences\User( 'check-addon-available' );
-				$option->set( $new, $value );
+				$option = new Preferences\User( 'check-addon-available', $user_id );
+				$option->set( $new, $value, true );
 
 				delete_user_meta( $user_id, $old );
 			}
 		}
+	}
+
+	private function update_notice_preference_expired() {
+
+		// TODO: user meta ipv option
+		$option = new Option\Timestamp( 'ac_notice_dismiss_expired' );
+		$option->save( time() + ( MONTH_IN_SECONDS * 2 ) );
 	}
 
 	/**
