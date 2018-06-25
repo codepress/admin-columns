@@ -2,22 +2,26 @@
 
 namespace AC;
 
+use AC\Storage;
+
 class Transient
 	implements Expirable {
 
 	/**
-	 * @var Option
+	 * @var Storage\Option
 	 */
 	protected $option;
 
 	/**
-	 * @var Option\Timestamp
+	 * @var Storage\Timestamp
 	 */
 	protected $timestamp;
 
 	public function __construct( $key ) {
-		$this->option = new Option( $key );
-		$this->timestamp = new Option\Timestamp( $key . '_timestamp' );
+		$this->option = new Storage\Option( $key );
+		$this->timestamp = new Storage\Timestamp(
+			new Storage\Option( $key . '_timestamp' )
+		);
 	}
 
 	/**
