@@ -4,19 +4,13 @@ namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Preferences;
-use AC\Option;
 
 class V3200 extends Update {
 
-	public function get_dir() {
-		return AC()->get_dir() . '/classes';
-	}
-
 	public function apply_update() {
-		$this->uppercase_class_files();
+		$this->uppercase_class_files( AC()->get_dir() . '/classes' );
 		$this->update_notice_preference_review();
 		$this->update_notice_preference_addons();
-		$this->update_notice_preference_expired();
 	}
 
 	protected function set_version() {
@@ -25,10 +19,12 @@ class V3200 extends Update {
 
 	/**
 	 * Set all files to the proper case
+	 *
+	 * @param string Directory
 	 */
-	private function uppercase_class_files() {
+	protected function uppercase_class_files( $directory ) {
 		$iterator = new \RecursiveIteratorIterator(
-			new \RecursiveDirectoryIterator( $this->get_dir(), \FilesystemIterator::SKIP_DOTS )
+			new \RecursiveDirectoryIterator( $directory, \FilesystemIterator::SKIP_DOTS )
 		);
 
 		foreach ( $iterator as $leaf ) {
@@ -57,7 +53,6 @@ class V3200 extends Update {
 				delete_user_meta( $user_id, $old );
 			}
 		}
-
 	}
 
 	private function update_notice_preference_addons() {
@@ -78,15 +73,8 @@ class V3200 extends Update {
 		}
 	}
 
-	private function update_notice_preference_expired() {
-
-		// TODO: user meta ipv option
-		$option = new Option\Timestamp( 'ac_notice_dismiss_expired' );
-		$option->save( time() + ( MONTH_IN_SECONDS * 2 ) );
-	}
-
 	/**
-	 * @return array
+	 * @return array ID's
 	 */
 	private function get_admins() {
 		$users = get_users( array(
