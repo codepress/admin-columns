@@ -49,12 +49,13 @@ class V3200 extends Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$option = new Preferences\User( 'check-review' );
-				$option->set( $new, $value );
+				$option = new Preferences\User( 'check-review', $user_id );
+				$option->set( $new, $value, true );
 
 				delete_user_meta( $user_id, $old );
 			}
 		}
+
 	}
 
 	private function update_notice_preference_addons() {
@@ -67,7 +68,7 @@ class V3200 extends Update {
 			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
-				$option = new Preferences\User( 'check-addon-available' );
+				$option = new Preferences\User( 'check-addon-available', $user_id );
 				$option->set( $new, $value );
 
 				delete_user_meta( $user_id, $old );
