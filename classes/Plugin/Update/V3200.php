@@ -36,6 +36,9 @@ class V3200 extends Update {
 		}
 	}
 
+	/**
+	 * Update user preferences for review
+	 */
 	private function update_notice_preference_review() {
 		$mapping = array(
 			'ac_hide_notice_review'    => 'dismiss-review',
@@ -55,6 +58,9 @@ class V3200 extends Update {
 		}
 	}
 
+	/**
+	 * Update user preferences for addons
+	 */
 	private function update_notice_preference_addons() {
 		$mapping = array(
 			'ac_hide_notice_addons' => 'dismiss-notice',
