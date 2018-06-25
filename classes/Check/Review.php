@@ -3,6 +3,7 @@
 namespace AC\Check;
 
 use AC\Ajax;
+use AC\Capabilities;
 use AC\Registrable;
 use AC\Screen;
 use AC\Message;
@@ -34,6 +35,10 @@ class Review
 	 */
 	public function display( Screen $screen ) {
 		if ( ! $screen->has_screen() ) {
+			return;
+		}
+
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
