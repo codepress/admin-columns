@@ -45,9 +45,9 @@ class V3200 extends Update {
 			'ac-first-login-timestamp' => 'first-login-review',
 		);
 
-		foreach ( $this->get_admins() as $user_id ) {
+		foreach ( $mapping as $old => $new ) {
+			foreach ( $this->get_users_by_meta_key( $old ) as $user_id ) {
 
-			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
 				$option = new Preferences\User( 'check-review', $user_id );
@@ -66,9 +66,9 @@ class V3200 extends Update {
 			'ac_hide_notice_addons' => 'dismiss-notice',
 		);
 
-		foreach ( $this->get_admins() as $user_id ) {
+		foreach ( $mapping as $old => $new ) {
+			foreach ( $this->get_users_by_meta_key( $old ) as $user_id ) {
 
-			foreach ( $mapping as $old => $new ) {
 				$value = get_user_meta( $user_id, $old, true );
 
 				$option = new Preferences\User( 'check-addon-available', $user_id );
@@ -80,20 +80,26 @@ class V3200 extends Update {
 	}
 
 	/**
+	 * @param string $key
+	 *
 	 * @return array ID's
 	 */
-	private function get_admins() {
-		$users = get_users( array(
-			'fields'      => 'ids',
-			'role'        => 'administrator',
-			'count_total' => false,
+	protected function get_users_by_meta_key( $key ) {
+		$user_ids = get_users( array(
+			'fields'     => 'ids',
+			'meta_query' => array(
+				array(
+					'key'     => $key,
+					'compare' => 'EXISTS',
+				),
+			),
 		) );
 
-		if ( ! $users ) {
+		if ( ! $user_ids ) {
 			return array();
 		}
 
-		return $users;
+		return $user_ids;
 	}
 
 }
