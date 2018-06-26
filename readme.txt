@@ -217,7 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date: June 26th, 2018
 
-* [Fixed] Fixed possbile fatal error when running update.
+* [Fixed] Fixed possible fatal error when running update.
 
 = 3.2.1 =
 
