@@ -101,3 +101,10 @@ function ac_helper() {
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
 }
+
+/**
+ * @return bool
+ */
+function ac_is_wp_debug() {
+	return defined( 'WP_DEBUG' ) && WP_DEBUG;
+}
