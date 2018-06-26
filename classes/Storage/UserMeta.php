@@ -24,7 +24,7 @@ class UserMeta
 			$user_id = get_current_user_id();
 		}
 
-		if ( ! preg_match( '/^[1-9]+$/', $user_id ) ) {
+		if ( ! preg_match( '/^[1-9][0-9]*$/', $user_id ) ) {
 			throw new \Exception( 'Storage cannot be initialized without a valid user id.' );
 		}
 
