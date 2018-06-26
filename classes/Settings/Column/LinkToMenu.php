@@ -1,7 +1,11 @@
 <?php
 
-class AC_Settings_Column_LinkToMenu extends AC_Settings_Column_Toggle
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+
+class LinkToMenu extends Settings\Column\Toggle
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string

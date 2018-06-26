@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Post_PingStatus extends AC_Column {
+class PingStatus extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-ping_status' );

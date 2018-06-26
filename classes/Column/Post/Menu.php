@@ -1,6 +1,10 @@
 <?php
 
-class AC_Column_Post_Menu extends AC_Column_Menu {
+namespace AC\Column\Post;
+
+use AC\Column;
+
+class Menu extends Column\Menu {
 
 	/**
 	 * @return string

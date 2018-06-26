@@ -1,7 +1,11 @@
 <?php
 
-class AC_Settings_Column_Time extends AC_Settings_Column_DateTimeFormat
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+
+class Time extends Settings\Column\DateTimeFormat
+	implements Settings\FormatValue {
 
 	public function create_view() {
 		$view = parent::create_view();

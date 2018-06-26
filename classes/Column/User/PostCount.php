@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * @since 2.0
  */
-class AC_Column_User_PostCount extends AC_Column {
+class PostCount extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-user_postcount' );
@@ -36,7 +41,7 @@ class AC_Column_User_PostCount extends AC_Column {
 	}
 
 	protected function register_settings() {
-		$this->add_setting( new AC_Settings_Column_PostType( $this ) );
+		$this->add_setting( new Settings\Column\PostType( $this ) );
 	}
 
 }

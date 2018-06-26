@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_WordLimit extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class WordLimit extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var int
@@ -25,7 +30,7 @@ class AC_Settings_Column_WordLimit extends AC_Settings_Column
 			                'step'        => 1,
 		                ) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Word Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'setting' => $setting,

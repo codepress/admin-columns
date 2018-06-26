@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Admin_Help {
+namespace AC\Admin;
+
+abstract class Help {
 
 	abstract public function get_title();
 

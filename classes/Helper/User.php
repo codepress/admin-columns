@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_User {
+namespace AC\Helper;
+
+class User {
 
 	/**
 	 * @param string $field
@@ -50,7 +52,7 @@ class AC_Helper_User {
 	}
 
 	/**
-	 * @param int|WP_User  $user
+	 * @param int|\WP_User $user
 	 * @param false|string $format WP_user var, 'first_last_name' or 'roles'
 	 *
 	 * @return false|string
@@ -115,6 +117,9 @@ class AC_Helper_User {
 
 	/**
 	 * @since 3.4.4
+	 *
+	 * @param int    $user_id
+	 * @param string $post_type
 	 */
 	public function get_postcount( $user_id, $post_type ) {
 		global $wpdb;

@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_User_Role extends AC_Column_Meta {
+class Role extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'role' );

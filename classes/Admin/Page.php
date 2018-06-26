@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Admin_Page {
+namespace AC\Admin;
+
+abstract class Page {
 
 	/**
 	 * Should this page be displayed when no page is selected
@@ -120,9 +122,15 @@ abstract class AC_Admin_Page {
 
 	/**
 	 * Nonce Field
+	 *
+	 * @param string $action
 	 */
 	public function nonce_field( $action ) {
 		wp_nonce_field( $action, '_ac_nonce', false );
+	}
+
+	public function register() {
+		// Register Hooks
 	}
 
 }

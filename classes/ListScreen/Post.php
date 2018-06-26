@@ -1,14 +1,18 @@
 <?php
 
-class AC_ListScreen_Post extends AC_ListScreenPost {
+namespace AC\ListScreen;
+
+use AC\ListScreenPost;
+
+class Post extends ListScreenPost {
 
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
 
-		$this->set_screen_base( 'edit' );
-		$this->set_group( 'post' );
-		$this->set_key( $post_type );
-		$this->set_screen_id( $this->get_screen_base() . '-' . $post_type );
+		$this->set_screen_base( 'edit' )
+		     ->set_group( 'post' )
+		     ->set_key( $post_type )
+		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
 	/**
@@ -19,12 +23,12 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	}
 
 	/**
-	 * @return WP_Posts_List_Table
+	 * @return \WP_Posts_List_Table
 	 */
 	protected function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
-		return new WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new \WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**
@@ -58,7 +62,7 @@ class AC_ListScreen_Post extends AC_ListScreenPost {
 	protected function register_column_types() {
 		parent::register_column_types();
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Post', AC()->get_prefix() );
+		$this->register_column_types_from_dir( 'AC\Column\Post' );
 	}
 
 }

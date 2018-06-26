@@ -1,6 +1,8 @@
 <?php
 
-class AC_ThirdParty_WooCommerce {
+namespace AC\Thirdparty;
+
+class WooCommerce {
 
 	public function __construct() {
 		add_filter( 'ac/post_types', array( $this, 'remove_webhook' ) );

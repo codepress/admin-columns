@@ -1,6 +1,10 @@
 <?php
 
-class AC_Form_Element_Select extends AC_Form_Element {
+namespace AC\Form\Element;
+
+use AC\Form\Element;
+
+class Select extends Element {
 
 	/**
 	 * @var string

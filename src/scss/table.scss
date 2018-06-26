@@ -25,7 +25,7 @@
 -------------------------------------------------------------- */
 .ac-image-sizes {
 	.ac-missing-size {
-		color: lighten( $ac-gray, 3 );
+		color: lighten($ac-gray, 3);
 	}
 }
 
@@ -106,7 +106,19 @@
 	display: inline-block;
 	width: 14px;
 	height: 12px;
-	background: transparent url(../images/square.png) no-repeat 50% 7px;
+	position: relative;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 2px;
+		height: 2px;
+		background: #000;
+		position: absolute;
+		left: 50%;
+		margin-left: -1px;
+		top: 60%;
+	}
 }
 
 span.status-open {

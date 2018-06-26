@@ -1,30 +1,41 @@
 <?php
 
-class AC_Admin_Page_Settings extends AC_Admin_Page {
+namespace AC\Admin\Page;
+
+use AC\Admin\Page;
+use AC\Capabilities;
+use AC\Message;
+use AC\ListScreen;
+
+class Settings extends Page {
 
 	const SETTINGS_NAME = 'cpac_general_options';
 
 	const SETTINGS_GROUP = 'cpac-general-settings';
 
-	private $options;
-
 	public function __construct() {
 		$this
 			->set_slug( 'settings' )
 			->set_label( __( 'Settings', 'codepress-admin-columns' ) );
+	}
 
-		$this->options = get_option( self::SETTINGS_NAME );
-
-		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
-
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
 		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
+		add_action( 'admin_init', array( $this, 'register_setting' ) );
 		add_action( 'admin_init', array( $this, 'handle_column_request' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
+	public function register_setting() {
+		register_setting( self::SETTINGS_GROUP, self::SETTINGS_NAME );
+	}
+
 	public function admin_scripts() {
 		if ( $this->is_current_screen() ) {
-			wp_enqueue_style( 'ac-admin-page-settings', AC()->get_plugin_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
+			wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
 		}
 	}
 
@@ -39,17 +50,23 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 		echo esc_attr( self::SETTINGS_NAME . '[' . sanitize_key( $key ) . ']' );
 	}
 
+	private function get_options() {
+		return get_option( self::SETTINGS_NAME );
+	}
+
 	/**
 	 * @param $key
 	 *
 	 * @return false|string When '0' there are no options stored.
 	 */
 	public function get_option( $key ) {
-		return isset( $this->options[ $key ] ) ? $this->options[ $key ] : false;
+		$options = $this->get_options();
+
+		return isset( $options[ $key ] ) ? $options[ $key ] : false;
 	}
 
 	private function is_empty_options() {
-		return false === $this->options;
+		return false === $this->get_options();
 	}
 
 	public function delete_options() {
@@ -74,7 +91,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 			FROM $wpdb->options
 			WHERE option_name LIKE %s";
 
-		$wpdb->query( $wpdb->prepare( $sql, AC_ListScreen::OPTIONS_KEY . '%' ) );
+		$wpdb->query( $wpdb->prepare( $sql, ListScreen::OPTIONS_KEY . '%' ) );
 
 		// @since 3.0
 		do_action( 'ac/restore_all_columns' );
@@ -84,21 +101,22 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 	 * @since 1.0
 	 */
 	public function handle_column_request() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, 'ac_action' ) ) :
-
+		switch ( filter_input( INPUT_POST, 'ac_action' ) ) {
 			case 'restore_all' :
 				if ( $this->verify_nonce( 'restore-all' ) ) {
 					$this->delete_all_column_settings();
 
-					AC()->notice( __( 'Default settings succesfully restored.', 'codepress-admin-columns' ), 'updated' );
+					$notice = new Message\Notice();
+					$notice->set_message( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) )
+					       ->register();
 				}
-				break;
 
-		endswitch;
+				break;
+		}
 	}
 
 	public function single_checkbox( $args = array() ) {
@@ -129,7 +147,7 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 				<h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
 				<?php echo $args->instructions; ?>
 			</div>
-			<?php
+		<?php
 		endif;
 	}
 
@@ -187,13 +205,13 @@ class AC_Admin_Page_Settings extends AC_Admin_Page {
 
 					$title = isset( $group['title'] ) ? $group['title'] : '';
 					$description = isset( $group['description'] ) ? $group['description'] : '';
+					$attr_id = isset( $group['id'] ) ? $group['id'] : '';
 
 					?>
 
-					<tr>
+					<tr id="<?php echo esc_attr( $attr_id ); ?>">
 						<th scope="row">
 							<h2><?php echo esc_html( $title ); ?></h2>
-
 							<p><?php echo $description; ?></p>
 						</th>
 						<td>

@@ -257,7 +257,13 @@ body.rtl {
 				float: right;
 				padding-right: 22px;
 				padding-left: 0;
-				background: transparent url('../images/order_arrow-rtl.png') no-repeat right top;
+				margin-right: 8px;
+
+				.order-message__icon {
+					left: inherit;
+					right: 0;
+					transform: scaleX(-1);
+				}
 			}
 			.button-container {
 				float: left;

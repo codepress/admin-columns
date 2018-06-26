@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Post_PageTemplate extends AC_Column_Meta {
+class PageTemplate extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-page_template' );

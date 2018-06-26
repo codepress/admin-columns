@@ -1,15 +1,19 @@
 <?php
 
-class AC_ListScreen_Media extends AC_ListScreenPost {
+namespace AC\ListScreen;
+
+use AC;
+
+class Media extends AC\ListScreenPost {
 
 	public function __construct() {
 		parent::__construct( 'attachment' );
 
-		$this->set_screen_id( 'upload' );
-		$this->set_screen_base( 'upload' );
-		$this->set_key( 'wp-media' );
-		$this->set_group( 'media' );
-		$this->set_label( __( 'Media' ) );
+		$this->set_screen_id( 'upload' )
+		     ->set_screen_base( 'upload' )
+		     ->set_key( 'wp-media' )
+		     ->set_group( 'media' )
+		     ->set_label( __( 'Media' ) );
 	}
 
 	public function set_manage_value_callback() {
@@ -17,12 +21,12 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 	}
 
 	/**
-	 * @return WP_Media_List_Table
+	 * @return \WP_Media_List_Table
 	 */
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
 
-		return new WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new \WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**
@@ -49,7 +53,7 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 	protected function register_column_types() {
 		parent::register_column_types();
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Media', AC()->get_prefix() );
+		$this->register_column_types_from_dir( 'AC\Column\Media' );
 	}
 
 }

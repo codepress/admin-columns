@@ -1,6 +1,10 @@
 <?php
 
-class AC_Column_Comment_AuthorIP extends AC_Column {
+namespace AC\Column\Comment;
+
+use AC\Column;
+
+class AuthorIP extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-author_ip' );

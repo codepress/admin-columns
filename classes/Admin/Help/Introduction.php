@@ -1,6 +1,10 @@
 <?php
 
-class AC_Admin_Help_Introduction extends AC_Admin_Help {
+namespace AC\Admin\Help;
+
+use AC\Admin\Help;
+
+class Introduction extends Help {
 
 	public function get_title() {
 		return __( "Overview", 'codepress-admin-columns' );

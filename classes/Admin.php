@@ -1,9 +1,14 @@
 <?php
 
+namespace AC;
+
+use AC\Admin\Help;
+use AC\Admin\Page;
+
 /**
  * @since 2.0
  */
-class AC_Admin {
+class Admin {
 
 	const MENU_SLUG = 'codepress-admin-columns';
 
@@ -15,7 +20,7 @@ class AC_Admin {
 	private $hook_suffix;
 
 	/**
-	 * @var AC_Admin_Pages
+	 * @var Admin\Pages
 	 */
 	private $pages;
 
@@ -23,28 +28,26 @@ class AC_Admin {
 	 * @since 2.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'set_pages' ) );
+		$this->pages = new Admin\Pages();
+		$this->pages
+			->register_page( new Page\Columns() )
+			->register_page( new Page\Settings() )
+			->register_page( new Page\Addons() )
+			->register_page( new Page\Help() );
+	}
+
+	/**
+	 * Register Hooks
+	 */
+	public function register() {
+		$this->pages->register();
+
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	/**
-	 * Load pages
-	 */
-	public function set_pages() {
-		$this->pages = new AC_Admin_Pages();
-
-		$this->pages
-			->register_page( new AC_Admin_Page_Columns() )
-			->register_page( new AC_Admin_Page_Settings() )
-			->register_page( new AC_Admin_Page_Addons() )
-			->register_page( new AC_Admin_Page_Help() );
-
-		do_action( 'ac/admin_pages', $this->pages );
-	}
-
-	/**
-	 * @return AC_Admin_Pages|false
+	 * @return Admin\Pages|false
 	 */
 	public function get_pages() {
 		return $this->pages;
@@ -58,9 +61,9 @@ class AC_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
 		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'ac-admin', AC()->get_plugin_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
+		wp_enqueue_style( 'ac-admin', AC()->get_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
 
 		do_action( 'ac/admin_scripts', $this );
 	}
@@ -71,19 +74,19 @@ class AC_Admin {
 	 * @return bool
 	 */
 	public function get_general_option( $option ) {
-		/* @var AC_Admin_Page_Settings $settings */
+		/* @var Page\Settings $settings */
 		$settings = $this->get_pages()->get_page( 'settings' );
 
 		return $settings->get_option( $option );
 	}
 
 	/**
-	 * @param $tab_slug
+	 * @param $slug
 	 *
-	 * @return AC_Admin_Page_Columns|AC_Admin_Page_Settings|AC_Admin_Page_Addons|false
+	 * @return Admin\Page\Columns|Admin\Page\Settings|Admin\Page\Addons|false
 	 */
-	public function get_page( $tab_slug ) {
-		return $this->get_pages()->get_page( $tab_slug );
+	public function get_page( $slug ) {
+		return $this->get_pages()->get_page( $slug );
 	}
 
 	/**
@@ -91,8 +94,8 @@ class AC_Admin {
 	 *
 	 * @return false|string URL
 	 */
-	public function get_link( $tab_slug ) {
-		return $this->get_pages()->get_page( $tab_slug )->get_link();
+	public function get_link( $slug ) {
+		return $this->get_pages()->get_page( $slug )->get_link();
 	}
 
 	/**
@@ -129,9 +132,9 @@ class AC_Admin {
 	 * Load help tabs
 	 */
 	public function load_help_tabs() {
-		new AC_Admin_Help_Introduction();
-		new AC_Admin_Help_Basics();
-		new AC_Admin_Help_CustomField();
+		new Help\Introduction();
+		new Help\Basics();
+		new Help\CustomField();
 	}
 
 	/**
@@ -158,7 +161,7 @@ class AC_Admin {
 	 * @since 1.0
 	 */
 	public function display() {
-		$this->get_pages()->display();
+		$this->pages->display();
 	}
 
 }

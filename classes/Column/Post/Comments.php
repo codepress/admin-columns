@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Post_Comments extends AC_Column {
+class Comments extends Column {
 
 	public function __construct() {
 		$this->set_original( true );

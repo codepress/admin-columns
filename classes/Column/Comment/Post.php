@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC;
+use AC\Column;
+
 /**
  * @since 2.4.7
  */
-class AC_Column_Comment_Post extends AC_Column {
+class Post extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-post' );
@@ -21,7 +26,7 @@ class AC_Column_Comment_Post extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Post( $this ) );
+		$this->add_setting( new AC\Settings\Column\Post( $this ) );
 	}
 
 }

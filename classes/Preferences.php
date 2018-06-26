@@ -1,11 +1,20 @@
 <?php
 
-abstract class AC_Preferences {
+namespace AC;
+
+abstract class Preferences {
 
 	/**
 	 * @var int
 	 */
-	protected $user_id;
+	private $user_id;
+
+	/**
+	 * The label for this set of preferences
+	 *
+	 * @var string
+	 */
+	private $label;
 
 	/**
 	 * Preferences of this user
@@ -13,13 +22,6 @@ abstract class AC_Preferences {
 	 * @var array
 	 */
 	protected $data = array();
-
-	/**
-	 * The label for this set of preferences
-	 *
-	 * @var string
-	 */
-	protected $label;
 
 	/**
 	 * Retrieves data from DB
@@ -63,6 +65,13 @@ abstract class AC_Preferences {
 	 */
 	protected function get_key() {
 		return 'ac_preferences_' . $this->label;
+	}
+
+	/**
+	 * @return int
+	 */
+	protected function get_user_id() {
+		return $this->user_id;
 	}
 
 	/**

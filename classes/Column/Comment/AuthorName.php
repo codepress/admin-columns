@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.4.2
  */
-class AC_Column_Comment_AuthorName extends AC_Column {
+class AuthorName extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-author_name' );
