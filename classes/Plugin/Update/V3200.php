@@ -27,10 +27,11 @@ class V3200 extends Update {
 			new \RecursiveDirectoryIterator( $directory, \FilesystemIterator::SKIP_DOTS )
 		);
 
+		/** @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			$file = $leaf->getFilename();
 
-			if ( $file == strtolower( $file ) ) {
+			if ( $leaf->isFile() && 'php' === $leaf->getExtension() && $file == strtolower( $file ) ) {
 				@rename( $leaf->getPathname(), trailingslashit( $leaf->getPath() ) . ucfirst( $file ) );
 			}
 		}
