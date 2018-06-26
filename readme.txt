@@ -217,7 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 Release Date: June 26th, 2018
 
-* [Fixed] Upgrade scripts fix
+* [Fixed] Assets did not load correctly. Upgrade script fix.
 
 = 3.2 =
 
