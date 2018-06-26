@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.2.1 =
+
+Release Date: June 26th, 2018
+
+* [Fixed] Upgrade scripts fix
 
 = 3.2 =
 
