@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Thirdparty;
+namespace AC\ThirdParty;
 
 /**
  * WPML: display correct flags on the overview screens

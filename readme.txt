@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 4.9.6
 Requires PHP: 5.2.4
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,6 +212,12 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.2.3 =
+
+Release Date: June 26th, 2018
+
+* [Fixed] ThidParty classes are now using correct camelcasing
 
 = 3.2.2 =
 
