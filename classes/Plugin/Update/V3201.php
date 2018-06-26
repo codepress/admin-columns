@@ -5,7 +5,7 @@ namespace AC\Plugin\Update;
 use AC\Plugin\Update;
 use AC\Preferences;
 
-class V3200 extends Update {
+class V3201 extends Update {
 
 	public function apply_update() {
 		$this->uppercase_class_files( AC()->get_dir() . '/classes' );
@@ -14,7 +14,7 @@ class V3200 extends Update {
 	}
 
 	protected function set_version() {
-		$this->version = '3.2';
+		$this->version = '3.2.1';
 	}
 
 	/**
@@ -27,10 +27,11 @@ class V3200 extends Update {
 			new \RecursiveDirectoryIterator( $directory, \FilesystemIterator::SKIP_DOTS )
 		);
 
+		/** @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			$file = $leaf->getFilename();
 
-			if ( $file == strtolower( $file ) ) {
+			if ( $leaf->isFile() && 'php' === $leaf->getExtension() && $file == strtolower( $file ) ) {
 				@rename( $leaf->getPathname(), trailingslashit( $leaf->getPath() ) . ucfirst( $file ) );
 			}
 		}
