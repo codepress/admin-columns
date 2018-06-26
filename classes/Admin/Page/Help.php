@@ -261,7 +261,7 @@ class Help extends Page {
 	 * @return false|string
 	 */
 	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation', 'documentation' ) . $page, __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
 	}
 
 	/**

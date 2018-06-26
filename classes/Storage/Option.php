@@ -1,25 +1,16 @@
 <?php
 
-namespace AC;
+namespace AC\Storage;
 
-class Option {
+class Option
+	implements KeyValuePair {
 
 	/**
 	 * @var string
 	 */
 	protected $key;
 
-	/**
-	 * @param string $key
-	 */
 	public function __construct( $key ) {
-		$this->set_key( $key );
-	}
-
-	/**
-	 * @param string $key
-	 */
-	protected function set_key( $key ) {
 		$this->key = $key;
 	}
 

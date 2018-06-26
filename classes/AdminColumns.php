@@ -113,13 +113,13 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.1.7';
+		return '3.2';
 	}
 
 	/**
 	 * Initialize current user and make sure any administrator user can use Admin Columns
 	 *
-	 * @since NEWVERSION
+	 * @since 3.2
 	 */
 	public function init_capabilities() {
 		$caps = new Capabilities();
@@ -305,14 +305,14 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @since      3.0
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2
 	 *
 	 * @param string $key
 	 *
 	 * @return ListScreen|false
 	 */
 	public function get_list_screen( $key ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'ListScreenFactory::create()' );
+		_deprecated_function( __METHOD__, '3.2', 'ListScreenFactory::create()' );
 
 		return ListScreenFactory::create( $key );
 	}
@@ -320,18 +320,18 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param string $key
 	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2
 	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.2' );
 
 		return ListScreenFactory::create( $key ) ? true : false;
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2
 	 *
 	 * @return Groups
 	 */
@@ -342,12 +342,11 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2
 	 * @return Groups
 	 */
 	public function column_groups() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.2' );
 
 		return new Groups();
 	}
@@ -356,12 +355,12 @@ class AdminColumns extends Plugin {
 	 * Contains simple helper methods
 	 *
 	 * @since      3.0
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2
 	 *
 	 * @return Helper
 	 */
 	public function helper() {
-		_deprecated_function( __METHOD__, '3.1.5', 'ac_helper()' );
+		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
 
 		return ac_helper();
 	}

@@ -19,7 +19,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:126, classes/Check/Review.php:119, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:118, classes/Admin/Page/Columns.php:31
+#: classes/Admin.php:126, classes/Check/Review.php:124, classes/Plugin/Updater.php:106, classes/Plugin/Updater.php:119, classes/Admin/Page/Columns.php:31
 msgid "Admin Columns"
 msgstr ""
 
@@ -79,51 +79,51 @@ msgstr ""
 msgid "the addons page"
 msgstr ""
 
-#: classes/Check/Review.php:118, classes/Admin/Page/Addons.php:58
+#: classes/Check/Review.php:123, classes/Admin/Page/Addons.php:58
 msgid "Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Review.php:127
+#: classes/Check/Review.php:132
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:131
+#: classes/Check/Review.php:136
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:135
+#: classes/Check/Review.php:140
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:136
+#: classes/Check/Review.php:141
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:145
+#: classes/Check/Review.php:150
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:147
+#: classes/Check/Review.php:152
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:152
+#: classes/Check/Review.php:157
 msgid "You can also use your admincolumns.com account to access support through %s!"
 msgstr ""
 
-#: classes/Check/Review.php:153
+#: classes/Check/Review.php:158
 msgid "our forum"
 msgstr ""
 
-#: classes/Check/Review.php:157
+#: classes/Check/Review.php:162
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:158
+#: classes/Check/Review.php:163
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:159
+#: classes/Check/Review.php:164
 msgid "find answers to frequently asked questions"
 msgstr ""
 
@@ -171,15 +171,15 @@ msgstr ""
 msgid " or "
 msgstr ""
 
-#: classes/Plugin/Updater.php:106
+#: classes/Plugin/Updater.php:107
 msgid "Your database is up to date. You are awesome."
 msgstr ""
 
-#: classes/Plugin/Updater.php:119
+#: classes/Plugin/Updater.php:120
 msgid "We need to update your database to the latest version."
 msgstr ""
 
-#: classes/Plugin/Updater.php:121
+#: classes/Plugin/Updater.php:122
 msgid "Run the updater"
 msgstr ""
 
@@ -1095,23 +1095,23 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:60
+#: classes/Settings/Column/BeforeAfter.php:62
 msgid "Before"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:61
+#: classes/Settings/Column/BeforeAfter.php:63
 msgid "This text will appear before the column value."
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:69
+#: classes/Settings/Column/BeforeAfter.php:71
 msgid "After"
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:70
+#: classes/Settings/Column/BeforeAfter.php:72
 msgid "This text will appear after the column value."
 msgstr ""
 
-#: classes/Settings/Column/BeforeAfter.php:76
+#: classes/Settings/Column/BeforeAfter.php:78
 msgid "Display Options"
 msgstr ""
 
