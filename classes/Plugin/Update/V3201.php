@@ -5,7 +5,7 @@ namespace AC\Plugin\Update;
 use AC\Plugin\Update;
 use AC\Preferences;
 
-class V3200 extends Update {
+class V3201 extends Update {
 
 	public function apply_update() {
 		$this->uppercase_class_files( AC()->get_dir() . '/classes' );
@@ -14,7 +14,7 @@ class V3200 extends Update {
 	}
 
 	protected function set_version() {
-		$this->version = '3.2';
+		$this->version = '3.2.1';
 	}
 
 	/**
