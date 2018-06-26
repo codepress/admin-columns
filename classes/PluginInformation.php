@@ -1,6 +1,8 @@
 <?php
 
-class AC_PluginInformation {
+namespace AC;
+
+class PluginInformation {
 
 	/**
 	 * @var string

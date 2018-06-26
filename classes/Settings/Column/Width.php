@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_Width extends AC_Settings_Column
-	implements AC_Settings_HeaderInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Width extends Settings\Column
+	implements Settings\Header {
 
 	/**
 	 * @var integer
@@ -38,13 +43,13 @@ class AC_Settings_Column_Width extends AC_Settings_Column
 		$unit = $this->create_element( 'radio', 'width_unit' )
 		             ->set_options( $this->get_valid_width_units() );
 
-		$section = new AC_View( array(
+		$section = new View( array(
 			'width' => $width,
 			'unit'  => $unit,
 		) );
 		$section->set_template( 'settings/setting-width' );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'    => __( 'Width', 'codepress-admin-columns' ),
 			'sections' => array( $section ),
 		) );
@@ -54,7 +59,7 @@ class AC_Settings_Column_Width extends AC_Settings_Column
 
 	public function create_header_view() {
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'title'   => __( 'width', 'codepress-admin-columns' ),
 			'content' => $this->get_display_width(),
 		) );

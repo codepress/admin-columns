@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Post_Sticky extends AC_Column {
+class Sticky extends Column {
 
 	private $stickies = null;
 

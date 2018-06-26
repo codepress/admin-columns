@@ -1,13 +1,17 @@
 <?php
 
-class AC_Admin_Addon_ACF extends AC_Admin_Addon {
+namespace AC\Admin\Addon;
+
+use AC\Admin\Addon;
+
+class ACF extends Addon {
 
 	public function __construct() {
 		parent::__construct( 'ac-addon-acf' );
 
 		$this
 			->set_title( __( 'Advanced Custom Fields', 'codepress-admin-columns' ) )
-			->set_logo( AC()->get_plugin_url() . 'assets/images/addons/acf.png' )
+			->set_logo( AC()->get_url() . 'assets/images/addons/acf.png' )
 			->set_icon( $this->get_logo() )
 			->set_link( ac_get_site_utm_url( 'advanced-custom-fields-columns', 'addon', 'acf' ) )
 			->set_description( $this->get_fields_description( $this->get_title() ) )
@@ -17,6 +21,7 @@ class AC_Admin_Addon_ACF extends AC_Admin_Addon {
 
 	public function display_promo() {
 		echo $this->get_title() . ' ';
+
 		$this->display_icon();
 	}
 
@@ -34,12 +39,10 @@ class AC_Admin_Addon_ACF extends AC_Admin_Addon {
 		return class_exists( 'acf', false );
 	}
 
-	public function show_missing_notice_on_current_page() {
+	public function is_notice_screen() {
 		global $pagenow;
 
-		$is_acf_page = 'edit.php' === $pagenow && 'acf-field-group' === filter_input( INPUT_GET, 'post_type' );
-
-		return parent::show_missing_notice_on_current_page() || $is_acf_page;
+		return 'edit.php' === $pagenow && 'acf-field-group' === filter_input( INPUT_GET, 'post_type' );
 	}
 
 }

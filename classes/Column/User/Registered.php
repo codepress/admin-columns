@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * @since 2.0
  */
-class AC_Column_User_Registered extends AC_Column {
+class Registered extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-user_registered' );
@@ -19,7 +24,7 @@ class AC_Column_User_Registered extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Date( $this ) );
+		$this->add_setting( new Settings\Column\Date( $this ) );
 	}
 
 }

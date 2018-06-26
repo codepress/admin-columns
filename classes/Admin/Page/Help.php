@@ -1,6 +1,11 @@
 <?php
 
-class AC_Admin_Page_Help extends AC_Admin_Page {
+namespace AC\Admin\Page;
+
+use AC;
+use AC\Admin\Page;
+
+class Help extends Page {
 
 	const TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
 
@@ -47,7 +52,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Run all hooks once
 	 */
 	public function init() {
-		if ( ! AC()->user_can_manage_admin_columns() ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return;
 		}
 
@@ -61,7 +66,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * Run all hooks when opening the help tab.
 	 */
 	public function run_hooks_on_help_tab() {
-		if ( ! AC()->user_can_manage_admin_columns() || ! $this->is_current_screen() ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
@@ -73,7 +78,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 */
 	public function admin_scripts() {
 		if ( $this->is_current_screen() ) {
-			wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_plugin_url() . 'assets/css/admin-page-help.css', array(), AC()->get_version() );
+			wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_url() . 'assets/css/admin-page-help.css', array(), AC()->get_version() );
 		}
 	}
 
@@ -256,7 +261,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 	 * @return false|string
 	 */
 	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation', 'documentation' ) . $page, __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
 	}
 
 	/**
@@ -311,7 +316,7 @@ class AC_Admin_Page_Help extends AC_Admin_Page {
 			return false;
 		}
 
-		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s', count( $callbacks ), 'codepress-admin-columns' ), '<code>' . implode( '</code>, <code>', $callbacks ) . '</code>' );
+		return sprintf( _n( 'The callback used is %s.', 'The callbacks used are %s.', count( $callbacks ), 'codepress-admin-columns' ), '<code>' . implode( '</code>, <code>', $callbacks ) . '</code>' );
 	}
 
 	/**

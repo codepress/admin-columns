@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Post_Shortlink extends AC_Column {
+class Shortlink extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-shortlink' );

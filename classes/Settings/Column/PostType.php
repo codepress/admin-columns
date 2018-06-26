@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_PostType extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class PostType extends Settings\Column {
 
 	/**
 	 * @var string
@@ -16,7 +21,7 @@ class AC_Settings_Column_PostType extends AC_Settings_Column {
 		                ->set_attribute( 'data-label', 'update' )
 		                ->set_options( $this->get_post_type_labels() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Post Type', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
@@ -26,7 +31,8 @@ class AC_Settings_Column_PostType extends AC_Settings_Column {
 
 	private function get_post_type_labels() {
 		$options = array();
-		$post_types = AC()->get_post_types();
+
+		$post_types = get_post_types();
 
 		if ( ! is_array( $post_types ) ) {
 			return $options;

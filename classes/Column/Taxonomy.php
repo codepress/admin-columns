@@ -1,12 +1,17 @@
 <?php
 
+namespace AC\Column;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
  * supporting WordPress' native way of handling terms.
  *
  * @since 2.0
  */
-class AC_Column_Taxonomy extends AC_Column {
+class Taxonomy extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-taxonomy' );
@@ -43,7 +48,7 @@ class AC_Column_Taxonomy extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_Taxonomy( $this ) );
+		$this->add_setting( new Settings\Column\Taxonomy( $this ) );
 	}
 
 }

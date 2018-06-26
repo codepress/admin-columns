@@ -1,7 +1,11 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Media_Taxonomy extends AC_Column_Post_Taxonomy {
+class Taxonomy extends Column\Post\Taxonomy {
 }

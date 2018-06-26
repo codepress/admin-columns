@@ -1,6 +1,10 @@
 <?php
 
-class AC_Settings_Column_Pro_Sorting extends AC_Settings_Column_Pro {
+namespace AC\Settings\Column\Pro;
+
+use AC\Settings;
+
+class Sorting extends Settings\Column\Pro {
 
 	protected function get_label() {
 		return __( 'Sorting', 'codepress-admin-columns' );

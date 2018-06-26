@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_Label extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Label extends Settings\Column {
 
 	/**
 	 * @var string
@@ -19,7 +24,7 @@ class AC_Settings_Column_Label extends AC_Settings_Column {
 			->create_element( 'text' )
 			->set_attribute( 'placeholder', $this->column->get_label() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
 			'setting' => $setting,

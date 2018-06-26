@@ -1,6 +1,10 @@
 <?php
 
-class AC_Settings_Column_BeforeAfter_Aperture extends AC_Settings_Column_BeforeAfter {
+namespace AC\Settings\Column\BeforeAfter;
+
+use AC\Settings\Column\BeforeAfter;
+
+class Aperture extends BeforeAfter {
 
 	protected function define_options() {
 		return array( 'before' => 'f/', 'after' => '' );

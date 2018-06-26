@@ -1,6 +1,10 @@
 <?php
 
-class AC_Settings_Form_Element_Select extends AC_Form_Element_Select {
+namespace AC\Settings\Form\Element;
+
+use AC;
+
+class Select extends AC\Form\Element\Select {
 
 	protected function render_ajax_message() {
 		return '<div class="msg"></div>';

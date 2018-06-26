@@ -1,7 +1,13 @@
 <?php
 
-class AC_Settings_Column_PostLink extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC;
+use AC\Settings;
+use AC\View;
+
+class PostLink extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -48,7 +54,7 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 	public function create_view() {
 		$select = $this->create_element( 'select' )->set_options( $this->get_display_options() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );
@@ -66,7 +72,7 @@ class AC_Settings_Column_PostLink extends AC_Settings_Column
 			'view_author' => __( 'View Public Post Author Page', 'codepress-admin-columns' ),
 		);
 
-		if ( $this->column instanceof AC_Column_RelationInterface ) {
+		if ( $this->column instanceof AC\Column\Relation ) {
 			$relation_options = array(
 				'edit_post'   => _x( 'Edit %s', 'post' ),
 				'view_post'   => _x( 'View %s', 'post' ),

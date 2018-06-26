@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_File {
+namespace AC\Helper;
+
+class File {
 
 	/**
 	 * Convert file size to readable format

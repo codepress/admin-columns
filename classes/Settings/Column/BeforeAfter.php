@@ -1,7 +1,13 @@
 <?php
 
-class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\Settings\Column;
+use AC\View;
+
+class BeforeAfter extends Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -50,25 +56,28 @@ class AC_Settings_Column_BeforeAfter extends AC_Settings_Column
 	public function create_view() {
 		$setting = $this->get_before_element();
 
-		$before = new AC_View( array(
+		$for = $setting->get_id();
+
+		$before = new View( array(
 			'label'       => __( 'Before', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
 			'setting'     => $setting,
-			'for'         => $setting->get_id(),
+			'for'         => $for,
 		) );
 
 		$setting = $this->get_after_element();
 
-		$after = new AC_View( array(
+		$after = new View( array(
 			'label'       => __( 'After', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
 			'setting'     => $setting,
 			'for'         => $setting->get_id(),
 		) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'    => __( 'Display Options', 'codepress-admin-columns' ),
 			'sections' => array( $before, $after ),
+			'for'      => $for,
 		) );
 
 		return $view;

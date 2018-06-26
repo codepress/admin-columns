@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * @since 2.4
  */
-class AC_Column_Post_Content extends AC_Column {
+class Content extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-content' );
@@ -15,8 +20,8 @@ class AC_Column_Post_Content extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_StringLimit( $this ) );
-		$this->add_setting( new AC_Settings_Column_BeforeAfter( $this ) );
+		$this->add_setting( new Settings\Column\StringLimit( $this ) );
+		$this->add_setting( new Settings\Column\BeforeAfter( $this ) );
 	}
 
 }

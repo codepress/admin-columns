@@ -1,6 +1,11 @@
 <?php
 
-abstract class AC_Settings_Column_Pro extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+abstract class Pro extends Settings\Column {
 
 	abstract protected function get_label();
 
@@ -14,7 +19,7 @@ abstract class AC_Settings_Column_Pro extends AC_Settings_Column {
 		                ) )
 		                ->set_value( 'off' );
 
-		$view = new AC_View();
+		$view = new View();
 		$view->set( 'label', $this->get_label() )
 		     ->set( 'tooltip', $this->get_tooltip() )
 		     ->set( 'setting', $setting )

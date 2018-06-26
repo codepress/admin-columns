@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Admin_Promo {
+namespace AC\Admin;
+
+abstract class Promo {
 
 	/**
 	 * @var array

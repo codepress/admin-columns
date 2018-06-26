@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Comment_ReplyTo extends AC_Column {
+class ReplyTo extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-reply_to' );

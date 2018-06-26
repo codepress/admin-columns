@@ -1,6 +1,8 @@
 <?php
 
-class AC_ThirdParty_ACF {
+namespace AC\Thirdparty;
+
+class ACF {
 
 	public function __construct() {
 		add_filter( 'ac/post_types', array( $this, 'remove_acf_field_group' ) );

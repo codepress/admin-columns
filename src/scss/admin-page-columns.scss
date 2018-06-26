@@ -874,17 +874,24 @@
 	overflow: hidden;
 
 	.order-message {
-		background: transparent url('../images/order_arrow.png') no-repeat 0 0;
 		color: #7A9BBE;
 		float: left;
 		font-family: Comic Sans MS, sans-serif;
 		font-size: 11px;
 		height: 13px;
+		position: relative;
 		line-height: 1em;
 		margin-left: 4px;
 		padding: 7px 0 0 22px;
 		text-shadow: 0 1px 0 #FFFFFF;
 		display: inline-block;
+
+		&__icon {
+			display: inline-block;
+			position: absolute;
+			left:0;
+			top: 0;
+		}
 	}
 
 	.button-container {
@@ -1454,6 +1461,7 @@
 			right: 20px;
 			bottom: 20px;
 			width: 150px;
+			height: 225px;
 			z-index: 4;
 		}
 	}

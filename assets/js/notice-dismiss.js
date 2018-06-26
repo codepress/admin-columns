@@ -1,0 +1,1 @@
+'use strict';jQuery(function($){$(document).on('click','.ac-notice [data-dismiss]',function(e){e.preventDefault();var $notice=$(this).parents('.ac-notice');var dismissible=$notice.data('dismissible');$notice.fadeOut(500,function(){$notice.remove()});$.post(ajaxurl,dismissible)})});

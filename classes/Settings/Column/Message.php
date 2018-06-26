@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_Message extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Message extends Settings\Column {
 
 	private $label;
 
@@ -27,7 +32,7 @@ class AC_Settings_Column_Message extends AC_Settings_Column {
 	}
 
 	public function create_view() {
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => $this->label,
 			'setting' => $this->message,
 		) );
