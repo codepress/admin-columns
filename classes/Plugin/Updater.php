@@ -75,7 +75,8 @@ class Updater {
 			return;
 		}
 
-		krsort( $this->updates, SORT_NUMERIC );
+		// Sort by version number
+		uksort( $this->updates, 'version_compare' );
 
 		/* @var Update $update */
 		foreach ( $this->updates as $update ) {

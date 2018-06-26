@@ -14,7 +14,7 @@ class V3200 extends Update {
 	}
 
 	protected function set_version() {
-		$this->version = '3.2.0';
+		$this->version = '3.2';
 	}
 
 	/**
