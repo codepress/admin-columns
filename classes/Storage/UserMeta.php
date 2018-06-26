@@ -3,7 +3,7 @@
 namespace AC\Storage;
 
 class UserMeta
-	implements KeyValuePairStorage {
+	implements KeyValuePair {
 
 	/**
 	 * @var int

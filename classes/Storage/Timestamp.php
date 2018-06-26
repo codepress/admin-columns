@@ -5,14 +5,14 @@ namespace AC\Storage;
 use AC\Expirable;
 
 final class Timestamp
-	implements KeyValuePairStorage, Expirable {
+	implements KeyValuePair, Expirable {
 
 	/**
-	 * @var KeyValuePairStorage
+	 * @var KeyValuePair
 	 */
 	protected $storage;
 
-	public function __construct( KeyValuePairStorage $storage ) {
+	public function __construct( KeyValuePair $storage ) {
 		$this->storage = $storage;
 	}
 

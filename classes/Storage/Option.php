@@ -3,7 +3,7 @@
 namespace AC\Storage;
 
 class Option
-	implements KeyValuePairStorage {
+	implements KeyValuePair {
 
 	/**
 	 * @var string

@@ -2,7 +2,7 @@
 
 namespace AC\Storage;
 
-interface KeyValuePairStorage {
+interface KeyValuePair {
 
 	public function get();
 
