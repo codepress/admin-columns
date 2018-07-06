@@ -34,7 +34,7 @@ class Button {
 	 * @return $this
 	 */
 	public function add_class( $class ) {
-		$this->set_attribute( 'class', $this->get_attribute( 'class' ) . ' ' . $class );
+		$this->set_attribute( 'class', $this->get_attribute( 'class' ) . ' ' . esc_attr( $class ) );
 
 		return $this;
 	}

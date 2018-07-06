@@ -28,6 +28,12 @@ final class Buttons {
 		return $buttons;
 	}
 
+	/**
+	 * @param Button $button
+	 * @param int    $priority
+	 *
+	 * @return bool
+	 */
 	public function register_button( Button $button, $priority = 10 ) {
 
 		$this->buttons[ $priority ][] = $button;
