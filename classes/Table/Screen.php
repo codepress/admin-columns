@@ -12,6 +12,11 @@ use AC\Settings;
 final class Screen {
 
 	/**
+	 * @var Buttons
+	 */
+	private $buttons;
+
+	/**
 	 * @var array $column_headings
 	 */
 	private $column_headings = array();
@@ -22,14 +27,28 @@ final class Screen {
 	private $current_list_screen;
 
 	public function __construct() {
+		$this->buttons = new Buttons();
+	}
+
+	public function register() {
 		add_action( 'current_screen', array( $this, 'load_list_screen' ) );
 		add_action( 'admin_init', array( $this, 'load_list_screen_doing_quick_edit' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
+		add_action( 'admin_head', array( $this, 'display_edit_button' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
+		add_action( 'admin_footer', array( $this, 'render_buttons' ) );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 * @return Buttons
+	 */
+	public function buttons() {
+		return $this->buttons;
 	}
 
 	/**
@@ -169,6 +188,29 @@ final class Screen {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 */
+	public function display_edit_button() {
+		if ( ! $this->current_list_screen ) {
+			return;
+		}
+
+		$list_screen = $this->current_list_screen;
+		$edit_link = $this->get_edit_link( $list_screen );
+
+		if ( ! $edit_link ) {
+			return;
+		}
+
+		$button = new Button( 'edit-columns' );
+		$button->set_label( __( 'Edit columns', 'codepress-admin-columns' ) )
+		       ->set_url( $edit_link )
+		       ->set_dashicon( 'admin-generic' );
+
+		$this->buttons()->register_button( $button, 1 );
+	}
+
+	/**
 	 * @since 2.2.4
 	 *
 	 * @param ListScreen $list_screen
@@ -194,11 +236,7 @@ final class Screen {
 				'column_types' => $this->get_column_types_mapping( $list_screen ),
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
 				'table_id'     => $list_screen->get_table_attr_id(),
-				'edit_link'    => $this->get_edit_link( $list_screen ),
 				'screen'       => $this->get_current_screen_id(),
-				'i18n'         => array(
-					'edit_columns' => esc_html( __( 'Edit columns', 'codepress-admin-columns' ) ),
-				),
 			)
 		);
 
@@ -476,6 +514,21 @@ final class Screen {
 		}
 
 		return apply_filters( 'ac/headings', $this->column_headings, $this->current_list_screen );
+	}
+
+	/**
+	 * @since NEWVERSION
+	 */
+	public function render_buttons() {
+		?>
+		<div id="ac-table-buttons">
+			<?php
+			foreach ( $this->buttons()->get_buttons() as $button ) {
+				$button->render();
+			}
+			?>
+		</div>
+		<?php
 	}
 
 }

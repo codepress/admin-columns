@@ -836,3 +836,70 @@ div.cpac-color span {
 	font-weight: normal;
 	min-width: 25px;
 }
+
+#ac-table-buttons {
+	float: left;
+	white-space: nowrap;
+
+	.ac-table-button {
+		display: block;
+		float: left;
+		padding: 2px 12px;
+		color: #6F6F6F;
+		text-decoration: none;
+		font-size: 14px;
+		height: 24px;
+		text-align: center;
+		border: 1px solid #CCCCCC;
+		border-right: none;
+		transform: translateX(-1px);
+
+		&:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:hover {
+			background: #ddd;
+		}
+
+		&:first-child {
+			border-radius: 3px 0 0 3px;
+		}
+
+		&:last-child, &.last {
+			border-radius: 0 3px 3px 0;
+			border-right: 1px solid #ccc;
+		}
+
+		.dashicons {
+			font-size: 14px;
+			width: 14px;
+			height: 14px;
+			line-height: 24px;
+		}
+
+		&.disabled {
+			background: #ddd;
+			color: #aaa;
+			cursor: not-allowed;
+		}
+
+		&.active {
+			background: #00A0D2;
+			border: 1px solid #008EC2;
+			color: #fff;
+
+			& + .ac-table-button {
+				border-left: none;
+			}
+		}
+
+		&.-inline-edit {
+			.dashicons {
+				font-size: 18px;
+				margin-left: -2px;
+			}
+		}
+	}
+}
