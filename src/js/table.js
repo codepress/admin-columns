@@ -21,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
 		$buttons.find( '> a' ).removeClass( 'last' );
 		$buttons.find( '> a:visible:last' ).addClass( 'last' );
 		$( 'div:visible:last' );
-	} ).appendTo( $( '.tablenav.top .actions:last' ) ).trigger( 'update' );
+	} ).appendTo( $( '.tablenav.top .actions.bulkactions' ) ).trigger( 'update' );
 
 } );
 
