@@ -15,6 +15,14 @@ jQuery( document ).ready( function( $ ) {
 		ac_show_more( $ );
 	} );
 
+	$( '#ac-table-buttons' ).on( 'update', function() {
+		let $buttons = $( this );
+
+		$buttons.find( '> a' ).removeClass( 'last' );
+		$buttons.find( '> a:visible:last' ).addClass( 'last' );
+		$( 'div:visible:last' );
+	} ).appendTo( $( '.tablenav.top .actions:last' ) ).trigger( 'update' );
+
 } );
 
 function ac_actions_tooltips( $ ) {

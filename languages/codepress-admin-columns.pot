@@ -23,7 +23,7 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:142, classes/Admin/Page/Settings.php:19
+#: classes/AdminColumns.php:174, classes/Admin/Page/Settings.php:19
 msgid "Settings"
 msgstr ""
 
@@ -183,27 +183,27 @@ msgstr ""
 msgid "Run the updater"
 msgstr ""
 
-#: classes/Table/Screen.php:45
+#: classes/Table/Screen.php:123
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/Table/Screen.php:51
+#: classes/Table/Screen.php:129
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/Table/Screen.php:57
+#: classes/Table/Screen.php:135
 msgid "Invalid column."
 msgstr ""
 
-#: classes/Table/Screen.php:61
+#: classes/Table/Screen.php:139
 msgid "Invalid method."
 msgstr ""
 
-#: classes/Table/Screen.php:122, classes/Table/Screen.php:124
+#: classes/Table/Screen.php:200, classes/Table/Screen.php:202
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:200, classes/Admin/Page/Settings.php:185
+#: classes/Table/Screen.php:260, classes/Admin/Page/Settings.php:185
 msgid "Edit columns"
 msgstr ""
 
