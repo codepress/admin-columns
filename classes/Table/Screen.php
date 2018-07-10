@@ -237,10 +237,6 @@ final class Screen {
 	 * @return string
 	 */
 	public function admin_class( $classes ) {
-		if ( ! $this->list_screen ) {
-			return $classes;
-		}
-
 		$classes .= " ac-" . $this->list_screen->get_key();
 
 		return apply_filters( 'ac/table/body_class', $classes, $this );
@@ -344,7 +340,7 @@ final class Screen {
 	 * Applies the width setting to the table headers
 	 */
 	private function display_width_styles() {
-		if ( ! $this->list_screen || ! $this->list_screen->get_settings() ) {
+		if ( ! $this->list_screen->get_settings() ) {
 			return;
 		}
 
@@ -402,10 +398,6 @@ final class Screen {
 	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
-		if ( ! $this->list_screen ) {
-			return;
-		}
-
 		$this->display_width_styles();
 
 		/**
@@ -425,10 +417,6 @@ final class Screen {
 	 * @since 1.4.0
 	 */
 	public function admin_footer_scripts() {
-		if ( ! $this->list_screen ) {
-			return;
-		}
-
 		/**
 		 * Add footer scripts that only apply to column screens.
 		 *
@@ -445,10 +433,6 @@ final class Screen {
 	 */
 	public function add_headings( $columns ) {
 		if ( empty( $columns ) ) {
-			return $columns;
-		}
-
-		if ( ! $this->list_screen ) {
 			return $columns;
 		}
 

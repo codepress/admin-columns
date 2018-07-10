@@ -16,7 +16,7 @@ class QuickEdit {
 	 * Register hooks
 	 */
 	public function register() {
-		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'set_list_screen' ) );
 	}
 
 	/**
@@ -29,8 +29,7 @@ class QuickEdit {
 	/**
 	 * Get list screen when doing Quick Edit, a native WordPress ajax call
 	 */
-	public function init() {
-
+	public function set_list_screen() {
 		if ( ! $this->is_doing_ajax() ) {
 			return;
 		}
