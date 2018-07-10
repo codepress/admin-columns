@@ -66,9 +66,6 @@ class AdminColumns extends Plugin {
 		// Init
 		$this->addons = new Admin\Addons();
 
-		$this->table_screen = new Table\Screen();
-		$this->table_screen->register();
-
 		$this->api = new API();
 
 		$this->admin = new Admin();
@@ -77,11 +74,43 @@ class AdminColumns extends Plugin {
 		$screen = new Screen();
 		$screen->register();
 
+		$screen = new Screen\QuickEdit();
+		$screen->register();
+
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'plugins_loaded', array( $this, 'localize' ) );
+
+		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
+		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
+	}
+
+	/**
+	 * @param Screen $screen
+	 */
+	public function init_table_on_screen( Screen $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * @param Screen\QuickEdit $screen
+	 */
+	public function init_table_on_quick_edit( Screen\QuickEdit $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 */
+	private function load_table( $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
+			return;
+		}
+
+		$this->table_screen = new Table\Screen( $list_screen );
+		$this->table_screen->register();
 	}
 
 	/**
