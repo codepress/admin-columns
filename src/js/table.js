@@ -15,7 +15,7 @@ jQuery( document ).ready( function( $ ) {
 		ac_show_more( $ );
 	} );
 
-	$( '#ac-table-buttons' ).on( 'update', function() {
+	$( '#ac-table-actions' ).on( 'update', function() {
 		let $buttons = $( this );
 
 		$buttons.find( '> a' ).removeClass( 'last' );

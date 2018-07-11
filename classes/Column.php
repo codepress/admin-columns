@@ -263,6 +263,21 @@ class Column {
 	}
 
 	/**
+	 * @since NEWVERSION
+	 * @return string
+	 */
+	public function get_custom_label() {
+
+		/**
+		 * @since 3.0
+		 *
+		 * @param string $label
+		 * @param Column $column
+		 */
+		return apply_filters( 'ac/headings/label', $this->get_setting( 'label' )->get_value(), $this );
+	}
+
+	/**
 	 * @return Collection
 	 */
 	public function get_settings() {

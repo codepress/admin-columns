@@ -203,7 +203,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:260, classes/Admin/Page/Settings.php:185
+#: classes/Table/Screen.php:256, classes/Admin/Page/Settings.php:185
 msgid "Edit columns"
 msgstr ""
 

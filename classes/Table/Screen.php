@@ -53,7 +53,7 @@ final class Screen {
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
-		add_action( 'admin_footer', array( $this, 'render_buttons' ) );
+		add_action( 'admin_footer', array( $this, 'render_actions' ) );
 		add_filter( 'screen_settings', array( $this, 'screen_options' ) );
 	}
 
@@ -464,16 +464,7 @@ final class Screen {
 		}
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-
-			/**
-			 * @since 3.0
-			 *
-			 * @param string $label
-			 * @param Column $column
-			 */
-			$label = apply_filters( 'ac/headings/label', $column->get_setting( 'label' )->get_value(), $column );
-
-			$this->column_headings[ $column->get_name() ] = $label;
+			$this->column_headings[ $column->get_name() ] = $column->get_custom_label();
 		}
 
 		return apply_filters( 'ac/headings', $this->column_headings, $this->list_screen );
@@ -482,9 +473,23 @@ final class Screen {
 	/**
 	 * @since NEWVERSION
 	 */
-	public function render_buttons() {
+	public function render_actions() {
 		?>
-		<div id="ac-table-buttons">
+		<div id="ac-table-actions">
+
+			<?php $this->render_buttons(); ?>
+
+			<?php do_action( 'ac/table/actions', $this ); ?>
+		</div>
+		<?php
+	}
+
+	private function render_buttons(  ) {
+		if ( ! $this->get_buttons() ) {
+			return;
+		}
+		?>
+		<div class="ac-table-actions-buttons">
 			<?php
 			foreach ( $this->get_buttons() as $button ) {
 				$button->render();
