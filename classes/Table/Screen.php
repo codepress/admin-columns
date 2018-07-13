@@ -52,7 +52,6 @@ final class Screen {
 		add_action( 'admin_head', array( $this, 'register_settings_button' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
-		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'ajax_get_column_value' ) );
 		add_action( 'admin_footer', array( $this, 'render_actions' ) );
 		add_filter( 'screen_settings', array( $this, 'screen_options' ) );
 	}
@@ -108,44 +107,6 @@ final class Screen {
 		ksort( $this->buttons, SORT_NUMERIC );
 
 		return true;
-	}
-
-	/**
-	 * Get column value by ajax.
-	 */
-	public function ajax_get_column_value() {
-		check_ajax_referer( 'ac-ajax' );
-
-		// Get ID of entry to edit
-		$id = intval( filter_input( INPUT_POST, 'pk' ) );
-
-		if ( ! $id ) {
-			$this->ajax_error( __( 'Invalid item ID.', 'codepress-admin-columns' ) );
-		}
-
-		$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
-
-		if ( ! $list_screen ) {
-			$this->ajax_error( __( 'Invalid list screen.', 'codepress-admin-columns' ) );
-		}
-
-		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
-
-		if ( ! $column ) {
-			$this->ajax_error( __( 'Invalid column.', 'codepress-admin-columns' ) );
-		}
-
-		if ( ! $column instanceof Column\AjaxValue ) {
-			$this->ajax_error( __( 'Invalid method.', 'codepress-admin-columns' ) );
-		}
-
-		// Trigger ajax callback
-		echo $column->get_ajax_value( $id );
-		exit;
-	}
-
-	private function ajax_error( $message ) {
-		wp_die( $message, null, 400 );
 	}
 
 	/**
