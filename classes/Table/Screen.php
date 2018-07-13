@@ -286,7 +286,7 @@ final class Screen {
 		/**
 		 * @param ListScreen $list_screen
 		 */
-		do_action( 'ac/table_scripts', $this->list_screen );
+		do_action( 'ac/table_scripts', $this->list_screen, $this );
 
 		// Column specific scripts
 		foreach ( $this->list_screen->get_columns() as $column ) {
