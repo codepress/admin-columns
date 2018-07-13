@@ -15,13 +15,20 @@ jQuery( document ).ready( function( $ ) {
 		ac_show_more( $ );
 	} );
 
+<<<<<<< Updated upstream
 	$( '#ac-table-actions' ).on( 'update', function() {
 		let $buttons = $( this ).find( '.ac-table-actions-buttons' );
+=======
+	$( '#ac-table-actions .ac-table-actions-buttons' ).on( 'update', function() {
+		let $buttons = $( this );
+>>>>>>> Stashed changes
 
 		$buttons.find( '> a' ).removeClass( 'last' );
 		$buttons.find( '> a:visible:last' ).addClass( 'last' );
+
 		$( 'div:visible:last' );
-	} ).appendTo( $( '.tablenav.top .actions:last' ) ).trigger( 'update' );
+	} );
+	$( '#ac-table-actions' ).appendTo( $( '.tablenav.top .actions:last' ) ).trigger( 'update' );
 
 } );
 
