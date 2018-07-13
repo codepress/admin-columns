@@ -16,7 +16,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	$( '#ac-table-actions' ).on( 'update', function() {
-		let $buttons = $( this );
+		let $buttons = $( this ).find( '.ac-table-actions-buttons' );
 
 		$buttons.find( '> a' ).removeClass( 'last' );
 		$buttons.find( '> a:visible:last' ).addClass( 'last' );

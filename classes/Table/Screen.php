@@ -475,7 +475,7 @@ final class Screen {
 	 */
 	public function render_actions() {
 		?>
-		<div id="ac-table-actions">
+		<div id="ac-table-actions" class="ac-table-actions">
 
 			<?php $this->render_buttons(); ?>
 
@@ -484,7 +484,7 @@ final class Screen {
 		<?php
 	}
 
-	private function render_buttons(  ) {
+	private function render_buttons() {
 		if ( ! $this->get_buttons() ) {
 			return;
 		}

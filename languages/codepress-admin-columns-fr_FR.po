@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-06 05:30:47+0000\n"
+"PO-Revision-Date: 2018-07-12 15:21:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,80 +13,80 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:72
 msgid "Uses one or more %s IDs to display information about it."
-msgstr ""
+msgstr "Utilise un ou plusieurs ID d’/de %s pour afficher des informations à propos de celui-ci."
 
 #: classes/Dependencies.php:193
 msgid "This plugin failed to load:"
-msgstr ""
+msgstr "Cette extension n’a pas pu se charger :"
 
 #: classes/Dependencies.php:160
 msgid "Read more about <a href=\"%s\" target=\"_blank\">requirements</a>a> in our documentation."
-msgstr ""
+msgstr "En savoir plus sur les <a href=\"%s\" target=\"_blank\">prérequis</a> dans notre documentation."
 
 #: classes/Dependencies.php:159
 msgid "Your server currently runs PHP %s."
-msgstr ""
+msgstr "Votre serveur exécute actuellement PHP %s."
 
 #: classes/Dependencies.php:158
 msgid "This plugin requires at least PHP %s to function properly."
-msgstr ""
+msgstr "Cette extensions nécessite au moins PHP %s pour fonctionner correctement."
 
 #: classes/Dependencies.php:120
 msgid "%s needs to be installed and activated."
-msgstr ""
+msgstr "%s doit être installée et activée."
 
 #: classes/Dependencies.php:117
 msgid "version %s or later"
-msgstr ""
+msgstr "version %s et plus"
 
 #: classes/Check/Review.php:157
 msgid "You can also use your admincolumns.com account to access support through %s!"
-msgstr ""
+msgstr "Vous pouvez aussi utiliser votre compte admincolumns.com pour accéder au support via %s !"
 
 #: classes/Admin/Page/Addons.php:133
 msgid "Activate %s here."
-msgstr ""
+msgstr "Activez %s ici."
 
 #: classes/Admin/Page/Addons.php:127
 msgid "Install %s here."
-msgstr ""
+msgstr "Installez %s ici."
 
 #: classes/Admin/Help/CustomField.php:75
 msgid "Value: Should contain one or more User IDs, separated by commas."
-msgstr ""
+msgstr "Valeur : doit contenir un ou plusieurs ID d’utilisateurs, séparés par des virgules."
 
 #: classes/Admin/Help/CustomField.php:71
 msgid "Value: Should contain a URL."
-msgstr ""
+msgstr "Valeur : doit contenir une URL."
 
 #: classes/Admin/Help/CustomField.php:70
 #: classes/Settings/Column/CustomFieldType.php:107
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: classes/Admin/Help/CustomField.php:63
 msgid "Value: Should contain one or more Post IDs, separated by commas."
-msgstr ""
+msgstr "Valeur : doit contenir un ou plusieurs ID de contenus, séparés par des virgule."
 
 #: classes/Admin/Help/CustomField.php:51
 msgid "Value: Should contain one or more Attachment IDs, separated by commas."
-msgstr ""
+msgstr "Valeur : doit contenir un ou plusieurs ID de fichiers joints, séparés par des virgules."
 
 #: classes/Admin/Help/CustomField.php:47
 msgid "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas."
-msgstr ""
+msgstr "Valeur : doit contenir un·e ou plusieurs URL d’images ou ID de fichiers joints, séparés par des virgules."
 
 #: classes/Admin/Help/CustomField.php:43
 msgid "Value: This will show if the field has content or not."
-msgstr ""
+msgstr "Valeur : cela affichera si le champ a un contenu ou pas."
 
 #: classes/Admin/Addon/NinjaForms.php:17
 msgid "Add Ninja Forms columns that can be sorted, filtered and directly edited!"
-msgstr ""
+msgstr "Ajout de colonnes Ninja Forms qui peuvent être triées, filtrées et directement éditées !"
 
 #: classes/Admin/Addon/EventsCalendar.php:17
 msgid "Manage columns for your event, organizer or venue overviews."
-msgstr ""
+msgstr "Gérer les colonnes pour vos vues d’ensemble d’évènements, organisateurs ou lieux."
 
 #: classes/Settings/Column/Pro/Sorting.php:14
 msgid "This will make the column sortable."
@@ -122,7 +122,7 @@ msgstr "Édition"
 
 #: classes/Admin/Page/Columns.php:937
 msgid "Only %s for 1 site"
-msgstr "Seulement %s pour 1 site"
+msgstr "Uniquement %s pour 1 site"
 
 #: classes/Admin/Page/Columns.php:932
 msgid "Get add-ons for ACF, WooCommerce and many more"
