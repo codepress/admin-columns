@@ -5,256 +5,8 @@
  * @param AC.layout {String}
  * @param AC.i81n {String}
  */
-var AC;
 
-/**
- * Temporary column name used for form elements.
- *
- * @type {number}
- */
-var incremental_column_name = 0;
-
-class AC_Form {
-
-	constructor( el ) {
-		this.$form = jQuery( el );
-		this.$container = jQuery( '#cpac .ac-admin' );
-		this.columns = {};
-		this.init();
-
-		// Todo move or remove?
-		jQuery( document ).trigger( 'cac_model_ready', this.$container.data( 'type' ) );
-	}
-
-	init() {
-		this.initColumns();
-		this.bindFormEvents();
-		this.bindOrdering();
-	}
-
-	bindOrdering() {
-
-		if ( this.$form.hasClass( 'ui-sortable' ) ) {
-			this.$form.sortable( 'refresh' );
-		}
-		else {
-			this.$form.sortable( {
-				items : '.ac-column',
-				handle : '.column_sort'
-			} );
-		}
-
-	}
-
-	bindFormEvents() {
-		let self = this;
-		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
-
-		$buttons.on( 'click', function() {
-			$buttons.attr( 'disabled', 'disabled' );
-			self.submitForm().always( function() {
-				$buttons.removeAttr( 'disabled', 'disabled' );
-			} )
-		} );
-
-		self.$container.find( '.add_column' ).on( 'click', function() {
-			self.addColumn();
-		} );
-
-		let $boxes = jQuery( '#cpac .ac-boxes' );
-		if ( $boxes.hasClass( 'disabled' ) ) {
-
-			$boxes.find( '.ac-column' ).each( function( i, col ) {
-				jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
-			} );
-		}
-
-	}
-
-	initColumns() {
-		let self = this;
-
-		this.$form.find( '.ac-column' ).each( function() {
-			let $el = jQuery( this );
-			let column = new AC_Column( $el );
-
-			column.disable();
-			column.bindEvents();
-
-			self.columns[ column.name ] = column;
-		} );
-	}
-
-	resetColumns() {
-		Object.keys( this.columns ).forEach( ( key ) => {
-			console.log( key );
-			let column = this.columns[ key ];
-
-			column.destroy();
-		} );
-
-	}
-
-	serialize() {
-		return this.$form.serialize();
-	}
-
-	submitForm() {
-		let self = this;
-
-		let xhr = jQuery.post( ajaxurl, {
-				action : 'ac_columns_save',
-				data : this.serialize(),
-				_ajax_nonce : AC._ajax_nonce,
-				list_screen : AC.list_screen,
-				layout : AC.layout,
-				original_columns : AC.original_columns
-			},
-
-			function( response ) {
-				if ( response ) {
-					if ( response.success ) {
-						self.showMessage( response.data, 'updated' );
-
-						self.$container.addClass( 'stored' );
-					}
-
-					// Error message
-					else if ( response.data ) {
-						self.showMessage( response.data.message, 'notice notice-warning' );
-					}
-				}
-
-			}, 'json' );
-
-		// No JSON
-		xhr.fail( function( error ) {
-			// We choose not to notify the user of errors, because the settings will have
-			// been saved correctly despite of PHP notices/errors from plugin or themes.
-		} );
-
-		jQuery( document ).trigger( 'cac_update', self.$container );
-		return xhr;
-	}
-
-	showMessage( message, attr_class = 'updated' ) {
-		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
-
-		this.$container.find( '.ac-boxes' ).before( $msg );
-
-		$msg.slideDown();
-	}
-
-	addColumn() {
-		let $clone = jQuery( '#add-new-column-template' ).find( '.ac-column' ).clone();
-		let column = new AC_Column( $clone );
-
-		column.initNewInstance().bindEvents();
-
-		this.columns[ column.name ] = column;
-		this.$form.append( column.$el );
-
-		column.toggle();
-
-		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-		jQuery( document ).trigger( 'column_add', column );
-
-		return column;
-	}
-
-	removeColumn( name ) {
-		if ( this.columns[ name ] ) {
-			this.columns[ name ].destroy();
-			delete this.columns[ name ];
-		}
-	}
-
-}
-
-class AC_Column {
-
-	constructor( $el ) {
-		this.$el = $el;
-		this._name = this.$el.data( 'column-name' );
-	}
-
-	get name() {
-		return this._name;
-	}
-
-	set name( name ) {
-		this.$el.data( 'column-name', name );
-
-		this._name = name;
-	}
-
-	isOriginal() {
-		return (1 === this.$el.data( 'original' ));
-	}
-
-	isDisabled() {
-		return this.$el.hasClass( 'disabled' );
-	}
-
-	disable() {
-		this.$el.addClass( 'disabled' );
-
-		return this;
-	}
-
-	enable() {
-		this.$el.removeClass( 'disabled' );
-
-		return this;
-	}
-
-	initNewInstance() {
-		let temp_column_name = '_new_column_' + AC.incremental_column_name;
-		let original_column_name = this.name;
-
-		// update input names with clone ID
-		this.$el.find( 'input, select, label' ).each( function( i, v ) {
-			let $input = jQuery( v );
-
-			// name attributes
-			if ( $input.attr( 'name' ) ) {
-				$input.attr( 'name', $input.attr( 'name' ).replace( `columns[${original_column_name}]`, `columns[${temp_column_name}]` ) );
-			}
-
-			// id attributes
-			if ( $input.attr( 'id' ) ) {
-				$input.attr( 'id', $input.attr( 'id' ).replace( `-${original_column_name}-`, `-${temp_column_name}-` ) );
-			}
-
-		} );
-
-		this.name = temp_column_name;
-		AC.incremental_column_name++;
-
-		return this;
-	}
-
-	bindEvents() {
-		this.$el.column_bind_toggle();
-		this.$el.column_bind_remove();
-		this.$el.column_bind_clone();
-		this.$el.column_bind_events();
-
-		//this.$el.cpac_bind_ordering();
-		this.$el.cpac_bind_indicator_events();
-
-		return this;
-	}
-
-	destroy() {
-		this.$el.remove();
-	}
-
-	toggle() {
-		this.$el.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
-	}
-
-}
+import Form from "./classes/column-form";
 
 /**
  * DOM ready
@@ -266,7 +18,7 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	AC.incremental_column_name = 0;
-	AC.Form = new AC_Form( '#cpac .ac-columns form' );
+	AC.Form = new Form( '#cpac .ac-columns form' );
 
 	cpac_reset_columns( $ );
 	cpac_menu( $ );
@@ -314,12 +66,8 @@ function cpac_menu( $ ) {
  * @since 3.0.3
  */
 function cpac_reset_columns( $ ) {
-	var $container = $( '.ac-admin' );
-
 	$( 'a[data-clear-columns]' ).on( 'click', function() {
-		$container.find( '.ac-column' ).each( function() {
-			$( this ).find( '.remove-button' ).trigger( 'click' );
-		} );
+		AC.Form.resetColumns();
 	} );
 }
 
@@ -338,9 +86,14 @@ function cpac_reset_columns( $ ) {
 	 * @since 2.0
 	 */
 	$.fn.column_bind_toggle = function() {
-
 		var $column = $( this );
 		var is_disabled = $column.closest( '.ac-boxes' ).hasClass( 'disabled' );
+
+		if ( $column.data( 'bound-toggle' ) ) {
+			return;
+		}
+
+		$column.data( 'bound-toggle', 1 );
 
 		$column.find( '[data-toggle="column"]' ).click( function( e ) {
 			e.preventDefault();
@@ -393,83 +146,29 @@ function cpac_reset_columns( $ ) {
 	};
 
 	$.fn.cpac_column_refresh = function() {
-
-		var el = $( this );
-		var select = el.find( '[data-refresh="column"]' );
-		var column_name = $( this ).attr( 'data-column-name' );
-		var opened = el.hasClass( 'opened' );
+		let $column = $( this );
+		let $select = $column.find( '[data-refresh="column"]' );
 
 		// Allow plugins to hook into this event
-		$( document ).trigger( 'pre_column_refresh', el );
+		$( document ).trigger( 'pre_column_refresh', $column );
+		$select.prop( 'disabled', 1 );
 
-		var data = $( this ).find( ':input' ).serializeArray();
-		var request_data = {
-			action : 'ac_column_refresh',
-			_ajax_nonce : AC._ajax_nonce,
-			list_screen : AC.list_screen,
-			layout : AC.layout,
-			column_name : column_name,
-			original_columns : AC.original_columns
-		};
+		$column.addClass( 'loading' ).data( 'column' ).refresh().always( function() {
+			$column.removeClass( 'loading' );
+			$select.prop( 'disabled', false );
 
-		$.each( request_data, function( name, value ) {
-			data.push( {
-				name : name,
-				value : value
-			} );
-		} );
+			// TODO: change to column_refresh?
+			$( document ).trigger( 'column_change', el );
+		} ).fail( function( error ) {
 
-		// Mark column as loading
-		el.addClass( 'loading' );
-		select.prop( 'disabled', 1 );
-
-		// Fetch new form HTML
-		var xhr = $.post( ajaxurl, data, function( response ) {
-
-			if ( response ) {
-				// Replace current form by new form
-				var newel = $( '<div>' + response.data + '</div>' ).children();
-				el.replaceWith( newel );
-				el = newel;
-
-				// Bind events
-				el.column_bind_toggle();
-				el.column_bind_remove();
-				el.column_bind_clone();
-				el.column_bind_events();
-
-				// Open settings
-				if ( opened ) {
-					el.addClass( 'opened' ).find( '.ac-column-body' ).show();
-				}
-
-				// Allow plugins to hook into this event
-
-				// TODO: change to column_refresh?
-				$( document ).trigger( 'column_change', el );
-			}
-
-			// Do nothing
-			else {
-
-			}
-		}, 'json' );
-
-		xhr.fail( function( error ) {
-			var $msg = el.closest( '.ac-admin' ).find( '.ajax-message' );
+			//TODO does not work?
+			AC.Form.showMessage( 'HELLO' );
+			let $msg = el.closest( '.ac-admin' ).find( '.ajax-message' );
 
 			$msg.addClass( 'error' ).find( 'p' ).html( AC.i18n.error );
 			$msg.slideDown();
 
 			el.slideUp( function() { el.remove() } );
-
-			console.log( 'responseText: ' + error.responseText );
-		} );
-
-		xhr.always( function() {
-			// Remove "loading" marking from column
-			el.removeClass( 'loading' );
-			select.prop( 'disabled', false );
 		} );
 	};
 
@@ -482,7 +181,22 @@ function cpac_reset_columns( $ ) {
 			column_label.html( column.find( '.column_type .inner' ).html() );
 		}
 	};
-	
+
+	$.fn.column_bind_type_selector = function() {
+		let column = $( this );
+
+		if ( column.data( 'event-type' ) ) {
+			return;
+		}
+
+		column.data( 'event-type', 1 );
+
+		column.find( 'select.ac-setting-input_type' ).change( function( e ) {
+			column.addClass( 'loading' ).data( 'column' ).switchToType( $( this ).val() ).always( function() {
+				column.removeClass( 'loading' );
+			} );
+		} );
+	};
 
 	/*
 	 * Form Events
@@ -490,85 +204,10 @@ function cpac_reset_columns( $ ) {
 	 * @since 2.0
 	 */
 	$.fn.column_bind_events = function() {
-		var column = $( this );
-		var container = column.closest( '.ac-admin ' );
-
+		let column = $( this );
 		column.column_onload();
-		// Current column type
-		var default_value = column.find( 'select.ac-setting-input_type option:selected' ).val();
 
-		// Type selector
-		column.find( 'select.ac-setting-input_type' ).change( function() {
-			var option = $( 'optgroup', this ).children( ':selected' );
-			var type = option.val();
-			var msg = $( this ).next( '.msg' ).hide();
-			var $select = $( this );
-
-			var current_original_columns = [];
-			container.find( '.ac-column[data-original=1]' ).each( function() {
-				current_original_columns.push( $( this ).data( 'type' ) );
-			} );
-
-			column.addClass( 'loading' );
-
-			$.ajax( {
-				url : ajaxurl,
-				method : 'post',
-				dataType : 'json',
-				data : {
-					action : 'ac_column_select',
-					type : type,
-					current_original_columns : current_original_columns,
-					original_columns : AC.original_columns,
-					list_screen : AC.list_screen,
-					layout : AC.layout,
-					_ajax_nonce : AC._ajax_nonce,
-				}
-			} )
-				.done( function( response ) {
-					if ( response ) {
-
-						if ( response.success ) {
-							var el = column.closest( '.ac-column' );
-
-							// Replace current form by new form
-							var newel = $( '<div>' + response.data + '</div>' ).children();
-							el.replaceWith( newel );
-							el = newel;
-
-							// Bind events
-							el.column_bind_toggle();
-							el.column_bind_remove();
-							el.column_bind_clone();
-							el.column_bind_events();
-
-							// Open settings
-							el.addClass( 'opened' ).find( '.ac-column-body' ).show();
-
-							el.cpac_update_clone_id();
-
-							// Allow plugins to hook into this event
-							$( document ).trigger( 'column_change', el );
-						}
-
-						// Error message
-						else if ( response.data ) {
-							if ( 'message' === response.data.type ) {
-								msg.html( response.data.error ).show();
-
-								// Set to default
-								$select.find( 'option' ).removeAttr( 'selected' );
-								$select.find( 'option[value="' + default_value + '"]' ).attr( 'selected', 'selected' );
-							}
-						}
-					}
-				} )
-
-				.always( function() {
-					column.removeClass( 'loading' );
-				} );
-
-		} );
+		column.column_bind_type_selector();
 
 		/** change label */
 		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
@@ -601,13 +240,6 @@ function cpac_reset_columns( $ ) {
 		} );
 
 		$( document ).trigger( 'init_settings', column );
-	};
-
-	$.fn.column_bind_settings = function() {
-		var $column = $( this );
-
-		$column.find( '.ac-column-setting--image_size' ).cpac_column_setting_image_size();
-		$column.find( '.ac-column-setting--width' ).cpac_column_setting_width();
 	};
 
 	/*
@@ -811,97 +443,6 @@ function cpac_reset_columns( $ ) {
 		} );
 	};
 
-	// Settings fields: Width
-	$.fn.column_width_slider = function() {
-
-		var column_width = $( this ).find( '.ac-setting-input-width' );
-
-		var input_width = column_width.find( '.description input' ),
-			input_unit = column_width.find( '.unit-select input' ),
-			unit = input_unit.filter( ':checked' ).val(),
-			width = input_width.val(),
-			slider = column_width.find( '.width-slider' ),
-			indicator = $( this ).find( '.ac-column-header .ac-column-heading-setting--width' );
-
-		// width
-		if ( '%' == unit && width > 100 ) {
-			width = 100;
-		}
-
-		input_width.val( width );
-
-		slider.slider( {
-			range : 'min',
-			min : 0,
-			max : '%' == unit ? 100 : 500,
-			value : width,
-			slide : function( event, ui ) {
-
-				input_width.val( ui.value );
-				indicator.trigger( 'update' );
-				input_width.trigger( 'validate' );
-			}
-		} );
-	};
-
-	$.fn.cpac_column_setting_width = function() {
-
-		$( this ).each( function() {
-			var $column = $( this ).parents( '.ac-column' );
-			$column.column_width_slider();
-
-			// indicator
-			var $width_indicator = $column.find( '.ac-column-header .ac-column-heading-setting--width' );
-
-			$width_indicator.on( 'update', function() {
-				var _width = $column.find( '.ac-setting-input-width .description input' ).val();
-				var _unit = $column.find( '.ac-setting-input-width .description .unit' ).text();
-				if ( _width > 0 ) {
-					$( this ).text( _width + _unit );
-				} else {
-					$( this ).text( '' );
-				}
-			} );
-
-			// unit selector
-			var width_unit_select = $column.find( '.ac-setting-input-width .unit-select label' );
-			width_unit_select.on( 'click', function() {
-
-				$column.find( 'span.unit' ).text( $( this ).find( 'input' ).val() );
-				$column.column_width_slider(); // re-init slider
-				$width_indicator.trigger( 'update' ); // update indicator
-			} );
-
-			// width_input
-			var width_input = $column.find( '.ac-setting-input-width .description input' )
-				.on( 'keyup', function() {
-					$column.column_width_slider(); // re-init slider
-					$( this ).trigger( 'validate' ); // validate input
-					$width_indicator.trigger( 'update' ); // update indicator
-				} )
-
-				// width_input:validate
-				.on( 'validate', function() {
-					var _width = width_input.val();
-					var _new_width = $.trim( _width );
-
-					if ( !$.isNumeric( _new_width ) ) {
-						_new_width = _new_width.replace( /\D/g, '' );
-					}
-					if ( _new_width.length > 3 ) {
-						_new_width = _new_width.substring( 0, 3 );
-					}
-					if ( _new_width <= 0 ) {
-						_new_width = '';
-					}
-					if ( _new_width !== _width ) {
-						width_input.val( _new_width );
-					}
-				} );
-
-		} );
-	};
-
 	$.fn.cpac_column_sub_setting_toggle = function( options ) {
 		var settings = $.extend( {
 			value_show : "on",
@@ -1037,7 +578,6 @@ function cpac_reset_columns( $ ) {
 	$( document ).on( 'init_settings', function( e, column ) {
 		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
 		$( column ).find( '.ac-column-setting--images' ).cpac_column_setting_image_size();
-		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 		$( column ).find( '.ac-column-setting--date' ).cpac_column_setting_date();
 		$( column ).find( '.ac-column-setting--pro' ).cpac_column_setting_pro();
 
@@ -1080,3 +620,5 @@ function cpac_reset_columns( $ ) {
 	} );
 
 }( jQuery ));
+
+require( './settings/width' );
