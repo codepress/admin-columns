@@ -14,75 +14,115 @@ var AC;
  */
 var incremental_column_name = 0;
 
-/**
- * DOM ready
- */
-jQuery( document ).ready( function( $ ) {
+class AC_Form {
 
-	if ( $( '#cpac' ).length === 0 ) {
-		return false;
+	constructor( el ) {
+		this.$form = jQuery( el );
+		this.$container = jQuery( '#cpac .ac-admin' );
+		this.columns = {};
+		this.init();
+
+		// Todo move or remove?
+		jQuery( document ).trigger( 'cac_model_ready', this.$container.data( 'type' ) );
 	}
 
-	cpac_init( $ );
-	cpac_submit_form( $ );
-	cpac_reset_columns( $ );
-	cpac_menu( $ );
-	cpac_add_column( $ );
-	cpac_sidebar_feedback( $ );
-} );
+	init() {
+		this.initColumns();
+		this.bindFormEvents();
+		this.bindOrdering();
+	}
 
-function ac_show_ajax_message( message, attr_class ) {
-	var msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
-	jQuery( '.ac-boxes' ).before( msg );
-	msg.slideDown();
-}
+	bindOrdering() {
 
-/*
- * Submit Form
- *
- * @since 2.0.2
- */
-function cpac_submit_form( $ ) {
+		if ( this.$form.hasClass( 'ui-sortable' ) ) {
+			this.$form.sortable( 'refresh' );
+		}
+		else {
+			this.$form.sortable( {
+				items : '.ac-column',
+				handle : '.column_sort'
+			} );
+		}
 
-	var $save_buttons = $( '.sidebox a.submit, .column-footer a.submit' );
+	}
 
-	$save_buttons.click( function() {
+	bindFormEvents() {
+		let self = this;
+		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
 
-		var $button = $( this );
-		var $container = $button.closest( '.ac-admin' ).addClass( 'saving' );
-		var columns_data = $container.find( '.ac-columns form' ).serialize();
+		$buttons.on( 'click', function() {
+			$buttons.attr( 'disabled', 'disabled' );
+			self.submitForm().always( function() {
+				$buttons.removeAttr( 'disabled', 'disabled' );
+			} )
+		} );
 
-		$save_buttons.attr( 'disabled', 'disabled' );
+		self.$container.find( '.add_column' ).on( 'click', function() {
+			self.addColumn();
+		} );
 
-		// reset
-		$container.find( '.ac-message' ).remove(); // placed by restore button
+		let $boxes = jQuery( '#cpac .ac-boxes' );
+		if ( $boxes.hasClass( 'disabled' ) ) {
 
-		var xhr = $.post( ajaxurl, {
+			$boxes.find( '.ac-column' ).each( function( i, col ) {
+				jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
+			} );
+		}
+
+	}
+
+	initColumns() {
+		let self = this;
+
+		this.$form.find( '.ac-column' ).each( function() {
+			let $el = jQuery( this );
+			let column = new AC_Column( $el );
+
+			column.disable();
+			column.bindEvents();
+
+			self.columns[ column.name ] = column;
+		} );
+	}
+
+	resetColumns() {
+		Object.keys( this.columns ).forEach( ( key ) => {
+			console.log( key );
+			let column = this.columns[ key ];
+
+			column.destroy();
+		} );
+
+	}
+
+	serialize() {
+		return this.$form.serialize();
+	}
+
+	submitForm() {
+		let self = this;
+
+		let xhr = jQuery.post( ajaxurl, {
 				action : 'ac_columns_save',
-				data : columns_data,
+				data : this.serialize(),
 				_ajax_nonce : AC._ajax_nonce,
 				list_screen : AC.list_screen,
 				layout : AC.layout,
 				original_columns : AC.original_columns
 			},
 
-			// JSON response
 			function( response ) {
 				if ( response ) {
 					if ( response.success ) {
-						ac_show_ajax_message( response.data, 'updated' );
+						self.showMessage( response.data, 'updated' );
 
-						$container.addClass( 'stored' );
+						self.$container.addClass( 'stored' );
 					}
 
 					// Error message
 					else if ( response.data ) {
-						ac_show_ajax_message( response.data.message, 'notice notice-warning' );
+						self.showMessage( response.data.message, 'notice notice-warning' );
 					}
-				}
-
-				// No response
-				else {
 				}
 
 			}, 'json' );
@@ -93,50 +133,145 @@ function cpac_submit_form( $ ) {
 			// been saved correctly despite of PHP notices/errors from plugin or themes.
 		} );
 
-		// Always
-		xhr.always( function() {
-			$save_buttons.removeAttr( 'disabled', 'disabled' );
-			$container.removeClass( 'saving' );
-		} );
+		jQuery( document ).trigger( 'cac_update', self.$container );
+		return xhr;
+	}
 
-		$( document ).trigger( 'cac_update', $container );
-	} );
+	showMessage( message, attr_class = 'updated' ) {
+		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
+
+		this.$container.find( '.ac-boxes' ).before( $msg );
+
+		$msg.slideDown();
+	}
+
+	addColumn() {
+		let $clone = jQuery( '#add-new-column-template' ).find( '.ac-column' ).clone();
+		let column = new AC_Column( $clone );
+
+		column.initNewInstance().bindEvents();
+
+		this.columns[ column.name ] = column;
+		this.$form.append( column.$el );
+
+		column.toggle();
+
+		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
+		jQuery( document ).trigger( 'column_add', column );
+
+		return column;
+	}
+
+	removeColumn( name ) {
+		if ( this.columns[ name ] ) {
+			this.columns[ name ].destroy();
+			delete this.columns[ name ];
+		}
+	}
+
 }
 
-/*
- * Add Column
- *
- * @since 2.0
+class AC_Column {
+
+	constructor( $el ) {
+		this.$el = $el;
+		this._name = this.$el.data( 'column-name' );
+	}
+
+	get name() {
+		return this._name;
+	}
+
+	set name( name ) {
+		this.$el.data( 'column-name', name );
+
+		this._name = name;
+	}
+
+	isOriginal() {
+		return (1 === this.$el.data( 'original' ));
+	}
+
+	isDisabled() {
+		return this.$el.hasClass( 'disabled' );
+	}
+
+	disable() {
+		this.$el.addClass( 'disabled' );
+
+		return this;
+	}
+
+	enable() {
+		this.$el.removeClass( 'disabled' );
+
+		return this;
+	}
+
+	initNewInstance() {
+		let temp_column_name = '_new_column_' + AC.incremental_column_name;
+		let original_column_name = this.name;
+
+		// update input names with clone ID
+		this.$el.find( 'input, select, label' ).each( function( i, v ) {
+			let $input = jQuery( v );
+
+			// name attributes
+			if ( $input.attr( 'name' ) ) {
+				$input.attr( 'name', $input.attr( 'name' ).replace( `columns[${original_column_name}]`, `columns[${temp_column_name}]` ) );
+			}
+
+			// id attributes
+			if ( $input.attr( 'id' ) ) {
+				$input.attr( 'id', $input.attr( 'id' ).replace( `-${original_column_name}-`, `-${temp_column_name}-` ) );
+			}
+
+		} );
+
+		this.name = temp_column_name;
+		AC.incremental_column_name++;
+
+		return this;
+	}
+
+	bindEvents() {
+		this.$el.column_bind_toggle();
+		this.$el.column_bind_remove();
+		this.$el.column_bind_clone();
+		this.$el.column_bind_events();
+
+		//this.$el.cpac_bind_ordering();
+		this.$el.cpac_bind_indicator_events();
+
+		return this;
+	}
+
+	destroy() {
+		this.$el.remove();
+	}
+
+	toggle() {
+		this.$el.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( 150 );
+	}
+
+}
+
+/**
+ * DOM ready
  */
-function cpac_add_column( $ ) {
+jQuery( document ).ready( function( $ ) {
 
-	$( '.add_column' ).click( function( e ) {
-		e.preventDefault();
+	if ( $( '#cpac' ).length === 0 ) {
+		return false;
+	}
 
-		var clone = $( '#add-new-column-template' ).find( '.ac-column' ).clone();
+	AC.incremental_column_name = 0;
+	AC.Form = new AC_Form( '#cpac .ac-columns form' );
 
-		// increment clone id ( before adding to DOM, otherwise radio buttons will reset )
-		clone.cpac_update_clone_id();
-
-		// Open
-		clone.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( 150, function() {
-			$( 'html, body' ).animate( { scrollTop : clone.offset().top - 58 }, 300 );
-		} );
-
-		// add to DOM
-		$( '.ac-columns form' ).append( clone );
-
-		// TODO: better?
-		clone.column_bind_toggle();
-		clone.column_bind_remove();
-		clone.column_bind_clone();
-		clone.column_bind_events();
-
-		// hook for addons
-		$( document ).trigger( 'column_add', clone );
-	} );
-
-}
+	cpac_reset_columns( $ );
+	cpac_menu( $ );
+	cpac_sidebar_feedback( $ );
+} );
 
 /**
  * @since 2.2.1
@@ -157,40 +292,6 @@ function cpac_sidebar_feedback( $ ) {
 		sidebox.find( '#feedback-choice' ).slideUp();
 		sidebox.find( '#feedback-rate' ).slideDown();
 	} );
-}
-
-function cpac_init( $ ) {
-
-	var container = $( '.ac-admin' );
-	var boxes = container.find( '.ac-boxes' );
-
-	// Written for PHP Export
-	if ( boxes.hasClass( 'disabled' ) ) {
-		boxes.find( '.ac-column' ).each( function( i, col ) {
-			$( col ).column_bind_toggle();
-			$( col ).find( 'input, select' ).prop( 'disabled', true );
-		} );
-	}
-
-	else {
-		var columns = boxes.find( '.ac-columns' );
-
-		// we start by binding the toggle and remove events.
-		columns.find( '.ac-column' ).each( function( i, col ) {
-			$( col ).column_bind_toggle();
-			$( col ).column_bind_remove();
-			$( col ).column_bind_clone();
-			$( col ).cpac_bind_indicator_events();
-			$( col ).column_onload();
-		} );
-
-		// ordering of columns
-		columns.cpac_bind_ordering();
-	}
-
-	// hook for addons
-	$( document ).trigger( 'cac_menu_change', columns ); // deprecated
-	$( document ).trigger( 'cac_model_ready', container.data( 'type' ) );
 }
 
 /*
@@ -381,6 +482,7 @@ function cpac_reset_columns( $ ) {
 			column_label.html( column.find( '.column_type .inner' ).html() );
 		}
 	};
+	
 
 	/*
 	 * Form Events
@@ -687,25 +789,6 @@ function cpac_reset_columns( $ ) {
 
 	};
 
-	/*
-	 * Sortable
-	 *
-	 * @since 1.5
-	 */
-	$.fn.cpac_bind_ordering = function() {
-		$( this ).each( function() {
-			if ( $( this ).hasClass( 'ui-sortable' ) ) {
-				$( this ).sortable( 'refresh' );
-			}
-			else {
-				$( this ).sortable( {
-					items : '.ac-column',
-					handle : '.column_sort'
-				} );
-			}
-		} );
-	};
-
 	// Settings fields: Image _size
 	$.fn.cpac_column_setting_image_size = function() {
 		function initState( $setting, $select ) {
@@ -727,11 +810,6 @@ function cpac_reset_columns( $ ) {
 
 		} );
 	};
-
-	$( document ).on( 'init_settings', function( e, column ) {
-		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
-		$( column ).find( '.ac-column-setting--images' ).cpac_column_setting_image_size();
-	} );
 
 	// Settings fields: Width
 	$.fn.column_width_slider = function() {
@@ -957,6 +1035,8 @@ function cpac_reset_columns( $ ) {
 	};
 
 	$( document ).on( 'init_settings', function( e, column ) {
+		$( column ).find( '.ac-column-setting--image' ).cpac_column_setting_image_size();
+		$( column ).find( '.ac-column-setting--images' ).cpac_column_setting_image_size();
 		$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
 		$( column ).find( '.ac-column-setting--date' ).cpac_column_setting_date();
 		$( column ).find( '.ac-column-setting--pro' ).cpac_column_setting_pro();
