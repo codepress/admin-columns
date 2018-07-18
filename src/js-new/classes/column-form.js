@@ -32,14 +32,14 @@ class Form {
 
 	}
 
-	originalColumns(){
+	originalColumns() {
 		let columns = [];
 
-		Object.values( this.columns ).forEach( function( column ){
-			if( column.isOriginal() ){
+		Object.values( this.columns ).forEach( function( column ) {
+			if ( column.isOriginal() ) {
 				columns.push( column.type );
 			}
-		});
+		} );
 
 		return columns;
 	}
@@ -67,6 +67,9 @@ class Form {
 			} );
 		}
 
+		jQuery( 'a[data-clear-columns]' ).on( 'click', function() {
+			self.resetColumns();
+		} );
 	}
 
 	initColumns() {

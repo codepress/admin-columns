@@ -74,8 +74,7 @@ class Column {
 		this.$el.column_bind_remove();
 		this.$el.column_bind_clone();
 		this.$el.column_bind_events();
-
-		//this.$el.cpac_bind_ordering();
+		
 		this.$el.cpac_bind_indicator_events();
 		this.$el.data( 'column', this );
 
@@ -95,6 +94,7 @@ class Column {
 	}
 
 	showMessage( message ) {
+		//TODO too specific
 		this.$el.find( '.ac-column-setting--type .msg' ).html( message ).show();
 	}
 

@@ -20,31 +20,10 @@ jQuery( document ).ready( function( $ ) {
 	AC.incremental_column_name = 0;
 	AC.Form = new Form( '#cpac .ac-columns form' );
 
-	cpac_reset_columns( $ );
 	cpac_menu( $ );
-	cpac_sidebar_feedback( $ );
+
+	$( '.sidebox#direct-feedback' ).ac_feedback();
 } );
-
-/**
- * @since 2.2.1
- */
-function cpac_sidebar_feedback( $ ) {
-	var sidebox = $( '.sidebox#direct-feedback' );
-
-	sidebox.find( '#feedback-choice a.no' ).click( function( e ) {
-		e.preventDefault();
-
-		sidebox.find( '#feedback-choice' ).slideUp();
-		sidebox.find( '#feedback-support' ).slideDown();
-	} );
-
-	sidebox.find( '#feedback-choice a.yes' ).click( function( e ) {
-		e.preventDefault();
-
-		sidebox.find( '#feedback-choice' ).slideUp();
-		sidebox.find( '#feedback-rate' ).slideDown();
-	} );
-}
 
 /*
  * Menu
@@ -61,22 +40,29 @@ function cpac_menu( $ ) {
 }
 
 /*
- * Reset columns
- *
- * @since 3.0.3
- */
-function cpac_reset_columns( $ ) {
-	$( 'a[data-clear-columns]' ).on( 'click', function() {
-		AC.Form.resetColumns();
-	} );
-}
-
-/*
  * jQuery functions
  *
  * @since 2.0
  */
 (function( $ ) {
+
+	$.fn.ac_feedback = function() {
+		let $box = $( this );
+
+		$box.find( '#feedback-choice a.no' ).click( function( e ) {
+			e.preventDefault();
+
+			$box.find( '#feedback-choice' ).slideUp();
+			$box.find( '#feedback-support' ).slideDown();
+		} );
+
+		$box.find( '#feedback-choice a.yes' ).click( function( e ) {
+			e.preventDefault();
+
+			$box.find( '#feedback-choice' ).slideUp();
+			$box.find( '#feedback-rate' ).slideDown();
+		} );
+	};
 
 	/*
 	 * Column: bind toggle events
@@ -207,6 +193,12 @@ function cpac_reset_columns( $ ) {
 		let column = $( this );
 		column.column_onload();
 
+		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+		var column_label = column.find( '.column_label .toggle' );
+		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( column.find( '.column_type .inner' ).html() );
+		}
+
 		column.column_bind_type_selector();
 
 		/** change label */
@@ -295,54 +287,6 @@ function cpac_reset_columns( $ ) {
 
 		return clone;
 	};
-
-	/*
-	 * Update clone ID
-	 *
-	 * @since 2.0
-	 */
-	$.fn.cpac_update_clone_id = function() {
-		var $el = $( this );
-		var original_column_name = $el.attr( 'data-column-name' );
-		var temp_column_name = '_new_column_' + incremental_column_name;
-
-		// update input names with clone ID
-		var inputs = $el.find( 'input, select, label' );
-		$( inputs ).each( function( i, v ) {
-
-			// name
-			if ( $( v ).attr( 'name' ) ) {
-				$( v ).attr( 'name', $( v ).attr( 'name' ).replace( 'columns[' + original_column_name + ']', 'columns[' + temp_column_name + ']' ) );
-			}
-
-			// id
-			if ( $( v ).attr( 'id' ) ) {
-				$( v ).attr( 'id', $( v ).attr( 'id' ).replace( '-' + original_column_name + '-', '-' + temp_column_name + '-' ) );
-			}
-
-			// TODO for
-		} );
-
-		$el.attr( 'data-column-name', temp_column_name );
-
-		// increment
-		incremental_column_name++;
-	};
-
-	/*
-	 * Bind events: triggered after column is init, changed or added
-	 *
-	 */
-	$( document ).bind( 'column_init column_change column_add', function( e, column ) {
-		var is_disabled = $( column ).closest( '.ac-boxes' ).hasClass( 'disabled' );
-
-		if ( is_disabled ) {
-			return;
-		}
-
-		$( column ).cpac_bind_column_addon_events();
-		$( column ).cpac_bind_indicator_events();
-	} );
 
 	/*
 	 * Optional Radio Click events
