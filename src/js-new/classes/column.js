@@ -2,7 +2,7 @@ class Column {
 
 	constructor( $el ) {
 		this.$el = $el;
-		this._name = this.$el.data( 'column-name' );
+
 		this._type = this.$el.data( 'type' );
 	}
 
@@ -20,8 +20,6 @@ class Column {
 
 	set type( type ) {
 		this.$el.data( 'type', type );
-
-		this._name = name;
 	}
 
 	isOriginal() {
@@ -64,6 +62,7 @@ class Column {
 		} );
 
 		this.name = temp_column_name;
+
 		AC.incremental_column_name++;
 
 		return this;
@@ -73,8 +72,10 @@ class Column {
 		this.$el.column_bind_toggle();
 		this.$el.column_bind_remove();
 		this.$el.column_bind_clone();
-		this.$el.column_bind_events();
-		
+		//this.$el.column_bind_events();
+		this.$el.column_bind_type_selector();
+		this.$el.column_bind_label_changer();
+
 		this.$el.cpac_bind_indicator_events();
 		this.$el.data( 'column', this );
 
@@ -168,6 +169,25 @@ class Column {
 			}
 
 		} );
+	}
+
+	create() {
+		this.initNewInstance();
+		this.bindEvents();
+
+		return this;
+	}
+
+	clone() {
+		let $clone = this.$el.clone();
+		$clone.data( 'column-name', this.$el.data( 'column-name' ) );
+
+		let clone = new Column( $clone );
+
+		clone.initNewInstance();
+		clone.bindEvents();
+
+		return clone;
 	}
 }
 

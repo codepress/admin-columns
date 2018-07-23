@@ -184,28 +184,20 @@ function cpac_menu( $ ) {
 		} );
 	};
 
-	/*
-	 * Form Events
-	 *
-	 * @since 2.0
-	 */
-	$.fn.column_bind_events = function() {
+	$.fn.column_bind_label_changer = function() {
 		let column = $( this );
-		column.column_onload();
 
 		/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-		var column_label = column.find( '.column_label .toggle' );
+		let column_label = column.find( '.column_label .toggle' );
 		if ( $.trim( column_label.html() ) && column_label.width() < 1 ) {
 			column_label.html( column.find( '.column_type .inner' ).html() );
 		}
 
-		column.column_bind_type_selector();
-
 		/** change label */
 		column.find( '.ac-column-setting--label input' ).bind( 'keyup change', function() {
-			var value = $( this ).val();
+			let value = $( this ).val();
 			$( this ).closest( '.ac-column' ).find( 'td.column_label .inner > a.toggle' ).html( value );
-		} );
+		} ).trigger( 'change' );
 
 		/** tooltip */
 		column.find( '.ac-column-body .col-label .label' ).hover( function() {
@@ -218,18 +210,30 @@ function cpac_menu( $ ) {
 		 * Populates the main Label with the selected label from the dropdown,
 		 */
 		column.find( 'select[data-label="update"]' ).change( function() {
-			var $label = column.find( 'input.ac-setting-input_label' );
-			var field_label = $( this ).find( 'option:selected' ).text();
+			let $label = column.find( 'input.ac-setting-input_label' );
+			let field_label = $( this ).find( 'option:selected' ).text();
 
 			// Set new label
 			$label.val( field_label );
 			$label.trigger( 'change' );
-		} );
+			console.log( 'change' );
 
-		// refresh column and re-bind all events
-		column.find( '[data-refresh="column"]' ).change( function() {
-			column.cpac_column_refresh();
-		} );
+		} ).trigger( 'change' );
+
+	};
+
+	/*
+	 * Form Events
+	 *
+	 * @since 2.0
+	 */
+	$.fn.column_bind_events = function() {
+		// TODO move to column
+		let column = $( this );
+		column.column_onload();
+
+		column.column_bind_type_selector();
+		column.column_bind_label_changer();
 
 		$( document ).trigger( 'init_settings', column );
 	};
@@ -264,6 +268,10 @@ function cpac_menu( $ ) {
 
 			return;
 		}
+
+		AC.Form.cloneColumn( column );
+
+		return;
 
 		var clone = $( this ).clone();
 

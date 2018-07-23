@@ -147,21 +147,15 @@ class Form {
 		$msg.slideDown();
 	}
 
+	cloneColumn( $el ) {
+		return this._addColumnToForm( new Column( $el ).clone() );
+	}
+
 	addColumn() {
 		let $clone = jQuery( '#add-new-column-template' ).find( '.ac-column' ).clone();
-		let column = new Column( $clone );
+		let column = new Column( $clone ).create();
 
-		column.initNewInstance().bindEvents();
-
-		this.columns[ column.name ] = column;
-		this.$form.append( column.$el );
-
-		column.toggle();
-
-		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-		jQuery( document ).trigger( 'column_add', column );
-
-		return column;
+		return this._addColumnToForm( column );
 	}
 
 	removeColumn( name ) {
@@ -169,6 +163,19 @@ class Form {
 			this.columns[ name ].destroy();
 			delete this.columns[ name ];
 		}
+	}
+
+	_addColumnToForm( column ) {
+		this.columns[ column.name ] = column;
+		console.log( 'nogeen' + column.name );
+		this.$form.append( column.$el );
+
+		column.open();
+
+		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
+		jQuery( document ).trigger( 'column_add', column );
+
+		return column;
 	}
 
 }

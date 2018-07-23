@@ -269,16 +269,9 @@ function cpac_menu($) {
       });
     });
   };
-  /*
-   * Form Events
-   *
-   * @since 2.0
-   */
 
-
-  $.fn.column_bind_events = function () {
+  $.fn.column_bind_label_changer = function () {
     var column = $(this);
-    column.column_onload();
     /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
 
     var column_label = column.find('.column_label .toggle');
@@ -286,14 +279,13 @@ function cpac_menu($) {
     if ($.trim(column_label.html()) && column_label.width() < 1) {
       column_label.html(column.find('.column_type .inner').html());
     }
-
-    column.column_bind_type_selector();
     /** change label */
+
 
     column.find('.ac-column-setting--label input').bind('keyup change', function () {
       var value = $(this).val();
       $(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
-    });
+    }).trigger('change');
     /** tooltip */
 
     column.find('.ac-column-body .col-label .label').hover(function () {
@@ -311,11 +303,22 @@ function cpac_menu($) {
 
       $label.val(field_label);
       $label.trigger('change');
-    }); // refresh column and re-bind all events
+      console.log('change');
+    }).trigger('change');
+  };
+  /*
+   * Form Events
+   *
+   * @since 2.0
+   */
 
-    column.find('[data-refresh="column"]').change(function () {
-      column.cpac_column_refresh();
-    });
+
+  $.fn.column_bind_events = function () {
+    // TODO move to column
+    var column = $(this);
+    column.column_onload();
+    column.column_bind_type_selector();
+    column.column_bind_label_changer();
     $(document).trigger('init_settings', column);
   };
   /*
@@ -351,6 +354,8 @@ function cpac_menu($) {
       return;
     }
 
+    AC.Form.cloneColumn(column);
+    return;
     var clone = $(this).clone();
     clone.cpac_update_clone_id();
     $(this).after(clone); // rebind events
@@ -768,19 +773,16 @@ function () {
       $msg.slideDown();
     }
   }, {
+    key: "cloneColumn",
+    value: function cloneColumn($el) {
+      return this._addColumnToForm(new _column.default($el).clone());
+    }
+  }, {
     key: "addColumn",
     value: function addColumn() {
       var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
-      var column = new _column.default($clone);
-      column.initNewInstance().bindEvents();
-      this.columns[column.name] = column;
-      this.$form.append(column.$el);
-      column.toggle();
-      jQuery('html, body').animate({
-        scrollTop: column.$el.offset().top - 58
-      }, 300);
-      jQuery(document).trigger('column_add', column);
-      return column;
+      var column = new _column.default($clone).create();
+      return this._addColumnToForm(column);
     }
   }, {
     key: "removeColumn",
@@ -789,6 +791,19 @@ function () {
         this.columns[name].destroy();
         delete this.columns[name];
       }
+    }
+  }, {
+    key: "_addColumnToForm",
+    value: function _addColumnToForm(column) {
+      this.columns[column.name] = column;
+      console.log('nogeen' + column.name);
+      this.$form.append(column.$el);
+      column.open();
+      jQuery('html, body').animate({
+        scrollTop: column.$el.offset().top - 58
+      }, 300);
+      jQuery(document).trigger('column_add', column);
+      return column;
     }
   }]);
 
@@ -822,7 +837,6 @@ function () {
     _classCallCheck(this, Column);
 
     this.$el = $el;
-    this._name = this.$el.data('column-name');
     this._type = this.$el.data('type');
   }
 
@@ -874,8 +888,10 @@ function () {
     value: function bindEvents() {
       this.$el.column_bind_toggle();
       this.$el.column_bind_remove();
-      this.$el.column_bind_clone();
-      this.$el.column_bind_events();
+      this.$el.column_bind_clone(); //this.$el.column_bind_events();
+
+      this.$el.column_bind_type_selector();
+      this.$el.column_bind_label_changer();
       this.$el.cpac_bind_indicator_events();
       this.$el.data('column', this);
       return this;
@@ -969,6 +985,23 @@ function () {
       });
     }
   }, {
+    key: "create",
+    value: function create() {
+      this.initNewInstance();
+      this.bindEvents();
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      var $clone = this.$el.clone();
+      $clone.data('column-name', this.$el.data('column-name'));
+      var clone = new Column($clone);
+      clone.initNewInstance();
+      clone.bindEvents();
+      return clone;
+    }
+  }, {
     key: "name",
     get: function get() {
       return this.$el.data('column-name');
@@ -983,7 +1016,6 @@ function () {
     },
     set: function set(type) {
       this.$el.data('type', type);
-      this._name = name;
     }
   }]);
 
