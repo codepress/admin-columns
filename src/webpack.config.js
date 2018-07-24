@@ -1,10 +1,13 @@
 let path = require( 'path' );
 
 let config = {
-	entry : './js-new/admin-page-columns.js',
+	entry : {
+		'admin-page-columns' : './js-new/admin-page-columns.js',
+		'table' : './js-new/table.js'
+	},
 	output : {
 		path : path.resolve( __dirname, '../assets/js' ),
-		filename : 'admin-page-columns.js',
+		filename : '[name].js',
 	},
 	module : {
 		rules : [
