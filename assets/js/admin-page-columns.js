@@ -96,7 +96,41 @@
 "use strict";
 
 
-var _columnForm = _interopRequireDefault(__webpack_require__(/*! ./classes/column-form */ "./js-new/classes/column-form.js"));
+var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js-new/admin/columns/form.js"));
+
+var _initiator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/initiator */ "./js-new/admin/columns/initiator.js"));
+
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/modal */ "./js-new/admin/columns/modal.js"));
+
+var _menu = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/menu */ "./js-new/admin/columns/menu.js"));
+
+var _feedback = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/feedback */ "./js-new/admin/columns/feedback.js"));
+
+var _toggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/toggle */ "./js-new/admin/columns/events/toggle.js"));
+
+var _remove = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/remove */ "./js-new/admin/columns/events/remove.js"));
+
+var _clone = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/clone */ "./js-new/admin/columns/events/clone.js"));
+
+var _refresh = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/refresh */ "./js-new/admin/columns/events/refresh.js"));
+
+var _typeSelector = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/type-selector */ "./js-new/admin/columns/events/type-selector.js"));
+
+var _indicator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/indicator */ "./js-new/admin/columns/events/indicator.js"));
+
+var _label = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/label */ "./js-new/admin/columns/events/label.js"));
+
+var _addons = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/addons */ "./js-new/admin/columns/events/addons.js"));
+
+var _imageSize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/image-size */ "./js-new/admin/columns/settings/image-size.js"));
+
+var _subSettingToggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/sub-setting-toggle */ "./js-new/admin/columns/settings/sub-setting-toggle.js"));
+
+var _date = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/date */ "./js-new/admin/columns/settings/date.js"));
+
+var _pro = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/pro */ "./js-new/admin/columns/settings/pro.js"));
+
+var _width = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/width */ "./js-new/admin/columns/settings/width.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -108,716 +142,44 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param AC.i81n {String}
  */
 
-/**
- * DOM ready
- */
-jQuery(document).ready(function ($) {
-  if ($('#cpac').length === 0) {
-    return false;
-  }
+/** Events */
 
-  AC.incremental_column_name = 0;
-  AC.Form = new _columnForm.default('#cpac .ac-columns form');
-  cpac_menu($);
-  $('.sidebox#direct-feedback').ac_feedback();
+/** Settings */
+var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
+
+AC.Column = new _initiator.default();
+jQuery(document).on('AC.Form.loaded', function () {
+  /** Register Events **/
+  AC.Column.registerEvent('toggle', _toggle.default);
+  AC.Column.registerEvent('remove', _remove.default);
+  AC.Column.registerEvent('clone', _clone.default);
+  AC.Column.registerEvent('refresh', _refresh.default);
+  AC.Column.registerEvent('type_selector', _typeSelector.default);
+  AC.Column.registerEvent('indicator', _indicator.default);
+  AC.Column.registerEvent('label', _label.default.label);
+  AC.Column.registerEvent('label_setting', _label.default.setting);
+  AC.Column.registerEvent('addons', _addons.default);
+  /** Register Settings **/
+
+  AC.Column.registerSetting('date', _date.default);
+  AC.Column.registerSetting('image_size', _imageSize.default);
+  AC.Column.registerSetting('pro', _pro.default);
+  AC.Column.registerSetting('sub_setting_toggle', _subSettingToggle.default);
+  AC.Column.registerSetting('width', _width.default);
 });
-/*
- * Menu
- *
- * @since 1.5
- */
-
-function cpac_menu($) {
-  $('#ac_list_screen').on('change', function () {
-    $('.view-link').hide();
-    $(this).parents('form').submit();
-    $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
-  });
-}
-/*
- * jQuery functions
- *
- * @since 2.0
- */
-
-
-(function ($) {
-  $.fn.ac_feedback = function () {
-    var $box = $(this);
-    $box.find('#feedback-choice a.no').click(function (e) {
-      e.preventDefault();
-      $box.find('#feedback-choice').slideUp();
-      $box.find('#feedback-support').slideDown();
-    });
-    $box.find('#feedback-choice a.yes').click(function (e) {
-      e.preventDefault();
-      $box.find('#feedback-choice').slideUp();
-      $box.find('#feedback-rate').slideDown();
-    });
-  };
-  /*
-   * Column: bind toggle events
-   *
-   * For performance we bind all other events after the click event.
-   *
-   * @since 2.0
-   */
-
-
-  $.fn.column_bind_toggle = function () {
-    var $column = $(this);
-    var is_disabled = $column.closest('.ac-boxes').hasClass('disabled');
-
-    if ($column.data('bound-toggle')) {
-      return;
-    }
-
-    $column.data('bound-toggle', 1);
-    $column.find('[data-toggle="column"]').click(function (e) {
-      e.preventDefault();
-      $column.toggleClass('opened').find('.ac-column-body').slideToggle(150);
-
-      if (is_disabled) {
-        return;
-      }
-
-      if (!$column.hasClass('events-binded')) {
-        $column.column_bind_events();
-      }
-
-      $column.addClass('events-binded'); // hook for addons
-
-      $(document).trigger('column_init', $column);
-    }).css('cursor', 'pointer');
-  };
-  /*
-   * Column: bind remove events
-   *
-   * @since 2.0
-   */
-
-
-  $.fn.column_bind_remove = function () {
-    $(this).find('.remove-button').click(function (e) {
-      $(this).closest('.ac-column').column_remove();
-      e.preventDefault();
-    });
-  };
-  /**
-   * Column: bind clone events
-   *
-   * @since 2.3.4
-   */
-
-
-  $.fn.column_bind_clone = function () {
-    $(this).find('.clone-button').click(function (e) {
-      e.preventDefault();
-      var $clone = $(this).closest('.ac-column').column_clone();
-
-      if (typeof $clone !== 'undefined') {
-        $clone.removeClass('loading').hide().slideDown();
-      }
-    });
-  };
-
-  $.fn.cpac_column_refresh = function () {
-    var $column = $(this);
-    var $select = $column.find('[data-refresh="column"]'); // Allow plugins to hook into this event
-
-    $(document).trigger('pre_column_refresh', $column);
-    $select.prop('disabled', 1);
-    $column.addClass('loading').data('column').refresh().always(function () {
-      $column.removeClass('loading');
-      $select.prop('disabled', false); // TODO: change to column_refresh?
-
-      $(document).trigger('column_change', el);
-    }).fail(function (error) {
-      //TODO does not work?
-      AC.Form.showMessage('HELLO');
-      var $msg = el.closest('.ac-admin').find('.ajax-message');
-      $msg.addClass('error').find('p').html(AC.i18n.error);
-      $msg.slideDown();
-      el.slideUp(function () {
-        el.remove();
-      });
-    });
-  };
-
-  $.fn.column_onload = function () {
-    var column = $(this);
-    /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-
-    var column_label = column.find('.column_label .toggle');
-
-    if ($.trim(column_label.html()) && column_label.width() < 1) {
-      column_label.html(column.find('.column_type .inner').html());
-    }
-  };
-
-  $.fn.column_bind_type_selector = function () {
-    var column = $(this);
-
-    if (column.data('event-type')) {
-      return;
-    }
-
-    column.data('event-type', 1);
-    column.find('select.ac-setting-input_type').change(function (e) {
-      column.addClass('loading').data('column').switchToType($(this).val()).always(function () {
-        column.removeClass('loading');
-      });
-    });
-  };
-
-  $.fn.column_bind_label_changer = function () {
-    var column = $(this);
-    /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-
-    var column_label = column.find('.column_label .toggle');
-
-    if ($.trim(column_label.html()) && column_label.width() < 1) {
-      column_label.html(column.find('.column_type .inner').html());
-    }
-    /** change label */
-
-
-    column.find('.ac-column-setting--label input').bind('keyup change', function () {
-      var value = $(this).val();
-      $(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
-    }).trigger('change');
-    /** tooltip */
-
-    column.find('.ac-column-body .col-label .label').hover(function () {
-      $(this).parents('.col-label').find('div.tooltip').show();
-    }, function () {
-      $(this).parents('.col-label').find('div.tooltip').hide();
-    });
-    /**
-     * Populates the main Label with the selected label from the dropdown,
-     */
-
-    column.find('select[data-label="update"]').change(function () {
-      var $label = column.find('input.ac-setting-input_label');
-      var field_label = $(this).find('option:selected').text(); // Set new label
-
-      $label.val(field_label);
-      $label.trigger('change');
-      console.log('change');
-    }).trigger('change');
-  };
-  /*
-   * Form Events
-   *
-   * @since 2.0
-   */
-
-
-  $.fn.column_bind_events = function () {
-    // TODO move to column
-    var column = $(this);
-    column.column_onload();
-    column.column_bind_type_selector();
-    column.column_bind_label_changer();
-    $(document).trigger('init_settings', column);
-  };
-  /*
-   * Column: remove from DOM
-   *
-   * @since 2.0
-   */
-
-
-  $.fn.column_remove = function () {
-    $(this).addClass('deleting').animate({
-      opacity: 0,
-      height: 0
-    }, 350, function () {
-      $(this).remove();
-    });
-  };
-  /*
-   * Column: clone
-   *
-   * @since 2.3.4
-   */
-
-
-  $.fn.column_clone = function () {
-    var column = $(this);
-    var columns = $(this).closest('ac-columns');
-
-    if ('1' === column.attr('data-original')) {
-      var message = AC.i18n.clone.replace('%s', '<strong>' + column.find('.column_label .toggle').text() + '</strong>');
-      column.addClass('opened').find('.ac-column-body').slideDown(150);
-      column.find('.ac-setting-input_type').next('.msg').html(message).show();
-      return;
-    }
-
-    AC.Form.cloneColumn(column);
-    return;
-    var clone = $(this).clone();
-    clone.cpac_update_clone_id();
-    $(this).after(clone); // rebind events
-
-    clone.column_bind_toggle();
-    clone.column_bind_remove();
-    clone.column_bind_clone(); // rebind all other events
-
-    clone.column_bind_events(); // reinitialize sortability
-
-    columns.cpac_bind_ordering(); // hook for addons
-
-    $(document).trigger('column_add', clone);
-    return clone;
-  };
-  /*
-   * Optional Radio Click events
-   *
-   */
-
-
-  $.fn.cpac_bind_column_addon_events = function () {
-    var column = $(this);
-    var inputs = column.find('[data-trigger] label');
-    inputs.on('click', function () {
-      var id = $(this).closest('td.input').data('trigger');
-      var state = $('input', this).val(); // Toggle indicator icon
-
-      var label = column.find('[data-indicator-id="' + id + '"]').removeClass('on');
-
-      if ('on' == state) {
-        label.addClass('on');
-      } // Toggle additional options
-
-
-      var additional = column.find('[data-handle="' + id + '"]').addClass('hide');
-
-      if ('on' == state) {
-        additional.removeClass('hide');
-      }
-    }); // On load
-
-    column.find('[data-trigger]').each(function () {
-      var trigger = $(this).data('trigger'); // Hide additional column settings
-
-      var additional = column.find('[data-handle="' + trigger + '"]').addClass('hide');
-
-      if ('on' == $('input:checked', this).val()) {
-        additional.removeClass('hide');
-      }
-    });
-  };
-  /*
-   * Indicator Click Events
-   *
-   */
-
-
-  $.fn.cpac_bind_indicator_events = function () {
-    var $column = $(this);
-    var $indicators = $column.find('.ac-column-header [data-indicator-toggle]');
-    $indicators.each(function () {
-      var $indicator = $(this);
-      var setting = $(this).data('setting');
-      var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
-      var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
-      $indicator.unbind('click').on('click', function (e) {
-        e.preventDefault();
-        $indicator.toggleClass('on');
-
-        if ($(this).hasClass('on')) {
-          $input.filter('[value=on]').prop('checked', true).trigger('click').trigger('change');
-        } else {
-          $input.filter('[value=off]').prop('checked', true).trigger('click').trigger('change');
-        }
-      });
-      $input.on('change', function () {
-        var value = $input.filter(':checked').val();
-
-        if ('on' == value) {
-          $indicator.addClass('on');
-        } else {
-          $indicator.removeClass('on');
-        }
-      });
-    });
-  }; // Settings fields: Image _size
-
-
-  $.fn.cpac_column_setting_image_size = function () {
-    function initState($setting, $select) {
-      if ('cpac-custom' == $select.val()) {
-        $setting.find('.ac-column-setting').show();
-      } else {
-        $setting.find('.ac-column-setting').hide();
-      }
-    }
-
-    $(this).each(function () {
-      var $setting = $(this);
-      var $select = $(this).find('.ac-setting-input select');
-      initState($setting, $select);
-      $select.on('change', function () {
-        initState($setting, $(this));
-      });
-    });
-  };
-
-  $.fn.cpac_column_sub_setting_toggle = function (options) {
-    var settings = $.extend({
-      value_show: "on",
-      subfield: '.ac-column-setting'
-    }, options);
-
-    function initState($setting, $input) {
-      var value = $input.filter(':checked').val();
-      var $subfields = $setting.find(settings.subfield);
-
-      if (settings.value_show == value) {
-        $subfields.show();
-      } else {
-        $subfields.hide();
-      }
-    }
-
-    $(this).each(function () {
-      var $setting = $(this);
-      var $input = $(this).find('.ac-setting-input input[type="radio"]');
-      initState($setting, $input);
-      $input.on('change', function () {
-        initState($setting, $input);
-      });
-    });
-  };
-
-  $.fn.cpac_column_setting_date = function () {
-    $(this).each(function () {
-      var $container = $(this); // Custom input
-
-      var $radio_custom = $container.find('input.custom');
-      var $input_custom = $container.find('.ac-setting-input-date__custom');
-      var $input_value = $container.find('.ac-setting-input-date__value');
-      var $example_custom = $container.find('.ac-setting-input-date__example');
-      var $selected = $container.find('input[type=radio]:checked');
-      var $help_msg = $container.find('.help-msg'); // Click Event
-
-      $container.find('input[type=radio]').on('change', function () {
-        var $input = $(this);
-        var $input_container = $input.closest('label');
-        var date_format = $input_container.find('code').text();
-        var description = $input_container.find('.ac-setting-input-date__more').html();
-
-        if (date_format) {
-          $input_custom.val(date_format).trigger('change');
-        }
-
-        if ($input.hasClass('diff')) {
-          $input_custom.val('');
-          $example_custom.text('');
-        }
-
-        $input_custom.prop('disabled', true); // Custom input selected
-
-        if ($input.hasClass('custom')) {
-          $input.val($input_custom.val());
-          $input_custom.prop('disabled', false);
-          $help_msg.show();
-        } // Show more description
-
-
-        $help_msg.hide();
-
-        if (description) {
-          $help_msg.html(description).show();
-        }
-
-        $input_value.val($input.val());
-      }); // Custom input
-
-      $input_custom.on('change', function () {
-        $example_custom.html('<span class="spinner is-active"></span>');
-        $radio_custom.val($input_custom.val());
-        var $custom_value = $(this).val();
-
-        if (!$custom_value) {
-          $example_custom.text('');
-          return;
-        }
-
-        $.ajax({
-          url: ajaxurl,
-          method: 'post',
-          data: {
-            action: 'date_format',
-            date: $custom_value
-          }
-        }).done(function (date) {
-          $example_custom.text(date);
-        });
-        $input_value.val($custom_value);
-      }); // Update date example box
-
-      $selected.trigger('change'); // Select custom input as a default
-
-      if (0 === $selected.length) {
-        $radio_custom.trigger('click');
-      }
-    });
-  }; // Settings fields: Pro
-
-
-  $.fn.cpac_column_setting_pro = function () {
-    $(this).each(function () {
-      var $container = $(this);
-      $container.find('input').on('click', function (e) {
-        e.preventDefault();
-        $container.find('[data-ac-open-modal]').trigger('click');
-      });
-    });
-  };
-
-  $(document).on('init_settings', function (e, column) {
-    $(column).find('.ac-column-setting--image').cpac_column_setting_image_size();
-    $(column).find('.ac-column-setting--images').cpac_column_setting_image_size();
-    $(column).find('.ac-column-setting--date').cpac_column_setting_date();
-    $(column).find('.ac-column-setting--pro').cpac_column_setting_pro(); // TODO: pro?
-
-    $(column).find('.ac-column-setting--filter').cpac_column_sub_setting_toggle();
-    $(column).find('.ac-column-setting--sort').cpac_column_sub_setting_toggle();
-    $(column).find('.ac-column-setting--edit').cpac_column_sub_setting_toggle();
-  }); // AC Modal Events (todo move to separate logic)
-
-  $().ready(function () {
-    $(document).on('click', '[data-ac-open-modal]', function (e) {
-      e.preventDefault();
-      $($(this).data('ac-open-modal')).addClass('-active');
-    });
-    $('.ac-modal__dialog__close').on('click', function (e) {
-      e.preventDefault();
-      $(this).closest('.ac-modal').removeClass('-active');
-    });
-    $('.ac-modal').on('click', function (e) {
-      $(this).removeClass('-active');
-    }); // Prevent bubbling
-
-    $('.ac-modal__dialog').on('click', function (e) {
-      e.stopPropagation();
-    });
-    $(document).keyup(function (e) {
-      if (e.keyCode === 27) {
-        $('.ac-modal').removeClass('-active');
-      }
-    });
-  });
-})(jQuery);
-
-__webpack_require__(/*! ./settings/width */ "./js-new/settings/width.js");
+jQuery(document).ready(function () {
+  AC.Form = new _form.default('#cpac .ac-columns form');
+  new _modal.default().init();
+  new _menu.default().init();
+  new _feedback.default('.sidebox#direct-feedback');
+});
 
 /***/ }),
 
-/***/ "./js-new/classes/column-form.js":
-/*!***************************************!*\
-  !*** ./js-new/classes/column-form.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js-new/classes/column.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Form =
-/*#__PURE__*/
-function () {
-  function Form(el) {
-    _classCallCheck(this, Form);
-
-    this.$form = jQuery(el);
-    this.$container = jQuery('#cpac .ac-admin');
-    this.columns = {};
-    this.init(); // Todo move or remove?
-
-    jQuery(document).trigger('cac_model_ready', this.$container.data('type'));
-  }
-
-  _createClass(Form, [{
-    key: "init",
-    value: function init() {
-      this.initColumns();
-      this.bindFormEvents();
-      this.bindOrdering();
-    }
-  }, {
-    key: "bindOrdering",
-    value: function bindOrdering() {
-      if (this.$form.hasClass('ui-sortable')) {
-        this.$form.sortable('refresh');
-      } else {
-        this.$form.sortable({
-          items: '.ac-column',
-          handle: '.column_sort'
-        });
-      }
-    }
-  }, {
-    key: "originalColumns",
-    value: function originalColumns() {
-      var columns = [];
-      Object.values(this.columns).forEach(function (column) {
-        if (column.isOriginal()) {
-          columns.push(column.type);
-        }
-      });
-      return columns;
-    }
-  }, {
-    key: "bindFormEvents",
-    value: function bindFormEvents() {
-      var self = this;
-      var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
-      $buttons.on('click', function () {
-        $buttons.attr('disabled', 'disabled');
-        self.submitForm().always(function () {
-          $buttons.removeAttr('disabled', 'disabled');
-        });
-      });
-      self.$container.find('.add_column').on('click', function () {
-        self.addColumn();
-      });
-      var $boxes = jQuery('#cpac .ac-boxes');
-
-      if ($boxes.hasClass('disabled')) {
-        $boxes.find('.ac-column').each(function (i, col) {
-          jQuery(col).find('input, select').prop('disabled', true);
-        });
-      }
-
-      jQuery('a[data-clear-columns]').on('click', function () {
-        self.resetColumns();
-      });
-    }
-  }, {
-    key: "initColumns",
-    value: function initColumns() {
-      var self = this;
-      self.columns = [];
-      this.$form.find('.ac-column').each(function () {
-        var $el = jQuery(this);
-        var column = new _column.default($el);
-        column.bindEvents();
-        $el.data('column', column);
-        self.columns[column.name] = column;
-      });
-    }
-  }, {
-    key: "resetColumns",
-    value: function resetColumns() {
-      var _this = this;
-
-      Object.keys(this.columns).forEach(function (key) {
-        console.log(key);
-        var column = _this.columns[key];
-        column.destroy();
-      });
-    }
-  }, {
-    key: "serialize",
-    value: function serialize() {
-      return this.$form.serialize();
-    }
-  }, {
-    key: "submitForm",
-    value: function submitForm() {
-      var self = this;
-      var xhr = jQuery.post(ajaxurl, {
-        action: 'ac_columns_save',
-        data: this.serialize(),
-        _ajax_nonce: AC._ajax_nonce,
-        list_screen: AC.list_screen,
-        layout: AC.layout,
-        original_columns: AC.original_columns
-      }, function (response) {
-        if (response) {
-          if (response.success) {
-            self.showMessage(response.data, 'updated');
-            self.$container.addClass('stored');
-          } // Error message
-          else if (response.data) {
-              self.showMessage(response.data.message, 'notice notice-warning');
-            }
-        }
-      }, 'json'); // No JSON
-
-      xhr.fail(function (error) {// We choose not to notify the user of errors, because the settings will have
-        // been saved correctly despite of PHP notices/errors from plugin or themes.
-      });
-      jQuery(document).trigger('cac_update', self.$container);
-      return xhr;
-    }
-  }, {
-    key: "showMessage",
-    value: function showMessage(message) {
-      var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
-      var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
-      this.$container.find('.ac-boxes').before($msg);
-      $msg.slideDown();
-    }
-  }, {
-    key: "cloneColumn",
-    value: function cloneColumn($el) {
-      return this._addColumnToForm(new _column.default($el).clone());
-    }
-  }, {
-    key: "addColumn",
-    value: function addColumn() {
-      var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
-      var column = new _column.default($clone).create();
-      return this._addColumnToForm(column);
-    }
-  }, {
-    key: "removeColumn",
-    value: function removeColumn(name) {
-      if (this.columns[name]) {
-        this.columns[name].destroy();
-        delete this.columns[name];
-      }
-    }
-  }, {
-    key: "_addColumnToForm",
-    value: function _addColumnToForm(column) {
-      this.columns[column.name] = column;
-      console.log('nogeen' + column.name);
-      this.$form.append(column.$el);
-      column.open();
-      jQuery('html, body').animate({
-        scrollTop: column.$el.offset().top - 58
-      }, 300);
-      jQuery(document).trigger('column_add', column);
-      return column;
-    }
-  }]);
-
-  return Form;
-}();
-
-module.exports = Form;
-
-/***/ }),
-
-/***/ "./js-new/classes/column.js":
-/*!**********************************!*\
-  !*** ./js-new/classes/column.js ***!
-  \**********************************/
+/***/ "./js-new/admin/columns/column.js":
+/*!****************************************!*\
+  !*** ./js-new/admin/columns/column.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -865,7 +227,7 @@ function () {
   }, {
     key: "initNewInstance",
     value: function initNewInstance() {
-      var temp_column_name = '_new_column_' + AC.incremental_column_name;
+      var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
       var original_column_name = this.name;
       this.$el.find('input, select, label').each(function (i, v) {
         var $input = jQuery(v); // name attributes
@@ -886,20 +248,49 @@ function () {
   }, {
     key: "bindEvents",
     value: function bindEvents() {
-      this.$el.column_bind_toggle();
-      this.$el.column_bind_remove();
-      this.$el.column_bind_clone(); //this.$el.column_bind_events();
-
-      this.$el.column_bind_type_selector();
-      this.$el.column_bind_label_changer();
-      this.$el.cpac_bind_indicator_events();
-      this.$el.data('column', this);
+      var column = this;
+      column.$el.data('column', column);
+      Object.keys(AC.Column.events).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.events[key](column);
+          column.bind(key);
+        }
+      });
+      Object.keys(AC.Column.settings).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.settings[key](column);
+          column.bind(key);
+        }
+      });
+      $(document).trigger('AC.initSettings', this.$el);
       return this;
+    }
+  }, {
+    key: "isBound",
+    value: function isBound(key) {
+      return this.$el.data(key);
+    }
+  }, {
+    key: "bind",
+    value: function bind(key) {
+      this.$el.data(key, true);
     }
   }, {
     key: "destroy",
     value: function destroy() {
       this.$el.remove();
+    }
+  }, {
+    key: "remove",
+    value: function remove() {
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 350;
+      var self = this;
+      this.$el.addClass('deleting').animate({
+        opacity: 0,
+        height: 0
+      }, duration, function () {
+        self.destroy();
+      });
     }
   }, {
     key: "toggle",
@@ -1026,29 +417,916 @@ module.exports = Column;
 
 /***/ }),
 
-/***/ "./js-new/settings/width.js":
-/*!**********************************!*\
-  !*** ./js-new/settings/width.js ***!
-  \**********************************/
+/***/ "./js-new/admin/columns/events/addons.js":
+/*!***********************************************!*\
+  !*** ./js-new/admin/columns/events/addons.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var jQuery = $ = __webpack_require__(/*! jquery */ "jquery"); // Settings fields: Width
+/*
+ * Optional Radio Click events
+ * TODO: Is not used anymore?
+ */
+var addons = function addons(column) {
+  var $column = column.$el;
+  var inputs = $column.find('[data-trigger] label');
+  inputs.on('click', function () {
+    var id = $(this).closest('td.input').data('trigger');
+    var state = $('input', this).val(); // Toggle indicator icon
+
+    var label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
+
+    if ('on' === state) {
+      label.addClass('on');
+    } // Toggle additional options
 
 
+    var additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
+
+    if ('on' === state) {
+      additional.removeClass('hide');
+    }
+  }); // On load
+
+  $column.find('[data-trigger]').each(function () {
+    var trigger = $(this).data('trigger'); // Hide additional column settings
+
+    var additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
+
+    if ('on' === $('input:checked', this).val()) {
+      additional.removeClass('hide');
+    }
+  });
+};
+
+module.exports = addons;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/clone.js":
+/*!**********************************************!*\
+  !*** ./js-new/admin/columns/events/clone.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+* Column: bind clone events
+*
+* @since 2.0
+*/
+var clone = function clone(column) {
+  column.$el.find('.clone-button').click(function (e) {
+    e.preventDefault();
+
+    if (column.isOriginal()) {
+      return;
+    }
+
+    AC.Form.cloneColumn(column.$el);
+  });
+};
+
+module.exports = clone;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/indicator.js":
+/*!**************************************************!*\
+  !*** ./js-new/admin/columns/events/indicator.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var indicator = function indicator(column) {
+  var $column = column.$el;
+  $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
+    var $indicator = $(this);
+    var setting = $(this).data('setting');
+    var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
+    var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
+    $indicator.unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $indicator.toggleClass('on');
+
+      if ($(this).hasClass('on')) {
+        $input.filter('[value=on]').prop('checked', true).trigger('click').trigger('change');
+      } else {
+        $input.filter('[value=off]').prop('checked', true).trigger('click').trigger('change');
+      }
+    });
+    $input.on('change', function () {
+      var value = $input.filter(':checked').val();
+
+      if ('on' === value) {
+        $indicator.addClass('on');
+      } else {
+        $indicator.removeClass('on');
+      }
+    });
+  });
+};
+
+module.exports = indicator;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/label.js":
+/*!**********************************************!*\
+  !*** ./js-new/admin/columns/events/label.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var label = function label(column) {
+  var $column = column.$el;
+  /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+
+  var column_label = $column.find('.column_label .toggle');
+
+  if (jQuery.trim(column_label.html()) && column_label.width() < 1) {
+    column_label.html($column.find('.column_type .inner').html());
+  }
+  /**
+   * Populates the main Label with the selected label from the dropdown,
+   */
+
+
+  $column.find('select[data-label="update"]').change(function () {
+    var $label = $column.find('input.ac-setting-input_label');
+    var field_label = jQuery(this).find('option:selected').text(); // Set new label
+
+    $label.val(field_label);
+    $label.trigger('change');
+  });
+};
+
+var settingLabel = function settingLabel(column) {
+  var $column = column.$el;
+  /** change label */
+
+  $column.find('.ac-column-setting--label input').bind('keyup change', function () {
+    var value = jQuery(this).val();
+    jQuery(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
+  }).trigger('change');
+  /** tooltip */
+
+  $column.find('.ac-column-body .col-label .label').hover(function () {
+    jQuery(this).parents('.col-label').find('div.tooltip').show();
+  }, function () {
+    jQuery(this).parents('.col-label').find('div.tooltip').hide();
+  });
+};
+
+module.exports = {
+  label: label,
+  setting: settingLabel
+};
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/refresh.js":
+/*!************************************************!*\
+  !*** ./js-new/admin/columns/events/refresh.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var refresh = function refresh(column) {
+  column.$el.find('[data-refresh="column"]').on('change', function () {
+    // Allow plugins to hook into this event
+    $(document).trigger('pre_column_refresh', column.$el);
+    column.$el.addClass('loading');
+    column.refresh().always(function () {
+      column.$el.removeClass('loading');
+      $(document).trigger('AC.columnRefresh', {
+        column: column
+      });
+    });
+  });
+};
+
+module.exports = refresh;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/remove.js":
+/*!***********************************************!*\
+  !*** ./js-new/admin/columns/events/remove.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+ * Column: bind remove events
+ *
+ * @since 2.0
+ */
+var remove = function remove(column) {
+  column.$el.find('.remove-button').click(function (e) {
+    e.preventDefault();
+    AC.Form.removeColumn(column.name);
+  });
+};
+
+module.exports = remove;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/toggle.js":
+/*!***********************************************!*\
+  !*** ./js-new/admin/columns/events/toggle.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+ * Column: bind toggle events
+ *
+ * For performance we bind all other events after the click event.
+ *
+ * @since 2.0
+ */
+var toggle = function toggle(column) {
+  column.$el.find('[data-toggle="column"]').click(function (e) {
+    e.preventDefault();
+    column.toggle();
+  }).css('cursor', 'pointer');
+};
+
+module.exports = toggle;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/events/type-selector.js":
+/*!******************************************************!*\
+  !*** ./js-new/admin/columns/events/type-selector.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var selector = function selector(column) {
+  column.$el.find('select.ac-setting-input_type').change(function () {
+    column.$el.addClass('loading');
+    column.switchToType($(this).val()).always(function () {
+      column.$el.removeClass('loading');
+    });
+  });
+};
+
+module.exports = selector;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/feedback.js":
+/*!******************************************!*\
+  !*** ./js-new/admin/columns/feedback.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Feedback =
+/*#__PURE__*/
+function () {
+  function Feedback($el) {
+    _classCallCheck(this, Feedback);
+
+    this.$el = jQuery($el);
+    this.init();
+  }
+
+  _createClass(Feedback, [{
+    key: "init",
+    value: function init() {
+      var $box = this.$el;
+      $box.find('#feedback-choice a.no').click(function (e) {
+        e.preventDefault();
+        $box.find('#feedback-choice').slideUp();
+        $box.find('#feedback-support').slideDown();
+      });
+      $box.find('#feedback-choice a.yes').click(function (e) {
+        e.preventDefault();
+        $box.find('#feedback-choice').slideUp();
+        $box.find('#feedback-rate').slideDown();
+      });
+    }
+  }]);
+
+  return Feedback;
+}();
+
+module.exports = Feedback;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/form.js":
+/*!**************************************!*\
+  !*** ./js-new/admin/columns/form.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js-new/admin/columns/column.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Form =
+/*#__PURE__*/
+function () {
+  function Form(el) {
+    _classCallCheck(this, Form);
+
+    this.$form = jQuery(el);
+    this.$container = jQuery('#cpac .ac-admin');
+    this.columns = {};
+    jQuery(document).trigger('AC.Form.loaded', this.$container.data('type'));
+    this.init();
+  }
+
+  _createClass(Form, [{
+    key: "init",
+    value: function init() {
+      this.initColumns();
+      this.bindFormEvents();
+      this.bindOrdering();
+      jQuery(document).trigger('AC.Form.ready', this.$container.data('type'));
+    }
+  }, {
+    key: "bindOrdering",
+    value: function bindOrdering() {
+      if (this.$form.hasClass('ui-sortable')) {
+        this.$form.sortable('refresh');
+      } else {
+        this.$form.sortable({
+          items: '.ac-column',
+          handle: '.column_sort'
+        });
+      }
+    }
+  }, {
+    key: "originalColumns",
+    value: function originalColumns() {
+      var columns = [];
+      Object.values(this.columns).forEach(function (column) {
+        if (column.isOriginal()) {
+          columns.push(column.type);
+        }
+      });
+      return columns;
+    }
+  }, {
+    key: "bindFormEvents",
+    value: function bindFormEvents() {
+      var self = this;
+      var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
+      $buttons.on('click', function () {
+        $buttons.attr('disabled', 'disabled');
+        self.submitForm().always(function () {
+          $buttons.removeAttr('disabled', 'disabled');
+        });
+      });
+      self.$container.find('.add_column').on('click', function () {
+        self.addColumn();
+      });
+      var $boxes = jQuery('#cpac .ac-boxes');
+
+      if ($boxes.hasClass('disabled')) {
+        $boxes.find('.ac-column').each(function (i, col) {
+          jQuery(col).find('input, select').prop('disabled', true);
+        });
+      }
+
+      jQuery('a[data-clear-columns]').on('click', function () {
+        self.resetColumns();
+      });
+    }
+  }, {
+    key: "initColumns",
+    value: function initColumns() {
+      var self = this;
+      self.columns = [];
+      this.$form.find('.ac-column').each(function () {
+        var $el = jQuery(this);
+        var column = new _column.default($el);
+        column.bindEvents();
+        $el.data('column', column);
+        self.columns[column.name] = column;
+      });
+    }
+  }, {
+    key: "resetColumns",
+    value: function resetColumns() {
+      var _this = this;
+
+      Object.keys(this.columns).forEach(function (key) {
+        var column = _this.columns[key];
+        column.destroy();
+      });
+    }
+  }, {
+    key: "serialize",
+    value: function serialize() {
+      return this.$form.serialize();
+    }
+  }, {
+    key: "submitForm",
+    value: function submitForm() {
+      var self = this;
+      var xhr = jQuery.post(ajaxurl, {
+        action: 'ac_columns_save',
+        data: this.serialize(),
+        _ajax_nonce: AC._ajax_nonce,
+        list_screen: AC.list_screen,
+        layout: AC.layout,
+        original_columns: AC.original_columns
+      }, function (response) {
+        if (response) {
+          if (response.success) {
+            self.showMessage(response.data, 'updated');
+            self.$container.addClass('stored');
+          } // Error message
+          else if (response.data) {
+              self.showMessage(response.data.message, 'notice notice-warning');
+            }
+        }
+      }, 'json'); // No JSON
+
+      xhr.fail(function (error) {// We choose not to notify the user of errors, because the settings will have
+        // been saved correctly despite of PHP notices/errors from plugin or themes.
+      });
+      jQuery(document).trigger('cac_update', self.$container);
+      return xhr;
+    }
+  }, {
+    key: "showMessage",
+    value: function showMessage(message) {
+      var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
+      var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+      this.$container.find('.ac-boxes').before($msg);
+      $msg.slideDown();
+    }
+  }, {
+    key: "cloneColumn",
+    value: function cloneColumn($el) {
+      return this._addColumnToForm(new _column.default($el).clone());
+    }
+  }, {
+    key: "addColumn",
+    value: function addColumn() {
+      var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
+      var column = new _column.default($clone).create();
+      return this._addColumnToForm(column);
+    }
+  }, {
+    key: "removeColumn",
+    value: function removeColumn(name) {
+      if (this.columns[name]) {
+        this.columns[name].remove();
+        delete this.columns[name];
+      }
+    }
+  }, {
+    key: "_addColumnToForm",
+    value: function _addColumnToForm(column) {
+      this.columns[column.name] = column;
+      console.log('nogeen' + column.name);
+      this.$form.append(column.$el);
+      column.open();
+      jQuery('html, body').animate({
+        scrollTop: column.$el.offset().top - 58
+      }, 300);
+      jQuery(document).trigger('column_add', column);
+      return column;
+    }
+  }]);
+
+  return Form;
+}();
+
+module.exports = Form;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/initiator.js":
+/*!*******************************************!*\
+  !*** ./js-new/admin/columns/initiator.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Initiator =
+/*#__PURE__*/
+function () {
+  function Initiator() {
+    _classCallCheck(this, Initiator);
+
+    this.events = {};
+    this.settings = {};
+    this.incremental_name = 0;
+  }
+
+  _createClass(Initiator, [{
+    key: "registerSetting",
+    value: function registerSetting(k, setting) {
+      var key = 's_' + k;
+
+      if (this.settings[key]) {
+        console.error('Setting key already exists: ' + k);
+      }
+
+      this.settings[key] = setting;
+    }
+  }, {
+    key: "registerEvent",
+    value: function registerEvent(k, event) {
+      var key = 'e_' + k;
+
+      if (this.settings[key]) {
+        console.error('Event key already exists: ' + key);
+      }
+
+      this.events[key] = event;
+    }
+  }, {
+    key: "getNewIncementalName",
+    value: function getNewIncementalName() {
+      var oldName = this.incremental_name;
+      this.incremental_name++;
+      return oldName;
+    }
+  }]);
+
+  return Initiator;
+}();
+
+module.exports = Initiator;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/menu.js":
+/*!**************************************!*\
+  !*** ./js-new/admin/columns/menu.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Menu =
+/*#__PURE__*/
+function () {
+  function Menu() {
+    _classCallCheck(this, Menu);
+  }
+
+  _createClass(Menu, [{
+    key: "init",
+    value: function init() {
+      var $ = jQuery;
+      $('#ac_list_screen').on('change', function () {
+        $('.view-link').hide();
+        $(this).parents('form').submit();
+        $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
+      });
+    }
+  }]);
+
+  return Menu;
+}();
+
+module.exports = Menu;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/modal.js":
+/*!***************************************!*\
+  !*** ./js-new/admin/columns/modal.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modal =
+/*#__PURE__*/
+function () {
+  function Modal() {
+    _classCallCheck(this, Modal);
+  }
+
+  _createClass(Modal, [{
+    key: "init",
+    value: function init() {
+      $(document).on('click', '[data-ac-open-modal]', function (e) {
+        e.preventDefault();
+        $($(this).data('ac-open-modal')).addClass('-active');
+      });
+      $('.ac-modal__dialog__close').on('click', function (e) {
+        e.preventDefault();
+        $(this).closest('.ac-modal').removeClass('-active');
+      });
+      $('.ac-modal').on('click', function (e) {
+        $(this).removeClass('-active');
+      }); // Prevent bubbling
+
+      $('.ac-modal__dialog').on('click', function (e) {
+        e.stopPropagation();
+      });
+      $(document).keyup(function (e) {
+        if (e.keyCode === 27) {
+          $('.ac-modal').removeClass('-active');
+        }
+      });
+    }
+  }]);
+
+  return Modal;
+}();
+
+module.exports = Modal;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/settings/date.js":
+/*!***********************************************!*\
+  !*** ./js-new/admin/columns/settings/date.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var date = function date(column) {
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--date');
+  $setting.each(function () {
+    var $container = $(this); // Custom input
+
+    var $radio_custom = $container.find('input.custom');
+    var $input_custom = $container.find('.ac-setting-input-date__custom');
+    var $input_value = $container.find('.ac-setting-input-date__value');
+    var $example_custom = $container.find('.ac-setting-input-date__example');
+    var $selected = $container.find('input[type=radio]:checked');
+    var $help_msg = $container.find('.help-msg'); // Click Event
+
+    $container.find('input[type=radio]').on('change', function () {
+      var $input = $(this);
+      var $input_container = $input.closest('label');
+      var date_format = $input_container.find('code').text();
+      var description = $input_container.find('.ac-setting-input-date__more').html();
+
+      if (date_format) {
+        $input_custom.val(date_format).trigger('change');
+      }
+
+      if ($input.hasClass('diff')) {
+        $input_custom.val('');
+        $example_custom.text('');
+      }
+
+      $input_custom.prop('disabled', true); // Custom input selected
+
+      if ($input.hasClass('custom')) {
+        $input.val($input_custom.val());
+        $input_custom.prop('disabled', false);
+        $help_msg.show();
+      } // Show more description
+
+
+      $help_msg.hide();
+
+      if (description) {
+        $help_msg.html(description).show();
+      }
+
+      $input_value.val($input.val());
+    }); // Custom input
+
+    $input_custom.on('change', function () {
+      $example_custom.html('<span class="spinner is-active"></span>');
+      $radio_custom.val($input_custom.val());
+      var $custom_value = $(this).val();
+
+      if (!$custom_value) {
+        $example_custom.text('');
+        return;
+      }
+
+      $.ajax({
+        url: ajaxurl,
+        method: 'post',
+        data: {
+          action: 'date_format',
+          date: $custom_value
+        }
+      }).done(function (date) {
+        $example_custom.text(date);
+      });
+      $input_value.val($custom_value);
+    }); // Update date example box
+
+    $selected.trigger('change'); // Select custom input as a default
+
+    if (0 === $selected.length) {
+      $radio_custom.trigger('click');
+    }
+  });
+};
+
+module.exports = date;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/settings/image-size.js":
+/*!*****************************************************!*\
+  !*** ./js-new/admin/columns/settings/image-size.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var image = function image(column) {
+  function initState($setting, $select) {
+    if ('cpac-custom' === $select.val()) {
+      $setting.find('.ac-column-setting').show();
+    } else {
+      $setting.find('.ac-column-setting').hide();
+    }
+  }
+
+  column.$el.find('.ac-column-setting--image').each(function () {
+    var $setting = $(this);
+    var $select = $(this).find('.ac-setting-input select');
+    initState($setting, $select);
+    $select.on('change', function () {
+      initState($setting, $(this));
+    });
+  });
+};
+
+module.exports = image;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/settings/pro.js":
+/*!**********************************************!*\
+  !*** ./js-new/admin/columns/settings/pro.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var pro = function pro(column) {
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--pro');
+  $setting.each(function () {
+    var $container = jQuery(this);
+    $container.find('input').on('click', function (e) {
+      e.preventDefault();
+      $container.find('[data-ac-open-modal]').trigger('click');
+    });
+  });
+};
+
+module.exports = pro;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/settings/sub-setting-toggle.js":
+/*!*************************************************************!*\
+  !*** ./js-new/admin/columns/settings/sub-setting-toggle.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var subsetting = function subsetting(column) {
+  var settings = {
+    value_show: "on",
+    subfield: '.ac-column-setting'
+  };
+
+  function initState($setting, $input) {
+    var value = $input.filter(':checked').val();
+    var $subfields = $setting.find(settings.subfield);
+
+    if (settings.value_show === value) {
+      $subfields.show();
+    } else {
+      $subfields.hide();
+    }
+  }
+
+  var $column = column.$el;
+  var $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
+  $settings.each(function () {
+    var $setting = $(this);
+    var $input = $(this).find('.ac-setting-input input[type="radio"]');
+    initState($setting, $input);
+    $input.on('change', function () {
+      initState($setting, $input);
+    });
+  });
+};
+
+module.exports = subsetting;
+
+/***/ }),
+
+/***/ "./js-new/admin/columns/settings/width.js":
+/*!************************************************!*\
+  !*** ./js-new/admin/columns/settings/width.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Settings fields: Width
 jQuery.fn.column_width_slider = function () {
-  var column_width = $(this).find('.ac-setting-input-width');
-  var input_width = column_width.find('.description input'),
-      input_unit = column_width.find('.unit-select input'),
+  var $column_width = $(this).find('.ac-setting-input-width');
+  var input_width = $column_width.find('.description input'),
+      input_unit = $column_width.find('.unit-select input'),
       unit = input_unit.filter(':checked').val(),
       width = input_width.val(),
-      slider = column_width.find('.width-slider'),
+      slider = $column_width.find('.width-slider'),
       indicator = $(this).find('.ac-column-header .ac-column-heading-setting--width'); // width
 
-  if ('%' == unit && width > 100) {
+  if ('%' === unit && width > 100) {
     width = 100;
   }
 
@@ -1056,7 +1334,7 @@ jQuery.fn.column_width_slider = function () {
   slider.slider({
     range: 'min',
     min: 0,
-    max: '%' == unit ? 100 : 500,
+    max: '%' === unit ? 100 : 500,
     value: width,
     slide: function slide(event, ui) {
       input_width.val(ui.value);
@@ -1066,9 +1344,9 @@ jQuery.fn.column_width_slider = function () {
   });
 };
 
-jQuery.fn.cpac_column_setting_width = function () {
-  $(this).each(function () {
-    var $column = $(this).parents('.ac-column');
+var width = function width(column) {
+  var $column = column.$el;
+  $column.find('.ac-column-setting--width').each(function () {
     $column.column_width_slider(); // indicator
 
     var $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
@@ -1123,9 +1401,7 @@ jQuery.fn.cpac_column_setting_width = function () {
   });
 };
 
-$(document).on('init_settings', function (e, column) {
-  $(column).find('.ac-column-setting--width').cpac_column_setting_width();
-});
+module.exports = width;
 
 /***/ }),
 

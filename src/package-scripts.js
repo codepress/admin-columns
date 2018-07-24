@@ -11,8 +11,8 @@ module.exports = {
 			development : `nps "styles.production" && node-sass scss -w --source-map true --output-style compressed --o ${core_path}css/`
 		},
 		scripts : {
-			production : `babel js --presets es2015 --out-dir ${core_path}js/ --minified`,
-			development : `babel js --presets es2015 --out-dir ${core_path}js/ --minified --watch`,
+			production : `babel js --presets es2015 --out-dir ${core_path}js/ --minified & webpack --mode=production`,
+			development : `babel js --presets es2015 --out-dir ${core_path}js/ --minified --watch & webpack --mode=development`,
 		},
 		webfont : {
 			build : `nps "webfont.create_fonts" & nps "webfont.copy_fonts" & nps "webfont.copy_scss"`,

@@ -6,16 +6,17 @@ class Form {
 		this.$form = jQuery( el );
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
-		this.init();
 
-		// Todo move or remove?
-		jQuery( document ).trigger( 'cac_model_ready', this.$container.data( 'type' ) );
+		jQuery( document ).trigger( 'AC.Form.loaded', this.$container.data( 'type' ) );
+
+		this.init();
 	}
 
 	init() {
 		this.initColumns();
 		this.bindFormEvents();
 		this.bindOrdering();
+		jQuery( document ).trigger( 'AC.Form.ready', this.$container.data( 'type' ) );
 	}
 
 	bindOrdering() {
@@ -89,7 +90,6 @@ class Form {
 
 	resetColumns() {
 		Object.keys( this.columns ).forEach( ( key ) => {
-			console.log( key );
 			let column = this.columns[ key ];
 
 			column.destroy();
@@ -160,7 +160,7 @@ class Form {
 
 	removeColumn( name ) {
 		if ( this.columns[ name ] ) {
-			this.columns[ name ].destroy();
+			this.columns[ name ].remove();
 			delete this.columns[ name ];
 		}
 	}

@@ -43,7 +43,7 @@ class Column {
 	}
 
 	initNewInstance() {
-		let temp_column_name = '_new_column_' + AC.incremental_column_name;
+		let temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
 		let original_column_name = this.name;
 
 		this.$el.find( 'input, select, label' ).each( function( i, v ) {
@@ -69,21 +69,46 @@ class Column {
 	}
 
 	bindEvents() {
-		this.$el.column_bind_toggle();
-		this.$el.column_bind_remove();
-		this.$el.column_bind_clone();
-		//this.$el.column_bind_events();
-		this.$el.column_bind_type_selector();
-		this.$el.column_bind_label_changer();
+		let column = this;
+		column.$el.data( 'column', column );
 
-		this.$el.cpac_bind_indicator_events();
-		this.$el.data( 'column', this );
+		Object.keys( AC.Column.events ).forEach( function( key ) {
+			if ( !column.isBound( key ) ) {
+				AC.Column.events[ key ]( column );
+				column.bind( key );
+			}
+		} );
+
+		Object.keys( AC.Column.settings ).forEach( function( key ) {
+			if ( !column.isBound( key ) ) {
+				AC.Column.settings[ key ]( column );
+				column.bind( key );
+			}
+		} );
+
+		$( document ).trigger( 'AC.initSettings', this.$el );
 
 		return this;
 	}
 
+	isBound( key ) {
+		return this.$el.data( key );
+	}
+
+	bind( key ) {
+		this.$el.data( key, true );
+	}
+
 	destroy() {
 		this.$el.remove();
+	}
+
+	remove( duration = 350 ) {
+		let self = this;
+
+		this.$el.addClass( 'deleting' ).animate( { opacity : 0, height : 0 }, duration, function() {
+			self.destroy();
+		} );
 	}
 
 	toggle( duration = 150 ) {

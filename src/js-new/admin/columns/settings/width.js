@@ -1,19 +1,17 @@
-let jQuery = $ = require( 'jquery' );
 
 // Settings fields: Width
 jQuery.fn.column_width_slider = function() {
 
-	let column_width = $( this ).find( '.ac-setting-input-width' );
-
-	let input_width = column_width.find( '.description input' ),
-		input_unit = column_width.find( '.unit-select input' ),
+	let $column_width = $( this ).find( '.ac-setting-input-width' );
+	let input_width = $column_width.find( '.description input' ),
+		input_unit = $column_width.find( '.unit-select input' ),
 		unit = input_unit.filter( ':checked' ).val(),
 		width = input_width.val(),
-		slider = column_width.find( '.width-slider' ),
+		slider = $column_width.find( '.width-slider' ),
 		indicator = $( this ).find( '.ac-column-header .ac-column-heading-setting--width' );
 
 	// width
-	if ( '%' == unit && width > 100 ) {
+	if ( '%' === unit && width > 100 ) {
 		width = 100;
 	}
 
@@ -22,10 +20,9 @@ jQuery.fn.column_width_slider = function() {
 	slider.slider( {
 		range : 'min',
 		min : 0,
-		max : '%' == unit ? 100 : 500,
+		max : '%' === unit ? 100 : 500,
 		value : width,
 		slide : function( event, ui ) {
-
 			input_width.val( ui.value );
 			indicator.trigger( 'update' );
 			input_width.trigger( 'validate' );
@@ -33,10 +30,10 @@ jQuery.fn.column_width_slider = function() {
 	} );
 };
 
-jQuery.fn.cpac_column_setting_width = function() {
+let width = function( column ) {
+	let $column = column.$el;
 
-	$( this ).each( function() {
-		let $column = $( this ).parents( '.ac-column' );
+	$column.find( '.ac-column-setting--width' ).each( function() {
 		$column.column_width_slider();
 
 		// indicator
@@ -91,6 +88,4 @@ jQuery.fn.cpac_column_setting_width = function() {
 	} );
 };
 
-$( document ).on( 'init_settings', function( e, column ) {
-	$( column ).find( '.ac-column-setting--width' ).cpac_column_setting_width();
-} );
+module.exports = width;
