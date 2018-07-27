@@ -4,10 +4,10 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Registrable;
-use AC\Screen;
 use AC\Message;
 use AC\Preferences;
+use AC\Registrable;
+use AC\Screen;
 
 class Review
 	implements Registrable {
