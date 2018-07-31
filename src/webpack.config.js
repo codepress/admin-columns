@@ -2,8 +2,11 @@ let path = require( 'path' );
 
 let config = {
 	entry : {
-		'admin-page-columns' : './js-new/admin-page-columns.js',
-		'table' : './js-new/table.js'
+		'admin-general' : './js/admin-general.js',
+		'admin-page-columns' : './js/admin-page-columns.js',
+		'message-review' : './js/message-review.js',
+		'notice-dismissible' : './js/notice-dismissible.js',
+		'table' : './js/table.js'
 	},
 	output : {
 		path : path.resolve( __dirname, '../assets/js' ),

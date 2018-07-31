@@ -131,4 +131,21 @@ class Taxonomy {
 		return $terms;
 	}
 
+	public function get_taxonomy_label( $taxonomy, $key = 'name' ){
+		$label = $taxonomy;
+		$taxonomy_object = get_taxonomy( $taxonomy );
+
+		if( ! $taxonomy_object ){
+			return $label;
+		}
+
+		$labels = get_taxonomy_labels( $taxonomy_object );
+
+		if( property_exists( $labels, $key ) ){
+			$label = $labels->$key;
+		}
+
+		return $label;
+	}
+
 }

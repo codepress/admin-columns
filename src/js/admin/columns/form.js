@@ -167,7 +167,6 @@ class Form {
 
 	_addColumnToForm( column ) {
 		this.columns[ column.name ] = column;
-		console.log( 'nogeen' + column.name );
 		this.$form.append( column.$el );
 
 		column.open();

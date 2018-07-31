@@ -20,8 +20,7 @@
     "ac:build:development": "nps build.development",
     "ac:languages": "nps languages.production",
     "ac:webfont": "nps webfont.build",
-    "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg",
-    "ac:webpack": "webpack --mode=development"
+    "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
   },
   "webfont": {
     "formats": "woff",
