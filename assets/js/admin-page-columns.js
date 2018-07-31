@@ -150,22 +150,9 @@ var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 AC.Column = new _initiator.default();
 jQuery(document).on('AC.Form.loaded', function () {
   /** Register Events **/
-  AC.Column.registerEvent('toggle', _toggle.default);
-  AC.Column.registerEvent('remove', _remove.default);
-  AC.Column.registerEvent('clone', _clone.default);
-  AC.Column.registerEvent('refresh', _refresh.default);
-  AC.Column.registerEvent('type_selector', _typeSelector.default);
-  AC.Column.registerEvent('indicator', _indicator.default);
-  AC.Column.registerEvent('label', _label.default.label);
-  AC.Column.registerEvent('label_setting', _label.default.setting);
-  AC.Column.registerEvent('addons', _addons.default);
+  AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-
-  AC.Column.registerSetting('date', _date.default);
-  AC.Column.registerSetting('image_size', _imageSize.default);
-  AC.Column.registerSetting('pro', _pro.default);
-  AC.Column.registerSetting('sub_setting_toggle', _subSettingToggle.default);
-  AC.Column.registerSetting('width', _width.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
@@ -988,6 +975,7 @@ function () {
       }
 
       this.settings[key] = setting;
+      return this;
     }
   }, {
     key: "registerEvent",
@@ -999,6 +987,7 @@ function () {
       }
 
       this.events[key] = event;
+      return this;
     }
   }, {
     key: "getNewIncementalName",

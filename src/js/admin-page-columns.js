@@ -29,34 +29,35 @@ import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 
-let jQuery = $ = require( 'jquery' );
+let jQuery = $ = require('jquery');
 
 AC.Column = new Initiator();
 
-jQuery( document ).on( 'AC.Form.loaded', function() {
-	/** Register Events **/
-	AC.Column.registerEvent( 'toggle', EventToggle );
-	AC.Column.registerEvent( 'remove', EventRemove );
-	AC.Column.registerEvent( 'clone', EventClone );
-	AC.Column.registerEvent( 'refresh', EventRefresh );
-	AC.Column.registerEvent( 'type_selector', EventTypeSelector );
-	AC.Column.registerEvent( 'indicator', EventIndicator );
-	AC.Column.registerEvent( 'label', EventLabel.label );
-	AC.Column.registerEvent( 'label_setting', EventLabel.setting );
-	AC.Column.registerEvent( 'addons', EventAddons );
+jQuery(document).on('AC.Form.loaded', function () {
+    /** Register Events **/
+    AC.Column
+        .registerEvent('toggle', EventToggle)
+        .registerEvent('remove', EventRemove)
+        .registerEvent('clone', EventClone)
+        .registerEvent('refresh', EventRefresh)
+        .registerEvent('type_selector', EventTypeSelector)
+        .registerEvent('indicator', EventIndicator)
+        .registerEvent('label', EventLabel.label)
+        .registerEvent('label_setting', EventLabel.setting)
+        .registerEvent('addons', EventAddons)
 
-	/** Register Settings **/
-	AC.Column.registerSetting( 'date', SettingDate );
-	AC.Column.registerSetting( 'image_size', SettingImageSize );
-	AC.Column.registerSetting( 'pro', SettingPro );
-	AC.Column.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle );
-	AC.Column.registerSetting( 'width', SettingWidth );
-} );
+        /** Register Settings **/
+        .registerSetting('date', SettingDate)
+        .registerSetting('image_size', SettingImageSize)
+        .registerSetting('pro', SettingPro)
+        .registerSetting('sub_setting_toggle', SettingSubSettingToggle)
+        .registerSetting('width', SettingWidth);
+});
 
-jQuery( document ).ready( function() {
-	AC.Form = new Form( '#cpac .ac-columns form' );
+jQuery(document).ready(function () {
+    AC.Form = new Form('#cpac .ac-columns form');
 
-	new Modal().init();
-	new Menu().init();
-	new Feedback( '.sidebox#direct-feedback' );
-} );
+    new Modal().init();
+    new Menu().init();
+    new Feedback('.sidebox#direct-feedback');
+});

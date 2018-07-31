@@ -14,6 +14,8 @@ class Initiator {
 		}
 
 		this.settings[ key ] = setting;
+
+		return this;
 	}
 
 	registerEvent( k, event ) {
@@ -23,6 +25,8 @@ class Initiator {
 		}
 
 		this.events[ key ] = event;
+
+		return this;
 	}
 
 	getNewIncementalName() {
