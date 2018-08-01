@@ -116,11 +116,10 @@ class Column {
 	}
 
 	open() {
-		this.$el.toggleClass( 'opened' ).find( '.ac-column-body' ).show();
+		this.$el.addClass( 'opened' ).find( '.ac-column-body' ).show();
 	}
 
 	showMessage( message ) {
-		//TODO too specific
 		this.$el.find( '.ac-column-setting--type .msg' ).html( message ).show();
 	}
 
@@ -187,7 +186,7 @@ class Column {
 
 					self.$el.replaceWith( column );
 					self.$el = column;
-					self.initNewInstance();
+					//self.initNewInstance();
 					self.bindEvents();
 					self.open();
 				}

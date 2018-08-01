@@ -3,6 +3,8 @@ let selector = function( column ) {
 		column.$el.addClass( 'loading' );
 		column.switchToType( $( this ).val() ).always( function() {
 			column.$el.removeClass( 'loading' );
+
+			AC.Form.reindexColumns();
 		} );
 	} );
 };

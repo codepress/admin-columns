@@ -88,6 +88,17 @@ class Form {
 		} );
 	}
 
+	reindexColumns() {
+		let self = this;
+		self.columns = [];
+
+		this.$form.find( '.ac-column' ).each( function() {
+			let column = jQuery( this ).data( 'column' );
+
+			self.columns[ column.name ] = column;
+		} );
+	}
+
 	resetColumns() {
 		Object.keys( this.columns ).forEach( ( key ) => {
 			let column = this.columns[ key ];
@@ -142,13 +153,14 @@ class Form {
 	showMessage( message, attr_class = 'updated' ) {
 		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
 
+		this.$container.find( '.ac-message' ).stop().remove();
 		this.$container.find( '.ac-boxes' ).before( $msg );
 
 		$msg.slideDown();
 	}
 
 	cloneColumn( $el ) {
-		return this._addColumnToForm( new Column( $el ).clone() );
+		return this._addColumnToForm( new Column( $el ).clone(), $el.hasClass( 'opened' ) );
 	}
 
 	addColumn() {
@@ -165,11 +177,15 @@ class Form {
 		}
 	}
 
-	_addColumnToForm( column ) {
+	_addColumnToForm( column, open = true ) {
 		this.columns[ column.name ] = column;
 		this.$form.append( column.$el );
 
-		column.open();
+		if ( open ) {
+			column.open();
+		}
+		
+		column.$el.hide().slideDown();
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 		jQuery( document ).trigger( 'column_add', column );

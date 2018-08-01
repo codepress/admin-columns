@@ -4,23 +4,23 @@ let date = function( column ) {
 
 	$setting.each( function() {
 
-		var $container = $( this );
+		let $container = $( this );
 
 		// Custom input
-		var $radio_custom = $container.find( 'input.custom' );
-		var $input_custom = $container.find( '.ac-setting-input-date__custom' );
-		var $input_value = $container.find( '.ac-setting-input-date__value' );
-		var $example_custom = $container.find( '.ac-setting-input-date__example' );
-		var $selected = $container.find( 'input[type=radio]:checked' );
-		var $help_msg = $container.find( '.help-msg' );
+		let $radio_custom = $container.find( 'input.custom' );
+		let $input_custom = $container.find( '.ac-setting-input-date__custom' );
+		let $input_value = $container.find( '.ac-setting-input-date__value' );
+		let $example_custom = $container.find( '.ac-setting-input-date__example' );
+		let $selected = $container.find( 'input[type=radio]:checked' );
+		let $help_msg = $container.find( '.help-msg' );
 
 		// Click Event
 		$container.find( 'input[type=radio]' ).on( 'change', function() {
 
-			var $input = $( this );
-			var $input_container = $input.closest( 'label' );
-			var date_format = $input_container.find( 'code' ).text();
-			var description = $input_container.find( '.ac-setting-input-date__more' ).html();
+			let $input = $( this );
+			let $input_container = $input.closest( 'label' );
+			let date_format = $input_container.find( 'code' ).text();
+			let description = $input_container.find( '.ac-setting-input-date__more' ).html();
 
 			if ( date_format ) {
 				$input_custom.val( date_format ).trigger( 'change' );
@@ -55,7 +55,7 @@ let date = function( column ) {
 			$example_custom.html( '<span class="spinner is-active"></span>' );
 			$radio_custom.val( $input_custom.val() );
 
-			var $custom_value = $( this ).val();
+			let $custom_value = $( this ).val();
 
 			if ( !$custom_value ) {
 				$example_custom.text( '' );

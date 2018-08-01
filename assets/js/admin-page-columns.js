@@ -288,12 +288,11 @@ function () {
   }, {
     key: "open",
     value: function open() {
-      this.$el.toggleClass('opened').find('.ac-column-body').show();
+      this.$el.addClass('opened').find('.ac-column-body').show();
     }
   }, {
     key: "showMessage",
     value: function showMessage(message) {
-      //TODO too specific
       this.$el.find('.ac-column-setting--type .msg').html(message).show();
     }
   }, {
@@ -354,8 +353,8 @@ function () {
           if (true === response.success) {
             var column = jQuery(response.data);
             self.$el.replaceWith(column);
-            self.$el = column;
-            self.initNewInstance();
+            self.$el = column; //self.initNewInstance();
+
             self.bindEvents();
             self.open();
           }
@@ -684,6 +683,7 @@ var selector = function selector(column) {
     column.$el.addClass('loading');
     column.switchToType($(this).val()).always(function () {
       column.$el.removeClass('loading');
+      AC.Form.reindexColumns();
     });
   });
 };
@@ -846,6 +846,16 @@ function () {
       });
     }
   }, {
+    key: "reindexColumns",
+    value: function reindexColumns() {
+      var self = this;
+      self.columns = [];
+      this.$form.find('.ac-column').each(function () {
+        var column = jQuery(this).data('column');
+        self.columns[column.name] = column;
+      });
+    }
+  }, {
     key: "resetColumns",
     value: function resetColumns() {
       var _this = this;
@@ -894,13 +904,14 @@ function () {
     value: function showMessage(message) {
       var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
       var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+      this.$container.find('.ac-message').stop().remove();
       this.$container.find('.ac-boxes').before($msg);
       $msg.slideDown();
     }
   }, {
     key: "cloneColumn",
     value: function cloneColumn($el) {
-      return this._addColumnToForm(new _column.default($el).clone());
+      return this._addColumnToForm(new _column.default($el).clone(), $el.hasClass('opened'));
     }
   }, {
     key: "addColumn",
@@ -920,9 +931,15 @@ function () {
   }, {
     key: "_addColumnToForm",
     value: function _addColumnToForm(column) {
+      var open = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       this.columns[column.name] = column;
       this.$form.append(column.$el);
-      column.open();
+
+      if (open) {
+        column.open();
+      }
+
+      column.$el.hide().slideDown();
       jQuery('html, body').animate({
         scrollTop: column.$el.offset().top - 58
       }, 300);
