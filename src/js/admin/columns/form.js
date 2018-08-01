@@ -34,13 +34,15 @@ class Form {
 	}
 
 	originalColumns() {
+		let self = this;
 		let columns = [];
 
-		Object.values( this.columns ).forEach( function( column ) {
+		Object.keys( self.columns ).forEach( function( key ){
+			let column = self.columns[key];
 			if ( column.isOriginal() ) {
 				columns.push( column.type );
 			}
-		} );
+		});
 
 		return columns;
 	}
