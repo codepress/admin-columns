@@ -10,7 +10,7 @@ class Actions {
 
 		this.$el.on( 'update', function() {
 			self.refresh();
-		} ).insertAfter( jQuery( '.tablenav.top .actions:last' ) ).trigger( 'update' );
+		} ).appendTo( jQuery( '.tablenav.top .actions:last' ) ).trigger( 'update' );
 	}
 
 	refresh() {

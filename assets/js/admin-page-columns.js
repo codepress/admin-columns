@@ -1,1 +1,1431 @@
-!function(e){var n={};function t(i){if(n[i])return n[i].exports;var a=n[i]={i:i,l:!1,exports:{}};return e[i].call(a.exports,a,a.exports,t),a.l=!0,a.exports}t.m=e,t.c=n,t.d=function(e,n,i){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:i})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(t.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var a in e)t.d(i,a,function(n){return e[n]}.bind(null,a));return i},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=1)}([,function(e,n,t){"use strict";var i=k(t(2)),a=k(t(4)),o=k(t(5)),r=k(t(6)),c=k(t(7)),s=k(t(8)),l=k(t(9)),u=k(t(10)),d=k(t(11)),f=k(t(12)),h=k(t(13)),m=k(t(14)),v=k(t(15)),g=k(t(16)),p=k(t(17)),y=k(t(18)),b=k(t(19)),_=k(t(20));function k(e){return e&&e.__esModule?e:{default:e}}var C=$=t(21);AC.Column=new a.default,C(document).on("AC.Form.loaded",function(){AC.Column.registerEvent("toggle",s.default).registerEvent("remove",l.default).registerEvent("clone",u.default).registerEvent("refresh",d.default).registerEvent("type_selector",f.default).registerEvent("indicator",h.default).registerEvent("label",m.default.label).registerEvent("label_setting",m.default.setting).registerEvent("addons",v.default).registerSetting("date",y.default).registerSetting("image_size",g.default).registerSetting("pro",b.default).registerSetting("sub_setting_toggle",p.default).registerSetting("width",_.default)}),C(document).ready(function(){AC.Form=new i.default("#cpac .ac-columns form"),(new o.default).init(),(new r.default).init(),new c.default(".sidebox#direct-feedback")})},function(e,n,t){"use strict";var i=function(e){return e&&e.__esModule?e:{default:e}}(t(3));function a(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var o=function(){function e(n){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.$form=jQuery(n),this.$container=jQuery("#cpac .ac-admin"),this.columns={},jQuery(document).trigger("AC.Form.loaded",this.$container.data("type")),this.init()}return function(e,n,t){n&&a(e.prototype,n),t&&a(e,t)}(e,[{key:"init",value:function(){this.initColumns(),this.bindFormEvents(),this.bindOrdering(),jQuery(document).trigger("AC.Form.ready",this.$container.data("type"))}},{key:"bindOrdering",value:function(){this.$form.hasClass("ui-sortable")?this.$form.sortable("refresh"):this.$form.sortable({items:".ac-column",handle:".column_sort"})}},{key:"originalColumns",value:function(){var e=this,n=[];return Object.keys(e.columns).forEach(function(t){var i=e.columns[t];i.isOriginal()&&n.push(i.type)}),n}},{key:"bindFormEvents",value:function(){var e=this,n=jQuery(".sidebox a.submit, .column-footer a.submit");n.on("click",function(){n.attr("disabled","disabled"),e.submitForm().always(function(){n.removeAttr("disabled","disabled")})}),e.$container.find(".add_column").on("click",function(){e.addColumn()});var t=jQuery("#cpac .ac-boxes");t.hasClass("disabled")&&t.find(".ac-column").each(function(e,n){jQuery(n).find("input, select").prop("disabled",!0)}),jQuery("a[data-clear-columns]").on("click",function(){e.resetColumns()})}},{key:"initColumns",value:function(){var e=this;e.columns=[],this.$form.find(".ac-column").each(function(){var n=jQuery(this),t=new i.default(n);t.bindEvents(),n.data("column",t),e.columns[t.name]=t})}},{key:"reindexColumns",value:function(){var e=this;e.columns=[],this.$form.find(".ac-column").each(function(){var n=jQuery(this).data("column");e.columns[n.name]=n})}},{key:"resetColumns",value:function(){var e=this;Object.keys(this.columns).forEach(function(n){e.columns[n].destroy()})}},{key:"serialize",value:function(){return this.$form.serialize()}},{key:"submitForm",value:function(){var e=this,n=jQuery.post(ajaxurl,{action:"ac_columns_save",data:this.serialize(),_ajax_nonce:AC._ajax_nonce,list_screen:AC.list_screen,layout:AC.layout,original_columns:AC.original_columns},function(n){n&&(n.success?(e.showMessage(n.data,"updated"),e.$container.addClass("stored")):n.data&&e.showMessage(n.data.message,"notice notice-warning"))},"json");return n.fail(function(e){}),jQuery(document).trigger("cac_update",e.$container),n}},{key:"showMessage",value:function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"updated",t=jQuery('<div class="ac-message hidden '+n+'"><p>'+e+"</p></div>");this.$container.find(".ac-message").stop().remove(),this.$container.find(".ac-boxes").before(t),t.slideDown()}},{key:"cloneColumn",value:function(e){return this._addColumnToForm(new i.default(e).clone(),e.hasClass("opened"))}},{key:"addColumn",value:function(){var e=jQuery("#add-new-column-template").find(".ac-column").clone(),n=new i.default(e).create();return this._addColumnToForm(n)}},{key:"removeColumn",value:function(e){this.columns[e]&&(this.columns[e].remove(),delete this.columns[e])}},{key:"_addColumnToForm",value:function(e){var n=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];return this.columns[e.name]=e,this.$form.append(e.$el),n&&e.open(),e.$el.hide().slideDown(),jQuery("html, body").animate({scrollTop:e.$el.offset().top-58},300),jQuery(document).trigger("column_add",e),e}}]),e}();e.exports=o},function(e,n,t){"use strict";function i(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var a=function(){function e(n){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.$el=n,this._type=this.$el.data("type")}return function(e,n,t){n&&i(e.prototype,n),t&&i(e,t)}(e,[{key:"isOriginal",value:function(){return 1===this.$el.data("original")}},{key:"isDisabled",value:function(){return this.$el.hasClass("disabled")}},{key:"disable",value:function(){return this.$el.addClass("disabled"),this}},{key:"enable",value:function(){return this.$el.removeClass("disabled"),this}},{key:"initNewInstance",value:function(){var e="_new_column_"+AC.Column.getNewIncementalName(),n=this.name;return this.$el.find("input, select, label").each(function(t,i){var a=jQuery(i);a.attr("name")&&a.attr("name",a.attr("name").replace("columns[".concat(n,"]"),"columns[".concat(e,"]"))),a.attr("id")&&a.attr("id",a.attr("id").replace("-".concat(n,"-"),"-".concat(e,"-")))}),this.name=e,AC.incremental_column_name++,this}},{key:"bindEvents",value:function(){var e=this;return e.$el.data("column",e),Object.keys(AC.Column.events).forEach(function(n){e.isBound(n)||(AC.Column.events[n](e),e.bind(n))}),Object.keys(AC.Column.settings).forEach(function(n){e.isBound(n)||(AC.Column.settings[n](e),e.bind(n))}),$(document).trigger("AC.initSettings",this.$el),this}},{key:"isBound",value:function(e){return this.$el.data(e)}},{key:"bind",value:function(e){this.$el.data(e,!0)}},{key:"destroy",value:function(){this.$el.remove()}},{key:"remove",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:350,n=this;this.$el.addClass("deleting").animate({opacity:0,height:0},e,function(){n.destroy()})}},{key:"toggle",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:150;this.$el.toggleClass("opened").find(".ac-column-body").slideToggle(e)}},{key:"open",value:function(){this.$el.addClass("opened").find(".ac-column-body").show()}},{key:"showMessage",value:function(e){this.$el.find(".ac-column-setting--type .msg").html(e).show()}},{key:"switchToType",value:function(e){var n=this;return jQuery.ajax({url:ajaxurl,method:"post",dataType:"json",data:{action:"ac_column_select",type:e,current_original_columns:AC.Form.originalColumns(),original_columns:AC.original_columns,list_screen:AC.list_screen,layout:AC.layout,_ajax_nonce:AC._ajax_nonce},success:function(e){if(!0===e.success){var t=jQuery(e.data);n.$el.replaceWith(t),n.$el=t,n.initNewInstance(),n.bindEvents(),n.open()}else n.showMessage(e.data.error)}})}},{key:"refresh",value:function(){var e=this,n=this.$el.find(":input").serializeArray(),t={action:"ac_column_refresh",_ajax_nonce:AC._ajax_nonce,list_screen:AC.list_screen,layout:AC.layout,column_name:this.name,original_columns:AC.original_columns};return jQuery.each(t,function(e,t){n.push({name:e,value:t})}),jQuery.ajax({type:"post",url:ajaxurl,data:n,success:function(n){if(!0===n.success){var t=jQuery(n.data);e.$el.replaceWith(t),e.$el=t,e.bindEvents(),e.open()}}})}},{key:"create",value:function(){return this.initNewInstance(),this.bindEvents(),this}},{key:"clone",value:function(){var n=this.$el.clone();n.data("column-name",this.$el.data("column-name"));var t=new e(n);return t.initNewInstance(),t.bindEvents(),t}},{key:"name",get:function(){return this.$el.data("column-name")},set:function(e){this.$el.data("column-name",e)}},{key:"type",get:function(){return this._type},set:function(e){this.$el.data("type",e)}}]),e}();e.exports=a},function(e,n,t){"use strict";function i(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var a=function(){function e(){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.events={},this.settings={},this.incremental_name=0}return function(e,n,t){n&&i(e.prototype,n),t&&i(e,t)}(e,[{key:"registerSetting",value:function(e,n){var t="s_"+e;return this.settings[t]&&console.error("Setting key already exists: "+e),this.settings[t]=n,this}},{key:"registerEvent",value:function(e,n){var t="e_"+e;return this.settings[t]&&console.error("Event key already exists: "+t),this.events[t]=n,this}},{key:"getNewIncementalName",value:function(){var e=this.incremental_name;return this.incremental_name++,e}}]),e}();e.exports=a},function(e,n,t){"use strict";function i(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var a=function(){function e(){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e)}return function(e,n,t){n&&i(e.prototype,n),t&&i(e,t)}(e,[{key:"init",value:function(){$(document).on("click","[data-ac-open-modal]",function(e){e.preventDefault(),$($(this).data("ac-open-modal")).addClass("-active")}),$(".ac-modal__dialog__close").on("click",function(e){e.preventDefault(),$(this).closest(".ac-modal").removeClass("-active")}),$(".ac-modal").on("click",function(e){$(this).removeClass("-active")}),$(".ac-modal__dialog").on("click",function(e){e.stopPropagation()}),$(document).keyup(function(e){27===e.keyCode&&$(".ac-modal").removeClass("-active")})}}]),e}();e.exports=a},function(e,n,t){"use strict";function i(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var a=function(){function e(){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e)}return function(e,n,t){n&&i(e.prototype,n),t&&i(e,t)}(e,[{key:"init",value:function(){var e=jQuery;e("#ac_list_screen").on("change",function(){e(".view-link").hide(),e(this).parents("form").submit(),e(this).prop("disabled",!0).next(".spinner").css("display","inline-block")})}}]),e}();e.exports=a},function(e,n,t){"use strict";function i(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}var a=function(){function e(n){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.$el=jQuery(n),this.init()}return function(e,n,t){n&&i(e.prototype,n),t&&i(e,t)}(e,[{key:"init",value:function(){var e=this.$el;e.find("#feedback-choice a.no").click(function(n){n.preventDefault(),e.find("#feedback-choice").slideUp(),e.find("#feedback-support").slideDown()}),e.find("#feedback-choice a.yes").click(function(n){n.preventDefault(),e.find("#feedback-choice").slideUp(),e.find("#feedback-rate").slideDown()})}}]),e}();e.exports=a},function(e,n,t){"use strict";e.exports=function(e){e.$el.find('[data-toggle="column"]').click(function(n){n.preventDefault(),e.toggle()}).css("cursor","pointer")}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find(".remove-button").click(function(n){n.preventDefault(),AC.Form.removeColumn(e.name)})}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find(".clone-button").click(function(n){n.preventDefault(),e.isOriginal()||AC.Form.cloneColumn(e.$el)})}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find('[data-refresh="column"]').on("change",function(){$(document).trigger("pre_column_refresh",e.$el),e.$el.addClass("loading"),setTimeout(function(){e.refresh().always(function(){e.$el.removeClass("loading"),$(document).trigger("AC.columnRefresh",{column:e})})},200)})}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find("select.ac-setting-input_type").change(function(){e.$el.addClass("loading"),e.switchToType($(this).val()).always(function(){e.$el.removeClass("loading"),AC.Form.reindexColumns()})})}},function(e,n,t){"use strict";e.exports=function(e){var n=e.$el;n.find(".ac-column-header [data-indicator-toggle]").each(function(){var e=$(this),t=$(this).data("setting"),i=n.find(".ac-column-setting[data-setting="+t+"]").find(".col-input:first .ac-setting-input:first input[type=radio]");e.unbind("click").on("click",function(n){n.preventDefault(),e.toggleClass("on"),$(this).hasClass("on")?i.filter("[value=on]").prop("checked",!0).trigger("click").trigger("change"):i.filter("[value=off]").prop("checked",!0).trigger("click").trigger("change")}),i.on("change",function(){"on"===i.filter(":checked").val()?e.addClass("on"):e.removeClass("on")})})}},function(e,n,t){"use strict";e.exports={label:function(e){var n=e.$el;n.find('select[data-label="update"]').change(function(){var e=n.find("input.ac-setting-input_label"),t=jQuery(this).find("option:selected").text();e.val(t),e.trigger("change")}),setTimeout(function(){var e=n.find(".column_label .toggle");jQuery.trim(e.html())&&e.width()<1&&e.html(n.find(".column_type .inner").html())},50)},setting:function(e){var n=e.$el;n.find(".ac-column-setting--label input").bind("keyup change",function(){var e=jQuery(this).val();jQuery(this).closest(".ac-column").find("td.column_label .inner > a.toggle").html(e)}).trigger("change"),n.find(".ac-column-body .col-label .label").hover(function(){jQuery(this).parents(".col-label").find("div.tooltip").show()},function(){jQuery(this).parents(".col-label").find("div.tooltip").hide()})}}},function(e,n,t){"use strict";e.exports=function(e){var n=e.$el;n.find("[data-trigger] label").on("click",function(){var e=$(this).closest("td.input").data("trigger"),t=$("input",this).val(),i=n.find('[data-indicator-id="'+e+'"]').removeClass("on");"on"===t&&i.addClass("on");var a=n.find('[data-handle="'+e+'"]').addClass("hide");"on"===t&&a.removeClass("hide")}),n.find("[data-trigger]").each(function(){var e=$(this).data("trigger"),t=n.find('[data-handle="'+e+'"]').addClass("hide");"on"===$("input:checked",this).val()&&t.removeClass("hide")})}},function(e,n,t){"use strict";e.exports=function(e){function n(e,n){"cpac-custom"===n.val()?e.find(".ac-column-setting").show():e.find(".ac-column-setting").hide()}e.$el.find(".ac-column-setting--image").each(function(){var e=$(this),t=$(this).find(".ac-setting-input select");n(e,t),t.on("change",function(){n(e,$(this))})})}},function(e,n,t){"use strict";e.exports=function(e){var n={value_show:"on",subfield:".ac-column-setting"};function t(e,t){var i=t.filter(":checked").val(),a=e.find(n.subfield);n.value_show===i?a.show():a.hide()}e.$el.find(".ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit").each(function(){var e=$(this),n=$(this).find('.ac-setting-input input[type="radio"]');t(e,n),n.on("change",function(){t(e,n)})})}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find(".ac-column-setting--date").each(function(){var e=$(this),n=e.find("input.custom"),t=e.find(".ac-setting-input-date__custom"),i=e.find(".ac-setting-input-date__value"),a=e.find(".ac-setting-input-date__example"),o=e.find("input[type=radio]:checked"),r=e.find(".help-msg");e.find("input[type=radio]").on("change",function(){var e=$(this),n=e.closest("label"),o=n.find("code").text(),c=n.find(".ac-setting-input-date__more").html();o&&t.val(o).trigger("change"),e.hasClass("diff")&&(t.val(""),a.text("")),t.prop("disabled",!0),e.hasClass("custom")&&(e.val(t.val()),t.prop("disabled",!1),r.show()),r.hide(),c&&r.html(c).show(),i.val(e.val())}),t.on("change",function(){a.html('<span class="spinner is-active"></span>'),n.val(t.val());var e=$(this).val();e?($.ajax({url:ajaxurl,method:"post",data:{action:"date_format",date:e}}).done(function(e){a.text(e)}),i.val(e)):a.text("")}),o.trigger("change"),0===o.length&&n.trigger("click")})}},function(e,n,t){"use strict";e.exports=function(e){e.$el.find(".ac-column-setting--pro").each(function(){var e=jQuery(this);e.find("input").on("click",function(n){n.preventDefault(),e.find("[data-ac-open-modal]").trigger("click")})})}},function(e,n,t){"use strict";jQuery.fn.column_width_slider=function(){var e=$(this).find(".ac-setting-input-width"),n=e.find(".description input"),t=e.find(".unit-select input").filter(":checked").val(),i=n.val(),a=e.find(".width-slider"),o=$(this).find(".ac-column-header .ac-column-heading-setting--width");"%"===t&&i>100&&(i=100),n.val(i),a.slider({range:"min",min:0,max:"%"===t?100:500,value:i,slide:function(e,t){n.val(t.value),o.trigger("update"),n.trigger("validate")}})};e.exports=function(e){var n=e.$el;n.find(".ac-column-setting--width").each(function(){n.column_width_slider();var e=n.find(".ac-column-header .ac-column-heading-setting--width");e.on("update",function(){var e=n.find(".ac-setting-input-width .description input").val(),t=n.find(".ac-setting-input-width .description .unit").text();e>0?$(this).text(e+t):$(this).text("")}),n.find(".ac-setting-input-width .unit-select label").on("click",function(){n.find("span.unit").text($(this).find("input").val()),n.column_width_slider(),e.trigger("update")});var t=n.find(".ac-setting-input-width .description input").on("keyup",function(){n.column_width_slider(),$(this).trigger("validate"),e.trigger("update")}).on("validate",function(){var e=t.val(),n=$.trim(e);$.isNumeric(n)||(n=n.replace(/\D/g,"")),n.length>3&&(n=n.substring(0,3)),n<=0&&(n=""),n!==e&&t.val(n)})})}},function(e,n){e.exports=jQuery}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/admin-page-columns.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./js/admin-page-columns.js":
+/*!**********************************!*\
+  !*** ./js/admin-page-columns.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
+
+var _initiator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/initiator */ "./js/admin/columns/initiator.js"));
+
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/modal */ "./js/admin/columns/modal.js"));
+
+var _menu = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/menu */ "./js/admin/columns/menu.js"));
+
+var _feedback = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.js"));
+
+var _toggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/toggle */ "./js/admin/columns/events/toggle.js"));
+
+var _remove = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/remove */ "./js/admin/columns/events/remove.js"));
+
+var _clone = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/clone */ "./js/admin/columns/events/clone.js"));
+
+var _refresh = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/refresh */ "./js/admin/columns/events/refresh.js"));
+
+var _typeSelector = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/type-selector */ "./js/admin/columns/events/type-selector.js"));
+
+var _indicator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/indicator */ "./js/admin/columns/events/indicator.js"));
+
+var _label = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/label */ "./js/admin/columns/events/label.js"));
+
+var _addons = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/addons */ "./js/admin/columns/events/addons.js"));
+
+var _imageSize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/image-size */ "./js/admin/columns/settings/image-size.js"));
+
+var _subSettingToggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/sub-setting-toggle */ "./js/admin/columns/settings/sub-setting-toggle.js"));
+
+var _date = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/date */ "./js/admin/columns/settings/date.js"));
+
+var _pro = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/pro */ "./js/admin/columns/settings/pro.js"));
+
+var _width = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/width */ "./js/admin/columns/settings/width.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * AC variables. Defined in DOM.
+ * @param AC {Object}
+ * @param AC.list_screen {String}
+ * @param AC.layout {String}
+ * @param AC.i81n {String}
+ */
+
+/** Events */
+
+/** Settings */
+var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
+
+AC.Column = new _initiator.default();
+jQuery(document).on('AC.Form.loaded', function () {
+  /** Register Events **/
+  AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
+  /** Register Settings **/
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default);
+});
+jQuery(document).ready(function () {
+  AC.Form = new _form.default('#cpac .ac-columns form');
+  new _modal.default().init();
+  new _menu.default().init();
+  new _feedback.default('.sidebox#direct-feedback');
+});
+
+/***/ }),
+
+/***/ "./js/admin/columns/column.js":
+/*!************************************!*\
+  !*** ./js/admin/columns/column.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Column =
+/*#__PURE__*/
+function () {
+  function Column($el) {
+    _classCallCheck(this, Column);
+
+    this.$el = $el;
+    this._type = this.$el.data('type');
+  }
+
+  _createClass(Column, [{
+    key: "isOriginal",
+    value: function isOriginal() {
+      return 1 === this.$el.data('original');
+    }
+  }, {
+    key: "isDisabled",
+    value: function isDisabled() {
+      return this.$el.hasClass('disabled');
+    }
+  }, {
+    key: "disable",
+    value: function disable() {
+      this.$el.addClass('disabled');
+      return this;
+    }
+  }, {
+    key: "enable",
+    value: function enable() {
+      this.$el.removeClass('disabled');
+      return this;
+    }
+  }, {
+    key: "initNewInstance",
+    value: function initNewInstance() {
+      var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
+      var original_column_name = this.name;
+      this.$el.find('input, select, label').each(function (i, v) {
+        var $input = jQuery(v); // name attributes
+
+        if ($input.attr('name')) {
+          $input.attr('name', $input.attr('name').replace("columns[".concat(original_column_name, "]"), "columns[".concat(temp_column_name, "]")));
+        } // id attributes
+
+
+        if ($input.attr('id')) {
+          $input.attr('id', $input.attr('id').replace("-".concat(original_column_name, "-"), "-".concat(temp_column_name, "-")));
+        }
+      });
+      this.name = temp_column_name;
+      AC.incremental_column_name++;
+      return this;
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var column = this;
+      column.$el.data('column', column);
+      Object.keys(AC.Column.events).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.events[key](column);
+          column.bind(key);
+        }
+      });
+      Object.keys(AC.Column.settings).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.settings[key](column);
+          column.bind(key);
+        }
+      });
+      $(document).trigger('AC.initSettings', this.$el);
+      return this;
+    }
+  }, {
+    key: "isBound",
+    value: function isBound(key) {
+      return this.$el.data(key);
+    }
+  }, {
+    key: "bind",
+    value: function bind(key) {
+      this.$el.data(key, true);
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.$el.remove();
+    }
+  }, {
+    key: "remove",
+    value: function remove() {
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 350;
+      var self = this;
+      this.$el.addClass('deleting').animate({
+        opacity: 0,
+        height: 0
+      }, duration, function () {
+        self.destroy();
+      });
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
+      this.$el.toggleClass('opened').find('.ac-column-body').slideToggle(duration);
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.$el.addClass('opened').find('.ac-column-body').show();
+    }
+  }, {
+    key: "showMessage",
+    value: function showMessage(message) {
+      this.$el.find('.ac-column-setting--type .msg').html(message).show();
+    }
+  }, {
+    key: "switchToType",
+    value: function switchToType(type) {
+      var self = this;
+      return jQuery.ajax({
+        url: ajaxurl,
+        method: 'post',
+        dataType: 'json',
+        data: {
+          action: 'ac_column_select',
+          type: type,
+          current_original_columns: AC.Form.originalColumns(),
+          original_columns: AC.original_columns,
+          list_screen: AC.list_screen,
+          layout: AC.layout,
+          _ajax_nonce: AC._ajax_nonce
+        },
+        success: function success(response) {
+          if (true === response.success) {
+            var column = jQuery(response.data);
+            self.$el.replaceWith(column);
+            self.$el = column;
+            self.initNewInstance();
+            self.bindEvents();
+            self.open();
+          } else {
+            self.showMessage(response.data.error);
+          }
+        }
+      });
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      var self = this;
+      var data = this.$el.find(':input').serializeArray();
+      var request_data = {
+        action: 'ac_column_refresh',
+        _ajax_nonce: AC._ajax_nonce,
+        list_screen: AC.list_screen,
+        layout: AC.layout,
+        column_name: this.name,
+        original_columns: AC.original_columns
+      };
+      jQuery.each(request_data, function (name, value) {
+        data.push({
+          name: name,
+          value: value
+        });
+      });
+      return jQuery.ajax({
+        type: 'post',
+        url: ajaxurl,
+        data: data,
+        success: function success(response) {
+          if (true === response.success) {
+            var column = jQuery(response.data);
+            self.$el.replaceWith(column);
+            self.$el = column; //self.initNewInstance();
+
+            self.bindEvents();
+            self.open();
+          }
+        }
+      });
+    }
+  }, {
+    key: "create",
+    value: function create() {
+      this.initNewInstance();
+      this.bindEvents();
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      var $clone = this.$el.clone();
+      $clone.data('column-name', this.$el.data('column-name'));
+      var clone = new Column($clone);
+      clone.initNewInstance();
+      clone.bindEvents();
+      return clone;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this.$el.data('column-name');
+    },
+    set: function set(name) {
+      this.$el.data('column-name', name);
+    }
+  }, {
+    key: "type",
+    get: function get() {
+      return this._type;
+    },
+    set: function set(type) {
+      this.$el.data('type', type);
+    }
+  }]);
+
+  return Column;
+}();
+
+module.exports = Column;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/addons.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/events/addons.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+ * Optional Radio Click events
+ * TODO: Is not used anymore?
+ */
+var addons = function addons(column) {
+  var $column = column.$el;
+  var inputs = $column.find('[data-trigger] label');
+  inputs.on('click', function () {
+    var id = $(this).closest('td.input').data('trigger');
+    var state = $('input', this).val(); // Toggle indicator icon
+
+    var label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
+
+    if ('on' === state) {
+      label.addClass('on');
+    } // Toggle additional options
+
+
+    var additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
+
+    if ('on' === state) {
+      additional.removeClass('hide');
+    }
+  }); // On load
+
+  $column.find('[data-trigger]').each(function () {
+    var trigger = $(this).data('trigger'); // Hide additional column settings
+
+    var additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
+
+    if ('on' === $('input:checked', this).val()) {
+      additional.removeClass('hide');
+    }
+  });
+};
+
+module.exports = addons;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/clone.js":
+/*!******************************************!*\
+  !*** ./js/admin/columns/events/clone.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+* Column: bind clone events
+*
+* @since 2.0
+*/
+var clone = function clone(column) {
+  column.$el.find('.clone-button').click(function (e) {
+    e.preventDefault();
+
+    if (column.isOriginal()) {
+      return;
+    }
+
+    AC.Form.cloneColumn(column.$el);
+  });
+};
+
+module.exports = clone;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/indicator.js":
+/*!**********************************************!*\
+  !*** ./js/admin/columns/events/indicator.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var indicator = function indicator(column) {
+  var $column = column.$el;
+  $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
+    var $indicator = $(this);
+    var setting = $(this).data('setting');
+    var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
+    var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
+    $indicator.unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $indicator.toggleClass('on');
+
+      if ($(this).hasClass('on')) {
+        $input.filter('[value=on]').prop('checked', true).trigger('click').trigger('change');
+      } else {
+        $input.filter('[value=off]').prop('checked', true).trigger('click').trigger('change');
+      }
+    });
+    $input.on('change', function () {
+      var value = $input.filter(':checked').val();
+
+      if ('on' === value) {
+        $indicator.addClass('on');
+      } else {
+        $indicator.removeClass('on');
+      }
+    });
+  });
+};
+
+module.exports = indicator;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/label.js":
+/*!******************************************!*\
+  !*** ./js/admin/columns/events/label.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var label = function label(column) {
+  var $column = column.$el;
+  /**
+   * Populates the main Label with the selected label from the dropdown,
+   */
+
+  $column.find('select[data-label="update"]').change(function () {
+    var $label = $column.find('input.ac-setting-input_label');
+    var field_label = jQuery(this).find('option:selected').text(); // Set new label
+
+    $label.val(field_label);
+    $label.trigger('change');
+  });
+  /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+
+  setTimeout(function () {
+    var column_label = $column.find('.column_label .toggle');
+
+    if (jQuery.trim(column_label.html()) && column_label.width() < 1) {
+      column_label.html($column.find('.column_type .inner').html());
+    }
+  }, 50);
+};
+
+var settingLabel = function settingLabel(column) {
+  var $column = column.$el;
+  /** change label */
+
+  $column.find('.ac-column-setting--label input').bind('keyup change', function () {
+    var value = jQuery(this).val();
+    jQuery(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
+  }).trigger('change');
+  /** tooltip */
+
+  $column.find('.ac-column-body .col-label .label').hover(function () {
+    jQuery(this).parents('.col-label').find('div.tooltip').show();
+  }, function () {
+    jQuery(this).parents('.col-label').find('div.tooltip').hide();
+  });
+};
+
+module.exports = {
+  label: label,
+  setting: settingLabel
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/refresh.js":
+/*!********************************************!*\
+  !*** ./js/admin/columns/events/refresh.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var refresh = function refresh(column) {
+  column.$el.find('[data-refresh="column"]').on('change', function () {
+    // Allow plugins to hook into this event
+    $(document).trigger('pre_column_refresh', column.$el);
+    column.$el.addClass('loading');
+    setTimeout(function () {
+      column.refresh().always(function () {
+        column.$el.removeClass('loading');
+        $(document).trigger('AC.columnRefresh', {
+          column: column
+        });
+      });
+    }, 200);
+  });
+};
+
+module.exports = refresh;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/remove.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/events/remove.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+ * Column: bind remove events
+ *
+ * @since 2.0
+ */
+var remove = function remove(column) {
+  column.$el.find('.remove-button').click(function (e) {
+    e.preventDefault();
+    AC.Form.removeColumn(column.name);
+  });
+};
+
+module.exports = remove;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/toggle.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/events/toggle.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+ * Column: bind toggle events
+ *
+ * For performance we bind all other events after the click event.
+ *
+ * @since 2.0
+ */
+var toggle = function toggle(column) {
+  column.$el.find('[data-toggle="column"]').click(function (e) {
+    e.preventDefault();
+    column.toggle();
+  }).css('cursor', 'pointer');
+};
+
+module.exports = toggle;
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/type-selector.js":
+/*!**************************************************!*\
+  !*** ./js/admin/columns/events/type-selector.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var selector = function selector(column) {
+  column.$el.find('select.ac-setting-input_type').change(function () {
+    column.$el.addClass('loading');
+    column.switchToType($(this).val()).always(function () {
+      column.$el.removeClass('loading');
+      AC.Form.reindexColumns();
+    });
+  });
+};
+
+module.exports = selector;
+
+/***/ }),
+
+/***/ "./js/admin/columns/feedback.js":
+/*!**************************************!*\
+  !*** ./js/admin/columns/feedback.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Feedback =
+/*#__PURE__*/
+function () {
+  function Feedback($el) {
+    _classCallCheck(this, Feedback);
+
+    this.$el = jQuery($el);
+    this.init();
+  }
+
+  _createClass(Feedback, [{
+    key: "init",
+    value: function init() {
+      var $box = this.$el;
+      $box.find('#feedback-choice a.no').click(function (e) {
+        e.preventDefault();
+        $box.find('#feedback-choice').slideUp();
+        $box.find('#feedback-support').slideDown();
+      });
+      $box.find('#feedback-choice a.yes').click(function (e) {
+        e.preventDefault();
+        $box.find('#feedback-choice').slideUp();
+        $box.find('#feedback-rate').slideDown();
+      });
+    }
+  }]);
+
+  return Feedback;
+}();
+
+module.exports = Feedback;
+
+/***/ }),
+
+/***/ "./js/admin/columns/form.js":
+/*!**********************************!*\
+  !*** ./js/admin/columns/form.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js/admin/columns/column.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Form =
+/*#__PURE__*/
+function () {
+  function Form(el) {
+    _classCallCheck(this, Form);
+
+    this.$form = jQuery(el);
+    this.$container = jQuery('#cpac .ac-admin');
+    this.columns = {};
+    jQuery(document).trigger('AC.Form.loaded', this.$container.data('type'));
+    this.init();
+  }
+
+  _createClass(Form, [{
+    key: "init",
+    value: function init() {
+      this.initColumns();
+      this.bindFormEvents();
+      this.bindOrdering();
+      jQuery(document).trigger('AC.Form.ready', this.$container.data('type'));
+    }
+  }, {
+    key: "bindOrdering",
+    value: function bindOrdering() {
+      if (this.$form.hasClass('ui-sortable')) {
+        this.$form.sortable('refresh');
+      } else {
+        this.$form.sortable({
+          items: '.ac-column',
+          handle: '.column_sort'
+        });
+      }
+    }
+  }, {
+    key: "originalColumns",
+    value: function originalColumns() {
+      var self = this;
+      var columns = [];
+      Object.keys(self.columns).forEach(function (key) {
+        var column = self.columns[key];
+
+        if (column.isOriginal()) {
+          columns.push(column.type);
+        }
+      });
+      return columns;
+    }
+  }, {
+    key: "bindFormEvents",
+    value: function bindFormEvents() {
+      var self = this;
+      var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
+      $buttons.on('click', function () {
+        $buttons.attr('disabled', 'disabled');
+        self.submitForm().always(function () {
+          $buttons.removeAttr('disabled', 'disabled');
+        });
+      });
+      self.$container.find('.add_column').on('click', function () {
+        self.addColumn();
+      });
+      var $boxes = jQuery('#cpac .ac-boxes');
+
+      if ($boxes.hasClass('disabled')) {
+        $boxes.find('.ac-column').each(function (i, col) {
+          jQuery(col).find('input, select').prop('disabled', true);
+        });
+      }
+
+      jQuery('a[data-clear-columns]').on('click', function () {
+        self.resetColumns();
+      });
+    }
+  }, {
+    key: "initColumns",
+    value: function initColumns() {
+      var self = this;
+      self.columns = [];
+      this.$form.find('.ac-column').each(function () {
+        var $el = jQuery(this);
+        var column = new _column.default($el);
+        column.bindEvents();
+        $el.data('column', column);
+        self.columns[column.name] = column;
+      });
+    }
+  }, {
+    key: "reindexColumns",
+    value: function reindexColumns() {
+      var self = this;
+      self.columns = [];
+      this.$form.find('.ac-column').each(function () {
+        var column = jQuery(this).data('column');
+        self.columns[column.name] = column;
+      });
+    }
+  }, {
+    key: "resetColumns",
+    value: function resetColumns() {
+      var _this = this;
+
+      Object.keys(this.columns).forEach(function (key) {
+        var column = _this.columns[key];
+        column.destroy();
+      });
+    }
+  }, {
+    key: "serialize",
+    value: function serialize() {
+      return this.$form.serialize();
+    }
+  }, {
+    key: "submitForm",
+    value: function submitForm() {
+      var self = this;
+      var xhr = jQuery.post(ajaxurl, {
+        action: 'ac_columns_save',
+        data: this.serialize(),
+        _ajax_nonce: AC._ajax_nonce,
+        list_screen: AC.list_screen,
+        layout: AC.layout,
+        original_columns: AC.original_columns
+      }, function (response) {
+        if (response) {
+          if (response.success) {
+            self.showMessage(response.data, 'updated');
+            self.$container.addClass('stored');
+          } // Error message
+          else if (response.data) {
+              self.showMessage(response.data.message, 'notice notice-warning');
+            }
+        }
+      }, 'json'); // No JSON
+
+      xhr.fail(function (error) {// We choose not to notify the user of errors, because the settings will have
+        // been saved correctly despite of PHP notices/errors from plugin or themes.
+      });
+      jQuery(document).trigger('cac_update', self.$container);
+      return xhr;
+    }
+  }, {
+    key: "showMessage",
+    value: function showMessage(message) {
+      var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
+      var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+      this.$container.find('.ac-message').stop().remove();
+      this.$container.find('.ac-boxes').before($msg);
+      $msg.slideDown();
+    }
+  }, {
+    key: "cloneColumn",
+    value: function cloneColumn($el) {
+      return this._addColumnToForm(new _column.default($el).clone(), $el.hasClass('opened'));
+    }
+  }, {
+    key: "addColumn",
+    value: function addColumn() {
+      var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
+      var column = new _column.default($clone).create();
+      return this._addColumnToForm(column);
+    }
+  }, {
+    key: "removeColumn",
+    value: function removeColumn(name) {
+      if (this.columns[name]) {
+        this.columns[name].remove();
+        delete this.columns[name];
+      }
+    }
+  }, {
+    key: "_addColumnToForm",
+    value: function _addColumnToForm(column) {
+      var open = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      this.columns[column.name] = column;
+      this.$form.append(column.$el);
+
+      if (open) {
+        column.open();
+      }
+
+      column.$el.hide().slideDown();
+      jQuery('html, body').animate({
+        scrollTop: column.$el.offset().top - 58
+      }, 300);
+      jQuery(document).trigger('column_add', column);
+      return column;
+    }
+  }]);
+
+  return Form;
+}();
+
+module.exports = Form;
+
+/***/ }),
+
+/***/ "./js/admin/columns/initiator.js":
+/*!***************************************!*\
+  !*** ./js/admin/columns/initiator.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Initiator =
+/*#__PURE__*/
+function () {
+  function Initiator() {
+    _classCallCheck(this, Initiator);
+
+    this.events = {};
+    this.settings = {};
+    this.incremental_name = 0;
+  }
+
+  _createClass(Initiator, [{
+    key: "registerSetting",
+    value: function registerSetting(k, setting) {
+      var key = 's_' + k;
+
+      if (this.settings[key]) {
+        console.error('Setting key already exists: ' + k);
+      }
+
+      this.settings[key] = setting;
+      return this;
+    }
+  }, {
+    key: "registerEvent",
+    value: function registerEvent(k, event) {
+      var key = 'e_' + k;
+
+      if (this.settings[key]) {
+        console.error('Event key already exists: ' + key);
+      }
+
+      this.events[key] = event;
+      return this;
+    }
+  }, {
+    key: "getNewIncementalName",
+    value: function getNewIncementalName() {
+      var oldName = this.incremental_name;
+      this.incremental_name++;
+      return oldName;
+    }
+  }]);
+
+  return Initiator;
+}();
+
+module.exports = Initiator;
+
+/***/ }),
+
+/***/ "./js/admin/columns/menu.js":
+/*!**********************************!*\
+  !*** ./js/admin/columns/menu.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Menu =
+/*#__PURE__*/
+function () {
+  function Menu() {
+    _classCallCheck(this, Menu);
+  }
+
+  _createClass(Menu, [{
+    key: "init",
+    value: function init() {
+      var $ = jQuery;
+      $('#ac_list_screen').on('change', function () {
+        $('.view-link').hide();
+        $(this).parents('form').submit();
+        $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
+      });
+    }
+  }]);
+
+  return Menu;
+}();
+
+module.exports = Menu;
+
+/***/ }),
+
+/***/ "./js/admin/columns/modal.js":
+/*!***********************************!*\
+  !*** ./js/admin/columns/modal.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modal =
+/*#__PURE__*/
+function () {
+  function Modal() {
+    _classCallCheck(this, Modal);
+  }
+
+  _createClass(Modal, [{
+    key: "init",
+    value: function init() {
+      $(document).on('click', '[data-ac-open-modal]', function (e) {
+        e.preventDefault();
+        $($(this).data('ac-open-modal')).addClass('-active');
+      });
+      $('.ac-modal__dialog__close').on('click', function (e) {
+        e.preventDefault();
+        $(this).closest('.ac-modal').removeClass('-active');
+      });
+      $('.ac-modal').on('click', function (e) {
+        $(this).removeClass('-active');
+      }); // Prevent bubbling
+
+      $('.ac-modal__dialog').on('click', function (e) {
+        e.stopPropagation();
+      });
+      $(document).keyup(function (e) {
+        if (e.keyCode === 27) {
+          $('.ac-modal').removeClass('-active');
+        }
+      });
+    }
+  }]);
+
+  return Modal;
+}();
+
+module.exports = Modal;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/date.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/settings/date.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var date = function date(column) {
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--date');
+  $setting.each(function () {
+    var $container = $(this); // Custom input
+
+    var $radio_custom = $container.find('input.custom');
+    var $input_custom = $container.find('.ac-setting-input-date__custom');
+    var $input_value = $container.find('.ac-setting-input-date__value');
+    var $example_custom = $container.find('.ac-setting-input-date__example');
+    var $selected = $container.find('input[type=radio]:checked');
+    var $help_msg = $container.find('.help-msg'); // Click Event
+
+    $container.find('input[type=radio]').on('change', function () {
+      var $input = $(this);
+      var $input_container = $input.closest('label');
+      var date_format = $input_container.find('code').text();
+      var description = $input_container.find('.ac-setting-input-date__more').html();
+
+      if (date_format) {
+        $input_custom.val(date_format).trigger('change');
+      }
+
+      if ($input.hasClass('diff')) {
+        $input_custom.val('');
+        $example_custom.text('');
+      }
+
+      $input_custom.prop('disabled', true); // Custom input selected
+
+      if ($input.hasClass('custom')) {
+        $input.val($input_custom.val());
+        $input_custom.prop('disabled', false);
+        $help_msg.show();
+      } // Show more description
+
+
+      $help_msg.hide();
+
+      if (description) {
+        $help_msg.html(description).show();
+      }
+
+      $input_value.val($input.val());
+    }); // Custom input
+
+    $input_custom.on('change', function () {
+      $example_custom.html('<span class="spinner is-active"></span>');
+      $radio_custom.val($input_custom.val());
+      var $custom_value = $(this).val();
+
+      if (!$custom_value) {
+        $example_custom.text('');
+        return;
+      }
+
+      $.ajax({
+        url: ajaxurl,
+        method: 'post',
+        data: {
+          action: 'date_format',
+          date: $custom_value
+        }
+      }).done(function (date) {
+        $example_custom.text(date);
+      });
+      $input_value.val($custom_value);
+    }); // Update date example box
+
+    $selected.trigger('change'); // Select custom input as a default
+
+    if (0 === $selected.length) {
+      $radio_custom.trigger('click');
+    }
+  });
+};
+
+module.exports = date;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/image-size.js":
+/*!*************************************************!*\
+  !*** ./js/admin/columns/settings/image-size.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var image = function image(column) {
+  function initState($setting, $select) {
+    if ('cpac-custom' === $select.val()) {
+      $setting.find('.ac-column-setting').show();
+    } else {
+      $setting.find('.ac-column-setting').hide();
+    }
+  }
+
+  column.$el.find('.ac-column-setting--image').each(function () {
+    var $setting = $(this);
+    var $select = $(this).find('.ac-setting-input select');
+    initState($setting, $select);
+    $select.on('change', function () {
+      initState($setting, $(this));
+    });
+  });
+};
+
+module.exports = image;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/pro.js":
+/*!******************************************!*\
+  !*** ./js/admin/columns/settings/pro.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var pro = function pro(column) {
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--pro');
+  $setting.each(function () {
+    var $container = jQuery(this);
+    $container.find('input').on('click', function (e) {
+      e.preventDefault();
+      $container.find('[data-ac-open-modal]').trigger('click');
+    });
+  });
+};
+
+module.exports = pro;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/sub-setting-toggle.js":
+/*!*********************************************************!*\
+  !*** ./js/admin/columns/settings/sub-setting-toggle.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var subsetting = function subsetting(column) {
+  var settings = {
+    value_show: "on",
+    subfield: '.ac-column-setting'
+  };
+
+  function initState($setting, $input) {
+    var value = $input.filter(':checked').val();
+    var $subfields = $setting.find(settings.subfield);
+
+    if (settings.value_show === value) {
+      $subfields.show();
+    } else {
+      $subfields.hide();
+    }
+  }
+
+  var $column = column.$el;
+  var $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
+  $settings.each(function () {
+    var $setting = $(this);
+    var $input = $(this).find('.ac-setting-input input[type="radio"]');
+    initState($setting, $input);
+    $input.on('change', function () {
+      initState($setting, $input);
+    });
+  });
+};
+
+module.exports = subsetting;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/width.js":
+/*!********************************************!*\
+  !*** ./js/admin/columns/settings/width.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Settings fields: Width
+jQuery.fn.column_width_slider = function () {
+  var $column_width = $(this).find('.ac-setting-input-width');
+  var input_width = $column_width.find('.description input'),
+      input_unit = $column_width.find('.unit-select input'),
+      unit = input_unit.filter(':checked').val(),
+      width = input_width.val(),
+      slider = $column_width.find('.width-slider'),
+      indicator = $(this).find('.ac-column-header .ac-column-heading-setting--width'); // width
+
+  if ('%' === unit && width > 100) {
+    width = 100;
+  }
+
+  input_width.val(width);
+  slider.slider({
+    range: 'min',
+    min: 0,
+    max: '%' === unit ? 100 : 500,
+    value: width,
+    slide: function slide(event, ui) {
+      input_width.val(ui.value);
+      indicator.trigger('update');
+      input_width.trigger('validate');
+    }
+  });
+};
+
+var width = function width(column) {
+  var $column = column.$el;
+  $column.find('.ac-column-setting--width').each(function () {
+    $column.column_width_slider(); // indicator
+
+    var $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
+    $width_indicator.on('update', function () {
+      var _width = $column.find('.ac-setting-input-width .description input').val();
+
+      var _unit = $column.find('.ac-setting-input-width .description .unit').text();
+
+      if (_width > 0) {
+        $(this).text(_width + _unit);
+      } else {
+        $(this).text('');
+      }
+    }); // unit selector
+
+    var width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
+    width_unit_select.on('click', function () {
+      $column.find('span.unit').text($(this).find('input').val());
+      $column.column_width_slider(); // re-init slider
+
+      $width_indicator.trigger('update'); // update indicator
+    }); // width_input
+
+    var width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
+      $column.column_width_slider(); // re-init slider
+
+      $(this).trigger('validate'); // validate input
+
+      $width_indicator.trigger('update'); // update indicator
+    }) // width_input:validate
+    .on('validate', function () {
+      var _width = width_input.val();
+
+      var _new_width = $.trim(_width);
+
+      if (!$.isNumeric(_new_width)) {
+        _new_width = _new_width.replace(/\D/g, '');
+      }
+
+      if (_new_width.length > 3) {
+        _new_width = _new_width.substring(0, 3);
+      }
+
+      if (_new_width <= 0) {
+        _new_width = '';
+      }
+
+      if (_new_width !== _width) {
+        width_input.val(_new_width);
+      }
+    });
+  });
+};
+
+module.exports = width;
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=admin-page-columns.js.map
