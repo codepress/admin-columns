@@ -1,12 +1,6 @@
 let label = function( column ) {
 	let $column = column.$el;
 
-	/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-	let column_label = $column.find( '.column_label .toggle' );
-	if ( jQuery.trim( column_label.html() ) && column_label.width() < 1 ) {
-		column_label.html( $column.find( '.column_type .inner' ).html() );
-	}
-
 	/**
 	 * Populates the main Label with the selected label from the dropdown,
 	 */
@@ -19,6 +13,14 @@ let label = function( column ) {
 		$label.trigger( 'change' );
 	} );
 
+	/** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
+	setTimeout( function() {
+		let column_label = $column.find( '.column_label .toggle' );
+
+		if ( jQuery.trim( column_label.html() ) && column_label.width() < 1 ) {
+			column_label.html( $column.find( '.column_type .inner' ).html() );
+		}
+	}, 50 );
 };
 
 let settingLabel = function( column ) {
