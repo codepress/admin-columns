@@ -5,7 +5,6 @@ jQuery( document ).ready( function( $ ) {
 
 	ac_pointer( $ );
 	ac_help( $ );
-
 } );
 
 /*
@@ -16,21 +15,21 @@ function ac_pointer( $ ) {
 
 	$( '.ac-pointer' ).each( function() {
 		// vars
-		var el = $( this ),
+		let el = $( this ),
 			html = el.attr( 'rel' ),
 			pos = el.attr( 'data-pos' ),
 			w = el.attr( 'data-width' ),
 			noclick = el.attr( 'data-noclick' );
 
-		var position = {
+		let position = {
 			at : 'left top',		// position of wp-pointer relative to the element which triggers the pointer event
 			my : 'right top',	// position of wp-pointer relative to the at-coordinates
 			edge : 'right',		// position of arrow
 		};
 
-		var width = w ? w : 250;
+		let width = w ? w : 250;
 
-		if ( 'right' == pos ) {
+		if ( 'right' === pos ) {
 			position = {
 				at : 'right middle',
 				my : 'left middle',
@@ -38,7 +37,7 @@ function ac_pointer( $ ) {
 			};
 		}
 
-		if ( 'left' == pos ) {
+		if ( 'left' === pos ) {
 			position = {
 				at : 'left middle',
 				my : 'right middle',
@@ -53,7 +52,7 @@ function ac_pointer( $ ) {
 			pointerWidth : width,
 			// bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
 			// into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-			pointerClass : 'ac-wp-pointer wp-pointer wp-pointer-' + position.edge + ( noclick ? ' noclick' : '' )
+			pointerClass : 'ac-wp-pointer wp-pointer wp-pointer-' + position.edge + (noclick ? ' noclick' : '')
 		} );
 
 		// click
@@ -72,7 +71,7 @@ function ac_pointer( $ ) {
 		el.hover( function() {
 			$( this ).pointer( 'open' );
 		}, function() {
-			var el = $( this );
+			let el = $( this );
 			setTimeout( function() {
 				if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length == 0 ) {
 					el.pointer( 'close' );
@@ -104,7 +103,7 @@ function ac_help( $ ) {
 	$( 'a.help' ).click( function( e ) {
 		e.preventDefault();
 
-		var panel = $( '#contextual-help-wrap' );
+		let panel = $( '#contextual-help-wrap' );
 
 		panel.parent().show();
 		$( 'a[href="#tab-panel-cpac-' + $( this ).attr( 'data-help' ) + '"]', panel ).trigger( 'click' );
