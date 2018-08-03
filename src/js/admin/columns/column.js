@@ -2,6 +2,8 @@ class Column {
 
 	constructor( $el ) {
 		this.$el = $el;
+		this.el = $el[ 0 ];
+		this.settings = [];
 
 		this._type = this.$el.data( 'type' );
 	}
@@ -79,16 +81,22 @@ class Column {
 			}
 		} );
 
+		this.bindSettings();
+
+		$( document ).trigger( 'AC.initSettings', this.$el );
+
+		return this;
+	}
+
+	bindSettings() {
+		let column = this;
+
 		Object.keys( AC.Column.settings ).forEach( function( key ) {
 			if ( !column.isBound( key ) ) {
 				AC.Column.settings[ key ]( column );
 				column.bind( key );
 			}
 		} );
-
-		$( document ).trigger( 'AC.initSettings', this.$el );
-
-		return this;
 	}
 
 	isBound( key ) {
@@ -112,11 +120,19 @@ class Column {
 	}
 
 	toggle( duration = 150 ) {
-		this.$el.toggleClass( 'opened' ).find( '.ac-column-body' ).slideToggle( duration );
+		if ( this.$el.hasClass( 'opened' ) ) {
+			this.close( duration );
+		} else {
+			this.open( duration );
+		}
 	}
 
-	open() {
-		this.$el.addClass( 'opened' ).find( '.ac-column-body' ).show();
+	close( duration = 150 ) {
+		this.$el.removeClass( 'opened' ).find( '.ac-column-body' ).slideUp( duration );
+	}
+
+	open( duration = 150 ) {
+		this.$el.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( duration );
 	}
 
 	showMessage( message ) {

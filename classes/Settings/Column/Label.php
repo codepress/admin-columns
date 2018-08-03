@@ -12,11 +12,6 @@ class Label extends Settings\Column {
 	 */
 	private $label;
 
-	/**
-	 * @var string
-	 */
-	private $label_type;
-
 	protected function define_options() {
 		return array(
 			'label'      => $this->column->get_label(),
@@ -30,17 +25,10 @@ class Label extends Settings\Column {
 			->create_element( 'text' )
 			->set_attribute( 'placeholder', $this->column->get_label() );
 
-
-		$type = new View( array(
-			'setting' => $this->create_element( 'text', 'label_type' ),
-			'label'   => __( 'Type', 'codepress-admin-columns' ),
-		) );
-
 		$view = new View( array(
-			'label'    => __( 'Label', 'codepress-admin-columns' ),
-			'tooltip'  => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
-			'setting'  => $setting,
-			'sections' => array( $type ),
+			'label'   => __( 'Label', 'codepress-admin-columns' ),
+			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
+			'setting' => $setting,
 		) );
 
 		$view->set_template( 'settings/setting-label' );
@@ -90,17 +78,4 @@ class Label extends Settings\Column {
 		return $this->convert_site_url( $this->label );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_label_type() {
-		return $this->label_type;
-	}
-
-	/**
-	 * @param string $label_type
-	 */
-	public function set_label_type( $label_type ) {
-		$this->label_type = $label_type;
-	}
 }

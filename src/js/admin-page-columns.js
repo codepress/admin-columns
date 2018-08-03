@@ -27,6 +27,7 @@ import SettingSubSettingToggle from './admin/columns/settings/sub-setting-toggle
 import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
+import SettingLabel from './admin/columns/settings/label';
 
 let jQuery = $ = require( 'jquery' );
 
@@ -50,7 +51,8 @@ jQuery( document ).on( 'AC.Form.loaded', function() {
 		.registerSetting( 'image_size', SettingImageSize )
 		.registerSetting( 'pro', SettingPro )
 		.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle )
-		.registerSetting( 'width', SettingWidth );
+		.registerSetting( 'width', SettingWidth )
+		.registerSetting( 'label', SettingLabel );
 } );
 
 jQuery( document ).ready( function() {

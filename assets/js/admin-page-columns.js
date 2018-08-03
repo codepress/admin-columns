@@ -132,6 +132,8 @@ var _pro = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settin
 
 var _width = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/width */ "./js/admin/columns/settings/width.js"));
 
+var _label2 = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/label */ "./js/admin/columns/settings/label.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -152,7 +154,7 @@ jQuery(document).on('AC.Form.loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
@@ -186,6 +188,8 @@ function () {
     _classCallCheck(this, Column);
 
     this.$el = $el;
+    this.el = $el[0];
+    this.settings = [];
     this._type = this.$el.data('type');
   }
 
@@ -243,14 +247,20 @@ function () {
           column.bind(key);
         }
       });
+      this.bindSettings();
+      $(document).trigger('AC.initSettings', this.$el);
+      return this;
+    }
+  }, {
+    key: "bindSettings",
+    value: function bindSettings() {
+      var column = this;
       Object.keys(AC.Column.settings).forEach(function (key) {
         if (!column.isBound(key)) {
           AC.Column.settings[key](column);
           column.bind(key);
         }
       });
-      $(document).trigger('AC.initSettings', this.$el);
-      return this;
     }
   }, {
     key: "isBound",
@@ -283,12 +293,24 @@ function () {
     key: "toggle",
     value: function toggle() {
       var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
-      this.$el.toggleClass('opened').find('.ac-column-body').slideToggle(duration);
+
+      if (this.$el.hasClass('opened')) {
+        this.close(duration);
+      } else {
+        this.open(duration);
+      }
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
+      this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
     }
   }, {
     key: "open",
     value: function open() {
-      this.$el.addClass('opened').find('.ac-column-body').show();
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
+      this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
     }
   }, {
     key: "showMessage",
@@ -1225,8 +1247,70 @@ module.exports = date;
 "use strict";
 
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Image =
+/*#__PURE__*/
+function () {
+  function Image(column) {
+    _classCallCheck(this, Image);
+
+    this.column = column;
+    this.setting = column.el.querySelector('.ac-column-setting--image');
+
+    if (!this.setting) {
+      return;
+    }
+
+    this.field = this.setting.querySelector('.ac-setting-input select');
+    console.log(this);
+    this.initState();
+    this.bindEvents();
+  }
+
+  _createClass(Image, [{
+    key: "getValue",
+    value: function getValue() {
+      return this.field.value;
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var self = this;
+      this.field.addEventListener('change', function (e) {
+        console.log(self.getValue());
+      });
+    }
+  }, {
+    key: "initState",
+    value: function initState() {
+      var subsetting = this.setting.querySelector('.ac-column-setting');
+
+      if (!subsetting) {
+        return;
+      }
+
+      if ('cpac-custom' === this.getValue()) {
+        subsetting.style.display = 'table';
+      } else {
+        subsetting.style.display = 'none';
+      }
+    }
+  }]);
+
+  return Image;
+}();
+
 var image = function image(column) {
-  function initState($setting, $select) {
+  column.settings.image = new Image(column);
+};
+
+var image2 = function image2(column) {
+  function initState($select) {
     if ('cpac-custom' === $select.val()) {
       $setting.find('.ac-column-setting').show();
     } else {
@@ -1245,6 +1329,148 @@ var image = function image(column) {
 };
 
 module.exports = image;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/label.js":
+/*!********************************************!*\
+  !*** ./js/admin/columns/settings/label.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Label =
+/*#__PURE__*/
+function () {
+  function Label(column) {
+    _classCallCheck(this, Label);
+
+    this.column = column;
+    this.setting = column.el.querySelector('.ac-column-setting--label');
+    this.iconpicker = this.setting.querySelector('.acp-ipicker');
+    this._dashicon = false;
+    this.field = this.setting.querySelector('.ac-setting-input_label');
+    this.initValue();
+    this.bindEvents();
+  }
+
+  _createClass(Label, [{
+    key: "initValue",
+    value: function initValue() {
+      var self = this;
+      var html = document.createRange().createContextualFragment(this.getValue());
+      var dashicon = html.querySelector('.dashicons');
+
+      if (dashicon) {
+        var classList = dashicon.classList;
+        classList.forEach(function (cls) {
+          if (cls.indexOf('dashicons-') !== -1) {
+            var selector = '.' + cls;
+            var icon = self.iconpicker.querySelector(selector);
+
+            if (icon) {
+              icon.parentElement.classList.add('active');
+              self.setIconSelection(icon.parentElement.dataset.dashicon);
+            }
+          }
+        });
+      }
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var self = this;
+      this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
+        e.preventDefault();
+        self.showIconSelector();
+      });
+      this.setting.querySelector('.acp-ipicker__handles [data-action="cancel"]').addEventListener('click', function (e) {
+        e.preventDefault();
+        self.hideIconSelector();
+      });
+      this.setting.querySelector('.acp-ipicker__handles [data-action="submit"]').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (self.getIconSelection()) {
+          self.setDashicon(self.getIconSelection());
+        }
+
+        self.hideIconSelector();
+      });
+      var icons = this.iconpicker.querySelectorAll('.acp-ipicker__icon');
+      icons.forEach(function (icon) {
+        icon.addEventListener('click', function (e) {
+          e.preventDefault();
+          var dashicon = this.dataset.dashicon;
+
+          if (dashicon) {
+            self.setIconSelection(dashicon);
+          }
+
+          var icons = self.setting.querySelectorAll('.acp-ipicker__icon');
+          icons.forEach(function (icon) {
+            icon.classList.remove('active');
+          });
+          icon.classList.add('active');
+        });
+      });
+    }
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      return this.field.value;
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(value) {
+      this.field.value = value;
+      var event = new Event('change');
+      this.field.dispatchEvent(event);
+    }
+  }, {
+    key: "showIconSelector",
+    value: function showIconSelector() {
+      this.iconpicker.style.display = 'flex';
+    }
+  }, {
+    key: "hideIconSelector",
+    value: function hideIconSelector() {
+      this.iconpicker.style.display = 'none';
+    }
+  }, {
+    key: "setIconSelection",
+    value: function setIconSelection(dashicon) {
+      this._dashicon = dashicon;
+    }
+  }, {
+    key: "getIconSelection",
+    value: function getIconSelection() {
+      return this._dashicon;
+    }
+  }, {
+    key: "setDashicon",
+    value: function setDashicon(dashicon) {
+      this.setValue("<span class=\"dashicons dashicons-".concat(dashicon, "\"></span>"));
+    }
+  }]);
+
+  return Label;
+}();
+
+var label = function label(column) {
+  column.settings.label = new Label(column);
+};
+
+module.exports = label;
 
 /***/ }),
 
