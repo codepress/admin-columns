@@ -65,7 +65,7 @@ class AdminColumns extends Plugin {
 
 		// Init
 		$this->addons = new Admin\Addons();
-		$this->table_screen = new Table\Screen();
+
 		$this->api = new API();
 
 		$this->admin = new Admin();
@@ -74,11 +74,78 @@ class AdminColumns extends Plugin {
 		$screen = new Screen();
 		$screen->register();
 
+		$screen = new Screen\QuickEdit();
+		$screen->register();
+
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'plugins_loaded', array( $this, 'localize' ) );
+
+		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
+		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
+		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
+	}
+
+	/**
+	 * @param Screen $screen
+	 */
+	public function init_table_on_screen( Screen $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * @param Screen\QuickEdit $screen
+	 */
+	public function init_table_on_quick_edit( Screen\QuickEdit $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * Get column value by ajax.
+	 */
+	public function table_ajax_value() {
+		check_ajax_referer( 'ac-ajax' );
+
+		// Get ID of entry to edit
+		$id = intval( filter_input( INPUT_POST, 'pk' ) );
+
+		if ( ! $id ) {
+			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+
+		if ( ! $list_screen ) {
+			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
+
+		if ( ! $column ) {
+			wp_die( __( 'Invalid column.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		if ( ! $column instanceof Column\AjaxValue ) {
+			wp_die( __( 'Invalid method.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		// Trigger ajax callback
+		echo $column->get_ajax_value( $id );
+		exit;
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 */
+	private function load_table( $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
+			return;
+		}
+
+		$this->table_screen = new Table\Screen( $list_screen );
+		$this->table_screen->register();
 	}
 
 	/**
@@ -113,7 +180,7 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.2.1';
+		return '3.2.4';
 	}
 
 	/**

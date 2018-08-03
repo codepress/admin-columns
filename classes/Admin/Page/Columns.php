@@ -719,12 +719,6 @@ class Columns extends Page {
 
 					<div class="column-footer">
 						<?php if ( ! $list_screen->is_read_only() ) : ?>
-							<div class="order-message">
-								<svg class="order-message__icon" width="18" height="18">
-									<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#arrow-left-top"/>
-								</svg>
-								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
-							</div>
 							<div class="button-container">
 								<?php
 

@@ -5,7 +5,7 @@ namespace AC\Helper;
 class Taxonomy {
 
 	/**
-	 * @param \WP_Term[]   $terms Term objects
+	 * @param \WP_Term[] $terms Term objects
 	 * @param null|string $post_type
 	 *
 	 * @return array
@@ -51,7 +51,7 @@ class Taxonomy {
 
 	/**
 	 * @param string $object_type post, page, user etc.
-	 * @param string $taxonomy    Taxonomy Name
+	 * @param string $taxonomy Taxonomy Name
 	 *
 	 * @return bool
 	 */
@@ -93,7 +93,7 @@ class Taxonomy {
 
 	/**
 	 * @param string $field
-	 * @param int    $term_id
+	 * @param int $term_id
 	 * @param string $taxonomy
 	 *
 	 * @since 3.0
@@ -113,7 +113,7 @@ class Taxonomy {
 	}
 
 	/**
-	 * @param int    $term_ids
+	 * @param int $term_ids
 	 * @param string $taxonomy
 	 *
 	 * @return \WP_Term[]
@@ -129,6 +129,23 @@ class Taxonomy {
 		}
 
 		return $terms;
+	}
+
+	public function get_taxonomy_label( $taxonomy, $key = 'name' ){
+		$label = $taxonomy;
+		$taxonomy_object = get_taxonomy( $taxonomy );
+
+		if( ! $taxonomy_object ){
+			return $label;
+		}
+
+		$labels = get_taxonomy_labels( $taxonomy_object );
+
+		if( property_exists( $labels, $key ) ){
+			$label = $labels->$key;
+		}
+
+		return $label;
 	}
 
 }

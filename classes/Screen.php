@@ -9,15 +9,6 @@ class Screen {
 	 */
 	protected $screen;
 
-	/**
-	 * @var bool
-	 */
-	protected $ready;
-
-	public function __construct() {
-		$this->ready = false;
-	}
-
 	public function register() {
 		add_action( 'current_screen', array( $this, 'init' ) );
 	}

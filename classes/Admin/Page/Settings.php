@@ -4,8 +4,8 @@ namespace AC\Admin\Page;
 
 use AC\Admin\Page;
 use AC\Capabilities;
-use AC\Message;
 use AC\ListScreen;
+use AC\Message;
 
 class Settings extends Page {
 
