@@ -2,6 +2,7 @@
 	<tr>
 		<td class="col-label">
 			<label for="<?php echo esc_attr( $this->for ); ?>">
+
 				<span class="label<?php echo esc_attr( $this->tooltip ? ' tooltip' : '' ); ?>">
 					<?php echo $this->label; ?>
 				</span>
@@ -11,6 +12,7 @@
 						<?php echo $this->tooltip; ?>
 					</div>
 				<?php endif; ?>
+
 			</label>
 		</td>
 		<td class="col-input">
@@ -18,7 +20,8 @@
 				<div class="ac-modal -setting -iconpicker">
 					<div class="ac-modal__dialog">
 						<div class="ac-modal__dialog__header">
-							Select Icon
+
+							<?php _e( 'Select Icon', 'codepress-admin-columns' ); ?>
 							<button class="ac-modal__dialog__close" data-dismiss="modal">
 								<span class="dashicons dashicons-no"></span>
 							</button>
@@ -44,22 +47,26 @@
 								'Notification'           => array( "yes", "no", "no-alt", "plus", "plus-alt", "minus", "dismiss", "marker", "star-filled", "star-half", "star-empty", "flag", "warning" ),
 								'Misc'                   => array( "location", "location-alt", "vault", "shield", "shield-alt", "sos", "search", "slides", "analytics", "chart-pie", "chart-bar", "chart-line", "chart-area", "groups", "businessman", "id", "id-alt", "products", "awards", "forms", "testimonial", "portfolio", "book", "book-alt", "download", "upload", "backup", "clock", "lightbulb", "microphone", "desktop", "laptop", "tablet", "smartphone", "phone", "index-card", "carrot", "building", "store", "album", "palmtree", "tickets-alt", "money", "smiley", "thumbs-up", "thumbs-down", "layout", "paperclip" ),
 							);
-
 							?>
+
 							<div class="ac-ipicker__icons">
 								<?php foreach ( $groups as $label => $icons ): ?>
 									<h3 class="ac-ipicker__icons__group"><?php echo $label; ?></h3>
+
 									<?php foreach ( $icons as $icon ): ?>
 										<div class="ac-ipicker__icon" data-dashicon="<?php echo $icon; ?>" tabindex="0">
 											<span class="dashicons dashicons-<?php echo $icon; ?>"></span>
 										</div>
 									<?php endforeach; ?>
+								
 								<?php endforeach; ?>
 							</div>
+
 						</div>
+
 						<div class="ac-modal__dialog__footer">
-							<div class="ac-ipicker__selection"><span class="dashicons dashicons-arrow-down"></span></div>
-							<button class="button button-primary" data-action="submit">Select</button>
+							<div class="ac-ipicker__selection"></div>
+							<button class="button button-primary" data-action="submit"><?php _e( 'Select' ); ?></button>
 						</div>
 
 					</div>

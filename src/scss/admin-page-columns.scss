@@ -1634,6 +1634,8 @@
 			.button {
 				display: inline-block;
 				vertical-align: middle;
+				padding-left: 30px;
+				padding-right: 30px;
 			}
 
 			.ac-ipicker__selection {
@@ -1643,14 +1645,15 @@
 				width: 68px;
 				height: 68px;
 				line-height: 58px;
-				background: $blue;
+				background: #E5E5E5;
+				margin-right: 15px;
+				color: #404040;
 
 				.dashicons {
 					width: 68px;
 					height: 68px;
 					line-height: 68px;
 					font-size: 30px;
-					background: #E5E5E5;
 				}
 			}
 		}
