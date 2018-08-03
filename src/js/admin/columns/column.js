@@ -127,11 +127,11 @@ class Column {
 		}
 	}
 
-	close( duration = 150 ) {
+	close( duration = 0 ) {
 		this.$el.removeClass( 'opened' ).find( '.ac-column-body' ).slideUp( duration );
 	}
 
-	open( duration = 150 ) {
+	open( duration = 0 ) {
 		this.$el.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( duration );
 	}
 

@@ -303,13 +303,13 @@ function () {
   }, {
     key: "close",
     value: function close() {
-      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
     }
   }, {
     key: "open",
     value: function open() {
-      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
     }
   }, {
@@ -1267,7 +1267,6 @@ function () {
     }
 
     this.field = this.setting.querySelector('.ac-setting-input select');
-    console.log(this);
     this.initState();
     this.bindEvents();
   }
@@ -1282,23 +1281,69 @@ function () {
     value: function bindEvents() {
       var self = this;
       this.field.addEventListener('change', function (e) {
-        console.log(self.getValue());
+        self.initState();
       });
     }
   }, {
     key: "initState",
     value: function initState() {
-      var subsetting = this.setting.querySelector('.ac-column-setting');
-
-      if (!subsetting) {
-        return;
-      }
-
       if ('cpac-custom' === this.getValue()) {
-        subsetting.style.display = 'table';
+        this.showSubsettings();
       } else {
-        subsetting.style.display = 'none';
+        this.hideSubsettings();
       }
+    }
+  }, {
+    key: "hideSubsettings",
+    value: function hideSubsettings() {
+      var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+      subsetting.forEach(function (setting) {
+        setting.style.display = 'none';
+      });
+    }
+  }, {
+    key: "showSubsettings",
+    value: function showSubsettings() {
+      var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+      subsetting.forEach(function (setting) {
+        setting.style.display = 'table';
+      });
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(value) {
+      this.field.value = value;
+      this.trigger(this.field, 'change');
+      return this;
+    }
+  }, {
+    key: "setWidth",
+    value: function setWidth(width) {
+      var field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
+      field.value = width;
+      this.trigger(field, 'change');
+      return this;
+    }
+  }, {
+    key: "setHeight",
+    value: function setHeight(height) {
+      var field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
+      field.value = height;
+      this.trigger(field, 'change');
+      return this;
+    }
+  }, {
+    key: "setSize",
+    value: function setSize(width, height) {
+      this.setWidth(width);
+      this.setHeight(height);
+      return this;
+    }
+  }, {
+    key: "trigger",
+    value: function trigger(el, event) {
+      el.dispatchEvent(new Event(event));
+      return this;
     }
   }]);
 
@@ -1307,25 +1352,6 @@ function () {
 
 var image = function image(column) {
   column.settings.image = new Image(column);
-};
-
-var image2 = function image2(column) {
-  function initState($select) {
-    if ('cpac-custom' === $select.val()) {
-      $setting.find('.ac-column-setting').show();
-    } else {
-      $setting.find('.ac-column-setting').hide();
-    }
-  }
-
-  column.$el.find('.ac-column-setting--image').each(function () {
-    var $setting = $(this);
-    var $select = $(this).find('.ac-setting-input select');
-    initState($setting, $select);
-    $select.on('change', function () {
-      initState($setting, $(this));
-    });
-  });
 };
 
 module.exports = image;

@@ -4,13 +4,11 @@ class Image {
 		this.column = column;
 		this.setting = column.el.querySelector( '.ac-column-setting--image' );
 
-		if ( ! this.setting ) {
+		if ( !this.setting ) {
 			return;
 		}
 
 		this.field = this.setting.querySelector( '.ac-setting-input select' );
-
-		console.log( this );
 
 		this.initState();
 		this.bindEvents();
@@ -22,49 +20,78 @@ class Image {
 
 	bindEvents() {
 		let self = this;
+
 		this.field.addEventListener( 'change', function( e ) {
-			console.log( self.getValue() );
+			self.initState();
 		} );
 	}
 
 	initState() {
-		let subsetting = this.setting.querySelector( '.ac-column-setting' );
-
-		if( ! subsetting ){
-			return;
-		}
-
 		if ( 'cpac-custom' === this.getValue() ) {
-			subsetting.style.display = 'table';
+			this.showSubsettings();
 		} else {
-			subsetting.style.display = 'none';
+			this.hideSubsettings();
 		}
 	}
+
+	hideSubsettings() {
+		let subsetting = this.setting.querySelectorAll( '.ac-column-setting' );
+		subsetting.forEach( setting => {
+			setting.style.display = 'none';
+		} );
+
+	}
+
+	showSubsettings() {
+		let subsetting = this.setting.querySelectorAll( '.ac-column-setting' );
+		subsetting.forEach( setting => {
+			setting.style.display = 'table';
+		} );
+	}
+
+	setValue( value ) {
+		this.field.value = value;
+
+		this.trigger( this.field, 'change' );
+
+		return this;
+	}
+
+	setWidth( width ) {
+		let field = this.setting.querySelector( '.ac-column-setting [name*="image_size_w"]' );
+
+		field.value = width;
+		this.trigger( field, 'change' );
+
+		return this;
+	}
+
+	setHeight( height ) {
+		let field = this.setting.querySelector( '.ac-column-setting [name*="image_size_h"]' );
+		field.value = height;
+
+		this.trigger( field, 'change' );
+
+		return this;
+	}
+
+	setSize( width, height ) {
+		this.setWidth( width );
+		this.setHeight( height );
+
+		return this;
+	}
+
+	trigger( el, event ) {
+		el.dispatchEvent( new Event( event ) );
+
+		return this;
+	}
+
 }
 
 let image = function( column ) {
 	column.settings.image = new Image( column );
-};
-
-let image2 = function( column ) {
-	function initState(  $select ) {
-		if ( 'cpac-custom' === $select.val() ) {
-			$setting.find( '.ac-column-setting' ).show();
-		} else {
-			$setting.find( '.ac-column-setting' ).hide();
-		}
-	}
-
-	column.$el.find( '.ac-column-setting--image' ).each( function() {
-		let $setting = $( this );
-		let $select = $( this ).find( '.ac-setting-input select' );
-
-		initState( $setting, $select );
-		$select.on( 'change', function() {
-			initState( $setting, $( this ) );
-		} );
-
-	} );
 };
 
 module.exports = image;
