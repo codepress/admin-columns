@@ -158,7 +158,7 @@ jQuery(document).on('AC.Form.loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
-  new _modal.default().init();
+  new _modal.default(document.querySelector('#ac-modal-pro'));
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
 });
@@ -1109,33 +1109,89 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Modal =
 /*#__PURE__*/
 function () {
-  function Modal() {
+  function Modal(el) {
     _classCallCheck(this, Modal);
+
+    this.el = el;
+    this.dialog = el.querySelector('.ac-modal__dialog');
+    this.initEvents();
   }
 
   _createClass(Modal, [{
-    key: "init",
-    value: function init() {
-      $(document).on('click', '[data-ac-open-modal]', function (e) {
-        e.preventDefault();
-        $($(this).data('ac-open-modal')).addClass('-active');
-      });
-      $('.ac-modal__dialog__close').on('click', function (e) {
-        e.preventDefault();
-        $(this).closest('.ac-modal').removeClass('-active');
-      });
-      $('.ac-modal').on('click', function (e) {
-        $(this).removeClass('-active');
-      }); // Prevent bubbling
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
 
-      $('.ac-modal__dialog').on('click', function (e) {
-        e.stopPropagation();
-      });
-      $(document).keyup(function (e) {
-        if (e.keyCode === 27) {
-          $('.ac-modal').removeClass('-active');
+      var self = this;
+      document.addEventListener('keydown', function (e) {
+        var keyName = event.key;
+
+        if (!_this.isOpen()) {
+          return;
+        }
+
+        if ('Escape' === keyName) {
+          _this.close();
         }
       });
+      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"]');
+
+      if (dismissButtons.length > 0) {
+        dismissButtons.forEach(function (b) {
+          b.addEventListener('click', function (e) {
+            e.preventDefault();
+            self.close();
+          });
+        });
+      }
+
+      this.el.addEventListener('click', function () {
+        self.close();
+      });
+      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
+        Modal.initGlobalEvents();
+        document.querySelector('body').dataset.ac_modal_init = 1;
+      }
+
+      this.el.AC_MODAL = self;
+    }
+  }, {
+    key: "isOpen",
+    value: function isOpen() {
+      return this.el.classList.contains('-active');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.el.classList.remove('-active');
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.el.classList.add('-active');
+    }
+  }], [{
+    key: "initGlobalEvents",
+    value: function initGlobalEvents() {
+      var buttons = document.querySelectorAll('[data-ac-open-modal]');
+
+      if (buttons.length) {
+        buttons.forEach(function (button) {
+          button.addEventListener('click', function (e) {
+            var target = e.target.dataset.acOpenModal;
+            var el = document.querySelector(target);
+
+            if (el && el.AC_MODAL) {
+              el.AC_MODAL.open();
+            }
+          });
+        });
+      } //document.addEventListener( 'click' )
+
     }
   }]);
 
@@ -1368,6 +1424,10 @@ module.exports = image;
 "use strict";
 
 
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./../modal */ "./js/admin/columns/modal.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1382,7 +1442,8 @@ function () {
 
     this.column = column;
     this.setting = column.el.querySelector('.ac-column-setting--label');
-    this.iconpicker = this.setting.querySelector('.acp-ipicker');
+    this.iconpicker = this.setting.querySelector('.-iconpicker');
+    this.modal = new _modal.default(this.setting.querySelector('.-iconpicker'));
     this._dashicon = false;
     this.field = this.setting.querySelector('.ac-setting-input_label');
     this.initValue();
@@ -1417,22 +1478,18 @@ function () {
       var self = this;
       this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
         e.preventDefault();
-        self.showIconSelector();
+        self.modal.open();
       });
-      this.setting.querySelector('.acp-ipicker__handles [data-action="cancel"]').addEventListener('click', function (e) {
-        e.preventDefault();
-        self.hideIconSelector();
-      });
-      this.setting.querySelector('.acp-ipicker__handles [data-action="submit"]').addEventListener('click', function (e) {
+      this.setting.querySelector('[data-action="submit"]').addEventListener('click', function (e) {
         e.preventDefault();
 
         if (self.getIconSelection()) {
           self.setDashicon(self.getIconSelection());
         }
 
-        self.hideIconSelector();
+        self.modal.close();
       });
-      var icons = this.iconpicker.querySelectorAll('.acp-ipicker__icon');
+      var icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
       icons.forEach(function (icon) {
         icon.addEventListener('click', function (e) {
           e.preventDefault();
@@ -1442,7 +1499,7 @@ function () {
             self.setIconSelection(dashicon);
           }
 
-          var icons = self.setting.querySelectorAll('.acp-ipicker__icon');
+          var icons = self.setting.querySelectorAll('.ac-ipicker__icon');
           icons.forEach(function (icon) {
             icon.classList.remove('active');
           });
@@ -1463,19 +1520,10 @@ function () {
       this.field.dispatchEvent(event);
     }
   }, {
-    key: "showIconSelector",
-    value: function showIconSelector() {
-      this.iconpicker.style.display = 'flex';
-    }
-  }, {
-    key: "hideIconSelector",
-    value: function hideIconSelector() {
-      this.iconpicker.style.display = 'none';
-    }
-  }, {
     key: "setIconSelection",
     value: function setIconSelection(dashicon) {
       this._dashicon = dashicon;
+      this.setting.querySelector('.ac-ipicker__selection').innerHTML = "<span class=\"dashicons dashicons-".concat(dashicon, "\"></span>");
     }
   }, {
     key: "getIconSelection",

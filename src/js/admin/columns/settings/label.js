@@ -1,9 +1,13 @@
+import Modal from "./../modal";
+
 class Label {
 	constructor( column ) {
 		this.column = column;
 
 		this.setting = column.el.querySelector( '.ac-column-setting--label' );
-		this.iconpicker = this.setting.querySelector( '.acp-ipicker' );
+		this.iconpicker = this.setting.querySelector( '.-iconpicker' );
+
+		this.modal = new Modal( this.setting.querySelector( '.-iconpicker' ) );
 		this._dashicon = false;
 		this.field = this.setting.querySelector( '.ac-setting-input_label' );
 
@@ -39,25 +43,20 @@ class Label {
 
 		this.setting.querySelector( '.ac-setting-label-icon' ).addEventListener( 'click', function( e ) {
 			e.preventDefault();
-			self.showIconSelector();
+			self.modal.open();
 		} );
 
-		this.setting.querySelector( '.acp-ipicker__handles [data-action="cancel"]' ).addEventListener( 'click', function( e ) {
-			e.preventDefault();
-			self.hideIconSelector();
-		} );
-
-		this.setting.querySelector( '.acp-ipicker__handles [data-action="submit"]' ).addEventListener( 'click', function( e ) {
+		this.setting.querySelector( '[data-action="submit"]' ).addEventListener( 'click', function( e ) {
 
 			e.preventDefault();
 			if ( self.getIconSelection() ) {
 				self.setDashicon( self.getIconSelection() );
 			}
 
-			self.hideIconSelector();
+			self.modal.close();
 		} );
 
-		let icons = this.iconpicker.querySelectorAll( '.acp-ipicker__icon' );
+		let icons = this.iconpicker.querySelectorAll( '.ac-ipicker__icon' );
 		icons.forEach( icon => {
 			icon.addEventListener( 'click', function( e ) {
 				e.preventDefault();
@@ -67,7 +66,7 @@ class Label {
 					self.setIconSelection( dashicon );
 				}
 
-				let icons = self.setting.querySelectorAll( '.acp-ipicker__icon' );
+				let icons = self.setting.querySelectorAll( '.ac-ipicker__icon' );
 				icons.forEach( icon => {
 					icon.classList.remove( 'active' );
 				} );
@@ -75,6 +74,7 @@ class Label {
 				icon.classList.add( 'active' );
 			} );
 		} );
+
 	}
 
 	getValue() {
@@ -88,16 +88,9 @@ class Label {
 		this.field.dispatchEvent( event );
 	}
 
-	showIconSelector() {
-		this.iconpicker.style.display = 'flex';
-	}
-
-	hideIconSelector() {
-		this.iconpicker.style.display = 'none';
-	}
-
 	setIconSelection( dashicon ) {
 		this._dashicon = dashicon;
+		this.setting.querySelector('.ac-ipicker__selection').innerHTML = `<span class="dashicons dashicons-${dashicon}"></span>`;
 	}
 
 	getIconSelection() {

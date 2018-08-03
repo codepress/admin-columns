@@ -906,11 +906,11 @@ class Columns extends Page {
 		}
 
 		?>
-		<div class="ac-modal" id="ac-modal-pro">
+		<div class="ac-modal -pro" id="ac-modal-pro">
 			<div class="ac-modal__dialog -mascot">
 				<div class="ac-modal__dialog__header">
 					<?php _e( 'Do you like Admin Columns?', 'codepress-admin-columns' ); ?>
-					<button class="ac-modal__dialog__close">
+					<button class="ac-modal__dialog__close" data-dismiss="modal">
 						<span class="dashicons dashicons-no"></span>
 					</button>
 				</div>

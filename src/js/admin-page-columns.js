@@ -58,7 +58,7 @@ jQuery( document ).on( 'AC.Form.loaded', function() {
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#cpac .ac-columns form' );
 
-	new Modal().init();
+	new Modal( document.querySelector( '#ac-modal-pro' ) );
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 } );
