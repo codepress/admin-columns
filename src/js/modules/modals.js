@@ -2,14 +2,16 @@ class Modals {
 
 	constructor() {
 		this.modals = [];
+		this.number = 1;
 	}
 
 	register( modal, key = '' ) {
 		if ( !key ) {
-			key = Math.random();
+			key = 'm' + this.number;
 		}
 
 		this.modals[ key ] = modal;
+		this.number++;
 	}
 
 	get( key ) {

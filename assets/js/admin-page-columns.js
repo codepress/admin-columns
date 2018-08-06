@@ -1608,6 +1608,7 @@ function () {
     _classCallCheck(this, Modals);
 
     this.modals = [];
+    this.number = 1;
   }
 
   _createClass(Modals, [{
@@ -1616,10 +1617,11 @@ function () {
       var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
       if (!key) {
-        key = Math.random();
+        key = 'm' + this.number;
       }
 
       this.modals[key] = modal;
+      this.number++;
     }
   }, {
     key: "get",
