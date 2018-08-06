@@ -2,7 +2,7 @@ class Image {
 
 	constructor( column ) {
 		this.column = column;
-		this.setting = column.el.querySelector( '.ac-column-setting--image' );
+		this.setting = column.$el[ 0 ].querySelector( '.ac-column-setting--image' );
 
 		if ( !this.setting ) {
 			return;
@@ -27,7 +27,6 @@ class Image {
 	}
 
 	initState() {
-		console.log('init');
 		if ( 'cpac-custom' === this.getValue() ) {
 			this.showSubsettings();
 		} else {

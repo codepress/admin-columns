@@ -33,7 +33,7 @@ let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator();
 
-jQuery( document ).on( 'AC.Form.loaded', function() {
+jQuery( document ).on( 'AC.form.loaded', function() {
 	/** Register Events **/
 	AC.Column
 		.registerEvent( 'toggle', EventToggle )
