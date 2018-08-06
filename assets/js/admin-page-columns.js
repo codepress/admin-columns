@@ -317,9 +317,11 @@ function () {
             var column = jQuery(response.data);
             self.$el.replaceWith(column);
             self.$el = column;
+            self._type = type;
             self.initNewInstance();
             self.bindEvents();
             self.open();
+            jQuery(document).trigger('AC.column.change', self);
           } else {
             self.showMessage(response.data.error);
           }
@@ -357,6 +359,7 @@ function () {
 
             self.bindEvents();
             self.open();
+            jQuery(document).trigger('AC.column.refresh', self);
           }
         }
       });
@@ -366,6 +369,7 @@ function () {
     value: function create() {
       this.initNewInstance();
       this.bindEvents();
+      jQuery(document).trigger('AC.column.create', self);
       return this;
     }
   }, {
@@ -947,7 +951,7 @@ function () {
       jQuery('html, body').animate({
         scrollTop: column.$el.offset().top - 58
       }, 300);
-      jQuery(document).trigger('column_add', column);
+      jQuery(document).trigger('AC.column.added', column);
       return column;
     }
   }]);
