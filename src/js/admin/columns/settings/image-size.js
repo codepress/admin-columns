@@ -27,6 +27,7 @@ class Image {
 	}
 
 	initState() {
+		console.log('init');
 		if ( 'cpac-custom' === this.getValue() ) {
 			this.showSubsettings();
 		} else {

@@ -161,6 +161,7 @@ class Column {
 
 					self.$el.replaceWith( column );
 					self.$el = column;
+					self.el = column[ 0 ];
 					self._type = type;
 					self.initNewInstance();
 					self.bindEvents();
@@ -205,7 +206,8 @@ class Column {
 
 					self.$el.replaceWith( column );
 					self.$el = column;
-					//self.initNewInstance();
+					self.el = column[ 0 ];
+
 					self.bindEvents();
 					self.open();
 
