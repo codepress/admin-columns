@@ -148,7 +148,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
 AC.Column = new _initiator.default();
-jQuery(document).on('AC.Form.loaded', function () {
+jQuery(document).on('AC.form.loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
@@ -623,14 +623,11 @@ module.exports = {
 var refresh = function refresh(column) {
   column.$el.find('[data-refresh="column"]').on('change', function () {
     // Allow plugins to hook into this event
-    $(document).trigger('pre_column_refresh', column.$el);
+    $(document).trigger('AC.column.prerefresh', column.$el);
     column.$el.addClass('loading');
     setTimeout(function () {
       column.refresh().always(function () {
         column.$el.removeClass('loading');
-        $(document).trigger('AC.columnRefresh', {
-          column: column
-        });
       });
     }, 200);
   });
@@ -797,7 +794,7 @@ function () {
     this.$form = jQuery(el);
     this.$container = jQuery('#cpac .ac-admin');
     this.columns = {};
-    jQuery(document).trigger('AC.Form.loaded', this.$container.data('type'));
+    jQuery(document).trigger('AC.form.loaded', this.$container.data('type'));
     this.init();
   }
 
@@ -807,7 +804,7 @@ function () {
       this.initColumns();
       this.bindFormEvents();
       this.bindOrdering();
-      jQuery(document).trigger('AC.Form.ready', this.$container.data('type'));
+      jQuery(document).trigger('AC.form.ready', this.$container.data('type'));
     }
   }, {
     key: "bindOrdering",
@@ -925,7 +922,7 @@ function () {
       xhr.fail(function (error) {// We choose not to notify the user of errors, because the settings will have
         // been saved correctly despite of PHP notices/errors from plugin or themes.
       });
-      jQuery(document).trigger('cac_update', self.$container);
+      jQuery(document).trigger('AC.form.afterUpdate', self.$container);
       return xhr;
     }
   }, {
