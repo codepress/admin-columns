@@ -161,9 +161,12 @@ class Column {
 
 					self.$el.replaceWith( column );
 					self.$el = column;
+					self._type = type;
 					self.initNewInstance();
 					self.bindEvents();
 					self.open();
+
+					jQuery( document ).trigger( 'AC.column.change', self );
 				} else {
 					self.showMessage( response.data.error )
 				}
@@ -205,6 +208,8 @@ class Column {
 					//self.initNewInstance();
 					self.bindEvents();
 					self.open();
+
+					jQuery( document ).trigger( 'AC.column.refresh', self );
 				}
 			}
 
@@ -215,6 +220,7 @@ class Column {
 		this.initNewInstance();
 		this.bindEvents();
 
+		jQuery( document ).trigger( 'AC.column.create', self );
 		return this;
 	}
 

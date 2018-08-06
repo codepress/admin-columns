@@ -3,7 +3,7 @@ let refresh = function( column ) {
 		// Allow plugins to hook into this event
 		$( document ).trigger( 'pre_column_refresh', column.$el );
 		column.$el.addClass( 'loading' );
-		
+
 		setTimeout( function() {
 			column.refresh().always( function() {
 				column.$el.removeClass( 'loading' );

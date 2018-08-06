@@ -37,12 +37,12 @@ class Form {
 		let self = this;
 		let columns = [];
 
-		Object.keys( self.columns ).forEach( function( key ){
-			let column = self.columns[key];
+		Object.keys( self.columns ).forEach( function( key ) {
+			let column = self.columns[ key ];
 			if ( column.isOriginal() ) {
 				columns.push( column.type );
 			}
-		});
+		} );
 
 		return columns;
 	}
@@ -186,11 +186,12 @@ class Form {
 		if ( open ) {
 			column.open();
 		}
-		
+
 		column.$el.hide().slideDown();
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-		jQuery( document ).trigger( 'column_add', column );
+
+		jQuery( document ).trigger( 'AC.column.added', column );
 
 		return column;
 	}

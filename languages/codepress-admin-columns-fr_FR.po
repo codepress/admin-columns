@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-12 15:21:54+0000\n"
+"PO-Revision-Date: 2018-08-03 15:25:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -582,7 +582,7 @@ msgstr "Nombre"
 
 #: classes/Settings/Column/CustomFieldType.php:73
 msgid "Multiple IDs should be separated by commas."
-msgstr ""
+msgstr "Vous pouvez entrer plusieurs ID en les séparant par une virgule."
 
 #: classes/Settings/Column/Meta.php:72
 msgid "Field"
@@ -785,11 +785,11 @@ msgstr[1] "Les modules %s nécessitent %s."
 
 #: classes/Admin/Page/Addons.php:130
 msgid "%s is installed, but not active."
-msgstr ""
+msgstr "L’extension %s est installée mais pas active."
 
 #: classes/Admin/Page/Addons.php:124
 msgid "%s needs to be installed for the add-on to work."
-msgstr ""
+msgstr "L’extension %s doit être installée pour que le module fonctionne."
 
 #: classes/Admin/Addon.php:274
 msgid "Display and edit %s fields in the posts overview in seconds!"
@@ -861,7 +861,7 @@ msgstr "Réponse non valide"
 
 #: classes/Settings/Column/LinkLabel.php:24
 msgid "Leave blank to display the URL"
-msgstr ""
+msgstr "Laissez vide pour afficher l’URL"
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Link Label"
@@ -1116,7 +1116,7 @@ msgstr ""
 
 #: classes/Admin/Help/CustomField.php:18
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
-msgstr ""
+msgstr "La colonne champ personnalisé utilise les champs personnalisés des contenus et des utilisateurs. Il y a 14 types que vous pouvez définir."
 
 #: classes/Admin/Help/Basics.php:29
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
